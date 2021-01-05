@@ -165,9 +165,9 @@ void MonitorFixture::setFixture(quint32 fxi_id)
 
             /* Create a label for value */
             QString str;
-            str.sprintf("%.3d", uchar(fxValues.at(i)));
-            label = new QLabel(str, this);
+            label = new QLabel(this);
             lay->addWidget(label, 3, i, Qt::AlignHCenter);
+            label->setText(str.asprintf("%.3d", uchar(fxValues.at(i))));
             m_valueLabels.append(label);
         }
         connect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotValuesChanged()));
@@ -201,7 +201,7 @@ void MonitorFixture::slotChannelStyleChanged(MonitorProperties::ChannelStyle sty
 
     QListIterator <QLabel*> it(m_channelLabels);
     while (it.hasNext() == true)
-        it.next()->setText(str.sprintf("<B>%.3d</B>", i++));
+        it.next()->setText(str.asprintf("<B>%.3d</B>", i++));
 }
 
 /****************************************************************************
@@ -240,7 +240,7 @@ void MonitorFixture::slotValueStyleChanged(MonitorProperties::ValueStyle style)
                                    qreal(0), qreal(100))));
         }
 
-        label->setText(str.sprintf("%.3d", value));
+        label->setText(str.asprintf("%.3d", value));
     }
 }
 
@@ -268,13 +268,13 @@ void MonitorFixture::slotValuesChanged()
         /* Set the label's text to reflect the changed value */
         if (m_valueStyle == MonitorProperties::DMXValues)
         {
-            label->setText(str.sprintf("%.3d", uchar(fxValues.at(i))));
+            label->setText(str.asprintf("%.3d", uchar(fxValues.at(i))));
         }
         else
         {
-            label->setText(str.sprintf("%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))),
-                                                              qreal(0), qreal(UCHAR_MAX),
-                                                              qreal(0), qreal(100))))));
+            label->setText(str.asprintf("%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))),
+                                                               qreal(0), qreal(UCHAR_MAX),
+                                                               qreal(0), qreal(100))))));
         }
         i++;
     }

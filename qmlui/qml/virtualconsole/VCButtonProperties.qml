@@ -19,9 +19,10 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
+import "TimeUtils.js" as TimeUtils
 import "."
 
 Rectangle
@@ -30,13 +31,29 @@ Rectangle
     height: bPropsColumn.height
 
     property VCButton widgetRef: null
-    property Function func
+    property QLCFunction func
     property int funcID: widgetRef ? widgetRef.functionID : -1
     property int gridItemsHeight: UISettings.listItemHeight
 
     //onWidgetRefChanged: func = functionManager.getFunction(widgetRef.functionID)
 
     onFuncIDChanged: func = functionManager.getFunction(funcID)
+
+    TimeEditTool
+    {
+        id: timeEditTool
+
+        parent: mainView
+        z: 99
+        x: rightSidePanel.x - width
+        visible: false
+
+        onValueChanged:
+        {
+            if (speedType == QLCFunction.FadeOut)
+                widgetRef.stopAllFadeOutTime = val
+        }
+    }
 
     Column
     {
@@ -73,7 +90,8 @@ Rectangle
                     {
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        imgSource: "qrc:/reset.svg"
+                        faSource: FontAwesome.fa_remove
+                        faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.functionID = -1
                     }
@@ -95,7 +113,7 @@ Rectangle
                 columnSpacing: 5
                 rowSpacing: 3
 
-                ExclusiveGroup { id: pressBehaviourGroup }
+                ButtonGroup { id: pressBehaviourGroup }
 
                 // row 1
                 RobotoText
@@ -107,11 +125,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Toggle : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Toggle
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.Toggle
                 }
 
                 // row 2
@@ -124,11 +142,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Flash : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Flash
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.Flash
                 }
 
                 // row 3
@@ -141,11 +159,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Blackout : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Blackout
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.Blackout
                 }
 
                 // row 4
@@ -158,14 +176,103 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.StopAll : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.StopAll
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.StopAll
                 }
 
               } // GridLayout
         } // SectionBox
+
+        SectionBox
+        {
+            id: startupIntensityProps
+            visible: widgetRef ? (widgetRef.actionType === VCButton.Toggle || widgetRef.actionType === VCButton.Flash) : false
+            sectionLabel: qsTr("Adjust Function intensity")
+
+            sectionContents:
+              RowLayout
+              {
+                  width: parent.width
+                  spacing: 10
+
+                  CustomCheckBox
+                  {
+                      id: startupIntCheck
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef ? widgetRef.startupIntensityEnabled : false
+                      onClicked: if (widgetRef) widgetRef.startupIntensityEnabled = checked
+                  }
+
+                  CustomSlider
+                  {
+                      Layout.fillWidth: true
+                      enabled: startupIntCheck.checked
+                      value: widgetRef ? widgetRef.startupIntensity * 100 : 100
+                      onPositionChanged: if (widgetRef) widgetRef.startupIntensity = value / 100
+                  }
+
+                  CustomSpinBox
+                  {
+                      id: wSpin
+                      enabled: startupIntCheck.checked
+                      width: UISettings.bigItemHeight * 0.7
+                      height: UISettings.listItemHeight
+                      from: 0
+                      to: 100
+                      suffix: "%"
+                      value: widgetRef ? widgetRef.startupIntensity * 100 : 100
+                      onValueChanged: if (widgetRef) widgetRef.startupIntensity = value / 100
+                  }
+              }
+        }
+
+        SectionBox
+        {
+            id: stopAllProps
+            visible: widgetRef ? widgetRef.actionType === VCButton.StopAll : false
+            sectionLabel: qsTr("Stop all Functions")
+
+            sectionContents:
+              RowLayout
+              {
+                  width: parent.width
+                  spacing: 10
+
+                  RobotoText
+                  {
+                      id: foLabel
+                      height: UISettings.listItemHeight
+                      label: qsTr("Fade out")
+                  }
+
+                  Rectangle
+                  {
+                      Layout.fillWidth: true
+                      height: UISettings.listItemHeight
+                      color: UISettings.bgMedium
+
+                      RobotoText
+                      {
+                          anchors.fill: parent
+                          label: widgetRef ? TimeUtils.timeToQlcString(widgetRef.stopAllFadeOutTime, QLCFunction.Time) : ""
+
+                          MouseArea
+                          {
+                              anchors.fill: parent
+                              onDoubleClicked:
+                              {
+                                  timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                    foLabel.label, parent.label, QLCFunction.FadeOut)
+                              }
+                          }
+                      }
+                  }
+              }
+
+        }
     } // Column
 }

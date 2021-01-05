@@ -92,6 +92,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     {
         m_targetDoc->inputOutputMap()->addUniverse(uni->id());
         m_targetDoc->inputOutputMap()->setUniverseName(index, uni->name());
+        m_targetDoc->inputOutputMap()->startUniverses();
         index++;
     }
 
@@ -122,7 +123,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     connect(m_targetTree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotUpdateConnections()));
 
-    // retrieve the original project name for QLC+ main class
+    // retrieve the original project name from the QLC+ App class
     App *mainApp = (App *)m_doc->parent();
     QString prjName = mainApp->fileName();
 
@@ -139,7 +140,7 @@ FixtureRemap::~FixtureRemap()
     delete m_targetDoc;
 }
 
-QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tree)
+QTreeWidgetItem *FixtureRemap::getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree)
 {
     QTreeWidgetItem *topItem = NULL;
 
@@ -158,7 +159,7 @@ QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tr
     if (topItem == NULL)
     {
         topItem = new QTreeWidgetItem(tree);
-        topItem->setText(KColumnName, tr("Universe %1").arg(universe + 1));
+        topItem->setText(KColumnName, doc->inputOutputMap()->universes().at(universe)->name());
         topItem->setText(KColumnUniverse, QString::number(universe));
         topItem->setText(KColumnID, QString::number(Function::invalidId()));
         topItem->setExpanded(true);
@@ -172,7 +173,7 @@ void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
     foreach(Fixture *fxi, doc->fixtures())
     {
         quint32 uni = fxi->universe();
-        QTreeWidgetItem *topItem = getUniverseItem(uni, tree);
+        QTreeWidgetItem *topItem = getUniverseItem(doc, uni, tree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
@@ -254,7 +255,7 @@ void FixtureRemap::slotAddTargetFixture()
 
         m_targetDoc->addFixture(fxi);
 
-        QTreeWidgetItem *topItem = getUniverseItem(universe, m_targetTree);
+        QTreeWidgetItem *topItem = getUniverseItem(m_targetDoc, universe, m_targetTree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
@@ -369,7 +370,7 @@ void FixtureRemap::slotCloneSourceFixture()
     m_targetDoc->addFixture(tgtFix);
 
     // create the tree element and add it to the target tree
-    QTreeWidgetItem *topItem = getUniverseItem(tgtFix->universe(), m_targetTree);
+    QTreeWidgetItem *topItem = getUniverseItem(m_targetDoc, tgtFix->universe(), m_targetTree);
     quint32 baseAddr = tgtFix->address();
     QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
     fItem->setText(KColumnName, tgtFix->name());
@@ -614,7 +615,7 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
             }
         }
     }
-    qSort(newValuesList.begin(), newValuesList.end());
+    std::sort(newValuesList.begin(), newValuesList.end());
     return newValuesList;
 }
 
@@ -677,10 +678,10 @@ void FixtureRemap::accept()
      * ********************************************************************** */
     foreach(FixtureGroup *group, m_doc->fixtureGroups())
     {
-        QHash<QLCPoint, GroupHead> grpHash = group->headHash();
+        QMap<QLCPoint, GroupHead> grpHash = group->headsMap();
         group->reset();
 
-        QHashIterator<QLCPoint, GroupHead> it(grpHash);
+        QMapIterator<QLCPoint, GroupHead> it(grpHash);
         while(it.hasNext())
         {
             it.next();
@@ -817,7 +818,7 @@ void FixtureRemap::accept()
 
     foreach (QObject *object, widgetsList)
     {
-        VCWidget *widget = (VCWidget *)object;
+        VCWidget *widget = qobject_cast<VCWidget *>(object);
         if (widget->type() == VCWidget::SliderWidget)
         {
             VCSlider *slider = (VCSlider *)object;
@@ -897,16 +898,15 @@ void FixtureRemap::accept()
     MonitorProperties *props = m_doc->monitorProperties();
     if (props != NULL)
     {
-        QList <quint32> fxIDList = props->fixtureItemsID();
-        QHash <quint32, FixtureItemProperties> remappedFixtureItems;
+        QMap <quint32, FixturePreviewItem> remappedFixtureItems;
 
-        foreach (quint32 fxID, fxIDList)
+        foreach (quint32 fxID, props->fixtureItemsID())
         {
             for( int v = 0; v < sourceList.count(); v++)
             {
                 if (sourceList.at(v).fxi == fxID)
                 {
-                    FixtureItemProperties rmpProp = props->fixtureProperties(fxID);
+                    FixturePreviewItem rmpProp = props->fixtureProperties(fxID);
                     remappedFixtureItems[targetList.at(v).fxi] = rmpProp;
                     break;
                 }
@@ -915,7 +915,7 @@ void FixtureRemap::accept()
             props->removeFixture(fxID);
         }
 
-        QHashIterator <quint32, FixtureItemProperties> it(remappedFixtureItems);
+        QMapIterator <quint32, FixturePreviewItem> it(remappedFixtureItems);
         while (it.hasNext())
         {
             it.next();
@@ -927,6 +927,8 @@ void FixtureRemap::accept()
      * 8 - save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
+    if (m_targetProjectLabel->text().endsWith(".qxw") == false)
+        m_targetProjectLabel->setText(m_targetProjectLabel->text() + ".qxw");
     mainApp->setFileName(m_targetProjectLabel->text());
     mainApp->slotFileSave();
 

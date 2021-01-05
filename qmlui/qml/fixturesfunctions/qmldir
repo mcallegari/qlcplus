@@ -11,6 +11,7 @@ CustomScrollBar 0.1 ../CustomScrollBar.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
 DMXPercentageButton 0.1 ../DMXPercentageButton.qml
+DMXAddressWidget 0.1 ../DMXAddressWidget.qml
 EditableTextBox 0.1 ../EditableTextBox.qml
 FixtureConsole 0.1 ../FixtureConsole.qml
 FixtureDelegate 0.1 ../FixtureDelegate.qml
@@ -19,6 +20,7 @@ IconButton 0.1 ../IconButton.qml
 IconPopupButton 0.1 ../IconPopupButton.qml
 IconTextEntry 0.1 ../IconTextEntry.qml
 MenuBarEntry 0.1 ../MenuBarEntry.qml
+MultiColorBox 0.1 ../MultiColorBox.qml
 QLCPlusFader 0.1 ../QLCPlusFader.qml
 RobotoText 0.1 ../RobotoText.qml
 SectionBox 0.1 ../SectionBox.qml

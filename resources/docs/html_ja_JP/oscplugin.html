@@ -1,0 +1,57 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - OSC Plugin</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>OSC input/output plugin</h1>
+
+<h1>Introduction</h1>
+<p>
+QLC+ ではネットワークを介してパケットの送受信をする<a href="https://en.wikipedia.org/wiki/Open_Sound_Control">ArtNet</a>での入力 / 出力をサポートしています。<br>
+Linux, windows, OSX(macOS)のシステムを利用して通信するため、専用の機材は必要ありません。<br>
+Artnet pluginは、複数のネットワークカード・仮装アドレス・ループバックアドレス(127.0.0.0)・複数のネットワークからの複数のuniverseにおける送受信をサポートしています。<br>
+　デフォルトではOSCの入力にはport 7700から使用し、QLC+上のUniverse番号から1を引いた分のポートを順にしようしていきます、(Universe1 - port 7700, Universe 2 - port 7701,....)<br>
+　一方出力はport 9000から同様に連番で使用します。<br>
+<br>
+For example:<br>
+QLC+ Universe 1 --&gt; OSC input port 7700, output port 9000<br>
+QLC+ Universe 2 --&gt; OSC input port 7701, output port 9001<br>
+...<br>
+QLC+ Universe 8 --&gt; OSC input port 7707, output port 9007<br>
+<br>
+</p>
+
+<h1>各種設定</h1>
+
+<p>
+<IMG SRC="qrc:/configure.png" width=32>アイコンをクリックすると、port設定画面が開きます。<br>
+<br>
+QLC +ユニバースは、OSC入力または出力にパッチが適用され<u>た後</u> 、エントリを手動OSCプラグインによって使用されるべき所望のパラメータを設定することができ、このリストに表示されます。<br>
+<br>OSCの入力または出力ごとに、次のパラメータを設定できます。<ul>
+ <li>
+  <b>入力ポート：</b>パッチされた回線が入力用に開かれている場合、このパラメータは、外部コントローラからOSCデータを受信するためにQLC +が受信するポートを定義します。
+ </li>
+ <li>
+  <b>出力アドレス：</b>パッチされた回線が入力用に開かれている場合、これは外部コントローラにフィードバックを送信するために使用される宛先IPアドレスです。<br>パッチ適用された回線が出力用に開かれている場合、これはネットワーク上でOSCデータを送信するために使用される宛先IPアドレスです。<br>OSC出力パケットは、次のようなOSCパスを取得するように構成されます。/ QLC + universe  -  1 / dmx / DMX channel  -  1<br>たとえば、QLC +ユニバース4のチャネル12には、次のパスがあります。/ 3 / dmx / 11<br>OSCプラグインによって送信されるすべての値は、float型を使用します。
+ </li>
+ <li>
+  <b>出力ポート：</b>パッチされた回線が入力用に開かれている場合、これは外部コントローラにフィードバックを送信するために使用される宛先ポートです。<br>パッチ適用された回線が出力用に開かれている場合、これはネットワーク上でOSCデータを送信するために使用される宛先ポートです。
+ </li>
+</ul>
+<b>注：</b> Input + Feedback回線にパッチを当てるときは、変更する必要のある出力IP /ポートは「Inputs」セクションのものです。Just leave the 'Outputs' section as default.
+</p>
+
+<h1>5 コントローラ</h1>
+
+<p>QLC +は以下のOSCコントローラでテスト済みです：<ul>
+ <li><a href="https://hexler.net/software/touchosc">TouchOSC</a> 。ミックス16のレイアウトには、あらかじめ定義された入力プロファイルを使用する準備ができています。</li>
+</ul>
+</p>
+
+</BODY>
+</html>

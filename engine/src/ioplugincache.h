@@ -25,6 +25,8 @@
 
 class QLCIOPlugin;
 
+#define SETTINGS_HOTPLUG "inputmanager/hotplug"
+
 /** @addtogroup engine Engine
  * @{
  */

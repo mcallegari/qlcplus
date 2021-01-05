@@ -1,0 +1,84 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - Adding Fixtures Howto</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>フィクスチャーを追加する方法</h1>
+
+<h2>フィクスチャーを追加してみましょう。</h2>
+
+<p>
+<b>ツールバーから<img src="qrc:/fixture.png">[機器]をクリックしてフィクスチャーを設定していきましょう。
+<u>フィクスチャー</u>を追加・編集をする時には<u>フィクスチャーマネージャー</u>を使います。</b>
+</p>
+
+<p>
+  フィクスチャーマネージャーはQLC+を使う上で一番最初に覚えなければならない機能です。
+  QLC+ではまずはじめにフィクスチャーをプロジェクトデータに追加しましょう。
+</p>
+
+<hr>
+<p>
+  <IMG SRC="qrc:/edit_add.png" align="absmiddle"> フィクスチャーの追加<BR>
+  <IMG SRC="qrc:/edit_remove.png" align="absmiddle"> 選択したフィクスチャーを削除<BR>
+  <IMG SRC="qrc:/configure.png" align="absmiddle"> 選択したフィクスチャーの設定を変更<BR>
+  <IMG SRC="qrc:/group.png" align="absmiddle"> 選択したフィクスチャーからフィクスチャーグループを作成<BR>
+  <IMG SRC="qrc:/ungroup.png" align="absmiddle"> フィクスチャーグループから選択したフィクスチャーを解除する<BR>
+  <IMG SRC="qrc:/fileimport.png" align="absmiddle"> フィクスチャーリストデータを読み込む<BR>
+  <IMG SRC="qrc:/fileexport.png" align="absmiddle"> フィクスチャーリストでーたを保存する<BR>
+</p>
+<hr>
+
+<H2>フィクスチャーを追加する方法</H2>
+
+<P>
+<B>
+<IMG SRC="qrc:/edit_add.png" align="absmiddle">ボタン</B>をクリックし、フィクスチャーを追加していきます。
+</P>
+
+<p>
+  フィクスチャー追加ダイアルログの左にはQLC+で利用できるフィクスチャーがメーカー名、機材名でソートされ一覧表示されています。
+  追加したいフィクスチャーを選択し、画面右から設定を行いましょう、とりあえずは<u>スタートアドレス</u>にフィクスチャーのアドレスを設定しておきましょう。
+  そのほかの詳しい設定項目についてはフィクスチャーエディターの項をご覧ください。
+</p>
+
+<p>
+  フィクスチャー名をわかりやすい<u>名前</u>に変更することもできます。
+  また、フィクスチャーに<u>モード</u>がある場合は、モードを選択することもできます。
+  フィクスチャーの<u>ヘッダアドレス</u>や出力<u>ユニバース</u>を設定しOKを押しましょう。
+</p>
+
+<p>
+  同じ種類のフィクスチャーが複数ある場合は<u>台数</u>や<u>アドレスの間隔</u>を指定して、一括で追加することができます。
+</p>
+
+<p>
+  DMXについて詳しく理解しておくべきです。ざっくりと説明すると、DJScan250では6ch使用するので、ヘッダーアドレスを
+  1に設定すると1~6chを使用します。なので次のフィクスチャーのヘッダーアドレスは7ch以降で設定できます。
+</p>
+
+<H3>Generic 汎用的なフィクスチャーデータ</H3>
+
+<p>
+  Dimmerを使うような昔ながらの灯体をQLC+で扱う際にフィクスチャー定義を作ってもいいですが、
+  そんな面倒なことをしなくても大丈夫です。QLC+には<u>Generic</u>があります、このフィクスチャーデータ
+  は特徴がない単純なフィクスチャーデータです、このデータは様々な場面で使える汎用的なフィクスチャーです。
+</p>
+
+<H2>フィクスチャーマネージャーに戻る</H2>
+
+<P>
+<B>フィクスチャー追加ダイアルログを閉じます</B>
+</P>
+
+<P>
+全ての設定が終わったらOKをクリックしましょう。
+</P>
+
+</BODY>
+</HTML>

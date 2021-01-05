@@ -19,9 +19,9 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -34,17 +34,63 @@ Rectangle
       * specific provider is set here. In that case, modelProvider
       * must provide a 'groupsTreeModel' method */
     property var modelProvider: null
+    property bool allowEditing: true
+
+    signal doubleClicked(int ID, int type)
+
+    function updateButtons(itemType, itemID)
+    {
+        // update info button
+        infoButton.enabled = itemType !== App.HeadDragItem ? true : false
+        updateInfoView()
+
+        // update rename button
+        renameButton.enabled = true
+
+        // update linked button
+        if (fixtureManager.propertyEditEnabled === false)
+            return
+
+        linkedButton.enabled = itemType === App.FixtureDragItem ? true : false
+        var linkedIndex = fixtureManager.fixtureLinkedIndex(itemID)
+        linkedButton.faSource = linkedIndex ? FontAwesome.fa_unlink : FontAwesome.fa_link
+    }
+
+    function updateInfoView()
+    {
+        if (gfhcDragItem.itemsList.length === 0)
+            return
+
+        if (!infoButton.checked)
+            return
+
+        switch(gfhcDragItem.itemsList[0].itemType)
+        {
+            case App.UniverseDragItem:
+                fixtureManager.itemID = gfhcDragItem.itemsList[0].cRef.id
+                fixtureAndFunctions.currentViewQML = "qrc:/UniverseSummary.qml"
+            break;
+            case App.FixtureGroupDragItem:
+                fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
+                fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
+            break;
+            case App.FixtureDragItem:
+                fixtureManager.itemID = gfhcDragItem.itemsList[0].itemID
+                fixtureAndFunctions.currentViewQML = "qrc:/FixtureSummary.qml"
+            break;
+        }
+    }
 
     ColumnLayout
     {
         anchors.fill: parent
-        spacing: 3
+        spacing: 0
 
         Rectangle
         {
             id: topBar
-            width: fgmContainer.width
-            height: UISettings.iconSizeMedium
+            implicitWidth: fgmContainer.width
+            implicitHeight: UISettings.iconSizeMedium
             z: 5
             gradient: Gradient
             {
@@ -63,72 +109,255 @@ Rectangle
                 IconButton
                 {
                     id: addGrpButton
+                    visible: allowEditing
                     z: 2
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/add.svg"
-                    tooltip: qsTr("Add a new group")
+                    tooltip: qsTr("Add a new fixture group")
                     onClicked: contextManager.createFixtureGroup()
                 }
                 IconButton
                 {
                     id: delItemButton
+                    visible: allowEditing
                     z: 2
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected items")
+                    onClicked:
+                    {
+                        if (gfhcDragItem.itemsList.length === 0)
+                            return;
+
+                        var fxDeleteList = []
+                        var fxGroupDeleteList = []
+
+                        for (var i = 0; i < gfhcDragItem.itemsList.length; i++)
+                        {
+                            var item = gfhcDragItem.itemsList[i]
+
+                            switch (item.itemType)
+                            {
+                                case App.UniverseDragItem:
+                                break;
+                                case App.FixtureGroupDragItem:
+                                    fxGroupDeleteList.push(item.cRef.id)
+                                break;
+                                case App.FixtureDragItem:
+                                    fxDeleteList.push(item.itemID)
+                                break;
+                            }
+                        }
+
+                        if (fxDeleteList.length)
+                            fixtureManager.deleteFixtures(fxDeleteList)
+
+                        if (fxGroupDeleteList.length)
+                            fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
+                    }
                 }
                 Rectangle { Layout.fillWidth: true }
                 IconButton
                 {
+                    id: searchItem
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    bgColor: UISettings.bgMain
+                    faColor: checked ? "white" : "gray"
+                    faSource: FontAwesome.fa_search
+                    checkable: true
+                    tooltip: qsTr("Set a Group/Fixture/Channel search filter")
+                    onToggled:
+                    {
+                        fixtureManager.searchFilter = ""
+                        if (checked)
+                            sTextInput.forceActiveFocus()
+                    }
+                }
+
+                IconButton
+                {
+                    id: renameButton
+                    visible: allowEditing
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/rename.svg"
+                    tooltip: qsTr("Rename the selected items")
+                    enabled: false
+
+                    onClicked:
+                    {
+                        renamePopup.showNumbering = gfhcDragItem.itemsList.length > 1 ? true : false
+                        renamePopup.editText = gfhcDragItem.itemsList[0].textLabel
+                        renamePopup.open()
+                    }
+
+                    PopupRenameItems
+                    {
+                        id: renamePopup
+                        title: qsTr("Rename items")
+                        onAccepted:
+                        {
+                            if (numberingEnabled)
+                            {
+                                var currNum = startNumber
+                                var i, zeroes = ""
+
+                                for (i = 0; i < digits; i++)
+                                    zeroes += '0'
+
+                                for (i = 0; i < gfhcDragItem.itemsList.length; i++)
+                                {
+                                    var item = gfhcDragItem.itemsList[i]
+                                    if (item.itemType === App.FixtureDragItem)
+                                    {
+                                        var zerofilled = (zeroes + currNum).slice(-digits);
+                                        var finalName = editText + " " + zerofilled
+                                        currNum++
+                                        fixtureManager.renameFixture(item.itemID, finalName)
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                fixtureManager.renameFixture(gfhcDragItem.itemsList[0].itemID, editText)
+                            }
+                        }
+                    }
+                }
+
+                IconButton
+                {
                     id: infoButton
+                    visible: allowEditing
                     z: 2
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/info.svg"
                     tooltip: qsTr("Inspect the selected item")
+                    enabled: false
                     checkable: true
 
                     property string previousView: ""
 
                     onToggled:
                     {
-                        if (gfhcDragItem.itemsList.length === 0)
-                            return;
-
-                        switch(gfhcDragItem.itemsList[0].itemType)
+                        if (checked)
                         {
-                            case App.UniverseDragItem:
-                            break;
-                            case App.FixtureGroupDragItem:
-                                if (checked)
-                                {
-                                    fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
-                                    previousView = fixtureAndFunctions.currentViewQML
-                                    fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
-                                }
-                                else
-                                {
-                                    fixtureGroupEditor.setEditGroup(null)
-                                    fixtureAndFunctions.currentViewQML = previousView
-                                    previousView = ""
-                                }
-
-                            break;
-                            case App.FixtureDragItem:
-                            break;
+                            previousView = fixtureAndFunctions.currentViewQML
+                            updateInfoView()
+                        }
+                        else
+                        {
+                            fixtureGroupEditor.setEditGroup(null)
+                            fixtureAndFunctions.currentViewQML = previousView
+                            previousView = ""
                         }
                     }
                 }
+
+                IconButton
+                {
+                    id: propsButton
+                    visible: allowEditing
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/edit.svg"
+                    tooltip: qsTr("Toggle fixtures and channels properties")
+                    checkable: true
+
+                    onToggled:
+                    {
+                        if (checked)
+                            leftSidePanel.width += UISettings.sidePanelWidth
+                        else
+                            leftSidePanel.width -= UISettings.sidePanelWidth
+                        fixtureManager.propertyEditEnabled = checked
+                    }
+                }
+
+                IconButton
+                {
+                    id: linkedButton
+                    visible: fixtureManager.propertyEditEnabled
+                    enabled: false
+                    width: height
+                    height: topBar.height - 2
+                    faSource: FontAwesome.fa_link
+                    faColor: "white"
+                    tooltip: qsTr("Add/Remove a linked fixture")
+                    onClicked: contextManager.setLinkedFixture(gfhcDragItem.itemsList[0].itemID)
+                }
+            }
+        } // RowLayout
+
+        Rectangle
+        {
+            id: propertiesHeader
+            visible: propsButton.checked
+            implicitHeight: UISettings.iconSizeMedium
+            implicitWidth: fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
+            z: 5
+            color: UISettings.bgMain
+
+            RowLayout
+            {
+                anchors.fill: parent
+
+                RobotoText { label: qsTr("Name"); Layout.fillWidth: true; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Flags"); width: UISettings.chPropsFlagsWidth; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Can fade"); width: UISettings.chPropsCanFadeWidth; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Behaviour"); width: UISettings.chPropsPrecedenceWidth; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Modifier"); width: UISettings.chPropsModifierWidth; height: parent.height }
+            }
+        }
+
+        Rectangle
+        {
+            id: searchBox
+            visible: searchItem.checked
+            width: fgmContainer.width
+            implicitHeight: UISettings.iconSizeMedium
+            z: 5
+            color: UISettings.bgMain
+            radius: 5
+            border.width: 2
+            border.color: "#111"
+
+            TextInput
+            {
+                id: sTextInput
+                y: 3
+                height: parent.height - 6
+                width: parent.width
+                color: UISettings.fgMain
+                text: modelProvider ? modelProvider.searchFilter : fixtureManager.searchFilter
+                font.family: "Roboto Condensed"
+                font.pixelSize: parent.height - 6
+                selectionColor: UISettings.highlightPressed
+                selectByMouse: true
+
+                onTextChanged: modelProvider ? modelProvider.searchFilter = text : fixtureManager.searchFilter = text
             }
         }
 
         ListView
         {
             id: groupListView
-            width: fgmContainer.width
-            height: fgmContainer.height - topBar.height
+            //implicitWidth: fgmContainer.width
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            //height: fgmContainer.height - topBar.height -
+            //        (searchBox.visible ? searchBox.height : 0) -
+            //        (propertiesHeader.visible ? propertiesHeader.height : 0)
             z: 4
             boundsBehavior: Flickable.StopAtBounds
 
@@ -140,25 +369,30 @@ Rectangle
               {
                 Loader
                 {
-                    width: groupListView.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
+                    //width: groupListView.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
                     source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : ""
                     onLoaded:
                     {
                         //console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
+                        item.width = Qt.binding(function() { return fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0) })
                         item.cRef = classRef
-                        item.textLabel = label
+                        item.textLabel = Qt.binding(function() { return label })
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = gfhcDragItem
 
                         if (hasChildren)
                         {
                             item.itemIcon = "qrc:/group.svg"
-                            //if (modelData.hasOwnProperty("type"))
                             if (type)
+                            {
                                 item.itemType = type
-                            item.nodePath = path
+                                if (type == App.UniverseDragItem)
+                                    isExpanded = true
+                            }
                             item.isExpanded = isExpanded
+                            item.nodePath = path
                             item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
+                            item.childrenDelegate = "qrc:/FixtureNodeDelegate.qml"
                             item.nodeChildren = childrenModel
                         }
                     }
@@ -201,6 +435,37 @@ Rectangle
                                         if (model.hasChildren)
                                             model.isExpanded = item.isExpanded
                                     }
+
+                                    if (!(mouseMods & Qt.ControlModifier))
+                                        contextManager.resetFixtureSelection()
+
+                                    console.log("Item clicked. Type: " + qItem.itemType + ", id: " + iID)
+
+                                    var itemID = iID
+
+                                    switch (qItem.itemType)
+                                    {
+                                        case App.FixtureDragItem:
+                                            contextManager.setFixtureSelection(iID, -1, true)
+                                        break;
+                                        case App.HeadDragItem:
+                                            console.log("Head clicked. ItemID: " + qItem.itemID + ", head: " + iID)
+                                            itemID = qItem.itemID
+                                            contextManager.setFixtureSelection(qItem.itemID, iID, true);
+                                        break;
+                                        case App.UniverseDragItem:
+                                            contextManager.setFixtureGroupSelection(iID, true, true)
+                                        break;
+                                        case App.FixtureGroupDragItem:
+                                            contextManager.setFixtureGroupSelection(iID, true, false)
+                                        break;
+                                    }
+
+                                    updateButtons(qItem.itemType, itemID)
+                                break;
+                                case App.DoubleClicked:
+                                    if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
+                                        fgmContainer.doubleClicked(iID, qItem.itemType)
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)
@@ -218,14 +483,17 @@ Rectangle
                                     gfhcDragItem.x = 0
                                     gfhcDragItem.y = 0
                                     groupListView.dragActive = false
-                                    gfhcDragItem.itemsList = []
+                                    //gfhcDragItem.itemsList = []
                                 break;
                             }
                         }
                     }
                 } // Loader
               } // Component
-            CustomScrollBar { id: gEditScrollBar; flickable: groupListView }
+
+            ScrollBar.vertical: CustomScrollBar {
+                id: gEditScrollBar
+            }
 
             // Group / Fixture / Head / Channel draggable item
             GenericMultiDragItem

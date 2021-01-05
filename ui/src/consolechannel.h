@@ -52,7 +52,7 @@ class ConsoleChannel : public QGroupBox
      * Initialization
      *************************************************************************/
 public:
-    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable = true);
+    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channelIndex, bool isCheckable = true);
 
     ~ConsoleChannel();
 
@@ -73,13 +73,17 @@ public:
     quint32 fixture() const;
 
     /** Get the channel number within $m_fixture that this channel controls */
-    quint32 channel() const;
+    quint32 channelIndex() const;
+
+    const QLCChannel *channel();
 
 private:
     Doc* m_doc;
     quint32 m_fixture;
-    quint32 m_channel;
-    /** this value is set only through setChannelsGroup, to emit the proper signal when value changes */
+    quint32 m_chIndex;
+    const QLCChannel *m_channel;
+    /** this value is set only through setChannelsGroup,
+     *  to emit the proper signal when value changes */
     quint32 m_group;
 
     /*************************************************************************
@@ -93,7 +97,7 @@ public:
     void setChannelsGroup(quint32 grpid);
 
 private slots:
-    void slotInputValueChanged(quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 channelIndex, uchar value);
 
 signals:
     void groupValueChanged(quint32 group, uchar value);
@@ -114,7 +118,7 @@ private slots:
     void slotChecked(bool state);
 
 signals:
-    void valueChanged(quint32 fxi, quint32 channel, uchar value);
+    void valueChanged(quint32 fxi, quint32 channelIndex, uchar value);
 
     /*************************************************************************
      * Look & Feel
@@ -122,13 +126,14 @@ signals:
 public:
     void setChannelStyleSheet(const QString& styleSheet);
     void showResetButton(bool show);
+    bool hasResetButton();
 
 private slots:
     void slotResetButtonClicked();
 
 signals:
-    void checked(quint32 fxi, quint32 channel, bool state);
-    void resetRequest(quint32 fxi, quint32 channel);
+    void checked(quint32 fxi, quint32 channelIndex, bool state);
+    void resetRequest(quint32 fxi, quint32 channelIndex);
 
 private:
     QToolButton* m_presetButton;

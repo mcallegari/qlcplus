@@ -79,6 +79,9 @@ public:
 public slots:
     void slotEnableButtonToggled(bool toggle);
 
+signals:
+    void captureEnabled(bool enabled);
+
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 #if QT_VERSION >= 0x050000
@@ -104,6 +107,10 @@ protected:
 public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+
+private:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 
     /*********************************************************************
      * Key sequence handler
@@ -156,6 +163,9 @@ public:
 
     /** @reimp */
     void editProperties();
+
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*************************************************************************
      * Configuration

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.1 GIT</Version>
+  <Author>Fredje</Author>
+ </Creator>
+ <Manufacturer>Nicols</Manufacturer>
+ <Model>Movelight</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19" Color="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Color="#ffff00">Yellow</Capability>
+  <Capability Min="30" Max="39" Color="#00ff00">Green</Capability>
+  <Capability Min="40" Max="49" Color="#55ffff">Cyan</Capability>
+  <Capability Min="50" Max="59" Color="#0000ff">Blue</Capability>
+  <Capability Min="60" Max="69" Color="#ff00ff">Purple</Capability>
+  <Capability Min="70" Max="79" Color="#ff74ff">Pink</Capability>
+  <Capability Min="80" Max="89" Color="#ffffff">White</Capability>
+  <Capability Min="90" Max="99">Program 02</Capability>
+  <Capability Min="100" Max="109">Program 03</Capability>
+  <Capability Min="110" Max="119">Program 04</Capability>
+  <Capability Min="120" Max="129">Program 05</Capability>
+  <Capability Min="130" Max="139">Program 06</Capability>
+  <Capability Min="140" Max="149">Program 07</Capability>
+  <Capability Min="150" Max="159">Program 08</Capability>
+  <Capability Min="160" Max="169">Program 09</Capability>
+  <Capability Min="170" Max="255">Sound sensitivity</Capability>
+ </Channel>
+ <Channel Name="Program/Speed/Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="89">Program</Capability>
+  <Capability Min="90" Max="169">Speed (slow to fast)</Capability>
+  <Capability Min="170" Max="255">Sensitivity 0-255</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="Auto">
+  <Channel Number="0">Color macros</Channel>
+  <Channel Number="1">Program/Speed/Sensitivity</Channel>
+ </Mode>
+ <Mode Name="Simple">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="Full">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="450" ColourTemperature="6000"/>
+   <Dimensions Weight="2.2" Width="289" Height="299" Depth="105"/>
+   <Lens Name="Fresnel" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

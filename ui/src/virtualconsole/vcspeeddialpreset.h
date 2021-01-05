@@ -47,6 +47,7 @@ public:
     ~VCSpeedDialPreset();
 
 public:
+    VCSpeedDialPreset& operator=(const VCSpeedDialPreset& preset);
     bool operator<(VCSpeedDialPreset const& right) const;
     static bool compare(VCSpeedDialPreset const* left, VCSpeedDialPreset const* right);
     /************************************************************************

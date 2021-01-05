@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Freasy</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Tri Flat PAR Profile 5x3W RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Operating Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Manual mode; colours can be adjusted via channels 2 to 4</Capability>
+  <Capability Min="1" Max="27">Preprogrammed automatic show no. 1</Capability>
+  <Capability Min="28" Max="55">Preprogrammed automatic show no. 2</Capability>
+  <Capability Min="56" Max="83">Preprogrammed automatic show no. 3</Capability>
+  <Capability Min="84" Max="111">Preprogrammed automatic show no. 4</Capability>
+  <Capability Min="112" Max="139">Preprogrammed automatic show no. 5</Capability>
+  <Capability Min="140" Max="167">Preprogrammed automatic show no. 6</Capability>
+  <Capability Min="168" Max="195">Preprogrammed automatic show no. 7</Capability>
+  <Capability Min="196" Max="223">Preprogrammed automatic show no. 8</Capability>
+  <Capability Min="224" Max="251">Preprogrammed automatic show no. 9</Capability>
+  <Capability Min="252" Max="255">Sound-controlled show</Capability>
+ </Channel>
+ <Channel Name="Constant Colour / Progress Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="27">Dark, when channel 5 = 1...24</Capability>
+  <Capability Min="28" Max="55" Color="#ff0000">Red, when channel 5 = 1...24</Capability>
+  <Capability Min="56" Max="83" Color="#ffaa00">Orange, when channel 5 = 1...24</Capability>
+  <Capability Min="84" Max="111" Color="#ffff00">Yellow, when channel 5 = 1...24</Capability>
+  <Capability Min="112" Max="139" Color="#00ff00">Light green, when channel 5 = 1...24</Capability>
+  <Capability Min="140" Max="167" Color="#00ffff">Light blue, when channel 5 = 1...24</Capability>
+  <Capability Min="168" Max="195" Color="#0000ff">Blue, when channel 5 = 1...24</Capability>
+  <Capability Min="196" Max="223" Color="#ff00ff">Purple, when channel 5 = 1...24</Capability>
+  <Capability Min="224" Max="251" Color="#ffaaff">Pink, when channel 5 = 1...24</Capability>
+  <Capability Min="252" Max="255">Red + green + blue, when channel 5 = 1...24</Capability>
+ </Channel>
+ <Mode Name="3-channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="5-channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="7-channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Operating Mode</Channel>
+  <Channel Number="5">Constant Colour / Progress Speed</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.1" Width="164" Height="164" Depth="105"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

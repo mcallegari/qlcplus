@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Collin Ong</Author>
+ </Creator>
+ <Manufacturer>Stage Right</Manufacturer>
+ <Model>7x20W COB LED Theater PAR</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10" >No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="5" Res2="20">Strobe speed 5-20Hz</Capability>
+ </Channel>
+ <Channel Name="Dimmer speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="64">Real time</Capability>
+  <Capability Min="65" Max="128">Fast controlled response (Recommended for use with less expensive DMX512 controllers)</Capability>
+  <Capability Min="129" Max="192">Medium controlled response</Capability>
+  <Capability Min="193" Max="255">Slow controlled response</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Zoom</Channel>
+  <Channel Number="2">Strobe Speed</Channel>
+  <Channel Number="3">Dimmer speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2780" ColourTemperature="3200"/>
+  <Dimensions Weight="8" Width="31" Height="34" Depth="256"/>
+  <Lens Name="Other" DegreesMin="28" DegreesMax="70"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="160" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

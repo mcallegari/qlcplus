@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  editphysical.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
+ <class>EditPhysical</class>
+ <widget class="QWidget" name="EditPhysical">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>524</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">Edit physical</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_14">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox_7">
+     <property name="title">
+      <string>Head(s)</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_10">
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_focusTypeLabel">
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="m_focusTypeCombo">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string notr="true">Fixed</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Head</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Mirror</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Barrel</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="m_panMaxLabel">
+        <property name="text">
+         <string>Pan Max Degrees</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="m_panMaxSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="maximum">
+         <number>999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="m_tiltMaxLabel">
+        <property name="text">
+         <string>Tilt Max Degrees</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="m_tiltMaxSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="maximum">
+         <number>999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Layout
+(Columns x Rows)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QSpinBox" name="m_layoutColsSpin">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">x</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="m_layoutRowsSpin">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QGroupBox" name="groupBox_6">
+     <property name="title">
+      <string>Electrical</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_7">
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_powerConsumptionLabel">
+        <property name="text">
+         <string>Power Consumption</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="m_powerConsumptionSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>W</string>
+        </property>
+        <property name="maximum">
+         <number>99999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="m_dmxConnectorLabel">
+        <property name="text">
+         <string>DMX Connector</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="m_dmxConnectorCombo">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <item>
+         <property name="text">
+          <string notr="true">3-pin</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">5-pin</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">3-pin and 5-pin</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">3-pin IP65</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">5-pin IP65</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">3.5 mm stereo jack</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Other</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="copyClipboardButton">
+       <property name="toolTip">
+        <string>Copy physical information to clipboard</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ui/src/qlcui.qrc">
+         <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="pasteClipboardButton">
+       <property name="toolTip">
+        <string>Paste physical information from clipboard</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../ui/src/qlcui.qrc">
+         <normaloff>:/editpaste.png</normaloff>:/editpaste.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox_10">
+     <property name="title">
+      <string>Bulb</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_13">
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_bulbTypeLabel">
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="m_bulbTypeCombo">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="currentIndex">
+         <number>34</number>
+        </property>
+        <item>
+         <property name="text">
+          <string notr="true">CDM 70W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CDM 150W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP29 5000W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP41 2000W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP60 1000W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP61 1000W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP62 1000W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP86 500W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP87 500W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">CP88 500W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">EFP 100W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">EFP 150W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">EFR 100W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">EFR 150W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">ELC 250W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HMI 150W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HMI 250W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HMI 400W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HMI 575W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HMI 700W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HMI 1200W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HMI 4000W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HSD 150W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HSD 200W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HSD 250W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HSD 575W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 150W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 250W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 300W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 400W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 575W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 700W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 1200W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">HTI 2500W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">LED</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSD 200W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSD 250W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSD 275W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSD Platinum 15 R 300W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSD 575W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSR 575W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSR 700W</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">MSR 1200W</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="m_bulbLumensLabel">
+        <property name="text">
+         <string>Lumens</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QSpinBox" name="m_bulbLumensSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="maximum">
+         <number>999999</number>
+        </property>
+        <property name="value">
+         <number>18000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="m_bulbTempLabel">
+        <property name="text">
+         <string>Colour Temp (K)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QComboBox" name="m_bulbTempCombo">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="currentIndex">
+         <number>12</number>
+        </property>
+        <item>
+         <property name="text">
+          <string notr="true">2000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">2800</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">3200</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">4000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">4500</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">5000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">5500</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">6000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">6500</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">7000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">7200</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">8000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">8300</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">9000</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">9300</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="groupBox_8">
+     <property name="title">
+      <string>Lens</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_11">
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_lensNameLabel">
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="m_lensNameCombo">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string notr="true">Other</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">PC</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Fresnel</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="m_lensDegreesMinLabel">
+        <property name="text">
+         <string>Min Degrees</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="m_lensDegreesMaxLabel">
+        <property name="text">
+         <string>Max Degrees</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="m_lensDegreesMaxSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>360.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="m_lensDegreesMinSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <double>360.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="groupBox_9">
+     <property name="title">
+      <string>Dimensions</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_12">
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="m_weightSpin">
+        <property name="suffix">
+         <string>kg</string>
+        </property>
+        <property name="maximum">
+         <double>999.990000000000009</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="m_widthLabel">
+        <property name="text">
+         <string>Width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="m_widthSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>mm</string>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="m_heightLabel">
+        <property name="text">
+         <string>Height</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="m_heightSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>mm</string>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="m_depthLabel">
+        <property name="text">
+         <string>Depth</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSpinBox" name="m_depthSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>mm</string>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_weightLabel">
+        <property name="text">
+         <string>Weight</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>m_bulbTypeCombo</tabstop>
+  <tabstop>m_bulbLumensSpin</tabstop>
+  <tabstop>m_bulbTempCombo</tabstop>
+  <tabstop>m_weightSpin</tabstop>
+  <tabstop>m_widthSpin</tabstop>
+  <tabstop>m_heightSpin</tabstop>
+  <tabstop>m_depthSpin</tabstop>
+  <tabstop>m_lensNameCombo</tabstop>
+  <tabstop>m_lensDegreesMinSpin</tabstop>
+  <tabstop>m_lensDegreesMaxSpin</tabstop>
+  <tabstop>m_focusTypeCombo</tabstop>
+  <tabstop>m_panMaxSpin</tabstop>
+  <tabstop>m_tiltMaxSpin</tabstop>
+  <tabstop>m_powerConsumptionSpin</tabstop>
+  <tabstop>m_dmxConnectorCombo</tabstop>
+  <tabstop>copyClipboardButton</tabstop>
+  <tabstop>pasteClipboardButton</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../ui/src/qlcui.qrc"/>
+  <include location="../ui/src/qlcui.qrc"/>
+ </resources>
+ <connections/>
+</ui>

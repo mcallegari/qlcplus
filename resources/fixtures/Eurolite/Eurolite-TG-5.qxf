@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TG-5</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Color="#ffffff">White</Capability>
+  <Capability Min="10" Max="20" Color="#00ff00">Green</Capability>
+  <Capability Min="21" Max="31" Color="#ff0000">Red</Capability>
+  <Capability Min="32" Max="41" Color="#55ffff">Cyan</Capability>
+  <Capability Min="42" Max="52" Color="#00ff7f">Bright green</Capability>
+  <Capability Min="53" Max="63" Color="#ffaaff">Rose</Capability>
+  <Capability Min="64" Max="73" Color="#0055ff">Bright blue</Capability>
+  <Capability Min="74" Max="84" Color="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="95" Color="#00ff00">Green</Capability>
+  <Capability Min="96" Max="105" Color="#ffaaff">Pink</Capability>
+  <Capability Min="106" Max="116" Color="#ff007f">Purple</Capability>
+  <Capability Min="117" Max="128" Color="#ffaa00">Orange</Capability>
+  <Capability Min="129" Max="190">Scroll</Capability>
+  <Capability Min="191" Max="193">Sound-controlled</Capability>
+  <Capability Min="194" Max="223" Res="Others/rainbow.png">CW rotation fast to slow</Capability>
+  <Capability Min="224" Max="225">Rotation STOP</Capability>
+  <Capability Min="226" Max="255" Res="Others/rainbow.png">CCW rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="31">Strobe</Capability>
+  <Capability Min="32" Max="41">Open</Capability>
+  <Capability Min="42" Max="52">Gobo 1</Capability>
+  <Capability Min="53" Max="63">Gobo 2</Capability>
+  <Capability Min="64" Max="73">Gobo 3</Capability>
+  <Capability Min="74" Max="84">Gobo 4</Capability>
+  <Capability Min="85" Max="95">Gobo 5</Capability>
+  <Capability Min="96" Max="105">Gobo 6</Capability>
+  <Capability Min="106" Max="116">Gobo 7</Capability>
+  <Capability Min="117" Max="127">Gobo 8</Capability>
+  <Capability Min="128" Max="137">Gobo 9</Capability>
+  <Capability Min="138" Max="147">No function</Capability>
+  <Capability Min="148" Max="155">Gobo 1 shake slow to fast</Capability>
+  <Capability Min="156" Max="163">Gobo 2 shake slow to fast</Capability>
+  <Capability Min="164" Max="171">Gobo 3 shake slow to fast</Capability>
+  <Capability Min="172" Max="179">Gobo 4 shake slow to fast</Capability>
+  <Capability Min="180" Max="187">Gobo 5 shake slow to fast</Capability>
+  <Capability Min="188" Max="195">Gobo 6 shake slow to fast</Capability>
+  <Capability Min="196" Max="203">Gobo 7 shake slow to fast</Capability>
+  <Capability Min="204" Max="210">Gobo 8 shake slow to fast</Capability>
+  <Capability Min="211" Max="217">Gobo 9 shake slow to fast</Capability>
+  <Capability Min="218" Max="223">Sound-controlled</Capability>
+  <Capability Min="224" Max="225">Stop</Capability>
+  <Capability Min="226" Max="255">Rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="280" Height="280" Depth="320"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

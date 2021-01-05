@@ -61,7 +61,91 @@
        <string>Functions</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0" rowspan="3" colspan="2">
+       <item row="0" column="2">
+        <widget class="QToolButton" name="m_addButton">
+         <property name="toolTip">
+          <string>Add functions to be controlled</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="m_removeButton">
+         <property name="toolTip">
+          <string>Remove selected functions</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QToolButton" name="m_copyFactorsButton">
+         <property name="toolTip">
+          <string>Copy the factors of the selected function</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QToolButton" name="m_pasteFactorsButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Paste copied factors to all selected functions</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/editpaste.png</normaloff>:/editpaste.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>18</width>
+           <height>198</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0" rowspan="5" colspan="2">
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -123,53 +207,6 @@
           </property>
          </column>
         </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QToolButton" name="m_addButton">
-         <property name="toolTip">
-          <string>Add functions to be controlled</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../qlcui.qrc">
-           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QToolButton" name="m_removeButton">
-         <property name="toolTip">
-          <string>Remove selected functions</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>18</width>
-           <height>198</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -526,6 +563,38 @@
     <hint type="destinationlabel">
      <x>396</x>
      <y>163</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_copyFactorsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotCopyFactorsClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pasteFactorsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotPasteFactorsClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>283</y>
     </hint>
    </hints>
   </connection>

@@ -145,10 +145,11 @@ protected:
 
     QMutex m_mutex;
 
-    unsigned int m_captureSize, m_sampleRate, m_channels;
+    unsigned int bufferSize, m_captureSize, m_sampleRate, m_channels;
 
     /** Data buffer for audio data coming from the sound card */
     int16_t *m_audioBuffer;
+    int16_t *m_audioMixdown;
 
     quint32 m_signalPower;
 

@@ -1,0 +1,38 @@
+﻿<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - キオスクモード</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+<h1>キオスクモード</h1>
+
+<p>プロジェクトの編集や、接続設定を一切表示せずビジュアルコンソールのみを表示するモードです。QLC+をよく理解していないが間違って設定を変更してしまうことのないようなモードです。
+このモードでは、バーチャルコンソール以外は表示されないためプロジェクトデータの編集は一切できません。
+<p>
+
+<p>キオスクモードで起動するには以下のコマンドオプションをつけてください。<blockquote>
+<tt>qlcplus -k -f -o workspace.qxw -p -c 500,10,32,32</tt>
+</blockquote>
+
+<ul>
+<li><b>-k</b> キオスクモードを有効化</li>
+<li><b>-f</b> フルスクリーンモードで起動</li>
+<li><b>-o workspace.qxw</b> 開くプロジェクトファイルを指定します。</li>
+<li><b>-p</b> 本番モードで起動します。</li>
+<li><b>-c 500,10,32,32</b> QLC+の終了ボタンを設置できます。４つの数値で座標と大きさを指定します。（X,Y,W,H）です。</li>
+</ul>
+</p>
+
+<p>
+</p>
+
+<p>パラメータは必要に応じて調整してください。終了ボタンが必要ないならば<b>-c </b>オプションを省略し、フルスクリーンにしないならば<b>-f </b>オプションを省略してください。
+</p>
+
+<p>その他のコマンドラインからの起動オプションは<a href="commandlineparameters.html">こちら</a>を参照してください。
+</p></p></p>
+</BODY>
+</html>

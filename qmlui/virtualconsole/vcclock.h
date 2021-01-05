@@ -93,26 +93,32 @@ class VCClock : public VCWidget
     Q_PROPERTY(int  currentTime READ currentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(int  targetTime READ targetTime WRITE setTargetTime NOTIFY targetTimeChanged)
     Q_PROPERTY(QVariantList scheduleList READ scheduleList NOTIFY scheduleListChanged)
-    
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
-    VCClock(Doc* doc = NULL, QObject *parent = 0);
+    VCClock(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCClock();
 
     /** @reimp */
-    void setID(quint32 id);
+    QString defaultCaption();
 
     /** @reimp */
-    QString defaultCaption();
+    void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
+
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** @reimp */
+    bool copyFrom(const VCWidget* widget);
 
 private:
     FunctionParent functionParent() const;
@@ -135,7 +141,7 @@ signals:
 
 private:
     ClockType m_clocktype;
-    
+
     /*********************************************************************
      * Time
      *********************************************************************/
@@ -169,7 +175,10 @@ private:
 public:
     bool enableSchedule() const;
     void setEnableSchedule(bool enableSchedule);
+
     QVariantList scheduleList();
+    QList<VCClockSchedule*> schedules() const;
+
     void addSchedule(VCClockSchedule *schedule);
     Q_INVOKABLE void addSchedules(QVariantList idsList);
     Q_INVOKABLE void removeSchedule(int index);

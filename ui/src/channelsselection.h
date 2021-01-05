@@ -54,7 +54,7 @@ class ChannelsSelection : public QDialog, public Ui_ChannelsSelection
 {
     Q_OBJECT
     Q_DISABLE_COPY(ChannelsSelection)
-    
+
 public:
     enum ChannelSelectionType
     {

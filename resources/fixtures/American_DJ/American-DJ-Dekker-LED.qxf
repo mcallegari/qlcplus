@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.4</Version>
+  <Author>bobert</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Dekker LED</Model>
+ <Type>Flower</Type>
+ <Channel Name="1 Motor Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No Rotation</Capability>
+  <Capability Min="1" Max="127">Clockwise Slow-Fast</Capability>
+  <Capability Min="128" Max="255">Counter Clockwise Fast-Slow</Capability>
+ </Channel>
+ <Channel Name="2 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="3 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="4 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="5 White Intensity" Preset="IntensityWhite"/>
+ <Channel Name="6 Master Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="7 Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No Program</Capability>
+  <Capability Min="1" Max="26">4 Color Fade Change</Capability>
+  <Capability Min="27" Max="51">9 Color Fade Change</Capability>
+  <Capability Min="52" Max="76">4 Color Loop Change</Capability>
+  <Capability Min="77" Max="101">9 Color Loop Change</Capability>
+  <Capability Min="102" Max="126">Strobe 1 Dim-Bright</Capability>
+  <Capability Min="127" Max="151">Strobe 2 Bright-Dim</Capability>
+  <Capability Min="152" Max="176">Strobe 3 Dim-Bright-Dim</Capability>
+  <Capability Min="177" Max="201">Strobe 4 W/O Dim Effect</Capability>
+  <Capability Min="202" Max="226">Strobe 5 With 9 Color</Capability>
+  <Capability Min="227" Max="254">Strobe 6 With Gradual Dim</Capability>
+  <Capability Min="255" Max="255">All Programs Will Cycle</Capability>
+ </Channel>
+ <Channel Name="8 Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">No Program</Capability>
+  <Capability Min="1" Max="254">Slow-Fast</Capability>
+  <Capability Min="255" Max="255">Sound Active</Capability>
+ </Channel>
+ <Mode Name="DMX 8CH">
+  <Channel Number="0">1 Motor Function</Channel>
+  <Channel Number="1">2 Red Intensity</Channel>
+  <Channel Number="2">3 Green Intensity</Channel>
+  <Channel Number="3">4 Blue Intensity</Channel>
+  <Channel Number="4">5 White Intensity</Channel>
+  <Channel Number="5">6 Master Intensity</Channel>
+  <Channel Number="6">7 Programs</Channel>
+  <Channel Number="7">8 Program Speed</Channel>
+ </Mode>
+ <Mode Name="DMX 2CH">
+  <Channel Number="0">7 Programs</Channel>
+  <Channel Number="1">8 Program Speed</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="279" Height="260" Weight="3.85" Depth="249"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

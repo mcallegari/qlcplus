@@ -56,7 +56,7 @@ public:
 
     /** @reimp */
     int capabilities() const;
-    
+
     /** @reimp */
     QString pluginInfo();
 

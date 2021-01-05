@@ -9,6 +9,10 @@
  <Manufacturer>Mixxx</Manufacturer>
  <Model>MIDI</Model>
  <Type>MIDI</Type>
+ <Channel Number="178">
+  <Name>Beat</Name>
+  <Type>Button</Type>
+ </Channel>
  <Channel Number="192">
   <Name>MONO current absolute</Name>
   <Type>Slider</Type>

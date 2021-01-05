@@ -23,6 +23,7 @@
 
 VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QObject *parent)
     : VCFrame(doc, vc, parent)
+    , m_pageScale(1.0)
     , m_PIN(0)
     , m_validatedPIN(false)
 {
@@ -40,12 +41,24 @@ VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QO
 
 VCPage::~VCPage()
 {
-    m_pageContext->deleteLater();
 }
 
 PreviewContext *VCPage::previewContext() const
 {
     return m_pageContext;
+}
+
+qreal VCPage::pageScale() const
+{
+    return m_pageScale;
+}
+
+void VCPage::setPageScale(qreal factor)
+{
+    m_pageScale = m_pageScale + factor;
+
+    foreach (VCWidget* child, children(true))
+        child->setScaleFactor(m_pageScale);
 }
 
 /*********************************************************************
@@ -86,7 +99,7 @@ bool VCPage::requirePIN() const
 
 void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget, bool checkChildren)
 {
-    if (source->isValid() == false || widget == NULL)
+    if (source->isValid() == false || widget == nullptr)
         return;
 
     /** Check if the widget belongs to this page */
@@ -109,7 +122,7 @@ void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *wid
 void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel,
                               VCWidget *widget, bool checkChildren)
 {
-    if (widget == NULL)
+    if (widget == nullptr)
         return;
 
     /** Check if the widget belongs to this page */
@@ -171,7 +184,7 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
 
 void VCPage::mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
 {
-    if (sequence.isEmpty() || widget == NULL)
+    if (sequence.isEmpty() || widget == nullptr)
         return;
 
     /** Check if the widget belongs to this page */
@@ -187,7 +200,7 @@ void VCPage::mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget,
 
 void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
 {
-    if (sequence.isEmpty() || widget == NULL)
+    if (sequence.isEmpty() || widget == nullptr)
         return;
 
     /** Check if the widget belongs to this page */
@@ -208,7 +221,7 @@ void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widge
 
 void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
 {
-    if (sequence.isEmpty() || widget == NULL)
+    if (sequence.isEmpty() || widget == nullptr)
         return;
 
     /** Check if the widget belongs to this page */

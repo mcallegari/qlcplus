@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.0 GIT</Version>
+  <Author>Louis Gutenschwager</Author>
+ </Creator>
+ <Manufacturer>Venue</Manufacturer>
+ <Model>ThinPar 64</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">no function</Capability>
+  <Capability Min="16" Max="255">Color Macros</Capability>
+ </Channel>
+ <Channel Name="Speed / Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slow to fast 16-255 strobe</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="31">RGB Mode</Capability>
+  <Capability Min="32" Max="63">Pulse Effect 0% - 100% (using RGB faders)</Capability>
+  <Capability Min="64" Max="95">Pulse Effect 100% - 0% (using RGB faders)</Capability>
+  <Capability Min="96" Max="127">Pulse Effect 100% - 0% - 100% (using RGB faders)</Capability>
+  <Capability Min="128" Max="159">Auto fade transition</Capability>
+  <Capability Min="160" Max="191">Auto snap Transition (3 Colors)</Capability>
+  <Capability Min="192" Max="223">Auto snap transition (7 colors)</Capability>
+  <Capability Min="224" Max="255">Sound triggering mode</Capability>
+ </Channel>
+ <Mode Name="7 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macros</Channel>
+  <Channel Number="4">Speed / Strobe</Channel>
+  <Channel Number="5">Mode</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Width="282" Weight="1.3" Depth="63" Height="246"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

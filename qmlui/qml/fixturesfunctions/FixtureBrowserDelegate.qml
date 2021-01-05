@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "FixtureDrag.js" as FxDragJS
 import "."
 
@@ -35,6 +35,8 @@ Item
     property string textLabel
     property int channels: 1
     property bool isSelected: false
+    property bool isCheckable: false
+    property bool isChecked: false
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)

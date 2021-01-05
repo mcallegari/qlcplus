@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Massimo Callegari, Andres Robles</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Hydrabeam 400 Series</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Show mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No movement</Capability>
+  <Capability Min="8" Max="22">Show mode 1</Capability>
+  <Capability Min="23" Max="37">Show mode 2</Capability>
+  <Capability Min="38" Max="52">Show mode 3</Capability>
+  <Capability Min="53" Max="67">Show mode 4</Capability>
+  <Capability Min="68" Max="82">Show mode 5</Capability>
+  <Capability Min="83" Max="97">Show mode 6</Capability>
+  <Capability Min="98" Max="112">Show mode 7</Capability>
+  <Capability Min="113" Max="127">Show mode 8</Capability>
+  <Capability Min="128" Max="142">Show mode 9</Capability>
+  <Capability Min="143" Max="157">Show mode 10</Capability>
+  <Capability Min="158" Max="172">Show mode 11</Capability>
+  <Capability Min="173" Max="187">Show mode 12</Capability>
+  <Capability Min="188" Max="202">Show mode 13</Capability>
+  <Capability Min="203" Max="217">Show mode 14</Capability>
+  <Capability Min="218" Max="232">Show mode 15</Capability>
+  <Capability Min="233" Max="247">Show mode 16</Capability>
+  <Capability Min="248" Max="255">Sound control mode</Capability>
+ </Channel>
+ <Channel Name="Show mode speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Show mode speed (slow to fast) / sound sensitivity</Capability>
+ </Channel>
+ <Channel Name="Light control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Blackout</Capability>
+  <Capability Min="32" Max="63">Lighting pattern 1</Capability>
+  <Capability Min="64" Max="95">Lighting pattern 2</Capability>
+  <Capability Min="96" Max="127">Lighting pattern 3</Capability>
+  <Capability Min="128" Max="159">Lighting pattern 4</Capability>
+  <Capability Min="160" Max="191">Lighting pattern 5</Capability>
+  <Capability Min="192" Max="223">Lighting pattern 6</Capability>
+  <Capability Min="224" Max="255">Full on</Capability>
+ </Channel>
+ <Channel Name="Lighting pattern speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Lighting pattern speed</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Heads speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan (Head 1)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 1)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 1)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 1)" Preset="PositionTiltFine"/>
+ <Channel Name="Speed (Head 1)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
+  <Capability Min="11" Max="255">Head 1 speed (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Dimmer (Head 1)" Preset="IntensityDimmer"/>
+ <Channel Name="Pan (Head 2)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 2)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 2)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 2)" Preset="PositionTiltFine"/>
+ <Channel Name="Speed (Head 2)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
+  <Capability Min="11" Max="255">Head 2 speed (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Dimmer (Head 2)" Preset="IntensityDimmer"/>
+ <Channel Name="Pan (Head 3)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 3)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 3)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 3)" Preset="PositionTiltFine"/>
+ <Channel Name="Speed (Head 3)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
+  <Capability Min="11" Max="255">Head 3 speed (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Dimmer (Head 3)" Preset="IntensityDimmer"/>
+ <Channel Name="Pan (Head 4)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 4)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 4)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 4)" Preset="PositionTiltFine"/>
+ <Channel Name="Speed (Head 4)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
+  <Capability Min="11" Max="255">Head 4 speed (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Dimmer (Head 4)" Preset="IntensityDimmer"/>
+ <Channel Name="Sound mode / Reset">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset</Capability>
+  <Capability Min="210" Max="240">No function</Capability>
+  <Capability Min="241" Max="255">Sound control mode</Capability>
+ </Channel>
+ <Channel Name="Sound sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound sensitivity in sound mode</Capability>
+ </Channel>
+ <Channel Name="Colour macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Automatic colour change</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red / White</Capability>
+  <Capability Min="136" Max="150" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green / White</Capability>
+  <Capability Min="166" Max="180" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue / White</Capability>
+  <Capability Min="181" Max="195">Red / Green / Blue</Capability>
+  <Capability Min="196" Max="210">Red / Green / White</Capability>
+  <Capability Min="211" Max="225">Red / Blue / White</Capability>
+  <Capability Min="226" Max="240">Green / Blue / White</Capability>
+  <Capability Min="241" Max="255">Red / Green / Blue / White</Capability>
+ </Channel>
+ <Channel Name="Automatic colour change speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Automatic colour change speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Colour macros (Head 1)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use CH29-CH32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red / White</Capability>
+  <Capability Min="136" Max="150" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green / White</Capability>
+  <Capability Min="166" Max="180" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue / White</Capability>
+  <Capability Min="181" Max="195">Red / Green / Blue</Capability>
+  <Capability Min="196" Max="210">Red / Green / White</Capability>
+  <Capability Min="211" Max="225">Red / Blue / White</Capability>
+  <Capability Min="226" Max="240">Green / Blue / White</Capability>
+  <Capability Min="241" Max="255">Red / Green / Blue / White</Capability>
+ </Channel>
+ <Channel Name="Colour macros (Head 2)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use CH29-CH32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red / White</Capability>
+  <Capability Min="136" Max="150" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green / White</Capability>
+  <Capability Min="166" Max="180" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue / White</Capability>
+  <Capability Min="181" Max="195">Red / Green / Blue</Capability>
+  <Capability Min="196" Max="210">Red / Green / White</Capability>
+  <Capability Min="211" Max="225">Red / Blue / White</Capability>
+  <Capability Min="226" Max="240">Green / Blue / White</Capability>
+  <Capability Min="241" Max="255">Red / Green / Blue / White</Capability>
+ </Channel>
+ <Channel Name="Colour macros (Head 3)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use CH29-CH32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red / White</Capability>
+  <Capability Min="136" Max="150" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green / White</Capability>
+  <Capability Min="166" Max="180" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue / White</Capability>
+  <Capability Min="181" Max="195">Red / Green / Blue</Capability>
+  <Capability Min="196" Max="210">Red / Green / White</Capability>
+  <Capability Min="211" Max="225">Red / Blue / White</Capability>
+  <Capability Min="226" Max="240">Green / Blue / White</Capability>
+  <Capability Min="241" Max="255">Red / Green / Blue / White</Capability>
+ </Channel>
+ <Channel Name="Colour macros (Head 4)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use CH29-CH32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red / White</Capability>
+  <Capability Min="136" Max="150" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green / White</Capability>
+  <Capability Min="166" Max="180" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue / White</Capability>
+  <Capability Min="181" Max="195">Red / Green / Blue</Capability>
+  <Capability Min="196" Max="210">Red / Green / White</Capability>
+  <Capability Min="211" Max="225">Red / Blue / White</Capability>
+  <Capability Min="226" Max="240">Green / Blue / White</Capability>
+  <Capability Min="241" Max="255">Red / Green / Blue / White</Capability>
+ </Channel>
+ <Mode Name="6-CH (CLHB400W)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Show mode</Channel>
+  <Channel Number="3">Show mode speed</Channel>
+  <Channel Number="4">Light control</Channel>
+  <Channel Number="5">Lighting pattern speed</Channel>
+ </Mode>
+ <Mode Name="10-CH (CLHB400W)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Master dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Show mode</Channel>
+  <Channel Number="5">Show mode speed</Channel>
+  <Channel Number="6">Light control</Channel>
+  <Channel Number="7">Lighting pattern speed</Channel>
+  <Channel Number="8">Pan fine</Channel>
+  <Channel Number="9">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="15-CH (CLHB400W)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan (Head 1)</Channel>
+  <Channel Number="3">Tilt (Head 1)</Channel>
+  <Channel Number="4">Dimmer (Head 1)</Channel>
+  <Channel Number="5">Pan (Head 2)</Channel>
+  <Channel Number="6">Tilt (Head 2)</Channel>
+  <Channel Number="7">Dimmer (Head 2)</Channel>
+  <Channel Number="8">Pan (Head 3)</Channel>
+  <Channel Number="9">Tilt (Head 3)</Channel>
+  <Channel Number="10">Dimmer (Head 3)</Channel>
+  <Channel Number="11">Pan (Head 4)</Channel>
+  <Channel Number="12">Tilt (Head 4)</Channel>
+  <Channel Number="13">Dimmer (Head 4)</Channel>
+  <Channel Number="14">Heads speed</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28-CH (CLHB400W)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan (Head 1)</Channel>
+  <Channel Number="3">Pan fine (Head 1)</Channel>
+  <Channel Number="4">Tilt (Head 1)</Channel>
+  <Channel Number="5">Tilt fine (Head 1)</Channel>
+  <Channel Number="6">Speed (Head 1)</Channel>
+  <Channel Number="7">Dimmer (Head 1)</Channel>
+  <Channel Number="8">Pan (Head 2)</Channel>
+  <Channel Number="9">Pan fine (Head 2)</Channel>
+  <Channel Number="10">Tilt (Head 2)</Channel>
+  <Channel Number="11">Tilt fine (Head 2)</Channel>
+  <Channel Number="12">Speed (Head 2)</Channel>
+  <Channel Number="13">Dimmer (Head 2)</Channel>
+  <Channel Number="14">Pan (Head 3)</Channel>
+  <Channel Number="15">Pan fine (Head 3)</Channel>
+  <Channel Number="16">Tilt (Head 3)</Channel>
+  <Channel Number="17">Tilt fine (Head 3)</Channel>
+  <Channel Number="18">Speed (Head 3)</Channel>
+  <Channel Number="19">Dimmer (Head 3)</Channel>
+  <Channel Number="20">Pan (Head 4)</Channel>
+  <Channel Number="21">Pan fine (Head 4)</Channel>
+  <Channel Number="22">Tilt (Head 4)</Channel>
+  <Channel Number="23">Tilt fine (Head 4)</Channel>
+  <Channel Number="24">Speed (Head 4)</Channel>
+  <Channel Number="25">Dimmer (Head 4)</Channel>
+  <Channel Number="26">Sound mode / Reset</Channel>
+  <Channel Number="27">Sound sensitivity</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6-CH (CLHB400RGBW)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Show mode</Channel>
+  <Channel Number="3">Show mode speed</Channel>
+  <Channel Number="4">Colour macros</Channel>
+  <Channel Number="5">Automatic colour change speed</Channel>
+ </Mode>
+ <Mode Name="10-CH (CLHB400RGBW)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Master dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Show mode</Channel>
+  <Channel Number="5">Show mode speed</Channel>
+  <Channel Number="6">Colour macros</Channel>
+  <Channel Number="7">Automatic colour change speed</Channel>
+  <Channel Number="8">Pan fine</Channel>
+  <Channel Number="9">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="19-CH (CLHB400RGBW)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan (Head 1)</Channel>
+  <Channel Number="3">Tilt (Head 1)</Channel>
+  <Channel Number="4">Dimmer (Head 1)</Channel>
+  <Channel Number="5">Pan (Head 2)</Channel>
+  <Channel Number="6">Tilt (Head 2)</Channel>
+  <Channel Number="7">Dimmer (Head 2)</Channel>
+  <Channel Number="8">Pan (Head 3)</Channel>
+  <Channel Number="9">Tilt (Head 3)</Channel>
+  <Channel Number="10">Dimmer (Head 3)</Channel>
+  <Channel Number="11">Pan (Head 4)</Channel>
+  <Channel Number="12">Tilt (Head 4)</Channel>
+  <Channel Number="13">Dimmer (Head 4)</Channel>
+  <Channel Number="14">Red</Channel>
+  <Channel Number="15">Green</Channel>
+  <Channel Number="16">Blue</Channel>
+  <Channel Number="17">White</Channel>
+  <Channel Number="18">Heads speed</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="32-CH (CLHB400RGBW)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan (Head 1)</Channel>
+  <Channel Number="3">Pan fine (Head 1)</Channel>
+  <Channel Number="4">Tilt (Head 1)</Channel>
+  <Channel Number="5">Tilt fine (Head 1)</Channel>
+  <Channel Number="6">Speed (Head 1)</Channel>
+  <Channel Number="7">Colour macros (Head 1)</Channel>
+  <Channel Number="8">Pan (Head 2)</Channel>
+  <Channel Number="9">Pan fine (Head 2)</Channel>
+  <Channel Number="10">Tilt (Head 2)</Channel>
+  <Channel Number="11">Tilt fine (Head 2)</Channel>
+  <Channel Number="12">Speed (Head 2)</Channel>
+  <Channel Number="13">Colour macros (Head 2)</Channel>
+  <Channel Number="14">Pan (Head 3)</Channel>
+  <Channel Number="15">Pan fine (Head 3)</Channel>
+  <Channel Number="16">Tilt (Head 3)</Channel>
+  <Channel Number="17">Tilt fine (Head 3)</Channel>
+  <Channel Number="18">Speed (Head 3)</Channel>
+  <Channel Number="19">Colour macros (Head 3)</Channel>
+  <Channel Number="20">Pan (Head 4)</Channel>
+  <Channel Number="21">Pan fine (Head 4)</Channel>
+  <Channel Number="22">Tilt (Head 4)</Channel>
+  <Channel Number="23">Tilt fine (Head 4)</Channel>
+  <Channel Number="24">Speed (Head 4)</Channel>
+  <Channel Number="25">Colour macros (Head 4)</Channel>
+  <Channel Number="26">Sound mode / Reset</Channel>
+  <Channel Number="27">Sound sensitivity</Channel>
+  <Channel Number="28">Red</Channel>
+  <Channel Number="29">Green</Channel>
+  <Channel Number="30">Blue</Channel>
+  <Channel Number="31">White</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+  <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

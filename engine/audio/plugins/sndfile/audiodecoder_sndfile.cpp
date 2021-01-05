@@ -47,6 +47,11 @@ AudioDecoder *AudioDecoderSndFile::createCopy()
     return qobject_cast<AudioDecoder *>(copy);
 }
 
+int AudioDecoderSndFile::priority() const
+{
+    return 10;
+}
+
 bool AudioDecoderSndFile::initialize(const QString &path)
 {
     m_path = path;
@@ -60,7 +65,7 @@ bool AudioDecoderSndFile::initialize(const QString &path)
         return false;
 
     memset (&snd_info, 0, sizeof(snd_info));
-    snd_info.format=0;
+    snd_info.format = 0;
     m_sndfile = sf_open(m_path.toLocal8Bit(), SFM_READ, &snd_info);
     if (!m_sndfile)
     {

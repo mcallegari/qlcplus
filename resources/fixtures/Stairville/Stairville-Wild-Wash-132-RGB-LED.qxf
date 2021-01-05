@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Noé Sierra</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Wild Wash 132 RGB LED</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">LEDs on, brightness controlled by ch1</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="11" Max="33" Preset="PulseSlowToFast">Random impulses, increasing speed</Capability>
+  <Capability Min="34" Max="56" Preset="RampDownSlowToFast">Randomly increasing brightness, increasing speed</Capability>
+  <Capability Min="57" Max="79" Preset="RampDownSlowToFast">Randomly decreasing brightness, increasing speed</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeSlowToFast">Random strobe effect, increasing speed</Capability>
+  <Capability Min="103" Max="127">Interrupt effect, 5s to 1s</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe effect, speed increasing from approximately 0Hz to 30Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs on, brightness controlled by ch1</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Sound Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Sound control off</Capability>
+  <Capability Min="6" Max="255">Sound control on, increasing sensitivity</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#ffd042">Warm Yellow</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#55ffff">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#aaaaff">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#aa5500">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#fff9ea">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#edfff9">Cold White</Capability>
+  <Capability Min="126" Max="128">Ending color change</Capability>
+  <Capability Min="129" Max="192">Color change, increasing speed</Capability>
+  <Capability Min="193" Max="255">Gradual color change, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Simple Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">LEDs on</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="11" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe effect, speed increasing from approximately 0Hz to 30Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs On</Capability>
+ </Channel>
+ <Channel Name="Flash Impulse">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Flash impulse duration, increasing from 0ms to 510ms</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Sound Control</Channel>
+ </Mode>
+ <Mode Name="2 Channel 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Color Macro</Channel>
+ </Mode>
+ <Mode Name="2 Channel 2">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Simple Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Simple Strobe</Channel>
+  <Channel Number="2">Flash Impulse</Channel>
+ </Mode>
+ <Mode Name="3 Channel 2">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Simple Strobe</Channel>
+  <Channel Number="2">Color Macro</Channel>
+ </Mode>
+ <Mode Name="RGB">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color Macro</Channel>
+  <Channel Number="3">Sound Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.05" Width="310" Height="70" Depth="70"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="0" TiltMax="0"/>
+  <Layout Width="44" Height="3"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

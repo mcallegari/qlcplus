@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Andres Robles</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>MH-x30 LED Beam</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan &amp; Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">Strobe effect off</Capability>
+  <Capability Min="11" Max="128" Preset="StrobeRandomSlowToFast">Random Strobe effect, increasing speed</Capability>
+  <Capability Min="129" Max="255" Preset="StrobeFastToSlow">Strobe effect, decreasing speed</Capability>
+ </Channel>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="11" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="12" Max="23" Preset="ColorMacro" Res1="#fa0004">Red</Capability>
+  <Capability Min="24" Max="35" Preset="ColorMacro" Res1="#00ff59">Green</Capability>
+  <Capability Min="36" Max="47" Preset="ColorMacro" Res1="#8ee1ff">Light blue</Capability>
+  <Capability Min="48" Max="59" Preset="ColorMacro" Res1="#b429ff">Purple</Capability>
+  <Capability Min="60" Max="71" Preset="ColorMacro" Res1="#ebff09">Yellow</Capability>
+  <Capability Min="72" Max="83" Preset="ColorMacro" Res1="#1c82ff">Blue</Capability>
+  <Capability Min="84" Max="95" Preset="ColorMacro" Res1="#ffa72c">Orange</Capability>
+  <Capability Min="96" Max="107" Preset="ColorDoubleMacro" Res1="#ff0004" Res2="#ffffff">White + red</Capability>
+  <Capability Min="108" Max="119" Preset="ColorDoubleMacro" Res1="#ff0004" Res2="#41ff12">Red + green</Capability>
+  <Capability Min="120" Max="131" Preset="ColorDoubleMacro" Res1="#22ff25" Res2="#8efcff">Green + light blue</Capability>
+  <Capability Min="132" Max="143" Preset="ColorDoubleMacro" Res1="#7af9ff" Res2="#969aff">Light blue + purple</Capability>
+  <Capability Min="144" Max="155" Preset="ColorDoubleMacro" Res1="#9096ff" Res2="#ffff5d">Purple + yellow</Capability>
+  <Capability Min="156" Max="167" Preset="ColorDoubleMacro" Res1="#eeff31" Res2="#0a78ff">Yellow + blue</Capability>
+  <Capability Min="168" Max="179" Preset="ColorDoubleMacro" Res1="#475cff" Res2="#ffae0a">Blue + orange</Capability>
+  <Capability Min="180" Max="191" Preset="ColorDoubleMacro" Res1="#ff9b04" Res2="#ffffff">Orange + white</Capability>
+  <Capability Min="192" Max="223" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect (gobo wheel rotation) in positive rotation direction, decreasing speed</Capability>
+  <Capability Min="224" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect (gobo wheel rotation) in negative rotation direction, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="6" Max="11" Preset="GoboMacro" Res1="Others/gobo00079.svg">Gobo 1</Capability>
+  <Capability Min="12" Max="17" Preset="GoboMacro" Res1="Others/gobo00043.svg">Gobo 2</Capability>
+  <Capability Min="18" Max="23" Preset="ColorMacro" Res1="#ffffff">Gobo 3</Capability>
+  <Capability Min="24" Max="29" Preset="ColorMacro" Res1="#ffffff">Gobo 4</Capability>
+  <Capability Min="30" Max="35" Preset="ColorMacro" Res1="#ffffff">Gobo 5</Capability>
+  <Capability Min="36" Max="41" Preset="ColorMacro" Res1="#ffffff">Gobo 6</Capability>
+  <Capability Min="42" Max="47" Preset="ColorMacro" Res1="#ffffff">Gobo 7</Capability>
+  <Capability Min="48" Max="53" Preset="ColorMacro" Res1="#ffffff">Gobo 8</Capability>
+  <Capability Min="54" Max="59" Preset="ColorMacro" Res1="#ffffff">Gobo 9</Capability>
+  <Capability Min="60" Max="65" Preset="ColorMacro" Res1="#ffffff">Gobo 10</Capability>
+  <Capability Min="66" Max="71" Preset="ColorMacro" Res1="#ffffff">Gobo 11</Capability>
+  <Capability Min="72" Max="77" Preset="ColorMacro" Res1="#ffffff">Gobo 12</Capability>
+  <Capability Min="78" Max="83" Preset="ColorMacro" Res1="#ffffff">Gobo 13</Capability>
+  <Capability Min="84" Max="89" Preset="ColorMacro" Res1="#ffffff">Gobo 14</Capability>
+  <Capability Min="90" Max="95" Preset="ColorMacro" Res1="#ffffff">Gobo 14 shake, increasing speed</Capability>
+  <Capability Min="96" Max="101" Preset="ColorMacro" Res1="#ffffff">Gobo 13 shake, increasing speed</Capability>
+  <Capability Min="102" Max="107" Preset="ColorMacro" Res1="#ffffff">Gobo 12 shake, increasing speed</Capability>
+  <Capability Min="108" Max="113" Preset="ColorMacro" Res1="#ffffff">Gobo 11 shake, increasing speed</Capability>
+  <Capability Min="114" Max="119" Preset="ColorMacro" Res1="#ffffff">Gobo 10 shake, increasing speed</Capability>
+  <Capability Min="120" Max="125" Preset="ColorMacro" Res1="#ffffff">Gobo 9 shake, increasing speed</Capability>
+  <Capability Min="126" Max="131" Preset="ColorMacro" Res1="#ffffff">Gobo 8 shake, increasing speed</Capability>
+  <Capability Min="132" Max="137" Preset="ColorMacro" Res1="#ffffff">Gobo 7 shake, increasing speed</Capability>
+  <Capability Min="138" Max="143" Preset="ColorMacro" Res1="#ffffff">Gobo 6 shake, increasing speed</Capability>
+  <Capability Min="144" Max="149" Preset="ColorMacro" Res1="#ffffff">Gobo 5 shake, increasing speed</Capability>
+  <Capability Min="150" Max="155" Preset="ColorMacro" Res1="#ffffff">Gobo 4 shake, increasing speed</Capability>
+  <Capability Min="156" Max="161" Preset="ColorMacro" Res1="#ffffff">Gobo 3 shake, increasing speed</Capability>
+  <Capability Min="162" Max="167" Preset="ColorMacro" Res1="#ffffff">Gobo 2 shake, increasing speed</Capability>
+  <Capability Min="168" Max="173" Preset="ColorMacro" Res1="#ffffff">Gobo 1 shake, increasing speed</Capability>
+  <Capability Min="174" Max="179" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="180" Max="217" Preset="ColorMacro" Res1="#fafbff">Rainbow effect (gobo wheel rotation) in positive rotation direction, decreasing speed</Capability>
+  <Capability Min="218" Max="255" Preset="ColorMacro" Res1="#ffffff">Rainbow effect (gobo wheel rotation) in negative rotation direction, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Special settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Without function</Capability>
+  <Capability Min="10" Max="20">Reset after five seconds</Capability>
+  <Capability Min="21" Max="255">Without function</Capability>
+ </Channel>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan &amp; Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Colour wheel</Channel>
+  <Channel Number="8">Gobo wheel</Channel>
+  <Channel Number="9">Special settings</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan &amp; Tilt speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Colour wheel</Channel>
+  <Channel Number="6">Gobo wheel</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED " Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="5.8" Width="260" Height="386" Depth="150"/>
+  <Lens Name="PC" DegreesMin="2.8" DegreesMax="2.8"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="68" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

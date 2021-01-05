@@ -204,56 +204,56 @@ void FunctionManager::initActions()
     /* Manage actions */
     m_addSceneAction = new QAction(QIcon(":/scene.png"),
                                    tr("New &scene"), this);
-    m_addSceneAction->setShortcut(QKeySequence("CTRL+S"));
+    m_addSceneAction->setShortcut(QKeySequence("CTRL+1"));
     connect(m_addSceneAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddScene()));
 
     m_addChaserAction = new QAction(QIcon(":/chaser.png"),
                                     tr("New c&haser"), this);
-    m_addChaserAction->setShortcut(QKeySequence("CTRL+H"));
+    m_addChaserAction->setShortcut(QKeySequence("CTRL+2"));
     connect(m_addChaserAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddChaser()));
 
     m_addSequenceAction = new QAction(QIcon(":/sequence.png"),
                                     tr("New se&quence"), this);
-    m_addSequenceAction->setShortcut(QKeySequence("CTRL+Q"));
+    m_addSequenceAction->setShortcut(QKeySequence("CTRL+3"));
     connect(m_addSequenceAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddSequence()));
 
-    m_addCollectionAction = new QAction(QIcon(":/collection.png"),
-                                        tr("New c&ollection"), this);
-    m_addCollectionAction->setShortcut(QKeySequence("CTRL+O"));
-    connect(m_addCollectionAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddCollection()));
-
     m_addEFXAction = new QAction(QIcon(":/efx.png"),
                                  tr("New E&FX"), this);
-    m_addEFXAction->setShortcut(QKeySequence("CTRL+F"));
+    m_addEFXAction->setShortcut(QKeySequence("CTRL+4"));
     connect(m_addEFXAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddEFX()));
 
+    m_addCollectionAction = new QAction(QIcon(":/collection.png"),
+                                        tr("New c&ollection"), this);
+    m_addCollectionAction->setShortcut(QKeySequence("CTRL+5"));
+    connect(m_addCollectionAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddCollection()));
+
     m_addRGBMatrixAction = new QAction(QIcon(":/rgbmatrix.png"),
                                  tr("New &RGB Matrix"), this);
-    m_addRGBMatrixAction->setShortcut(QKeySequence("CTRL+R"));
+    m_addRGBMatrixAction->setShortcut(QKeySequence("CTRL+6"));
     connect(m_addRGBMatrixAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddRGBMatrix()));
 
     m_addScriptAction = new QAction(QIcon(":/script.png"),
                                  tr("New scrip&t"), this);
-    m_addScriptAction->setShortcut(QKeySequence("CTRL+T"));
+    m_addScriptAction->setShortcut(QKeySequence("CTRL+7"));
     connect(m_addScriptAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddScript()));
 
     m_addAudioAction = new QAction(QIcon(":/audio.png"),
                                    tr("New au&dio"), this);
-    m_addAudioAction->setShortcut(QKeySequence("CTRL+D"));
+    m_addAudioAction->setShortcut(QKeySequence("CTRL+8"));
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_addVideoAction = new QAction(QIcon(":/video.png"),
                                    tr("New vid&eo"), this);
-    m_addVideoAction->setShortcut(QKeySequence("CTRL+E"));
+    m_addVideoAction->setShortcut(QKeySequence("CTRL+9"));
     connect(m_addVideoAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddVideo()));
 #endif
@@ -427,12 +427,11 @@ void FunctionManager::slotAddScript()
 
 void FunctionManager::slotAddAudio()
 {
-    QString fn;
-
     /* Create a file open dialog */
     QFileDialog dialog(this);
     dialog.setWindowTitle(tr("Open Audio File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setFileMode(QFileDialog::ExistingFiles);
 
     /* Append file filters to the dialog */
     QStringList extList = m_doc->audioPluginCache()->getSupportedFormats();
@@ -457,38 +456,39 @@ void FunctionManager::slotAddAudio()
     if (dialog.exec() != QDialog::Accepted)
         return;
 
-    fn = dialog.selectedFiles().first();
-    if (fn.isEmpty() == true)
-        return;
-
-    Function* f = new Audio(m_doc);
-    Audio *audio = qobject_cast<Audio*> (f);
-    if (audio->setSourceFileName(fn) == false)
+    foreach (QString fn, dialog.selectedFiles())
     {
-        QMessageBox::warning(this, tr("Unsupported audio file"), tr("This audio file cannot be played with QLC+. Sorry."));
-        return;
-    }
-    if (m_doc->addFunction(f) == true)
-    {
-        QTreeWidgetItem* item = m_tree->functionItem(f);
-        Q_ASSERT(item != NULL);
-        m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        Function* f = new Audio(m_doc);
+        Audio *audio = qobject_cast<Audio*> (f);
+        if (audio->setSourceFileName(fn) == false)
+        {
+            QMessageBox::warning(this, tr("Unsupported audio file"), tr("This audio file cannot be played with QLC+. Sorry."));
+            return;
+        }
+        if (m_doc->addFunction(f) == true)
+        {
+            QTreeWidgetItem* item = m_tree->functionItem(f);
+            Q_ASSERT(item != NULL);
+            if (fn == dialog.selectedFiles().last())
+            {
+                m_tree->scrollToItem(item);
+                m_tree->setCurrentItem(item);
+            }
+        }
     }
 }
 
 void FunctionManager::slotAddVideo()
 {
 #if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
-    QString fn;
-
     /* Create a file open dialog */
     QFileDialog dialog(this);
     dialog.setWindowTitle(tr("Open Video File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setFileMode(QFileDialog::ExistingFiles);
 
     /* Append file filters to the dialog */
-    QStringList extList = Video::getCapabilities();
+    QStringList extList = Video::getVideoCapabilities();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
@@ -510,23 +510,25 @@ void FunctionManager::slotAddVideo()
     if (dialog.exec() != QDialog::Accepted)
         return;
 
-    fn = dialog.selectedFiles().first();
-    if (fn.isEmpty() == true)
-        return;
-
-    Function* f = new Video(m_doc);
-    Video *video = qobject_cast<Video*> (f);
-    if (video->setSourceUrl(fn) == false)
+    foreach (QString fn, dialog.selectedFiles())
     {
-        QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
-        return;
-    }
-    if (m_doc->addFunction(f) == true)
-    {
-        QTreeWidgetItem* item = m_tree->functionItem(f);
-        Q_ASSERT(item != NULL);
-        m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        Function* f = new Video(m_doc);
+        Video *video = qobject_cast<Video*> (f);
+        if (video->setSourceUrl(fn) == false)
+        {
+            QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
+            return;
+        }
+        if (m_doc->addFunction(f) == true)
+        {
+            QTreeWidgetItem* item = m_tree->functionItem(f);
+            Q_ASSERT(item != NULL);
+            if (fn == dialog.selectedFiles().last())
+            {
+                m_tree->scrollToItem(item);
+                m_tree->setCurrentItem(item);
+            }
+        }
     }
 #endif
 }
@@ -775,17 +777,20 @@ void FunctionManager::deleteSelectedFunctions()
 
         /* When deleting a Sequence, check if the bound Scene ID is still used
          * in the Doc. If not, get rid of it cause otherwise it would stay in the project
-         * forever since bound Scenes are hidden */
+         * forever since bound Scenes are hidden and users cannot delete them */
         if (func->type() == Function::SequenceType)
         {
             Sequence *seq = qobject_cast<Sequence *>(func);
             quint32 boundSceneID = seq->boundSceneID();
             m_doc->deleteFunction(fid);
+
             if (m_doc->getUsage(boundSceneID).count() == 0)
                 m_doc->deleteFunction(boundSceneID);
         }
         else
+        {
             m_doc->deleteFunction(fid);
+        }
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
@@ -855,6 +860,22 @@ void FunctionManager::copyFunction(quint32 fid)
     if (copy != NULL)
     {
         copy->setName(copy->name() + tr(" (Copy)"));
+
+        /* If the cloned Function is a Sequence,
+         * clone the bound Scene too */
+        if (function->type() == Function::SequenceType)
+        {
+            Sequence *sequence = qobject_cast<Sequence *>(copy);
+            quint32 sceneID = sequence->boundSceneID();
+            Function *scene = m_doc->function(sceneID);
+            if (scene != NULL)
+            {
+                Function *sceneCopy = scene->createCopy(m_doc);
+                if (sceneCopy != NULL)
+                    sequence->setBoundSceneID(sceneCopy->id());
+            }
+        }
+
         QTreeWidgetItem* item = m_tree->functionItem(copy);
         m_tree->setCurrentItem(item);
     }
@@ -884,22 +905,31 @@ void FunctionManager::editFunction(Function* function)
     else if (function->type() == Function::SequenceType)
     {
         Sequence *sequence = qobject_cast<Sequence*> (function);
-        m_editor = new ChaserEditor(m_hsplitter->widget(1), sequence, m_doc);
-        connect(this, SIGNAL(functionManagerActive(bool)),
-                m_editor, SLOT(slotFunctionManagerActive(bool)));
+        Function *sfunc = m_doc->function(sequence->boundSceneID());
 
-        Function* sfunc = m_doc->function(sequence->boundSceneID());
-        if (sfunc->type() == Function::SceneType)
+        if (sfunc == NULL)
         {
-            m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
+            // The bound Scene no longer exists. Invalidate the Sequence
+            sequence->setBoundSceneID(Function::invalidId());
+        }
+        else
+        {
+            m_editor = new ChaserEditor(m_hsplitter->widget(1), sequence, m_doc);
             connect(this, SIGNAL(functionManagerActive(bool)),
-                    m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
-            /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
-            connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
-                    m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
-            /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
-            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue, bool)),
-                    m_editor, SLOT(slotUpdateCurrentStep(SceneValue, bool)));
+                    m_editor, SLOT(slotFunctionManagerActive(bool)));
+
+            if (sfunc->type() == Function::SceneType)
+            {
+                m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
+                connect(this, SIGNAL(functionManagerActive(bool)),
+                        m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
+                /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
+                connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
+                        m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+                /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
+                connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue, bool)),
+                        m_editor, SLOT(slotUpdateCurrentStep(SceneValue, bool)));
+            }
         }
     }
     else if (function->type() == Function::CollectionType)

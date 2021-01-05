@@ -38,6 +38,8 @@ OutputPatch::OutputPatch(QObject* parent)
     , m_plugin(NULL)
     , m_pluginLine(QLCIOPlugin::invalidLine())
     , m_universe(UINT_MAX)
+    , m_paused(false)
+    , m_blackout(false)
 {
 }
 
@@ -46,6 +48,8 @@ OutputPatch::OutputPatch(quint32 universe, QObject* parent)
     , m_plugin(NULL)
     , m_pluginLine(QLCIOPlugin::invalidLine())
     , m_universe(universe)
+    , m_paused(false)
+    , m_blackout(false)
 {
 }
 
@@ -129,15 +133,12 @@ QString OutputPatch::outputName() const
 
 quint32 OutputPatch::output() const
 {
-    if (m_plugin != NULL && m_pluginLine < quint32(m_plugin->outputs().size()))
-        return m_pluginLine;
-    else
-        return QLCIOPlugin::invalidLine();
+    return m_pluginLine;
 }
 
 bool OutputPatch::isPatched() const
 {
-    return output() != QLCIOPlugin::invalidLine();
+    return output() != QLCIOPlugin::invalidLine() && m_plugin != NULL;
 }
 
 void OutputPatch::setPluginParameter(QString prop, QVariant value)
@@ -158,10 +159,53 @@ QMap<QString, QVariant> OutputPatch::getPluginParameters()
 /*****************************************************************************
  * Value dump
  *****************************************************************************/
+bool OutputPatch::paused() const
+{
+    return m_paused;
+}
+
+void OutputPatch::setPaused(bool paused)
+{
+    if (m_paused == paused)
+        return;
+
+    m_paused = paused;
+
+    if (m_pauseBuffer.length())
+        m_pauseBuffer.clear();
+
+    emit pausedChanged(m_paused);
+}
+
+bool OutputPatch::blackout() const
+{
+    return m_blackout;
+}
+
+void OutputPatch::setBlackout(bool blackout)
+{
+    if (m_blackout == blackout)
+        return;
+
+    m_blackout = blackout;
+    emit blackoutChanged(m_blackout);
+}
 
 void OutputPatch::dump(quint32 universe, const QByteArray& data)
 {
     /* Don't do anything if there is no plugin and/or output line. */
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
-        m_plugin->writeUniverse(universe, m_pluginLine, data);
+    {
+        if (m_paused)
+        {
+            if (m_pauseBuffer.isNull())
+                m_pauseBuffer.append(data);
+
+            m_plugin->writeUniverse(universe, m_pluginLine, m_pauseBuffer);
+        }
+        else
+        {
+            m_plugin->writeUniverse(universe, m_pluginLine, data);
+        }
+    }
 }

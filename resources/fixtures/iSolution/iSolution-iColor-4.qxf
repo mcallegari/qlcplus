@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.4</Version>
+  <Author>withlime/pade</Author>
+ </Creator>
+ <Manufacturer>iSolution</Manufacturer>
+ <Model>iColor 4</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6" Color="#ff0000">Red</Capability>
+  <Capability Min="7" Max="13" Color="#ff6400">Red/Yellow</Capability>
+  <Capability Min="14" Max="20" Color="#ff557f">Magenta</Capability>
+  <Capability Min="21" Max="27" Color="#ffa200">Orange</Capability>
+  <Capability Min="28" Max="34" Color="#ffb700">Yellow/Red</Capability>
+  <Capability Min="35" Max="41" Color="#ffff00">Yellow</Capability>
+  <Capability Min="42" Max="48" Color="#a9dc00">Yellow/Green</Capability>
+  <Capability Min="49" Max="55" Color="#aeff00">Yellow/Green</Capability>
+  <Capability Min="56" Max="62" Color="#6fff01">Green/Yellow</Capability>
+  <Capability Min="63" Max="69" Color="#ff6400">Green/Red</Capability>
+  <Capability Min="70" Max="76" Color="#00ff00">Green</Capability>
+  <Capability Min="77" Max="83" Color="#00ff32">Green/Blue</Capability>
+  <Capability Min="84" Max="90" Color="#00ff64">Green/Blue</Capability>
+  <Capability Min="91" Max="97" Color="#00ff7d">Green/Blue</Capability>
+  <Capability Min="98" Max="104" Color="#00ffc8">Cyan</Capability>
+  <Capability Min="105" Max="111" Color="#00ffff">Full Cyan</Capability>
+  <Capability Min="112" Max="118" Color="#007dff">Blue/Green</Capability>
+  <Capability Min="119" Max="125" Color="#007dff">Blue/Green</Capability>
+  <Capability Min="126" Max="132" Color="#007dff">Blue/Green</Capability>
+  <Capability Min="133" Max="139" Color="#007dff">Blue/Green</Capability>
+  <Capability Min="140" Max="146" Color="#0000ff">Blue</Capability>
+  <Capability Min="147" Max="153" Color="#6400ff">Blue/Red</Capability>
+  <Capability Min="154" Max="160" Color="#c800ff">Magenta</Capability>
+  <Capability Min="161" Max="167" Color="#af00ff">Magenta</Capability>
+  <Capability Min="168" Max="174" Color="#c800ff">Magenta</Capability>
+  <Capability Min="175" Max="181" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="182" Max="188" Color="#ff00c8">Magenta</Capability>
+  <Capability Min="189" Max="195" Color="#ff007d">Magenta</Capability>
+  <Capability Min="196" Max="202" Color="#ff0064">Red/Blue</Capability>
+  <Capability Min="203" Max="209" Color="#ff0032">Red/Blue</Capability>
+  <Capability Min="210" Max="216" Color="#ff0000">Red</Capability>
+  <Capability Min="217" Max="223" Color="#ffffff">White</Capability>
+  <Capability Min="224" Max="239">Color Fade</Capability>
+  <Capability Min="240" Max="255">Color Chase</Capability>
+ </Channel>
+ <Channel Name="Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard R-G-Y-B</Capability>
+  <Capability Min="21" Max="41">Bright R-Y-O-C</Capability>
+  <Capability Min="42" Max="62">Mood P-B-G-dR</Capability>
+  <Capability Min="63" Max="83">Spectrum Random</Capability>
+  <Capability Min="84" Max="104">Spectrum Sequence</Capability>
+  <Capability Min="105" Max="125">Dynamic</Capability>
+  <Capability Min="126" Max="146">R-GB</Capability>
+  <Capability Min="147" Max="167">G-BR</Capability>
+  <Capability Min="168" Max="188">B-R</Capability>
+  <Capability Min="189" Max="209">Y-B</Capability>
+  <Capability Min="210" Max="230">R-G</Capability>
+  <Capability Min="231" Max="255">Y-G</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Master" Preset="IntensityMasterDimmer"/>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Chase</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Master</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="450" Height="175" Depth="270"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="2000" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

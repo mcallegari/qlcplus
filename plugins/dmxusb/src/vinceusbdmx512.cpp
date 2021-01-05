@@ -21,7 +21,7 @@
 #include "vinceusbdmx512.h"
 
 VinceUSBDMX512::VinceUSBDMX512(DMXInterface *interface, quint32 outputLine)
-    : DMXUSBWidget(interface, outputLine)
+    : DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
 {
     // TODO: Check if DMX IN is available
 }

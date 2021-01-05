@@ -45,7 +45,7 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     : QGroupBox(parent)
     , m_doc(doc)
     , m_fixture(fixture)
-    , m_channel(channel)
+    , m_chIndex(channel)
     , m_group(Fixture::invalidId())
     , m_presetButton(NULL)
     , m_cngWidget(NULL)
@@ -153,7 +153,7 @@ void ConsoleChannel::init()
     m_label->setMaximumWidth(80);
     layout()->addWidget(m_label);
     m_label->setAlignment(Qt::AlignCenter);
-    m_label->setText(QString::number(m_channel + 1));
+    m_label->setText(QString::number(m_chIndex + 1));
     m_label->setFocusPolicy(Qt::NoFocus);
     m_label->setWordWrap(true);
 
@@ -164,9 +164,11 @@ void ConsoleChannel::init()
     }
     else
     {
-        const QLCChannel* ch = fxi->channel(m_channel);
+        const QLCChannel *ch = fxi->channel(m_chIndex);
         Q_ASSERT(ch != NULL);
         setToolTip(QString("%1").arg(ch->name()));
+        setValue(ch->defaultValue(), false);
+        m_channel = ch;
     }
 
     connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
@@ -193,7 +195,12 @@ quint32 ConsoleChannel::fixture() const
     return m_fixture;
 }
 
-quint32 ConsoleChannel::channel() const
+quint32 ConsoleChannel::channelIndex() const
+{
+    return m_chIndex;
+}
+
+const QLCChannel *ConsoleChannel::channel()
 {
     return m_channel;
 }
@@ -257,7 +264,7 @@ void ConsoleChannel::slotSpinChanged(int value)
         m_slider->setValue(value);
 
     if (m_group == Fixture::invalidId())
-        emit valueChanged(m_fixture, m_channel, value);
+        emit valueChanged(m_fixture, m_chIndex, value);
     else
         emit groupValueChanged(m_group, value);
 }
@@ -269,11 +276,11 @@ void ConsoleChannel::slotSliderChanged(int value)
 }
 void ConsoleChannel::slotChecked(bool state)
 {
-    emit checked(m_fixture, m_channel, state);
+    emit checked(m_fixture, m_chIndex, state);
 
     // Emit the current value also when turning the channel back on
     if (state == true)
-        emit valueChanged(m_fixture, m_channel, m_slider->value());
+        emit valueChanged(m_fixture, m_chIndex, m_slider->value());
 }
 
 /*************************************************************************
@@ -319,9 +326,14 @@ void ConsoleChannel::showResetButton(bool show)
     }
 }
 
+bool ConsoleChannel::hasResetButton()
+{
+    return m_resetButton != NULL ? true : false;
+}
+
 void ConsoleChannel::slotResetButtonClicked()
 {
-    emit resetRequest(m_fixture, m_channel);
+    emit resetRequest(m_fixture, m_chIndex);
 }
 
 /*****************************************************************************
@@ -333,7 +345,7 @@ void ConsoleChannel::initMenu()
     Fixture* fxi = m_doc->fixture(fixture());
     Q_ASSERT(fxi != NULL);
 
-    const QLCChannel* ch = fxi->channel(m_channel);
+    const QLCChannel* ch = fxi->channel(m_chIndex);
     Q_ASSERT(ch != NULL);
 
     // Get rid of a possible previous menu
@@ -509,8 +521,7 @@ void ConsoleChannel::initCapabilityMenu(const QLCChannel* ch)
 
             for (int i = cap->min(); i <= cap->max(); i++)
             {
-                action = valueMenu->addAction(
-                             t.sprintf("%.3d", i));
+                action = valueMenu->addAction(t.asprintf("%.3d", i));
                 action->setData(i);
             }
 

@@ -31,6 +31,7 @@ class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
 class ContextManager;
+class TreeModel;
 class VCWidget;
 class VCFrame;
 class VCPage;
@@ -45,8 +46,11 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(int pagesCount READ pagesCount NOTIFY pagesCountChanged)
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
+    Q_PROPERTY(bool snapping READ snapping WRITE setSnapping NOTIFY snappingChanged)
+    Q_PROPERTY(qreal snappingSize READ snappingSize CONSTANT)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
+    Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
 
 public:
     VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = 0);
@@ -57,15 +61,40 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
-    /** Set/Get the VC edit mode flag */
+    /** Get/Set the VC edit mode flag */
     bool editMode() const;
     void setEditMode(bool editMode);
 
+    /** Get/Set VC widgets position snapping */
+    bool snapping() const;
+    void setSnapping(bool enable);
+
+    /** Get the VC widget position snapping size */
+    qreal snappingSize();
+
+    enum LoadStatus
+    {
+        Cleared = 0,
+        Loading,
+        Loaded
+    };
+
+    /** Get the current VC load status */
+    LoadStatus loadStatus() const;
+
+    /** Get a list of Widgets that use $fid */
+    Q_INVOKABLE QVariantList usageList(quint32 fid);
+
 signals:
     void editModeChanged(bool editMode);
+    void snappingChanged(bool enable);
 
 protected:
     bool m_editMode;
+    bool m_snapping;
+
+    /** The current VC load status */
+    LoadStatus m_loadStatus;
 
     /** Reference to the Context Manager. Used to track VC pages as
      *  regular contexts */
@@ -77,9 +106,13 @@ protected:
 public:
     Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
 
+    /** Enable/disable flicking on the active page.
+      * This is necessary to drag widgets */
+    Q_INVOKABLE void enableFlicking(bool enable);
+
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    Q_INVOKABLE VCPage* page(int page) const;
+    Q_INVOKABLE VCPage *page(int page) const;
 
     /** Return the reference of the currently selected VC page */
     Q_INVOKABLE QQuickItem *currentPageItem() const;
@@ -91,7 +124,7 @@ public:
     Q_INVOKABLE void addPage(int index);
 
     /** Delete a VC page at $index */
-    void deletePage(int index);
+    Q_INVOKABLE void deletePage(int index);
 
     /** Set a protection PIN for the page at $index */
     Q_INVOKABLE bool setPagePIN(int index, QString currentPIN, QString newPIN);
@@ -108,6 +141,8 @@ public:
 
     /** Enable/disable the current page scroll interaction */
     Q_INVOKABLE void setPageInteraction(bool enable);
+
+    Q_INVOKABLE void setPageScale(qreal factor);
 
 signals:
     /** Notify the listeners that the currenly selected VC page has changed */
@@ -163,10 +198,15 @@ public:
     Q_INVOKABLE void setWidgetsFont(QFont font);
 
     /** Delete the VC widgets with the IDs specified in $IDList */
-    void deleteVCWidgets(QVariantList IDList);
+    Q_INVOKABLE void deleteVCWidgets(QVariantList IDList);
 
     /** Return a reference to the currently selected VC widget */
     VCWidget *selectedWidget() const;
+
+    Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos);
+
+    /** Return the associated qrc icon resource for the specified VCWidget $type */
+    Q_INVOKABLE QString widgetIcon(int type);
 
 signals:
     /** Notify the listeners that the currenly selected VC widget has changed */
@@ -179,12 +219,28 @@ protected:
     quint32 newWidgetId();
 
 protected:
-
     /** A map of all the VC widgets references with their IDs */
     QHash <quint32, VCWidget *> m_widgetsMap;
 
     /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
+
+    /*********************************************************************
+     * Clipboard
+     *********************************************************************/
+public:
+    Q_INVOKABLE void copyToClipboard();
+    Q_INVOKABLE void pasteFromClipboard();
+
+    Q_INVOKABLE QVariantList clipboardItemsList();
+
+    int clipboardItemsCount() const;
+
+signals:
+    void clipboardItemsCountChanged();
+
+protected:
+    QVariantList m_clipboardIDList;
 
     /*********************************************************************
      * Drag & Drop
@@ -215,6 +271,10 @@ public:
      *  $widget and fills it later once the first input signal is received */
     Q_INVOKABLE bool createAndDetectInputSource(VCWidget *widget);
 
+    /** Create a new input source for the given $universe and $channel and
+     *  add it to $widget. This is used for manual input source selection */
+    Q_INVOKABLE void createAndAddInputSource(VCWidget *widget, quint32 universe, quint32 channel);
+
     /** Enable the autodetection process for a key sequence.
      *  This method creates an empty QKeySequence in the specified
      *  $widget and updates it later once the first key press is received */
@@ -223,10 +283,6 @@ public:
     /** Enable the autodetection process for a specific input source
      *  bound to an external controller. */
     Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
-
-    /** Update the control ID of the specified $widget for a source coming
-     *  from $universe and $channel */
-    Q_INVOKABLE void updateInputSourceControlID(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
 
     /** Enable the autodetection process for a specific key sequence */
     Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
@@ -247,6 +303,9 @@ public:
 
     /** @reimp */
     void handleKeyEvent(QKeyEvent *e, bool pressed);
+
+    Q_INVOKABLE QVariant inputChannelsModel();
+    Q_INVOKABLE QVariantList universeListModel();
 
 protected slots:
     /**
@@ -271,12 +330,18 @@ protected:
     QKeySequence m_autoDetectionKey;
     quint32 m_autoDetectionKeyId;
 
+    /** Data model used by the QML UI to represent groups/input channels */
+    TreeModel *m_inputChannelsTree;
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
     bool loadXML(QXmlStreamReader &root);
+
+    /** Load input source from $root to $uni and $ch */
+    bool loadXMLLegacyInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
 
     /** Load the Virtual Console global properties XML tree */
     bool loadPropertiesXML(QXmlStreamReader &root);

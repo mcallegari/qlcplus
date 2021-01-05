@@ -853,11 +853,11 @@ void Chaser_Test::tap()
     QVERIFY(c->m_runner != NULL);
     QCOMPARE(c->duration(), uint(0));
     c->write(m_doc->masterTimer(), QList<Universe*>());
-    QCOMPARE(c->m_runner->m_next, false);
+    QCOMPARE(c->m_runner->m_pendingAction.m_action, ChaserNoAction);
     c->tap();
     QTest::qWait(MasterTimer::tick());
     c->tap();
-    QCOMPARE(c->m_runner->m_next, true);
+    QCOMPARE(c->m_runner->m_pendingAction.m_action, ChaserNextStep);
 }
 
 void Chaser_Test::preRun()
@@ -954,13 +954,13 @@ void Chaser_Test::adjustIntensity()
 
     c->preRun(&timer);
     c->adjustAttribute(0.5, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.5));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(0.5));
     c->adjustAttribute(0.8, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.8));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(0.8));
     c->adjustAttribute(1.5, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(1.0));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(1.0));
     c->adjustAttribute(-0.1, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.0));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(0.0));
     c->postRun(&timer, ua);
 
     // Mustn't crash after postRun

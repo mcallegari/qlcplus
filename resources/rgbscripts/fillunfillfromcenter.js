@@ -34,33 +34,29 @@ var testAlgo;
 
     algo.setOrientation = function(_orientation)
     {
-        if (_orientation == "Vertical")
-            algo.orientation = 1;
-        else
-            algo.orientation = 0;
+        if (_orientation === "Vertical") { algo.orientation = 1; }
+        else { algo.orientation = 0; }
     };
 
     algo.getOrientation = function()
     {
-        if (algo.orientation == 1)
-            return "Vertical";
-        else
-            return "Horizontal";
+        if (algo.orientation === 1) { return "Vertical"; }
+        else { return "Horizontal"; }
     };
 
     algo.rgbMap = function(width, height, rgb, step)
     {
         var center = 0;
         var isEven = 0;
-        if (algo.orientation == 1)
+        if (algo.orientation === 1)
         {
             center = Math.floor((parseInt(height) + 1) / 2) - 1;
-            isEven = (height % 2 == 0);
+            isEven = (height % 2 === 0);
         }
         else
         {
             center = Math.floor((parseInt(width) + 1) / 2) - 1;
-            isEven = (width % 2 == 0);
+            isEven = (width % 2 === 0);
         }
         var centerStep = center + 1;
 
@@ -71,22 +67,25 @@ var testAlgo;
             for (var x = 0; x < width; x++)
             {
                 var cmpAxis = x;
-                if (algo.orientation == 1)
+                if (algo.orientation === 1) {
                     cmpAxis = y;
+                }
                 if (step < centerStep)
                 {
-                    if (cmpAxis <= center + step + (isEven ? 1 : 0 ) && cmpAxis >= center - step)
+                    if (cmpAxis <= center + step + (isEven ? 1 : 0 ) && cmpAxis >= center - step) {
                         map[y][x] = rgb;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                 }
                 else
                 {
-                    var step2 = step - centerStep
-                    if (cmpAxis <= center + step2 + (isEven ? 1 : 0 ) && cmpAxis >= center - step2)
+                    var step2 = step - centerStep;
+                    if (cmpAxis <= center + step2 + (isEven ? 1 : 0 ) && cmpAxis >= center - step2) {
                         map[y][x] = 0;
-                    else
+                    } else {
                         map[y][x] = rgb;
+                    }
                 }
             }
         }
@@ -96,10 +95,11 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-        if (algo.orientation == 0)
+        if (algo.orientation === 0) {
             return Math.floor((parseInt(width) + 1) / 2) * 2 - 1;
-        else
+        } else {
             return Math.floor((parseInt(height) + 1) / 2) * 2 - 1;
+        }
     };
 
     // Development tool access

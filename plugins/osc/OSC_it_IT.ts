@@ -40,22 +40,37 @@
         <translation>Porta di trasmissione</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="80"/>
+        <location filename="configureosc.ui" line="88"/>
+        <source>Channel number calculator</source>
+        <translation>Calcolatore numero di canale</translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="96"/>
+        <source>OSC path</source>
+        <translation>Percorso OSC</translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="106"/>
+        <source>Channel number</source>
+        <translation>Numero di canale</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="83"/>
         <source>Inputs</source>
         <translation>Ingressi</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="86"/>
+        <location filename="configureosc.cpp" line="89"/>
         <source>Outputs</source>
         <translation>Uscite</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="168"/>
+        <location filename="configureosc.cpp" line="171"/>
         <source>Invalid IP</source>
         <translation>Indirizzo IP non valido</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="168"/>
+        <location filename="configureosc.cpp" line="171"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 non è un indirizzo IP valido.
@@ -65,39 +80,39 @@ E&apos; necessario sistemare prima di confermare.</translation>
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="85"/>
+        <location filename="oscplugin.cpp" line="91"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation>Questa plugin permette la ricezione di segnale da dispositivi che supportano il protocollo OSC.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="136"/>
-        <location filename="oscplugin.cpp" line="270"/>
+        <location filename="oscplugin.cpp" line="142"/>
+        <location filename="oscplugin.cpp" line="276"/>
         <source>Status: Not open</source>
         <translation>Stato: Non aperto</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="139"/>
-        <location filename="oscplugin.cpp" line="273"/>
+        <location filename="oscplugin.cpp" line="145"/>
+        <location filename="oscplugin.cpp" line="279"/>
         <source>Status: Open</source>
         <translation>Stato: Aperto</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="141"/>
+        <location filename="oscplugin.cpp" line="147"/>
         <source>Packets sent: </source>
         <translation>Pacchetti inviati: </translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="275"/>
+        <location filename="oscplugin.cpp" line="281"/>
         <source>Packets received: </source>
         <translation>Pacchetti ricevuti: </translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="132"/>
+        <location filename="oscplugin.cpp" line="138"/>
         <source>Output</source>
         <translation>Uscita</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="266"/>
+        <location filename="oscplugin.cpp" line="272"/>
         <source>Input</source>
         <translation>Ingresso</translation>
     </message>

@@ -20,8 +20,9 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 import QtQuick.Dialogs 1.1
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
 import "."
@@ -48,11 +49,11 @@ Rectangle
 
         onValueChanged:
         {
-            if (speedType == Function.FadeIn)
+            if (speedType == QLCFunction.FadeIn)
                 rgbMatrixEditor.fadeInSpeed = val
-            else if (speedType == Function.Hold)
+            else if (speedType == QLCFunction.Hold)
                 rgbMatrixEditor.holdSpeed = val
-            else if (speedType == Function.FadeOut)
+            else if (speedType == QLCFunction.FadeOut)
                 rgbMatrixEditor.fadeOutSpeed = val
         }
     }
@@ -65,8 +66,9 @@ Rectangle
 
         onBackClicked:
         {
-            functionManager.setEditorFunction(-1, false)
-            requestView(-1, "qrc:/FunctionManager.qml")
+            var prevID = rgbMatrixEditor.previousID
+            functionManager.setEditorFunction(prevID, false, true)
+            requestView(prevID, functionManager.getEditorResource(prevID))
         }
     }
 
@@ -120,7 +122,7 @@ Rectangle
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
                     model: fixtureGroupEditor.groupsListModel
-                    currentValue: rgbMatrixEditor.fixtureGroup
+                    currValue: rgbMatrixEditor.fixtureGroup
                     onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }
             }
@@ -157,13 +159,13 @@ Rectangle
                     height: editorColumn.itemsHeight
                     model: rgbMatrixEditor.algorithms
                     currentIndex: rgbMatrixEditor.algorithmIndex
-                    onCurrentTextChanged:
+                    onDisplayTextChanged:
                     {
                         rgbMatrixEditor.algorithmIndex = currentIndex
                         paramSection.sectionContents = null
-                        if (currentText == "Text")
+                        if (displayText == "Text")
                             paramSection.sectionContents = textAlgoComponent
-                        else if (currentText == "Image")
+                        else if (displayText == "Image")
                             paramSection.sectionContents = imageAlgoComponent
                         else
                             paramSection.sectionContents = scriptAlgoComponent
@@ -200,12 +202,50 @@ Rectangle
                         ListElement { mLabel: qsTr("Subtractive"); }
                     }
                     model: blendModel
-                    //currentIndex: rgbMatrixEditor.currentAlgo
-                    //onCurrentIndexChanged: rgbMatrixEditor.currentAlgo = currentIndex
+
+                    currentIndex: rgbMatrixEditor.blendMode
+                    onCurrentIndexChanged: rgbMatrixEditor.blendMode = currentIndex
                 }
             }
 
             // row 5
+            RowLayout
+            {
+                width: editorColumn.colWidth
+
+                RobotoText
+                {
+                    label: qsTr("Color mode")
+                    height: editorColumn.itemsHeight
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
+                CustomComboBox
+                {
+                    Layout.fillWidth: true
+                    height: editorColumn.itemsHeight
+
+                    ListModel
+                    {
+                        id: controlModel
+                        ListElement { mLabel: qsTr("Default (RGB)"); }
+                        ListElement { mLabel: qsTr("White"); }
+                        ListElement { mLabel: qsTr("Amber"); }
+                        ListElement { mLabel: qsTr("UV"); }
+                        ListElement { mLabel: qsTr("Dimmer"); }
+                        ListElement { mLabel: qsTr("Shutter"); }
+                    }
+                    model: controlModel
+
+                    currentIndex: rgbMatrixEditor.controlMode
+                    onCurrentIndexChanged: rgbMatrixEditor.controlMode = currentIndex
+                }
+            }
+
+            // row 6
             Row
             {
                 width: editorColumn.colWidth
@@ -251,7 +291,7 @@ Rectangle
                         y: rightSidePanel.y
                         visible: false
                         closeOnSelect: true
-                        selectedColor: rgbMatrixEditor.startColor
+                        currentRGB: rgbMatrixEditor.startColor
 
                         onColorChanged:
                         {
@@ -287,7 +327,7 @@ Rectangle
                         y: rightSidePanel.y
                         visible: false
                         closeOnSelect: true
-                        selectedColor: rgbMatrixEditor.endColor
+                        currentRGB: rgbMatrixEditor.endColor
 
                         onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
                     }
@@ -352,9 +392,9 @@ Rectangle
                                     anchors.fill: parent
                                     onDoubleClicked:
                                     {
-                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                         timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                          fiLabel.label, parent.label, Function.FadeIn)
+                                                          fiLabel.label, parent.label, QLCFunction.FadeIn)
                                     }
                                 }
                             }
@@ -384,9 +424,9 @@ Rectangle
                                     anchors.fill: parent
                                     onDoubleClicked:
                                     {
-                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                         timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                          hLabel.label, parent.label, Function.Hold)
+                                                          hLabel.label, parent.label, QLCFunction.Hold)
                                     }
                                 }
                             }
@@ -416,9 +456,9 @@ Rectangle
                                     anchors.fill: parent
                                     onDoubleClicked:
                                     {
-                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                         timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                          foLabel.label, parent.label, Function.FadeOut)
+                                                          foLabel.label, parent.label, QLCFunction.FadeOut)
                                     }
                                 }
                             }
@@ -436,14 +476,14 @@ Rectangle
                             ListModel
                             {
                                 id: tempoModel
-                                ListElement { mLabel: qsTr("Time"); mValue: Function.Time }
-                                ListElement { mLabel: qsTr("Beats"); mValue: Function.Beats }
+                                ListElement { mLabel: qsTr("Time"); mValue: QLCFunction.Time }
+                                ListElement { mLabel: qsTr("Beats"); mValue: QLCFunction.Beats }
                             }
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             model: tempoModel
 
-                            currentValue: rgbMatrixEditor.tempoType
+                            currValue: rgbMatrixEditor.tempoType
                             onValueChanged: rgbMatrixEditor.tempoType = value
                         }
                     }
@@ -468,13 +508,13 @@ Rectangle
                             ListModel
                             {
                                 id: runOrderModel
-                                ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: Function.Loop }
-                                ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: Function.SingleShot }
-                                ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: Function.PingPong }
+                                ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
+                                ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
+                                ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
                             }
                             model: runOrderModel
 
-                            currentValue: rgbMatrixEditor.runOrder
+                            currValue: rgbMatrixEditor.runOrder
                             onValueChanged: rgbMatrixEditor.runOrder = value
                         }
                         RobotoText
@@ -488,12 +528,12 @@ Rectangle
                             ListModel
                             {
                                 id: directionModel
-                                ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: Function.Forward }
-                                ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: Function.Backward }
+                                ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
+                                ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
                             }
                             model: directionModel
 
-                            currentValue: rgbMatrixEditor.direction
+                            currValue: rgbMatrixEditor.direction
                             onValueChanged: rgbMatrixEditor.direction = value
                         }
                         RobotoText
@@ -505,8 +545,8 @@ Rectangle
                     } // GridLayout
             }
         } // Column
+        ScrollBar.vertical: CustomScrollBar { id: sbar }
     } // Flickable
-    CustomScrollBar { id: sbar; flickable: editorFlickable }
 
     /* *************************************************************
      * Here starts all the Algorithm-specific Component definitions,
@@ -636,7 +676,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: toffRow.algoOffset.width
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = toffRow.algoOffset
                             newOffset.width = value
@@ -651,7 +691,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: toffRow.algoOffset.height
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = toffRow.algoOffset
                             newOffset.height = value
@@ -782,7 +822,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: ioffRow.algoOffset.width
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = ioffRow.algoOffset
                             newOffset.width = value
@@ -797,7 +837,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: ioffRow.algoOffset.height
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = ioffRow.algoOffset
                             newOffset.height = value
@@ -859,7 +899,8 @@ Rectangle
 
         RobotoText
         {
-            height: UISettings.listItemHeight
+            implicitHeight: UISettings.listItemHeight
+            implicitWidth: width
             property string propName
 
             label: propName
@@ -890,7 +931,7 @@ Rectangle
             Layout.fillWidth: true
             property string propName
 
-            onValueChanged: rgbMatrixEditor.setScriptIntProperty(propName, value)
+            onValueModified: rgbMatrixEditor.setScriptIntProperty(propName, value)
         }
     }
 

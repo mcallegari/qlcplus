@@ -79,7 +79,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     QSettings settings;
     QString outputName;
-    int i = 0, selIdx = 0;
+    int i = 1, selIdx = 0;
 
     m_audioDevCombo->addItem(tr("Default device"), "__qlcplusdefault__");
     if (m_audio->audioDevice().isEmpty())
@@ -89,9 +89,11 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
             outputName = var.toString();
     }
     else
+    {
         outputName = m_audio->audioDevice();
+    }
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
@@ -106,7 +108,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     connect(m_audioDevCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotAudioDeviceChanged(int)));
 
-    if(m_audio->runOrder() == Audio::Loop)
+    if (m_audio->runOrder() == Audio::Loop)
         m_loopCheck->setChecked(true);
     else
         m_singleCheck->setChecked(true);

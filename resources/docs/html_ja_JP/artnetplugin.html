@@ -1,0 +1,93 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - ArtNet plugin　入力 / 出力
+</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>ArtNet plugin　入力 / 出力</h1>
+
+<h1>導入</h1>
+
+<p>
+QLC+ ではネットワークを介してパケットの送受信をする<a href="https://en.wikipedia.org/wiki/Art-Net">ArtNet</a>での入力 / 出力をサポートしています。<br>
+Linux, windows, OSX(macOS)のシステムを利用して通信するため、専用の機材は必要ありません。<br>
+Artnet pluginは、複数のネットワークカード・仮装アドレス・ループバックアドレス(127.0.0.0)・複数のネットワークからの複数のuniverseにおける送受信をサポートしています。<br>
+デフォルトではArtnetは選択されたネットワークインターフェス(例: 102.168.0.255)で6564ポートを使用してUDPでブロードキャストアドレスで通信します。ループバックアドレスに通信する場合は1270.0.0.1を使用して送受信を行います。<br>
+同じインターフェス上で複数のユニバースを送受信する場合は、デフォルトでniverse番号から１を引いた数値と等しいArtnet Univerese IDで通信します。<br>
+<br>例えば：<br>
+QLC+ Universe 1 --&gt; ArtNet Universe 0<br>
+QLC+ Universe 2 --&gt; ArtNet Universe 1<br>
+...<br>
+QLC+ Universe 8 --&gt; ArtNet Universe 7<br>
+<br>
+<br>* Artnet universe IDは0からの連番です。<br>* eDMXやODEなどのArtnet nodeではArtnet universe IDは0からの連番でないと正常に動作しません、そのためQLC+上のuniverseとの数値が１ずれる仕様になっています。<br>
+<br>上記の設定で正常にネットワークの通信ができない場合は、次の章を参考にしてください。
+</p>
+
+<h1>構成</h1>
+
+<p>
+<img src="qrc:/configure.png" width="32">Artnet プラグイン設定<br><br>
+<b>Universes Configuration</b>: <u>after</u>QLC+でartnet入力もしくは出力にチェックを入れた後、artnetの設定を変更することができます。<br>
+入力として使用する場合は設定する項目は少ないですが、出力として使用する場合は以下の設定を変更できます。
+<br>
+<ul>
+ <li><b>IP Address</b>: Artnetの送受信に使用するIPアドレスを設定します。
+    デフォルトではブロードキャストアドレスが設定されています(ホストアドレス部が255になります)。また、ホストアドレス部を1-254のいずれかに設定するとArtnetはユニキャストモードで送受信をします。
+    もし、あなたがリピーターハブを使っている場合は出力IPアドレスの設定は無関係に全ての機器と通信をします。これは、リピーターハブを使っている環境ではブロードキャスト・ユニキャストには違いがないためです。
+    一方、スイッチングハブを使う場合は全ての機器がIPアドレスに関連ついているため、ユニキャストを用いてネットワークの効率化を図るケースが多いです。<br>
+     <b>※</b>: 同一ネットワーク上で同じ出力IPアドレスには設定しないでください、ネットワークループが発生する可能性があります。
+    QLC+を実行しているコンピューター上のArtnet nodeと通信するにはループバックアドレス(127.0.0.1)を設定してください。
+  </li>
+  <li><b>ArtNet Universe</b>:
+     設定を変更することで、任意のArtnet universeでの送受信ができます。
+  </li>
+  <li><b>Transmission Mode</b>Art-Netの送信モードを切り替えます。<br>
+    "Full"  全てのDMXチャンネルを固定クロック(50Hz)で送信します。
+    これは、約200Kbit/s の転送速度に相当します。<br>
+     'Partial'  １ch目から使用されているDMXチャンネルまでのみを送信します。(例)  50chをスタートアドレスとするフィクスチャーの3ch(50~53ch)を操作すると、Art-Netでは、先頭の1ch~53chまでしか送信しません、これにより通常よりもリフレッシュレートを上げることができます。※ フィクスチャーがこの機能をサポートしているかどうか確認してください、対応していないフィクスチャーにこの機能を使用すると正常に動作しない可能性があります。
+  </li>
+</ul>
+デフォルトでは使用できないフィクスチャーなどの設定データはQLC+ワークスペースで管理され、マルチプラットフォームへの移植性の向上などに使用されています。
+<br>
+<br>
+<b>Nodes Tree</b>: このタブでは、ネットワーク上に検出されたArt-Net機器の一覧を表示しています。<br>
+QLC+自身がかならず表示されています。
+<br>
+この一覧に表示させるにはArtPoll / ArtPollReply message に対応している必要があります。機器が表示されない場合はArtPoll / ArtPollReply message に対応しているか確認してみてください。
+※ Nodes Treeに表示されない場合でもArt-Net自体の通信は行うことができます。
+</p>
+
+<h1>eDMX(DMXking社)・ODE(ENTTEC社)
+</h1>
+
+<p>
+eDMX(DMXking社)・ODE(ENTTEC社)を使う場合には、Art-Netの設定を支援するツールがあります。ツールを使用することで、QLC+との入出力に関してベストな設定をすることができます。<br>
+例えば、eDMXを使ってQLC+からuniverse３を最初のポートに出力したい場合は、以下のツールを使用してデバイスのuniverse address を２に変更する必要があります。<br>
+<br>各ツールへのリンク<br>
+<a href="https://dmxking.com/downloads/eDMX_Configuration.zip">DMXKing eDMX Configuration tool</a><br>
+<a href="https://www.enttec.com/?main_menu=Products&pn=79001">ENTTEC Node Management Utility</a><br>
+</p>
+
+<h1>動作確認済み機器</h1>
+
+<p>
+QLC+では以下の機器・ソフトウェアが正常に動作することを確認しています。<ul>
+ <li><a href="https://dmxking.com/artnetsacn/edmx1">DMXking eDMX1 TX</a> - 1 Output device</li>
+ <li><a href="https://dmxking.com/artnetsacn/edmx2-tx-rdm">DMXking eDMX2 TX</a> - 2 Outputs device</li>
+ <li><a href="https://www.enttec.com/index.php?main_menu=Products&amp;pn=70305">Enttec Open DMX Ethernet (ODE)</a> - Input/Output device</li>
+ <li><a href="https://www.opendmx.net/index.php/Open_Lighting_Architecture">OLA - Open Lighting Architecture</a> - Input/Output software node</li>
+ <li><a href="https://sites.google.com/site/artnetcontroller/">ArtNet Controller LITE</a> - Input controller for Android</li>
+ <li><a href="https://play.google.com/store/apps/details?id=com.litux.art_net_controller_lite">Art-Net Controller LITE</a> - Input controller for Android</li>
+ <li><a href="http://www.garagecube.com/modul8/">Modul8</a>
+ <li><a href="http://www.live-leds.de/">Jinx!</a> - LED Matrix Control</li>
+</li></ul>
+</p>
+
+</BODY>
+</html>

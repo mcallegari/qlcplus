@@ -29,6 +29,7 @@ RGBAudio::RGBAudio(Doc * doc)
     : RGBAlgorithm(doc)
     , m_audioInput(NULL)
     , m_bandsNumber(-1)
+    , m_maxMagnitude(0)
 {
 }
 
@@ -37,6 +38,7 @@ RGBAudio::RGBAudio(const RGBAudio& a, QObject *parent)
     , RGBAlgorithm(a.doc())
     , m_audioInput(NULL)
     , m_bandsNumber(-1)
+    , m_maxMagnitude(0)
 {
 }
 
@@ -85,7 +87,7 @@ void RGBAudio::calculateColors(int barsHeight)
     if (barsHeight > 0)
     {
         m_barColors.clear();
-        if (endColor() == QColor() 
+        if (endColor() == QColor()
             || barsHeight == 1) // to avoid division by 0 below
         {
             for (int i = 0; i < barsHeight; i++)
@@ -119,7 +121,7 @@ int RGBAudio::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
+void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(step);
 
@@ -129,7 +131,7 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     if (capture.data() != m_audioInput)
         setAudioCapture(capture.data());
 
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
@@ -143,7 +145,7 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
         m_bandsNumber = size.width();
         qDebug() << "[RGBAudio] set" << m_bandsNumber << "bars";
         m_audioInput->registerBandsNumber(m_bandsNumber);
-        return map;
+        return;
     }
     if (m_barColors.count() == 0)
         calculateColors(size.height());
@@ -168,8 +170,6 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
                 map[y][x] = m_barColors.at(y);
         }
     }
-
-    return map;
 }
 
 void RGBAudio::postRun()

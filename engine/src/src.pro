@@ -56,6 +56,7 @@ HEADERS += avolitesd4parser.h \
            qlcinputprofile.h \
            qlcinputsource.h \
            qlcmodifierscache.h \
+           qlcpalette.h \
            qlcphysical.h \
            utils.h
 
@@ -68,6 +69,7 @@ HEADERS += bus.h \
            channelsgroup.h \
            channelmodifier.h \
            chaser.h \
+           chaseraction.h \
            chaserrunner.h \
            chaserstep.h \
            collection.h \
@@ -90,6 +92,7 @@ HEADERS += bus.h \
            inputoutputmap.h \
            inputpatch.h \
            ioplugincache.h \
+           keypadparser.h \
            mastertimer.h \
            monitorproperties.h \
            outputpatch.h \
@@ -105,7 +108,7 @@ HEADERS += bus.h \
            rgbtext.h \
            scene.h \
            scenevalue.h \
-           script.h \
+           scriptwrapper.h \
            sequence.h \
            show.h \
            showfunction.h \
@@ -114,9 +117,9 @@ HEADERS += bus.h \
            universe.h
 
 qmlui {
-  HEADERS += rgbscriptv4.h
+  HEADERS += rgbscriptv4.h scriptrunner.h scriptv4.h
 } else {
-  HEADERS += rgbscript.h
+  HEADERS += rgbscript.h script.h
 }
 
 win32:HEADERS += mastertimer-win32.h
@@ -136,6 +139,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcmodifierscache.cpp \
+           qlcpalette.cpp \
            qlcphysical.cpp
 
 greaterThan(QT_MAJOR_VERSION, 4) {
@@ -168,6 +172,7 @@ SOURCES += bus.cpp \
            inputoutputmap.cpp \
            inputpatch.cpp \
            ioplugincache.cpp \
+           keypadparser.cpp \
            mastertimer.cpp \
            monitorproperties.cpp \
            outputpatch.cpp \
@@ -182,7 +187,6 @@ SOURCES += bus.cpp \
            rgbtext.cpp \
            scene.cpp \
            scenevalue.cpp \
-           script.cpp \
            sequence.cpp \
            show.cpp \
            showfunction.cpp \
@@ -191,9 +195,9 @@ SOURCES += bus.cpp \
            universe.cpp
 
 qmlui {
-  SOURCES += rgbscriptv4.cpp
+  SOURCES += rgbscriptv4.cpp scriptrunner.cpp scriptv4.cpp
 } else {
-  SOURCES += rgbscript.cpp
+  SOURCES += rgbscript.cpp script.cpp
 }
 
 win32:SOURCES += mastertimer-win32.cpp
@@ -238,7 +242,7 @@ PRE_TARGETDEPS += $$CONFIGFILE
 QMAKE_CLEAN += $$CONFIGFILE
 QMAKE_DISTCLEAN += $$CONFIGFILE
 
-macx|win32 {
+macx|win32|appimage {
     conf.commands += echo \"$$LITERAL_HASH ifndef CONFIG_H\" > $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define CONFIG_H\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define APPNAME \\\"$$APPNAME\\\"\" >> $$CONFIGFILE &&
@@ -261,6 +265,11 @@ macx|win32 {
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define GOBODIR \\\"$$GOBODIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define WEBFILESDIR \\\"$$WEBFILESDIR\\\"\" >> $$CONFIGFILE &&
+qmlui {
+    conf.commands += echo \"$$LITERAL_HASH define MESHESDIR \\\"$$MESHESDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define COLORFILTERSDIR \\\"$$COLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERCOLORFILTERSDIR \\\"$$USERCOLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+}
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
 else:unix|android|ios {
@@ -286,6 +295,11 @@ else:unix|android|ios {
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define GOBODIR \\\"$$INSTALLROOT/$$GOBODIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define WEBFILESDIR \\\"$$INSTALLROOT/$$WEBFILESDIR\\\"\" >> $$CONFIGFILE &&
+qmlui {
+    conf.commands += echo \"$$LITERAL_HASH define MESHESDIR \\\"$$INSTALLROOT/$$MESHESDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define COLORFILTERSDIR \\\"$$INSTALLROOT/$$COLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERCOLORFILTERSDIR \\\"$$USERCOLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+}
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
 

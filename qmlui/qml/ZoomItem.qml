@@ -24,8 +24,8 @@ import "."
 Rectangle
 {
     id: itemRoot
-    width: UISettings.iconSizeDefault * 2
-    height: UISettings.iconSizeDefault
+    implicitWidth: UISettings.iconSizeDefault * 2
+    implicitHeight: UISettings.iconSizeDefault
 
     color: UISettings.bgLight
 

@@ -51,6 +51,15 @@ public:
 
     virtual AudioDecoder *createCopy() = 0;
 
+    /*!
+     * Returns the plugin priority
+     * Subclass should reimplement this function.
+     */
+    virtual int priority() const = 0;
+    /*!
+     * Returns a list of extensions for the supported file formats
+     * Subclass should reimplement this function.
+     */
     virtual QStringList supportedFormats() = 0;
     /*!
      * Prepares decoder for usage.

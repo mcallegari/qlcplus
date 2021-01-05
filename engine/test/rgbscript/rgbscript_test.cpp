@@ -140,9 +140,11 @@ void RGBScript_Test::evaluateNoRgbMapFunction()
     // No rgbMap() function present
     QString code("( function() { return 5; } )()");
     RGBScript s(m_doc);
+    RGBMap map;
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
-    QCOMPARE(s.rgbMap(QSize(5, 5), 1, 0), RGBMap());
+    s.rgbMap(QSize(5, 5), 1, 0, map);
+    QCOMPARE(map, RGBMap());
 }
 
 void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
@@ -172,20 +174,24 @@ void RGBScript_Test::rgbMapStepCount()
 
 void RGBScript_Test::rgbMap()
 {
+    RGBMap map;
     RGBScript s = m_doc->rgbScriptsCache()->script("Stripes");
-    QVERIFY(s.rgbMap(QSize(3, 4), 0, 0).isEmpty() == false);
+    s.rgbMap(QSize(3, 4), 0, 0, map);
+    QVERIFY(map.isEmpty() == false);
 
     s.setProperty("orientation", "Vertical");
     QVERIFY(s.property("orientation") == "Vertical");
 
-    for (int z = 0; z < 5; z++)
+    for (int step = 0; step < 5; step++)
     {
-        RGBMap map = s.rgbMap(QSize(5, 5), QColor(Qt::red).rgb(), z);
+        RGBMap map;
+        s.rgbMap(QSize(5, 5), QColor(Qt::red).rgb(), step, map);
+
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
             {
-                if (y == z)
+                if (y == step)
                     QCOMPARE(map[y][x], QColor(Qt::red).rgb());
                 else
                     QCOMPARE(map[y][x], uint(0));

@@ -1,0 +1,197 @@
+
+<html dir="ltr">
+
+<head>
+  <title>Q Light Controller Plus - Enttec DMXUSB Output Plugin</title>
+  <script src="utility.js" type="text/javascript"></script>
+  <link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+
+<BODY onLoad="replaceqrc()">
+
+
+  <h1>DMX USB input/output plugin</h1>
+
+  <h1>1 始めに</h1>
+  <p>
+    QLC+ではFTDIベースの以下のデバイスをサポートしています。
+    <ul>
+      <li>DMXKing USB DMX512-A</li>
+      <li><a href="https://dmxking.com/usbdmx/ultradmxmicro">DMXKing ultraDMX micro</a></li>
+      <li><a href="https://dmxking.com/discontinued/ultradmx-pro">DMXKing ultraDMX Pro</a></li>
+      <li><a href="https://www.enttec.com/products/controls/usb/open-dmx-usb/">Enttec DMXUSB Open</a></li>
+      <li><a href="https://www.enttec.com/products/controls/usb/2-universe-usb-computer-interface-dmx/">Enttec DMXUSB Pro</a></li>
+      <li><a href="https://www.enttec.com/products/controls/usb/dmx-usb-pro-mk2-2-universe-usb-computer-interface-dmx/">Enttec DMX USB PRO Mk2</a></li>
+      <li><a href="http://www.dmx4all.de/produkte_usb_dmx_interfaces.html">DMX4ALL USB-DMX STAGE-PROFI MK2</a></li>
+      <li><a href="http://www.dmx4all.de/produkte_usb_dmx_interfaces.html">DMX4ALL NanoDMX</a></li>
+      <li><a href="http://www.guselectronics.com/usb-dmx-interface-512">Gus Electronics USB-VL344</a></li>
+      <li><a href="http://www.dmx512-online.net/en-article58.html">Vince DMX512 USB</a></li>
+      <li><a href="http://www.electrotas.com/usbdmx.html">ElectroTAS USB-DMX</a></li>
+      <li><a href="https://www.steinigke.de/en/mpn51860118-eurolite-usb-dmx512-interface-update-adaptor.html">Eurolite USB-DMX512</a></li>
+      <li><a href="https://www.steinigke.de/en/mpn51860120-eurolite-usb-dmx512-pro-interface.html">Eurolite USB DMX512 Pro</a></li>
+      <li><a href="https://www.steinigke.de/en/mpn51860122-eurolite-usb-dmx512-pro-cable-interface.html">Eurolite USB-DMX512 Pro Cable</a></li>
+      <li><a href="https://www.steinigke.de/en/mpn51860121-eurolite-usb-dmx512-pro-interface-mk2.html">Eurolite USB DMX512 Pro MK2</a></li>
+      <li><a href="http://www.ftdichip.com/Products/Modules/USBRSxxx.htm">FTDI USBCOM 485+</a></li>
+    </ul>
+
+    <h1>2 設定</h1>
+    <p>
+      USBデバイスを接続するとQLC+が自動的に種類を検出し、入力/出力設定パネルに表示されます。<br> 何らかの理由で検出できなかった場合には、手動で機種を設定することができます。
+      <br> 一覧のデバイスの名前をクリックするか右下の
+      <img src="qrc:/configure.png" width="32">をクリックするとと設定ダイアルログが開きます。<br> 一覧には検出された接続済みのデバイス名が表示されています。検出できなかった時には、ドロップダウンメニューからデバイスを指定することができます
+      <br>設定項目は以下の通りです。
+      <ul>
+        <li><b>Open TX</b>: Enttec USB Open DMX(またはその互換品)を出力として使う</li>
+        <li><b>Open RX</b>: Generic FTDI devices receive mode</li>
+        <li><b>ProRX/TX</b>: Enttec USB DMX Pro・DMXKing などのデバイス</li>
+        <li><b>ProMk2</b>: Enttec USB DMX ProMk2 2つのDMX出力、1つのDMX入力、1つのMIDI入力、1つのMIDI出力として使う</li>
+        <li><b>Ultra Pro</b>: DMXKing ultraDMX Pro　2つの出力と1つの入力として使う</li>
+        <li><b>DMX4ALL</b>: DMX4ALL USB-DMX STAGE-PROFI MK2</li>
+        <li><b>Vince Tx</b>: Vince DMX512 USB の出力モードで使う</li>
+      </ul>
+      <b>※OSXをお使いの場合:</b> デバイスが検出されているのにもかかわらず、DMXが出力されない場合には、<a href="questionsandanswers.html#osx-mavericks">よくある質問</a>をご覧ください。
+    </p>
+
+    <h1>3 動作環境</h1>
+
+    <h2>3.1 Linux</h2>
+    <p>
+      Linux系のシステムをお使いの場合は、 libftdiをインストールする必要があります。Ubuntuなどをお使いの場合はソフトウェアセンターなどのパッケージマネージャーを用いてインストールすることができます。<br>デバイスから何も出力されない場合、次のコマンドを使用して、ユーザーを「ダイヤルアウト」グループに追加すると解決する場合があります。<br>
+      <pre>sudoadduser your_user_name dialout</pre>
+    </p>
+
+    <h2>3.2 Mac OS X</h2>
+    <p>
+      Appleのmac製品のOSXを使用している場合はお使いのデバイスにあったドライバーをインストールする必要があるかもしれません。その場合にはD2XXをインストールすると解決する場合があります。この時<b>VCP drivers</b>はインストールしないように注意してください。もし、お使いのシステムに既にVCPドライバーがインストールされている場合には
+      <a href="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</a>を参考にアンインストールしてください。<br>
+      <br>
+      <b>OSXでデバイスが正しく動作しない問題</b>についての詳しい情報は<a href="questionsandanswers.html#osx-mavericks">よくある質問の4つ目</a>を参照してください。
+    </p>
+
+    <h2>3.3 Windows</h2>
+    <p>Windowsをお使いの場合は、<a href="http://www.ftdichip.com/Drivers/D2XX.htm">最新のD2XXドライバー</a>をインストールする必要があります。<a href="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</a>を参考にインストールしてください。 この時
+      <b>VCPドライバー</b>をインストールしないように注意してください。
+    </p>
+
+    <h1>4 ENTTEC DMX USB Proのサポート</h1>
+    <p>
+      QLC+ではDMX USB Proand ProMk2に対応しており、対応状況は以下の表の通りです。<br> もし、お使いのデバイスが表にない場合にはQLC+がサポートしていないかもしてません。お使いのデバイスの動作状況などの情報や問題をQLC+ forumへ報告していただけると今後の開発の助けになります。<br>
+      <br>
+      <table border="1" class="qlcTable">
+        <tr>
+          <td></td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+          <td>10</td>
+          <td>11</td>
+          <td>12</td>
+          <td>13</td>
+          <td>14</td>
+        </tr>
+        <tr>
+          <td>DMX1 IN</td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>DMX1 OUT</td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+        </tr>
+        <tr>
+          <td>DMX2 OUT (1)</td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td>o</td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>MIDI IN (2)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td>o</td>
+          <td>o</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td>o</td>
+          <td>o</td>
+        </tr>
+        <tr>
+          <td>MIDI OUT (2)</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>o</td>
+          <td>o</td>
+          <td>o</td>
+          <td>o</td>
+          <td>o</td>
+          <td>o</td>
+        </tr>
+      </table>
+      <br>（1）2universeのDMX出力は、DMX USB Mk2 Proでのみ使用できます<br>（2）MIDI INとMIDI OUTは、DMX USB Mk2 Proでのみ使用でき、5-way　breakoutケーブルを使用できます。MIDI OUT信号は、 <a href="midiplugin.html#channelsmap">MIDIプラグインのチャンネルマップに</a>記載されているように1から512まで送られます<br>
+    </p>
+
+    <h1>5 Tuning</h1>
+    <p>
+      <b>※ チューニングはどうしてもという状況でのみ行ってください。この操作にはリスクが伴います。</b><br> ENTTEC Open DMX などのデバイスのリフレッシュレートを変更することができます(これは隠し設定です)この設定はDMX信号を1秒間に何回送信するかどうかを設定できます。デフォルトでは30Hzが設定されています。<br> 詳しくは
+      <a href="./parameterstuning.html#EnttecOpen">パラメーターの手動設定</a>のUSB DMXの頁を参照してください。
+    </p>
+
+  </p>
+</BODY>
+
+</html>

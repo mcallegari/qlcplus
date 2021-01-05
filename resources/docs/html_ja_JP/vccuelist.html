@@ -1,0 +1,185 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - キューリスト</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1><IMG SRC="qrc:/cuelist.png" ALIGN="absmiddle">  キューリスト</h1>
+
+<p>　キューリストは<a href="concept.html#Functions">ファンクション</a>の一種であるチェイスを再生するための機能です。演者の動きや台詞に合わせて事前に作っておいたファンクションを順番に再生する機能で、演劇やミュージカルなどに向いています。
+</p>
+
+<p>
+　キューリストに追加できるステップ数に上限はなく、<a href="https://en.wikipedia.org/wiki/Buzz_Lightyear">たとえ無限の彼方</a>と感じるぐらい大量のステップ数でも大丈夫。ウィジェット上にはキューのステップ番号とステップの<a href="concept.html#Functions">ファンクション</a>名が表示されています。
+</p>
+
+<p>
+<b>※</b> ファンクションを追加する上で注意しておきたいのは、チェイスしか追加できないという点です。事前にファンクションをまとめた<a href="concept.html#Chaser">チェイス</a>をコレクション等も利用しながら作成しておきチェイスをウィジェットに割り当ててください。このように<a href="chasereditor.html">チェイス</a>では１ステップ内に複数のファンクションを含めることができないため、複数の<a href="concept.html#Scene">シーン</a>やファンクションをまとめて１つのファンクションにできる<a href="concept.html#Collection">コレクション</a>を使ってみてください。
+</p>
+
+<h3>各種設定</h3>
+
+<p>
+　ウィジェットのプロパティーを開くにはウィジェットを選択して<IMG SRC="qrc:/edit.png" ALIGN="bottom">アイコンをクリックするか、ダブルクリックしてください。<br>
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>
+　キューリスト名をつけることができます。ここで設定した名前はステップ一覧のヘッダーに表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>ステップ一覧</b>
+  </td>
+  <td>
+   <b>チェイス</b>:　<a href="concept.html#Chaser">チェイス</a>を割り当ててください。<br>
+   <IMG SRC="qrc:/attach.png">クリックすると<a href="concept.html#Chaser">ファンクションの選択</a>ダイアルログが表示されるので、割り当てる<a href="selectfunction.html">チェイス</a>を選択してください。<br>
+   <IMG SRC="qrc:/detach.png">チェイスの割り当てを解除します。<br><br>
+   <b>ボタンの表示切り替え</b>: 再生ボタンの種類を選択できます。<br>
+   <b>Behavior of the Next/Previous buttons when the chaser is not active</b>: キューリストを一度再生し、停止ボタンを押した後再び再生するときの挙動を設定できます。<br>選択できる挙動は以下の通りです。<ul>
+    <li>Run chaser from first/last cue (default): 停止ボタンが押されるとカーソルが一番最初のステップに戻り、再生ボタンを押すと必ず最初のステップから再生されるようになります。</li>
+    <li>Run chaser from next/previous cue: 停止ボタンを押したときに再生していたステップにカーソルが残ります。カーソル位置をクリックで変更することもできます。カーソル位置の次から再生を再開します。</li>
+    <li>Select next/previous cue: 停止ボタンを押したステップの次のステップから再生を再開します。</li>
+    <li>Do nothing: 何もしない。これは、スライダーを使わず、再生/停止ボタンのみを使うときに便利な機能です。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>プレイバック</b>
+  </td>
+  <td>
+　外部入力でキューリストのボタンをコントロールできます。外部入力だけではなくキーボードでも可能です。
+  </td>
+ <tr>
+  <td>
+   <b>次のキュー</b>
+  </td>
+  <td>
+　同様に外部入力やキーボードを使用できます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>前のキュー</b>
+  </td>
+  <td>
+　同様に外部入力やキーボードを使用できます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Side Faders</b>
+  </td>
+  <td>
+   <b>Behaviour</b>: スライダーの種類を選択できます。クロスフェードでは２本のスライダーが表示されます。<br>ステップではスライダーは１本で、段階的にステップの再生が割り当てられています。<br>
+   <b>Left Fader</b>: 外部入力設定ができます。<br>
+   <b>Right Fader</b>: 外部入力設定ができます。
+　※ステップモードの時に表示される１本のスライダーに外部入力を割り当てるときはLeft Faderに割り当ててください、Right Faderに割り当てても意味がありません。<br>
+  </td>
+ </tr>
+</tr></table>
+
+<br>
+<h3>本番モード</h3>
+
+<p>
+　本番モードにするとキューリストのボタンが動作するようになります。<br><br><br>
+　ウィジェットには以下のパーツが表示されています。<br><br>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>ステップの進行バー</b>
+  </td>
+  <td>
+　ステップの進行状況を表します。<br>
+　フェードイン時にはバーが<span style="background-color:#63c10b">緑色</span>になります。<br>フェードインが終わると<span style="background-color:#0f9bec">青</span>くなります
+　バー内に表示されている秒数は、ステップが終了するまでの残り時間です。<br>
+　ステップの継続時間が無限に設定されている場合は、バーは<span style="background-color:#63c10b">緑色</span>になります。
+  </td>
+ </tr>
+ <tr>
+   <TD><IMG src="qrc:/slider.png"></TD>
+  <td>
+　クリックするとウィジェット左にスライダーが表示されます。</td>
+ </tr>
+ <tr>
+  <td>
+    <IMG src="qrc:/player_play.png"><BR>
+    <IMG src="qrc:/player_pause.png"><BR>
+    <IMG src="qrc:/player_stop.png">
+  </td>
+  <td>キューリストには、 <b>実行中</b> 、 <b>一時停止中</b> 、 <b>停止中の</b> 3つの再生状態があります。<br>
+　ウィジェットの見た目は設定から変更できます。<br>
+
+<IMG src="qrc:/player_play.png"><br>
+　停止中に再生ボタンを押すとカーソルのあるステップから再生が始まります。ステップが選択されていない場合は最初のステップから再生します。<br>
+　再生状況に応じて停止ボタンや一時停止ボタンが表示されます。<br>
+　一時停止中に再生ボタンをクリックすると再生を再開します。<br><br>
+
+<IMG src="qrc:/player_pause.png"><br>
+　再生中に一時停止ボタンをクリックすると再生を一時停止します。<br>
+　一時停止中はボタンの背景が青くなり、一時停止中であることを表しています。<br>
+    <b>※:</b> フェードアウト中に一時停止することはできません。<br><br>
+
+    <IMG src="qrc:/player_stop.png"><br>
+　再生中のキューを停止します。キューリストによって出力されていたDMX値は全て消えます。<br>"Play/Pause + Stop"レイアウトにしているときに停止ボタンを２回押すとカーソルが最初のステップに移動します。
+　</td>
+ </tr>
+ <tr>
+   <TD><IMG src="qrc:/back.png"></TD>
+  <td>カーソルを戻すカーソルが一番上にあるときにクリックすると一番下に移動します。</td>
+ </tr>
+ <tr>
+   <TD><IMG src="qrc:/forward.png"></TD>
+  <td>カーソルを送ります。カーソルが一番下にあるときは一番最初に移動します。</td>
+ </tr>
+</table>
+
+</p>
+
+<br>
+<h3>クロスフェード</h3>
+
+<p>
+　２本のスライダーが表示されます。<br><br>
+　この２本のスライダーは現在のステップと次のステップに紐付いています。<br>
+　２本のスライダーの下にステップ番号が表示されています。実際に再生してみるとこの数字か移り変わっていくのがわかると思います。<br><br>
+　スライダーの上の２つのチェックボックスについて説明します。<br>
+  <ul>
+   <li><b>Blend</b>: クロスフェードされている２つのステップを加算ブレンドした値がDMXとして出力されます。<br>
+　つまり、２つのステップとの関係を見てみるとモーフィングのように混ざりながら移り変わっていくことになります。<br>したがって、２つのステップ間で値が変化しないチャンネルは、クロスフェード時にも変化しません。
+   </li>
+   <li><b>連動</b>: ２本のスライダーが同じ動きをするようにします。
+   </li>
+  </ul>
+　キューリストが再生されている時にこの２本のスライダーを動かすと、事前に設定されていたフェードタイム等を上書きして、クロスフェードします。<br><br>
+　<span style="background-color:#4e8dde">再生中のステップ</span>が表示されているときは背景色が青くなりますキューリストの再生を開始すると100%になります。<br>
+　<span style="background-color:orange">次のステップ</span>が表示されているときは背景色がオレンジになり、0%になります。<br>
+　スライダーを動かすと数量的にステップが再生されます。<br><br>
+　しかし、２本のスライダーが端にきた時に以下の動作をします。<br>
+　オレンジだった<span style="background-color:orange">次のステップ</span>が<span style="background-color:#4e8dde">青く</span>なり再生が始まります。(スライダーは100%)これは再生されるステップが移り変わったことを表しています。<br>
+　青だった<span style="background-color:#4e8dde">再生中のステップ</span>が<span style="background-color:orange">オレンジ</span>になり次のステップが割り当てられます。そして今まで再生していたスライダーにさらに次のステップが表示されます。
+</p>
+
+<br>
+<h3>ヒント</h3>
+
+<p>
+　<a href="chasereditor.html">チェイスエディター</a>でステップを追加した時、デフォルトの継続時間は０に設定されています。<br>
+　すると継続時間がないので再生するとステップが暴れ出すかのように動いてしまうので、何かしらの継続時間を設定しておいてください。<br>
+　※　設定するには<a href="vcspeeddial.html">スピードダイヤル</a>を使用できます。<IMG src="qrc:/speed.png">アイコンをクリックしてください。
+</p>
+
+</BODY>
+</html>

@@ -20,6 +20,7 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
+#include <QScreen>
 #include <qmath.h>
 #include <QDebug>
 #include <QImage>
@@ -244,14 +245,26 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     foreach(QLCCapability* cap, chan->capabilities())
     {
-        if (cap->resourceName().isEmpty() == false)
-            m_resources.append(PresetResource(cap->resourceName(), cap->name(),
+        if (cap->presetType() == QLCCapability::Picture)
+        {
+            m_resources.append(PresetResource(cap->resource(0).toString(), cap->name(),
                                               cap->min(), cap->max()));
-        else if (cap->resourceColor1().isValid())
-            m_resources.append(PresetResource(cap->resourceColor1(), cap->resourceColor2(),
-                                              cap->name(), cap->min(), cap->max()));
+        }
+        else if (cap->presetType() == QLCCapability::SingleColor)
+        {
+            QColor col1 = cap->resource(0).value<QColor>();
+            m_resources.append(PresetResource(col1, QColor(), cap->name(), cap->min(), cap->max()));
+        }
+        else if (cap->presetType() == QLCCapability::DoubleColor)
+        {
+            QColor col1 = cap->resource(0).value<QColor>();
+            QColor col2 = cap->resource(1).value<QColor>();
+            m_resources.append(PresetResource(col1, col2, cap->name(), cap->min(), cap->max()));
+        }
         else
+        {
             m_resources.append(PresetResource(i, cap->name(), cap->min(), cap->max()));
+        }
         i++;
     }
 }
@@ -261,7 +274,8 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
-    QRect screen = QApplication::desktop()->availableGeometry(this);
+    QScreen *scr = QGuiApplication::screens().first();
+    QRect screen = scr->availableGeometry();
 
     m_cols = 2;
     m_rows = qCeil((qreal)m_resources.size() / 2);
@@ -283,14 +297,14 @@ void ClickAndGoWidget::setupPresetPicker()
         m_cellWidth = screen.width() / m_cols;
         m_width = m_cellWidth * m_cols;
     }
- 
+
     int x = 0;
     int y = 0;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
     QLinearGradient presetGrad(QPointF(0,0), QPointF(0, m_height));
-    presetGrad.setColorAt(0, QApplication::palette().background().color());
+    presetGrad.setColorAt(0, QApplication::palette().window().color());
     presetGrad.setColorAt(1, QColor(173, 171, 179));
     painter.fillRect(0, 0, m_width, m_height, presetGrad);
 
@@ -313,8 +327,8 @@ void ClickAndGoWidget::setupPresetPicker()
         }
         else
             x += m_cellWidth;
-         
-    }  
+
+    }
 }
 
 QSize ClickAndGoWidget::sizeHint() const

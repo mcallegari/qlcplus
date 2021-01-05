@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>LED Light Bar RGB V3</Model>
+ <Type>Other</Type>
+ <Channel Name="Red1" Preset="IntensityRed"/>
+ <Channel Name="Green1" Preset="IntensityGreen"/>
+ <Channel Name="Blue1" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red2" Preset="IntensityRed"/>
+ <Channel Name="Green2" Preset="IntensityGreen"/>
+ <Channel Name="Blue2" Preset="IntensityBlue"/>
+ <Channel Name="Strobe1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Flashes from slow to fast (0-20 flashes/s)</Capability>
+ </Channel>
+ <Channel Name="Red3" Preset="IntensityRed"/>
+ <Channel Name="Green3" Preset="IntensityGreen"/>
+ <Channel Name="Blue3" Preset="IntensityBlue"/>
+ <Channel Name="Red4" Preset="IntensityRed"/>
+ <Channel Name="Green4" Preset="IntensityGreen"/>
+ <Channel Name="Blue4" Preset="IntensityBlue"/>
+ <Channel Name="Colors/Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Funtion</Capability>
+  <Capability Min="10" Max="19">Red</Capability>
+  <Capability Min="20" Max="29">Yellow</Capability>
+  <Capability Min="30" Max="39">Green</Capability>
+  <Capability Min="40" Max="49">Cyan</Capability>
+  <Capability Min="50" Max="59">Blue</Capability>
+  <Capability Min="60" Max="69">Purple</Capability>
+  <Capability Min="70" Max="79">White</Capability>
+  <Capability Min="80" Max="89">Program 01</Capability>
+  <Capability Min="90" Max="99">Program 02</Capability>
+  <Capability Min="100" Max="109">Program 03</Capability>
+  <Capability Min="110" Max="119">Program 04</Capability>
+  <Capability Min="120" Max="129">Program 05</Capability>
+  <Capability Min="130" Max="139">Program 06</Capability>
+  <Capability Min="140" Max="149">Program 07</Capability>
+  <Capability Min="150" Max="159">Program 08</Capability>
+  <Capability Min="160" Max="169">Program 09</Capability>
+  <Capability Min="170" Max="179">Program 10</Capability>
+  <Capability Min="180" Max="189">Program 11</Capability>
+  <Capability Min="190" Max="199">Program 12</Capability>
+  <Capability Min="200" Max="209">Program 13</Capability>
+  <Capability Min="210" Max="219">Program 14</Capability>
+  <Capability Min="220" Max="229">Program 15</Capability>
+  <Capability Min="230" Max="239">Program 16</Capability>
+  <Capability Min="240" Max="255">Sound-controlled</Capability>
+ </Channel>
+ <Channel Name="Speed/Audio Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Speed/Audio Sensitivity (see manual)</Capability>
+ </Channel>
+ <Channel Name="Control/Operating Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">RGB Mode</Capability>
+  <Capability Min="10" Max="249">Auto Program</Capability>
+  <Capability Min="250" Max="255">Sound-controlled</Capability>
+ </Channel>
+ <Channel Name="Strobe2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe from slow to fast (0-20 flashes/s)</Capability>
+ </Channel>
+ <Mode Name="P1">
+  <Channel Number="0">Red1</Channel>
+  <Channel Number="1">Green1</Channel>
+  <Channel Number="2">Blue1</Channel>
+ </Mode>
+ <Mode Name="P2">
+  <Channel Number="0">Red1</Channel>
+  <Channel Number="1">Green1</Channel>
+  <Channel Number="2">Blue1</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="P3">
+  <Channel Number="0">Red1</Channel>
+  <Channel Number="1">Green1</Channel>
+  <Channel Number="2">Blue1</Channel>
+  <Channel Number="3">Red2</Channel>
+  <Channel Number="4">Green2</Channel>
+  <Channel Number="5">Blue2</Channel>
+  <Channel Number="6">Strobe1</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Mode Name="P4">
+  <Channel Number="0">Red1</Channel>
+  <Channel Number="1">Green1</Channel>
+  <Channel Number="2">Blue1</Channel>
+  <Channel Number="3">Red2</Channel>
+  <Channel Number="4">Green2</Channel>
+  <Channel Number="5">Blue2</Channel>
+  <Channel Number="6">Red3</Channel>
+  <Channel Number="7">Green3</Channel>
+  <Channel Number="8">Blue3</Channel>
+  <Channel Number="9">Red4</Channel>
+  <Channel Number="10">Green4</Channel>
+  <Channel Number="11">Blue4</Channel>
+  <Channel Number="12">Strobe1</Channel>
+  <Channel Number="13">Dimmer</Channel>
+ </Mode>
+ <Mode Name="P5">
+  <Channel Number="0">Colors/Programs</Channel>
+  <Channel Number="1">Speed/Audio Sensitivity</Channel>
+ </Mode>
+ <Mode Name="P6">
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe2</Channel>
+  <Channel Number="3">Red1</Channel>
+  <Channel Number="4">Green1</Channel>
+  <Channel Number="5">Blue1</Channel>
+  <Channel Number="6">Red2</Channel>
+  <Channel Number="7">Green2</Channel>
+  <Channel Number="8">Blue2</Channel>
+  <Channel Number="9">Red3</Channel>
+  <Channel Number="10">Green3</Channel>
+  <Channel Number="11">Blue3</Channel>
+  <Channel Number="12">Red4</Channel>
+  <Channel Number="13">Green4</Channel>
+  <Channel Number="14">Blue4</Channel>
+ </Mode>
+ <Mode Name="P7">
+  <Channel Number="0">Red1</Channel>
+  <Channel Number="1">Green1</Channel>
+  <Channel Number="2">Blue1</Channel>
+  <Channel Number="3">Colors/Programs</Channel>
+  <Channel Number="4">Speed/Audio Sensitivity</Channel>
+  <Channel Number="5">Strobe1</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.68" Width="1070" Height="88" Depth="65"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

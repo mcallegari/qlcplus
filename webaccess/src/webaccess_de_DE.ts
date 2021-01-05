@@ -4,78 +4,99 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="135"/>
+        <location filename="webaccess.cpp" line="169"/>
         <source>Loading project...</source>
         <translation>Lade Projekt...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="166"/>
+        <location filename="webaccess.cpp" line="205"/>
         <source>Fixture stored and loaded</source>
         <translation>Gerät gespeichert und geladen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="332"/>
+        <location filename="webaccess.cpp" line="396"/>
+        <source>Username and password are required fields.</source>
+        <translation>Benutzername und Passwort sind benötigte Felder.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="402"/>
+        <location filename="webaccess.cpp" line="427"/>
+        <source>User level has to be a positive integer.</source>
+        <translation>Benutzerlevel muss eine positive Ganzzahl sein.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="421"/>
+        <source>Username is required.</source>
+        <translation>Benutzername wird benötigt.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="439"/>
+        <source>Error while saving passwords file.</source>
+        <translation>Fehler beim Speichern der Passwortdatei.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="454"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>Die Netzwerkkonfiguration hat sich geändert. Neustarten um die Änderungen anzuwenden.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="351"/>
+        <location filename="webaccess.cpp" line="473"/>
         <source>Autostart configuration changed</source>
         <translation>Autostart-Konfiguration geändert</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="643"/>
+        <location filename="webaccess.cpp" line="822"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Assistent wird (zur Zeit) für Webzugriff nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="690"/>
-        <location filename="webaccess.cpp" line="740"/>
+        <location filename="webaccess.cpp" line="873"/>
+        <location filename="webaccess.cpp" line="925"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="872"/>
+        <location filename="webaccess.cpp" line="1088"/>
         <source>Enable</source>
         <translation>Aktivieren</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="899"/>
+        <location filename="webaccess.cpp" line="1120"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="900"/>
+        <location filename="webaccess.cpp" line="1121"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="901"/>
+        <location filename="webaccess.cpp" line="1122"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="902"/>
+        <location filename="webaccess.cpp" line="1123"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="903"/>
+        <location filename="webaccess.cpp" line="1124"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1134"/>
+        <location filename="webaccess.cpp" line="1360"/>
         <source>Load project</source>
         <translation>Lade Projekt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1136"/>
+        <location filename="webaccess.cpp" line="1362"/>
         <source>Simple Desk</source>
         <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1138"/>
+        <location filename="webaccess.cpp" line="1364"/>
         <source>Configuration</source>
         <translation>Einstellungen</translation>
     </message>
@@ -83,39 +104,125 @@
 <context>
     <name>WebAccessConfiguration</name>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="135"/>
+        <location filename="webaccessconfiguration.cpp" line="136"/>
         <source>Passthrough</source>
         <translation>Passthrough</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="209"/>
+        <location filename="webaccessconfiguration.cpp" line="210"/>
         <source>Load fixture</source>
         <translation>Lade Gerät</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="243"/>
+        <location filename="webaccessconfiguration.cpp" line="221"/>
+        <source>Username</source>
+        <translation>Benutzername</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="222"/>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="223"/>
+        <source>Access level</source>
+        <translation>Zugriffslevel</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="224"/>
+        <source>Action</source>
+        <translation>Aktion</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="235"/>
+        <source>Leave blank to not change</source>
+        <translation>Leerlassen um keine Änderung durchzuführen</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="242"/>
+        <location filename="webaccessconfiguration.cpp" line="272"/>
+        <source>Only Virtual Console</source>
+        <translation>Nur Virtuelle Konsole</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="247"/>
+        <location filename="webaccessconfiguration.cpp" line="274"/>
+        <source>Virtual Console and Simple Desk</source>
+        <translation>Virtuelle Konsole und Einfache Arbeitsfläche</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="252"/>
+        <location filename="webaccessconfiguration.cpp" line="276"/>
+        <source>Everything</source>
+        <translation>Alles</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="258"/>
+        <location filename="webaccessconfiguration.cpp" line="283"/>
+        <source>Change</source>
+        <translation>Ändern</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="260"/>
+        <location filename="webaccessconfiguration.cpp" line="283"/>
+        <source>Delete user</source>
+        <translation>Nutzer löschen</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="266"/>
+        <source>New username...</source>
+        <translation>Neuer Benutzername...</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="267"/>
+        <location filename="webaccessconfiguration.cpp" line="285"/>
+        <source>New password...</source>
+        <translation>Neues Passwort...</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="284"/>
+        <source>Username and password are required fields.</source>
+        <translation>Benutzername und Passwort sind benötigte Felder.</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="287"/>
+        <source>Add user</source>
+        <translation>Benutzer hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="292"/>
+        <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
+        <translation>Hinweis: Falls nicht mindestens ein Benutzer mit Zugriffslevel &quot;Alles&quot; auf der Liste ist, wird die Authorisierung deaktiviert.</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="323"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="252"/>
+        <location filename="webaccessconfiguration.cpp" line="332"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="260"/>
+        <location filename="webaccessconfiguration.cpp" line="340"/>
         <source>Universes configuration</source>
         <translation>Universen-Einstellungen</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="266"/>
+        <location filename="webaccessconfiguration.cpp" line="347"/>
         <source>Audio configuration</source>
         <translation>Audio-Einstellungen</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="273"/>
+        <location filename="webaccessconfiguration.cpp" line="355"/>
         <source>User loaded fixtures</source>
         <translation>Vom Benutzer geladene Geräte</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="364"/>
+        <source>Authorized users</source>
+        <translation>Authorisierte Benutzer</translation>
     </message>
 </context>
 <context>
@@ -123,17 +230,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="101"/>
         <source>Network interface: </source>
-        <translation>Netzwerk Schnittstelle:</translation>
+        <translation>Netzwerk Schnittstelle: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="106"/>
         <source>Access point name (SSID): </source>
-        <translation>Name des AccessPoints (SSID):</translation>
+        <translation>Name des AccessPoints (SSID): </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="108"/>
         <source>WPA-PSK Password: </source>
-        <translation>WPA-PSK Passwort:</translation>
+        <translation>WPA-PSK Passwort: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="113"/>
@@ -148,17 +255,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="119"/>
         <source>IP Address: </source>
-        <translation>IP Addresse:</translation>
+        <translation>IP Addresse: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="121"/>
         <source>Netmask: </source>
-        <translation>Netzmaske:</translation>
+        <translation>Netzmaske: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="123"/>
         <source>Gateway: </source>
-        <translation>Gateway:</translation>
+        <translation>Gateway: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="126"/>

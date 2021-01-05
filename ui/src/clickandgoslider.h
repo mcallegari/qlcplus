@@ -60,9 +60,11 @@ public:
     void setShadowLevel(int level);
 
 protected:
-    void mousePressEvent(QMouseEvent *event);
-    void paintEvent(QPaintEvent *ev);
-    void showEvent(QShowEvent* ev);
+    void mousePressEvent(QMouseEvent *e);
+    void wheelEvent(QWheelEvent *e);
+    void keyPressEvent(QKeyEvent *e);
+    void paintEvent(QPaintEvent *e);
+    void showEvent(QShowEvent *e);
 
 signals:
     void controlClicked();

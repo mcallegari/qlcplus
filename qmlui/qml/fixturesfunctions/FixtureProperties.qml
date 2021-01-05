@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 
 import "."
@@ -28,7 +28,7 @@ Rectangle
     id: fxProps
     width: 400
     height: columnContainer.height + 8
-    color: UISettings.bgLight
+    color: UISettings.bgMedium
 
     property string fxMode: fixtureBrowser.selectedMode
     property string fxName: fixtureBrowser.fixtureName
@@ -82,7 +82,7 @@ Rectangle
             rowSpacing: 4
 
             property real itemsHeight: UISettings.listItemHeight
-            property real itemsFontSize: UISettings.textSizeDefault * 0.75
+            property real itemsFontSize: UISettings.textSizeDefault
 
             // row 1
             RobotoText
@@ -95,10 +95,10 @@ Rectangle
             CustomTextEdit
             {
                 id: fxNameTextEdit
-                inputText: fxName
+                text: fxName
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onInputTextChanged: fixtureBrowser.fixtureName = inputText
+                onTextChanged: fixtureBrowser.fixtureName = text
             }
 
             // row 2
@@ -203,9 +203,8 @@ Rectangle
                         height: propsGrid.itemsHeight
                         Layout.fillWidth: true
                         model: fixtureBrowser.modesList
-                        currentText: fxMode
                         onModelChanged: currentIndex = 0
-                        onCurrentTextChanged: fixtureBrowser.selectedMode = currentText
+                        onDisplayTextChanged: fixtureBrowser.selectedMode = displayText
                     }
                     IconButton
                     {
@@ -221,7 +220,7 @@ Rectangle
 
         Rectangle
         {
-            visible: fxModeInfo.checked
+            visible: fxModeInfo.checked && fixtureBrowser.modesList.length
             height: UISettings.bigItemHeight * 1.5
             width: parent.width - 8
 
@@ -242,7 +241,7 @@ Rectangle
                         tLabel: modelData.mLabel
                         iSrc: modelData.mIcon
                     }
-                CustomScrollBar { flickable: channelList }
+                ScrollBar.vertical: CustomScrollBar { }
             }
         }
     } // end of Column

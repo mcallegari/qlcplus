@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -33,7 +33,9 @@ Rectangle
     property string textLabel
     property int itemType: App.HeadDragItem
     property bool isSelected: false
-    property int fixtureID
+    property bool isCheckable: false
+    property bool isChecked: false
+    property int itemID
     property int headIndex
     property Item dragItem
 
@@ -47,32 +49,45 @@ Rectangle
         visible: isSelected
     }
 
-    IconTextEntry
+    Row
     {
-        id: chEntry
-        height: UISettings.listItemHeight
-        width: headDelegate.width
-        tLabel: textLabel
-        faSource: FontAwesome.fa_certificate
-        faColor: UISettings.fgMain
-
-        MouseArea
+        CustomCheckBox
         {
-            anchors.fill: parent
+            id: chCheckBox
+            visible: isCheckable
+            implicitWidth: UISettings.listItemHeight
+            implicitHeight: implicitWidth
+            checked: isChecked
+            onCheckedChanged: headDelegate.mouseEvent(App.Checked, headIndex, checked, headDelegate, 0)
+        }
 
-            property bool dragActive: drag.active
+        IconTextEntry
+        {
+            id: chEntry
+            height: UISettings.listItemHeight
+            width: headDelegate.width - (chCheckBox.visible ? chCheckBox.width : 0)
+            tLabel: textLabel
+            faSource: FontAwesome.fa_certificate
+            faColor: UISettings.fgMain
 
-            onDragActiveChanged:
+            MouseArea
             {
-                //console.log("Drag changed on function: " + cRef.id)
-                headDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, headIndex, -1, headDelegate, 0)
+                anchors.fill: parent
+
+                property bool dragActive: drag.active
+
+                onDragActiveChanged:
+                {
+                    //console.log("Drag changed on function: " + cRef.id)
+                    headDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, headIndex, -1, headDelegate, 0)
+                }
+
+                drag.target: dragItem
+
+                onPressed: headDelegate.mouseEvent(App.Pressed, headIndex, -1, headDelegate, mouse.modifiers)
+                onClicked: headDelegate.mouseEvent(App.Clicked, headIndex, -1, headDelegate, mouse.modifiers)
+                onDoubleClicked: headDelegate.mouseEvent(App.DoubleClicked, headIndex, -1, headDelegate, -1)
             }
-
-            drag.target: dragItem
-
-            onPressed: headDelegate.mouseEvent(App.Pressed, headIndex, -1, headDelegate, mouse.modifiers)
-            onClicked: headDelegate.mouseEvent(App.Clicked, headIndex, -1, headDelegate, mouse.modifiers)
-            onDoubleClicked: headDelegate.mouseEvent(App.DoubleClicked, headIndex, -1, headDelegate, -1)
         }
     }
 
@@ -81,7 +96,7 @@ Rectangle
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: "#666"
+        color: UISettings.bgLight
     }
 
 }

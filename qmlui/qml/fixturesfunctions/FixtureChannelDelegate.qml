@@ -18,8 +18,9 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -30,13 +31,19 @@ Rectangle
 
     color: "transparent"
 
-    property int chIndex
     property string textLabel
     property string itemIcon: ""
     property int itemType: App.ChannelDragItem
     property bool isSelected: false
     property bool isCheckable: false
     property bool isChecked: false
+    property bool showFlags: false
+    property int itemID
+    property int chIndex
+    property int itemFlags
+    property bool canFade: true
+    property int precedence
+    property string modifier
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
@@ -49,25 +56,27 @@ Rectangle
         visible: isSelected
     }
 
-    Row
+    RowLayout
     {
+        height: UISettings.listItemHeight
+        width: chDelegate.width
+
         CustomCheckBox
         {
             id: chCheckBox
             visible: isCheckable
-            height: UISettings.listItemHeight
+            implicitWidth: UISettings.listItemHeight
+            implicitHeight: implicitWidth
             checked: isChecked
-            width: height
-            onToggle: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
+            onCheckedChanged: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
         }
 
         IconTextEntry
         {
-            id: chEntry
-            height: UISettings.listItemHeight
-            width: chDelegate.width - chCheckBox.width
-            tLabel: textLabel
-            iSrc: itemIcon
+            height: parent.height
+            Layout.fillWidth: true
+            tLabel: "" + (chIndex + 1) + ": " + chDelegate.textLabel
+            iSrc: chDelegate.itemIcon
 
             MouseArea
             {
@@ -78,6 +87,94 @@ Rectangle
                 onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
             }
         }
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // flags stub
+        Rectangle
+        {
+            visible: showFlags
+            width: UISettings.chPropsFlagsWidth
+            height: parent.height
+            color: "transparent"
+        }
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // can fade
+        Rectangle
+        {
+            visible: showFlags
+            width: UISettings.chPropsCanFadeWidth
+            height: parent.height
+            color: "transparent"
+
+            CustomCheckBox
+            {
+                anchors.centerIn: parent
+                implicitHeight: UISettings.listItemHeight
+                implicitWidth: implicitHeight
+                checked: canFade
+                onToggled: fixtureManager.setItemRoleData(itemID, chIndex, "canFade", checked)
+            }
+        }
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // precedence combo
+        CustomComboBox
+        {
+            visible: showFlags
+            implicitWidth: UISettings.chPropsPrecedenceWidth
+            height: parent.height - 2
+
+            ListModel
+            {
+                id: precModel
+                ListElement { mLabel: qsTr("Auto (HTP)"); mValue: FixtureManager.AutoHTP }
+                ListElement { mLabel: qsTr("Auto (LTP)"); mValue: FixtureManager.AutoLTP }
+                ListElement { mLabel: qsTr("Forced HTP"); mValue: FixtureManager.ForcedHTP }
+                ListElement { mLabel: qsTr("Forced LTP"); mValue: FixtureManager.ForcedLTP }
+            }
+            model: precModel
+            currentIndex: chDelegate.precedence
+            onValueChanged: fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
+        }
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // modifier
+        Rectangle
+        {
+            visible: showFlags
+            width: UISettings.chPropsModifierWidth
+            height: parent.height
+            color: "transparent"
+        }
     }
 
     Rectangle
@@ -85,6 +182,6 @@ Rectangle
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: "#666"
+        color: UISettings.bgLight
     }
 }

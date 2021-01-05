@@ -26,19 +26,19 @@ LIBVORBISENC_INSTALL_NAME_TOOL = install_name_tool -change $$LIBVORBISENC_FILEPA
 
 contains(PKGCONFIG, sndfile) {
     !isEmpty(nametool.commands) {
-        nametool.commands += "&&" 
+        nametool.commands += "&&"
     }
 
     nametool.commands += $$LIBSNDFILE_INSTALL_NAME_TOOL $$OUTFILE
 }
 
 LIBSNDFILE.path   = $$INSTALLROOT/$$LIBSDIR
-LIBSNDFILE.files += $$LIBOGG_FILEPATH 
+LIBSNDFILE.files += $$LIBOGG_FILEPATH
 LIBSNDFILE.files += $$LIBFLAC_FILEPATH
 LIBSNDFILE.files += $$LIBVORBISENC_FILEPATH
 #LIBSNDFILE.files += $$LIBVORBISFILE_FILEPATH
 LIBSNDFILE.files += $$LIBVORBIS_FILEPATH
-LIBSNDFILE.files += $$LIBSNDFILE_FILEPATH 
+LIBSNDFILE.files += $$LIBSNDFILE_FILEPATH
 
 LIBSNDFILE_INSTALL_NAME_TOOL_ID = install_name_tool -id @executable_path/../$$LIBSDIR/$$LIBSNDFILE_FILE \
                 $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE

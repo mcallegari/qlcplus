@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.6 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH-6</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer/strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Closed&#13;</Capability>
+  <Capability Min="8" Max="134">100 to 0 %</Capability>
+  <Capability Min="135" Max="239">Strobe- Min &lt; Max</Capability>
+  <Capability Min="240" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="21" Color="#ffffff">White</Capability>
+  <Capability Min="22" Max="35" Color="#aa0000">Red&#13;</Capability>
+  <Capability Min="36" Max="49" Color="#00aa00">Green&#13;</Capability>
+  <Capability Min="50" Max="63" Color="#0000ff">Blue&#13;</Capability>
+  <Capability Min="64" Max="77" Color="#00ffff">Cyan&#13;</Capability>
+  <Capability Min="78" Max="91" Color="#ff00ff">Magenta&#13;</Capability>
+  <Capability Min="92" Max="105" Color="#ffff00">Yellow</Capability>
+  <Capability Min="106" Max="119" Color="#aa007f">Purple&#13;</Capability>
+  <Capability Min="120" Max="133" Color="#ffaa00">Orange&#13;</Capability>
+  <Capability Min="134" Max="147" Color="#7fff00">Green-Yellow</Capability>
+  <Capability Min="148" Max="161" Color="#ffaaff">Pink</Capability>
+  <Capability Min="162" Max="175" Color="#aa5500">Brown</Capability>
+  <Capability Min="176" Max="189" Color="#aaaa00">Gold</Capability>
+  <Capability Min="190" Max="203" Color="#00557f">Crimson</Capability>
+  <Capability Min="204" Max="217" Color="#aa55ff">Violet&#13;</Capability>
+  <Capability Min="218" Max="231" Color="#00007f">Grape&#13;</Capability>
+  <Capability Min="232" Max="255" Res="Others/rainbow.png">Color Change Macro 1</Capability>
+ </Channel>
+ <Channel Name="RGB speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Decreasing speed (vector mode)</Capability>
+ </Channel>
+ <Channel Name="Motion macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">Motion macro 1</Capability>
+  <Capability Min="23" Max="37">Motion macro 2</Capability>
+  <Capability Min="38" Max="52">Motion macro 3</Capability>
+  <Capability Min="53" Max="67">Motion macro 4</Capability>
+  <Capability Min="68" Max="82">Motion macro 5</Capability>
+  <Capability Min="83" Max="97">Motion macro 6</Capability>
+  <Capability Min="98" Max="112">Motion macro 7</Capability>
+  <Capability Min="113" Max="127">Motion macro 8</Capability>
+  <Capability Min="128" Max="142">Sound-controlled Motion macro 1</Capability>
+  <Capability Min="143" Max="157">Sound-controlled Motion macro 2</Capability>
+  <Capability Min="158" Max="172">Sound-controlled Motion macro 3</Capability>
+  <Capability Min="173" Max="187">Sound-controlled Motion macro 4</Capability>
+  <Capability Min="188" Max="202">Sound-controlled Motion macro 5</Capability>
+  <Capability Min="203" Max="217">Sound-controlled Motion macro 6</Capability>
+  <Capability Min="218" Max="232">Sound-controlled Motion macro 7</Capability>
+  <Capability Min="233" Max="255">Sound-controlled Motion macro 8</Capability>
+ </Channel>
+ <Channel Name="Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Res="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="23">Gobo 2</Capability>
+  <Capability Min="24" Max="31">Gobo 3</Capability>
+  <Capability Min="32" Max="39">Gobo 4</Capability>
+  <Capability Min="40" Max="47">Gobo 5</Capability>
+  <Capability Min="48" Max="55">Gobo 6</Capability>
+  <Capability Min="56" Max="63">Gobo 7</Capability>
+  <Capability Min="64" Max="71">Gobo 8</Capability>
+  <Capability Min="72" Max="79">Gobo 9</Capability>
+  <Capability Min="80" Max="94">Gobo shake 1</Capability>
+  <Capability Min="95" Max="109">Gobo shake 2</Capability>
+  <Capability Min="110" Max="124">Gobo shake 3</Capability>
+  <Capability Min="125" Max="139">Gobo shake 4</Capability>
+  <Capability Min="140" Max="154">Gobo shake 5</Capability>
+  <Capability Min="155" Max="169">Gobo shake 6</Capability>
+  <Capability Min="170" Max="184">Gobo shake 7</Capability>
+  <Capability Min="185" Max="199">Gobo shake 8</Capability>
+  <Capability Min="200" Max="214">Gobo shake 9</Capability>
+  <Capability Min="215" Max="235">Forwards rainbow effect with increasing speed</Capability>
+  <Capability Min="236" Max="255">Backwards rainbow effect with increasing speed</Capability>
+ </Channel>
+ <Mode Name="13 DMX channel mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan / Tilt Speed</Channel>
+  <Channel Number="5">Dimmer/strobe</Channel>
+  <Channel Number="6">Red 1</Channel>
+  <Channel Number="7">Green 1</Channel>
+  <Channel Number="8">Blue 1</Channel>
+  <Channel Number="9">Color macros</Channel>
+  <Channel Number="10">RGB speed</Channel>
+  <Channel Number="11">Motion macros</Channel>
+  <Channel Number="12">Gobos</Channel>
+ </Mode>
+ <Mode Name="5 DMX channel mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer/strobe</Channel>
+  <Channel Number="3">Color macros</Channel>
+  <Channel Number="4">Gobos</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Width="175" Depth="240" Height="170" Weight="3.6"/>
+   <Lens DegreesMin="11" DegreesMax="11" Name="Other"/>
+   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

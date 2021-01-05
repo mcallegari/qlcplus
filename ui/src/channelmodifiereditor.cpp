@@ -93,7 +93,7 @@ static bool alphabeticSort(QString const & left, QString const & right)
 void ChannelModifierEditor::updateModifiersList(QString modifier)
 {
     QList<QString> names = m_doc->modifiersCache()->templateNames();
-    qStableSort(names.begin(), names.end(), alphabeticSort);
+    std::stable_sort(names.begin(), names.end(), alphabeticSort);
 
     m_templatesTree->clear();
     foreach(QString name, names)
@@ -181,7 +181,7 @@ void ChannelModifierEditor::slotSaveClicked()
     {
         // cannot overwrite a system template !
         QMessageBox::critical(this, tr("Error"),
-                              tr("You are trying to overwrite a system template ! Please choose another name "
+                              tr("You are trying to overwrite a system template! Please choose another name "
                                  "and the template will be saved in your channel modifier's user folder."),
                               QMessageBox::Close);
         return;

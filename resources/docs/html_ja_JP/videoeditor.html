@@ -1,0 +1,97 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - ビデオエディタ</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>ビデオエディター</h1>
+<p>ビデオエディタは、その名の通り<IMG SRC="qrc:/video.png" align="absmiddle"><a href="concept.html#Video">ビデオ</a>に関する機能です<br>
+</p>
+
+<h2>設定項目</h2>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+    <img src="qrc:/player_play.png" />
+  </td>
+  <td>ビデオの再生・停止有効なファイルが選択されていなかったり、無効なURLな場合は何も起こりません。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>Video name</b>
+  </td>
+  <td>ビデオの名前を変更します。デフォルトではビデオのファイル名が使われます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>ファイル名</b>
+  </td>
+  <td>コンピュータ内にあるファイルであれば絶対パスが表示されます。コンピュータ内のファイルは、右側の「...」ボタンをクリックすることで変更することができます。<br>URLを入力することにより、ネットワーク上の動画ファイルを再生することができます。<img src="qrc:/global.png" />をクリックして(HTTP/HTTPS)から始まるURLを指定してください。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>ビデオの長さ</b>
+  </td>
+  <td>ビデオの再生所要時間を表示します例)04m14s.22
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>ビデオのサイズ</b>
+  </td>
+  <td>ピクセルの解像度を表示します。<br>
+   <b>注</b> ：QLC +はQuickTimeに依存しているため、 <a href="https://www.qt.io/">Qtライブラリ</a>のビデオソースを再生するには、QtはWindowsとMac OSXでの動画のサイズ（およびコーデック）を検出することができない問題が報告されています<br>基本的には "0x0"の形式でサイズが表示されます。フルスクリーンビデオ再生も可能です<br>ビデオのサイズの検出に失敗するとデフォルトでウィンドウモードの640x480で再生れるようになっています。<br>これらの問題は将来的にQuickTime開発チームによって解決されるかもしれません
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Video codec</b>
+  </td>
+  <td>ビデオファイル使用さているコーデックを表示します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Audio codec</b>
+  </td>
+  <td>ビデオファイル使用されているコーデックを表示します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Outpout Screen</b>
+  </td>
+  <td>ビデオを表示する出力先を選択できますコンピュータがマルチモニターでなければここには１つしか表示されません。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>スクリーン出力</b>
+  </td>
+  <td>ビデオを再生する方法を選択できます。可能なオプションは<ul>
+    <li><b>Windowed</b>: 新たに動画再生ウィンドウが開きます。
+    </li>
+    <li><b>Fullscreen</b>: フルスクリーンで動画を再生します。(ウィンドウバーなどが表示されなくなります。)</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Playback mode</b>
+  </td>
+  <td>ビデオを再生する方法を選択できます。可能なオプションは<ul>
+    <li><b>一方通行</b>: 再生後停止します。</li>
+    <li><b>繰り返し</b>: 再生終了後、また最初から再生します。繰り返しではファンクションを停止するまで繰り返し続けます。
+    </li>
+   </ul>
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

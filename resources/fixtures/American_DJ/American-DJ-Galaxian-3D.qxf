@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>eklynx</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Galaxian 3D</Model>
+ <Type>Laser</Type>
+ <Channel Name="Red Laser">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">On</Capability>
+  <Capability Min="16" Max="239">Strobe Slow-&gt;Fast</Capability>
+  <Capability Min="240" Max="247">Sound Active</Capability>
+  <Capability Min="248" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Green Laser">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">On</Capability>
+  <Capability Min="16" Max="239">Strobe Slow-&gt;Fast</Capability>
+  <Capability Min="240" Max="247">Sound Active</Capability>
+  <Capability Min="248" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Laser Rotation 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Location</Capability>
+  <Capability Min="128" Max="189">Counter-Clockwise Fast -&gt; Slow</Capability>
+  <Capability Min="190" Max="193">No Rotation</Capability>
+  <Capability Min="194" Max="255">Clockiwse Slow-&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Laser Rotation 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Location</Capability>
+  <Capability Min="128" Max="189">Counter-Clockwise Fast -&gt; Slow</Capability>
+  <Capability Min="190" Max="193">No Rotation</Capability>
+  <Capability Min="194" Max="255">Clockiwse Slow-&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="23">Macro 1</Capability>
+  <Capability Min="24" Max="39">Macro 2</Capability>
+  <Capability Min="40" Max="55">Macro 3</Capability>
+  <Capability Min="56" Max="71">Macro 4</Capability>
+  <Capability Min="72" Max="87">Macro 5</Capability>
+  <Capability Min="88" Max="103">Macro 6</Capability>
+  <Capability Min="104" Max="119">Macro 7</Capability>
+  <Capability Min="120" Max="135">Macro 8</Capability>
+  <Capability Min="136" Max="151">Macro 9</Capability>
+  <Capability Min="152" Max="167">Macro 10</Capability>
+  <Capability Min="168" Max="183">Macro 11</Capability>
+  <Capability Min="184" Max="199">Macro 12</Capability>
+  <Capability Min="200" Max="215">Macro 13</Capability>
+  <Capability Min="216" Max="231">Macro 14</Capability>
+  <Capability Min="232" Max="247">Macro 15</Capability>
+  <Capability Min="248" Max="255">Sound Active</Capability>
+ </Channel>
+ <Mode Name="DMX Mode">
+  <Channel Number="0">Red Laser</Channel>
+  <Channel Number="1">Green Laser</Channel>
+  <Channel Number="2">Laser Rotation 1</Channel>
+  <Channel Number="3">Laser Rotation 2</Channel>
+  <Channel Number="4">Macros</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="Diode Lasers" ColourTemperature="0"/>
+   <Dimensions Width="247" Height="71" Weight="3" Depth="242"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

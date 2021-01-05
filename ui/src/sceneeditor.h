@@ -64,6 +64,9 @@ public slots:
     void slotFunctionManagerActive(bool active);
     void slotSetSceneValues(QList <SceneValue>&);
 
+protected slots:
+    void slotFixtureRemoved(quint32 id);
+
 private:
     Doc* m_doc;
     Scene* m_scene; // The Scene that is being edited
@@ -137,7 +140,7 @@ private:
     QList <Fixture*> selectedFixtures() const;
 
     bool addFixtureItem(Fixture* fixture);
-    void removeFixtureItem(Fixture* fixture);
+    void removeFixtureItem(quint32 fixtureID);
 
 private slots:
     void slotNameEdited(const QString& name);
@@ -184,7 +187,7 @@ private:
     FixtureConsole* fixtureConsole(Fixture* fixture);
 
     void addFixtureTab(Fixture* fixture, quint32 channel = QLCChannel::invalid());
-    void removeFixtureTab(Fixture* fixture);
+    void removeFixtureTab(quint32 fixtureID);
     FixtureConsole* fixtureConsoleTab(int tab);
     void setTabChannelState(bool status, Fixture* fixture, quint32 channel);
 

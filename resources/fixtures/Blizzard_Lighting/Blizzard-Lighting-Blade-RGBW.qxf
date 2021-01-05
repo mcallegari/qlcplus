@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.1</Version>
+  <Author>James Elliott</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>Blade RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="X-Axis Trim" Preset="PositionPanFine"/>
+ <Channel Name="Y-Axis Trim" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed (Fast-Slow)" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="White Intensity" Preset="IntensityWhite"/>
+ <Channel Name="Custom Color">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Color set on front panel, 0-100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="255">On (Slow-Fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="25">256-step linear dimmming</Capability>
+  <Capability Min="26" Max="50">Fade step increase</Capability>
+  <Capability Min="51" Max="90">Color macros, ch 14 chooses</Capability>
+  <Capability Min="91" Max="130">Color fade in/out, ch 14 speed</Capability>
+  <Capability Min="131" Max="170">Color snap, ch 14 speed</Capability>
+  <Capability Min="171" Max="210">Color fade, ch 14 speed</Capability>
+  <Capability Min="211" Max="250">Auto (front panel settings)</Capability>
+  <Capability Min="251" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Color2="#ffff00" Min="0" Max="20" Color="#ff0000">Red fade to Yellow</Capability>
+  <Capability Color2="#00ff00" Min="21" Max="40" Color="#ffff00">Yellow fade to Green</Capability>
+  <Capability Color2="#00ffff" Min="41" Max="60" Color="#80ff00">Green fade to Aqua</Capability>
+  <Capability Color2="#0000ff" Min="61" Max="80" Color="#00ffff">Aqua fade to Blue</Capability>
+  <Capability Color2="#ff00ff" Min="81" Max="100" Color="#0000ff">Blue fade to Magenta</Capability>
+  <Capability Color2="#ff0000" Min="101" Max="120" Color="#ff00ff">Magenta fade to Red</Capability>
+  <Capability Color2="#ffffff" Min="121" Max="140" Color="#ff0000">Red fade to White</Capability>
+  <Capability Color2="#0000ff" Min="141" Max="160" Color="#ffffff">White fade to Blue</Capability>
+  <Capability Min="161" Max="170" Color="#ffffff">White effect</Capability>
+  <Capability Min="171" Max="200" Color="#000000">Blackout</Capability>
+  <Capability Min="201" Max="205">CTO - 3800K</Capability>
+  <Capability Min="206" Max="210">CTO - 4200K</Capability>
+  <Capability Min="211" Max="215">CTO - 4500K</Capability>
+  <Capability Min="216" Max="220">CTO - 4800K</Capability>
+  <Capability Min="221" Max="225">CTO - 5000K</Capability>
+  <Capability Min="226" Max="230">CTO - 5200K</Capability>
+  <Capability Min="231" Max="235">CTO - 5600K</Capability>
+  <Capability Min="236" Max="240">CTO - 5800K</Capability>
+  <Capability Min="241" Max="245">CTO - 6000K</Capability>
+  <Capability Min="246" Max="250">CTO - 6200K</Capability>
+  <Capability Min="251" Max="255">CTO - 6500K</Capability>
+ </Channel>
+ <Channel Name="Fixture ID">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Any Fixture</Capability>
+  <Capability Min="10" Max="19">Fixture ID 1</Capability>
+  <Capability Min="20" Max="29">Fixture ID 2</Capability>
+  <Capability Min="30" Max="39">Fixture ID 3</Capability>
+  <Capability Min="40" Max="49">Fixture ID 4</Capability>
+  <Capability Min="50" Max="59">Fixture ID 5</Capability>
+  <Capability Min="60" Max="69">Fixture ID 6</Capability>
+  <Capability Min="70" Max="79">Fixture ID 7</Capability>
+  <Capability Min="80" Max="89">Fixture ID 8</Capability>
+  <Capability Min="90" Max="99">Fixture ID 9</Capability>
+  <Capability Min="100" Max="109">Fixture ID 10</Capability>
+  <Capability Min="110" Max="119">Fixture ID 11</Capability>
+  <Capability Min="120" Max="129">Fixture ID 12</Capability>
+  <Capability Min="130" Max="139">Fixture ID 13</Capability>
+  <Capability Min="140" Max="149">Fixture ID 14</Capability>
+  <Capability Min="150" Max="159">Fixture ID 15</Capability>
+  <Capability Min="160" Max="169">Fixture ID 16</Capability>
+  <Capability Min="170" Max="179">Fixture ID 17</Capability>
+  <Capability Min="180" Max="189">Fixture ID 18</Capability>
+  <Capability Min="190" Max="199">Fixture ID 19</Capability>
+  <Capability Min="200" Max="209">Fixture ID 20</Capability>
+  <Capability Min="210" Max="219">Fixture ID 21</Capability>
+  <Capability Min="220" Max="229">Fixture ID 22</Capability>
+  <Capability Min="230" Max="239">Fixture ID 23</Capability>
+  <Capability Min="240" Max="249">Fixture ID 24</Capability>
+  <Capability Min="250" Max="255">Fixture ID 25</Capability>
+ </Channel>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">X-Axis Trim</Channel>
+  <Channel Number="3">Y-Axis Trim</Channel>
+  <Channel Number="4">Pan/Tilt Speed (Fast-Slow)</Channel>
+  <Channel Number="5">Red Intensity</Channel>
+  <Channel Number="6">Green Intensity</Channel>
+  <Channel Number="7">Blue Intensity</Channel>
+  <Channel Number="8">White Intensity</Channel>
+  <Channel Number="9">Custom Color</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Dimmer</Channel>
+  <Channel Number="12">Programs</Channel>
+  <Channel Number="13">Effects</Channel>
+  <Channel Number="14">Fixture ID</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">X-Axis Trim</Channel>
+  <Channel Number="3">Y-Axis Trim</Channel>
+  <Channel Number="4">Pan/Tilt Speed (Fast-Slow)</Channel>
+  <Channel Number="5">Red Intensity</Channel>
+  <Channel Number="6">Green Intensity</Channel>
+  <Channel Number="7">Blue Intensity</Channel>
+  <Channel Number="8">White Intensity</Channel>
+  <Channel Number="9">Dimmer</Channel>
+  <Channel Number="10">Custom Color</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="240" Height="375" Weight="5.2" Depth="340"/>
+   <Lens DegreesMax="8" Name="Fresnel" DegreesMin="1"/>
+   <Focus PanMax="540" Type="Head" TiltMax="90"/>
+   <Technical PowerConsumption="148" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

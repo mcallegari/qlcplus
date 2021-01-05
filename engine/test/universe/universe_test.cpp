@@ -52,12 +52,12 @@ void Universe_Test::initial()
     QVERIFY(m_uni->outputPatch() == NULL);
     QVERIFY(m_uni->feedbackPatch() == NULL);
     QVERIFY(m_uni->intensityChannels().isEmpty());
- 
+
     QByteArray const preGM = m_uni->preGMValues();
 
     QCOMPARE(preGM.count(), 512);
 
-    QByteArray const * postGM = m_uni->postGMValues();
+    QByteArray const *postGM = m_uni->postGMValues();
     QVERIFY(postGM != NULL);
     QCOMPARE(postGM->count(), 512);
 

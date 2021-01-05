@@ -28,6 +28,7 @@
 #include "dmxsource.h"
 
 class Doc;
+class GenericFader;
 
 /** @addtogroup engine Engine
  * @{
@@ -70,11 +71,14 @@ public:
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     QMutex m_mutex;
     QMap <QPair<quint32,quint32>,uchar> m_values;
     bool m_outputEnabled;
     bool m_clearRequest;
+    bool m_changed;
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 };
 
 /** @} */

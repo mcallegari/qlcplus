@@ -8,8 +8,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
-	<key>CFBundleGetInfoString</key>
-	<string>QLC+ http://www.qlcplus.org/</string>
+	<key>CFBundleShortVersionString</key>
+	<string>__QLC_VERSION__</string>
+
+	<key>CFBundleVersion</key>
+	<string>1</string>
 
 	<key>CFBundleSignature</key>
 	<string>????</string>
@@ -25,6 +28,9 @@
 
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Process incoming audio</string>
 
 	<key>CFBundleDocumentTypes</key>
 	<array>

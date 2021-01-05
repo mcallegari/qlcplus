@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DJ Lase 150-RGY MkII</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="29">Auto, red+green+yellow</Capability>
+  <Capability Min="30" Max="59">Auto, green</Capability>
+  <Capability Min="60" Max="89">Auto, red</Capability>
+  <Capability Min="90" Max="119">Auto, yellow</Capability>
+  <Capability Min="120" Max="149">Sound-controlled, red+green+yellow</Capability>
+  <Capability Min="150" Max="179">Sound-controlled, green</Capability>
+  <Capability Min="180" Max="209">Sound-controlled, red</Capability>
+  <Capability Min="210" Max="239">Sound-controlled, yellow</Capability>
+  <Capability Min="240" Max="255">DMX mode</Capability>
+ </Channel>
+ <Channel Name="Pattern Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">From list</Capability>
+ </Channel>
+ <Channel Name="Colour Selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24">Blackout</Capability>
+  <Capability Min="25" Max="49">Original pre-programmed</Capability>
+  <Capability Min="50" Max="74">Red</Capability>
+  <Capability Min="75" Max="99">Green</Capability>
+  <Capability Min="100" Max="124">Yellow</Capability>
+  <Capability Min="125" Max="149">Alternating red and green</Capability>
+  <Capability Min="150" Max="174">Alternating red and yellow</Capability>
+  <Capability Min="175" Max="199">Alternating green and yellow</Capability>
+  <Capability Min="200" Max="224">Alternating red, green and yellow</Capability>
+  <Capability Min="225" Max="255">Colour rolling</Capability>
+ </Channel>
+ <Channel Name="Colour Changing Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">No change</Capability>
+  <Capability Min="5" Max="255">Speed increasing</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Fixed (100% to 5%)</Capability>
+  <Capability Min="128" Max="169">Zoom-in effect, speed increasing</Capability>
+  <Capability Min="170" Max="209">Zoom-out effect, speed increasing</Capability>
+  <Capability Min="210" Max="255">Zoom-in and zoom-out effect, speed increasing</Capability>
+ </Channel>
+ <Channel Name="X Axis Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0° to 359° position</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling effect, speed increasing</Capability>
+  <Capability Min="192" Max="255">Anti-clockwise rolling effect, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Y Axis Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0° to 359° position</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling effect, speed increasing</Capability>
+  <Capability Min="192" Max="255">Anti-clockwise rolling effect, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Z Axis Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0° to 359° position</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling effect, speed increasing</Capability>
+  <Capability Min="192" Max="255">Anti-clockwise rolling effect, speed increasing</Capability>
+ </Channel>
+ <Channel Name="X Axis Moving">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">128 different fixed positions</Capability>
+  <Capability Min="128" Max="191">Clockwise moving effect, speed increasing</Capability>
+  <Capability Min="192" Max="255">Anti-clockwise moving effect, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Y Axis Moving">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">128 different fixed positions</Capability>
+  <Capability Min="128" Max="191">Clockwise moving effect, speed increasing</Capability>
+  <Capability Min="192" Max="255">Anti-clockwise moving effect, speed increasing</Capability>
+ </Channel>
+ <Mode Name="DMX">
+  <Channel Number="0">Mode Selection</Channel>
+  <Channel Number="1">Pattern Selection</Channel>
+  <Channel Number="2">Colour Selection</Channel>
+  <Channel Number="3">Colour Changing Speed</Channel>
+  <Channel Number="4">Zoom</Channel>
+  <Channel Number="5">X Axis Rotation</Channel>
+  <Channel Number="6">Y Axis Rotation</Channel>
+  <Channel Number="7">Z Axis Rotation</Channel>
+  <Channel Number="8">X Axis Moving</Channel>
+  <Channel Number="9">Y Axis Moving</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.3" Width="160" Height="80" Depth="160"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

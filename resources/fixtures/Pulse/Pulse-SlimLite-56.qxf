@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jimmy Traylor</Author>
+ </Creator>
+ <Manufacturer>Pulse</Manufacturer>
+ <Model>SlimLite 56</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Slow-fast</Capability>
+ </Channel>
+ <Channel Name="Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="8" Preset="ColorMacro" Res1="#ff0000">Red intensity/R (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="9" Max="17" Preset="ColorMacro" Res1="#ff3200">Red intensity/R (255) G (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="18" Max="26" Preset="ColorMacro" Res1="#ff9600">Red intensity/R (255) G (150)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="27" Max="35" Preset="ColorMacro" Res1="#ffff00">Red intensity/R (255) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="36" Max="44" Preset="ColorMacro" Res1="#c8ff00">Red intensity/R (200) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="45" Max="53" Preset="ColorMacro" Res1="#64ff00">Red intensity/R (100) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="54" Max="62" Preset="ColorMacro" Res1="#28ff00">Red intensity/R (40) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="63" Max="71" Preset="ColorMacro" Res1="#00ff00">Red intensity/G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="72" Max="80" Preset="ColorMacro" Res1="#00ff32">Red intensity/G (255) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="81" Max="89" Preset="ColorMacro" Res1="#00ff96">Red intensity/G (255) B (150)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="90" Max="98" Preset="ColorMacro" Res1="#00ffff">Red intensity/G (255) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="99" Max="107" Preset="ColorMacro" Res1="#0096ff">Red intensity/G (150) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="108" Max="116" Preset="ColorMacro" Res1="#0032ff">Red intensity/G (50) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="117" Max="125" Preset="ColorMacro" Res1="#0000ff">Red intensity/B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="126" Max="134" Preset="ColorMacro" Res1="#3200ff">Red intensity/R (50) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="135" Max="143" Preset="ColorMacro" Res1="#9600ff">Red intensity/R (150) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="144" Max="152" Preset="ColorMacro" Res1="#ffff00">Red intensity/R (255) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="153" Max="161" Preset="ColorMacro" Res1="#dc0032">Red intensity/R (220) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="162" Max="170" Preset="ColorMacro" Res1="#963264">Red intensity/R (150) G (50 B (100)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="171" Max="179" Preset="ColorMacro" Res1="#3296dc">Red intensity/R (50) G (150) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="180" Max="188" Preset="ColorMacro" Res1="#32dcdc">Red intensity/R (50) G (220) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="189" Max="197" Preset="ColorMacro" Res1="#96dc00">Red intensity/R (150) G (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="198" Max="206" Preset="ColorMacro" Res1="#9600dc">Red intensity/R (150) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="207" Max="215" Preset="ColorMacro" Res1="#00b4dc">Red intensity/G (180) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="216" Max="224" Preset="ColorMacro" Res1="#00dc32">Red intensity/G (220) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="225" Max="233" Preset="ColorMacro" Res1="#dc6432">Red intensity/R (220) G (100) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="234" Max="242" Preset="ColorMacro" Res1="#dcc864">Red intensity/R (220) G (200) B (100)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="243" Max="251" Preset="ColorMacro" Res1="#ffc896">Red intensity/R (255) G (200) B (150)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffffff">Red intensity/R (255) G (255) B (255)/Slow-fast/Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Color Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24" Preset="GoboMacro" Res1="Others/rainbow.png">Channel 2 static colours</Capability>
+  <Capability Min="25" Max="49" Preset="GoboMacro" Res1="Others/rainbow.png">Pr02 (7 colour fading)</Capability>
+  <Capability Min="50" Max="74" Preset="GoboMacro" Res1="Others/rainbow.png">Pr03 (3 colour fading)</Capability>
+  <Capability Min="75" Max="99" Preset="GoboMacro" Res1="Others/rainbow.png">Pr04 (7 colour jump)</Capability>
+  <Capability Min="100" Max="124" Preset="GoboMacro" Res1="Others/rainbow.png">Pr05 (3 colour jump)</Capability>
+  <Capability Min="125" Max="149" Preset="GoboMacro" Res1="Others/rainbow.png">Pr06 (colour dreaming 1)</Capability>
+  <Capability Min="150" Max="174" Preset="GoboMacro" Res1="Others/rainbow.png">Pr07 (colour dreaming 2)</Capability>
+  <Capability Min="175" Max="199" Preset="ColorMacro" Res1="#ff0000">Pr08 (red fading)</Capability>
+  <Capability Min="200" Max="224" Preset="ColorMacro" Res1="#00ff00">Pr09 (green fading)</Capability>
+  <Capability Min="225" Max="249" Preset="ColorMacro" Res1="#0000ff">Pr10 (blue fading)</Capability>
+  <Capability Min="250" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="ID Address">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">ID1-ID66</Capability>
+  <Capability Min="10" Max="19">ID1</Capability>
+  <Capability Min="20" Max="29">ID2</Capability>
+  <Capability Min="30" Max="39">ID3</Capability>
+  <Capability Min="40" Max="49">ID4</Capability>
+  <Capability Min="50" Max="59">ID5</Capability>
+  <Capability Min="60" Max="69">ID6</Capability>
+  <Capability Min="70" Max="79">ID7</Capability>
+  <Capability Min="80" Max="89">ID8</Capability>
+  <Capability Min="90" Max="99">ID9</Capability>
+  <Capability Min="100" Max="109">ID10</Capability>
+  <Capability Min="110" Max="119">ID11</Capability>
+  <Capability Min="120" Max="129">ID12</Capability>
+  <Capability Min="130" Max="139">ID13</Capability>
+  <Capability Min="140" Max="149">ID14</Capability>
+  <Capability Min="150" Max="159">ID15</Capability>
+  <Capability Min="160" Max="169">ID16</Capability>
+  <Capability Min="170" Max="179">ID17</Capability>
+  <Capability Min="180" Max="189">ID18</Capability>
+  <Capability Min="190" Max="199">ID19</Capability>
+  <Capability Min="200" Max="209">ID20</Capability>
+  <Capability Min="210" Max="210">ID21</Capability>
+  <Capability Min="211" Max="211">ID22</Capability>
+  <Capability Min="212" Max="212">ID23</Capability>
+  <Capability Min="213" Max="213">ID24</Capability>
+  <Capability Min="214" Max="214">ID25</Capability>
+  <Capability Min="215" Max="215">ID26</Capability>
+  <Capability Min="216" Max="216">ID27</Capability>
+  <Capability Min="217" Max="217">ID28</Capability>
+  <Capability Min="218" Max="218">ID29</Capability>
+  <Capability Min="219" Max="219">ID30</Capability>
+  <Capability Min="220" Max="220">ID31</Capability>
+  <Capability Min="221" Max="221">ID32</Capability>
+  <Capability Min="222" Max="222">ID33</Capability>
+  <Capability Min="223" Max="223">ID34</Capability>
+  <Capability Min="224" Max="224">ID35</Capability>
+  <Capability Min="225" Max="225">ID36</Capability>
+  <Capability Min="226" Max="226">ID37</Capability>
+  <Capability Min="227" Max="227">ID38</Capability>
+  <Capability Min="228" Max="228">ID39</Capability>
+  <Capability Min="229" Max="229">ID40</Capability>
+  <Capability Min="230" Max="230">ID41</Capability>
+  <Capability Min="231" Max="231">ID42</Capability>
+  <Capability Min="232" Max="232">ID43</Capability>
+  <Capability Min="233" Max="233">ID44</Capability>
+  <Capability Min="234" Max="234">ID45</Capability>
+  <Capability Min="235" Max="235">ID46</Capability>
+  <Capability Min="236" Max="236">ID47</Capability>
+  <Capability Min="237" Max="237">ID48</Capability>
+  <Capability Min="238" Max="238">ID49</Capability>
+  <Capability Min="239" Max="239">ID50</Capability>
+  <Capability Min="240" Max="240">ID51</Capability>
+  <Capability Min="241" Max="241">ID52</Capability>
+  <Capability Min="242" Max="242">ID53</Capability>
+  <Capability Min="243" Max="243">ID54</Capability>
+  <Capability Min="244" Max="244">ID55</Capability>
+  <Capability Min="245" Max="245">ID56</Capability>
+  <Capability Min="246" Max="246">ID57</Capability>
+  <Capability Min="247" Max="247">ID58</Capability>
+  <Capability Min="248" Max="248">ID59</Capability>
+  <Capability Min="249" Max="249">ID60</Capability>
+  <Capability Min="250" Max="250">ID61</Capability>
+  <Capability Min="251" Max="251">ID62</Capability>
+  <Capability Min="252" Max="252">ID63</Capability>
+  <Capability Min="253" Max="253">ID64</Capability>
+  <Capability Min="254" Max="254">ID65</Capability>
+  <Capability Min="255" Max="255">ID66</Capability>
+ </Channel>
+ <Channel Name="Fader Response">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="250">Ch1-ch4 instant</Capability>
+  <Capability Min="251" Max="255">Ch1-ch4 delayed</Capability>
+ </Channel>
+ <Mode Name="1 = 3-Ch">
+  <Channel Number="0">Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity</Channel>
+  <Channel Number="1">Green Dimming</Channel>
+  <Channel Number="2">Blue Dimming</Channel>
+ </Mode>
+ <Mode Name="2 = 4-Ch">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity</Channel>
+  <Channel Number="2">Green Dimming</Channel>
+  <Channel Number="3">Blue Dimming</Channel>
+ </Mode>
+ <Mode Name="3 = 8-Ch">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity</Channel>
+  <Channel Number="2">Green Dimming</Channel>
+  <Channel Number="3">Blue Dimming</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Color Programs</Channel>
+  <Channel Number="6">ID Address</Channel>
+  <Channel Number="7">Fader Response</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.81" Width="205" Height="205" Depth="69"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -36,7 +36,7 @@ void QLCFixtureDefCache_Test::init()
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(cache.load(QDir("/just/kidding/stoopid")) == false);
-    QVERIFY(cache.load(dir) == true);
+    QVERIFY(cache.loadMap(dir) == true);
 }
 
 void QLCFixtureDefCache_Test::cleanup()
@@ -132,24 +132,36 @@ void QLCFixtureDefCache_Test::add()
 
 void QLCFixtureDefCache_Test::fixtureDef()
 {
+    // check the content of a cached fixture relative path
+    QString firstManufacturer = cache.m_defs.first()->manufacturer();
+    QString firstModel = cache.m_defs.first()->model();
+    QString relPath = QString("%1/%1-%2.qxf").arg(firstManufacturer).arg(firstModel);
+    relPath.replace(" ", "-");
+    QVERIFY(cache.m_defs.first()->definitionSourceFile() == relPath);
+
+    // request a fixture cached but not yet loaded
+    QLCFixtureDef *def = cache.fixtureDef("Futurelight", "CY-200");
+    // check that once loaded, the relative path is reset
+    QVERIFY(def->definitionSourceFile().isEmpty());
+
     cache.clear();
 
-    QLCFixtureDef* def1 = new QLCFixtureDef();
+    QLCFixtureDef *def1 = new QLCFixtureDef();
     def1->setManufacturer("Martin");
     def1->setModel("MAC250");
     cache.addFixtureDef(def1);
 
-    QLCFixtureDef* def2 = new QLCFixtureDef();
+    QLCFixtureDef *def2 = new QLCFixtureDef();
     def2->setManufacturer("Martin");
     def2->setModel("MAC500");
     cache.addFixtureDef(def2);
 
-    QLCFixtureDef* def3 = new QLCFixtureDef();
+    QLCFixtureDef *def3 = new QLCFixtureDef();
     def3->setManufacturer("Robe");
     def3->setModel("WL250");
     cache.addFixtureDef(def3);
 
-    QLCFixtureDef* def4 = new QLCFixtureDef();
+    QLCFixtureDef *def4 = new QLCFixtureDef();
     def4->setManufacturer("Futurelight");
     def4->setModel("DJ Scan 250");
     cache.addFixtureDef(def4);
@@ -176,6 +188,11 @@ void QLCFixtureDefCache_Test::load()
     QVERIFY(cache.manufacturers().contains("Martin") == true);
     QVERIFY(cache.manufacturers().contains("Robe") == true);
     QVERIFY(cache.manufacturers().contains("SGM") == true);
+
+    QString loadPath = QString("%1/Futurelight/Futurelight-CY-200.qxf").arg(INTERNAL_FIXTUREDIR);
+    QVERIFY(cache.loadQXF(loadPath) == true);
+    QVERIFY(cache.loadQXF("Foo/Baz.qxf") == false);
+    QVERIFY(cache.loadD4("QLC/Plus.d4") == false);
 }
 
 void QLCFixtureDefCache_Test::defDirectories()

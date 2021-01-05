@@ -14,6 +14,7 @@
 
 # Qt-es
 
+.qmake.stash
 *.pro.user
 *.pro.user.*
 moc_*.cpp
@@ -43,3 +44,8 @@ core
 coverage/
 *.gcda
 *.gcno
+
+
+
+# Development IDEs
+.vscode/

@@ -56,7 +56,7 @@ QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
         QLCFixtureDef* def = it.next();
         if (def->manufacturer() == manufacturer && def->model() == model)
         {
-            def->checkLoaded();
+            def->checkLoaded(m_mapAbsolutePath);
             return def;
         }
     }
@@ -159,6 +159,58 @@ bool QLCFixtureDefCache::load(const QDir& dir)
     return true;
 }
 
+int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer)
+{
+    int count = 0;
+    QString spacedManufacturer = manufacturer;
+    spacedManufacturer.replace("_", " ");
+
+    while (doc->readNextStartElement())
+    {
+        if (doc->name() == "F")
+        {
+            QString defFile = "";
+            QString model = "";
+
+            if (doc->attributes().hasAttribute("n"))
+            {
+                defFile = QString("%1%2%3%4")
+                            .arg(manufacturer).arg(QDir::separator())
+                            .arg(doc->attributes().value("n").toString()).arg(KExtFixture);
+                //qDebug() << "Manufacturer" << spacedManufacturer << "file" << defFile;
+            }
+
+            if (doc->attributes().hasAttribute("m"))
+                model = doc->attributes().value("m").toString();
+
+            if (defFile.isEmpty() == false &&
+                spacedManufacturer.isEmpty() == false &&
+                model.isEmpty() == false)
+            {
+                QLCFixtureDef *fxi = new QLCFixtureDef();
+                Q_ASSERT(fxi != NULL);
+
+                fxi->setDefinitionSourceFile(defFile);
+                fxi->setManufacturer(spacedManufacturer);
+                fxi->setModel(model);
+
+                /* Delete the def if it's a duplicate. */
+                if (addFixtureDef(fxi) == false)
+                    delete fxi;
+                fxi = NULL;
+                count++;
+            }
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown manufacturer tag: " << doc->name();
+        }
+        doc->skipCurrentElement();
+    }
+
+    return count;
+}
+
 bool QLCFixtureDefCache::loadMap(const QDir &dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
@@ -170,6 +222,10 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
 
     if (mapPath.isEmpty() == true)
         return false;
+
+    // cache the map path to be used when composing the fixture
+    // definition absolute path
+    m_mapAbsolutePath = dir.absolutePath();
 
     QXmlStreamReader *doc = QLCFile::getXMLReader(mapPath);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
@@ -183,81 +239,57 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
         if (doc->readNext() == QXmlStreamReader::DTD)
             break;
     }
+
     if (doc->hasError())
     {
         QLCFile::releaseXMLReader(doc);
         return false;
     }
 
-    if (doc->dtdName() == KXMLQLCFixtureMap)
+    // make sure the doc type is FixtureMap
+    if (doc->dtdName() != KXMLQLCFixtureMap)
     {
-        if (doc->readNextStartElement() == false)
-        {
-            QLCFile::releaseXMLReader(doc);
-            return false;
-        }
-
-        if (doc->name() == KXMLQLCFixtureMap)
-        {
-            int fxCount = 0;
-
-            while (doc->readNextStartElement())
-            {
-                QString defFile= "";
-                QString manufacturer = "";
-                QString model = "";
-
-                if (doc->name() == "fixture")
-                {
-                    if (doc->attributes().hasAttribute("path"))
-                        defFile = QString(dir.absoluteFilePath(doc->attributes().value("path").toString()));
-                    if(doc->attributes().hasAttribute("mf"))
-                        manufacturer = doc->attributes().value("mf").toString();
-                    if(doc->attributes().hasAttribute("md"))
-                        model = doc->attributes().value("md").toString();
-
-                    if (defFile.isEmpty() == false &&
-                        manufacturer.isEmpty() == false &&
-                        model.isEmpty() == false)
-                    {
-                        QLCFixtureDef* fxi = new QLCFixtureDef();
-                        Q_ASSERT(fxi != NULL);
-
-                        fxi->setDefinitionSourceFile(defFile);
-                        fxi->setManufacturer(manufacturer);
-                        fxi->setModel(model);
-
-                        /* Delete the def if it's a duplicate. */
-                        if (addFixtureDef(fxi) == false)
-                            delete fxi;
-                        fxi = NULL;
-                        fxCount++;
-                    }
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown Fixture Map tag: " << doc->name();
-                }
-                doc->skipCurrentElement();
-            }
-            qDebug() << fxCount << "fixtures found in map";
-        }
-        else
-        {
-            qWarning() << Q_FUNC_INFO << mapPath
-                       << "is not a fixture map file";
-            QLCFile::releaseXMLReader(doc);
-            return false;
-        }
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << mapPath
-                   << "is not a fixture map file";
+        qWarning() << Q_FUNC_INFO << mapPath << "is not a fixture map file";
         QLCFile::releaseXMLReader(doc);
         return false;
     }
 
+    if (doc->readNextStartElement() == false)
+    {
+        QLCFile::releaseXMLReader(doc);
+        return false;
+    }
+
+    // make sure the root tag is FixtureMap
+    if (doc->name() != KXMLQLCFixtureMap)
+    {
+        qWarning() << Q_FUNC_INFO << mapPath << "is not a fixture map file";
+        QLCFile::releaseXMLReader(doc);
+        return false;
+    }
+
+    int fxCount = 0;
+    QString manufacturer = "";
+
+    while (doc->readNextStartElement())
+    {
+        if (doc->name() == "M")
+        {
+            if (doc->attributes().hasAttribute("n"))
+            {
+                manufacturer = doc->attributes().value("n").toString();
+                fxCount += loadMapManufacturer(doc, manufacturer);
+            }
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Fixture Map tag: " << doc->name();
+            doc->skipCurrentElement();
+        }
+    }
+    qDebug() << fxCount << "fixtures found in map";
+
+#if 0
     /* Attempt to read all files not in FixtureMap */
     QStringList definitionPaths;
 
@@ -282,7 +314,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
         else
             qWarning() << Q_FUNC_INFO << "Unrecognized fixture extension:" << path;
     }
-
+#endif
     return true;
 }
 
@@ -293,7 +325,7 @@ void QLCFixtureDefCache::clear()
 }
 
 QDir QLCFixtureDefCache::systemDefinitionDirectory()
-{   
+{
     return QLCFile::systemDirectory(QString(FIXTUREDIR), QString(KExtFixture));
 }
 
@@ -306,9 +338,9 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
     return QLCFile::userDirectory(QString(USERFIXTUREDIR), QString(FIXTUREDIR), filters);
 }
 
-void QLCFixtureDefCache::loadQXF(const QString& path)
+bool QLCFixtureDefCache::loadQXF(const QString& path)
 {
-    QLCFixtureDef* fxi = new QLCFixtureDef();
+    QLCFixtureDef *fxi = new QLCFixtureDef();
     Q_ASSERT(fxi != NULL);
 
     QFile::FileError error = fxi->loadXML(path);
@@ -325,19 +357,21 @@ void QLCFixtureDefCache::loadQXF(const QString& path)
                    << path << "failed:" << QLCFile::errorString(error);
         delete fxi;
         fxi = NULL;
+        return false;
     }
+    return true;
 }
 
-void QLCFixtureDefCache::loadD4(const QString& path)
+bool QLCFixtureDefCache::loadD4(const QString& path)
 {
-    QLCFixtureDef* fxi = new QLCFixtureDef();
+    QLCFixtureDef *fxi = new QLCFixtureDef();
     AvolitesD4Parser parser;
     if (parser.loadXML(path, fxi) == false)
     {
         qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path
                    << ":" << parser.lastError();
         delete fxi;
-        return;
+        return false;
     }
 
     /* Delete the def if it's a duplicate. */
@@ -347,4 +381,6 @@ void QLCFixtureDefCache::loadD4(const QString& path)
         delete fxi;
     }
     fxi = NULL;
+
+    return true;
 }

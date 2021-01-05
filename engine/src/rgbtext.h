@@ -83,8 +83,8 @@ public:
 
 private:
     int scrollingTextStepCount() const;
-    RGBMap renderScrollingText(const QSize& size, uint rgb, int step) const;
-    RGBMap renderStaticLetters(const QSize& size, uint rgb, int step) const;
+    void renderScrollingText(const QSize& size, uint rgb, int step, RGBMap &map) const;
+    void renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap &map) const;
 
 private:
     AnimationStyle m_animationStyle;
@@ -99,7 +99,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    RGBMap rgbMap(const QSize& size, uint rgb, int step);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;

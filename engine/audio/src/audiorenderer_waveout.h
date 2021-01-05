@@ -23,7 +23,7 @@
  *   Copyright (C) 2007-2009 by Ilya Kotov            *
  *   forkotov02@hotmail.ru                            *
  ******************************************************/
- 
+
 #ifndef AUDIORENDERER_WAVEOUT_H
 #define AUDIORENDERER_WAVEOUT_H
 
@@ -67,7 +67,7 @@ protected:
     void resume();
 
     /** @reimpl */
-    void reset(); 
+    void reset();
 
 private:
     // helper functions

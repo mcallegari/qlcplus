@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>Tim Cullingworth</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Entourage</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">0% Fog 5% Fan</Capability>
+  <Capability Min="5" Max="255">5%-100% Fog 100% Fan</Capability>
+ </Channel>
+ <Channel Name="Output Volume">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">0% Output Volume</Capability>
+  <Capability Min="5" Max="255">5%-100% Output Volume</Capability>
+ </Channel>
+ <Channel Name="Fan Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">5% Fan Speed</Capability>
+  <Capability Min="16" Max="255">6%-100% Fan Speed</Capability>
+ </Channel>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">3 Seconds</Capability>
+  <Capability Min="8" Max="255">3-255 Seconds</Capability>
+ </Channel>
+ <Channel Name="Interval">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">0 Seconds</Capability>
+  <Capability Min="10" Max="255">5-250 Seconds</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Fog</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Output Volume</Channel>
+  <Channel Number="1">Fan Speed</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Output Volume</Channel>
+  <Channel Number="1">Fan Speed</Channel>
+  <Channel Number="2">Duration</Channel>
+  <Channel Number="3">Interval</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="21.3" Width="533" Height="249" Depth="387"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

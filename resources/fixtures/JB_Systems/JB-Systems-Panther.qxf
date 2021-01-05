@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Panther</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="14" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="15" Max="135" Preset="StrobeRandomSlowToFast">Shaking slow to fast</Capability>
+  <Capability Min="136" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo / Color">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="12" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="13" Max="20" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 1 / Multicolor</Capability>
+  <Capability Min="21" Max="28" Preset="GoboMacro" Res1="Chauvet/gobo00037.svg">Gobo 2 / Blue</Capability>
+  <Capability Min="29" Max="36">Gobo 3 / Yellow</Capability>
+  <Capability Min="37" Max="44" Preset="GoboMacro" Res1="Others/gobo00012.svg">Gobo 4 / Green</Capability>
+  <Capability Min="45" Max="52">Gobo 5 / Orange</Capability>
+  <Capability Min="53" Max="60" Preset="GoboMacro" Res1="Robe/gobo00005.png">Gobo 6 / Red</Capability>
+  <Capability Min="61" Max="68">Gobo 7 / Magenta</Capability>
+  <Capability Min="69" Max="76">Gobo 8 / Light Blue</Capability>
+  <Capability Min="77" Max="84">Gobo 9 / Pink</Capability>
+  <Capability Min="85" Max="92">Gobo 10 / Magenta</Capability>
+  <Capability Min="93" Max="100" Preset="GoboMacro" Res1="ClayPaky/gobo00058.svg">Gobo 11 / Orange</Capability>
+  <Capability Min="101" Max="108" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 12 / Blue</Capability>
+  <Capability Min="109" Max="116">Gobo 13 / White</Capability>
+  <Capability Min="117" Max="124" Preset="GoboMacro" Res1="Others/gobo00005.svg">Gobo 14 / Green+Pink</Capability>
+  <Capability Min="125" Max="255">CW / CCW Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Reflector mirror">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="9">Stopped</Capability>
+  <Capability Min="10" Max="120">Left - fast to slow</Capability>
+  <Capability Min="121" Max="134">Stopped</Capability>
+  <Capability Min="135" Max="245">Right - slow to fast</Capability>
+  <Capability Min="246" Max="255">Stopped</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Mode Name="Standard">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Reflector mirror</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="470" Height="314" Depth="245"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="160" TiltMax="50"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

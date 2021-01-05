@@ -31,7 +31,7 @@ Rectangle
     property int panelAlignment: Qt.AlignRight
     property bool isOpen: false
     property int collapseWidth: UISettings.iconSizeDefault * 1.25
-    property int expandedWidth: mainView.width / 3
+    property int expandedWidth: UISettings.sidePanelWidth
     property string loaderSource: ""
     property int iconSize: UISettings.iconSizeDefault
 
@@ -64,6 +64,7 @@ Rectangle
         width: sidePanelRoot.width - collapseWidth
         height: parent.height
         source: loaderSource
+        z: 3
 
         // this is a generic ID used by the Loader
         // content to target an object to edit/view
@@ -90,7 +91,7 @@ Rectangle
         target: sidePanelRoot
         properties: "width"
         to: expandedWidth
-        duration: 200
+        duration: 100
         onStopped: sidePanelRoot.width = expandedWidth
     }
 
@@ -100,7 +101,7 @@ Rectangle
         target: sidePanelRoot
         properties: "width"
         to: collapseWidth
-        duration: 200
+        duration: 100
         onStopped: sidePanelRoot.width = collapseWidth
     }
 
@@ -131,7 +132,7 @@ Rectangle
             cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: sidePanelRoot
             drag.axis: Drag.XAxis
-            drag.minimumX: 0
+            //drag.minimumX: 0
             drag.maximumX: mainView.width - collapseWidth
 
             onPositionChanged:
@@ -156,7 +157,6 @@ Rectangle
                     }
                 }
             }
-            //onClicked: animatePanel("")
         }
     }
 }

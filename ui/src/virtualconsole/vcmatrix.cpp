@@ -54,12 +54,12 @@ const QSize VCMatrix::defaultSize(QSize(160, 120));
 
 VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
-    , m_matrixID(Function::invalidId())
     , m_sliderExternalMovement(false)
+    , m_matrixID(Function::invalidId())
     , m_instantApply(true)
     , m_visibilityMask(VCMatrix::defaultVisibilityMask())
 {
-    /* Set the class name "VCLabel" as the object name as well */
+    /* Set the class name "VCMatrix" as the object name as well */
     setObjectName(VCMatrix::staticMetaObject.className());
     setFrameStyle(KVCFrameStyleSunken);
 
@@ -249,15 +249,18 @@ void VCMatrix::slotSliderMoved(int value)
     if (value == 0)
     {
         // Make sure we ignore the fade out time
-        function->adjustAttribute(0, Function::Intensity);
+        adjustFunctionIntensity(function, 0);
         if (function->stopped() == false)
+        {
             function->stop(functionParent());
+            resetIntensityOverrideAttribute();
+        }
     }
     else
     {
         qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
         emit functionStarting(m_matrixID, pIntensity);
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+        adjustFunctionIntensity(function, pIntensity * intensity());
         if (function->stopped() == true)
         {
             // TODO once #758 is fixed: function started by a fader -> override fade in time
@@ -356,6 +359,16 @@ void VCMatrix::editProperties()
         m_doc->setModified();
 }
 
+/*************************************************************************
+ * VCWidget-inherited
+ *************************************************************************/
+
+void VCMatrix::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+    this->slotSliderMoved(this->m_slider->value());
+}
+
 /*********************************************************************
  * Function attachment
  *********************************************************************/
@@ -417,9 +430,12 @@ void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
         if (function != NULL)
         {
             qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
-            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+            adjustFunctionIntensity(function, pIntensity * intensity());
             if (value == 0 && !function->stopped())
+            {
                 function->stop(functionParent());
+                resetIntensityOverrideAttribute();
+            }
         }
     }
 }
@@ -428,17 +444,7 @@ void VCMatrix::slotFunctionStopped()
 {
     m_slider->blockSignals(true);
     m_slider->setValue(0);
-    m_slider->blockSignals(false);
-}
-
-void VCMatrix::slotFunctionAttributeChanged(int attrIndex, qreal fraction)
-{
-    // Only use the Intensity attribute
-    if (attrIndex != 0)
-        return;
-
-    m_slider->blockSignals(true);
-    m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
+    resetIntensityOverrideAttribute();
     m_slider->blockSignals(false);
 }
 
@@ -736,7 +742,7 @@ void VCMatrix::resetCustomControls()
 QList<VCMatrixControl *> VCMatrix::customControls() const
 {
     QList<VCMatrixControl*> controls = m_controls.values();
-    qSort(controls.begin(), controls.end(), VCMatrixControl::compare);
+    std::sort(controls.begin(), controls.end(), VCMatrixControl::compare);
     return controls;
 }
 
@@ -982,7 +988,7 @@ bool VCMatrix::loadXML(QXmlStreamReader &root)
         {
             VCMatrixControl control(0xff);
             if (control.loadXML(root))
-                newControls.insert(qLowerBound(newControls.begin(), newControls.end(), control), control);
+                newControls.insert(std::lower_bound(newControls.begin(), newControls.end(), control), control);
         }
         else if (root.name() == KXMLQLCVCMatrixVisibilityMask)
         {

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Acrobat</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Dimmer, Strobe, Reset">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="154">Dimmer</Capability>
+  <Capability Min="155" Max="169">Open</Capability>
+  <Capability Min="170" Max="229">Strobe, fast to slow</Capability>
+  <Capability Min="230" Max="239">Music Trigger</Capability>
+  <Capability Min="240" Max="249">Auto Trigger</Capability>
+  <Capability Min="250" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Parabolic Reflector">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="1">Stop</Capability>
+  <Capability Min="2" Max="122">CCW rotation, slow to fast</Capability>
+  <Capability Min="123" Max="132">Stop</Capability>
+  <Capability Min="133" Max="253">CW rotation, fast to slow</Capability>
+  <Capability Min="254" Max="255">Stop</Capability>
+ </Channel>
+ <Channel Name="Color / Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/open.svg" Min="0" Max="11">Open</Capability>
+  <Capability Res="Chauvet/gobo00033.svg" Min="12" Max="23">Worms</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="24" Max="35">Web</Capability>
+  <Capability Res="ClayPaky/gobo00072.svg" Min="36" Max="47">Petals</Capability>
+  <Capability Res="ClayPaky/gobo00066.svg" Min="48" Max="59">Spokes</Capability>
+  <Capability Res="SGM/gobo00001.svg" Min="60" Max="71">Cone</Capability>
+  <Capability Res="SGM/gobo00008.svg" Min="72" Max="83">Maze</Capability>
+  <Capability Res="Others/gobo00018.svg" Min="84" Max="95">Crater</Capability>
+  <Capability Res="Others/gobo00008.svg" Min="96" Max="107">Holes</Capability>
+  <Capability Res="Others/gobo00023.svg" Min="108" Max="119">Cross</Capability>
+  <Capability Res="Others/gobo00012.svg" Min="120" Max="131">Jagged Cross</Capability>
+  <Capability Res="Others/gobo00009.svg" Min="132" Max="143">Atomic</Capability>
+  <Capability Res="ClayPaky/gobo00059.svg" Min="144" Max="155">Dot Circle</Capability>
+  <Capability Res="Chauvet/gobo00008.svg" Min="156" Max="167">Nordic</Capability>
+  <Capability Res="Chauvet/gobo00048.svg" Min="168" Max="179">Aim</Capability>
+  <Capability Res="Chauvet/gobo00026.svg" Min="180" Max="191">Pie</Capability>
+  <Capability Res="ClayPaky/gobo00091.svg" Min="192" Max="203">Tie</Capability>
+  <Capability Res="ClayPaky/gobo00066.svg" Min="204" Max="215">Nova</Capability>
+  <Capability Res="ClayPaky/gobo00023.svg" Min="216" Max="227">Triple Beam</Capability>
+  <Capability Color="#000000" Min="228" Max="239">Blackout</Capability>
+  <Capability Res="Others/rainbow.png" Min="240" Max="255">Random</Capability>
+ </Channel>
+ <Channel Name="Mirror Drum Swivel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Index</Capability>
+ </Channel>
+ <Channel Name="Mirror Drum Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="1">No Spin</Capability>
+  <Capability Min="2" Max="122">Spin CW</Capability>
+  <Capability Min="123" Max="132">No Spin</Capability>
+  <Capability Min="133" Max="253">Spin CCW</Capability>
+  <Capability Min="254" Max="255">No Spin</Capability>
+ </Channel>
+ <Channel Name="Mirror Swivel Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking</Capability>
+  <Capability Min="3" Max="255">Speed (Fast to Slow)</Capability>
+ </Channel>
+ <Channel Name="Color / Gobo Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Stand-alone">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Blackout (light off)</Capability>
+  <Capability Min="11" Max="20">Open (light on)</Capability>
+  <Capability Min="21" Max="80">Strobe %</Capability>
+  <Capability Min="81" Max="115">Stand-alone w/ Slow Music Trigger</Capability>
+  <Capability Min="116" Max="140">Stand-alone w/ Medium Music Trigger</Capability>
+  <Capability Min="141" Max="175">Stand-alone w/ Fast Music Trigger</Capability>
+  <Capability Min="176" Max="210">Stand-alone w/ Random Music Trigger</Capability>
+  <Capability Min="211" Max="255">Manual trigger area, crossover at 240 (94%)</Capability>
+ </Channel>
+ <Mode Name="1-Channel">
+  <Channel Number="0">Stand-alone</Channel>
+ </Mode>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Dimmer, Strobe, Reset</Channel>
+  <Channel Number="1">Parabolic Reflector</Channel>
+  <Channel Number="2">Color / Gobo Wheel</Channel>
+  <Channel Number="3">Mirror Drum Swivel</Channel>
+  <Channel Number="4">Mirror Drum Rotation</Channel>
+  <Channel Number="5">Mirror Swivel Speed</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Dimmer, Strobe, Reset</Channel>
+  <Channel Number="1">Parabolic Reflector</Channel>
+  <Channel Number="2">Color / Gobo Wheel</Channel>
+  <Channel Number="3">Mirror Drum Swivel</Channel>
+  <Channel Number="4">Mirror Drum Rotation</Channel>
+  <Channel Number="5">Mirror Swivel Speed</Channel>
+  <Channel Number="6">Color / Gobo Speed</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="ELC 250W"/>
+   <Dimensions Width="490" Height="190" Depth="165" Weight="8"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
+   <Focus PanMax="0" TiltMax="0" Type="Mirror"/>
+   <Technical PowerConsumption="275" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

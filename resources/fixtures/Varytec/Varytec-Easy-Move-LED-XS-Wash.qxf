@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.2</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Easy Move LED XS Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan coarse" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Vector speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Normal -&gt; Slow</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Closed</Capability>
+  <Capability Min="8" Max="134">100% -&gt; 0%</Capability>
+  <Capability Min="135" Max="239">Strobe speed (slow -&gt; fast)</Capability>
+  <Capability Min="240" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Colour macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="21" Color="#fff6fc">White</Capability>
+  <Capability Min="22" Max="35" Color="#ff0000">Red</Capability>
+  <Capability Min="36" Max="49" Color="#00ff00">Green</Capability>
+  <Capability Min="50" Max="63" Color="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="77" Color="#00ffff">Cyan</Capability>
+  <Capability Min="78" Max="91" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="92" Max="105" Color="#ffff00">Yellow</Capability>
+  <Capability Min="106" Max="119" Color="#ff8000">Orange</Capability>
+  <Capability Min="120" Max="133" Color="#ff006e">Pink</Capability>
+  <Capability Min="134" Max="147" Color="#dfd4ff">Bright Purple</Capability>
+  <Capability Min="148" Max="161" Color="#a800ff">Purple</Capability>
+  <Capability Min="162" Max="175" Color="#4ee5f7">Cyano Brown</Capability>
+  <Capability Min="176" Max="189" Color="#ffcf00">Gold</Capability>
+  <Capability Min="190" Max="203" Color="#ebebff">Cold White</Capability>
+  <Capability Min="204" Max="217" Color="#ffebeb">Warm White</Capability>
+  <Capability Min="218" Max="231" Color="#db00ff">Grape</Capability>
+  <Capability Min="232" Max="242">Colour-Change Switch</Capability>
+  <Capability Min="243" Max="255">Colour-Change Fade</Capability>
+ </Channel>
+ <Channel Name="Colour speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Colour vector speed</Capability>
+ </Channel>
+ <Channel Name="Movement macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">Auto program 1</Capability>
+  <Capability Min="23" Max="37">Auto program 2</Capability>
+  <Capability Min="38" Max="52">Auto program 3</Capability>
+  <Capability Min="53" Max="67">Auto program 4</Capability>
+  <Capability Min="68" Max="82">Auto program 5</Capability>
+  <Capability Min="83" Max="97">Auto program 6</Capability>
+  <Capability Min="98" Max="112">Auto program 7</Capability>
+  <Capability Min="113" Max="127">Auto program 8</Capability>
+  <Capability Min="128" Max="142">Sound active 1</Capability>
+  <Capability Min="143" Max="157">Sound active 2</Capability>
+  <Capability Min="158" Max="172">Sound active 3</Capability>
+  <Capability Min="173" Max="187">Sound active 4</Capability>
+  <Capability Min="188" Max="202">Sound active 5</Capability>
+  <Capability Min="203" Max="217">Sound active 6</Capability>
+  <Capability Min="218" Max="232">Sound active 7</Capability>
+  <Capability Min="233" Max="255">Sound active 8</Capability>
+ </Channel>
+ <Mode Name="12 channels">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Vector speed</Channel>
+  <Channel Number="5">Dimmer/Strobe</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">Colour macros</Channel>
+  <Channel Number="10">Colour speed</Channel>
+  <Channel Number="11">Movement macros</Channel>
+ </Mode>
+ <Mode Name="4 channels">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Tilt coarse</Channel>
+  <Channel Number="2">Dimmer/Strobe</Channel>
+  <Channel Number="3">Colour macros</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="100" Type="18x3W LED, RGB" ColourTemperature="0"/>
+   <Dimensions Width="173" Height="249" Weight="4" Depth="173"/>
+   <Lens DegreesMax="15" Name="PC" DegreesMin="15"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

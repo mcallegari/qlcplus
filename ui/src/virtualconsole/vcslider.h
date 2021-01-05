@@ -49,6 +49,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
 #define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
 #define KXMLQLCVCSliderValueDisplayStylePercentage "Percentage"
+#define KXMLQLCVCSliderCatchValues "CatchValues"
 
 #define KXMLQLCVCSliderClickAndGoType "ClickAndGoType"
 
@@ -88,7 +89,7 @@ public:
      *********************************************************************/
 public:
     /** Normal constructor */
-    VCSlider(QWidget* parent, Doc* doc);
+    VCSlider(QWidget *parent, Doc *doc);
 
     /** Destructor */
     ~VCSlider();
@@ -105,11 +106,11 @@ public:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * GUI
@@ -119,6 +120,10 @@ public:
 
     /** @reimp */
     void enableWidgetUI(bool enable);
+
+protected:
+    /** @reimp */
+    void hideEvent(QHideEvent *ev);
 
     /*********************************************************************
      * Properties
@@ -201,6 +206,16 @@ public:
     bool invertedAppearance() const;
     void setInvertedAppearance(bool invert);
 
+    /*********************************************************************
+     * Value catching feature
+     *********************************************************************/
+public:
+    bool catchValues() const;
+    void setCatchValues(bool enable);
+
+protected:
+    bool m_catchValues;
+
     /*************************************************************************
      * Class LevelChannel
      *************************************************************************/
@@ -216,6 +231,8 @@ public:
         LevelChannel(quint32 fid, quint32 ch);
         /** Copy constructor */
         LevelChannel(const LevelChannel& lc);
+        /** Copy operator */
+        LevelChannel& operator=(const LevelChannel& lc);
         /** Comparison operator */
         bool operator==(const LevelChannel& lc) const;
         /** Sorting operator */
@@ -306,7 +323,7 @@ protected:
      *
      * @param value DMX value
      */
-    void setLevelValue(uchar value);
+    void setLevelValue(uchar value, bool external = false);
 
     /**
      * Get the current "level" mode value
@@ -323,6 +340,8 @@ protected slots:
     /** Slot called when the DMX levels of the controlled channels
      *  has changed */
     void slotMonitorDMXValueChanged(int value);
+
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
 
 protected:
     QList <VCSlider::LevelChannel> m_levelChannels;
@@ -357,18 +376,18 @@ public:
     quint32 playbackFunction() const;
 
     /**
-     * Set the level of the currently selected playback function.
-     *
-     * @param level The current playback function's level.
-     */
-    void setPlaybackValue(uchar value);
-
-    /**
      * Get the level of the currently selected playback function.
      *
      * @return The current playback function level.
      */
     uchar playbackValue() const;
+
+    /**
+     * Set the level of the currently selected playback function.
+     *
+     * @param level The current playback function's level.
+     */
+    void setPlaybackValue(uchar value);
 
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
@@ -377,11 +396,12 @@ protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
     void slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction);
+    void slotPlaybackFunctionFlashing(quint32 fid, bool flashing);
 
 protected:
     quint32 m_playbackFunction;
     uchar m_playbackValue;
-    bool m_playbackValueChanged;
+    int m_playbackChangeCounter;
     QMutex m_playbackValueMutex;
 
 private:
@@ -404,14 +424,18 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
 
 protected:
     /** writeDMX for Level mode */
-    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXLevel(MasterTimer *timer, QList<Universe*> universes);
 
     /** writeDMX for Playback mode */
-    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXPlayback(MasterTimer *timer, QList<Universe*> universes);
+
+private:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 
     /*********************************************************************
      * Top label
@@ -428,7 +452,7 @@ public:
     QString topLabelText();
 
 protected:
-    QLabel* m_topLabel;
+    QLabel *m_topLabel;
 
     /*********************************************************************
      * Slider / Knob
@@ -441,7 +465,7 @@ public:
     };
 
 public:
-    void setSliderValue(uchar value, bool noScale = false);
+    void setSliderValue(uchar value, bool scale = true, bool external = false);
 
     void setSliderShadowValue(int value);
 
@@ -457,12 +481,16 @@ public:
 
     void updateFeedback();
 
+signals:
+    void requestSliderUpdate(int value);
+    void valueChanged(QString val);
+
 private slots:
     void slotSliderMoved(int value);
 
 protected:
-    QHBoxLayout* m_hbox;
-    QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
+    QHBoxLayout *m_hbox;
+    QAbstractSlider *m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -481,7 +509,7 @@ public:
     QString bottomLabelText();
 
 protected:
-    QLabel* m_bottomLabel;
+    QLabel *m_bottomLabel;
 
     /*********************************************************************
      * Click & Go Button
@@ -556,15 +584,15 @@ protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
+protected:
+    int m_lastInputValue;
+
     /*********************************************************************
      * Intensity
      *********************************************************************/
 public:
     /** @reimp */
     void adjustIntensity(qreal val);
-
-signals:
-    void valueChanged(QString val);
 
     /*********************************************************************
      * Load & Save

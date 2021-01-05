@@ -50,6 +50,11 @@ void EFXPreviewArea::setPolygon(const QPolygonF& polygon)
     m_scaled = scale(m_original, size());
 }
 
+int EFXPreviewArea::polygonsCount() const
+{
+    return m_original.size();
+}
+
 void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF> &fixturePoints)
 {
     m_originalFixturePoints.resize(fixturePoints.size());
@@ -72,6 +77,9 @@ void EFXPreviewArea::draw(int timerInterval)
 
 void EFXPreviewArea::slotTimeout()
 {
+    if (m_iter < m_scaled.size())
+        m_iter++;
+
     repaint();
 }
 
@@ -93,10 +101,9 @@ void EFXPreviewArea::resizeEvent(QResizeEvent* e)
 {
     m_scaled = scale(m_original, e->size());
 
-    for(int i = 0; i < m_fixturePoints.size(); ++i)
-    {
+    for (int i = 0; i < m_fixturePoints.size(); ++i)
         m_fixturePoints[i] = scale(m_originalFixturePoints[i], e->size());
-    }
+
     QWidget::resizeEvent(e);
 }
 
@@ -124,9 +131,6 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     painter.drawLine(width() >> 1, 0, width() >> 1, height());
     painter.drawLine(0, height() >> 1, width(), height() >> 1);
 
-    if (m_iter < m_scaled.size())
-        m_iter++;
-
     /* Plain points with text color */
     color = palette().color(QPalette::Text);
     pen.setColor(color);
@@ -136,21 +140,11 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     // Draw the points from the point array
     if (m_iter < m_scaled.size() && m_iter >= 0)
     {
-        /*
-        // draw origin
-        color = color.lighter(100 + (m_points.size() / 100));
-        pen.setColor(color);
-        painter.setPen(pen);
-        point = m_points.point(m_iter);
-        painter.drawEllipse(point.x() - 4, point.y() - 4, 8, 8);
-        */
-
         painter.setBrush(Qt::white);
         pen.setColor(Qt::black);
 
-        // draw fixture positions
-
-        // drawing from the end -- so that lower numbers are on top
+        // drawing fixture positions from the end,
+        // so that lower numbers are on top
         for (int i = m_fixturePoints.size() - 1; i >= 0; --i)
         {
             point = m_fixturePoints.at(i).at(m_iter);
@@ -160,14 +154,12 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     }
     else
     {
-        //m_timer.stop();
-
         //Change old behaviour from stop to restart
         restart();
     }
 }
 
-void EFXPreviewArea::restart ()
+void EFXPreviewArea::restart()
 {
     m_iter = 0;
 }

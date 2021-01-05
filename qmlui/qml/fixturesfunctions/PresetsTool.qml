@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.3
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 import "."
 
@@ -28,23 +28,33 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
-    border.color: "#666"
+    border.color: UISettings.bgLight
     border.width: 2
     clip: true
 
-    property bool goboPresets: false // false for color wheel, true for gobos
-    property int selectedIndex: -1
+    property bool closeOnSelect: false
+    property alias presetModel: prList.model
+    property int selectedFixture: -1
+    property int selectedChannel: -1
+    property bool showPalette: false
 
-    onVisibleChanged:
+    signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
+    signal valueChanged(int value)
+
+    function updatePresets(presetModel)
     {
         if (visible === true)
         {
-            selectedIndex = -1
+            selectedFixture = -1
             prList.model = null // force reload
-            prList.model = goboPresets ? fixtureManager.goboChannels : fixtureManager.colorWheelChannels
-            capRepeater.model = null // force reload
-            capRepeater.model = fixtureManager.presetCapabilities(selectedIndex)
+            prList.model = presetModel
         }
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
     }
 
     // toolbar area containing the available preset channels
@@ -67,23 +77,29 @@ Rectangle
             anchors.fill: parent
             orientation: ListView.Horizontal
             boundsBehavior: Flickable.StopAtBounds
-            //model: goboPresets ? fixtureManager.goboChannels : fixtureManager.colorWheelChannels
+
             delegate:
                 Rectangle
                 {
-                    id: delRoot
+                    id: delegateRoot
                     width: UISettings.bigItemHeight
                     height: presetToolBar.height
                     color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
-                    border.color: "#666"
+                    border.color: UISettings.bgLight
 
-                    property int presetIdx: modelData.presetIndex
+                    property int fxID: modelData.fixtureID
+                    property int chIdx: modelData.channelIdx
 
                     Component.onCompleted:
                     {
-                        if (selectedIndex === -1)
-                            selectedIndex = modelData.presetIndex
+                        if (selectedFixture === -1)
+                        {
+                            selectedFixture = fxID
+                            selectedChannel = chIdx
+                            capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+                            prFlickable.contentY = 0
+                        }
                     }
 
                     RobotoText
@@ -103,8 +119,10 @@ Rectangle
 
                         onClicked:
                         {
-                            selectedIndex = presetIdx
-                            capRepeater.model = fixtureManager.presetCapabilities(selectedIndex)
+                            selectedFixture = delegateRoot.fxID
+                            selectedChannel = delegateRoot.chIdx
+                            capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+                            prFlickable.contentY = 0
                         }
                     }
             }
@@ -114,6 +132,7 @@ Rectangle
     // flickable layout containing the actual preset capabilities
     Flickable
     {
+        id: prFlickable
         width: parent.width
         height: parent.height - presetToolBar.height
         y: presetToolBar.height
@@ -134,7 +153,10 @@ Rectangle
                     capIndex: index + 1
                     onValueChanged:
                     {
-                        fixtureManager.setPresetValue(selectedIndex, value)
+                        toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
+                        toolRoot.valueChanged(value)
+                        if (closeOnSelect)
+                            toolRoot.visible = false
                     }
                 }
             }

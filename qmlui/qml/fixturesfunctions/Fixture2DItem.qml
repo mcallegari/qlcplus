@@ -17,16 +17,17 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
+import QtQuick 2.10
 
+import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."
 
 Rectangle
 {
     id: fixtureItem
-    x: (gridCellSize * mmXPos) / gridUnits
-    y: (gridCellSize * mmYPos) / gridUnits
+    x: ((gridCellSize * mmXPos) / gridUnits) + gridPosition.x
+    y: ((gridCellSize * mmYPos) / gridUnits) + gridPosition.y
     z: 2
     width: (gridCellSize * mmWidth) / gridUnits
     height: (gridCellSize * mmHeight) / gridUnits
@@ -35,13 +36,14 @@ Rectangle
     border.width: isSelected ? 2 : 1
     border.color: isSelected ? UISettings.selection : UISettings.fgLight
 
-    Drag.active: fxMouseArea.drag.active
+    //Drag.active: fxMouseArea.drag.active
 
-    property int fixtureID: fixtureManager.invalidFixture()
+    property int itemID: fixtureManager.invalidFixture()
     property string fixtureName: ""
 
-    property real gridCellSize: parent ? parent.cellSize : 100
-    property int gridUnits: parent ? parent.gridUnits : 1000
+    property real gridCellSize: View2D.cellPixels
+    property real gridUnits: View2D.gridUnits === MonitorProperties.Meters ? 1000.0 : 304.8
+    property point gridPosition: View2D.gridPosition
 
     property real mmXPos: 0
     property real mmYPos: 0
@@ -50,67 +52,76 @@ Rectangle
 
     property int headsNumber: 1
     property real headSide: 10
-    property int headColumns: 1
-    property int headRows: 1
+    property size headsLayout: Qt.size(1, 1)
 
     property int panMaxDegrees: 0
     property int tiltMaxDegrees: 0
 
     property bool isSelected: false
-    property bool isDragging: false
     property bool showLabel: false
 
     onWidthChanged: calculateHeadSize();
     onHeightChanged: calculateHeadSize();
-    onHeadsNumberChanged: calculateHeadSize();
+    //onHeadsNumberChanged: calculateHeadSize();
 
     function calculateHeadSize()
     {
-        var areaSqrt = Math.sqrt((width * height) / headsNumber)
-        var columns = parseInt((width / areaSqrt) + 0.5)
-        var rows = parseInt((height / areaSqrt) + 0.5)
+        var columns, rows
+        if (headsLayout !== Qt.size(1, 1))
+        {
+            columns = headsLayout.width
+            rows = headsLayout.height
+            //console.log("" + fixtureName + ": layout provided - " + columns + "x" + rows)
+        }
+        else
+        {
+            // fallback to guessing based on heads number
+            //console.log("Guessing heads layout...")
+            var areaSqrt = Math.sqrt((width * height) / headsNumber)
+            columns = parseInt((width / areaSqrt) + 0.5)
+            rows = parseInt((height / areaSqrt) + 0.5)
 
-        // dirty workaround to correctly display right columns on one row
-        if (rows === 1) columns = headsNumber
-        if (columns === 1) rows = headsNumber
+            // dirty workaround to correctly display right columns on one row
+            if (rows === 1) columns = headsNumber
+            if (columns === 1) rows = headsNumber
 
-        if (columns > headsNumber)
-            columns = headsNumber
+            if (columns > headsNumber)
+                columns = headsNumber
 
-        if (rows < 1) rows = 1
-        if (columns < 1) columns = 1
-
+            if (rows < 1) rows = 1
+            if (columns < 1) columns = 1
+        }
         var cellWidth = width / columns
         var cellHeight = height / rows
-        headSide = parseInt(Math.min(cellWidth, cellHeight))
-        headColumns = columns
-        headRows = rows
+        headSide = Math.min(cellWidth, cellHeight) - 1
+
+        var hHeadsWidth = headSide * columns
+        var hSpacing = (width - hHeadsWidth) / (columns - 1)
+        headsBox.columnSpacing = parseInt(hSpacing)
+        headsBox.columns = columns
+        headsBox.rows = rows
+        headsBox.width = hHeadsWidth + (hSpacing * (columns - 1))
+        headsBox.height = (headSide + 2) * rows
+        //console.log("size: " + width + " x " + height + ", head size: " + headSide + ", spacing: " + hSpacing)
     }
 
     function setHeadIntensity(headIndex, intensity)
     {
         //console.log("headIdx: " + headIndex + ", int: " + intensity)
-        headsRepeater.itemAt(headIndex).headLevel = intensity
+        headsRepeater.itemAt(headIndex).dimmerValue = intensity
     }
 
     function setHeadRGBColor(headIndex, color)
     {
-        headsRepeater.itemAt(headIndex).headColor = color
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.isWheelColor = false
+        headItem.headColor1 = color
     }
 
-    function setHeadWhite(headIndex, level)
+    function setShutter(type, low, high)
     {
-        headsRepeater.itemAt(headIndex).whiteLevel = level / 255
-    }
-
-    function setHeadAmber(headIndex, level)
-    {
-        headsRepeater.itemAt(headIndex).amberLevel = level / 255
-    }
-
-    function setHeadUV(headIndex, level)
-    {
-        headsRepeater.itemAt(headIndex).uvLevel = level / 255
+        for (var i = 0; i < headsRepeater.count; i++)
+            headsRepeater.itemAt(i).setShutter(type, low, high);
     }
 
     function setPosition(pan, tilt)
@@ -124,6 +135,17 @@ Rectangle
         positionLayer.requestPaint()
     }
 
+    function setWheelColor(headIndex, col1, col2)
+    {
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.headColor1 = col1
+        if (col2 !== Qt.rgba(0,0,0,1))
+        {
+            headItem.isWheelColor = true
+            headItem.headColor2 = col2
+        }
+    }
+
     function setGoboPicture(headIndex, resource)
     {
         if (Qt.platform.os === "android")
@@ -132,26 +154,27 @@ Rectangle
             headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
     }
 
-    Flow
+    Grid
     {
         id: headsBox
-        width: headSide * headColumns
-        height: headSide * headRows
+        //width: headSide * headsLayout.width
+        //height: headSide * headsLayout.height
         anchors.centerIn: parent
 
         Repeater
         {
             id: headsRepeater
-            model: fixtureItem.headsNumber
+            model: headsBox.columns * headsBox.rows // fixtureItem.headsNumber
             delegate:
                 Rectangle
                 {
                     id: headDelegate
-                    property color headColor: "black"
-                    property real headLevel: 0.0
-                    property real whiteLevel: 0.0
-                    property real amberLevel: 0.0
-                    property real uvLevel: 0.0
+                    property real intensity: dimmerValue * shutterValue
+                    property real dimmerValue: 0
+                    property real shutterValue: sAnimator.shutterValue
+                    property bool isWheelColor: false
+                    property color headColor1: "black"
+                    property color headColor2: "black"
                     property string goboSource: ""
 
                     width: fixtureItem.headSide
@@ -161,45 +184,28 @@ Rectangle
                     border.width: 1
                     border.color: "#AAA"
 
-                    Rectangle
+                    function setShutter(type, low, high)
                     {
-                        id: headMainLayer
+                        sAnimator.setShutter(type, low, high)
+                    }
+
+                    ShutterAnimator { id: sAnimator }
+
+                    MultiColorBox
+                    {
                         x: 1
                         y: 1
                         width: parent.width - 2
                         height: parent.height - 2
                         radius: parent.radius - 2
-                        color: headDelegate.headColor
-                        opacity: headDelegate.headLevel
-
-                        Rectangle
-                        {
-                            id: headWhiteLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "white"
-                            opacity: headDelegate.whiteLevel
-                        }
-                        Rectangle
-                        {
-                            id: headAmberLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "#FF7E00"
-                            opacity: headDelegate.amberLevel
-                        }
-                        Rectangle
-                        {
-                            id: headUVLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "#9400D3"
-                            opacity: headDelegate.uvLevel
-                        }
+                        opacity: headDelegate.intensity
+                        biColor: headDelegate.isWheelColor
+                        primary: headDelegate.headColor1
+                        secondary: headDelegate.headColor2
                     }
+
                     Image
                     {
-                        id: headGoboLayer
                         anchors.fill: parent
                         sourceSize: Qt.size(parent.width, parent.height)
                         source: headDelegate.goboSource
@@ -224,6 +230,7 @@ Rectangle
 
         onPaint:
         {
+            var context = getContext("2d")
             if (positionLayer.visible == false)
                 return;
 
@@ -289,41 +296,15 @@ Rectangle
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        preventStealing: false
-
-        drag.threshold: 10 //UISettings.iconSizeDefault
+        propagateComposedEvents: true
 
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
 
         onPressed:
         {
-            isSelected = !isSelected
-            contextManager.setFixtureSelection(fixtureID, isSelected)
-        }
-
-        onPositionChanged:
-        {
-            if (!fxMouseArea.pressed)
-                return
-
-            if (drag.target == null)
-            {
-                drag.target = fixtureItem
-                isSelected = true
-            }
-        }
-
-        onReleased:
-        {
-            if (drag.target !== null)
-            {
-                console.log("drag finished");
-                mmXPos = (fixtureItem.x * gridUnits) / gridCellSize;
-                mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
-                contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos, 0)
-                drag.target = null
-            }
+            // do not accept this event to propagate it to the drag rectangle
+            mouse.accepted = false
         }
     }
 }

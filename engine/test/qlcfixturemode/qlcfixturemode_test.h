@@ -49,6 +49,7 @@ private slots:
     void loadWrongRoot();
     void loadNoName();
     void save();
+    void savePhysicalOverride();
 
     void cleanupTestCase();
 

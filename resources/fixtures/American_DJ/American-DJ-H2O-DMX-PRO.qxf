@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.0 GIT</Version>
+  <Author>Marty Badger</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>H2O DMX PRO</Model>
+ <Type>Flower</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="120">Clockwise Fast-Slow</Capability>
+  <Capability Min="121" Max="134">No Rotation</Capability>
+  <Capability Min="135" Max="245">Counter-Clockwise Slow-Fast</Capability>
+  <Capability Min="246" Max="255">No Rotation</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
+  <Capability Min="11" Max="21" Color="#ffffff" Color2="#ffaa00">White &amp; Orange</Capability>
+  <Capability Min="22" Max="32" Color="#ffaa00">Orange</Capability>
+  <Capability Min="33" Max="43" Color="#ffaa00" Color2="#00ff00">Orange &amp; Green</Capability>
+  <Capability Min="44" Max="54" Color="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Color="#00ff00" Color2="#0000ff">Green &amp; Blue</Capability>
+  <Capability Min="66" Max="76" Color="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="87" Color="#0000ff" Color2="#ffff00">Blue &amp; Yellow</Capability>
+  <Capability Min="88" Max="98" Color="#ffff00">Yellow</Capability>
+  <Capability Min="99" Max="109" Color="#ffff00" Color2="#aa55ff">Yellow &amp; Purple</Capability>
+  <Capability Min="110" Max="120" Color="#aa55ff">Purple</Capability>
+  <Capability Min="121" Max="127" Color="#aa55ff" Color2="#ffffff">Purple &amp; White</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="186">Clockwise Colour Fast-Slow</Capability>
+  <Capability Min="187" Max="196">Stop</Capability>
+  <Capability Res="Others/rainbow.png" Min="197" Max="255">Counter-Clockwise Slow-Fast</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Rotation</Channel>
+  <Channel Number="2">Colour Wheel</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="45 Watt LED" Lumens="0"/>
+   <Dimensions Height="121" Width="236" Depth="292" Weight="4"/>
+   <Lens DegreesMin="34" DegreesMax="52" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="69" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

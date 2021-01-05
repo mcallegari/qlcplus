@@ -94,7 +94,7 @@ void EFX_Test::initial()
     QCOMPARE(e.fixtures().size(), 0);
     QCOMPARE(e.propagationMode(), EFX::Parallel);
 
-    QCOMPARE(e.m_fader, (GenericFader*)(NULL));
+    QCOMPARE(e.m_fadersMap.count(), 0);
     QCOMPARE(e.m_legacyFadeBus, Bus::invalid());
     QCOMPARE(e.m_legacyHoldBus, Bus::invalid());
 }
@@ -449,13 +449,13 @@ void EFX_Test::fixtures()
 
     /* Add first fixture */
     EFXFixture* ef1 = new EFXFixture(e);
-    ef1->setHead(GroupHead(12,0));
+    ef1->setHead(GroupHead(12, 0));
     QVERIFY(e->addFixture(ef1));
     QCOMPARE(e->fixtures().size(), 1);
 
     /* Add second fixture */
     EFXFixture* ef2 = new EFXFixture(e);
-    ef2->setHead(GroupHead(34,0));
+    ef2->setHead(GroupHead(34, 0));
     QVERIFY(e->addFixture(ef2));
     QCOMPARE(e->fixtures().size(), 2);
 
@@ -466,7 +466,7 @@ void EFX_Test::fixtures()
 
     /* Try to remove a non-member fixture */
     EFXFixture* ef3 = new EFXFixture(e);
-    ef3->setHead(GroupHead(56,0));
+    ef3->setHead(GroupHead(56, 0));
     QVERIFY(!e->removeFixture(ef3));
     QCOMPARE(e->fixtures().size(), 2);
 
@@ -476,10 +476,15 @@ void EFX_Test::fixtures()
     QCOMPARE(e->fixtures().at(0), ef1);
     QCOMPARE(e->fixtures().at(1), ef2);
     QCOMPARE(e->fixtures().at(2), ef3);
+    QCOMPARE(e->fixture(12, 0), ef1);
+    QCOMPARE(e->fixture(34, 0), ef2);
+    QCOMPARE(e->fixture(56, 0), ef3);
+    /* Test a non existent fixture */
+    QVERIFY(e->fixture(11, 22) == NULL);
 
     /* Add fourth fixture */
     EFXFixture* ef4 = new EFXFixture(e);
-    ef4->setHead(GroupHead(78,0));
+    ef4->setHead(GroupHead(78, 0));
     e->addFixture(ef4);
     QCOMPARE(e->fixtures().size(), 4);
     QCOMPARE(e->fixtures().at(0), ef1);
@@ -539,6 +544,16 @@ void EFX_Test::fixtures()
     /* Member fixture is removed */
     e->slotFixtureRemoved(56);
     QCOMPARE(e->fixtures().size(), 0);
+
+    EFXFixture* ef5 = new EFXFixture(e);
+    ef5->setHead(GroupHead(18, 0));
+    QVERIFY(e->addFixture(ef5));
+
+    /* Remove by fixture ID and head number */
+    QVERIFY(e->removeFixture(18, 0));
+    QCOMPARE(e->fixtures().size(), 0);
+
+    QVERIFY(!e->removeFixture(98, 99));
 
     delete e;
 }
@@ -1815,7 +1830,7 @@ void EFX_Test::previewLissajous()
     QCOMPARE(poly[127].toPoint(), QPoint(115,253));
 }
 
-// Due to rounding errors, reverse direction might come out 
+// Due to rounding errors, reverse direction might come out
 // +/- one point. For now it's acceptable, but should be fixed
 // some day.
 static bool CloseEnough(QPointF const & a, QPointF const & b)
@@ -3081,16 +3096,15 @@ void EFX_Test::save()
                         expectBackward = true;
                         expectStartOffset = 27;
                     }
+                    else if (text == "12")
+                    {
+                        expectHead = 3;
+                        expectBackward = false;
+                        expectStartOffset = 0;
+                    }
                     else
                     {
-                        if (text == "12")
-                        {
-                            expectHead = 3;
-                        }
-                        else
-                        {
-                            expectHead = 7;
-                        }
+                        expectHead = 7;
                         expectBackward = false;
                         expectStartOffset = 0;
                     }
@@ -3135,6 +3149,7 @@ void EFX_Test::save()
 
     QCOMPARE(fixtures.size(), 3);
     QCOMPARE(fixtureid, 3);
+    QCOMPARE(fixturehead, 3);
     QCOMPARE(fixturedirection, 3);
     QCOMPARE(fixtureStartOffset, 3);
     QVERIFY(dir == true);
@@ -3163,16 +3178,16 @@ void EFX_Test::preRunPostRun()
 
     EFX* e = new EFX(m_doc);
     e->setName("Test EFX");
-    QVERIFY(e->m_fader == NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
 
     QSignalSpy spy(e, SIGNAL(running(quint32)));
     e->preRun(&timer);
-    QVERIFY(e->m_fader != NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0].size(), 1);
     QCOMPARE(spy[0][0].toUInt(), e->id());
     e->postRun(&timer, ua);
-    QVERIFY(e->m_fader == NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
 }
 
 void EFX_Test::adjustIntensity()
@@ -3217,7 +3232,7 @@ void EFX_Test::adjustIntensity()
     e->preRun(m_doc->masterTimer());
 
     e->adjustAttribute(0.5);
-    QCOMPARE(e->m_fader->intensity(), 0.5);
+    QCOMPARE(e->getAttributeValue(Function::Intensity), 0.5);
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));

@@ -176,16 +176,16 @@ void AudioBar::checkWidgetFunctionality()
     if (m_widget->type() == VCWidget::ButtonWidget)
     {
         VCButton *btn = (VCButton *)m_widget;
-        if (m_value >= m_maxThreshold && btn->isOn() == false)
+        if (m_value >= m_maxThreshold && btn->state() == VCButton::Inactive)
         {
             btn->pressFunction();
-            btn->setOn(true);
+            //btn->setState(true);
         }
-        else if (m_value < m_minThreshold && btn->isOn() == true)
+        else if (m_value < m_minThreshold && btn->state() != VCButton::Inactive)
         {
             btn->pressFunction();
             btn->releaseFunction(); // finish flashing
-            btn->setOn(false);
+            //btn->setState(false);
         }
     }
     else if (m_widget->type() == VCWidget::SliderWidget)

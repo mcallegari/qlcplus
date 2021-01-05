@@ -25,6 +25,7 @@
 #include <QMap>
 #include <QDir>
 
+class QXmlStreamReader;
 class QLCFixtureDef;
 
 /** @addtogroup engine Engine
@@ -73,7 +74,7 @@ public:
      * @return A matching fixture definition or NULL if not found
      */
     QLCFixtureDef* fixtureDef(const QString& manufacturer,
-                                    const QString& model) const;
+                              const QString& model) const;
 
     /**
      * Get a list of available manufacturer names.
@@ -115,6 +116,15 @@ public:
     bool load(const QDir& dir);
 
     /**
+     * Load all the fixture information found for the given manufacturer.
+     *
+     * @param doc reference to the XML loader
+     * @param manufacturer used to elapse the fixture file name relative path
+     * @return the number of fixtures found
+     */
+    int loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer);
+
+    /**
      * Load a map of hardcoded fixture definitions that represent
      * the minimum information to cache a fixture when it is required
      *
@@ -149,12 +159,13 @@ public:
 
 private:
     /** Load a QLC native fixture definition from the file specified in $path */
-    void loadQXF(const QString& path);
+    bool loadQXF(const QString& path);
 
     /** Load an Avolites D4 fixture definition from the file specified in $path */
-    void loadD4(const QString& path);
+    bool loadD4(const QString& path);
 
 private:
+    QString m_mapAbsolutePath;
     QList <QLCFixtureDef*> m_defs;
 };
 

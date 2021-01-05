@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Ovation FD-165WW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="99">Slow to fast</Capability>
+  <Capability Min="100" Max="109">No function</Capability>
+  <Capability Min="110" Max="179">Lightning effect</Capability>
+  <Capability Min="180" Max="189">No function</Capability>
+  <Capability Min="190" Max="255">Random</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Motor Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="200">No function</Capability>
+  <Capability Min="201" Max="220" Preset="ResetMotors">Motor reset</Capability>
+  <Capability Min="221" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="Uno">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Dos">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+ </Mode>
+ <Mode Name="Std.P">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Zoom</Channel>
+  <Channel Number="4">Motor Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6481" ColourTemperature="3184"/>
+  <Dimensions Weight="6.6" Width="417" Height="261" Depth="284"/>
+  <Lens Name="Fresnel" DegreesMin="14" DegreesMax="55"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

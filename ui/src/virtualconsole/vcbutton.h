@@ -141,14 +141,12 @@ public:
      * Button icon
      *********************************************************************/
 public:
-
     /** Get the button icon's path
         @return absolute path
      */
     QString iconPath() const;
 
-    /** Set the icon's path 
-     */
+    /** Set the icon's path */
     void setIconPath(const QString& iconPath);
 
 private:
@@ -189,6 +187,9 @@ public:
     quint32 function() const;
 
     /** @reimp */
+    void adjustFunctionIntensity(Function *f, qreal value);
+
+    /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
 protected slots:
@@ -196,19 +197,30 @@ protected slots:
     void slotFunctionRemoved(quint32 fid);
 
 protected:
-    /** The function that this button is controlling */
+    /** ID of the Function that this button is controlling */
     quint32 m_function;
 
     /*********************************************************************
      * Button state
      *********************************************************************/
 public:
-    void setOn(bool on);
-    bool isOn() const;
-    void updateOnState();
+    enum ButtonState
+    {
+        Inactive,
+        Monitoring,
+        Active
+    };
+
+    void setState(ButtonState state);
+    ButtonState state() const;
+    void updateState();
+
+signals:
+    /** Signal emitted when the button has actually changed the graphic state */
+    void stateChanged(int state);
 
 protected:
-    bool m_on;
+    ButtonState m_state;
     bool m_ledStyle;
 
     /*********************************************************************
@@ -330,10 +342,6 @@ protected slots:
 protected:
     /** Check if the button's parent is a VCSoloFrame */
     bool isChildOfSoloFrame() const;
-
-signals:
-    /** Signal emitted when the button has actually changed the graphic state */
-    void pressedState(bool on);
 
     /*********************************************************************
     * Custom menu

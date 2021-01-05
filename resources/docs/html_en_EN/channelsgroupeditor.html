@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Channels Groups Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Channel Groups Editor</H1>
+
+<P>
+The Channel Groups editor it activated by clicking on the "Channels Groups" tab in
+the <A HREF="file:fixturemanager.html">Fixture Manager</A> panel.<br>
+With this functionality (introduced in QLC+ version 4.0.0), it is possible to create
+groups of channels with the same functionality.<br>
+For example, if you have 20 PARs you might want to control the RED channel of all
+of them with a single fader.<br>
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/edit_add.png"></TD>
+  <TD>Add a new channels group to the workspace with the Add/Edit Channels Group dialog.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <TD>Remove the selected channels group from the workspace.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/configure.png"></TD>
+  <TD>Edit an existing channels group in the workspace with the Add/Edit Channels Group dialog.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/up.png"></TD>
+  <TD>Move the selected group up in the list to change the logical order.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/down.png"></TD>
+  <TD>Move the selected group down in the list to change the logical order.</TD>
+ </TR>
+</TABLE>
+
+<H3>Add/Edit Channels Group</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>Group Name</TD>
+  <TD>Set/change name of the channels group</TD>
+ </TR>
+ <TR>
+  <TD>Channels list</TD>
+  <TD>Check channels that should be included in this channels group. Uncheck those that should not.</TD>
+ </TR>
+ <TR>
+  <TD>Apply changes to all fixtures of the same type</TD>
+  <TD>When checked, clicking on a channel will select/deselect the same channel on all fixtures of the same type. Use it when you want to select
+  e.g. all Red channels of all fixture of a particular LED PAR model</TD>
+ </TR>
+ <TR>
+  <TD>External input</TD>
+  <TD>Select external input for this channels group for easier control in Function Manager. External input for channels groups will not work elsewhere.</TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

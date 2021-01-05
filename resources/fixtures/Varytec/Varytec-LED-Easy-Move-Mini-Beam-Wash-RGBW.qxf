@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Erik</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED Easy Move Mini Beam + Wash RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">Speed pan/tilt fast-slow</Capability>
+  <Capability Min="226" Max="235">No function</Capability>
+  <Capability Min="236" Max="255">Highest speed</Capability>
+ </Channel>
+ <Channel Name="RED led1/led3" Preset="IntensityRed"/>
+ <Channel Name="GREEN led1/led3" Preset="IntensityGreen"/>
+ <Channel Name="BLUE led1/led3" Preset="IntensityBlue"/>
+ <Channel Name="WHITE led1/led3" Preset="IntensityWhite"/>
+ <Channel Name="RED led2/led4" Preset="IntensityRed"/>
+ <Channel Name="GREEN led2/led4" Preset="IntensityGreen"/>
+ <Channel Name="BLUE led2/led4" Preset="IntensityBlue"/>
+ <Channel Name="WHITE led2/led4" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="16" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="17" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="55">No function</Capability>
+  <Capability Min="56" Max="75">Red</Capability>
+  <Capability Min="76" Max="95">Green</Capability>
+  <Capability Min="96" Max="115">Blue 1</Capability>
+  <Capability Min="116" Max="135">White</Capability>
+  <Capability Min="136" Max="155">Pink</Capability>
+  <Capability Min="156" Max="175">Orange 1</Capability>
+  <Capability Min="176" Max="195">Blue 2</Capability>
+  <Capability Min="196" Max="215">Blue 3</Capability>
+  <Capability Min="216" Max="255">Orange 2</Capability>
+ </Channel>
+ <Channel Name="Colour temp presets">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="55">No function</Capability>
+  <Capability Min="56" Max="255">Different presets</Capability>
+ </Channel>
+ <Channel Name="Automatic Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="75">No function</Capability>
+  <Capability Min="76" Max="255">Automatic programs</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">RED led1/led3</Channel>
+  <Channel Number="6">GREEN led1/led3</Channel>
+  <Channel Number="7">BLUE led1/led3</Channel>
+  <Channel Number="8">WHITE led1/led3</Channel>
+  <Channel Number="9">RED led2/led4</Channel>
+  <Channel Number="10">GREEN led2/led4</Channel>
+  <Channel Number="11">BLUE led2/led4</Channel>
+  <Channel Number="12">WHITE led2/led4</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Channel Number="15">Dimmer</Channel>
+  <Channel Number="16">Colour Macros</Channel>
+  <Channel Number="17">Colour temp presets</Channel>
+  <Channel Number="18">Automatic Programs</Channel>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Basic">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">RED led1/led3</Channel>
+  <Channel Number="4">GREEN led1/led3</Channel>
+  <Channel Number="5">BLUE led1/led3</Channel>
+  <Channel Number="6">WHITE led1/led3</Channel>
+  <Channel Number="7">RED led2/led4</Channel>
+  <Channel Number="8">GREEN led2/led4</Channel>
+  <Channel Number="9">BLUE led2/led4</Channel>
+  <Channel Number="10">WHITE led2/led4</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Dimmer</Channel>
+  <Channel Number="14">Colour Macros</Channel>
+  <Channel Number="15">Colour temp presets</Channel>
+  <Channel Number="16">Automatic Programs</Channel>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.37" Width="236" Height="301" Depth="134"/>
+  <Lens Name="zoom" DegreesMin="5" DegreesMax="35"/>
+  <Focus Type="Head" PanMax="630" TiltMax="235"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -46,6 +46,7 @@ protected:
 
     void resizeEvent(QResizeEvent *e);
     void paintEvent(QPaintEvent* e);
+    void wheelEvent(QWheelEvent *e);
 
 private:
     QPixmap rotatePix(QPixmap *p_pix, float p_deg);

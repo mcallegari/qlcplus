@@ -1,0 +1,367 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - RGB Script API</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>RGB Script API</h1>
+<p><a href="concept.html#RGBMatrix">RGBマトリックス</a>のアニメーションを作ることができます。基本概念として、大量のRGB値を１フレームごとに操作していくことを覚えておいてください。
+　パラパラ漫画を想像してもらえればわかりやすいかと思います、１フレームを描画し、また次のフレームを描画するのを繰り返していけばいいのです。
+</p>
+
+<p>
+　このRGB Scriptは<a href="https://en.wikipedia.org/wiki/ECMAScript">ECMAScript</a>に基づいており、<a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>に似た構文です。※APIのメソッド名は基本的には<a href="https://en.wikipedia.org/wiki/Naming_convention_%28programming%29#JavaScript">キャラメルケース</a>にしたがって<a href="https://en.wikipedia.org/wiki/Case_sensitivity">命名</a>されています。スクリプトを作成する時に参考にしてください。
+</p>
+
+<p>
+　スクリプトファイル名の拡張子は<b>.js</b>です。
+　プリインストールされているRGBスクリプトは以下のパスに保存されています。<ul>
+ <li><b>Linux user dir:</b> ~/.qlcplus/rgbscripts/</li>
+ <li><b>Linux system dir:</b> /usr/share/qlcplus/rgbscripts/</li>
+</ul>
+
+<ul>
+ <li><b>OSX user dir:</b> ~/Library/Application Support/QLC+/RGBScripts</li>
+ <li><b>OSX system dir:</b> /Applications/QLC+.app/Contents/Resources/RGBScripts</li>
+</ul>
+
+<ul>
+ <li><b>Windows user dir:</b> %HOMEPATH%\QLC+\RGBScripts</li>
+ <li><b>Windows system dir:</b> C:\QLC+\RGBScripts</li>
+</ul>
+
+<h1>RGB Script API</h1>
+
+<h2>Foundation</h2>
+<p>
+　スクリプトは必ず無名関数の中に記述してください、C言語のようにinit関数が呼ばれるといったことはなく、ただスクリプトの頭から随時実行されていくだけです。
+また、スクリプトは１つのオブジェクトのプロパティーを操作していく構造です。returnでオブジェクトを返り値に持つ必要があります。
+以下に必要最低限のコードを示します。
+</p>
+
+<table width="100%" cols="1" rows="1">
+ <tr>
+  <td bgcolor="#EEEEEE">
+   <pre>
+    (
+    function() { <font color="blue">// Anonymous function starts here</font>
+        <font color="green">var</font> algo = <font color="green">new</font> <font color="red">Object</font>;
+        <font color="green">return</font> algo; <font color="blue">// Return the script object</font>
+    } <font color="blue">// Anonymous function ends here</font>
+    )() <font color="blue">// Anonymous function is executed here upon evaluation</font></pre>
+  </td>
+ </tr>
+</table>
+
+<h2>プロパティ</h2>
+<p>
+　return でオブジェクトを返却しないスクリプトは実行されても何も動作しません。QLC+が評価するのは返却したオブジェクトのみです。以下のプロパティーでスクリプトの情報を持たせると、QLC+上に表示されるようになります。これらのプロパティーは必須です。</p>
+<ul>
+ <li><b>{Object}.apiVersion:</b> 指定したバージョンのAPIで実行されます。今のところAPIのバージョンは ' 1 'と' 2 'があります。<br>
+APIバージョン１では簡単にスクリプトが作成できるような機能が実装されていました、バージョン２ではさらに高度なアニメーションを実現できるような機能が実装されています。<a href="#apiv2">詳しくはこちら</a><br>
+　それ以外の数値を指定するとスクリプトは実行されません。</li>
+ <li><b>{Object}.name:</b> スクリプト名ここで設定した名前が<a href="rgbmatrixeditor.html">RGB マトリックスエディター</a>に表示されます。</li>
+ <li><b>{Object}.author:</b> 作者名を設定してください。<b></b></li>
+ <li><b>{Object}.acceptColors 【必須ではありません】:</b> 開始色と終了色を設定できるかどうかをQLC+に通知します。<br>
+ '{Object}.acceptColors = 0' 選択された色をスクリプトに渡しません。<br>
+ '{Object}.acceptColors = 1' 開始色のみスクリプトに渡します。<br>
+ '{Object}.acceptColors = 2' 【デフォルト】開始色と終了色のどちらもスクリプトに渡します。<br>このプロパティーが設定されていない場合は2が設定された時と同じ扱いになります。
+ </li>
+</ul>
+
+<p>
+　Sample</p>
+<table width="100%" cols="1" rows="1">
+ <tr>
+  <td bgcolor="#EEEEEE">
+   <pre>
+    (
+    function() {
+        <font color="green">var</font> algo = <font color="green">new</font> <font color="red">Object</font>;
+        algo.apiVersion = <font color="orange">2</font>; <font color="blue">// Can be '1' or '2'</font>
+        algo.name = <font color="darkyellow">"My cool RGB script"</font>;
+        algo.author = <font color="darkyellow">"Your name"</font>;
+        algo.acceptColors = <font color="orange">2</font>; <font color="blue">// Can be '0', '1' or '2'</font>
+        <font color="green">return</font> algo;
+    }
+    )()</pre>
+  </td>
+ </tr>
+</table>
+
+<h2>Functions</h2>
+<p>
+Now we are getting to the actual business of producing data for the <a href="concept.html#RGBMatrix">RGB Matrix</a>.
+The current API version uses two functions to achieve this:
+<ul>
+ <li>rgbMapStepCount(width, height)</li>
+ <li>rgbMap(width, height, rgb, step)</li>
+</ul>
+　これらの関数に同じ引数を与えた時に必ず同じ返り値を返す必要があり、乱数などを使用することは避けてください。
+　これらの関数が呼び出される際の引数はQLC+上でユーザーが設定を変更したタイミングで変更されます。
+</p>
+
+<h3>rgbMapStepCount(width, height)</h3>
+<p>
+　この関数はQLC+がRGBマトリックスのフィクスチャーの<b>高さ</b>と<b>幅</b>からアニメーションを一周再生する際に何ステップかかるかどうかを返り値で返す必要があります。同じ<b>幅と</b><b>高さ</b>が引数で与えられた時の返り値は何回この関数を呼び出しても必ず同じにならなければなりません。
+</p>
+
+<p>
+<b>パラメーター：</b>
+<ul>
+ <li><b>width: </b> フィクスチャーの横の列数</li>
+ <li><b>height:</b> フィクスチャーの縦の行数</li>
+ <li><b>返り値:</b> 再生にかかるステップ数を整数型で返却してください。</li>
+</ul>
+</p>
+
+<p>Sample</p>
+<table width="100%" cols="1" rows="1">
+ <tr>
+  <td bgcolor="#EEEEEE">
+   <pre>
+    (
+    function() {
+        <font color="green">var</font> algo = <font color="green">new</font> <font color="red">Object</font>;
+        algo.apiVersion = <font color="orange">1</font>;
+        algo.name = <font color="darkyellow">"My cool RGB script"</font>;
+        algo.author = <font color="darkyellow">"Your name"</font>;
+
+        algo.rgbMapStepCount = <font color="green">function</font>(width, height) {
+            ...
+            <font color="green">return</font> number_of_steps_when_width_is_oranges_and_height_is_jabberwocky;
+        }
+
+        <font color="green">return</font> algo;
+    }
+    )()</pre>
+  </td>
+ </tr>
+</table>
+
+
+<h3>rgbMap(width, height, rgb, step)</h3>
+<p>
+　このファンクションがアニメーションの描画処理を行います。この関数には必ず<b>height</b>の数と<b>width</b>の数と同じ２次元配列を返り値として持たせてください。返り値の配列は<b>height</b>と<b>width</b>の数分の内容を持ち、<a href="http://doc.trolltech.com/4.7/qcolor.html#QRgb-typedef">QRgb</a>の形式で(0x00RRGGBB)ピクセルの色を32bitの整数型で代入してください。引数<b>rgb</b>には、<a href="rgbmatrixeditor.html">RGBマトリクスエディタで</a>ユーザーが選択した色の整数表現が与えられています。<b>step</b>には "0" から "rgbMapStepCount(w, h) - 1" の整数が与えられます。
+</p>
+
+<p>
+<b>パラメータ:</b>
+<ul>
+ <li><b>width: </b> フィクスチャーの横の列数</li>
+ <li><b>height:</b> フィクスチャーの縦の行数</li>
+ <li><b>rgb:</b>エディターでユーザーが指定したカラーコード</li>
+ <li><b>step</b>には "0" から "rgbMapStepCount(w, h) - 1" の整数が与えられます。</li>
+ <li><b>返り値:</b>  Array[{height}][{width}]で表される２次元配列を返却してください。</li>
+</ul>
+</p>
+
+<p>
+Sample
+</p>
+<table width="100%" cols="1" rows="1">
+ <tr>
+  <td bgcolor="#EEEEEE">
+   <pre>
+    (
+    function() {
+        <font color="green">var</font> algo = <font color="green">new</font> <font color="red">Object</font>;
+        algo.apiVersion = <font color="orange">1</font>;
+        algo.name = <font color="darkyellow">"My cool RGB script"</font>;
+        algo.author = <font color="darkyellow">"Your name"</font>;
+
+        algo.rgbMapStepCount = <font color="green">function</font>(width, height) {
+            ...
+            <font color="green">return</font> number_of_steps_when_width_is_oranges_and_height_is_jabberwock;
+        }
+
+        algo.rgbMap = <font color="green">function</font>(width, height, rgb, step) {
+            ...
+            <font color="green">return</font> a_2d_array_of_arrays;
+        }
+
+        <font color="green">return</font> algo;
+    }
+    )()</pre>
+  </td>
+ </tr>
+</table>
+
+<a name="apiv2"></a><h2>API バージョン2</h2>
+<p>
+APIバージョン２の文法では<b>プロパティー</b>の概念が追加されています。 QLC+のエディター上にオプションの設定フィールドを表示させることが可能になり、スクリプト側から希望の形式でユーザーからのプロパティーを取得することができるようになりました。<br>
+　追加されたプロパティーはアニメーションの向きやレンダリングされるオブジェクト数などです。<br>
+<br>
+　実装は以下の説明に従ってください。<br>
+　Sample<pre>
+    algo.orientation = <font color="orange">0</font>;
+    algo.properties = <font color="green">new</font> Array();
+    algo.properties.push(<font color="red">"name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation"</font>);
+</pre>
+　ポイントとなるのは３点です。<ol>
+  <li>ユーザーが設定した値を格納する変数名を指定してください。</li>
+  <li>オブジェクトの{Object},propertiesを配列で初期化します。一度だけこの作業を行なってください。</li>
+  <li>Push (add) メソッドに後述の記法に従ってユーザーに設定させたいプロパティー項目等をQLC+側に通知します。</li>
+</ol><br>
+記法は'<b>name:value</b>' で構成されており、'<b>|</b>'パイプを使って情報を区切る必要があります。<br>
+　属性の一覧は以下の通りです。<br>
+
+<table class="qlcTable">
+<tr>
+<td><b>属性名:</b></td><td><b>value</b></td>
+</tr>
+<tr>
+ <td><b>name</b></td>
+ <td>QLC+側がプロパティーを識別するためのユニークな名前
+　混乱を避けるため、スクリプト内でreturn のために作成してあるオブジェクト名(Sampleではalgo)を使用することをお勧めします。
+ </td>
+</tr>
+<tr>
+ <td><b>type</b></td>
+ <td>QLC+上でプロパティーとしてユーザーに入力させる形式を指定できます。'type' 属性は、'values'属性よりも先に記述する必要があります。<br>
+　形式は以下の通りです。<br>
+ <ul>
+  <li><b>list</b>: プルダウンメニューからユーザーに選択させることができます。</li>
+  <li><b>range</b> ：このプロパティが扱うことができる整数値の範囲</li>
+  <li><b>integer</b>:整数値</li>
+  <li><b>string</b>:文字列</li>
+ </ul>
+ </td>
+</tr>
+<tr>
+ <td><b>display</b></td>
+ <td>QLC+のエディタ上に文字を表示させることができます。アニメーションの説明文等をエディタ上に表できます。</td>
+</tr>
+<tr>
+ <td><b>values</b></td>
+ <td>この属性は、typeが 'list'または 'range'の場合にのみ適用できます。これはプロパティが想定できる値を定義します。'list'タイプは  'one,two,three'のようになり、 'range'タイプは '2,10'のようになります。<br>これらの値は ','カンマ区切りで記述します。'range'で指定できるのは１つの範囲のみです、２個以上は指定できません
+</td></tr>
+<tr>
+ <td><b>write</b></td>
+ <td>QLC +がプロパティ値を書き込むために呼び出すスクリプト関数の名前を定義します。<br>この機能では、スクリプトの作者は、プロパティの変更を適用するために必要なすべてのアクションを実装する必要があります。<br>上記の例のwriteメソッドは次のとおりです。<br>
+ <pre>
+    algo.setOrientation = <b>function</b>(_orientation) {
+	if (_orientation == "Vertical")
+	  algo.orientation = 1;
+	else
+	  algo.orientation = 0;
+    }
+ </pre>
+ </td>
+</tr>
+<tr>
+ <td><b>read</b></td>
+ <td>QLC +がプロパティ値を読み取るために呼び出すスクリプト関数の名前を定義します。<br>上記の例のreadメソッドは次のとおりです。<br>
+ <pre>
+    algo.getOrientation = <b>function</b>() {
+        if (algo.orientation == 1)
+	  return "Vertical";
+	else
+	  return "Horizontal";
+    }
+ </pre>
+ </td>
+</tr>
+</table>
+
+</p>
+
+<h2>Development Tool</h2>
+
+<p>　スクリプトの文法チェックを行うことができます。　以下の２ファイルを同じディレクトリに保存しブラウザで実行してください。<ul>
+ <li><a href="https://raw.githubusercontent.com/mcallegari/qlcplus/master/resources/rgbscripts/devtool.html">devtool.html</a></li>
+ <li><a href="https://raw.githubusercontent.com/mcallegari/qlcplus/master/resources/rgbscripts/devtool.js">devtool.js</a></li>
+</ul></p>
+
+<h2>Example Script: Full Columns</h2>
+
+<table width="100%" cols="1" rows="1">
+ <tr>
+  <td bgcolor="#EEEEEE">
+   <pre><font color="darkmagenta">
+    /*
+      Q Light Controller Plus
+      fullcolumns.js
+
+      Copyright (c) Heikki Junnila
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          https://www.apache.org/licenses/LICENSE-2.0.txt
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+    */</font>
+
+    (
+    <font color="darkmagenta">
+    /**
+     * This algorithm produces fully-lit columns, meaning all pixels on a single
+     * column are lit together.
+     */</font>
+    function()
+    {
+        var algo = <font color="green">new</font> <font color="red">Object</font>;
+        algo.apiVersion = <font color="orange">1</font>;
+        algo.name = <font color="darkyellow">"Full Columns"</font>;
+        algo.author = <font color="darkyellow">"Heikki Junnila"</font>;
+
+        <font color="darkmagenta">/**
+         * The actual "algorithm" for this RGB script. Produces a map of
+         * size($width, $height) each time it is called.
+         *
+         * @param step The step number that is requested (0 to (algo.rgbMapStepCount - 1))
+         * @param rgb Tells the color requested by user in the UI.
+         * @return A two-dimensional array[height][width].
+         */</font>
+        algo.rgbMap = function(width, height, rgb, step)
+        {
+            var map = <font color="green">new</font> <font color="red">Array</font>(height);
+            <font color="green">for</font> (var y = 0; y &lt; height; y++)
+            {
+                map[y] = <font color="green">new</font> <font color="red">Array</font>();
+                <font color="green">for</font> (var x = 0; x &lt; width; x++)
+                {
+                    <font color="green">if</font> (x == step)
+                        map[y][x] = rgb;
+                    <font color="green">else</font>
+                        map[y][x] = 0;
+                }
+            }
+
+            <font color="green">return</font> map;
+        }
+
+        <font color="darkmagenta">/**
+         * Tells RGB Matrix how many steps this algorithm produces with size($width, $height)
+         *
+         * @param width The width of the map
+         * @param height The height of the map
+         * @return Number of steps required for a map of size($width, $height)
+         */</font>
+        algo.rgbMapStepCount = function(width, height)
+        {
+            <font color="darkmagenta">// Each column is lit completely at a time, so because there are $width</font>
+            <font color="darkmagenta">// columns in the map, the number of steps must be $width to light all</font>
+            <font color="darkmagenta">// columns per round.</font>
+            <font color="green">return</font> width;
+        }
+
+        <font color="green">return</font> algo;
+    }
+    )()</pre>
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

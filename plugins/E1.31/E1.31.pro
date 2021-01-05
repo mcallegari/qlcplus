@@ -46,7 +46,7 @@ SOURCES += e131packetizer.cpp \
            configuree131.cpp
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
-   metainfo.files += qlcplus-e131.metainfo.xml
-   INSTALLS       += metainfo 
+   metainfo.path   = $$METAINFODIR
+   metainfo.files += org.qlcplus.QLCPlus.e131.metainfo.xml
+   INSTALLS       += metainfo
 }

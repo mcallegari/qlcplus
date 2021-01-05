@@ -37,6 +37,7 @@ class ChannelModifier;
 class QLCFixtureMode;
 class QLCFixtureHead;
 class FixtureConsole;
+class SceneValue;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -59,6 +60,12 @@ class Doc;
 #define KXMLFixtureChannelModifier "Modifier"
 #define KXMLFixtureChannelIndex "Channel"
 #define KXMLFixtureModifierName "Name"
+
+typedef struct
+{
+    bool m_hasAlias;        /** Flag to enable/disable aliases check */
+    QLCCapability *m_currCap; /** The current capability in use */
+} ChannelAlias;
 
 class Fixture : public QObject
 {
@@ -268,6 +275,10 @@ public:
     /** @see QLCFixtureHead */
     QVector <quint32> cmyChannels(int head = 0) const;
 
+    /** Return a list of values based on the given position degrees
+     *  and the provided type (Pan or Tilt) */
+    QList<SceneValue> positionToValues(int type, int degrees) const;
+
     /** Set a list of channel indices to exclude from fade transitions */
     void setExcludeFadeChannels(QList<int> indices);
 
@@ -325,12 +336,12 @@ protected:
     QHash<quint32, ChannelModifier*> m_channelModifiers;
 
     /*********************************************************************
-     * Channel values
+     * Channel info
      *********************************************************************/
 public:
     /** Store DMX values for this fixture. If values have changed,
      * it returns true, otherwise false */
-    bool setChannelValues(QByteArray values);
+    bool setChannelValues(const QByteArray &values);
 
     /** Return the current DMX values of this fixture */
     QByteArray channelValues();
@@ -338,12 +349,19 @@ public:
     /** Retrieve the DMX value of the given channel index */
     uchar channelValueAt(int idx);
 
+    /** Check if some alias has changed on channel $chIndex for $value */
+    void checkAlias(int chIndex, uchar value);
+
 signals:
     void valuesChanged();
+    void aliasChanged();
 
 protected:
+    /** Runtime array to store DMX values and check for changes */
     QByteArray m_values;
-    QMutex m_valuesMutex;
+    /** Runtime array to check for alias changes */
+    QVector<ChannelAlias> m_aliasInfo;
+    QMutex m_channelsInfoMutex;
 
     /*********************************************************************
      * Fixture definition
@@ -426,7 +444,8 @@ public:
         BRG,
         GBR,
         GRB,
-        RGBW
+        RGBW,
+        RBG
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(Components)

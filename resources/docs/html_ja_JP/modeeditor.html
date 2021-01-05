@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - モードエディター</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>モードエディター</H1>
+<P>
+モードエディタはフィクスチャーが使用するch数を変更できる機能<A href="file:concept.html#FixtureMode">(モード)</A>を有しているときに、QLC+で対応するための機能です。
+エディターは<B>チャンネル</B>・<B>ヘッド</B>・<B>機種情報</B>の３つのタブで構成されています。
+</P>
+<H2>チャンネル</H2>
+<P>
+チャンネルタブではフィクスチャーに割り当てられている全ての機能を追加してください、ここではモードのことを意識する必要はありません。
+次のステップでここで追加した機能をモードに割り当てていきます。
+</P>
+
+<IMG SRC="file:../images/fixtureeditor_mode_channels.png" WIDTH="500"/>
+<BR>
+
+<TABLE BORDER=1 class="qlcTable">
+  <TR>
+    <TD><B>モード名</B></TD>
+    <TD>モード名を設定してください。(重複した名前を付けることはできません)</TD>
+  </TR>
+  <TR>
+    <TD><B>チャンネル</B></TD>
+    <TD>モードに追加されたチャンネルをdmx順に表示します</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+    <TD>
+      モードに割り当てるチャンネルを追加/編集できます。ここで追加するチャンネルは事前に
+      <A HREF="file:fixtureeditor.html">フィクスチャーエディター</A>の<B>チャンネル</B>タブで作成しておく必要があります。
+      ボタンをクリックすると左右に一覧が表示されます。
+      <UL>
+        <LI>
+          左のリストはフィクスチャーエディターのチャンネルタブで作った全てのチャンネルが表示されています。
+          ここから編集中のモードに割り当てたいチャンネル(機能)を選択していきます。
+        </LI>
+        <LI>
+           右のリストは編集中のモードに割り当てられているチャンネルが表示されます、
+           モードを新規作成している場合には最初は何も表示されていません、<BR>
+           ここに右のリストからチャンネル(機能)をdmxのチャンネル順になるように並べていきます。
+        </LI>
+      </UL>
+      チャンネルは中央のボタンからリスト間を移動でき、ドラッグ&ドロップで移動できます。<BR>
+      編集が終わったらOKボタンを押してください。
+    </TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+    <TD>選択したチャンネルを削除します</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/up.png"/></TD>
+    <TD>選択したチャンネルを上に移動します</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/down.png"/></TD>
+    <TD>選択したチャンネルを下に移動します</TD>
+  </TR>
+</TABLE>
+
+<H2>Heads タブ</H2>
+
+<P>
+  ヘッドタブでは、１台のフィクスチャー内に複数の<A HREF="file:concept.html#Head">ヘッド</A>(発光部)が存在する場合に
+  QLC+上で独立したフィクスチャーのように扱うことで操作しやすくしたり、まとめて<A HHREF="file:concept
+  .html#FixtureGroup">フィクスチャーグループ</A>のように操作することもできます。
+</P>
+<P>
+ヘッドはいわばサブフィクスチャーとも呼べる扱いを受けます、実際にヘッドを定義するときには端から名前に番号を振っておくといいでしょう。
+ここで後先考えずに名前を決めてしまうと困るのは未来の自分です。
+</P>
+
+<IMG SRC="file:../images/fixtureeditor_mode_heads.png" WIDTH="500"/>
+<BR>
+
+<TABLE BORDER=1 class="qlcTable">
+  <TR>
+    <TD><B>Head list</B></TD>
+    <TD>定義済みのヘッドが表示されています</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+    <TD>ヘッドを<A HREF="#edit_head">ヘッドエディタ</A>を使って追加します</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+    <TD>選択したヘッドを削除します</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit.png"/></TD>
+    <TD>選択したヘッドを<A HREF="#edit_head">ヘッドエディタ</A>で編集します/TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/up.png"/></TD>
+    <TD>選択したヘッドを上に移動します
+    </TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/down.png"/></TD>
+    <TD>選択したヘッドを下に移動します
+    </TD>
+  </TR>
+</TABLE>
+
+<H3 id="edit_head">ヘッドエディタ</H3>
+<P>
+ヘッドエディタではフィクスチャー定義に<A HREF="file:concept.html#Head">ヘッド</A>を追加・編集できます。
+ここで追加するチャンネルは<B>チャンネル</B>タブで事前に作成しておく必要があります。
+</P>
+<P>
+編集方法は簡単で、編集中のヘッドに割り当てたいチャンネルの左のチェックボックスにチェックを入れるだけです。
+ここで気をつけたいのは、１つのチャンネルは１つのモードにしか割り当てられないということです。例えばフィクスチャー内に
+４つのヘッドがあり、それぞれRGBと光量の4chの計12chあれば問題ありませんが。ヘッドごとにはRGBの3chしかなく、フィクスチャー全体の光量を
+1chで制御する計10chのフィクスチャーの場合は光量のチャンネルをヘッドに割り当ててはいけないことに注意してください。
+</P>
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_mode_edit_head.png" />
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>チャンネルリスト</B></TD>
+     <TD>現在のモードに追加されているヘッドが表示されます。新規作成の場合は何も表示されません。
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2>機種情報</H2>
+
+<P>
+  このタブはフィクスチャーエディタ上にある<I>グローバル</I><A HREF="file:fixturedefinitioneditor.html#physical">機種情報</A>
+  タブとほぼ同じです。<BR>
+  ここではモードを切り替えることによってムービングヘッドの動作角など機種情報の項目が変化する場合のみ編集する必要があります、変化しない場合は
+  <B>グローバル設定を使用する</B>にチェックが入っていればOKです。設定を変更する場合は<B>モード別設定を使用する</B>にチェックを入れておきましょう
+</P>
+
+
+</BODY>
+</HTML>

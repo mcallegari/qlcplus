@@ -79,12 +79,12 @@ QList<VCWidget *> VCWidgetSelection::getChildren(VCWidget *obj)
 
 void VCWidgetSelection::updateWidgetsTree()
 {
-    VCFrame* contents = VirtualConsole::instance()->contents();
-    m_widgetsList = getChildren((VCWidget *)contents);
+    VCFrame *contents = VirtualConsole::instance()->contents();
+    m_widgetsList = getChildren(contents);
 
     foreach (QObject *object, m_widgetsList)
     {
-        VCWidget *widget = (VCWidget *)object;
+        VCWidget *widget = qobject_cast<VCWidget *>(object);
 
         QTreeWidgetItem *item = new QTreeWidgetItem(m_tree);
         item->setText(KColumnName, widget->caption());

@@ -49,10 +49,11 @@ var testAlgo;
                 map[y] = new Array();
                 for (var x = 0; x < width; x++)
                 {
-                    if ((i % 2) == 0)
+                    if ((i % 2) === 0) {
                         map[y][x] = rgb;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                     i++;
                 }
             }

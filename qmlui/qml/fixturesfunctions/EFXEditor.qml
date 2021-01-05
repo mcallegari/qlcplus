@@ -19,9 +19,10 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.2 as QC1
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
 import "."
@@ -38,7 +39,7 @@ Rectangle
     ModelSelector
     {
         id: eeSelector
-        onItemsCountChanged: console.log("EFX Editor selected items changed !")
+        onItemsCountChanged: console.log("EFX Editor selected items changed!")
     }
 
     TimeEditTool
@@ -53,16 +54,16 @@ Rectangle
 
         onValueChanged:
         {
-            if (speedType == Function.FadeIn)
+            if (speedType == QLCFunction.FadeIn)
                 efxEditor.fadeInSpeed = val
-            else if (speedType == Function.Hold)
+            else if (speedType == QLCFunction.Hold)
                 efxEditor.holdSpeed = val
-            else if (speedType == Function.FadeOut)
+            else if (speedType == QLCFunction.FadeOut)
                 efxEditor.fadeOutSpeed = val
         }
     }
 
-    SplitView
+    QC1.SplitView
     {
         anchors.fill: parent
 
@@ -104,8 +105,9 @@ Rectangle
 
                 onBackClicked:
                 {
-                    functionManager.setEditorFunction(-1, false)
-                    requestView(-1, "qrc:/FunctionManager.qml")
+                    var prevID = efxEditor.previousID
+                    functionManager.setEditorFunction(prevID, false, true)
+                    requestView(prevID, functionManager.getEditorResource(prevID))
                 }
             }
 
@@ -146,6 +148,7 @@ Rectangle
                         efxData: efxEditor.algorithmData
                         fixturesData: efxEditor.fixturesData
                         animationInterval: efxEditor.duration / (efxData.length / 2)
+                        isRelative: efxEditor.isRelative
                     }
 
                     SectionBox
@@ -180,13 +183,13 @@ Rectangle
                                         height: parent.height
                                         imgSource: "qrc:/add.svg"
                                         checkable: true
-                                        tooltip: qsTr("Add a fixture head")
+                                        tooltip: qsTr("Add a fixture/head")
                                         onCheckedChanged:
                                         {
                                             if (checked)
                                             {
-                                                rightSidePanel.width += mainView.width / 3
-                                                fxTreeLoader.width = mainView.width / 3
+                                                rightSidePanel.width += UISettings.sidePanelWidth
+                                                fxTreeLoader.width = UISettings.sidePanelWidth
                                                 fxTreeLoader.modelProvider = efxEditor
                                                 fxTreeLoader.source = "qrc:/FixtureGroupManager.qml"
                                             }
@@ -345,10 +348,10 @@ Rectangle
                                                     CustomCheckBox
                                                     {
                                                         anchors.centerIn: parent
-                                                        height: parent.height
-                                                        width: height
+                                                        implicitWidth: parent.height
+                                                        implicitHeight: implicitWidth
                                                         checked: model.reverse
-                                                        onToggle: efxEditor.setFixtureReversed(fxID, head, checked)
+                                                        onCheckedChanged: efxEditor.setFixtureReversed(fxID, head, checked)
                                                     }
                                                     Rectangle
                                                     {
@@ -366,7 +369,7 @@ Rectangle
                                                     to: 359
                                                     suffix: "°"
                                                     value: model.offset
-                                                    onValueChanged: efxEditor.setFixtureOffset(fxID, head, value)
+                                                    onValueModified: efxEditor.setFixtureOffset(fxID, head, value)
                                                 }
 
                                             } // Row
@@ -464,11 +467,12 @@ Rectangle
                                 }
                                 CustomComboBox
                                 {
+                                    id: patternCombo
                                     Layout.fillWidth: true
                                     height: editorColumn.itemsHeight
                                     model: efxEditor.algorithms
                                     currentIndex: efxEditor.algorithmIndex
-                                    onCurrentTextChanged: efxEditor.algorithmIndex = currentIndex
+                                    onCurrentIndexChanged: efxEditor.algorithmIndex = currentIndex
                                 }
 
                                 // row 2
@@ -480,8 +484,12 @@ Rectangle
 
                                     CustomCheckBox
                                     {
-                                        height: UISettings.listItemHeight
-                                        width: height
+                                        id: relativeCheck
+                                        implicitWidth: UISettings.listItemHeight
+                                        implicitHeight: implicitWidth
+                                        autoExclusive: false
+                                        checked: efxEditor.isRelative
+                                        onCheckedChanged: efxEditor.isRelative = checked
                                     }
 
                                     RobotoText
@@ -503,7 +511,7 @@ Rectangle
                                     from: 0
                                     to: 127
                                     value: efxEditor.algorithmWidth
-                                    onValueChanged: efxEditor.algorithmWidth = value
+                                    onValueModified: efxEditor.algorithmWidth = value
                                 }
 
                                 // row 4
@@ -518,37 +526,41 @@ Rectangle
                                     from: 0
                                     to: 127
                                     value: efxEditor.algorithmHeight
-                                    onValueChanged: efxEditor.algorithmHeight = value
+                                    onValueModified: efxEditor.algorithmHeight = value
                                 }
 
                                 // row 5
                                 RobotoText
                                 {
+                                    visible: !relativeCheck.checked
                                     label: qsTr("X offset")
                                     height: UISettings.listItemHeight
                                 }
                                 CustomSpinBox
                                 {
+                                    visible: !relativeCheck.checked
                                     Layout.fillWidth: true
                                     from: 0
                                     to: 255
                                     value: efxEditor.algorithmXOffset
-                                    onValueChanged: efxEditor.algorithmXOffset = value
+                                    onValueModified: efxEditor.algorithmXOffset = value
                                 }
 
                                 // row 6
                                 RobotoText
                                 {
+                                    visible: !relativeCheck.checked
                                     label: qsTr("Y offset")
                                     height: UISettings.listItemHeight
                                 }
                                 CustomSpinBox
                                 {
+                                    visible: !relativeCheck.checked
                                     Layout.fillWidth: true
                                     from: 0
                                     to: 255
                                     value: efxEditor.algorithmYOffset
-                                    onValueChanged: efxEditor.algorithmYOffset = value
+                                    onValueModified: efxEditor.algorithmYOffset = value
                                 }
 
                                 // row 7
@@ -564,7 +576,7 @@ Rectangle
                                     to: 359
                                     suffix: "°"
                                     value: efxEditor.algorithmRotation
-                                    onValueChanged: efxEditor.algorithmRotation = value
+                                    onValueModified: efxEditor.algorithmRotation = value
                                 }
 
                                 // row 8
@@ -580,69 +592,77 @@ Rectangle
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmStartOffset
-                                    onValueChanged: efxEditor.algorithmStartOffset = value
+                                    onValueModified: efxEditor.algorithmStartOffset = value
                                 }
 
                                 // row 9
                                 RobotoText
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     label: qsTr("X frequency")
                                     height: UISettings.listItemHeight
                                 }
                                 CustomSpinBox
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     Layout.fillWidth: true
                                     from: 0
                                     to: 32
                                     value: efxEditor.algorithmXFrequency
-                                    onValueChanged: efxEditor.algorithmXFrequency = value
+                                    onValueModified: efxEditor.algorithmXFrequency = value
                                 }
 
                                 // row 10
                                 RobotoText
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     label: qsTr("Y frequency")
                                     height: UISettings.listItemHeight
                                 }
                                 CustomSpinBox
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     Layout.fillWidth: true
                                     from: 0
                                     to: 32
                                     value: efxEditor.algorithmYFrequency
-                                    onValueChanged: efxEditor.algorithmYFrequency = value
+                                    onValueModified: efxEditor.algorithmYFrequency = value
                                 }
 
                                 // row 11
                                 RobotoText
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     label: qsTr("X phase")
                                     height: UISettings.listItemHeight
                                 }
                                 CustomSpinBox
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     Layout.fillWidth: true
                                     from: 0
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmXPhase
-                                    onValueChanged: efxEditor.algorithmXPhase = value
+                                    onValueModified: efxEditor.algorithmXPhase = value
                                 }
 
                                 // row 9
                                 RobotoText
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     label: qsTr("Y phase")
                                     height: UISettings.listItemHeight
                                 }
                                 CustomSpinBox
                                 {
+                                    visible: patternCombo.displayText === "Lissajous"
                                     Layout.fillWidth: true
                                     from: 0
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmYPhase
-                                    onValueChanged: efxEditor.algorithmYPhase = value
+                                    onValueModified: efxEditor.algorithmYPhase = value
                                 }
                             } // GridLayout
                     } // SectionBox
@@ -685,9 +705,9 @@ Rectangle
                                             anchors.fill: parent
                                             onDoubleClicked:
                                             {
-                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                                 timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  fiLabel.label, parent.label, Function.FadeIn)
+                                                                  fiLabel.label, parent.label, QLCFunction.FadeIn)
                                             }
                                         }
                                     }
@@ -717,9 +737,9 @@ Rectangle
                                             anchors.fill: parent
                                             onDoubleClicked:
                                             {
-                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                                 timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  hLabel.label, parent.label, Function.Hold)
+                                                                  hLabel.label, parent.label, QLCFunction.Hold)
                                             }
                                         }
                                     }
@@ -749,9 +769,9 @@ Rectangle
                                             anchors.fill: parent
                                             onDoubleClicked:
                                             {
-                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                                 timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  foLabel.label, parent.label, Function.FadeOut)
+                                                                  foLabel.label, parent.label, QLCFunction.FadeOut)
                                             }
                                         }
                                     }
@@ -778,13 +798,13 @@ Rectangle
                                     ListModel
                                     {
                                         id: runOrderModel
-                                        ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: Function.Loop }
-                                        ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: Function.SingleShot }
-                                        ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: Function.PingPong }
+                                        ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
+                                        ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
+                                        ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
                                     }
                                     model: runOrderModel
 
-                                    currentValue: efxEditor.runOrder
+                                    currValue: efxEditor.runOrder
                                     onValueChanged: efxEditor.runOrder = value
                                 }
                                 RobotoText
@@ -798,12 +818,12 @@ Rectangle
                                     ListModel
                                     {
                                         id: directionModel
-                                        ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: Function.Forward }
-                                        ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: Function.Backward }
+                                        ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
+                                        ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
                                     }
                                     model: directionModel
 
-                                    currentValue: efxEditor.direction
+                                    currValue: efxEditor.direction
                                     onValueChanged: efxEditor.direction = value
                                 }
                                 RobotoText
@@ -815,8 +835,8 @@ Rectangle
                     }
 
                 } // Column
+                ScrollBar.vertical: CustomScrollBar { id: sbar }
             } // Flickable
-            CustomScrollBar { id: sbar; flickable: editorFlickable }
         } // Column
     } // SplitView
 }

@@ -49,6 +49,8 @@ public:
     /** Copy constructor */
     ChaserStep(const ChaserStep& cs);
 
+    ChaserStep& operator=(const ChaserStep& step);
+
     /** Comparison operator (only function IDs are compared) */
     bool operator==(const ChaserStep& cs) const;
 
@@ -74,8 +76,9 @@ public:
      * Load & Save
      ***********************************************************************/
 public:
-    /** Load ChaserStep contents from $root and return step index in $stepNumber */
-    bool loadXML(QXmlStreamReader &root, int& stepNumber);
+    /** Load ChaserStep contents from $root and return step index in $stepNumber.
+      * $doc is used to check fixture existance. If NULL the check is skipped */
+    bool loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc);
 
     /** Save ChaserStep contents to $doc, with $stepNumber */
     bool saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const;

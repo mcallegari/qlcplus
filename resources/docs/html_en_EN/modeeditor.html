@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Mode Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Mode Editor</H1>
+<P>
+The Mode Editor is used to create and edit <A HREF="file:concept.html#FixtureMode">
+modes</A> by picking sets of <B>Channels</B> in certain order (as defined by
+the fixture's manufacturer). Each editor window is divided into three tabs:
+Channels, Heads and Physical.
+</P>
+
+<H2>Channels Tab</H2>
+
+<P>
+In the Channels tab you can place the fixture's channels in an order that forms
+an actual representation of the DMX channels that the fixture understands when it
+has been configured in that particular mode.
+</P>
+
+<IMG SRC="file:../images/fixtureeditor_mode_channels.png" WIDTH="500"/>
+<BR>
+
+<TABLE BORDER=1 class="qlcTable">
+  <TR>
+    <TD><B>Mode Name</B></TD>
+    <TD>The name of the mode (must be unique for each mode).</TD>
+  </TR>
+  <TR>
+    <TD><B>Channel list</B></TD>
+    <TD>Displays all channels present in the current mode in their proper order.<br>
+    The "Acts on" column is used to bind a channel to another. For example a channel that
+    controls the speed of a rotating gobo.</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+    <TD>Add channels from the fixture's channel collection to the mode.
+    You can create/edit channels in the <A HREF="file:fixtureeditor.html">Fixture
+    Editor's</A> <B>Channels</B> tab.<br>
+    When you click on this button a new window will be displayed, showing two lists:
+    <UL>
+    <LI>The list on the left shows the channels that have not yet been added to this mode.
+        If you're creating a new mode, this list will show all the channels you created
+        in the Fixture Editor's channels tab</LI>
+    <LI>The list on the right shows the channels that define the mode you're editing.
+        If you're creating a new mode, this list will be empty.<BR>
+        Please note that the order of the channels in this list is fundamental to the
+        fixture mode definition.
+    </UL>
+    To move items from one list to another either use the central buttons or simply
+    drag and drop them.<br>
+    When done, press OK to update the mode channel list.
+    </TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+    <TD>Remove the selected channels from the mode. Other modes' channel selections are left untouched.</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/up.png"/></TD>
+    <TD>Raise the selected channel up by one position.</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/down.png"/></TD>
+    <TD>Lower the selected channel down by one position.</TD>
+  </TR>
+</TABLE>
+
+<H2>Heads Tab</H2>
+
+<P>
+In the Heads tab you can define multiple <A HREF="file:concept.html#Head">heads</A> for a
+single fixture, so that QLC+ knows to treat each of them individually in certain
+situations (such as <A HREF="file:concept.html#FixtureGroup">Fixture Groups</A>). If a fixture
+contains only one head when it's configured to use the currently edited mode (i.e. all
+of the mode's channels control one head at a time) there is no need to define the head. If,
+however, the fixture has multiple heads that you wish to be able to control, you must define
+each head here.
+</P>
+
+<P>
+Heads don't have names as they can be thought of as simple "sub-fixtures" inside a fixture.
+Instead, they are automatically given index numbers. The ordering of the Heads should follow the
+physical fixture's configuration as closely as possible. So, if the heads go 1, 2, 3, 4 in
+the real world, don't define them as 4, 2, 1, 3 or something equally annoying.
+</P>
+
+<IMG SRC="file:../images/fixtureeditor_mode_heads.png" WIDTH="500"/>
+<BR>
+
+<TABLE BORDER=1 class="qlcTable">
+  <TR>
+    <TD><B>Head list</B></TD>
+    <TD>Displays the list of heads currently defined for the fixture.</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+    <TD>Add a new head to the fixture, using the <A HREF="#edit_head">Head Editor</A>.</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+    <TD>Remove the selected head from the fixture.</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/edit.png"/></TD>
+    <TD>Edit the selected head using the <A HREF="#edit_head">Head Editor</A>.</TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/up.png"/></TD>
+    <TD>Raise the selected head upwards by one. You can use this to change the order of the heads
+    within the fixture.
+    </TD>
+  </TR>
+  <TR>
+    <TD><IMG SRC="qrc:/down.png"/></TD>
+    <TD>Lower the selected head downwards by one. You can use this to change the order of the
+    heads within the fixture.
+    </TD>
+  </TR>
+</TABLE>
+
+<H3 id="edit_head">Head Editor</H3>
+<P>
+The Head Editor is used to create and edit <A HREF="file:concept.html#Head">heads</A>
+by picking sets of <B>Channels</B> that are dedicated to a single head (as defined by the
+fixture's manufacturer).
+</P>
+
+<P>
+Editing a head is very simple: place a checkmark on each channel that is used ONLY by the
+head you are currently editing. Note that you should check the channels specific to a head,
+and nothing more. For example if there are 3 heads each with a dedicated dimmer control,
+then you should include the dimmer channel too. If, instead, the fixture has a single dimmer
+channel to control the intensity of all the heads together, then do not incude it in the head
+definition.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_mode_edit_head.png" />
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>Channel list</B></TD>
+     <TD>Displays the list of all fixture channels available in the current mode. Channels that
+       have been assigned to another head are disabled and cannot be selected because each
+       channel can only belong to one head at a time.
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2>Physical Tab</H2>
+
+<P>
+This tab is identical to the <I>global</I> <A HREF="file:fixturedefinitioneditor.html#physical">physical tab</A>
+found in the main Fixture editor windows.<BR>
+The only difference is that here you can choose if the mode you're editing has the same
+physical information or different ones.<BR>
+In the first case just leave the <B>"Use global settings"</B> option checked.
+If the mode exposes different properties, then check the <B>"Override global settings"</B> option
+and fill in all the information required.
+</P>
+
+
+</BODY>
+</HTML>

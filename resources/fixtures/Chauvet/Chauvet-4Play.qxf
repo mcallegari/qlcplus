@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Ryan Schaefer</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>4Play</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Operating Mode 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="16">Group 1 White</Capability>
+  <Capability Min="17" Max="22">Group 2 White</Capability>
+  <Capability Min="23" Max="28">Group 3 White</Capability>
+  <Capability Min="29" Max="34">Group 1 Red</Capability>
+  <Capability Min="35" Max="40">Group 2 Red</Capability>
+  <Capability Min="41" Max="46">Group 3 Red</Capability>
+  <Capability Min="47" Max="52">Group 1 Green</Capability>
+  <Capability Min="53" Max="58">Group 2 Green</Capability>
+  <Capability Min="59" Max="64">Group 3 Green</Capability>
+  <Capability Min="65" Max="70">Group 1 Blue</Capability>
+  <Capability Min="71" Max="76">Group 2 Blue</Capability>
+  <Capability Min="77" Max="82">Group 3 Blue</Capability>
+  <Capability Min="83" Max="88">All White</Capability>
+  <Capability Min="89" Max="94">All Red</Capability>
+  <Capability Min="95" Max="100">All Green</Capability>
+  <Capability Min="101" Max="106">All Blue</Capability>
+  <Capability Min="107" Max="112">All Red &amp; Green</Capability>
+  <Capability Min="113" Max="118">All Red &amp; Blue</Capability>
+  <Capability Min="119" Max="124">All Green &amp; Blue</Capability>
+  <Capability Min="125" Max="130">All Red, Green &amp; Blue</Capability>
+  <Capability Min="131" Max="136">All Red &amp; White</Capability>
+  <Capability Min="137" Max="142">All Green &amp; White</Capability>
+  <Capability Min="143" Max="148">All Blue &amp; White</Capability>
+  <Capability Min="149" Max="154">Group 1 Blue, All White</Capability>
+  <Capability Min="155" Max="160">Group 2 Blue, All White</Capability>
+  <Capability Min="161" Max="166">Group 3 Blue, All White</Capability>
+  <Capability Min="167" Max="172">Group 1 Blue &amp; Group 3 Red</Capability>
+  <Capability Min="173" Max="178">Group 2 Blue &amp; Group 2 Red</Capability>
+  <Capability Min="179" Max="184">Group 3 Blue &amp; Group 1 Red</Capability>
+  <Capability Min="185" Max="190">Group 1 Green &amp; Group 3 White</Capability>
+  <Capability Min="191" Max="196">Group 2 Green &amp; Group 2 White</Capability>
+  <Capability Min="197" Max="202">Group 3 Green &amp; Group 1 White</Capability>
+  <Capability Min="203" Max="208">Group 1 Blue. Group 3 Green, Group 1 Red, Group 3 White</Capability>
+  <Capability Min="209" Max="214">Group 2 Blue. Group 2 Green, Group 2 Red, Group 2 White</Capability>
+  <Capability Min="215" Max="220">Group 3 Blue. Group 1 Green, Group 3 Red, Group 1 White</Capability>
+  <Capability Min="221" Max="255">All White Red Green Blue</Capability>
+ </Channel>
+ <Channel Name="Operating Mode 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="16">Group 1 White</Capability>
+  <Capability Min="17" Max="22">Group 2 White</Capability>
+  <Capability Min="23" Max="28">Group 3 White</Capability>
+  <Capability Min="29" Max="34">Group 1 Red</Capability>
+  <Capability Min="35" Max="40">Group 2 Red</Capability>
+  <Capability Min="41" Max="46">Group 3 Red</Capability>
+  <Capability Min="47" Max="52">Group 1 Green</Capability>
+  <Capability Min="53" Max="58">Group 2 Green</Capability>
+  <Capability Min="59" Max="64">Group 3 Green</Capability>
+  <Capability Min="65" Max="70">Group 1 Blue</Capability>
+  <Capability Min="71" Max="76">Group 2 Blue</Capability>
+  <Capability Min="77" Max="82">Group 3 Blue</Capability>
+  <Capability Min="83" Max="88">All White</Capability>
+  <Capability Min="89" Max="94">All Red</Capability>
+  <Capability Min="95" Max="100">All Green</Capability>
+  <Capability Min="101" Max="106">All Blue</Capability>
+  <Capability Min="107" Max="112">All Red &amp; Green</Capability>
+  <Capability Min="113" Max="118">All Red &amp; Blue</Capability>
+  <Capability Min="119" Max="124">All Green &amp; Blue</Capability>
+  <Capability Min="125" Max="130">All Red, Green &amp; Blue</Capability>
+  <Capability Min="131" Max="136">All Red &amp; White</Capability>
+  <Capability Min="137" Max="142">All Green &amp; White</Capability>
+  <Capability Min="143" Max="148">All Blue &amp; White</Capability>
+  <Capability Min="149" Max="154">Group 1 Blue, All White</Capability>
+  <Capability Min="155" Max="160">Group 2 Blue, All White</Capability>
+  <Capability Min="161" Max="166">Group 3 Blue, All White</Capability>
+  <Capability Min="167" Max="172">Group 1 Blue &amp; Group 3 Red</Capability>
+  <Capability Min="173" Max="178">Group 2 Blue &amp; Group 2 Red</Capability>
+  <Capability Min="179" Max="184">Group 3 Blue &amp; Group 1 Red</Capability>
+  <Capability Min="185" Max="190">Group 1 Green &amp; Group 3 White</Capability>
+  <Capability Min="191" Max="196">Group 2 Green &amp; Group 2 White</Capability>
+  <Capability Min="197" Max="202">Group 3 Green &amp; Group 1 White</Capability>
+  <Capability Min="203" Max="208">Group 1 Blue. Group 3 Green, Group 1 Red, Group 3 White</Capability>
+  <Capability Min="209" Max="214">Group 2 Blue. Group 2 Green, Group 2 Red, Group 2 White</Capability>
+  <Capability Min="215" Max="220">Group 3 Blue. Group 1 Green, Group 3 Red, Group 1 White</Capability>
+  <Capability Min="221" Max="255">All White Red Green Blue</Capability>
+ </Channel>
+ <Channel Name="Operating Mode 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="16">Group 1 White</Capability>
+  <Capability Min="17" Max="22">Group 2 White</Capability>
+  <Capability Min="23" Max="28">Group 3 White</Capability>
+  <Capability Min="29" Max="34">Group 1 Red</Capability>
+  <Capability Min="35" Max="40">Group 2 Red</Capability>
+  <Capability Min="41" Max="46">Group 3 Red</Capability>
+  <Capability Min="47" Max="52">Group 1 Green</Capability>
+  <Capability Min="53" Max="58">Group 2 Green</Capability>
+  <Capability Min="59" Max="64">Group 3 Green</Capability>
+  <Capability Min="65" Max="70">Group 1 Blue</Capability>
+  <Capability Min="71" Max="76">Group 2 Blue</Capability>
+  <Capability Min="77" Max="82">Group 3 Blue</Capability>
+  <Capability Min="83" Max="88">All White</Capability>
+  <Capability Min="89" Max="94">All Red</Capability>
+  <Capability Min="95" Max="100">All Green</Capability>
+  <Capability Min="101" Max="106">All Blue</Capability>
+  <Capability Min="107" Max="112">All Red &amp; Green</Capability>
+  <Capability Min="113" Max="118">All Red &amp; Blue</Capability>
+  <Capability Min="119" Max="124">All Green &amp; Blue</Capability>
+  <Capability Min="125" Max="130">All Red, Green &amp; Blue</Capability>
+  <Capability Min="131" Max="136">All Red &amp; White</Capability>
+  <Capability Min="137" Max="142">All Green &amp; White</Capability>
+  <Capability Min="143" Max="148">All Blue &amp; White</Capability>
+  <Capability Min="149" Max="154">Group 1 Blue, All White</Capability>
+  <Capability Min="155" Max="160">Group 2 Blue, All White</Capability>
+  <Capability Min="161" Max="166">Group 3 Blue, All White</Capability>
+  <Capability Min="167" Max="172">Group 1 Blue &amp; Group 3 Red</Capability>
+  <Capability Min="173" Max="178">Group 2 Blue &amp; Group 2 Red</Capability>
+  <Capability Min="179" Max="184">Group 3 Blue &amp; Group 1 Red</Capability>
+  <Capability Min="185" Max="190">Group 1 Green &amp; Group 3 White</Capability>
+  <Capability Min="191" Max="196">Group 2 Green &amp; Group 2 White</Capability>
+  <Capability Min="197" Max="202">Group 3 Green &amp; Group 1 White</Capability>
+  <Capability Min="203" Max="208">Group 1 Blue. Group 3 Green, Group 1 Red, Group 3 White</Capability>
+  <Capability Min="209" Max="214">Group 2 Blue. Group 2 Green, Group 2 Red, Group 2 White</Capability>
+  <Capability Min="215" Max="220">Group 3 Blue. Group 1 Green, Group 3 Red, Group 1 White</Capability>
+  <Capability Min="221" Max="255">All White Red Green Blue</Capability>
+ </Channel>
+ <Channel Name="Operating Mode 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="16">Group 1 White</Capability>
+  <Capability Min="17" Max="22">Group 2 White</Capability>
+  <Capability Min="23" Max="28">Group 3 White</Capability>
+  <Capability Min="29" Max="34">Group 1 Red</Capability>
+  <Capability Min="35" Max="40">Group 2 Red</Capability>
+  <Capability Min="41" Max="46">Group 3 Red</Capability>
+  <Capability Min="47" Max="52">Group 1 Green</Capability>
+  <Capability Min="53" Max="58">Group 2 Green</Capability>
+  <Capability Min="59" Max="64">Group 3 Green</Capability>
+  <Capability Min="65" Max="70">Group 1 Blue</Capability>
+  <Capability Min="71" Max="76">Group 2 Blue</Capability>
+  <Capability Min="77" Max="82">Group 3 Blue</Capability>
+  <Capability Min="83" Max="88">All White</Capability>
+  <Capability Min="89" Max="94">All Red</Capability>
+  <Capability Min="95" Max="100">All Green</Capability>
+  <Capability Min="101" Max="106">All Blue</Capability>
+  <Capability Min="107" Max="112">All Red &amp; Green</Capability>
+  <Capability Min="113" Max="118">All Red &amp; Blue</Capability>
+  <Capability Min="119" Max="124">All Green &amp; Blue</Capability>
+  <Capability Min="125" Max="130">All Red, Green &amp; Blue</Capability>
+  <Capability Min="131" Max="136">All Red &amp; White</Capability>
+  <Capability Min="137" Max="142">All Green &amp; White</Capability>
+  <Capability Min="143" Max="148">All Blue &amp; White</Capability>
+  <Capability Min="149" Max="154">Group 1 Blue, All White</Capability>
+  <Capability Min="155" Max="160">Group 2 Blue, All White</Capability>
+  <Capability Min="161" Max="166">Group 3 Blue, All White</Capability>
+  <Capability Min="167" Max="172">Group 1 Blue &amp; Group 3 Red</Capability>
+  <Capability Min="173" Max="178">Group 2 Blue &amp; Group 2 Red</Capability>
+  <Capability Min="179" Max="184">Group 3 Blue &amp; Group 1 Red</Capability>
+  <Capability Min="185" Max="190">Group 1 Green &amp; Group 3 White</Capability>
+  <Capability Min="191" Max="196">Group 2 Green &amp; Group 2 White</Capability>
+  <Capability Min="197" Max="202">Group 3 Green &amp; Group 1 White</Capability>
+  <Capability Min="203" Max="208">Group 1 Blue. Group 3 Green, Group 1 Red, Group 3 White</Capability>
+  <Capability Min="209" Max="214">Group 2 Blue. Group 2 Green, Group 2 Red, Group 2 White</Capability>
+  <Capability Min="215" Max="220">Group 3 Blue. Group 1 Green, Group 3 Red, Group 1 White</Capability>
+  <Capability Min="221" Max="255">All White Red Green Blue</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Strobe Off</Capability>
+  <Capability Min="11" Max="255">Strobe Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Automatic Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Auto Mode Off</Capability>
+  <Capability Min="11" Max="34">Program 1</Capability>
+  <Capability Min="35" Max="58">Program 2</Capability>
+  <Capability Min="59" Max="82">Program 3</Capability>
+  <Capability Min="83" Max="106">Program 4</Capability>
+  <Capability Min="107" Max="131">Program 5</Capability>
+  <Capability Min="132" Max="154">Program 6</Capability>
+  <Capability Min="155" Max="178">Program 7</Capability>
+  <Capability Min="179" Max="226">Program 8</Capability>
+  <Capability Min="227" Max="250">Random Automatic Mode</Capability>
+  <Capability Min="251" Max="255">Sound-active Mode</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Operating Mode 1</Channel>
+  <Channel Number="1">Operating Mode 2</Channel>
+  <Channel Number="2">Operating Mode 3</Channel>
+  <Channel Number="3">Operating Mode 4</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Automatic Modes</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.7" Width="838" Height="318" Depth="89"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

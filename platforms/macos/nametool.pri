@@ -1,8 +1,7 @@
 #
 # Including this file into a subproject .pro file will run install_name_tool
-# for the subproject's $$TARGET to replace references to QtCore, QtGui, QtXml,
-# QtNetwork, libusb and libftdi with paths within the application bundle.
-#
+# for the subproject's $$TARGET to replace references to some libraries
+# with paths within the application bundle.
 
 # Libraries
 contains(TEMPLATE, lib) {
@@ -16,26 +15,45 @@ contains(TEMPLATE, app) {
 }
 
 include(libusb-nametool.pri)
-include(libftdi-nametool.pri)
-include(libmad-nametool.pri)
-include(libsndfile-nametool.pri)
-#include(libportaudio-nametool.pri)
-include(libfftw-nametool.pri)
-include(libqtgui-nametool.pri)
-include(libqtcore-nametool.pri)
-include(libqtnetwork-nametool.pri)
-include(libqtscript-nametool.pri)
-greaterThan(QT_MAJOR_VERSION, 4) {
-  include(libqtwidgets-nametool.pri)
-  include(libqtmultimedia-nametool.pri)
-  include(libqtmultimediawidgets-nametool.pri)
-  include(libqtopengl-nametool.pri)
-  include(libqtserialport-nametool.pri)
+
+#############################################################
+# $${1} : the pkg-config library name
+# $${2} : the dylib library file name
+#############################################################
+defineReplace(pkgConfigNametool) {
+
+    SYSLIB_DIR = $$system("pkg-config --variable libdir $${1}")
+
+    return(install_name_tool -change $$SYSLIB_DIR/$$2 \
+            @executable_path/../$$LIBSDIR/$$2 $$OUTFILE)
 }
-include(imageformats-nametool.pri)
-include(libqlcplusengine-nametool.pri)
-include(libqlcplusui-nametool.pri)
-include(libqlcpluswebaccess-nametool.pri)
+
+contains(LIBS, -lqlcplusengine) {
+    !isEmpty(nametool.commands) {
+        nametool.commands += "&&"
+    }
+
+    nametool.commands += install_name_tool -change libqlcplusengine.1.dylib \
+            @executable_path/../$$LIBSDIR/libqlcplusengine.1.dylib $$OUTFILE
+}
+
+contains(LIBS, -lqlcplusui) {
+    !isEmpty(nametool.commands) {
+        nametool.commands += "&&"
+    }
+
+    nametool.commands += install_name_tool -change libqlcplusui.1.dylib \
+            @executable_path/../$$LIBSDIR/libqlcplusui.1.dylib $$OUTFILE
+}
+
+contains(LIBS, -lqlcpluswebaccess) {
+    !isEmpty(nametool.commands) {
+        nametool.commands += "&&"
+    }
+
+    nametool.commands += install_name_tool -change libqlcpluswebaccess.1.dylib \
+            @executable_path/../$$LIBSDIR/libqlcpluswebaccess.1.dylib $$OUTFILE
+}
 
 # The contents of nametool.path don't matter; it only needs to be non-empty
 nametool.path = $$INSTALLROOT

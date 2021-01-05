@@ -36,7 +36,7 @@ typedef struct
     quint32 m_trackIndex;
     ShowFunction *m_showFunc;
     QQuickItem *m_item;
-} selectedShowItem;
+} SelectedShowItem;
 
 class ShowManager : public PreviewContext
 {
@@ -46,11 +46,13 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(QString showName READ showName WRITE setShowName NOTIFY showNameChanged)
     Q_PROPERTY(QColor itemsColor READ itemsColor WRITE setItemsColor NOTIFY itemsColorChanged)
     Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
+    Q_PROPERTY(float tickSize READ tickSize CONSTANT)
     Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
+    Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
-    Q_PROPERTY(QQmlListProperty<Track> tracks READ tracks NOTIFY tracksChanged)
+    Q_PROPERTY(QList<Track*> tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrack READ selectedTrack WRITE setSelectedTrack NOTIFY selectedTrackChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
@@ -70,7 +72,7 @@ public:
     void setShowName(QString showName);
 
     /** Return a list of Track objects suitable for QML */
-    QQmlListProperty<Track> tracks();
+    QList<Track*> tracks();
 
     /** Get/Set the selected track index */
     int selectedTrack() const;
@@ -79,6 +81,7 @@ public:
     /** Reset the Show Manager contents to an initial state */
     void resetContents();
 
+    /** Clear all the current items in the ShowManager view */
     Q_INVOKABLE void resetView();
 
     /** Request to render the current Show items on screen */
@@ -93,17 +96,28 @@ public:
     float timeScale() const;
     void setTimeScale(float timeScale);
 
+    /** Get the size in pixels of the Show header time division */
+    float tickSize() const;
+
     /** Get/Set the Function stretch flag */
     bool stretchFunctions() const;
     void setStretchFunctions(bool stretchFunctions);
+
+    /** Get/Set the grid snapping functionality */
+    bool gridEnabled() const;
+    void setGridEnabled(bool gridEnabled);
 
     /** Get/Set the current time of the Show (aka cursor position) */
     int currentTime() const;
     void setCurrentTime(int currentTime);
 
+    /** Play or resume the Show playback */
     Q_INVOKABLE void playShow();
+
+    /** Pause or rewind the Show playback */
     Q_INVOKABLE void stopShow();
 
+    /** Flag that indicates if the Show is currently being played */
     bool isPlaying() const;
 
 signals:
@@ -111,6 +125,7 @@ signals:
     void showNameChanged(QString showName);
     void timeScaleChanged(float timeScale);
     void stretchFunctionsChanged(bool stretchFunction);
+    void gridEnabledChanged(bool gridEnabled);
     void currentTimeChanged(int currentTime);
     void isPlayingChanged(bool playing);
     void showDurationChanged(int showDuration);
@@ -124,11 +139,18 @@ private:
     /** The current time scale of the Show Manager timeline */
     float m_timeScale;
 
+    /** Size in pixels of the Show Manager time division */
+    float m_tickSize;
+
     /** Flag that indicates if a Function should be stretched
      *  when the corresponding Show Item duration changes */
     bool m_stretchFunctions;
 
-    /** The current time position of the Show */
+    /** Flag that indicates if the Show items should be
+     *  snapped to the closest grid divisor */
+    bool m_gridEnabled;
+
+    /** The current time position of the Show in ms */
     int m_currentTime;
 
     /** A list of references to the selected Show Tracks */
@@ -169,7 +191,7 @@ public:
      */
     Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList);
 
-    void deleteShowItems(QVariantList data);
+    Q_INVOKABLE void deleteShowItems(QVariantList data);
 
     /** Method invoked when moving an existing Show Item on the timeline.
      *  The new position is checked for overlapping against existing items on the
@@ -205,10 +227,16 @@ public:
      */
     Q_INVOKABLE QVariantList previewData(Function *f) const;
 
+    Q_INVOKABLE void copyToClipboard();
+    Q_INVOKABLE void pasteFromClipboard();
+
 protected slots:
     void slotTimeChanged(quint32 msec_time);
 
 private:
+    /** Check items overlapping for the given track, ShowFunction,
+     *  start time and duration. Returns true if overlapping is
+     *  detected, otherwise false */
     bool checkOverlapping(Track *track, ShowFunction *sourceFunc,
                           quint32 startTime, quint32 duration);
 
@@ -223,7 +251,11 @@ private:
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *siComponent;
 
-    QList<selectedShowItem> m_selectedItems;
+    /** Holds the currently selected Show items */
+    QList<SelectedShowItem> m_selectedItems;
+
+    /** Holds the item currenly ready for pasting */
+    QList<SelectedShowItem> m_clipboard;
 };
 
 #endif // SHOWMANAGER_H

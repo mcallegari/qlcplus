@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QGestureEvent>
 #include <QSwipeGesture>
 #include <QApplication>
@@ -26,6 +25,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QToolBar>
+#include <QScreen>
 #include <QAction>
 #include <QDebug>
 #include <QIcon>
@@ -109,10 +109,13 @@ DocBrowser::DocBrowser(QWidget* parent)
     QSettings settings;
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
+    {
         restoreGeometry(var.toByteArray());
+    }
     else
     {
-        QRect rect = qApp->desktop()->screenGeometry();
+        QScreen *screen = QGuiApplication::screens().first();
+        QRect rect = screen->availableGeometry();
         int rWd = rect.width() / 4;
         int rHd = rect.height() / 4;
         resize(rWd * 3, rHd * 3);
@@ -163,7 +166,7 @@ DocBrowser::DocBrowser(QWidget* parent)
             m_browser, SLOT(home()));
     connect(m_aboutQtAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAboutQt()));
-    if (QLCFile::isRaspberry() == true)
+    if (QLCFile::hasWindowManager() == false)
     {
         m_toolbar->addAction(m_closeAction);
         connect(m_closeAction, SIGNAL(triggered(bool)),

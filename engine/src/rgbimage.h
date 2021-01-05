@@ -24,6 +24,7 @@
 
 #include <QMutexLocker>
 #include <QString>
+#include <QMovie>
 #include <QImage>
 
 #include "rgbalgorithm.h"
@@ -57,12 +58,16 @@ public:
     /** Set the image data from an array of RGB888 values */
     void setImageData(int width, int height, const QByteArray& pixelData);
 
+    bool animatedSource() const;
+
 private:
 
     void reloadImage();
 
 private:
     QString m_filename;
+    bool m_animatedSource;
+    QMovie m_animatedPlayer;
     QImage m_image;
     QMutex m_mutex;
 
@@ -98,7 +103,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    RGBMap rgbMap(const QSize& size, uint rgb, int step);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;

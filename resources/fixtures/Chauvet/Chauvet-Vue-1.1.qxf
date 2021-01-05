@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Vue 1.1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Control/Operating Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">Red, green, blue mode</Capability>
+  <Capability Min="25" Max="49">Standalone mode 1 (automatic)</Capability>
+  <Capability Min="50" Max="74">Standalone mode 2 (automatic)</Capability>
+  <Capability Min="75" Max="99">Standalone mode 3 (automatic)</Capability>
+  <Capability Min="100" Max="124">Standalone mode 4 (automatic)</Capability>
+  <Capability Min="125" Max="149">Standalone mode 5 (automatic)</Capability>
+  <Capability Min="150" Max="174">Standalone mode 6 (automatic)</Capability>
+  <Capability Min="175" Max="199">Standalone mode 7 (automatic)</Capability>
+  <Capability Min="200" Max="224">Standalone mode 8 (automatic)</Capability>
+  <Capability Min="225" Max="249">Standalone mode 9 (automatic)</Capability>
+  <Capability Min="250" Max="255">Standalone (sound active)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Standalone Speed/Strobing Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Slow &lt;-&gt; fast/No strobe</Capability>
+  <Capability Min="10" Max="255">Slow &lt;-&gt; fast/Slow &lt;-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="Default">
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Standalone Speed/Strobing Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="216" Height="190" Depth="254"/>
+   <Lens Name="Other" DegreesMin="34" DegreesMax="34"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="19" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

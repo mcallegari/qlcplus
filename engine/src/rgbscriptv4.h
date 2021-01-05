@@ -46,6 +46,8 @@ public:
     RGBScript(const RGBScript& s);
     ~RGBScript();
 
+    RGBScript& operator=(const RGBScript& s);
+
     /** Comparison operator. Uses simply fileName() == s.fileName(). */
     bool operator==(const RGBScript& s) const;
 
@@ -83,7 +85,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    RGBMap rgbMap(const QSize& size, uint rgb, int step);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -126,7 +128,7 @@ public:
     bool setProperty(QString propertyName, QString value);
 
     /** Read the value of the property with the given name */
-    QString property(QString propertyName);
+    QString property(QString propertyName) const;
 
 private:
     /** Load the script properties if any is available */

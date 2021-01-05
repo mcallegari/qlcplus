@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Sweeper Beam Quad LED</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Show macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="22">Show 1</Capability>
+  <Capability Min="23" Max="37">Show 2</Capability>
+  <Capability Min="38" Max="52">Show 3</Capability>
+  <Capability Min="53" Max="67">Show 4</Capability>
+  <Capability Min="68" Max="82">Show 5</Capability>
+  <Capability Min="83" Max="97">Show 6</Capability>
+  <Capability Min="98" Max="112">Show 7</Capability>
+  <Capability Min="113" Max="127">Show 8</Capability>
+  <Capability Min="128" Max="142">Show 9</Capability>
+  <Capability Min="143" Max="157">Show 10</Capability>
+  <Capability Min="158" Max="172">Show 11</Capability>
+  <Capability Min="173" Max="187">Show 12</Capability>
+  <Capability Min="188" Max="202">Show 13</Capability>
+  <Capability Min="203" Max="217">Show 14</Capability>
+  <Capability Min="218" Max="232">Show 15</Capability>
+  <Capability Min="233" Max="247">Show 16</Capability>
+  <Capability Min="248" Max="255">Random show</Capability>
+ </Channel>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt movement macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="43">Tilt movement macro 60° to 120°</Capability>
+  <Capability Min="44" Max="79">Tilt movement macro 45° to 135°</Capability>
+  <Capability Min="80" Max="115">Tilt movement macro 30° to 150°</Capability>
+  <Capability Min="116" Max="151">Tilt movement macro 0° to 180°</Capability>
+  <Capability Min="152" Max="187">Tilt movement macro -30° to 210°</Capability>
+  <Capability Min="188" Max="223">Tilt movement macro 0° to 90°</Capability>
+  <Capability Min="224" Max="255">Tilt movement macro 90° to 180°</Capability>
+ </Channel>
+ <Channel Name="Tilt movement macro speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Chases">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">Chase 1</Capability>
+  <Capability Min="23" Max="37">Chase 2</Capability>
+  <Capability Min="38" Max="52">Chase 3</Capability>
+  <Capability Min="53" Max="67">Chase 4</Capability>
+  <Capability Min="68" Max="82">Chase 5</Capability>
+  <Capability Min="83" Max="97">Chase 6</Capability>
+  <Capability Min="98" Max="112">Chase 7</Capability>
+  <Capability Min="113" Max="127">Chase 8</Capability>
+  <Capability Min="128" Max="142">Chase 9</Capability>
+  <Capability Min="143" Max="157">Chase 10</Capability>
+  <Capability Min="158" Max="172">Chase 11</Capability>
+  <Capability Min="173" Max="187">Chase 12</Capability>
+  <Capability Min="188" Max="202">Chase 13</Capability>
+  <Capability Min="203" Max="217">Chase 14</Capability>
+  <Capability Min="218" Max="232">Chase 15</Capability>
+  <Capability Min="233" Max="247">Chase 16</Capability>
+  <Capability Min="248" Max="255">Full on</Capability>
+ </Channel>
+ <Channel Name="Chase speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Chase speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobing (slow to fast)</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="140" Max="181">Slow open - Fast close</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="190" Max="231">Slow close - Fast open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeFrequency">Sound active strobing</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Red (Lens 1)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 1)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 2)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 2)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 2)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 2)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 3)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 3)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 4)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 4)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 4)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 4)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 5)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 5)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 6)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 6)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 6)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 6)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 7)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 7)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 8)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 8)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 8)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 8)" Preset="IntensityWhite"/>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Show macros</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt movement macro</Channel>
+  <Channel Number="2">Tilt movement macro speed</Channel>
+  <Channel Number="3">Chases</Channel>
+  <Channel Number="4">Chase speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="35 Channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Master dimmer</Channel>
+  <Channel Number="2">Strobing</Channel>
+  <Channel Number="3">Red (Lens 1)</Channel>
+  <Channel Number="4">Green (Lens 1)</Channel>
+  <Channel Number="5">Blue (Lens 1)</Channel>
+  <Channel Number="6">White (Lens 1)</Channel>
+  <Channel Number="7">Red (Lens 2)</Channel>
+  <Channel Number="8">Green (Lens 2)</Channel>
+  <Channel Number="9">Blue (Lens 2)</Channel>
+  <Channel Number="10">White (Lens 2)</Channel>
+  <Channel Number="11">Red (Lens 3)</Channel>
+  <Channel Number="12">Green (Lens 3)</Channel>
+  <Channel Number="13">Blue (Lens 3)</Channel>
+  <Channel Number="14">White (Lens 3)</Channel>
+  <Channel Number="15">Red (Lens 4)</Channel>
+  <Channel Number="16">Green (Lens 4)</Channel>
+  <Channel Number="17">Blue (Lens 4)</Channel>
+  <Channel Number="18">White (Lens 4)</Channel>
+  <Channel Number="19">Red (Lens 5)</Channel>
+  <Channel Number="20">Green (Lens 5)</Channel>
+  <Channel Number="21">Blue (Lens 5)</Channel>
+  <Channel Number="22">White (Lens 5)</Channel>
+  <Channel Number="23">Red (Lens 6)</Channel>
+  <Channel Number="24">Green (Lens 6)</Channel>
+  <Channel Number="25">Blue (Lens 6)</Channel>
+  <Channel Number="26">White (Lens 6)</Channel>
+  <Channel Number="27">Red (Lens 7)</Channel>
+  <Channel Number="28">Green (Lens 7)</Channel>
+  <Channel Number="29">Blue (Lens 7)</Channel>
+  <Channel Number="30">White (Lens 7)</Channel>
+  <Channel Number="31">Red (Lens 8)</Channel>
+  <Channel Number="32">Green (Lens 8)</Channel>
+  <Channel Number="33">Blue (Lens 8)</Channel>
+  <Channel Number="34">White (Lens 8)</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="39 Channels mode">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt movement macro</Channel>
+  <Channel Number="2">Tilt movement macro speed</Channel>
+  <Channel Number="3">Chases</Channel>
+  <Channel Number="4">Chase speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Strobing</Channel>
+  <Channel Number="7">Red (Lens 1)</Channel>
+  <Channel Number="8">Green (Lens 1)</Channel>
+  <Channel Number="9">Blue (Lens 1)</Channel>
+  <Channel Number="10">White (Lens 1)</Channel>
+  <Channel Number="11">Red (Lens 2)</Channel>
+  <Channel Number="12">Green (Lens 2)</Channel>
+  <Channel Number="13">Blue (Lens 2)</Channel>
+  <Channel Number="14">White (Lens 2)</Channel>
+  <Channel Number="15">Red (Lens 3)</Channel>
+  <Channel Number="16">Green (Lens 3)</Channel>
+  <Channel Number="17">Blue (Lens 3)</Channel>
+  <Channel Number="18">White (Lens 3)</Channel>
+  <Channel Number="19">Red (Lens 4)</Channel>
+  <Channel Number="20">Green (Lens 4)</Channel>
+  <Channel Number="21">Blue (Lens 4)</Channel>
+  <Channel Number="22">White (Lens 4)</Channel>
+  <Channel Number="23">Red (Lens 5)</Channel>
+  <Channel Number="24">Green (Lens 5)</Channel>
+  <Channel Number="25">Blue (Lens 5)</Channel>
+  <Channel Number="26">White (Lens 5)</Channel>
+  <Channel Number="27">Red (Lens 6)</Channel>
+  <Channel Number="28">Green (Lens 6)</Channel>
+  <Channel Number="29">Blue (Lens 6)</Channel>
+  <Channel Number="30">White (Lens 6)</Channel>
+  <Channel Number="31">Red (Lens 7)</Channel>
+  <Channel Number="32">Green (Lens 7)</Channel>
+  <Channel Number="33">Blue (Lens 7)</Channel>
+  <Channel Number="34">White (Lens 7)</Channel>
+  <Channel Number="35">Red (Lens 8)</Channel>
+  <Channel Number="36">Green (Lens 8)</Channel>
+  <Channel Number="37">Blue (Lens 8)</Channel>
+  <Channel Number="38">White (Lens 8)</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="81" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

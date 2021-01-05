@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>jefm</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Wedge Tri</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Color macros</Capability>
+ </Channel>
+ <Channel Name="Shutter / Speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">Strobe (slow -&gt; fast) or Auto programs speed (slow -&gt; fast)</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">No function</Capability>
+  <Capability Min="32" Max="63">0 - 100%</Capability>
+  <Capability Min="64" Max="95">100% - 0</Capability>
+  <Capability Min="96" Max="127">100% - 0 - 100%</Capability>
+  <Capability Min="128" Max="159">Color fade</Capability>
+  <Capability Min="160" Max="191">3-color snap</Capability>
+  <Capability Min="192" Max="223">7-color snap</Capability>
+  <Capability Min="224" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Dimmer mode manually set in Menu Options</Capability>
+  <Capability Min="52" Max="101">Dimmer mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer mode 1, (fast speed)</Capability>
+  <Capability Min="153" Max="203">Dimmer mode 2, (medium speed)</Capability>
+  <Capability Min="204" Max="255">Dimmer mode 3, (slow speed)</Capability>
+ </Channel>
+ <Mode Name="DMX 3 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="DMX 7 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color</Channel>
+  <Channel Number="4">Shutter / Speed</Channel>
+  <Channel Number="5">Auto programs</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.6" Width="108" Height="108" Depth="104"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

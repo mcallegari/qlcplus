@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Event Bar LED</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan 1" Preset="PositionPan"/>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="1" Max="5">Reset</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Pan 1 (Fine)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 1 (Fine)" Preset="PositionTiltFine"/>
+ <Channel Name="Movement">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Stop</Capability>
+  <Capability Min="8" Max="26">Movement 1</Capability>
+  <Capability Min="27" Max="46">Movement 2</Capability>
+  <Capability Min="47" Max="66">Movement 3</Capability>
+  <Capability Min="67" Max="86">Movement 4</Capability>
+  <Capability Min="87" Max="106">Movement 5</Capability>
+  <Capability Min="107" Max="125">Movement 6</Capability>
+  <Capability Min="126" Max="145">Movement 7</Capability>
+  <Capability Min="146" Max="165">Movement 8</Capability>
+  <Capability Min="166" Max="185">Movement 9</Capability>
+  <Capability Min="186" Max="205">Movement 10</Capability>
+  <Capability Min="206" Max="225">Movement 11</Capability>
+  <Capability Min="226" Max="244">Movement 12</Capability>
+  <Capability Min="245" Max="255">Stand Alone</Capability>
+ </Channel>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Movement (Fine)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Horizontal Movement</Capability>
+  <Capability Min="128" Max="255">Vertical Movement</Capability>
+ </Channel>
+ <Channel Name="Pan 2" Preset="PositionPan"/>
+ <Channel Name="Pan 3" Preset="PositionPan"/>
+ <Channel Name="Pan 4" Preset="PositionPan"/>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Tilt 3" Preset="PositionTilt"/>
+ <Channel Name="Tilt 4" Preset="PositionTilt"/>
+ <Channel Name="Pan 2 (Fine)" Preset="PositionPanFine"/>
+ <Channel Name="Pan 3 (Fine)" Preset="PositionPanFine"/>
+ <Channel Name="Pan 4 (Fine)" Preset="PositionPanFine"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Tilt 2 (Fine)" Preset="PositionTiltFine"/>
+ <Channel Name="Tilt 3 (Fine)" Preset="PositionTiltFine"/>
+ <Channel Name="Tilt 4 (Fine)" Preset="PositionTiltFine"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="12 Channel Mode">
+  <Channel Number="0">Pan 1</Channel>
+  <Channel Number="1">Tilt 1</Channel>
+  <Channel Number="2">Dimmer 1</Channel>
+  <Channel Number="3">Pan 2</Channel>
+  <Channel Number="4">Tilt 2</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Pan 3</Channel>
+  <Channel Number="7">Tilt 3</Channel>
+  <Channel Number="8">Dimmer 3</Channel>
+  <Channel Number="9">Pan 4</Channel>
+  <Channel Number="10">Tilt 4</Channel>
+  <Channel Number="11">Dimmer 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channel Mode">
+  <Channel Number="0">Pan 1</Channel>
+  <Channel Number="1">Tilt 1</Channel>
+  <Channel Number="2">Dimmer 1</Channel>
+  <Channel Number="3">Pan 2</Channel>
+  <Channel Number="4">Tilt 2</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Pan 3</Channel>
+  <Channel Number="7">Tilt 3</Channel>
+  <Channel Number="8">Pan 4</Channel>
+  <Channel Number="9">Dimmer 3</Channel>
+  <Channel Number="10">Tilt 4</Channel>
+  <Channel Number="11">Dimmer 4</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="25 Channel Mode">
+  <Channel Number="0">Pan 1</Channel>
+  <Channel Number="1">Pan 1 (Fine)</Channel>
+  <Channel Number="2">Tilt 1</Channel>
+  <Channel Number="3">Tilt 1 (Fine)</Channel>
+  <Channel Number="4">Dimmer 1</Channel>
+  <Channel Number="5">Pan 2</Channel>
+  <Channel Number="6">Pan 2 (Fine)</Channel>
+  <Channel Number="7">Tilt 2</Channel>
+  <Channel Number="8">Tilt 2 (Fine)</Channel>
+  <Channel Number="9">Dimmer 2</Channel>
+  <Channel Number="10">Pan 3</Channel>
+  <Channel Number="11">Pan 3 (Fine)</Channel>
+  <Channel Number="12">Tilt 3</Channel>
+  <Channel Number="13">Tilt 3 (Fine)</Channel>
+  <Channel Number="14">Dimmer 3</Channel>
+  <Channel Number="15">Pan 4</Channel>
+  <Channel Number="16">Pan 4 (Fine)</Channel>
+  <Channel Number="17">Tilt 4</Channel>
+  <Channel Number="18">Tilt 4 (Fine)</Channel>
+  <Channel Number="19">Dimmer 4</Channel>
+  <Channel Number="20">Movement</Channel>
+  <Channel Number="21">Movement Speed</Channel>
+  <Channel Number="22">Movement (Fine)</Channel>
+  <Channel Number="23">Strobe</Channel>
+  <Channel Number="24">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="80" Height="202" Depth="1000"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="12"/>
+  <Focus Type="Head" PanMax="360" TiltMax="270"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="54" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

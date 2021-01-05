@@ -28,6 +28,7 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QLabel>
+#include <QAction>
 
 #include "qlccapability.h"
 #include "qlcchannel.h"
@@ -109,15 +110,15 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_sliderMode = m_slider->sliderMode();
     switch (m_sliderMode)
     {
-    default:
-    case VCSlider::Level:
-        slotModeLevelClicked();
+        default:
+        case VCSlider::Level:
+            slotModeLevelClicked();
         break;
-    case VCSlider::Playback:
-        slotModePlaybackClicked();
+        case VCSlider::Playback:
+            slotModePlaybackClicked();
         break;
-    case VCSlider::Submaster:
-        slotModeSubmasterClicked();
+        case VCSlider::Submaster:
+            slotModeSubmasterClicked();
         break;
     }
 
@@ -130,14 +131,18 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /* Value display style */
     switch (m_slider->valueDisplayStyle())
     {
-    default:
-    case VCSlider::ExactValue:
-        m_valueExactRadio->setChecked(true);
+        default:
+        case VCSlider::ExactValue:
+            m_valueExactRadio->setChecked(true);
         break;
-    case VCSlider::PercentageValue:
-        m_valuePercentageRadio->setChecked(true);
+        case VCSlider::PercentageValue:
+            m_valuePercentageRadio->setChecked(true);
         break;
     }
+
+    /* Values catching */
+    if (m_slider->catchValues())
+        m_catchValueCheck->setChecked(true);
 
     /********************************************************************
      * External input
@@ -364,12 +369,9 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
 
 QTreeWidgetItem* VCSliderProperties::levelFixtureNode(quint32 id)
 {
-    QTreeWidgetItem* item;
-    int i;
-
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *item = m_levelList->topLevelItem(i);
         if (item->text(KColumnID).toUInt() == id)
             return item;
     }
@@ -462,8 +464,8 @@ void VCSliderProperties::levelUpdateCapabilityNode(QTreeWidgetItem* parent,
 
     item = new QTreeWidgetItem(parent);
     item->setText(KColumnName, cap->name());
-    item->setText(KColumnRange, str.sprintf("%.3d - %.3d",
-                                            cap->min(), cap->max()));
+    item->setText(KColumnRange, str.asprintf("%.3d - %.3d",
+                                             cap->min(), cap->max()));
     item->setFlags(item->flags() & (~Qt::ItemIsUserCheckable));
 }
 
@@ -560,14 +562,11 @@ void VCSliderProperties::slotLevelListClicked(QTreeWidgetItem* item)
 
 void VCSliderProperties::slotLevelAllClicked()
 {
-    QTreeWidgetItem* fxi_item;
-    int i;
-
     /* Set all fixture items selected, their children should get selected
        as well because the fixture items are Controller items. */
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
         fxi_item->setCheckState(KColumnName, Qt::Checked);
@@ -576,14 +575,11 @@ void VCSliderProperties::slotLevelAllClicked()
 
 void VCSliderProperties::slotLevelNoneClicked()
 {
-    QTreeWidgetItem* fxi_item;
-    int i;
-
     /* Set all fixture items unselected, their children should get unselected
        as well because the fixture items are Controller items. */
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
         fxi_item->setCheckState(KColumnName, Qt::Unchecked);
@@ -592,21 +588,16 @@ void VCSliderProperties::slotLevelNoneClicked()
 
 void VCSliderProperties::slotLevelInvertClicked()
 {
-    QTreeWidgetItem* fxi_item;
-    QTreeWidgetItem* ch_item;
-    int i;
-    int j;
-
-    /* Go thru only channel items. Fixture items get (partially) selected
+    /* Go through only channel items. Fixture items get (partially) selected
        according to their children's state */
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
-        for (j = 0; j < fxi_item->childCount(); j++)
+        for (int j = 0; j < fxi_item->childCount(); j++)
         {
-            ch_item = fxi_item->child(j);
+            QTreeWidgetItem *ch_item = fxi_item->child(j);
             Q_ASSERT(ch_item != NULL);
 
             if (ch_item->checkState(KColumnName) == Qt::Checked)
@@ -631,14 +622,14 @@ void VCSliderProperties::slotLevelByGroupClicked()
 
         for(quint32 i = 0; i < fixture->channels(); i++)
         {
-            QLCChannel channel = fixture->channel(i);
+            const QLCChannel *channel = fixture->channel(i);
 
-            QString property = QLCChannel::groupToString(channel.group());
+            QString property = QLCChannel::groupToString(channel->group());
 
-            if (channel.group() == QLCChannel::Intensity &&
-                channel.colour() != QLCChannel::NoColour)
+            if (channel->group() == QLCChannel::Intensity &&
+                channel->colour() != QLCChannel::NoColour)
             {
-                property = QLCChannel::colourToString(channel.colour());
+                property = QLCChannel::colourToString(channel->colour());
             }
 
             if (groups.contains(property) == false)
@@ -831,6 +822,12 @@ void VCSliderProperties::accept()
         m_slider->setWidgetStyle(VCSlider::WKnob);
     else
         m_slider->setWidgetStyle(VCSlider::WSlider);
+
+    /* Values catching */
+    if (m_catchValueCheck->isChecked())
+        m_slider->setCatchValues(true);
+    else
+        m_slider->setCatchValues(false);
 
     /* Level page */
     bool limitDiff =

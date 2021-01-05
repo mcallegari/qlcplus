@@ -21,14 +21,21 @@ function pluginIconFromName(name)
 {
     switch(name)
     {
-        case "ArtNet": return "qrc:/artnetplugin.svg"; break;
-        case "DMX USB": return "qrc:/dmxusbplugin.svg"; break;
-        case "HID": return "qrc:/hidplugin.svg"; break;
-        case "OLA": return "qrc:/olaplugin.svg"; break;
-        case "MIDI": return "qrc:/midiplugin.svg"; break;
-        case "OSC": return "qrc:/oscplugin.svg"; break;
-        case "E1.31": return "qrc:/e131plugin.svg"; break;
-        case "Loopback": return "qrc:/loop.svg"; break;
+        case "ArtNet": return "qrc:/artnetplugin.svg";
+        case "DMX USB": return "qrc:/dmxusbplugin.svg";
+        case "HID": return "qrc:/hidplugin.svg";
+        case "OLA": return "qrc:/olaplugin.svg";
+        case "MIDI": return "qrc:/midiplugin.svg";
+        case "OSC": return "qrc:/oscplugin.svg";
+        case "E1.31": return "qrc:/e131plugin.svg";
+        case "Loopback": return "qrc:/loop.svg";
+        default: return "";
     }
-    return "";
+}
+
+function getHTMLColor(r, g, b)
+{
+    var color = r << 16 | g << 8 | b;
+    var colStr = color.toString(16);
+    return "#" + "000000".substr(0, 6 - colStr.length) + colStr;
 }

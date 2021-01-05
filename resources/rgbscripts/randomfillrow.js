@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   randomfillrow.js
-  
+
   Copyright (c) David Garyga
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,9 +35,9 @@ var testAlgo;
         util.createStepList = function(length)
         {
             var list = new Array(length);
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i < length; i++) {
                 list[i] = i;
-
+            }
             return list;
         };
 
@@ -46,12 +46,13 @@ var testAlgo;
             var map = new Array(length);
             for (var i = 0; i < length; i++)
             {
-                if (si == i)
+                if (si === i) {
                     map[i] = 1;
-                else if (lastStep != 0 && lastStep[i] == 1)
+                } else if (lastStep !== 0 && lastStep[i] === 1) {
                     map[i] = 1;
-                else
+                } else {
                     map[i] = 0;
+                }
             }
 
             return map;
@@ -65,10 +66,11 @@ var testAlgo;
                 map[y] = new Array(width);
                 for (var x = 0; x < width; x++)
                 {
-                    if (step[y] != 0)
+                    if (step[y] !== 0) {
                         map[y][x] = rgb;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                 }
             }
 
@@ -77,13 +79,13 @@ var testAlgo;
 
         algo.rgbMap = function(width, height, rgb, step)
         {
-            if (algo.width != width || algo.height != height || parseInt(step) == 0)
+            if (algo.width !== width || algo.height !== height || parseInt(step) === 0)
             {
                 var stepList = util.createStepList(height);
 
                 algo.steps = new Array(height);
                 var lastStep = 0;
-                for (var i = 0; i < width; i++)
+                for (var i = 0; i < height; i++)
                 {
                     var index = Math.floor(Math.random() * (stepList.length));
                     var yx = stepList[index];

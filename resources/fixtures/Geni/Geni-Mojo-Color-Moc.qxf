@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.1 GIT</Version>
+  <Author>Mark Sy</Author>
+ </Creator>
+ <Manufacturer>Geni</Manufacturer>
+ <Model>Mojo Color Moc</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colours">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Shutter Turn off</Capability>
+  <Capability Min="10" Max="19" Color="#ffffff">White Circle</Capability>
+  <Capability Min="20" Max="29" Color="#ff0000">Red Circle</Capability>
+  <Capability Min="30" Max="39" Color="#005500">Dark Green</Capability>
+  <Capability Min="40" Max="49" Color="#ffff00">Yellow Circle</Capability>
+  <Capability Min="50" Max="59" Color="#00ff00">Green Circle</Capability>
+  <Capability Min="60" Max="69" Color="#ffaa00">Orange Circle</Capability>
+  <Capability Min="70" Max="79" Color="#00aaff">Light Blue circle</Capability>
+  <Capability Min="80" Max="89" Color="#0000ff">Blue Circle</Capability>
+  <Capability Min="90" Max="99" Color="#ffaaff">Pink Circle</Capability>
+  <Capability Min="100" Max="109">Red &amp; White &amp; Orange</Capability>
+  <Capability Min="110" Max="119" Color="#ffffff" Color2="#ffff00">White &amp; Yellow</Capability>
+  <Capability Min="120" Max="129">Blue &amp; White &amp; Green</Capability>
+  <Capability Min="130" Max="139">Pink &amp; White &amp; Blue</Capability>
+  <Capability Min="140" Max="149" Color="#ffffff" Color2="#00ff00">White &amp; Green</Capability>
+  <Capability Min="150" Max="159">Four Colour Square</Capability>
+  <Capability Min="160" Max="208">Rotation Slow - Fast</Capability>
+  <Capability Min="209" Max="255">Strobe 1 Flash per 4 Seconds to 4fps</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Colours</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="ELC 24v/250W GX5.3" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.7" Width="280" Height="220" Depth="160"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

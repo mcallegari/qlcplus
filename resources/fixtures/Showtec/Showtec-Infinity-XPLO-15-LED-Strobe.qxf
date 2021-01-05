@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Daniele Fogale</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Infinity XPLO-15 LED Strobe</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Not functional</Capability>
+  <Capability Min="6" Max="42">Ramp up (fade in)</Capability>
+  <Capability Min="43" Max="85">Ramp down (fade out)</Capability>
+  <Capability Min="86" Max="128">Ramp up/down (fade in/out)</Capability>
+  <Capability Min="129" Max="171">Random effects</Capability>
+  <Capability Min="172" Max="173">Left zone</Capability>
+  <Capability Min="174" Max="175">Center zone</Capability>
+  <Capability Min="176" Max="178">Right zone</Capability>
+  <Capability Min="179" Max="180">Pattern A</Capability>
+  <Capability Min="181" Max="182">Pattern B</Capability>
+  <Capability Min="183" Max="184">Pattern C</Capability>
+  <Capability Min="185" Max="186">Pattern D</Capability>
+  <Capability Min="187" Max="214">Random patterns</Capability>
+  <Capability Min="215" Max="235">Chase 1 - from left to right, from slow to fast</Capability>
+  <Capability Min="236" Max="255">Chase 2 - from right to left, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="16-bit dimmer intensity" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimming curves">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Default</Capability>
+  <Capability Min="5" Max="29">Not functional</Capability>
+  <Capability Min="30" Max="34">Linear dimming curve</Capability>
+  <Capability Min="35" Max="39">Square dimming curve</Capability>
+  <Capability Min="40" Max="44">S-Curve dimming curve</Capability>
+  <Capability Min="45" Max="49">PL-Curve dimming curve</Capability>
+  <Capability Min="50" Max="255">Not functional</Capability>
+ </Channel>
+ <Channel Name="Zone 1 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 1 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 1 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 2 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 2 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 2 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 3 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 3 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 3 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 4 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 4 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 4 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 5 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 5 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 5 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 6 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 6 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 6 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 7 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 7 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 7 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 8 - Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zone 8 - Strobe duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
+ </Channel>
+ <Channel Name="Zone 8 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="1 channel">
+  <Channel Number="0">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 channel">
+  <Channel Number="0">Dimmer intensity</Channel>
+  <Channel Number="1">Strobe duration</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">Dimmer intensity</Channel>
+  <Channel Number="1">Strobe duration</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Effects</Channel>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">Dimmer intensity</Channel>
+  <Channel Number="1">16-bit dimmer intensity</Channel>
+  <Channel Number="2">Effects</Channel>
+  <Channel Number="3">Dimming curves</Channel>
+  <Channel Number="4">Strobe duration</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="28 channel">
+  <Channel Number="0">Dimmer intensity</Channel>
+  <Channel Number="1">16-bit dimmer intensity</Channel>
+  <Channel Number="2">Effects</Channel>
+  <Channel Number="3">Dimming curves</Channel>
+  <Channel Number="4">Zone 1 - Dimmer intensity</Channel>
+  <Channel Number="5">Zone 1 - Strobe duration</Channel>
+  <Channel Number="6">Zone 1 - Strobe</Channel>
+  <Channel Number="7">Zone 2 - Dimmer intensity</Channel>
+  <Channel Number="8">Zone 2 - Strobe duration</Channel>
+  <Channel Number="9">Zone 2 - Strobe</Channel>
+  <Channel Number="10">Zone 3 - Dimmer intensity</Channel>
+  <Channel Number="11">Zone 3 - Strobe duration</Channel>
+  <Channel Number="12">Zone 3 - Strobe</Channel>
+  <Channel Number="13">Zone 4 - Dimmer intensity</Channel>
+  <Channel Number="14">Zone 4 - Strobe duration</Channel>
+  <Channel Number="15">Zone 4 - Strobe</Channel>
+  <Channel Number="16">Zone 5 - Dimmer intensity</Channel>
+  <Channel Number="17">Zone 5 - Strobe duration</Channel>
+  <Channel Number="18">Zone 5 - Strobe</Channel>
+  <Channel Number="19">Zone 6 - Dimmer intensity</Channel>
+  <Channel Number="20">Zone 6 - Strobe duration</Channel>
+  <Channel Number="21">Zone 6 - Strobe</Channel>
+  <Channel Number="22">Zone 7 - Dimmer intensity</Channel>
+  <Channel Number="23">Zone 7 - Strobe duration</Channel>
+  <Channel Number="24">Zone 7 - Strobe</Channel>
+  <Channel Number="25">Zone 8 - Dimmer intensity</Channel>
+  <Channel Number="26">Zone 8 - Strobe duration</Channel>
+  <Channel Number="27">Zone 8 - Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="28000" ColourTemperature="6500"/>
+   <Dimensions Weight="5.4" Width="319" Height="130" Depth="255"/>
+   <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="132" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

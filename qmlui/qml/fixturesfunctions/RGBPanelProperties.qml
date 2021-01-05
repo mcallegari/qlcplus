@@ -21,7 +21,7 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -29,7 +29,7 @@ Rectangle
     id: panelProps
     width: 400
     height: columnContainer.height + 8
-    color: UISettings.bgLight
+    color: UISettings.bgMedium
 
     property string name: fixtureBrowser.fixtureName
     property int universeIndex: fxUniverseCombo.currentIndex
@@ -85,7 +85,7 @@ Rectangle
             rowSpacing: 4
 
             property real itemsHeight: UISettings.listItemHeight
-            property real itemsFontSize: UISettings.textSizeDefault * 0.75
+            property real itemsFontSize: UISettings.textSizeDefault
 
             // row 1
             RobotoText
@@ -97,10 +97,10 @@ Rectangle
             CustomTextEdit
             {
                 id: fxNameTextEdit
-                inputText: name
+                text: name
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onInputTextChanged: fixtureBrowser.fixtureName = inputText
+                onTextChanged: fixtureBrowser.fixtureName = text
             }
 
             // row 2
@@ -154,6 +154,7 @@ Rectangle
                     ListElement { mLabel: "BRG"; mValue: Fixture.BRG }
                     ListElement { mLabel: "GBR"; mValue: Fixture.GBR }
                     ListElement { mLabel: "GRB"; mValue: Fixture.GRB }
+                    ListElement { mLabel: "RBG"; mValue: Fixture.RBG }
                     ListElement { mLabel: "RGBW"; mValue: Fixture.RGBW }
                 }
             }

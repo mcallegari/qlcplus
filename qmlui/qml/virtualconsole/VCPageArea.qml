@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 
 Rectangle
 {
@@ -40,7 +41,8 @@ Rectangle
             anchors.fill: parent
             onClicked: virtualConsole.resetWidgetSelection()
         }
+
+        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.horizontal : CustomScrollBar { orientation: Qt.Horizontal }
     }
-    CustomScrollBar { flickable: vcPage; doubleBars: true }
-    CustomScrollBar { orientation: Qt.Horizontal; flickable: vcPage }
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>David Morgenschweis</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Tribar 200 IR</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Mode Name="9-Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Red 2</Channel>
+  <Channel Number="2">Red 3</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Green 3</Channel>
+  <Channel Number="6">Blue 1</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>4</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>5</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Colour Macro</Channel>
+ </Mode>
+ <Mode Name="3-Channel 2">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Blue</Channel>
+  <Channel Number="2">Green</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2340" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="1022" Height="66" Depth="65"/>
+  <Lens Name="PC" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

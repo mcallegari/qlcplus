@@ -34,15 +34,21 @@ class VCPage : public VCFrame
      * Initialization
      *********************************************************************/
 public:
-    VCPage(QQuickView *view = NULL, Doc* doc = NULL, VirtualConsole *vc = NULL, int pageIndex = 0, QObject *parent = 0);
+    VCPage(QQuickView *view = nullptr, Doc* doc = nullptr, VirtualConsole *vc = nullptr, int pageIndex = 0, QObject *parent = nullptr);
     ~VCPage();
 
     /** Return the Preview Context associated to this VC page */
     PreviewContext *previewContext() const;
 
+    /** Get/Set the widgets scale factor currently applied to this VC page */
+    qreal pageScale() const;
+    void setPageScale(qreal factor);
+
 private:
     /** Reference to a PreviewContext, registered to the Context Manager */
     PreviewContext *m_pageContext;
+
+    qreal m_pageScale;
 
     /*********************************************************************
      * PIN

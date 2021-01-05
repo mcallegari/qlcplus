@@ -27,13 +27,12 @@ Rectangle
     color: "transparent"
 
     property int universeIndex: 0
+    property bool isInput: false
 
     function loadSources(input)
     {
-        if (input === true)
-            acListView.model = ioManager.audioInputSources()
-        else
-            acListView.model = ioManager.audioOutputSources()
+        acListView.model = input ? ioManager.audioInputSources : ioManager.audioOutputSources
+        isInput = input
     }
 
     ListView
@@ -43,42 +42,89 @@ Rectangle
         boundsBehavior: Flickable.StopAtBounds
         //model: ioManager.audioInputSources()
         delegate:
-            Rectangle
+            Item
             {
-                id: acDelegate
-                width: aclContainer.width
+                id: root
                 height: UISettings.listItemHeight * 1.7
-                color: "transparent"
-                Row
+                width: aclContainer.width
+
+                MouseArea
                 {
-                    Image
+                    id: delegateRoot
+                    width: aclContainer.width
+                    height: parent.height
+
+                    drag.target: acDelegate
+                    drag.threshold: height / 2
+
+                    onReleased:
                     {
-                        id: pIcon
-                        height: acDelegate.height - 4
-                        width: height
-                        x: 2
-                        y: 2
-                        source: "qrc:/audiocard.svg"
-                        sourceSize: Qt.size(width, height)
-                        fillMode: Image.Stretch
+                        if (acDelegate.Drag.target !== null)
+                        {
+                            acDelegate.Drag.drop()
+                            if (aclContainer.isInput === false)
+                                ioManager.setAudioOutput(modelData.privateName)
+                            else
+                                ioManager.setAudioInput(modelData.privateName)
+                        }
+                        else
+                        {
+                            // return the dragged item to its original position
+                            parent = root
+                            acDelegate.color = "transparent"
+                        }
+                        acDelegate.x = 3
+                        acDelegate.y = 0
                     }
 
-                    RobotoText
+                    Rectangle
                     {
-                        height: acDelegate.height
-                        width: acDelegate.width - pIcon.width
-                        label: modelData.name
-                        wrapText: true
+                        id: acDelegate
+                        x: 3
+                        width: aclContainer.width
+                        height: UISettings.listItemHeight * 1.7
+                        color: delegateRoot.pressed ? "#444" : "transparent"
+
+                        // this key must match the one in AudioIOItem, to avoid dragging
+                        // an audio input on output and vice-versa
+                        property string dragKey: isInput ? "audioInput" : "audioOutput"
+
+                        Drag.active: delegateRoot.drag.active
+                        Drag.source: acDelegate
+                        Drag.keys: [ dragKey ]
+
+                        Row
+                        {
+                            Image
+                            {
+                                id: pIcon
+                                height: acDelegate.height - 4
+                                width: height
+                                x: 2
+                                y: 2
+                                source: "qrc:/audiocard.svg"
+                                sourceSize: Qt.size(width, height)
+                                fillMode: Image.Stretch
+                            }
+
+                            RobotoText
+                            {
+                                height: acDelegate.height
+                                width: acDelegate.width - pIcon.width
+                                label: modelData.mLabel
+                                wrapText: true
+                            }
+                        }
+                        Rectangle
+                        {
+                            width: acDelegate.width
+                            height: 1
+                            y: acDelegate.height - 1
+                            color: "#555"
+                        }
                     }
-                }
-                Rectangle
-                {
-                    width: acDelegate.width
-                    height: 1
-                    y: acDelegate.height - 1
-                    color: "#555"
-                }
-            }
-    }
+                }// MouseArea
+            } // Item
+    } // ListView
 }
 

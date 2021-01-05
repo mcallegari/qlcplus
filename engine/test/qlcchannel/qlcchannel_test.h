@@ -30,6 +30,7 @@ private slots:
     void groupList();
     void name();
     void group();
+    void defaultValue();
     void controlByte();
     void colourList();
     void colour();

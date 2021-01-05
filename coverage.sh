@@ -10,7 +10,7 @@
 # Human-readable HTML results are written under coverage/html.
 #
 
-ARCH=`uname`
+ARCH=$(uname)
 
 #############################################################################
 # Test directories to find coverage measurements from
@@ -50,7 +50,7 @@ function gather_data {
 #############################################################################
 
 # Check if lcov is installed
-if [ -z `which lcov` ]; then
+if [ -z $(which lcov) ]; then
     echo "Unable to produce coverage results; can't find lcov."
 fi
 
@@ -66,7 +66,7 @@ mkdir -p coverage/html
 # Preparation
 #############################################################################
 
-for ((i = 0; i < ${tlen}; i++))
+for ((i = 0; i < tlen; i++))
 do
     prepare ${test[i]} $i
 done
@@ -86,7 +86,7 @@ fi
 # Gather results
 #############################################################################
 
-for ((i = 0; i < ${tlen}; i++))
+for ((i = 0; i < tlen; i++))
 do
     gather_data ${test[i]} $i
 done
@@ -95,7 +95,7 @@ done
 # All combined and HTMLized
 #############################################################################
 
-for ((i = 0; i < ${tlen}; i++))
+for ((i = 0; i < tlen; i++))
 do
     mergeargs="${mergeargs} -a coverage/${i}-merge.info"
 done

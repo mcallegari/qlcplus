@@ -4,78 +4,99 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="135"/>
+        <location filename="webaccess.cpp" line="169"/>
         <source>Loading project...</source>
         <translation>Carregant projecte...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="166"/>
+        <location filename="webaccess.cpp" line="205"/>
         <source>Fixture stored and loaded</source>
         <translation>Fixture desat i carregat</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="332"/>
+        <location filename="webaccess.cpp" line="396"/>
+        <source>Username and password are required fields.</source>
+        <translation>El nom d&apos;usuari i la contrasenya són camps obligatoris.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="402"/>
+        <location filename="webaccess.cpp" line="427"/>
+        <source>User level has to be a positive integer.</source>
+        <translation>El nivell d&apos;usuari ha de ser un enter positiu.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="421"/>
+        <source>Username is required.</source>
+        <translation>El nom d&apos;usuari es obligatori.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="439"/>
+        <source>Error while saving passwords file.</source>
+        <translation>S&apos;ha produït un error en desar el fitxer de contrasenyes.</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="454"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>La configuració de xarxa ha canviar. Reiniciar per aplicar els canvis.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="351"/>
+        <location filename="webaccess.cpp" line="473"/>
         <source>Autostart configuration changed</source>
         <translation>La configuració d&apos;inici automàtic ha canviat</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="643"/>
+        <location filename="webaccess.cpp" line="822"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Widget no suportat (encara) per accés web</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="690"/>
-        <location filename="webaccess.cpp" line="740"/>
+        <location filename="webaccess.cpp" line="873"/>
+        <location filename="webaccess.cpp" line="925"/>
         <source>Page</source>
         <translation>Pàgina</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="872"/>
+        <location filename="webaccess.cpp" line="1088"/>
         <source>Enable</source>
         <translation>Activar</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="899"/>
+        <location filename="webaccess.cpp" line="1120"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="900"/>
+        <location filename="webaccess.cpp" line="1121"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="901"/>
+        <location filename="webaccess.cpp" line="1122"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="902"/>
+        <location filename="webaccess.cpp" line="1123"/>
         <source>Duration</source>
         <translation>Duració</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="903"/>
+        <location filename="webaccess.cpp" line="1124"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1134"/>
+        <location filename="webaccess.cpp" line="1360"/>
         <source>Load project</source>
         <translation>Carregar projecte</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1136"/>
+        <location filename="webaccess.cpp" line="1362"/>
         <source>Simple Desk</source>
         <translation>Taula Simple</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1138"/>
+        <location filename="webaccess.cpp" line="1364"/>
         <source>Configuration</source>
         <translation>Configuració</translation>
     </message>
@@ -83,39 +104,125 @@
 <context>
     <name>WebAccessConfiguration</name>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="135"/>
+        <location filename="webaccessconfiguration.cpp" line="136"/>
         <source>Passthrough</source>
         <translation>Passthrough</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="209"/>
+        <location filename="webaccessconfiguration.cpp" line="210"/>
         <source>Load fixture</source>
         <translation>Carregar fixture</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="243"/>
+        <location filename="webaccessconfiguration.cpp" line="221"/>
+        <source>Username</source>
+        <translation>Nom d&apos;usuari</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="222"/>
+        <source>Password</source>
+        <translation>Contrassenya</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="223"/>
+        <source>Access level</source>
+        <translation>Nivell d&apos;accès</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="224"/>
+        <source>Action</source>
+        <translation>Acció</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="235"/>
+        <source>Leave blank to not change</source>
+        <translation>Deixar en blanc per no canviar</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="242"/>
+        <location filename="webaccessconfiguration.cpp" line="272"/>
+        <source>Only Virtual Console</source>
+        <translation>Només Consola Virtual</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="247"/>
+        <location filename="webaccessconfiguration.cpp" line="274"/>
+        <source>Virtual Console and Simple Desk</source>
+        <translation>Consola Virtual i Taula Simple</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="252"/>
+        <location filename="webaccessconfiguration.cpp" line="276"/>
+        <source>Everything</source>
+        <translation>Tot</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="258"/>
+        <location filename="webaccessconfiguration.cpp" line="283"/>
+        <source>Change</source>
+        <translation>Canviar</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="260"/>
+        <location filename="webaccessconfiguration.cpp" line="283"/>
+        <source>Delete user</source>
+        <translation>Suprimeix l&apos;usuari</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="266"/>
+        <source>New username...</source>
+        <translation>Nou nom d&apos;usuari...</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="267"/>
+        <location filename="webaccessconfiguration.cpp" line="285"/>
+        <source>New password...</source>
+        <translation>Nova contrassenya...</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="284"/>
+        <source>Username and password are required fields.</source>
+        <translation>El nom d&apos;usuari i la contrasenya són camps obligatoris.</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="287"/>
+        <source>Add user</source>
+        <translation>Afegir usuari</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="292"/>
+        <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
+        <translation>Nota: si no hi ha almenys un usuari amb nivell d&apos;accés &quot;Tot&quot; a la llista d&apos;autorització, es desactivarà.</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="323"/>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="252"/>
+        <location filename="webaccessconfiguration.cpp" line="332"/>
         <source>Back</source>
         <translation>Enrere</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="260"/>
+        <location filename="webaccessconfiguration.cpp" line="340"/>
         <source>Universes configuration</source>
         <translation>Configuració d&apos;universos</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="266"/>
+        <location filename="webaccessconfiguration.cpp" line="347"/>
         <source>Audio configuration</source>
         <translation>Configuració d&apos;àudio</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="273"/>
+        <location filename="webaccessconfiguration.cpp" line="355"/>
         <source>User loaded fixtures</source>
         <translation>Fixtures carregat per l&apos;usuari</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="364"/>
+        <source>Authorized users</source>
+        <translation>Usuaris autoritzats</translation>
     </message>
 </context>
 <context>

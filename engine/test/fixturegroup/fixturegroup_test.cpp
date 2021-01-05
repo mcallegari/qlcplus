@@ -143,15 +143,15 @@ void FixtureGroup_Test::assignFixtureNoSize()
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 2);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
 
     // Same fixture can't be at two places
     grp.assignFixture(0, QLCPoint(100, 100));
     QCOMPARE(grp.headList().size(), 2);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
 
     fxi = new Fixture(m_doc);
     fxi->setChannels(1);
@@ -162,9 +162,9 @@ void FixtureGroup_Test::assignFixtureNoSize()
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 3);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 2)] == GroupHead(1, 0));
 
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
@@ -180,10 +180,10 @@ void FixtureGroup_Test::assignFixtureNoSize()
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 4);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 3)] == GroupHead(2, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 2)] == GroupHead(1, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 3)] == GroupHead(2, 0));
 
     def = m_doc->fixtureDefCache()->fixtureDef("i-Pix", "BB4");
     QVERIFY(def != NULL);
@@ -200,15 +200,15 @@ void FixtureGroup_Test::assignFixtureNoSize()
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 8);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 3)] == GroupHead(2, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 2)] == GroupHead(1, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 3)] == GroupHead(2, 0));
     // BB4 heads
-    QVERIFY(grp.headHash()[QLCPoint(0, 4)] == GroupHead(3, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 5)] == GroupHead(3, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 6)] == GroupHead(3, 2));
-    QVERIFY(grp.headHash()[QLCPoint(0, 7)] == GroupHead(3, 3));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 4)] == GroupHead(3, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 5)] == GroupHead(3, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 6)] == GroupHead(3, 2));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 7)] == GroupHead(3, 3));
 }
 
 void FixtureGroup_Test::assignFixture4x2()
@@ -386,7 +386,7 @@ void FixtureGroup_Test::assignFixture4x2()
     // Going waaay beyond size should be possible
     pt = QLCPoint(1024, 2048);
     grp.assignFixture(10, pt);
-    QVERIFY(grp.headHash().contains(pt) == true);
+    QVERIFY(grp.headsMap().contains(pt) == true);
     QCOMPARE(grp.head(pt), GroupHead(10, 0));
     QCOMPARE(grp.size(), QSize(4, 2));
 }
@@ -447,13 +447,13 @@ void FixtureGroup_Test::resignFixture()
     grp.resignFixture(13);
     QCOMPARE(grp.headList().size(), 15);
     QVERIFY(grp.headList().contains(13) == false);
-    QVERIFY(grp.headHash().contains(QLCPoint(1, 3)) == false);
+    QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == false);
 
     // Remove a nonexistent fixture
     grp.resignFixture(42);
     QCOMPARE(grp.headList().size(), 15);
     QVERIFY(grp.headList().contains(42) == false);
-    QVERIFY(grp.headHash().contains(QLCPoint(1, 3)) == false);
+    QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == false);
 
     // Test that the gap is again filled
     Fixture* fxi = new Fixture(m_doc);
@@ -464,8 +464,8 @@ void FixtureGroup_Test::resignFixture()
     grp.assignFixture(42);
     QCOMPARE(grp.headList().size(), 16);
     QVERIFY(grp.headList().contains(GroupHead(42, 0)) == true);
-    QVERIFY(grp.headHash().contains(QLCPoint(1, 3)) == true);
-    QCOMPARE(grp.headHash()[QLCPoint(1, 3)], GroupHead(42, 0));
+    QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == true);
+    QCOMPARE(grp.headsMap()[QLCPoint(1, 3)], GroupHead(42, 0));
 }
 
 void FixtureGroup_Test::resignHead()
@@ -485,18 +485,18 @@ void FixtureGroup_Test::resignHead()
     QSignalSpy spy(&grp, SIGNAL(changed(quint32)));
     QCOMPARE(grp.resignHead(QLCPoint(0, 0)), true);
     QCOMPARE(grp.headList().size(), 15);
-    QCOMPARE(grp.headHash().contains(QLCPoint(0, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(0, 0)), false);
     QCOMPARE(spy.size(), 1);
 
     QCOMPARE(grp.resignHead(QLCPoint(0, 0)), false);
     QCOMPARE(grp.headList().size(), 15);
-    QCOMPARE(grp.headHash().contains(QLCPoint(0, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(0, 0)), false);
     QCOMPARE(spy.size(), 1);
 
     QCOMPARE(grp.resignHead(QLCPoint(15, 0)), false);
     QCOMPARE(grp.headList().size(), 15);
-    QCOMPARE(grp.headHash().contains(QLCPoint(15, 0)), false);
-    QCOMPARE(grp.headHash().contains(QLCPoint(0, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(15, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(0, 0)), false);
     QCOMPARE(spy.size(), 1);
 
     // Assign the head back to 0, 0
@@ -538,7 +538,7 @@ void FixtureGroup_Test::fixtureRemoved()
     // FixtureGroup should listen to Doc's fixtureRemoved() signal
     m_doc->deleteFixture(10);
     QCOMPARE(grp.headList().size(), 15);
-    QVERIFY(grp.headHash().contains(QLCPoint(2, 2)) == false);
+    QVERIFY(grp.headsMap().contains(QLCPoint(2, 2)) == false);
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(5);
@@ -569,30 +569,30 @@ void FixtureGroup_Test::swap()
 
     QLCPoint pt1(0, 0);
     QLCPoint pt2(2, 1);
-    QVERIFY(grp.headHash().contains(pt1) == true);
-    QVERIFY(grp.headHash().contains(pt2) == true);
-    QCOMPARE(grp.headHash()[pt1], GroupHead(0, 0));
-    QCOMPARE(grp.headHash()[pt2], GroupHead(6, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == true);
+    QVERIFY(grp.headsMap().contains(pt2) == true);
+    QCOMPARE(grp.headsMap()[pt1], GroupHead(0, 0));
+    QCOMPARE(grp.headsMap()[pt2], GroupHead(6, 0));
 
     // Switch places with two fixtures
     grp.swap(pt1, pt2);
-    QVERIFY(grp.headHash().contains(pt1) == true);
-    QVERIFY(grp.headHash().contains(pt2) == true);
-    QCOMPARE(grp.headHash()[pt1], GroupHead(6, 0));
-    QCOMPARE(grp.headHash()[pt2], GroupHead(0, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == true);
+    QVERIFY(grp.headsMap().contains(pt2) == true);
+    QCOMPARE(grp.headsMap()[pt1], GroupHead(6, 0));
+    QCOMPARE(grp.headsMap()[pt2], GroupHead(0, 0));
 
     // Switch places with a fixture and an empty point
     pt2 = QLCPoint(500, 500);
     grp.swap(pt1, pt2);
-    QVERIFY(grp.headHash().contains(pt1) == false);
-    QVERIFY(grp.headHash().contains(pt2) == true);
-    QCOMPARE(grp.headHash()[pt2], GroupHead(6, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == false);
+    QVERIFY(grp.headsMap().contains(pt2) == true);
+    QCOMPARE(grp.headsMap()[pt2], GroupHead(6, 0));
 
     // ...and back again
     grp.swap(pt1, pt2);
-    QVERIFY(grp.headHash().contains(pt1) == true);
-    QVERIFY(grp.headHash().contains(pt2) == false);
-    QCOMPARE(grp.headHash()[pt1], GroupHead(6, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == true);
+    QVERIFY(grp.headsMap().contains(pt2) == false);
+    QCOMPARE(grp.headsMap()[pt1], GroupHead(6, 0));
 }
 
 void FixtureGroup_Test::copy()
@@ -669,7 +669,7 @@ void FixtureGroup_Test::loadWrongHeadAttributes()
 
     FixtureGroup grp(m_doc);
     QVERIFY(grp.loadXML(xmlReader) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    QCOMPARE(grp.headsMap().size(), 0);
 
     // reset the data buffer
     buffer.setData(QByteArray());
@@ -697,7 +697,7 @@ void FixtureGroup_Test::loadWrongHeadAttributes()
     xmlReader.readNextStartElement();
 
     QVERIFY(grp.loadXML(xmlReader) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    QCOMPARE(grp.headsMap().size(), 0);
 
     // reset the data buffer
     buffer.setData(QByteArray());
@@ -725,7 +725,7 @@ void FixtureGroup_Test::loadWrongHeadAttributes()
     xmlReader.readNextStartElement();
 
     QVERIFY(grp.loadXML(xmlReader) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    QCOMPARE(grp.headsMap().size(), 0);
 
     // reset the data buffer
     buffer.setData(QByteArray());
@@ -753,7 +753,7 @@ void FixtureGroup_Test::loadWrongHeadAttributes()
     xmlReader.readNextStartElement();
 
     QVERIFY(grp.loadXML(xmlReader) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    QCOMPARE(grp.headsMap().size(), 0);
 
     // reset the data buffer
     buffer.setData(QByteArray());
@@ -781,7 +781,7 @@ void FixtureGroup_Test::loadWrongHeadAttributes()
     xmlReader.readNextStartElement();
 
     QVERIFY(grp.loadXML(xmlReader) == true);
-    QCOMPARE(grp.headHash().size(), 1);
+    QCOMPARE(grp.headsMap().size(), 1);
 }
 
 void FixtureGroup_Test::load()
@@ -829,7 +829,7 @@ void FixtureGroup_Test::load()
     QCOMPARE(grp2->size(), QSize(4, 5));
     QCOMPARE(grp2->name(), QString("Pertti Pasanen"));
     QCOMPARE(grp2->id(), quint32(99));
-    QCOMPARE(grp2->headHash(), grp.headHash());
+    QCOMPARE(grp2->headsMap(), grp.headsMap());
 }
 
 void FixtureGroup_Test::save()

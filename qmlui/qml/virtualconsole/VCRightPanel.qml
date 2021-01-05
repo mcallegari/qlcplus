@@ -18,16 +18,18 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 SidePanel
 {
-    id: vcRightPanel
-
-    onContentLoaded: if (item.functionID) item.functionID = itemID
+    onContentLoaded:
+    {
+        if (item.functionID)
+            item.functionID = itemID
+    }
 
     Rectangle
     {
@@ -40,9 +42,10 @@ SidePanel
         Column
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            width: iconSize
             spacing: 3
 
-            ExclusiveGroup { id: vcButtonsGroup }
+            ButtonGroup { id: vcButtonsGroup }
 
             IconButton
             {
@@ -52,7 +55,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/add.svg"
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 tooltip: qsTr("Add a new widget to the console")
                 onToggled:
                 {
@@ -70,7 +73,8 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                checked: virtualConsole.editMode
+                ButtonGroup.group: vcButtonsGroup
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 
                 onCheckedChanged:
@@ -100,12 +104,12 @@ SidePanel
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 onToggled:
                 {
                     if (checked == true)
                         loaderSource = "qrc:/FunctionManager.qml"
-                    animatePanel(checked);
+                    animatePanel(checked)
                 }
             }
 
@@ -120,13 +124,120 @@ SidePanel
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked:
                 {
-                    var selNames = virtualConsole.selectedWidgetNames()
-                    console.log(selNames)
+                    var selNames = virtualConsole.selectedWidgetNames().join(", ")
+                    deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets?") + "\n" + selNames
+                    deleteWidgetsPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.DeleteVCWidgets,
-                                                     qsTr("Are you sure you want to remove the following widgets ?\n" + selNames),
-                                                     ActionManager.OK | ActionManager.Cancel,
-                                                     virtualConsole.selectedWidgetIDs())
+                CustomPopupDialog
+                {
+                    id: deleteWidgetsPopup
+                    title: qsTr("Delete selected widgets")
+                    onAccepted: virtualConsole.deleteVCWidgets(virtualConsole.selectedWidgetIDs())
+                }
+            }
+
+            IconButton
+            {
+                id: copyButton
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/edit-copy.svg"
+                tooltip: qsTr("Copy the selected widgets to clipboard")
+                counter: virtualConsole.selectedWidgetsCount
+                onClicked: virtualConsole.copyToClipboard()
+            }
+
+            IconButton
+            {
+                id: pasteButton
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/edit-paste.svg"
+                tooltip: qsTr("Paste widgets from clipboard")
+                counter: virtualConsole.clipboardItemsCount
+
+                onClicked: virtualConsole.pasteFromClipboard()
+
+                Rectangle
+                {
+                    x: -3
+                    y: -3
+                    width: pasteButton.width * 0.4
+                    height: width
+                    color: "red"
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: virtualConsole.clipboardItemsCount
+                        fontSize: height
+                    }
+                }
+
+                MouseArea
+                {
+                    id: dumpDragArea
+                    anchors.fill: parent
+                    propagateComposedEvents: true
+                    drag.target: pasteDragItem
+                    drag.threshold: 10
+                    onClicked: mouse.accepted = false
+
+                    property bool dragActive: drag.active
+
+                    onDragActiveChanged:
+                    {
+                        console.log("Drag active changed: " + dragActive)
+                        if (dragActive == false)
+                        {
+                            pasteDragItem.Drag.drop()
+                            pasteDragItem.parent = pasteButton
+                            pasteDragItem.x = 0
+                            pasteDragItem.y = 0
+                        }
+                        pasteDragItem.Drag.active = dragActive
+                    }
+                }
+
+                Item
+                {
+                    id: pasteDragItem
+                    visible: dumpDragArea.drag.active
+
+                    Drag.source: pasteDragItem
+                    Drag.keys: [ "pasteWidgets" ]
+
+                    function itemDropped(id, name)
+                    {
+                        console.log("Paste widgets dropped on " + id)
+                        /*dmxDumpDialog.sceneID = id
+                        dmxDumpDialog.sceneName = name
+                        dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
+                        */
+                    }
+
+                    Rectangle
+                    {
+                        width: UISettings.iconSizeMedium
+                        height: width
+                        radius: width / 4
+                        color: "red"
+
+                        RobotoText
+                        {
+                            anchors.centerIn: parent
+                            label: virtualConsole.clipboardItemsCount
+                        }
+                    }
                 }
             }
         }

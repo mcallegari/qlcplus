@@ -19,9 +19,9 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -31,16 +31,22 @@ Rectangle
     color: "transparent"
     clip: true
 
+    property bool allowEditing: true
+
     signal requestView(int ID, string qmlSrc)
+    signal doubleClicked(int ID, int type)
 
     function loadFunctionEditor(funcID, funcType)
     {
-        //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
-        functionManager.setEditorFunction(funcID, false)
-        functionManager.viewPosition = functionsListView.contentY
-        var editorRes = functionManager.getEditorResource(funcType)
+        if (!(qlcplus.accessMask & App.AC_FunctionEditing))
+            return
 
-        if (funcType === Function.ShowType)
+        //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
+        functionManager.setEditorFunction(funcID, false, false)
+        functionManager.viewPosition = functionsListView.contentY
+        var editorRes = functionManager.getEditorResource(funcID)
+
+        if (funcType === QLCFunction.ShowType)
         {
             showManager.currentShowID = funcID
             mainView.switchToContext("SHOWMGR", editorRes)
@@ -76,8 +82,8 @@ Rectangle
 
         RowLayout
         {
-            id: topBarRowLayout
             width: parent.width
+            height: parent.height
             y: 1
 
             spacing: 4
@@ -89,10 +95,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/scene.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.SceneType
+                checked: functionManager.functionsFilter & QLCFunction.SceneType
                 tooltip: qsTr("Scenes")
                 counter: functionManager.sceneCount
-                onCheckedChanged: setFunctionFilter(Function.SceneType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.SceneType, checked)
             }
             IconButton
             {
@@ -101,10 +107,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/chaser.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.ChaserType
+                checked: functionManager.functionsFilter & QLCFunction.ChaserType
                 tooltip: qsTr("Chasers")
                 counter: functionManager.chaserCount
-                onCheckedChanged: setFunctionFilter(Function.ChaserType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.ChaserType, checked)
             }
             IconButton
             {
@@ -113,10 +119,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/sequence.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.SequenceType
+                checked: functionManager.functionsFilter & QLCFunction.SequenceType
                 tooltip: qsTr("Sequences")
                 counter: functionManager.sequenceCount
-                onCheckedChanged: setFunctionFilter(Function.SequenceType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.SequenceType, checked)
             }
             IconButton
             {
@@ -125,10 +131,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/efx.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.EFXType
+                checked: functionManager.functionsFilter & QLCFunction.EFXType
                 tooltip: qsTr("EFX")
                 counter: functionManager.efxCount
-                onCheckedChanged: setFunctionFilter(Function.EFXType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.EFXType, checked)
             }
             IconButton
             {
@@ -137,10 +143,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/collection.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.CollectionType
+                checked: functionManager.functionsFilter & QLCFunction.CollectionType
                 tooltip: qsTr("Collections")
                 counter: functionManager.collectionCount
-                onCheckedChanged: setFunctionFilter(Function.CollectionType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.CollectionType, checked)
             }
             IconButton
             {
@@ -149,10 +155,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/rgbmatrix.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.RGBMatrixType
+                checked: functionManager.functionsFilter & QLCFunction.RGBMatrixType
                 tooltip: qsTr("RGB Matrices")
                 counter: functionManager.rgbMatrixCount
-                onCheckedChanged: setFunctionFilter(Function.RGBMatrixType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.RGBMatrixType, checked)
             }
             IconButton
             {
@@ -161,10 +167,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/showmanager.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.ShowType
+                checked: functionManager.functionsFilter & QLCFunction.ShowType
                 tooltip: qsTr("Shows")
                 counter: functionManager.showCount
-                onCheckedChanged: setFunctionFilter(Function.ShowType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.ShowType, checked)
             }
             IconButton
             {
@@ -173,10 +179,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/script.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.ScriptType
+                checked: functionManager.functionsFilter & QLCFunction.ScriptType
                 tooltip: qsTr("Scripts")
                 counter: functionManager.scriptCount
-                onCheckedChanged: setFunctionFilter(Function.ScriptType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.ScriptType, checked)
             }
             IconButton
             {
@@ -185,10 +191,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/audio.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.AudioType
+                checked: functionManager.functionsFilter & QLCFunction.AudioType
                 tooltip: qsTr("Audio")
                 counter: functionManager.audioCount
-                onCheckedChanged: setFunctionFilter(Function.AudioType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.AudioType, checked)
             }
             IconButton
             {
@@ -197,10 +203,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/video.svg"
                 checkable: true
-                checked: functionManager.functionsFilter & Function.VideoType
+                checked: functionManager.functionsFilter & QLCFunction.VideoType
                 tooltip: qsTr("Videos")
                 counter: functionManager.videoCount
-                onCheckedChanged: setFunctionFilter(Function.VideoType, checked)
+                onCheckedChanged: setFunctionFilter(QLCFunction.VideoType, checked)
             }
 
             Rectangle { Layout.fillWidth: true }
@@ -243,7 +249,7 @@ Rectangle
               id: sTextInput
               y: 3
               height: parent.height - 6
-              width: searchBox.width
+              width: parent.width
               color: UISettings.fgMain
               text: functionManager.searchFilter
               font.family: "Roboto Condensed"
@@ -259,7 +265,7 @@ Rectangle
       {
           id: functionsListView
           width: fmContainer.width
-          height: fmContainer.height - topBar.height
+          height: fmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
           //anchors.fill: parent
           z: 4
           boundsBehavior: Flickable.StopAtBounds
@@ -280,23 +286,22 @@ Rectangle
 
                       onLoaded:
                       {
-                          item.textLabel = label
+                          item.z = 2
+                          item.textLabel = Qt.binding(function() { return label })
                           item.isSelected = Qt.binding(function() { return isSelected })
                           item.dragItem = fDragItem
 
-                          if (hasChildren)
+                          if (type === App.FunctionDragItem)
                           {
-                              console.log("Item path: " + path + ",label: " + label)
-                              item.itemType = App.FolderDragItem
-                              item.nodePath = path
-                              item.isExpanded = isExpanded
-                              item.nodeChildren = childrenModel
+                              item.cRef = classRef
                           }
                           else
                           {
-                              item.cRef = classRef
-                              item.itemType = App.FunctionDragItem
-                              //item.functionType = funcType
+                              console.log("Item path: " + path + ",label: " + label)
+                              item.nodePath = Qt.binding(function() { return path })
+                              item.isExpanded = isExpanded
+                              item.nodeChildren = childrenModel
+                              item.dropKeys = "function"
                           }
                       }
                       Connections
@@ -312,6 +317,7 @@ Rectangle
                                     fDragItem.parent = mainView
                                     fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
                                     fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
+                                    fDragItem.modifiers = mouseMods
                                 break;
                                 case App.Clicked:
                                     if (qItem == item)
@@ -320,10 +326,16 @@ Rectangle
                                         if (model.hasChildren)
                                             model.isExpanded = item.isExpanded
                                     }
-                                    functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                    if (qItem.itemType === App.FunctionDragItem)
+                                        functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                    else
+                                        functionManager.selectFolder(qItem.nodePath, mouseMods & Qt.ControlModifier)
                                 break;
                                 case App.DoubleClicked:
-                                    loadFunctionEditor(iID, iType)
+                                    if (allowEditing)
+                                        loadFunctionEditor(iID, iType)
+                                    else
+                                        fmContainer.doubleClicked(iID, iType)
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)
@@ -358,11 +370,31 @@ Rectangle
                       {
                           ignoreUnknownSignals: true
                           target: item
-                          onPathChanged: functionManager.setFolderPath(oldPath, newPath)
+                          onPathChanged: functionManager.setFolderPath(oldPath, newPath, true)
+                      }
+                      Connections
+                      {
+                          ignoreUnknownSignals: true
+                          target: item
+                          onItemsDropped: functionManager.moveFunctions(path)
                       }
                   } // Loader
               } // Component
-              CustomScrollBar { id: fMgrScrollBar; flickable: functionsListView }
+              ScrollBar.vertical: CustomScrollBar { id: fMgrScrollBar }
+
+              // "deselection" mouse area
+              MouseArea
+              {
+                  y: functionsListView.contentHeight
+                  height: Math.max(parent.height - functionsListView.contentHeight, 0)
+                  width: parent.width
+
+                  onClicked:
+                  {
+                      functionManager.selectFunctionID(-1, 0)
+                      functionManager.selectFolder("", 0)
+                  }
+              }
 
               GenericMultiDragItem
               {
@@ -375,6 +407,12 @@ Rectangle
                   Drag.active: functionsListView.dragActive
                   Drag.source: fDragItem
                   Drag.keys: [ "function" ]
+
+                  function itemDropped(id, name)
+                  {
+                      var path = functionManager.functionPath(id)
+                      functionManager.moveFunctions(path)
+                  }
 
                   onItemsListChanged:
                   {

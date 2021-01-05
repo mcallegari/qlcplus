@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Willy Pigerre</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Hero Wash 715 HEX LED</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="20">Stroboscope, increasing speed (0 ... 20 Hz)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Colour temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Colour temperature (0 % to 100 %) intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Colour macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red, 50% white</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="31" Max="40" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red, Amber</Capability>
+  <Capability Min="41" Max="50" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="51" Max="60">Red, 75% green, amber</Capability>
+  <Capability Min="61" Max="70" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red, Green</Capability>
+  <Capability Min="71" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="90" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green, White</Capability>
+  <Capability Min="91" Max="100" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green, UV</Capability>
+  <Capability Min="101" Max="110" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green, Blue</Capability>
+  <Capability Min="111" Max="120" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#aa00ff">Blue, UV</Capability>
+  <Capability Min="121" Max="130" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="131" Max="140" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="141" Max="150" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#ff0000">UV, 50% red</Capability>
+  <Capability Min="151" Max="160" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#ffaa00">UV, Amber</Capability>
+  <Capability Min="161" Max="170" Preset="ColorMacro" Res1="#aa00ff">UV, Amber, Red</Capability>
+  <Capability Min="171" Max="180" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#ff0000">UV, Red</Capability>
+  <Capability Min="181" Max="190" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red, White, Amber</Capability>
+  <Capability Min="191" Max="200" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffaa00">White, Amber</Capability>
+  <Capability Min="201" Max="210" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="211" Max="220" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">White, Blue</Capability>
+  <Capability Min="221" Max="230">Red, green, blue, white, amber, UV</Capability>
+  <Capability Min="231" Max="240">Colour sequence, increasing speed</Capability>
+  <Capability Min="241" Max="255">Colour transion (fade), increasing speed</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20">Preprogrammed automatic show 1</Capability>
+  <Capability Min="21" Max="30">Preprogrammed automatic show 2</Capability>
+  <Capability Min="31" Max="40">Preprogrammed automatic show 3</Capability>
+  <Capability Min="41" Max="50">Preprogrammed automatic show 4</Capability>
+  <Capability Min="51" Max="60">Preprogrammed automatic show 5</Capability>
+  <Capability Min="61" Max="70">Preprogrammed automatic show 6</Capability>
+  <Capability Min="71" Max="80">Preprogrammed automatic show 7</Capability>
+  <Capability Min="81" Max="90">Preprogrammed automatic show 8</Capability>
+  <Capability Min="91" Max="230">Sound control, from sound control off to high microphone sensitivity</Capability>
+  <Capability Min="231" Max="240">Reset, if the value is transmitted for at least 3 seconds</Capability>
+  <Capability Min="241" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Colour macros</Channel>
+  <Channel Number="6">Auto programs</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Amber</Channel>
+  <Channel Number="12">UV</Channel>
+  <Channel Number="13">Colour temperature</Channel>
+  <Channel Number="14">Colour macros</Channel>
+  <Channel Number="15">Auto programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="210" Height="295" Depth="145"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Head" PanMax="540" TiltMax="190"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Disable Apple FTDI driver in Mac OSX</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+Considered all the issues that have been raised by QLC+ users around this topic, here's an extract of the official
+<a href="https://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">FTDI Application Note 134</a>
+
+<H1>Disabling the Apple-provided VCP on OS X 10.9 and later</H1>
+<P>
+A VCP driver for most FTDI USB to serial converters is provided as part of the kernel in OS X 10.9 and
+later. OS X loads this driver (AppleUSBFTDI.kext) when a device with standard FTDI vendor and product
+identifiers is connected. To use FTDI's own VCP instead, or to use D2XX programs, AppleUSBFTDI must
+be disabled, unloaded or blocked, as follows.
+</P>
+
+<H2>Disable by Renaming (OS X 10.9 and 10.10 only)</H2>
+<P>
+Note: this method works <B>only on 10.9 Mavericks and 10.10 Yosemite.</B><BR><BR>
+
+Start a terminal session (Go > Applications > Utilities > Terminal) and copy/paste the following text to
+the command prompt:
+<PRE>
+cd /System/Library/Extensions/IOUSBFamily.kext/Contents/Plugins
+sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
+sudo touch /System/Library/Extensions
+</PRE>
+then reboot.<BR>
+To re-enable VCP, rename AppleUSBFTDI.disabled back to AppleUSBFTDI.kext
+<PRE>
+cd /System/Library/Extensions/IOUSBFamily.kext/Contents/Plugins
+sudo mv AppleUSBFTDI.disabled AppleUSBFTDI.kext
+sudo touch /System/Library/Extensions
+</PRE>
+then reboot.
+</P>
+
+<H2>Temporarily Unload (all versions of OS X)</H2>
+<P>
+Note: this method works on all versions of OS X.<BR><BR>
+
+It is possible to unload Apple's VCP for the current session, i.e. until the next reboot:
+<PRE>
+sudo kextunload -b com.apple.driver.AppleUSBFTDI
+</PRE>
+(If a warning message indicates that the kext can't be unloaded, then reboot and retry the above
+command.)
+To reload:
+<PRE>
+sudo kextload -b com.apple.driver.AppleUSBFTDI
+</PRE>
+The kextunload and kextload commands can be run in any directory.
+</P>
+
+<H2>Block with D2xxHelper (OS X 10.9 and later)</H2>
+<P>
+Note: this is the only non-temporary method which works on <B>10.11 El Capitan</B>.<BR><BR>
+
+FTDI provides a signed kernel extension (D2xxHelper.kext) which contains no code but acts to prevent
+OS X from matching an FTDI chip (with standard vendor and product identifiers) with a VCP driver, either
+Apple's or FTDI's. This leaves the device unclaimed, and available for D2XX programs only.<BR>
+1. Disconnect all FTDI devices.<BR>
+2. Download and run the D2xxHelper installer from <A href="https://www.ftdichip.com/Drivers/D2XX.htm">https://www.ftdichip.com/Drivers/D2XX.htm</A><BR>
+3. Reboot.<BR>
+4. Reconnect the FTDI devices.<BR>
+</P>
+</BODY>
+</HTML>

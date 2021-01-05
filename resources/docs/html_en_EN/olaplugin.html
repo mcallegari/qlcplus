@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - OLA Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>OLA output plugin</H1>
+
+<H2>Introduction</H2>
+<P>
+The OLA plugin allows direct communication between QLC+ and the
+<a href="https://www.opendmx.net/index.php/Open_Lighting_Architecture">OLA framework</a> on the same machine.
+</P>
+
+<H2>Requirements</H2>
+
+<P>
+The OLA plugin requires OLA to be installed on the system.<br>
+Since OLA doesn't run on Windows, only Linux and macOS users can benefit from this plugin.<br>
+Information on how to download and install OLA can be found <a href="https://opendmx.net/index.php/Download_%26_Install_OLA">here</a>.<br>
+QLC+ needs the OLA server to be running to be able to communicate with the OLA framework.
+This can be done either manually by starting up "olad" from a terminal or in the configuration panel
+by ticking "Run standalone OLA daemon".
+</P>
+
+<H2>Configuration</H2>
+
+<P>
+When pressing the configuration button over a OLA output line, a small popup window will appear
+showing the basic information of how QLC+ outputs are mapped against OLA universes.<br>
+On the bottom, a check button will allow you to force the OLA server startup.
+</P>
+
+<H2>OLA Setup</H2>
+
+<P>
+When you have made sure that everything is working in QLC+ and have checked how the universes are mapped, you can setup OLA
+to output the signal received from QLC+ to a DMX device, either USB or over the network.<br>
+Here's an <a href="https://www.opendmx.net/index.php/Using_OLA">introduction of OLA usage</a>.<br>
+Basically you need to open a web browser, connect to <a href="http://localhost:9090">http://localhost:9090</a> or
+<a href="http://127.0.0.1:9090">http://127.0.0.1:9090</a> and add a universe that has the same number mapped in QLC+ and
+select the desired output line.
+</P>
+
+</BODY>
+</HTML>

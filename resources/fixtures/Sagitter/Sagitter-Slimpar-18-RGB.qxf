@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Daniele Fogale</Author>
+ </Creator>
+ <Manufacturer>Sagitter</Manufacturer>
+ <Model>Slimpar 18 RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">No function</Capability>
+  <Capability Min="64" Max="128">Color macro 1 (fade)</Capability>
+  <Capability Min="129" Max="192">Color macro 2 (color change)</Capability>
+  <Capability Min="193" Max="255">Sound mode (strobe)</Capability>
+ </Channel>
+ <Channel Name="Color Macro Speed - Microphone Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Color macro speed (ch5) - Microphone sensitivity (ch5)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="11" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="12" Max="255" Preset="StrobeSlowToFast">Strobe from min to max</Capability>
+ </Channel>
+ <Channel Name="Color Macro" Preset="ColorMacro"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Function</Channel>
+  <Channel Number="5">Color Macro Speed - Microphone Sensitivity</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Color Macro</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="4400" ColourTemperature="0"/>
+  <Dimensions Weight="2.1" Width="257" Height="250" Depth="130"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

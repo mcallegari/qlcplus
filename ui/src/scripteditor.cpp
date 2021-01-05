@@ -55,13 +55,16 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
 
     /* Document */
     m_document = new QTextDocument(m_script->data(), this);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
+    m_editor->setTabStopWidth(20);
+#else
+    m_editor->setTabStopDistance(20);
+#endif
     m_editor->setDocument(m_document);
     connect(m_document, SIGNAL(undoAvailable(bool)), m_undoButton, SLOT(setEnabled(bool)));
     m_document->setUndoRedoEnabled(false);
     m_document->setUndoRedoEnabled(true);
-#if QT_VERSION >= 0x040700
     m_document->clearUndoRedoStacks();
-#endif
 
     m_editor->moveCursor(QTextCursor::End);
     connect(m_document, SIGNAL(contentsChanged()), this, SLOT(slotContentsChanged()));
@@ -93,6 +96,10 @@ void ScriptEditor::initAddMenu()
     m_addStopFunctionAction = new QAction(QIcon(":/fileclose.png"), tr("Stop Function"), this);
     connect(m_addStopFunctionAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddStopFunction()));
+
+    m_addBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Blackout"), this);
+    connect(m_addBlackoutAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddBlackout()));
 
     m_addWaitAction = new QAction(QIcon(":/speed.png"), tr("Wait"), this);
     connect(m_addWaitAction, SIGNAL(triggered(bool)),
@@ -133,6 +140,7 @@ void ScriptEditor::initAddMenu()
     m_addMenu = new QMenu(this);
     m_addMenu->addAction(m_addStartFunctionAction);
     m_addMenu->addAction(m_addStopFunctionAction);
+    m_addMenu->addAction(m_addBlackoutAction);
     //m_addMenu->addAction(m_addSetHtpAction);
     //m_addMenu->addAction(m_addSetLtpAction);
     m_addMenu->addAction(m_addSetFixtureAction);
@@ -256,6 +264,33 @@ void ScriptEditor::slotAddStopFunction()
     }
 }
 
+void ScriptEditor::slotAddBlackout()
+{
+    QDialog dialog(this);
+    // Use a layout allowing to have a label next to each field
+    QVBoxLayout dLayout(&dialog);
+
+    QCheckBox *cb = new QCheckBox(tr("Blackout state"));
+    cb->setChecked(true);
+    dLayout.addWidget(cb);
+
+    // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                               Qt::Horizontal, &dialog);
+    dLayout.addWidget(&buttonBox);
+    QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+    // Show the dialog as modal
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        m_editor->moveCursor(QTextCursor::StartOfLine);
+        m_editor->textCursor().insertText(QString("%1:%2\n")
+                              .arg(Script::blackoutCmd)
+                              .arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
+    }
+}
+
 void ScriptEditor::slotAddWait()
 {
     QDialog dialog(this);
@@ -346,7 +381,7 @@ void ScriptEditor::slotAddSystemCommand()
 #if !defined(WIN32) && !defined(Q_OS_WIN)
     if (fInfo.isExecutable() == false)
     {
-        QMessageBox::warning(this, tr("Invalid executable"), tr("Please select an executable file !"));
+        QMessageBox::warning(this, tr("Invalid executable"), tr("Please select an executable file!"));
         return;
     }
 #endif
@@ -440,7 +475,7 @@ void ScriptEditor::slotCheckSyntax()
     }
     else
     {
-        QStringList lines = scriptText.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+        QStringList lines = scriptText.split(QRegExp("(\r\n|\n\r|\r|\n)"));
         foreach(int line, errLines)
         {
             errResult.append(tr("Syntax error at line %1:\n%2\n\n").arg(line).arg(lines.at(line - 1)));

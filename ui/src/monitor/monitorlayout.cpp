@@ -108,7 +108,7 @@ static bool MonitorLayoutLessThan(MonitorLayoutItem* i1, MonitorLayoutItem* i2)
 
 void MonitorLayout::sort()
 {
-    qSort(m_items.begin(), m_items.end(), MonitorLayoutLessThan);
+    std::sort(m_items.begin(), m_items.end(), MonitorLayoutLessThan);
 }
 
 /****************************************************************************
@@ -117,7 +117,7 @@ void MonitorLayout::sort()
 
 Qt::Orientations MonitorLayout::expandingDirections() const
 {
-    return 0;
+    return Qt::Vertical;
 }
 
 bool MonitorLayout::hasHeightForWidth() const

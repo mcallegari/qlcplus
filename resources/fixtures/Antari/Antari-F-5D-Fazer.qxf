@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Mark Lohrey</Author>
+ </Creator>
+ <Manufacturer>Antari</Manufacturer>
+ <Model>F-5D Fazer</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Faze">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Faze Off</Capability>
+  <Capability Min="5" Max="255">Faze 1-100%</Capability>
+ </Channel>
+ <Channel Name="Fan">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Fan 20%</Capability>
+  <Capability Min="5" Max="255">Fan 21% to 100%</Capability>
+ </Channel>
+ <Channel Name="Faze and Fan">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Faze Off and Fan 20%</Capability>
+  <Capability Min="5" Max="255">Faze 1 to 100% and Fan 100%</Capability>
+ </Channel>
+ <Channel Name="Fan and Haze Sync Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Faze Off and Fan 20%</Capability>
+  <Capability Min="5" Max="255">Faze 1 to 100% and Fan 21% to 100%</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Faze</Channel>
+  <Channel Number="1">Fan</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Faze and Fan</Channel>
+ </Mode>
+ <Mode Name="Sync">
+  <Channel Number="0">Fan and Haze Sync Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="14.1" Width="535" Height="225" Depth="465"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="810" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

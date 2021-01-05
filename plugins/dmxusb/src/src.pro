@@ -19,13 +19,12 @@ win32 {
     message(Building with FTD2xx support.)
 }
 
-unix: !macx: {
+unix: {
     CONFIG += libftdi
 }
 
 macx: {
     CONFIG += qtserial
-    CONFIG += libftdi
 }
 
 CONFIG(qtserial) {
@@ -64,12 +63,22 @@ CONFIG(libftdi) {
         PKGCONFIG   += libftdi1 libusb-1.0
         DEFINES     += LIBFTDI1
         message(Building with libFTDI1 support.)
+
+        macx {
+            include(../../../platforms/macos/nametool.pri)
+            nametool.commands += $$pkgConfigNametool(libusb-1.0, libusb-1.0.0.dylib)
+            nametool.commands += && $$pkgConfigNametool(libftdi1, libftdi1.2.dylib)
+        }
     } else {
         packagesExist(libftdi) {
             CONFIG      += link_pkgconfig
             PKGCONFIG   += libftdi libusb
             DEFINES     += LIBFTDI
             message(Building with libFTDI support.)
+            macx {
+                include(../../../platforms/macos/nametool.pri)
+                nametool.commands += && $$pkgConfigNametool(libftdi, libftdi.1.dylib)
+            }
         } else {
             error(Neither libftdi-0.X nor libftdi-1.X found!)
         }
@@ -83,6 +92,7 @@ HEADERS += dmxusb.h \
            dmxusbconfig.h \
            enttecdmxusbpro.h \
            enttecdmxusbopen.h \
+           dmxusbopenrx.h \
            stageprofi.h \
            vinceusbdmx512.h \
            dmxinterface.h
@@ -96,6 +106,7 @@ SOURCES += dmxinterface.cpp \
            dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \
            enttecdmxusbopen.cpp \
+           dmxusbopenrx.cpp \
            stageprofi.cpp \
            vinceusbdmx512.cpp
 
@@ -125,9 +136,9 @@ unix:!macx {
     udev.path  = $$UDEVRULESDIR
     udev.files = z65-dmxusb.rules
     INSTALLS  += udev
-    
-    metainfo.path   = $$INSTALLROOT/share/appdata/
-    metainfo.files += qlcplus-dmxusb.metainfo.xml
+
+    metainfo.path   = $$METAINFODIR
+    metainfo.files += org.qlcplus.QLCPlus.dmxusb.metainfo.xml
     INSTALLS       += metainfo
 }
 
@@ -141,10 +152,6 @@ TRANSLATIONS += DMX_USB_cz_CZ.ts
 TRANSLATIONS += DMX_USB_pt_BR.ts
 TRANSLATIONS += DMX_USB_ca_ES.ts
 TRANSLATIONS += DMX_USB_ja_JP.ts
-
-# This must be after "TARGET = " and before target installation so that
-# install_name_tool can be run before target installation
-macx:include(../../../platforms/macos/nametool.pri)
 
 # Plugin installation
 target.path = $$INSTALLROOT/$$PLUGINDIR

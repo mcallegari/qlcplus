@@ -116,6 +116,14 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     setupMappingPage();
     setupProfilePage();
 
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_HOTPLUG);
+    if (var.isValid() && var.toBool() == true)
+        m_hotplugButton->setChecked(true);
+
+    connect(m_hotplugButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotHotpluggingChanged(bool)));
+
     initAudioTab();
 
     /* Listen to itemChanged() signals to catch check state changes */
@@ -527,6 +535,12 @@ void InputOutputPatchEditor::slotPluginConfigurationChanged(const QString& plugi
         return;
 
     fillMappingTree();
+}
+
+void InputOutputPatchEditor::slotHotpluggingChanged(bool checked)
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_HOTPLUG, checked);
 }
 
 QTreeWidgetItem* InputOutputPatchEditor::pluginItem(const QString& pluginName)

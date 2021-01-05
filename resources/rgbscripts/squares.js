@@ -39,68 +39,58 @@ var testAlgo;
     var util = new Object;
     util.initialized = false;
     util.squaresMaxSize = 0;
-    
+
     var squares = new Array();
-    
+
     function Square(x, y, step)
     {
       this.xCenter = x;
       this.yCenter = y;
       this.step = step;
     }
-    
+
     algo.setAmount = function(_amount)
     {
       algo.squaresAmount = _amount;
       util.initialized = false;
     };
-    
+
     algo.getAmount = function()
     {
       return algo.squaresAmount;
     };
-    
+
     algo.setFade = function(_fade)
     {
-      if (_fade == "Fade In")
-        algo.fadeMode = 1;
-      else if (_fade == "Fade Out")
-        algo.fadeMode = 2;
-      else
-        algo.fadeMode = 0;
+      if (_fade === "Fade In") { algo.fadeMode = 1; }
+      else if (_fade === "Fade Out") { algo.fadeMode = 2; }
+      else { algo.fadeMode = 0; }
     };
 
     algo.getFade = function()
     {
-      if (algo.fadeMode == 1)
-        return "Fade In";
-      else if (algo.fadeMode == 2)
-        return "Fade Out";
-      else
-        return "Don't Fade";
+      if (algo.fadeMode === 1) { return "Fade In"; }
+      else if (algo.fadeMode === 2) { return "Fade Out"; }
+      else { return "Don't Fade"; }
     };
-    
+
     algo.setFill = function(_fill)
     {
-      if (_fill == "Yes")
-        algo.fillSquares = 1;
-      else
-        algo.fillSquares = 0;
+      if (_fill === "Yes") { algo.fillSquares = 1; }
+      else { algo.fillSquares = 0; }
     };
 
     algo.getFill = function()
     {
-      if (algo.fillSquares == 1)
-        return "Yes";
-      else
-        return "No";
+      if (algo.fillSquares === 1) { return "Yes"; }
+      else { return "No"; }
     };
 
     util.initialize = function(size)
     {
-      if (size > 0)
+      if (size > 0) {
         util.squaresMaxSize = size;
-
+      }
       squares = new Array();
       for (var i = 0; i < algo.squaresAmount; i++)
       {
@@ -109,10 +99,10 @@ var testAlgo;
 
       util.initialized = true;
     };
-    
+
     util.getColor = function(step, rgb)
     {
-      if (algo.fadeMode == 0)
+      if (algo.fadeMode === 0)
       {
         return rgb;
       }
@@ -121,12 +111,12 @@ var testAlgo;
         var r = (rgb >> 16) & 0x00FF;
         var g = (rgb >> 8) & 0x00FF;
         var b = rgb & 0x00FF;
-        
+
         var stepCount = Math.floor(util.squaresMaxSize / 2);
         var fadeStep = step;
-        if (algo.fadeMode == 2)
+        if (algo.fadeMode === 2) {
           fadeStep = stepCount - step;
-
+        }
         var newR = (r / stepCount) * fadeStep;
         var newG = (g / stepCount) * fadeStep;
         var newB = (b / stepCount) * fadeStep;
@@ -139,7 +129,7 @@ var testAlgo;
     {
       // create an empty, black map
       var map = new Array(height);
-      
+
       for (var y = 0; y < height; y++)
       {
         map[y] = new Array();
@@ -153,10 +143,10 @@ var testAlgo;
       {
         var color = util.getColor(squares[i].step, rgb);
         //alert("Square " + i + " xCenter: " + squares[i].xCenter + " color: " + color.toString(16));
-        if (squares[i].xCenter == -1)
+        if (squares[i].xCenter === -1)
         {
           var seed = Math.floor(Math.random()*100);
-          if (seed > 50) continue;
+          if (seed > 50) { continue; }
           squares[i].xCenter = Math.floor(Math.random() * width);
           squares[i].yCenter = Math.floor(Math.random() * height);
           map[squares[i].yCenter][squares[i].xCenter] = color;
@@ -167,21 +157,22 @@ var testAlgo;
           var side = (squares[i].step * 2) + 1;
           for (var sy = firstY; sy <= (firstY + side); sy++)
           {
-            if (sy < 0 || sy >= height) continue;
+            if (sy < 0 || sy >= height) { continue; }
 
             var firstX = squares[i].xCenter - squares[i].step;
 
             for (var sx = firstX; sx <= firstX + side; sx++)
             {
-              if (sx < 0 || sx >= width) continue;
-              if (sy == firstY || sy == firstY + side || algo.fillSquares == 1)
+              if (sx < 0 || sx >= width) { continue; }
+              if (sy === firstY || sy === firstY + side || algo.fillSquares === 1)
               {
                 map[sy][sx] = color;
               }
               else
               {
-                if (sx == firstX || sx == firstX + side)
+                if (sx === firstX || sx === firstX + side) {
                   map[sy][sx] = color;
+                }
               }
             }
           }
@@ -201,12 +192,13 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-      if (util.initialized == false)
+      if (util.initialized === false)
       {
-        if (height < width)
+        if (height < width) {
           util.initialize(height);
-        else
+        } else {
           util.initialize(width);
+        }
       }
 
       return util.getNextStep(width, height, rgb);
@@ -214,10 +206,11 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      if (height < width)
+      if (height < width) {
         return height;
-      else
+      } else {
         return width;
+      }
     };
 
     // Development tool access

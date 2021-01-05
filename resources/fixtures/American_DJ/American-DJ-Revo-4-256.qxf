@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>David Kuder</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Revo 4 - 256-CH</Model>
+ <Type>Flower</Type>
+ <Channel Name="Red (0,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (0,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (0,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (0,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (0,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (0,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (0,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (0,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (0,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (1,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (1,15)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (2,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (2,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (3,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (3,15)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (4,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (4,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (5,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (5,15)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (6,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (6,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (7,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (7,15)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (8,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (8,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (9,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (9,15)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (10,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (10,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (11,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (11,15)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (12,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (12,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (13,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (13,15)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,0)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,0)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,2)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,2)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,4)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,4)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,6)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,6)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,8)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,9)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,8)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,9)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,10)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,10)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,11)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,12)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,13)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,12)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,13)" Preset="IntensityWhite"/>
+ <Channel Name="Red (14,14)" Preset="IntensityRed"/>
+ <Channel Name="Green (14,15)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (15,14)" Preset="IntensityBlue"/>
+ <Channel Name="White (15,15)" Preset="IntensityWhite"/>
+ <Mode Name="256-CH">
+  <Channel Number="0">Red (0,0)</Channel>
+  <Channel Number="1">Green (0,1)</Channel>
+  <Channel Number="2">Blue (1,0)</Channel>
+  <Channel Number="3">White (1,1)</Channel>
+  <Channel Number="4">Red (0,2)</Channel>
+  <Channel Number="5">Green (0,3)</Channel>
+  <Channel Number="6">Blue (1,2)</Channel>
+  <Channel Number="7">White (1,3)</Channel>
+  <Channel Number="8">Red (0,4)</Channel>
+  <Channel Number="9">Green (0,5)</Channel>
+  <Channel Number="10">Blue (1,4)</Channel>
+  <Channel Number="11">White (1,5)</Channel>
+  <Channel Number="12">Red (0,6)</Channel>
+  <Channel Number="13">Green (0,7)</Channel>
+  <Channel Number="14">Blue (1,6)</Channel>
+  <Channel Number="15">White (1,7)</Channel>
+  <Channel Number="16">Red (0,8)</Channel>
+  <Channel Number="17">Green (0,9)</Channel>
+  <Channel Number="18">Blue (1,8)</Channel>
+  <Channel Number="19">White (1,9)</Channel>
+  <Channel Number="20">Red (0,10)</Channel>
+  <Channel Number="21">Green (0,11)</Channel>
+  <Channel Number="22">Blue (1,10)</Channel>
+  <Channel Number="23">White (1,11)</Channel>
+  <Channel Number="24">Red (0,12)</Channel>
+  <Channel Number="25">Green (0,13)</Channel>
+  <Channel Number="26">Blue (1,12)</Channel>
+  <Channel Number="27">White (1,13)</Channel>
+  <Channel Number="28">Red (0,14)</Channel>
+  <Channel Number="29">Green (0,15)</Channel>
+  <Channel Number="30">Blue (1,14)</Channel>
+  <Channel Number="31">White (1,15)</Channel>
+  <Channel Number="32">Red (2,0)</Channel>
+  <Channel Number="33">Green (2,1)</Channel>
+  <Channel Number="34">Blue (3,0)</Channel>
+  <Channel Number="35">White (3,1)</Channel>
+  <Channel Number="36">Red (2,2)</Channel>
+  <Channel Number="37">Green (2,3)</Channel>
+  <Channel Number="38">Blue (3,2)</Channel>
+  <Channel Number="39">White (3,3)</Channel>
+  <Channel Number="40">Red (2,4)</Channel>
+  <Channel Number="41">Green (2,5)</Channel>
+  <Channel Number="42">Blue (3,4)</Channel>
+  <Channel Number="43">White (3,5)</Channel>
+  <Channel Number="44">Red (2,6)</Channel>
+  <Channel Number="45">Green (2,7)</Channel>
+  <Channel Number="46">Blue (3,6)</Channel>
+  <Channel Number="47">White (3,7)</Channel>
+  <Channel Number="48">Red (2,8)</Channel>
+  <Channel Number="49">Green (2,9)</Channel>
+  <Channel Number="50">Blue (3,8)</Channel>
+  <Channel Number="51">White (3,9)</Channel>
+  <Channel Number="52">Red (2,10)</Channel>
+  <Channel Number="53">Green (2,11)</Channel>
+  <Channel Number="54">Blue (3,10)</Channel>
+  <Channel Number="55">White (3,11)</Channel>
+  <Channel Number="56">Red (2,12)</Channel>
+  <Channel Number="57">Green (2,13)</Channel>
+  <Channel Number="58">Blue (3,12)</Channel>
+  <Channel Number="59">White (3,13)</Channel>
+  <Channel Number="60">Red (2,14)</Channel>
+  <Channel Number="61">Green (2,15)</Channel>
+  <Channel Number="62">Blue (3,14)</Channel>
+  <Channel Number="63">White (3,15)</Channel>
+  <Channel Number="64">Red (4,0)</Channel>
+  <Channel Number="65">Green (4,1)</Channel>
+  <Channel Number="66">Blue (5,0)</Channel>
+  <Channel Number="67">White (5,1)</Channel>
+  <Channel Number="68">Red (4,2)</Channel>
+  <Channel Number="69">Green (4,3)</Channel>
+  <Channel Number="70">Blue (5,2)</Channel>
+  <Channel Number="71">White (5,3)</Channel>
+  <Channel Number="72">Red (4,4)</Channel>
+  <Channel Number="73">Green (4,5)</Channel>
+  <Channel Number="74">Blue (5,4)</Channel>
+  <Channel Number="75">White (5,5)</Channel>
+  <Channel Number="76">Red (4,6)</Channel>
+  <Channel Number="77">Green (4,7)</Channel>
+  <Channel Number="78">Blue (5,6)</Channel>
+  <Channel Number="79">White (5,7)</Channel>
+  <Channel Number="80">Red (4,8)</Channel>
+  <Channel Number="81">Green (4,9)</Channel>
+  <Channel Number="82">Blue (5,8)</Channel>
+  <Channel Number="83">White (5,9)</Channel>
+  <Channel Number="84">Red (4,10)</Channel>
+  <Channel Number="85">Green (4,11)</Channel>
+  <Channel Number="86">Blue (5,10)</Channel>
+  <Channel Number="87">White (5,11)</Channel>
+  <Channel Number="88">Red (4,12)</Channel>
+  <Channel Number="89">Green (4,13)</Channel>
+  <Channel Number="90">Blue (5,12)</Channel>
+  <Channel Number="91">White (5,13)</Channel>
+  <Channel Number="92">Red (4,14)</Channel>
+  <Channel Number="93">Green (4,15)</Channel>
+  <Channel Number="94">Blue (5,14)</Channel>
+  <Channel Number="95">White (5,15)</Channel>
+  <Channel Number="96">Red (6,0)</Channel>
+  <Channel Number="97">Green (6,1)</Channel>
+  <Channel Number="98">Blue (7,0)</Channel>
+  <Channel Number="99">White (7,1)</Channel>
+  <Channel Number="100">Red (6,2)</Channel>
+  <Channel Number="101">Green (6,3)</Channel>
+  <Channel Number="102">Blue (7,2)</Channel>
+  <Channel Number="103">White (7,3)</Channel>
+  <Channel Number="104">Red (6,4)</Channel>
+  <Channel Number="105">Green (6,5)</Channel>
+  <Channel Number="106">Blue (7,4)</Channel>
+  <Channel Number="107">White (7,5)</Channel>
+  <Channel Number="108">Red (6,6)</Channel>
+  <Channel Number="109">Green (6,7)</Channel>
+  <Channel Number="110">Blue (7,6)</Channel>
+  <Channel Number="111">White (7,7)</Channel>
+  <Channel Number="112">Red (6,8)</Channel>
+  <Channel Number="113">Green (6,9)</Channel>
+  <Channel Number="114">Blue (7,8)</Channel>
+  <Channel Number="115">White (7,9)</Channel>
+  <Channel Number="116">Red (6,10)</Channel>
+  <Channel Number="117">Green (6,11)</Channel>
+  <Channel Number="118">Blue (7,10)</Channel>
+  <Channel Number="119">White (7,11)</Channel>
+  <Channel Number="120">Red (6,12)</Channel>
+  <Channel Number="121">Green (6,13)</Channel>
+  <Channel Number="122">Blue (7,12)</Channel>
+  <Channel Number="123">White (7,13)</Channel>
+  <Channel Number="124">Red (6,14)</Channel>
+  <Channel Number="125">Green (6,15)</Channel>
+  <Channel Number="126">Blue (7,14)</Channel>
+  <Channel Number="127">White (7,15)</Channel>
+  <Channel Number="128">Red (8,0)</Channel>
+  <Channel Number="129">Green (8,1)</Channel>
+  <Channel Number="130">Blue (9,0)</Channel>
+  <Channel Number="131">White (9,1)</Channel>
+  <Channel Number="132">Red (8,2)</Channel>
+  <Channel Number="133">Green (8,3)</Channel>
+  <Channel Number="134">Blue (9,2)</Channel>
+  <Channel Number="135">White (9,3)</Channel>
+  <Channel Number="136">Red (8,4)</Channel>
+  <Channel Number="137">Green (8,5)</Channel>
+  <Channel Number="138">Blue (9,4)</Channel>
+  <Channel Number="139">White (9,5)</Channel>
+  <Channel Number="140">Red (8,6)</Channel>
+  <Channel Number="141">Green (8,7)</Channel>
+  <Channel Number="142">Blue (9,6)</Channel>
+  <Channel Number="143">White (9,7)</Channel>
+  <Channel Number="144">Red (8,8)</Channel>
+  <Channel Number="145">Green (8,9)</Channel>
+  <Channel Number="146">Blue (9,8)</Channel>
+  <Channel Number="147">White (9,9)</Channel>
+  <Channel Number="148">Red (8,10)</Channel>
+  <Channel Number="149">Green (8,11)</Channel>
+  <Channel Number="150">Blue (9,10)</Channel>
+  <Channel Number="151">White (9,11)</Channel>
+  <Channel Number="152">Red (8,12)</Channel>
+  <Channel Number="153">Green (8,13)</Channel>
+  <Channel Number="154">Blue (9,12)</Channel>
+  <Channel Number="155">White (9,13)</Channel>
+  <Channel Number="156">Red (8,14)</Channel>
+  <Channel Number="157">Green (8,15)</Channel>
+  <Channel Number="158">Blue (9,14)</Channel>
+  <Channel Number="159">White (9,15)</Channel>
+  <Channel Number="160">Red (10,0)</Channel>
+  <Channel Number="161">Green (10,1)</Channel>
+  <Channel Number="162">Blue (11,0)</Channel>
+  <Channel Number="163">White (11,1)</Channel>
+  <Channel Number="164">Red (10,2)</Channel>
+  <Channel Number="165">Green (10,3)</Channel>
+  <Channel Number="166">Blue (11,2)</Channel>
+  <Channel Number="167">White (11,3)</Channel>
+  <Channel Number="168">Red (10,4)</Channel>
+  <Channel Number="169">Green (10,5)</Channel>
+  <Channel Number="170">Blue (11,4)</Channel>
+  <Channel Number="171">White (11,5)</Channel>
+  <Channel Number="172">Red (10,6)</Channel>
+  <Channel Number="173">Green (10,7)</Channel>
+  <Channel Number="174">Blue (11,6)</Channel>
+  <Channel Number="175">White (11,7)</Channel>
+  <Channel Number="176">Red (10,8)</Channel>
+  <Channel Number="177">Green (10,9)</Channel>
+  <Channel Number="178">Blue (11,8)</Channel>
+  <Channel Number="179">White (11,9)</Channel>
+  <Channel Number="180">Red (10,10)</Channel>
+  <Channel Number="181">Green (10,11)</Channel>
+  <Channel Number="182">Blue (11,10)</Channel>
+  <Channel Number="183">White (11,11)</Channel>
+  <Channel Number="184">Red (10,12)</Channel>
+  <Channel Number="185">Green (10,13)</Channel>
+  <Channel Number="186">Blue (11,12)</Channel>
+  <Channel Number="187">White (11,13)</Channel>
+  <Channel Number="188">Red (10,14)</Channel>
+  <Channel Number="189">Green (10,15)</Channel>
+  <Channel Number="190">Blue (11,14)</Channel>
+  <Channel Number="191">White (11,15)</Channel>
+  <Channel Number="192">Red (12,0)</Channel>
+  <Channel Number="193">Green (12,1)</Channel>
+  <Channel Number="194">Blue (13,0)</Channel>
+  <Channel Number="195">White (13,1)</Channel>
+  <Channel Number="196">Red (12,2)</Channel>
+  <Channel Number="197">Green (12,3)</Channel>
+  <Channel Number="198">Blue (13,2)</Channel>
+  <Channel Number="199">White (13,3)</Channel>
+  <Channel Number="200">Red (12,4)</Channel>
+  <Channel Number="201">Green (12,5)</Channel>
+  <Channel Number="202">Blue (13,4)</Channel>
+  <Channel Number="203">White (13,5)</Channel>
+  <Channel Number="204">Red (12,6)</Channel>
+  <Channel Number="205">Green (12,7)</Channel>
+  <Channel Number="206">Blue (13,6)</Channel>
+  <Channel Number="207">White (13,7)</Channel>
+  <Channel Number="208">Red (12,8)</Channel>
+  <Channel Number="209">Green (12,9)</Channel>
+  <Channel Number="210">Blue (13,8)</Channel>
+  <Channel Number="211">White (13,9)</Channel>
+  <Channel Number="212">Red (12,10)</Channel>
+  <Channel Number="213">Green (12,11)</Channel>
+  <Channel Number="214">Blue (13,10)</Channel>
+  <Channel Number="215">White (13,11)</Channel>
+  <Channel Number="216">Red (12,12)</Channel>
+  <Channel Number="217">Green (12,13)</Channel>
+  <Channel Number="218">Blue (13,12)</Channel>
+  <Channel Number="219">White (13,13)</Channel>
+  <Channel Number="220">Red (12,14)</Channel>
+  <Channel Number="221">Green (12,15)</Channel>
+  <Channel Number="222">Blue (13,14)</Channel>
+  <Channel Number="223">White (13,15)</Channel>
+  <Channel Number="224">Red (14,0)</Channel>
+  <Channel Number="225">Green (14,1)</Channel>
+  <Channel Number="226">Blue (15,0)</Channel>
+  <Channel Number="227">White (15,1)</Channel>
+  <Channel Number="228">Red (14,2)</Channel>
+  <Channel Number="229">Green (14,3)</Channel>
+  <Channel Number="230">Blue (15,2)</Channel>
+  <Channel Number="231">White (15,3)</Channel>
+  <Channel Number="232">Red (14,4)</Channel>
+  <Channel Number="233">Green (14,5)</Channel>
+  <Channel Number="234">Blue (15,4)</Channel>
+  <Channel Number="235">White (15,5)</Channel>
+  <Channel Number="236">Red (14,6)</Channel>
+  <Channel Number="237">Green (14,7)</Channel>
+  <Channel Number="238">Blue (15,6)</Channel>
+  <Channel Number="239">White (15,7)</Channel>
+  <Channel Number="240">Red (14,8)</Channel>
+  <Channel Number="241">Green (14,9)</Channel>
+  <Channel Number="242">Blue (15,8)</Channel>
+  <Channel Number="243">White (15,9)</Channel>
+  <Channel Number="244">Red (14,10)</Channel>
+  <Channel Number="245">Green (14,11)</Channel>
+  <Channel Number="246">Blue (15,10)</Channel>
+  <Channel Number="247">White (15,11)</Channel>
+  <Channel Number="248">Red (14,12)</Channel>
+  <Channel Number="249">Green (14,13)</Channel>
+  <Channel Number="250">Blue (15,12)</Channel>
+  <Channel Number="251">White (15,13)</Channel>
+  <Channel Number="252">Red (14,14)</Channel>
+  <Channel Number="253">Green (14,15)</Channel>
+  <Channel Number="254">Blue (15,14)</Channel>
+  <Channel Number="255">White (15,15)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+  <Head>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+  </Head>
+  <Head>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+  <Head>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+  </Head>
+  <Head>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+  <Head>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+  </Head>
+  <Head>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+  </Head>
+  <Head>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+  </Head>
+  <Head>
+   <Channel>92</Channel>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
+  </Head>
+  <Head>
+   <Channel>96</Channel>
+   <Channel>97</Channel>
+   <Channel>98</Channel>
+   <Channel>99</Channel>
+  </Head>
+  <Head>
+   <Channel>100</Channel>
+   <Channel>101</Channel>
+   <Channel>102</Channel>
+   <Channel>103</Channel>
+  </Head>
+  <Head>
+   <Channel>104</Channel>
+   <Channel>105</Channel>
+   <Channel>106</Channel>
+   <Channel>107</Channel>
+  </Head>
+  <Head>
+   <Channel>108</Channel>
+   <Channel>109</Channel>
+   <Channel>110</Channel>
+   <Channel>111</Channel>
+  </Head>
+  <Head>
+   <Channel>112</Channel>
+   <Channel>113</Channel>
+   <Channel>114</Channel>
+   <Channel>115</Channel>
+  </Head>
+  <Head>
+   <Channel>116</Channel>
+   <Channel>117</Channel>
+   <Channel>118</Channel>
+   <Channel>119</Channel>
+  </Head>
+  <Head>
+   <Channel>120</Channel>
+   <Channel>121</Channel>
+   <Channel>122</Channel>
+   <Channel>123</Channel>
+  </Head>
+  <Head>
+   <Channel>124</Channel>
+   <Channel>125</Channel>
+   <Channel>126</Channel>
+   <Channel>127</Channel>
+  </Head>
+  <Head>
+   <Channel>128</Channel>
+   <Channel>129</Channel>
+   <Channel>130</Channel>
+   <Channel>131</Channel>
+  </Head>
+  <Head>
+   <Channel>132</Channel>
+   <Channel>133</Channel>
+   <Channel>134</Channel>
+   <Channel>135</Channel>
+  </Head>
+  <Head>
+   <Channel>136</Channel>
+   <Channel>137</Channel>
+   <Channel>138</Channel>
+   <Channel>139</Channel>
+  </Head>
+  <Head>
+   <Channel>140</Channel>
+   <Channel>141</Channel>
+   <Channel>142</Channel>
+   <Channel>143</Channel>
+  </Head>
+  <Head>
+   <Channel>144</Channel>
+   <Channel>145</Channel>
+   <Channel>146</Channel>
+   <Channel>147</Channel>
+  </Head>
+  <Head>
+   <Channel>148</Channel>
+   <Channel>149</Channel>
+   <Channel>150</Channel>
+   <Channel>151</Channel>
+  </Head>
+  <Head>
+   <Channel>152</Channel>
+   <Channel>153</Channel>
+   <Channel>154</Channel>
+   <Channel>155</Channel>
+  </Head>
+  <Head>
+   <Channel>156</Channel>
+   <Channel>157</Channel>
+   <Channel>158</Channel>
+   <Channel>159</Channel>
+  </Head>
+  <Head>
+   <Channel>160</Channel>
+   <Channel>161</Channel>
+   <Channel>162</Channel>
+   <Channel>163</Channel>
+  </Head>
+  <Head>
+   <Channel>164</Channel>
+   <Channel>165</Channel>
+   <Channel>166</Channel>
+   <Channel>167</Channel>
+  </Head>
+  <Head>
+   <Channel>168</Channel>
+   <Channel>169</Channel>
+   <Channel>170</Channel>
+   <Channel>171</Channel>
+  </Head>
+  <Head>
+   <Channel>172</Channel>
+   <Channel>173</Channel>
+   <Channel>174</Channel>
+   <Channel>175</Channel>
+  </Head>
+  <Head>
+   <Channel>176</Channel>
+   <Channel>177</Channel>
+   <Channel>178</Channel>
+   <Channel>179</Channel>
+  </Head>
+  <Head>
+   <Channel>180</Channel>
+   <Channel>181</Channel>
+   <Channel>182</Channel>
+   <Channel>183</Channel>
+  </Head>
+  <Head>
+   <Channel>184</Channel>
+   <Channel>185</Channel>
+   <Channel>186</Channel>
+   <Channel>187</Channel>
+  </Head>
+  <Head>
+   <Channel>188</Channel>
+   <Channel>189</Channel>
+   <Channel>190</Channel>
+   <Channel>191</Channel>
+  </Head>
+  <Head>
+   <Channel>192</Channel>
+   <Channel>193</Channel>
+   <Channel>194</Channel>
+   <Channel>195</Channel>
+  </Head>
+  <Head>
+   <Channel>196</Channel>
+   <Channel>197</Channel>
+   <Channel>198</Channel>
+   <Channel>199</Channel>
+  </Head>
+  <Head>
+   <Channel>200</Channel>
+   <Channel>201</Channel>
+   <Channel>202</Channel>
+   <Channel>203</Channel>
+  </Head>
+  <Head>
+   <Channel>204</Channel>
+   <Channel>205</Channel>
+   <Channel>206</Channel>
+   <Channel>207</Channel>
+  </Head>
+  <Head>
+   <Channel>208</Channel>
+   <Channel>209</Channel>
+   <Channel>210</Channel>
+   <Channel>211</Channel>
+  </Head>
+  <Head>
+   <Channel>212</Channel>
+   <Channel>213</Channel>
+   <Channel>214</Channel>
+   <Channel>215</Channel>
+  </Head>
+  <Head>
+   <Channel>216</Channel>
+   <Channel>217</Channel>
+   <Channel>218</Channel>
+   <Channel>219</Channel>
+  </Head>
+  <Head>
+   <Channel>220</Channel>
+   <Channel>221</Channel>
+   <Channel>222</Channel>
+   <Channel>223</Channel>
+  </Head>
+  <Head>
+   <Channel>224</Channel>
+   <Channel>225</Channel>
+   <Channel>226</Channel>
+   <Channel>227</Channel>
+  </Head>
+  <Head>
+   <Channel>228</Channel>
+   <Channel>229</Channel>
+   <Channel>230</Channel>
+   <Channel>231</Channel>
+  </Head>
+  <Head>
+   <Channel>232</Channel>
+   <Channel>233</Channel>
+   <Channel>234</Channel>
+   <Channel>235</Channel>
+  </Head>
+  <Head>
+   <Channel>236</Channel>
+   <Channel>237</Channel>
+   <Channel>238</Channel>
+   <Channel>239</Channel>
+  </Head>
+  <Head>
+   <Channel>240</Channel>
+   <Channel>241</Channel>
+   <Channel>242</Channel>
+   <Channel>243</Channel>
+  </Head>
+  <Head>
+   <Channel>244</Channel>
+   <Channel>245</Channel>
+   <Channel>246</Channel>
+   <Channel>247</Channel>
+  </Head>
+  <Head>
+   <Channel>248</Channel>
+   <Channel>249</Channel>
+   <Channel>250</Channel>
+   <Channel>251</Channel>
+  </Head>
+  <Head>
+   <Channel>252</Channel>
+   <Channel>253</Channel>
+   <Channel>254</Channel>
+   <Channel>255</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="306" Height="334" Depth="312"/>
+  <Lens Name="Other" DegreesMin="50" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="8"/>
+  <Technical PowerConsumption="29" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

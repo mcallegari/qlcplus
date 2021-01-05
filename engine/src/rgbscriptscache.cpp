@@ -35,7 +35,7 @@ RGBScriptsCache::RGBScriptsCache(Doc* doc)
     m_dummyScript = new RGBScript(doc);
 }
 
-QList<QString> RGBScriptsCache::names() const
+QStringList RGBScriptsCache::names() const
 {
     QStringList names;
 

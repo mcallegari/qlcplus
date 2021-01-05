@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.3
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.14
 import "."
 
 SpinBox
@@ -26,13 +26,15 @@ SpinBox
     id: control
     font.family: UISettings.robotoFontName
     font.pixelSize: UISettings.textSizeDefault
-    width: 70
+    width: UISettings.bigItemHeight
     height: UISettings.listItemHeight
+    implicitWidth: UISettings.bigItemHeight
     implicitHeight: UISettings.listItemHeight
     editable: true
     from: 0
     to: 255
     clip: true
+    wheelEnabled: true
 
     property bool showControls: true
     property string suffix: ""
@@ -42,21 +44,31 @@ SpinBox
     onFromChanged: if (value < from) control.value = from
     onToChanged: if (value > to) control.value = to
 
-    MouseArea
+    onFocusChanged:
+    {
+        if (focus) contentItem.selectAll()
+    }
+
+    textFromValue: function(value) {
+        return value + suffix
+    }
+
+    valueFromText: function(text) {
+        return parseInt(text.replace(suffix, ""))
+    }
+
+    Rectangle
     {
         anchors.fill: parent
-        onWheel:
-        {
-            if (wheel.angleDelta.y > 0)
-                control.value++
-            else
-                control.value--
-        }
+        z: 3
+        color: "black"
+        opacity: 0.6
+        visible: !parent.enabled
     }
 
     background: Rectangle {
         implicitWidth: parent.width
-        color: UISettings.bgMedium
+        color: UISettings.bgControl
         border.color: "#222"
         radius: 3
     }
@@ -66,11 +78,11 @@ SpinBox
         z: 2
         height: control.height
         font: control.font
-        text: control.textFromValue(control.value, control.locale) + suffix
+        text: control.textFromValue(control.value, control.locale)
         color: UISettings.fgMain
         selectByMouse: true
         selectionColor: UISettings.highlightPressed
-        selectedTextColor: "#ffffff"
+        selectedTextColor: "white"
         horizontalAlignment: Qt.AlignRight
         verticalAlignment: Qt.AlignVCenter
 
@@ -91,8 +103,9 @@ SpinBox
         {
             anchors.centerIn: parent
             source: "qrc:/arrow-up.svg"
+            width: height * 2
             height: parent.height - 8
-            sourceSize: Qt.size(parent.width, parent.height - 8)
+            sourceSize: Qt.size(width, height)
         }
     }
 
@@ -110,8 +123,9 @@ SpinBox
             anchors.centerIn: parent
             source: "qrc:/arrow-up.svg"
             rotation: 180
+            width: height * 2
             height: parent.height - 8
-            sourceSize: Qt.size(parent.width, parent.height - 8)
+            sourceSize: Qt.size(width, height)
         }
     }
 }

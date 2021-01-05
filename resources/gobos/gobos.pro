@@ -1,10 +1,15 @@
+include(../../variables.pri)
+
 TEMPLATE = subdirs
+TARGET = gobo
 
-SUBDIRS += Chauvet
-SUBDIRS += ClayPaky
-SUBDIRS += GLP
-SUBDIRS += Others
-SUBDIRS += Robe
-SUBDIRS += SGM
-SUBDIRS += SGM-Color
+gobo.files += Chauvet
+gobo.files += ClayPaky
+gobo.files += GLP
+gobo.files += Others
+gobo.files += Robe
+gobo.files += SGM
+gobo.files += SGM-Color
 
+gobo.path = $$INSTALLROOT/$$GOBODIR
+INSTALLS += gobo

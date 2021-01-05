@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Mitsch</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED KLS-2500</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Blackout / Automatic Mode Speed / Sound Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Blackout</Capability>
+  <Capability Min="16" Max="89">Slow automatic mode (program 0)</Capability>
+  <Capability Min="90" Max="164">Medium-fast automatic mode (program 0)</Capability>
+  <Capability Min="165" Max="240">Fast automatic mode (program 0)</Capability>
+  <Capability Min="241" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Strobe Control">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="255">Strobe slow → fast</Capability>
+ </Channel>
+ <Channel Name="Preset Programs / Sound Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="29">Program 1</Capability>
+  <Capability Min="30" Max="49">Program 2</Capability>
+  <Capability Min="50" Max="69">Program 3</Capability>
+  <Capability Min="70" Max="89">Program 4</Capability>
+  <Capability Min="90" Max="109">Program 5</Capability>
+  <Capability Min="110" Max="129">Program 6</Capability>
+  <Capability Min="130" Max="149">Program 7</Capability>
+  <Capability Min="150" Max="169">Program 8</Capability>
+  <Capability Min="170" Max="189">Program 9</Capability>
+  <Capability Min="190" Max="209">Program 10</Capability>
+  <Capability Min="210" Max="229">Program 11</Capability>
+  <Capability Min="230" Max="249">Program 0</Capability>
+  <Capability Min="250" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Speed (0…255) / Mic Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Speed / Mic sens off (if ch1=[250-255])</Capability>
+  <Capability Min="11" Max="255">Speed / Mic sens low → high (if ch1=[250-255])</Capability>
+ </Channel>
+ <Channel Name="Spot 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">R</Capability>
+  <Capability Min="16" Max="23">G</Capability>
+  <Capability Min="24" Max="31">B</Capability>
+  <Capability Min="32" Max="39">A</Capability>
+  <Capability Min="40" Max="47">W</Capability>
+  <Capability Min="48" Max="55">RG</Capability>
+  <Capability Min="56" Max="63">RB</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
+  <Capability Min="80" Max="87">GB</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
+ </Channel>
+ <Channel Name="Spot 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">R</Capability>
+  <Capability Min="16" Max="23">G</Capability>
+  <Capability Min="24" Max="31">B</Capability>
+  <Capability Min="32" Max="39">A</Capability>
+  <Capability Min="40" Max="47">W</Capability>
+  <Capability Min="48" Max="55">RG</Capability>
+  <Capability Min="56" Max="63">RB</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
+  <Capability Min="80" Max="87">GB</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
+ </Channel>
+ <Channel Name="Spot 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">R</Capability>
+  <Capability Min="16" Max="23">G</Capability>
+  <Capability Min="24" Max="31">B</Capability>
+  <Capability Min="32" Max="39">A</Capability>
+  <Capability Min="40" Max="47">W</Capability>
+  <Capability Min="48" Max="55">RG</Capability>
+  <Capability Min="56" Max="63">RB</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
+  <Capability Min="80" Max="87">GB</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
+ </Channel>
+ <Channel Name="Spot 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">R</Capability>
+  <Capability Min="16" Max="23">G</Capability>
+  <Capability Min="24" Max="31">B</Capability>
+  <Capability Min="32" Max="39">A</Capability>
+  <Capability Min="40" Max="47">W</Capability>
+  <Capability Min="48" Max="55">RG</Capability>
+  <Capability Min="56" Max="63">RB</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
+  <Capability Min="80" Max="87">GB</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Sound Control / Strobe Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound control</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe slow → fast</Capability>
+ </Channel>
+ <Channel Name="Red (Spot 1)" Preset="IntensityRed"/>
+ <Channel Name="Red (Spot 2)" Preset="IntensityRed"/>
+ <Channel Name="Red (Spot 3)" Preset="IntensityRed"/>
+ <Channel Name="Red (Spot 4)" Preset="IntensityRed"/>
+ <Channel Name="Green (Spot 1)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Spot 2)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Spot 3)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Spot 4)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Spot 1)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Spot 2)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Spot 3)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Spot 4)" Preset="IntensityBlue"/>
+ <Channel Name="Amber (Spot 1)" Preset="IntensityAmber"/>
+ <Channel Name="Amber (Spot 2)" Preset="IntensityAmber"/>
+ <Channel Name="Amber (Spot 3)" Preset="IntensityAmber"/>
+ <Channel Name="Amber (Spot 4)" Preset="IntensityAmber"/>
+ <Channel Name="White (Spot 1)" Preset="IntensityWhite"/>
+ <Channel Name="White (Spot 2)" Preset="IntensityWhite"/>
+ <Channel Name="White (Spot 3)" Preset="IntensityWhite"/>
+ <Channel Name="White (Spot 4)" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer (Spot 1)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Spot 2)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Spot 3)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Spot 4)" Preset="IntensityDimmer"/>
+ <Channel Name="Sound Control / Strobe Control (Spot 1)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound control</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe slow → fast</Capability>
+ </Channel>
+ <Channel Name="Sound Control / Strobe Control (Spot 2)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound control</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe slow → fast</Capability>
+ </Channel>
+ <Channel Name="Sound Control / Strobe Control (Spot 3)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound control</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe slow → fast</Capability>
+ </Channel>
+ <Channel Name="Sound Control / Strobe Control (Spot 4)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound control</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe slow → fast</Capability>
+ </Channel>
+ <Channel Name="Red (Spot 1) / Running speed (if ch 1=[010-255])">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0 - 100 % / slow → fast</Capability>
+ </Channel>
+ <Channel Name="Green (Spot 1) / Fade time (if ch1=[010-255])">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0 - 100 % / slow → fast</Capability>
+ </Channel>
+ <Mode Name="2-Channel">
+  <Channel Number="0">Blackout / Automatic Mode Speed / Sound Control</Channel>
+  <Channel Number="1">Strobe Control</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Preset Programs / Sound Control</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Speed (0…255) / Mic Sensitivity</Channel>
+ </Mode>
+ <Mode Name="4-Channel">
+  <Channel Number="0">Spot 1</Channel>
+  <Channel Number="1">Spot 2</Channel>
+  <Channel Number="2">Spot 3</Channel>
+  <Channel Number="3">Spot 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+  <Channel Number="6">Sound Control / Strobe Control</Channel>
+ </Mode>
+ <Mode Name="20-Channel">
+  <Channel Number="0">Red (Spot 1)</Channel>
+  <Channel Number="1">Green (Spot 1)</Channel>
+  <Channel Number="2">Blue (Spot 1)</Channel>
+  <Channel Number="3">Amber (Spot 1)</Channel>
+  <Channel Number="4">White (Spot 1)</Channel>
+  <Channel Number="5">Red (Spot 2)</Channel>
+  <Channel Number="6">Green (Spot 2)</Channel>
+  <Channel Number="7">Blue (Spot 2)</Channel>
+  <Channel Number="8">Amber (Spot 2)</Channel>
+  <Channel Number="9">White (Spot 2)</Channel>
+  <Channel Number="10">Red (Spot 3)</Channel>
+  <Channel Number="11">Green (Spot 3)</Channel>
+  <Channel Number="12">Blue (Spot 3)</Channel>
+  <Channel Number="13">Amber (Spot 3)</Channel>
+  <Channel Number="14">White (Spot 3)</Channel>
+  <Channel Number="15">Red (Spot 4)</Channel>
+  <Channel Number="16">Green (Spot 4)</Channel>
+  <Channel Number="17">Blue (Spot 4)</Channel>
+  <Channel Number="18">Amber (Spot 4)</Channel>
+  <Channel Number="19">White (Spot 4)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="23-Channel">
+  <Channel Number="0">Preset Programs / Sound Control</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe Control</Channel>
+  <Channel Number="3">Red (Spot 1) / Running speed (if ch 1=[010-255])</Channel>
+  <Channel Number="4">Green (Spot 1) / Fade time (if ch1=[010-255])</Channel>
+  <Channel Number="5">Blue (Spot 1)</Channel>
+  <Channel Number="6">Amber (Spot 1)</Channel>
+  <Channel Number="7">White (Spot 1)</Channel>
+  <Channel Number="8">Red (Spot 2)</Channel>
+  <Channel Number="9">Green (Spot 2)</Channel>
+  <Channel Number="10">Blue (Spot 2)</Channel>
+  <Channel Number="11">Amber (Spot 2)</Channel>
+  <Channel Number="12">White (Spot 2)</Channel>
+  <Channel Number="13">Red (Spot 3)</Channel>
+  <Channel Number="14">Green (Spot 3)</Channel>
+  <Channel Number="15">Blue (Spot 3)</Channel>
+  <Channel Number="16">Amber (Spot 3)</Channel>
+  <Channel Number="17">White (Spot 3)</Channel>
+  <Channel Number="18">Red (Spot 4)</Channel>
+  <Channel Number="19">Green (Spot 4)</Channel>
+  <Channel Number="20">Blue (Spot 4)</Channel>
+  <Channel Number="21">Amber (Spot 4)</Channel>
+  <Channel Number="22">White (Spot 4)</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28-Channel">
+  <Channel Number="0">Red (Spot 1)</Channel>
+  <Channel Number="1">Green (Spot 1)</Channel>
+  <Channel Number="2">Blue (Spot 1)</Channel>
+  <Channel Number="3">Amber (Spot 1)</Channel>
+  <Channel Number="4">White (Spot 1)</Channel>
+  <Channel Number="5">Dimmer (Spot 1)</Channel>
+  <Channel Number="6">Sound Control / Strobe Control (Spot 1)</Channel>
+  <Channel Number="7">Red (Spot 2)</Channel>
+  <Channel Number="8">Green (Spot 2)</Channel>
+  <Channel Number="9">Blue (Spot 2)</Channel>
+  <Channel Number="10">Amber (Spot 2)</Channel>
+  <Channel Number="11">White (Spot 2)</Channel>
+  <Channel Number="12">Dimmer (Spot 2)</Channel>
+  <Channel Number="13">Sound Control / Strobe Control (Spot 2)</Channel>
+  <Channel Number="14">Red (Spot 3)</Channel>
+  <Channel Number="15">Green (Spot 3)</Channel>
+  <Channel Number="16">Blue (Spot 3)</Channel>
+  <Channel Number="17">Amber (Spot 3)</Channel>
+  <Channel Number="18">White (Spot 3)</Channel>
+  <Channel Number="19">Dimmer (Spot 3)</Channel>
+  <Channel Number="20">Sound Control / Strobe Control (Spot 3)</Channel>
+  <Channel Number="21">Red (Spot 4)</Channel>
+  <Channel Number="22">Green (Spot 4)</Channel>
+  <Channel Number="23">Blue (Spot 4)</Channel>
+  <Channel Number="24">Amber (Spot 4)</Channel>
+  <Channel Number="25">White (Spot 4)</Channel>
+  <Channel Number="26">Dimmer (Spot 4)</Channel>
+  <Channel Number="27">Sound Control / Strobe Control (Spot 4)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
+  <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="190" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

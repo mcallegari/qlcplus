@@ -157,7 +157,6 @@ QString FTD2XXInterface::typeString()
 QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discoveredList)
 {
     QList <DMXInterface*> interfacesList;
-    int id = 0;
 
     /* Find out the number of FTDI devices present */
     DWORD num = 0;
@@ -174,6 +173,8 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
     // Get the device information list
     if (FT_GetDeviceInfoList(devInfo, &num) == FT_OK)
     {
+        int id = 0;
+
         for (DWORD i = 0; i < num; i++)
         {
             QString vendor, name, serial;
@@ -181,12 +182,12 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
             FT_STATUS s = get_interface_info(i, vendor, name, serial, VID, PID);
             if (s != FT_OK || name.isEmpty() || serial.isEmpty())
             {
-				// Seems that some otherwise working devices don't provide
+                // Seems that some otherwise working devices don't provide
                 // FT_PROGRAM_DATA struct used by get_interface_info().
                 name = QString(devInfo[i].Description);
-				serial = QString(devInfo[i].SerialNumber);
-				vendor = QString();
-			}
+                serial = QString(devInfo[i].SerialNumber);
+                vendor = QString();
+            }
 
             qDebug() << "serial: " << serial << "name:" << name << "vendor:" << vendor;
 
@@ -224,10 +225,16 @@ bool FTD2XXInterface::open()
         qWarning() << Q_FUNC_INFO << "Error opening" << name() << status;
         return false;
     }
-    else
+
+    status = FT_GetLatencyTimer(m_handle, &m_defaultLatency);
+    if (status != FT_OK)
     {
-        return true;
+        qWarning() << Q_FUNC_INFO << name() << status;
+        m_defaultLatency = 16;
     }
+
+    qDebug() << Q_FUNC_INFO << serial() << "Default latency is" << m_defaultLatency;
+    return true;
 }
 
 bool FTD2XXInterface::openByPID(const int PID)
@@ -301,6 +308,30 @@ bool FTD2XXInterface::setBaudRate()
 bool FTD2XXInterface::setFlowControl()
 {
     FT_STATUS status = FT_SetFlowControl(m_handle, 0, 0, 0);
+    if (status != FT_OK)
+    {
+        qWarning() << Q_FUNC_INFO << name() << status;
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+bool FTD2XXInterface::setLowLatency(bool lowLatency)
+{
+    unsigned char latency;
+    if (lowLatency)
+    {
+        latency = 1;
+    }
+    else
+    {
+        latency = m_defaultLatency;
+    }
+
+    FT_STATUS status = FT_SetLatencyTimer(m_handle, latency);
     if (status != FT_OK)
     {
         qWarning() << Q_FUNC_INFO << name() << status;

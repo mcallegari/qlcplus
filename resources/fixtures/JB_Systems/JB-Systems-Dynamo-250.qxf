@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Rob G.</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Dynamo 250</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Shutter speed (slow -&gt; fast)</Capability>
+  <Capability Min="132" Max="247" Preset="StrobeRandom">Shaking</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="11" Preset="GoboMacro" Res1="Others/open.svg">White (open)</Capability>
+  <Capability Min="12" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00026.svg">Yellow</Capability>
+  <Capability Min="24" Max="34" Preset="GoboMacro" Res1="Others/gobo00002.png">Blue</Capability>
+  <Capability Min="35" Max="46" Preset="GoboMacro" Res1="Chauvet/gobo00037.svg">Blue+Red+Green</Capability>
+  <Capability Min="47" Max="58" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Green</Capability>
+  <Capability Min="59" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Pink</Capability>
+  <Capability Min="70" Max="81" Preset="GoboMacro" Res1="Others/gobo00044.svg">Red+Yellow+Green+Blue</Capability>
+  <Capability Min="82" Max="93" Preset="GoboMacro" Res1="SGM/gobo00007.png">Magenta</Capability>
+  <Capability Min="94" Max="104" Preset="GoboMacro" Res1="Others/gobo00042.svg">Red</Capability>
+  <Capability Min="105" Max="116" Preset="GoboMacro" Res1="ClayPaky/gobo00005.svg">Blue+Magenta</Capability>
+  <Capability Min="117" Max="127" Preset="GoboMacro" Res1="Chauvet/gobo00053.svg">White (gobo)</Capability>
+  <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Gobo change speed (slow -&gt; fast)</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter</Channel>
+  <Channel Number="3">Gobo</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="ELC 250W" Lumens="550" ColourTemperature="0"/>
+  <Dimensions Weight="4.4" Width="385" Height="170" Depth="120"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Fixed" PanMax="160" TiltMax="120"/>
+  <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

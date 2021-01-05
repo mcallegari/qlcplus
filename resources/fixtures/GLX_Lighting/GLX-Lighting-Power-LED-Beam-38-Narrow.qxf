@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>Ovidijus Cepukas</Author>
+ </Creator>
+ <Manufacturer>GLX Lighting</Manufacturer>
+ <Model>Power LED Beam 38 Narrow</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Macro Colors (By LED Levels)">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="7" Min="0" Color="#000000">Off</Capability>
+  <Capability Max="15" Min="8" Color="#ff3300">Red: 100% Green: 20% Blue:</Capability>
+  <Capability Max="23" Min="16" Color="#ff6600">Red: 100% Green: 40% Blue:</Capability>
+  <Capability Max="31" Min="24" Color="#ff9900">Red: 100% Green: 60% Blue:</Capability>
+  <Capability Max="39" Min="32" Color="#ffcc00">Red: 100% Green: 80% Blue:</Capability>
+  <Capability Max="47" Min="40" Color="#ffff00">Red: 100% Green: 100% Blue:</Capability>
+  <Capability Max="55" Min="48" Color="#00ff00">Red: Green: 100% Blue:</Capability>
+  <Capability Max="63" Min="56" Color="#00ff33">Red: Green: 100% Blue: 20%</Capability>
+  <Capability Max="71" Min="64" Color="#00ff66">Red: Green: 100% Blue: 40%</Capability>
+  <Capability Max="79" Min="72" Color="#00ff99">Red: Green: 100% Blue: 60%</Capability>
+  <Capability Max="87" Min="80" Color="#00ffcc">Red: Green: 100% Blue: 80%</Capability>
+  <Capability Max="95" Min="88" Color="#00ffff">Red: Green: 100% Blue: 100%</Capability>
+  <Capability Max="103" Min="96" Color="#0000ff">Red: Green: Blue: 100%</Capability>
+  <Capability Max="111" Min="104" Color="#3300ff">Red: 20% Green: Blue: 100%</Capability>
+  <Capability Max="119" Min="112" Color="#6600ff">Red: 40% Green: Blue: 100%</Capability>
+  <Capability Max="127" Min="120" Color="#9900ff">Red: 60% Green: Blue: 100%</Capability>
+  <Capability Max="135" Min="128" Color="#cc00ff">Red: 80% Green: Blue: 100%</Capability>
+  <Capability Max="143" Min="136" Color="#ff00ff">Red: 100% Green: Blue: 100%</Capability>
+  <Capability Max="151" Min="144" Color="#ff40ff">Red: 100% Green: 25% Blue: 100%</Capability>
+  <Capability Max="159" Min="152" Color="#ff80ff">Red: 100% Green: 50% Blue: 100%</Capability>
+  <Capability Max="167" Min="160" Color="#ffbfff">Red: 100% Green: 75% Blue: 100%</Capability>
+  <Capability Max="175" Min="168" Color="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
+  <Capability Max="183" Min="176" Color="#ffff40">Red: 100% Green: 100% Blue: 25%</Capability>
+  <Capability Max="191" Min="184" Color="#ffff80">Red: 100% Green: 100% Blue: 50%</Capability>
+  <Capability Max="199" Min="192" Color="#ffffbf">Red: 100% Green: 100% Blue: 75%</Capability>
+  <Capability Max="207" Min="200" Color="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
+  <Capability Max="215" Min="208" Color="#33ffff">Red: 20% Green: 100% Blue: 100%</Capability>
+  <Capability Max="223" Min="216" Color="#66ffff">Red: 40% Green: 100% Blue: 100%</Capability>
+  <Capability Max="231" Min="224" Color="#99ffff">Red: 60% Green: 100% Blue: 100%</Capability>
+  <Capability Max="239" Min="232" Color="#ccffff">Red: 80% Green: 100% Blue: 100%</Capability>
+  <Capability Max="247" Min="240" Color="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
+  <Capability Max="255" Min="248" Color="#808080">Red: 50% Green: 50% Blue: 50%</Capability>
+ </Channel>
+ <Channel Name="Strobe or Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">Strobe or speed: (0% ~ 100%)</Capability>
+ </Channel>
+ <Channel Name="Preset Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="127" Min="0">No function</Capability>
+  <Capability Max="159" Min="128">Fade program: Use ch 5 to adjust speed</Capability>
+  <Capability Max="223" Min="160">Color chase: Use ch 5 to adjust speed</Capability>
+  <Capability Max="255" Min="224">Color chase: Use rotary knob to adjust speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="7ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Macro Colors (By LED Levels)</Channel>
+  <Channel Number="4">Strobe or Speed</Channel>
+  <Channel Number="5">Preset Programs</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1310" ColourTemperature="0"/>
+   <Dimensions Depth="175" Height="145" Weight="0.8" Width="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="13"/>
+  </Physical>
+</FixtureDefinition>

@@ -51,7 +51,8 @@ Flickable
     {
         id: uniGrid
         anchors.top: uniText.bottom
-        width: parent.width
+        width: parent.width - 40
+        height: cellSize * gridSize.height
 
         showIndices: 512
         gridSize: Qt.size(24, 22)
@@ -63,10 +64,23 @@ Flickable
             return fixtureManager.channelIcon(itemID, chNumber)
         }
 
+        function getTooltip(xPos, yPos)
+        {
+            var uniAddress = (yPos * gridSize.width) + xPos
+            return fixtureManager.getTooltip(uniAddress)
+        }
+
         onPressed:
         {
             universeGridView.interactive = false
             var uniAddress = (yPos * gridSize.width) + xPos
+            if (selectionData && selectionData.indexOf(uniAddress) >= 0)
+                return
+            if (contextManager.multipleSelection === false && mods == 0)
+            {
+                var empty = []
+                setSelectionData(empty)
+            }
             console.log("Fixture pressed at address: " + uniAddress)
             setSelectionData(fixtureManager.fixtureSelection(uniAddress))
         }
@@ -74,7 +88,7 @@ Flickable
         onReleased:
         {
             universeGridView.interactive = true
-            if (currentItemID === -1)
+            if (currentItemID === -1 || validSelection == false)
                 return;
             var uniAddress = (yPos * gridSize.width) + xPos
             fixtureManager.moveFixture(currentItemID, selectionData[0] + offset)
@@ -89,11 +103,8 @@ Flickable
             for (var q = 0; q < dragEvent.source.quantity; q++)
             {
                 for (var i = 0; i < channels; i++)
-                {
                     tmp.push(uniAddress + i)
-                    // push also an invalid channel type for now...
-                    tmp.push(-1)
-                }
+
                 uniAddress += channels + dragEvent.source.gap
             }
             console.log("Selection data contains " + tmp.length + " entries")

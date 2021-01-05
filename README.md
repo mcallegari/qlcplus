@@ -3,17 +3,16 @@ Q Light Controller Plus 4
 
 ![QLC+ LOGO](resources/icons/png/qlcplus.png)
 
-Copyright (c) Heikki Junnila
-	      Massimo Callegari
+Copyright (c) Heikki Junnila, Massimo Callegari
 
-QLC+ homepage: http://www.qlcplus.org/
+QLC+ homepage: https://www.qlcplus.org/
 
 QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
 DEVELOPERS AT WORK
 ------------------
 
-If you're compiling QLC+ from sources and you regularly do "git pull" 
+If you're compiling QLC+ from sources and you regularly do "git pull"
 to get the latest sources, you probably end up seeing some
 compiler warnings and errors from time to time. Since the whole source package
 is under development, you might even encounter unresolved symbols etc. that
@@ -44,9 +43,8 @@ limitations under the License.
 Requirements - Linux
 --------------------
 
-* Qt >= 4.6 development libraries & tools
+* Qt >= 5.0 development libraries & tools
 * libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
-
 * DMX USB plugin: libftdi-dev, pkg-config
 * HID plugin: No additional requirements
 * MIDI plugin: libasound, libasound-dev, pkg-config
@@ -64,8 +62,6 @@ Requirements - Windows
 ----------------------
 
 * MSYS2 environment (https://msys2.github.io/)
-* Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
-
 * DMX USB plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
 * HID plugin: No additional requirements
 * MIDI plugin: No additional requirements
@@ -83,9 +79,8 @@ Requirements - Mac OS X
 -----------------------
 
 * XCode (http://developer.apple.com/technologies/tools/xcode.html)
-* Qt SDK >= 5.0.x (http://download.qt.io/official_releases/qt/)
+* Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
 * macports (https://www.macports.org/)
-
 * DMX USB plugin: macports, libftdi-dev, pkg-config
 * HID plugin: No additional requirements
 * MIDI plugin: No additional requirements
@@ -108,7 +103,7 @@ Support & Bug Reports
 ---------------------
 
 For discussions, feedbacks, ideas and new fixtures, go to:
-http://www.qlcplus.org/forum/index.php
+https://www.qlcplus.org/forum/index.php
 
 For developers wiki and code patches, go to:
 https://github.com/mcallegari/qlcplus
@@ -116,29 +111,46 @@ https://github.com/mcallegari/qlcplus
 Contributors
 ------------
 
-### QLC+:
+### QLC+ 5:
+
+* Eric Arnebäck (3D preview features)
+* Santiago Benejam Torres (Catalan translation)
+* Luis García Tornel (Spanish translation)
+* Nils Van Zuijlen, Jérôme Lebleu (French translation)
+* Felix Edelmann, Florian Edelmann (fixture definitions, German translation)
+* Jannis Achstetter (German translation)
+* Dai Suetake (Japanese translation)
+* Hannes Bossuyt (Dutch translation)
+* Aleksandr Gusarov (Russian translation)
+* Vadim Syniuhin (Ukrainian translation)
+* Mateusz Kędzierski (Polish translation)
+
+### QLC+ 4:
 
 * Jano Svitok (bugfix, new features and improvements)
 * David Garyga (bugfix, new features and improvements)
+* Lukas Jähn (bugfix, new features)
 * Robert Box (fixtures review)
 * Thomas Achtner (ENTTEC wing improvements)
 * Joep Admiraal (MIDI SysEx init messages, Dutch translation)
 * Florian Euchner (FX5 USB DMX support)
 * Stefan Riemens (new features)
+* Bartosz Grabias (new features)
 * Simon Newton, Peter Newman (OLA plugin)
 * Janosch Frank (webaccess improvements)
 * Karri Kaksonen (DMX USB Eurolite USB DMX512 Pro support)
 * Stefan Krupop (HID DMXControl Projects e.V. Nodle U1 support)
 * Nathan Durnan (RGB scripts, new features)
 * Giorgio Rebecchi (new features)
+* Florian Edelmann (code cleanup, German translation)
 * Heiko Fanieng, Jannis Achstetter (German translation)
-* NiKoyes, Jérôme Lebleu (French translation)
+* NiKoyes, Jérôme Lebleu, Olivier Humbert, Nils Van Zuijlen (French translation)
 * Raymond Van Laake (Dutch translation)
 * Luis García Tornel (Spanish translation)
 * Jan Lachman (Czech translation)
 * Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
 * Santiago Benejam Torres (Catalan translation)
-* Koichiro Saito (Japanese translation)
+* Koichiro Saito, Dai Suetake (Japanese translation)
 
 ### QLC:
 

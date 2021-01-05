@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Goran</Author>
+ </Creator>
+ <Manufacturer>Griven</Manufacturer>
+ <Model>Kolorado 2500</Model>
+ <Type>Other</Type>
+ <Channel Name="Lamp">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255" Preset="LampOn">Lamp (to turn off, 255 for 3 sec)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Cyan</Channel>
+  <Channel Number="4">Magenta</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HMI 2500W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="43.5" Width="620" Height="821" Depth="623"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="62"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="2500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

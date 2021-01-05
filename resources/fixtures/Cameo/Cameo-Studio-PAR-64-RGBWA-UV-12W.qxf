@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Piotr Nowik</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Studio PAR 64 RGBWA UV 12W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Stroboscope" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Blackout / colors ch3 - ch8</Capability>
+  <Capability Min="5" Max="80">Macros</Capability>
+  <Capability Min="81" Max="150">Color change</Capability>
+  <Capability Min="151" Max="220">Color blending</Capability>
+  <Capability Min="221" Max="255">Music control (mic sensitivity)</Capability>
+ </Channel>
+ <Channel Name="Color macros 2ch">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Color="#ff0000">Red</Capability>
+  <Capability Min="17" Max="33" Color="#00ff00">Green</Capability>
+  <Capability Min="34" Max="50" Color="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="67" Color="#ffffff">White</Capability>
+  <Capability Min="68" Max="84" Color="#ffaa00">Amber</Capability>
+  <Capability Min="85" Max="101" Color="#aa007f">UV</Capability>
+  <Capability Min="102" Max="118" Color="#ffff00">Yellow</Capability>
+  <Capability Min="119" Max="135" Color="#00ffff">Cyan</Capability>
+  <Capability Min="136" Max="152" Color="#aaaaff">Lavender</Capability>
+  <Capability Min="153" Max="169" Color="#aaff7f">Light green</Capability>
+  <Capability Min="170" Max="186" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="187" Max="203" Color="#aaffff">Torquoise</Capability>
+  <Capability Min="204" Max="220" Color="#ff6e07">Orange</Capability>
+  <Capability Min="221" Max="237" Color="#f0f0ff">Cold white</Capability>
+  <Capability Min="238" Max="255" Color="#ffeee5">Warm white</Capability>
+ </Channel>
+ <Mode Name="9 channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Stroboscope</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">UV</Channel>
+  <Channel Number="8">Color macros</Channel>
+ </Mode>
+ <Mode Name="2 channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Color macros 2ch</Channel>
+ </Mode>
+ <Mode Name="3 channel mode 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Stroboscope</Channel>
+  <Channel Number="2">Color macros</Channel>
+ </Mode>
+ <Mode Name="3 channel mode 2">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="230" Height="220" Depth="255"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

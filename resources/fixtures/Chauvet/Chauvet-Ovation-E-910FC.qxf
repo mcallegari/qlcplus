@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>David Hay</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Ovation E-910FC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="uDimmer" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="uRed" Preset="IntensityRedFine"/>
+ <Channel Name="uGreen" Preset="IntensityGreenFine"/>
+ <Channel Name="uBlue" Preset="IntensityBlueFine"/>
+ <Channel Name="uAmber" Preset="IntensityAmberFine"/>
+ <Channel Name="uLime" Preset="IntensityLimeFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">no function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">slow to fast</Capability>
+ </Channel>
+ <Channel Name="Virtual Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">no function</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#f7ef48">Cal Color Yellow</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#fcd137">Light Straw</Capability>
+  <Capability Min="22" Max="28" Preset="ColorMacro" Res1="#f8e82d">Canary</Capability>
+  <Capability Min="29" Max="35" Preset="ColorMacro" Res1="#fab99c">Dark Bamber</Capability>
+  <Capability Min="36" Max="43" Preset="ColorMacro" Res1="#f6914e">Flame</Capability>
+  <Capability Min="44" Max="51" Preset="ColorMacro" Res1="#f58634">Medium Amber</Capability>
+  <Capability Min="52" Max="59" Preset="ColorMacro" Res1="#f2642c">Golden Amber</Capability>
+  <Capability Min="60" Max="67" Preset="ColorMacro" Res1="#ad1e22">Light Red</Capability>
+  <Capability Min="68" Max="75">Medium Red</Capability>
+  <Capability Min="76" Max="85" Preset="ColorMacro" Res1="#f6aec2">No Color Pink</Capability>
+  <Capability Min="86" Max="91">True Pink</Capability>
+  <Capability Min="92" Max="99" Preset="ColorMacro" Res1="#f7bdd7">Light Rose</Capability>
+  <Capability Min="100" Max="107" Preset="ColorMacro" Res1="#f15e3c">Salmon</Capability>
+  <Capability Min="108" Max="115" Preset="ColorMacro" Res1="#ee2835">Deep Salmon</Capability>
+  <Capability Min="116" Max="121" Preset="ColorMacro" Res1="#e64e9d">Middle Rose</Capability>
+  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#af55a1">Fisher Fuschia</Capability>
+  <Capability Min="131" Max="138" Preset="ColorMacro" Res1="#ddc8e1">Special Lavender</Capability>
+  <Capability Min="139" Max="146" Preset="ColorMacro" Res1="#62acde">Light Steel Blue</Capability>
+  <Capability Min="147" Max="154" Preset="ColorMacro" Res1="#46a3db">Blue Bell</Capability>
+  <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#46a3db">Daylight Blue</Capability>
+  <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#3c60ac">Primary Blue</Capability>
+  <Capability Min="171" Max="178" Preset="ColorMacro" Res1="#546eb5">Urband Blue</Capability>
+  <Capability Min="179" Max="186" Preset="ColorMacro" Res1="#5558a6">Surprise Blue</Capability>
+  <Capability Min="187" Max="194" Preset="ColorMacro" Res1="#2a2368">Congo Blue</Capability>
+  <Capability Min="195" Max="202" Preset="ColorMacro" Res1="#3b54a4">Medium Blue</Capability>
+  <Capability Min="203" Max="210" Preset="ColorMacro" Res1="#354b9f">Sapphire Blue</Capability>
+  <Capability Min="211" Max="218" Preset="ColorMacro" Res1="#107d3e">Dark Yellow Green</Capability>
+  <Capability Min="219" Max="226" Preset="ColorMacro" Res1="#115d30">Primary Green</Capability>
+  <Capability Min="227" Max="234" Preset="ColorMacro" Res1="#75c8aa">Turquoise</Capability>
+  <Capability Min="235" Max="242" Preset="ColorMacro" Res1="#24a39f">Blue Green</Capability>
+  <Capability Min="243" Max="250" Preset="ColorMacro" Res1="#0e6f50">Emerald Green</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#000000">no function</Capability>
+ </Channel>
+ <Channel Name="Color Temp Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">no function</Capability>
+  <Capability Min="6" Max="25" Preset="ColorMacro" Res1="#ffc11b">2800K</Capability>
+  <Capability Min="26" Max="50" Preset="ColorMacro" Res1="#fee74c">3200K</Capability>
+  <Capability Min="51" Max="75" Preset="ColorMacro" Res1="#fff86c">3500K</Capability>
+  <Capability Min="76" Max="100" Preset="ColorMacro" Res1="#faff87">4000k</Capability>
+  <Capability Min="101" Max="125" Preset="ColorMacro" Res1="#efff9d">4500K</Capability>
+  <Capability Min="126" Max="150" Preset="ColorMacro" Res1="#e0ffb3">5000K</Capability>
+  <Capability Min="151" Max="175" Preset="ColorMacro" Res1="#cfffcf">5600K</Capability>
+  <Capability Min="176" Max="200" Preset="ColorMacro" Res1="#c2ffde">6000K</Capability>
+  <Capability Min="201" Max="225" Preset="ColorMacro" Res1="#b2ffef">6500K</Capability>
+  <Capability Min="226" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="uWhite" Preset="IntensityWhiteFine"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">no function</Capability>
+  <Capability Min="11" Max="60">Auto Program 1</Capability>
+  <Capability Min="61" Max="110">Auto Program 2</Capability>
+  <Capability Min="111" Max="160">Auto Program 3</Capability>
+  <Capability Min="161" Max="210">Auto Program 4</Capability>
+  <Capability Min="211" Max="255">Auto Program 5 (auto 1-4)</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset dimmmer speed from display</Capability>
+  <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer speed mode 1 (fast)</Capability>
+  <Capability Min="153" Max="203">Dimmer Speed mode 2</Capability>
+  <Capability Min="204" Max="255">Dimmer speed mode 3 (slow)</Capability>
+ </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Lime</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Lime</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">uRed</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">uGreen</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">uBlue</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">uAmber</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">uWhite</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Virtual Color Wheel</Channel>
+  <Channel Number="8">Color Temp Presets</Channel>
+  <Channel Number="9">Macro</Channel>
+  <Channel Number="10">Speed</Channel>
+  <Channel Number="11">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">uDimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">uRed</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">uGreen</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">uBlue</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">uAmber</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">uWhite</Channel>
+  <Channel Number="12">Strobe</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">uDimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">uRed</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">uGreen</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">uBlue</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">uAmber</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">uWhite</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Virtual Color Wheel</Channel>
+  <Channel Number="14">Color Temp Presets</Channel>
+ </Mode>
+ <Mode Name="HSV">
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Value</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="12.2" Width="371" Height="371" Depth="690"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="234" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

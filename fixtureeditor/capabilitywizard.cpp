@@ -21,6 +21,7 @@
 #include <QTextEdit>
 #include <QSpinBox>
 #include <QDialog>
+#include <QAction>
 
 #include "capabilitywizard.h"
 #include "qlccapability.h"
@@ -112,7 +113,7 @@ void CapabilityWizard::slotCreateCapabilities()
                 m_channel->searchCapability(cap->max()) != NULL)
         {
             /* Disable the item to indicate overlapping */
-            item->setFlags(0);
+            item->setFlags(Qt::NoItemFlags);
         }
     }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Live Edit</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/liveedit.png" width=32> Live Edit</H1>
+
+<P>Starting from version 4.5.0, QLC+ offers a functionality which allows the adjustment of your
+<A HREF="file:concept.html#Functions">Functions</A> while in
+<A HREF="file:concept.html#Modes">Operate Mode</A>.<br>
+The Live Edit icon <img src="qrc:/liveedit.png" width=32> is located in the QLC+
+top bar, beside the <A HREF="file:dmxdump.html">DMX Dump</A> icon <img src="qrc:/add_dump.png" width=32>
+and it is activated only when the user has switched to Operate Mode.<br>
+When clicking on the Live Edit icon, a <a href="selectfunction.html">Function selection</a> panel
+will be displayed, allowing the selection of the function you want to adjust.<br>
+When you press OK, the correct editor will be displayed for editing that function.<br>
+At the moment, the following functions are supported for live editing:
+<UL>
+ <LI><img src="qrc:/scene.png" width=32> <A HREF="file:concept.html#Scene">Scene</A>
+    will open a <A HREF="file:sceneeditor.html">Scene Editor</A><br>
+    Note that by default the editor will be set in "Blind mode" when you edit a Scene that is not currently running, in case you want to
+    make the changes effective only when the Scene is being replayed the next time it is selected. For a currently running Scene the editor will open in live mode by default.
+ </LI>
+ <LI><img src="qrc:/chaser.png" width=32> <A HREF="file:concept.html#Chaser">Chaser</A>
+    will open a <A HREF="file:chasereditor.html">Chaser Editor</A></LI>
+ <LI><img src="qrc:/efx.png" width=32> <A HREF="file:concept.html#EFX">EFX</A>
+    will open an <A HREF="file:efxeditor.html">EFX Editor</A></LI>
+ <LI><img src="qrc:/rgbmatrix.png" width=32> <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>
+    will open an <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A><br><br>
+
+The types of functions listed in the <a href="selectfunction.html">Function selection</a> can be selected by using the filter check boxes at the bottom of the panel.<br>
+There is an option at the top of the panel to list currently running functions only.<br><br>
+Note that if another function is running when performing a live edit, HTP channels in the other function may prevent some adjustments from being seen on the stage. </LI>
+</UL>
+</P>
+
+</BODY>
+</HTML>

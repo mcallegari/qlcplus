@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
+  <Author>webdb22</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Revo 3</Model>
+ <Type>Flower</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="119">Pattern</Capability>
+  <Capability Min="120" Max="239">Chase</Capability>
+  <Capability Min="240" Max="255">Stand-alone</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Blackout (Pattern only)</Capability>
+  <Capability Min="10" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Pattern/Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern/Chase 1</Capability>
+  <Capability Min="20" Max="29">Pattern/Chase 2</Capability>
+  <Capability Min="30" Max="39">Pattern/Chase 3</Capability>
+  <Capability Min="40" Max="49">Pattern/Chase 4</Capability>
+  <Capability Min="50" Max="59">Pattern/Chase 5</Capability>
+  <Capability Min="60" Max="69">Pattern/Chase 6</Capability>
+  <Capability Min="70" Max="79">Pattern/Chase 7</Capability>
+  <Capability Min="80" Max="89">Pattern/Chase 8</Capability>
+  <Capability Min="90" Max="99">Pattern/Chase 9</Capability>
+  <Capability Min="100" Max="109">Pattern/Chase 10</Capability>
+  <Capability Min="110" Max="119">Pattern/Chase 11</Capability>
+  <Capability Min="120" Max="129">Pattern/Chase 12</Capability>
+  <Capability Min="130" Max="139">Pattern/Chase 13</Capability>
+  <Capability Min="140" Max="149">Pattern/Chase 14</Capability>
+  <Capability Min="150" Max="159">Pattern/Chase 15</Capability>
+  <Capability Min="160" Max="169">Pattern/Chase 16</Capability>
+  <Capability Min="170" Max="179">Pattern/Chase 17</Capability>
+  <Capability Min="180" Max="189">Pattern/Chase 18</Capability>
+  <Capability Min="190" Max="199">Pattern/Chase 19</Capability>
+  <Capability Min="200" Max="209">Pattern/Chase 20</Capability>
+  <Capability Min="210" Max="219">Pattern/Chase 21</Capability>
+  <Capability Min="220" Max="229">Pattern/Chase 22</Capability>
+  <Capability Min="230" Max="239">Pattern/Chase 23</Capability>
+  <Capability Min="240" Max="249">Pattern/Chase 24</Capability>
+  <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
+  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
+  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
+  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
+  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
+  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
+  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
+  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
+  <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
+  <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
+  <Capability Min="170" Max="179">Red Big + Green + White</Capability>
+  <Capability Min="180" Max="189">Red Big + Green + Red Small</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Green + Blue + Red Small</Capability>
+  <Capability Min="210" Max="219">Blue + White + Red Small</Capability>
+  <Capability Min="220" Max="229">Red Big + Green + Blue + White</Capability>
+  <Capability Min="230" Max="239">Red Big + Green + Blue + Red Small</Capability>
+  <Capability Min="240" Max="249">Green + Blue + White + Red Small</Capability>
+  <Capability Min="250" Max="255">All colors</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern/Chase</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Pattern">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Height="334" Weight="4.04" Width="306" Depth="312"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Fresnel"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+  </Physical>
+</FixtureDefinition>

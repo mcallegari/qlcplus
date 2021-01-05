@@ -1,0 +1,205 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - フィクスチャーモニター</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1><img src="qrc:/monitor.png" width="32"> DMXモニター</h1>
+<p>
+DMX モニターでは、現在出力されているDMX値を確認するためのツールです。 フィクスチャーに関する最低限の情報が表示されています。<b>モニター</b>の表示オプションを変更しても、フィクスチャーの動作の設定は変更されません。<br>
+DMXモニターでは、<b>DMX view</b>と<b>2D ビュー</b>を切り替えることができます。
+</p>
+
+<h2>DMX view</h2>
+<p>DMX viewでは、フィクスチャーのチャンネルごとに出力されているDMXをアイコン、チャンネル、出力値を表示するモードです。具体的な出力の数字を確認するのに便利です。<ul>
+ <li>チャンネルに割り当てられたアイコンが表示されています</li>
+ <li>チャンネル番号が表示されています</li>
+ <li>出力値が表示されています</li>
+</ul>
+</p>
+
+<h3>ツールバーの説明</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>2D ビュー</b>
+  </td>
+  <td>
+　クリックすることで、2DビューとDMX viewを切り替えます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/fonts.png">
+  </td>
+  <td>
+　表示されているフォントを変更できます。選択したフォントによっては表示が崩れる場合があります。固定幅のMonaco, Andale, Courierを選択することをオススメします。ここで設定したことはプロジェクトファイルではなく、QLC+に保存され、次回以降どのプロジェクトでも適用されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>DMX チャンネル番号</b>
+  </td>
+  <td>
+　フィクスチャーのチャンネル番号に実際のDMXのチャンネル番号を表示します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>機器ごと</b>
+  </td>
+  <td>
+　フィクスチャーのチャンネル番号にフィクスチャーごとに１から通し番号を振り表示します。同じフィクスチャーを多数監視する際に便利です。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>DMX値</b>
+  </td>
+  <td>
+　出力値を実際のDMX値表示します。(0 - 255)
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>パーセント</b>
+  </td>
+  <td>
+　出力値を割合で表示します。(0% - 100%)
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Universe</b>
+  </td>
+  <td>
+　表示するUniverseを選択します。デフォルトでは "全てのUniverse"が設定されています。</td>
+ </tr>
+</table>
+
+<h2>2D view</h2>
+<p>
+2D viewでは、フィクスチャーの種類に応じて実際のフィクスチャーの動作をシミュレーションして表示する簡易的なビジュアライザです。</p>
+<p>以下の値がシミュレーションされます<ul>
+  <li>光量</li>
+  <li>R/G/B</li>
+  <li>C/M/Y</li>
+  <li>カラーホイールの色 ※ホイールを使った2色のカラーは表示できません。</li>
+  <li>シャッター</li>
+</ul></p>
+<p>2Dviweモードでは、実際の仕込み時のフィクスチャーの配置を再現できるようにグリッドを表示することができます。<br>
+2Dviewではステージを正面から見た様子を再現できるように設計してありますが、お好きな方向からの図として好きな位置にフィクスチャーを設置することが可能です。<br>
+表示されているフィクスチャーのアイコンはドラッグ&amp;ドロップのほか、クリックすると表示される右側のパネルに直接数値を入力することで調整することができます。
+</p>
+
+<h3>ツールバー</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>DMX View</b>
+  </td>
+  <td>
+　クリックすることで、2DビューとDMX viewを切り替えます。
+
+  </td>
+ </tr>
+ <tr>
+  <td><b>グリッド</b></td>
+  <td>
+　幅と高さを調整できます。</td>
+ </tr>
+ <tr>
+  <td><b>グリッドモード</b></td>
+  <td>
+　グリッドの単位を変更できます。(メートル、フィート)
+  </td>
+ </tr>
+ <tr>
+   <TD><IMG SRC="qrc:/edit_add.png"></TD>
+  <td>
+　フィクスチャーを追加できます。フィクスチャーを選択するダイアルログが表示されます。
+　すでに2D viewに追加されているフィクスチャーはグレーで表示され、選択できません。</td>
+ </tr>
+ <tr>
+   <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <td>
+　フィクスチャーを削除できます。
+　フィクスチャーを選択すると、黄色で強調表示されます。
+  </td>
+ </tr>
+ <tr>
+   <TD><IMG SRC="qrc:/image.png"></TD>
+  <td>
+　背景にプランや、図面等の写真を表示できます。<br>
+　背景の表示には3つのオプションがあります。<br>
+    <ul>
+     <li><b>No background</b>: 背景に画像を表示しません。</li>
+     <li><b>Common background</b>: 常に1つの画像を背景に表示します。</li>
+     <li><b>Custom background list</b>: 再生中のファンクションに応じて表示する画像を個別に設定できます。<IMG SRC="qrc:/edit_add.png" ALIGN="absmiddle"></li>
+      <IMG SRC="qrc:/edit_remove.png" ALIGN="absmiddle">ボタンから再生中に背景を表示したいファンクションを追加 / 削除できます。本番モードで設定したファンクションが再生されると背景に画像が表示されます。
+    </ul>
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/label.png"></td>
+  <td>
+　フィクスチャー名を表示します。</td>
+ </tr>
+</table>
+
+<h3>フィクスチャーごとの設定</h3>
+
+<p>
+　フィクスチャーをクリックすると画面右に設定項目が表示され、フィクスチャーごとに設定をすることができます。<br>
+設定項目</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td><b>Horizontal</b></td>
+  <td>
+　X方向の座標を設定できます。</td>
+ </tr>
+ <tr>
+  <td><b>Vertical</b></td>
+  <td>
+　Y方向の座標を設定できます。</td>
+ </tr>
+ <tr>
+  <td><b>回転</b></td>
+  <td>
+　フィクスチャーのアイコンを傾けることができます。</td>
+ </tr>
+ <tr>
+  <td><b>Gel color</b></td>
+  <td>
+　ゼラ(カラーフィルター)の色を設定できます。この設定はフィクスチャーがLED機器などではなく、ハロゲン灯などの灯体の場合に便利な機能です。この機能はLED機器には適用されません。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/fileclose.png"></td>
+  <td>
+　Gel color設定をリセットする。</td>
+ </tr>
+</table>
+
+<h3>Pan/Tilt の表示</h3>
+
+<p>
+PanとTiltはフィクスチャーのアイコンの周りに円形の線が表示され、簡易的に監視することができます。
+ <b>P</b>ANには<span style="background-color:purple"><b>P</b>urple(紫)</span>、<b>T</b>ILTには<span style="background-color:turquoise"><b>T</b>urquoise(トルコ石色)</span>の円が表示されます。
+グレーの点はPan / Tiltができる可動域を表しており、範囲の中心が真下に来るように表示されています。
+</p>
+
+<p>
+</p>
+
+<img src="file:../images/pan-tilt.png">
+
+</BODY>
+</html>

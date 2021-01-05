@@ -56,7 +56,7 @@ var testAlgo;
       ["Hot Pink"     , 0xFF003F],	// 29
       ["Deep Pink"    , 0x7F001F],	// 30
       ["Black"        , 0x000000]);	// 31
-    
+
     colorPalette.makeSubArray = function (_index) {
       var _array = new Array();
       for (var i = 0; i < colorPalette.collection.length; i++) {
@@ -130,12 +130,12 @@ var testAlgo;
       return algo.presetNumber;
     };
     algo.setCollision = function (_colision) {
-      if (_colision === "Yes") algo.presetCollision = 0;
-      else if (_colision === "No") algo.presetCollision = 1;
+      if (_colision === "Yes") { algo.presetCollision = 0; }
+      else if (_colision === "No") { algo.presetCollision = 1; }
     };
     algo.getCollision = function () {
-      if (algo.presetCollision === 0) return "Yes";
-      else if (algo.presetCollision === 1) return "No";
+      if (algo.presetCollision === 0) { return "Yes"; }
+      else if (algo.presetCollision === 1) { return "No"; }
     };
 
     algo.setColor = function (_index, _preset) {
@@ -148,7 +148,7 @@ var testAlgo;
     };
     algo.getColor = function (_index) {
       var i = algo.colorIndex[_index];
-      if (i < 0) i = 0;
+      if (i < 0) { i = 0; }
       if (i >= colorPalette.collection.length) {
         i = (colorPalette.collection.length - 1);
       }
@@ -253,13 +253,13 @@ var testAlgo;
               var offy = ry - yx[0];  // to the float location of the ball, using the hypotenuse
               var hyp = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((algo.presetSize / 2) + 1));
 
-              if (hyp < 0) hyp = 0; // if the distance multiplyed by ball size is negative = 0
+              if (hyp < 0) { hyp = 0; } // if the distance multiplyed by ball size is negative = 0
               pointr += Math.round(ballr * hyp); // dim mapped ball colours by the distance from
               pointg += Math.round(ballg * hyp); // the ball center ( hyp = 1, full colour / 0, off)
               pointb += Math.round(ballb * hyp); // add the ball colour to the mapped location
-              if (pointr > 255) pointr = 255;  // if addind the colours over saturates
-              if (pointg > 255) pointg = 255;  // reduce it to the maximum
-              if (pointb > 255) pointb = 255;
+              if (pointr > 255) { pointr = 255; } // if addind the colours over saturates
+              if (pointg > 255) { pointg = 255; } // reduce it to the maximum
+              if (pointb > 255) { pointb = 255; }
 
               pointRGB = (pointr << 16) + (pointg << 8) + pointb; // combine colours
 
@@ -289,11 +289,11 @@ var testAlgo;
         }
 
         // edge collision detection
-        if (yx[0] <= 0 && step[0] < 0) step[0] *= -1; // top edge and moving up
-        else if (yx[0] >= height - 1 && step[0] > 0) step[0] *= -1; // bottom edge and moving down
+        if (yx[0] <= 0 && step[0] < 0) { step[0] *= -1; } // top edge and moving up
+        else if (yx[0] >= height - 1 && step[0] > 0) { step[0] *= -1; } // bottom edge and moving down
 
-        if (yx[1] <= 0 && step[1] < 0) step[1] *= -1; // left edge and moving left
-        else if (yx[1] >= width - 1 && step[1] > 0) step[1] *= -1; // right edge and moving right
+        if (yx[1] <= 0 && step[1] < 0) { step[1] *= -1; } // left edge and moving left
+        else if (yx[1] >= width - 1 && step[1] > 0) { step[1] *= -1; } // right edge and moving right
 
         yx[0] += step[0]; // set ball's next location
         yx[1] += step[1];

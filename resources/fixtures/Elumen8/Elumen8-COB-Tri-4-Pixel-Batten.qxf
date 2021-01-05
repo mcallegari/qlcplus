@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Elumen8</Manufacturer>
+ <Model>COB Tri 4 Pixel Batten</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Sound Active/Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound active (7 colours)</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe (slow-fast)</Capability>
+ </Channel>
+ <Channel Name="R1" Preset="IntensityRed"/>
+ <Channel Name="G1" Preset="IntensityGreen"/>
+ <Channel Name="B1" Preset="IntensityBlue"/>
+ <Channel Name="R2" Preset="IntensityRed"/>
+ <Channel Name="R3" Preset="IntensityRed"/>
+ <Channel Name="R4" Preset="IntensityRed"/>
+ <Channel Name="G2" Preset="IntensityGreen"/>
+ <Channel Name="G3" Preset="IntensityGreen"/>
+ <Channel Name="G4" Preset="IntensityGreen"/>
+ <Channel Name="B2" Preset="IntensityBlue"/>
+ <Channel Name="B3" Preset="IntensityBlue"/>
+ <Channel Name="B4" Preset="IntensityBlue"/>
+ <Channel Name="Colours/Macros/Programs/Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">R</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">G</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0000ff">B</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffff00">RG</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00ffff">GB</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff00ff">RB</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffffff">RGB</Capability>
+  <Capability Min="72" Max="79">Colour 1</Capability>
+  <Capability Min="80" Max="87">Colour 2</Capability>
+  <Capability Min="88" Max="95">Colour 3</Capability>
+  <Capability Min="96" Max="103">Colour 4</Capability>
+  <Capability Min="104" Max="111">Colour 5</Capability>
+  <Capability Min="112" Max="119">Colour 6</Capability>
+  <Capability Min="120" Max="127">Colour 7</Capability>
+  <Capability Min="128" Max="135">Colour 8</Capability>
+  <Capability Min="136" Max="143">Dream</Capability>
+  <Capability Min="144" Max="151">Meteor</Capability>
+  <Capability Min="152" Max="159">Fade</Capability>
+  <Capability Min="160" Max="167">Change</Capability>
+  <Capability Min="168" Max="175">Flow 1</Capability>
+  <Capability Min="176" Max="183">Flow 2</Capability>
+  <Capability Min="184" Max="191">Flow 3</Capability>
+  <Capability Min="192" Max="199">Flow 4</Capability>
+  <Capability Min="200" Max="207">Flow 5</Capability>
+  <Capability Min="208" Max="215">Flow 6</Capability>
+  <Capability Min="216" Max="223">Flow 7</Capability>
+  <Capability Min="224" Max="231">Flow 8</Capability>
+  <Capability Min="232" Max="239">Flow 9</Capability>
+  <Capability Min="240" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Speed/Sensitivity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Speed (slow-fast)/Sensitivity (low-high)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="239" Preset="StrobeSlowToFast">Slow-fast</Capability>
+  <Capability Min="240" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer/Speed/Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Master dimmer (0-100%)/Speed (slow-fast)/Sensitivity (low-high)</Capability>
+ </Channel>
+ <Channel Name="Flash" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1/Colour Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Red 1 (0-100%)</Capability>
+  <Capability Min="16" Max="223">No function</Capability>
+  <Capability Min="224" Max="239">Colour select</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Green 1/Colour Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Green 1 (0-100%)</Capability>
+  <Capability Min="16" Max="223">No function</Capability>
+  <Capability Min="224" Max="239">Colour select</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Blue 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Blue 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Blue 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Blue 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Green 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Green 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Green 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="15">0-100%</Capability>
+  <Capability Min="16" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Sound Active/Strobe</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">R1</Channel>
+  <Channel Number="1">G1</Channel>
+  <Channel Number="2">B1</Channel>
+  <Channel Number="3">R2</Channel>
+  <Channel Number="4">G2</Channel>
+  <Channel Number="5">B2</Channel>
+  <Channel Number="6">R3</Channel>
+  <Channel Number="7">G3</Channel>
+  <Channel Number="8">B3</Channel>
+  <Channel Number="9">R4</Channel>
+  <Channel Number="10">G4</Channel>
+  <Channel Number="11">B4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Colours/Macros/Programs/Sound Active</Channel>
+  <Channel Number="1">Speed/Sensitivity</Channel>
+  <Channel Number="2">Master Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Colours/Macros/Programs/Sound Active</Channel>
+  <Channel Number="1">Master Dimmer/Speed/Sensitivity</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">Red 1/Colour Select</Channel>
+  <Channel Number="4">Green 1/Colour Select</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6362" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="440" Height="220" Depth="150"/>
+  <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

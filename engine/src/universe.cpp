@@ -24,9 +24,11 @@
 
 #include "channelmodifier.h"
 #include "inputoutputmap.h"
+#include "genericfader.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "grandmaster.h"
+#include "mastertimer.h"
 #include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
@@ -41,7 +43,7 @@
 #define KXMLUniverseSubtractiveBlend "Subtractive"
 
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
-    : QObject(parent)
+    : QThread(parent)
     , m_id(id)
     , m_grandMaster(gm)
     , m_passthrough(false)
@@ -70,6 +72,17 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
 
 Universe::~Universe()
 {
+    if (isRunning() == true)
+    {
+        // isRunning is inconsistent with m_running,
+        // so double check if the thread is really in the run loop
+        while (m_running == false)
+            usleep(10000);
+
+        m_running = false;
+        wait(1000);
+    }
+
     delete m_inputPatch;
     int opCount = m_outputPatchList.count();
     for (int i = 0; i < opCount; i++)
@@ -138,7 +151,7 @@ void Universe::setPassthrough(bool enable)
         // we would have to synchronize with other threads
 
         // When enabling passthrough, make sure the array is allocated BEFORE m_passthrough is set to
-        // true. That way we only have to check for m_passthrough, and do not need to check 
+        // true. That way we only have to check for m_passthrough, and do not need to check
         // m_passthroughValues.isNull()
         m_passthroughValues.reset(new QByteArray(UNIVERSE_SIZE, char(0)));
     }
@@ -186,6 +199,147 @@ void Universe::slotGMValueChanged()
 }
 
 /************************************************************************
+ * Faders
+ ************************************************************************/
+
+QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority priority)
+{
+    int insertPos = 0;
+    QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
+    fader->setPriority(priority);
+
+    if (m_faders.isEmpty())
+    {
+        m_faders.append(fader);
+    }
+    else
+    {
+        for (int i = m_faders.count() - 1; i >= 0; i--)
+        {
+            QSharedPointer<GenericFader> f = m_faders.at(i);
+            if (!f.isNull() && f->priority() <= fader->priority())
+            {
+                insertPos = i + 1;
+                break;
+            }
+        }
+
+        m_faders.insert(insertPos, fader);
+    }
+
+    qDebug() << "Generic fader with priority" <<  fader->priority() << "registered at pos" << insertPos << ", count" << m_faders.count();
+
+    return fader;
+}
+
+void Universe::dismissFader(QSharedPointer<GenericFader> fader)
+{
+    int index = m_faders.indexOf(fader);
+    if (index >= 0)
+    {
+        m_faders.takeAt(index);
+        fader.clear();
+    }
+}
+
+void Universe::requestFaderPriority(QSharedPointer<GenericFader> fader, Universe::FaderPriority priority)
+{
+    if (m_faders.contains(fader) == false)
+        return;
+
+    int pos = m_faders.indexOf(fader);
+    int newPos = 0;
+
+    for (int i = m_faders.count() - 1; i >= 0; i--)
+    {
+        QSharedPointer<GenericFader> f = m_faders.at(i);
+        if (!f.isNull() && f->priority() <= priority)
+        {
+            newPos = i;
+            fader->setPriority(priority);
+            break;
+        }
+    }
+
+    if (newPos != pos)
+    {
+        m_faders.move(pos, newPos);
+        qDebug() << "Generic fader moved from" << pos << "to" << m_faders.indexOf(fader) << ". Count:" << m_faders.count();
+    }
+}
+
+QList<QSharedPointer<GenericFader> > Universe::faders()
+{
+    return m_faders;
+}
+
+void Universe::tick()
+{
+    m_semaphore.release(1);
+}
+
+void Universe::processFaders()
+{
+    flushInput();
+    zeroIntensityChannels();
+    zeroRelativeValues();
+
+    QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
+    while (it.hasNext())
+    {
+        QSharedPointer<GenericFader> fader = it.next();
+        if (fader.isNull())
+            continue;
+
+        // destroy a fader if it's been requested
+        // and it's not fading out
+        if (fader->deleteRequested() && !fader->isFadingOut())
+        {
+            fader->removeAll();
+            it.remove();
+            fader.clear();
+            continue;
+        }
+
+        if (fader->isEnabled() == false)
+            continue;
+
+        //qDebug() << "Processing fader" << fader->name() << fader->channelsCount();
+        fader->write(this);
+    }
+
+    const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
+    dumpOutput(postGM);
+
+    if (hasChanged())
+        emit universeWritten(id(), postGM);
+}
+
+void Universe::run()
+{
+    m_running = true;
+    int timeout = int(MasterTimer::tick()) * 2;
+
+    qDebug() << "Universe thread started" << id();
+
+    while(m_running)
+    {
+        if (m_semaphore.tryAcquire(1, timeout) == false)
+        {
+            //qWarning() << "Semaphore not acquired on universe" << id();
+            continue;
+        }
+#if 0
+        if (m_faders.count())
+            qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
+#endif
+        processFaders();
+    }
+
+    qDebug() << "Universe thread stopped" << id();
+}
+
+/************************************************************************
  * Values
  ************************************************************************/
 
@@ -205,6 +359,21 @@ void Universe::reset()
     m_passthrough = false; // not releasing m_passthroughValues, see comment in setPassthrough
 }
 
+void Universe::reset(int address, int range)
+{
+    if (address >= UNIVERSE_SIZE)
+        return;
+
+    if (address + range > UNIVERSE_SIZE)
+       range = UNIVERSE_SIZE - address;
+
+    memset(m_preGMValues->data() + address, 0, range * sizeof(*m_preGMValues->data()));
+    memset(m_relativeValues.data() + address, 0, range * sizeof(*m_relativeValues.data()));
+    memcpy(m_postGMValues->data() + address, m_modifiedZeroValues->data() + address, range * sizeof(*m_postGMValues->data()));
+
+    applyPassthroughValues(address, range);
+}
+
 void Universe::applyPassthroughValues(int address, int range)
 {
     if (!m_passthrough)
@@ -219,20 +388,6 @@ void Universe::applyPassthroughValues(int address, int range)
     }
 }
 
-void Universe::reset(int address, int range)
-{
-    if (address >= UNIVERSE_SIZE)
-        return;
-    if (address + range > UNIVERSE_SIZE) 
-       range = UNIVERSE_SIZE - address;
-
-    memset(m_preGMValues->data() + address, 0, range * sizeof(*m_preGMValues->data()));
-    memset(m_relativeValues.data() + address, 0, range * sizeof(*m_relativeValues.data()));
-    memcpy(m_postGMValues->data() + address, m_modifiedZeroValues->data() + address, range * sizeof(*m_postGMValues->data()));
-
-    applyPassthroughValues(address, range);
-}
-
 void Universe::zeroIntensityChannels()
 {
     updateIntensityChannelsRanges();
@@ -241,7 +396,7 @@ void Universe::zeroIntensityChannels()
     {
         short channel = channels[i] >> 16;
         short size = channels[i] & 0xffff;
-        
+
         reset(channel, size);
     }
 }
@@ -318,7 +473,7 @@ uchar Universe::preGMValue(int address) const
 {
     if (address >= m_preGMValues->size())
         return 0U;
- 
+
     return static_cast<uchar>(m_preGMValues->at(address));
 }
 
@@ -483,23 +638,34 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
     qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
     if (m_fbPatch == NULL)
     {
-        if (output == QLCIOPlugin::invalidLine())
+        if (plugin == NULL || output == QLCIOPlugin::invalidLine())
             return false;
+
         m_fbPatch = new OutputPatch(m_id, this);
     }
     else
     {
-        if (output == QLCIOPlugin::invalidLine())
+        if (plugin == NULL || output == QLCIOPlugin::invalidLine())
         {
             delete m_fbPatch;
             m_fbPatch = NULL;
+            emit hasFeedbacksChanged();
             return true;
         }
     }
     if (m_fbPatch != NULL)
-        return m_fbPatch->set(plugin, output);
+    {
+        bool result = m_fbPatch->set(plugin, output);
+        emit hasFeedbacksChanged();
+        return result;
+    }
 
     return false;
+}
+
+bool Universe::hasFeedbacks() const
+{
+    return m_fbPatch != NULL ? true : false;
 }
 
 InputPatch *Universe::inputPatch() const
@@ -530,14 +696,27 @@ void Universe::dumpOutput(const QByteArray &data)
     if (m_outputPatchList.count() == 0)
         return;
 
-    for (int i = 0; i < m_outputPatchList.count(); i++)
+    foreach (OutputPatch *op, m_outputPatchList)
     {
         if (m_totalChannelsChanged == true)
-            m_outputPatchList.at(i)->setPluginParameter(PLUGIN_UNIVERSECHANNELS, m_totalChannels);
+            op->setPluginParameter(PLUGIN_UNIVERSECHANNELS, m_totalChannels);
 
-        m_outputPatchList.at(i)->dump(m_id, data);
+        if (op->blackout())
+            op->dump(m_id, *m_modifiedZeroValues);
+        else
+            op->dump(m_id, data);
     }
     m_totalChannelsChanged = false;
+}
+
+void Universe::dumpBlackout()
+{
+    dumpOutput(*m_modifiedZeroValues);
+}
+
+const QByteArray& Universe::blackoutData()
+{
+    return *m_modifiedZeroValues;
 }
 
 void Universe::flushInput()
@@ -653,8 +832,6 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         m_totalChannels = channel + 1;
         m_totalChannelsChanged = true;
     }
-
-    return;
 }
 
 uchar Universe::channelCapabilities(ushort channel)
@@ -665,6 +842,21 @@ uchar Universe::channelCapabilities(ushort channel)
     return m_channelsMask->at(channel);
 }
 
+void Universe::setChannelDefaultValue(ushort channel, uchar value)
+{
+    if (channel >= m_totalChannels)
+    {
+        m_totalChannels = channel + 1;
+        m_totalChannelsChanged = true;
+    }
+
+    if (channel >= m_usedChannels)
+        m_usedChannels = channel + 1;
+
+    (*m_preGMValues)[channel] = value;
+    updatePostGMValue(channel);
+}
+
 void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
 {
     if (channel >= (ushort)m_modifiers.count())
@@ -672,8 +864,21 @@ void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
 
     m_modifiers[channel] = modifier;
 
-    (*m_modifiedZeroValues)[channel] =
-        (modifier == NULL ? uchar(0) : modifier->getValue(0));
+    if (modifier != NULL)
+    {
+        (*m_modifiedZeroValues)[channel] = modifier->getValue(0);
+
+        if (channel >= m_totalChannels)
+        {
+            m_totalChannels = channel + 1;
+            m_totalChannelsChanged = true;
+        }
+
+        if (channel >= m_usedChannels)
+            m_usedChannels = channel + 1;
+    }
+
+    updatePostGMValue(channel);
 }
 
 ChannelModifier *Universe::channelModifier(ushort channel)
@@ -688,6 +893,7 @@ void Universe::updateIntensityChannelsRanges()
 {
     if (!m_intensityChannelsChanged)
         return;
+
     m_intensityChannelsChanged = false;
 
     m_intensityChannelsRanges.clear();
@@ -743,6 +949,8 @@ bool Universe::writeRelative(int channel, uchar value)
 {
     Q_ASSERT(channel < UNIVERSE_SIZE);
 
+    //qDebug() << "Write relative channel" << channel << value;
+
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
@@ -765,7 +973,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
     {
         case NormalBlend:
             return write(channel, value);
-        break;
+
         case MaskBlend:
         {
             if (value)
@@ -777,13 +985,13 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
                     value = 0;
             }
             (*m_preGMValues)[channel] = char(value);
-
         }
         break;
         case AdditiveBlend:
         {
             uchar currVal = uchar(m_preGMValues->at(channel));
-            value = qMin((int)currVal + value, 255);
+            //qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
+            value = qMin(int(currVal) + value, 255);
             (*m_preGMValues)[channel] = char(value);
         }
         break;
@@ -798,7 +1006,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         }
         break;
         default:
-            qDebug() << "[Universe] Blend mode not handled. Implement me !" << blend;
+            qDebug() << "[Universe] Blend mode not handled. Implement me!" << blend;
         break;
     }
 
@@ -1000,11 +1208,13 @@ void Universe::savePatchXML(
     QString profileName,
     QMap<QString, QVariant> parameters) const
 {
+    // sanity check: don't save invalid data
+    if (pluginName.isEmpty() || pluginName == KInputNone || line == QLCIOPlugin::invalidLine())
+        return;
+
     doc->writeStartElement(tag);
-    if (!pluginName.isEmpty() && pluginName != KInputNone)
-        doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
-    if (line != QLCIOPlugin::invalidLine())
-        doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
+    doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
+    doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
     if (!profileName.isEmpty() && profileName != KInputNone)
         doc->writeAttribute(KXMLQLCUniverseProfileName, profileName);
 

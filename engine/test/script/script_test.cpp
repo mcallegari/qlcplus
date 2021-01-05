@@ -33,13 +33,17 @@
 static QString script0(
 "// Comment over there\n"
 "startfunction:12\r"
-"stopscript:5 // Comment in here\n"
 "stopfunction:33 paska\n"
 "waitkey:\"SHIFT+K\"\n"
 "startfunction:\"54\"\r\n"
 "wait:1.05\n"
-"setdmx:12 uni:2 val:127\n"
 "setfixture:99 value:255 channel:1\n"
+"jump:label1\n"
+"wait:1.05\n"
+"label:label1\n"
+"blackout:on\n"
+"systemcommand:echo arg:asdf\n"
+"blackout:off\n"
 );
 
 void Script_Test::initTestCase()
@@ -58,8 +62,10 @@ void Script_Test::initial()
     Script scr(&doc);
     scr.setData(script0);
 
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 11; i++)
+    {
         scr.executeCommand(i, doc.masterTimer(), ua);
+    }
 }
 
 QTEST_APPLESS_MAIN(Script_Test)

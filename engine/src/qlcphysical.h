@@ -22,6 +22,7 @@
 #define QLCPHYSICAL_H
 
 #include <QString>
+#include <QSize>
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -37,16 +38,18 @@ class QXmlStreamWriter;
 #define KXMLQLCPhysicalBulbLumens "Lumens"
 #define KXMLQLCPhysicalBulbColourTemperature "ColourTemperature"
 
+#define KXMLQLCPhysicalLens "Lens"
+#define KXMLQLCPhysicalLensName "Name"
+#define KXMLQLCPhysicalLensDegreesMin "DegreesMin"
+#define KXMLQLCPhysicalLensDegreesMax "DegreesMax"
+
 #define KXMLQLCPhysicalDimensions "Dimensions"
 #define KXMLQLCPhysicalDimensionsWeight "Weight"
 #define KXMLQLCPhysicalDimensionsWidth "Width"
 #define KXMLQLCPhysicalDimensionsHeight "Height"
 #define KXMLQLCPhysicalDimensionsDepth "Depth"
 
-#define KXMLQLCPhysicalLens "Lens"
-#define KXMLQLCPhysicalLensName "Name"
-#define KXMLQLCPhysicalLensDegreesMin "DegreesMin"
-#define KXMLQLCPhysicalLensDegreesMax "DegreesMax"
+#define KXMLQLCPhysicalLayout "Layout"
 
 #define KXMLQLCPhysicalFocus "Focus"
 #define KXMLQLCPhysicalFocusType "Type"
@@ -70,9 +73,13 @@ class QLCPhysical
      ************************************************************************/
 public:
     QLCPhysical();
+    QLCPhysical(const QLCPhysical &other);
+
     virtual ~QLCPhysical();
 
     QLCPhysical& operator=(const QLCPhysical& physical);
+
+    bool isEmpty() const;
 
     /************************************************************************
      * Properties
@@ -117,6 +124,9 @@ public:
     void setFocusTiltMax(int tilt);
     int focusTiltMax() const;
 
+    void setLayoutSize(QSize size);
+    QSize layoutSize() const;
+
     void setPowerConsumption(int watt);
     int powerConsumption() const;
 
@@ -140,6 +150,7 @@ protected:
     QString m_focusType;
     int m_focusPanMax;
     int m_focusTiltMax;
+    QSize m_layout;
 
     int m_powerConsumption;
     QString m_dmxConnector;

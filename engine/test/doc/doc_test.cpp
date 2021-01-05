@@ -30,6 +30,7 @@
 #include "monitorproperties.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "scriptwrapper.h"
 #include "qlcphysical.h"
 #include "collection.h"
 #include "qlcchannel.h"
@@ -37,7 +38,6 @@
 #include "qlcfile.h"
 #include "fixture.h"
 #include "chaser.h"
-#include "script.h"
 #include "scene.h"
 #include "efx.h"
 #include "bus.h"
@@ -112,9 +112,18 @@ void Doc_Test::defaults()
     QVERIFY(m_doc->m_audioPluginCache != NULL);
     QVERIFY(m_doc->m_ioMap != NULL);
     QVERIFY(m_doc->m_masterTimer != NULL);
+    QVERIFY(m_doc->m_clipboard != NULL);
+
+    QVERIFY(m_doc->fixtureDefCache() != NULL);
+    QVERIFY(m_doc->modifiersCache() != NULL);
+    QVERIFY(m_doc->audioPluginCache() != NULL);
+    QVERIFY(m_doc->ioPluginCache() != NULL);
+    QVERIFY(m_doc->masterTimer() != NULL);
+    QVERIFY(m_doc->clipboard() != NULL);
 
     QVERIFY(m_doc->m_loadStatus == Doc::Cleared);
     QVERIFY(m_doc->loadStatus() == Doc::Cleared);
+    QVERIFY(m_doc->errorLog() == QString());
     QVERIFY(m_doc->m_modified == false);
     QVERIFY(m_doc->m_latestFixtureId == 0);
     QVERIFY(m_doc->m_fixtures.size() == 0);
@@ -405,6 +414,37 @@ void Doc_Test::fixture()
     QVERIFY(m_doc->fixture(f3->id() + 1) == NULL);
     QVERIFY(m_doc->fixture(42) == NULL);
     QVERIFY(m_doc->fixture(Fixture::invalidId()) == NULL);
+
+    QLCFixtureDef *fixtureDef;
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Showtec", "MiniMax 250");
+    Q_ASSERT(fixtureDef != NULL);
+    QLCFixtureMode *fixtureMode;
+    fixtureMode = fixtureDef->modes().at(0);
+    Q_ASSERT(fixtureMode != NULL);
+
+    /* test forced HTP/LTP channels */
+    Fixture *f4 = new Fixture(m_doc);
+    f4->setName("Four");
+    f4->setAddress(m_currentAddr);
+    f4->setUniverse(0);
+    f4->setFixtureDefinition(fixtureDef, fixtureMode);
+    m_doc->addFixture(f4);
+    m_currentAddr += f4->channels();
+
+    QVERIFY(m_doc->fixtures().count() == 4);
+    QList<int>forcedHTP;
+    QList<int>forcedLTP;
+
+    // force color and gobo channel to HTP
+    forcedHTP << 3 << 4;
+    // force strobe/dimmer to LTP
+    forcedLTP << 5;
+
+    QVERIFY(m_doc->updateFixtureChannelCapabilities(42, forcedHTP, forcedLTP) == false);
+    QVERIFY(m_doc->updateFixtureChannelCapabilities(f4->id(), forcedHTP, forcedLTP) == true);
+
+    QVERIFY(f4->forcedHTPChannels().count() == 2);
+    QVERIFY(f4->forcedLTPChannels().count() == 1);
 }
 
 void Doc_Test::totalPowerConsumption()
@@ -614,16 +654,58 @@ void Doc_Test::channelGroups()
     QVERIFY(m_doc->channelsGroups().at(1)->id() == 1);
 }
 
+void Doc_Test::palettes()
+{
+    QSignalSpy spy(m_doc, SIGNAL(paletteAdded(quint32)));
+    QSignalSpy spy2(m_doc, SIGNAL(paletteRemoved(quint32)));
+
+    QVERIFY(m_doc->palettes().count() == 0);
+
+    QLCPalette *p1 = new QLCPalette(QLCPalette::Color);
+    QLCPalette *p2 = new QLCPalette(QLCPalette::PanTilt);
+
+    QVERIFY(m_doc->addPalette(p1) == true);
+    QVERIFY(m_doc->palettes().count() == 1);
+
+    QCOMPARE(spy.size(), 1);
+    QCOMPARE(spy[0].size(), 1);
+    QCOMPARE(spy[0][0].toUInt(), quint32(0));
+
+    QVERIFY(m_doc->addPalette(p2) == true);
+    QVERIFY(m_doc->palettes().count() == 2);
+
+    QCOMPARE(spy.size(), 2);
+    QCOMPARE(spy[1].size(), 1);
+    QCOMPARE(spy[1][0].toUInt(), quint32(1));
+
+    /* get an invalid palette */
+    QVERIFY(m_doc->palette(42) == NULL);
+
+    /* get a valid palette */
+    QVERIFY(m_doc->palette(1) == p2);
+
+    /* delete an invalid palette */
+    QVERIFY(m_doc->deletePalette(42) == false);
+    QVERIFY(m_doc->palettes().count() == 2);
+
+    /* delete a valid palette */
+    QVERIFY(m_doc->deletePalette(0) == true);
+    QVERIFY(m_doc->palettes().count() == 1);
+    QVERIFY(m_doc->palettes().at(0)->id() == 1);
+    QCOMPARE(spy2.size(), 1);
+    QCOMPARE(spy2[0].size(), 1);
+    QCOMPARE(spy2[0][0].toUInt(), quint32(0));
+
+    QVERIFY(m_doc->deletePalette(1) == true);
+    QVERIFY(m_doc->palettes().count() == 0);
+
+    QCOMPARE(spy2.size(), 2);
+    QCOMPARE(spy2[1].size(), 1);
+    QCOMPARE(spy2[1][0].toUInt(), quint32(1));
+}
+
 void Doc_Test::monitorProperties()
 {
-    QRectF fxRect(100, 100, 300, 300);
-
-    QVERIFY(m_doc->m_monitorProps == NULL);
-    QVERIFY(m_doc->getAvailable2DPosition(fxRect) == QPointF(0, 0));
-
-    QVERIFY(m_doc->monitorProperties() != NULL);
-    QVERIFY(m_doc->getAvailable2DPosition(fxRect) == QPointF(100, 100));
-
     Fixture *f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(2);
@@ -652,11 +734,9 @@ void Doc_Test::monitorProperties()
     m_doc->addFixture(f3);
 
     MonitorProperties *props = m_doc->monitorProperties();
-    props->setFixturePosition(f1->id(), QVector3D(0, 0, 0));
-    props->setFixturePosition(f2->id(), QVector3D(300, 0, 0));
-    props->setFixturePosition(f3->id(), QVector3D(600, 0, 0));
-
-    QVERIFY(m_doc->getAvailable2DPosition(fxRect) == QPointF(950, 100));
+    props->setFixturePosition(f1->id(), 0, 0, QVector3D(0, 0, 0));
+    props->setFixturePosition(f2->id(), 0, 0, QVector3D(300, 0, 0));
+    props->setFixturePosition(f3->id(), 0, 0, QVector3D(600, 0, 0));
 }
 
 void Doc_Test::addFunction()

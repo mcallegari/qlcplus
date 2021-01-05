@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Oscar Cervesato</Author>
+ </Creator>
+ <Manufacturer>SGM</Manufacturer>
+ <Model>Newton 1200</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="16" Max="31" Preset="StrobeFrequency" Res1="0.5">Strobe - 0.5 fps</Capability>
+  <Capability Min="32" Max="47" Preset="StrobeFrequency" Res1="1.42">Strobe - 1.42 fps</Capability>
+  <Capability Min="48" Max="63" Preset="StrobeFrequency" Res1="1.7">Strobe - 1.7 fps</Capability>
+  <Capability Min="64" Max="79" Preset="StrobeFrequency" Res1="2">Strobe - 2.0 fps</Capability>
+  <Capability Min="80" Max="95" Preset="StrobeFrequency" Res1="2.42">Strobe - 2.42 fps</Capability>
+  <Capability Min="96" Max="111" Preset="StrobeFrequency" Res1="2.9">Strobe - 2.9 fps</Capability>
+  <Capability Min="112" Max="127" Preset="StrobeFrequency" Res1="3.46">Strobe - 3.46 fps</Capability>
+  <Capability Min="128" Max="143" Preset="StrobeFrequency" Res1="4.15">Strobe - 4.15 fps</Capability>
+  <Capability Min="144" Max="159" Preset="StrobeFrequency" Res1="4.89">Strobe - 4.89 fps</Capability>
+  <Capability Min="160" Max="175" Preset="StrobeFrequency" Res1="5.93">Strobe - 5.93 fps</Capability>
+  <Capability Min="176" Max="191" Preset="StrobeFrequency" Res1="6.91">Strobe - 6.91 fps</Capability>
+  <Capability Min="192" Max="207" Preset="StrobeFrequency" Res1="8.29">Strobe - 8.29 fps</Capability>
+  <Capability Min="208" Max="223" Preset="StrobeFrequency" Res1="9.95">Strobe - 9.95 fps</Capability>
+  <Capability Min="224" Max="239" Preset="StrobeFrequency" Res1="11.83">Strobe - 11.83 fps</Capability>
+  <Capability Min="240" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">scale 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="35" Preset="ColorMacro" Res1="#ffffff">White | White+Yellow</Capability>
+  <Capability Min="36" Max="71" Preset="ColorMacro" Res1="#ffff00">Yellow | Yellow+Magenta</Capability>
+  <Capability Min="72" Max="107" Preset="ColorMacro" Res1="#ff00ff">Magenta | Mgenta+Cyan</Capability>
+  <Capability Min="108" Max="143" Preset="ColorMacro" Res1="#00ffff">Cyan | Cyan+Green</Capability>
+  <Capability Min="144" Max="179" Preset="ColorMacro" Res1="#00cf00">Green | Green+Blue</Capability>
+  <Capability Min="180" Max="215" Preset="ColorMacro" Res1="#0000ff">Blue | Blue+Red</Capability>
+  <Capability Min="216" Max="255" Preset="ColorMacro" Res1="#ff0000">Red | Red + White</Capability>
+ </Channel>
+ <Channel Name="Colour Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="62">One Colour</Capability>
+  <Capability Min="63" Max="128">Two Colours</Capability>
+  <Capability Min="129" Max="255">Adjustable speed Rainbow effect</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Iris</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Colour Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HMI 1200W" Lumens="110000" ColourTemperature="6000"/>
+  <Dimensions Weight="4" Width="270" Height="270" Depth="390"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

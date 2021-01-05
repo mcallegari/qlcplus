@@ -21,6 +21,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QString>
+#include <QtMath>
 #include <QDebug>
 
 #include "qlcfixturedefcache.h"
@@ -308,6 +309,82 @@ QVector <quint32> Fixture::cmyChannels(int head) const
     return m_fixtureMode->heads().at(head).cmyChannels();
 }
 
+QList<SceneValue> Fixture::positionToValues(int type, int degrees) const
+{
+    QList<SceneValue> posList;
+    // cache a list of channels processed, to avoid duplicates
+    QList<quint32> chDone;
+
+    if (m_fixtureMode == NULL)
+        return posList;
+
+    QLCPhysical phy = fixtureMode()->physical();
+    float maxDegrees;
+    if (type == QLCChannel::Pan)
+    {
+        maxDegrees = phy.focusPanMax();
+        if (maxDegrees == 0) maxDegrees = 360;
+
+        for (int i = 0; i < heads(); i++)
+        {
+            quint32 panMSB = channelNumber(QLCChannel::Pan, QLCChannel::MSB, i);
+            if (panMSB == QLCChannel::invalid() || chDone.contains(panMSB))
+                continue;
+
+            float dmxValue = (float)(degrees * UCHAR_MAX) / maxDegrees;
+            posList.append(SceneValue(id(), panMSB, static_cast<uchar>(qFloor(dmxValue))));
+
+            qDebug() << "[getFixturePosition] Pan MSB:" << dmxValue;
+
+            quint32 panLSB = channelNumber(QLCChannel::Pan, QLCChannel::LSB, i);
+
+            if (panLSB != QLCChannel::invalid())
+            {
+                float lsbDegrees = (float)maxDegrees / (float)UCHAR_MAX;
+                float lsbValue = (float)((dmxValue - qFloor(dmxValue)) * UCHAR_MAX) / lsbDegrees;
+                posList.append(SceneValue(id(), panLSB, static_cast<uchar>(lsbValue)));
+
+                qDebug() << "[getFixturePosition] Pan LSB:" << lsbValue;
+            }
+
+            chDone.append(panMSB);
+        }
+    }
+    else if (type == QLCChannel::Tilt)
+    {
+        maxDegrees = phy.focusTiltMax();
+        if (maxDegrees == 0) maxDegrees = 270;
+
+        for (int i = 0; i < heads(); i++)
+        {
+            quint32 tiltMSB = channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i);
+            if (tiltMSB == QLCChannel::invalid() || chDone.contains(tiltMSB))
+                continue;
+
+            float dmxValue = (float)(degrees * UCHAR_MAX) / maxDegrees;
+            posList.append(SceneValue(id(), tiltMSB, static_cast<uchar>(qFloor(dmxValue))));
+
+            qDebug() << "[getFixturePosition] Tilt MSB:" << dmxValue;
+
+            quint32 tiltLSB = channelNumber(QLCChannel::Tilt, QLCChannel::LSB, i);
+
+            if (tiltLSB != QLCChannel::invalid())
+            {
+                float lsbDegrees = (float)maxDegrees / (float)UCHAR_MAX;
+                float lsbValue = (float)((dmxValue - qFloor(dmxValue)) * UCHAR_MAX) / lsbDegrees;
+                posList.append(SceneValue(id(), tiltLSB, static_cast<uchar>(lsbValue)));
+
+                qDebug() << "[getFixturePosition] Tilt LSB:" << lsbValue;
+            }
+
+            chDone.append(tiltMSB);
+        }
+
+    }
+
+    return posList;
+}
+
 void Fixture::setExcludeFadeChannels(QList<int> indices)
 {
     if (indices.count() > (int)channels())
@@ -326,7 +403,7 @@ void Fixture::setChannelCanFade(int idx, bool canFade)
     if (canFade == false && m_excludeFadeIndices.contains(idx) == false)
     {
         m_excludeFadeIndices.append(idx);
-        qSort(m_excludeFadeIndices.begin(), m_excludeFadeIndices.end());
+        std::sort(m_excludeFadeIndices.begin(), m_excludeFadeIndices.end());
     }
     else if (canFade == true && m_excludeFadeIndices.contains(idx) == true)
     {
@@ -398,27 +475,28 @@ ChannelModifier *Fixture::channelModifier(quint32 idx)
 }
 
 /*********************************************************************
- * Channel values
+ * Channel info
  *********************************************************************/
 
-bool Fixture::setChannelValues(QByteArray values)
+bool Fixture::setChannelValues(const QByteArray &values)
 {
     const int addr = address();
-    if (addr > values.size())
+    if (addr >= values.size())
         return false;
- 
-    const int ch = qMin(values.size() - addr, (int)channels());
+
+    const int chNum = qMin(values.size() - addr, (int)channels());
     bool changed = false;
-   
-    // Most of the time there are no changes, so the lock is inside 
-    // the cycle
-    for (int i = 0; i < ch; i++)
+
+    // Most of the times there are no changes,
+    // so the lock is inside the cycle
+    for (int i = 0; i < chNum; i++)
     {
         if (m_values.at(i) != values.at(i + addr))
         {
             changed = true;
-            QMutexLocker locker(&m_valuesMutex);
+            QMutexLocker locker(&m_channelsInfoMutex);
             m_values[i] = values.at(i + addr);
+            checkAlias(i, m_values[i]);
         }
     }
 
@@ -430,16 +508,60 @@ bool Fixture::setChannelValues(QByteArray values)
 
 QByteArray Fixture::channelValues()
 {
-    QMutexLocker locker(&m_valuesMutex);
+    QMutexLocker locker(&m_channelsInfoMutex);
     return m_values;
 }
 
 uchar Fixture::channelValueAt(int idx)
 {
-    QMutexLocker locker(&m_valuesMutex);
+    QMutexLocker locker(&m_channelsInfoMutex);
     if (idx >= 0 && idx < m_values.length())
         return (uchar)m_values.at(idx);
     return 0;
+}
+
+void Fixture::checkAlias(int chIndex, uchar value)
+{
+    if (chIndex < 0 || chIndex >= m_aliasInfo.count() ||
+        m_aliasInfo[chIndex].m_hasAlias == false)
+        return;
+
+    // If the channel @chIndex has aliases, check
+    // if replacements are to be done
+    QLCCapability *cap = m_fixtureMode->channel(chIndex)->searchCapability(value);
+    if (cap == m_aliasInfo[chIndex].m_currCap)
+        return;
+
+    // first, revert any channel replaced to the original channel set
+    foreach (AliasInfo alias, m_aliasInfo[chIndex].m_currCap->aliasList())
+    {
+        QLCFixtureMode *mode = m_fixtureDef->mode(alias.targetMode);
+        if (mode != m_fixtureMode)
+            continue;
+
+        QLCChannel *currChannel = m_fixtureMode->channel(alias.targetChannel);
+        QLCChannel *origChannel = m_fixtureDef->channel(alias.sourceChannel);
+
+        m_fixtureMode->replaceChannel(currChannel, origChannel);
+    }
+
+    // now, apply the current alias changes
+    foreach (AliasInfo alias, cap->aliasList())
+    {
+        QLCFixtureMode *mode = m_fixtureDef->mode(alias.targetMode);
+        if (mode != m_fixtureMode)
+            continue;
+
+        QLCChannel *currChannel = m_fixtureMode->channel(alias.sourceChannel);
+        QLCChannel *newChannel = m_fixtureDef->channel(alias.targetChannel);
+
+        m_fixtureMode->replaceChannel(currChannel, newChannel);
+    }
+
+    emit aliasChanged();
+
+    m_aliasInfo[chIndex].m_currCap = cap;
+
 }
 
 /*****************************************************************************
@@ -451,6 +573,8 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
 {
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
+        int i, chNum;
+
         if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef &&
             m_fixtureDef->manufacturer() == KXMLFixtureGeneric &&
             m_fixtureDef->model() == KXMLFixtureGeneric)
@@ -460,6 +584,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
 
         m_fixtureDef = fixtureDef;
         m_fixtureMode = fixtureMode;
+        chNum = fixtureMode->channels().size();
 
         // If there are no head entries in the mode, create one that contains
         // all channels. This const_cast is a bit heretic, but it's easier this
@@ -468,12 +593,31 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
         if (fixtureMode->heads().size() == 0)
         {
             QLCFixtureHead head;
-            for (int i = 0; i < fixtureMode->channels().size(); i++)
+            for (i = 0; i < chNum; i++)
                 head.addChannel(i);
             fixtureMode->insertHead(-1, head);
         }
-        m_values.resize(fixtureMode->channels().size());
-        m_values.fill(0);
+
+        m_aliasInfo.resize(chNum);
+
+        for (i = 0; i < chNum; i++)
+        {
+            QLCChannel *channel = fixtureMode->channel(i);
+            const QList <QLCCapability*> capsList = channel->capabilities();
+
+            // initialize values with the channel default
+            m_values.append(channel->defaultValue());
+
+            // look for aliases
+            m_aliasInfo[i].m_hasAlias = false;
+            m_aliasInfo[i].m_currCap = capsList.count() ? capsList.at(0) : NULL;
+
+            foreach (QLCCapability *cap, capsList)
+            {
+                if (cap->preset() == QLCCapability::Alias)
+                    m_aliasInfo[i].m_hasAlias = true;
+            }
+        }
 
         // Cache all head channels
         fixtureMode->cacheHeads();
@@ -517,17 +661,19 @@ QString Fixture::iconResource(bool svg) const
 
     switch(type())
     {
-        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::LEDBarBeams: return QString("%1:/ledbar_beams.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::LEDBarPixels: return QString("%1:/ledbar_pixels.%2").arg(prefix).arg(ext);
         default: break;
     }
 
@@ -618,7 +764,7 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureRGBPanel);
-    def->setType(QLCFixtureDef::LEDBar);
+    def->setType(QLCFixtureDef::LEDBarPixels);
     def->setAuthor("QLC+");
     for (int i = 0; i < columns; i++)
     {
@@ -661,6 +807,12 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
             def->addChannel(red);
             def->addChannel(blue);
         }
+        else if (components == RBG)
+        {
+            def->addChannel(red);
+            def->addChannel(blue);
+            def->addChannel(green);
+        }
         else if (components == RGBW)
         {
             QLCChannel* white = new QLCChannel();
@@ -697,6 +849,8 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
         mode->setName("GBR");
     else if (components == GRB)
         mode->setName("GRB");
+    else if (components == RBG)
+        mode->setName("RBG");
     else if (components == RGBW)
     {
         mode->setName("RGBW");
@@ -947,6 +1101,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         else if (modeName == "BRG") components = BRG;
         else if (modeName == "GBR") components = GBR;
         else if (modeName == "GRB") components = GRB;
+        else if (modeName == "RBG") components = RBG;
         else if (modeName == "RGBW")
         {
             components = RGBW;
@@ -1217,10 +1372,15 @@ QString Fixture::status() const
 
         // Focus
         QString frange("%1&deg;");
-        info += subTitle.arg(tr("Focus"));
+        info += subTitle.arg(tr("Head(s)"));
         info += genInfo.arg(tr("Type")).arg(physical.focusType());
         info += genInfo.arg(tr("Pan Range")).arg(frange.arg(physical.focusPanMax()));
         info += genInfo.arg(tr("Tilt Range")).arg(frange.arg(physical.focusTiltMax()));
+        if (physical.layoutSize() != QSize(1, 1))
+        {
+            info += genInfo.arg(tr("Layout"))
+                           .arg(QString("%1 x %2").arg(physical.layoutSize().width()).arg(physical.layoutSize().height()));
+        }
     }
 
     // HTML document & table closure

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>JP</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Thunder Wash 100 RGB</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe C">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Shutter open (react to dimmer CH1)</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="11" Max="33" Preset="PulseSlowToFast">Pulse random slow…fast</Capability>
+  <Capability Min="34" Max="56" Preset="RampUpSlowToFast">Ramp up random slow…fast</Capability>
+  <Capability Min="57" Max="79" Preset="RampDownSlowToFast">Ramp down random slow…fast</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random strobe slow…fast</Capability>
+  <Capability Min="103" Max="127" Preset="StrobeSlowToFast">Strobe break effect 5…1s (very short flash)</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0…30Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Color="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Color="#fc0107">Red</Capability>
+  <Capability Min="14" Max="21" Color="#fd8008">Amber</Capability>
+  <Capability Min="22" Max="29" Color="#fec409">Yellow Warm</Capability>
+  <Capability Min="30" Max="37" Color="#ffff0a">Yellow</Capability>
+  <Capability Min="38" Max="45" Color="#21ff06">Green</Capability>
+  <Capability Min="46" Max="53" Color="#1de183">Turqoise</Capability>
+  <Capability Min="54" Max="61" Color="#20ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Color="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Color="#7100ff">Lavender</Capability>
+  <Capability Min="78" Max="85" Color="#a300ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Color="#fc02ff">Magente</Capability>
+  <Capability Min="94" Max="101" Color="#fc008c">Pink</Capability>
+  <Capability Min="102" Max="109" Color="#fec8a2">Warm White</Capability>
+  <Capability Min="110" Max="117" Color="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Color="#dcf0ff">Cold White</Capability>
+  <Capability Min="126" Max="128">Colour Jumping Stop</Capability>
+  <Capability Min="129" Max="192">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="193" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="Sound">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">Sound Control OFF (Mic Sensitivity)</Capability>
+  <Capability Min="6" Max="255">Sound Control ON Low -&gt; High (Mic Sensitivity)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Flash duration (0ms to 510ms)</Capability>
+ </Channel>
+ <Channel Name="Strobe B">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="11" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0…30Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Strobe A">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0…30Hz</Capability>
+ </Channel>
+ <Mode Name="1-CH">
+  <Channel Number="0">Strobe A</Channel>
+ </Mode>
+ <Mode Name="2-CH option 1">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Colour Macro</Channel>
+ </Mode>
+ <Mode Name="2-CH option 2">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe B</Channel>
+ </Mode>
+ <Mode Name="3-CH option 1">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe B</Channel>
+  <Channel Number="2">Duration</Channel>
+ </Mode>
+ <Mode Name="3-CH option 2">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe B</Channel>
+  <Channel Number="2">Colour Macro</Channel>
+ </Mode>
+ <Mode Name="3-CH option 3">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-CH">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe C</Channel>
+  <Channel Number="2">Colour Macro</Channel>
+  <Channel Number="3">Sound</Channel>
+ </Mode>
+ <Mode Name="6-CH">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe C</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Sound</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
+   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

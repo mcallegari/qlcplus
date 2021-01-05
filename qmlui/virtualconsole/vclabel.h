@@ -27,31 +27,37 @@
 class VCLabel : public VCWidget
 {
     Q_OBJECT
-    
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
 
 public:
-    VCLabel(Doc* doc = NULL, QObject *parent = 0);
+    VCLabel(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCLabel();
-
-    /** @reimp */
-    void setID(quint32 id);
 
     /** @reimp */
     QString defaultCaption();
 
     /** @reimp */
+    void setupLookAndFeel(qreal pixelDensity, int page);
+
+    /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
-    
+
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 
 public:
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
-    //bool saveXML(QXmlStreamWriter *doc);
+
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

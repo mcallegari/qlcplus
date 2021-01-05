@@ -31,6 +31,10 @@ class Fixture;
 class MainViewDMX : public PreviewContext
 {
     Q_OBJECT
+
+    Q_PROPERTY(bool showAddresses READ showAddresses WRITE setShowAddresses NOTIFY showAddressesChanged)
+    Q_PROPERTY(bool relativeAddresses READ relativeAddresses WRITE setRelativeAddresses NOTIFY relativeAddressesChanged)
+
 public:
     explicit MainViewDMX(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainViewDMX();
@@ -45,23 +49,41 @@ public:
 
     void createFixtureItem(quint32 fxID);
 
+    /** Set/update the flags of a fixture item */
+    void setFixtureFlags(quint32 itemID, quint32 flags);
+
     void updateFixture(Fixture *fixture);
 
     void updateFixtureSelection(QList<quint32>fixtures);
 
     void updateFixtureSelection(quint32 fxID, bool enable);
 
-protected:
+    void removeFixtureItem(quint32 fxID);
+
+    /** Get/Set if the DMX View should show DMX addresses */
+    bool showAddresses() const;
+    void setShowAddresses(bool showAddresses);
+
+    /** Get/Set if the displayed addresses should be absolute or relative */
+    bool relativeAddresses() const;
+    void setRelativeAddresses(bool relativeAddresses);
 
 signals:
+    void showAddressesChanged(bool showAddresses);
+    void relativeAddressesChanged(bool relativeAddresses);
 
-protected slots:
+public slots:
     /** @reimp */
     void slotRefreshView();
+
+protected slots:
+    void slotAliasChanged();
 
 private:
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *fixtureComponent;
+    bool m_showAddresses;
+    bool m_relativeAddresses;
 };
 
 #endif // MAINVIEWDMX_H

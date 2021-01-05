@@ -18,8 +18,9 @@
 */
 
 import QtQuick 2.2
+import QtQuick.Layouts 1.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Column
@@ -32,9 +33,15 @@ Column
     property string textLabel
     property string itemIcon
     property int itemType: App.FixtureDragItem
+    property int itemID
+    property int linkedIndex: 0
     property bool isExpanded: false
     property bool isSelected: false
-    property string nodePath    
+    property bool isCheckable: false
+    property bool isChecked: false
+    property bool showFlags: false
+    property int itemFlags: 0
+    property string nodePath
     property var nodeChildren
     property Item dragItem
 
@@ -43,6 +50,7 @@ Column
     signal pathChanged(string oldPath, string newPath)
 
     onCRefChanged: itemIcon = cRef ? cRef.iconResource(true) : ""
+    onItemIDChanged: linkedIndex = fixtureManager.fixtureLinkedIndex(itemID)
 
     function getItemAtPos(x, y)
     {
@@ -55,10 +63,13 @@ Column
 
     Rectangle
     {
+        id: nodeBgRect
         color: nodeIconImg.visible ? "transparent" : UISettings.sectionHeader
         width: nodeContainer.width
         height: UISettings.listItemHeight
+        z: 1
 
+        // icon background for contrast
         Rectangle
         {
             visible: itemIcon == "" ? false : true
@@ -80,86 +91,208 @@ Column
             visible: isSelected
         }
 
-        Image
+        RowLayout
         {
-            id: nodeIconImg
-            visible: itemIcon == "" ? false : true
-            x: 1
-            y: 1
-            width: visible ? parent.height - 2 : 0
-            height: width
-            source: itemIcon
-            sourceSize: Qt.size(width, height)
-        }
+            width: parent.width
 
-        TextInput
-        {
-            property string originalText
-
-            id: nodeLabel
-            x: nodeIconImg.width + 2
-            z: 0
-            width: parent.width - nodeIconImg.width - 1
-            height: UISettings.listItemHeight
-            readOnly: true
-            text: textLabel
-            verticalAlignment: TextInput.AlignVCenter
-            color: UISettings.fgMain
-            font.family: UISettings.robotoFontName
-            font.pixelSize: UISettings.textSizeDefault
-            echoMode: TextInput.Normal
-            selectByMouse: true
-            selectionColor: "#4DB8FF"
-            selectedTextColor: "#111"
-
-            function disableEditing()
+            CustomCheckBox
             {
-                z = 0
-                select(0, 0)
-                readOnly = true
-                cursorVisible = false
+                visible: isCheckable
+                implicitWidth: UISettings.listItemHeight
+                implicitHeight: implicitWidth
+                checked: isChecked
+                onCheckedChanged: nodeContainer.mouseEvent(App.Checked, -1, -1, nodeContainer, 0)
             }
 
-            onEditingFinished:
+            Image
             {
-                disableEditing()
-                nodeContainer.pathChanged(nodePath, text)
+                id: nodeIconImg
+                visible: itemIcon == "" ? false : true
+                x: 1
+                y: 1
+                width: nodeBgRect.height - 2
+                height: width
+                source: itemIcon
+                sourceSize: Qt.size(width, height)
             }
-            Keys.onEscapePressed:
+
+            Text
             {
-                disableEditing()
-                nodeLabel.text = originalText
+                visible: linkedIndex
+                color: UISettings.fgMain
+                font.family: "FontAwesome"
+                font.pixelSize: UISettings.listItemHeight - 6
+                text: FontAwesome.fa_link
             }
-        }
 
-        RobotoText
-        {
-            anchors.right: parent.right
-            height: UISettings.listItemHeight
-            label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels + 1) : ""
-
-        }
-
-        Timer
-        {
-            id: clickTimer
-            interval: 200
-            repeat: false
-            running: false
-
-            property int modifiers: 0
-
-            onTriggered:
+            TextInput
             {
-                isExpanded = !isExpanded
-                nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, -1, nodeContainer, modifiers)
-                modifiers = 0
+                property string originalText
+
+                id: nodeLabel
+                Layout.fillWidth: true
+                z: 0
+                //width: nodeBgRect.width - x - 1
+                height: UISettings.listItemHeight
+                readOnly: true
+                text: textLabel
+                verticalAlignment: TextInput.AlignVCenter
+                color: UISettings.fgMain
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                echoMode: TextInput.Normal
+                selectByMouse: true
+                selectionColor: "#4DB8FF"
+                selectedTextColor: "#111"
+
+                function disableEditing()
+                {
+                    z = 0
+                    select(0, 0)
+                    readOnly = true
+                    cursorVisible = false
+                }
+
+                Keys.onPressed:
+                {
+                    switch(event.key)
+                    {
+                        case Qt.Key_F2:
+                            originalText = textLabel
+                            z = 5
+                            readOnly = false
+                            cursorPosition = text.length
+                            cursorVisible = true
+                        break;
+                        case Qt.Key_Escape:
+                            disableEditing()
+                            nodeLabel.text = originalText
+                        break;
+                        default:
+                            event.accepted = false
+                            return
+                    }
+
+                    event.accepted = true
+                }
+
+                onEditingFinished:
+                {
+                    if (readOnly)
+                        return
+                    disableEditing()
+                    nodeContainer.pathChanged(nodePath, text)
+                    fixtureManager.renameFixture(itemID, text)
+                }
             }
-        }
+
+            // DMX address range
+            RobotoText
+            {
+                visible: !showFlags
+                implicitWidth: width
+                implicitHeight: UISettings.listItemHeight
+                label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels) : ""
+            }
+
+            // divider
+            Rectangle
+            {
+                visible: showFlags
+                width: 1
+                height: parent.height
+            }
+
+            // fixture flags
+            Rectangle
+            {
+                id: fxFlags
+                visible: showFlags
+                width: UISettings.chPropsFlagsWidth
+                height: parent.height
+                color: "transparent"
+                z: 1
+
+                Row
+                {
+                    height: parent.height
+                    spacing: 2
+
+                    IconButton
+                    {
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
+                        faSource: checked ? FontAwesome.fa_eye : FontAwesome.fa_eye_slash
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.HiddenFlag ? false : true
+                        onToggled:
+                        {
+                            if (itemFlags & MonitorProperties.HiddenFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.HiddenFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.HiddenFlag)
+                        }
+                    }
+
+                    IconButton
+                    {
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
+                        faSource: FontAwesome.fa_arrows_h
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.InvertedPanFlag ? true : false
+                        onToggled:
+                        {
+                            if (itemFlags & MonitorProperties.InvertedPanFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.InvertedPanFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.InvertedPanFlag)
+                        }
+                    }
+
+
+                    IconButton
+                    {
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
+                        faSource: FontAwesome.fa_arrows_v
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.InvertedTiltFlag ? true : false
+                        onToggled:
+                        {
+                            if (itemFlags & MonitorProperties.InvertedTiltFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.InvertedTiltFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.InvertedTiltFlag)
+                        }
+                    }
+                }
+            }
+
+            Rectangle { visible: showFlags; width: 1; height: parent.height } // divider
+            Rectangle { visible: showFlags; width: UISettings.chPropsCanFadeWidth; height: parent.height; color: "transparent" } // stub
+            Rectangle { visible: showFlags; width: 1; height: parent.height } // divider
+            Rectangle { visible: showFlags; width: UISettings.chPropsPrecedenceWidth; height: parent.height; color: "transparent" } // stub
+            Rectangle { visible: showFlags; width: 1; height: parent.height } // divider
+            Rectangle { visible: showFlags; width: UISettings.chPropsModifierWidth; height: parent.height; color: "transparent" } // stub
+        } // RowLayout
 
         MouseArea
         {
-            anchors.fill: parent
+            width: showFlags ? fxFlags.x : parent.width
+            height: parent.height
 
             property bool dragActive: drag.active
 
@@ -174,19 +307,13 @@ Column
             onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
             onClicked:
             {
-                clickTimer.modifiers = mouse.modifiers
-                clickTimer.start()
+                nodeLabel.forceActiveFocus()
+                nodeContainer.mouseEvent(App.Clicked, itemID, -1, nodeContainer, mouse.modifiers)
             }
             onDoubleClicked:
             {
-                clickTimer.stop()
-                clickTimer.modifiers = 0
-                nodeLabel.originalText = textLabel
-                nodeLabel.z = 5
-                nodeLabel.readOnly = false
-                nodeLabel.forceActiveFocus()
-                nodeLabel.cursorPosition = nodeLabel.text.length
-                nodeLabel.cursorVisible = true
+                nodeContainer.mouseEvent(App.DoubleClicked, itemID, -1, nodeContainer, mouse.modifiers)
+                isExpanded = !isExpanded
             }
         }
     }
@@ -202,39 +329,54 @@ Column
             {
                 Loader
                 {
-                    width: nodeChildrenView.width
+                    //width: nodeChildrenView.width
                     x: 20
                     //height: 35
                     source: type == App.ChannelDragItem ? "qrc:/FixtureChannelDelegate.qml" : "qrc:/FixtureHeadDelegate.qml"
                     onLoaded:
                     {
+                        item.width = Qt.binding(function() { return nodeChildrenView.width })
                         item.textLabel = label
-                        item.isSelected = Qt.binding(function() { return isSelected })
+                        item.isSelected = Qt.binding(function() { return model.isSelected })
+                        item.isCheckable = model.isCheckable
+                        item.isChecked = Qt.binding(function() { return model.isChecked })
                         item.dragItem = dragItem
                         item.itemType = type
 
+                        if (item.hasOwnProperty('cRef'))
+                            item.cRef = classRef
+
+                        item.itemID = id
+
                         if (type == App.ChannelDragItem)
                         {
+                            console.log("Channel node, fixture " + cRef + " index: " + chIdx + " label: " + label)
                             item.isCheckable = isCheckable
                             item.isChecked = Qt.binding(function() { return isChecked })
-                            item.chIndex = index
-                            item.itemIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
+                            item.chIndex = chIdx
+                            item.itemIcon = cRef ? fixtureManager.channelIcon(cRef.id, chIdx) : ""
+
+                            if (model.flags !== undefined && item.hasOwnProperty("itemFlags"))
+                            {
+                                item.showFlags = true
+                                item.itemFlags = Qt.binding(function() { return model.flags })
+                                item.canFade = Qt.binding(function() { return model.canFade })
+                                item.precedence = Qt.binding(function() { return model.precedence })
+                                item.modifier = Qt.binding(function() { return model.modifier })
+                            }
                         }
                         else
                         {
-                            item.fixtureID = cRef ? cRef.id : -1
-                            item.headIndex = head
+                            console.log("Head node, fixture " + cRef + " index: " + chIdx + " label: " + label)
+                            item.headIndex = chIdx
                         }
-
-                        if (item.hasOwnProperty('cRef'))
-                            item.cRef = classRef
                     }
                     Connections
                     {
                         target: item
                         onMouseEvent:
                         {
-                            console.log("Got tree node child mouse event")
+                            console.log("Got fixture tree node child mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
@@ -251,7 +393,6 @@ Column
                                         console.log("Channel " + index + " got checked")
                                         model.isChecked = iType
                                     }
-
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)
@@ -263,6 +404,7 @@ Column
                                 break;
                             }
 
+                            // forward the event to the parent node
                             nodeContainer.mouseEvent(type, iID, iType, qItem, mouseMods)
                         }
                     }

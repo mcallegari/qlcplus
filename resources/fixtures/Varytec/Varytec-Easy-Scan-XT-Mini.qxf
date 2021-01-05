@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Easy Scan XT Mini</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Strobe / Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Off</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe Slow to Fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Ramp Up</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Ramp Down</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Strobe Random</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="14">Gobo 1</Capability>
+  <Capability Min="15" Max="21">Gobo 2</Capability>
+  <Capability Min="22" Max="28">Gobo 3</Capability>
+  <Capability Min="29" Max="35">Gobo 4</Capability>
+  <Capability Min="36" Max="42">Gobo 5</Capability>
+  <Capability Min="43" Max="49">Gobo 6</Capability>
+  <Capability Min="50" Max="56">Gobo 7</Capability>
+  <Capability Min="57" Max="63">Gobo 8</Capability>
+  <Capability Min="64" Max="71">Open Shake</Capability>
+  <Capability Min="72" Max="78">Gobo Shake 1</Capability>
+  <Capability Min="79" Max="85">Gobo Shake 2</Capability>
+  <Capability Min="86" Max="92">Gobo Shake 3</Capability>
+  <Capability Min="93" Max="99">Gobo Shake 4</Capability>
+  <Capability Min="100" Max="106">Gobo Shake 5</Capability>
+  <Capability Min="107" Max="113">Gobo Shake 6</Capability>
+  <Capability Min="114" Max="120">Gobo Shake 7</Capability>
+  <Capability Min="121" Max="127">Gobo Shake 8</Capability>
+  <Capability Min="128" Max="255">Gobo rotation Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="Standard">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Strobe / Effect</Channel>
+  <Channel Number="3">Gobo Wheel</Channel>
+  <Channel Number="4">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.6" Width="344" Height="160" Depth="200"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Mirror" PanMax="166" TiltMax="54"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

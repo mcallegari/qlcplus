@@ -1,0 +1,62 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - Mac OSXでシステムのFTDIドライバを無効化する</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+QLC+ユーザーからのトピックスを元に紹介しています。詳しい情報は公式の<a href="https://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">FTDIアプリケーションノート 134</a>をご覧ください。
+
+<h2>
+7 OSX10.9以降でシステムのデフォルトのVCPを無効化する</h2>
+<p>
+OSX10.9以降では、OSにFTDI USB シリアルコンバータのドライバーやカーネルが組み込まれています。通常であれば、OSXではこの組み込まれたドライバ(AppleUSBFTDI.kext)を読み込みます。しかし、D2XXなどの独自のFTDIドライバを使用したい場合には、OSXに組み込まれているデフォルトのドライバを無効化する必要があります。
+
+</p>
+
+<h3>7.1 名前を変更して無効化する (OS X 10.9 と 10.10 でのみ有効な手段です)</h3>
+<p>
+※ この方法は、<b>OSX10.9 MavericksとOSX10.10 Yosemite</b>でのみ可能な手段です<br><br>
+
+ターミナルを起動してください(アプリケーション &gt; ユーティリティ &gt; ターミナル)そして以下のコマンドを実行します。<pre>
+cd /System/Library/Extensions/IOUSBFamily.kext/Contents/Plugins
+sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
+sudo touch /System/Library/Extensions
+</pre>
+実行後、再起動してください。<br>
+再度このシステムのドライバを使いたい時には以下の手順で、AppleUSBFTDI.kextへ名前を戻してください。
+<pre>
+cd /System/Library/Extensions/IOUSBFamily.kext/Contents/Plugins
+sudo mv AppleUSBFTDI.disabled AppleUSBFTDI.kext
+sudo touch /System/Library/Extensions
+</pre>
+実行したら再起動してください。
+</p>
+
+<h3>7.2 一時的に無効化します。(全てのバージョンで利用可能な方法です)</h3>
+<p>
+※ この方法は全てのバージョンで利用可能です。<br><br>
+
+この方法では次回再起動をするまでの間のみシステムのドライバを無効化することができます。
+<pre>
+sudo kextunload -b com.apple.driver.AppleUSBFTDI
+</pre>
+※警告メッセージが表示され、無効化できない場合は、一度再起動しもう一度上のコマンドを実行してみてください
+再度有効化するには、以下のコマンドです。<pre>
+sudo kextload -b com.apple.driver.AppleUSBFTDI
+</pre>
+これらのコマンドはカレントディレクトリに関わらず実行できます。(cdコマンドを使う必要はありません)
+</p>
+
+<h3>7.3 D2xxHelperで無効化する(OS X 10.9以降で有効な手段です)</h3>
+<p>
+※ この手段は<b>10.11 El Capitan</b>でも有効な唯一の手段です。この方法では、永続的に無効化されます。
+<br><br>
+
+(D2xxHelper.kext) はFTDIチップが接続された時に、システムのドライバが読み込まれることをブロックする役割を持っていますこれにより、システムのデフォルトのドライバではなくD2XXドライバを動作させることができます。<br>1.全てのFTDIデバイスをコンピュータから取り外します<br>2.D2xxHelperのインストーラーをダウンロードしインストールします。<a href="https://www.ftdichip.com/Drivers/D2XX.htm">https://www.ftdichip.com/Drivers/D2XX.htm</a><br>3. 再起動します。<br>4.そして、FTDIデバイスをコンピュータに接続してください。<br>
+</p>
+
+</BODY>
+</html>

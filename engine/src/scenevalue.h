@@ -22,6 +22,7 @@
 #define SCENEVALUE_H
 
 #include <QtGlobal>
+#include <QMetaType>
 
 #include "fixture.h"
 
@@ -64,7 +65,7 @@ public:
     /** Copy constructor */
     SceneValue(const SceneValue& scv);
 
-    /** NON-virtual Destructor 
+    /** NON-virtual Destructor
      *
      *  No class derives from this one and we need to keep the memory footprint
      *  as low as possible.
@@ -75,6 +76,8 @@ public:
 
     /** A SceneValue is not valid if .fxi == Fixture::invalidId() */
     bool isValid() const;
+
+    SceneValue& operator=(const SceneValue& scv);
 
     /** Comparator function for qSort() */
     bool operator< (const SceneValue& scv) const;
@@ -94,6 +97,10 @@ public:
     quint32 channel;
     uchar value;
 };
+
+Q_DECLARE_METATYPE(SceneValue)
+
+QDebug operator<<(QDebug debug, const SceneValue &sv);
 
 /** @} */
 

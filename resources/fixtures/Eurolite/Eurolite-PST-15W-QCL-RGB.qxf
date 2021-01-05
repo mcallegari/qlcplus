@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1 GIT</Version>
+  <Author>Ralf Herold</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PST-15W QCL</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="0" Min="0">No function</Capability>
+  <Capability Max="10" Min="1">Set music trigger mode</Capability>
+  <Capability Res="SGM-Color/gobo00382.png" Max="255" Min="11">Set strobe mode</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">Set strobe/speed</Capability>
+ </Channel>
+ <Channel Name="Color Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="31" Min="0">No function</Capability>
+  <Capability Max="63" Min="32" Color="#ffffff" Color2="#e603ff">Transition 0 -&gt; 100 %</Capability>
+  <Capability Max="95" Min="64" Color="#ff06f1" Color2="#ffffff">Transition 100 -&gt; 0%</Capability>
+  <Capability Max="127" Min="96">Transition 100 -&gt; 0 -&gt; 100%</Capability>
+  <Capability Max="159" Min="128">Transition</Capability>
+  <Capability Res="SGM-Color/gobo00542.png" Max="223" Min="160">Colour change</Capability>
+  <Capability Max="255" Min="224">Set music trigger mode</Capability>
+ </Channel>
+ <Channel Name="Macro colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="9" Min="0">No function</Capability>
+  <Capability Res="Others/rainbow.png" Max="255" Min="10">Macro colours</Capability>
+ </Channel>
+ <Mode Name="6 ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+  <Channel Number="5">Effect</Channel>
+ </Mode>
+ <Mode Name="8 ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Macro colours</Channel>
+  <Channel Number="5">Strobe Speed</Channel>
+  <Channel Number="6">Color Effect</Channel>
+  <Channel Number="7">Master dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Width="230" Height="180" Weight="1.25" Depth="295"/>
+   <Lens DegreesMax="6" Name="Other" DegreesMin="6"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="18"/>
+  </Physical>
+</FixtureDefinition>

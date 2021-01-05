@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.0 GIT</Version>
+  <Author>Sam Brooks</Author>
+ </Creator>
+ <Manufacturer>Geni</Manufacturer>
+ <Model>Mojo Spin Master Series</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Shutter</Capability>
+  <Capability Min="10" Max="19" Res="Others/open.svg">White Circle</Capability>
+  <Capability Min="20" Max="29" Res="Chauvet/gobo00058.svg">Red Triangle</Capability>
+  <Capability Min="30" Max="39" Res="Chauvet/gobo00059.svg">Green, White, Yellow Bar</Capability>
+  <Capability Min="40" Max="49" Res="GLP/gobo00009.png">Blue Bubbles</Capability>
+  <Capability Min="50" Max="59" Res="SGM/gobo00017.svg">Four-Colour Square</Capability>
+  <Capability Min="60" Max="69" Res="SGM/gobo00004.svg">Yellow Circle Ring</Capability>
+  <Capability Min="70" Max="79" Res="SGM/gobo00083.svg">Green Flowers</Capability>
+  <Capability Min="80" Max="89" Res="GLP/gobo00002.svg">Blue &amp; Purple Arc</Capability>
+  <Capability Min="90" Max="99" Res="SGM/gobo00181.svg">Purple Hearts</Capability>
+  <Capability Min="100" Max="109" Res="SGM/gobo00128.png">Blue Stars</Capability>
+  <Capability Min="110" Max="119" Res="SGM/gobo00100.svg">White Clouds</Capability>
+  <Capability Min="120" Max="129" Res="Others/open.svg">White Roundlet</Capability>
+  <Capability Min="130" Max="139" Res="SGM/gobo00216.svg">Orange Candle</Capability>
+  <Capability Min="140" Max="149" Res="SGM/gobo00070.svg">Green Tropics</Capability>
+  <Capability Min="150" Max="159">Red Lips</Capability>
+  <Capability Min="160" Max="208">Rotation Slow - Fast</Capability>
+  <Capability Min="209" Max="255">1 flash per 4 seconds -&gt; 4 flash per second</Capability>
+ </Channel>
+ <Channel Name="Angle and rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="111">Angle</Capability>
+  <Capability Min="112" Max="183">Slow - Fast CW</Capability>
+  <Capability Min="184" Max="255">Fast - Slow CCW</Capability>
+ </Channel>
+ <Channel Name="Micro Adjustment">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Micro Adjustment</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="3">Stop</Capability>
+  <Capability Min="4" Max="127">Rotation CW</Capability>
+  <Capability Min="128" Max="255">Rotation CCW</Capability>
+ </Channel>
+ <Mode Name="Master I">
+  <Channel Number="0">Effect</Channel>
+  <Channel Number="1">Angle and rotation</Channel>
+  <Channel Number="2">Micro Adjustment</Channel>
+ </Mode>
+ <Mode Name="Master II">
+  <Physical>
+   <Bulb Type="GX5.3 24V/250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.8" Width="475" Height="220" Depth="160"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Effect</Channel>
+  <Channel Number="1">Rotation</Channel>
+ </Mode>
+ <Mode Name="Master III">
+  <Physical>
+   <Bulb Type="GX5.3 24V/250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.7" Width="475" Height="220" Depth="160"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Effect</Channel>
+  <Channel Number="1">Rotation</Channel>
+  <Channel Number="2">Angle and rotation</Channel>
+  <Channel Number="3">Micro Adjustment</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="GX5.3 24V/250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="475" Height="220" Depth="160"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

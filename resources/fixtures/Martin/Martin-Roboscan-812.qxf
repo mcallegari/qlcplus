@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Roboscan 812</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Strobe, SA, Reset, Lamp ON">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="11" Max="74" Preset="StrobeFastToSlow">Gobo strobe (fast-&gt;slow)</Capability>
+  <Capability Min="75" Max="138" Preset="StrobeSlowToFast">Color strobe (fast-&gt;slow)</Capability>
+  <Capability Min="139" Max="170">Remote Auto trig</Capability>
+  <Capability Min="171" Max="202">Remote Music trig</Capability>
+  <Capability Min="203" Max="235" Preset="ResetAll">Reset fixture</Capability>
+  <Capability Min="236" Max="255" Preset="LampOn">Lamp power ON</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Black -&gt; white</Capability>
+  <Capability Min="16" Max="30">White -&gt; Color 1</Capability>
+  <Capability Min="31" Max="45">Color 1 -&gt; Color 2</Capability>
+  <Capability Min="46" Max="60">Color 2 -&gt; Color 3</Capability>
+  <Capability Min="61" Max="75">Color 3 -&gt; Color 4</Capability>
+  <Capability Min="76" Max="90">Color 4 -&gt; Color 5</Capability>
+  <Capability Min="91" Max="105">Color 5 -&gt; Color 6</Capability>
+  <Capability Min="106" Max="120">Color 6 -&gt; Color 7</Capability>
+  <Capability Min="121" Max="135">Color 7 -&gt; Color 8</Capability>
+  <Capability Min="136" Max="150">Color 8 -&gt; Color 9</Capability>
+  <Capability Min="151" Max="165">Color 9 -&gt; Color 10</Capability>
+  <Capability Min="166" Max="180">Color 10 -&gt; Color 11</Capability>
+  <Capability Min="181" Max="184">Color 11</Capability>
+  <Capability Min="185" Max="189">Color 10</Capability>
+  <Capability Min="190" Max="194">Color 9</Capability>
+  <Capability Min="195" Max="199">Color 8</Capability>
+  <Capability Min="200" Max="204">Color 7</Capability>
+  <Capability Min="205" Max="209">Color 6</Capability>
+  <Capability Min="210" Max="214">Color 5</Capability>
+  <Capability Min="215" Max="219">Color 4</Capability>
+  <Capability Min="220" Max="224">Color 3</Capability>
+  <Capability Min="225" Max="229">Color 2</Capability>
+  <Capability Min="230" Max="234">Color 1</Capability>
+  <Capability Min="235" Max="239">White</Capability>
+  <Capability Min="240" Max="255">Black</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Closed -&gt; Open</Capability>
+  <Capability Min="16" Max="30">Open -&gt; Gobo 1</Capability>
+  <Capability Min="31" Max="45">Gobo 1 -&gt; Gobo 2</Capability>
+  <Capability Min="46" Max="60">Gobo 2 -&gt; Gobo 3</Capability>
+  <Capability Min="61" Max="75">Gobo 3 -&gt; Gobo 4</Capability>
+  <Capability Min="76" Max="90">Gobo 4 -&gt; Gobo 5</Capability>
+  <Capability Min="91" Max="105">Gobo 5 -&gt; Gobo 6</Capability>
+  <Capability Min="106" Max="120">Gobo 6 -&gt; Gobo 7</Capability>
+  <Capability Min="121" Max="135">Gobo 7 -&gt; Gobo 8</Capability>
+  <Capability Min="136" Max="150">Gobo 8 -&gt; Gobo 9</Capability>
+  <Capability Min="151" Max="165">Gobo 9 -&gt; Gobo 10</Capability>
+  <Capability Min="166" Max="180">Gobo 10 -&gt; Gobo 11</Capability>
+  <Capability Min="181" Max="184">Gobo 11</Capability>
+  <Capability Min="185" Max="189">Gobo 10</Capability>
+  <Capability Min="190" Max="194">Gobo 9</Capability>
+  <Capability Min="195" Max="199">Gobo 8</Capability>
+  <Capability Min="200" Max="204">Gobo 7</Capability>
+  <Capability Min="205" Max="209">Gobo 6</Capability>
+  <Capability Min="210" Max="214">Gobo 5</Capability>
+  <Capability Min="215" Max="219">Gobo 4</Capability>
+  <Capability Min="220" Max="224">Gobo 3</Capability>
+  <Capability Min="225" Max="229">Gobo 2</Capability>
+  <Capability Min="230" Max="234">Gobo 1</Capability>
+  <Capability Min="235" Max="239">Open</Capability>
+  <Capability Min="240" Max="255">Closed</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Tracking mode enabled</Capability>
+  <Capability Min="1" Max="255">Fast -&gt; Slow</Capability>
+ </Channel>
+ <Channel Name="Color / Gobo speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Tracking mode enabled</Capability>
+  <Capability Min="1" Max="255">Fast -&gt; Slow</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Strobe, SA, Reset, Lamp ON</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Movement Speed</Channel>
+  <Channel Number="6">Color / Gobo speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.5" Width="190" Height="165" Depth="436"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="175" TiltMax="83"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,148 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - よくある質問</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>よくある質問</h1>
+　このページはユーザーの皆さんからのよくある質問をまとめたものです。<br>ここには解決のヒントが書かれています。<br><br>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>1</span></td>
+  <td><span id="not-detected">Q:</span></td>
+  <td>QLC+ がUSBデバイスと接続できない。</td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td>QLC+ではたくさんのUSBデバイスをサポートしています。まず確認することは、機器が壊れていないかです、コンピューターと接続すると大抵のデバイスはLEDなどのランプが光ると思います。<br>
+　WIndowsをしようしていて、Peperoni もしくは Velleman のデバイスが接続できない場合は以下のリンクを参照してください。 これらのデバイスを接続するにはDLLを追加する必要があります。<a href="peperonioutput.html">Peperoni output plugin</a>、<a href="vellemanoutput.html">Velleman output plugin</a><br>もし、あなたがLinuxを使っていてデバイスが接続できない場合はだいたい"<code>dmesg</code>" コマンドで解決する場合が多いです。
+  </td>
+ </tr>
+</table>
+<br>
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>2</span></td>
+  <td><span id="solo-frame">Q:</span></td>
+  <td>バーチャルコンソールで大量の<a href="vcbutton.html">ボタン</a>を使っています。オペレート時に再生中のファンクションを止めてから次のファンクションを再生するので、２回クリックしなければならず面倒です。
+  </td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td><a href="vcsoloframe.html">ソロフレーム</a>を使って見てください。 </td>
+ </tr>
+</table>
+<br>
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>3</span></td>
+  <td><span id="efx-intensity">Q:</span></td>
+  <td>EFXを使うとフィクスチャーの光量が最大のままで固定されてしまう。</td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td>詳しくは<a href="efxeditor.html#efx-intensity">こちら</a>をお読みください。</td>
+ </tr>
+</table>
+<br>
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>4</span></td>
+  <td><span id="osx-mavericks">Q:</span></td>
+  <td>Apple社のMacを使っています、OSをMavericks以降にアップグレードしたらUSB DMXデバイスが動かなくなりました。</td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td>Mavericks以降で搭載されたAppleUSBFTDIデバイスドライバーが邪魔をしているせいです。<br>
+　解決にはいくつかの方法があります、<br><br>
+      詳しくは<a href="disable_apple_ftdi_driver.html">こちらdisable the Apple FTDI driver</a>で解説しています。<br>
+　それでも解決しない場合は<a href="https://www.dmxis.com/release/FtdiDriverControl.zip">ENTTEC FTDI Driver Control tool</a>こちらも試して見てください。<br><br>
+
+      <b>※: これらの設定を行うとUSB DMXは使えるようになりますが、今まで使えていた他のUSB機器が使えなくなってしまう可能性もありますので、注意してください。</b><br>
+      <b>※: MacのOSをアップグレードするとこの設定は無効になってしまうので、毎回この手順で使えるようにする必要があります。</b><br>
+      <b>※: これらの設定を変更した後はコンピュータを再起動してください。</b>
+  </td>
+ </tr>
+</table>
+<br>
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>5</span></td>
+  <td><span id="user-folder">Q:</span></td>
+  <td>QLC+のユーザーフォルダはどこにありますか？</td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td>ユーザフォルダは、ユーザフィクスチャ、入力プロファイル、RGBスクリプト、およびMIDIテンプレートが入る場所です。<br>
+　お使いのシステムによって場所が違います。<br>
+      <b>Linux</b>:  $HOME/.qlcplus<br>
+      <b>Windows</b>: C:\Users\MyUser\QLC+<br>
+      <b>Mac OS</b>:  $HOME/Library/Application\ Support/QLC+<br>
+　フォルダは不可視ディレクトリの場合があります、コマンドラインからアクセするのが手っ取り早いです。こんな感じで<br>
+      <pre>cd $HOME/Library/Application\ Support/QLC+</pre>
+　ユーザーフォルダーのファイルはシステムないのデフォルトの設定よりも優先されます。<br>
+  </td>
+ </tr>
+</table>
+<br>
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>6</span></td>
+  <td><span id="system-folder">Q:</span></td>
+  <td>QLC+のシステムフォルダはどこにありますか？</td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td>システムフォルダはインストール時に追加されている、フィクスチャ、入力プロファイル、RGBスクリプト、およびMIDIテンプレートが入る場所です。<br>
+      <b>Linux</b> /usr/share/qlcplus<br>
+      <b>Windows</b>: インストールフォルダ内にあります。 C:\QLC+やprogramsフォルダを探して見てください<br>
+      <b>Mac OS</b>: QLC+.app ファイル内に入っています。アプリケーションフォルダからQLC+.appを探し、右クリックからパッケージの内容を表示でアクセスできます。<br>
+　これらの場所になかった場合はインストール時に違う場所を指定していた可能性が高いです。<br></td>
+ </tr>
+</table>
+<br>
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>7</span></td>
+  <td><span id="windows-video">Q:</span></td>
+  <td>Windowsdで動画が再生されない。</td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td>QLC+ はQtライブラリとDirectShowを必要としています、インストールされているか確認して見てください。<br>
+　また、Windowsデフォルトではコーデックが不足している場合が多いので<a href="https://www.codecguide.com/download_kl.htm">こちら</a>を参考にしてインストールしてください。
+  </td>
+ </tr>
+</table>
+<br>
+<table border="1" class="qlcTable">
+ <tr>
+  <td><span>8</span></td>
+  <td><span id="hidpi-display">Q:</span></td>
+  <td>4KディスプレイでQLC+を起動すると文字やアイコンがとても小さく表示されてしまい使い物にならない。</td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><span>A:</span></td>
+  <td>デフォルトでは高解像度ディスプレイ向けになっていません。以下の手順で起動オプションを指定して起動してください。<br>
+      <pre><b>Linux (from terminal)</b>: QT_AUTO_SCREEN_SCALE_FACTOR=1 qlcplus</pre>
+      <pre><b>Windows shortcut</b>: C:\Windows\System32\cmd.exe /c "SET QT_AUTO_SCREEN_SCALE_FACTOR=1 &amp;&amp; START /D ^"C:\QLC+^" qlcplus.exe"</pre>
+      <pre><b>Mac OS (from terminal)</b>: QT_AUTO_SCREEN_SCALE_FACTOR=1 QLC+.app\Contents\MacOS\qlcplus</pre>
+      <a href="commandlineparameters.html">起動オプション</a>も合わせてお読みください。
+  </td>
+ </tr>
+</table>
+</BODY>
+</html>

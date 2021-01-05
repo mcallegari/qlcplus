@@ -24,6 +24,13 @@
 
 #define MAX_INIT_RETRY  10
 
+
+bool addressCompare(const ArtNetIO &v1, const ArtNetIO &v2)
+{
+    return v1.address.ip().toString() < v2.address.ip().toString();
+}
+
+
 ArtNetPlugin::~ArtNetPlugin()
 {
 }
@@ -58,6 +65,7 @@ void ArtNetPlugin::init()
             }
         }
     }
+    std::sort(m_IOmapping.begin(), m_IOmapping.end(), addressCompare);
 }
 
 QString ArtNetPlugin::name()
@@ -215,7 +223,7 @@ void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteAr
 
 /*************************************************************************
   * Inputs
-  *************************************************************************/  
+  *************************************************************************/
 QStringList ArtNetPlugin::inputs()
 {
     QStringList list;

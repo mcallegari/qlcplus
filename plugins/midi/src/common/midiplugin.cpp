@@ -447,13 +447,13 @@ void MidiPlugin::setParameter(quint32 universe, quint32 line, Capability type,
  *****************************************************************************/
 
 QDir MidiPlugin::userMidiTemplateDirectory()
-{   
+{
     return QLCFile::userDirectory(QString(USERMIDITEMPLATEDIR), QString(MIDITEMPLATEDIR),
                                   QStringList() << QString("*%1").arg(KExtMidiTemplate));
 }
 
 QDir MidiPlugin::systemMidiTemplateDirectory()
-{  
+{
     return QLCFile::systemDirectory(QString(MIDITEMPLATEDIR), QString(KExtMidiTemplate));
 }
 

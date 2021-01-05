@@ -66,8 +66,8 @@ void ShowItem::updateTooltip()
     setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
               .arg(functionName())
               .arg(Function::speedToString(m_function->startTime()))
-              .arg(Function::speedToString(m_function->duration()))
-               .arg(tr("Click to move this item across the timeline")));
+              .arg(Function::speedToString(getDuration()))
+              .arg(tr("Click to move this item along the timeline")));
 }
 
 QList<QAction *> ShowItem::getDefaultActions()
@@ -305,7 +305,7 @@ void ShowItem::postPaint(QPainter *painter)
     {
         quint32 s_time = 0;
         if (x() > TRACK_WIDTH)
-            s_time = (double)(x() - TRACK_WIDTH) * (m_timeScale * 500) /
+            s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
                      (double)(HALF_SECOND_WIDTH);
         painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }

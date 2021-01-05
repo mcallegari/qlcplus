@@ -49,6 +49,7 @@ AudioPluginCache::AudioPluginCache(QObject *parent)
  #endif
 #else
     m_audioDevicesList = AudioRendererQt::getDevicesInfo();
+    m_outputDevicesList = QAudioDeviceInfo::availableDevices(QAudio::AudioOutput);
 #endif
 }
 
@@ -80,7 +81,7 @@ void AudioPluginCache::load(const QDir &dir)
             /* Just append the plugin path to be used at runtime
              * for dynamic creation of instances */
             ptr->initialize("");
-            m_pluginsPathList << path;
+            m_pluginsMap[ptr->priority()] = path;
             loader.unload();
         }
         else
@@ -91,7 +92,7 @@ void AudioPluginCache::load(const QDir &dir)
 QStringList AudioPluginCache::getSupportedFormats()
 {
     QStringList caps;
-    foreach(QString path, m_pluginsPathList)
+    foreach(QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
@@ -112,7 +113,7 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
     if (fn.exists() == false)
         return NULL;
 
-    foreach(QString path, m_pluginsPathList)
+    foreach(QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
@@ -136,4 +137,15 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
 QList<AudioDeviceInfo> AudioPluginCache::audioDevicesList() const
 {
     return m_audioDevicesList;
+}
+
+QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
+{
+    foreach (const QAudioDeviceInfo &deviceInfo, m_outputDevicesList)
+    {
+        if (deviceInfo.deviceName() == devName)
+            return deviceInfo;
+    }
+
+    return QAudioDeviceInfo::defaultOutputDevice();
 }

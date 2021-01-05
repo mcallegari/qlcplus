@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Felix Edelmann</Author>
+ </Creator>
+ <Manufacturer>Orion Effects Lighting</Manufacturer>
+ <Model>ORCAN2</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">Nothing</Capability>
+  <Capability Min="51" Max="100">Color Jump</Capability>
+  <Capability Min="101" Max="150">Color Fade</Capability>
+  <Capability Min="151" Max="200">Color Pulse</Capability>
+  <Capability Min="201" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Mode Name="7-channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Effects</Channel>
+  <Channel Number="3">Effect Speed</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="36 x 3W RGB LEDs (12 x Red / 12 x Green / 12 x Blue)" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="255" Height="365" Depth="255"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="108" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

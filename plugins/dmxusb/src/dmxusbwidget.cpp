@@ -24,6 +24,7 @@
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
+#include "dmxusbopenrx.h"
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
   #include "nanodmx.h"
   #include "euroliteusbdmxpro.h"
@@ -31,20 +32,21 @@
 #include "stageprofi.h"
 #include "vinceusbdmx512.h"
 
-DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine)
+DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine, int frequency)
+    : m_interface(interface)
+    , m_outputBaseLine(outputLine)
+    , m_inputBaseLine(0)
 {
     Q_ASSERT(interface != NULL);
 
-    m_outputBaseLine = outputLine;
-    m_inputBaseLine = 0;
-
-    m_inputOpenMask = 0;
-    m_outputOpenMask = 0;
+    QMap <QString, QVariant> freqMap(DMXInterface::frequencyMap());
+    if (freqMap.contains(m_interface->serial()))
+        setOutputFrequency(freqMap[m_interface->serial()].toInt());
+    else
+        setOutputFrequency(frequency);
 
     setOutputsNumber(1);
     setInputsNumber(0);
-
-    m_interface = interface;
 }
 
 DMXUSBWidget::~DMXUSBWidget()
@@ -82,10 +84,12 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
     interfacesList.append(LibFTDIInterface::interfaces(interfacesList));
 #endif
 
-    QMap <QString,QVariant> types(DMXInterface::typeMap());
+    QMap <QString, QVariant> types(DMXInterface::typeMap());
 
     foreach (DMXInterface *iface, interfacesList)
     {
+        QString productName = iface->name().toUpper();
+
         if (types.contains(iface->serial()) == true)
         {
             // Force a widget with a specific serial to either type
@@ -94,6 +98,9 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             {
                 case DMXUSBWidget::OpenTX:
                     widgetList << new EnttecDMXUSBOpen(iface, output_id++);
+                break;
+                case DMXUSBWidget::OpenRX:
+                    widgetList << new DMXUSBOpenRx(iface, input_id++);
                 break;
                 case DMXUSBWidget::ProMk2:
                 {
@@ -131,7 +138,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 break;
             }
         }
-        else if (iface->name().toUpper().contains("PRO MK2") == true)
+        else if (productName.contains("PRO MK2") == true)
         {
             EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(iface, output_id, input_id);
             promkii->setOutputsNumber(2);
@@ -140,7 +147,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             input_id += 2;
             widgetList << promkii;
         }
-        else if (iface->name().toUpper().contains("DMX USB PRO"))
+        else if (productName.contains("DMX USB PRO") || productName.contains("ULTRADMX"))
         {
             /** Check if the device responds to label 77 and 78, so it might be a DMXking adapter */
             int ESTAID = 0;
@@ -177,7 +184,13 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 widgetList << pro;
             }
         }
-        else if (iface->name().toUpper().contains("USB-DMX512 CONVERTER") == true)
+        else if (productName.contains("DMXIS"))
+        {
+            EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(iface, output_id++);
+            pro->setInputsNumber(0);
+            widgetList << pro;
+        }
+        else if (productName.contains("USB-DMX512 CONVERTER") == true)
         {
             widgetList << new VinceUSBDMX512(iface, output_id++);
         }
@@ -246,23 +259,28 @@ bool DMXUSBWidget::forceInterfaceDriver(DMXInterface::Type type)
 
 bool DMXUSBWidget::open(quint32 line, bool input)
 {
-    if (input == true && m_inputsMap.contains(line))
+    if (input)
     {
-        quint32 devLine = m_inputsMap[line];
-        m_inputOpenMask |= (1 << devLine);
-    }
-    else if (input == false && m_outputsMap.contains(line))
-    {
-        quint32 devLine = m_outputsMap[line];
-        m_outputOpenMask |= (1 << devLine);
+        quint32 devLine = line - m_inputBaseLine;
+        if (devLine >= (quint32)m_inputLines.count())
+        {
+            qWarning() << "Trying to open an out of bounds input line !" << devLine << m_inputLines.count();
+            return false;
+        }
+        m_inputLines[devLine].m_isOpen = true;
     }
     else
     {
-        qWarning() << "[DMXUSBWidget] Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
-        return false;
+        quint32 devLine = line - m_outputBaseLine;
+        if (devLine >= (quint32)m_outputLines.count())
+        {
+            qWarning() << "Trying to open an out of bounds output line !" << devLine << m_outputLines.count();
+            return false;
+        }
+        m_outputLines[devLine].m_isOpen = true;
     }
 
-    qDebug() << Q_FUNC_INFO << "Line:" << line << ", Input mask:" << m_inputOpenMask << ", Output Mask:" << m_outputOpenMask;
+    qDebug() << Q_FUNC_INFO << "Line:" << line << ", open inputs:" << openInputLines() << ", open outputs:" << openOutputLines();
 
     if (isOpen() == true)
         return true; //close();
@@ -300,25 +318,30 @@ bool DMXUSBWidget::open(quint32 line, bool input)
 
 bool DMXUSBWidget::close(quint32 line, bool input)
 {
-    if (input == true && m_inputsMap.contains(line))
+    if (input)
     {
-        quint32 devLine = m_inputsMap[line];
-        m_inputOpenMask &= ~(1 << devLine);
-    }
-    else if (input == false && m_outputsMap.contains(line))
-    {
-        quint32 devLine = m_outputsMap[line];
-        m_outputOpenMask &= ~(1 << devLine);
+        quint32 devLine = line - m_inputBaseLine;
+        if (devLine >= (quint32)m_inputLines.count())
+        {
+            qWarning() << "Trying to close an out of bounds input line !" << devLine << m_inputLines.count();
+            return false;
+        }
+        m_inputLines[devLine].m_isOpen = false;
     }
     else
     {
-        qWarning() << "Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
-        return false;
+        quint32 devLine = line - m_outputBaseLine;
+        if (devLine >= (quint32)m_outputLines.count())
+        {
+            qWarning() << "Trying to close an out of bounds output line !" << devLine << m_outputLines.count();
+            return false;
+        }
+        m_outputLines[devLine].m_isOpen = false;
     }
 
-    qDebug() << Q_FUNC_INFO << "Line:" << line << ", Input mask:" << m_inputOpenMask << ", Output Mask:" << m_outputOpenMask;
+    qDebug() << Q_FUNC_INFO << "Line:" << line << ", open inputs:" << openInputLines() << ", open outputs:" << openOutputLines();
 
-    if (m_inputOpenMask == 0 && m_outputOpenMask == 0)
+    if (openInputLines() == 0 && openOutputLines() == 0)
     {
         qDebug() << Q_FUNC_INFO << "All inputs/outputs have been closed. Close FTDI too.";
         if (m_interface->isOpen())
@@ -341,24 +364,50 @@ bool DMXUSBWidget::isOpen()
 
 void DMXUSBWidget::setOutputsNumber(int num)
 {
-    m_outputsNumber = num;
-    m_outputsMap.clear();
+    m_outputLines.clear();
+    m_outputLines.resize(num);
     for (ushort i = 0; i < num; i++)
-        m_outputsMap[m_outputBaseLine + i] = i;
-    qDebug() << "[setOutputsNumber] base line:" << m_outputBaseLine << "outputMap:" << m_outputsMap;
+    {
+        m_outputLines[i].m_isOpen = false;
+        m_outputLines[i].m_lineType = DMX;
+    }
+
+    qDebug() << "[setOutputsNumber] base line:" << m_outputBaseLine << "m_outputLines:" << m_outputLines.count();
 }
 
 int DMXUSBWidget::outputsNumber()
 {
-    return m_outputsNumber;
+    return m_outputLines.count();
+}
+
+int DMXUSBWidget::openOutputLines()
+{
+    int count = 0;
+    for (int i = 0; i < m_outputLines.count(); i++)
+        if (m_outputLines[i].m_isOpen)
+            count++;
+
+    return count;
 }
 
 QStringList DMXUSBWidget::outputNames()
 {
     QStringList names;
-    for (ushort i = 0; i < m_outputsNumber; i++)
+    for (ushort i = 0; i < m_outputLines.count(); i++)
         names << uniqueName(i, false);
     return names;
+}
+
+int DMXUSBWidget::outputFrequency()
+{
+    return m_frequency;
+}
+
+void DMXUSBWidget::setOutputFrequency(int frequency)
+{
+    m_frequency = frequency;
+    // One "official" DMX frame can take (1s/44Hz) = 23ms
+    m_frameTimeUs = int((floor((1000.0 / double(m_frequency)) + 0.5)) * 1000.0);
 }
 
 /********************************************************************
@@ -367,23 +416,36 @@ QStringList DMXUSBWidget::outputNames()
 
 void DMXUSBWidget::setInputsNumber(int num)
 {
-    m_inputsNumber = num;
-    m_inputsMap.clear();
+    m_inputLines.clear();
+    m_inputLines.resize(num);
     for (ushort i = 0; i < num; i++)
-        m_inputsMap[m_inputBaseLine + i] = i;
+    {
+        m_inputLines[i].m_isOpen = false;
+        m_inputLines[i].m_lineType = DMX;
+    }
 }
 
 int DMXUSBWidget::inputsNumber()
 {
-    return m_inputsNumber;
+    return m_inputLines.count();
 }
 
 QStringList DMXUSBWidget::inputNames()
 {
     QStringList names;
-    for (ushort i = 0; i < m_inputsNumber; i++)
+    for (ushort i = 0; i < m_inputLines.count(); i++)
         names << uniqueName(i, true);
     return names;
+}
+
+int DMXUSBWidget::openInputLines()
+{
+    int count = 0;
+    for (int i = 0; i < m_inputLines.count(); i++)
+        if (m_inputLines[i].m_isOpen)
+            count++;
+
+    return count;
 }
 
 /****************************************************************************

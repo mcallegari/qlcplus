@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Chris Moses</Author>
+ </Creator>
+ <Manufacturer>Equinox</Manufacturer>
+ <Model>Ultra Scan LED</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="28" Max="42" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="43" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#aaff00">Lime</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="128" Max="192" Preset="GoboMacro" Res1="Others/rainbow.png">Colour Cycle CW (Fast to Slow)</Capability>
+  <Capability Min="193" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Colour Cycle CCW (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="17">Sparks</Capability>
+  <Capability Min="18" Max="26">Stars</Capability>
+  <Capability Min="27" Max="34">Spider's Web</Capability>
+  <Capability Min="35" Max="44">Star Symbol</Capability>
+  <Capability Min="45" Max="53">Circle of Dots</Capability>
+  <Capability Min="54" Max="62">Torus</Capability>
+  <Capability Min="63" Max="71">Fan Swirl</Capability>
+  <Capability Min="72" Max="80">Quote Marks</Capability>
+  <Capability Min="81" Max="89">Radiation Symbol</Capability>
+  <Capability Min="90" Max="98">Square</Capability>
+  <Capability Min="99" Max="107">Circle</Capability>
+  <Capability Min="108" Max="116">Sparks (Shake - Slow to Fast)</Capability>
+  <Capability Min="117" Max="125">Stars (Shake - Slow to Fast)</Capability>
+  <Capability Min="126" Max="134">Spider's Web (Shake - Slow to Fast)</Capability>
+  <Capability Min="135" Max="143">Star Symbol (Shake - Slow to Fast)</Capability>
+  <Capability Min="144" Max="152">Circle of Dots (Shake - Slow to Fast)</Capability>
+  <Capability Min="153" Max="161">Torus (Shake - Slow to Fast)</Capability>
+  <Capability Min="162" Max="170">Fan Swirl (Shake - Slow to Fast)</Capability>
+  <Capability Min="171" Max="179">Quote Marks (Shake - Slow to Fast)</Capability>
+  <Capability Min="180" Max="188">Radiation Symbol (Shake - Slow to Fast)</Capability>
+  <Capability Min="189" Max="197">Square (Shake - Slow to Fast)</Capability>
+  <Capability Min="198" Max="206">Circle (Shake - Slow to Fast)</Capability>
+  <Capability Min="207" Max="255">Gobo Cycle CW (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Full On</Capability>
+  <Capability Min="20" Max="127" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
+  <Capability Min="128" Max="137" Preset="ShutterOpen">Full On</Capability>
+  <Capability Min="138" Max="201" Preset="StrobeRandomSlowToFast">Strobe Random (Slow to Fast)</Capability>
+  <Capability Min="202" Max="255" Preset="ShutterOpen">Full On</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Macros">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="59">No function</Capability>
+  <Capability Min="60" Max="79">Colour Wheel Rotation</Capability>
+  <Capability Min="80" Max="99" Preset="ResetMotors">Motor Reset</Capability>
+  <Capability Min="100" Max="119">Built-in Program 1</Capability>
+  <Capability Min="120" Max="139">Built-in Program 2</Capability>
+  <Capability Min="140" Max="159">Built-in Program 3</Capability>
+  <Capability Min="160" Max="179">Built-in Program 4</Capability>
+  <Capability Min="180" Max="199">Built-in Program 5</Capability>
+  <Capability Min="200" Max="219">Built-in Program 6</Capability>
+  <Capability Min="220" Max="239">Built-in Program 7</Capability>
+  <Capability Min="240" Max="255">Built-in Program 8</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast to Slow</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+  <Channel Number="6">Macros</Channel>
+  <Channel Number="7">Macro Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.3" Width="204" Height="465" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="11"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
