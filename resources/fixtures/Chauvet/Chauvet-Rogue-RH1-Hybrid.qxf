@@ -21,7 +21,7 @@
   <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
   <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
   <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Slow to fast</Capability>
-  <Capability Min="132" Max="167" Preset="RampDownSlowToFast">Fast close, slow open (slow to fast)</Capability>
+  <Capability Min="132" Max="167" Preset="RampUpSlowToFast">Fast close, slow open (slow to fast)</Capability>
   <Capability Min="168" Max="203" Preset="RampDownSlowToFast">Slow close, fast open (slow to fast)</Capability>
   <Capability Min="204" Max="239" Preset="PulseSlowToFast">Pluse effect from slow to fast</Capability>
   <Capability Min="240" Max="247" Preset="StrobeRandomSlowToFast">Ramdom effect from slow to fast</Capability>
