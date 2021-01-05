@@ -134,7 +134,7 @@
  </Channel>
  <Channel Name="Gobo Indexing Fine" Preset="GoboIndexFine"/>
  <Channel Name="Prism">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="19" Preset="PrismEffectOff">Open position</Capability>
   <Capability Min="20" Max="159" Preset="PrismEffectOn" Res1="3">3-facet rotation prism</Capability>
   <Capability Min="160" Max="167">Macro 1</Capability>
@@ -151,10 +151,10 @@
   <Capability Min="248" Max="255">Macro 12</Capability>
  </Channel>
  <Channel Name="Prism Rotation">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="0" Preset="RotationStop">No rotation</Capability>
   <Capability Min="1" Max="127" Preset="RotationClockwiseFastToSlow">Forwards rotation from fast to slow</Capability>
-  <Capability Min="129" Max="129" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="128" Max="129" Preset="RotationStop">No rotation</Capability>
   <Capability Min="130" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusFarNear"/>
