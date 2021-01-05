@@ -30,6 +30,7 @@ class ChannelEdit : public QObject
 
     Q_PROPERTY(QVariantList channelPresetList READ channelPresetList CONSTANT)
     Q_PROPERTY(QVariantList channelTypeList READ channelTypeList CONSTANT)
+    Q_PROPERTY(QVariantList capabilityPresetList READ capabilityPresetList CONSTANT)
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int preset READ preset WRITE setPreset NOTIFY presetChanged)
@@ -46,6 +47,7 @@ public:
 
     QVariantList channelPresetList() const;
     QVariantList channelTypeList() const;
+    QVariantList capabilityPresetList() const;
 
     /** Get/Set the name of the channel being edited */
     QString name() const;
@@ -67,7 +69,20 @@ public:
     int defaultValue() const;
     void setDefaultValue(int value);
 
+    /** Get the list of capabilities for the channel being edited */
     QVariantList capabilities() const;
+
+    /** Get the selected preset for a capability at the given index */
+    Q_INVOKABLE int getCapabilityPresetAtIndex(int index);
+
+    /** Get the type of preset for a capability at the given index */
+    Q_INVOKABLE int getCapabilityPresetType(int index);
+
+    /** Get the units of a preset for a capability at the given index */
+    Q_INVOKABLE QString getCapabilityPresetUnits(int index);
+
+    /** Get the value/resource of a preset for a capability at the given index */
+    Q_INVOKABLE QVariant getCapabilityValueAt(int index, int vIndex);
 
 signals:
     void nameChanged();
