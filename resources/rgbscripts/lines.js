@@ -37,6 +37,10 @@ var testAlgo;
     algo.properties.push("name:linesVariablity|type:range|display:Size Variablity|values:0,100|write:setVariability|read:getVariability");
     algo.linesDirection = 0;
     algo.properties.push("name:linesDirection|type:list|display:Direction|values:Horizontal,Vertical,Plus,X,Star,Left,Right,Up,Down,UpRight,UpLeft,DownRight,DownLeft|write:setDirection|read:getDirection");
+    algo.linesSlide = 0;
+    algo.properties.push("name:linesSlide|type:list|display:Slide|values:None,Up,Down,Left,Right|write:setSlide|read:getSlide");
+    algo.linesRollover = 0;
+    algo.properties.push("name:linesRollover|type:list|display:Rollover|values:Yes,No|write:setRollover|read:getRollover");
     algo.fadeMode = 0;
     algo.properties.push("name:fadeMode|type:list|display:Fade Mode|values:Don't Fade,Fade In,Fade Out|write:setFade|read:getFade");
 
@@ -135,6 +139,36 @@ var testAlgo;
       else { return "Horizontal"; }
     };
 
+    algo.setSlide = function(_slide)
+    {
+      if (_slide === "Up") { algo.linesSlide = 1; }
+      else if (_slide === "Down") { algo.linesSlide = 2; }
+      else if (_slide === "Left") { algo.linesSlide = 3; }
+      else if (_slide === "Right") { algo.linesSlide = 4; }
+      else { algo.linesSlide = 0; }
+    };
+
+    algo.getSlide = function()
+    {
+      if (algo.linesSlide === 1) { return "Up"; }
+      else if (algo.linesSlide === 2) { return "Down"; }
+      else if (algo.linesSlide === 3) { return "Left"; }
+      else if (algo.linesSlide === 4) { return "Right"; }
+      else { return "None"; }
+    };
+
+    algo.setRollover = function(_rollover)
+    {
+      if (_slide === "Yes") { algo.linesRollover = 1; }
+      else { algo.linesRollover = 0; }
+    };
+
+    algo.getRollover = function()
+    {
+      if (algo.linesRollover === 1) { return "Yes"; }
+      else { return "No"; }
+    };
+
     util.initialize = function(size)
     {
       if (size > 0) {
@@ -202,6 +236,10 @@ var testAlgo;
       {
         var color = util.getColor(lines[i].step, rgb);
         //alert("Line " + i + " xCenter: " + lines[i].xCenter + " color: " + color.toString(16));
+        //move center if set
+
+      
+
         if (lines[i].xCenter === -1)
         {
           var seed = Math.floor(Math.random()*100);
@@ -212,6 +250,7 @@ var testAlgo;
         }
         else
         {
+         
           var l = lines[i].step * Math.cos(Math.PI / 4);
           var radius2 = lines[i].step * lines[i].step;
           l = l.toFixed(0);
@@ -250,7 +289,20 @@ var testAlgo;
         }
 
         lines[i].step++;
-        if (lines[i].step >= util.linesMaxSize || Math.floor(Math.random() * 100 + (lines[i].step * 2) ) < algo.linesVariability  )
+        if (algo.linesSlide > 0) {
+          if ( algo.linesSlide == 1 ) { lines[i].yCenter-- ;} 
+          else if ( algo.linesSlide == 2 ) { lines[i].yCenter++ ;}
+          else if ( algo.linesSlide == 3 ) { lines[i].xCenter-- ;}
+          else if ( algo.linesSlide == 4 ) { lines[i].xCenter++ ;}
+
+          if ( algo.linesRollover == 1 ) {
+            if ( lines[i].xCenter == 0 ) { lines[i].xCenter = width; }
+            if ( lines[i].yCenter == 0 ) { lines[i].yCenter = height; }
+            if ( lines[i].xCenter >= width ) { lines[i].xCenter = 0; }
+            if ( lines[i].yCenter >= height) { lines[i].yCenter = 0; }
+          }
+        }
+        if (lines[i].step >= util.linesMaxSize || Math.floor(Math.random() * 100 + (lines[i].step * 2) ) < algo.linesVariability )
         {
           lines[i].xCenter = -1;
           lines[i].yCenter = -1;
