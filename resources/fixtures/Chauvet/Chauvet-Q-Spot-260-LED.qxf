@@ -24,7 +24,7 @@
   <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#7f7fff">Light blue</Capability>
   <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#7fff7f">Light green</Capability>
-  <Capability Min="153" Max="255" Preset="RotationClockwise">Rainbow or linear effect</Capability>
+  <Capability Min="153" Max="255" Preset="RotationCounterClockwise">Rainbow or linear effect</Capability>
  </Channel>
  <Channel Name="Fixed Gobo Wheel">
   <Group Byte="0">Gobo</Group>

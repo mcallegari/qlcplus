@@ -139,7 +139,7 @@
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="5" Preset="PrismEffectOff">Prism off</Capability>
-  <Capability Min="6" Max="10" Preset="PrismEffectOn" Res1="3">Prism in</Capability>
+  <Capability Min="6" Max="10" Preset="PrismEffectOn" Res1="0">Prism in</Capability>
   <Capability Min="11" Max="127" Preset="RotationIndexed">Prism Position 0° ... 360°</Capability>
   <Capability Min="128" Max="128" Preset="RotationStop">Prism Rotation Stop</Capability>
   <Capability Min="129" Max="191" Preset="RotationClockwiseSlowToFast">Prism Rotation, Slow -&gt; Fast, CW</Capability>
@@ -219,7 +219,7 @@
   <Channel Number="7">Colour Wheel</Channel>
   <Channel Number="8">Gobo Wheel 1</Channel>
   <Channel Number="9" ActsOn="8">Gobo Wheel 1 Rotation</Channel>
-  <Channel Number="10" ActsOn="8">Gobo Wheel 1 Shake</Channel>
+  <Channel Number="10" ActsOn="9">Gobo Wheel 1 Shake</Channel>
   <Channel Number="11">Gobo Wheel 2</Channel>
   <Channel Number="12" ActsOn="11">Gobo Wheel 2 Shake</Channel>
   <Channel Number="13">Prism</Channel>

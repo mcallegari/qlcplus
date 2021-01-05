@@ -24,7 +24,7 @@
   <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#ffd100">Amber</Capability>
   <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
-  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>

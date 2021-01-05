@@ -1,34 +1,36 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Generic</Manufacturer>
  <Model>Generic Smoke</Model>
  <Type>Smoke</Type>
- <Channel Name="Pump">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
+ <Channel Name="Pump" Preset="IntensityMasterDimmer"/>
  <Channel Name="Fan">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Fan Speed, slow - fast</Capability>
  </Channel>
- <Mode Name="Normal">
+ <Channel Name="Fan 2" Preset="IntensityDimmer"/>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Pump</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
   <Channel Number="0">Pump</Channel>
   <Channel Number="1">Fan</Channel>
  </Mode>
- <Mode Name="Amount">
+ <Mode Name="2 Dimmer Channels">
   <Channel Number="0">Pump</Channel>
+  <Channel Number="1">Fan 2</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10" Width="250" Height="250" Depth="400"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="500" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="250" Height="250" Depth="400"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="500" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>
