@@ -127,8 +127,9 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
                                      uchar* data1, uchar* data2)
 {
     // for OMNI mode, retrieve the original MIDI channel where data was sent
+    // account for cases where channel has been modified with VC widget page info
     if (midiChannel == MAX_MIDI_CHANNELS)
-        midiChannel = channel >> 12;
+        midiChannel = (channel >> 12) % MAX_MIDI_CHANNELS;
 
     // Remove the 4 MSB bits to retrieve the QLC+ channel to be processed
     channel = channel & 0x0FFF;

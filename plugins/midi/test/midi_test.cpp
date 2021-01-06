@@ -45,4 +45,52 @@ void Midi_Test::midiToInput()
     QCOMPARE(value, uchar(255U));
 }
 
+void Midi_Test::feedbackToMidi()
+{
+    uchar cmd = 0;
+    uchar data1 = 0;
+    uchar data2 = 0;
+
+    quint32 channel = 387;
+    uchar value = 4;
+    uchar midiChannel = 7;
+
+    QLCMIDIProtocol::feedbackToMidi(channel, value, midiChannel, false, &cmd, &data1, &data2);
+
+    QCOMPARE(cmd, MIDI_PROGRAM_CHANGE | midiChannel);
+    QCOMPARE(data1, uchar(2U));
+}
+
+void Midi_Test::feedbackToMidi_omni()
+{
+    uchar cmd = 0;
+    uchar data1 = 0;
+    uchar data2 = 0;
+
+    quint32 channel = 20866;
+    uchar value = 255;
+    uchar midiChannel = MAX_MIDI_CHANNELS;
+
+    QLCMIDIProtocol::feedbackToMidi(channel, value, midiChannel, false, &cmd, &data1, &data2);
+
+    QCOMPARE(cmd, MIDI_PROGRAM_CHANGE | 0x05);
+    QCOMPARE(data1, uchar(127U));
+}
+
+void Midi_Test::feedbackToMidi_omni_paged()
+{
+    uchar cmd = 0;
+    uchar data1 = 0;
+    uchar data2 = 0;
+
+    quint32 channel = 20866 | 17 << 16;
+    uchar value = 255;
+    uchar midiChannel = MAX_MIDI_CHANNELS;
+
+    QLCMIDIProtocol::feedbackToMidi(channel, value, midiChannel, false, &cmd, &data1, &data2);
+
+    QCOMPARE(cmd, MIDI_PROGRAM_CHANGE | 0x05);
+    QCOMPARE(data1, uchar(127U));
+}
+
 QTEST_MAIN(Midi_Test)
