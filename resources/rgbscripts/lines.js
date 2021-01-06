@@ -2,7 +2,8 @@
   Q Light Controller Plus
   lines.js
 
-  Copyright (c) Massimo Callegari
+  Copyright (c) Branson Matheson
+  Based on work by Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,7 +27,7 @@ var testAlgo;
     var algo = new Object;
     algo.apiVersion = 2;
     algo.name = "Lines";
-    algo.author = "Massimo Callegari+Branson Matheson";
+    algo.author = "Branson Matheson";
     algo.acceptColors = 2;
     algo.properties = new Array();
     algo.linesAmount = 3;
@@ -35,8 +36,10 @@ var testAlgo;
     algo.properties.push("name:linesSize|type:range|display:Size|values:1,32|write:setSize|read:getSize");
     algo.linesVariablity = 0;
     algo.properties.push("name:linesVariablity|type:range|display:Size Variablity|values:0,100|write:setVariability|read:getVariability");
-    algo.linesDirection = 0;
-    algo.properties.push("name:linesDirection|type:list|display:Direction|values:Horizontal,Vertical,Plus,X,Star,Left,Right,Up,Down,UpRight,UpLeft,DownRight,DownLeft|write:setDirection|read:getDirection");
+    algo.linesType = 0;
+    algo.properties.push("name:linesType|type:list|display:Type|values:Horizontal,Vertical,Plus,X,Star,Left,Right,Up,Down,UpRight,UpLeft,DownRight,DownLeft|write:setType|read:getType");
+    algo.linesBias = 0;
+    algo.properties.push("name:linesBias|type:list|display:Starting Bias|values:Random,Top,Bottom,Left,Right,TopLeft,TopRight,BottomLeft,BottomRight|write:setBias|read:getBias");
     algo.linesSlide = 0;
     algo.properties.push("name:linesSlide|type:list|display:Slide|values:None,Up,Down,Left,Right|write:setSlide|read:getSlide");
     algo.linesRollover = 0;
@@ -105,37 +108,37 @@ var testAlgo;
       else { return "Don't Fade"; }
     };
 
-    algo.setDirection = function(_direction)
+    algo.setType = function(_type)
     {
-      if (_direction === "Vertical") { algo.linesDirection = 1; }
-      else if (_direction === "Plus") { algo.linesDirection = 2; }
-      else if (_direction === "X") { algo.linesDirection = 3; }
-      else if (_direction === "Star") { algo.linesDirection = 4; }
-      else if (_direction === "Left") { algo.linesDirection = 5; }
-      else if (_direction === "Right") { algo.linesDirection = 6; }
-      else if (_direction === "Up") { algo.linesDirection = 7; }
-      else if (_direction === "Down") { algo.linesDirection = 8; }
-      else if (_direction === "UpRight") { algo.linesDirection = 9; }
-      else if (_direction === "UpLeft") { algo.linesDirection = 10; }
-      else if (_direction === "DownRight") { algo.linesDirection = 11; }
-      else if (_direction === "DownLeft") { algo.linesDirection = 12; }
-      else { algo.linesDirection = 0; }
+      if (_type === "Vertical") { algo.linesType = 1; }
+      else if (_type === "Plus") { algo.linesType = 2; }
+      else if (_type === "X") { algo.linesType = 3; }
+      else if (_type === "Star") { algo.linesType = 4; }
+      else if (_type === "Left") { algo.linesType = 5; }
+      else if (_type === "Right") { algo.linesType = 6; }
+      else if (_type === "Up") { algo.linesType = 7; }
+      else if (_type === "Down") { algo.linesType = 8; }
+      else if (_type === "UpRight") { algo.linesType = 9; }
+      else if (_type === "UpLeft") { algo.linesType = 10; }
+      else if (_type === "DownRight") { algo.linesType = 11; }
+      else if (_type === "DownLeft") { algo.linesType = 12; }
+      else { algo.linesType = 0; }
     };
 
-    algo.getDirection = function()
+    algo.getType = function()
     {
-      if (algo.linesDirection === 1) { return "Vertical"; }
-      else if (algo.linesDirection === 2) { return "Plus"; }
-      else if (algo.linesDirection === 3) { return "X"; }
-      else if (algo.linesDirection === 4) { return "Star"; }
-      else if (algo.linesDirection === 5) { return "Left"; }
-      else if (algo.linesDirection === 6) { return "Right"; }
-      else if (algo.linesDirection === 7) { return "Up"; }
-      else if (algo.linesDirection === 8) { return "Down"; }
-      else if (algo.linesDirection === 9) { return "UpRight"; }
-      else if (algo.linesDirection === 10) { return "UpLeft"; }
-      else if (algo.linesDirection === 11) { return "DownRight"; }
-      else if (algo.linesDirection === 12) { return "DownLeft"; }
+      if (algo.linesType === 1) { return "Vertical"; }
+      else if (algo.linesType === 2) { return "Plus"; }
+      else if (algo.linesType === 3) { return "X"; }
+      else if (algo.linesType === 4) { return "Star"; }
+      else if (algo.linesType === 5) { return "Left"; }
+      else if (algo.linesType === 6) { return "Right"; }
+      else if (algo.linesType === 7) { return "Up"; }
+      else if (algo.linesType === 8) { return "Down"; }
+      else if (algo.linesType === 9) { return "UpRight"; }
+      else if (algo.linesType === 10) { return "UpLeft"; }
+      else if (algo.linesType === 11) { return "DownRight"; }
+      else if (algo.linesType === 12) { return "DownLeft"; }
       else { return "Horizontal"; }
     };
 
@@ -157,9 +160,35 @@ var testAlgo;
       else { return "None"; }
     };
 
+    algo.setBias = function(_bias)
+    {
+      if (_bias === "Top") { algo.linesBias = 1; }
+      else if (_bias === "Bottom") { algo.linesBias = 2; }
+      else if (_bias === "Left") { algo.linesBias = 3; }
+      else if (_bias === "Right") { algo.linesBias = 4; }
+      else if (_bias === "TopLeft") { algo.linesBias = 5; }
+      else if (_bias === "TopRight") { algo.linesBias = 6; }
+      else if (_bias === "BottomLeft") { algo.linesBias = 7; }
+      else if (_bias === "BottomRight") { algo.linesBias = 8; }
+      else { algo.linesBias = 0; }
+    };
+
+    algo.getBias = function()
+    {
+      if (algo.linesBias === 1) { return "Top"; }
+      else if (algo.linesBias === 2) { return "Bottom"; }
+      else if (algo.linesBias === 3) { return "Left"; }
+      else if (algo.linesBias === 4) { return "Right"; }
+      else if (algo.linesBias === 5) { return "TopLeft"; }
+      else if (algo.linesBias === 6) { return "TopRight"; }
+      else if (algo.linesBias === 7) { return "BottomLeft"; }
+      else if (algo.linesBias === 8) { return "BottomRight"; }
+      else { return "Random"; }
+    };
+
     algo.setRollover = function(_rollover)
     {
-      if (_slide === "Yes") { algo.linesRollover = 1; }
+      if (_rollover === "Yes") { algo.linesRollover = 1; }
       else { algo.linesRollover = 0; }
     };
 
@@ -238,18 +267,25 @@ var testAlgo;
         //alert("Line " + i + " xCenter: " + lines[i].xCenter + " color: " + color.toString(16));
         //move center if set
 
-      
-
         if (lines[i].xCenter === -1)
         {
           var seed = Math.floor(Math.random()*100);
           if (seed > 50) { continue; }
+
           lines[i].xCenter = Math.floor(Math.random() * width);
           lines[i].yCenter = Math.floor(Math.random() * height);
+
+          // if biased .. move the start points to the cardinal ends of the space
+          if ( algo.linesBias == 1 || algo.linesBias == 5 || algo.linesBias == 6 ) { lines[i].yCenter = Math.floor(Math.random() * height/5); } 
+          if ( algo.linesBias == 2 || algo.linesBias == 7 || algo.linesBias == 8 ) { lines[i].yCenter = height - Math.floor(Math.random() * height/5); } 
+          if ( algo.linesBias == 3 || algo.linesBias == 5 || algo.linesBias == 7 ) { lines[i].xCenter = Math.floor(Math.random() * width/5); }
+          if ( algo.linesBias == 4 || algo.linesBias == 6 || algo.linesBias == 8 ) { lines[i].xCenter = width - Math.floor(Math.random() * width/5); } 
+
+          //if ( algo.linesBias != 0 ) { alert("Line " + i + " xCenter: " + lines[i].xCenter + " color: " + color.toString(16)); }
+
           util.pixelMap[lines[i].yCenter][lines[i].xCenter] = color;
-        }
-        else
-        {
+
+        } else {
          
           var l = lines[i].step * Math.cos(Math.PI / 4);
           var radius2 = lines[i].step * lines[i].step;
@@ -259,29 +295,29 @@ var testAlgo;
           {
             y = Math.sqrt(radius2 - (x * x));
 
-            if (algo.linesDirection == 0 || algo.linesDirection == 2 || algo.linesDirection == 4 || algo.linesDirection == 5) {
+            if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 5) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter, color, width, height);
             } 
-            if (algo.linesDirection == 0 || algo.linesDirection == 2 || algo.linesDirection == 4 || algo.linesDirection == 6) {
+            if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 6) {
               util.drawPixel(lines[i].xCenter + x, lines[i].yCenter, color, width, height);
             }
-            if (algo.linesDirection == 1 || algo.linesDirection == 2 || algo.linesDirection == 4 || algo.linesDirection == 7) {
+            if (algo.linesType == 1 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 7) {
               util.drawPixel(lines[i].xCenter, lines[i].yCenter - x, color, width, height);
             }
-            if (algo.linesDirection == 1 || algo.linesDirection == 2 || algo.linesDirection == 4 || algo.linesDirection == 8) {
+            if (algo.linesType == 1 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 8) {
               util.drawPixel(lines[i].xCenter, lines[i].yCenter + x, color, width, height);
             }
 
-            if (algo.linesDirection == 3 || algo.linesDirection == 4 ||  algo.linesDirection == 9) {
+            if (algo.linesType == 3 || algo.linesType == 4 ||  algo.linesType == 9) {
               util.drawPixel(lines[i].xCenter + x, lines[i].yCenter - x, color, width, height);
             } 
-            if (algo.linesDirection == 3 || algo.linesDirection == 4 || algo.linesDirection == 10) {
+            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 10) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter - x, color, width, height);
             } 
-            if (algo.linesDirection == 3 || algo.linesDirection == 4 || algo.linesDirection == 11) {
+            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 11) {
               util.drawPixel(lines[i].xCenter + x, lines[i].yCenter + x, color, width, height);
             } 
-            if (algo.linesDirection == 3 || algo.linesDirection == 4 || algo.linesDirection == 12) {
+            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 12) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter + x, color, width, height);
             } 
 
