@@ -3,6 +3,7 @@
   starfield.js
 
   Copyright (c) Doug Puckett
+  With Additons by Branson Matheson
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,7 +26,7 @@ var testAlgo;
         var algo = {};
         algo.apiVersion = 2;
         algo.name = "3D Starfield";
-        algo.author = "Doug Puckett";
+        algo.author = "Doug Puckett+Branson Matheson";
         algo.properties = [];
         algo.acceptColors = 1;
         algo.presetColor = 0x000000;
@@ -33,15 +34,17 @@ var testAlgo;
         algo.presetStars = 50;          // 50 stars on screen at one time (default)
         algo.properties.push("name:MultiColor|type:list|display:MultiColored Stars?|values:No,Yes|write:setMulti|read:getMulti");
         algo.multiColor = 0;            // Multicolor stars off defaultly (1 = stars will be randomly colored)
+        algo.properties.push("name:InvertBrightness|type:list|display:Invert Brightness|values:Dim->Bright,Bright->Dim|write:setInvert|read:getInvert");
+        algo.invertColor = 0;           // Reverse Brightness
         var depth = 128;                // depth - best not to change
         var stars = new Array(255);     // main star position array
         var zcolor = algo.presetColor;  // set star color to user chosen color at the start
 
-        algo.setAmount = function (_amount) {
+        algo.setAmount = function(_amount) {
             algo.presetStars = _amount;
         };
 
-        algo.getAmount = function () {
+        algo.getAmount = function() {
             return algo.presetStars;
         };
 
@@ -54,14 +57,30 @@ var testAlgo;
             }
         };
 
-        algo.getMulti = function()
-        {
+        algo.getMulti = function() {
             if (algo.multiColor === 1) {
                 return "Yes";
             } else {
                 return "No";
             }
         };
+
+        algo.setInvert = function(_invert) {
+            if (_invert === "Bright->Dim") {
+                algo.invertColor = 1;    // Start Bright -> Dim
+            } else {
+                algo.invertColor = 0;    // Start Dim -> Bright
+            }
+        };
+
+        algo.getInvert = function() {
+            if (algo.invertColor === 1) {
+                return "Bright->Dim";
+            } else {
+                return "Dim->Bright";
+            }
+        };
+
 
         var util = new Object;
         algo.initialized = false;
@@ -88,10 +107,9 @@ var testAlgo;
 
         // initialize the stars and load random positions
         util.initialize = function (width, height) {
-
            for (var i = 0; i < stars.length; i++) {
                 stars[i] = {
-                    x: getNewNumberRange(-10, 10),
+                    x: getNewNumberRange(-10,10),
                     y: getNewNumberRange(-10,10),
                     z: depth,
                     c: getNewColor(algo.multiColor, algo.presetColor)
@@ -126,11 +144,9 @@ var testAlgo;
             // start moving the stars by looping through this routine, addressing each star individually (i is the star number)
             for (var i = 0; i < algo.presetStars-1; i++) {
 
-                if (height >= width) {
-                    stars[i].z -= height/(height/4);  // decrease depth on each pass through (based on height)
-                } else {
-                    stars[i].z -= width/(width/4);    // decrease depth on each pass through (based on width)
-                }
+                // decrease depth on each pass through 
+                if (height >= width) { stars[i].z -= height/(height/4); }
+                else { stars[i].z -= width/(width/4); }
 
                 // if star is off screen (depth is zero or less) then create a new star near the center of the display
                 if (stars[i].z <= 0) {
@@ -141,46 +157,50 @@ var testAlgo;
                 }
 
                 // calculate the stars next position
-                var k = 200 / stars[i].z;               // how far away the star is
+                var k = 200 / stars[i].z;                           // how far away the star is
+                var px = Math.floor(stars[i].x * k + halfWidth);    // x position of star
+                var py = Math.floor(stars[i].y * k + halfHeight);   // y position of star
 
-                var px = stars[i].x * k + halfWidth;    // x position of star
-                var py = stars[i].y * k + halfHeight;   // y position of star
-
-                // make sure star is on the screen
-                if (px > 0 && px < width && py > 0 && py < height) {
-
-                    // if star is in the center, then it should be darker (farther away)
-                    // and lighten as it moves "closer" (out to the edges)
+                if ( px > 0 && px < width && py > 0 && py < height) {
+                  // if star is in the center, then it should be darker (farther away)
+                  // and lighten as it moves "closer" (out to the edges)
+                  if (algo.invertColor == 1) {
+                    var colorLevel = (stars[i].z * 2);
+                  } else {
                     var colorLevel = (255 - (stars[i].z * 2));
+                  }
 
-                    // parse out individual colors of current star color
-                    var r = (stars[i].c >> 16) & 0x00FF;
-                    var g = (stars[i].c >> 8) & 0x00FF;
-                    var b = stars[i].c & 0x00FF;
+                  // parse out individual colors of current star color
+                  var r = (stars[i].c >> 16) & 0x00FF;
+                  var g = (stars[i].c >> 8) & 0x00FF;
+                  var b = stars[i].c & 0x00FF;
 
-                    // Adjust star brightness level based on how far away it is and by chosen star color
-                    var rr = r - (255-colorLevel);
-                    var gg = g - (255-colorLevel);
-                    var bb = b - (255-colorLevel);
+                  // Adjust star brightness level based on how far away it is and by chosen star color
+                  var rr = r - (255 - colorLevel);
+                  var gg = g - (255 - colorLevel);
+                  var bb = b - (255 - colorLevel);
 
-                    // Limit each color element to the maximum for chosen color or make 0 if below 0
-                    if (rr > r) { rr = r; }
-                    if (rr < 0) { rr = 0; }
-                    if (gg > g) { gg = g; }
-                    if (gg < 0) { gg = 0; }
-                    if (bb > b) { bb = b; }
-                    if (bb < 0) { bb = 0; }
+                  // Limit each color element to the maximum for chosen color or make 0 if below 0
+                  if (rr > r) { rr = r; }
+                  if (rr < 0) { rr = 0; }
+                  if (gg > g) { gg = g; }
+                  if (gg < 0) { gg = 0; }
+                  if (bb > b) { bb = b; }
+                  if (bb < 0) { bb = 0; }
 
-                    // put all the individual rgb colors back together
-                    var pRGB = (rr << 16) + (gg << 8) + bb;
-                    px = Math.floor(px); // get rid of x and y position fractions
-                    py = Math.floor(py);
-                    map[py][px] = pRGB; // store the star's combined color in the map
+                  // put all the individual rgb colors back together
+                  var pRGB = (rr << 16) + (gg << 8) + bb;
+                  px = Math.floor(px); // get rid of x and y position fractions
+                  py = Math.floor(py);
+                  map[py][px] = pRGB; // store the star's combined color in the map
+                  // console.log("i: " + i + " px: " + px + " py: " + py + " pz: " + stars[i].z + " color: " + r+g+b);
                 } else {
+                    // console.log("i: " + i + " k: " + k + " px: " + px + " width: " + width + " py: " + py + " height: " + height);
                     stars[i].z = 0;     // if here, the star was outside screen for some reason so force a new star
                 }
             }
             return map; // return the map back to QLC+
+            
         };
 
         algo.rgbMapStepCount = function (width, height) {
