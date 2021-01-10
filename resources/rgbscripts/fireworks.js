@@ -2,7 +2,7 @@
   Q Light Controller Plus
   fireworks.js
 
-  Copyright (c) Hans-JÃ¼rgen Tappe
+  Copyright (c) Hans-Jürgen Tappe
   derived from on balls.js, Copyright (c) Tim Cullingworth
 
   Licensed under the Apache License, Version 2.0 (the "License");
