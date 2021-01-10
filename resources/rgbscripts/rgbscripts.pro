@@ -26,6 +26,7 @@ scripts.files += randompixelperrow.js
 scripts.files += randompixelperrowmulticolor.js
 scripts.files += randomrow.js
 scripts.files += randomsingle.js
+scripts.files += snowbubbles.js
 scripts.files += squares.js
 scripts.files += squaresfromcenter.js
 scripts.files += starfield.js
