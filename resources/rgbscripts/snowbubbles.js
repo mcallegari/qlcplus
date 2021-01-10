@@ -1,9 +1,9 @@
 /*
   Q Light Controller Plus
-  snow.js
+  snowbubbles.js
 
   Copyright (c) Hans-Jürgen Tappe
-  Derived from flakefield.jy, Copyright (c) Doug Puckett
+  Derived from starfield.js, Copyright (c) Doug Puckett
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
