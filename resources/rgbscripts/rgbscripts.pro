@@ -34,6 +34,8 @@ scripts.files += stripesfromcenter.js
 scripts.files += strobe.js
 scripts.files += verticalfall.js
 scripts.files += waves.js
+scripts.files += xmasstars.js
+scripts.files += xmastrees.js
 
 scripts.path = $$INSTALLROOT/$$RGBSCRIPTDIR
 INSTALLS    += scripts
