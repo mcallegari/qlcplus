@@ -12,6 +12,7 @@ scripts.files += fillfromcenter.js
 scripts.files += fillunfill.js
 scripts.files += fillunfillfromcenter.js
 scripts.files += fillunfillsquaresfromcenter.js
+scripts.files += fireworks.js
 scripts.files += gradient.js
 scripts.files += noise.js
 scripts.files += onebyone.js
