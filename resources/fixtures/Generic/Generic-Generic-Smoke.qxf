@@ -14,17 +14,12 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255" Preset="SlowToFast">Fan Speed, slow - fast</Capability>
  </Channel>
- <Channel Name="Fan 2" Preset="IntensityDimmer"/>
- <Mode Name="1 Channel">
-  <Channel Number="0">Pump</Channel>
- </Mode>
- <Mode Name="2 Channel">
+ <Mode Name="Normal">
   <Channel Number="0">Pump</Channel>
   <Channel Number="1">Fan</Channel>
  </Mode>
- <Mode Name="2 Dimmer Channels">
+ <Mode Name="Amount">
   <Channel Number="0">Pump</Channel>
-  <Channel Number="1">Fan 2</Channel>
  </Mode>
  <Physical>
   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
