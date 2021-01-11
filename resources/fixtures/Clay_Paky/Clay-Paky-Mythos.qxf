@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.3</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -14,30 +14,30 @@
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27">Empty position</Capability>
-  <Capability Min="28" Max="49">Empty + Soft Filter</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro">Empty position</Capability>
+  <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Soft Filter</Capability>
   <Capability Min="50" Max="79" Preset="ColorMacro" Res1="#e1e1e1">Soft Filter</Capability>
-  <Capability Min="80" Max="99">Soft Filter + Lavender</Capability>
+  <Capability Min="80" Max="99" Preset="ColorDoubleMacro">Soft Filter + Lavender</Capability>
   <Capability Min="100" Max="128" Preset="ColorMacro" Res1="#9075ac">Lavender</Capability>
-  <Capability Min="129" Max="149">Lavender + CTO 3200K</Capability>
+  <Capability Min="129" Max="149" Preset="ColorDoubleMacro">Lavender + CTO 3200K</Capability>
   <Capability Min="150" Max="180" Preset="ColorMacro" Res1="#f9da87">CTO 3200K</Capability>
-  <Capability Min="181" Max="203">CTO 3200K + CTO 2500K</Capability>
+  <Capability Min="181" Max="203" Preset="ColorDoubleMacro">CTO 3200K + CTO 2500K</Capability>
   <Capability Min="204" Max="234" Preset="ColorMacro" Res1="#f4c843">CTO 2500K</Capability>
-  <Capability Min="235" Max="254">CTO 2500K + Blue Wood UV</Capability>
+  <Capability Min="235" Max="254" Preset="ColorDoubleMacro">CTO 2500K + Blue Wood UV</Capability>
   <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#34378a">Blue Wood UV</Capability>
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27">Empty position</Capability>
-  <Capability Min="28" Max="49">Empty + Dark Green</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro">Empty position</Capability>
+  <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Dark Green</Capability>
   <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#0d7433">Dark Green</Capability>
-  <Capability Min="75" Max="99">Dark Green + CTB</Capability>
+  <Capability Min="75" Max="99" Preset="ColorDoubleMacro">Dark Green + CTB</Capability>
   <Capability Min="100" Max="128" Preset="ColorMacro" Res1="#94c5b9">CTB</Capability>
-  <Capability Min="129" Max="149">CTB + Dark Blue</Capability>
+  <Capability Min="129" Max="149" Preset="ColorDoubleMacro">CTB + Dark Blue</Capability>
   <Capability Min="150" Max="177" Preset="ColorMacro" Res1="#094f97">Dark Blue</Capability>
-  <Capability Min="178" Max="199">Dark Blue + H.M Green</Capability>
+  <Capability Min="178" Max="199" Preset="ColorDoubleMacro">Dark Blue + H.M Green</Capability>
   <Capability Min="200" Max="234" Preset="ColorMacro" Res1="#fcbb82">H.M Green</Capability>
-  <Capability Min="235" Max="254">H.M Green + Dark Red</Capability>
+  <Capability Min="235" Max="254" Preset="ColorDoubleMacro">H.M Green + Dark Red</Capability>
   <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#da2521">Dark Red</Capability>
  </Channel>
  <Channel Name="Shutter / Strobe">
@@ -75,9 +75,9 @@
   <Capability Min="61" Max="64" Preset="GoboMacro" Res1="ClayPaky/gobo00079.svg">Gobo 16</Capability>
   <Capability Min="65" Max="68" Preset="GoboMacro" Res1="ClayPaky/gobo00028.svg">Gobo 17</Capability>
   <Capability Min="69" Max="71" Preset="GoboMacro" Res1="SGM/gobo00001.svg">Gobo 18</Capability>
-  <Capability Min="72" Max="113">Gobo rotation Fast&gt;Slow</Capability>
-  <Capability Min="114" Max="117">Stop Rotation</Capability>
-  <Capability Min="118" Max="159">Gobo rotation Slow&gt;Fast</Capability>
+  <Capability Min="72" Max="113" Preset="RotationClockwiseFastToSlow">Gobo rotation Fast&gt;Slow</Capability>
+  <Capability Min="114" Max="117" Preset="RotationStop">Stop Rotation</Capability>
+  <Capability Min="118" Max="159" Preset="RotationCounterClockwiseSlowToFast">Gobo rotation Slow&gt;Fast</Capability>
   <Capability Min="160" Max="165" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00006.svg">Gobo 1 Shake</Capability>
   <Capability Min="166" Max="170" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2 Shake</Capability>
   <Capability Min="171" Max="175" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3 Shake</Capability>
@@ -103,13 +103,13 @@
  </Channel>
  <Channel Name="Disk Rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="124">Disk Rotation Fast&gt;Slow</Capability>
-  <Capability Min="125" Max="130">Stop</Capability>
-  <Capability Min="131" Max="255">Disk Rotation Slow&lt;Fast</Capability>
+  <Capability Min="0" Max="124" Preset="RotationClockwiseFastToSlow">Disk Rotation Fast&gt;Slow</Capability>
+  <Capability Min="125" Max="130" Preset="RotationStop">Stop</Capability>
+  <Capability Min="131" Max="255" Preset="RotationCounterClockwiseSlowToFast">Disk Rotation Slow&lt;Fast</Capability>
  </Channel>
  <Channel Name="Rotation Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="18">Empty</Capability>
+  <Capability Min="0" Max="18" Preset="GoboMacro" Res1="">Empty</Capability>
   <Capability Min="19" Max="37" Preset="GoboMacro" Res1="ClayPaky/gobo00091.svg">Gobo 1</Capability>
   <Capability Min="38" Max="56" Preset="GoboMacro" Res1="ClayPaky/gobo00002.svg">Gobo 2</Capability>
   <Capability Min="57" Max="74" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 3</Capability>
@@ -131,9 +131,9 @@
   <Capability Min="63" Max="83">Gobo Indexing 270° to 360°</Capability>
   <Capability Min="84" Max="104">Gobo Indexing 360° to 450°</Capability>
   <Capability Min="105" Max="127">Gobo Indexing 450° to 540°</Capability>
-  <Capability Min="128" Max="190">Rotation Max &gt; Min</Capability>
-  <Capability Min="191" Max="192">Stop Rotation</Capability>
-  <Capability Min="193" Max="255">Rotation Slow &lt; Fast</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &gt; Min</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation Slow &lt; Fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation Fine" Preset="GoboWheelFine"/>
  <Channel Name="Prism Insertion">
@@ -150,9 +150,9 @@
   <Capability Min="63" Max="83">Prism Index 270° to 360°</Capability>
   <Capability Min="84" Max="104">Prism Index 360° to 450°</Capability>
   <Capability Min="105" Max="127">Prism Index 450° to 540°</Capability>
-  <Capability Min="128" Max="190">Rotation Max &lt; Min</Capability>
-  <Capability Min="191" Max="192">Stop Rotation</Capability>
-  <Capability Min="193" Max="255">Rotation Min &lt; Max</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &lt; Min</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Rotation Min &lt; Max</Capability>
  </Channel>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
@@ -228,16 +228,16 @@
  </Channel>
  <Channel Name="Colour 3">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27">Empty position</Capability>
-  <Capability Min="28" Max="49">Empty + Light Green</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro">Empty position</Capability>
+  <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Light Green</Capability>
   <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#159b35">Light Green</Capability>
-  <Capability Min="77" Max="99">Light Green + Pink</Capability>
+  <Capability Min="77" Max="99" Preset="ColorDoubleMacro">Light Green + Pink</Capability>
   <Capability Min="100" Max="128" Preset="ColorMacro" Res1="#f19ea1">Pink</Capability>
-  <Capability Min="129" Max="149">Pink + Aquamarine</Capability>
+  <Capability Min="129" Max="149" Preset="ColorDoubleMacro">Pink + Aquamarine</Capability>
   <Capability Min="150" Max="180" Preset="ColorMacro" Res1="#77bc83">Aquamarine</Capability>
-  <Capability Min="181" Max="199">Aquamarine + Dark Orange</Capability>
+  <Capability Min="181" Max="199" Preset="ColorDoubleMacro">Aquamarine + Dark Orange</Capability>
   <Capability Min="200" Max="230" Preset="ColorMacro" Res1="#de601c">Dark Orange</Capability>
-  <Capability Min="231" Max="254">Dark Orange + Light Orange</Capability>
+  <Capability Min="231" Max="254" Preset="ColorDoubleMacro">Dark Orange + Light Orange</Capability>
   <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#f8b45e">Light Orange</Capability>
  </Channel>
  <Mode Name="Standard">

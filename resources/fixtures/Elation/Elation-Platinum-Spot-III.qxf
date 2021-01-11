@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.3</Version>
   <Author>Dávid Czirók</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -44,16 +44,16 @@
   <Capability Min="151" Max="163" Preset="GoboShakeMacro" Res1="">shake gobo 5</Capability>
   <Capability Min="164" Max="176" Preset="GoboShakeMacro" Res1="">shake gobo 6</Capability>
   <Capability Min="177" Max="189" Preset="GoboShakeMacro" Res1="">shake gobo 7</Capability>
-  <Capability Min="190" Max="221">clockwise gobo wheel rotation from FAST to SLOW</Capability>
-  <Capability Min="222" Max="223">no rotation</Capability>
-  <Capability Min="224" Max="255">counterclockwise gobo wheel rotation from SLOW to FAST</Capability>
+  <Capability Min="190" Max="221" Preset="RotationClockwiseFastToSlow">clockwise gobo wheel rotation from FAST to SLOW</Capability>
+  <Capability Min="222" Max="223" Preset="RotationStop">no rotation</Capability>
+  <Capability Min="224" Max="255" Preset="RotationCounterClockwiseSlowToFast">counterclockwise gobo wheel rotation from SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Index gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">gobo indexing</Capability>
-  <Capability Min="128" Max="189">clockwise gobo rotation from FAST to SLOW</Capability>
-  <Capability Min="190" Max="193">no rotation</Capability>
-  <Capability Min="194" Max="255">counterclockwise gobo rotation from SLOW to FAST</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">gobo indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">clockwise gobo rotation from FAST to SLOW</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">no rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">counterclockwise gobo rotation from SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Rotating gobos fine">
   <Group Byte="1">Gobo</Group>
@@ -76,9 +76,9 @@
   <Capability Min="151" Max="163" Preset="GoboShakeMacro" Res1="">shake fixed gobo 5</Capability>
   <Capability Min="164" Max="176" Preset="GoboShakeMacro" Res1="">shake fixed gobo 6</Capability>
   <Capability Min="177" Max="189" Preset="GoboShakeMacro" Res1="Others/gobo00008.svg">shake fixed gobo 7</Capability>
-  <Capability Min="190" Max="221">clockwise gobo rotation</Capability>
-  <Capability Min="222" Max="223">no rotation</Capability>
-  <Capability Min="224" Max="255">conterclockwise gobo rotation</Capability>
+  <Capability Min="190" Max="221" Preset="RotationClockwiseFastToSlow">clockwise gobo rotation</Capability>
+  <Capability Min="222" Max="223" Preset="RotationStop">no rotation</Capability>
+  <Capability Min="224" Max="255" Preset="RotationCounterClockwiseSlowToFast">conterclockwise gobo rotation</Capability>
  </Channel>
  <Channel Name="3 facet rotating prism">
   <Group Byte="0">Prism</Group>
@@ -152,8 +152,8 @@
  <Channel Name="Iris fine" Preset="ShutterIrisFine"/>
  <Channel Name="Bi-directional animation wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7">no function</Capability>
-  <Capability Min="8" Max="255">animation movement SLOW to FAST</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro">no function</Capability>
+  <Capability Min="8" Max="255" Preset="RotationClockwiseSlowToFast">animation movement SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Pan tilt movement speed">
   <Group Byte="0">Speed</Group>
@@ -169,10 +169,10 @@
   <Capability Min="30" Max="39">color gobo change to any position</Capability>
   <Capability Min="40" Max="59">no function</Capability>
   <Capability Min="60" Max="79">no function</Capability>
-  <Capability Min="80" Max="84">all motor reset</Capability>
-  <Capability Min="85" Max="87">scan motor reset</Capability>
-  <Capability Min="88" Max="90">color motor reset</Capability>
-  <Capability Min="91" Max="93">gobo motor reset</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">all motor reset</Capability>
+  <Capability Min="85" Max="87" Preset="ResetMotors">scan motor reset</Capability>
+  <Capability Min="88" Max="90" Preset="ResetColor">color motor reset</Capability>
+  <Capability Min="91" Max="93" Preset="ResetGobo">gobo motor reset</Capability>
   <Capability Min="94" Max="96">no function</Capability>
   <Capability Min="97" Max="99">other motor reset</Capability>
   <Capability Min="100" Max="119">internal program 1</Capability>

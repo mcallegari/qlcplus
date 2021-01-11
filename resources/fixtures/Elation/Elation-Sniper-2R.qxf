@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.3</Version>
   <Author>Rodolfo Thierry</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -45,10 +45,10 @@
   <Capability Min="61" Max="62" Preset="ColorDoubleMacro" Res1="#f7f17b" Res2="#2f2974">Split Pineapple Yellow / Congo Blue</Capability>
   <Capability Min="63" Max="65" Preset="ColorMacro" Res1="#2f2974">Congo Blue</Capability>
   <Capability Min="66" Max="67" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="68" Max="128">Color Wheel Index - White to Congo Blue</Capability>
-  <Capability Min="129" Max="190">Clockwise Color Rotation from FAST to SLOW</Capability>
-  <Capability Min="191" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise Color Rotation from SLOW to FAST</Capability>
+  <Capability Min="68" Max="128" Preset="RotationIndexed">Color Wheel Index - White to Congo Blue</Capability>
+  <Capability Min="129" Max="190" Preset="RotationClockwiseFastToSlow">Clockwise Color Rotation from FAST to SLOW</Capability>
+  <Capability Min="191" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Color Rotation from SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
@@ -70,8 +70,8 @@
   <Capability Min="113" Max="119" Preset="GoboMacro" Res1="Others/gobo00024.svg">Gobo 15</Capability>
   <Capability Min="120" Max="126" Preset="GoboMacro" Res1="GLP/gobo00010.svg">Gobo 16</Capability>
   <Capability Min="127" Max="133" Preset="GoboMacro" Res1="Chauvet/gobo00008.svg">Gobo 17</Capability>
-  <Capability Min="134" Max="194">Clockwise Gobo Wheel Rotation From FAST to SLOW</Capability>
-  <Capability Min="195" Max="255">Counterclockwise Gobo Wheel Rotation From SLOW to FAST</Capability>
+  <Capability Min="134" Max="194" Preset="RotationClockwiseFastToSlow">Clockwise Gobo Wheel Rotation From FAST to SLOW</Capability>
+  <Capability Min="195" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Gobo Wheel Rotation From SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Pattern Macros">
   <Group Byte="0">Effect</Group>
@@ -108,11 +108,11 @@
  </Channel>
  <Channel Name="Pattern Rotation - Clockwise / Counterclockwise">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">Stop</Capability>
-  <Capability Min="10" Max="120">Clockwise Pattern Rotation from FAST to SLOW</Capability>
-  <Capability Min="126" Max="141">Stop</Capability>
-  <Capability Min="142" Max="245">Counterclockwise Pattern Rotation from SLOW to FAST</Capability>
-  <Capability Min="246" Max="255">Stop</Capability>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Clockwise Pattern Rotation from FAST to SLOW</Capability>
+  <Capability Min="126" Max="141" Preset="RotationStop">Stop</Capability>
+  <Capability Min="142" Max="245" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Pattern Rotation from SLOW to FAST</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">Stop</Capability>
  </Channel>
  <Channel Name="Pattern Rotation - Horizontal / Vertical">
   <Group Byte="0">Effect</Group>
@@ -131,9 +131,9 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="63">0° to 360°</Capability>
   <Capability Min="64" Max="127">Shaking</Capability>
-  <Capability Min="128" Max="189">Clockwise Rotation FAST to SLOW</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise Rotation SLOW to FAST</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise Rotation FAST to SLOW</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Rotation SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
@@ -157,7 +157,7 @@
   <Capability Min="85" Max="87" Preset="ResetPanTilt">Pan / Tilt Motors Reset</Capability>
   <Capability Min="88" Max="90" Preset="ResetColor">Color Motor Reset</Capability>
   <Capability Min="91" Max="93" Preset="ResetGobo">Gobo Motor Reset</Capability>
-  <Capability Min="94" Max="96" Preset="ResetMotors">Shutter &amp; Dimmer Motors Reset</Capability>
+  <Capability Min="94" Max="96">Shutter &amp; Dimmer Motors Reset</Capability>
   <Capability Min="97" Max="99" Preset="ResetMotors">Other Motors Reset</Capability>
   <Capability Min="100" Max="109">Enable blackout while Pan / Tilt movement</Capability>
   <Capability Min="110" Max="119">Enable blackout while color change</Capability>
@@ -203,7 +203,7 @@
   <Capability Min="240" Max="247" Preset="StrobeRandom">Randum Strobe</Capability>
   <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
- <Mode Name="Mode 14 chanels">
+ <Mode Name="14 channels">
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Tilt 1</Channel>
   <Channel Number="2">Colors</Channel>
@@ -219,7 +219,7 @@
   <Channel Number="12">Dimmer</Channel>
   <Channel Number="13">Functions</Channel>
  </Mode>
- <Mode Name="Mode 16 chanels">
+ <Mode Name="16 channels">
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt 1</Channel>
@@ -237,7 +237,7 @@
   <Channel Number="14">Dimmer</Channel>
   <Channel Number="15">Functions</Channel>
  </Mode>
- <Mode Name="Mode 18 chanels">
+ <Mode Name="18 channels">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -257,7 +257,7 @@
   <Channel Number="16">Functions</Channel>
   <Channel Number="17">Shutter - Strobe</Channel>
  </Mode>
- <Mode Name="Mode 20 chanels">
+ <Mode Name="20 channels">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
