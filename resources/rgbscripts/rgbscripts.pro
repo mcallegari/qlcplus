@@ -13,6 +13,7 @@ scripts.files += fillunfill.js
 scripts.files += fillunfillfromcenter.js
 scripts.files += fillunfillsquaresfromcenter.js
 scripts.files += gradient.js
+scripts.files += lines.js
 scripts.files += noise.js
 scripts.files += onebyone.js
 scripts.files += opposite.js
