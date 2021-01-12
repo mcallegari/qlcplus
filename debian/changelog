@@ -4,14 +4,24 @@ qlcplus (4.12.4) stable; urgency=low
   * engine: add "acts on" property to channels (thanks to Michał Kluska)
   * Virtual Console/Button: fix submaster not affecting a Chaser startup intensity
   * Plugins/E1.31: make CID unique on each network interface
-  * New input profile: Novation Launchpad Mini MK3 (thanks to Felix)
-  * New input profile: KORG nanoKONTROL Studio (thanks to Hans-Jürgen Tappe)
+  * Input profiles: added Novation Launchpad Mini MK3 (thanks to Felix)
+  * Input profiles: added KORG nanoKONTROL Studio (thanks to Hans-Jürgen Tappe)
+  * RGB scripts: added 'Snow or bubbles' script (thanks to Hans-Jürgen Tappe)
+  * RGB scripts: added 'Lines' script (thanks to Branson Matheson)
+  * RGB scripts: added brightness inversion to 'Starfield' script (thanks to Branson Matheson)
+  * RGB scripts: added more parameters to 'Circles' script (thanks to Branson Matheson)
   * New fixture: Varytec Giga Bar Pix 8 RGB (thanks to Felix)
   * New fixture: Clay Paky Mini-B
   * New fixture: Eurolite LED PT-100/32 Pixel DMX Tube (thanks to Torsten Caninenberg)
   * New fixture: U'King LED Spot Moving Head 100W (thanks to Jay Seaman)
   * New fixtures: Equinox Microbar Quad System, U'King 7x10W Mini Moving Head (thanks to Peter Crowther)
   * New fixture: Starway MaxSpot 500 (thanks to David Thomas)
+  * New fixtures: Abstract VR8, Altman Spectra-CYC-100, American DJ 18P Hex, American DJ Inno Color Beam Z7 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
+  * New fixtures: Briteq BT Smartzoom, Briteq BT Theatre HD1, Coemar iSpot150, Contest HazeTEC (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
+  * New fixtures: Contest SFX-HO150QC, Contest SFX-HO150W, Elation OPTI-TRI-30, GLP Impression X4 Bar 10 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
+  * New fixtures: GLP Impression FR1 TM, JB Systems Challenger BSW, Pro-Lights EVO90F, RVE Sereniled EVO2 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
+  * New fixtures: RVE Sereniled Plus, RVE Twinled EVO2, Robe Robin Spikie, Robe Robin Tetra 1 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
+  * New fixtures: Robe Robin Tetra 2, Showtec Par 64 100W COB UV, Talent SSL1 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 20 Dec 2020 12:13:14 +0200
 

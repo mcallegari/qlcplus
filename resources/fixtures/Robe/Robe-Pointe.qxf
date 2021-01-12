@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>5.0.0 Beta 1</Version>
   <Author>Moehritz</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -73,11 +73,36 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Speed of rotating gobo wheel</Capability>
  </Channel>
- <Channel Name="Frost time"/>
- <Channel Name="Color time"/>
- <Channel Name="Static gobo time"/>
- <Channel Name="Prism time"/>
- <Channel Name="Focus time"/>
+ <Channel Name="Frost time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Function is off</Capability>
+  <Capability Min="1" Max="255">Time of frost movement (0.1 sec. to 25.5 sec.)</Capability>
+ </Channel>
+ <Channel Name="Color time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Function is off</Capability>
+  <Capability Min="1" Max="255">Time of color wheel movement (0.1 sec. to 25.5 sec.)</Capability>
+ </Channel>
+ <Channel Name="Static gobo time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Function is off</Capability>
+  <Capability Min="1" Max="255">Time of static gobo wheel movement (0.1 sec. to 25.5 sec.)</Capability>
+ </Channel>
+ <Channel Name="Prism time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Function is off</Capability>
+  <Capability Min="1" Max="255">Time of prism movement (0.1 sec. to 25.5 sec.)</Capability>
+ </Channel>
+ <Channel Name="Focus time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Function is off</Capability>
+  <Capability Min="1" Max="255">Time of focus movement (0.1 sec. to 25.5 sec.)</Capability>
+ </Channel>
+ <Channel Name="Zoom time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Function is off</Capability>
+  <Capability Min="1" Max="255">Time of zoom movement (0.1 sec. to 25.5 sec.)</Capability>
+ </Channel>
  <Channel Name="Static Gobo wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
@@ -238,7 +263,7 @@
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
- <Mode Name="Mode 1">
+ <Mode Name="Main">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -264,7 +289,7 @@
   <Channel Number="22">Dimmer</Channel>
   <Channel Number="23">Dimmer fine</Channel>
  </Mode>
- <Mode Name="Mode 2">
+ <Mode Name="16 channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -280,9 +305,9 @@
   <Channel Number="12">Zoom</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Shutter/Strobe</Channel>
-  <Channel Number="25">Dimmer</Channel>
+  <Channel Number="15">Dimmer</Channel>
  </Mode>
- <Mode Name="Mode 3">
+ <Mode Name="30 channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
