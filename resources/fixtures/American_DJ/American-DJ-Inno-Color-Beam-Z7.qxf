@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Ray Console - ju</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Inno Color Beam Z7</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Shutter/Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeSlowToFast">Strobing (slow to fast)</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="70" Max="84" Preset="RampUpSlowToFast">Slow open - Fast close</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="90" Max="104" Preset="RampDownSlowToFast">Fast open - Slow close</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="130" Max="144" Preset="PulseSlowToFast">Random opening pulse</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="150" Max="164" Preset="PulseFastToSlow">Random closing pulse</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="170" Max="184" Preset="PulseSlowToFast">Burst pulse</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="204" Preset="PulseSlowToFast">Random burst pulse</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="210" Max="224" Preset="PulseSlowToFast">Pulsing</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="230" Max="244">Burst</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Rest">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset All</Capability>
+  <Capability Min="15" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="4">Macro 1</Capability>
+  <Capability Min="5" Max="8">Macro 2</Capability>
+  <Capability Min="9" Max="12">Macro 3</Capability>
+  <Capability Min="13" Max="16">Macro 4</Capability>
+  <Capability Min="17" Max="20">Macro 5</Capability>
+  <Capability Min="21" Max="24">Macro 6</Capability>
+  <Capability Min="25" Max="28">Macro 7</Capability>
+  <Capability Min="29" Max="32">Macro 8</Capability>
+  <Capability Min="33" Max="36">Macro 9</Capability>
+  <Capability Min="37" Max="40">Macro 10</Capability>
+  <Capability Min="41" Max="44">Macro 11</Capability>
+  <Capability Min="45" Max="48">Macro 12</Capability>
+  <Capability Min="49" Max="52">Macro 13</Capability>
+  <Capability Min="53" Max="56">Macro 14</Capability>
+  <Capability Min="57" Max="60">Macro 15</Capability>
+  <Capability Min="61" Max="64">Macro 16</Capability>
+  <Capability Min="65" Max="68">Macro 17</Capability>
+  <Capability Min="69" Max="72">Macro 18</Capability>
+  <Capability Min="73" Max="76">Macro 19</Capability>
+  <Capability Min="77" Max="80">Macro 20</Capability>
+  <Capability Min="81" Max="84">Macro 21</Capability>
+  <Capability Min="85" Max="88">Macro 22</Capability>
+  <Capability Min="89" Max="92">Macro 23</Capability>
+  <Capability Min="93" Max="96">Macro 24</Capability>
+  <Capability Min="97" Max="100">Macro 25</Capability>
+  <Capability Min="101" Max="104">Macro 26</Capability>
+  <Capability Min="105" Max="108">Macro 27</Capability>
+  <Capability Min="109" Max="112">Macro 28</Capability>
+  <Capability Min="113" Max="116">Macro 29</Capability>
+  <Capability Min="117" Max="120">Macro 30</Capability>
+  <Capability Min="121" Max="124">Macro 31</Capability>
+  <Capability Min="125" Max="128">Macro 32</Capability>
+  <Capability Min="129" Max="132">Macro 33</Capability>
+  <Capability Min="133" Max="136">Macro 34</Capability>
+  <Capability Min="137" Max="140">Macro 35</Capability>
+  <Capability Min="141" Max="144">Macro 36</Capability>
+  <Capability Min="145" Max="148">Macro 37</Capability>
+  <Capability Min="149" Max="152">Macro 38</Capability>
+  <Capability Min="153" Max="156">Macro 39</Capability>
+  <Capability Min="157" Max="160">Macro 40</Capability>
+  <Capability Min="161" Max="164">Macro 41</Capability>
+  <Capability Min="165" Max="168">Macro 42</Capability>
+  <Capability Min="169" Max="172">Macro 43</Capability>
+  <Capability Min="173" Max="176">Macro 44</Capability>
+  <Capability Min="177" Max="180">Macro 45</Capability>
+  <Capability Min="181" Max="184">Macro 46</Capability>
+  <Capability Min="185" Max="188">Macro 47</Capability>
+  <Capability Min="189" Max="192">Macro 48</Capability>
+  <Capability Min="193" Max="196">Macro 49</Capability>
+  <Capability Min="197" Max="200">Macro 50</Capability>
+  <Capability Min="201" Max="204">Macro 51</Capability>
+  <Capability Min="205" Max="208">Macro 52</Capability>
+  <Capability Min="209" Max="212">Macro 53</Capability>
+  <Capability Min="213" Max="216">Macro 54</Capability>
+  <Capability Min="217" Max="220">Macro 55</Capability>
+  <Capability Min="221" Max="224">Macro 56</Capability>
+  <Capability Min="225" Max="228">Macro 57</Capability>
+  <Capability Min="229" Max="232">Macro 58</Capability>
+  <Capability Min="233" Max="236">Macro 59</Capability>
+  <Capability Min="237" Max="240">Macro 60</Capability>
+  <Capability Min="241" Max="244">Macro 61</Capability>
+  <Capability Min="245" Max="248">Macro 62</Capability>
+  <Capability Min="249" Max="252">Macro 63</Capability>
+  <Capability Min="253" Max="255">Macro 64</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Mode Name="14 Channels">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Color Macros</Channel>
+  <Channel Number="9">Shutter/Strobing</Channel>
+  <Channel Number="10">Master Dimmer</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Pan/Tilt speed</Channel>
+  <Channel Number="13">Rest</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.5" Width="262" Height="340" Depth="168"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="104" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Ray Console - cd</Author>
+ </Creator>
+ <Manufacturer>Generic</Manufacturer>
+ <Model>White LED Bar</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer 1" Default="1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 5" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 6" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 7" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 8" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 9" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 10" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 11" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 12" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 13" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 14" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 15" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 16" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 17" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 18" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 19" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 20" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 21" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 22" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 23" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 24" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 25" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 26" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 27" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 28" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 29" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 30" Preset="IntensityDimmer"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="10 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="12 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="30 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Channel Number="12">Dimmer 13</Channel>
+  <Channel Number="13">Dimmer 14</Channel>
+  <Channel Number="14">Dimmer 15</Channel>
+  <Channel Number="15">Dimmer 16</Channel>
+  <Channel Number="16">Dimmer 17</Channel>
+  <Channel Number="17">Dimmer 18</Channel>
+  <Channel Number="18">Dimmer 19</Channel>
+  <Channel Number="19">Dimmer 20</Channel>
+  <Channel Number="20">Dimmer 21</Channel>
+  <Channel Number="21">Dimmer 22</Channel>
+  <Channel Number="22">Dimmer 23</Channel>
+  <Channel Number="23">Dimmer 24</Channel>
+  <Channel Number="24">Dimmer 25</Channel>
+  <Channel Number="25">Dimmer 26</Channel>
+  <Channel Number="26">Dimmer 27</Channel>
+  <Channel Number="27">Dimmer 28</Channel>
+  <Channel Number="28">Dimmer 29</Channel>
+  <Channel Number="29">Dimmer 30</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="20 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Channel Number="12">Dimmer 13</Channel>
+  <Channel Number="13">Dimmer 14</Channel>
+  <Channel Number="14">Dimmer 15</Channel>
+  <Channel Number="15">Dimmer 16</Channel>
+  <Channel Number="16">Dimmer 17</Channel>
+  <Channel Number="17">Dimmer 18</Channel>
+  <Channel Number="18">Dimmer 19</Channel>
+  <Channel Number="19">Dimmer 20</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 Channel + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6 Channelsl + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="10 Channelsl + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="12 Channelsl + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Channel Number="12">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="30 Channelsl + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Channel Number="12">Dimmer 13</Channel>
+  <Channel Number="13">Dimmer 14</Channel>
+  <Channel Number="14">Dimmer 15</Channel>
+  <Channel Number="15">Dimmer 16</Channel>
+  <Channel Number="16">Dimmer 17</Channel>
+  <Channel Number="17">Dimmer 18</Channel>
+  <Channel Number="18">Dimmer 19</Channel>
+  <Channel Number="19">Dimmer 20</Channel>
+  <Channel Number="20">Dimmer 21</Channel>
+  <Channel Number="21">Dimmer 22</Channel>
+  <Channel Number="22">Dimmer 23</Channel>
+  <Channel Number="23">Dimmer 24</Channel>
+  <Channel Number="24">Dimmer 25</Channel>
+  <Channel Number="25">Dimmer 26</Channel>
+  <Channel Number="26">Dimmer 27</Channel>
+  <Channel Number="27">Dimmer 28</Channel>
+  <Channel Number="28">Dimmer 29</Channel>
+  <Channel Number="29">Dimmer 30</Channel>
+  <Channel Number="30">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="20 Channelsl + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Channel Number="12">Dimmer 13</Channel>
+  <Channel Number="13">Dimmer 14</Channel>
+  <Channel Number="14">Dimmer 15</Channel>
+  <Channel Number="15">Dimmer 16</Channel>
+  <Channel Number="16">Dimmer 17</Channel>
+  <Channel Number="17">Dimmer 18</Channel>
+  <Channel Number="18">Dimmer 19</Channel>
+  <Channel Number="19">Dimmer 20</Channel>
+  <Channel Number="20">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 Channelsl + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8 Channelsl + Dim">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="62" Width="1080" Height="130" Depth="130"/>
+  <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="550" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>
