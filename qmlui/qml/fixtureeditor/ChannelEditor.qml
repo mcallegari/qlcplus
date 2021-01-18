@@ -28,16 +28,20 @@ GridLayout
 {
     columns: 4
 
-    property EditorRef editor: null
+    property EditorRef fixtureEditor: null
     property ChannelEdit channel: null
-    property string itemName
 
-    onItemNameChanged: channel = editor.requestChannelEditor(itemName)
+    function setItemName(name)
+    {
+        channel = fixtureEditor.requestChannelEditor(name)
+        nameEdit.selectAndFocus()
+    }
 
     // row 1
     RobotoText { label: qsTr("Name") }
     CustomTextEdit
     {
+        id: nameEdit
         Layout.fillWidth: true
         Layout.columnSpan: 3
         text: channel ? channel.name : ""
@@ -154,8 +158,8 @@ GridLayout
                 editItem.iMin = item.minValue
                 editItem.iMax = item.maxValue
                 editItem.sDesc = item.description
-                editItem.x = item.x
-                editItem.y = item.y - capsList.contentY
+                editItem.x = Qt.binding(function() { return item.x })
+                editItem.y = Qt.binding(function() { return item.y - capsList.contentY })
                 editItem.focusItem(compIndex)
 
                 // setup the capability preset items
@@ -291,9 +295,10 @@ GridLayout
             Item
             {
                 id: editItem
+                y: UISettings.listItemHeight
                 width: capsList.width
                 height: UISettings.listItemHeight
-                visible: false
+                visible: false || capsList.count == 0
 
                 property int iMin: 0
                 property int iMax: 0
@@ -412,6 +417,8 @@ GridLayout
                             x: -width
                             y: -height
                             visible: false
+                            closeOnSelect: true
+                            showPalette: false
 
                             //onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
                         }
@@ -468,6 +475,8 @@ GridLayout
                             x: -width
                             y: -height
                             visible: false
+                            closeOnSelect: true
+                            showPalette: false
 
                             //onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
                         }

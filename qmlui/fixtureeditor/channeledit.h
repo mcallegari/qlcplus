@@ -39,7 +39,7 @@ class ChannelEdit : public QObject
     Q_PROPERTY(int controlByte READ controlByte WRITE setControlByte NOTIFY controlByteChanged)
     Q_PROPERTY(int defaultValue READ defaultValue WRITE setDefaultValue NOTIFY defaultValueChanged)
 
-    Q_PROPERTY(QVariantList capabilities READ capabilities CONSTANT)
+    Q_PROPERTY(QVariantList capabilities READ capabilities NOTIFY capabilitiesChanged)
 
 public:
     ChannelEdit(QLCChannel *channel, QObject *parent = nullptr);
@@ -90,6 +90,7 @@ signals:
     void groupChanged();
     void controlByteChanged();
     void defaultValueChanged();
+    void capabilitiesChanged();
 
 private:
     /** Reference to the channel being edited */

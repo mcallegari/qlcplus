@@ -141,13 +141,24 @@ void ChannelEdit::setPreset(int index)
     if (index == int(m_channel->preset()))
         return;
 
+    if (index)
+        m_channel->setName("");
+
     m_channel->setPreset(QLCChannel::Preset(index));
     emit presetChanged();
-    if (index)
-    {
-        emit groupChanged();
-        emit controlByteChanged();
-    }
+
+    if (index == 0)
+        return;
+
+    emit nameChanged();
+    emit groupChanged();
+    emit controlByteChanged();
+
+    for(QLCCapability *cap : m_channel->capabilities())
+        m_channel->removeCapability(cap);
+
+    m_channel->addPresetCapability();
+    emit capabilitiesChanged();
 }
 
 int ChannelEdit::group() const
