@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.3</Version>
   <Author>Fredje Gallon</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -25,9 +25,9 @@
   <Capability Min="99" Max="107" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
   <Capability Min="108" Max="116" Preset="ColorMacro" Res1="#bc7d00">Vale orange</Capability>
   <Capability Min="117" Max="127" Preset="ColorMacro" Res1="#ffffcf">Vale white</Capability>
-  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll CW</Capability>
-  <Capability Min="190" Max="193">Color Scroll stop</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll CCW</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Color Scroll CW</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Color Scroll stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Color Scroll CCW</Capability>
  </Channel>
  <Channel Name="Color Fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobo">
@@ -97,10 +97,10 @@
  </Channel>
  <Channel Name="Prism rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="127">Prism index</Capability>
-  <Capability Min="128" Max="189">Rotation CW F&gt;S</Capability>
-  <Capability Min="190" Max="193">Rotation stop</Capability>
-  <Capability Min="194" Max="255">Rotation CCW F&gt;S</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Prism index</Capability>
+  <Capability Min="128" Max="189" Preset="RotationCounterClockwiseFastToSlow">Rotation CW F&gt;S</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Rotation stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseFastToSlow">Rotation CCW F&gt;S</Capability>
  </Channel>
  <Channel Name="Prism rotation fine">
   <Group Byte="1">Prism</Group>

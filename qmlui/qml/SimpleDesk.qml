@@ -31,13 +31,15 @@ Rectangle
     color: "transparent"
 
     property string contextName: "SDESK"
-    property bool dmxMode: true
+    property bool dmxValues: true
+    property real maxValue: 255
 
     SplitView
     {
         anchors.fill: parent
         orientation: Qt.Vertical
 
+        // Top view (faders)
         Rectangle
         {
             SplitView.minimumHeight: sDeskContainer.height * 0.2
@@ -63,8 +65,6 @@ Rectangle
                     anchors.fill: parent
                     spacing: 5
 
-                    Rectangle { Layout.fillWidth: true; color: "transparent" }
-
                     RobotoText
                     {
                         label: qsTr("Universe")
@@ -74,8 +74,7 @@ Rectangle
                     {
                         id: viewUniverseCombo
                         implicitWidth: UISettings.bigItemHeight * 2
-                        //height: viewToolbar.height - 4
-                        anchors.margins: 1
+                        padding: 0
                         model: simpleDesk.universesListModel
                         currValue: simpleDesk.universeFilter
                         onValueChanged: simpleDesk.universeFilter = value
@@ -87,13 +86,89 @@ Rectangle
                         faSource: FontAwesome.fa_remove
                         faColor: UISettings.bgControl
                         tooltip: qsTr("Reset the whole universe")
-                        onClicked: simpleDesk.resetUniverse(viewUniverseCombo.currentIndex)
+                        onClicked:
+                        {
+                            contextManager.resetDumpValues()
+                            simpleDesk.resetUniverse(viewUniverseCombo.currentIndex)
+                        }
+                    }
+
+                    Rectangle { Layout.fillWidth: true; color: "transparent" }
+
+                    // Scene dump button
+                    IconButton
+                    {
+                        id: sceneDump
+                        z: 2
+                        imgSource: "qrc:/dmxdump.svg"
+                        tooltip: qsTr("Dump on a new Scene")
+                        counter: contextManager ? contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
+
+                        onClicked:
+                        {
+                            if (dmxDumpDialog.show)
+                            {
+                                dmxDumpDialog.open()
+                                dmxDumpDialog.focusEditItem()
+                            }
+                        }
+
+                        Rectangle
+                        {
+                            x: -3
+                            //y: -3
+                            width: sceneDump.width * 0.4
+                            height: width
+                            color: "red"
+                            border.width: 1
+                            border.color: UISettings.fgMain
+                            radius: 3
+                            clip: true
+
+                            RobotoText
+                            {
+                                anchors.centerIn: parent
+                                height: parent.height * 0.7
+                                label: contextManager ? contextManager.dumpValuesCount : ""
+                                fontSize: height
+                            }
+                        }
+
+                        PopupDMXDump
+                        {
+                            id: dmxDumpDialog
+                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+
+                            onAccepted: contextManager.dumpDmxChannels(sceneName, getChannelsMask())
+                        }
+                    }
+
+                    // DMX/Percentage button
+                    DMXPercentageButton
+                    {
+                        height: parent.height - 2
+                        dmxMode: dmxValues
+                        onClicked:
+                        {
+                            if (dmxValues)
+                            {
+                                dmxValues = false
+                                maxValue = 100
+                            }
+                            else
+                            {
+                                maxValue = 255
+                                dmxValues = true
+                            }
+                        }
                     }
                 }
             }
 
+            // The actual channel list view
             ListView
             {
+                id: channelView
                 y: viewToolbar.height
                 height: parent.height - y
                 width: parent.width
@@ -102,6 +177,13 @@ Rectangle
                 boundsBehavior: Flickable.StopAtBounds
                 highlightFollowsCurrentItem: false
                 currentIndex: -1
+
+                function scrollToItem(chIdx)
+                {
+                    console.log("[scrollToItem] chIdx: " + chIdx)
+                    positionViewAtIndex(chIdx, ListView.Beginning)
+                    currentIndex = chIdx
+                }
 
                 delegate:
                     Rectangle
@@ -126,7 +208,6 @@ Rectangle
                         border.color: UISettings.borderColorDark
 
                         property Fixture fixtureObj: model.cRef
-                        property alias dmxValue: chValueSpin.value
                         property int chDisplay: model.chDisplay
                         property bool isOverride: model.isOverride
 
@@ -159,12 +240,12 @@ Rectangle
                                 Layout.alignment: Qt.AlignHCenter
                                 Layout.fillHeight: true
                                 from: 0
-                                to: dmxMode ? 255 : 100
-                                value: dmxValue
+                                to: 255
+                                value: model.chValue
                                 onMoved: {
                                     model.isOverride = true
                                     model.chValue = valueAt(position)
-                                    simpleDesk.setValue(index, dmxValue)
+                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, index, model.chValue)
                                 }
                             }
 
@@ -175,16 +256,16 @@ Rectangle
                                 implicitWidth: UISettings.iconSizeDefault
                                 height: UISettings.listItemHeight * 0.75
                                 from: 0
-                                to: dmxMode ? 255 : 100
-                                suffix: dmxMode ? "" : "%"
+                                to: maxValue
+                                suffix: dmxValues ? "" : "%"
                                 showControls: false
                                 padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
-                                value: model.chValue
+                                value: dmxValues ? model.chValue : (model.chValue / 255.0) * 100.0
                                 onValueModified: {
                                     model.isOverride = true
-                                    model.chValue = value
-                                    simpleDesk.setValue(index, dmxValue)
+                                    model.chValue = value * (dmxValues ? 1.0 : 2.55)
+                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, index, model.chValue)
                                 }
                             }
 
@@ -196,7 +277,7 @@ Rectangle
                                 fontSize: UISettings.textSizeDefault
                                 labelColor: UISettings.fgMain
                                 fontBold: true
-                                label: index
+                                label: index + 1
                             }
 
                             // channel reset button
@@ -205,7 +286,12 @@ Rectangle
                                 faSource: FontAwesome.fa_remove
                                 faColor: UISettings.bgControl
                                 tooltip: qsTr("Reset the channel")
-                                onClicked: simpleDesk.resetChannel(index)
+                                onClicked:
+                                {
+                                    var channel = index - (fixtureObj ? fixtureObj.address : 0)
+                                    contextManager.unsetDumpValue(fixtureObj ? fixtureObj.id : -1, channel)
+                                    simpleDesk.resetChannel(index)
+                                }
                             }
                         }
                     }
@@ -216,17 +302,142 @@ Rectangle
                         orientation: Qt.Horizontal
                     }
             }
+        } // Rectangle
 
-        }
-
+        // Bottom view (fixture list, keypad history, keypad)
         Rectangle
         {
             color: "transparent"
             SplitView.fillHeight: true
 
+            Column
+            {
+                width: parent.width / 2
+                height: parent.height
+
+                RobotoText
+                {
+                    id: fixtureHeader
+                    z: 2
+                    width: parent.width
+                    color: UISettings.sectionHeader
+                    label: qsTr("Fixture List")
+                    leftMargin: 5
+                }
+
+                ListView
+                {
+                    id: fixtureList
+                    z: 1
+                    height: parent.height - fixtureHeader.height
+                    width: parent.width
+                    boundsBehavior: Flickable.StopAtBounds
+                    model: simpleDesk.fixtureList
+
+                    delegate:
+                        Rectangle
+                        {
+                            id: fixtureDelegate
+                            width: fixtureList.width
+                            height: UISettings.listItemHeight
+                            color: fxiMa.pressed ? UISettings.highlight : "transparent"
+
+                            property Fixture fixtureObj: modelData
+
+                            IconTextEntry
+                            {
+                                width: parent.width
+                                height: UISettings.listItemHeight
+
+                                tLabel: fixtureObj.name
+                                iSrc: fixtureObj.iconResource(true)
+
+                                MouseArea
+                                {
+                                    id: fxiMa
+                                    anchors.fill: parent
+
+                                    onClicked: channelView.scrollToItem(fixtureObj.address)
+                                }
+                            }
+
+                            RobotoText
+                            {
+                                x: parent.width - width
+                                height: UISettings.listItemHeight
+                                rightMargin: 5
+                                label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels + 1)
+                            }
+                        }
+                }
+            }
+
+            Column
+            {
+                x: parent.width / 2
+                width: parent.width / 2
+                height: parent.height
+
+                RobotoText
+                {
+                    id: historyHeader
+                    z: 2
+                    width: parent.width - keypad.width
+                    leftMargin: 7
+                    color: UISettings.sectionHeader
+                    label: qsTr("Commands history")
+
+                    Rectangle
+                    {
+                        width: 2
+                        height: parent.height
+                        color: UISettings.bgLight
+                    }
+                }
+
+                ListView
+                {
+                    id: keypadHistory
+                    z: 1
+                    height: parent.height - historyHeader.height
+                    width: parent.width - keypad.width
+                    boundsBehavior: Flickable.StopAtBounds
+                    model: simpleDesk.commandHistory
+
+                    delegate:
+                        RobotoText
+                        {
+                            label: modelData
+                            width: keypadHistory.width
+
+                            Rectangle
+                            {
+                                y: parent.height - 1
+                                width: parent.width
+                                height: 1
+                                color: UISettings.bgLight
+                            }
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onDoubleClicked: keypad.commandString = modelData
+                            }
+                        }
+
+                    Rectangle
+                    {
+                        width: 2
+                        height: parent.height
+                        color: UISettings.bgLight
+                    }
+                }
+            }
+
             KeyPad
             {
                 id: keypad
+                x: parent.width - width
                 height: parent.height
 
                 onExecuteCommand:
@@ -234,50 +445,6 @@ Rectangle
                     simpleDesk.sendKeypadCommand(cmd)
                     keypad.commandString = ""
                 }
-            }
-
-            RobotoText
-            {
-                id: historyHeader
-                x: keypad.width + 10
-                z: 2
-                width: (parent.width - keypad.width) / 2
-                color: UISettings.bgControl
-                label: qsTr("Commands history")
-
-            }
-
-            ListView
-            {
-                id: keypadHistory
-                x: keypad.width + 10
-                y: historyHeader.height
-                z: 1
-                height: parent.height
-                width: (parent.width - keypad.width) / 2
-                boundsBehavior: Flickable.StopAtBounds
-                model: simpleDesk.commandHistory
-
-                delegate:
-                    RobotoText
-                    {
-                        label: modelData
-                        width: keypadHistory.width
-
-                        Rectangle
-                        {
-                            y: parent.height - 1
-                            width: parent.width
-                            height: 1
-                            color: UISettings.bgLight
-                        }
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            onDoubleClicked: keypad.commandString = modelData
-                        }
-                    }
             }
         }
     }

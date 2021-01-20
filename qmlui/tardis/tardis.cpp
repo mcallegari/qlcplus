@@ -968,14 +968,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 m_simpleDesk->resetChannel(newVal.channel);
             }
             else
-                m_simpleDesk->setValue(scv.channel, scv.value);
+                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
         }
         break;
         case SimpleDeskResetChannel:
         {
             SceneValue scv = value->value<SceneValue>();
             if (undo)
-                m_simpleDesk->setValue(scv.channel, scv.value);
+                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
             else
                 m_simpleDesk->resetChannel(scv.channel);
         }

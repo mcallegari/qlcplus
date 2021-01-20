@@ -38,6 +38,7 @@ ComboBox
      */
 
     textRole: "mLabel"
+    valueRole: "mValue"
     wheelEnabled: true
 
     property string currentIcon
@@ -46,15 +47,32 @@ ComboBox
 
     signal valueChanged(int value)
 
-    onCurrValueChanged: updateCurrentItem()
+    onCurrValueChanged: updateFromValue()
+    onCurrentIndexChanged: updateFromIndex()
 
-    function updateCurrentItem()
+    function updateFromIndex()
+    {
+        if (!model)
+            return
+
+        var item = model.length === undefined ? model.get(currentIndex) : model[currentIndex]
+        displayText = item.mLabel ? item.mLabel : item
+        //console.log("Index changed: " + currentIndex + ", label: " + displayText)
+        if (item.mIcon)
+            currentIcon = item.mIcon
+
+        if (item.mValue !== undefined)
+            control.valueChanged(item.mValue)
+    }
+
+    function updateFromValue()
     {
         if (!model)
             return
 
         var iCount = model.length === undefined ? model.count : model.length
         //console.log("Value changed:" + currValue + ", model count: " + iCount)
+
         for (var i = 0; i < iCount; i++)
         {
             var item = model.length === undefined ? model.get(i) : model[i]
@@ -74,7 +92,7 @@ ComboBox
         anchors.fill: parent
         z: 3
         color: "black"
-        opacity: 0.6
+        opacity: 0.4
         visible: !parent.enabled
     }
 
@@ -92,37 +110,6 @@ ComboBox
             text: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
             property string itemIcon: model.mIcon ? model.mIcon : (typeof modelData !== 'undefined' ? modelData.mIcon ? modelData.mIcon : "" : "")
             property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
-
-            Component.onCompleted:
-            {
-                //console.log("Combo item completed index: " + index + ", label: " + text + ", value: " + itemValue)
-
-                if (index === control.currentIndex)
-                {
-                    displayText = text
-                    currentIcon = itemIcon
-                    if (itemValue !== undefined && itemValue != currValue)
-                    {
-                        currValue = itemValue
-                        control.valueChanged(itemValue)
-                    }
-                }
-            }
-
-            onCurrentIdxChanged:
-            {
-                if (index == currentIdx)
-                {
-                    displayText = text
-                    currentIcon = itemIcon
-                    //console.log("Index changed:" + index + ", value: " + itemValue)
-                    if (itemValue !== undefined)
-                    {
-                        currValue = itemValue
-                        control.valueChanged(itemValue)
-                    }
-                }
-            }
 
             contentItem:
                 Row
@@ -154,7 +141,7 @@ ComboBox
                     width: contentItem.width
                     height: delegateHeight
                     visible: control.down || control.highlighted || control.visualFocus
-                    color: highlighted ? UISettings.highlight : hovered ? UISettings.bgControl : "transparent"
+                    color: highlighted ? UISettings.highlight : (hovered ? UISettings.bgControl : "transparent")
                 }
 
             onClicked:

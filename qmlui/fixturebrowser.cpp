@@ -20,6 +20,7 @@
 #include <QQmlEngine>
 #include <QQuickItem>
 #include <QQmlContext>
+#include <QDebug>
 
 #include "fixturebrowser.h"
 #include "qlcfixturemode.h"
@@ -60,7 +61,7 @@ FixtureBrowser::~FixtureBrowser()
 QStringList FixtureBrowser::manufacturers()
 {
     QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
-    mfList.sort();
+    mfList.sort(Qt::CaseInsensitive);
     m_manufacturerIndex = mfList.indexOf("Generic");
     emit manufacturerIndexChanged(m_manufacturerIndex);
     return mfList;
@@ -91,7 +92,7 @@ QStringList FixtureBrowser::modelsList()
         fxList << "Generic RGB Panel";
     }
 
-    fxList.sort();
+    fxList.sort(Qt::CaseInsensitive);
     return fxList;
 }
 

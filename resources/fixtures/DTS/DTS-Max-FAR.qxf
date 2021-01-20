@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.3</Version>
   <Author>Vassily Leushin</Author>
  </Creator>
  <Manufacturer>DTS</Manufacturer>
@@ -147,16 +147,16 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20">Open</Capability>
-  <Capability Min="21" Max="41">Gobo 1</Capability>
-  <Capability Min="42" Max="62">Gobo 2</Capability>
-  <Capability Min="63" Max="83">Gobo 3</Capability>
-  <Capability Min="84" Max="104">Gobo 4</Capability>
-  <Capability Min="105" Max="125">Gobo 5</Capability>
-  <Capability Min="126" Max="146">Gobo 6</Capability>
-  <Capability Min="147" Max="167">Gobo 7</Capability>
-  <Capability Min="168" Max="188">Gobo 8</Capability>
-  <Capability Min="189" Max="207">Gobo 9</Capability>
+  <Capability Min="0" Max="20" Preset="GoboMacro">Open</Capability>
+  <Capability Min="21" Max="41" Preset="GoboMacro">Gobo 1</Capability>
+  <Capability Min="42" Max="62" Preset="GoboMacro">Gobo 2</Capability>
+  <Capability Min="63" Max="83" Preset="GoboMacro">Gobo 3</Capability>
+  <Capability Min="84" Max="104" Preset="GoboMacro">Gobo 4</Capability>
+  <Capability Min="105" Max="125" Preset="GoboMacro">Gobo 5</Capability>
+  <Capability Min="126" Max="146" Preset="GoboMacro">Gobo 6</Capability>
+  <Capability Min="147" Max="167" Preset="GoboMacro">Gobo 7</Capability>
+  <Capability Min="168" Max="188" Preset="GoboMacro">Gobo 8</Capability>
+  <Capability Min="189" Max="207" Preset="GoboMacro">Gobo 9</Capability>
   <Capability Min="208" Max="213">Speed rot 1</Capability>
   <Capability Min="214" Max="219">Speed rot 2</Capability>
   <Capability Min="220" Max="225">Speed rot 3</Capability>
@@ -173,10 +173,10 @@
  </Channel>
  <Channel Name="Gobo Rot/Index">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9">Stop</Capability>
-  <Capability Min="10" Max="127">Left Rotation</Capability>
-  <Capability Min="128" Max="137">Stop</Capability>
-  <Capability Min="138" Max="255">Right Rotation</Capability>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="127" Preset="RotationClockwise">Left Rotation</Capability>
+  <Capability Min="128" Max="137" Preset="RotationStop">Stop</Capability>
+  <Capability Min="138" Max="255" Preset="RotationCounterClockwise">Right Rotation</Capability>
  </Channel>
  <Channel Name="Gobo Index Fine" Preset="GoboIndexFine"/>
  <Channel Name="Gobo Shake">

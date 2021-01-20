@@ -36,6 +36,7 @@ class FunctionManager;
 class GenericDMXSource;
 class MonitorProperties;
 class PreviewContext;
+class SimpleDesk;
 
 class ContextManager : public QObject
 {
@@ -55,7 +56,7 @@ class ContextManager : public QObject
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
                             FixtureManager *fxMgr, FunctionManager *funcMgr,
-                            QObject *parent = 0);
+                            SimpleDesk *sDesk, QObject *parent = 0);
     ~ContextManager();
 
     /** Register/Unregister a context to the map of known contexts */
@@ -129,6 +130,8 @@ private:
     FixtureManager *m_fixtureManager;
     /** Reference to the Function Manager */
     FunctionManager *m_functionManager;
+    /** Reference to the Simple Desk context */
+    SimpleDesk *m_simpleDesk;
 
     QMap <QString, PreviewContext *> m_contextsMap;
 
@@ -230,6 +233,8 @@ protected slots:
 
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
+    void slotSimpleDeskValueChanged(quint32 fxID, quint32 channel, quint8 value);
+
     /** Invoked by the QLC+ engine to inform the UI that the
      *  Universe at $idx has changed */
     void slotUniverseWritten(quint32 idx, const QByteArray& ua);
@@ -278,7 +283,10 @@ public:
     Q_ENUM(ChannelType)
 
     /** Store a channel value for Scene dumping */
-    void setDumpValue(quint32 fxID, quint32 channel, uchar value);
+    Q_INVOKABLE void setDumpValue(quint32 fxID, quint32 channel, uchar value, bool output = true);
+
+    /** Remove a channel from the Scene dumping list */
+    Q_INVOKABLE void unsetDumpValue(quint32 fxID, quint32 channel);
 
     /** Return the number of DMX channels currently available for dumping */
     int dumpValuesCount() const;

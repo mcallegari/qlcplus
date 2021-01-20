@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.3</Version>
   <Author>Daris Tomasoni</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -11,10 +11,10 @@
  <Type>Scanner</Type>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Rotation [0-540°]</Capability>
-  <Capability Min="128" Max="190">Left Gobo Rotation [Fast-Slow]</Capability>
-  <Capability Min="191" Max="192">Stop</Capability>
-  <Capability Min="193" Max="255">Right Gobo Rotation [Slow-Fast]</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation [0-540°]</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Left Gobo Rotation [Fast-Slow]</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Right Gobo Rotation [Slow-Fast]</Capability>
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>

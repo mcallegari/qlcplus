@@ -35,6 +35,7 @@ class SimpleDesk : public PreviewContext, public DMXSource
 
     Q_PROPERTY(QVariant universesListModel READ universesListModel CONSTANT)
     Q_PROPERTY(QVariant channelList READ channelList NOTIFY channelListChanged)
+    Q_PROPERTY(QVariantList fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QStringList commandHistory READ commandHistory NOTIFY commandHistoryChanged)
 
 public:
@@ -46,13 +47,20 @@ public:
     /** @reimp */
     void setUniverseFilter(quint32 universeFilter);
 
+    /** Return the actual list of channels for
+     *  the currently selected universe */
     QVariant channelList() const;
+
+    /** Return the list of fixtures for
+     *  the currently selected universe */
+    QVariantList fixtureList() const;
 
 protected slots:
     void updateChannelList();
 
 signals:
     void channelListChanged();
+    void fixtureListChanged();
 
 private:
     /** QML ready model to hold channel values and changes */
@@ -75,7 +83,7 @@ public:
     Q_ENUM(ChannelStatus)
 
     /** Set the value of a single channel */
-    Q_INVOKABLE void setValue(uint channel, uchar value);
+    Q_INVOKABLE void setValue(quint32 fixtureID, uint channel, uchar value);
 
     /** Get the value of a single channel */
     uchar value(uint channel) const;
@@ -93,6 +101,11 @@ protected slots:
     /** Invoked by the QLC+ engine to inform the UI that the
      *  Universe at $idx has changed */
     void slotUniverseWritten(quint32 idx, const QByteArray& ua);
+
+signals:
+    /** Informed the listeners that a channel value has changed.
+     *  This is connected to ContextManager for Scene dump */
+    void channelValueChanged(quint32 fixtureID, quint32 channelIndex, quint8 value);
 
 private:
     /** A map of channel absolute addresses and their values.
