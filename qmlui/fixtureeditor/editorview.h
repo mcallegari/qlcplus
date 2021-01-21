@@ -56,6 +56,8 @@ public:
     QString author() const;
     void setAuthor(QString author);
 
+    /** Get an editor reference for the
+     *  global physical properties */
     PhysicalEdit *globalPhysical();
 
 signals:

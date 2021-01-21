@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Ray Console - cd</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
- <Model>OPTI-TRI-30</Model>
+ <Model>OPTI TRI 30</Model>
  <Type>Moving Head</Type>
  <Channel Name="Dimming" Preset="IntensityDimmer"/>
  <Channel Name="Red " Preset="IntensityRed"/>

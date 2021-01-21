@@ -142,7 +142,7 @@ Rectangle
                         onClicked:
                         {
                             editorView.editorId = modelData.id
-                            editorView.editor = modelData.cRef
+                            editorView.fixtureEditor = modelData.cRef
                             checked = true
                         }
                     }

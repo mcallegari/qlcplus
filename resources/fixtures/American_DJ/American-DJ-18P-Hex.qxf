@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Ray Console - cd</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
- <Model>18P Hex </Model>
+ <Model>18P Hex</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
