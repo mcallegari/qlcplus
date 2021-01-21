@@ -3,6 +3,7 @@
   circles.js
 
   Copyright (c) Massimo Callegari
+  with Additions by Branson Matheson 
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,15 +27,17 @@ var testAlgo;
     var algo = new Object;
     algo.apiVersion = 2;
     algo.name = "Circles";
-    algo.author = "Massimo Callegari";
+    algo.author = "Massimo Callegari+Branson Matheson";
     algo.acceptColors = 2;
     algo.properties = new Array();
     algo.circlesAmount = 3;
     algo.properties.push("name:circlesAmount|type:range|display:Amount|values:1,10|write:setAmount|read:getAmount");
+    algo.circlesSize = 0;
+    algo.properties.push("name:circlesSize|type:range|display:Diameter(0=max(h,v))|values:0,32|write:setSize|read:getSize");
     algo.fadeMode = 0;
-    algo.properties.push("name:fadeMode|type:list|display:Fade Mode|values:Don't Fade,Fade In,Fade Out|write:setFade|read:getFade");
-    //algo.fillCircles = 0;
-    //algo.properties.push("name:fillCircles|type:list|display:Fill circles|values:No,Yes|write:setFill|read:getFill");
+    algo.properties.push("name:fadeMode|type:list|display:Fade Mode|values:Don't Fade,Fade In,Fade Out,Pulse|write:setFade|read:getFade");
+    algo.fillCircles = 0;
+    algo.properties.push("name:fillCircles|type:list|display:Fill circles|values:No,Yes|write:setFill|read:getFill");
 
     var util = new Object;
     util.pixelMap = new Array();
@@ -61,10 +64,22 @@ var testAlgo;
       return algo.circlesAmount;
     };
 
+    algo.setSize = function(_size)
+    {
+      algo.circlesSize = _size;
+      util.initialized = false;
+    };
+
+    algo.getSize = function()
+    {
+      return algo.circlesSize;
+    };
+
     algo.setFade = function(_fade)
     {
       if (_fade === "Fade In") { algo.fadeMode = 1; }
       else if (_fade === "Fade Out") { algo.fadeMode = 2; }
+      else if (_fade === "Pulse") { algo.fadeMode = 3; }
       else { algo.fadeMode = 0; }
     };
 
@@ -72,7 +87,24 @@ var testAlgo;
     {
       if (algo.fadeMode === 1) { return "Fade In"; }
       else if (algo.fadeMode === 2) { return "Fade Out"; }
+      else if (algo.fadeMode === 3) { return "Pulse"; }
       else { return "Don't Fade"; }
+    };
+
+    algo.setFill = function (_fill) {
+      if (_fill === "Yes") {
+        algo.fillCircles = 1;
+      } else {
+        algo.fillCircles = 0;
+      }
+    };
+
+    algo.getFill = function () {
+      if (algo.fadeMode === 1) {
+        return "Yes";
+      } else {
+        return "No";
+      }
     };
 
     util.initialize = function(size)
@@ -101,18 +133,42 @@ var testAlgo;
         var g = (rgb >> 8) & 0x00FF;
         var b = rgb & 0x00FF;
 
+
         var stepCount = Math.floor(util.circlesMaxSize / 2);
         var fadeStep = step;
-        if (algo.fadeMode === 2) {
+        if ( algo.fadeMode === 2 ) {
           fadeStep = stepCount - step;
+        } else if (algo.fadeMode == 3 && step >= stepCount/2) {
+          fadeStep = stepCount - step + (stepCount/2) -1;
+        } else if (algo.fadeMode == 3 && step < stepCount/2) {
+          fadeStep = step + (stepCount/2) -1;
         }
-        var newR = (r / stepCount) * fadeStep;
-        var newG = (g / stepCount) * fadeStep;
-        var newB = (b / stepCount) * fadeStep;
+        var newR = Math.round((r / stepCount) * fadeStep);
+        var newG = Math.round((g / stepCount) * fadeStep);
+        var newB = Math.round((b / stepCount) * fadeStep);
         var newRGB = (newR << 16) + (newG << 8) + newB;
+        //console.log("mode" + fadeMode + " rgb: " + r + g + b + " nrgb: " + newR+newG+newB +" StepCount: " + stepCount + " step:" + step + " fadeStep:" + fadeStep )
         return newRGB;
       }
     };
+
+    // from https://www.redblobgames.com/grids/circle-drawing/ 
+    util.drawCircle = function(cx, cy, color, width, height, r) {
+      ctop = Math.max(0, cy - r)
+      cbottom = Math.min(height, cy + r )
+      cleft = Math.max(0, cx - r)
+      cright = Math.min(width, cx + r )
+      for (py = ctop; py <= cbottom; py++) {
+        for (px = cleft; px <= cright; px++ ) {
+          dx = cx - px;
+          dy = cy - py;
+          distance_squared = (dx * dx) + (dy * dy);
+          if ( distance_squared <= r*r-1 ) {  // -1 here so edges are clean
+            util.drawPixel(px, py, color, width, height);
+          }
+        }
+      }
+    }
 
     util.drawPixel = function(cx, cy, color, width, height)
     {
@@ -156,21 +212,25 @@ var testAlgo;
           var radius2 = circles[i].step * circles[i].step;
           l = l.toFixed(0);
 
-          for (x = 0; x <= l; x++)
-          {
-            y = Math.sqrt(radius2 - (x * x));
+          if ( algo.fillCircles == 0 ) {
+            for (x = 0; x <= l; x++)
+            {
+              y = Math.sqrt(radius2 - (x * x));
 
-            util.drawPixel(circles[i].xCenter + x, circles[i].yCenter + y, color, width, height);
-            util.drawPixel(circles[i].xCenter + x, circles[i].yCenter - y, color, width, height);
-            util.drawPixel(circles[i].xCenter - x, circles[i].yCenter + y, color, width, height);
-            util.drawPixel(circles[i].xCenter - x, circles[i].yCenter - y, color, width, height);
+              util.drawPixel(circles[i].xCenter + x, circles[i].yCenter + y, color, width, height);
+              util.drawPixel(circles[i].xCenter + x, circles[i].yCenter - y, color, width, height);
+              util.drawPixel(circles[i].xCenter - x, circles[i].yCenter + y, color, width, height);
+              util.drawPixel(circles[i].xCenter - x, circles[i].yCenter - y, color, width, height);
 
-            util.drawPixel(circles[i].xCenter + y, circles[i].yCenter + x, color, width, height);
-            util.drawPixel(circles[i].xCenter + y, circles[i].yCenter - x, color, width, height);
-            util.drawPixel(circles[i].xCenter - y, circles[i].yCenter + x, color, width, height);
-            util.drawPixel(circles[i].xCenter - y, circles[i].yCenter - x, color, width, height);
+              util.drawPixel(circles[i].xCenter + y, circles[i].yCenter + x, color, width, height);
+              util.drawPixel(circles[i].xCenter + y, circles[i].yCenter - x, color, width, height);
+              util.drawPixel(circles[i].xCenter - y, circles[i].yCenter + x, color, width, height);
+              util.drawPixel(circles[i].xCenter - y, circles[i].yCenter - x, color, width, height);
+            }
+          } else {
+            util.drawCircle(circles[i].xCenter, circles[i].yCenter, color, width, height, circles[i].step)
           }
-        }
+        } 
 
         circles[i].step++;
         if (circles[i].step >= (util.circlesMaxSize / 2))
@@ -188,7 +248,9 @@ var testAlgo;
     {
       if (util.initialized === false)
       {
-        if (height < width) {
+        if ( algo.circlesSize > 0 ) {
+          util.initialize(algo.circlesSize);
+        } else if (height < width) {
           util.initialize(height);
         } else {
           util.initialize(width);

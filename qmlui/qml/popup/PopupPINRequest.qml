@@ -30,7 +30,7 @@ CustomPopupDialog
 
     onOpened:
     {
-        currentPinEdit.inputText = ""
+        currentPinEdit.text = ""
         currentPinEdit.selectAndFocus()
     }
 

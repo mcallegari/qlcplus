@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -35,7 +35,7 @@
   <Capability Min="245" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Beam dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Zoom" Preset="BeamFocusFarNear"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Pan Fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
@@ -65,7 +65,7 @@
  </Channel>
  <Channel Name="Beam color wheel effect">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open. RGBW color mixing enabled</Capability>
   <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffa490">LEE 790 - Moroccan pink</Capability>
   <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ff6d84">LEE 157 - Pink</Capability>
   <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff3366">LEE 332 - Special rose pink</Capability>
@@ -99,15 +99,15 @@
   <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ff7c00">LEE 778 - Millennium Gold</Capability>
   <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#ff5400">LEE 135 - Deep Golden Amber</Capability>
   <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ff0800">LEE 164 - Flame Red</Capability>
-  <Capability Min="175" Max="179">Open</Capability>
-  <Capability Min="180" Max="201" Preset="GoboMacro" Res1="Others/rainbow.png">Color rotation fast → slow</Capability>
-  <Capability Min="202" Max="207">Stop Rot</Capability>
-  <Capability Min="208" Max="229" Preset="GoboMacro" Res1="Others/rainbow.png">Color rotation slow → fast</Capability>
-  <Capability Min="230" Max="234">Open</Capability>
-  <Capability Min="235" Max="239" Preset="GoboMacro" Res1="Others/rainbow.png">Random color Fast</Capability>
-  <Capability Min="240" Max="244" Preset="GoboMacro" Res1="Others/rainbow.png">Random color Medium</Capability>
-  <Capability Min="245" Max="249" Preset="GoboMacro" Res1="Others/rainbow.png">Random color Slow</Capability>
-  <Capability Min="250" Max="255">Open</Capability>
+  <Capability Min="175" Max="179" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="180" Max="201" Preset="RotationClockwiseFastToSlow">Color rotation fast → slow</Capability>
+  <Capability Min="202" Max="207" Preset="RotationStop">Stop Rot</Capability>
+  <Capability Min="208" Max="229" Preset="RotationClockwiseSlowToFast">Color rotation slow → fast</Capability>
+  <Capability Min="230" Max="234" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="235" Max="239">Random color Fast</Capability>
+  <Capability Min="240" Max="244">Random color Medium</Capability>
+  <Capability Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="250" Max="255" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
  </Channel>
  <Channel Name="Beam Red" Preset="IntensityRed"/>
  <Channel Name="Beam Green" Preset="IntensityGreen"/>
@@ -246,7 +246,7 @@
  <Channel Name="Aura dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Aura color wheel effect">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open. RGBW color mixing enabled</Capability>
   <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffa490">LEE 790 - Moroccan pink</Capability>
   <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ff6d84">LEE 157 - Pink</Capability>
   <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff3366">LEE 332 - Special rose pink</Capability>
@@ -280,15 +280,15 @@
   <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ff7c00">LEE 778 - Millennium Gold</Capability>
   <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#ff5400">LEE 135 - Deep Golden Amber</Capability>
   <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ff0800">LEE 164 - Flame Red</Capability>
-  <Capability Min="175" Max="179">Open</Capability>
-  <Capability Min="180" Max="201" Preset="GoboMacro" Res1="Others/rainbow.png">Color rotation fast → slow</Capability>
-  <Capability Min="202" Max="207">Stop Rot</Capability>
-  <Capability Min="208" Max="229" Preset="GoboMacro" Res1="Others/rainbow.png">Color rotation slow → fast</Capability>
-  <Capability Min="230" Max="234">Open</Capability>
-  <Capability Min="235" Max="239" Preset="GoboMacro" Res1="Others/rainbow.png">Random color Fast</Capability>
-  <Capability Min="240" Max="244" Preset="GoboMacro" Res1="Others/rainbow.png">Random color Medium</Capability>
-  <Capability Min="245" Max="249" Preset="GoboMacro" Res1="Others/rainbow.png">Random color Slow</Capability>
-  <Capability Min="250" Max="255">Open</Capability>
+  <Capability Min="175" Max="179" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="180" Max="201" Preset="RotationClockwiseFastToSlow">Color rotation fast → slow</Capability>
+  <Capability Min="202" Max="207" Preset="RotationStop">Stop Rot</Capability>
+  <Capability Min="208" Max="229" Preset="RotationClockwiseSlowToFast">Color rotation slow → fast</Capability>
+  <Capability Min="230" Max="234" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="235" Max="239">Random color Fast</Capability>
+  <Capability Min="240" Max="244">Random color Medium</Capability>
+  <Capability Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="250" Max="255" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
  </Channel>
  <Channel Name="Aura Red" Preset="IntensityRed"/>
  <Channel Name="Aura Green" Preset="IntensityGreen"/>
@@ -309,9 +309,9 @@
   <Channel Number="12">Beam White</Channel>
   <Channel Number="13">Beam CTC</Channel>
   <Channel Number="14">FX1 select</Channel>
-  <Channel Number="15">FX1 adjust, sync speed adjust</Channel>
+  <Channel Number="15" ActsOn="14">FX1 adjust, sync speed adjust</Channel>
   <Channel Number="16">FX2 select</Channel>
-  <Channel Number="17">FX2 adjust, sync speed adjust</Channel>
+  <Channel Number="17" ActsOn="16">FX2 adjust, sync speed adjust</Channel>
   <Channel Number="18">Sync (FX synchronization)</Channel>
   <Channel Number="19">Aura shutter and strobe effect</Channel>
   <Channel Number="20">Aura dimmer</Channel>
@@ -319,6 +319,23 @@
   <Channel Number="22">Aura Red</Channel>
   <Channel Number="23">Aura Green</Channel>
   <Channel Number="24">Aura Blue</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+   <Channel>13</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
  </Mode>
  <Mode Name="Standard Mode">
   <Channel Number="0">Beam electronic shutter effect</Channel>

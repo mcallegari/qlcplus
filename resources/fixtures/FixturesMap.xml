@@ -3,6 +3,7 @@
 <FixturesMap xmlns="http://www.qlcplus.org/FixturesMap">
   <M n="Abstract">
     <F n="Abstract-Twister-4" m="Twister 4"/>
+    <F n="Abstract-VR8" m="VR8"/>
   </M>
   <M n="ADB">
     <F n="ADB-ALC4" m="ALC4"/>
@@ -17,9 +18,13 @@
   <M n="Alkalite">
     <F n="Alkalite-Octopod-DP-80" m="Octopod DP-80"/>
   </M>
+  <M n="Altman">
+    <F n="Altman-Spectra-CYC-100" m="Spectra CYC 100"/>
+  </M>
   <M n="American_DJ">
     <F n="American-DJ-12P-Hex-IP" m="12P Hex IP"/>
     <F n="American-DJ-12P-Hex" m="12P Hex Pearl"/>
+    <F n="American-DJ-18P-Hex" m="18P Hex"/>
     <F n="American-DJ-5P-Hex" m="5P Hex"/>
     <F n="American-DJ-64B-LED-PRO" m="64B LED PRO"/>
     <F n="American-DJ-Accu-Fog-1000" m="Accu Fog 1000"/>
@@ -76,6 +81,7 @@
     <F n="American-DJ-Illusion-Dotz-4-dot-4" m="Illusion Dotz 4.4"/>
     <F n="American-DJ-Inno-Color-Beam-LED" m="Inno Color Beam LED"/>
     <F n="American-DJ-Inno-Color-Beam-Quad-7" m="Inno Color Beam Quad 7"/>
+    <F n="American-DJ-Inno-Color-Beam-Z7" m="Inno Color Beam Z7"/>
     <F n="American-DJ-Inno-Pocket-Beam-Q4" m="Inno Pocket Beam Q4"/>
     <F n="American-DJ-Inno-Pocket-Roll" m="Inno Pocket Roll"/>
     <F n="American-DJ-Inno-Pocket-Scan" m="Inno Pocket Scan"/>
@@ -245,7 +251,9 @@
   <M n="Briteq">
     <F n="Briteq-BT-575S" m="BT 575S"/>
     <F n="Briteq-BT-575W" m="BT-575W"/>
+    <F n="Briteq-BT-Smartzoom" m="BT Smartzoom"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
+    <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
     <F n="Briteq-BT-W07L12" m="BT-W07L12"/>
     <F n="Briteq-BT-W12L10" m="BT-W12L10"/>
     <F n="Briteq-BTX-180LS" m="BTX-180LS"/>
@@ -491,6 +499,7 @@
     <F n="CLF-Tricolor-Mini-Par" m="Tricolor Mini Par"/>
   </M>
   <M n="Coemar">
+    <F n="Coemar-iSpot-150" m="iSpot 150"/>
     <F n="Coemar-Par-Lite-LED-RGB" m="Par Lite LED RGB"/>
     <F n="Coemar-ProSpot-250-LX" m="ProSpot 250 LX"/>
     <F n="Coemar-ProWash-250-LX" m="ProWash 250 LX"/>
@@ -508,12 +517,15 @@
     <F n="Contest-Evora-Beam-5R" m="Evora Beam 5R"/>
     <F n="Contest-Evora-DUO-B2R" m="Evora DUO B2R"/>
     <F n="Contest-EvoraB2R" m="Evora B2R"/>
+    <F n="Contest-HazeTEC" m="HazeTEC"/>
     <F n="Contest-irLED64-18x10FIVE" m="irLED64-18x10FIVE"/>
     <F n="Contest-LedColor" m="LedColor"/>
     <F n="Contest-Mini-Head-10W" m="Mini-Head 10W"/>
     <F n="Contest-MiniCube-6TCb" m="MiniCube-6TCb"/>
     <F n="Contest-Oz-37x15QC" m="Oz-37x15QC"/>
     <F n="Contest-PSC-930" m="PSC-930"/>
+    <F n="Contest-SFX-HO150QC" m="SFX-HO150QC"/>
+    <F n="Contest-SFX-HO150W" m="SFX-HO150W"/>
     <F n="Contest-STB-520-1500W-Strobe" m="STB-520 1500W Strobe"/>
     <F n="Contest-Tri4U" m="Tri4U"/>
   </M>
@@ -540,6 +552,7 @@
     <F n="Elation-DW-Fresnel" m="DW Fresnel"/>
     <F n="Elation-EVC-MH" m="EVC MH"/>
     <F n="Elation-Fuze-Wash-Z350" m="Fuze Wash Z350"/>
+    <F n="Elation-OPTI-TRI-30" m="OPTI TRI 30"/>
     <F n="Elation-Platinum-Beam-5R" m="Platinum Beam 5R"/>
     <F n="Elation-Platinum-Spot-5R" m="Platinum Spot 5R"/>
     <F n="Elation-Platinum-Spot-III" m="Platinum Spot III"/>
@@ -745,6 +758,8 @@
     <F n="Ghost-Green-30" m="Green 30"/>
   </M>
   <M n="GLP">
+    <F n="GLP-Impression-FR1-TM" m="Impression FR1 TM"/>
+    <F n="GLP-Impression-X4-Bar-10" m="Impression X4 Bar 10"/>
     <F n="GLP-Impression-X4-S" m="Impression X4 S"/>
     <F n="GLP-Impression" m="Impression"/>
     <F n="GLP-ImpressionWA" m="Impression WA"/>
@@ -839,6 +854,7 @@
     <F n="JB-Lighting-Varyscan-P7" m="Varyscan P7"/>
   </M>
   <M n="JB_Systems">
+    <F n="JB-Systems-Challenger-BSW" m="Challenger BSW"/>
     <F n="JB-Systems-COB-4BAR" m="COB-4BAR"/>
     <F n="JB-Systems-COB-Plano" m="COB-PLANO"/>
     <F n="JB-Systems-Dynamo-250" m="Dynamo 250"/>
@@ -1094,6 +1110,7 @@
     <F n="Pro-Lights-CromoSpot150" m="CromoSpot150"/>
     <F n="Pro-Lights-CromoSpot300" m="CromoSpot300"/>
     <F n="Pro-Lights-CromoWash300" m="CromoWash300"/>
+    <F n="Pro-Lights-EVO90F" m="EVO90F"/>
     <F n="Pro-Lights-Explo-3000D" m="Explo 3000D"/>
     <F n="Pro-Lights-Fury-FY250S" m="Fury FY250S"/>
     <F n="Pro-Lights-Fury-FY250W" m="Fury FY250W"/>
@@ -1183,6 +1200,9 @@
     <F n="Robe-Robin-800-LEDWash" m="Robin 800 LEDWash"/>
     <F n="Robe-Robin-DLX-Spot" m="Robin DLX Spot"/>
     <F n="Robe-Robin-MiniMe" m="Robin MiniMe"/>
+    <F n="Robe-Robin-Spikie" m="Robin Spikie"/>
+    <F n="Robe-Robin-Tetra-1" m="Robin Tetra 1"/>
+    <F n="Robe-Robin-Tetra-2" m="Robin Tetra 2"/>
     <F n="Robe-Robin-Viva-CMY" m="Robin Viva CMY"/>
     <F n="Robe-Scan-575-XT" m="Scan 575 XT"/>
     <F n="Robe-Spot-160-XT" m="Spot 160 XT"/>
@@ -1195,6 +1215,11 @@
   </M>
   <M n="Rosco">
     <F n="Rosco-I-Cue" m="I-Cue"/>
+  </M>
+  <M n="RVE">
+    <F n="RVE-Sereniled-EVO2" m="Sereniled EVO2"/>
+    <F n="RVE-Sereniled-Plus" m="Sereniled Plus"/>
+    <F n="RVE-Twinled-EVO2" m="Twinled EVO2"/>
   </M>
   <M n="Sagitter">
     <F n="Sagitter-Miniscan-2001" m="Miniscan 2001"/>
@@ -1265,6 +1290,7 @@
     <F n="Showtec-Mini-Max-LED-RGB" m="Mini Max LED RGB"/>
     <F n="Showtec-MiniMax-250" m="MiniMax 250"/>
     <F n="Showtec-MultiDim-MK-III-DMX" m="MultiDim MK III DMX"/>
+    <F n="Showtec-Par-64-100W-COB-UV" m="Par 64 100W COB UV"/>
     <F n="Showtec-Phantom-130-LED-Spot" m="Phantom 130 LED Spot"/>
     <F n="Showtec-Phantom-20-LED-Beam" m="Phantom 20 LED Beam"/>
     <F n="Showtec-Phantom-250-Wash" m="Phantom 250 Wash"/>
@@ -1418,6 +1444,7 @@
   <M n="Talent">
     <F n="Talent-BL252A" m="BL252A"/>
     <F n="Talent-BL63-10-LED-Bar" m="BL63 10&quot; LED Bar"/>
+    <F n="Talent-SSL1" m="SSL1"/>
   </M>
   <M n="Tomshine">
     <F n="Tomshine-Mini-Gobo-Moving-Head" m="Mini Gobo Moving Head"/>

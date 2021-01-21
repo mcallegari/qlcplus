@@ -38,7 +38,11 @@ EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *par
 
 EditorView::~EditorView()
 {
-
+    delete m_globalPhy;
+    if (m_channelEdit)
+        delete m_channelEdit;
+    if (m_modeEdit)
+        delete m_modeEdit;
 }
 
 QString EditorView::manufacturer() const
@@ -117,7 +121,7 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     if (ch == nullptr)
     {
         ch = new QLCChannel();
-        ch->setName(tr("New channel"));
+        ch->setName(tr("New channel %1").arg(m_fixtureDef->channels().count() + 1));
         m_fixtureDef->addChannel(ch);
         emit channelsChanged();
     }

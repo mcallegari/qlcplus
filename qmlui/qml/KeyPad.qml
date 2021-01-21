@@ -33,7 +33,7 @@ Rectangle
     property bool showDMXcontrol: true
     property bool showTapButton: false
     property double tapTimeValue: 0
-    property alias commandString: commandBox.inputText
+    property alias commandString: commandBox.text
     property real itemHeight: Math.max(UISettings.iconSizeDefault, keyPadRoot.height / keyPadGrid.rows) - 3
 
     onVisibleChanged: if (visible) commandBox.selectAndFocus()
@@ -76,8 +76,8 @@ Rectangle
             Layout.fillWidth: true
             implicitHeight: itemHeight
             color: UISettings.bgLight
-            onEnterPressed: keyPadRoot.executeCommand(keyPadRoot.commandString)
-            onEscapePressed: keyPadRoot.escapePressed()
+            onAccepted: keyPadRoot.executeCommand(keyPadRoot.commandString)
+            Keys.onEscapePressed: keyPadRoot.escapePressed()
         }
 
         GenericButton
@@ -214,7 +214,7 @@ Rectangle
             onClicked:
             {
                 if (showDMXcontrol == false)
-                    commandBox.inputText = parseInt(commandBox.inputText) - 1
+                    commandBox.text = parseInt(commandBox.text) - 1
             }
         }
         GenericButton
@@ -233,7 +233,7 @@ Rectangle
             onClicked:
             {
                 if (showDMXcontrol == false)
-                    commandBox.inputText = parseInt(commandBox.inputText) + 1
+                    commandBox.text = parseInt(commandBox.text) + 1
             }
         }
         GenericButton

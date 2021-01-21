@@ -18,12 +18,14 @@
 */
 
 #include "qlcfixturemode.h"
+#include "physicaledit.h"
 
 #include "modeedit.h"
 
 ModeEdit::ModeEdit(QLCFixtureMode *mode, QObject *parent)
     : QObject(parent)
     , m_mode(mode)
+    , m_physical(nullptr)
 {
 
 }
@@ -31,6 +33,48 @@ ModeEdit::ModeEdit(QLCFixtureMode *mode, QObject *parent)
 ModeEdit::~ModeEdit()
 {
 
+}
+
+QString ModeEdit::name() const
+{
+    return m_mode->name();
+}
+
+void ModeEdit::setName(QString name)
+{
+    if (name == m_mode->name())
+        return;
+
+    m_mode->setName(name);
+    emit nameChanged();
+}
+
+bool ModeEdit::useGlobalPhysical()
+{
+    return m_mode->useGlobalPhysical();
+}
+
+PhysicalEdit *ModeEdit::physical()
+{
+    if (m_physical == nullptr)
+        m_physical = new PhysicalEdit(m_mode->physical());
+    return m_physical;
+}
+
+QVariantList ModeEdit::channels() const
+{
+    QVariantList list;
+
+    for (QLCChannel *channel : m_mode->channels())
+    {
+        QVariantMap chMap;
+        chMap.insert("mIcon", channel->getIconNameFromGroup(channel->group(), true));
+        chMap.insert("mLabel", channel->name());
+        chMap.insert("mGroup", channel->groupToString(channel->group()));
+        list.append(chMap);
+    }
+
+    return list;
 }
 
 
