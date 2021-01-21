@@ -187,6 +187,12 @@ public:
         Picture
     };
 
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PresetType)
+#else
+    Q_ENUMS(PresetType)
+#endif
+
     /** String <-> value preset conversion helpers */
     static QString presetToString(Preset preset);
     static Preset stringToPreset(const QString &preset);

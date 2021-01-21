@@ -6,7 +6,7 @@
   <Version>4.12.2 GIT</Version>
   <Author>Andrea Ballarin</Author>
  </Creator>
- <Manufacturer>JB-Systems</Manufacturer>
+ <Manufacturer>JB Systems</Manufacturer>
  <Model>Emperor</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan" Preset="PositionPan"/>

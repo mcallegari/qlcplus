@@ -26,6 +26,7 @@ import "."
 
 GridLayout
 {
+    id: controlRoot
     columns: 2
 
     property PhysicalEdit phy: null
@@ -62,11 +63,20 @@ GridLayout
                         "MSD 250W", "MSD 275W", "MSD Platinum 15 R 300W", "MSD 575W",
                         "MSR 575W", "MSR 700W", "MSR 1200W"]
                 editable: true
+
+                Rectangle
+                {
+                    anchors.fill: parent
+                    color: "black"
+                    opacity: 0.7
+                    visible: !controlRoot.enabled
+                }
             }
             RobotoText { label: qsTr("Lumens") }
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -76,6 +86,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -101,17 +112,26 @@ GridLayout
             ComboBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 palette.base: UISettings.bgControl
                 palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
                 palette.highlightedText: UISettings.bgMain
                 model: ["Other", "PC", "Fresnel"]
                 editable: true
+                Rectangle
+                {
+                    anchors.fill: parent
+                    color: "black"
+                    opacity: 0.7
+                    visible: !controlRoot.enabled
+                }
             }
             RobotoText { label: qsTr("Min Degrees") }
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -122,6 +142,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -148,17 +169,26 @@ GridLayout
             ComboBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 palette.base: UISettings.bgControl
                 palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
                 palette.highlightedText: UISettings.bgMain
                 model: ["Fixed", "Head", "Mirror", "Barrel"]
                 editable: true
+                Rectangle
+                {
+                    anchors.fill: parent
+                    color: "black"
+                    opacity: 0.7
+                    visible: !controlRoot.enabled
+                }
             }
             RobotoText { label: qsTr("Pan Max Degrees") }
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -169,6 +199,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -184,6 +215,7 @@ GridLayout
                 CustomSpinBox
                 {
                     Layout.fillWidth: true
+                    enabled: controlRoot.enabled
                     from: 1
                     to: 999
                     stepSize: 1
@@ -192,6 +224,7 @@ GridLayout
                 CustomSpinBox
                 {
                     Layout.fillWidth: true
+                    enabled: controlRoot.enabled
                     from: 1
                     to: 999
                     stepSize: 1
@@ -217,6 +250,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -227,6 +261,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -237,6 +272,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -247,6 +283,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -273,6 +310,7 @@ GridLayout
             CustomSpinBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 from: 0
                 to: 999999
                 stepSize: 1
@@ -284,6 +322,7 @@ GridLayout
             ComboBox
             {
                 Layout.fillWidth: true
+                enabled: controlRoot.enabled
                 palette.base: UISettings.bgControl
                 palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
@@ -291,6 +330,13 @@ GridLayout
                 model: ["3-pin", "5-pin", "3-pin and 5-pin", "3.5 mm stereo jack", "Other"]
                 editable: true
                 //currentText: phy ? phy.dmxConnector : ""
+                Rectangle
+                {
+                    anchors.fill: parent
+                    color: "black"
+                    opacity: 0.7
+                    visible: !controlRoot.enabled
+                }
             }
         }
     }
