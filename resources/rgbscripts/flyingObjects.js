@@ -40,7 +40,7 @@ var testAlgo;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
 	  algo.selectedAlgo = "trees";
   	algo.properties.push("name:selectedAlgo|type:list|display:Objects|"
-			+ "values:Xmas Trees,Xmas Stars|"
+			+ "values:Balls,Snowman,Ufo,Xmas Stars,Xmas Trees,Xmas Stars|"
 			+ "write:setSelectedAlgo|read:getSelectedAlgo");
 
     algo.initialized = false;
@@ -50,6 +50,68 @@ var testAlgo;
     var util = new Object;
 
     // Algorithms ----------------------------
+
+    var ballsAlgo = new Object;
+    ballsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      var offx = rx - algo.obj[i].x;
+      var offy = ry - algo.obj[i].y;
+      var hyp = 1 - (Math.sqrt( (offx * offx) + (offy * offy))/((algo.presetSize/2)+1));
+      if (hyp < 0) {
+        hyp = 0;
+      }
+      return getColor(r * hyp, g * hyp, b * hyp, algo.map[ry][rx]);
+    }
+
+    var snowmanAlgo = new Object;
+    snowmanAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+ 
+      var size = algo.presetSize * 2 / 5;
+      var offx = rx - algo.obj[i].x;
+      var offy = ry - algo.obj[i].y + (algo.presetSize - size) / 2;
+      var scale = algo.presetSize / 2;
+
+      //var hyp1 = scale - scale * Math.sqrt(offx * offx + offy * offy);
+      var hyp1 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
+      // Set a bit towards background by dimming.
+      if (hyp1 < 0) {
+        hyp1 = 0;
+      }
+
+      size = algo.presetSize * 4 / 5;
+      offx = rx - algo.obj[i].x;
+      offy = ry - algo.obj[i].y - (algo.presetSize - size) / 2;
+      scale = algo.presetSize / 2;
+
+      //var hyp2 = scale - scale * Math.sqrt(offx * offx + offy * offy);
+      var hyp2 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
+      // Draw a shadow.
+      if (hyp1 > 0.1) {
+        hyp2 *= 0.5;
+      }
+      if (hyp2 < 0) {
+        hyp2 = 0;
+      }
+
+      var hyp = hyp1 + hyp2;
+      if (hyp > 1) {
+        hyp = 1;
+      }
+
+      return getColor(r * hyp, g * hyp, b * hyp, algo.map[ry][rx]);
+    }
+
+    var ufoAlgo = new Object;
+    ufoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      var offx = rx - algo.obj[i].x;
+      var offy = ry - algo.obj[i].y;
+      return algo.map[ry][rx];
+    }
 
     var treesAlgo = new Object;
     treesAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
@@ -71,11 +133,11 @@ var testAlgo;
       var hyp = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy)))) * 2.5)
           - 0 + offy * 3;
       hyp = Math.min(1, Math.max(0, hyp));
-  
+    
       // add the object color to the algo.mapped location
       return getColor(r * hyp, g * hyp, b * hyp, algo.map[ry][rx]);
     };
-  
+      
     var starsAlgo = new Object;
     starsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
       // calculate the offset difference of algo.map location to the float
@@ -163,6 +225,12 @@ var testAlgo;
     {
       if (_selected === "Xmas Stars") {
         algo.selectedAlgo = "stars";
+      } else if (_selected === "Balls") {
+        algo.selectedAlgo = "balls";
+      } else if (_selected === "Snowman") {
+        algo.selectedAlgo = "snowman";
+      } else if (_selected === "Ufo") {
+        algo.selectedAlgo = "ufo";
       } else {
         algo.selectedAlgo = "trees";
       }
@@ -172,6 +240,12 @@ var testAlgo;
     {
       if (algo.selectedAlgo === "stars") {
         return "Xmas Stars";
+      } else if (algo.selectedAlgo === "balls") {
+        return "Balls";
+      } else if (algo.selectedAlgo === "snowman") {
+        return "Snowman";
+      } else if (algo.selectedAlgo === "ufo") {
+        return "Ufo";
       } else {
         return "Xmas Trees";
       }
@@ -268,12 +342,18 @@ var testAlgo;
           for (var rx = mx - algo.boxRadius; rx < mx + algo.boxRadius + 2; rx++) {
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
-              // Draw the box for debugging.
+              // DEVELOPMENT: Draw the box for debugging.
               //algo.map[ry][rx] = getColor(20, 20, 20, algo.map[ry][rx]);
 
               // add the object color to the mapped location
               if (algo.selectedAlgo === "stars") {
                 algo.map[ry][rx] = starsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
+              } else if (algo.selectedAlgo === "balls") {
+                algo.map[ry][rx] = ballsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
+              } else if (algo.selectedAlgo === "snowman") {
+                algo.map[ry][rx] = snowmanAlgo.getMapPixelColor(i, rx, ry, r, g, b);
+              } else if (algo.selectedAlgo === "ufo") {
+                algo.map[ry][rx] = ufoAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else {
                 algo.map[ry][rx] = treesAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               }
