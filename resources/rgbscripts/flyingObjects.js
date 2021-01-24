@@ -38,8 +38,8 @@ var testAlgo;
     algo.properties.push("name:presetRandom|type:list|display:Random Colour|values:No,Yes|write:setRandom|read:getRandom");
     algo.presetCollision = 1;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
-	  algo.selectedAlgo = "Trees";
-  	algo.properties.push("name:selectedAlgo|type:list|display:Ojects|"
+	  algo.selectedAlgo = "trees";
+  	algo.properties.push("name:selectedAlgo|type:list|display:Objects|"
 			+ "values:Xmas Trees,Xmas Stars|"
 			+ "write:setSelectedAlgo|read:getSelectedAlgo");
 
@@ -48,6 +48,8 @@ var testAlgo;
     algo.realsize = 1;
 
     var util = new Object;
+
+    // Algorithms ----------------------------
 
     var treesAlgo = new Object;
     treesAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
@@ -95,6 +97,8 @@ var testAlgo;
       }
         return algo.map[ry][rx];
     }
+
+    // Setters and Getters ------------------------
 
     algo.setSize = function(_size)
     {
@@ -166,10 +170,10 @@ var testAlgo;
 
     algo.getSelectedAlgo = function()
     {
-      if (algo.presetCollision === 0) {
-        return "Yes";
-      } else if (algo.presetCollision === 1) {
-        return "No";
+      if (algo.selectedAlgo === "stars") {
+        return "Xmas Stars";
+      } else {
+        return "Xmas Trees";
       }
     };
 
