@@ -196,6 +196,20 @@ function initSpeedValue()
     document.getElementById("speed").value = speed;
 }
 
+function initGridSize()
+{
+    var width = localStorage.getItem("width");
+    if (width === null) {
+        width = 15;
+    }
+    document.getElementById("width").value = width;
+    var height = localStorage.getItem("height");
+    if (height === null) {
+        height = 15;
+    }
+    document.getElementById("height").value = height;
+}
+
 function getRgbFromColorInt(color)
 {
     var red = color >> 16;
@@ -272,6 +286,8 @@ function onGridSizeUpdated()
 {
     width = parseInt(document.getElementById("width").value);
     height = parseInt(document.getElementById("height").value);
+    localStorage.setItem("width", width);
+    localStorage.setItem("height", height);
 
     stepCount = testAlgo.rgbMapStepCount(width, height);
     document.getElementById("stepCount").value = stepCount;
@@ -310,6 +326,7 @@ function init()
     }
     initDefinitions();
     initSpeedValue();
+    initGridSize();
     initProperties();
     initPixelColors();
     onGridSizeUpdated();
