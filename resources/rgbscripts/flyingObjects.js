@@ -40,7 +40,7 @@ var testAlgo;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
 	  algo.selectedAlgo = "trees";
   	algo.properties.push("name:selectedAlgo|type:list|display:Objects|"
-			+ "values:Balls,Snowman,Ufo,Xmas Stars,Xmas Trees,Xmas Stars|"
+			+ "values:Balls,Snowman,Ufo,Xmas Stars,Xmas Trees|"
 			+ "write:setSelectedAlgo|read:getSelectedAlgo");
 
     algo.initialized = false;
@@ -52,69 +52,92 @@ var testAlgo;
     // Algorithms ----------------------------
 
     var ballsAlgo = new Object;
-    ballsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+    ballsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
       // calculate the offset difference of algo.map location to the float
       // location of the object
       var offx = rx - algo.obj[i].x;
       var offy = ry - algo.obj[i].y;
-      var hyp = 1 - (Math.sqrt( (offx * offx) + (offy * offy))/((algo.presetSize/2)+1));
-      if (hyp < 0) {
-        hyp = 0;
+      var factor = 1 - (Math.sqrt( (offx * offx) + (offy * offy))/((algo.presetSize/2)+1));
+      if (factor < 0) {
+        factor = 0;
       }
-      return getColor(r * hyp, g * hyp, b * hyp, algo.map[ry][rx]);
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
     var snowmanAlgo = new Object;
-    snowmanAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+    snowmanAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
       // calculate the offset difference of algo.map location to the float
       // location of the object
+      var offx = rx - algo.obj[i].x;
  
       var size = algo.presetSize * 2 / 5;
-      var offx = rx - algo.obj[i].x;
       var offy = ry - algo.obj[i].y + (algo.presetSize - size) / 2;
-      var scale = algo.presetSize / 2;
 
-      //var hyp1 = scale - scale * Math.sqrt(offx * offx + offy * offy);
-      var hyp1 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
+      var factor1 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
       // Set a bit towards background by dimming.
-      if (hyp1 < 0) {
-        hyp1 = 0;
+      if (factor1 < 0) {
+        factor1 = 0;
       }
 
       size = algo.presetSize * 4 / 5;
-      offx = rx - algo.obj[i].x;
       offy = ry - algo.obj[i].y - (algo.presetSize - size) / 2;
-      scale = algo.presetSize / 2;
 
-      //var hyp2 = scale - scale * Math.sqrt(offx * offx + offy * offy);
-      var hyp2 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
+      var factor2 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
       // Draw a shadow.
-      if (hyp1 > 0.1) {
-        hyp2 *= 0.5;
+      if (factor1 > 0.1) {
+        factor2 *= 0.5;
       }
-      if (hyp2 < 0) {
-        hyp2 = 0;
-      }
-
-      var hyp = hyp1 + hyp2;
-      if (hyp > 1) {
-        hyp = 1;
+      if (factor2 < 0) {
+        factor2 = 0;
       }
 
-      return getColor(r * hyp, g * hyp, b * hyp, algo.map[ry][rx]);
+      var factor = factor1 + factor2;
+      if (factor > 1) {
+        factor = 1;
+      }
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
     var ufoAlgo = new Object;
-    ufoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
-      // calculate the offset difference of algo.map location to the float
-      // location of the object
+    ufoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
       var offx = rx - algo.obj[i].x;
-      var offy = ry - algo.obj[i].y;
-      return algo.map[ry][rx];
+ 
+      var size = algo.presetSize * 2 / 5;
+      var offy1 = ry - algo.obj[i].y;
+
+      var factor1 = 1 - (Math.sqrt((offx * offx) + (offy1 * offy1)) / ((size / 2) + 1));
+      // Set a bit towards background by dimming.
+      if (factor1 < 0) {
+        factor1 = 0;
+      }
+       // factor1 = 0;
+
+      var factor2 = 0;
+      var offy2 = ry - algo.obj[i].y - size / 4;
+      if (offy2 <= 0) {
+        size = algo.presetSize;
+        factor2 = 1 - (Math.sqrt((offx * offx) + (offy2 * offy2) * (size / 1.5)) / ((size / 2) + 1));
+        if (factor2 < 0) {
+          factor2 = 0;
+        }
+      }
+
+      var factor = factor1 + factor2;
+      if (factor > 1) {
+        factor = 1;
+      }
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+
     }
 
     var treesAlgo = new Object;
-    treesAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+    treesAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
       // calculate the offset difference of algo.map location to the float
       // location of the object
       var offx = rx - algo.obj[i].x;
@@ -130,16 +153,17 @@ var testAlgo;
         // Offset to bottom
         offy += (algo.presetSize / 2);
       }
-      var hyp = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy)))) * 2.5)
+      var factor = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy)))) * 2.5)
           - 0 + offy * 3;
-      hyp = Math.min(1, Math.max(0, hyp));
+      factor = Math.min(1, Math.max(0, factor));
     
       // add the object color to the algo.mapped location
-      return getColor(r * hyp, g * hyp, b * hyp, algo.map[ry][rx]);
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     };
       
     var starsAlgo = new Object;
-    starsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+    starsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
       // calculate the offset difference of algo.map location to the float
       // location of the object
       var offx = Math.abs(Math.round(rx - algo.obj[i].x));
@@ -251,6 +275,8 @@ var testAlgo;
       }
     };
 
+    // General Purpose Functions ------------------
+
     // Combine RGB color from color channels
     function mergeRgb(r, g, b)
     {
@@ -274,6 +300,8 @@ var testAlgo;
       return mergeRgb(pointr, pointg, pointb);
     }
 
+    // Key Functions ------------------------------
+
     util.initialize = function(width, height)
     {
       algo.obj = new Array(algo.presetNumber);
@@ -283,13 +311,16 @@ var testAlgo;
           // set random start locations for objects
           x: Math.random() * (width - 1),
           y: Math.random() * (height - 1),
-          // set random directions
-          xDirection: (Math.random() * 2) - 1,
-          yDirection: (Math.random() * 2) - 1,
-          r: 0,
-          g: 0,
-          b: 0,
         };
+          // set random directions
+        do {
+          do {
+            algo.obj[i].xDirection = (Math.random() * 2) - 1;
+          } while (Math.abs(algo.obj[i].xDirection) < 0.1);
+          do {
+            algo.obj[i].yDirection = (Math.random() * 2) - 1;
+          } while (Math.abs(algo.obj[i].yDirection) < 0.1);
+        } while (Math.abs(algo.obj[i].xDirection + algo.obj[i].yDirection) < 0.3);
         do {
           // Chose random colour for each object
           algo.obj[i].r = Math.round(Math.random() * 255);

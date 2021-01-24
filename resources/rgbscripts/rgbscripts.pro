@@ -12,6 +12,7 @@ scripts.files += fillfromcenter.js
 scripts.files += fillunfill.js
 scripts.files += fillunfillfromcenter.js
 scripts.files += fillunfillsquaresfromcenter.js
+scripts.files += flyingObjects.js
 scripts.files += gradient.js
 scripts.files += noise.js
 scripts.files += onebyone.js
@@ -34,8 +35,6 @@ scripts.files += stripesfromcenter.js
 scripts.files += strobe.js
 scripts.files += verticalfall.js
 scripts.files += waves.js
-scripts.files += xmasstars.js
-scripts.files += xmastrees.js
 
 scripts.path = $$INSTALLROOT/$$RGBSCRIPTDIR
 INSTALLS    += scripts
