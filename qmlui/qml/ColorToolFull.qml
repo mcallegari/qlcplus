@@ -48,7 +48,7 @@ Rectangle
         rSpin.value = currentRGB.r * 255
         gSpin.value = currentRGB.g * 255
         bSpin.value = currentRGB.b * 255
-        htmlText.inputText = Helpers.getHTMLColor(currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255)
+        htmlText.text = Helpers.getHTMLColor(currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255)
         emitCurrentColor()
     }
     onCurrentWAUVChanged:

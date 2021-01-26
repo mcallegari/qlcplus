@@ -93,7 +93,7 @@ CustomPopupDialog
                 property string hostname: networkManager.hostName
 
                 Layout.fillWidth: true
-                inputText: hostname
+                text: hostname
                 onTextChanged: networkManager.hostName = text
             }
 
@@ -196,7 +196,7 @@ CustomPopupDialog
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 enabled: manualServerCheck.checked
-                inputText: popupRoot.serverAddress
+                text: popupRoot.serverAddress
                 onTextChanged: popupRoot.serverAddress = text
             }
 

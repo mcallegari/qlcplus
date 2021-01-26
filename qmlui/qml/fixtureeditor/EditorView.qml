@@ -29,7 +29,7 @@ Rectangle
     id: editorRoot
 
     property int editorId
-    property EditorRef editor: null
+    property EditorRef fixtureEditor: null
 
     color: "transparent"
 
@@ -74,8 +74,8 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                inputText: editor ? editor.manufacturer : ""
-                                onTextChanged: if (editor) editor.manufacturer = text
+                                text: fixtureEditor ? fixtureEditor.manufacturer : ""
+                                onTextChanged: if (fixtureEditor) fixtureEditor.manufacturer = text
                             }
 
                             // row 2
@@ -83,8 +83,8 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                inputText: editor ? editor.model : ""
-                                onTextChanged: if (editor) editor.model = text
+                                text: fixtureEditor ? fixtureEditor.model : ""
+                                onTextChanged: if (fixtureEditor) fixtureEditor.model = text
                             }
 
                             // row 3
@@ -121,8 +121,8 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                inputText: editor ? editor.author : ""
-                                onTextChanged: if (editor) editor.author = text
+                                text: fixtureEditor ? fixtureEditor.author : ""
+                                onTextChanged: if (fixtureEditor) fixtureEditor.author = text
                             }
                         }
                 } // SectionBox - General
@@ -137,7 +137,7 @@ Rectangle
                         PhysicalProperties
                         {
                             width: Math.min(editorRoot.width / 2, parent.width)
-                            phy: editor ? editor.globalPhysical : null
+                            phy: fixtureEditor ? fixtureEditor.globalPhysical : null
                         }
                 } // SectionBox - Physical
 
@@ -173,7 +173,12 @@ Rectangle
                                         id: newChButton
                                         imgSource: "qrc:/add.svg"
                                         tooltip: qsTr("Add a new channel")
-                                        onClicked: { /* TODO */ }
+                                        onClicked:
+                                        {
+                                            sideEditor.source = ""
+                                            sideEditor.itemName = ""
+                                            sideEditor.source = "qrc:/ChannelEditor.qml"
+                                        }
                                     }
 
                                     IconButton
@@ -202,7 +207,7 @@ Rectangle
 
                                 property bool dragActive: false
 
-                                model: editor ? editor.channels : null
+                                model: fixtureEditor ? fixtureEditor.channels : null
                                 delegate:
                                     Item
                                     {
@@ -214,6 +219,7 @@ Rectangle
                                             id: delegateRoot
                                             width: channelList.width
                                             height: parent.height
+                                            propagateComposedEvents: true
 
                                             property bool dragActive: drag.active
 
@@ -350,7 +356,7 @@ Rectangle
                                 boundsBehavior: Flickable.StopAtBounds
                                 currentIndex: -1
 
-                                model: editor ? editor.modes : null
+                                model: fixtureEditor ? fixtureEditor.modes : null
                                 delegate:
                                     Item
                                     {
@@ -431,8 +437,8 @@ Rectangle
                 item.width = Qt.binding(function() { return sideEditor.width - 20 })
                 item.height = Qt.binding(function() { return sideEditor.height - 20 })
 
-                item.editor = editorRoot.editor
-                item.itemName = itemName
+                item.fixtureEditor = editorRoot.fixtureEditor
+                item.setItemName(itemName)
             }
         }
     }

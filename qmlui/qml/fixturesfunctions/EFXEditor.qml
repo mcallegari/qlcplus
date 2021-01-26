@@ -804,7 +804,7 @@ Rectangle
                                     }
                                     model: runOrderModel
 
-                                    currentValue: efxEditor.runOrder
+                                    currValue: efxEditor.runOrder
                                     onValueChanged: efxEditor.runOrder = value
                                 }
                                 RobotoText
@@ -823,7 +823,7 @@ Rectangle
                                     }
                                     model: directionModel
 
-                                    currentValue: efxEditor.direction
+                                    currValue: efxEditor.direction
                                     onValueChanged: efxEditor.direction = value
                                 }
                                 RobotoText

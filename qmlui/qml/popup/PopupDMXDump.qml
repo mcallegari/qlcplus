@@ -31,7 +31,7 @@ CustomPopupDialog
 
     property bool show: !dontAskCheck.checked
     property int channelsMask: contextManager ? contextManager.dumpChannelMask : 0
-    property alias sceneName: nameInputBox.inputText
+    property alias sceneName: nameInputBox.text
 
     function getChannelsMask()
     {
@@ -91,8 +91,8 @@ CustomPopupDialog
                 {
                     id: nameInputBox
                     Layout.fillWidth: true
-                    inputText: qsTr("New Scene")
-                    onEnterPressed: popupRoot.accept()
+                    text: qsTr("New Scene")
+                    onAccepted: popupRoot.accept()
                 }
             }
 

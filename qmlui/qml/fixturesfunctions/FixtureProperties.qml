@@ -95,10 +95,10 @@ Rectangle
             CustomTextEdit
             {
                 id: fxNameTextEdit
-                inputText: fxName
+                text: fxName
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onInputTextChanged: fixtureBrowser.fixtureName = inputText
+                onTextChanged: fixtureBrowser.fixtureName = text
             }
 
             // row 2

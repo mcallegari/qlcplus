@@ -52,8 +52,31 @@ QVariantList ChannelEdit::channelPresetList() const
         QVariantMap chMap;
         chMap.insert("mIcon", ch.getIconNameFromGroup(ch.group(), true));
         chMap.insert("mLabel", ch.name() + " (" + ch.presetToString(QLCChannel::Preset(i)) + ")");
-        custom.insert("mValue", i);
+        chMap.insert("mValue", i);
         list.append(chMap);
+    }
+
+    return list;
+}
+
+QVariantList ChannelEdit::capabilityPresetList() const
+{
+    QVariantList list;
+
+    QVariantMap custom;
+    //custom.insert("mIcon", "qrc:/edit.svg");
+    custom.insert("mLabel", tr("Custom"));
+    custom.insert("mValue", 0);
+    list.append(custom);
+
+    for (int i = QLCCapability::Custom + 1; i < QLCCapability::LastPreset; i++)
+    {
+        QLCCapability cap;
+        QVariantMap capMap;
+        cap.setPreset(QLCCapability::Preset(i));
+        capMap.insert("mLabel", cap.presetToString(QLCCapability::Preset(i)));
+        capMap.insert("mValue", i);
+        list.append(capMap);
     }
 
     return list;
@@ -118,13 +141,24 @@ void ChannelEdit::setPreset(int index)
     if (index == int(m_channel->preset()))
         return;
 
+    if (index)
+        m_channel->setName("");
+
     m_channel->setPreset(QLCChannel::Preset(index));
     emit presetChanged();
-    if (index)
-    {
-        emit groupChanged();
-        emit controlByteChanged();
-    }
+
+    if (index == 0)
+        return;
+
+    emit nameChanged();
+    emit groupChanged();
+    emit controlByteChanged();
+
+    for(QLCCapability *cap : m_channel->capabilities())
+        m_channel->removeCapability(cap);
+
+    m_channel->addPresetCapability();
+    emit capabilitiesChanged();
 }
 
 int ChannelEdit::group() const
@@ -183,5 +217,65 @@ QVariantList ChannelEdit::capabilities() const
     }
 
     return list;
+}
+
+int ChannelEdit::getCapabilityPresetAtIndex(int index)
+{
+    int i = 0;
+
+    for (QLCCapability *cap : m_channel->capabilities())
+    {
+        if (i == index)
+            return cap->preset();
+
+        i++;
+    }
+
+    return 0;
+}
+
+int ChannelEdit::getCapabilityPresetType(int index)
+{
+    int i = 0;
+
+    for (QLCCapability *cap : m_channel->capabilities())
+    {
+        if (i == index)
+            return cap->presetType();
+
+        i++;
+    }
+
+    return QLCCapability::None;
+}
+
+QString ChannelEdit::getCapabilityPresetUnits(int index)
+{
+    int i = 0;
+
+    for (QLCCapability *cap : m_channel->capabilities())
+    {
+        if (i == index)
+            return cap->presetUnits();
+
+        i++;
+    }
+
+    return QString();
+}
+
+QVariant ChannelEdit::getCapabilityValueAt(int index, int vIndex)
+{
+    int i = 0;
+
+    for (QLCCapability *cap : m_channel->capabilities())
+    {
+        if (i == index)
+            return cap->resource(vIndex);
+
+        i++;
+    }
+
+    return QVariant();
 }
 

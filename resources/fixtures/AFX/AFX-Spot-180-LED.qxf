@@ -36,7 +36,7 @@
  </Channel>
  <Channel Name="Static Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Other/Open.svg">Open</Capability>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="7" Max="13" Preset="GoboMacro" Res1="">Gobo 1</Capability>
   <Capability Min="14" Max="20" Preset="GoboMacro" Res1="">Gobo 2</Capability>
   <Capability Min="21" Max="27" Preset="GoboMacro" Res1="">Gobo 3</Capability>
@@ -53,7 +53,7 @@
   <Capability Min="99" Max="105" Preset="GoboShakeMacro" Res1="">Gobo 3 Shake speed from slow to fast</Capability>
   <Capability Min="106" Max="112" Preset="GoboShakeMacro" Res1="">Gobo 2 Shake speed from slow to fast</Capability>
   <Capability Min="113" Max="119" Preset="GoboShakeMacro" Res1="">Gobo 1 Shake speed from slow to fast</Capability>
-  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Other/Open.svg">Open</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Gobo Rotate CW slow to fast</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Gobo Rotate CCW slow to fast</Capability>
  </Channel>
