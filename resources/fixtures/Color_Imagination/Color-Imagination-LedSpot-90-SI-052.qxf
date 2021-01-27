@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>DJ Ladonin</Author>
  </Creator>
  <Manufacturer>Color Imagination</Manufacturer>
@@ -23,27 +23,27 @@
   <Capability Min="80" Max="95">Color 5</Capability>
   <Capability Min="96" Max="111">Color 6</Capability>
   <Capability Min="112" Max="127">Color 7</Capability>
-  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
-  <Capability Min="190" Max="193">Color rotation stop</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Color rotation stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rainbow effect from slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="19" Preset="GoboMacro">Gobo 1</Capability>
-  <Capability Min="20" Max="29" Preset="GoboMacro">Gobo 2</Capability>
-  <Capability Min="30" Max="39" Preset="GoboMacro">Gobo 3</Capability>
-  <Capability Min="40" Max="49" Preset="GoboMacro">Gobo 4</Capability>
-  <Capability Min="50" Max="59" Preset="GoboMacro">Gobo 5</Capability>
-  <Capability Min="60" Max="69" Preset="GoboMacro">Gobo 6</Capability>
-  <Capability Min="70" Max="79" Preset="GoboMacro">Gobo 7</Capability>
-  <Capability Min="80" Max="99" Preset="GoboShakeMacro">Gobo 1 shake from slow to fast</Capability>
-  <Capability Min="100" Max="119" Preset="GoboShakeMacro">Gobo 2 shake from slow to fast</Capability>
-  <Capability Min="120" Max="139" Preset="GoboShakeMacro">Gobo 7 shake from slow to fast</Capability>
-  <Capability Min="140" Max="159" Preset="GoboShakeMacro">Gobo 4 shake from slow to fast</Capability>
-  <Capability Min="160" Max="179" Preset="GoboShakeMacro">Gobo 4 shake from slow to fast</Capability>
-  <Capability Min="180" Max="199" Preset="GoboShakeMacro">Gobo 4 shake from slow to fast</Capability>
-  <Capability Min="200" Max="219" Preset="GoboShakeMacro">Gobo 4 shake from slow to fast</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="80" Max="99" Preset="GoboShakeMacro" Res1="">Gobo 1 shake from slow to fast</Capability>
+  <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="">Gobo 2 shake from slow to fast</Capability>
+  <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="">Gobo 7 shake from slow to fast</Capability>
+  <Capability Min="140" Max="159" Preset="GoboShakeMacro" Res1="">Gobo 4 shake from slow to fast</Capability>
+  <Capability Min="160" Max="179" Preset="GoboShakeMacro" Res1="">Gobo 4 shake from slow to fast</Capability>
+  <Capability Min="180" Max="199" Preset="GoboShakeMacro" Res1="">Gobo 4 shake from slow to fast</Capability>
+  <Capability Min="200" Max="219" Preset="GoboShakeMacro" Res1="">Gobo 4 shake from slow to fast</Capability>
   <Capability Min="220" Max="255" Preset="RotationClockwiseSlowToFast">Continuous wheel rotation slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo 1 Rotation">
@@ -56,24 +56,24 @@
  <Channel Name="Gobo 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open/hole</Capability>
-  <Capability Min="10" Max="19" Preset="GoboMacro">Gobo 1</Capability>
-  <Capability Min="20" Max="29" Preset="GoboMacro">Gobo 2</Capability>
-  <Capability Min="30" Max="39" Preset="GoboMacro">Gobo 3</Capability>
-  <Capability Min="40" Max="49" Preset="GoboMacro">Gobo 4</Capability>
-  <Capability Min="50" Max="59" Preset="GoboMacro">Gobo 5</Capability>
-  <Capability Min="60" Max="69" Preset="GoboMacro">Gobo 6</Capability>
-  <Capability Min="70" Max="79" Preset="GoboMacro">Gobo 7</Capability>
-  <Capability Min="80" Max="89" Preset="GoboMacro">Gobo 8</Capability>
-  <Capability Min="90" Max="99" Preset="GoboMacro">Gobo 9</Capability>
-  <Capability Min="100" Max="111" Preset="GoboShakeMacro">Gobo 1 shake from slow to fast</Capability>
-  <Capability Min="112" Max="123" Preset="GoboShakeMacro">Gobo 2 shake from slow to fast</Capability>
-  <Capability Min="124" Max="135" Preset="GoboShakeMacro">Gobo 3 shake from slow to fast</Capability>
-  <Capability Min="136" Max="147" Preset="GoboShakeMacro">Gobo 4 shake from slow to fast</Capability>
-  <Capability Min="148" Max="159" Preset="GoboShakeMacro">Gobo 5 shake from slow to fast</Capability>
-  <Capability Min="160" Max="171" Preset="GoboShakeMacro">Gobo 6 shake from slow to fast</Capability>
-  <Capability Min="172" Max="183" Preset="GoboShakeMacro">Gobo 7 shake from slow to fast</Capability>
-  <Capability Min="184" Max="195" Preset="GoboShakeMacro">Gobo 8 shake from slow to fast</Capability>
-  <Capability Min="196" Max="207" Preset="GoboShakeMacro">Gobo 9 shake from slow to fast</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="80" Max="89" Preset="GoboMacro" Res1="">Gobo 8</Capability>
+  <Capability Min="90" Max="99" Preset="GoboMacro" Res1="">Gobo 9</Capability>
+  <Capability Min="100" Max="111" Preset="GoboShakeMacro" Res1="">Gobo 1 shake from slow to fast</Capability>
+  <Capability Min="112" Max="123" Preset="GoboShakeMacro" Res1="">Gobo 2 shake from slow to fast</Capability>
+  <Capability Min="124" Max="135" Preset="GoboShakeMacro" Res1="">Gobo 3 shake from slow to fast</Capability>
+  <Capability Min="136" Max="147" Preset="GoboShakeMacro" Res1="">Gobo 4 shake from slow to fast</Capability>
+  <Capability Min="148" Max="159" Preset="GoboShakeMacro" Res1="">Gobo 5 shake from slow to fast</Capability>
+  <Capability Min="160" Max="171" Preset="GoboShakeMacro" Res1="">Gobo 6 shake from slow to fast</Capability>
+  <Capability Min="172" Max="183" Preset="GoboShakeMacro" Res1="">Gobo 7 shake from slow to fast</Capability>
+  <Capability Min="184" Max="195" Preset="GoboShakeMacro" Res1="">Gobo 8 shake from slow to fast</Capability>
+  <Capability Min="196" Max="207" Preset="GoboShakeMacro" Res1="">Gobo 9 shake from slow to fast</Capability>
   <Capability Min="208" Max="255" Preset="RotationClockwiseSlowToFast">Wheel rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -91,17 +91,17 @@
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="5">Swing out</Capability>
-  <Capability Min="6" Max="127">Swing in</Capability>
+  <Capability Min="0" Max="5" Preset="PrismEffectOff">Swing out</Capability>
+  <Capability Min="6" Max="127" Preset="PrismEffectOn" Res1="3">Swing in</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forward rotation fast to slow</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Rotation stop</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="191">Max. diameter to min. diameter</Capability>
-  <Capability Min="192" Max="223">Pulse opening fast to slow</Capability>
-  <Capability Min="224" Max="255">Pulse closing slow to fast</Capability>
+  <Capability Min="0" Max="191" Preset="BigToSmall">Max. diameter to min. diameter</Capability>
+  <Capability Min="192" Max="223" Preset="RampUpFastToSlow">Pulse opening fast to slow</Capability>
+  <Capability Min="224" Max="255" Preset="RampDownSlowToFast">Pulse closing slow to fast</Capability>
  </Channel>
  <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special">
@@ -127,7 +127,7 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Color</Channel>
   <Channel Number="5">Gobo 1</Channel>
-  <Channel Number="6">Gobo 1 Rotation</Channel>
+  <Channel Number="6" ActsOn="5">Gobo 1 Rotation</Channel>
   <Channel Number="7">Gobo 2</Channel>
   <Channel Number="8">Shutter</Channel>
   <Channel Number="9">Dimmer</Channel>

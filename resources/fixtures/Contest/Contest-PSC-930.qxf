@@ -141,7 +141,7 @@
   </Physical>
   <Channel Number="0">Color</Channel>
   <Channel Number="1">Gobo</Channel>
-  <Channel Number="2">Gobo rotation</Channel>
+  <Channel Number="2" ActsOn="1">Gobo rotation</Channel>
   <Channel Number="3">Shutter</Channel>
   <Channel Number="4">Pan</Channel>
   <Channel Number="5">Tilt</Channel>

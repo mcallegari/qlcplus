@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Axel Metzke</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -21,7 +21,7 @@
  <Channel Name="Yellow Color Fine (16 Bit)" Preset="IntensityYellowFine"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">Open / White</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">Open / White</Capability>
   <Capability Min="11" Max="19" Preset="ColorMacro" Res1="#ec2224">Red</Capability>
   <Capability Min="20" Max="28" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="29" Max="37" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
@@ -236,10 +236,10 @@
   <Channel Number="4">Yellow Color</Channel>
   <Channel Number="5">Color Wheel</Channel>
   <Channel Number="6">Rotating Gobos, Continuous Rotating (Gobo Wheel 1)</Channel>
-  <Channel Number="7">Rotating Gobos, Index Rotation (Gobo Wheel) (16 Bit)</Channel>
+  <Channel Number="7" ActsOn="6">Rotating Gobos, Index Rotation (Gobo Wheel) (16 Bit)</Channel>
   <Channel Number="8">Static / Fixed Gobos (Gobo Wheel 2)</Channel>
   <Channel Number="9">Rotating Prism, Prism / Gobo Macros</Channel>
-  <Channel Number="10">Rotating prism, prism index rotation</Channel>
+  <Channel Number="10" ActsOn="9">Rotating prism, prism index rotation</Channel>
   <Channel Number="11">Focus</Channel>
   <Channel Number="12">Shutter, strobe</Channel>
   <Channel Number="13">Dimmer intensity</Channel>
@@ -259,10 +259,10 @@
   <Channel Number="6">Yellow Color</Channel>
   <Channel Number="7">Color Wheel</Channel>
   <Channel Number="8">Rotating Gobos, Continuous Rotating (Gobo Wheel 1)</Channel>
-  <Channel Number="9">Rotating Gobos, Index Rotation (Gobo Wheel) (16 Bit)</Channel>
+  <Channel Number="9" ActsOn="8">Rotating Gobos, Index Rotation (Gobo Wheel) (16 Bit)</Channel>
   <Channel Number="10">Static / Fixed Gobos (Gobo Wheel 2)</Channel>
   <Channel Number="11">Rotating Prism, Prism / Gobo Macros</Channel>
-  <Channel Number="12">Rotating prism, prism index rotation</Channel>
+  <Channel Number="12" ActsOn="11">Rotating prism, prism index rotation</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Shutter, strobe</Channel>
   <Channel Number="15">Dimmer intensity</Channel>
@@ -286,12 +286,12 @@
   <Channel Number="10">Color Wheel</Channel>
   <Channel Number="11">Color Wheel Fine Adjustment (16 Bit)</Channel>
   <Channel Number="12">Rotating Gobos, Continuous Rotating (Gobo Wheel 1)</Channel>
-  <Channel Number="13">Rotating Gobos, Index Rotation (Gobo Wheel) (16 Bit)</Channel>
+  <Channel Number="13" ActsOn="12">Rotating Gobos, Index Rotation (Gobo Wheel) (16 Bit)</Channel>
   <Channel Number="14">Rotating Gobos, Fine Index Rotating (Gobo Wheel 1) (16 Bit)</Channel>
   <Channel Number="15">Static / Fixed Gobos (Gobo Wheel 2)</Channel>
   <Channel Number="16">Static / Fixed Gobos, Fine Index Rotation (Gobo Wheel 2) (16 Bit)</Channel>
   <Channel Number="17">Rotating Prism, Prism / Gobo Macros</Channel>
-  <Channel Number="18">Rotating prism, prism index rotation</Channel>
+  <Channel Number="18" ActsOn="17">Rotating prism, prism index rotation</Channel>
   <Channel Number="19">Rotating prism, prism index rotation (16 bit)</Channel>
   <Channel Number="20">Focus</Channel>
   <Channel Number="21">Focus fine (16 bit)</Channel>

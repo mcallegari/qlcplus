@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -31,7 +31,7 @@
  <Channel Name="Color Fine" Preset="ColorWheelFine"/>
  <Channel Name="Rotating Gobos (Continuous Rotation)">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/gobo00001.svg">Rot. Gobo 1</Capability>
   <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Others/gobo00002.png">Rot. Gobo 2</Capability>
   <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Others/gobo00003.png">Rot. Gobo 3</Capability>
@@ -60,7 +60,7 @@
  <Channel Name="Rotating Gobo (Indexing) Fine" Preset="GoboIndexFine"/>
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Others/gobo00009.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Others/gobo00010.svg">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Others/gobo00011.svg">Gobo 3</Capability>
@@ -211,10 +211,10 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Color</Channel>
   <Channel Number="5">Rotating Gobos (Continuous Rotation)</Channel>
-  <Channel Number="6">Rotating Gobos (Indexing)</Channel>
+  <Channel Number="6" ActsOn="5">Rotating Gobos (Indexing)</Channel>
   <Channel Number="7">Fixed Gobos</Channel>
   <Channel Number="8">3 Facet Prism / Gobo Macros</Channel>
-  <Channel Number="9">Rotating Prism / Gobo Macros</Channel>
+  <Channel Number="9" ActsOn="8">Rotating Prism / Gobo Macros</Channel>
   <Channel Number="10">Focus</Channel>
   <Channel Number="11">Shutter</Channel>
   <Channel Number="12">Dimmer</Channel>
@@ -231,12 +231,12 @@
   <Channel Number="4">Color</Channel>
   <Channel Number="5">Color Fine</Channel>
   <Channel Number="6">Rotating Gobos (Continuous Rotation)</Channel>
-  <Channel Number="7">Rotating Gobos (Indexing)</Channel>
+  <Channel Number="7" ActsOn="6">Rotating Gobos (Indexing)</Channel>
   <Channel Number="8">Rotating Gobo (Indexing) Fine</Channel>
   <Channel Number="9">Fixed Gobos</Channel>
   <Channel Number="10">Fixed Gobo (Indexing) Fine</Channel>
   <Channel Number="11">3 Facet Prism / Gobo Macros</Channel>
-  <Channel Number="12">Rotating Prism / Gobo Macros</Channel>
+  <Channel Number="12" ActsOn="11">Rotating Prism / Gobo Macros</Channel>
   <Channel Number="13">Rotating Prism Indexing Fine</Channel>
   <Channel Number="14">Focus</Channel>
   <Channel Number="15">Focus Fine</Channel>

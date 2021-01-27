@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -137,7 +137,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color wheel</Channel>
   <Channel Number="3">Gobos</Channel>
-  <Channel Number="4">Rotating gobo index</Channel>
+  <Channel Number="4" ActsOn="3">Rotating gobo index</Channel>
   <Channel Number="5">Prism</Channel>
   <Channel Number="6">Shutter, strobe</Channel>
   <Channel Number="7">Dimmer</Channel>
@@ -152,7 +152,7 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Color wheel</Channel>
   <Channel Number="5">Gobos</Channel>
-  <Channel Number="6">Rotating gobo index</Channel>
+  <Channel Number="6" ActsOn="5">Rotating gobo index</Channel>
   <Channel Number="7">Prism</Channel>
   <Channel Number="8">Shutter, strobe</Channel>
   <Channel Number="9">Dimmer</Channel>
@@ -168,7 +168,7 @@
   <Channel Number="4">Color wheel</Channel>
   <Channel Number="5">Color wheel Fine</Channel>
   <Channel Number="6">Gobos</Channel>
-  <Channel Number="7">Rotating gobo index</Channel>
+  <Channel Number="7" ActsOn="6">Rotating gobo index</Channel>
   <Channel Number="8">Rotating gobo indexing Fine</Channel>
   <Channel Number="9">Prism</Channel>
   <Channel Number="10">Shutter, strobe</Channel>

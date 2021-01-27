@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Flo Edelmann</Author>
  </Creator>
  <Manufacturer>Coemar</Manufacturer>
@@ -21,11 +21,7 @@
   <Capability Min="128" Max="247">Tracking mode fast - slow</Capability>
   <Capability Min="248" Max="255">Tracking mode slow</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="7">closed</Capability>
-  <Capability Min="8" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter / Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9" Preset="ShutterClose">Closed</Capability>
@@ -42,31 +38,31 @@
  <Channel Name="Gobo selection">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="11" Max="30">Rotating gobo 1</Capability>
-  <Capability Min="31" Max="50">Rotating gobo 2</Capability>
-  <Capability Min="51" Max="70">Rotating gobo 3</Capability>
-  <Capability Min="71" Max="90">Rotating gobo 4</Capability>
-  <Capability Min="91" Max="110">Rotating gobo 5</Capability>
-  <Capability Min="111" Max="127">Rotating gobo 6</Capability>
-  <Capability Min="128" Max="192">360° positioning</Capability>
+  <Capability Min="11" Max="30" Preset="GoboMacro" Res1="">Rotating gobo 1</Capability>
+  <Capability Min="31" Max="50" Preset="GoboMacro" Res1="">Rotating gobo 2</Capability>
+  <Capability Min="51" Max="70" Preset="GoboMacro" Res1="">Rotating gobo 3</Capability>
+  <Capability Min="71" Max="90" Preset="GoboMacro" Res1="">Rotating gobo 4</Capability>
+  <Capability Min="91" Max="110" Preset="GoboMacro" Res1="">Rotating gobo 5</Capability>
+  <Capability Min="111" Max="127" Preset="GoboMacro" Res1="">Rotating gobo 6</Capability>
+  <Capability Min="128" Max="192" Preset="GoboMacro" Res1="">360° positioning</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobo 360° positioning">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10" Preset="GoboMacro">No effect</Capability>
-  <Capability Min="11" Max="255">Gobo positioning 0 - 360°</Capability>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="255" Preset="RotationIndexed">Gobo positioning 0 - 360°</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10" Preset="GoboMacro">No effect</Capability>
+  <Capability Min="0" Max="10">No effect</Capability>
   <Capability Min="11" Max="131" Preset="RotationClockwiseFastToSlow">Continuous CW rotation fast - slow</Capability>
   <Capability Min="132" Max="134" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="135" Max="255" Preset="RotationCounterClockwiseSlowToFast">Continuous CCW rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="10">No prism</Capability>
-  <Capability Min="11" Max="20">3 facet prism</Capability>
+  <Capability Min="0" Max="10" Preset="PrismEffectOff">No prism</Capability>
+  <Capability Min="11" Max="20" Preset="PrismEffectOn" Res1="3">3 facet prism</Capability>
   <Capability Min="21" Max="136" Preset="RotationClockwiseFastToSlow">Continuous CW rotation fast - slow</Capability>
   <Capability Min="137" Max="139" Preset="RotationStop">Stop prism rotation</Capability>
   <Capability Min="140" Max="255" Preset="RotationCounterClockwiseSlowToFast">Continuous CCW rotation slow - fast</Capability>
@@ -85,30 +81,30 @@
   <Capability Min="45" Max="49" Preset="ColorMacro">Color 9</Capability>
   <Capability Min="50" Max="54" Preset="ColorMacro">Color 10</Capability>
   <Capability Min="55" Max="59" Preset="ColorMacro">Color 11</Capability>
-  <Capability Min="60" Max="127">360° positioning</Capability>
+  <Capability Min="60" Max="127" Preset="RotationIndexed">360° positioning</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Forwards rainbow effect fast - slow</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">No rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rainbow effect slow - fast</Capability>
  </Channel>
  <Channel Name="Gobo shake / Blackout effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9" Preset="GoboShakeMacro">No effect</Capability>
-  <Capability Min="10" Max="249" Preset="GoboShakeMacro">Gobo shake slow - fast</Capability>
+  <Capability Min="0" Max="9" Preset="GoboShakeMacro" Res1="">No effect</Capability>
+  <Capability Min="10" Max="249" Preset="GoboShakeMacro" Res1="">Gobo shake slow - fast</Capability>
   <Capability Min="250" Max="255">Blackout during movements</Capability>
  </Channel>
  <Channel Name="Gobo shake amplitute">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="23" Preset="GoboShakeMacro">Gobo shake size 1 (maximum)</Capability>
-  <Capability Min="24" Max="47" Preset="GoboShakeMacro">Gobo shake size 2</Capability>
-  <Capability Min="48" Max="71" Preset="GoboShakeMacro">Gobo shake size 3</Capability>
-  <Capability Min="72" Max="95" Preset="GoboShakeMacro">Gobo shake size 4</Capability>
-  <Capability Min="96" Max="119" Preset="GoboShakeMacro">Gobo shake size 5</Capability>
-  <Capability Min="120" Max="143" Preset="GoboShakeMacro">Gobo shake size 6</Capability>
-  <Capability Min="144" Max="167" Preset="GoboShakeMacro">Gobo shake size 7</Capability>
-  <Capability Min="168" Max="191" Preset="GoboShakeMacro">Gobo shake size 8</Capability>
-  <Capability Min="192" Max="215" Preset="GoboShakeMacro">Gobo shake size 9</Capability>
-  <Capability Min="216" Max="239" Preset="GoboShakeMacro">Gobo shake size 10</Capability>
-  <Capability Min="240" Max="255" Preset="GoboShakeMacro">Gobo shake size 11 (minimum)</Capability>
+  <Capability Min="0" Max="23" Preset="GoboShakeMacro" Res1="">Gobo shake size 1 (maximum)</Capability>
+  <Capability Min="24" Max="47" Preset="GoboShakeMacro" Res1="">Gobo shake size 2</Capability>
+  <Capability Min="48" Max="71" Preset="GoboShakeMacro" Res1="">Gobo shake size 3</Capability>
+  <Capability Min="72" Max="95" Preset="GoboShakeMacro" Res1="">Gobo shake size 4</Capability>
+  <Capability Min="96" Max="119" Preset="GoboShakeMacro" Res1="">Gobo shake size 5</Capability>
+  <Capability Min="120" Max="143" Preset="GoboShakeMacro" Res1="">Gobo shake size 6</Capability>
+  <Capability Min="144" Max="167" Preset="GoboShakeMacro" Res1="">Gobo shake size 7</Capability>
+  <Capability Min="168" Max="191" Preset="GoboShakeMacro" Res1="">Gobo shake size 8</Capability>
+  <Capability Min="192" Max="215" Preset="GoboShakeMacro" Res1="">Gobo shake size 9</Capability>
+  <Capability Min="216" Max="239" Preset="GoboShakeMacro" Res1="">Gobo shake size 10</Capability>
+  <Capability Min="240" Max="255" Preset="GoboShakeMacro" Res1="">Gobo shake size 11 (minimum)</Capability>
  </Channel>
  <Channel Name="Lamp on / Motor reset (hold 6s)">
   <Group Byte="0">Maintenance</Group>
@@ -152,25 +148,25 @@
  </Channel>
  <Channel Name="3 facet prism rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="0">No rotation</Capability>
-  <Capability Min="1" Max="126">Forwards rotation fast - slow</Capability>
-  <Capability Min="127" Max="128">No rotation</Capability>
-  <Capability Min="129" Max="255">Backwards rotation slow - fast</Capability>
+  <Capability Min="0" Max="0" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="1" Max="126" Preset="RotationClockwiseFastToSlow">Forwards rotation fast - slow</Capability>
+  <Capability Min="127" Max="128" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="129" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobo selection 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="31" Preset="GoboMacro">Open</Capability>
-  <Capability Min="32" Max="63" Preset="GoboMacro">Rotating gobo 1</Capability>
-  <Capability Min="64" Max="95" Preset="GoboMacro">Rotating gobo 2</Capability>
-  <Capability Min="96" Max="127" Preset="GoboMacro">Rotating gobo 3</Capability>
-  <Capability Min="128" Max="159" Preset="GoboMacro">Rotating gobo 4</Capability>
-  <Capability Min="160" Max="191" Preset="GoboMacro">Rotating gobo 5</Capability>
-  <Capability Min="192" Max="223" Preset="GoboMacro">Rotating gobo 6</Capability>
+  <Capability Min="0" Max="31" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="32" Max="63" Preset="GoboMacro" Res1="">Rotating gobo 1</Capability>
+  <Capability Min="64" Max="95" Preset="GoboMacro" Res1="">Rotating gobo 2</Capability>
+  <Capability Min="96" Max="127" Preset="GoboMacro" Res1="">Rotating gobo 3</Capability>
+  <Capability Min="128" Max="159" Preset="GoboMacro" Res1="">Rotating gobo 4</Capability>
+  <Capability Min="160" Max="191" Preset="GoboMacro" Res1="">Rotating gobo 5</Capability>
+  <Capability Min="192" Max="223" Preset="GoboMacro" Res1="">Rotating gobo 6</Capability>
   <Capability Min="224" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobo rotation / positioning">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Fine gobo indexing</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Fine gobo indexing</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Forwards gobo rotation fast - slow</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">No rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards gobo rotation slow - fast</Capability>
@@ -199,8 +195,8 @@
   <Channel Number="6">Shutter / Strobe</Channel>
   <Channel Number="7">Focus</Channel>
   <Channel Number="8">Gobo selection</Channel>
-  <Channel Number="9">Gobo 360° positioning</Channel>
-  <Channel Number="10">Gobo rotation</Channel>
+  <Channel Number="9" ActsOn="8">Gobo 360° positioning</Channel>
+  <Channel Number="10" ActsOn="8">Gobo rotation</Channel>
   <Channel Number="11">Prism</Channel>
   <Channel Number="12">Colors</Channel>
   <Channel Number="13">Gobo shake / Blackout effect</Channel>
@@ -219,7 +215,7 @@
   <Channel Number="8">Effect wheel</Channel>
   <Channel Number="9">3 facet prism rotation</Channel>
   <Channel Number="10">Gobo selection 2</Channel>
-  <Channel Number="11">Gobo rotation / positioning</Channel>
+  <Channel Number="11" ActsOn="10">Gobo rotation / positioning</Channel>
   <Channel Number="12">No Function 2</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Shutter / Strobe 2</Channel>

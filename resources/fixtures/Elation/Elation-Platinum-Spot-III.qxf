@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Dávid Czirók</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -15,7 +15,7 @@
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">Open/White</Capability>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">Open/White</Capability>
   <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
@@ -152,7 +152,7 @@
  <Channel Name="Iris fine" Preset="ShutterIrisFine"/>
  <Channel Name="Bi-directional animation wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Preset="GoboMacro">no function</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="">no function</Capability>
   <Capability Min="8" Max="255" Preset="RotationClockwiseSlowToFast">animation movement SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Pan tilt movement speed">
@@ -189,10 +189,10 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color wheel</Channel>
   <Channel Number="3">Rotating gobos</Channel>
-  <Channel Number="4">Index gobos</Channel>
+  <Channel Number="4" ActsOn="3">Index gobos</Channel>
   <Channel Number="5">Fixed gobos</Channel>
   <Channel Number="6">3 facet rotating prism</Channel>
-  <Channel Number="7">Prism rotation</Channel>
+  <Channel Number="7" ActsOn="6">Prism rotation</Channel>
   <Channel Number="8">Focus</Channel>
   <Channel Number="9">Zoom</Channel>
   <Channel Number="10">Shutter</Channel>
@@ -211,10 +211,10 @@
   <Channel Number="3">Tilt fine</Channel>
   <Channel Number="4">Color wheel</Channel>
   <Channel Number="5">Rotating gobos</Channel>
-  <Channel Number="6">Index gobos</Channel>
+  <Channel Number="6" ActsOn="5">Index gobos</Channel>
   <Channel Number="7">Fixed gobos</Channel>
   <Channel Number="8">3 facet rotating prism</Channel>
-  <Channel Number="9">Prism rotation</Channel>
+  <Channel Number="9" ActsOn="8">Prism rotation</Channel>
   <Channel Number="10">Focus</Channel>
   <Channel Number="11">Zoom</Channel>
   <Channel Number="12">Shutter</Channel>
@@ -234,11 +234,11 @@
   <Channel Number="4">Color wheel</Channel>
   <Channel Number="5">Color wheel fine</Channel>
   <Channel Number="6">Rotating gobos</Channel>
-  <Channel Number="7">Index gobos</Channel>
+  <Channel Number="7" ActsOn="6">Index gobos</Channel>
   <Channel Number="8">Rotating gobos fine</Channel>
   <Channel Number="9">Fixed gobos</Channel>
   <Channel Number="10">3 facet rotating prism</Channel>
-  <Channel Number="11">Prism rotation</Channel>
+  <Channel Number="11" ActsOn="10">Prism rotation</Channel>
   <Channel Number="12">Prism fine</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Focus fine</Channel>

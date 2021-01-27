@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Fredje Gallon</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -21,14 +21,10 @@
  </Channel>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="7">Black out</Capability>
-  <Capability Min="8" Max="255">Dim 0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15" Preset="ColorMacro">Open</Capability>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="16" Max="50" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="51" Max="85" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="86" Max="115" Preset="ColorMacro" Res1="#bd3f91">Purple</Capability>

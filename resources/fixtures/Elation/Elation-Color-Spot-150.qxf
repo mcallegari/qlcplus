@@ -40,7 +40,7 @@
  </Channel>
  <Channel Name="Rotating gobos; shaking gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="11" Preset="GoboMacro" Res1="">Open position (hole)</Capability>
+  <Capability Min="0" Max="11" Preset="GoboMacro" Res1="Others/open.svg">Open position (hole)</Capability>
   <Capability Min="12" Max="23" Preset="GoboMacro" Res1="">Gobo 1</Capability>
   <Capability Min="24" Max="35" Preset="GoboMacro" Res1="">Gobo 2</Capability>
   <Capability Min="36" Max="47" Preset="GoboMacro" Res1="">Gobo 3</Capability>
@@ -59,7 +59,7 @@
  </Channel>
  <Channel Name="Rotating gobo rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Gobo rotation</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo rotation</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forwards gobo rotation from fast to slow</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">No rotation</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards gobo rotation from slow to fast</Capability>
@@ -85,7 +85,7 @@
   <Channel Number="4">Speed of pan/tilt movement</Channel>
   <Channel Number="5">Colours</Channel>
   <Channel Number="6">Rotating gobos; shaking gobos</Channel>
-  <Channel Number="7">Rotating gobo rotation</Channel>
+  <Channel Number="7" ActsOn="6">Rotating gobo rotation</Channel>
   <Channel Number="8">Shutter</Channel>
  </Mode>
  <Physical>

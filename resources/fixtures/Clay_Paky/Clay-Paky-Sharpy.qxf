@@ -170,7 +170,7 @@
   <Channel Number="2">Dimmer</Channel>
   <Channel Number="3">Static Gobo Change</Channel>
   <Channel Number="4">Prism Insertion</Channel>
-  <Channel Number="5">Prism Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Prism Rotation</Channel>
   <Channel Number="6">Effects Movement</Channel>
   <Channel Number="7">Frost</Channel>
   <Channel Number="8">Focus</Channel>
@@ -188,7 +188,7 @@
   <Channel Number="2">Dimmer</Channel>
   <Channel Number="3">Static Gobo Change</Channel>
   <Channel Number="4">Prism Insertion</Channel>
-  <Channel Number="5">Prism Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Prism Rotation</Channel>
   <Channel Number="6">Effects Movement</Channel>
   <Channel Number="7">Frost</Channel>
   <Channel Number="8">Focus</Channel>

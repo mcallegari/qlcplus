@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>JL Griffin Update Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -66,7 +66,7 @@
  </Channel>
  <Mode Name="Default">
   <Channel Number="0">Color Disc</Channel>
-  <Channel Number="1">Gobo Rotation</Channel>
+  <Channel Number="1" ActsOn="2">Gobo Rotation</Channel>
   <Channel Number="2">Gobo Select</Channel>
   <Channel Number="3">Dimmer / Stopper / Strobe</Channel>
   <Channel Number="4">Pan</Channel>

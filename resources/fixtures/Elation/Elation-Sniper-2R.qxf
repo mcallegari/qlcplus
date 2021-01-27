@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Rodolfo Thierry</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -52,7 +52,7 @@
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="14" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 1</Capability>
   <Capability Min="15" Max="22" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2</Capability>
   <Capability Min="23" Max="29" Preset="GoboMacro" Res1="ClayPaky/gobo00016.svg">Gobo 3</Capability>
@@ -209,12 +209,12 @@
   <Channel Number="2">Colors</Channel>
   <Channel Number="3">Gobos</Channel>
   <Channel Number="4">Pattern Macros</Channel>
-  <Channel Number="5">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="6">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="5" ActsOn="4">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="6" ActsOn="4">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="7">Pattern Zoom</Channel>
   <Channel Number="8">Beam Rotation</Channel>
   <Channel Number="9">Prism</Channel>
-  <Channel Number="10">Prism Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism Rotation</Channel>
   <Channel Number="11">Shutter - Strobe</Channel>
   <Channel Number="12">Dimmer</Channel>
   <Channel Number="13">Functions</Channel>
@@ -227,12 +227,12 @@
   <Channel Number="4">Colors</Channel>
   <Channel Number="5">Gobos</Channel>
   <Channel Number="6">Pattern Macros</Channel>
-  <Channel Number="7">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="8">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="7" ActsOn="6">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="8" ActsOn="6">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="9">Pattern Zoom</Channel>
   <Channel Number="10">Beam Rotation</Channel>
   <Channel Number="11">Prism</Channel>
-  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="12" ActsOn="11">Prism Rotation</Channel>
   <Channel Number="13">Shutter - Strobe</Channel>
   <Channel Number="14">Dimmer</Channel>
   <Channel Number="15">Functions</Channel>
@@ -247,12 +247,12 @@
   <Channel Number="6">Colors</Channel>
   <Channel Number="7">Gobos</Channel>
   <Channel Number="8">Pattern Macros</Channel>
-  <Channel Number="9">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="10">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="9" ActsOn="8">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="10" ActsOn="8">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="11">Pattern Zoom</Channel>
   <Channel Number="12">Beam Rotation</Channel>
   <Channel Number="13">Prism</Channel>
-  <Channel Number="14">Prism Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotation</Channel>
   <Channel Number="15">Dimmer</Channel>
   <Channel Number="16">Functions</Channel>
   <Channel Number="17">Shutter - Strobe</Channel>
@@ -267,12 +267,12 @@
   <Channel Number="6">Colors</Channel>
   <Channel Number="7">Gobos</Channel>
   <Channel Number="8">Pattern Macros</Channel>
-  <Channel Number="9">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="10">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="9" ActsOn="8">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="10" ActsOn="8">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="11">Pattern Zoom</Channel>
   <Channel Number="12">Beam Rotation</Channel>
   <Channel Number="13">Prism</Channel>
-  <Channel Number="14">Prism Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotation</Channel>
   <Channel Number="15">Shutter - Strobe</Channel>
   <Channel Number="16">Dimmer</Channel>
   <Channel Number="17">Functions</Channel>

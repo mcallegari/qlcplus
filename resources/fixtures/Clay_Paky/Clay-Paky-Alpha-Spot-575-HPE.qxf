@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Rohmer</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -100,7 +100,7 @@
  </Channel>
  <Channel Name="Rotating Gobo 1 change">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="17" Preset="GoboMacro" Res1="">No gobo</Capability>
+  <Capability Min="0" Max="17" Preset="GoboMacro" Res1="Other/Open.svg">No gobo</Capability>
   <Capability Min="18" Max="35" Preset="GoboMacro" Res1="ClayPaky/gobo00067.svg">Gobo 1</Capability>
   <Capability Min="36" Max="53" Preset="GoboMacro" Res1="ClayPaky/gobo00059.svg">Gobo 2</Capability>
   <Capability Min="54" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00068.svg">Gobo 3</Capability>
@@ -111,7 +111,7 @@
  </Channel>
  <Channel Name="Gobo 1 rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127" Preset="GoboMacro" Res1="">Fixed position</Capability>
+  <Capability Min="0" Max="127" Preset="RotationStop">Fixed position</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Slow to fast rotation</Capability>
@@ -151,21 +151,21 @@
  </Channel>
  <Channel Name="Gobo 2 rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127" Preset="GoboMacro" Res1="">Fixed position</Capability>
+  <Capability Min="0" Max="127" Preset="RotationStop">Fixed position</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Slow to fast rotation</Capability>
  </Channel>
  <Channel Name="Prism rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127">Fixed position</Capability>
+  <Capability Min="0" Max="127" Preset="GoboMacro" Res1="RotationStop">Fixed position</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Slow to fast rotation</Capability>
  </Channel>
  <Channel Name="Rotating Gobo 2 change">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="17" Preset="GoboMacro" Res1="">No gobo</Capability>
+  <Capability Min="0" Max="17" Preset="GoboMacro" Res1="Other/Open.svg">No gobo</Capability>
   <Capability Min="18" Max="35" Preset="GoboMacro" Res1="ClayPaky/gobo00042.svg">Gobo 1</Capability>
   <Capability Min="36" Max="53" Preset="GoboMacro" Res1="ClayPaky/gobo00072.svg">Gobo 2</Capability>
   <Capability Min="54" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00073.png">Gobo 3</Capability>
@@ -191,13 +191,13 @@
   <Channel Number="7">Iris</Channel>
   <Channel Number="8">Fixed gobo change</Channel>
   <Channel Number="9">Rotating Gobo 1 change</Channel>
-  <Channel Number="10">Gobo 1 rotation</Channel>
+  <Channel Number="10" ActsOn="9">Gobo 1 rotation</Channel>
   <Channel Number="11">Rotating Gobo 2 change</Channel>
-  <Channel Number="12">Gobo 2 rotation</Channel>
+  <Channel Number="12" ActsOn="11">Gobo 2 rotation</Channel>
   <Channel Number="13">Graphic disk insert</Channel>
   <Channel Number="14">Graphic disk rotation</Channel>
   <Channel Number="15">Prisms lens change</Channel>
-  <Channel Number="16">Prism rotation</Channel>
+  <Channel Number="16" ActsOn="15">Prism rotation</Channel>
   <Channel Number="17">Frost</Channel>
   <Channel Number="18">Focus</Channel>
   <Channel Number="19">Zoom</Channel>
@@ -225,9 +225,9 @@
   <Channel Number="7">Iris</Channel>
   <Channel Number="8">Fixed gobo change</Channel>
   <Channel Number="9">Rotating Gobo 1 change</Channel>
-  <Channel Number="10">Gobo 1 rotation</Channel>
+  <Channel Number="10" ActsOn="9">Gobo 1 rotation</Channel>
   <Channel Number="11">Rotating Gobo 2 change</Channel>
-  <Channel Number="12">Gobo 2 rotation</Channel>
+  <Channel Number="12" ActsOn="11">Gobo 2 rotation</Channel>
   <Channel Number="13">Graphic disk insert</Channel>
   <Channel Number="14">Graphic disk rotation</Channel>
   <Channel Number="15">Prisms lens change</Channel>
@@ -255,10 +255,10 @@
   <Channel Number="7">Iris</Channel>
   <Channel Number="8">Fixed gobo change</Channel>
   <Channel Number="9">Rotating Gobo 1 change</Channel>
-  <Channel Number="10">Gobo 1 rotation</Channel>
+  <Channel Number="10" ActsOn="9">Gobo 1 rotation</Channel>
   <Channel Number="11">Gobo 1 fine</Channel>
   <Channel Number="12">Rotating Gobo 2 change</Channel>
-  <Channel Number="13">Gobo 2 rotation</Channel>
+  <Channel Number="13" ActsOn="12">Gobo 2 rotation</Channel>
   <Channel Number="14">Gobo 2 fine</Channel>
   <Channel Number="15">Graphic disk insert</Channel>
   <Channel Number="16">Graphic disk rotation</Channel>

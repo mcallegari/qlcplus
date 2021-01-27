@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Jan Lachman</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -81,68 +81,68 @@
  </Channel>
  <Channel Name="Left head fixed gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Preset="GoboMacro">Open</Capability>
-  <Capability Min="8" Max="15" Preset="GoboMacro">Gobo 1</Capability>
-  <Capability Min="16" Max="23" Preset="GoboMacro">Gobo 2</Capability>
-  <Capability Min="24" Max="31" Preset="GoboMacro">Gobo 3</Capability>
-  <Capability Min="32" Max="39" Preset="GoboMacro">Gobo 4</Capability>
-  <Capability Min="40" Max="47" Preset="GoboMacro">Gobo 5</Capability>
-  <Capability Min="48" Max="55" Preset="GoboMacro">Gobo 6</Capability>
-  <Capability Min="56" Max="63" Preset="GoboMacro">Gobo 7</Capability>
-  <Capability Min="64" Max="71" Preset="GoboMacro">Gobo 8</Capability>
-  <Capability Min="72" Max="79" Preset="GoboMacro">Gobo 9</Capability>
-  <Capability Min="80" Max="87" Preset="GoboMacro">Gobo 10</Capability>
-  <Capability Min="88" Max="95" Preset="GoboMacro">Gobo 11</Capability>
-  <Capability Min="96" Max="103" Preset="GoboMacro">Gobo 12</Capability>
-  <Capability Min="104" Max="111" Preset="GoboMacro">Gobo 13</Capability>
-  <Capability Min="112" Max="119" Preset="GoboMacro">Gobo 14</Capability>
-  <Capability Min="120" Max="126" Preset="GoboShakeMacro">Gobo 1 shake effect</Capability>
-  <Capability Min="127" Max="133" Preset="GoboShakeMacro">Gobo 2 shake effect</Capability>
-  <Capability Min="134" Max="140" Preset="GoboShakeMacro">Gobo 3 shake effect</Capability>
-  <Capability Min="141" Max="147" Preset="GoboShakeMacro">Gobo 4 shake effect</Capability>
-  <Capability Min="148" Max="154" Preset="GoboShakeMacro">Gobo 5 shake effect</Capability>
-  <Capability Min="155" Max="161" Preset="GoboShakeMacro">Gobo 6 shake effect</Capability>
-  <Capability Min="162" Max="168" Preset="GoboShakeMacro">Gobo 7 shake effect</Capability>
-  <Capability Min="169" Max="175" Preset="GoboShakeMacro">Gobo 8 shake effect</Capability>
-  <Capability Min="176" Max="182" Preset="GoboShakeMacro">Gobo 9 shake effect</Capability>
-  <Capability Min="183" Max="189" Preset="GoboShakeMacro">Gobo 10 shake effect</Capability>
-  <Capability Min="190" Max="196" Preset="GoboShakeMacro">Gobo 11 shake effect</Capability>
-  <Capability Min="197" Max="203" Preset="GoboShakeMacro">Gobo 12 shake effect</Capability>
-  <Capability Min="204" Max="210" Preset="GoboShakeMacro">Gobo 13 shake effect</Capability>
-  <Capability Min="211" Max="217" Preset="GoboShakeMacro">Gobo 14 shake effect</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="">Gobo 8</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="">Gobo 9</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="">Gobo 10</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="">Gobo 11</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="">Gobo 12</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="">Gobo 13</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="">Gobo 14</Capability>
+  <Capability Min="120" Max="126" Preset="GoboShakeMacro" Res1="">Gobo 1 shake effect</Capability>
+  <Capability Min="127" Max="133" Preset="GoboShakeMacro" Res1="">Gobo 2 shake effect</Capability>
+  <Capability Min="134" Max="140" Preset="GoboShakeMacro" Res1="">Gobo 3 shake effect</Capability>
+  <Capability Min="141" Max="147" Preset="GoboShakeMacro" Res1="">Gobo 4 shake effect</Capability>
+  <Capability Min="148" Max="154" Preset="GoboShakeMacro" Res1="">Gobo 5 shake effect</Capability>
+  <Capability Min="155" Max="161" Preset="GoboShakeMacro" Res1="">Gobo 6 shake effect</Capability>
+  <Capability Min="162" Max="168" Preset="GoboShakeMacro" Res1="">Gobo 7 shake effect</Capability>
+  <Capability Min="169" Max="175" Preset="GoboShakeMacro" Res1="">Gobo 8 shake effect</Capability>
+  <Capability Min="176" Max="182" Preset="GoboShakeMacro" Res1="">Gobo 9 shake effect</Capability>
+  <Capability Min="183" Max="189" Preset="GoboShakeMacro" Res1="">Gobo 10 shake effect</Capability>
+  <Capability Min="190" Max="196" Preset="GoboShakeMacro" Res1="">Gobo 11 shake effect</Capability>
+  <Capability Min="197" Max="203" Preset="GoboShakeMacro" Res1="">Gobo 12 shake effect</Capability>
+  <Capability Min="204" Max="210" Preset="GoboShakeMacro" Res1="">Gobo 13 shake effect</Capability>
+  <Capability Min="211" Max="217" Preset="GoboShakeMacro" Res1="">Gobo 14 shake effect</Capability>
   <Capability Min="218" Max="255" Preset="RotationClockwiseSlowToFast">Fixed gobo wheel rotation at increasing speed</Capability>
  </Channel>
  <Channel Name="Right head fixed gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Preset="GoboMacro">Open</Capability>
-  <Capability Min="8" Max="15" Preset="GoboMacro">Gobo 1</Capability>
-  <Capability Min="16" Max="23" Preset="GoboMacro">Gobo 2</Capability>
-  <Capability Min="24" Max="31" Preset="GoboMacro">Gobo 3</Capability>
-  <Capability Min="32" Max="39" Preset="GoboMacro">Gobo 4</Capability>
-  <Capability Min="40" Max="47" Preset="GoboMacro">Gobo 5</Capability>
-  <Capability Min="48" Max="55" Preset="GoboMacro">Gobo 6</Capability>
-  <Capability Min="56" Max="63" Preset="GoboMacro">Gobo 7</Capability>
-  <Capability Min="64" Max="71" Preset="GoboMacro">Gobo 8</Capability>
-  <Capability Min="72" Max="79" Preset="GoboMacro">Gobo 9</Capability>
-  <Capability Min="80" Max="87" Preset="GoboMacro">Gobo 10</Capability>
-  <Capability Min="88" Max="95" Preset="GoboMacro">Gobo 11</Capability>
-  <Capability Min="96" Max="103" Preset="GoboMacro">Gobo 12</Capability>
-  <Capability Min="104" Max="111" Preset="GoboMacro">Gobo 13</Capability>
-  <Capability Min="112" Max="119" Preset="GoboMacro">Gobo 14</Capability>
-  <Capability Min="120" Max="126" Preset="GoboShakeMacro">Gobo 1 shake effect</Capability>
-  <Capability Min="127" Max="133" Preset="GoboShakeMacro">Gobo 2 shake effect</Capability>
-  <Capability Min="134" Max="140" Preset="GoboShakeMacro">Gobo 3 shake effect</Capability>
-  <Capability Min="141" Max="147" Preset="GoboShakeMacro">Gobo 4 shake effect</Capability>
-  <Capability Min="148" Max="154" Preset="GoboShakeMacro">Gobo 5 shake effect</Capability>
-  <Capability Min="155" Max="161" Preset="GoboShakeMacro">Gobo 6 shake effect</Capability>
-  <Capability Min="162" Max="168" Preset="GoboShakeMacro">Gobo 7 shake effect</Capability>
-  <Capability Min="169" Max="175" Preset="GoboShakeMacro">Gobo 8 shake effect</Capability>
-  <Capability Min="176" Max="182" Preset="GoboShakeMacro">Gobo 9 shake effect</Capability>
-  <Capability Min="183" Max="189" Preset="GoboShakeMacro">Gobo 10 shake effect</Capability>
-  <Capability Min="190" Max="196" Preset="GoboShakeMacro">Gobo 11 shake effect</Capability>
-  <Capability Min="197" Max="203" Preset="GoboShakeMacro">Gobo 12 shake effect</Capability>
-  <Capability Min="204" Max="210" Preset="GoboShakeMacro">Gobo 13 shake effect</Capability>
-  <Capability Min="211" Max="217" Preset="GoboShakeMacro">Gobo 14 shake effect</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="">Gobo 8</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="">Gobo 9</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="">Gobo 10</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="">Gobo 11</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="">Gobo 12</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="">Gobo 13</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="">Gobo 14</Capability>
+  <Capability Min="120" Max="126" Preset="GoboShakeMacro" Res1="">Gobo 1 shake effect</Capability>
+  <Capability Min="127" Max="133" Preset="GoboShakeMacro" Res1="">Gobo 2 shake effect</Capability>
+  <Capability Min="134" Max="140" Preset="GoboShakeMacro" Res1="">Gobo 3 shake effect</Capability>
+  <Capability Min="141" Max="147" Preset="GoboShakeMacro" Res1="">Gobo 4 shake effect</Capability>
+  <Capability Min="148" Max="154" Preset="GoboShakeMacro" Res1="">Gobo 5 shake effect</Capability>
+  <Capability Min="155" Max="161" Preset="GoboShakeMacro" Res1="">Gobo 6 shake effect</Capability>
+  <Capability Min="162" Max="168" Preset="GoboShakeMacro" Res1="">Gobo 7 shake effect</Capability>
+  <Capability Min="169" Max="175" Preset="GoboShakeMacro" Res1="">Gobo 8 shake effect</Capability>
+  <Capability Min="176" Max="182" Preset="GoboShakeMacro" Res1="">Gobo 9 shake effect</Capability>
+  <Capability Min="183" Max="189" Preset="GoboShakeMacro" Res1="">Gobo 10 shake effect</Capability>
+  <Capability Min="190" Max="196" Preset="GoboShakeMacro" Res1="">Gobo 11 shake effect</Capability>
+  <Capability Min="197" Max="203" Preset="GoboShakeMacro" Res1="">Gobo 12 shake effect</Capability>
+  <Capability Min="204" Max="210" Preset="GoboShakeMacro" Res1="">Gobo 13 shake effect</Capability>
+  <Capability Min="211" Max="217" Preset="GoboShakeMacro" Res1="">Gobo 14 shake effect</Capability>
   <Capability Min="218" Max="255" Preset="RotationClockwiseSlowToFast">Fixed gobo wheel rotation at increasing speed</Capability>
  </Channel>
  <Channel Name="Left head 3 and 8-facet prisms, gobo and prism macros">
