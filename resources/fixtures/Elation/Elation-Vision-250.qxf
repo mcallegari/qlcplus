@@ -107,7 +107,7 @@
   <Capability Min="224" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
  </Channel>
  <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
- <Mode Name="Mode 16 Channels">
+ <Mode Name="Mode 1">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>

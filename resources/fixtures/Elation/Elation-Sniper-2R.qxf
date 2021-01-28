@@ -203,7 +203,7 @@
   <Capability Min="240" Max="247" Preset="StrobeRandom">Randum Strobe</Capability>
   <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
- <Mode Name="Mode 14 channels">
+ <Mode Name="Mode 14 chanels">
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Tilt 1</Channel>
   <Channel Number="2">Colors</Channel>
@@ -219,7 +219,7 @@
   <Channel Number="12">Dimmer</Channel>
   <Channel Number="13">Functions</Channel>
  </Mode>
- <Mode Name="Mode 16 channels">
+ <Mode Name="Mode 16 chanels">
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt 1</Channel>
@@ -237,7 +237,7 @@
   <Channel Number="14">Dimmer</Channel>
   <Channel Number="15">Functions</Channel>
  </Mode>
- <Mode Name="Mode 18 channels">
+ <Mode Name="Mode 18 chanels">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -257,7 +257,7 @@
   <Channel Number="16">Functions</Channel>
   <Channel Number="17">Shutter - Strobe</Channel>
  </Mode>
- <Mode Name="Mode 20 channels">
+ <Mode Name="Mode 20 chanels">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
