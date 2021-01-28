@@ -196,6 +196,21 @@ function initSpeedValue()
     document.getElementById("speed").value = speed;
 }
 
+function initColorValues()
+{
+    var primary = localStorage.getItem("primaryColor");
+    if (primary === null || parseInt("0x" + primary, 16) === NaN) {
+      primary = 0xff0000;
+    }
+    document.getElementById("primaryColor").value = primary;
+    var secondary = localStorage.getItem("secondaryColor");
+    if (secondary === null || secondary === "" || parseInt("0x" + secondary, 16) === NaN) {
+      document.getElementById("secondaryColor").value = "";
+    } else {
+      document.getElementById("secondaryColor").value = secondary;
+    }
+}
+
 function initGridSize()
 {
     var width = localStorage.getItem("width");
@@ -293,7 +308,19 @@ function onGridSizeUpdated()
     document.getElementById("stepCount").value = stepCount;
     document.getElementById("currentStep").max = stepCount - 1;
 
-    setStep(0);
+    writeCurrentStep();
+}
+
+function onColorChange()
+{
+    var primary = parseInt("0x" + document.getElementById("primaryColor").value).toString(16);
+    localStorage.setItem("primaryColor", primary);
+    var secondary = parseInt("0x" + document.getElementById("secondaryColor").value).toString(16);
+    if (secondary === "NaN") {
+      localStorage.setItem("secondaryColor", "");
+    } else {
+      localStorage.setItem("secondaryColor", secondary);
+    }
     writeCurrentStep();
 }
 
@@ -324,8 +351,10 @@ function init()
     if (typeof testAlgo === "undefined") {
         return;
     }
+    setStep(0);
     initDefinitions();
     initSpeedValue();
+    initColorValues();
     initGridSize();
     initProperties();
     initPixelColors();
