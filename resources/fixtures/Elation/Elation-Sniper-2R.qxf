@@ -116,11 +116,11 @@
  </Channel>
  <Channel Name="Pattern Rotation - Horizontal / Vertical">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">Stop</Capability>
-  <Capability Min="10" Max="120">Horizontal Pattern Rotation from FAST to SLOW</Capability>
-  <Capability Min="121" Max="134">Stop</Capability>
-  <Capability Min="135" Max="245">Vertical Pattern Rotation from SLOW to FAST</Capability>
-  <Capability Min="246" Max="255">Stop</Capability>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Horizontal Pattern Rotation from FAST to SLOW</Capability>
+  <Capability Min="121" Max="134" Preset="RotationStop">Stop</Capability>
+  <Capability Min="135" Max="245" Preset="RotationCounterClockwiseSlowToFast">Vertical Pattern Rotation from SLOW to FAST</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">Stop</Capability>
  </Channel>
  <Channel Name="Pattern Zoom">
   <Group Byte="0">Effect</Group>
@@ -129,7 +129,7 @@
  </Channel>
  <Channel Name="Beam Rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="63">0° to 360°</Capability>
+  <Capability Min="0" Max="63" Preset="RotationIndexed">0° to 360°</Capability>
   <Capability Min="64" Max="127">Shaking</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise Rotation FAST to SLOW</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
@@ -142,10 +142,10 @@
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="127">Prism Indexing</Capability>
-  <Capability Min="128" Max="189">Clockwise PRISM Rotation FAST to SLOW</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise PRISM Rotation SLOW to FAST</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Prism Indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise PRISM Rotation FAST to SLOW</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise PRISM Rotation SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Functions">
@@ -203,7 +203,7 @@
   <Capability Min="240" Max="247" Preset="StrobeRandom">Randum Strobe</Capability>
   <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
- <Mode Name="14 channels">
+ <Mode Name="Mode 14 channels">
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Tilt 1</Channel>
   <Channel Number="2">Colors</Channel>
@@ -219,7 +219,7 @@
   <Channel Number="12">Dimmer</Channel>
   <Channel Number="13">Functions</Channel>
  </Mode>
- <Mode Name="16 channels">
+ <Mode Name="Mode 16 channels">
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt 1</Channel>
@@ -237,7 +237,7 @@
   <Channel Number="14">Dimmer</Channel>
   <Channel Number="15">Functions</Channel>
  </Mode>
- <Mode Name="18 channels">
+ <Mode Name="Mode 18 channels">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -257,7 +257,7 @@
   <Channel Number="16">Functions</Channel>
   <Channel Number="17">Shutter - Strobe</Channel>
  </Mode>
- <Mode Name="20 channels">
+ <Mode Name="Mode 20 channels">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>

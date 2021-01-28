@@ -84,7 +84,7 @@
  </Channel>
  <Channel Name="Fixed gobo change">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="">No gobo</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">No gobo</Capability>
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="ClayPaky/gobo00053.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="ClayPaky/gobo00054.svg">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="ClayPaky/gobo00056.svg">Gobo 3</Capability>
@@ -111,7 +111,7 @@
  </Channel>
  <Channel Name="Gobo 1 rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127" Preset="RotationStop">Fixed position</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Slow to fast rotation</Capability>
@@ -151,14 +151,14 @@
  </Channel>
  <Channel Name="Gobo 2 rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127" Preset="RotationStop">Fixed position</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Slow to fast rotation</Capability>
  </Channel>
  <Channel Name="Prism rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127" Preset="GoboMacro" Res1="RotationStop">Fixed position</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Slow to fast rotation</Capability>

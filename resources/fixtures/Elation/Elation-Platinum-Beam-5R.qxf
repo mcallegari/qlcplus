@@ -52,7 +52,7 @@
   <Capability Min="165" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00032.svg">Gobo 6 Shake</Capability>
   <Capability Min="180" Max="194" Preset="GoboShakeMacro" Res1="Others/gobo00005.svg">Gobo 7 Shake</Capability>
   <Capability Min="195" Max="209" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Gobo 8 Shake</Capability>
-  <Capability Min="210" Max="255" Preset="RotationCounterClockwiseSlowToFast">Gobo wheel cont. rotation slow to fast</Capability>
+  <Capability Min="210" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel cont. rotation slow to fast</Capability>
  </Channel>
  <Channel Name="Rotating gobo index">
   <Group Byte="0">Gobo</Group>
@@ -169,7 +169,7 @@
   <Channel Number="5">Color wheel Fine</Channel>
   <Channel Number="6">Gobos</Channel>
   <Channel Number="7" ActsOn="6">Rotating gobo index</Channel>
-  <Channel Number="8">Rotating gobo indexing Fine</Channel>
+  <Channel Number="8" ActsOn="7">Rotating gobo indexing Fine</Channel>
   <Channel Number="9">Prism</Channel>
   <Channel Number="10">Shutter, strobe</Channel>
   <Channel Number="11">Dimmer</Channel>

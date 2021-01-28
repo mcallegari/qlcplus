@@ -83,11 +83,11 @@
   <Capability Min="130" Max="155" Preset="GoboMacro" Res1="">Gobo 5</Capability>
   <Capability Min="156" Max="181" Preset="GoboMacro" Res1="">Gobo 6</Capability>
   <Capability Min="182" Max="207" Preset="GoboMacro" Res1="">Gobo 7</Capability>
-  <Capability Min="208" Max="225" Preset="RotationClockwise">Rotation speed min max</Capability>
+  <Capability Min="208" Max="225" Preset="RotationClockwiseSlowToFast">Rotation speed min max</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Proportional from 0° to 360°</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Proportional from 0° to 360°</Capability>
   <Capability Min="128" Max="180" Preset="RotationCounterClockwise">Left rotation</Capability>
   <Capability Min="181" Max="202" Preset="RotationStop">Stop</Capability>
   <Capability Min="203" Max="255" Preset="RotationClockwise">Right rotation</Capability>

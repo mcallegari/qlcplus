@@ -287,12 +287,12 @@
   <Channel Number="11">Color Wheel Fine Adjustment (16 Bit)</Channel>
   <Channel Number="12">Rotating Gobos, Continuous Rotating (Gobo Wheel 1)</Channel>
   <Channel Number="13" ActsOn="12">Rotating Gobos, Index Rotation (Gobo Wheel) (16 Bit)</Channel>
-  <Channel Number="14">Rotating Gobos, Fine Index Rotating (Gobo Wheel 1) (16 Bit)</Channel>
+  <Channel Number="14" ActsOn="13">Rotating Gobos, Fine Index Rotating (Gobo Wheel 1) (16 Bit)</Channel>
   <Channel Number="15">Static / Fixed Gobos (Gobo Wheel 2)</Channel>
   <Channel Number="16">Static / Fixed Gobos, Fine Index Rotation (Gobo Wheel 2) (16 Bit)</Channel>
   <Channel Number="17">Rotating Prism, Prism / Gobo Macros</Channel>
   <Channel Number="18" ActsOn="17">Rotating prism, prism index rotation</Channel>
-  <Channel Number="19">Rotating prism, prism index rotation (16 bit)</Channel>
+  <Channel Number="19" ActsOn="18">Rotating prism, prism index rotation (16 bit)</Channel>
   <Channel Number="20">Focus</Channel>
   <Channel Number="21">Focus fine (16 bit)</Channel>
   <Channel Number="22">Shutter, strobe</Channel>

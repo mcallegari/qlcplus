@@ -25,7 +25,7 @@
   <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#55ff00">Yellow Green</Capability>
   <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ff5500">Orange Red</Capability>
   <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#0000ff">Navy Blue</Capability>
-  <Capability Min="45" Max="127" Preset="GoboMacro" Res1="Others/rainbow.png">Color Continue</Capability>
+  <Capability Min="45" Max="127" Preset="RotationClockwise">Color Continue</Capability>
   <Capability Min="128" Max="191" Preset="RotationCounterClockwise">Rainbow Counter-Clockwise</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwise">Rainbow Clockwise Rotation</Capability>
  </Channel>

@@ -23,13 +23,7 @@
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="20" Preset="GoboMacro">0° Position</Capability>
-  <Capability Min="21" Max="41">90° Position</Capability>
-  <Capability Min="42" Max="62">180° Position</Capability>
-  <Capability Min="63" Max="83">270° Position</Capability>
-  <Capability Min="84" Max="104">360° Position</Capability>
-  <Capability Min="105" Max="126">450° Position</Capability>
-  <Capability Min="127" Max="127">540° Position</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexed</Capability>
   <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">CCW Rotation [Fast-&gt;Slow]</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">CW Rotation [Slow-&gt;Fast]</Capability>

@@ -34,7 +34,7 @@
  <Channel Name="Color wheel Fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19" Preset="GoboMacro" Res1="">Gobo 1</Capability>
   <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">Gobo 2</Capability>
   <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Gobo 3</Capability>

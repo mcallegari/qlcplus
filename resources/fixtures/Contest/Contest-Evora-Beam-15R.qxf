@@ -58,7 +58,7 @@
   <Capability Min="192" Max="199" Preset="GoboShakeMacro" Res1="">Gobo 11 shake effect</Capability>
   <Capability Min="200" Max="207" Preset="GoboShakeMacro" Res1="">Gobo 12 shake effect</Capability>
   <Capability Min="208" Max="215" Preset="GoboShakeMacro" Res1="">Gobo 13 shake effect</Capability>
-  <Capability Min="216" Max="255" Preset="RotationCounterClockwiseSlowToFast">Gobo wheel cont. rotation slow to fast</Capability>
+  <Capability Min="216" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel cont. rotation slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
@@ -152,7 +152,7 @@
  <Channel Name="Gobo indexing" Preset="GoboIndex"/>
  <Channel Name="Rotating gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19" Preset="GoboMacro" Res1="">Rotating gobo 1</Capability>
   <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">Rotating gobo 2</Capability>
   <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Rotating gobo 3</Capability>

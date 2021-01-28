@@ -81,7 +81,7 @@
  </Channel>
  <Channel Name="Left head fixed gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="">Gobo 3</Capability>
@@ -114,7 +114,7 @@
  </Channel>
  <Channel Name="Right head fixed gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="">Gobo 3</Capability>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -14,7 +14,7 @@
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27" Preset="ColorMacro">Empty position</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
   <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Soft Filter</Capability>
   <Capability Min="50" Max="79" Preset="ColorMacro" Res1="#e1e1e1">Soft Filter</Capability>
   <Capability Min="80" Max="99" Preset="ColorDoubleMacro">Soft Filter + Lavender</Capability>
@@ -28,7 +28,7 @@
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27" Preset="ColorMacro">Empty position</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
   <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Dark Green</Capability>
   <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#0d7433">Dark Green</Capability>
   <Capability Min="75" Max="99" Preset="ColorDoubleMacro">Dark Green + CTB</Capability>
@@ -125,12 +125,7 @@
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20">Gobo Indexing 0°to 90°</Capability>
-  <Capability Min="21" Max="41">Gobo Indexing 90° to 180°</Capability>
-  <Capability Min="42" Max="62">Gobo Indexing 180° to 270°</Capability>
-  <Capability Min="63" Max="83">Gobo Indexing 270° to 360°</Capability>
-  <Capability Min="84" Max="104">Gobo Indexing 360° to 450°</Capability>
-  <Capability Min="105" Max="127">Gobo Indexing 450° to 540°</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexed</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &gt; Min</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation Slow &lt; Fast</Capability>
@@ -223,7 +218,7 @@
  </Channel>
  <Channel Name="Colour 3">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27" Preset="ColorMacro">Empty position</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
   <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Light Green</Capability>
   <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#159b35">Light Green</Capability>
   <Capability Min="77" Max="99" Preset="ColorDoubleMacro">Light Green + Pink</Capability>
