@@ -199,12 +199,12 @@ function initSpeedValue()
 function initColorValues()
 {
     var primary = localStorage.getItem("primaryColor");
-    if (primary === null || parseInt("0x" + primary, 16) === NaN) {
-      primary = 0xff0000;
+    if (primary === null || Number.isNaN(parseInt("0x" + primary, 16))) {
+      primary = "ff0000";
     }
     document.getElementById("primaryColor").value = primary;
     var secondary = localStorage.getItem("secondaryColor");
-    if (secondary === null || secondary === "" || parseInt("0x" + secondary, 16) === NaN) {
+    if (secondary === null || secondary === "" || Number.isNaN(parseInt("0x" + secondary, 16))) {
       document.getElementById("secondaryColor").value = "";
     } else {
       document.getElementById("secondaryColor").value = secondary;
@@ -316,7 +316,7 @@ function onColorChange()
     var primary = parseInt("0x" + document.getElementById("primaryColor").value).toString(16);
     localStorage.setItem("primaryColor", primary);
     var secondary = parseInt("0x" + document.getElementById("secondaryColor").value).toString(16);
-    if (secondary === "NaN") {
+    if (secondary === "NaN") { // Evaluation of the string.
       localStorage.setItem("secondaryColor", "");
     } else {
       localStorage.setItem("secondaryColor", secondary);
