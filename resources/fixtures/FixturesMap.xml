@@ -300,6 +300,7 @@
     <F n="Cameo-LED-RGBW-PAR64-18x8W" m="LED RGBW PAR64 18x8W"/>
     <F n="Cameo-Movo-Beam-100" m="Movo Beam 100"/>
     <F n="Cameo-Movo-Beam-Z-100" m="Movo Beam Z 100"/>
+    <F n="Cameo-Multi-FX-Bar-EZ" m="Multi FX Bar EZ"/>
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
@@ -320,6 +321,7 @@
     <F n="Cameo-Twinscan-20" m="Twinscan 20"/>
     <F n="Cameo-Wookie-series" m="Wookie series"/>
     <F n="Cameo-Zenit-B60" m="Zenit B60"/>
+    <F n="Cameo-Zenit-Z120-G2" m="Zenit Z120 G2"/>
   </M>
   <M n="Chauvet">
     <F n="Chauvet-200b" m="200b"/>
@@ -369,6 +371,7 @@
     <F n="Chauvet-Geyser-P6" m="Geyser P6"/>
     <F n="Chauvet-Geyser-RGB" m="Geyser RGB"/>
     <F n="Chauvet-GigBAR-2" m="GigBAR 2"/>
+    <F n="Chauvet-GigBAR-Flex" m="GigBAR Flex"/>
     <F n="Chauvet-GigBar-IRC" m="GigBar IRC"/>
     <F n="Chauvet-Gobo-Zoom-LED-2.0" m="Gobo Zoom LED 2.0"/>
     <F n="Chauvet-Gyser-RGB" m="Gyser RGB"/>
@@ -453,6 +456,7 @@
     <F n="Chauvet-SlimPAR-T6-USB" m="SlimPAR T6 USB"/>
     <F n="Chauvet-SlimPAR-TRI-12-IRC" m="SlimPAR TRI 12 IRC"/>
     <F n="Chauvet-SlimPar-Tri-7-IRC" m="SlimPar Tri 7 IRC"/>
+    <F n="Chauvet-SlimSTRIP-UV-18-IRC" m="SlimSTRIP UV-18 IRC"/>
     <F n="Chauvet-Swarm-4-FX" m="Swarm 4 FX"/>
     <F n="Chauvet-Swarm-5-FX" m="Swarm 5 FX"/>
     <F n="Chauvet-Swarm-Wash-FX" m="Swarm Wash FX"/>
@@ -551,6 +555,7 @@
     <F n="Elation-Cuepix-Blinder-WW2" m="Cuepix Blinder WW2"/>
     <F n="Elation-DW-Fresnel" m="DW Fresnel"/>
     <F n="Elation-EVC-MH" m="EVC MH"/>
+    <F n="Elation-Fuze-PAR-Z175" m="Fuze PAR Z175"/>
     <F n="Elation-Fuze-Wash-Z350" m="Fuze Wash Z350"/>
     <F n="Elation-OPTI-TRI-30" m="OPTI TRI 30"/>
     <F n="Elation-Platinum-Beam-5R" m="Platinum Beam 5R"/>
@@ -560,6 +565,7 @@
     <F n="Elation-Rayzor-Q7" m="Rayzor Q7"/>
     <F n="Elation-SIXPAR-200IP" m="SIXPAR 200IP"/>
     <F n="Elation-Sniper-2R" m="Sniper 2R"/>
+    <F n="Elation-TVL-CYC-RGBW" m="TVL CYC RGBW"/>
     <F n="Elation-Vision-250" m="Vision 250"/>
   </M>
   <M n="Electroconcept">

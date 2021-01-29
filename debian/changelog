@@ -22,8 +22,13 @@ qlcplus (4.12.4) stable; urgency=low
   * New fixtures: GLP Impression FR1 TM, JB Systems Challenger BSW, Pro-Lights EVO90F, RVE Sereniled EVO2 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
   * New fixtures: RVE Sereniled Plus, RVE Twinled EVO2, Robe Robin Spikie, Robe Robin Tetra 1 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
   * New fixtures: Robe Robin Tetra 2, Showtec Par 64 100W COB UV, Talent SSL1 (thanks to Michał Kluska, Joshua Urieli, Claudia Dunkel)
+  * New fixture: Cameo Zenit Z120 G2 (thanks to jeremyAMMD)
+  * New fixture: Chauvet GigBAR Flex (thanks to bigredthelogger)
+  * New fixture: Chauvet SlimSTRIP UV-18 IRC (thanks to DJ Kozz)
+  * New fixtures: Elation Fuze Par Z175, Elation TVL CYC RGBW (thanks to Santiago Benejam Torres)
+  * New fixture: Cameo Multi FX Bar EZ (thanks to Jan Peter Dohle)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 20 Dec 2020 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 28 Mar 2021 12:13:14 +0200
 
 qlcplus (4.12.3) stable; urgency=low
 
