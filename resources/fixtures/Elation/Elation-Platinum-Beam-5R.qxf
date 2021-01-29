@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -28,9 +28,9 @@
   <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#2e2f92">Color 10</Capability>
   <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#fffde4">Color 11</Capability>
   <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#dbf1fd">Color 12</Capability>
-  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
-  <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rainbow effect from slow to fast</Capability>
  </Channel>
  <Channel Name="Color wheel Fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobos">
@@ -52,22 +52,22 @@
   <Capability Min="165" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00032.svg">Gobo 6 Shake</Capability>
   <Capability Min="180" Max="194" Preset="GoboShakeMacro" Res1="Others/gobo00005.svg">Gobo 7 Shake</Capability>
   <Capability Min="195" Max="209" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Gobo 8 Shake</Capability>
-  <Capability Min="210" Max="255">Gobo wheel cont. rotation slow to fast</Capability>
+  <Capability Min="210" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel cont. rotation slow to fast</Capability>
  </Channel>
  <Channel Name="Rotating gobo index">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Gobo indexing</Capability>
-  <Capability Min="128" Max="189">Forwards gobo rotation from fast to slow</Capability>
-  <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Backwards gobo rotation from slow to fast</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forwards gobo rotation from fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards gobo rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Rotating gobo indexing Fine" Preset="GoboIndexFine"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="3">Open</Capability>
-  <Capability Min="4" Max="63">Forwards rotation from fast to slow</Capability>
-  <Capability Min="64" Max="67">No rotation</Capability>
-  <Capability Min="68" Max="127">Backwards rotation from slow to fast</Capability>
+  <Capability Min="4" Max="63" Preset="RotationClockwiseFastToSlow">Forwards rotation from fast to slow</Capability>
+  <Capability Min="64" Max="67" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="68" Max="127" Preset="RotationCounterClockwiseSlowToFast">Backwards rotation from slow to fast</Capability>
   <Capability Min="128" Max="135">Macro 1</Capability>
   <Capability Min="136" Max="143">Macro 2</Capability>
   <Capability Min="144" Max="151">Macro 3</Capability>
@@ -137,7 +137,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color wheel</Channel>
   <Channel Number="3">Gobos</Channel>
-  <Channel Number="4">Rotating gobo index</Channel>
+  <Channel Number="4" ActsOn="3">Rotating gobo index</Channel>
   <Channel Number="5">Prism</Channel>
   <Channel Number="6">Shutter, strobe</Channel>
   <Channel Number="7">Dimmer</Channel>
@@ -152,7 +152,7 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Color wheel</Channel>
   <Channel Number="5">Gobos</Channel>
-  <Channel Number="6">Rotating gobo index</Channel>
+  <Channel Number="6" ActsOn="5">Rotating gobo index</Channel>
   <Channel Number="7">Prism</Channel>
   <Channel Number="8">Shutter, strobe</Channel>
   <Channel Number="9">Dimmer</Channel>
@@ -168,8 +168,8 @@
   <Channel Number="4">Color wheel</Channel>
   <Channel Number="5">Color wheel Fine</Channel>
   <Channel Number="6">Gobos</Channel>
-  <Channel Number="7">Rotating gobo index</Channel>
-  <Channel Number="8">Rotating gobo indexing Fine</Channel>
+  <Channel Number="7" ActsOn="6">Rotating gobo index</Channel>
+  <Channel Number="8" ActsOn="7">Rotating gobo indexing Fine</Channel>
   <Channel Number="9">Prism</Channel>
   <Channel Number="10">Shutter, strobe</Channel>
   <Channel Number="11">Dimmer</Channel>

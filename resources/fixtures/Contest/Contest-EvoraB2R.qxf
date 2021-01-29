@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Fredje Gallon</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -25,9 +25,9 @@
   <Capability Min="99" Max="107" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
   <Capability Min="108" Max="116" Preset="ColorMacro" Res1="#bc7d00">Vale orange</Capability>
   <Capability Min="117" Max="127" Preset="ColorMacro" Res1="#ffffcf">Vale white</Capability>
-  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll CW</Capability>
-  <Capability Min="190" Max="193">Color Scroll stop</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll CCW</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Color Scroll CW</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Color Scroll stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Color Scroll CCW</Capability>
  </Channel>
  <Channel Name="Color Fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobo">
@@ -36,7 +36,7 @@
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Chauvet/gobo00020.svg">XS dot</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00021.svg">S dot</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Chauvet/gobo00022.svg">M dot</Capability>
-  <Capability Min="32" Max="39">L dot</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="">L dot</Capability>
   <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00024.svg">XL dot</Capability>
   <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00025.svg">XXL dot</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Triangle</Capability>
@@ -61,7 +61,7 @@
   <Capability Min="194" Max="203" Preset="GoboShakeMacro" Res1="SGM/gobo00093.svg">Vent shake</Capability>
   <Capability Min="204" Max="210" Preset="GoboShakeMacro" Res1="SGM/gobo00025.svg">Vent inv. shake</Capability>
   <Capability Min="211" Max="217" Preset="GoboShakeMacro" Res1="Others/gobo00024.svg">Star shake</Capability>
-  <Capability Min="218" Max="255">Gobo scrol F&gt;S</Capability>
+  <Capability Min="218" Max="255" Preset="RotationClockwiseFastToSlow">Gobo scrol F&gt;S</Capability>
  </Channel>
  <Channel Name="Gobo Index" Preset="GoboIndex"/>
  <Channel Name="Pan" Preset="PositionPan"/>
@@ -97,10 +97,10 @@
  </Channel>
  <Channel Name="Prism rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="127">Prism index</Capability>
-  <Capability Min="128" Max="189">Rotation CW F&gt;S</Capability>
-  <Capability Min="190" Max="193">Rotation stop</Capability>
-  <Capability Min="194" Max="255">Rotation CCW F&gt;S</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Prism index</Capability>
+  <Capability Min="128" Max="189" Preset="RotationCounterClockwiseFastToSlow">Rotation CW F&gt;S</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Rotation stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseFastToSlow">Rotation CCW F&gt;S</Capability>
  </Channel>
  <Channel Name="Prism rotation fine">
   <Group Byte="1">Prism</Group>
@@ -147,7 +147,7 @@
   <Channel Number="0">Color</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Prism Frost macro</Channel>
-  <Channel Number="3">Prism rotation</Channel>
+  <Channel Number="3" ActsOn="2">Prism rotation</Channel>
   <Channel Number="4">Pan</Channel>
   <Channel Number="5">Tilt</Channel>
   <Channel Number="6">Pan / Tilt speed</Channel>
@@ -161,7 +161,7 @@
   <Channel Number="0">Color</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Prism Frost macro</Channel>
-  <Channel Number="3">Prism rotation</Channel>
+  <Channel Number="3" ActsOn="2">Prism rotation</Channel>
   <Channel Number="4">Pan</Channel>
   <Channel Number="5">Tilt</Channel>
   <Channel Number="6">Pan / Tilt speed</Channel>
@@ -178,8 +178,8 @@
   <Channel Number="5">Tilt</Channel>
   <Channel Number="6">Pan / Tilt speed</Channel>
   <Channel Number="7">Prism Frost macro</Channel>
-  <Channel Number="8">Prism rotation</Channel>
-  <Channel Number="9">Prism rotation fine</Channel>
+  <Channel Number="8" ActsOn="7">Prism rotation</Channel>
+  <Channel Number="9" ActsOn="8">Prism rotation fine</Channel>
   <Channel Number="10">Shutter Strobe</Channel>
   <Channel Number="11">Dimmer</Channel>
   <Channel Number="12">Dimmer fine</Channel>

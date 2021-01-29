@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -24,14 +24,14 @@
   <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#8000ff">UV</Capability>
   <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#d0ffff">CTB</Capability>
   <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#fff0e1">CTO</Capability>
-  <Capability Min="128" Max="189">Scroll Forward (Fast -&gt; Slow)</Capability>
-  <Capability Min="190" Max="193">No Rotation</Capability>
-  <Capability Min="194" Max="255">Scroll Backwards (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Scroll Forward (Fast -&gt; Slow)</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Scroll Backwards (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Color Fine" Preset="ColorWheelFine"/>
  <Channel Name="Rotating Gobos (Continuous Rotation)">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/gobo00001.svg">Rot. Gobo 1</Capability>
   <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Others/gobo00002.png">Rot. Gobo 2</Capability>
   <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Others/gobo00003.png">Rot. Gobo 3</Capability>
@@ -48,19 +48,19 @@
   <Capability Min="165" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00006.svg">Rot. Gobo 6 Shake</Capability>
   <Capability Min="180" Max="194" Preset="GoboShakeMacro" Res1="Others/gobo00007.svg">Rot. Gobo 7 Shake</Capability>
   <Capability Min="195" Max="209" Preset="GoboShakeMacro" Res1="Others/gobo00008.svg">Rot. Gobo 8 Shake</Capability>
-  <Capability Min="210" Max="255">Rot. Gobo Wheel Rotate (Slow -&gt; Fast)</Capability>
+  <Capability Min="210" Max="255" Preset="RotationClockwiseSlowToFast">Rot. Gobo Wheel Rotate (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Rotating Gobos (Indexing)">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Gobo Indexing</Capability>
-  <Capability Min="128" Max="189">Forward Gobo Rotation (Fast -&gt; Slow)</Capability>
-  <Capability Min="190" Max="193">No Rotation</Capability>
-  <Capability Min="194" Max="255">Backward Gobo Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo Indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forward Gobo Rotation (Fast -&gt; Slow)</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward Gobo Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Rotating Gobo (Indexing) Fine" Preset="GoboIndexFine"/>
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Others/gobo00009.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Others/gobo00010.svg">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Others/gobo00011.svg">Gobo 3</Capability>
@@ -89,7 +89,7 @@
   <Capability Min="197" Max="203" Preset="GoboShakeMacro" Res1="Others/gobo00019.svg">Gobo 12 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="204" Max="210" Preset="GoboShakeMacro" Res1="Others/gobo00020.svg">Gobo 13 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="211" Max="217" Preset="GoboShakeMacro" Res1="Others/gobo00021.svg">Gobo 14 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="218" Max="255">Gobo Wheel Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="218" Max="255" Preset="RotationClockwiseSlowToFast">Gobo Wheel Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Fixed Gobo (Indexing) Fine" Preset="GoboIndexFine"/>
  <Channel Name="3 Facet Prism / Gobo Macros">
@@ -115,10 +115,10 @@
  </Channel>
  <Channel Name="Rotating Prism / Gobo Macros">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="127">Prism Indexing</Capability>
-  <Capability Min="128" Max="189">Forward Prism Rotation (Fast -&gt; Slow)</Capability>
-  <Capability Min="190" Max="193">No Rotation</Capability>
-  <Capability Min="194" Max="255">Backwards Prism Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Prism Indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forward Prism Rotation (Fast -&gt; Slow)</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards Prism Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Rotating Prism Indexing Fine">
   <Group Byte="1">Prism</Group>
@@ -211,10 +211,10 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Color</Channel>
   <Channel Number="5">Rotating Gobos (Continuous Rotation)</Channel>
-  <Channel Number="6">Rotating Gobos (Indexing)</Channel>
+  <Channel Number="6" ActsOn="5">Rotating Gobos (Indexing)</Channel>
   <Channel Number="7">Fixed Gobos</Channel>
   <Channel Number="8">3 Facet Prism / Gobo Macros</Channel>
-  <Channel Number="9">Rotating Prism / Gobo Macros</Channel>
+  <Channel Number="9" ActsOn="8">Rotating Prism / Gobo Macros</Channel>
   <Channel Number="10">Focus</Channel>
   <Channel Number="11">Shutter</Channel>
   <Channel Number="12">Dimmer</Channel>
@@ -231,12 +231,12 @@
   <Channel Number="4">Color</Channel>
   <Channel Number="5">Color Fine</Channel>
   <Channel Number="6">Rotating Gobos (Continuous Rotation)</Channel>
-  <Channel Number="7">Rotating Gobos (Indexing)</Channel>
+  <Channel Number="7" ActsOn="6">Rotating Gobos (Indexing)</Channel>
   <Channel Number="8">Rotating Gobo (Indexing) Fine</Channel>
   <Channel Number="9">Fixed Gobos</Channel>
   <Channel Number="10">Fixed Gobo (Indexing) Fine</Channel>
   <Channel Number="11">3 Facet Prism / Gobo Macros</Channel>
-  <Channel Number="12">Rotating Prism / Gobo Macros</Channel>
+  <Channel Number="12" ActsOn="11">Rotating Prism / Gobo Macros</Channel>
   <Channel Number="13">Rotating Prism Indexing Fine</Channel>
   <Channel Number="14">Focus</Channel>
   <Channel Number="15">Focus Fine</Channel>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -14,30 +14,30 @@
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27">Empty position</Capability>
-  <Capability Min="28" Max="49">Empty + Soft Filter</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
+  <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Soft Filter</Capability>
   <Capability Min="50" Max="79" Preset="ColorMacro" Res1="#e1e1e1">Soft Filter</Capability>
-  <Capability Min="80" Max="99">Soft Filter + Lavender</Capability>
+  <Capability Min="80" Max="99" Preset="ColorDoubleMacro">Soft Filter + Lavender</Capability>
   <Capability Min="100" Max="128" Preset="ColorMacro" Res1="#9075ac">Lavender</Capability>
-  <Capability Min="129" Max="149">Lavender + CTO 3200K</Capability>
+  <Capability Min="129" Max="149" Preset="ColorDoubleMacro">Lavender + CTO 3200K</Capability>
   <Capability Min="150" Max="180" Preset="ColorMacro" Res1="#f9da87">CTO 3200K</Capability>
-  <Capability Min="181" Max="203">CTO 3200K + CTO 2500K</Capability>
+  <Capability Min="181" Max="203" Preset="ColorDoubleMacro">CTO 3200K + CTO 2500K</Capability>
   <Capability Min="204" Max="234" Preset="ColorMacro" Res1="#f4c843">CTO 2500K</Capability>
-  <Capability Min="235" Max="254">CTO 2500K + Blue Wood UV</Capability>
+  <Capability Min="235" Max="254" Preset="ColorDoubleMacro">CTO 2500K + Blue Wood UV</Capability>
   <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#34378a">Blue Wood UV</Capability>
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27">Empty position</Capability>
-  <Capability Min="28" Max="49">Empty + Dark Green</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
+  <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Dark Green</Capability>
   <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#0d7433">Dark Green</Capability>
-  <Capability Min="75" Max="99">Dark Green + CTB</Capability>
+  <Capability Min="75" Max="99" Preset="ColorDoubleMacro">Dark Green + CTB</Capability>
   <Capability Min="100" Max="128" Preset="ColorMacro" Res1="#94c5b9">CTB</Capability>
-  <Capability Min="129" Max="149">CTB + Dark Blue</Capability>
+  <Capability Min="129" Max="149" Preset="ColorDoubleMacro">CTB + Dark Blue</Capability>
   <Capability Min="150" Max="177" Preset="ColorMacro" Res1="#094f97">Dark Blue</Capability>
-  <Capability Min="178" Max="199">Dark Blue + H.M Green</Capability>
+  <Capability Min="178" Max="199" Preset="ColorDoubleMacro">Dark Blue + H.M Green</Capability>
   <Capability Min="200" Max="234" Preset="ColorMacro" Res1="#fcbb82">H.M Green</Capability>
-  <Capability Min="235" Max="254">H.M Green + Dark Red</Capability>
+  <Capability Min="235" Max="254" Preset="ColorDoubleMacro">H.M Green + Dark Red</Capability>
   <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#da2521">Dark Red</Capability>
  </Channel>
  <Channel Name="Shutter / Strobe">
@@ -154,9 +154,9 @@
   <Capability Min="63" Max="83">Prism Index 270° to 360°</Capability>
   <Capability Min="84" Max="104">Prism Index 360° to 450°</Capability>
   <Capability Min="105" Max="127">Prism Index 450° to 540°</Capability>
-  <Capability Min="128" Max="190">Rotation Max &lt; Min</Capability>
-  <Capability Min="191" Max="192">Stop Rotation</Capability>
-  <Capability Min="193" Max="255">Rotation Min &lt; Max</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &lt; Min</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation Min &lt; Max</Capability>
  </Channel>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
@@ -232,16 +232,16 @@
  </Channel>
  <Channel Name="Colour 3">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27">Empty position</Capability>
-  <Capability Min="28" Max="49">Empty + Light Green</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
+  <Capability Min="28" Max="49" Preset="ColorDoubleMacro">Empty + Light Green</Capability>
   <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#159b35">Light Green</Capability>
-  <Capability Min="75" Max="99">Light Green + Pink</Capability>
+  <Capability Min="75" Max="99" Preset="ColorDoubleMacro">Light Green + Pink</Capability>
   <Capability Min="100" Max="128" Preset="ColorMacro" Res1="#f19ea1">Pink</Capability>
-  <Capability Min="129" Max="149">Pink + Aquamarine</Capability>
+  <Capability Min="129" Max="149" Preset="ColorDoubleMacro">Pink + Aquamarine</Capability>
   <Capability Min="150" Max="177" Preset="ColorMacro" Res1="#77bc83">Aquamarine</Capability>
-  <Capability Min="178" Max="199">Aquamarine + Dark Orange</Capability>
+  <Capability Min="178" Max="199" Preset="ColorDoubleMacro">Aquamarine + Dark Orange</Capability>
   <Capability Min="200" Max="234" Preset="ColorMacro" Res1="#de601c">Dark Orange</Capability>
-  <Capability Min="235" Max="254">Dark Orange + Light Orange</Capability>
+  <Capability Min="235" Max="254" Preset="ColorDoubleMacro">Dark Orange + Light Orange</Capability>
   <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#f8b45e">Light Orange</Capability>
  </Channel>
  <Mode Name="Vector">
@@ -256,10 +256,10 @@
   <Channel Number="8">Dimmer Fine</Channel>
   <Channel Number="9">Static Gobo</Channel>
   <Channel Number="10">Rotation Gobo</Channel>
-  <Channel Number="11">Gobo Rotation</Channel>
-  <Channel Number="12">Gobo Rotation Fine</Channel>
+  <Channel Number="11" ActsOn="10">Gobo Rotation</Channel>
+  <Channel Number="12" ActsOn="11">Gobo Rotation Fine</Channel>
   <Channel Number="13">Prism Insertion</Channel>
-  <Channel Number="14">Prism Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotation</Channel>
   <Channel Number="15">Frost</Channel>
   <Channel Number="16">Focus</Channel>
   <Channel Number="17">Pan</Channel>
@@ -286,10 +286,10 @@
   <Channel Number="8">Dimmer Fine</Channel>
   <Channel Number="9">Static Gobo</Channel>
   <Channel Number="10">Rotation Gobo</Channel>
-  <Channel Number="11">Gobo Rotation</Channel>
-  <Channel Number="12">Gobo Rotation Fine</Channel>
+  <Channel Number="11" ActsOn="10">Gobo Rotation</Channel>
+  <Channel Number="12" ActsOn="11">Gobo Rotation Fine</Channel>
   <Channel Number="13">Prism Insertion</Channel>
-  <Channel Number="14">Prism Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotation</Channel>
   <Channel Number="15">Frost</Channel>
   <Channel Number="16">Focus</Channel>
   <Channel Number="17">Pan</Channel>
