@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Nicolò Zanon</Author>
  </Creator>
  <Manufacturer>DTS</Manufacturer>
@@ -21,15 +21,11 @@
   <Capability Min="128" Max="247">Variable time reaction to DMX signal (fast to slow)</Capability>
   <Capability Min="248" Max="255">Slow reaction time to DMX signal</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="8">Black-out</Capability>
-  <Capability Min="9" Max="255">Proportional dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Black-out</Capability>
-  <Capability Min="10" Max="23">Strobo random speed</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="10" Max="23" Preset="StrobeRandom">Strobo random speed</Capability>
   <Capability Min="24" Max="37">Strobo speed 1 min.</Capability>
   <Capability Min="38" Max="51">Strobe speed 2</Capability>
   <Capability Min="52" Max="65">Strobe speed 3</Capability>
@@ -46,47 +42,31 @@
   <Capability Min="206" Max="219">Pulse closed speed 4 max</Capability>
   <Capability Min="220" Max="227">Colour and Gobo in black -out</Capability>
   <Capability Min="228" Max="233">Pan and Tilt in black-out</Capability>
-  <Capability Min="234" Max="255">Open</Capability>
+  <Capability Min="234" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">Colour1</Capability>
-  <Capability Min="11" Max="21">Bicolour 1/2</Capability>
-  <Capability Min="22" Max="32">Colour2</Capability>
-  <Capability Min="33" Max="43">Bicolour 2/3</Capability>
-  <Capability Min="44" Max="54">Colour3</Capability>
-  <Capability Min="55" Max="65">Bicolour 3/4</Capability>
-  <Capability Min="66" Max="76">Colour4</Capability>
-  <Capability Min="77" Max="87">Bicolour 4/5</Capability>
-  <Capability Min="88" Max="98">Colour5</Capability>
-  <Capability Min="99" Max="109">Bicolour 5/6</Capability>
-  <Capability Min="110" Max="120">Colour6</Capability>
-  <Capability Min="121" Max="131">Bicolour 6/7</Capability>
-  <Capability Min="132" Max="142">Colour7</Capability>
-  <Capability Min="143" Max="153">Bicolour 7/8</Capability>
-  <Capability Min="154" Max="164">Colour8</Capability>
-  <Capability Min="165" Max="175">Bicolour 8/9</Capability>
-  <Capability Min="176" Max="186">Colour9</Capability>
-  <Capability Min="187" Max="197">Bicolour 9/1</Capability>
-  <Capability Min="198" Max="200">Right rotation speed 1 min</Capability>
-  <Capability Min="201" Max="203">Right rotation speed 2</Capability>
-  <Capability Min="204" Max="206">Right rotation speed 3</Capability>
-  <Capability Min="207" Max="209">Right rotation speed 4</Capability>
-  <Capability Min="210" Max="212">Right rotation speed 5</Capability>
-  <Capability Min="213" Max="215">Right rotation speed 6</Capability>
-  <Capability Min="216" Max="218">Right rotation speed 7</Capability>
-  <Capability Min="219" Max="221">Right rotation speed 8</Capability>
-  <Capability Min="222" Max="224">Right rotation speed 9 max</Capability>
-  <Capability Min="225" Max="228">Stop</Capability>
-  <Capability Min="229" Max="231">Left rotation speed 1 min</Capability>
-  <Capability Min="232" Max="234">Left rotation speed 2</Capability>
-  <Capability Min="235" Max="237">Left rotation speed 3</Capability>
-  <Capability Min="238" Max="240">Left rotation speed 4</Capability>
-  <Capability Min="241" Max="243">Left rotation speed 5</Capability>
-  <Capability Min="244" Max="246">Left rotation speed 6</Capability>
-  <Capability Min="247" Max="249">Left rotation speed 7</Capability>
-  <Capability Min="250" Max="252">Left rotation speed 8</Capability>
-  <Capability Min="253" Max="255">Left rotation speed 9 max</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro">Colour1</Capability>
+  <Capability Min="11" Max="21" Preset="ColorDoubleMacro">Bicolour 1/2</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro">Colour2</Capability>
+  <Capability Min="33" Max="43" Preset="ColorDoubleMacro">Bicolour 2/3</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro">Colour3</Capability>
+  <Capability Min="55" Max="65" Preset="ColorDoubleMacro">Bicolour 3/4</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro">Colour4</Capability>
+  <Capability Min="77" Max="87" Preset="ColorDoubleMacro">Bicolour 4/5</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro">Colour5</Capability>
+  <Capability Min="99" Max="109" Preset="ColorDoubleMacro">Bicolour 5/6</Capability>
+  <Capability Min="110" Max="120" Preset="ColorMacro">Colour6</Capability>
+  <Capability Min="121" Max="131" Preset="ColorDoubleMacro">Bicolour 6/7</Capability>
+  <Capability Min="132" Max="142" Preset="ColorMacro">Colour7</Capability>
+  <Capability Min="143" Max="153" Preset="ColorDoubleMacro">Bicolour 7/8</Capability>
+  <Capability Min="154" Max="164" Preset="ColorMacro">Colour8</Capability>
+  <Capability Min="165" Max="175" Preset="ColorDoubleMacro">Bicolour 8/9</Capability>
+  <Capability Min="176" Max="186" Preset="ColorMacro">Colour9</Capability>
+  <Capability Min="187" Max="197" Preset="ColorDoubleMacro">Bicolour 9/1</Capability>
+  <Capability Min="198" Max="224" Preset="RotationClockwise">Right rotation speed min max</Capability>
+  <Capability Min="225" Max="228" Preset="RotationStop">Stop</Capability>
+  <Capability Min="229" Max="255" Preset="RotationCounterClockwise">Left rotation speed min max</Capability>
  </Channel>
  <Channel Name="Proportional colour (priority)">
   <Group Byte="0">Effect</Group>
@@ -95,36 +75,29 @@
  </Channel>
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="25">Open</Capability>
-  <Capability Min="26" Max="51">Gobo 1</Capability>
-  <Capability Min="52" Max="77">Gobo 2</Capability>
-  <Capability Min="78" Max="103">Gobo 3</Capability>
-  <Capability Min="104" Max="129">Gobo 4</Capability>
-  <Capability Min="130" Max="155">Gobo 5</Capability>
-  <Capability Min="156" Max="181">Gobo 6</Capability>
-  <Capability Min="182" Max="207">Gobo 7</Capability>
-  <Capability Min="208" Max="213">Speed rotation 1 min</Capability>
-  <Capability Min="214" Max="219">Speed rotation 2</Capability>
-  <Capability Min="220" Max="225">Speed rotation 3</Capability>
-  <Capability Min="226" Max="231">Speed rotation 4</Capability>
-  <Capability Min="232" Max="237">Speed rotation 5</Capability>
-  <Capability Min="238" Max="243">Speed rotation 6</Capability>
-  <Capability Min="244" Max="249">Speed rotation 7</Capability>
-  <Capability Min="250" Max="255">Speed rotation 8 man</Capability>
+  <Capability Min="0" Max="25" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="26" Max="51" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="52" Max="77" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="78" Max="103" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="104" Max="129" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="130" Max="155" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="156" Max="181" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="182" Max="207" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="208" Max="225" Preset="RotationClockwiseSlowToFast">Rotation speed min max</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Proportional from 0° to 360°</Capability>
-  <Capability Min="128" Max="180">Left rotation</Capability>
-  <Capability Min="181" Max="202">Stop</Capability>
-  <Capability Min="203" Max="255">Right rotation</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Proportional from 0° to 360°</Capability>
+  <Capability Min="128" Max="180" Preset="RotationCounterClockwise">Left rotation</Capability>
+  <Capability Min="181" Max="202" Preset="RotationStop">Stop</Capability>
+  <Capability Min="203" Max="255" Preset="RotationClockwise">Right rotation</Capability>
  </Channel>
  <Channel Name="Prism / prism rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="63">No effect</Capability>
-  <Capability Min="64" Max="127">Prism</Capability>
-  <Capability Min="128" Max="191">Left rotation</Capability>
-  <Capability Min="192" Max="255">Right rotation</Capability>
+  <Capability Min="0" Max="63" Preset="PrismEffectOff">No effect</Capability>
+  <Capability Min="64" Max="127" Preset="PrismEffectOn" Res1="3">Prism</Capability>
+  <Capability Min="128" Max="191" Preset="RotationCounterClockwise">Left rotation</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwise">Right rotation</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Light beam angle">
@@ -148,9 +121,9 @@
  </Channel>
  <Channel Name="Shutter (8/10ch)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Black out</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Black out</Capability>
   <Capability Min="10" Max="85">Dimmer</Capability>
-  <Capability Min="86" Max="95">Strobo random speed</Capability>
+  <Capability Min="86" Max="95" Preset="StrobeRandom">Strobo random speed</Capability>
   <Capability Min="96" Max="105">Strobo speed 1 min</Capability>
   <Capability Min="106" Max="115">Strobo speed 2</Capability>
   <Capability Min="116" Max="125">Strobo speed 3</Capability>
@@ -166,7 +139,7 @@
   <Capability Min="216" Max="225">Pulse closed speed 3</Capability>
   <Capability Min="226" Max="235">Pulse closed speed 4 max</Capability>
   <Capability Min="236" Max="245">Colour/gobo/pan/tilt in black out</Capability>
-  <Capability Min="246" Max="255">Open</Capability>
+  <Capability Min="246" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Focus / light beam angle / frost">
   <Group Byte="0">Effect</Group>
@@ -176,7 +149,7 @@
   <Capability Min="219" Max="255">Frost</Capability>
  </Channel>
  <Mode Name="8 channels">
-  <Channel Number="0">Gobo rotation</Channel>
+  <Channel Number="0" ActsOn="2">Gobo rotation</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo wheel</Channel>
   <Channel Number="3">Shutter (8/10ch)</Channel>
@@ -186,7 +159,7 @@
   <Channel Number="7">Focus / light beam angle / frost</Channel>
  </Mode>
  <Mode Name="10 channels">
-  <Channel Number="0">Gobo rotation</Channel>
+  <Channel Number="0" ActsOn="2">Gobo rotation</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo wheel</Channel>
   <Channel Number="3">Shutter (8/10ch)</Channel>
@@ -208,7 +181,7 @@
   <Channel Number="7">Color</Channel>
   <Channel Number="8">Proportional colour (priority)</Channel>
   <Channel Number="9">Gobo wheel</Channel>
-  <Channel Number="10">Gobo rotation</Channel>
+  <Channel Number="10"  ActsOn="9">Gobo rotation</Channel>
   <Channel Number="11">Prism / prism rotation</Channel>
   <Channel Number="12">Focus</Channel>
   <Channel Number="13">Light beam angle</Channel>

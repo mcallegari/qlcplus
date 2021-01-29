@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Rodolfo Thierry</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -45,14 +45,14 @@
   <Capability Min="61" Max="62" Preset="ColorDoubleMacro" Res1="#f7f17b" Res2="#2f2974">Split Pineapple Yellow / Congo Blue</Capability>
   <Capability Min="63" Max="65" Preset="ColorMacro" Res1="#2f2974">Congo Blue</Capability>
   <Capability Min="66" Max="67" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="68" Max="128">Color Wheel Index - White to Congo Blue</Capability>
-  <Capability Min="129" Max="190">Clockwise Color Rotation from FAST to SLOW</Capability>
-  <Capability Min="191" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise Color Rotation from SLOW to FAST</Capability>
+  <Capability Min="68" Max="128" Preset="RotationIndexed">Color Wheel Index - White to Congo Blue</Capability>
+  <Capability Min="129" Max="190" Preset="RotationClockwiseFastToSlow">Clockwise Color Rotation from FAST to SLOW</Capability>
+  <Capability Min="191" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Color Rotation from SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="14" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 1</Capability>
   <Capability Min="15" Max="22" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2</Capability>
   <Capability Min="23" Max="29" Preset="GoboMacro" Res1="ClayPaky/gobo00016.svg">Gobo 3</Capability>
@@ -70,8 +70,8 @@
   <Capability Min="113" Max="119" Preset="GoboMacro" Res1="Others/gobo00024.svg">Gobo 15</Capability>
   <Capability Min="120" Max="126" Preset="GoboMacro" Res1="GLP/gobo00010.svg">Gobo 16</Capability>
   <Capability Min="127" Max="133" Preset="GoboMacro" Res1="Chauvet/gobo00008.svg">Gobo 17</Capability>
-  <Capability Min="134" Max="194">Clockwise Gobo Wheel Rotation From FAST to SLOW</Capability>
-  <Capability Min="195" Max="255">Counterclockwise Gobo Wheel Rotation From SLOW to FAST</Capability>
+  <Capability Min="134" Max="194" Preset="RotationClockwiseFastToSlow">Clockwise Gobo Wheel Rotation From FAST to SLOW</Capability>
+  <Capability Min="195" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Gobo Wheel Rotation From SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Pattern Macros">
   <Group Byte="0">Effect</Group>
@@ -108,19 +108,19 @@
  </Channel>
  <Channel Name="Pattern Rotation - Clockwise / Counterclockwise">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">Stop</Capability>
-  <Capability Min="10" Max="120">Clockwise Pattern Rotation from FAST to SLOW</Capability>
-  <Capability Min="126" Max="141">Stop</Capability>
-  <Capability Min="142" Max="245">Counterclockwise Pattern Rotation from SLOW to FAST</Capability>
-  <Capability Min="246" Max="255">Stop</Capability>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Clockwise Pattern Rotation from FAST to SLOW</Capability>
+  <Capability Min="126" Max="141" Preset="RotationStop">Stop</Capability>
+  <Capability Min="142" Max="245" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Pattern Rotation from SLOW to FAST</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">Stop</Capability>
  </Channel>
  <Channel Name="Pattern Rotation - Horizontal / Vertical">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">Stop</Capability>
-  <Capability Min="10" Max="120">Horizontal Pattern Rotation from FAST to SLOW</Capability>
-  <Capability Min="121" Max="134">Stop</Capability>
-  <Capability Min="135" Max="245">Vertical Pattern Rotation from SLOW to FAST</Capability>
-  <Capability Min="246" Max="255">Stop</Capability>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Horizontal Pattern Rotation from FAST to SLOW</Capability>
+  <Capability Min="121" Max="134" Preset="RotationStop">Stop</Capability>
+  <Capability Min="135" Max="245" Preset="RotationCounterClockwiseSlowToFast">Vertical Pattern Rotation from SLOW to FAST</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">Stop</Capability>
  </Channel>
  <Channel Name="Pattern Zoom">
   <Group Byte="0">Effect</Group>
@@ -129,11 +129,11 @@
  </Channel>
  <Channel Name="Beam Rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="63">0° to 360°</Capability>
+  <Capability Min="0" Max="63" Preset="RotationIndexed">0° to 360°</Capability>
   <Capability Min="64" Max="127">Shaking</Capability>
-  <Capability Min="128" Max="189">Clockwise Rotation FAST to SLOW</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise Rotation SLOW to FAST</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise Rotation FAST to SLOW</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Rotation SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
@@ -142,10 +142,10 @@
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="127">Prism Indexing</Capability>
-  <Capability Min="128" Max="189">Clockwise PRISM Rotation FAST to SLOW</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise PRISM Rotation SLOW to FAST</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Prism Indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise PRISM Rotation FAST to SLOW</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise PRISM Rotation SLOW to FAST</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Functions">
@@ -157,7 +157,7 @@
   <Capability Min="85" Max="87" Preset="ResetPanTilt">Pan / Tilt Motors Reset</Capability>
   <Capability Min="88" Max="90" Preset="ResetColor">Color Motor Reset</Capability>
   <Capability Min="91" Max="93" Preset="ResetGobo">Gobo Motor Reset</Capability>
-  <Capability Min="94" Max="96" Preset="ResetMotors">Shutter &amp; Dimmer Motors Reset</Capability>
+  <Capability Min="94" Max="96">Shutter &amp; Dimmer Motors Reset</Capability>
   <Capability Min="97" Max="99" Preset="ResetMotors">Other Motors Reset</Capability>
   <Capability Min="100" Max="109">Enable blackout while Pan / Tilt movement</Capability>
   <Capability Min="110" Max="119">Enable blackout while color change</Capability>
@@ -209,12 +209,12 @@
   <Channel Number="2">Colors</Channel>
   <Channel Number="3">Gobos</Channel>
   <Channel Number="4">Pattern Macros</Channel>
-  <Channel Number="5">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="6">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="5" ActsOn="4">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="6" ActsOn="4">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="7">Pattern Zoom</Channel>
   <Channel Number="8">Beam Rotation</Channel>
   <Channel Number="9">Prism</Channel>
-  <Channel Number="10">Prism Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism Rotation</Channel>
   <Channel Number="11">Shutter - Strobe</Channel>
   <Channel Number="12">Dimmer</Channel>
   <Channel Number="13">Functions</Channel>
@@ -227,12 +227,12 @@
   <Channel Number="4">Colors</Channel>
   <Channel Number="5">Gobos</Channel>
   <Channel Number="6">Pattern Macros</Channel>
-  <Channel Number="7">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="8">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="7" ActsOn="6">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="8" ActsOn="6">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="9">Pattern Zoom</Channel>
   <Channel Number="10">Beam Rotation</Channel>
   <Channel Number="11">Prism</Channel>
-  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="12" ActsOn="11">Prism Rotation</Channel>
   <Channel Number="13">Shutter - Strobe</Channel>
   <Channel Number="14">Dimmer</Channel>
   <Channel Number="15">Functions</Channel>
@@ -247,12 +247,12 @@
   <Channel Number="6">Colors</Channel>
   <Channel Number="7">Gobos</Channel>
   <Channel Number="8">Pattern Macros</Channel>
-  <Channel Number="9">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="10">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="9" ActsOn="8">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="10" ActsOn="8">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="11">Pattern Zoom</Channel>
   <Channel Number="12">Beam Rotation</Channel>
   <Channel Number="13">Prism</Channel>
-  <Channel Number="14">Prism Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotation</Channel>
   <Channel Number="15">Dimmer</Channel>
   <Channel Number="16">Functions</Channel>
   <Channel Number="17">Shutter - Strobe</Channel>
@@ -267,12 +267,12 @@
   <Channel Number="6">Colors</Channel>
   <Channel Number="7">Gobos</Channel>
   <Channel Number="8">Pattern Macros</Channel>
-  <Channel Number="9">Pattern Rotation - Clockwise / Counterclockwise</Channel>
-  <Channel Number="10">Pattern Rotation - Horizontal / Vertical</Channel>
+  <Channel Number="9" ActsOn="8">Pattern Rotation - Clockwise / Counterclockwise</Channel>
+  <Channel Number="10" ActsOn="8">Pattern Rotation - Horizontal / Vertical</Channel>
   <Channel Number="11">Pattern Zoom</Channel>
   <Channel Number="12">Beam Rotation</Channel>
   <Channel Number="13">Prism</Channel>
-  <Channel Number="14">Prism Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotation</Channel>
   <Channel Number="15">Shutter - Strobe</Channel>
   <Channel Number="16">Dimmer</Channel>
   <Channel Number="17">Functions</Channel>

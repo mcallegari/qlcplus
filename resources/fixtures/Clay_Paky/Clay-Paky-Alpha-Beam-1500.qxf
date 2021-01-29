@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -28,7 +28,7 @@
   <Capability Min="101" Max="109" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#0000ff">Orange + Blue</Capability>
   <Capability Min="110" Max="118" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="119" Max="127" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
-  <Capability Min="128" Max="255">slow -&gt; Fast rotation</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">slow -&gt; Fast rotation</Capability>
  </Channel>
  <Channel Name="Stop / Strobe">
   <Group Byte="0">Shutter</Group>
@@ -55,7 +55,7 @@
  </Channel>
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="ClayPaky/gobo00006.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3</Capability>
@@ -64,46 +64,40 @@
   <Capability Min="48" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00005.svg">Gobo 6</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00001.svg">Gobo 7</Capability>
   <Capability Min="64" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00002.svg">Gobo 8</Capability>
-  <Capability Min="72" Max="113">Fast -&gt; Slow Rotation</Capability>
-  <Capability Min="114" Max="117">Stop</Capability>
-  <Capability Min="118" Max="159">Slow -&gt; Fast Rotation</Capability>
-  <Capability Min="160" Max="171">Gobo 1 Shake Slow -&gt; Fast</Capability>
-  <Capability Min="172" Max="183">Gobo 2 Shake Slow -&gt; Fast</Capability>
-  <Capability Min="184" Max="195">Gobo 3 Shake Slow -&gt; Fast</Capability>
-  <Capability Min="196" Max="207">Gobo 4 Shake Slow -&gt; Fast</Capability>
-  <Capability Min="208" Max="219">Gobo 5 Shake Slow -&gt; Fast</Capability>
-  <Capability Min="220" Max="231">Gobo 6 Shake Slow -&gt; Fast</Capability>
-  <Capability Min="232" Max="243">Gobo 7 Shake Slow -&gt; Fast</Capability>
-  <Capability Min="244" Max="255">Gobo 8 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="72" Max="113" Preset="RotationClockwiseFastToSlow">Fast -&gt; Slow Rotation</Capability>
+  <Capability Min="114" Max="117" Preset="RotationStop">Stop</Capability>
+  <Capability Min="118" Max="159" Preset="RotationCounterClockwiseSlowToFast">Slow -&gt; Fast Rotation</Capability>
+  <Capability Min="160" Max="171" Preset="GoboShakeMacro" Res1="">Gobo 1 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="172" Max="183" Preset="GoboShakeMacro" Res1="">Gobo 2 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="184" Max="195" Preset="GoboShakeMacro" Res1="">Gobo 3 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="196" Max="207" Preset="GoboShakeMacro" Res1="">Gobo 4 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="208" Max="219" Preset="GoboShakeMacro" Res1="">Gobo 5 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="220" Max="231" Preset="GoboShakeMacro" Res1="">Gobo 6 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="232" Max="243" Preset="GoboShakeMacro" Res1="">Gobo 7 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="244" Max="255" Preset="GoboShakeMacro" Res1="">Gobo 8 Shake Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Rotating Gobo Change">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="18">White</Capability>
+  <Capability Min="0" Max="18" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
   <Capability Min="19" Max="37" Preset="GoboMacro" Res1="ClayPaky/gobo00017.svg">Gobo 1</Capability>
   <Capability Min="38" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00016.svg">Gobo 2</Capability>
   <Capability Min="56" Max="74" Preset="GoboMacro" Res1="ClayPaky/gobo00015.svg">Gobo 3</Capability>
   <Capability Min="75" Max="92" Preset="GoboMacro" Res1="ClayPaky/gobo00014.svg">Gobo 4</Capability>
   <Capability Min="93" Max="111" Preset="GoboMacro" Res1="ClayPaky/gobo00013.svg">Gobo 5</Capability>
   <Capability Min="112" Max="129" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 6</Capability>
-  <Capability Min="130" Max="150">Gobo 1 Shake, Slow -&gt; Fast</Capability>
-  <Capability Min="151" Max="171">Gobo 2 Shake, Slow -&gt; Fast</Capability>
-  <Capability Min="172" Max="192">Gobo 3 Shake, Slow -&gt; Fast</Capability>
-  <Capability Min="193" Max="213">Gobo 4 Shake, Slow -&gt; Fast</Capability>
-  <Capability Min="214" Max="234">Gobo 5 Shake, Slow -&gt; Fast</Capability>
-  <Capability Min="235" Max="255">Gobo 6 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="130" Max="150" Preset="GoboShakeMacro" Res1="">Gobo 1 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="151" Max="171" Preset="GoboShakeMacro" Res1="">Gobo 2 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="172" Max="192" Preset="GoboShakeMacro" Res1="">Gobo 3 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="193" Max="213" Preset="GoboShakeMacro" Res1="">Gobo 4 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="214" Max="234" Preset="GoboShakeMacro" Res1="">Gobo 5 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="235" Max="255" Preset="GoboShakeMacro" Res1="">Gobo 6 Shake, Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0">0 degree Position</Capability>
-  <Capability Min="21" Max="21">90 degree Position</Capability>
-  <Capability Min="42" Max="42">180 degree Position</Capability>
-  <Capability Min="63" Max="63">270 degree Position</Capability>
-  <Capability Min="84" Max="84">360 degree Position</Capability>
-  <Capability Min="105" Max="105">450 degree Position</Capability>
-  <Capability Min="127" Max="127">540 degree Position</Capability>
-  <Capability Min="128" Max="190">CW Fast -&gt; Slow Rotation</Capability>
-  <Capability Min="191" Max="192">Stop</Capability>
-  <Capability Min="193" Max="255">CCW Slow -&gt; Fast Rotation</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexing</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">CW Fast -&gt; Slow Rotation</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW Slow -&gt; Fast Rotation</Capability>
  </Channel>
  <Channel Name="Rotating Prism Change">
   <Group Byte="0">Prism</Group>
@@ -114,16 +108,10 @@
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="0">0 degree Position</Capability>
-  <Capability Min="21" Max="21">90 degree Position</Capability>
-  <Capability Min="42" Max="42">180 degree Position</Capability>
-  <Capability Min="63" Max="63">270 degree Position</Capability>
-  <Capability Min="84" Max="84">360 degree Position</Capability>
-  <Capability Min="105" Max="105">450 degree Position</Capability>
-  <Capability Min="127" Max="127">540 degree Position</Capability>
-  <Capability Min="128" Max="190">CW Fast -&gt; Slow Rotation</Capability>
-  <Capability Min="191" Max="192">Stop</Capability>
-  <Capability Min="193" Max="255">CCW Slow -&gt; Fast Rotation</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexing</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">CW Fast -&gt; Slow Rotation</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW Slow -&gt; Fast Rotation</Capability>
  </Channel>
  <Channel Name="Light Frost">
   <Group Byte="0">Effect</Group>
@@ -167,10 +155,7 @@
   <Capability Min="101" Max="179" Preset="LampOn">Lamp On (Half Power)</Capability>
   <Capability Min="180" Max="255" Preset="LampOn">Lamp On (Full Power)</Capability>
  </Channel>
- <Channel Name="Pan - Tilt Time">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">See Time Table</Capability>
- </Channel>
+ <Channel Name="Pan - Tilt Time" Preset="SpeedPanTiltSlowFast"/>
  <Channel Name="Colour Time">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="255">See Time Table</Capability>
@@ -194,9 +179,9 @@
   <Channel Number="7">Iris</Channel>
   <Channel Number="8">Static Gobo Change</Channel>
   <Channel Number="9">Rotating Gobo Change</Channel>
-  <Channel Number="10">Gobo Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Gobo Rotation</Channel>
   <Channel Number="11">Rotating Prism Change</Channel>
-  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="12" ActsOn="11">Prism Rotation</Channel>
   <Channel Number="13">Light Frost</Channel>
   <Channel Number="14">Medium Frost</Channel>
   <Channel Number="15">Heavy Frost</Channel>
@@ -220,9 +205,9 @@
   <Channel Number="7">Iris</Channel>
   <Channel Number="8">Static Gobo Change</Channel>
   <Channel Number="9">Rotating Gobo Change</Channel>
-  <Channel Number="10">Gobo Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Gobo Rotation</Channel>
   <Channel Number="11">Rotating Prism Change</Channel>
-  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="12" ActsOn="11">Prism Rotation</Channel>
   <Channel Number="13">Light Frost</Channel>
   <Channel Number="14">Medium Frost</Channel>
   <Channel Number="15">Heavy Frost</Channel>

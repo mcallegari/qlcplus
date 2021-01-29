@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.3</Version>
   <Author>Noel Utter</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -20,9 +20,9 @@
   <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
   <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#aa00ff">Purple</Capability>
   <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff557f">Pink</Capability>
-  <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CW</Capability>
-  <Capability Min="188" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CCW</Capability>
+  <Capability Min="128" Max="187" Preset="RotationClockwise">Rainbow CW</Capability>
+  <Capability Min="188" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwise">Rainbow CCW</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -39,14 +39,14 @@
   <Capability Min="130" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00031.svg">Lines Shake</Capability>
   <Capability Min="150" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00037.svg">Triangle Shake</Capability>
   <Capability Min="170" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00028.svg">Cross Shake</Capability>
-  <Capability Min="190" Max="255">Gobo rainbow</Capability>
+  <Capability Min="190" Max="255" Preset="RotationClockwise">Gobo rainbow</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="127">Index</Capability>
-  <Capability Min="128" Max="187">Clockwise</Capability>
-  <Capability Min="188" Max="193">Stationary</Capability>
-  <Capability Min="194" Max="255">Counter Clockwise</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Index</Capability>
+  <Capability Min="128" Max="187" Preset="RotationClockwise">Clockwise</Capability>
+  <Capability Min="188" Max="193" Preset="RotationStop">Stationary</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwise">Counter Clockwise</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -96,10 +96,10 @@
  </Channel>
  <Channel Name="Prism Rotation Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="7">Stationary</Capability>
-  <Capability Min="8" Max="127">Clockwise</Capability>
-  <Capability Min="128" Max="135">Stationary</Capability>
-  <Capability Min="136" Max="255">Counter Clockwise</Capability>
+  <Capability Min="0" Max="7" Preset="RotationStop">Stationary</Capability>
+  <Capability Min="8" Max="127" Preset="RotationClockwise">Clockwise</Capability>
+  <Capability Min="128" Max="135" Preset="RotationStop">Stationary</Capability>
+  <Capability Min="136" Max="255" Preset="RotationCounterClockwise">Counter Clockwise</Capability>
  </Channel>
  <Channel Name="Prog">
   <Group Byte="0">Maintenance</Group>
@@ -141,7 +141,7 @@
   </Physical>
   <Channel Number="0">Color</Channel>
   <Channel Number="1">Gobo</Channel>
-  <Channel Number="2">Gobo rotation</Channel>
+  <Channel Number="2" ActsOn="1">Gobo rotation</Channel>
   <Channel Number="3">Shutter</Channel>
   <Channel Number="4">Pan</Channel>
   <Channel Number="5">Tilt</Channel>
