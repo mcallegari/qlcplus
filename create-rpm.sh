@@ -7,7 +7,7 @@ if [ -f Makefile ]; then
 	make distclean
 fi
 
-if [ ! -d rpm ]; then
+if [ ! -f platforms/linux/qlcplus.spec ]; then
 	echo ERROR: This script must be run from the top-level QLC+ source directory
 	exit 1;
 fi
