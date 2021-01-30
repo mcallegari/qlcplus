@@ -41,6 +41,9 @@ sed -ie '/UDEVRULESDIR/s|/etc/udev/rules.d|/usr/lib/udev/rules.d|' variables.pri
 #############################################################################
 
 %build
+# qmake-qt5 will only include existing files in install_translations - create the .qm files first
+./translate.sh ui
+
 qmake-qt5
 make
 
