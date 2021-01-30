@@ -34,6 +34,8 @@ of other lighting control commercial softwares.
 %prep
 %setup -q
 
+sed -ie '/UDEVRULESDIR/s|/etc/udev/rules.d|/usr/lib/udev/rules.d|' variables.pri
+
 #############################################################################
 # Build
 #############################################################################
