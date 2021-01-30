@@ -25,8 +25,12 @@ qlcplus (4.12.4) stable; urgency=low
   * New fixture: Cameo Zenit Z120 G2 (thanks to jeremyAMMD)
   * New fixture: Chauvet GigBAR Flex (thanks to bigredthelogger)
   * New fixture: Chauvet SlimSTRIP UV-18 IRC (thanks to DJ Kozz)
-  * New fixtures: Elation Fuze Par Z175, Elation TVL CYC RGBW (thanks to Santiago Benejam Torres)
+  * New fixtures: Elation Fuze Par Z175, Elation TVL CYC RGBW, Chauvet Ovation F-915FC (thanks to Santiago Benejam Torres)
   * New fixture: Cameo Multi FX Bar EZ (thanks to Jan Peter Dohle)
+  * New fixture: Eurolite LED TMH-17 (thanks to René Schulze)
+  * New fixture: Stairville CLB4 RGB Compact LED Bar 4 (thanks to Vasileios Vasilikos)
+  * New fixture: Cameo Multi FX Bar (thanks to Aurelien)
+  * New fixtures: Briteq DP-COBWASH 60TC and DP-COBWASH 150TC (thanks to Fredje Gallon)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 28 Mar 2021 12:13:14 +0200
 

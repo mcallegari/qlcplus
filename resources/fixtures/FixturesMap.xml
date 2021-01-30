@@ -260,6 +260,8 @@
     <F n="Briteq-COB-PAR56-RGB" m="COB PAR56 RGB"/>
     <F n="Briteq-COB-slim-100-RGB" m="COB Slim 100-RGB"/>
     <F n="Briteq-Giga-Flash-RGB" m="Giga Flash RGB"/>
+    <F n="Briteq-LDP-COBWASH-150TC" m="LDP-COBWASH 150TC"/>
+    <F n="Briteq-LDP-COBWASH-60TC" m="LDP-COBWASH 60TC"/>
     <F n="Briteq-LDP-Powerbar-12TC" m="LDP Powerbar 12TC"/>
     <F n="Briteq-LDP-Powerbar-6TC" m="LDP Powerbar 6TC"/>
     <F n="Briteq-Pro-Beamer-Zoom" m="Pro Beamer Zoom"/>
@@ -301,6 +303,7 @@
     <F n="Cameo-Movo-Beam-100" m="Movo Beam 100"/>
     <F n="Cameo-Movo-Beam-Z-100" m="Movo Beam Z 100"/>
     <F n="Cameo-Multi-FX-Bar-EZ" m="Multi FX Bar EZ"/>
+    <F n="Cameo-Multi-FX-Bar" m="Multi FX Bar"/>
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
@@ -419,6 +422,7 @@
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
     <F n="Chauvet-Omega-I-DMX-155" m="Omega I DMX-155"/>
     <F n="Chauvet-Ovation-E-910FC" m="Ovation E-910FC"/>
+    <F n="Chauvet-Ovation-F-915FC" m="Ovation F-915FC"/>
     <F n="Chauvet-Ovation-FD-165WW" m="Ovation FD-165WW"/>
     <F n="Chauvet-Q-Beam-260-LED" m="Q-Beam 260-LED"/>
     <F n="Chauvet-Q-Spot-250" m="Q-Spot 250"/>
@@ -647,6 +651,7 @@
     <F n="Eurolite-LED-T-36-RGB-Pinspot" m="LED T-36 RGB Pinspot"/>
     <F n="Eurolite-LED-THA-250F" m="LED THA-250F"/>
     <F n="Eurolite-Led-Theatre-36x3W-CW-WW" m="LED Theatre 36x3W CW/WW"/>
+    <F n="Eurolite-LED-TMH-17" m="LED TMH-17"/>
     <F n="Eurolite-LED-TMH-46" m="LED TMH-46"/>
     <F n="Eurolite-LED-TMH-6" m="LED TMH-6"/>
     <F n="Eurolite-LED-TMH-9" m="LED TMH-9"/>
@@ -1352,6 +1357,7 @@
     <F n="Stairville-Blade-Sting-8-RGBW-Beam-Mover" m="Blade Sting 8 RGBW Beam Mover"/>
     <F n="Stairville-BS-280-R10-BeamSpot" m="BS-280 R10 BeamSpot"/>
     <F n="Stairville-CLB2.4-CompactLED" m="CLB2.4 Compact LED PAR System"/>
+    <F n="Stairville-CLB4-RGB-Compact-LED-Bar-4" m="CLB4 RGB Compact LED Bar 4"/>
     <F n="Stairville-Compact-LED-Bar-CLB8" m="Compact LED-Bar CLB8"/>
     <F n="Stairville-Crown-FX-PAR77" m="Crown FX PAR77"/>
     <F n="Stairville-DCL-Flat-Par-18x4W-CW-WW" m="DCL Flat Par 18x4W CW/WW"/>

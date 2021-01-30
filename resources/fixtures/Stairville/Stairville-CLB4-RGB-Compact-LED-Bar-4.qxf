@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Vasileios Vasilikos</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>CLB4 RGB Compact LED Bar 4</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red Spot 1" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 2" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 3" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 3" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 4" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 4" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="Red 34" Preset="IntensityRed"/>
+ <Channel Name="Green 34" Preset="IntensityGreen"/>
+ <Channel Name="Blue 34" Preset="IntensityBlue"/>
+ <Channel Name="Red 1234" Preset="IntensityRed"/>
+ <Channel Name="Green 1234" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1234" Preset="IntensityBlue"/>
+ <Channel Name="AutoShow2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="LampOff">All LEDs Off</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">All Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#ffff00">All Yellow</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#00ff00">All Green</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#55ffff">All Cyan</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#0000ff">All Blue</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ffaaff">All Pink</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffffff">All White</Capability>
+  <Capability Min="80" Max="89">Preprogrammed Automatic Show 01</Capability>
+  <Capability Min="90" Max="99">Preprogrammed Automatic Show 02</Capability>
+  <Capability Min="100" Max="109">Preprogrammed Automatic Show 03</Capability>
+  <Capability Min="110" Max="119">Preprogrammed Automatic Show 04</Capability>
+  <Capability Min="120" Max="129">Preprogrammed Automatic Show 05</Capability>
+  <Capability Min="130" Max="139">Preprogrammed Automatic Show 06</Capability>
+  <Capability Min="140" Max="149">Preprogrammed Automatic Show 07</Capability>
+  <Capability Min="150" Max="159">Preprogrammed Automatic Show 08</Capability>
+  <Capability Min="160" Max="169">Preprogrammed Automatic Show 09</Capability>
+  <Capability Min="170" Max="179">Preprogrammed Automatic Show 10</Capability>
+  <Capability Min="180" Max="189">Preprogrammed Automatic Show 11</Capability>
+  <Capability Min="190" Max="199">Preprogrammed Automatic Show 12</Capability>
+  <Capability Min="200" Max="209">Preprogrammed Automatic Show 13</Capability>
+  <Capability Min="210" Max="219">Preprogrammed Automatic Show 14</Capability>
+  <Capability Min="220" Max="229">Preprogrammed Automatic Show 15</Capability>
+  <Capability Min="230" Max="239">Preprogrammed Automatic Show 16</Capability>
+  <Capability Min="240" Max="255">Sound Controlled Show</Capability>
+ </Channel>
+ <Channel Name="AutoShow7">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">All LEDs Set via Channels 1-3</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">All Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#ffff00">All Yellow</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#00ff00">All Green</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#55ffff">All Cyan</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#0000ff">All Blue</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ffaaff">All Pink</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffffff">All White</Capability>
+  <Capability Min="80" Max="89">Preprogrammed Automatic Show 01</Capability>
+  <Capability Min="90" Max="99">Preprogrammed Automatic Show 02</Capability>
+  <Capability Min="100" Max="109">Preprogrammed Automatic Show 03</Capability>
+  <Capability Min="110" Max="119">Preprogrammed Automatic Show 04</Capability>
+  <Capability Min="120" Max="129">Preprogrammed Automatic Show 05</Capability>
+  <Capability Min="130" Max="139">Preprogrammed Automatic Show 06</Capability>
+  <Capability Min="140" Max="149">Preprogrammed Automatic Show 07</Capability>
+  <Capability Min="150" Max="159">Preprogrammed Automatic Show 08</Capability>
+  <Capability Min="160" Max="169">Preprogrammed Automatic Show 09</Capability>
+  <Capability Min="170" Max="179">Preprogrammed Automatic Show 10</Capability>
+  <Capability Min="180" Max="189">Preprogrammed Automatic Show 11</Capability>
+  <Capability Min="190" Max="199">Preprogrammed Automatic Show 12</Capability>
+  <Capability Min="200" Max="209">Preprogrammed Automatic Show 13</Capability>
+  <Capability Min="210" Max="219">Preprogrammed Automatic Show 14</Capability>
+  <Capability Min="220" Max="229">Preprogrammed Automatic Show 15</Capability>
+  <Capability Min="230" Max="239">Preprogrammed Automatic Show 16</Capability>
+  <Capability Min="240" Max="255">Sound Controlled Show</Capability>
+ </Channel>
+ <Channel Name="Speed and Mode Controller">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">Sound Mode 01 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="16" Max="31">Sound Mode 02 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="32" Max="47">Sound Mode 03 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="48" Max="63">Sound Mode 04 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="64" Max="79">Sound Mode 05 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="80" Max="95">Sound Mode 06 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="96" Max="111">Sound Mode 07 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="112" Max="127">Sound Mode 08 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="128" Max="143">Sound Mode 09 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="144" Max="159">Sound Mode 10 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="160" Max="175">Sound Mode 11 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="176" Max="191">Sound Mode 12 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="192" Max="207">Sound Mode 13 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="208" Max="223">Sound Mode 14 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="224" Max="239">Sound Mode 15 (or increase speed when previous channel is [0-239] )</Capability>
+  <Capability Min="240" Max="255">Sound Mode 16 (or increase speed when previous channel is [0-239] )</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">AutoShow2</Channel>
+  <Channel Number="1">Speed and Mode Controller</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red 1234</Channel>
+  <Channel Number="1">Green 1234</Channel>
+  <Channel Number="2">Blue 1234</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red 1234</Channel>
+  <Channel Number="1">Green 1234</Channel>
+  <Channel Number="2">Blue 1234</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red 1234</Channel>
+  <Channel Number="1">Green 1234</Channel>
+  <Channel Number="2">Blue 1234</Channel>
+  <Channel Number="3">AutoShow7</Channel>
+  <Channel Number="4">Speed and Mode Controller</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red 12</Channel>
+  <Channel Number="1">Green 12</Channel>
+  <Channel Number="2">Blue 12</Channel>
+  <Channel Number="3">Red 34</Channel>
+  <Channel Number="4">Green 34</Channel>
+  <Channel Number="5">Blue 34</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Red Spot 1</Channel>
+  <Channel Number="1">Green Spot 1</Channel>
+  <Channel Number="2">Blue Spot 1</Channel>
+  <Channel Number="3">Red Spot 2</Channel>
+  <Channel Number="4">Green Spot 2</Channel>
+  <Channel Number="5">Blue Spot 2</Channel>
+  <Channel Number="6">Red Spot 3</Channel>
+  <Channel Number="7">Green Spot 3</Channel>
+  <Channel Number="8">Blue Spot 3</Channel>
+  <Channel Number="9">Red Spot 4</Channel>
+  <Channel Number="10">Green Spot 4</Channel>
+  <Channel Number="11">Blue Spot 4</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.4" Width="682" Height="270" Depth="60"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
