@@ -64,9 +64,9 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %files
 %defattr(-,root,root)
 %{_bindir}/*
-%{_libdir}/libqlcplusengine.so.*
-%{_libdir}/libqlcplusui.so.*
-%{_libdir}/libqlcpluswebaccess.so.*
+%{_libdir}/libqlcplusengine.so*
+%{_libdir}/libqlcplusui.so*
+%{_libdir}/libqlcpluswebaccess.so*
 %{_datadir}/qlcplus/translations/*
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
