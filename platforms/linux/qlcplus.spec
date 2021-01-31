@@ -95,6 +95,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %_libdir/qt5/plugins/qlcplus/libe131.so
 %_libdir/qt5/plugins/qlcplus/libspi.so
 %_libdir/qt5/plugins/qlcplus/libloopback.so
+%_mandir/*/*
 %doc /usr/share/qlcplus/documents/*
 /usr/lib/udev/rules.d/z65-dmxusb.rules
 /usr/lib/udev/rules.d/z65-anyma-udmx.rules
