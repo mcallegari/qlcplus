@@ -189,11 +189,13 @@ var testAlgo;
           }
         }
       }
+      // Apply the backgruond color.
       for (var ry = 0; ry < height; ry++) {
         for (var rx = 0; rx < width; rx++) {
-          if (map[ry][rx] === 0) {
-            map[ry][rx] = getColor(bgPointr, bgPointg, bgPointb, map[ry][rx]);
-          }
+          r = Math.max(bgPointr, (map[ry][rx] >> 16) & 0x00FF);
+          g = Math.max(bgPointg, (map[ry][rx] >> 8) & 0x00FF);
+          b = Math.max(bgPointb, map[ry][rx] & 0x00FF);
+          map[ry][rx] = getColor(r, g, b, 0);
         }
       }
 
@@ -202,7 +204,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return 20; // This make no diferance to the script ;-)
+      return 32;
     };
 
     // Development tool access
