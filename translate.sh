@@ -13,17 +13,12 @@ LRELEASE_BIN=$(which lrelease)
 if [ -n "$QTDIR" ]; then
     LRELEASE_BIN=$QTDIR/bin/lrelease
 else
-    # if lrelease is not available, try with lrelease-qt4
+    # if lrelease is not available, try with lrelease-qt5
     if [ -z "$LRELEASE_BIN" ]; then
-        LRELEASE_BIN=$(which lrelease-qt4)
-
-        # if lrelease-qt4 is not available, try with lrelease-qt5
+        LRELEASE_BIN=$(which lrelease-qt5)
         if [ -z "$LRELEASE_BIN" ]; then
-            LRELEASE_BIN=$(which lrelease-qt5)
-            if [ -z "$LRELEASE_BIN" ]; then
-                echo "lrelease, lrelease-qt4 and lrelease-qt5 are not present in this system ! Aborting."
-                exit
-            fi
+            echo "lrelease and lrelease-qt5 are not present in this system! Aborting."
+            exit
         fi
     fi
 fi
