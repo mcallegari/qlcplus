@@ -57,7 +57,7 @@ class DetachedContext : public QMainWindow
     Q_OBJECT
 
 public:
-    DetachedContext() {}
+    DetachedContext(QWidget *parent) : QMainWindow(parent) {}
 
 protected slots:
     void closeEvent(QCloseEvent *ev)

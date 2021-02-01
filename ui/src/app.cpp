@@ -1162,7 +1162,7 @@ void App::slotDetachContext(int index)
 
     qDebug() << "Detaching context" << context;
 
-    DetachedContext *detachedWindow = new DetachedContext();
+    DetachedContext *detachedWindow = new DetachedContext(this);
     detachedWindow->setCentralWidget(context);
     detachedWindow->resize(800, 600);
     detachedWindow->show();
