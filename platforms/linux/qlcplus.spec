@@ -17,7 +17,6 @@ Requires: qt5-qtbase, qt5-qtscript, qt5-qtmultimedia
 Release: 1
 Source: qlcplus-%{version}.tar.gz
 URL: https://www.qlcplus.org/
-Buildroot: /tmp/qlcplusrpm
 
 %description
 QLC+ is a fork of the great QLC project written
@@ -53,13 +52,6 @@ make %{?_smp_mflags}
 %install
 rm -rf $RPM_BUILD_ROOT
 INSTALL_ROOT=$RPM_BUILD_ROOT make install
-
-#############################################################################
-# Clean
-#############################################################################
-
-#%clean
-#rm -rf $RPM_BUILD_ROOT
 
 #############################################################################
 # Files
