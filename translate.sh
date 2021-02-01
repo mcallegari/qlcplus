@@ -7,7 +7,7 @@ else
     languages="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
 fi
 
-LRELEASE_BIN=$(which lrelease)
+LRELEASE_BIN=$(which lrelease 2> /dev/null)
 
 # if QTDIR has been defined, use those tools right away
 if [ -n "$QTDIR" ]; then
