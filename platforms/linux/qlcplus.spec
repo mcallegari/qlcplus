@@ -6,7 +6,6 @@ Group: Other
 Name: qlcplus
 Version: %{version}
 Prefix: /usr
-Provides: qlcplus
 BuildRequires: gcc-c++ pkg-config
 BuildRequires: qt5-qtbase-devel, qt5-qttranslations, qt5-qtconfiguration-devel
 BuildRequires: qt5-qtmultimedia-devel, qt5-qtscript-devel, alsa-lib, qt5-linguist
@@ -45,7 +44,7 @@ sed -ie '/UDEVRULESDIR/s|/etc/udev/rules.d|/usr/lib/udev/rules.d|' variables.pri
 ./translate.sh ui
 
 qmake-qt5
-make
+make %{?_smp_mflags}
 
 #############################################################################
 # Install
