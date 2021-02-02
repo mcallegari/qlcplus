@@ -11,7 +11,7 @@ BuildRequires: gcc-c++ pkg-config
 BuildRequires: qt5-qtbase-devel, qt5-qttranslations, qt5-qtconfiguration-devel
 BuildRequires: qt5-qtmultimedia-devel, qt5-qtscript-devel, alsa-lib, qt5-linguist
 BuildRequires: desktop-file-utils, libusb-devel, libftdi-devel, alsa-lib-devel >= 1.0.23
-BuildRequires: libudev-devel, fftw3-devel
+BuildRequires: libudev-devel, fftw-devel >= 3.0.0
 #BuildRequires: libola-devel
 BuildRequires: libsndfile-devel, libmad-devel, dos2unix
 Requires: qt5-qtbase, qt5-qtscript, qt5-qtmultimedia
@@ -34,11 +34,16 @@ of other lighting control commercial softwares.
 %prep
 %setup -q
 
+sed -ie '/UDEVRULESDIR/s|/etc/udev/rules.d|/usr/lib/udev/rules.d|' variables.pri
+
 #############################################################################
 # Build
 #############################################################################
 
 %build
+# qmake-qt5 will only include existing files in install_translations - create the .qm files first
+./translate.sh ui
+
 qmake-qt5
 make
 
@@ -64,9 +69,9 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %files
 %defattr(-,root,root)
 %{_bindir}/*
-%{_libdir}/libqlcplusengine.so.*
-%{_libdir}/libqlcplusui.so.*
-%{_libdir}/libqlcpluswebaccess.so.*
+%{_libdir}/libqlcplusengine.so*
+%{_libdir}/libqlcplusui.so*
+%{_libdir}/libqlcpluswebaccess.so*
 %{_datadir}/qlcplus/translations/*
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
@@ -95,6 +100,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %_libdir/qt5/plugins/qlcplus/libe131.so
 %_libdir/qt5/plugins/qlcplus/libspi.so
 %_libdir/qt5/plugins/qlcplus/libloopback.so
+%_mandir/*/*
 %doc /usr/share/qlcplus/documents/*
 /usr/lib/udev/rules.d/z65-dmxusb.rules
 /usr/lib/udev/rules.d/z65-anyma-udmx.rules
