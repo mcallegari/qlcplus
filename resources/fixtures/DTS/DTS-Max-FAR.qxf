@@ -174,9 +174,9 @@
  <Channel Name="Gobo Rot/Index">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
-  <Capability Min="10" Max="127" Preset="RotationClockwise">Left Rotation</Capability>
+  <Capability Min="10" Max="127" Preset="RotationClockwiseSlowToFast">Left Rotation</Capability>
   <Capability Min="128" Max="137" Preset="RotationStop">Stop</Capability>
-  <Capability Min="138" Max="255" Preset="RotationCounterClockwise">Right Rotation</Capability>
+  <Capability Min="138" Max="255" Preset="RotationCounterClockwiseSlowToFast">Right Rotation</Capability>
  </Channel>
  <Channel Name="Gobo Index Fine" Preset="GoboIndexFine"/>
  <Channel Name="Gobo Shake">

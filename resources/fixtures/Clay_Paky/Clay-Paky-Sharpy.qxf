@@ -102,16 +102,10 @@
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="20">Position 0°</Capability>
-  <Capability Min="21" Max="41">Position 90°</Capability>
-  <Capability Min="42" Max="62">Position 180°</Capability>
-  <Capability Min="63" Max="83">Position 270°</Capability>
-  <Capability Min="84" Max="104">Position 360°</Capability>
-  <Capability Min="105" Max="126">Position 450°</Capability>
-  <Capability Min="127" Max="127">Position 540°</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation (Fast 43rpm to slow 1.1rph)</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexed</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Rotation (Fast 43rpm to slow 1.1rph)</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
-  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation (Slow 1.1rph to fast 43rpm)</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Rotation (Slow 1.1rph to fast 43rpm)</Capability>
  </Channel>
  <Channel Name="Effects Movement">
   <Group Byte="0">Effect</Group>

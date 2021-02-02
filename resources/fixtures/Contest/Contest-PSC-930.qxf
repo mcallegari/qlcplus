@@ -44,9 +44,9 @@
  <Channel Name="Gobo rotation">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Index</Capability>
-  <Capability Min="128" Max="187" Preset="RotationClockwise">Clockwise</Capability>
+  <Capability Min="128" Max="187" Preset="RotationClockwiseSlowToFast">Clockwise</Capability>
   <Capability Min="188" Max="193" Preset="RotationStop">Stationary</Capability>
-  <Capability Min="194" Max="255" Preset="RotationCounterClockwise">Counter Clockwise</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter Clockwise</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -97,9 +97,9 @@
  <Channel Name="Prism Rotation Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="7" Preset="RotationStop">Stationary</Capability>
-  <Capability Min="8" Max="127" Preset="RotationClockwise">Clockwise</Capability>
+  <Capability Min="8" Max="127" Preset="RotationClockwiseSlowToFast">Clockwise</Capability>
   <Capability Min="128" Max="135" Preset="RotationStop">Stationary</Capability>
-  <Capability Min="136" Max="255" Preset="RotationCounterClockwise">Counter Clockwise</Capability>
+  <Capability Min="136" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter Clockwise</Capability>
  </Channel>
  <Channel Name="Prog">
   <Group Byte="0">Maintenance</Group>

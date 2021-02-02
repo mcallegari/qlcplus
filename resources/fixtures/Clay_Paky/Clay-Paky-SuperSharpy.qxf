@@ -127,15 +127,10 @@
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20">Gobo Indexing 0°to 90°</Capability>
-  <Capability Min="21" Max="41">Gobo Indexing 90° to 180°</Capability>
-  <Capability Min="42" Max="62">Gobo Indexing 180° to 270°</Capability>
-  <Capability Min="63" Max="83">Gobo Indexing 270° to 360°</Capability>
-  <Capability Min="84" Max="104">Gobo Indexing 360° to 450°</Capability>
-  <Capability Min="105" Max="127">Gobo Indexing 450° to 540°</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &gt; Min</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexed</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Rotation Max &gt; Min</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
-  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation Slow &lt; Fast</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Rotation Slow &lt; Fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation Fine">
   <Group Byte="1">Gobo</Group>
@@ -148,15 +143,10 @@
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="20">Prism index 0° to 90°</Capability>
-  <Capability Min="21" Max="41">Prism Index 90° to 180°</Capability>
-  <Capability Min="42" Max="62">Prism Index 180° to 270°</Capability>
-  <Capability Min="63" Max="83">Prism Index 270° to 360°</Capability>
-  <Capability Min="84" Max="104">Prism Index 360° to 450°</Capability>
-  <Capability Min="105" Max="127">Prism Index 450° to 540°</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &lt; Min</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Prism rotation indexed</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Rotation Max &lt; Min</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
-  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation Min &lt; Max</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Rotation Min &lt; Max</Capability>
  </Channel>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>

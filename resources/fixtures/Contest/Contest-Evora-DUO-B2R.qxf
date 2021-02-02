@@ -65,8 +65,8 @@
   <Capability Min="9" Max="17" Preset="ColorMacro">Colour 1</Capability>
   <Capability Min="18" Max="26" Preset="ColorMacro">Colour 2</Capability>
   <Capability Min="27" Max="35" Preset="ColorMacro">Colour 3</Capability>
-  <Capability Min="36" Max="44" Preset="ColorDoubleMacro">Colour 4</Capability>
-  <Capability Min="45" Max="53" Preset="ColorDoubleMacro">Colour 5</Capability>
+  <Capability Min="36" Max="44" Preset="ColorMacro">Colour 4</Capability>
+  <Capability Min="45" Max="53" Preset="ColorMacro">Colour 5</Capability>
   <Capability Min="54" Max="62" Preset="ColorMacro">Colour 6</Capability>
   <Capability Min="63" Max="71" Preset="ColorMacro">Colour 7</Capability>
   <Capability Min="72" Max="80" Preset="ColorMacro">Colour 8</Capability>

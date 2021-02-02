@@ -64,9 +64,9 @@
   <Capability Min="165" Max="175" Preset="ColorDoubleMacro">Bicolour 8/9</Capability>
   <Capability Min="176" Max="186" Preset="ColorMacro">Colour9</Capability>
   <Capability Min="187" Max="197" Preset="ColorDoubleMacro">Bicolour 9/1</Capability>
-  <Capability Min="198" Max="224" Preset="RotationClockwise">Right rotation speed min max</Capability>
+  <Capability Min="198" Max="224" Preset="RotationClockwiseSlowToFast">Right rotation speed min max</Capability>
   <Capability Min="225" Max="228" Preset="RotationStop">Stop</Capability>
-  <Capability Min="229" Max="255" Preset="RotationCounterClockwise">Left rotation speed min max</Capability>
+  <Capability Min="229" Max="255" Preset="RotationCounterClockwiseSlowToFast">Left rotation speed min max</Capability>
  </Channel>
  <Channel Name="Proportional colour (priority)">
   <Group Byte="0">Effect</Group>
@@ -88,16 +88,16 @@
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Proportional from 0° to 360°</Capability>
-  <Capability Min="128" Max="180" Preset="RotationCounterClockwise">Left rotation</Capability>
+  <Capability Min="128" Max="180" Preset="RotationCounterClockwiseSlowToFast">Left rotation</Capability>
   <Capability Min="181" Max="202" Preset="RotationStop">Stop</Capability>
-  <Capability Min="203" Max="255" Preset="RotationClockwise">Right rotation</Capability>
+  <Capability Min="203" Max="255" Preset="RotationClockwiseSlowToFast">Right rotation</Capability>
  </Channel>
  <Channel Name="Prism / prism rotation">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="63" Preset="PrismEffectOff">No effect</Capability>
   <Capability Min="64" Max="127" Preset="PrismEffectOn" Res1="3">Prism</Capability>
-  <Capability Min="128" Max="191" Preset="RotationCounterClockwise">Left rotation</Capability>
-  <Capability Min="192" Max="255" Preset="RotationClockwise">Right rotation</Capability>
+  <Capability Min="128" Max="191" Preset="RotationCounterClockwiseSlowToFast">Left rotation</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Right rotation</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Light beam angle">
@@ -181,7 +181,7 @@
   <Channel Number="7">Color</Channel>
   <Channel Number="8">Proportional colour (priority)</Channel>
   <Channel Number="9">Gobo wheel</Channel>
-  <Channel Number="10"  ActsOn="9">Gobo rotation</Channel>
+  <Channel Number="10" ActsOn="9">Gobo rotation</Channel>
   <Channel Number="11">Prism / prism rotation</Channel>
   <Channel Number="12">Focus</Channel>
   <Channel Number="13">Light beam angle</Channel>

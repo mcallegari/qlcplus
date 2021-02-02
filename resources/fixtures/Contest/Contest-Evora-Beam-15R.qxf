@@ -222,8 +222,8 @@
   <Channel Number="13">Fixed Gobos</Channel>
   <Channel Number="14" ActsOn="13">Fixed gobo indexing Fine</Channel>
   <Channel Number="15">Prism and gobo macros</Channel>
-  <Channel Number="16" ActsOn="16">Prism rotation</Channel>
-  <Channel Number="17" ActsOn="17">Prism Fine rotation</Channel>
+  <Channel Number="16" ActsOn="15">Prism rotation</Channel>
+  <Channel Number="17" ActsOn="16">Prism Fine rotation</Channel>
   <Channel Number="18">Focus</Channel>
   <Channel Number="19">Focus fine</Channel>
   <Channel Number="20">Frost</Channel>

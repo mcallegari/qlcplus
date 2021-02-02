@@ -73,7 +73,7 @@
   <Capability Min="0" Max="127" Preset="RotationIndexed">Indexed Rotation</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">CW Fast - Slow</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
-  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">CCW Slow - Fast</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW Slow - Fast</Capability>
  </Channel>
  <Channel Name="Gobo 2">
   <Group Byte="0">Gobo</Group>

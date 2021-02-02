@@ -126,9 +126,9 @@
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexed</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &gt; Min</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Rotation Max &gt; Min</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
-  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation Slow &lt; Fast</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Rotation Slow &lt; Fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation Fine" Preset="GoboWheelFine"/>
  <Channel Name="Prism Insertion">
@@ -140,7 +140,7 @@
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation Indexed</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation Max &lt; Min</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Rotation Max &lt; Min</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop Rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Rotation Min &lt; Max</Capability>
  </Channel>

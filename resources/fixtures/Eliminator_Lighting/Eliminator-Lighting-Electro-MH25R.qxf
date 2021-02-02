@@ -60,8 +60,8 @@
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo Manual Rotation</Capability>
-  <Capability Min="128" Max="191" Preset="RotationCounterClockwise">Counter-Clockwise Rotation</Capability>
-  <Capability Min="192" Max="255" Preset="RotationClockwise">Clockwise Rotation</Capability>
+  <Capability Min="128" Max="191" Preset="RotationCounterClockwiseSlowToFast">Counter-Clockwise Rotation</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise Rotation</Capability>
  </Channel>
  <Channel Name="Moving Blackout and Reposition Function">
   <Group Byte="0">Maintenance</Group>

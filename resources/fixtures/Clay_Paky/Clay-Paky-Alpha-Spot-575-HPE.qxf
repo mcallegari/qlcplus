@@ -112,9 +112,9 @@
  <Channel Name="Gobo 1 rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
-  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Slow to fast rotation</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Slow to fast rotation</Capability>
  </Channel>
  <Channel Name="Graphic disk insert">
   <Group Byte="0">Effect</Group>
@@ -152,14 +152,14 @@
  <Channel Name="Gobo 2 rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Slow to fast rotation</Capability>
  </Channel>
  <Channel Name="Prism rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position</Capability>
-  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to slow rotation</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Fast to slow rotation</Capability>
   <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
   <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Slow to fast rotation</Capability>
  </Channel>
