@@ -38,10 +38,10 @@ var testAlgo;
     algo.properties.push("name:presetRandom|type:list|display:Random Colour|values:No,Yes|write:setRandom|read:getRandom");
     algo.presetCollision = 1;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
-	  algo.selectedAlgo = "trees";
-  	algo.properties.push("name:selectedAlgo|type:list|display:Objects|"
-			+ "values:Balls,Snowman,Ufo,Xmas Stars,Xmas Trees|"
-			+ "write:setSelectedAlgo|read:getSelectedAlgo");
+    algo.selectedAlgo = "trees";
+    algo.properties.push("name:selectedAlgo|type:list|display:Objects|"
+      + "values:Balls,Bells,Snowman,Ufo,Xmas Stars,Xmas Trees|"
+      + "write:setSelectedAlgo|read:getSelectedAlgo");
 
     algo.initialized = false;
     algo.boxRadius = 1;
@@ -64,6 +64,31 @@ var testAlgo;
       }
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
+      
+    var bellsAlgo = new Object;
+    bellsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      var offx = rx - algo.obj[i].x;
+      var offy = ry - algo.obj[i].y;
+
+      // Calculate color intensity
+      if (ry === Math.floor(algo.obj[i].y) + algo.boxRadius + 1) {
+        // The bell bottom:
+        // offx remains the same.
+        // offy is 0
+        offy = 0;
+      } else {
+        // Offset to bottom
+        offy += (algo.presetSize / 2) + 0.7;
+      }
+      var factor = ((1 - (Math.sqrt((offx * offx * 0.7) + (offy * offy * 1.0)))) * 1.0) + offy * 1.0;
+      //var factor = ((1 - (Math.cos((offx * offx * 0.7) + (offy * offy * 1.0)))) * 1.0) + offy * 1.0;
+    
+      // add the object color to the algo.mapped location
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    };
 
     var snowmanAlgo = new Object;
     snowmanAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
@@ -148,12 +173,11 @@ var testAlgo;
         offy = 0;
       } else {
         // Offset to bottom
-        offy += (algo.presetSize / 2);
+        offy += (algo.presetSize / 2) + 0.7;
       }
-      var factor = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy)))) * 2.5)
-          - 0 + offy * 3;
-      factor = Math.min(1, Math.max(0, factor));
-    
+      var factor = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy * 1.4)))) * 2.5) + offy * 3;
+      factor = factor / 3.27;
+ 
       // add the object color to the algo.mapped location
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     };
@@ -248,6 +272,8 @@ var testAlgo;
         algo.selectedAlgo = "stars";
       } else if (_selected === "Balls") {
         algo.selectedAlgo = "balls";
+      } else if (_selected === "Bells") {
+        algo.selectedAlgo = "bells";
       } else if (_selected === "Snowman") {
         algo.selectedAlgo = "snowman";
       } else if (_selected === "Ufo") {
@@ -261,6 +287,8 @@ var testAlgo;
     {
       if (algo.selectedAlgo === "stars") {
         return "Xmas Stars";
+      } else if (algo.selectedAlgo === "bells") {
+        return "Bells";
       } else if (algo.selectedAlgo === "balls") {
         return "Balls";
       } else if (algo.selectedAlgo === "snowman") {
@@ -277,22 +305,31 @@ var testAlgo;
     // Combine RGB color from color channels
     function mergeRgb(r, g, b)
     {
-      r = Math.min(255, Math.round(r));
-      g = Math.min(255, Math.round(g));
-      b = Math.min(255, Math.round(b));
+      // Stay within boundaries for the final color
+      r = Math.max(0, Math.min(255, Math.round(r)));
+      g = Math.max(0, Math.min(255, Math.round(g)));
+      b = Math.max(0, Math.min(255, Math.round(b)));
+
       return ((r << 16) + (g << 8) + b);
     }
 
     function getColor(r, g, b, mRgb)
     {
+      // Stay within boundaries for the input values (do not overshoot in calculation)
+      r = Math.max(0, Math.min(255, Math.round(r)));
+      g = Math.max(0, Math.min(255, Math.round(g)));
+      b = Math.max(0, Math.min(255, Math.round(b)));
+
       // split rgb in to components
       var pointr = (mRgb >> 16) & 0x00FF;
       var pointg = (mRgb >> 8) & 0x00FF;
       var pointb = mRgb & 0x00FF;
+
       // add the color to the algo.mapped location
       pointr += r;
       pointg += g;
       pointb += b;
+
       // set algo.mapped point
       return mergeRgb(pointr, pointg, pointb);
     }
@@ -371,13 +408,15 @@ var testAlgo;
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
               // DEVELOPMENT: Draw the box for debugging.
-              //algo.map[ry][rx] = getColor(20, 20, 20, algo.map[ry][rx]);
+              //algo.map[ry][rx] = getColor(40, 40, 40, algo.map[ry][rx]);
 
               // add the object color to the mapped location
               if (algo.selectedAlgo === "stars") {
                 algo.map[ry][rx] = starsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else if (algo.selectedAlgo === "balls") {
                 algo.map[ry][rx] = ballsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
+              } else if (algo.selectedAlgo === "bells") {
+                algo.map[ry][rx] = bellsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else if (algo.selectedAlgo === "snowman") {
                 algo.map[ry][rx] = snowmanAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else if (algo.selectedAlgo === "ufo") {
@@ -441,8 +480,8 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      // This make no difference to the script ;-)
-      return width * height;
+      // This make no difference to the script, except for fading the colors
+      return 1024;
     };
 
     // Development tool access
