@@ -55,7 +55,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 #############################################################################
 
 %files
-%defattr(-,root,root)
 %{_bindir}/*
 %{_libdir}/libqlcplusengine.so*
 %{_libdir}/libqlcplusui.so*
