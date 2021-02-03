@@ -59,17 +59,18 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_libdir}/libqlcplusengine.so*
 %{_libdir}/libqlcplusui.so*
 %{_libdir}/libqlcpluswebaccess.so*
-%{_datadir}/qlcplus/translations/*
+%dir %{_datadir}/qlcplus
+%{_datadir}/qlcplus/translations
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
-%{_datadir}/qlcplus/fixtures/*
-%{_datadir}/qlcplus/inputprofiles/*
-%{_datadir}/qlcplus/rgbscripts/*
+%{_datadir}/qlcplus/fixtures
+%{_datadir}/qlcplus/inputprofiles
+%{_datadir}/qlcplus/rgbscripts
 %{_datadir}/qlcplus/Sample.qxw
-%{_datadir}/qlcplus/gobos/*
-%{_datadir}/qlcplus/miditemplates/*
-%{_datadir}/qlcplus/modifierstemplates/*
-%{_datadir}/qlcplus/web/*
+%{_datadir}/qlcplus/gobos
+%{_datadir}/qlcplus/miditemplates
+%{_datadir}/qlcplus/modifierstemplates
+%{_datadir}/qlcplus/web
 %{_datadir}/mime/packages/qlcplus.xml
 %{_datadir}/metainfo/*
 %_libdir/qt5/plugins/qlcplus/audio/libmadplugin.so
@@ -88,7 +89,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %_libdir/qt5/plugins/qlcplus/libspi.so
 %_libdir/qt5/plugins/qlcplus/libloopback.so
 %_mandir/*/*
-%doc /usr/share/qlcplus/documents/*
+%doc /usr/share/qlcplus/documents
 /usr/lib/udev/rules.d/z65-dmxusb.rules
 /usr/lib/udev/rules.d/z65-anyma-udmx.rules
 /usr/lib/udev/rules.d/z65-peperoni.rules
