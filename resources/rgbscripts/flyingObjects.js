@@ -85,15 +85,12 @@ var testAlgo;
       offy = ry - algo.obj[i].y - (algo.presetSize - size) / 2;
 
       var factor2 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
-      // Draw a shadow.
-      if (factor1 > 0.1) {
-        factor2 *= 0.5;
-      }
       if (factor2 < 0) {
         factor2 = 0;
       }
 
-      var factor = factor1 + factor2;
+      // Merge the two balls
+      var factor = Math.max(factor1, factor2);
       if (factor > 1) {
         factor = 1;
       }
