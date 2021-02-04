@@ -10,7 +10,7 @@ BuildRequires: qt5-qtmultimedia-devel, qt5-qtscript-devel, qt5-linguist
 BuildRequires: desktop-file-utils, libusb-devel, libftdi-devel, alsa-lib-devel >= 1.0.23
 BuildRequires: libudev-devel, fftw-devel >= 3.0.0
 #BuildRequires: libola-devel
-BuildRequires: libsndfile-devel, libmad-devel, dos2unix
+BuildRequires: libsndfile-devel, libmad-devel
 Release: 1
 Source: qlcplus-%{version}.tar.gz
 URL: https://www.qlcplus.org/
