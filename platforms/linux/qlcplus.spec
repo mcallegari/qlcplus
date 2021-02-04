@@ -48,6 +48,8 @@ make %{?_smp_mflags}
 %install
 INSTALL_ROOT=$RPM_BUILD_ROOT make install
 
+desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
+
 #############################################################################
 # Files
 #############################################################################
