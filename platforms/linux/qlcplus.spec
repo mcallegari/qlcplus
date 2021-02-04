@@ -5,7 +5,7 @@ License: Apache License, Version 2.0
 Name: qlcplus
 Version: %{version}
 BuildRequires: gcc-c++ pkg-config
-BuildRequires: qt5-qtbase-devel, qt5-qttranslations, qt5-qtconfiguration-devel
+BuildRequires: qt5-qtbase-devel, qt5-qttranslations
 BuildRequires: qt5-qtmultimedia-devel, qt5-qtscript-devel, alsa-lib, qt5-linguist
 BuildRequires: desktop-file-utils, libusb-devel, libftdi-devel, alsa-lib-devel >= 1.0.23
 BuildRequires: libudev-devel, fftw-devel >= 3.0.0
