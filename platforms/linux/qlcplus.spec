@@ -58,6 +58,15 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 #############################################################################
+# Post
+#############################################################################
+
+%if %{defined suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
+#############################################################################
 # Files
 #############################################################################
 
