@@ -36,7 +36,7 @@ tar --directory=/tmp -czf /tmp/qlcplus-$VERSION.tar.gz qlcplus-$VERSION
 mv /tmp/qlcplus-$VERSION.tar.gz $RPMBUILD/SOURCES
 
 cd $RPMBUILD/SPECS
-rpmbuild -bb qlcplus.spec
+rpmbuild -ba qlcplus.spec
 if [ $? == 0 ]; then
 	echo Packages created in $RPMBUILD/RPMS
 fi
