@@ -2,7 +2,6 @@
 
 Summary: Q Light Controller Plus - The free DMX lighting console
 License: Apache License, Version 2.0
-Group: Other
 Name: qlcplus
 Version: %{version}
 BuildRequires: gcc-c++ pkg-config
