@@ -2,14 +2,14 @@
 #
 # This script creates Q Light Controller RPM packages.
 
-if [ -f Makefile ]; then
-	echo Cleaning objects from previous compile
-	make distclean
-fi
-
 if [ ! -f platforms/linux/qlcplus.spec ]; then
 	echo ERROR: This script must be run from the top-level QLC+ source directory
 	exit 1;
+fi
+
+if [ -f Makefile ]; then
+	echo Cleaning objects from previous compile
+	make distclean
 fi
 
 VERSION=$(head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/')
