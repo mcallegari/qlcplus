@@ -5,11 +5,18 @@ License: Apache License, Version 2.0
 Name: qlcplus
 Version: %{version}
 BuildRequires: gcc-c++ pkg-config
-BuildRequires: qt5-qtbase-devel, qt5-qtmultimedia-devel, qt5-qtscript-devel, qt5-linguist
-BuildRequires: libusb-devel, libudev-devel, libftdi-devel
+BuildRequires: libusb-devel, libudev-devel
 BuildRequires: alsa-lib-devel >= 1.0.23, libsndfile-devel, libmad-devel, fftw-devel >= 3.0.0
 #BuildRequires: libola-devel
 BuildRequires: desktop-file-utils
+%if %{defined fedora}
+BuildRequires: libftdi-devel
+BuildRequires: qt5-qtbase-devel, qt5-qtmultimedia-devel, qt5-qtscript-devel, qt5-linguist
+%endif
+%if %{defined suse_version}
+BuildRequires: libftdi1-devel
+BuildRequires: libqt5-qtbase-devel, libqt5-qtmultimedia-devel, libqt5-qtscript-devel, libqt5-linguist
+%endif
 Release: 1
 Source: qlcplus-%{version}.tar.gz
 URL: https://www.qlcplus.org/
