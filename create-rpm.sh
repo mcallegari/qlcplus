@@ -18,9 +18,7 @@ RPMBUILD=~/rpmbuild
 # Prepare RPM build directory hierarchy
 if [ ! -f $RPMBUILD ]; then
 	echo Creating RPMBUILD hierarchy in $RPMBUILD
-	mkdir -p $RPMBUILD/SOURCES $RPMBUILD/SPECS $RPMBUILD/BUILD $RPMBUILD/SRPMS
-	mkdir -p $RPMBUILD/RPMS/i386 $RPMBUILD/RPMS/athlon $RPMBUILD/RPMS/i486
-	mkdir -p $RPMBUILD/RPMS/i586 $RPMBUILD/RPMS/i686 $RPMBUILD/RPMS/noarch
+	mkdir -p $RPMBUILD/SOURCES $RPMBUILD/SPECS
 fi
 
 # Put a plain RPM spec file where rpmbuild expects it

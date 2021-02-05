@@ -57,6 +57,7 @@ appimage: {
   translations.path   = $$INSTALLROOT/$$TRANSLATIONDIR
 }
 INSTALLS           += translations
+QMAKE_DISTCLEAN += $$translations.files
 
 # Leave this on the last row of this file
 SUBDIRS += platforms

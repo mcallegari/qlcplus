@@ -5,8 +5,6 @@ License: Apache License, Version 2.0
 Group: Other
 Name: qlcplus
 Version: %{version}
-Prefix: /usr
-Provides: qlcplus
 BuildRequires: gcc-c++ pkg-config
 BuildRequires: qt5-qtbase-devel, qt5-qttranslations, qt5-qtconfiguration-devel
 BuildRequires: qt5-qtmultimedia-devel, qt5-qtscript-devel, alsa-lib, qt5-linguist
@@ -18,7 +16,6 @@ Requires: qt5-qtbase, qt5-qtscript, qt5-qtmultimedia
 Release: 1
 Source: qlcplus-%{version}.tar.gz
 URL: https://www.qlcplus.org/
-Buildroot: /tmp/qlcplusrpm
 
 %description
 QLC+ is a fork of the great QLC project written
@@ -45,22 +42,14 @@ sed -ie '/UDEVRULESDIR/s|/etc/udev/rules.d|/usr/lib/udev/rules.d|' variables.pri
 ./translate.sh ui
 
 qmake-qt5
-make
+make %{?_smp_mflags}
 
 #############################################################################
 # Install
 #############################################################################
 
 %install
-rm -rf $RPM_BUILD_ROOT
 INSTALL_ROOT=$RPM_BUILD_ROOT make install
-
-#############################################################################
-# Clean
-#############################################################################
-
-#%clean
-#rm -rf $RPM_BUILD_ROOT
 
 #############################################################################
 # Files
