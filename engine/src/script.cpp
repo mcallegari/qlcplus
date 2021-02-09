@@ -708,6 +708,8 @@ QString Script::handleSystemCommand(const QList<QStringList> &tokens)
 #if !defined(Q_OS_IOS)
     QProcess *newProcess = new QProcess();
     newProcess->start(programName, programArgs);
+    newProcess->waitForFinished();
+    delete newProcess;
 #endif
     return QString();
 }
