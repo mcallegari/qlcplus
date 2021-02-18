@@ -487,12 +487,14 @@
     <F n="Clay-Paky-Atlas" m="Atlas"/>
     <F n="Clay-Paky-CP-Color-400" m="CP Color 400"/>
     <F n="Clay-Paky-Glow-Up" m="Glow Up"/>
+    <F n="Clay-Paky-Hepikos" m="Hepikos"/>
     <F n="Clay-Paky-Mini-B" m="Mini-B"/>
     <F n="Clay-Paky-Mini-Scan-150" m="Mini Scan 150"/>
     <F n="Clay-Paky-Mini-Scan-300" m="Mini Scan 300"/>
     <F n="Clay-Paky-Mini-Scan-HPE" m="Mini Scan HPE"/>
     <F n="Clay-Paky-Mythos" m="Mythos"/>
     <F n="Clay-Paky-Pin-Scan" m="Pin Scan"/>
+    <F n="Clay-Paky-Sharpy-Plus" m="Sharpy Plus"/>
     <F n="Clay-Paky-Sharpy" m="Sharpy"/>
     <F n="Clay-Paky-Show-Batten-100" m="Show Batten 100"/>
     <F n="Clay-Paky-Stage-Color-300-AE" m="Stage Color 300 AE"/>
@@ -502,6 +504,7 @@
     <F n="Clay-Paky-Tiger-Scan-HMI-1200" m="Tiger Scan HMI 1200"/>
     <F n="Clay-Paky-Tiger-Scan-HMI-575" m="Tiger Scan HMI 575"/>
     <F n="Clay-Paky-Tornado" m="Tornado"/>
+    <F n="Clay-Paky-Xtylos" m="Xtylos"/>
   </M>
   <M n="CLF">
     <F n="CLF-Tricolor-Mini-Par" m="Tricolor Mini Par"/>
