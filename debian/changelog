@@ -11,7 +11,7 @@ qlcplus (4.12.4) stable; urgency=low
   * RGB scripts: added brightness inversion to 'Starfield' script (thanks to Branson Matheson)
   * RGB scripts: added more parameters to 'Circles' script (thanks to Branson Matheson)
   * New fixture: Varytec Giga Bar Pix 8 RGB (thanks to Felix)
-  * New fixture: Clay Paky Mini-B, Xtylos, Sharpy Plus, Hepikos
+  * New fixture: Clay Paky Mini-B, Xtylos, Sharpy Plus, Hepikos, Scenius Unico, Axcor Profile 600
   * New fixture: Eurolite LED PT-100/32 Pixel DMX Tube (thanks to Torsten Caninenberg)
   * New fixture: U'King LED Spot Moving Head 100W (thanks to Jay Seaman)
   * New fixtures: Equinox Microbar Quad System, U'King 7x10W Mini Moving Head (thanks to Peter Crowther)
