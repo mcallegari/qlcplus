@@ -43,5 +43,13 @@ ScrollBar
             implicitWidth: UISettings.scrollBarWidth
             implicitHeight: UISettings.scrollBarWidth
             color: (control.pressed ? UISettings.highlight : UISettings.bgControl)
+
+            Rectangle
+            {
+                anchors.centerIn: parent
+                width: parent.width * 0.8
+                height: 5
+                color: UISettings.bgLight
+            }
         }
 }
