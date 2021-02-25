@@ -106,15 +106,16 @@ Item
         {
             if (fxDraggableItem.isManufacturer == false)
             {
-                fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers);
-                FxDragJS.initProperties();
+                fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
+                forceActiveFocus()
+                FxDragJS.initProperties()
             }
         }
         onPositionChanged:
-            if(fxDraggableItem.isManufacturer == false && drag.active == true)
-                FxDragJS.handleDrag(mouse);
+            if (fxDraggableItem.isManufacturer == false && drag.active == true)
+                FxDragJS.handleDrag(mouse)
         onReleased:
-            if(fxDraggableItem.isManufacturer == false && drag.active == true)
-                FxDragJS.endDrag(mouse);
+            if (fxDraggableItem.isManufacturer == false && drag.active == true)
+                FxDragJS.endDrag(mouse)
     }
 }
