@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  flyingObjects.js
+  flyingobjects.js
 
   Copyright (c) Hans-Jürgen Tappe
   derived from on balls.js, Copyright (c) Tim Cullingworth
@@ -40,12 +40,14 @@ var testAlgo;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
     algo.selectedAlgo = "trees";
     algo.properties.push("name:selectedAlgo|type:list|display:Objects|"
-      + "values:Balls,Bells,Snowman,Ufo,Xmas Stars,Xmas Trees|"
+      + "values:Balls,Bells,Snowflake,Snowman,Ufo,Ventilator,Xmas Stars,Xmas Trees|"
       + "write:setSelectedAlgo|read:getSelectedAlgo");
 
     algo.initialized = false;
     algo.boxRadius = 1;
     algo.realsize = 1;
+    algo.progstep = 0;
+    algo.totalSteps = 1024;
 
     var util = new Object;
 
@@ -123,6 +125,13 @@ var testAlgo;
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
+    var snowflakeAlgo = new Object;
+    snowflakeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      var factor = 1.0;
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
     var ufoAlgo = new Object;
     ufoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
@@ -155,6 +164,56 @@ var testAlgo;
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
 
+    }
+
+    var ventilatorAlgo = new Object;
+    ventilatorAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      var factor = 1.0;
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      var offx = rx - algo.obj[i].x;
+      var offy = ry - algo.obj[i].y;
+      var distance = Math.sqrt(offx * offx + offy * offy);
+      var angle = getAngle(i, rx, ry);
+      // Optimize multiple calculations
+      var twoPi = 2 * Math.PI;
+      var halfPi = Math.PI / 2;
+      var baseIntensity = 0.1;
+      var percent = 0;
+
+      // Repeat the pattern
+      var fanblades = 3;
+      if (algo.presetSize >= 10) {
+    	  fanblades = 5;
+      }
+      angle = fanblades * angle;
+      angle -= (twoPi) * (algo.progstep / 8 % 1);
+      angle = (angle + twoPi) % (twoPi);
+
+      // Draw a center cover
+      // asec consumes values > 1. asec(x) = acos(1/x)
+      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetSize / 2)));
+      // apply a scale factor for the percent / input in the asec function
+      var factorC = Math.acos(1 / (2.5 * percent + 1)) / (halfPi);
+
+      // Calculate intensity by angle
+      //factor = (1.0 - baseIntensity) * angle / (twoPi) + baseIntensity;
+      factor = Math.max(0, (1.0 + baseIntensity) * angle / (twoPi) - baseIntensity);
+
+      // Blind out the inner edges
+      percent = Math.max(0, 1 - (angle / twoPi));
+      // apply a scale factor for the percent / input in the asec function
+      factor *= (1.0 - baseIntensity) * (Math.acos(1 / (2.5 * percent + 1)) / (halfPi)) + baseIntensity;
+
+      // Blind out the outside edges
+      percent = Math.max(0, 1 - (distance / (algo.presetSize / 2)));
+      // apply a scale factor for the percent / input in the asec function
+      factor *= Math.acos(1 / (2.5 * percent + 1)) / (halfPi);
+      
+      factor = Math.max(factorC, factor * 1.5);
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
     var treesAlgo = new Object;
@@ -274,10 +333,14 @@ var testAlgo;
         algo.selectedAlgo = "balls";
       } else if (_selected === "Bells") {
         algo.selectedAlgo = "bells";
+      } else if (_selected === "Snowflake") {
+        algo.selectedAlgo = "snowflake";
       } else if (_selected === "Snowman") {
         algo.selectedAlgo = "snowman";
       } else if (_selected === "Ufo") {
         algo.selectedAlgo = "ufo";
+      } else if (_selected === "Ventilator") {
+        algo.selectedAlgo = "ventilator";
       } else {
         algo.selectedAlgo = "trees";
       }
@@ -291,16 +354,45 @@ var testAlgo;
         return "Bells";
       } else if (algo.selectedAlgo === "balls") {
         return "Balls";
+      } else if (algo.selectedAlgo === "snowflake") {
+          return "Snowflake";
       } else if (algo.selectedAlgo === "snowman") {
-        return "Snowman";
+          return "Snowman";
       } else if (algo.selectedAlgo === "ufo") {
         return "Ufo";
+      } else if (algo.selectedAlgo === "ventilator") {
+          return "Ventilator";
       } else {
         return "Xmas Trees";
       }
     };
 
     // General Purpose Functions ------------------
+
+    // calculate the angle from 0 to 2 pi startin north and counting clockwise
+    function getAngle(i, rx, ry)
+    {
+        var offx = rx - algo.obj[i].x;
+        var offy = ry - algo.obj[i].y;
+        var angle = 0;
+        // catch offx == 0
+        if (offx === 0) {
+          // This where the asymptote goes
+      	  if (offy < 0) {
+      		angle = -1 * Math.PI / 2;
+      	  } else {
+      		angle = Math.PI / 2;
+      	  }
+        } else {
+          var gradient = offy / offx;
+          angle = Math.atan(gradient);
+        }
+        angle += Math.PI / 2;
+        if (offx < 0) {
+          angle += Math.PI;  
+        }
+        return angle;
+    }
 
     // Combine RGB color from color channels
     function mergeRgb(r, g, b)
@@ -377,6 +469,7 @@ var testAlgo;
       if (algo.initialized === false) {
         util.initialize(width, height);
       }
+      algo.progstep = progstep;
 
       // Clear algo.map data
       algo.map = new Array(height);
@@ -407,8 +500,8 @@ var testAlgo;
           for (var rx = mx - algo.boxRadius; rx < mx + algo.boxRadius + 2; rx++) {
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
-              // DEVELOPMENT: Draw the box for debugging.
-              //algo.map[ry][rx] = getColor(40, 40, 40, algo.map[ry][rx]);
+              // DEVELOPMENT: Draw a box for debugging.
+              //algo.map[ry][rx] = getColor(0, 0, 40, algo.map[ry][rx]);
 
               // add the object color to the mapped location
               if (algo.selectedAlgo === "stars") {
@@ -417,10 +510,14 @@ var testAlgo;
                 algo.map[ry][rx] = ballsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else if (algo.selectedAlgo === "bells") {
                 algo.map[ry][rx] = bellsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
+              } else if (algo.selectedAlgo === "snowflake") {
+                  algo.map[ry][rx] = snowflakeAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else if (algo.selectedAlgo === "snowman") {
-                algo.map[ry][rx] = snowmanAlgo.getMapPixelColor(i, rx, ry, r, g, b);
+                  algo.map[ry][rx] = snowmanAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else if (algo.selectedAlgo === "ufo") {
                 algo.map[ry][rx] = ufoAlgo.getMapPixelColor(i, rx, ry, r, g, b);
+              } else if (algo.selectedAlgo === "ventilator") {
+                  algo.map[ry][rx] = ventilatorAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               } else {
                 algo.map[ry][rx] = treesAlgo.getMapPixelColor(i, rx, ry, r, g, b);
               }
@@ -481,7 +578,7 @@ var testAlgo;
     algo.rgbMapStepCount = function(width, height)
     {
       // This make no difference to the script, except for fading the colors
-      return 1024;
+      return algo.totalSteps;
     };
 
     // Development tool access
