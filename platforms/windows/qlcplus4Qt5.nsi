@@ -88,6 +88,7 @@ Section
 	File /r imageformats
 	File /r mediaservice
 	File /r audio
+	File /r styles
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -129,6 +130,7 @@ Section "Uninstall"
         RMDir /r $INSTDIR\imageformats
 	RMDir /r $INSTDIR\mediaservice
 	RMDir /r $INSTDIR\audio
+	RMDir /r $INSTDIR\styles
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
