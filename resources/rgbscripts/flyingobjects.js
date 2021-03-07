@@ -30,34 +30,10 @@ var testAlgo;
     algo.acceptColors = 2;
     algo.properties = new Array();
 
-    algo.presetSize = 5;
-    algo.properties.push("name:presetSize|type:range|display:Size|values:5,20|write:setSize|read:getSize");
-    algo.presetNumber = 3;
-    algo.properties.push("name:presetNumber|type:range|display:Number|values:1,50|write:setNumber|read:getNumber");
-    algo.presetRandom = 1;
-    algo.properties.push("name:presetRandom|type:list|display:Random Colour|values:No,Yes|write:setRandom|read:getRandom");
-    algo.presetCollision = 1;
-    algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
-    algo.selectedAlgo = "trees";
-    algo.properties.push("name:selectedAlgo|type:list|display:Objects|"
-      + "values:Balls,Bells,Snowflake,Snowman,Tornado,Ufo,Ventilator,Xmas Stars,Xmas Trees|"
-      + "write:setSelectedAlgo|read:getSelectedAlgo");
-
-    algo.initialized = false;
-    algo.boxRadius = 1;
-    algo.realsize = 1;
-    algo.progstep = 0;
-    algo.totalSteps = 1024;
-    // Optimize multiple calculations
-    algo.twoPi = 2 * Math.PI;
-    algo.halfPi = Math.PI / 2;
-
-    var util = new Object;
-
     // Algorithms ----------------------------
 
-    let ballsAlgo = new Object;
-    ballsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    let ballAlgo = new Object;
+    ballAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       // calculate the offset difference of algo.map location to the float
       // location of the object
@@ -69,9 +45,9 @@ var testAlgo;
       }
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
-      
-    let bellsAlgo = new Object;
-    bellsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+
+    let bellAlgo = new Object;
+    bellAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       // calculate the offset difference of algo.map location to the float
       // location of the object
@@ -86,7 +62,7 @@ var testAlgo;
         offy = 0;
       } else {
         // Offset to bottom
-        offy += (algo.presetSize / 2) + 0.7;
+        offy += (algo.presetRadius) + 0.7;
       }
       let factor = ((1 - (Math.sqrt((offx * offx * 0.7) + (offy * offy * 1.0)))) * 1.0) + offy * 1.0;
       //let factor = ((1 - (Math.cos((offx * offx * 0.7) + (offy * offy * 1.0)))) * 1.0) + offy * 1.0;
@@ -94,6 +70,78 @@ var testAlgo;
       // add the object color to the algo.mapped location
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     };
+
+    let diamondAlgo = new Object;
+    diamondAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = rx - algo.obj[i].x;
+      let offy = ry - algo.obj[i].y;
+      let percentX = offx / algo.presetRadius;
+      let percentY = offy / algo.presetRadius;
+      let saturation = 1;
+
+      let factor = Math.sqrt(saturation * percentX * percentX)
+      		+ Math.sqrt(saturation * percentY * percentY);
+      factor = 1 - Math.max(0, Math.min(1, factor));
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let flowerAlgo = new Object;
+    flowerAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(Math.round(rx - algo.obj[i].x));
+      let offy = Math.abs(Math.round(ry - algo.obj[i].y));
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry) + algo.obj[i].random * algo.twoPi;
+      let baseIntensity = 0.99;
+      let leafs = 5;
+      
+      if (algo.presetSize < 10) {
+    	  leafs = 4;
+      }
+
+      // Repeat and normalize the pattern
+      angle = leafs * angle;
+      angle = (angle + algo.twoPi) % (algo.twoPi);
+
+      let scaling = Math.abs(angle - Math.PI) / algo.twoPi * 1.1;
+      let percent = Math.min(1, distance / algo.presetRadius + scaling);
+      let factor = Math.acos(1 / ((1 - percent) * 5 + 1)) / (algo.halfPi);
+      
+      // Draw a center
+      // asec consumes values > 1. asec(x) = acos(1/x)
+      percent = Math.max(0, 1 - (distance / (0.3 * algo.presetRadius)));
+      // apply a scale factor for the percent / input in the asec function
+      let factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      factor = Math.max(factorC, factor);
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let ringAlgo = new Object;
+    ringAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = rx - algo.obj[i].x;
+      let offy = ry - algo.obj[i].y;
+      let distance = Math.sqrt(offx * offx + offy * offy);
+	  let percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
+	  let factor = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+	  let inner = 0.8;
+      if (algo.presetSize < 7) {
+    	  inner = 0.2;
+      }
+	  percent = Math.max(0, 1 - (distance / (0.7 * algo.presetRadius)));
+	  factor -= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+
+	  return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
 
     let snowmanAlgo = new Object;
     snowmanAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
@@ -138,26 +186,144 @@ var testAlgo;
       let offy = ry - algo.obj[i].y;
       let distance = Math.sqrt(offx * offx + offy * offy);
       let angle = getAngle(i, rx, ry);
-      let baseIntensity = 0;
-      //let percent = 0;
-      
-      angle += (distance / (algo.presetSize / 2)) * algo.halfPi;
-      // Repeat the pattern
-      angle = 5 * angle;
-//      angle -= (algo.twoPi) * (algo.progstep / 8 % 1);
+      let percent = 0;
+      let handles = 6;
+
+      // Repeat and normalize the pattern
+      angle = handles * angle;
       angle = (angle + algo.twoPi) % (algo.twoPi);
 
       // Blind in the inner edges
-      //percent = Math.max(0, 1 - (angle / (0.3 * algo.twoPi)));
-      // apply a scale factor for the percent / input in the asec function
-      //factor = (1.0 - baseIntensity) * (Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi)) + baseIntensity;
-      factor = Math.cos(angle);
+      factor = Math.cos(angle) + 0.2 - (distance / (algo.presetRadius));
 
-      // Blind out the outside edges
-      percent = Math.max(0, 1 - (distance / (algo.presetSize / 2)));
-      // apply a scale factor for the percent / input in the asec function
-      factor *= Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      //--------------------------------------
+      // Draw the outer parts
+//      let outerx = 0;
+//      let outery = 0;
+      let d = distance;
+      var factorR = 0;
+      // Repeat and normalize the pattern
+      angle = Math.abs(angle - Math.PI);
+      angle = (angle + algo.twoPi) % (algo.twoPi);
+
+      d = distance * (1 + 0.2 * angle / Math.PI);
+      let percentX = Math.abs(offx / algo.presetRadius);
+      let percentY = Math.abs(offy / algo.presetRadius);
       
+      factorR = Math.sin(handles / 2 * percentX * Math.PI - algo.halfPi)
+      		+ Math.sin(percentY * Math.PI - algo.halfPi);
+      factorR += Math.sin(percentX * Math.PI - algo.halfPi)
+		+ Math.sin(handles / 2 * percentY * Math.PI - algo.halfPi);
+
+      //--------------------------------------
+//      factor = factorR;
+//      factor = Math.max(factorR, factor);
+      
+      // Blind out the outside edges
+      percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
+      // apply a scale factor for the percent / input in the asec function
+      factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+
+      // Draw a center
+      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetRadius)));
+      // apply a scale factor for the percent / input in the asec=acos(1/x) function
+      let factorC = 0;
+      factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      factor = Math.max(factorC, factor * 1.5);
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let starAlgo = new Object;
+    starAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(Math.round(rx - algo.obj[i].x));
+      let offy = Math.abs(Math.round(ry - algo.obj[i].y));
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let baseIntensity = 0.99;
+
+      // Repeat and normalize the pattern
+      angle = 5 * angle;
+      angle = (angle + algo.twoPi) % (algo.twoPi);
+
+      let factor = 1;
+
+      // Calculate color pixel positions
+      if ( // The tips
+        // Top and bottom tips
+        (offy > Math.floor(algo.realsize / 4) && offy <= algo.realsize / 2 &&
+          offx <= Math.floor(algo.realsize / 2) - offy) ||
+        // Outer tips
+        (offy >= 0 && offy <= Math.floor(algo.realsize / 4) &&
+          offx <= offy + Math.round(algo.realsize / 4))
+      ) {
+        // add the color to the algo.mapped location
+//        factor = (1 - baseIntensity) * Math.abs(angle - Math.PI) / algo.twoPi + baseIntensity;
+      }
+      // Sunflower
+//      let scaling = (1 - baseIntensity) + (angle - Math.PI) / algo.twoPi * baseIntensity;
+//      let percent = Math.min(1, distance / algo.presetRadius + scaling);
+
+      let scaling = Math.abs(angle - Math.PI) / algo.twoPi * 1.1;
+      let percent = Math.min(1, distance / algo.presetRadius + scaling);
+//      factor *= Math.acos(1 / ((1 - percent / 5) - (angle / algo.twoPi) + 1)) / (algo.halfPi);
+      factor *= Math.acos(1 / ((1 - percent) * 5 + 1)) / (algo.halfPi);
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let steeringwheelAlgo = new Object;
+    steeringwheelAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      let factor = 1.0;
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = rx - algo.obj[i].x;
+      let offy = ry - algo.obj[i].y;
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let percent = 0;
+      let handles = 6;
+      let outer = 0.7
+	  let inner = 0.5;
+
+	  if (algo.presetSize < 10) {
+		  outer = 0.5;
+    	  inner = 0.0;
+      }
+
+      // Repeat and normalize the pattern
+      angle = handles * angle;
+      angle = (angle + algo.twoPi) % (algo.twoPi);
+
+      // Blind in the inner edges
+      factor = Math.cos(angle) + 0.2 - (distance / (algo.presetRadius));
+
+      //--------------------------------------
+      // Draw the ring
+      let d = distance;
+      var factorR = 0;
+	  percent = Math.max(0, 1 - (d / (outer * algo.presetRadius)));
+      factorR = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+	  percent = Math.max(0, 1 - (d / (inner * algo.presetRadius)));
+      factorR -= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      //--------------------------------------
+      factor = Math.max(factorR, factor);
+      
+      // Blind out the outside edges
+      percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
+      // apply a scale factor for the percent / input in the asec function
+      factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+
+      // Draw a center
+      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetRadius)));
+      // apply a scale factor for the percent / input in the asec=acos(1/x) function
+      let factorC = 0;
+      factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      factor = Math.max(factorC, factor * 1.5);
+
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -180,7 +346,7 @@ var testAlgo;
     	  fanblades = 5;
       }
       
-      angle -= (distance / (algo.presetSize / 2)) * algo.halfPi;
+      angle -= (distance / (algo.presetRadius)) * algo.halfPi;
       // Repeat the pattern
       angle = fanblades * angle;
       // Turn along the distance
@@ -192,20 +358,45 @@ var testAlgo;
       factor = Math.cos(angle);
 
       // Blind out the outside edges
-      percent = Math.max(0, 1 - (distance / (algo.presetSize / 2)));
+      percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
       // apply a scale factor for the percent / input in the asec function
-      factor *= Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
       
       // Draw a center
       // asec consumes values > 1. asec(x) = acos(1/x)
-      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetSize / 2)));
+      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetRadius)));
       // apply a scale factor for the percent / input in the asec function
-      let factorC = Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      let factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
 
       factor = Math.max(factorC, factor * 1.5);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
+
+    let treeAlgo = new Object;
+    treeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = rx - algo.obj[i].x;
+      let offy = ry - algo.obj[i].y;
+
+      // Calculate color intensity
+      if (ry === Math.floor(algo.obj[i].y) + algo.boxRadius + 1) {
+        // The tree foot:
+        // offx remains the same.
+        // offy is 0
+        offy = 0;
+      } else {
+        // Offset to bottom
+        offy += (algo.presetRadius) + 0.7;
+      }
+      let factor = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy * 1.4)))) * 2.5) + offy * 3;
+      factor = factor / 3.27;
+ 
+      // add the object color to the algo.mapped location
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    };
 
     let ufoAlgo = new Object;
     ufoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
@@ -266,9 +457,9 @@ var testAlgo;
 
       // Draw a center cover
       // asec consumes values > 1. asec(x) = acos(1/x)
-      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetSize / 2)));
+      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetRadius)));
       // apply a scale factor for the percent / input in the asec function
-      let factorC = Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      let factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
 
       // Calculate intensity by angle
       //factor = (1.0 - baseIntensity) * angle / (algo.twoPi) + baseIntensity;
@@ -277,71 +468,98 @@ var testAlgo;
       // Blind out the inner edges
       percent = Math.max(0, 1 - (angle / algo.twoPi));
       // apply a scale factor for the percent / input in the asec function
-      factor *= (1.0 - baseIntensity) * (Math.acos(1 / (2.5 * percent + 1)) / (algo.algo.halfPi)) + baseIntensity;
+      factor *= (1.0 - baseIntensity) * (Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi)) + baseIntensity;
 
       // Blind out the outside edges
-      percent = Math.max(0, 1 - (distance / (algo.presetSize / 2)));
+      percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
       // apply a scale factor for the percent / input in the asec function
-      factor *= Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
       
       factor = Math.max(factorC, factor * 1.5);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
-    let treesAlgo = new Object;
-    treesAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
-    {
-      // calculate the offset difference of algo.map location to the float
-      // location of the object
-      let offx = rx - algo.obj[i].x;
-      let offy = ry - algo.obj[i].y;
-
-      // Calculate color intensity
-      if (ry === Math.floor(algo.obj[i].y) + algo.boxRadius + 1) {
-        // The tree foot:
-        // offx remains the same.
-        // offy is 0
-        offy = 0;
-      } else {
-        // Offset to bottom
-        offy += (algo.presetSize / 2) + 0.7;
+	// Algorithm registration and methods ------------------------
+    var shapes = new Object;
+    shapes.collection = new Array(
+      ["Ball", ballAlgo],
+      ["Bell", bellAlgo],
+      ["Diamond", diamondAlgo],
+      ["Flower", flowerAlgo],
+      ["Ring", ringAlgo],
+      ["Snowflake", snowflakeAlgo],
+      ["Snowman", snowmanAlgo],
+      ["Star", starAlgo],
+      ["Steeringwheel", steeringwheelAlgo],
+      ["Tree", treeAlgo],
+      ["Tornado", tornadoAlgo],
+      ["Ufo", ufoAlgo],
+      ["Ventilator", ventilatorAlgo],
+    );
+    shapes.makeSubArray = function(_index) {
+      var _array = new Array();
+      for (var i = 0; i < shapes.collection.length; i++) {
+        _array.push(shapes.collection[parseInt(i)][parseInt(_index)]);
       }
-      let factor = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy * 1.4)))) * 2.5) + offy * 3;
-      factor = factor / 3.27;
- 
-      // add the object color to the algo.mapped location
-      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+      return _array;
     };
-      
-    let starsAlgo = new Object;
-    starsAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
-    {
-      // calculate the offset difference of algo.map location to the float
-      // location of the object
-      let offx = Math.abs(Math.round(rx - algo.obj[i].x));
-      let offy = Math.abs(Math.round(ry - algo.obj[i].y));
-
-      // Calculate color pixel positions
-      if ( // The tips
-        // Top and bottom tips
-        (offy > Math.floor(algo.realsize / 4) && offy <= algo.realsize / 2 &&
-          offx <= Math.floor(algo.realsize / 2) - offy) ||
-        // Outer tips
-        (offy >= 0 && offy <= Math.floor(algo.realsize / 4) &&
-          offx <= offy + Math.round(algo.realsize / 4))
-      ) {
-        // add the color to the algo.mapped location
-        return getColor(r, g, b, algo.map[ry][rx]);
+    shapes.getAlgoIndex = function(_name) {
+      var idx = shapes.names.indexOf(_name);
+      if (idx === -1) {
+        idx = (shapes.collection.length - 1);
       }
-        return algo.map[ry][rx];
-    }
+      return idx;
+    };
+    shapes.getAlgoEntry = function(_index) {
+      if (_index < 0) {
+          _index = 0;
+      }
+      if (_index >= shapes.collection.length) {
+        _index = (shapes.collection.length - 1);
+      }
+      return shapes.collection[parseInt(_index)];
+    };
+    shapes.getAlgoName = function(_index) {
+      return shapes.getAlgoEntry(_index)[0];
+    };
+    shapes.getAlgoObject = function(_index) {
+      return shapes.getAlgoEntry(_index)[1];
+    };
+    shapes.names = shapes.makeSubArray(0);
 
     // Setters and Getters ------------------------
+
+    algo.presetSize = 5;
+    algo.properties.push("name:presetSize|type:range|display:Size|values:5,40|write:setSize|read:getSize");
+    algo.presetNumber = 3;
+    algo.properties.push("name:presetNumber|type:range|display:Number|values:1,50|write:setNumber|read:getNumber");
+    algo.presetRandom = 1;
+    algo.properties.push("name:presetRandom|type:list|display:Random Colour|values:No,Yes|write:setRandom|read:getRandom");
+    algo.presetCollision = 1;
+    algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
+
+    algo.selectedAlgo = shapes.getAlgoIndex("Trees");
+    algo.properties.push("name:selectedAlgo|type:list|display:Shape|"
+        + "values:" + shapes.names.toString() + "|"
+        + "write:setSelectedAlgo|read:getSelectedAlgo");
+
+    algo.presetRadius = algo.presetRadius;
+    algo.initialized = false;
+    algo.boxRadius = 1;
+    algo.realsize = 1;
+    algo.progstep = 0;
+    algo.totalSteps = 1024;
+    // Optimize multiple calculations
+    algo.twoPi = 2 * Math.PI;
+    algo.halfPi = Math.PI / 2;
+
+    var util = new Object;
 
     algo.setSize = function(_size)
     {
       algo.presetSize = _size;
+      algo.presetRadius = _size / 2
       algo.initialized = false;
     };
 
@@ -398,51 +616,12 @@ var testAlgo;
       }
     };
 
-    algo.setSelectedAlgo= function(_selected)
-    {
-      if (_selected === "Xmas Stars") {
-        algo.selectedAlgo = "stars";
-      } else if (_selected === "Balls") {
-        algo.selectedAlgo = "balls";
-      } else if (_selected === "Bells") {
-        algo.selectedAlgo = "bells";
-      } else if (_selected === "Snowflake") {
-        algo.selectedAlgo = "snowflake";
-      } else if (_selected === "Snowman") {
-        algo.selectedAlgo = "snowman";
-      } else if (_selected === "Tornado") {
-        algo.selectedAlgo = "tornado";
-      } else if (_selected === "Ufo") {
-        algo.selectedAlgo = "ufo";
-      } else if (_selected === "Ventilator") {
-        algo.selectedAlgo = "ventilator";
-      } else {
-        algo.selectedAlgo = "trees";
-      }
-    };
-
-    algo.getSelectedAlgo = function()
-    {
-      if (algo.selectedAlgo === "stars") {
-        return "Xmas Stars";
-      } else if (algo.selectedAlgo === "bells") {
-        return "Bells";
-      } else if (algo.selectedAlgo === "balls") {
-        return "Balls";
-      } else if (algo.selectedAlgo === "snowflake") {
-        return "Snowflake";
-      } else if (algo.selectedAlgo === "snowman") {
-        return "Snowman";
-      } else if (algo.selectedAlgo === "tornado") {
-        return "Tornado";
-      } else if (algo.selectedAlgo === "ufo") {
-        return "Ufo";
-      } else if (algo.selectedAlgo === "ventilator") {
-          return "Ventilator";
-      } else {
-        return "Xmas Trees";
-      }
-    };
+	algo.setSelectedAlgo = function(_name) {
+		algo.selectedAlgo = shapes.getAlgoIndex(_name);
+	};
+	algo.getSelectedAlgo = function() {
+      return shapes.getAlgoName(algo.selectedAlgo);
+	};
 
     // General Purpose Functions ------------------
 
@@ -514,6 +693,8 @@ var testAlgo;
           // set random start locations for objects
           x: Math.random() * (width - 1),
           y: Math.random() * (height - 1),
+          // General-purpose random number per object
+          random: Math.random(),
         };
           // set random directions
         do {
@@ -534,8 +715,8 @@ var testAlgo;
       }
 
       // area size to draw object
-      algo.boxRadius = Math.round(algo.presetSize / 2);
-      algo.realsize = Math.floor(algo.presetSize / 2) * 2 + 1;
+      algo.boxRadius = Math.round(algo.presetRadius);
+      algo.realsize = Math.floor(algo.presetRadius) * 2 + 1;
 
       algo.initialized = true;
       return;
@@ -557,6 +738,7 @@ var testAlgo;
         }
       }
 
+      let shape = shapes.getAlgoObject(algo.selectedAlgo);
       // for each object displayed
       for (let i = 0; i < algo.presetNumber; i++) {
         // workout closest map location for object
@@ -581,25 +763,7 @@ var testAlgo;
               //algo.map[ry][rx] = getColor(0, 0, 40, algo.map[ry][rx]);
 
               // add the object color to the mapped location
-              if (algo.selectedAlgo === "stars") {
-                algo.map[ry][rx] = starsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else if (algo.selectedAlgo === "balls") {
-                algo.map[ry][rx] = ballsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else if (algo.selectedAlgo === "bells") {
-                algo.map[ry][rx] = bellsAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else if (algo.selectedAlgo === "snowflake") {
-                algo.map[ry][rx] = snowflakeAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else if (algo.selectedAlgo === "snowman") {
-                algo.map[ry][rx] = snowmanAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else if (algo.selectedAlgo === "tornado") {
-                algo.map[ry][rx] = tornadoAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else if (algo.selectedAlgo === "ufo") {
-                algo.map[ry][rx] = ufoAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else if (algo.selectedAlgo === "ventilator") {
-                algo.map[ry][rx] = ventilatorAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              } else {
-                algo.map[ry][rx] = treesAlgo.getMapPixelColor(i, rx, ry, r, g, b);
-              }
+              algo.map[ry][rx] = shape.getMapPixelColor(i, rx, ry, r, g, b);
             }
           }
         }
@@ -616,7 +780,7 @@ var testAlgo;
               let disy = (algo.obj[i].y + algo.obj[i].yDirection) - algo.obj[ti].y;
               let dish = Math.sqrt((disx * disx) + (disy * disy));
               // if to close
-              if (dish < (1.414) * (algo.presetSize / 2)) {
+              if (dish < (1.414) * (algo.presetRadius)) {
                 // swap speed / direction of current object
                 let stepx = algo.obj[i].xDirection;
                 let stepy = algo.obj[i].yDirection;
