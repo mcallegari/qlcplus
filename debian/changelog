@@ -11,7 +11,7 @@ qlcplus (4.12.4) stable; urgency=low
   * RGB scripts: added brightness inversion to 'Starfield' script (thanks to Branson Matheson)
   * RGB scripts: added more parameters to 'Circles' script (thanks to Branson Matheson)
   * New fixture: Varytec Giga Bar Pix 8 RGB (thanks to Felix)
-  * New fixtures: Clay Paky Mini-B, Xtylos, Sharpy Plus, Hepikos, Scenius Unico, Axcor Profile 600, HY B-EYE K15, HY B-EYE K25
+  * New fixtures: Clay Paky Mini-B, Midi-B, Xtylos, Sharpy Plus, Hepikos, Scenius Unico, Axcor Profile 600, HY B-EYE K15, HY B-EYE K25
   * New fixture: Eurolite LED PT-100/32 Pixel DMX Tube (thanks to Torsten Caninenberg)
   * New fixture: U'King LED Spot Moving Head 100W (thanks to Jay Seaman)
   * New fixtures: Equinox Microbar Quad System, U'King 7x10W Mini Moving Head (thanks to Peter Crowther)
@@ -31,6 +31,10 @@ qlcplus (4.12.4) stable; urgency=low
   * New fixture: Stairville CLB4 RGB Compact LED Bar 4 (thanks to Vasileios Vasilikos)
   * New fixture: Cameo Multi FX Bar (thanks to Aurelien)
   * New fixtures: Briteq DP-COBWASH 60TC and DP-COBWASH 150TC (thanks to Fredje Gallon)
+  * New fixture: EK E3 LED Spot (thanks to Luke Jackson)
+  * New fixture: Venue Tetra Bar (thanks to Nathan Durnan)
+  * New fixtures: Chauvet Ovation F-415FC, Ovation P56FC (thanks to Matt Fiscus)
+  * New fixtures: Cameo Thunderwash 600 RGBW, Thunderwash 600 UV (thanks to Torsten Caninenberg)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 28 Mar 2021 12:13:14 +0200
 

@@ -318,6 +318,8 @@
     <F n="Cameo-Thunder-Wash-100-W" m="Thunder Wash 100 W"/>
     <F n="Cameo-Thunder-Wash-600-RGB" m="Thunder Wash 600 RGB"/>
     <F n="Cameo-Thunder-Wash-600-W" m="Thunder Wash 600 W"/>
+    <F n="Cameo-Thunderwash-600-RGBW" m="Thunderwash 600 RGBW"/>
+    <F n="Cameo-Thunderwash-600-UV" m="Thunderwash 600 UV"/>
     <F n="Cameo-Tribar-200-IR" m="Tribar 200 IR"/>
     <F n="Cameo-TS-40-WW" m="TS 40 WW"/>
     <F n="Cameo-TS-60-RGBW" m="TS 60 RGBW"/>
@@ -422,8 +424,10 @@
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
     <F n="Chauvet-Omega-I-DMX-155" m="Omega I DMX-155"/>
     <F n="Chauvet-Ovation-E-910FC" m="Ovation E-910FC"/>
+    <F n="Chauvet-Ovation-F-415FC" m="Ovation F-415FC"/>
     <F n="Chauvet-Ovation-F-915FC" m="Ovation F-915FC"/>
     <F n="Chauvet-Ovation-FD-165WW" m="Ovation FD-165WW"/>
+    <F n="Chauvet-Ovation-P-56FC" m="Ovation P-56FC"/>
     <F n="Chauvet-Q-Beam-260-LED" m="Q-Beam 260-LED"/>
     <F n="Chauvet-Q-Spot-250" m="Q-Spot 250"/>
     <F n="Chauvet-Q-Spot-260-LED" m="Q-Spot 260 LED"/>
@@ -491,6 +495,7 @@
     <F n="Clay-Paky-Hepikos" m="Hepikos"/>
     <F n="Clay-Paky-HY-B-EYE-K15" m="HY B-EYE K15"/>
     <F n="Clay-Paky-HY-B-EYE-K25" m="HY B-EYE K25"/>
+    <F n="Clay-Paky-Midi-B" m="Midi-B"/>
     <F n="Clay-Paky-Mini-B" m="Mini-B"/>
     <F n="Clay-Paky-Mini-Scan-150" m="Mini Scan 150"/>
     <F n="Clay-Paky-Mini-Scan-300" m="Mini Scan 300"/>
@@ -559,6 +564,9 @@
   <M n="Dune_Lighting">
     <F n="Dune-Lighting-Fireworks-Pro-II" m="Fireworks PRO II (LAS-160/FW)"/>
     <F n="Dune-Lighting-MOVLED60W" m="MOV-LED/60W"/>
+  </M>
+  <M n="EK">
+    <F n="EK-E3-LED-Spot" m="E3 LED Spot"/>
   </M>
   <M n="Elation">
     <F n="Elation-Color-Spot-150" m="Color Spot 150"/>
@@ -1516,6 +1524,7 @@
   <M n="Venue">
     <F n="Venue-LEDPAR64" m="LED PAR64"/>
     <F n="Venue-Scanner-4" m="Scanner 4"/>
+    <F n="Venue-Tetra-Bar" m="Tetra Bar"/>
     <F n="Venue-ThinPar-38" m="ThinPAR 38"/>
     <F n="Venue-THINPAR-64" m="ThinPar 64"/>
     <F n="Venue-TriStrip3Z" m="TriStrip3Z"/>
