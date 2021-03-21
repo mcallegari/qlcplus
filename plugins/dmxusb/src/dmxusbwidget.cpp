@@ -308,7 +308,7 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     if (m_interface->setBaudRate() == false)
         return close(line);
 
-#if defined(LIBFTDI1)
+#if defined(NEW_LIBFTDI1)
     if (m_interface->flushBuffers() == false)
 #else
     if (m_interface->purgeBuffers() == false)

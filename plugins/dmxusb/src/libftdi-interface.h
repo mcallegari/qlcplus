@@ -86,7 +86,7 @@ public:
     bool clearRts();
 
     /** @reimpl */
-#if defined(LIBFTDI1)
+#if defined(NEW_LIBFTDI1)
     bool flushBuffers();
 #else
     bool purgeBuffers();

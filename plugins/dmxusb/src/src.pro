@@ -58,11 +58,38 @@ CONFIG(libftdi) {
     greaterThan(QT_MAJOR_VERSION, 4) {
         macx:QT_CONFIG -= no-pkg-config
     }
+
+    defineReplace(findPackage) {
+        # using <package>Version variable
+        pkg = $${1}Version
+        !defined($$pkg, var) {
+            # cache miss
+            # note: $$pkgConfigExecutable() is an undocumented function from qt_functions.prf
+            $$pkg = $$system($$pkgConfigExecutable() --modversion $$1)
+            # cannot store the empty value
+            isEmpty($$pkg): $$pkg = 0
+            # save to the stash file
+            cache($$pkg, stash)
+        }
+        # return value of <package>Version
+        return($$eval($$pkg))
+    }
+
     packagesExist(libftdi1) {
         CONFIG      += link_pkgconfig
         PKGCONFIG   += libftdi1 libusb-1.0
         DEFINES     += LIBFTDI1
         message(Building with libFTDI1 support.)
+
+        ftdi1 = $$findPackage(libftdi1)
+        equals(ftdi1, 0) {
+            error("libftdi1 is not installed")
+        } else:!versionAtLeast(ftdi1, 1.5) {
+           # nothing
+        } else {
+            message("Found libftdi1 version $$ftdi1 (new buffer flush API)")
+            DEFINES += NEW_LIBFTDI1
+        }
 
         macx {
             include(../../../platforms/macos/nametool.pri)

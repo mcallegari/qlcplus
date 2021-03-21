@@ -374,7 +374,7 @@ bool LibFTDIInterface::clearRts()
     }
 }
 
-#if defined(LIBFTDI1)
+#if defined(NEW_LIBFTDI1)
 bool LibFTDIInterface::flushBuffers()
 {
     if (ftdi_tcioflush(&m_handle) < 0)
