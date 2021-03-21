@@ -83,7 +83,7 @@ CONFIG(libftdi) {
 
         ftdi1 = $$findPackage(libftdi1)
         equals(ftdi1, 0) {
-            error("libftdi1 is not installed")
+           # nothing
         } else:!versionAtLeast(ftdi1, 1.5) {
            # nothing
         } else {
