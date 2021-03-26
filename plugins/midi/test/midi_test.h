@@ -28,6 +28,9 @@ class Midi_Test : public QObject
 
 private slots:
     void midiToInput();
+    void feedbackToMidi();
+    void feedbackToMidi_omni();
+    void feedbackToMidi_omni_paged();
 };
 
 #endif
