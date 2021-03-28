@@ -374,9 +374,15 @@ bool LibFTDIInterface::clearRts()
     }
 }
 
+#if defined(NEW_LIBFTDI1)
+bool LibFTDIInterface::flushBuffers()
+{
+    if (ftdi_tcioflush(&m_handle) < 0)
+#else
 bool LibFTDIInterface::purgeBuffers()
 {
     if (ftdi_usb_purge_buffers(&m_handle) < 0)
+#endif
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
         return false;
