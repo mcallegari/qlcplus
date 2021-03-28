@@ -174,11 +174,7 @@ public:
     virtual bool clearRts() = 0;
 
     /** Purge/Flush TX & RX buffers, depending on found version */
-#if defined(LIBFTDI1)
-    virtual bool flushBuffers() = 0;
-#else
     virtual bool purgeBuffers() = 0;
-#endif
 
     /** Toggle communications line BREAK condition on/off */
     virtual bool setBreak(bool on) = 0;

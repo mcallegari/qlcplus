@@ -222,22 +222,14 @@ void Stageprofi::run()
             if (interface()->write(fastTrans) == false)
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-#if defined(NEW_LIBFTDI1)
-                interface()->flushBuffers();
-#else
                 interface()->purgeBuffers();
-#endif
                 continue;
             }
             else
             {
                 m_outputLines[0].m_compareData[i] = val;
                 if (checkReply() == false)
-#if defined(NEW_LIBFTDI1)
-                    interface()->flushBuffers();
-#else
                     interface()->purgeBuffers();
-#endif
             }
         }
 
