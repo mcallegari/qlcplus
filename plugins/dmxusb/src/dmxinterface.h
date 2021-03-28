@@ -173,7 +173,7 @@ public:
     /** Clear the RTS bit */
     virtual bool clearRts() = 0;
 
-    /** Purge/Flush TX & RX buffers, depending on found version */
+    /** Purge TX & RX buffers */
     virtual bool purgeBuffers() = 0;
 
     /** Toggle communications line BREAK condition on/off */
