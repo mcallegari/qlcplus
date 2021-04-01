@@ -141,9 +141,9 @@ void NetworkManager::sendAction(int code, TardisAction action)
 
 QString NetworkManager::defaultName()
 {
-    for (QNetworkInterface interface : QNetworkInterface::allInterfaces())
+    for (QNetworkInterface iface : QNetworkInterface::allInterfaces())
     {
-        for (QNetworkAddressEntry entry : interface.addressEntries())
+        for (QNetworkAddressEntry entry : iface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
@@ -410,13 +410,13 @@ bool NetworkManager::initializeClient()
     m_packetizer->addSection(packet, QVariant(m_hostName));
 
     /* now send the packet on every network interface */
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
             if (entry.ip().protocol() != QAbstractSocket::IPv6Protocol && entry.ip() != QHostAddress::LocalHost)
             {
-                qDebug() << "Sending announcement on" << interface.name();
+                qDebug() << "Sending announcement on" << iface.name();
                 m_udpSocket->writeDatagram(packet, entry.broadcast(), DEFAULT_UDP_PORT);
             }
         }
