@@ -97,7 +97,7 @@ var testAlgo;
       let offx = Math.abs(Math.round(rx - algo.obj[i].x));
       let offy = Math.abs(Math.round(ry - algo.obj[i].y));
       let distance = Math.sqrt(offx * offx + offy * offy);
-      let angle = getAngle(i, rx, ry) + algo.obj[i].random * algo.twoPi;
+      let angle = getAngle(i, rx, ry)
       let baseIntensity = 0.99;
       let leafs = 5;
       
@@ -105,6 +105,8 @@ var testAlgo;
     	  leafs = 4;
       }
 
+      // Turn each object by a random angle
+      angle += algo.obj[i].random * algo.twoPi;
       // Repeat and normalize the pattern
       angle = leafs * angle;
       angle = (angle + algo.twoPi) % (algo.twoPi);
@@ -120,6 +122,14 @@ var testAlgo;
       let factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
       factor = Math.max(factorC, factor);
 
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let pentagonAlgo = new Object;
+    pentagonAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      let tips = 5;
+      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips);
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -189,6 +199,8 @@ var testAlgo;
       let percent = 0;
       let handles = 6;
 
+      // Turn each object by a random angle
+      angle += algo.obj[i].random * algo.twoPi;
       // Repeat and normalize the pattern
       angle = handles * angle;
       angle = (angle + algo.twoPi) % (algo.twoPi);
@@ -234,6 +246,14 @@ var testAlgo;
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
+    let squareAlgo = new Object;
+    squareAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      let tips = 4;
+      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips);
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
     let starAlgo = new Object;
     starAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
@@ -242,35 +262,31 @@ var testAlgo;
       let offx = Math.abs(Math.round(rx - algo.obj[i].x));
       let offy = Math.abs(Math.round(ry - algo.obj[i].y));
       let distance = Math.sqrt(offx * offx + offy * offy);
+      let baseIntensity = 0.3;
+      let tips = 5;
+      
       let angle = getAngle(i, rx, ry);
-      let baseIntensity = 0.99;
-
       // Repeat and normalize the pattern
-      angle = 5 * angle;
+      angle = tips * angle;
       angle = (angle + algo.twoPi) % (algo.twoPi);
 
-      let factor = 1;
+      // Calculate color pixel positions, base color
+      let distPercent = distance / algo.presetRadius;
+      let factor = baseIntensity + (1 - baseIntensity)
+        * (Math.abs(angle - Math.PI) / algo.twoPi
+          + (1 - distPercent));
 
-      // Calculate color pixel positions
-      if ( // The tips
-        // Top and bottom tips
-        (offy > Math.floor(algo.realsize / 4) && offy <= algo.realsize / 2 &&
-          offx <= Math.floor(algo.realsize / 2) - offy) ||
-        // Outer tips
-        (offy >= 0 && offy <= Math.floor(algo.realsize / 4) &&
-          offx <= offy + Math.round(algo.realsize / 4))
-      ) {
-        // add the color to the algo.mapped location
-//        factor = (1 - baseIntensity) * Math.abs(angle - Math.PI) / algo.twoPi + baseIntensity;
-      }
-      // Sunflower
-//      let scaling = (1 - baseIntensity) + (angle - Math.PI) / algo.twoPi * baseIntensity;
-//      let percent = Math.min(1, distance / algo.presetRadius + scaling);
+      angle = getAngle(i, rx, ry) + Math.PI;
+      // Repeat and normalize the pattern
+      angle = tips * angle;
+      angle = (angle + algo.twoPi) % (algo.twoPi);
+      let anglePercent = Math.abs(angle - Math.PI) / Math.PI;
+      distPercent = distance / ((1 - anglePercent * 0.4) * algo.presetRadius);
 
-      let scaling = Math.abs(angle - Math.PI) / algo.twoPi * 1.1;
-      let percent = Math.min(1, distance / algo.presetRadius + scaling);
-//      factor *= Math.acos(1 / ((1 - percent / 5) - (angle / algo.twoPi) + 1)) / (algo.halfPi);
-      factor *= Math.acos(1 / ((1 - percent) * 5 + 1)) / (algo.halfPi);
+//      factor = blindoutPercent(1 - (distPercent + 0.5 * anglePercent), 3);
+//      factor = blindoutPercent(1 - (Math.max(0.5, distPercent + 1.0 * anglePercent)), 3);
+      factor = blindoutPercent(1 - distPercent, 3);
+
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -398,6 +414,14 @@ var testAlgo;
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     };
 
+    let triangleAlgo = new Object;
+    triangleAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      let tips = 3;
+      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips);
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
     let ufoAlgo = new Object;
     ufoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
@@ -487,13 +511,16 @@ var testAlgo;
       ["Bell", bellAlgo],
       ["Diamond", diamondAlgo],
       ["Flower", flowerAlgo],
+      ["Pentagon", pentagonAlgo],
       ["Ring", ringAlgo],
       ["Snowflake", snowflakeAlgo],
       ["Snowman", snowmanAlgo],
+      ["Sqare", squareAlgo],
       ["Star", starAlgo],
       ["Steeringwheel", steeringwheelAlgo],
-      ["Tree", treeAlgo],
       ["Tornado", tornadoAlgo],
+      ["Tree", treeAlgo],
+      ["Triangle", triangleAlgo],
       ["Ufo", ufoAlgo],
       ["Ventilator", ventilatorAlgo],
     );
@@ -625,6 +652,53 @@ var testAlgo;
 
     // General Purpose Functions ------------------
 
+	let geometryCalc = new Object;
+	geometryCalc.cache = {
+      presetRadius: 0,
+    };
+	geometryCalc.updateCache = function(tips)
+    {
+	  geometryCalc.cache.targetHeight =
+        Math.sin(algo.twoPi / tips / 3) * algo.presetRadius;
+	  geometryCalc.cache.innerRadius =
+        Math.PI * algo.presetRadius / (3 * Math.sqrt(tips));
+	  geometryCalc.cache.diffRadius =
+        algo.presetRadius - geometryCalc.cache.innerRadius;
+	  geometryCalc.cache.r =
+        algo.twoPi / tips / 2;
+	  geometryCalc.cache.presetRadius = algo.presetRadius;
+	  geometryCalc.cache.tips = tips;
+    }
+	geometryCalc.getMapPixelFactor = function(i, rx, ry, tips)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let factor = 0;
+      
+      if (geometryCalc.cache.presetRadius != algo.presetRadius ||
+        geometryCalc.cache.tips != tips) {
+        geometryCalc.updateCache(tips);
+      }
+      
+      // Turn each object by a random angle
+      angle += algo.twoPi * algo.obj[i].random;
+
+      let anglePart = (angle + geometryCalc.cache.r) % (algo.twoPi / tips)
+        - geometryCalc.cache.r;
+      let targetDistance = geometryCalc.cache.targetHeight /
+        Math.cos(anglePart);
+      let distPercent = distance / targetDistance;
+
+      factor = blindoutPercent(1 - distPercent, 3);
+
+      return factor;
+    }
+
+	
     // calculate the angle from 0 to 2 pi startin north and counting clockwise
     function getAngle(i, rx, ry)
     {
@@ -632,7 +706,7 @@ var testAlgo;
         let offy = ry - algo.obj[i].y;
         let angle = 0;
         // catch offx == 0
-        if (offx === 0) {
+        if (offx == 0) {
           // This where the asymptote goes
       	  if (offy < 0) {
       		angle = -1 * Math.PI / 2;
@@ -649,7 +723,20 @@ var testAlgo;
         }
         return angle;
     }
-
+    
+    // triangle funktion: 0 = 0; 0.5 = 1; 1 = 1
+    // try at https://www.geogebra.org/graphing
+    // 1/2 (sqrt(sin^(2)((x-o) (π)/(c)))-sqrt(sin^(2)((x-o) (π)/(c)+(π)/(2)))+1)
+    // compress factor is usualy 1 for the mentioned result, can be 2 for expansion
+    // 2: 0 = 0; 1 = 1: 2 = 0;
+    function triangleFunction(percent, compression = 1, offset = 0)
+    {
+      let base = (percent - offset) * Math.PI / compression;
+      let sin1 = Math.sin(base);
+      let sin2 = Math.sin(base + algo.halfPi); 
+      return 0.5 * (Math.abs(sin1) - Math.abs(sin2) + 1);
+    }
+    
     // Combine RGB color from color channels
     function mergeRgb(r, g, b)
     {
@@ -681,6 +768,21 @@ var testAlgo;
       // set algo.mapped point
       return mergeRgb(pointr, pointg, pointb);
     }
+    
+    // Blind out towards 0 percent
+    function blindoutPercent(percent, sharpness = 1)
+    {
+      if (percent < 0) {
+        return 0;
+      }
+      // Normalize input
+      percent = Math.min(1, percent);
+      // asec consumes values > 1. asec(x) = acos(1/x)
+      let factor = Math.min(1, Math.acos(1 /
+        (Math.sqrt(sharpness * percent * percent) + 1)
+      ) * algo.halfPi);
+      return factor;
+    }
 
     // Key Functions ------------------------------
 
@@ -696,7 +798,10 @@ var testAlgo;
           // General-purpose random number per object
           random: Math.random(),
         };
-          // set random directions
+        // For development align objects centered.
+        algo.obj[i].x = (width /2);
+        algo.obj[i].y = (height / 2);
+        // set random directions
         do {
           do {
             algo.obj[i].xDirection = (Math.random() * 2) - 1;
@@ -760,7 +865,7 @@ var testAlgo;
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
               // DEVELOPMENT: Draw a box for debugging.
-              //algo.map[ry][rx] = getColor(0, 0, 40, algo.map[ry][rx]);
+              algo.map[ry][rx] = getColor(0, 0, 80, algo.map[ry][rx]);
 
               // add the object color to the mapped location
               algo.map[ry][rx] = shape.getMapPixelColor(i, rx, ry, r, g, b);
