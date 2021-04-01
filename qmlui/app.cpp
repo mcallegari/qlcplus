@@ -437,10 +437,10 @@ void App::printItem(QQuickItem *item)
 void App::slotItemReadyForPrinting()
 {
     QPrinter printer;
-    QPrintDialog *dlg = new QPrintDialog(&printer, 0);
+    QPrintDialog *dlg = new QPrintDialog(&printer);
     if(dlg->exec() == QDialog::Accepted)
     {
-        QRectF pageRect = printer.pageRect();
+        QRectF pageRect = printer.pageLayout().paintRect();
         QSize imgSize = m_printerImage->image().size();
         int totalHeight = imgSize.height();
         int yOffset = 0;
