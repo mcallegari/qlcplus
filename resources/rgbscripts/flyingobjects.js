@@ -125,11 +125,19 @@ var testAlgo;
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
+    let hexagonAlgo = new Object;
+    hexagonAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      let tips = 6;
+      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 1.5, 0);
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
     let pentagonAlgo = new Object;
     pentagonAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       let tips = 5;
-      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips);
+      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 1.5, Math.PI);
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -250,7 +258,11 @@ var testAlgo;
     squareAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       let tips = 4;
-      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips);
+      let rotation = algo.obj[i].random;
+      if (algo.presetSize < 8) {
+    	  rotation = 0;
+      }
+      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 1.5, rotation);
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -418,7 +430,11 @@ var testAlgo;
     triangleAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       let tips = 3;
-      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips);
+      let rotation = algo.obj[i].random;
+      if (algo.presetSize < 10) {
+    	  rotation = Math.PI;
+      }
+      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 3, rotation);
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -511,11 +527,12 @@ var testAlgo;
       ["Bell", bellAlgo],
       ["Diamond", diamondAlgo],
       ["Flower", flowerAlgo],
+      ["Hexagon", hexagonAlgo],
       ["Pentagon", pentagonAlgo],
       ["Ring", ringAlgo],
       ["Snowflake", snowflakeAlgo],
       ["Snowman", snowmanAlgo],
-      ["Sqare", squareAlgo],
+      ["Square", squareAlgo],
       ["Star", starAlgo],
       ["Steeringwheel", steeringwheelAlgo],
       ["Tornado", tornadoAlgo],
@@ -658,18 +675,25 @@ var testAlgo;
     };
 	geometryCalc.updateCache = function(tips)
     {
-	  geometryCalc.cache.targetHeight =
-        Math.sin(algo.twoPi / tips / 3) * algo.presetRadius;
-	  geometryCalc.cache.innerRadius =
-        Math.PI * algo.presetRadius / (3 * Math.sqrt(tips));
-	  geometryCalc.cache.diffRadius =
-        algo.presetRadius - geometryCalc.cache.innerRadius;
+	  if (tips === 6) {
+        geometryCalc.cache.innerRadius =
+          0.866 * algo.presetRadius;
+	  } else if (tips === 5) {
+	    geometryCalc.cache.innerRadius =
+          0.688 * algo.presetRadius / 0.851; 
+	  } else if (tips === 4) {
+        geometryCalc.cache.innerRadius =
+          algo.presetRadius * 0.707;
+	  } else { // tips === 3
+        geometryCalc.cache.innerRadius =
+          algo.presetRadius / 2;
+	  }
 	  geometryCalc.cache.r =
         algo.twoPi / tips / 2;
 	  geometryCalc.cache.presetRadius = algo.presetRadius;
 	  geometryCalc.cache.tips = tips;
     }
-	geometryCalc.getMapPixelFactor = function(i, rx, ry, tips)
+	geometryCalc.getMapPixelFactor = function(i, rx, ry, tips, sharpness = 3, turn = 0)
     {
       // calculate the offset difference of algo.map location to the float
       // location of the object
@@ -685,15 +709,15 @@ var testAlgo;
       }
       
       // Turn each object by a random angle
-      angle += algo.twoPi * algo.obj[i].random;
+      angle += turn;
 
       let anglePart = (angle + geometryCalc.cache.r) % (algo.twoPi / tips)
         - geometryCalc.cache.r;
-      let targetDistance = geometryCalc.cache.targetHeight /
+      let targetDistance = geometryCalc.cache.innerRadius /
         Math.cos(anglePart);
       let distPercent = distance / targetDistance;
 
-      factor = blindoutPercent(1 - distPercent, 3);
+      factor = blindoutPercent(1 - distPercent, sharpness);
 
       return factor;
     }
@@ -799,8 +823,8 @@ var testAlgo;
           random: Math.random(),
         };
         // For development align objects centered.
-        algo.obj[i].x = (width /2);
-        algo.obj[i].y = (height / 2);
+        //algo.obj[i].x = (width /2);
+        //algo.obj[i].y = (height / 2);
         // set random directions
         do {
           do {
