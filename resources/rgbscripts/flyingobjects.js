@@ -129,7 +129,16 @@ var testAlgo;
     hexagonAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       let tips = 6;
-      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 1.5, 0);
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let targetDistance = geometryCalc.getTargetDistance(angle, tips);
+      let distPercent = distance / targetDistance ;
+      let factor = blindoutPercent(1 - distPercent, 1.5);
+
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -137,7 +146,16 @@ var testAlgo;
     pentagonAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       let tips = 5;
-      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 1.5, Math.PI);
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = (getAngle(i, rx, ry) + Math.PI) % algo.twoPi;
+      let targetDistance = geometryCalc.getTargetDistance(angle, tips);
+      let distPercent = distance / targetDistance ;
+      let factor = blindoutPercent(1 - distPercent, 1.5);
+
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -258,46 +276,75 @@ var testAlgo;
     squareAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       let tips = 4;
-      let rotation = algo.obj[i].random;
-      if (algo.presetSize < 8) {
-    	  rotation = 0;
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      if (algo.presetSize >= 8) {
+    	  let rotation = algo.twoPi * algo.obj[i].random;
+    	  angle = (angle + rotation) % algo.twoPi;
       }
-      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 1.5, rotation);
+      let targetDistance = geometryCalc.getTargetDistance(angle, tips);
+      let distPercent = distance / targetDistance ;
+      let factor = blindoutPercent(1 - distPercent, 1.5);
+
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
     let starAlgo = new Object;
     starAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
-      // calculate the offset difference of algo.map location to the float
-      // location of the object
-      let offx = Math.abs(Math.round(rx - algo.obj[i].x));
-      let offy = Math.abs(Math.round(ry - algo.obj[i].y));
-      let distance = Math.sqrt(offx * offx + offy * offy);
-      let baseIntensity = 0.3;
-      let tips = 5;
-      
-      let angle = getAngle(i, rx, ry);
-      // Repeat and normalize the pattern
-      angle = tips * angle;
-      angle = (angle + algo.twoPi) % (algo.twoPi);
+//      // calculate the offset difference of algo.map location to the float
+//      // location of the object
+//      let offx = Math.abs(Math.round(rx - algo.obj[i].x));
+//      let offy = Math.abs(Math.round(ry - algo.obj[i].y));
+//      let distance = Math.sqrt(offx * offx + offy * offy);
+//      let baseIntensity = 0.3;
+//      let tips = 5;
+//      
+//      let angle = getAngle(i, rx, ry);
+//      // Repeat and normalize the pattern
+//      angle = tips * angle;
+//      angle = (angle + algo.twoPi) % (algo.twoPi);
+//
+//      // Calculate color pixel positions, base color
+//      let distPercent = distance / algo.presetRadius;
+//      let factor = baseIntensity + (1 - baseIntensity)
+//        * (Math.abs(angle - Math.PI) / algo.twoPi
+//          + (1 - distPercent));
+//
+//      angle = getAngle(i, rx, ry) + Math.PI;
+//      // Repeat and normalize the pattern
+//      angle = tips * angle;
+//      angle = (angle + algo.twoPi) % (algo.twoPi);
+//      let anglePercent = Math.abs(angle - Math.PI) / Math.PI;
+//      distPercent = distance / ((1 - anglePercent * 0.4) * algo.presetRadius);
 
-      // Calculate color pixel positions, base color
-      let distPercent = distance / algo.presetRadius;
-      let factor = baseIntensity + (1 - baseIntensity)
-        * (Math.abs(angle - Math.PI) / algo.twoPi
-          + (1 - distPercent));
-
-      angle = getAngle(i, rx, ry) + Math.PI;
-      // Repeat and normalize the pattern
-      angle = tips * angle;
-      angle = (angle + algo.twoPi) % (algo.twoPi);
-      let anglePercent = Math.abs(angle - Math.PI) / Math.PI;
-      distPercent = distance / ((1 - anglePercent * 0.4) * algo.presetRadius);
+//      factor = geometryCalc.getTargetDistance(angle, tips);
 
 //      factor = blindoutPercent(1 - (distPercent + 0.5 * anglePercent), 3);
 //      factor = blindoutPercent(1 - (Math.max(0.5, distPercent + 1.0 * anglePercent)), 3);
-      factor = blindoutPercent(1 - distPercent, 3);
+//      factor = blindoutPercent(1 - distPercent, 3);
+
+//      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+      let tips = 5;
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let targetDistance = geometryCalc.getTargetDistance(angle, tips);
+      let tipsAngle = tips * angle;
+//      tipsAngle = (tipsAngle + Math.PI) % (algo.twoPi);
+//      let anglePercent = Math.abs(tipsAngle - Math.PI) / Math.PI;
+      tipsAngle = (angle) % (algo.twoPi / tips);
+      let anglePercent = Math.sin(tipsAngle);
+      let contraTip = 0 * targetDistance * anglePercent;
+      let distPercent = distance / (targetDistance - contraTip);
+      let factor = blindoutPercent(1 - distPercent, 3);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -430,11 +477,20 @@ var testAlgo;
     triangleAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       let tips = 3;
-      let rotation = algo.obj[i].random;
+      let rotation = algo.twoPi * algo.obj[i].random;
       if (algo.presetSize < 10) {
     	  rotation = Math.PI;
       }
-      let factor = geometryCalc.getMapPixelFactor(i, rx, ry, tips, 3, rotation);
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = (getAngle(i, rx, ry) + rotation) % algo.twoPi;
+      let targetDistance = geometryCalc.getTargetDistance(angle, tips);
+      let distPercent = distance / targetDistance ;
+      let factor = blindoutPercent(1 - distPercent, 3);
+
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
@@ -693,36 +749,21 @@ var testAlgo;
 	  geometryCalc.cache.presetRadius = algo.presetRadius;
 	  geometryCalc.cache.tips = tips;
     }
-	geometryCalc.getMapPixelFactor = function(i, rx, ry, tips, sharpness = 3, turn = 0)
+	geometryCalc.getTargetDistance = function(angle, tips)
     {
-      // calculate the offset difference of algo.map location to the float
-      // location of the object
-      let offx = Math.abs(rx - algo.obj[i].x);
-      let offy = Math.abs(ry - algo.obj[i].y);
-      let distance = Math.sqrt(offx * offx + offy * offy);
-      let angle = getAngle(i, rx, ry);
-      let factor = 0;
-      
       if (geometryCalc.cache.presetRadius != algo.presetRadius ||
         geometryCalc.cache.tips != tips) {
         geometryCalc.updateCache(tips);
       }
       
-      // Turn each object by a random angle
-      angle += turn;
-
       let anglePart = (angle + geometryCalc.cache.r) % (algo.twoPi / tips)
         - geometryCalc.cache.r;
       let targetDistance = geometryCalc.cache.innerRadius /
         Math.cos(anglePart);
-      let distPercent = distance / targetDistance;
 
-      factor = blindoutPercent(1 - distPercent, sharpness);
-
-      return factor;
+      return targetDistance;
     }
 
-	
     // calculate the angle from 0 to 2 pi startin north and counting clockwise
     function getAngle(i, rx, ry)
     {
@@ -748,18 +789,18 @@ var testAlgo;
         return angle;
     }
     
-    // triangle funktion: 0 = 0; 0.5 = 1; 1 = 1
+    // triangle funktion: c=1; o=0; 0=0, 0.5=1, 1=0
     // try at https://www.geogebra.org/graphing
     // 1/2 (sqrt(sin^(2)((x-o) (π)/(c)))-sqrt(sin^(2)((x-o) (π)/(c)+(π)/(2)))+1)
     // compress factor is usualy 1 for the mentioned result, can be 2 for expansion
     // 2: 0 = 0; 1 = 1: 2 = 0;
-    function triangleFunction(percent, compression = 1, offset = 0)
-    {
-      let base = (percent - offset) * Math.PI / compression;
-      let sin1 = Math.sin(base);
-      let sin2 = Math.sin(base + algo.halfPi); 
-      return 0.5 * (Math.abs(sin1) - Math.abs(sin2) + 1);
-    }
+//    function triangleFunction(percent, compression = 1, offset = 0)
+//    {
+//      let base = (percent - offset) * Math.PI / compression;
+//      let sin1 = Math.sin(base);
+//      let sin2 = Math.sin(base + algo.halfPi); 
+//      return 0.5 * (Math.abs(sin1) - Math.abs(sin2) + 1);
+//    }
     
     // Combine RGB color from color channels
     function mergeRgb(r, g, b)
