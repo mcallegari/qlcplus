@@ -101,13 +101,7 @@ QVariantList EditorView::channels() const
     QVariantList list;
 
     for (QLCChannel *channel : m_fixtureDef->channels())
-    {
-        QVariantMap chMap;
-        chMap.insert("mIcon", channel->getIconNameFromGroup(channel->group(), true));
-        chMap.insert("mLabel", channel->name());
-        chMap.insert("mGroup", channel->groupToString(channel->group()));
-        list.append(chMap);
-    }
+        list.append(QVariant::fromValue(channel));
 
     return list;
 }

@@ -67,15 +67,53 @@ Rectangle
                         GridLayout
                         {
                             width: Math.min(editorRoot.width / 2, parent.width)
-                            columns: 2
+                            columns: 3
 
-                            // row 1
+                            // row 2
                             RobotoText { label: qsTr("Manufacturer") }
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
                                 text: fixtureEditor ? fixtureEditor.manufacturer : ""
                                 onTextChanged: if (fixtureEditor) fixtureEditor.manufacturer = text
+                            }
+
+                            // row 1
+                            GroupBox
+                            {
+                                title: qsTr("Type")
+                                Layout.rowSpan: 3
+                                implicitWidth: UISettings.bigItemHeight + rightPadding * 2
+                                font.family: UISettings.robotoFontName
+                                font.pixelSize: UISettings.textSizeDefault
+                                palette.windowText: UISettings.fgMain
+
+                                IconPopupButton
+                                {
+                                    ListModel
+                                    {
+                                        id: typeModel
+                                        ListElement { mLabel: "Color Changer"; mIcon: "qrc:/fixture.svg" }
+                                        ListElement { mLabel: "Dimmer"; mIcon: "qrc:/dimmer.svg" }
+                                        ListElement { mLabel: "Effect"; mIcon: "qrc:/effect.svg" }
+                                        ListElement { mLabel: "Fan"; mIcon: "qrc:/fan.svg" }
+                                        ListElement { mLabel: "Flower"; mIcon: "qrc:/flower.svg" }
+                                        ListElement { mLabel: "Hazer"; mIcon: "qrc:/hazer.svg" }
+                                        ListElement { mLabel: "Laser"; mIcon: "qrc:/laser.svg" }
+                                        ListElement { mLabel: "LED Bar (Beams)"; mIcon: "qrc:/ledbar_beams.svg" }
+                                        ListElement { mLabel: "LED Bar (Pixels)"; mIcon: "qrc:/ledbar_pixels.svg" }
+                                        ListElement { mLabel: "Moving Head"; mIcon: "qrc:/movinghead.svg" }
+                                        ListElement { mLabel: "Other"; mIcon: "qrc:/other.svg" }
+                                        ListElement { mLabel: "Scanner"; mIcon: "qrc:/scanner.svg" }
+                                        ListElement { mLabel: "Smoke"; mIcon: "qrc:/smoke.svg" }
+                                        ListElement { mLabel: "Strobe"; mIcon: "qrc:/strobe.svg" }
+                                    }
+
+                                    implicitHeight: UISettings.bigItemHeight
+                                    delegateHeight: UISettings.listItemHeight
+                                    width: UISettings.bigItemHeight
+                                    model: typeModel
+                                }
                             }
 
                             // row 2
@@ -85,35 +123,6 @@ Rectangle
                                 Layout.fillWidth: true
                                 text: fixtureEditor ? fixtureEditor.model : ""
                                 onTextChanged: if (fixtureEditor) fixtureEditor.model = text
-                            }
-
-                            // row 3
-                            RobotoText { label: qsTr("Type") }
-                            CustomComboBox
-                            {
-                                ListModel
-                                {
-                                    id: typeModel
-                                    ListElement { mLabel: "Color Changer"; mIcon: "qrc:/fixture.svg" }
-                                    ListElement { mLabel: "Dimmer"; mIcon: "qrc:/dimmer.svg" }
-                                    ListElement { mLabel: "Effect"; mIcon: "qrc:/effect.svg" }
-                                    ListElement { mLabel: "Fan"; mIcon: "qrc:/fan.svg" }
-                                    ListElement { mLabel: "Flower"; mIcon: "qrc:/flower.svg" }
-                                    ListElement { mLabel: "Hazer"; mIcon: "qrc:/hazer.svg" }
-                                    ListElement { mLabel: "Laser"; mIcon: "qrc:/laser.svg" }
-                                    ListElement { mLabel: "LED Bar (Beams)"; mIcon: "qrc:/ledbar_beams.svg" }
-                                    ListElement { mLabel: "LED Bar (Pixels)"; mIcon: "qrc:/ledbar_pixels.svg" }
-                                    ListElement { mLabel: "Moving Head"; mIcon: "qrc:/movinghead.svg" }
-                                    ListElement { mLabel: "Other"; mIcon: "qrc:/other.svg" }
-                                    ListElement { mLabel: "Scanner"; mIcon: "qrc:/scanner.svg" }
-                                    ListElement { mLabel: "Smoke"; mIcon: "qrc:/smoke.svg" }
-                                    ListElement { mLabel: "Strobe"; mIcon: "qrc:/strobe.svg" }
-                                }
-
-                                Layout.fillWidth: true
-                                implicitHeight: UISettings.iconSizeDefault
-                                delegateHeight: UISettings.iconSizeDefault
-                                model: typeModel
                             }
 
                             // row 4
@@ -221,6 +230,7 @@ Rectangle
                                             height: parent.height
                                             propagateComposedEvents: true
 
+                                            property QLCChannel channel: modelData
                                             property bool dragActive: drag.active
 
                                             drag.target: cDragItem
@@ -231,7 +241,7 @@ Rectangle
                                             onDoubleClicked:
                                             {
                                                 sideEditor.source = ""
-                                                sideEditor.itemName = modelData.mLabel
+                                                sideEditor.itemName = delegateRoot.channel.name
                                                 sideEditor.source = "qrc:/ChannelEditor.qml"
                                             }
 
@@ -247,8 +257,8 @@ Rectangle
                                             {
                                                 width: channelList.width
                                                 height: UISettings.listItemHeight
-                                                tLabel: modelData.mLabel
-                                                iSrc: modelData.mIcon
+                                                tLabel: delegateRoot.channel.name
+                                                iSrc: delegateRoot.channel.getIconNameFromGroup(delegateRoot.channel.group, true)
                                             }
 
                                             Rectangle

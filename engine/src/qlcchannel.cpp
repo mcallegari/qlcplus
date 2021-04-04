@@ -157,6 +157,7 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
         return;
 
     m_preset = preset;
+    emit presetChanged();
 
     if (preset == Custom)
         return;
@@ -674,9 +675,18 @@ QLCChannel::Group QLCChannel::stringToGroup(const QString& str)
         return NoGroup;
 }
 
+QString QLCChannel::groupString() const
+{
+    return groupToString(m_group);
+}
+
 void QLCChannel::setGroup(Group grp)
 {
+    if (grp == m_group)
+        return;
+
     m_group = grp;
+    emit groupChanged();
 }
 
 QLCChannel::Group QLCChannel::group() const
@@ -821,7 +831,11 @@ QString QLCChannel::name() const
 
 void QLCChannel::setName(const QString &name)
 {
+    if (name == m_name)
+        return;
+
     m_name = name;
+    emit nameChanged();
 }
 
 uchar QLCChannel::defaultValue() const

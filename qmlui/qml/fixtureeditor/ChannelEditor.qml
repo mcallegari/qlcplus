@@ -29,11 +29,13 @@ GridLayout
     columns: 4
 
     property EditorRef fixtureEditor: null
-    property ChannelEdit channel: null
+    property ChannelEdit editor: null
+    property QLCChannel channel: null
 
     function setItemName(name)
     {
-        channel = fixtureEditor.requestChannelEditor(name)
+        editor = fixtureEditor.requestChannelEditor(name)
+        channel = editor.channel
         nameEdit.selectAndFocus()
     }
 
@@ -55,7 +57,7 @@ GridLayout
         Layout.fillWidth: true
         Layout.columnSpan: 3
 
-        model: channel ? channel.channelPresetList : null
+        model: editor ? editor.channelPresetList : null
         currentIndex: channel ? channel.preset : 0
         onCurrentIndexChanged: if (channel) channel.preset = currentIndex
     }
@@ -66,7 +68,7 @@ GridLayout
     {
         Layout.fillWidth: true
         enabled: channel ? (channel.preset ? false : true) : false
-        model: channel ? channel.channelTypeList : null
+        model: editor ? editor.channelTypeList : null
         currValue: channel ? channel.group : 0
     }
 
@@ -124,7 +126,7 @@ GridLayout
         }
     }
 
-    // row 5 - editor
+    // row 5 - capability editor
     Rectangle
     {
         Layout.columnSpan: 4
@@ -140,12 +142,16 @@ GridLayout
             boundsBehavior: Flickable.StopAtBounds
             headerPositioning: ListView.OverlayHeader
             clip: true
-            model: channel ? channel.capabilities : null
+            model: editor ? editor.capabilities : null
 
             property int selectedRow: -1
 
             function editRow(index, compIndex)
             {
+                // capabilities cannot be edited on channel presets
+                if (channel && channel.preset != 0)
+                    return
+
                 if (index < 0)
                 {
                     editItem.visible = false
@@ -163,29 +169,29 @@ GridLayout
                 editItem.focusItem(compIndex)
 
                 // setup the capability preset items
-                capPresetCombo.currentIndex = channel.getCapabilityPresetAtIndex(index)
-                presetBox.presetType = channel.getCapabilityPresetType(index)
+                capPresetCombo.currentIndex = editor.getCapabilityPresetAtIndex(index)
+                presetBox.presetType = editor.getCapabilityPresetType(index)
 
                 switch (presetBox.presetType)
                 {
                     case QLCCapability.SingleColor:
-                        colorPreview.primary = channel.getCapabilityValueAt(index, 0)
+                        colorPreview.primary = editor.getCapabilityValueAt(index, 0)
                     break
                     case QLCCapability.DoubleColor:
-                        colorPreview.primary = channel.getCapabilityValueAt(index, 0)
-                        colorPreview.secondary = channel.getCapabilityValueAt(index, 1)
+                        colorPreview.primary = editor.getCapabilityValueAt(index, 0)
+                        colorPreview.secondary = editor.getCapabilityValueAt(index, 1)
                     break
                     case QLCCapability.Picture:
-                        goboPicture.source = "file://" + channel.getCapabilityValueAt(index, 0)
+                        goboPicture.source = "file://" + editor.getCapabilityValueAt(index, 0)
                     break
                     case QLCCapability.SingleValue:
-                        pValueSpin.value = channel.getCapabilityValueAt(index, 0)
-                        pValueSpin.suffix = channel.getCapabilityPresetUnits(index)
+                        pValueSpin.value = editor.getCapabilityValueAt(index, 0)
+                        pValueSpin.suffix = editor.getCapabilityPresetUnits(index)
                     break
                     case QLCCapability.DoubleValue:
-                        pValueSpin.value = channel.getCapabilityValueAt(index, 0)
-                        pValueSpin.suffix = channel.getCapabilityPresetUnits(index)
-                        sValueSpin.value = channel.getCapabilityValueAt(index, 1)
+                        pValueSpin.value = editor.getCapabilityValueAt(index, 0)
+                        pValueSpin.suffix = editor.getCapabilityPresetUnits(index)
+                        sValueSpin.value = editor.getCapabilityValueAt(index, 1)
                         sValueSpin.suffix = pValueSpin.suffix
                     break
                     default:
@@ -382,7 +388,7 @@ GridLayout
             {
                 id: capPresetCombo
                 Layout.fillWidth: true
-                model: channel ? channel.capabilityPresetList : null
+                model: editor ? editor.capabilityPresetList : null
                 //currValue: channel ? channel.group : 0
             }
 

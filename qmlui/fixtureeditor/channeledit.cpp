@@ -35,6 +35,11 @@ ChannelEdit::~ChannelEdit()
 
 }
 
+QLCChannel *ChannelEdit::channel()
+{
+    return m_channel;
+}
+
 QVariantList ChannelEdit::channelPresetList() const
 {
     QVariantList list;
@@ -115,92 +120,6 @@ QVariantList ChannelEdit::channelTypeList() const
     }
 
     return list;
-}
-
-QString ChannelEdit::name() const
-{
-    return m_channel->name();
-}
-
-void ChannelEdit::setName(QString name)
-{
-    if (name == m_channel->name())
-        return;
-
-    m_channel->setName(name);
-    emit nameChanged();
-}
-
-int ChannelEdit::preset() const
-{
-    return int(m_channel->preset());
-}
-
-void ChannelEdit::setPreset(int index)
-{
-    if (index == int(m_channel->preset()))
-        return;
-
-    if (index)
-        m_channel->setName("");
-
-    m_channel->setPreset(QLCChannel::Preset(index));
-    emit presetChanged();
-
-    if (index == 0)
-        return;
-
-    emit nameChanged();
-    emit groupChanged();
-    emit controlByteChanged();
-
-    for(QLCCapability *cap : m_channel->capabilities())
-        m_channel->removeCapability(cap);
-
-    m_channel->addPresetCapability();
-    emit capabilitiesChanged();
-}
-
-int ChannelEdit::group() const
-{
-    if (m_channel->group() == QLCChannel::Intensity &&
-        m_channel->colour() != QLCChannel::NoColour)
-        return m_channel->colour();
-
-    return m_channel->group();
-}
-
-void ChannelEdit::setGroup(int group)
-{
-    Q_UNUSED(group)
-}
-
-int ChannelEdit::controlByte() const
-{
-    return m_channel->controlByte();
-}
-
-void ChannelEdit::setControlByte(int byte)
-{
-    if (byte == m_channel->controlByte())
-        return;
-
-    m_channel->setControlByte(QLCChannel::ControlByte(byte));
-    emit controlByteChanged();
-}
-
-int ChannelEdit::defaultValue() const
-{
-    return m_channel->defaultValue();
-}
-
-void ChannelEdit::setDefaultValue(int value)
-{
-    if (value == m_channel->defaultValue())
-        return;
-
-    m_channel->setDefaultValue(uchar(value));
-    emit defaultValueChanged();
 }
 
 QVariantList ChannelEdit::capabilities() const

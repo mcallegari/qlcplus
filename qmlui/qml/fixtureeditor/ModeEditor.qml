@@ -92,6 +92,32 @@ Rectangle
                             property bool dragActive: false
 
                             model: mode ? mode.channels : null
+
+                            header:
+                                RowLayout
+                                {
+                                    z: 2
+                                    width: channelList.width
+                                    height: UISettings.listItemHeight
+
+                                    RobotoText
+                                    {
+                                        Layout.fillWidth: true
+                                        height: UISettings.listItemHeight
+                                        label: qsTr("Channels")
+                                        color: UISettings.sectionHeader
+                                    }
+                                    Rectangle { width: 1; height: UISettings.listItemHeight }
+
+                                    RobotoText
+                                    {
+                                        width: UISettings.bigItemHeight * 2
+                                        height: UISettings.listItemHeight
+                                        label: qsTr("Acts on")
+                                        color: UISettings.sectionHeader
+                                    }
+                                }
+
                             delegate:
                                 Item
                                 {
@@ -120,12 +146,24 @@ Rectangle
                                             visible: channelList.currentIndex === index
                                         }
 
-                                        IconTextEntry
+                                        RowLayout
                                         {
                                             width: channelList.width
                                             height: UISettings.listItemHeight
-                                            tLabel: (index + 1) + ": " + modelData.mLabel
-                                            iSrc: modelData.mIcon
+
+                                            IconTextEntry
+                                            {
+                                                Layout.fillWidth: true
+                                                height: UISettings.listItemHeight
+                                                tLabel: (index + 1) + ": " + modelData.mLabel
+                                                iSrc: modelData.mIcon
+                                            }
+                                            Rectangle { width: 1; height: UISettings.listItemHeight }
+                                            CustomComboBox
+                                            {
+                                                implicitWidth: UISettings.bigItemHeight * 2
+                                                height: UISettings.listItemHeight
+                                            }
                                         }
 
                                         Rectangle

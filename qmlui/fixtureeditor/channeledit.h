@@ -28,46 +28,21 @@ class ChannelEdit : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QLCChannel *channel READ channel)
     Q_PROPERTY(QVariantList channelPresetList READ channelPresetList CONSTANT)
     Q_PROPERTY(QVariantList channelTypeList READ channelTypeList CONSTANT)
     Q_PROPERTY(QVariantList capabilityPresetList READ capabilityPresetList CONSTANT)
-
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(int preset READ preset WRITE setPreset NOTIFY presetChanged)
-    Q_PROPERTY(int group READ group WRITE setGroup NOTIFY groupChanged)
-
-    Q_PROPERTY(int controlByte READ controlByte WRITE setControlByte NOTIFY controlByteChanged)
-    Q_PROPERTY(int defaultValue READ defaultValue WRITE setDefaultValue NOTIFY defaultValueChanged)
-
     Q_PROPERTY(QVariantList capabilities READ capabilities NOTIFY capabilitiesChanged)
 
 public:
     ChannelEdit(QLCChannel *channel, QObject *parent = nullptr);
     ~ChannelEdit();
 
+    QLCChannel *channel();
+
     QVariantList channelPresetList() const;
     QVariantList channelTypeList() const;
     QVariantList capabilityPresetList() const;
-
-    /** Get/Set the name of the channel being edited */
-    QString name() const;
-    void setName(QString name);
-
-    /** Get/Set the preset of the channel being edited */
-    int preset() const;
-    void setPreset(int index);
-
-    /** Get/Set the group of the channel being edited */
-    int group() const;
-    void setGroup(int group);
-
-    /** Get/Set the byte role of the channel being edited */
-    int controlByte() const;
-    void setControlByte(int byte);
-
-    /** Get/Set the default value of the channel being edited */
-    int defaultValue() const;
-    void setDefaultValue(int value);
 
     /** Get the list of capabilities for the channel being edited */
     QVariantList capabilities() const;
@@ -85,11 +60,6 @@ public:
     Q_INVOKABLE QVariant getCapabilityValueAt(int index, int vIndex);
 
 signals:
-    void nameChanged();
-    void presetChanged();
-    void groupChanged();
-    void controlByteChanged();
-    void defaultValueChanged();
     void capabilitiesChanged();
 
 private:
