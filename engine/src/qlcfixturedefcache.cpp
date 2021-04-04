@@ -100,6 +100,20 @@ QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
     return list;
 }
 
+QMap<QString, QMap<QString, bool>> QLCFixtureDefCache::fixtureCache() const
+{
+    QMap<QString, QMap<QString, bool>> map;
+
+    QListIterator <QLCFixtureDef*> it(m_defs);
+    while (it.hasNext() == true)
+    {
+        QLCFixtureDef *def = it.next();
+        map[def->manufacturer()][def->model()] = def->isUser();
+    }
+
+    return map;
+}
+
 bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
 {
     if (fixtureDef == NULL)
@@ -149,7 +163,7 @@ bool QLCFixtureDefCache::load(const QDir& dir)
         QString path(dir.absoluteFilePath(it.next()));
 
         if (path.toLower().endsWith(KExtFixture) == true)
-            loadQXF(path);
+            loadQXF(path, true);
         else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
             loadD4(path);
         else
@@ -338,7 +352,7 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
     return QLCFile::userDirectory(QString(USERFIXTUREDIR), QString(FIXTUREDIR), filters);
 }
 
-bool QLCFixtureDefCache::loadQXF(const QString& path)
+bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
 {
     QLCFixtureDef *fxi = new QLCFixtureDef();
     Q_ASSERT(fxi != NULL);
@@ -346,6 +360,8 @@ bool QLCFixtureDefCache::loadQXF(const QString& path)
     QFile::FileError error = fxi->loadXML(path);
     if (error == QFile::NoError)
     {
+        fxi->setIsUser(isUser);
+
         /* Delete the def if it's a duplicate. */
         if (addFixtureDef(fxi) == false)
             delete fxi;
@@ -373,6 +389,9 @@ bool QLCFixtureDefCache::loadD4(const QString& path)
         delete fxi;
         return false;
     }
+
+    // a D4 personality is always a user-made fixture
+    fxi->setIsUser(true);
 
     /* Delete the def if it's a duplicate. */
     if (addFixtureDef(fxi) == false)

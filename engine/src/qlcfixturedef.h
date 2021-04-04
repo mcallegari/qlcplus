@@ -149,8 +149,13 @@ public:
     /** Check if the full definition has been loaded */
     void checkLoaded(QString mapPath);
 
+    /** Get/Set if the definition is user-made */
+    bool isUser() const;
+    void setIsUser(bool flag);
+
 protected:
     bool m_isLoaded;
+    bool m_isUser;
     QString m_relativePath;
     QString m_manufacturer;
     QString m_model;

@@ -35,6 +35,7 @@
 
 QLCFixtureDef::QLCFixtureDef()
     : m_isLoaded(false)
+    , m_isUser(false)
     , m_relativePath(QString())
     , m_type(Dimmer)
 {
@@ -42,6 +43,7 @@ QLCFixtureDef::QLCFixtureDef()
 
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
     : m_isLoaded(false)
+    , m_isUser(false)
     , m_relativePath(QString())
     , m_type(Dimmer)
 {
@@ -216,6 +218,16 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
         m_isLoaded = true;
         m_relativePath = QString();
     }
+}
+
+bool QLCFixtureDef::isUser() const
+{
+    return m_isUser;
+}
+
+void QLCFixtureDef::setIsUser(bool flag)
+{
+    m_isUser = flag;
 }
 
 /****************************************************************************
