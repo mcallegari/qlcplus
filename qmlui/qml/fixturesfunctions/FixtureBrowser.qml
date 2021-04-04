@@ -103,17 +103,12 @@ Rectangle
     ListView
     {
         id: manufacturerList
-        x: 8
-        z: 0
         visible: fixtureBrowser.selectedManufacturer.length === 0 && fixtureBrowser.searchFilter.length < 3
+        z: 0
+        width: parent.width - 12
+        height: parent.height - toolBar.height - 12
         anchors.top: toolBar.bottom
-        anchors.topMargin: 6
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 6
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-        anchors.left: parent.left
-        anchors.leftMargin: 8
+        anchors.margins: 6
         focus: true
 
         boundsBehavior: Flickable.StopAtBounds
@@ -124,34 +119,35 @@ Rectangle
             Rectangle
             {
                 y: manufacturerList.currentItem.y
-                width: parent.width - 30
+                width: parent.width
                 height: UISettings.listItemHeight
-                color: "#0978FF"
-                radius: 5
+                color: UISettings.highlight
             }
         }
         highlightFollowsCurrentItem: false
 
         model: fixtureBrowser.manufacturers
-        delegate: FixtureBrowserDelegate
-        {
-            isManufacturer: true
-            textLabel: modelData
-            onMouseEvent:
+        delegate:
+            FixtureBrowserDelegate
             {
-                if (type == App.Clicked)
+                width: modelsList.width - manufScroll.width
+                isManufacturer: true
+                textLabel: modelData
+                onMouseEvent:
                 {
-                    mfText.label = modelData
-                    fixtureBrowser.manufacturerIndex = index
-                    fixtureBrowser.selectedManufacturer = modelData
-                    modelsList.currentIndex = -1
+                    if (type == App.Clicked)
+                    {
+                        mfText.label = modelData
+                        fixtureBrowser.manufacturerIndex = index
+                        fixtureBrowser.selectedManufacturer = modelData
+                        modelsList.currentIndex = -1
+                    }
                 }
             }
-        }
 
         Component.onCompleted: manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
 
-        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.vertical: CustomScrollBar { id: manufScroll }
     }
 
     Rectangle
@@ -218,7 +214,7 @@ Rectangle
             id: modelsList
             z: 0
 
-            width: parent.width
+            width: parent.width - 12
             height: parent.height - manufBackLink.height - 12
             anchors.top: manufBackLink.bottom
             anchors.margins: 6
@@ -228,42 +224,43 @@ Rectangle
             highlight:
                 Rectangle
                 {
-                    width: modelsList.width - 30
+                    width: modelsList.width
                     height: UISettings.listItemHeight - 2
                     color: UISettings.highlight
-                    radius: 5
                     y: modelsList.currentItem ? modelsList.currentItem.y + 1 : 0
                 }
             highlightFollowsCurrentItem: false
 
             model: fixtureBrowser.modelsList
-            delegate: FixtureBrowserDelegate
-            {
-                id: dlg
-                manufacturer: fixtureBrowser.selectedManufacturer
-                textLabel: modelData
-
-                onMouseEvent:
+            delegate:
+                FixtureBrowserDelegate
                 {
-                    if (type == App.Clicked)
+                    id: dlg
+                    width: modelsList.width - modelsScroll.width
+                    manufacturer: fixtureBrowser.selectedManufacturer
+                    textLabel: modelData
+
+                    onMouseEvent:
                     {
-                        modelsList.currentIndex = index
-                        fixtureBrowser.selectedModel = modelData
-                        if (modelData == "Generic RGB Panel")
+                        if (type == App.Clicked)
                         {
-                            fxPropsRect.visible = false
-                            panelPropsRect.visible = true
+                            modelsList.currentIndex = index
+                            fixtureBrowser.selectedModel = modelData
+                            if (modelData == "Generic RGB Panel")
+                            {
+                                fxPropsRect.visible = false
+                                panelPropsRect.visible = true
+                            }
+                            else
+                            {
+                                panelPropsRect.visible = false
+                                fxPropsRect.visible = true
+                            }
+                            editButton.enabled = true
                         }
-                        else
-                        {
-                            panelPropsRect.visible = false
-                            fxPropsRect.visible = true
-                        }
-                        editButton.enabled = true
                     }
                 }
-            }
-            ScrollBar.vertical: CustomScrollBar { }
+            ScrollBar.vertical: CustomScrollBar { id: modelsScroll }
         }
     }
 

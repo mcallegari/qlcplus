@@ -26,7 +26,7 @@ import "."
 Item
 {
     id: fxDraggableItem
-    width: parent.width - 30
+    width: parent.width
     height: UISettings.listItemHeight
 
     property bool isManufacturer: false
@@ -72,25 +72,38 @@ Item
         //fontBold: true
     }
 
+    // bottom divider
     Rectangle
     {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: 5
+        width: parent.width
         height: 1
-        color: "#424246"
+        y: parent.height - 1
+        color: UISettings.fgMedium
     }
 
     Image
     {
         id: rightArrow
         visible: isManufacturer
+        x: parent.width - width - 5
+        height: parent.height
+        width: height * 0.8
+        anchors.verticalCenter: parent.verticalCenter
+        source: "qrc:/arrow-right.svg"
+        sourceSize: Qt.size(width, height)
+
+    }
+
+    Text
+    {
+        visible: !isManufacturer && fixtureBrowser.isUserDefinition(manufacturer, textLabel)
         anchors.right: parent.right
         anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
-        source: "qrc:/arrow-right.svg"
-        height: 26
-        width: 20
+        color: UISettings.fgMain
+        font.family: "FontAwesome"
+        font.pixelSize: parent.height - 5
+        text: FontAwesome.fa_user
     }
 
     MouseArea

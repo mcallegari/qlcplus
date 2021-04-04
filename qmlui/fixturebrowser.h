@@ -62,6 +62,8 @@ public:
 
     QStringList modelsList();
 
+    Q_INVOKABLE bool isUserDefinition(QString manufacturer, QString model);
+
     QString selectedModel() const;
     void setSelectedModel(QString selectedModel);
 
@@ -120,6 +122,9 @@ private:
 private:
     Doc *m_doc;
     QQuickView *m_view;
+
+    /** Cache of the organized definitions for browsing */
+    QMap<QString, QMap<QString, bool>> m_defCache;
     /** The index of the currently selected manufacturer */
     int m_manufacturerIndex;
     /** The currently selected manufacturer as string */
