@@ -89,6 +89,25 @@ var testAlgo;
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
+    let eyeAlgo = new Object;
+    eyeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      let tips = 0;
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let targetDistance = algo.presetRadius;
+      let anglePercent = Math.abs(Math.cos(angle));
+      let contraTip = 0.5 * targetDistance * anglePercent;
+      let distPercent = distance / (targetDistance - contraTip);
+      let factor = blindoutPercent(1 - distPercent, 3);
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
     let flowerAlgo = new Object;
     flowerAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
@@ -125,6 +144,39 @@ var testAlgo;
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
+    let heartAlgo = new Object;
+    heartAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx + (algo.presetRadius * 2 / 5) - algo.obj[i].x);
+      let offy = Math.abs(ry + (algo.presetRadius / 2) - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let targetDistance = algo.presetRadius * 3 / 7;
+      let angle = getAngle(i, rx + (algo.presetRadius / 2), ry + (algo.presetRadius / 2));
+      let distPercent = distance / (targetDistance);
+      let factor = Math.max(0, blindoutPercent(1 - distPercent, 3));
+
+      offx = Math.abs(rx - (algo.presetRadius * 2 / 5) - algo.obj[i].x);
+      offy = Math.abs(ry + (algo.presetRadius / 2) - algo.obj[i].y);
+      distance = Math.sqrt(offx * offx + offy * offy);
+      targetDistance = algo.presetRadius * 3 / 7;
+      angle = getAngle(i, rx - (algo.presetRadius / 2), ry + (algo.presetRadius / 2));
+      distPercent = distance / (targetDistance);
+      factor = Math.max(factor, blindoutPercent(1 - distPercent, 3));
+
+      offx = Math.abs(rx - algo.obj[i].x);
+      offy = Math.abs(ry - algo.obj[i].y);
+      let tips = 3; 
+      distance = Math.sqrt(offx * offx + offy * offy);
+      angle = getAngle(i, rx, ry);
+      targetDistance = geometryCalc.getTargetDistance(angle, tips);
+      distPercent = distance / targetDistance ;
+      factor = Math.max(factor, blindoutPercent(1 - distPercent, 1.5));
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
     let hexagonAlgo = new Object;
     hexagonAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
@@ -138,6 +190,24 @@ var testAlgo;
       let targetDistance = geometryCalc.getTargetDistance(angle, tips);
       let distPercent = distance / targetDistance ;
       let factor = blindoutPercent(1 - distPercent, 1.5);
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let maskAlgo = new Object;
+    maskAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let targetDistance = algo.presetRadius;
+      let anglePercent = Math.abs(Math.cos(angle - Math.PI));
+      let contraTip = targetDistance * anglePercent;
+      let distPercent = distance / (targetDistance - contraTip);
+      let factor = blindoutPercent(1 - distPercent, 3);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -582,8 +652,11 @@ var testAlgo;
       ["Ball", ballAlgo],
       ["Bell", bellAlgo],
       ["Diamond", diamondAlgo],
+      ["Eye", eyeAlgo],
       ["Flower", flowerAlgo],
+      ["Heart", heartAlgo],
       ["Hexagon", hexagonAlgo],
+      ["Mask", maskAlgo],
       ["Pentagon", pentagonAlgo],
       ["Ring", ringAlgo],
       ["Snowflake", snowflakeAlgo],
@@ -864,8 +937,8 @@ var testAlgo;
           random: Math.random(),
         };
         // For development align objects centered.
-        //algo.obj[i].x = (width /2);
-        //algo.obj[i].y = (height / 2);
+        algo.obj[i].x = (width /2);
+        algo.obj[i].y = (height / 2);
         // set random directions
         do {
           do {
