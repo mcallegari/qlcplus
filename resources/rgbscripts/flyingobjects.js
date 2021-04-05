@@ -104,6 +104,14 @@ var testAlgo;
       let contraTip = 0.5 * targetDistance * anglePercent;
       let distPercent = distance / (targetDistance - contraTip);
       let factor = blindoutPercent(1 - distPercent, 3);
+      
+      targetDistance = algo.presetRadius / 3;
+      distPercent = distance / (targetDistance);
+      factor -= blindoutPercent(1 - distPercent, 1);
+
+      targetDistance = algo.presetRadius / 8;
+      distPercent = distance / (targetDistance);
+      factor += blindoutPercent(1 - distPercent, 1);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -205,9 +213,23 @@ var testAlgo;
       let angle = getAngle(i, rx, ry);
       let targetDistance = algo.presetRadius;
       let anglePercent = Math.abs(Math.cos(angle - Math.PI));
-      let contraTip = targetDistance * anglePercent;
+      let contraTip = 0.8 * targetDistance * anglePercent;
       let distPercent = distance / (targetDistance - contraTip);
       let factor = blindoutPercent(1 - distPercent, 3);
+
+      offx = Math.abs(rx - (algo.presetRadius * 2 / 5) - algo.obj[i].x);
+      distance = Math.sqrt(offx * offx + offy * offy);
+      targetDistance = algo.presetRadius / 5;
+      angle = getAngle(i, rx - (algo.presetRadius / 2), ry + (algo.presetRadius / 2));
+      distPercent = distance / (targetDistance);
+      factor -= blindoutPercent(1 - distPercent, 3);
+
+      offx = Math.abs(rx + (algo.presetRadius * 2 / 5) - algo.obj[i].x);
+      distance = Math.sqrt(offx * offx + offy * offy);
+      targetDistance = algo.presetRadius / 5;
+      angle = getAngle(i, rx + (algo.presetRadius / 2), ry + (algo.presetRadius / 2));
+      distPercent = distance / (targetDistance);
+      factor -= blindoutPercent(1 - distPercent, 3);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
