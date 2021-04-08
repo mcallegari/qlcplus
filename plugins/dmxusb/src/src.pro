@@ -79,15 +79,15 @@ CONFIG(libftdi) {
         CONFIG      += link_pkgconfig
         PKGCONFIG   += libftdi1 libusb-1.0
         DEFINES     += LIBFTDI1
-        message(Building with libFTDI1 support.)
-
         ftdi1 = $$findPackage(libftdi1)
+        message(Building with libFTDI1 support. Version: $$ftdi1)
+
         equals(ftdi1, 0) {
            # nothing
         } else:!versionAtLeast(ftdi1, 1.5) {
            # nothing
         } else {
-            message("Found libftdi1 version $$ftdi1 (new buffer flush API)")
+            message("Using v1.5+ buffer flush API")
             DEFINES += NEW_LIBFTDI1
         }
 
