@@ -307,6 +307,71 @@ var testAlgo;
     let snowflakeAlgo = new Object;
     snowflakeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
+      let lines = 3;
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let angle = getAngle(i, rx, ry);
+      let targetDistance = algo.presetRadius;
+      let anglePercent = Math.abs(Math.cos(angle));
+      let contraTip = 0.5 * targetDistance * anglePercent;
+      let distPercent = distance / (targetDistance - contraTip);
+      let factor = 0;
+      let c = 0;
+      let aWidth = 0;
+      let cWidth = 0;
+
+      let intersect = Math.max(4.5, 0.6 * algo.presetRadius);
+      lines = 3;
+      if (distance > intersect) {
+        let xOffset = Math.sin(Math.PI / 3) * intersect;
+        let yOffset = Math.cos(Math.PI / 3) * intersect;
+        let smallTips = [
+          {"x": 0, "y": intersect},
+          {"x": 0, "y": -intersect},
+          {"x": xOffset, "y": yOffset},
+          {"x": xOffset, "y": -yOffset},
+          {"x": -xOffset, "y": yOffset},
+          {"x": -xOffset, "y": -yOffset},
+        ];
+        smallTips.forEach(offset => {
+          let realx = rx + offset.x;
+          let realy = ry + offset.y;
+          let realOffx = Math.abs(realx - algo.obj[i].x);
+          let realOffy = Math.abs(realy - algo.obj[i].y);
+          let realDistance = Math.sqrt(realOffx * realOffx + realOffy * realOffy);
+          let realAngle = getAngle(i, realx, realy);
+          realAngle *= lines;
+          a = Math.sin(realAngle) * realDistance;
+          c = Math.abs(Math.cos(realAngle) * realDistance);
+          aWidth = 0.9 + 0.02 * algo.presetRadius;
+          cWidth = 0.5 * algo.presetRadius;
+          a = a / aWidth / lines;
+          c = c / cWidth;
+          factor = Math.max(factor, 1 - (a * a) + 1 - (c * c) - 1);
+        });
+      }
+
+      lines = 3;
+      offx = Math.abs(rx - algo.obj[i].x);
+      offy = Math.abs(ry - algo.obj[i].y);
+      distance = Math.sqrt(offx * offx + offy * offy);
+      angle = getAngle(i, rx, ry);
+      angle *= lines;
+      a = Math.abs(Math.sin(angle) * distance);
+      c = Math.abs(Math.cos(angle) * distance);
+      aWidth = 0.9 + 0.02 * algo.presetRadius;
+      cWidth = 1.5 * algo.presetRadius;
+      a = a / aWidth / lines;
+      c = c / cWidth;
+      factor = Math.max(factor, 1 - (a * a) + 1 - (c * c) - 1);
+
+      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+    snowflakeAlgo.unusedFkt = function(i, rx, ry, r, g, b)
+    {
       let factor = 1.0;
       // calculate the offset difference of algo.map location to the float
       // location of the object
@@ -397,27 +462,40 @@ var testAlgo;
       let offy = Math.abs(ry - algo.obj[i].y);
       let distance = Math.sqrt(offx * offx + offy * offy);
       
-      // Repeat and normalize the pattern
-      let colorAngle = tips * angle;
-      colorAngle = (colorAngle + (Math.PI)) % (algo.twoPi);
+      if (algo.presetRadius < 10) {
+        tips = 6;
+        angle = getAngle(i, rx, ry);
+        angle *= (tips / 2);
+        a = Math.abs(Math.sin(angle) * distance);
+        let c = Math.abs(Math.cos(angle) * distance);
+        let aWidth = 1.0;
+        let cWidth = algo.presetSize;
+        a = a / aWidth / (tips / 2);
+        c = c / cWidth;
+        factor = Math.max(0, 1 - (a * a) + 1 - (c * c) - 1);
+      } else {
+        // Repeat and normalize the pattern
+        let colorAngle = tips * angle;
+        colorAngle = (colorAngle + (Math.PI)) % (algo.twoPi);
 
-      // Calculate color pixel positions, base color
-      let distPercent = distance / algo.presetRadius;
-      let factor = baseIntensity + (1 - baseIntensity)
-        * (Math.abs(colorAngle - Math.PI) / algo.twoPi
-          + (1 - distPercent));
+        // Calculate color pixel positions, base color
+        let distPercent = distance / algo.presetRadius;
+        let factor = baseIntensity + (1 - baseIntensity)
+          * (Math.abs(colorAngle - Math.PI) / algo.twoPi
+            + (1 - distPercent));
 
-      let targetDistance = geometryCalc.getTargetDistance(angle, tips);
+        let targetDistance = geometryCalc.getTargetDistance(angle, tips);
       
-      let tipsAngle = (angle % (algo.twoPi / tips)) - (Math.PI / tips);
-      let triangleSide = algo.presetRadius * Math.sqrt(3);
-      let angleSide = Math.abs(Math.sin(tipsAngle) * targetDistance);
-      let anglePercent = angleSide / triangleSide;
-      let expression = 1 + algo.presetSize / 50;
-      let contraTip = expression * targetDistance * anglePercent;
-      distPercent = distance / (targetDistance - contraTip);
-      let sharpness = 0.3 + algo.presetSize / 18;
-      factor = factor * blindoutPercent(1 - distPercent, sharpness);
+        let tipsAngle = (angle % (algo.twoPi / tips)) - (Math.PI / tips);
+        let triangleSide = algo.presetRadius * Math.sqrt(3);
+        let angleSide = Math.abs(Math.sin(tipsAngle) * targetDistance);
+        let anglePercent = angleSide / triangleSide;
+        let expression = 1 + algo.presetSize / 50;
+        let contraTip = expression * targetDistance * anglePercent;
+        distPercent = distance / (targetDistance - contraTip);
+        let sharpness = 0.3 + algo.presetSize / 18;
+        factor = factor * blindoutPercent(1 - distPercent, sharpness);
+      }
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -1006,7 +1084,7 @@ var testAlgo;
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
               // DEVELOPMENT: Draw a box for debugging.
-              algo.map[ry][rx] = getColor(0, 0, 80, algo.map[ry][rx]);
+              //algo.map[ry][rx] = getColor(0, 0, 80, algo.map[ry][rx]);
 
               // add the object color to the mapped location
               algo.map[ry][rx] = shape.getMapPixelColor(i, rx, ry, r, g, b);
