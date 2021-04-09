@@ -89,7 +89,7 @@ public:
     /** Get a complete map of the available fixtures as:
       * manufacturer, <model, isUser>
       */
-    QMap<QString, QMap<QString, bool>> fixtureCache() const;
+    QMap<QString, QMap<QString, bool> > fixtureCache() const;
 
     /**
      * Add a fixture definition to the model map.

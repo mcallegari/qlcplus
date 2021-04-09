@@ -100,9 +100,9 @@ QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
     return list;
 }
 
-QMap<QString, QMap<QString, bool>> QLCFixtureDefCache::fixtureCache() const
+QMap<QString, QMap<QString, bool> > QLCFixtureDefCache::fixtureCache() const
 {
-    QMap<QString, QMap<QString, bool>> map;
+    QMap<QString, QMap<QString, bool> > map;
 
     QListIterator <QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
