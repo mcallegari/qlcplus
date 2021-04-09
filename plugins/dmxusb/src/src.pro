@@ -82,13 +82,9 @@ CONFIG(libftdi) {
         ftdi1 = $$findPackage(libftdi1)
         message(Building with libFTDI1 support. Version: $$ftdi1)
 
-        equals(ftdi1, 0) {
-           # nothing
-        } else:!versionAtLeast(ftdi1, 1.5) {
-           # nothing
-        } else {
+        versionAtLeast(ftdi1, 1.5) {
             message("Using v1.5+ buffer flush API")
-            DEFINES += NEW_LIBFTDI1
+            DEFINES += LIBFTDI1_5
         }
 
         macx {

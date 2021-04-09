@@ -376,7 +376,7 @@ bool LibFTDIInterface::clearRts()
 
 bool LibFTDIInterface::purgeBuffers()
 {
-#if defined(NEW_LIBFTDI1)
+#if defined(LIBFTDI1_5)
     if (ftdi_tcioflush(&m_handle) < 0)
 #else
     if (ftdi_usb_purge_buffers(&m_handle) < 0)
