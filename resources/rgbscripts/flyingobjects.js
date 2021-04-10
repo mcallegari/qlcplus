@@ -258,32 +258,40 @@ var testAlgo;
     }
 
     let maskAlgo = new Object;
+    maskAlgo.cache = {
+      presetRadius: 0,
+    };
+    maskAlgo.updateCache = function()
+    {
+      maskAlgo.cache.targetDistanceOpening = algo.presetRadius / 5;
+      maskAlgo.cache.presetRadius = algo.presetRadius;
+    }
     maskAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
+      if (maskAlgo.cache.presetRadius != algo.presetRadius) {
+        maskAlgo.updateCache();
+      }
       // calculate the offset difference of algo.map location to the float
       // location of the object
       let offx = Math.abs(rx - algo.obj[i].x);
       let offy = Math.abs(ry - algo.obj[i].y);
       let distance = Math.sqrt(offx * offx + offy * offy);
       let angle = geometryCalc.getAngle(i, rx, ry);
-      let targetDistance = algo.presetRadius;
       let anglePercent = Math.abs(Math.cos(angle - Math.PI));
-      let contraTip = 0.8 * targetDistance * anglePercent;
-      let distPercent = distance / (targetDistance - contraTip);
-      let factor = util.blindoutPercent(1 - distPercent, 3);
+      let contraTip = 0.8 * algo.presetRadius * anglePercent;
+      let distPercent = distance / (algo.presetRadius - contraTip);
+      let factor = util.blindoutPercent(1 - distPercent, 0.5);
 
       offx = Math.abs(rx - (algo.presetRadius * 2 / 5) - algo.obj[i].x);
       distance = Math.sqrt(offx * offx + offy * offy);
-      targetDistance = algo.presetRadius / 5;
       angle = geometryCalc.getAngle(i, rx - algo.halfRadius, ry + algo.halfRadius);
-      distPercent = distance / (targetDistance);
+      distPercent = distance / maskAlgo.cache.targetDistanceOpening;
       factor -= util.blindoutPercent(1 - distPercent, 3);
 
       offx = Math.abs(rx + (algo.presetRadius * 2 / 5) - algo.obj[i].x);
       distance = Math.sqrt(offx * offx + offy * offy);
-      targetDistance = algo.presetRadius / 5;
       angle = geometryCalc.getAngle(i, rx + algo.halfRadius, ry + algo.halfRadius);
-      distPercent = distance / (targetDistance);
+      distPercent = distance / maskAlgo.cache.targetDistanceOpening;
       factor -= util.blindoutPercent(1 - distPercent, 3);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
