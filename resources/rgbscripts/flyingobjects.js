@@ -96,18 +96,31 @@ var testAlgo;
       let offy = ry - algo.obj[i].y;
       let percentX = offx / algo.presetRadius;
       let percentY = offy / algo.presetRadius;
-      let saturation = 1;
+      let saturation = 1.5;
 
-      let factor = Math.sqrt(saturation * percentX * percentX)
-      		+ Math.sqrt(saturation * percentY * percentY);
+      let factor = Math.sqrt(percentX * percentX / saturation)
+      		+ Math.sqrt(percentY * percentY / saturation);
       factor = 1 - Math.max(0, Math.min(1, factor));
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
     let eyeAlgo = new Object;
+    eyeAlgo.cache = {
+      presetRadius: 0,
+    };
+    eyeAlgo.updateCache = function()
+    {
+      eyeAlgo.cache.turn = algo.presetRadius / 10;
+      eyeAlgo.cache.targetDistanceOuter = algo.presetRadius / 3;
+      eyeAlgo.cache.targetDistanceInner = algo.presetRadius / 8;
+      eyeAlgo.cache.presetRadius = algo.presetRadius;
+    }
     eyeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
+      if (eyeAlgo.cache.presetRadius != algo.presetRadius) {
+        eyeAlgo.updateCache();
+      }
       let tips = 0;
       // calculate the offset difference of algo.map location to the float
       // location of the object
@@ -119,15 +132,18 @@ var testAlgo;
       let anglePercent = Math.abs(Math.cos(angle));
       let contraTip = 0.5 * targetDistance * anglePercent;
       let distPercent = distance / (targetDistance - contraTip);
-      let factor = blindoutPercent(1 - distPercent, 3);
-      
-      targetDistance = algo.presetRadius / 3;
-      distPercent = distance / (targetDistance);
-      factor -= blindoutPercent(1 - distPercent, 1);
+      let factor = blindoutPercent(1 - distPercent, 0.5);
 
-      targetDistance = algo.presetRadius / 8;
-      distPercent = distance / (targetDistance);
-      factor += blindoutPercent(1 - distPercent, 1);
+      let turn = eyeAlgo.cache.turn;
+      offx = Math.abs(rx - turn * algo.obj[i].xDirection - algo.obj[i].x);
+      offy = Math.abs(ry - turn * algo.obj[i].yDirection- algo.obj[i].y);
+      distance = Math.sqrt(offx * offx + offy * offy);
+      
+      distPercent = distance / (eyeAlgo.cache.targetDistanceOuter);
+      factor -= blindoutPercent(1 - distPercent, 0.5);
+
+      distPercent = distance / (eyeAlgo.cache.targetDistanceInner);
+      factor += blindoutPercent(1 - distPercent, 0.5);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
