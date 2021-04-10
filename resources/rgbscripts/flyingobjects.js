@@ -383,39 +383,6 @@ var testAlgo;
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
-    let snowmanAlgo = new Object;
-    snowmanAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
-    {
-      // calculate the offset difference of algo.map location to the float
-      // location of the object
-      let offx = rx - algo.obj[i].x;
- 
-      let size = algo.presetSize * 2 / 5;
-      let offy = ry - algo.obj[i].y + (algo.presetSize - size) / 2;
-
-      let factor1 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
-      // Set a bit towards background by dimming.
-      if (factor1 < 0) {
-        factor1 = 0;
-      }
-
-      size = algo.presetSize * 4 / 5;
-      offy = ry - algo.obj[i].y - (algo.presetSize - size) / 2;
-
-      let factor2 = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((size / 2) + 1));
-      if (factor2 < 0) {
-        factor2 = 0;
-      }
-
-      // Merge the two balls
-      let factor = Math.max(factor1, factor2);
-      if (factor > 1) {
-        factor = 1;
-      }
-
-      return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
-    }
-
     let snowflakeAlgo = new Object;
     snowflakeAlgo.cache = {
       presetRadius: 0,
@@ -487,6 +454,48 @@ var testAlgo;
       c = Math.abs(Math.cos(angle) * distance);
       c = c / cWidth;
       factor = Math.max(factor, 1 - (a * a) + 1 - (c * c) - 1);
+
+      return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let snowmanAlgo = new Object;
+    snowmanAlgo.cache = {
+      presetRadius: 0,
+    };
+    snowmanAlgo.updateCache = function()
+    {
+      snowmanAlgo.cache.size1 = algo.presetSize / 5;
+      snowmanAlgo.cache.yOffset1 = algo.presetRadius - 0.75 * snowmanAlgo.cache.size1;
+      snowmanAlgo.cache.size2 = algo.presetSize * 1.5 / 5;
+      snowmanAlgo.cache.yOffset2 = snowmanAlgo.cache.size2 * 0.3;
+      snowmanAlgo.cache.size3 = algo.presetSize * 2 / 5;
+      snowmanAlgo.cache.yOffset3 = 0.75 * snowmanAlgo.cache.size3 - algo.presetRadius;
+      snowmanAlgo.cache.presetRadius = algo.presetRadius;
+    }
+    snowmanAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      if (snowmanAlgo.cache.presetRadius != algo.presetRadius) {
+        snowmanAlgo.updateCache();
+      }
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = rx - algo.obj[i].x;
+ 
+      // Ball 1
+      let offy = ry - algo.obj[i].y + snowmanAlgo.cache.yOffset1;
+      let factor1 = Math.max(0, Math.min(1, 1 - (Math.sqrt((offx * offx) + (1.5 * offy * offy)) / (snowmanAlgo.cache.size1 + 1))));
+
+      // Ball 2
+      offy = ry - algo.obj[i].y + snowmanAlgo.cache.yOffset2;
+      let factor2 = Math.max(0, Math.min(1, 1 - (Math.sqrt((offx * offx) + (offy * offy)) / (snowmanAlgo.cache.size2 + 1))));
+
+      // Ball 3
+      offy = ry - algo.obj[i].y + snowmanAlgo.cache.yOffset3;
+      let factor3 = Math.max(0, Math.min(1, 1 - (Math.sqrt((offx * offx) + (1.5 * offy * offy)) / (snowmanAlgo.cache.size3 + 1))));
+
+      // Merge the balls
+      let factor = Math.max(factor1, factor2);
+      factor = Math.max(factor, factor3);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
