@@ -516,14 +516,27 @@ var testAlgo;
       }
       let targetDistance = geometryCalc.getTargetDistance(angle, tips);
       let distPercent = distance / targetDistance ;
-      let factor = util.blindoutPercent(1 - distPercent, 1.5);
+      let factor = util.blindoutPercent(1 - distPercent, 2.5);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
 
     let starAlgo = new Object;
+    starAlgo.cache = {
+      presetRadius: 0,
+    };
+    starAlgo.updateCache = function()
+    {
+      starAlgo.cache.triangleSide = algo.presetRadius * Math.sqrt(3);
+      starAlgo.cache.expression = 1 + algo.presetSize / 50;
+      starAlgo.cache.sharpness = 0.3 + algo.presetSize / 18;
+      starAlgo.cache.presetRadius = algo.presetRadius;
+    }
     starAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
+      if (starAlgo.cache.presetRadius != algo.presetRadius) {
+        starAlgo.updateCache();
+      }
       // calculate the offset difference of algo.map location to the float
       // location of the object
       let baseIntensity = 0.3;
@@ -532,7 +545,8 @@ var testAlgo;
       let offx = Math.abs(rx - algo.obj[i].x);
       let offy = Math.abs(ry - algo.obj[i].y);
       let distance = Math.sqrt(offx * offx + offy * offy);
-      
+      let factor = 0;
+
       if (algo.presetRadius < 10) {
         tips = 6;
         angle = geometryCalc.getAngle(i, rx, ry);
@@ -551,21 +565,18 @@ var testAlgo;
 
         // Calculate color pixel positions, base color
         let distPercent = distance / algo.presetRadius;
-        let factor = baseIntensity + (1 - baseIntensity)
+        factor = baseIntensity + (1 - baseIntensity)
           * (Math.abs(colorAngle - Math.PI) / algo.twoPi
             + (1 - distPercent));
 
         let targetDistance = geometryCalc.getTargetDistance(angle, tips);
-      
+
         let tipsAngle = (angle % (algo.twoPi / tips)) - (Math.PI / tips);
-        let triangleSide = algo.presetRadius * Math.sqrt(3);
         let angleSide = Math.abs(Math.sin(tipsAngle) * targetDistance);
-        let anglePercent = angleSide / triangleSide;
-        let expression = 1 + algo.presetSize / 50;
-        let contraTip = expression * targetDistance * anglePercent;
+        let anglePercent = angleSide / starAlgo.cache.triangleSide;
+        let contraTip = starAlgo.cache.expression * targetDistance * anglePercent;
         distPercent = distance / (targetDistance - contraTip);
-        let sharpness = 0.3 + algo.presetSize / 18;
-        factor = factor * util.blindoutPercent(1 - distPercent, sharpness);
+        factor = factor * util.blindoutPercent(1 - distPercent, starAlgo.cache.sharpness);
       }
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
@@ -1145,7 +1156,7 @@ var testAlgo;
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
               // DEVELOPMENT: Draw a box for debugging.
-              //algo.map[ry][rx] = util.getColor(0, 0, 80, algo.map[ry][rx]);
+              algo.map[ry][rx] = util.getColor(0, 0, 80, algo.map[ry][rx]);
 
               // add the object color to the mapped location
               algo.map[ry][rx] = shape.getMapPixelColor(i, rx, ry, r, g, b);
