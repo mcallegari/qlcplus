@@ -638,9 +638,19 @@ var testAlgo;
     }
 
     let tornadoAlgo = new Object;
+    tornadoAlgo.cache = {
+      presetRadius: 0,
+    };
+    tornadoAlgo.updateCache = function()
+    {
+    	tornadoAlgo.cache.centerCircle = 0.2 * algo.presetRadius;
+    	tornadoAlgo.cache.presetRadius = algo.presetRadius;
+    }
     tornadoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
-      let factor = 1.0;
+      if (tornadoAlgo.cache.presetRadius != algo.presetRadius) {
+    	  tornadoAlgo.updateCache();
+      }
       // calculate the offset difference of algo.map location to the float
       // location of the object
       let offx = rx - algo.obj[i].x;
@@ -649,6 +659,7 @@ var testAlgo;
       let angle = geometryCalc.getAngle(i, rx, ry);
       let baseIntensity = 0;
       let percent = 0;
+      let factor = 0;
       
       // Repeat the pattern
       let fanblades = 3;
@@ -668,17 +679,12 @@ var testAlgo;
       factor = Math.cos(angle);
 
       // Blind out the outside edges
-      percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
-      // apply a scale factor for the percent / input in the asec function
-      factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      percent = Math.max(0, 1 - (distance / algo.presetRadius));
+      factor *= util.blindoutPercent(percent, 1)
       
       // Draw a center
-      // asec consumes values > 1. asec(x) = acos(1/x)
-      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetRadius)));
-      // apply a scale factor for the percent / input in the asec function
-      let factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-
-      factor = Math.max(factorC, factor * 1.5);
+      let distPercentCenter = distance / tornadoAlgo.cache.centerCircle;
+      factor = Math.max(factor, util.blindoutPercent(1 - distPercentCenter, 3));
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
