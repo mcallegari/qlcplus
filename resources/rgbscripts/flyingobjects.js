@@ -48,8 +48,19 @@ var testAlgo;
     }
 
     let bellAlgo = new Object;
+    bellAlgo.cache = {
+      presetRadius: 0,
+    };
+    bellAlgo.updateCache = function()
+    {
+      bellAlgo.cache.scaling = 0.5 - 0.008 * algo.presetSize;
+      bellAlgo.cache.presetRadius = algo.presetRadius;
+    }
     bellAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
+      if (bellAlgo.cache.presetRadius != algo.presetRadius) {
+        bellAlgo.updateCache();
+      }
       // calculate the offset difference of algo.map location to the float
       // location of the object
       let offx = rx - algo.obj[i].x;
@@ -57,20 +68,19 @@ var testAlgo;
       let distance = Math.sqrt((offx * offx) + (offy * offy));
       let factor = 0;
 
-      // Calculate color intensity
-      if (offy <= 0.4 * algo.presetSize) {
-        // Offset to bottom
-        offy += algo.presetRadius + 0.7;
-        // 5: 0.2  10: 0.1  20: 0.04   40: 0.008
-        let scaling = 0.5 - 0.008 * algo.presetSize;
-        factor = 1 - Math.sqrt(offx * offx * scaling + offy * offy) + offy * 1.0;
-      } else {
+      // Offset to bottom
+      let realOffy = offy + algo.presetRadius + 0.7;
+      let scaling = bellAlgo.cache.scaling;
+      factor = 1 - Math.sqrt(offx * offx * scaling + realOffy * realOffy) + realOffy;
+      factor *= blindoutPercent(1 - Math.abs(realOffy) / (algo.presetRadius * 1.9), 10);
+
+      if (offy > 0.4 * algo.presetSize) {
         // The bell bottom:
         // offx remains the same.
         // offy is 0
-        offy -= 0.8 * algo.presetRadius;
-        distance = Math.sqrt((offx * offx) + (offy * offy));
-        factor = 1 - (distance / (algo.presetRadius / 3 + 1));
+        realOffy = offy -  0.8 * algo.presetRadius;
+        distance = Math.sqrt((offx * offx) + (realOffy * realOffy));
+        factor = Math.max(factor, 1 - (distance / (algo.presetRadius / 3 + 1)));
       }
     
       // add the object color to the algo.mapped location
