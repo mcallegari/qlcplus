@@ -87,6 +87,22 @@ var testAlgo;
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     };
 
+    let circleAlgo = new Object;
+    circleAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = rx - algo.obj[i].x;
+      let offy = ry - algo.obj[i].y;
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let distPercent = distance / algo.presetRadius;
+
+      // circle
+      let factor = util.blindoutPercent(1 - distPercent, 0.5);
+
+      return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
     let diamondAlgo = new Object;
     diamondAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
@@ -101,6 +117,37 @@ var testAlgo;
       let factor = Math.sqrt(percentX * percentX / saturation)
               + Math.sqrt(percentY * percentY / saturation);
       factor = 1 - Math.max(0, Math.min(1, factor));
+
+      return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
+    }
+
+    let diskAlgo = new Object;
+    diskAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
+    {
+      // calculate the offset difference of algo.map location to the float
+      // location of the object
+      let offx = rx - algo.obj[i].x;
+      let offy = ry - algo.obj[i].y;
+      let distance = Math.sqrt(offx * offx + offy * offy);
+      let distPercent = distance / algo.presetRadius;
+
+      let angle = geometryCalc.getAngle(i, rx, ry);
+      angle -= (algo.twoPi) * (algo.progstep / 64 % 1);
+      angle = (angle + algo.twoPi) % (algo.twoPi);
+
+      // Rotating shadow
+      let factor = 0.5 * (Math.abs(Math.cos(angle)) + 1);
+
+      // circle
+      factor *= util.blindoutPercent(1 - distPercent, 0.5);
+
+      // inner hole
+      let inner = 0.2;
+      if (algo.presetSize < 7) {
+          inner = 0.5;
+      }
+      distPercent = distance / (algo.presetRadius * inner);
+      factor -= util.blindoutPercent(1 - distPercent, 0.5);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -308,7 +355,7 @@ var testAlgo;
       let distance = Math.sqrt(offx * offx + offy * offy);
       let angle = (geometryCalc.getAngle(i, rx, ry) + Math.PI) % algo.twoPi;
       let targetDistance = geometryCalc.getTargetDistance(angle, tips);
-      let distPercent = distance / targetDistance ;
+      let distPercent = distance / targetDistance;
       let factor = util.blindoutPercent(1 - distPercent, 1.5);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
@@ -322,14 +369,16 @@ var testAlgo;
       let offx = rx - algo.obj[i].x;
       let offy = ry - algo.obj[i].y;
       let distance = Math.sqrt(offx * offx + offy * offy);
-      let percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
-      let factor = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-      let inner = 0.8;
+      let distPercent = distance / algo.presetRadius;
+
+      let factor = util.blindoutPercent(1 - distPercent, 3);
+
+      let inner = 0.7;
       if (algo.presetSize < 7) {
-          inner = 0.2;
+          inner = 0.5;
       }
-      percent = Math.max(0, 1 - (distance / (0.7 * algo.presetRadius)));
-      factor -= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      distPercent = distance / (algo.presetRadius * inner);
+      factor -= util.blindoutPercent(1 - distPercent, 0.5);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -744,7 +793,9 @@ var testAlgo;
     shapes.collection = new Array(
       ["Ball", ballAlgo],
       ["Bell", bellAlgo],
+      ["Circle", circleAlgo],
       ["Diamond", diamondAlgo],
+      ["Disk", diskAlgo],
       ["Eye", eyeAlgo],
       ["Flower", flowerAlgo],
       ["Heart", heartAlgo],
