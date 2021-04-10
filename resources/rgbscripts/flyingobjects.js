@@ -39,7 +39,8 @@ var testAlgo;
       // location of the object
       let offx = rx - algo.obj[i].x;
       let offy = ry - algo.obj[i].y;
-      let factor = 1 - (Math.sqrt( (offx * offx) + (offy * offy))/((algo.presetSize/2)+1));
+      let distance = Math.sqrt((offx * offx) + (offy * offy));
+      let factor = 1 - (distance / (algo.presetRadius + 1));
       if (factor < 0) {
         factor = 0;
       }
@@ -53,19 +54,24 @@ var testAlgo;
       // location of the object
       let offx = rx - algo.obj[i].x;
       let offy = ry - algo.obj[i].y;
+      let distance = Math.sqrt((offx * offx) + (offy * offy));
+      let factor = 0;
 
       // Calculate color intensity
-      if (ry === Math.floor(algo.obj[i].y) + algo.boxRadius + 1) {
+      if (offy <= 0.4 * algo.presetSize) {
+        // Offset to bottom
+        offy += algo.presetRadius + 0.7;
+        // 5: 0.2  10: 0.1  20: 0.04   40: 0.008
+        let scaling = 0.5 - 0.008 * algo.presetSize;
+        factor = 1 - Math.sqrt(offx * offx * scaling + offy * offy) + offy * 1.0;
+      } else {
         // The bell bottom:
         // offx remains the same.
         // offy is 0
-        offy = 0;
-      } else {
-        // Offset to bottom
-        offy += (algo.presetRadius) + 0.7;
+        offy -= 0.8 * algo.presetRadius;
+        distance = Math.sqrt((offx * offx) + (offy * offy));
+        factor = 1 - (distance / (algo.presetRadius / 3 + 1));
       }
-      let factor = ((1 - (Math.sqrt((offx * offx * 0.7) + (offy * offy * 1.0)))) * 1.0) + offy * 1.0;
-      //let factor = ((1 - (Math.cos((offx * offx * 0.7) + (offy * offy * 1.0)))) * 1.0) + offy * 1.0;
     
       // add the object color to the algo.mapped location
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
@@ -305,126 +311,76 @@ var testAlgo;
     }
 
     let snowflakeAlgo = new Object;
+    snowflakeAlgo.cache = {
+      presetRadius: 0,
+    };
+    snowflakeAlgo.updateCache = function()
+    {
+      snowflakeAlgo.cache.lineWidth = 0.9 + 0.02 * algo.presetRadius;
+      snowflakeAlgo.cache.intersect = Math.max(4.5, 0.6 * algo.presetRadius);
+      snowflakeAlgo.cache.cWidthSmall = 0.5 * algo.presetRadius;
+      snowflakeAlgo.cache.cWidthMain = 1.5 * algo.presetRadius;
+      snowflakeAlgo.cache.presetRadius = algo.presetRadius;
+    }
     snowflakeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
+      if (snowflakeAlgo.cache.presetRadius != algo.presetRadius) {
+    	  snowflakeAlgo.updateCache();
+      }
       let lines = 3;
       // calculate the offset difference of algo.map location to the float
       // location of the object
       let offx = Math.abs(rx - algo.obj[i].x);
       let offy = Math.abs(ry - algo.obj[i].y);
       let distance = Math.sqrt(offx * offx + offy * offy);
-      let angle = getAngle(i, rx, ry);
-      let targetDistance = algo.presetRadius;
-      let anglePercent = Math.abs(Math.cos(angle));
-      let contraTip = 0.5 * targetDistance * anglePercent;
-      let distPercent = distance / (targetDistance - contraTip);
       let factor = 0;
+      // anti kathete
+      let a = 0;
+      // kathete
       let c = 0;
-      let aWidth = 0;
+      // line width
+      let aWidth = snowflakeAlgo.cache.lineWidth;
+      // line length
       let cWidth = 0;
 
-      let intersect = Math.max(4.5, 0.6 * algo.presetRadius);
-      lines = 3;
+      let intersect = snowflakeAlgo.cache.intersect;
       if (distance > intersect) {
         let xOffset = Math.sin(Math.PI / 3) * intersect;
         let yOffset = Math.cos(Math.PI / 3) * intersect;
         let smallTips = [
-          {"x": 0, "y": intersect},
-          {"x": 0, "y": -intersect},
-          {"x": xOffset, "y": yOffset},
-          {"x": xOffset, "y": -yOffset},
-          {"x": -xOffset, "y": yOffset},
-          {"x": -xOffset, "y": -yOffset},
+          {"x": 0,        "y": intersect,  "inScope": (ry + intersect < algo.obj[i].y)},
+          {"x": 0,        "y": -intersect, "inScope": (ry - intersect > algo.obj[i].y)},
+          {"x": xOffset,  "y": yOffset,    "inScope": ((rx < algo.obj[i].y) && (ry < algo.obj[i].y))},
+          {"x": xOffset,  "y": -yOffset,   "inScope": ((rx < algo.obj[i].y) && (ry > algo.obj[i].y))},
+          {"x": -xOffset, "y": yOffset,    "inScope": ((rx > algo.obj[i].y) && (ry < algo.obj[i].y))},
+          {"x": -xOffset, "y": -yOffset,   "inScope": ((rx > algo.obj[i].y) && (ry > algo.obj[i].y))},
         ];
         smallTips.forEach(offset => {
-          let realx = rx + offset.x;
-          let realy = ry + offset.y;
-          let realOffx = Math.abs(realx - algo.obj[i].x);
-          let realOffy = Math.abs(realy - algo.obj[i].y);
-          let realDistance = Math.sqrt(realOffx * realOffx + realOffy * realOffy);
-          let realAngle = getAngle(i, realx, realy);
-          realAngle *= lines;
-          a = Math.sin(realAngle) * realDistance;
-          c = Math.abs(Math.cos(realAngle) * realDistance);
-          aWidth = 0.9 + 0.02 * algo.presetRadius;
-          cWidth = 0.5 * algo.presetRadius;
-          a = a / aWidth / lines;
-          c = c / cWidth;
-          factor = Math.max(factor, 1 - (a * a) + 1 - (c * c) - 1);
+          if (offset.inScope) {
+            let realx = rx + offset.x;
+            let realy = ry + offset.y;
+            let realOffx = Math.abs(realx - algo.obj[i].x);
+            let realOffy = Math.abs(realy - algo.obj[i].y);
+            let realDistance = Math.sqrt(realOffx * realOffx + realOffy * realOffy);
+            let realAngle = getAngle(i, realx, realy);
+            realAngle *= lines;
+            a = Math.sin(realAngle) * realDistance;
+            c = Math.abs(Math.cos(realAngle) * realDistance);
+            cWidth = snowflakeAlgo.cache.cWidthSmall;
+            a = a / aWidth / lines;
+            c = c / cWidth;
+            factor = Math.max(factor, 1 - (a * a) + 1 - (c * c) - 1);
+          }
         });
       }
 
-      lines = 3;
-      offx = Math.abs(rx - algo.obj[i].x);
-      offy = Math.abs(ry - algo.obj[i].y);
-      distance = Math.sqrt(offx * offx + offy * offy);
-      angle = getAngle(i, rx, ry);
-      angle *= lines;
+      let angle = getAngle(i, rx, ry) * lines;
       a = Math.abs(Math.sin(angle) * distance);
-      c = Math.abs(Math.cos(angle) * distance);
-      aWidth = 0.9 + 0.02 * algo.presetRadius;
-      cWidth = 1.5 * algo.presetRadius;
       a = a / aWidth / lines;
+      cWidth = snowflakeAlgo.cache.cWidthMain;
+      c = Math.abs(Math.cos(angle) * distance);
       c = c / cWidth;
       factor = Math.max(factor, 1 - (a * a) + 1 - (c * c) - 1);
-
-      return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
-    }
-    snowflakeAlgo.unusedFkt = function(i, rx, ry, r, g, b)
-    {
-      let factor = 1.0;
-      // calculate the offset difference of algo.map location to the float
-      // location of the object
-      let offx = rx - algo.obj[i].x;
-      let offy = ry - algo.obj[i].y;
-      let distance = Math.sqrt(offx * offx + offy * offy);
-      let angle = getAngle(i, rx, ry);
-      let percent = 0;
-      let handles = 6;
-
-      // Turn each object by a random angle
-      angle += algo.obj[i].random * algo.twoPi;
-      // Repeat and normalize the pattern
-      angle = handles * angle;
-      angle = (angle + algo.twoPi) % (algo.twoPi);
-
-      // Blind in the inner edges
-      factor = Math.cos(angle) + 0.2 - (distance / (algo.presetRadius));
-
-      //--------------------------------------
-      // Draw the outer parts
-//      let outerx = 0;
-//      let outery = 0;
-      let d = distance;
-      var factorR = 0;
-      // Repeat and normalize the pattern
-      angle = Math.abs(angle - Math.PI);
-      angle = (angle + algo.twoPi) % (algo.twoPi);
-
-      d = distance * (1 + 0.2 * angle / Math.PI);
-      let percentX = Math.abs(offx / algo.presetRadius);
-      let percentY = Math.abs(offy / algo.presetRadius);
-      
-      factorR = Math.sin(handles / 2 * percentX * Math.PI - algo.halfPi)
-      		+ Math.sin(percentY * Math.PI - algo.halfPi);
-      factorR += Math.sin(percentX * Math.PI - algo.halfPi)
-		+ Math.sin(handles / 2 * percentY * Math.PI - algo.halfPi);
-
-      //--------------------------------------
-//      factor = factorR;
-//      factor = Math.max(factorR, factor);
-      
-      // Blind out the outside edges
-      percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
-      // apply a scale factor for the percent / input in the asec function
-      factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-
-      // Draw a center
-      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetRadius)));
-      // apply a scale factor for the percent / input in the asec=acos(1/x) function
-      let factorC = 0;
-      factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-      factor = Math.max(factorC, factor * 1.5);
 
       return getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -943,19 +899,6 @@ var testAlgo;
         return angle;
     }
     
-    // triangle funktion: c=1; o=0; 0=0, 0.5=1, 1=0
-    // try at https://www.geogebra.org/graphing
-    // 1/2 (sqrt(sin^(2)((x-o) (π)/(c)))-sqrt(sin^(2)((x-o) (π)/(c)+(π)/(2)))+1)
-    // compress factor is usualy 1 for the mentioned result, can be 2 for expansion
-    // 2: 0 = 0; 1 = 1: 2 = 0;
-//    function triangleFunction(percent, compression = 1, offset = 0)
-//    {
-//      let base = (percent - offset) * Math.PI / compression;
-//      let sin1 = Math.sin(base);
-//      let sin2 = Math.sin(base + algo.halfPi); 
-//      return 0.5 * (Math.abs(sin1) - Math.abs(sin2) + 1);
-//    }
-    
     // Combine RGB color from color channels
     function mergeRgb(r, g, b)
     {
@@ -1084,7 +1027,7 @@ var testAlgo;
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
               // DEVELOPMENT: Draw a box for debugging.
-              //algo.map[ry][rx] = getColor(0, 0, 80, algo.map[ry][rx]);
+              algo.map[ry][rx] = getColor(0, 0, 80, algo.map[ry][rx]);
 
               // add the object color to the mapped location
               algo.map[ry][rx] = shape.getMapPixelColor(i, rx, ry, r, g, b);
