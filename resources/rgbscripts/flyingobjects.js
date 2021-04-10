@@ -583,55 +583,56 @@ var testAlgo;
     }
 
     let steeringwheelAlgo = new Object;
+    steeringwheelAlgo.cache = {
+      presetRadius: 0,
+    };
+    steeringwheelAlgo.updateCache = function()
+    {
+      if (algo.presetSize < 7) {
+        steeringwheelAlgo.cache.outerCircle = 0.5 * algo.presetRadius;
+    	steeringwheelAlgo.cache.innerCircle = 0;
+      } else {
+        steeringwheelAlgo.cache.outerCircle = 0.75 * algo.presetRadius;
+        steeringwheelAlgo.cache.innerCircle = 0.65 * algo.presetRadius;
+      }
+      steeringwheelAlgo.cache.centerCircle = 0.2 * algo.presetRadius;
+      // line width
+      steeringwheelAlgo.cache.lineWidth = 0.9 + 0.06 * algo.presetRadius;
+      // line length
+      steeringwheelAlgo.cache.lineLength = 1.4 * algo.presetRadius;
+      steeringwheelAlgo.cache.presetRadius = algo.presetRadius;
+    }
     steeringwheelAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
-      let factor = 1.0;
+      if (steeringwheelAlgo.cache.presetRadius != algo.presetRadius) {
+    	  steeringwheelAlgo.updateCache();
+      }
       // calculate the offset difference of algo.map location to the float
       // location of the object
-      let offx = rx - algo.obj[i].x;
-      let offy = ry - algo.obj[i].y;
+      let offx = Math.abs(rx - algo.obj[i].x);
+      let offy = Math.abs(ry - algo.obj[i].y);
       let distance = Math.sqrt(offx * offx + offy * offy);
-      let angle = geometryCalc.getAngle(i, rx, ry);
-      let percent = 0;
-      let handles = 6;
-      let outer = 0.7
-      let inner = 0.5;
+      let distPercentCenter = distance / steeringwheelAlgo.cache.centerCircle;
+      let lines = 3;
+      let factor = 0;
 
-      if (algo.presetSize < 10) {
-          outer = 0.5;
-          inner = 0.0;
-      }
+      // Draw handles
+      let angle = geometryCalc.getAngle(i, rx, ry) * lines;
+      let a = Math.abs(Math.sin(angle) * distance);
+      a = a / steeringwheelAlgo.cache.lineWidth / lines;
+      c = Math.abs(Math.cos(angle) * distance);
+      c = c / steeringwheelAlgo.cache.lineLength;
+      factor = 1 - (a * a) - (c * c);
 
-      // Repeat and normalize the pattern
-      angle = handles * angle;
-      angle = (angle + algo.twoPi) % (algo.twoPi);
-
-      // Blind in the inner edges
-      factor = Math.cos(angle) + 0.2 - (distance / (algo.presetRadius));
-
-      // --------------------------------------
-      // Draw the ring
-      let d = distance;
-      var factorR = 0;
-      percent = Math.max(0, 1 - (d / (outer * algo.presetRadius)));
-      factorR = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-      percent = Math.max(0, 1 - (d / (inner * algo.presetRadius)));
-      factorR -= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-      // --------------------------------------
-      factor = Math.max(factorR, factor);
-      
-      // Blind out the outside edges
-      percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
-      // apply a scale factor for the percent / input in the asec function
-      factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
+      // Draw a ring
+      let distPercent = distance / steeringwheelAlgo.cache.outerCircle;
+      let ringFactor = Math.max(factor, util.blindoutPercent(1 - distPercent, 3));
+      distPercent = distance / steeringwheelAlgo.cache.innerCircle;
+      ringFactor -= util.blindoutPercent(1 - distPercent, 0.5);
+      factor = Math.max(factor, ringFactor);
 
       // Draw a center
-      percent = Math.max(0, 1 - (distance / (0.2 * algo.presetRadius)));
-      // apply a scale factor for the percent / input in the asec=acos(1/x)
-		// function
-      let factorC = 0;
-      factorC = algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-      factor = Math.max(factorC, factor * 1.5);
+      factor = Math.max(factor, util.blindoutPercent(1 - distPercentCenter, 3));
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
