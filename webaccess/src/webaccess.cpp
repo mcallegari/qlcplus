@@ -54,10 +54,11 @@
 #include "qhttpresponse.h"
 #include "qhttpconnection.h"
 
+#define DEFAULT_PORT_NUMBER    9999
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
-                     bool enableAuth, QString passwdFile, QObject *parent) :
+                     int portNumber, bool enableAuth, QString passwdFile, QObject *parent) :
     QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
@@ -82,7 +83,7 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
     connect(m_httpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
             this, SLOT(slotHandleWebSocketClose(QHttpConnection*)));
 
-    m_httpServer->listen(QHostAddress::Any, 9999);
+    m_httpServer->listen(QHostAddress::Any, portNumber ? portNumber : DEFAULT_PORT_NUMBER);
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     m_netConfig = new WebAccessNetwork();
