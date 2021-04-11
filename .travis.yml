@@ -79,7 +79,5 @@ matrix:
 cache:
   apt: true
 
-before_script: ./.travis-prepare.sh
-
 after_success:
  - if [ "$TASK" = "coverage" ]; then coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage/coverage.info; fi
