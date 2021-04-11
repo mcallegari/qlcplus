@@ -1,7 +1,7 @@
 language: cpp
 sudo: required
 
-script: .travis-ci.sh
+script: ./.travis-ci.sh
 
 addons:
   apt:
@@ -79,7 +79,7 @@ matrix:
 cache:
   apt: true
 
-before_script: .travis-prepare.sh
+before_script: ./.travis-prepare.sh
 
 after_success:
  - if [ "$TASK" = "coverage" ]; then coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage/coverage.info; fi
