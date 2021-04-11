@@ -80,5 +80,10 @@ matrix:
 cache:
   apt: true
 
+before_install:
+ # Start xvfb so UI tests don't fail
+ - "export DISPLAY=:99.0"
+ - "sh -e /etc/init.d/xvfb start"
+
 after_success:
  - if [ "$TASK" = "coverage" ]; then coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage/coverage.info; fi

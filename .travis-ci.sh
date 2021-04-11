@@ -16,10 +16,6 @@ else
     sudo ln -s /usr/bin/g++-7 /usr/bin/g++
     export CXX="g++-7" CC="gcc-7"
   fi
-
-  # Start xvfb so UI tests don't fail
-  export DISPLAY=:99.0
-  sudo /etc/init.d/xvfb start
 fi
 
 if [ "$TASK" = "coverage" ]; then
