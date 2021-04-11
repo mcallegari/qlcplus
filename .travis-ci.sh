@@ -19,7 +19,7 @@ else
 
   # Start xvfb so UI tests don't fail
   export DISPLAY=:99.0
-  /etc/init.d/xvfb start
+  sudo /etc/init.d/xvfb start
 fi
 
 if [ "$TASK" = "coverage" ]; then
