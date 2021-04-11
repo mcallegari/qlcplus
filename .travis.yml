@@ -30,6 +30,7 @@ addons:
     packages: &qmlui_pkg
       - *base_pkg
       - libpulse-dev
+      - xvfb
       - qt514-meta-minimal
       - qt514declarative
       - qt514quickcontrols2
