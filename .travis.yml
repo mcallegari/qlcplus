@@ -43,14 +43,15 @@ matrix:
   fast_finish: true
   include:
     - os: linux
-      dist: trusty
+      dist: xenial
       compiler: gcc
       env: TASK='compile' QT='qt5'
+      services: xvfb
       addons:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt562-trusty'
+           - sourceline: 'ppa:beineri/opt-qt562-xenial'
           packages:
            - *qt5_pkg
     - os: linux
@@ -65,25 +66,21 @@ matrix:
           packages:
            - *qmlui_pkg
     - os: linux
-      dist: trusty
+      dist: xenial
       compiler: gcc
       env: TASK='coverage' QT='qt5'
+      services: xvfb
       addons:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt562-trusty'
+           - sourceline: 'ppa:beineri/opt-qt562-xenial'
           packages:
            - *qt5_pkg
            - lcov
 
 cache:
   apt: true
-
-before_install:
- # Start xvfb so UI tests don't fail
- - "export DISPLAY=:99.0"
- - "sh -e /etc/init.d/xvfb start"
 
 after_success:
  - if [ "$TASK" = "coverage" ]; then coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage/coverage.info; fi
