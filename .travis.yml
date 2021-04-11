@@ -17,6 +17,7 @@ addons:
       - libsndfile1-dev
       - liblo-dev
       - libfftw3-dev
+      - libgl1-mesa-dev
  # Needed for `xmllint`
       - libxml2-utils
     packages: &qt5_pkg
@@ -29,8 +30,6 @@ addons:
     packages: &qmlui_pkg
       - *base_pkg
       - libpulse-dev
-      - xvfb
-      - libgl1-mesa-dev
       - qt514-meta-minimal
       - qt514declarative
       - qt514quickcontrols2
