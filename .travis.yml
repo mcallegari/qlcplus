@@ -9,13 +9,13 @@ addons:
     packages: &base_pkg
       #base packages for all builds
       - gdb
-      - libasound2-dev 
-      - libusb-dev 
-      - libftdi-dev 
-      - shared-mime-info 
-      - libudev-dev 
-      - libmad0-dev 
-      - libsndfile1-dev 
+      - libasound2-dev
+      - libusb-dev
+      - libftdi-dev
+      - shared-mime-info
+      - libudev-dev
+      - libmad0-dev
+      - libsndfile1-dev
       - liblo-dev
       - libfftw3-dev
  # Needed for `xmllint`
@@ -30,13 +30,13 @@ addons:
     packages: &qmlui_pkg
       - *base_pkg
       - libpulse-dev
-      - qt510-meta-minimal
-      - qt510declarative
-      - qt510quickcontrols2
-      - qt5103d
-      - qt510svg
-      - qt510multimedia
-      - qt510serialport
+      - qt514-meta-minimal
+      - qt514declarative
+      - qt514quickcontrols2
+      - qt5143d
+      - qt514svg
+      - qt514multimedia
+      - qt514serialport
       - g++-7
 
 matrix:
@@ -54,14 +54,14 @@ matrix:
           packages:
            - *qt5_pkg
     - os: linux
-      dist: trusty
+      dist: bionic
       compiler: gcc
       env: TASK='compile' QT='qt5qml'
       addons:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt-5.10.1-trusty'
+           - sourceline: 'ppa:beineri/opt-qt-5.14.2-bionic'
           packages:
            - *qmlui_pkg
     - os: linux
@@ -82,7 +82,7 @@ cache:
 
 before_install:
  - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt56/bin/qmake; fi
- - if [ "$QT" = "qt5qml" ]; then export QMAKE=/opt/qt510/bin/qmake; fi
+ - if [ "$QT" = "qt5qml" ]; then export QMAKE=/opt/qt514/bin/qmake; fi
  - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
 #Report the qmake version
  - $QMAKE -v
