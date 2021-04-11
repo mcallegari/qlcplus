@@ -54,6 +54,10 @@ var testAlgo;
     bellAlgo.updateCache = function()
     {
       bellAlgo.cache.scaling = 0.5 - 0.008 * algo.presetSize;
+      bellAlgo.cache.bottomOffset = 1.1 * algo.presetRadius;
+      bellAlgo.cache.clapperSize = 0.8 * algo.presetRadius - 1;
+      bellAlgo.cache.clapperSwing = 0.5 * algo.presetRadius;
+      bellAlgo.cache.clapperDeflection = 0.025 * algo.twoPi;
       bellAlgo.cache.presetRadius = algo.presetRadius;
     }
     bellAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
@@ -69,20 +73,24 @@ var testAlgo;
       let factor = 0;
 
       // Offset to bottom
-      let realOffy = offy + algo.presetRadius + 0.7;
+      let realOffy = offy + bellAlgo.cache.bottomOffset;
       let scaling = bellAlgo.cache.scaling;
       factor = 1 - Math.sqrt(offx * offx * scaling + realOffy * realOffy) + realOffy;
       factor *= util.blindoutPercent(1 - Math.abs(realOffy) / (algo.presetRadius * 1.9), 10);
 
       if (offy > 0.4 * algo.presetSize) {
-        // The bottom:
-        // offx remains the same.
-        // offy is 0
-        realOffy = offy -  0.8 * algo.presetRadius;
-        distance = Math.sqrt((offx * offx) + (realOffy * realOffy));
+        // The bottom
+    	let realOffx = rx - algo.obj[i].x;
+    	let stepInput = bellAlgo.cache.clapperDeflection;
+    	stepInput *= algo.progstep;
+    	stepInput += algo.twoPi * algo.obj[i].random;
+    	let stepPercent = Math.sin(stepInput);
+    	realOffx += bellAlgo.cache.clapperSwing * stepPercent;
+        realOffy = offy - bellAlgo.cache.clapperSize;
+        distance = Math.sqrt((realOffx * realOffx) + (realOffy * realOffy));
         factor = Math.max(factor, 1 - (distance / (algo.presetRadius / 3 + 1)));
       }
-    
+
       // add the object color to the algo.mapped location
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     };
@@ -187,7 +195,7 @@ var testAlgo;
       let distPercent = distance / algo.presetRadius;
 
       let angle = geometryCalc.getAngle(offx, offy);
-      angle -= (algo.twoPi) * (algo.progstep / 64 % 1);
+      angle -= (algo.twoPi) * ((algo.progstep / 64) % 1);
       angle = (angle + algo.twoPi) % (algo.twoPi);
 
       // Rotating shadow
@@ -788,9 +796,7 @@ var testAlgo;
       factor *= util.blindoutPercent(1 - Math.abs(offy) / treeAlgo.cache.blindoutPercent, 10);
 
       if (offy > treeAlgo.cache.bottomHeight) {
-        // The bottom:
-        // offx remains the same.
-        // offy is 0
+        // The bottom
         realOffy = offy - treeAlgo.cache.bottomHeight;
         let distance = Math.sqrt((offx * offx) + 1);
         factor = Math.max(factor, 1 - (distance / treeAlgo.cache.bottomWidth));
@@ -809,9 +815,7 @@ var testAlgo;
 
       // Calculate color intensity
       if (ry === Math.floor(algo.obj[i].y) + algo.boxRadius + 1) {
-        // The tree foot:
-        // offx remains the same.
-        // offy is 0
+        // The tree foot
         offy = 0;
       } else {
         // Offset to bottom
@@ -1158,8 +1162,8 @@ var testAlgo;
           random: Math.random(),
         };
         // For DEVELOPMENT align objects centered.
-        //algo.obj[i].x = width / 2;
-        //algo.obj[i].y = height / 2;
+        algo.obj[i].x = width / 2;
+        algo.obj[i].y = height / 2;
         // set random directions
         do {
           do {
