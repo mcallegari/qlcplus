@@ -78,7 +78,7 @@ var testAlgo;
       factor = 1 - Math.sqrt(offx * offx * scaling + realOffy * realOffy) + realOffy;
       factor *= util.blindoutPercent(1 - Math.abs(realOffy) / (algo.presetRadius * 1.9), 10);
 
-      if (offy > 0.4 * algo.presetSize) {
+      if (offy > bellAlgo.cache.clapperSize) {
         // The bottom
     	let realOffx = rx - algo.obj[i].x;
     	let stepInput = bellAlgo.cache.clapperDeflection;
@@ -210,7 +210,7 @@ var testAlgo;
           inner = 0.5;
       }
       distPercent = distance / (algo.presetRadius * inner);
-      factor -= util.blindoutPercent(1 - distPercent, 0.5);
+      factor -= util.blindoutPercent(1 - distPercent, 0.3);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -488,10 +488,10 @@ var testAlgo;
         let smallTips = [
           {"x": 0,        "y": intersect,  "inScope": (ry + intersect < algo.obj[i].y)},
           {"x": 0,        "y": -intersect, "inScope": (ry - intersect > algo.obj[i].y)},
-          {"x": xOffset,  "y": yOffset,    "inScope": ((rx < algo.obj[i].y) && (ry < algo.obj[i].y))},
-          {"x": xOffset,  "y": -yOffset,   "inScope": ((rx < algo.obj[i].y) && (ry > algo.obj[i].y))},
-          {"x": -xOffset, "y": yOffset,    "inScope": ((rx > algo.obj[i].y) && (ry < algo.obj[i].y))},
-          {"x": -xOffset, "y": -yOffset,   "inScope": ((rx > algo.obj[i].y) && (ry > algo.obj[i].y))},
+          {"x": xOffset,  "y": yOffset,    "inScope": ((rx < algo.obj[i].x) && (ry < algo.obj[i].y))},
+          {"x": xOffset,  "y": -yOffset,   "inScope": ((rx < algo.obj[i].x) && (ry > algo.obj[i].y))},
+          {"x": -xOffset, "y": yOffset,    "inScope": ((rx > algo.obj[i].x) && (ry < algo.obj[i].y))},
+          {"x": -xOffset, "y": -yOffset,   "inScope": ((rx > algo.obj[i].x) && (ry > algo.obj[i].y))},
         ];
         smallTips.forEach(offset => {
           if (offset.inScope) {
@@ -1162,8 +1162,8 @@ var testAlgo;
           random: Math.random(),
         };
         // For DEVELOPMENT align objects centered.
-        algo.obj[i].x = width / 2;
-        algo.obj[i].y = height / 2;
+        //algo.obj[i].x = width / 2;
+        //algo.obj[i].y = height / 2;
         // set random directions
         do {
           do {
