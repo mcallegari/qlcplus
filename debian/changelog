@@ -7,7 +7,7 @@ qlcplus (4.12.4) stable; urgency=low
   * Web Access: added -wp/-web-port command line option to set a specific access port
   * Input profiles: added Novation Launchpad Mini MK3 (thanks to Felix)
   * Input profiles: added KORG nanoKONTROL Studio (thanks to Hans-Jürgen Tappe)
-  * RGB scripts: added 'Snow or bubbles' and 'Blinder' scripts (thanks to Hans-Jürgen Tappe)
+  * RGB scripts: added 'Flying objects', 'Snow or bubbles' and 'Blinder' scripts (thanks to Hans-Jürgen Tappe)
   * RGB scripts: added 'Lines' script (thanks to Branson Matheson)
   * RGB scripts: added brightness inversion to 'Starfield' script (thanks to Branson Matheson)
   * RGB scripts: added more parameters to 'Circles' script (thanks to Branson Matheson)
@@ -37,7 +37,7 @@ qlcplus (4.12.4) stable; urgency=low
   * New fixtures: Chauvet Ovation F-415FC, Ovation P56FC (thanks to Matt Fiscus)
   * New fixtures: Cameo Thunderwash 600 RGBW, Thunderwash 600 UV (thanks to Torsten Caninenberg)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 28 Mar 2021 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 May 2021 12:13:14 +0200
 
 qlcplus (4.12.3) stable; urgency=low
 
