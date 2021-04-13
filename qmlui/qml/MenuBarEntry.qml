@@ -54,8 +54,8 @@ Button
     Gradient
     {
         id: defSelectionGradient
-        GradientStop { position: 0 ; color: "#444" }
-        GradientStop { position: 1 ; color: "#171717" }
+        GradientStop { position: 0; color: UISettings.toolbarHoverStart }
+        GradientStop { position: 1; color: UISettings.toolbarHoverEnd }
     }
 
     contentItem:
@@ -63,14 +63,16 @@ Button
         {
             id: entryContents
             width: btnIcon.width + btnLabel.width
+            spacing: 4
 
             Image
             {
                 id: btnIcon
+                visible: control.imgSource
+                x: 2
+                anchors.verticalCenter: parent.verticalCenter
                 height: control.iconSize
                 width: control.iconSize
-                x: 2
-                y: 2
                 rotation: iconRotation
                 source: control.imgSource
                 sourceSize: Qt.size(control.iconSize, control.iconSize)

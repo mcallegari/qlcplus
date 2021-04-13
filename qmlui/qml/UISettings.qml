@@ -49,6 +49,8 @@ QtObject
     property color toolbarStartMain: "#1a1a1a"
     property color toolbarStartSub:  "#222"
     property color toolbarEnd:       "#111"
+    property color toolbarHoverStart:"#444"
+    property color toolbarHoverEnd:  "#171717"
 
     property color toolbarSelectionMain: "#12B4FF"
     property color toolbarSelectionSub:  "yellow"
