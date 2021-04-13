@@ -196,6 +196,35 @@ function initSpeedValue()
     document.getElementById("speed").value = speed;
 }
 
+function initColorValues()
+{
+    var primary = localStorage.getItem("primaryColor");
+    if (primary === null || Number.isNaN(parseInt("0x" + primary, 16))) {
+      primary = "ff0000";
+    }
+    document.getElementById("primaryColor").value = primary;
+    var secondary = localStorage.getItem("secondaryColor");
+    if (secondary === null || secondary === "" || Number.isNaN(parseInt("0x" + secondary, 16))) {
+      document.getElementById("secondaryColor").value = "";
+    } else {
+      document.getElementById("secondaryColor").value = secondary;
+    }
+}
+
+function initGridSize()
+{
+    var width = localStorage.getItem("width");
+    if (width === null) {
+        width = 15;
+    }
+    document.getElementById("width").value = width;
+    var height = localStorage.getItem("height");
+    if (height === null) {
+        height = 15;
+    }
+    document.getElementById("height").value = height;
+}
+
 function getRgbFromColorInt(color)
 {
     var red = color >> 16;
@@ -272,12 +301,26 @@ function onGridSizeUpdated()
 {
     width = parseInt(document.getElementById("width").value);
     height = parseInt(document.getElementById("height").value);
+    localStorage.setItem("width", width);
+    localStorage.setItem("height", height);
 
     stepCount = testAlgo.rgbMapStepCount(width, height);
     document.getElementById("stepCount").value = stepCount;
     document.getElementById("currentStep").max = stepCount - 1;
 
-    setStep(0);
+    writeCurrentStep();
+}
+
+function onColorChange()
+{
+    var primary = parseInt("0x" + document.getElementById("primaryColor").value).toString(16);
+    localStorage.setItem("primaryColor", primary);
+    var secondary = parseInt("0x" + document.getElementById("secondaryColor").value).toString(16);
+    if (secondary === "NaN") { // Evaluation of the string.
+      localStorage.setItem("secondaryColor", "");
+    } else {
+      localStorage.setItem("secondaryColor", secondary);
+    }
     writeCurrentStep();
 }
 
@@ -308,8 +351,11 @@ function init()
     if (typeof testAlgo === "undefined") {
         return;
     }
+    setStep(0);
     initDefinitions();
     initSpeedValue();
+    initColorValues();
+    initGridSize();
     initProperties();
     initPixelColors();
     onGridSizeUpdated();
