@@ -26,7 +26,6 @@ import "."
 
 Rectangle
 {
-    id: mainView
     visible: true
     width: 800
     height: 600
@@ -76,7 +75,7 @@ Rectangle
             {
                 imgSource: "qrc:/filenew.svg"
                 entryText: qsTr("New definition")
-                //onPressed: qlcplus.closeFixtureEditor()
+                onPressed: fixtureEditor.createDefinition()
                 autoExclusive: false
                 checkable: false
             }
@@ -137,22 +136,35 @@ Rectangle
                         property string fxManuf: modelData.cRef.manufacturer
                         property string fxModel: modelData.cRef.model
 
+                        //width: contentItem.width + (modIcon.visible ? modIcon.width + 8 : 0)
+
                         entryText: (fxManuf ? fxManuf : qsTr("Unknown")) + " - " + (fxModel ? fxModel : qsTr("Unknown"))
+                        imgSource: modelData.cRef.isModified ? "qrc:/filesave.svg" : ""
+                        iconSize: height * 0.75
                         checkable: true
+                        padding: 5
+
                         onClicked:
                         {
-                            editorView.editorId = modelData.id
-                            editorView.fixtureEditor = modelData.cRef
+                            editor.editorId = modelData.id
+                            editor.editorView = modelData.cRef
+                            editor.isUser = modelData.cRef.isUser
                             checked = true
                         }
                     }
             } // Repeater
+            Rectangle
+            {
+                Layout.fillWidth: true
+                height: parent.height
+                color: "transparent"
+            }
         } // RowLayout
     } // Rectangle
 
     EditorView
     {
-        id: editorView
+        id: editor
         y: mainToolbar.height + feToolbar.height
         width: parent.width
         height: parent.height - (mainToolbar.height + feToolbar.height)

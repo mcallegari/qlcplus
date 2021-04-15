@@ -30,6 +30,7 @@ EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *par
     : QObject(parent)
     , m_view(view)
     , m_fixtureDef(fixtureDef)
+    , m_isModified(false)
     , m_channelEdit(nullptr)
     , m_modeEdit(nullptr)
 {
@@ -45,6 +46,22 @@ EditorView::~EditorView()
         delete m_modeEdit;
 }
 
+bool EditorView::isModified() const
+{
+    return m_isModified;
+}
+
+bool EditorView::isUser() const
+{
+    return m_fixtureDef->isUser();
+}
+
+void EditorView::setModified()
+{
+    m_isModified = true;
+    emit hasChanged();
+}
+
 QString EditorView::manufacturer() const
 {
     return m_fixtureDef->manufacturer();
@@ -57,6 +74,7 @@ void EditorView::setManufacturer(QString manufacturer)
 
     m_fixtureDef->setManufacturer(manufacturer);
     emit manufacturerChanged(manufacturer);
+    setModified();
 }
 
 QString EditorView::model() const
@@ -71,6 +89,7 @@ void EditorView::setModel(QString model)
 
     m_fixtureDef->setModel(model);
     emit modelChanged(model);
+    setModified();
 }
 
 QString EditorView::author() const
@@ -85,6 +104,7 @@ void EditorView::setAuthor(QString author)
 
     m_fixtureDef->setAuthor(author);
     emit authorChanged(author);
+    setModified();
 }
 
 PhysicalEdit *EditorView::globalPhysical()
@@ -120,6 +140,7 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
         emit channelsChanged();
     }
     m_channelEdit = new ChannelEdit(ch);
+    connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
     return m_channelEdit;
 }
 

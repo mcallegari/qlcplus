@@ -27,7 +27,11 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
     : QObject(parent)
     , m_channel(channel)
 {
-
+    connect(m_channel, SIGNAL(presetChanged()), this, SIGNAL(channelChanged()));
+    connect(m_channel, SIGNAL(groupChanged()), this, SIGNAL(channelChanged()));
+    connect(m_channel, SIGNAL(nameChanged()), this, SIGNAL(channelChanged()));
+    connect(m_channel, SIGNAL(defaultValueChanged()), this, SIGNAL(channelChanged()));
+    connect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
 }
 
 ChannelEdit::~ChannelEdit()

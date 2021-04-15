@@ -130,7 +130,7 @@ Rectangle
         delegate:
             FixtureBrowserDelegate
             {
-                width: modelsList.width - manufScroll.width
+                width: modelsList.width - (manufScroll.visible ? manufScroll.width : 0)
                 isManufacturer: true
                 textLabel: modelData
                 onMouseEvent:
@@ -236,7 +236,7 @@ Rectangle
                 FixtureBrowserDelegate
                 {
                     id: dlg
-                    width: modelsList.width - modelsScroll.width
+                    width: modelsList.width - (modelsScroll.visible ? modelsScroll.width : 0)
                     manufacturer: fixtureBrowser.selectedManufacturer
                     textLabel: modelData
 

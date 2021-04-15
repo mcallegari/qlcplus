@@ -845,17 +845,25 @@ uchar QLCChannel::defaultValue() const
 
 void QLCChannel::setDefaultValue(uchar value)
 {
-    m_defaultValue = value;
-}
+    if (value == m_defaultValue)
+        return;
 
-void QLCChannel::setControlByte(ControlByte byte)
-{
-    m_controlByte = byte;
+    m_defaultValue = value;
+    emit defaultValueChanged();
 }
 
 QLCChannel::ControlByte QLCChannel::controlByte() const
 {
     return m_controlByte;
+}
+
+void QLCChannel::setControlByte(ControlByte byte)
+{
+    if (byte == m_controlByte)
+        return;
+
+    m_controlByte = byte;
+    emit controlByteChanged();
 }
 
 /*****************************************************************************

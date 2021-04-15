@@ -31,6 +31,9 @@ class EditorView : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool isModified READ isModified NOTIFY hasChanged)
+    Q_PROPERTY(bool isUser READ isUser CONSTANT)
+
     Q_PROPERTY(QString manufacturer READ manufacturer WRITE setManufacturer NOTIFY manufacturerChanged)
     Q_PROPERTY(QString model READ model WRITE setModel NOTIFY modelChanged)
     Q_PROPERTY(QString author READ author WRITE setAuthor NOTIFY authorChanged)
@@ -43,6 +46,12 @@ class EditorView : public QObject
 public:
     EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
+
+    /** Get the definition modification flag */
+    bool isModified() const;
+
+    /** Get if the definition is user or system */
+    bool isUser() const;
 
     /** Get/Set the fixture manufacturer */
     QString manufacturer() const;
@@ -60,7 +69,11 @@ public:
      *  global physical properties */
     PhysicalEdit *globalPhysical();
 
+protected slots:
+    void setModified();
+
 signals:
+    void hasChanged();
     void manufacturerChanged(QString manufacturer);
     void modelChanged(QString model);
     void authorChanged(QString author);
@@ -72,6 +85,8 @@ private:
     QLCFixtureDef *m_fixtureDef;
     /** Reference to the global physical properties */
     PhysicalEdit *m_globalPhy;
+    /** Definition modification flag */
+    bool m_isModified;
 
     /************************************************************************
      * Channels

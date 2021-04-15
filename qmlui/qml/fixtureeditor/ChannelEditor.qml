@@ -28,13 +28,13 @@ GridLayout
 {
     columns: 4
 
-    property EditorRef fixtureEditor: null
+    property EditorRef editorView: null
     property ChannelEdit editor: null
     property QLCChannel channel: null
 
     function setItemName(name)
     {
-        editor = fixtureEditor.requestChannelEditor(name)
+        editor = editorView.requestChannelEditor(name)
         channel = editor.channel
         nameEdit.selectAndFocus()
     }

@@ -882,7 +882,6 @@ void App::createFixture()
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
-        //setSource(QUrl("qrc:/FixtureEditor.qml")); // another fucking segfault in QtQuick
         QMetaObject::invokeMethod(rootObject(), "switchToContext",
                                   Q_ARG(QVariant, "FXEDITOR"),
                                   Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
@@ -896,7 +895,6 @@ void App::editFixture(QString manufacturer, QString model)
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
-        //setSource(QUrl("qrc:/FixtureEditor.qml"));
         QMetaObject::invokeMethod(rootObject(), "switchToContext",
                                   Q_ARG(QVariant, "FXEDITOR"),
                                   Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));

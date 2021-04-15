@@ -29,9 +29,27 @@ Rectangle
     id: editorRoot
 
     property int editorId
-    property EditorRef fixtureEditor: null
+    property EditorRef editorView: null
+    property bool isUser: true
 
     color: "transparent"
+
+    Component.onCompleted:
+    {
+        if (isUser)
+            systemFixturePopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: systemFixturePopup
+        standardButtons: Dialog.Ok
+        title: qsTr("!! Warning !!")
+        message: qsTr("You are trying to edit a bundled fixture definition.<br>" +
+                      "If you modify it, a new file will be stored in<br><i>" +
+                      fixtureEditor.userFolder + "</i><br>when saving, with precedence over the bundled file.")
+        onAccepted: systemFixturePopup.close()
+    }
 
     SplitView
     {
@@ -74,8 +92,8 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                text: fixtureEditor ? fixtureEditor.manufacturer : ""
-                                onTextChanged: if (fixtureEditor) fixtureEditor.manufacturer = text
+                                text: editorView ? editorView.manufacturer : ""
+                                onTextChanged: if (editorView) editorView.manufacturer = text
                             }
 
                             // row 1
@@ -121,8 +139,8 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                text: fixtureEditor ? fixtureEditor.model : ""
-                                onTextChanged: if (fixtureEditor) fixtureEditor.model = text
+                                text: editorView ? editorView.model : ""
+                                onTextChanged: if (editorView) editorView.model = text
                             }
 
                             // row 4
@@ -130,8 +148,8 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                text: fixtureEditor ? fixtureEditor.author : ""
-                                onTextChanged: if (fixtureEditor) fixtureEditor.author = text
+                                text: editorView ? editorView.author : ""
+                                onTextChanged: if (editorView) editorView.author = text
                             }
                         }
                 } // SectionBox - General
@@ -146,7 +164,7 @@ Rectangle
                         PhysicalProperties
                         {
                             width: Math.min(editorRoot.width / 2, parent.width)
-                            phy: fixtureEditor ? fixtureEditor.globalPhysical : null
+                            phy: editorView ? editorView.globalPhysical : null
                         }
                 } // SectionBox - Physical
 
@@ -216,7 +234,7 @@ Rectangle
 
                                 property bool dragActive: false
 
-                                model: fixtureEditor ? fixtureEditor.channels : null
+                                model: editorView ? editorView.channels : null
                                 delegate:
                                     Item
                                     {
@@ -366,7 +384,7 @@ Rectangle
                                 boundsBehavior: Flickable.StopAtBounds
                                 currentIndex: -1
 
-                                model: fixtureEditor ? fixtureEditor.modes : null
+                                model: editorView ? editorView.modes : null
                                 delegate:
                                     Item
                                     {
@@ -447,7 +465,7 @@ Rectangle
                 item.width = Qt.binding(function() { return sideEditor.width - 20 })
                 item.height = Qt.binding(function() { return sideEditor.height - 20 })
 
-                item.fixtureEditor = editorRoot.fixtureEditor
+                item.editorView = editorRoot.editorView
                 item.setItemName(itemName)
             }
         }

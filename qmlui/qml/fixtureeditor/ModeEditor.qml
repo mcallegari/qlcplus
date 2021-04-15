@@ -29,12 +29,12 @@ Rectangle
     id: editorRoot
     color: "transparent"
 
-    property EditorRef fixtureEditor: null
+    property EditorRef editorView: null
     property ModeEdit mode: null
 
     function setItemName(name)
     {
-        mode = fixtureEditor.requestModeEditor(name)
+        mode = editorView.requestModeEditor(name)
         nameEdit.selectAndFocus()
     }
 
@@ -229,7 +229,7 @@ Rectangle
                         {
                             width: Math.min(editorRoot.width / 2, parent.width)
                             phy: globalPhyCheck.checked ?
-                                     (fixtureEditor ? fixtureEditor.globalPhysical : null) :
+                                     (editorView ? editorView.globalPhysical : null) :
                                      (mode ? mode.physical : null)
                             enabled: overridePhyCheck.checked
                         }

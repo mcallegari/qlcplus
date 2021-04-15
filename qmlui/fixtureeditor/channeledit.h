@@ -60,6 +60,7 @@ public:
     Q_INVOKABLE QVariant getCapabilityValueAt(int index, int vIndex);
 
 signals:
+    void channelChanged();
     void capabilitiesChanged();
 
 private:

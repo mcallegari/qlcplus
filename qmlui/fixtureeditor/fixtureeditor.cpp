@@ -46,6 +46,11 @@ FixtureEditor::~FixtureEditor()
 
 }
 
+QString FixtureEditor::userFolder() const
+{
+    return m_doc->fixtureDefCache()->userDefinitionDirectory().absolutePath();
+}
+
 void FixtureEditor::createDefinition()
 {
     m_editors[m_lastId] = new EditorView(m_view, new QLCFixtureDef());

@@ -29,13 +29,17 @@ class FixtureEditor : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QVariantList editorsList READ editorsList NOTIFY editorsListChanged)
+    Q_PROPERTY(QString userFolder READ userFolder CONSTANT)
 
 public:
     FixtureEditor(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~FixtureEditor();
 
+    /** Return the definitions user folder absolute location */
+    QString userFolder() const;
+
     /** Create a new editor and an empty fixture definition */
-    void createDefinition();
+    Q_INVOKABLE void createDefinition();
 
     /** Edit an existing fixture definition */
     void editDefinition(QString manufacturer, QString model);
