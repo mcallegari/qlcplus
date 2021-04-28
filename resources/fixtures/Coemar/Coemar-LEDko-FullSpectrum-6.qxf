@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4</Version>
-  <Author>Ray Console - cd</Author>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Michał Kluska</Author>
  </Creator>
  <Manufacturer>Coemar</Manufacturer>
- <Model>LEDko-FullSpectrum-6</Model>
+ <Model>LEDko FullSpectrum 6</Model>
  <Type>Color Changer</Type>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red" Preset="IntensityRed"/>
@@ -29,7 +29,7 @@
   <Capability Min="208" Max="209" Preset="ShutterOpen">Stop strobe</Capability>
   <Capability Min="210" Max="255" Preset="StrobeRandomSlowToFast">Random strobe effect with variable speed from slow to fast and non-synchronized colors</Capability>
  </Channel>
- <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Special functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="84">No effect</Capability>
@@ -112,7 +112,7 @@
   <Capability Min="247" Max="255">no effect</Capability>
  </Channel>
  <Channel Name="Saturation" Preset="IntensitySaturation"/>
- <Mode Name="16 Channels">
+ <Mode Name="16 Channel">
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -130,7 +130,7 @@
   <Channel Number="14">Green Saturation</Channel>
   <Channel Number="15">Saturation</Channel>
  </Mode>
- <Mode Name="7 Channels">
+ <Mode Name="7 Channel">
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>

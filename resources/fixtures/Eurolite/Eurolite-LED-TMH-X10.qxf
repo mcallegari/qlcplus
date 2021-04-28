@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4</Version>
-  <Author>Ray Console - cd</Author>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Michał Kluska</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
- <Model>LED-TMH-X10</Model>
+ <Model>LED TMH-X10</Model>
  <Type>Moving Head</Type>
  <Channel Name="Horizontal Movement (Pan)" Preset="PositionPan"/>
  <Channel Name="Pan-Movement with 16-bit resolution" Preset="PositionPanFine"/>
@@ -20,28 +20,28 @@
   <Capability Min="4" Max="251" Preset="StrobeSlowToFast">Strobe effect with increasing spreed</Capability>
   <Capability Min="252" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer intensity" Preset="IntensityMasterDimmer"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">white</Capability>
-  <Capability Min="1" Max="9" Preset="ColorDoubleMacro">white and red</Capability>
-  <Capability Min="10" Max="11" Preset="ColorMacro">red</Capability>
-  <Capability Min="12" Max="19" Preset="ColorDoubleMacro">red and orange</Capability>
-  <Capability Min="20" Max="21" Preset="ColorMacro">Orange</Capability>
-  <Capability Min="22" Max="29" Preset="ColorDoubleMacro">Orange and green</Capability>
-  <Capability Min="30" Max="31" Preset="ColorMacro">green</Capability>
-  <Capability Min="32" Max="39" Preset="ColorDoubleMacro">green and light blue</Capability>
-  <Capability Min="40" Max="41" Preset="ColorMacro">light blue</Capability>
-  <Capability Min="42" Max="49" Preset="ColorDoubleMacro">light blue and purple</Capability>
-  <Capability Min="50" Max="51" Preset="ColorMacro">purple</Capability>
-  <Capability Min="52" Max="59" Preset="ColorDoubleMacro">purple and yellow</Capability>
-  <Capability Min="60" Max="61" Preset="ColorMacro">yellow</Capability>
-  <Capability Min="62" Max="69" Preset="ColorDoubleMacro">yellow and blue</Capability>
-  <Capability Min="70" Max="71" Preset="ColorMacro">blue</Capability>
-  <Capability Min="72" Max="79" Preset="ColorDoubleMacro">blue and pink</Capability>
-  <Capability Min="80" Max="81" Preset="ColorMacro">pink</Capability>
-  <Capability Min="82" Max="89" Preset="ColorDoubleMacro">pink and white</Capability>
-  <Capability Min="90" Max="90" Preset="RotationStop">Stopp</Capability>
+  <Capability Min="1" Max="9" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">white and red</Capability>
+  <Capability Min="10" Max="11" Preset="ColorMacro" Res1="#ff0000">red</Capability>
+  <Capability Min="12" Max="19" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">red and orange</Capability>
+  <Capability Min="20" Max="21" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="22" Max="29" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#00ff00">Orange and green</Capability>
+  <Capability Min="30" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00aaff">Green and light blue</Capability>
+  <Capability Min="40" Max="41" Preset="ColorMacro" Res1="#00aaff">Light blue</Capability>
+  <Capability Min="42" Max="49" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#aa55ff">Light blue and purple</Capability>
+  <Capability Min="50" Max="51" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="52" Max="59" Preset="ColorDoubleMacro" Res1="#aa55ff" Res2="#ffff00">Purple and yellow</Capability>
+  <Capability Min="60" Max="61" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="62" Max="69" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow and blue</Capability>
+  <Capability Min="70" Max="71" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffaaff">Blue and pink</Capability>
+  <Capability Min="80" Max="81" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="82" Max="89" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#ffffff">Pink and white</Capability>
+  <Capability Min="90" Max="90" Preset="RotationStop">Stop</Capability>
   <Capability Min="91" Max="255" Preset="RotationClockwiseSlowToFast">Rainbow effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo-wheel, Gobo-Shake">

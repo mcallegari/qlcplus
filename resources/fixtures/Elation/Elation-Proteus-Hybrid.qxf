@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4</Version>
-  <Author>Ray Console - cd</Author>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Michał Kluska</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
- <Model>Proteus-Hybrid</Model>
+ <Model>Proteus Hybrid</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan Movement" Preset="PositionPan"/>
  <Channel Name="Pan Fine Movement (16bit)" Preset="PositionPanFine"/>
@@ -81,34 +81,34 @@
  <Channel Name="Static/Fixed Gobos (Gobo Wheel 2)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="14" Preset="GoboMacro" Res1="">Static/Fixed Gobo 1</Capability>
-  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="">Static/Fixed Gobo 2</Capability>
-  <Capability Min="22" Max="28" Preset="GoboMacro" Res1="">Static/Fixed Gobo 3</Capability>
-  <Capability Min="29" Max="35" Preset="GoboMacro" Res1="">Static/Fixed Gobo 4</Capability>
-  <Capability Min="36" Max="42" Preset="GoboMacro" Res1="">Static/Fixed Gobo 5</Capability>
-  <Capability Min="43" Max="49" Preset="GoboMacro" Res1="">Static/Fixed Gobo 6</Capability>
-  <Capability Min="50" Max="56" Preset="GoboMacro" Res1="">Static/Fixed Gobo 7</Capability>
-  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="">Static/Fixed Gobo 8</Capability>
-  <Capability Min="64" Max="70" Preset="GoboMacro" Res1="">Static/Fixed Gobo 9</Capability>
-  <Capability Min="71" Max="77" Preset="GoboMacro" Res1="">Static/Fixed Gobo 10</Capability>
-  <Capability Min="78" Max="84" Preset="GoboMacro" Res1="">Static/Fixed Gobo 11</Capability>
-  <Capability Min="85" Max="91" Preset="GoboMacro" Res1="">Static/Fixed Gobo 12</Capability>
-  <Capability Min="92" Max="98" Preset="GoboMacro" Res1="">Static/Fixed Gobo 13</Capability>
-  <Capability Min="99" Max="105" Preset="GoboMacro" Res1="">Static/Fixed Gobo 14</Capability>
-  <Capability Min="106" Max="111" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 1</Capability>
-  <Capability Min="112" Max="117" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 2</Capability>
-  <Capability Min="118" Max="123" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 3</Capability>
-  <Capability Min="124" Max="129" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 4</Capability>
-  <Capability Min="130" Max="135" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 5</Capability>
-  <Capability Min="136" Max="141" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 6</Capability>
-  <Capability Min="142" Max="147" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 7</Capability>
-  <Capability Min="148" Max="153" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 8</Capability>
-  <Capability Min="154" Max="159" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 9</Capability>
-  <Capability Min="160" Max="165" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 10</Capability>
-  <Capability Min="166" Max="171" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 11</Capability>
-  <Capability Min="172" Max="177" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 12</Capability>
-  <Capability Min="178" Max="183" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 13</Capability>
-  <Capability Min="184" Max="189" Preset="GoboShakeMacro" Res1="">Shake Slow to fast Static/Fixed Gobo 14</Capability>
+  <Capability Min="8" Max="14" Preset="GoboMacro" Res1="Chauvet/gobo00020.svg">Static/Fixed Gobo 1</Capability>
+  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00021.svg">Static/Fixed Gobo 2</Capability>
+  <Capability Min="22" Max="28" Preset="GoboMacro" Res1="Chauvet/gobo00022.svg">Static/Fixed Gobo 3</Capability>
+  <Capability Min="29" Max="35" Preset="GoboMacro" Res1="Chauvet/gobo00023.svg">Static/Fixed Gobo 4</Capability>
+  <Capability Min="36" Max="42" Preset="GoboMacro" Res1="Chauvet/gobo00036.svg">Static/Fixed Gobo 5</Capability>
+  <Capability Min="43" Max="49" Preset="GoboMacro" Res1="Others/gobo00023.svg">Static/Fixed Gobo 6</Capability>
+  <Capability Min="50" Max="56" Preset="GoboMacro" Res1="GLP/gobo00014.svg">Static/Fixed Gobo 7</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="Others/gobo00024.svg">Static/Fixed Gobo 8</Capability>
+  <Capability Min="64" Max="70" Preset="GoboMacro" Res1="Others/gobo00043.svg">Static/Fixed Gobo 9</Capability>
+  <Capability Min="71" Max="77" Preset="GoboMacro" Res1="Others/gobo00107.svg">Static/Fixed Gobo 10</Capability>
+  <Capability Min="78" Max="84" Preset="GoboMacro" Res1="ClayPaky/gobo00090.svg">Static/Fixed Gobo 11</Capability>
+  <Capability Min="85" Max="91" Preset="GoboMacro" Res1="SGM/gobo00093.svg">Static/Fixed Gobo 12</Capability>
+  <Capability Min="92" Max="98" Preset="GoboMacro" Res1="Others/gobo00018.svg">Static/Fixed Gobo 13</Capability>
+  <Capability Min="99" Max="105" Preset="GoboMacro" Res1="ClayPaky/gobo00098.svg">Static/Fixed Gobo 14</Capability>
+  <Capability Min="106" Max="111" Preset="GoboShakeMacro" Res1="Chauvet/gobo00020.svg">Shake Slow to fast Static/Fixed Gobo 1</Capability>
+  <Capability Min="112" Max="117" Preset="GoboShakeMacro" Res1="Chauvet/gobo00021.svg">Shake Slow to fast Static/Fixed Gobo 2</Capability>
+  <Capability Min="118" Max="123" Preset="GoboShakeMacro" Res1="Chauvet/gobo00022.svg">Shake Slow to fast Static/Fixed Gobo 3</Capability>
+  <Capability Min="124" Max="129" Preset="GoboShakeMacro" Res1="Chauvet/gobo00023.svg">Shake Slow to fast Static/Fixed Gobo 4</Capability>
+  <Capability Min="130" Max="135" Preset="GoboShakeMacro" Res1="Chauvet/gobo00036.svg">Shake Slow to fast Static/Fixed Gobo 5</Capability>
+  <Capability Min="136" Max="141" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Shake Slow to fast Static/Fixed Gobo 6</Capability>
+  <Capability Min="142" Max="147" Preset="GoboShakeMacro" Res1="GLP/gobo00014.svg">Shake Slow to fast Static/Fixed Gobo 7</Capability>
+  <Capability Min="148" Max="153" Preset="GoboShakeMacro" Res1="Others/gobo00024.svg">Shake Slow to fast Static/Fixed Gobo 8</Capability>
+  <Capability Min="154" Max="159" Preset="GoboShakeMacro" Res1="Others/gobo00043.svg">Shake Slow to fast Static/Fixed Gobo 9</Capability>
+  <Capability Min="160" Max="165" Preset="GoboShakeMacro" Res1="Others/gobo00107.svg">Shake Slow to fast Static/Fixed Gobo 10</Capability>
+  <Capability Min="166" Max="171" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00090.svg">Shake Slow to fast Static/Fixed Gobo 11</Capability>
+  <Capability Min="172" Max="177" Preset="GoboShakeMacro" Res1="SGM/gobo00093.svg">Shake Slow to fast Static/Fixed Gobo 12</Capability>
+  <Capability Min="178" Max="183" Preset="GoboShakeMacro" Res1="Others/gobo00018.svg">Shake Slow to fast Static/Fixed Gobo 13</Capability>
+  <Capability Min="184" Max="189" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00098.svg">Shake Slow to fast Static/Fixed Gobo 14</Capability>
   <Capability Min="190" Max="221" Preset="RotationClockwiseFastToSlow">Clockwise Gobo Wheel Rotation from Fast to Slow</Capability>
   <Capability Min="222" Max="223" Preset="RotationStop">No Rotation</Capability>
   <Capability Min="224" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Gobo Wheel Rotation from Slow to Fast</Capability>
@@ -117,7 +117,7 @@
  <Channel Name="Rotating Prism, Prism/Gobo Macros">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="31" Preset="PrismEffectOff">open</Capability>
-  <Capability Min="32" Max="64" Preset="PrismEffectOn" Res1="7">8-facet Prism</Capability>
+  <Capability Min="32" Max="64" Preset="PrismEffectOn" Res1="8">8-facet Prism</Capability>
   <Capability Min="65" Max="94">Line Prism</Capability>
   <Capability Min="95" Max="127">8-facet + Line Prism</Capability>
   <Capability Min="128" Max="135">Prism/Gobo Macro 1</Capability>
@@ -170,8 +170,8 @@
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Effect Slow to Fast</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">No Function (Shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
- <Channel Name="Dimmer Intensity Fine (16bit)" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Intensity Fine (16bit)" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Frost">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">Disable Frost</Capability>
@@ -346,7 +346,7 @@
   <Bulb Type="LED" Lumens="14000" ColourTemperature="8000"/>
   <Dimensions Weight="38" Width="571" Height="805" Depth="465"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Head" PanMax="360" TiltMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="750" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

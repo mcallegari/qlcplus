@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4</Version>
-  <Author>Ray Console - cd</Author>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Michał Kluska</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
- <Model>EYE-7-i</Model>
+ <Model>EYE-7.i</Model>
  <Type>Moving Head</Type>
  <Channel Name="Horizontal Movement (PAN)/Speed PAN function" Preset="PositionPan"/>
  <Channel Name="PAN-movement with 16-bit resolution" Preset="PositionPanFine"/>
@@ -51,8 +51,8 @@
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe-effect with increasing speed</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
- <Channel Name="Dimmer intensity fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer intensity fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Color function">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">No function</Capability>
@@ -183,7 +183,7 @@
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="5.5" Width="1790" Height="350" Depth="244"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Head" PanMax="540" TiltMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="110" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

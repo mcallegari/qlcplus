@@ -257,6 +257,7 @@
     <F n="Briteq-BT-W07L12" m="BT-W07L12"/>
     <F n="Briteq-BT-W12L10" m="BT-W12L10"/>
     <F n="Briteq-BTX-180LS" m="BTX-180LS"/>
+    <F n="Briteq-BTX-Saturn" m="BTX-Saturn"/>
     <F n="Briteq-COB-PAR56-RGB" m="COB PAR56 RGB"/>
     <F n="Briteq-COB-slim-100-RGB" m="COB Slim 100-RGB"/>
     <F n="Briteq-Giga-Flash-RGB" m="Giga Flash RGB"/>
@@ -419,6 +420,7 @@
     <F n="Chauvet-Legend-230SR-Beam" m="Legend 230SR Beam"/>
     <F n="Chauvet-Legend-330SR-Spot" m="Legend 330SR Spot"/>
     <F n="Chauvet-Legend-412Z" m="Legend 412Z"/>
+    <F n="Chauvet-Maverick-MK3-Profile-CX" m="Maverick MK3 Profile CX"/>
     <F n="Chauvet-Mayhem" m="Mayhem"/>
     <F n="Chauvet-MiN-Spot-RGBW" m="MiN Spot RGBW"/>
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
@@ -520,6 +522,7 @@
   </M>
   <M n="Coemar">
     <F n="Coemar-iSpot-150" m="iSpot 150"/>
+    <F n="Coemar-LEDko-FullSpectrum-6" m="LEDko FullSpectrum 6"/>
     <F n="Coemar-Par-Lite-LED-RGB" m="Par Lite LED RGB"/>
     <F n="Coemar-ProSpot-250-LX" m="ProSpot 250 LX"/>
     <F n="Coemar-ProWash-250-LX" m="ProWash 250 LX"/>
@@ -581,6 +584,7 @@
     <F n="Elation-Platinum-Spot-5R" m="Platinum Spot 5R"/>
     <F n="Elation-Platinum-Spot-III" m="Platinum Spot III"/>
     <F n="Elation-Proteus-Beam" m="Proteus Beam"/>
+    <F n="Elation-Proteus-Hybrid" m="Proteus Hybrid"/>
     <F n="Elation-Rayzor-Q7" m="Rayzor Q7"/>
     <F n="Elation-SIXPAR-200IP" m="SIXPAR 200IP"/>
     <F n="Elation-Sniper-2R" m="Sniper 2R"/>
@@ -671,6 +675,7 @@
     <F n="Eurolite-LED-TMH-6" m="LED TMH-6"/>
     <F n="Eurolite-LED-TMH-9" m="LED TMH-9"/>
     <F n="Eurolite-LED-TMH-FE-600" m="LED TMH FE-600"/>
+    <F n="Eurolite-LED-TMH-X10" m="LED TMH-X10"/>
     <F n="Eurolite-LED-Z-200-TCL" m="LED Z-200 TCL"/>
     <F n="Eurolite-NH-30-MK2" m="NH-30 MK2"/>
     <F n="Eurolite-Party-TCL-Spot-RGB" m="Party TCL Spot RGB"/>
@@ -743,6 +748,7 @@
     <F n="Futurelight-EVO-7" m="EVO-7"/>
     <F n="Futurelight-EYE-18" m="EYE-18"/>
     <F n="Futurelight-EYE-36" m="EYE-36"/>
+    <F n="Futurelight-EYE-7.i" m="EYE-7.i"/>
     <F n="Futurelight-Genesis-575" m="Genesis 575"/>
     <F n="Futurelight-MCF-200" m="MCF-200"/>
     <F n="Futurelight-MH-440" m="MH-440"/>
