@@ -84,7 +84,7 @@ Rectangle
             width: height
             height: toolBar.height - 2
             imgSource: "qrc:/add.svg"
-            tooltip: qsTr("Add a new fixture definition")
+            tooltip: qsTr("Create a new fixture definition")
             onClicked: qlcplus.createFixture()
         }
 
