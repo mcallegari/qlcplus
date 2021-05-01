@@ -890,6 +890,18 @@ void App::createFixture()
     m_fixtureEditor->createDefinition();
 }
 
+void App::loadFixture(QString fileName)
+{
+    if (m_fixtureEditor == nullptr)
+    {
+        m_fixtureEditor = new FixtureEditor(this, m_doc);
+        QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                                  Q_ARG(QVariant, "FXEDITOR"),
+                                  Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
+    }
+    m_fixtureEditor->loadDefinition(fileName);
+}
+
 void App::editFixture(QString manufacturer, QString model)
 {
     if (m_fixtureEditor == nullptr)

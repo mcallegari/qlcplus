@@ -25,16 +25,19 @@
 #include "channeledit.h"
 #include "editorview.h"
 #include "modeedit.h"
+#include "qlcfile.h"
 
 EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_fixtureDef(fixtureDef)
-    , m_isModified(false)
     , m_channelEdit(nullptr)
     , m_modeEdit(nullptr)
+    , m_isModified(false)
 {
     m_globalPhy = new PhysicalEdit(m_fixtureDef->physical(), this);
+    m_fileName = m_fixtureDef->definitionSourceFile();
+    qDebug() << "Editing fixture on file:" << m_fileName;
 }
 
 EditorView::~EditorView()
@@ -46,20 +49,24 @@ EditorView::~EditorView()
         delete m_modeEdit;
 }
 
-bool EditorView::isModified() const
-{
-    return m_isModified;
-}
-
 bool EditorView::isUser() const
 {
     return m_fixtureDef->isUser();
 }
 
-void EditorView::setModified()
+int EditorView::productType() const
 {
-    m_isModified = true;
-    emit hasChanged();
+    return int(m_fixtureDef->type());
+}
+
+void EditorView::setProductType(int type)
+{
+    if (m_fixtureDef->type() == type)
+        return;
+
+    m_fixtureDef->setType(QLCFixtureDef::FixtureType(type));
+    emit productTypeChanged(type);
+    setModified(true);
 }
 
 QString EditorView::manufacturer() const
@@ -74,7 +81,7 @@ void EditorView::setManufacturer(QString manufacturer)
 
     m_fixtureDef->setManufacturer(manufacturer);
     emit manufacturerChanged(manufacturer);
-    setModified();
+    setModified(true);
 }
 
 QString EditorView::model() const
@@ -89,7 +96,7 @@ void EditorView::setModel(QString model)
 
     m_fixtureDef->setModel(model);
     emit modelChanged(model);
-    setModified();
+    setModified(true);
 }
 
 QString EditorView::author() const
@@ -104,7 +111,7 @@ void EditorView::setAuthor(QString author)
 
     m_fixtureDef->setAuthor(author);
     emit authorChanged(author);
-    setModified();
+    setModified(true);
 }
 
 PhysicalEdit *EditorView::globalPhysical()
@@ -184,3 +191,55 @@ ModeEdit *EditorView::requestModeEditor(QString name)
     return m_modeEdit;
 }
 
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
+bool EditorView::save()
+{
+    if (m_fileName.isEmpty())
+        setFilenameFromModel();
+
+    //m_fixtureDef->setPhysical(m_phyEdit->physical());
+    QFile::FileError error = m_fixtureDef->saveXML(m_fileName);
+    if (error != QFile::NoError)
+        return false;
+
+    setModified(false);
+    return true;
+}
+
+bool EditorView::saveAs(QString path)
+{
+    QString localFilename = path;
+    if (localFilename.startsWith("file:"))
+        localFilename = QUrl(path).toLocalFile();
+
+    m_fileName = localFilename;
+
+    save();
+    return true;
+}
+
+QString EditorView::fileName()
+{
+    return m_fileName;
+}
+
+void EditorView::setFilenameFromModel()
+{
+    QString man = m_fixtureDef->manufacturer().replace(" ", "-");
+    QString mod = m_fixtureDef->model().replace(" ", "-");
+    m_fileName = QString("%1-%2%3").arg(man, mod, KExtFixture);
+}
+
+bool EditorView::isModified() const
+{
+    return m_isModified;
+}
+
+void EditorView::setModified(bool modified)
+{
+    m_isModified = modified;
+    emit hasChanged();
+}

@@ -33,7 +33,9 @@ class EditorView : public QObject
 
     Q_PROPERTY(bool isModified READ isModified NOTIFY hasChanged)
     Q_PROPERTY(bool isUser READ isUser CONSTANT)
+    Q_PROPERTY(QString fileName READ fileName CONSTANT)
 
+    Q_PROPERTY(int productType READ productType WRITE setProductType NOTIFY productTypeChanged)
     Q_PROPERTY(QString manufacturer READ manufacturer WRITE setManufacturer NOTIFY manufacturerChanged)
     Q_PROPERTY(QString model READ model WRITE setModel NOTIFY modelChanged)
     Q_PROPERTY(QString author READ author WRITE setAuthor NOTIFY authorChanged)
@@ -47,11 +49,12 @@ public:
     EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
 
-    /** Get the definition modification flag */
-    bool isModified() const;
-
     /** Get if the definition is user or system */
     bool isUser() const;
+
+    /** Get/Set the fixture type */
+    int productType() const;
+    void setProductType(int type);
 
     /** Get/Set the fixture manufacturer */
     QString manufacturer() const;
@@ -69,11 +72,9 @@ public:
      *  global physical properties */
     PhysicalEdit *globalPhysical();
 
-protected slots:
-    void setModified();
-
 signals:
     void hasChanged();
+    void productTypeChanged(int type);
     void manufacturerChanged(QString manufacturer);
     void modelChanged(QString model);
     void authorChanged(QString author);
@@ -85,8 +86,6 @@ private:
     QLCFixtureDef *m_fixtureDef;
     /** Reference to the global physical properties */
     PhysicalEdit *m_globalPhy;
-    /** Definition modification flag */
-    bool m_isModified;
 
     /************************************************************************
      * Channels
@@ -123,6 +122,28 @@ private:
 
 signals:
     void modesChanged();
+
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+public:
+    Q_INVOKABLE bool save();
+    Q_INVOKABLE bool saveAs(QString path);
+
+    QString fileName();
+    void setFilenameFromModel();
+
+    /** Get the definition modification flag */
+    bool isModified() const;
+
+protected slots:
+    void setModified(bool modified = true);
+
+private:
+    /** The definition file name */
+    QString m_fileName;
+    /** Definition modification flag */
+    bool m_isModified;
 };
 
 #endif // EDITORVIEW_H

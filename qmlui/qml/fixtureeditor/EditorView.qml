@@ -30,25 +30,43 @@ Rectangle
 
     property int editorId
     property EditorRef editorView: null
-    property bool isUser: true
 
     color: "transparent"
 
-    Component.onCompleted:
+    function initialize()
     {
-        if (isUser)
-            systemFixturePopup.open()
+        if (editorView.isUser === false)
+        {
+            messagePopup.message = qsTr("You are trying to edit a bundled fixture definition.<br>" +
+                                        "If you modify and save it, a new file will be stored in<br><i>" +
+                                        fixtureEditor.userFolder + "</i><br>and will override the bundled file.")
+            messagePopup.open()
+        }
+    }
+
+    function save(path)
+    {
+        //console.log("MANUFACTURER: " + editorView.manufacturer + ", MODEL: " + editorView.model)
+
+        if (editorView.manufacturer === "" || editorView.model === "")
+        {
+            messagePopup.message = qsTr("Manufacturer or model cannot be empty!")
+            messagePopup.open()
+            return
+        }
+
+        if (path)
+            editorView.saveAs(path)
+        else
+            editorView.save()
     }
 
     CustomPopupDialog
     {
-        id: systemFixturePopup
+        id: messagePopup
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
-        message: qsTr("You are trying to edit a bundled fixture definition.<br>" +
-                      "If you modify it, a new file will be stored in<br><i>" +
-                      fixtureEditor.userFolder + "</i><br>when saving, with precedence over the bundled file.")
-        onAccepted: systemFixturePopup.close()
+        onAccepted: close()
     }
 
     SplitView
@@ -91,6 +109,7 @@ Rectangle
                             RobotoText { label: qsTr("Manufacturer") }
                             CustomTextEdit
                             {
+                                id: manufacturerEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.manufacturer : ""
                                 onTextChanged: if (editorView) editorView.manufacturer = text
@@ -131,6 +150,8 @@ Rectangle
                                     delegateHeight: UISettings.listItemHeight
                                     width: UISettings.bigItemHeight
                                     model: typeModel
+                                    currentIndex: editorView ? editorView.productType : 0
+                                    onCurrentIndexChanged: if (editorView) editorView.productType = currentIndex
                                 }
                             }
 
@@ -138,6 +159,7 @@ Rectangle
                             RobotoText { label: qsTr("Model") }
                             CustomTextEdit
                             {
+                                id: modelEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.model : ""
                                 onTextChanged: if (editorView) editorView.model = text

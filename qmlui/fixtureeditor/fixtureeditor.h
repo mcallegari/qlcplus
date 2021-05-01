@@ -30,6 +30,7 @@ class FixtureEditor : public QObject
     Q_OBJECT
     Q_PROPERTY(QVariantList editorsList READ editorsList NOTIFY editorsListChanged)
     Q_PROPERTY(QString userFolder READ userFolder CONSTANT)
+    Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
 
 public:
     FixtureEditor(QQuickView *view, Doc *doc, QObject *parent = nullptr);
@@ -38,8 +39,14 @@ public:
     /** Return the definitions user folder absolute location */
     QString userFolder() const;
 
+    QString workingPath() const;
+    void setWorkingPath(QString workingPath);
+
     /** Create a new editor and an empty fixture definition */
     Q_INVOKABLE void createDefinition();
+
+    /** Load an existing definition file */
+    Q_INVOKABLE bool loadDefinition(QString fileName);
 
     /** Edit an existing fixture definition */
     void editDefinition(QString manufacturer, QString model);
@@ -49,12 +56,15 @@ public:
 
 signals:
     void editorsListChanged();
+    void workingPathChanged(QString workingPath);
 
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Persistent working path across sessions */
+    QString m_workingPath;
     /** The last assigned editor ID */
     int m_lastId;
     /** Map of id / references to the open editors */

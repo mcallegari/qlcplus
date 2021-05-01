@@ -89,22 +89,23 @@ public:
      * Fixture information
      *********************************************************************/
 public:
+    /** Keep this ordered alphabetically */
     enum FixtureType
     {
-        ColorChanger,
+        ColorChanger = 0,
         Dimmer,
         Effect,
         Fan,
         Flower,
         Hazer,
         Laser,
-        MovingHead,
-        Scanner,
-        Smoke,
-        Strobe,
         LEDBarBeams,
         LEDBarPixels,
-        Other
+        MovingHead,
+        Other,
+        Scanner,
+        Smoke,
+        Strobe
     };
 
     /** Get the temporary definition file absolute path */
@@ -156,7 +157,7 @@ public:
 protected:
     bool m_isLoaded;
     bool m_isUser;
-    QString m_relativePath;
+    QString m_fileAbsolutePath;
     QString m_manufacturer;
     QString m_model;
     FixtureType m_type;

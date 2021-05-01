@@ -18,15 +18,20 @@
 */
 
 #include <QQmlContext>
+#include <QSettings>
 
 #include "qlcfixturedef.h"
 #include "doc.h"
 
+#include "avolitesd4parser.h"
 #include "fixtureeditor.h"
 #include "physicaledit.h"
 #include "channeledit.h"
 #include "editorview.h"
 #include "modeedit.h"
+#include "qlcfile.h"
+
+#define SETTINGS_DEF_WORKINGPATH "defeditor/workingpath"
 
 FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
@@ -39,6 +44,15 @@ FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<PhysicalEdit>("org.qlcplus.classes", 1, 0, "PhysicalEdit", "Can't create PhysicalEdit!");
     qmlRegisterUncreatableType<ChannelEdit>("org.qlcplus.classes", 1, 0, "ChannelEdit", "Can't create ChannelEdit!");
     qmlRegisterUncreatableType<ModeEdit>("org.qlcplus.classes", 1, 0, "ModeEdit", "Can't create ModeEdit!");
+
+    QSettings settings;
+    QVariant dir = settings.value(SETTINGS_DEF_WORKINGPATH);
+    if (dir.isValid() == true)
+        m_workingPath = dir.toString();
+    else
+        m_workingPath = "file://" + userFolder();
+
+    qDebug() << "working path:" << m_workingPath;
 }
 
 FixtureEditor::~FixtureEditor()
@@ -51,19 +65,74 @@ QString FixtureEditor::userFolder() const
     return m_doc->fixtureDefCache()->userDefinitionDirectory().absolutePath();
 }
 
+QString FixtureEditor::workingPath() const
+{
+    return m_workingPath;
+}
+
+void FixtureEditor::setWorkingPath(QString workingPath)
+{
+    qDebug() << "Setting new path:" << workingPath;
+    if (m_workingPath == workingPath)
+        return;
+
+    m_workingPath = workingPath;
+
+    QSettings settings;
+    settings.setValue(SETTINGS_DEF_WORKINGPATH, m_workingPath);
+
+    emit workingPathChanged(workingPath);
+}
+
 void FixtureEditor::createDefinition()
 {
-    m_editors[m_lastId] = new EditorView(m_view, new QLCFixtureDef());
-    m_lastId++;
+    QLCFixtureDef *def = new QLCFixtureDef();
+    def->setIsUser(true);
+    m_editors[m_lastId++] = new EditorView(m_view, def);
     emit editorsListChanged();
+}
+
+bool FixtureEditor::loadDefinition(QString fileName)
+{
+    QLCFixtureDef *def = new QLCFixtureDef();
+    QString localFilename = fileName;
+    bool result = false;
+
+    if (localFilename.startsWith("file:"))
+        localFilename = QUrl(fileName).toLocalFile();
+
+    qDebug() << "Loading definition:" << localFilename;
+
+    if (localFilename.endsWith("qxf", Qt::CaseInsensitive))
+    {
+        QFile::FileError error = def->loadXML(localFilename);
+        if (error == QFile::NoError)
+            result = true;
+    }
+    else if (localFilename.endsWith(KExtAvolitesFixture, Qt::CaseInsensitive))
+    {
+        AvolitesD4Parser parser;
+        result = parser.loadXML(localFilename, def);
+    }
+    if (result == false)
+    {
+
+        delete def;
+        return false;
+    }
+
+    def->setDefinitionSourceFile(localFilename);
+    def->setIsUser(true);
+    m_editors[m_lastId++] = new EditorView(m_view, def);
+    emit editorsListChanged();
+    return true;
 }
 
 void FixtureEditor::editDefinition(QString manufacturer, QString model)
 {
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
 
-    m_editors[m_lastId] = new EditorView(m_view, def);
-    m_lastId++;
+    m_editors[m_lastId++] = new EditorView(m_view, def);
     emit editorsListChanged();
 }
 

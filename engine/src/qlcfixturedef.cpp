@@ -36,7 +36,7 @@
 QLCFixtureDef::QLCFixtureDef()
     : m_isLoaded(false)
     , m_isUser(false)
-    , m_relativePath(QString())
+    , m_fileAbsolutePath(QString())
     , m_type(Dimmer)
 {
 }
@@ -44,7 +44,7 @@ QLCFixtureDef::QLCFixtureDef()
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
     : m_isLoaded(false)
     , m_isUser(false)
-    , m_relativePath(QString())
+    , m_fileAbsolutePath(QString())
     , m_type(Dimmer)
 {
     if (fixtureDef != NULL)
@@ -94,12 +94,12 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 
 QString QLCFixtureDef::definitionSourceFile() const
 {
-    return m_relativePath;
+    return m_fileAbsolutePath;
 }
 
 void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
-    m_relativePath = absPath;
+    m_fileAbsolutePath = absPath;
     m_isLoaded = false;
 }
 
@@ -204,19 +204,19 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
         m_isLoaded = true;
         return;
     }
-    if (m_relativePath.isEmpty())
+    if (m_fileAbsolutePath.isEmpty())
     {
         qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
         return;
     }
 
-    QString absPath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_relativePath);
+    QString absPath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_fileAbsolutePath);
     qDebug() << "Loading fixture definition now... " << absPath;
     bool error = loadXML(absPath);
     if (error == false)
     {
         m_isLoaded = true;
-        m_relativePath = QString();
+        m_fileAbsolutePath = QString();
     }
 }
 

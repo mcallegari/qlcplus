@@ -20,7 +20,7 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
-
+import QtQuick.Dialogs 1.2
 import org.qlcplus.classes 1.0
 import "."
 
@@ -41,6 +41,51 @@ Rectangle
     FontLoader
     {
         source: "qrc:/FontAwesome.otf"
+    }
+
+    FileDialog
+    {
+        id: openDialog
+        visible: false
+        title: qsTr("Open a fixture definition")
+        nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
+
+        onAccepted:
+        {
+            fixtureEditor.workingPath = folder.toString()
+            if (fixtureEditor.loadDefinition(fileUrl) === false)
+            {
+                editor.visible = false
+                messagePopup.message = qsTr("An error occurred while loading the selected file.<br>" +
+                                            "It could be invalid or corrupted.")
+                messagePopup.open()
+            }
+        }
+    }
+
+    FileDialog
+    {
+        id: saveDialog
+        visible: false
+        title: qsTr("Save definition as...")
+        selectExisting: false
+        nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
+        defaultSuffix: "qxf"
+        //fileMode: FileDialog.SaveFile
+
+        onAccepted:
+        {
+            console.log("You chose: " + fileUrl)
+            editor.save(fileUrl)
+        }
+    }
+
+    CustomPopupDialog
+    {
+        id: messagePopup
+        standardButtons: Dialog.Ok
+        title: qsTr("Error")
+        onAccepted: close()
     }
 
     Rectangle
@@ -67,15 +112,28 @@ Rectangle
                 imgSource: "qrc:/arrow-right.svg"
                 entryText: qsTr("Back to QLC+")
                 iconRotation: 180
-                onPressed: qlcplus.closeFixtureEditor()
                 autoExclusive: false
                 checkable: false
+                onClicked: qlcplus.closeFixtureEditor()
             }
             MenuBarEntry
             {
                 imgSource: "qrc:/filenew.svg"
                 entryText: qsTr("New definition")
-                onPressed: fixtureEditor.createDefinition()
+                autoExclusive: false
+                checkable: false
+                onClicked: fixtureEditor.createDefinition()
+            }
+            MenuBarEntry
+            {
+                id: fileOpen
+                imgSource: "qrc:/fileopen.svg"
+                entryText: qsTr("Open definition")
+                onClicked:
+                {
+                    openDialog.folder = fixtureEditor.workingPath
+                    openDialog.open()
+                }
                 autoExclusive: false
                 checkable: false
             }
@@ -83,17 +141,34 @@ Rectangle
             {
                 imgSource: "qrc:/filesave.svg"
                 entryText: qsTr("Save definition")
-                //onPressed: qlcplus.closeFixtureEditor()
                 autoExclusive: false
                 checkable: false
+                onClicked:
+                {
+                    if (editor.editorView.fileName === "")
+                    {
+                        saveDialog.folder = fixtureEditor.workingPath
+                        //saveDialog.currentFile = "file:///" + editor.editorView.fileName
+                        saveDialog.open()
+                    }
+                    else
+                    {
+                        editor.save("")
+                    }
+                }
             }
             MenuBarEntry
             {
                 imgSource: "qrc:/filesaveas.svg"
                 entryText: qsTr("Save definition as...")
-                //onPressed: qlcplus.closeFixtureEditor()
                 autoExclusive: false
                 checkable: false
+                onClicked:
+                {
+                    saveDialog.folder = fixtureEditor.workingPath + "/" + editor.editorView.fileName
+                    //saveDialog.currentFile = "file:///" + editor.editorView.fileName
+                    saveDialog.open()
+                }
             }
             // filler
             Rectangle
@@ -142,13 +217,14 @@ Rectangle
                         imgSource: modelData.cRef.isModified ? "qrc:/filesave.svg" : ""
                         iconSize: height * 0.75
                         checkable: true
+                        autoExclusive: true
                         padding: 5
 
                         onClicked:
                         {
                             editor.editorId = modelData.id
                             editor.editorView = modelData.cRef
-                            editor.isUser = modelData.cRef.isUser
+                            editor.initialize()
                             checked = true
                         }
                     }

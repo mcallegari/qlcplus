@@ -317,6 +317,7 @@ public:
     /** Request to create a new fixture definition. If the Fixture Editor
      *  doesn't exist, it will be created */
     Q_INVOKABLE void createFixture();
+    Q_INVOKABLE void loadFixture(QString fileName);
     Q_INVOKABLE void editFixture(QString manufacturer, QString model);
     Q_INVOKABLE void closeFixtureEditor();
 
