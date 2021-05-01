@@ -42,6 +42,7 @@ Button
 
     property Gradient bgGradient: defBgGradient
     property Gradient selGradient: defSelectionGradient
+    property Gradient pressedGradient: defPressedGradient
     property color checkedColor: UISettings.toolbarSelectionMain
 
     signal rightClicked
@@ -49,13 +50,19 @@ Button
     Gradient
     {
         id: defBgGradient
-        GradientStop { position: 0 ; color: "transparent" }
+        GradientStop { position: 0; color: "transparent" }
     }
     Gradient
     {
         id: defSelectionGradient
         GradientStop { position: 0; color: UISettings.toolbarHoverStart }
         GradientStop { position: 1; color: UISettings.toolbarHoverEnd }
+    }
+    Gradient
+    {
+        id: defPressedGradient
+        GradientStop { position: 0; color: UISettings.bgLight }
+        GradientStop { position: 1; color: UISettings.bgMedium }
     }
 
     contentItem:
@@ -102,7 +109,7 @@ Button
     background:
         Rectangle
         {
-            gradient: (checked || hovered) ? selGradient : bgGradient
+            gradient: pressed ? pressedGradient : ((checked || hovered) ? selGradient : bgGradient)
             opacity: enabled ? 1 : 0.3
         }
 
