@@ -201,7 +201,7 @@ Rectangle
             Repeater
             {
                 id: editorsRepeater
-                model: fixtureEditor.editorsList
+                model: fixtureEditor ? fixtureEditor.editorsList : null
 
                 onItemAdded: item.clicked()
 

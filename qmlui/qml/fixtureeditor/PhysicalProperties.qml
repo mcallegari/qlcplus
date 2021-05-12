@@ -81,6 +81,7 @@ GridLayout
                 to: 999999
                 stepSize: 1
                 value: phy ? phy.bulbLumens : 0
+                onValueModified: if (phy) phy.bulbLumens = value
             }
             RobotoText { label: qsTr("Colour Temp (K)") }
             CustomSpinBox
@@ -91,6 +92,7 @@ GridLayout
                 to: 999999
                 stepSize: 1
                 value: phy ? phy.bulbColorTemperature : 0
+                onValueModified: if (phy) phy.bulbColorTemperature = value
             }
         }
     }
@@ -137,6 +139,7 @@ GridLayout
                 stepSize: 1
                 suffix: "°"
                 value: phy ? phy.lensDegreesMin : 0
+                onValueModified: if (phy) phy.lensDegreesMin = value
             }
             RobotoText { label: qsTr("Max Degrees") }
             CustomSpinBox
@@ -148,6 +151,7 @@ GridLayout
                 stepSize: 1
                 suffix: "°"
                 value: phy ? phy.lensDegreesMax : 0
+                onValueModified: if (phy) phy.lensDegreesMax = value
             }
         }
     }
@@ -194,6 +198,7 @@ GridLayout
                 stepSize: 1
                 suffix: "°"
                 value: phy ? phy.focusPanMax : 0
+                onValueModified: if (phy) phy.focusPanMax = value
             }
             RobotoText { label: qsTr("Tilt Max Degrees") }
             CustomSpinBox
@@ -205,6 +210,7 @@ GridLayout
                 stepSize: 1
                 suffix: "°"
                 value: phy ? phy.focusTiltMax : 0
+                onValueModified: if (phy) phy.focusTiltMax = value
             }
             RobotoText { label: qsTr("Layout\n(Columns x Rows)") }
             RowLayout
@@ -214,20 +220,26 @@ GridLayout
 
                 CustomSpinBox
                 {
+                    id: layoutColumns
                     Layout.fillWidth: true
                     enabled: controlRoot.enabled
                     from: 1
                     to: 999
                     stepSize: 1
+                    value: phy ? phy.layoutSize.width : 1
+                    onValueModified: if (phy) phy.layoutSize = Qt.size(value, layoutRows.value)
                 }
                 RobotoText { label: "x"; textVAlign: Text.AlignVCenter }
                 CustomSpinBox
                 {
+                    id: layoutRows
                     Layout.fillWidth: true
                     enabled: controlRoot.enabled
                     from: 1
                     to: 999
                     stepSize: 1
+                    value: phy ? phy.layoutSize.height : 1
+                    onValueModified: if (phy) phy.layoutSize = Qt.size(layoutColumns.value, value)
                 }
             }
         }
@@ -256,6 +268,7 @@ GridLayout
                 stepSize: 1
                 suffix: "kg"
                 value: phy ? phy.weight : 0
+                onValueModified: if (phy) phy.weight = value
             }
             RobotoText { label: qsTr("Width") }
             CustomSpinBox
@@ -267,6 +280,7 @@ GridLayout
                 stepSize: 1
                 suffix: "mm"
                 value: phy ? phy.width : 0
+                onValueModified: if (phy) phy.width = value
             }
             RobotoText { label: qsTr("Height") }
             CustomSpinBox
@@ -278,6 +292,7 @@ GridLayout
                 stepSize: 1
                 suffix: "mm"
                 value: phy ? phy.height : 0
+                onValueModified: if (phy) phy.height = value
             }
             RobotoText { label: qsTr("Depth") }
             CustomSpinBox
@@ -289,6 +304,7 @@ GridLayout
                 stepSize: 1
                 suffix: "mm"
                 value: phy ? phy.depth : 0
+                onValueModified: if (phy) phy.depth = value
             }
         }
     }
@@ -316,6 +332,7 @@ GridLayout
                 stepSize: 1
                 suffix: "W"
                 value: phy ? phy.powerConsumption : 0
+                onValueModified: if (phy) phy.powerConsumption = value
             }
 
             RobotoText { label: qsTr("DMX Connector") }

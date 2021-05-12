@@ -56,7 +56,7 @@ Rectangle
             RowLayout
             {
                 width: parent.width
-                height: UISettings.listItemHeight
+                height: nameEdit.height
 
                 RobotoText { label: qsTr("Name") }
                 CustomTextEdit
@@ -76,20 +76,40 @@ Rectangle
                 sectionLabel: qsTr("Channels")
 
                 sectionContents:
-                    Column
+                    Rectangle
                     {
                         width: channelSection.width
-                        //height: channelList.height
+                        height: Math.max(channelList.height + UISettings.listItemHeight, UISettings.bigItemHeight)
+                        color: "transparent"
+
+                        Rectangle
+                        {
+                            visible: channelList.count ? false : true
+                            width: channelSection.width
+                            height: UISettings.bigItemHeight
+                            color: "transparent"
+                            radius: height * 0.2
+                            border.width: 1
+                            border.color: UISettings.fgMedium
+
+                            RobotoText
+                            {
+                                anchors.centerIn: parent
+                                label: qsTr("Drop channels here")
+                            }
+                        }
 
                         ListView
                         {
                             id: channelList
+                            visible: count ? true : false
                             width: channelSection.width
-                            height: UISettings.listItemHeight * count
+                            height: UISettings.listItemHeight * (count + 1)
                             boundsBehavior: Flickable.StopAtBounds
                             currentIndex: -1
 
                             property bool dragActive: false
+                            property int dragInsertIndex: -1
 
                             model: mode ? mode.channels : null
 
@@ -166,6 +186,7 @@ Rectangle
                                             }
                                         }
 
+                                        // bottom divider line
                                         Rectangle
                                         {
                                             width: parent.width
@@ -173,9 +194,48 @@ Rectangle
                                             y: parent.height - 1
                                             color: UISettings.fgMedium
                                         }
+
+                                        // top line drag highlight
+                                        Rectangle
+                                        {
+                                            visible: channelList.dragInsertIndex == index
+                                            width: parent.width
+                                            height: 2
+                                            z: 1
+                                            color: UISettings.selection
+                                        }
                                     }
                                 }
                         } // ListView
+
+                        DropArea
+                        {
+                            id: clDropArea
+                            anchors.fill: parent
+
+                            // accept only channels
+                            keys: [ "channel" ]
+
+                            onDropped:
+                            {
+                                var idx = channelList.dragInsertIndex
+                                if (idx === -1)
+                                    idx = 0;
+
+                                for (var i = 0; i < drag.source.itemsList.length; i++)
+                                {
+                                    console.log("Adding channel: " + drag.source.itemsList[i].cRef.name)
+                                    mode.addChannel(drag.source.itemsList[i].cRef, idx + i)
+                                }
+                                channelList.dragInsertIndex = -1
+                            }
+                            onPositionChanged:
+                            {
+                                var idx = channelList.indexAt(drag.x, drag.y)
+                                //console.log("Item index:" + idx)
+                                channelList.dragInsertIndex = idx
+                            }
+                        }
                     }
             }
 

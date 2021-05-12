@@ -77,4 +77,10 @@ QVariantList ModeEdit::channels() const
     return list;
 }
 
+void ModeEdit::addChannel(QLCChannel *channel, int insertIndex)
+{
+    m_mode->insertChannel(channel, insertIndex);
+    emit channelsChanged();
+}
+
 

@@ -24,6 +24,7 @@
 #include "physicaledit.h"
 #include "channeledit.h"
 #include "editorview.h"
+#include "listmodel.h"
 #include "modeedit.h"
 #include "qlcfile.h"
 
@@ -36,15 +37,27 @@ EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *par
     , m_isModified(false)
 {
     m_globalPhy = new PhysicalEdit(m_fixtureDef->physical(), this);
+    connect(m_globalPhy, SIGNAL(changed()), this, SLOT(setModified()));
+
     m_fileName = m_fixtureDef->definitionSourceFile();
     qDebug() << "Editing fixture on file:" << m_fileName;
+
+    m_channelList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "cRef" << "isSelected";
+    m_channelList->setRoleNames(listRoles);
+
+    updateChannelList();
 }
 
 EditorView::~EditorView()
 {
+    delete m_channelList;
     delete m_globalPhy;
+
     if (m_channelEdit)
         delete m_channelEdit;
+
     if (m_modeEdit)
         delete m_modeEdit;
 }
@@ -123,14 +136,24 @@ PhysicalEdit *EditorView::globalPhysical()
  * Channels
  ************************************************************************/
 
-QVariantList EditorView::channels() const
+void EditorView::updateChannelList()
 {
-    QVariantList list;
+    m_channelList->clear();
 
     for (QLCChannel *channel : m_fixtureDef->channels())
-        list.append(QVariant::fromValue(channel));
+    {
+        QVariantMap chanMap;
+        chanMap.insert("cRef", QVariant::fromValue(channel));
+        chanMap.insert("isSelected", false);
+        m_channelList->addDataMap(chanMap);
+    }
 
-    return list;
+    emit channelsChanged();
+}
+
+QVariant EditorView::channels() const
+{
+    return QVariant::fromValue(m_channelList);
 }
 
 ChannelEdit *EditorView::requestChannelEditor(QString name)
@@ -144,10 +167,11 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
         ch = new QLCChannel();
         ch->setName(tr("New channel %1").arg(m_fixtureDef->channels().count() + 1));
         m_fixtureDef->addChannel(ch);
-        emit channelsChanged();
+        updateChannelList();
     }
     m_channelEdit = new ChannelEdit(ch);
     connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
+    connect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
     return m_channelEdit;
 }
 
@@ -166,8 +190,6 @@ QVariantList EditorView::modes() const
         modeMap.insert("mChannels", mode->channels().count());
         modeMap.insert("mHeads", mode->heads().count());
         list.append(modeMap);
-
-        qDebug() << "Added mode" << mode->name();
     }
 
     return list;
@@ -188,7 +210,15 @@ ModeEdit *EditorView::requestModeEditor(QString name)
     }
 
     m_modeEdit = new ModeEdit(mode);
+    connect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
+    connect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
     return m_modeEdit;
+}
+
+void EditorView::modeNameChanged()
+{
+    setModified();
+    modesChanged();
 }
 
 /*********************************************************************

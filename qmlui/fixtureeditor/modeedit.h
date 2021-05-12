@@ -24,6 +24,7 @@
 
 class QLCFixtureMode;
 class PhysicalEdit;
+class QLCChannel;
 
 class ModeEdit : public QObject
 {
@@ -52,6 +53,8 @@ public:
 
     /** Get a list of all the available channels in the definition */
     QVariantList channels() const;
+
+    Q_INVOKABLE void addChannel(QLCChannel *channel, int insertIndex = 0);
 
 signals:
     void nameChanged();

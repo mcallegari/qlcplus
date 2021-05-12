@@ -25,6 +25,7 @@
 class QLCFixtureDef;
 class PhysicalEdit;
 class ChannelEdit;
+class ListModel;
 class ModeEdit;
 
 class EditorView : public QObject
@@ -41,7 +42,7 @@ class EditorView : public QObject
     Q_PROPERTY(QString author READ author WRITE setAuthor NOTIFY authorChanged)
 
     Q_PROPERTY(PhysicalEdit *globalPhysical READ globalPhysical CONSTANT)
-    Q_PROPERTY(QVariantList channels READ channels NOTIFY channelsChanged)
+    Q_PROPERTY(QVariant channels READ channels NOTIFY channelsChanged)
 
     Q_PROPERTY(QVariantList modes READ modes NOTIFY modesChanged)
 
@@ -92,13 +93,19 @@ private:
      ************************************************************************/
 public:
     /** Get a list of all the available channels in the definition */
-    QVariantList channels() const;
+    QVariant channels() const;
 
     /** Request a channel editor. If chName is empty,
      *  a new channel is added */
     Q_INVOKABLE ChannelEdit *requestChannelEditor(QString name);
 
 private:
+    void updateChannelList();
+
+private:
+    /** Reference to a channel list usable in QML */
+    ListModel *m_channelList;
+
     /** Reference to a channel editor */
     ChannelEdit *m_channelEdit;
 
@@ -115,6 +122,9 @@ public:
     /** Request a channel editor. If chName is empty,
      *  a new channel is added */
     Q_INVOKABLE ModeEdit *requestModeEditor(QString name);
+
+protected slots:
+    void modeNameChanged();
 
 private:
     /** Reference to a mode editor */

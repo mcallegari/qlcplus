@@ -69,6 +69,11 @@ Rectangle
         onAccepted: close()
     }
 
+    ModelSelector
+    {
+        id: chanSelector
+    }
+
     SplitView
     {
         anchors.fill: parent
@@ -252,7 +257,6 @@ Rectangle
                                 width: channelSection.width
                                 height: UISettings.listItemHeight * count
                                 boundsBehavior: Flickable.StopAtBounds
-                                currentIndex: -1
 
                                 property bool dragActive: false
 
@@ -270,43 +274,90 @@ Rectangle
                                             height: parent.height
                                             propagateComposedEvents: true
 
-                                            property QLCChannel channel: modelData
+                                            property QLCChannel cRef: model.cRef
                                             property bool dragActive: drag.active
 
                                             drag.target: cDragItem
                                             drag.threshold: height / 2
 
-                                            onDragActiveChanged: channelList.dragActive = dragActive
-                                            onPressed: channelList.currentIndex = index
+                                            onPressed:
+                                            {
+                                                var posnInWindow = cDelegate.mapToItem(mainView, cDelegate.x, cDelegate.y)
+                                                cDragItem.parent = mainView
+                                                cDragItem.x = posnInWindow.x - (cDragItem.width / 4)
+                                                cDragItem.y = posnInWindow.y - (cDragItem.height / 4)
+                                                cDragItem.z = 10
+
+                                                if (model.isSelected)
+                                                    return
+
+                                                chanSelector.selectItem(index, channelList.model, mouse.modifiers & Qt.ControlModifier)
+
+                                                if ((mouse.modifiers & Qt.ControlModifier) == 0)
+                                                    cDragItem.itemsList = []
+
+                                                cDragItem.itemsList.push(cDelegate)
+                                            }
+
                                             onDoubleClicked:
                                             {
                                                 sideEditor.source = ""
-                                                sideEditor.itemName = delegateRoot.channel.name
+                                                sideEditor.itemName = delegateRoot.cRef.name
                                                 sideEditor.source = "qrc:/ChannelEditor.qml"
                                             }
 
-                                            Rectangle
+                                            onDragActiveChanged:
                                             {
-                                                anchors.fill: parent
-                                                radius: 3
-                                                color: UISettings.highlight
-                                                visible: channelList.currentIndex === index
+                                                if (dragActive)
+                                                {
+                                                    cDragItem.itemLabel = cEntryItem.tLabel
+                                                    cDragItem.itemIcon = cEntryItem.iSrc
+                                                    channelList.dragActive = true
+                                                }
+                                                else
+                                                {
+                                                    cDragItem.Drag.drop()
+                                                    cDragItem.parent = channelList
+                                                    cDragItem.x = 0
+                                                    cDragItem.y = 0
+                                                    channelList.dragActive = false
+                                                }
                                             }
 
-                                            IconTextEntry
+                                            Rectangle
                                             {
+                                                id: cDelegate
                                                 width: channelList.width
                                                 height: UISettings.listItemHeight
-                                                tLabel: delegateRoot.channel.name
-                                                iSrc: delegateRoot.channel.getIconNameFromGroup(delegateRoot.channel.group, true)
-                                            }
+                                                color: "transparent"
 
-                                            Rectangle
-                                            {
-                                                width: parent.width
-                                                height: 1
-                                                y: parent.height - 1
-                                                color: UISettings.fgMedium
+                                                //property int itemType: App.ChannelDragItem
+                                                property QLCChannel cRef: delegateRoot.cRef
+
+                                                Rectangle
+                                                {
+                                                    anchors.fill: parent
+                                                    radius: 3
+                                                    color: UISettings.highlight
+                                                    visible: model.isSelected
+                                                }
+
+                                                IconTextEntry
+                                                {
+                                                    id: cEntryItem
+                                                    width: channelList.width
+                                                    height: UISettings.listItemHeight
+                                                    tLabel: cDelegate.cRef.name
+                                                    iSrc: cDelegate.cRef.getIconNameFromGroup(cDelegate.cRef.group, true)
+                                                }
+
+                                                Rectangle
+                                                {
+                                                    width: parent.width
+                                                    height: 1
+                                                    y: parent.height - 1
+                                                    color: UISettings.fgMedium
+                                                }
                                             }
                                         }
                                     }
@@ -315,33 +366,11 @@ Rectangle
                                 {
                                     id: cDragItem
 
-                                    property bool fromFunctionManager: true
-
                                     visible: channelList.dragActive
 
                                     Drag.active: channelList.dragActive
                                     Drag.source: cDragItem
                                     Drag.keys: [ "channel" ]
-
-                                    function itemDropped(id, name)
-                                    {
-                                        //var path = functionManager.functionPath(id)
-                                        //functionManager.moveFunctions(path)
-                                    }
-
-                                    onItemsListChanged:
-                                    {
-                                        console.log("Items in list: " + itemsList.length)
-                                        /*
-                                        if (itemsList.length)
-                                        {
-                                            var funcRef = functionManager.getFunction(itemsList[0])
-                                            itemLabel = funcRef.name
-                                            itemIcon = functionManager.functionIcon(funcRef.type)
-                                            //multipleItems = itemsList.length > 1 ? true : false
-                                        }
-                                        */
-                                    }
                                 }
                             } // ListView
                         } // Column
@@ -379,7 +408,12 @@ Rectangle
                                         id: newModeButton
                                         imgSource: "qrc:/add.svg"
                                         tooltip: qsTr("Add a new mode")
-                                        onClicked: { /* TODO */ }
+                                        onClicked:
+                                        {
+                                            sideEditor.source = ""
+                                            sideEditor.itemName = ""
+                                            sideEditor.source = "qrc:/ModeEditor.qml"
+                                        }
                                     }
 
                                     IconButton
