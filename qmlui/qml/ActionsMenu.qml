@@ -50,9 +50,9 @@ Popup
     {
         id: openDialog
         visible: false
-        title: qsTr("Open a project")
+        title: qsTr("Open a file")
         folder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("QLC+ files") + " (*.qxw, *.qxf)", qsTr("All files") + " (*)" ]
+        nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
