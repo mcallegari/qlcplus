@@ -23,6 +23,7 @@
 #include <QQmlApplicationEngine>
 
 #include "app.h"
+#include "qlcfile.h"
 #include "qlcconfig.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
@@ -116,7 +117,12 @@ int main(int argc, char *argv[])
 
     QString filename = parser.value(openFileOption);
     if (filename.isEmpty() == false)
-        qlcplusApp.loadWorkspace(filename);
+    {
+        if (filename.endsWith(KExtFixture))
+            qlcplusApp.loadFixture(filename);
+        else
+            qlcplusApp.loadWorkspace(filename);
+    }
 
     return app.exec();
 }
