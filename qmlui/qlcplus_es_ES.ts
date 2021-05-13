@@ -24,7 +24,7 @@
     <message>
         <location filename="qml/ActionsMenu.qml" line="55"/>
         <source>QLC+ files</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos QLC+</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="71"/>
@@ -62,7 +62,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="183"/>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir un archivo</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="240"/>
@@ -341,7 +341,7 @@ Los cambios que no guarde se perderán.</translation>
         <location filename="fixtureeditor/channeledit.cpp" line="53"/>
         <location filename="fixtureeditor/channeledit.cpp" line="77"/>
         <source>Custom</source>
-        <translation type="unfinished">Persponalizado</translation>
+        <translation>Persponalizado</translation>
     </message>
 </context>
 <context>
@@ -349,88 +349,88 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="43"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="54"/>
         <source>Preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Predefinido</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="66"/>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="386"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="75"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Rol</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="91"/>
         <source>Coarse (MSB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Coarse (MSB)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="101"/>
         <source>Fine (LSB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fine (MSB)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="105"/>
         <source>Default value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor por defecto</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="125"/>
         <source>Delete the selected capabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar las capacidades seleccionadas</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="215"/>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>Desde</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="224"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasta</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="233"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="401"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Previsualización</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="413"/>
         <source>Primary color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color primario</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="470"/>
         <source>Secondary color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color secundario</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="498"/>
         <source>Value(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor(es)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="510"/>
         <source>Value 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor 1</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="524"/>
         <source>Value 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor 2</translation>
     </message>
 </context>
 <context>
@@ -969,87 +969,87 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="53"/>
         <source>Manufacturer or model cannot be empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>El fabricante o el modelo no pueden estar vacíos!</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="68"/>
         <source>!! Warning !!</source>
-        <translation type="unfinished"></translation>
+        <translation>!! Advertencia !!</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="100"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="109"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricante</translation>
+        <translation>Fabricante</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="121"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="159"/>
         <source>Model</source>
-        <translation type="unfinished">Modelo</translation>
+        <translation>Modelo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="169"/>
         <source>Author</source>
-        <translation type="unfinished">Autor</translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="183"/>
         <source>Physical properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades físicas</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="197"/>
         <source>Channels</source>
-        <translation type="unfinished">Canales</translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="224"/>
         <source>Add a new channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un canal nuevo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="237"/>
         <source>Remove the selected channel(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar el(los) canal(es) seleccionado(s)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="354"/>
         <source>Modes</source>
-        <translation type="unfinished"></translation>
+        <translation>Modos</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="381"/>
         <source>Add a new mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un nuevo modo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="389"/>
         <source>Remove the selected mode(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar el(los) modo(s) seleccionado(s)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="463"/>
         <source>Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="145"/>
         <source>New channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo canal %1</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="185"/>
         <source>New mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo modo</translation>
     </message>
 </context>
 <context>
@@ -1119,12 +1119,12 @@ Los cambios que no guarde se perderán.</translation>
         <location filename="qml/fixturesfunctions/FixtureBrowser.qml" line="87"/>
         <source>Create a new fixture definition</source>
         <oldsource>Add a new fixture definition</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Crear una nueva definición de fixture</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureBrowser.qml" line="98"/>
         <source>Edit the selected fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar la definición de fixture seleccionada</translation>
     </message>
 </context>
 <context>
@@ -1155,60 +1155,60 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="50"/>
         <source>Open a fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir una definición de fixture</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="51"/>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="72"/>
         <source>Fixture definition files</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos de definiciones de fixtures</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="51"/>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="72"/>
         <source>All files</source>
-        <translation type="unfinished">Todos los archivos</translation>
+        <translation>Todos los archivos</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="59"/>
         <source>An error occurred while loading the selected file.&lt;br&gt;It could be invalid or corrupted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se produjo un error al cargar el archivo seleccionado.&lt;br&gt;Podría no ser válido o estar dañado.</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="70"/>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="163"/>
         <source>Save definition as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar la definición como...</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="87"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="113"/>
         <source>Back to QLC+</source>
-        <translation type="unfinished"></translation>
+        <translation>Volver a QLC+</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="122"/>
         <source>New definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva definición</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="131"/>
         <source>Open definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir una definición</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="143"/>
         <source>Save definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar la definición</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="216"/>
         <source>Unknown</source>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
 </context>
 <context>
@@ -1977,38 +1977,38 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="61"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="76"/>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="107"/>
         <source>Channels</source>
-        <translation type="unfinished">Canales</translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="116"/>
         <source>Acts on</source>
-        <translation type="unfinished"></translation>
+        <translation>Actúa sobre</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="186"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabeza</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="199"/>
         <source>Physical</source>
-        <translation type="unfinished">Tamaño Físico</translation>
+        <translation>Tamaño Físico</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="217"/>
         <source>Use global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa los ajustes globales</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="225"/>
         <source>Override global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobreescribir los ajustes globales</translation>
     </message>
 </context>
 <context>
@@ -2152,12 +2152,12 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="143"/>
         <source>Are you sure you want to delete the following items?</source>
-        <translation type="unfinished">Está seguro que quiere eliminar los siguientes elementos?</translation>
+        <translation>Está seguro que quiere eliminar los siguientes elementos?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="150"/>
         <source>Delete items</source>
-        <translation type="unfinished">Borrar ítems</translation>
+        <translation>Borrar ítems</translation>
     </message>
 </context>
 <context>
@@ -2165,100 +2165,101 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="36"/>
         <source>Bulb</source>
-        <translation type="unfinished">Bombilla</translation>
+        <translation>Bombilla</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="47"/>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="111"/>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="168"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="75"/>
         <source>Lumens</source>
-        <translation type="unfinished"></translation>
+        <translation>Lúmenes</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="85"/>
         <source>Colour Temp (K)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temperatura de color (K)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="100"/>
         <source>Lens</source>
-        <translation type="unfinished">Lente</translation>
+        <translation>Lente</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="130"/>
         <source>Min Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Grados mínimos</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="141"/>
         <source>Max Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Grados máximos</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="157"/>
         <source>Head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabeza(s)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="187"/>
         <source>Pan Max Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Grados máximos panorama</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="198"/>
         <source>Tilt Max Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Grados máximos inclinación</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="209"/>
         <source>Layout
 (Columns x Rows)</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposición
+(Columnas x Filas)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="238"/>
         <source>Dimensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensiones</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="249"/>
         <source>Weight</source>
-        <translation type="unfinished">Peso</translation>
+        <translation>Peso</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="260"/>
         <source>Width</source>
-        <translation type="unfinished">Ancho</translation>
+        <translation>Ancho</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="271"/>
         <source>Height</source>
-        <translation type="unfinished">Alto</translation>
+        <translation>Alto</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="282"/>
         <source>Depth</source>
-        <translation type="unfinished">Profundidad</translation>
+        <translation>Profundidad</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="298"/>
         <source>Electrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Eléctrico</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="309"/>
         <source>Power Consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Consumo de energía</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="321"/>
         <source>DMX Connector</source>
-        <translation type="unfinished"></translation>
+        <translation>Conector DMX</translation>
     </message>
 </context>
 <context>
@@ -2847,37 +2848,37 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="218"/>
         <source>Color mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de color</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="234"/>
         <source>Default (RGB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Por defecto (RGB)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="235"/>
         <source>White</source>
-        <translation type="unfinished">Blanco</translation>
+        <translation>Blanco</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="236"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translation>Ámbar</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="237"/>
         <source>UV</source>
-        <translation type="unfinished">UV</translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="238"/>
         <source>Dimmer</source>
-        <translation type="unfinished">Dimmer</translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="239"/>
         <source>Shutter</source>
-        <translation type="unfinished">Obturador</translation>
+        <translation>Obturador</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="257"/>
@@ -3219,12 +3220,12 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="123"/>
         <source>Add a fixture/group</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un fixture/grupo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="159"/>
         <source>Add a palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir una paleta</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="195"/>
@@ -3615,14 +3616,14 @@ Nivel de acceso:</translation>
         <location filename="qml/showmanager/ShowItem.qml" line="276"/>
         <location filename="qml/showmanager/ShowItem.qml" line="314"/>
         <source>Position: </source>
-        <translation>Posición:</translation>
+        <translation>Posición: </translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowItem.qml" line="277"/>
         <location filename="qml/showmanager/ShowItem.qml" line="315"/>
         <location filename="qml/showmanager/ShowItem.qml" line="387"/>
         <source>Duration: </source>
-        <translation>Duración:</translation>
+        <translation>Duración: </translation>
     </message>
 </context>
 <context>
@@ -3737,37 +3738,37 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/SimpleDesk.qml" line="70"/>
         <source>Universe</source>
-        <translation type="unfinished">Universo</translation>
+        <translation>Universo</translation>
     </message>
     <message>
         <location filename="qml/SimpleDesk.qml" line="88"/>
         <source>Reset the whole universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer todo el universo</translation>
     </message>
     <message>
         <location filename="qml/SimpleDesk.qml" line="104"/>
         <source>Dump on a new Scene</source>
-        <translation type="unfinished">Volcar en una nueva escena</translation>
+        <translation>Volcar en una nueva escena</translation>
     </message>
     <message>
         <location filename="qml/SimpleDesk.qml" line="288"/>
         <source>Reset the channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer el canal</translation>
     </message>
     <message>
         <location filename="qml/SimpleDesk.qml" line="324"/>
         <source>Fixture List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de fixtures</translation>
     </message>
     <message>
         <location filename="qml/SimpleDesk.qml" line="388"/>
         <source>Commands history</source>
-        <translation type="unfinished"></translation>
+        <translation>Historial de comandos</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="45"/>
         <source>Simple Desk</source>
-        <translation type="unfinished">Mesa Simple</translation>
+        <translation>Mesa Simple</translation>
     </message>
 </context>
 <context>
