@@ -240,7 +240,14 @@ Rectangle
                                         id: delChButton
                                         imgSource: "qrc:/remove.svg"
                                         tooltip: qsTr("Remove the selected channel(s)")
-                                        onClicked: { /* TODO */ }
+                                        enabled: chanSelector.itemsCount
+                                        onClicked:
+                                        {
+                                            for (var i = 0; i < cDragItem.itemsList.length; i++)
+                                                editorView.deleteChannel(cDragItem.itemsList[i].cRef)
+
+                                            cDragItem.itemsList = []
+                                        }
                                     }
 
                                     Rectangle
@@ -257,6 +264,7 @@ Rectangle
                                 width: channelSection.width
                                 height: UISettings.listItemHeight * count
                                 boundsBehavior: Flickable.StopAtBounds
+                                interactive: false
 
                                 property bool dragActive: false
 
@@ -347,8 +355,8 @@ Rectangle
                                                     id: cEntryItem
                                                     width: channelList.width
                                                     height: UISettings.listItemHeight
-                                                    tLabel: cDelegate.cRef.name
-                                                    iSrc: cDelegate.cRef.getIconNameFromGroup(cDelegate.cRef.group, true)
+                                                    tLabel: cDelegate.cRef ? cDelegate.cRef.name : ""
+                                                    iSrc: cDelegate.cRef ? cDelegate.cRef.getIconNameFromGroup(cDelegate.cRef.group, true) : ""
                                                 }
 
                                                 Rectangle
@@ -365,8 +373,9 @@ Rectangle
                                 GenericMultiDragItem
                                 {
                                     id: cDragItem
-
                                     visible: channelList.dragActive
+
+                                    property bool fromMainEditor: true
 
                                     Drag.active: channelList.dragActive
                                     Drag.source: cDragItem
@@ -439,6 +448,7 @@ Rectangle
                                 height: UISettings.listItemHeight * count
                                 boundsBehavior: Flickable.StopAtBounds
                                 currentIndex: -1
+                                interactive: false
 
                                 model: editorView ? editorView.modes : null
                                 delegate:
@@ -456,7 +466,7 @@ Rectangle
                                             onDoubleClicked:
                                             {
                                                 sideEditor.source = ""
-                                                sideEditor.itemName = modelData.mLabel
+                                                sideEditor.itemName = model.name
                                                 sideEditor.source = "qrc:/ModeEditor.qml"
                                             }
 
@@ -472,7 +482,7 @@ Rectangle
                                             {
                                                 width: modeList.width
                                                 height: UISettings.listItemHeight
-                                                tLabel: modelData.mLabel
+                                                tLabel: model.name
                                                 faSource: FontAwesome.fa_list
                                                 faColor: UISettings.fgMain
                                             }

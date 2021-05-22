@@ -43,11 +43,18 @@ EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *par
     qDebug() << "Editing fixture on file:" << m_fileName;
 
     m_channelList = new ListModel(this);
-    QStringList listRoles;
-    listRoles << "cRef" << "isSelected";
-    m_channelList->setRoleNames(listRoles);
+    QStringList chRoles;
+    chRoles << "cRef" << "isSelected";
+    m_channelList->setRoleNames(chRoles);
 
     updateChannelList();
+
+    m_modeList = new ListModel(this);
+    QStringList modeRoles;
+    modeRoles << "name" << "channels" << "heads" << "isSelected";
+    m_modeList->setRoleNames(modeRoles);
+
+    updateModeList();
 }
 
 EditorView::~EditorView()
@@ -175,24 +182,21 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     return m_channelEdit;
 }
 
+bool EditorView::deleteChannel(QLCChannel *channel)
+{
+    // TODO: Tardis
+    bool res = m_fixtureDef->removeChannel(channel);
+    updateChannelList();
+    return res;
+}
+
 /************************************************************************
  * Modes
  ************************************************************************/
 
-QVariantList EditorView::modes() const
+QVariant EditorView::modes() const
 {
-    QVariantList list;
-
-    for (QLCFixtureMode *mode : m_fixtureDef->modes())
-    {
-        QVariantMap modeMap;
-        modeMap.insert("mLabel", mode->name());
-        modeMap.insert("mChannels", mode->channels().count());
-        modeMap.insert("mHeads", mode->heads().count());
-        list.append(modeMap);
-    }
-
-    return list;
+    return QVariant::fromValue(m_modeList);
 }
 
 ModeEdit *EditorView::requestModeEditor(QString name)
@@ -206,7 +210,7 @@ ModeEdit *EditorView::requestModeEditor(QString name)
         mode = new QLCFixtureMode(m_fixtureDef);
         mode->setName(tr("New mode"));
         m_fixtureDef->addMode(mode);
-        emit modesChanged();
+        updateModeList();
     }
 
     m_modeEdit = new ModeEdit(mode);
@@ -215,10 +219,26 @@ ModeEdit *EditorView::requestModeEditor(QString name)
     return m_modeEdit;
 }
 
+void EditorView::updateModeList()
+{
+    m_modeList->clear();
+
+    for (QLCFixtureMode *mode : m_fixtureDef->modes())
+    {
+        QVariantMap modeMap;
+        modeMap.insert("name", mode->name());
+        modeMap.insert("channels", mode->channels().count());
+        modeMap.insert("heads", mode->heads().count());
+        m_modeList->addDataMap(modeMap);
+    }
+
+    emit modesChanged();
+}
+
 void EditorView::modeNameChanged()
 {
     setModified();
-    modesChanged();
+    updateModeList();
 }
 
 /*********************************************************************

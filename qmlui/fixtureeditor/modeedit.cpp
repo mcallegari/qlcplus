@@ -19,7 +19,7 @@
 
 #include "qlcfixturemode.h"
 #include "physicaledit.h"
-
+#include "listmodel.h"
 #include "modeedit.h"
 
 ModeEdit::ModeEdit(QLCFixtureMode *mode, QObject *parent)
@@ -27,7 +27,19 @@ ModeEdit::ModeEdit(QLCFixtureMode *mode, QObject *parent)
     , m_mode(mode)
     , m_physical(nullptr)
 {
+    m_channelList = new ListModel(this);
+    QStringList chRoles;
+    chRoles << "cRef" << "isSelected";
+    m_channelList->setRoleNames(chRoles);
 
+    updateChannelList();
+
+    m_headList = new ListModel(this);
+    QStringList headRoles;
+    headRoles << "channelList" << "isSelected";
+    m_headList->setRoleNames(headRoles);
+
+    updateHeadsList();
 }
 
 ModeEdit::~ModeEdit()
@@ -49,6 +61,113 @@ void ModeEdit::setName(QString name)
     emit nameChanged();
 }
 
+/************************************************************************
+ * Channels
+ ************************************************************************/
+
+QVariant ModeEdit::channels() const
+{
+    return QVariant::fromValue(m_channelList);
+}
+
+void ModeEdit::addChannel(QLCChannel *channel, int insertIndex)
+{
+    m_mode->insertChannel(channel, insertIndex);
+    updateChannelList();
+}
+
+void ModeEdit::moveChannel(QLCChannel *channel, int insertIndex)
+{
+    int index = m_mode->channelNumber(channel);
+    if (index < insertIndex)
+        insertIndex--;
+
+    m_mode->removeChannel(channel);
+    m_mode->insertChannel(channel, insertIndex);
+    updateChannelList();
+}
+
+QLCChannel *ModeEdit::channelFromIndex(int index) const
+{
+    return m_mode->channel(index);
+}
+
+bool ModeEdit::deleteChannel(QLCChannel *channel)
+{
+    // TODO: Tardis
+    bool res = m_mode->removeChannel(channel);
+    updateChannelList();
+
+    return res;
+}
+
+void ModeEdit::updateChannelList()
+{
+    m_channelList->clear();
+
+    for (QLCChannel *channel : m_mode->channels())
+    {
+        QVariantMap chanMap;
+        chanMap.insert("cRef", QVariant::fromValue(channel));
+        chanMap.insert("isSelected", false);
+        m_channelList->addDataMap(chanMap);
+    }
+
+    emit channelsChanged();
+}
+
+/************************************************************************
+ * Heads
+ ************************************************************************/
+
+QVariant ModeEdit::heads() const
+{
+    return QVariant::fromValue(m_headList);
+}
+
+void ModeEdit::addHead(QVariantList chIndexList)
+{
+    QLCFixtureHead head;
+
+    for (QVariant &idx : chIndexList)
+        head.addChannel(idx.toUInt());
+
+    m_mode->insertHead(-1, head);
+    updateHeadsList();
+}
+
+void ModeEdit::deleteHeads(QVariantList headIndexList)
+{
+    QVector<int> sortedList;
+    for (QVariant &idx : headIndexList)
+        sortedList.append(idx.toInt());
+    std::sort(sortedList.begin(), sortedList.end(), std::greater<int>());
+
+    for (int index : sortedList)
+        m_mode->removeHead(index);
+
+    updateHeadsList();
+}
+
+void ModeEdit::updateHeadsList()
+{
+    m_headList->clear();
+
+    for (QLCFixtureHead head : m_mode->heads())
+    {
+        QVariantMap headMap;
+        headMap.insert("channelList", QVariant::fromValue(head.channels()));
+        headMap.insert("isSelected", false);
+        m_headList->addDataMap(headMap);
+    }
+
+    emit headsChanged();
+}
+
+/************************************************************************
+ * Physical
+ ************************************************************************/
+
 bool ModeEdit::useGlobalPhysical()
 {
     return m_mode->useGlobalPhysical();
@@ -58,29 +177,8 @@ PhysicalEdit *ModeEdit::physical()
 {
     if (m_physical == nullptr)
         m_physical = new PhysicalEdit(m_mode->physical());
+
     return m_physical;
-}
-
-QVariantList ModeEdit::channels() const
-{
-    QVariantList list;
-
-    for (QLCChannel *channel : m_mode->channels())
-    {
-        QVariantMap chMap;
-        chMap.insert("mIcon", channel->getIconNameFromGroup(channel->group(), true));
-        chMap.insert("mLabel", channel->name());
-        chMap.insert("mGroup", channel->groupToString(channel->group()));
-        list.append(chMap);
-    }
-
-    return list;
-}
-
-void ModeEdit::addChannel(QLCChannel *channel, int insertIndex)
-{
-    m_mode->insertChannel(channel, insertIndex);
-    emit channelsChanged();
 }
 
 

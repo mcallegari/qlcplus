@@ -25,6 +25,7 @@
 class QLCFixtureDef;
 class PhysicalEdit;
 class ChannelEdit;
+class QLCChannel;
 class ListModel;
 class ModeEdit;
 
@@ -44,7 +45,7 @@ class EditorView : public QObject
     Q_PROPERTY(PhysicalEdit *globalPhysical READ globalPhysical CONSTANT)
     Q_PROPERTY(QVariant channels READ channels NOTIFY channelsChanged)
 
-    Q_PROPERTY(QVariantList modes READ modes NOTIFY modesChanged)
+    Q_PROPERTY(QVariant modes READ modes NOTIFY modesChanged)
 
 public:
     EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
@@ -95,9 +96,12 @@ public:
     /** Get a list of all the available channels in the definition */
     QVariant channels() const;
 
-    /** Request a channel editor. If chName is empty,
-     *  a new channel is added */
+    /** Request a channel editor.
+     *  If $name is empty, a new channel is added */
     Q_INVOKABLE ChannelEdit *requestChannelEditor(QString name);
+
+    /** Delete the given $channel from the definition */
+    Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
 
 private:
     void updateChannelList();
@@ -117,16 +121,22 @@ signals:
      ************************************************************************/
 public:
     /** Get a list of all the available modes in the definition */
-    QVariantList modes() const;
+    QVariant modes() const;
 
-    /** Request a channel editor. If chName is empty,
-     *  a new channel is added */
+    /** Request a mode editor.
+     *  If name is empty, a new mode is added */
     Q_INVOKABLE ModeEdit *requestModeEditor(QString name);
+
+private:
+    void updateModeList();
 
 protected slots:
     void modeNameChanged();
 
 private:
+    /** Reference to a mode list usable in QML */
+    ListModel *m_modeList;
+
     /** Reference to a mode editor */
     ModeEdit *m_modeEdit;
 

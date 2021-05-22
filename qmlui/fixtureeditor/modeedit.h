@@ -25,13 +25,15 @@
 class QLCFixtureMode;
 class PhysicalEdit;
 class QLCChannel;
+class ListModel;
 
 class ModeEdit : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(QVariantList channels READ channels NOTIFY channelsChanged)
+    Q_PROPERTY(QVariant channels READ channels NOTIFY channelsChanged)
+    Q_PROPERTY(QVariant heads READ heads NOTIFY headsChanged)
     Q_PROPERTY(bool useGlobalPhysical READ useGlobalPhysical CONSTANT)
     Q_PROPERTY(PhysicalEdit *physical READ physical CONSTANT)
 
@@ -43,6 +45,70 @@ public:
     QString name() const;
     void setName(QString name);
 
+signals:
+    void nameChanged();
+
+private:
+    /** Reference to the mode being edited */
+    QLCFixtureMode *m_mode;
+
+    /************************************************************************
+     * Channels
+     ************************************************************************/
+public:
+    /** Get a list of all the available channels in the definition */
+    QVariant channels() const;
+
+    /** Add a new channel to the mode being edited */
+    Q_INVOKABLE void addChannel(QLCChannel *channel, int insertIndex = 0);
+
+    /** Move $channel to a new position in the mode being edited */
+    Q_INVOKABLE void moveChannel(QLCChannel *channel, int insertIndex = 0);
+
+    /** Return the reference to a channel with the given $index
+     *  in the mode being edited */
+    Q_INVOKABLE QLCChannel *channelFromIndex(int index) const;
+
+    /** Delete the given $channel from the mode being edited */
+    Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
+
+private:
+    void updateChannelList();
+
+signals:
+    void channelsChanged();
+
+private:
+    /** Reference to a channel list usable in QML */
+    ListModel *m_channelList;
+
+    /************************************************************************
+     * Heads
+     ************************************************************************/
+public:
+    /** Get a list of all the available heads in the definition */
+    QVariant heads() const;
+
+    /** Create a new head from the provided channel indices list */
+    Q_INVOKABLE void addHead(QVariantList chIndexList);
+
+    /** Delete the heads with the provided $headIndexList */
+    Q_INVOKABLE void deleteHeads(QVariantList headIndexList);
+
+private:
+    void updateHeadsList();
+
+signals:
+    void headsChanged();
+
+private:
+    /** Reference to a head list usable in QML */
+    ListModel *m_headList;
+
+    /************************************************************************
+     * Physical
+     ************************************************************************/
+public:
     /** Return if the selected mode is using global or overridden
      *  physical information */
     bool useGlobalPhysical();
@@ -51,18 +117,7 @@ public:
      *  override physical properties */
     PhysicalEdit *physical();
 
-    /** Get a list of all the available channels in the definition */
-    QVariantList channels() const;
-
-    Q_INVOKABLE void addChannel(QLCChannel *channel, int insertIndex = 0);
-
-signals:
-    void nameChanged();
-    void channelsChanged();
-
 private:
-    /** Reference to the mode being edited */
-    QLCFixtureMode *m_mode;
     /** Reference to the override physical properties */
     PhysicalEdit *m_physical;
 };
