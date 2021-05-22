@@ -28,7 +28,7 @@ TextField
     height: UISettings.listItemHeight
     clip: true
 
-    anchors.margins: 4
+    //anchors.margins: 4
     color: UISettings.fgMain
     selectedTextColor: UISettings.fgMain
     selectionColor: UISettings.highlightPressed
