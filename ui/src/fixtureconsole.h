@@ -93,6 +93,10 @@ protected:
 public:
     /** Set channels' check state (UINT_MAX to set all) */
     void setChecked(bool state, quint32 channel = UINT_MAX);
+    /** toggle check state */
+    bool check(quint32 channel);
+    /** get checkstate of channel */
+    bool isChecked(quint32 channel);
 
     /** Enable/disable DMX output when sliders are dragged */
     void setOutputDMX(bool state);
@@ -117,6 +121,8 @@ public:
 
     /** Set the stylesheet of the ConsoleChannel at the given index */
     void setChannelStylesheet(quint32 ch, QString ss);
+    /** set the stylesheet of the slider of the channel at given index */
+    void setSliderStylesheet(quint32 ch, QString ss);
 
     /** Reset all the channels stylesheet to the original value */
     void resetChannelsStylesheet();
