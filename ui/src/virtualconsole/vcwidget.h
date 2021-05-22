@@ -65,6 +65,7 @@ class QFile;
 #define KXMLQLCVCWidgetInputChannel "Channel"
 #define KXMLQLCVCWidgetInputLowerValue "LowerValue"
 #define KXMLQLCVCWidgetInputUpperValue "UpperValue"
+#define KXMLQLCVCWidgetInputMonitorValue "MonitorValue"
 
 #define KXMLQLCWindowState "WindowState"
 #define KXMLQLCWindowStateVisible "Visible"

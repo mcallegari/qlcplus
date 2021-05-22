@@ -127,6 +127,11 @@ void QLCInputSource::setRange(uchar lower, uchar upper)
     m_upper = upper;
 }
 
+void QLCInputSource::setMonitor(uchar monitor)
+{
+    m_monitor = monitor;
+}
+
 uchar QLCInputSource::lowerValue() const
 {
     return m_lower;
@@ -135,6 +140,11 @@ uchar QLCInputSource::lowerValue() const
 uchar QLCInputSource::upperValue() const
 {
     return m_upper;
+}
+
+uchar QLCInputSource::monitorValue() const
+{
+    return m_monitor;
 }
 
 /*********************************************************************
