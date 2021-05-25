@@ -72,7 +72,7 @@ def printPresets(group):
     for i in range(pMin, pMax + 1):
         sys.stdout.write("[" + str(i) + "] " + presets[i] + " ")
         sys.stdout.flush()
-    print ""
+    print("")
 
 ###########################################################################################
 # update_fixture
@@ -126,10 +126,10 @@ def update_fixture(path, filename, destpath):
             global_phy = phy_dict
             gphy_tag = phy_tag
             mode.remove(phy_tag)
-            print "Moving mode " + mode.attrib['Name'] + " to global"
+            print("Moving mode " + mode.attrib['Name'] + " to global")
         elif phy_dict == global_phy:
             mode.remove(phy_tag)
-            print "Mode " + mode.attrib['Name'] + " is identical to global"
+            print("Mode " + mode.attrib['Name'] + " is identical to global")
 
     root.append(gphy_tag)
 
@@ -146,7 +146,7 @@ def update_fixture(path, filename, destpath):
             locCapCount += 1
 
         if locCapCount < 2:
-            print "Single capability found in " + filename
+            print("Single capability found in " + filename)
             fxSingleCapCount += 1
             preset = ""
             name = ""
@@ -210,10 +210,10 @@ def update_fixture(path, filename, destpath):
             elif group == "Tilt":
                 preset = "PositionTilt" + fineWord
 
-            #print "Found group " + group + ", control byte: " + str(controlByte)
-            print chr(27) + "[2J" # clear screen
-            print "File: " + filename
-            print etree.tostring(channel)
+            #print("Found group " + group + ", control byte: " + str(controlByte))
+            print(chr(27) + "[2J") # clear screen
+            print("File: " + filename)
+            print(etree.tostring(channel))
 
             if not preset:
                 printPresets(group)
@@ -225,7 +225,7 @@ def update_fixture(path, filename, destpath):
                 select = raw_input("Replacement preset code (0 = keep) (enter = " + preset + "): ")
                 if select == "":
                     if preset == "":
-                        print "Select an option!"
+                        print("Select an option!")
                     else:
                         break
                 else:
@@ -264,21 +264,21 @@ def check_physical(absname, node, hasPan, hasTilt):
         tiltDeg = int(focus_tag.attrib.get('TiltMax', 0))
 
         if width == 0 or height == 0 or depth == 0:
-            print absname + ": Invalid physical dimensions detected"
+            print(absname + ": Invalid physical dimensions detected")
             errNum += 1
 
         if hasPan and panDeg == 0:
-            print absname + ": Invalid PAN degrees"
+            print(absname + ": Invalid PAN degrees")
             errNum += 1
 
         if hasTilt and tiltDeg == 0:
-            print absname + ": Invalid TILT degrees"
+            print(absname + ": Invalid TILT degrees")
             errNum += 1
 
         if tech_tag is not None:
             power = int(tech_tag.attrib.get('PowerConsumption', 0))
             if power == 0:
-                print absname + ": Invalid power consumption"
+                print(absname + ": Invalid power consumption")
                 errNum += 1
 
     return errNum
@@ -309,14 +309,14 @@ def validate_fixture(path, filename):
     creator_tag = root.find('{' + namespace + '}Creator')
 
     if creator_tag is None:
-        print "Creator tag not found"
+        print("Creator tag not found")
     else:
         author_tag = creator_tag.find('{' + namespace + '}Author')
         name_tag = creator_tag.find('{' + namespace + '}Name')
         version_tag = creator_tag.find('{' + namespace + '}Version')
 
         numversion_tok = re.findall('\d+', version_tag.text)
-        #print "Definition version: " + version_tag.text
+        #print("Definition version: " + version_tag.text)
 
         # extract a unified number from the QLC version string
         if len(numversion_tok) == 3:
@@ -325,19 +325,19 @@ def validate_fixture(path, filename):
             qlc_version = (int(numversion_tok[0]) * 10000) + (int(numversion_tok[1]) * 100)
 
         if author_tag is None:
-            print absname + ": Author tag not found"
+            print(absname + ": Author tag not found")
             errNum += 1
         else:
             # pre QLC+ definition didn't have the Author tag. Let's do
             # the following check only for newer defs
             if name_tag.text == "Q Light Controller Plus":
                 if not author_tag.text:
-                    print absname + ": Empty author name detected"
+                    print(absname + ": Empty author name detected")
                     errNum += 1
                 else:
                     authName = author_tag.text
                     if "@" in authName or "://" in authName or "www" in authName:
-                        print absname + ": URLs or emails not allowed in author tag"
+                        print(absname + ": URLs or emails not allowed in author tag")
                         errNum += 1
 
     ################################ CHECK FIXTURE GENERALS ##############################
@@ -347,13 +347,13 @@ def validate_fixture(path, filename):
     type_tag = root.find('{' + namespace + '}Type')
 
     if manuf_tag is None or not manuf_tag.text:
-        print absname + ": Invalid manufacturer detected"
+        print(absname + ": Invalid manufacturer detected")
         errNum += 1
     if model_tag is None or not model_tag.text:
-        print absname + ": Invalid model detected"
+        print(absname + ": Invalid model detected")
         errNum += 1
     if type_tag is None or not type_tag.text:
-        print absname + ": Invalid type detected"
+        print(absname + ": Invalid type detected")
         errNum += 1
 
     ##################################### CHECK CHANNELS #################################
@@ -365,7 +365,7 @@ def validate_fixture(path, filename):
         chName = ""
         chPreset = ""
         if not 'Name' in channel.attrib:
-            print absname + ": Invalid channel. No name specified"
+            print(absname + ": Invalid channel. No name specified")
             errNum += 1
         else:
             chName = channel.attrib['Name']
@@ -379,16 +379,16 @@ def validate_fixture(path, filename):
         groupByte = -1
 
         if not chPreset and childrenCount == 0:
-            print absname + "/" + chName + ": Invalid channel. Not a preset and no capabilities found"
+            print(absname + "/" + chName + ": Invalid channel. Not a preset and no capabilities found")
             errNum += 1
 
         if not chPreset and group_tag is None:
-            print absname + "/" + chName + ": Invalid channel. Not a preset and no group tag found"
+            print(absname + "/" + chName + ": Invalid channel. Not a preset and no group tag found")
             errNum += 1
 
         if group_tag is not None:
             if not group_tag.text:
-                print absname + "/" + chName + ": Invalid channel. Empty group tag detected"
+                print(absname + "/" + chName + ": Invalid channel. Empty group tag detected")
                 errNum += 1
             else:
                 if group_tag.text == 'Pan':
@@ -397,7 +397,7 @@ def validate_fixture(path, filename):
                     hasTilt = True
 
             if not 'Byte' in group_tag.attrib:
-                print absname + "/" + chName + ": Invalid channel. Group byte attribute not found"
+                print(absname + "/" + chName + ": Invalid channel. Group byte attribute not found")
                 errNum += 1
             else:
                 groupByte = group_tag.attrib['Byte']
@@ -413,7 +413,7 @@ def validate_fixture(path, filename):
 
         # check the word 'fine' against control byte
         if groupByte == 0 and 'fine' in chName:
-            print absname + "/" + chName + ": control byte should be set to Fine (LSB)"
+            print(absname + "/" + chName + ": control byte should be set to Fine (LSB)")
             errNum += 1
 
         ################################# CHECK CAPABILITIES ##############################
@@ -428,22 +428,22 @@ def validate_fixture(path, filename):
             newResSyntax = False
             capName = capability.text
             if not capName:
-                print absname + "/" + chName + ": Capability with no description detected"
+                print(absname + "/" + chName + ": Capability with no description detected")
                 errNum += 1
 
             # check capabilities overlapping
             currMin = int(capability.attrib['Min'])
             currMax = int(capability.attrib['Max'])
 
-            #print "Min: " + str(currMin) + ", max: " + str(currMax)
+            #print("Min: " + str(currMin) + ", max: " + str(currMax))
 
             if currMin <= lastMax:
-                print absname + "/" + chName + "/" + capName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax)
+                print(absname + "/" + chName + "/" + capName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax))
                 errNum += 1
 
             # disabled for now. 710 errors with this !
             #if currMin != lastMax + 1:
-            #    print absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax)
+            #    print(absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax))
             #    errNum += 1
 
             lastMax = currMax
@@ -456,13 +456,13 @@ def validate_fixture(path, filename):
                 newResSyntax = True
 
             if resource.startswith('/'):
-                print absname + "/" + chName + "/" + capName + ": Absolute paths not allowed in resources"
+                print(absname + "/" + chName + "/" + capName + ": Absolute paths not allowed in resources")
                 errNum += 1
 
             # check the actual existence of a gobo. If possible, migrate to SVG
             if resource and '/' in resource:
                 goboPath = os.getcwd() + "/../gobos/" + resource
-                #print "GOBO path: " + goboPath
+                #print("GOBO path: " + goboPath)
 
                 if not os.path.isfile(goboPath):
                     # check if a SVG version of the gobo exists
@@ -470,7 +470,7 @@ def validate_fixture(path, filename):
                     goboPath = os.getcwd() + "/../gobos/" + resource
 
                     if not os.path.isfile(goboPath):
-                        print absname + "/" + chName + "/" + capName + ": Non existing gobo file detected (" + resource + ")"
+                        print(absname + "/" + chName + "/" + capName + ": Non existing gobo file detected (" + resource + ")")
                         errNum += 1
                     else:
                         needSave = True
@@ -482,13 +482,13 @@ def validate_fixture(path, filename):
             capCount += 1
 
         if capCount == 0:
-            print absname + "/" + chName + ": Channel has no capabilities"
+            print(absname + "/" + chName + ": Channel has no capabilities")
             errNum += 1
 
         chCount += 1
 
     if chCount == 0:
-        print absname + ": Invalid fixture. No channels found!"
+        print(absname + ": Invalid fixture. No channels found!")
         errNum += 1
 
     ###################################### CHECK MODES ###################################
@@ -501,18 +501,18 @@ def validate_fixture(path, filename):
         modeName = ""
 
         if not 'Name' in mode.attrib:
-            print absname + ": mode name attribute not found"
+            print(absname + ": mode name attribute not found")
             errNum += 1
         else:
             modeName = mode.attrib['Name']
 
         if not modeName:
-            print absname + ": Empty mode name detected"
+            print(absname + ": Empty mode name detected")
             errNum += 1
 
         # better to skip this for now. Still too many errors
         #if qlc_version >= 41100 and 'mode' in modeName.lower():
-        #    print absname + "/" + modeName + ": word 'mode' found in mode name"
+        #    print(absname + "/" + modeName + ": word 'mode' found in mode name")
         #    errNum += 1
 
         modeChanCount = 0
@@ -521,33 +521,33 @@ def validate_fixture(path, filename):
         for mchan in mode.findall('{' + namespace + '}Channel'):
 
             if mchan.text is None:
-                print absname + "/" + modeName + ": Empty channel name found. This definition won't work."
+                print(absname + "/" + modeName + ": Empty channel name found. This definition won't work.")
                 errNum += 1
             else:
                 if not mchan.text in channelNames:
-                    print absname + "/" + modeName + ": Channel " + mchan.text + " doesn't exist. This definition won't work."
+                    print(absname + "/" + modeName + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
                     errNum += 1
 
             modeChanCount += 1
 
         if modeChanCount == 0:
-            print absname + "/" + modeName + ": No channel found in mode"
+            print(absname + "/" + modeName + ": No channel found in mode")
             errNum += 1
 
         for mchan in mode.findall('{' + namespace + '}Head'):
             modeHeadsCount += 1
 
         if modeHeadsCount == 1:
-            print absname + "/" + modeName + ": Single head found. Not allowed"
+            print(absname + "/" + modeName + ": Single head found. Not allowed")
             errNum += 1
 
 #        if modeHeadsCount > 3:
-#            print absname + "/" + modeName + ": Heads found: " + str(modeHeadsCount)
+#            print(absname + "/" + modeName + ": Heads found: " + str(modeHeadsCount))
 
         phy_tag = mode.find('{' + namespace + '}Physical')
 
         if phy_tag is None and global_phy_tag is None:
-            print absname + "/" + modeName + ": No physical data found"
+            print(absname + "/" + modeName + ": No physical data found")
             errNum += 1
 
         errNum += check_physical(absname, mode, hasPan, hasTilt)
@@ -555,7 +555,7 @@ def validate_fixture(path, filename):
         modeCount += 1
 
     if modeCount == 0:
-        print absname + ": Invalid fixture. No modes found!"
+        print(absname + ": Invalid fixture. No modes found!")
         errNum += 1
 
     ################################ CHECK GLOBAL PHYSICAL ################################
@@ -563,7 +563,7 @@ def validate_fixture(path, filename):
     errNum += check_physical(absname, root, hasPan, hasTilt)
 
     if needSave:
-        print "Saving back " + filename + "..."
+        print("Saving back " + filename + "...")
         xmlFile = open(absname, "w")
         xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
         xmlFile.close()
@@ -606,12 +606,12 @@ def createFixtureMap():
             fxTag.set('n', os.path.splitext(filename)[0])
             #fxTag.set('m', manufacturer.text)
             fxTag.set('m', model.text)
-            #print manufacturer.text + ", " + model.text
+            #print(manufacturer.text + ", " + model.text)
             count += 1
 
     xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>"))
     xmlFile.close()
-    print "Fixtures in map: " + str(count)
+    print("Fixtures in map: " + str(count))
 
 ###########################################################################################
 #
@@ -627,13 +627,13 @@ parser.add_argument('--validate [path]', help='Validate fixtures in the specifie
                     nargs='*', dest='validate')
 args = parser.parse_args()
 
-print args
+print(args)
 
 if args.map:
     createFixtureMap()
 elif args.convert:
     if len(sys.argv) < 3:
-        print "Usage " + sys.argv[0] + "--convert [source folder] [destination folder]"
+        print("Usage " + sys.argv[0] + "--convert [source folder] [destination folder]")
         sys.exit()
 
     path = sys.argv[2]
@@ -641,18 +641,18 @@ elif args.convert:
         destpath = sys.argv[3]
     else:
         destpath = ""
-    print "Converting fixtures in " + path + "..."
+    print("Converting fixtures in " + path + "...")
 
     for filename in os.listdir(path):
         if not filename.endswith('.qxf'): continue
-        print "Processing file " + filename
+        print("Processing file " + filename)
 
         singleCapCount += update_fixture(path, filename, destpath)
 
-    print "Scan done. Single cap found: " + str(singleCapCount)
+    print("Scan done. Single cap found: " + str(singleCapCount))
 elif args.validate:
     if len(sys.argv) < 2:
-        print "Usage " + sys.argv[0] + "--validate [path]"
+        print("Usage " + sys.argv[0] + "--validate [path]")
         sys.exit()
 
     path = sys.argv[2]
@@ -667,9 +667,9 @@ elif args.validate:
         for filename in sorted(os.listdir(dirname), key=lambda s: s.lower()):
             if not filename.endswith('.qxf'): continue
 
-            #print "Processing file " + filename
+            #print("Processing file " + filename)
             errorCount += validate_fixture(dirname, filename)
             fileCount += 1
 
-    print str(fileCount) + " definitions processed. " + str(errorCount) + " errors detected"
+    print(str(fileCount) + " definitions processed. " + str(errorCount) + " errors detected")
 
