@@ -280,7 +280,11 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_runnerMutex;
+#else
+    QRecursiveMutex m_runnerMutex;
+#endif
     ChaserRunner* m_runner;
 
     /*************************************************************************
