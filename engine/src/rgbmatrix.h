@@ -164,7 +164,11 @@ public:
     RGBAlgorithm* algorithm() const;
 
     /** Get the algorithm protection mutex */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex& algorithmMutex();
+#else
+    QRecursiveMutex& algorithmMutex();
+#endif
 
     /** Get the number of steps of the current algorithm */
     int stepsCount();
@@ -174,7 +178,11 @@ public:
 
 private:
     RGBAlgorithm *m_algorithm;
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
+#else
+    QRecursiveMutex m_algorithmMutex;
+#endif
 
     /************************************************************************
      * Color

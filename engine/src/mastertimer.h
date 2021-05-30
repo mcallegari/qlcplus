@@ -163,7 +163,11 @@ private:
      * In case both m_functionListMutex and m_dmxSourceListMutex are needed,
      * always lock m_functionListMutex first!
      */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_dmxSourceListMutex;
+#else
+    QRecursiveMutex m_dmxSourceListMutex;
+#endif
 
     /*************************************************************************
      * Beats generation

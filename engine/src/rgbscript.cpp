@@ -23,7 +23,6 @@
 #include <QScriptEngine>
 #include <QScriptValue>
 #include <QStringList>
-#include <QMutex>
 #include <QDebug>
 #include <QFile>
 #include <QSize>
@@ -41,7 +40,11 @@
 #include "qlcfile.h"
 
 QScriptEngine* RGBScript::s_engine = NULL;
-QMutex* RGBScript::s_engineMutex = NULL;
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+  QMutex* RGBScript::s_engineMutex = NULL;
+#else
+  QRecursiveMutex* RGBScript::s_engineMutex = NULL;
+#endif
 
 /****************************************************************************
  * Initialization
@@ -199,7 +202,11 @@ void RGBScript::initEngine()
 {
     if (s_engineMutex == NULL)
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         s_engineMutex = new QMutex(QMutex::Recursive);
+#else
+        s_engineMutex = new QRecursiveMutex();
+#endif
         s_engine = new QScriptEngine(QCoreApplication::instance());
     }
     Q_ASSERT(s_engineMutex != NULL);

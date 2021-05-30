@@ -63,7 +63,9 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_group(NULL)
     , m_algorithm(NULL)
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_algorithmMutex(QMutex::Recursive)
+#endif
     , m_startColor(Qt::red)
     , m_endColor(QColor())
     , m_stepHandler(new RGBMatrixStep())
@@ -239,10 +241,18 @@ RGBAlgorithm* RGBMatrix::algorithm() const
     return m_algorithm;
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 QMutex& RGBMatrix::algorithmMutex()
 {
     return m_algorithmMutex;
 }
+#else
+QRecursiveMutex& RGBMatrix::algorithmMutex()
+{
+    return m_algorithmMutex;
+}
+#endif
+
 
 int RGBMatrix::stepsCount()
 {

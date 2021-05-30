@@ -39,7 +39,9 @@
 
 Collection::Collection(Doc* doc)
     : Function(doc, Function::CollectionType)
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_functionListMutex(QMutex::Recursive)
+#endif
 {
     setName(tr("New Collection"));
 
