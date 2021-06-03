@@ -41,7 +41,7 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
     uchar midi_ch = MIDI_CH(cmd);
 
     /* Check that the command came on the correct MIDI channel */
-    if (midiChannel <= 0xF && midi_ch != midiChannel)
+    if (midiChannel < MAX_MIDI_CHANNELS && midi_ch != midiChannel)
         return false;
 
     switch(MIDI_CMD(cmd))
@@ -67,8 +67,8 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
         break;
 
         case MIDI_PROGRAM_CHANGE:
-            *channel = CHANNEL_OFFSET_PROGRAM_CHANGE + quint32(data1);
-            *value = MIDI2DMX(data2);
+            *channel = CHANNEL_OFFSET_PROGRAM_CHANGE;
+            *value = MIDI2DMX(data1);
         break;
 
         case MIDI_CHANNEL_AFTERTOUCH:
@@ -157,8 +157,7 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
         *data1 = static_cast <uchar> (channel - CHANNEL_OFFSET_NOTE_AFTERTOUCH);
         *data2 = DMX2MIDI(value);
     }
-    else if (channel >= CHANNEL_OFFSET_PROGRAM_CHANGE &&
-             channel <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
+    else if (channel == CHANNEL_OFFSET_PROGRAM_CHANGE)
     {
         *cmd = MIDI_PROGRAM_CHANGE | midiChannel;
         *data1 = DMX2MIDI(value);
