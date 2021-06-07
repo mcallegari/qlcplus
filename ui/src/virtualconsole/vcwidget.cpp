@@ -1292,7 +1292,7 @@ void VCWidget::mousePressEvent(QMouseEvent* e)
     }
 
     /* Move, resize or context menu invocation */
-    if (e->button() & Qt::LeftButton || e->button() & Qt::MidButton)
+    if (e->button() & Qt::LeftButton || e->button() & Qt::MiddleButton)
     {
         /* Start moving or resizing based on where the click landed */
         if (e->x() > rect().width() - 10 && e->y() > rect().height() - 10 && allowResize())
@@ -1384,7 +1384,7 @@ void VCWidget::mouseMoveEvent(QMouseEvent* e)
             resize(QSize(p.x() - x(), p.y() - y()));
             m_doc->setModified();
         }
-        else if (e->buttons() & Qt::LeftButton || e->buttons() & Qt::MidButton)
+        else if (e->buttons() & Qt::LeftButton || e->buttons() & Qt::MiddleButton)
         {
             QPoint p = mapToParent(e->pos());
             p.setX(p.x() - m_mousePressPoint.x());
