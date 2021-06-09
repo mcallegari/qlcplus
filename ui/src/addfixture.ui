@@ -89,11 +89,8 @@
       </item>
       <item row="3" column="2">
        <widget class="QComboBox" name="m_universeCombo">
-        <property name="sizeAdjustPolicy">
-         <enum>QComboBox::AdjustToMinimumContentsLength</enum>
-        </property>
-        <property name="minimumContentsLength">
-         <number>16</number>
+        <property name="toolTip">
+         <string>Add fixture to this universe</string>
         </property>
        </widget>
       </item>
