@@ -42,8 +42,7 @@ else
 fi
 
 # run xmllint on fixture definitions
-pushd .
-cd resources/fixtures/scripts
+pushd resources/fixtures/scripts
 VALIDATION_ERRORS=$(./check)
 popd
 echo $VALIDATION_ERRORS
@@ -66,8 +65,7 @@ do
 
     $SLEEPCMD
     # Execute the test
-    pushd .
-    cd ${TESTDIR}/${test}
+    pushd ${TESTDIR}/${test}
     $TESTPREFIX ./test.sh
     RESULT=${?}
     popd
@@ -97,8 +95,7 @@ do
 
     $SLEEPCMD
     # Execute the test
-    pushd .
-    cd ${TESTDIR}/${test}
+    pushd ${TESTDIR}/${test}
     DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:../../../engine/src:../../src \
         LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../../engine/src:../../src $TESTPREFIX ./${test}_test
     RESULT=${?}
@@ -116,8 +113,7 @@ fi
 #############################################################################
 
 $SLEEPCMD
-pushd .
-cd plugins/enttecwing/test
+pushd plugins/enttecwing/test
 $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
@@ -134,8 +130,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Skip Velleman test (not supported on OSX)"
 else
   $SLEEPCMD
-  pushd .
-  cd plugins/velleman/test
+  pushd plugins/velleman/test
   $TESTPREFIX ./test.sh
   RESULT=$?
   if [ $RESULT != 0 ]; then
@@ -150,8 +145,7 @@ fi
 #############################################################################
 
 $SLEEPCMD
-pushd .
-cd plugins/midi/test
+pushd plugins/midi/test
 $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
@@ -165,8 +159,7 @@ popd
 #############################################################################
 
 $SLEEPCMD
-pushd .
-cd plugins/artnet/test
+pushd plugins/artnet/test
 $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
