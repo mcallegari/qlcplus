@@ -17,7 +17,12 @@ else
     qmake CONFIG+=appimage CONFIG+=qmlui
 fi
 
-make -j8
+NUM_CPUS=`nproc`
+if [ -z "$NUM_CPUS" ]; then
+    NUM_CPUS=8
+fi
+
+make -j$NUM_CPUS
 make check
 
 mkdir $TARGET_DIR
