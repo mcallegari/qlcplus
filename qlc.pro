@@ -27,8 +27,13 @@ unix:!macx:QMAKE_DISTCLEAN += $$DEBIAN_CLEAN
 # Unit testing thru "make check"
 unittests.target = check
 QMAKE_EXTRA_TARGETS += unittests
-unix:unittests.commands += ./unittest.sh
-win32:unittests.commands += unittest.bat
+qmlui: {
+  unix:unittests.commands += ./unittest.sh "qmlui"
+  win32:unittests.commands += unittest.bat "qmlui"
+} else {
+  unix:unittests.commands += ./unittest.sh "ui"
+  win32:unittests.commands += unittest.bat "ui"
+}
 
 # Unit test coverage measurement
 coverage.target = lcov

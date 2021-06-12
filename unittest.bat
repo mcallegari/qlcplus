@@ -32,6 +32,10 @@ cd engine\test
 SET OLDPATH=%PATH%
 PATH=%PATH%;..\..\src
 FOR /D %%G IN ("*") DO (
+    IF [%1]==[qmlui] (
+        if ("%%G" == "script") GOTO CONTINUE
+    )
+
     cd "%%G"
 
     REM Do something
@@ -49,6 +53,7 @@ FOR /D %%G IN ("*") DO (
         exit /B %ERRORLEVEL%
     )
     cd ..
+    :CONTINUE
 )
 SET PATH=%OLDPATH%
 popd

@@ -8,6 +8,14 @@ CURRUSER=$(whoami)
 TESTPREFIX=""
 SLEEPCMD=""
 HAS_XSERVER="0"
+THISCMD=`basename "$0"`
+
+TARGET=${1:-}
+
+if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
+  echo >&2 "Usage: $THISCMD ui|qmlui"
+  exit 1
+fi
 
 if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -60,6 +68,11 @@ do
         continue
     fi
 
+    # Ignore script folder when in qmlui mode
+    if [ "${test}" == "engine/test/script" -a "$TARGET" == "qmlui" ]; then
+        continue
+    fi
+
     # Isolate just the test name
     test=$(echo ${test} | sed 's/engine\/test\///')
 
@@ -85,6 +98,11 @@ TESTDIR=ui/test
 TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
 for test in ${TESTS}
 do
+    # Skip ui in qmlui mode
+    if [ "$TARGET" == "qmlui" ]; then
+        break
+    fi
+
     # Ignore .git
     if [ $(echo ${test} | grep ".git") ]; then
         continue
