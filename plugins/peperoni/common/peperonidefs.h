@@ -29,6 +29,7 @@
 #define PEPERONI_PID_RODIN2     0x0003
 #define PEPERONI_PID_RODINT     0x0008
 #define PEPERONI_PID_USBDMX21   0x0004
+#define PEPERONI_PID_RODIN1_MK3 0x0013
 
 /** Common interface */
 #define PEPERONI_IFACE_EP0      0x00
