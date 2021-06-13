@@ -615,9 +615,11 @@ void InputOutputMap_Test::inputSourceNames()
 void InputOutputMap_Test::profileDirectories()
 {
     QDir dir = InputOutputMap::systemProfileDirectory();
+    QDir ipDir;
+    ipDir.setPath(INPUTPROFILEDIR);
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtInputProfile)));
-    QVERIFY(dir.absolutePath().contains(INPUTPROFILEDIR));
+    QCOMPARE(dir.absolutePath(), ipDir.absolutePath());
 
     dir = InputOutputMap::userProfileDirectory();
 #ifndef SKIP_TEST
@@ -626,7 +628,6 @@ void InputOutputMap_Test::profileDirectories()
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtInputProfile)));
     QVERIFY(dir.absolutePath().contains(USERINPUTPROFILEDIR));
-
 }
 
 void InputOutputMap_Test::claimReleaseDumpReset()
