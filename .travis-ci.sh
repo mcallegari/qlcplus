@@ -40,6 +40,6 @@ if [ "$TASK" = "compile" ]; then
   fi
 fi
 if [ "$TASK" = "coverage" ]; then
-$QMAKE CONFIG+=coverage QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX && make && ./coverage.sh
-exit $?
+  $QMAKE CONFIG+=coverage QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX && make && make lcov
+  exit $?
 fi

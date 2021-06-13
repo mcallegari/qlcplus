@@ -38,7 +38,11 @@ qmlui: {
 # Unit test coverage measurement
 coverage.target = lcov
 QMAKE_EXTRA_TARGETS += coverage
-unix:coverage.commands += ./coverage.sh
+qmlui: {
+unix:coverage.commands += ./coverage.sh "qmlui"
+} else {
+unix:coverage.commands += ./coverage.sh "ui"
+}
 win32:coverage.commands = @echo Get a better OS.
 
 # Translations (update these also in translate.sh)
