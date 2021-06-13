@@ -57,6 +57,7 @@ matrix:
       dist: bionic
       compiler: gcc
       env: TASK='compile' QT='qt5qml'
+      services: xvfb
       addons:
         apt:
           sources:
