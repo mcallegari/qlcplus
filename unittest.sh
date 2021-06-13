@@ -92,17 +92,13 @@ done
 # UI tests
 #############################################################################
 
-if [ "$HAS_XSERVER" -eq "1" ]; then
+# Skip ui in qmlui mode
+if [ "$HAS_XSERVER" -eq "1" ] && [ "$TARGET" != "qmlui" ]; then
 
 TESTDIR=ui/test
 TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
 for test in ${TESTS}
 do
-    # Skip ui in qmlui mode
-    if [ "$TARGET" == "qmlui" ]; then
-        break
-    fi
-
     # Ignore .git
     if [ $(echo ${test} | grep ".git") ]; then
         continue
