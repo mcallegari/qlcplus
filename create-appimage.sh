@@ -17,7 +17,7 @@ else
     qmake CONFIG+=appimage CONFIG+=qmlui
 fi
 
-NUM_CPUS=`nproc`
+NUM_CPUS=`nproc` || true
 if [ -z "$NUM_CPUS" ]; then
     NUM_CPUS=8
 fi
@@ -25,13 +25,17 @@ fi
 make -j$NUM_CPUS
 make check
 
-mkdir $TARGET_DIR
+if [ ! -d "$TARGET_DIR" ]; then
+    mkdir $TARGET_DIR
+fi
 make INSTALL_ROOT=$TARGET_DIR install
 
 strip $TARGET_DIR/usr/bin/qlcplus-qml
-strip $TARGET_DIR/usr/lib/libqlcplusengine.so.1.0.0
+# see variables.pri, where to find the LIBSDIR
+find $TARGET_DIR/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
 
-chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml
+# FIXME: no rpath or runpath tag found.
+chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml || true
 
 pushd $TARGET_DIR/usr/bin
 find . -name plugins.qmltypes -type f -delete
@@ -47,8 +51,8 @@ if [ ! -f $TARGET_DIR/AppRun]; then
     chmod a+x $TARGET_DIR/AppRun
 fi
 
-cp resources/icons/svg/qlcplus.svg $TARGET_DIR
-cp platforms/linux/qlcplus.desktop $TARGET_DIR
+cp -v resources/icons/svg/qlcplus.svg $TARGET_DIR
+cp -v platforms/linux/qlcplus.desktop $TARGET_DIR
 sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/qlcplus.desktop
 
 if [ ! -f /tmp/appimagetool-x86_64.AppImage ]; then
@@ -57,8 +61,7 @@ if [ ! -f /tmp/appimagetool-x86_64.AppImage ]; then
 fi
 
 pushd $TARGET_DIR/..
-/tmp/appimagetool-x86_64.AppImage $TARGET_DIR
+/tmp/appimagetool-x86_64.AppImage -v $TARGET_DIR
 popd
 
-make clean
-
+echo "The application is now available at ~/Q_Light_Controller_Plus-x86_64.AppImage"
