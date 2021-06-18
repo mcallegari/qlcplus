@@ -4,6 +4,8 @@ qlcplus (4.12.4) stable; urgency=low
   * engine: add "acts on" property to channels (thanks to Michał Kluska)
   * Virtual Console/Button: fix submaster not affecting a Chaser startup intensity
   * Plugins/E1.31: make CID unique on each network interface
+  * Plugins/Peperoni: add Rodin1 MK3 to the supported devices (thanks to Tolmino Muccitelli)
+  * Web Access: added Virtual Console Clock widget support
   * Web Access: added -wp/-web-port command line option to set a specific access port
   * Input profiles: added Novation Launchpad Mini MK3 (thanks to Felix)
   * Input profiles: added KORG nanoKONTROL Studio (thanks to Hans-Jürgen Tappe)
@@ -39,7 +41,7 @@ qlcplus (4.12.4) stable; urgency=low
   * New fixtures: Chauvet Ovation F-415FC, Ovation P56FC (thanks to Matt Fiscus)
   * New fixtures: Cameo Thunderwash 600 RGBW, Thunderwash 600 UV (thanks to Torsten Caninenberg)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 May 2021 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Jul 2021 12:13:14 +0200
 
 qlcplus (4.12.3) stable; urgency=low
 

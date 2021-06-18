@@ -17,6 +17,10 @@
   limitations under the License.
 */
 
+function initVirtualConsole() {
+ updateTime();
+}
+
 /* VCButton */
 function buttonPress(id) {
  websocket.send(id + "|255");
@@ -41,17 +45,17 @@ function wsSetButtonState(id, state) {
 }
 
 window.addEventListener("load",() => {
-    var buttons = document.getElementsByClassName("vcbutton");
-    for (var btn of buttons) {
-        btn.addEventListener("touchstart", (event) => {
-                event.preventDefault();
-                buttonPress(event.target.id);
-        }, false);
-        btn.addEventListener("touchend", (event) => {
-                event.preventDefault();
-                buttonRelease(event.target.id);
-        }, false);
-    }
+ var buttons = document.getElementsByClassName("vcbutton");
+ for (var btn of buttons) {
+  btn.addEventListener("touchstart", (event) => {
+   event.preventDefault();
+   buttonPress(event.target.id);
+  }, false);
+  btn.addEventListener("touchend", (event) => {
+   event.preventDefault();
+   buttonRelease(event.target.id);
+  }, false);
+ }
 });
 
 /* VCCueList */
@@ -211,4 +215,49 @@ function wsSetAudioTriggersEnabled(id, enabled) {
   obj.style.border = "3px solid #A0A0A0";
   obj.style.backgroundColor = "#D6D2D0";
  }
+}
+
+/* VCClock */
+function hmsToString(h, m, s) {
+ h = (h < 10) ? "0" + h : h;
+ m = (m < 10) ? "0" + m : m;
+ s = (s < 10) ? "0" + s : s;
+
+ var timeString = h + ":" + m + ":" + s;
+ return timeString;
+}
+
+function updateTime() {
+ var date = new Date();
+ var h = date.getHours();
+ var m = date.getMinutes();
+ var s = date.getSeconds();
+
+ var timeString = hmsToString(h, m, s);
+ var clocks = document.getElementsByClassName("vcclock");
+ for (var clk of clocks) {
+  clk.innerHTML = timeString;
+ }
+
+ if (clocks.length)
+  setTimeout(updateTime, 1000);
+}
+
+function controlWatch(id, op) {
+ var obj = document.getElementById(id);
+ var msg = id + "|" + op;
+ websocket.send(msg);
+}
+
+function wsUpdateClockTime(id, time) {
+ var obj = document.getElementById(id);
+ var s = time;
+ var h, m;
+ h = parseInt(s / 3600);
+ s -= (h * 3600);
+ m = parseInt(s / 60);
+ s -= (m * 60);
+
+ var timeString = hmsToString(h, m, s);
+ obj.innerHTML = timeString;
 }

@@ -188,6 +188,8 @@ void VCClock::slotUpdateTime()
                 m_currentTime++;
             else if (m_clocktype == Countdown && m_currentTime > 0)
                 m_currentTime--;
+
+            emit timeChanged(m_currentTime);
         }
         else
         {
@@ -219,18 +221,20 @@ void VCClock::slotUpdateTime()
     update();
 }
 
-void VCClock::slotResetTimer()
+void VCClock::resetTimer()
 {
     if (clockType() == Stopwatch)
         m_currentTime = 0;
     else if (clockType() == Countdown)
         m_currentTime = m_targetTime;
 
+    emit timeChanged(m_currentTime);
+
     updateFeedback();
     update();
 }
 
-void VCClock::slotPlayPauseTimer()
+void VCClock::playPauseTimer()
 {
     if (clockType() == Stopwatch || clockType() == Countdown)
         m_isPaused = !m_isPaused;
@@ -269,9 +273,9 @@ void VCClock::slotKeyPressed(const QKeySequence& keySequence)
         return;
 
     if (m_playKeySequence == keySequence)
-        slotPlayPauseTimer();
+        playPauseTimer();
     else if (m_resetKeySequence == keySequence)
-        slotResetTimer();
+        resetTimer();
 }
 
 void VCClock::updateFeedback()
@@ -313,7 +317,7 @@ void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
         // above $HYSTERESIS before a zero is accepted again.
         if (m_playLatestValue == 0 && value > 0)
         {
-            slotPlayPauseTimer();
+            playPauseTimer();
             m_playLatestValue = value;
         }
         else if (m_playLatestValue > HYSTERESIS && value == 0)
@@ -332,7 +336,7 @@ void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
         // above $HYSTERESIS before a zero is accepted again.
         if (m_resetLatestValue == 0 && value > 0)
         {
-            slotResetTimer();
+            resetTimer();
             m_resetLatestValue = value;
         }
         else if (m_resetLatestValue > HYSTERESIS && value == 0)
@@ -563,11 +567,11 @@ void VCClock::mousePressEvent(QMouseEvent *e)
 
     if (e->button() == Qt::RightButton)
     {
-        slotResetTimer();
+        resetTimer();
     }
     else if (e->button() == Qt::LeftButton)
     {
-        slotPlayPauseTimer();
+        playPauseTimer();
     }
     VCWidget::mousePressEvent(e);
 }

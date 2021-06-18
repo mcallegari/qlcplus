@@ -38,6 +38,7 @@ class VCWidget;
 class VCSlider;
 class VCLabel;
 class VCFrame;
+class VCClock;
 class Doc;
 
 class QHttpServer;
@@ -67,6 +68,7 @@ private:
     QString getLabelHTML(VCLabel *label);
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
     QString getCueListHTML(VCCueList *cue);
+    QString getClockHTML(VCClock *clock);
 
     QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
@@ -83,6 +85,7 @@ protected slots:
     void slotSliderValueChanged(QString val);
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
+    void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
 
 protected:

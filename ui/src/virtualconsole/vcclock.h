@@ -118,15 +118,18 @@ private:
 
 public:
     void setCountdown(int h, int m, int s);
+    void playPauseTimer();
+    void resetTimer();
     long currentTime() { return m_currentTime; }
     int getHours() { return m_hh; }
     int getMinutes() { return m_mm; }
     int getSeconds() { return m_ss; }
 
+signals:
+    void timeChanged(quint32 time);
+
 protected slots:
     void slotUpdateTime();
-    void slotPlayPauseTimer();
-    void slotResetTimer();
 
 private:
     int m_hh, m_mm, m_ss;
