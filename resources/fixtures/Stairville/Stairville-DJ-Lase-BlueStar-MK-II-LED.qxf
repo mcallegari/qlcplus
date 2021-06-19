@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>David Grc</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DJ Lase BlueStar MK-II LED</Model>
+ <Type>Laser</Type>
+ <Channel Name="Operating mode selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Laser off</Capability>
+  <Capability Min="52" Max="102">Automatic show in random order, fast</Capability>
+  <Capability Min="103" Max="154">Automatic show in random order, slow</Capability>
+  <Capability Min="155" Max="206">Sound controlled automatic show in random order</Capability>
+  <Capability Min="207" Max="255">DMX mode This setting enables the function of the other DMX channels</Capability>
+ </Channel>
+ <Channel Name="Red laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Laser off</Capability>
+  <Capability Min="5" Max="127">Laser is constantly on</Capability>
+  <Capability Min="128" Max="254">Strobe effect (flashing), decreasing speed</Capability>
+  <Capability Min="255" Max="255">Sound controlled strobe effect (flashing)</Capability>
+ </Channel>
+ <Channel Name="Green laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Laser off</Capability>
+  <Capability Min="5" Max="127">Laser is constantly on</Capability>
+  <Capability Min="128" Max="254">Strobe effect (flashing), decreasing speed</Capability>
+  <Capability Min="255" Max="255">Sound controlled strobe effect (flashing)</Capability>
+ </Channel>
+ <Channel Name="Rotation of the red and green laser around the Z-axis (rolling)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise rotating effect, speed increasing from slow to fast</Capability>
+  <Capability Min="128" Max="133">No rotation</Capability>
+  <Capability Min="134" Max="255">Anti-clockwise rotating effect, speed increasing from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotation of the blue LED background illumination around the Z-axis (rolling)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise rotating effect, speed increasing from slow to fast</Capability>
+  <Capability Min="128" Max="133">No rotation</Capability>
+  <Capability Min="134" Max="255">Anti-clockwise rotating effect, speed increasing from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Intensity of the blue LED background illumination">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="4">Background illumination off</Capability>
+  <Capability Min="5" Max="255">Increasing brightness (0 %...100 %)</Capability>
+ </Channel>
+ <Channel Name="Strobe effect (flashing) of the blue LED background illumination">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4">Background illumination off</Capability>
+  <Capability Min="5" Max="127">Background illumination is constantly on</Capability>
+  <Capability Min="128" Max="254">Strobe effect (flashing), decreasing speed</Capability>
+  <Capability Min="255" Max="255">Sound controlled strobe effect (flashing)</Capability>
+ </Channel>
+ <Mode Name="7 channel">
+  <Channel Number="0">Operating mode selection</Channel>
+  <Channel Number="1">Red laser</Channel>
+  <Channel Number="2">Green laser</Channel>
+  <Channel Number="3">Rotation of the red and green laser around the Z-axis (rolling)</Channel>
+  <Channel Number="4">Rotation of the blue LED background illumination around the Z-axis (rolling)</Channel>
+  <Channel Number="5">Intensity of the blue LED background illumination</Channel>
+  <Channel Number="6">Strobe effect (flashing) of the blue LED background illumination</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="200" Height="92" Depth="175"/>
+  <Lens Name="Other" DegreesMin="160" DegreesMax="160"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

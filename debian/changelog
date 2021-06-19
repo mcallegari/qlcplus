@@ -39,7 +39,12 @@ qlcplus (4.12.4) stable; urgency=low
   * New fixture: EK E3 LED Spot (thanks to Luke Jackson)
   * New fixture: Venue Tetra Bar (thanks to Nathan Durnan)
   * New fixtures: Chauvet Ovation F-415FC, Ovation P56FC (thanks to Matt Fiscus)
-  * New fixtures: Cameo Thunderwash 600 RGBW, Thunderwash 600 UV (thanks to Torsten Caninenberg)
+  * New fixtures: Cameo Thunderwash 600 RGBW, Thunderwash 600 UV, JB Systems Space-4 Laser (thanks to Torsten Caninenberg)
+  * New fixtures: Chauvet GigBAR Move, Nicols Galaxy Laser LD-488 (thanks to Morgan McNeely)
+  * New fixture: Eurolite LED QDF-Bar RGBAW Light Set (thanks to Robin)
+  * New fixtures: American DJ COB Cannon Wash ST, Philips ColorBlaze 72, Stairville DJ Lase BlueStar MK-II LED (thanks to David Grc)
+  * New fixtures: Dune Lighting LED Blender 220, Dune Lighting PAR LED 64 (thanks to David Grc)
+  * New fixture: beamZ Illusion II (thanks to Yestalgia)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Jul 2021 12:13:14 +0200
 

@@ -38,6 +38,7 @@
     <F n="American-DJ-Chameleon-QBar-Pro" m="Chameleon QBar Pro"/>
     <F n="American-DJ-COB-Cannon-Wash-DW" m="COB Cannon Wash DW"/>
     <F n="American-DJ-COB-Cannon-Wash-Pearl" m="COB Cannon Wash Pearl"/>
+    <F n="American-DJ-COB-Cannon-Wash-ST" m="COB Cannon Wash ST"/>
     <F n="American-DJ-Comscan-LED" m="Comscan LED"/>
     <F n="American-DJ-Dekker-LED" m="Dekker LED"/>
     <F n="American-DJ-DJ-Spot-250" m="DJ Spot 250"/>
@@ -207,6 +208,7 @@
     <F n="beamZ-BAC406" m="BAC406 ProPar 6x18W 6-1 Hex"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
+    <F n="beamZ-Illusion-II" m="Illusion II"/>
     <F n="beamZ-LCB-252" m="LCB-252"/>
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
     <F n="beamZ-LS-3DRG" m="LS-3DRG"/>
@@ -379,6 +381,7 @@
     <F n="Chauvet-GigBAR-2" m="GigBAR 2"/>
     <F n="Chauvet-GigBAR-Flex" m="GigBAR Flex"/>
     <F n="Chauvet-GigBar-IRC" m="GigBar IRC"/>
+    <F n="Chauvet-GigBAR-Move" m="GigBAR Move"/>
     <F n="Chauvet-Gobo-Zoom-LED-2.0" m="Gobo Zoom LED 2.0"/>
     <F n="Chauvet-Gyser-RGB" m="Gyser RGB"/>
     <F n="Chauvet-Hemisphere-5.1" m="Hemisphere 5.1"/>
@@ -566,7 +569,9 @@
   </M>
   <M n="Dune_Lighting">
     <F n="Dune-Lighting-Fireworks-Pro-II" m="Fireworks PRO II (LAS-160/FW)"/>
+    <F n="Dune-Lighting-LED-Blender-220" m="LED Blender 220 (DUN-70653)"/>
     <F n="Dune-Lighting-MOVLED60W" m="MOV-LED/60W"/>
+    <F n="Dune-Lighting-PAR-LED-64" m="PAR LED 64 (DUN-70655)"/>
   </M>
   <M n="EK">
     <F n="EK-E3-LED-Spot" m="E3 LED Spot"/>
@@ -661,6 +666,7 @@
     <F n="Eurolite-LED-PMB-8-COB-RGB-30W" m="LED PMB-8 COB RGB 30W"/>
     <F n="Eurolite-LED-PT-100-32-Pixel-DMX-Tube" m="LED PT-100/32 Pixel DMX Tube"/>
     <F n="Eurolite-LED-PT-100" m="LED PT-100"/>
+    <F n="Eurolite-LED-QDF-Bar" m="LED QDF-Bar RGBAW Light Set"/>
     <F n="Eurolite-LED-SCY-100-RGBW-DMX" m="LED SCY-100 RGBW DMX"/>
     <F n="Eurolite-LED-SL-600" m="LED SL-600"/>
     <F n="Eurolite-LED-SLS-180-RGB" m="LED SLS-180 RGB"/>
@@ -899,6 +905,7 @@
     <F n="JB-Systems-Panther" m="Panther"/>
     <F n="JB-Systems-Plano-Spot-7TC" m="Plano Spot 7TC"/>
     <F n="JB-Systems-Plano-Spot-LED" m="Plano Spot LED"/>
+    <F n="JB-Systems-Space-4-Laser" m="Space-4 Laser"/>
     <F n="JB-Systems-Space-Color-Laser" m="Space Color Laser"/>
     <F n="JB-Systems-Space-Laser-3" m="Space Laser 3"/>
     <F n="JB-Systems-Super-Solar-RGBW" m="Super Solar RGBW"/>
@@ -1101,6 +1108,7 @@
   </M>
   <M n="Nicols">
     <F n="Nicols-Birdy-Wash-122" m="Birdy Wash 122"/>
+    <F n="Nicols-Galaxy-Laser" m="Galaxy Laser LD-488"/>
     <F n="Nicols-IP-Wash-120" m="IP Wash 120"/>
     <F n="Nicols-Movelight" m="Movelight"/>
     <F n="Nicols-Strob-LED-W" m="Strob LED W"/>
@@ -1119,6 +1127,7 @@
     <F n="OXO-LED-Funstrip-DMX" m="LED Funstrip DMX"/>
   </M>
   <M n="Philips_Selecon">
+    <F n="Philips-ColorBlaze-72" m="ColorBlaze 72"/>
     <F n="Philips-Selecon-PLProfile1-MkII" m="PLProfile1 MkII"/>
   </M>
   <M n="PixelRANGE">
@@ -1385,6 +1394,7 @@
     <F n="Stairville-DDS-405" m="DDS 405"/>
     <F n="Stairville-DJ-Lase-150-RGY-MkII" m="DJ Lase 150-RGY MkII"/>
     <F n="Stairville-DJ-Lase-25+25-G-MK-II" m="DJ Lase 25+25-G MK-II"/>
+    <F n="Stairville-DJ-Lase-BlueStar-MK-II-LED" m="DJ Lase BlueStar MK-II LED"/>
     <F n="Stairville-DJ-Lase-GR-140-RGY-MKII" m="DJ Lase GR-140 RGY MKII"/>
     <F n="Stairville-DJ-Lase-Polar-200" m="DJ Lase Polar 200"/>
     <F n="Stairville-FS-x75-Follow-Spot" m="FS-x75 Follow Spot"/>
