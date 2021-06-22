@@ -866,28 +866,22 @@ void Doc_Test::usage()
 
     Scene *s5 = new Scene(m_doc);
     m_doc->addFunction(s5);
-    QVERIFY(m_doc->functions().count() == 5);
 
     Chaser *c1 = new Chaser(m_doc);
     ChaserStep cs1(s1->id());
     ChaserStep cs2(s5->id());
     c1->addStep(cs1);
     c1->addStep(cs2);
-    QVERIFY(c1->stepsCount() == 2);
     m_doc->addFunction(c1);
-    QVERIFY(m_doc->functions().count() == 6);
 
     Collection *col1 = new Collection(m_doc);
     col1->addFunction(s2->id());
     col1->addFunction(s5->id());
-    QVERIFY(col1->functions().count() == 2);
     m_doc->addFunction(col1);
-    QVERIFY(m_doc->functions().count() == 7);
 
     Sequence *seq1 = new Sequence(m_doc);
     seq1->setBoundSceneID(s4->id());
     m_doc->addFunction(seq1);
-    QVERIFY(m_doc->functions().count() == 8);
 
     Script *sc1 = new Script(m_doc);
     sc1->appendData(QString("startfunction:%1").arg(c1->id()));
@@ -898,14 +892,15 @@ void Doc_Test::usage()
     QList<quint32> usage;
 
     /* check the usage of an invalid ID */
-    QVERIFY(m_doc->getUsage(100).count() == 0);
+    usage = m_doc->getUsage(100);
+    QVERIFY(usage.count() == 0);
 
     /* check the usage of an unused function */
-    QVERIFY(m_doc->getUsage(s3->id()).count() == 0);
+    usage = m_doc->getUsage(s3->id());
+    QVERIFY(usage.count() == 0);
 
     /* check usage of a Scene used by a Chaser */
-    quint32 sid = s1->id();
-    usage = m_doc->getUsage(sid);
+    usage = m_doc->getUsage(s1->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == c1->id());
     QVERIFY(usage.at(1) == 0); // step 0
@@ -924,13 +919,9 @@ void Doc_Test::usage()
 
     /* check usage of a Chaser used by a Script */
     usage = m_doc->getUsage(c1->id());
-#ifdef QMLUI
-    QVERIFY(usage.count() == 1);
-#else
     QVERIFY(usage.count() == 2);
-    QVERIFY(usage.at(1) == 0); // line 1
-#endif
     QVERIFY(usage.at(0) == sc1->id());
+    QVERIFY(usage.at(1) == 0); // line 1
 
     /* check usage of shared function */
     usage = m_doc->getUsage(s5->id());

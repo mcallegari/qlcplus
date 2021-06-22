@@ -615,11 +615,9 @@ void InputOutputMap_Test::inputSourceNames()
 void InputOutputMap_Test::profileDirectories()
 {
     QDir dir = InputOutputMap::systemProfileDirectory();
-    QDir ipDir;
-    ipDir.setPath(INPUTPROFILEDIR);
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtInputProfile)));
-    QCOMPARE(dir.absolutePath(), ipDir.absolutePath());
+    QVERIFY(dir.absolutePath().contains(INPUTPROFILEDIR));
 
     dir = InputOutputMap::userProfileDirectory();
 #ifndef SKIP_TEST

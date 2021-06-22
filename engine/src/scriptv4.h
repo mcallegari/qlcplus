@@ -43,20 +43,17 @@ class Script : public Function
      * Script keywords
      ************************************************************************/
 public:
-    static const QString startFunctionLegacy;
     static const QString startFunctionCmd;
-    static const QString stopFunctionLegacy;
     static const QString stopFunctionCmd;
-    static const QString blackoutLegacy;
     static const QString blackoutCmd;
 
-    static const QString waitLegacy;
     static const QString waitCmd;
 
-    static const QString setFixtureLegacy;
     static const QString setFixtureCmd;
-    static const QString systemLegacy;
     static const QString systemCmd;
+
+    static const QString blackoutOn;
+    static const QString blackoutOff;
 
     /************************************************************************
      * Initialization

@@ -1154,21 +1154,12 @@ QList<quint32> Doc::getUsage(quint32 fid)
             {
                 Script *s = qobject_cast<Script *>(f);
                 QList<quint32> l = s->functionList();
-                for (int i = 0; i < l.count(); i++)
+                for (int i = 0; i < l.count(); i+=2)
                 {
                     if (l.at(i) == fid)
                     {
-#ifndef QMLUI
-                        if (i + 1 >= l.count()) {
-                            qDebug() << "Doc::getUsage: Something is wrong with " << f->name();
-                            break;
-                        }
                         usageList.append(s->id());
-                        i += 1;
-                        usageList.append(l.at(i)); // line number
-#else
-                        usageList.append(s->id());
-#endif
+                        usageList.append(l.at(i + 1)); // line number
                     }
                 }
             }
