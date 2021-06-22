@@ -866,64 +866,77 @@ void Doc_Test::usage()
 
     Scene *s5 = new Scene(m_doc);
     m_doc->addFunction(s5);
+    QVERIFY(m_doc->functions().count() == 5);
 
     Chaser *c1 = new Chaser(m_doc);
     ChaserStep cs1(s1->id());
     ChaserStep cs2(s5->id());
     c1->addStep(cs1);
     c1->addStep(cs2);
+    QVERIFY(c1->stepsCount() == 2);
     m_doc->addFunction(c1);
+    QVERIFY(m_doc->functions().count() == 6);
+
 
     Collection *col1 = new Collection(m_doc);
     col1->addFunction(s2->id());
     col1->addFunction(s5->id());
+    QVERIFY(col1->functions().count() == 2);
     m_doc->addFunction(col1);
+    QVERIFY(m_doc->functions().count() == 7);
 
     Sequence *seq1 = new Sequence(m_doc);
     seq1->setBoundSceneID(s4->id());
     m_doc->addFunction(seq1);
+    QVERIFY(m_doc->functions().count() == 8);
 
     Script *sc1 = new Script(m_doc);
     sc1->appendData(QString("startfunction:%1").arg(c1->id()));
     m_doc->addFunction(sc1);
-
     QVERIFY(m_doc->functions().count() == 9);
 
     QList<quint32> usage;
 
     /* check the usage of an invalid ID */
+    qDebug() << "Check the usage of an invalid ID";
     usage = m_doc->getUsage(100);
     QVERIFY(usage.count() == 0);
 
     /* check the usage of an unused function */
+    qDebug() << "Check the usage of an unused function";
     usage = m_doc->getUsage(s3->id());
     QVERIFY(usage.count() == 0);
 
     /* check usage of a Scene used by a Chaser */
+    qDebug() << "Check usage of a Scene used by a Chaser";
     usage = m_doc->getUsage(s1->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == c1->id());
     QVERIFY(usage.at(1) == 0); // step 0
 
     /* check usage of a Scene used by a Sequence */
+    qDebug() << "Check usage of a Scene used by a Sequence";
     usage = m_doc->getUsage(s4->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == seq1->id());
     QVERIFY(usage.at(1) == 0); // no info
 
     /* check usage of a Scene used by a Collection */
+    qDebug() << "Check usage of a Scene used by a Collection";
     usage = m_doc->getUsage(s2->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == col1->id());
     QVERIFY(usage.at(1) == 0); // index 0
 
     /* check usage of a Chaser used by a Script */
+    qDebug() << "Check usage of a Chaser used by a Script";
     usage = m_doc->getUsage(c1->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == sc1->id());
     QVERIFY(usage.at(1) == 0); // line 1
 
     /* check usage of shared function */
+    qDebug() << "Check usage of shared function";
     usage = m_doc->getUsage(s5->id());
     QVERIFY(usage.count() == 4);
     QVERIFY(usage.at(0) == c1->id());
@@ -932,6 +945,7 @@ void Doc_Test::usage()
     QVERIFY(usage.at(3) == 1); // index 1
 
     /* test also the function by type method */
+    qDebug() << "Test also the function by type method";
     QList<Function *> byType = m_doc->functionsByType(Function::SceneType);
     QVERIFY(byType.count() == 5);
     QVERIFY(byType.at(0) == s1);
