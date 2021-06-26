@@ -46,19 +46,17 @@ rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion
 rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D
 popd
 
-if [ ! -f $TARGET_DIR/AppRun]; then
-    wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -O $TARGET_DIR/AppRun
-    chmod a+x $TARGET_DIR/AppRun
-fi
+# There might be a new version of the tool available.
+wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -O $TARGET_DIR/AppRun
+chmod a+x $TARGET_DIR/AppRun
 
 cp -v resources/icons/svg/qlcplus.svg $TARGET_DIR
 cp -v platforms/linux/qlcplus.desktop $TARGET_DIR
 sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/qlcplus.desktop
 
-if [ ! -f /tmp/appimagetool-x86_64.AppImage ]; then
-    wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /tmp/appimagetool-x86_64.AppImage
-    chmod a+x /tmp/appimagetool-x86_64.AppImage
-fi
+# There might be a new version of the tool available.
+wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /tmp/appimagetool-x86_64.AppImage
+chmod a+x /tmp/appimagetool-x86_64.AppImage
 
 pushd $TARGET_DIR/..
 /tmp/appimagetool-x86_64.AppImage -v $TARGET_DIR
