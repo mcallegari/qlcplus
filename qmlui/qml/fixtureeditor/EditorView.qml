@@ -229,9 +229,10 @@ Rectangle
                                         tooltip: qsTr("Add a new channel")
                                         onClicked:
                                         {
-                                            sideEditor.source = ""
+                                            sideEditor.active = false
                                             sideEditor.itemName = ""
                                             sideEditor.source = "qrc:/ChannelEditor.qml"
+                                            sideEditor.active = true
                                         }
                                     }
 
@@ -309,9 +310,10 @@ Rectangle
 
                                             onDoubleClicked:
                                             {
-                                                sideEditor.source = ""
+                                                sideEditor.active = false
                                                 sideEditor.itemName = delegateRoot.cRef.name
                                                 sideEditor.source = "qrc:/ChannelEditor.qml"
+                                                sideEditor.active = true
                                             }
 
                                             onDragActiveChanged:
@@ -419,9 +421,10 @@ Rectangle
                                         tooltip: qsTr("Add a new mode")
                                         onClicked:
                                         {
-                                            sideEditor.source = ""
+                                            sideEditor.active = false
                                             sideEditor.itemName = ""
                                             sideEditor.source = "qrc:/ModeEditor.qml"
+                                            sideEditor.active = true
                                         }
                                     }
 
@@ -517,6 +520,7 @@ Rectangle
         Loader
         {
             id: sideEditor
+            asynchronous: false
 
             SplitView.minimumWidth: editorRoot.width * 0.2
             SplitView.preferredWidth: editorRoot.width * 0.5

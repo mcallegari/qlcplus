@@ -23,6 +23,7 @@
 #include <QQuickView>
 
 class QLCChannel;
+class QLCCapability;
 
 class ChannelEdit : public QObject
 {
@@ -31,6 +32,7 @@ class ChannelEdit : public QObject
     Q_PROPERTY(QLCChannel *channel READ channel)
     Q_PROPERTY(QVariantList channelPresetList READ channelPresetList CONSTANT)
     Q_PROPERTY(QVariantList channelTypeList READ channelTypeList CONSTANT)
+    Q_PROPERTY(int group READ group WRITE setGroup NOTIFY groupChanged)
     Q_PROPERTY(QVariantList capabilityPresetList READ capabilityPresetList CONSTANT)
     Q_PROPERTY(QVariantList capabilities READ capabilities NOTIFY capabilitiesChanged)
 
@@ -44,8 +46,14 @@ public:
     QVariantList channelTypeList() const;
     QVariantList capabilityPresetList() const;
 
+    /** Get/Set the channel's group */
+    int group() const;
+    void setGroup(int group);
+
     /** Get the list of capabilities for the channel being edited */
     QVariantList capabilities() const;
+
+    Q_INVOKABLE QLCCapability *addCapability();
 
     /** Get the selected preset for a capability at the given index */
     Q_INVOKABLE int getCapabilityPresetAtIndex(int index);
@@ -59,13 +67,23 @@ public:
     /** Get the value/resource of a preset for a capability at the given index */
     Q_INVOKABLE QVariant getCapabilityValueAt(int index, int vIndex);
 
+    /** Perform a check on a recently modified capability for overlapping and integrity */
+    Q_INVOKABLE void checkCapabilities();
+
+private:
+    void updateCapabilities();
+
 signals:
     void channelChanged();
+    void groupChanged();
     void capabilitiesChanged();
 
 private:
     /** Reference to the channel being edited */
     QLCChannel *m_channel;
+
+    /** List of capabilities used in QML */
+    QVariantList m_capabilities;
 };
 
 #endif // CHANNELEDIT_H

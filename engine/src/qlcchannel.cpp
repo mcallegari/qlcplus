@@ -950,7 +950,12 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
 
 void QLCChannel::setColour(QLCChannel::PrimaryColour colour)
 {
+    if (colour == m_colour)
+        return;
+
     m_colour = colour;
+
+    emit colourChanged();
 }
 
 QLCChannel::PrimaryColour QLCChannel::colour() const

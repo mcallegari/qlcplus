@@ -69,7 +69,8 @@ GridLayout
         Layout.fillWidth: true
         enabled: channel ? (channel.preset ? false : true) : false
         model: editor ? editor.channelTypeList : null
-        currValue: channel ? channel.group : 0
+        currValue: editor ? editor.group : 0
+        onValueChanged: if (editor) editor.group = value
     }
 
     RobotoText { label: qsTr("Role") }
@@ -146,7 +147,7 @@ GridLayout
 
             property int selectedRow: -1
 
-            function editRow(index, compIndex)
+            function editRow(index, fieldIndex)
             {
                 // capabilities cannot be edited on channel presets
                 if (channel && channel.preset != 0)
@@ -154,19 +155,24 @@ GridLayout
 
                 if (index < 0)
                 {
+                    // hide edit item
                     editItem.visible = false
                     presetBox.presetType = QLCCapability.None
                     return
                 }
+                else if (index === capsList.count)
+                {
+                    // create a new capability
+                    editor.addCapability()
+                }
 
                 var item = capsList.itemAtIndex(index)
                 selectedRow = index
-                editItem.iMin = item.minValue
-                editItem.iMax = item.maxValue
-                editItem.sDesc = item.description
+                editItem.indexInList = index
+                editItem.editCap = item.cap
                 editItem.x = Qt.binding(function() { return item.x })
                 editItem.y = Qt.binding(function() { return item.y - capsList.contentY })
-                editItem.focusItem(compIndex)
+                editItem.focusItem(fieldIndex)
 
                 // setup the capability preset items
                 capPresetCombo.currentIndex = editor.getCapabilityPresetAtIndex(index)
@@ -199,6 +205,30 @@ GridLayout
                 }
 
                 editItem.visible = true
+            }
+
+            function updateValues(index, min, max, text)
+            {
+                var item = capsList.itemAtIndex(index)
+                var capRef = item.cap
+                var convMin = parseInt(min, 10)
+                var convMax = parseInt(max, 10)
+
+                if (!isNaN(convMin))
+                    capRef.min = convMin
+                if (!isNaN(convMax))
+                    capRef.max = convMax
+                capRef.name = text
+            }
+
+            function warningDescription(type)
+            {
+                switch (type)
+                {
+                    case QLCCapability.NoWarning: return ""
+                    case QLCCapability.EmptyName: return qsTr("Empty description provided")
+                    case QLCCapability.Overlapping: return qsTr("Overlapping with another capability")
+                }
             }
 
             header:
@@ -241,6 +271,8 @@ GridLayout
                     width: capsList.width
                     height: UISettings.listItemHeight
 
+                    property QLCCapability cap: modelData.cRef
+
                     property alias minValue: minValBox.label
                     property alias maxValue: maxValBox.label
                     property alias description: capDescription.label
@@ -255,7 +287,7 @@ GridLayout
                             id: minValBox
                             width: UISettings.bigItemHeight
                             height: UISettings.listItemHeight
-                            label: modelData.iMin
+                            label: cap.min
                         }
                         Rectangle { width: 1; height: UISettings.listItemHeight }
 
@@ -264,7 +296,7 @@ GridLayout
                             id: maxValBox
                             width: UISettings.bigItemHeight
                             height: UISettings.listItemHeight
-                            label: modelData.iMax
+                            label: cap.max
                         }
                         Rectangle { width: 1; height: UISettings.listItemHeight }
 
@@ -273,7 +305,18 @@ GridLayout
                             id: capDescription
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            label: modelData.sDesc
+                            label: cap.name
+                        }
+
+                        IconButton
+                        {
+                            visible: cap.warning
+                            height: UISettings.listItemHeight
+                            width: height
+                            border.width: 0
+                            faSource: FontAwesome.fa_warning
+                            faColor: "yellow"
+                            tooltip: capsList.warningDescription(cap.warning)
                         }
                     }
 
@@ -306,9 +349,8 @@ GridLayout
                 height: UISettings.listItemHeight
                 visible: false || capsList.count == 0
 
-                property int iMin: 0
-                property int iMax: 0
-                property string sDesc: ""
+                property QLCCapability editCap: null
+                property int indexInList: 0
 
                 function focusItem(index)
                 {
@@ -326,6 +368,12 @@ GridLayout
                     }
                 }
 
+                function updateValues()
+                {
+                    capsList.updateValues(indexInList, defMinValBox.text, defMaxValBox.text, defCapDescription.text)
+                    editor.checkCapabilities()
+                }
+
                 RowLayout
                 {
                     width: capsList.width
@@ -335,9 +383,10 @@ GridLayout
                     {
                         id: defMinValBox
                         implicitWidth: UISettings.bigItemHeight
-                        text: editItem.iMin
+                        text: editItem.editCap ? editItem.editCap.min : ""
                         KeyNavigation.backtab: defCapDescription
                         Keys.onBacktabPressed: capsList.editRow(capsList.selectedRow - 1, 2)
+                        onTextEdited: editItem.updateValues()
                     }
                     Rectangle { width: 1; height: UISettings.listItemHeight }
 
@@ -345,9 +394,10 @@ GridLayout
                     {
                         id: defMaxValBox
                         implicitWidth: UISettings.bigItemHeight
-                        text: editItem.iMax
+                        text: editItem.editCap ? editItem.editCap.max : ""
                         Keys.onBacktabPressed: defMinValBox.forceActiveFocus()
                         Keys.onTabPressed: defCapDescription.selectAndFocus()
+                        onTextEdited: editItem.updateValues()
                     }
                     Rectangle { width: 1; height: UISettings.listItemHeight }
 
@@ -355,9 +405,21 @@ GridLayout
                     {
                         id: defCapDescription
                         Layout.fillWidth: true
-                        text: editItem.sDesc
+                        text: editItem.editCap ? editItem.editCap.name : 0
                         Keys.onBacktabPressed: defMaxValBox.forceActiveFocus()
                         Keys.onTabPressed: capsList.editRow(capsList.selectedRow + 1, 0)
+                        onTextEdited: editItem.updateValues()
+                    }
+
+                    IconButton
+                    {
+                        visible: editItem.editCap ? editItem.editCap.warning : false
+                        height: UISettings.listItemHeight
+                        width: height
+                        border.width: 0
+                        faSource: FontAwesome.fa_warning
+                        faColor: "yellow"
+                        tooltip: editItem.editCap ? capsList.warningDescription(editItem.editCap.warning) : ""
                     }
                 } // RowLayout
             } // Rectangle

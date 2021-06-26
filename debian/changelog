@@ -2,6 +2,7 @@ qlcplus (4.12.4) stable; urgency=low
 
   * engine: RGB Matrix can now control white, amber, UV, dimmer and shutter channels too (started by Hans-Jürgen Tappe)
   * engine: add "acts on" property to channels (thanks to Michał Kluska)
+  * UI/Chaser Editor: make preview consistent with VC Cue List playback
   * Virtual Console/Button: fix submaster not affecting a Chaser startup intensity
   * Plugins/E1.31: make CID unique on each network interface
   * Plugins/Peperoni: add Rodin1 MK3 to the supported devices (thanks to Tolmino Muccitelli)
@@ -46,7 +47,7 @@ qlcplus (4.12.4) stable; urgency=low
   * New fixtures: Dune Lighting LED Blender 220, Dune Lighting PAR LED 64 (thanks to David Grc)
   * New fixture: beamZ Illusion II (thanks to Yestalgia)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Jul 2021 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 27 Jun 2021 12:13:14 +0200
 
 qlcplus (4.12.3) stable; urgency=low
 

@@ -40,10 +40,12 @@ ComboBox
     textRole: "mLabel"
     valueRole: "mValue"
     wheelEnabled: true
+    currentIndex: 0
 
     property string currentIcon
     property int currValue
     property int delegateHeight: UISettings.listItemHeight
+    property bool isUpdating: false
 
     signal valueChanged(int value)
 
@@ -52,9 +54,10 @@ ComboBox
 
     function updateFromIndex()
     {
-        if (!model)
+        if (!model || isUpdating)
             return
 
+        isUpdating = true
         var item = model.length === undefined ? model.get(currentIndex) : model[currentIndex]
         displayText = item.mLabel ? item.mLabel : item
         //console.log("Index changed: " + currentIndex + ", label: " + displayText)
@@ -63,13 +66,15 @@ ComboBox
 
         if (item.mValue !== undefined)
             control.valueChanged(item.mValue)
+        isUpdating = false
     }
 
     function updateFromValue()
     {
-        if (!model)
+        if (!model || isUpdating)
             return
 
+        isUpdating = true
         var iCount = model.length === undefined ? model.count : model.length
         //console.log("Value changed:" + currValue + ", model count: " + iCount)
 
@@ -82,9 +87,11 @@ ComboBox
                 if (item.mIcon)
                     currentIcon = item.mIcon
                 currentIndex = i
+                isUpdating = false
                 return
             }
         }
+        isUpdating = false
     }
 
     Rectangle
