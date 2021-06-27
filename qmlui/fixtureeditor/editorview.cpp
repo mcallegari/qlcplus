@@ -166,7 +166,11 @@ QVariant EditorView::channels() const
 ChannelEdit *EditorView::requestChannelEditor(QString name)
 {
     if (m_channelEdit != nullptr)
+    {
+        disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
+        disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
         delete m_channelEdit;
+    }
 
     QLCChannel *ch = m_fixtureDef->channel(name);
     if (ch == nullptr)
@@ -202,7 +206,11 @@ QVariant EditorView::modes() const
 ModeEdit *EditorView::requestModeEditor(QString name)
 {
     if (m_modeEdit != nullptr)
+    {
+        disconnect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
+        disconnect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
         delete m_modeEdit;
+    }
 
     QLCFixtureMode *mode = m_fixtureDef->mode(name);
     if (mode == nullptr)

@@ -78,6 +78,7 @@ class QLCChannel : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(uchar defaultValue READ defaultValue WRITE setDefaultValue NOTIFY defaultValueChanged)
     Q_PROPERTY(ControlByte controlByte READ controlByte WRITE setControlByte NOTIFY controlByteChanged)
+    Q_PROPERTY(PrimaryColour colour READ colour WRITE setColour NOTIFY colourChanged)
 
 public:
     /** Standard constructor */
@@ -333,6 +334,9 @@ public:
 
     /** Get the colour that is controlled by this channel */
     PrimaryColour colour() const;
+
+signals:
+    void colourChanged();
 
 private:
     PrimaryColour m_colour;

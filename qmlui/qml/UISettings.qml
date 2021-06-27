@@ -47,7 +47,7 @@ QtObject
     property color borderColorDark:  "#111"
 
     property color toolbarStartMain: "#1a1a1a"
-    property color toolbarStartSub:  "#222"
+    property color toolbarStartSub:  "#333"
     property color toolbarEnd:       "#111"
     property color toolbarHoverStart:"#444"
     property color toolbarHoverEnd:  "#171717"

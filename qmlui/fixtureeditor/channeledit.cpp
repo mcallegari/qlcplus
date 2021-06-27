@@ -27,16 +27,27 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
     : QObject(parent)
     , m_channel(channel)
 {
+    if (m_channel->capabilities().count() == 0)
+    {
+        QLCCapability *cap = new QLCCapability(0, UCHAR_MAX);
+        cap->setWarning(QLCCapability::EmptyName);
+        m_channel->addCapability(cap);
+    }
+
     connect(m_channel, SIGNAL(presetChanged()), this, SIGNAL(channelChanged()));
-    connect(m_channel, SIGNAL(groupChanged()), this, SIGNAL(channelChanged()));
     connect(m_channel, SIGNAL(nameChanged()), this, SIGNAL(channelChanged()));
     connect(m_channel, SIGNAL(defaultValueChanged()), this, SIGNAL(channelChanged()));
     connect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
+
+    updateCapabilities();
 }
 
 ChannelEdit::~ChannelEdit()
 {
-
+    disconnect(m_channel, SIGNAL(presetChanged()), this, SIGNAL(channelChanged()));
+    disconnect(m_channel, SIGNAL(nameChanged()), this, SIGNAL(channelChanged()));
+    disconnect(m_channel, SIGNAL(defaultValueChanged()), this, SIGNAL(channelChanged()));
+    disconnect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
 }
 
 QLCChannel *ChannelEdit::channel()
@@ -91,11 +102,38 @@ QVariantList ChannelEdit::capabilityPresetList() const
     return list;
 }
 
+int ChannelEdit::group() const
+{
+    QLCChannel::Group grp = m_channel->group();
+
+    if (grp == QLCChannel::Intensity)
+        return int(m_channel->colour());
+    else
+        return int(grp);
+}
+
+void ChannelEdit::setGroup(int group)
+{
+    if (group > QLCChannel::Nothing && group < QLCChannel::NoGroup)
+    {
+        m_channel->setColour(QLCChannel::PrimaryColour(group));
+        m_channel->setGroup(QLCChannel::Intensity);
+    }
+    else
+    {
+        m_channel->setColour(QLCChannel::NoColour);
+        m_channel->setGroup(QLCChannel::Group(group));
+    }
+
+    emit groupChanged();
+    emit channelChanged();
+}
+
 QVariantList ChannelEdit::channelTypeList() const
 {
     QVariantList list;
 
-    for (QString grp : QLCChannel::groupList())
+    for (QString &grp : QLCChannel::groupList())
     {
         QLCChannel ch;
         ch.setGroup(QLCChannel::stringToGroup(grp));
@@ -108,7 +146,7 @@ QVariantList ChannelEdit::channelTypeList() const
 
         if (ch.group() == QLCChannel::Intensity)
         {
-            for (QString color : QLCChannel::colourList())
+            for (QString &color : QLCChannel::colourList())
             {
                 QLCChannel cc;
                 cc.setGroup(QLCChannel::Intensity);
@@ -126,79 +164,102 @@ QVariantList ChannelEdit::channelTypeList() const
     return list;
 }
 
-QVariantList ChannelEdit::capabilities() const
+void ChannelEdit::updateCapabilities()
 {
-    QVariantList list;
+    m_capabilities.clear();
 
     for (QLCCapability *cap : m_channel->capabilities())
     {
         QVariantMap capMap;
-        capMap.insert("iMin", cap->min());
-        capMap.insert("iMax", cap->max());
-        capMap.insert("sDesc", cap->name());
-        list.append(capMap);
+        capMap.insert("cRef", QVariant::fromValue(cap));
+        m_capabilities.append(capMap);
     }
 
-    return list;
+    emit capabilitiesChanged();
+}
+
+QVariantList ChannelEdit::capabilities() const
+{
+    return m_capabilities;
+}
+
+QLCCapability *ChannelEdit::addCapability()
+{
+    int min = 0;
+    if (m_channel->capabilities().count())
+    {
+        QLCCapability *last = m_channel->capabilities().last();
+        min = last->max() + 1;
+    }
+    QLCCapability *cap = new QLCCapability(min, UCHAR_MAX);
+    cap->setWarning(QLCCapability::EmptyName);
+    if (m_channel->addCapability(cap))
+        updateCapabilities();
+
+    return cap;
 }
 
 int ChannelEdit::getCapabilityPresetAtIndex(int index)
 {
-    int i = 0;
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
-    for (QLCCapability *cap : m_channel->capabilities())
-    {
-        if (i == index)
-            return cap->preset();
+    if (index < 0 || index >= caps.count())
+        return 0;
 
-        i++;
-    }
-
-    return 0;
+    return caps.at(index)->preset();
 }
 
 int ChannelEdit::getCapabilityPresetType(int index)
 {
-    int i = 0;
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
-    for (QLCCapability *cap : m_channel->capabilities())
-    {
-        if (i == index)
-            return cap->presetType();
+    if (index < 0 || index >= caps.count())
+        return QLCCapability::None;
 
-        i++;
-    }
-
-    return QLCCapability::None;
+    return caps.at(index)->presetType();
 }
 
 QString ChannelEdit::getCapabilityPresetUnits(int index)
 {
-    int i = 0;
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
-    for (QLCCapability *cap : m_channel->capabilities())
-    {
-        if (i == index)
-            return cap->presetUnits();
+    if (index < 0 || index >= caps.count())
+        return QString();
 
-        i++;
-    }
-
-    return QString();
+    return caps.at(index)->presetUnits();
 }
 
 QVariant ChannelEdit::getCapabilityValueAt(int index, int vIndex)
 {
-    int i = 0;
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
-    for (QLCCapability *cap : m_channel->capabilities())
-    {
-        if (i == index)
-            return cap->resource(vIndex);
+    if (index < 0 || index >= caps.count())
+        return QVariant();
 
-        i++;
-    }
-
-    return QVariant();
+    return caps.at(index)->resource(vIndex);
 }
+
+void ChannelEdit::checkCapabilities()
+{
+    QVector<bool>allocation;
+    allocation.fill(false, 256);
+
+    QListIterator <QLCCapability*> it(m_channel->capabilities());
+    while (it.hasNext() == true)
+    {
+        QLCCapability *cap = it.next();
+        cap->setWarning(QLCCapability::NoWarning);
+        if (cap->name().isEmpty())
+            cap->setWarning(QLCCapability::EmptyName);
+
+        for (int i = cap->min(); i <= cap->max(); i++)
+        {
+            if (allocation[i] == true)
+                cap->setWarning(QLCCapability::Overlapping);
+            else
+                allocation[i] = true;
+        }
+    }
+}
+
 
