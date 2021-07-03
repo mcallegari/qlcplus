@@ -1,5 +1,7 @@
 qlcplus (4.12.5) stable; urgency=low
 
+  * Virtual Console/Slider: fix crash when controlling non existing channels
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jan 2022 12:13:14 +0200
 
 qlcplus (4.12.4) stable; urgency=low
