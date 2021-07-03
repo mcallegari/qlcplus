@@ -1,3 +1,7 @@
+qlcplus (4.12.5) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jan 2022 12:13:14 +0200
+
 qlcplus (4.12.4) stable; urgency=low
 
   * engine: RGB Matrix can now control white, amber, UV, dimmer and shutter channels too (started by Hans-Jürgen Tappe)
