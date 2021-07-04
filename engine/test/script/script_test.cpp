@@ -61,11 +61,9 @@ void Script_Test::initial()
 
     Script scr(&doc);
     scr.setData(script0);
+    scr.start(doc.masterTimer(), FunctionParent::master());
 
-    for (int i = 0; i < 11; i++)
-    {
-        scr.executeCommand(i, doc.masterTimer(), ua);
-    }
+    scr.write(doc.masterTimer(), ua);
 }
 
 QTEST_APPLESS_MAIN(Script_Test)
