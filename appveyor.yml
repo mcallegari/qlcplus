@@ -1,4 +1,4 @@
-version: 4.12.4.{build}
+version: 4.12.5.{build}
 
 image: Visual Studio 2019
 
@@ -68,4 +68,4 @@ build_script:
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
-    name: qlcplus_4_12_4
+    name: qlcplus_4_12_5
