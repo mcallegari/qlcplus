@@ -68,11 +68,6 @@ do
         continue
     fi
 
-    # Ignore script folder when in qmlui mode
-    if [ "${test}" == "engine/test/script" -a "$TARGET" == "qmlui" ]; then
-        continue
-    fi
-
     # Isolate just the test name
     test=$(echo ${test} | sed 's/engine\/test\///')
 
