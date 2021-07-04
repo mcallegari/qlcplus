@@ -10,7 +10,7 @@
 override_dh_auto_configure:
 	./translate.sh
 	dh_auto_configure --
-	# Use this to build QMLv5.x qith the QMLUI:
+	# Use this to build QLC+ v5 with the QML UI:
 	#dh_auto_configure -- CONFIG+=qmlui
 
 override_dh_shlibdeps:
