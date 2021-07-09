@@ -79,6 +79,9 @@ public:
     /** Return the controller IP address */
     QString getNetworkIP();
 
+    /** Gets wether the interface supports multicast */
+    bool canMulticast();
+
     /** Add a universe to the map of this controller */
     void addUniverse(quint32 universe, Type type);
 
