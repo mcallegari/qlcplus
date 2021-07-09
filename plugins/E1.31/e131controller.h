@@ -36,6 +36,7 @@
 
 #define E131_DEFAULT_PORT     5568
 
+
 typedef struct
 {
     bool inputMulticast;
@@ -54,6 +55,8 @@ typedef struct
 
     int type;
 } UniverseInfo;
+
+QHostAddress e131UniverseToMcastAddress(quint16 universe);
 
 class E131Controller : public QObject
 {
@@ -88,9 +91,6 @@ public:
     /** Set input as multicast for the givin QLC+ universe */
     void setInputMulticast(quint32 universe, bool multicast);
 
-    /** Set input as multicast for the givin QLC+ universe */
-    void setInputMCastAddress(quint32 universe, QString address);
-
     /** Set a specific port for the given QLC+ universe */
     void setInputUCastPort(quint32 universe, quint16 port);
 
@@ -99,9 +99,6 @@ public:
 
     /** Set output as multicast for the given QLC+ universe */
     void setOutputMulticast(quint32 universe, bool multicast);
-
-    /** Set a specific multicast IP address for the given QLC+ universe */
-    void setOutputMCastAddress(quint32 universe, QString address);
 
     /** Set a specific unicast IP address for the given QLC+ universe */
     void setOutputUCastAddress(quint32 universe, QString address);

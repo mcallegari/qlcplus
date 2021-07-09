@@ -25,6 +25,13 @@
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
+QHostAddress e131UniverseToMcastAddress(quint16 universe)
+{
+    QHostAddress mcastAddress("239.255.0.0");
+    mcastAddress.setAddress(mcastAddress.toIPv4Address() + universe);
+    return mcastAddress;
+}
+
 E131Controller::E131Controller(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
                                quint32 line, QObject *parent)
     : QObject(parent)
@@ -66,12 +73,12 @@ void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
     {
         UniverseInfo info;
         info.inputMulticast = true;
-        info.inputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+        info.inputMcastAddress = e131UniverseToMcastAddress(universe + 1);
         info.inputUcastPort = E131_DEFAULT_PORT;
         info.inputUniverse = universe + 1;
         info.inputSocket.clear();
         info.outputMulticast = true;
-        info.outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+        info.outputMcastAddress = e131UniverseToMcastAddress(universe + 1);
         if (m_ipAddr != QHostAddress::LocalHost)
             info.outputUcastAddress = QHostAddress(quint32((m_ipAddr.toIPv4Address() & 0xFFFFFF00) + (universe + 1)));
         else
@@ -161,26 +168,6 @@ QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostA
     return inputSocket;
 }
 
-void E131Controller::setInputMCastAddress(quint32 universe, QString address)
-{
-    if (m_universeMap.contains(universe) == false)
-        return;
-
-    QMutexLocker locker(&m_dataMutex);
-    UniverseInfo& info = m_universeMap[universe];
-
-    QHostAddress newAddress(QString("239.255.0.%1").arg(address));
-    if (info.inputMcastAddress == newAddress)
-        return;
-    info.inputMcastAddress = newAddress;
-
-    if (!info.inputMulticast)
-    {
-        info.inputSocket.clear();
-        info.inputSocket = getInputSocket(true, info.inputMcastAddress, E131_DEFAULT_PORT);
-    }
-}
-
 void E131Controller::setInputUCastPort(quint32 universe, quint16 port)
 {
     if (m_universeMap.contains(universe) == false)
@@ -211,6 +198,12 @@ void E131Controller::setInputUniverse(quint32 universe, quint32 e131Uni)
     if (info.inputUniverse == e131Uni)
         return;
     info.inputUniverse = e131Uni;
+    info.inputMcastAddress = e131UniverseToMcastAddress(e131Uni);
+    if (info.inputMulticast)
+    {
+        info.inputSocket.clear();
+        info.inputSocket = getInputSocket(true, info.inputMcastAddress, E131_DEFAULT_PORT);
+    }
 }
 
 void E131Controller::setOutputMulticast(quint32 universe, bool multicast)
@@ -220,15 +213,6 @@ void E131Controller::setOutputMulticast(quint32 universe, bool multicast)
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputMulticast = multicast;
-}
-
-void E131Controller::setOutputMCastAddress(quint32 universe, QString address)
-{
-    if (m_universeMap.contains(universe) == false)
-        return;
-
-    QMutexLocker locker(&m_dataMutex);
-    m_universeMap[universe].outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(address));
 }
 
 void E131Controller::setOutputUCastAddress(quint32 universe, QString address)
@@ -256,6 +240,7 @@ void E131Controller::setOutputUniverse(quint32 universe, quint32 e131Uni)
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputUniverse = e131Uni;
+    m_universeMap[universe].outputMcastAddress = e131UniverseToMcastAddress(e131Uni);
 }
 
 void E131Controller::setOutputPriority(quint32 universe, quint32 e131Priority)
@@ -341,7 +326,7 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
 {
     QMutexLocker locker(&m_dataMutex);
     QByteArray dmxPacket;
-    QHostAddress outAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+    QHostAddress outAddress = e131UniverseToMcastAddress(universe + 1);
     quint16 outPort = E131_DEFAULT_PORT;
     quint32 outUniverse = universe;
     quint32 outPriority = E131_PRIORITY_DEFAULT;

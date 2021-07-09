@@ -112,8 +112,7 @@ void ConfigureE131::fillMappingTree()
                 if (info->inputMulticast)
                 {
                     multicastCb->setChecked(true);
-                    m_uniMapTree->setItemWidget(item, KMapColumnIPAddress,
-                            createMcastIPWidget(info->inputMcastAddress.toString()));
+                    item->setText(KMapColumnIPAddress, info->inputMcastAddress.toString());
                     item->setText(KMapColumnPort, QString("%1").arg(E131_DEFAULT_PORT));
                 }
                 else
@@ -129,8 +128,9 @@ void ConfigureE131::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);
-                universeSpin->setRange(1, 0xffff);
+                universeSpin->setRange(1, 0xf9ff);
                 universeSpin->setValue(info->inputUniverse);
+                connect(universeSpin, SIGNAL(valueChanged(int)), this, SLOT(slotUniverseSpinChanged()));
                 m_uniMapTree->setItemWidget(item, KMapColumnE131Uni, universeSpin);
             }
             if (info->type & E131Controller::Output)
@@ -148,8 +148,7 @@ void ConfigureE131::fillMappingTree()
                 if (info->outputMulticast)
                 {
                     multicastCb->setChecked(true);
-                    m_uniMapTree->setItemWidget(item, KMapColumnIPAddress,
-                            createMcastIPWidget(info->outputMcastAddress.toString()));
+                    item->setText(KMapColumnIPAddress, info->outputMcastAddress.toString());
                     item->setText(KMapColumnPort, QString("%1").arg(E131_DEFAULT_PORT));
                 }
                 else
@@ -168,8 +167,9 @@ void ConfigureE131::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);
-                universeSpin->setRange(1, 0xffff);
+                universeSpin->setRange(1, 0xf9ff);
                 universeSpin->setValue(info->outputUniverse);
+                connect(universeSpin, SIGNAL(valueChanged(int)), this, SLOT(slotUniverseSpinChanged()));
                 m_uniMapTree->setItemWidget(item, KMapColumnE131Uni, universeSpin);
 
                 QComboBox *transCombo = new QComboBox(this);
@@ -189,26 +189,6 @@ void ConfigureE131::fillMappingTree()
     }
 
     m_uniMapTree->header()->resizeSections(QHeaderView::ResizeToContents);
-}
-
-QWidget *ConfigureE131::createMcastIPWidget(QString ip)
-{
-    QWidget* widget = new QWidget(this);
-    widget->setLayout(new QHBoxLayout);
-    widget->layout()->setContentsMargins(0, 0, 0, 0);
-
-    QString baseIP = ip.mid(0, ip.lastIndexOf(".") + 1);
-    QString finalIP = ip.mid(ip.lastIndexOf(".") + 1);
-
-    QLabel *label = new QLabel(baseIP, this);
-    QSpinBox *spin = new QSpinBox(this);
-    spin->setRange(1, 255);
-    spin->setValue(finalIP.toInt());
-
-    widget->layout()->addWidget(label);
-    widget->layout()->addWidget(spin);
-
-    return widget;
 }
 
 void ConfigureE131::showIPAlert(QString ip)
@@ -242,16 +222,14 @@ void ConfigureE131::slotMulticastCheckboxClicked()
             {
                 if (checkBox->isChecked())
                 {
-                    item->setText(KMapColumnIPAddress, "");
                     m_uniMapTree->setItemWidget(item, KMapColumnPort, NULL);
 
-                    m_uniMapTree->setItemWidget(item, KMapColumnIPAddress,
-                            createMcastIPWidget(info->inputMcastAddress.toString()));
+                    QSpinBox* universeSpin = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnE131Uni));
+                    item->setText(KMapColumnIPAddress, e131UniverseToMcastAddress(universeSpin->value()).toString());
                     item->setText(KMapColumnPort, QString("%1").arg(E131_DEFAULT_PORT));
                 }
                 else
                 {
-                    m_uniMapTree->setItemWidget(item, KMapColumnIPAddress, NULL);
                     item->setText(KMapColumnPort, "");
 
                     item->setText(KMapColumnIPAddress, controller->getNetworkIP());
@@ -268,13 +246,14 @@ void ConfigureE131::slotMulticastCheckboxClicked()
                     m_uniMapTree->setItemWidget(item, KMapColumnIPAddress, NULL);
                     m_uniMapTree->setItemWidget(item, KMapColumnPort, NULL);
 
-                    m_uniMapTree->setItemWidget(item, KMapColumnIPAddress,
-                            createMcastIPWidget(info->outputMcastAddress.toString()));
+                    QSpinBox* universeSpin = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnE131Uni));
+                    item->setText(KMapColumnIPAddress, e131UniverseToMcastAddress(universeSpin->value()).toString());
                     item->setText(KMapColumnPort, QString("%1").arg(E131_DEFAULT_PORT));
                 }
                 else
                 {
                     m_uniMapTree->setItemWidget(item, KMapColumnIPAddress, NULL);
+                    item->setText(KMapColumnIPAddress, "");
                     item->setText(KMapColumnPort, "");
 
                     m_uniMapTree->setItemWidget(item, KMapColumnIPAddress,
@@ -293,6 +272,56 @@ void ConfigureE131::slotMulticastCheckboxClicked()
             }
             m_uniMapTree->resizeColumnToContents(KMapColumnIPAddress);
             m_uniMapTree->resizeColumnToContents(KMapColumnPort);
+            return;
+        }
+    }
+
+    Q_ASSERT(false);
+}
+
+void ConfigureE131::slotUniverseSpinChanged()
+{
+    QSpinBox* universeSpin = qobject_cast<QSpinBox*>(sender());
+    Q_ASSERT(universeSpin != NULL);
+
+    for (QTreeWidgetItem* item = m_uniMapTree->topLevelItem(0); item != NULL;
+            item = m_uniMapTree->itemBelow(item))
+    {
+        QSpinBox* sb = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnE131Uni));
+        if (universeSpin == sb)
+        {
+            quint32 universe = item->data(KMapColumnInterface, PROP_UNIVERSE).toUInt();
+            quint32 line = item->data(KMapColumnInterface, PROP_LINE).toUInt();
+            E131Controller::Type type = E131Controller::Type(item->data(KMapColumnInterface, PROP_TYPE).toUInt());
+
+            qDebug() << Q_FUNC_INFO << "uni" << universe << "line" << line << "type" << type;
+
+            E131Controller* controller = m_plugin->getIOMapping().at(line).controller;
+            Q_ASSERT(controller != NULL);
+            UniverseInfo* info = controller->getUniverseInfo(universe);
+            Q_ASSERT(info != NULL);
+
+            if (type == E131Controller::Input)
+            {
+                QCheckBox* multicastCb = qobject_cast<QCheckBox*>(m_uniMapTree->itemWidget(item, KMapColumnMulticast));
+                if (multicastCb->isChecked())
+                {
+                    item->setText(KMapColumnIPAddress, e131UniverseToMcastAddress(universeSpin->value()).toString());
+                }
+            }
+            else if (type == E131Controller::Output)
+            {
+                QCheckBox* multicastCb = qobject_cast<QCheckBox*>(m_uniMapTree->itemWidget(item, KMapColumnMulticast));
+                if (multicastCb->isChecked())
+                {
+                    item->setText(KMapColumnIPAddress, e131UniverseToMcastAddress(universeSpin->value()).toString());
+                }
+            }
+            else
+            {
+                Q_ASSERT(false);
+            }
+            m_uniMapTree->resizeColumnToContents(KMapColumnIPAddress);
             return;
         }
     }
@@ -326,10 +355,6 @@ void ConfigureE131::accept()
                 {
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Input,
                             E131_MULTICAST, 1);
-                    QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
-                    QSpinBox *ipSpin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                    m_plugin->setParameter(universe, line, QLCIOPlugin::Input,
-                            E131_MCASTIP, ipSpin->value());
                 }
                 else
                 {
@@ -351,10 +376,6 @@ void ConfigureE131::accept()
                 {
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
                             E131_MULTICAST, 1);
-                    QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
-                    QSpinBox *ipSpin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                    m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
-                            E131_MCASTIP, ipSpin->value());
                 }
                 else
                 {

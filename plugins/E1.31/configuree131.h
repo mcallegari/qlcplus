@@ -43,11 +43,11 @@ public slots:
 
 private:
     void fillMappingTree();
-    QWidget *createMcastIPWidget(QString ip);
     void showIPAlert(QString ip);
 
 private slots:
     void slotMulticastCheckboxClicked();
+    void slotUniverseSpinChanged();
 
 private:
     E131Plugin* m_plugin;
