@@ -69,4 +69,4 @@ void Script_Test::initial()
     scr.postRun(doc.masterTimer(), ua);
 }
 
-QTEST_APPLESS_MAIN(Script_Test)
+QTEST_MAIN(Script_Test)
