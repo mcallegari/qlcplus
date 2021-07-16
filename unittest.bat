@@ -49,7 +49,6 @@ FOR /D %%G IN ("*") DO (
         exit /B %ERRORLEVEL%
     )
     cd ..
-    :CONTINUE
 )
 SET PATH=%OLDPATH%
 popd
