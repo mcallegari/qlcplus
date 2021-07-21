@@ -25,7 +25,7 @@ install:
     #- pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.14.3-2-any.pkg.tar.zst
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.14.2-3-any.pkg.tar.zst
 
 build_script:
     - ps: >-
