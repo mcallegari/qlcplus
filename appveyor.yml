@@ -20,12 +20,12 @@ install:
     - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz -P /c/projects
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz -P /c/projects
-    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.14.2-2-any.pkg.tar.zst -P /c/projects
+    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.14.2-3-any.pkg.tar.zst -P /c/projects
     #- pacman --noconfirm -Rdd mingw-w64-i686-gcc
     #- pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.14.2-2-any.pkg.tar.zst
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.14.3-2-any.pkg.tar.zst
 
 build_script:
     - ps: >-
