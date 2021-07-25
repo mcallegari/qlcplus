@@ -295,6 +295,11 @@ void ConsoleChannel::setChannelStyleSheet(const QString &styleSheet)
         m_styleSheet = styleSheet;
 }
 
+void ConsoleChannel::setSliderStylesheet(const QString &styleSheet)
+{
+    m_slider->setSliderStyleSheet(styleSheet);
+}
+
 void ConsoleChannel::showResetButton(bool show)
 {
     if (show == true)

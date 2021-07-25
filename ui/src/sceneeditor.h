@@ -63,6 +63,14 @@ public:
 public slots:
     void slotFunctionManagerActive(bool active);
     void slotSetSceneValues(QList <SceneValue>&);
+    void onInput(quint32 univ, quint32 chan, uchar val, const QString &key);
+private:
+    bool hw_enable;
+    quint32 m_offset;
+    QList<quint32> channelBanks;
+    QList<quint32> faders;
+    QList<quint32> armButton;
+    QList<quint32> tabs;
 
 protected slots:
     void slotFixtureRemoved(quint32 id);
@@ -105,6 +113,7 @@ private slots:
     void slotChaserComboActivated(int index);
     void slotModeChanged(Doc::Mode mode);
     void slotViewModeChanged(bool tabbed, bool applyValues = true);
+    void slotHardwareAction();
 
 private:
     bool isColorToolAvailable();
@@ -128,6 +137,8 @@ private:
     QAction* m_prevTabAction;
 
     QAction* m_tabViewAction;
+
+    QAction* m_hardwareAction;
 
     QComboBox* m_chaserCombo;
     QLineEdit* m_nameEdit;
