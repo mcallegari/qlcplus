@@ -54,6 +54,9 @@ public:
     /** Returns a list of the created editors */
     QVariantList editorsList() const;
 
+    /** Delete the editor with the provided ID */
+    Q_INVOKABLE void deleteEditor(int id);
+
 signals:
     void editorsListChanged();
     void workingPathChanged(QString workingPath);

@@ -88,6 +88,67 @@ Rectangle
         onAccepted: close()
     }
 
+    CustomPopupDialog
+    {
+        id: saveBeforeExitPopup
+        title: qsTr("Warning")
+        message: qsTr("Do you wish to save the following definition first?<br>" +
+                      "<i>" + editRef.manufacturer + " - " + editRef.model + "</i><br>" +
+                      "Changes will be lost if you don't save them.")
+        standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
+
+        property var editRef
+
+        onClicked:
+        {
+            if (role === Dialog.Yes)
+            {
+                if (editRef.fileName === "")
+                {
+                    saveDialog.folder = fixtureEditor.workingPath
+                    //saveDialog.currentFile = "file:///" + editor.editorView.fileName
+                    saveDialog.open()
+                }
+                else
+                {
+                    editRef.save("")
+                }
+            }
+            else if (role === Dialog.No)
+            {
+                fixtureEditor.deleteEditor(editRef.id)
+            }
+            else if (role === Dialog.Cancel)
+            {
+                return
+            }
+
+            close()
+            checkBeforeExit()
+        }
+    }
+
+    function checkBeforeExit()
+    {
+        var modifiedCount = false
+
+        for (var i = 0; i < editorsRepeater.count; i++)
+        {
+            var iEdit = editorsRepeater.model[i].cRef
+            if (iEdit.isModified)
+            {
+                console.log("Editor " + i + " is modified")
+                saveBeforeExitPopup.editRef = iEdit
+                saveBeforeExitPopup.open()
+                modifiedCount = true
+                break
+            }
+        }
+
+        if (modifiedCount === false)
+            qlcplus.closeFixtureEditor()
+    }
+
     Rectangle
     {
         id: mainToolbar
@@ -114,7 +175,7 @@ Rectangle
                 iconRotation: 180
                 autoExclusive: false
                 checkable: false
-                onClicked: qlcplus.closeFixtureEditor()
+                onClicked: checkBeforeExit()
             }
             MenuBarEntry
             {

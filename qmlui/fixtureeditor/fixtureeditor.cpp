@@ -88,7 +88,8 @@ void FixtureEditor::createDefinition()
 {
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setIsUser(true);
-    m_editors[m_lastId++] = new EditorView(m_view, def);
+    m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
+    m_lastId++;
     emit editorsListChanged();
 }
 
@@ -123,7 +124,8 @@ bool FixtureEditor::loadDefinition(QString fileName)
 
     def->setDefinitionSourceFile(localFilename);
     def->setIsUser(true);
-    m_editors[m_lastId++] = new EditorView(m_view, def);
+    m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
+    m_lastId++;
     emit editorsListChanged();
     return true;
 }
@@ -132,7 +134,8 @@ void FixtureEditor::editDefinition(QString manufacturer, QString model)
 {
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
 
-    m_editors[m_lastId++] = new EditorView(m_view, def);
+    m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
+    m_lastId++;
     emit editorsListChanged();
 }
 
@@ -151,4 +154,17 @@ QVariantList FixtureEditor::editorsList() const
     }
 
     return list;
+}
+
+void FixtureEditor::deleteEditor(int id)
+{
+    if (m_editors.contains(id) == false)
+    {
+        qWarning() << "No definition editor found with ID" << id;
+        return;
+    }
+
+    EditorView *editor = m_editors.take(id);
+    delete editor;
+    emit editorsListChanged();
 }
