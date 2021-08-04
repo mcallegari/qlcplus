@@ -85,7 +85,7 @@ QStringList DummyPlugin::outputs()
      * the next one is output line number 1, etc..
      */
     QStringList list;
-    list << QString("1: Dummy line");
+    list << QString("Dummy line");
     return list;
 }
 
@@ -178,7 +178,7 @@ QStringList DummyPlugin::inputs()
      * the next one is output line number 1, etc..
      */
     QStringList list;
-    list << QString("1: Dummy line");
+    list << QString("Dummy line");
     return list;
 }
 

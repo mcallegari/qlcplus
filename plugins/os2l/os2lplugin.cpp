@@ -106,7 +106,7 @@ QStringList OS2LPlugin::inputs()
      * the next one is output line number 1, etc..
      */
     QStringList list;
-    list << QString("1: OS2L line");
+    list << QString("OS2L line");
     return list;
 }
 

@@ -328,17 +328,17 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         if (cmdList[1] == "INPUT")
         {
-            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], cmdList[4].toUInt());
+            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", cmdList[4].toUInt());
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "OUTPUT")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), false);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "FB")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), true);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "PROFILE")
@@ -346,7 +346,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
             if (inPatch != NULL)
             {
-                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
+                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", inPatch->input(), cmdList[3]);
                 m_doc->inputOutputMap()->saveDefaults();
             }
         }

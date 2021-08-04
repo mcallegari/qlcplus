@@ -335,12 +335,14 @@ public:
      *
      * @param universe The input universe to patch
      * @param pluginName The name of the plugin to patch to the universe
+     * @param inputUID Unique plugin input line identifier as string
      * @param input An input universe provided by the plugin to patch to
      * @param profileName The name of an input profile
      * @return true if successful, otherwise false
      */
     bool setInputPatch(quint32 universe, const QString& pluginName,
-                       quint32 input, const QString& profileName = QString());
+                       const QString& inputUID, quint32 input,
+                       const QString& profileName = QString());
 
     /**
      * Set an input profile to the given universe. If the universe doesn't
@@ -357,6 +359,7 @@ public:
      *
      * @param universe The universe to patch
      * @param pluginName The name of the plugin to patch to the universe
+     * @param inputUID Unique plugin output line identifier as string
      * @param output A universe provided by the plugin to patch to
      * @param isFeedback Determine if this line is a feedback output
      * @param index the output patch index
@@ -364,7 +367,8 @@ public:
      * @return true if successful, otherwise false
      */
     bool setOutputPatch(quint32 universe, const QString& pluginName,
-                        quint32 output = 0, bool isFeedback = false, int index = 0);
+                        const QString& outputUID, quint32 output = 0,
+                        bool isFeedback = false, int index = 0);
 
     int outputPatchesCount(quint32 universe) const;
 

@@ -124,7 +124,7 @@ QStringList E131Plugin::outputs()
 
     foreach (E131IO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
+        list << line.address.ip().toString();
         j++;
     }
     return list;
@@ -220,7 +220,7 @@ QStringList E131Plugin::inputs()
 
     foreach (E131IO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
+        list << line.address.ip().toString();
         j++;
     }
     return list;
