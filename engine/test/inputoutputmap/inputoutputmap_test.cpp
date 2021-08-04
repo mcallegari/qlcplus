@@ -371,13 +371,13 @@ void InputOutputMap_Test::setOutputPatch()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == false);
+    QVERIFY(iom.setOutputPatch(0, "Foobar", "", 0) == false);
     QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
     QVERIFY(iom.outputPatch(3) == NULL);
 
-    QVERIFY(iom.setOutputPatch(4, stub->name(), 0) == false);
+    QVERIFY(iom.setOutputPatch(4, stub->name(), "", 0) == false);
     QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
@@ -421,13 +421,13 @@ void InputOutputMap_Test::setMultipleOutputPatches()
     QVERIFY(stub != NULL);
 
     // add an output patch
-    QVERIFY(iom.setOutputPatch(1, stub->name(), 0, false, 0) == true);
+    QVERIFY(iom.setOutputPatch(1, stub->name(), "", 0, false, 0) == true);
     QVERIFY(iom.outputPatchesCount(1) == 1);
     QVERIFY(iom.outputPatch(1, 0)->plugin() == stub);
     QVERIFY(iom.outputPatch(1, 0)->output() == 0);
 
     // add another output patch
-    QVERIFY(iom.setOutputPatch(1, stub->name(), 0, false, 1) == true);
+    QVERIFY(iom.setOutputPatch(1, stub->name(), "", 0, false, 1) == true);
     QVERIFY(iom.outputPatchesCount(1) == 2);
     QVERIFY(iom.outputPatch(1, 1)->plugin() == stub);
     QVERIFY(iom.outputPatch(1, 1)->output() == 0);
