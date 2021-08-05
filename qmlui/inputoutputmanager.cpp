@@ -483,19 +483,19 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
 
 void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
 {
-    m_ioMap->setOutputPatch(universe, plugin, line.toUInt(), false, index);
+    m_ioMap->setOutputPatch(universe, plugin, "", line.toUInt(), false, index);
     emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::removeOutputPatch(int universe, int index)
 {
-    m_ioMap->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false, index);
+    m_ioMap->setOutputPatch(universe, KOutputNone, "", QLCIOPlugin::invalidLine(), false, index);
     emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
 {
-    m_ioMap->setInputPatch(universe, plugin, line.toUInt());
+    m_ioMap->setInputPatch(universe, plugin, "", line.toUInt());
     emit inputCanConfigureChanged();
 }
 
@@ -507,14 +507,14 @@ void InputOutputManager::setFeedbackPatch(int universe, bool enable)
         return;
 
     if (enable)
-        m_ioMap->setOutputPatch(universe, patch->pluginName(), patch->input(), true);
+        m_ioMap->setOutputPatch(universe, patch->pluginName(), "", patch->input(), true);
     else
-        m_ioMap->setOutputPatch(universe, KInputNone, QLCIOPlugin::invalidLine(), true);
+        m_ioMap->setOutputPatch(universe, KInputNone, "", QLCIOPlugin::invalidLine(), true);
 }
 
 void InputOutputManager::removeInputPatch(int universe)
 {
-    m_ioMap->setInputPatch(universe, KInputNone, QLCIOPlugin::invalidLine());
+    m_ioMap->setInputPatch(universe, KInputNone, "", QLCIOPlugin::invalidLine());
     emit inputCanConfigureChanged();
 }
 
