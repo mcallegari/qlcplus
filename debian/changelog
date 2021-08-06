@@ -1,6 +1,7 @@
 qlcplus (4.12.5) stable; urgency=low
 
   * UI/RGB Matrix Editor: fix dumping on a Sequence
+  * UI/Sequence Editor: fix step values not sent to output/monitor
   * Virtual Console/Slider: fix crash when controlling non existing channels
   * Virtual Console/XY Pad: fix layout (thanks to Hans-Jürgen Tappe)
 
