@@ -94,9 +94,6 @@ public:
     /** Set channels' check state (UINT_MAX to set all) */
     void setChecked(bool state, quint32 channel = UINT_MAX);
 
-    /** Enable/disable DMX output when sliders are dragged */
-    void setOutputDMX(bool state);
-
     /** Set the value of one scene channel */
     void setSceneValue(const SceneValue& scv);
 
@@ -122,11 +119,8 @@ public:
     void resetChannelsStylesheet();
 
 signals:
-    /** Emitted when the value of a channel object changes (continuous) */
+    /** Emitted when the value of a channel object changes */
     void valueChanged(quint32 fxi, quint32 channel, uchar value);
-
-    /** Emitted when the value of a channel object changes (single shot) */
-    void valueSingleChange(quint32 fxi, quint32 channel, uchar value);
 
     /** Emitted when a channel's check state is changed */
     void checked(quint32 fxi, quint32 channel, bool state);
