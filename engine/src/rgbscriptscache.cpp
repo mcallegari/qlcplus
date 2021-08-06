@@ -69,6 +69,11 @@ bool RGBScriptsCache::load(const QDir& dir)
 
     foreach (QString file, dir.entryList())
     {
+        if (!file.toLower().endsWith(".js") || file.endsWith("devtool.js"))
+        {
+            qDebug() << "    " << file << " skipped (special file or does not end on *.js)";
+            continue;
+        }
         if (!m_scriptsMap.contains(file))
         {
             RGBScript* script = new RGBScript(m_doc);
