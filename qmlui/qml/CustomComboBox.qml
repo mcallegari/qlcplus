@@ -37,12 +37,13 @@ ComboBox
         }
      */
 
-    textRole: "mLabel"
+    textRole: Array.isArray(control.model) ? "mLabel" : ""
     valueRole: "mValue"
     wheelEnabled: true
     currentIndex: 0
 
     property string currentIcon
+    property string currentTextIcon
     property int currValue
     property int delegateHeight: UISettings.listItemHeight
     property bool isUpdating: false
@@ -63,6 +64,8 @@ ComboBox
         //console.log("Index changed: " + currentIndex + ", label: " + displayText)
         if (item.mIcon)
             currentIcon = item.mIcon
+        if (item.mTextIcon)
+            currentTextIcon = item.mTextIcon
 
         if (item.mValue !== undefined)
             control.valueChanged(item.mValue)
@@ -86,6 +89,8 @@ ComboBox
                 displayText = item.mLabel
                 if (item.mIcon)
                     currentIcon = item.mIcon
+                if (item.mTextIcon)
+                    currentTextIcon = item.mTextIcon
                 currentIndex = i
                 isUpdating = false
                 return
