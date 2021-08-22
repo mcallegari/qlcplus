@@ -4,6 +4,7 @@ qlcplus (4.12.5) stable; urgency=low
   * UI/Sequence Editor: fix step values not sent to output/monitor
   * Virtual Console/Slider: fix crash when controlling non existing channels
   * Virtual Console/XY Pad: fix layout (thanks to Hans-Jürgen Tappe)
+  * Virtual Console: fix copy of widgets background picture
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jan 2022 12:13:14 +0200
 
