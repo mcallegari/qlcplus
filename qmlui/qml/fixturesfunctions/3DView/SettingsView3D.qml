@@ -130,6 +130,7 @@ Rectangle
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
 
+                            textRole: ""
                             model: View3D.stagesList
                             currentIndex: View3D.stageIndex
                             onCurrentIndexChanged: View3D.stageIndex = currentIndex

@@ -157,6 +157,7 @@ Rectangle
                     id: algoCombo
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
+                    textRole: ""
                     model: rgbMatrixEditor.algorithms
                     currentIndex: rgbMatrixEditor.algorithmIndex
                     onDisplayTextChanged:

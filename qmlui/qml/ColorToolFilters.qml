@@ -107,6 +107,7 @@ Rectangle
             {
                 z: 2
                 Layout.fillWidth: true
+                textRole: ""
                 model: fixtureManager.colorFiltersFileList
                 currentIndex: fixtureManager.colorFilterFileIndex
                 onCurrentIndexChanged:

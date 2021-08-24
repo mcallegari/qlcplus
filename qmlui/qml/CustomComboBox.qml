@@ -29,6 +29,7 @@ ComboBox
     /*! model: provides a data model for the popup.
         A model can be either a string list (QStringList) or a named model
         to provide icons and values (QVariant)
+        In case of a QStringList, textRole should be set to ""
         A QML model with icons should look like this:
         ListModel
         {
@@ -37,7 +38,7 @@ ComboBox
         }
      */
 
-    textRole: Array.isArray(control.model) ? "mLabel" : ""
+    textRole: "mLabel"
     valueRole: "mValue"
     wheelEnabled: true
     currentIndex: 0
@@ -119,7 +120,7 @@ ComboBox
             leftPadding: 3
 
             property int currentIdx: control.currentIndex
-            text: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
+            text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
             property string itemIcon: model.mIcon ? model.mIcon : (typeof modelData !== 'undefined' ? modelData.mIcon ? modelData.mIcon : "" : "")
             property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
 

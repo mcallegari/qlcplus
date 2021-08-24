@@ -235,6 +235,7 @@ Rectangle
             id: screenCombo
             height: UISettings.listItemHeight
             Layout.fillWidth: true
+            textRole: ""
             model: videoEditor.screenList
             currentIndex: videoEditor.screenIndex
             onCurrentIndexChanged: videoEditor.screenIndex = currentIndex
