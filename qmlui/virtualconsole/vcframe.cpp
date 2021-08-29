@@ -202,13 +202,9 @@ QList<VCWidget *> VCFrame::children(bool recursive)
 
 void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 {
-    qDebug() << "[VCFrame] adding widget of type:" << wType << pos;
-
-    // reset all the drop targets, otherwise two overlapping
-    // frames can get the same drop event
-    m_vc->resetDropTargets(true);
-
     VCWidget::WidgetType type = stringToType(wType);
+
+    qDebug() << "[VCFrame] adding widget of type:" << wType << pos;
 
     if (m_vc->snapping())
     {
@@ -383,10 +379,6 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
 void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos)
 {
-    // reset all the drop targets, otherwise two overlapping
-    // frames can get the same drop event
-    m_vc->resetDropTargets(true);
-
     QPoint currPos = pos;
 
     for (QVariant wID : idsList)
@@ -409,10 +401,6 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
 
 void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
 {
-    // reset all the drop targets, otherwise two overlapping
-    // frames can get the same drop event
-    m_vc->resetDropTargets(true);
-
     //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
 
     if (m_vc->snapping())
