@@ -261,6 +261,11 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
 {
     switch (attrIndex)
     {
+        case Video::Volume:
+        {
+            updateAttribute(m_video->id(), "volume", float(value / 100.0));
+        }
+        break;
         case Video::XRotation:
         {
             QVector3D rot = m_video->rotation();

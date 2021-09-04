@@ -92,6 +92,7 @@ Rectangle
             z: video.zIndex
 
             property VideoFunction video: null
+            property alias volume: player.volume
             property vector3d rotation: video.rotation
             property rect geometry: video.customGeometry
 
