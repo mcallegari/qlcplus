@@ -127,6 +127,8 @@ greaterThan(QT_MINOR_VERSION, 4) {
 
 qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQTQML, QtQml) $$qt5LibTargetID(LIBQTQML, QtQml)
+  INSTALLS += $$qt5LibTarget(LIBQTQMLMODELS, QtQmlModels) $$qt5LibTargetID(LIBQTQMLMODELS, QtQmlModels)
+  INSTALLS += $$qt5LibTarget(LIBQTQMLWORKERSCRIPTS, QtQmlWorkerScript) $$qt5LibTargetID(LIBQTQMLWORKERSCRIPTS, QtQmlWorkerScript)
   INSTALLS += $$qt5LibTarget(LIBQTQUICK, QtQuick) $$qt5LibTargetID(LIBQTQUICK, QtQuick)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKCONTROLS2, QtQuickControls2) $$qt5LibTargetID(LIBQTQUICKCONTROLS2, QtQuickControls2)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKTEMPLATES2, QtQuickTemplates2) $$qt5LibTargetID(LIBQTQUICKTEMPLATES2, QtQuickTemplates2)
@@ -242,10 +244,12 @@ qmlui: {
     include(printsupport-nametool.pri)
     include(geometryloaders-nametool.pri)
     include(sceneparsers-nametool.pri)
+    include(renderers-nametool.pri)
 
     INSTALLS += printsupport
     INSTALLS += geometryloaders
     INSTALLS += sceneparsers
+    INSTALLS += renderers
 
 # QML components
     qmlqtdeps.path   = $$INSTALLROOT/qml/Qt/labs
