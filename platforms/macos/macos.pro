@@ -243,13 +243,19 @@ INSTALLS += styles
 qmlui: {
     include(printsupport-nametool.pri)
     include(geometryloaders-nametool.pri)
-    include(sceneparsers-nametool.pri)
     include(renderers-nametool.pri)
 
     INSTALLS += printsupport
     INSTALLS += geometryloaders
-    INSTALLS += sceneparsers
     INSTALLS += renderers
+
+    lessThan(QT_MINOR_VERSION, 15) {
+        include(sceneparsers-nametool.pri)
+        INSTALLS += sceneparsers
+    } else {
+        include(assetimporters-nametool.pri)
+        INSTALLS += assetimporters
+    }
 
 # QML components
     qmlqtdeps.path   = $$INSTALLROOT/qml/Qt/labs
