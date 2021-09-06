@@ -362,6 +362,7 @@ void Function::setRunOrder(const Function::RunOrder& order)
         m_runOrder = order;
     else
         m_runOrder = Loop;
+    emit runOrderChanged();
     emit changed(m_id);
 }
 

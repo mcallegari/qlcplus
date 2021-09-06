@@ -152,8 +152,16 @@ Rectangle
 
                 onStopped:
                 {
-                    console.log("Video stopped")
-                    ctxRoot.removeContent(video.id)
+                    if (video.runOrder === QLCFunction.Loop)
+                    {
+                        console.log("Video loop")
+                        player.play()
+                    }
+                    else
+                    {
+                        console.log("Video stopped")
+                        ctxRoot.removeContent(video.id)
+                    }
                 }
             }
 
