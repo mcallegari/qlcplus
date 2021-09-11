@@ -22,6 +22,7 @@
 #define private public
 #include "rgbscript_test.h"
 #include "rgbscriptscache.h"
+
 #ifdef QT_QML_LIB
   #include "rgbscriptv4.h"
 #else
@@ -195,6 +196,133 @@ void RGBScript_Test::rgbMap()
                     QCOMPARE(map[y][x], QColor(Qt::red).rgb());
                 else
                     QCOMPARE(map[y][x], uint(0));
+            }
+        }
+    }
+}
+
+void RGBScript_Test::runScripts()
+{
+    QSize mapSize = QSize(7, 11); // Use different numbers for x and y for the test
+
+    // Iterate the list of scripts
+    QStringList names = m_doc->rgbScriptsCache()->names();
+    foreach(QString name, names)
+    {
+        qDebug() << "Evaluating script" << name;
+        RGBScript s = m_doc->rgbScriptsCache()->script(name);
+        QString fileName = s.fileName();
+
+        // Check naming conventions
+        QVERIFY(fileName.endsWith(".js"));
+        // Check that basename and extension are lowercase
+        QVERIFY(fileName.toLower() == s.fileName());
+        // Verify that the basename only uses lower case characters
+        QString baseName = fileName;
+        baseName.truncate(fileName.size() - 3);
+        QVERIFY(QRegExp("[a-z]*").exactMatch(baseName));
+
+#ifdef QT_QML_LIB
+        QVERIFY(!s.m_script.isUndefined());
+        QVERIFY(!s.m_rgbMap.isUndefined());
+        QVERIFY(!s.m_rgbMapStepCount.isUndefined());
+#else
+        // QVERIFY(s.m_script.isValid()); // TODO: to be fixed !!
+        QVERIFY(s.m_rgbMap.isValid());
+        QVERIFY(s.m_rgbMapStepCount.isValid());
+#endif
+
+        { // limit the scope of this map to keep it clean for future executions
+            RGBMap map;
+            s.rgbMap(mapSize, 0, 0, map);
+            QVERIFY(map.isEmpty() == false);
+        }
+
+        QVERIFY(s.apiVersion() >= 1 && s.apiVersion() <= 2);
+        QVERIFY(!s.author().isEmpty());
+        QVERIFY(s.type() == RGBAlgorithm::Script);
+        QVERIFY(s.acceptColors() >= 0 && s.acceptColors() <= 2);
+
+        int steps = s.rgbMapStepCount(mapSize);
+        //qDebug() << "steps: " << steps;
+        QVERIFY(steps > 0);
+
+        // Run a few steps with the standard set of parameters.
+        int realsteps = (steps > 5) ? 5 : steps;
+        for (int step = 0; step < realsteps; step++)
+        {
+            RGBMap map;
+            s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+            QVERIFY(map.isEmpty() == false);
+        }
+
+        // Validate the parameters
+        if (s.apiVersion() >= 2)
+        {
+            // Get the scripts properties and build test matrix
+            QVERIFY(s.loadProperties());
+            QList<RGBScriptProperty> properties = s.properties();
+            foreach (RGBScriptProperty property, properties)
+            {
+                // Consider to even mix the properties for testing,
+                // do not just test one combination with each value
+                QVERIFY(! property.m_name.isEmpty());
+                QVERIFY(! property.m_displayName.isEmpty());
+                QVERIFY(! property.m_readMethod.isEmpty());
+                QVERIFY(! property.m_writeMethod.isEmpty());
+                QList<RGBScriptProperty> properties = s.properties();
+                qDebug() << property.m_name;
+                // Unknown, new and RGBScriptProperty::None are not valid
+                QVERIFY(property.m_type == RGBScriptProperty::List ||
+                        property.m_type == RGBScriptProperty::Range ||
+                        property.m_type == RGBScriptProperty::Integer ||
+                        property.m_type == RGBScriptProperty::String);
+                // Check property specificities
+                switch (property.m_type)
+                {
+                case RGBScriptProperty::List:
+                    foreach (QString value, property.m_listValues)
+                    {
+                        // Test with all values from the list
+                        qDebug() << property.m_name << value;
+                        s.setProperty(property.m_name, value);
+                        for (int step = 0; step < realsteps; step++)
+                        {
+                            RGBMap map;
+                            s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                            QVERIFY(map.isEmpty() == false);
+                        }
+                    }
+                    break;
+                case RGBScriptProperty::Range:
+                    QVERIFY(property.m_rangeMinValue < property.m_rangeMaxValue);
+                    // test with min and max value from the list
+                    qDebug() << property.m_name << QString::number(property.m_rangeMinValue);
+                    s.setProperty(property.m_name, QString::number(property.m_rangeMinValue));
+                    for (int step = 0; step < realsteps; step++)
+                    {
+                        RGBMap map;
+                        s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                        QVERIFY(map.isEmpty() == false);
+                    }
+                    qDebug() << property.m_name << QString::number(property.m_rangeMaxValue);
+                    s.setProperty(property.m_name, QString::number(property.m_rangeMaxValue));
+                    for (int step = 0; step < realsteps; step++)
+                    {
+                        RGBMap map;
+                        s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                        QVERIFY(map.isEmpty() == false);
+                    }
+                    break;
+                case RGBScriptProperty::Integer:
+                    break;
+                case RGBScriptProperty::String:
+                    break;
+                default:
+                    qDebug() << "Untested property: " << property.m_name;
+                    QVERIFY(false);
+                    break;
+                }
             }
         }
     }
