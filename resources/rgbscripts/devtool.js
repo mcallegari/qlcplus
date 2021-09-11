@@ -440,36 +440,3 @@ devtool.previousStep = function()
         devtool.setStep(devtool.stepCount() - 1); // last step
     }
 }
-
-// Standard template
-//var testAlgo;
-(
-    function () {
-      var algo = {};
-      algo.apiVersion = 2;
-      algo.name = "DEVTOOL";
-      algo.author = "Heikki Junnila";
-      algo.properties = [];
-      algo.acceptColors = 1;
-      algo.rgbMap = function (width, height, rgb, step)
-      {
-        var map = new Array();
-        for (var y = 0; y < height; y++)
-        {
-          var _map = new Array();
-          for (var x = 0; x < width; x++)
-          {
-            _map.push(0);
-          }
-          map.push(_map);
-        }
-        return map;
-      };
-      algo.rgbMapStepCount = function (width, height)
-      {
-        return 1;
-      };
-//      testAlgo = algo;
-      return algo;
-    }
-)();
