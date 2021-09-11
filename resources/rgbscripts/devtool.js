@@ -442,7 +442,7 @@ devtool.previousStep = function()
 }
 
 // Standard template
-var testAlgo;
+//var testAlgo;
 (
     function () {
       var algo = {};
