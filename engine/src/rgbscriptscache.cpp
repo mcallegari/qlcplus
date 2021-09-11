@@ -69,7 +69,7 @@ bool RGBScriptsCache::load(const QDir& dir)
 
     foreach (QString file, dir.entryList())
     {
-        if (!file.toLower().endsWith(".js") || file.endsWith("devtool.js"))
+        if (!file.toLower().endsWith(".js"))
         {
             qDebug() << "    " << file << " skipped (special file or does not end on *.js)";
             continue;
