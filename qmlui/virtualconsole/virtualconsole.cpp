@@ -579,10 +579,6 @@ QVariantList VirtualConsole::selectedWidgetIDs()
 
 void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos)
 {
-    // reset all the drop targets, otherwise two overlapping
-    // frames can get the same drop event
-    resetDropTargets(true);
-
     VCFrame *sourceFrame = qobject_cast<VCFrame*>(widget->parent());
 
     if (sourceFrame != targetFrame)
@@ -865,45 +861,6 @@ int VirtualConsole::clipboardItemsCount() const
 {
     return m_clipboardIDList.count();
 }
-
-/*********************************************************************
- * Drag & Drop
- *********************************************************************/
-
-void VirtualConsole::setDropTarget(QQuickItem *target, bool enable)
-{
-    if (enable == true)
-    {
-        resetDropTargets(false);
-        m_dropTargets << target;
-        target->setProperty("dropActive", true);
-    }
-    else
-    {
-        for (int i = 0; i < m_dropTargets.count(); i++)
-        {
-            if (m_dropTargets.at(i) == target)
-            {
-                m_dropTargets.at(i)->setProperty("dropActive", false);
-                if (i > 0)
-                    m_dropTargets.at(i - 1)->setProperty("dropActive", true);
-                m_dropTargets.removeLast();
-                return;
-            }
-        }
-    }
-}
-
-void VirtualConsole::resetDropTargets(bool deleteTargets)
-{
-    foreach(QQuickItem *item, m_dropTargets)
-        item->setProperty("dropActive", false);
-
-    if (deleteTargets)
-        m_dropTargets.clear();
-}
-
-
 
 /*********************************************************************
  * External input

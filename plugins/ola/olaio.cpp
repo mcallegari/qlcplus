@@ -144,7 +144,7 @@ QStringList OlaIO::outputs()
 {
     QStringList list;
     for (int i = 0; i < m_outputs.size(); ++i)
-        list << QString("%1: OLA Universe %2").arg(i + 1).arg(m_outputs[i]);
+        list << QString("OLA Universe %1").arg(m_outputs[i]);
     return list;
 }
 

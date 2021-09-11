@@ -35,6 +35,14 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *interface, quint32 outputLine, qu
     m_inputBaseLine = inputLine;
 
     setInputsNumber(1);
+
+    // by default, set the serial number
+    // provided by FTDI
+    m_proSerial = serial();
+
+    // then attempt to extract
+    // the vendor serial number
+    extractSerial();
 }
 
 EnttecDMXUSBPro::~EnttecDMXUSBPro()
@@ -98,7 +106,7 @@ QString EnttecDMXUSBPro::additionalInfo() const
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(tr("Manufacturer")).arg(vendor());
     info += QString("<BR>");
-    info += QString("<B>%1:</B> %2").arg(tr("Serial number")).arg(m_proSerial.isEmpty() ? serial() : m_proSerial);
+    info += QString("<B>%1:</B> %2").arg(tr("Serial number")).arg(m_proSerial);
     info += QString("</P>");
 
     return info;
@@ -163,9 +171,6 @@ bool EnttecDMXUSBPro::open(quint32 line, bool input)
     if (interface()->clearRts() == false)
         return close(line, input);
 
-    if (m_proSerial.isEmpty())
-        extractSerial();
-
     // specific port configuration are needed only by ENTTEC
     if (m_dmxKingMode == false)
     {
@@ -226,6 +231,7 @@ bool EnttecDMXUSBPro::close(quint32 line, bool input)
 QString EnttecDMXUSBPro::uniqueName(ushort line, bool input) const
 {
     QString devName;
+
     if (realName().isEmpty() == false)
         devName = realName();
     else
@@ -234,33 +240,30 @@ QString EnttecDMXUSBPro::uniqueName(ushort line, bool input) const
     if (input)
     {
         if (m_inputLines[line].m_lineType == MIDI)
-            return QString("%1 - %2").arg(devName).arg(QObject::tr("MIDI Input"));
+            return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("MIDI Input"), m_proSerial);
         else
-            return QString("%1 - %2").arg(devName).arg(QObject::tr("DMX Input"));
+            return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("DMX Input"), m_proSerial);
     }
     else
     {
         if (m_outputLines[line].m_lineType == MIDI)
-            return QString("%1 - %2").arg(devName).arg(QObject::tr("MIDI Output"));
+            return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("MIDI Output"), m_proSerial);
         else
-            return QString("%1 - %2 %3").arg(devName).arg(QObject::tr("DMX Output")).arg(line + 1);
+            return QString("%1 - %2 %3 - (S/N: %4)").arg(devName, QObject::tr("DMX Output"), QString::number(line + 1), m_proSerial);
     }
-/*
-    if (m_proSerial.isEmpty() == true)
-        return QString("%1 (S/N: %2)").arg(name()).arg(serial());
-    else
-        return QString("%1 (S/N: %2)").arg(name()).arg(m_proSerial);
-*/
 }
 
 bool EnttecDMXUSBPro::extractSerial()
 {
+    bool result = false;
     QByteArray request;
     request.append(ENTTEC_PRO_START_OF_MSG);
     request.append(ENTTEC_PRO_READ_SERIAL);
     request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
     request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
     request.append(ENTTEC_PRO_END_OF_MSG);
+
+    interface()->open();
 
     if (interface()->write(request) == true)
     {
@@ -278,7 +281,7 @@ bool EnttecDMXUSBPro::extractSerial()
                                                                  uchar(reply[5]),
                                                                  uchar(reply[4]));
             qDebug() << Q_FUNC_INFO << "Serial number OK: " << m_proSerial;
-            return true;
+            result = true;
         }
         else
         {
@@ -288,14 +291,15 @@ bool EnttecDMXUSBPro::extractSerial()
                        << QString::number(reply[4], 16) << QString::number(reply[5], 16)
                        << QString::number(reply[6], 16) << QString::number(reply[7], 16)
                        << QString::number(reply[8], 16);
-            return false;
         }
     }
     else
     {
         qWarning() << Q_FUNC_INFO << name() << "will not accept serial request";
-        return false;
     }
+
+    interface()->close();
+    return result;
 }
 
 void EnttecDMXUSBPro::slotDataReceived(QByteArray data, bool isMidi)

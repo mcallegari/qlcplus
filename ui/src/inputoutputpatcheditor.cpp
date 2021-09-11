@@ -221,6 +221,7 @@ void InputOutputPatchEditor::fillMappingTree()
         QStringList outputs = m_ioMap->pluginOutputs(pluginName);
         bool hasFeedback = m_ioMap->pluginSupportsFeedback(pluginName);
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        int lineNumber = 1;
 
         // 1st case: this plugin has no input or output
         if (inputs.length() == 0 && outputs.length() == 0)
@@ -243,7 +244,7 @@ void InputOutputPatchEditor::fillMappingTree()
                 {
                     QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
                     pitem->setText(KMapColumnPluginName, pluginName);
-                    pitem->setText(KMapColumnDeviceName, inputs.at(l));
+                    pitem->setText(KMapColumnDeviceName, QString("%1: %2").arg(lineNumber++).arg(inputs.at(l)));
                     pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
                     if (m_currentInputPluginName == pluginName && m_currentInput == inputId)
                         pitem->setCheckState(KMapColumnHasInput, Qt::Checked);
@@ -288,7 +289,7 @@ void InputOutputPatchEditor::fillMappingTree()
                             //qDebug() << "Plugin: " << pluginName << ", output: " << id << ", universe:" << outUni;
                             QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
                             pitem->setText(KMapColumnPluginName, pluginName);
-                            pitem->setText(KMapColumnDeviceName, inputs.at(l));
+                            pitem->setText(KMapColumnDeviceName, QString("%1: %2").arg(lineNumber++).arg(inputs.at(l)));
                             pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
                             if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
@@ -323,7 +324,7 @@ void InputOutputPatchEditor::fillMappingTree()
                         //qDebug() << "Plugin: " << pluginName << ", output: " << id << ", universe:" << outUni;
                         QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
                         pitem->setText(KMapColumnPluginName, pluginName);
-                        pitem->setText(KMapColumnDeviceName, outputs.at(o));
+                        pitem->setText(KMapColumnDeviceName, QString("%1: %2").arg(lineNumber++).arg(outputs.at(o)));
                         pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
                         if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
                             pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
@@ -423,8 +424,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
 
             /* Apply the patch immediately so that input data can be used in the
                input profile editor */
-            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName,
-                                 m_currentInput, m_currentProfileName) == false)
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "",
+                                       m_currentInput, m_currentProfileName) == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasOutput)
@@ -442,7 +443,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentOutput = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false) == false)
+                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "",
+                                            m_currentOutput, false) == false)
                     showPluginMappingError();
             }
         }
@@ -460,7 +462,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentFeedback = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true) == false)
+                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "",
+                                            m_currentFeedback, true) == false)
                     showPluginMappingError();
             }
         }
@@ -473,7 +476,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentInputPluginName = KInputNone;
             m_currentInput = QLCIOPlugin::invalidLine();
 
-            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput) == false)
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", m_currentInput) == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasOutput)
@@ -482,7 +485,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentOutput = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false) == false)
+            if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false) == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasFeedback)
@@ -491,7 +494,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentFeedback = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true) == false)
+            if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", m_currentFeedback, true) == false)
                 showPluginMappingError();
         }
     }

@@ -78,11 +78,11 @@ void UDMX::closeOutput(quint32 output, quint32 universe)
 QStringList UDMX::outputs()
 {
     QStringList list;
-    int i = 1;
 
     QListIterator <UDMXDevice*> it(m_devices);
     while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->name());
+        list << it.next()->name();
+
     return list;
 }
 

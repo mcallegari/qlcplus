@@ -58,6 +58,7 @@ Video::Video(Doc* doc)
     setName(tr("New Video"));
     setRunOrder(Video::SingleShot);
 
+    registerAttribute(tr("Volume"), Function::LastWins, 0, 100, 100);
     registerAttribute(tr("X Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
     registerAttribute(tr("Y Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
     registerAttribute(tr("Z Rotation"), Function::LastWins, -360.0, 360.0, 0.0);

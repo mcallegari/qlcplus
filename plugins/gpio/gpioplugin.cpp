@@ -119,7 +119,7 @@ void GPIOPlugin::closeOutput(quint32 output, quint32 universe)
 QStringList GPIOPlugin::outputs()
 {
     QStringList list;
-    list << QString("1: GPIO lines");
+    list << QString("GPIO lines");
     return list;
 }
 
@@ -346,7 +346,7 @@ void GPIOPlugin::closeInput(quint32 input, quint32 universe)
 QStringList GPIOPlugin::inputs()
 {
     QStringList list;
-    list << QString("1: GPIO lines");
+    list << QString("GPIO lines");
     return list;
 }
 

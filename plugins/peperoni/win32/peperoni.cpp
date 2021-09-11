@@ -105,11 +105,10 @@ void Peperoni::closeOutput(quint32 output, quint32 universe)
 QStringList Peperoni::outputs()
 {
     QStringList list;
-    int i = 1;
 
     QListIterator <PeperoniDevice*> it(m_devices);
     while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->name());
+        list << it.next()->name();
 
     return list;
 }

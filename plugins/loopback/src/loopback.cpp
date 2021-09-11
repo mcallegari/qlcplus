@@ -88,7 +88,7 @@ QStringList Loopback::outputs()
 {
     QStringList list;
     for (int i = 0; i < LOOPBACK_LINES; i++)
-        list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
+        list << QString("Loopback %1").arg(i + 1);
     return list;
 }
 
@@ -114,7 +114,7 @@ QStringList Loopback::inputs()
 {
     QStringList list;
     for (int i = 0; i < LOOPBACK_LINES; i++)
-        list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
+        list << QString("Loopback %1").arg(i + 1);
     return list;
 }
 

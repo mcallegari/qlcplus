@@ -112,13 +112,12 @@ void DMXUSB::closeOutput(quint32 output, quint32 universe)
 QStringList DMXUSB::outputs()
 {
     QStringList list;
-    int i = 1;
 
     for (int w = 0; w < m_outputs.count();)
     {
         DMXUSBWidget* widget = m_outputs.at(w);
         foreach(QString name, widget->outputNames())
-            list << QString("%1: %2").arg(i++).arg(name);
+            list << name;
         w += widget->outputsNumber();
     }
     return list;
@@ -235,13 +234,12 @@ void DMXUSB::closeInput(quint32 input, quint32 universe)
 QStringList DMXUSB::inputs()
 {
     QStringList list;
-    int i = 1;
 
     for (int w = 0; w < m_inputs.count();)
     {
         DMXUSBWidget* widget = m_inputs.at(w);
         foreach(QString name, widget->inputNames())
-            list << QString("%1: %2").arg(i++).arg(name);
+            list << name;
         w += widget->inputsNumber();
     }
 

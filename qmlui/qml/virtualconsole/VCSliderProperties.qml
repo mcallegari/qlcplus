@@ -252,6 +252,7 @@ Rectangle
                 CustomComboBox
                 {
                     Layout.fillWidth: true
+                    textRole: ""
                     model: widgetRef ? widgetRef.availableAttributes : null
                     currentIndex: widgetRef ? widgetRef.controlledAttribute : 0
                     onCurrentIndexChanged: if (widgetRef) widgetRef.controlledAttribute = currentIndex

@@ -116,15 +116,12 @@ bool OSCPlugin::requestLine(quint32 line, int retries)
 QStringList OSCPlugin::outputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (OSCIO line, m_IOmapping)
-    {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
-        j++;
-    }
+        list << line.IPAddress;
+
     return list;
 }
 
@@ -209,15 +206,12 @@ void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 QStringList OSCPlugin::inputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (OSCIO line, m_IOmapping)
-    {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
-        j++;
-    }
+        list << line.IPAddress;
+
     return list;
 }
 

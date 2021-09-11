@@ -28,9 +28,10 @@
 #include "modeedit.h"
 #include "qlcfile.h"
 
-EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent)
+EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent)
     : QObject(parent)
     , m_view(view)
+    , m_id(id)
     , m_fixtureDef(fixtureDef)
     , m_channelEdit(nullptr)
     , m_modeEdit(nullptr)
@@ -67,6 +68,11 @@ EditorView::~EditorView()
 
     if (m_modeEdit)
         delete m_modeEdit;
+}
+
+int EditorView::id() const
+{
+    return m_id;
 }
 
 bool EditorView::isUser() const

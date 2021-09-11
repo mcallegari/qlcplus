@@ -161,6 +161,7 @@ void App::startup()
     rootContext()->setContextProperty("tardis", m_tardis);
 
     m_contextManager->registerContext(m_virtualConsole);
+    m_contextManager->registerContext(m_simpleDesk);
     m_contextManager->registerContext(m_showManager);
     m_contextManager->registerContext(m_ioManager);
 
