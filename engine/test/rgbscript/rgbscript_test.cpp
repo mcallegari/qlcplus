@@ -240,6 +240,7 @@ void RGBScript_Test::runScripts()
 
         QVERIFY(s.apiVersion() >= 1 && s.apiVersion() <= 2);
         QVERIFY(!s.author().isEmpty());
+        QVERIFY(!s.name().isEmpty());
         QVERIFY(s.type() == RGBAlgorithm::Script);
         QVERIFY(s.acceptColors() >= 0 && s.acceptColors() <= 2);
 
