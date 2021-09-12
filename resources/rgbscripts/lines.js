@@ -34,8 +34,8 @@ var testAlgo;
     algo.properties.push("name:linesAmount|type:range|display:Amount|values:1,200|write:setAmount|read:getAmount");
     algo.linesSize = 10;
     algo.properties.push("name:linesSize|type:range|display:Size|values:1,32|write:setLinesSize|read:getLinesSize");
-    algo.linesVariablity = 0;
-    algo.properties.push("name:linesVariablity|type:range|display:Size Variablity|values:0,100|write:setVariability|read:getVariability");
+    algo.linesVariability = 0;
+    algo.properties.push("name:linesVariability|type:range|display:Size Variablity|values:0,100|write:setVariability|read:getVariability");
     algo.linesType = 0;
     algo.properties.push("name:linesType|type:list|display:Type|values:Horizontal,Vertical,Plus,X,Star,Left,Right,Up,Down,UpRight,UpLeft,DownRight,DownLeft|write:setType|read:getType");
     algo.linesBias = 0;
@@ -79,14 +79,14 @@ var testAlgo;
     {
 	  // Only set if the input is valid.
       if (!(parseInt(_var) === NaN) && parseInt(_var) > 0) {
-        algo.linesVariablity = _var;
+        algo.linesVariability = _var;
         util.initialized = false;
       }
     };
 
     algo.getVariability = function()
     {
-      return algo.linesVariablity;
+      return algo.linesVariability;
     };
 
     algo.setAmount = function(_amount)
