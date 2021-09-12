@@ -33,7 +33,7 @@ class SimpleDesk : public PreviewContext, public DMXSource
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVariant universesListModel READ universesListModel CONSTANT)
+    Q_PROPERTY(QVariant universesListModel READ universesListModel NOTIFY universesListModelChanged)
     Q_PROPERTY(QVariant channelList READ channelList NOTIFY channelListChanged)
     Q_PROPERTY(QVariantList fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QStringList commandHistory READ commandHistory NOTIFY commandHistoryChanged)
@@ -59,6 +59,7 @@ protected slots:
     void updateChannelList();
 
 signals:
+    void universesListModelChanged();
     void channelListChanged();
     void fixtureListChanged();
 

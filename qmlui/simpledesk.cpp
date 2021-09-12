@@ -62,6 +62,10 @@ SimpleDesk::SimpleDesk(QQuickView *view, Doc *doc, QObject *parent)
     connect(m_doc, SIGNAL(loaded()), this, SLOT(updateChannelList()));
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(updateChannelList()));
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(updateChannelList()));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)),
+            this, SIGNAL(universesListModelChanged()));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeRemoved(quint32)),
+            this, SIGNAL(universesListModelChanged()));
     connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)),
             this, SLOT(slotUniverseWritten(quint32,QByteArray)));
 }
@@ -106,6 +110,9 @@ void SimpleDesk::updateChannelList()
     int status = None;
 
     m_channelList->clear();
+
+    if (m_prevUniverseValues.contains(m_universeFilter) == false)
+        m_prevUniverseValues[m_universeFilter].fill(0, 512);
 
     QByteArray currUni = m_prevUniverseValues.value(m_universeFilter);
 
@@ -280,6 +287,9 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& ua)
 {
     if (idx != m_universeFilter) // || isEnabled() == false)
         return;
+
+    if (m_prevUniverseValues.contains(idx) == false)
+        m_prevUniverseValues[idx].fill(0, 512);
 
     QByteArray currUni = m_prevUniverseValues.value(idx);
 

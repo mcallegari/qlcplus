@@ -52,6 +52,10 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     qmlRegisterType<OutputPatch>("org.qlcplus.classes", 1, 0, "OutputPatch");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+    connect(m_ioMap, SIGNAL(universeAdded(quint32)), this, SIGNAL(universesListModelChanged()));
+    connect(m_ioMap, SIGNAL(universeAdded(quint32)), this, SIGNAL(universeNamesChanged()));
+    connect(m_ioMap, SIGNAL(universeRemoved(quint32)), this, SIGNAL(universesListModelChanged()));
+    connect(m_ioMap, SIGNAL(universeRemoved(quint32)), this, SIGNAL(universeNamesChanged()));
     connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()), Qt::QueuedConnection);
     connect(m_ioMap, SIGNAL(beatGeneratorTypeChanged()), this, SLOT(slotBeatTypeChanged()));
     connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SIGNAL(bpmNumberChanged(int)));
