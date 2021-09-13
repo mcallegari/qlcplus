@@ -1160,7 +1160,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         }
 
         fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
-        fxi->setAddress(address);
+        fxi->setAddress(address - 1);
         address += fxi->channels();
         m_doc->addFixture(fxi);
 
