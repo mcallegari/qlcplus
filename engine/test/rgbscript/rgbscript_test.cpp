@@ -255,6 +255,14 @@ void RGBScript_Test::runScripts()
             RGBMap map;
             s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
             QVERIFY(map.isEmpty() == false);
+            // Check that the color values are limited to a valid range
+            for (int y = 0; y < 5; y++)
+            {
+                for (int x = 0; x < 5; x++)
+                {
+                    QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                }
+            }
         }
 
         // Validate the parameters
@@ -299,6 +307,14 @@ void RGBScript_Test::runScripts()
                             RGBMap map;
                             s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
                             QVERIFY(map.isEmpty() == false);
+                            // Check that the color values are limited to a valid range
+                            for (int y = 0; y < 5; y++)
+                            {
+                                for (int x = 0; x < 5; x++)
+                                {
+                                    QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                                }
+                            }
                         }
                     }
                     break;
@@ -320,6 +336,14 @@ void RGBScript_Test::runScripts()
                         RGBMap map;
                         s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
                         QVERIFY(map.isEmpty() == false);
+                        // Check that the color values are limited to a valid range
+                        for (int y = 0; y < 5; y++)
+                        {
+                            for (int x = 0; x < 5; x++)
+                            {
+                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                            }
+                        }
                     }
                     qDebug() << property.m_name << QString::number(property.m_rangeMaxValue);
                     s.setProperty(property.m_name, QString::number(property.m_rangeMaxValue));
@@ -330,6 +354,14 @@ void RGBScript_Test::runScripts()
                         RGBMap map;
                         s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
                         QVERIFY(map.isEmpty() == false);
+                        // Check that the color values are limited to a valid range
+                        for (int y = 0; y < 5; y++)
+                        {
+                            for (int x = 0; x < 5; x++)
+                            {
+                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                            }
+                        }
                     }
                     break;
                 case RGBScriptProperty::Integer:
@@ -342,6 +374,14 @@ void RGBScript_Test::runScripts()
                         RGBMap map;
                         s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
                         QVERIFY(map.isEmpty() == false);
+                        // Check that the color values are limited to a valid range
+                        for (int y = 0; y < 5; y++)
+                        {
+                            for (int x = 0; x < 5; x++)
+                            {
+                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                            }
+                        }
                     }
                     break;
                 case RGBScriptProperty::String:
@@ -354,6 +394,14 @@ void RGBScript_Test::runScripts()
                         RGBMap map;
                         s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
                         QVERIFY(map.isEmpty() == false);
+                        // Check that the color values are limited to a valid range
+                        for (int y = 0; y < 5; y++)
+                        {
+                            for (int x = 0; x < 5; x++)
+                            {
+                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                            }
+                        }
                     }
                     break;
                 default:
