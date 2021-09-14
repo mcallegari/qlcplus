@@ -148,7 +148,7 @@ var testAlgo;
 	};
 	algo.getAlign = function() {
 		if (algo.align === 1) {
-			return "Center";
+			return "Centered";
 		} else {
 			return "Left";
 		}
