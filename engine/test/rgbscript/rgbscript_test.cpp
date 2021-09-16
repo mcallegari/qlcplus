@@ -204,6 +204,9 @@ void RGBScript_Test::rgbMap()
 void RGBScript_Test::runScripts()
 {
     QSize mapSize = QSize(7, 11); // Use different numbers for x and y for the test
+    // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
+    // This test also wants to test that there is no color space overrun.
+    int red = 0xff0000;
 
     // Iterate the list of scripts
     QStringList names = m_doc->rgbScriptsCache()->names();
@@ -253,14 +256,20 @@ void RGBScript_Test::runScripts()
         for (int step = 0; step < realsteps; step++)
         {
             RGBMap map;
-            s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+            s.rgbMap(mapSize, red, step, map);
             QVERIFY(map.isEmpty() == false);
             // Check that the color values are limited to a valid range
-            for (int y = 0; y < 5; y++)
+            for (int y = 0; y < mapSize.height(); y++)
             {
-                for (int x = 0; x < 5; x++)
+                for (int x = 0; x < mapSize.width(); x++)
                 {
-                    QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                    //if (map[y][x] > 0x00ffffff) {
+                    //    uint pxr = (map[y][x] >> 16 & 0x000000ff);
+                    //    uint pxg = (map[y][x] >> 8 & 0x000000ff);
+                    //    uint pxb = (map[y][x] & 0x000000ff);
+                    //    qDebug() << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " (" << Qt::hex << map[y][x]<< ")";
+                    //}
+                    QVERIFY(map[y][x] <= 0xffffff);
                 }
             }
         }
@@ -305,14 +314,14 @@ void RGBScript_Test::runScripts()
                         for (int step = 0; step < realsteps; step++)
                         {
                             RGBMap map;
-                            s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                            s.rgbMap(mapSize, red, step, map);
                             QVERIFY(map.isEmpty() == false);
                             // Check that the color values are limited to a valid range
-                            for (int y = 0; y < 5; y++)
+                            for (int y = 0; y < mapSize.height(); y++)
                             {
-                                for (int x = 0; x < 5; x++)
+                                for (int x = 0; x < mapSize.width(); x++)
                                 {
-                                    QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                                    QVERIFY(map[y][x] <= 0xffffff);
                                 }
                             }
                         }
@@ -334,14 +343,14 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                        s.rgbMap(mapSize, red, step, map);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
-                        for (int y = 0; y < 5; y++)
+                        for (int y = 0; y < mapSize.height(); y++)
                         {
-                            for (int x = 0; x < 5; x++)
+                            for (int x = 0; x < mapSize.width(); x++)
                             {
-                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                                QVERIFY(map[y][x] <= 0xffffff);
                             }
                         }
                     }
@@ -352,14 +361,14 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                        s.rgbMap(mapSize, red, step, map);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
-                        for (int y = 0; y < 5; y++)
+                        for (int y = 0; y < mapSize.height(); y++)
                         {
-                            for (int x = 0; x < 5; x++)
+                            for (int x = 0; x < mapSize.width(); x++)
                             {
-                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                                QVERIFY(map[y][x] <= 0xffffff);
                             }
                         }
                     }
@@ -372,14 +381,14 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                        s.rgbMap(mapSize, red, step, map);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
-                        for (int y = 0; y < 5; y++)
+                        for (int y = 0; y < mapSize.height(); y++)
                         {
-                            for (int x = 0; x < 5; x++)
+                            for (int x = 0; x < mapSize.width(); x++)
                             {
-                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                                QVERIFY(map[y][x] <= 0xffffff);
                             }
                         }
                     }
@@ -392,14 +401,14 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, QColor(Qt::red).rgb(), step, map);
+                        s.rgbMap(mapSize, red, step, map);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
-                        for (int y = 0; y < 5; y++)
+                        for (int y = 0; y < mapSize.height(); y++)
                         {
-                            for (int x = 0; x < 5; x++)
+                            for (int x = 0; x < mapSize.width(); x++)
                             {
-                                QVERIFY(map[y][x] <= QColor(Qt::white).rgb());
+                                QVERIFY(map[y][x] <= 0xffffff);
                             }
                         }
                     }
