@@ -49,9 +49,9 @@ win32:coverage.commands = @echo Get a better OS.
 translations.target = translate
 QMAKE_EXTRA_TARGETS += translations
 qmlui: {
-  translations.commands += ./translate.sh "qmlui"
+  translations.extra += ./translate.sh "qmlui"
 } else {
-  translations.commands += ./translate.sh "ui"
+  translations.extra += ./translate.sh "ui"
 }
 translations.files = ./qlcplus_de_DE.qm ./qlcplus_es_ES.qm ./qlcplus_fr_FR.qm
 translations.files += ./qlcplus_it_IT.qm ./qlcplus_nl_NL.qm ./qlcplus_ca_ES.qm ./qlcplus_ja_JP.qm
