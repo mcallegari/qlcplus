@@ -10,6 +10,9 @@ set -e
 
 TARGET_DIR=~/qlcplus.AppDir
 
+# Compile translations
+./translate.sh "qmlui"
+
 # Build
 if [ -n "$QTDIR" ]; then
     $QTDIR/bin/qmake CONFIG+=appimage CONFIG+=qmlui
