@@ -194,7 +194,7 @@ Rectangle
                         }
                         model: runOrderModel
 
-                        currentValue: chaserEditor.runOrder
+                        currValue: chaserEditor.runOrder
                         onValueChanged: chaserEditor.runOrder = value
                     }
                     RobotoText
@@ -213,7 +213,7 @@ Rectangle
                         }
                         model: directionModel
 
-                        currentValue: chaserEditor.direction
+                        currValue: chaserEditor.direction
                         onValueChanged: chaserEditor.direction = value
                     }
                     RobotoText
@@ -232,7 +232,7 @@ Rectangle
                         }
                         model: tempoModel
 
-                        currentValue: chaserEditor.tempoType
+                        currValue: chaserEditor.tempoType
                         onValueChanged: chaserEditor.tempoType = value
                     }
                     RobotoText
@@ -253,7 +253,7 @@ Rectangle
                         }
                         model: fadeInModel
 
-                        currentValue: chaserEditor.stepsFadeIn
+                        currValue: chaserEditor.stepsFadeIn
                         onValueChanged: chaserEditor.stepsFadeIn = value
                     }
                     RobotoText
@@ -273,7 +273,7 @@ Rectangle
                         }
                         model: fadeOutModel
 
-                        currentValue: chaserEditor.stepsFadeOut
+                        currValue: chaserEditor.stepsFadeOut
                         onValueChanged: chaserEditor.stepsFadeOut = value
                     }
                     RobotoText
@@ -292,7 +292,7 @@ Rectangle
                         }
                         model: durationModel
 
-                        currentValue: chaserEditor.stepsDuration
+                        currValue: chaserEditor.stepsDuration
                         onValueChanged: chaserEditor.stepsDuration = value
                     }
                     RobotoText

@@ -40,12 +40,14 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject 
     , m_min(min)
     , m_max(max)
     , m_name(name)
+    , m_warning(NoWarning)
 {
 }
 
 QLCCapability *QLCCapability::createCopy()
 {
     QLCCapability *copy = new QLCCapability(m_min, m_max, m_name);
+    copy->setWarning(m_warning);
     copy->setPreset(preset());
     for (int i = 0; i < m_resources.count(); i++)
         copy->setResource(i, m_resources.at(i));
@@ -116,7 +118,6 @@ QLCCapability::PresetType QLCCapability::presetType() const
             return DoubleColor;
         case GoboMacro:
         case GoboShakeMacro:
-        case GoboRotatingMacro:
         case GenericPicture:
             return Picture;
         default: return None;
@@ -160,7 +161,11 @@ uchar QLCCapability::min() const
 
 void QLCCapability::setMin(uchar value)
 {
+    if (m_min == value)
+        return;
+
     m_min = value;
+    emit minChanged();
 }
 
 uchar QLCCapability::max() const
@@ -170,7 +175,11 @@ uchar QLCCapability::max() const
 
 void QLCCapability::setMax(uchar value)
 {
+    if (m_max == value)
+        return;
+
     m_max = value;
+    emit maxChanged();
 }
 
 uchar QLCCapability::middle() const
@@ -185,7 +194,25 @@ QString QLCCapability::name() const
 
 void QLCCapability::setName(const QString& name)
 {
+    if (m_name == name)
+        return;
+
     m_name = name;
+    emit nameChanged();
+}
+
+QLCCapability::WarningType QLCCapability::warning() const
+{
+    return m_warning;
+}
+
+void QLCCapability::setWarning(QLCCapability::WarningType type)
+{
+    if (m_warning == type)
+        return;
+
+    m_warning = type;
+    emit warningChanged();
 }
 
 QVariant QLCCapability::resource(int index)

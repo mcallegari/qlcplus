@@ -157,6 +157,7 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
         return;
 
     m_preset = preset;
+    emit presetChanged();
 
     if (preset == Custom)
         return;
@@ -674,9 +675,18 @@ QLCChannel::Group QLCChannel::stringToGroup(const QString& str)
         return NoGroup;
 }
 
+QString QLCChannel::groupString() const
+{
+    return groupToString(m_group);
+}
+
 void QLCChannel::setGroup(Group grp)
 {
+    if (grp == m_group)
+        return;
+
     m_group = grp;
+    emit groupChanged();
 }
 
 QLCChannel::Group QLCChannel::group() const
@@ -821,7 +831,11 @@ QString QLCChannel::name() const
 
 void QLCChannel::setName(const QString &name)
 {
+    if (name == m_name)
+        return;
+
     m_name = name;
+    emit nameChanged();
 }
 
 uchar QLCChannel::defaultValue() const
@@ -831,17 +845,25 @@ uchar QLCChannel::defaultValue() const
 
 void QLCChannel::setDefaultValue(uchar value)
 {
-    m_defaultValue = value;
-}
+    if (value == m_defaultValue)
+        return;
 
-void QLCChannel::setControlByte(ControlByte byte)
-{
-    m_controlByte = byte;
+    m_defaultValue = value;
+    emit defaultValueChanged();
 }
 
 QLCChannel::ControlByte QLCChannel::controlByte() const
 {
     return m_controlByte;
+}
+
+void QLCChannel::setControlByte(ControlByte byte)
+{
+    if (byte == m_controlByte)
+        return;
+
+    m_controlByte = byte;
+    emit controlByteChanged();
 }
 
 /*****************************************************************************
@@ -928,7 +950,12 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
 
 void QLCChannel::setColour(QLCChannel::PrimaryColour colour)
 {
+    if (colour == m_colour)
+        return;
+
     m_colour = colour;
+
+    emit colourChanged();
 }
 
 QLCChannel::PrimaryColour QLCChannel::colour() const

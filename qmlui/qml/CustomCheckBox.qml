@@ -18,22 +18,32 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.14
 
 import "."
 
 RadioButton
 {
-    id: checkBoxRoot
+    id: controlRoot
     implicitWidth: UISettings.iconSizeDefault
     implicitHeight: UISettings.iconSizeDefault
     hoverEnabled: true
     autoExclusive: false
+    focusPolicy: Qt.StrongFocus
 
     property color bgColor: UISettings.bgControl
     property color hoverColor: UISettings.bgLight
     property color pressColor: UISettings.highlightPressed
     property string tooltip: ""
+
+    Rectangle
+    {
+        anchors.fill: parent
+        z: 3
+        color: "black"
+        opacity: 0.4
+        visible: !controlRoot.enabled
+    }
 
     ToolTip
     {
@@ -55,22 +65,14 @@ RadioButton
               color: "white"
           }
     }
-/*
-    contentItem:
-        RobotoText
-        {
-            label: checkBoxRoot.text
-            opacity: checkBoxRoot.enabled ? 1.0 : 0.3
-            //color: control.down ? "#17a81a" : "#21be2b"
-        }
-*/
+
     background:
         Rectangle
         {
             id: cbBody
             color: hovered ? hoverColor : bgColor
             radius: 5
-            border.color: "#1D1D1D"
+            border.color: controlRoot.focus ? UISettings.highlight : UISettings.bgStrong
             border.width: 2
         }
 

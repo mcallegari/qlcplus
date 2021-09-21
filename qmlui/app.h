@@ -28,6 +28,7 @@
 
 class MainView2D;
 class ShowManager;
+class SimpleDesk;
 class ActionManager;
 class FixtureBrowser;
 class FixtureManager;
@@ -41,6 +42,7 @@ class InputOutputManager;
 class ImportManager;
 class NetworkManager;
 class VideoProvider;
+class FixtureEditor;
 class Tardis;
 
 #define KXMLQLCWorkspace "Workspace"
@@ -181,6 +183,7 @@ private:
     InputOutputManager *m_ioManager;
     VirtualConsole *m_virtualConsole;
     ShowManager *m_showManager;
+    SimpleDesk *m_simpleDesk;
     ActionManager *m_actionManager;
     VideoProvider *m_videoProvider;
     NetworkManager *m_networkManager;
@@ -247,15 +250,6 @@ public:
     /** Save the current workspace with the given $fileName */
     Q_INVOKABLE bool saveWorkspace(const QString& fileName);
 
-    /** Start the import process for the workspace with the given $fileName */
-    Q_INVOKABLE bool loadImportWorkspace(const QString& fileName);
-
-    /** Cancel an ongoing import process started with loadImportWorkspace */
-    Q_INVOKABLE void cancelImport();
-
-    /** Perform the actual import of the selected items */
-    Q_INVOKABLE void importFromWorkspace();
-
     /**
      * Load workspace contents from a XML file with the given name.
      *
@@ -299,6 +293,35 @@ private:
     QString m_fileName;
     QStringList m_recentFiles;
     QString m_workingPath;
+
+    /*********************************************************************
+     * Import project
+     *********************************************************************/
+public:
+    /** Start the import process for the workspace with the given $fileName */
+    Q_INVOKABLE bool loadImportWorkspace(const QString& fileName);
+
+    /** Cancel an ongoing import process started with loadImportWorkspace */
+    Q_INVOKABLE void cancelImport();
+
+    /** Perform the actual import of the selected items */
+    Q_INVOKABLE void importFromWorkspace();
+
+private:
     ImportManager *m_importManager;
+
+    /*********************************************************************
+     * Fixture editor
+     *********************************************************************/
+public:
+    /** Request to create a new fixture definition. If the Fixture Editor
+     *  doesn't exist, it will be created */
+    Q_INVOKABLE void createFixture();
+    Q_INVOKABLE void loadFixture(QString fileName);
+    Q_INVOKABLE void editFixture(QString manufacturer, QString model);
+    Q_INVOKABLE void closeFixtureEditor();
+
+private:
+    FixtureEditor *m_fixtureEditor;
 };
 #endif // APP_H

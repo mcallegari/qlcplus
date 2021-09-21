@@ -73,9 +73,10 @@ class QLCCapability: public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ name CONSTANT)
-    Q_PROPERTY(int min READ min CONSTANT)
-    Q_PROPERTY(int max READ max CONSTANT)
+    Q_PROPERTY(int min READ min WRITE setMin NOTIFY minChanged)
+    Q_PROPERTY(int max READ max WRITE setMax NOTIFY maxChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(WarningType warning READ warning WRITE setWarning NOTIFY warningChanged)
     Q_PROPERTY(QVariantList resources READ resources CONSTANT)
 
     /********************************************************************
@@ -145,7 +146,6 @@ public:
         ColorWheelIndex,
         GoboMacro,
         GoboShakeMacro,
-        GoboRotatingMacro,
         GenericPicture,
         PrismEffectOn,
         PrismEffectOff,
@@ -188,6 +188,12 @@ public:
         Picture
     };
 
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PresetType)
+#else
+    Q_ENUMS(PresetType)
+#endif
+
     /** String <-> value preset conversion helpers */
     static QString presetToString(Preset preset);
     static Preset stringToPreset(const QString &preset);
@@ -211,6 +217,19 @@ protected:
      * Properties
      ********************************************************************/
 public:
+    enum WarningType
+    {
+        NoWarning,
+        EmptyName,
+        Overlapping
+    };
+
+#if QT_VERSION >= 0x050500
+    Q_ENUM(WarningType)
+#else
+    Q_ENUMS(WarningType)
+#endif
+
     /** Get/Set the capability range minimum value */
     uchar min() const;
     void setMin(uchar value);
@@ -226,6 +245,10 @@ public:
     QString name() const;
     void setName(const QString& name);
 
+    /** Get/Set a warning for this capability */
+    WarningType warning() const;
+    void setWarning(WarningType type);
+
     /** Get the resource at the provided index.
      *  Returns an empty QVariant on failure */
     QVariant resource(int index);
@@ -239,10 +262,17 @@ public:
     /** Check, whether the given capability overlaps with this */
     bool overlaps(const QLCCapability* cap);
 
+signals:
+    void minChanged();
+    void maxChanged();
+    void nameChanged();
+    void warningChanged();
+
 protected:
     uchar m_min;
     uchar m_max;
     QString m_name;
+    WarningType m_warning;
     QVariantList m_resources;
 
     /********************************************************************

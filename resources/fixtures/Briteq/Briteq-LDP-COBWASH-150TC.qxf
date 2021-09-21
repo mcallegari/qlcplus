@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Fredje Gallon</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>LDP-COBWASH 150TC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master dimmer/Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="200">Master dimmer</Capability>
+  <Capability Min="201" Max="247">Strobe (Slow to fast)</Capability>
+  <Capability Min="248" Max="255">Master dimmer 100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Color changer">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Color fade effect (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="RGB">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="RGB + Dim/Strobe">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer/Strobe</Channel>
+ </Mode>
+ <Mode Name="RGB + Dim">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="RGB + Dim + Strobe">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color changer</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9.5" Width="344" Height="326" Depth="220"/>
+  <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

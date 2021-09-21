@@ -17,6 +17,7 @@ QML_IMPORT_PATH =
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/audio/src
 INCLUDEPATH     += virtualconsole
+INCLUDEPATH     += fixtureeditor
 INCLUDEPATH     += tardis
 INCLUDEPATH     += ../plugins/interfaces
 DEPENDPATH      += ../engine/src
@@ -52,6 +53,7 @@ HEADERS += \
     sceneeditor.h \
     scripteditor.h \
     showmanager.h \
+    simpledesk.h \
     treemodel.h \
     treemodelitem.h \
     videoeditor.h \
@@ -84,6 +86,7 @@ SOURCES += main.cpp \
     sceneeditor.cpp \
     scripteditor.cpp \
     showmanager.cpp \
+    simpledesk.cpp \
     treemodel.cpp \
     treemodelitem.cpp \
     videoeditor.cpp \
@@ -132,6 +135,24 @@ SOURCES += \
     virtualconsole/vcslider.cpp \
     virtualconsole/vcclock.cpp \
     virtualconsole/vccuelist.cpp
+
+#############################################
+#  Fixture Definition Editor
+#############################################
+
+HEADERS += \
+    fixtureeditor/fixtureeditor.h \
+    fixtureeditor/editorview.h \
+    fixtureeditor/channeledit.h \
+    fixtureeditor/modeedit.h \
+    fixtureeditor/physicaledit.h
+
+SOURCES += \
+    fixtureeditor/fixtureeditor.cpp \
+    fixtureeditor/editorview.cpp \
+    fixtureeditor/channeledit.cpp \
+    fixtureeditor/modeedit.cpp \
+    fixtureeditor/physicaledit.cpp
 
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 

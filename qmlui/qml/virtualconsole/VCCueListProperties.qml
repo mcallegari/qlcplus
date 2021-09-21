@@ -70,7 +70,8 @@ Rectangle
                     {
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        imgSource: "qrc:/reset.svg"
+                        faSource: FontAwesome.fa_remove
+                        faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current chaser")
                         onClicked: widgetRef.chaserID = -1
                     }

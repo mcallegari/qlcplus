@@ -38,10 +38,9 @@
     background-color: #8db8dd;
   }
 </style>
-<!-- Include your script on the following line, replace "opposite.js" -->
 <script type="text/javascript" src="devtool.js"></script>
 </head>
-<body onLoad="loadAlgoFile()">
+<body onLoad="devtool.loadAlgoFile()">
 
 <h1>Q Light Controller Plus - RGB Script Development Tool</h1>
 
@@ -79,7 +78,7 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table id="definitions">
  <tr>
   <td>filename</td>
-  <td><input type="text" size="12" id="filename" value="Enter filename here." onChange="onFilenameUpdated(this.value)"/></td>
+  <td><input type="text" size="12" id="filename" value="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
  </tr>
  <tr>
   <td>apiVersion</td>
@@ -110,11 +109,11 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table>
  <tr>
   <td>Width</td>
-  <td><input type="number" min="1" id="width" value="15" size="4" style="width: 8em;" required onChange="onGridSizeUpdated()"/></td>
+  <td><input type="number" min="1" id="width" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
   <td>Height</td>
-  <td><input type="number" min="1" id="height" value="15" size="4" style="width: 8em;" required onChange="onGridSizeUpdated()"/></td>
+  <td><input type="number" min="1" id="height" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
 </table>
 </form>
@@ -127,11 +126,11 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table>
  <tr>
   <td>Primary color (rrggbb)</td>
-  <td><input type="text" id="primaryColor" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onChange="writeCurrentStep()" required /></td>
+  <td><input type="text" id="primaryColor" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()" required /></td>
  </tr>
  <tr id="secondaryColorChooser">
   <td>Secondary color (rrggbb, leave empty to disable)</td>
-  <td><INPUT TYPE="text" id="secondaryColor" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="writeCurrentStep()"/></td>
+  <td><INPUT TYPE="text" id="secondaryColor" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
  </tr>
 </table>
 </form>
@@ -156,20 +155,24 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table>
  <tr>
   <td>rgbMap(width, height, rgb, <b>step</b>)
-   <input type="number" min="0" id="currentStep" onChange="writeCurrentStep()"/>
+   <input type="number" min="0" id="currentStep" onChange="devtool.writeCurrentStep()"/>
   </td>
  </tr>
  <tr>
   <td>
-   <input type="button" value="Previous" onClick="previousStep()"/>
-   <input type="button" value="Next" onClick="nextStep()"/><br/>
-   <input type="button" value="Start test" onClick="startTest()"/>
-   <input type="button" value="Stop test" onClick="stopTest()"/>
+   <span>
+    <input type="button" value="Previous" onClick="devtool.previousStep()"/>
+    <input type="button" value="Next" onClick="devtool.nextStep()"/>
+   </span>
+   <span>
+    <input type="button" value="Start test" onClick="devtool.startTest()"/>
+    <input type="button" value="Stop test" onClick="devtool.stopTest()"/>
+   </span>
   </td>
  </tr>
  <tr>
   <td>
-   Speed (ms): <input type="number" min="1" id="speed" value="500" size="4" style="width: 8em;" onChange="onSpeedChanged()"/>
+   Speed (ms): <input type="number" min="1" id="speed" value="500" size="4" style="width: 8em;" onChange="devtool.onSpeedChanged()"/>
   </td>
  </tr>
 </table>

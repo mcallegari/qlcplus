@@ -17,56 +17,57 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.7
+import QtQuick.Controls 2.14
 import "."
 
-Rectangle
+TextField
 {
-    id: customTextEditRect
-    width: 200
+    id: controlRoot
+    implicitWidth: UISettings.bigItemHeight * 2
     height: UISettings.listItemHeight
     clip: true
-    radius: 3
-    color: UISettings.bgControl
 
-    property alias inputFocus: ctEdit.focus
-    property alias inputText: ctEdit.text
-    property alias inputMethodHints: ctEdit.inputMethodHints
-    property alias readOnly: ctEdit.readOnly
-    property alias echoMode: ctEdit.echoMode
-    property alias maximumLength: ctEdit.maximumLength
-    property int fontSize: UISettings.textSizeDefault
-    property int textAlignment: TextInput.AlignLeft
+    //anchors.margins: 4
+    color: UISettings.fgMain
+    selectedTextColor: UISettings.fgMain
+    selectionColor: UISettings.highlightPressed
+    horizontalAlignment: TextInput.AlignLeft
+    verticalAlignment: TextInput.AlignVCenter
+    font.family: UISettings.robotoFontName
+    font.pixelSize: UISettings.textSizeDefault
+    selectByMouse: true
 
-    property Item nextTabItem: null
-    property Item previousTabItem: null
-
-    signal textChanged(var text)
-    signal enterPressed()
-    signal escapePressed()
+    property int radius: 3
 
     function selectAndFocus()
     {
-        ctEdit.selectAll()
-        ctEdit.focus = true
-        ctEdit.forceActiveFocus()
+        controlRoot.selectAll()
+        controlRoot.focus = true
+        controlRoot.forceActiveFocus()
     }
 
     function appendText(text)
     {
-        if (ctEdit.selectedText)
+        if (controlRoot.selectedText)
         {
-            var sIdx = ctEdit.selectionStart
-            ctEdit.remove(sIdx, ctEdit.selectionEnd)
-            ctEdit.insert(sIdx, text)
+            var sIdx = controlRoot.selectionStart
+            controlRoot.remove(sIdx, controlRoot.selectionEnd)
+            controlRoot.insert(sIdx, text)
         }
         else
-            ctEdit.text += text
+            controlRoot.text += text
     }
 
-    border.color: "#222"
-
     onFocusChanged: if (focus) selectAndFocus()
+
+    background:
+        Rectangle
+        {
+            radius: controlRoot.radius
+            border.color: controlRoot.focus ? UISettings.highlight : UISettings.bgStrong
+            color: UISettings.bgControl
+        }
 
     Rectangle
     {
@@ -74,28 +75,6 @@ Rectangle
         z: 3
         color: "black"
         opacity: 0.5
-        visible: !parent.enabled
-    }
-
-    TextInput
-    {
-        id: ctEdit
-        anchors.fill: parent
-        //anchors.verticalCenter: parent.verticalCenter
-        anchors.margins: 4
-        color: UISettings.fgMain
-        selectionColor: UISettings.highlightPressed
-        clip: true
-        horizontalAlignment: textAlignment
-        verticalAlignment: TextInput.AlignVCenter
-        font.family: UISettings.robotoFontName
-        font.pixelSize: fontSize
-        selectByMouse: true
-
-        onTextChanged: customTextEditRect.textChanged(text)
-        onAccepted: customTextEditRect.enterPressed()
-        Keys.onEscapePressed: customTextEditRect.escapePressed()
-        KeyNavigation.tab: nextTabItem
-        KeyNavigation.backtab: previousTabItem
+        visible: !controlRoot.enabled
     }
 }

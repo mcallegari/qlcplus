@@ -38,7 +38,7 @@ window.onload = function() {
  };
 
  websocket.onmessage = function(ev) {
-  //alert(ev.data);
+  //console.log(ev.data);
   var msgParams = ev.data.split("|");
   if (msgParams[1] === "BUTTON") {
     wsSetButtonState(msgParams[0], msgParams[2]);
@@ -53,6 +53,9 @@ window.onload = function() {
   else if (msgParams[1] === "CUE") {
     wsSetCueIndex(msgParams[0], msgParams[2]);
   }
+  else if (msgParams[1] === "CLOCK") {
+    wsUpdateClockTime(msgParams[0], msgParams[2]);
+  }
   else if (msgParams[1] === "FRAME") {
     setFramePage(msgParams[0], msgParams[2]);
   }
@@ -60,4 +63,5 @@ window.onload = function() {
     alert(msgParams[1]);
   }
  };
+ initVirtualConsole();
 };

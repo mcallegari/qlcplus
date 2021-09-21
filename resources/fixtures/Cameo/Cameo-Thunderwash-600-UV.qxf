@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Torsten Caninenberg</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Thunderwash 600 UV</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Flash duration (1ms to 510ms)</Capability>
+ </Channel>
+ <Channel Name="Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Sound control OFF (Mic Sensitivity)</Capability>
+  <Capability Min="6" Max="255">Sound control ON Low -&gt; High (Mic Sensitivity)</Capability>
+ </Channel>
+ <Mode Name="1 Channel 1">
+  <Channel Number="0">Strobe</Channel>
+ </Mode>
+ <Mode Name="1 Channel 2">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Duration</Channel>
+  <Channel Number="3">Sound</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.1" Width="335" Height="93" Depth="197"/>
+  <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="160" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

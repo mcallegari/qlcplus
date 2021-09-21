@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -23,9 +23,9 @@
   <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#8080ff">Light blue</Capability>
   <Capability Min="57" Max="63" Preset="ColorMacro" Res1="#ff55ff">Pink</Capability>
   <Capability Min="64" Max="127" Preset="GoboMacro" Res1="Others/rainbow.png">Color mixing</Capability>
-  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Counter clockwise rotation fast - slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise rotation slow - fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationCounterClockwiseFastToSlow">Counter clockwise rotation fast - slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobos (Static)">
   <Group Byte="0">Gobo</Group>
@@ -44,9 +44,9 @@
   <Capability Min="100" Max="108" Preset="GoboShakeMacro" Res1="Chauvet/gobo00026.svg">Gobo 5 shake</Capability>
   <Capability Min="109" Max="117" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00079.svg">Gobo 6 shake</Capability>
   <Capability Min="118" Max="127" Preset="GoboShakeMacro" Res1="SGM/gobo00213.svg">Gobo 7 shake</Capability>
-  <Capability Min="128" Max="189">Counter-clockwise rotation fast - slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Clockwise rotation slow - fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationCounterClockwiseFastToSlow">Counter-clockwise rotation fast - slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobos (Rotating)">
   <Group Byte="0">Gobo</Group>
@@ -64,16 +64,16 @@
   <Capability Min="101" Max="109" Preset="GoboShakeMacro" Res1="SGM/gobo00058.png">Gobo 4 shake</Capability>
   <Capability Min="110" Max="118" Preset="GoboShakeMacro" Res1="SGM/gobo00027.svg">Gobo 5 shake</Capability>
   <Capability Min="119" Max="127" Preset="GoboShakeMacro" Res1="SGM/gobo00035.png">Gobo 6 shake</Capability>
-  <Capability Min="128" Max="189">Counter-clockwise rotation fast - slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Clockwise rotation slow - fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationCounterClockwiseFastToSlow">Counter-clockwise rotation fast - slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2 Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Indexing</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation slow - fast</Capability>
-  <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Counter-clockise rotation fast - slow</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Clockwise rotation slow - fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseFastToSlow">Counter-clockise rotation fast - slow</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
@@ -161,9 +161,9 @@
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobos (Static)</Channel>
   <Channel Number="4">Gobos (Rotating)</Channel>
-  <Channel Number="5">Gobo Wheel 2 Gobo Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Wheel 2 Gobo Rotation</Channel>
   <Channel Number="6">Prism</Channel>
-  <Channel Number="7">Prism Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Prism Rotation</Channel>
   <Channel Number="8">Strobe/Shutter</Channel>
   <Channel Number="9">Master Dimmer</Channel>
   <Channel Number="10">Focus</Channel>
@@ -183,9 +183,9 @@
   <Channel Number="4">Color</Channel>
   <Channel Number="5">Gobos (Static)</Channel>
   <Channel Number="6">Gobos (Rotating)</Channel>
-  <Channel Number="7">Gobo Wheel 2 Gobo Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Gobo Wheel 2 Gobo Rotation</Channel>
   <Channel Number="8">Prism</Channel>
-  <Channel Number="9">Prism Rotation</Channel>
+  <Channel Number="9" ActsOn="8">Prism Rotation</Channel>
   <Channel Number="10">Strobe/Shutter</Channel>
   <Channel Number="11">Master Dimmer</Channel>
   <Channel Number="12">Master Dimmer Fine</Channel>

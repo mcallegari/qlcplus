@@ -54,7 +54,7 @@ CustomPopupDialog
 
     onAccepted:
     {
-        paletteManager.createPalette(paletteObj, nameInputBox.inputText)
+        paletteManager.createPalette(paletteObj, nameInputBox.text)
     }
 
     contentItem:
@@ -75,8 +75,8 @@ CustomPopupDialog
             {
                 id: nameInputBox
                 Layout.fillWidth: true
-                inputText: qsTr("New Palette")
-                onEnterPressed: popupRoot.accept()
+                text: qsTr("New Palette")
+                onAccepted: popupRoot.accept()
             }
 
             // row 2
@@ -124,7 +124,7 @@ CustomPopupDialog
             CustomTextEdit
             {
                 Layout.fillWidth: true
-                inputText: qsTr("New Scene")
+                text: qsTr("New Scene")
                 enabled: createSceneCheck.checked
             }
         } // GridLayout

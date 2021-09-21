@@ -75,8 +75,8 @@ CustomPopupDialog
                 echoMode: TextInput.Password
                 inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
                 maximumLength: 4
-                nextTabItem: newPinEdit
-                previousTabItem: confirmPinEdit
+                KeyNavigation.tab: newPinEdit
+                KeyNavigation.backtab: confirmPinEdit
 
                 onTextChanged:
                 {
@@ -99,8 +99,8 @@ CustomPopupDialog
                 echoMode: TextInput.Password
                 inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
                 maximumLength: 4
-                nextTabItem: confirmPinEdit
-                previousTabItem: currentPinEdit
+                KeyNavigation.tab: confirmPinEdit
+                KeyNavigation.backtab: currentPinEdit
 
                 onTextChanged:
                 {
@@ -123,8 +123,8 @@ CustomPopupDialog
                 echoMode: TextInput.Password
                 inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
                 maximumLength: 4
-                nextTabItem: currentPinEdit
-                previousTabItem: newPinEdit
+                KeyNavigation.tab: currentPinEdit
+                KeyNavigation.backtab: newPinEdit
 
                 onTextChanged:
                 {

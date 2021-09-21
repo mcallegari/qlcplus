@@ -23,6 +23,7 @@
 #include <QQmlApplicationEngine>
 
 #include "app.h"
+#include "qlcfile.h"
 #include "qlcconfig.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
@@ -60,12 +61,6 @@ void printVersion()
 
 int main(int argc, char *argv[])
 {
-    QSurfaceFormat format;
-    format.setMajorVersion(3);
-    format.setMinorVersion(3);
-    format.setProfile(QSurfaceFormat::CoreProfile);
-    QSurfaceFormat::setDefaultFormat(format);
-
     QApplication app(argc, argv);
 
     QApplication::setOrganizationName("qlcplus");
@@ -98,7 +93,20 @@ int main(int argc, char *argv[])
                                       "locale", "");
     parser.addOption(localeOption);
 
+    QCommandLineOption threedSupportOption(QStringList() << "3" << "no3d",
+                                      "Disable the 3D preview.");
+    parser.addOption(threedSupportOption);
+
     parser.process(app);
+
+    if (!parser.isSet(threedSupportOption))
+    {
+        QSurfaceFormat format;
+        format.setMajorVersion(3);
+        format.setMinorVersion(3);
+        format.setProfile(QSurfaceFormat::CoreProfile);
+        QSurfaceFormat::setDefaultFormat(format);
+    }
 
     if (parser.isSet(debugOption))
         qInstallMessageHandler(debugMessageHandler);
@@ -116,7 +124,12 @@ int main(int argc, char *argv[])
 
     QString filename = parser.value(openFileOption);
     if (filename.isEmpty() == false)
-        qlcplusApp.loadWorkspace(filename);
+    {
+        if (filename.endsWith(KExtFixture))
+            qlcplusApp.loadFixture(filename);
+        else
+            qlcplusApp.loadWorkspace(filename);
+    }
 
     return app.exec();
 }

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>raymorris</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -35,21 +35,21 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="15">Spot</Capability>
-  <Capability Min="16" Max="31">Gobo 1</Capability>
-  <Capability Min="32" Max="47">Gobo 2</Capability>
-  <Capability Min="48" Max="63">Gobo 3</Capability>
-  <Capability Min="64" Max="79">Gobo 4</Capability>
-  <Capability Min="80" Max="95">Gobo 5</Capability>
-  <Capability Min="96" Max="111">Gobo 6</Capability>
-  <Capability Min="112" Max="127">Gobo 7</Capability>
-  <Capability Min="128" Max="255">Gobo scroll</Capability>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Spot</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo scroll</Capability>
  </Channel>
- <Channel Name="Gobo spin">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="85">Fast -&gt; slow</Capability>
-  <Capability Min="86" Max="170">Slow -&gt; fast</Capability>
-  <Capability Min="171" Max="178">No rotation</Capability>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="85" Preset="RotationClockwiseFastToSlow">Fast -&gt; slow</Capability>
+  <Capability Min="86" Max="170" Preset="RotationClockwiseSlowToFast">Slow -&gt; fast</Capability>
+  <Capability Min="171" Max="178" Preset="RotationStop">No rotation</Capability>
   <Capability Min="179" Max="255">Random rotation</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -69,7 +69,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo spin</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Shutter</Channel>
   <Channel Number="6">Gobo shake / reset</Channel>
   <Channel Number="7">Pan / tilt speed</Channel>

@@ -21,13 +21,13 @@
 #define RGBSCRIPT_H
 
 #include <QScriptValue>
+#include <QMutex>
 #include "rgbalgorithm.h"
 #include "rgbscriptproperty.h"
 
 class QScriptEngine;
 class QSize;
 class QDir;
-class QMutex;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -68,7 +68,11 @@ public:
 
 private:
     static QScriptEngine *s_engine; //! The engine that runs all scripts
-    static QMutex *s_engineMutex;   //! Protection
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    static QMutex* s_engineMutex;   //! Protection
+#else
+    static QRecursiveMutex* s_engineMutex;
+#endif
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 

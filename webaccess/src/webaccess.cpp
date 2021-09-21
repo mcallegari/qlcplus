@@ -42,6 +42,7 @@
 #include "function.h"
 #include "vclabel.h"
 #include "vcframe.h"
+#include "vcclock.h"
 #include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
@@ -54,10 +55,11 @@
 #include "qhttpresponse.h"
 #include "qhttpconnection.h"
 
+#define DEFAULT_PORT_NUMBER    9999
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
-                     bool enableAuth, QString passwdFile, QObject *parent) :
+                     int portNumber, bool enableAuth, QString passwdFile, QObject *parent) :
     QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
@@ -82,7 +84,7 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
     connect(m_httpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
             this, SLOT(slotHandleWebSocketClose(QHttpConnection*)));
 
-    m_httpServer->listen(QHostAddress::Any, 9999);
+    m_httpServer->listen(QHostAddress::Any, portNumber ? portNumber : DEFAULT_PORT_NUMBER);
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     m_netConfig = new WebAccessNetwork();
@@ -326,17 +328,17 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         if (cmdList[1] == "INPUT")
         {
-            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], cmdList[4].toUInt());
+            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", cmdList[4].toUInt());
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "OUTPUT")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), false);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "FB")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), true);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "PROFILE")
@@ -344,7 +346,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
             if (inPatch != NULL)
             {
-                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
+                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", inPatch->input(), cmdList[3]);
                 m_doc->inputOutputMap()->saveDefaults();
             }
         }
@@ -704,6 +706,10 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     if(m_auth && user && user->level < VC_ONLY_LEVEL)
         return;
 
+    /** Handle direct widget operations;
+     *  Commands start with the widget ID,
+     *  followed by specific parameters */
+
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
     uchar value = 0;
@@ -762,6 +768,15 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     frame->slotNextPage();
                 else if (cmdList[1] == "PREV_PG")
                     frame->slotPreviousPage();
+            }
+            break;
+            case VCWidget::ClockWidget:
+            {
+                VCClock *clock = qobject_cast<VCClock*>(widget);
+                if (cmdList[1] == "S")
+                    clock->playPauseTimer();
+                else if (cmdList[1] == "R")
+                    clock->resetTimer();
             }
             break;
             default:
@@ -1245,6 +1260,62 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     return str;
 }
 
+void WebAccess::slotClockTimeChanged(quint32 time)
+{
+    VCClock *clock = qobject_cast<VCClock *>(sender());
+    if (clock == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CLOCK|%2").arg(clock->id()).arg(time);
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+QString WebAccess::getClockHTML(VCClock *clock)
+{
+    QString str = "<div class=\"vclabel-wrapper\" style=\""
+            "left: " + QString::number(clock->x()) + "px; "
+            "top: " + QString::number(clock->y()) + "px;\">\n";
+    str +=  "<a id=\"" + QString::number(clock->id()) + "\" class=\"vclabel ";
+
+    if (clock->clockType() == VCClock::Stopwatch ||
+        clock->clockType() == VCClock::Countdown)
+    {
+        str += "vcclockcount\" href=\"javascript:controlWatch(";
+        str += QString::number(clock->id()) + ", 'S')\" ";
+        str += "oncontextmenu=\"javascript:controlWatch(";
+        str += QString::number(clock->id()) + ", 'R'); return false;\"";
+        connect(clock, SIGNAL(timeChanged(quint32)),
+                this, SLOT(slotClockTimeChanged(quint32)));
+    }
+    else
+    {
+        str += "vcclock\" href=\"javascript:void(0)\"";
+    }
+
+    str +=  "style=\"width: " + QString::number(clock->width()) + "px; "
+            "height: " + QString::number(clock->height()) + "px; "
+            "color: " + clock->foregroundColor().name() + "; "
+            "background-color: " + clock->backgroundColor().name() + "\">";
+
+
+    if (clock->clockType() == VCClock::Stopwatch)
+    {
+        str += "00:00:00";
+    }
+    else if (clock->clockType() == VCClock::Countdown)
+    {
+        QString curTime = QString("%1:%2:%3").arg(clock->getHours(), 2, 10, QChar('0'))
+                                             .arg(clock->getMinutes(), 2, 10, QChar('0'))
+                                             .arg(clock->getSeconds(), 2, 10, QChar('0'));
+        str += curTime;
+    }
+
+
+    str += "</a></div>\n";
+
+    return str;
+}
+
 QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx)
 {
     if (frame == NULL)
@@ -1309,6 +1380,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
             break;
             case VCWidget::CueListWidget:
                 str = getCueListHTML(qobject_cast<VCCueList *>(widget));
+            break;
+            case VCWidget::ClockWidget:
+                str = getClockHTML(qobject_cast<VCClock *>(widget));
             break;
             default:
                 str = getWidgetHTML(widget);

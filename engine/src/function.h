@@ -98,6 +98,7 @@ class Function : public QObject
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(Type type READ type CONSTANT)
     Q_PROPERTY(quint32 totalDuration READ totalDuration WRITE setTotalDuration NOTIFY totalDurationChanged)
+    Q_PROPERTY(RunOrder runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
 
 public:
     /**
@@ -346,6 +347,9 @@ protected:
 
     /** Load function's direction from $root */
     bool loadXMLRunOrder(QXmlStreamReader &root);
+
+signals:
+    void runOrderChanged();
 
 private:
     RunOrder m_runOrder;

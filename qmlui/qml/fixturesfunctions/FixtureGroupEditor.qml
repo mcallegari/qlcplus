@@ -116,7 +116,8 @@ Rectangle
 
             IconButton
             {
-                imgSource: "qrc:/reset.svg"
+                faSource: FontAwesome.fa_remove
+                faColor: UISettings.bgControl
                 tooltip: qsTr("Reset the entire group")
                 onClicked: fixtureGroupEditor.resetGroup()
             }

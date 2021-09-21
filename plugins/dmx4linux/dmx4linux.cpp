@@ -83,7 +83,7 @@ QStringList DMX4Linux::outputs()
 {
     QStringList list;
     if (m_file.exists() == true)
-        list << QString("1: DMX4Linux");
+        list << QString("DMX4Linux");
     return list;
 }
 

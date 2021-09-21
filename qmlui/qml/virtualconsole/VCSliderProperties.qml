@@ -235,7 +235,8 @@ Rectangle
                     {
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        imgSource: "qrc:/reset.svg"
+                        faSource: FontAwesome.fa_remove
+                        faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.controlledFunction = -1
                     }
@@ -251,6 +252,7 @@ Rectangle
                 CustomComboBox
                 {
                     Layout.fillWidth: true
+                    textRole: ""
                     model: widgetRef ? widgetRef.availableAttributes : null
                     currentIndex: widgetRef ? widgetRef.controlledAttribute : 0
                     onCurrentIndexChanged: if (widgetRef) widgetRef.controlledAttribute = currentIndex

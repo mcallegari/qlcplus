@@ -89,7 +89,7 @@ QStringList UARTPlugin::outputs()
     for (int i = 0; i < m_widgets.count(); i++)
     {
         UARTWidget *widget = m_widgets.at(i);
-        list << QString("%1: %2").arg(i + 1).arg(widget->name());
+        list << widget->name();
     }
     return list;
 }
@@ -167,7 +167,7 @@ QStringList UARTPlugin::inputs()
     for (int i = 0; i < m_widgets.count(); i++)
     {
         UARTWidget *widget = m_widgets.at(i);
-        list << QString("%1: %2").arg(i + 1).arg(widget->name());
+        list << widget->name();
     }
     return list;
 }

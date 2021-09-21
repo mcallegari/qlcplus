@@ -50,15 +50,16 @@ Popup
     {
         id: openDialog
         visible: false
-        title: qsTr("Open a project")
+        title: qsTr("Open a file")
         folder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            qlcplus.loadWorkspace(fileUrl)
-            console.log("Folder: " + folder.toString())
+            if (fileUrl.toString().endsWith("qxf") || fileUrl.toString().endsWith("d4"))
+                qlcplus.loadFixture(fileUrl)
+            else
+                qlcplus.loadWorkspace(fileUrl)
             qlcplus.workingPath = folder.toString()
         }
     }
@@ -179,7 +180,7 @@ Popup
         {
             id: fileOpen
             imgSource: "qrc:/fileopen.svg"
-            entryText: qsTr("Open project")
+            entryText: qsTr("Open file")
             onClicked:
             {
                 if (qlcplus.docModified)

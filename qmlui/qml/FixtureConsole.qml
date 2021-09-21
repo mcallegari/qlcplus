@@ -43,6 +43,7 @@ Rectangle
     property Fixture fixtureObj
     property variant values
     property bool dmxValues: true
+    property real maxValue: 255
     property bool isSelected: false
     property bool showEnablers: false
     property bool sceneConsole: false
@@ -60,10 +61,7 @@ Rectangle
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
-            if (dmxValues)
-                channelsRpt.itemAt(i).dmxValue = values[i]
-            else
-                channelsRpt.itemAt(i).dmxValue = (values[i] / 255) * 100
+            channelsRpt.itemAt(i).dmxValue = values[i]
         }
         externalChange = false
     }
@@ -113,16 +111,15 @@ Rectangle
                 dmxMode: dmxValues
                 onClicked:
                 {
-                    dmxValues = !dmxValues
-                    for (var i = 0; i < channelsRpt.count; i++)
+                    if (dmxValues)
                     {
-                        var newVal;
-                        if (dmxValues == false)
-                            newVal = (channelsRpt.itemAt(i).dmxValue / 255) * 100
-                        else
-                            newVal = (channelsRpt.itemAt(i).dmxValue / 100) * 255
-                        channelsRpt.itemAt(i).dmxMode = dmxValues
-                        channelsRpt.itemAt(i).dmxValue = newVal
+                        dmxValues = false
+                        maxValue = 100
+                    }
+                    else
+                    {
+                        maxValue = 255
+                        dmxValues = true
                     }
                 }
             }
@@ -153,8 +150,7 @@ Rectangle
                         width: UISettings.iconSizeDefault
                         height: channelsRow.height
 
-                        property alias dmxValue: chValueSpin.value
-                        property bool dmxMode: true
+                        property real dmxValue
                         property bool isEnabled: showEnablers ? false : true
 
                         function updateChannel()
@@ -168,13 +164,12 @@ Rectangle
                             if (externalChange == true)
                                 return
 
-                            var val = dmxMode ? dmxValue : dmxValue * 2.55
                             if (sceneConsole == false)
-                                fixtureManager.setChannelValue(fixtureObj.id, index, val)
+                                fixtureManager.setChannelValue(fixtureObj.id, index, dmxValue)
                             else
-                                functionManager.setChannelValue(fixtureObj.id, index, val)
+                                functionManager.setChannelValue(fixtureObj.id, index, dmxValue)
 
-                            consoleRoot.valueChanged(fixtureObj.id, index, val)
+                            consoleRoot.valueChanged(fixtureObj.id, index, dmxValue)
                         }
 
                         // This is the black overlay to "simulate" a disabled channel
@@ -229,7 +224,7 @@ Rectangle
                                         if (sceneConsole == true)
                                         {
                                             if (isEnabled == true)
-                                                functionManager.setChannelValue(fixtureObj.id, index, dmxMode ? dmxValue : dmxValue * 2.55)
+                                                functionManager.setChannelValue(fixtureObj.id, index, dmxValue)
                                             else
                                                 sceneEditor.unsetChannel(fixtureObj.id, index)
                                         }
@@ -263,10 +258,10 @@ Rectangle
                                 width: parent.width * 0.95
                                 height: chDelegate.height - (showEnablers ? enableCheckBox.height : 0) - chIcon.height - chValueSpin.height
                                 from: 0
-                                to: dmxMode ? 255 : 100
+                                to: 255
                                 value: dmxValue
                                 enabled: showEnablers ? isEnabled : true
-                                onPositionChanged: dmxValue = valueAt(position)
+                                onMoved: dmxValue = valueAt(position)
 
                                 Component.onCompleted:
                                 {
@@ -285,12 +280,13 @@ Rectangle
                                 width: parent.width
                                 height: UISettings.listItemHeight * 0.75
                                 from: 0
-                                to: dmxMode ? 255 : 100
-                                suffix: dmxMode ? "" : "%"
+                                to: maxValue
+                                suffix: dmxValues ? "" : "%"
                                 showControls: false
                                 padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
-                                onValueModified: dmxValue = value
+                                value: dmxValues ? dmxValue : (dmxValue / 255.0) * 100.0
+                                onValueModified: dmxValue = dmxValues ? value : value * 2.55
                             }
                         }
                     }

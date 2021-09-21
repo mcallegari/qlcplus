@@ -470,6 +470,7 @@ Rectangle
                                     id: patternCombo
                                     Layout.fillWidth: true
                                     height: editorColumn.itemsHeight
+                                    textRole: ""
                                     model: efxEditor.algorithms
                                     currentIndex: efxEditor.algorithmIndex
                                     onCurrentIndexChanged: efxEditor.algorithmIndex = currentIndex
@@ -804,7 +805,7 @@ Rectangle
                                     }
                                     model: runOrderModel
 
-                                    currentValue: efxEditor.runOrder
+                                    currValue: efxEditor.runOrder
                                     onValueChanged: efxEditor.runOrder = value
                                 }
                                 RobotoText
@@ -823,7 +824,7 @@ Rectangle
                                     }
                                     model: directionModel
 
-                                    currentValue: efxEditor.direction
+                                    currValue: efxEditor.direction
                                     onValueChanged: efxEditor.direction = value
                                 }
                                 RobotoText

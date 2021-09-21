@@ -215,6 +215,7 @@ void App::init()
     setCentralWidget(m_tab);
 
 #if defined(__APPLE__) || defined(Q_OS_MAC)
+    m_tab->setElideMode(Qt::TextElideMode::ElideNone);
     qt_set_sequence_auto_mnemonic(true);
 #endif
 
@@ -1162,7 +1163,7 @@ void App::slotDetachContext(int index)
 
     qDebug() << "Detaching context" << context;
 
-    DetachedContext *detachedWindow = new DetachedContext();
+    DetachedContext *detachedWindow = new DetachedContext(this);
     detachedWindow->setCentralWidget(context);
     detachedWindow->resize(800, 600);
     detachedWindow->show();

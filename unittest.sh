@@ -8,6 +8,14 @@ CURRUSER=$(whoami)
 TESTPREFIX=""
 SLEEPCMD=""
 HAS_XSERVER="0"
+THISCMD=`basename "$0"`
+
+TARGET=${1:-}
+
+if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
+  echo >&2 "Usage: $THISCMD ui|qmlui"
+  exit 1
+fi
 
 if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -42,8 +50,7 @@ else
 fi
 
 # run xmllint on fixture definitions
-pushd .
-cd resources/fixtures/scripts
+pushd resources/fixtures/scripts
 VALIDATION_ERRORS=$(./check)
 popd
 echo $VALIDATION_ERRORS
@@ -66,8 +73,7 @@ do
 
     $SLEEPCMD
     # Execute the test
-    pushd .
-    cd ${TESTDIR}/${test}
+    pushd ${TESTDIR}/${test}
     $TESTPREFIX ./test.sh
     RESULT=${?}
     popd
@@ -81,7 +87,8 @@ done
 # UI tests
 #############################################################################
 
-if [ "$HAS_XSERVER" -eq "1" ]; then
+# Skip ui in qmlui mode
+if [ "$HAS_XSERVER" -eq "1" ] && [ "$TARGET" != "qmlui" ]; then
 
 TESTDIR=ui/test
 TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
@@ -97,8 +104,7 @@ do
 
     $SLEEPCMD
     # Execute the test
-    pushd .
-    cd ${TESTDIR}/${test}
+    pushd ${TESTDIR}/${test}
     DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:../../../engine/src:../../src \
         LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../../engine/src:../../src $TESTPREFIX ./${test}_test
     RESULT=${?}
@@ -116,8 +122,7 @@ fi
 #############################################################################
 
 $SLEEPCMD
-pushd .
-cd plugins/enttecwing/test
+pushd plugins/enttecwing/test
 $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
@@ -134,8 +139,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Skip Velleman test (not supported on OSX)"
 else
   $SLEEPCMD
-  pushd .
-  cd plugins/velleman/test
+  pushd plugins/velleman/test
   $TESTPREFIX ./test.sh
   RESULT=$?
   if [ $RESULT != 0 ]; then
@@ -150,8 +154,7 @@ fi
 #############################################################################
 
 $SLEEPCMD
-pushd .
-cd plugins/midi/test
+pushd plugins/midi/test
 $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
@@ -165,8 +168,7 @@ popd
 #############################################################################
 
 $SLEEPCMD
-pushd .
-cd plugins/artnet/test
+pushd plugins/artnet/test
 $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then

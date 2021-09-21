@@ -6,7 +6,7 @@
   <Version>4.12.1 GIT</Version>
   <Author>Timo Willemsen</Author>
  </Creator>
- <Manufacturer>Fun Generation</Manufacturer>
+ <Manufacturer>Fun-Generation</Manufacturer>
  <Model>PicoSpot 20</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan" Preset="PositionPan"/>

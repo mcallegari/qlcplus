@@ -108,7 +108,7 @@ void Velleman::closeOutput(quint32 output, quint32 universe)
 QStringList Velleman::outputs()
 {
     QStringList list;
-    list << QString("1: Velleman Device");
+    list << QString("Velleman Device");
     return list;
 }
 

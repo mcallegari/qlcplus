@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Justin Hornsby</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -52,9 +52,9 @@
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00055.svg">Gobo 5 Shake</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00118.svg">Gobo 6 Shake</Capability>
   <Capability Min="120" Max="127" Preset="GoboShakeMacro" Res1="Others/gobo00117.svg">Gobo 7 Shake</Capability>
-  <Capability Min="128" Max="189">Gobo Scroll Fast to Slow</Capability>
-  <Capability Min="190" Max="193">Gobo Stop</Capability>
-  <Capability Min="194" Max="255">Gobo Scroll Slow to Fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Gobo Scroll Fast to Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Gobo Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Gobo Scroll Slow to Fast</Capability>
  </Channel>
  <Channel Name="Pan/Tilt Macro">
   <Group Byte="0">Effect</Group>

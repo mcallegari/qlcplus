@@ -20,6 +20,7 @@
 #include <QQmlEngine>
 #include <QQuickItem>
 #include <QQmlContext>
+#include <QDebug>
 
 #include "fixturebrowser.h"
 #include "qlcfixturemode.h"
@@ -59,8 +60,11 @@ FixtureBrowser::~FixtureBrowser()
 
 QStringList FixtureBrowser::manufacturers()
 {
-    QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
-    mfList.sort();
+    if (m_defCache.isEmpty())
+        m_defCache = m_doc->fixtureDefCache()->fixtureCache();
+
+    QStringList mfList = m_defCache.keys();
+    mfList.sort(Qt::CaseInsensitive);
     m_manufacturerIndex = mfList.indexOf("Generic");
     emit manufacturerIndexChanged(m_manufacturerIndex);
     return mfList;
@@ -83,16 +87,27 @@ void FixtureBrowser::setSelectedManufacturer(QString selectedManufacturer)
 
 QStringList FixtureBrowser::modelsList()
 {
+    if (m_selectedManufacturer.isEmpty())
+        return QStringList();
+
+    if (m_defCache.isEmpty())
+        m_defCache = m_doc->fixtureDefCache()->fixtureCache();
+
     qDebug() << "[FixtureBrowser] Models list for" << m_selectedManufacturer;
-    QStringList fxList = m_doc->fixtureDefCache()->models(m_selectedManufacturer);
+    QStringList fxList = m_defCache[m_selectedManufacturer].keys();
     if (m_selectedManufacturer == "Generic")
     {
         fxList << "Generic Dimmer";
         fxList << "Generic RGB Panel";
     }
 
-    fxList.sort();
+    fxList.sort(Qt::CaseInsensitive);
     return fxList;
+}
+
+bool FixtureBrowser::isUserDefinition(QString manufacturer, QString model)
+{
+    return m_defCache[manufacturer].value(model, false);
 }
 
 QString FixtureBrowser::selectedModel() const
@@ -242,7 +257,7 @@ int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity,
     {
         for (int i = 0; i < channels; i++)
         {
-            if(m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
+            if (m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
             {
                 isAvailable = false;
                 break;

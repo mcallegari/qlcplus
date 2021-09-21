@@ -199,8 +199,6 @@ VCWidgetItem
         z: 2 // this area must be above the VCWidget resize controls
         keys: [ "function" ]
 
-        onEntered: virtualConsole.setDropTarget(buttonRoot, true)
-        onExited: virtualConsole.setDropTarget(buttonRoot, false)
         onDropped:
         {
             // attach function here

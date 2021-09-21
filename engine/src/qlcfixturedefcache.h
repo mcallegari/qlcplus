@@ -86,6 +86,11 @@ public:
      */
     QStringList models(const QString& manufacturer) const;
 
+    /** Get a complete map of the available fixtures as:
+      * manufacturer, <model, isUser>
+      */
+    QMap<QString, QMap<QString, bool> > fixtureCache() const;
+
     /**
      * Add a fixture definition to the model map.
      *
@@ -159,7 +164,7 @@ public:
 
 private:
     /** Load a QLC native fixture definition from the file specified in $path */
-    bool loadQXF(const QString& path);
+    bool loadQXF(const QString& path, bool isUser = false);
 
     /** Load an Avolites D4 fixture definition from the file specified in $path */
     bool loadD4(const QString& path);

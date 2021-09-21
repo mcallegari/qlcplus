@@ -57,4 +57,4 @@ protected:
     QVariantList m_data;
 };
 
-#endif // TREEMODEL_H
+#endif // LISTMODEL_H

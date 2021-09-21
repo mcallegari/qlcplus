@@ -52,7 +52,7 @@ Rectangle
         rSpin.value = filterRGB.r * 255
         gSpin.value = filterRGB.g * 255
         bSpin.value = filterRGB.b * 255
-        htmlText.inputText = Helpers.getHTMLColor(filterRGB.r * 255, filterRGB.g * 255, filterRGB.b * 255)
+        htmlText.text = Helpers.getHTMLColor(filterRGB.r * 255, filterRGB.g * 255, filterRGB.b * 255)
         emitCurrentColor()
     }
     onFilterWAUVChanged:
@@ -107,6 +107,7 @@ Rectangle
             {
                 z: 2
                 Layout.fillWidth: true
+                textRole: ""
                 model: fixtureManager.colorFiltersFileList
                 currentIndex: fixtureManager.colorFilterFileIndex
                 onCurrentIndexChanged:

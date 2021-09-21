@@ -27,16 +27,25 @@ unix:!macx:QMAKE_DISTCLEAN += $$DEBIAN_CLEAN
 # Unit testing thru "make check"
 unittests.target = check
 QMAKE_EXTRA_TARGETS += unittests
-unix:unittests.commands += ./unittest.sh
-win32:unittests.commands += unittest.bat
+qmlui: {
+  unix:unittests.commands += ./unittest.sh "qmlui"
+  win32:unittests.commands += unittest.bat "qmlui"
+} else {
+  unix:unittests.commands += ./unittest.sh "ui"
+  win32:unittests.commands += unittest.bat "ui"
+}
 
 # Unit test coverage measurement
 coverage.target = lcov
 QMAKE_EXTRA_TARGETS += coverage
-unix:coverage.commands += ./coverage.sh
+qmlui: {
+unix:coverage.commands += ./coverage.sh "qmlui"
+} else {
+unix:coverage.commands += ./coverage.sh "ui"
+}
 win32:coverage.commands = @echo Get a better OS.
 
-# Translations (update these also in translate.sh)
+# Translations
 translations.target = translate
 QMAKE_EXTRA_TARGETS += translations
 qmlui: {
@@ -44,19 +53,14 @@ qmlui: {
 } else {
   translations.commands += ./translate.sh "ui"
 }
-translations.files = ./qlcplus_de_DE.qm ./qlcplus_es_ES.qm ./qlcplus_fr_FR.qm
-translations.files += ./qlcplus_it_IT.qm ./qlcplus_nl_NL.qm ./qlcplus_ca_ES.qm ./qlcplus_ja_JP.qm
-qmlui: {
-  translations.files += ./qlcplus_ru_RU.qm ./qlcplus_uk_UA.qm ./qlcplus_pl_PL.qm
-} else {
-  translations.files += ./qlcplus_cz_CZ.qm ./qlcplus_pt_BR.qm
-}
+translations.files = *.qm
 appimage: {
   translations.path   = $$TARGET_DIR/$$INSTALLROOT/$$TRANSLATIONDIR
 } else {
   translations.path   = $$INSTALLROOT/$$TRANSLATIONDIR
 }
 INSTALLS           += translations
+QMAKE_DISTCLEAN += $$translations.files
 
 # Leave this on the last row of this file
 SUBDIRS += platforms

@@ -73,6 +73,13 @@ class QLCChannel : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(Preset preset READ preset WRITE setPreset NOTIFY presetChanged)
+    Q_PROPERTY(Group group READ group WRITE setGroup NOTIFY groupChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(uchar defaultValue READ defaultValue WRITE setDefaultValue NOTIFY defaultValueChanged)
+    Q_PROPERTY(ControlByte controlByte READ controlByte WRITE setControlByte NOTIFY controlByteChanged)
+    Q_PROPERTY(PrimaryColour colour READ colour WRITE setColour NOTIFY colourChanged)
+
 public:
     /** Standard constructor */
     QLCChannel(QObject *parent = 0);
@@ -174,11 +181,8 @@ public:
         NoFunction,
         LastPreset // dummy for cycles
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Preset)
-#else
-    Q_ENUMS(Preset)
-#endif
+
     static QString presetToString(Preset preset);
     static Preset stringToPreset(const QString &preset);
 
@@ -186,6 +190,9 @@ public:
     void setPreset(Preset preset);
 
     QLCCapability *addPresetCapability();
+
+signals:
+    void presetChanged();
 
 protected:
     Preset m_preset;
@@ -210,11 +217,7 @@ public:
         Nothing,
         NoGroup = INT_MAX
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Group)
-#else
-    Q_ENUMS(Group)
-#endif
 
     /** Get a list of possible channel groups */
     static QStringList groupList();
@@ -224,6 +227,9 @@ public:
 
     /** Convert a string to a Group */
     static Group stringToGroup(const QString& str);
+
+    /** Helper method to get a string of the current group */
+    Q_INVOKABLE QString groupString() const;
 
     /** Set the channel's group with the Group enum */
     void setGroup(Group grp);
@@ -235,7 +241,7 @@ public:
     QIcon getIcon() const;
 
     /** Get the channel's icon resource name */
-    QString getIconNameFromGroup(QLCChannel::Group grp, bool svg = false) const;
+    Q_INVOKABLE QString getIconNameFromGroup(QLCChannel::Group grp, bool svg = false) const;
 
 private:
     QPixmap drawIntensity(QColor color, QString str) const;
@@ -245,6 +251,9 @@ private:
 
     /** Get the intensity channel color name */
     QString getIntensityColorCode(bool svg = false) const;
+
+signals:
+    void groupChanged();
 
 protected:
     Group m_group;
@@ -259,6 +268,7 @@ public:
         MSB = 0,
         LSB = 1
     };
+    Q_ENUM(ControlByte)
 
     /** Get the channel's name */
     QString name() const;
@@ -277,6 +287,11 @@ public:
 
     /** Get the channel's control byte */
     ControlByte controlByte() const;
+
+signals:
+    void nameChanged();
+    void defaultValueChanged();
+    void controlByteChanged();
 
 protected:
     QString m_name;
@@ -303,11 +318,7 @@ public:
         Indigo      = 0x4B0082
     };
 
-#if QT_VERSION >= 0x050500
     Q_ENUM(PrimaryColour)
-#else
-    Q_ENUMS(PrimaryColour)
-#endif
 
     /** Get a list of possible channel groups */
     static QStringList colourList();
@@ -323,6 +334,9 @@ public:
 
     /** Get the colour that is controlled by this channel */
     PrimaryColour colour() const;
+
+signals:
+    void colourChanged();
 
 private:
     PrimaryColour m_colour;

@@ -22,7 +22,7 @@
 #include <QStringList>
 #include <QDebug>
 
-E131Packetizer::E131Packetizer()
+E131Packetizer::E131Packetizer(QString MACaddr)
 {
     // Initialize a commond header.
     m_commonHeader.clear();
@@ -70,12 +70,13 @@ E131Packetizer::E131Packetizer()
     m_commonHeader.append((char)0xE2);
     m_commonHeader.append((char)0x99);
     m_commonHeader.append((char)0x19);
-    m_commonHeader.append((char)0x31);
-    m_commonHeader.append((char)0x7A);
-    m_commonHeader.append((char)0x07);
-    m_commonHeader.append((char)0xC1);
-    m_commonHeader.append((char)0x00);
-    m_commonHeader.append((char)0x52);
+
+    QStringList MAC = MACaddr.split(":");
+    foreach (QString couple, MAC)
+    {
+        bool ok;
+        m_commonHeader.append((char)couple.toInt(&ok, 16));
+    }
 
     // empty flags & PDU length (bytes 38-39)
     m_commonHeader.append('\0');

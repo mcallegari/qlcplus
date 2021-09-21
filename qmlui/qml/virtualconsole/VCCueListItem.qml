@@ -192,9 +192,6 @@ VCWidgetItem
             //onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
             onAddFunctions: if (cueListObj) cueListObj.addFunctions(list, index)
 
-            onDragEntered: virtualConsole.setDropTarget(item, true)
-            onDragExited: virtualConsole.setDropTarget(item, false)
-
             states: [
                 State
                 {

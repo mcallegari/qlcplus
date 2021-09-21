@@ -16,7 +16,7 @@ form {
  border-radius: 4px;
  font-family: arial, verdana, sans-serif;
  text-decoration: none;
- text-align:center;
+ text-align: center;
  vertical-align: middle;
 }
 
@@ -159,6 +159,12 @@ table.hovertable td {
  font-family: arial, verdana, sans-serif;
  text-align:center;
  vertical-align: middle;
+}
+
+.vcclock, .vcclockcount {
+ font-size: 28px;
+ font-weight: bold;
+ text-decoration: none;
 }
 
 .vcslider {

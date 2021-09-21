@@ -55,6 +55,7 @@
 #include "clickandgoslider.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
+#include "chaseraction.h"
 #include "mastertimer.h"
 #include "vcsoloframe.h"
 #include "inputpatch.h"
@@ -62,6 +63,7 @@
 #include "function.h"
 #include "fixture.h"
 #include "apputil.h"
+#include "chaser.h"
 #include "doc.h"
 
 const QSize VCButton::defaultSize(QSize(50, 50));
@@ -547,11 +549,19 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
             else if (state() == Active && value == 0)
                 releaseFunction();
         }
-        else if (value > 0)
+        else
         {
-            // Only toggle when the external button is pressed.
-            // Releasing the button does nothing.
-            pressFunction();
+            if (value > 0)
+            {
+                // Only toggle when the external button is pressed.
+                pressFunction();
+            }
+            else
+            {
+                // Work around the "internal" feedback of some controllers
+                // by updating feedback state after button release.
+                updateFeedback();
+            }
         }
     }
 }
@@ -686,6 +696,23 @@ void VCButton::pressFunction()
         else
         {
             adjustFunctionIntensity(f, intensity());
+
+            // starting a Chaser is a special case, since it is necessary
+            // to use Chaser Actions to properly start the first
+            // Chaser step with the right intensity
+            if (f->type() == Function::ChaserType || f->type() == Function::SequenceType)
+            {
+                ChaserAction action;
+                action.m_action = ChaserSetStepIndex;
+                action.m_stepIndex = 0;
+                action.m_masterIntensity = intensity();
+                action.m_stepIntensity = 1.0;
+                action.m_fadeMode = Chaser::FromFunction;
+
+                Chaser *chaser = qobject_cast<Chaser*>(f);
+                chaser->setAction(action);
+            }
+
             f->start(m_doc->masterTimer(), functionParent());
             setState(Active);
             emit functionStarting(m_function);

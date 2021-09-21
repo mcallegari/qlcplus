@@ -115,11 +115,10 @@ QStringList MidiPlugin::outputs()
     //qDebug() << Q_FUNC_INFO;
 
     QStringList list;
-    int i = 1;
 
     QListIterator <MidiOutputDevice*> it(m_enumerator->outputDevices());
     while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->name());
+        list << it.next()->name();
 
     return list;
 }
@@ -235,11 +234,10 @@ QStringList MidiPlugin::inputs()
     //qDebug() << Q_FUNC_INFO;
 
     QStringList list;
-    int i = 1;
 
     QListIterator <MidiInputDevice*> it(m_enumerator->inputDevices());
     while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->name());
+        list << it.next()->name();
 
     return list;
 }

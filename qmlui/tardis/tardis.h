@@ -34,6 +34,7 @@ class ContextManager;
 class VirtualConsole;
 class NetworkManager;
 class ShowManager;
+class SimpleDesk;
 class Doc;
 
 typedef struct
@@ -142,6 +143,10 @@ public:
         VideoSetRotation,
         VideoSetLayer,
 
+        /* Simple Desk actions */
+        SimpleDeskSetChannel = 0xC000,
+        SimpleDeskResetChannel,
+
         /* Virtual console editing actions */
         VCWidgetCreate = 0xE000,
         VCWidgetDelete,
@@ -189,7 +194,8 @@ public:
 
     explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
                     FixtureManager *fxMgr, FunctionManager *funcMgr,
-                    ContextManager *ctxMgr, ShowManager *showMgr, VirtualConsole *vc,
+                    ContextManager *ctxMgr, SimpleDesk *sDesk,
+                    ShowManager *showMgr, VirtualConsole *vc,
                     QObject *parent = 0);
 
     ~Tardis();
@@ -246,6 +252,8 @@ private:
     FunctionManager *m_functionManager;
     /** Reference to the Context Manager */
     ContextManager *m_contextManager;
+    /** Reference to the Simple Desk */
+    SimpleDesk *m_simpleDesk;
     /** Reference to the Show Manager */
     ShowManager *m_showManager;
     /** Reference to the Virtual Console */

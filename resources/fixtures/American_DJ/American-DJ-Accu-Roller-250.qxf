@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Anders Thomsen</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -99,7 +99,7 @@
   <Channel Number="1">Barrel rotation</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo rotation</Channel>
   <Channel Number="5">Shutter/Strobe</Channel>
   <Channel Number="6">Reset/Internal programs</Channel>
   <Channel Number="7">Speed of pan/tilt movement</Channel>

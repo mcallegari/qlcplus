@@ -44,6 +44,7 @@ CustomComboBox
     delegateHeight: UISettings.iconSizeDefault
 
     onDisplayTextChanged: buttonBox.tooltip = displayText
+    Component.onCompleted: updateFromValue()
 
     indicator: null
 
@@ -56,10 +57,9 @@ CustomComboBox
 
             RobotoText
             {
-                id: textIcon
                 height: parent.height * 0.75
                 anchors.centerIn: parent
-                label: ""
+                label: currentTextIcon
                 fontSize: parent.height * 0.75
                 fontBold: true
             }

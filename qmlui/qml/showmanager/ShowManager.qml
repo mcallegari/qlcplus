@@ -87,7 +87,7 @@ Rectangle
             {
                 width: showMgrContainer.width / 5
                 height: parent.height - 10
-                inputText: showManager.showName
+                text: showManager.showName
 
                 onTextChanged: showManager.showName = text
             }

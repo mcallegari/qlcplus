@@ -73,6 +73,9 @@ namespace QLCArgs
     /** If true, create and run a class to enable a web server for remote controlling */
     bool enableWebAccess = false;
 
+    /** Number of a specific port to use for webaccess */
+    int webAccessPort = 0;
+
     /** If true, the authentication feature of the web interface will be enabled */
     bool enableWebAuth = false;
 
@@ -192,6 +195,7 @@ void printUsage()
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
     cout << "  -w or --web\t\t\tEnable remote web access" << endl;
+    cout << "  -wp or --web-port <port>\t\tSet the port to use for web access" << endl;
     cout << "  -wa or --web-auth\t\tEnable remote web access with users authentication" << endl;
     cout << "  -a or --web-auth-file <file>\tSpecify a file where to store web access basic authentication credentials" << endl;
     cout << endl;
@@ -282,6 +286,11 @@ bool parseArgs()
         else if (arg == "-w" || arg == "--web")
         {
             QLCArgs::enableWebAccess = true;
+        }
+        else if (arg == "-wp" || arg == "--web-port")
+        {
+            if (it.hasNext() == true)
+                QLCArgs::webAccessPort = it.next().toInt();
         }
         else if (arg == "-wa" || arg == "--web-auth")
         {
@@ -378,7 +387,7 @@ int main(int argc, char** argv)
     if (QLCArgs::enableWebAccess == true)
     {
         WebAccess *webAccess = new WebAccess(app.doc(), VirtualConsole::instance(), SimpleDesk::instance(),
-                                             QLCArgs::enableWebAuth, QLCArgs::webAccessPasswordFile);
+                                             QLCArgs::webAccessPort, QLCArgs::enableWebAuth, QLCArgs::webAccessPasswordFile);
 
         QObject::connect(webAccess, SIGNAL(toggleDocMode()),
                 &app, SLOT(slotModeToggle()));

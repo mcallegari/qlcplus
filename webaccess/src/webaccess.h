@@ -38,6 +38,7 @@ class VCWidget;
 class VCSlider;
 class VCLabel;
 class VCFrame;
+class VCClock;
 class Doc;
 
 class QHttpServer;
@@ -50,7 +51,8 @@ class WebAccess : public QObject
     Q_OBJECT
 public:
     explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
-                       bool enableAuth, QString passwdFile = QString(), QObject *parent = 0);
+                       int portNumber, bool enableAuth, QString passwdFile = QString(),
+                       QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
 
@@ -66,6 +68,7 @@ private:
     QString getLabelHTML(VCLabel *label);
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
     QString getCueListHTML(VCCueList *cue);
+    QString getClockHTML(VCClock *clock);
 
     QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
@@ -82,6 +85,7 @@ protected slots:
     void slotSliderValueChanged(QString val);
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
+    void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
 
 protected:

@@ -1158,6 +1158,10 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 {
                     if (l.at(i) == fid)
                     {
+                        if (i + 1 >= l.count()) {
+                            qDebug() << "Doc::getUsage: Index entry missing on " << f->name();
+                            break;
+                        }
                         usageList.append(s->id());
                         usageList.append(l.at(i + 1)); // line number
                     }

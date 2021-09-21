@@ -29,8 +29,8 @@
   <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue</Capability>
   <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffa883">Blue/Salmon Pink</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ffa883" Res2="#ffffff">Salmon Pink/White</Capability>
-  <Capability Min="128" Max="191">Rotate clockwise (slow ~ fast)</Capability>
-  <Capability Min="192" Max="255">Rotate Counterclockwise (slow ~ fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rotate clockwise (slow ~ fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">>Rotate Counterclockwise (slow ~ fast)</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -57,9 +57,9 @@
   <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="Others/gobo00038.svg">Gobo 3 shake, fast to slow</Capability>
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="SGM/gobo00053.png">Gobo 2 Shake shake, fast to slow</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="SGM/gobo00046.png">Gobo 1 Shake shake, fast to slow</Capability>
-  <Capability Min="120" Max="127">Open</Capability>
-  <Capability Min="128" Max="191">Gobo ccroll: clockwise rotation</Capability>
-  <Capability Min="192" Max="255">Gobo scroll: Counterclockwise rotation</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwise">Gobo scroll: clockwise rotation</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwise">Gobo scroll: Counterclockwise rotation</Capability>
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>

@@ -52,7 +52,9 @@ Chaser::Chaser(Doc *doc)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
     , m_holdMode(Common)
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_runnerMutex(QMutex::Recursive)
+#endif
     , m_runner(NULL)
 {
     setName(tr("New Chaser"));
@@ -509,7 +511,11 @@ int Chaser::currentStepIndex() const
 {
     int ret = m_startupAction.m_stepIndex;
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+#else
+        QMutexLocker runnerLocker(const_cast<QRecursiveMutex*>(&m_runnerMutex));
+#endif
         if (m_runner != NULL)
             ret = m_runner->currentStepIndex();
     }
@@ -520,7 +526,11 @@ int Chaser::computeNextStep(int currentStepIndex) const
 {
     int ret = m_startupAction.m_stepIndex;
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+#else
+        QMutexLocker runnerLocker(const_cast<QRecursiveMutex*>(&m_runnerMutex));
+#endif
         if (m_runner != NULL)
             ret = m_runner->computeNextStep(currentStepIndex);
     }
@@ -531,7 +541,11 @@ int Chaser::runningStepsNumber() const
 {
     int ret = 0;
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+#else
+        QMutexLocker runnerLocker(const_cast<QRecursiveMutex*>(&m_runnerMutex));
+#endif
         if (m_runner != NULL)
             ret = m_runner->runningStepsNumber();
     }
@@ -544,7 +558,11 @@ ChaserRunnerStep Chaser::currentRunningStep() const
     ret.m_function = NULL;
 
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+#else
+        QMutexLocker runnerLocker(const_cast<QRecursiveMutex*>(&m_runnerMutex));
+#endif
         if (m_runner != NULL)
         {
             ChaserRunnerStep *step = m_runner->currentRunningStep();

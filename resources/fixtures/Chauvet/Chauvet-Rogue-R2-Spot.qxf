@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -43,12 +43,12 @@
   <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#0000ff">Magenta/Dark Blue</Capability>
   <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff8000">Dark Blue/Orange</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ffffff">Orange/White</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise Color Scroll (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Counter-clockwise Color Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Clockwise Color Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise Color Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Color Wheel 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#fef98c">CTO 3200K</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#fffbbf">CTO 5600K</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#159b42">Green</Capability>
@@ -64,8 +64,8 @@
   <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ff66ff">Orange / Pink</Capability>
   <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#ff66ff" Res2="#00ffff">Pink / Light Blue</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#66ffff" Res2="#ffffff">Light Blue / White</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise Color Scroll (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Counter-clockwise Color Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Clockwise Color Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise Color Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
@@ -79,19 +79,19 @@
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00060.png">Gobo 7</Capability>
   <Capability Min="64" Max="119">Gobo Shake 1-7 (Slow -&gt; Fast)</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191">Clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255">Counter-clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1 Rotate">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="63">Gobo Index</Capability>
-  <Capability Min="64" Max="147">Clockwise Rotation (Slow -&gt; Fast)</Capability>
-  <Capability Min="148" Max="231">Counter-clockwise Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="0" Max="63" Preset="RotationIndexed">Gobo Index</Capability>
+  <Capability Min="64" Max="147" Preset="RotationClockwiseSlowToFast">Clockwise Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="148" Max="231" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise Rotation (Slow -&gt; Fast)</Capability>
   <Capability Min="232" Max="255">Boomerang Effect (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="6">Open</Capability>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="7" Max="13" Preset="GoboMacro" Res1="Chauvet/gobo00061.png">Gobo 1</Capability>
   <Capability Min="14" Max="20" Preset="GoboMacro" Res1="Chauvet/gobo00062.svg">Gobo 2</Capability>
   <Capability Min="21" Max="27" Preset="GoboMacro" Res1="Chauvet/gobo00063.svg">Gobo 3</Capability>
@@ -101,9 +101,9 @@
   <Capability Min="49" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00067.svg">Gobo 7</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00068.png">Gobo 8</Capability>
   <Capability Min="64" Max="120">Gobo Shake 1-8 (Slow -&gt; Fast)</Capability>
-  <Capability Min="121" Max="127">Open</Capability>
-  <Capability Min="128" Max="191">Clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255">Counter-clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="121" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism">
@@ -203,11 +203,11 @@
   <Channel Number="7">Color Wheel 1</Channel>
   <Channel Number="8">Color Wheel 2</Channel>
   <Channel Number="9">Gobo Wheel 1</Channel>
-  <Channel Number="10">Gobo Wheel 1 Rotate</Channel>
+  <Channel Number="10" ActsOn="9">Gobo Wheel 1 Rotate</Channel>
   <Channel Number="11">Gobo Wheel 2</Channel>
   <Channel Number="12">Focus</Channel>
   <Channel Number="13">Prism</Channel>
-  <Channel Number="14">Prism Rotate</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotate</Channel>
   <Channel Number="15">Iris</Channel>
   <Channel Number="16">Frost</Channel>
   <Channel Number="17">Control</Channel>
@@ -224,15 +224,15 @@
   <Channel Number="8">Color Wheel 1</Channel>
   <Channel Number="9">Color Wheel 2</Channel>
   <Channel Number="10">Gobo Wheel 1</Channel>
-  <Channel Number="11">Gobo Wheel 1 Rotate</Channel>
+  <Channel Number="11" ActsOn="10">Gobo Wheel 1 Rotate</Channel>
   <Channel Number="12">Gobo Wheel 2</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Prism</Channel>
-  <Channel Number="15">Prism Rotate</Channel>
+  <Channel Number="15" ActsOn="14">Prism Rotate</Channel>
   <Channel Number="16">Iris</Channel>
   <Channel Number="17">Frost</Channel>
   <Channel Number="18">Movement Macros</Channel>
-  <Channel Number="19">Movement Macro Speed</Channel>
+  <Channel Number="19" ActsOn="18">Movement Macro Speed</Channel>
   <Channel Number="20">Control</Channel>
  </Mode>
  <Physical>

@@ -74,14 +74,12 @@ void Peperoni::closeOutput(quint32 output, quint32 universe)
 QStringList Peperoni::outputs()
 {
     QStringList list;
-    int i = 1;
+    int i = 0;
 
     QList <PeperoniDevice*> devList = m_devices.values();
     foreach(PeperoniDevice* dev, devList)
-    {
-        list << QString("%1: %2").arg(i).arg(dev->name(i - 1));
-        i++;
-    }
+        list << dev->name(i++);
+
     return list;
 }
 
@@ -169,14 +167,12 @@ void Peperoni::closeInput(quint32 input, quint32 universe)
 QStringList Peperoni::inputs()
 {
     QStringList list;
-    int i = 1;
+    int i = 0;
 
     QList <PeperoniDevice*> devList = m_devices.values();
     foreach(PeperoniDevice* dev, devList)
-    {
-        list << QString("%1: %2").arg(i).arg(dev->name(i - 1));
-        i++;
-    }
+        list << dev->name(i++);
+
     return list;
 }
 

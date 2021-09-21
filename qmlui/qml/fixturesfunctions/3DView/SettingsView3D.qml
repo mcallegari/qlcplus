@@ -90,6 +90,13 @@ Rectangle
 
     onCurrentScaleChanged: console.log("Current scale " + currentScale)
 
+    function refreshPositionValues(generic)
+    {
+        isUpdating = true
+        currentPosition = generic ? View3D.genericItemsPosition : contextManager.fixturesPosition
+        isUpdating = false
+    }
+
     Flickable
     {
         x: 5
@@ -123,6 +130,7 @@ Rectangle
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
 
+                            textRole: ""
                             model: View3D.stagesList
                             currentIndex: View3D.stageIndex
                             onCurrentIndexChanged: View3D.stageIndex = currentIndex
