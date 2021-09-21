@@ -141,7 +141,6 @@ var testAlgo;
         // The bottom:
         // offx remains the same.
         // offy is 0
-        let realOffy = offy - candleAlgo.cache.bottomHeight;
         distance = Math.sqrt((offx * offx) + 1);
         factor = Math.max(factor, 1 - (distance / candleAlgo.cache.bottomWidth));
       }
@@ -231,7 +230,6 @@ var testAlgo;
       if (eyeAlgo.cache.presetRadius != algo.presetRadius) {
         eyeAlgo.updateCache();
       }
-      let tips = 0;
       // calculate the offset difference of algo.map location to the float
       // location of the object
       let offx = rx - algo.obj[i].x;
@@ -723,7 +721,6 @@ var testAlgo;
       let offy = ry - algo.obj[i].y;
       let distance = Math.sqrt(offx * offx + offy * offy);
       let angle = geometryCalc.getAngle(offx, offy);
-      let baseIntensity = 0;
       let percent = 0;
       let factor = 0;
       

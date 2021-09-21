@@ -28,7 +28,7 @@ var testAlgo;
       algo.author = "Rob Nieuwenhuizen";
       algo.properties = [];
       algo.acceptColors = 1;
-      algo.properties.push("name:freq|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq");
+      algo.properties.push("name:frequency|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq");
       algo.frequency = 2;
       algo.setFreq = function(_freq){
         algo.frequency = parseInt(_freq);

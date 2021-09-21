@@ -100,7 +100,7 @@ var testAlgo;
     };
 
     algo.getFill = function () {
-      if (algo.fadeMode === 1) {
+      if (algo.fillCircles === 1) {
         return "Yes";
       } else {
         return "No";

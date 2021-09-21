@@ -41,6 +41,7 @@ private slots:
     void evaluateInvalidApiVersion();
     void rgbMapStepCount();
     void rgbMap();
+    void runScripts();
 
 private:
     Doc * m_doc;
