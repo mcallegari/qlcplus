@@ -118,10 +118,12 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
                     thruCount++;
                 break;
                 case CommandFULL:
-                    fromValue = toValue = 255;
+                    fromValue = 255;
+                    toValue = 255;
                 break;
                 case CommandZERO:
-                    fromValue = toValue = 0;
+                    fromValue = 0;
+                    toValue = 0;
                 break;
                 case CommandBY:
                     byChannel = number;
@@ -162,6 +164,10 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
             scv.value = CLAMP(uniValue * (1.0 + toValue), 0, 255);
         else if (lastCommand == CommandMinusPercent)
             scv.value = CLAMP(uniValue - (float(uniValue) * toValue), 0, 255);
+        else if (lastCommand == CommandZERO)
+            scv.value = 0;
+        else if (lastCommand == CommandFULL)
+            scv.value = 255;
         else
             scv.value = uchar(fromValue);
 
