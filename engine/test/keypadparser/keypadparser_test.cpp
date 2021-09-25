@@ -41,6 +41,7 @@ void KeyPadParser_Test::initTestCase()
 
 void KeyPadParser_Test::parsing()
 {
+    KeyPadParser parser;
     QList<SceneValue> scvList;
     QByteArray universeValues;
     quint32 chnum;
@@ -48,7 +49,7 @@ void KeyPadParser_Test::parsing()
     universeValues.fill(0, 512);
 
     /* set channel 13 to value 148 */
-    scvList = KeyPadParser::parseCommand(m_doc, "13 AT 148", universeValues);
+    scvList = parser.parseCommand(m_doc, "13 AT 148", universeValues);
 
     QCOMPARE(scvList.count(), 1);
     QCOMPARE(scvList.first().fxi, Fixture::invalidId());
@@ -56,7 +57,7 @@ void KeyPadParser_Test::parsing()
     QCOMPARE(scvList.first().value, uchar(148));
 
     /* set channels 3 to 15 to value 133 */
-    scvList = KeyPadParser::parseCommand(m_doc, "3 THRU 15 AT 133", universeValues);
+    scvList = parser.parseCommand(m_doc, "3 THRU 15 AT 133", universeValues);
 
     QCOMPARE(scvList.count(), 13);
     chnum = 2;
@@ -69,7 +70,7 @@ void KeyPadParser_Test::parsing()
     }
 
     /* Set channel 18 to value 255 */
-    scvList = KeyPadParser::parseCommand(m_doc, "18 FULL", universeValues);
+    scvList = parser.parseCommand(m_doc, "18 FULL", universeValues);
 
     QCOMPARE(scvList.count(), 1);
     QCOMPARE(scvList.first().fxi, Fixture::invalidId());
@@ -77,7 +78,7 @@ void KeyPadParser_Test::parsing()
     QCOMPARE(scvList.first().value, uchar(255));
 
     /* Set channels 1 to 10 to value 255 */
-    scvList = KeyPadParser::parseCommand(m_doc, "1 THRU 10 FULL", universeValues);
+    scvList = parser.parseCommand(m_doc, "1 THRU 10 FULL", universeValues);
     chnum = 0;
 
     QCOMPARE(scvList.count(), 10);
@@ -89,15 +90,66 @@ void KeyPadParser_Test::parsing()
     }
 
     /* Set channel 4 to value 0 */
-    scvList = KeyPadParser::parseCommand(m_doc, "4 ZERO", universeValues);
+    scvList = parser.parseCommand(m_doc, "4 ZERO", universeValues);
 
     QCOMPARE(scvList.count(), 1);
     QCOMPARE(scvList.first().fxi, Fixture::invalidId());
     QCOMPARE(scvList.first().channel, quint32(3));
     QCOMPARE(scvList.first().value, uchar(0));
 
+    scvList = parser.parseCommand(m_doc, "18 THRU 25 AT 0 THRU 255", universeValues);
+    chnum = 17;
+    float val = 0;
+    float delta = 255.0 / 7;
+
+    QCOMPARE(scvList.count(), 8);
+    foreach (SceneValue scv, scvList)
+    {
+        QCOMPARE(scv.fxi, Fixture::invalidId());
+        QCOMPARE(scv.channel, chnum++);
+        QCOMPARE(scv.value, uchar(val));
+        universeValues[chnum] = val;
+        val += delta;
+    }
+
+    scvList = parser.parseCommand(m_doc, "AT ZERO", universeValues);
+    chnum = 17;
+
+    QCOMPARE(scvList.count(), 8);
+    foreach (SceneValue scv, scvList)
+    {
+        QCOMPARE(scv.fxi, Fixture::invalidId());
+        QCOMPARE(scv.channel, chnum++);
+        QCOMPARE(scv.value, uchar(0));
+        universeValues[chnum] = val;
+    }
+
+    scvList = parser.parseCommand(m_doc, "AT 123", universeValues);
+    chnum = 17;
+
+    QCOMPARE(scvList.count(), 8);
+    foreach (SceneValue scv, scvList)
+    {
+        QCOMPARE(scv.fxi, Fixture::invalidId());
+        QCOMPARE(scv.channel, chnum++);
+        QCOMPARE(scv.value, uchar(123));
+        universeValues[chnum] = val;
+    }
+
+    scvList = parser.parseCommand(m_doc, "AT FULL", universeValues);
+    chnum = 17;
+
+    QCOMPARE(scvList.count(), 8);
+    foreach (SceneValue scv, scvList)
+    {
+        QCOMPARE(scv.fxi, Fixture::invalidId());
+        QCOMPARE(scv.channel, chnum++);
+        QCOMPARE(scv.value, uchar(255));
+        universeValues[chnum] = val;
+    }
+
     /* Set channels 6, 8, 10, 12, 14 and 16 to value 100 */
-    scvList = KeyPadParser::parseCommand(m_doc, "6 THRU 16 BY 2 AT 100", universeValues);
+    scvList = parser.parseCommand(m_doc, "6 THRU 16 BY 2 AT 100", universeValues);
     chnum = 5;
 
     QCOMPARE(scvList.count(), 6);
@@ -111,7 +163,7 @@ void KeyPadParser_Test::parsing()
     }
 
     /* Increase the value of the channels set by last command by 20% */
-    scvList = KeyPadParser::parseCommand(m_doc, "6 THRU 16 BY 2 +% 20", universeValues);
+    scvList = parser.parseCommand(m_doc, "6 THRU 16 BY 2 +% 20", universeValues);
     chnum = 5;
 
     QCOMPARE(scvList.count(), 6);
@@ -125,7 +177,7 @@ void KeyPadParser_Test::parsing()
     }
 
     /* Decrease the value of the channels set by last command by 40% */
-    scvList = KeyPadParser::parseCommand(m_doc, "6 THRU 16 BY 2 -% 40", universeValues);
+    scvList = parser.parseCommand(m_doc, "6 THRU 16 BY 2 -% 40", universeValues);
     chnum = 5;
 
     QCOMPARE(scvList.count(), 6);

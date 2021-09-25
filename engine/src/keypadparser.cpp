@@ -25,7 +25,8 @@ KeyPadParser::KeyPadParser()
 
 }
 
-QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArray &uniData)
+QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
+                                             QByteArray &uniData)
 {
     QList<SceneValue> values;
     if (doc == NULL)
@@ -37,6 +38,7 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
     quint32 fromChannel = 0;
     quint32 toChannel = 0;
     quint32 byChannel = 1;
+    bool channelSet = false;
     float fromValue = 0;
     float toValue = 0;
     int thruCount = 0;
@@ -56,10 +58,16 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
         }
         else if (token == "FULL")
         {
+            if (lastCommand == CommandAT)
+                toValue = 255;
+
             lastCommand = CommandFULL;
         }
         else if (token == "ZERO")
         {
+            if (lastCommand == CommandAT)
+                toValue = 0;
+
             lastCommand = CommandZERO;
         }
         else if (token == "BY")
@@ -105,6 +113,7 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
                     // no command: this is a channel number
                     fromChannel = number;
                     toChannel = fromChannel;
+                    channelSet = true;
                 break;
                 case CommandAT:
                     fromValue = float(number);
@@ -140,6 +149,30 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
         }
     }
 
+    /** handle the case where channel(s) are not specified.
+     *  Compose a list of values based on the last channel list */
+
+    if (channelSet == false)
+    {
+        if (m_channels.isEmpty())
+            return values;
+
+        for (int i = 0; i < m_channels.count(); i++)
+        {
+            SceneValue scv;
+
+            scv.channel = m_channels.at(i);
+            scv.value = toValue;
+            values.append(scv);
+        }
+
+        return values;
+    }
+    else
+    {
+        m_channels.clear();
+    }
+
     float valueDelta = 0;
     if (toValue != fromValue)
     {
@@ -170,6 +203,9 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
             scv.value = 255;
         else
             scv.value = uchar(fromValue);
+
+        if (m_channels.contains(scv.channel) == false)
+            m_channels.append(scv.channel);
 
         values.append(scv);
         fromValue += valueDelta;
