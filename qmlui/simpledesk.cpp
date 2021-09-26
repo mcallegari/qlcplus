@@ -324,7 +324,8 @@ void SimpleDesk::sendKeypadCommand(QString command)
 
     for (SceneValue scv : scvList)
     {
-        setValue(Fixture::invalidId(), scv.channel, scv.value);
+        quint32 fxID = m_doc->fixtureForAddress((m_universeFilter * 512) + scv.channel);
+        setValue(fxID, scv.channel, scv.value);
         QModelIndex mIndex = m_channelList->index(int(scv.channel), 0, QModelIndex());
         m_channelList->setData(mIndex, QVariant(scv.value), UserRoleChannelValue);
     }
