@@ -90,7 +90,7 @@ var testAlgo;
     {
       if (_sparkle === "Yes") {
         algo.sparkling = 1;
-      } else if (_sparkle === "No") {
+      } else {
         algo.sparkling = 0;
       }
     };
@@ -99,7 +99,7 @@ var testAlgo;
     {
       if (algo.sparkling === 1) {
         return "Yes";
-      } else if (algo.sparkling === 0) {
+      } else {
         return "No";
       }
     };
