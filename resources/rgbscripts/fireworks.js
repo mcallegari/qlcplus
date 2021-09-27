@@ -24,6 +24,8 @@ var testAlgo;
 (
   function()
   {
+    var util = new Object;
+
     var algo = new Object;
     algo.apiVersion = 2;
     algo.name = "Fireworks";
@@ -33,6 +35,7 @@ var testAlgo;
     algo.rstepcount = 0;
     algo.gstepcount = 50;
     algo.bstepcount = 100;
+    algo.initialized = false;
 
     algo.presetSize = 5;
     algo.properties.push("name:presetSize|type:range|display:Size|values:1,20|write:setSize|read:getSize");
@@ -44,8 +47,6 @@ var testAlgo;
     algo.properties.push("name:sparkle|type:list|display:Sparkling|values:No,Yes|write:setSparkling|read:getSparkling");
     algo.triggerPoint = 3;
     algo.properties.push("name:triggerPoint|type:range|display:Trigger Point|values:0,5|write:setTrigger|read:getTrigger");
-    var util = new Object;
-    algo.initialized = false;
 
     algo.setSize = function(_size)
     {
@@ -115,7 +116,7 @@ var testAlgo;
     };
 
     // random position function for new rocket
-    function getNewNumberRange(minVal, maxVal) {
+    util.getNewNumberRange = function(minVal, maxVal) {
       // Search in the range of min to max + 1
       // which will be reduced by random() excluding 1
       // and floor() reducing to lower number.
@@ -123,14 +124,14 @@ var testAlgo;
     }
 
     // Combine RGB color from color channels
-    function mergeRgb(r, g, b) {
-      r = Math.min(255, r);
-      g = Math.min(255, g);
-      b = Math.min(255, b);
+    util.mergeRgb = function(r, g, b) {
+      r = Math.min(255, Math.round(r));
+      g = Math.min(255, Math.round(g));
+      b = Math.min(255, Math.round(b));
       return ((r << 16) + (g << 8) + b);
     }
     
-    function getColor(r, g, b, mRgb) {
+    util.getColor = function(r, g, b, mRgb) {
       // split rgb in to components
       var pointr = (mRgb >> 16) & 0x00FF;
       var pointg = (mRgb >> 8) & 0x00FF;
@@ -140,12 +141,37 @@ var testAlgo;
       pointg += g;
       pointb += b;
       // set mapped point
-      return mergeRgb(pointr, pointg, pointb);
+      return util.mergeRgb(pointr, pointg, pointb);
+    }
+
+    util.dimColor = function(mRgb, factor) {
+      if (mRgb < 1) {
+        return 0;
+      }
+      // split rgb in to components
+      var pointr = (mRgb >> 16) & 0x00FF;
+      var pointg = (mRgb >> 8) & 0x00FF;
+      var pointb = mRgb & 0x00FF;
+      // add the color to the mapped location
+      pointr *= factor;
+      pointg *= factor;
+      pointb *= factor;
+      // set mapped point
+      return util.mergeRgb(pointr, pointg, pointb);
     }
 
     util.initialize = function(width, height)
     {
       algo.rocket = new Array(algo.presetNumber);
+
+      // Clear map data
+      util.map = new Array(height);
+      for (var y = 0; y < height; y++) {
+        util.map[y] = new Array();
+        for (var x = 0; x < width; x++) {
+          util.map[y][x] = 0;
+        }
+      }
 
       for (var i = 0; i < algo.presetNumber; i++) {
         algo.rocket[i] = {
@@ -170,12 +196,10 @@ var testAlgo;
         util.initialize(width, height);
       }
 
-      // Clear map data
-      var map = new Array(height);
+      // Dim map data
       for (var y = 0; y < height; y++) {
-        map[y] = new Array();
         for (var x = 0; x < width; x++) {
-          map[y][x] = 0;
+          util.map[y][x] = util.dimColor(util.map[y][x], 0.8);
         }
       }
 
@@ -186,9 +210,9 @@ var testAlgo;
             algo.rocket[i].y + Math.round(algo.presetSize / 2) < 0 ||
             algo.rocket[i].x - Math.round(algo.presetSize / 2) > width ||
             algo.rocket[i].x + Math.round(algo.presetSize / 2) < 0) {
-          algo.rocket[i].x = getNewNumberRange(Math.round(width / 5), Math.round(4 * width / 5));
+          algo.rocket[i].x = util.getNewNumberRange(Math.round(width / 5), Math.round(4 * width / 5));
           algo.rocket[i].y = height;
-          algo.rocket[i].yDirection = getNewNumberRange(1, 5) / 2;
+          algo.rocket[i].yDirection = util.getNewNumberRange(3, 5) / 3;
           algo.rocket[i].xDirection = (algo.rocket[i].x - (width / 2)) / (width * height) *
               (algo.rocket[i].yDirection);
           if (algo.triggerPoint == 0) {
@@ -196,7 +220,7 @@ var testAlgo;
           } else {
             var min = Math.floor(height / algo.triggerPoint);
             var max = Math.floor(height - (height / algo.triggerPoint));
-            algo.rocket[i].trigger = getNewNumberRange(min, max);
+            algo.rocket[i].trigger = util.getNewNumberRange(min, max);
           }
           if (algo.randomColor === 0) {
             do {
@@ -218,10 +242,10 @@ var testAlgo;
         var my = Math.floor(algo.rocket[i].y);
         
         // area size to draw rocket
-        var currentSize = 1 / 2;
+        var currentSize = 0.5;
         if (my <= Math.floor(algo.rocket[i].trigger)) {
           // Use the full size after triffer has been reached.
-          currentSize = algo.presetSize;
+//          currentSize = algo.presetSize;
         }
         var boxRadius = boxRadius = Math.round(currentSize / 2);
         
@@ -231,7 +255,7 @@ var testAlgo;
             // Draw only if edges are on the map
             if (rx < width && rx > -1 && ry < height && ry > -1) {
               // Draw the box for debugging.
-              //map[ry][rx] = getColor(45, 45, 45, map[ry][rx]);
+              //util.map[ry][rx] = util.getColor(45, 45, 45, 0);
                 var offx = rx - algo.rocket[i].x;
                 var offy = ry - algo.rocket[i].y;
                 var hyp = Math.max(0, 1 - Math.abs(Math.sqrt( (offx * offx) + (offy * offy)) / (boxRadius + 1)));
@@ -247,23 +271,24 @@ var testAlgo;
                 var pointr = Math.round(algo.rocket[i].r * hyp * sparkle);
                 var pointg = Math.round(algo.rocket[i].g * hyp * sparkle);
                 var pointb = Math.round(algo.rocket[i].b * hyp * sparkle);
-                map[ry][rx] = getColor(pointr, pointg, pointb, map[ry][rx]);
+                util.map[ry][rx] = util.getColor(pointr, pointg, pointb, util.map[ry][rx]);
             }
           }
         }
 
-        // set rocket's next location
+        // set rocket's next center location
         algo.rocket[i].x += algo.rocket[i].xDirection;
         algo.rocket[i].y -= algo.rocket[i].yDirection;
-        algo.rocket[i].xDirection = algo.rocket[i].xDirection * (1 + width / height / 10) *
-            (1 + algo.rocket[i].yDirection / 10);
+        // Carry away the rocket centers
+        algo.rocket[i].xDirection = algo.rocket[i].xDirection *
+            (1 + algo.rocket[i].yDirection / 30);
       }
-      return map;
+      return util.map;
     };
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return width * height; // This make no diferance to the script ;-)
+      return 1024; // This make no difference to the script
     };
 
     // Development tool access
