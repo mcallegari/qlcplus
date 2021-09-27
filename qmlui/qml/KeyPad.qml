@@ -75,7 +75,7 @@ Rectangle
             Layout.columnSpan: span
             Layout.fillWidth: true
             implicitHeight: itemHeight
-            color: UISettings.bgLight
+            color: UISettings.fgLight
             onAccepted: keyPadRoot.executeCommand(keyPadRoot.commandString)
             Keys.onEscapePressed: keyPadRoot.escapePressed()
         }

@@ -53,6 +53,8 @@ SimpleDesk::SimpleDesk(QQuickView *view, Doc *doc, QObject *parent)
     listRoles << "cRef" << "chIndex" << "chValue" << "chDisplay" << "isOverride";
     m_channelList->setRoleNames(listRoles);
 
+    m_keyPadParser = new KeyPadParser();
+
     // initialize channel value data
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
         m_prevUniverseValues[i].fill(0, 512);
@@ -318,7 +320,7 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& ua)
 void SimpleDesk::sendKeypadCommand(QString command)
 {
     QByteArray uniData = m_prevUniverseValues.value(m_universeFilter);
-    QList<SceneValue> scvList = KeyPadParser::parseCommand(m_doc, command, uniData);
+    QList<SceneValue> scvList = m_keyPadParser->parseCommand(m_doc, command, uniData);
 
     for (SceneValue scv : scvList)
     {

@@ -26,6 +26,7 @@
 #include <QMutex>
 
 class GenericFader;
+class KeyPadParser;
 class FadeChannel;
 class ListModel;
 
@@ -134,6 +135,7 @@ signals:
     void commandHistoryChanged();
 
 private:
+    KeyPadParser *m_keyPadParser;
     QStringList m_keypadCommandHistory;
 
     /************************************************************************

@@ -401,8 +401,9 @@ void E131Controller::processPendingPackets()
 
         QByteArray dmxData;
         quint32 e131universe;
-        if (m_packetizer->checkPacket(datagram)
-                && m_packetizer->fillDMXdata(datagram, dmxData, e131universe))
+
+        if (m_packetizer->checkPacket(datagram) &&
+            m_packetizer->fillDMXdata(datagram, dmxData, e131universe))
         {
             qDebug() << "Received packet with size: " << datagram.size() << ", from: " << senderAddress.toString()
                 << ", for E1.31 universe: " << e131universe;
@@ -417,6 +418,7 @@ void E131Controller::processPendingPackets()
                     QByteArray *dmxValues;
                     if (m_dmxValuesMap.contains(universe) == false)
                         m_dmxValuesMap[universe] = new QByteArray(512, 0);
+
                     dmxValues = m_dmxValuesMap[universe];
 
                     for (int i = 0; i < dmxData.length(); i++)

@@ -17,6 +17,7 @@ SUBDIRS += genericfader
 SUBDIRS += grandmaster
 SUBDIRS += inputoutputmap
 SUBDIRS += inputpatch
+SUBDIRS += keypadparser
 SUBDIRS += mastertimer
 SUBDIRS += outputpatch
 SUBDIRS += qlccapability

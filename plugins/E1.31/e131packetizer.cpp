@@ -213,6 +213,10 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &uni
     if (data.isNull())
         return false;
 
+    /* Check valid DMX start code */
+    if (data[125] != (char)0x00)
+        return false;
+
     universe = (data[113] << 8) + data[114];
 
     unsigned int msb = (data[123] & 0xff);

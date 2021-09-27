@@ -41,7 +41,17 @@ public:
         CommandMinusPercent
     };
 
-    static QList<SceneValue> parseCommand(Doc *doc, QString command, QByteArray &uniData);
+    /** Parse a string command from the UI Keypad.
+     *  @param doc: reference to the project document
+     *  @param command: the command as string
+     *  @param uniData: universe data to compute percentage increase/decrease
+     *
+     *  @return a list of SceneValues
+     */
+    QList<SceneValue> parseCommand(Doc *doc, QString command, QByteArray &uniData);
+
+private:
+    QVector<quint16> m_channels;
 };
 
 #endif // KEYPADPARSER_H
