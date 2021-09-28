@@ -32,41 +32,24 @@ var testAlgo;
     algo.author = "Hans-Jürgen Tappe";
     algo.acceptColors = 2;
     algo.properties = new Array();
-    algo.rstepcount = 0;
-    algo.gstepcount = 50;
-    algo.bstepcount = 100;
     algo.initialized = false;
 
-    algo.presetSize = 5;
-    algo.properties.push("name:presetSize|type:range|display:Size|values:1,20|write:setSize|read:getSize");
-    algo.presetNumber = 3;
-    algo.properties.push("name:presetNumber|type:range|display:Number|values:1,50|write:setNumber|read:getNumber");
+    algo.rocketCount = 3;
+    algo.properties.push("name:rocketCount|type:range|display:Count|values:1,50|write:setCount|read:getCount");
     algo.randomColor = 1;
     algo.properties.push("name:randomColor|type:list|display:Random Colour|values:No,Yes|write:setRandom|read:getRandom");
-    algo.sparkle = 0;
-    algo.properties.push("name:sparkle|type:list|display:Sparkling|values:No,Yes|write:setSparkling|read:getSparkling");
     algo.triggerPoint = 3;
     algo.properties.push("name:triggerPoint|type:range|display:Trigger Point|values:0,5|write:setTrigger|read:getTrigger");
 
-    algo.setSize = function(_size)
+    algo.setCount = function(_count)
     {
-      algo.presetSize = _size;
-    };
-
-    algo.getSize = function()
-    {
-      return algo.presetSize;
-    };
-
-    algo.setNumber = function(_step)
-    {
-      algo.presetNumber = _step;
+      algo.rocketCount = _count;
       algo.initialized = false;
     };
 
-    algo.getNumber = function()
+    algo.getCount = function()
     {
-      return algo.presetNumber;
+      return algo.rocketCount;
     };
 
     algo.setRandom = function(_random)
@@ -83,24 +66,6 @@ var testAlgo;
       if (algo.randomColor === 0) {
         return "Yes";
       } else if (algo.randomColor === 1) {
-        return "No";
-      }
-    };
-
-    algo.setSparkling = function(_sparkle)
-    {
-      if (_sparkle === "Yes") {
-        algo.sparkling = 1;
-      } else {
-        algo.sparkling = 0;
-      }
-    };
-
-    algo.getSparkling = function()
-    {
-      if (algo.sparkling === 1) {
-        return "Yes";
-      } else {
         return "No";
       }
     };
@@ -162,7 +127,7 @@ var testAlgo;
 
     util.initialize = function(width, height)
     {
-      algo.rocket = new Array(algo.presetNumber);
+      algo.rocket = new Array(algo.rocketCount);
 
       // Clear map data
       util.map = new Array(height);
@@ -173,10 +138,10 @@ var testAlgo;
         }
       }
 
-      for (var i = 0; i < algo.presetNumber; i++) {
+      for (var i = 0; i < algo.rocketCount; i++) {
         algo.rocket[i] = {
           x: 0,
-          y: height + algo.presetSize,
+          y: height,
           xDirection: 0,
           yDirection: height,
           trigger: 0,
@@ -204,12 +169,12 @@ var testAlgo;
       }
 
       // for each rocket displayed
-      for (var i = 0; i < algo.presetNumber; i++) {
+      for (var i = 0; i < algo.rocketCount; i++) {
         // create a new position for the rocket
-        if (algo.rocket[i].y - Math.round(algo.presetSize / 2) > height ||
-            algo.rocket[i].y + Math.round(algo.presetSize / 2) < 0 ||
-            algo.rocket[i].x - Math.round(algo.presetSize / 2) > width ||
-            algo.rocket[i].x + Math.round(algo.presetSize / 2) < 0) {
+        if (algo.rocket[i].y > height ||
+            algo.rocket[i].y < 0 ||
+            algo.rocket[i].x > width ||
+            algo.rocket[i].x < 0) {
           algo.rocket[i].x = util.getNewNumberRange(Math.round(width / 5), Math.round(4 * width / 5));
           algo.rocket[i].y = height;
           algo.rocket[i].yDirection = util.getNewNumberRange(3, 5) / 3;
@@ -259,18 +224,9 @@ var testAlgo;
                 var offx = rx - algo.rocket[i].x;
                 var offy = ry - algo.rocket[i].y;
                 var hyp = Math.max(0, 1 - Math.abs(Math.sqrt( (offx * offx) + (offy * offy)) / (boxRadius + 1)));
-                var sparkle = 1;
-                if (algo.sparkling === 1 &&
-                    Math.floor(algo.rocket[i].trigger + 1) != ry &&
-                    my <= Math.floor(algo.rocket[i].trigger)) {
-                  sparkle = Math.random();
-                  if (hyp > 0) {
-                    hyp = 1;
-                  }
-                }
-                var pointr = Math.round(algo.rocket[i].r * hyp * sparkle);
-                var pointg = Math.round(algo.rocket[i].g * hyp * sparkle);
-                var pointb = Math.round(algo.rocket[i].b * hyp * sparkle);
+                var pointr = Math.round(algo.rocket[i].r * hyp);
+                var pointg = Math.round(algo.rocket[i].g * hyp);
+                var pointb = Math.round(algo.rocket[i].b * hyp);
                 util.map[ry][rx] = util.getColor(pointr, pointg, pointb, util.map[ry][rx]);
             }
           }
