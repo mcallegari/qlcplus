@@ -23,7 +23,6 @@
 
 #include <QByteArray>
 #include <QThread>
-#include <QMutex>
 
 #include "dmxusbwidget.h"
 

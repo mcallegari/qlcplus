@@ -20,6 +20,9 @@
 #include <QDebug>
 #include "enttecdmxusbpro.h"
 #include "midiprotocol.h"
+#include "rdmprotocol.h"
+
+#define RDM_MAX_RETRY   5
 
 /****************************************************************************
  * Initialization
@@ -31,6 +34,9 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *interface, quint32 outputLine, qu
     , m_dmxKingMode(false)
     , m_inputThread(NULL)
     , m_outputRunning(false)
+    , m_outputMutex(QMutex::Recursive)
+    , m_rdm(NULL)
+    , m_universe(UINT_MAX)
 {
     m_inputBaseLine = inputLine;
 
@@ -50,6 +56,9 @@ EnttecDMXUSBPro::~EnttecDMXUSBPro()
     qDebug() << Q_FUNC_INFO;
     close(m_inputBaseLine, true);
     close(m_outputBaseLine, false);
+
+    if (m_rdm)
+        free(m_rdm);
 }
 
 DMXUSBWidget::Type EnttecDMXUSBPro::type() const
@@ -411,9 +420,12 @@ void EnttecDMXUSBPro::run()
     QElapsedTimer timer;
 
     m_outputRunning = true;
+
     while (m_outputRunning == true)
     {
         timer.restart();
+
+        //goto framesleep;
 
         // no open output lines: do nothing
         if (openOutputLines() == 0)
@@ -461,11 +473,14 @@ void EnttecDMXUSBPro::run()
                         request.append(data1);
                         request.append(data2);
                         request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
+                        m_outputMutex.lock();
                         if (interface()->write(request) == false)
                         {
                             qWarning() << Q_FUNC_INFO << name() << "will not accept MIDI data";
+                            m_outputMutex.unlock();
                             continue;
                         }
+                        m_outputMutex.unlock();
                     }
                 }
             }
@@ -499,13 +514,17 @@ void EnttecDMXUSBPro::run()
                 //qDebug() << "DATA" << QString::number(request.at(5)) << QString::number(request.at(6)) << QString::number(request.at(7));
 
                 /* Write "Output Only Send DMX Packet Request" message */
+                m_outputMutex.lock();
                 if (interface()->write(request) == false)
                 {
                     qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+                    m_outputMutex.unlock();
                     continue;
                 }
+                m_outputMutex.unlock();
             }
         }
+
 framesleep:
         int timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
         if (timetoSleep < 0)
@@ -515,6 +534,186 @@ framesleep:
     }
 
     qDebug() << "OUTPUT thread terminated";
+}
+
+/************************************************************************
+ * Input
+ ************************************************************************/
+
+int readData(DMXInterface *interface, QByteArray &payload, bool &isMIDI, bool needRDM)
+{
+    bool ok = false;
+    uchar byte = 0;
+
+    // Skip bytes until we find the start of the next message
+    if ((byte = interface->readByte(&ok)) != ENTTEC_PRO_START_OF_MSG)
+        return 0;
+
+    // Check the message type
+    byte = interface->readByte();
+    if (byte == ENTTEC_PRO_MIDI_IN_MSG)
+    {
+        isMIDI = true;
+    }
+    else if (byte == uchar(ENTTEC_PRO_RDM_RECV_TIMEOUT) || byte == uchar(ENTTEC_PRO_RDM_RECV_TIMEOUT2))
+    {
+        qDebug() << "Got RDM timeout";
+        // read end byte
+        interface->readByte();
+        return 0;
+    }
+    else if (byte != ENTTEC_PRO_RECV_DMX_PKT)
+    {
+        qWarning() << Q_FUNC_INFO << "Got unrecognized label:" << (uchar) byte;
+        return 0;
+    }
+
+    // Get payload length
+    ushort dataLength = (ushort) interface->readByte() | ((ushort) interface->readByte() << 8);
+    //qDebug() << "Packet data length:" << dataLength;
+
+    if (isMIDI == false)
+    {
+        // Check status bytes
+        byte = interface->readByte();
+        if (byte & char(0x01))
+            qWarning() << Q_FUNC_INFO << "Widget receive queue overflowed";
+        else if (byte & char(0x02))
+            qWarning() << Q_FUNC_INFO << "Widget receive overrun occurred";
+
+        if (needRDM == false)
+        {
+            // Check DMX startcode
+            byte = interface->readByte();
+            if (byte != char(0))
+                qWarning() << Q_FUNC_INFO << "Non-standard DMX startcode received:" << (uchar) byte;
+            dataLength -= 2;
+        }
+    }
+
+    // Read the whole payload
+    payload.clear();
+    payload = interface->read(dataLength);
+
+    // read end byte
+    interface->readByte();
+
+#ifdef DEBUG_RDM
+    qDebug() << "Got payload:" << payload.toHex(',');
+#endif
+
+    return dataLength;
+}
+
+/********************************************************************
+ * RDM
+ ********************************************************************/
+
+bool EnttecDMXUSBPro::supportRDM()
+{
+    return true;
+}
+
+bool EnttecDMXUSBPro::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+{
+    QByteArray ba;
+    quint32 devLine = line - m_outputBaseLine;
+    int i, len;
+    bool ok;
+    int discoveryFailureCount = 0;
+    int discoveryNoReplyCount = 0;
+
+    if (m_rdm == NULL)
+        m_rdm = new RDMProtocol();
+
+    QString sn = m_proSerial.isEmpty() ? serial() : m_proSerial;
+    quint32 devID = sn.toUInt(&ok, 16);
+
+    m_rdm->setEstaID(0x454E);
+    m_rdm->setDeviceId(devLine == 1 ? devID + 1 : devID);
+
+    m_rdm->packetizeCommand(command, params, true, ba);
+    len = ba.length();
+
+    ba.prepend(len >> 8);
+    ba.prepend(len & 0xFF);
+
+    if (command == DISCOVERY_COMMAND)
+    {
+        ba.prepend(devLine == 1 ? ENTTEC_PRO_RDM_DISCOVERY_REQ2 : ENTTEC_PRO_RDM_DISCOVERY_REQ);
+    }
+    else if (params.length() >= 2)
+    {
+        ba.prepend(devLine == 1 ? ENTTEC_PRO_RDM_SEND2 : ENTTEC_PRO_RDM_SEND);
+    }
+    ba.prepend(ENTTEC_PRO_START_OF_MSG);
+
+    ba.append(ENTTEC_PRO_END_OF_MSG);
+#ifdef DEBUG_RDM
+    qDebug().nospace().noquote() << "[RDM] Sending RDM command 0x" << QString::number(command, 16) << " with params: " << params;
+    qDebug() << "[RDM] Sending RDM command" << universe << line << ba.toHex(',');
+#endif
+
+    QMutexLocker locker(&m_outputMutex);
+    if (interface()->write(ba) == false)
+    {
+        qWarning() << Q_FUNC_INFO << name() << "will not accept RDM data";
+        return false;
+    }
+
+    for (i = 0; i < RDM_MAX_RETRY; i++)
+    {
+        QByteArray reply;
+        bool isMIDI = false;
+        int bytesRead = readData(interface(), reply, isMIDI, true);
+
+        if (bytesRead)
+        {
+            QVariantMap values;
+            bool result = false;
+
+            if (command == DISCOVERY_COMMAND)
+                result = m_rdm->parseDiscoveryReply(reply, values);
+            else
+                result = m_rdm->parsePacket(reply, values);
+
+            if (result == true)
+            {
+                emit rdmValueChanged(universe, line, values);
+                break;
+            }
+            else
+            {
+                discoveryFailureCount++;
+            }
+        }
+
+        // no reply to discovery at all
+        if (command == DISCOVERY_COMMAND && bytesRead == 0 && discoveryFailureCount == 0)
+            discoveryNoReplyCount++;
+
+        // nothing read. Sleep a bit and retry
+        QThread::msleep(50);
+        //qDebug() << "RETRY TO READ" << i;
+    }
+
+    if (discoveryFailureCount)
+    {
+        QVariantMap values;
+        values.insert("DISCOVERY_ERRORS", discoveryFailureCount);
+        emit rdmValueChanged(universe, line, values);
+    }
+    else if (discoveryNoReplyCount)
+    {
+        QVariantMap values;
+        values.insert("DISCOVERY_NO_REPLY", 1);
+        emit rdmValueChanged(universe, line, values);
+    }
+
+    if (command != DISCOVERY_COMMAND && i == RDM_MAX_RETRY)
+        return false;
+
+    return true;
 }
 
 /************************************************************************
@@ -552,58 +751,16 @@ void EnttecDMXUSBProInput::run()
 {
     qDebug() << "INPUT thread started";
 
-    uchar byte = 0;
-    ushort dataLength = 0;
+    QByteArray payload;
+    bool isMIDI = false;
 
     m_running = true;
     while (m_running == true)
     {
-        bool ok = false;
-        bool midiMessage = false;
-        // Skip bytes until we find the start of the next message
-        if ((byte = m_interface->readByte(&ok)) != ENTTEC_PRO_START_OF_MSG)
-        {
-            // If nothing was read, sleep for a while
-            if (ok == false)
-                msleep(10);
-            continue;
-        }
-
-        // Check that the message is a "DMX receive packet"
-        byte = m_interface->readByte();
-        if (byte == ENTTEC_PRO_MIDI_IN_MSG)
-        {
-            midiMessage = true;
-        }
-        else if (byte != ENTTEC_PRO_RECV_DMX_PKT)
-        {
-            qWarning() << Q_FUNC_INFO << "Got unrecognized label:" << (uchar) byte;
-            continue;
-        }
-
-        // Get payload length
-        dataLength = (ushort) m_interface->readByte() | ((ushort) m_interface->readByte() << 8);
-        //qDebug() << "Packet data length:" << dataLength;
-
-        if (midiMessage == false)
-        {
-            // Check status bytes
-            byte = m_interface->readByte();
-            if (byte & char(0x01))
-                qWarning() << Q_FUNC_INFO << "Widget receive queue overflowed";
-            else if (byte & char(0x02))
-                qWarning() << Q_FUNC_INFO << "Widget receive overrun occurred";
-
-            // Check DMX startcode
-            byte = m_interface->readByte();
-            if (byte != char(0))
-                qWarning() << Q_FUNC_INFO << "Non-standard DMX startcode received:" << (uchar) byte;
-            dataLength -= 2;
-        }
-
-        // Read the whole payload
-        QByteArray payload = m_interface->read(dataLength);
-        emit dataReady(payload, midiMessage);
+        if (readData(m_interface, payload, isMIDI, false))
+            emit dataReady(payload, isMIDI);
+        else
+            msleep(10);
     }
 
     qDebug() << "INPUT thread terminated";

@@ -52,9 +52,11 @@
 #include "fixtureremap.h"
 #include "mastertimer.h"
 #include "outputpatch.h"
+#include "qlcioplugin.h"
 #include "addrgbpanel.h"
 #include "addfixture.h"
 #include "collection.h"
+#include "rdmmanager.h"
 #include "universe.h"
 #include "fixture.h"
 #include "apputil.h"
@@ -81,6 +83,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_splitter(NULL)
     , m_fixtures_tree(NULL)
     , m_channel_groups_tree(NULL)
+    , m_rdmManager(NULL)
     , m_info(NULL)
     , m_groupEditor(NULL)
     , m_currentTabIndex(0)
@@ -359,7 +362,7 @@ void FixtureManager::initDataView()
     connect(m_fixtures_tree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotFixtureItemExpanded()));
 
-    tabs->addTab(m_fixtures_tree, tr("Fixtures Groups"));
+    tabs->addTab(m_fixtures_tree, tr("Fixture Groups"));
 
     m_channel_groups_tree = new QTreeWidget(this);
     QStringList chan_labels;
@@ -375,8 +378,13 @@ void FixtureManager::initDataView()
     connect(m_channel_groups_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotChannelsGroupDoubleClicked(QTreeWidgetItem*)));
 
-    tabs->addTab(m_channel_groups_tree, tr("Channels Groups"));
-
+    tabs->addTab(m_channel_groups_tree, tr("Channel Groups"));
+/*
+    m_rdmManager = new RDMManager(this, m_doc);
+    tabs->addTab(m_rdmManager, "RDM");
+    connect(m_rdmManager, SIGNAL(fixtureInfoReady(QString&)),
+            this, SLOT(slotDisplayFixtureInfo(QString&)));
+*/
     connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
 
     /* Create the text view */
@@ -408,6 +416,7 @@ void FixtureManager::updateView()
         m_fadeConfigAction->setEnabled(false);
         m_remapAction->setEnabled(false);
     }
+    m_addRGBAction->setEnabled(true);
     m_importAction->setEnabled(true);
     m_moveUpAction->setEnabled(false);
     m_moveDownAction->setEnabled(false);
@@ -466,6 +475,7 @@ void FixtureManager::updateChannelsGroupView()
         if (selGroupID == grp->id())
             grpItem->setSelected(true);
     }
+    m_addRGBAction->setEnabled(false);
     m_propertiesAction->setEnabled(false);
     m_groupAction->setEnabled(false);
     m_unGroupAction->setEnabled(false);
@@ -475,6 +485,18 @@ void FixtureManager::updateChannelsGroupView()
     m_remapAction->setEnabled(false);
 
     m_channel_groups_tree->header()->resizeSections(QHeaderView::ResizeToContents);
+}
+
+void FixtureManager::updateRDMView()
+{
+    m_addRGBAction->setEnabled(false);
+    m_propertiesAction->setEnabled(false);
+    m_groupAction->setEnabled(false);
+    m_unGroupAction->setEnabled(false);
+    m_fadeConfigAction->setEnabled(false);
+    m_exportAction->setEnabled(false);
+    m_importAction->setEnabled(false);
+    m_remapAction->setEnabled(false);
 }
 
 void FixtureManager::fixtureSelected(quint32 id)
@@ -739,6 +761,11 @@ void FixtureManager::slotTabChanged(int index)
         updateChannelsGroupView();
         slotChannelsGroupSelectionChanged();
     }
+    else if (index == 2)
+    {
+        m_addAction->setToolTip(tr("Add fixture..."));
+        updateRDMView();
+    }
     else
     {
         m_addAction->setToolTip(tr("Add fixture..."));
@@ -752,6 +779,11 @@ void FixtureManager::slotTabChanged(int index)
 void FixtureManager::slotFixtureItemExpanded()
 {
     m_fixtures_tree->header()->resizeSections(QHeaderView::ResizeToContents);
+}
+
+void FixtureManager::slotDisplayFixtureInfo(QString &info)
+{
+    m_info->setText(info);
 }
 
 void FixtureManager::selectGroup(quint32 id)

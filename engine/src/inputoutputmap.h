@@ -69,13 +69,6 @@ public:
      */
     ~InputOutputMap();
 
-    /**
-     * Load all output plugins from the given directory, using QDir filters.
-     *
-     * @param dir The directory to load plugins from
-     */
-    void loadPlugins(const QDir& dir);
-
 private:
     /** Get the doc object */
     Doc* doc() const;
@@ -449,16 +442,16 @@ public:
      * Get the names of all input lines provided by the given plugin.
      *
      * @param pluginName Name of the plugin, whose input count to get
-     * @return A QStringList containing the names of each input line
+     * @return A list containing the name of each input line
      *
      */
     QStringList pluginInputs(const QString& pluginName);
 
     /**
-     * Get the number of universes provided by the given plugin.
+     * Get the names of all output lines provided by the given plugin.
      *
      * @param pluginName Name of the plugin, whose output count to get
-     * @return A list of output names provided by the plugin.
+     * @return A list containing the name of each output line
      */
     QStringList pluginOutputs(const QString& pluginName);
 
