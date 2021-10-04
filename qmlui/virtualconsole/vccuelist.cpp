@@ -39,7 +39,7 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
     , m_nextPrevBehavior(DefaultRunFirst)
     , m_playbackLayout(PlayPauseStop)
     , m_slidersMode(None)
-    , m_sideFaderLevel(0)
+    , m_sideFaderLevel(100)
     , m_nextStepIndex(-1)
     , m_primaryTop(true)
     , m_chaserID(Function::invalidId())
@@ -295,7 +295,8 @@ int VCCueList::nextStepIndex() const
 
 qreal VCCueList::getPrimaryIntensity() const
 {
-    if (sideFaderMode() == Steps)
+    if (sideFaderMode() == FaderMode::None ||
+        sideFaderMode() == FaderMode::Steps)
         return 1.0;
 
     return m_primaryTop ? qreal(m_sideFaderLevel / 100.0) : qreal((100 - m_sideFaderLevel) / 100.0);
@@ -909,6 +910,10 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
     /* Next/Prev behavior */
     if (nextPrevBehavior() != DefaultRunFirst)
         doc->writeTextElement(KXMLQLCVCCueListNextPrevBehavior, QString::number(nextPrevBehavior()));
+
+    /* Crossfade cue list */
+    if (sideFaderMode() != None)
+        doc->writeTextElement(KXMLQLCVCCueListSlidersMode, faderModeToString(sideFaderMode()));
 
     /* Input controls */
     saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, KXMLQLCVCCueListNext);
