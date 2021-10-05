@@ -263,6 +263,9 @@ public:
     /** @reimp */
     void postRun(MasterTimer *timer, QList<Universe*> ua);
 
+    /** @reimp */
+    void setPause(bool enable);
+
 private:
     /** Internal helper method to abtract Scene value processing */
     void processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv);

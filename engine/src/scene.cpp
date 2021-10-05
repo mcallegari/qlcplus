@@ -845,6 +845,16 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
     Function::postRun(timer, ua);
 }
 
+void Scene::setPause(bool enable)
+{
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->setPaused(enable);
+    }
+    Function::setPause(enable);
+}
+
 /****************************************************************************
  * Intensity
  ****************************************************************************/
