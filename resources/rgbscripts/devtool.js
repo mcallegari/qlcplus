@@ -18,8 +18,9 @@
 */
 
 var devtool = Object;
-devtool.width = null;
-devtool.height = null;
+devtool.gridwidth = null;
+devtool.gridheight = null;
+devtool.gridsize = null;
 devtool.currentStep = 0;
 devtool.testTimer = null;
 
@@ -185,7 +186,7 @@ devtool.initPixelColors = function()
 
 devtool.initSpeedValue = function()
 {
-    var speed = localStorage.getItem("speed");
+    var speed = localStorage.getItem("devtool.speed");
     if (speed === null) {
         speed = 500;
     }
@@ -194,12 +195,12 @@ devtool.initSpeedValue = function()
 
 devtool.initColorValues = function()
 {
-    var primary = localStorage.getItem("primaryColor");
+    var primary = localStorage.getItem("devtool.primaryColor");
     if (primary === null || Number.isNaN(parseInt("0x" + primary, 16))) {
       primary = "ff0000";
     }
     document.getElementById("primaryColor").value = primary;
-    var secondary = localStorage.getItem("secondaryColor");
+    var secondary = localStorage.getItem("devtool.secondaryColor");
     if (secondary === null || secondary === "" || Number.isNaN(parseInt("0x" + secondary, 16))) {
       document.getElementById("secondaryColor").value = "";
     } else {
@@ -209,16 +210,21 @@ devtool.initColorValues = function()
 
 devtool.initGridSize = function()
 {
-    devtool.width = localStorage.getItem("width");
-    if (devtool.width === null) {
-        devtool.width = 15;
+    devtool.gridwidth = localStorage.getItem("devtool.gridwidth");
+    if (devtool.gridwidth === null) {
+        devtool.gridwidth = 15;
     }
-    document.getElementById("width").value = devtool.width;
-    devtool.height = localStorage.getItem("height");
-    if (devtool.height === null) {
-        devtool.height = 15;
+    document.getElementById("gridwidth").value = devtool.gridwidth;
+    devtool.gridheight = localStorage.getItem("devtool.gridheight");
+    if (devtool.gridheight === null) {
+        devtool.gridheight = 15;
     }
-    document.getElementById("height").value = devtool.height;
+    document.getElementById("gridheight").value = devtool.gridheight;
+    devtool.gridsize = localStorage.getItem("devtool.gridsize");
+    if (devtool.gridsize === null) {
+        devtool.gridsize = 20;
+    }
+    document.getElementById("gridsize").value = devtool.gridsize;
 }
 
 devtool.getRgbFromColorInt = function(color)
@@ -265,13 +271,13 @@ devtool.writeCurrentStep = function()
     for (var i = map.rows.length - 1; i >= 0; i--) {
         map.deleteRow(i);
     }
-    var rgb = testAlgo.rgbMap(devtool.width, devtool.height, devtool.getCurrentColorInt(), devtool.currentStep);
+    var rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep);
 
-    for (var y = 0; y < devtool.height; y++)
+    for (var y = 0; y < devtool.gridheight; y++)
     {
         var row = map.insertRow(y);
 
-        for (var x = 0; x < devtool.width; x++)
+        for (var x = 0; x < devtool.gridwidth; x++)
         {
             var cell = row.insertCell(x);
             var rgbStr = rgb[y][x].toString(16);
@@ -280,8 +286,8 @@ devtool.writeCurrentStep = function()
             }
             rgbStr = "#" + rgbStr;
             cell.style.backgroundColor = rgbStr;
-            cell.style.height = "20px";
-            cell.style.width = "20px";
+            cell.style.height = devtool.gridsize + "px";
+            cell.style.width = devtool.gridsize + "px";
             cell.title = "(" + x + ", " + y + "): " + rgbStr + " – " + cell.style.backgroundColor; // rgbStr will be #rrggbb whereas the cell style will be rgb(255, 255, 255)
         }
     }
@@ -298,7 +304,7 @@ devtool.setStep = function(step)
 // and there are scripts changing this number on any parameter change
 devtool.stepCount = function()
 {
-	return testAlgo.rgbMapStepCount(devtool.width, devtool.height);
+    return testAlgo.rgbMapStepCount(devtool.gridwidth, devtool.gridheight);
 }
 
 devtool.updateStepCount = function()
@@ -309,10 +315,14 @@ devtool.updateStepCount = function()
 
 devtool.onGridSizeUpdated = function()
 {
-    devtool.width = parseInt(document.getElementById("width").value);
-    devtool.height = parseInt(document.getElementById("height").value);
-    localStorage.setItem("width", devtool.width);
-    localStorage.setItem("height", devtool.height);
+    devtool.gridwidth = parseInt(document.getElementById("gridwidth").value);
+    localStorage.setItem("devtool.gridwidth", devtool.gridwidth);
+
+    devtool.gridheight = parseInt(document.getElementById("gridheight").value);
+    localStorage.setItem("devtool.gridheight", devtool.gridheight);
+
+    devtool.gridsize = parseInt(document.getElementById("gridsize").value);
+    localStorage.setItem("devtool.gridsize", devtool.gridsize);
 
     devtool.updateStepCount();
 
@@ -322,12 +332,12 @@ devtool.onGridSizeUpdated = function()
 devtool.onColorChange = function()
 {
     var primary = parseInt("0x" + document.getElementById("primaryColor").value).toString(16);
-    localStorage.setItem("primaryColor", primary);
+    localStorage.setItem("devtool.primaryColor", primary);
     var secondary = parseInt("0x" + document.getElementById("secondaryColor").value).toString(16);
     if (secondary === "NaN") { // Evaluation of the string.
-      localStorage.setItem("secondaryColor", "");
+      localStorage.setItem("devtool.secondaryColor", "");
     } else {
-      localStorage.setItem("secondaryColor", secondary);
+      localStorage.setItem("devtool.secondaryColor", secondary);
     }
     devtool.writeCurrentStep();
 }
@@ -337,18 +347,18 @@ devtool.startTest = function()
     var speed = document.getElementById("speed").value;
     window.clearInterval(devtool.testTimer); // avoid multiple timers running simultaneously
     devtool.testTimer = window.setInterval("devtool.nextStep()", speed);
-    localStorage.setItem("timerRunning", 1);
+    localStorage.setItem("devtool.timerRunning", 1);
 }
 
 devtool.stopTest = function()
 {
     window.clearInterval(devtool.testTimer);
-    localStorage.setItem("timerRunning", 0);
+    localStorage.setItem("devtool.timerRunning", 0);
 }
 
 devtool.initTestStatus = function()
 {
-    var timerStatus = localStorage.getItem("timerRunning");
+    var timerStatus = localStorage.getItem("devtool.timerRunning");
     if (timerStatus === null || parseInt(timerStatus) === 1) {
         devtool.startTest();
     }
@@ -382,7 +392,7 @@ devtool.onFilenameUpdated = function(filename)
         return;
     }
 
-    localStorage.setItem("filename", filename);
+    localStorage.setItem("devtool.filename", filename);
 
     var script = document.getElementById("algoScript");
     if (script === null) {
@@ -401,7 +411,7 @@ devtool.onFilenameUpdated = function(filename)
 
 devtool.loadAlgoFile = function()
 {
-    var storedValue = localStorage.getItem("filename");
+    var storedValue = localStorage.getItem("devtool.filename");
     if (storedValue === null) {
         storedValue = "evenodd.js";
     }
@@ -419,7 +429,7 @@ devtool.writeFunction = function(functionName, propertyName, value)
 devtool.onSpeedChanged = function()
 {
     var speed = document.getElementById("speed").value;
-    localStorage.setItem("speed", speed);
+    localStorage.setItem("devtool.speed", speed);
     devtool.initTestStatus();
 }
 
