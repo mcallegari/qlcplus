@@ -63,7 +63,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="183"/>
         <source>Open file</source>
-        <translation>Ouvrir</translation>
+        <translation>Ouvrir un fichier</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="240"/>
@@ -396,7 +396,8 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="230"/>
         <source>Overlapping with another capability</source>
-        <translation type="unfinished">Superposition avec une autre ...</translation>
+        <translatorcomment>Superposition avec une autre ...</translatorcomment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="245"/>
@@ -2004,7 +2005,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="118"/>
         <source>Create a new emitter</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer un nouvel émetteur</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="141"/>
@@ -2019,17 +2020,17 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="215"/>
         <source>Acts on</source>
-        <translation type="unfinished"></translation>
+        <translation>Agit sur</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="379"/>
         <source>Emitters</source>
-        <translation type="unfinished"></translation>
+        <translation>Émetteurs</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="406"/>
         <source>Remove the selected emitter(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer les émetteurs sélectionnés</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="519"/>
@@ -2163,7 +2164,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="83"/>
         <source>Search a palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher une palette</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="99"/>
@@ -2238,7 +2239,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="161"/>
         <source>Head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tête(s)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="191"/>
@@ -2285,7 +2286,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="314"/>
         <source>Electrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Électrique</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/PhysicalProperties.qml" line="325"/>
@@ -4172,27 +4173,32 @@ Niveau d&apos;accès&#xa0;:</translation>
 <context>
     <name>VCCueListItem</name>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="219"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="225"/>
         <source>Play/Pause</source>
         <translation>Lecture/Pause</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="228"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="225"/>
+        <source>Play/Stop</source>
+        <translation>Lecture/Arrêt</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="234"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="228"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="234"/>
         <source>Stop</source>
         <translation>Arrêt</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="237"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="243"/>
         <source>Previous cue</source>
         <translation>Cue précédente</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="246"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="252"/>
         <source>Next cue</source>
         <translation>Cue suivante</translation>
     </message>
@@ -4480,7 +4486,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="123"/>
         <source>Remove the selected widgets</source>
-        <translation>Supprimer les widgets sélectionnés</translation>
+        <translation>Retirer les widgets sélectionnés</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="128"/>
@@ -4490,7 +4496,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="135"/>
         <source>Delete selected widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer les widgets sélectionnés</translation>
     </message>
     <message>
         <source>Delete functions</source>
