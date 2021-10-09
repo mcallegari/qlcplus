@@ -847,6 +847,9 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 
 void Scene::setPause(bool enable)
 {
+    if (!isRunning())
+        return;
+
     foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
     {
         if (!fader.isNull())

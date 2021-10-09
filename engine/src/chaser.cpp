@@ -637,14 +637,26 @@ void Chaser::setPause(bool enable)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->setPause(enable);
+    {
+        // request a change of pause state at the next write call
+        m_startupAction.m_action = ChaserPauseRequest;
+        // use fade mode to pass through enable/disable flag
+        m_startupAction.m_fadeMode = enable ? 1 : 0;
+    }
     Function::setPause(enable);
 }
 
 void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
 {
-    if (isPaused())
+    if (isPaused() && m_startupAction.m_action != ChaserPauseRequest)
         return;
+
+    if (m_startupAction.m_action == ChaserPauseRequest)
+    {
+        qDebug() << "[Chaser] Request PAUSE" << m_startupAction.m_fadeMode;
+        m_runner->setAction(m_startupAction);
+        m_startupAction.m_action = ChaserNoAction;
+    }
 
     {
         QMutexLocker runnerLocker(&m_runnerMutex);

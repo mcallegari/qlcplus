@@ -360,6 +360,10 @@ public:
     /** Retrieve a modifiable list of the currently active faders */
     QList<QSharedPointer<GenericFader> > faders();
 
+    /** Set every running fader with $functionID as parent,
+     *  to the requested pause state */
+    void setFaderPause(quint32 functionID, bool enable);
+
 public slots:
     void tick();
 

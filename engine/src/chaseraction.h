@@ -28,7 +28,8 @@ enum ChaserActionType
     ChaserStopStep,
     ChaserNextStep,
     ChaserPreviousStep,
-    ChaserSetStepIndex
+    ChaserSetStepIndex,
+    ChaserPauseRequest
 };
 
 typedef struct
