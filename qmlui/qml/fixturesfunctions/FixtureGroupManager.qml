@@ -202,6 +202,7 @@ Rectangle
                         title: qsTr("Rename items")
                         onAccepted:
                         {
+                            var item;
                             if (numberingEnabled)
                             {
                                 var currNum = startNumber
@@ -212,19 +213,26 @@ Rectangle
 
                                 for (i = 0; i < gfhcDragItem.itemsList.length; i++)
                                 {
-                                    var item = gfhcDragItem.itemsList[i]
+                                    item = gfhcDragItem.itemsList[i]
+                                    var zerofilled = (zeroes + currNum).slice(-digits);
+                                    var finalName = editText + " " + zerofilled
+                                    currNum++
+
                                     if (item.itemType === App.FixtureDragItem)
-                                    {
-                                        var zerofilled = (zeroes + currNum).slice(-digits);
-                                        var finalName = editText + " " + zerofilled
-                                        currNum++
                                         fixtureManager.renameFixture(item.itemID, finalName)
-                                    }
+                                    else if (item.itemType === App.FixtureGroupDragItem)
+                                        fixtureManager.renameFixtureGroup(item.itemID, finalName)
+
                                 }
                             }
                             else
                             {
-                                fixtureManager.renameFixture(gfhcDragItem.itemsList[0].itemID, editText)
+                                item = gfhcDragItem.itemsList[0];
+
+                                if (item.itemType === App.FixtureDragItem)
+                                    fixtureManager.renameFixture(item.itemID, editText)
+                                else if (item.itemType === App.FixtureGroupDragItem)
+                                    fixtureManager.renameFixtureGroup(item.itemID, editText)
                             }
                         }
                     }

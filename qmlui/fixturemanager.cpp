@@ -1031,6 +1031,18 @@ void FixtureManager::updateFixtureGroup(quint32 groupID, quint32 itemID, int hea
     //m_fixtureTree->printTree(); // enable for debug purposes
 }
 
+void FixtureManager::renameFixtureGroup(quint32 groupID, QString newName)
+{
+    FixtureGroup *group = m_doc->fixtureGroup(groupID);
+    if (group == nullptr)
+        return;
+
+    group->setName(newName);
+
+    updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
+    emit groupsTreeModelChanged();
+}
+
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)
 {
     for (QVariant id : IDList)
