@@ -59,7 +59,11 @@ public:
 
     Q_INVOKABLE void createPalette(QLCPalette *palette, QString name);
 
-    Q_INVOKABLE void previewPalette(QLCPalette *palette, QVariant value1, QVariant value2);
+    Q_INVOKABLE void previewPalette(QLCPalette *palette);
+
+    Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1);
+
+    Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1, QVariant value2);
 
     Q_INVOKABLE void deletePalettes(QVariantList list);
 

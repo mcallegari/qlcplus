@@ -98,14 +98,30 @@ void PaletteManager::createPalette(QLCPalette *palette, QString name)
     updatePaletteList();
 }
 
-void PaletteManager::previewPalette(QLCPalette *palette, QVariant value1, QVariant value2)
+void PaletteManager::previewPalette(QLCPalette *palette)
 {
     if (palette == nullptr)
         return;
 
-    palette->setValue(value1, value2);
-
     m_contextManager->setChannelValues(palette->valuesFromFixtures(m_doc, m_contextManager->selectedFixtureIDList()));
+}
+
+void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1)
+{
+    if (palette == nullptr)
+        return;
+
+    qDebug() << "[PaletteManager] Single value" << value1;
+    palette->setValue(value1);
+}
+
+void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1, QVariant value2)
+{
+    if (palette == nullptr)
+        return;
+
+    qDebug() << "[PaletteManager] Double value" << value1 << value2;
+    palette->setValue(value1, value2);
 }
 
 void PaletteManager::deletePalettes(QVariantList list)
