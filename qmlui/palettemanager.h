@@ -54,18 +54,28 @@ public:
     /** Get the reference to a QLCPalette from the given ID */
     Q_INVOKABLE QLCPalette *getPalette(quint32 id);
 
-    /* Request a palette for editing */
+    /** Request a palette for editing.
+     * The returned palette is mapped by type on m_editingMap */
     Q_INVOKABLE QLCPalette *getEditingPalette(int type);
 
-    Q_INVOKABLE void createPalette(QLCPalette *palette, QString name);
+    /** Create a new palette, get a new ID and add it
+     *  to the current project */
+    Q_INVOKABLE quint32 createPalette(QLCPalette *palette, QString name);
 
+    /** Preview the given palette via Context manager */
     Q_INVOKABLE void previewPalette(QLCPalette *palette);
 
+    /** Update the give palette with single value (e.g. dimmer, pan, tilt, etc) */
     Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1);
 
+    /** Update the give palette with two values (e.g. pan & tilt) */
     Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1, QVariant value2);
 
+    /** Delete the selected palettes from the current project */
     Q_INVOKABLE void deletePalettes(QVariantList list);
+
+    /** Create a new Scene and add the palette with the given id to it */
+    Q_INVOKABLE void addPaletteToNewScene(quint32 id, QString sceneName);
 
     /** Get/Set the type of Palettes to be displayed */
     int typeFilter() const;
