@@ -256,6 +256,7 @@
     <F n="Briteq-BT-Smartzoom" m="BT Smartzoom"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
     <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
+    <F n="Briteq-BT-Vintage" m="BT-Vintage"/>
     <F n="Briteq-BT-W07L12" m="BT-W07L12"/>
     <F n="Briteq-BT-W12L10" m="BT-W12L10"/>
     <F n="Briteq-BTX-180LS" m="BTX-180LS"/>
@@ -350,6 +351,7 @@
     <F n="Chauvet-ColorBand-Pix-M-USB" m="ColorBand Pix-M USB"/>
     <F n="Chauvet-ColorBand-Pix-M" m="ColorBand Pix-M"/>
     <F n="Chauvet-COLORband-T3-USB" m="COLORband T3 USB"/>
+    <F n="Chauvet-COLORbar-SMD" m="COLORbar SMD"/>
     <F n="Chauvet-COLORdash-Accent-Quad" m="COLORdash Accent Quad"/>
     <F n="Chauvet-COLORdash-Accent-RGBW" m="COLORdash Accent RGBW"/>
     <F n="Chauvet-COLORdash-Batten" m="COLORdash Batten"/>
@@ -671,6 +673,7 @@
     <F n="Eurolite-LED-SL-600" m="LED SL-600"/>
     <F n="Eurolite-LED-SLS-180-RGB" m="LED SLS-180 RGB"/>
     <F n="Eurolite-LED-SLS-5-BCL" m="LED SLS 5 BCL"/>
+    <F n="Eurolite-LED-SLS-7-HCL" m="LED SLS-7 HCL"/>
     <F n="Eurolite-LED-SLS-X-QCL" m="LED SLS-* QCL"/>
     <F n="Eurolite-LED-Strobe-PRO-DMX" m="LED Strobe PRO DMX"/>
     <F n="Eurolite-LED-T-36-RGB-Pinspot" m="LED T-36 RGB Pinspot"/>
@@ -976,6 +979,7 @@
     <F n="lightmaXX-Platinum-Line-Mini-PAR-QUAD-7x8W" m="Platinum Line Mini PAR QUAD 7x8W"/>
     <F n="lightmaXX-Platinum-Line-Mini-TRI-PAR-7x3-W" m="Platinum Line Mini TRI-PAR 7x3 Watt"/>
     <F n="lightmaXX-Star-Sphere-6-RGBAW" m="Star Sphere 6 RGBAW"/>
+    <F n="lightmaXX-Tour-Spot-ARC-MKII" m="Tour Spot ARC MKII"/>
     <F n="lightmaXX-Vega-Zoom-Wash-Beam" m="Vega Zoom Wash Beam"/>
   </M>
   <M n="Lightronics">
@@ -1264,6 +1268,7 @@
   </M>
   <M n="Sagitter">
     <F n="Sagitter-Miniscan-2001" m="Miniscan 2001"/>
+    <F n="Sagitter-Slimpar-12DL" m="Slimpar 12DL"/>
     <F n="Sagitter-Slimpar-18-RGB" m="Slimpar 18 RGB"/>
     <F n="Sagitter-Slimpar-7DL" m="Slimpar 7DL"/>
     <F n="Sagitter-Smart-DL-Wash" m="Smart DL Wash"/>
@@ -1388,6 +1393,7 @@
     <F n="Stairville-BS-280-R10-BeamSpot" m="BS-280 R10 BeamSpot"/>
     <F n="Stairville-CLB2.4-CompactLED" m="CLB2.4 Compact LED PAR System"/>
     <F n="Stairville-CLB4-RGB-Compact-LED-Bar-4" m="CLB4 RGB Compact LED Bar 4"/>
+    <F n="Stairville-CLB5-Compact-LED-Bar-RGBW-RGBWW" m="CLB5 Compact LED Bar RGBW / RGBWW"/>
     <F n="Stairville-Compact-LED-Bar-CLB8" m="Compact LED-Bar CLB8"/>
     <F n="Stairville-Crown-FX-PAR77" m="Crown FX PAR77"/>
     <F n="Stairville-DCL-Flat-Par-18x4W-CW-WW" m="DCL Flat Par 18x4W CW/WW"/>
