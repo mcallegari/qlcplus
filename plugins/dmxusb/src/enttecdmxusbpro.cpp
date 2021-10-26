@@ -233,6 +233,75 @@ bool EnttecDMXUSBPro::close(quint32 line, bool input)
     return DMXUSBWidget::close(line, input);
 }
 
+/************************************************************************
+ * Input
+ ************************************************************************/
+
+int readData(DMXInterface *interface, QByteArray &payload, bool &isMIDI, bool needRDM)
+{
+    bool ok = false;
+    uchar byte = 0;
+
+    // Skip bytes until we find the start of the next message
+    if ((byte = interface->readByte(&ok)) != ENTTEC_PRO_START_OF_MSG)
+        return 0;
+
+    // Check the message type
+    byte = interface->readByte();
+    if (byte == ENTTEC_PRO_MIDI_IN_MSG)
+    {
+        isMIDI = true;
+    }
+    else if (byte == uchar(ENTTEC_PRO_RDM_RECV_TIMEOUT) || byte == uchar(ENTTEC_PRO_RDM_RECV_TIMEOUT2))
+    {
+        qDebug() << "Got RDM timeout";
+        // read end byte
+        interface->readByte();
+        return 0;
+    }
+    else if (byte != ENTTEC_PRO_RECV_DMX_PKT && byte != ENTTEC_PRO_READ_SERIAL)
+    {
+        qWarning() << Q_FUNC_INFO << "Got unrecognized label:" << (uchar) byte;
+        return 0;
+    }
+
+    // Get payload length
+    ushort dataLength = (ushort) interface->readByte() | ((ushort) interface->readByte() << 8);
+    //qDebug() << "Packet data length:" << dataLength;
+
+    if (isMIDI == false)
+    {
+        // Check status bytes
+        byte = interface->readByte();
+        if (byte & char(0x01))
+            qWarning() << Q_FUNC_INFO << "Widget receive queue overflowed";
+        else if (byte & char(0x02))
+            qWarning() << Q_FUNC_INFO << "Widget receive overrun occurred";
+
+        if (needRDM == false)
+        {
+            // Check DMX startcode
+            byte = interface->readByte();
+            if (byte != char(0))
+                qWarning() << Q_FUNC_INFO << "Non-standard DMX startcode received:" << (uchar) byte;
+            dataLength -= 2;
+        }
+    }
+
+    // Read the whole payload
+    payload.clear();
+    payload = interface->read(dataLength);
+
+    // read end byte
+    interface->readByte();
+
+#ifdef DEBUG_RDM
+    qDebug() << "Got payload:" << payload.toHex(',');
+#endif
+
+    return dataLength;
+}
+
 /****************************************************************************
  * Name & Serial
  ****************************************************************************/
@@ -273,33 +342,36 @@ bool EnttecDMXUSBPro::extractSerial()
     request.append(ENTTEC_PRO_END_OF_MSG);
 
     interface()->open();
+    interface()->clearRts();
 
     if (interface()->write(request) == true)
     {
-        QByteArray reply = interface()->read(9);
+        msleep(50);
+        QByteArray reply;
+        bool notUsed;
+        int bytesRead = readData(interface(), reply, notUsed, false);
+
+        if (bytesRead != 4)
+        {
+            qWarning() << Q_FUNC_INFO << name() << "gave malformed serial reply - length:" << bytesRead;
+            return result;
+        }
 
         /* Reply message is:
            { 0x7E 0x0A 0x04 0x00 0xNN, 0xNN, 0xNN, 0xNN 0xE7 }
            Where 0xNN represent widget's unique serial number in BCD */
-        if (uchar(reply[0]) == 0x7e && uchar(reply[1]) == 0x0a &&
-            uchar(reply[2]) == 0x04 && uchar(reply[3]) == 0x00 &&
-            uchar(reply[8]) == 0xe7)
+        if (bytesRead == 4)
         {
-            m_proSerial = m_proSerial.asprintf("%x%.2x%.2x%.2x", uchar(reply[7]),
-                                                                 uchar(reply[6]),
-                                                                 uchar(reply[5]),
-                                                                 uchar(reply[4]));
+            m_proSerial = m_proSerial.asprintf("%x%.2x%.2x%.2x", uchar(reply[3]),
+                                                                 uchar(reply[2]),
+                                                                 uchar(reply[1]),
+                                                                 uchar(reply[0]));
             qDebug() << Q_FUNC_INFO << "Serial number OK: " << m_proSerial;
             result = true;
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << name() << "gave malformed serial reply:"
-                       << QString::number(reply[0], 16) << QString::number(reply[1], 16)
-                       << QString::number(reply[2], 16) << QString::number(reply[3], 16)
-                       << QString::number(reply[4], 16) << QString::number(reply[5], 16)
-                       << QString::number(reply[6], 16) << QString::number(reply[7], 16)
-                       << QString::number(reply[8], 16);
+            qWarning() << Q_FUNC_INFO << name() << "gave malformed serial reply:" << reply.toHex(',');
         }
     }
     else
@@ -534,75 +606,6 @@ framesleep:
     }
 
     qDebug() << "OUTPUT thread terminated";
-}
-
-/************************************************************************
- * Input
- ************************************************************************/
-
-int readData(DMXInterface *interface, QByteArray &payload, bool &isMIDI, bool needRDM)
-{
-    bool ok = false;
-    uchar byte = 0;
-
-    // Skip bytes until we find the start of the next message
-    if ((byte = interface->readByte(&ok)) != ENTTEC_PRO_START_OF_MSG)
-        return 0;
-
-    // Check the message type
-    byte = interface->readByte();
-    if (byte == ENTTEC_PRO_MIDI_IN_MSG)
-    {
-        isMIDI = true;
-    }
-    else if (byte == uchar(ENTTEC_PRO_RDM_RECV_TIMEOUT) || byte == uchar(ENTTEC_PRO_RDM_RECV_TIMEOUT2))
-    {
-        qDebug() << "Got RDM timeout";
-        // read end byte
-        interface->readByte();
-        return 0;
-    }
-    else if (byte != ENTTEC_PRO_RECV_DMX_PKT)
-    {
-        qWarning() << Q_FUNC_INFO << "Got unrecognized label:" << (uchar) byte;
-        return 0;
-    }
-
-    // Get payload length
-    ushort dataLength = (ushort) interface->readByte() | ((ushort) interface->readByte() << 8);
-    //qDebug() << "Packet data length:" << dataLength;
-
-    if (isMIDI == false)
-    {
-        // Check status bytes
-        byte = interface->readByte();
-        if (byte & char(0x01))
-            qWarning() << Q_FUNC_INFO << "Widget receive queue overflowed";
-        else if (byte & char(0x02))
-            qWarning() << Q_FUNC_INFO << "Widget receive overrun occurred";
-
-        if (needRDM == false)
-        {
-            // Check DMX startcode
-            byte = interface->readByte();
-            if (byte != char(0))
-                qWarning() << Q_FUNC_INFO << "Non-standard DMX startcode received:" << (uchar) byte;
-            dataLength -= 2;
-        }
-    }
-
-    // Read the whole payload
-    payload.clear();
-    payload = interface->read(dataLength);
-
-    // read end byte
-    interface->readByte();
-
-#ifdef DEBUG_RDM
-    qDebug() << "Got payload:" << payload.toHex(',');
-#endif
-
-    return dataLength;
 }
 
 /********************************************************************
