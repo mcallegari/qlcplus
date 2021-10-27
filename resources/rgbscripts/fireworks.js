@@ -37,7 +37,7 @@ var testAlgo;
     algo.rocketCount = 3;
     algo.properties.push("name:rocketCount|type:range|display:Count|values:1,50|write:setCount|read:getCount");
     algo.randomColor = 1;
-    algo.properties.push("name:randomColor|type:list|display:Random Colour|values:No,Yes|write:setRandom|read:getRandom");
+    algo.properties.push("name:randomColor|type:list|display:Random Color|values:No,Yes|write:setRandom|read:getRandom");
     algo.triggerPoint = 3;
     algo.properties.push("name:triggerPoint|type:range|display:Trigger Point|values:0,5|write:setTrigger|read:getTrigger");
 
@@ -162,11 +162,11 @@ var testAlgo;
       }
 
       // Dim map data
-      for (var y = 0; y < height; y++) {
-        for (var x = 0; x < width; x++) {
-          util.map[y][x] = util.dimColor(util.map[y][x], 0.8);
-        }
-      }
+      util.map = util.map.map(col => {
+	      return col.map(pxl => {
+		      return util.dimColor(pxl, 0.8);
+        })
+      });
 
       // for each rocket displayed
       for (var i = 0; i < algo.rocketCount; i++) {
