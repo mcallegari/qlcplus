@@ -244,7 +244,7 @@ var testAlgo;
         // area size to draw rocket
         var currentSize = 0.5;
         if (my <= Math.floor(algo.rocket[i].trigger)) {
-          // Use the full size after triffer has been reached.
+          // Use the full size after trigger has been reached.
 //          currentSize = algo.presetSize;
         }
         var boxRadius = boxRadius = Math.round(currentSize / 2);
