@@ -697,14 +697,25 @@ int ChaserRunner::getNextStepIndex()
     return currentStepIndex;
 }
 
-void ChaserRunner::setPause(bool enable)
+void ChaserRunner::setPause(bool enable, QList<Universe *> universes)
 {
     // Nothing to do
     if (m_chaser->stepsCount() == 0)
         return;
 
+    qDebug() << "[ChaserRunner] processing pause request:" << enable;
+
     foreach(ChaserRunnerStep *step, m_runnerSteps)
         step->m_function->setPause(enable);
+
+    // there might be a Scene fading out, so request pause
+    // to faders bound to the Scene ID running on universes
+    Function *f = m_doc->function(m_lastFunctionID);
+    if (f != NULL && f->type() == Function::SceneType)
+    {
+        foreach (Universe *universe, universes)
+            universe->setFaderPause(m_lastFunctionID, enable);
+    }
 }
 
 FunctionParent ChaserRunner::functionParent() const
@@ -737,22 +748,7 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
             }
         break;
         case ChaserPauseRequest:
-        {
-            qDebug() << "[ChaserRunner] processing pause request";
-            bool enable = m_pendingAction.m_fadeMode ? true : false;
-
-            foreach(ChaserRunnerStep *step, m_runnerSteps)
-                step->m_function->setPause(enable);
-
-            // there might be a Scene fading out, so request pause
-            // to faders bound to the Scene ID running on universes
-            Function *f = m_doc->function(m_lastFunctionID);
-            if (f != NULL && f->type() == Function::SceneType)
-            {
-                foreach (Universe *universe, universes)
-                    universe->setFaderPause(m_lastFunctionID, enable);
-            }
-        }
+            setPause(m_pendingAction.m_fadeMode ? true : false, universes);
         break;
         default:
         break;

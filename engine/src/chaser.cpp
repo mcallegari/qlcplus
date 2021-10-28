@@ -675,6 +675,10 @@ void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
     {
         QMutexLocker runnerLocker(&m_runnerMutex);
         Q_ASSERT(m_runner != NULL);
+
+        if (isPaused())
+            m_runner->setPause(false, universes);
+
         m_runner->postRun(timer, universes);
 
         delete m_runner;
