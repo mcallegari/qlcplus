@@ -103,12 +103,13 @@ var testAlgo;
           algo.rockets[i].yDirection = util.getNewNumberRange(3, 5) / 3;
           algo.rockets[i].xDirection = (algo.rockets[i].x - (width / 2)) / (width * height) *
               (algo.rockets[i].yDirection);
+          algo.rockets[i].triggered = false;
           if (algo.triggerPoint == 0) {
-            algo.rockets[i].trigger = height;
+            algo.rockets[i].triggerPoint = height;
           } else {
             var min = Math.floor(height / algo.triggerPoint);
             var max = Math.floor(height - (height / algo.triggerPoint));
-            algo.rockets[i].trigger = util.getNewNumberRange(min, max);
+            algo.rockets[i].triggerPoint = util.getNewNumberRange(min, max);
           }
           if (algo.randomColor === 0) {
             do {
@@ -128,29 +129,31 @@ var testAlgo;
         // workout closest map location for rocket
         var mx = Math.floor(algo.rockets[i].x);
         var my = Math.floor(algo.rockets[i].y);
-        
-        // area size to draw rocket
-        var currentSize = 0.5;
-        if (my <= Math.floor(algo.rockets[i].trigger)) {
-          // Use the full size after trigger has been reached.
-//          currentSize = algo.presetSize;
+
+        // area size to draw particles
+        if (! algo.rockets[i].triggered &&
+            my <= Math.floor(algo.rockets[i].triggerPoint)) {
+          // switch to particles mode
+          algo.rockets[i].triggered = true;
         }
-        var boxRadius = boxRadius = Math.round(currentSize / 2);
-        
-        // area for faded edges
-        for (var ry = my - boxRadius; ry < my + boxRadius + 2; ry++) {
-          for (var rx = mx - boxRadius; rx < mx + boxRadius + 2; rx++) {
-            // Draw only if edges are on the map
-            if (rx < width && rx > -1 && ry < height && ry > -1) {
-              // Draw the box for debugging.
-              //util.map[ry][rx] = util.getColor(45, 45, 45, 0);
-                var offx = rx - algo.rockets[i].x;
-                var offy = ry - algo.rockets[i].y;
-                var hyp = Math.max(0, 1 - Math.abs(Math.sqrt( (offx * offx) + (offy * offy)) / (boxRadius + 1)));
-                var pointr = Math.round(algo.rockets[i].r * hyp);
-                var pointg = Math.round(algo.rockets[i].g * hyp);
-                var pointb = Math.round(algo.rockets[i].b * hyp);
-                util.map[ry][rx] = util.getColor(pointr, pointg, pointb, util.map[ry][rx]);
+        var boxRadius = 0;
+
+        // Draw the rocket
+        if (! algo.rockets[i].triggered) {
+          for (var ry = my - boxRadius; ry < my + boxRadius + 2; ry++) {
+            for (var rx = mx - boxRadius; rx < mx + boxRadius + 2; rx++) {
+              // Draw only if edges are on the map
+              if (rx < width && rx > -1 && ry < height && ry > -1) {
+                // Draw the box for debugging.
+                //util.map[ry][rx] = util.getColor(45, 45, 45, 0);
+                  var offx = rx - algo.rockets[i].x;
+                  var offy = ry - algo.rockets[i].y;
+                  var hyp = Math.max(0, 1 - Math.abs(Math.sqrt( (offx * offx) + (offy * offy)) / (boxRadius + 1)));
+                  var pointr = Math.round(algo.rockets[i].r * hyp);
+                  var pointg = Math.round(algo.rockets[i].g * hyp);
+                  var pointb = Math.round(algo.rockets[i].b * hyp);
+                  util.map[ry][rx] = util.getColor(pointr, pointg, pointb, util.map[ry][rx]);
+              }
             }
           }
         }
@@ -160,7 +163,7 @@ var testAlgo;
         algo.rockets[i].y -= algo.rockets[i].yDirection;
         // Carry away the rocket centers
         algo.rockets[i].xDirection = algo.rockets[i].xDirection *
-            (1 + algo.rockets[i].yDirection / 30);
+          (1 + algo.rockets[i].yDirection / 30);
       }
       return util.map;
     };
@@ -238,7 +241,8 @@ var testAlgo;
           y: height,
           xDirection: 0,
           yDirection: height,
-          trigger: 0,
+          triggerPoint: 0,
+          triggered: false,
           r: 0,
           g: 0,
           b: 0,
