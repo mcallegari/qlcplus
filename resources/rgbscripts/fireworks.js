@@ -39,6 +39,8 @@ var testAlgo;
     algo.triggerPoint = 3;
     algo.properties.push("name:triggerPoint|type:range|display:Trigger Point|values:0,5|write:setTrigger|read:getTrigger");
 
+    algo.particleCount = 10;
+
     algo.setCount = function(_count)
     {
       algo.rocketsCount = _count;
@@ -84,77 +86,48 @@ var testAlgo;
         util.initialize(width, height);
       }
 
-      // Dim map data
+      // Dim current map data
       util.map = util.map.map(col => {
 	      return col.map(pxl => {
 		      return util.dimColor(pxl, 0.8);
         })
       });
 
-      // for each rocket displayed
+      // Initialize each rocket displayed
       for (var i = 0; i < algo.rocketsCount; i++) {
-        // create a new position for the rocket
+        // create a new position for the rocket if the rocket has reached map borders
         if (algo.rockets[i].y > height ||
             algo.rockets[i].y < 0 ||
             algo.rockets[i].x > width ||
             algo.rockets[i].x < 0) {
-          algo.rockets[i].x = util.getNewNumberRange(Math.round(width / 5), Math.round(4 * width / 5));
-          algo.rockets[i].y = height;
-          algo.rockets[i].yDirection = util.getNewNumberRange(3, 5) / 3;
-          algo.rockets[i].xDirection = (algo.rockets[i].x - (width / 2)) / (width * height) *
-              (algo.rockets[i].yDirection);
-          algo.rockets[i].triggered = false;
-          if (algo.triggerPoint == 0) {
-            algo.rockets[i].triggerPoint = height;
-          } else {
-            var min = Math.floor(height / algo.triggerPoint);
-            var max = Math.floor(height - (height / algo.triggerPoint));
-            algo.rockets[i].triggerPoint = util.getNewNumberRange(min, max);
-          }
-          if (algo.randomColor === 0) {
-            do {
-              // Chose random colour for each rocket
-              algo.rockets[i].r = Math.round(Math.random() * 255);
-              algo.rockets[i].g = Math.round(Math.random() * 255);
-              algo.rockets[i].b = Math.round(Math.random() * 255);
-              // try again if it is too dim
-            } while ((algo.rockets[i].r + algo.rockets[i].g + algo.rockets[i].b) < 125);
-          } else {
-            algo.rockets[i].r = (rgb >> 16) & 0x00FF;
-            algo.rockets[i].g = (rgb >> 8) & 0x00FF;
-            algo.rockets[i].b = rgb & 0x00FF;
-          }
+          algo.rockets[i].initialized = false;
+        }
+        
+        // Initialize the rocket
+        if (!algo.rockets[i].initialized) {
+          util.initializeRocket(i, width, height, rgb);
         }
 
-        // workout closest map location for rocket
-        var mx = Math.floor(algo.rockets[i].x);
-        var my = Math.floor(algo.rockets[i].y);
-
-        // area size to draw particles
+        // Trigger the rocket
         if (! algo.rockets[i].triggered &&
-            my <= Math.floor(algo.rockets[i].triggerPoint)) {
+            Math.floor(algo.rockets[i].y) <= Math.floor(algo.rockets[i].triggerPoint)) {
           // switch to particles mode
           algo.rockets[i].triggered = true;
+          // initialize the particles
+          for (var j = 0; j < algo.particleCount; j++) {
+            algo.rockets[i].particle[j].x = algo.rockets[i].x;
+            algo.rockets[i].particle[j].y = algo.rockets[i].y;
+          }
         }
-        var boxRadius = 0;
 
         // Draw the rocket
         if (! algo.rockets[i].triggered) {
-          for (var ry = my - boxRadius; ry < my + boxRadius + 2; ry++) {
-            for (var rx = mx - boxRadius; rx < mx + boxRadius + 2; rx++) {
-              // Draw only if edges are on the map
-              if (rx < width && rx > -1 && ry < height && ry > -1) {
-                // Draw the box for debugging.
-                //util.map[ry][rx] = util.getColor(45, 45, 45, 0);
-                  var offx = rx - algo.rockets[i].x;
-                  var offy = ry - algo.rockets[i].y;
-                  var hyp = Math.max(0, 1 - Math.abs(Math.sqrt( (offx * offx) + (offy * offy)) / (boxRadius + 1)));
-                  var pointr = Math.round(algo.rockets[i].r * hyp);
-                  var pointg = Math.round(algo.rockets[i].g * hyp);
-                  var pointb = Math.round(algo.rockets[i].b * hyp);
-                  util.map[ry][rx] = util.getColor(pointr, pointg, pointb, util.map[ry][rx]);
-              }
-            }
+          util.drawObject(algo.rockets[i].x, algo.rockets[i].y,
+            width, height,
+            algo.rockets[i].r, algo.rockets[i].g, algo.rockets[i].b);
+        } else {
+          // draw the particles
+          for (var j = 0; j < algo.particleCount; j++) {
           }
         }
 
@@ -222,9 +195,77 @@ var testAlgo;
       return util.mergeRgb(pointr, pointg, pointb);
     }
 
+    util.drawObject = function(x, y, w, h, r, g, b) {
+      // workout closest map location for rocket
+      var mx = Math.floor(x);
+      var my = Math.floor(y);
+      for (var ry = my; ry < my + 2; ry++) {
+        for (var rx = mx; rx < mx + 2; rx++) {
+          // Draw only if edges are on the map
+          if (rx < w && rx > -1 && ry < h && ry > -1) {
+            // Draw the box for debugging.
+            //util.map[ry][rx] = util.getColor(45, 45, 45, 0);
+            var offx = rx - x;
+            var offy = ry - y;
+            var hyp = Math.max(0, 1 - Math.abs(Math.sqrt( (offx * offx) + (offy * offy))));
+            var pointr = Math.round(r * hyp);
+            var pointg = Math.round(g * hyp);
+            var pointb = Math.round(b * hyp);
+            util.map[ry][rx] = util.getColor(pointr, pointg, pointb, util.map[ry][rx]);
+          }
+        }
+      }
+    }
+    
+    util.initializeRocket = function(i, w, h, rgb) {
+      // reset height and set a start x location
+      algo.rockets[i].x = util.getNewNumberRange(Math.round(w / 5), Math.round(4 * w / 5));
+      algo.rockets[i].y = h;
+      // determine the x,y speed
+      algo.rockets[i].yDirection = util.getNewNumberRange(3, 5) / 3;
+      algo.rockets[i].xDirection = (algo.rockets[i].x - (w / 2)) / (w * h) *
+          (algo.rockets[i].yDirection);
+      // Set the rocket to raise mode, untriggered.
+      algo.rockets[i].triggered = false;
+      // Initialize the rocket trigger point
+      if (algo.triggerPoint == 0) {
+        algo.rockets[i].triggerPoint = h;
+      } else {
+        var min = Math.floor(h / algo.triggerPoint);
+        var max = Math.floor(h - (h / algo.triggerPoint));
+        algo.rockets[i].triggerPoint = util.getNewNumberRange(min, max);
+      }
+      // initialize the rocket color
+      if (algo.randomColor === 0) {
+        do {
+          // Chose random colour for each rocket
+          algo.rockets[i].r = Math.round(Math.random() * 255);
+          algo.rockets[i].g = Math.round(Math.random() * 255);
+          algo.rockets[i].b = Math.round(Math.random() * 255);
+          // try again if it is too dim
+        } while ((algo.rockets[i].r + algo.rockets[i].g + algo.rockets[i].b) < 125);
+      } else {
+        algo.rockets[i].r = (rgb >> 16) & 0x00FF;
+        algo.rockets[i].g = (rgb >> 8) & 0x00FF;
+        algo.rockets[i].b = rgb & 0x00FF;
+      }
+      // initialize particles
+      algo.rockets[i].particle = new Array();
+      for (var j = 0; j < algo.particleCount; j++) {
+        algo.rockets[i].particle[j] = new Object();
+      }
+      
+      // Set rocket status to initialized
+      algo.rockets[i].initialized = true;
+    }
+
     util.initialize = function(width, height)
     {
       algo.rockets = new Array(algo.rocketsCount);
+      for (var i = 0; i < algo.rocketsCount; i++) {
+        algo.rockets[i] = new Object();
+        algo.rockets[i].initialized = false;
+      }
 
       // Clear map data
       util.map = new Array(height);
@@ -252,10 +293,6 @@ var testAlgo;
       algo.initialized = true;
       return;
     };
-
-    // ------------------------------------------------------
-    // Rocket specific methods 
-    var rocket = new Object;
 
     // Development tool access
     testAlgo = algo;
