@@ -38,8 +38,8 @@ var testAlgo;
     algo.properties.push("name:randomColor|type:list|display:Random Color|values:No,Yes|write:setRandom|read:getRandom");
     algo.triggerPoint = 3;
     algo.properties.push("name:triggerPoint|type:range|display:Trigger Point|values:0,5|write:setTrigger|read:getTrigger");
-
     algo.particleCount = 10;
+    algo.properties.push("name:particleCount|type:range|display:Particles|values:5,30|write:setParticleCount|read:getParticleCount");
 
     algo.setCount = function(_count)
     {
@@ -80,6 +80,17 @@ var testAlgo;
       return algo.triggerPoint;
     };
 
+    algo.setParticleCount = function(_count)
+    {
+      return algo.particleCount = _count;
+    };
+
+    algo.getParticleCount = function()
+    {
+      return algo.particleCount;
+    };
+
+
     algo.rgbMap = function(width, height, rgb, progstep)
     {
       if (algo.initialized === false) {
@@ -100,12 +111,13 @@ var testAlgo;
             algo.rockets[i].y < 0 ||
             algo.rockets[i].x > width ||
             algo.rockets[i].x < 0) {
-          // FIXME: also take into account if the particles are done.
+          // TODO: Consider to also take into account if the particles are done.
           algo.rockets[i].initialized = false;
         }
         
         // Initialize the rocket
-        if (!algo.rockets[i].initialized) {
+        if (!algo.rockets[i].initialized ||
+            algo.rockets[i].particle.length < algo.particleCount) {
           util.initializeRocket(i, width, height, rgb);
         }
 
