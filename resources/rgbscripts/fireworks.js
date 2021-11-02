@@ -38,8 +38,9 @@ var testAlgo;
     algo.properties.push("name:randomColor|type:list|display:Random Color|values:No,Yes|write:setRandom|read:getRandom");
     algo.triggerPoint = 3;
     algo.properties.push("name:triggerPoint|type:range|display:Trigger Point|values:0,5|write:setTrigger|read:getTrigger");
-    algo.particleCount = 10;
+    algo.particleCount = 11;
     algo.properties.push("name:particleCount|type:range|display:Particles|values:5,30|write:setParticleCount|read:getParticleCount");
+    algo.particleSteps = 15;
 
     algo.setCount = function(_count)
     {
@@ -107,11 +108,7 @@ var testAlgo;
       // Initialize each rocket displayed
       for (var i = 0; i < algo.rocketsCount; i++) {
         // create a new position for the rocket if the rocket has reached map borders
-        if (algo.rockets[i].y > height ||
-            algo.rockets[i].y < 0 ||
-            algo.rockets[i].x > width ||
-            algo.rockets[i].x < 0) {
-          // TODO: Consider to also take into account if the particles are done.
+        if (algo.rockets[i].particleSteps <= 0) {
           algo.rockets[i].initialized = false;
         }
         
@@ -145,12 +142,14 @@ var testAlgo;
             width, height,
             algo.rockets[i].r, algo.rockets[i].g, algo.rockets[i].b);
         } else {
+          // Countdown particle steps
+          algo.rockets[i].particleSteps--;
           for (var j = 0; j < algo.particleCount; j++) {
             // Progress the particle
             algo.rockets[i].particle[j].x +=
               algo.rockets[i].particle[j].xDirection;
             algo.rockets[i].particle[j].y -=
-              algo.rockets[i].particle[j].yDirection;
+              algo.rockets[i].particle[j].yDirection - util.gravity;
             // draw the particles
             util.drawObject(algo.rockets[i].particle[j].x,
               algo.rockets[i].particle[j].y,
@@ -159,9 +158,11 @@ var testAlgo;
           }
         }
 
+        // Accelerate the rocket
+        algo.rockets[i].yDirection *= util.acceleration;
         // set rocket's next center location
         algo.rockets[i].x += algo.rockets[i].xDirection;
-        algo.rockets[i].y -= algo.rockets[i].yDirection;
+        algo.rockets[i].y -= algo.rockets[i].yDirection - util.gravity;
         // Carry away the rocket centers
         algo.rockets[i].xDirection = algo.rockets[i].xDirection *
           (1 + algo.rockets[i].yDirection / 30);
@@ -177,6 +178,9 @@ var testAlgo;
     // --------------------------------
     // Helper Utilities & Functions
     var util = new Object;
+    
+    util.gravity = 0.4;
+    util.acceleration = 1.05;
 
     // random position function for new rocket
     util.getNewNumberRange = function(minVal, maxVal) {
@@ -250,11 +254,14 @@ var testAlgo;
       algo.rockets[i].x = util.getNewNumberRange(Math.round(w / 5), Math.round(4 * w / 5));
       algo.rockets[i].y = h;
       // determine the x,y speed
+      // FIXME: Rockets do not run left or right
       algo.rockets[i].yDirection = util.getNewNumberRange(3, 5) / 3;
       algo.rockets[i].xDirection = (algo.rockets[i].x - (w / 2)) / (w * h) *
           (algo.rockets[i].yDirection);
       // Set the rocket to raise mode, untriggered.
       algo.rockets[i].triggered = false;
+      // set particle steps
+      algo.rockets[i].particleSteps = algo.particleSteps;
       // Initialize the rocket trigger point
       if (algo.triggerPoint == 0) {
         algo.rockets[i].triggerPoint = h;
