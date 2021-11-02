@@ -100,6 +100,7 @@ var testAlgo;
             algo.rockets[i].y < 0 ||
             algo.rockets[i].x > width ||
             algo.rockets[i].x < 0) {
+          // FIXME: also take into account if the particles are done.
           algo.rockets[i].initialized = false;
         }
         
@@ -115,19 +116,34 @@ var testAlgo;
           algo.rockets[i].triggered = true;
           // initialize the particles
           for (var j = 0; j < algo.particleCount; j++) {
+            // particle start location
             algo.rockets[i].particle[j].x = algo.rockets[i].x;
             algo.rockets[i].particle[j].y = algo.rockets[i].y;
+            // particle directions
+            var percent = j / algo.particleCount;
+            var angle = 2 * Math.PI * percent;
+            algo.rockets[i].particle[j].xDirection = Math.cos(angle);
+            algo.rockets[i].particle[j].yDirection = Math.sin(angle);
           }
         }
 
-        // Draw the rocket
         if (! algo.rockets[i].triggered) {
+          // Draw the rocket
           util.drawObject(algo.rockets[i].x, algo.rockets[i].y,
             width, height,
             algo.rockets[i].r, algo.rockets[i].g, algo.rockets[i].b);
         } else {
-          // draw the particles
           for (var j = 0; j < algo.particleCount; j++) {
+            // Progress the particle
+            algo.rockets[i].particle[j].x +=
+              algo.rockets[i].particle[j].xDirection;
+            algo.rockets[i].particle[j].y -=
+              algo.rockets[i].particle[j].yDirection;
+            // draw the particles
+            util.drawObject(algo.rockets[i].particle[j].x,
+              algo.rockets[i].particle[j].y,
+              width, height,
+              algo.rockets[i].r, algo.rockets[i].g, algo.rockets[i].b);
           }
         }
 
