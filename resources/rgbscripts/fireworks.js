@@ -40,6 +40,7 @@ var testAlgo;
     algo.particleCount = 11;
     algo.properties.push("name:particleCount|type:range|display:Particles|values:5,30|write:setParticleCount|read:getParticleCount");
     algo.particleSteps = 15;
+    algo.properties.push("name:particleSteps|type:range|display:Size|values:5,30|write:setParticleSteps|read:getParticleSteps");
 
     algo.setCount = function(_count)
     {
@@ -88,6 +89,16 @@ var testAlgo;
     algo.getParticleCount = function()
     {
       return algo.particleCount;
+    };
+
+    algo.setParticleSteps = function(_steps)
+    {
+      return algo.particleSteps = _steps;
+    };
+
+    algo.getParticleSteps = function()
+    {
+      return algo.particleSteps;
     };
 
 
@@ -252,21 +263,22 @@ var testAlgo;
       // reset height and set a start x location
       algo.rockets[i].x = util.getNewNumberRange(Math.round(w / 5), Math.round(4 * w / 5));
       algo.rockets[i].y = h;
-      // determine the x,y speed
-      // FIXME: Rockets do not run left or right
+      // determine the x and y speed
       algo.rockets[i].yDirection = util.getNewNumberRange(3, 5) / 3;
-      algo.rockets[i].xDirection = (algo.rockets[i].x - (w / 2)) / (w * h) *
-          (algo.rockets[i].yDirection);
+      algo.rockets[i].xDirection =
+        (algo.rockets[i].x - (w / 2)) / w *
+        util.getNewNumberRange(-1, 1);
       // Set the rocket to raise mode, untriggered.
       algo.rockets[i].triggered = false;
       // set particle steps
       algo.rockets[i].particleSteps = algo.particleSteps;
       // Initialize the rocket trigger point
       if (algo.triggerPoint == 0) {
-        algo.rockets[i].triggerPoint = h;
+        algo.rockets[i].triggerPoint = 0.3 * h;
       } else {
-        var min = Math.floor(h / algo.triggerPoint);
-        var max = Math.floor(h - (h / algo.triggerPoint));
+        // FIXME: Set useful numbers for the trigger point.
+        var min = Math.floor(0.3 * h / algo.triggerPoint);
+        var max = Math.floor(h - (0.3 * h / algo.triggerPoint));
         algo.rockets[i].triggerPoint = util.getNewNumberRange(min, max);
       }
       // initialize the rocket color
