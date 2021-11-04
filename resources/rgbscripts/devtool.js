@@ -298,7 +298,7 @@ devtool.setStep = function(step)
 // and there are scripts changing this number on any parameter change
 devtool.stepCount = function()
 {
-	return testAlgo.rgbMapStepCount(devtool.width, devtool.height);
+    return testAlgo.rgbMapStepCount(devtool.width, devtool.height);
 }
 
 devtool.updateStepCount = function()
