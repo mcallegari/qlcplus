@@ -31,12 +31,38 @@ var testAlgo;
     algo.properties = new Array();
     algo.initialized = false;
 
+    algo.triggerPoints = new Array(
+      ["Upper Half", {minFactor: 0.5, maxFactor: 1}],
+      ["Upper Third", {minFactor: 0.7, maxFactor: 1}],
+      ["Bottom Half", {minFactor: 0, maxFactor: 0.5}],
+      ["Bottom Third", {minFactor: 0, maxFactor: 0.3}],
+      ["Centered Third", {minFactor: 0.3, maxFactor: 0.7}],
+      ["Full Size", {minFactor: 0, maxFactor: 1}],
+    );
+    algo.makeSubArray = function(_index) {
+      var _array = new Array();
+      for (var i = 0; i < algo.triggerPoints.length; i++) {
+        _array.push(algo.triggerPoints[parseInt(i)][parseInt(_index)]);
+      }
+      return _array;
+    };
+    algo.triggerNames = algo.makeSubArray(0);
+    algo.getNameIndex = function(_name) {
+      var idx = algo.triggerNames.indexOf(_name);
+      if (idx === -1) {
+        idx = (algo.triggerPoints.length - 1);
+      }
+      return idx;
+    };
+
     algo.rocketsCount = 3;
     algo.properties.push("name:rocketCount|type:range|display:Count|values:1,50|write:setCount|read:getCount");
     algo.randomColor = 1;
     algo.properties.push("name:randomColor|type:list|display:Random Color|values:No,Yes|write:setRandom|read:getRandom");
-    algo.triggerPoint = 3;
-    algo.properties.push("name:triggerPoint|type:range|display:Trigger Point|values:0,5|write:setTrigger|read:getTrigger");
+    algo.triggerPoint = "Upper Half";
+    algo.properties.push("name:triggerPoint|type:list|display:Trigger Point|"
+        + "values:" + algo.triggerNames.toString() + "|"
+        + "write:setTrigger|read:getTrigger");
     algo.particleCount = 11;
     algo.properties.push("name:particleCount|type:range|display:Particles|values:5,30|write:setParticleCount|read:getParticleCount");
     algo.particleSteps = 15;
@@ -273,14 +299,7 @@ var testAlgo;
       // set particle steps
       algo.rockets[i].particleSteps = algo.particleSteps;
       // Initialize the rocket trigger point
-      if (algo.triggerPoint == 0) {
-        algo.rockets[i].triggerPoint = 0.3 * h;
-      } else {
-        // FIXME: Set useful numbers for the trigger point.
-        var min = Math.floor(0.3 * h / algo.triggerPoint);
-        var max = Math.floor(h - (0.3 * h / algo.triggerPoint));
-        algo.rockets[i].triggerPoint = util.getNewNumberRange(min, max);
-      }
+      algo.rockets[i].triggerPoint = util.getRocketTriggerPoint(h);
       // initialize the rocket color
       if (algo.randomColor === 0) {
         do {
@@ -303,6 +322,15 @@ var testAlgo;
       
       // Set rocket status to initialized
       algo.rockets[i].initialized = true;
+    }
+
+    util.getRocketTriggerPoint = function(h)
+    {
+      var nameIndex = algo.getNameIndex(algo.triggerPoint);
+      var minMaxFactor = algo.triggerPoints[nameIndex][1];
+      var min = Math.floor(minMaxFactor.minFactor * h);
+      var max = Math.floor(minMaxFactor.maxFactor * h);
+      return h - util.getNewNumberRange(min, max);
     }
 
     util.initialize = function(width, height)
