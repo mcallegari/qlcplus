@@ -263,7 +263,7 @@ void EditMode::refreshChannelList()
         for (int index = 0; index < m_mode->channels().size(); index++)
         {
             QLCChannel *currentChannel = m_mode->channels().at(index);
-            comboList << QString::number(index) + " - " + currentChannel->name();
+            comboList << QString::number(index + 1) + " - " + currentChannel->name();
         }
 
         QComboBox *comboBox = new QComboBox(this);
