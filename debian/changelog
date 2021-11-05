@@ -14,7 +14,12 @@ qlcplus (4.12.5) stable; urgency=low
   * New fixture: Eurolite LED SLS-7 HCL (thanks to René Schulze)
   * New fixture: Sagitter Slimpar 12DL (thanks to Lorenzo Bicci)
   * New fixture: Stairville CLB5 Compact LED Bar RGBW / RGBWW (thanks to Dominik Kerner)
-  * New fixture: Briteq BT-Vintage (thanks to David Thomas)
+  * New fixtures: Briteq BT-Vintage, Briteq BT-70LS (thanks to David Thomas)
+  * New fixtures: Look Solutions Viper NT, Varytec Hero Wash 640FX, Briteq BT-ORBIT, GLP Impression X4 (thanks to Giacomo Gorini)
+  * New fixture: Eurolite LED KLS-120 FX (thanks to Ralf Martin)
+  * New fixture: Ibiza PAR LED50-COB (thanks to Clément)
+  * New fixture: Ayra ERO 075 (thanks to Jan van Rumph)
+  * New fixtures: Eurolite LED TMH-51, Fun-Generation PicoBeam 60 (thanks to Sebastian Moeckel)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jan 2022 12:13:14 +0200
 

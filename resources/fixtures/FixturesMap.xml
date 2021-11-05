@@ -192,6 +192,7 @@
   <M n="Ayra">
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
+    <F n="Ayra-ERO-075" m="ERO 075"/>
     <F n="Ayra-ERO-506" m="ERO 506"/>
     <F n="Ayra-ERO-Microspot" m="ERO Micro Spot"/>
     <F n="Ayra-IntenZ-CB-150" m="IntenZ CB-150 "/>
@@ -253,6 +254,8 @@
   <M n="Briteq">
     <F n="Briteq-BT-575S" m="BT 575S"/>
     <F n="Briteq-BT-575W" m="BT-575W"/>
+    <F n="Briteq-BT-70LS" m="BT-70LS"/>
+    <F n="Briteq-BT-ORBIT" m="BT-ORBIT"/>
     <F n="Briteq-BT-Smartzoom" m="BT Smartzoom"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
     <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
@@ -653,6 +656,7 @@
     <F n="Eurolite-LED-FE-1500" m="LED FE-1500"/>
     <F n="Eurolite-LED-FE-700" m="LED FE-700"/>
     <F n="Eurolite-LED-Flood-Light-252-RGB-19" m="LED Flood Light 252 RGB 19°"/>
+    <F n="Eurolite-LED-KLS-120-FX" m="LED KLS-120 FX"/>
     <F n="Eurolite-LED-KLS-2500" m="LED KLS-2500"/>
     <F n="Eurolite-LED-KLS-401" m="LED KLS-401"/>
     <F n="Eurolite-LED-KLS-Laser-Bar-FX-Light-Set" m="LED KLS Laser Bar FX Light Set"/>
@@ -681,6 +685,7 @@
     <F n="Eurolite-Led-Theatre-36x3W-CW-WW" m="LED Theatre 36x3W CW/WW"/>
     <F n="Eurolite-LED-TMH-17" m="LED TMH-17"/>
     <F n="Eurolite-LED-TMH-46" m="LED TMH-46"/>
+    <F n="Eurolite-LED-TMH-51" m="LED TMH-51"/>
     <F n="Eurolite-LED-TMH-6" m="LED TMH-6"/>
     <F n="Eurolite-LED-TMH-9" m="LED TMH-9"/>
     <F n="Eurolite-LED-TMH-FE-600" m="LED TMH FE-600"/>
@@ -737,6 +742,7 @@
   <M n="Fun-Generation">
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
     <F n="Fun-Generation-LED-Pot-12x1W-RGBW" m="LED Pot 12x1W RGBW"/>
+    <F n="Fun-Generation-PicoBeam-60" m="PicoBeam 60"/>
     <F n="Fun-Generation-PicoSpot-20" m="PicoSpot 20"/>
     <F n="Fun-Generation-PicoWash-40-Pixel-Quad-LED" m="PicoWash 40 Pixel Quad LED"/>
     <F n="Fun-Generation-SePar-Hex-LED-RGBAW-UV-IR" m="SePar Hex LED RGBAW UV IR"/>
@@ -802,6 +808,7 @@
     <F n="GLP-Impression-FR1-TM" m="Impression FR1 TM"/>
     <F n="GLP-Impression-X4-Bar-10" m="Impression X4 Bar 10"/>
     <F n="GLP-Impression-X4-S" m="Impression X4 S"/>
+    <F n="GLP-Impression-X4" m="Impression X4"/>
     <F n="GLP-Impression" m="Impression"/>
     <F n="GLP-ImpressionWA" m="Impression WA"/>
     <F n="GLP-ImpressionXL" m="Impression XL"/>
@@ -848,6 +855,7 @@
   <M n="Ibiza">
     <F n="Ibiza-400-RGB" m="400 RGB"/>
     <F n="Ibiza-PAR-LED-712IR" m="PAR LED 712IR"/>
+    <F n="Ibiza-PAR-LED50-COB" m="PAR LED50-COB"/>
   </M>
   <M n="IMG_Stageline">
     <F n="IMG-Stageline-BEAM-40-WS-RGBW" m="BEAM-40 WS/RGBW"/>
@@ -1006,6 +1014,7 @@
   </M>
   <M n="Look_Solutions">
     <F n="Look-Solutions-Unique-2.1" m="Unique 2.1"/>
+    <F n="Look-Solutions-Viper-NT" m="Viper NT"/>
   </M>
   <M n="Lumeri">
     <F n="Lumeri-PRO-COB-200" m="PRO-COB 200"/>
@@ -1526,6 +1535,7 @@
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>
     <F n="Varytec-Giga-Bar-Pix-8-RGB" m="Giga Bar Pix 8 RGB"/>
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
+    <F n="Varytec-Hero-Wash-640FX" m="Hero Wash 640FX"/>
     <F n="Varytec-Hero-Wash-715-HEX-LED" m="Hero Wash 715 HEX LED"/>
     <F n="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW" m="LED Easy Move Mini Beam + Wash RGBW"/>
     <F n="Varytec-LED-Giga-bar-4-MKII" m="LED Giga Bar 4 MKII"/>
