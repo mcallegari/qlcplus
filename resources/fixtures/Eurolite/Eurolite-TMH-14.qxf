@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.5 GIT</Version>
   <Author>Chris de Rock</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -19,7 +19,7 @@
   <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -96,7 +96,7 @@
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="3.25" Width="200" Height="280" Depth="145"/>
   <Lens Name="Other" DegreesMin="4" DegreesMax="32"/>
-  <Focus Type="Fixed" PanMax="540" TiltMax="190"/>
+  <Focus Type="Head" PanMax="540" TiltMax="190"/>
   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

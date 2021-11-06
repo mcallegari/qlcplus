@@ -52,6 +52,7 @@
     <F n="American-DJ-Double-Phase" m="Double Phase"/>
     <F n="American-DJ-ECO-UV-BAR-DMX" m="ECO UV BAR DMX"/>
     <F n="American-DJ-Emerald-Scan" m="Emerald Scan"/>
+    <F n="American-DJ-Entour-Faze" m="Entour Faze"/>
     <F n="American-DJ-Entour-Venue" m="Entour Venue"/>
     <F n="American-DJ-Entourage" m="Entourage"/>
     <F n="American-DJ-Event-Bar-LED" m="Event Bar LED"/>
@@ -431,6 +432,7 @@
     <F n="Chauvet-Maverick-MK3-Profile-CX" m="Maverick MK3 Profile CX"/>
     <F n="Chauvet-Mayhem" m="Mayhem"/>
     <F n="Chauvet-MiN-Spot-RGBW" m="MiN Spot RGBW"/>
+    <F n="Chauvet-Mini-Kinta-IRC" m="Mini Kinta IRC"/>
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
     <F n="Chauvet-Omega-I-DMX-155" m="Omega I DMX-155"/>
     <F n="Chauvet-Ovation-E-910FC" m="Ovation E-910FC"/>
@@ -443,6 +445,7 @@
     <F n="Chauvet-Q-Spot-260-LED" m="Q-Spot 260 LED"/>
     <F n="Chauvet-Q-Spot-560-LED" m="Q-Spot 560 LED"/>
     <F n="Chauvet-Q-Wash-560Z-LED" m="Q-Wash 560Z-LED"/>
+    <F n="Chauvet-Rogue-R1-FX-B" m="Rogue R1 FX-B"/>
     <F n="Chauvet-Rogue-R1-Spot" m="Rogue R1 Spot"/>
     <F n="Chauvet-Rogue-R2-Spot" m="Rogue R2 Spot"/>
     <F n="Chauvet-Rogue-RH1-Hybrid" m="Rogue RH1 Hybrid"/>
@@ -677,6 +680,7 @@
     <F n="Eurolite-LED-SL-600" m="LED SL-600"/>
     <F n="Eurolite-LED-SLS-180-RGB" m="LED SLS-180 RGB"/>
     <F n="Eurolite-LED-SLS-5-BCL" m="LED SLS 5 BCL"/>
+    <F n="Eurolite-LED-SLS-603" m="LED SLS-603"/>
     <F n="Eurolite-LED-SLS-7-HCL" m="LED SLS-7 HCL"/>
     <F n="Eurolite-LED-SLS-X-QCL" m="LED SLS-* QCL"/>
     <F n="Eurolite-LED-Strobe-PRO-DMX" m="LED Strobe PRO DMX"/>
@@ -688,8 +692,10 @@
     <F n="Eurolite-LED-TMH-51" m="LED TMH-51"/>
     <F n="Eurolite-LED-TMH-6" m="LED TMH-6"/>
     <F n="Eurolite-LED-TMH-9" m="LED TMH-9"/>
+    <F n="Eurolite-LED-TMH-FE-1800" m="LED TMH FE-1800"/>
     <F n="Eurolite-LED-TMH-FE-600" m="LED TMH FE-600"/>
     <F n="Eurolite-LED-TMH-X10" m="LED TMH-X10"/>
+    <F n="Eurolite-LED-TMH-X5" m="LED TMH-X5"/>
     <F n="Eurolite-LED-Z-200-TCL" m="LED Z-200 TCL"/>
     <F n="Eurolite-NH-30-MK2" m="NH-30 MK2"/>
     <F n="Eurolite-Party-TCL-Spot-RGB" m="Party TCL Spot RGB"/>
@@ -1443,6 +1449,7 @@
     <F n="Stairville-MH-x200-Pro-Spot" m="MH-x200 Pro Spot"/>
     <F n="Stairville-MH-X25" m="MH-X25"/>
     <F n="Stairville-MH-x30-LED-Beam" m="MH-x30 LED Beam"/>
+    <F n="Stairville-MH-x30-LED-Spot" m="MH-x30 LED Spot"/>
     <F n="Stairville-MH-X50" m="MH-X50+"/>
     <F n="Stairville-MH-X60th-LED-Spot" m="MH-X60th LED Spot"/>
     <F n="Stairville-MH-z1915" m="MH-z1915 Quad LED Wash Zoom"/>
