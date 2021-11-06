@@ -234,7 +234,7 @@ void EditMode::slotActsOnChannelChanged(QLCChannel *newActsOnChannel)
         return;
 
     m_mode->updateActsOnChannel(channel, newActsOnChannel);
-    refreshChannelList();
+    //refreshChannelList();
 }
 
 void EditMode::refreshChannelList()
