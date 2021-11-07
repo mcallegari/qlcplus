@@ -128,6 +128,9 @@ public:
     /** Is the UDP socket capable of receiving packets ? */
     bool socketBound() const;
 
+    /** Send a RDM command */
+    bool sendRDMCommand(const quint32 universe, uchar command, QVariantList params);
+
 private:
     /** The network interface associated to this controller */
     QNetworkInterface m_interface;
@@ -177,6 +180,8 @@ private:
     bool handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetPoll(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetDmx(QByteArray const& datagram, QHostAddress const& senderAddress);
+    bool handleArtNetTodData(QByteArray const& datagram, QHostAddress const& senderAddress);
+    bool handleArtNetRDM(QByteArray const& datagram, QHostAddress const& senderAddress);
 
 public:
     // Handle a packet received to the ArtNet port.
@@ -189,6 +194,8 @@ protected slots:
 
 signals:
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
+
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
 };
 
 #endif

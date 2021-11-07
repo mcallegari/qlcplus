@@ -124,6 +124,16 @@ public:
     bool canConfigure();
 
     /********************************************************************
+     * RDM
+     ********************************************************************/
+public:
+    /** @reimp */
+    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+
+signals:
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+
+    /********************************************************************
      * Hotplug
      ********************************************************************/
 public slots:

@@ -273,6 +273,19 @@ QList<QSharedPointer<GenericFader> > Universe::faders()
     return m_faders;
 }
 
+void Universe::setFaderPause(quint32 functionID, bool enable)
+{
+    QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
+    while (it.hasNext())
+    {
+        QSharedPointer<GenericFader> fader = it.next();
+        if (fader.isNull() || fader->parentFunctionID() != functionID)
+            continue;
+
+        fader->setPaused(enable);
+    }
+}
+
 void Universe::tick()
 {
     m_semaphore.release(1);

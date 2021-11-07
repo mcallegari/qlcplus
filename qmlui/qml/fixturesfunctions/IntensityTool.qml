@@ -42,6 +42,8 @@ Rectangle
 
     onCurrentValueChanged:
     {
+        paletteBox.updateValue(dmxValues ? currentValue : currentValue * 2.55)
+
         if (paletteBox.isEditing || paletteBox.checked)
         {
             paletteBox.updatePreview()
@@ -56,16 +58,16 @@ Rectangle
 
     onVisibleChanged: if(!visible) paletteBox.checked = false
 
-    function loadPalette(id)
+    function loadPalette(pId)
     {
-        var palette = paletteManager.getPalette(id)
+        var palette = paletteManager.getPalette(pId)
         if (palette)
         {
             dragTopBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
-            paletteBox.editPalette(palette, palette.intValue1, palette.intValue2)
-            currentValue = dmxValues ? palette.intValue1 : palette.intValue1 / 2.55
+            paletteBox.editPalette(palette)
+            intRoot.currentValue = dmxValues ? palette.intValue1 : palette.intValue1 / 2.55
         }
     }
 
@@ -117,7 +119,7 @@ Rectangle
             id: paletteToolbar
             visible: false
             onBackClicked: intRoot.parent.dismiss()
-            onTextChanged: if (paletteBox.palette) paletteBox.palette.name = text
+            onTextChanged: paletteBox.setName(text)
         }
 
         // main control 'widget'
@@ -222,7 +224,6 @@ Rectangle
             x: 5
             width: intRoot.width - 10
             paletteType: QLCPalette.Dimmer
-            value1: intRoot.currentValue
         }
     } // Column
 }

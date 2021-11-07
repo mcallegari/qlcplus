@@ -35,8 +35,6 @@ Item
     property bool isEditing: false
     property QLCPalette palette: null
     property int paletteType: QLCPalette.Undefined
-    property var value1: 0
-    property var value2: 0
 
     onVisibleChanged:
     {
@@ -47,17 +45,28 @@ Item
             palette = paletteManager.getEditingPalette(paletteType)
     }
 
-    function updatePreview()
+    function updateValue(value)
     {
-        paletteManager.previewPalette(palette, value1, value2)
+        paletteManager.updatePalette(palette, value)
     }
 
-    function editPalette(ePalette, val1, val2)
+    function updateValues(val1, val2)
+    {
+        paletteManager.updatePalette(palette, val1, val2)
+    }
+
+    function updatePreview()
+    {
+        paletteManager.previewPalette(palette)
+    }
+
+    function editPalette(ePalette)
     {
         isEditing = true
         palette = ePalette
-        value1 = val1
-        value2 = val1
+
+        if (palette.fanningType == QLCPalette.Flat)
+            return
 
         switch (palette.type)
         {
@@ -91,6 +100,12 @@ Item
         palettePopup.paletteObj = palette
         palettePopup.open()
         palettePopup.focusEditItem()
+    }
+
+    function setName(paletteName)
+    {
+        if (palette)
+            palette.name = paletteName
     }
 
     function setColor(color)

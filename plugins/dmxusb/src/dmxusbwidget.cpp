@@ -484,6 +484,25 @@ QString DMXUSBWidget::vendor() const
     return m_interface->vendor();
 }
 
+/********************************************************************
+ * RDM
+ ********************************************************************/
+
+bool DMXUSBWidget::supportRDM()
+{
+    return false;
+}
+
+bool DMXUSBWidget::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
+    Q_UNUSED(command)
+    Q_UNUSED(params)
+
+    return false;
+}
+
 /****************************************************************************
  * Write universe
  ****************************************************************************/

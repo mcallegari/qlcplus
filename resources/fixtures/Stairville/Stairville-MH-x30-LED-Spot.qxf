@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Peeter</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>MH-x30 LED Spot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed pan/tilt" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">Strobe off</Capability>
+  <Capability Min="11" Max="128" Preset="StrobeRandomSlowToFast">Random strobe effect, increasing speed</Capability>
+  <Capability Min="129" Max="255" Preset="StrobeSlowToFast">Strobe effect, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="11" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="12" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="36" Max="47" Preset="ColorMacro" Res1="#00aaff">Light Blue</Capability>
+  <Capability Min="48" Max="59" Preset="ColorMacro" Res1="#aa00ff">Purple</Capability>
+  <Capability Min="60" Max="71" Preset="ColorMacro" Res1="#ffff7f">Light yellow</Capability>
+  <Capability Min="72" Max="83" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="84" Max="95" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="96" Max="107" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + red</Capability>
+  <Capability Min="108" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + green</Capability>
+  <Capability Min="120" Max="131" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00aaff">Green + light blue</Capability>
+  <Capability Min="132" Max="143" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#aa00ff">Light blue + purple</Capability>
+  <Capability Min="144" Max="155" Preset="ColorDoubleMacro" Res1="#ffff7f" Res2="#aa00ff">Light yellow + purple</Capability>
+  <Capability Min="156" Max="167" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff7f">Blue + light yellow</Capability>
+  <Capability Min="168" Max="179" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow + blue</Capability>
+  <Capability Min="180" Max="191" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffffff">Yellow + white</Capability>
+  <Capability Min="192" Max="223">Rainbow effect (gobo wheel rotation) in positive rotation direction, decreasing speed</Capability>
+  <Capability Min="224" Max="255">Rainbow effect (gobo wheel rotation) in negative rotation direction, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="11" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="12" Max="23" Preset="GoboMacro" Res1="SGM/gobo00027.svg">Gobo 1</Capability>
+  <Capability Min="24" Max="35" Preset="GoboMacro" Res1="Chauvet/gobo00050.png">Gobo 2</Capability>
+  <Capability Min="36" Max="47" Preset="GoboMacro" Res1="Others/gobo00093.svg">Gobo 3</Capability>
+  <Capability Min="48" Max="59" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 4</Capability>
+  <Capability Min="60" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00059.svg">Gobo 5</Capability>
+  <Capability Min="72" Max="83" Preset="GoboMacro" Res1="ClayPaky/gobo00025.svg">Gobo 6</Capability>
+  <Capability Min="84" Max="95" Preset="GoboMacro" Res1="Others/gobo00124.svg">Gobo 7</Capability>
+  <Capability Min="96" Max="107" Preset="GoboShakeMacro" Res1="SGM/gobo00027.svg">Gobo 1 shake, increasing speed</Capability>
+  <Capability Min="108" Max="119" Preset="GoboShakeMacro" Res1="Chauvet/gobo00050.png">Gobo 2 shake, increasing speed</Capability>
+  <Capability Min="120" Max="131" Preset="GoboShakeMacro" Res1="Others/gobo00093.svg">Gobo 3 shake, increasing speed</Capability>
+  <Capability Min="132" Max="143" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 4 shake, increasing speed</Capability>
+  <Capability Min="144" Max="155" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00059.svg">Gobo 5 shake, increasing speed</Capability>
+  <Capability Min="156" Max="167" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00025.svg">Gobo 6 shake, increasing speed</Capability>
+  <Capability Min="168" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00124.svg">Gobo 7 shake, increasing speed</Capability>
+  <Capability Min="180" Max="191" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="192" Max="223">Rainbow effect (gobo wheel rotation) in positive rotation direction, decreasing speed</Capability>
+  <Capability Min="224" Max="255">Rainbow effect (gobo wheel rotation) in negative rotation direction, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotation to a fixed position</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Positive rotation direction with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Negative rotation direction with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Special settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="20" Preset="ResetAll">Reset after 5 seconds</Capability>
+  <Capability Min="21" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="Mode 1: dmx 9 ch mode">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="5.8" Width="280" Height="374" Depth="150"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Head" PanMax="540" TiltMax="200"/>
+   <Technical PowerConsumption="94" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed pan/tilt</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe effect</Channel>
+  <Channel Number="5">Colour wheel</Channel>
+  <Channel Number="6">Gobo wheel</Channel>
+  <Channel Number="7">Gobo rotation</Channel>
+  <Channel Number="8">Focus</Channel>
+ </Mode>
+ <Mode Name="Mode 2: dmx 12 ch mode">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="5.8" Width="280" Height="374" Depth="150"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="200"/>
+   <Technical PowerConsumption="94" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed pan/tilt</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe effect</Channel>
+  <Channel Number="7">Colour wheel</Channel>
+  <Channel Number="8">Gobo wheel</Channel>
+  <Channel Number="9">Gobo rotation</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Special settings</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="18000" ColourTemperature="6000"/>
+  <Dimensions Weight="5.8" Width="280" Height="374" Depth="150"/>
+  <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+  <Focus Type="Head" PanMax="540" TiltMax="200"/>
+  <Technical PowerConsumption="94" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

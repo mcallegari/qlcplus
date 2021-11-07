@@ -42,9 +42,15 @@ Rectangle
     property int tiltDegrees: 0
 
     property alias showPalette: paletteBox.visible
+    property bool isLoading: false
 
     onPanDegreesChanged:
     {
+        if (isLoading)
+            return
+
+        paletteBox.updateValues(panDegrees, tiltDegrees)
+
         if (paletteBox.isEditing || paletteBox.checked)
             paletteBox.updatePreview()
         else
@@ -53,6 +59,11 @@ Rectangle
 
     onTiltDegreesChanged:
     {
+        if (isLoading)
+            return
+
+        paletteBox.updateValues(panDegrees, tiltDegrees)
+
         if (paletteBox.isEditing || paletteBox.checked)
             paletteBox.updatePreview()
         else
@@ -77,13 +88,15 @@ Rectangle
 
     function loadPalette(id)
     {
+        isLoading = true
+
         var palette = paletteManager.getPalette(id)
         if (palette)
         {
             posToolBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
-            paletteBox.editPalette(palette, palette.intValue1, palette.intValue2)
+            paletteBox.editPalette(palette)
 
             if (palette.type === QLCPalette.Pan)
             {
@@ -99,6 +112,7 @@ Rectangle
                 tiltSpinBox.value = palette.intValue2
             }
         }
+        isLoading = false
     }
 
     MouseArea
@@ -142,7 +156,7 @@ Rectangle
         id: paletteToolbar
         visible: false
         onBackClicked: posToolRoot.parent.dismiss()
-        onTextChanged: if (paletteBox.palette) paletteBox.palette.name = text
+        onTextChanged: paletteBox.setName(text)
     }
 
     IconButton
@@ -364,8 +378,6 @@ Rectangle
             Layout.columnSpan: 4
             Layout.fillWidth: true
             paletteType: QLCPalette.PanTilt
-            value1: posToolRoot.panDegrees
-            value2: posToolRoot.tiltDegrees
         }
     } // GridLayout
 }

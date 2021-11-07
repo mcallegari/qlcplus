@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Sebastian Moeckel</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH FE-1800</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer speed (step response)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="49">Dimmer speed 1</Capability>
+  <Capability Min="50" Max="99">Dimmer speed 2</Capability>
+  <Capability Min="100" Max="149">Dimmer speed 3</Capability>
+  <Capability Min="150" Max="255">Dimmer speed 4</Capability>
+ </Channel>
+ <Channel Name="Lens rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0°-60°</Capability>
+  <Capability Min="128" Max="190" Preset="RotationCounterClockwiseFastToSlow">Backwards rotation with decreasing speed</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Forwards rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Red Segment 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Green Segment 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Blue Segment 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="White Segment 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Red Segment 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Green Segment 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Blue Segment 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="White Segment 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Red Segment 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Green Segment 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Blue Segment 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="White Segment 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Red Segment 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Green Segment 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Blue Segment 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="White Segment 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Red Segment 5">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Green Segment 5">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Blue Segment 5">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="White Segment 5">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Red Segment 6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Green Segment 6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Blue Segment 6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="White Segment 6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0-100% increasing</Capability>
+ </Channel>
+ <Channel Name="Color presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="29">Red</Capability>
+  <Capability Min="30" Max="54">Green</Capability>
+  <Capability Min="55" Max="79">Blue</Capability>
+  <Capability Min="80" Max="104">White</Capability>
+  <Capability Min="105" Max="129">Color preset 1</Capability>
+  <Capability Min="130" Max="154">Color preset 2</Capability>
+  <Capability Min="155" Max="174">Color preset 3</Capability>
+  <Capability Min="175" Max="179">Color preset 4</Capability>
+  <Capability Min="180" Max="184">Color preset 5</Capability>
+  <Capability Min="185" Max="189">Color preset 6</Capability>
+  <Capability Min="190" Max="194">Color preset 7</Capability>
+  <Capability Min="195" Max="199">Color preset 8</Capability>
+  <Capability Min="200" Max="204">Color preset 9</Capability>
+  <Capability Min="205" Max="209">Color preset 10</Capability>
+  <Capability Min="210" Max="210">No function</Capability>
+  <Capability Min="211" Max="255">Color fade</Capability>
+ </Channel>
+ <Channel Name="Color presets 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="9">White 1</Capability>
+  <Capability Min="10" Max="14">White 2</Capability>
+  <Capability Min="15" Max="19">White 3</Capability>
+  <Capability Min="20" Max="24">White 4</Capability>
+  <Capability Min="25" Max="29">White 5</Capability>
+  <Capability Min="30" Max="34">White 6</Capability>
+  <Capability Min="35" Max="39">Color 1</Capability>
+  <Capability Min="40" Max="44">Color 2</Capability>
+  <Capability Min="45" Max="49">Color 3</Capability>
+  <Capability Min="50" Max="54">Color 4</Capability>
+  <Capability Min="55" Max="59">Color 5</Capability>
+  <Capability Min="60" Max="64">Color 6</Capability>
+  <Capability Min="65" Max="69">Color 7</Capability>
+  <Capability Min="70" Max="74">Color 8</Capability>
+  <Capability Min="75" Max="79">Color 9</Capability>
+  <Capability Min="80" Max="84">Color 10</Capability>
+  <Capability Min="85" Max="89">Color 11</Capability>
+  <Capability Min="90" Max="94">Color 12</Capability>
+  <Capability Min="95" Max="99">Color 13</Capability>
+  <Capability Min="100" Max="104">Color 14</Capability>
+  <Capability Min="105" Max="109">Color 15</Capability>
+  <Capability Min="110" Max="114">Color 16</Capability>
+  <Capability Min="115" Max="119">Color 17</Capability>
+  <Capability Min="120" Max="124">Color 18</Capability>
+  <Capability Min="125" Max="129">Color 19</Capability>
+  <Capability Min="130" Max="134">Color 20</Capability>
+  <Capability Min="135" Max="139">Color 21</Capability>
+  <Capability Min="140" Max="144">Color 22</Capability>
+  <Capability Min="145" Max="149">Color 23</Capability>
+  <Capability Min="150" Max="154">Color 24</Capability>
+  <Capability Min="155" Max="159">Color 25</Capability>
+  <Capability Min="160" Max="164">Color 26</Capability>
+  <Capability Min="165" Max="169">Color 27</Capability>
+  <Capability Min="170" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity color presets 2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Gradual adjustment of the dimmer intensity from 100 to 0%</Capability>
+ </Channel>
+ <Channel Name="Chaser, LED patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="14">LEDs off</Capability>
+  <Capability Min="15" Max="30">Pattern 1</Capability>
+  <Capability Min="31" Max="46">Pattern 2</Capability>
+  <Capability Min="47" Max="62">Pattern 3</Capability>
+  <Capability Min="63" Max="78">Pattern 4</Capability>
+  <Capability Min="79" Max="94">Pattern 5</Capability>
+  <Capability Min="95" Max="110">Pattern 6</Capability>
+  <Capability Min="111" Max="126">Chaser 1</Capability>
+  <Capability Min="127" Max="142">Chaser 2</Capability>
+  <Capability Min="143" Max="158">Chaser 3</Capability>
+  <Capability Min="159" Max="174">Chaser 4</Capability>
+  <Capability Min="175" Max="190">Chaser 5</Capability>
+  <Capability Min="191" Max="206">Chaser 6</Capability>
+  <Capability Min="207" Max="222">Chaser 7</Capability>
+  <Capability Min="223" Max="238">Chaser 8</Capability>
+  <Capability Min="239" Max="255">Chaser 9</Capability>
+ </Channel>
+ <Channel Name="Chaser speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="125">With decreasing speed backwards</Capability>
+  <Capability Min="126" Max="130">No function</Capability>
+  <Capability Min="131" Max="255">With increasing speed forwards</Capability>
+ </Channel>
+ <Channel Name="Chaser fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Fading</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="79">No function</Capability>
+  <Capability Min="80" Max="99" Preset="ResetMotors">Reset all motors</Capability>
+  <Capability Min="100" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer speed (step response)</Channel>
+  <Channel Number="8">Lens rotation</Channel>
+  <Channel Number="9">Red</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Blue</Channel>
+  <Channel Number="12">White</Channel>
+  <Channel Number="13">Color presets</Channel>
+  <Channel Number="14">Color presets 2</Channel>
+  <Channel Number="15">Dimmer intensity color presets 2</Channel>
+  <Channel Number="16">Chaser, LED patterns</Channel>
+  <Channel Number="17">Chaser speed</Channel>
+  <Channel Number="18">Chaser fade</Channel>
+  <Channel Number="19">Reset</Channel>
+ </Mode>
+ <Mode Name="40 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer speed (step response)</Channel>
+  <Channel Number="8">Lens rotation</Channel>
+  <Channel Number="9">Red Segment 1</Channel>
+  <Channel Number="10">Green Segment 1</Channel>
+  <Channel Number="11">Blue Segment 1</Channel>
+  <Channel Number="12">White Segment 1</Channel>
+  <Channel Number="13">Red Segment 2</Channel>
+  <Channel Number="14">Green Segment 2</Channel>
+  <Channel Number="15">Blue Segment 2</Channel>
+  <Channel Number="16">White Segment 2</Channel>
+  <Channel Number="17">Red Segment 3</Channel>
+  <Channel Number="18">Green Segment 3</Channel>
+  <Channel Number="19">Blue Segment 3</Channel>
+  <Channel Number="20">White Segment 3</Channel>
+  <Channel Number="21">Red Segment 4</Channel>
+  <Channel Number="22">Green Segment 4</Channel>
+  <Channel Number="23">Blue Segment 4</Channel>
+  <Channel Number="24">White Segment 4</Channel>
+  <Channel Number="25">Red Segment 5</Channel>
+  <Channel Number="26">Green Segment 5</Channel>
+  <Channel Number="27">Blue Segment 5</Channel>
+  <Channel Number="28">White Segment 5</Channel>
+  <Channel Number="29">Red Segment 6</Channel>
+  <Channel Number="30">Green Segment 6</Channel>
+  <Channel Number="31">Blue Segment 6</Channel>
+  <Channel Number="32">White Segment 6</Channel>
+  <Channel Number="33">Color presets</Channel>
+  <Channel Number="34">Color presets 2</Channel>
+  <Channel Number="35">Dimmer intensity color presets 2</Channel>
+  <Channel Number="36">Chaser, LED patterns</Channel>
+  <Channel Number="37">Chaser speed</Channel>
+  <Channel Number="38">Chaser fade</Channel>
+  <Channel Number="39">Reset</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.45" Width="330" Height="430" Depth="240"/>
+  <Lens Name="Other" DegreesMin="6.5" DegreesMax="6.5"/>
+  <Focus Type="Head" PanMax="540" TiltMax="190"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="310" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

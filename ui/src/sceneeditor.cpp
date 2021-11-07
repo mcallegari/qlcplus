@@ -577,7 +577,7 @@ void SceneEditor::slotColorTool()
 {
     QColor color = slotColorSelectorChanged(QColor());
 
-    QColorDialog dialog(color);
+    QColorDialog dialog(color, this);
     connect(&dialog, SIGNAL(currentColorChanged(const QColor&)),
             this, SLOT(slotColorSelectorChanged(const QColor&)));
 

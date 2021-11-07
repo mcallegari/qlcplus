@@ -54,7 +54,9 @@ CustomPopupDialog
 
     onAccepted:
     {
-        paletteManager.createPalette(paletteObj, nameInputBox.text)
+        var pId = paletteManager.createPalette(paletteObj, nameInputBox.text)
+        if (createSceneCheck.checked)
+            paletteManager.addPaletteToNewScene(pId, sceneNameInput.text)
     }
 
     contentItem:
@@ -123,6 +125,7 @@ CustomPopupDialog
 
             CustomTextEdit
             {
+                id: sceneNameInput
                 Layout.fillWidth: true
                 text: qsTr("New Scene")
                 enabled: createSceneCheck.checked

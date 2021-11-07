@@ -109,11 +109,15 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table>
  <tr>
   <td>Width</td>
-  <td><input type="number" min="1" id="width" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><input type="number" min="1" id="gridwidth" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
   <td>Height</td>
-  <td><input type="number" min="1" id="height" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><input type="number" min="1" id="gridheight" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+ </tr>
+ <tr>
+  <td>Size</td>
+  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
 </table>
 </form>

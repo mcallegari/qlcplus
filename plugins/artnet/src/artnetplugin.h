@@ -127,15 +127,26 @@ private:
     /** Map of the ArtNet plugin Input/Output lines */
     QList<ArtNetIO> m_IOmapping;
 
+    /********************************************************************
+     * RDM
+     ********************************************************************/
+public:
+    /** @reimp */
+    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+
+signals:
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+
     /*********************************************************************
      * ArtNet socket
      *********************************************************************/
 private:
     QSharedPointer<QUdpSocket> getUdpSocket();
+    void handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
+
 private slots:
     void slotReadyRead();
-private:
-    void handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
+
 private:
     QWeakPointer<QUdpSocket> m_udpSocket;
 };

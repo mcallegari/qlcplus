@@ -260,6 +260,8 @@ public:
 
     Q_INVOKABLE void updateFixtureGroup(quint32 groupID, quint32 itemID, int headIdx);
 
+    Q_INVOKABLE void renameFixtureGroup(quint32 groupID, QString newName);
+
     /** Delete some existing Fixture Groups with IDs provided by $IDList */
     Q_INVOKABLE bool deleteFixtureGroups(QVariantList IDList);
 

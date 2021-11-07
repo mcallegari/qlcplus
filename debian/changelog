@@ -1,5 +1,6 @@
 qlcplus (4.12.5) stable; urgency=low
 
+  * engine: add support for Scene pausing
   * UI/RGB Matrix Editor: fix dumping on a Sequence
   * UI/Sequence Editor: fix step values not sent to output/monitor
   * Virtual Console/Slider: fix crash when controlling non existing channels
@@ -8,6 +9,22 @@ qlcplus (4.12.5) stable; urgency=low
   * Plugins: save IO lines by name and not by index (where possible)
   * Plugins/DMX USB: add support for COM485-PLUS2 product (thanks to David Turner)
   * Plugins/E1.31: ignore non DMX packets in input
+  * New fixture: Chauvet COLORbar SMD (thanks to Yestalgia)
+  * New fixture: lightmaXX Tour Spot ARC MKII (thanks to Tolmino Muccitelli)
+  * New fixture: Eurolite LED SLS-7 HCL (thanks to René Schulze)
+  * New fixture: Sagitter Slimpar 12DL (thanks to Lorenzo Bicci)
+  * New fixture: Stairville CLB5 Compact LED Bar RGBW / RGBWW (thanks to Dominik Kerner)
+  * New fixtures: Briteq BT-Vintage, Briteq BT-70LS (thanks to David Thomas)
+  * New fixtures: Look Solutions Viper NT, Varytec Hero Wash 640FX, Briteq BT-ORBIT, GLP Impression X4 (thanks to Giacomo Gorini)
+  * New fixture: Eurolite LED KLS-120 FX (thanks to Ralf Martin)
+  * New fixture: Ibiza PAR LED50-COB (thanks to Clément)
+  * New fixture: Ayra ERO 075 (thanks to Jan van Rumph)
+  * New fixtures: Eurolite LED TMH-51, Eurolite LED TMH FE-1800, Eurolite LED TMH-X5 (thanks to Sebastian Moeckel)
+  * New fixtures: Fun-Generation PicoBeam 60, American DJ Entour Faze (thanks to Sebastian Moeckel)
+  * New fixture: Chauvet Rogue R1 FX-B (thanks to Jean-Daniel Garcia / Barbara Brugger)
+  * New fixture: Chauvet Mini Kinta IRC (thanks to Jason Willett)
+  * New fixture: Stairville MH-x30 LED Spot (thanks to Peeter)
+  * New fixture: Eurolite LED SLS-603 (thanks to Klaus Muth)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jan 2022 12:13:14 +0200
 

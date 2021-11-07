@@ -109,6 +109,7 @@ CONFIG(libftdi) {
 }
 
 HEADERS += ../../interfaces/qlcioplugin.h
+           ../../interfaces/rdmprotocol.h
 
 HEADERS += dmxusb.h \
            dmxusbwidget.h \
@@ -122,7 +123,9 @@ HEADERS += dmxusb.h \
 
 unix|macx: HEADERS += nanodmx.h euroliteusbdmxpro.h
 
-SOURCES += ../../interfaces/qlcioplugin.cpp
+SOURCES += ../../interfaces/qlcioplugin.cpp \
+           ../../interfaces/rdmprotocol.cpp
+
 SOURCES += dmxinterface.cpp \
            dmxusb.cpp \
            dmxusbwidget.cpp \

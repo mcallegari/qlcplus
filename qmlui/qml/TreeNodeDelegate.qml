@@ -32,6 +32,7 @@ Column
     property string textLabel
     property string itemIcon: "qrc:/folder.svg"
     property int itemType: App.GenericDragItem
+    property int itemID: cRef ? cRef.id : -1
 
     property bool isExpanded: false
     property bool isSelected: false

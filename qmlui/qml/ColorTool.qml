@@ -50,7 +50,7 @@ Rectangle
             paletteToolbar.text = palette.name
             currentRGB = palette.rgbValue
             currentWAUV = palette.wauvValue
-            paletteBox.editPalette(palette, palette.strValue1, "")
+            paletteBox.editPalette(palette)
         }
     }
 
@@ -71,7 +71,7 @@ Rectangle
             id: paletteToolbar
             visible: false
             onBackClicked: colorToolBox.parent.dismiss()
-            onTextChanged: if (paletteBox.palette) paletteBox.palette.name = text
+            onTextChanged: paletteBox.setName(text)
         }
 
         Rectangle
@@ -145,7 +145,7 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: colorToolBar.height
-                    drag.target: colorToolBox
+                    drag.target: paletteBox.isEditing ? null : colorToolBox
                 }
             }
         }
@@ -174,6 +174,8 @@ Rectangle
                 ignoreUnknownSignals: true
                 onColorChanged:
                 {
+                    paletteBox.updateValue(currentRGB)
+
                     if (paletteBox.checked && paletteBox.isPicking)
                     {
                         var rgb = Qt.rgba(r, g, b, 1.0)
@@ -199,7 +201,6 @@ Rectangle
             x: 5
             width: colorToolBox.width - 10
             paletteType: QLCPalette.Color
-            value1: colorToolBox.currentRGB
         }
     } // Column
 }

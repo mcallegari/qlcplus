@@ -3,14 +3,14 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.5 GIT</Version>
   <Author>jacques</Author>
  </Creator>
  <Manufacturer>Look Solutions</Manufacturer>
  <Model>Unique 2.1</Model>
  <Type>Hazer</Type>
  <Channel Name="Pump">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Pump output</Capability>
  </Channel>
  <Channel Name="Fan">
