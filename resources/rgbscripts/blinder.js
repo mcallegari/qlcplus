@@ -78,7 +78,7 @@ var testAlgo;
       algo.height = height;
       var numX = 0;
       var numY = 0;
-      if (width > height) {
+      if (width <= height) {
         algo.size = width / algo.divisor;
         numX = algo.divisor;
         numY = Math.floor(height / algo.size);
