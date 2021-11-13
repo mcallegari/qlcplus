@@ -773,8 +773,6 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
         QString universeName = uniNames.at(fixture->universe());
         int matchMask = 0;
 
-        qDebug() << "----> add fixture:" << fixture->name();
-
         addFixtureNode(doc, treeModel, fixture, universeName, fixture->universe(),
                        matchMask, searchFilter, showFlags, checkedChannels);
     }
@@ -1014,7 +1012,7 @@ void FixtureManager::updateFixtureGroup(quint32 groupID, quint32 itemID, int hea
         fxParams.append(group->id()); // subid
         fxParams.append(0); // chIdx
 
-        fxItem = m_fixtureTree->addItem(fixture->name(), fxParams, group->name(), TreeModel::EmptyNode);
+        m_fixtureTree->addItem(fixture->name(), fxParams, group->name(), TreeModel::EmptyNode);
     }
 
     for (int hIdx : headsList)
