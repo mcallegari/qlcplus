@@ -175,22 +175,34 @@ void RDMManager::slotWritePID()
     if (m_pidArgsEdit->text().length())
     {
         QStringList argList = m_pidArgsEdit->text().split(",");
+        bool ok;
 
         for (int i = 0; i < argList.count(); i++)
         {
+            QString arg = argList.at(i);
+
             switch(m_dataTypeCombo->currentIndex())
             {
                 case ByteArg:
                     params.append(uchar(1));
-                    params.append(uchar(argList.at(i).toUShort()));
+                    if (arg.toLower().startsWith("0x"))
+                        params.append(uchar(arg.mid(2).toUShort(&ok, 16)));
+                    else
+                        params.append(uchar(arg.toUShort()));
                 break;
                 case ShortArg:
                     params.append(uchar(2));
-                    params.append(argList.at(i).toShort());
+                    if (arg.toLower().startsWith("0x"))
+                        params.append(arg.mid(2).toShort(&ok, 16));
+                    else
+                        params.append(arg.toShort());
                 break;
                 case LongArg:
                     params.append(uchar(4));
-                    params.append(quint32(argList.at(i).toULong()));
+                    if (arg.toLower().startsWith("0x"))
+                        params.append(quint32(arg.mid(2).toULong(&ok, 16)));
+                    else
+                        params.append(quint32(arg.toULong()));
                 break;
                 case ArrayArg:
                 {
