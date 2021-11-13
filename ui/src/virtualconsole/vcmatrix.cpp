@@ -380,8 +380,6 @@ void VCMatrix::setFunction(quint32 id)
     {
         disconnect(old, SIGNAL(stopped(quint32)),
                 this, SLOT(slotFunctionStopped()));
-        disconnect(old, SIGNAL(attributeChanged(int,qreal)),
-                this, SLOT(slotFunctionAttributeChanged(int, qreal)));
         disconnect(old, SIGNAL(changed(quint32)),
                 this, SLOT(slotFunctionChanged()));
     }
@@ -395,8 +393,6 @@ void VCMatrix::setFunction(quint32 id)
         m_matrixID = id;
         connect(matrix, SIGNAL(stopped(quint32)),
                 this, SLOT(slotFunctionStopped()));
-        connect(matrix, SIGNAL(attributeChanged(int,qreal)),
-                this, SLOT(slotFunctionAttributeChanged(int, qreal)));
         connect(matrix, SIGNAL(changed(quint32)),
                 this, SLOT(slotFunctionChanged()));
     }
