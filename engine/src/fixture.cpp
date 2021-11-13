@@ -31,6 +31,7 @@
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
 #include "qlcchannel.h"
+#include "qlcfile.h"
 
 #include "fixture.h"
 #include "doc.h"
@@ -922,7 +923,7 @@ bool Fixture::loader(QXmlStreamReader &root, Doc* doc)
 }
 
 bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
-                      const QLCFixtureDefCache* fixtureDefCache)
+                      QLCFixtureDefCache *fixtureDefCache)
 {
     QLCFixtureDef* fixtureDef = NULL;
     QLCFixtureMode* fixtureMode = NULL;
@@ -1043,11 +1044,27 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
         if (fixtureDef == NULL)
         {
-            doc->appendToErrorLog(QString("No fixture definition found for <b>%1</b> <b>%2</b>")
-                                  .arg(manufacturer)
-                                  .arg(model));
+            // fallback to project local path
+            QString man(manufacturer);
+            QString mod(model);
+            QString path = QString("%1%2%3-%4%5")
+                    .arg(doc->getWorkspacePath()).arg(QDir::separator())
+                    .arg(man.replace(" ", "-")).arg(mod.replace(" ", "-")).arg(KExtFixture);
+
+            qDebug() << "Fixture not found. Fallback to:" << path;
+
+            if (fixtureDefCache->loadQXF(path, true) == false)
+                qDebug() << "Failed to load definition";
+
+            fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
+            if (fixtureDef == NULL)
+            {
+                doc->appendToErrorLog(QString("No fixture definition found for <b>%1</b> <b>%2</b>")
+                                      .arg(manufacturer).arg(model));
+            }
         }
-        else
+
+        if (fixtureDef != NULL)
         {
             /* Find the given fixture mode */
             fixtureMode = fixtureDef->mode(modeName);
