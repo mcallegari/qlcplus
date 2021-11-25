@@ -269,7 +269,9 @@ void HIDPlugin::rescanDevices()
                 (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_2
                 && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_2) ||
                 (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_3
-                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_3))
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_3) ||
+                (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_4
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_4))
         {
             /* Device is a USB DMX Interface, add it */
             dev = new HIDDMXDevice(this, line++,
