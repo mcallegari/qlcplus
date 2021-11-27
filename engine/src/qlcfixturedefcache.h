@@ -162,7 +162,6 @@ public:
      */
     static QDir userDefinitionDirectory();
 
-private:
     /** Load a QLC native fixture definition from the file specified in $path */
     bool loadQXF(const QString& path, bool isUser = false);
 

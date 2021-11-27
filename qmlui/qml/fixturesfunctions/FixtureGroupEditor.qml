@@ -109,6 +109,8 @@ Rectangle
                 onClicked:
                 {
                     fixtureGroupEditor.deleteSelection()
+                    // TODO: update groups tree
+                    //fixtureManager.updateFixtureGroup(fixtureGroupEditor.groupID, itemID, -1)
                     var empty = []
                     groupGrid.setSelectionData(empty)
                 }
