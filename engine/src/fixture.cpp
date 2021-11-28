@@ -1054,7 +1054,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
             qDebug() << "Fixture not found. Fallback to:" << path;
 
             if (fixtureDefCache->loadQXF(path, true) == false)
-                qDebug() << "Failed to load definition";
+                qDebug() << "Failed to load definition" << path;
 
             fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
             if (fixtureDef == NULL)

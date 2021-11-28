@@ -34,7 +34,9 @@ Column
     property string itemIcon
     property int itemType: App.FixtureDragItem
     property int itemID
+    property int subID
     property int linkedIndex: 0
+    property bool inGroup: false
     property bool isExpanded: false
     property bool isSelected: false
     property bool isCheckable: false

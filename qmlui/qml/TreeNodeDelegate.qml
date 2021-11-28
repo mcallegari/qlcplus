@@ -234,6 +234,12 @@ Column
                         if (item.hasOwnProperty('itemID'))
                             item.itemID = id
 
+                        if (item.hasOwnProperty('inGroup'))
+                            item.inGroup = inGroup
+
+                        if (item.hasOwnProperty('subID'))
+                            item.subID = subid
+
                         //console.log("Item flags: " + model.flags);
                         if (model.flags !== undefined && item.hasOwnProperty("itemFlags"))
                         {
