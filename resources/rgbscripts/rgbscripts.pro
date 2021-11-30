@@ -7,6 +7,7 @@ scripts.files += balls.js
 scripts.files += ballscolors.js
 scripts.files += blinder.js
 scripts.files += circles.js
+scripts.files += checkers.js
 scripts.files += evenodd.js
 scripts.files += fill.js
 scripts.files += fillfromcenter.js
