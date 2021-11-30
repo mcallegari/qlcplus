@@ -7,6 +7,7 @@ TEMPLATE = subdirs
  SUBDIRS              += udmx
  SUBDIRS              += midi
  unix {
+   SUBDIRS            += serial-osc-bridge
    system(pkg-config --exists libola) {
      system(pkg-config --exists libolaserver) {
        SUBDIRS        += ola
