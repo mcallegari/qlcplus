@@ -270,6 +270,9 @@ private:
     /** Internal helper method to abtract Scene value processing */
     void processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv);
 
+    /** Check whether a fade out is needed and cleanup faders */
+    void handleFadersEnd(MasterTimer* timer);
+
     /*********************************************************************
      * Attributes
      *********************************************************************/
