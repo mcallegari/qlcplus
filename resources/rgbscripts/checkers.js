@@ -85,7 +85,7 @@ var testAlgo;
     algo.checkHeight = 8;
     algo.properties.push("name:checkHeight|type:range|display:Check Height|values:1,100|write:setCheckHeight|read:getCheckHeight");
     algo.checkDepth = 0;
-    algo.properties.push("name:checkDepth|type:range|display:Check Depth|values:1,64|write:setCheckDepth|read:getCheckDepth");
+    algo.properties.push("name:checkDepth|type:range|display:Check Depth|values:0,64|write:setCheckDepth|read:getCheckDepth");
     algo.checkSlide = 0;
     algo.properties.push("name:checkSlide|type:list|display:Slide|values:None,Up,Down,Left,Right,UpRight,UpLeft,DownRight,DownLeft|write:setSlide|read:getSlide");
     algo.setSlide = function(_slide)
