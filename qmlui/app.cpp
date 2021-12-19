@@ -141,7 +141,7 @@ void App::startup()
     m_ioManager = new InputOutputManager(this, m_doc);
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
-    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
     m_functionManager = new FunctionManager(this, m_doc);
     m_simpleDesk = new SimpleDesk(this, m_doc);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager, m_simpleDesk);

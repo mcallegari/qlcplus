@@ -11,6 +11,7 @@ qlcplus (4.12.5) stable; urgency=low
   * Plugins/DMX USB: add support for COM485-PLUS2 product (thanks to David Turner)
   * Plugins/E1.31: ignore non DMX packets in input
   * Plugins/HID: add support for Nodle R4S (thanks to qfulmina)
+  * RGB scripts: added 'Fireworks' script (thanks to Hans-Jürgen Tappe)
   * New fixture: Chauvet COLORbar SMD (thanks to Yestalgia)
   * New fixture: lightmaXX Tour Spot ARC MKII (thanks to Tolmino Muccitelli)
   * New fixture: Eurolite LED SLS-7 HCL (thanks to René Schulze)
