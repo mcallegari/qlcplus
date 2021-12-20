@@ -1,0 +1,499 @@
+<html>
+    <head>
+	<title>
+	    QLC+ - Serial-to-OSC Bridge Plugin
+	</title>
+
+	<style>
+	 img.typical-usage-1 {
+	     width: 900px;
+	     height: 500px;
+	 }
+	 img.qlc-profile-add {
+	     width: 593px;
+	     height: 321px;
+	 }
+	 img.diagram {
+	     width: 1035px;
+	     height: 673px;
+	 }
+
+	 body {
+	     padding-left: 1em ;
+	 }
+
+	 h1 {
+	     border-bottom: 7px solid #915383;
+	     position: relative;
+	     left: -1rem;
+	 }
+	 h2 {
+	     border-bottom: 5px solid #68C1C1;
+	     position: relative;
+	     left: -1rem;
+	 }
+	 h3 {
+	     border-bottom: 5px solid #915383;
+	     position: relative;
+	     left: -1rem;
+	     padding-top: 1em;
+	 }
+
+	 pre {
+	     margin-left: 2em;
+	     margin-right: 2em;
+	     background: #ddc;
+	     padding: 1ex;
+	 }
+
+	 body {
+	     padding-bottom: 200px;
+	 }
+	</style>
+
+    </head>
+
+    <body>
+	<h1>
+	    QLC+ - Serial-to-OSC Bridge Plugin
+	</h1>
+
+	<h2>Overview</h2>
+	<ul>
+	    <li>
+		This plugins part of the <a href="https://www.qlcplus.org/">Q Light Controller+</a>
+		project.
+	    </li>
+	    <li>
+		The purpose of this plugin is to provide a method to control QLC+ widgets
+		using Arduino devices connected by USB.
+	    </li>
+	    <li>
+		This is highly-technical setup, it is assumed the
+		reader is familiar with QLC+, inputs, widgets, and also arduino C programming and a bit of hardware hacking.
+	    </li>
+	</ul>
+
+	<h3>Typical Setup</h3>
+	<a target="_blank" href="typical-usage-1.png">
+	    <img class="typical-usage-1" src="typical-usage-1.png">
+	</a>
+	<img class="poc-demo-clip" src="poc-demo-clip.gif">
+
+	<h3>Inner workings</h3>
+	<ol>
+	    <li>
+		An Arduino microcontroller reads physical input (e.g. potentiometers, switches, etc.).
+		<br/>
+		Example (Arduino C Code):
+		<pre>
+void setup()
+{
+  Serial.begin(115200);
+}
+void loop()
+{
+  int knob = analogRead(A0);
+  knob = map(knob, 0, 1023, 0, 255); // map value from Arduino's 0-1023 range to QLC/DMX's 0-255 range.
+}
+		</pre>
+	    </li>
+	    <li>
+		Arduino sends a valid OSC frame to the PC over serial connection (see complete code in the next section):
+		<pre>
+void loop()
+{
+  int knob = analogRead(A0);
+  knob = map(knob, 0, 1023, 0, 255);
+
+  // QLC's will auto-detect this OSC input as "/mydevice/knob/1" with the
+  // integer value read from the arduino analog pin:
+  send_osc_simple_control_int("/mydevice/knob/", 1, knob ) ;
+}
+		</pre>
+	    </li>
+
+	    <li>
+		After every OSC frame, the Arduino sends a fixed
+		4-byte marker indicating the end-of-frame.
+		<br/>
+		This is
+		required due to protocol differences between UDP
+		(which is frame-aware, every datagram is a single
+		frame) and tty/serial devices (which are one
+		continuous stream).
+		<br/>
+		<pre>
+void loop()
+{
+  int knob = analogRead(A0);
+  knob = map(knob, 0, 1023, 0, 255);
+
+  send_osc_simple_control_int("/mydevice/knob/", 1, knob ) ;
+  send_osc_bridge_frame_marker();
+}
+		</pre>
+	    </li>
+
+	    <li>
+		The Arduino can send multiple OSC frames, as long as there's
+		an end-of-frame marker after each one, e.g.:
+		<pre>
+void loop()
+{
+  while (1) {
+    int knob1 = analogRead(A0);
+    int knob2 = analogRead(A1);
+    int slider1 = analogRead(A2);
+    int switch1 = digitalRead(2);
+    int switch2 = digitalRead(3);
+
+    knob1 = map(knob1, 0, 1023, 0, 255);
+    knob2 = map(knob2, 0, 1023, 0, 255);
+    slider1 = map(slider1, 0, 1023, 0, 255);
+
+    // hardware switches are either on or off, translate them to 0 or 255 for QLC.
+    switch1 = (switch1) ? 255 : 0;
+    switch2 = (switch2) ? 255 : 0;
+
+    send_osc_simple_control_int("/mydevice/knob/", 1, knob1 ) ;
+    send_osc_bridge_frame_marker();
+
+    send_osc_simple_control_int("/mydevice/knob/", 2, knob2 ) ;
+    send_osc_bridge_frame_marker();
+
+    send_osc_simple_control_int("/mydevice/slider/", 1, slider1 ) ;
+    send_osc_bridge_frame_marker();
+
+    send_osc_simple_control_int("/mydevice/switch/", 1, switch1 ) ;
+    send_osc_bridge_frame_marker();
+
+    send_osc_simple_control_int("/mydevice/switch/", 2, switch2 ) ;
+    send_osc_bridge_frame_marker();
+
+    delay(10);
+  }
+}
+		</pre>
+	    </li>
+
+	    <li>
+		In QLC's <b>inputs/outputs</b> tab,
+		after setting <b>OSC:127.0.0.1</b> as universe 1 input,
+		and <b>Serial-OSC-Bridge</b> as universe 2 input,
+		clicking on the "profiles" tab for universe 1 and clicking "add":
+		<br/>
+		<a target="_blank" href="qlc-profile-add.png">
+		    <img class="qlc-profile-add" src="qlc-profile-add.png">
+		</a>
+		<br/>
+		<br/>
+		The above Arduino code will result in the following auto-detected channels:
+		<br/>
+		<img class="qlc-profile-autodetect" src="qlc-profile-auto-detect.png">
+		<br/>
+
+	    </li>
+
+	    <li>
+		Then in QLC's <b>Virtual Console</b>, add a new widget
+		and  double-click on it to edit the its properties:
+		<br/>
+		<img class="qlc-new-widget" src="qlc-new-widget.png">
+		<br/>
+		<br/>
+		Click "choose" to select the OSC input (as defined in the "profile", above):
+		<br/>
+		<img class="qlc-widget-choose-input" src="qlc-widget-choose-input.png">
+		<br/>
+		Then select the desired OSC input channel from the list:
+		<br/>
+		<img class="qlc-choose-osc-input" src="qlc-choose-osc-input.png">
+		<br/>
+		The widget will then be controlled by the changing values sent by the arduino:
+		<br/>
+		<img class="qlc-widget-with-input" src="qlc-widget-with-input.png">
+	    </li>
+	</ol>
+
+
+	<h3>Arduino Code</h3>
+
+	The following Arduino code can be used as a starting point.
+	Read the <a target="_blank" href="https://opensoundcontrol.stanford.edu/">Open Sound Control (OSC) specifications</a>
+	to better understand the OSC frame format.
+
+	<pre>
+/*
+  Arduino Code Example for the Serial-OSC-Bridge Plugin for QLC+
+
+  Copyright (c) House Gordon Software Company LTD
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+//Uncomment this during debugging, this will result in ASCII OSC frames
+//sent over the serial port (viewable in Arduino Studio Serial Monitor)
+//but not usable by QLC.
+//#define DEBUG_ASCII_COMMUNICATION
+
+#define BAUD_RATE 115200
+
+void send_osc_bridge_frame_marker()
+{
+#ifndef DEBUG_ASCII_COMMUNICATION
+  static const unsigned char frame_marker[4] = {0x89, 0x98, 0x12, 0xAB} ;
+  Serial.write(frame_marker, 4);
+#endif
+}
+
+// "num_sent" is the number of bytes ALREADY sent.
+// e.g. if num_sent==11 , this function will send one additional NUL byte
+// resulting in a 12 byte message (4-byte aligned in total).
+void send_osc_zero_padding(unsigned int num_sent)
+{
+  // Fall-through here is intentional, similar to https://en.wikipedia.org/wiki/Duff%27s_device .
+  // e.g. if the remainder is 1, three NUL bytes will be sent.
+  switch (num_sent % 4)
+  {
+    case 1: Serial.write(0x00);
+    /* FALLTHROUGH */
+    case 2: Serial.write(0x00);
+    /* FALLTHROUGH */
+    case 3: Serial.write(0x00);
+  }
+}
+
+void send_osc_simple_control_int(const String& address_prefix,
+                                 int control_number,
+                                 unsigned int value)
+{
+  // Send the OSC Address - no sanity checks on the validity of the address...
+  size_t i = Serial.print(address_prefix);
+  i += Serial.print(String(control_number));
+
+#ifndef DEBUG_ASCII_COMMUNICATION
+  send_osc_zero_padding(i);
+#endif
+
+  // Send the OSC type.
+  //NOTE: "i/integer" in OSC protocol is a 32-bit integer
+  Serial.print(",i");
+#ifndef DEBUG_ASCII_COMMUNICATION
+  send_osc_zero_padding(2);
+#endif
+
+#ifdef DEBUG_ASCII_COMMUNICATION
+  Serial.print(",value = ");
+  Serial.println(value);
+#else
+  // Send the value.
+  // As AVR arduino 'int' is 16-bit, start with two NUL bytes to pad to 32 bit.
+  send_osc_zero_padding(2);
+  byte hi = value / 256;
+  byte lo = value % 256;
+  Serial.write(hi);
+  Serial.write(lo);
+#endif
+}
+
+
+void setup()
+{
+  Serial.begin(BAUD_RATE);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
+  pinMode(2, INPUT_PULLUP);
+  pinMode(3, INPUT_PULLUP);
+}
+
+void loop()
+{
+  int prev_knob1;
+  int prev_knob2;
+  int prev_slider1;
+  int prev_switch1;
+  int prev_switch2;
+
+  while (1) {
+    int knob1 = analogRead(A0);
+    int knob2 = analogRead(A1);
+    int slider1 = analogRead(A2);
+    int switch1 = digitalRead(2);
+    int switch2 = digitalRead(3);
+
+    knob1 = map(knob1, 0, 1023, 0, 255);
+    knob2 = map(knob2, 0, 1023, 0, 255);
+    slider1 = map(slider1, 0, 1023, 0, 255);
+
+    // hardware switches are either on or off, translate them to 0 or 255 for QLC.
+    switch1 = (switch1) ? 255 : 0;
+    switch2 = (switch2) ? 255 : 0;
+
+    if (knob1 != prev_knob1) {
+      send_osc_simple_control_int("/mydevice/knob/", 1, knob1 ) ;
+      send_osc_bridge_frame_marker();
+      prev_knob1 = knob1 ;
+    }
+
+    if (knob2 != prev_knob2) {
+      send_osc_simple_control_int("/mydevice/knob/", 2, knob2 ) ;
+      send_osc_bridge_frame_marker();
+      prev_knob2 = knob2 ;
+    }
+
+    if (slider1 != prev_slider1) {
+      send_osc_simple_control_int("/mydevice/slider/", 1, slider1 ) ;
+      send_osc_bridge_frame_marker();
+      prev_slider1 = slider1 ;
+    }
+
+    if (switch1 != prev_switch1) {
+      send_osc_simple_control_int("/mydevice/switch/", 1, switch1 ) ;
+      send_osc_bridge_frame_marker();
+      prev_switch1 = switch1 ;
+    }
+
+    if (switch2 != prev_switch2) {
+      send_osc_simple_control_int("/mydevice/switch/", 2, switch2 ) ;
+      send_osc_bridge_frame_marker();
+      prev_switch2 = switch2 ;
+    }
+
+    delay(10);
+  }
+}
+	</pre>
+
+
+	<h3>Configuration</h3>
+
+	Open the Serial-OSC-Bridge plugin configuration screen:
+	<br/>
+	<img src="qlc-osc-bridge-plugin-config.png">
+	<br/>
+	<br/>
+	The input tab has options to set the USB VendorID and Product ID for the arduino device you are using,
+	and the serial baud rate. In some case, you might prefer to read from a hard-coded serial device file name
+	instead of auto-detecting a USB device:
+	<br/>
+	<img src="osc-bridge-config-input.png">
+	<br/>
+	<br/>
+	The output tab allows changing the destination universe number (this is the QLC
+	universe in which the OSC plugin is running on 127.0.0.1):
+	<br/>
+	<img src="osc-bridge-config-output.png">
+	<br/>
+	<br/>
+	The advanced tab allows changing more options, for example you can
+	change the 4-byte values of the end-of-frame marker sent by the arduino.
+	<img src="osc-bridge-config-advanced.png">
+
+
+	<h3>Operation and Troubleshooting</h3>
+
+	When the Serial-OSC-Bridge plugin is enabled, its status window will show
+	the "health" of the setup (whether it's working or not).
+	<br/>
+	Initially, it will show "invalid configuration" - indicating that the
+	USB VendorID/ProductID are not set:
+	<br/>
+	<img src="serial-osc-bridge-invalid-config.png">
+	<br/>
+	<br/>
+	Click on the "Configuration" button to set the USB vendor/product ID.
+	<br/>
+	It is fine to enter dummy values (e.g. "1234" and "5678") if the actual values are not known:
+	<br/>
+	<img src="serial-osc-bridge-dummy-usb-values.png">
+	<br/>
+	The plugin will then show the detected devices:
+	<br/>
+	<img src="serial-osc-bridge-waiting-for-device.png">
+	<br/>
+	In the screenshot above we can see the detected Arduino device at <code>/dev/ttyUSB0</code>
+	with VID:PID of <code>1a86:7523</code>.
+	<br/>
+	Open the plugin "configuration" page again, and enter these values (also - change the baudrate according to your arduino code):
+	<br/>
+	<img src="serial-osc-bridge-correct-vid-pid.png">
+	<br/>
+	Once the plugin detects the correct USB-serial device, it will open it and starts reading OSC data from it:
+	<br/>
+	<img src="serial-osc-bridge-process-input.png">
+	<br/>
+
+	This status provides some troubleshooting hints when developing new Arduino software:
+	<table>
+	    <tr>
+		<th>Total input bytes</th>
+		<td>If this value is very low (or zero), it means the serial device is not sending any data at all.</td>
+	    </tr>
+	    <tr>
+		<th>Valid Frames + Valid Frame Bytes</th>
+		<td>
+		    If these values are low (compared to the total input bytes), it means the device is not sending valid
+		    "end-of-frame" marker (4 bytes).
+		    <br/>
+		    Note that the plugin <b>does not</b> perform any validation on the content of the OSC frames themselves.
+		</td>
+	    </tr>
+	    <tr>
+		<th>Buffer overruns</th>
+		<td>If this value is not zero, it means that the sent frames (either valid or not) between every OSC end-of-frame marker
+		    is too large.
+		    By default the maximum size is 4096 bytes which should be plenty enough for typical OSC frames.
+		</td>
+	    </tr>
+	</table>
+
+
+	<h3>Real World Example</h3>
+
+	The following proof-of-concept prototype was developed by <i>House Gordon Software Company LTD</i> (the developer of this plugin).
+	The design and code below are released under the Apache 2.0 license (same as QLC+).
+	<br/>
+	<br/>
+	<a target="_blank" href="serial-osc-bridge_bb.png">
+	    <img class="diagram" src="serial-osc-bridge_bb.png">
+	</a>
+	<br/>
+	<br/>
+	Front side:
+	<br/>
+	<img src="poc-front-side.jpg">
+	<br/>
+	<br/>
+	Back side:
+	<br/>
+	<br/>
+	<img src="poc-back-side.jpg">
+	<br/>
+	<br/>
+	Prototype in action:
+	<br/>
+	<video controls>
+	    <source src="poc-demo.mp4" type="video/mp4">
+	</video>
+	<br/>
+	<br/>
+	Full source code:
+	<br/>
+	Download <a target="_blank" href="dmx-controller-poc-2.ino.txt">dmx-controller-poc-2.ino.txt</a>
+	(remove the <code>.txt</code>, the <code>.ino</code> file is an Arduino-Studio project file)
+	or <a target="_blank" href="dmx-controller-poc-2.ino.html">view online</a>.
+    </body>
+</html>

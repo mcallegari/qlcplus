@@ -1,0 +1,324 @@
+/*
+  Arduino Code Example for the Serial-OSC-Bridge Plugin for QLC+
+
+  Copyright (c) House Gordon Software Company LTD
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+/*
+  The following pins are expected to be connected:
+   D2,D3,D4,D5 => 1x4 keypad matrix
+     D4 => Keypad 1
+     D5 => Keypad 2
+     D2 => Keypad 3
+     D3 => Keypad 4
+
+   D6 => ON/OFF Switch (lever)
+   D7 => ON/OFF Switch (lever)
+   D8 => ON/OFF Switch (lever)
+   D9 => ON/OFF Switch (black "0" and "1")
+
+   A0 => Slider (linear potentiometer, connected to 3.3V)
+   A1 => Slider (linear potentiometer, connected to 3.3V)
+   A2 => Slider (linear potentiometer, connected to 3.3V)
+   A3 => Slider (linear potentiometer, connected to 3.3V)
+
+  OSC Mapping:
+
+  The four on/off switches are broadcast as KNOBS (not buttons),
+  as "button" in OSC is a switch button with no state (e.g. toggle).
+  We send "0" for "off" and "255" for "on"
+
+  The values for the keypads don't matter, they are sent when pressed
+  (and not when released).
+
+*/
+#define VERSION "13"
+
+//#define DEBUG_ASCII_COMMUNICATION
+
+#define BAUD_RATE 115200
+
+//#define DEBUG_ASCII_TABLE_OUTPUT
+
+// To accomodate imprecise analog voltage reading on the edges,
+// Clamp the analagRead() value to this range,
+// Truncating the edge values (analogRead returns values between 0 and 1023
+#define ANALOG_CLAMP_MIN 10
+#define ANALOG_CLAMP_MAX 1010
+
+
+// After 2 seconds of idleness (no slider/button pressed),
+// send an update with all values, to ensure the PC is aware of the current
+// values
+#define IDLE_TIME_SEND_UPDATES_MS 2000
+
+// Max/Min values are reversed (if the linear-potentiometers
+// were wired backwards.
+#define LINEAR_POTENTIOMETERS_REVERSED
+
+
+void send_osc_bridge_frame_marker()
+{
+#ifndef DEBUG_ASCII_COMMUNICATION
+  static const unsigned char frame_marker[4] = {0x89, 0x98, 0x12, 0xAB} ;
+  Serial.write(frame_marker, 4);
+#endif
+}
+
+// "num_sent" is the number of bytes ALREADY sent.
+// e.g. if num_sent==11 , this function will send one additional NUL byte
+// resulting in a 12 byte message (4-byte aligned in total).
+void send_osc_zero_padding(unsigned int num_sent)
+{
+  // Fall-through here is intentional, similar to https://en.wikipedia.org/wiki/Duff%27s_device .
+  // e.g. if the remainder is 1, three NUL bytes will be sent.
+  switch (num_sent % 4)
+  {
+    case 1: Serial.write(0x00);
+    /* FALLTHROUGH */
+    case 2: Serial.write(0x00);
+    /* FALLTHROUGH */
+    case 3: Serial.write(0x00);
+  }
+}
+
+void send_osc_simple_control_int(const String& address_prefix,
+                                 int control_number,
+                                 unsigned int value)
+{
+  // Send the OSC Address - no sanity checks on the validity of the address...
+  size_t i = Serial.print(address_prefix);
+  i += Serial.print(String(control_number));
+
+#ifndef DEBUG_ASCII_COMMUNICATION
+  send_osc_zero_padding(i);
+#endif
+
+  // Send the OSC type.
+  //NOTE: "i/integer" in OSC protocol is a 32-bit integer
+  Serial.print(",i");
+#ifndef DEBUG_ASCII_COMMUNICATION
+  send_osc_zero_padding(2);
+#endif
+
+#ifdef DEBUG_ASCII_COMMUNICATION
+  Serial.print(",value = ");
+  Serial.println(value);
+#else
+  // Send the value.
+  // As AVR arduino 'int' is 16-bit, start with two NUL bytes to pad to 32 bit.
+  send_osc_zero_padding(2);
+  byte hi = value / 256;
+  byte lo = value % 256;
+  Serial.write(hi);
+  Serial.write(lo);
+#endif
+}
+
+
+void setup()
+{
+  Serial.begin(BAUD_RATE);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
+  Serial.print("Renert DMX Controller V");
+  Serial.println(VERSION);
+
+  pinMode(2, INPUT_PULLUP);
+  pinMode(3, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(5, INPUT_PULLUP);
+
+  pinMode(6, INPUT_PULLUP);
+  pinMode(7, INPUT_PULLUP);
+  pinMode(8, INPUT_PULLUP);
+  pinMode(9, INPUT_PULLUP);
+}
+
+int digital_pin_state[13]; // This assumes up to 13 digital pins base on standard arduino .
+int analog_pin_state[7]; // This assumes up to 7 analog pins
+
+unsigned long last_osc_send_time;
+
+// For KeyPads, we send notification only WHEN PRESSED
+// (the upstream software will treat them as toggles, and switch their state
+// when pressed.
+void send_keypad(int keypad, int raw_value)
+{
+  int osc_num;
+
+  // The keypad matrix is connected to arduino Pull-up pin.
+  // The value will be ZERO if the button is pressed.
+  int new_val = !raw_value;
+
+  // We do not send notification when it is released...
+  if (new_val == 0) {
+    return ;
+  }
+
+  // Mapping from arduino hardware pin connection to logical OSC keypad value
+  // (same value as the digit printed on the 1x4 key matrix)
+  switch (keypad)
+  {
+    case 3: osc_num = 1; break;
+    case 4: osc_num = 2; break;
+    case 1: osc_num = 3; break;
+    case 2: osc_num = 4; break;
+  }
+
+#ifndef DEBUG_ASCII_TABLE_OUTPUT
+  String osc_prefix = "/renert1/keypad/";
+  send_osc_simple_control_int(osc_prefix, osc_num, new_val ) ;
+  send_osc_bridge_frame_marker();
+  last_osc_send_time = millis();
+#endif
+}
+
+void send_switch(int num, int raw_value)
+{
+  int osc_num = num;
+
+  if (num == 3) {
+    // The 3rd switch is wired in reverse...
+    raw_value = !raw_value ;
+  }
+  int val = raw_value ? 0 : 255 ;
+
+#ifndef DEBUG_ASCII_TABLE_OUTPUT
+  String osc_prefix = "/renert1/switch/";
+  send_osc_simple_control_int(osc_prefix, osc_num, val ) ;
+  send_osc_bridge_frame_marker();
+  last_osc_send_time = millis();
+#endif
+}
+
+void check_digital_pin(int pin)
+{
+  int new_val = digitalRead(pin);
+
+  if (new_val == digital_pin_state[pin]) {
+    // Same value as before - no need to update anything
+    return;
+  }
+
+  digital_pin_state[pin] = new_val;
+
+  //All digital inputs are Pull-ups, reading "1" if NOT pressed,
+  //and "0" if pressed (and thus shorted to GND).
+  if (pin >= 2 && pin <= 5) {
+    send_keypad (pin - 1, new_val);
+  } else {
+    send_switch ( pin - 5, new_val);
+  }
+}
+
+void send_analog_pin(int pin, int new_val)
+{
+#ifndef DEBUG_ASCII_TABLE_OUTPUT
+  String osc_prefix = "/renert1/fader/";
+  int osc_num = pin - A0 + 1 ;
+
+#ifdef LINEAR_POTENTIOMETERS_REVERSED
+  int send_value = 255 - new_val ;
+#else
+  int send_value = new_val ;
+#endif
+  send_osc_simple_control_int(osc_prefix, osc_num, send_value) ;
+  send_osc_bridge_frame_marker();
+  last_osc_send_time = millis();
+#endif
+}
+
+void check_analog_pin(int pin)
+{
+  int new_val = analogRead(pin);
+#ifdef DEBUG_ANALOG_READ
+  Serial.print("analogRead(");
+  Serial.print(pin);
+  Serial.print(")=");
+  Serial.println(new_val);
+#endif
+  new_val = constrain(new_val, ANALOG_CLAMP_MIN, ANALOG_CLAMP_MAX);
+  new_val = map(new_val, ANALOG_CLAMP_MIN, ANALOG_CLAMP_MAX, 0, 255);
+
+  int diff = analog_pin_state[pin - A0] - new_val ;
+
+  if (abs(diff) <= 3) {
+    // Same value as before - no need to update anything
+    return;
+  }
+
+  analog_pin_state[pin - A0] = new_val;
+
+  send_analog_pin(pin, new_val);
+}
+
+void serial_pretty_print_num(byte b)
+{
+  if (b < 100)
+    Serial.print('0');
+  if (b < 10)
+    Serial.print('0');
+  Serial.print(b);
+}
+
+bool send_idle_time_refresh()
+{
+  int i;
+  unsigned long curr = millis();
+  if ( (curr - last_osc_send_time) > IDLE_TIME_SEND_UPDATES_MS  ) {
+
+    for (i=0;i<4;++i)
+      send_analog_pin( A0 + i, analog_pin_state[i] ) ;
+
+    for (i=6;i<=9;++i)
+      send_switch (i-5, digital_pin_state[i] ) ;
+
+    // Don't send the 'keypad' values:
+    // While the sliders and up/down switches have STATE (i.e. current value)
+    // The keypad event is an "ACTION" by itself - we don't want to trigger the action.
+
+    last_osc_send_time = millis();
+    return true;
+  }
+  return false;
+}
+
+void loop()
+{
+  while (1) {
+    for (int i = 2; i <= 9; ++i) {
+      check_digital_pin(i);
+    }
+    for (int i = 0; i <= 3; ++i) {
+      check_analog_pin(A0 + i);
+    }
+#ifdef DEBUG_ASCII_TABLE_OUTPUT
+    serial_pretty_print_num(analog_pin_state[0]);
+    Serial.print(' ');
+    serial_pretty_print_num(analog_pin_state[1]);
+    Serial.print(' ');
+    serial_pretty_print_num(analog_pin_state[2]);
+    Serial.print(' ');
+    serial_pretty_print_num(analog_pin_state[3]);
+    Serial.println();
+#endif
+
+    if (!send_idle_time_refresh())
+      delay(2);
+  }
+
+}
