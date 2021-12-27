@@ -17,6 +17,7 @@ SUBDIRS += genericfader
 SUBDIRS += grandmaster
 SUBDIRS += inputoutputmap
 SUBDIRS += inputpatch
+SUBDIRS += keypadparser
 SUBDIRS += mastertimer
 SUBDIRS += outputpatch
 SUBDIRS += qlccapability
@@ -39,7 +40,7 @@ SUBDIRS += rgbscript
 SUBDIRS += rgbtext
 SUBDIRS += scene
 SUBDIRS += scenevalue
-!qmlui: SUBDIRS += script
+SUBDIRS += script
 SUBDIRS += sequence
 SUBDIRS += universe
 

@@ -33,9 +33,9 @@ var testAlgo;
     algo.linesAmount = 3;
     algo.properties.push("name:linesAmount|type:range|display:Amount|values:1,200|write:setAmount|read:getAmount");
     algo.linesSize = 10;
-    algo.properties.push("name:linesSize|type:range|display:Size|values:1,32|write:setSize|read:getSize");
-    algo.linesVariablity = 0;
-    algo.properties.push("name:linesVariablity|type:range|display:Size Variablity|values:0,100|write:setVariability|read:getVariability");
+    algo.properties.push("name:linesSize|type:range|display:Size|values:1,32|write:setLinesSize|read:getLinesSize");
+    algo.linesVariability = 0;
+    algo.properties.push("name:linesVariability|type:range|display:Size Variablity|values:0,100|write:setVariability|read:getVariability");
     algo.linesType = 0;
     algo.properties.push("name:linesType|type:list|display:Type|values:Horizontal,Vertical,Plus,X,Star,Left,Right,Up,Down,UpRight,UpLeft,DownRight,DownLeft|write:setType|read:getType");
     algo.linesBias = 0;
@@ -59,23 +59,29 @@ var testAlgo;
       this.xCenter = x;
       this.yCenter = y;
       this.step = step;
-    }
-
-    algo.setSize = function(_size)
-    {
-      algo.linesSize = _size;
-      util.initialized = false;
     };
 
-    algo.getSize = function()
+    algo.setLinesSize = function(_size)
+    {
+	  // Only set if the input is valid.
+      if (!(parseInt(_size) === NaN) && parseInt(_size) > 0) {
+        algo.linesSize = parseInt(_size);
+        util.initialized = false;
+      }
+    };
+
+    algo.getLinesSize = function()
     {
       return algo.linesSize;
     };
 
     algo.setVariability = function(_var)
     {
-      algo.linesVariability = _var;
-      util.initialized = false;
+	  // Only set if the input is valid.
+      if (!(parseInt(_var) === NaN) && parseInt(_var) > 0) {
+        algo.linesVariability = _var;
+        util.initialized = false;
+      }
     };
 
     algo.getVariability = function()
@@ -229,9 +235,11 @@ var testAlgo;
         if (algo.fadeMode === 2) {
           fadeStep = stepCount - step;
         }
-        var newR = (r / stepCount) * fadeStep;
-        var newG = (g / stepCount) * fadeStep;
-        var newB = (b / stepCount) * fadeStep;
+        var factor = fadeStep / stepCount;
+        var newR = Math.round(r * factor);
+        var newG = Math.round(g * factor);
+        var newB = Math.round(b * factor);
+
         var newRGB = (newR << 16) + (newG << 8) + newB;
         return newRGB;
       }
@@ -239,8 +247,6 @@ var testAlgo;
 
     util.drawPixel = function(cx, cy, color, width, height)
     {
-      //cx = cx.toFixed(0);
-      //cy = cy.toFixed(0);
       cx = Math.round(cx);
       cy = Math.round(cy);
       if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
@@ -269,24 +275,40 @@ var testAlgo;
 
         if (lines[i].xCenter === -1)
         {
-          var seed = Math.floor(Math.random()*100);
-          if (seed > 50) { continue; }
-
-          lines[i].xCenter = Math.floor(Math.random() * width);
-          lines[i].yCenter = Math.floor(Math.random() * height);
+          // Randomize the initialization of a new line.
+          var seed = Math.floor(Math.random() * 100);
+          if (seed > 50)
+            continue;
 
           // if biased .. move the start points to the cardinal ends of the space
-          if ( algo.linesBias == 1 || algo.linesBias == 5 || algo.linesBias == 6 ) { lines[i].yCenter = Math.floor(Math.random() * height/5); } 
-          if ( algo.linesBias == 2 || algo.linesBias == 7 || algo.linesBias == 8 ) { lines[i].yCenter = height - Math.floor(Math.random() * height/5); } 
-          if ( algo.linesBias == 3 || algo.linesBias == 5 || algo.linesBias == 7 ) { lines[i].xCenter = Math.floor(Math.random() * width/5); }
-          if ( algo.linesBias == 4 || algo.linesBias == 6 || algo.linesBias == 8 ) { lines[i].xCenter = width - Math.floor(Math.random() * width/5); } 
+          if (algo.linesBias == 1 || algo.linesBias == 5 || algo.linesBias == 6)
+          {
+            lines[i].yCenter = Math.round(Math.random() * height / 5);
+          } 
+          else if (algo.linesBias == 2 || algo.linesBias == 7 || algo.linesBias == 8)
+          {
+            lines[i].yCenter = (height - 1) - Math.round(Math.random() * height	 / 5);
+          } 
+          else
+          {
+            lines[i].yCenter = Math.round(Math.random() * (height - 1));
+          }
 
-          //if ( algo.linesBias != 0 ) { alert("Line " + i + " xCenter: " + lines[i].xCenter + " color: " + color.toString(16)); }
+          if (algo.linesBias == 3 || algo.linesBias == 5 || algo.linesBias == 7)
+          {
+            lines[i].xCenter = Math.round(Math.random() * width / 5);
+          }
+          else if (algo.linesBias == 4 || algo.linesBias == 6 || algo.linesBias == 8)
+          {
+            lines[i].xCenter = (width - 1) - Math.round(Math.random() * width / 5);
+          } 
+          else
+          {
+            lines[i].xCenter = Math.round(Math.random() * (width - 1));
+          }
 
           util.pixelMap[lines[i].yCenter][lines[i].xCenter] = color;
-
         } else {
-         
           var l = lines[i].step * Math.cos(Math.PI / 4);
           var radius2 = lines[i].step * lines[i].step;
           l = l.toFixed(0);
@@ -320,7 +342,6 @@ var testAlgo;
             if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 12) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter + x, color, width, height);
             } 
-
           }
         }
 

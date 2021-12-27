@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.5 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -36,10 +36,18 @@
   <Capability Min="141" Max="145">Stop</Capability>
   <Capability Min="146" Max="255">Counterclockwise slow - fast</Capability>
  </Channel>
- <Channel Name="Colow Macros">
+ <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="25">No function</Capability>
-  <Capability Min="26" Max="205">Color macros</Capability>
+  <Capability Min="26" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="65" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="66" Max="85" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="86" Max="105" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="106" Max="125" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="126" Max="145" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="146" Max="165" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="166" Max="185" Preset="ColorMacro" Res1="#ffff00">Yellow (Red/Green)</Capability>
+  <Capability Min="186" Max="205" Preset="ColorMacro" Res1="#ff00ff">Purple (Red/Blue)</Capability>
   <Capability Min="206" Max="255">Color changing fast - slow</Capability>
  </Channel>
  <Channel Name="Pan/Color Macros">
@@ -69,7 +77,7 @@
   <Channel Number="6">Strobing</Channel>
   <Channel Number="7">Master Dimmer</Channel>
   <Channel Number="8">Rotation</Channel>
-  <Channel Number="9">Colow Macros</Channel>
+  <Channel Number="9">Color Macros</Channel>
   <Channel Number="10">Pan/Color Macros</Channel>
   <Channel Number="11">Reset</Channel>
  </Mode>

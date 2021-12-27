@@ -345,6 +345,7 @@ void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
     {
         m_runner->stop();
         m_runner->exit();
+        m_runner->wait();
     }
 
     Function::postRun(timer, universes);

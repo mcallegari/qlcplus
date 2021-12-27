@@ -75,7 +75,7 @@ QString ArtNetPlugin::name()
 
 int ArtNetPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Infinite;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Infinite | QLCIOPlugin::RDM;
 }
 
 QString ArtNetPlugin::pluginInfo()
@@ -124,7 +124,7 @@ QStringList ArtNetPlugin::outputs()
 
     foreach (ArtNetIO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
+        list << line.address.ip().toString();
         j++;
     }
     return list;
@@ -184,6 +184,8 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
                                                             output, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        connect(controller, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
+                this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
         m_IOmapping[output].controller = controller;
     }
 
@@ -233,7 +235,7 @@ QStringList ArtNetPlugin::inputs()
 
     foreach (ArtNetIO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
+        list << line.address.ip().toString();
         j++;
     }
     return list;
@@ -375,6 +377,23 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
 QList<ArtNetIO> ArtNetPlugin::getIOMapping()
 {
     return m_IOmapping;
+}
+
+/********************************************************************
+ * RDM
+ ********************************************************************/
+
+bool ArtNetPlugin::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+{
+    qDebug() << "Sending RDM command on universe" << universe << "and line" << line;
+    if (line >= (quint32)m_IOmapping.count())
+        return false;
+
+    ArtNetController *controller = m_IOmapping.at(line).controller;
+    if (controller != NULL)
+        return controller->sendRDMCommand(universe, command, params);
+
+    return false;
 }
 
 /*********************************************************************

@@ -141,7 +141,7 @@ void App::startup()
     m_ioManager = new InputOutputManager(this, m_doc);
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
-    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
     m_functionManager = new FunctionManager(this, m_doc);
     m_simpleDesk = new SimpleDesk(this, m_doc);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager, m_simpleDesk);
@@ -161,6 +161,7 @@ void App::startup()
     rootContext()->setContextProperty("tardis", m_tardis);
 
     m_contextManager->registerContext(m_virtualConsole);
+    m_contextManager->registerContext(m_simpleDesk);
     m_contextManager->registerContext(m_showManager);
     m_contextManager->registerContext(m_ioManager);
 

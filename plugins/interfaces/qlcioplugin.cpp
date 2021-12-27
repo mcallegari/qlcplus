@@ -204,3 +204,17 @@ void QLCIOPlugin::removeFromMap(quint32 universe, quint32 line, QLCIOPlugin::Cap
         m_universesMap.take(universe);
     }
 }
+
+/*************************************************************************
+ * RDM
+ *************************************************************************/
+
+bool QLCIOPlugin::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(line)
+    Q_UNUSED(command)
+    Q_UNUSED(params)
+
+    return false;
+}

@@ -22,11 +22,10 @@ addons:
       - libxml2-utils
     packages: &qt5_pkg
       - *base_pkg
-      - qt56-meta-minimal
-      - qt56script
-      - qt56multimedia
-      - qt56serialport
-      - g++-7
+      - qt514-meta-minimal
+      - qt514script
+      - qt514multimedia
+      - qt514serialport
     packages: &qmlui_pkg
       - *base_pkg
       - libpulse-dev
@@ -42,7 +41,7 @@ matrix:
   fast_finish: true
   include:
     - os: linux
-      dist: xenial
+      dist: bionic
       compiler: gcc
       env: TASK='compile' QT='qt5'
       services: xvfb
@@ -50,13 +49,14 @@ matrix:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt562-xenial'
+           - sourceline: 'ppa:beineri/opt-qt-5.14.2-bionic'
           packages:
            - *qt5_pkg
     - os: linux
       dist: bionic
       compiler: gcc
       env: TASK='compile' QT='qt5qml'
+      services: xvfb
       addons:
         apt:
           sources:
@@ -65,7 +65,7 @@ matrix:
           packages:
            - *qmlui_pkg
     - os: linux
-      dist: xenial
+      dist: bionic
       compiler: gcc
       env: TASK='coverage' QT='qt5'
       services: xvfb
@@ -73,7 +73,7 @@ matrix:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt562-xenial'
+           - sourceline: 'ppa:beineri/opt-qt-5.14.2-bionic'
           packages:
            - *qt5_pkg
            - lcov

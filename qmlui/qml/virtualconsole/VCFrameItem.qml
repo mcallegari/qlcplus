@@ -184,14 +184,14 @@ VCWidgetItem
         objectName: frameObj ? "frameDropArea" + frameObj.id : ""
         z: 5 // children must be above the VCWidget resizeLayer
 
-        onEntered: virtualConsole.setDropTarget(frameRoot, true)
-        onExited: virtualConsole.setDropTarget(frameRoot, false)
+        onEntered: frameRoot.dropActive = true
+        onExited: frameRoot.dropActive = false
         onDropped:
         {
-            if (frameObj === null || dropActive === false)
+            if (frameObj === null || frameRoot.dropActive === false)
                 return
 
-            virtualConsole.setDropTarget(frameRoot, false)
+            frameRoot.dropActive = false
 
             var pos = drag.source.mapToItem(frameRoot, 0, 0)
             console.log("Item dropped in frame " + frameObj.id + " at pos " + pos)

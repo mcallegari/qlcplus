@@ -315,8 +315,6 @@ VCWidgetItem
         z: 2 // this area must be above the VCWidget resize controls
         keys: [ "function" ]
 
-        onEntered: virtualConsole.setDropTarget(sliderRoot, true)
-        onExited: virtualConsole.setDropTarget(sliderRoot, false)
         onDropped:
         {
             // attach function here

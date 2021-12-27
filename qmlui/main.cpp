@@ -61,12 +61,6 @@ void printVersion()
 
 int main(int argc, char *argv[])
 {
-    QSurfaceFormat format;
-    format.setMajorVersion(3);
-    format.setMinorVersion(3);
-    format.setProfile(QSurfaceFormat::CoreProfile);
-    QSurfaceFormat::setDefaultFormat(format);
-
     QApplication app(argc, argv);
 
     QApplication::setOrganizationName("qlcplus");
@@ -99,7 +93,20 @@ int main(int argc, char *argv[])
                                       "locale", "");
     parser.addOption(localeOption);
 
+    QCommandLineOption threedSupportOption(QStringList() << "3" << "no3d",
+                                      "Disable the 3D preview.");
+    parser.addOption(threedSupportOption);
+
     parser.process(app);
+
+    if (!parser.isSet(threedSupportOption))
+    {
+        QSurfaceFormat format;
+        format.setMajorVersion(3);
+        format.setMinorVersion(3);
+        format.setProfile(QSurfaceFormat::CoreProfile);
+        QSurfaceFormat::setDefaultFormat(format);
+    }
 
     if (parser.isSet(debugOption))
         qInstallMessageHandler(debugMessageHandler);

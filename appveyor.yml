@@ -1,4 +1,4 @@
-version: 4.12.4.{build}
+version: 4.12.5.{build}
 
 image: Visual Studio 2019
 
@@ -16,7 +16,7 @@ configuration:
 install:
     #- pacman --noconfirm -Sy
     #- pacman --noconfirm --needed -S pacman-mirrors
-    #- pacman --noconfirm -Syu
+    - pacman --noconfirm -Syu
     - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz -P /c/projects
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz -P /c/projects
@@ -38,7 +38,7 @@ build_script:
           qmake -v
           # get and prepare the D2XX SDK
           mkdir -p /c/Qt/D2XXSDK
-          wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.24%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
+          wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.36.4%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
           cd /c/Qt/D2XXSDK
           unzip cdm.zip
           cd i386
@@ -68,4 +68,4 @@ build_script:
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
-    name: qlcplus_4_12_4
+    name: qlcplus_4_12_5

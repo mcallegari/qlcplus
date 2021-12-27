@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Tolmino Muccitelli</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>Tour Spot ARC MKII</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">DMX 8 Channel control</Capability>
+  <Capability Min="51" Max="100">Color macros</Capability>
+  <Capability Min="101" Max="150">Fixed colour change</Capability>
+  <Capability Min="151" Max="200">Color change fade</Capability>
+  <Capability Min="201" Max="250">Pulsating colour change</Capability>
+  <Capability Min="251" Max="255">Music control</Capability>
+ </Channel>
+ <Channel Name="Speed (slow to fast)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed (slow to fast)</Capability>
+ </Channel>
+ <Mode Name="4-Channel (d001)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="8-Channel (A001)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Functions</Channel>
+  <Channel Number="7">Speed (slow to fast)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="280" Height="285" Depth="110"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

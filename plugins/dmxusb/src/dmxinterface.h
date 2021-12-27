@@ -89,6 +89,7 @@ public:
     static const int ATMELVID = 0x03EB;     //! Atmel Vendor ID
     static const int MICROCHIPVID = 0x04D8; //! Microchip Vendor ID
     static const int FTDIPID = 0x6001;      //! FTDI Product ID
+    static const int FTDI2PID = 0x6010;     //! FTDI COM485-PLUS2 Product ID
     static const int DMX4ALLPID = 0xC850;   //! DMX4ALL FTDI Product ID
     static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
     static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID

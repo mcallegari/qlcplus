@@ -42,25 +42,28 @@ VCWidgetItem
         if (cueListObj.playbackLayout == VCCueList.PlayPauseStop)
         {
             if (playbackStatus == VCCueList.Playing)
-                playbackBtn.bgColor = UISettings.highlight
+                playbackBtn.bgColor = "darkorange"
             else if (playbackStatus == VCCueList.Paused)
-                playbackBtn.bgColor = "red"
+                playbackBtn.bgColor = "green"
             else
                 playbackBtn.bgColor = UISettings.bgLight
 
-            stopBtn.bgColor = UISettings.bgLight
+            if (playbackStatus == VCCueList.Stopped)
+                stopBtn.bgColor = UISettings.bgLight
+            else
+                stopBtn.bgColor = "red"
         }
         else
         {
-            if (playbackStatus == VCCueList.Playing)
-                playbackBtn.bgColor = UISettings.highlight
-            else if (playbackStatus == VCCueList.Paused)
-                stopBtn.bgColor = "red"
-            else
-            {
+            if (playbackStatus == VCCueList.Stopped)
                 playbackBtn.bgColor = UISettings.bgLight
+            else
+                playbackBtn.bgColor = "red"
+
+            if (playbackStatus == VCCueList.Paused)
+                stopBtn.bgColor = "darkorange"
+            else
                 stopBtn.bgColor = UISettings.bgLight
-            }
         }
     }
 
@@ -192,9 +195,6 @@ VCWidgetItem
             //onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
             onAddFunctions: if (cueListObj) cueListObj.addFunctions(list, index)
 
-            onDragEntered: virtualConsole.setDropTarget(item, true)
-            onDragExited: virtualConsole.setDropTarget(item, false)
-
             states: [
                 State
                 {
@@ -218,8 +218,11 @@ VCWidgetItem
                 id: playbackBtn
                 width: cueListRoot.width / 4
                 height: UISettings.iconSizeMedium
-                imgSource: cueListRoot.playbackStatus === VCCueList.Paused ? "qrc:/pause.svg" : "qrc:/play.svg"
-                tooltip: qsTr("Play/Pause")
+                imgSource: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayPauseStop) ?
+                               (cueListRoot.playbackStatus === VCCueList.Stopped ||
+                                cueListRoot.playbackStatus === VCCueList.Paused ? "qrc:/play.svg" : "qrc:/pause.svg") :
+                               (cueListRoot.playbackStatus === VCCueList.Stopped ? "qrc:/play.svg" : "qrc:/stop.svg")
+                tooltip: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayPauseStop) ? qsTr("Play/Pause") : qsTr("Play/Stop")
                 onClicked: if (cueListObj) cueListObj.playClicked()
             }
             IconButton

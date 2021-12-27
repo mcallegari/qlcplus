@@ -69,13 +69,6 @@ public:
      */
     ~InputOutputMap();
 
-    /**
-     * Load all output plugins from the given directory, using QDir filters.
-     *
-     * @param dir The directory to load plugins from
-     */
-    void loadPlugins(const QDir& dir);
-
 private:
     /** Get the doc object */
     Doc* doc() const;
@@ -335,12 +328,14 @@ public:
      *
      * @param universe The input universe to patch
      * @param pluginName The name of the plugin to patch to the universe
+     * @param inputUID Unique plugin input line identifier as string
      * @param input An input universe provided by the plugin to patch to
      * @param profileName The name of an input profile
      * @return true if successful, otherwise false
      */
     bool setInputPatch(quint32 universe, const QString& pluginName,
-                       quint32 input, const QString& profileName = QString());
+                       const QString& inputUID, quint32 input,
+                       const QString& profileName = QString());
 
     /**
      * Set an input profile to the given universe. If the universe doesn't
@@ -357,6 +352,7 @@ public:
      *
      * @param universe The universe to patch
      * @param pluginName The name of the plugin to patch to the universe
+     * @param inputUID Unique plugin output line identifier as string
      * @param output A universe provided by the plugin to patch to
      * @param isFeedback Determine if this line is a feedback output
      * @param index the output patch index
@@ -364,7 +360,8 @@ public:
      * @return true if successful, otherwise false
      */
     bool setOutputPatch(quint32 universe, const QString& pluginName,
-                        quint32 output = 0, bool isFeedback = false, int index = 0);
+                        const QString& outputUID, quint32 output = 0,
+                        bool isFeedback = false, int index = 0);
 
     int outputPatchesCount(quint32 universe) const;
 
@@ -445,16 +442,16 @@ public:
      * Get the names of all input lines provided by the given plugin.
      *
      * @param pluginName Name of the plugin, whose input count to get
-     * @return A QStringList containing the names of each input line
+     * @return A list containing the name of each input line
      *
      */
     QStringList pluginInputs(const QString& pluginName);
 
     /**
-     * Get the number of universes provided by the given plugin.
+     * Get the names of all output lines provided by the given plugin.
      *
      * @param pluginName Name of the plugin, whose output count to get
-     * @return A list of output names provided by the plugin.
+     * @return A list containing the name of each output line
      */
     QStringList pluginOutputs(const QString& pluginName);
 

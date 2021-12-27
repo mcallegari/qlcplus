@@ -243,26 +243,6 @@ protected:
     QVariantList m_clipboardIDList;
 
     /*********************************************************************
-     * Drag & Drop
-     *********************************************************************/
-public:
-    /** Add or remove a target to the dropTargets list.
-     *  This is used to handle the stacking order of highlight areas
-     *  of frames when dragging/dropping a new widget on the VC */
-    Q_INVOKABLE void setDropTarget(QQuickItem *target, bool enable);
-
-    /** Reset the drop targets list.
-     *  deleteTargets is true when a new widget is dropped, so
-     *  drop areas highlight is no more needed */
-    void resetDropTargets(bool deleteTargets);
-
-protected:
-    /** A list of the QML targets used for drag & drop of new widgets.
-     *  Items are stacked in a precise order to handle the enter/exit events
-     *  of a drag item and highlight only the last item entered */
-    QList<QQuickItem *>m_dropTargets;
-
-    /*********************************************************************
      * External input
      *********************************************************************/
 public:

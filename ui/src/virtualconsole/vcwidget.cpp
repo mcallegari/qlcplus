@@ -228,7 +228,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     if (widget == NULL)
         return false;
 
-    m_backgroundImage = widget->m_backgroundImage;
+    setBackgroundImage(widget->m_backgroundImage);
 
     m_hasCustomBackgroundColor = widget->m_hasCustomBackgroundColor;
     if (m_hasCustomBackgroundColor == true)
@@ -276,7 +276,6 @@ void VCWidget::setBackgroundImage(const QString& path)
     m_hasCustomBackgroundColor = false;
     m_backgroundImage = path;
 
-    /* setAutoFillBackground(true); */
     pal.setBrush(QPalette::Window, QBrush(QPixmap(path)));
     setPalette(pal);
 

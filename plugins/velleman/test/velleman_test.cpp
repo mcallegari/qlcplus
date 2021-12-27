@@ -44,7 +44,7 @@ void Velleman_Test::initial()
     QVERIFY(vo.m_currentlyOpen == false);
     QVERIFY(vo.m_values != NULL);
     QCOMPARE(vo.name(), QString("Velleman"));
-    QCOMPARE(vo.outputs(), QStringList() << "1: Velleman Device");
+    QCOMPARE(vo.outputs(), QStringList() << "Velleman Device");
     QVERIFY(vo.canConfigure() == false);
     vo.configure(); // Merely a crash test
 }

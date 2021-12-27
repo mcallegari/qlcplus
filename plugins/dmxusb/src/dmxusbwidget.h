@@ -231,6 +231,14 @@ private:
     QString m_realName;
 
     /********************************************************************
+     * RDM
+     ********************************************************************/
+public:
+    virtual bool supportRDM();
+
+    virtual bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+
+    /********************************************************************
      * Write universe
      ********************************************************************/
 public:

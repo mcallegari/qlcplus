@@ -119,7 +119,7 @@ QStringList SPIPlugin::outputs()
     QStringList list;
     QFile file(QString(SPI_DEFAULT_DEVICE));
     if (file.exists() == true)
-        list << QString("1: SPI0 CS0");
+        list << QString("SPI0 CS0");
     return list;
 }
 

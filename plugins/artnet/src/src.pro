@@ -32,7 +32,9 @@ TRANSLATIONS += ArtNet_pt_BR.ts
 TRANSLATIONS += ArtNet_ca_ES.ts
 TRANSLATIONS += ArtNet_ja_JP.ts
 
-HEADERS += ../../interfaces/qlcioplugin.h
+HEADERS += ../../interfaces/qlcioplugin.h \
+           ../../interfaces/rdmprotocol.h
+
 HEADERS += artnetpacketizer.h \
            artnetcontroller.h \
            artnetplugin.h \
@@ -40,7 +42,9 @@ HEADERS += artnetpacketizer.h \
 
 FORMS += configureartnet.ui
 
-SOURCES += ../../interfaces/qlcioplugin.cpp
+SOURCES += ../../interfaces/qlcioplugin.cpp\
+           ../../interfaces/rdmprotocol.cpp
+
 SOURCES += artnetpacketizer.cpp \
            artnetcontroller.cpp \
            artnetplugin.cpp \

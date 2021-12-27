@@ -257,7 +257,7 @@ int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity,
     {
         for (int i = 0; i < channels; i++)
         {
-            if(m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
+            if (m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
             {
                 isAvailable = false;
                 break;

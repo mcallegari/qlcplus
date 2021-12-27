@@ -53,6 +53,8 @@ SimpleDesk::SimpleDesk(QQuickView *view, Doc *doc, QObject *parent)
     listRoles << "cRef" << "chIndex" << "chValue" << "chDisplay" << "isOverride";
     m_channelList->setRoleNames(listRoles);
 
+    m_keyPadParser = new KeyPadParser();
+
     // initialize channel value data
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
         m_prevUniverseValues[i].fill(0, 512);
@@ -62,6 +64,10 @@ SimpleDesk::SimpleDesk(QQuickView *view, Doc *doc, QObject *parent)
     connect(m_doc, SIGNAL(loaded()), this, SLOT(updateChannelList()));
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(updateChannelList()));
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(updateChannelList()));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)),
+            this, SIGNAL(universesListModelChanged()));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeRemoved(quint32)),
+            this, SIGNAL(universesListModelChanged()));
     connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)),
             this, SLOT(slotUniverseWritten(quint32,QByteArray)));
 }
@@ -106,6 +112,9 @@ void SimpleDesk::updateChannelList()
     int status = None;
 
     m_channelList->clear();
+
+    if (m_prevUniverseValues.contains(m_universeFilter) == false)
+        m_prevUniverseValues[m_universeFilter].fill(0, 512);
 
     QByteArray currUni = m_prevUniverseValues.value(m_universeFilter);
 
@@ -281,6 +290,9 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& ua)
     if (idx != m_universeFilter) // || isEnabled() == false)
         return;
 
+    if (m_prevUniverseValues.contains(idx) == false)
+        m_prevUniverseValues[idx].fill(0, 512);
+
     QByteArray currUni = m_prevUniverseValues.value(idx);
 
     for (int i = 0; i < ua.length(); i++)
@@ -308,11 +320,12 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& ua)
 void SimpleDesk::sendKeypadCommand(QString command)
 {
     QByteArray uniData = m_prevUniverseValues.value(m_universeFilter);
-    QList<SceneValue> scvList = KeyPadParser::parseCommand(m_doc, command, uniData);
+    QList<SceneValue> scvList = m_keyPadParser->parseCommand(m_doc, command, uniData);
 
     for (SceneValue scv : scvList)
     {
-        setValue(Fixture::invalidId(), scv.channel, scv.value);
+        quint32 fxID = m_doc->fixtureForAddress((m_universeFilter * 512) + scv.channel);
+        setValue(fxID, scv.channel, scv.value);
         QModelIndex mIndex = m_channelList->index(int(scv.channel), 0, QModelIndex());
         m_channelList->setData(mIndex, QVariant(scv.value), UserRoleChannelValue);
     }

@@ -57,6 +57,7 @@ class Doc;
 
 #define KXMLQLCUniversePlugin "Plugin"
 #define KXMLQLCUniverseLine "Line"
+#define KXMLQLCUniverseLineUID "UID"
 #define KXMLQLCUniverseProfileName "Profile"
 #define KXMLQLCUniversePluginParameters "PluginParameters"
 
@@ -359,6 +360,10 @@ public:
     /** Retrieve a modifiable list of the currently active faders */
     QList<QSharedPointer<GenericFader> > faders();
 
+    /** Set every running fader with $functionID as parent,
+     *  to the requested pause state */
+    void setFaderPause(quint32 functionID, bool enable);
+
 public slots:
     void tick();
 
@@ -594,7 +599,7 @@ public:
      */
     void savePatchXML(QXmlStreamWriter *doc,
         QString const & tag,
-        QString const & pluginName,
+        QString const & pluginName, const QString &lineName,
         quint32 line,
         QString profileName,
         QMap<QString, QVariant>parameters) const;

@@ -52,7 +52,7 @@ QString DMXUSB::name()
 
 int DMXUSB::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::RDM;
 }
 
 bool DMXUSB::rescanWidgets()
@@ -94,6 +94,13 @@ bool DMXUSB::openOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
     {
+        DMXUSBWidget *widget = m_outputs.at(output);
+        if (widget->supportRDM())
+        {
+            EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
+            connect(pro, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
+                    this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+        }
         addToMap(universe, output, Output);
         return m_outputs.at(output)->open(output, false);
     }
@@ -104,6 +111,13 @@ void DMXUSB::closeOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
     {
+        DMXUSBWidget *widget = m_outputs.at(output);
+        if (widget->supportRDM())
+        {
+            EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
+            disconnect(pro, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
+                       this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+        }
         removeFromMap(output, universe, Output);
         m_outputs.at(output)->close(output, false);
     }
@@ -112,13 +126,12 @@ void DMXUSB::closeOutput(quint32 output, quint32 universe)
 QStringList DMXUSB::outputs()
 {
     QStringList list;
-    int i = 1;
 
     for (int w = 0; w < m_outputs.count();)
     {
         DMXUSBWidget* widget = m_outputs.at(w);
         foreach(QString name, widget->outputNames())
-            list << QString("%1: %2").arg(i++).arg(name);
+            list << name;
         w += widget->outputsNumber();
     }
     return list;
@@ -235,13 +248,12 @@ void DMXUSB::closeInput(quint32 input, quint32 universe)
 QStringList DMXUSB::inputs()
 {
     QStringList list;
-    int i = 1;
 
     for (int w = 0; w < m_inputs.count();)
     {
         DMXUSBWidget* widget = m_inputs.at(w);
         foreach(QString name, widget->inputNames())
-            list << QString("%1: %2").arg(i++).arg(name);
+            list << name;
         w += widget->inputsNumber();
     }
 
@@ -300,6 +312,18 @@ void DMXUSB::configure()
 bool DMXUSB::canConfigure()
 {
     return true;
+}
+
+bool DMXUSB::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+{
+    if (line < quint32(m_outputs.size()))
+    {
+        DMXUSBWidget *widget = m_outputs.at(line);
+        if (widget->supportRDM())
+            return widget->sendRDMCommand(universe, line, command, params);
+    }
+
+    return false;
 }
 
 /*****************************************************************************

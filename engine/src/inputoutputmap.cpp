@@ -390,7 +390,8 @@ void InputOutputMap::flushInputs()
 }
 
 bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
-                                   quint32 input, const QString &profileName)
+                                   const QString &inputUID, quint32 input,
+                                   const QString &profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -414,10 +415,26 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         }
     }
     InputPatch *ip = NULL;
+    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+
+    if (!inputUID.isEmpty())
+    {
+        QStringList inputs = plugin->inputs();
+        int lIdx = inputs.indexOf(inputUID);
+        if (lIdx != -1)
+        {
+            qDebug() << "[IOMAP] Found match on input by name on universe" << universe << "-" << input << "vs" << lIdx;
+            input = lIdx;
+        }
+        else
+        {
+            qDebug() << "[IOMAP] !!No match found!! for input on universe" << universe << "-" << input << inputUID;
+            qDebug() << plugin->inputs();
+        }
+    }
 
     if (m_universeArray.at(universe)->setInputPatch(
-                doc()->ioPluginCache()->plugin(pluginName), input,
-                profile(profileName)) == true)
+                plugin, input, profile(profileName)) == true)
     {
         ip = m_universeArray.at(universe)->inputPatch();
         if (ip != NULL)
@@ -461,7 +478,8 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
 }
 
 bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
-                                    quint32 output, bool isFeedback, int index)
+                                    const QString &outputUID, quint32 output,
+                                    bool isFeedback, int index)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -471,12 +489,28 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     }
 
     QMutexLocker locker(&m_universeMutex);
+    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+
+    if (!outputUID.isEmpty())
+    {
+        QStringList inputs = plugin->outputs();
+        int lIdx = inputs.indexOf(outputUID);
+        if (lIdx != -1)
+        {
+            qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-" << output << "vs" << lIdx;
+            output = lIdx;
+        }
+        else
+        {
+            qDebug() << "[IOMAP] !!No match found!! for output on universe" << universe << "-" << output << outputUID;
+            qDebug() << plugin->outputs();
+        }
+    }
+
     if (isFeedback == false)
-        return m_universeArray.at(universe)->setOutputPatch(
-                    doc()->ioPluginCache()->plugin(pluginName), output, index);
+        return m_universeArray.at(universe)->setOutputPatch(plugin, output, index);
     else
-        return m_universeArray.at(universe)->setFeedbackPatch(
-                    doc()->ioPluginCache()->plugin(pluginName), output);
+        return m_universeArray.at(universe)->setFeedbackPatch(plugin, output);
 
     return false;
 }
@@ -1059,7 +1093,7 @@ void InputOutputMap::loadDefaults()
 
         /* Do the mapping */
         if (plugin != KInputNone && input != KInputNone)
-            setInputPatch(i, plugin, input.toUInt(), profileName);
+            setInputPatch(i, plugin, "", input.toUInt(), profileName);
     }
 
     /* ************************ OUTPUT *********************************** */
@@ -1086,10 +1120,10 @@ void InputOutputMap::loadDefaults()
         feedback = settings.value(key).toString();
 
         if (plugin != KOutputNone && output != KOutputNone)
-            setOutputPatch(i, plugin, output.toUInt());
+            setOutputPatch(i, plugin, "", output.toUInt());
 
         if (fb_plugin != KOutputNone && feedback != KOutputNone)
-            setOutputPatch(i, fb_plugin, feedback.toUInt(), true);
+            setOutputPatch(i, fb_plugin, "", feedback.toUInt(), true);
     }
 }
 

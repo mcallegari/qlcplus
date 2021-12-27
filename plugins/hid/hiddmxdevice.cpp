@@ -62,6 +62,7 @@ void HIDDMXDevice::init()
         QMessageBox::warning(NULL, (tr("HID DMX Interface Error")),
             (tr("Unable to open %1. Make sure the udev rule is installed.").arg(name())),
              QMessageBox::AcceptRole, QMessageBox::AcceptRole);
+        return;
     }
 
     /** Reset channels when opening the interface: */

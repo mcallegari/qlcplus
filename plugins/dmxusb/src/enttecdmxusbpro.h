@@ -22,6 +22,7 @@
 
 #include <QByteArray>
 #include <QThread>
+#include <QMutex>
 
 #include "dmxusbwidget.h"
 
@@ -37,6 +38,14 @@
 #define ENTTEC_PRO_MIDI_OUT_MSG  char(0xBE)
 #define ENTTEC_PRO_MIDI_IN_MSG   0xE8
 
+// RDM defines
+#define ENTTEC_PRO_RDM_SEND             char(0x07)
+#define ENTTEC_PRO_RDM_DISCOVERY_REQ    char(0x0B)
+#define ENTTEC_PRO_RDM_RECV_TIMEOUT     char(0x0C)
+#define ENTTEC_PRO_RDM_RECV_TIMEOUT2    char(0x8E)
+#define ENTTEC_PRO_RDM_SEND2            char(0x9D)
+#define ENTTEC_PRO_RDM_DISCOVERY_REQ2   char(0xB6)
+
 #define DMXKING_ESTA_ID          0x6A6B
 #define ULTRADMX_DMX512A_DEV_ID  0x00
 #define ULTRADMX_PRO_DEV_ID      0x02
@@ -46,6 +55,10 @@
 #define DMXKING_USB_DEVICE_NAME         0x4E
 #define DMXKING_SEND_DMX_PORT1          char(0x64)
 #define DMXKING_SEND_DMX_PORT2          char(0x65)
+
+#define MAX_READ_RETRY_NUM       5
+
+class RDMProtocol;
 
 class EnttecDMXUSBProInput : public QThread
 {
@@ -62,7 +75,7 @@ private:
     void stopInputThread();
 
 signals:
-    /** Inform the listeners that some dat is ready */
+    /** Inform the listeners that some data is ready */
     void dataReady(QByteArray data, bool isMidi);
 
 private:
@@ -157,6 +170,24 @@ private:
 
 private:
     bool m_outputRunning;
+    QMutex m_outputMutex;
+
+    /********************************************************************
+     * RDM
+     ********************************************************************/
+public:
+    /** @reimp */
+    bool supportRDM();
+
+    /** @reimp */
+    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+
+signals:
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+
+private:
+    RDMProtocol *m_rdm;
+    quint32 m_universe;
 };
 
 #endif

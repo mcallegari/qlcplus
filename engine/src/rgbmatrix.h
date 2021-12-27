@@ -253,7 +253,7 @@ private:
 
 public:
     /** Convert color values to fader value */
-    uchar rgbToGrey(uint col);
+    static uchar rgbToGrey(uint col);
 
 private:
     /** Reference to a timer counting the time in ms between steps */

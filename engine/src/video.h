@@ -52,6 +52,7 @@ public:
     enum VideoAttr
     {
         Intensity = Function::Intensity,
+        Volume,
         XRotation,
         YRotation,
         ZRotation,

@@ -33,6 +33,7 @@ class EditorView : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool id READ id CONSTANT)
     Q_PROPERTY(bool isModified READ isModified NOTIFY hasChanged)
     Q_PROPERTY(bool isUser READ isUser CONSTANT)
     Q_PROPERTY(QString fileName READ fileName CONSTANT)
@@ -48,8 +49,10 @@ class EditorView : public QObject
     Q_PROPERTY(QVariant modes READ modes NOTIFY modesChanged)
 
 public:
-    EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
+    EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
+
+    int id() const;
 
     /** Get if the definition is user or system */
     bool isUser() const;
@@ -84,6 +87,8 @@ signals:
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
+    /** Unique ID of this editor */
+    int m_id;
     /** Reference to the definition being edited */
     QLCFixtureDef *m_fixtureDef;
     /** Reference to the global physical properties */

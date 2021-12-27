@@ -354,6 +354,27 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
     return true;
 }
 
+bool FixtureManager::deleteFixtureInGroup(quint32 groupID, quint32 itemID, QString path)
+{
+    FixtureGroup *group = m_doc->fixtureGroup(groupID);
+    if (group == nullptr)
+        return false;
+
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    //quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    //quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    //TODO: tardis
+
+    qDebug() << "Removing fixture" << fxID << "from group" << group->name();
+    group->resignFixture(fxID);
+
+    m_fixtureTree->removeItem(path);
+    emit groupsTreeModelChanged();
+
+    return true;
+}
+
 void FixtureManager::renameFixture(quint32 itemID, QString newName)
 {
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
@@ -381,11 +402,7 @@ QVariant FixtureManager::groupsTreeModel()
     {
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
-        QStringList treeColumns;
-        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
-        m_fixtureTree->setColumnNames(treeColumns);
-        m_fixtureTree->enableSorting(false);
-        updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, m_treeShowFlags);
+        setPropertyEditEnabled(false);
     }
 
     return QVariant::fromValue(m_fixtureTree);
@@ -398,13 +415,10 @@ bool FixtureManager::propertyEditEnabled()
 
 void FixtureManager::setPropertyEditEnabled(bool enable)
 {
-    if (enable == m_propertyEditEnabled)
-        return;
-
     m_propertyEditEnabled = enable;
 
     QStringList treeColumns;
-    treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
+    treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
 
     if (enable)
     {
@@ -419,6 +433,7 @@ void FixtureManager::setPropertyEditEnabled(bool enable)
     emit propertyEditEnabledChanged();
 
     m_fixtureTree->setColumnNames(treeColumns);
+    m_fixtureTree->enableSorting(false);
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, m_treeShowFlags);
     emit groupsTreeModelChanged();
 }
@@ -573,6 +588,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
                     headParams.append(iID); // id
                     headParams.append(nodeSubID); // subid
                     headParams.append(headIdx); // chIdx
+                    headParams.append(false); // inGroup
                     treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(headIdx + 1, 3, 10, QChar('0')),
                                        headParams, fxPath);
                 }
@@ -603,6 +619,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
                     chParams.append(itemID); // id
                     chParams.append(nodeSubID); // subid
                     chParams.append(chIdx); // chIdx
+                    chParams.append(false); // inGroup
 
                     if (showFlags & ShowFlags)
                         chParams.append(0); // might be useful in the future
@@ -647,6 +664,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
             fxParams.append(itemID); // id
             fxParams.append(nodeSubID); // subid
             fxParams.append(0); // chIdx
+            fxParams.append(false); // inGroup
 
             if (showFlags & ShowFlags)
                 fxParams.append(monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex));
@@ -708,6 +726,7 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
             headParams.append(itemID); // id
             headParams.append(group->id()); // subid
             headParams.append(head.head); // chIdx
+            headParams.append(true); // inGroup
             treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(head.head + 1, 3, 10, QChar('0')),
                                headParams, fxPath);
 
@@ -719,6 +738,7 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
                 fxParams.append(itemID); // id
                 fxParams.append(group->id()); // subid
                 fxParams.append(0); // chIdx
+                fxParams.append(true); // inGroup
 
                 treeModel->setPathData(fxPath, fxParams);
                 fixtureIDList.append(head.fxi);
@@ -733,6 +753,9 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
         grpParams.append(QVariant::fromValue(group)); // classRef
         grpParams.append(App::FixtureGroupDragItem); // type
         grpParams.append(group->id()); // id
+        grpParams.append(0); // subid
+        grpParams.append(0); // chIdx
+        grpParams.append(true); // inGroup
 
         treeModel->setPathData(group->name(), grpParams);
     }
@@ -773,8 +796,6 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
         QString universeName = uniNames.at(fixture->universe());
         int matchMask = 0;
 
-        qDebug() << "----> add fixture:" << fixture->name();
-
         addFixtureNode(doc, treeModel, fixture, universeName, fixture->universe(),
                        matchMask, searchFilter, showFlags, checkedChannels);
     }
@@ -786,6 +807,9 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
         uniParams.append(QVariant::fromValue(universe)); // classRef
         uniParams.append(App::UniverseDragItem); // type
         uniParams.append(universe->id()); // id
+        uniParams.append(0); // subid
+        uniParams.append(0); // chIdx
+        uniParams.append(false); // inGroup
 
         treeModel->setPathData(universe->name(), uniParams);
     }
@@ -838,6 +862,7 @@ void FixtureManager::updateLinkedFixtureNode(quint32 itemID, bool add)
         fxParams.append(itemID); // id
         fxParams.append(fixture->universe()); // subid
         fxParams.append(0); // chIdx
+        fxParams.append(false); // inGroup
         fxParams.append(monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex));
 
         m_fixtureTree->addItem(fixtureName, fxParams, universeName, 0);
@@ -1013,8 +1038,9 @@ void FixtureManager::updateFixtureGroup(quint32 groupID, quint32 itemID, int hea
         fxParams.append(itemID); // id
         fxParams.append(group->id()); // subid
         fxParams.append(0); // chIdx
+        fxParams.append(true); // inGroup
 
-        fxItem = m_fixtureTree->addItem(fixture->name(), fxParams, group->name(), TreeModel::EmptyNode);
+        m_fixtureTree->addItem(fixture->name(), fxParams, group->name(), TreeModel::EmptyNode);
     }
 
     for (int hIdx : headsList)
@@ -1025,10 +1051,23 @@ void FixtureManager::updateFixtureGroup(quint32 groupID, quint32 itemID, int hea
         headParams.append(itemID); // id
         headParams.append(group->id()); // subid
         headParams.append(hIdx); // chIdx
+        headParams.append(true); // inGroup
         m_fixtureTree->addItem(QString("%1 %2").arg(tr("Head")).arg(hIdx + 1, 3, 10, QChar('0')), headParams, fxPath);
     }
 
     //m_fixtureTree->printTree(); // enable for debug purposes
+}
+
+void FixtureManager::renameFixtureGroup(quint32 groupID, QString newName)
+{
+    FixtureGroup *group = m_doc->fixtureGroup(groupID);
+    if (group == nullptr)
+        return;
+
+    group->setName(newName);
+
+    updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
+    emit groupsTreeModelChanged();
 }
 
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)
@@ -1160,7 +1199,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         }
 
         fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
-        fxi->setAddress(address);
+        fxi->setAddress(address - 1);
         address += fxi->channels();
         m_doc->addFixture(fxi);
 

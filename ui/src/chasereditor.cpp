@@ -590,21 +590,21 @@ void ChaserEditor::slotSpeedDialToggle(bool state)
 
 void ChaserEditor::slotItemSelectionChanged()
 {
-    if (!m_chaser->isRunning())
-    {
-        if (m_tree->selectedItems().count() > 0)
-        {
-            QTreeWidgetItem *item = m_tree->selectedItems().first();
-            int idx = item->text(COL_NUM).toUInt() - 1;
-            emit stepSelectionChanged(idx);
-        }
-        else
-            emit stepSelectionChanged(-1);
+    if (m_chaser->isRunning())
+        return;
 
-        updateClipboardButtons();
-        updateSpeedDials();
-        applyStepValues();
+    if (m_tree->selectedItems().count() > 0)
+    {
+        QTreeWidgetItem *item = m_tree->selectedItems().first();
+        int idx = item->text(COL_NUM).toUInt() - 1;
+        emit stepSelectionChanged(idx);
     }
+    else
+        emit stepSelectionChanged(-1);
+
+    updateClipboardButtons();
+    updateSpeedDials();
+    applyStepValues();
 }
 
 void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)

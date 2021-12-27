@@ -25,6 +25,8 @@ qtlibs.files = $$QT_LIBS_PATH/Qt5Core$${QT_D}.dll \
 
 qmlui: {
     qtlibs.files += $$QT_LIBS_PATH/Qt5Qml$${QT_D}.dll \
+                    $$QT_LIBS_PATH/Qt5QmlModels$${QT_D}.dll \
+                    $$QT_LIBS_PATH/Qt5QmlWorkerScript$${QT_D}.dll \
                     $$QT_LIBS_PATH/Qt5Quick$${QT_D}.dll \
                     $$QT_LIBS_PATH/Qt5QuickControls2$${QT_D}.dll \
                     $$QT_LIBS_PATH/Qt5QuickTemplates2$${QT_D}.dll \
@@ -111,6 +113,10 @@ qmlui: {
     sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/assimpsceneimport$${QT_D}.dll
     INSTALLS += sceneparsers
 
+    renderers.path = $$INSTALLROOT/$$LIBSDIR/renderers
+    renderers.files = $$QT_PLUGINS_PATH/renderers/openglrenderer$${QT_D}.dll
+    INSTALLS += renderers
+
     qmldeps.path   = $$INSTALLROOT/$$LIBSDIR
     qmldeps.files += $$QT_QML_PATH/Qt \
                      $$QT_QML_PATH/QtQml \
@@ -157,6 +163,12 @@ exists($$SYS_LIBS_PATH/libmad-0.dll) {
 }
 exists($$SYS_LIBS_PATH/libogg-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libogg-0.dll
+}
+exists($$SYS_LIBS_PATH/libopus-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libopus-0.dll
+}
+exists($$SYS_LIBS_PATH/libssp-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libssp-0.dll
 }
 exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libvorbis-0.dll

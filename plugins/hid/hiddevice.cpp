@@ -25,7 +25,7 @@
 HIDDevice::HIDDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : QThread(parent)
 {
-    m_name = QString("%1: %2").arg(line + 1).arg(name);
+    m_name = name;
     m_filename = path;
     m_file.setFileName(path);
     m_line = line;

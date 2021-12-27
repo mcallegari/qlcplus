@@ -478,7 +478,7 @@ public:
      * @return true if the fixture was loaded successfully, otherwise false
      */
     bool loadXML(QXmlStreamReader &xmlDoc, Doc* doc,
-                 const QLCFixtureDefCache* fixtureDefCache);
+                 QLCFixtureDefCache* fixtureDefCache);
 
     /**
      * Save the fixture instance into an XML document, under the given

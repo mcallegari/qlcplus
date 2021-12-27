@@ -362,6 +362,7 @@ void Function::setRunOrder(const Function::RunOrder& order)
         m_runOrder = order;
     else
         m_runOrder = Loop;
+    emit runOrderChanged();
     emit changed(m_id);
 }
 
@@ -1030,6 +1031,7 @@ void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
         m_functionStopped.wakeAll();
     }
 
+    m_paused = false;
     m_running = false;
     emit stopped(m_id);
 }
@@ -1167,7 +1169,6 @@ void Function::stop(FunctionParent source, bool preserveAttributes)
 
     if (m_sources.size() == 0)
     {
-        m_paused = false;
         m_stop = true;
         m_preserveAttributes = preserveAttributes;
     }

@@ -215,6 +215,7 @@ void App::init()
     setCentralWidget(m_tab);
 
 #if defined(__APPLE__) || defined(Q_OS_MAC)
+    m_tab->setElideMode(Qt::TextElideMode::ElideNone);
     qt_set_sequence_auto_mnemonic(true);
 #endif
 

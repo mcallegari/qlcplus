@@ -76,7 +76,7 @@ private slots:
     void slotPatternActivated(const QString& text);
     void slotFixtureGroupActivated(int index);
     void slotBlendModeChanged(int index);
-    void slotColorModeChanged(int index);
+    void slotControlModeChanged(int index);
     void slotStartColorButtonClicked();
     void slotEndColorButtonClicked();
     void slotResetEndColorButtonClicked();

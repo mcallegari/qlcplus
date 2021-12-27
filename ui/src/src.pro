@@ -37,6 +37,9 @@ lessThan(QT_MAJOR_VERSION, 5) {
   }
 }
 
+HEADERS += ../../plugins/interfaces/rdmprotocol.h
+SOURCES += ../../plugins/interfaces/rdmprotocol.cpp
+
 # Headers
 HEADERS += aboutbox.h \
            addchannelsgroup.h \
@@ -87,6 +90,7 @@ HEADERS += aboutbox.h \
            palettegenerator.h \
            playbackslider.h \
            positiontool.h \
+           rdmmanager.h \
            remapwidget.h \
            rgbmatrixeditor.h \
            rgbitem.h \
@@ -189,6 +193,7 @@ FORMS += aboutbox.ui \
          monitor/monitorbackgroundselection.ui \
          monitor/monitorfixturepropertieseditor.ui \
          positiontool.ui \
+         rdmmanager.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
          scripteditor.ui \
@@ -262,6 +267,7 @@ SOURCES += aboutbox.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \
            positiontool.cpp \
+           rdmmanager.cpp \
            remapwidget.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \

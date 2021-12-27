@@ -91,16 +91,29 @@ public:
     /** Prepare an ArtNetDmx packet */
     void setupArtNetDmx(QByteArray& data, const int& universe, const QByteArray &values);
 
+    /** Prepare an ArtTodRequest packet */
+    void setupArtNetTodRequest(QByteArray& data, const int& universe);
+
+    /** Prepare an ArtRdm packet */
+    void setupArtNetRdm(QByteArray& data, const int &universe, uchar command, QVariantList params);
+
     /*********************************************************************
      * Receiver functions
      *********************************************************************/
 
     /** Verify the validity of an ArtNet packet and store the opCode in 'code' */
-    bool checkPacketAndCode(QByteArray const& data, int &code);
+    bool checkPacketAndCode(QByteArray const& data, quint16 &code);
 
     bool fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeInfo& info);
 
+    /** Process a ArtDmx packet and extract the relevant DMX data */
     bool fillDMXdata(QByteArray const& data, QByteArray& dmx, quint32 &universe);
+
+    /** Process a ArtTodData packet and extract the relevant information */
+    bool processTODdata(const QByteArray &data, quint32 &universe, QVariantMap &values);
+
+    /** Process a ArtRdm packet and extract the relevant information */
+    bool processRDMdata(const QByteArray &data, quint32 &universe, QVariantMap &values);
 
 private:
     QByteArray m_commonHeader;

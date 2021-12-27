@@ -203,12 +203,6 @@ void FixtureConsole::setChecked(bool state, quint32 channel)
     }
 }
 
-void FixtureConsole::setOutputDMX(bool state)
-{
-    Q_UNUSED(state);
-    // TODO
-}
-
 void FixtureConsole::setSceneValue(const SceneValue& scv)
 {
     Q_ASSERT(scv.fxi == m_fixture);

@@ -273,6 +273,19 @@ QList<QSharedPointer<GenericFader> > Universe::faders()
     return m_faders;
 }
 
+void Universe::setFaderPause(quint32 functionID, bool enable)
+{
+    QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
+    while (it.hasNext())
+    {
+        QSharedPointer<GenericFader> fader = it.next();
+        if (fader.isNull() || fader->parentFunctionID() != functionID)
+            continue;
+
+        fader->setPaused(enable);
+    }
+}
+
 void Universe::tick()
 {
     m_semaphore.release(1);
@@ -1047,23 +1060,26 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
 
     while (root.readNextStartElement())
     {
-        qDebug() << "Universe tag:" << root.name();
-
         QXmlStreamAttributes pAttrs = root.attributes();
 
         if (root.name() == KXMLQLCUniverseInputPatch)
         {
             QString plugin = KInputNone;
-            quint32 input = QLCIOPlugin::invalidLine();
+            quint32 inputLine = QLCIOPlugin::invalidLine();
+            QString inputUID;
             QString profile = KInputNone;
 
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                inputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
-                input = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
+                inputLine = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
             if (pAttrs.hasAttribute(KXMLQLCUniverseProfileName))
                 profile = pAttrs.value(KXMLQLCUniverseProfileName).toString();
-            ioMap->setInputPatch(index, plugin, input, profile);
+
+            // apply the parameters just loaded
+            ioMap->setInputPatch(index, plugin, inputUID, inputLine, profile);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1080,12 +1096,18 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         else if (root.name() == KXMLQLCUniverseOutputPatch)
         {
             QString plugin = KOutputNone;
-            quint32 output = QLCIOPlugin::invalidLine();
+            QString outputUID;
+            quint32 outputLine = QLCIOPlugin::invalidLine();
+
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                outputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
-                output = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
-            ioMap->setOutputPatch(index, plugin, output, false);
+                outputLine = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
+
+            // apply the parameters just loaded
+            ioMap->setOutputPatch(index, plugin, outputUID, outputLine, false);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1102,12 +1124,18 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         else if (root.name() == KXMLQLCUniverseFeedbackPatch)
         {
             QString plugin = KOutputNone;
+            QString outputUID;
             quint32 output = QLCIOPlugin::invalidLine();
+
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                outputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
                 output = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
-            ioMap->setOutputPatch(index, plugin, output, true);
+
+            // apply the parameters just loaded
+            ioMap->setOutputPatch(index, plugin, outputUID, output, true);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1180,17 +1208,17 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
 
     if (inputPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(),
+        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(), inputPatch()->inputName(),
             inputPatch()->input(), inputPatch()->profileName(), inputPatch()->getPluginParameters());
     }
     if (outputPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseOutputPatch, outputPatch()->pluginName(),
+        savePatchXML(doc, KXMLQLCUniverseOutputPatch, outputPatch()->pluginName(), outputPatch()->outputName(),
             outputPatch()->output(), "", outputPatch()->getPluginParameters());
     }
     if (feedbackPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(),
+        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(), feedbackPatch()->outputName(),
             feedbackPatch()->output(), "", feedbackPatch()->getPluginParameters());
     }
 
@@ -1204,6 +1232,7 @@ void Universe::savePatchXML(
     QXmlStreamWriter *doc,
     const QString &tag,
     const QString &pluginName,
+    const QString &lineName,
     quint32 line,
     QString profileName,
     QMap<QString, QVariant> parameters) const
@@ -1214,6 +1243,7 @@ void Universe::savePatchXML(
 
     doc->writeStartElement(tag);
     doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
+    doc->writeAttribute(KXMLQLCUniverseLineUID, lineName);
     doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
     if (!profileName.isEmpty() && profileName != KInputNone)
         doc->writeAttribute(KXMLQLCUniverseProfileName, profileName);

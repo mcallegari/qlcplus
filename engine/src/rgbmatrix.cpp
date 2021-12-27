@@ -827,7 +827,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             if (masterDim != QLCChannel::invalid())
                 dimmers << masterDim;
 
-            if (headDim != QLCChannel::invalid())
+            if (headDim != QLCChannel::invalid() && headDim != masterDim)
                 dimmers << headDim;
 
             if (dimmers.size())

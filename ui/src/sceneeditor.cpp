@@ -154,11 +154,7 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 
         FixtureConsole *fc = fixtureConsole(fixture);
         if (fc != NULL)
-        {
-            fc->blockSignals(true);
             fc->setSceneValue(sv);
-            fc->blockSignals(false);
-        }
     }
 }
 
@@ -581,7 +577,7 @@ void SceneEditor::slotColorTool()
 {
     QColor color = slotColorSelectorChanged(QColor());
 
-    QColorDialog dialog(color);
+    QColorDialog dialog(color, this);
     connect(&dialog, SIGNAL(currentColorChanged(const QColor&)),
             this, SLOT(slotColorSelectorChanged(const QColor&)));
 

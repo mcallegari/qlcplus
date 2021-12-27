@@ -33,6 +33,9 @@ ModelSelector::~ModelSelector()
 
 void ModelSelector::selectItem(quint32 index, ListModel *model, bool multiSelection)
 {
+    if (model == nullptr)
+        return;
+
     //qDebug() << "select item with index:" << index;
     if (multiSelection == false)
     {

@@ -52,7 +52,7 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
-    Q_PROPERTY(QList<Track*> tracks READ tracks NOTIFY tracksChanged)
+    Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrack READ selectedTrack WRITE setSelectedTrack NOTIFY selectedTrackChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
@@ -72,7 +72,7 @@ public:
     void setShowName(QString showName);
 
     /** Return a list of Track objects suitable for QML */
-    QList<Track*> tracks();
+    QVariant tracks();
 
     /** Get/Set the selected track index */
     int selectedTrack() const;

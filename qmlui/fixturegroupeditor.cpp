@@ -23,13 +23,17 @@
 #include <QQmlContext>
 
 #include "fixturegroupeditor.h"
+#include "fixturemanager.h"
 #include "fixtureutils.h"
+#include "treemodel.h"
 #include "doc.h"
 
-FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *parent)
+FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc,
+                                       FixtureManager *fxMgr, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_fixtureManager(fxMgr)
 {
     Q_ASSERT(m_doc != nullptr);
 
@@ -326,7 +330,18 @@ void FixtureGroupEditor::deleteSelection()
         return;
 
     for (QVariant head : m_groupSelection)
-        m_editGroup->resignHead(pointFromAbsolute(head.toInt()));
+    {
+        QLCPoint point = pointFromAbsolute(head.toInt());
+        GroupHead gHead = m_editGroup->head(point);
+        Fixture *fixture = m_doc->fixture(gHead.fxi);
+        if (fixture != nullptr && fixture->heads() == 1)
+        {
+            QString fxPath = QString("%1%2%3").arg(m_editGroup->name()).arg(TreeModel::separator()).arg(fixture->name());
+            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), gHead.head, 0);
+            m_fixtureManager->deleteFixtureInGroup(m_editGroup->id(), itemID, fxPath);
+        }
+        m_editGroup->resignHead(point);
+    }
 
     m_groupSelection.clear();
 

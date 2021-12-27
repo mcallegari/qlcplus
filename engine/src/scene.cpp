@@ -655,7 +655,6 @@ void Scene::unFlash(MasterTimer *timer)
 
 void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 {
-    Q_UNUSED(ua)
     Q_ASSERT(timer != NULL);
 
     if (flashing() == true)
@@ -690,7 +689,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
     }
     else
     {
-        dismissAllFaders();
+        handleFadersEnd(timer);
         timer->unregisterDMXSource(this);
     }
 }
@@ -770,6 +769,35 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
     }
 }
 
+void Scene::handleFadersEnd(MasterTimer *timer)
+{
+    uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+    /* If no fade out is needed, dismiss all the requested faders.
+     * Otherwise, set all the faders to fade out and let Universe dismiss them
+     * when done */
+    if (fadeout == 0)
+    {
+        dismissAllFaders();
+    }
+    else
+    {
+        if (tempoType() == Beats)
+            fadeout = beatsToTime(fadeout, timer->beatTimeDuration());
+
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->setFadeOut(true, fadeout);
+        }
+    }
+
+    m_fadersMap.clear();
+
+    // autonomously reset a blend function if set
+    setBlendFunctionID(Function::invalidId());
+}
+
 void Scene::write(MasterTimer *timer, QList<Universe*> ua)
 {
     //qDebug() << Q_FUNC_INFO << elapsed();
@@ -816,33 +844,22 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
-    uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
-
-    /* If no fade out is needed, dismiss all the requested faders.
-     * Otherwise, set all the faders to fade out and let Universe dismiss them
-     * when done */
-    if (fadeout == 0)
-    {
-        dismissAllFaders();
-    }
-    else
-    {
-        if (tempoType() == Beats)
-            fadeout = beatsToTime(fadeout, timer->beatTimeDuration());
-
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
-        {
-            if (!fader.isNull())
-                fader->setFadeOut(true, fadeout);
-        }
-    }
-
-    m_fadersMap.clear();
-
-    // autonomously reset a blend function if set
-    setBlendFunctionID(Function::invalidId());
+    handleFadersEnd(timer);
 
     Function::postRun(timer, ua);
+}
+
+void Scene::setPause(bool enable)
+{
+    if (!isRunning())
+        return;
+
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->setPaused(enable);
+    }
+    Function::setPause(enable);
 }
 
 /****************************************************************************

@@ -128,7 +128,8 @@ public:
         Output      = 1 << 0,
         Input       = 1 << 1,
         Feedback    = 1 << 2,
-        Infinite    = 1 << 3
+        Infinite    = 1 << 3,
+        RDM         = 1 << 4
     };
 
     /**
@@ -380,6 +381,32 @@ protected:
      * network controllers (PluginUniverseDescriptor)
      */
     QMap<quint32, PluginUniverseDescriptor> m_universesMap;
+
+    /*************************************************************************
+     * RDM
+     *************************************************************************/
+public:
+    /**
+     * Send a RDM command. If the plugin doesn't support the RDM
+     * capability, this function will return an empty result and result == false.
+     *
+     * @param result a true/false outcome for this function
+     * @param line the line to be used for RDM transmission
+     * @param command The RDM command to send (discovery, get, set, etc)
+     * @param params A list of parameters specific to the command
+     * @return a map of <key,value> results depending on the command sent
+     */
+    virtual bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+
+signals:
+    /**
+     * Notify the listeners that some RDM information has been processed
+     *
+     * @param universe the universe associated to the RDM data read
+     * @param line the plugin line associated to the RDM data read
+     * @param data
+     */
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
 };
 
 #define QLCIOPlugin_iid "org.qlcplus.QLCIOPlugin"
