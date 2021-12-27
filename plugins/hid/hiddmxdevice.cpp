@@ -103,11 +103,6 @@ void HIDDMXDevice::closeOutput()
     updateMode();
 }
 
-QString HIDDMXDevice::path() const
-{
-    return m_file.fileName();
-}
-
 bool HIDDMXDevice::readEvent()
 {
     return true;
