@@ -149,6 +149,7 @@ private:
     int m_previousDialValue;
     bool m_preventSignals;
     int m_value;
+    QList<int> m_tapHistory;
 
     bool m_tapTick;
     QElapsedTimer* m_tapTime;
