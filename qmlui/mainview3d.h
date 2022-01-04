@@ -40,6 +40,7 @@
 
 class Doc;
 class Fixture;
+class ListModel;
 class QSvgRenderer;
 class MonitorProperties;
 
@@ -106,6 +107,7 @@ class MainView3D : public PreviewContext
     Q_PROPERTY(int maxFPS READ maxFPS NOTIFY maxFPSChanged)
     Q_PROPERTY(float avgFPS READ avgFPS NOTIFY avgFPSChanged)
 
+    Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
@@ -240,6 +242,10 @@ protected:
 
     void walkNode(QNode *e, int depth);
 
+    /** Used on generic items, which can be huge.
+     *  Normalize them to be 2 meters big maximum */
+    float getNormalizedScale(QVector3D extent);
+
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
@@ -281,6 +287,10 @@ public:
 
     Q_INVOKABLE void removeSelectedGenericItems();
 
+    /** Get a list of generic items currently in the 3D scene,
+     *  to be displayed in QML */
+    QVariant genericItemsList() const;
+
     void updateGenericItemPosition(quint32 itemID, QVector3D pos);
     QVector3D genericItemsPosition();
     void setGenericItemsPosition(QVector3D pos);
@@ -293,7 +303,11 @@ public:
     QVector3D genericItemsScale();
     void setGenericItemsScale(QVector3D scale);
 
+protected:
+    void updateGenericItemsList();
+
 signals:
+    void genericItemsListChanged();
     void genericSelectedCountChanged();
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
@@ -302,6 +316,9 @@ signals:
 private:
     /** Counter used to give unique IDs to generic items */
     int m_latestGenericID;
+
+    /** QML model for generic items */
+    ListModel *m_genericItemsList;
 
     QList<int> m_genericSelectedItems;
 

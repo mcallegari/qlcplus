@@ -43,7 +43,8 @@ typedef struct
     QVector3D m_position;       ///< 3D item position
     QVector3D m_rotation;       ///< 3D item rotation
     QVector3D m_scale;          ///< 3D item scale
-    QString m_resource;         ///< Generic: source file, Fixture: custom name
+    QString m_name;             ///< Fixture/Item Custom name
+    QString m_resource;         ///< Generic: source file
     QColor m_color;             ///< Generic: item color, Fixture: gel color
     quint32 m_flags;            ///< Item flags as specified in the ItemsFlags enum
 } PreviewItem;
@@ -136,6 +137,7 @@ public:
         HiddenFlag          = (1 << 0),
         InvertedPanFlag     = (1 << 1),
         InvertedTiltFlag    = (1 << 2),
+        MeshZUpFlag         = (1 << 3)
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(ItemFlags)
@@ -149,9 +151,10 @@ public:
     inline void setLabelsVisible(bool visible) { m_showLabels = visible; }
     inline bool labelsVisible() const { return m_showLabels; }
 
-    /** Remove a Fixture entry from the Monitor map */
+    /** Remove a Fixture entry from the Monitor map by Fixture ID */
     void removeFixture(quint32 fid);
 
+    /** Remove a Fixture entry from the Monitor map by item ID */
     void removeFixture(quint32 fid, quint16 head, quint16 linked);
 
     quint32 fixtureSubID(quint32 headIndex, quint32 linkedIndex) const;
@@ -176,9 +179,9 @@ public:
     void setFixtureGelColor(quint32 fid, quint16 head, quint16 linked, QColor col);
     QColor fixtureGelColor(quint32 fid, quint16 head, quint16 linked) const;
 
-    /** Get/Set the flags of a Fixture with with the given $fid, $head and $linked index */
-    void setFixtureResource(quint32 fid, quint16 head, quint16 linked, QString resource);
-    QString fixtureResource(quint32 fid, quint16 head, quint16 linked) const;
+    /** Get/Set the name of a Fixture with with the given $fid, $head and $linked index */
+    void setFixtureName(quint32 fid, quint16 head, quint16 linked, QString name);
+    QString fixtureName(quint32 fid, quint16 head, quint16 linked) const;
 
     /** Get/Set the flags of a Fixture with with the given $fid, $head and $linked index */
     void setFixtureFlags(quint32 fid, quint16 head, quint16 linked, quint32 flags);
@@ -214,6 +217,10 @@ public:
 
     /** Returns a list of all the generic item IDs */
     QList<quint32> genericItemsID();
+
+    /** Get/Set the custom name for an item with ID $itemID */
+    QString itemName(quint32 itemID);
+    void setItemName(quint32 itemID, QString name);
 
     /** Get/Set the resource string for an item with ID $itemID */
     QString itemResource(quint32 itemID);

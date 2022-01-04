@@ -503,7 +503,7 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     QStringList uniNames = m_doc->inputOutputMap()->universeNames();
     int roleIndex = m_fixtureTree->roleIndex(role);
     if (linkedIndex)
-        fxName = m_monProps->fixtureResource(fixtureID, headIndex, linkedIndex);
+        fxName = m_monProps->fixtureName(fixtureID, headIndex, linkedIndex);
 
     if (index == -1)
     {
@@ -568,7 +568,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
 
         QString fxName = fixture->name();
         if (linkedIndex)
-            fxName = monProps->fixtureResource(fixture->id(), headIndex, linkedIndex);
+            fxName = monProps->fixtureName(fixture->id(), headIndex, linkedIndex);
 
         QString fxPath = QString("%1%2%3").arg(basePath).arg(TreeModel::separator()).arg(fxName);
 
@@ -852,7 +852,7 @@ void FixtureManager::updateLinkedFixtureNode(quint32 itemID, bool add)
         return;
 
     QString universeName = uniNames.at(fixture->universe());
-    QString fixtureName = monProps->fixtureResource(fixtureID, headIndex, linkedIndex);
+    QString fixtureName = monProps->fixtureName(fixtureID, headIndex, linkedIndex);
 
     if (add)
     {
