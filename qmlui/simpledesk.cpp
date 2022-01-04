@@ -93,7 +93,7 @@ QVariantList SimpleDesk::fixtureList() const
 {
     QVariantList list;
 
-    foreach (Fixture *fxi, m_doc->fixtures())
+    for (Fixture *fxi : m_doc->fixtures())
     {
         if (fxi->universe() != m_universeFilter)
             continue;
@@ -106,7 +106,6 @@ QVariantList SimpleDesk::fixtureList() const
 
 void SimpleDesk::updateChannelList()
 {
-    QVariantList chList;
     quint32 start = (m_universeFilter * 512);
     quint32 prevID = Fixture::invalidId();
     int status = None;
