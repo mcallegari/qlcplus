@@ -101,19 +101,7 @@ bool UDMXDevice::isUDMXDevice(const struct libusb_device_descriptor* desc)
 
 void UDMXDevice::extractName()
 {
-    bool needToClose = false;
-
     Q_ASSERT(m_device != NULL);
-
-    if (m_device == NULL)
-    {
-        needToClose = true;
-        open();
-    }
-
-    /* Check, whether open() was successful */
-    if (m_device == NULL)
-        return;
 
     libusb_device_handle* handle = NULL;
     int r = libusb_open(m_device, &handle);
@@ -135,10 +123,7 @@ void UDMXDevice::extractName()
             qWarning() << "Unable to get product name:" << len;
         }
     }
-
-    /* Close the device if it was opened for this function only. */
-    if (needToClose == true)
-        close();
+    libusb_close(handle);
 }
 
 QString UDMXDevice::name() const

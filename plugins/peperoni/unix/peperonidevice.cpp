@@ -119,21 +119,9 @@ int PeperoniDevice::outputsNumber(libusb_device_descriptor *desc)
 
 void PeperoniDevice::extractName()
 {
-    bool needToClose = false;
-
     Q_ASSERT(m_device != NULL);
 
-    if (m_device == NULL)
-    {
-        needToClose = true;
-        open(m_baseLine, OutputMode);
-    }
-
-    /* Check, whether open() was successful */
-    if (m_device == NULL)
-        return;
-
-    libusb_device_handle* handle = NULL;
+    libusb_device_handle *handle = NULL;
     int r = libusb_open(m_device, &handle);
     if (r == 0)
     {
@@ -162,10 +150,7 @@ void PeperoniDevice::extractName()
             qWarning() << "Unable to get device serial:" << len;
 */
     }
-
-    /* Close the device if it was opened for this function only. */
-    if (needToClose == true)
-        close(m_baseLine, OutputMode);
+    libusb_close(handle);
 }
 
 QString PeperoniDevice::name(quint32 line) const
