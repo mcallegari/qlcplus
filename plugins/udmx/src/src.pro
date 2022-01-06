@@ -13,7 +13,7 @@ CONFIG      += plugin
 INCLUDEPATH += ../../interfaces
 DEPENDPATH  += ../../interfaces
 unix:CONFIG      += link_pkgconfig
-unix:PKGCONFIG   += libusb
+unix:PKGCONFIG   += libusb-1.0
 win32:QMAKE_LFLAGS += -shared
 
 HEADERS += ../../interfaces/qlcioplugin.h

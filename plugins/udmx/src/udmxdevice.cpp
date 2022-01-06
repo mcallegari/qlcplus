@@ -22,7 +22,7 @@
 #   include <Windows.h>
 #   include "libusb_dyn.h"
 #else
-#   include <usb.h>
+#   include <libusb.h>
 #endif
 
 #include <QElapsedTimer>
@@ -50,9 +50,10 @@
  * Initialization
  ****************************************************************************/
 
-UDMXDevice::UDMXDevice(struct usb_device* device, QObject* parent)
+UDMXDevice::UDMXDevice(struct libusb_device* device, libusb_device_descriptor *desc, QObject* parent)
     : QThread(parent)
     , m_device(device)
+    , m_descriptor(desc)
     , m_handle(NULL)
     , m_running(false)
     , m_universe(QByteArray(DMX_CHANNELS, 0))
@@ -87,17 +88,17 @@ UDMXDevice::~UDMXDevice()
  * Device information
  ****************************************************************************/
 
-bool UDMXDevice::isUDMXDevice(const struct usb_device* device)
+bool UDMXDevice::isUDMXDevice(const struct libusb_device_descriptor* desc)
 {
-    if (device == NULL)
+    if (desc == NULL)
         return false;
 
-    if (device->descriptor.idVendor != UDMX_SHARED_VENDOR &&
-        device->descriptor.idVendor != UDMX_AVLDIY_D512_CLONE_VENDOR)
+    if (desc->idVendor != UDMX_SHARED_VENDOR &&
+        desc->idVendor != UDMX_AVLDIY_D512_CLONE_VENDOR)
             return false;
 
-    if (device->descriptor.idProduct != UDMX_SHARED_PRODUCT &&
-        device->descriptor.idProduct != UDMX_AVLDIY_D512_CLONE_PRODUCT)
+    if (desc->idProduct != UDMX_SHARED_PRODUCT &&
+        desc->idProduct != UDMX_AVLDIY_D512_CLONE_PRODUCT)
             return false;
 
     return true;
@@ -106,28 +107,39 @@ bool UDMXDevice::isUDMXDevice(const struct usb_device* device)
 void UDMXDevice::extractName()
 {
     bool needToClose = false;
-    char name[256];
-    int len;
 
     Q_ASSERT(m_device != NULL);
 
-    if (m_handle == NULL)
+    if (m_device == NULL)
     {
         needToClose = true;
         open();
     }
 
     /* Check, whether open() was successful */
-    if (m_handle == NULL)
+    if (m_device == NULL)
         return;
 
-    /* Extract the name */
-    len = usb_get_string_simple(m_handle, m_device->descriptor.iProduct,
-                                name, sizeof(name));
-    if (len > 0)
-        m_name = QString(name);
-    else
-        m_name = tr("Unknown");
+    libusb_device_handle* handle = NULL;
+    int r = libusb_open(m_device, &handle);
+    if (r == 0)
+    {
+        char buf[256];
+        int len = 0;
+
+        /* Extract the name */
+        len = libusb_get_string_descriptor_ascii(handle, m_descriptor->iProduct,
+                                               (uchar*) &buf, sizeof(buf));
+        if (len > 0)
+        {
+            m_name = QString(QByteArray(buf, len));
+        }
+        else
+        {
+            m_name = tr("Unknown");
+            qWarning() << "Unable to get product name:" << len;
+        }
+    }
 
     /* Close the device if it was opened for this function only. */
     if (needToClose == true)
@@ -146,8 +158,9 @@ QString UDMXDevice::infoText() const
 
     if (m_device != NULL && m_handle != NULL)
     {
-        info += QString("<B>%1</B>").arg(name());
         info += QString("<P>");
+        info += QString("<B>%1:</B> %2").arg(tr("Device name")).arg(name());
+        info += QString("<BR>");
         info += QString("<B>%1:</B> %2").arg(tr("DMX Channels")).arg(m_universe.size());
         info += QString("<BR>");
         info += QString("<B>%1:</B> %2Hz").arg(tr("DMX Frame Frequency")).arg(m_frequency);
@@ -163,10 +176,7 @@ QString UDMXDevice::infoText() const
     }
     else
     {
-        info += QString("<B>%1</B>").arg(tr("Unknown device"));
-        info += QString("<P>");
-        info += tr("Cannot connect to USB device.");
-        info += QString("</P>");
+        info += QString("<P><B>%1</B></P>").arg(tr("Device not in use"));
     }
 
     return info;
@@ -179,7 +189,14 @@ QString UDMXDevice::infoText() const
 bool UDMXDevice::open()
 {
     if (m_device != NULL && m_handle == NULL)
-        m_handle = usb_open(m_device);
+    {
+        int ret = libusb_open(m_device, &m_handle);
+        if (ret < 0)
+        {
+            qWarning() << "Unable to open uDMX with idProduct:" << m_descriptor->idProduct;
+            m_handle = NULL;
+        }
+    }
 
     if (m_handle == NULL)
         return false;
@@ -194,18 +211,14 @@ void UDMXDevice::close()
     stop();
 
     if (m_device != NULL && m_handle != NULL)
-        usb_close(m_handle);
+        libusb_close(m_handle);
+
     m_handle = NULL;
 }
 
-const struct usb_device* UDMXDevice::device() const
+const struct libusb_device* UDMXDevice::device() const
 {
     return m_device;
-}
-
-const usb_dev_handle* UDMXDevice::handle() const
-{
-    return m_handle;
 }
 
 /****************************************************************************
@@ -222,8 +235,8 @@ void UDMXDevice::stop()
 {
     while (isRunning() == true)
     {
-	// This may occur before the thread sets m_running,
-	// so timeout and try again if necessary
+        // This may occur before the thread sets m_running,
+        // so timeout and try again if necessary
         m_running = false;
         wait(100);
     }
@@ -254,16 +267,18 @@ void UDMXDevice::run()
         time.restart();
 
         /* Write all 512 channels */
-        r = usb_control_msg(m_handle,
-                            USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
-                            UDMX_SET_CHANNEL_RANGE,   /* Command */
-                            m_universe.size(),        /* Number of channels to set */
-                            0,                        /* Starting index */
-                            (char*)m_universe.data(), /* Values to set */
-                            m_universe.size(),        /* Size of values */
-                            500);                     /* Timeout 0.5s */
+        r = libusb_control_transfer(m_handle,
+                            LIBUSB_REQUEST_TYPE_VENDOR |
+                            LIBUSB_RECIPIENT_INTERFACE |
+                            LIBUSB_ENDPOINT_OUT,
+                            UDMX_SET_CHANNEL_RANGE,     /* Command */
+                            m_universe.size(),          /* Number of channels to set */
+                            0,                          /* Starting index */
+                            (uchar *)m_universe.data(), /* Values to set */
+                            m_universe.size(),          /* Size of values */
+                            500);                       /* Timeout 500ms */
         if (r < 0)
-            qWarning() << "uDMX: unable to write universe:" << usb_strerror();
+            qWarning() << "uDMX: unable to write universe:" << libusb_strerror(libusb_error(r));
 
 framesleep:
         // Sleep for the remainder of the DMX frame time

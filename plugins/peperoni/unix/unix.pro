@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 CONFIG      += plugin
 CONFIG      += link_pkgconfig
-PKGCONFIG   += libusb
+PKGCONFIG   += libusb-1.0
 INCLUDEPATH += ../../interfaces
 INCLUDEPATH += ../common
 
