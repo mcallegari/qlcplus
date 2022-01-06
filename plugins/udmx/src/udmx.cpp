@@ -18,12 +18,7 @@
   limitations under the License.
 */
 
-#if defined(WIN32) || defined(Q_OS_WIN)
-#   include <Windows.h>
-#   include "libusb_dyn.h"
-#else
-#   include <libusb.h>
-#endif
+#include <libusb.h>
 
 #include <QMessageBox>
 #include <QString>

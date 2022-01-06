@@ -9,7 +9,7 @@ addons:
       #base packages for all builds
       - gdb
       - libasound2-dev
-      - libusb-dev
+      - libusb-1.0-0-dev
       - libftdi-dev
       - shared-mime-info
       - libudev-dev

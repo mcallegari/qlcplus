@@ -12,8 +12,8 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 CONFIG      += plugin
 INCLUDEPATH += ../../interfaces
 DEPENDPATH  += ../../interfaces
-unix:CONFIG      += link_pkgconfig
-unix:PKGCONFIG   += libusb-1.0
+CONFIG      += link_pkgconfig
+PKGCONFIG   += libusb-1.0
 win32:QMAKE_LFLAGS += -shared
 
 HEADERS += ../../interfaces/qlcioplugin.h
