@@ -100,7 +100,7 @@ include(libsndfile-nametool.pri)
 
 INSTALLS += $$libraryTargetID(LIBQLCENGINE, libqlcplusengine.1.dylib)
 INSTALLS += LIBUSB LIBUSB_ID
-INSTALLS += $$systemLibTarget(LIBFTDI, libftdi1.2.dylib, libftdi1) $$libraryTargetID(LIBFTDI, libftdi1.2.dylib)
+INSTALLS += $$systemLibTarget(LIBFTDI, libftdi1.2.5.0.dylib, libftdi1) $$libraryTargetID(LIBFTDI, libftdi1.2.5.0.dylib)
 INSTALLS += $$systemLibTarget(LIBMAD, libmad.0.dylib, mad) $$libraryTargetID(LIBMAD, libmad.0.dylib)
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
@@ -164,15 +164,9 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
       $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 }
 
-# Libftdi depends on libusb0.1 & 1.0
-qtnametool.commands += && $$LIBUSB0_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI_FILE
+# Libftdi depends on libusb1.0
 qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI_FILE
-
-# Libusb0.1 depends on libusb1.0
-qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBUSB0_FILE
 
 # libqlcplusengine depends on libmad, libsndfile, libportaudio and libfftw3
 qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
@@ -204,7 +198,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 
-# libsndfile depends on flac, libvorbis, libvorbisenc and libogg
+# libsndfile depends on flac, libvorbis, libvorbisenc, libopus and libogg
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 qtnametool.commands += && $$LIBFLAC_INSTALL_NAME_TOOL \
@@ -212,6 +206,8 @@ qtnametool.commands += && $$LIBFLAC_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 qtnametool.commands += && $$LIBVORBISENC_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
+qtnametool.commands += && $$LIBOPUS_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 
 # libFLAC depends on libogg

@@ -15,6 +15,7 @@ macx: {
     #QMAKE_CXXFLAGS_X86_64 -= -mmacosx-version-min=10.5
     #QMAKE_CXXFLAGS_X86_64 = -mmacosx-version-min=10.7
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-deprecated-declarations
 
     # Check for pkg-config and setup queries accordingly.
     # Otherwise, use MacPorts default paths.
