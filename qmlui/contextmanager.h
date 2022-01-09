@@ -220,6 +220,9 @@ public:
     /** Set a Pan/Tilt position in degrees */
     Q_INVOKABLE void setPositionValue(int type, int degrees);
 
+    /** Set a zoom channel in degrees */
+    Q_INVOKABLE void setBeamDegrees(float degrees);
+
     void setChannelValues(QList<SceneValue> values);
 
 protected slots:

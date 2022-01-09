@@ -1562,11 +1562,6 @@ void FixtureManager::setPresetValue(quint32 fixtureID, int chIndex, quint8 value
     emit presetChanged(ch, value);
 }
 
-void FixtureManager::setBeamValue(quint8 value)
-{
-    emit channelTypeValueChanged(QLCChannel::Beam, value);
-}
-
 void FixtureManager::updateCapabilityCounter(bool update, QString capName, int delta)
 {
     if (update == false)
@@ -1576,6 +1571,7 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
     if (capItem != nullptr)
     {
         capItem->setProperty("counter", capItem->property("counter").toInt() + delta);
+
         if (capName == "capPosition")
         {
             capItem->setProperty("panDegrees", m_maxPanDegrees);
@@ -1583,9 +1579,9 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
         }
         else if (capName == "capBeam")
         {
-            capItem->setProperty("minBeamDegrees", m_minBeamDegrees);
-            capItem->setProperty("maxBeamDegrees", m_maxBeamDegrees);
-
+            QMetaObject::invokeMethod(capItem, "setZoomRange",
+                    Q_ARG(QVariant, m_minBeamDegrees),
+                    Q_ARG(QVariant, m_maxBeamDegrees));
         }
     }
 }
@@ -1751,16 +1747,15 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             case QLCChannel::Beam:
             {
                 hasBeam = true;
-                if(fixture->fixtureMode() != nullptr)
+                if (fixture->fixtureMode() != nullptr)
                 {
-                    double minDeg = phy.lensDegreesMin();
-                    double maxDeg = phy.lensDegreesMax();
-                    if (minDeg == 0) minDeg = 15.0;
-                    if (maxDeg == 0) maxDeg = 30.0;
-                    if (minDeg < m_minBeamDegrees)
-                        m_minBeamDegrees = minDeg;
-                    if (maxDeg > m_maxBeamDegrees)
-                        m_maxBeamDegrees = maxDeg;
+                    m_minBeamDegrees = phy.lensDegreesMin();
+
+                    if (phy.lensDegreesMax() > m_maxBeamDegrees)
+                        m_maxBeamDegrees = phy.lensDegreesMax();
+
+                    if (m_maxBeamDegrees == 0)
+                        m_maxBeamDegrees = 30.0;
                 }
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
@@ -1800,6 +1795,15 @@ QList<SceneValue> FixtureManager::getFixturePosition(quint32 fxID, int type, int
         return QList<SceneValue>();
 
     return fixture->positionToValues(type, degrees);
+}
+
+QList<SceneValue> FixtureManager::getFixtureZoom(quint32 fxID, float degrees)
+{
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == nullptr || fixture->fixtureMode() == nullptr)
+        return QList<SceneValue>();
+
+    return fixture->zoomToValues(degrees);
 }
 
 QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)

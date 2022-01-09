@@ -284,8 +284,10 @@ SidePanel
                 onCheckedChanged: beamTool.visible = !beamTool.visible
                 onCounterChanged: if (counter == 0) beamTool.visible = false
 
-                property real minBeamDegrees: 15.0
-                property real maxBeamDegrees: 30.0
+                function setZoomRange(min, max)
+                {
+                    beamTool.setZoomRange(min, max)
+                }
 
                 BeamTool
                 {
@@ -294,8 +296,6 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    minDegrees: beamToolButton.minBeamDegrees
-                    maxDegrees: beamToolButton.maxBeamDegrees
                 }
             }
 
