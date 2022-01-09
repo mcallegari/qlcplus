@@ -28,6 +28,7 @@
 class Doc;
 class Fixture;
 class FixtureGroup;
+class FixtureManager;
 
 class FixtureGroupEditor : public QObject
 {
@@ -42,7 +43,7 @@ class FixtureGroupEditor : public QObject
     Q_PROPERTY(QVariantList selectionData READ selectionData NOTIFY selectionDataChanged)
 
 public:
-    FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FixtureGroupEditor(QQuickView *view, Doc *doc, FixtureManager *fxMgr, QObject *parent = 0);
     ~FixtureGroupEditor();
 
     /** Returns the data model to display a list of FixtureGroups with icons */
@@ -64,6 +65,8 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Reference to the Fixture Manager */
+    FixtureManager *m_fixtureManager;
     /** Reference to the Fixture Group currently being edited */
     FixtureGroup *m_editGroup;
 

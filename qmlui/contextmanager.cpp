@@ -1022,7 +1022,7 @@ void ContextManager::setLinkedFixture(quint32 itemID)
         // 3- add the new item to monitor properties
         QString newName = QString("%1 (%2 %3)").arg(fixture->name()).arg(tr("linked")).arg(newIndex);
         m_monProps->setFixturePosition(fixtureID, headIndex, newIndex, pos);
-        m_monProps->setFixtureResource(fixtureID, headIndex, newIndex, newName);
+        m_monProps->setFixtureName(fixtureID, headIndex, newIndex, newName);
 
         // 4- add the new item to the Fixture Manager tree
         quint32 linkedItemID = FixtureUtils::fixtureItemID(fixtureID, headIndex, newIndex);
@@ -1258,14 +1258,38 @@ void ContextManager::setPositionValue(int type, int degrees)
     }
 }
 
+void ContextManager::setBeamDegrees(float degrees)
+{
+    // list to keep track of the already processed Fixture IDs
+    QList<quint32>fxIDs;
+    QList<SceneValue> typeList = m_channelsMap.values(QLCChannel::Beam);
+
+    for (SceneValue sv : typeList)
+    {
+        if (fxIDs.contains(sv.fxi) == true)
+            continue;
+
+        fxIDs.append(sv.fxi);
+
+        QList<SceneValue> svList = m_fixtureManager->getFixtureZoom(sv.fxi, degrees);
+        for (SceneValue posSv : svList)
+        {
+            if (m_editingEnabled == false)
+                setDumpValue(posSv.fxi, posSv.channel, posSv.value);
+            else
+                m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
+        }
+    }
+}
+
 void ContextManager::setChannelValues(QList<SceneValue> values)
 {
     for (SceneValue sv : values)
     {
-            if (m_editingEnabled == false)
-                setDumpValue(sv.fxi, sv.channel, sv.value);
-            else
-                m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);
+        if (m_editingEnabled == false)
+            setDumpValue(sv.fxi, sv.channel, sv.value);
+        else
+            m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);
     }
 }
 

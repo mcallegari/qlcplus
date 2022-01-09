@@ -1,3 +1,12 @@
+---
+name: Developer report
+about: Generic report made by a developer.
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 This area is reserved to developers.
 If you are not a developer, you are in the wrong place and your issue will be closed.
 

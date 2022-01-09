@@ -58,7 +58,11 @@ build_script:
           make install -s
           cp *.qm /c/qlcplus
           cd /c/qlcplus
+          echo 'Workaround Harfbuzz bug'
+          rm libharfbuzz-0.dll
+          wget http://www.qlcplus.org/misc/libharfbuzz-0.dll
           sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
+          echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
           #set CURRDATE=`date +%Y%m%d`
           mv QLC+_*.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe

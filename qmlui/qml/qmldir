@@ -13,6 +13,7 @@ CustomPopupDialog 0.1 CustomPopupDialog.qml
 CustomScrollBar 0.1 CustomScrollBar.qml
 CustomSlider 0.1 CustomSlider.qml
 CustomSpinBox 0.1 CustomSpinBox.qml
+CustomDoubleSpinBox 0.1 CustomDoubleSpinBox.qml
 CustomTextEdit 0.1 CustomTextEdit.qml
 DayTimeTool 0.1 DayTimeTool.qml
 DMXAddressTool 0.1 DMXAddressTool.qml

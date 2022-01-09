@@ -38,6 +38,7 @@
 #include "tardis.h"
 #include "qlcfile.h"
 #include "qlcconfig.h"
+#include "listmodel.h"
 #include "mainview3d.h"
 #include "fixtureutils.h"
 #include "qlccapability.h"
@@ -80,6 +81,11 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     // the order of StageType enum in MonitorProperties class
     m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage") << tr("Theatre stage");
     m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml" << "qrc:/StageTheatre.qml";
+
+    m_genericItemsList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "itemID" << "name" << "isSelected";
+    m_genericItemsList->setRoleNames(listRoles);
 }
 
 MainView3D::~MainView3D()
@@ -720,7 +726,7 @@ void MainView3D::addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D m
                                            vminY + meshRef->m_volume.m_extents.y() / 2.0f,
                                            vminZ + meshRef->m_volume.m_extents.z() / 2.0f);
 
-    qDebug() << "-- extent" << meshRef->m_volume.m_extents << "-- center" << meshRef->m_volume.m_center;
+    //qDebug() << "-- extent" << meshRef->m_volume.m_extents << "-- center" << meshRef->m_volume.m_center;
 }
 
 QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
@@ -796,6 +802,26 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
         meshRef->m_headItem = entity;
 
     return baseItem;
+}
+
+float MainView3D::getNormalizedScale(QVector3D extent)
+{
+    float maxExtent = 1.0;
+    float scale = 1.0;
+
+    if (extent.x() > 2.0 && extent.x() > maxExtent)
+        maxExtent = extent.x();
+
+    if (extent.y() > 2.0 && extent.y() > maxExtent)
+        maxExtent = extent.y();
+
+    if (extent.z() > 2.0 && extent.z() > maxExtent)
+        maxExtent = extent.z();
+
+    // maxext : 100 = 2 : scale;
+    scale = 200.0 / maxExtent;
+
+    return scale;
 }
 
 #ifdef SHOW_FRAMEGRAPH
@@ -1547,9 +1573,10 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     // Walk through the scene tree and add each mesh to the deferred pipeline.
     // If needed, calculate also the bounding volume */
-    /*QEntity *baseItem =*/ inspectEntity(root, meshRef, sceneDeferredLayer, sceneEffect, calculateVolume, translation);
+    inspectEntity(root, meshRef, sceneDeferredLayer, sceneEffect, calculateVolume, translation);
 
-    qDebug() << "Calculated volume" << meshRef->m_volume.m_extents << meshRef->m_volume.m_center;
+    qDebug() << "Calculated volume:" << meshRef->m_volume.m_extents << ", center:" << meshRef->m_volume.m_center;
+    qDebug() << "Translation:" << translation;
 
     if (calculateVolume)
         m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
@@ -1580,6 +1607,7 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     itemEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     itemEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
+    updateGenericItemsList();
 }
 
 void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
@@ -1636,6 +1664,28 @@ void MainView3D::removeSelectedGenericItems()
     }
     m_genericSelectedItems.clear();
     emit genericSelectedCountChanged();
+    updateGenericItemsList();
+}
+
+void MainView3D::updateGenericItemsList()
+{
+    m_genericItemsList->clear();
+
+    for (quint32 itemID : m_monProps->genericItemsID())
+    {
+        QVariantMap itemMap;
+        itemMap.insert("itemID", itemID);
+        itemMap.insert("name", m_monProps->itemName(itemID));
+        itemMap.insert("isSelected", false);
+        m_genericItemsList->addDataMap(itemMap);
+    }
+
+    emit genericItemsListChanged();
+}
+
+QVariant MainView3D::genericItemsList() const
+{
+    return QVariant::fromValue(m_genericItemsList);
 }
 
 void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos)

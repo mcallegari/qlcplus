@@ -146,7 +146,10 @@ Rectangle
                                     fxGroupDeleteList.push(item.cRef.id)
                                 break;
                                 case App.FixtureDragItem:
-                                    fxDeleteList.push(item.itemID)
+                                    if (item.inGroup)
+                                        fixtureManager.deleteFixtureInGroup(item.subID, item.itemID, item.nodePath)
+                                    else
+                                        fxDeleteList.push(item.itemID)
                                 break;
                             }
                         }

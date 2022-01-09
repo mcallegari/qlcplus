@@ -58,7 +58,7 @@ Entity
     property real focusMinDegrees: 15
     property real focusMaxDegrees: 30
     property real distCutoff: 40.0
-    property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
+    property real cutoffAngle: (focusMinDegrees / 2.0) * (Math.PI / 180.0)
 
     /* **************** Rendering quality properties **************** */
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
@@ -196,7 +196,7 @@ Entity
 
     function setZoom(value)
     {
-        cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
+        cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255.0) * value) + focusMinDegrees) / 2.0) * (Math.PI / 180.0)
     }
 
     function setupScattering(sceneEntity)

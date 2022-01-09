@@ -26,16 +26,32 @@ Rectangle
 {
     id: toolRoot
     width: UISettings.bigItemHeight * 3
-    height: UISettings.bigItemHeight * 2.5
+    height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
     border.color: UISettings.bgLight
     border.width: 2
 
-    property real minDegrees: 15.0
-    property real maxDegrees: 30.0
+    property real minDegrees: 0
+    property real maxDegrees: 0
+    property real projectedDiameter: 0
 
     onMinDegreesChanged: gCanvas.requestPaint()
     onMaxDegreesChanged: gCanvas.requestPaint()
+
+    function setZoomRange(min, max)
+    {
+        maxDegrees = max
+        minDegrees = min
+    }
+
+    function calculateProjection()
+    {
+        // calculate apothem
+        var apothem = distSpinBox.realValue / Math.cos(Math.PI * beamSpinBox.realValue / 360.0)
+        // calculate projection radius r=sqrt(a^2 - h^2)
+        var radius = Math.sqrt(Math.pow(apothem, 2) - Math.pow(distSpinBox.realValue, 2))
+        projectedDiameter = radius * 2.0
+    }
 
     MouseArea
     {
@@ -133,52 +149,45 @@ Rectangle
 
         RobotoText { label: qsTr("Beam degrees") }
 
-        CustomSpinBox
+        CustomDoubleSpinBox
         {
             id: beamSpinBox
-            from: minDegrees * 100
-            to: maxDegrees * 100
-            value: minDegrees * 100
-            stepSize: 50
-            suffix: "°"
-
-            property int decimals: 2
-            property real realValue: value / 100
-
-            validator: DoubleValidator {
-                bottom: Math.min(beamSpinBox.from, beamSpinBox.to)
-                top:  Math.max(beamSpinBox.from, beamSpinBox.to)
-            }
-
-            textFromValue: function(value, locale) {
-                return Number(value / 100).toLocaleString(locale, 'f', beamSpinBox.decimals) + suffix
-            }
-
-            valueFromText: function(text, locale) {
-                return Number.fromLocaleString(locale, text.replace(suffix, "")) * 100
-            }
+            realFrom: minDegrees
+            realTo: maxDegrees
+            realValue: minDegrees
 
             onRealValueChanged:
             {
-                fixtureManager.setBeamValue((realValue - minDegrees) * 255 / (maxDegrees - minDegrees))
+                contextManager.setBeamDegrees(realValue)
+                calculateProjection()
                 gCanvas.requestPaint()
             }
         }
 
         RobotoText { label: qsTr("Distance") }
 
-        CustomSpinBox
+        CustomDoubleSpinBox
         {
             id: distSpinBox
-            from: 1
-            to: 50
-            value: 3
+            realFrom: 1
+            realTo: 1000
+            realValue: 3
             suffix: "m"
 
-            onValueChanged:
+            onRealValueChanged:
             {
-                gCanvas.requestPaint()
+                calculateProjection()
+                //gCanvas.requestPaint()
             }
+        }
+
+        RobotoText { label: qsTr("Projected diameter") }
+
+        RobotoText
+        {
+            label: Number(toolRoot.projectedDiameter).toFixed(2) + "m"
+            fontBold: true
+            //labelColor: UISettings.highlight
         }
     }
 }

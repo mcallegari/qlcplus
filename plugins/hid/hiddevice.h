@@ -81,6 +81,7 @@ public:
     virtual bool readEvent() = 0;
 
 protected:
+    QString m_filename;
     QFile m_file;
 
     /*************************************************************************

@@ -19,6 +19,7 @@
     <file alias="CustomScrollBar.qml">qml/CustomScrollBar.qml</file>
     <file alias="CustomSlider.qml">qml/CustomSlider.qml</file>
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
+    <file alias="CustomDoubleSpinBox.qml">qml/CustomDoubleSpinBox.qml</file>
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
     <file alias="DMXAddressTool.qml">qml/DMXAddressTool.qml</file>

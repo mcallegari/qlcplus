@@ -165,6 +165,8 @@ public:
     /** Delete some existing Fixtures with IDs provided by $IDList */
     Q_INVOKABLE bool deleteFixtures(QVariantList IDList);
 
+    Q_INVOKABLE bool deleteFixtureInGroup(quint32 groupID, quint32 itemID, QString path);
+
     /** Rename the Fixture with the provided $itemID to $newName */
     Q_INVOKABLE void renameFixture(quint32 itemID, QString newName);
 
@@ -386,7 +388,6 @@ public:
     Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
                                    quint8 white, quint8 amber, quint8 uv);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
-    Q_INVOKABLE void setBeamValue(quint8 value);
 
     /**
      * @brief setFixtureCapabilities
@@ -406,6 +407,8 @@ public:
      *  DMX values properly scaled depending on the Fixture max Pan/Tilt degrees.
      *  It also provides multiple results if multiple heads are available */
     QList<SceneValue> getFixturePosition(quint32 fxID, int type, int degrees);
+
+    QList<SceneValue> getFixtureZoom(quint32 fxID, float degrees);
 
     /** Returns the names of the currently selected fixtures with gobo channels.
      *  The names are in the format: Product - Channel name */

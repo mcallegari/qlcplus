@@ -37,6 +37,8 @@ var testAlgo;
     algo.size = 0;
     algo.width = 0;
     algo.height = 0;
+    algo.numX = 0;
+    algo.numY = 0;
     
     var util = new Object;
     algo.initialized = false;
@@ -44,6 +46,7 @@ var testAlgo;
     algo.setDivisor = function(_divisor)
     {
       algo.divisor = _divisor;
+      algo.initialized = false;
     };
 
     algo.getDivisor = function()
@@ -76,28 +79,30 @@ var testAlgo;
     {
       algo.width = width;
       algo.height = height;
-      var numX = 0;
-      var numY = 0;
-      if (width > height) {
+      if (width <= height) {
         algo.size = width / algo.divisor;
-        numX = algo.divisor;
-        numY = Math.floor(height / algo.size);
+        algo.numX = algo.divisor;
+        algo.numY = Math.floor(height / algo.size);
       } else {
         algo.size = height / algo.divisor;
-        numX = Math.floor(width / algo.size);
-        numY = algo.divisor;
+        algo.numX = Math.floor(width / algo.size);
+        algo.numY = algo.divisor;
       }
       
       algo.bulb = new Array();
 
       var count = 0;
-      for (var w = 0; w < numX; w++) {
-        for (var h = 0; h < numY; h++) {
+      for (var w = 0; w < algo.numX; w++) {
+        for (var h = 0; h < algo.numY; h++) {
           algo.bulb[count] = {
             // width / algo.numX * w + width / algo.numX / 2
-            x: (2 * w + 1 ) * width / 2 / numX - 0.5,
-            y: (2 * h + 1 ) * height / 2 / numY - 0.5,
+            x: (2 * w + 1 ) * width / 2 / algo.numX - 0.5,
+            y: (2 * h + 1 ) * height / 2 / algo.numY - 0.5,
           };
+          algo.bulb[count].xMin = Math.floor(algo.bulb[count].x - algo.size / 2) - 1;
+          algo.bulb[count].xMax = Math.ceil(algo.bulb[count].x + algo.size / 2) - 1;
+          algo.bulb[count].yMin = Math.floor(algo.bulb[count].y - algo.size / 2) - 1;
+          algo.bulb[count].yMax = Math.ceil(algo.bulb[count].y + algo.size / 2) - 1;
           count ++;
         }
       }
@@ -108,7 +113,7 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, progstep)
     {
-      if (algo.initialized === false || width !== algo.width || algo.height !== algo.height) {
+      if (algo.initialized === false || width !== algo.width || height !== algo.height) {
         util.initialize(width, height);
       }
 
@@ -137,13 +142,9 @@ var testAlgo;
 
       // for each bulb displayed
       for (var i = 0; i < algo.bulb.length; i++) {
-        var xMin = Math.floor(algo.bulb[i].x - algo.size / 2) - 1;
-        var xMax = Math.ceil(algo.bulb[i].x + algo.size / 2) - 1;
-        var yMin = Math.floor(algo.bulb[i].y - algo.size / 2) - 1;
-        var yMax = Math.ceil(algo.bulb[i].y + algo.size / 2) - 1;
 
-        for (var ry = yMin; ry <= yMax; ry++) {
-          for (var rx = xMin; rx <= xMax; rx++) {
+        for (var ry = algo.bulb[i].yMin; ry <= algo.bulb[i].yMax; ry++) {
+          for (var rx = algo.bulb[i].xMin; rx <= algo.bulb[i].xMax; rx++) {
             // Draw only if edges are on the map
             if (rx >= 0 && rx < width && ry >= 0 && ry < height) {
               // Draw the box for debugging.
