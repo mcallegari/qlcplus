@@ -9,6 +9,7 @@ CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
 CustomScrollBar 0.1 ../CustomScrollBar.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
+CustomDoubleSpinBox 0.1 ../CustomDoubleSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
 DMXPercentageButton 0.1 ../DMXPercentageButton.qml
 DMXAddressWidget 0.1 ../DMXAddressWidget.qml
