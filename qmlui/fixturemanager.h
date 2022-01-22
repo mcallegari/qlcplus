@@ -486,6 +486,7 @@ private:
 
     double m_minBeamDegrees;
     double m_maxBeamDegrees;
+    bool m_invertedZoom;
 
     /** Bitmask holding the colors supported by the currently selected fixtures */
     int m_colorsMask;

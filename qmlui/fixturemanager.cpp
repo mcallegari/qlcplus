@@ -55,6 +55,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_maxTiltDegrees(0)
     , m_minBeamDegrees(15.0)
     , m_maxBeamDegrees(0)
+    , m_invertedZoom(false)
     , m_colorsMask(0)
 {
     Q_ASSERT(m_doc != nullptr);
@@ -1581,7 +1582,8 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
         {
             QMetaObject::invokeMethod(capItem, "setZoomRange",
                     Q_ARG(QVariant, m_minBeamDegrees),
-                    Q_ARG(QVariant, m_maxBeamDegrees));
+                    Q_ARG(QVariant, m_maxBeamDegrees),
+                    Q_ARG(QVariant, m_invertedZoom));
         }
     }
 }
@@ -1746,6 +1748,10 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             break;
             case QLCChannel::Beam:
             {
+                if (channel->preset() != QLCChannel::BeamZoomBigSmall &&
+                    channel->preset() != QLCChannel::BeamZoomSmallBig)
+                    break;
+
                 hasBeam = true;
                 if (fixture->fixtureMode() != nullptr)
                 {
@@ -1756,6 +1762,12 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
 
                     if (m_maxBeamDegrees == 0)
                         m_maxBeamDegrees = 30.0;
+
+                    // this considers only the last selected fixture
+                    if (channel->preset() == QLCChannel::BeamZoomBigSmall)
+                        m_invertedZoom = true;
+                    else
+                        m_invertedZoom = false;
                 }
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }

@@ -284,9 +284,9 @@ SidePanel
                 onCheckedChanged: beamTool.visible = !beamTool.visible
                 onCounterChanged: if (counter == 0) beamTool.visible = false
 
-                function setZoomRange(min, max)
+                function setZoomRange(min, max, inverted)
                 {
-                    beamTool.setZoomRange(min, max)
+                    beamTool.setZoomRange(min, max, inverted)
                 }
 
                 BeamTool

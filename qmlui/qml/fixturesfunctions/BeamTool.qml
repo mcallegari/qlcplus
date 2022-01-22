@@ -33,15 +33,20 @@ Rectangle
 
     property real minDegrees: 0
     property real maxDegrees: 0
+    property bool invertedZoom: false
     property real projectedDiameter: 0
 
     onMinDegreesChanged: gCanvas.requestPaint()
     onMaxDegreesChanged: gCanvas.requestPaint()
 
-    function setZoomRange(min, max)
+    function setZoomRange(min, max, inverted)
     {
         maxDegrees = max
         minDegrees = min
+        invertedZoom = inverted
+        beamSpinBox.realValue = inverted ? maxDegrees : minDegrees
+        beamSpinBox.value = beamSpinBox.realValue * Math.pow(10, beamSpinBox.decimals)
+        gCanvas.requestPaint()
     }
 
     function calculateProjection()
@@ -154,7 +159,7 @@ Rectangle
             id: beamSpinBox
             realFrom: minDegrees
             realTo: maxDegrees
-            realValue: minDegrees
+            //realValue: invertedZoom ? maxDegrees : minDegrees
 
             onRealValueChanged:
             {
