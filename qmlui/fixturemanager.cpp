@@ -267,10 +267,22 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
 
     // temporarily disconnect this signal since we want to use the given position
     disconnect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
+    quint32 fxAddress = address;
 
     for (int i = 0; i < quantity; i++)
     {
         Fixture *fxi = new Fixture(m_doc);
+        //quint32 fxAddress = address + (i * channels) + (i * gap);
+        if (fxAddress + channels >= UNIVERSE_SIZE)
+        {
+            uniIdx++;
+            if (m_doc->inputOutputMap()->getUniverseID(uniIdx) == m_doc->inputOutputMap()->invalidUniverse())
+            {
+                m_doc->inputOutputMap()->addUniverse();
+                m_doc->inputOutputMap()->startUniverses();
+            }
+            fxAddress = 0;
+        }
 
         /* If we're adding more than one fixture,
            append a number to the end of the name */
@@ -278,7 +290,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
             fxi->setName(QString("%1 #%2").arg(name).arg(i + 1));
         else
             fxi->setName(name);
-        fxi->setAddress(address + (i * channels) + (i * gap));
+        fxi->setAddress(fxAddress);
         fxi->setUniverse(uniIdx);
         if (fxiDef == nullptr && fxiMode == nullptr)
         {
@@ -300,6 +312,8 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
         slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
+
+        fxAddress += (channels + gap);
     }
 
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
