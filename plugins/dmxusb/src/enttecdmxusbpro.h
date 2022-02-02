@@ -22,7 +22,11 @@
 
 #include <QByteArray>
 #include <QThread>
-#include <QMutex>
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 14, 0 )
+    #include <QRecursiveMutex>
+#else
+    #include <QMutex>
+#endif
 
 #include "dmxusbwidget.h"
 
@@ -170,7 +174,11 @@ private:
 
 private:
     bool m_outputRunning;
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 14, 0 )
+    QRecursiveMutex m_outputMutex;
+#else
     QMutex m_outputMutex;
+#endif
 
     /********************************************************************
      * RDM
