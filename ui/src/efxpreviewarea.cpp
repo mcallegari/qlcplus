@@ -114,8 +114,7 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     QPainter painter(this);
     QPen pen;
     QPointF point;
-    QColor color = Qt::white;
-
+    QColor color = palette().color(QPalette::Base);
     if (m_gradientBg)
         painter.drawImage(painter.window(), Gradient::getRGBGradient(256, 256));
     else
