@@ -41,6 +41,9 @@ Rectangle
 
     function setZoomRange(min, max, inverted)
     {
+        if (max === maxDegrees && min === minDegrees)
+            return
+
         maxDegrees = max
         minDegrees = min
         invertedZoom = inverted

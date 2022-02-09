@@ -1585,7 +1585,11 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
     QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(capName));
     if (capItem != nullptr)
     {
-        capItem->setProperty("counter", capItem->property("counter").toInt() + delta);
+        int count = capItem->property("counter").toInt() + delta;
+        capItem->setProperty("counter", count);
+
+        if (count == 0)
+            return;
 
         if (capName == "capPosition")
         {

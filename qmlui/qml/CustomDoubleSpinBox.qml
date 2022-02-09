@@ -49,5 +49,5 @@ CustomSpinBox
         return Number.fromLocaleString(locale, text.replace(suffix, "")) * Math.pow(10, decimals)
     }
 
-    onValueChanged: realValue = value / Math.pow(10, decimals)
+    onValueModified: realValue = value / Math.pow(10, decimals)
 }
