@@ -161,7 +161,7 @@ void ArtNetPacketizer::setupArtNetTodRequest(QByteArray &data, const int &univer
 
     data.append((char)(universe >> 8));     // Net
     data.append(char(0x00));                // Command: TodFull
-    data.append(char(0x00));                // AddCount
+    data.append(char(0x01));                // AddCount
     data.append((char)(universe & 0x00FF)); // Address
 }
 
