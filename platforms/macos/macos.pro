@@ -93,6 +93,10 @@ defineReplace(qt5LibTargetID) {
 include(libusb-nametool.pri)
 include(libsndfile-nametool.pri)
 
+LIBFTDI1_FILE = libftdi1.2.dylib
+LIBFFTW_FILE = libfftw3.3.dylib
+LIBMAD_FILE = libmad.0.dylib
+
 !qmlui: {
  INSTALLS += $$libraryTargetID(LIBQLCUI, libqlcplusui.1.dylib)
  INSTALLS += $$libraryTargetID(LIBQLCWEBACCESS, libqlcpluswebaccess.1.dylib)
@@ -100,10 +104,10 @@ include(libsndfile-nametool.pri)
 
 INSTALLS += $$libraryTargetID(LIBQLCENGINE, libqlcplusengine.1.dylib)
 INSTALLS += LIBUSB LIBUSB_ID
-INSTALLS += $$systemLibTarget(LIBFTDI, libftdi1.2.dylib, libftdi1) $$libraryTargetID(LIBFTDI, libftdi1.2.dylib)
-INSTALLS += $$systemLibTarget(LIBMAD, libmad.0.dylib, mad) $$libraryTargetID(LIBMAD, libmad.0.dylib)
+INSTALLS += $$systemLibTarget(LIBFTDI, $$LIBFTDI1_FILE, libftdi1) $$libraryTargetID(LIBFTDI, $$LIBFTDI1_FILE)
+INSTALLS += $$systemLibTarget(LIBMAD, $$LIBMAD_FILE, mad) $$libraryTargetID(LIBMAD, $$LIBMAD_FILE)
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
-INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
+INSTALLS += $$systemLibTarget(LIBFFTW, $$LIBFFTW_FILE, fftw3) $$libraryTargetID(LIBFFTW, $$LIBFFTW_FILE)
 
 INSTALLS += $$qt5LibTarget(LIBQTCORE, QtCore) $$qt5LibTargetID(LIBQTCORE, QtCore)
 INSTALLS += $$qt5LibTarget(LIBQTGUI, QtGui)
@@ -163,6 +167,10 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
   qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
       $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 }
+
+# Libftdi1 depends on libusb1.0
+qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI1_FILE
 
 # libqlcplusengine depends on libmad, libsndfile, libportaudio and libfftw3
 qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
