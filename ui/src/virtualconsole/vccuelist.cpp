@@ -1264,7 +1264,10 @@ void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCCueList::updateFeedback()
 {
-    int fbv = (int)SCALE(float(m_sideFader->value()), float(0), float(100), float(0), float(UCHAR_MAX));
+    int fbv = int(SCALE(float(m_sideFader->value()), 
+                        float(m_sideFader->minimum()),
+                        float(m_sideFader->maximum()), 
+                        float(0), float(UCHAR_MAX)));
     sendFeedback(fbv, sideFaderInputSourceId);
 
     Chaser *ch = chaser();
