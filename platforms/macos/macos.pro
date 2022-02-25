@@ -100,7 +100,7 @@ include(libsndfile-nametool.pri)
 
 INSTALLS += $$libraryTargetID(LIBQLCENGINE, libqlcplusengine.1.dylib)
 INSTALLS += LIBUSB LIBUSB_ID
-INSTALLS += $$systemLibTarget(LIBFTDI, libftdi1.2.5.0.dylib, libftdi1) $$libraryTargetID(LIBFTDI, libftdi1.2.5.0.dylib)
+INSTALLS += $$systemLibTarget(LIBFTDI, libftdi1.2.dylib, libftdi1) $$libraryTargetID(LIBFTDI, libftdi1.2.dylib)
 INSTALLS += $$systemLibTarget(LIBMAD, libmad.0.dylib, mad) $$libraryTargetID(LIBMAD, libmad.0.dylib)
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
@@ -163,10 +163,6 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
   qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
       $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 }
-
-# Libftdi depends on libusb1.0
-qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI_FILE
 
 # libqlcplusengine depends on libmad, libsndfile, libportaudio and libfftw3
 qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \

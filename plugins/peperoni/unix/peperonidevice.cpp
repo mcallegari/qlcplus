@@ -257,7 +257,7 @@ bool PeperoniDevice::open(quint32 line, OperatingMode mode)
         if (r < 0)
             qWarning() << "PeperoniDevice is unable to claim interface EP0!";
 
-        /* Set DMX startcode */
+        /* Set TX DMX startcode */
         r = libusb_control_transfer(m_handle,
                             LIBUSB_REQUEST_TYPE_VENDOR |
                             LIBUSB_RECIPIENT_INTERFACE |
@@ -271,11 +271,11 @@ bool PeperoniDevice::open(quint32 line, OperatingMode mode)
         if (r < 0)
             qWarning() << "PeperoniDevice is unable to set 0 as the DMX output startcode!";
 
-        /* Set DMX startcode */
+        /* Set RX DMX startcode */
         r = libusb_control_transfer(m_handle,
                             LIBUSB_REQUEST_TYPE_VENDOR |
                             LIBUSB_RECIPIENT_INTERFACE |
-                            LIBUSB_ENDPOINT_OUT,
+                            LIBUSB_ENDPOINT_IN,
                             PEPERONI_RX_STARTCODE,   // Set DMX startcode
                             0,                       // Standard startcode is 0
                             0,                       // No index
@@ -283,7 +283,7 @@ bool PeperoniDevice::open(quint32 line, OperatingMode mode)
                             0,                       // Zero data length
                             50);                     // Timeout (ms)
         if (r < 0)
-            qWarning() << "PeperoniDevice is unable to set 0 as the DMX output startcode!";
+            qWarning() << "PeperoniDevice is unable to set 0 as the DMX input startcode!";
 
         if (m_firmwareVersion >= PEPERONI_FW_OLD_BULK_SUPPORT)
         {

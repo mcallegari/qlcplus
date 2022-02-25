@@ -42,7 +42,10 @@ TRANSLATIONS += uDMX_ja_JP.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-macx:include(../../../platforms/macos/nametool.pri)
+macx {
+    include(../../../platforms/macos/nametool.pri)
+    nametool.commands += $$pkgConfigNametool(libusb-1.0, libusb-1.0.0.dylib)
+}
 
 # Installation
 target.path = $$INSTALLROOT/$$PLUGINDIR
