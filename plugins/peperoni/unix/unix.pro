@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 CONFIG      += plugin
 CONFIG      += link_pkgconfig
-PKGCONFIG   += libusb
+PKGCONFIG   += libusb-1.0
 INCLUDEPATH += ../../interfaces
 INCLUDEPATH += ../common
 
@@ -25,7 +25,10 @@ SOURCES += peperonidevice.cpp \
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-macx:include(../../../platforms/macos/nametool.pri)
+macx {
+    include(../../../platforms/macos/nametool.pri)
+    nametool.commands += $$pkgConfigNametool(libusb-1.0, libusb-1.0.0.dylib)
+}
 
 # Installation
 target.path = $$INSTALLROOT/$$PLUGINDIR

@@ -26,6 +26,7 @@
 
 #include "qlcioplugin.h"
 
+struct libusb_device;
 class PeperoniDevice;
 
 /*****************************************************************************
@@ -112,9 +113,11 @@ public:
 
 protected:
     /** Get a PeperoniDevice entry by its usbdev struct */
-    bool device(struct usb_device* usbdev);
+    bool device(libusb_device *usbdev);
 
 protected:
+    struct libusb_context* m_ctx;
+
     /** List of available devices */
     QHash <quint32, PeperoniDevice*> m_devices;
 

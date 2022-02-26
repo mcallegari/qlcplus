@@ -18,12 +18,7 @@
   limitations under the License.
 */
 
-#if defined(WIN32) || defined(Q_OS_WIN)
-#   include <Windows.h>
-#   include "libusb_dyn.h"
-#else
-#   include <usb.h>
-#endif
+#include <libusb.h>
 
 #include <QMessageBox>
 #include <QString>
@@ -38,7 +33,11 @@ UDMX::~UDMX()
 
 void UDMX::init()
 {
-    usb_init();
+    m_ctx = NULL;
+
+    if (libusb_init(&m_ctx) != 0)
+        qWarning() << "Unable to initialize libusb context!";
+
     rescanDevices();
 }
 
@@ -129,37 +128,39 @@ void UDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray &dat
 
 void UDMX::rescanDevices()
 {
-    struct usb_device* dev;
-    struct usb_bus* bus;
-
     /* Treat all devices as dead first, until we find them again. Those
        that aren't found, get destroyed at the end of this function. */
     QList <UDMXDevice*> destroyList(m_devices);
+    int devCount = m_devices.count();
 
-    usb_find_busses();
-    usb_find_devices();
-
-    /* Iterate thru all buses */
-    for (bus = usb_get_busses(); bus != NULL; bus = bus->next)
+    libusb_device** devices = NULL;
+    ssize_t count = libusb_get_device_list(m_ctx, &devices);
+    for (ssize_t i = 0; i < count; i++)
     {
-        /* Iterate thru all devices in each bus */
-        for (dev = bus->devices; dev != NULL; dev = dev->next)
+        libusb_device* dev = devices[i];
+        Q_ASSERT(dev != NULL);
+
+        libusb_device_descriptor desc;
+        int r = libusb_get_device_descriptor(dev, &desc);
+        if (r < 0)
         {
-            UDMXDevice* udev = device(dev);
-            if (udev != NULL)
-            {
-                /* We already have this device and it's still
-                   there. Remove from the destroy list and
-                   continue iterating. */
-                destroyList.removeAll(udev);
-                continue;
-            }
-            else if (UDMXDevice::isUDMXDevice(dev) == true)
-            {
-                /* This is a new device. Create and append. */
-                udev = new UDMXDevice(dev, this);
-                m_devices.append(udev);
-            }
+            qWarning() << "Unable to get device descriptor:" << r;
+            continue;
+        }
+        UDMXDevice* udev = device(dev);
+        if (udev != NULL)
+        {
+            /* We already have this device and it's still
+               there. Remove from the destroy list and
+               continue iterating. */
+            destroyList.removeAll(udev);
+            continue;
+        }
+        else if (UDMXDevice::isUDMXDevice(&desc) == true)
+        {
+            /* This is a new device. Create and append. */
+            udev = new UDMXDevice(dev, &desc, this);
+            m_devices.append(udev);
         }
     }
 
@@ -170,9 +171,12 @@ void UDMX::rescanDevices()
         m_devices.removeAll(udev);
         delete udev;
     }
+
+    if (m_devices.count() != devCount)
+        emit configurationChanged();
 }
 
-UDMXDevice* UDMX::device(struct usb_device* usbdev)
+UDMXDevice* UDMX::device(struct libusb_device* usbdev)
 {
     QListIterator <UDMXDevice*> it(m_devices);
     while (it.hasNext() == true)

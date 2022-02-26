@@ -93,6 +93,10 @@ defineReplace(qt5LibTargetID) {
 include(libusb-nametool.pri)
 include(libsndfile-nametool.pri)
 
+LIBFTDI1_FILE = libftdi1.2.dylib
+LIBFFTW_FILE = libfftw3.3.dylib
+LIBMAD_FILE = libmad.0.dylib
+
 !qmlui: {
  INSTALLS += $$libraryTargetID(LIBQLCUI, libqlcplusui.1.dylib)
  INSTALLS += $$libraryTargetID(LIBQLCWEBACCESS, libqlcpluswebaccess.1.dylib)
@@ -100,10 +104,10 @@ include(libsndfile-nametool.pri)
 
 INSTALLS += $$libraryTargetID(LIBQLCENGINE, libqlcplusengine.1.dylib)
 INSTALLS += LIBUSB LIBUSB_ID
-INSTALLS += $$systemLibTarget(LIBFTDI, libftdi1.2.dylib, libftdi1) $$libraryTargetID(LIBFTDI, libftdi1.2.dylib)
-INSTALLS += $$systemLibTarget(LIBMAD, libmad.0.dylib, mad) $$libraryTargetID(LIBMAD, libmad.0.dylib)
+INSTALLS += $$systemLibTarget(LIBFTDI, $$LIBFTDI1_FILE, libftdi1) $$libraryTargetID(LIBFTDI, $$LIBFTDI1_FILE)
+INSTALLS += $$systemLibTarget(LIBMAD, $$LIBMAD_FILE, mad) $$libraryTargetID(LIBMAD, $$LIBMAD_FILE)
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
-INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
+INSTALLS += $$systemLibTarget(LIBFFTW, $$LIBFFTW_FILE, fftw3) $$libraryTargetID(LIBFFTW, $$LIBFFTW_FILE)
 
 INSTALLS += $$qt5LibTarget(LIBQTCORE, QtCore) $$qt5LibTargetID(LIBQTCORE, QtCore)
 INSTALLS += $$qt5LibTarget(LIBQTGUI, QtGui)
@@ -164,15 +168,9 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
       $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 }
 
-# Libftdi depends on libusb0.1 & 1.0
-qtnametool.commands += && $$LIBUSB0_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI_FILE
+# Libftdi1 depends on libusb1.0
 qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI_FILE
-
-# Libusb0.1 depends on libusb1.0
-qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBUSB0_FILE
+    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI1_FILE
 
 # libqlcplusengine depends on libmad, libsndfile, libportaudio and libfftw3
 qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
@@ -204,7 +202,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 
-# libsndfile depends on flac, libvorbis, libvorbisenc and libogg
+# libsndfile depends on flac, libvorbis, libvorbisenc, libopus and libogg
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 qtnametool.commands += && $$LIBFLAC_INSTALL_NAME_TOOL \
@@ -212,6 +210,8 @@ qtnametool.commands += && $$LIBFLAC_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 qtnametool.commands += && $$LIBVORBISENC_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
+qtnametool.commands += && $$LIBOPUS_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 
 # libFLAC depends on libogg

@@ -26,6 +26,7 @@
 
 #include "qlcioplugin.h"
 
+struct libusb_device;
 class UDMXDevice;
 
 class UDMX : public QLCIOPlugin
@@ -79,9 +80,11 @@ private:
     void rescanDevices();
 
     /** Get a UDMXDevice entry by its usbdev struct */
-    UDMXDevice* device(struct usb_device* usbdev);
+    UDMXDevice* device(libusb_device *usbdev);
 
 private:
+    struct libusb_context* m_ctx;
+
     /** List of available devices */
     QList <UDMXDevice*> m_devices;
 
