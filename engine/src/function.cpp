@@ -36,9 +36,7 @@
 #include "sequence.h"
 #include "chaser.h"
 #include "audio.h"
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "video.h"
-#endif
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
@@ -55,9 +53,7 @@ const QString KRGBMatrixString  (  "RGBMatrix" );
 const QString KShowString       (       "Show" );
 const QString KSequenceString   (   "Sequence" );
 const QString KAudioString      (      "Audio" );
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 const QString KVideoString      (      "Video" );
-#endif
 const QString KUndefinedString  (  "Undefined" );
 
 const QString KLoopString       (       "Loop" );
@@ -256,9 +252,7 @@ QString Function::typeToString(Type type)
         case ShowType:       return KShowString;
         case SequenceType:   return KSequenceString;
         case AudioType:      return KAudioString;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         case VideoType:      return KVideoString;
-#endif
         case Undefined:
         default:
             return KUndefinedString;
@@ -285,10 +279,8 @@ Function::Type Function::stringToType(const QString& string)
         return SequenceType;
     else if (string == KAudioString)
         return AudioType;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (string == KVideoString)
         return VideoType;
-#endif
     else
         return Undefined;
 }
@@ -916,10 +908,8 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
         function = new class Sequence(doc);
     else if (type == Function::AudioType)
         function = new class Audio(doc);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (type == Function::VideoType)
         function = new class Video(doc);
-#endif
     else
         return false;
 

@@ -132,10 +132,3 @@ void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray
     if (m_file.write(data) == -1)
         qWarning() << "DMX4Linux: Unable to write:" << m_file.errorString();
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(dmx4linux, DMX4Linux)
-#endif

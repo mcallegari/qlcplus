@@ -4,11 +4,9 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = peperoni
 
-QT          += core gui
-greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += widgets
-  macx:QT_CONFIG -= no-pkg-config
-}
+QT          += core gui widgets
+macx:QT_CONFIG -= no-pkg-config
+
 CONFIG      += plugin
 CONFIG      += link_pkgconfig
 PKGCONFIG   += libusb-1.0

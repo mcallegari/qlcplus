@@ -5,8 +5,7 @@ LANGUAGE = C++
 TARGET   = dmxusb
 
 CONFIG      += plugin
-QT          += gui core
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT          += gui core widgets
 INCLUDEPATH += ../../interfaces
 
 # Uncomment the following to use QtSerialPort before
@@ -55,9 +54,7 @@ CONFIG(ftd2xx) {
 }
 
 CONFIG(libftdi) {
-    greaterThan(QT_MAJOR_VERSION, 4) {
-        macx:QT_CONFIG -= no-pkg-config
-    }
+    macx:QT_CONFIG -= no-pkg-config
 
     defineReplace(findPackage) {
         # using <package>Version variable

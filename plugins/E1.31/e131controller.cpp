@@ -143,11 +143,7 @@ QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostA
 
     if (multicast)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         inputSocket->bind(QHostAddress::AnyIPv4, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-#else
-        inputSocket->bind(QHostAddress::Any, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-#endif
         inputSocket->joinMulticastGroup(address, m_interface);
     }
     else

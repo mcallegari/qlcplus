@@ -61,11 +61,8 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
     , m_filter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::CollectionType |
-               Function::EFXType | Function::ScriptType | Function::RGBMatrixType | Function::ShowType | Function::AudioType
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-               | Function::VideoType
-#endif
-               )
+               Function::EFXType | Function::ScriptType | Function::RGBMatrixType |
+               Function::ShowType | Function::AudioType | Function::VideoType)
     , m_disableFilters(0)
     , m_constFilter(false)
 {
@@ -121,12 +118,8 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     connect(m_audioCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotAudioChecked(bool)));
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     connect(m_videoCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotVideoChecked(bool)));
-#else
-    m_videoCheck->hide();
-#endif
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FILTER);
@@ -147,9 +140,7 @@ int FunctionSelection::exec()
     m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrixType);
     m_showCheck->setChecked(m_filter & Function::ShowType);
     m_audioCheck->setChecked(m_filter & Function::AudioType);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_videoCheck->setChecked(m_filter & Function::VideoType);
-#endif
 
     if (m_constFilter == true)
     {
@@ -162,9 +153,7 @@ int FunctionSelection::exec()
         m_rgbMatrixCheck->setEnabled(false);
         m_showCheck->setEnabled(false);
         m_audioCheck->setEnabled(false);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_videoCheck->setEnabled(false);
-#endif
     }
     else
     {
@@ -177,9 +166,7 @@ int FunctionSelection::exec()
         m_rgbMatrixCheck->setDisabled(m_disableFilters & Function::RGBMatrixType);
         m_showCheck->setDisabled(m_disableFilters & Function::ShowType);
         m_audioCheck->setDisabled(m_disableFilters & Function::AudioType);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_videoCheck->setDisabled(m_disableFilters & Function::VideoType);
-#endif
     }
 
     /* Multiple/single selection */

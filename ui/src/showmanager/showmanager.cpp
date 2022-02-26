@@ -40,9 +40,7 @@
 #include "chasereditor.h"
 #include "audioeditor.h"
 #include "efxeditor.h"
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "videoeditor.h"
-#endif
 #include "showmanager.h"
 #include "sceneeditor.h"
 #include "timingstool.h"
@@ -220,13 +218,12 @@ void ShowManager::initActions()
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_addVideoAction = new QAction(QIcon(":/video.png"),
                                     tr("New vi&deo"), this);
     m_addVideoAction->setShortcut(QKeySequence("CTRL+D"));
     connect(m_addVideoAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddVideo()));
-#endif
+
     /* Edit actions */
     m_copyAction = new QAction(QIcon(":/editcopy.png"),
                                 tr("&Copy"), this);
@@ -309,9 +306,7 @@ void ShowManager::initToolbar()
     m_toolbar->addAction(m_addTrackAction);
     m_toolbar->addAction(m_addSequenceAction);
     m_toolbar->addAction(m_addAudioAction);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_toolbar->addAction(m_addVideoAction);
-#endif
 
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_copyAction);
@@ -399,9 +394,7 @@ void ShowManager::updateShowsCombo()
         m_addTrackAction->setEnabled(false);
         m_addSequenceAction->setEnabled(false);
         m_addAudioAction->setEnabled(false);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_addVideoAction->setEnabled(false);
-#endif
     }
 
     if (m_show == NULL || m_show->getTracksCount() == 0)
@@ -544,12 +537,10 @@ void ShowManager::showRightEditor(Function *function)
     {
         m_currentEditor = new EFXEditor(m_vsplitter->widget(1), qobject_cast<EFX*> (function), m_doc);
     }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (function->type() == Function::VideoType)
     {
         m_currentEditor = new VideoEditor(m_vsplitter->widget(1), qobject_cast<Video*> (function), m_doc);
     }
-#endif
     else
         return;
 
@@ -741,7 +732,6 @@ void ShowManager::slotAddItem()
                 /** 7.2) It is necessary to create a new track (below) */
                 createTrack = true;
             }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
             else if (selectedFunc->type() == Function::VideoType)
             {
                 /** 8.1) add video to the currently selected track */
@@ -754,7 +744,6 @@ void ShowManager::slotAddItem()
                 /** 8.2) It is necessary to create a new track (below) */
                 createTrack = true;
             }
-#endif
         }
 
         if (createTrack == true)
@@ -833,22 +822,18 @@ void ShowManager::slotAddItem()
                 EFX *efx = qobject_cast<EFX*> (selectedFunc);
                 m_showview->addEFX(efx, m_currentTrack);
             }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
             else if (selectedFunc->type() == Function::VideoType)
             {
                 /** 8.2) add video to the new track */
                 Video *video = qobject_cast<Video*> (selectedFunc);
                 m_showview->addVideo(video, m_currentTrack);
             }
-#endif
         }
         m_doc->setModified();
 
         m_addSequenceAction->setEnabled(true);
         m_addAudioAction->setEnabled(true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_addVideoAction->setEnabled(true);
-#endif
         m_showview->activateTrack(m_currentTrack);
         m_deleteAction->setEnabled(true);
         m_showview->updateViewSize();
@@ -949,7 +934,6 @@ void ShowManager::slotAddAudio()
 
 void ShowManager::slotAddVideo()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QString fn;
 
     /* Create a file open dialog */
@@ -1004,7 +988,6 @@ void ShowManager::slotAddVideo()
     {
         m_showview->addVideo(video, m_currentTrack);
     }
-#endif
 }
 
 void ShowManager::slotCopy()
@@ -1136,7 +1119,6 @@ void ShowManager::slotPaste()
             EFX *efx = qobject_cast<EFX*>(newCopy);
             m_showview->addEFX(efx, m_currentTrack);
         }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         else if (clipboardCopy->type() == Function::VideoType)
         {
             if (m_doc->addFunction(newCopy) == false)
@@ -1147,7 +1129,6 @@ void ShowManager::slotPaste()
             Video *video = qobject_cast<Video*>(newCopy);
             m_showview->addVideo(video, m_currentTrack);
         }
-#endif
         else if (clipboardCopy->type() == Function::SceneType)
         {
             if (m_doc->addFunction(newCopy) == false)
@@ -1163,9 +1144,7 @@ void ShowManager::slotPaste()
             m_showview->addTrack(newTrack);
             m_addSequenceAction->setEnabled(true);
             m_addAudioAction->setEnabled(true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
             m_addVideoAction->setEnabled(true);
-#endif
             m_showview->activateTrack(newTrack);
             m_deleteAction->setEnabled(true);
             m_showview->updateViewSize();
@@ -1565,9 +1544,7 @@ void ShowManager::slotDocClearing()
     m_addTrackAction->setEnabled(false);
     m_addSequenceAction->setEnabled(false);
     m_addAudioAction->setEnabled(false);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_addVideoAction->setEnabled(false);
-#endif
     m_copyAction->setEnabled(false);
     m_deleteAction->setEnabled(false);
     m_colorAction->setEnabled(false);
@@ -1710,13 +1687,11 @@ void ShowManager::updateMultiTrackView()
                     EFX *efx = qobject_cast<EFX*>(fn);
                     m_showview->addEFX(efx, track, sf);
                 }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
                 else if (fn->type() == Function::VideoType)
                 {
                     Video *video = qobject_cast<Video*>(fn);
                     m_showview->addVideo(video, track, sf);
                 }
-#endif
             }
         }
     }
@@ -1730,17 +1705,13 @@ void ShowManager::updateMultiTrackView()
         m_copyAction->setEnabled(true);
         m_addSequenceAction->setEnabled(true);
         m_addAudioAction->setEnabled(true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_addVideoAction->setEnabled(true);
-#endif
     }
     else
     {
         m_addSequenceAction->setEnabled(false);
         m_addAudioAction->setEnabled(false);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_addVideoAction->setEnabled(false);
-#endif
         m_currentScene = NULL;
         showSceneEditor(NULL);
     }

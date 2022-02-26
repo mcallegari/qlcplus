@@ -579,9 +579,3 @@ qint64 AudioDecoderMAD::madOutput(char *data, qint64 size)
     return m_output_bytes;
 }
 
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(audiodecodermad, AudioDecoderMAD)
-#endif

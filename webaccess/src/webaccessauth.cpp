@@ -235,18 +235,16 @@ QString WebAccessAuth::hashPassword(const QString& hashType, const QString& pass
     {
         algorithm = QCryptographicHash::Sha1;
     }
-    #ifndef QT_CRYPTOGRAPHICHASH_ONLY_SHA1
-        else if (hashType == "md5")
-        {
-            algorithm = QCryptographicHash::Md5;
-        }
-        #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-            else if(hashType == "sha256")
-            {
-                algorithm = QCryptographicHash::Sha256;
-            }
-        #endif // QT version >= 5.0.0
-    #endif // QT_CRYPTOGRAPHICHASH_ONLY_SHA1
+#ifndef QT_CRYPTOGRAPHICHASH_ONLY_SHA1
+    else if (hashType == "md5")
+    {
+        algorithm = QCryptographicHash::Md5;
+    }
+    else if(hashType == "sha256")
+    {
+        algorithm = QCryptographicHash::Sha256;
+    }
+#endif // QT_CRYPTOGRAPHICHASH_ONLY_SHA1
     else
     {
         qDebug() << "Unknown password hash algorithm " << hashType << ", defaulting to sha1.";

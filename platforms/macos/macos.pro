@@ -125,9 +125,7 @@ INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIA, QtMultimedia) $$qt5LibTargetID(LIBQT
 INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets) $$qt5LibTargetID(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets)
 INSTALLS += $$qt5LibTarget(LIBQTPRINTSUPPORT, QtPrintSupport) $$qt5LibTargetID(LIBQTPRINTSUPPORT, QtPrintSupport)
 INSTALLS += $$qt5LibTarget(LIBQTSERIALPORT, QtSerialPort) $$qt5LibTargetID(LIBQTSERIALPORT, QtSerialPort)
-greaterThan(QT_MINOR_VERSION, 4) {
-  INSTALLS += $$qt5LibTarget(LIBQTDBUS, QtDBus) $$qt5LibTargetID(LIBQTDBUS, QtDBus)
-}
+INSTALLS += $$qt5LibTarget(LIBQTDBUS, QtDBus) $$qt5LibTargetID(LIBQTDBUS, QtDBus)
 
 qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQTQML, QtQml) $$qt5LibTargetID(LIBQTQML, QtQml)

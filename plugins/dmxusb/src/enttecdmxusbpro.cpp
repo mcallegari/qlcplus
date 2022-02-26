@@ -34,7 +34,7 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *interface, quint32 outputLine, qu
     , m_dmxKingMode(false)
     , m_inputThread(NULL)
     , m_outputRunning(false)
-#if QT_VERSION >= QT_VERSION_CHECK( 5, 14, 0 )
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     , m_outputMutex()
 #else
     , m_outputMutex(QMutex::Recursive)

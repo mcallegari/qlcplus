@@ -462,10 +462,3 @@ void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& 
         }
     }
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(artnetplugin, ArtNetPlugin)
-#endif

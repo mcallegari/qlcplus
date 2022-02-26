@@ -212,10 +212,3 @@ void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uc
 
     emit valueChanged(universe, input, channel, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(loopback, Loopback)
-#endif

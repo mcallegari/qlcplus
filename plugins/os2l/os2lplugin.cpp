@@ -299,10 +299,3 @@ void OS2LPlugin::setParameter(quint32 universe, quint32 line, Capability type,
      *  QLC+ to store the parameter in the project workspace XML */
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(OS2Lplugin, OS2LPlugin)
-#endif

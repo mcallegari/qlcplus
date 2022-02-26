@@ -48,6 +48,7 @@
 #include "scripteditor.h"
 #include "sceneeditor.h"
 #include "audioeditor.h"
+#include "videoeditor.h"
 #include "showeditor.h"
 #include "chaserstep.h"
 #include "collection.h"
@@ -60,14 +61,10 @@
 #include "script.h"
 #include "scene.h"
 #include "audio.h"
+#include "video.h"
 #include "show.h"
 #include "doc.h"
 #include "efx.h"
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include "videoeditor.h"
-#include "video.h"
-#endif
 
 #define COL_NAME 0
 #define COL_PATH 1
@@ -250,13 +247,12 @@ void FunctionManager::initActions()
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_addVideoAction = new QAction(QIcon(":/video.png"),
                                    tr("New vid&eo"), this);
     m_addVideoAction->setShortcut(QKeySequence("CTRL+9"));
     connect(m_addVideoAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddVideo()));
-#endif
+
     m_addFolderAction = new QAction(QIcon(":/folder.png"),
                                    tr("New fo&lder"), this);
     m_addFolderAction->setShortcut(QKeySequence("CTRL+L"));
@@ -309,9 +305,7 @@ void FunctionManager::initToolbar()
     m_toolbar->addAction(m_addRGBMatrixAction);
     m_toolbar->addAction(m_addScriptAction);
     m_toolbar->addAction(m_addAudioAction);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_toolbar->addAction(m_addVideoAction);
-#endif
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_addFolderAction);
     m_toolbar->addSeparator();
@@ -480,7 +474,6 @@ void FunctionManager::slotAddAudio()
 
 void FunctionManager::slotAddVideo()
 {
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     /* Create a file open dialog */
     QFileDialog dialog(this);
     dialog.setWindowTitle(tr("Open Video File"));
@@ -530,7 +523,6 @@ void FunctionManager::slotAddVideo()
             }
         }
     }
-#endif
 }
 
 void FunctionManager::slotAddFolder()
@@ -833,9 +825,7 @@ void FunctionManager::slotTreeContextMenuRequested()
     menu.addAction(m_addRGBMatrixAction);
     menu.addAction(m_addScriptAction);
     menu.addAction(m_addAudioAction);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     menu.addAction(m_addVideoAction);
-#endif
     menu.addSeparator();
     menu.addAction(m_addFolderAction);
     menu.addSeparator();
@@ -960,12 +950,10 @@ void FunctionManager::editFunction(Function* function)
     {
         m_editor = new AudioEditor(m_hsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
     }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (function->type() == Function::VideoType)
     {
         m_editor = new VideoEditor(m_hsplitter->widget(1), qobject_cast<Video*> (function), m_doc);
     }
-#endif
     else
     {
         m_editor = NULL;

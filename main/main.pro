@@ -26,8 +26,7 @@ win32:RC_FILE = main.rc
 win32:FORMS += ../ui/src/debugbox.ui
 macx:FORMS += ../ui/src/debugbox.ui
 
-QT += gui core script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += gui core script widgets
 
 macx {
     # This must be after "TARGET = " and before target installation so that

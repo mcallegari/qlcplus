@@ -25,11 +25,8 @@
 #include <QToolButton>
 #include <QLabel>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
- #include "clickandgoslider.h"
-#endif
-
 #include "audiotriggerwidget.h"
+#include "clickandgoslider.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
 
@@ -93,9 +90,7 @@ protected:
     QToolButton *m_button;
     QLabel *m_label;
     AudioTriggerWidget *m_spectrum;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     ClickAndGoSlider *m_volumeSlider;
-#endif
     AudioCapture *m_inputCapture;
 
     AudioBar *m_volumeBar;

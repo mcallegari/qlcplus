@@ -539,10 +539,3 @@ void MidiPlugin::slotDeviceRemoved(uint vid, uint pid)
     m_enumerator->rescan();
 #endif
 }
-
-/*****************************************************************************
- * Plugin export
- *****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(midiplugin, MidiPlugin)
-#endif
