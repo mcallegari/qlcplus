@@ -180,6 +180,9 @@ void FadeChannel::autoDetect(const Doc *doc)
             removeFlag(FadeChannel::HTP);
             addFlag(FadeChannel::LTP);
         }
+
+        if (channel != NULL && channel->controlByte() == QLCChannel::LSB)
+            addFlag(FadeChannel::Fine);
     }
 }
 
@@ -317,9 +320,17 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
     }
     else
     {
-        m_current  = m_target - m_start;
-        m_current  = m_current * (qreal(elapsedTime) / qreal(fadeTime));
-        m_current += m_start;
+        // 16 bit fading works as long as MSB and LSB channels
+        // are targeting the same value. E.g. Red and Red Fine both at 158
+        float val = (float(m_target - m_start) * (float(elapsedTime) / float(fadeTime))) + float(m_start);
+        if (m_flags & Fine)
+        {
+            m_current = ((val - floor(val)) * float(UCHAR_MAX));
+        }
+        else
+        {
+            m_current = val;
+        }
     }
 
     return uchar(m_current);

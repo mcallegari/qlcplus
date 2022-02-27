@@ -1,5 +1,6 @@
 qlcplus (4.12.5) stable; urgency=low
 
+  * engine: add support for 16bit fading
   * engine: add support for Scene pausing
   * engine: consider fade out on Scene flashing
   * UI/RGB Matrix Editor: fix dumping on a Sequence
