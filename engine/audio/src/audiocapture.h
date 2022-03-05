@@ -90,15 +90,16 @@ public:
 
     virtual void uninitialize() = 0;
 
-    public:
+public:
     /*!
      * Returns input interface latency in milliseconds.
      */
     virtual qint64 latency() = 0;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    /*!
+     *  Adjusts the audio output volume
+     */
     virtual void setVolume(qreal volume) = 0;
-#endif
 
     /*!
      * Stops processing audio data, preserving buffered audio data.

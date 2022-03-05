@@ -82,7 +82,7 @@ Rectangle
                 Rectangle
                 {
                     id: delegateRoot
-                    width: UISettings.bigItemHeight
+                    width: UISettings.bigItemHeight * 1.3
                     height: presetToolBar.height
                     color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
@@ -104,11 +104,11 @@ Rectangle
 
                     RobotoText
                     {
-                        x: 1
-                        width: parent.width - 2
+                        x: 2
+                        width: parent.width - 4
                         height: parent.height
                         label: modelData.name
-                        fontSize: UISettings.textSizeDefault * 0.75
+                        fontSize: UISettings.textSizeDefault * 0.70
                         wrapText: true
                     }
                     MouseArea

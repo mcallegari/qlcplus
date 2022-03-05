@@ -2854,11 +2854,8 @@ void EFX_Test::loadWrongRoot()
 
 void EFX_Test::loadDuplicateFixture()
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, etc.)", SkipSingle);
-#else
     QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, etc.)");
-#endif
+
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);

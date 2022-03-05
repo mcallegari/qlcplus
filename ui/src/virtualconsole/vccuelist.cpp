@@ -160,13 +160,8 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
     m_tree->setItemsExpandable(false);
     m_tree->header()->setSortIndicatorShown(false);
     m_tree->header()->setMinimumSectionSize(0); // allow columns to be hidden
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    m_tree->header()->setClickable(false);
-    m_tree->header()->setMovable(false);
-#else
     m_tree->header()->setSectionsClickable(false);
     m_tree->header()->setSectionsMovable(false);
-#endif
 
     // Make only the notes column editable
     m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
@@ -1264,7 +1259,10 @@ void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCCueList::updateFeedback()
 {
-    int fbv = (int)SCALE(float(m_sideFader->value()), float(0), float(100), float(0), float(UCHAR_MAX));
+    int fbv = int(SCALE(float(m_sideFader->value()), 
+                        float(m_sideFader->minimum()),
+                        float(m_sideFader->maximum()), 
+                        float(0), float(UCHAR_MAX)));
     sendFeedback(fbv, sideFaderInputSourceId);
 
     Chaser *ch = chaser();

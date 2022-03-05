@@ -6,7 +6,7 @@ TARGET   = qlcplus-fixtureeditor
 
 CONFIG += qt
 QT     += script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT     += widgets
 
 INCLUDEPATH += ../plugins/interfaces
 

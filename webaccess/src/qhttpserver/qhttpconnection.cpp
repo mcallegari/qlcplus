@@ -171,14 +171,7 @@ QUrl createUrl(const char *urlData, const http_parser_url &urlInfo)
     url.setHost(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_HOST));
     // Port is dealt with separately since it is available as an integer.
     url.setPath(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_PATH));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     url.setQuery(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_QUERY));
-#else
-    if (HAS_URL_FIELD(urlInfo, UF_QUERY)) {
-        url.setEncodedQuery(QByteArray(urlData + urlInfo.field_data[UF_QUERY].off,
-                                       urlInfo.field_data[UF_QUERY].len));
-    }
-#endif
     url.setFragment(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_FRAGMENT));
     url.setUserInfo(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_USERINFO));
 

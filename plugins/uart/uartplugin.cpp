@@ -201,10 +201,3 @@ void UARTPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel,
      * Basically feedback data must return to the same line where it came from
      */
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(uartplugin, UARTPlugin)
-#endif

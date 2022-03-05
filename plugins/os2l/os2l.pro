@@ -4,8 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = os2l
 
-QT      += network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT      += network widgets
 
 INCLUDEPATH += ../interfaces
 CONFIG      += plugin

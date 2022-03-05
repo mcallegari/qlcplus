@@ -186,9 +186,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotPlusMinusTimeout()));
 
     m_tapTickElapseTimer = new QTimer();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_tapTickElapseTimer->setTimerType(Qt::PreciseTimer);
-#endif
     m_tapTickElapseTimer->setSingleShot(true);
     connect(m_tapTickElapseTimer, SIGNAL(timeout()),
                 this, SLOT(slotTapTimeout()));
@@ -277,11 +275,9 @@ void SpeedDial::updateTapTimer()
        && m_tapTickTimer == NULL)
     {
         m_tapTickTimer = new QTimer();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_tapTickTimer->setTimerType(Qt::PreciseTimer);
-#endif
-        connect(m_tapTickTimer, SIGNAL(timeout()),
-                this, SLOT(slotTapTimeout()));
+
+        connect(m_tapTickTimer, SIGNAL(timeout()), this, SLOT(slotTapTimeout()));
     }
 
     if (m_tapTickTimer)

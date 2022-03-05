@@ -394,7 +394,7 @@ QList<SceneValue> Fixture::zoomToValues(float degrees) const
         return chList;
 
     QLCPhysical phy = fixtureMode()->physical();
-    float msbValue = (degrees - phy.lensDegreesMin()) * (float)UCHAR_MAX /
+    float msbValue = ((degrees - phy.lensDegreesMin()) * (float)UCHAR_MAX) /
                      (phy.lensDegreesMax() - phy.lensDegreesMin());
 
     for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
@@ -410,7 +410,12 @@ QList<SceneValue> Fixture::zoomToValues(float degrees) const
             continue;
 
         if (ch->controlByte() == QLCChannel::MSB)
-            chList.append(SceneValue(id(), i, static_cast<uchar>(qFloor(msbValue))));
+        {
+            if (ch->preset() == QLCChannel::BeamZoomBigSmall)
+                chList.append(SceneValue(id(), i, static_cast<uchar>(qFloor((float)UCHAR_MAX - msbValue))));
+            else
+                chList.append(SceneValue(id(), i, static_cast<uchar>(qFloor(msbValue))));
+        }
 
         if (ch->controlByte() == QLCChannel::LSB)
         {

@@ -483,6 +483,8 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
     Q_ASSERT(fxi != NULL);
     Universe *uni = universes[universe()];
 
+    //qDebug() << "Pan value: " << pan << ", tilt value:" << tilt;
+
     /* Write coarse point data to universes */
     quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head);
     quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, head().head);
@@ -508,20 +510,16 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
     if (panLsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         /* Leave only the fraction */
-        uchar value = static_cast<uchar> ((pan - floor(pan)) * double(UCHAR_MAX));
+        float value = ((pan - floor(pan)) * float(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panLsbChannel);
-        if (m_parent->isRelative())
-            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 
     if (tiltLsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         /* Leave only the fraction */
-        uchar value = static_cast<uchar> ((tilt - floor(tilt)) * double(UCHAR_MAX));
+        float value = ((tilt - floor(tilt)) * float(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltLsbChannel);
-        if (m_parent->isRelative())
-            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 }

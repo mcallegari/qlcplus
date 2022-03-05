@@ -313,10 +313,3 @@ void EnttecWing::slotValueChanged(quint32 channel, uchar value)
     Wing* wing = qobject_cast<Wing*> (QObject::sender());
     emit valueChanged(UINT_MAX, m_devices.indexOf(wing), channel, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(enttecwing, EnttecWing)
-#endif

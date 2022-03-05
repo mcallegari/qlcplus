@@ -1272,12 +1272,12 @@ void ContextManager::setBeamDegrees(float degrees)
         fxIDs.append(sv.fxi);
 
         QList<SceneValue> svList = m_fixtureManager->getFixtureZoom(sv.fxi, degrees);
-        for (SceneValue posSv : svList)
+        for (SceneValue zSv : svList)
         {
             if (m_editingEnabled == false)
-                setDumpValue(posSv.fxi, posSv.channel, posSv.value);
+                setDumpValue(zSv.fxi, zSv.channel, zSv.value);
             else
-                m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
+                m_functionManager->setChannelValue(zSv.fxi, zSv.channel, zSv.value);
         }
     }
 }

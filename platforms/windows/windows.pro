@@ -154,6 +154,10 @@ exists($$SYS_LIBS_PATH/libwinpthread-1.dll) {
     msys.files += $$SYS_LIBS_PATH/libwinpthread-1.dll
 }
 
+exists($$SYS_LIBS_PATH/libusb-1.0.dll) {
+    msys.files += $$SYS_LIBS_PATH/libusb-1.0.dll
+}
+
 INSTALLS += msys
 
 # audio libraries

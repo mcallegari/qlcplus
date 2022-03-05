@@ -55,6 +55,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_maxTiltDegrees(0)
     , m_minBeamDegrees(15.0)
     , m_maxBeamDegrees(0)
+    , m_invertedZoom(false)
     , m_colorsMask(0)
 {
     Q_ASSERT(m_doc != nullptr);
@@ -266,10 +267,22 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
 
     // temporarily disconnect this signal since we want to use the given position
     disconnect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
+    quint32 fxAddress = address;
 
     for (int i = 0; i < quantity; i++)
     {
         Fixture *fxi = new Fixture(m_doc);
+        //quint32 fxAddress = address + (i * channels) + (i * gap);
+        if (fxAddress + channels >= UNIVERSE_SIZE)
+        {
+            uniIdx++;
+            if (m_doc->inputOutputMap()->getUniverseID(uniIdx) == m_doc->inputOutputMap()->invalidUniverse())
+            {
+                m_doc->inputOutputMap()->addUniverse();
+                m_doc->inputOutputMap()->startUniverses();
+            }
+            fxAddress = 0;
+        }
 
         /* If we're adding more than one fixture,
            append a number to the end of the name */
@@ -277,7 +290,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
             fxi->setName(QString("%1 #%2").arg(name).arg(i + 1));
         else
             fxi->setName(name);
-        fxi->setAddress(address + (i * channels) + (i * gap));
+        fxi->setAddress(fxAddress);
         fxi->setUniverse(uniIdx);
         if (fxiDef == nullptr && fxiMode == nullptr)
         {
@@ -299,6 +312,8 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
         slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
+
+        fxAddress += (channels + gap);
     }
 
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
@@ -1570,7 +1585,11 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
     QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(capName));
     if (capItem != nullptr)
     {
-        capItem->setProperty("counter", capItem->property("counter").toInt() + delta);
+        int count = capItem->property("counter").toInt() + delta;
+        capItem->setProperty("counter", count);
+
+        if (count == 0)
+            return;
 
         if (capName == "capPosition")
         {
@@ -1581,7 +1600,8 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
         {
             QMetaObject::invokeMethod(capItem, "setZoomRange",
                     Q_ARG(QVariant, m_minBeamDegrees),
-                    Q_ARG(QVariant, m_maxBeamDegrees));
+                    Q_ARG(QVariant, m_maxBeamDegrees),
+                    Q_ARG(QVariant, m_invertedZoom));
         }
     }
 }
@@ -1746,6 +1766,10 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             break;
             case QLCChannel::Beam:
             {
+                if (channel->preset() != QLCChannel::BeamZoomBigSmall &&
+                    channel->preset() != QLCChannel::BeamZoomSmallBig)
+                    break;
+
                 hasBeam = true;
                 if (fixture->fixtureMode() != nullptr)
                 {
@@ -1756,6 +1780,12 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
 
                     if (m_maxBeamDegrees == 0)
                         m_maxBeamDegrees = 30.0;
+
+                    // this considers only the last selected fixture
+                    if (channel->preset() == QLCChannel::BeamZoomBigSmall)
+                        m_invertedZoom = true;
+                    else
+                        m_invertedZoom = false;
                 }
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }

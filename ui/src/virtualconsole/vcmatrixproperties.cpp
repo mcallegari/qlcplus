@@ -132,12 +132,10 @@ void VCMatrixProperties::slotAttachFunction()
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
     fs.setFilter(Function::RGBMatrixType);
-    fs.disableFilters(Function::SceneType | Function::ChaserType | Function::EFXType | Function::ShowType |
-                      Function::ScriptType | Function::CollectionType | Function::AudioType
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-                      | Function::VideoType
-#endif
-                     );
+    fs.disableFilters(Function::SceneType | Function::ChaserType | Function::EFXType |
+                      Function::ShowType | Function::ScriptType | Function::CollectionType |
+                      Function::AudioType | Function::VideoType);
+
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
         slotSetFunction(fs.selection().first());
 }

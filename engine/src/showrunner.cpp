@@ -27,10 +27,8 @@
 #include "track.h"
 #include "scene.h"
 #include "audio.h"
-#include "show.h"
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "video.h"
-#endif
+#include "show.h"
 
 #define TIMER_INTERVAL 50
 

@@ -111,28 +111,6 @@ namespace QLCArgs
 /**
  * Suppresses debug messages
  */
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-void qlcMessageHandler(QtMsgType type, const char* msg)
-{
-    if (type >= QLCArgs::debugLevel)
-    {
-        if (QLCArgs::logToFile == true && QLCArgs::logFile.isOpen())
-        {
-            QLCArgs::logFile.write(msg);
-            QLCArgs::logFile.write((char *)"\n");
-            QLCArgs::logFile.flush();
-            return;
-        }
-#if defined(WIN32) || defined(__APPLE__)
-        if (QLCArgs::dbgBox != NULL)
-            QLCArgs::dbgBox->addText(msg);
-#else
-        fprintf(stderr, "%s\n", msg);
-        fflush(stderr);
-#endif
-    }
-}
-#else
 void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     Q_UNUSED(context)
@@ -150,7 +128,6 @@ void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const 
         fflush(stderr);
     }
 }
-#endif
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 #define endl Qt::endl
@@ -349,11 +326,7 @@ int main(int argc, char** argv)
     QLCi18n::loadTranslation("qlcplus");
 
     /* Handle debug messages */
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    qInstallMsgHandler(qlcMessageHandler);
-#else
     qInstallMessageHandler(qlcMessageHandler);
-#endif
 
     /* Create and initialize the QLC application object */
     App app;

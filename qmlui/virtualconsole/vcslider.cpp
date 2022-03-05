@@ -1518,13 +1518,13 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
 
     if (controlledFunction() != Function::invalidId())
     {
-        /* Adjust */
+        /* Start the <Adjust> tag */
         doc->writeStartElement(KXMLQLCVCSliderAdjust);
         /* Controlled attribute index */
         doc->writeAttribute(KXMLQLCVCSliderAdjustAttribute, QString::number(controlledAttribute()));
         /* Controlled function ID */
-        doc->writeTextElement(KXMLQLCVCSliderControlledFunction, QString::number(controlledFunction()));
-        /* End the <Playback> tag */
+        doc->writeAttribute(KXMLQLCVCSliderControlledFunction, QString::number(controlledFunction()));
+        /* End the <Adjust> tag */
         doc->writeEndElement();
     }
 

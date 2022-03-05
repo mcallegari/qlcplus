@@ -4,16 +4,14 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = udmx
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += widgets
-  macx:QT_CONFIG -= no-pkg-config
-}
+QT += widgets
+macx:QT_CONFIG -= no-pkg-config
 
 CONFIG      += plugin
 INCLUDEPATH += ../../interfaces
 DEPENDPATH  += ../../interfaces
-unix:CONFIG      += link_pkgconfig
-unix:PKGCONFIG   += libusb
+CONFIG      += link_pkgconfig
+PKGCONFIG   += libusb-1.0
 win32:QMAKE_LFLAGS += -shared
 
 HEADERS += ../../interfaces/qlcioplugin.h
@@ -42,7 +40,10 @@ TRANSLATIONS += uDMX_ja_JP.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-macx:include(../../../platforms/macos/nametool.pri)
+macx {
+    include(../../../platforms/macos/nametool.pri)
+    nametool.commands += $$pkgConfigNametool(libusb-1.0, libusb-1.0.0.dylib)
+}
 
 # Installation
 target.path = $$INSTALLROOT/$$PLUGINDIR

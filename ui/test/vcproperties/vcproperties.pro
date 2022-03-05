@@ -4,8 +4,7 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = vcproperties_test
 
-QT      += testlib gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT      += testlib gui script widgets
 
 INCLUDEPATH += ../../../plugins/interfaces
 INCLUDEPATH += ../../../engine/src

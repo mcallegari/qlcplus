@@ -1,12 +1,10 @@
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 INCLUDEPATH += ../../../interfaces
 INCLUDEPATH += ../../../../engine/src
 INCLUDEPATH += ../common
 DEPENDPATH  += ../common
 
 CONFIG  += qt
-QT      += core
+QT      += core widgets
 
 HEADERS     += ../../../interfaces/qlcioplugin.h
 HEADERS     += ../../../../engine/src/qlcfile.h
