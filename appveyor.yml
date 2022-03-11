@@ -21,8 +21,8 @@ install:
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-10.3.0-8-any.pkg.tar.zst -P /c/projects
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-10.3.0-8-any.pkg.tar.zst -P /c/projects
     - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst -P /c/projects
-    - pacman --noconfirm -Rdd mingw-w64-i686-gcc
-    - pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
+    #- pacman --noconfirm -Rdd mingw-w64-i686-gcc
+    #- pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-10.3.0-8-any.pkg.tar.zst
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-10.3.0-8-any.pkg.tar.zst
     - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
