@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audiorenderer_qt.cpp
+  audiorenderer_qt6.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,18 +17,19 @@
   limitations under the License.
 */
 
+#include <QMediaDevices>
 #include <QSettings>
 #include <QString>
 #include <QDebug>
 
 #include "doc.h"
 #include "audiodecoder.h"
-#include "audiorenderer_qt.h"
+#include "audiorenderer_qt6.h"
 #include "audioplugincache.h"
 
-AudioRendererQt::AudioRendererQt(QString device, QObject * parent)
+AudioRendererQt6::AudioRendererQt6(QString device, QObject * parent)
     : AudioRenderer(parent)
-    , m_audioOutput(NULL)
+    , m_audioSink(NULL)
     , m_output(NULL)
     , m_device(device)
 {
@@ -48,86 +49,76 @@ AudioRendererQt::AudioRendererQt(QString device, QObject * parent)
     m_deviceInfo = doc->audioPluginCache()->getOutputDeviceInfo(devName);
 }
 
-AudioRendererQt::~AudioRendererQt()
+AudioRendererQt6::~AudioRendererQt6()
 {
-    if (m_audioOutput == NULL)
+    if (m_audioSink == NULL)
         return;
 
-    m_audioOutput->stop();
-    delete m_audioOutput;
-    m_audioOutput = NULL;
+    m_audioSink->stop();
+    delete m_audioSink;
+    m_audioSink = NULL;
 }
 
-bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
+bool AudioRendererQt6::initialize(quint32 freq, int chan, AudioFormat format)
 {
     m_format.setChannelCount(chan);
     m_format.setSampleRate(freq);
-    m_format.setCodec("audio/pcm");
+    //m_format.setCodec("audio/pcm");
 
     switch (format)
     {
         case PCM_S8:
-            m_format.setSampleSize(8);
-            m_format.setSampleType(QAudioFormat::SignedInt);
+            m_format.setSampleFormat(QAudioFormat::UInt8);
         break;
         case PCM_S16LE:
-            m_format.setSampleSize(16);
-            m_format.setSampleType(QAudioFormat::SignedInt);
-            m_format.setByteOrder(QAudioFormat::LittleEndian);
-        break;
         case PCM_S24LE:
-            m_format.setSampleSize(16);
-            m_format.setSampleType(QAudioFormat::SignedInt);
-            m_format.setByteOrder(QAudioFormat::LittleEndian);
+            m_format.setSampleFormat(QAudioFormat::Int16);
         break;
         case PCM_S32LE:
-            m_format.setSampleSize(16);
-            m_format.setSampleType(QAudioFormat::SignedInt);
-            m_format.setByteOrder(QAudioFormat::LittleEndian);
+            m_format.setSampleFormat(QAudioFormat::Int32);
         break;
         default:
-            qWarning("AudioRendererQt: unsupported format detected");
+            qWarning("AudioRendererQt6: unsupported format detected");
             return false;
     }
 
     if (!m_deviceInfo.isFormatSupported(m_format))
     {
-        m_format = m_deviceInfo.nearestFormat(m_format);
+        m_format = m_deviceInfo.preferredFormat();
         qWarning() << "Default format not supported - trying to use nearest" << m_format.sampleRate();
-
     }
 
     return true;
 }
 
-qint64 AudioRendererQt::latency()
+qint64 AudioRendererQt6::latency()
 {
     return 0;
 }
 
-QList<AudioDeviceInfo> AudioRendererQt::getDevicesInfo()
+QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
 {
     QList<AudioDeviceInfo> devList;
     int i = 0;
     QStringList outDevs, inDevs;
 
     // create a preliminary list of input devices only
-    foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
-        inDevs.append(deviceInfo.deviceName());
+    foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioInputs())
+        inDevs.append(deviceInfo.description());
 
     // loop through output devices and check if they're input devices too
-    foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+    foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioOutputs())
     {
-        outDevs.append(deviceInfo.deviceName());
+        outDevs.append(deviceInfo.description());
         AudioDeviceInfo info;
-        info.deviceName = deviceInfo.deviceName();
-        info.privateName = deviceInfo.deviceName(); //QString::number(i);
+        info.deviceName = deviceInfo.description();
+        info.privateName = deviceInfo.description(); //QString::number(i);
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_OUTPUT;
-        if (inDevs.contains(deviceInfo.deviceName()))
+        if (inDevs.contains(deviceInfo.description()))
         {
             info.capabilities |= AUDIO_CAP_INPUT;
-            inDevs.removeOne(deviceInfo.deviceName());
+            inDevs.removeOne(deviceInfo.description());
         }
         devList.append(info);
         i++;
@@ -148,9 +139,9 @@ QList<AudioDeviceInfo> AudioRendererQt::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererQt::writeAudio(unsigned char *data, qint64 maxSize)
+qint64 AudioRendererQt6::writeAudio(unsigned char *data, qint64 maxSize)
 {
-    if (m_audioOutput == NULL || m_audioOutput->bytesFree() < maxSize)
+    if (m_audioSink == NULL || m_audioSink->bytesFree() < maxSize)
         return 0;
 
     //qDebug() << "writeAudio called !! - " << maxSize;
@@ -162,47 +153,47 @@ qint64 AudioRendererQt::writeAudio(unsigned char *data, qint64 maxSize)
     return written;
 }
 
-void AudioRendererQt::drain()
+void AudioRendererQt6::drain()
 {
-    m_audioOutput->reset();
+    m_audioSink->reset();
 }
 
-void AudioRendererQt::reset()
+void AudioRendererQt6::reset()
 {
-    m_audioOutput->reset();
+    m_audioSink->reset();
 }
 
-void AudioRendererQt::suspend()
+void AudioRendererQt6::suspend()
 {
-    m_audioOutput->suspend();
+    m_audioSink->suspend();
 }
 
-void AudioRendererQt::resume()
+void AudioRendererQt6::resume()
 {
-    m_audioOutput->resume();
+    m_audioSink->resume();
 }
 
-void AudioRendererQt::run()
+void AudioRendererQt6::run()
 {
-    if (m_audioOutput == NULL)
+    if (m_audioSink == NULL)
     {
-        m_audioOutput = new QAudioOutput(m_deviceInfo, m_format);
+        m_audioSink = new QAudioSink(m_deviceInfo, m_format);
 
-        if(m_audioOutput == NULL)
+        if (m_audioSink == NULL)
         {
-            qWarning() << "Cannot open audio output stream from device" << m_deviceInfo.deviceName();
+            qWarning() << "Cannot open audio output stream from device" << m_deviceInfo.description();
             return;
         }
 
-        m_audioOutput->setBufferSize(8192 * 8);
-        m_output = m_audioOutput->start();
+        m_audioSink->setBufferSize(8192 * 8);
+        m_output = m_audioSink->start();
 
-        if(m_audioOutput->error() != QAudio::NoError)
+        if(m_audioSink->error() != QAudio::NoError)
         {
-            qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
+            qWarning() << "Cannot start audio output stream. Error:" << m_audioSink->error();
             return;
         }
     }
     AudioRenderer::run();
-    m_audioOutput->stop();
+    m_audioSink->stop();
 }

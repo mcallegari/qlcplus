@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audiocapture_qt.h
+  audiorenderer_qt5.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,36 +17,43 @@
   limitations under the License.
 */
 
-#ifndef AUDIOCAPTURE_QT_H
-#define AUDIOCAPTURE_QT_H
+#ifndef AUDIORENDERER_QT5_H
+#define AUDIORENDERER_QT5_H
 
-#include "audiocapture.h"
+#include "audiorenderer.h"
+#include "audiodecoder.h"
 
-#include <QAudioInput>
+#include <QAudioOutput>
+#include <QIODevice>
 
 /** @addtogroup engine_audio Audio
  * @{
  */
 
-class AudioCaptureQt : public AudioCapture
+class AudioRendererQt5 : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioCaptureQt(QObject * parent = 0);
-    ~AudioCaptureQt();
+    AudioRendererQt5(QString device, QObject * parent = 0);
+    ~AudioRendererQt5();
+
+    /** @reimpl */
+    bool initialize(quint32, int, AudioFormat format);
 
     /** @reimpl */
     qint64 latency();
 
-    /** @reimpl */
-    void setVolume(qreal volume);
+    static QList<AudioDeviceInfo> getDevicesInfo();
 
 protected:
     /** @reimpl */
-    bool initialize();
+    qint64 writeAudio(unsigned char *data, qint64 maxSize);
 
     /** @reimpl */
-    virtual void uninitialize();
+    void drain();
+
+    /** @reimpl */
+    void reset();
 
     /** @reimpl */
     void suspend();
@@ -54,17 +61,21 @@ protected:
     /** @reimpl */
     void resume();
 
+    /*********************************************************************
+     * Thread functions
+     *********************************************************************/
+public:
     /** @reimpl */
-    bool readAudio(int maxSize);
+    void run();
 
 private:
-    QAudioInput *m_audioInput;
-    QIODevice *m_input;
+    QAudioOutput *m_audioOutput;
+    QIODevice *m_output;
     QAudioFormat m_format;
-    qreal m_volume;
-    QByteArray m_currentReadBuffer;
+    QString m_device;
+    QAudioDeviceInfo m_deviceInfo;
 };
 
 /** @} */
 
-#endif // AUDIOCAPTURE_QT_H
+#endif // AUDIORENDERER_QT5_H
