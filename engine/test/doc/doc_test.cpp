@@ -1123,17 +1123,17 @@ void Doc_Test::save()
     // Their contents are tested individually in their own separate tests.
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Fixture")
+        if (xmlReader.name().toString() == "Fixture")
             fixtures++;
-        else if (xmlReader.name() == "Function")
+        else if (xmlReader.name().toString() == "Function")
             functions++;
-        else if (xmlReader.name() == "FixtureGroup")
+        else if (xmlReader.name().toString() == "FixtureGroup")
             groups++;
-        else if (xmlReader.name() == "InputOutputMap")
+        else if (xmlReader.name().toString() == "InputOutputMap")
             ioMap++;
-        else if (xmlReader.name() == "Monitor")
+        else if (xmlReader.name().toString() == "Monitor")
             monitor++;
-        else if (xmlReader.name() == "Bus")
+        else if (xmlReader.name().toString() == "Bus")
             QFAIL("Bus tags should not be saved anymore!");
         else
             QFAIL(QString("Unexpected tag: %1")

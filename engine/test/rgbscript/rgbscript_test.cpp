@@ -223,7 +223,11 @@ void RGBScript_Test::runScripts()
         // Verify that the basename only uses lower case characters
         QString baseName = fileName;
         baseName.truncate(fileName.size() - 3);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         QVERIFY(QRegExp("[a-z]*").exactMatch(baseName));
+#else
+        QVERIFY(QRegularExpression("[a-z]*").match(baseName).hasMatch());
+#endif
 
 #ifdef QT_QML_LIB
         QVERIFY(!s.m_script.isUndefined());
