@@ -26,12 +26,12 @@
 #include "video.h"
 #include "doc.h"
 
-#define KXMLQLCVideoSource "Source"
-#define KXMLQLCVideoScreen "Screen"
-#define KXMLQLCVideoFullscreen "Fullscreen"
-#define KXMLQLCVideoGeometry "Geometry"
-#define KXMLQLCVideoRotation "Rotation"
-#define KXMLQLCVideoZIndex "ZIndex"
+#define KXMLQLCVideoSource      QString("Source")
+#define KXMLQLCVideoScreen      QString("Screen")
+#define KXMLQLCVideoFullscreen  QString("Fullscreen")
+#define KXMLQLCVideoGeometry    QString("Geometry")
+#define KXMLQLCVideoRotation    QString("Rotation")
+#define KXMLQLCVideoZIndex      QString("ZIndex")
 
 const QStringList Video::m_defaultVideoCaps =
         QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
@@ -119,7 +119,10 @@ bool Video::copyFrom(const Function* function)
 QStringList Video::getVideoCapabilities()
 {
     QStringList caps;
-    QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
+    QStringList mimeTypes;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    mimeTypes = QMediaPlayer::supportedMimeTypes();
+#endif
 
     if (mimeTypes.isEmpty())
     {

@@ -36,22 +36,22 @@
 #include "rgbscriptscache.h"
 #include "doc.h"
 
-#define KXMLQLCRGBMatrixStartColor "MonoColor"
-#define KXMLQLCRGBMatrixEndColor "EndColor"
-#define KXMLQLCRGBMatrixFixtureGroup "FixtureGroup"
-#define KXMLQLCRGBMatrixDimmerControl "DimmerControl"
+#define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
+#define KXMLQLCRGBMatrixEndColor        QString("EndColor")
+#define KXMLQLCRGBMatrixFixtureGroup    QString("FixtureGroup")
+#define KXMLQLCRGBMatrixDimmerControl   QString("DimmerControl")
 
-#define KXMLQLCRGBMatrixProperty "Property"
-#define KXMLQLCRGBMatrixPropertyName "Name"
-#define KXMLQLCRGBMatrixPropertyValue "Value"
+#define KXMLQLCRGBMatrixProperty        QString("Property")
+#define KXMLQLCRGBMatrixPropertyName    QString("Name")
+#define KXMLQLCRGBMatrixPropertyValue   QString("Value")
 
-#define KXMLQLCRGBMatrixControlMode "ControlMode"
-#define KXMLQLCRGBMatrixControlModeRgb "RGB"
-#define KXMLQLCRGBMatrixControlModeAmber "Amber"
-#define KXMLQLCRGBMatrixControlModeWhite "White"
-#define KXMLQLCRGBMatrixControlModeUV "UV"
-#define KXMLQLCRGBMatrixControlModeDimmer "Dimmer"
-#define KXMLQLCRGBMatrixControlModeShutter "Shutter"
+#define KXMLQLCRGBMatrixControlMode         QString("ControlMode")
+#define KXMLQLCRGBMatrixControlModeRgb      QString("RGB")
+#define KXMLQLCRGBMatrixControlModeAmber    QString("Amber")
+#define KXMLQLCRGBMatrixControlModeWhite    QString("White")
+#define KXMLQLCRGBMatrixControlModeUV       QString("UV")
+#define KXMLQLCRGBMatrixControlModeDimmer   QString("Dimmer")
+#define KXMLQLCRGBMatrixControlModeShutter  QString("Shutter")
 
 /****************************************************************************
  * Initialization

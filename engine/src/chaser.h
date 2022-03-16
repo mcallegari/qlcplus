@@ -35,7 +35,7 @@ class ChaserStep;
 class MasterTimer;
 class QXmlStreamReader;
 
-#define KXMLQLCChaserSpeedModes "SpeedModes"
+#define KXMLQLCChaserSpeedModes QString("SpeedModes")
 
 /** @addtogroup engine_functions Functions
  * @{

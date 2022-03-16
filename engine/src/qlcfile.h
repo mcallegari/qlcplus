@@ -58,10 +58,10 @@ class QString;
 #endif
 
 // Generic XML tags common for all documents
-#define KXMLQLCCreator "Creator"
-#define KXMLQLCCreatorName "Name"
-#define KXMLQLCCreatorVersion "Version"
-#define KXMLQLCCreatorAuthor "Author"
+#define KXMLQLCCreator          QString("Creator")
+#define KXMLQLCCreatorName      QString("Name")
+#define KXMLQLCCreatorVersion   QString("Version")
+#define KXMLQLCCreatorAuthor    QString("Author")
 
 // True and false
 #define KXMLQLCTrue "True"

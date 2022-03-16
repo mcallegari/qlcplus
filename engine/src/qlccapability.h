@@ -37,22 +37,22 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCCapability    "Capability"
-#define KXMLQLCCapabilityMin "Min"
-#define KXMLQLCCapabilityMax "Max"
-#define KXMLQLCCapabilityPreset "Preset"
-#define KXMLQLCCapabilityRes1 "Res1"
-#define KXMLQLCCapabilityRes2 "Res2"
+#define KXMLQLCCapability       QString("Capability")
+#define KXMLQLCCapabilityMin    QString("Min")
+#define KXMLQLCCapabilityMax    QString("Max")
+#define KXMLQLCCapabilityPreset QString("Preset")
+#define KXMLQLCCapabilityRes1   QString("Res1")
+#define KXMLQLCCapabilityRes2   QString("Res2")
 
-#define KXMLQLCCapabilityAlias "Alias"
-#define KXMLQLCCapabilityAliasMode "Mode"
-#define KXMLQLCCapabilityAliasSourceName "Channel"
-#define KXMLQLCCapabilityAliasTargetName "With"
+#define KXMLQLCCapabilityAlias              QString("Alias")
+#define KXMLQLCCapabilityAliasMode          QString("Mode")
+#define KXMLQLCCapabilityAliasSourceName    QString("Channel")
+#define KXMLQLCCapabilityAliasTargetName    QString("With")
 
 /** ****************** LEGACY ***************** */
-#define KXMLQLCCapabilityResource "Res"
-#define KXMLQLCCapabilityColor1 "Color"
-#define KXMLQLCCapabilityColor2 "Color2"
+#define KXMLQLCCapabilityResource   QString("Res")
+#define KXMLQLCCapabilityColor1     QString("Color")
+#define KXMLQLCCapabilityColor2     QString("Color2")
 
 typedef struct
 {
