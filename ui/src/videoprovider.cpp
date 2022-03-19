@@ -180,6 +180,7 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
             m_video->stop(functionParent());
             break;
         }
+        default:
         case QMediaPlayer::InvalidMedia:
             //displayErrorMessage();
         break;
