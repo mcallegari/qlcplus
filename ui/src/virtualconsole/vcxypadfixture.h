@@ -39,17 +39,17 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPadFixture "Fixture"
-#define KXMLQLCVCXYPadFixtureID "ID"
-#define KXMLQLCVCXYPadFixtureHead "Head"
+#define KXMLQLCVCXYPadFixture       QString("Fixture")
+#define KXMLQLCVCXYPadFixtureID     QString("ID")
+#define KXMLQLCVCXYPadFixtureHead   QString("Head")
 
-#define KXMLQLCVCXYPadFixtureAxis "Axis"
-#define KXMLQLCVCXYPadFixtureAxisID "ID"
-#define KXMLQLCVCXYPadFixtureAxisX "X"
-#define KXMLQLCVCXYPadFixtureAxisY "Y"
-#define KXMLQLCVCXYPadFixtureAxisLowLimit "LowLimit"
-#define KXMLQLCVCXYPadFixtureAxisHighLimit "HighLimit"
-#define KXMLQLCVCXYPadFixtureAxisReverse "Reverse"
+#define KXMLQLCVCXYPadFixtureAxis           QString("Axis")
+#define KXMLQLCVCXYPadFixtureAxisID         QString("ID")
+#define KXMLQLCVCXYPadFixtureAxisX          QString("X")
+#define KXMLQLCVCXYPadFixtureAxisY          QString("Y")
+#define KXMLQLCVCXYPadFixtureAxisLowLimit   QString("LowLimit")
+#define KXMLQLCVCXYPadFixtureAxisHighLimit  QString("HighLimit")
+#define KXMLQLCVCXYPadFixtureAxisReverse    QString("Reverse")
 
 /** This class manages one fixture head in a VCXYPad */
 class VCXYPadFixture

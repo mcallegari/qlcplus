@@ -32,17 +32,17 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCXYPadPreset         "Preset"
-#define KXMLQLCVCXYPadPresetID       "ID"
-#define KXMLQLCVCXYPadPresetType     "Type"
-#define KXMLQLCVCXYPadPresetName     "Name"
+#define KXMLQLCVCXYPadPreset         QString("Preset")
+#define KXMLQLCVCXYPadPresetID       QString("ID")
+#define KXMLQLCVCXYPadPresetType     QString("Type")
+#define KXMLQLCVCXYPadPresetName     QString("Name")
 
-#define KXMLQLCVCXYPadPresetFuncID   "FuncID"
-#define KXMLQLCVCXYPadPresetXPos     "X"
-#define KXMLQLCVCXYPadPresetYPos     "Y"
-#define KXMLQLCVCXYPadPresetFixture     "Fixture"
-#define KXMLQLCVCXYPadPresetFixtureID   "ID"
-#define KXMLQLCVCXYPadPresetFixtureHead "Head"
+#define KXMLQLCVCXYPadPresetFuncID      QString("FuncID")
+#define KXMLQLCVCXYPadPresetXPos        QString("X")
+#define KXMLQLCVCXYPadPresetYPos        QString("Y")
+#define KXMLQLCVCXYPadPresetFixture     QString("Fixture")
+#define KXMLQLCVCXYPadPresetFixtureID   QString("ID")
+#define KXMLQLCVCXYPadPresetFixtureHead QString("Head")
 
 class VCXYPadPreset
 {

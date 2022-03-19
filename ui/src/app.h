@@ -50,7 +50,7 @@ class VideoProvider;
  * @{
  */
 
-#define KXMLQLCWorkspace "Workspace"
+#define KXMLQLCWorkspace QString("Workspace")
 
 class DetachedContext : public QMainWindow
 {

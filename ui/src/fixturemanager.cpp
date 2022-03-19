@@ -69,7 +69,7 @@
 #define KColumnChannels 1
 #define KColumnAddress  2
 
-#define KXMLQLCFixturesList "FixtureList"
+#define KXMLQLCFixturesList QString("FixtureList")
 
 FixtureManager* FixtureManager::s_instance = NULL;
 
@@ -1774,7 +1774,9 @@ void FixtureManager::slotExport()
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
     QLCFile::writeXMLHeader(&doc, KXMLQLCFixturesList);
 
     QListIterator <Fixture*> fxit(m_doc->fixtures());

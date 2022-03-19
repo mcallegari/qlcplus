@@ -64,7 +64,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     setFrameStyle(KVCFrameStyleSunken);
 
     QVBoxLayout* vBox = new QVBoxLayout(this);
-    vBox->setMargin(0);
+    vBox->setContentsMargins(0, 0, 0, 0);
 
     QHBoxLayout* speedDialHBox = new QHBoxLayout();
     vBox->addLayout(speedDialHBox);

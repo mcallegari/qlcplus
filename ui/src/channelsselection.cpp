@@ -160,9 +160,9 @@ void ChannelsSelection::updateFixturesTree()
 
                 int bIdx = 1;
 
-                if (forcedHTP.contains(c))
+                if (forcedHTP.contains(int(c)))
                     bIdx = 0;
-                else if (forcedLTP.contains(c))
+                else if (forcedLTP.contains(int(c)))
                     bIdx = 1;
                 else if (channel->group() == QLCChannel::Intensity)
                     bIdx = 0;

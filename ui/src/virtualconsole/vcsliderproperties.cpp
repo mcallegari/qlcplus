@@ -355,8 +355,7 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     {
         item = new QTreeWidgetItem(m_levelList);
         item->setText(KColumnID, str.setNum(id));
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable
-                       | Qt::ItemIsTristate);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
     }
 
     item->setText(KColumnName, fxi->name());

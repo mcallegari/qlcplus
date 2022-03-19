@@ -76,7 +76,11 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
 {
     Q_ASSERT(video != NULL);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
+#else
+    m_videoPlayer = new QMediaPlayer(this);
+#endif
     m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
 
     if (QLCFile::getQtRuntimeVersion() >= 50700 && m_videoWidget == NULL)
@@ -105,11 +109,17 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
             this, SLOT(slotBrightnessAdjust(int)));
 
     QString sourceURL = m_video->sourceUrl();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (sourceURL.contains("://"))
         m_videoPlayer->setMedia(QUrl(sourceURL));
     else
         m_videoPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
-
+#else
+    if (sourceURL.contains("://"))
+        m_videoPlayer->setSource(QUrl(sourceURL));
+    else
+        m_videoPlayer->setSource(QUrl::fromLocalFile(sourceURL));
+#endif
     qDebug() << "Video source URL:" << sourceURL;
 }
 
@@ -117,10 +127,17 @@ void VideoWidget::slotSourceUrlChanged(QString url)
 {
     qDebug() << "Video source URL changed:" << url;
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (url.contains("://"))
         m_videoPlayer->setMedia(QUrl(url));
     else
         m_videoPlayer->setMedia(QUrl::fromLocalFile(url));
+#else
+    if (url.contains("://"))
+        m_videoPlayer->setSource(QUrl(url));
+    else
+        m_videoPlayer->setSource(QUrl::fromLocalFile(url));
+#endif
 }
 
 void VideoWidget::slotTotalTimeChanged(qint64 duration)
@@ -134,19 +151,18 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
     qDebug() << Q_FUNC_INFO << status;
     switch (status)
     {
-        case QMediaPlayer::UnknownMediaStatus:
         case QMediaPlayer::NoMedia:
         case QMediaPlayer::LoadedMedia:
         case QMediaPlayer::BufferingMedia:
         case QMediaPlayer::BufferedMedia:
             //setStatusInfo(QString());
-            break;
+        break;
         case QMediaPlayer::LoadingMedia:
             //setStatusInfo(tr("Loading..."));
-            break;
+        break;
         case QMediaPlayer::StalledMedia:
             //setStatusInfo(tr("Media Stalled"));
-            break;
+        break;
         case QMediaPlayer::EndOfMedia:
         {
             if (m_videoPlayer != NULL)
@@ -166,7 +182,7 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
         }
         case QMediaPlayer::InvalidMedia:
             //displayErrorMessage();
-            break;
+        break;
     }
 }
 
@@ -255,8 +271,12 @@ void VideoWidget::slotStopVideo()
 
 void VideoWidget::slotBrightnessAdjust(int value)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (m_videoWidget != NULL)
         m_videoWidget->setBrightness(value);
+#else
+    Q_UNUSED(value)
+#endif
 }
 
 int VideoWidget::getScreenCount()

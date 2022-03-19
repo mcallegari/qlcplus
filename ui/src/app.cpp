@@ -827,8 +827,8 @@ bool App::saveModifiedDoc(const QString & title, const QString & message)
 
     int result = QMessageBox::warning(this, title,
                                           message,
-                                          QMessageBox::Yes,
-                                          QMessageBox::No,
+                                          QMessageBox::Yes |
+                                          QMessageBox::No |
                                           QMessageBox::Cancel);
     if (result == QMessageBox::Yes)
     {
@@ -1436,7 +1436,9 @@ QFile::FileError App::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
 
     doc.writeStartDocument();
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
