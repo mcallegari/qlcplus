@@ -48,6 +48,10 @@ const QString Script::systemLegacy = QString("systemcommand");
 const QString Script::systemCmd = QString("Engine.systemCommand");
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 
+const QString Script::blackoutOn = QString("on"); // LEGACY - NOT USED
+const QString Script::blackoutOff = QString("off"); // LEGACY - NOT USED
+const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/

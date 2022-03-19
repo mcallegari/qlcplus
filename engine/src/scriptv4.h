@@ -58,6 +58,10 @@ public:
     static const QString systemLegacy;
     static const QString systemCmd;
 
+    static const QString waitKeyCmd; // LEGACY - NOT USED
+    static const QString blackoutOn; // LEGACY - NOT USED
+    static const QString blackoutOff; // LEGACY - NOT USED
+
     /************************************************************************
      * Initialization
      ************************************************************************/
