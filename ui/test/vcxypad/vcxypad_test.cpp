@@ -332,7 +332,7 @@ void VCXYPad_Test::saveXML()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Fixture")
+        if (xmlReader.name().toString() == "Fixture")
         {
             fixture++;
             QVERIFY(xmlReader.attributes().value("ID") == QString("11") ||
@@ -340,13 +340,13 @@ void VCXYPad_Test::saveXML()
             QVERIFY(xmlReader.attributes().value("Head") == QString("0"));
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Position")
+        else if (xmlReader.name().toString() == "Position")
         {
             position++;
             QFAIL("Legacy tag found in saved XML!");
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Pan")
+        else if (xmlReader.name().toString() == "Pan")
         {
             pan++;
             QCOMPARE(xmlReader.attributes().value("Position").toString(), QString("23"));
@@ -357,7 +357,7 @@ void VCXYPad_Test::saveXML()
             xmlReader.skipCurrentElement();
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Tilt")
+        else if (xmlReader.name().toString() == "Tilt")
         {
             tilt++;
             QCOMPARE(xmlReader.attributes().value("Position").toString(), QString("45"));
@@ -368,7 +368,7 @@ void VCXYPad_Test::saveXML()
             xmlReader.skipCurrentElement();
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Width")
+        else if (xmlReader.name().toString() == "Width")
         {
             width++;
             xmlReader.readNextStartElement();
@@ -378,7 +378,7 @@ void VCXYPad_Test::saveXML()
             xmlReader.skipCurrentElement();
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Height")
+        else if (xmlReader.name().toString() == "Height")
         {
             height++;
             xmlReader.readNextStartElement();
@@ -388,12 +388,12 @@ void VCXYPad_Test::saveXML()
             xmlReader.skipCurrentElement();
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "WindowState")
+        else if (xmlReader.name().toString() == "WindowState")
         {
             wstate++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Appearance")
+        else if (xmlReader.name().toString() == "Appearance")
         {
             appearance++;
             xmlReader.skipCurrentElement();

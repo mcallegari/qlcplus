@@ -469,20 +469,20 @@ void VCCueList_Test::saveXML()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Chaser")
+        if (xmlReader.name().toString() == "Chaser")
         {
             QCOMPARE(xmlReader.readElementText().toUInt(), c->id());
             chaser++;
         }
-        else if (xmlReader.name() == "Function")
+        else if (xmlReader.name().toString() == "Function")
         {
             QFAIL("Function node should not be written anymore!");
         }
-        else if (xmlReader.name() == "Next")
+        else if (xmlReader.name().toString() == "Next")
         {
             next++;
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Key")
+            if (xmlReader.name().toString() == "Key")
             {
                 nextKey++;
                 QCOMPARE(xmlReader.readElementText(), QKeySequence(keySequenceB).toString());
@@ -493,7 +493,7 @@ void VCCueList_Test::saveXML()
             }
 
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Input")
+            if (xmlReader.name().toString() == "Input")
             {
                 nextInput++;
                 // Handled by VCWidget tests, just check that the node is there
@@ -505,11 +505,11 @@ void VCCueList_Test::saveXML()
             }
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Previous")
+        else if (xmlReader.name().toString() == "Previous")
         {
             previous++;
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Key")
+            if (xmlReader.name().toString() == "Key")
             {
                 previousKey++;
                 QCOMPARE(xmlReader.readElementText(), QKeySequence(keySequenceA).toString());
@@ -520,7 +520,7 @@ void VCCueList_Test::saveXML()
             }
 
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Input")
+            if (xmlReader.name().toString() == "Input")
             {
                 previousInput++;
                 // Handled by VCWidget tests, just check that the node is there
@@ -532,11 +532,11 @@ void VCCueList_Test::saveXML()
             }
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Playback")
+        else if (xmlReader.name().toString() == "Playback")
         {
             playback++;
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Key")
+            if (xmlReader.name().toString() == "Key")
             {
                 playbackKey++;
                 QCOMPARE(xmlReader.readElementText(), QKeySequence(keySequenceC).toString());
@@ -546,7 +546,7 @@ void VCCueList_Test::saveXML()
                 QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
             }
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Input")
+            if (xmlReader.name().toString() == "Input")
             {
                 playbackInput++;
                 // Handled by VCWidget tests, just check that the node is there
@@ -558,11 +558,11 @@ void VCCueList_Test::saveXML()
             }
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Stop")
+        else if (xmlReader.name().toString() == "Stop")
         {
             stop++;
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Key")
+            if (xmlReader.name().toString() == "Key")
             {
                 stopKey++;
                 QCOMPARE(xmlReader.readElementText(), QKeySequence(keySequenceD).toString());
@@ -572,7 +572,7 @@ void VCCueList_Test::saveXML()
                 QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
             }
             xmlReader.readNextStartElement();
-            if (xmlReader.name() == "Input")
+            if (xmlReader.name().toString() == "Input")
             {
                 stopInput++;
                 // Handled by VCWidget tests, just check that the node is there
@@ -584,13 +584,13 @@ void VCCueList_Test::saveXML()
             }
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "WindowState")
+        else if (xmlReader.name().toString() == "WindowState")
         {
             // Handled by VCWidget tests, just check that the node is there
             wstate++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Appearance")
+        else if (xmlReader.name().toString() == "Appearance")
         {
             // Handled by VCWidget tests, just check that the node is there
             appearance++;
