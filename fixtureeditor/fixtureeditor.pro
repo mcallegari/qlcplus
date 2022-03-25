@@ -5,8 +5,12 @@ LANGUAGE = C++
 TARGET   = qlcplus-fixtureeditor
 
 CONFIG += qt
-QT     += script
 QT     += widgets
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
+  QT   += qml
+} else {
+  QT   += script
+}
 
 INCLUDEPATH += ../plugins/interfaces
 
