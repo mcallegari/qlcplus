@@ -590,8 +590,11 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
         return;
 
     qDebug() << "[ContextManager] found" << channels.keys().count() << "capabilities";
-
-    QMultiHashIterator<int, SceneValue>it(channels);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QHashIterator<int, SceneValue> it(channels);
+#else
+    QMultiHashIterator<int, SceneValue> it(channels);
+#endif
     while(it.hasNext())
     {
         it.next();

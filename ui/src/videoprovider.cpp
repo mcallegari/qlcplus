@@ -234,9 +234,9 @@ void VideoWidget::slotMetaDataChanged()
             break;
         }
     }
-
 }
 #endif
+
 void VideoWidget::slotPlaybackVideo()
 {
     int screen = m_video->screen();
