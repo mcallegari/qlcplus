@@ -21,6 +21,9 @@
 #include "qlcfile.h"
 #include "doc.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+ #include <QMediaMetaData>
+#endif
 #include <QApplication>
 #include <QMediaPlayer>
 #include <QVideoWidget>
@@ -92,8 +95,13 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
 
     connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
             this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     connect(m_videoPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
             this, SLOT(slotMetaDataChanged(QString,QVariant)));
+#else
+    connect(m_videoPlayer, SIGNAL(metaDataChanged()),
+            this, SLOT(slotMetaDataChanged()));
+#endif
     connect(m_videoPlayer, SIGNAL(durationChanged(qint64)),
             this, SLOT(slotTotalTimeChanged(qint64)));
 
@@ -187,6 +195,7 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
     }
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
 {
     if (m_video == NULL)
@@ -200,7 +209,34 @@ void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
     else if (key == "AudioCodec")
         m_video->setAudioCodec(data.toString());
 }
+#else
+void VideoWidget::slotMetaDataChanged()
+{
+    if (m_video == NULL)
+        return;
 
+    QMediaMetaData md = m_videoPlayer->metaData();
+    foreach(QMediaMetaData::Key k, md.keys())
+    {
+        qDebug() << "[Metadata]" << md.metaDataKeyToString(k) << ":" << md.stringValue(k);
+        switch (k)
+        {
+            case QMediaMetaData::Resolution:
+                m_video->setResolution(md.value(k).toSize());
+            break;
+            case QMediaMetaData::VideoCodec:
+                m_video->setVideoCodec(md.stringValue(k));
+            break;
+            case QMediaMetaData::AudioCodec:
+                m_video->setAudioCodec(md.stringValue(k));
+            break;
+            default:
+            break;
+        }
+    }
+
+}
+#endif
 void VideoWidget::slotPlaybackVideo()
 {
     int screen = m_video->screen();
