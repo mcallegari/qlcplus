@@ -57,7 +57,7 @@ void EditHead::fillChannelTree(const QLCFixtureMode* mode)
 {
     Q_ASSERT(mode != NULL);
 
-    for (quint32 i = 0; i < mode->channels().size(); i++)
+    for (quint32 i = 0; i < quint32(mode->channels().size()); i++)
     {
         const QLCChannel* ch = mode->channels().at(i);
         Q_ASSERT(ch != NULL);
