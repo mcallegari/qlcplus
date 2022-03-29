@@ -21,7 +21,6 @@
 #include "qlcfixturedef.h"
 #include "qlcchannel.h"
 
-#include "physicaledit.h"
 #include "channeledit.h"
 #include "editorview.h"
 #include "listmodel.h"

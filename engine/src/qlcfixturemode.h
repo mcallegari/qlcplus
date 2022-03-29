@@ -24,6 +24,7 @@
 #include <QVector>
 #include <QString>
 #include <QList>
+#include <QHash>
 
 #include "qlcfixturehead.h"
 #include "qlcfixturedef.h"

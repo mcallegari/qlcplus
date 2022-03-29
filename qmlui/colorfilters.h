@@ -25,7 +25,7 @@
 #include <QColor>
 #include <QFile>
 
-#define KXMLColorFilters "ColorFilters"
+#define KXMLColorFilters QString("ColorFilters")
 
 typedef struct
 {
