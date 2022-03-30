@@ -432,7 +432,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         break;
         case FixtureDelete:
         {
-            m_fixtureManager->deleteFixtures(QVariantList( objID ));
+            m_fixtureManager->deleteFixtures(QVariantList() << objID);
         }
         break;
         case FixtureGroupCreate:
@@ -497,7 +497,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             QXmlStreamAttributes attrs = xmlReader.attributes();
 
             if (attrs.hasAttribute(KXMLQLCVCWidgetID))
-                m_virtualConsole->deleteVCWidgets(QVariantList( attrs.value(KXMLQLCVCWidgetID).toUInt() ));
+                m_virtualConsole->deleteVCWidgets(QVariantList() << attrs.value(KXMLQLCVCWidgetID).toUInt());
         }
         break;
 
