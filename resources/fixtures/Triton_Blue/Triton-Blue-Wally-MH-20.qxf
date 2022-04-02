@@ -29,7 +29,7 @@
   <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/gobo00046.svg">Rotation Gobo 1</Capability>
   <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Others/gobo00036.svg">Rotation Gobo 2</Capability>
-  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Robe/gobo00006.png">Rotation Gobo 3</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Others/gobo00014.svg">Rotation Gobo 3</Capability>
   <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00012.svg">Rotation Gobo 4</Capability>
   <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Others/gobo00026.svg">Rotation Gobo 5</Capability>
   <Capability Min="60" Max="69" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">Rotation Gobo 6</Capability>
