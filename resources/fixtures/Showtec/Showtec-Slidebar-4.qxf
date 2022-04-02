@@ -37,6 +37,6 @@
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Layout Width="3" Height="3"/>
-  <Technical PowerConsumption="3680" DmxConnector="3-pin - 5-pin"/>
+  <Technical PowerConsumption="3680" DmxConnector="3-pin and 5-pin"/>
  </Physical>
 </FixtureDefinition>
