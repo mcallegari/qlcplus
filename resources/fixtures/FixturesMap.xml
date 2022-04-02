@@ -259,6 +259,7 @@
     <F n="Briteq-BT-ORBIT" m="BT-ORBIT"/>
     <F n="Briteq-BT-Smartzoom" m="BT Smartzoom"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
+    <F n="Briteq-BT-Theatre-50WW" m="BT-Theatre 50WW"/>
     <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
     <F n="Briteq-BT-Vintage" m="BT-Vintage"/>
     <F n="Briteq-BT-W07L12" m="BT-W07L12"/>
@@ -628,6 +629,7 @@
   </M>
   <M n="Equinox">
     <F n="Equinox-Domin8R-II" m="Domin8R II"/>
+    <F n="Equinox-Fusion-50-Mkii" m="Fusion 50 MkII"/>
     <F n="Equinox-Gigabar" m="Gigabar"/>
     <F n="Equinox-Microbar-Quad-System" m="Microbar Quad System"/>
     <F n="Equinox-Party-Par-LED-PAR-56" m="Party Par LED PAR 56"/>
@@ -1276,6 +1278,7 @@
     <F n="Robe_ColorMix_240_AT" m="ColorMix 240 AT"/>
   </M>
   <M n="Rockville">
+    <F n="Rockville-Best-Strip-60-RGBWAUV" m="Best Strip 60"/>
     <F n="Rockville-Motionstrip-RGBW" m="Motionstrip RGBW"/>
   </M>
   <M n="Rosco">
@@ -1374,6 +1377,8 @@
     <F n="Showtec-Quatro" m="Quatro"/>
     <F n="Showtec-Shark-Beam-FX-One" m="Shark Beam FX One"/>
     <F n="Showtec-Shark-Wash-One" m="Shark Wash One"/>
+    <F n="Showtec-Slidebar-4" m="Slidebar 4"/>
+    <F n="Showtec-Spectral-850-RGBA-Tour" m="Spectral 850 RGBA Tour LED Spot"/>
     <F n="Showtec-Spectral-CYC650" m="Spectral CYC650"/>
     <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
