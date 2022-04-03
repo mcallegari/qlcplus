@@ -32,17 +32,17 @@
 
 #define HYSTERESIS 3 // Hysteresis for pause/reset external input
 
-#define KXMLQLCVCClockType "Type"
-#define KXMLQLCVCClockHours "Hours"
-#define KXMLQLCVCClockMinutes "Minutes"
-#define KXMLQLCVCClockSeconds "Seconds"
+#define KXMLQLCVCClockType      QString("Type")
+#define KXMLQLCVCClockHours     QString("Hours")
+#define KXMLQLCVCClockMinutes   QString("Minutes")
+#define KXMLQLCVCClockSeconds   QString("Seconds")
 
-#define KXMLQLCVCClockSchedule "Schedule"
-#define KXMLQLCVCClockScheduleFunc "Function"
-#define KXMLQLCVCClockScheduleTime "Time"
+#define KXMLQLCVCClockSchedule      QString("Schedule")
+#define KXMLQLCVCClockScheduleFunc  QString("Function")
+#define KXMLQLCVCClockScheduleTime  QString("Time")
 
-#define KXMLQLCVCClockPlay "PlayPause"
-#define KXMLQLCVCClockReset "Reset"
+#define KXMLQLCVCClockPlay  QString("PlayPause")
+#define KXMLQLCVCClockReset QString("Reset")
 
 const quint8 VCClock::playInputSourceId = 0;
 const quint8 VCClock::resetInputSourceId = 1;

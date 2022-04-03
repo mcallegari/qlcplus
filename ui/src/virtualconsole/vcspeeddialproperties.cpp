@@ -182,6 +182,16 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
 
     connect(m_speedDialWidget, SIGNAL(valueChanged(int)),
             this, SLOT(slotSpeedDialWidgetValueChanged(int)));
+
+    connect(m_addButton, SIGNAL(clicked()),
+            this, SLOT(slotAddClicked()));
+    connect(m_removeButton, SIGNAL(clicked()),
+            this, SLOT(slotRemoveClicked()));
+
+    connect(m_copyFactorsButton, SIGNAL(clicked()),
+            this, SLOT(slotCopyFactorsClicked()));
+    connect(m_pasteFactorsButton, SIGNAL(clicked()),
+            this, SLOT(slotPasteFactorsClicked()));
 }
 
 VCSpeedDialProperties::~VCSpeedDialProperties()

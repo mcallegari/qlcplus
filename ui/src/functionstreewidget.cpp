@@ -379,8 +379,11 @@ void FunctionsTreeWidget::mousePressEvent(QMouseEvent *event)
 
 void FunctionsTreeWidget::dropEvent(QDropEvent *event)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QTreeWidgetItem *dropItem = itemAt(event->pos());
-
+#else
+    QTreeWidgetItem *dropItem = itemAt(event->position().toPoint());
+#endif
     if (m_draggedItems.count() == 0 || dropItem == NULL)
         return;
 

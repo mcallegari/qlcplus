@@ -13,7 +13,7 @@ QT += multimedia
 macx:QT_CONFIG -= no-pkg-config
 win32:QT += widgets
 
-qmlui {
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   QT += qml
 } else {
   QT += script
@@ -111,7 +111,7 @@ HEADERS += bus.h \
            universe.h \
            video.h
 
-qmlui {
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   HEADERS += rgbscriptv4.h scriptrunner.h scriptv4.h
 } else {
   HEADERS += rgbscript.h script.h
@@ -186,7 +186,7 @@ SOURCES += bus.cpp \
            universe.cpp \
            video.cpp
 
-qmlui {
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   SOURCES += rgbscriptv4.cpp scriptrunner.cpp scriptv4.cpp
 } else {
   SOURCES += rgbscript.cpp script.cpp

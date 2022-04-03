@@ -229,7 +229,13 @@ void ConfigureOSC::accept()
 
 void ConfigureOSC::slotOSCPathChanged(QString path)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_chNumSpin->setValue(qChecksum(path.toUtf8().data(), path.length()));
+#else
+    QByteArrayView bav(path.toUtf8().data(), path.length());
+    m_chNumSpin->setValue(qChecksum(bav));
+#endif
+
 }
 
 int ConfigureOSC::exec()

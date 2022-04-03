@@ -242,10 +242,6 @@ protected:
 
     void walkNode(QNode *e, int depth);
 
-    /** Used on generic items, which can be huge.
-     *  Normalize them to be 2 meters big maximum */
-    float getNormalizedScale(QVector3D extent);
-
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
@@ -283,9 +279,16 @@ public:
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
+    /** Get the number of generic items currently selected */
     int genericSelectedCount() const;
 
+    /** Remove the currently selected generic items
+     *  from the 3D scene */
     Q_INVOKABLE void removeSelectedGenericItems();
+
+    /** Some generic items can be huge.
+     *  Normalize them to be 2 meters big maximum */
+    Q_INVOKABLE void normalizeSelectedGenericItems();
 
     /** Get a list of generic items currently in the 3D scene,
      *  to be displayed in QML */

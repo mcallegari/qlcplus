@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "simplecrypt.h"
 #include <QDataStream>
 #include <QByteArray>
+#include <QIODevice>
 #include <QtDebug>
 #include <QtGlobal>
 #include <QDateTime>
@@ -103,7 +104,12 @@ QByteArray SimpleCrypt::encryptToByteArray(QByteArray plaintext)
     if (m_protectionMode == ProtectionChecksum) {
         flags |= CryptoFlagChecksum;
         QDataStream s(&integrityProtection, QIODevice::WriteOnly);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         s << qChecksum(ba.constData(), ba.length());
+#else
+        QByteArrayView bav(ba.constData(), ba.length());
+        s << qChecksum(bav);
+#endif
     } else if (m_protectionMode == ProtectionHash) {
         flags |= CryptoFlagHash;
         QCryptographicHash hash(QCryptographicHash::Sha1);
@@ -225,7 +231,12 @@ QByteArray SimpleCrypt::decryptToByteArray(QByteArray cypher)
             s >> storedChecksum;
         }
         ba = ba.mid(2);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         quint16 checksum = qChecksum(ba.constData(), ba.length());
+#else
+        QByteArrayView bav(ba.constData(), ba.length());
+        quint16 checksum = qChecksum(bav);
+#endif
         integrityOk = (checksum == storedChecksum);
     } else if (flags.testFlag(CryptoFlagHash)) {
         if (ba.length() < 20) {

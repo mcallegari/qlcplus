@@ -28,9 +28,13 @@
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DCore/QNode>
-#include <Qt3DRender/QGeometry>
-#include <Qt3DRender/QAttribute>
-#include <Qt3DRender/QBuffer>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include <Qt3DRender/QGeometry>
+ #include <Qt3DRender/QAttribute>
+ #include <Qt3DRender/QBuffer>
+#else
+ #include <Qt3DCore/QAttribute>
+#endif
 #include <Qt3DRender/QParameter>
 #include <Qt3DExtras/QPhongMaterial>
 
@@ -643,7 +647,7 @@ void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
 
     if (!meshGeometry)
         return;
-
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     Qt3DRender::QAttribute *vPosAttribute = nullptr;
     for (Qt3DRender::QAttribute *attribute : meshGeometry->attributes())
     {
@@ -653,6 +657,17 @@ void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
             break;
         }
     }
+#else
+    Qt3DCore::QAttribute *vPosAttribute = nullptr;
+    for (Qt3DCore::QAttribute *attribute : meshGeometry->attributes())
+    {
+        if (attribute->name() == Qt3DCore::QAttribute::defaultPositionAttributeName())
+        {
+            vPosAttribute = attribute;
+            break;
+        }
+    }
+#endif
     if (vPosAttribute)
     {
         const float *bufferPtr =
@@ -802,26 +817,6 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
         meshRef->m_headItem = entity;
 
     return baseItem;
-}
-
-float MainView3D::getNormalizedScale(QVector3D extent)
-{
-    float maxExtent = 1.0;
-    float scale = 1.0;
-
-    if (extent.x() > 2.0 && extent.x() > maxExtent)
-        maxExtent = extent.x();
-
-    if (extent.y() > 2.0 && extent.y() > maxExtent)
-        maxExtent = extent.y();
-
-    if (extent.z() > 2.0 && extent.z() > maxExtent)
-        maxExtent = extent.z();
-
-    // maxext : 100 = 2 : scale;
-    scale = 200.0 / maxExtent;
-
-    return scale;
 }
 
 #ifdef SHOW_FRAMEGRAPH
@@ -1665,6 +1660,36 @@ void MainView3D::removeSelectedGenericItems()
     m_genericSelectedItems.clear();
     emit genericSelectedCountChanged();
     updateGenericItemsList();
+}
+
+void MainView3D::normalizeSelectedGenericItems()
+{
+    for (int id : m_genericSelectedItems)
+    {
+        SceneItem *meshRef = m_genericMap.value(id, nullptr);
+        if (meshRef)
+        {
+            // adjust the item scale to target size
+            float factor = 1.0;
+            float targetSize = 2.0;
+
+            if (targetSize / meshRef->m_volume.m_extents.x() < factor)
+                factor = targetSize / meshRef->m_volume.m_extents.x();
+
+            if (targetSize / meshRef->m_volume.m_extents.y() < factor)
+                factor = targetSize / meshRef->m_volume.m_extents.y();
+
+            if (targetSize / meshRef->m_volume.m_extents.z() < factor)
+                factor = targetSize / meshRef->m_volume.m_extents.z();
+
+            updateGenericItemScale(id, QVector3D(factor, factor, factor));
+
+            // adjust the item position to scene origin
+            updateGenericItemPosition(id, QVector3D(meshRef->m_volume.m_center.x() * -1000.0,
+                                                    meshRef->m_volume.m_center.y() * -1000.0,
+                                                    meshRef->m_volume.m_center.z() * -1000.0));
+        }
+    }
 }
 
 void MainView3D::updateGenericItemsList()

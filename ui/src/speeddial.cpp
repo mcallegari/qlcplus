@@ -96,7 +96,7 @@ SpeedDial::SpeedDial(QWidget* parent)
 {
     new QVBoxLayout(this);
     layout()->setSpacing(0);
-    layout()->setMargin(2);
+    layout()->setContentsMargins(2, 2, 2, 2);
 
     QHBoxLayout* topHBox = new QHBoxLayout();
     QVBoxLayout* pmVBox1 = new QVBoxLayout();

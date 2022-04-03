@@ -58,9 +58,9 @@ void ClickAndGoSlider::mousePressEvent(QMouseEvent *e)
     {
         int newVal = 0;
         if (orientation() == Qt::Vertical)
-            newVal = minimum() + ((maximum() - minimum()) * (height() - e->y())) / height();
+            newVal = minimum() + ((maximum() - minimum()) * (height() - e->pos().y())) / height();
         else
-            newVal = minimum() + ((maximum() - minimum()) * e->x()) / width();
+            newVal = minimum() + ((maximum() - minimum()) * e->pos().x()) / width();
 
         setSliderDown(true);
         if (invertedAppearance() == true)

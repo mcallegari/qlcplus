@@ -22,23 +22,23 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCFrame "Frame"
-#define KXMLQLCVCFrameAllowChildren "AllowChildren"  // LEGACY
-#define KXMLQLCVCFrameAllowResize   "AllowResize"
-#define KXMLQLCVCFrameShowHeader    "ShowHeader"
-#define KXMLQLCVCFrameIsCollapsed   "Collapsed"
-#define KXMLQLCVCFrameIsDisabled    "Disabled"
-#define KXMLQLCVCFrameEnableSource  "Enable"
-#define KXMLQLCVCFrameShowEnableButton "ShowEnableButton"
-#define KXMLQLCVCFrameSignature     "Signature"
+#define KXMLQLCVCFrame              QString("Frame")
+#define KXMLQLCVCFrameAllowChildren QString("AllowChildren")  // LEGACY
+#define KXMLQLCVCFrameAllowResize   QString("AllowResize")
+#define KXMLQLCVCFrameShowHeader    QString("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed   QString("Collapsed")
+#define KXMLQLCVCFrameIsDisabled    QString("Disabled")
+#define KXMLQLCVCFrameEnableSource  QString("Enable")
+#define KXMLQLCVCFrameShowEnableButton QString("ShowEnableButton")
+#define KXMLQLCVCFrameSignature     QString("Signature")
 
-#define KXMLQLCVCFrameMultipage   "Multipage"
-#define KXMLQLCVCFramePagesNumber "PagesNum"
-#define KXMLQLCVCFrameCurrentPage "CurrentPage"
-#define KXMLQLCVCFrameKey         "Key"
-#define KXMLQLCVCFrameNext        "Next"
-#define KXMLQLCVCFramePrevious    "Previous"
-#define KXMLQLCVCFramePagesLoop   "PagesLoop"
+#define KXMLQLCVCFrameMultipage     QString("Multipage")
+#define KXMLQLCVCFramePagesNumber   QString("PagesNum")
+#define KXMLQLCVCFrameCurrentPage   QString("CurrentPage")
+#define KXMLQLCVCFrameKey           QString("Key")
+#define KXMLQLCVCFrameNext          QString("Next")
+#define KXMLQLCVCFramePrevious      QString("Previous")
+#define KXMLQLCVCFramePagesLoop     QString("PagesLoop")
 
 class VirtualConsole;
 

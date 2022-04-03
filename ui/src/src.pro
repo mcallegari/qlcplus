@@ -6,8 +6,13 @@ LANGUAGE = C++
 TARGET   = qlcplusui
 
 CONFIG += qt
-QT     += core gui script widgets
+QT     += core gui widgets
 QT     += multimedia multimediawidgets
+greaterThan(QT_MAJOR_VERSION, 5) {
+  QT += qml
+} else {
+  QT += script
+}
 
 INCLUDEPATH     += monitor showmanager virtualconsole
 

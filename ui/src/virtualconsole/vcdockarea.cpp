@@ -35,7 +35,7 @@ VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
     Q_ASSERT(ioMap != NULL);
 
     new QHBoxLayout(this);
-    layout()->setMargin(0);
+    layout()->setContentsMargins(0, 0, 0, 0);
     layout()->setSpacing(1);
 
     m_gm = new GrandMasterSlider(this, ioMap);

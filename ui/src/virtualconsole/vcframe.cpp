@@ -18,7 +18,6 @@
   limitations under the License.
 */
 
-#include <QStyleOptionFrameV2>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QMapIterator>

@@ -170,12 +170,12 @@ void FadeChannel::autoDetect(const Doc *doc)
         else
             addFlag(FadeChannel::LTP);
 
-        if (fixture->forcedHTPChannels().contains(m_channel))
+        if (fixture->forcedHTPChannels().contains(int(m_channel)))
         {
             removeFlag(FadeChannel::LTP);
             addFlag(FadeChannel::HTP);
         }
-        else if (fixture->forcedLTPChannels().contains(m_channel))
+        else if (fixture->forcedLTPChannels().contains(int(m_channel)))
         {
             removeFlag(FadeChannel::HTP);
             addFlag(FadeChannel::LTP);
