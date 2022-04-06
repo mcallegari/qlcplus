@@ -378,7 +378,7 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     incrementElapsed();
 
-    if (fadeOutSpeed() != 0)
+    if (overrideFadeOutSpeed() == defaultSpeed())
     {
         if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
             m_audio_out->setFadeOut(fadeOutSpeed());
@@ -387,7 +387,17 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
 void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    slotEndOfStream();
+    // Check whether a fade out is needed "outside" of the natural playback
+    // This is the case of a Chaser step
+    if (overrideFadeOutSpeed() == defaultSpeed())
+    {
+        slotEndOfStream();
+    }
+    else
+    {
+        if (m_audio_out != NULL)
+            m_audio_out->setFadeOut(overrideFadeOutSpeed());
+    }
 
     Function::postRun(timer, universes);
 }

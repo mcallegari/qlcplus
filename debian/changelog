@@ -3,6 +3,8 @@ qlcplus (4.12.5) stable; urgency=low
   * engine: add support for 16bit fading
   * engine: add support for Scene pausing
   * engine: consider fade out on Scene flashing
+  * engine: consider fade out of an Audio function as Chaser step
+  * engine: fixture definitions are now searched in the project folder too
   * UI/RGB Matrix Editor: fix dumping on a Sequence
   * UI/Sequence Editor: fix step values not sent to output/monitor
   * Virtual Console/Slider: fix crash when controlling non existing channels
