@@ -15,6 +15,7 @@ qlcplus (4.12.5) stable; urgency=low
   * Plugins: save IO lines by name and not by index (where possible)
   * Plugins/DMX USB: add support for COM485-PLUS2 product (thanks to David Turner)
   * Plugins/E1.31: ignore non DMX packets in input
+  * Plugins/E1.31: fix universe input above 127
   * Plugins/HID: add support for Nodle R4S (thanks to qfulmina)
   * Plugins/HID: fix HID DMX support on Windows (thanks to Daniel Kirschten)
   * RGB scripts: added 'Fireworks' script (thanks to Hans-Jürgen Tappe)
