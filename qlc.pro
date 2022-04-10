@@ -74,8 +74,7 @@ unix:run.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBR
 # doxygen
 doxygen.target = doxygen
 QMAKE_EXTRA_TARGETS += doxygen
-unix:run.commands += cd resources/doxygen && doxygen qlcplus.dox
-QMAKE_DISTCLEAN += resources/doxygen/html
+unix:doxygen.commands += cd resources/doxygen && rm -rf html/ && doxygen qlcplus.dox
 
 # Leave this on the last row of this file
 SUBDIRS += platforms
