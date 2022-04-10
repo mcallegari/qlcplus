@@ -66,7 +66,7 @@ QMAKE_DISTCLEAN += $$translations.files
 run.target = run
 QMAKE_EXTRA_TARGETS += run
 qmlui: {
-unix:run.commands += LD_LIBRARY_PATH=engine/src:\$\$LD_LIBRARY_PATH qmlui/qlcplus
+unix:run.commands += LD_LIBRARY_PATH=engine/src:\$\$LD_LIBRARY_PATH qmlui/qlcplus-qml
 } else {
 unix:run.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBRARY_PATH main/qlcplus
 }
