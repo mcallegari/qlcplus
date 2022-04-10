@@ -173,22 +173,22 @@ void RGBText_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Content")
+        if (xmlReader.name().toString() == "Content")
         {
             QCOMPARE(xmlReader.readElementText(), QString("Foo"));
             content++;
         }
-        else if (xmlReader.name() == "Font")
+        else if (xmlReader.name().toString() == "Font")
         {
             QCOMPARE(xmlReader.readElementText(), text.font().toString());
             font++;
         }
-        else if (xmlReader.name() == "Animation")
+        else if (xmlReader.name().toString() == "Animation")
         {
             QCOMPARE(xmlReader.readElementText(), QString("Vertical"));
             ani++;
         }
-        else if (xmlReader.name() == "Offset")
+        else if (xmlReader.name().toString() == "Offset")
         {
             QCOMPARE(xmlReader.attributes().value("X").toString().toInt(), 1);
             QCOMPARE(xmlReader.attributes().value("Y").toString().toInt(), 2);

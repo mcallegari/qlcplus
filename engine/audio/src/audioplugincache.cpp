@@ -18,6 +18,9 @@
 */
 
 #include <QPluginLoader>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QMediaDevices>
+#endif
 #include <QDebug>
 
 #include "audioplugincache.h"
@@ -32,8 +35,10 @@
  #else
   #include "audiorenderer_alsa.h"
  #endif
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "audiorenderer_qt5.h"
 #else
- #include "audiorenderer_qt.h"
+ #include "audiorenderer_qt6.h"
 #endif
 
 AudioPluginCache::AudioPluginCache(QObject *parent)
@@ -48,8 +53,13 @@ AudioPluginCache::AudioPluginCache(QObject *parent)
     m_audioDevicesList = AudioRendererAlsa::getDevicesInfo();
  #endif
 #else
-    m_audioDevicesList = AudioRendererQt::getDevicesInfo();
+ #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    m_audioDevicesList = AudioRendererQt5::getDevicesInfo();
     m_outputDevicesList = QAudioDeviceInfo::availableDevices(QAudio::AudioOutput);
+ #else
+    m_audioDevicesList = AudioRendererQt6::getDevicesInfo();
+    m_outputDevicesList = QMediaDevices::audioOutputs();
+ #endif
 #endif
 }
 
@@ -139,6 +149,7 @@ QList<AudioDeviceInfo> AudioPluginCache::audioDevicesList() const
     return m_audioDevicesList;
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
 {
     foreach (const QAudioDeviceInfo &deviceInfo, m_outputDevicesList)
@@ -149,3 +160,15 @@ QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
 
     return QAudioDeviceInfo::defaultOutputDevice();
 }
+#else
+QAudioDevice AudioPluginCache::getOutputDeviceInfo(QString devName) const
+{
+    foreach (const QAudioDevice &deviceInfo, m_outputDevicesList)
+    {
+        if (deviceInfo.description() == devName)
+            return deviceInfo;
+    }
+
+    return QMediaDevices::defaultAudioOutput();
+}
+#endif

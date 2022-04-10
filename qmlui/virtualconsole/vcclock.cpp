@@ -26,21 +26,21 @@
 #include "vcclock.h"
 #include "doc.h"
 
-#define KXMLQLCVCClockEnabled "Enable"
-#define KXMLQLCVCClockType "Type"
-#define KXMLQLCVCClockTime "Time"
+#define KXMLQLCVCClockEnabled   QString("Enable")
+#define KXMLQLCVCClockType      QString("Type")
+#define KXMLQLCVCClockTime      QString("Time")
 
-#define KXMLQLCVCClockHours "Hours"        // LEGACY
-#define KXMLQLCVCClockMinutes "Minutes"    // LEGACY
-#define KXMLQLCVCClockSeconds "Seconds"    // LEGACY
+#define KXMLQLCVCClockHours     QString("Hours")     // LEGACY
+#define KXMLQLCVCClockMinutes   QString("Minutes")   // LEGACY
+#define KXMLQLCVCClockSeconds   QString("Seconds")   // LEGACY
 
-#define KXMLQLCVCClockSchedule "Schedule"
-#define KXMLQLCVCClockScheduleFunc "Function"
-#define KXMLQLCVCClockScheduleStartTime "StartTime"
-#define KXMLQLCVCClockScheduleStopTime "StopTime"
-#define KXMLQLCVCClockScheduleWeekFlags "WeekFlags"
+#define KXMLQLCVCClockSchedule          QString("Schedule")
+#define KXMLQLCVCClockScheduleFunc      QString("Function")
+#define KXMLQLCVCClockScheduleStartTime QString("StartTime")
+#define KXMLQLCVCClockScheduleStopTime  QString("StopTime")
+#define KXMLQLCVCClockScheduleWeekFlags QString("WeekFlags")
 
-#define KXMLQLCVCClockScheduleTime "Time"  // LEGACY
+#define KXMLQLCVCClockScheduleTime QString("Time")  // LEGACY
 
 VCClock::VCClock(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)

@@ -24,8 +24,12 @@
 
 #include "vcmatrixpresetselection.h"
 #include "ui_vcmatrixpresetselection.h"
-#include "rgbscript.h"
 #include "rgbscriptscache.h"
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "rgbscript.h"
+#else
+ #include "rgbscriptv4.h"
+#endif
 #include "doc.h"
 
 VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)

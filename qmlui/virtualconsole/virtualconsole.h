@@ -26,18 +26,18 @@
 #include <QHash>
 
 #include "previewcontext.h"
+#include "vcwidget.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
 class ContextManager;
 class TreeModel;
-class VCWidget;
 class VCFrame;
 class VCPage;
 class Doc;
 
-#define KXMLQLCVirtualConsole "VirtualConsole"
+#define KXMLQLCVirtualConsole QString("VirtualConsole")
 
 class VirtualConsole : public PreviewContext
 {

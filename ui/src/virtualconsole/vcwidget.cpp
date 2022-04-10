@@ -757,6 +757,7 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
 {
     /* In QLC 3.2.x it is possible to set shortcuts like CTRL+X, but since
        CTRL is now the tap modifier, it must be stripped away. */
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     int keys[4] = { 0, 0, 0, 0 };
     for (int i = 0; i < (int)seq.count() && i < 4; i++)
     {
@@ -765,7 +766,16 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
         else
             keys[i] = seq[i];
     }
-
+#else
+    QKeyCombination keys[4] = { Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown};
+    for (int i = 0; i < (int)seq.count() && i < 4; i++)
+    {
+        if ((seq[i].toCombined() & Qt::ControlModifier) != 0)
+            keys[i].fromCombined(seq[i].toCombined() & (~Qt::ControlModifier));
+        else
+            keys[i] = seq[i];
+    }
+#endif
     return QKeySequence(keys[0], keys[1], keys[2], keys[3]);
 }
 
@@ -1294,7 +1304,7 @@ void VCWidget::mousePressEvent(QMouseEvent* e)
     if (e->button() & Qt::LeftButton || e->button() & Qt::MiddleButton)
     {
         /* Start moving or resizing based on where the click landed */
-        if (e->x() > rect().width() - 10 && e->y() > rect().height() - 10 && allowResize())
+        if (e->pos().x() > rect().width() - 10 && e->pos().y() > rect().height() - 10 && allowResize())
         {
             m_resizeMode = true;
             setMouseTracking(true);
@@ -1302,14 +1312,14 @@ void VCWidget::mousePressEvent(QMouseEvent* e)
         }
         else
         {
-            m_mousePressPoint = QPoint(e->x(), e->y());
+            m_mousePressPoint = QPoint(e->pos().x(), e->pos().y());
             setCursor(QCursor(Qt::SizeAllCursor));
         }
     }
     else if (e->button() & Qt::RightButton)
     {
         /* Menu invocation */
-        m_mousePressPoint = QPoint(e->x(), e->y());
+        m_mousePressPoint = QPoint(e->pos().x(), e->pos().y());
         invokeMenu(mapToGlobal(e->pos()));
     }
 }

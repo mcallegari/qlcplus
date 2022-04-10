@@ -180,32 +180,32 @@ void VCWidgetProperties_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "State")
+        if (xmlReader.name().toString() == "State")
         {
             s = true;
             QCOMPARE(xmlReader.readElementText(), QString::number(p.m_state));
         }
-        else if (xmlReader.name() == "Visible")
+        else if (xmlReader.name().toString() == "Visible")
         {
             v = true;
             QCOMPARE(xmlReader.readElementText(), QString::number(p.m_visible));
         }
-        else if (xmlReader.name() == "X")
+        else if (xmlReader.name().toString() == "X")
         {
             x = true;
             QCOMPARE(xmlReader.readElementText(), QString::number(p.m_x));
         }
-        else if (xmlReader.name() == "Y")
+        else if (xmlReader.name().toString() == "Y")
         {
             y = true;
             QCOMPARE(xmlReader.readElementText(), QString::number(p.m_y));
         }
-        else if (xmlReader.name() == "Width")
+        else if (xmlReader.name().toString() == "Width")
         {
             w = true;
             QCOMPARE(xmlReader.readElementText(), QString::number(p.m_width));
         }
-        else if (xmlReader.name() == "Height")
+        else if (xmlReader.name().toString() == "Height")
         {
             h = true;
             QCOMPARE(xmlReader.readElementText(), QString::number(p.m_height));

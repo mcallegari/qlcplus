@@ -48,8 +48,11 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
 {
     if (value.isNull())
         return;
-
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     switch (QMetaType::Type(value.type()))
+#else
+    switch (QMetaType::Type(value.metaType().id()))
+#endif
     {
         case QMetaType::Bool:
             packet.append(BoolType);   // section type
@@ -192,7 +195,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             }
             else
             {
-                qDebug() << "Unsupported data metatype" << value.type() << "Implement me";
+                qDebug() << "Unsupported data metatype" << value.typeName() << "Implement me";
             }
         }
         break;

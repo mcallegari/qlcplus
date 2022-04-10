@@ -35,8 +35,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define FIXTURES_MAP_NAME "FixturesMap.xml"
-#define KXMLQLCFixtureMap "FixturesMap"
+#define FIXTURES_MAP_NAME QString("FixturesMap.xml")
+#define KXMLQLCFixtureMap QString("FixturesMap")
 
 QLCFixtureDefCache::QLCFixtureDefCache()
 {
@@ -181,7 +181,7 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manuf
 
     while (doc->readNextStartElement())
     {
-        if (doc->name() == "F")
+        if (doc->name() == QString("F"))
         {
             QString defFile = "";
             QString model = "";
@@ -287,7 +287,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
 
     while (doc->readNextStartElement())
     {
-        if (doc->name() == "M")
+        if (doc->name() == QString("M"))
         {
             if (doc->attributes().hasAttribute("n"))
             {

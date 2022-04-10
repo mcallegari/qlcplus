@@ -202,9 +202,9 @@ void Collection_Test::loadSuccess()
     Collection c(m_doc);
     QVERIFY(c.loadXML(xmlReader) == true);
     QVERIFY(c.functions().size() == 3);
-    QVERIFY(c.functions().contains(50) == true);
-    QVERIFY(c.functions().contains(12) == true);
-    QVERIFY(c.functions().contains(87) == true);
+    QVERIFY(c.functions().contains(quint32(50)) == true);
+    QVERIFY(c.functions().contains(quint32(12)) == true);
+    QVERIFY(c.functions().contains(quint32(87)) == true);
 }
 
 void Collection_Test::loadWrongType()
@@ -337,7 +337,7 @@ void Collection_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Step")
+        if (xmlReader.name().toString() == "Step")
         {
             quint32 fid = xmlReader.readElementText().toUInt();
             QVERIFY(fid == 0 || fid == 1 || fid == 2 || fid == 3);

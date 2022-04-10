@@ -29,7 +29,6 @@
 #include "inputpatch.h"
 #include "treemodel.h"
 #include "vccuelist.h"
-#include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcframe.h"
@@ -40,20 +39,20 @@
 #include "doc.h"
 #include "app.h"
 
-#define KXMLQLCVCProperties "Properties"
-#define KXMLQLCVCPropertiesSize "Size"
-#define KXMLQLCVCPropertiesSizeWidth "Width"
-#define KXMLQLCVCPropertiesSizeHeight "Height"
+#define KXMLQLCVCProperties             QString("Properties")
+#define KXMLQLCVCPropertiesSize         QString("Size")
+#define KXMLQLCVCPropertiesSizeWidth    QString("Width")
+#define KXMLQLCVCPropertiesSizeHeight   QString("Height")
 
-#define KXMLQLCVCPropertiesGrandMaster "GrandMaster"
-#define KXMLQLCVCPropertiesGrandMasterVisible "Visible"
-#define KXMLQLCVCPropertiesGrandMasterChannelMode "ChannelMode"
-#define KXMLQLCVCPropertiesGrandMasterValueMode "ValueMode"
-#define KXMLQLCVCPropertiesGrandMasterSliderMode "SliderMode"
+#define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
+#define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
+#define KXMLQLCVCPropertiesGrandMasterChannelMode   QString("ChannelMode")
+#define KXMLQLCVCPropertiesGrandMasterValueMode     QString("ValueMode")
+#define KXMLQLCVCPropertiesGrandMasterSliderMode    QString("SliderMode")
 
-#define KXMLQLCVCPropertiesInput "Input"
-#define KXMLQLCVCPropertiesInputUniverse "Universe"
-#define KXMLQLCVCPropertiesInputChannel "Channel"
+#define KXMLQLCVCPropertiesInput            QString("Input")
+#define KXMLQLCVCPropertiesInputUniverse    QString("Universe")
+#define KXMLQLCVCPropertiesInputChannel     QString("Channel")
 
 #define DEFAULT_VC_PAGES_NUMBER 4
 

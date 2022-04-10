@@ -528,7 +528,7 @@ void VCXYPadFixture_Test::saveXMLHappy()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Axis")
+        if (xmlReader.name().toString() == "Axis")
         {
             QXmlStreamAttributes attrs = xmlReader.attributes();
             QString id = attrs.value("ID").toString();
@@ -593,7 +593,7 @@ void VCXYPadFixture_Test::saveXMLSad()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Axis")
+        if (xmlReader.name().toString() == "Axis")
         {
             QXmlStreamAttributes attrs = xmlReader.attributes();
             QString id = attrs.value("ID").toString();

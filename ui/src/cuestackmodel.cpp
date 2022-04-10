@@ -32,8 +32,8 @@
 #include "cuestack.h"
 #include "function.h"
 
-#define MIMEDATA_ROOT       "MimeData"
-#define MIMEDATA_DRAGINDEX  "DragIndex"
+#define MIMEDATA_ROOT       QString("MimeData")
+#define MIMEDATA_DRAGINDEX  QString("DragIndex")
 
 CueStackModel::CueStackModel(QObject* parent)
     : QAbstractItemModel(parent)

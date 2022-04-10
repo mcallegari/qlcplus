@@ -42,7 +42,7 @@ class Doc;
  * @{
  */
 
-#define KXMLIOMap "InputOutputMap"
+#define KXMLIOMap QString("InputOutputMap")
 
 class InputOutputMap : public QObject
 {

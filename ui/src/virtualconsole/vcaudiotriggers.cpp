@@ -35,11 +35,11 @@
 #include "apputil.h"
 #include "doc.h"
 
-#define KXMLQLCVCATKey "Key"
-#define KXMLQLCVCATBarsNumber "BarsNumber"
+#define KXMLQLCVCATKey          QString("Key")
+#define KXMLQLCVCATBarsNumber   QString("BarsNumber")
 
-#define KXMLQLCVolumeBar    "VolumeBar"
-#define KXMLQLCSpectrumBar  "SpectrumBar"
+#define KXMLQLCVolumeBar    QString("VolumeBar")
+#define KXMLQLCSpectrumBar  QString("SpectrumBar")
 
 const QSize VCAudioTriggers::defaultSize(QSize(300, 200));
 

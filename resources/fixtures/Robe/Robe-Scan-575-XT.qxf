@@ -55,7 +55,7 @@
   <Capability Min="141" Max="153" Preset="GoboMacro" Res1="Robe/gobo00003.png">Dichro 2</Capability>
   <Capability Min="154" Max="166" Preset="GoboMacro" Res1="Robe/gobo00004.png">Gobo 4</Capability>
   <Capability Min="167" Max="179" Preset="GoboMacro" Res1="Robe/gobo00005.png">Gobo 5</Capability>
-  <Capability Min="180" Max="191" Preset="GoboMacro" Res1="Robe/gobo00006.png">Gobo 6</Capability>
+  <Capability Min="180" Max="191" Preset="GoboMacro" Res1="Others/gobo00014.svg">Gobo 6</Capability>
   <Capability Min="192" Max="204" Preset="GoboMacro" Res1="Robe/gobo00007.png">Gobo 7</Capability>
   <Capability Min="205" Max="217" Preset="GoboMacro" Res1="Others/gobo00044.svg">Gobo 8</Capability>
   <Capability Min="218" Max="230" Preset="GoboMacro" Res1="Robe/gobo00039.png">Gobo 9</Capability>

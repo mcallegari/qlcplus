@@ -30,7 +30,11 @@ VideoEditor::VideoEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_video(nullptr)
 {
     m_view->rootContext()->setContextProperty("videoEditor", this);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_mediaPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
+#else
+    m_mediaPlayer = new QMediaPlayer(this);
+#endif
 
     connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
             this, SLOT(slotMetaDataChanged(QString,QVariant)));
@@ -55,10 +59,17 @@ void VideoEditor::setFunctionID(quint32 ID)
                 this, SLOT(slotMetaDataChanged(QString,QVariant)));*/
 
         QString sourceURL = m_video->sourceUrl();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         if (sourceURL.contains("://"))
             m_mediaPlayer->setMedia(QUrl(sourceURL));
         else
             m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
+#else
+        if (sourceURL.contains("://"))
+            m_mediaPlayer->setSource(QUrl(sourceURL));
+        else
+            m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
+#endif
     }
 }
 
@@ -94,10 +105,17 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
     }
     else
     {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         if (sourceFileName.contains("://"))
             m_mediaPlayer->setMedia(QUrl(sourceFileName));
         else
             m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceFileName));
+#else
+        if (sourceFileName.contains("://"))
+            m_mediaPlayer->setSource(QUrl(sourceFileName));
+        else
+            m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceFileName));
+#endif
     }
 
     emit sourceFileNameChanged(sourceFileName);

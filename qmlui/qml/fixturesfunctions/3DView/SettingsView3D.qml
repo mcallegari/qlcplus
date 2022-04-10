@@ -670,6 +670,16 @@ Rectangle
                                     tooltip: qsTr("Remove the selected items")
                                     onClicked: View3D.removeSelectedGenericItems()
                                 }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    faSource: FontAwesome.fa_compress
+                                    faColor: UISettings.fgMain
+                                    tooltip: qsTr("Normalize the selected items")
+                                    onClicked: View3D.normalizeSelectedGenericItems()
+                                }
                                 Rectangle
                                 {
                                     Layout.fillWidth: true

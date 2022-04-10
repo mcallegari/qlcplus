@@ -41,12 +41,12 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCCueStack "CueStack"
-#define KXMLQLCCueStackID "ID"
-#define KXMLQLCCueStackSpeed "Speed"
-#define KXMLQLCCueStackSpeedFadeIn "FadeIn"
-#define KXMLQLCCueStackSpeedFadeOut "FadeOut"
-#define KXMLQLCCueStackSpeedDuration "Duration"
+#define KXMLQLCCueStack              QString("CueStack")
+#define KXMLQLCCueStackID            QString("ID")
+#define KXMLQLCCueStackSpeed         QString("Speed")
+#define KXMLQLCCueStackSpeedFadeIn   QString("FadeIn")
+#define KXMLQLCCueStackSpeedFadeOut  QString("FadeOut")
+#define KXMLQLCCueStackSpeedDuration QString("Duration")
 
 class CueStack : public QObject, public DMXSource
 {

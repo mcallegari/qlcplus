@@ -27,47 +27,47 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define KXMLQLCMonitorDisplay "DisplayMode"
-#define KXMLQLCMonitorChannels "ChannelStyle"
-#define KXMLQLCMonitorValues "ValueStyle"
-#define KXMLQLCMonitorFont "Font"
-#define KXMLQLCMonitorGrid "Grid"
-#define KXMLQLCMonitorGridWidth "Width"
-#define KXMLQLCMonitorGridHeight "Height"
-#define KXMLQLCMonitorGridDepth "Depth"
-#define KXMLQLCMonitorGridUnits "Units"
-#define KXMLQLCMonitorPointOfView "POV"
-#define KXMLQLCMonitorItemID "ID"
-#define KXMLQLCMonitorShowLabels "ShowLabels"
+#define KXMLQLCMonitorDisplay       QString("DisplayMode")
+#define KXMLQLCMonitorChannels      QString("ChannelStyle")
+#define KXMLQLCMonitorValues        QString("ValueStyle")
+#define KXMLQLCMonitorFont          QString("Font")
+#define KXMLQLCMonitorGrid          QString("Grid")
+#define KXMLQLCMonitorGridWidth     QString("Width")
+#define KXMLQLCMonitorGridHeight    QString("Height")
+#define KXMLQLCMonitorGridDepth     QString("Depth")
+#define KXMLQLCMonitorGridUnits     QString("Units")
+#define KXMLQLCMonitorPointOfView   QString("POV")
+#define KXMLQLCMonitorItemID        QString("ID")
+#define KXMLQLCMonitorShowLabels    QString("ShowLabels")
 
-#define KXMLQLCMonitorCommonBackground "Background"
-#define KXMLQLCMonitorCustomBgItem "BackgroundItem"
+#define KXMLQLCMonitorCommonBackground  QString("Background")
+#define KXMLQLCMonitorCustomBgItem      QString("BackgroundItem")
 
-#define KXMLQLCMonitorFixtureItem "FxItem"
-#define KXMLQLCMonitorStageItem "StageItem"
-#define KXMLQLCMonitorMeshItem "MeshItem"
-#define KXMLQLCMonitorItemName "Name"
-#define KXMLQLCMonitorItemRes "Res"
+#define KXMLQLCMonitorFixtureItem   QString("FxItem")
+#define KXMLQLCMonitorStageItem     QString("StageItem")
+#define KXMLQLCMonitorMeshItem      QString("MeshItem")
+#define KXMLQLCMonitorItemName      QString("Name")
+#define KXMLQLCMonitorItemRes       QString("Res")
 
-#define KXMLQLCMonitorItemXPosition "XPos"
-#define KXMLQLCMonitorItemYPosition "YPos"
-#define KXMLQLCMonitorItemZPosition "ZPos"
-#define KXMLQLCMonitorItemXRotation "XRot"
-#define KXMLQLCMonitorItemYRotation "YRot"
-#define KXMLQLCMonitorItemZRotation "ZRot"
-#define KXMLQLCMonitorFixtureRotation "Rotation" // LEGACY
-#define KXMLQLCMonitorItemXScale "XScale"
-#define KXMLQLCMonitorItemYScale "YScale"
-#define KXMLQLCMonitorItemZScale "ZScale"
+#define KXMLQLCMonitorItemXPosition     QString("XPos")
+#define KXMLQLCMonitorItemYPosition     QString("YPos")
+#define KXMLQLCMonitorItemZPosition     QString("ZPos")
+#define KXMLQLCMonitorItemXRotation     QString("XRot")
+#define KXMLQLCMonitorItemYRotation     QString("YRot")
+#define KXMLQLCMonitorItemZRotation     QString("ZRot")
+#define KXMLQLCMonitorFixtureRotation   QString("Rotation") // LEGACY
+#define KXMLQLCMonitorItemXScale        QString("XScale")
+#define KXMLQLCMonitorItemYScale        QString("YScale")
+#define KXMLQLCMonitorItemZScale        QString("ZScale")
 
-#define KXMLQLCMonitorFixtureHeadIndex "Head"
-#define KXMLQLCMonitorFixtureLinkedIndex "Linked"
+#define KXMLQLCMonitorFixtureHeadIndex      QString("Head")
+#define KXMLQLCMonitorFixtureLinkedIndex    QString("Linked")
 
-#define KXMLQLCMonitorFixtureGelColor "GelColor"
+#define KXMLQLCMonitorFixtureGelColor QString("GelColor")
 
-#define KXMLQLCMonitorFixtureHiddenFlag "Hidden"
-#define KXMLQLCMonitorFixtureInvPanFlag "InvertedPan"
-#define KXMLQLCMonitorFixtureInvTiltFlag "InvertedTilt"
+#define KXMLQLCMonitorFixtureHiddenFlag     QString("Hidden")
+#define KXMLQLCMonitorFixtureInvPanFlag     QString("InvertedPan")
+#define KXMLQLCMonitorFixtureInvTiltFlag    QString("InvertedTilt")
 
 #define GRID_DEFAULT_WIDTH  5
 #define GRID_DEFAULT_HEIGHT 3

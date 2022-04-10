@@ -179,7 +179,10 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
 
     m_groupSelection.append(absIndex);
 
-    std::sort(m_groupSelection.begin(), m_groupSelection.end());
+    std::sort(m_groupSelection.begin(), m_groupSelection.end(),
+              [](QVariant a, QVariant b) {
+                  return a.toUInt() < b.toUInt();
+              });
 
     qDebug() << "Selection size" << m_groupSelection.count() << m_groupSelection;
 

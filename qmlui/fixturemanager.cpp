@@ -31,7 +31,6 @@
 #include "qlccapability.h"
 #include "qlcfixturedef.h"
 #include "treemodelitem.h"
-#include "colorfilters.h"
 #include "fixtureutils.h"
 #include "treemodel.h"
 #include "qlcconfig.h"
@@ -1443,7 +1442,7 @@ bool FixtureManager::loadColorFilters(const QDir &dir, bool user)
 
         if (path.toLower().endsWith(KExtColorFilters) == true)
         {
-            ColorFilters* colFilter = new ColorFilters();
+            ColorFilters *colFilter = new ColorFilters();
             Q_ASSERT(colFilter != nullptr);
 
             QFile::FileError error = colFilter->loadXML(path);

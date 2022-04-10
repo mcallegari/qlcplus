@@ -27,6 +27,7 @@
 #include <QThread>
 #include <QSet>
 
+#include "inputpatch.h"
 #include "qlcchannel.h"
 
 class QXmlStreamReader;
@@ -46,20 +47,20 @@ class Doc;
 
 #define UNIVERSE_SIZE 512
 
-#define KXMLQLCUniverse "Universe"
-#define KXMLQLCUniverseName "Name"
-#define KXMLQLCUniverseID "ID"
-#define KXMLQLCUniversePassthrough "Passthrough"
+#define KXMLQLCUniverse             QString("Universe")
+#define KXMLQLCUniverseName         QString("Name")
+#define KXMLQLCUniverseID           QString("ID")
+#define KXMLQLCUniversePassthrough  QString("Passthrough")
 
-#define KXMLQLCUniverseInputPatch "Input"
-#define KXMLQLCUniverseOutputPatch "Output"
-#define KXMLQLCUniverseFeedbackPatch "Feedback"
+#define KXMLQLCUniverseInputPatch    QString("Input")
+#define KXMLQLCUniverseOutputPatch   QString("Output")
+#define KXMLQLCUniverseFeedbackPatch QString("Feedback")
 
-#define KXMLQLCUniversePlugin "Plugin"
-#define KXMLQLCUniverseLine "Line"
-#define KXMLQLCUniverseLineUID "UID"
-#define KXMLQLCUniverseProfileName "Profile"
-#define KXMLQLCUniversePluginParameters "PluginParameters"
+#define KXMLQLCUniversePlugin           QString("Plugin")
+#define KXMLQLCUniverseLine             QString("Line")
+#define KXMLQLCUniverseLineUID          QString("UID")
+#define KXMLQLCUniverseProfileName      QString("Profile")
+#define KXMLQLCUniversePluginParameters QString("PluginParameters")
 
 /** Universe class contains input/output data for one DMX universe
  */
