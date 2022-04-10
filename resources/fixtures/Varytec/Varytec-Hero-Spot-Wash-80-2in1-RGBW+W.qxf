@@ -20,7 +20,7 @@
  <Channel Name="Wash Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="1" Max="10">Not functional</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -37,29 +37,6 @@
   <Capability Min="141" Max="150" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue + White</Capability>
   <Capability Min="151" Max="200" Preset="SlowToFast">Switch, Slow to Fast</Capability>
   <Capability Min="201" Max="255" Preset="SlowToFast">Flow, Slow to Fast</Capability>
- </Channel>
- <Channel Name="-Zoom" Preset="BeamZoomSmallBig"/>
- <Channel Name="-Beam">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="100">Effect, Closed to Open</Capability>
-  <Capability Min="101" Max="133">Bounce. Slow to Fast</Capability>
-  <Capability Min="134" Max="194">CCW, Fast to Slow</Capability>
-  <Capability Min="195" Max="255">CW, Slow to Fast</Capability>
- </Channel>
- <Channel Name="-Functions">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">Not functional</Capability>
-  <Capability Min="11" Max="20">Built-in program 1</Capability>
-  <Capability Min="21" Max="30">Built-in program 2</Capability>
-  <Capability Min="31" Max="40">Built-in program 3</Capability>
-  <Capability Min="41" Max="50">Built-in program 4</Capability>
-  <Capability Min="51" Max="60">Built-in program 5</Capability>
-  <Capability Min="61" Max="70">Built-in program 6</Capability>
-  <Capability Min="71" Max="80">Built-in program 7</Capability>
-  <Capability Min="81" Max="90">Built-in program 8</Capability>
-  <Capability Min="91" Max="230">Sound-controlled Off to High</Capability>
-  <Capability Min="231" Max="240">Reset after 3 seconds</Capability>
-  <Capability Min="241" Max="255">Not Functional</Capability>
  </Channel>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
