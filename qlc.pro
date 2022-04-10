@@ -62,5 +62,14 @@ appimage: {
 INSTALLS           += translations
 QMAKE_DISTCLEAN += $$translations.files
 
+# run
+run.target = run
+QMAKE_EXTRA_TARGETS += run
+qmlui: {
+unix:run.commands += LD_LIBRARY_PATH=engine/src:\$\$LD_LIBRARY_PATH qmlui/qlcplus
+} else {
+unix:run.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBRARY_PATH main/qlcplus
+}
+
 # Leave this on the last row of this file
 SUBDIRS += platforms
