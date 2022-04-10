@@ -20,7 +20,6 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QInputDialog>
 #include <QColorDialog>
@@ -144,7 +143,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
 
     /* Main layout */
     new QHBoxLayout(this);
-    layout()->setMargin(1);
+    layout()->setContentsMargins(1, 1, 1, 1);
     layout()->setSpacing(1);
 
     initActions();

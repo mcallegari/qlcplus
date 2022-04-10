@@ -51,7 +51,7 @@ class Cue;
  * @{
  */
 
-#define KXMLQLCSimpleDesk "SimpleDesk"
+#define KXMLQLCSimpleDesk QString("SimpleDesk")
 
 class SimpleDesk : public QWidget
 {

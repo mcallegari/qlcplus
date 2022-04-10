@@ -37,35 +37,35 @@ class Fixture;
  * @{
  */
 
-#define KXMLQLCEFXPropagationMode "PropagationMode"
-#define KXMLQLCEFXPropagationModeParallel "Parallel"
-#define KXMLQLCEFXPropagationModeSerial "Serial"
-#define KXMLQLCEFXPropagationModeAsymmetric "Asymmetric"
-#define KXMLQLCEFXAlgorithm "Algorithm"
-#define KXMLQLCEFXWidth "Width"
-#define KXMLQLCEFXHeight "Height"
-#define KXMLQLCEFXRotation "Rotation"
-#define KXMLQLCEFXStartOffset "StartOffset"
-#define KXMLQLCEFXIsRelative "IsRelative"
-#define KXMLQLCEFXAxis "Axis"
-#define KXMLQLCEFXOffset "Offset"
-#define KXMLQLCEFXFrequency "Frequency"
-#define KXMLQLCEFXPhase "Phase"
-#define KXMLQLCEFXChannel "Channel"
-#define KXMLQLCEFXX "X"
-#define KXMLQLCEFXY "Y"
-#define KXMLQLCEFXStartScene "StartScene"
-#define KXMLQLCEFXStopScene "StopScene"
+#define KXMLQLCEFXPropagationMode           QString("PropagationMode")
+#define KXMLQLCEFXPropagationModeParallel   QString("Parallel")
+#define KXMLQLCEFXPropagationModeSerial     QString("Serial")
+#define KXMLQLCEFXPropagationModeAsymmetric QString("Asymmetric")
+#define KXMLQLCEFXAlgorithm                 QString("Algorithm")
+#define KXMLQLCEFXWidth                     QString("Width")
+#define KXMLQLCEFXHeight                    QString("Height")
+#define KXMLQLCEFXRotation                  QString("Rotation")
+#define KXMLQLCEFXStartOffset               QString("StartOffset")
+#define KXMLQLCEFXIsRelative                QString("IsRelative")
+#define KXMLQLCEFXAxis                      QString("Axis")
+#define KXMLQLCEFXOffset                    QString("Offset")
+#define KXMLQLCEFXFrequency                 QString("Frequency")
+#define KXMLQLCEFXPhase                     QString("Phase")
+#define KXMLQLCEFXChannel                   QString("Channel")
+#define KXMLQLCEFXX                         QString("X")
+#define KXMLQLCEFXY                         QString("Y")
+#define KXMLQLCEFXStartScene                QString("StartScene")
+#define KXMLQLCEFXStopScene                 QString("StopScene")
 
-#define KXMLQLCEFXCircleAlgorithmName "Circle"
-#define KXMLQLCEFXEightAlgorithmName "Eight"
-#define KXMLQLCEFXLineAlgorithmName "Line"
-#define KXMLQLCEFXLine2AlgorithmName "Line2"
-#define KXMLQLCEFXDiamondAlgorithmName "Diamond"
-#define KXMLQLCEFXSquareAlgorithmName "Square"
-#define KXMLQLCEFXSquareChoppyAlgorithmName "SquareChoppy"
-#define KXMLQLCEFXLeafAlgorithmName "Leaf"
-#define KXMLQLCEFXLissajousAlgorithmName "Lissajous"
+#define KXMLQLCEFXCircleAlgorithmName       QString("Circle")
+#define KXMLQLCEFXEightAlgorithmName        QString("Eight")
+#define KXMLQLCEFXLineAlgorithmName         QString("Line")
+#define KXMLQLCEFXLine2AlgorithmName        QString("Line2")
+#define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
+#define KXMLQLCEFXSquareAlgorithmName       QString("Square")
+#define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
+#define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
+#define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
 
 /**
  * An EFX (effects) function that is used to create

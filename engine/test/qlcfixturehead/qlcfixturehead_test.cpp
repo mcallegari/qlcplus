@@ -74,10 +74,10 @@ void QLCFixtureHead_Test::load()
     QLCFixtureHead head;
     QVERIFY(head.loadXML(xmlReader));
     QCOMPARE(head.channels().size(), 4);
-    QVERIFY(head.channels().contains(0));
-    QVERIFY(head.channels().contains(1));
-    QVERIFY(head.channels().contains(15));
-    QVERIFY(head.channels().contains(42));
+    QVERIFY(head.channels().contains(quint32(0)));
+    QVERIFY(head.channels().contains(quint32(1)));
+    QVERIFY(head.channels().contains(quint32(15)));
+    QVERIFY(head.channels().contains(quint32(42)));
 }
 
 void QLCFixtureHead_Test::save()
@@ -107,7 +107,7 @@ void QLCFixtureHead_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Channel")
+        if (xmlReader.name().toString() == "Channel")
         {
             QString chNum = xmlReader.readElementText();
             QVERIFY(chNum.toInt() == 0 || chNum.toInt() == 1 ||
@@ -131,25 +131,25 @@ void QLCFixtureHead_Test::channels()
 
     head.addChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QVERIFY(head.channels().contains(0) == true);
+    QVERIFY(head.channels().contains(quint32(0)) == true);
 
     head.addChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QVERIFY(head.channels().contains(0) == true);
+    QVERIFY(head.channels().contains(quint32(0)) == true);
 
     head.addChannel(5000);
     QCOMPARE(head.channels().size(), 2);
-    QVERIFY(head.channels().contains(0) == true);
-    QVERIFY(head.channels().contains(5000) == true);
+    QVERIFY(head.channels().contains(quint32(0)) == true);
+    QVERIFY(head.channels().contains(quint32(5000)) == true);
 
     head.removeChannel(1);
     QCOMPARE(head.channels().size(), 2);
-    QVERIFY(head.channels().contains(0) == true);
-    QVERIFY(head.channels().contains(5000) == true);
+    QVERIFY(head.channels().contains(quint32(0)) == true);
+    QVERIFY(head.channels().contains(quint32(5000)) == true);
 
     head.removeChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QVERIFY(head.channels().contains(5000) == true);
+    QVERIFY(head.channels().contains(quint32(5000)) == true);
 
     head.removeChannel(5000);
     QCOMPARE(head.channels().size(), 0);

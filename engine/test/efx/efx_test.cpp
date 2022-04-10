@@ -2955,7 +2955,7 @@ void EFX_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Speed")
+        if (xmlReader.name().toString() == "Speed")
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toUInt(), uint(42));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString().toUInt(), uint(69));
@@ -2963,57 +2963,57 @@ void EFX_Test::save()
             speed = true;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Direction")
+        else if (xmlReader.name().toString() == "Direction")
         {
             QVERIFY(xmlReader.readElementText() == "Backward");
             dir = true;
         }
-        else if (xmlReader.name() == "StartOffset")
+        else if (xmlReader.name().toString() == "StartOffset")
         {
             QVERIFY(xmlReader.readElementText() == "91");
             off = true;
         }
-        else if (xmlReader.name() == "RunOrder")
+        else if (xmlReader.name().toString() == "RunOrder")
         {
             QVERIFY(xmlReader.readElementText() == "SingleShot");
             run = true;
         }
-        else if (xmlReader.name() == "Bus")
+        else if (xmlReader.name().toString() == "Bus")
         {
             QFAIL("EFX should not save a Bus tag anymore!");
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Algorithm")
+        else if (xmlReader.name().toString() == "Algorithm")
         {
             QVERIFY(xmlReader.readElementText() == "Lissajous");
             algo = true;
         }
-        else if (xmlReader.name() == "Width")
+        else if (xmlReader.name().toString() == "Width")
         {
             QVERIFY(xmlReader.readElementText() == "13");
             w = true;
         }
-        else if (xmlReader.name() == "Height")
+        else if (xmlReader.name().toString() == "Height")
         {
             QVERIFY(xmlReader.readElementText() == "42");
             h = true;
         }
-        else if (xmlReader.name() == "Rotation")
+        else if (xmlReader.name().toString() == "Rotation")
         {
             QVERIFY(xmlReader.readElementText() == "78");
             rot = true;
         }
-        else if (xmlReader.name() == "IsRelative")
+        else if (xmlReader.name().toString() == "IsRelative")
         {
             QVERIFY(xmlReader.readElementText() == "0");
             isRelative = true;
         }
-        else if (xmlReader.name() == "PropagationMode")
+        else if (xmlReader.name().toString() == "PropagationMode")
         {
             QVERIFY(xmlReader.readElementText() == "Serial");
             prop = true;
         }
-        else if (xmlReader.name() == "Axis")
+        else if (xmlReader.name().toString() == "Axis")
         {
             bool axis = true;
             if (xmlReader.attributes().value("Name").toString() == "X")
@@ -3025,7 +3025,7 @@ void EFX_Test::save()
 
             while (xmlReader.readNextStartElement())
             {
-                if (xmlReader.name() == "Offset")
+                if (xmlReader.name().toString() == "Offset")
                 {
                     if (axis == true)
                     {
@@ -3038,7 +3038,7 @@ void EFX_Test::save()
                         yoff = true;
                     }
                 }
-                else if (xmlReader.name() == "Frequency")
+                else if (xmlReader.name().toString() == "Frequency")
                 {
                     if (axis == true)
                     {
@@ -3051,7 +3051,7 @@ void EFX_Test::save()
                         yfreq = true;
                     }
                 }
-                else if (xmlReader.name() == "Phase")
+                else if (xmlReader.name().toString() == "Phase")
                 {
                     if (axis == true)
                     {
@@ -3070,7 +3070,7 @@ void EFX_Test::save()
                 }
             }
         }
-        else if (xmlReader.name() == "Fixture")
+        else if (xmlReader.name().toString() == "Fixture")
         {
             int expectHead = 0;
             bool expectBackward = false;
@@ -3079,7 +3079,7 @@ void EFX_Test::save()
 
             while (xmlReader.readNextStartElement())
             {
-                if (xmlReader.name() == "ID")
+                if (xmlReader.name().toString() == "ID")
                 {
                     QString text = xmlReader.readElementText();
                     if (fixtures.contains(text) == true)
@@ -3108,12 +3108,12 @@ void EFX_Test::save()
 
                     fixtureid++;
                 }
-                else if (xmlReader.name() == "Head")
+                else if (xmlReader.name().toString() == "Head")
                 {
                     QCOMPARE(xmlReader.readElementText().toInt(), expectHead);
                     fixturehead++;
                 }
-                else if (xmlReader.name() == "Direction")
+                else if (xmlReader.name().toString() == "Direction")
                 {
                     QString text = xmlReader.readElementText();
                     if (expectBackward == false && text == "Backward")
@@ -3123,12 +3123,12 @@ void EFX_Test::save()
 
                     fixturedirection++;
                 }
-                else if (xmlReader.name() == "StartOffset")
+                else if (xmlReader.name().toString() == "StartOffset")
                 {
                     QCOMPARE(xmlReader.readElementText().toInt(), expectStartOffset);
                     fixtureStartOffset++;
                 }
-                else if (xmlReader.name() == "Mode")
+                else if (xmlReader.name().toString() == "Mode")
                 {
                     QCOMPARE(xmlReader.readElementText().toInt(), expectedMode);
                 }

@@ -176,7 +176,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
     item->setData(KColumnName, PROP_ID, QString::number(fixture->id()));
     if (m_channelSelection)
     {
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
         item->setCheckState(KColumnName, Qt::Unchecked);
     }
     if (m_disabledFixtures.contains(fixture->id()) == true)
@@ -465,7 +465,7 @@ void FixtureTreeWidget::updateTree()
             topItem->setExpanded(true);
             if (m_channelSelection)
             {
-                topItem->setFlags(topItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+                topItem->setFlags(topItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
                 topItem->setCheckState(KColumnName, Qt::Unchecked);
             }
             m_universesCount++;

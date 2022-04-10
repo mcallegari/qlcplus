@@ -45,7 +45,7 @@ MonitorFixture::MonitorFixture(QWidget* parent, Doc* doc)
     m_valueStyle = MonitorProperties::DMXValues;
 
     new QGridLayout(this);
-    layout()->setMargin(3);
+    layout()->setContentsMargins(3, 3, 3, 3);
 
     setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     setAutoFillBackground(true);

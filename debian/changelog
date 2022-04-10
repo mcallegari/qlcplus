@@ -3,6 +3,8 @@ qlcplus (4.12.5) stable; urgency=low
   * engine: add support for 16bit fading
   * engine: add support for Scene pausing
   * engine: consider fade out on Scene flashing
+  * engine: consider fade out of an Audio function as Chaser step
+  * engine: fixture definitions are now searched in the project folder too
   * UI/RGB Matrix Editor: fix dumping on a Sequence
   * UI/Sequence Editor: fix step values not sent to output/monitor
   * Virtual Console/Slider: fix crash when controlling non existing channels
@@ -13,6 +15,7 @@ qlcplus (4.12.5) stable; urgency=low
   * Plugins: save IO lines by name and not by index (where possible)
   * Plugins/DMX USB: add support for COM485-PLUS2 product (thanks to David Turner)
   * Plugins/E1.31: ignore non DMX packets in input
+  * Plugins/E1.31: fix universe input above 127
   * Plugins/HID: add support for Nodle R4S (thanks to qfulmina)
   * Plugins/HID: fix HID DMX support on Windows (thanks to Daniel Kirschten)
   * RGB scripts: added 'Fireworks' script (thanks to Hans-Jürgen Tappe)
@@ -28,13 +31,23 @@ qlcplus (4.12.5) stable; urgency=low
   * New fixture: Ayra ERO 075 (thanks to Jan van Rumph)
   * New fixtures: Eurolite LED TMH-51, Eurolite LED TMH FE-1800, Eurolite LED TMH-X5 (thanks to Sebastian Moeckel)
   * New fixtures: Fun-Generation PicoBeam 60, American DJ Entour Faze (thanks to Sebastian Moeckel)
+  * New fixtures: Varytec Hero Beam 100, Varytec Hero Spot 230 (thanks to Sebastian Moeckel)
   * New fixture: Chauvet Rogue R1 FX-B (thanks to Jean-Daniel Garcia / Barbara Brugger)
   * New fixture: Chauvet Mini Kinta IRC (thanks to Jason Willett)
   * New fixture: Stairville MH-x30 LED Spot (thanks to Peeter)
-  * New fixture: Eurolite LED SLS-603 (thanks to Klaus Muth)
+  * New fixtures: Eurolite LED SLS-603, QTX Flare-1000 (thanks to Klaus Muth)
   * New fixtures: Clay Paky Arolla Spot MP, Arolla Profile MP, Arolla Profile HP (thanks to Gianluca Baggi, Giordano Fassi)
+  * New fixture: Martin RUSH Par 2 RGBW Zoom (thanks to jeremy-AMMD)
+  * New fixture: UKing Wall Washer 24x3W (thanks to Jürgen Froeschlin)
+  * New fixture: Showtec Par 56 90W COB RGB (thanks to David Gouronc)
+  * New fixture: UKing B55 Par Can 12 LED RGBW 12W (thanks to Nathan Durnan)
+  * New fixture: Rockville Best Strip 60 (thanks to DJ Nikko)
+  * New fixture: Equinox Fusion 50 MkII (thanks to David Dale)
+  * New fixture: Showtec Slidebar 4 (thanks to Arie Roos)
+  * New fixture: Briteq BT-Theatre 50WW (thanks to Fredje Gallon)
+  * New fixture: Showtec Spectral 850 RGBA Tour LED Spot (thanks to Stefan Krumm)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jan 2022 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 24 Apr 2022 12:13:14 +0200
 
 qlcplus (4.12.4) stable; urgency=low
 

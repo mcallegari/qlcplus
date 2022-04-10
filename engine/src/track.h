@@ -32,7 +32,7 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCTrack "Track"
+#define KXMLQLCTrack QString("Track")
 
 class Track : public QObject
 {

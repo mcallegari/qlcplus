@@ -249,12 +249,12 @@ void QLCPalette_Test::save()
     QXmlStreamReader xmlReader(&buffer);
 
     xmlReader.readNextStartElement();
-    QVERIFY(xmlReader.name() == "Palette");
+    QVERIFY(xmlReader.name().toString() == "Palette");
 
-    QVERIFY(xmlReader.attributes().value("ID") == "3");
-    QVERIFY(xmlReader.attributes().value("Name") == "Center up");
-    QVERIFY(xmlReader.attributes().value("Type") == "PanTilt");
-    QVERIFY(xmlReader.attributes().value("Value") == "90,145");
+    QVERIFY(xmlReader.attributes().value("ID").toString() == "3");
+    QVERIFY(xmlReader.attributes().value("Name").toString() == "Center up");
+    QVERIFY(xmlReader.attributes().value("Type").toString() == "PanTilt");
+    QVERIFY(xmlReader.attributes().value("Value").toString() == "90,145");
 }
 
 QTEST_APPLESS_MAIN(QLCPalette_Test)

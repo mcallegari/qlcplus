@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audiocapture_qt.cpp
+  audiocapture_qt6.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,38 +17,40 @@
   limitations under the License.
 */
 
+#include <QMediaDevices>
+#include <QAudioDevice>
 #include <QSettings>
 #include <QDebug>
 #include <QCoreApplication>
 
-#include "audiocapture_qt.h"
+#include "audiocapture_qt6.h"
 
-AudioCaptureQt::AudioCaptureQt(QObject * parent)
+AudioCaptureQt6::AudioCaptureQt6(QObject * parent)
     : AudioCapture(parent)
-    , m_audioInput(NULL)
+    , m_audioSource(NULL)
     , m_input(NULL)
 {
 }
 
-AudioCaptureQt::~AudioCaptureQt()
+AudioCaptureQt6::~AudioCaptureQt6()
 {
     stop();
-    Q_ASSERT(m_audioInput == NULL);
+    Q_ASSERT(m_audioSource == NULL);
 }
 
-bool AudioCaptureQt::initialize()
+bool AudioCaptureQt6::initialize()
 {
     QSettings settings;
     QString devName = "";
-    QAudioDeviceInfo audioDevice = QAudioDeviceInfo::defaultInputDevice();
+    QAudioDevice audioDevice = QMediaDevices::defaultAudioInput();
 
     QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
     {
         devName = var.toString();
-        foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+        foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioInputs())
         {
-            if (deviceInfo.deviceName() == devName)
+            if (deviceInfo.description() == devName)
             {
                 audioDevice = deviceInfo;
                 break;
@@ -58,36 +60,34 @@ bool AudioCaptureQt::initialize()
 
     m_format.setSampleRate(m_sampleRate);
     m_format.setChannelCount(m_channels);
-    m_format.setSampleSize(16);
-    m_format.setSampleType(QAudioFormat::SignedInt);
-    m_format.setByteOrder(QAudioFormat::LittleEndian);
-    m_format.setCodec("audio/pcm");
+    m_format.setSampleFormat(QAudioFormat::Int16);
+    //m_format.setCodec("audio/pcm");
 
     if (!audioDevice.isFormatSupported(m_format))
     {
         qWarning() << "Requested format not supported - trying to use nearest";
-        m_format = audioDevice.nearestFormat(m_format);
+        m_format = audioDevice.preferredFormat(); // nearestFormat(m_format);
         m_channels = m_format.channelCount();
         m_sampleRate = m_format.sampleRate();
     }
 
-    Q_ASSERT(m_audioInput == NULL);
+    Q_ASSERT(m_audioSource == NULL);
 
-    m_audioInput = new QAudioInput(audioDevice, m_format);
+    m_audioSource = new QAudioSource(audioDevice, m_format);
 
-    if (m_audioInput == NULL)
+    if (m_audioSource == NULL)
     {
-        qWarning() << "Cannot open audio input stream from device" << audioDevice.deviceName();
+        qWarning() << "Cannot open audio input stream from device" << audioDevice.description();
         return false;
     }
 
-    m_input = m_audioInput->start();
+    m_input = m_audioSource->start();
 
-    if (m_audioInput->state() == QAudio::StoppedState)
+    if (m_audioSource->state() == QAudio::StoppedState)
     {
-        qWarning() << "Could not start input capture on device" << audioDevice.deviceName();
-        delete m_audioInput;
-        m_audioInput = NULL;
+        qWarning() << "Could not start input capture on device" << audioDevice.description();
+        delete m_audioSource;
+        m_audioSource = NULL;
         m_input = NULL;
         return false;
     }
@@ -97,38 +97,38 @@ bool AudioCaptureQt::initialize()
     return true;
 }
 
-void AudioCaptureQt::uninitialize()
+void AudioCaptureQt6::uninitialize()
 {
-    Q_ASSERT(m_audioInput != NULL);
+    Q_ASSERT(m_audioSource != NULL);
 
-    m_audioInput->stop();
-    delete m_audioInput;
-    m_audioInput = NULL;
+    m_audioSource->stop();
+    delete m_audioSource;
+    m_audioSource = NULL;
 }
 
-qint64 AudioCaptureQt::latency()
+qint64 AudioCaptureQt6::latency()
 {
     return 0; // TODO
 }
 
-void AudioCaptureQt::setVolume(qreal volume)
+void AudioCaptureQt6::setVolume(qreal volume)
 {
     m_volume = volume;
-    if (m_audioInput != NULL)
-        m_audioInput->setVolume(volume);
+    if (m_audioSource != NULL)
+        m_audioSource->setVolume(volume);
 }
 
-void AudioCaptureQt::suspend()
+void AudioCaptureQt6::suspend()
 {
 }
 
-void AudioCaptureQt::resume()
+void AudioCaptureQt6::resume()
 {
 }
 
-bool AudioCaptureQt::readAudio(int maxSize)
+bool AudioCaptureQt6::readAudio(int maxSize)
 {
-    if (m_audioInput == NULL || m_input == NULL)
+    if (m_audioSource == NULL || m_input == NULL)
         return false;
 
     int bufferSize = maxSize * sizeof(*m_audioBuffer);

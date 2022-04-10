@@ -32,15 +32,15 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCAudioBarIndex "Index"
-#define KXMLQLCAudioBarName "Name"
-#define KXMLQLCAudioBarType "Type"
-#define KXMLQLCAudioBarDMXChannels "DMXChannels"
-#define KXMLQLCAudioBarFunction "FunctionID"
-#define KXMLQLCAudioBarWidget "WidgetID"
-#define KXMLQLCAudioBarMinThreshold "MinThreshold"
-#define KXMLQLCAudioBarMaxThreshold "MaxThreshold"
-#define KXMLQLCAudioBarDivisor "Divisor"
+#define KXMLQLCAudioBarIndex        QString("Index")
+#define KXMLQLCAudioBarName         QString("Name")
+#define KXMLQLCAudioBarType         QString("Type")
+#define KXMLQLCAudioBarDMXChannels  QString("DMXChannels")
+#define KXMLQLCAudioBarFunction     QString("FunctionID")
+#define KXMLQLCAudioBarWidget       QString("WidgetID")
+#define KXMLQLCAudioBarMinThreshold QString("MinThreshold")
+#define KXMLQLCAudioBarMaxThreshold QString("MaxThreshold")
+#define KXMLQLCAudioBarDivisor      QString("Divisor")
 
 class AudioBar
 {

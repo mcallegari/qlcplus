@@ -207,8 +207,8 @@ void QLCFixtureEditor::closeEvent(QCloseEvent *e)
         int r = QMessageBox::information(this, tr("Close"),
                                      tr("Do you want to save changes to fixture\n\""
                                         "%1\"\nbefore closing?").arg(m_fixtureDef->name()),
-                                     QMessageBox::Yes,
-                                     QMessageBox::No,
+                                     QMessageBox::Yes |
+                                     QMessageBox::No |
                                      QMessageBox::Cancel);
 
         if (r == QMessageBox::Yes)

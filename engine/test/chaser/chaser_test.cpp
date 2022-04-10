@@ -781,32 +781,32 @@ void Chaser_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Bus")
+        if (xmlReader.name() == QString("Bus"))
         {
             QFAIL("Chaser must not write a Bus tag anymore!");
         }
-        else if (xmlReader.name() == "Direction")
+        else if (xmlReader.name() == QString("Direction"))
         {
             QVERIFY(xmlReader.readElementText() == "Backward");
             dir++;
         }
-        else if (xmlReader.name() == "RunOrder")
+        else if (xmlReader.name() == QString("RunOrder"))
         {
             QVERIFY(xmlReader.readElementText() == "SingleShot");
             run++;
         }
-        else if (xmlReader.name() == "Step")
+        else if (xmlReader.name() == QString("Step"))
         {
             quint32 fid = xmlReader.readElementText().toUInt();
             QVERIFY(fid == 0 || fid == 1 || fid == 2 || fid == 3);
             fids++;
         }
-        else if (xmlReader.name() == "Speed")
+        else if (xmlReader.name() == QString("Speed"))
         {
             speed++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "SpeedModes")
+        else if (xmlReader.name() == QString("SpeedModes"))
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("Default"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("PerStep"));

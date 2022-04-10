@@ -44,10 +44,7 @@ class QString;
 #define KExtWorkspace        ".qxw"  // 'Q'LC+ 'X'ml 'W'orkspace
 #define KExtInputProfile     ".qxi"  // 'Q'LC+ 'X'ml 'I'nput profile
 #define KExtModifierTemplate ".qxmt" // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
-
-#ifdef QMLUI
 #define KExtColorFilters     ".qxcf" // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
-#endif
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   define KExtPlugin    ".dll" // Dynamic-Link Library
@@ -58,10 +55,10 @@ class QString;
 #endif
 
 // Generic XML tags common for all documents
-#define KXMLQLCCreator "Creator"
-#define KXMLQLCCreatorName "Name"
-#define KXMLQLCCreatorVersion "Version"
-#define KXMLQLCCreatorAuthor "Author"
+#define KXMLQLCCreator          QString("Creator")
+#define KXMLQLCCreatorName      QString("Name")
+#define KXMLQLCCreatorVersion   QString("Version")
+#define KXMLQLCCreatorAuthor    QString("Author")
 
 // True and false
 #define KXMLQLCTrue "True"

@@ -241,7 +241,7 @@ void RGBMatrix_Test::loadSave()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Speed")
+        if (xmlReader.name().toString() == "Speed")
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("10"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("20"));
@@ -249,38 +249,38 @@ void RGBMatrix_Test::loadSave()
             speed++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Direction")
+        else if (xmlReader.name().toString() == "Direction")
         {
             QCOMPARE(xmlReader.readElementText(), QString("Backward"));
             dir++;
         }
-        else if (xmlReader.name() == "RunOrder")
+        else if (xmlReader.name().toString() == "RunOrder")
         {
             QCOMPARE(xmlReader.readElementText(), QString("PingPong"));
             run++;
         }
-        else if (xmlReader.name() == "Algorithm")
+        else if (xmlReader.name().toString() == "Algorithm")
         {
             // RGBAlgorithms take care of Algorithm tag's contents
             algo++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "MonoColor")
+        else if (xmlReader.name().toString() == "MonoColor")
         {
             QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::magenta).rgb());
             monocolor++;
         }
-        else if (xmlReader.name() == "EndColor")
+        else if (xmlReader.name().toString() == "EndColor")
         {
             QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::blue).rgb());
             endcolor++;
         }
-        else if (xmlReader.name() == "FixtureGroup")
+        else if (xmlReader.name().toString() == "FixtureGroup")
         {
             QCOMPARE(xmlReader.readElementText(), QString("42"));
             grp++;
         }
-        else if (xmlReader.name() == "ControlMode")
+        else if (xmlReader.name().toString() == "ControlMode")
         {
             QCOMPARE(xmlReader.readElementText(), QString("RGB"));
             colormode++;

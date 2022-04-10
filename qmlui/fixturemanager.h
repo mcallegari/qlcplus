@@ -28,13 +28,13 @@
 #include <QDir>
 
 #include "scenevalue.h"
+#include "colorfilters.h"
 
 class Doc;
 class Fixture;
 class TreeModel;
 class TreeModelItem;
 class FixtureGroup;
-class ColorFilters;
 class MonitorProperties;
 
 class FixtureManager : public QObject

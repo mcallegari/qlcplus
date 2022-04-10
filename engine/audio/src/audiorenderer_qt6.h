@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audiorenderer_qt.h
+  audiorenderer_qt6.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,25 +17,27 @@
   limitations under the License.
 */
 
-#ifndef AUDIORENDERER_QT_H
-#define AUDIORENDERER_QT_H
+#ifndef AUDIORENDERER_QT6_H
+#define AUDIORENDERER_QT6_H
 
 #include "audiorenderer.h"
 #include "audiodecoder.h"
 
-#include <QAudioOutput>
+#include <QAudioFormat>
+#include <QAudioDevice>
+#include <QAudioSink>
 #include <QIODevice>
 
 /** @addtogroup engine_audio Audio
  * @{
  */
 
-class AudioRendererQt : public AudioRenderer
+class AudioRendererQt6 : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererQt(QString device, QObject * parent = 0);
-    ~AudioRendererQt();
+    AudioRendererQt6(QString device, QObject * parent = 0);
+    ~AudioRendererQt6();
 
     /** @reimpl */
     bool initialize(quint32, int, AudioFormat format);
@@ -69,13 +71,13 @@ public:
     void run();
 
 private:
-    QAudioOutput *m_audioOutput;
+    QAudioSink *m_audioSink;
     QIODevice *m_output;
     QAudioFormat m_format;
     QString m_device;
-    QAudioDeviceInfo m_deviceInfo;
+    QAudioDevice m_deviceInfo;
 };
 
 /** @} */
 
-#endif // AUDIORENDERER_QT_H
+#endif // AUDIORENDERER_QT6_H

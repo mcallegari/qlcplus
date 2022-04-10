@@ -45,32 +45,32 @@ class FunctionUiState;
  * @{
  */
 
-#define KXMLQLCFunction "Function"
-#define KXMLQLCFunctionName "Name"
-#define KXMLQLCFunctionID "ID"
-#define KXMLQLCFunctionType "Type"
-#define KXMLQLCFunctionData "Data"
-#define KXMLQLCFunctionPath "Path"
-#define KXMLQLCFunctionHidden "Hidden"
-#define KXMLQLCFunctionBlendMode "BlendMode"
+#define KXMLQLCFunction QString("Function")
+#define KXMLQLCFunctionName QString("Name")
+#define KXMLQLCFunctionID QString("ID")
+#define KXMLQLCFunctionType QString("Type")
+#define KXMLQLCFunctionData QString("Data")
+#define KXMLQLCFunctionPath QString("Path")
+#define KXMLQLCFunctionHidden QString("Hidden")
+#define KXMLQLCFunctionBlendMode QString("BlendMode")
 
-#define KXMLQLCFunctionValue "Value"
-#define KXMLQLCFunctionValueType "Type"
-#define KXMLQLCFunctionChannel "Channel"
+#define KXMLQLCFunctionValue QString("Value")
+#define KXMLQLCFunctionValueType QString("Type")
+#define KXMLQLCFunctionChannel QString("Channel")
 
-#define KXMLQLCFunctionStep "Step"
-#define KXMLQLCFunctionNumber "Number"
+#define KXMLQLCFunctionStep QString("Step")
+#define KXMLQLCFunctionNumber QString("Number")
 
-#define KXMLQLCFunctionDirection "Direction"
-#define KXMLQLCFunctionRunOrder "RunOrder"
+#define KXMLQLCFunctionDirection QString("Direction")
+#define KXMLQLCFunctionRunOrder QString("RunOrder")
 
-#define KXMLQLCFunctionEnabled "Enabled"
+#define KXMLQLCFunctionEnabled QString("Enabled")
 
-#define KXMLQLCFunctionSpeed         "Speed"
-#define KXMLQLCFunctionSpeedFadeIn   "FadeIn"
-#define KXMLQLCFunctionSpeedHold     "Hold"
-#define KXMLQLCFunctionSpeedFadeOut  "FadeOut"
-#define KXMLQLCFunctionSpeedDuration "Duration"
+#define KXMLQLCFunctionSpeed         QString("Speed")
+#define KXMLQLCFunctionSpeedFadeIn   QString("FadeIn")
+#define KXMLQLCFunctionSpeedHold     QString("Hold")
+#define KXMLQLCFunctionSpeedFadeOut  QString("FadeOut")
+#define KXMLQLCFunctionSpeedDuration QString("Duration")
 
 typedef struct
 {

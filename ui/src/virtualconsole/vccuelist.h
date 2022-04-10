@@ -47,21 +47,21 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCCueList "CueList"
-#define KXMLQLCVCCueListFunction "Function" // Legacy
-#define KXMLQLCVCCueListChaser "Chaser"
-#define KXMLQLCVCCueListPlaybackLayout "PlaybackLayout"
-#define KXMLQLCVCCueListNextPrevBehavior "NextPrevBehavior"
-#define KXMLQLCVCCueListCrossfade "Crossfade"
-#define KXMLQLCVCCueListBlend "Blend"
-#define KXMLQLCVCCueListLinked "Linked"
-#define KXMLQLCVCCueListNext "Next"
-#define KXMLQLCVCCueListPrevious "Previous"
-#define KXMLQLCVCCueListPlayback "Playback"
-#define KXMLQLCVCCueListStop "Stop"
-#define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
-#define KXMLQLCVCCueListCrossfadeRight "CrossRight"
-#define KXMLQLCVCCueListSlidersMode "SlidersMode"
+#define KXMLQLCVCCueList                QString("CueList")
+#define KXMLQLCVCCueListFunction        QString("Function") // Legacy
+#define KXMLQLCVCCueListChaser          QString("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout  QString("PlaybackLayout")
+#define KXMLQLCVCCueListNextPrevBehavior QString("NextPrevBehavior")
+#define KXMLQLCVCCueListCrossfade       QString("Crossfade")
+#define KXMLQLCVCCueListBlend           QString("Blend")
+#define KXMLQLCVCCueListLinked          QString("Linked")
+#define KXMLQLCVCCueListNext            QString("Next")
+#define KXMLQLCVCCueListPrevious        QString("Previous")
+#define KXMLQLCVCCueListPlayback        QString("Playback")
+#define KXMLQLCVCCueListStop            QString("Stop")
+#define KXMLQLCVCCueListCrossfadeLeft   QString("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight  QString("CrossRight")
+#define KXMLQLCVCCueListSlidersMode     QString("SlidersMode")
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.

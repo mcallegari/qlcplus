@@ -259,6 +259,7 @@
     <F n="Briteq-BT-ORBIT" m="BT-ORBIT"/>
     <F n="Briteq-BT-Smartzoom" m="BT Smartzoom"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
+    <F n="Briteq-BT-Theatre-50WW" m="BT-Theatre 50WW"/>
     <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
     <F n="Briteq-BT-Vintage" m="BT-Vintage"/>
     <F n="Briteq-BT-W07L12" m="BT-W07L12"/>
@@ -628,6 +629,7 @@
   </M>
   <M n="Equinox">
     <F n="Equinox-Domin8R-II" m="Domin8R II"/>
+    <F n="Equinox-Fusion-50-Mkii" m="Fusion 50 MkII"/>
     <F n="Equinox-Gigabar" m="Gigabar"/>
     <F n="Equinox-Microbar-Quad-System" m="Microbar Quad System"/>
     <F n="Equinox-Party-Par-LED-PAR-56" m="Party Par LED PAR 56"/>
@@ -1103,6 +1105,7 @@
     <F n="Martin-Rush-MH5-Profile" m="Rush MH5 Profile"/>
     <F n="Martin-Rush-MH6-Wash" m="Rush MH6 Wash"/>
     <F n="Martin-RUSH-Par-1-RGBW" m="RUSH Par 1 RGBW"/>
+    <F n="Martin-RUSH-Par-2-RGBW-Zoom" m="RUSH Par 2 RGBW Zoom"/>
     <F n="Martin-SCX-500" m="SCX-500"/>
     <F n="Martin-SCX-600" m="SCX-600"/>
     <F n="Martin-SCX-700" m="SCX-700"/>
@@ -1222,6 +1225,7 @@
     <F n="Pulse-SlimLite-56" m="SlimLite 56"/>
   </M>
   <M n="QTX">
+    <F n="QTX-Flare-1000" m="Flare-1000"/>
     <F n="QTX-HZ-3" m="HZ-3"/>
     <F n="QTX-MHS-60" m="MHS-60"/>
     <F n="QTX-SL-Series" m="SL Series"/>
@@ -1274,6 +1278,7 @@
     <F n="Robe_ColorMix_240_AT" m="ColorMix 240 AT"/>
   </M>
   <M n="Rockville">
+    <F n="Rockville-Best-Strip-60-RGBWAUV" m="Best Strip 60"/>
     <F n="Rockville-Motionstrip-RGBW" m="Motionstrip RGBW"/>
   </M>
   <M n="Rosco">
@@ -1354,6 +1359,7 @@
     <F n="Showtec-Mini-Max-LED-RGB" m="Mini Max LED RGB"/>
     <F n="Showtec-MiniMax-250" m="MiniMax 250"/>
     <F n="Showtec-MultiDim-MK-III-DMX" m="MultiDim MK III DMX"/>
+    <F n="Showtec-Par-56-90W-COB-RGB" m="Par 56 90W COB RGB"/>
     <F n="Showtec-Par-64-100W-COB-UV" m="Par 64 100W COB UV"/>
     <F n="Showtec-Phantom-130-LED-Spot" m="Phantom 130 LED Spot"/>
     <F n="Showtec-Phantom-20-LED-Beam" m="Phantom 20 LED Beam"/>
@@ -1371,6 +1377,8 @@
     <F n="Showtec-Quatro" m="Quatro"/>
     <F n="Showtec-Shark-Beam-FX-One" m="Shark Beam FX One"/>
     <F n="Showtec-Shark-Wash-One" m="Shark Wash One"/>
+    <F n="Showtec-Slidebar-4" m="Slidebar 4"/>
+    <F n="Showtec-Spectral-850-RGBA-Tour" m="Spectral 850 RGBA Tour LED Spot"/>
     <F n="Showtec-Spectral-CYC650" m="Spectral CYC650"/>
     <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
@@ -1526,9 +1534,11 @@
   <M n="UKing">
     <F n="UKing-4-Head-Beam-RGBW" m="4 Head Beam RGBW"/>
     <F n="UKing-7x10W-Mini-Moving-Head" m="7x10W Mini Moving Head"/>
+    <F n="UKing-B55-Par-Can-12-LED-RGBW-12W" m="B55 Par Can 12 LED RGBW 12W"/>
     <F n="UKing-LED-Spot-Moving-Head-100W" m="LED Spot Moving Head 100W"/>
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
+    <F n="UKing-Wall-Washer-24x3W" m="Wall Washer 24x3W"/>
   </M>
   <M n="Vari-Lite">
     <F n="Vari-Lite-VL2500-Wash" m="VL2500 Wash"/>
@@ -1546,6 +1556,8 @@
     <F n="Varytec-Giga-Bar-Pix-8-RGB" m="Giga Bar Pix 8 RGB"/>
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
     <F n="Varytec-Hero-Spot-Wash-80-2in1-RGBW+W" m="Hero Spot Wash 80 2in1 RGBW+W"/>
+    <F n="Varytec-Hero-Beam-100" m="Hero Beam 100"/>
+    <F n="Varytec-Hero-Spot-230" m="Hero Spot 230"/>
     <F n="Varytec-Hero-Wash-640FX" m="Hero Wash 640FX"/>
     <F n="Varytec-Hero-Wash-715-HEX-LED" m="Hero Wash 715 HEX LED"/>
     <F n="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW" m="LED Easy Move Mini Beam + Wash RGBW"/>

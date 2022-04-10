@@ -4,7 +4,12 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = palettegenerator_test
 
-QT      += testlib script
+QT      += testlib
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
+  QT += qml
+} else {
+  QT += script
+}
 CONFIG  -= app_bundle
 
 INCLUDEPATH += ../../src

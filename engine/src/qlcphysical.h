@@ -31,34 +31,34 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCPhysical "Physical"
+#define KXMLQLCPhysical QString("Physical")
 
-#define KXMLQLCPhysicalBulb "Bulb"
-#define KXMLQLCPhysicalBulbType "Type"
-#define KXMLQLCPhysicalBulbLumens "Lumens"
-#define KXMLQLCPhysicalBulbColourTemperature "ColourTemperature"
+#define KXMLQLCPhysicalBulb         QString("Bulb")
+#define KXMLQLCPhysicalBulbType     QString("Type")
+#define KXMLQLCPhysicalBulbLumens   QString("Lumens")
+#define KXMLQLCPhysicalBulbColourTemperature QString("ColourTemperature")
 
-#define KXMLQLCPhysicalLens "Lens"
-#define KXMLQLCPhysicalLensName "Name"
-#define KXMLQLCPhysicalLensDegreesMin "DegreesMin"
-#define KXMLQLCPhysicalLensDegreesMax "DegreesMax"
+#define KXMLQLCPhysicalLens             QString("Lens")
+#define KXMLQLCPhysicalLensName         QString("Name")
+#define KXMLQLCPhysicalLensDegreesMin   QString("DegreesMin")
+#define KXMLQLCPhysicalLensDegreesMax   QString("DegreesMax")
 
-#define KXMLQLCPhysicalDimensions "Dimensions"
-#define KXMLQLCPhysicalDimensionsWeight "Weight"
-#define KXMLQLCPhysicalDimensionsWidth "Width"
-#define KXMLQLCPhysicalDimensionsHeight "Height"
-#define KXMLQLCPhysicalDimensionsDepth "Depth"
+#define KXMLQLCPhysicalDimensions       QString("Dimensions")
+#define KXMLQLCPhysicalDimensionsWeight QString("Weight")
+#define KXMLQLCPhysicalDimensionsWidth  QString("Width")
+#define KXMLQLCPhysicalDimensionsHeight QString("Height")
+#define KXMLQLCPhysicalDimensionsDepth  QString("Depth")
 
-#define KXMLQLCPhysicalLayout "Layout"
+#define KXMLQLCPhysicalLayout QString("Layout")
 
-#define KXMLQLCPhysicalFocus "Focus"
-#define KXMLQLCPhysicalFocusType "Type"
-#define KXMLQLCPhysicalFocusPanMax "PanMax"
-#define KXMLQLCPhysicalFocusTiltMax "TiltMax"
+#define KXMLQLCPhysicalFocus        QString("Focus")
+#define KXMLQLCPhysicalFocusType    QString("Type")
+#define KXMLQLCPhysicalFocusPanMax  QString("PanMax")
+#define KXMLQLCPhysicalFocusTiltMax QString("TiltMax")
 
-#define KXMLQLCPhysicalTechnical "Technical"
-#define KXMLQLCPhysicalTechnicalPowerConsumption "PowerConsumption"
-#define KXMLQLCPhysicalTechnicalDmxConnector "DmxConnector"
+#define KXMLQLCPhysicalTechnical                    QString("Technical")
+#define KXMLQLCPhysicalTechnicalPowerConsumption    QString("PowerConsumption")
+#define KXMLQLCPhysicalTechnicalDmxConnector        QString("DmxConnector")
 
 
 /**

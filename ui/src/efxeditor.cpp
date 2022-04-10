@@ -201,7 +201,7 @@ void EFXEditor::initMovementPage()
 {
     new QHBoxLayout(m_previewFrame);
     m_previewArea = new EFXPreviewArea(m_previewFrame);
-    m_previewFrame->layout()->setMargin(0);
+    m_previewFrame->layout()->setContentsMargins(0, 0, 0, 0);
     m_previewFrame->layout()->addWidget(m_previewArea);
 
     /* Get supported algorithms and fill the algorithm combo with them */

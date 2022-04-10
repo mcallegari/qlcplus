@@ -20,8 +20,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include <QRegExpValidator>
-#include <QRegExp>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 
 /** @addtogroup fixtureeditor Fixture Editor
  * @{
@@ -29,7 +29,7 @@
 
 //! Prevent people from using ALL CAPS. It's fucking annoying.
 #define REGEXP_CAPS "(([^A-Z]*[A-Z]{,5}[^A-Z]+)*)"
-#define CAPS_VALIDATOR(parent) new QRegExpValidator(QRegExp(REGEXP_CAPS), parent)
+#define CAPS_VALIDATOR(parent) new QRegularExpressionValidator(QRegularExpression(REGEXP_CAPS), parent)
 
 /** @} */
 

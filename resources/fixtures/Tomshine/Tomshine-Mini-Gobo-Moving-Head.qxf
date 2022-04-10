@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.5 GIT</Version>
   <Author>Gaudig</Author>
  </Creator>
  <Manufacturer>Tomshine</Manufacturer>
@@ -13,7 +13,7 @@
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
- <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -76,6 +76,41 @@
   <Capability Min="0" Max="240">No Function</Capability>
   <Capability Min="241" Max="255" Preset="ResetAll">RESET</Capability>
  </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">No function</Capability>
+  <Capability Min="70" Max="79">The light is shut off when the X/Y axis is rotated</Capability>
+  <Capability Min="80" Max="89">No function</Capability>
+  <Capability Min="90" Max="99">Lights turn off then the color wheel is turned</Capability>
+  <Capability Min="100" Max="109">No function</Capability>
+  <Capability Min="110" Max="119">The light shut off when the gobo is turned</Capability>
+  <Capability Min="120" Max="199">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Voice control function</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard lighting effects</Capability>
+  <Capability Min="21" Max="40">Stage lighting effects</Capability>
+  <Capability Min="41" Max="60">TV lighting effects</Capability>
+  <Capability Min="61" Max="80">Architectural lighting effects</Capability>
+  <Capability Min="81" Max="100">Theater lighting effects</Capability>
+  <Capability Min="101" Max="255">Default standard lamp effect</Capability>
+ </Channel>
+ <Channel Name="Strobe (2022)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7">Control light is off, the light is off</Capability>
+  <Capability Min="8" Max="15">Turn on the light</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeFastToSlow">Control the light strobe speed, from fast to slow</Capability>
+  <Capability Min="132" Max="139">Turn on the light</Capability>
+  <Capability Min="140" Max="181" Preset="RampDownSlowToFast">Control light quickly closed, slowly open</Capability>
+  <Capability Min="182" Max="189">Turn on the light</Capability>
+  <Capability Min="190" Max="231" Preset="RampUpSlowToFast">The control light turns on quickly, turns off slowly</Capability>
+  <Capability Min="232" Max="239">Turn on the light</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Control light random stroboscopic</Capability>
+  <Capability Min="248" Max="255">Turn on the light</Capability>
+ </Channel>
  <Mode Name="Normal">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -88,6 +123,30 @@
   <Channel Number="8">Gobo wheel</Channel>
   <Channel Number="9">Sound Mode</Channel>
   <Channel Number="10">Reset</Channel>
+ </Mode>
+ <Mode Name="9 Channel (2022)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color wheel</Channel>
+  <Channel Number="3">Gobo wheel</Channel>
+  <Channel Number="4">Strobe (2022)</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Function</Channel>
+  <Channel Number="8">Effects</Channel>
+ </Mode>
+ <Mode Name="11 Channel (2022)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Color wheel</Channel>
+  <Channel Number="5">Gobo wheel</Channel>
+  <Channel Number="6">Strobe (2022)</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+  <Channel Number="9">Function</Channel>
+  <Channel Number="10">Effects</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>

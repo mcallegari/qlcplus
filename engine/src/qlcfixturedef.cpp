@@ -374,7 +374,9 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
     QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument, author());
 
     doc.writeTextElement(KXMLQLCFixtureDefManufacturer, m_manufacturer);

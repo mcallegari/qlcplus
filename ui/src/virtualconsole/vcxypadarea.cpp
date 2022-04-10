@@ -240,7 +240,7 @@ void VCXYPadArea::enableEFXPreview(bool enable)
         {
             m_previewArea = new EFXPreviewArea(this);
             m_previewArea->setBackgroundAlpha(0);
-            layout()->setMargin(0);
+            layout()->setContentsMargins(0, 0, 0, 0);
             layout()->addWidget(m_previewArea);
         }
     }
@@ -351,7 +351,7 @@ void VCXYPadArea::mousePressEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->pos().x(), 0, width()), CLAMP(e->pos().y(), 0, height()));
         pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
         pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
 
@@ -368,7 +368,7 @@ void VCXYPadArea::mouseReleaseEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->pos().x(), 0, width()), CLAMP(e->pos().y(), 0, height()));
         pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
         pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
 
@@ -384,7 +384,7 @@ void VCXYPadArea::mouseMoveEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->pos().x(), 0, width()), CLAMP(e->pos().y(), 0, height()));
         pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
         pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
 

@@ -589,27 +589,27 @@ void VCWidget_Test::saveAppearance()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "BackgroundColor")
+        if (xmlReader.name().toString() == "BackgroundColor")
         {
             bgcolor++;
             QCOMPARE(xmlReader.readElementText(), QString::number(QColor(Qt::red).rgb()));
         }
-        else if (xmlReader.name() == "BackgroundImage")
+        else if (xmlReader.name().toString() == "BackgroundImage")
         {
             bgimage++;
             QCOMPARE(xmlReader.readElementText(), QString("None"));
         }
-        else if (xmlReader.name() == "ForegroundColor")
+        else if (xmlReader.name().toString() == "ForegroundColor")
         {
             fgcolor++;
             QCOMPARE(xmlReader.readElementText(), QString::number(QColor(Qt::green).rgb()));
         }
-        else if (xmlReader.name() == "Font")
+        else if (xmlReader.name().toString() == "Font")
         {
             font++;
             QCOMPARE(xmlReader.readElementText(), fn.toString());
         }
-        else if (xmlReader.name() == "FrameStyle")
+        else if (xmlReader.name().toString() == "FrameStyle")
         {
             frame++;
             QCOMPARE(xmlReader.readElementText(), QString("Raised"));
@@ -653,27 +653,27 @@ void VCWidget_Test::saveAppearanceDefaultsImage()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "BackgroundColor")
+        if (xmlReader.name().toString() == "BackgroundColor")
         {
             bgcolor++;
             QCOMPARE(xmlReader.readElementText(), QString("Default"));
         }
-        else if (xmlReader.name() == "BackgroundImage")
+        else if (xmlReader.name().toString() == "BackgroundImage")
         {
             bgimage++;
             QCOMPARE(xmlReader.readElementText(), QString("../../../resources/icons/png/qlcplus.png"));
         }
-        else if (xmlReader.name() == "ForegroundColor")
+        else if (xmlReader.name().toString() == "ForegroundColor")
         {
             fgcolor++;
             QCOMPARE(xmlReader.readElementText(), QString("Default"));
         }
-        else if (xmlReader.name() == "Font")
+        else if (xmlReader.name().toString() == "Font")
         {
             font++;
             QCOMPARE(xmlReader.readElementText(), QString("Default"));
         }
-        else if (xmlReader.name() == "FrameStyle")
+        else if (xmlReader.name().toString() == "FrameStyle")
         {
             frame++;
             QCOMPARE(xmlReader.readElementText(), QString("None"));
@@ -945,8 +945,8 @@ void VCWidget_Test::mousePress()
     QCOMPARE(stub->lastClickPoint(), QPoint(10, 10));
     QTest::qWait(10);
 
-    e = QMouseEvent(QEvent::MouseMove, QPoint(20, 20), Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
-    stub->mouseMoveEvent(&e);
+    QMouseEvent e2(QEvent::MouseMove, QPoint(20, 20), Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
+    stub->mouseMoveEvent(&e2);
     QTest::qWait(10);
     QCOMPARE(stub->pos(), QPoint(10, 10));
 }

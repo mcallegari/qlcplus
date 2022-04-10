@@ -28,7 +28,11 @@
 #include "functionselection.h"
 #include "assignhotkey.h"
 #include "inputpatch.h"
-#include "rgbscript.h"
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "rgbscript.h"
+#else
+ #include "rgbscriptv4.h"
+#endif
 
 VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     : QDialog(matrix)

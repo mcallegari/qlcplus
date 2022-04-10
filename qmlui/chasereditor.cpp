@@ -240,7 +240,11 @@ void ChaserEditor::deleteItems(QVariantList list)
     if (m_chaser == nullptr)
         return;
 
-    std::sort(list.begin(), list.end());
+    std::sort(list.begin(), list.end(),
+              [](QVariant a, QVariant b) {
+                  return a.toUInt() < b.toUInt();
+              });
+
     qDebug() << "Chaser delete list" << list;
 
     while (!list.isEmpty())

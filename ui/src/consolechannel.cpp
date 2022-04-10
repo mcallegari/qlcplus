@@ -585,7 +585,7 @@ QIcon ConsoleChannel::colorIcon(const QString& name)
     QColor color;
     int index;
 
-    colname = name.toLower().remove(QRegExp("[0-9]")).remove(' ');
+    colname = name.toLower().remove(QRegularExpression("[0-9]")).remove(' ');
     index = colorList.indexOf(colname);
     if (index != -1)
     {
@@ -603,7 +603,7 @@ QIcon ConsoleChannel::colorIcon(const QString& name)
         }
         re += ")";
 
-        QRegExp regex(re, Qt::CaseInsensitive);
+        QRegularExpression regex(re, QRegularExpression::CaseInsensitiveOption);
         index = colorList.indexOf(regex);
         if (index != -1)
             color.setNamedColor(colorList.at(index));
