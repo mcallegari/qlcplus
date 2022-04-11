@@ -204,6 +204,7 @@ void RGBScript_Test::rgbMap()
 void RGBScript_Test::runScripts()
 {
     QSize mapSize = QSize(7, 11); // Use different numbers for x and y for the test
+    QSize mapSizePlus = QSize(12, 22); // Prepare a larger matrix to check behaviour on matrix change
     // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
     // This test also wants to test that there is no color space overrun.
     int red = 0xff0000;
@@ -257,11 +258,11 @@ void RGBScript_Test::runScripts()
 
         // Run a few steps with the standard set of parameters.
         int realsteps = (steps > 5) ? 5 : steps;
+        RGBMap rgbMap;
         for (int step = 0; step < realsteps; step++)
         {
-            RGBMap map;
-            s.rgbMap(mapSize, red, step, map);
-            QVERIFY(map.isEmpty() == false);
+            s.rgbMap(mapSize, red, step, rgbMap);
+            QVERIFY(rgbMap.isEmpty() == false);
             // Check that the color values are limited to a valid range
             for (int y = 0; y < mapSize.height(); y++)
             {
@@ -273,7 +274,20 @@ void RGBScript_Test::runScripts()
                     //    uint pxb = (map[y][x] & 0x000000ff);
                     //    qDebug() << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " (" << Qt::hex << map[y][x]<< ")";
                     //}
-                    QVERIFY(map[y][x] <= 0xffffff);
+                    QVERIFY(rgbMap[y][x] <= 0xffffff);
+                }
+            }
+        }
+        // Switch to the larger map and step a few times.
+        for (int step = 0; step < realsteps; step++)
+        {
+            s.rgbMap(mapSizePlus, red, step, rgbMap);
+            // Check that the color values are limited to a valid range
+            for (int y = 0; y < mapSizePlus.height(); y++)
+            {
+                for (int x = 0; x < mapSizePlus.width(); x++)
+                {
+                    QVERIFY(rgbMap[y][x] <= 0xffffff);
                 }
             }
         }
