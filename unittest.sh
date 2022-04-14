@@ -105,8 +105,8 @@ do
     $SLEEPCMD
     # Execute the test
     pushd ${TESTDIR}/${test}
-    DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:../../../engine/src:../../src \
-        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../../engine/src:../../src $TESTPREFIX ./${test}_test
+    DYLD_FALLBACK_LIBRARY_PATH=../../../engine/src:../../src:$DYLD_FALLBACK_LIBRARY_PATH \
+        LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test
     RESULT=${?}
     popd
     if [ ${RESULT} != 0 ]; then
