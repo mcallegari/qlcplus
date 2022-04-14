@@ -22,20 +22,27 @@ function sendCMD(cmd) {
  websocket.send("QLC+CMD|" + cmd);
 }
 
-window.onload = function() {
+function connect() {
  var url = "ws://" + window.location.host + "/qlcplusWS";
  websocket = new WebSocket(url);
  websocket.onopen = function(ev) {
   //alert(\"Websocket open!\");
  };
 
- websocket.onclose = function(ev) {
-  alert("QLC+ connection lost!");
- };
+ websocket.onclose = function (e) {
+  console.log(
+    "QLC+ connection is closed. Reconnect will be attempted in 1 second.",
+    e.reason
+  );
+  setTimeout(function () {
+    connect();
+  }, 1000);
+};
 
- websocket.onerror = function(ev) {
-  alert("QLC+ connection error!");
- };
+websocket.onerror = function (err) {
+  console.error("QLC+ connection encountered error: ", err.message, "Closing socket");
+  ws.close();
+};
 
  websocket.onmessage = function(ev) {
   //console.log(ev.data);
@@ -65,3 +72,5 @@ window.onload = function() {
  };
  initVirtualConsole();
 };
+
+window.onload = connect();

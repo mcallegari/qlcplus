@@ -88,7 +88,7 @@ var channels, c, v, first, last, step, range;
 var reqchan;
 var addval;
 var values=[];
-window.onload = function()
+function connect()
 {
   var url = 'ws://' + window.location.host + '/qlcplusWS';
   websocket = new WebSocket(url);
@@ -96,10 +96,17 @@ window.onload = function()
     isConnected = true;
   };
   websocket.onclose = function(ev) {
-    alert("QLC+ connection lost!");
+    console.log(
+      "QLC+ connection is closed. Reconnect will be attempted in 1 second.",
+      e.reason
+    );
+    setTimeout(function () {
+      connect();
+    }, 1000);
   };
   websocket.onerror = function(ev) {
-    alert("QLC+ connection error!");
+    console.error("QLC+ connection encountered error: ", err.message, "Closing socket");
+    ws.close();
   };
   websocket.onmessage = function(ev) {
     //alert(ev.data);
@@ -120,6 +127,8 @@ window.onload = function()
     }
   };
 };
+
+window.onload = connect();
 
 function composeCommand(cmd)
 {
