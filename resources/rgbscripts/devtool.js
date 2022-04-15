@@ -342,11 +342,15 @@ devtool.onColorChange = function()
     devtool.writeCurrentStep();
 }
 
-devtool.startTest = function()
+devtool.startTest = function(inc)
 {
     var speed = document.getElementById("speed").value;
     window.clearInterval(devtool.testTimer); // avoid multiple timers running simultaneously
-    devtool.testTimer = window.setInterval("devtool.nextStep()", speed);
+    if (inc > 0) {
+      devtool.testTimer = window.setInterval("devtool.nextStep()", speed);
+    } else {
+      devtool.testTimer = window.setInterval("devtool.previousStep()", speed);
+    }
     localStorage.setItem("devtool.timerRunning", 1);
 }
 
