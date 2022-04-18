@@ -153,7 +153,6 @@ void AlsaMidiOutputDevice::writeUniverse(const QByteArray& universe)
                 snd_seq_ev_set_noteoff(&ev, midiChannel(), channel, scaled);
             else
                 snd_seq_ev_set_noteon(&ev, midiChannel(), channel, scaled);
-            snd_seq_event_output(m_alsa, &ev);
         }
         else if (mode() == ProgramChange)
         {
