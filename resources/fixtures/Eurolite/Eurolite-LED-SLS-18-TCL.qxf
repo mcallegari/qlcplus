@@ -48,50 +48,31 @@
   <Capability Min="6" Max="10">No Function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeFrequency">Strobe (Increasing)</Capability>
  </Channel>
- <Mode Name="3-Channel">
+ <Mode Name="3 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
- <Mode Name="4-Channel">
+ <Mode Name="4 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Intensity</Channel>
-  <Head>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-  </Head>
  </Mode>
- <Mode Name="5-Channel">
+ <Mode Name="5 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Intensity</Channel>
   <Channel Number="4">ColorControl</Channel>
  </Mode>
- <Mode Name="6-Channel">
+ <Mode Name="6 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Intensity</Channel>
   <Channel Number="4">Shutter</Channel>
   <Channel Number="5">Colors</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-  </Head>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
