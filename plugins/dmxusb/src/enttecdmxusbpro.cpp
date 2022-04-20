@@ -300,7 +300,8 @@ int readData(DMXInterface *interface, QByteArray &payload, bool &isMIDI, bool ne
     interface->readByte();
 
 #ifdef DEBUG_RDM
-    qDebug() << "Got payload:" << payload.toHex(',');
+    if (needRDM)
+        qDebug() << "Got payload:" << payload.toHex(',');
 #endif
 
     return dataLength;
