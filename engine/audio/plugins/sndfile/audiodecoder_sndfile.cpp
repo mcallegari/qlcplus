@@ -141,7 +141,7 @@ QStringList AudioDecoderSndFile::supportedFormats()
             caps << "*.aifc";
         else if (ext == "flac" && !caps.contains("*.flac"))
             caps << "*.flac";
-        else if (ext == "oga" && !caps.contains("*.oga"))
+        else if ((ext == "ogg" || ext == "oga") && !caps.contains("*.ogg"))
             caps << "*.oga" << "*.ogg";
         else if (ext == "wav" && !caps.contains("*.wav"))
             caps << "*.wav";
