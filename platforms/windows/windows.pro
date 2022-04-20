@@ -180,8 +180,8 @@ exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
 exists($$SYS_LIBS_PATH/libvorbisenc-2.dll) {
     audio.files += $$SYS_LIBS_PATH/libvorbisenc-2.dll
 }
-exists($$SYS_LIBS_PATH/libFLAC-8.dll) {
-    audio.files += $$SYS_LIBS_PATH/libFLAC-8.dll
+exists($$SYS_LIBS_PATH/libFLAC.dll) {
+    audio.files += $$SYS_LIBS_PATH/libFLAC.dll
 }
 exists($$SYS_LIBS_PATH/libsndfile-1.dll) {
     audio.files += $$SYS_LIBS_PATH/libsndfile-1.dll
