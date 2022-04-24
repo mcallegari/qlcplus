@@ -1,0 +1,7 @@
+rebuild_master:
+  steps:
+    - rebuild_package:
+        project: home:mcallegari79
+        package: qlcplus-qt5-git
+  filters:
+    event: push
