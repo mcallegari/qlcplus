@@ -1,6 +1,6 @@
 workflow:
   steps:
-    - rebuild_package:
+    - trigger_services:
         project: home:mcallegari79
         package: qlcplus-qt5-git
   filters:
