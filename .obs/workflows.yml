@@ -1,4 +1,4 @@
-rebuild_master:
+workflow:
   steps:
     - rebuild_package:
         project: home:mcallegari79
