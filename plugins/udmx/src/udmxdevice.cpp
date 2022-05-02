@@ -36,6 +36,9 @@
 #define UDMX_AVLDIY_D512_CLONE_VENDOR     0x03EB /* Atmel Corp. (Clone VID)*/
 #define UDMX_AVLDIY_D512_CLONE_PRODUCT    0x8888 /* Clone PID */
 
+#define UDMX_LIXADA_D512_CLONE_VENDOR     0x0403 /* Lixada. (Clone VID)*/
+#define UDMX_LIXADA_D512_CLONE_PRODUCT    0x6001 /* Clone PID */
+
 #define UDMX_SET_CHANNEL_RANGE 0x0002 /* Command to set n channel values */
 
 #define SETTINGS_FREQUENCY "udmx/frequency"
@@ -89,11 +92,14 @@ bool UDMXDevice::isUDMXDevice(const struct libusb_device_descriptor* desc)
         return false;
 
     if (desc->idVendor != UDMX_SHARED_VENDOR &&
-        desc->idVendor != UDMX_AVLDIY_D512_CLONE_VENDOR)
+        desc->idVendor != UDMX_AVLDIY_D512_CLONE_VENDOR &&
+        desc->idVendor != UDMX_LIXADA_D512_CLONE_VENDOR
+		)
             return false;
 
     if (desc->idProduct != UDMX_SHARED_PRODUCT &&
-        desc->idProduct != UDMX_AVLDIY_D512_CLONE_PRODUCT)
+        desc->idProduct != UDMX_AVLDIY_D512_CLONE_PRODUCT &&
+        desc->idProduct != UDMX_LIXADA_D512_CLONE_PRODUCT)
             return false;
 
     return true;
