@@ -158,6 +158,7 @@
     <F n="American-DJ-UVLed-Bar-16" m="UVLed Bar 16"/>
     <F n="American-DJ-VBar" m="VBar"/>
     <F n="American-DJ-Vizi-Beam-5R" m="Vizi Beam 5R"/>
+    <F n="American-DJ-Vizi-Beam-5RX" m="Vizi Beam 5RX"/>
     <F n="American-DJ-Vizi-Beam-RXONE" m="Vizi Beam RXONE"/>
     <F n="American-DJ-Vizi-BSW-300" m="Vizi BSW 300"/>
     <F n="American-DJ-Vizi-Hex-Wash7" m="Vizi Hex Wash7"/>
@@ -449,6 +450,7 @@
     <F n="Chauvet-Rogue-R1-FX-B" m="Rogue R1 FX-B"/>
     <F n="Chauvet-Rogue-R1-Spot" m="Rogue R1 Spot"/>
     <F n="Chauvet-Rogue-R2-Spot" m="Rogue R2 Spot"/>
+    <F n="Chauvet-Rogue-R2-wash" m="Rogue R2 Wash"/>
     <F n="Chauvet-Rogue-RH1-Hybrid" m="Rogue RH1 Hybrid"/>
     <F n="Chauvet-RotoSphere-LED" m="RotoSphere LED"/>
     <F n="Chauvet-Rotosphere-Q3" m="Rotosphere Q3"/>
@@ -675,6 +677,7 @@
     <F n="Eurolite-LED-PAR64-RGB" m="LED PAR64 RGB"/>
     <F n="Eurolite-LED-PAR64-RGBA" m="LED PAR64 RGBA"/>
     <F n="Eurolite-LED-PAR64-White" m="LED PAR64 White"/>
+    <F n="Eurolite-LED-Party-Panel-RGB+UV" m="LED Party Panel RGB+UV"/>
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
     <F n="Eurolite-LED-PMB-8-COB-RGB-30W" m="LED PMB-8 COB RGB 30W"/>
@@ -723,6 +726,7 @@
     <F n="Eurolite-TMH-30-60-mk2" m="TMH-30/60 MK2"/>
     <F n="Eurolite-TMH-8" m="TMH-8"/>
     <F n="Eurolite-TMH-X3" m="TMH-X3"/>
+    <F n="Eurolite-TMH-X4" m="TMH-X4"/>
     <F n="Eurolite-TR-5" m="TR-5"/>
     <F n="Eurolite-TS-10" m="TS-10"/>
     <F n="Eurolite-TS-150" m="TS-150"/>
@@ -1020,6 +1024,7 @@
   </M>
   <M n="Lixada">
     <F n="Lixada-12-RGBW-LED-Par-Light" m="12 RGBW LED Par Light"/>
+    <F n="Lixada-5LED-50W-Beam-Wash-Double-Sides-RGBW" m="5LED 50W Beam Wash Double Sides RGBW"/>
     <F n="Lixada-Mini-Gobo-Moving-Head" m="Mini Gobo Moving Head"/>
     <F n="Lixada-Mini-Wash-RGBW" m="Mini Wash RGBW"/>
     <F n="Lixada-Triangle-Spider-Beam" m="Triangle Spider Beam"/>

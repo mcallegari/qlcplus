@@ -47,8 +47,12 @@ qlcplus (4.12.5) stable; urgency=low
   * New fixture: Equinox Fusion 50 MkII (thanks to David Dale)
   * New fixture: Showtec Slidebar 4 (thanks to Arie Roos)
   * New fixture: Briteq BT-Theatre 50WW (thanks to Fredje Gallon)
-  * New fixture: Showtec Spectral 850 RGBA Tour LED Spot (thanks to Stefan Krumm)
+  * New fixtures: Showtec Spectral 850 RGBA Tour LED Spot, Eurolite LED Party Panel RGB+UV (thanks to Stefan Krumm)
   * New fixture: Varytec Hero Spot Wash 80 2in1 RGBW+W, Eurolite LED SLS-18x3W TCL (thanks to Hans-Jürgen Tappe)
+  * New fixture: American DJ Vizi Beam 5RX (thanks to Rich Bell)
+  * New fixture: Lixada 5LED 50W Beam Wash Double Sides RGBW (thanks to John Yiannikakis)
+  * New fixture: Chauvet Rogue R2 Wash (thanks to Bobby)
+  * New fixture: Eurolite TMH-X4 (thanks to Piotr Nowik)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 24 Apr 2022 12:13:14 +0200
 
