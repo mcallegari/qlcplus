@@ -130,7 +130,9 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, progstep)
     {
-      if (algo.initialized === false) {
+      if (algo.initialized === false ||
+          util.map.length != height ||
+          util.map[0].length != width) {
         util.initialize(width, height);
       }
 
@@ -147,7 +149,7 @@ var testAlgo;
         if (algo.rockets[i].particleSteps <= 0) {
           algo.rockets[i].initialized = false;
         }
-        
+
         // Initialize the rocket
         if (!algo.rockets[i].initialized ||
             algo.rockets[i].particle.length < algo.particleCount) {
@@ -214,7 +216,7 @@ var testAlgo;
     // --------------------------------
     // Helper Utilities & Functions
     var util = new Object;
-    
+
     util.gravity = 0.4;
     util.acceleration = 1.05;
 
@@ -284,7 +286,7 @@ var testAlgo;
         }
       }
     }
-    
+
     util.initializeRocket = function(i, w, h, rgb) {
       // reset height and set a start x location
       algo.rockets[i].x = util.getNewNumberRange(Math.round(w / 5), Math.round(4 * w / 5));
@@ -319,7 +321,7 @@ var testAlgo;
       for (var j = 0; j < algo.particleCount; j++) {
         algo.rockets[i].particle[j] = new Object();
       }
-      
+
       // Set rocket status to initialized
       algo.rockets[i].initialized = true;
     }
