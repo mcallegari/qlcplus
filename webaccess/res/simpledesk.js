@@ -28,22 +28,22 @@ function getPage(uni, page) {
 function connect() {
    var url = "ws://" + window.location.host + "/qlcplusWS";
    websocket = new WebSocket(url);
-   websocket.onopen = function(ev) {
+   websocket.onopen = function() {
     getPage(1, 1);
    };
-   websocket.onclose = function(ev) {
-    console.log(
-      "QLC+ connection is closed. Reconnect will be attempted in 1 second.",
-      e.reason
-    );
+
+   websocket.onclose = function() {
+    console.log("QLC+ connection is closed. Reconnect will be attempted in 1 second.");
     setTimeout(function () {
       connect();
     }, 1000);
    };
-   websocket.onerror = function(ev) {
-    console.error("QLC+ connection encountered error: ", err.message, "Closing socket");
+
+   websocket.onerror = function() {
+    console.error("QLC+ connection encountered error. Closing socket");
     ws.close();
    };
+
    websocket.onmessage = function(ev) {
     //alert(ev.data);
     var msgParams = ev.data.split("|");
