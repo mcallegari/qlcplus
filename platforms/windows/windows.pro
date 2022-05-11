@@ -70,7 +70,7 @@ qt5deps.files += $$SYS_LIBS_PATH/libbz2-1.dll \
                  $$SYS_LIBS_PATH/zlib1.dll
 
 qmlui: {
-    qt5deps.files += $$SYS_LIBS_PATH/libassimp.dll \
+    qt5deps.files += $$SYS_LIBS_PATH/libassimp-5.dll \
                      $$SYS_LIBS_PATH/libminizip-1.dll
 }
 INSTALLS += qt5deps

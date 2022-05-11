@@ -88,6 +88,7 @@ Section
 	File /r mediaservice
 	File /r platforms
 	File /r printsupport
+	File /r renderers
 	File /r sceneparsers
 	File /r Qt
 	File /r Qt3D
