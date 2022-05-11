@@ -148,7 +148,7 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    QStringList result = m_data.split(QRegularExpression("(\r\n|\n\r|\r|\n)"));
+    QStringList result = m_data.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
 
     while (result.count() && result.last().isEmpty())
         result.takeLast();
