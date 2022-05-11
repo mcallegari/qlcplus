@@ -23,54 +23,47 @@ function sendCMD(cmd) {
 }
 
 function connect() {
- var url = "ws://" + window.location.host + "/qlcplusWS";
- websocket = new WebSocket(url);
- websocket.onopen = function(ev) {
-  //alert(\"Websocket open!\");
- };
+  var url = "ws://" + window.location.host + "/qlcplusWS";
+  websocket = new WebSocket(url);
+  websocket.onopen = function () {
+    //alert(\"Websocket open!\");
+  };
 
- websocket.onclose = function (e) {
-  console.log(
-    "QLC+ connection is closed. Reconnect will be attempted in 1 second.",
-    e.reason
-  );
-  setTimeout(function () {
-    connect();
-  }, 1000);
-};
+  websocket.onclose = function () {
+    console.log(
+      "QLC+ connection is closed. Reconnect will be attempted in 1 second."
+    );
+    setTimeout(function () {
+      connect();
+    }, 1000);
+  };
 
-websocket.onerror = function (err) {
-  console.error("QLC+ connection encountered error: ", err.message, "Closing socket");
-  ws.close();
-};
+  websocket.onerror = function () {
+    console.error("QLC+ connection encountered error. Closing socket");
+    ws.close();
+  };
 
- websocket.onmessage = function(ev) {
-  //console.log(ev.data);
-  var msgParams = ev.data.split("|");
-  if (msgParams[1] === "BUTTON") {
-    wsSetButtonState(msgParams[0], msgParams[2]);
-  }
-  else if (msgParams[1] === "SLIDER") {
-    // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
-    wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
-  }
-  else if (msgParams[1] === "AUDIOTRIGGERS") {
-    wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
-  }
-  else if (msgParams[1] === "CUE") {
-    wsSetCueIndex(msgParams[0], msgParams[2]);
-  }
-  else if (msgParams[1] === "CLOCK") {
-    wsUpdateClockTime(msgParams[0], msgParams[2]);
-  }
-  else if (msgParams[1] === "FRAME") {
-    setFramePage(msgParams[0], msgParams[2]);
-  }
-  else if (msgParams[0] === "ALERT") {
-    alert(msgParams[1]);
-  }
- };
- initVirtualConsole();
-};
+  websocket.onmessage = function (ev) {
+    //console.log(ev.data);
+    var msgParams = ev.data.split("|");
+    if (msgParams[1] === "BUTTON") {
+      wsSetButtonState(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "SLIDER") {
+      // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
+      wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
+    } else if (msgParams[1] === "AUDIOTRIGGERS") {
+      wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CUE") {
+      wsSetCueIndex(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CLOCK") {
+      wsUpdateClockTime(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "FRAME") {
+      setFramePage(msgParams[0], msgParams[2]);
+    } else if (msgParams[0] === "ALERT") {
+      alert(msgParams[1]);
+    }
+  };
+  initVirtualConsole();
+}
 
 window.onload = connect();
