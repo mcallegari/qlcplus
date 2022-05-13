@@ -28,7 +28,7 @@ var testAlgo;
     algo.name = "Snow or Bubbles";
     algo.author = "Hans-Jürgen Tappe";
     algo.properties = [];
-    algo.acceptColors = 2;
+    algo.acceptColors = 1;
     algo.presetColor = 0x000000;
     // number of flakes on screen at one time (default)
     algo.presetflakes = 20;
