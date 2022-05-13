@@ -70,7 +70,7 @@ var testAlgo;
     algo.apiVersion = 2;
     algo.name = "Balls (Colors)";
     algo.author = "Rob Nieuwenhuizen";
-    // algo.acceptColors = 2;
+    algo.acceptColors = 0;
     algo.properties = new Array();
     algo.presetSize = 1;
     algo.properties.push("name:presetSize|type:range|display:Size|values:1,20|write:setSize|read:getSize");
