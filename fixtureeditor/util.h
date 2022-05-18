@@ -27,9 +27,8 @@
  * @{
  */
 
-//! Prevent people from using ALL CAPS. It's fucking annoying.
-//#define REGEXP_CAPS "(([^A-Z]*[A-Z]{5,}[^A-Z]+)*)"
-#define REGEXP_CAPS ""
+//! Prevent people from using ALL CAPS. It's fucking annoying. Allow max. 5 consecutive CAPS in a row
+#define REGEXP_CAPS "[^A-Z]*[A-Z]{0,5}([^A-Z]+[A-Z]{0,5})*"
 #define CAPS_VALIDATOR(parent) new QRegularExpressionValidator(QRegularExpression(REGEXP_CAPS), parent)
 
 /** @} */

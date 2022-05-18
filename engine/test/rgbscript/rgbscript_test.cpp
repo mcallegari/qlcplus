@@ -227,7 +227,7 @@ void RGBScript_Test::runScripts()
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         QVERIFY(QRegExp("[a-z]*").exactMatch(baseName));
 #else
-        QVERIFY(QRegularExpression("[a-z]*").match(baseName).hasMatch());
+        QVERIFY(QRegularExpression("[a-z]+").match(baseName).hasMatch());
 #endif
 
 #ifdef QT_QML_LIB
