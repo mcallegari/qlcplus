@@ -336,6 +336,12 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
 QHttpConnection *QHttpConnection::enableWebSocket(bool enable)
 {
     m_isWebSocket = enable;
+    m_websocket_state = WebSocketState::init;
+    m_websocket_state_param = 0;
+    m_websocket_opCode = 0;
+    m_websocket_masked = false;
+    for(int i=0; i<4; i++) m_websocket_mask[i] = 0;
+
     m_pollTimer = new QTimer(this);
     m_pollTimer->setInterval(5000);
 
@@ -370,6 +376,7 @@ void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
 }
 
 /**
+     <https://www.rfc-editor.org/rfc/rfc6455.html#section-5.2>
      Here's the RFC 6455 Framing specs. The table of the law
 
       0                   1                   2                   3
@@ -392,76 +399,130 @@ void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
      +---------------------------------------------------------------+
  */
 
-void QHttpConnection::webSocketRead(QByteArray data)
+void QHttpConnection::webSocketRead(QByteArray &data)
 {
-    if (data.size() < 2)
-        return;
-
-    int dataPos = 0;
-
-    if (((data.at(dataPos) >> 4) & 0x07) != 0)
-    {
-        qWarning() << "Wrong WebSocket RSV bits. Discard.";
-        return;
-    }
-
     qDebug() << "[webSocketRead] total data length:" << data.size();
 
-    while (dataPos < data.size())
+    for(int dataPos = 0; dataPos < data.size(); dataPos++)
     {
-        int opCode = data.at(dataPos) & 0x0F;
-        dataPos++;
+        char dataAt = data.at(dataPos) & 0xFF;
+        switch(m_websocket_state){
+            case WebSocketState::init:
+                if (((dataAt >> 4) & 0x07) != 0)
+                {
+                    qWarning() << "Wrong WebSocket RSV bits. Discard.";
+                    m_websocket_state = WebSocketState::sink;
+                    Q_EMIT webSocketConnectionClose(this);
+                    return;
+                }
+                m_websocket_opCode = dataAt & 0x0F;
+                m_websocket_state = WebSocketState::length;
+                m_websocket_state_param = 0;
+                break;
 
-        bool masked = (data.at(dataPos) >> 7) ? true : false;
-        int dataLen = data.at(dataPos) & 0x7F;
-        dataPos++;
+            case WebSocketState::length:
+                m_websocket_masked = (dataAt & 0x80) ? true : false;
+                m_websocket_dataLen = dataAt & 0x7F;
+                // Determine the state of the next byte
+                if(m_websocket_dataLen >= 126)
+                {
+                    m_websocket_state = WebSocketState::length_extra;
+                    m_websocket_state_param = (m_websocket_dataLen == 127) ? 7 : 3;
+                }
+                else
+                    goto transition_mask;
 
-        if (dataLen == 126)
-        {
-            dataLen = (data.at(dataPos) << 8) + data.at(dataPos + 1);
-            dataPos+=2;
+                break;
+
+            case WebSocketState::length_extra:
+                if(m_websocket_dataLen > (UINT_MAX>>8)){
+                    // If this is going to overflow m_websocket_dataLen, abort
+                    m_websocket_state = WebSocketState::sink;
+                    Q_EMIT webSocketConnectionClose(this);
+                    return;
+                }
+                m_websocket_dataLen = m_websocket_dataLen*0x100 + dataAt;
+                // If at end, go to next state (whatever that is)
+                if(--m_websocket_state_param > 0)
+                    break;
+
+                // fall through: goto transition_mask
+            
+                transition_mask:
+                // A few states jump here when the next byte is a mask,
+                // or would be if the mask were enabled. If the mask is disabled,
+                // this transitions through to parsing the payload.
+                if(m_websocket_masked)
+                    m_websocket_state = WebSocketState::mask;
+                else
+                    goto transition_payload;
+                break;
+
+            case WebSocketState::mask:
+                m_websocket_mask[m_websocket_state_param] = dataAt;
+                if(++m_websocket_state_param < 4)
+                    break;
+
+                // fall through: goto transition_payload
+
+                transition_payload:
+                // Multiple states jump here in anticipation of the next byte
+                // being a payload or a new frame.
+                m_websocket_state = WebSocketState::payload;
+                m_websocket_state_param = 0;
+                // Determine the state of the next byte.
+                // If the payload size is zero, this will be a new frame,
+                // so call webSocketParsePayload, which will also set m_websocket_state
+                qDebug() << "[webSocketRead] Text frame length:" << m_websocket_dataLen;
+                if(0 == m_websocket_dataLen)
+                {
+                    m_websocket_payload.resize(0);
+                    webSocketParsePayload();
+                }
+                else
+                {
+                    m_websocket_payload.resize(m_websocket_dataLen);
+                    m_websocket_payload.fill(0);
+                }
+                break;
+
+            case WebSocketState::payload:
+                // if the payload is masked, then unmask
+                if (m_websocket_masked == true)
+                    m_websocket_payload[m_websocket_state_param] = dataAt ^ m_websocket_mask[m_websocket_state_param % 4];
+                else
+                    m_websocket_payload[m_websocket_state_param] = dataAt;
+
+                Q_ASSERT(m_websocket_state_param < m_websocket_dataLen);
+                if(++m_websocket_state_param == m_websocket_dataLen)
+                    webSocketParsePayload();
+                break;
+
+            case WebSocketState::sink:
+                // Connection has been closed to a protocol error, ignore additional bytes
+                return;
+
+            default:
+                Q_UNREACHABLE();
+                break;
         }
-        else if (dataLen == 127)
-        {
-            // TODO: 64bit length...really ?
-            dataPos+=8;
-        }
-
-        quint8 mask[4];
-        if (masked == true)
-        {
-            mask[0] = quint8(data.at(dataPos));
-            mask[1] = quint8(data.at(dataPos + 1));
-            mask[2] = quint8(data.at(dataPos + 2));
-            mask[3] = quint8(data.at(dataPos + 3));
-            dataPos+=4;
-        }
-
-        qDebug() << "[webSocketRead] opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
-
-        if (opCode == TextFrame)
-        {
-            int lengthCounter = dataLen;
-            qDebug() << "[webSocketRead] Text frame length:" << dataLen;
-            // if the payload is masked, then unmask
-            if (masked == true)
-            {
-                int i = 0;
-                char *cData = data.data() + dataPos;
-                while (lengthCounter-- > 0)
-                    *cData++ ^= mask[i++ % 4];
-            }
-
-            Q_EMIT webSocketDataReady(this, QString(data.mid(dataPos, dataLen)));
-        }
-        else if (opCode == ConnectionClose)
-        {
-            qDebug() << "[webSocketRead] Connection closed by the client";
-            Q_EMIT webSocketConnectionClose(this);
-        }
-        dataPos += dataLen;
     }
 }
 
+void QHttpConnection::webSocketParsePayload()
+{
+    // This is the last byte of this frame, the next byte will be a new frame.
+    m_websocket_state = WebSocketState::init;
+
+    if (m_websocket_opCode == TextFrame)
+        Q_EMIT webSocketDataReady(this, QString(m_websocket_payload));
+    else if (m_websocket_opCode == ConnectionClose)
+    {
+        qDebug() << "[webSocketRead] Connection closed by the client";
+        m_websocket_state = WebSocketState::sink;
+        Q_EMIT webSocketConnectionClose(this);
+        return;
+    }
+}
 
 /// @endcond
