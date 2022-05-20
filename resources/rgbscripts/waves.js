@@ -192,7 +192,6 @@ function()
       var isEven = (span % 2 === 0);
       var tailSteps = Math.round(span * algo.taillength/100);
       if (tailSteps === 0) { tailSteps = 1; }
-      var mult = (1 + (algo.taillength/100));
       if ((algo.direction === 0) || (algo.direction === 1)) {
         return (span + tailSteps - (isEven ? 0 : 1));
       } else if ((algo.direction === 2) || (algo.direction === 3)) {
