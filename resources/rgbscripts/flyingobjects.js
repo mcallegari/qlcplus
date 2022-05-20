@@ -27,7 +27,7 @@ var testAlgo;
     algo.apiVersion = 2;
     algo.name = "Flying Objects";
     algo.author = "Hans-Jürgen Tappe";
-    algo.acceptColors = 2;
+    algo.acceptColors = 1;
     algo.properties = new Array();
 
     // Algorithms ----------------------------
