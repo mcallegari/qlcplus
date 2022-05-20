@@ -42,11 +42,12 @@ var testAlgo;
 
     var squares = new Array();
 
-    function Square(x, y, step)
-    {
-      this.xCenter = x;
-      this.yCenter = y;
-      this.step = step;
+    class Square {
+      constructor(x, y, step) {
+        this.xCenter = x;
+        this.yCenter = y;
+        this.step = step;
+      }
     }
 
     algo.setAmount = function(_amount)
