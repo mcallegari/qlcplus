@@ -44,8 +44,6 @@ var testAlgo;
     var depth = 5;
     // main flake position array
     var flakes = new Array(255);
-    // set flake color to user chosen color at the start
-    var zcolor = algo.presetColor;
     algo.speedX = 0;
 
     algo.setAmount = function (_amount) {
@@ -271,7 +269,7 @@ var testAlgo;
     };
 
     algo.rgbMapStepCount = function (width, height) {
-      return width * height;
+      return 2;
     };
 
   // Development tool access
