@@ -27,7 +27,7 @@ var testAlgo;
     algo.apiVersion = 2;
     algo.name = "Balls";
     algo.author = "Tim Cullingworth";
-    algo.acceptColors = 2;
+    algo.acceptColors = 1;
     algo.properties = new Array();
     algo.rstepcount = 0;
     algo.gstepcount = 50;
@@ -218,7 +218,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return width * height;  // This make no diferance to the script ;-)
+      return 2;  // This make no difference to the script ;-)
     };
 
     // Development tool access
