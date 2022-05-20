@@ -54,12 +54,13 @@ var testAlgo;
 
     var lines = new Array();
 
-    function Line(x, y, step)
-    {
-      this.xCenter = x;
-      this.yCenter = y;
-      this.step = step;
-    };
+    class Line {
+          constructor(x, y, step) {
+              this.xCenter = x;
+              this.yCenter = y;
+              this.step = step;
+          }
+      };
 
     algo.setLinesSize = function(_size)
     {
