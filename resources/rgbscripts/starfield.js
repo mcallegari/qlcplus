@@ -38,7 +38,6 @@ var testAlgo;
         algo.invertColor = 0;           // Reverse Brightness
         var depth = 128;                // depth - best not to change
         var stars = new Array(255);     // main star position array
-        var zcolor = algo.presetColor;  // set star color to user chosen color at the start
 
         algo.setAmount = function(_amount) {
             algo.presetStars = _amount;
@@ -204,7 +203,7 @@ var testAlgo;
         };
 
         algo.rgbMapStepCount = function (width, height) {
-            return width * height;
+            return 2;
         };
 
     // Development tool access
