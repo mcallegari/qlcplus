@@ -34,9 +34,6 @@ if !options[:destination].empty?
     Dir.glob([lang, "*.html"].join('/')) do |filename|
         text = File.read(filename)
 
-        # remove file: protocol so that HTML files work over http as well
-        text.gsub!(%r{file:}, "")
-
         # replace QT resouce path with web ones
         text.gsub!(%r{qrc:/}, "../icons/")
 

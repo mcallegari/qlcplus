@@ -9,7 +9,7 @@
 
 <H1><img src="qrc:/qlcplus-fixtureeditor.png" width=32 align="absmiddle">フィクスチャー定義エディタ</H1>
 <P>
-  フィクスチャーエディタでは、<A HREF="file:concept.html#Fixtures">フィクスチャーの定義</A>をすることができ、
+  フィクスチャーエディタでは、<A HREF="concept.html#Fixtures">フィクスチャーの定義</A>をすることができ、
   ここで作成した定義はQLC+上で利用できます。フィクスチャーのチャンネルの役割(Pan/Tilt)や色など細かな
   情報を定義しておくことで、QLC+でのコントロールが楽に、効果的になります。
 </P>
@@ -23,7 +23,7 @@
   ※様々な理由からここで作成した定義データをシステムデフォルトのフォルダーに保存するべきではありません。
   理由のひとつには、QLC+をアンインストールした際に作成した定義データも一緒に削除されてしまいます。<br>
   したがって、定義データはドキュメントフォルダなどに保存することをオススメします。
-  詳しいことは<A HREF="file:questionsandanswers.html"よくある質問</A>を参照してください。
+  詳しいことは<A HREF="questionsandanswers.html"よくある質問</A>を参照してください。
 </B>
 </P>
 
@@ -63,7 +63,7 @@
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_general.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_general.png" WIDTH="700"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -106,7 +106,7 @@
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_physical.png" WIDTH="700" />
+  <TD><IMG SRC="../images/fixtureeditor_physical.png" WIDTH="700" />
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -172,7 +172,7 @@
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channels.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_channels.png" WIDTH="700"/>
   <TD valign="top">
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -215,16 +215,16 @@
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_preset.png" width="600"/></TD>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_shutter.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_preset.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_shutter.png" width="600"/></TD>
  </TR>
  <TR>
   <TD>Fig. 1</TD>
   <TD>Fig. 2</TD>
  </TR>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_color.png" width="600"/></TD>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_gobo.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_color.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_gobo.png" width="600"/></TD>
  </TR>
  <TR>
   <TD>Fig. 3</TD>
@@ -251,11 +251,11 @@
   <TD><B>タイプ</B></TD>
   <TD>
    <P>
-    チャンネルのタイプを選択できます、選択したタイプによりQLC+上での動作が決まり、さらにタイプによってチャンネルのマージモードが自動的に<a href="file:concept.html#LTP">LTP</a>か、<a href="file:concept.html#HTP">HTP</a>に設定されます。<br>
+    チャンネルのタイプを選択できます、選択したタイプによりQLC+上での動作が決まり、さらにタイプによってチャンネルのマージモードが自動的に<a href="concept.html#LTP">LTP</a>か、<a href="concept.html#HTP">HTP</a>に設定されます。<br>
     光量・カラーチャンネルには<b>HTP</b>が設定され、
 
    <LI><B>Intensity</B> 【HTP】フィクスチャーの光や数量的に変化するチャンネルに設定してください<br></LI>
-   <LI><B>Primary colors</B> 【LTP】RGBなど、１つのチャンネルに１色が割り当てられている場合はこのタイプを設定してください。このタイプを設定しておくことでQLC+上でファンクションを作成するときにカラーパレットを使用できるようになるなどの効果があります。※光量(Dimmer)はcolorではなく、Intensityを設定するようにしてください。カラーチャンネルには<a href="file:concept.html#GrandMaster">グランドマスターが聞かないようになっています</A>これによりきちんと光量のみグランドマスターが影響するようになります。
+   <LI><B>Primary colors</B> 【LTP】RGBなど、１つのチャンネルに１色が割り当てられている場合はこのタイプを設定してください。このタイプを設定しておくことでQLC+上でファンクションを作成するときにカラーパレットを使用できるようになるなどの効果があります。※光量(Dimmer)はcolorではなく、Intensityを設定するようにしてください。カラーチャンネルには<a href="concept.html#GrandMaster">グランドマスターが聞かないようになっています</A>これによりきちんと光量のみグランドマスターが影響するようになります。
    <LI><B>Color</B> 【LTP】カラーホイールやカラーマクロなど、1chを段階的に区切り、フィクスチャーにセットされた色を出すチャンネルに設定してください。※RGBなどのチャンネルには設定しないでください、その場合はprimary colorを設定してください。</LI>
    <LI><B>Gobo</B>ゴボホイールを操作するチャンネルの場合に設定してください。 </LI>
    <LI><B>Speed</B>ゴボ回転・レインボーエフェクト・動作スピード等、何か動作スピードを操作するチャンネルに設定してください。</LI>
@@ -330,7 +330,7 @@
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_wizard.png"/>
+  <TD><IMG SRC="../images/fixtureeditor_channel_wizard.png"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -363,12 +363,12 @@
 
 <H2 id="modes">モードタブ</H2>
 <P>
-  モードタブでは、フィクスチャーに搭載されている<a href="file:concept.HTML#FixtureMode">モード</a>切替機能に応じてQLC+のフィクスチャーを調整する機能です。
+  モードタブでは、フィクスチャーに搭載されている<a href="concept.HTML#FixtureMode">モード</a>切替機能に応じてQLC+のフィクスチャーを調整する機能です。
 </P>
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_modes.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_modes.png" WIDTH="700"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -382,7 +382,7 @@
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/edit_add.png"/></TD>
-     <TD>新しいモードを<A HREF="file:modeeditor.html">モードエディタ</A>で作成します</TD>
+     <TD>新しいモードを<A HREF="modeeditor.html">モードエディタ</A>で作成します</TD>
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
@@ -391,7 +391,7 @@
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/edit.png"/></TD>
-     <TD>選択したモードを<A HREF="file:modeeditor.html">モードエディタ</a>で編集します</TD>
+     <TD>選択したモードを<A HREF="modeeditor.html">モードエディタ</a>で編集します</TD>
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/editcopy.png"/></TD>
@@ -417,7 +417,7 @@
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_aliases.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_aliases.png" WIDTH="700"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
