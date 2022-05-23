@@ -10,10 +10,10 @@
 <H1>RGB Matrix Editor</H1>
 <P>
 The RGB matrix editor, as its name suggests, is used to edit
-<IMG SRC="qrc:/rgbmatrix.png" align="absmiddle"> <A HREF="file:concept.html#RGBMatrix">RGB matrix</A> functions.
+<IMG SRC="qrc:/rgbmatrix.png" align="absmiddle"> <A HREF="concept.html#RGBMatrix">RGB matrix</A> functions.
 The function works on predefined
-<IMG SRC="qrc:/group.png" align="absmiddle"> <A HREF="file:concept.html#FixtureGroup">Fixture Groups</A>
-created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A HREF="file:fixturemanager.html">Fixture Manager</A>.
+<IMG SRC="qrc:/group.png" align="absmiddle"> <A HREF="concept.html#FixtureGroup">Fixture Groups</A>
+created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A HREF="fixturemanager.html">Fixture Manager</A>.
 </P>
 
 <H2 id="controls">Controls</H2>
@@ -45,8 +45,8 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
    <img src="qrc:/sequence.png" />
   </TD>
   <TD>
-   Convert the current RGB Matrix into a <A HREF="file:concept.html#Sequence">Sequence</A>. This is useful to speed
-   up the creation of a <A HREF="file:concept.html#Show">Show</A>. Please note that if the selected pattern
+   Convert the current RGB Matrix into a <A HREF="concept.html#Sequence">Sequence</A>. This is useful to speed
+   up the creation of a <A HREF="concept.html#Show">Show</A>. Please note that if the selected pattern
    generates random data, this functionality will generate a different Sequence every time.
   </TD>
  </TR>
@@ -63,7 +63,7 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
    <img src="qrc:/player_play.png" />
   </TD>
   <TD>
-   Make the RGB Matrix run as if it were started from a <A HREF="file:virtualconsole.html">Virtual Console</A>
+   Make the RGB Matrix run as if it were started from a <A HREF="virtualconsole.html">Virtual Console</A>
    button. Note that the preview stops while the function is running.
   </TD>
  </TR>
@@ -72,7 +72,7 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
    <B>Fixture group</B>
   </TD>
   <TD>
-   The <A HREF="file:concept.html#FixtureGroup">Fixture Group</A> that is controlled by this RGB matrix.
+   The <A HREF="concept.html#FixtureGroup">Fixture Group</A> that is controlled by this RGB matrix.
   </TD>
  </TR>
  <TR>
@@ -127,7 +127,7 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
       </UL>
     </LI>
     <BR>
-    The rest of the pattern list is filled with <A HREF="file:concept.html#RGBScript">RGB Scripts</A>
+    The rest of the pattern list is filled with <A HREF="concept.html#RGBScript">RGB Scripts</A>
     loaded when QLC+ starts up.<br>
     Depending on the selected pattern, it is possible to choose a start and an end color. Some patterns
     do not allow colors at all (since they elapse them autonomously) or allow just one color.<br>
@@ -140,7 +140,7 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
   <TD>The blend mode is the mechanism used to mix multiple RGB Matrices running
     one on top of the other.<br>
     Here's a representation of how it works:
-    <P><IMG SRC="file:../images/blending.png" /></P>
+    <P><IMG SRC="../images/blending.png" /></P>
     The matrix running on the bottom layer must use the default mode, to
     prepare a ground of colors that all the above layers can use to perform
     blending.

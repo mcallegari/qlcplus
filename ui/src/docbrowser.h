@@ -24,6 +24,7 @@
 #include <QPushButton>
 #include <QMainWindow>
 #include <QElapsedTimer>
+#include <QUrl>
 
 class QToolBar;
 class QAction;
@@ -71,6 +72,7 @@ private slots:
     void slotForwardAvailable(bool);
     void slotAboutQt();
     void slotCloseWindow();
+    void slotAnchorClicked(QUrl);
 
 private:
     static DocBrowser* s_instance;
