@@ -176,6 +176,7 @@ public slots:
 
 private slots:
     /** called when the user check/uncheck a group of m_channelGroupsTree */
+    void selectedFixturesChanged();
     void slotChannelGroupsChanged(QTreeWidgetItem*item, int column);
 
     /** Called when the user moves a fader of the ChannelGroup console */

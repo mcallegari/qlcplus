@@ -334,6 +334,8 @@ void SceneEditor::init(bool applyValues)
     }
     connect(m_channelGroupsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotChannelGroupsChanged(QTreeWidgetItem*,int)));
+    connect(m_tree, SIGNAL(itemSelectionChanged()),
+            this, SLOT(selectedFixturesChanged()));
     connect(m_enableChannelsButton, SIGNAL(clicked()),
             this, SLOT(slotEnableAll()));
     connect(m_disableChannelsButton, SIGNAL(clicked()),
@@ -902,6 +904,11 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
         slotBlindToggled(false);
     }
 
+}
+
+void SceneEditor::selectedFixturesChanged()
+{
+    slotViewModeChanged(m_tabViewAction->isChecked(), true);
 }
 
 void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
