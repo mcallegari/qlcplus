@@ -111,23 +111,28 @@ private Q_SLOTS:
 private:
     void webSocketRead(QByteArray &data);
     void webSocketParsePayload();
+    void webSocketClose(quint16 error_code);
 
 private:
     bool m_isWebSocket;
     enum WebSocketState {
         init,
         length,
-        length_extra,
+        length_extended,
         mask,
         payload,
+        closed,
         sink,
     } m_websocket_state;
+    bool m_websocket_closing;
+    uint m_websocket_state_param;
+    bool m_websocket_fin;
+    int m_websocket_opCode;
     bool m_websocket_masked;
     quint8 m_websocket_mask[4];
-    int m_websocket_opCode;
     uint m_websocket_dataLen;
-    uint m_websocket_state_param;
     QByteArray m_websocket_payload;
+    QByteArray m_websocket_payload_buffer;
     QTimer *m_pollTimer;
 
 public:
