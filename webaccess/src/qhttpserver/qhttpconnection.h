@@ -25,6 +25,7 @@
 
 //#include "qhttpserverapi.h"
 #include "qhttpserverfwd.h"
+#include "qwebsocketdataprocessor_p.h"
 
 #include <QObject>
 
@@ -98,8 +99,8 @@ public:
         Pong = 0x0A
     };
 
-    QHttpConnection *enableWebSocket(bool enable);
-    void webSocketWrite(WebSocketOpCode opCode, QByteArray data);
+    QHttpConnection *enableWebSocket();
+    void webSocketWrite(WebSocketOpCode opCode, const QByteArray &data);
 
 Q_SIGNALS:
     void webSocketDataReady(QHttpConnection *conn, QString data);
@@ -107,12 +108,17 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void slotWebSocketPollTimeout();
+    void slot_pingReceived(const QByteArray &data);
+    void slot_textMessageReceived(const QString &data);
+    void slot_closeReceived(QWebSocketProtocol::CloseCode closeCode);
 
 private:
-    void webSocketRead(QByteArray data);
+    qint64 webSocketRead(QTcpSocket *io);
 
 private:
-    bool m_isWebSocket;
+    QWebSocketDataProcessor* m_webSocketParser;
+    bool m_isWebSocketCloseSent;
+    bool m_isWebSocketCloseReceived;
     QTimer *m_pollTimer;
 
 public:

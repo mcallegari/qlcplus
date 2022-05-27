@@ -183,9 +183,9 @@ QByteArray QHttpResponse::getWebSocketHandshake(QString clientKey)
     return crypto.result().toBase64();
 }
 
-QHttpConnection *QHttpResponse::enableWebSocket(bool enable)
+QHttpConnection *QHttpResponse::enableWebSocket()
 {
-    return m_connection->enableWebSocket(enable);
+    return m_connection->enableWebSocket();
 }
 
 void QHttpResponse::end(const QByteArray &data)

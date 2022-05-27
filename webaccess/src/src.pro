@@ -14,7 +14,7 @@ qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   QT += script
 }
 
-INCLUDEPATH     += qhttpserver
+INCLUDEPATH     += qhttpserver QtWebSockets
 INCLUDEPATH     += ../../engine/src ../../engine/audio/src
 INCLUDEPATH     += ../../ui/src ../../ui/src/virtualconsole
 DEPENDPATH      += ../../engine/src ../../ui/src
@@ -49,6 +49,20 @@ SOURCES = qhttpserver/http_parser.c \
           qhttpserver/qhttprequest.cpp \
           qhttpserver/qhttpresponse.cpp \
           qhttpserver/qhttpserver.cpp
+
+# WebSocket protocol parsing files
+# These are copied from QtWebSockets v5.15.4, with one patch to qwebsocketprotocol_p.h
+# This version is selected because it added maxAllowedMessageSize, and doesn't
+# use the QStringView::toInt function, used in the v6 version of the
+# library, but not available to versions <5.15.2 that we still target.
+HEADERS += QtWebSockets/qwebsocketdataprocessor_p.h \
+           QtWebSockets/qwebsocketframe_p.h \
+           QtWebSockets/qwebsocketprotocol.h \
+           QtWebSockets/qwebsocketprotocol_p.h
+
+SOURCES += QtWebSockets/qwebsocketdataprocessor.cpp \
+           QtWebSockets/qwebsocketframe.cpp \
+           QtWebSockets/qwebsocketprotocol.cpp
 
 # QLC+ webaccess files
 HEADERS += commonjscss.h \

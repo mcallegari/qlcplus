@@ -128,13 +128,14 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
 
     if (reqUrl == "/qlcplusWS")
     {
+        // resp->setHeader("Server", APPVERSION);
         resp->setHeader("Upgrade", "websocket");
         resp->setHeader("Connection", "Upgrade");
         QByteArray hash = resp->getWebSocketHandshake(req->header("sec-websocket-key"));
         //QByteArray hash = resp->getWebSocketHandshake("zTvHabaaTOEORzqK+d1yxw==");
         qDebug() << "Websocket handshake:" << hash;
         resp->setHeader("Sec-WebSocket-Accept", hash);
-        QHttpConnection *conn = resp->enableWebSocket(true);
+        QHttpConnection *conn = resp->enableWebSocket();
         if (conn != NULL)
         {
             // Allocate user for WS on heap so it doesn't go out of scope

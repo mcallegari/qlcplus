@@ -142,7 +142,7 @@ public Q_SLOTS:
      * @param enable boolean enable flag
      * @return the connection reference
      */
-    QHttpConnection *enableWebSocket(bool enable);
+    QHttpConnection *enableWebSocket();
 
     /// End/finish the response.
     /** Data will be flushed to the underlying socket

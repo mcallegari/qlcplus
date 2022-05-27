@@ -42,7 +42,7 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
       m_transmitLen(0),
       m_transmitPos(0),
       m_postPending(false),
-      m_isWebSocket(false),
+      m_webSocketParser(0),
       m_pollTimer(NULL)
 {
     m_parser = (http_parser *)malloc(sizeof(http_parser));
@@ -77,8 +77,11 @@ QHttpConnection::~QHttpConnection()
     delete m_parserSettings;
     m_parserSettings = 0;
 
-    if (m_isWebSocket == true)
+    if (m_webSocketParser)
+    {
         Q_EMIT webSocketConnectionClose(this);
+        delete m_webSocketParser;
+    }
 
     qDebug() << "HTTP connection destroyed!";
 }
@@ -101,7 +104,7 @@ void QHttpConnection::invalidateRequest()
 
 void QHttpConnection::updateWriteCount(qint64 count)
 {
-    if (m_isWebSocket == false)
+    if (m_webSocketParser == 0)
     {
         //Q_ASSERT(m_transmitPos + count <= m_transmitLen);
         if (m_transmitPos + count > m_transmitLen)
@@ -124,11 +127,16 @@ void QHttpConnection::parseRequest()
 
     while (m_socket->bytesAvailable())
     {
-        QByteArray arr = m_socket->readAll();
-        if (m_isWebSocket)
-            webSocketRead(arr);
+        if (m_webSocketParser)
+        {
+            if (m_webSocketParser->process(m_socket) == false)
+                return;
+        }
         else
+        {
+            QByteArray arr = m_socket->readAll();
             http_parser_execute(m_parser, m_parserSettings, arr.constData(), arr.size());
+        }
     }
 }
 
@@ -151,7 +159,7 @@ void QHttpConnection::waitForBytesWritten()
 void QHttpConnection::responseDone()
 {
     QHttpResponse *response = qobject_cast<QHttpResponse *>(QObject::sender());
-    if (response->m_last && m_isWebSocket == false)
+    if (response->m_last && m_webSocketParser == 0)
         m_socket->disconnectFromHost();
 }
 
@@ -333,16 +341,32 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
  * WebSocket methods
  *************************************************************************/
 
-QHttpConnection *QHttpConnection::enableWebSocket(bool enable)
+QHttpConnection *QHttpConnection::enableWebSocket()
 {
-    m_isWebSocket = enable;
     m_pollTimer = new QTimer(this);
     m_pollTimer->setInterval(5000);
+
 
     connect(m_pollTimer, SIGNAL(timeout()),
             this, SLOT(slotWebSocketPollTimeout()));
 
     m_pollTimer->start();
+
+    m_webSocketParser = new QWebSocketDataProcessor;
+    // Don't attempt to parse frames or messages larger than this many bytes
+    // Increase this number if it becomes necessary for some reason
+    m_webSocketParser->setMaxAllowedMessageSize(65535);
+    m_isWebSocketCloseSent = false;
+    m_isWebSocketCloseReceived = false;
+    connect(m_webSocketParser, SIGNAL(pingReceived(const QByteArray&)),
+        this, SLOT(slot_pingReceived(const QByteArray&)));
+    connect(m_webSocketParser, SIGNAL(textMessageReceived(const QString&)),
+        this, SLOT(slot_textMessageReceived(const QString&)));
+    connect(m_webSocketParser, SIGNAL(errorEncountered(QWebSocketProtocol::CloseCode, const QString)),
+        this, SLOT(slot_closeReceived(QWebSocketProtocol::CloseCode)));
+    connect(m_webSocketParser, SIGNAL(closeReceived(QWebSocketProtocol::CloseCode, const QString)),
+        this, SLOT(slot_closeReceived(QWebSocketProtocol::CloseCode)));
+
     return this;
 }
 
@@ -351,117 +375,63 @@ void QHttpConnection::slotWebSocketPollTimeout()
     webSocketWrite(Ping, QByteArray());
 }
 
-void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
+void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, const QByteArray &data)
 {
     qDebug() << "[webSocketWrite] data size:" << data.size();
+
+    QByteArray header;
+    header.append(0x80 + quint8(opCode));
+
     if (data.size() < 126)
-        data.prepend(quint8(data.size()));
+        header.append(quint8(data.size()));
+    else if(data.size() < 65536)
+    {
+        header.append(0x7E);
+        header.append(quint8(data.size() >> 8));
+        header.append(quint8(data.size() & 0xFF));
+    }
     else
     {
-        data.prepend(quint8(data.size() & 0x00FF));
-        data.prepend(quint8(data.size() >> 8));
-        data.prepend(0x7E);
+        header.append(0x7F);
+        header.append(quint8(0));
+        header.append(quint8(0));
+        header.append(quint8(0));
+        header.append(quint8(0));
+        header.append(quint8((data.size() >> 24) & 0xFF));
+        header.append(quint8((data.size() >> 16) & 0xFF));
+        header.append(quint8((data.size() >> 8) & 0xFF));
+        header.append(quint8(data.size() & 0xFF));
     }
-
-    data.prepend(0x80 + quint8(opCode));
 
     if (m_socket)
+    {
+        m_socket->write(header);
         m_socket->write(data);
+    }
 }
 
-/**
-     Here's the RFC 6455 Framing specs. The table of the law
-
-      0                   1                   2                   3
-      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-     +-+-+-+-+-------+-+-------------+-------------------------------+
-     |F|R|R|R| opcode|M| Payload len |    Extended payload length    |
-     |I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
-     |N|V|V|V|       |S|             |   (if payload len==126/127)   |
-     | |1|2|3|       |K|             |                               |
-     +-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
-     |     Extended payload length continued, if payload len == 127  |
-     + - - - - - - - - - - - - - - - +-------------------------------+
-     |                               |Masking-key, if MASK set to 1  |
-     +-------------------------------+-------------------------------+
-     | Masking-key (continued)       |          Payload Data         |
-     +-------------------------------- - - - - - - - - - - - - - - - +
-     :                     Payload Data continued ...                :
-     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
-     |                     Payload Data continued ...                |
-     +---------------------------------------------------------------+
- */
-
-void QHttpConnection::webSocketRead(QByteArray data)
+void QHttpConnection::slot_pingReceived(const QByteArray &data)
 {
-    if (data.size() < 2)
-        return;
-
-    int dataPos = 0;
-
-    if (((data.at(dataPos) >> 4) & 0x07) != 0)
-    {
-        qWarning() << "Wrong WebSocket RSV bits. Discard.";
-        return;
-    }
-
-    qDebug() << "[webSocketRead] total data length:" << data.size();
-
-    while (dataPos < data.size())
-    {
-        int opCode = data.at(dataPos) & 0x0F;
-        dataPos++;
-
-        bool masked = (data.at(dataPos) >> 7) ? true : false;
-        int dataLen = data.at(dataPos) & 0x7F;
-        dataPos++;
-
-        if (dataLen == 126)
-        {
-            dataLen = (data.at(dataPos) << 8) + data.at(dataPos + 1);
-            dataPos+=2;
-        }
-        else if (dataLen == 127)
-        {
-            // TODO: 64bit length...really ?
-            dataPos+=8;
-        }
-
-        quint8 mask[4];
-        if (masked == true)
-        {
-            mask[0] = quint8(data.at(dataPos));
-            mask[1] = quint8(data.at(dataPos + 1));
-            mask[2] = quint8(data.at(dataPos + 2));
-            mask[3] = quint8(data.at(dataPos + 3));
-            dataPos+=4;
-        }
-
-        qDebug() << "[webSocketRead] opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
-
-        if (opCode == TextFrame)
-        {
-            int lengthCounter = dataLen;
-            qDebug() << "[webSocketRead] Text frame length:" << dataLen;
-            // if the payload is masked, then unmask
-            if (masked == true)
-            {
-                int i = 0;
-                char *cData = data.data() + dataPos;
-                while (lengthCounter-- > 0)
-                    *cData++ ^= mask[i++ % 4];
-            }
-
-            Q_EMIT webSocketDataReady(this, QString(data.mid(dataPos, dataLen)));
-        }
-        else if (opCode == ConnectionClose)
-        {
-            qDebug() << "[webSocketRead] Connection closed by the client";
-            Q_EMIT webSocketConnectionClose(this);
-        }
-        dataPos += dataLen;
-    }
+    webSocketWrite(Pong, data);
 }
 
+void QHttpConnection::slot_textMessageReceived(const QString &data)
+{
+    Q_EMIT webSocketDataReady(this, data);
+}
+
+void QHttpConnection::slot_closeReceived(QWebSocketProtocol::CloseCode closeCode)
+{
+    if(!m_isWebSocketCloseSent)
+    {
+        QByteArray payload;
+        payload[0] = ((int)closeCode) >> 8;
+        payload[1] = ((int)closeCode) & 0xff;
+        webSocketWrite(ConnectionClose, payload);
+        m_isWebSocketCloseSent = true;
+    }
+    m_socket->close();
+    Q_EMIT webSocketConnectionClose(this);
+}
 
 /// @endcond
