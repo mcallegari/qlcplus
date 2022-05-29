@@ -22,6 +22,9 @@ var testAlgo;
 (
 function()
 {
+    var util = new Object;
+    util.initialized = false;
+
     var algo = new Object;
     algo.apiVersion = 2;
     algo.name = "Waves";
@@ -87,9 +90,6 @@ function()
       if (algo.orientation === 1) { return "Vertical"; }
       else if (algo.orientation === 0) { return "Horizontal"; }
     };
-
-    var util = new Object;
-    util.initialized = false;
 
     util.initialize = function()
     {
