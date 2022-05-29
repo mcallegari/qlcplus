@@ -23,6 +23,7 @@ devtool.gridheight = null;
 devtool.gridsize = null;
 devtool.currentStep = 0;
 devtool.testTimer = null;
+devtool.alternate = false;
 
 devtool.initDefinitions = function()
 {
@@ -191,6 +192,17 @@ devtool.initSpeedValue = function()
         speed = 500;
     }
     document.getElementById("speed").value = speed;
+}
+
+devtool.initAlternateValue = function()
+{
+    var alternate = localStorage.getItem("devtool.alternate");
+    if (alternate === 1) {
+      alternate = true;
+    } else {
+      alternate = false;
+    }
+    document.getElementById("alternate").value = alternate;
 }
 
 devtool.initColorValues = function()
@@ -430,6 +442,13 @@ devtool.writeFunction = function(functionName, propertyName, value)
     devtool.updateStepCount();
 }
 
+devtool.onAlternateChanged = function()
+{
+    var alternate = document.getElementById("alternate").value;
+    localStorage.setItem("devtool.alternate", alternate);
+    devtool.alternate = (alternate == 0);
+}
+
 devtool.onSpeedChanged = function()
 {
     var speed = document.getElementById("speed").value;
@@ -442,7 +461,11 @@ devtool.nextStep = function()
     if (devtool.currentStep + 1 < devtool.stepCount()) {
         devtool.setStep(devtool.currentStep + 1);
     } else {
-        devtool.setStep(0);
+        if (document.getElementById("alternate").value) {
+          devtool.startTest(-1);
+        } else {
+            devtool.setStep(0);
+        }
     }
 }
 
@@ -451,6 +474,10 @@ devtool.previousStep = function()
     if (devtool.currentStep > 0 && (devtool.currentStep - 1) < devtool.stepCount()) {
         devtool.setStep(devtool.currentStep - 1);
     } else {
-        devtool.setStep(devtool.stepCount() - 1); // last step
+        if (document.getElementById("alternate").value) {
+          devtool.startTest(1);
+        } else {
+          devtool.setStep(devtool.stepCount() - 1); // last step
+        }
     }
 }
