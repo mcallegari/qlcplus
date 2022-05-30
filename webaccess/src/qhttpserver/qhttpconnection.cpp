@@ -31,8 +31,6 @@
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
-#define WS_CLOSE_CODE(n) (char[]{(n/0x100, n & 0xff})
-
 /// @cond nodoc
 
 QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
@@ -365,27 +363,14 @@ void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
     header.append(0x80 + quint8(opCode));
 
     qDebug() << "[webSocketWrite] data size:" << data.size();
-    // qDebug() << "[webSocketWrite] opCode:" << QString("0x%1").arg(m_websocket_opCode, 2, 16, QChar('0')) << data.toHex();
     if (data.size() < 126)
     {
         header.append(quint8(data.size()));
     }
-    else if(data.size() < 65536)
+    else
     {
         header.append(0x7E);
         header.append(quint8(data.size() >> 8));
-        header.append(quint8(data.size() & 0xFF));
-    }
-    else
-    {
-        header.append(0x7F);
-        header.append(quint8(0));
-        header.append(quint8(0));
-        header.append(quint8(0));
-        header.append(quint8(0));
-        header.append(quint8((data.size() >> 24) & 0xFF));
-        header.append(quint8((data.size() >> 16) & 0xFF));
-        header.append(quint8((data.size() >> 8) & 0xFF));
         header.append(quint8(data.size() & 0xFF));
     }
 
