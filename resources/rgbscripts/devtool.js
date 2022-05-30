@@ -374,7 +374,7 @@ devtool.stopTest = function()
 
 devtool.initTestStatus = function()
 {
-    var timerStatus = localStorage.getItem("devtool.timerRunning");
+    let timerStatus = localStorage.getItem("devtool.timerRunning");
     if (timerStatus === null || parseInt(timerStatus) === 1) {
         devtool.startTest();
     }
@@ -461,8 +461,10 @@ devtool.nextStep = function()
     if (devtool.currentStep + 1 < devtool.stepCount()) {
         devtool.setStep(devtool.currentStep + 1);
     } else {
-        if (document.getElementById("alternate").value) {
-          devtool.startTest(-1);
+        let timerStatus = localStorage.getItem("devtool.timerRunning");
+        let alternate = document.getElementById("alternate").value;
+        if (timerStatus == "1" && alternate === "on") {
+            devtool.startTest(-1);
         } else {
             devtool.setStep(0);
         }
@@ -474,10 +476,12 @@ devtool.previousStep = function()
     if (devtool.currentStep > 0 && (devtool.currentStep - 1) < devtool.stepCount()) {
         devtool.setStep(devtool.currentStep - 1);
     } else {
-        if (document.getElementById("alternate").value) {
-          devtool.startTest(1);
+        let timerStatus = localStorage.getItem("devtool.timerRunning");
+        let alternate = document.getElementById("alternate").value;
+        if (timerStatus == "1" && alternate == "on") {
+            devtool.startTest(1);
         } else {
-          devtool.setStep(devtool.stepCount() - 1); // last step
+            devtool.setStep(devtool.stepCount() - 1); // last step
         }
     }
 }
