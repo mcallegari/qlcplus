@@ -85,13 +85,13 @@ var testAlgo;
   };
 
   algo.color1Index = algo.getColorIndex("Red");
-  algo.properties.push("name:color1Index|type:list|display:Color 1|"
-    + "values:" + colorPalette.names.toString() + "|"
-    + "write:setColor1Index|read:getColor1Name");
+  algo.properties.push("name:color1Index|type:list|display:Color 1|" +
+    "values:" + colorPalette.names.toString() + "|" +
+    "write:setColor1Index|read:getColor1Name");
   algo.color2Index = algo.getColorIndex("Green");
-  algo.properties.push("name:color2Index|type:list|display:Color 2|"
-    + "values:" + colorPalette.names.toString() + "|"
-    + "write:setColor2Index|read:getColor2Name");
+  algo.properties.push("name:color2Index|type:list|display:Color 2|" +
+    "values:" + colorPalette.names.toString() + "|" +
+    "write:setColor2Index|read:getColor2Name");
 
   algo.getColorName = function(_index) {
     if (_index < 0) {
@@ -133,9 +133,9 @@ var testAlgo;
   };
 
   algo.align = 0;
-  algo.properties.push("name:align|type:list|"
-    + "display:Align (for even width)|values:Left,Centered|"
-    + "write:setAlign|read:getAlign");
+  algo.properties.push("name:align|type:list|" +
+    "display:Align (for even width)|values:Left,Centered|" +
+    "write:setAlign|read:getAlign");
   // Left aligned is default.
   algo.setAlign = function(_align) {
     if (_align === "Centered") {
@@ -153,9 +153,9 @@ var testAlgo;
   };
 
   algo.orientation = 0;
-  algo.properties.push("name:orientation|type:list|"
-    + "display:Orientation|values:Horizontal,Vertical,Interleaved|"
-    + "write:setOrientation|read:getOrientation");
+  algo.properties.push("name:orientation|type:list|" +
+    "display:Orientation|values:Horizontal,Vertical,Interleaved|" +
+    "write:setOrientation|read:getOrientation");
   algo.setOrientation = function(_orientation) {
     if (_orientation === "Vertical") {
       algo.orientation = 1;

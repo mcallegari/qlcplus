@@ -446,7 +446,7 @@ devtool.onAlternateChanged = function()
 {
     var alternate = document.getElementById("alternate").value;
     localStorage.setItem("devtool.alternate", alternate);
-    devtool.alternate = (alternate == 0);
+    devtool.alternate = (alternate === 0);
 }
 
 devtool.onSpeedChanged = function()

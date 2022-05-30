@@ -218,7 +218,8 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return 2;  // This make no difference to the script ;-)
+      // This make no difference to the script ;-)
+      return 2;
     };
 
     // Development tool access
