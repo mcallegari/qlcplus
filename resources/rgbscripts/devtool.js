@@ -197,12 +197,12 @@ devtool.initSpeedValue = function()
 devtool.initAlternateValue = function()
 {
     var alternate = localStorage.getItem("devtool.alternate");
-    if (alternate === 1) {
+    if (alternate === true) {
       alternate = true;
     } else {
       alternate = false;
     }
-    document.getElementById("alternate").value = alternate;
+    document.getElementById("alternate").checked = alternate;
 }
 
 devtool.initColorValues = function()
@@ -444,9 +444,9 @@ devtool.writeFunction = function(functionName, propertyName, value)
 
 devtool.onAlternateChanged = function()
 {
-    var alternate = document.getElementById("alternate").value;
+    var alternate = document.getElementById("alternate").checked;
     localStorage.setItem("devtool.alternate", alternate);
-    devtool.alternate = (alternate === 0);
+    devtool.alternate = alternate;
 }
 
 devtool.onSpeedChanged = function()
@@ -462,8 +462,8 @@ devtool.nextStep = function()
         devtool.setStep(devtool.currentStep + 1);
     } else {
         let timerStatus = localStorage.getItem("devtool.timerRunning");
-        let alternate = document.getElementById("alternate").value;
-        if (timerStatus == "1" && alternate === "on") {
+        let alternate = document.getElementById("alternate").checked;
+        if (timerStatus == "1" && alternate) {
             devtool.startTest(-1);
         } else {
             devtool.setStep(0);
@@ -477,8 +477,8 @@ devtool.previousStep = function()
         devtool.setStep(devtool.currentStep - 1);
     } else {
         let timerStatus = localStorage.getItem("devtool.timerRunning");
-        let alternate = document.getElementById("alternate").value;
-        if (timerStatus == "1" && alternate == "on") {
+        let alternate = document.getElementById("alternate").checked;
+        if (timerStatus == "1" && alternate) {
             devtool.startTest(1);
         } else {
             devtool.setStep(devtool.stepCount() - 1); // last step
