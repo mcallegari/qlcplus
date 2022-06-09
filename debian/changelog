@@ -11,6 +11,7 @@ qlcplus (4.12.5) stable; urgency=low
   * Virtual Console/XY Pad: fix layout (thanks to Hans-Jürgen Tappe)
   * Virtual Console: fix copy of widgets background picture
   * Virtual Console/Speed Dial: improve tap tempo detection (thanks to Austin Wright)
+  * Virtual Console/Speed Dial: fix time overflow above 1h11m
   * Virtual Console/Cue List: fix side fader feedbacks (thanks to Daniel Torlop)
   * Plugins: save IO lines by name and not by index (where possible)
   * Plugins/DMX USB: add support for COM485-PLUS2 product (thanks to David Turner)
