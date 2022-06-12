@@ -131,6 +131,7 @@ var testAlgo;
       util.centerX = width / 2;
       util.centerY = height / 2;
       util.twoPi = 2 * Math.PI;
+      util.halfPi = Math.PI / 2;
 
       if (algo.fillMatrix === 1) {
         util.circleRadius = 0;
@@ -148,14 +149,11 @@ var testAlgo;
         });
       }
       
-      if (algo.fadeMode === 1) {
-        util.stepFade = algo.rgbMapStepCount(width, height) / algo.segmentsCount;
-      } else {
-        util.stepFade = 1.0;
-      }
+      util.stepFade = algo.rgbMapStepCount(width, height) / algo.segmentsCount;
 
       util.width = width;
       util.height = height;
+      util.blindoutRadius = Math.min(width, height) / 2;
       util.initialized = true;
     };
 
@@ -204,35 +202,54 @@ var testAlgo;
       return util.mergeRgb(pointr, pointg, pointb);
     }
 
-    util.getMapPixelColor = function(ry, rx, rgb)
+    util.getMapPixelColor = function(ry, rx, r, g, b)
     {
-      // TODO: Optimize multiple calculations
-      let r = (rgb >> 16) & 0x00FF;
-      let g = (rgb >> 8) & 0x00FF;
-      let b = rgb & 0x00FF;
-
       let factor = 1.0;
       // calculate the offset difference of algo.map location to the float
       // location of the object
       let offx = rx - util.centerX;
       let offy = ry - util.centerY;
-      
-      let radius = Math.sqrt(offx * offx + offy * offy);
+
+      let pointRadius = Math.sqrt(offx * offx + offy * offy);
       let angle = geometryCalc.getAngle(offx, offy);
-      angle = angle + (util.twoPi * (util.progstep / algo.rgbMapStepCount(util.width, util.height)));
+      angle = angle + (util.twoPi * (1 - util.progstep / algo.rgbMapStepCount(util.width, util.height)));
       angle = angle * algo.segmentsCount;
       angle = (angle + util.twoPi) % (util.twoPi);
 
-      let virtualx = Math.sin(angle) * radius;
-      let virtualy = Math.cos(angle) * radius;
+      let virtualx = Math.sin(angle) * pointRadius;
+      let virtualy = Math.cos(angle) * pointRadius;
 
-      // atan(1 - x - y) + atan(y - x + 1) + atan(x - y + 1) - 2
       let endfade = Math.atan(2.5 - virtualx - virtualy);
       let sidefade1 = Math.atan((virtualy - virtualx) / algo.segmentsCount + 1);
       let sidefade2 = Math.atan((virtualx - virtualy) / algo.segmentsCount + 1);
-      factor = Math.min(1, Math.max(0, endfade + sidefade1 + sidefade2 -2));
-      
+      factor = endfade + sidefade1 + sidefade2 -2;
+
+      if (algo.fillMatrix === 0) {
+        // circle
+        let distance = Math.sqrt(offx * offx + offy * offy);
+        let distPercent = distance / util.blindoutRadius;
+        factor *= util.blindoutPercent(1 - distPercent, 0.5);
+      }
+
+      // Normalize the factor      
+      factor = Math.min(1, Math.max(0, factor));
+
       return util.getColor(r * factor, g * factor, b * factor, util.map[ry][rx]);
+    }
+
+    // Blind out towards 0 percent
+    util.blindoutPercent = function(percent, sharpness = 1)
+    {
+      if (percent <= 0) {
+        return 0;
+      }
+      // Normalize input
+      percent = Math.min(1, percent);
+      // asec consumes values > 1. asec(x) = acos(1/x)
+      let factor = Math.min(1, Math.acos(1 /
+        (Math.sqrt(sharpness * percent * percent) + 1)
+      ) * util.halfPi);
+      return factor;
     }
 
     algo.rgbMap = function(width, height, rgb, step)
@@ -245,25 +262,30 @@ var testAlgo;
       util.progstep = step;
 
       // Dim or clear algo.map data
-      if (algo.fadeMode === 1) {
-        // Dim current map data
-        util.map = util.map.map(col => {
-          return col.map(pxl => {
-            return util.dimColor(pxl, util.stepFade);
-          })
-        });
-      } else {
+//      if (algo.fadeMode === 1) {
+//        // Dim current map data
+//        util.map = util.map.map(col => {
+//          return col.map(pxl => {
+//            return util.dimColor(pxl, util.stepFade);
+//          })
+//        });
+//      } else {
         util.map = util.map.map(col => {
           return col.map(pxl => {
             return 0;
           })
         });
-      }
+//      }
       
+      // Optimize multiple calculations
+      let r = (rgb >> 16) & 0x00FF;
+      let g = (rgb >> 8) & 0x00FF;
+      let b = rgb & 0x00FF;
+
       // Draw the current map
       for (ry = 0; ry < height; ry++) {
         for (rx = 0; rx < width; rx++) {
-          util.map[ry][rx] = util.getMapPixelColor(ry, rx, rgb);
+          util.map[ry][rx] = util.getMapPixelColor(ry, rx, r, g, b);
         }
       }
 
