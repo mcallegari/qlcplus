@@ -34,7 +34,9 @@ var testAlgo;
     algo.segmentsCount = 1;
     algo.properties.push("name:circlesSize|type:range|display:Circle Segments|values:1,32|write:setSegments|read:getSegments");
     algo.fadeMode = 0;
-    algo.properties.push("name:fadeMode|type:list|display:Fade Mode|values:Don't Fade,Fade|write:setFade|read:getFade");
+    algo.properties.push("name:fadeMode|type:list|display:Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
+    algo.fadeLength = 1;
+    algo.properties.push("name:fadeLength|type:range|display:Fade Divisor|values:1,10|write:setFadeLength|read:getFadeLength");
     algo.fillMatrix = 0;
     algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
     algo.circularMode = 0;
@@ -86,14 +88,26 @@ var testAlgo;
 
     algo.setFade = function(_fade)
     {
-      if (_fade === "Fade") { algo.fadeMode = 1; }
+      if (_fade === "Fade Left") { algo.fadeMode = 1; }
+      else if (_fade === "Fade Right") { algo.fadeMode = 2; }
       else { algo.fadeMode = 0; }
     };
 
     algo.getFade = function()
     {
-      if (algo.fadeMode === 1) { return "Fade In"; }
+      if (algo.fadeMode === 1) { return "Fade Left"; }
+      else if (algo.fadeMode === 2) { return "Fade Right"; }
       else { return "Don't Fade"; }
+    };
+
+    algo.setFadeLength = function(_length)
+    {
+      algo.fadeLength = _length;
+    };
+
+    algo.getFadeLength = function()
+    {
+      return algo.fadeLength;
     };
 
     algo.setFill = function (_fill) {
@@ -128,8 +142,8 @@ var testAlgo;
 
     util.initialize = function(width, height)
     {
-      util.centerX = width / 2;
-      util.centerY = height / 2;
+      util.centerX = width / 2 - 0.5;
+      util.centerY = height / 2 - 0.5;
       util.twoPi = 2 * Math.PI;
       util.halfPi = Math.PI / 2;
 
@@ -219,10 +233,21 @@ var testAlgo;
       let virtualx = Math.sin(angle) * pointRadius;
       let virtualy = Math.cos(angle) * pointRadius;
 
-      let endfade = Math.atan(2.5 - virtualx - virtualy);
-      let sidefade1 = Math.atan((virtualy - virtualx) / algo.segmentsCount + 1);
-      let sidefade2 = Math.atan((virtualx - virtualy) / algo.segmentsCount + 1);
-      factor = endfade + sidefade1 + sidefade2 -2;
+      let sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
+      let sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
+      let endfade = Math.atan(virtualy + 1.5);
+
+      factor = endfade + sidefade1 + sidefade2 - 2;
+
+      let fadeFactor = 0;
+      if (algo.fadeMode === 1) {
+        fadeFactor = algo.fadeLength * Math.atan(1.5 * (angle / util.twoPi)) - algo.fadeLength + 1;
+      }
+      else if (algo.fadeMode === 2) {
+        fadeFactor = algo.fadeLength * Math.atan(1.5 * (1 - (angle / util.twoPi))) - algo.fadeLength + 1;
+      }
+      
+      factor = Math.max(factor, fadeFactor)
 
       if (algo.fillMatrix === 0) {
         // circle
