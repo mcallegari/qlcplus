@@ -40,7 +40,7 @@ var testAlgo;
     algo.fillMatrix = 0;
     algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
     algo.circularMode = 0;
-    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar Line,In,Out|write:setMode|read:getMode");
+    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral|write:setMode|read:getMode");
 
     var util = new Object;
     util.initialized = false;
@@ -126,18 +126,16 @@ var testAlgo;
       }
     };
 
-    algo.setMode = function(_fade)
+    algo.setMode = function(_mode)
     {
-      if (_fade === "In") { algo.circularMode = 1; }
-      else if (_fade === "Out") { algo.circularMode = 2; }
+      if (_mode === "Spiral") { algo.circularMode = 1; }
       else { algo.circularMode = 0; }
     };
 
     algo.getMode = function()
     {
-      if (algo.circularMode === 1) { return "In"; }
-      else if (algo.circularMode === 2) { return "Out"; }
-      else { return "Radar Line"; }
+      if (algo.circularMode === 1) { return "Spiral"; }
+      else { return "Radar"; }
     };
 
     util.initialize = function(width, height)
@@ -233,27 +231,32 @@ var testAlgo;
       let virtualx = Math.sin(angle) * pointRadius;
       let virtualy = Math.cos(angle) * pointRadius;
 
-      let sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
-      let sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
-      let endfade = Math.atan(virtualy + 1.5);
-
-      factor = endfade + sidefade1 + sidefade2 - 2;
-
-      let fadeFactor = 0;
-      if (algo.fadeMode === 1) {
-        fadeFactor = algo.fadeLength * Math.atan(1.5 * (angle / util.twoPi)) - algo.fadeLength + 1;
-      }
-      else if (algo.fadeMode === 2) {
-        fadeFactor = algo.fadeLength * Math.atan(1.5 * (1 - (angle / util.twoPi))) - algo.fadeLength + 1;
-      }
-      
-      factor = Math.max(factor, fadeFactor)
-
-      if (algo.fillMatrix === 0) {
-        // circle
-        let distance = Math.sqrt(offx * offx + offy * offy);
-        let distPercent = distance / util.blindoutRadius;
-        factor *= util.blindoutPercent(1 - distPercent, 0.5);
+      if (algo.circularMode === 0) {
+        let sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
+        let sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
+        let endfade = Math.atan(virtualy + 1.5);
+  
+        factor = endfade + sidefade1 + sidefade2 - 2;
+  
+        let fadeFactor = 0;
+        if (algo.fadeMode === 1) {
+          fadeFactor = algo.fadeLength * Math.atan(1.5 * (angle / util.twoPi)) - algo.fadeLength + 1;
+        }
+        else if (algo.fadeMode === 2) {
+          fadeFactor = algo.fadeLength * Math.atan(1.5 * (1 - (angle / util.twoPi))) - algo.fadeLength + 1;
+        }
+        
+        factor = Math.max(factor, fadeFactor)
+  
+        if (algo.fillMatrix === 0) {
+          // circle
+          let distance = Math.sqrt(offx * offx + offy * offy);
+          let distPercent = distance / util.blindoutRadius;
+          factor *= util.blindoutPercent(1 - distPercent, 0.5);
+        }
+      } else {
+        factor = Math.atan(1.5 * (1 - (angle / util.twoPi)));
+        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
       }
 
       // Normalize the factor      
@@ -286,21 +289,12 @@ var testAlgo;
       
       util.progstep = step;
 
-      // Dim or clear algo.map data
-//      if (algo.fadeMode === 1) {
-//        // Dim current map data
-//        util.map = util.map.map(col => {
-//          return col.map(pxl => {
-//            return util.dimColor(pxl, util.stepFade);
-//          })
-//        });
-//      } else {
-        util.map = util.map.map(col => {
-          return col.map(pxl => {
-            return 0;
-          })
-        });
-//      }
+      // clear algo.map data
+      util.map = util.map.map(col => {
+        return col.map(pxl => {
+          return 0;
+        })
+      });
       
       // Optimize multiple calculations
       let r = (rgb >> 16) & 0x00FF;
