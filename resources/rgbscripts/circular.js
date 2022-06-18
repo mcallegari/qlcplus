@@ -261,7 +261,7 @@ var testAlgo;
         // circle
         let distance = Math.sqrt(offx * offx + offy * offy);
         let distPercent = distance / util.blindoutRadius;
-        factor *= util.blindoutPercent(1 - distPercent, 0.5);
+        factor *= util.blindoutPercent(1 - distPercent, 5.0);
       }
 
       // Normalize the factor      
