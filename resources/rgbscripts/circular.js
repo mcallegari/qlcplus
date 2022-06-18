@@ -34,13 +34,13 @@ var testAlgo;
     algo.segmentsCount = 1;
     algo.properties.push("name:circlesSize|type:range|display:Circle Segments|values:1,32|write:setSegments|read:getSegments");
     algo.fadeMode = 0;
-    algo.properties.push("name:fadeMode|type:list|display:Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
+    algo.properties.push("name:fadeMode|type:list|display:Radar Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
     algo.fadeLength = 1;
     algo.properties.push("name:fadeLength|type:range|display:Fade Divisor|values:1,10|write:setFadeLength|read:getFadeLength");
     algo.fillMatrix = 0;
     algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
     algo.circularMode = 0;
-    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral|write:setMode|read:getMode");
+    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left|write:setMode|read:getMode");
 
     var util = new Object;
     util.initialized = false;
@@ -128,13 +128,15 @@ var testAlgo;
 
     algo.setMode = function(_mode)
     {
-      if (_mode === "Spiral") { algo.circularMode = 1; }
+      if (_mode === "Spiral Right") { algo.circularMode = 1; }
+      else if (_mode === "Spiral Left") { algo.circularMode = 2; }
       else { algo.circularMode = 0; }
     };
 
     algo.getMode = function()
     {
-      if (algo.circularMode === 1) { return "Spiral"; }
+      if (algo.circularMode === 1) { return "Spiral Right"; }
+      else if (algo.circularMode === 2) { return "Spiral Left"; }
       else { return "Radar"; }
     };
 
@@ -231,7 +233,13 @@ var testAlgo;
       let virtualx = Math.sin(angle) * pointRadius;
       let virtualy = Math.cos(angle) * pointRadius;
 
-      if (algo.circularMode === 0) {
+      if (algo.circularMode === 1) {
+        factor = Math.atan(1.5 * (1 - (angle / util.twoPi)));
+        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
+      } else if (algo.circularMode === 2) {
+        factor = Math.atan(1.5 * (angle / util.twoPi));
+        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
+      } else {
         let sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
         let sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
         let endfade = Math.atan(virtualy + 1.5);
@@ -246,17 +254,14 @@ var testAlgo;
           fadeFactor = algo.fadeLength * Math.atan(1.5 * (1 - (angle / util.twoPi))) - algo.fadeLength + 1;
         }
         
-        factor = Math.max(factor, fadeFactor)
-  
-        if (algo.fillMatrix === 0) {
-          // circle
-          let distance = Math.sqrt(offx * offx + offy * offy);
-          let distPercent = distance / util.blindoutRadius;
-          factor *= util.blindoutPercent(1 - distPercent, 0.5);
-        }
-      } else {
-        factor = Math.atan(1.5 * (1 - (angle / util.twoPi)));
-        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
+        factor = Math.max(factor, fadeFactor)  
+      }
+
+      if (algo.fillMatrix === 0) {
+        // circle
+        let distance = Math.sqrt(offx * offx + offy * offy);
+        let distPercent = distance / util.blindoutRadius;
+        factor *= util.blindoutPercent(1 - distPercent, 0.5);
       }
 
       // Normalize the factor      
