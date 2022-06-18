@@ -54,11 +54,13 @@ var testAlgo;
 
     var lines = new Array();
 
-    function Line(x, y, step)
-    {
-      this.xCenter = x;
-      this.yCenter = y;
-      this.step = step;
+    class Line {
+      constructor(x, y, step) {
+        this.xCenter = x;
+        this.yCenter = y;
+        this.step = step;
+        this.color = 0;
+      }
     };
 
     algo.setLinesSize = function(_size)
@@ -269,16 +271,15 @@ var testAlgo;
 
       for (var i = 0; i < algo.linesAmount; i++)
       {
-        var color = util.getColor(lines[i].step, rgb);
-        //alert("Line " + i + " xCenter: " + lines[i].xCenter + " color: " + color.toString(16));
-        //move center if set
-
         if (lines[i].xCenter === -1)
         {
           // Randomize the initialization of a new line.
           var seed = Math.floor(Math.random() * 100);
           if (seed > 50)
             continue;
+
+          // apply the current step color
+          lines[i].color = rgb;
 
           // if biased .. move the start points to the cardinal ends of the space
           if (algo.linesBias == 1 || algo.linesBias == 5 || algo.linesBias == 6)
@@ -307,8 +308,11 @@ var testAlgo;
             lines[i].xCenter = Math.round(Math.random() * (width - 1));
           }
 
-          util.pixelMap[lines[i].yCenter][lines[i].xCenter] = color;
+          util.pixelMap[lines[i].yCenter][lines[i].xCenter] = lines[i].color;
         } else {
+          var color = util.getColor(lines[i].step, lines[i].color);
+          //alert("Line " + i + " xCenter: " + lines[i].xCenter + " color: " + color.toString(16));
+
           var l = lines[i].step * Math.cos(Math.PI / 4);
           var radius2 = lines[i].step * lines[i].step;
           l = l.toFixed(0);
@@ -382,7 +386,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return algo.linesSize;
+      return 2;
     };
 
     // Development tool access

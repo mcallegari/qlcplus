@@ -42,11 +42,13 @@ var testAlgo;
 
     var squares = new Array();
 
-    function Square(x, y, step)
-    {
-      this.xCenter = x;
-      this.yCenter = y;
-      this.step = step;
+    class Square {
+      constructor(x, y, step) {
+        this.xCenter = x;
+        this.yCenter = y;
+        this.step = step;
+        this.color = 0;
+      }
     }
 
     algo.setAmount = function(_amount)
@@ -124,6 +126,29 @@ var testAlgo;
         return newRGB;
       }
     };
+    
+    util.mergeRgb = function(rgb1, rgb2)
+    {
+      if (rgb1 === 0) {
+        return rgb2;
+      } else if (rgb2 === 0) {
+        return rgb1;
+      }
+      // split rgb in to components
+      let r1 = (rgb1 >> 16) & 0x00FF;
+      let g1 = (rgb1 >> 8) & 0x00FF;
+      let b1 = rgb1 & 0x00FF;
+
+      let r2 = (rgb2 >> 16) & 0x00FF;
+      let g2 = (rgb2 >> 8) & 0x00FF;
+      let b2 = rgb2 & 0x00FF;
+      
+      let r = Math.max(r1, r2);
+      let g = Math.max(g1, g2);
+      let b = Math.max(b1, b2);
+      
+      return ((r << 16) + (g << 8) + b);
+    }
 
     util.getNextStep = function(width, height, rgb)
     {
@@ -141,7 +166,6 @@ var testAlgo;
 
       for (var i = 0; i < algo.squaresAmount; i++)
       {
-        var color = util.getColor(squares[i].step, rgb);
         //alert("Square " + i + " xCenter: " + squares[i].xCenter + " color: " + color.toString(16));
         if (squares[i].xCenter === -1)
         {
@@ -149,10 +173,13 @@ var testAlgo;
           if (seed > 50) { continue; }
           squares[i].xCenter = Math.floor(Math.random() * width);
           squares[i].yCenter = Math.floor(Math.random() * height);
-          map[squares[i].yCenter][squares[i].xCenter] = color;
+          squares[i].color = rgb;
+          map[squares[i].yCenter][squares[i].xCenter] =
+              util.mergeRgb(map[squares[i].yCenter][squares[i].xCenter], squares[i].color);
         }
         else
         {
+          var color = util.getColor(squares[i].step, squares[i].color);
           var firstY = squares[i].yCenter - squares[i].step;
           var side = (squares[i].step * 2) + 1;
           for (var sy = firstY; sy <= (firstY + side); sy++)
@@ -166,12 +193,12 @@ var testAlgo;
               if (sx < 0 || sx >= width) { continue; }
               if (sy === firstY || sy === firstY + side || algo.fillSquares === 1)
               {
-                map[sy][sx] = color;
+                map[sy][sx] = util.mergeRgb(map[sy][sx], color);
               }
               else
               {
                 if (sx === firstX || sx === firstX + side) {
-                  map[sy][sx] = color;
+                  map[sy][sx] = util.mergeRgb(map[sy][sx], color);
                 }
               }
             }
@@ -206,11 +233,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      if (height < width) {
-        return height;
-      } else {
-        return width;
-      }
+      return 2;
     };
 
     // Development tool access

@@ -23,6 +23,7 @@ devtool.gridheight = null;
 devtool.gridsize = null;
 devtool.currentStep = 0;
 devtool.testTimer = null;
+devtool.alternate = false;
 
 devtool.initDefinitions = function()
 {
@@ -191,6 +192,17 @@ devtool.initSpeedValue = function()
         speed = 500;
     }
     document.getElementById("speed").value = speed;
+}
+
+devtool.initAlternateValue = function()
+{
+    var alternate = localStorage.getItem("devtool.alternate");
+    if (alternate === true) {
+      alternate = true;
+    } else {
+      alternate = false;
+    }
+    document.getElementById("alternate").checked = alternate;
 }
 
 devtool.initColorValues = function()
@@ -362,7 +374,7 @@ devtool.stopTest = function()
 
 devtool.initTestStatus = function()
 {
-    var timerStatus = localStorage.getItem("devtool.timerRunning");
+    let timerStatus = localStorage.getItem("devtool.timerRunning");
     if (timerStatus === null || parseInt(timerStatus) === 1) {
         devtool.startTest();
     }
@@ -430,6 +442,13 @@ devtool.writeFunction = function(functionName, propertyName, value)
     devtool.updateStepCount();
 }
 
+devtool.onAlternateChanged = function()
+{
+    var alternate = document.getElementById("alternate").checked;
+    localStorage.setItem("devtool.alternate", alternate);
+    devtool.alternate = alternate;
+}
+
 devtool.onSpeedChanged = function()
 {
     var speed = document.getElementById("speed").value;
@@ -442,7 +461,13 @@ devtool.nextStep = function()
     if (devtool.currentStep + 1 < devtool.stepCount()) {
         devtool.setStep(devtool.currentStep + 1);
     } else {
-        devtool.setStep(0);
+        let timerStatus = localStorage.getItem("devtool.timerRunning");
+        let alternate = document.getElementById("alternate").checked;
+        if (timerStatus == "1" && alternate) {
+            devtool.startTest(-1);
+        } else {
+            devtool.setStep(0);
+        }
     }
 }
 
@@ -451,6 +476,12 @@ devtool.previousStep = function()
     if (devtool.currentStep > 0 && (devtool.currentStep - 1) < devtool.stepCount()) {
         devtool.setStep(devtool.currentStep - 1);
     } else {
-        devtool.setStep(devtool.stepCount() - 1); // last step
+        let timerStatus = localStorage.getItem("devtool.timerRunning");
+        let alternate = document.getElementById("alternate").checked;
+        if (timerStatus == "1" && alternate) {
+            devtool.startTest(1);
+        } else {
+            devtool.setStep(devtool.stepCount() - 1); // last step
+        }
     }
 }

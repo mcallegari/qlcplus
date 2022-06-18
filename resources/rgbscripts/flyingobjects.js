@@ -23,11 +23,15 @@ var testAlgo;
 
 (function()
   {
+    var util = new Object;
+
+    let geometryCalc = new Object;
+
     var algo = new Object;
     algo.apiVersion = 2;
     algo.name = "Flying Objects";
     algo.author = "Hans-Jürgen Tappe";
-    algo.acceptColors = 2;
+    algo.acceptColors = 1;
     algo.properties = new Array();
 
     // Algorithms ----------------------------
@@ -1081,7 +1085,6 @@ var testAlgo;
 
     // General Purpose Functions ------------------
 
-    let geometryCalc = new Object;
     geometryCalc.cache = {
       presetRadius: 0,
     };
@@ -1144,7 +1147,6 @@ var testAlgo;
     }
     
     // Utility functions --------------------------
-    var util = new Object;
 
     util.initialize = function(width, height)
     {

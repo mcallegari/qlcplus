@@ -23,11 +23,13 @@ var testAlgo;
 (
   function()
   {
+    var util = new Object;
+
     var algo = new Object;
     algo.apiVersion = 2;
     algo.name = "Fireworks";
     algo.author = "Hans-Jürgen Tappe";
-    algo.acceptColors = 2;
+    algo.acceptColors = 1;
     algo.properties = new Array();
     algo.initialized = false;
 
@@ -215,7 +217,6 @@ var testAlgo;
 
     // --------------------------------
     // Helper Utilities & Functions
-    var util = new Object;
 
     util.gravity = 0.4;
     util.acceleration = 1.05;
