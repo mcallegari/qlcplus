@@ -219,6 +219,7 @@
     <F n="beamZ-MHL108-Wash-MKII" m="MHL108 Wash MKII"/>
     <F n="beamZ-MHL90-Wash-5x18W-RGBAW-UV" m="MHL90 Wash 5x18W RGBAW-UV"/>
     <F n="Beamz-Panther-25-LED-Spot" m="Panther 25 LED Spot"/>
+    <F n="beamZ-SparkleWall" m="SparkleWall"/>
   </M>
   <M n="Blizzard_Lighting">
     <F n="Blizzard-Lighting-Blade-RGBW" m="Blade RGBW"/>
@@ -677,6 +678,7 @@
     <F n="Eurolite-LED-PAR64-RGB" m="LED PAR64 RGB"/>
     <F n="Eurolite-LED-PAR64-RGBA" m="LED PAR64 RGBA"/>
     <F n="Eurolite-LED-PAR64-White" m="LED PAR64 White"/>
+    <F n="Eurolite-LED-PARty-Hybrid-spot" m="LED PARty Hybrid Spot"/>
     <F n="Eurolite-LED-Party-Panel-RGB+UV" m="LED Party Panel RGB+UV"/>
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
@@ -758,6 +760,7 @@
   <M n="Fun-Generation">
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
     <F n="Fun-Generation-LED-Pot-12x1W-RGBW" m="LED Pot 12x1W RGBW"/>
+    <F n="Fun-Generation-MiniSpider-FX" m="MiniSpider FX"/>
     <F n="Fun-Generation-PicoBeam-60" m="PicoBeam 60"/>
     <F n="Fun-Generation-PicoSpot-20" m="PicoSpot 20"/>
     <F n="Fun-Generation-PicoWash-40-Pixel-Quad-LED" m="PicoWash 40 Pixel Quad LED"/>
@@ -896,6 +899,7 @@
     <F n="involight-LED-PAR-180" m="LED PAR 180"/>
     <F n="Involight-LEDSTROB400" m="LEDSTROB400"/>
     <F n="Involight-SBL2000" m="SBL2000"/>
+    <F n="Involight-SBL3000" m="SBL3000"/>
     <F n="Involight-SlimPar56-PRO" m="SlimPar56 PRO"/>
   </M>
   <M n="iSolution">
@@ -1362,6 +1366,7 @@
     <F n="Showtec-LED-Par-56" m="LED Par 56"/>
     <F n="Showtec-LED-Pixel-Track-Pro" m="LED Pixel Track Pro"/>
     <F n="Showtec-LED-Powerline-16-Bar" m="LED Powerline 16 Bar"/>
+    <F n="Showtec-Lightbrick" m="Lightbrick"/>
     <F n="Showtec-Mini-Max-LED-RGB" m="Mini Max LED RGB"/>
     <F n="Showtec-MiniMax-250" m="MiniMax 250"/>
     <F n="Showtec-MultiDim-MK-III-DMX" m="MultiDim MK III DMX"/>
@@ -1508,6 +1513,8 @@
     <F n="Starway-MiniKolor" m="MiniKolor"/>
     <F n="Starway-Mode-B" m="Mode B"/>
     <F n="Starway-NanoKolor" m="NanoKolor"/>
+    <F n="Starway-ParKolor-120HD" m="ParKolor 120HD"/>
+    <F n="Starway-PCKolor-HD" m="PCKolor HD"/>
     <F n="Starway-Servo-Beam-5R" m="Servo Beam 5R"/>
     <F n="Starway-Servo-Color-4k" m="Servo Color 4k"/>
     <F n="Starway-Servocolor-600" m="Servocolor 600"/>
@@ -1563,7 +1570,9 @@
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
     <F n="Varytec-Hero-Beam-100" m="Hero Beam 100"/>
     <F n="Varytec-Hero-Spot-230" m="Hero Spot 230"/>
+    <F n="Varytec-Hero-Spot-Wash-140-2in1-RGBW+W" m="Hero Spot Wash 140 2in1 RGBW+W"/>
     <F n="Varytec-Hero-Spot-Wash-80-2in1-RGBW+W" m="Hero Spot Wash 80 2in1 RGBW+W"/>
+    <F n="Varytec-Hero-Wash-340FX-RGBW-Zoom" m="Hero Wash 340FX RGBW Zoom"/>
     <F n="Varytec-Hero-Wash-640FX" m="Hero Wash 640FX"/>
     <F n="Varytec-Hero-Wash-715-HEX-LED" m="Hero Wash 715 HEX LED"/>
     <F n="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW" m="LED Easy Move Mini Beam + Wash RGBW"/>

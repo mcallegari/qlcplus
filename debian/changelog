@@ -34,11 +34,11 @@ qlcplus (4.12.5) stable; urgency=low
   * New fixture: Ayra ERO 075 (thanks to Jan van Rumph)
   * New fixtures: Eurolite LED TMH-51, Eurolite LED TMH FE-1800, Eurolite LED TMH-X5 (thanks to Sebastian Moeckel)
   * New fixtures: Fun-Generation PicoBeam 60, American DJ Entour Faze (thanks to Sebastian Moeckel)
-  * New fixtures: Varytec Hero Beam 100, Varytec Hero Spot 230 (thanks to Sebastian Moeckel)
+  * New fixtures: Varytec Hero Beam 100, Varytec Hero Spot 230, Varytec Hero Spot Wash 140 2in1 RGBW+W (thanks to Sebastian Moeckel)
   * New fixture: Chauvet Rogue R1 FX-B (thanks to Jean-Daniel Garcia / Barbara Brugger)
   * New fixture: Chauvet Mini Kinta IRC (thanks to Jason Willett)
   * New fixture: Stairville MH-x30 LED Spot (thanks to Peeter)
-  * New fixtures: Eurolite LED SLS-603, QTX Flare-1000 (thanks to Klaus Muth)
+  * New fixtures: Eurolite LED SLS-603, QTX Flare-1000, Fun-Generation MiniSpider FX (thanks to Klaus Muth)
   * New fixtures: Clay Paky Arolla Spot MP, Arolla Profile MP, Arolla Profile HP (thanks to Gianluca Baggi, Giordano Fassi)
   * New fixture: Martin RUSH Par 2 RGBW Zoom (thanks to jeremy-AMMD)
   * New fixture: UKing Wall Washer 24x3W (thanks to Jürgen Froeschlin)
@@ -54,8 +54,12 @@ qlcplus (4.12.5) stable; urgency=low
   * New fixture: Lixada 5LED 50W Beam Wash Double Sides RGBW (thanks to John Yiannikakis)
   * New fixture: Chauvet Rogue R2 Wash (thanks to Bobby)
   * New fixture: Eurolite TMH-X4 (thanks to Piotr Nowik)
+  * New fixture: Eurolite LED PARty Hybrid Spot (thanks to Thom Stam)
+  * New fixtures: Starway ParKolor 120HD, Starway PCKolor HD (thanks to Nestor Laborier)
+  * New fixtures: Varytec Hero Wash 340FX RGBW Zoom, Showtec Lightbrick (thanks to Thomas Dral)
+  * New fixtures: beamZ SparkleWall, Involight SBL3000 (thanks to Jan Fries)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 24 Apr 2022 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 19 Jun 2022 12:13:14 +0200
 
 qlcplus (4.12.4) stable; urgency=low
 
