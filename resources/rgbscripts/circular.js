@@ -35,8 +35,8 @@ var testAlgo;
     algo.properties.push("name:circlesSize|type:range|display:Circle Segments|values:1,32|write:setSegments|read:getSegments");
     algo.fadeMode = 0;
     algo.properties.push("name:fadeMode|type:list|display:Radar Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
-    algo.fadeLength = 1;
-    algo.properties.push("name:fadeLength|type:range|display:Fade Divisor|values:1,10|write:setFadeLength|read:getFadeLength");
+    algo.divisor = 1;
+    algo.properties.push("name:divisor|type:range|display:Algorithm Divisor|values:1,10|write:setDivisor|read:getDivisor");
     algo.fillMatrix = 0;
     algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
     algo.circularMode = 0;
@@ -100,14 +100,15 @@ var testAlgo;
       else { return "Don't Fade"; }
     };
 
-    algo.setFadeLength = function(_length)
+    algo.setDivisor = function(_value)
     {
-      algo.fadeLength = _length;
+      algo.divisor = _value;
+      util.initialized = false;
     };
 
-    algo.getFadeLength = function()
+    algo.getDivisor = function()
     {
-      return algo.fadeLength;
+      return algo.divisor;
     };
 
     algo.setFill = function (_fill) {
@@ -171,7 +172,10 @@ var testAlgo;
 
       util.width = width;
       util.height = height;
+
       util.blindoutRadius = Math.min(width, height) / 2;
+      util.sOffsetFactor = Math.round(Math.min(width, height) / Math.PI / algo.divisor) * Math.PI;
+
       util.initialized = true;
     };
 
@@ -245,22 +249,27 @@ var testAlgo;
       } else if (algo.circularMode === 3) {
         // Right S-Curve
         let pRadius = Math.sqrt(offx * offx + offy * offy);
-        let virtualx = rx;
+        let virtualx = Math.sin(angle) * pRadius;
         let virtualy = ry;
-        let offsetFactor = 3 * Math.PI;
         if (angle < Math.PI) {
-          virtualx = Math.sin(angle) * pRadius;
-          virtualy = Math.cos(angle) * pRadius + offsetFactor;
+          virtualy = Math.cos(angle) * pRadius + util.sOffsetFactor;
         } else {
-          virtualx = Math.sin(angle) * pRadius;
-          virtualy = Math.cos(angle) * pRadius - offsetFactor;
+          virtualy = Math.cos(angle) * pRadius - util.sOffsetFactor;
         }
         let sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.cos(sRadius);
       } else if (algo.circularMode === 4) {
         // Left S-Curve
-        factor = Math.atan(1.5 * (angle / util.twoPi));
-//        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
+        let pRadius = Math.sqrt(offx * offx + offy * offy);
+        let virtualx = Math.sin(angle) * pRadius;
+        let virtualy = ry;
+        if (angle < Math.PI) {
+          virtualy = Math.cos(angle) * pRadius - util.sOffsetFactor;
+        } else {
+          virtualy = Math.cos(angle) * pRadius + util.sOffsetFactor;
+        }
+        let sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
+        factor = Math.cos(sRadius);
       } else {
         // Radar
         let virtualx = Math.sin(angle) * pointRadius;
@@ -274,10 +283,10 @@ var testAlgo;
   
         let fadeFactor = 0;
         if (algo.fadeMode === 1) {
-          fadeFactor = algo.fadeLength * Math.atan(1.5 * (angle / util.twoPi)) - algo.fadeLength + 1;
+          fadeFactor = algo.divisor * Math.atan(1.5 * (angle / util.twoPi)) - algo.divisor + 1;
         }
         else if (algo.fadeMode === 2) {
-          fadeFactor = algo.fadeLength * Math.atan(1.5 * (1 - (angle / util.twoPi))) - algo.fadeLength + 1;
+          fadeFactor = algo.divisor * Math.atan(1.5 * (1 - (angle / util.twoPi))) - algo.divisor + 1;
         }
         
         factor = Math.max(factor, fadeFactor)  
