@@ -40,7 +40,7 @@ var testAlgo;
     algo.fillMatrix = 0;
     algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
     algo.circularMode = 0;
-    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left|write:setMode|read:getMode");
+    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating|write:setMode|read:getMode");
 
     var util = new Object;
     util.initialized = false;
@@ -130,6 +130,8 @@ var testAlgo;
     {
       if (_mode === "Spiral Right") { algo.circularMode = 1; }
       else if (_mode === "Spiral Left") { algo.circularMode = 2; }
+      else if (_mode === "S-Curve Right") { algo.circularMode = 3; }
+      else if (_mode === "S-Curve Left") { algo.circularMode = 4; }
       else { algo.circularMode = 0; }
     };
 
@@ -137,6 +139,8 @@ var testAlgo;
     {
       if (algo.circularMode === 1) { return "Spiral Right"; }
       else if (algo.circularMode === 2) { return "Spiral Left"; }
+      else if (algo.circularMode === 3) { return "S-Curve Right"; }
+      else if (algo.circularMode === 4) { return "S-Curve Left"; }
       else { return "Radar"; }
     };
 
@@ -230,16 +234,38 @@ var testAlgo;
       angle = angle * algo.segmentsCount;
       angle = (angle + util.twoPi) % (util.twoPi);
 
-      let virtualx = Math.sin(angle) * pointRadius;
-      let virtualy = Math.cos(angle) * pointRadius;
-
       if (algo.circularMode === 1) {
+        // Right Spiral
         factor = Math.atan(1.5 * (1 - (angle / util.twoPi)));
         factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
       } else if (algo.circularMode === 2) {
+        // Left Spiral
         factor = Math.atan(1.5 * (angle / util.twoPi));
         factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
+      } else if (algo.circularMode === 3) {
+        // Right S-Curve
+        let pRadius = Math.sqrt(offx * offx + offy * offy);
+        let virtualx = rx;
+        let virtualy = ry;
+        let offsetFactor = 3 * Math.PI;
+        if (angle < Math.PI) {
+          virtualx = Math.sin(angle) * pRadius;
+          virtualy = Math.cos(angle) * pRadius + offsetFactor;
+        } else {
+          virtualx = Math.sin(angle) * pRadius;
+          virtualy = Math.cos(angle) * pRadius - offsetFactor;
+        }
+        let sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
+        factor = Math.cos(sRadius);
+      } else if (algo.circularMode === 4) {
+        // Left S-Curve
+        factor = Math.atan(1.5 * (angle / util.twoPi));
+//        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
       } else {
+        // Radar
+        let virtualx = Math.sin(angle) * pointRadius;
+        let virtualy = Math.cos(angle) * pointRadius;
+
         let sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
         let sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
         let endfade = Math.atan(virtualy + 1.5);
