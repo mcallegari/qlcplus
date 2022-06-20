@@ -241,16 +241,16 @@ var testAlgo;
       let stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
       angle = angle + util.twoPi * (1 - stepPercent);
       angle = angle * algo.segmentsCount;
-      angle = (angle + util.twoPi) % (util.twoPi);
+      angle = (angle + util.twoPi) % util.twoPi;
 
       if (algo.circularMode === 1) {
         // Right Spiral
         factor = Math.atan(1.5 * (1 - (angle / util.twoPi)));
-        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
+        factor = Math.sin(pointRadius / algo.divisor + util.twoPi * factor - Math.PI);
       } else if (algo.circularMode === 2) {
         // Left Spiral
         factor = Math.atan(1.5 * (angle / util.twoPi));
-        factor = Math.sin(pointRadius + util.twoPi * factor - Math.PI);
+        factor = Math.sin(pointRadius / algo.divisor + util.twoPi * factor - Math.PI);
       } else if (algo.circularMode === 3) {
         // Right S-Curve
         let pRadius = Math.sqrt(offx * offx + offy * offy);
