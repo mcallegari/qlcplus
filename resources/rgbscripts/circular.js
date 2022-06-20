@@ -134,6 +134,7 @@ var testAlgo;
       else if (_mode === "S-Curve Right") { algo.circularMode = 3; }
       else if (_mode === "S-Curve Left") { algo.circularMode = 4; }
       else if (_mode === "Rings Spreading") { algo.circularMode = 5; }
+      else if (_mode === "Rings Rotating") { algo.circularMode = 6; }
       else { algo.circularMode = 0; }
     };
 
@@ -144,6 +145,7 @@ var testAlgo;
       else if (algo.circularMode === 3) { return "S-Curve Right"; }
       else if (algo.circularMode === 4) { return "S-Curve Left"; }
       else if (algo.circularMode === 5) { return "Rings Spreading"; }
+      else if (algo.circularMode === 6) { return "Rings Rotating"; }
       else { return "Radar"; }
     };
 
@@ -236,7 +238,8 @@ var testAlgo;
 
       let pointRadius = Math.sqrt(offx * offx + offy * offy);
       let angle = geometryCalc.getAngle(offx, offy);
-      angle = angle + (util.twoPi * (1 - util.progstep / algo.rgbMapStepCount(util.width, util.height)));
+      let stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
+      angle = angle + util.twoPi * (1 - stepPercent);
       angle = angle * algo.segmentsCount;
       angle = (angle + util.twoPi) % (util.twoPi);
 
@@ -252,7 +255,7 @@ var testAlgo;
         // Right S-Curve
         let pRadius = Math.sqrt(offx * offx + offy * offy);
         let virtualx = Math.sin(angle) * pRadius;
-        let virtualy = ry;
+        let virtualy = offy;
         if (angle < Math.PI) {
           virtualy = Math.cos(angle) * pRadius + util.sOffsetFactor;
         } else {
@@ -264,7 +267,7 @@ var testAlgo;
         // Left S-Curve
         let pRadius = Math.sqrt(offx * offx + offy * offy);
         let virtualx = Math.sin(angle) * pRadius;
-        let virtualy = ry;
+        let virtualy = offy;
         if (angle < Math.PI) {
           virtualy = Math.cos(angle) * pRadius - util.sOffsetFactor;
         } else {
@@ -276,6 +279,14 @@ var testAlgo;
         // Rings Spreading
         let pRadius = Math.sqrt(offx * offx + offy * offy);
         factor = Math.cos(pRadius / algo.divisor - (util.progstep / 32 * util.twoPi));
+      } else if (algo.circularMode === 6) {
+        // Rings Rotating
+        let pRadius = Math.sqrt(offx * offx + offy * offy);
+        let stepAngle = util.twoPi * stepPercent;
+        let virtualx = Math.sin(angle) * pRadius + algo.divisor * Math.sin(stepAngle);
+        let virtualy = Math.cos(angle) * pRadius + algo.divisor * Math.cos(stepAngle);
+        let vRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
+        factor = Math.cos(vRadius);
       } else {
         // Radar
         let virtualx = Math.sin(angle) * pointRadius;
