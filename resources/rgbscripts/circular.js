@@ -133,6 +133,7 @@ var testAlgo;
       else if (_mode === "Spiral Left") { algo.circularMode = 2; }
       else if (_mode === "S-Curve Right") { algo.circularMode = 3; }
       else if (_mode === "S-Curve Left") { algo.circularMode = 4; }
+      else if (_mode === "Rings Spreading") { algo.circularMode = 5; }
       else { algo.circularMode = 0; }
     };
 
@@ -142,6 +143,7 @@ var testAlgo;
       else if (algo.circularMode === 2) { return "Spiral Left"; }
       else if (algo.circularMode === 3) { return "S-Curve Right"; }
       else if (algo.circularMode === 4) { return "S-Curve Left"; }
+      else if (algo.circularMode === 5) { return "Rings Spreading"; }
       else { return "Radar"; }
     };
 
@@ -270,6 +272,10 @@ var testAlgo;
         }
         let sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.cos(sRadius);
+      } else if (algo.circularMode === 5) {
+        // Rings Spreading
+        let pRadius = Math.sqrt(offx * offx + offy * offy);
+        factor = Math.cos(pRadius / algo.divisor - (util.progstep / 32 * util.twoPi));
       } else {
         // Radar
         let virtualx = Math.sin(angle) * pointRadius;
