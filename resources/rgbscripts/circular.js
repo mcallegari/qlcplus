@@ -31,6 +31,8 @@ var testAlgo;
     algo.acceptColors = 1;
     algo.properties = new Array();
 
+    algo.centerRadius = 0;
+    algo.properties.push("name:centerRadius|type:range|display:Center Rotation|values:-10,10|write:setCenterRotation|read:getCenterRotation");
     algo.segmentsCount = 1;
     algo.properties.push("name:circlesSize|type:range|display:Circle Segments|values:1,32|write:setSegments|read:getSegments");
     algo.fadeMode = 0;
@@ -74,6 +76,17 @@ var testAlgo;
       }
       return angle;
     }
+
+    algo.setCenterRotation = function(_amount)
+    {
+      algo.centerRadius = _amount;
+      util.initialized = false;
+    };
+
+    algo.getCenterRotation = function()
+    {
+      return algo.centerRadius;
+    };
 
     algo.setSegments = function(_amount)
     {
@@ -231,14 +244,26 @@ var testAlgo;
     util.getMapPixelColor = function(ry, rx, r, g, b)
     {
       let factor = 1.0;
+      let stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
+      let vCenterX = util.centerX;
+      let vCenterY = util.centerY;
+      if (algo.centerRadius / 1 !== 0) {
+        let offsAngle = util.twoPi * stepPercent;
+        let direction = 1;
+        if (algo.centerRadius < 0) {
+          direction = -1;
+        }
+        vCenterX = util.centerX + Math.sin(offsAngle) * algo.centerRadius;
+        vCenterY = util.centerY + direction * Math.cos(offsAngle) * algo.centerRadius;
+      }
+
       // calculate the offset difference of algo.map location to the float
       // location of the object
-      let offx = rx - util.centerX;
-      let offy = ry - util.centerY;
+      let offx = rx - vCenterX;
+      let offy = ry - vCenterY;
 
       let pointRadius = Math.sqrt(offx * offx + offy * offy);
       let angle = geometryCalc.getAngle(offx, offy);
-      let stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
       angle = angle + util.twoPi * (1 - stepPercent);
       angle = angle * algo.segmentsCount;
       angle = (angle + util.twoPi) % util.twoPi;
