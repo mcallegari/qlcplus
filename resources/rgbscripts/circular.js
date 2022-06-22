@@ -31,18 +31,18 @@ var testAlgo;
     algo.acceptColors = 1;
     algo.properties = new Array();
 
-    algo.centerRadius = 0;
-    algo.properties.push("name:centerRadius|type:range|display:Center Rotation|values:-10,10|write:setCenterRotation|read:getCenterRotation");
-    algo.segmentsCount = 1;
-    algo.properties.push("name:circlesSize|type:range|display:Circle Segments|values:1,32|write:setSegments|read:getSegments");
-    algo.fadeMode = 0;
-    algo.properties.push("name:fadeMode|type:list|display:Radar Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
-    algo.divisor = 1;
-    algo.properties.push("name:divisor|type:range|display:Algorithm Divisor|values:1,10|write:setDivisor|read:getDivisor");
-    algo.fillMatrix = 0;
-    algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
     algo.circularMode = 0;
     algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating|write:setMode|read:getMode");
+    algo.fillMatrix = 0;
+    algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
+    algo.segmentsCount = 1;
+    algo.properties.push("name:circlesSize|type:range|display:Segments|values:1,32|write:setSegments|read:getSegments");
+    algo.divisor = 1;
+    algo.properties.push("name:divisor|type:range|display:Algorithm Divisor|values:1,10|write:setDivisor|read:getDivisor");
+    algo.centerRadius = 0;
+    algo.properties.push("name:centerRadius|type:range|display:Center Rotation|values:-10,10|write:setCenterRotation|read:getCenterRotation");
+    algo.fadeMode = 0;
+    algo.properties.push("name:fadeMode|type:list|display:Radar Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
 
     var util = new Object;
     util.initialized = false;
@@ -51,7 +51,9 @@ var testAlgo;
     util.centerX = 0;
     util.centerY = 0;
     util.progstep = 0;
-    
+    util.stepPercent = 0;
+    util.stepAngle = 0;
+
     let geometryCalc = new Object;
 
     // calculate the angle from 0 to 2 pi starting north and counting clockwise
@@ -166,6 +168,9 @@ var testAlgo;
     {
       util.centerX = width / 2 - 0.5;
       util.centerY = height / 2 - 0.5;
+      util.vCenterX = util.centerX;
+      util.vCenterY = util.centerY;
+
       util.twoPi = 2 * Math.PI;
       util.halfPi = Math.PI / 2;
 
@@ -241,30 +246,73 @@ var testAlgo;
       return util.mergeRgb(pointr, pointg, pointb);
     }
 
-    util.getMapPixelColor = function(ry, rx, r, g, b)
+    // Blind out towards 0 percent
+    util.blindoutPercent = function(percent, sharpness = 1)
     {
-      let factor = 1.0;
-      let stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
-      let vCenterX = util.centerX;
-      let vCenterY = util.centerY;
-      if (algo.centerRadius / 1 !== 0) {
-        let offsAngle = util.twoPi * stepPercent;
+      if (percent <= 0) {
+        return 0;
+      }
+      // Normalize input
+      percent = Math.min(1, percent);
+      // asec consumes values > 1. asec(x) = acos(1/x)
+      let factor = Math.min(1, Math.acos(1 /
+        (Math.sqrt(sharpness * percent * percent) + 1)
+      ) * util.halfPi);
+      return factor;
+    }
+
+    util.step = function(width, height, rgb, step)
+    {
+      // clear algo.map data
+      util.map = util.map.map(col => {
+        return col.map(pxl => {
+          return 0;
+        })
+      });
+      
+      util.progstep = step;
+      util.stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
+      if (algo.circularMode === 6) {
+        util.stepAngle = util.twoPi * util.stepPercent;
+      }
+
+      if (algo.centerRadius !== 0) {
+        let offsAngle = util.twoPi * util.stepPercent;
         let direction = 1;
         if (algo.centerRadius < 0) {
           direction = -1;
         }
-        vCenterX = util.centerX + Math.sin(offsAngle) * algo.centerRadius;
-        vCenterY = util.centerY + direction * Math.cos(offsAngle) * algo.centerRadius;
+        let offsFactor = Math.min(util.width, util.height) * algo.centerRadius / 20;
+        util.vCenterX = util.centerX + Math.sin(offsAngle) * offsFactor;
+        util.vCenterY = util.centerY + direction * Math.cos(offsAngle) * offsFactor;
       }
+
+
+      // Optimize multiple calculations
+      let r = (rgb >> 16) & 0x00FF;
+      let g = (rgb >> 8) & 0x00FF;
+      let b = rgb & 0x00FF;
+
+      // Draw the current map
+      for (ry = 0; ry < height; ry++) {
+        for (rx = 0; rx < width; rx++) {
+          util.map[ry][rx] = util.getMapPixelColor(ry, rx, r, g, b);
+        }
+      }
+    }
+
+    util.getMapPixelColor = function(ry, rx, r, g, b)
+    {
+      let factor = 1.0;
 
       // calculate the offset difference of algo.map location to the float
       // location of the object
-      let offx = rx - vCenterX;
-      let offy = ry - vCenterY;
+      let offx = rx - util.vCenterX;
+      let offy = ry - util.vCenterY;
 
       let pointRadius = Math.sqrt(offx * offx + offy * offy);
       let angle = geometryCalc.getAngle(offx, offy);
-      angle = angle + util.twoPi * (1 - stepPercent);
+      angle = angle + util.twoPi * (1 - util.stepPercent);
       angle = angle * algo.segmentsCount;
       angle = (angle + util.twoPi) % util.twoPi;
 
@@ -307,9 +355,8 @@ var testAlgo;
       } else if (algo.circularMode === 6) {
         // Rings Rotating
         let pRadius = Math.sqrt(offx * offx + offy * offy);
-        let stepAngle = util.twoPi * stepPercent;
-        let virtualx = Math.sin(angle) * pRadius + algo.divisor * Math.sin(stepAngle);
-        let virtualy = Math.cos(angle) * pRadius + algo.divisor * Math.cos(stepAngle);
+        let virtualx = Math.sin(angle) * pRadius + algo.divisor * Math.sin(util.stepAngle);
+        let virtualy = Math.cos(angle) * pRadius + algo.divisor * Math.cos(util.stepAngle);
         let vRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.cos(vRadius);
       } else {
@@ -347,21 +394,6 @@ var testAlgo;
       return util.getColor(r * factor, g * factor, b * factor, util.map[ry][rx]);
     }
 
-    // Blind out towards 0 percent
-    util.blindoutPercent = function(percent, sharpness = 1)
-    {
-      if (percent <= 0) {
-        return 0;
-      }
-      // Normalize input
-      percent = Math.min(1, percent);
-      // asec consumes values > 1. asec(x) = acos(1/x)
-      let factor = Math.min(1, Math.acos(1 /
-        (Math.sqrt(sharpness * percent * percent) + 1)
-      ) * util.halfPi);
-      return factor;
-    }
-
     algo.rgbMap = function(width, height, rgb, step)
     {
       if (util.initialized === false || width != util.width || height != util.height)
@@ -369,26 +401,7 @@ var testAlgo;
           util.initialize(width, height);
       }
       
-      util.progstep = step;
-
-      // clear algo.map data
-      util.map = util.map.map(col => {
-        return col.map(pxl => {
-          return 0;
-        })
-      });
-      
-      // Optimize multiple calculations
-      let r = (rgb >> 16) & 0x00FF;
-      let g = (rgb >> 8) & 0x00FF;
-      let b = rgb & 0x00FF;
-
-      // Draw the current map
-      for (ry = 0; ry < height; ry++) {
-        for (rx = 0; rx < width; rx++) {
-          util.map[ry][rx] = util.getMapPixelColor(ry, rx, r, g, b);
-        }
-      }
+      util.step(width, height, rgb, step);
 
       return util.map;
     };
