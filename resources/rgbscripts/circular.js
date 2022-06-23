@@ -409,7 +409,9 @@ var testAlgo;
     algo.rgbMapStepCount = function(width, height)
     {
       // Be sure to have sufficient steps for seamless circling
-      return (2 * (width + height));
+      // Fix the value to align circle times between different matrix sizes
+      // 100 steps at a smooth 100ms timing rotate in 10s.
+      return 100;
     };
 
     // Development tool access
