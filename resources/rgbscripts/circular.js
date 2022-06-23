@@ -2,8 +2,7 @@
   Q Light Controller Plus
   circular.js
 
-  Copyright (c) Massimo Callegari
-  with Additions by Hans-Jürgen Tappe
+  Copyright (c) Hans-Jürgen Tappe
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
