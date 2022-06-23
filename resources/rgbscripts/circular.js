@@ -38,7 +38,7 @@ var testAlgo;
     algo.segmentsCount = 1;
     algo.properties.push("name:circlesSize|type:range|display:Segments|values:1,32|write:setSegments|read:getSegments");
     algo.divisor = 1;
-    algo.properties.push("name:divisor|type:range|display:Algorithm Divisor|values:1,10|write:setDivisor|read:getDivisor");
+    algo.properties.push("name:divisor|type:range|display:Algorithm Factor|values:1,10|write:setDivisor|read:getDivisor");
     algo.centerRadius = 0;
     algo.properties.push("name:centerRadius|type:range|display:Center Rotation|values:-10,10|write:setCenterRotation|read:getCenterRotation");
     algo.fadeMode = 0;
@@ -180,7 +180,7 @@ var testAlgo;
         util.circleRadius = width;
       } else {
         util.circleRadius = height;
-      } 
+      }
 
       util.map = new Array(height);
       for (let y = 0; y < height; y++) {
