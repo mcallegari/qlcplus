@@ -85,7 +85,7 @@ Rectangle
             {
                 ignoreUnknownSignals: true
                 target: sideLoader.item
-                onDoubleClicked:
+                function onDoubleClicked()
                 {
                     if (fixtureTreeButton.checked)
                         ID = fixtureManager.fixtureIDfromItemID(ID)

@@ -263,13 +263,13 @@ Column
                     Connections
                     {
                         target: item
-                        onMouseEvent:
+                        function onMouseEvent(type, iID, iType, qItem, mouseMods)
                         {
                             console.log("Got generic tree node mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
@@ -277,11 +277,11 @@ Column
                                     }
                                 break;
                                 case App.Checked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                         model.isChecked = iType
                                 break;
                                 case App.DragStarted:
-                                    if (qItem == item && !model.isSelected)
+                                    if (qItem === item && !model.isSelected)
                                     {
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection
@@ -298,13 +298,19 @@ Column
                     {
                         ignoreUnknownSignals: true
                         target: item
-                        onPathChanged: nodeContainer.pathChanged(oldPath, newPath)
+                        function onPathChanged(oldPath, newPath)
+                        {
+                            nodeContainer.pathChanged(oldPath, newPath)
+                        }
                     }
                     Connections
                     {
                         ignoreUnknownSignals: true
                         target: item
-                        onItemsDropped: nodeContainer.itemsDropped(path)
+                        function onItemsDropped(path)
+                        {
+                            nodeContainer.itemsDropped(path)
+                        }
                     }
                 }
         }

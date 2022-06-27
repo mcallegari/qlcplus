@@ -305,7 +305,10 @@ Rectangle
                 {
                     id: beatSignal
                     target: ioManager
-                    onBeat: cAnim.restart()
+                    function onBeat()
+                    {
+                        cAnim.restart()
+                    }
                 }
             }
 

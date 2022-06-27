@@ -311,7 +311,7 @@ Rectangle
                             Connections
                             {
                                 target: item
-                                onMouseEvent:
+                                function onMouseEvent(type, iID, iType, qItem, mouseMods)
                                 {
                                     if (type === App.Clicked)
                                     {

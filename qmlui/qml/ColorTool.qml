@@ -172,7 +172,8 @@ Rectangle
             {
                 target: toolLoader.item
                 ignoreUnknownSignals: true
-                onColorChanged:
+
+                function onColorChanged(r, g, b, w, a, uv)
                 {
                     paletteBox.updateValue(currentRGB)
 
@@ -191,7 +192,11 @@ Rectangle
                     if (paletteBox.isEditing || paletteBox.checked)
                         paletteBox.updatePreview()
                 }
-                onReleased: if (closeOnSelect) colorToolBox.visible = false
+                function onReleased()
+                {
+                    if (closeOnSelect)
+                        colorToolBox.visible = false
+                }
             }
         }
 
