@@ -495,8 +495,8 @@ var testAlgo;
           {"x": -xOffset, "y": yOffset,    "inScope": ((rx > algo.obj[i].x) && (ry < algo.obj[i].y))},
           {"x": -xOffset, "y": -yOffset,   "inScope": ((rx > algo.obj[i].x) && (ry > algo.obj[i].y))},
         ];
-        for (var i = 0; i < smallTips.length(); i++) {
-          var offset = smallTips[i];
+        for (var n = 0; n < smallTips.length; n++) {
+          var offset = smallTips[n];
           if (offset.inScope) {
             var realx = rx + offset.x;
             var realy = ry + offset.y;
