@@ -122,7 +122,7 @@ var testAlgo;
       util.initialized = true;
     };
 
-    util.getColor = function(step, rgb)
+    util.getStepColor = function(step, rgb)
     {
       if (algo.fadeMode === 0)
       {
@@ -133,7 +133,6 @@ var testAlgo;
         var r = (rgb >> 16) & 0x00FF;
         var g = (rgb >> 8) & 0x00FF;
         var b = rgb & 0x00FF;
-
 
         var stepCount = Math.floor(util.circlesMaxSize / 2);
         var fadeStep = step;
@@ -202,7 +201,7 @@ var testAlgo;
         {
           circles[i].rgb = rgb;
         }
-        var color = util.getColor(circles[i].step, circles[i].rgb);
+        var color = util.getStepColor(circles[i].step, circles[i].rgb);
         //alert("Circle " + i + " xCenter: " + circles[i].xCenter + " color: " + color.toString(16));
         if (circles[i].xCenter === -1)
         {
