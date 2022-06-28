@@ -42,13 +42,11 @@ var testAlgo;
 
     var squares = new Array();
 
-    class Square {
-      constructor(x, y, step) {
-        this.xCenter = x;
-        this.yCenter = y;
-        this.step = step;
-        this.color = 0;
-      }
+    function Square (x, y, step) {
+      this.xCenter = x;
+      this.yCenter = y;
+      this.step = step;
+      this.color = 0;
     }
 
     algo.setAmount = function(_amount)
@@ -135,17 +133,17 @@ var testAlgo;
         return rgb1;
       }
       // split rgb in to components
-      let r1 = (rgb1 >> 16) & 0x00FF;
-      let g1 = (rgb1 >> 8) & 0x00FF;
-      let b1 = rgb1 & 0x00FF;
+      var r1 = (rgb1 >> 16) & 0x00FF;
+      var g1 = (rgb1 >> 8) & 0x00FF;
+      var b1 = rgb1 & 0x00FF;
 
-      let r2 = (rgb2 >> 16) & 0x00FF;
-      let g2 = (rgb2 >> 8) & 0x00FF;
-      let b2 = rgb2 & 0x00FF;
+      var r2 = (rgb2 >> 16) & 0x00FF;
+      var g2 = (rgb2 >> 8) & 0x00FF;
+      var b2 = rgb2 & 0x00FF;
       
-      let r = Math.max(r1, r2);
-      let g = Math.max(g1, g2);
-      let b = Math.max(b1, b2);
+      var r = Math.max(r1, r2);
+      var g = Math.max(g1, g2);
+      var b = Math.max(b1, b2);
       
       return ((r << 16) + (g << 8) + b);
     }
