@@ -53,12 +53,12 @@ var testAlgo;
     util.stepPercent = 0;
     util.stepAngle = 0;
 
-    let geometryCalc = new Object;
+    var geometryCalc = new Object;
 
     // calculate the angle from 0 to 2 pi starting north and counting clockwise
     geometryCalc.getAngle = function(offx, offy)
     {
-      let angle = 0;
+      var angle = 0;
       // catch offx == 0
       if (offx == 0) {
         // This where the asymptote goes
@@ -68,7 +68,7 @@ var testAlgo;
           angle = Math.PI / 2;
         }
       } else {
-        let gradient = offy / offx;
+        var gradient = offy / offx;
         angle = Math.atan(gradient);
       }
       angle += Math.PI / 2;
@@ -162,7 +162,7 @@ var testAlgo;
       else if (algo.circularMode === 6) { return "Rings Rotating"; }
       else { return "Radar"; }
     };
-
+    
     util.initialize = function(width, height)
     {
       util.centerX = width / 2 - 0.5;
@@ -182,11 +182,11 @@ var testAlgo;
       }
 
       util.map = new Array(height);
-      for (let y = 0; y < height; y++) {
+      for (var y = 0; y < height; y++) {
         util.map[y] = new Array(width);
-        util.map[y].map(pxl => {
-          return 0;
-        });
+        for (var x = 0; x < width; x ++) {
+          util.map[y][x] = 0;
+        }
       }
       
       util.stepFade = algo.rgbMapStepCount(width, height) / algo.segmentsCount;
@@ -232,9 +232,9 @@ var testAlgo;
       b = Math.max(0, Math.min(255, Math.round(b)));
 
       // split rgb in to components
-      let pointr = (mRgb >> 16) & 0x00FF;
-      let pointg = (mRgb >> 8) & 0x00FF;
-      let pointb = mRgb & 0x00FF;
+      var pointr = (mRgb >> 16) & 0x00FF;
+      var pointg = (mRgb >> 8) & 0x00FF;
+      var pointb = mRgb & 0x00FF;
 
       // add the color to the algo.mapped location
       pointr += r;
@@ -246,15 +246,18 @@ var testAlgo;
     }
 
     // Blind out towards 0 percent
-    util.blindoutPercent = function(percent, sharpness = 1)
+    util.blindoutPercent = function(percent, sharpness)
     {
+      if (undefined == sharpness) {
+        sharpness = 1;
+      }
       if (percent <= 0) {
         return 0;
       }
       // Normalize input
       percent = Math.min(1, percent);
       // asec consumes values > 1. asec(x) = acos(1/x)
-      let factor = Math.min(1, Math.acos(1 /
+      var factor = Math.min(1, Math.acos(1 /
         (Math.sqrt(sharpness * percent * percent) + 1)
       ) * util.halfPi);
       return factor;
@@ -263,11 +266,11 @@ var testAlgo;
     util.step = function(width, height, rgb, step)
     {
       // clear algo.map data
-      util.map = util.map.map(col => {
-        return col.map(pxl => {
-          return 0;
-        })
-      });
+      for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x ++) {
+          util.map[y][x] = 0;
+        }
+      }
       
       util.progstep = step;
       util.stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
@@ -276,21 +279,21 @@ var testAlgo;
       }
 
       if (algo.centerRadius !== 0) {
-        let offsAngle = util.twoPi * util.stepPercent;
-        let direction = 1;
+        var offsAngle = util.twoPi * util.stepPercent;
+        var direction = 1;
         if (algo.centerRadius < 0) {
           direction = -1;
         }
-        let offsFactor = Math.min(util.width, util.height) * algo.centerRadius / 20;
+        var offsFactor = Math.min(util.width, util.height) * algo.centerRadius / 20;
         util.vCenterX = util.centerX + Math.sin(offsAngle) * offsFactor;
         util.vCenterY = util.centerY + direction * Math.cos(offsAngle) * offsFactor;
       }
 
 
       // Optimize multiple calculations
-      let r = (rgb >> 16) & 0x00FF;
-      let g = (rgb >> 8) & 0x00FF;
-      let b = rgb & 0x00FF;
+      var r = (rgb >> 16) & 0x00FF;
+      var g = (rgb >> 8) & 0x00FF;
+      var b = rgb & 0x00FF;
 
       // Draw the current map
       for (ry = 0; ry < height; ry++) {
@@ -302,15 +305,15 @@ var testAlgo;
 
     util.getMapPixelColor = function(ry, rx, r, g, b)
     {
-      let factor = 1.0;
+      var factor = 1.0;
 
       // calculate the offset difference of algo.map location to the float
       // location of the object
-      let offx = rx - util.vCenterX;
-      let offy = ry - util.vCenterY;
+      var offx = rx - util.vCenterX;
+      var offy = ry - util.vCenterY;
 
-      let pointRadius = Math.sqrt(offx * offx + offy * offy);
-      let angle = geometryCalc.getAngle(offx, offy);
+      var pointRadius = Math.sqrt(offx * offx + offy * offy);
+      var angle = geometryCalc.getAngle(offx, offy);
       angle = angle + util.twoPi * (1 - util.stepPercent);
       angle = angle * algo.segmentsCount;
       angle = (angle + util.twoPi) % util.twoPi;
@@ -325,51 +328,51 @@ var testAlgo;
         factor = Math.sin(pointRadius / algo.divisor + util.twoPi * factor - Math.PI);
       } else if (algo.circularMode === 3) {
         // Right S-Curve
-        let pRadius = Math.sqrt(offx * offx + offy * offy);
-        let virtualx = Math.sin(angle) * pRadius;
-        let virtualy = offy;
+        var pRadius = Math.sqrt(offx * offx + offy * offy);
+        var virtualx = Math.sin(angle) * pRadius;
+        var virtualy = offy;
         if (angle < Math.PI) {
           virtualy = Math.cos(angle) * pRadius + util.sOffsetFactor;
         } else {
           virtualy = Math.cos(angle) * pRadius - util.sOffsetFactor;
         }
-        let sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
+        var sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.cos(sRadius);
       } else if (algo.circularMode === 4) {
         // Left S-Curve
-        let pRadius = Math.sqrt(offx * offx + offy * offy);
-        let virtualx = Math.sin(angle) * pRadius;
-        let virtualy = offy;
+        var pRadius = Math.sqrt(offx * offx + offy * offy);
+        var virtualx = Math.sin(angle) * pRadius;
+        var virtualy = offy;
         if (angle < Math.PI) {
           virtualy = Math.cos(angle) * pRadius - util.sOffsetFactor;
         } else {
           virtualy = Math.cos(angle) * pRadius + util.sOffsetFactor;
         }
-        let sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
+        var sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.cos(sRadius);
       } else if (algo.circularMode === 5) {
         // Rings Spreading
-        let pRadius = Math.sqrt(offx * offx + offy * offy);
+        var pRadius = Math.sqrt(offx * offx + offy * offy);
         factor = Math.cos(pRadius / algo.divisor - (util.progstep / 32 * util.twoPi));
       } else if (algo.circularMode === 6) {
         // Rings Rotating
-        let pRadius = Math.sqrt(offx * offx + offy * offy);
-        let virtualx = Math.sin(angle) * pRadius + algo.divisor * Math.sin(util.stepAngle);
-        let virtualy = Math.cos(angle) * pRadius + algo.divisor * Math.cos(util.stepAngle);
-        let vRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
+        var pRadius = Math.sqrt(offx * offx + offy * offy);
+        var virtualx = Math.sin(angle) * pRadius + algo.divisor * Math.sin(util.stepAngle);
+        var virtualy = Math.cos(angle) * pRadius + algo.divisor * Math.cos(util.stepAngle);
+        var vRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.cos(vRadius);
       } else {
         // Radar
-        let virtualx = Math.sin(angle) * pointRadius;
-        let virtualy = Math.cos(angle) * pointRadius;
+        var virtualx = Math.sin(angle) * pointRadius;
+        var virtualy = Math.cos(angle) * pointRadius;
 
-        let sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
-        let sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
-        let endfade = Math.atan(virtualy + 1.5);
+        var sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
+        var sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
+        var endfade = Math.atan(virtualy + 1.5);
   
         factor = endfade + sidefade1 + sidefade2 - 2;
   
-        let fadeFactor = 0;
+        var fadeFactor = 0;
         if (algo.fadeMode === 1) {
           fadeFactor = algo.divisor * Math.atan(1.5 * (angle / util.twoPi)) - algo.divisor + 1;
         }
@@ -382,8 +385,8 @@ var testAlgo;
 
       if (algo.fillMatrix === 0) {
         // circle
-        let distance = Math.sqrt(offx * offx + offy * offy);
-        let distPercent = distance / util.blindoutRadius;
+        var distance = Math.sqrt(offx * offx + offy * offy);
+        var distPercent = distance / util.blindoutRadius;
         factor *= util.blindoutPercent(1 - distPercent, 5.0);
       }
 

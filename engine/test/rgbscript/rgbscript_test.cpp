@@ -87,8 +87,14 @@ void RGBScript_Test::scripts()
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
 
+    // Catch syntax / JS engine errors explicitly in the test.
+    foreach (QString file, dir.entryList()) {
+    	RGBScript* script = new RGBScript(m_doc);
+    	QVERIFY(script->load(dir, file));
+    }
+
     QVERIFY(m_doc->rgbScriptsCache()->load(dir));
-    QVERIFY(m_doc->rgbScriptsCache()->names().size() >= 0);
+    QVERIFY(m_doc->rgbScriptsCache()->names().size() > 0);
 }
 
 void RGBScript_Test::script()
