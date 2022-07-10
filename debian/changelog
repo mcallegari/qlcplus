@@ -1,7 +1,9 @@
 qlcplus (4.12.6) stable; urgency=low
 
+  * Plugins/E1.31: fix CID on loopback device
   * Web Access: fix VC Slider values disappearing on change (thanks to Thierry)
   * RGB scripts: added 'Circular' script (thanks to Hans-Jürgen Tappe)
+  * Channel modifiers: added 'S-Curve" modifier (thanks to Giacomo Gorini)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Dec 2022 12:13:14 +0200
 
