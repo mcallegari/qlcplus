@@ -116,7 +116,7 @@ QString HIDDMXDevice::infoText()
 {
     QString info;
 
-    info += QString("<B>%1</B><P>").arg(m_name);
+    info += QString("<H3>%1</H3><P>").arg(m_name);
 
     return info;
 }
