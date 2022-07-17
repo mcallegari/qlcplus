@@ -72,10 +72,22 @@ E131Packetizer::E131Packetizer(QString MACaddr)
     m_commonHeader.append((char)0x19);
 
     QStringList MAC = MACaddr.split(":");
-    foreach (QString couple, MAC)
+    if (MAC.length() == 6)
     {
-        bool ok;
-        m_commonHeader.append((char)couple.toInt(&ok, 16));
+        foreach (QString couple, MAC)
+        {
+            bool ok;
+            m_commonHeader.append((char)couple.toInt(&ok, 16));
+        }
+    }
+    else
+    {
+        m_commonHeader.append((char)0x31);
+        m_commonHeader.append((char)0x7A);
+        m_commonHeader.append((char)0x07);
+        m_commonHeader.append((char)0xC1);
+        m_commonHeader.append((char)0x00);
+        m_commonHeader.append((char)0x52);
     }
 
     // empty flags & PDU length (bytes 38-39)

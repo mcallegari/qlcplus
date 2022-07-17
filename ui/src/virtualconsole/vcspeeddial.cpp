@@ -513,21 +513,21 @@ void VCSpeedDial::slotFactoredValueChanged()
             if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                    function->setFadeInSpeed(ms * ((float)multipliers[speeddialfunction.fadeInMultiplier] / 1000.0));
                 else
                     function->setFadeInSpeed(ms);
             }
             if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                    function->setFadeOutSpeed(ms * ((float)multipliers[speeddialfunction.fadeOutMultiplier] / 1000.0));
                 else
                     function->setFadeOutSpeed(ms);
             }
             if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+                    function->setDuration(ms * ((float)multipliers[speeddialfunction.durationMultiplier] / 1000.0));
                 else
                     function->setDuration(ms);
             }

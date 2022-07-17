@@ -163,12 +163,12 @@ CustomPopupDialog
                         {
                             target: item
 
-                            onMouseEvent:
+                            function onMouseEvent(type, iID, iType, qItem, mouseMods)
                             {
                                 switch (type)
                                 {
                                     case App.Clicked:
-                                        if (qItem == item)
+                                        if (qItem === item)
                                         {
                                             model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                             if (model.hasChildren)
@@ -177,7 +177,7 @@ CustomPopupDialog
                                     break;
                                     case App.Checked:
                                         console.log("Item checked " + qItem + "  " + item)
-                                        if (qItem == item)
+                                        if (qItem === item)
                                         {
                                             model.isChecked = iType
                                         }
@@ -236,12 +236,12 @@ CustomPopupDialog
                             {
                                 target: item
 
-                                onMouseEvent:
+                                function onMouseEvent(type, iID, iType, qItem, mouseMods)
                                 {
                                     switch (type)
                                     {
                                         case App.Clicked:
-                                            if (qItem == item)
+                                            if (qItem === item)
                                             {
                                                 model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                                 if (model.hasChildren)
@@ -249,7 +249,7 @@ CustomPopupDialog
                                             }
                                         break;
                                         case App.Checked:
-                                            if (qItem == item)
+                                            if (qItem === item)
                                             {
                                                 model.isChecked = iType
                                             }

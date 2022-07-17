@@ -87,8 +87,14 @@ void RGBScript_Test::scripts()
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
 
+    // Catch syntax / JS engine errors explicitly in the test.
+    foreach (QString file, dir.entryList()) {
+    	RGBScript* script = new RGBScript(m_doc);
+    	QVERIFY(script->load(dir, file));
+    }
+
     QVERIFY(m_doc->rgbScriptsCache()->load(dir));
-    QVERIFY(m_doc->rgbScriptsCache()->names().size() >= 0);
+    QVERIFY(m_doc->rgbScriptsCache()->names().size() > 0);
 }
 
 void RGBScript_Test::script()
@@ -278,6 +284,13 @@ void RGBScript_Test::runScripts()
                 }
             }
         }
+        // Prepare a reference RGB map
+        bool randomScript = fileName.contains("random", Qt::CaseInsensitive);
+        RGBMap rgbRefMap;
+        if (1 < s.acceptColors() && 2 < steps && ! randomScript) {
+            // When more than 2 colors are accepted, the steps shall be reproducible to allow back and forth color fade.
+            s.rgbMap(mapSizePlus, red, 0, rgbRefMap);
+        }
         // Switch to the larger map and step a few times.
         for (int step = 0; step < realsteps; step++)
         {
@@ -287,7 +300,23 @@ void RGBScript_Test::runScripts()
             {
                 for (int x = 0; x < mapSizePlus.width(); x++)
                 {
-                    QVERIFY(rgbMap[y][x] <= 0xffffff);
+                    if (s.acceptColors() > 0)
+                    {
+                        // If colors are accepted, verify that the requested color is applied
+                        QVERIFY((rgbMap[y][x] & 0xff00ffff) == 0);
+                        QVERIFY((rgbMap[y][x] >> 16) <= 0x0000ff);
+                        if (!randomScript && 0 == step && 1 < s.acceptColors() && 2 < steps)
+                        {
+                            // if more than one color is accepted  and the script has more than two steps - one per color,
+                            // the color fade shall be relative and reproducible to the step
+                            // as otherwise, the color fade cannot be aligned on stage and depends on e.g. matrix sizes or script settings.
+                            QVERIFY(rgbMap[y][x] == rgbRefMap[y][x]);
+                        }
+                    }
+                    else
+                    {
+                        QVERIFY(rgbMap[y][x] <= 0x00ffffff);
+                    }
                 }
             }
         }

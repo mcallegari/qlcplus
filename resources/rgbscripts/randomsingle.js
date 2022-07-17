@@ -157,7 +157,7 @@ var testAlgo;
             // All pixels in the map must be used exactly once, each one separately
             // at a time. Therefore, the maximum number of steps produced by this
             // script on a 5 * 5 grid is 25.
-            return width * height;
+            return 2;
         };
 
         // Development tool access

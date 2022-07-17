@@ -112,7 +112,10 @@ Rectangle
             {
                 id: valChangedSignal
                 target: patch
-                onInputValueChanged: cAnim.restart()
+                function onInputValueChanged(inputUniverse, channel, value, key)
+                {
+                    cAnim.restart()
+                }
             }
         }
 

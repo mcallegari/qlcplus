@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <cmath>
+
 #include "keypadparser.h"
 #include "qlcmacros.h"
 
@@ -194,9 +196,9 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
         else if (lastCommand == CommandMinus)
             scv.value = CLAMP(uniValue - toValue, 0, 255);
         else if (lastCommand == CommandPlusPercent)
-            scv.value = CLAMP(uniValue * (1.0 + toValue), 0, 255);
+            scv.value = CLAMP(lrintf(uniValue * (1.0 + toValue)), 0, 255);
         else if (lastCommand == CommandMinusPercent)
-            scv.value = CLAMP(uniValue - (float(uniValue) * toValue), 0, 255);
+            scv.value = CLAMP(lrintf(uniValue - (float(uniValue) * toValue)), 0, 255);
         else if (lastCommand == CommandZERO)
             scv.value = 0;
         else if (lastCommand == CommandFULL)

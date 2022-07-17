@@ -38,7 +38,7 @@
     background-color: #8db8dd;
   }
 </style>
-<script type="text/javascript" src="devtool.js"></script>
+<script type="text/javascript" src="devtool/devtool.js"></script>
 </head>
 <body onLoad="devtool.loadAlgoFile()">
 
@@ -173,6 +173,11 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
     <input type="button" value="Stop test" onClick="devtool.stopTest()"/>
     <input type="button" value="Start reversed" onClick="devtool.startTest(-1)"/>
    </span>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   Alternate: <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
   </td>
  </tr>
  <tr>

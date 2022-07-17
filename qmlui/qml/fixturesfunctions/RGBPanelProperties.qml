@@ -116,6 +116,7 @@ Rectangle
                 height: propsGrid.itemsHeight
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
+                textRole: ""
                 model: ioManager.universeNames
             }
 
