@@ -50,6 +50,7 @@ var testAlgo;
     util.centerX = 0;
     util.centerY = 0;
     util.progstep = 0;
+    util.circleFactor = 0;
     util.stepPercent = 0;
     util.stepAngle = 0;
 
@@ -190,6 +191,7 @@ var testAlgo;
       }
       
       util.stepFade = algo.rgbMapStepCount(width, height) / algo.segmentsCount;
+      util.circleFactor = algo.rgbMapStepCount(width, height) / 3;
 
       util.width = width;
       util.height = height;
@@ -350,7 +352,7 @@ var testAlgo;
       } else if (algo.circularMode === 5) {
         // Rings Spreading
         let pRadius = Math.sqrt(offx * offx + offy * offy);
-        factor = Math.cos(pRadius / algo.divisor - (util.progstep / 32 * util.twoPi));
+        factor = Math.cos(pRadius / algo.divisor - (util.twoPi * util.progstep / util.circleFactor));
       } else if (algo.circularMode === 6) {
         // Rings Rotating
         let pRadius = Math.sqrt(offx * offx + offy * offy);
