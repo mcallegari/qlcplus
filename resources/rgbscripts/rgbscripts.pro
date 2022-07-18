@@ -3,6 +3,7 @@ include(../../variables.pri)
 TEMPLATE = subdirs
 TARGET   = scripts
 
+scripts.files += alternate.js
 scripts.files += balls.js
 scripts.files += ballscolors.js
 scripts.files += blinder.js
