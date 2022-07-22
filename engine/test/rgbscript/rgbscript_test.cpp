@@ -87,11 +87,36 @@ void RGBScript_Test::scripts()
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
 
+    // Prepare check that file is registered for delivery
+    QString proFilePath = dir.filePath("rgbscripts.pro");
+    QFile proFile(proFilePath);
+    proFile.open(QIODevice::ReadWrite);
+    QTextStream pro (&proFile);
+
     // Catch syntax / JS engine errors explicitly in the test.
     foreach (QString file, dir.entryList()) {
-    	RGBScript* script = new RGBScript(m_doc);
-    	QVERIFY(script->load(dir, file));
+        RGBScript* script = new RGBScript(m_doc);
+        QVERIFY(script->load(dir, file));
+
+        qDebug() << "Searching 'scripts.files += " + file + "' in rgbscripts.pro";
+
+        // Check that the script is listed in the pro file.
+        // scripts.files += noise.js
+        if (file != "empty.js") {
+            QString searchString = "scripts.files += " + file;
+            QString line;
+            bool foundInProFile = false;
+            do {
+                line = pro.readLine();
+                if (line.contains(searchString, Qt::CaseSensitive)) {
+                    foundInProFile = true;
+                }
+            } while (!line.isNull() && foundInProFile == false);
+
+            QVERIFY(foundInProFile);
+        }
     }
+    proFile.close();
 
     QVERIFY(m_doc->rgbScriptsCache()->load(dir));
     QVERIFY(m_doc->rgbScriptsCache()->names().size() > 0);
