@@ -665,7 +665,7 @@ void FunctionManager::deleteFunction(quint32 fid)
         return;
 
     if (f->isRunning())
-        f->stop(FunctionParent::master());
+        f->stopAndWait();
 
     Tardis::instance()->enqueueAction(Tardis::FunctionDelete, f->id(),
                                       Tardis::instance()->actionToByteArray(Tardis::FunctionDelete, f->id()),
