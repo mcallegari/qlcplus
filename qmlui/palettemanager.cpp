@@ -71,6 +71,18 @@ QLCPalette *PaletteManager::getEditingPalette(int type)
     return m_editingMap.value(type);
 }
 
+bool PaletteManager::releaseEditingPalette(int type)
+{
+    if (m_editingMap.contains(type))
+    {
+        QLCPalette *palette = m_editingMap.take(type);
+        delete palette;
+        return true;
+    }
+
+    return false;
+}
+
 quint32 PaletteManager::createPalette(QLCPalette *palette, QString name)
 {
     if (palette == nullptr)

@@ -58,6 +58,9 @@ public:
      * The returned palette is mapped by type on m_editingMap */
     Q_INVOKABLE QLCPalette *getEditingPalette(int type);
 
+    /** Request the removal of a previously requested palette */
+    Q_INVOKABLE bool releaseEditingPalette(int type);
+
     /** Create a new palette, get a new ID and add it
      *  to the current project */
     Q_INVOKABLE quint32 createPalette(QLCPalette *palette, QString name);

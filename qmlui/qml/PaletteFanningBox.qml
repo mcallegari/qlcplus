@@ -45,6 +45,12 @@ Item
             palette = paletteManager.getEditingPalette(paletteType)
     }
 
+    Component.onDestruction:
+    {
+        paletteManager.releaseEditingPalette(paletteType)
+        palette = null
+    }
+
     function updateValue(value)
     {
         paletteManager.updatePalette(palette, value)
