@@ -501,6 +501,13 @@ public:
     QList <Function*> functionsByType(Function::Type type) const;
 
     /**
+     * Get a pointer to a Function with the given name
+     * @param name lookup Function name
+     * @return pointer to Function or null if not found
+     */
+    Function *functionByName(QString name);
+
+    /**
      * Delete the given function
      *
      * @param id The ID of the function to delete

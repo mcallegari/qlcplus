@@ -1054,6 +1054,16 @@ QList<Function *> Doc::functionsByType(Function::Type type) const
     return list;
 }
 
+Function *Doc::functionByName(QString name)
+{
+    foreach(Function *f, m_functions)
+    {
+        if (f != NULL && f->name() == name)
+            return f;
+    }
+    return NULL;
+}
+
 bool Doc::deleteFunction(quint32 id)
 {
     if (m_functions.contains(id) == true)
