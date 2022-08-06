@@ -34,11 +34,12 @@
 #include "mainview3d.h"
 #include "simpledesk.h"
 #include "tardis.h"
+#include "app.h"
 #include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
                                FixtureManager *fxMgr,
-                               FunctionManager *funcMgr, SimpleDesk *sDesk,
+                               FunctionManager *funcMgr,
                                QObject *parent)
     : QObject(parent)
     , m_view(view)
@@ -46,7 +47,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_monProps(doc->monitorProperties())
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
-    , m_simpleDesk(sDesk)
     , m_multipleSelection(false)
     , m_positionPicking(false)
     , m_universeFilter(Universe::invalid())
@@ -88,7 +88,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
-    connect(m_simpleDesk, &SimpleDesk::channelValueChanged, this, &ContextManager::slotSimpleDeskValueChanged);
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)),
             this, SLOT(slotChannelTypeValueChanged(int, quint8)));
     connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
@@ -1385,9 +1384,9 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, bo
                 if (ch->group() == QLCChannel::Intensity)
                 {
                     if (ch->colour() == QLCChannel::NoColour)
-                        m_dumpChannelMask |= DimmerType;
+                        m_dumpChannelMask |= App::DimmerType;
                     else
-                        m_dumpChannelMask |= ColorType;
+                        m_dumpChannelMask |= App::ColorType;
                 }
                 else
                 {

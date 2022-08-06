@@ -422,6 +422,7 @@ SidePanel
                 {
                     id: dmxDumpDialog
                     implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+                    channelsMask: contextManager ? contextManager.dumpChannelMask : 0
 
                     property int sceneID: -1
 

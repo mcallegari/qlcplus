@@ -1060,9 +1060,9 @@ quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
     if (ch->group() == QLCChannel::Intensity)
     {
         if (ch->colour() == QLCChannel::NoColour)
-            chTypeBit |= ContextManager::DimmerType;
+            chTypeBit |= App::DimmerType;
         else
-            chTypeBit |= ContextManager::ColorType;
+            chTypeBit |= App::ColorType;
     }
     else
     {

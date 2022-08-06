@@ -115,10 +115,10 @@ QString App::appVersion() const
 
 void App::startup()
 {
+    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App!");
     qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture!");
     qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App!");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
@@ -143,8 +143,8 @@ void App::startup()
     m_fixtureManager = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
     m_functionManager = new FunctionManager(this, m_doc);
-    m_simpleDesk = new SimpleDesk(this, m_doc);
-    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager, m_simpleDesk);
+    m_simpleDesk = new SimpleDesk(this, m_doc, m_functionManager);
+    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
     m_paletteManager = new PaletteManager(this, m_doc, m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);

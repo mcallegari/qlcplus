@@ -88,7 +88,6 @@ Rectangle
                         tooltip: qsTr("Reset the whole universe")
                         onClicked:
                         {
-                            contextManager.resetDumpValues()
                             simpleDesk.resetUniverse(viewUniverseCombo.currentIndex)
                         }
                     }
@@ -102,7 +101,7 @@ Rectangle
                         z: 2
                         imgSource: "qrc:/dmxdump.svg"
                         tooltip: qsTr("Dump on a new Scene")
-                        counter: contextManager ? contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
+                        counter: simpleDesk ? simpleDesk.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
 
                         onClicked:
                         {
@@ -129,7 +128,7 @@ Rectangle
                             {
                                 anchors.centerIn: parent
                                 height: parent.height * 0.7
-                                label: contextManager ? contextManager.dumpValuesCount : ""
+                                label: simpleDesk ? simpleDesk.dumpValuesCount : ""
                                 fontSize: height
                             }
                         }
@@ -138,8 +137,9 @@ Rectangle
                         {
                             id: dmxDumpDialog
                             implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+                            channelsMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
 
-                            onAccepted: contextManager.dumpDmxChannels(sceneName, getChannelsMask())
+                            onAccepted: simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
                         }
                     }
 
@@ -289,7 +289,7 @@ Rectangle
                                 onClicked:
                                 {
                                     var channel = index - (fixtureObj ? fixtureObj.address : 0)
-                                    contextManager.unsetDumpValue(fixtureObj ? fixtureObj.id : -1, channel)
+                                    simpleDesk.unsetDumpValue(fixtureObj ? fixtureObj.id : -1, channel)
                                     simpleDesk.resetChannel(index)
                                 }
                             }

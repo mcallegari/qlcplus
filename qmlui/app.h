@@ -95,6 +95,23 @@ public:
     };
     Q_ENUM(DragItemTypes)
 
+    enum ChannelType
+    {
+        DimmerType      = (1 << QLCChannel::Intensity),
+        ColorMacroType  = (1 << QLCChannel::Colour), // Color wheels, color macros
+        GoboType        = (1 << QLCChannel::Gobo),
+        SpeedType       = (1 << QLCChannel::Speed),
+        PanType         = (1 << QLCChannel::Pan),
+        TiltType        = (1 << QLCChannel::Tilt),
+        ShutterType     = (1 << QLCChannel::Shutter),
+        PrismType       = (1 << QLCChannel::Prism),
+        BeamType        = (1 << QLCChannel::Beam),
+        EffectType      = (1 << QLCChannel::Effect),
+        MaintenanceType = (1 << QLCChannel::Maintenance),
+        ColorType       = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
+    };
+    Q_ENUM(ChannelType)
+
     enum ChannelColors
     {
         Red     = (1 << 0),
@@ -166,7 +183,7 @@ signals:
     void accessMaskChanged(int mask);
 
 private:
-    /** The number of pixels in one millimiter */
+    /** The number of pixels in one millimeter */
     qreal m_pixelDensity;
 
     /** Bitmask to enable/disable UI functionalities */
