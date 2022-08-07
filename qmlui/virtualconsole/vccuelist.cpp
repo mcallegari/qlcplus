@@ -278,7 +278,7 @@ void VCCueList::setSideFaderLevel(int level)
         }
     }
 
-    //updateFeedback(); // TODO
+    sendFeedback(m_sideFaderLevel, INPUT_SIDE_FADER_ID, VCWidget::ExactValue);
 
     emit sideFaderLevelChanged();
 }
@@ -775,7 +775,7 @@ void VCCueList::slotFunctionRunning(quint32 fid)
     if (fid == m_chaserID)
     {
         emit playbackStatusChanged();
-        // updateFeedback(); TODO
+        sendFeedback(UCHAR_MAX, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
     }
 }
 
@@ -785,7 +785,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     {
         emit playbackStatusChanged();
         setPlaybackIndex(-1);
-        // updateFeedback(); TODO
+        sendFeedback(0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
     }
 }
 
