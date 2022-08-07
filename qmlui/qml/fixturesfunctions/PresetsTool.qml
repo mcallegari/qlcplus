@@ -37,6 +37,7 @@ Rectangle
     property int selectedFixture: -1
     property int selectedChannel: -1
     property bool showPalette: false
+    property int currentValue: 0 // as DMX value
 
     signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
     signal valueChanged(int value)
@@ -153,6 +154,7 @@ Rectangle
                     capIndex: index + 1
                     onValueChanged:
                     {
+                        toolRoot.currentValue = value
                         toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
                         toolRoot.valueChanged(value)
                         if (closeOnSelect)

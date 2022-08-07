@@ -34,6 +34,14 @@ Rectangle
     property bool dmxValues: true
     property real maxValue: 255
 
+    ChannelToolLoader
+    {
+        id: channelToolLoader
+        z: 2
+
+        onValueChanged: simpleDesk.setValue(fixtureID, channelIndex, value)
+    }
+
     SplitView
     {
         anchors.fill: parent
@@ -190,7 +198,7 @@ Rectangle
                     {
                         id: chRoot
                         implicitWidth: UISettings.iconSizeDefault
-                        height: parent.height - sbar.height
+                        height: channelView.height - sbar.height
                         color: {
                             if (isOverride)
                                 return "red";
@@ -229,6 +237,8 @@ Rectangle
 
                                 onClicked:
                                 {
+                                    if (fixtureObj)
+                                        channelToolLoader.loadChannelTool(this, fixtureObj.id, model.chIndex, model.chValue)
                                 }
                             }
 
@@ -245,7 +255,7 @@ Rectangle
                                 onMoved: {
                                     model.isOverride = true
                                     model.chValue = valueAt(position)
-                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, index, model.chValue)
+                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
                                 }
                             }
 
@@ -265,7 +275,7 @@ Rectangle
                                 onValueModified: {
                                     model.isOverride = true
                                     model.chValue = value * (dmxValues ? 1.0 : 2.55)
-                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, index, model.chValue)
+                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
                                 }
                             }
 

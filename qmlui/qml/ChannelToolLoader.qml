@@ -118,7 +118,7 @@ Popup
             target: toolLoader.item
             function onValueChanged()
             {
-                popupRoot.valueChanged(popupRoot.fixtureId, popupRoot.channelIndex, popupRoot.channelValue)
+                popupRoot.valueChanged(popupRoot.fixtureId, popupRoot.channelIndex, target.currentValue)
             }
         }
     }

@@ -33,7 +33,7 @@ Rectangle
     border.width: 2
 
     property int targetColor: QLCChannel.NoColour
-    property int currentValue: 0
+    property int currentValue: 0 // as DMX value
     property bool closeOnSelect: false
     property bool showPalette: false
 
@@ -109,6 +109,7 @@ Rectangle
                     val = ((mouse.x - (width * 0.1)) * 255.0) / (width * 0.8)
                 }
 
+                boxRoot.currentValue = val
                 boxRoot.valueChanged(val)
             }
         }
