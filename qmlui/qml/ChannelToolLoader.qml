@@ -116,7 +116,10 @@ Popup
         {
             ignoreUnknownSignals: true
             target: toolLoader.item
-            onValueChanged: popupRoot.valueChanged(popupRoot.fixtureId, popupRoot.channelIndex, value)
+            function onValueChanged()
+            {
+                popupRoot.valueChanged(popupRoot.fixtureId, popupRoot.channelIndex, popupRoot.channelValue)
+            }
         }
     }
 }

@@ -190,7 +190,10 @@ Rectangle
         Connections
         {
              target: consoleLoader.item
-             onClicked: clickTimer.start()
+             function onClicked()
+             {
+                clickTimer.start()
+             }
              function onDoubleClicked()
              {
                  clickTimer.stop()
