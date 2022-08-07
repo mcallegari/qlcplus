@@ -49,7 +49,7 @@ void Universe_Test::initial()
     QCOMPARE(m_uni->hasChanged(), false);
     QCOMPARE(m_uni->passthrough(), false);
     QVERIFY(m_uni->inputPatch() == NULL);
-    QVERIFY(m_uni->outputPatch() == NULL);
+    QVERIFY(m_uni->outputPatch(0) == NULL);
     QVERIFY(m_uni->feedbackPatch() == NULL);
     QVERIFY(m_uni->intensityChannels().isEmpty());
 

@@ -581,9 +581,13 @@ quint32 InputOutputMap::outputMapping(const QString &pluginName, quint32 output)
 {
     for (quint32 uni = 0; uni < universesCount(); uni++)
     {
-        const OutputPatch* p = m_universeArray.at(uni)->outputPatch();
-        if (p != NULL && p->pluginName() == pluginName && p->output() == output)
-            return uni;
+        Universe *universe = m_universeArray.at(uni);
+        for (int i = 0; i < universe->outputPatchesCount(); i++)
+        {
+            const OutputPatch* p = universe->outputPatch(i);
+            if (p != NULL && p->pluginName() == pluginName && p->output() == output)
+                return uni;
+        }
     }
 
     return QLCIOPlugin::invalidLine();
@@ -741,11 +745,15 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
     bool success = true;
     for (quint32 i = 0; i < universesCount(); i++)
     {
-        OutputPatch* op = m_universeArray.at(i)->outputPatch();
-
-        if (op != NULL && op->plugin() == plugin)
+        Universe *universe = m_universeArray.at(i);
+        for (int oi = 0; oi < universe->outputPatchesCount(); oi++)
         {
-            /*success = */ op->reconnect();
+            OutputPatch* op = universe->outputPatch(oi);
+
+            if (op != NULL && op->plugin() == plugin)
+            {
+                /*success = */ op->reconnect();
+            }
         }
 
         InputPatch* ip = m_universeArray.at(i)->inputPatch();

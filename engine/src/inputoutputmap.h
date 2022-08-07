@@ -355,7 +355,7 @@ public:
      * @param inputUID Unique plugin output line identifier as string
      * @param output A universe provided by the plugin to patch to
      * @param isFeedback Determine if this line is a feedback output
-     * @param index the output patch index
+     * @param index The output patch index
      *
      * @return true if successful, otherwise false
      */

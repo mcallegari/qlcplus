@@ -222,7 +222,7 @@ public:
      * Get the reference to the output plugin associated to this universe.
      * If not present NULL is returned.
      */
-    Q_INVOKABLE OutputPatch *outputPatch(int index = 0) const;
+    Q_INVOKABLE OutputPatch *outputPatch(int index) const;
 
     /** Return the number of output patches associated to this Universe */
     int outputPatchesCount() const;
@@ -567,6 +567,8 @@ public:
      * Load a universe contents from the given XML node.
      *
      * @param root An XML subtree containing the universe contents
+     * @param index The QLC+ Universe index
+     * @param ioMap Reference to the QLC+ Input/Output map class
      * @return true if the Universe was loaded successfully, otherwise false
      */
     bool loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap);
@@ -574,10 +576,11 @@ public:
     /**
      * Load an optional tag defining the plugin specific parameters
      * @param root An XML subtree containing the plugin parameters contents
-     * @param currentTag the type of Patch where the parameters should be set
+     * @param currentTag The type of Patch where the parameters should be set
+     * @param patchIndex Index of the patch to configure (ATM used only for output)
      * @return true if the parameters were loaded successfully, otherwise false
      */
-    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag);
+    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag, int patchIndex);
 
     /**
      * Save the universe instance into an XML document, under the given

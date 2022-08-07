@@ -1040,6 +1040,8 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         return false;
     }
 
+    int outputIndex = 0;
+
     QXmlStreamAttributes attrs = root.attributes();
 
     if (attrs.hasAttribute(KXMLQLCUniverseName))
@@ -1089,7 +1091,7 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             if (tType == QXmlStreamReader::StartElement)
             {
                 if (root.name() == KXMLQLCUniversePluginParameters)
-                    loadXMLPluginParameters(root, InputPatchTag);
+                    loadXMLPluginParameters(root, InputPatchTag, 0);
                 root.skipCurrentElement();
             }
         }
@@ -1107,7 +1109,7 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
                 outputLine = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
 
             // apply the parameters just loaded
-            ioMap->setOutputPatch(index, plugin, outputUID, outputLine, false);
+            ioMap->setOutputPatch(index, plugin, outputUID, outputLine, false, outputIndex);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1117,9 +1119,11 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             if (tType == QXmlStreamReader::StartElement)
             {
                 if (root.name() == KXMLQLCUniversePluginParameters)
-                    loadXMLPluginParameters(root, OutputPatchTag);
+                    loadXMLPluginParameters(root, OutputPatchTag, outputIndex);
                 root.skipCurrentElement();
             }
+
+            outputIndex++;
         }
         else if (root.name() == KXMLQLCUniverseFeedbackPatch)
         {
@@ -1145,7 +1149,7 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             if (tType == QXmlStreamReader::StartElement)
             {
                 if (root.name() == KXMLQLCUniversePluginParameters)
-                    loadXMLPluginParameters(root, FeedbackPatchTag);
+                    loadXMLPluginParameters(root, FeedbackPatchTag, 0);
                 root.skipCurrentElement();
             }
         }
@@ -1159,7 +1163,7 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
     return true;
 }
 
-bool Universe::loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag)
+bool Universe::loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag, int patchIndex)
 {
     if (root.name() != KXMLQLCUniversePluginParameters)
     {
@@ -1179,7 +1183,7 @@ bool Universe::loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType curr
         }
         else if (currentTag == OutputPatchTag)
         {
-            OutputPatch *op = outputPatch();
+            OutputPatch *op = outputPatch(patchIndex);
             if (op != NULL)
                 op->setPluginParameter(attr.name().toString(), attr.value().toString());
         }
@@ -1211,10 +1215,10 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
         savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(), inputPatch()->inputName(),
             inputPatch()->input(), inputPatch()->profileName(), inputPatch()->getPluginParameters());
     }
-    if (outputPatch() != NULL)
+    foreach (OutputPatch *op, m_outputPatchList)
     {
-        savePatchXML(doc, KXMLQLCUniverseOutputPatch, outputPatch()->pluginName(), outputPatch()->outputName(),
-            outputPatch()->output(), "", outputPatch()->getPluginParameters());
+        savePatchXML(doc, KXMLQLCUniverseOutputPatch, op->pluginName(), op->outputName(),
+            op->output(), "", op->getPluginParameters());
     }
     if (feedbackPatch() != NULL)
     {
