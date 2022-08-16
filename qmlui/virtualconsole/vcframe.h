@@ -30,7 +30,7 @@
 #define KXMLQLCVCFrameIsDisabled    QString("Disabled")
 #define KXMLQLCVCFrameEnableSource  QString("Enable")
 #define KXMLQLCVCFrameShowEnableButton QString("ShowEnableButton")
-#define KXMLQLCVCFrameSignature     QString("Signature")
+#define KXMLQLCVCFramePIN           QString("PIN")
 
 #define KXMLQLCVCFrameMultipage     QString("Multipage")
 #define KXMLQLCVCFramePagesNumber   QString("PagesNum")
@@ -53,6 +53,7 @@ class VCFrame : public VCWidget
     Q_PROPERTY(bool pagesLoop READ pagesLoop WRITE setPagesLoop NOTIFY pagesLoopChanged)
     Q_PROPERTY(int currentPage READ currentPage NOTIFY currentPageChanged)
     Q_PROPERTY(int totalPagesNumber READ totalPagesNumber WRITE setTotalPagesNumber NOTIFY totalPagesNumberChanged)
+    Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
 
     /*********************************************************************
      * Initialization
@@ -236,6 +237,29 @@ protected:
     /** This holds a map of pages/widgets to be
      *  shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
+
+    /*********************************************************************
+     * PIN
+     *********************************************************************/
+public:
+    /** Get/Set a protection PIN for this Frame. Note that only top level frames
+     *  will expose this functionality */
+    int PIN() const;
+    void setPIN(int newPIN);
+
+    /** Validate the Frame PIN for the entire session */
+    void validatePIN();
+
+    /** Returns true if this Frame has a PIN set and has not been validated for the session.
+     *  Otherwise false is returned, and the Frame can be displayed by everyone */
+    Q_INVOKABLE bool requirePIN() const;
+
+signals:
+    void PINChanged(int PIN);
+
+protected:
+    int m_PIN;
+    bool m_validatedPIN;
 
     /*********************************************************************
      * Widget Function
