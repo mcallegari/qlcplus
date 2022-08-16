@@ -20,6 +20,8 @@
 #ifndef VCCUELIST_H
 #define VCCUELIST_H
 
+#include <QTimer>
+
 #include "vcwidget.h"
 
 #define KXMLQLCVCCueList                    QString("CueList")
@@ -209,6 +211,15 @@ public:
     };
     Q_ENUM(PlaybackStatus)
 
+    enum ProgressStatus
+    {
+        ProgressIdle,
+        ProgressFadeIn,
+        ProgressHold,
+        ProgressInfinite
+    };
+    Q_ENUM(ProgressStatus)
+
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
@@ -233,6 +244,9 @@ private slots:
     /** Called when m_runner skips to another step */
     void slotCurrentStepChanged(int stepNumber);
 
+    /** Method to update the playback progress status */
+    void slotProgressTimeout();
+
 private:
     /** Get the index of the next item, based on the chaser direction */
     int getNextIndex();
@@ -255,6 +269,8 @@ private:
 private:
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
+
+    QTimer *m_timer;
 
     /*********************************************************************
      * External input
