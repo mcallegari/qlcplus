@@ -1,6 +1,8 @@
 #!/bin/sh
 DIR=`dirname $0`
+set -x
+set -e
 
-xmllint --noout --schema "$DIR"/../../schemas/fixture.xsd $(find .. -name *.qxf) 2>&1 | grep -v " validates$"
+xmllint --noout --schema "$DIR"/../../schemas/fixture.xsd $(find "$DIR"/.. -name *.qxf) 2>&1 | grep -v " validates$"
 xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml 2>&1 | grep -v " validates$"
 
