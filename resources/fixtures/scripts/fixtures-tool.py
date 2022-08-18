@@ -242,7 +242,7 @@ def update_fixture(path, filename, destpath):
 
     newfile = os.path.join(destpath, filename)
     xmlFile = open(newfile, "w")
-    xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
+    xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>").decode('utf8'))
     xmlFile.close()
 
     return fxSingleCapCount
@@ -565,7 +565,7 @@ def validate_fixture(path, filename):
     if needSave:
         print("Saving back " + filename + "...")
         xmlFile = open(absname, "w")
-        xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
+        xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>").decode('utf8'))
         xmlFile.close()
 
     return errNum
@@ -609,7 +609,7 @@ def createFixtureMap():
             #print(manufacturer.text + ", " + model.text)
             count += 1
 
-    xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>"))
+    xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>").decode('utf8'))
     xmlFile.close()
     print("Fixtures in map: " + str(count))
 
