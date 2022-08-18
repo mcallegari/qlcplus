@@ -56,26 +56,26 @@
   <Capability Min="249" Max="255">no function</Capability>
  </Channel>
  <Mode Name="1ch">
-  <Channel Number="0" ActsOn="0">Dimmer</Channel>
+  <Channel Number="0">Dimmer</Channel>
  </Mode>
  <Mode Name="2ch">
-  <Channel Number="0" ActsOn="0">Dimmer</Channel>
-  <Channel Number="1" ActsOn="1">Dimmer fine</Channel>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
  </Mode>
  <Mode Name="2ch 2">
-  <Channel Number="0" ActsOn="0">Dimmer</Channel>
-  <Channel Number="1" ActsOn="1">Multifunctional Strobe</Channel>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Multifunctional Strobe</Channel>
  </Mode>
  <Mode Name="3ch">
-  <Channel Number="0" ActsOn="0">Dimmer</Channel>
-  <Channel Number="1" ActsOn="1">Multifunctional Strobe</Channel>
-  <Channel Number="2" ActsOn="2">Device Settings</Channel>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Multifunctional Strobe</Channel>
+  <Channel Number="2">Device Settings</Channel>
  </Mode>
  <Mode Name="4ch">
-  <Channel Number="0" ActsOn="0">Dimmer</Channel>
-  <Channel Number="1" ActsOn="1">Multifunctional Strobe</Channel>
-  <Channel Number="2" ActsOn="2">Set dimmer curve</Channel>
-  <Channel Number="3" ActsOn="3">Device Settings (5s pulse only)</Channel>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Multifunctional Strobe</Channel>
+  <Channel Number="2">Set dimmer curve</Channel>
+  <Channel Number="3">Device Settings (5s pulse only)</Channel>
  </Mode>
  <Mode Name="5ch">
   <Channel Number="0">Dimmer</Channel>
