@@ -5,6 +5,8 @@ qlcplus (4.12.6) stable; urgency=low
   * Web Access: fix VC Slider values disappearing on change (thanks to Thierry)
   * RGB scripts: added 'Circular' script (thanks to Hans-Jürgen Tappe)
   * Channel modifiers: added 'S-Curve" modifier (thanks to Giacomo Gorini)
+  * New fixture: Cameo F2 T PO (thanks to Hans-Jürgen Tappe)
+  * New fixtures: Ibiza PAR LED 710, AFX Spot 60 LED, Ghost Venum 12W RGBW (thanks to erdnaxe)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Dec 2022 12:13:14 +0200
 

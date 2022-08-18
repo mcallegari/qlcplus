@@ -10,8 +10,8 @@
     <F n="ADB-Warp-M" m="Warp M"/>
   </M>
   <M n="AFX">
-    <F n="AFX-Spot-60-LED" m="Spot 60 LED"/>
     <F n="AFX-Spot-180-LED" m="Spot 180 LED"/>
+    <F n="AFX-Spot-60-LED" m="Spot 60 LED"/>
   </M>
   <M n="AGPtek">
     <F n="AGPtek-RGB-6ch-crystal-ball" m="RGB 6ch crystal ball"/>
@@ -824,7 +824,7 @@
   </M>
   <M n="Ghost">
     <F n="Ghost-Green-30" m="Green 30"/>
-    <F n="Ghost-Venum-12W-RGBW" m="Green Venum 12W RGBW"/>
+    <F n="Ghost-Venum-12W-RGBW" m="Venum 12W RGBW"/>
   </M>
   <M n="GLP">
     <F n="GLP-Impression-FR1-TM" m="Impression FR1 TM"/>
