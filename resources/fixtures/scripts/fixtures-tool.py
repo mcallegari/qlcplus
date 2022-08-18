@@ -520,12 +520,26 @@ def validate_fixture(path, filename):
 
         for mchan in mode.findall('{' + namespace + '}Channel'):
 
+            mchan_no = "0"
+            if not 'Number' in mchan.attrib:
+                print(absname + ": mode channel number attribute not found")
+                errNum += 1
+            else:
+                mchan_no = mchan.attrib['Number']
+
+            #print(absname + "/" + modeName + ": Channel " + mchan_no + "): " + mchan.text)
+
             if mchan.text is None:
                 print(absname + "/" + modeName + ": Empty channel name found. This definition won't work.")
                 errNum += 1
             else:
                 if not mchan.text in channelNames:
                     print(absname + "/" + modeName + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
+                    errNum += 1
+
+            if 'ActsOn' in mchan.attrib:
+                if mchan.attrib["ActsOn"] is mchan_no:
+                    print(absname + "/" + modeName + "/" + mchan_no + ": Channel cannot act on itself. Leave it blank.")
                     errNum += 1
 
             modeChanCount += 1
@@ -644,7 +658,8 @@ elif args.convert:
     print("Converting fixtures in " + path + "...")
 
     for filename in os.listdir(path):
-        if not filename.endswith('.qxf'): continue
+        if not filename.endswith('.qxf'):
+            continue
         print("Processing file " + filename)
 
         singleCapCount += update_fixture(path, filename, destpath)
@@ -652,23 +667,28 @@ elif args.convert:
     print("Scan done. Single cap found: " + str(singleCapCount))
 elif args.validate:
     if len(sys.argv) < 2:
-        print("Usage " + sys.argv[0] + "--validate [path]")
+        print("Usage " + sys.argv[0] + " --validate [path]")
         sys.exit()
 
-    path = sys.argv[2]
+    if len(sys.argv) >= 2:
+        path = sys.argv[2]
 
     fileCount = 0
     errorCount = 0
 
     for dirname in sorted(os.listdir(path), key=lambda s: s.lower()):
+        filepath = os.path.join(path, dirname)
+        #print("Processing directory " + dirname + " (" + filepath + ")")
 
-        if not os.path.isdir(dirname): continue
+        if not os.path.isdir(filepath):
+            #print("  Skipping. Is not a directory.")
+            continue
 
-        for filename in sorted(os.listdir(dirname), key=lambda s: s.lower()):
+        for filename in sorted(os.listdir(filepath), key=lambda s: s.lower()):
             if not filename.endswith('.qxf'): continue
 
             #print("Processing file " + filename)
-            errorCount += validate_fixture(dirname, filename)
+            errorCount += validate_fixture(filepath, filename)
             fileCount += 1
 
     print(str(fileCount) + " definitions processed. " + str(errorCount) + " errors detected")
