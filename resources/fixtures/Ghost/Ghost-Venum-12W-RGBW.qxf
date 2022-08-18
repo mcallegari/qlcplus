@@ -52,7 +52,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Auto speed or mic sensitivity (Slow to fast)</Capability>
  </Channel>
- <Mode Name="11 channels">
+ <Mode Name="11 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -65,7 +65,7 @@
   <Channel Number="9">Macro</Channel>
   <Channel Number="10">Macro speed</Channel>
  </Mode>
- <Mode Name="9 channels">
+ <Mode Name="9 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -76,7 +76,7 @@
   <Channel Number="7">Dimmer</Channel>
   <Channel Number="8">Shutter</Channel>
  </Mode>
- <Mode Name="5 channels">
+ <Mode Name="5 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt speed</Channel>
@@ -87,7 +87,7 @@
   <Bulb Type="LED 12W" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="4" Width="174" Height="242" Depth="162"/>
   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-  <Focus Type="Fixed" PanMax="540" TiltMax="230"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
