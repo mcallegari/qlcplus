@@ -28,8 +28,6 @@ class VCPage : public VCFrame
 {
     Q_OBJECT
 
-    Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
-
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -49,29 +47,6 @@ private:
     PreviewContext *m_pageContext;
 
     qreal m_pageScale;
-
-    /*********************************************************************
-     * PIN
-     *********************************************************************/
-public:
-    /** Get/Set a protection PIN for this Frame. Note that only top level frames
-     *  will expose this functionality */
-    int PIN() const;
-    void setPIN(int newPIN);
-
-    /** Validate the Frame PIN for the entire session */
-    void validatePIN();
-
-    /** Returns true if this Frame has a PIN set and has not been validated for the session.
-     *  Otherwise false is returned, and the Frame can be displayed by everyone */
-    Q_INVOKABLE bool requirePIN() const;
-
-signals:
-    void PINChanged(int PIN);
-
-protected:
-    int m_PIN;
-    bool m_validatedPIN;
 
     /*********************************************************************
      * External input

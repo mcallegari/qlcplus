@@ -690,10 +690,45 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
     if (m_2DView->isEnabled())
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 
-    for (quint32 itemID : fxIDList)
+    for (quint32 itemID : qAsConst(fxIDList))
         setFixtureSelection(itemID, -1, true);
 
     emit selectedFixturesChanged();
+}
+
+QVariantList ContextManager::selectedFixtureAddress()
+{
+    QVariantList addresses;
+    for (quint32 itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == nullptr)
+            continue;
+
+        quint32 startAddr = fixture->address();
+        for (quint32 i = 0; i < fixture->channels(); i++)
+            addresses.append(startAddr + i);
+    }
+
+    std::sort(addresses.begin(), addresses.end(),
+              [](QVariant a, QVariant b) {
+                  return a.toUInt() < b.toUInt();
+              });
+
+    return addresses;
+}
+
+QVariantList ContextManager::selectedFixtureIDVariantList()
+{
+    QVariantList list;
+    for (quint32 itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        list.append(fxID);
+    }
+
+    return list;
 }
 
 int ContextManager::selectedFixturesCount()

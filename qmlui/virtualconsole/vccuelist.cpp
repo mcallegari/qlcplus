@@ -34,6 +34,8 @@
 #define INPUT_STOP_PAUSE_ID         3
 #define INPUT_SIDE_FADER_ID         4
 
+#define PROGRESS_INTERVAL           200
+
 VCCueList::VCCueList(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_nextPrevBehavior(DefaultRunFirst)
@@ -44,6 +46,7 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
     , m_primaryTop(true)
     , m_chaserID(Function::invalidId())
     , m_playbackIndex(-1)
+    , m_timer(new QTimer())
 {
     setType(VCWidget::CueListWidget);
 
@@ -57,6 +60,8 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
     QStringList listRoles;
     listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
     m_stepsList->setRoleNames(listRoles);
+
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(slotProgressTimeout()));
 }
 
 VCCueList::~VCCueList()
@@ -776,6 +781,8 @@ void VCCueList::slotFunctionRunning(quint32 fid)
     {
         emit playbackStatusChanged();
         sendFeedback(UCHAR_MAX, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
+
+        m_timer->start(PROGRESS_INTERVAL);
     }
 }
 
@@ -786,12 +793,69 @@ void VCCueList::slotFunctionStopped(quint32 fid)
         emit playbackStatusChanged();
         setPlaybackIndex(-1);
         sendFeedback(0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
+
+        m_timer->stop();
+
+        if (m_item != nullptr)
+        {
+            m_item->setProperty("progressStatus", ProgressIdle);
+            m_item->setProperty("progressValue", 0);
+            m_item->setProperty("progressText", "");
+        }
     }
 }
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
 {
     setPlaybackIndex(stepNumber);
+}
+
+void VCCueList::slotProgressTimeout()
+{
+    Chaser *ch = chaser();
+    if (ch == nullptr || !ch->isRunning() || m_item == nullptr)
+        return;
+
+    ChaserRunnerStep step(ch->currentRunningStep());
+    if (step.m_function != NULL)
+    {
+        ProgressStatus status = ProgressIdle;
+        double progress = 0;
+
+        if (step.m_fadeIn == Function::infiniteSpeed())
+            status = ProgressInfinite;
+        else if (step.m_elapsed <= (quint32)step.m_fadeIn)
+            status = ProgressFadeIn;
+        else
+            status = ProgressHold;
+
+        m_item->setProperty("progressStatus", status);
+
+        if (step.m_duration == Function::infiniteSpeed())
+        {
+            if (status == ProgressFadeIn && step.m_fadeIn != Function::defaultSpeed())
+            {
+                progress = ((double)step.m_elapsed / (double)step.m_fadeIn);
+                m_item->setProperty("progressValue", progress);
+                m_item->setProperty("progressText", QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
+            }
+            else
+            {
+                m_item->setProperty("progressValue", 100);
+                m_item->setProperty("progressText", "");
+            }
+        }
+        else
+        {
+            progress = ((double)step.m_elapsed / (double)step.m_duration);
+            m_item->setProperty("progressValue", progress);
+            m_item->setProperty("progressText", QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
+        }
+    }
+    else
+    {
+        m_item->setProperty("progressValue", 0);
+    }
 }
 
 /*********************************************************************

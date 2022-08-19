@@ -348,9 +348,11 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
     if (newPIN.length() != 0 && newPIN.length() != 4)
         return false;
 
+    VCPage *page = m_pages.at(index);
+
     /* If the current PIN is set, check if
      * the entered PIN is numeric */
-    if (m_pages.at(index)->PIN() != 0)
+    if (page->PIN() != 0)
     {
         iPIN = currentPIN.toInt(&ok);
         if (ok == false)
@@ -358,13 +360,13 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
     }
 
     /* Check if the current PIN matches with the page PIN */
-    if (m_pages.at(index)->PIN() != 0 &&
-        m_pages.at(index)->PIN() != currentPIN.toInt())
+    if (page->PIN() != 0 &&
+        page->PIN() != currentPIN.toInt())
         return false;
 
     /* At last, set the new PIN for the page */
     if (newPIN.isEmpty())
-        m_pages.at(index)->setPIN(0);
+        page->setPIN(0);
     else
     {
         /* If the new PIN is numeric */
@@ -372,7 +374,7 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
         if (ok == false)
             return false;
 
-        m_pages.at(index)->setPIN(newPIN.toInt());
+        page->setPIN(newPIN.toInt());
     }
 
     return true;
@@ -386,7 +388,7 @@ bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember)
     if (m_pages.at(index)->PIN() != PIN.toInt())
         return false;
 
-    if(remember)
+    if (remember)
         m_pages.at(index)->validatePIN();
 
     return true;

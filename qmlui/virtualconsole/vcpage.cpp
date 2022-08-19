@@ -24,8 +24,6 @@
 VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QObject *parent)
     : VCFrame(doc, vc, parent)
     , m_pageScale(1.0)
-    , m_PIN(0)
-    , m_validatedPIN(false)
 {
     setAllowResize(false);
     setShowHeader(false);
@@ -59,38 +57,6 @@ void VCPage::setPageScale(qreal factor)
 
     foreach (VCWidget* child, children(true))
         child->setScaleFactor(m_pageScale);
-}
-
-/*********************************************************************
- * PIN
- *********************************************************************/
-
-int VCPage::PIN() const
-{
-    return m_PIN;
-}
-
-void VCPage::setPIN(int newPIN)
-{
-    if (newPIN == m_PIN)
-        return;
-
-    m_PIN = newPIN;
-    setDocModified();
-    emit PINChanged(newPIN);
-}
-
-void VCPage::validatePIN()
-{
-    m_validatedPIN = true;
-}
-
-bool VCPage::requirePIN() const
-{
-    if (m_PIN == 0 || m_validatedPIN == true)
-        return false;
-
-    return true;
 }
 
 /*********************************************************************

@@ -11,6 +11,7 @@
   </M>
   <M n="AFX">
     <F n="AFX-Spot-180-LED" m="Spot 180 LED"/>
+    <F n="AFX-Spot-60-LED" m="Spot 60 LED"/>
   </M>
   <M n="AGPtek">
     <F n="AGPtek-RGB-6ch-crystal-ball" m="RGB 6ch crystal ball"/>
@@ -823,6 +824,7 @@
   </M>
   <M n="Ghost">
     <F n="Ghost-Green-30" m="Green 30"/>
+    <F n="Ghost-Venum-12W-RGBW" m="Venum 12W RGBW"/>
   </M>
   <M n="GLP">
     <F n="GLP-Impression-FR1-TM" m="Impression FR1 TM"/>
@@ -874,6 +876,7 @@
   </M>
   <M n="Ibiza">
     <F n="Ibiza-400-RGB" m="400 RGB"/>
+    <F n="Ibiza-PAR-LED-710" m="PAR LED 710"/>
     <F n="Ibiza-PAR-LED-712IR" m="PAR LED 712IR"/>
     <F n="Ibiza-PAR-LED50-COB" m="PAR LED50-COB"/>
   </M>

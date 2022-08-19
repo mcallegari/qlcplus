@@ -30,12 +30,15 @@
 #include "vcslider.h"
 #include "vccuelist.h"
 #include "vcsoloframe.h"
+#include "simplecrypt.h"
 #include "virtualconsole.h"
 
 #define INPUT_NEXT_PAGE_ID      0
 #define INPUT_PREVIOUS_PAGE_ID  1
 #define INPUT_ENABLE_ID         2
 #define INPUT_COLLAPSE_ID       3
+
+static const quint64 encKey = 0x5131632B5067334B; // this is "Q1c+Pg3K"
 
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
@@ -47,6 +50,8 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_currentPage(0)
     , m_totalPagesNumber(1)
     , m_pagesLoop(false)
+    , m_PIN(0)
+    , m_validatedPIN(false)
 {
     setType(VCWidget::FrameWidget);
 
@@ -745,6 +750,38 @@ void VCFrame::gotoNextPage()
 }
 
 /*********************************************************************
+ * PIN
+ *********************************************************************/
+
+int VCFrame::PIN() const
+{
+    return m_PIN;
+}
+
+void VCFrame::setPIN(int newPIN)
+{
+    if (newPIN == m_PIN)
+        return;
+
+    m_PIN = newPIN;
+    setDocModified();
+    emit PINChanged(newPIN);
+}
+
+void VCFrame::validatePIN()
+{
+    m_validatedPIN = true;
+}
+
+bool VCFrame::requirePIN() const
+{
+    if (m_PIN == 0 || m_validatedPIN == true)
+        return false;
+
+    return true;
+}
+
+/*********************************************************************
  * Widget Function
  *********************************************************************/
 
@@ -975,6 +1012,12 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             else
                 setShowEnable(false);
         }
+        else if (root.name() == KXMLQLCVCFramePIN)
+        {
+            SimpleCrypt crypter(encKey);
+            QString decPin = crypter.decryptToString(root.readElementText());
+            setPIN(decPin.toInt());
+        }
         else if (root.name() == KXMLQLCVCFrameMultipage)
         {
             setMultiPageMode(true);
@@ -1073,6 +1116,14 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
 
     /* Disabled */
     doc->writeTextElement(KXMLQLCVCFrameIsDisabled, isDisabled() ? KXMLQLCTrue : KXMLQLCFalse);
+
+    /* Optional PIN */
+    if (PIN() != 0)
+    {
+        SimpleCrypt crypter(encKey);
+        QString encPin = crypter.encryptToString(QString("%1").arg(PIN()));
+        doc->writeTextElement(KXMLQLCVCFramePIN, encPin);
+    }
 
     /* Enable control */
     saveXMLInputControl(doc, INPUT_ENABLE_ID, KXMLQLCVCFrameEnableSource);

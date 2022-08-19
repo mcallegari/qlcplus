@@ -309,10 +309,6 @@ public:
      * Universe Grid Editing
      *********************************************************************/
 public:
-    /** Returns a list of the universe indices occupied by a Fixture
-        at the requested $address */
-    Q_INVOKABLE QVariantList fixtureSelection(quint32 address);
-
     /** Returns a list of fixture names for representation in a GridEditor QML component */
     QVariantList fixtureNamesMap();
 
@@ -321,6 +317,8 @@ public:
 
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();
+
+    Q_INVOKABLE int pasteFromClipboard(QVariantList fixtureIDs);
 
 signals:
     /** Notify the listeners that the fixture names map has changed */

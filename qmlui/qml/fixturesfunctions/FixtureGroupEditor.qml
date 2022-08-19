@@ -222,7 +222,7 @@ Rectangle
 
             gridSize: fixtureGroupEditor.groupSize
             fillDirection: Qt.Horizontal | Qt.Vertical
-            mininumCellSize: UISettings.iconSizeDefault * 1.5
+            minimumCellSize: UISettings.iconSizeDefault * 1.5
             labelsFontSize: cellSize / 6
             gridData: fixtureGroupEditor.groupMap
             gridLabels: fixtureGroupEditor.groupLabels
@@ -237,7 +237,7 @@ Rectangle
                     fixtureGroupEditor.deleteSelection()
                     var empty = []
                     setSelectionData(empty)
-                    event.accepted = true;
+                    event.accepted = true
                 }
             }
 

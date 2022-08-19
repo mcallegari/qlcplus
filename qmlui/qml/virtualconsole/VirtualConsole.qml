@@ -158,8 +158,10 @@ Rectangle
                                     else
                                     {
                                         pinErrorPopup.open()
+                                        // invalidate page selection so nothing
+                                        // is displayed on screen
+                                        virtualConsole.selectedPage = -1
                                     }
-
                                 }
                             }
 
