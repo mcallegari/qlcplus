@@ -708,3 +708,4 @@ if not args.validate is None:
 
     if errorCount != 0:
         sys.exit(1)
+
