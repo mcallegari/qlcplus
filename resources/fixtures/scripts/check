@@ -12,7 +12,8 @@ else
 	echo "Fixtures: OK"
 fi
 
-"$DIR"/fixtures-tool.py --validate ../ || exit $?
+cd "$DIR"/.. && ./scripts/fixtures-tool.py --validate || exit $?
+cd -
 
 # Validate the fixture map against the XML scheme
 xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml >/dev/null 2>&1
