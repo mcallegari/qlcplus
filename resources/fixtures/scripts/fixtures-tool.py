@@ -3,7 +3,7 @@
 # requires Python LXML (sudo apt-get install python-lxml)
 #
 # When adding new fixtures, regenerate the fixtures map with:
-# scripts/fixtures-tool.py --validate --map
+# ./scripts/fixtures-tool.py --validate --map
 #
 
 import sys
@@ -288,12 +288,10 @@ def check_physical(absname, node, hasPan, hasTilt):
 #
 # Check the syntax of a definition and reports errors if found
 #
-# path: the source path with the fixtures to validate
-# filename: the relative file name
+# absname: the absolute file path
 ###########################################################################################
 
-def validate_fixture(path, filename):
-    absname = os.path.join(path, filename)
+def validate_fixture(absname):
     parser = etree.XMLParser(ns_clean=True, recover=True)
     xmlObj = etree.parse(absname, parser=parser)
     root = xmlObj.getroot()
@@ -628,6 +626,27 @@ def createFixtureMap():
     print("Fixtures in map: " + str(count))
 
 ###########################################################################################
+# get_validation_files
+#
+# Get the files in the path to check the syntax of a definition and reports errors if found
+#
+# path: the source path with the fixtures to validate
+###########################################################################################
+
+def get_validation_files(path):
+    files = []
+
+    #print("Processing path " + path)
+    if os.path.isdir(path):
+        for direntry in sorted(os.listdir(path), key=lambda s: s.lower()):
+            files += get_validation_files(os.path.join(path, direntry))
+    else:
+        if os.path.isfile(path) and path.endswith('.qxf'):
+            files.append(path)
+
+    return files
+
+###########################################################################################
 #
 #                                       MAIN
 #
@@ -635,26 +654,22 @@ def createFixtureMap():
 
 parser = argparse.ArgumentParser(description='Unified Fixture tool.')
 parser.add_argument('--map', help='Create the Fixture map', action='store_true')
-parser.add_argument('--convert [source] [destination]', help='Convert an "old" syntax Fixture definition',
+parser.add_argument('--convert <source> <destination>', help='Convert an "old" syntax Fixture definition',
                     nargs='*', dest='convert')
-parser.add_argument('--validate [path]', help='Validate fixtures in the specified path',
+parser.add_argument('--validate [<path> ...]', help='Validate fixtures in the specified path',
                     nargs='*', dest='validate')
 args = parser.parse_args()
 
 print(args)
 
-if args.map:
-    createFixtureMap()
-elif args.convert:
-    if len(sys.argv) < 3:
-        print("Usage " + sys.argv[0] + "--convert [source folder] [destination folder]")
+if not args.convert is None:
+    print("Starting conversion")
+    if len(args.convert) < 2:
+        print("Usage " + sys.argv[0] + "--convert <source folder> <destination folder>")
         sys.exit()
 
-    path = sys.argv[2]
-    if len(sys.argv) > 3:
-        destpath = sys.argv[3]
-    else:
-        destpath = ""
+    path = sys.args.convert[1]
+    destpath = args.convert[2]
     print("Converting fixtures in " + path + "...")
 
     for filename in os.listdir(path):
@@ -665,31 +680,29 @@ elif args.convert:
         singleCapCount += update_fixture(path, filename, destpath)
 
     print("Scan done. Single cap found: " + str(singleCapCount))
-elif args.validate:
-    if len(sys.argv) < 2:
-        print("Usage " + sys.argv[0] + " --validate [path]")
-        sys.exit()
 
-    if len(sys.argv) >= 2:
-        path = sys.argv[2]
+if args.map:
+    createFixtureMap()
+
+if not args.validate is None:
+    print("Starting validation")
+
+    paths = ["."]
+    if len(args.validate) >= 1:
+        paths = args.validate
 
     fileCount = 0
     errorCount = 0
+    files = []
 
-    for dirname in sorted(os.listdir(path), key=lambda s: s.lower()):
-        filepath = os.path.join(path, dirname)
-        #print("Processing directory " + dirname + " (" + filepath + ")")
+    for path in paths:
+        files += get_validation_files(path)
 
-        if not os.path.isdir(filepath):
-            #print("  Skipping. Is not a directory.")
-            continue
+    fileCount = len(files)
 
-        for filename in sorted(os.listdir(filepath), key=lambda s: s.lower()):
-            if not filename.endswith('.qxf'): continue
-
-            #print("Processing file " + filename)
-            errorCount += validate_fixture(filepath, filename)
-            fileCount += 1
+    for file in files:
+        #print("Processing file " + filepath)
+        errorCount += validate_fixture(file)
 
     print(str(fileCount) + " definitions processed. " + str(errorCount) + " errors detected")
 
