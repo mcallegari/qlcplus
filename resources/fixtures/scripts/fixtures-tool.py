@@ -706,3 +706,5 @@ if not args.validate is None:
 
     print(str(fileCount) + " definitions processed. " + str(errorCount) + " errors detected")
 
+    if errorCount != 0:
+        sys.exit(1)
