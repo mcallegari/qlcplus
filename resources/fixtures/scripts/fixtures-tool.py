@@ -156,7 +156,7 @@ def update_fixture(path, filename, destpath):
             fineWord = ""
 
             # Modes have a <Channel> tag too, but they don't have a name
-            if not 'Name' in channel.attrib:
+            if 'Name' not in channel.attrib:
                 continue
 
             name = channel.attrib['Name']
@@ -284,14 +284,14 @@ def check_physical(absname, node, hasPan, hasTilt):
     return errNum
 
 ###########################################################################################
-# validate_fixture
+# validateFx
 #
 # Check the syntax of a definition and reports errors if found
 #
 # absname: the absolute file path
 ###########################################################################################
 
-def validate_fixture(absname):
+def validateFx(absname):
     parser = etree.XMLParser(ns_clean=True, recover=True)
     xmlObj = etree.parse(absname, parser=parser)
     root = xmlObj.getroot()
@@ -362,7 +362,7 @@ def validate_fixture(absname):
     for channel in root.findall('{' + namespace + '}Channel'):
         chName = ""
         chPreset = ""
-        if not 'Name' in channel.attrib:
+        if 'Name' not in channel.attrib:
             print(absname + ": Invalid channel. No name specified")
             errNum += 1
         else:
@@ -394,7 +394,7 @@ def validate_fixture(absname):
                 if group_tag.text == 'Tilt':
                     hasTilt = True
 
-            if not 'Byte' in group_tag.attrib:
+            if 'Byte' not in group_tag.attrib:
                 print(absname + "/" + chName + ": Invalid channel. Group byte attribute not found")
                 errNum += 1
             else:
@@ -498,7 +498,7 @@ def validate_fixture(absname):
 
         modeName = ""
 
-        if not 'Name' in mode.attrib:
+        if 'Name' not in mode.attrib:
             print(absname + ": mode name attribute not found")
             errNum += 1
         else:
@@ -519,7 +519,7 @@ def validate_fixture(absname):
         for mchan in mode.findall('{' + namespace + '}Channel'):
 
             mchan_no = "0"
-            if not 'Number' in mchan.attrib:
+            if 'Number' not in mchan.attrib:
                 print(absname + ": mode channel number attribute not found")
                 errNum += 1
             else:
@@ -531,7 +531,7 @@ def validate_fixture(absname):
                 print(absname + "/" + modeName + ": Empty channel name found. This definition won't work.")
                 errNum += 1
             else:
-                if not mchan.text in channelNames:
+                if mchan.text not in channelNames:
                     print(absname + "/" + modeName + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
                     errNum += 1
 
@@ -662,7 +662,7 @@ args = parser.parse_args()
 
 print(args)
 
-if not args.convert is None:
+if args.convert is not None:
     print("Starting conversion")
     if len(args.convert) < 2:
         print("Usage " + sys.argv[0] + "--convert <source folder> <destination folder>")
@@ -684,7 +684,7 @@ if not args.convert is None:
 if args.map:
     createFixtureMap()
 
-if not args.validate is None:
+if args.validate is not None:
     print("Starting validation")
 
     paths = ["."]
@@ -698,13 +698,11 @@ if not args.validate is None:
     for path in paths:
         files += get_validation_files(path)
 
-    fileCount = len(files)
-
     for file in files:
         #print("Processing file " + filepath)
-        errorCount += validate_fixture(file)
+        errorCount += validateFx(file)
 
-    print(str(fileCount) + " definitions processed. " + str(errorCount) + " errors detected")
+    print(str(len(files)) + " definitions processed. " + str(errorCount) + " errors detected")
 
     if errorCount != 0:
         sys.exit(1)
