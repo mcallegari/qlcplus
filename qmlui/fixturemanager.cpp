@@ -1312,26 +1312,6 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
  * Universe Grid Editing
  *********************************************************************/
 
-QVariantList FixtureManager::fixtureSelection(quint32 address)
-{
-    QVariantList list;
-    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
-
-    quint32 fxID = m_doc->fixtureForAddress((uniFilter << 9) | address);
-    if (fxID == Fixture::invalidId())
-        return list;
-
-    Fixture *fixture = m_doc->fixture(fxID);
-    if (fixture == nullptr)
-        return list;
-
-    quint32 startAddr = fixture->address();
-    for (quint32 i = 0; i < fixture->channels(); i++)
-        list.append(startAddr + i);
-
-    return list;
-}
-
 QVariantList FixtureManager::fixtureNamesMap()
 {
     return m_fixtureNamesMap;
@@ -1407,9 +1387,83 @@ QVariantList FixtureManager::fixturesMap()
         m_fixtureNamesMap.append(fx->name());
     }
 
+    emit fixturesMapChanged();
     emit fixtureNamesMapChanged();
 
     return m_fixturesMap;
+}
+
+int FixtureManager::pasteFromClipboard(QVariantList fixtureIDs)
+{
+    if (fixtureIDs.isEmpty())
+        return 0;
+
+    // check destination universe
+    Fixture *fixture = m_doc->fixture(fixtureIDs.first().toUInt());
+    if (fixture == nullptr)
+        return -1;
+
+    if (fixture->universe() == m_universeFilter ||
+        m_universeFilter == Universe::invalid())
+        return -1;
+
+    quint32 absAddress = (m_universeFilter << 9);
+    int fixtureIndex = 0;
+    QList<quint32> newAddresses;
+    int availableAddress = 0;
+    quint32 freeCounter = 0;
+
+    // check available space
+    for (int i = 0; i < 512; i++)
+    {
+        if (m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
+        {
+            freeCounter = 0;
+            availableAddress = i + 1;
+        }
+        else
+        {
+            freeCounter++;
+            if (freeCounter == fixture->channels())
+            {
+                // save the new address for this fixture
+                newAddresses.append(availableAddress);
+                fixtureIndex++;
+                freeCounter = 0;
+                availableAddress = i + 1;
+
+                // all fixtures processed. Nothing more to do
+                if (fixtureIndex == fixtureIDs.count())
+                    break;
+
+                fixture = m_doc->fixture(fixtureIDs.at(fixtureIndex).toUInt());
+                if (fixture == nullptr)
+                    return -1;
+            }
+        }
+    }
+
+    // not enough space to paste all the fixtures
+    if (fixtureIndex != fixtureIDs.count())
+        return -2;
+
+    for (int f = 0; f < fixtureIDs.count(); f++)
+    {
+        Fixture *fxi = m_doc->fixture(fixtureIDs.at(f).toUInt());
+        fxi->blockSignals(true);
+        fxi->setUniverse(m_universeFilter);
+        fxi->setAddress(newAddresses.at(f));
+        fxi->blockSignals(false);
+
+        // trigger one single changed signal
+        fxi->setID(fxi->id());
+    }
+
+    updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
+    emit groupsTreeModelChanged();
+    emit fixturesMapChanged();
+
+    return 0;
 }
 
 /*********************************************************************

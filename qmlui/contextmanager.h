@@ -176,7 +176,13 @@ public:
     /** Select the fixtures that intersects the provided rectangle coordinates in a 2D environment */
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height, int keyModifiers);
 
-    /** Returns if at least one fixture is currently selected */
+    /** Returns a list of the selected fixture addresses */
+    Q_INVOKABLE QVariantList selectedFixtureAddress();
+
+    /** Returns a list of the selected Fixture IDs as QVariant */
+    Q_INVOKABLE QVariantList selectedFixtureIDVariantList();
+
+    /** Returns the number of currently selected fixtures */
     int selectedFixturesCount();
 
     /** Returns if the fixture with $fxID is currently selected */
