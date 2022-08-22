@@ -20,6 +20,8 @@ addons:
       - libgl1-mesa-dev
  # Needed for `xmllint`
       - libxml2-utils
+# needed for fixtures-tool.yml
+      - python3-lxml
     packages: &qt5_pkg
       - *base_pkg
       - qt514-meta-minimal
