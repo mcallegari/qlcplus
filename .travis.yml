@@ -21,7 +21,7 @@ addons:
       # Needed for `xmllint`
       - libxml2-utils
       # needed for fixtures-tool.xml
-      - python3-lxml
+      - python-lxml
     packages: &qt5_pkg
       - *base_pkg
       - qt514-meta-minimal
