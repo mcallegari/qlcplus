@@ -18,9 +18,9 @@ addons:
       - liblo-dev
       - libfftw3-dev
       - libgl1-mesa-dev
- # Needed for `xmllint`
+      # Needed for `xmllint`
       - libxml2-utils
-# needed for fixtures-tool.yml
+      # needed for fixtures-tool.xml
       - python3-lxml
     packages: &qt5_pkg
       - *base_pkg
