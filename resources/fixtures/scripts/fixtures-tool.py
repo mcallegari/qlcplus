@@ -284,14 +284,14 @@ def check_physical(absname, node, hasPan, hasTilt):
     return errNum
 
 ###########################################################################################
-# validate_fx
+# validate_fixture
 #
 # Check the syntax of a definition and reports errors if found
 #
 # absname: the absolute file path
 ###########################################################################################
 
-def validate_fx(absname):
+def validate_fixture(absname):
     parser = etree.XMLParser(ns_clean=True, recover=True)
     xmlObj = etree.parse(absname, parser=parser)
     root = xmlObj.getroot()
@@ -700,7 +700,7 @@ if args.validate is not None:
 
     for file in files:
         #print("Processing file " + filepath)
-        errorCount += validate_fx(file)
+        errorCount += validate_fixture(file)
 
     print(str(len(files)) + " definitions processed. " + str(errorCount) + " errors detected")
 
