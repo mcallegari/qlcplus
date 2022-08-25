@@ -546,7 +546,7 @@ QVariant VCSlider::groupsTreeModel()
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
         QStringList treeColumns;
-        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
+        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
 
@@ -596,8 +596,8 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
         return;
 
     QVariantList itemData = item->data();
-    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-    if (itemData.count() != 5)
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+    if (itemData.count() != 6)
         return;
 
     //QString type = itemData.at(1).toString();
