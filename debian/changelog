@@ -1,5 +1,6 @@
 qlcplus (4.12.6) stable; urgency=low
 
+  * Engine: start Script functions detached (thanks to Thierry)
   * Plugins/E1.31: fix CID on loopback device
   * Plugins/uDMX: fix output not working correctly
   * Web Access: fix VC Slider values disappearing on change (thanks to Thierry)

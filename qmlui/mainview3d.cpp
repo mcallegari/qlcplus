@@ -578,6 +578,9 @@ void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
 
     meshRef->m_rootItem->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
     meshRef->m_selectionBox->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
+
+    meshRef->m_rootItem->setProperty("invertedPan", (flags & MonitorProperties::InvertedPanFlag) ? true : false);
+    meshRef->m_rootItem->setProperty("invertedTilt", (flags & MonitorProperties::InvertedTiltFlag) ? true : false);
 }
 
 Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
@@ -1032,6 +1035,12 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         meshRef->m_rootItem->setProperty("enabled", false);
         meshRef->m_selectionBox->setProperty("enabled", false);
     }
+
+    if (itemFlags & MonitorProperties::InvertedPanFlag)
+        meshRef->m_rootItem->setProperty("invertedPan", true);
+
+    if (itemFlags & MonitorProperties::InvertedTiltFlag)
+        meshRef->m_rootItem->setProperty("invertedTilt", true);
 
     m_createItemCount--;
 
