@@ -433,11 +433,14 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             case Qt::Key_A:
                 toggleFixturesSelection();
             break;
+            case Qt::Key_P:
+                setPositionPicking(true);
+            break;
             case Qt::Key_R:
                 resetDumpValues();
             break;
-            case Qt::Key_P:
-                setPositionPicking(true);
+            case Qt::Key_S:
+                QMetaObject::invokeMethod(m_view->rootObject(), "saveProject");
             break;
             case Qt::Key_Z:
                 if (e->modifiers() & Qt::ShiftModifier)
