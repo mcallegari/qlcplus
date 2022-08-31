@@ -57,6 +57,11 @@ Rectangle
     border.width: 1
     border.color: "#222"
 
+    onWidthChanged:
+    {
+        dmxItemRoot.parent.itemWidthChanged(width)
+    }
+
     Column
     {
         id: fxColumn
