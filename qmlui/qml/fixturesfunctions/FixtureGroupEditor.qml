@@ -270,7 +270,7 @@ Rectangle
             {
                 gridFlickable.interactive = true
 
-                if (currentItemID === -1)
+                if (currentItemID === -1 || offset === 0)
                     return
 
                 if (externalDrag == false)

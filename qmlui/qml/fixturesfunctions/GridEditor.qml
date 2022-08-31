@@ -333,6 +333,8 @@ Rectangle
         {
             if (selectionOffset != 0)
                 gridRoot.released(lastX, lastY, selectionOffset, mouse.modifiers)
+            else
+                gridRoot.released(-1, -1, 0, mouse.modifiers)
 
             movingSelection = false
             validSelection = true
