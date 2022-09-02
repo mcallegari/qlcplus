@@ -26,7 +26,6 @@
     <file alias="DMXAddressTool.qml">qml/DMXAddressTool.qml</file>
     <file alias="DMXAddressWidget.qml">qml/DMXAddressWidget.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
-    <file alias="EditableTextBox.qml">qml/EditableTextBox.qml</file>
     <file alias="ExternalControls.qml">qml/ExternalControls.qml</file>
     <file alias="ExternalControlDelegate.qml">qml/ExternalControlDelegate.qml</file>
     <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>

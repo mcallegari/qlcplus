@@ -28,6 +28,7 @@ TextInput
     height: UISettings.listItemHeight
     readOnly: true
     text: ""
+    horizontalAlignment: TextInput.AlignLeft
     verticalAlignment: TextInput.AlignVCenter
     color: UISettings.fgMain
     font.family: UISettings.robotoFontName
@@ -35,30 +36,32 @@ TextInput
     echoMode: TextInput.Normal
     wrapMode: TextInput.NoWrap
     selectByMouse: true
-    selectionColor: "#4DB8FF"
-    selectedTextColor: "#111"
+    selectionColor: UISettings.highlightPressed
+    selectedTextColor: UISettings.fgMain
 
     property string originalText
     property bool allowDoubleClick: false
 
+    signal clicked()
     signal textConfirmed(string text)
 
     function setEditingStatus(enable)
     {
+        z = enable ? 5 : 0
+        readOnly = enable ? false : true
+        cursorVisible = enable ? true : false
+
         if (enable)
         {
             originalText = text
             cursorPosition = text.length
+            controlRoot.selectAll()
         }
         else
         {
             select(0, 0)
 
         }
-
-        z = enable ? 5 : 0
-        readOnly = enable ? false : true
-        cursorVisible = enable ? true : false
     }
 
     Keys.onPressed:
@@ -95,6 +98,7 @@ TextInput
         onClicked:
         {
             controlRoot.forceActiveFocus()
+            controlRoot.clicked()
         }
         onDoubleClicked:
         {

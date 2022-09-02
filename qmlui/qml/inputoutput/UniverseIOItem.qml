@@ -195,25 +195,23 @@ Rectangle
         border.width: 2
         border.color: "#111"
 
-        EditableTextBox
+        CustomTextInput
         {
             id: uniNameEdit
             anchors.centerIn: parent
             width: parent.width
-            maximumHeight: parent.height
-            color: "transparent"
-            inputText: universe ? universe.name : ""
-            textAlignment: Text.AlignHCenter
+            height: parent.height
+            text: universe ? universe.name : ""
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: TextInput.Wrap
+            allowDoubleClick: true
 
+            onTextConfirmed: if(universe) universe.name = text
             onClicked:
             {
-                enableEditing(false)
-
                 ioManager.selectedIndex = universe.id
-                uniItem.selected(universe.id);
+                uniItem.selected(universe.id)
             }
-
-            onTextChanged: if (universe) universe.name = text
         }
 
         Canvas

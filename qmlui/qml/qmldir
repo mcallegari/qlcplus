@@ -20,7 +20,6 @@ DayTimeTool 0.1 DayTimeTool.qml
 DMXAddressTool 0.1 DMXAddressTool.qml
 DMXAddressWidget 0.1 DMXAddressWidget.qml
 DMXPercentageButton 0.1 DMXPercentageButton.qml
-EditableTextBox 0.1 EditableTextBox.qml
 ExternalControls.qml 0.1 ExternalControls.qml
 ExternalControlDelegate.qml 0.1 ExternalControlDelegate.qml
 FixtureConsole 0.1 FixtureConsole.qml
