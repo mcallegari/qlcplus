@@ -275,7 +275,7 @@ Rectangle
                 Layout.fillWidth: true
             }
         }
-    }
+    } // top bar
 
     RightPanel
     {
@@ -374,7 +374,7 @@ Rectangle
         y: topBar.height
         z: 4
         height: showMgrContainer.headerHeight
-        width: showMgrContainer.width - trackWidth - rightPanel.width
+        width: showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick
@@ -421,7 +421,7 @@ Rectangle
         contentHeight: totalTracksHeight > height ? totalTracksHeight : height
         //contentWidth: timelineHeader.contentWidth
 
-        property real totalTracksHeight: (tracksBox.count + 1) * trackHeight
+        property real totalTracksHeight: (tracksBox.count + 2) * trackHeight
 
         Rectangle
         {
@@ -474,12 +474,13 @@ Rectangle
             z: 1
             width: showMgrContainer.width - trackWidth
             height: parent.height
+            clip: true
 
             boundsBehavior: Flickable.StopAtBounds
             contentHeight: showContents.contentHeight
             contentWidth: timelineHeader.contentWidth
             contentX: xViewOffset
-            ScrollBar.horizontal: CustomScrollBar { orientation: Qt.Horizontal }
+            ScrollBar.horizontal: horScrollBar
 
             onContentXChanged: xViewOffset = contentX
 
@@ -613,19 +614,16 @@ Rectangle
                     }
                 }
             }
-        }
-    }
-/*
+        } // Flickable (horizontal)
+    } // Flickable (vertical)
+
     CustomScrollBar
     {
-        id: horScrollbar
-        z: 4
+        id: horScrollBar
+        x: timelineHeader.x
+        y: showMgrContainer.height - height
+        z: 10
+        width: timelineHeader.width
         orientation: Qt.Horizontal
-        anchors.bottom: parent.bottom
-        x: trackWidth
-        flickable: timelineHeader
     }
-
-    CustomScrollBar { z: 5; flickable: showContents; doubleBars: true }
-*/
 }
