@@ -209,7 +209,7 @@ Rectangle
                 height: parent.height - topBar.height
                 boundsBehavior: Flickable.StopAtBounds
 
-                contentWidth: scriptEdit.paintedWidth
+                contentWidth: width //scriptEdit.paintedWidth
                 contentHeight: scriptEdit.paintedHeight
                 clip: true
 
@@ -225,9 +225,28 @@ Rectangle
                         contentY = r.y + r.height - height;
                 }
 
+                DropArea
+                {
+                    anchors.fill: parent
+                    onDropped:
+                    {
+                        if (drag.source.itemsList[0].itemType === App.FixtureDragItem)
+                        {
+                            //console.log("Fixture ID: " + drag.source.itemsList[0].cRef.id)
+                            scriptEdit.insert(scriptEdit.cursorPosition, drag.source.itemsList[0].cRef.id)
+                        }
+                        else if (drag.source.hasOwnProperty("fromFunctionManager"))
+                        {
+                            //console.log("Function ID: " + drag.source.itemsList[0])
+                            scriptEdit.insert(scriptEdit.cursorPosition, drag.source.itemsList[0])
+                        }
+                    }
+                }
+
                 TextEdit
                 {
                     id: scriptEdit
+                    width: parent.width
                     focus: true
                     font.family: "Roboto Mono"
                     font.pixelSize: UISettings.textSizeDefault * 0.8
@@ -242,7 +261,7 @@ Rectangle
 
                 ScrollBar.vertical: CustomScrollBar { }
                 ScrollBar.horizontal: CustomScrollBar { }
-            }
+            } // Flickable
         } // Column
     } // SplitView
 
