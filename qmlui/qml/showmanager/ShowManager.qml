@@ -64,7 +64,7 @@ Rectangle
     Rectangle
     {
         id: topBar
-        width: showMgrContainer.width
+        width: showMgrContainer.width - rightPanel.width
         height: UISettings.iconSizeDefault
         z: 5
         gradient: Gradient
@@ -274,6 +274,31 @@ Rectangle
             {
                 Layout.fillWidth: true
             }
+
+            ZoomItem
+            {
+                implicitWidth: UISettings.mediumItemHeight * 1.3
+                implicitHeight: parent.height - 2
+                fontColor: "#222"
+
+                onZoomOutClicked:
+                {
+                    if (showManager.timeScale >= 1.0)
+                        showManager.timeScale += 1.0
+                    else
+                        showManager.timeScale += 0.1
+                    centerView()
+                }
+
+                onZoomInClicked:
+                {
+                    if (showManager.timeScale > 1.0)
+                        showManager.timeScale -= 1.0
+                    else
+                        showManager.timeScale -= 0.1
+                    centerView()
+                }
+            }
         }
     } // top bar
 
@@ -330,30 +355,6 @@ Rectangle
             {
                 Layout.fillWidth: true
                 color: "transparent"
-            }
-            ZoomItem
-            {
-                implicitWidth: UISettings.mediumItemHeight * 1.3
-                implicitHeight: parent.height - 2
-                fontColor: "#222"
-
-                onZoomOutClicked:
-                {
-                    if (showManager.timeScale >= 1.0)
-                        showManager.timeScale += 1.0
-                    else
-                        showManager.timeScale += 0.1
-                    centerView()
-                }
-
-                onZoomInClicked:
-                {
-                    if (showManager.timeScale > 1.0)
-                        showManager.timeScale -= 1.0
-                    else
-                        showManager.timeScale -= 0.1
-                    centerView()
-                }
             }
 
             Rectangle
