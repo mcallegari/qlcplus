@@ -1193,6 +1193,10 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
         }
     }
 
+    // delete the exceeding pages
+    while (m_pages.count() - currPageIdx > 0)
+        deletePage(m_pages.count() - 1);
+
     m_loadStatus = Loaded;
 
     return true;
