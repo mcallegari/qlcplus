@@ -1,5 +1,7 @@
 qlcplus (4.12.7) stable; urgency=low
 
+  * New fixture: Vari-Lite VL4000 Spot (thanks to Håvard Ose Nordstrand)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Jan 2023 12:13:14 +0200
 
 qlcplus (4.12.6) stable; urgency=low
