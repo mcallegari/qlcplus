@@ -454,7 +454,7 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
     }
 
 
-    for(PreviewContext *context : m_contextsMap.values()) // C++11
+    for (PreviewContext *context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, true);
 }
 
@@ -468,7 +468,7 @@ void ContextManager::handleKeyRelease(QKeyEvent *e)
 
     qDebug() << "Key release event received:" << e->text();
 
-    for(PreviewContext *context : m_contextsMap.values()) // C++11
+    for (PreviewContext *context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, false);
 }
 

@@ -463,9 +463,7 @@ void FunctionManager::setPreview(bool enable)
                 if (enable == false)
                     f->stop(FunctionParent::master());
                 else
-                {
                     f->start(m_doc->masterTimer(), FunctionParent::master());
-                }
             }
         }
     }
