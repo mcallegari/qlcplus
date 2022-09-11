@@ -830,7 +830,7 @@ void VCFrame::slotInputValueChanged(quint8 id, uchar value)
             gotoPreviousPage();
         break;
         case INPUT_ENABLE_ID:
-            // TODO
+            setDisabled(isDisabled() ? false : true);
         break;
         case INPUT_COLLAPSE_ID:
             setCollapsed(!isCollapsed());

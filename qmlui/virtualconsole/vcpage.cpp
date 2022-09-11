@@ -137,9 +137,13 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
      *  check also if the page matches and finally inform the VC widget
      *  about the event, including the source ID
      */
-    for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11...yay !
+    for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
     {
-        if (match.second->isDisabled() == false &&
+        // make sure input signals always pass to frame widgets
+        bool passDisable = (match.second->type() == VCWidget::FrameWidget) ||
+                           (match.second->type() == VCWidget::SoloFrameWidget) ? true : !match.second->isDisabled();
+
+        if (passDisable == true &&
             match.second->isEditing() == false &&
             match.first->page() == match.second->page())
         {
@@ -223,9 +227,14 @@ void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
 
     for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11...yay !
     {
-        if (match.second->isDisabled() == false &&
+        // make sure input signals always pass to frame widgets
+        bool passDisable = (match.second->type() == VCWidget::FrameWidget) ||
+                           (match.second->type() == VCWidget::SoloFrameWidget) ? true : !match.second->isDisabled();
+
+        if (passDisable == true &&
             match.second->isEditing() == false)
         {
+            // TODO: match frame page??
             match.second->slotInputValueChanged(match.first, pressed ? 255 : 0);
         }
     }
