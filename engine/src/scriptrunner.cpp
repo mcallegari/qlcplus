@@ -454,8 +454,11 @@ bool ScriptRunner::systemCommand(QString command)
     }
 
 #if !defined(Q_OS_IOS)
+    qint64 pid;
     QProcess *newProcess = new QProcess();
-    newProcess->start(programName, programArgs);
+    newProcess->setProgram(programName);
+    newProcess->setArguments(programArgs);
+    newProcess->startDetached(&pid);
 #endif
 
     return true;
