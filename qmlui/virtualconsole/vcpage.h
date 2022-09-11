@@ -78,6 +78,10 @@ public:
     /** Update the key sequences map for a matching $sequence and $widget with the specified $id */
     void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
 
+    /** Rebuild the entire key sequence map for all the child widgets
+     *  of thiss page. This is called on project XML loading */
+    void buildKeySequenceMap();
+
     /** Method invoked by the Virtual Console when an key press/release signal is received.
      *  This is in charge of delivering the event to the children widgets expecting it. */
     void handleKeyEvent(QKeyEvent *e, bool pressed);

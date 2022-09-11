@@ -221,11 +221,27 @@ void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidge
     mapKeySequence(sequence, id, widget);
 }
 
+void VCPage::buildKeySequenceMap()
+{
+    m_keySequencesMap.clear();
+
+    for (VCWidget *widget : children(true))
+    {
+        QMap <QKeySequence, quint32> kMap = widget->keySequenceMap();
+        if (kMap.isEmpty())
+            continue;
+
+        QMap<QKeySequence, quint32>::iterator i;
+        for (i = kMap.begin(); i != kMap.end(); ++i)
+            mapKeySequence(i.key(), i.value(), widget, false);
+    }
+}
+
 void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
 {
     QKeySequence seq(e->key() | e->modifiers());
 
-    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11...yay !
+    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11
     {
         // make sure input signals always pass to frame widgets
         bool passDisable = (match.second->type() == VCWidget::FrameWidget) ||

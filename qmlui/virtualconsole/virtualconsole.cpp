@@ -1017,8 +1017,15 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
         if (e->isAutoRepeat())
             return;
 
-        for(VCPage *page : m_pages) // C++11
-            page->handleKeyEvent(e, pressed);
+        int pageIdx = 0;
+
+        for (VCPage *page : m_pages) // C++11
+        {
+            if (pageIdx == selectedPage())
+                page->handleKeyEvent(e, pressed);
+
+            pageIdx++;
+        }
     }
     else
     {
@@ -1126,10 +1133,14 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
     qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
     if (m_inputDetectionEnabled == false)
     {
-        for(VCPage *page : m_pages) // C++11
+        int pageIdx = 0;
+
+        for (VCPage *page : m_pages) // C++11
         {
-            // TODO: send only to enabled (visible) pages
-            page->inputValueChanged(universe, channel, value);
+            if (pageIdx == selectedPage())
+                page->inputValueChanged(universe, channel, value);
+
+            pageIdx++;
         }
     }
     else
@@ -1180,6 +1191,8 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
             m_pages.at(currPageIdx)->loadXML(root);
             if (m_pages.at(currPageIdx)->caption().isEmpty())
                 m_pages.at(currPageIdx)->setCaption(tr("Page %1").arg(currPageIdx + 1));
+
+            m_pages.at(currPageIdx)->buildKeySequenceMap();
             currPageIdx++;
 
         }
