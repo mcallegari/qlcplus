@@ -1304,9 +1304,12 @@ void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
     {
         it.next();
         quint32 fxID = it.key();
-        SceneItem *meshRef = m_entitiesMap.value(fxID);
+        SceneItem *meshRef = m_entitiesMap.value(fxID, nullptr);
 
-        if(fixtures.contains(fxID))
+        if (meshRef == nullptr || meshRef->m_rootItem == nullptr)
+            return;
+
+        if (fixtures.contains(fxID))
         {
             meshRef->m_rootItem->setProperty("isSelected", true);
             meshRef->m_selectionBox->setProperty("isSelected", true);
@@ -1324,7 +1327,7 @@ void MainView3D::updateFixtureSelection(quint32 itemID, bool enable)
     qDebug() << "[View3D] item" << itemID << "selected:" << enable;
 
     SceneItem *meshRef = m_entitiesMap.value(itemID, nullptr);
-    if (meshRef)
+    if (meshRef && meshRef->m_rootItem)
     {
         meshRef->m_rootItem->setProperty("isSelected", enable);
         meshRef->m_selectionBox->setProperty("isSelected", enable);

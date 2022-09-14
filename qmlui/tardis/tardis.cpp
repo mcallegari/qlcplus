@@ -200,6 +200,9 @@ void Tardis::redoAction()
 void Tardis::resetHistory()
 {
     m_history.clear();
+    m_historyIndex = -1;
+    m_historyCount = 0;
+    m_busy = false;
 }
 
 void Tardis::forwardActionToNetwork(int code, TardisAction &action)
