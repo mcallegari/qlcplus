@@ -867,6 +867,11 @@ void VCSlider::adjustIntensity(qreal val)
         qreal fraction = sliderValueToAttributeValue(m_value);
         adjustFunctionAttribute(function, fraction * intensity());
     }
+    else if (sliderMode() == Level)
+    {
+        // force channel levels refresh
+        m_levelValueChanged = true;
+    }
 }
 
 void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fraction)
@@ -1168,7 +1173,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             }
 
             fc->setStart(fc->current());
-            fc->setTarget(modLevel * intensity());
+            fc->setTarget(qreal(modLevel) * intensity());
             fc->setReady(false);
             fc->setElapsed(0);
         }
@@ -1518,7 +1523,10 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     /* Level high limit */
     doc->writeAttribute(KXMLQLCVCSliderLevelHighLimit, QString::number(rangeHighLimit()));
     /* Level value */
-    doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(value()));
+    if (monitorEnabled())
+        doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(0));
+    else
+        doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(value()));
 
     /* Level channels */
     for (SceneValue scv : m_levelChannels)
