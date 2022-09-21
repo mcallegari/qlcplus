@@ -41,6 +41,7 @@ Rectangle
 
     onFxModeChanged: updateAvailableAddress()
     onFxCountChanged: updateAvailableAddress()
+    onFxQuantityChanged: updateAvailableAddress()
 
     function updateAvailableAddress()
     {
