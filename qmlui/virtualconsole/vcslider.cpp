@@ -80,12 +80,7 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 
     // request to delete all the active faders
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
-    {
-        if (!fader.isNull())
-            fader->requestDelete();
-    }
-    m_fadersMap.clear();
+    removeActiveFaders();
 
     if (m_item)
         delete m_item;
@@ -255,12 +250,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         m_doc->masterTimer()->unregisterDMXSource(this);
 
         // request to delete all the active faders
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
-        {
-            if (!fader.isNull())
-                fader->requestDelete();
-        }
-        m_fadersMap.clear();
+        removeActiveFaders();
     }
 }
 
@@ -504,11 +494,19 @@ bool VCSlider::isOverriding() const
 
 void VCSlider::setIsOverriding(bool enable)
 {
-    if (enable == m_isOverriding)
-        return;
-
     if (enable == false && m_monitorEnabled)
-        setValue(m_monitorValue, false, false);
+    {
+        if (m_isOverriding)
+        {
+            removeActiveFaders();
+            setValue(m_monitorValue, false, false);
+        }
+        else
+        {
+            // reset once more
+            //setValue(0, true, true);
+        }
+    }
 
     m_isOverriding = enable;
     emit isOverridingChanged();
@@ -585,6 +583,16 @@ void VCSlider::setSearchFilter(QString searchFilter)
     }
 
     emit searchFilterChanged();
+}
+
+void VCSlider::removeActiveFaders()
+{
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+    m_fadersMap.clear();
 }
 
 void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
@@ -1088,6 +1096,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         // have the same value. If so, move the widget slider or knob
         // to the detected position
         if (mixedDMXlevels == false &&
+            monitorSliderValue != -1 &&
             monitorSliderValue != m_monitorValue)
         {
             //qDebug() << caption() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_value;
@@ -1224,10 +1233,16 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
 
 void VCSlider::slotInputValueChanged(quint8 id, uchar value)
 {
-    if (id != INPUT_SLIDER_CONTROL_ID)
-        return;
-
-    setValue(value, true, false);
+    switch (id)
+    {
+        case INPUT_SLIDER_CONTROL_ID:
+            setValue(value, true, false);
+        break;
+        case INPUT_SLIDER_RESET_ID:
+            if (value)
+                setIsOverriding(false);
+        break;
+    }
 }
 
 /*********************************************************************
@@ -1243,6 +1258,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
     }
 
     QString str;
+    bool enableMonitoring = false;
 
     /* Widget commons */
     loadXMLCommon(root);
@@ -1291,10 +1307,8 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
 
             if (mAttrs.hasAttribute(KXMLQLCVCSliderLevelMonitor))
             {
-                if (mAttrs.value(KXMLQLCVCSliderLevelMonitor).toString() == "false")
-                    setMonitorEnabled(false);
-                else
-                    setMonitorEnabled(true);
+                if (mAttrs.value(KXMLQLCVCSliderLevelMonitor).toString() != "false")
+                    enableMonitoring = true;
             }
         }
         else if (root.name() == KXMLQLCVCSliderOverrideReset)
@@ -1319,6 +1333,8 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
             root.skipCurrentElement();
         }
     }
+
+    setMonitorEnabled(enableMonitoring);
 
     if (clickAndGoType() == CnGPreset)
     {
