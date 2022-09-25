@@ -60,6 +60,7 @@ qt5deps.files += $$SYS_LIBS_PATH/libbz2-1.dll \
                  $$SYS_LIBS_PATH/libiconv-2.dll \
                  $$SYS_LIBS_PATH/libintl-8.dll \
                  $$SYS_LIBS_PATH/libpcre2-8-0.dll \
+                 $$SYS_LIBS_PATH/libpcre2-16-0.dll \
                  $$SYS_LIBS_PATH/libpcre-1.dll \
                  $$SYS_LIBS_PATH/libpng16-16.dll \
                  $$SYS_LIBS_PATH/libjpeg-8.dll \
