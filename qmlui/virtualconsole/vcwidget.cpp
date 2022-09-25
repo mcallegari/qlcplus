@@ -859,6 +859,7 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
 void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id)
 {
     m_keySequenceMap[keySequence] = id;
+    setDocModified();
 
     emit inputSourcesListChanged();
 }
@@ -866,6 +867,7 @@ void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id
 void VCWidget::deleteKeySequence(const QKeySequence &keySequence)
 {
     m_keySequenceMap.remove(keySequence);
+    setDocModified();
 
     emit inputSourcesListChanged();
 }
@@ -880,6 +882,8 @@ void VCWidget::updateKeySequence(QKeySequence oldSequence, QKeySequence newSeque
 
     qDebug() << "Key sequence map items:" << m_keySequenceMap.count();
 
+    setDocModified();
+
     emit inputSourcesListChanged();
 }
 
@@ -887,6 +891,11 @@ void VCWidget::updateKeySequenceControlID(QKeySequence sequence, quint32 id)
 {
     m_keySequenceMap[sequence] = id;
     //emit inputSourcesListChanged();
+}
+
+QMap<QKeySequence, quint32> VCWidget::keySequenceMap() const
+{
+    return m_keySequenceMap;
 }
 
 /*****************************************************************************

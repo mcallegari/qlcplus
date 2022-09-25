@@ -353,7 +353,7 @@ void App::clearDocument()
     m_doc->masterTimer()->stop();
     m_doc->clearContents();
     m_virtualConsole->resetContents();
-    //SimpleDesk::instance()->clearContents();
+    //m_simpleDesk->resetContents(); // TODO
     m_showManager->resetContents();
     m_tardis->resetHistory();
     m_doc->inputOutputMap()->resetUniverses();

@@ -529,6 +529,9 @@ public:
     /** Update the control ID of an existing key sequence */
     void updateKeySequenceControlID(QKeySequence sequence, quint32 id);
 
+    /** Retrieve the whole key sequences map of this widget */
+    QMap <QKeySequence, quint32> keySequenceMap() const;
+
 public slots:
     /** Virtual slot called when an input value changed */
     virtual void slotInputValueChanged(quint8 id, uchar value);

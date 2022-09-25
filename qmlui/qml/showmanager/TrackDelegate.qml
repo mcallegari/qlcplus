@@ -34,13 +34,16 @@ Rectangle
     property int trackIndex
     property bool isSelected: false
 
-    RobotoText
+    CustomTextInput
     {
         x: 2
         width: parent.width - 4
         height: parent.height
-        label: trackRef ? trackRef.name : ""
-        wrapText: true
+        text: trackRef ? trackRef.name : ""
+        wrapMode: TextInput.Wrap
+        allowDoubleClick: true
+
+        onTextConfirmed: if(trackRef) trackRef.name = text
     }
 
     Rectangle
@@ -110,6 +113,11 @@ Rectangle
     MouseArea
     {
         anchors.fill: parent
-        onClicked: showManager.selectedTrack = trackIndex
+        propagateComposedEvents: true
+        onClicked:
+        {
+            showManager.selectedTrack = trackIndex
+            mouse.accepted = false
+        }
     }
 }

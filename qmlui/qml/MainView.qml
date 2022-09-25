@@ -94,6 +94,11 @@ Rectangle
         clientAccessPopup.open()
     }
 
+    function saveProject()
+    {
+        actionsMenu.handleSaveAction()
+    }
+
     function saveBeforeExit()
     {
         //actionsMenu.open()

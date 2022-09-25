@@ -38,6 +38,7 @@ Rectangle
     onDocLoadedChanged:
     {
         // force a reload of the selected page
+        virtualConsole.selectedPage = 0
         pageLoader.active = false
         pageLoader.active = true
     }

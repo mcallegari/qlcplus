@@ -280,6 +280,9 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+private:
+    void removeActiveFaders();
+
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 

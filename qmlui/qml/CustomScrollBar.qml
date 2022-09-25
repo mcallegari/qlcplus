@@ -47,8 +47,8 @@ ScrollBar
             Rectangle
             {
                 anchors.centerIn: parent
-                width: parent.width * 0.8
-                height: 5
+                width: control.orientation == Qt.Vertical ? parent.width * 0.8 : 5
+                height: control.orientation == Qt.Vertical ? 5 : parent.height * 0.8
                 color: UISettings.bgLight
             }
         }

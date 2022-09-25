@@ -11,9 +11,9 @@ CustomScrollBar 0.1 ../CustomScrollBar.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomDoubleSpinBox 0.1 ../CustomDoubleSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
+CustomTextInput 0.1 ../CustomTextInput.qml
 DMXPercentageButton 0.1 ../DMXPercentageButton.qml
 DMXAddressWidget 0.1 ../DMXAddressWidget.qml
-EditableTextBox 0.1 ../EditableTextBox.qml
 FixtureConsole 0.1 ../FixtureConsole.qml
 FixtureDelegate 0.1 ../FixtureDelegate.qml
 FunctionDelegate 0.1 ../FunctionDelegate.qml

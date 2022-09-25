@@ -307,10 +307,12 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
 
         fxi->setFixtureDefinition(fxiDef, fxiMode);
 
-        m_doc->addFixture(fxi);
-        Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
-        slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
+        if (m_doc->addFixture(fxi) == true)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
+            slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
+        }
 
         fxAddress += (channels + gap);
     }

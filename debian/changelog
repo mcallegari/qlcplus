@@ -1,5 +1,13 @@
+qlcplus (4.12.7) stable; urgency=low
+
+  * Web Access: add support for widget background images
+  * New fixture: Vari-Lite VL4000 Spot (thanks to Håvard Ose Nordstrand)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Jan 2023 12:13:14 +0200
+
 qlcplus (4.12.6) stable; urgency=low
 
+  * Engine: start Script functions detached (thanks to Thierry)
   * Plugins/E1.31: fix CID on loopback device
   * Plugins/uDMX: fix output not working correctly
   * Web Access: fix VC Slider values disappearing on change (thanks to Thierry)
@@ -7,8 +15,15 @@ qlcplus (4.12.6) stable; urgency=low
   * Channel modifiers: added 'S-Curve" modifier (thanks to Giacomo Gorini)
   * New fixture: Cameo F2 T PO (thanks to Hans-Jürgen Tappe)
   * New fixtures: Ibiza PAR LED 710, AFX Spot 60 LED, Ghost Venum 12W RGBW (thanks to erdnaxe)
+  * New fixtures: ETC Source Four LED Series 2 Lustr, Robert Juliat D'Artagnan 934SNX (thanks to Giacomo Gorini)
+  * New fixture: DTS Katana (thanks to Federico)
+  * New fixture: beamZ SB200 Stage Blinder 2x50W (thanks to Tolmino Muccitelli)
+  * New fixture: U'King ZQ-B370 (thanks to Sidde Persson)
+  * New fixture: Equinox Butterfly Quad EQLED100 (thanks to Yestalgia)
+  * New fixture: Varytec Hero Spot 90 (thanks to Chris de Rock)
+  * New fixtures: Eurolite LED H2O Water Effect, Stairville All FX Bar (thanks to Rami Toivola)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Dec 2022 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 28 Aug 2022 12:13:14 +0200
 
 qlcplus (4.12.5) stable; urgency=low
 
