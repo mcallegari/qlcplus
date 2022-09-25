@@ -284,23 +284,18 @@ def check_physical(absname, node, hasPan, hasTilt):
     return errNum
 
 ###########################################################################################
-# validate_fixture
+# validate_fx_creator
 #
-# Check the syntax of a definition and reports errors if found
+# Validate the fixture creator field
 #
 # absname: the absolute file path
+# xmlObj The fixture XML object
 ###########################################################################################
 
-def validate_fixture(absname):
-    parser = etree.XMLParser(ns_clean=True, recover=True)
-    xmlObj = etree.parse(absname, parser=parser)
-    root = xmlObj.getroot()
-
+def validate_fx_creator(absname, xmlObj):
     global namespace
+    root = xmlObj.getroot()
     errNum = 0
-    hasPan = False
-    hasTilt = False
-    needSave = False
 
     ##################################### CHECK CREATOR #################################
 
@@ -337,8 +332,21 @@ def validate_fixture(absname):
                     if "@" in authName or "://" in authName or "www" in authName:
                         print(absname + ": URLs or emails not allowed in author tag")
                         errNum += 1
+    return errNum
 
-    ################################ CHECK FIXTURE GENERALS ##############################
+###########################################################################################
+# validate_fx_generals
+#
+# Validate the fixture general fields
+#
+# absname: the absolute file path
+# xmlObj The fixture XML object
+###########################################################################################
+
+def validate_fx_generals(absname, xmlObj):
+    global namespace
+    root = xmlObj.getroot()
+    errNum = 0
 
     manuf_tag = root.find('{' + namespace + '}Manufacturer')
     model_tag = root.find('{' + namespace + '}Model')
@@ -354,7 +362,118 @@ def validate_fixture(absname):
         print(absname + ": Invalid type detected")
         errNum += 1
 
-    ##################################### CHECK CHANNELS #################################
+    return errNum
+
+###########################################################################################
+# validate_fx_modes
+#
+# Validate the fixture modes
+#
+# absname: the absolute file path
+# xmlObj The fixture XML object
+# hasPan True if the fixture has a PAN mode
+# hasTilt True if the fixture has a TILT mode
+# channelNames List of channel names
+###########################################################################################
+
+def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
+    global namespace
+    root = xmlObj.getroot()
+    errNum = 0
+    hasPan = False
+    hasTilt = False
+
+    modeCount = 0
+    global_phy_tag = root.find('{' + namespace + '}Physical')
+
+    for mode in root.findall('{' + namespace + '}Mode'):
+        modeCount += 1
+        modeName = ""
+        if 'Name' not in mode.attrib:
+            print(absname + ": mode name attribute not found")
+            errNum += 1
+        else:
+            modeName = mode.attrib['Name']
+
+        if not modeName:
+            print(absname + ": Empty mode name detected")
+            errNum += 1
+
+        # better to skip this for now. Still too many errors
+        #if qlc_version >= 41100 and 'mode' in modeName.lower():
+        #    print(absname + "/" + modeName + ": word 'mode' found in mode name")
+        #    errNum += 1
+
+        modeChanCount = 0
+        modeHeadsCount = 0
+
+        for mchan in mode.findall('{' + namespace + '}Channel'):
+            mchan_no = "0"
+            if 'Number' not in mchan.attrib:
+                print(absname + ": mode channel number attribute not found")
+                errNum += 1
+            else:
+                mchan_no = mchan.attrib['Number']
+                #print(absname + "/" + modeName + ": Channel " + mchan_no + "): " + mchan.text)
+
+            if mchan.text is None:
+                print(absname + "/" + modeName + ": Empty channel name found. This definition won't work.")
+                errNum += 1
+            else:
+                if mchan.text not in channelNames:
+                    print(absname + "/" + modeName + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
+                    errNum += 1
+
+            if 'ActsOn' in mchan.attrib:
+                if mchan.attrib["ActsOn"] is mchan_no:
+                    print(absname + "/" + modeName + "/" + mchan_no + ": Channel cannot act on itself. Leave it blank.")
+                    errNum += 1
+
+            modeChanCount += 1
+
+        if modeChanCount == 0:
+            print(absname + "/" + modeName + ": No channel found in mode")
+            errNum += 1
+
+        for mchan in mode.findall('{' + namespace + '}Head'):
+            modeHeadsCount += 1
+
+        if modeHeadsCount == 1:
+            print(absname + "/" + modeName + ": Single head found. Not allowed")
+            errNum += 1
+
+#        if modeHeadsCount > 3:
+#            print(absname + "/" + modeName + ": Heads found: " + str(modeHeadsCount))
+
+        phy_tag = mode.find('{' + namespace + '}Physical')
+        if phy_tag is None and global_phy_tag is None:
+            print(absname + "/" + modeName + ": No physical data found")
+            errNum += 1
+
+        errNum += check_physical(absname, mode, hasPan, hasTilt)
+
+    if modeCount == 0:
+        print(absname + ": Invalid fixture. No modes found!")
+        errNum += 1
+
+    return errNum
+
+###########################################################################################
+# validate_fx_channels
+#
+# Validate the fixture channels
+#
+# absname: the absolute file path
+# xmlObj The fixture XML object
+###########################################################################################
+
+def validate_fx_channels(absname, xmlObj):
+    global namespace
+    root = xmlObj.getroot()
+    errNum = 0
+    hasPan = False
+    hasTilt = False
+    needSave = False
 
     chCount = 0
     channelNames = []
@@ -415,14 +534,12 @@ def validate_fixture(absname):
             errNum += 1
 
         ################################# CHECK CAPABILITIES ##############################
-
         rangeMin = 255
         rangeMax = 0
         lastMax = -1
         capCount = 0
 
         for capability in channel.findall('{' + namespace + '}Capability'):
-
             newResSyntax = False
             capName = capability.text
             if not capName:
@@ -490,95 +607,46 @@ def validate_fixture(absname):
         errNum += 1
 
     ###################################### CHECK MODES ###################################
-
-    modeCount = 0
-    global_phy_tag = root.find('{' + namespace + '}Physical')
-
-    for mode in root.findall('{' + namespace + '}Mode'):
-
-        modeName = ""
-
-        if 'Name' not in mode.attrib:
-            print(absname + ": mode name attribute not found")
-            errNum += 1
-        else:
-            modeName = mode.attrib['Name']
-
-        if not modeName:
-            print(absname + ": Empty mode name detected")
-            errNum += 1
-
-        # better to skip this for now. Still too many errors
-        #if qlc_version >= 41100 and 'mode' in modeName.lower():
-        #    print(absname + "/" + modeName + ": word 'mode' found in mode name")
-        #    errNum += 1
-
-        modeChanCount = 0
-        modeHeadsCount = 0
-
-        for mchan in mode.findall('{' + namespace + '}Channel'):
-
-            mchan_no = "0"
-            if 'Number' not in mchan.attrib:
-                print(absname + ": mode channel number attribute not found")
-                errNum += 1
-            else:
-                mchan_no = mchan.attrib['Number']
-
-            #print(absname + "/" + modeName + ": Channel " + mchan_no + "): " + mchan.text)
-
-            if mchan.text is None:
-                print(absname + "/" + modeName + ": Empty channel name found. This definition won't work.")
-                errNum += 1
-            else:
-                if mchan.text not in channelNames:
-                    print(absname + "/" + modeName + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
-                    errNum += 1
-
-            if 'ActsOn' in mchan.attrib:
-                if mchan.attrib["ActsOn"] is mchan_no:
-                    print(absname + "/" + modeName + "/" + mchan_no + ": Channel cannot act on itself. Leave it blank.")
-                    errNum += 1
-
-            modeChanCount += 1
-
-        if modeChanCount == 0:
-            print(absname + "/" + modeName + ": No channel found in mode")
-            errNum += 1
-
-        for mchan in mode.findall('{' + namespace + '}Head'):
-            modeHeadsCount += 1
-
-        if modeHeadsCount == 1:
-            print(absname + "/" + modeName + ": Single head found. Not allowed")
-            errNum += 1
-
-#        if modeHeadsCount > 3:
-#            print(absname + "/" + modeName + ": Heads found: " + str(modeHeadsCount))
-
-        phy_tag = mode.find('{' + namespace + '}Physical')
-
-        if phy_tag is None and global_phy_tag is None:
-            print(absname + "/" + modeName + ": No physical data found")
-            errNum += 1
-
-        errNum += check_physical(absname, mode, hasPan, hasTilt)
-
-        modeCount += 1
-
-    if modeCount == 0:
-        print(absname + ": Invalid fixture. No modes found!")
-        errNum += 1
-
-    ################################ CHECK GLOBAL PHYSICAL ################################
-
-    errNum += check_physical(absname, root, hasPan, hasTilt)
+    errNum += validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames)
 
     if needSave:
-        print("Saving back " + filename + "...")
+        print("Saving back " + absname + "...")
         xmlFile = open(absname, "w")
         xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>").decode('utf8'))
         xmlFile.close()
+
+    return errNum
+
+###########################################################################################
+# validate_fixture
+#
+# Check the syntax of a definition and reports errors if found
+#
+# absname: the absolute file path
+###########################################################################################
+
+def validate_fixture(absname):
+    parser = etree.XMLParser(ns_clean=True, recover=True)
+    xmlObj = etree.parse(absname, parser=parser)
+    root = xmlObj.getroot()
+
+    global namespace
+    errNum = 0
+    hasPan = False
+    hasTilt = False
+    needSave = False
+
+    ##################################### CHECK CREATOR #################################
+    errNum += validate_fx_creator(absname, xmlObj)
+
+    ################################ CHECK FIXTURE GENERALS ##############################
+    errNum += validate_fx_generals(absname, xmlObj)
+
+    ##################################### CHECK CHANNELS #################################
+    errNum += validate_fx_channels(absname, xmlObj)
+
+    ################################ CHECK GLOBAL PHYSICAL ################################
+    errNum += check_physical(absname, root, hasPan, hasTilt)
 
     return errNum
 
