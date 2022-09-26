@@ -322,6 +322,8 @@ void Audio::preRun(MasterTimer* timer)
 {
     if (m_decoder != NULL)
     {
+        uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -342,7 +344,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->adjustIntensity(getAttributeValue(Intensity));
-        m_audio_out->setFadeIn(fadeInSpeed());
+        m_audio_out->setFadeIn(fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
@@ -378,7 +380,9 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     incrementElapsed();
 
-    if (overrideFadeOutSpeed() == defaultSpeed())
+    uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+    if (fadeout)
     {
         if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
             m_audio_out->setFadeOut(fadeOutSpeed());
@@ -389,7 +393,9 @@ void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
     // Check whether a fade out is needed "outside" of the natural playback
     // This is the case of a Chaser step
-    if (overrideFadeOutSpeed() == defaultSpeed())
+    uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+    if (fadeout == 0)
     {
         slotEndOfStream();
     }
