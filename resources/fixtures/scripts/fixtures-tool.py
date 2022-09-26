@@ -634,7 +634,6 @@ def validate_fixture(absname):
     errNum = 0
     hasPan = False
     hasTilt = False
-    needSave = False
 
     ##################################### CHECK CREATOR #################################
     errNum += validate_fx_creator(absname, xmlObj)
