@@ -113,6 +113,7 @@
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Color Temperature">
   <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Gradual increase in color temperature (0% to 100%)</Capability>
  </Channel>
  <Mode Name="8 Channel">
   <Channel Number="0">Pan</Channel>

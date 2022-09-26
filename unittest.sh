@@ -51,12 +51,12 @@ fi
 
 # run xmllint on fixture definitions
 pushd resources/fixtures/scripts
-VALIDATION_ERRORS=$(./check)
+./check
+RET=$?
 popd
-echo $VALIDATION_ERRORS
-if [ "${VALIDATION_ERRORS}" ]; then
+if [ $RET -ne 0 ]; then
     echo "Fixture definitions are not valid. Please fix before commit."
-    exit 1
+    exit $RET
 fi
 
 TESTDIR=engine/test
