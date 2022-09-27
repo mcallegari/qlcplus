@@ -242,7 +242,11 @@ def update_fixture(path, filename, destpath):
 
     newfile = os.path.join(destpath, filename)
     xmlFile = open(newfile, "w")
-    xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>").decode('utf8'))
+    if (sys.version_info >= (3, 0)):
+        xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>").decode('utf8'))
+    else:
+        # python 2.x
+        xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
     xmlFile.close()
 
     return fxSingleCapCount
@@ -613,6 +617,11 @@ def validate_fx_channels(absname, xmlObj):
         print("Saving back " + absname + "...")
         xmlFile = open(absname, "w")
         xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>").decode('utf8'))
+        if (sys.version_info >= (3, 0)):
+            xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
+        else:
+            # python 2.x
+            xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
         xmlFile.close()
 
     return errNum
@@ -688,7 +697,11 @@ def createFixtureMap():
             #print(manufacturer.text + ", " + model.text)
             count += 1
 
-    xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>").decode('utf8'))
+    if (sys.version_info >= (3, 0)):
+        xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>").decode('utf8'))
+    else:
+        # python 2.x
+        xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>"))
     xmlFile.close()
     print("Fixtures in map: " + str(count))
 
