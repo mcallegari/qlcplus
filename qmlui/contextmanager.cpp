@@ -291,7 +291,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     if (positionPicking() == false)
         return;
 
-    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2, point.y(), point.z() + m_monProps->gridSize().z() / 2);
+    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2,
+                      point.y(),
+                      point.z() + m_monProps->gridSize().z() / 2);
 
     for (quint32 itemID : m_selectedFixtures)
     {
@@ -303,6 +305,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
         quint32 panMSB = fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB);
         quint32 tiltMSB = fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+        int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        int headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint32 itemFlags = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
 
         // don't even bother if the fixture doesn't have PAN/TILT channels
         if (panMSB == QLCChannel::invalid() && tiltMSB == QLCChannel::invalid())
@@ -346,6 +351,13 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             else if(!xLeft && zBack)
                 panDeg = 270.0 + (90.0 - panDeg);
 
+            if (itemFlags & MonitorProperties::InvertedPanFlag)
+            {
+                QLCPhysical phy = fixture->fixtureMode()->physical();
+                double maxPanDeg = phy.focusPanMax() ? phy.focusPanMax() : 360;
+                panDeg = maxPanDeg - panDeg;
+            }
+
             qDebug() << "Fixture" << fxID << "pan degrees:" << panDeg;
 
             QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Pan, panDeg);
@@ -366,7 +378,6 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QVector3D ya = QVector3D(res.x(), res.y(), res.z());
 
             qreal tiltDeg =  qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, ya)));
-
             QLCPhysical phy = fixture->fixtureMode()->physical();
 
             // clamp the tilt.
@@ -376,7 +387,10 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             if (tiltDeg > phy.focusTiltMax() / 2)
                 tiltDeg = phy.focusTiltMax() / 2;
 
-            tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
+            if (itemFlags & MonitorProperties::InvertedTiltFlag)
+                tiltDeg = phy.focusTiltMax() / 2 + tiltDeg;
+            else
+                tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
 
             qDebug() << "Fixture" << fxID << "tilt degrees:" << tiltDeg;
 
