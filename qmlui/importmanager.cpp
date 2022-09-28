@@ -230,8 +230,10 @@ void ImportManager::importFixtures()
          * in m_doc, which implies finding an available address and ID remapping */
         if (matchFound == false)
         {
-            int uniIdx = 0;
-            int address = 0;
+            // Attempt to preserve original universe/address.
+            // Will be checked later if available
+            int uniIdx = importFixture->universe();
+            int address = importFixture->address();
 
             QLCFixtureDef *importDef = importFixture->fixtureDef();
             QLCFixtureMode *importMode = importFixture->fixtureMode();
@@ -250,7 +252,7 @@ void ImportManager::importFixtures()
 
             if (fxiDef == nullptr && fxiMode == nullptr)
             {
-                if (importDef->model() == "Generic Dimmer")
+                if (importDef->model() == "Generic")
                 {
                     fxiDef = fxi->genericDimmerDef(importFixture->channels());
                     fxiMode = fxi->genericDimmerMode(fxiDef, importFixture->channels());
