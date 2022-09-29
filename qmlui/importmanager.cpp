@@ -76,6 +76,12 @@ ImportManager::~ImportManager()
      * this is shared with the original Doc */
     m_importDoc->setFixtureDefinitionCache(nullptr);
     delete m_importDoc;
+
+    m_functionTree->clear();
+    m_fixtureTree->clear();
+
+    delete m_functionTree;
+    delete m_fixtureTree;
 }
 
 bool ImportManager::loadWorkspace(const QString &fileName)
@@ -157,7 +163,7 @@ bool ImportManager::loadXML(QXmlStreamReader &doc)
     {
         if (doc.name() == KXMLQLCEngine)
         {
-            m_importDoc->loadXML(doc);
+            m_importDoc->loadXML(doc, false);
         }
 /*
         else if (doc.name() == KXMLQLCVirtualConsole)
@@ -515,7 +521,7 @@ QVariant ImportManager::groupsTreeModel()
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
         QStringList treeColumns;
-        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
+        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
 
@@ -547,8 +553,8 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
         setChildrenChecked(item->children(), checked);
 
     QVariantList itemData = item->data();
-    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-    if (itemData.count() != 5)
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+    if (itemData.count() != 6)
         return;
 
     int itemType = itemData.at(1).toInt();
@@ -622,8 +628,8 @@ void ImportManager::checkFixtureTree(TreeModel *tree)
     {
         QVariantList itemData = item->data();
 
-        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-        if (itemData.count() == 5 && itemData.at(1).toInt() == App::FixtureDragItem)
+        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+        if (itemData.count() == 6 && itemData.at(1).toInt() == App::FixtureDragItem)
         {
             quint32 fixtureID = FixtureUtils::itemFixtureID(itemData.at(2).toUInt());
 

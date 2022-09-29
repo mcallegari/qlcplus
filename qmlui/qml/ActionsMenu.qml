@@ -83,7 +83,10 @@ Popup
         onAccepted:
         {
             if (qlcplus.loadImportWorkspace(fileUrl) === true)
+            {
+                importLoader.source = ""
                 importLoader.source = "qrc:/PopupImportProject.qml"
+            }
         }
     }
 

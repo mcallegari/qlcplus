@@ -71,17 +71,31 @@ CustomPopupDialog
                 color: UISettings.bgMain
                 radius: 5
                 border.width: 2
-                border.color: "#111"
+                border.color: UISettings.borderColorDark
+
+                Text
+                {
+                    id: fxSearchIcon
+                    x: 6
+                    width: height
+                    height: parent.height - 6
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "gray"
+                    font.family: "FontAwesome"
+                    font.pixelSize: height - 6
+                    text: FontAwesome.fa_search
+                }
 
                 TextInput
                 {
+                    x: fxSearchIcon.width + 14
                     y: 3
                     height: parent.height - 6
-                    width: parent.width
+                    width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.fixtureSearchFilter
                     font.family: "Roboto Condensed"
-                    font.pixelSize: parent.height - 6
+                    font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
@@ -97,17 +111,31 @@ CustomPopupDialog
                 color: UISettings.bgMain
                 radius: 5
                 border.width: 2
-                border.color: "#111"
+                border.color: UISettings.borderColorDark
+
+                Text
+                {
+                    id: funcSearchIcon
+                    x: 6
+                    width: height
+                    height: parent.height - 6
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "gray"
+                    font.family: "FontAwesome"
+                    font.pixelSize: height - 6
+                    text: FontAwesome.fa_search
+                }
 
                 TextInput
                 {
+                    x: funcSearchIcon.width + 14
                     y: 3
                     height: parent.height - 6
-                    width: parent.width
+                    width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.functionSearchFilter
                     font.family: "Roboto Condensed"
-                    font.pixelSize: parent.height - 6
+                    font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
@@ -127,7 +155,7 @@ CustomPopupDialog
 
                 property bool dragActive: false
 
-                model: importManager.groupsTreeModel
+                model: popupRoot.visible ? importManager.groupsTreeModel : null
                 delegate:
                   Component
                   {
@@ -176,11 +204,9 @@ CustomPopupDialog
                                         }
                                     break;
                                     case App.Checked:
-                                        console.log("Item checked " + qItem + "  " + item)
+                                        console.log("Item checked " + iType)
                                         if (qItem === item)
-                                        {
-                                            model.isChecked = iType
-                                        }
+                                            item.isChecked = iType
                                     break;
                                 }
                             }
@@ -200,7 +226,7 @@ CustomPopupDialog
                 boundsBehavior: Flickable.StopAtBounds
 
 
-                model: importManager.functionsTreeModel
+                model: popupRoot.visible ? importManager.functionsTreeModel : null
                 delegate:
                     Component
                     {
@@ -250,9 +276,7 @@ CustomPopupDialog
                                         break;
                                         case App.Checked:
                                             if (qItem === item)
-                                            {
                                                 model.isChecked = iType
-                                            }
                                         break;
                                     }
                                 }

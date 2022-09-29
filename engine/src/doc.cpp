@@ -1234,7 +1234,7 @@ MonitorProperties *Doc::monitorProperties()
  * Load & Save
  *****************************************************************************/
 
-bool Doc::loadXML(QXmlStreamReader &doc)
+bool Doc::loadXML(QXmlStreamReader &doc, bool loadIO)
 {
     clearErrorLog();
 
@@ -1284,7 +1284,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
             /* LEGACY */
             Bus::instance()->loadXML(doc);
         }
-        else if (doc.name() == KXMLIOMap)
+        else if (doc.name() == KXMLIOMap && loadIO)
         {
             m_ioMap->loadXML(doc);
         }

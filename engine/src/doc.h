@@ -612,9 +612,10 @@ public:
      * Load contents from the given XML document
      *
      * @param root The Engine XML root node to load from
+     * @param loadIO Parse the InputOutputMap tag too
      * @return true if successful, otherwise false
      */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader &doc, bool loadIO = true);
 
     /**
      * Save contents to the given XML file.
