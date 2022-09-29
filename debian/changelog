@@ -3,7 +3,7 @@ qlcplus (4.12.7) stable; urgency=low
   * engine: improve audio fade in/out
   * Web Access: add support for widget background images
   * New fixture: Vari-Lite VL4000 Spot (thanks to Håvard Ose Nordstrand)
-  * New fixtures: Clay Paky Tambora Batten, Sharpy X Frame (thanks to Gianluca Baggi)
+  * New fixtures: Clay Paky Tambora Batten, Tambora Flash, Sharpy X Frame (thanks to Gianluca Baggi)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Jan 2023 12:13:14 +0200
 
