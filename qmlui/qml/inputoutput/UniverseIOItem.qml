@@ -193,7 +193,7 @@ Rectangle
                 GradientStop { position: 1 ; color: UISettings.highlight }
             }
         border.width: 2
-        border.color: "#111"
+        border.color: UISettings.borderColorDark
 
         CustomTextInput
         {

@@ -47,12 +47,12 @@ Rectangle
             color: UISettings.bgMain
             radius: 5
             border.width: 2
-            border.color: "#111"
+            border.color: UISettings.borderColorDark
 
             Text
             {
                 id: searchIcon
-                x: 3
+                x: 6
                 width: height
                 height: parent.height - 6
                 anchors.verticalCenter: parent.verticalCenter
@@ -64,10 +64,10 @@ Rectangle
 
             TextInput
             {
-                x: searchIcon.width + 13
+                x: searchIcon.width + 14
                 y: 3
                 height: parent.height - 6
-                width: parent.width - searchIcon.width - 10
+                width: parent.width - x
                 color: UISettings.fgMain
                 text: fixtureBrowser.searchFilter
                 font.family: "Roboto Condensed"

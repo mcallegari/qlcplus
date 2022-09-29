@@ -341,7 +341,7 @@ Rectangle
             color: UISettings.bgMain
             radius: 5
             border.width: 2
-            border.color: "#111"
+            border.color: UISettings.borderColorDark
 
             TextInput
             {

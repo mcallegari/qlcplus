@@ -29,7 +29,7 @@ Rectangle
     height: UISettings.iconSizeDefault * 1.2
 
     border.width: 1
-    border.color: "#111"
+    border.color: UISettings.borderColorDark
 
     property QLCCapability capability
     property int capIndex
@@ -76,7 +76,7 @@ Rectangle
             width: UISettings.iconSizeDefault
             height: width
             border.width: 1
-            border.color: "#111"
+            border.color: UISettings.borderColorDark
 
             Rectangle
             {
