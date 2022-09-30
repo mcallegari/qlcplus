@@ -384,8 +384,6 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
     global namespace
     root = xmlObj.getroot()
     errNum = 0
-    hasPan = False
-    hasTilt = False
 
     modeCount = 0
     global_phy_tag = root.find('{' + namespace + '}Physical')
@@ -613,6 +611,9 @@ def validate_fx_channels(absname, xmlObj):
     ###################################### CHECK MODES ###################################
     errNum += validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames)
 
+    ################################ CHECK GLOBAL PHYSICAL ################################
+    errNum += check_physical(absname, root, hasPan, hasTilt)
+
     if needSave:
         print("Saving back " + absname + "...")
         xmlFile = open(absname, "w")
@@ -641,8 +642,6 @@ def validate_fixture(absname):
 
     global namespace
     errNum = 0
-    hasPan = False
-    hasTilt = False
 
     ##################################### CHECK CREATOR #################################
     errNum += validate_fx_creator(absname, xmlObj)
@@ -652,9 +651,6 @@ def validate_fixture(absname):
 
     ##################################### CHECK CHANNELS #################################
     errNum += validate_fx_channels(absname, xmlObj)
-
-    ################################ CHECK GLOBAL PHYSICAL ################################
-    errNum += check_physical(absname, root, hasPan, hasTilt)
 
     return errNum
 
