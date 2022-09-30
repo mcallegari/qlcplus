@@ -251,13 +251,13 @@ def update_fixture(path, filename, destpath):
 
     return fxSingleCapCount
 
-def check_physical(absname, node, hasPan, hasTilt):
-    errNum = 0
+def check_physical(absname, node, hasPan, hasTilt, hasZoom, errNum):
     phy_tag = node.find('{' + namespace + '}Physical')
 
     if phy_tag is not None:
 
         dim_tag = phy_tag.find('{' + namespace + '}Dimensions')
+        lens_tag = phy_tag.find('{' + namespace + '}Lens')
         focus_tag = phy_tag.find('{' + namespace + '}Focus')
         tech_tag = phy_tag.find('{' + namespace + '}Technical')
 
@@ -266,6 +266,8 @@ def check_physical(absname, node, hasPan, hasTilt):
         depth = int(dim_tag.attrib.get('Depth', 0))
         panDeg = int(focus_tag.attrib.get('PanMax', 0))
         tiltDeg = int(focus_tag.attrib.get('TiltMax', 0))
+        zoomMinDeg = float(lens_tag.attrib.get('DegreesMin', 0))
+        zoomMaxDeg = float(lens_tag.attrib.get('DegreesMax', 0))
 
         if width == 0 or height == 0 or depth == 0:
             print(absname + ": Invalid physical dimensions detected")
@@ -277,6 +279,10 @@ def check_physical(absname, node, hasPan, hasTilt):
 
         if hasTilt and tiltDeg == 0:
             print(absname + ": Invalid TILT degrees")
+            errNum += 1
+
+        if hasZoom and (zoomMinDeg == 0 or zoomMaxDeg == 0):
+            print(absname + ": Invalid ZOOM degrees")
             errNum += 1
 
         if tech_tag is not None:
@@ -296,10 +302,9 @@ def check_physical(absname, node, hasPan, hasTilt):
 # xmlObj The fixture XML object
 ###########################################################################################
 
-def validate_fx_creator(absname, xmlObj):
+def validate_fx_creator(absname, xmlObj, errNum):
     global namespace
     root = xmlObj.getroot()
-    errNum = 0
 
     ##################################### CHECK CREATOR #################################
 
@@ -347,10 +352,9 @@ def validate_fx_creator(absname, xmlObj):
 # xmlObj The fixture XML object
 ###########################################################################################
 
-def validate_fx_generals(absname, xmlObj):
+def validate_fx_generals(absname, xmlObj, errNum):
     global namespace
     root = xmlObj.getroot()
-    errNum = 0
 
     manuf_tag = root.find('{' + namespace + '}Manufacturer')
     model_tag = root.find('{' + namespace + '}Model')
@@ -386,6 +390,7 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
     errNum = 0
     hasPan = False
     hasTilt = False
+    hasZoom = False
 
     modeCount = 0
     global_phy_tag = root.find('{' + namespace + '}Physical')
@@ -454,7 +459,7 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
             print(absname + "/" + modeName + ": No physical data found")
             errNum += 1
 
-        errNum += check_physical(absname, mode, hasPan, hasTilt)
+        errNum = check_physical(absname, mode, hasPan, hasTilt, hasZoom, errNum)
 
     if modeCount == 0:
         print(absname + ": Invalid fixture. No modes found!")
@@ -471,12 +476,12 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
 # xmlObj The fixture XML object
 ###########################################################################################
 
-def validate_fx_channels(absname, xmlObj):
+def validate_fx_channels(absname, xmlObj, errNum):
     global namespace
     root = xmlObj.getroot()
-    errNum = 0
     hasPan = False
     hasTilt = False
+    hasZoom = False
     needSave = False
 
     chCount = 0
@@ -528,6 +533,8 @@ def validate_fx_channels(absname, xmlObj):
                 hasPan = True
             if chPreset == "PositionTilt" or chPreset == "PositionTiltFine" or chPreset == "PositionYAxis":
                 hasTilt = True
+            if chPreset == "BeamZoomSmallBig" or chPreset == "BeamZoomBigSmall" or chPreset == "BeamZoomFine":
+                hasZoom = True
             # no need to go further if this is a preset
             chCount += 1
             continue
@@ -624,7 +631,7 @@ def validate_fx_channels(absname, xmlObj):
             xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
         xmlFile.close()
 
-    return errNum
+    return errNum, hasPan, hasTilt, hasZoom
 
 ###########################################################################################
 # validate_fixture
@@ -643,18 +650,19 @@ def validate_fixture(absname):
     errNum = 0
     hasPan = False
     hasTilt = False
+    hasZoom = False
 
     ##################################### CHECK CREATOR #################################
-    errNum += validate_fx_creator(absname, xmlObj)
+    errNum = validate_fx_creator(absname, xmlObj, errNum)
 
     ################################ CHECK FIXTURE GENERALS ##############################
-    errNum += validate_fx_generals(absname, xmlObj)
+    errNum = validate_fx_generals(absname, xmlObj, errNum)
 
     ##################################### CHECK CHANNELS #################################
-    errNum += validate_fx_channels(absname, xmlObj)
+    errNum, hasPan, hasTilt, hasZoom = validate_fx_channels(absname, xmlObj, errNum)
 
     ################################ CHECK GLOBAL PHYSICAL ################################
-    errNum += check_physical(absname, root, hasPan, hasTilt)
+    errNum = check_physical(absname, root, hasPan, hasTilt, hasZoom, errNum)
 
     return errNum
 

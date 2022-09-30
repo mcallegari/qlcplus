@@ -120,7 +120,7 @@
   <Capability Min="131" Max="247">Reverse prism rotation with increasing speed</Capability>
   <Capability Min="248" Max="255">Static prism effect</Capability>
  </Channel>
- <Channel Name="Focus" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Mode Name="Advanced">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Fine Pan</Channel>
@@ -150,7 +150,7 @@
  <Physical>
   <Bulb Type="LED 140W" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="14.4" Width="340" Height="470" Depth="248"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="244" DmxConnector="3-pin"/>
  </Physical>

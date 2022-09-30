@@ -247,7 +247,7 @@
  <Physical>
   <Bulb Type="440W" Lumens="0" ColourTemperature="7000"/>
   <Dimensions Weight="24.8" Width="414" Height="616" Depth="399"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="2" DegreesMax="44"/>
   <Focus Type="Head" PanMax="540" TiltMax="260"/>
   <Technical PowerConsumption="600" DmxConnector="5-pin"/>
  </Physical>

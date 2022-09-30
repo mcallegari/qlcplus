@@ -95,7 +95,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="6.8" Width="600" Height="180" Depth="150"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="50"/>
   <Focus Type="Mirror" PanMax="30" TiltMax="30"/>
   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
  </Physical>
