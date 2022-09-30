@@ -282,7 +282,7 @@
  <Physical>
   <Bulb Type="HTI 700W" Lumens="16700" ColourTemperature="7500"/>
   <Dimensions Weight="34.5" Width="365" Height="636" Depth="450"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="30"/>
   <Focus Type="Head" PanMax="540" TiltMax="246"/>
   <Technical PowerConsumption="1019" DmxConnector="3-pin and 5-pin"/>
  </Physical>
