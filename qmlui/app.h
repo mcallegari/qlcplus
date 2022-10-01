@@ -56,6 +56,7 @@ class App : public QQuickView
     Q_PROPERTY(QStringList recentFiles READ recentFiles NOTIFY recentFilesChanged)
     Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
     Q_PROPERTY(int accessMask READ accessMask WRITE setAccessMask NOTIFY accessMaskChanged)
+    Q_PROPERTY(int runningFunctionsCount READ runningFunctionsCount NOTIFY runningFunctionsCountChanged)
 
     Q_PROPERTY(QString appName READ appName CONSTANT)
     Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
@@ -210,13 +211,23 @@ private:
      * Doc
      *********************************************************************/
 public:
-    void clearDocument();
-
+    /** Return a reference to the Doc instance */
     Doc *doc();
 
-    bool docLoaded() { return m_docLoaded; }
+    /** Return if the current Doc instance has been loaded */
+    bool docLoaded();
 
+    /** Return the Doc instance modified flag */
     bool docModified() const;
+
+    /** Reset the currently loaded Doc instance */
+    void clearDocument();
+
+    /** Return the number of currently running Functions */
+    int runningFunctionsCount() const;
+
+    /** Stop all the currently running Functions */
+    Q_INVOKABLE void stopAllFunctions();
 
 private:
     void initDoc();
@@ -224,6 +235,7 @@ private:
 signals:
     void docLoadedChanged();
     void docModifiedChanged();
+    void runningFunctionsCountChanged();
 
 private:
     Doc *m_doc;

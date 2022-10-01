@@ -441,16 +441,15 @@ SidePanel
 
             IconButton
             {
-                id: previewFunc
-                objectName: "previewButton"
                 z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Function Preview")
                 checkable: true
+                checked: functionManager.previewEnabled
                 counter: functionManager.selectedFunctionCount
-                onToggled: functionManager.setPreview(checked)
+                onToggled: functionManager.previewEnabled = checked
             }
 
             /* filler object */

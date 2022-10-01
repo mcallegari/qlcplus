@@ -72,7 +72,7 @@ Rectangle
 
             EditorTopBar
             {
-                text: collectionEditor.functionName
+                text: collectionEditor ? collectionEditor.functionName : ""
                 onTextChanged: collectionEditor.functionName = text
 
                 onBackClicked:
@@ -143,7 +143,7 @@ Rectangle
 
                 property int dragInsertIndex: -1
 
-                model: collectionEditor.functionsList
+                model: collectionEditor ? collectionEditor.functionsList : null
                 delegate:
                     Item
                     {

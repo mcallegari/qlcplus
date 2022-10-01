@@ -342,30 +342,17 @@ void App::slotAccessMaskChanged(int mask)
     setAccessMask(mask);
 }
 
-void App::clearDocument()
-{
-    if (m_videoProvider)
-    {
-        delete m_videoProvider;
-        m_videoProvider = nullptr;
-    }
-
-    m_doc->masterTimer()->stop();
-    m_doc->clearContents();
-    m_virtualConsole->resetContents();
-    //m_simpleDesk->resetContents(); // TODO
-    m_showManager->resetContents();
-    m_tardis->resetHistory();
-    m_doc->inputOutputMap()->resetUniverses();
-    setFileName(QString());
-    m_doc->resetModified();
-    m_doc->inputOutputMap()->startUniverses();
-    m_doc->masterTimer()->start();
-}
-
+/*********************************************************************
+ * Doc
+ *********************************************************************/
 Doc *App::doc()
 {
     return m_doc;
+}
+
+bool App::docLoaded()
+{
+    return m_docLoaded;
 }
 
 bool App::docModified() const
@@ -379,6 +366,8 @@ void App::initDoc()
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
+    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()),
+            this, SIGNAL(runningFunctionsCountChanged()));
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
@@ -417,6 +406,41 @@ void App::initDoc()
     m_doc->inputOutputMap()->setBeatGeneratorType(InputOutputMap::Internal);
     m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
+}
+
+void App::clearDocument()
+{
+    if (m_videoProvider)
+    {
+        delete m_videoProvider;
+        m_videoProvider = nullptr;
+    }
+
+    m_doc->masterTimer()->stop();
+    m_doc->clearContents();
+    m_virtualConsole->resetContents();
+    //m_simpleDesk->resetContents(); // TODO
+    m_showManager->resetContents();
+    m_tardis->resetHistory();
+    m_doc->inputOutputMap()->resetUniverses();
+    setFileName(QString());
+    m_doc->resetModified();
+    m_doc->inputOutputMap()->startUniverses();
+    m_doc->masterTimer()->start();
+}
+
+int App::runningFunctionsCount() const
+{
+    return m_doc->masterTimer()->runningFunctions();
+}
+
+void App::stopAllFunctions()
+{
+    // first, gracefully stop via Function Manager (if that's the case)
+    m_functionManager->setPreviewEnabled(false);
+
+    // then, brutally kill the rest (could be started from VC, etc)
+    m_doc->masterTimer()->stopAllFunctions();
 }
 
 void App::enableKioskMode()

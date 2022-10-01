@@ -69,6 +69,8 @@ class FunctionManager : public QObject
     Q_PROPERTY(QStringList pictureExtensions READ pictureExtensions CONSTANT)
     Q_PROPERTY(QStringList videoExtensions READ videoExtensions CONSTANT)
 
+    Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
+
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~FunctionManager();
@@ -115,7 +117,8 @@ public:
     Q_INVOKABLE QString functionPath(quint32 id);
 
     /** Enable/disable the Function preview feature */
-    Q_INVOKABLE void setPreview(bool enable);
+    bool previewEnabled() const;
+    void setPreviewEnabled(bool enable);
 
     /** Add $fID to the list of the currently selected Function IDs,
      *  considering $multiSelection as an append/replace action */
@@ -198,6 +201,7 @@ signals:
     void audioCountChanged();
     void videoCountChanged();
     void selectedFunctionCountChanged(int count);
+    void previewEnabledChanged();
     void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
@@ -217,6 +221,7 @@ private:
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;
+
     /** List of the Function IDs currently selected
      *  and previewed, if preview is enabled */
     QVariantList m_selectedIDList;

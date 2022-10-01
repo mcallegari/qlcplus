@@ -316,6 +316,43 @@ Rectangle
                     }
                 }
             }
+            IconButton
+            {
+                id: stopAllButton
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                enabled: runningCount ? true : false
+                bgColor: "transparent"
+                imgSource: "qrc:/stop.svg"
+                tooltip: qsTr("Stop all the running functions")
+                onClicked: qlcplus.stopAllFunctions()
+
+                property int runningCount: qlcplus.runningFunctionsCount
+
+                onRunningCountChanged: console.log("Functions running: " + runningCount)
+
+                Rectangle
+                {
+                    x: parent.width / 2
+                    y: parent.height / 2
+                    width: parent.width * 0.4
+                    height: width
+                    color: UISettings.highlight
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+                    visible: stopAllButton.runningCount
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: stopAllButton.runningCount
+                        fontSize: height
+                    }
+                }
+            }
 
         } // end of RowLayout
     } // end of mainToolbar

@@ -441,13 +441,18 @@ QString FunctionManager::functionPath(quint32 id)
 
 void FunctionManager::clearTree()
 {
-    setPreview(false);
+    setPreviewEnabled(false);
     m_selectedIDList.clear();
     m_selectedFolderList.clear();
     m_functionTree->clear();
 }
 
-void FunctionManager::setPreview(bool enable)
+bool FunctionManager::previewEnabled() const
+{
+    return m_previewEnabled;
+}
+
+void FunctionManager::setPreviewEnabled(bool enable)
 {
     if (m_currentEditor != nullptr)
     {
@@ -469,6 +474,7 @@ void FunctionManager::setPreview(bool enable)
     }
 
     m_previewEnabled = enable;
+    emit previewEnabledChanged();
 }
 
 void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
@@ -1096,7 +1102,7 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
 
     if (m_doc->addFunction(newScene) == true)
     {
-        setPreview(false);
+        setPreviewEnabled(false);
         Tardis::instance()->enqueueAction(Tardis::FunctionCreate, newScene->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
     }
@@ -1277,7 +1283,7 @@ void FunctionManager::updateFunctionsTree()
 
 void FunctionManager::slotDocLoaded()
 {
-    setPreview(false);
+    setPreviewEnabled(false);
     updateFunctionsTree();
 }
 
