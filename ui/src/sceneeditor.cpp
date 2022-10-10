@@ -108,9 +108,6 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved(quint32)));
 
     m_initFinished = true;
-
-    // Set focus to the editor
-    m_nameEdit->setFocus();
 }
 
 SceneEditor::~SceneEditor()
@@ -312,7 +309,6 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotRemoveFixtureClicked()));
 
     m_nameEdit->setText(m_scene->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
 

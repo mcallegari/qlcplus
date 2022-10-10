@@ -49,7 +49,6 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
 
     /* Name */
     m_nameEdit->setText(m_script->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
 
@@ -73,9 +72,6 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
     connect(m_checkButton, SIGNAL(clicked()), this, SLOT(slotCheckSyntax()));
 
     connect(m_script, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
-
-    // Set focus to the editor
-    m_nameEdit->setFocus();
 }
 
 ScriptEditor::~ScriptEditor()

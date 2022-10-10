@@ -89,7 +89,6 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
 
     /* Name edit */
     m_nameEdit->setText(m_chaser->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
     /* Fade In Mode */
     switch (m_chaser->fadeInMode())
@@ -235,9 +234,6 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
     updateSpeedDials();
 
     slotModeChanged(m_doc->mode());
-
-    // Set focus to the editor
-    m_nameEdit->setFocus();
 
     m_testPreviousButton->setEnabled(false);
     m_testNextButton->setEnabled(false);

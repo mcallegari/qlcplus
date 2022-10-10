@@ -38,7 +38,6 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     setupUi(this);
 
     m_nameEdit->setText(m_video->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
     connect(m_video, SIGNAL(totalTimeChanged(qint64)),
             this, SLOT(slotDurationChanged(qint64)));
@@ -93,9 +92,6 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
             this, SLOT(slotLoopCheckClicked()));
     connect(m_singleCheck, SIGNAL(clicked()),
             this, SLOT(slotSingleShotCheckClicked()));
-
-    // Set focus to the editor
-    m_nameEdit->setFocus();
 }
 
 VideoEditor::~VideoEditor()

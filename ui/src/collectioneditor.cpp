@@ -56,12 +56,8 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
             this, SLOT(slotTestClicked()));
 
     m_nameEdit->setText(m_collection->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
     updateFunctionList();
-
-    // Set focus to the editor
-    m_nameEdit->setFocus();
 }
 
 CollectionEditor::~CollectionEditor()
