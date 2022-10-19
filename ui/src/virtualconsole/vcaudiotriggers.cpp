@@ -293,6 +293,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                     m_fadersMap[universe] = fader;
                 }
                 lastUniverse = universe;
+                fader->setEnabled(m_button->isChecked() ? true : false);
             }
 
             FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);           
@@ -320,6 +321,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                         fader->adjustIntensity(intensity());
                         m_fadersMap[universe] = fader;
                     }
+                    fader->setEnabled(m_button->isChecked() ? true : false);
                     lastUniverse = universe;
                 }
 
