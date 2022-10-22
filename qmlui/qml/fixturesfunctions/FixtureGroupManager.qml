@@ -155,7 +155,10 @@ Rectangle
                         }
 
                         if (fxDeleteList.length)
+                        {
+                            contextManager.resetFixtureSelection()
                             fixtureManager.deleteFixtures(fxDeleteList)
+                        }
 
                         if (fxGroupDeleteList.length)
                             fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
