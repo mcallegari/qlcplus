@@ -50,7 +50,7 @@ jobs:
       PACKAGES_COVERAGE: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE}
       PACKAGES_ALL: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           submodules: false
 
@@ -112,7 +112,7 @@ jobs:
           
       - name: Coveralls
         if: startsWith(${{ matrix.task }}, 'coverage')
-        uses: coverallsapp/github-action@master@v1.1.2
+        uses: coverallsapp/github-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: coverage/coverage.info
