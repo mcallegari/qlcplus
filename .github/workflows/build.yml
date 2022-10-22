@@ -1,4 +1,4 @@
-name: QLCplus Github Actions Build
+name: QLCplus Github Actions CI Build
 
 on: ["push", "pull_request"]
 
