@@ -281,7 +281,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 22));
             }
             else
-                slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
+                slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             setupWidget(slider, currentPage());
             slider->render(m_vc->view(), parent);
         }
@@ -431,7 +431,7 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
             m_vc->addWidgetToMap(slider);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
-            slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
+            slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             slider->setCaption(func->name());
             slider->setControlledFunction(funcID);
             setupWidget(slider, currentPage());

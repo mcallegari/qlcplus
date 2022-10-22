@@ -67,6 +67,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_priorityRequest(-1)
 {
     setType(VCWidget::SliderWidget);
+    setSliderMode(Adjust);
 
     registerExternalControl(INPUT_SLIDER_CONTROL_ID, tr("Slider Control"), false);
     registerExternalControl(INPUT_SLIDER_RESET_ID, tr("Reset Control"), false);
@@ -836,7 +837,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
 
-        if(running)
+        if (running)
             function->start(m_doc->masterTimer(), functionParent());
 
         emit controlledFunctionChanged(fid);
