@@ -1,46 +1,118 @@
 name: QLCplus CI
 
-on: 
-  push:
-  pull_request:
-
+on: ["push", "pull_request"]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    name: Java ${{ matrix.java }}
+    runs-on: ubuntu-20.04
+    name: QLCplus ${{ matrix.task }}
     strategy:
       matrix:
-        java: [8, 11]
+        task: [compile-qt5, compile-qml, coverage-qt5]
     env:
-      TRAVIS_REPO_SLUG: ${{ github.repository }} 
-      TRAVIS_BRANCH: ${{ github.head_ref }} 
-      TRAVIS_PULL_REQUEST: ${{ github.event.number }} 
+      CI_REPO_SLUG: ${{ github.repository }} 
+      CI_BRANCH: ${{ github.head_ref }} 
+      CI_PULL_REQUEST: ${{ github.event.number }}
+      PACKAGES_BASE: \
+        gdb \
+        libasound2-dev \
+        libusb-1.0-0-dev \
+        libftdi1-dev \
+        shared-mime-info \
+        libudev-dev \
+        libmad0-dev \
+        libsndfile1-dev \
+        liblo-dev \
+        libfftw3-dev \
+        libgl1-mesa-dev \
+        libxml2-utils \
+        python-lxml \
+        xvfb \
+        ccache
+      PACKAGES_QT5_BASE: \
+        qt514-meta-minimal \
+        qt514script \
+        qt514multimedia \
+        qt514serialport
+      PACKAGES_QT5: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE}
+      PACKAGES_QML_BASE: \
+        libpulse-dev \
+        qt514-meta-minimal \
+        qt514declarative \
+        qt514quickcontrols2 \
+        qt5143d \
+        qt514svg \
+        qt514multimedia \
+        qt514serialport
+      PACKAGES_QML: ${PACKAGES_BASE} ${PACKAGES_QML_BASE}
+      PACKAGES_COVERAGE_BASE: \
+        lcov
+      PACKAGES_COVERAGE: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE}
+      PACKAGES_ALL: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          submodules: false
 
       - name: Set ENV variables
         run: |
-          echo "::set-env name=TRAVIS_BRANCH::${TRAVIS_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}" 
-          echo "::set-env name=TRAVIS_SECURE_ENV_VARS::$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" 
-          echo "::set-env name=TRAVIS_EVENT_TYPE::$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" 
+          echo "::set-env name=CI_BRANCH::${CI_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}" 
+          echo "::set-env name=CI_SECURE_ENV_VARS::$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" 
+          echo "::set-env name=CI_EVENT_TYPE::$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" 
+          echo "::set-env name=TASK::${TASK:-$(echo "${{ matrix.task }}" | awk 'BEGIN { FS = "-" } ; { print $1 }')}" 
+          echo "::set-env name=QT::${QT:-$(echo "${{ matrix.task }}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" 
 
-      - name: Print Travis ENV vars 
+      - name: Print ENV vars 
         run: |
-          echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
-          echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
-          echo "TRAVIS_REPO_SLUG: ${TRAVIS_REPO_SLUG}"
-          echo "TRAVIS_SECURE_ENV_VARS: ${TRAVIS_SECURE_ENV_VARS}"
+          echo "CI_BRANCH: ${CI_BRANCH}"
+          echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
+          echo "CI_REPO_SLUG: ${CI_REPO_SLUG}"
+          echo "CI_SECURE_ENV_VARS: ${CI_SECURE_ENV_VARS}"
+          echo "TASK: ${TASK}"
+          echo "QT: ${QT}"
 
-      - name: Set up JDK ${{ matrix.java }}
-        uses: actions/setup-java@v1
+      - name: Register additional package repositories
+        run: |
+          sudo apt-add-repository ppa:ubuntu-toolchain-r/test
+          sudo apt-add-repository ppa:beineri/opt-qt-5.14.2-bionic
+          sudo apt-get -o Dir::Cache=~/apt-cache/ update
+          sudo mkdir -p ~/apt-cache/
+
+      - name: Install qt5 packages
+        if: endsWith(${{ matrix.task }}, 'qt5')
+        run: |
+          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
+          sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QT5}
+
+      - name: Install qmlui packages
+        if: endsWith(${{ matrix.task }}, 'qt5qml')
+        run: |
+          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
+          sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QML}
+
+      - name: Install coverage packages
+        if: startsWith(${{ matrix.task }}, 'coverage')
+        run: |
+          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
+          sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_COVERAGE}
+
+      - name: Setup ccache
+        uses: Chocobo1/setup-ccache-action@v1
         with:
-          java-version: ${{ matrix.java }}
+          update_packager_index: false
+          install_ccache: false
+          ccache_options: |
+            max_size=2G
+            compression=false
 
       - name: Build and Test
-        run: source ./src/ci/before_install.sh && ./src/ci/build.sh
-
-      - uses: codecov/codecov-action@v1
+        shell: bash
+        run: |
+          xvfb-run ./.build-ci.sh
+          
+      - name: Coveralls
+        if: startsWith(${{ matrix.task }}, 'coverage')
+        uses: coverallsapp/github-action@master@v1.1.2
         with:
-         file: target/site/jacoco/jacoco.xml
-         fail_ci_if_error: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file: coverage/coverage.info
