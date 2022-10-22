@@ -64,7 +64,6 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_controlledAttributeId(Function::invalidAttributeId())
     , m_attributeMinValue(0)
     , m_attributeMaxValue(UCHAR_MAX)
-    , m_priorityRequest(-1)
 {
     setType(VCWidget::SliderWidget);
     setSliderMode(Adjust);
@@ -395,7 +394,6 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
         case Level:
             if (m_monitorEnabled == true && m_isOverriding == false && setDMX)
             {
-                m_priorityRequest = Universe::Override;
                 m_isOverriding = true;
                 emit isOverridingChanged();
             }
@@ -473,7 +471,6 @@ void VCSlider::setMonitorEnabled(bool enable)
         return;
 
     m_monitorEnabled = enable;
-    m_priorityRequest = Universe::Override;
 
     emit monitorEnabledChanged();
 }
@@ -1131,7 +1128,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>(nullptr));
             if (fader.isNull())
             {
-                fader = universes[universe]->requestFader();
+                fader = universes[universe]->requestFader(m_monitorEnabled ? Universe::Override : Universe::Auto);
                 m_fadersMap[universe] = fader;
             }
 
@@ -1146,10 +1143,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
             // on override, force channel to LTP
             if (m_isOverriding)
-            {
-                fc->removeFlag(FadeChannel::HTP);
-                fc->addFlag(FadeChannel::LTP);
-            }
+                fc->addFlag(FadeChannel::Override);
 
             if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)
             {

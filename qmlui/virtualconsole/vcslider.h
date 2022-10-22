@@ -442,7 +442,6 @@ protected:
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
-    int m_priorityRequest;
 
     /*********************************************************************
      * External input
