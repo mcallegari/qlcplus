@@ -1,7 +1,7 @@
 language: cpp
 sudo: required
 
-script: ./.travis-ci.sh
+script: ./.build-ci.sh
 
 addons:
   apt:

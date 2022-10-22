@@ -1,0 +1,46 @@
+name: QLCplus CI
+
+on: 
+  push:
+  pull_request:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Java ${{ matrix.java }}
+    strategy:
+      matrix:
+        java: [8, 11]
+    env:
+      TRAVIS_REPO_SLUG: ${{ github.repository }} 
+      TRAVIS_BRANCH: ${{ github.head_ref }} 
+      TRAVIS_PULL_REQUEST: ${{ github.event.number }} 
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set ENV variables
+        run: |
+          echo "::set-env name=TRAVIS_BRANCH::${TRAVIS_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}" 
+          echo "::set-env name=TRAVIS_SECURE_ENV_VARS::$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" 
+          echo "::set-env name=TRAVIS_EVENT_TYPE::$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" 
+
+      - name: Print Travis ENV vars 
+        run: |
+          echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
+          echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
+          echo "TRAVIS_REPO_SLUG: ${TRAVIS_REPO_SLUG}"
+          echo "TRAVIS_SECURE_ENV_VARS: ${TRAVIS_SECURE_ENV_VARS}"
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Build and Test
+        run: source ./src/ci/before_install.sh && ./src/ci/build.sh
+
+      - uses: codecov/codecov-action@v1
+        with:
+         file: target/site/jacoco/jacoco.xml
+         fail_ci_if_error: true
