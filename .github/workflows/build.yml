@@ -57,6 +57,12 @@ jobs:
         with:
           submodules: false
 
+      - uses: actions/cache@v3
+        id: apt-cache
+        with:
+          path: $APT_CACHE_DIR
+          key: ${{runner.os}}-apt
+
       - name: Set ENV variables
         run: |
           echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
@@ -64,6 +70,7 @@ jobs:
           echo "CI_EVENT_TYPE=$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" >> $GITHUB_ENV
           echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
+          echo "APT_CACHE_DIR=~/apt-cache" >> $GITHUB_ENV
 
       - name: Print ENV vars 
         run: |
@@ -76,35 +83,32 @@ jobs:
           echo "QT: ${QT}"
 
       - name: APT Cache Initialization
-        id: apt
-        uses: actions/cache@v3
-        with:
-          path: ~/apt-cache
-          key: ${{runner.os}}-apt
+        if: steps.apt-cache.outputs.cache-hit != 'true'
+        run: |
+          sudo mkdir -pv $APT_CACHE_DIR/archives/partial
+          sudo touch $APT_CACHE_DIR/archives/partial/KEEP_ME
 
       - name: Register additional package repositories
         run: |
-          sudo mkdir -pv ~/apt-cache/archives/partial
-          sudo touch ~/apt-cache/archives/partial/KEEP_ME
           sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
-          sudo apt-get -o Dir::Cache=~/apt-cache/ update
-          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
+          sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ update
+          sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ upgrade -y
 
       - name: Install qt5 packages
         if: endsWith(${{matrix.task}}, 'qt5')
         run: |
-          sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QT5}
+          sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ install -y ${PACKAGES_QT5}
 
       - name: Install qmlui packages
         if: endsWith(${{matrix.task}}, 'qt5qml')
         run: |
-          sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QML}
+          sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ install -y ${PACKAGES_QML}
 
       - name: Install coverage packages
         if: startsWith(${{matrix.task}}, 'coverage')
         run: |
-          sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_COVERAGE}
+          sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ install -y ${PACKAGES_COVERAGE}
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
