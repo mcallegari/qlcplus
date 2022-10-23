@@ -15,6 +15,7 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }} 
       CI_BRANCH: ${{ github.head_ref }} 
       CI_PULL_REQUEST: ${{ github.event.number }}
+      CXX: gcc
       PACKAGES_BASE:
         gdb
         libasound2-dev
@@ -47,7 +48,7 @@ jobs:
         qt514serialport
       PACKAGES_COVERAGE_BASE:
         lcov
-      APT_CACHE_DIR_BASE: ~/apt-cache
+      APT_CACHE_DIR_BASE: apt-cache
 
     steps:
       - uses: actions/checkout@v2.5.0

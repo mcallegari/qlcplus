@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -x
+set -e
+
 # This script is triggered from the script section of .travis.yml
 # It runs the appropriate commands depending on the task requested.
 
