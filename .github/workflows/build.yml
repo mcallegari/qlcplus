@@ -9,12 +9,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qml]
+        task: [compile-qt5, compile-qt5qml]
           #, coverage-qt5 \
     env:
       CI_REPO_SLUG: ${{ github.repository }} 
       CI_BRANCH: ${{ github.head_ref }} 
       CI_PULL_REQUEST: ${{ github.event.number }}
+      CC: gcc
       CXX: g++
       PACKAGES_BASE:
         gdb
