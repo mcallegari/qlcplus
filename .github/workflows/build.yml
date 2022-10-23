@@ -74,7 +74,7 @@ jobs:
 
       - name: Register additional package repositories
         run: |
-          sudo mkdir -p ~/apt-cache/
+          sudo mkdir -p ~/apt-cache/archives/partial
           sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
           sudo apt-get -o Dir::Cache=~/apt-cache/ update
