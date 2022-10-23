@@ -70,7 +70,7 @@ jobs:
           echo "CI_EVENT_TYPE=$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" >> $GITHUB_ENV
           echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
-          echo "APT_CACHE_DIR=~/apt-cache" >> $GITHUB_ENV
+          echo "APT_CACHE_DIR=$(cd ~/apt-cache && pwd)" >> $GITHUB_ENV
 
       - name: Print ENV vars 
         run: |
