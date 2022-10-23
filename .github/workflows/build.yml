@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-20.04
     name: QLCplus ${{matrix.task}}
     strategy:
+      fail-fast: false
       matrix:
-        task: [compile-qt5]
-          #, compile-qml \
+        task: [compile-qt5, compile-qml]
           #, coverage-qt5 \
     env:
       CI_REPO_SLUG: ${{ github.repository }} 
