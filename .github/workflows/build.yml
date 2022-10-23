@@ -36,7 +36,6 @@ jobs:
         qt514script \
         qt514multimedia \
         qt514serialport
-      PACKAGES_QT5: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE}
       PACKAGES_QML_BASE: \
         libpulse-dev \
         qt514-meta-minimal \
@@ -46,11 +45,8 @@ jobs:
         qt514svg \
         qt514multimedia \
         qt514serialport
-      PACKAGES_QML: ${PACKAGES_BASE} ${PACKAGES_QML_BASE}
       PACKAGES_COVERAGE_BASE: \
         lcov
-      PACKAGES_COVERAGE: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE}
-      PACKAGES_ALL: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE}
 
     steps:
       - uses: actions/checkout@v2.5.0
@@ -68,6 +64,10 @@ jobs:
           echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" >> $GITHUB_ENV
+          echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE})
+          echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})
+          echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})
+          echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})
           echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
           echo "APT_CACHE_DIR=$(cd ~/apt-cache && pwd)" >> $GITHUB_ENV
