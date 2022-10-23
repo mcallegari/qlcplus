@@ -63,6 +63,7 @@ jobs:
           echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
+          echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
 
@@ -78,6 +79,7 @@ jobs:
           echo "PACKAGES_COVERAGE: ${PACKAGES_COVERAGE}"
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
+          echo "NPROC: ${NPROC}"
 
       - name: Register additional package repositories
         run: |
