@@ -85,26 +85,25 @@ jobs:
       - name: Register additional package repositories
         run: |
           sudo mkdir -pv ~/apt-cache/archives/partial
+          sudo touch ~/apt-cache/archives/partial/KEEP_ME
           sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
           sudo apt-get -o Dir::Cache=~/apt-cache/ update
+          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
 
       - name: Install qt5 packages
         if: endsWith(${{matrix.task}}, 'qt5')
         run: |
-          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
           sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QT5}
 
       - name: Install qmlui packages
         if: endsWith(${{matrix.task}}, 'qt5qml')
         run: |
-          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
           sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QML}
 
       - name: Install coverage packages
         if: startsWith(${{matrix.task}}, 'coverage')
         run: |
-          sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
           sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_COVERAGE}
 
       - name: Setup ccache
