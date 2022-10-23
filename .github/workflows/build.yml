@@ -15,55 +15,43 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }} 
       CI_BRANCH: ${{ github.head_ref }} 
       CI_PULL_REQUEST: ${{ github.event.number }}
-      PACKAGES_BASE: \
-        gdb \
-        libasound2-dev \
-        libusb-1.0-0-dev \
-        libftdi1-dev \
-        shared-mime-info \
-        libudev-dev \
-        libmad0-dev \
-        libsndfile1-dev \
-        liblo-dev \
-        libfftw3-dev \
-        libgl1-mesa-dev \
-        libxml2-utils \
-        python-lxml \
-        xvfb \
+      PACKAGES_BASE:
+        gdb
+        libasound2-dev
+        libusb-1.0-0-dev
+        libftdi1-dev
+        shared-mime-info
+        libudev-dev
+        libmad0-dev
+        libsndfile1-dev
+        liblo-dev
+        libfftw3-dev
+        libgl1-mesa-dev
+        libxml2-utils
+        python-lxml
+        xvfb
         ccache
-      PACKAGES_QT5_BASE: \
-        qt514-meta-minimal \
-        qt514script \
-        qt514multimedia \
+      PACKAGES_QT5_BASE:
+        qt514-meta-minimal
+        qt514script
+        qt514multimedia
         qt514serialport
-      PACKAGES_QML_BASE: \
-        libpulse-dev \
-        qt514-meta-minimal \
-        qt514declarative \
-        qt514quickcontrols2 \
-        qt5143d \
-        qt514svg \
-        qt514multimedia \
+      PACKAGES_QML_BASE:
+        libpulse-dev
+        qt514-meta-minimal
+        qt514declarative
+        qt514quickcontrols2
+        qt5143d
+        qt514svg
+        qt514multimedia
         qt514serialport
-      PACKAGES_COVERAGE_BASE: \
+      PACKAGES_COVERAGE_BASE:
         lcov
 
     steps:
       - uses: actions/checkout@v2.5.0
         with:
           submodules: false
-
-      - uses: actions/cache@v3
-        id: apt-cache
-        with:
-          path: $APT_CACHE_DIR
-          key: ${{runner.os}}-apt
-
-      - name: APT Cache Initialization
-        if: steps.apt-cache.outputs.cache-hit != 'true'
-        run: |
-          sudo mkdir -pv $APT_CACHE_DIR/archives/partial
-          sudo touch $APT_CACHE_DIR/archives/partial/KEEP_ME
 
       - name: Set ENV variables
         run: |
@@ -85,8 +73,24 @@ jobs:
           echo "CI_REPO_SLUG: ${CI_REPO_SLUG}"
           echo "CI_EVENT_TYPE: ${CI_EVENT_TYPE}"
           echo "CI_SECURE_ENV_VARS: ${CI_SECURE_ENV_VARS}"
+          echo "PACKAGES_QT5: ${PACKAGES_QT5}"
+          echo "PACKAGES_QML: ${PACKAGES_QML}"
+          echo "PACKAGES_COVERAGE: ${PACKAGES_COVERAGE}"
+          echo "APT_CACHE_DIR: ${APT_CACHE_DIR}"
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
+
+      - uses: actions/cache@v3
+        id: apt-cache
+        with:
+          path: $APT_CACHE_DIR
+          key: ${{runner.os}}-apt
+
+      - name: APT Cache Initialization
+        if: steps.apt-cache.outputs.cache-hit != 'true'
+        run: |
+          sudo mkdir -pv $APT_CACHE_DIR/archives/partial
+          sudo touch $APT_CACHE_DIR/archives/partial/KEEP_ME
 
       - name: Register additional package repositories
         run: |
