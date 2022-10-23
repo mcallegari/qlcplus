@@ -39,6 +39,7 @@ jobs:
         qt514script
         qt514multimedia
         qt514serialport
+        qt514tools
       PACKAGES_QML_BASE:
         libpulse-dev
         qt514-meta-minimal
@@ -48,6 +49,7 @@ jobs:
         qt514svg
         qt514multimedia
         qt514serialport
+        qt514tools
       PACKAGES_COVERAGE_BASE:
         lcov
 
