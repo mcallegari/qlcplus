@@ -47,24 +47,37 @@ jobs:
         qt514serialport
       PACKAGES_COVERAGE_BASE:
         lcov
+      APT_CACHE_DIR_BASE: ~/apt-cache
 
     steps:
       - uses: actions/checkout@v2.5.0
         with:
           submodules: false
 
+      - uses: actions/cache@v3
+        id: apt-cache
+        with:
+          path: $APT_CACHE_DIR_BASE
+          key: ${{runner.os}}-apt
+
+      - name: APT Cache Initialization
+        if: steps.apt-cache.outputs.cache-hit != 'true'
+        run: |
+          sudo mkdir -pv $APT_CACHE_DIR_BASE/archives/partial
+          sudo touch $APT_CACHE_DIR_BASE/archives/partial/KEEP_ME
+
       - name: Set ENV variables
         run: |
           echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" >> $GITHUB_ENV
-          echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE}) >> $GITHUB_ENV
-          echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE}) >> $GITHUB_ENV
-          echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE}) >> $GITHUB_ENV
-          echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE}) >> $GITHUB_ENV
+          echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
-          echo "APT_CACHE_DIR=$(cd ~/apt-cache && pwd)" >> $GITHUB_ENV
+          echo "APT_CACHE_DIR=$(cd ${APT_CACHE_DIR_BASE} && pwd)" >> $GITHUB_ENV
 
       - name: Print ENV vars 
         run: |
@@ -79,18 +92,6 @@ jobs:
           echo "APT_CACHE_DIR: ${APT_CACHE_DIR}"
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
-
-      - uses: actions/cache@v3
-        id: apt-cache
-        with:
-          path: $APT_CACHE_DIR
-          key: ${{runner.os}}-apt
-
-      - name: APT Cache Initialization
-        if: steps.apt-cache.outputs.cache-hit != 'true'
-        run: |
-          sudo mkdir -pv $APT_CACHE_DIR/archives/partial
-          sudo touch $APT_CACHE_DIR/archives/partial/KEEP_ME
 
       - name: Register additional package repositories
         run: |
