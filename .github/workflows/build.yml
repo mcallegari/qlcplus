@@ -30,7 +30,8 @@ jobs:
         libfftw3-dev
         libgl1-mesa-dev
         libxml2-utils
-        python-lxml
+        python3-lxml
+        python-is-python3
         xvfb
         ccache
       PACKAGES_QT5_BASE:
