@@ -8,7 +8,11 @@ jobs:
     name: QLCplus ${{matrix.task}}
     strategy:
       matrix:
-        task: [compile-qt5, compile-qml, coverage-qt5]
+        task: [ \
+          compile-qt5, \
+          #compile-qml,
+          #coverage-qt5,
+        ]
     env:
       CI_REPO_SLUG: ${{ github.repository }} 
       CI_BRANCH: ${{ github.head_ref }} 
@@ -49,10 +53,19 @@ jobs:
         lcov
       PACKAGES_COVERAGE: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE}
       PACKAGES_ALL: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE}
+
     steps:
       - uses: actions/checkout@v2.5.0
         with:
           submodules: false
+
+      - name: APT Cache Initialization
+        id: apt
+        uses: actions/cache@v3
+        with:
+          path: ~/apt-cache
+          key: ${{runner.os}}-apt
+        run: sudo mkdir -pv ~/apt-cache/archives/partial
 
       - name: Set ENV variables
         run: |
@@ -74,7 +87,6 @@ jobs:
 
       - name: Register additional package repositories
         run: |
-          sudo mkdir -p ~/apt-cache/archives/partial
           sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
           sudo apt-get -o Dir::Cache=~/apt-cache/ update
