@@ -9,9 +9,9 @@ jobs:
     strategy:
       matrix:
         task: [ \
-          compile-qt5, \
-          #compile-qml,
-          #coverage-qt5,
+          compile-qt5 \
+          #, compile-qml \
+          #, coverage-qt5 \
         ]
     env:
       CI_REPO_SLUG: ${{ github.repository }} 
