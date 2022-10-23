@@ -59,14 +59,6 @@ jobs:
         with:
           submodules: false
 
-      - name: APT Cache Initialization
-        id: apt
-        uses: actions/cache@v3
-        with:
-          path: ~/apt-cache
-          key: ${{runner.os}}-apt
-        run: sudo mkdir -pv ~/apt-cache/archives/partial
-
       - name: Set ENV variables
         run: |
           echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
@@ -85,8 +77,16 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
 
+      - name: APT Cache Initialization
+        id: apt
+        uses: actions/cache@v3
+        with:
+          path: ~/apt-cache
+          key: ${{runner.os}}-apt
+
       - name: Register additional package repositories
         run: |
+          sudo mkdir -pv ~/apt-cache/archives/partial
           sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
           sudo apt-get -o Dir::Cache=~/apt-cache/ update
