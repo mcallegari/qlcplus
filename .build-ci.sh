@@ -6,7 +6,8 @@ set -e
 # This script is triggered from the script section of .travis.yml
 # It runs the appropriate commands depending on the task requested.
 
-export QMAKE=/opt/qt514/bin/qmake
+export QTDIR=/opt/qt514
+export QMAKE=$QTDIR/bin/qmake
 
 if [ "$TASK" = "coverage" ]; then
   gem install coveralls-lcov
