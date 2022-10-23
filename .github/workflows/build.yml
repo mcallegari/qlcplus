@@ -5,7 +5,7 @@ on: ["push", "pull_request"]
 jobs:
   build:
     runs-on: ubuntu-20.04
-    name: QLCplus ${{ matrix.task }}
+    name: QLCplus ${{matrix.task}}
     strategy:
       matrix:
         task: [compile-qt5, compile-qml, coverage-qt5]
@@ -50,23 +50,24 @@ jobs:
       PACKAGES_COVERAGE: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE}
       PACKAGES_ALL: ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.5.0
         with:
           submodules: false
 
       - name: Set ENV variables
         run: |
-          echo "::set-env name=CI_BRANCH::${CI_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}" 
-          echo "::set-env name=CI_SECURE_ENV_VARS::$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" 
-          echo "::set-env name=CI_EVENT_TYPE::$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" 
-          echo "::set-env name=TASK::${TASK:-$(echo "${{ matrix.task }}" | awk 'BEGIN { FS = "-" } ; { print $1 }')}" 
-          echo "::set-env name=QT::${QT:-$(echo "${{ matrix.task }}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" 
+          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
+          echo "CI_SECURE_ENV_VARS=$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" >> $GITHUB_ENV
+          echo "CI_EVENT_TYPE=$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" >> $GITHUB_ENV
+          echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
 
       - name: Print ENV vars 
         run: |
           echo "CI_BRANCH: ${CI_BRANCH}"
           echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
           echo "CI_REPO_SLUG: ${CI_REPO_SLUG}"
+          echo "CI_EVENT_TYPE: ${CI_EVENT_TYPE}"
           echo "CI_SECURE_ENV_VARS: ${CI_SECURE_ENV_VARS}"
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
@@ -79,19 +80,19 @@ jobs:
           sudo mkdir -p ~/apt-cache/
 
       - name: Install qt5 packages
-        if: endsWith(${{ matrix.task }}, 'qt5')
+        if: endsWith(${{matrix.task}}, 'qt5')
         run: |
           sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
           sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QT5}
 
       - name: Install qmlui packages
-        if: endsWith(${{ matrix.task }}, 'qt5qml')
+        if: endsWith(${{matrix.task}}, 'qt5qml')
         run: |
           sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
           sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_QML}
 
       - name: Install coverage packages
-        if: startsWith(${{ matrix.task }}, 'coverage')
+        if: startsWith(${{matrix.task}}, 'coverage')
         run: |
           sudo apt-get -o Dir::Cache=~/apt-cache/ upgrade -y
           sudo apt-get -o Dir::Cache=~/apt-cache/ install -y ${PACKAGES_COVERAGE}
@@ -111,7 +112,7 @@ jobs:
           xvfb-run ./.build-ci.sh
           
       - name: Coveralls
-        if: startsWith(${{ matrix.task }}, 'coverage')
+        if: startsWith(${{matrix.task}}, 'coverage')
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
