@@ -74,10 +74,10 @@ jobs:
 
       - name: Register additional package repositories
         run: |
-          sudo apt-add-repository ppa:ubuntu-toolchain-r/test
-          sudo apt-add-repository ppa:beineri/opt-qt-5.14.2-bionic
-          sudo apt-get -o Dir::Cache=~/apt-cache/ update
           sudo mkdir -p ~/apt-cache/
+          sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
+          sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
+          sudo apt-get -o Dir::Cache=~/apt-cache/ update
 
       - name: Install qt5 packages
         if: endsWith(${{matrix.task}}, 'qt5')
@@ -117,3 +117,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: coverage/coverage.info
+
+      - name: Statistics
+        shell: bash
+        run: |
+          ccache -s
