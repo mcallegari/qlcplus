@@ -15,7 +15,7 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }} 
       CI_BRANCH: ${{ github.head_ref }} 
       CI_PULL_REQUEST: ${{ github.event.number }}
-      CXX: gcc
+      CXX: g++
       PACKAGES_BASE:
         gdb
         libasound2-dev
@@ -102,19 +102,19 @@ jobs:
           sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ upgrade -y -q
 
       - name: Install qt5 packages
-        if: endsWith(${{matrix.task}}, 'qt5')
         run: |
           sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ install -y -q ${PACKAGES_QT5}
+        if: endsWith(${{matrix.task}}, 'qt5')
 
       - name: Install qmlui packages
-        if: endsWith(${{matrix.task}}, 'qt5qml')
         run: |
           sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ install -y -q ${PACKAGES_QML}
+        if: endsWith(${{matrix.task}}, 'qt5qml')
 
       - name: Install coverage packages
-        if: startsWith(${{matrix.task}}, 'coverage')
         run: |
           sudo apt-get -o Dir::Cache=$APT_CACHE_DIR/ install -y -q ${PACKAGES_COVERAGE}
+        if: startsWith(${{matrix.task}}, 'coverage')
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
@@ -131,11 +131,11 @@ jobs:
           xvfb-run ./.build-ci.sh
           
       - name: Coveralls
-        if: startsWith(${{matrix.task}}, 'coverage')
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: coverage/coverage.info
+        if: startsWith(${{matrix.task}}, 'coverage')
 
       - name: Statistics
         shell: bash
