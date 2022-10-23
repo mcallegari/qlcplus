@@ -273,7 +273,7 @@ Rectangle
                     radius: 5
                     border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: startColTool.selectedColor
+                    color: rgbMatrixEditor.startColor
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
 
                     MouseArea
@@ -287,9 +287,9 @@ Rectangle
                     ColorTool
                     {
                         id: startColTool
-                        parent: mainView
-                        x: rightSidePanel.x - width
-                        y: rightSidePanel.y
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
                         currentRGB: rgbMatrixEditor.startColor
@@ -317,15 +317,15 @@ Rectangle
                         id: ecMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: endColTool.visible = !startColTool.visible
+                        onClicked: endColTool.visible = !endColTool.visible
                     }
 
                     ColorTool
                     {
                         id: endColTool
-                        parent: mainView
-                        x: rightSidePanel.x - width
-                        y: rightSidePanel.y
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
                         currentRGB: rgbMatrixEditor.endColor
