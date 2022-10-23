@@ -8,11 +8,9 @@ jobs:
     name: QLCplus ${{matrix.task}}
     strategy:
       matrix:
-        task: [ \
-          compile-qt5 \
+        task: [compile-qt5]
           #, compile-qml \
           #, coverage-qt5 \
-        ]
     env:
       CI_REPO_SLUG: ${{ github.repository }} 
       CI_BRANCH: ${{ github.head_ref }} 
