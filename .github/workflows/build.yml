@@ -116,7 +116,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage/coverage.info
-        if: ${{ startsWith( ${{ matrix.task }}, 'coverage') }}
+        if: startsWith( ${{ matrix.task }}, 'coverage')
 
       - name: Statistics
         shell: bash
