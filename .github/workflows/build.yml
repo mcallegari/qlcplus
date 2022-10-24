@@ -99,6 +99,11 @@ jobs:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
 
+      - name: Install missing packages # As the GH actions apt cache sometimes breaks
+        run: |
+          sudo apt update
+          sudo apt install ${PACKAGES_ALL}
+
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
         with:
