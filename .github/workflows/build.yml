@@ -16,6 +16,7 @@ jobs:
       CI_PULL_REQUEST: ${{ github.event.number }}
       CC: gcc
       CXX: g++
+      QTDIR: /opt/qt514
       PACKAGES_BASE:
         gdb
         libasound2-dev
@@ -70,8 +71,9 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
+          echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
-      - name: Print ENV vars 
+      - name: Print ENV vars and program versions
         run: |
           echo "CI_BRANCH: ${CI_BRANCH}"
           echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
@@ -84,6 +86,7 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
+          ${CXX} --version
 
       - name: Register additional package repositories
         run: |
@@ -111,11 +114,39 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
 
-      - name: Build and Test
+      - name: Install coveralls-lcov
+        if: ${{ startsWith( matrix.task, 'coverage') }}
+        run: sudo gem install coveralls-lcov
+
+      - name: Configure for QT5 build
+        if: ${{ matrix.task == 'compile-qt5' }}
         shell: bash
-        run: |
-          xvfb-run ./.build-ci.sh
+        run: ${QMAKE} QMAKE_CXX=${CXX} QMAKE_CC=${CC} QMAKE_LINK=${CXX} QMAKE_LINK_SHLIB=${CXX}
           
+      - name: Configure for QT5QML build
+        if: ${{ matrix.task == 'compile-qt5qml' }}
+        shell: bash
+        run: $QMAKE QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX CONFIG+=qmlui
+
+      - name: Configure for QT5 coverage build
+        if: ${{ matrix.task == 'coverage-qt5' }}
+        shell: bash
+        run: $QMAKE CONFIG+=coverage QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX
+
+      - name: Build
+        shell: bash
+        run: make -j $NPROC 
+
+      - name: Test
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        shell: bash
+        run: xvfb-run make check
+
+      - name: Test with Coverage
+        if: ${{ startsWith( matrix.task, 'coverage') }}
+        shell: bash
+        run: xvfb-run make lcov
+
       - name: Coveralls
         if: ${{ startsWith( matrix.task, 'coverage') }}
         uses: coverallsapp/github-action@v1.1.2
