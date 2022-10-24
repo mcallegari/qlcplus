@@ -86,7 +86,12 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
+          echo "CXX:"
           ${CXX} --version
+          echo "QMAKE:"
+          ${QMAKE} -v
+          echo "WHOAMI:"
+          whoami
 
       - name: Register additional package repositories
         run: |
@@ -145,12 +150,12 @@ jobs:
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         shell: bash
-        run: xvfb-run make check
+        run: make check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
         shell: bash
-        run: xvfb-run make lcov
+        run: make lcov
 
       - name: Coveralls
         if: ${{ startsWith( matrix.task, 'coverage') }}
