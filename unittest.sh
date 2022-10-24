@@ -17,8 +17,8 @@ if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
   exit 1
 fi
 
-if [ "$CURRUSER" == "runner" ]
-    || [ "$CURRUSER" == "buildbot" ]
+if [ "$CURRUSER" == "runner" ] \
+    || [ "$CURRUSER" == "buildbot" ] \
     || [ "$CURRUSER" == "abuild" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ $(which xvfb-run) == "" ]; then
