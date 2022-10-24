@@ -54,7 +54,8 @@ jobs:
         lcov
 
     steps:
-      - uses: actions/checkout@v2.5.0
+      - name: Checkout
+        uses: actions/checkout@v2.5.0
         with:
           submodules: false
 
@@ -90,7 +91,8 @@ jobs:
           sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
 
-      - uses: awalsh128/cache-apt-pkgs-action@v1.1.1
+      - name: Download, cache and install packages
+        uses: awalsh128/cache-apt-pkgs-action@v1.1.1
         with:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
@@ -113,8 +115,8 @@ jobs:
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          file: coverage/coverage.info
-        if: startsWith(${{matrix.task}}, 'coverage')
+          path-to-lcov: coverage/coverage.info
+        if: ${{ startsWith( ${{ matrix.task }}, 'coverage') }}
 
       - name: Statistics
         shell: bash
