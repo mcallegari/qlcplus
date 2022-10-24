@@ -93,7 +93,7 @@ jobs:
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
 
       - name: Download, cache and install packages
-        uses: awalsh128/cache-apt-pkgs-action@v1.1.1
+        uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
