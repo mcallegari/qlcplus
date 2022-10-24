@@ -112,11 +112,11 @@ jobs:
           xvfb-run ./.build-ci.sh
           
       - name: Coveralls
+        if: ${{ startsWith( matrix.task, 'coverage') }}
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage/coverage.info
-        if: startsWith( ${{ matrix.task }}, 'coverage')
 
       - name: Statistics
         shell: bash
