@@ -17,7 +17,9 @@ if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
   exit 1
 fi
 
-if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
+if [ "$CURRUSER" == "runner" ]
+    || [ "$CURRUSER" == "buildbot" ]
+    || [ "$CURRUSER" == "abuild" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ $(which xvfb-run) == "" ]; then
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
