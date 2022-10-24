@@ -73,7 +73,7 @@ jobs:
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
           echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
-      - name: Print ENV vars and program versions
+      - name: Print ENV vars
         run: |
           echo "CI_BRANCH: ${CI_BRANCH}"
           echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
@@ -86,12 +86,6 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
-          echo "CXX:"
-          ${CXX} --version
-          echo "QMAKE:"
-          ${QMAKE} -v
-          echo "WHOAMI:"
-          whoami
 
       - name: Register additional package repositories
         run: |
@@ -127,6 +121,15 @@ jobs:
       - name: Install coveralls-lcov
         if: ${{ startsWith( matrix.task, 'coverage') }}
         run: sudo gem install coveralls-lcov
+
+      - name: Print program versions
+        run: |
+          echo "CXX:"
+          ${CXX} --version
+          echo "QMAKE:"
+          ${QMAKE} -v
+          echo "WHOAMI:"
+          whoami
 
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
