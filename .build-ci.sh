@@ -10,7 +10,7 @@ export QTDIR=/opt/qt514
 export QMAKE=$QTDIR/bin/qmake
 
 if [ "$TASK" = "coverage" ]; then
-  gem install coveralls-lcov
+  sudo gem install coveralls-lcov
 fi
 
 # Report the compiler version

@@ -105,6 +105,12 @@ jobs:
             max_size=2G
             compression=false
 
+      - name: Setup ruby cache
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+
       - name: Build and Test
         shell: bash
         run: |
