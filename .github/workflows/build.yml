@@ -3,9 +3,9 @@ name: QLCplus Github Actions CI Build
 on: ["push", "pull_request"]
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-20.04
-    name: QLCplus ${{matrix.task}}
+    name: QLCplus Linux ${{matrix.task}}
     strategy:
       fail-fast: false
       matrix:
