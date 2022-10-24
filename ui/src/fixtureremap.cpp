@@ -814,7 +814,7 @@ void FixtureRemap::accept()
      * 6 - remap Virtual Console widgets
      * ********************************************************************** */
     VCFrame* contents = VirtualConsole::instance()->contents();
-    QList<VCWidget *> widgetsList = getVCChildren((VCWidget *)contents);
+    QList<VCWidget *> widgetsList = getVCChildren((VCWidget *)contents).toSet().toList();
 
     foreach (QObject *object, widgetsList)
     {
