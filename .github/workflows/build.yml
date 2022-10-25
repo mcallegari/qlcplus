@@ -103,10 +103,10 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
-          version: ${QT_VERSION}
+          version: ${{ env.QT_VERSION }}
           cache: true
-          dir: ${QTDIR}
-          modules: ${QT_MODULES_INSTALL}
+          dir: ${{ env.QTDIR }}
+          modules: ${{ env.QT_MODULES_INSTALL }}
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
