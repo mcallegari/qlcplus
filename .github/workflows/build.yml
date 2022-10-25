@@ -16,7 +16,8 @@ jobs:
       CI_PULL_REQUEST: ${{ github.event.number }}
       CC: gcc
       CXX: g++
-      QTDIR: /opt/qt514
+      QTVERSION: 5.15.2
+      QTDIR: /opt/qt${QTVERSION}
       PACKAGES_BASE:
         gdb
         libasound2-dev
@@ -34,15 +35,10 @@ jobs:
         python-is-python3
         xvfb
         ccache
-      PACKAGES_QT5_BASE:
-        qt514-meta-minimal
-        qt514script
-        qt514multimedia
-        qt514serialport
-        qt514tools
       PACKAGES_QML_BASE:
         libpulse-dev
         qt514-meta-minimal
+        qt514script
         qt514declarative
         qt514quickcontrols2
         qt5143d
@@ -52,6 +48,17 @@ jobs:
         qt514tools
       PACKAGES_COVERAGE_BASE:
         lcov
+      QT_MODULES:
+        qt3d
+        qtdeclarative
+        qtscript
+        qtquickcontrols2
+        qtsvg
+        qtmultimedia
+        qtserialport
+        qttools
+#      QT_TOOLS:
+#        tools_cmake
 
     steps:
       - name: Checkout
@@ -61,16 +68,16 @@ jobs:
 
       - name: Set ENV variables
         run: |
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
-          echo "CI_SECURE_ENV_VARS=$(if [ -z "${{ secrets.something }}" ]; then echo "false"; else echo "true"; fi)" >> $GITHUB_ENV
-          echo "CI_EVENT_TYPE=$(if [ "schedule" == "${{ github.event_name }}" ]; then echo "cron"; else echo "${{ github.event_name }}"; fi)" >> $GITHUB_ENV
-          echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE})" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = '/' } ; { print $3 }')" >> $GITHUB_ENV
+          echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
+          echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
+          echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
-          echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $1 }')" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $2 }')}" >> $GITHUB_ENV
           echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Print ENV vars
@@ -87,10 +94,10 @@ jobs:
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
 
-      - name: Register additional package repositories
-        run: |
-          sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
-          sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
+#      - name: Register additional package repositories
+#        run: |
+#          sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
+#          sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
 
       - name: Download, cache and install packages
         uses: awalsh128/cache-apt-pkgs-action@latest
@@ -98,10 +105,19 @@ jobs:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
 
-      - name: Install missing packages # As the GH actions apt cache sometimes breaks
-        run: |
-          sudo apt -q update
-          sudo apt -q install ${PACKAGES_ALL}
+#      - name: Install missing packages # As the GH actions apt cache sometimes breaks
+#        run: |
+#          sudo apt -q update
+#          sudo apt -q install ${PACKAGES_ALL}
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${QTVERSION}
+          cache: true
+          dir: ${QTDIR}
+          modules: ${QT_MODULES}
+          #tools: ${QT_TOOLS}
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
@@ -134,17 +150,17 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         shell: bash
-        run: ${QMAKE} QMAKE_CXX=${CXX} QMAKE_CC=${CC} QMAKE_LINK=${CXX} QMAKE_LINK_SHLIB=${CXX}
+        run: ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}"
           
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         shell: bash
-        run: $QMAKE QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX CONFIG+=qmlui
+        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=qmlui
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         shell: bash
-        run: $QMAKE CONFIG+=coverage QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX
+        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
 
       - name: Build
         shell: bash
