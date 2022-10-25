@@ -37,15 +37,6 @@ jobs:
         ccache
       PACKAGES_QML_BASE:
         libpulse-dev
-        qt514-meta-minimal
-        qt514script
-        qt514declarative
-        qt514quickcontrols2
-        qt5143d
-        qt514svg
-        qt514multimedia
-        qt514serialport
-        qt514tools
       PACKAGES_COVERAGE_BASE:
         lcov
       QT_MODULES:
