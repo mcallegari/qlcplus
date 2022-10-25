@@ -16,8 +16,6 @@ jobs:
       CI_PULL_REQUEST: ${{ github.event.number }}
       CC: gcc
       CXX: g++
-      QTVERSION: 5.15.2
-      QTDIR: /opt/qt${QTVERSION}
       PACKAGES_BASE:
         gdb
         libasound2-dev
@@ -48,8 +46,6 @@ jobs:
         qtmultimedia
         qtserialport
         qttools
-#      QT_TOOLS:
-#        tools_cmake
 
     steps:
       - name: Checkout
@@ -69,6 +65,9 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $2 }')}" >> $GITHUB_ENV
+          echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
+          echo "QTDIR=/opt/qt${QT_VERSION}" >> $GITHUB_ENV
+          echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Print ENV vars
@@ -104,11 +103,10 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
-          version: ${QTVERSION}
+          version: ${QT_VERSION}
           cache: true
           dir: ${QTDIR}
-          modules: ${QT_MODULES}
-          #tools: ${QT_TOOLS}
+          modules: ${QT_MODULES_INSTALL}
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
