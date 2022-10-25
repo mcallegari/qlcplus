@@ -619,9 +619,9 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
     return newValuesList;
 }
 
-QList<VCWidget *> FixtureRemap::getVCChildren(VCWidget *obj)
+QSet<VCWidget *> FixtureRemap::getVCChildren(VCWidget *obj)
 {
-    QList<VCWidget *> list;
+    QSet<VCWidget *> list;
     if (obj == NULL)
         return list;
     QListIterator <VCWidget*> it(obj->findChildren<VCWidget*>());
@@ -631,9 +631,9 @@ QList<VCWidget *> FixtureRemap::getVCChildren(VCWidget *obj)
         if (list.contains(child) == false)
         {
             qDebug() << Q_FUNC_INFO << "append: " << child->caption();
-            list.append(child);
+            list.insert(child);
         }
-        list.append(getVCChildren(child));
+        list.unite(getVCChildren(child));
     }
     return list;
 }
@@ -814,7 +814,7 @@ void FixtureRemap::accept()
      * 6 - remap Virtual Console widgets
      * ********************************************************************** */
     VCFrame* contents = VirtualConsole::instance()->contents();
-    QList<VCWidget *> widgetsList = getVCChildren((VCWidget *)contents).toSet().toList();
+    QSet<VCWidget *> widgetsList = getVCChildren((VCWidget *)contents);
 
     foreach (QObject *object, widgetsList)
     {

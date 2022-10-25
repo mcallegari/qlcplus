@@ -22,6 +22,7 @@
 
 #include <QDialog>
 #include <QList>
+#include <QSet>
 
 #include "ui_fixtureremap.h"
 
@@ -64,7 +65,7 @@ protected:
                                        QList<SceneValue> &srcList,
                                        QList<SceneValue> &tgtList);
 
-    QList<VCWidget *> getVCChildren(VCWidget *obj);
+    QSet<VCWidget *> getVCChildren(VCWidget *obj);
 
 protected slots:
     void slotAddTargetFixture();
