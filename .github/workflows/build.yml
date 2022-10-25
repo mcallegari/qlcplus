@@ -3,9 +3,9 @@ name: QLCplus Github Actions CI Build
 on: ["push", "pull_request"]
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-20.04
-    name: QLCplus ${{matrix.task}}
+    name: QLCplus Linux ${{matrix.task}}
     strategy:
       fail-fast: false
       matrix:
@@ -16,6 +16,7 @@ jobs:
       CI_PULL_REQUEST: ${{ github.event.number }}
       CC: gcc
       CXX: g++
+      QTDIR: /opt/qt514
       PACKAGES_BASE:
         gdb
         libasound2-dev
@@ -70,8 +71,9 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $1 }')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo "${{matrix.task}}" | awk 'BEGIN { FS = "-" } ; { print $2 }')}" >> $GITHUB_ENV
+          echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
-      - name: Print ENV vars 
+      - name: Print ENV vars
         run: |
           echo "CI_BRANCH: ${CI_BRANCH}"
           echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
@@ -91,10 +93,15 @@ jobs:
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
 
       - name: Download, cache and install packages
-        uses: awalsh128/cache-apt-pkgs-action@v1.1.1
+        uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
+
+      - name: Install missing packages # As the GH actions apt cache sometimes breaks
+        run: |
+          sudo apt -q update
+          sudo apt -q install ${PACKAGES_ALL}
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
@@ -111,11 +118,48 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
 
-      - name: Build and Test
-        shell: bash
+      - name: Install coveralls-lcov
+        if: ${{ startsWith( matrix.task, 'coverage') }}
+        run: sudo gem install coveralls-lcov
+
+      - name: Print program versions
         run: |
-          xvfb-run ./.build-ci.sh
+          echo "CXX:"
+          ${CXX} --version
+          echo "QMAKE:"
+          ${QMAKE} -v
+          echo "WHOAMI:"
+          whoami
+
+      - name: Configure for QT5 build
+        if: ${{ matrix.task == 'compile-qt5' }}
+        shell: bash
+        run: ${QMAKE} QMAKE_CXX=${CXX} QMAKE_CC=${CC} QMAKE_LINK=${CXX} QMAKE_LINK_SHLIB=${CXX}
           
+      - name: Configure for QT5QML build
+        if: ${{ matrix.task == 'compile-qt5qml' }}
+        shell: bash
+        run: $QMAKE QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX CONFIG+=qmlui
+
+      - name: Configure for QT5 coverage build
+        if: ${{ matrix.task == 'coverage-qt5' }}
+        shell: bash
+        run: $QMAKE CONFIG+=coverage QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX
+
+      - name: Build
+        shell: bash
+        run: make -j $NPROC 
+
+      - name: Test
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        shell: bash
+        run: make check
+
+      - name: Test with Coverage
+        if: ${{ startsWith( matrix.task, 'coverage') }}
+        shell: bash
+        run: make lcov
+
       - name: Coveralls
         if: ${{ startsWith( matrix.task, 'coverage') }}
         uses: coverallsapp/github-action@v1.1.2
