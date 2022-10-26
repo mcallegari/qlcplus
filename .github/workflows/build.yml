@@ -100,7 +100,7 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
-          dir: ${{ env.QTDIR }}
+          dir: ${{ env.QT_INSTALL_DIR }}
           modules: ${{ env.QT_MODULES_INSTALL }}
 
       - name: Setup ccache
