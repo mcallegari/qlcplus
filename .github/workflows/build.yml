@@ -83,14 +83,6 @@ jobs:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
 
-      - name: Install python for aqt and fixtures-tool
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-          cache-dependency-path: |
-            .github/workflows/python-requirements-test.txt
-
       - name: Install Qt through aqt
         uses: jurplel/install-qt-action@v3
         with:
@@ -98,6 +90,14 @@ jobs:
           cache: true
           dir: ${{ env.QT_INSTALL_DIR }}
           modules: ${{ env.QT_MODULES_INSTALL }}
+
+      - name: Install python for aqt and fixtures-tool
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+          cache-dependency-path: |
+            .github/workflows/python-requirements-test.txt
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
