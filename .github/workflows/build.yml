@@ -30,8 +30,6 @@ jobs:
         libfftw3-dev
         libgl1-mesa-dev
         libxml2-utils
-        python3-lxml
-        python-is-python3
         xvfb
         ccache
       PACKAGES_QML_BASE:
@@ -85,12 +83,13 @@ jobs:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
 
-#      - name: Install missing packages # As the GH actions apt cache sometimes breaks
-#        run: |
-#          sudo apt -q update
-#          sudo apt -q install ${PACKAGES_ALL}
+      - name: Install and cache basic Python for aqt and fixtures-tool
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
 
-      - name: Install Qt
+      - name: Install Qt through aqt
         uses: jurplel/install-qt-action@v3
         with:
           version: ${{ env.QT_VERSION }}
@@ -98,8 +97,8 @@ jobs:
           dir: ${{ env.QT_INSTALL_DIR }}
           modules: ${{ env.QT_MODULES_INSTALL }}
 
-      - name: Reset executable path to OS path.
-        run: echo "PATH=/usr/bin:$PATH" >> $GITHUB_ENV
+      - name: Install python-lxml for fixtures-tool
+        run: pip install lxml
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
