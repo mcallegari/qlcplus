@@ -97,7 +97,8 @@ jobs:
           cache: true
           dir: ${{ env.QT_INSTALL_DIR }}
           modules: ${{ env.QT_MODULES_INSTALL }}
-        # reset executable path to OS path.
+
+      - name: Reset executable path to OS path.
         run: echo "PATH=/usr/bin:$PATH" >> $GITHUB_ENV
 
       - name: Setup ccache
