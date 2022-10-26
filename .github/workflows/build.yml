@@ -85,10 +85,10 @@ jobs:
           packages: ${PACKAGES_ALL}
           version: ${{runner.os}}-apt
 
-#      - name: Install missing packages # As the GH actions apt cache sometimes breaks
-#        run: |
-#          sudo apt -q update
-#          sudo apt -q install ${PACKAGES_ALL}
+      - name: Install missing packages # As the GH actions apt cache sometimes breaks
+        run: |
+          sudo apt -q update
+          sudo apt -q install ${PACKAGES_ALL}
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
@@ -117,7 +117,7 @@ jobs:
         if: ${{ startsWith( matrix.task, 'coverage') }}
         run: sudo gem install coveralls-lcov
 
-      - name: Print program versions
+      - name: Print program versions and username
         run: |
           echo "CXX:"
           ${CXX} --version
