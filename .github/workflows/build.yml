@@ -9,7 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qt5qml,coverage-qt5]
+        task: [compile-qt5qml]
+        #task: [compile-qt5, compile-qt5qml,coverage-qt5]
     env:
       CI_REPO_SLUG: ${{ github.repository }} 
       CI_BRANCH: ${{ github.head_ref }} 
@@ -102,6 +103,10 @@ jobs:
           dir: ${{ env.QTDIR }}
           modules: ${{ env.QT_MODULES_INSTALL }}
 
+      - name: List aqt installation
+        run: |
+          find ${{ env.QTDIR }}/bin
+
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
         with:
@@ -125,6 +130,7 @@ jobs:
         run: |
           echo "CXX:"
           ${CXX} --version
+          find ${{ env.QTDIR }}/bin
           echo "QMAKE:"
           ${QMAKE} -v
           echo "WHOAMI:"
