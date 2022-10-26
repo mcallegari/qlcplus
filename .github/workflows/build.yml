@@ -79,11 +79,6 @@ jobs:
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
 
-#      - name: Register additional package repositories
-#        run: |
-#          sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
-#          sudo apt-add-repository -y ppa:beineri/opt-qt-5.14.2-focal
-
       - name: Download, cache and install packages
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
@@ -128,6 +123,8 @@ jobs:
           ${CXX} --version
           echo "QMAKE:"
           ${QMAKE} -v
+          echo "Python:"
+          python --version
           echo "WHOAMI:"
           whoami
 
@@ -166,8 +163,3 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage/coverage.info
-
-      - name: Statistics
-        shell: bash
-        run: |
-          ccache -s
