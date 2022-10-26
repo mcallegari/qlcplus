@@ -61,7 +61,7 @@ jobs:
           echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $2 }')}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QT_INSTALL_DIR=/opt/qt${QT_VERSION}" >> $GITHUB_ENV
+          source $GITHUB_ENV && echo "QT_INSTALL_DIR=/opt/qt-${QT_VERSION}" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
@@ -105,7 +105,7 @@ jobs:
 
       - name: List aqt installation
         run: |
-          find ${{ env.QTDIR }}/bin
+          find ${{ env.QT_INSTALL_DIR }}
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
