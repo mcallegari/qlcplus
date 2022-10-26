@@ -61,8 +61,8 @@ jobs:
           echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $2 }')}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
+          echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
+          source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Print ENV vars
@@ -103,10 +103,6 @@ jobs:
           dir: ${{ env.QTDIR }}
           modules: ${{ env.QT_MODULES_INSTALL }}
 
-      - name: List aqt installation
-        run: |
-          find ${{ env.QT_INSTALL_DIR }}
-
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
         with:
@@ -130,7 +126,6 @@ jobs:
         run: |
           echo "CXX:"
           ${CXX} --version
-          find ${{ env.QTDIR }}/bin
           echo "QMAKE:"
           ${QMAKE} -v
           echo "WHOAMI:"
