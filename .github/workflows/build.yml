@@ -38,14 +38,15 @@ jobs:
       PACKAGES_COVERAGE_BASE:
         lcov
       QT_MODULES:
-        qt3d
-        qtdeclarative
         qtscript
-        qtquickcontrols2
-        qtsvg
-        qtmultimedia
-        qtserialport
-        qttools
+#        qt3d
+#        qtdeclarative
+#        qtquickcontrols2
+#        qtsvg
+#        qtmultimedia
+#        qtserialport
+#        qttools
+#        qtquick3d
 
     steps:
       - name: Checkout
