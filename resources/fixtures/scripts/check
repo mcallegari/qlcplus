@@ -1,5 +1,7 @@
 #!/bin/sh
 DIR=`dirname $0`
+set -x
+set -e
 
 # Validate the fixtures against the XML scheme
 xmllint --noout --schema "$DIR"/../../schemas/fixture.xsd $(find "$DIR"/.. -name *.qxf) >/dev/null 2>&1 
@@ -12,6 +14,8 @@ else
 	echo "Fixtures: OK"
 fi
 
+which python --version
+/usr/bin/env python --version
 cd "$DIR"/.. && ./scripts/fixtures-tool.py --validate || exit $?
 cd -
 
