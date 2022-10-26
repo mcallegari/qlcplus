@@ -14,7 +14,8 @@ else
 	echo "Fixtures: OK"
 fi
 
-which python --version
+printenv
+which python
 /usr/bin/env python --version
 cd "$DIR"/.. && ./scripts/fixtures-tool.py --validate || exit $?
 cd -
