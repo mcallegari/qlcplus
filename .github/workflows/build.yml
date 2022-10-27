@@ -227,7 +227,7 @@ jobs:
             mingw32/mingw-w64-i686-fftw
             mingw32/mingw-w64-i686-libusb
 
-      - name: Install GCC
+      - name: Install GCC and libs
         if: false
         shell: msys2
         run: |
