@@ -221,6 +221,7 @@ jobs:
           release: false
           update: true
           install: >-
+            wget
             mingw32/mingw-w64-i686-libmad
             mingw32/mingw-w64-i686-libsndfile
             mingw32/mingw-w64-i686-flac
