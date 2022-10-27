@@ -301,9 +301,12 @@ jobs:
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
 
-      - name: Build for Windows
+      - name: Configure build for Windows
         run: |
           qmake FORCECONFIG=release
+
+      - name: Build for Windows
+        run: |
           make
 
       - name: Test
