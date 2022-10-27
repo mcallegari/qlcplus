@@ -223,6 +223,8 @@ jobs:
             mingw32/mingw-w64-i686-libusb
             mingw32/mingw-w64-i686-gcc-libs
             mingw32/mingw-w64-i686-gcc
+            mingw32/mingw-w64-i686-qt5
+            mingw32/mingw-w64-i686-python-lxml
 
       - name: Install GCC and libs
         if: false
@@ -244,6 +246,7 @@ jobs:
           # pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
 
       - name: Install Qt through aqt (and python)
+        if: false
         uses: jurplel/install-qt-action@v3
         with:
           version: ${{ env.QT_VERSION }}
@@ -252,6 +255,7 @@ jobs:
           modules: ${{ env.QT_MODULES_INSTALL }}
 
       - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
+        if: false
         run: pip install lxml
 
       - name: Setup ccache
