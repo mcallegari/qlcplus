@@ -265,7 +265,7 @@ jobs:
         with:
           windows_compile_environment: msys2
           update_packager_index: false
-          install_ccache: false
+          install_ccache: true
           ccache_options: |
             max_size=2G
             compression=false
