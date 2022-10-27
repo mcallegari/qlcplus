@@ -163,7 +163,7 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
-    name: QLCplus Windows ${{matrix.task}}
+    name: QLCplus Windows Build ${{matrix.task}}
     strategy:
       fail-fast: false
       matrix:
