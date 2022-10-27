@@ -48,16 +48,16 @@ jobs:
 
       - name: Set ENV variables
         run: |
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = '/' } ; { print $3 }')" >> $GITHUB_ENV
-          echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
-          echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=/}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
+          echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $1 }')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $2 }')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $1}')" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $2}')}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
@@ -184,15 +184,21 @@ jobs:
         with:
           submodules: false
 
+#      - name: Set up MinGW
+#        uses: egor-tensin/setup-mingw@v2
+#        with:
+#          platform: x86
+#          cc: false
+
       - name: Set ENV variables
         shell: bash
         run: |
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN { FS = '/' } ; { print $3 }')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=/}; {print $3}')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $1 }')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN { FS = '-' } ; { print $2 }')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $1}')" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $2}')}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/c/opt" >> $GITHUB_ENV
@@ -210,12 +216,6 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
-
-      - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
-        with:
-          platform: x86
-          cc: false
 
       - name: Install programs
         shell: bash
