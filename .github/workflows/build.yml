@@ -221,8 +221,11 @@ jobs:
             mingw32/mingw-w64-i686-flac
             mingw32/mingw-w64-i686-fftw
             mingw32/mingw-w64-i686-libusb
+            mingw32/mingw-w64-i686-gcc-libs
+            mingw32/mingw-w64-i686-gcc
 
       - name: Install GCC and libs
+        if: false
         run: |
           ls -l /usr/bin/
           find / -iname 'wget*'
