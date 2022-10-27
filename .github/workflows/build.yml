@@ -212,7 +212,7 @@ jobs:
       - name: Update and install MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          release: false
+          release: true
           update: true
           install: >-
             wget
