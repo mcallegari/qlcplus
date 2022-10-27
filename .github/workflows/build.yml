@@ -223,7 +223,7 @@ jobs:
             mingw32/mingw-w64-i686-gcc-libs
             mingw32/mingw-w64-i686-gcc
             mingw32/mingw-w64-i686-qt5
-            mingw32/mingw-w64-clang-i686-qt5-base
+            mingw32/mingw-w64-i686-qt5-base
             mingw32/mingw-w64-i686-qt5-script
             mingw32/mingw-w64-i686-qt5-tools
             mingw32/mingw-w64-i686-python-lxml
