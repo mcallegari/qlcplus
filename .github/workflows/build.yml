@@ -39,6 +39,9 @@ jobs:
         lcov
       QT_MODULES:
         qtscript
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Checkout
@@ -127,31 +130,25 @@ jobs:
 
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
-        shell: bash
         run: ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}"
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
-        shell: bash
         run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=qmlui
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
-        shell: bash
         run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
 
       - name: Build
-        shell: bash
         run: make -j $NPROC
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        shell: bash
         run: make check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
-        shell: bash
         run: make lcov
 
       - name: Coveralls
@@ -177,6 +174,9 @@ jobs:
       CXX: g++
       QT_MODULES:
         qtscript
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Checkout
@@ -191,7 +191,6 @@ jobs:
 #          cc: false
 
       - name: Set ENV variables
-        shell: bash
         run: |
           echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=/}; {print $3}')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
@@ -206,7 +205,6 @@ jobs:
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Print ENV vars
-        shell: bash
         run: |
           echo "CI_BRANCH: ${CI_BRANCH}"
           echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
@@ -218,7 +216,6 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Install programs
-        shell: bash
         run: |
           # pacman --noconfirm -Sy
           # pacman --noconfirm --needed -S pacman-mirrors
@@ -243,7 +240,6 @@ jobs:
           modules: ${{ env.QT_MODULES_INSTALL }}
 
       - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
-        shell: bash
         run: pip install lxml
 
       - name: Setup ccache
@@ -262,7 +258,6 @@ jobs:
           bundler-cache: true
 
       - name: Print program versions
-        shell: bash
         run: |
           echo "GCC:"
           which gcc
@@ -272,7 +267,6 @@ jobs:
           qmake -v
 
       - name: D2XX SDK
-        shell: bash
         run: |
           mkdir -p /c/Qt/D2XXSDK
           wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.36.4%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
@@ -284,7 +278,6 @@ jobs:
 
       - name: Disable unit tests build
         if: false
-        shell: bash
         run: |
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
@@ -295,24 +288,20 @@ jobs:
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
 
       - name: Build for Windows
-        shell: bash
         run: |
           qmake FORCECONFIG=release
           make
 
       - name: Test
-        shell: bash
         run: make check
 
       - name: Install on Windows
-        shell: bash
         run: |
           echo 'Silently installing QLC+...'
           make install -s
           cp *.qm /c/qlcplus
 
       - name: Build installation package
-        shell: bash
         run: |
           cd /c/qlcplus
           sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
