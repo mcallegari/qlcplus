@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-20.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         task: [compile-qt5, compile-qt5qml,coverage-qt5]
         #task: [compile-qt5qml]
@@ -215,7 +215,6 @@ jobs:
           release: false
           update: true
           install: >-
-            wget
             mingw32/mingw-w64-i686-libmad
             mingw32/mingw-w64-i686-libsndfile
             mingw32/mingw-w64-i686-flac
@@ -224,6 +223,9 @@ jobs:
             mingw32/mingw-w64-i686-gcc-libs
             mingw32/mingw-w64-i686-gcc
             mingw32/mingw-w64-i686-qt5
+            mingw32/mingw-w64-clang-i686-qt5-base
+            mingw32/mingw-w64-i686-qt5-script
+            mingw32/mingw-w64-i686-qt5-tools
             mingw32/mingw-w64-i686-python-lxml
 
       - name: Install GCC and libs
@@ -261,6 +263,7 @@ jobs:
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
         with:
+          windows_compile_environment: msys2
           update_packager_index: false
           install_ccache: false
           ccache_options: |
@@ -276,11 +279,11 @@ jobs:
       - name: Print program versions
         run: |
           echo "GCC:"
-          which gcc
+          which gcc || true
           gcc -v
           echo "qmake:"
-          which qmake
-          qmake -v
+          qmake -v || true
+          qmake.exe -v || true
 
       - name: D2XX SDK
         run: |
