@@ -228,7 +228,6 @@ jobs:
             mingw32/mingw-w64-i686-libusb
 
       - name: Install GCC and libs
-        if: false
         shell: msys2
         run: |
           # pacman --noconfirm -Sy
@@ -302,6 +301,7 @@ jobs:
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
 
       - name: Configure build for Windows
+        shell: msys2
         run: |
           qmake FORCECONFIG=release
 
