@@ -479,6 +479,12 @@ void FixtureRemap::slotAddRemap()
                  srcFxiMode == NULL && tgtFxiMode == NULL)
                     oneToOneRemap = true;
 
+        if (oneToOneRemap == true)
+        {
+            tgtFxi->setForcedHTPChannels(srcFxi->forcedHTPChannels());
+            tgtFxi->setForcedLTPChannels(srcFxi->forcedLTPChannels());
+        }
+
         for (quint32 s = 0; s < srcFxi->channels(); s++)
         {
             if (oneToOneRemap == true)
