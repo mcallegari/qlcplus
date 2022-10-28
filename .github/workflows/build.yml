@@ -291,10 +291,10 @@ jobs:
           echo "CXX:"
           which ${CXX} || true
           ${CXX} -v
+          ls -l /mingw*/bin/ || true
           echo "qmake:"
           ${QMAKE} -v || true
           #find -maxdepth 3 /c/opt/Qt/ || true
-          #ls -l ${QTDIR}/bin || true
 
       - name: Disable unit tests build
         if: false
