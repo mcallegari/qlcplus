@@ -196,7 +196,7 @@ jobs:
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/c/opt" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=/mingw64/bin/qmake.exe" >> $GITHUB_ENV
+          source $GITHUB_ENV && echo "QMAKE=/mingw32/bin/qmake.exe" >> $GITHUB_ENV
 
       - name: Print ENV vars
         run: |
@@ -291,7 +291,7 @@ jobs:
           echo "CXX:"
           which ${CXX} || true
           ${CXX} -v
-          ls -l /mingw*/bin/ || true
+          #ls -l /mingw*/bin/ || true
           echo "qmake:"
           ${QMAKE} -v || true
           #find -maxdepth 3 /c/opt/Qt/ || true
