@@ -196,7 +196,7 @@ jobs:
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/c/opt" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
+          source $GITHUB_ENV && echo "QMAKE=/mingw64/bin/qmake.exe" >> $GITHUB_ENV
 
       - name: Print ENV vars
         run: |
@@ -292,10 +292,9 @@ jobs:
           which ${CXX} || true
           ${CXX} -v
           echo "qmake:"
-          which ${QMAKE} || true
           ${QMAKE} -v || true
-          find -maxdepth 3 /c/opt/Qt/ || true
-          ls -l ${QTDIR}/bin || true
+          #find -maxdepth 3 /c/opt/Qt/ || true
+          #ls -l ${QTDIR}/bin || true
 
       - name: Disable unit tests build
         if: false
