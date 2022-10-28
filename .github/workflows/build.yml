@@ -196,7 +196,7 @@ jobs:
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/c/opt" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=/mingw32/bin/qmake.exe" >> $GITHUB_ENV
+          source $GITHUB_ENV && echo "QMAKE=/mingw64/bin/qmake.exe" >> $GITHUB_ENV
 
       - name: Print ENV vars
         run: |
@@ -215,18 +215,18 @@ jobs:
           release: false
           update: true
           install: >-
-            mingw32/mingw-w64-i686-libmad
-            mingw32/mingw-w64-i686-libsndfile
-            mingw32/mingw-w64-i686-flac
-            mingw32/mingw-w64-i686-fftw
-            mingw32/mingw-w64-i686-libusb
-            mingw32/mingw-w64-i686-gcc-libs
-            mingw32/mingw-w64-i686-gcc
-            mingw32/mingw-w64-i686-qt5
-            mingw32/mingw-w64-i686-qt5-base
-            mingw32/mingw-w64-i686-qt5-script
-            mingw32/mingw-w64-i686-qt5-tools
-            mingw32/mingw-w64-i686-python-lxml
+            mingw-w64-i686-libmad
+            mingw-w64-i686-libsndfile
+            mingw-w64-i686-flac
+            mingw-w64-i686-fftw
+            mingw-w64-i686-libusb
+            mingw-w64-i686-gcc-libs
+            mingw-w64-i686-gcc
+            mingw-w64-i686-qt5
+            mingw-w64-i686-qt5-base
+            mingw-w64-i686-qt5-script
+            mingw-w64-i686-qt5-tools
+            mingw-w64-i686-python-lxml
 
       - name: Install GCC and libs
         if: false
@@ -291,7 +291,7 @@ jobs:
           echo "CXX:"
           which ${CXX} || true
           ${CXX} -v
-          #ls -l /mingw*/bin/ || true
+          ls -l /mingw*/bin/ || true
           echo "qmake:"
           ${QMAKE} -v || true
           #find -maxdepth 3 /c/opt/Qt/ || true
