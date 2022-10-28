@@ -294,8 +294,8 @@ jobs:
           echo "qmake:"
           which ${QMAKE} || true
           ${QMAKE} -v || true
-          find -maxdepth3 /c/opt/Qt/
-          ls -l ${QTDIR}/bin
+          find -maxdepth 3 /c/opt/Qt/ || true
+          ls -l ${QTDIR}/bin || true
 
       - name: Disable unit tests build
         if: false
