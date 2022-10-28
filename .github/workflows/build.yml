@@ -276,15 +276,6 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
 
-      - name: Print program versions
-        run: |
-          echo "GCC:"
-          which gcc || true
-          gcc -v
-          echo "qmake:"
-          qmake -v || true
-          qmake.exe -v || true
-
       - name: D2XX SDK
         run: |
           mkdir -p /c/Qt/D2XXSDK
@@ -294,6 +285,15 @@ jobs:
           cd i386
           gendef.exe - ftd2xx.dll > ftd2xx.def
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
+
+      - name: Print program versions
+        run: |
+          echo "CXX:"
+          which ${CXX} || true
+          ${CXX} -v
+          echo "qmake:"
+          which ${QMAKE} || true
+          ${QMAKE} -v || true
 
       - name: Disable unit tests build
         if: false
@@ -308,7 +308,7 @@ jobs:
 
       - name: Configure build for Windows
         run: |
-          qmake FORCECONFIG=release
+          ${QMAKE} FORCECONFIG=release
 
       - name: Build for Windows
         run: |
