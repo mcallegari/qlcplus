@@ -294,6 +294,8 @@ jobs:
           echo "qmake:"
           which ${QMAKE} || true
           ${QMAKE} -v || true
+          ls -l ${QTDIR}/bin
+          ls -l /c/opt/Qt/
 
       - name: Disable unit tests build
         if: false
