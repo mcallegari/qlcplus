@@ -212,8 +212,10 @@ jobs:
       - name: Update and install MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          release: false
+          release: true
+          msystem: MINGW32
           update: true
+          path-type: inherit
           install: >-
             mingw-w64-i686-libmad
             mingw-w64-i686-libsndfile
