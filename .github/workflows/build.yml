@@ -159,6 +159,7 @@ jobs:
           path-to-lcov: coverage/coverage.info
 
   build-windows:
+    #if: false
     runs-on: windows-latest
     name: QLCplus Windows Build ${{matrix.task}}
     strategy:
@@ -170,15 +171,13 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      CC: gcc
-      CXX: g++
       #PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
       QMAKESPEC: win32-g++
       QT_MODULES:
         qtscript
-    defaults:
-      run:
-        shell: bash
+    #defaults:
+    #  run:
+    #    shell: bash
 
     steps:
       - name: Checkout
@@ -187,6 +186,7 @@ jobs:
           submodules: false
 
       - name: Set ENV variables
+        shell: bash
         run: |
           echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=/}; {print $3}')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
@@ -198,9 +198,10 @@ jobs:
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/c/opt" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=/mingw32/bin/qmake.exe" >> $GITHUB_ENV
+          echo "QMAKE=qmake.exe" >> $GITHUB_ENV
 
       - name: Print ENV vars
+        shell: bash
         run: |
           echo "CI_BRANCH: ${CI_BRANCH}"
           echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
@@ -226,11 +227,11 @@ jobs:
             mingw-w64-i686-libusb
             mingw-w64-i686-gcc-libs
             mingw-w64-i686-gcc
-            mingw-w64-i686-qt5
-            mingw-w64-i686-qt5-base
-            mingw-w64-i686-qt5-script
-            mingw-w64-i686-qt5-tools
             mingw-w64-i686-python-lxml
+            #mingw-w64-i686-qt5
+            #mingw-w64-i686-qt5-base
+            #mingw-w64-i686-qt5-script
+            #mingw-w64-i686-qt5-tools
 
       - name: Install GCC and libs
         if: false
@@ -253,7 +254,7 @@ jobs:
           # pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
 
       - name: Install Qt through aqt (and python)
-        if: false
+        #if: false
         uses: jurplel/install-qt-action@v3
         with:
           version: ${{ env.QT_VERSION }}
@@ -298,14 +299,16 @@ jobs:
         run: |
           echo "CXX:"
           which ${CXX} || true
-          ${CXX} -v
-          ls -l /mingw*/bin/ || true
-          ls -l /msys*/ || true
+          ${CXX} -v || true
           echo "qmake:"
           which qmake || true
           qmake -v || true
           ${QMAKE} -v || true
-          #find -maxdepth 3 /c/opt/Qt/ || true
+          ls -l /mingw*/bin/ || true
+          ls -l /mingw*/usr/bin/ || true
+          ls -l /msys*/bin/ || true
+          ls -l /msys*/usr/bin/ || true
+          ls -l /usr/bin/ || true
 
       - name: Disable unit tests build
         if: false
