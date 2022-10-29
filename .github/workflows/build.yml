@@ -172,6 +172,8 @@ jobs:
       CI_PULL_REQUEST: ${{ github.event.number }}
       CC: gcc
       CXX: g++
+      PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
+      QMAKESPEC: win32-g++
       QT_MODULES:
         qtscript
     defaults:
