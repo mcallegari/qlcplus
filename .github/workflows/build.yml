@@ -4,7 +4,7 @@ on: ["push", "pull_request"]
 
 jobs:
   build-linux:
-    if: false
+    #if: false
     runs-on: ubuntu-20.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
@@ -228,10 +228,11 @@ jobs:
             mingw-w64-i686-gcc-libs
             mingw-w64-i686-gcc
             mingw-w64-i686-python-lxml
-            #mingw-w64-i686-qt5
-            #mingw-w64-i686-qt5-base
-            #mingw-w64-i686-qt5-script
-            #mingw-w64-i686-qt5-tools
+
+        #mingw-w64-i686-qt5
+        #mingw-w64-i686-qt5-base
+        #mingw-w64-i686-qt5-script
+        #mingw-w64-i686-qt5-tools
 
       - name: Install GCC and libs
         if: false
