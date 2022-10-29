@@ -176,7 +176,7 @@ jobs:
         qtscript
     defaults:
       run:
-        shell: bash
+        shell: msys2 {0}
 
     steps:
       - name: Checkout
@@ -213,7 +213,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           release: true
-          msystem: MINGW32
+          msystem: mingw32
           update: true
           path-type: inherit
           install: >-
