@@ -294,7 +294,10 @@ jobs:
           which ${CXX} || true
           ${CXX} -v
           ls -l /mingw*/bin/ || true
+          ls -l /msys*/ || true
           echo "qmake:"
+          which qmake || true
+          qmake -v || true
           ${QMAKE} -v || true
           #find -maxdepth 3 /c/opt/Qt/ || true
 
