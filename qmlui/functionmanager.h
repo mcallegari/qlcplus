@@ -105,8 +105,16 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
-    /** Create a new Function with the specified $type */
-    Q_INVOKABLE quint32 createFunction(int type, QStringList fileList = QStringList());
+    /** Create a new Function with the specified $type
+      * If the optional fixturesList is provided, fixture IDs
+      * will be added to the Function where possible.
+      */
+    Q_INVOKABLE quint32 createFunction(int type, QVariantList fixturesList = QVariantList());
+
+    /** Create a new Audio/Video Function for each
+     *  file path provided in fileList.
+     */
+    Q_INVOKABLE quint32 createAudioVideoFunction(int type, QStringList fileList = QStringList());
 
     /** Return a reference to a Function with the specified $id */
     Q_INVOKABLE Function *getFunction(quint32 id);
