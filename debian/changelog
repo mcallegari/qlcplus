@@ -1,7 +1,9 @@
 qlcplus (4.12.7) stable; urgency=low
 
   * engine: improve audio fade in/out
+  * engine: consider EFX fade-in
   * UI/Monitor: fix 2D view multiple heads not showing correctly
+  * UI/Audio Editor: do not stop audio function if not previewing
   * Virtual Console/Audio Triggers: stop sending DMX values on deactivation
   * Web Access: add support for widget background images
   * New fixture: Vari-Lite VL4000 Spot (thanks to Håvard Ose Nordstrand)
