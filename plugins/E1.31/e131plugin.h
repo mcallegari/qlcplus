@@ -39,6 +39,7 @@ typedef struct
 
 #define E131_MULTICAST "multicast"
 #define E131_MCASTIP "mcastIP"
+#define E131_MCASTFULLIP "mcastFullIP"
 #define E131_UCASTIP "ucastIP"
 #define E131_UCASTPORT "ucastPort"
 #define E131_UNIVERSE "universe"

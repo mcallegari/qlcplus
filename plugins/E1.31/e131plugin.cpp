@@ -325,7 +325,9 @@ void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
         if (name == E131_MULTICAST)
             controller->setInputMulticast(universe, value.toInt());
         else if (name == E131_MCASTIP)
-            controller->setInputMCastAddress(universe, value.toString());
+            controller->setInputMCastAddress(universe, value.toString(), true);
+        else if (name == E131_MCASTFULLIP)
+            controller->setInputMCastAddress(universe, value.toString(), false);
         else if (name == E131_UCASTPORT)
             controller->setInputUCastPort(universe, value.toUInt());
         else if (name == E131_UNIVERSE)
@@ -341,7 +343,9 @@ void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
         if (name == E131_MULTICAST)
             controller->setOutputMulticast(universe, value.toInt());
         else if (name == E131_MCASTIP)
-            controller->setOutputMCastAddress(universe, value.toString());
+            controller->setOutputMCastAddress(universe, value.toString(), true);
+        else if (name == E131_MCASTFULLIP)
+            controller->setOutputMCastAddress(universe, value.toString(), false);
         else if (name == E131_UCASTIP)
             controller->setOutputUCastAddress(universe, value.toString());
         else if (name == E131_UCASTPORT)

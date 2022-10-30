@@ -44,6 +44,7 @@ public slots:
 private:
     void fillMappingTree();
     QWidget *createMcastIPWidget(QString ip);
+    QString getIPAddress(QWidget *ipw);
     void showIPAlert(QString ip);
 
 private slots:

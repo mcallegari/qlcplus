@@ -129,7 +129,7 @@ void ConfigureE131::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);
-                universeSpin->setRange(1, 0xffff);
+                universeSpin->setRange(1, 63999);
                 universeSpin->setValue(info->inputUniverse);
                 m_uniMapTree->setItemWidget(item, KMapColumnE131Uni, universeSpin);
             }
@@ -168,7 +168,7 @@ void ConfigureE131::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);
-                universeSpin->setRange(1, 0xffff);
+                universeSpin->setRange(1, 63999);
                 universeSpin->setValue(info->outputUniverse);
                 m_uniMapTree->setItemWidget(item, KMapColumnE131Uni, universeSpin);
 
@@ -197,18 +197,34 @@ QWidget *ConfigureE131::createMcastIPWidget(QString ip)
     widget->setLayout(new QHBoxLayout);
     widget->layout()->setContentsMargins(0, 0, 0, 0);
 
-    QString baseIP = ip.mid(0, ip.lastIndexOf(".") + 1);
-    QString finalIP = ip.mid(ip.lastIndexOf(".") + 1);
+    QStringList ipNibbles = ip.split(".");
 
-    QLabel *label = new QLabel(baseIP, this);
-    QSpinBox *spin = new QSpinBox(this);
-    spin->setRange(1, 255);
-    spin->setValue(finalIP.toInt());
+    QLabel *label1 = new QLabel(QString("%1.%2.").arg(ipNibbles.at(0)).arg(ipNibbles.at(1)), this);
 
-    widget->layout()->addWidget(label);
-    widget->layout()->addWidget(spin);
+    QSpinBox *spin1 = new QSpinBox(this);
+    spin1->setRange(0, 255);
+    spin1->setValue(ipNibbles.at(2).toInt());
+
+    QLabel *label2 = new QLabel(".");
+
+    QSpinBox *spin2 = new QSpinBox(this);
+    spin2->setRange(1, 255);
+    spin2->setValue(ipNibbles.at(3).toInt());
+
+    widget->layout()->addWidget(label1);
+    widget->layout()->addWidget(spin1);
+    widget->layout()->addWidget(label2);
+    widget->layout()->addWidget(spin2);
 
     return widget;
+}
+
+QString ConfigureE131::getIPAddress(QWidget *ipw)
+{
+    QSpinBox *ip1Spin = qobject_cast<QSpinBox*>(ipw->layout()->itemAt(1)->widget());
+    QSpinBox *ip2Spin = qobject_cast<QSpinBox*>(ipw->layout()->itemAt(3)->widget());
+
+    return QString("239.255.%1.%2").arg(ip1Spin->value()).arg(ip2Spin->value());
 }
 
 void ConfigureE131::showIPAlert(QString ip)
@@ -327,9 +343,10 @@ void ConfigureE131::accept()
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Input,
                             E131_MULTICAST, 1);
                     QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
-                    QSpinBox *ipSpin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                    m_plugin->setParameter(universe, line, QLCIOPlugin::Input,
-                            E131_MCASTIP, ipSpin->value());
+                    // if present, remove any legacy parameter
+                    m_plugin->unSetParameter(universe, line, QLCIOPlugin::Input, E131_MCASTIP);
+                    // set the new full IP address
+                    m_plugin->setParameter(universe, line, QLCIOPlugin::Input, E131_MCASTFULLIP, getIPAddress(ipWidget));
                 }
                 else
                 {
@@ -352,9 +369,10 @@ void ConfigureE131::accept()
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
                             E131_MULTICAST, 1);
                     QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
-                    QSpinBox *ipSpin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                    m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
-                            E131_MCASTIP, ipSpin->value());
+                    // if present, remove any legacy parameter
+                    m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, E131_MCASTIP);
+                    // set the new full IP address
+                    m_plugin->setParameter(universe, line, QLCIOPlugin::Output, E131_MCASTFULLIP, getIPAddress(ipWidget));
                 }
                 else
                 {

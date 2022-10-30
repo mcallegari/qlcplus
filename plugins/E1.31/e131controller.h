@@ -89,7 +89,7 @@ public:
     void setInputMulticast(quint32 universe, bool multicast);
 
     /** Set input as multicast for the givin QLC+ universe */
-    void setInputMCastAddress(quint32 universe, QString address);
+    void setInputMCastAddress(quint32 universe, QString address, bool legacy);
 
     /** Set a specific port for the given QLC+ universe */
     void setInputUCastPort(quint32 universe, quint16 port);
@@ -101,7 +101,7 @@ public:
     void setOutputMulticast(quint32 universe, bool multicast);
 
     /** Set a specific multicast IP address for the given QLC+ universe */
-    void setOutputMCastAddress(quint32 universe, QString address);
+    void setOutputMCastAddress(quint32 universe, QString address, bool legacy);
 
     /** Set a specific unicast IP address for the given QLC+ universe */
     void setOutputUCastAddress(quint32 universe, QString address);
