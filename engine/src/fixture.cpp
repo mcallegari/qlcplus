@@ -572,7 +572,7 @@ void Fixture::checkAlias(int chIndex, uchar value)
     // If the channel @chIndex has aliases, check
     // if replacements are to be done
     QLCCapability *cap = m_fixtureMode->channel(chIndex)->searchCapability(value);
-    if (cap == m_aliasInfo[chIndex].m_currCap)
+    if (cap == NULL || cap == m_aliasInfo[chIndex].m_currCap)
         return;
 
     // first, revert any channel replaced to the original channel set
