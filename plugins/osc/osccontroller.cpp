@@ -127,7 +127,7 @@ QSharedPointer<QUdpSocket> OSCController::getInputSocket(quint16 port)
     }
 
     QSharedPointer<QUdpSocket> inputSocket(new QUdpSocket(this));
-    inputSocket->bind(m_ipAddr, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    inputSocket->bind(QHostAddress::Any, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
     connect(inputSocket.data(), SIGNAL(readyRead()),
             this, SLOT(processPendingPackets()));
     return inputSocket;
