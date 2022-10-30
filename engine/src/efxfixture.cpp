@@ -24,16 +24,15 @@
 #include <math.h>
 
 #include "genericfader.h"
+#include "fadechannel.h"
 #include "mastertimer.h"
 #include "efxfixture.h"
 #include "qlcmacros.h"
 #include "function.h"
 #include "universe.h"
-#include "scene.h"
+#include "gradient.h"
 #include "efx.h"
 #include "doc.h"
-#include "gradient.h"
-
 
 /*****************************************************************************
  * Initialization
@@ -187,14 +186,14 @@ void EFXFixture::durationChanged()
     // new duration.
     m_elapsed = SCALE(float(m_currentAngle),
             float(0), float(M_PI * 2),
-            float(0), float(m_parent->duration()));
+            float(0), float(m_parent->loopDuration()));
 
     // Serial or Asymmetric propagation mode:
     // we must substract the offset from the current position
     if (timeOffset())
     {
         if (m_elapsed < timeOffset())
-            m_elapsed += m_parent->duration();
+            m_elapsed += m_parent->loopDuration();
         m_elapsed -= timeOffset();
     }
 }
@@ -371,7 +370,7 @@ uint EFXFixture::timeOffset() const
     if (m_parent->propagationMode() == EFX::Asymmetric ||
         m_parent->propagationMode() == EFX::Serial)
     {
-        return m_parent->duration() / (m_parent->fixtures().size() + 1) * serialNumber();
+        return m_parent->loopDuration() / (m_parent->fixtures().size() + 1) * serialNumber();
     }
     else
     {
@@ -395,58 +394,19 @@ void EFXFixture::stop()
 
 void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader)
 {
-    m_elapsed += MasterTimer::tick();
+    // Nothing to do
+    if (m_parent->loopDuration() == 0)
+        return;
 
     // Bail out without doing anything if this fixture is ready (after single-shot)
     // or it has no pan&tilt channels (not valid).
     if (m_ready == true || isValid() == false)
         return;
 
-    // Bail out without doing anything if this fixture is waiting for its turn.
-    if (m_parent->propagationMode() == EFX::Serial && m_elapsed < timeOffset() && !m_started)
-        return;
+    m_elapsed += MasterTimer::tick();
 
-    // Fade in
-    if (m_started == false)
-        start();
-
-    // Nothing to do
-    if (m_parent->duration() == 0)
-        return;
-
-    // Scale from elapsed time in relation to overall duration to a point in a circle
-    uint pos = (m_elapsed + timeOffset()) % m_parent->duration();
-    m_currentAngle = SCALE(float(pos),
-                           float(0), float(m_parent->duration()),
-                           float(0), float(M_PI * 2));
-
-    float valX = 0;
-    float valY = 0;
-
-    if ((m_parent->propagationMode() == EFX::Serial &&
-        m_elapsed < (m_parent->duration() + timeOffset()))
-        || m_elapsed < m_parent->duration())
-    {
-        m_parent->calculatePoint(m_runTimeDirection, m_startOffset, m_currentAngle, &valX, &valY);
-
-        /* Prepare faders on universes */
-        switch(m_mode)
-        {
-            case PanTilt:
-                setPointPanTilt(universes, fader, valX, valY);
-            break;
-
-            case RGB:
-                setPointRGB(universes, fader, valX, valY);
-            break;
-
-            case Dimmer:
-                //Use Y for coherence with RGB gradient.
-                setPointDimmer(universes, fader, valY);
-            break;
-        }
-    }
-    else
+    // Check time wrapping
+    if (m_elapsed > m_parent->loopDuration())
     {
         if (m_parent->runOrder() == Function::PingPong)
         {
@@ -463,7 +423,43 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
             stop();
         }
 
-        m_elapsed %= m_parent->duration();
+        m_elapsed = 0;
+    }
+
+    // Bail out without doing anything if this fixture is waiting for its turn.
+    if (m_parent->propagationMode() == EFX::Serial && m_elapsed < timeOffset() && !m_started)
+        return;
+
+    // Fade in
+    if (m_started == false)
+        start();
+
+    // Scale from elapsed time in relation to overall duration to a point in a circle
+    uint pos = (m_elapsed + timeOffset()) % m_parent->loopDuration();
+    m_currentAngle = SCALE(float(pos),
+                           float(0), float(m_parent->loopDuration()),
+                           float(0), float(M_PI * 2));
+
+    float valX = 0;
+    float valY = 0;
+
+    m_parent->calculatePoint(m_runTimeDirection, m_startOffset, m_currentAngle, &valX, &valY);
+
+    /* Set target values on faders/universes */
+    switch (m_mode)
+    {
+        case PanTilt:
+            setPointPanTilt(universes, fader, valX, valY);
+        break;
+
+        case RGB:
+            setPointRGB(universes, fader, valX, valY);
+        break;
+
+        case Dimmer:
+            //Use Y for coherence with RGB gradient.
+            setPointDimmer(universes, fader, valY);
+        break;
     }
 }
 
@@ -485,12 +481,12 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
 
     //qDebug() << "Pan value: " << pan << ", tilt value:" << tilt;
 
-    /* Write coarse point data to universes */
     quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head);
     quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, head().head);
     quint32 tiltMsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head);
     quint32 tiltLsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, head().head);
 
+    /* Write coarse point data to universes */
     if (panMsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panMsbChannel);
