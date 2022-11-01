@@ -228,11 +228,9 @@ jobs:
             mingw-w64-i686-gcc-libs
             mingw-w64-i686-gcc
             mingw-w64-i686-python-lxml
-
-        #mingw-w64-i686-qt5
-        #mingw-w64-i686-qt5-base
-        #mingw-w64-i686-qt5-script
-        #mingw-w64-i686-qt5-tools
+            mingw-w64-i686-qt5-static
+            mingw-w64-i686-qt5-script
+            mingw-w64-i686-qt5-tools
 
       - name: Install GCC and libs
         if: false
@@ -255,7 +253,7 @@ jobs:
           # pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
 
       - name: Install Qt through aqt (and python)
-        #if: false
+        if: false
         uses: jurplel/install-qt-action@v3
         with:
           version: ${{ env.QT_VERSION }}
