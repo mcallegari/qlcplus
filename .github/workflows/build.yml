@@ -292,8 +292,9 @@ jobs:
           bundler-cache: true
 
       - name: D2XX SDK
-        shell: msys2 {0}
+        shell: bash
         run: |
+          set MSYSTEM=MINGW64
           mkdir -p /c/Qt/D2XXSDK
           wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.36.4%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
           cd /c/Qt/D2XXSDK
