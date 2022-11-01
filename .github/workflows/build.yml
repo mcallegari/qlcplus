@@ -191,12 +191,12 @@ jobs:
       - name: Set ENV variables
         shell: bash
         run: |
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\"/\"}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\\"/\\"}; {print $3}')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $1}')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $2}')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $1}')" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $2}')}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
@@ -226,6 +226,7 @@ jobs:
             wget
             unzip
             gcc
+            gcc-libs
             mingw-w64-i686-libmad
             mingw-w64-i686-libsndfile
             mingw-w64-i686-flac
@@ -259,22 +260,6 @@ jobs:
           pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-11.3.0-2-any.pkg.tar.zst
           # pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
 
-      - name: Install Qt through aqt (and python)
-        if: false
-        uses: jurplel/install-qt-action@v3
-        with:
-          msystem: mingw32
-          version: ${{ env.QT_VERSION }}
-          cache: true
-          dir: ${{ env.QT_INSTALL_DIR }}
-          modules: ${{ env.QT_MODULES_INSTALL }}
-
-      - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
-        if: false
-        shell: msys2 {0}
-        run: |
-          pip install lxml
-
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
         with:
@@ -285,14 +270,6 @@ jobs:
           ccache_options: |
             max_size=2G
             compression=false
-
-      - name: Setup ruby cache
-        if: false
-        uses: ruby/setup-ruby@v1
-        with:
-          msystem: mingw32
-          ruby-version: '2.7'
-          bundler-cache: true
 
       - name: D2XX SDK
         shell: msys2 {0}
