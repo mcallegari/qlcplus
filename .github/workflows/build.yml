@@ -175,6 +175,9 @@ jobs:
       QMAKESPEC: win32-g++
       QT_MODULES:
         qtscript
+      CC: /mingw32/bin/i686-w64-mingw32-gcc.exe
+      CXX: /mingw32/bin/i686-w64-mingw32-g++.exe
+
     #defaults:
     #  run:
     #    shell: bash
@@ -296,6 +299,8 @@ jobs:
       - name: Print program versions
         shell: msys2 {0}
         run: |
+          echo "pwd:"
+          pwd
           echo "CXX:"
           which ${CXX} || true
           ${CXX} -v || true
