@@ -4,7 +4,7 @@ on: ["push", "pull_request"]
 
 jobs:
   build-linux:
-    #if: false
+    if: false
     runs-on: ubuntu-20.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
@@ -159,7 +159,7 @@ jobs:
           path-to-lcov: coverage/coverage.info
 
   build-windows:
-    if: false
+    #if: false
     runs-on: windows-latest
     name: QLCplus Windows Build ${{matrix.task}}
     strategy:
@@ -312,7 +312,7 @@ jobs:
           ls -l /usr/bin/ || true
 
       - name: Disable unit tests build
-        if: false
+        #if: false
         shell: msys2 {0}
         run: |
           # disable the test units, since we won't run them
@@ -334,6 +334,7 @@ jobs:
           make
 
       - name: Test
+        #if: false
         shell: msys2 {0}
         run: make check
 
