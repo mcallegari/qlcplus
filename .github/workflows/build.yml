@@ -237,7 +237,7 @@ jobs:
 
       - name: Install GCC and libs
         if: false
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           ls -l /usr/bin/
           find / -iname 'wget*'
@@ -266,7 +266,7 @@ jobs:
 
       - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
         if: false
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: pip install lxml
 
       - name: Setup ccache
@@ -286,7 +286,7 @@ jobs:
           bundler-cache: true
 
       - name: D2XX SDK
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           mkdir -p /c/Qt/D2XXSDK
           wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.36.4%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
@@ -297,7 +297,7 @@ jobs:
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
 
       - name: Print program versions
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           echo "pwd:"
           pwd
@@ -316,7 +316,7 @@ jobs:
 
       - name: Disable unit tests build
         #if: false
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
@@ -327,29 +327,29 @@ jobs:
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
 
       - name: Configure build for Windows
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           ${QMAKE} FORCECONFIG=release
 
       - name: Build for Windows
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           make
 
       - name: Test
         #if: false
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: make check
 
       - name: Install on Windows
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           echo 'Silently installing QLC+...'
           make install -s
           cp *.qm /c/qlcplus
 
       - name: Build installation package
-        shell: msys2 {0}
+        shell: msys2 {1}
         run: |
           cd /c/qlcplus
           sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
