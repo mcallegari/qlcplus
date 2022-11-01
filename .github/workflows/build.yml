@@ -55,12 +55,12 @@ jobs:
           echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=/}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\"/\"}; {print $3}')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $1}')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $2}')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $1}')" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $2}')}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
@@ -191,12 +191,12 @@ jobs:
       - name: Set ENV variables
         shell: bash
         run: |
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=/}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\"/\"}; {print $3}')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $1}')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=-}; {print $2}')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $1}')" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $2}')}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
@@ -218,9 +218,9 @@ jobs:
       - name: Update and install MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          release: true
           msystem: mingw32
-          update: true
+          release: true
+          update: false
           path-type: inherit
           install: >-
             mingw-w64-i686-libmad
@@ -237,8 +237,9 @@ jobs:
 
       - name: Install GCC and libs
         if: false
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           ls -l /usr/bin/
           find / -iname 'wget*'
           # pacman --noconfirm -Sy
@@ -259,6 +260,7 @@ jobs:
         if: false
         uses: jurplel/install-qt-action@v3
         with:
+          msystem: mingw32
           version: ${{ env.QT_VERSION }}
           cache: true
           dir: ${{ env.QT_INSTALL_DIR }}
@@ -266,12 +268,14 @@ jobs:
 
       - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
         if: false
-        shell: msys2 {1}
-        run: pip install lxml
+        shell: msys2 {0}
+        run: |
+          pip install lxml
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
         with:
+          msystem: mingw32
           windows_compile_environment: msys2
           update_packager_index: false
           install_ccache: true
@@ -280,14 +284,17 @@ jobs:
             compression=false
 
       - name: Setup ruby cache
+        if: false
         uses: ruby/setup-ruby@v1
         with:
+          msystem: mingw32
           ruby-version: '2.7'
           bundler-cache: true
 
       - name: D2XX SDK
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           mkdir -p /c/Qt/D2XXSDK
           wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.36.4%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
           cd /c/Qt/D2XXSDK
@@ -297,8 +304,9 @@ jobs:
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
 
       - name: Print program versions
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           echo "pwd:"
           pwd
           echo "CXX:"
@@ -316,8 +324,9 @@ jobs:
 
       - name: Disable unit tests build
         #if: false
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
@@ -327,30 +336,36 @@ jobs:
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
 
       - name: Configure build for Windows
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           ${QMAKE} FORCECONFIG=release
 
       - name: Build for Windows
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           make
 
       - name: Test
         #if: false
-        shell: msys2 {1}
-        run: make check
+        shell: msys2 {0}
+        run: |
+          set MSYSTEM=MINGW32
+          make check
 
       - name: Install on Windows
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           echo 'Silently installing QLC+...'
           make install -s
           cp *.qm /c/qlcplus
 
       - name: Build installation package
-        shell: msys2 {1}
+        shell: msys2 {0}
         run: |
+          set MSYSTEM=MINGW32
           cd /c/qlcplus
           sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
           echo 'Creating package...'
