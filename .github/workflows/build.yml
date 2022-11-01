@@ -223,6 +223,8 @@ jobs:
           update: false
           path-type: inherit
           install: >-
+            wget
+            unzip
             mingw-w64-i686-libmad
             mingw-w64-i686-libsndfile
             mingw-w64-i686-flac
@@ -292,9 +294,9 @@ jobs:
           bundler-cache: true
 
       - name: D2XX SDK
-        shell: bash
+        shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW64
+          set MSYSTEM=MINGW32
           mkdir -p /c/Qt/D2XXSDK
           wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.36.4%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
           cd /c/Qt/D2XXSDK
