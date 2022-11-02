@@ -202,6 +202,8 @@ jobs:
           echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=/mingw32/qt5-static" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
+          echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
+          echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
