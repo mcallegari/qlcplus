@@ -320,7 +320,7 @@ jobs:
       - name: Configure build for Windows
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
           ${QMAKE} FORCECONFIG=release
 
       - name: Build for Windows
