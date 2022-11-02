@@ -17,7 +17,9 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
 #include <QProgressDialog>
+#include <QFileDialog>
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QDebug>
@@ -39,6 +41,7 @@
 #include "audiobar.h"
 #include "vcslider.h"
 #include "sequence.h"
+#include "qlcfile.h"
 #include "vcxypad.h"
 #include "vcframe.h"
 #include "chaser.h"
@@ -61,6 +64,9 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
 
     setupUi(this);
 
+
+    connect(m_importButton, SIGNAL(clicked()),
+            this, SLOT(slotImportFixtures()));
     connect(m_addButton, SIGNAL(clicked()),
             this, SLOT(slotAddTargetFixture()));
     connect(m_removeButton, SIGNAL(clicked()),
@@ -197,6 +203,157 @@ void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
     }
 
     tree->resizeColumnToContents(KColumnName);
+}
+
+QString FixtureRemap::createImportDialog()
+{
+    QString fileName;
+
+    /* Create a file save dialog */
+    QFileDialog dialog(this);
+    dialog.setWindowTitle(tr("Import Fixtures List"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+    /* Append file filters to the dialog */
+    QStringList filters;
+    filters << tr("Fixtures List (*%1)").arg(KExtFixtureList);
+#if defined(WIN32) || defined(Q_OS_WIN)
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return "";
+
+    fileName = dialog.selectedFiles().first();
+    if (fileName.isEmpty() == true)
+        return "";
+
+    return fileName;
+}
+
+void FixtureRemap::slotImportFixtures()
+{
+    QString fileName = createImportDialog();
+
+    QMessageBox msgBox;
+    msgBox.setText(tr("Do you want to automatically connect fixtures with the same name?"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    bool autoConnect = msgBox.exec() == QMessageBox::Yes ? true : false;
+
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
+        return;
+    }
+
+    while (!doc->atEnd())
+    {
+        if (doc->readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc->hasError())
+    {
+        QLCFile::releaseXMLReader(doc);
+        return;
+    }
+
+    if (doc->dtdName() == KXMLQLCFixturesList)
+    {
+        doc->readNextStartElement();
+        if (doc->name() != KXMLQLCFixturesList)
+        {
+            qWarning() << Q_FUNC_INFO << "Fixture Definition node not found";
+            QLCFile::releaseXMLReader(doc);
+            return;
+        }
+
+        while (doc->readNextStartElement())
+        {
+            if (doc->name() == KXMLFixture)
+            {
+                Fixture* fxi = new Fixture(m_targetDoc);
+                Q_ASSERT(fxi != NULL);
+
+                if (fxi->loadXML(*doc, m_targetDoc, m_doc->fixtureDefCache()) == true)
+                {
+                    if (m_targetDoc->addFixture(fxi) == false)
+                    {
+                        qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be created.";
+                        delete fxi;
+                    }
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be loaded.";
+                    delete fxi;
+                }
+            }
+            else if (doc->name() == KXMLQLCFixtureGroup)
+            {
+                FixtureGroup* grp = new FixtureGroup(m_targetDoc);
+                Q_ASSERT(grp != NULL);
+
+                if (grp->loadXML(*doc) == true)
+                {
+                    m_targetDoc->addFixtureGroup(grp, grp->id());
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "FixtureGroup" << grp->name() << "cannot be loaded.";
+                    delete grp;
+                }
+            }
+            else
+            {
+                qWarning() << Q_FUNC_INFO << "Unknown label tag:" << doc->name().toString();
+                doc->skipCurrentElement();
+            }
+        }
+        fillFixturesTree(m_targetDoc, m_targetTree);
+
+        if (autoConnect)
+        {
+            for (int tu = 0; tu < m_targetTree->topLevelItemCount(); tu++)
+            {
+                QTreeWidgetItem *tgtUniItem = m_targetTree->topLevelItem(tu);
+
+                for (int ti = 0; ti < tgtUniItem->childCount(); ti++)
+                {
+                    QTreeWidgetItem *tgtItem = tgtUniItem->child(ti);
+
+                    for (int su = 0; su < m_sourceTree->topLevelItemCount(); su++)
+                    {
+                        QTreeWidgetItem *srcUniItem = m_sourceTree->topLevelItem(su);
+
+                        for (int si = 0; si < srcUniItem->childCount(); si++)
+                        {
+                            QTreeWidgetItem *srcItem = srcUniItem->child(si);
+
+                            if (srcItem->text(KColumnName) == tgtItem->text(KColumnName))
+                            {
+                                connectFixtures(srcItem, tgtItem);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            remapWidget->setRemapList(m_remapList);
+        }
+    }
+    QLCFile::releaseXMLReader(doc);
 }
 
 void FixtureRemap::slotAddTargetFixture()
@@ -411,9 +568,20 @@ void FixtureRemap::slotAddRemap()
         return;
     }
 
+    connectFixtures(m_sourceTree->selectedItems().first(),
+                    m_targetTree->selectedItems().first());
+
+    remapWidget->setRemapList(m_remapList);
+}
+
+void FixtureRemap::connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem *targetItem)
+{
+    if (sourceItem == NULL || targetItem == NULL)
+        return;
+
     RemapInfo newRemap;
-    newRemap.source = m_sourceTree->selectedItems().first();
-    newRemap.target = m_targetTree->selectedItems().first();
+    newRemap.source = sourceItem;
+    newRemap.target = targetItem;
 
     quint32 srcFxiID = newRemap.source->text(KColumnID).toUInt();
     Fixture *srcFxi = m_doc->fixture(srcFxiID);
@@ -479,6 +647,12 @@ void FixtureRemap::slotAddRemap()
                  srcFxiMode == NULL && tgtFxiMode == NULL)
                     oneToOneRemap = true;
 
+        if (oneToOneRemap == true)
+        {
+            tgtFxi->setForcedHTPChannels(srcFxi->forcedHTPChannels());
+            tgtFxi->setForcedLTPChannels(srcFxi->forcedLTPChannels());
+        }
+
         for (quint32 s = 0; s < srcFxi->channels(); s++)
         {
             if (oneToOneRemap == true)
@@ -489,6 +663,7 @@ void FixtureRemap::slotAddRemap()
                     matchInfo.source = newRemap.source->child(s);
                     matchInfo.target = newRemap.target->child(s);
                     m_remapList.append(matchInfo);
+
                     if (srcFxi->channelCanFade(s) == false)
                         tgtFxi->setChannelCanFade(s, false);
                 }
@@ -500,6 +675,7 @@ void FixtureRemap::slotAddRemap()
                 for (quint32 t = 0; t < tgtFxi->channels(); t++)
                 {
                     const QLCChannel* tgtCh = tgtFxi->channel(t);
+
                     if ((tgtCh->group() == srcCh->group()) &&
                         (tgtCh->controlByte() == srcCh->controlByte()))
                     {
@@ -510,6 +686,7 @@ void FixtureRemap::slotAddRemap()
                         matchInfo.source = newRemap.source->child(s);
                         matchInfo.target = newRemap.target->child(t);
                         m_remapList.append(matchInfo);
+
                         if (srcFxi->channelCanFade(s) == false)
                             tgtFxi->setChannelCanFade(t, false);
                         break;
@@ -525,8 +702,6 @@ void FixtureRemap::slotAddRemap()
         if (srcFxi->channelCanFade(srcIdx) == false)
             tgtFxi->setChannelCanFade(tgtIdx, false);
     }
-
-    remapWidget->setRemapList(m_remapList);
 }
 
 void FixtureRemap::slotRemoveRemap()

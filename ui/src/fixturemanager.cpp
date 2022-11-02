@@ -39,7 +39,6 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlccapability.h"
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
@@ -50,12 +49,8 @@
 #include "addchannelsgroup.h"
 #include "fixturemanager.h"
 #include "fixtureremap.h"
-#include "mastertimer.h"
-#include "outputpatch.h"
-#include "qlcioplugin.h"
 #include "addrgbpanel.h"
 #include "addfixture.h"
-#include "collection.h"
 #include "rdmmanager.h"
 #include "universe.h"
 #include "fixture.h"

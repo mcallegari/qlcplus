@@ -60,6 +60,9 @@ class QString;
 #define KXMLQLCCreatorVersion   QString("Version")
 #define KXMLQLCCreatorAuthor    QString("Author")
 
+// share fixture list tag
+#define KXMLQLCFixturesList QString("FixtureList")
+
 // True and false
 #define KXMLQLCTrue "True"
 #define KXMLQLCFalse "False"
