@@ -501,6 +501,10 @@ public:
      */
     bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 
+private:
+    /** In case of duplicate strings, append a number to make them unique */
+    void removeDuplicates(QStringList &list);
+
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */
     void slotPluginConfigurationChanged(QLCIOPlugin* plugin);
