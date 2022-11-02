@@ -4,7 +4,7 @@ on: ["push", "pull_request"]
 
 jobs:
   build-linux:
-    if: false
+    #if: false
     runs-on: ubuntu-20.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
@@ -159,7 +159,7 @@ jobs:
           path-to-lcov: coverage/coverage.info
 
   build-windows:
-    #if: false
+    if: false
     runs-on: windows-latest
     name: QLCplus Windows Build ${{matrix.task}}
     strategy:
@@ -171,7 +171,6 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      #PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
       QMAKESPEC: win32-g++
       QT_MODULES:
         qtscript
@@ -320,7 +319,7 @@ jobs:
       - name: Configure build for Windows
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW64
+          set MSYSTEM=MINGW32
           ${QMAKE} FORCECONFIG=release
 
       - name: Build for Windows
