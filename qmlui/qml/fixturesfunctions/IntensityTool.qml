@@ -27,7 +27,7 @@ import "."
 Rectangle
 {
     id: intRoot
-    width: UISettings.bigItemHeight * 1.5
+    width: UISettings.bigItemHeight * (paletteBox.checked ? 2 : 1.5)
     height: (UISettings.bigItemHeight * 3) + paletteBox.height
     color: UISettings.bgMedium
     //border.color: UISettings.bgLight
@@ -173,6 +173,7 @@ Rectangle
                 stepSize: 1.0
                 background: Rectangle { color: "transparent" }
                 handle: Rectangle { color: "transparent" }
+                wheelEnabled: true
                 value: currentValue
 
                 onPositionChanged: currentValue = valueAt(position)

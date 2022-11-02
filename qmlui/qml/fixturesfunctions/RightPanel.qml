@@ -71,7 +71,7 @@ SidePanel
             return
         }
 
-        var newFuncID = functionManager.createFunction(fType)
+        var newFuncID = functionManager.createFunction(fType, contextManager.selectedFixtureIDVariantList())
         var fEditor = functionManager.getEditorResource(newFuncID)
         functionManager.setEditorFunction(newFuncID, false, false)
 
@@ -127,13 +127,13 @@ SidePanel
 
             if (strArray.length === 1)
             {
-                itemID = functionManager.createFunction(fType, strArray)
+                itemID = functionManager.createAudioVideoFunction(fType, strArray)
                 functionManager.setEditorFunction(itemID, false, false)
                 loaderSource = functionManager.getEditorResource(itemID)
             }
             else
             {
-                functionManager.createFunction(fType, strArray)
+                functionManager.createAudioVideoFunction(fType, strArray)
                 loaderSource = "qrc:/FunctionManager.qml"
             }
 

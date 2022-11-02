@@ -612,6 +612,26 @@ QString InputOutputMap::pluginDescription(const QString &pluginName)
         return "";
 }
 
+void InputOutputMap::removeDuplicates(QStringList &list)
+{
+    if (list.count() == 1)
+        return;
+
+    int c = 2;
+
+    for (int i = 1; i < list.count(); i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (list.at(i) == list.at(j))
+            {
+                list.replace(i, QString("%1 %2").arg(list.at(j)).arg(c));
+                c++;
+            }
+        }
+    }
+}
+
 QStringList InputOutputMap::inputPluginNames()
 {
     QStringList list;
@@ -644,7 +664,11 @@ QStringList InputOutputMap::pluginInputs(const QString& pluginName)
     if (ip == NULL)
         return QStringList();
     else
-        return ip->inputs();
+    {
+        QStringList iList = ip->inputs();
+        removeDuplicates(iList);
+        return iList;
+    }
 }
 
 QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
@@ -653,7 +677,11 @@ QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
     if (op == NULL)
         return QStringList();
     else
-        return op->outputs();
+    {
+        QStringList oList = op->outputs();
+        removeDuplicates(oList);
+        return oList;
+    }
 }
 
 bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)

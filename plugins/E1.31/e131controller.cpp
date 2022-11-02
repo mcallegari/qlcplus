@@ -157,7 +157,7 @@ QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostA
     return inputSocket;
 }
 
-void E131Controller::setInputMCastAddress(quint32 universe, QString address)
+void E131Controller::setInputMCastAddress(quint32 universe, QString address, bool legacy)
 {
     if (m_universeMap.contains(universe) == false)
         return;
@@ -165,9 +165,12 @@ void E131Controller::setInputMCastAddress(quint32 universe, QString address)
     QMutexLocker locker(&m_dataMutex);
     UniverseInfo& info = m_universeMap[universe];
 
-    QHostAddress newAddress(QString("239.255.0.%1").arg(address));
+    QHostAddress newAddress = legacy ?
+        QHostAddress(QString("239.255.0.%1").arg(address)) : QHostAddress(address);
+
     if (info.inputMcastAddress == newAddress)
         return;
+
     info.inputMcastAddress = newAddress;
 
     if (!info.inputMulticast)
@@ -218,13 +221,14 @@ void E131Controller::setOutputMulticast(quint32 universe, bool multicast)
     m_universeMap[universe].outputMulticast = multicast;
 }
 
-void E131Controller::setOutputMCastAddress(quint32 universe, QString address)
+void E131Controller::setOutputMCastAddress(quint32 universe, QString address, bool legacy)
 {
     if (m_universeMap.contains(universe) == false)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    m_universeMap[universe].outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(address));
+    m_universeMap[universe].outputMcastAddress = legacy ?
+        QHostAddress(QString("239.255.0.%1").arg(address)) : QHostAddress(address);
 }
 
 void E131Controller::setOutputUCastAddress(quint32 universe, QString address)
