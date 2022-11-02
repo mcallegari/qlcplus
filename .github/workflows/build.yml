@@ -225,8 +225,8 @@ jobs:
           install: >-
             wget
             unzip
-            gcc
-            gcc-libs
+            mingw-w64-i686-gcc
+            mingw-w64-i686-gcc-libs
             mingw-w64-i686-libmad
             mingw-w64-i686-libsndfile
             mingw-w64-i686-flac
