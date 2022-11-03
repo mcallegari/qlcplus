@@ -794,25 +794,6 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
     return newValuesList;
 }
 
-QList<VCWidget *> FixtureRemap::getVCChildren(VCWidget *obj)
-{
-    QList<VCWidget *> list;
-    if (obj == NULL)
-        return list;
-    QListIterator <VCWidget*> it(obj->findChildren<VCWidget*>());
-    while (it.hasNext() == true)
-    {
-        VCWidget* child = it.next();
-        if (list.contains(child) == false)
-        {
-            qDebug() << Q_FUNC_INFO << "append: " << child->caption();
-            list.append(child);
-        }
-        list.append(getVCChildren(child));
-    }
-    return list;
-}
-
 void FixtureRemap::accept()
 {
     /* **********************************************************************
@@ -989,81 +970,90 @@ void FixtureRemap::accept()
      * 6 - remap Virtual Console widgets
      * ********************************************************************** */
     VCFrame* contents = VirtualConsole::instance()->contents();
-    QList<VCWidget *> widgetsList = getVCChildren((VCWidget *)contents);
+    QList<VCWidget *> widgetsList = contents->findChildren<VCWidget*>();
 
-    foreach (QObject *object, widgetsList)
+    foreach (VCWidget *widget, widgetsList)
     {
-        VCWidget *widget = qobject_cast<VCWidget *>(object);
-        if (widget->type() == VCWidget::SliderWidget)
-        {
-            VCSlider *slider = (VCSlider *)object;
-            if (slider->sliderMode() == VCSlider::Level)
-            {
-                qDebug() << "Remapping slider:" << slider->caption();
-                QList <SceneValue> newChannels;
+        qDebug() << "Widget label:" << widget->caption() << "type" << widget->typeToString(widget->type());
 
-                foreach (VCSlider::LevelChannel chan, slider->levelChannels())
+        switch (widget->type())
+        {
+            case VCWidget::SliderWidget:
+            {
+                VCSlider *slider = qobject_cast<VCSlider*>(widget);
+                if (slider->sliderMode() == VCSlider::Level)
                 {
-                    for (int v = 0; v < sourceList.count(); v++)
+                    qDebug() << "Remapping slider:" << slider->caption();
+                    QList <SceneValue> newChannels;
+
+                    foreach (VCSlider::LevelChannel chan, slider->levelChannels())
                     {
-                        SceneValue val = sourceList.at(v);
-                        if (val.fxi == chan.fixture && val.channel == chan.channel)
+                        for (int v = 0; v < sourceList.count(); v++)
                         {
-                            qDebug() << "Matching channel:" << chan.fixture << chan.channel << "to target:" << targetList.at(v).fxi << targetList.at(v).channel;
-                            newChannels.append(SceneValue(targetList.at(v).fxi, targetList.at(v).channel));
+                            SceneValue val = sourceList.at(v);
+                            if (val.fxi == chan.fixture && val.channel == chan.channel)
+                            {
+                                qDebug() << "Matching channel:" << chan.fixture << chan.channel << "to target:" << targetList.at(v).fxi << targetList.at(v).channel;
+                                newChannels.append(SceneValue(targetList.at(v).fxi, targetList.at(v).channel));
+                            }
                         }
                     }
-                }
-                // this is crucial: here all the "unmapped" channels will be lost forever !
-                slider->clearLevelChannels();
-                foreach (SceneValue rmpChan, newChannels)
-                    slider->addLevelChannel(rmpChan.fxi, rmpChan.channel);
-            }
-        }
-        else if (widget->type() == VCWidget::AudioTriggersWidget)
-        {
-            VCAudioTriggers *triggers = (VCAudioTriggers *)object;
-            foreach (AudioBar *bar, triggers->getAudioBars())
-            {
-                if (bar->m_type == AudioBar::DMXBar)
-                {
-                    QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
                     // this is crucial: here all the "unmapped" channels will be lost forever !
-                    bar->attachDmxChannels(m_doc, newList);
+                    slider->clearLevelChannels();
+                    foreach (SceneValue rmpChan, newChannels)
+                        slider->addLevelChannel(rmpChan.fxi, rmpChan.channel);
                 }
             }
-        }
-        else if (widget->type() == VCWidget::XYPadWidget)
-        {
-            VCXYPad *xypad = (VCXYPad *)object;
-            QList<VCXYPadFixture> copyFixtures;
-            foreach (VCXYPadFixture fix, xypad->fixtures())
+            break;
+            case VCWidget::AudioTriggersWidget:
             {
-                quint32 srxFxID = fix.head().fxi; // TODO: heads !!
-                for (int i = 0; i < sourceList.count(); i++)
+                VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
+                foreach (AudioBar *bar, triggers->getAudioBars())
                 {
-                    SceneValue val = sourceList.at(i);
-                    if (val.fxi == srxFxID)
+                    if (bar->m_type == AudioBar::DMXBar)
                     {
-                        SceneValue tgtVal = targetList.at(i);
-                        Fixture *docFix = m_doc->fixture(tgtVal.fxi);
-                        quint32 fxCh = tgtVal.channel;
-                        const QLCChannel *chan = docFix->channel(fxCh);
-                        if (chan->group() == QLCChannel::Pan ||
-                            chan->group() == QLCChannel::Tilt)
-                        {
-                            VCXYPadFixture tgtFix(m_doc);
-                            GroupHead head(tgtVal.fxi, 0);
-                            tgtFix.setHead(head);
-                            copyFixtures.append(tgtFix);
-                        }
+                        QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
+                        // this is crucial: here all the "unmapped" channels will be lost forever !
+                        bar->attachDmxChannels(m_doc, newList);
                     }
                 }
             }
-            // this is crucial: here all the "unmapped" fixtures will be lost forever !
-            xypad->clearFixtures();
-            foreach (VCXYPadFixture fix, copyFixtures)
-                xypad->appendFixture(fix);
+            break;
+            case VCWidget::XYPadWidget:
+            {
+                VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+                QList<VCXYPadFixture> copyFixtures;
+                foreach (VCXYPadFixture fix, xypad->fixtures())
+                {
+                    quint32 srxFxID = fix.head().fxi; // TODO: heads !!
+                    for (int i = 0; i < sourceList.count(); i++)
+                    {
+                        SceneValue val = sourceList.at(i);
+                        if (val.fxi == srxFxID)
+                        {
+                            SceneValue tgtVal = targetList.at(i);
+                            Fixture *docFix = m_doc->fixture(tgtVal.fxi);
+                            quint32 fxCh = tgtVal.channel;
+                            const QLCChannel *chan = docFix->channel(fxCh);
+                            if (chan->group() == QLCChannel::Pan ||
+                                chan->group() == QLCChannel::Tilt)
+                            {
+                                VCXYPadFixture tgtFix(m_doc);
+                                GroupHead head(tgtVal.fxi, 0);
+                                tgtFix.setHead(head);
+                                copyFixtures.append(tgtFix);
+                            }
+                        }
+                    }
+                }
+                // this is crucial: here all the "unmapped" fixtures will be lost forever !
+                xypad->clearFixtures();
+                foreach (VCXYPadFixture fix, copyFixtures)
+                    xypad->appendFixture(fix);
+            }
+            break;
+            default:
+            break;
         }
     }
 

@@ -67,8 +67,6 @@ protected:
                                        QList<SceneValue> &srcList,
                                        QList<SceneValue> &tgtList);
 
-    QList<VCWidget *> getVCChildren(VCWidget *obj);
-
 protected slots:
     void slotImportFixtures();
     void slotAddTargetFixture();
