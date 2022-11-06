@@ -202,8 +202,8 @@ Rectangle
 
             MouseArea
             {
-                width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
-                height: twoDView.height
+                width: twoDView.contentWidth
+                height: twoDView.contentHeight
                 z: 2
 
                 property int initialXPos
@@ -321,8 +321,8 @@ Rectangle
             {
                 id: contentsDragArea
                 objectName: "contentsDragArea"
-                width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
-                height: twoDView.height
+                width: twoDView.contentWidth
+                height: twoDView.contentHeight
                 color: "transparent"
                 /*
                 // enable for debug

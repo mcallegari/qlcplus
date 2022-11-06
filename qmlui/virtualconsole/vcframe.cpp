@@ -123,6 +123,8 @@ VCWidget *VCFrame::createCopy(VCWidget *parent)
     Q_ASSERT(parent != nullptr);
 
     VCFrame *frame = new VCFrame(m_doc, m_vc, parent);
+    QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
+
     if (frame->copyFrom(this) == false)
     {
         delete frame;
