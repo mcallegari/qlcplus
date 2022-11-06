@@ -855,8 +855,8 @@ int FixtureManager::fixtureLinkedIndex(quint32 itemID)
 void FixtureManager::updateLinkedFixtureNode(quint32 itemID, bool add)
 {
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
-    int headIndex = FixtureUtils::itemHeadIndex(itemID);
-    int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
     MonitorProperties *monProps = m_doc->monitorProperties();
     QStringList uniNames = m_doc->inputOutputMap()->universeNames();
 

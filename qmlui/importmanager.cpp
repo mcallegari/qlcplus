@@ -25,6 +25,7 @@
 #include "fixturemanager.h"
 
 #include "qlcfixturedefcache.h"
+#include "monitorproperties.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "fixtureutils.h"
@@ -206,6 +207,10 @@ void ImportManager::getAvailableFixtureAddress(int channels, int &universe, int 
 
 void ImportManager::importFixtures()
 {
+    MonitorProperties *importMonProps = m_importDoc->monitorProperties();
+    MonitorProperties *monProps = m_doc->monitorProperties();
+
+    /* ************************ Import fixtures ************************ */
     for (quint32 importID : m_fixtureIDList)
     {
         bool matchFound = false;
@@ -285,7 +290,24 @@ void ImportManager::importFixtures()
             }
         }
     }
+    /* ******************** Import linked fixtures ********************* */
+    for (quint32 itemID : m_itemIDList)
+    {
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
+        // if no original fixture was selected, skip linked
+        if (m_fixtureIDList.contains(fixtureID) == false)
+            continue;
+
+        QString name = importMonProps->fixtureName(fixtureID, headIndex, linkedIndex);
+        //quint32 remappedID = FixtureUtils::fixtureItemID(m_fixtureIDRemap[fixtureID], headIndex, linkedIndex);
+        monProps->setFixtureName(m_fixtureIDRemap[fixtureID], headIndex, linkedIndex, name);
+    }
+
+
+    /* ********************* Import fixture groups ********************* */
     for (quint32 groupID : m_fixtureGroupIDList)
     {
         bool matchFound = false;
@@ -595,7 +617,7 @@ QVariant ImportManager::groupsTreeModel()
         m_fixtureTree->enableSorting(false);
 
         FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter,
-                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowHeads);
+                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowHeads | FixtureManager::ShowLinked);
 
         connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                 this, SLOT(slotFixtureTreeDataChanged(TreeModelItem*,int,const QVariant&)));
@@ -632,15 +654,25 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
     if (itemType == App::FixtureDragItem)
     {
         quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
         if (checked)
         {
             if (m_fixtureIDList.contains(fixtureID) == false)
                 m_fixtureIDList.append(fixtureID);
+
+            if (linkedIndex > 0 && m_itemIDList.contains(itemID) == false)
+            {
+                m_itemIDList.append(itemID);
+                checkFixtureTree(m_fixtureTree);
+            }
         }
         else
         {
-            m_fixtureIDList.removeOne(fixtureID);
+            if (linkedIndex > 0)
+                m_itemIDList.removeOne(itemID);
+            else
+                m_fixtureIDList.removeOne(fixtureID);
         }
     }
     else if (itemType == App::FixtureGroupDragItem)
@@ -700,9 +732,11 @@ void ImportManager::checkFixtureTree(TreeModel *tree)
         // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
         if (itemData.count() == 6 && itemData.at(1).toInt() == App::FixtureDragItem)
         {
-            quint32 fixtureID = FixtureUtils::itemFixtureID(itemData.at(2).toUInt());
+            quint32 itemID = itemData.at(2).toUInt();
+            quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
-            if (m_fixtureIDList.contains(fixtureID))
+            if (m_fixtureIDList.contains(fixtureID) && linkedIndex == 0)
                 tree->setItemRoleData(item, true, TreeModel::IsCheckedRole);
         }
 
@@ -926,7 +960,7 @@ void ImportManager::checkFunctionDependency(quint32 fid)
 
             for (quint32 id : group->fixtureList())
             {
-                if (m_fixtureIDList.contains(id))
+                if (m_fixtureIDList.contains(id) == false)
                     m_fixtureIDList.append(id);
             }
         }
