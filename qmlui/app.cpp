@@ -907,6 +907,7 @@ void App::importFromWorkspace()
         return;
 
     m_importManager->apply();
+    m_paletteManager->updatePaletteList();
 
     delete m_importManager;
     m_importManager = nullptr;

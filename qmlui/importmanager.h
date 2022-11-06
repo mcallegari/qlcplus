@@ -59,6 +59,9 @@ private:
     /** Perform the actual import of Fixtures */
     void importFixtures();
 
+    /** Perform the actual import of Palettes */
+    void importPalettes();
+
     /** Recursive method that imports a Function ID
      *  satisfying the Function dependecies first */
     void importFunctionID(quint32 funcID);
@@ -106,6 +109,11 @@ private:
     QList<quint32> m_fixtureGroupIDList;
     /** A map of the Fixture group IDs that need to be remapped */
     QMap<quint32, quint32> m_fixtureGroupIDRemap;
+
+    /** The list of selected Palette IDs */
+    QList<quint32> m_paletteIDList;
+    /** A map of the Palette IDs that need to be remapped */
+    QMap<quint32, quint32> m_paletteIDRemap;
 
     /*********************************************************************
      * Function tree

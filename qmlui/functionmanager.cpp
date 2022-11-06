@@ -22,13 +22,10 @@
 #include <QDebug>
 
 #include "audioplugincache.h"
-#include "genericdmxsource.h"
 #include "collectioneditor.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
-#include "contextmanager.h"
 #include "treemodelitem.h"
-#include "scriptwrapper.h"
 #include "chasereditor.h"
 #include "scripteditor.h"
 #include "sceneeditor.h"
@@ -40,6 +37,7 @@
 #include "rgbmatrix.h"
 #include "function.h"
 #include "sequence.h"
+#include "script.h"
 #include "chaser.h"
 #include "scene.h"
 #include "audio.h"
