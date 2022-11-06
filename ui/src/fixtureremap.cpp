@@ -974,8 +974,6 @@ void FixtureRemap::accept()
 
     foreach (VCWidget *widget, widgetsList)
     {
-        qDebug() << "Widget label:" << widget->caption() << "type" << widget->typeToString(widget->type());
-
         switch (widget->type())
         {
             case VCWidget::SliderWidget:
