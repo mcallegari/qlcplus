@@ -47,8 +47,8 @@ build_script:
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
           # patch Qt 5.15.x to build with GCC 12
           cd /c/msys64/mingw32/include/
-          sed -i -e 's/friend Q_CORE_EXPORT uint qHash///friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
-          sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==///friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
+          sed -i -e 's/friend Q_CORE_EXPORT uint qHash/\/\/friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
+          sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==/\/\/friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
           cd /c/projects/qlcplus
           sed -i -e 's/QMAKE_CXXFLAGS += -Werror/QMAKE_CXXFLAGS += -Werror -Wno-error=attributes/g' variables.pri
           # disable the test units, since we won't run them
