@@ -278,6 +278,10 @@ bool EditorView::saveAs(QString path)
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(path).toLocalFile();
 
+    /* Always use the fixture suffix */
+    if (localFilename.right(4) != KExtFixture)
+        localFilename += KExtFixture;
+
     m_fileName = localFilename;
 
     save();

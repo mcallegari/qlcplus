@@ -141,9 +141,9 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                    continue;
 
                bool containsColor = false;
-               for(quint32 i = 0; i < 256; ++i)
+               for (quint32 v = 0; v < 256; ++v)
                {
-                   QLCCapability *cap = ch->searchCapability(i);
+                   QLCCapability *cap = ch->searchCapability(v);
                    if (cap != NULL && cap->resource(0).isValid())
                    {
                        values << cap->resource(0).value<QColor>();
@@ -179,7 +179,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                        // handle case when the channel has only one capability 0-255 strobe:
                        // make 0 Open to avoid blinking
                        values << FixtureHead::Open;
-                       for (i = 1; i < 256; i++)
+                       for (int v = 1; v < 256; v++)
                            values << FixtureHead::Strobe;
                        containsShutter = true;
                    }
@@ -188,7 +188,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                    {
                        foreach (QLCCapability *cap, ch->capabilities())
                        {
-                           for (int i = cap->min(); i <= cap->max(); i++)
+                           for (int v = cap->min(); v <= cap->max(); v++)
                            {
                                switch (cap->preset())
                                {
@@ -311,17 +311,19 @@ void MonitorFixtureItem::setSize(QSize size)
             int index = i * columns + j;
             if (index < m_heads.size())
             {
-		FixtureHead * h = m_heads.at(index);
+                FixtureHead * h = m_heads.at(index);
                 QGraphicsEllipseItem *head = h->m_item;
                 head->setRect(xpos, ypos, headDiam, headDiam);
 
                 if (h->m_panChannel != QLCChannel::invalid())
                 {
-                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1, -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
+                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1,
+                                                        -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
                 }
                 if (h->m_tiltChannel != QLCChannel::invalid())
                 {
-                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1, -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
+                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1,
+                                                        -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
                 }
 
                 head->setZValue(2);

@@ -416,11 +416,14 @@ void App::clearDocument()
         m_videoProvider = nullptr;
     }
 
-    m_doc->masterTimer()->stop();
-    m_doc->clearContents();
-    m_virtualConsole->resetContents();
+    m_contextManager->resetFixtureSelection();
     //m_simpleDesk->resetContents(); // TODO
     m_showManager->resetContents();
+    m_virtualConsole->resetContents();
+
+    m_doc->masterTimer()->stop();
+    m_doc->clearContents();
+
     m_tardis->resetHistory();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
@@ -904,6 +907,7 @@ void App::importFromWorkspace()
         return;
 
     m_importManager->apply();
+    m_paletteManager->updatePaletteList();
 
     delete m_importManager;
     m_importManager = nullptr;

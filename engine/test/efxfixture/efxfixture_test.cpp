@@ -546,7 +546,7 @@ void EFXFixture_Test::nextStepLoop()
     e.preRun(&mts);
 
     /* Run two cycles (2 * tickms * freq) to see that Loop never quits */
-    uint max = MasterTimer::tick() * MasterTimer::frequency();
+    uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
     uint i = MasterTimer::tick();
     for (uint times = 0; times < 2; times++)
     {
@@ -586,7 +586,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     e.preRun(&mts);
 
     /* Run two cycles (2 * tickms * freq) to see that Loop never quits */
-    uint max = MasterTimer::tick() * MasterTimer::frequency();
+    uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
     uint i = MasterTimer::tick();
     for (uint times = 0; times < 2; times++)
     {
@@ -594,7 +594,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
         {
             ef->nextStep(ua, fader);
             QVERIFY(ef->isReady() == false); // Loop is never ready
-            QCOMPARE(ef->m_elapsed, i);
+            QVERIFY(ef->m_elapsed == 0); // elapsed is never increased
         }
 
         // m_elapsed is NOT zeroed since there are no "rounds" when duration == 0
@@ -629,7 +629,7 @@ void EFXFixture_Test::nextStepSingleShot()
     ef->reset();
 
     /* Run one cycle (50 steps) */
-    uint max = MasterTimer::tick() * MasterTimer::frequency();
+    uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
     for (uint i = MasterTimer::tick(); i < max; i += MasterTimer::tick())
     {
         ef->nextStep(ua, fader);

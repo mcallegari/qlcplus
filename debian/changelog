@@ -1,6 +1,15 @@
 qlcplus (4.12.7) stable; urgency=low
 
   * engine: improve audio fade in/out
+  * engine: consider EFX fade in
+  * engine: make sure input/output device names are unique
+  * UI/Monitor: fix 2D view multiple heads not showing correctly
+  * UI/Audio Editor: do not stop audio function if not previewing
+  * UI/Fixture Remap: add button to import fixture lists (.qxfl)
+  * UI/Fixture Remap: fix wrong widgets remapping
+  * Plugins/OSC: fix broadcast packets reception (thanks to Jannis Achstetter)
+  * Plugins/E1.31: allow to set 2 digits of the IP address
+  * Virtual Console/Audio Triggers: stop sending DMX values on deactivation
   * Web Access: add support for widget background images
   * New fixture: Vari-Lite VL4000 Spot (thanks to Håvard Ose Nordstrand)
   * New fixtures: Clay Paky Tambora Batten, Tambora Flash, Sharpy X Frame (thanks to Gianluca Baggi)

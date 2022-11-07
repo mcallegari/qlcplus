@@ -579,6 +579,9 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         }
 
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
+        newFixture->setForcedHTPChannels(fixture->forcedHTPChannels());
+        newFixture->setForcedLTPChannels(fixture->forcedLTPChannels());
+
         m_fixtures.insert(id, newFixture);
         m_fixturesListCacheUpToDate = false;
 

@@ -719,7 +719,7 @@ Rectangle
                                 {
                                     id: hLabel
                                     height: UISettings.listItemHeight
-                                    label: qsTr("Hold")
+                                    label: qsTr("Loop")
                                 }
 
                                 Rectangle

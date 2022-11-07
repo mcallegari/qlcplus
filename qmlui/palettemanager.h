@@ -92,7 +92,6 @@ public:
     int colorCount() const { return m_colorCount; }
     int positionCount() const { return m_positionCount; }
 
-protected:
     void updatePaletteList();
 
 signals:

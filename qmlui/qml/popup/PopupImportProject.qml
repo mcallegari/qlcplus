@@ -166,6 +166,7 @@ CustomPopupDialog
                         onLoaded:
                         {
                             //console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
+                            item.width = Qt.binding(function() { return groupListView.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0) })
                             item.cRef = classRef
                             item.textLabel = label
                             item.isSelected = Qt.binding(function() { return isSelected })
@@ -178,11 +179,12 @@ CustomPopupDialog
                                 if (type)
                                 {
                                     item.itemType = type
-                                    if (type == App.UniverseDragItem)
+                                    if (type === App.UniverseDragItem)
                                         isExpanded = true
                                 }
                                 item.nodePath = path
                                 item.isExpanded = isExpanded
+                                item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
                                 item.childrenDelegate = "qrc:/FixtureDelegate.qml"
                                 item.nodeChildren = childrenModel
                             }
@@ -237,6 +239,7 @@ CustomPopupDialog
 
                             onLoaded:
                             {
+                                item.width = Qt.binding(function() { return functionsListView.width - (fMgrScrollBar.visible ? fMgrScrollBar.width : 0) })
                                 item.textLabel = label
                                 item.isSelected = Qt.binding(function() { return isSelected })
                                 item.isCheckable = isCheckable

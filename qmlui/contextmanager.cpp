@@ -571,6 +571,8 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     emit dumpValuesCountChanged();
 
     Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);
