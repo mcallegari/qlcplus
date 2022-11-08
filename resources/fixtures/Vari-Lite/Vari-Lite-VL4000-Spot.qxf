@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.0.0 Beta 2</Version>
+  <Version>4.12.7 GIT</Version>
   <Author>Håvard Ose Nordstrand</Author>
  </Creator>
  <Manufacturer>Vari-Lite</Manufacturer>
@@ -173,7 +173,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -199,7 +199,7 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
   <Capability Min="229" Max="230">220s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
@@ -530,7 +530,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -556,9 +556,9 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
-  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="229" Max="230">210s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
   <Capability Min="234" Max="235">240s</Capability>
   <Capability Min="236" Max="238">250s</Capability>
@@ -667,7 +667,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -693,9 +693,9 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
-  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="229" Max="230">210s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
   <Capability Min="234" Max="235">240s</Capability>
   <Capability Min="236" Max="238">250s</Capability>
@@ -804,7 +804,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -830,7 +830,7 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
   <Capability Min="229" Max="230">220s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
@@ -941,7 +941,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -967,7 +967,7 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
   <Capability Min="229" Max="230">220s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
