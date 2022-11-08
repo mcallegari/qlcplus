@@ -568,9 +568,9 @@ def validate_fx_channels(absname, xmlObj, errNum):
                 errNum += 1
 
             # disabled for now. 710 errors with this !
-            #if currMin != lastMax + 1:
-            #    print(absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax))
-            #    errNum += 1
+            if currMin != lastMax + 1:
+                print(absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax))
+                errNum += 1
 
             lastMax = currMax
 
