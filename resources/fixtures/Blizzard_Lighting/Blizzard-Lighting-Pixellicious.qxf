@@ -3,8 +3,8 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
-  <Author>Alton Olson</Author>
+  <Version>4.12.7 GIT</Version>
+  <Author>Yestalgia</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Pixellicious</Model>
@@ -53,6 +53,9 @@
  <Channel Name="Section 7 Blue Intensity" Preset="IntensityBlue"/>
  <Channel Name="Section 8 Blue Intensity" Preset="IntensityBlue"/>
  <Channel Name="Section 9 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 10 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 10 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 10 Blue Intensity" Preset="IntensityBlue"/>
  <Mode Name="35 Channel Mode">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
@@ -83,9 +86,12 @@
   <Channel Number="26">Section 9 Red Intensity</Channel>
   <Channel Number="27">Section 9 Green Intensity</Channel>
   <Channel Number="28">Section 9 Blue Intensity</Channel>
-  <Channel Number="29">Auto Programs 1-15</Channel>
-  <Channel Number="30">Auto Programs 16-29 + Mix Mode</Channel>
-  <Channel Number="31">Auto Program Speed</Channel>
+  <Channel Number="29">Section 10 Red Intensity</Channel>
+  <Channel Number="30">Section 10 Green Intensity</Channel>
+  <Channel Number="31">Section 10 Blue Intensity</Channel>
+  <Channel Number="32">Auto Programs 1-15</Channel>
+  <Channel Number="33">Auto Programs 16-29 + Mix Mode</Channel>
+  <Channel Number="34">Auto Program Speed</Channel>
   <Head>
    <Channel>3</Channel>
    <Channel>2</Channel>
