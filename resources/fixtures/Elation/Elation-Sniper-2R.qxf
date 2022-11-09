@@ -150,7 +150,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="39">No Function</Capability>
+  <Capability Min="0" Max="39">No function</Capability>
   <Capability Min="40" Max="59" Preset="LampOn">Lamp On</Capability>
   <Capability Min="60" Max="79" Preset="LampOff">Lamp Off</Capability>
   <Capability Min="80" Max="84" Preset="ResetAll">All Motors Reset</Capability>
@@ -162,7 +162,7 @@
   <Capability Min="100" Max="109">Enable blackout while Pan / Tilt movement</Capability>
   <Capability Min="110" Max="119">Enable blackout while color change</Capability>
   <Capability Min="120" Max="129">Enable blackout while gobo change</Capability>
-  <Capability Min="130" Max="255">No Function</Capability>
+  <Capability Min="130" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Pan Shaking Movement Range">
   <Group Byte="0">Beam</Group>

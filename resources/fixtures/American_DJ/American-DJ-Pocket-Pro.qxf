@@ -58,7 +58,7 @@
  </Channel>
  <Channel Name="Pan/Tilt Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Macro 1</Capability>
   <Capability Min="16" Max="23">Macro 2</Capability>
   <Capability Min="24" Max="31">Macro 3</Capability>
@@ -121,16 +121,16 @@
  <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Enable Blackout w pan/tilt</Capability>
   <Capability Min="80" Max="89">Disable Blackout w pan/tilt</Capability>
   <Capability Min="90" Max="99">Target Mode 1 (0-180 deg)</Capability>
   <Capability Min="100" Max="109">Target Mode 2 (90 deg - 270 deg)</Capability>
   <Capability Min="110" Max="119">Target Mode 3 (180 deg - 360 deg)</Capability>
   <Capability Min="120" Max="129">Target Mode 4 (270 deg - 540 deg)</Capability>
-  <Capability Min="130" Max="199">No Function</Capability>
+  <Capability Min="130" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All</Capability>
-  <Capability Min="210" Max="255">No Function</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
  </Channel>
  <Mode Name="11 Channel">
   <Channel Number="0">Pan</Channel>

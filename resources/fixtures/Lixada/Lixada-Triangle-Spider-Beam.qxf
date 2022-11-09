@@ -19,7 +19,7 @@
  <Channel Name="Strobe" Preset="ShutterStrobeFastSlow"/>
  <Channel Name="Effects">
   <Group Byte="1">Effect</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="7">Slow Effect</Capability>
   <Capability Min="8" Max="140">Auto Effect</Capability>
   <Capability Min="141" Max="255">Sound Effect</Capability>

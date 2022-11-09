@@ -78,7 +78,7 @@
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Pan/tilt move-in-black</Capability>
   <Capability Min="16" Max="23">Pan/tilt move-in-black (disable)</Capability>
   <Capability Min="24" Max="31">Color whell move-in-black</Capability>

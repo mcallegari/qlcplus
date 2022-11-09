@@ -97,7 +97,7 @@
   <Group Byte="0">Nothing</Group>
   <Capability Min="0" Max="47">No function</Capability>
   <Capability Min="48" Max="95">Lamp ON after 3 sec</Capability>
-  <Capability Min="96" Max="159">No Function</Capability>
+  <Capability Min="96" Max="159">No function</Capability>
   <Capability Min="160" Max="207">Lamp OFF after 3 sec</Capability>
   <Capability Min="208" Max="255">No function</Capability>
  </Channel>

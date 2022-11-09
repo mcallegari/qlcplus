@@ -22,12 +22,12 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="199">No Function</Capability>
+  <Capability Min="0" Max="199">No function</Capability>
   <Capability Min="200" Max="207" Preset="LampOff">LAMP OFF</Capability>
   <Capability Min="208" Max="215" Preset="LampOn">LAMP ON</Capability>
-  <Capability Min="216" Max="239">No Function</Capability>
+  <Capability Min="216" Max="239">No function</Capability>
   <Capability Min="240" Max="247" Preset="ResetAll">RESET</Capability>
-  <Capability Min="248" Max="255">No Function</Capability>
+  <Capability Min="248" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>

@@ -463,17 +463,17 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="80">No Function</Capability>
+  <Capability Min="0" Max="80">No function</Capability>
   <Capability Min="81" Max="87">Luminaire Reset</Capability>
-  <Capability Min="88" Max="99">No Function</Capability>
+  <Capability Min="88" Max="99">No function</Capability>
   <Capability Min="100" Max="104">Recalibration Color</Capability>
-  <Capability Min="105" Max="111">No Function</Capability>
+  <Capability Min="105" Max="111">No function</Capability>
   <Capability Min="112" Max="116">Recalibration Gobo</Capability>
-  <Capability Min="117" Max="125">No Function</Capability>
+  <Capability Min="117" Max="125">No function</Capability>
   <Capability Min="126" Max="130">Recalibration Edge/Zoom/Iris</Capability>
-  <Capability Min="131" Max="137">No Function</Capability>
+  <Capability Min="131" Max="137">No function</Capability>
   <Capability Min="138" Max="142">Recalibration Dimmer/Strobe</Capability>
-  <Capability Min="143" Max="255">No Function</Capability>
+  <Capability Min="143" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Standard">
   <Channel Number="0">Intensity</Channel>

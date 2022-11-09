@@ -72,7 +72,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Blackout on pan/tilt movement</Capability>
   <Capability Min="16" Max="23">Blackout on color wheel movement</Capability>
   <Capability Min="24" Max="31">Blackout on gobo wheel movement</Capability>
@@ -88,11 +88,11 @@
   <Capability Min="136" Max="143">Prism reset</Capability>
   <Capability Min="144" Max="151">Focus reset</Capability>
   <Capability Min="152" Max="159">Reset all</Capability>
-  <Capability Min="160" Max="255">No Function</Capability>
+  <Capability Min="160" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Movement macro 1</Capability>
   <Capability Min="24" Max="39">Movement macro 2</Capability>
   <Capability Min="40" Max="55">Movement macro 3</Capability>

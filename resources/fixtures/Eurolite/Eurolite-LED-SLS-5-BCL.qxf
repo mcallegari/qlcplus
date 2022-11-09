@@ -21,7 +21,7 @@
  </Channel>
  <Channel Name="CH5 Modes">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="28">No Function</Capability>
+  <Capability Min="0" Max="28">No function</Capability>
   <Capability Min="29" Max="57">White</Capability>
   <Capability Min="58" Max="82">Amber</Capability>
   <Capability Min="83" Max="87">Color Dreaming 1</Capability>

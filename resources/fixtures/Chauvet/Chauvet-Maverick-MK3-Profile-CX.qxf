@@ -243,7 +243,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">0-100%</Capability>
  </Channel>
- <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="CMY Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9" Preset="ColorMacro">No function</Capability>
@@ -338,7 +338,7 @@
   <Channel Number="47">Iris</Channel>
   <Channel Number="48">Frost 1</Channel>
   <Channel Number="49">Frost 2</Channel>
-  <Channel Number="50">No Function</Channel>
+  <Channel Number="50">No function</Channel>
   <Channel Number="51">CMY Macro</Channel>
   <Channel Number="52">CMY Macro Speed</Channel>
   <Channel Number="53">Control</Channel>
@@ -380,7 +380,7 @@
   <Channel Number="33">Iris</Channel>
   <Channel Number="34">Frost 1</Channel>
   <Channel Number="35">Frost 2</Channel>
-  <Channel Number="36">No Function</Channel>
+  <Channel Number="36">No function</Channel>
   <Channel Number="37">Control</Channel>
  </Mode>
  <Physical>

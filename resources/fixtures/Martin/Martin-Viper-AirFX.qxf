@@ -192,7 +192,7 @@
   <Capability Min="195" Max="199">Store all CMY and CTC calibration</Capability>
   <Capability Min="200" Max="204">Store aerial effect gobo wheel (wheel 1) slot index calibration</Capability>
   <Capability Min="205" Max="209">Store beamshaper accessory calibration</Capability>
-  <Capability Min="210" Max="219">No Function</Capability>
+  <Capability Min="210" Max="219">No function</Capability>
   <Capability Min="220" Max="224">Store iris calibration</Capability>
   <Capability Min="225" Max="229">Store focus calibration</Capability>
   <Capability Min="230" Max="234">Store zoom calibration</Capability>

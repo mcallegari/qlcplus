@@ -50,7 +50,7 @@
  </Channel>
  <Channel Name="Color Macros &amp; Program">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="23" Color="#ff0000">Red</Capability>
   <Capability Min="24" Max="31" Color="#00ff00">Green</Capability>
   <Capability Min="32" Max="39" Color2="#0000ff" Color="#0000ff">Blue</Capability>

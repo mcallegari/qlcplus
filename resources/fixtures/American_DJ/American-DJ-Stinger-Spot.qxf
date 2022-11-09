@@ -65,15 +65,15 @@
  <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Blackout With Pan/Tilt</Capability>
-  <Capability Min="80" Max="89">No Function</Capability>
+  <Capability Min="80" Max="89">No function</Capability>
   <Capability Min="90" Max="99">Blackout With Color Change</Capability>
-  <Capability Min="100" Max="109">No Function</Capability>
+  <Capability Min="100" Max="109">No function</Capability>
   <Capability Min="110" Max="119">Blackout With Gobo Change</Capability>
-  <Capability Min="120" Max="199">No Function</Capability>
+  <Capability Min="120" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All</Capability>
-  <Capability Min="210" Max="249">No Function</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Sound Active Mode</Capability>
  </Channel>
  <Channel Name="Dimmer Curves">

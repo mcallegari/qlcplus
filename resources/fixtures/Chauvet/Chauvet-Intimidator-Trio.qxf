@@ -26,13 +26,13 @@
  <Channel Name="Zone 3 Green" Preset="IntensityGreen"/>
  <Channel Name="Zone 3 Blue" Preset="IntensityBlue"/>
  <Channel Name="Zone 3 White" Preset="IntensityWhite"/>
- <Channel Name="No Function 1 (Preset)" Preset="NoFunction"/>
- <Channel Name="No Function 2 (Preset)" Preset="NoFunction"/>
- <Channel Name="No Function 3 (Preset)" Preset="NoFunction"/>
- <Channel Name="No Function 4 (Preset)" Preset="NoFunction"/>
+ <Channel Name="No function 1 (Preset)" Preset="NoFunction"/>
+ <Channel Name="No function 2 (Preset)" Preset="NoFunction"/>
+ <Channel Name="No function 3 (Preset)" Preset="NoFunction"/>
+ <Channel Name="No function 4 (Preset)" Preset="NoFunction"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="9">Color 1</Capability>
   <Capability Min="10" Max="14">Color 2</Capability>
   <Capability Min="15" Max="19">Color 3</Capability>
@@ -67,17 +67,17 @@
   <Capability Min="160" Max="164">Color 32</Capability>
   <Capability Min="165" Max="169">Color 33</Capability>
   <Capability Min="170" Max="174">Color 44</Capability>
-  <Capability Min="175" Max="179">No Function</Capability>
+  <Capability Min="175" Max="179">No function</Capability>
   <Capability Min="180" Max="201">Clockwise color change (fast to slow)</Capability>
   <Capability Min="202" Max="207">Stop (color stays in the current color)</Capability>
   <Capability Min="208" Max="229">Counter-clockwise color change (fast to slow)</Capability>
-  <Capability Min="230" Max="234">No Function</Capability>
+  <Capability Min="230" Max="234">No function</Capability>
   <Capability Min="235" Max="249">Color jump (fast to slow)</Capability>
   <Capability Min="250" Max="255">Sound-Active colors</Capability>
  </Channel>
  <Channel Name="Built-in Control">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="31">Zone macro 1</Capability>
   <Capability Min="32" Max="47">Zone macro 2</Capability>
   <Capability Min="48" Max="63">Zone macro 3</Capability>
@@ -127,16 +127,16 @@
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Blackout while panning/tilting</Capability>
-  <Capability Min="15" Max="19">No Function</Capability>
+  <Capability Min="15" Max="19">No function</Capability>
   <Capability Min="20" Max="49">Reserved for future use</Capability>
   <Capability Min="50" Max="54" Preset="ResetPan">Reset pan</Capability>
   <Capability Min="55" Max="59" Preset="ResetTilt">Reset tilt</Capability>
   <Capability Min="60" Max="64" Preset="ResetFrost">Reset zoom</Capability>
   <Capability Min="65" Max="69" Preset="ResetAll">Reset rotation</Capability>
   <Capability Min="70" Max="74" Preset="ResetAll">Reset all</Capability>
-  <Capability Min="75" Max="79">No Function</Capability>
+  <Capability Min="75" Max="79">No function</Capability>
   <Capability Min="80" Max="84">Reverse pan/tilt</Capability>
   <Capability Min="85" Max="89">Reverse pan</Capability>
   <Capability Min="90" Max="94">Reverse tilt</Capability>
@@ -150,11 +150,11 @@
   <Capability Min="130" Max="134">Fan (auto)</Capability>
   <Capability Min="135" Max="139">Dimmer, fast</Capability>
   <Capability Min="140" Max="144">Simmer, smooth</Capability>
-  <Capability Min="145" Max="255">No Function</Capability>
+  <Capability Min="145" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Auto movement 1</Capability>
   <Capability Min="24" Max="39">Auto movement 2</Capability>
   <Capability Min="40" Max="55">Auto movement 3</Capability>
@@ -202,10 +202,10 @@
   <Channel Number="14">Zone 3 Green</Channel>
   <Channel Number="15">Zone 3 Blue</Channel>
   <Channel Number="16">Zone 3 White</Channel>
-  <Channel Number="17">No Function 1 (Preset)</Channel>
-  <Channel Number="18">No Function 2 (Preset)</Channel>
-  <Channel Number="19">No Function 3 (Preset)</Channel>
-  <Channel Number="20">No Function 4 (Preset)</Channel>
+  <Channel Number="17">No function 1 (Preset)</Channel>
+  <Channel Number="18">No function 2 (Preset)</Channel>
+  <Channel Number="19">No function 3 (Preset)</Channel>
+  <Channel Number="20">No function 4 (Preset)</Channel>
   <Channel Number="21">Colors</Channel>
   <Channel Number="22">Built-in Control</Channel>
   <Channel Number="23">Built-in Speed</Channel>

@@ -45,15 +45,15 @@
  <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Function Controls">
   <Group Byte="1">Shutter</Group>
-  <Capability Min="0" Max="69" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="69" Preset="ShutterOpen">No function</Capability>
   <Capability Min="70" Max="79" Preset="ShutterClose">Lamp Off During X/Y Rotation</Capability>
-  <Capability Min="80" Max="89" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="80" Max="89" Preset="ShutterOpen">No function</Capability>
   <Capability Min="90" Max="99" Preset="ShutterClose">Lamp Off During Color Wheel Rotation</Capability>
-  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No function</Capability>
   <Capability Min="110" Max="119" Preset="ShutterClose">Lamp Off During Gobo Rotation</Capability>
-  <Capability Min="120" Max="199" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="120" Max="199" Preset="ShutterOpen">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
-  <Capability Min="210" Max="249" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="210" Max="249" Preset="ShutterOpen">No function</Capability>
   <Capability Min="250" Max="255" Preset="SilentModeOn">Sound Mode On/Off</Capability>
  </Channel>
  <Channel Name="Effects">

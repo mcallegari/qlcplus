@@ -18,7 +18,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="30" Preset="ShutterOpen">No function</Capability>
   <Capability Min="31" Max="100" Preset="StrobeSlowToFast">Strobe slow to Fast</Capability>
-  <Capability Min="101" Max="130" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="101" Max="130" Preset="ShutterOpen">No function</Capability>
   <Capability Min="131" Max="200" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
   <Capability Min="201" Max="255" Preset="ShutterOpen">No function</Capability>
  </Channel>

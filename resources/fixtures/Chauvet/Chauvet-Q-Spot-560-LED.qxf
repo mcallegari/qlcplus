@@ -72,15 +72,15 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="60" Preset="RotationIndexed">360° Indexing</Capability>
   <Capability Min="61" Max="150" Preset="RotationClockwiseSlowToFast">Rotation (slow-fast)</Capability>
-  <Capability Min="151" Max="165">No Function</Capability>
+  <Capability Min="151" Max="165">No function</Capability>
   <Capability Min="166" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter Rotation (slow-fast)</Capability>
  </Channel>
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="119">Rotation (slow-fast)</Capability>
-  <Capability Min="120" Max="129">No Function</Capability>
+  <Capability Min="120" Max="129">No function</Capability>
   <Capability Min="130" Max="255">Counter Rotation (slow-fast)</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
@@ -118,7 +118,7 @@
  </Channel>
  <Channel Name="Prism effects">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="39">Prism</Capability>
   <Capability Min="40" Max="49">Effect1</Capability>
   <Capability Min="50" Max="59">Effect2</Capability>

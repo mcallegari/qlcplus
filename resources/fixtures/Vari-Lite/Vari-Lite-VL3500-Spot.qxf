@@ -71,7 +71,7 @@
   <Capability Min="154" Max="172" Preset="GoboMacro" Res1="Others/gobo00055.png">Tribal Break-up Rotating</Capability>
   <Capability Min="173" Max="191" Preset="GoboMacro" Res1="SGM-Color/gobo00486.png">Color Gobo Rotating</Capability>
   <Capability Min="192" Max="209" Preset="GoboMacro" Res1="Robe/gobo00050.png">Glacier Gag Rotating</Capability>
-  <Capability Min="210" Max="216">No Function</Capability>
+  <Capability Min="210" Max="216">No function</Capability>
   <Capability Min="217" Max="233">Fast to Slow / CCW</Capability>
   <Capability Min="234" Max="236">Stop</Capability>
   <Capability Min="237" Max="255">Slow to Fast / CW</Capability>
@@ -87,7 +87,7 @@
   <Capability Min="109" Max="140" Preset="GoboMacro" Res1="SGM-Color/gobo00547.png">Ice Blocks</Capability>
   <Capability Min="141" Max="172" Preset="GoboMacro" Res1="Chauvet/gobo00011.png">Pebbles</Capability>
   <Capability Min="173" Max="202" Preset="GoboMacro" Res1="SGM/gobo00361.svg">Circle of Ovals</Capability>
-  <Capability Min="203" Max="216">No Function</Capability>
+  <Capability Min="203" Max="216">No function</Capability>
   <Capability Min="217" Max="233" Preset="GoboMacro" Res1="Others/rainbow.png">Fast to Slow / CCW</Capability>
   <Capability Min="234" Max="236">Stop</Capability>
   <Capability Min="237" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Slow to Fast / CW</Capability>
@@ -689,27 +689,27 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="39">No Function</Capability>
+  <Capability Min="0" Max="39">No function</Capability>
   <Capability Min="40" Max="45">Pan/Tilt Fast</Capability>
-  <Capability Min="46" Max="49">No Function</Capability>
+  <Capability Min="46" Max="49">No function</Capability>
   <Capability Min="50" Max="55">Pan/Tilt Normal</Capability>
-  <Capability Min="56" Max="80">No Function</Capability>
+  <Capability Min="56" Max="80">No function</Capability>
   <Capability Min="81" Max="87">Luminaire Reset</Capability>
-  <Capability Min="88" Max="99">No Function</Capability>
+  <Capability Min="88" Max="99">No function</Capability>
   <Capability Min="100" Max="104">Color Recalibration</Capability>
-  <Capability Min="105" Max="111">No Function</Capability>
+  <Capability Min="105" Max="111">No function</Capability>
   <Capability Min="112" Max="116">Gobo Recalibration</Capability>
-  <Capability Min="117" Max="125">No Function</Capability>
+  <Capability Min="117" Max="125">No function</Capability>
   <Capability Min="126" Max="130">Edge/Zoom/Shutter Recalibration</Capability>
-  <Capability Min="131" Max="137">No Function</Capability>
+  <Capability Min="131" Max="137">No function</Capability>
   <Capability Min="138" Max="142">Dimmer/Strobe Recalibration</Capability>
-  <Capability Min="143" Max="164">No Function</Capability>
+  <Capability Min="143" Max="164">No function</Capability>
   <Capability Min="165" Max="171" Preset="LampOff">Lamp Off</Capability>
-  <Capability Min="172" Max="175">No Function</Capability>
+  <Capability Min="172" Max="175">No function</Capability>
   <Capability Min="176" Max="181">Lamp Standby</Capability>
-  <Capability Min="182" Max="198">No Function</Capability>
+  <Capability Min="182" Max="198">No function</Capability>
   <Capability Min="199" Max="204">Lamp Full</Capability>
-  <Capability Min="205" Max="248">No Function</Capability>
+  <Capability Min="205" Max="248">No function</Capability>
   <Capability Min="249" Max="255" Preset="LampOn">Lamp On</Capability>
  </Channel>
  <Mode Name="16 bit Enhanced">

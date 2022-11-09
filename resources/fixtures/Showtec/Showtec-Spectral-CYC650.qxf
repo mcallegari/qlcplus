@@ -39,7 +39,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">Color 1</Capability>
   <Capability Min="31" Max="50">Color 2</Capability>
   <Capability Min="51" Max="70">Color 3</Capability>
@@ -63,12 +63,12 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">1 - 20 Hz</Capability>
  </Channel>
  <Channel Name="Auto - Prog - Controls">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="20">Fan OFF (3sec)</Capability>
   <Capability Min="21" Max="30">Fan Low (3sec)</Capability>
   <Capability Min="31" Max="40">Fan Normal (3sec)</Capability>
@@ -121,7 +121,7 @@
   <Capability Min="160" Max="179">Block 3456</Capability>
   <Capability Min="180" Max="199">Block 3478</Capability>
   <Capability Min="200" Max="219">Block 5678</Capability>
-  <Capability Min="220" Max="239">No Function</Capability>
+  <Capability Min="220" Max="239">No function</Capability>
   <Capability Min="240" Max="255">Block 1-8</Capability>
  </Channel>
  <Channel Name="Hue" Preset="IntensityHue"/>

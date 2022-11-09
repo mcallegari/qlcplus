@@ -21,7 +21,7 @@
  </Channel>
  <Channel Name="Shows">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="47">Preprogrammed automatic show 1</Capability>
   <Capability Min="48" Max="87">Preprogrammed automatic show 2</Capability>
   <Capability Min="88" Max="127">Preprogrammed automatic show 3</Capability>
@@ -32,7 +32,7 @@
  </Channel>
  <Channel Name="Moving Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="32">Pan-Tilt auto programme 1</Capability>
   <Capability Min="33" Max="58">Pan-Tilt auto programme 2</Capability>
   <Capability Min="59" Max="84">Pan-Tilt auto programme 3</Capability>

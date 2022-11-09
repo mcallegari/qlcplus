@@ -55,7 +55,7 @@
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="25">Program 1 (Ch.6:Speed)</Capability>
   <Capability Min="26" Max="35">Program 2 (Ch.6:Speed)</Capability>
   <Capability Min="36" Max="45">Program 3 (Ch.6:Speed)</Capability>

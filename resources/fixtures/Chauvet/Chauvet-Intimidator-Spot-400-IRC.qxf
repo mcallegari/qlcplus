@@ -90,11 +90,11 @@
   <Capability Min="136" Max="143" Preset="ResetPrism">Reset prism</Capability>
   <Capability Min="144" Max="151" Preset="ResetAll">Reset focus</Capability>
   <Capability Min="152" Max="159" Preset="ResetAll">Reset all channels</Capability>
-  <Capability Min="160" Max="255">No Function</Capability>
+  <Capability Min="160" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto programs">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Auto program 1</Capability>
   <Capability Min="24" Max="39">Auto program 2</Capability>
   <Capability Min="40" Max="55">Auto program 3</Capability>

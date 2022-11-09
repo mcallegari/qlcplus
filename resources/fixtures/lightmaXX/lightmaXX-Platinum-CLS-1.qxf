@@ -38,10 +38,10 @@
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="219">No Function</Capability>
+  <Capability Min="0" Max="219">No function</Capability>
   <Capability Min="220" Max="230">Color select</Capability>
   <Capability Min="231" Max="241">Color select</Capability>
-  <Capability Min="242" Max="255">No Function</Capability>
+  <Capability Min="242" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>

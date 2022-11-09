@@ -136,7 +136,7 @@
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">Blackout during Pan/Tilt</Capability>
   <Capability Min="140" Max="149">Auto 1</Capability>
   <Capability Min="150" Max="159">Auto 2</Capability>

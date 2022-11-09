@@ -58,7 +58,7 @@
  <Channel Name="Pink" Preset="IntensityMagenta"/>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="200">Auto Program</Capability>
   <Capability Min="201" Max="255">Sound Program</Capability>
  </Channel>

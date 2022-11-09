@@ -23,9 +23,9 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">Fan speed Max to Min</Capability>
   <Capability Min="128" Max="139">Lamp ON Reset</Capability>
-  <Capability Min="140" Max="229">No Function</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
   <Capability Min="230" Max="239" Preset="LampOff">Lamp OFF</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
@@ -38,7 +38,7 @@
   <Capability Min="96" Max="96" Preset="ColorMacro" Res1="#c6d8ff">5600 K</Capability>
   <Capability Min="112" Max="112" Preset="ColorMacro" Res1="#7f00ff">UV Filter</Capability>
   <Capability Min="128" Max="190">Rainbow Fast to Slow</Capability>
-  <Capability Min="191" Max="192">No Function</Capability>
+  <Capability Min="191" Max="192">No function</Capability>
   <Capability Min="193" Max="255">CCW Rainbow Slow to Fast</Capability>
  </Channel>
  <Channel Name="Shutter">

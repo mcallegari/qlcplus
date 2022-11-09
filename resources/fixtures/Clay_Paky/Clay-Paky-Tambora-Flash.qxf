@@ -248,7 +248,7 @@
  <Channel Name="Master Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Layer 2 Selection">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="5" Preset="Alias">No Function</Capability>
+  <Capability Min="0" Max="5" Preset="Alias">No function</Capability>
   <Capability Min="6" Max="130" Preset="Alias">Static
    <Alias Mode="Advance" Channel="Layer 2 Indexing Speed Nothing" With="Layer 2 Indexing Speed Staic"/>
   </Capability>
