@@ -567,9 +567,13 @@ def validate_fx_channels(absname, xmlObj, errNum):
                 print(absname + "/" + chName + "/" + capName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax))
                 errNum += 1
 
-            # disabled for now. 710 errors with this !
+            if currMin > currMax:
+                print(absname + "/" + chName + "/" + capName + ": Min larger than Max " + str(currMin) + "/" + str(currMax))
+                errNum += 1
+
+            # Evaluate contiguous ranges
             if currMin != lastMax + 1:
-                print(absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax))
+                print(absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(lastMax) + "/" + str(currMin))
                 errNum += 1
 
             lastMax = currMax
