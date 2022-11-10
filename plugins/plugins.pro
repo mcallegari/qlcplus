@@ -27,3 +27,9 @@ SUBDIRS              += artnet
 SUBDIRS              += E1.31
 SUBDIRS              += loopback
 SUBDIRS              += osc
+
+# Allow a local configuration file (not checked in) to override
+# or add to the defaults specified here
+exists(plugins.config) {
+  include(plugins.config)
+}
