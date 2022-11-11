@@ -140,6 +140,11 @@ Audio *AudioItem::getAudio()
 
 void AudioItem::slotAudioChanged(quint32)
 {
+    PreviewThread *waveformThread = new PreviewThread;
+    waveformThread->setAudioItem(this);
+    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
+    waveformThread->start();
+
     prepareGeometryChange();
     calculateWidth();
     if (m_function)
