@@ -536,7 +536,7 @@
  <Channel Name="Red 160" Preset="IntensityRed"/>
  <Channel Name="Green 160" Preset="IntensityGreen"/>
  <Channel Name="Blue 160" Preset="IntensityBlue"/>
- <Mode Name="35 Channel Mode">
+ <Mode Name="35 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Section 1 Red Intensity</Channel>
@@ -623,7 +623,7 @@
    <Channel>29</Channel>
   </Head>
  </Mode>
- <Mode Name="8 Channel Mode">
+ <Mode Name="8 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Red Intensity</Channel>
@@ -633,7 +633,7 @@
   <Channel Number="6">Auto Programs 16-29 + Mix Mode</Channel>
   <Channel Number="7">Auto Program Speed</Channel>
  </Mode>
- <Mode Name=" 480 Channel Mode">
+ <Mode Name="480 Channel">
   <Channel Number="0">Red 1</Channel>
   <Channel Number="1">Green 1</Channel>
   <Channel Number="2">Blue 1</Channel>
