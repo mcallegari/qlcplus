@@ -138,8 +138,17 @@ Audio *AudioItem::getAudio()
     return m_audio;
 }
 
+void AudioItem::updateWaveformPreview()
+{
+    PreviewThread *waveformThread = new PreviewThread;
+    waveformThread->setAudioItem(this);
+    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
+    waveformThread->start();
+}
+
 void AudioItem::slotAudioChanged(quint32)
 {
+    updateWaveformPreview();
     prepareGeometryChange();
     calculateWidth();
     if (m_function)
@@ -150,30 +159,21 @@ void AudioItem::slotAudioPreviewLeft()
 {
     m_previewRightAction->setChecked(false);
     m_previewStereoAction->setChecked(false);
-    PreviewThread *waveformThread = new PreviewThread;
-    waveformThread->setAudioItem(this);
-    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
-    waveformThread->start();
+    updateWaveformPreview();
 }
 
 void AudioItem::slotAudioPreviewRight()
 {
     m_previewLeftAction->setChecked(false);
     m_previewStereoAction->setChecked(false);
-    PreviewThread *waveformThread = new PreviewThread;
-    waveformThread->setAudioItem(this);
-    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
-    waveformThread->start();
+    updateWaveformPreview();
 }
 
 void AudioItem::slotAudioPreviewStereo()
 {
     m_previewLeftAction->setChecked(false);
     m_previewRightAction->setChecked(false);
-    PreviewThread *waveformThread = new PreviewThread;
-    waveformThread->setAudioItem(this);
-    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
-    waveformThread->start();
+    updateWaveformPreview();
 }
 
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
@@ -234,8 +234,8 @@ qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize
 
 void PreviewThread::run()
 {
-    bool left = m_item->m_previewLeftAction->isChecked() | m_item->m_previewStereoAction->isChecked();
-    bool right = m_item->m_previewRightAction->isChecked() | m_item->m_previewStereoAction->isChecked();
+    bool left = m_item->m_previewLeftAction->isChecked() || m_item->m_previewStereoAction->isChecked();
+    bool right = m_item->m_previewRightAction->isChecked() || m_item->m_previewStereoAction->isChecked();
 
     if ((left || right) && m_item->m_audio->getAudioDecoder() != NULL)
     {

@@ -161,7 +161,7 @@ Rectangle
                             GridLayout
                             {
                                 width: parent.width
-                                columns: 4
+                                columns: 5
                                 columnSpacing: 0
                                 rowSpacing: 0
 
@@ -169,7 +169,7 @@ Rectangle
                                 Rectangle
                                 {
                                     Layout.fillWidth: true
-                                    Layout.columnSpan: 4
+                                    Layout.columnSpan: 5
                                     color: UISettings.bgMedium
                                     height: UISettings.listItemHeight
 
@@ -210,6 +210,7 @@ Rectangle
                                         height: parent.height
                                         imgSource: "qrc:/remove.svg"
                                         tooltip: qsTr("Remove the selected fixture head(s)")
+                                        onClicked: efxEditor.removeHeads(eeSelector.itemsList())
                                     }
                                 }
 
@@ -250,6 +251,22 @@ Rectangle
 
                                 RobotoText
                                 {
+                                    id: modeCol
+                                    height: UISettings.listItemHeight
+                                    width: UISettings.bigItemHeight
+                                    label: qsTr("Mode")
+
+                                    Rectangle
+                                    {
+                                        height: UISettings.listItemHeight
+                                        width: 1
+                                        anchors.right: parent.right
+                                        color: UISettings.fgMedium
+                                    }
+                                }
+
+                                RobotoText
+                                {
                                     id: reverseCol
                                     height: UISettings.listItemHeight
                                     label: qsTr("Reverse")
@@ -275,7 +292,7 @@ Rectangle
                                 {
                                     id: fixtureListView
                                     Layout.fillWidth: true
-                                    Layout.columnSpan: 4
+                                    Layout.columnSpan: 5
                                     model: efxEditor.fixtureList
                                     implicitHeight: count * UISettings.listItemHeight
                                     delegate:
@@ -284,6 +301,8 @@ Rectangle
                                             width: fixtureListView.width
                                             height: UISettings.listItemHeight
                                             color: "transparent"
+
+                                            property int headMode: model.mode
 
                                             // Highlight rectangle
                                             Rectangle
@@ -311,6 +330,7 @@ Rectangle
                                                 //width: fixtureListView.width
                                                 height: UISettings.listItemHeight
 
+                                                /* Head number */
                                                 RobotoText
                                                 {
                                                     width: numCol.width
@@ -325,6 +345,7 @@ Rectangle
                                                         color: UISettings.fgMedium
                                                     }
                                                 }
+                                                /* Head name */
                                                 RobotoText
                                                 {
                                                     width: fxNameCol.width
@@ -339,6 +360,32 @@ Rectangle
                                                         color: UISettings.fgMedium
                                                     }
                                                 }
+                                                /* Head mode */
+                                                CustomComboBox
+                                                {
+                                                    height: editorColumn.itemsHeight
+                                                    width: modeCol.width
+
+                                                    ListModel
+                                                    {
+                                                        id: modeModel
+                                                        ListElement { mLabel: qsTr("Position"); }
+                                                        ListElement { mLabel: qsTr("Dimmer"); }
+                                                        ListElement { mLabel: qsTr("RGB"); }
+                                                    }
+                                                    model: modeModel
+                                                    currentIndex: headMode
+                                                    onCurrentIndexChanged: efxEditor.setFixtureMode(fxID, head, currentIndex)
+
+                                                    Rectangle
+                                                    {
+                                                        height: UISettings.listItemHeight
+                                                        width: 1
+                                                        anchors.right: parent.right
+                                                        color: UISettings.fgMedium
+                                                    }
+                                                }
+                                                /* Head reverse flag */
                                                 Rectangle
                                                 {
                                                     color: "transparent"
@@ -361,6 +408,7 @@ Rectangle
                                                         color: UISettings.fgMedium
                                                     }
                                                 }
+                                                /* Head offset */
                                                 CustomSpinBox
                                                 {
                                                     width: offsetCol.width

@@ -843,6 +843,10 @@ void VirtualConsole::pasteFromClipboard()
         if (cWidget == nullptr)
             continue;
 
+        // do not allow pasting an item into itself
+        if (cWidget->id() == frame->id())
+            continue;
+
         VCWidget *copy = cWidget->createCopy(frame);
         frame->addWidget(renderParent, copy, currPos);
 

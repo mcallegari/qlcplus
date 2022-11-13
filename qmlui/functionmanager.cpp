@@ -300,7 +300,14 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             {
                 EFX *efx = qobject_cast<EFX *>(f);
                 for (QVariant fixtureID : fixturesList)
-                    efx->addFixture(fixtureID.toUInt());
+                {
+                    Fixture *fixture = m_doc->fixture(fixtureID.toUInt());
+                    if (fixture == nullptr)
+                        continue;
+
+                    for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
+                        efx->addFixture(fixture->id(), headIdx);
+                }
             }
             m_efxCount++;
             emit efxCountChanged();
