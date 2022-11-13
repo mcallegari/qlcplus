@@ -41,7 +41,7 @@ EFXEditor::EFXEditor(QQuickView *view, Doc *doc, QObject *parent)
 
     m_fixtureList = new ListModel(this);
     QStringList listRoles;
-    listRoles << "name" << "fxID" << "head" << "isSelected" << "reverse" << "offset";
+    listRoles << "name" << "fxID" << "head" << "isSelected" << "mode" << "reverse" << "offset";
     m_fixtureList->setRoleNames(listRoles);
 }
 
@@ -457,31 +457,29 @@ void EFXEditor::addFixture(QVariant reference)
         return;
 
     Fixture *fixture = reference.value<Fixture *>();
+    int count = 0;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
-        quint32 panCh = fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB, headIdx);
-        quint32 tiltCh = fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, headIdx);
+        EFXFixture *ef = new EFXFixture(m_efx);
+        GroupHead head(fixture->id(), headIdx);
+        ef->setHead(head);
 
-        if (panCh != QLCChannel::invalid() || tiltCh != QLCChannel::invalid())
+        if (m_efx->addFixture(ef) == false)
         {
-            EFXFixture *ef = new EFXFixture(m_efx);
-            GroupHead head(fixture->id(), headIdx);
-            ef->setHead(head);
-
-            if (m_efx->addFixture(ef) == false)
-            {
-                delete ef;
-            }
-            else
-            {
-                Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
-                                                  Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
-                                                                                        QVariant::fromValue((void *)ef)));
-                updateFixtureList();
-            }
+            delete ef;
+        }
+        else
+        {
+            Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
+                                                                                    QVariant::fromValue((void *)ef)));
+            count++;
         }
     }
+
+    if (count)
+        updateFixtureList();
 }
 
 void EFXEditor::addHead(int fixtureID, int headIndex)
@@ -504,6 +502,44 @@ void EFXEditor::addHead(int fixtureID, int headIndex)
                                                                                 QVariant::fromValue((void *)ef)));
         updateFixtureList();
     }
+}
+
+void EFXEditor::removeHeads(QVariantList heads)
+{
+    if (m_efx == nullptr)
+        return;
+
+    for (QVariant vIdx : heads)
+    {
+        QModelIndex idx = m_fixtureList->index(vIdx.toInt(), 0, QModelIndex());
+        QVariant fixtureID = m_fixtureList->data(idx, "fxID");
+        QVariant headIndex = m_fixtureList->data(idx, "head");
+
+        qDebug() << "Removing fixture" << fixtureID << "head" << headIndex;
+
+        EFXFixture *ef = m_efx->fixture(fixtureID.toUInt(), headIndex.toInt());
+        if (ef == nullptr)
+            continue;
+
+        Tardis::instance()->enqueueAction(Tardis::EFXRemoveFixture, m_efx->id(),
+                                          Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
+                                                                                QVariant::fromValue((void *)ef)),
+                                          QVariant());
+
+        m_efx->removeFixture(ef);
+    }
+    updateFixtureList();
+}
+
+void EFXEditor::setFixtureMode(quint32 fixtureID, int headIndex, int modeIndex)
+{
+    if (m_efx == nullptr)
+        return;
+
+    EFXFixture *ef = m_efx->fixture(fixtureID, headIndex);
+
+    if (ef != nullptr)
+        ef->setMode(EFXFixture::Mode(modeIndex));
 }
 
 void EFXEditor::setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed)
@@ -544,7 +580,7 @@ void EFXEditor::updateFixtureList()
     qreal oldPanDegrees = m_maxPanDegrees;
     qreal oldTiltDegrees = m_maxTiltDegrees;
 
-    // listRoles << "name" << "fxID" << "head" << "isSelected" << "reverse" << "offset";
+    // listRoles << "name" << "fxID" << "head" << "isSelected" << "mode" << "reverse" << "offset";
 
     for (EFXFixture *ef : m_efx->fixtures()) // C++11
     {
@@ -568,6 +604,7 @@ void EFXEditor::updateFixtureList()
         fxMap.insert("fxID", head.fxi);
         fxMap.insert("head", head.head);
         fxMap.insert("isSelected", false);
+        fxMap.insert("mode", ef->mode());
         fxMap.insert("reverse", ef->direction() == Function::Backward ? true : false);
         fxMap.insert("offset", ef->startOffset());
 
