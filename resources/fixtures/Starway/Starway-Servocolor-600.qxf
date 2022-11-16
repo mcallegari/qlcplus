@@ -80,6 +80,7 @@
   <Capability Min="70" Max="109">Non Linear 2</Capability>
   <Capability Min="110" Max="149">Non Linear 3</Capability>
   <Capability Min="150" Max="189">Non Linear 4</Capability>
+  <Capability Min="190" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Advanced">
   <Channel Number="0">Pan</Channel>
