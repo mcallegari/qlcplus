@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 2</Version>
+  <Author>Wilbur</Author>
+ </Creator>
+ <Manufacturer>Equinox</Manufacturer>
+ <Model>Fusion Orbit MKII</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Show Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Show Selection</Capability>
+ </Channel>
+ <Channel Name="Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Pan/Tilt Programs</Capability>
+ </Channel>
+ <Channel Name="Master dimmer (Beam)" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color macro (Beam)" Preset="ColorMacro"/>
+ <Channel Name="Master dimmer (Ring)" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color macro (Ring)" Preset="ColorMacro"/>
+ <Channel Name="Macro Programs (Ring)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Macro Programs (Ring)</Capability>
+ </Channel>
+ <Channel Name="Macro Programs (Beam)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Macro Programs (Beam)</Capability>
+ </Channel>
+ <Channel Name="Macro Programs Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Macro Programs Speed</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Strobe Beam" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red Beam" Preset="IntensityRed"/>
+ <Channel Name="Green Beam" Preset="IntensityGreen"/>
+ <Channel Name="Blue Beam" Preset="IntensityBlue"/>
+ <Channel Name="White Beam" Preset="IntensityWhite"/>
+ <Channel Name="Strobe Ring" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red Ring" Preset="IntensityRed"/>
+ <Channel Name="Green Ring" Preset="IntensityGreen"/>
+ <Channel Name="Blue Ring" Preset="IntensityBlue"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red Dimmer 1 (Ring)" Preset="IntensityRed"/>
+ <Channel Name="Red Dimmer 2 (Ring)" Preset="IntensityRed"/>
+ <Channel Name="Red Dimmer 3 (Ring)" Preset="IntensityRed"/>
+ <Channel Name="Red Dimmer 4 (Ring)" Preset="IntensityRed"/>
+ <Channel Name="Red Dimmer 5 (Ring)" Preset="IntensityRed"/>
+ <Channel Name="Red Dimmer 6 (Ring)" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer 1 Ring" Preset="IntensityGreen"/>
+ <Channel Name="Green Dimmer 2 Ring" Preset="IntensityGreen"/>
+ <Channel Name="Green Dimmer 3 Ring" Preset="IntensityGreen"/>
+ <Channel Name="Green Dimmer 4 Ring" Preset="IntensityGreen"/>
+ <Channel Name="Green Dimmer 5 Ring" Preset="IntensityGreen"/>
+ <Channel Name="Green Dimmer 6 Ring" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer 1 Ring" Preset="IntensityBlue"/>
+ <Channel Name="Blue Dimmer 2 Ring" Preset="IntensityBlue"/>
+ <Channel Name="Blue Dimmer 3 Ring" Preset="IntensityBlue"/>
+ <Channel Name="Blue Dimmer 4 Ring" Preset="IntensityBlue"/>
+ <Channel Name="Blue Dimmer 5 Ring" Preset="IntensityBlue"/>
+ <Channel Name="Blue Dimmer 6 ring" Preset="IntensityBlue"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Show Selection</Channel>
+  <Channel Number="1">Sound Sensitivity</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Pan/Tilt Programs</Channel>
+  <Channel Number="1">Master dimmer (Beam)</Channel>
+  <Channel Number="2">Color macro (Beam)</Channel>
+  <Channel Number="3">Master dimmer (Ring)</Channel>
+  <Channel Number="4">Color macro (Ring)</Channel>
+  <Channel Number="5">Macro Programs (Ring)</Channel>
+  <Channel Number="6">Macro Programs Speed</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Master dimmer (Beam)</Channel>
+  <Channel Number="4">Strobe Beam</Channel>
+  <Channel Number="5">Red Beam</Channel>
+  <Channel Number="6">Green Beam</Channel>
+  <Channel Number="7">Blue Beam</Channel>
+  <Channel Number="8">White Beam</Channel>
+  <Channel Number="9">Master dimmer (Ring)</Channel>
+  <Channel Number="10">Strobe Ring</Channel>
+  <Channel Number="11">Red Ring</Channel>
+  <Channel Number="12">Green Ring</Channel>
+  <Channel Number="13">Blue Ring</Channel>
+  <Channel Number="14">Show Selection</Channel>
+  <Channel Number="15">Sound Sensitivity</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="37 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer (Beam)</Channel>
+  <Channel Number="6">Strobe Beam</Channel>
+  <Channel Number="7">Color macro (Beam)</Channel>
+  <Channel Number="8">Red Beam</Channel>
+  <Channel Number="9">Green Beam</Channel>
+  <Channel Number="10">Blue Beam</Channel>
+  <Channel Number="11">White Beam</Channel>
+  <Channel Number="12">Master dimmer (Ring)</Channel>
+  <Channel Number="13">Strobe Ring</Channel>
+  <Channel Number="14">Color macro (Ring)</Channel>
+  <Channel Number="15">Macro Programs (Ring)</Channel>
+  <Channel Number="16">Macro Programs Speed</Channel>
+  <Channel Number="17">Red Dimmer 1 (Ring)</Channel>
+  <Channel Number="18">Green Dimmer 1 Ring</Channel>
+  <Channel Number="19">Blue Dimmer 1 Ring</Channel>
+  <Channel Number="20">Red Dimmer 2 (Ring)</Channel>
+  <Channel Number="21">Green Dimmer 2 Ring</Channel>
+  <Channel Number="22">Blue Dimmer 2 Ring</Channel>
+  <Channel Number="23">Red Dimmer 3 (Ring)</Channel>
+  <Channel Number="24">Green Dimmer 3 Ring</Channel>
+  <Channel Number="25">Blue Dimmer 3 Ring</Channel>
+  <Channel Number="26">Red Dimmer 4 (Ring)</Channel>
+  <Channel Number="27">Green Dimmer 4 Ring</Channel>
+  <Channel Number="28">Blue Dimmer 4 Ring</Channel>
+  <Channel Number="29">Red Dimmer 5 (Ring)</Channel>
+  <Channel Number="30">Green Dimmer 5 Ring</Channel>
+  <Channel Number="31">Blue Dimmer 5 Ring</Channel>
+  <Channel Number="32">Red Dimmer 6 (Ring)</Channel>
+  <Channel Number="33">Green Dimmer 6 Ring</Channel>
+  <Channel Number="34">Blue Dimmer 6 ring</Channel>
+  <Channel Number="35">Show Selection</Channel>
+  <Channel Number="36">Sound Sensitivity</Channel>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>12</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="172" Height="238" Depth="146"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
+  <Focus Type="Head" PanMax="540" TiltMax="210"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
