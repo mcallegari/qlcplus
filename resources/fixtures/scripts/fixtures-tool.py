@@ -545,8 +545,6 @@ def validate_fx_channels(absname, xmlObj, errNum):
             errNum += 1
 
         ################################# CHECK CAPABILITIES ##############################
-        rangeMin = 255
-        rangeMax = 0
         lastMax = -1
         capCount = 0
 
@@ -610,6 +608,11 @@ def validate_fx_channels(absname, xmlObj, errNum):
                             capability.set('Res', resource)
 
             capCount += 1
+
+        # Evaluate completeness of ranges
+        if 255 != lastMax:
+            print(absname + "/" + chName + ": Incomplete range detected " + str(currMin) + "/255")
+            errNum += 1
 
         if capCount == 0:
             print(absname + "/" + chName + ": Channel has no capabilities")
