@@ -63,7 +63,7 @@
   <Capability Min="160" Max="166" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00007.svg">Dot 2 Shake Slow &gt; Fast</Capability>
   <Capability Min="167" Max="172" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Dot 3 Shake Slow &gt; Fast</Capability>
   <Capability Min="173" Max="178" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00009.svg">Dot 4 Shake Slow &gt; Fast</Capability>
-  <Capability Min="180" Max="185" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Dot 5 Shake Slow &gt; Fast</Capability>
+  <Capability Min="179" Max="185" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Dot 5 Shake Slow &gt; Fast</Capability>
   <Capability Min="186" Max="191" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00011.svg">Dot 6 Shake Slow &gt; Fast</Capability>
   <Capability Min="192" Max="198" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00091.svg">Lines Shake Slow &gt; Fast</Capability>
   <Capability Min="199" Max="204" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00085.svg">Star 3 Shake Slow &gt; Fast</Capability>
