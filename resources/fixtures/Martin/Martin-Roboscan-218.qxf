@@ -59,7 +59,7 @@
   <Capability Min="230" Max="232">Fern green</Capability>
   <Capability Min="233" Max="235">Light blue</Capability>
   <Capability Min="236" Max="238">Flame red</Capability>
-  <Capability Min="239" Max="241">White</Capability>
+  <Capability Min="239" Max="255">White</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -97,7 +97,7 @@
   <Capability Min="230" Max="232">Pin</Capability>
   <Capability Min="233" Max="235">Dot</Capability>
   <Capability Min="236" Max="238">Half</Capability>
-  <Capability Min="239" Max="241">Open</Capability>
+  <Capability Min="239" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Movement speed">
   <Group Byte="0">Speed</Group>
