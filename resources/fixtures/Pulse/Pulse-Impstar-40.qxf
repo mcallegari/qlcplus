@@ -28,6 +28,7 @@
   <Capability Min="0" Max="199">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
   <Capability Min="210" Max="239">No function</Capability>
+  <Capability Min="240" Max="255">Sound active</Capability>
  </Channel>
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Special Functions 21">
