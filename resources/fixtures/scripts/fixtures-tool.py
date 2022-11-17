@@ -611,7 +611,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
 
         # Evaluate completeness of ranges
         if 255 != lastMax:
-            print(absname + "/" + chName + ": Incomplete range detected " + str(currMin) + "/255")
+            print(absname + "/" + chName + ": Incomplete range detected " + str(currMax) + "/255")
             errNum += 1
 
         if capCount == 0:
