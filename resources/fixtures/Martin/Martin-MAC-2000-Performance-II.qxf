@@ -70,9 +70,10 @@
  </Channel>
  <Channel Name="Gobo Wheel, Rotation Coarse">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="2">No rotation</Capability>
-  <Capability Min="3" Max="127">CCW (slow &gt; fast)</Capability>
-  <Capability Min="128" Max="252">CW (fast &gt; slow)</Capability>
+  <Capability Min="0" Max="2" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="3" Max="127" Preset="RotationCounterClockwiseSlowToFast">CCW (slow &gt; fast)</Capability>
+  <Capability Min="128" Max="252" Preset="RotationClockwiseFastToSlow">CW (fast &gt; slow)</Capability>
+  <Capability Min="253" Max="255" Preset="RotationStop">No rotation</Capability>
  </Channel>
  <Channel Name="Gobo Wheel, Fine Position" Preset="GoboWheelFine"/>
  <Channel Name="Gobo Animation wheel position">

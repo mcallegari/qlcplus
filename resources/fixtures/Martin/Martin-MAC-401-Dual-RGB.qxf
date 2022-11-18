@@ -12,27 +12,27 @@
  <Channel Name="Strobe / Virtual Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19">Shutter closed</Capability>
-  <Capability Min="20" Max="49">Shuuter open</Capability>
+  <Capability Min="20" Max="49">Shutter open</Capability>
   <Capability Min="50" Max="64">Strobe (fast -&gt;slow)</Capability>
-  <Capability Min="65" Max="69">Shuuter open</Capability>
+  <Capability Min="65" Max="69">Shutter open</Capability>
   <Capability Min="70" Max="84">Opening pulse (fast-&gt;slow)</Capability>
-  <Capability Min="85" Max="89">Shuuter open</Capability>
+  <Capability Min="85" Max="89">Shutter open</Capability>
   <Capability Min="90" Max="104">Closing pulse (fast-&gt;slow)</Capability>
-  <Capability Min="105" Max="109">Shuuter open</Capability>
+  <Capability Min="105" Max="109">Shutter open</Capability>
   <Capability Min="110" Max="124">Random strobe (fast-&gt;slow)</Capability>
-  <Capability Min="125" Max="129">Shuuter closed</Capability>
+  <Capability Min="125" Max="129">Shutter closed</Capability>
   <Capability Min="130" Max="144">Random opening pulse (fast-&gt;slow)</Capability>
-  <Capability Min="145" Max="149">Shuuter open</Capability>
+  <Capability Min="145" Max="149">Shutter open</Capability>
   <Capability Min="150" Max="164">Random closing pulse (fast-&gt;slow)</Capability>
-  <Capability Min="165" Max="169">Shuuter closed</Capability>
+  <Capability Min="165" Max="169">Shutter closed</Capability>
   <Capability Min="170" Max="184">Burst pulse (fast-&gt;slow)</Capability>
-  <Capability Min="185" Max="189">Shuuter open</Capability>
+  <Capability Min="185" Max="189">Shutter open</Capability>
   <Capability Min="190" Max="204">Random burst pulse (fast-&gt;slow)</Capability>
-  <Capability Min="205" Max="209">Shuuter closed</Capability>
+  <Capability Min="205" Max="209">Shutter closed</Capability>
   <Capability Min="210" Max="224">Sine wave (fast-&gt;slow)</Capability>
-  <Capability Min="225" Max="229">Shuuter open</Capability>
+  <Capability Min="225" Max="229">Shutter open</Capability>
   <Capability Min="230" Max="244">Electronic burst (fast-&gt;slow)</Capability>
-  <Capability Min="245" Max="255">Shuuter open</Capability>
+  <Capability Min="245" Max="255">Shutter open</Capability>
  </Channel>
  <Channel Name="Virtual Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dynamic Effect 1">
@@ -75,7 +75,7 @@
   <Capability Min="235" Max="239">Effect 35 - Double vert. seg. chase (use RGB to set colour)</Capability>
   <Capability Min="240" Max="244">Effect 36 - Double opposite chase (use RGB to set colour)</Capability>
   <Capability Min="245" Max="249">Effect 37 - Reserved for future use</Capability>
-  <Capability Min="250" Max="254">Effect 38 - Reserved for future use</Capability>
+  <Capability Min="250" Max="255">Effect 38 - Reserved for future use</Capability>
  </Channel>
  <Channel Name="Dynamic Effect 1 Speed">
   <Group Byte="0">Speed</Group>
@@ -130,7 +130,7 @@
   <Capability Min="235" Max="239">Effect 35 - Double vert. seg. chase (use RGB to set colour)</Capability>
   <Capability Min="240" Max="244">Effect 36 - Double opposite chase (use RGB to set colour)</Capability>
   <Capability Min="245" Max="249">Effect 37 - Reserved for future use</Capability>
-  <Capability Min="250" Max="254">Effect 38 - Reserved for future use</Capability>
+  <Capability Min="250" Max="255">Effect 38 - Reserved for future use</Capability>
  </Channel>
  <Channel Name="Dynamic Effect 2 Speed">
   <Group Byte="0">Speed</Group>
