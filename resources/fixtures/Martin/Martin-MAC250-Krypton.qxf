@@ -175,7 +175,7 @@
   <Channel Number="10">Tilt</Channel>
   <Channel Number="11">Tilt fine</Channel>
   <Channel Number="12">Pan/tilt speed</Channel>
-  <Channel Number="13">Effect speed/Color/Gobo selection/gobo rotation/prism</Channel>
+  <Channel Number="13">Effect speed/Color/Gobo selection/Gobo rotation/Prism</Channel>
  </Mode>
  <Mode Name="16 Ex (16 Bit Extended)">
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
@@ -194,7 +194,7 @@
   <Channel Number="13">Tilt</Channel>
   <Channel Number="14">Tilt fine</Channel>
   <Channel Number="15">Pan/tilt speed</Channel>
-  <Channel Number="16">Effect speed/Color/Gobo selection/gobo rotation/prism</Channel>
+  <Channel Number="16">Effect speed/Color/Gobo selection/Gobo rotation/Prism</Channel>
  </Mode>
  <Physical>
   <Bulb Type="MSD 250W" Lumens="3180" ColourTemperature="6500"/>
