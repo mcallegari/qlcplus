@@ -28,7 +28,7 @@
   <Group Byte="1">Effect</Group>
   <Capability Min="0" Max="15">No Effect</Capability>
   <Capability Min="16" Max="44">Auto Effect 0</Capability>
-  <Capability Min="45" Max="47">Auto Effect 1</Capability>
+  <Capability Min="45" Max="74">Auto Effect 1</Capability>
   <Capability Min="75" Max="104">Auto Effect 2</Capability>
   <Capability Min="105" Max="128">Auto Effect 3</Capability>
   <Capability Min="129" Max="157">Sound Effect 0</Capability>
