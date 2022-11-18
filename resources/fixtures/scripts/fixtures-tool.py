@@ -430,7 +430,7 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
                 errNum += 1
             else:
                 if mchan.text not in channelNames:
-                    print(absname + "/" + modeName + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
+                    print(absname + "/" + modeName + "/" + mchan_no + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
                     errNum += 1
 
             if 'ActsOn' in mchan.attrib:
