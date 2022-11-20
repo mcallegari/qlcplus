@@ -10,6 +10,7 @@
     <F n="ADB-Warp-M" m="Warp M"/>
   </M>
   <M n="AFX">
+    <F n="AFX-BARLED200-FX" m="BARLED200-FX"/>
     <F n="AFX-Spot-180-LED" m="Spot 180 LED"/>
     <F n="AFX-Spot-60-LED" m="Spot 60 LED"/>
   </M>
@@ -193,6 +194,7 @@
     <F n="AVE-StagePar-Hex18" m="StagePar Hex18"/>
   </M>
   <M n="Ayra">
+    <F n="Ayra-ALO-Micro-Scan" m="ALO Micro Scan"/>
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
     <F n="Ayra-ERO-075" m="ERO 075"/>
@@ -417,6 +419,7 @@
     <F n="Chauvet-Intimidator-Spot-255-IRC" m="Intimidator Spot 255 IRC"/>
     <F n="Chauvet-Intimidator-Spot-355-IRC" m="Intimidator Spot 355 IRC"/>
     <F n="Chauvet-Intimidator-Spot-355Z-IRC" m="Intimidator Spot 355Z IRC"/>
+    <F n="Chauvet-Intimidator-Spot-375Z-IRC" m="Intimidator Spot 375Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-400-IRC" m="Intimidator Spot 400 IRC"/>
     <F n="Chauvet-Intimidator-Spot-Duo" m="Intimidator Spot Duo"/>
     <F n="Chauvet-Intimidator-Spot-LED-150" m="Intimidator Spot LED 150"/>
@@ -539,9 +542,11 @@
     <F n="Clay-Paky-SuperSharpy" m="SuperSharpy"/>
     <F n="Clay-Paky-Tambora-Batten" m="Tambora Batten"/>
     <F n="Clay-Paky-Tambora-Flash" m="Tambora Flash"/>
+    <F n="Clay-Paky-Tambora-Linear-100" m="Tambora Linear 100"/>
     <F n="Clay-Paky-Tiger-Scan-HMI-1200" m="Tiger Scan HMI 1200"/>
     <F n="Clay-Paky-Tiger-Scan-HMI-575" m="Tiger Scan HMI 575"/>
     <F n="Clay-Paky-Tornado" m="Tornado"/>
+    <F n="Clay-Paky-Volero-Wave" m="Volero Wave"/>
     <F n="Clay-Paky-Xtylos" m="Xtylos"/>
   </M>
   <M n="CLF">
@@ -606,6 +611,7 @@
     <F n="Elation-Cuepix-Batten" m="Cuepix Batten"/>
     <F n="Elation-Cuepix-Blinder-WW2" m="Cuepix Blinder WW2"/>
     <F n="Elation-DW-Fresnel" m="DW Fresnel"/>
+    <F n="Elation-E-Spot-III" m="E Spot III"/>
     <F n="Elation-EVC-MH" m="EVC MH"/>
     <F n="Elation-Fuze-PAR-Z175" m="Fuze PAR Z175"/>
     <F n="Elation-Fuze-Wash-Z350" m="Fuze Wash Z350"/>
@@ -629,6 +635,7 @@
     <F n="Eliminator-Lighting-Electro-86" m="Electro 86"/>
     <F n="Eliminator-Lighting-Electro-MH25R" m="Electro MH25R"/>
     <F n="Eliminator-Lighting-Follow-Spot-100-LED" m="Follow Spot 100 LED"/>
+    <F n="Eliminator-Lighting-LP-12-HEX" m="LP 12 HEX"/>
   </M>
   <M n="Elumen8">
     <F n="Elumen8-COB-Tri-4-Pixel-Batten" m="COB Tri 4 Pixel Batten"/>
@@ -667,6 +674,7 @@
   </M>
   <M n="Eurolite">
     <F n="Eurolite-DMXSuperstrobe-2700" m="DMX Superstrobe 2700"/>
+    <F n="Eurolite-EDX-4RT" m="EDX-4RT"/>
     <F n="Eurolite-GKF-60" m="GKF-60"/>
     <F n="Eurolite-KLS200" m="KLS200"/>
     <F n="Eurolite-LED-ACS-BAR-12" m="LED ACS BAR-12"/>
@@ -950,6 +958,7 @@
     <F n="JB-Systems-LED-Devil" m="LED Devil"/>
     <F n="JB-Systems-LED-DJ-BAR" m="LED DJ-BAR"/>
     <F n="JB-Systems-Lounge-Laser-DMX" m="Lounge Laser DMX"/>
+    <F n="JB-Systems-MINI-PAR-12RGBW" m="MINI-PAR 12RGBW"/>
     <F n="JB-Systems-Panther" m="Panther"/>
     <F n="JB-Systems-Plano-Spot-7TC" m="Plano Spot 7TC"/>
     <F n="JB-Systems-Plano-Spot-LED" m="Plano Spot LED"/>
@@ -1158,6 +1167,9 @@
     <F n="Movitec-SL-575" m="SL-575"/>
     <F n="Movitec-WL-250" m="WL-250"/>
     <F n="Movitec-WL-575" m="WL-575"/>
+  </M>
+  <M n="N-Gear">
+    <F n="N-Gear-SP12" m="Light Spotlight 12"/>
   </M>
   <M n="Nicols">
     <F n="Nicols-Birdy-Wash-122" m="Birdy Wash 122"/>

@@ -13,13 +13,17 @@ qlcplus (4.12.7) stable; urgency=low
   * Web Access: add support for widget background images
   * Fixture updated: Blizzard Lighting Pixellicious (thanks to Yestalgia)
   * New fixture: Vari-Lite VL4000 Spot (thanks to Håvard Ose Nordstrand)
-  * New fixtures: Clay Paky Tambora Batten, Tambora Flash, Sharpy X Frame (thanks to Gianluca Baggi)
+  * New fixtures: Clay Paky Tambora Batten, Tambora Flash, Tambora Linear 100, Sharpy X Frame, Volero Wave (thanks to Gianluca Baggi)
   * New fixture: beamZ BAC302 (thanks to Matej Lazar)
   * New fixture: Varytec Giga Bar HEX 3 (thanks to Niklas Larsson)
   * New fixtures: Equinox Fusion Orbit MKII, QTX PAR-180 (thanks to Wilbur)
-  * New fixture: Cameo ROOT Par 6 (thanks to Florian Faber)
+  * New fixtures: Cameo ROOT Par 6, AFX BARLED200-FX (thanks to Florian Faber)
   * New fixtures: BoomToneDJ Moving Wash 5X15 Speed, lightmaXX Vega Spot 60 (thanks to memrex)
   * New fixture: Eurolite TSL-150 (thanks to Samuel Mueller)
+  * New fixtures: Ayra ALO Micro Scan, Eurolite EDX-4RT, JB Systems MINI-PAR 12RGBW (thanks to Frank Rosquin)
+  * New fixtures: N-Gear Light Spotlight 12 (thanks to Frank Rosquin)
+  * New fixture: Elation E Spot III (thanks to Ludovic Martinez)
+  * New fixtures: Chauvet Intimidator Spot 375Z IRC, Eliminator Lighting LP 12 HEX (thanks to Andrew Pavlin)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Jan 2023 12:13:14 +0200
 
