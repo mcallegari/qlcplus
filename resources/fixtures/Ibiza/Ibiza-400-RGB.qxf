@@ -35,14 +35,14 @@
  </Channel>
  <Channel Name="Horizontal Move">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="160">Manual</Capability>
+  <Capability Min="0" Max="160">Manual</Capability>
   <Capability Min="161" Max="190">From left to right move</Capability>
   <Capability Min="191" Max="220">From right to left move</Capability>
   <Capability Min="221" Max="255">Right and left in-phase move</Capability>
  </Channel>
  <Channel Name="Vertical Move">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="160">Manual</Capability>
+  <Capability Min="0" Max="160">Manual</Capability>
   <Capability Min="161" Max="190">From down to up</Capability>
   <Capability Min="191" Max="220">From up to down</Capability>
   <Capability Min="221" Max="255">Up and down in-phase move</Capability>
