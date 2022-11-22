@@ -88,6 +88,7 @@
   <Capability Min="0" Max="3">No Mirror</Capability>
   <Capability Min="4" Max="7">Mirror color priority</Capability>
   <Capability Min="8" Max="11">Mirror color mixing</Capability>
+  <Capability Min="12" Max="119">No function</Capability>
   <Capability Min="120" Max="123">Tilt slow mode off</Capability>
   <Capability Min="124" Max="127">Tilt slow mode on</Capability>
   <Capability Min="128" Max="131">Tilt current off</Capability>
