@@ -73,19 +73,32 @@
   <Capability Min="0" Max="9">Safe</Capability>
   <Capability Min="10" Max="19">Pan and Tilt Mspeed Off</Capability>
   <Capability Min="20" Max="28">Display Off</Capability>
+  <Capability Min="29" Max="29">No function</Capability>
   <Capability Min="30" Max="38">display dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
   <Capability Min="40" Max="48">display bright</Capability>
+  <Capability Min="49" Max="59">No function</Capability>
   <Capability Min="60" Max="68" Preset="ResetAll">Home all</Capability>
+  <Capability Min="69" Max="79">No function</Capability>
   <Capability Min="80" Max="88" Preset="LampOn">lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
   <Capability Min="90" Max="98" Preset="LampOff">lamp off</Capability>
+  <Capability Min="99" Max="119">No function</Capability>
   <Capability Min="120" Max="130">shutdown</Capability>
   <Capability Min="131" Max="149">Reserved</Capability>
+  <Capability Min="150" Max="159">No function</Capability>
   <Capability Min="160" Max="168" Preset="ResetPanTilt">Home Pan/tilt</Capability>
+  <Capability Min="169" Max="169">No function</Capability>
   <Capability Min="170" Max="178" Preset="ResetColor">Home Color system</Capability>
+  <Capability Min="179" Max="179">No function</Capability>
   <Capability Min="180" Max="188" Preset="ResetGobo">Home Gobo System</Capability>
+  <Capability Min="189" Max="189">No function</Capability>
   <Capability Min="190" Max="198">Home strobe/dim</Capability>
+  <Capability Min="199" Max="199">No function</Capability>
   <Capability Min="200" Max="208" Preset="ResetFrost">Home focus/Zoom/Frost</Capability>
+  <Capability Min="209" Max="209">No function</Capability>
   <Capability Min="210" Max="218">Home Iris</Capability>
+  <Capability Min="219" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Static Color Function">
   <Group Byte="0">Colour</Group>
@@ -135,16 +148,18 @@
  <Channel Name="Color Temp Orange">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="169">Variable CTO</Capability>
   <Capability Min="170" Max="170">Full CTO</Capability>
-  <Capability Min="213" Max="213">Beam Flatness</Capability>
-  <Capability Min="255" Max="255">Open</Capability>
+  <Capability Min="171" Max="213">Beam Flatness</Capability>
+  <Capability Min="214" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Color Temp Blue">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">Beam flatten</Capability>
-  <Capability Min="43" Max="43">OPEN</Capability>
-  <Capability Min="213" Max="213">Full CTB</Capability>
-  <Capability Min="255" Max="255">Beam Flatness</Capability>
+  <Capability Min="0" Max="0">OPEN</Capability>
+  <Capability Min="1" Max="169">Variable CTB</Capability>
+  <Capability Min="170" Max="170">Full CTB</Capability>
+  <Capability Min="171" Max="213">Beam Flatness</Capability>
+  <Capability Min="214" Max="255">OPEN</Capability>
  </Channel>
  <Channel Name="Gobo 1 Function">
   <Group Byte="0">Gobo</Group>
