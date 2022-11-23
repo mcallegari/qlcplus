@@ -27,7 +27,9 @@
   <Capability Min="83" Max="87">Color Dreaming 1</Capability>
   <Capability Min="88" Max="92">Color Dreaming 2</Capability>
   <Capability Min="93" Max="97">Color Dreaming 3</Capability>
+  <Capability Min="98" Max="163">No function</Capability>
   <Capability Min="164" Max="168">Color Change</Capability>
+  <Capability Min="169" Max="245">No function</Capability>
   <Capability Min="246" Max="255">Sound Active</Capability>
  </Channel>
  <Channel Name="Strobe/Speed/Sensitivity">
