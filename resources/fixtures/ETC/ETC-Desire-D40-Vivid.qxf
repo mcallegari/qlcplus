@@ -45,7 +45,7 @@
  <Channel Name="Not Used (RGB Mode)" Preset="NoFunction"/>
  <Channel Name="Not Used 6 (plus 7 mode)" Preset="NoFunction"/>
  <Mode Name="Mode 1 Direct">
-  <Channel Number="0">Red</Channel>
+  <Channel Number="0" Preset="NoFunction">Red</Channel>
   <Channel Number="1">Orange</Channel>
   <Channel Number="2">Amber</Channel>
   <Channel Number="3">Green</Channel>
