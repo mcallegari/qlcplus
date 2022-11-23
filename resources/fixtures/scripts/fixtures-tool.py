@@ -294,6 +294,37 @@ def check_physical(absname, node, hasPan, hasTilt, hasZoom, errNum):
     return errNum
 
 ###########################################################################################
+# getDefinitionVersion
+#
+# Get the version with which the definition was created
+#
+# xmlObj The fixture XML object
+###########################################################################################
+
+def getDefinitionVersion(xmlObj):
+    global namespace
+    root = xmlObj.getroot()
+    qlc_version = 0
+
+    creator_tag = root.find('{' + namespace + '}Creator')
+
+    if creator_tag is None:
+        print("Creator tag not found")
+    else:
+        version_tag = creator_tag.find('{' + namespace + '}Version')
+
+        numversion_tok = re.findall('\d+', version_tag.text)
+        #print("Definition version: " + version_tag.text)
+    
+        # extract a unified number from the QLC version string
+        if len(numversion_tok) == 3:
+            qlc_version = (int(numversion_tok[0]) * 10000) + (int(numversion_tok[1]) * 100) + int(numversion_tok[2])
+        else:
+            qlc_version = (int(numversion_tok[0]) * 10000) + (int(numversion_tok[1]) * 100)
+
+    return qlc_version
+
+###########################################################################################
 # validate_fx_creator
 #
 # Validate the fixture creator field
@@ -317,15 +348,6 @@ def validate_fx_creator(absname, xmlObj, errNum):
         name_tag = creator_tag.find('{' + namespace + '}Name')
         version_tag = creator_tag.find('{' + namespace + '}Version')
 
-        numversion_tok = re.findall('\d+', version_tag.text)
-        #print("Definition version: " + version_tag.text)
-
-        # extract a unified number from the QLC version string
-        if len(numversion_tok) == 3:
-            qlc_version = (int(numversion_tok[0]) * 10000) + (int(numversion_tok[1]) * 100) + int(numversion_tok[2])
-        else:
-            qlc_version = (int(numversion_tok[0]) * 10000) + (int(numversion_tok[1]) * 100)
-
         if author_tag is None:
             print(absname + ": Author tag not found")
             errNum += 1
@@ -341,6 +363,16 @@ def validate_fx_creator(absname, xmlObj, errNum):
                     if "@" in authName or "://" in authName or "www" in authName:
                         print(absname + ": URLs or emails not allowed in author tag")
                         errNum += 1
+
+        if version_tag is None:
+            print(absname + ": Version tag not found")
+            errNum += 1
+        else:
+            qlc_version = getDefinitionVersion(xmlObj)
+            if (qlc_version == 0):
+                print(absname + ": Version tag not in version semantics")
+                errNum += 1
+
     return errNum
 
 ###########################################################################################
@@ -409,9 +441,10 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
             errNum += 1
 
         # better to skip this for now. Still too many errors
-        #if qlc_version >= 41100 and 'mode' in modeName.lower():
-        #    print(absname + "/" + modeName + ": word 'mode' found in mode name")
-        #    errNum += 1
+        qlc_version = getDefinitionVersion(xmlObj)
+        if qlc_version >= 41204 and 'mode' in modeName.lower():
+            print(absname + "/" + modeName + ": word 'mode' found in mode name (version " + str(qlc_version) +")")
+            errNum += 1
 
         modeChanCount = 0
         modeHeadsCount = 0

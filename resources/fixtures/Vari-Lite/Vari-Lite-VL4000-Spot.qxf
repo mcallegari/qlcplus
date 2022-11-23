@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.7 GIT</Version>
+  <Version>5.0.0 Beta 2</Version>
   <Author>Håvard Ose Nordstrand</Author>
  </Creator>
  <Manufacturer>Vari-Lite</Manufacturer>

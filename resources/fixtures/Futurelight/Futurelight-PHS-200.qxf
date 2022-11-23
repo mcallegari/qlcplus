@@ -17,6 +17,7 @@
   <Capability Min="1" Max="225">Vector mode speed</Capability>
   <Capability Min="226" Max="235">BO with pan/tilt</Capability>
   <Capability Min="236" Max="245">BO with colour/gobo change</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
@@ -81,6 +82,7 @@
   <Capability Min="192" Max="207">Internal program 7</Capability>
   <Capability Min="208" Max="223">Internal program 8</Capability>
   <Capability Min="224" Max="239" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Channel Number="0">Pan</Channel>
