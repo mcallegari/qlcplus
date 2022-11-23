@@ -14,7 +14,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Colour Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Max="7" Min="1" Color="#000000">Blackout</Capability>
+  <Capability Max="7" Min="0" Color="#000000">Blackout</Capability>
   <Capability Max="255" Min="8">Colour macro</Capability>
  </Channel>
  <Channel Name="Strobe">

@@ -110,6 +110,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Stop</Capability>
   <Capability Min="10" Max="120">Clockwise Pattern Rotation from FAST to SLOW</Capability>
+  <Capability Min="121" Max="125">No function</Capability>
   <Capability Min="126" Max="141">Stop</Capability>
   <Capability Min="142" Max="245">Counterclockwise Pattern Rotation from SLOW to FAST</Capability>
   <Capability Min="246" Max="255">Stop</Capability>
