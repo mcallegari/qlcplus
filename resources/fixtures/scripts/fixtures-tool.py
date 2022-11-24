@@ -443,7 +443,7 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
         # better to skip this for now. Still too many errors
         qlc_version = getDefinitionVersion(xmlObj)
         if qlc_version >= 41204 and 'mode' in modeName.lower():
-            print(absname + "/" + modeName + ": word 'mode' found in mode name (version " + str(qlc_version) +")")
+            print(absname + ":" + modeName + ": word 'mode' found in mode name (version " + str(qlc_version) +")")
             errNum += 1
 
         modeChanCount = 0
@@ -456,40 +456,40 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
                 errNum += 1
             else:
                 mchan_no = mchan.attrib['Number']
-                #print(absname + "/" + modeName + ": Channel " + mchan_no + "): " + mchan.text)
+                #print(absname + ":" + modeName + ": Channel " + mchan_no + "): " + mchan.text)
 
             if mchan.text is None:
-                print(absname + "/" + modeName + ": Empty channel name found. This definition won't work.")
+                print(absname + ":" + modeName + ": Empty channel name found. This definition won't work.")
                 errNum += 1
             else:
                 if mchan.text not in channelNames:
-                    print(absname + "/" + modeName + "/" + mchan_no + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
+                    print(absname + ":" + modeName + ":" + mchan_no + ": Channel " + mchan.text + " doesn't exist. This definition won't work.")
                     errNum += 1
 
             if 'ActsOn' in mchan.attrib:
                 if mchan.attrib["ActsOn"] is mchan_no:
-                    print(absname + "/" + modeName + "/" + mchan_no + ": Channel cannot act on itself. Leave it blank.")
+                    print(absname + ":" + modeName + ":" + mchan_no + ": Channel cannot act on itself. Leave it blank.")
                     errNum += 1
 
             modeChanCount += 1
 
         if modeChanCount == 0:
-            print(absname + "/" + modeName + ": No channel found in mode")
+            print(absname + ":" + modeName + ": No channel found in mode")
             errNum += 1
 
         for mchan in mode.findall('{' + namespace + '}Head'):
             modeHeadsCount += 1
 
         if modeHeadsCount == 1:
-            print(absname + "/" + modeName + ": Single head found. Not allowed")
+            print(absname + ":" + modeName + ": Single head found. Not allowed")
             errNum += 1
 
 #        if modeHeadsCount > 3:
-#            print(absname + "/" + modeName + ": Heads found: " + str(modeHeadsCount))
+#            print(absname + ":" + modeName + ": Heads found: " + str(modeHeadsCount))
 
         phy_tag = mode.find('{' + namespace + '}Physical')
         if phy_tag is None and global_phy_tag is None:
-            print(absname + "/" + modeName + ": No physical data found")
+            print(absname + ":" + modeName + ": No physical data found")
             errNum += 1
 
         errNum = check_physical(absname, mode, hasPan, hasTilt, hasZoom, errNum)
@@ -538,16 +538,16 @@ def validate_fx_channels(absname, xmlObj, errNum):
         groupByte = -1
 
         if not chPreset and childrenCount == 0:
-            print(absname + "/" + chName + ": Invalid channel. Not a preset and no capabilities found")
+            print(absname + ":" + chName + ": Invalid channel. Not a preset and no capabilities found")
             errNum += 1
 
         if not chPreset and group_tag is None:
-            print(absname + "/" + chName + ": Invalid channel. Not a preset and no group tag found")
+            print(absname + ":" + chName + ": Invalid channel. Not a preset and no group tag found")
             errNum += 1
 
         if group_tag is not None:
             if not group_tag.text:
-                print(absname + "/" + chName + ": Invalid channel. Empty group tag detected")
+                print(absname + ":" + chName + ": Invalid channel. Empty group tag detected")
                 errNum += 1
             else:
                 if group_tag.text == 'Pan':
@@ -556,7 +556,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
                     hasTilt = True
 
             if 'Byte' not in group_tag.attrib:
-                print(absname + "/" + chName + ": Invalid channel. Group byte attribute not found")
+                print(absname + ":" + chName + ": Invalid channel. Group byte attribute not found")
                 errNum += 1
             else:
                 groupByte = group_tag.attrib['Byte']
@@ -574,7 +574,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
 
         # check the word 'fine' against control byte
         if groupByte == 0 and 'fine' in chName:
-            print(absname + "/" + chName + ": control byte should be set to Fine (LSB)")
+            print(absname + ":" + chName + ": control byte should be set to Fine (LSB)")
             errNum += 1
 
         ################################# CHECK CAPABILITIES ##############################
@@ -585,7 +585,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
             newResSyntax = False
             capName = capability.text
             if not capName:
-                print(absname + "/" + chName + ": Capability with no description detected")
+                print(absname + ":" + chName + ": Capability with no description detected")
                 errNum += 1
 
             # check capabilities overlapping
@@ -595,16 +595,16 @@ def validate_fx_channels(absname, xmlObj, errNum):
             #print("Min: " + str(currMin) + ", max: " + str(currMax))
 
             if currMin <= lastMax:
-                print(absname + "/" + chName + "/" + capName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax))
+                print(absname + ":" + chName + "/" + capName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax))
                 errNum += 1
 
             if currMin > currMax:
-                print(absname + "/" + chName + "/" + capName + ": Min larger than Max " + str(currMin) + "/" + str(currMax))
+                print(absname + ":" + chName + "/" + capName + ": Min larger than Max " + str(currMin) + "/" + str(currMax))
                 errNum += 1
 
             # Evaluate contiguous ranges
             if currMin != lastMax + 1:
-                print(absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(lastMax) + "/" + str(currMin))
+                print(absname + ":" + chName + "/" + capName + ": Non contiguous range detected " + str(lastMax) + "/" + str(currMin))
                 errNum += 1
 
             lastMax = currMax
@@ -617,7 +617,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
                 newResSyntax = True
 
             if resource.startswith('/'):
-                print(absname + "/" + chName + "/" + capName + ": Absolute paths not allowed in resources")
+                print(absname + ":" + chName + "/" + capName + ": Absolute paths not allowed in resources")
                 errNum += 1
 
             # check the actual existence of a gobo. If possible, migrate to SVG
@@ -631,7 +631,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
                     goboPath = os.getcwd() + "/../gobos/" + resource
 
                     if not os.path.isfile(goboPath):
-                        print(absname + "/" + chName + "/" + capName + ": Non existing gobo file detected (" + resource + ")")
+                        print(absname + ":" + chName + "/" + capName + ": Non existing gobo file detected (" + resource + ")")
                         errNum += 1
                     else:
                         needSave = True
@@ -644,11 +644,11 @@ def validate_fx_channels(absname, xmlObj, errNum):
 
         # Evaluate completeness of ranges
         if 255 != lastMax:
-            print(absname + "/" + chName + ": Incomplete range detected " + str(currMax) + "/255")
+            print(absname + ":" + chName + ": Incomplete range detected " + str(currMax) + "/255")
             errNum += 1
 
         if capCount == 0:
-            print(absname + "/" + chName + ": Channel has no capabilities")
+            print(absname + ":" + chName + ": Channel has no capabilities")
             errNum += 1
 
         chCount += 1

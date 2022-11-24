@@ -220,7 +220,7 @@
   <Capability Min="146" Max="215" Preset="StrobeRandom">Random strobe</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Light on</Capability>
  </Channel>
- <Mode Name="20 Channels mode">
+ <Mode Name="20 Channel">
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Fine Pan 1</Channel>
   <Channel Number="2">Tilt 1</Channel>
@@ -262,7 +262,7 @@
    <Channel>12</Channel>
   </Head>
  </Mode>
- <Mode Name="10 Channels mode">
+ <Mode Name="10 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
