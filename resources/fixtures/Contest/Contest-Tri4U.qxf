@@ -55,7 +55,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
-  <Capability Min="16" Max="250" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
  </Channel>
  <Channel Name="Dim (ch 6 &lt;= 10) / Dim &amp; Speed (ch 6 &gt; 10)">
   <Group Byte="0">Intensity</Group>
