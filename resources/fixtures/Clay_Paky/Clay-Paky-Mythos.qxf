@@ -230,7 +230,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="27">Empty position</Capability>
   <Capability Min="28" Max="49">Empty + Light Green</Capability>
-  <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#159b35">Light Green</Capability>
+  <Capability Min="50" Max="76" Preset="ColorMacro" Res1="#159b35">Light Green</Capability>
   <Capability Min="77" Max="99">Light Green + Pink</Capability>
   <Capability Min="100" Max="128" Preset="ColorMacro" Res1="#f19ea1">Pink</Capability>
   <Capability Min="129" Max="149">Pink + Aquamarine</Capability>
