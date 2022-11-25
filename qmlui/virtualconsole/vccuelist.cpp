@@ -523,28 +523,7 @@ void VCCueList::slotStepChanged(int index)
 void VCCueList::slotFunctionNameChanged(quint32 fid)
 {
     if (fid == m_chaserID)
-    {
         emit chaserIDChanged(fid);
-    }
-    else
-    {
-        // fid might be an ID of a ChaserStep of the Chaser
-        Chaser *ch = chaser();
-        if (ch == NULL)
-            return;
-
-        for (int i = 0; i < ch->stepsCount(); i++)
-        {
-            ChaserStep *step = ch->stepAt(i);
-            if (step->fid == fid)
-            {
-                QMetaObject::invokeMethod(m_item, "updateStepName", Q_ARG(QVariant, i));
-
-                //ChaserEditor::updateStepInListModel(m_doc, chaser(), m_stepsList, step, i);
-                return;
-            }
-        }
-    }
 }
 
 /*********************************************************************
@@ -840,6 +819,29 @@ void VCCueList::nextClicked()
                 Q_ASSERT(false);
         }
     }
+}
+
+void VCCueList::playCurrentStep()
+{
+    Chaser *ch = chaser();
+    if (ch == nullptr)
+        return;
+
+    if (ch->isRunning())
+    {
+        ChaserAction action;
+        action.m_action = ChaserSetStepIndex;
+        action.m_stepIndex = m_playbackIndex;
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
+        action.m_fadeMode = getFadeMode();
+        ch->setAction(action);
+    }
+    else
+    {
+        startChaser(m_playbackIndex == -1 ? 0 : m_playbackIndex);
+    }
+
 }
 
 void VCCueList::slotFunctionRunning(quint32 fid)

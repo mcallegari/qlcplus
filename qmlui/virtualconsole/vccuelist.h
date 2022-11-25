@@ -236,6 +236,7 @@ public:
     Q_INVOKABLE void stopClicked();
     Q_INVOKABLE void previousClicked();
     Q_INVOKABLE void nextClicked();
+    Q_INVOKABLE void playCurrentStep();
 
 signals:
     void playbackStatusChanged();
