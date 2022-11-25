@@ -49,6 +49,7 @@
  <Channel Name="Motor">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationIndexed">Indexing</Capability>
   <Capability Min="128" Max="255">Speed</Capability>
  </Channel>
  <Channel Name="Pattern Options">

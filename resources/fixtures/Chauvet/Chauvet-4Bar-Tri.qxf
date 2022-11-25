@@ -11,30 +11,30 @@
  <Type>Color Changer</Type>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">RGB</Capability>
-  <Capability Min="10" Max="10">PS1</Capability>
-  <Capability Min="30" Max="30">PS2</Capability>
-  <Capability Min="50" Max="50">PS3</Capability>
-  <Capability Min="70" Max="70">PS4</Capability>
-  <Capability Min="90" Max="90">PS5</Capability>
-  <Capability Min="110" Max="110">PS6</Capability>
-  <Capability Min="130" Max="130">PS7</Capability>
-  <Capability Min="150" Max="150">PS8</Capability>
-  <Capability Min="170" Max="170">PS9</Capability>
-  <Capability Min="190" Max="190">PS10</Capability>
-  <Capability Min="210" Max="210">PS11</Capability>
-  <Capability Min="230" Max="230">PS12</Capability>
-  <Capability Min="250" Max="250">SOUND</Capability>
+  <Capability Min="0" Max="9">RGB</Capability>
+  <Capability Min="10" Max="29">Automatic 1</Capability>
+  <Capability Min="30" Max="49">Automatic 2</Capability>
+  <Capability Min="50" Max="69">Automatic 3</Capability>
+  <Capability Min="70" Max="89">Automatic 4</Capability>
+  <Capability Min="90" Max="109">Automatic 5</Capability>
+  <Capability Min="110" Max="129">Automatic 6</Capability>
+  <Capability Min="130" Max="149">Automatic 7</Capability>
+  <Capability Min="150" Max="169">Automatic 8</Capability>
+  <Capability Min="170" Max="189">Automatic 9</Capability>
+  <Capability Min="190" Max="209">Automatic 10</Capability>
+  <Capability Min="210" Max="229">Automatic 11</Capability>
+  <Capability Min="230" Max="249">Automatic 12</Capability>
+  <Capability Min="250" Max="255">Sound active</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">BO</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="255">1-100%</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0" Preset="ShutterOpen">NONE</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe Slow-&gt;Fast</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="1Red" Preset="IntensityRed"/>
  <Channel Name="1Green" Preset="IntensityGreen"/>

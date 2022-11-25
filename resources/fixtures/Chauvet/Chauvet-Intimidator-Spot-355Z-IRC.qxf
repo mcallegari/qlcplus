@@ -88,10 +88,12 @@
   <Capability Min="96" Max="103">Reset pan</Capability>
   <Capability Min="104" Max="111">Reset tilt</Capability>
   <Capability Min="112" Max="119">Reset colour wheel</Capability>
+  <Capability Min="120" Max="127">Reset gobo wheel</Capability>
   <Capability Min="128" Max="135">Reset gobo rotation</Capability>
-  <Capability Min="152" Max="159">Reset prism</Capability>
-  <Capability Min="198" Max="207">Reset all channels</Capability>
-  <Capability Min="208" Max="255">No function</Capability>
+  <Capability Min="136" Max="143">Reset prism</Capability>
+  <Capability Min="144" Max="151">Reset focus</Capability>
+  <Capability Min="152" Max="159">Reset all channels</Capability>
+  <Capability Min="160" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macros">
   <Group Byte="0">Maintenance</Group>

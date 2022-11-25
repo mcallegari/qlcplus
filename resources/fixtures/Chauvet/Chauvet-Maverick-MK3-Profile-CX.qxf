@@ -213,6 +213,7 @@
  <Channel Name="Prism 1 Rotate">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Rotating prism 1 index</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Rotating prism 1 index</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse prism 1 rotation, slow to fast</Capability>
  </Channel>

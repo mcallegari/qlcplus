@@ -86,6 +86,7 @@
   <Capability Min="96" Max="103" Preset="ResetPan">Reset pan</Capability>
   <Capability Min="104" Max="111" Preset="ResetTilt">Reset tilt</Capability>
   <Capability Min="112" Max="119" Preset="ResetColor">Reset color wheel</Capability>
+  <Capability Min="120" Max="127" Preset="ResetGobo">Reset gobo wheel</Capability>
   <Capability Min="128" Max="135" Preset="ResetGobo">Reset gobo rotation</Capability>
   <Capability Min="136" Max="143" Preset="ResetPrism">Reset prism</Capability>
   <Capability Min="144" Max="151" Preset="ResetAll">Reset focus</Capability>
