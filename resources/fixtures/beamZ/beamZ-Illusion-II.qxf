@@ -29,6 +29,7 @@
  </Channel>
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="21" Preset="GoboMacro">Open</Capability>
   <Capability Min="22" Max="34" Preset="GoboMacro">Gobo 1</Capability>
   <Capability Min="35" Max="47" Preset="GoboMacro">Gobo 2</Capability>
   <Capability Min="48" Max="60" Preset="GoboMacro">Gobo 3</Capability>
@@ -67,12 +68,14 @@
  <Channel Name="SMD ring Blue 3" Preset="IntensityBlue"/>
  <Channel Name="SMD Ring strobe">
   <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="29">No function</Capability>
   <Capability Min="30" Max="225">Strobe (Slow to fast)</Capability>
   <Capability Min="226" Max="255">SMD ring strobe off</Capability>
  </Channel>
  <Channel Name="SMD ring dimming" Preset="IntensityDimmer"/>
  <Channel Name="SMD Ring auto program">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">No function</Capability>
   <Capability Min="36" Max="40">Red</Capability>
   <Capability Min="41" Max="45">Green</Capability>
   <Capability Min="46" Max="50">Blue</Capability>
