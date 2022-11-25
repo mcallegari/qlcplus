@@ -120,6 +120,7 @@
  </Channel>
  <Channel Name="Auto Speed Adjustment">
   <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="220">No function</Capability>
   <Capability Min="221" Max="255">Auto Speed Adjustement</Capability>
  </Channel>
  <Channel Name="Master Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
