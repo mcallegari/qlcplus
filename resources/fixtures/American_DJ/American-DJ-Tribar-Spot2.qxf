@@ -20,6 +20,7 @@
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Color macros">
   <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="7" Preset="ColorMacro" Res1="#ffce8f">Bastard Amber</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#feb199">Medium Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#fec08a">Pale Amber Gold</Capability>

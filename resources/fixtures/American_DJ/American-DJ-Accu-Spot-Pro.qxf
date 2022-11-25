@@ -47,7 +47,7 @@
  </Channel>
  <Channel Name="Rotating Gobo Index">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="63" Preset="RotationIndexed">Gobo Indexing</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo Indexing</Capability>
   <Capability Min="128" Max="187" Preset="RotationClockwiseFastToSlow">Forward Gobo Rot. Fast - Slow</Capability>
   <Capability Min="188" Max="193" Preset="RotationStop">No Rotation</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward Gobo Rot. Slow - Fast</Capability>

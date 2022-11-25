@@ -26,7 +26,7 @@
   <Capability Min="57" Max="66" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White &amp; Red</Capability>
   <Capability Min="67" Max="76" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red &amp; Orange</Capability>
   <Capability Min="77" Max="86" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffff00">Orange &amp; Yellow</Capability>
-  <Capability Min="88" Max="96" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow &amp; Green</Capability>
+  <Capability Min="87" Max="96" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow &amp; Green</Capability>
   <Capability Min="97" Max="106" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green &amp; UV</Capability>
   <Capability Min="107" Max="116" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#00aaff">UV &amp; Light Blue</Capability>
   <Capability Min="117" Max="127" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ffaaff">Light Blue &amp; Pink</Capability>
