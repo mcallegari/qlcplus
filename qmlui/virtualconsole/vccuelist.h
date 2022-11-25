@@ -182,6 +182,13 @@ public:
 
     Q_INVOKABLE void addFunctions(QVariantList idsList, int insertIndex = -1);
 
+    Q_INVOKABLE void setStepNote(int index, QString text);
+
+private slots:
+    void slotFunctionRemoved(quint32 fid);
+    void slotFunctionNameChanged(quint32 fid);
+    void slotStepChanged(int index);
+
 private:
     FunctionParent functionParent() const;
 
