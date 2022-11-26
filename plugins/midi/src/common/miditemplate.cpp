@@ -143,7 +143,7 @@ bool MidiTemplate::loadXML(QXmlStreamReader& doc)
                     initMessage.append((char)byte);
                 }
                 setInitMessage(initMessage);
-                qDebug() << Q_FUNC_INFO << "Loaded message with size:" << initMessage.count();
+                qDebug() << Q_FUNC_INFO << "Loaded message with size:" << initMessage.length();
             }
         }
 

@@ -22,6 +22,7 @@
 #define QLCCHANNEL_H
 
 #include <climits>
+#include <QObject>
 #include <QString>
 #include <QList>
 #include <QIcon>

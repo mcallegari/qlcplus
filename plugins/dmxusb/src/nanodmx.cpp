@@ -60,7 +60,7 @@ bool NanoDMX::checkReply()
 #else
     QByteArray reply = m_file.readAll();
     //qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
-    for (int i = 0; i < reply.count(); i++)
+    for (int i = 0; i < reply.length(); i++)
     {
         if (reply[i] == 'G')
         {

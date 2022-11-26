@@ -795,7 +795,7 @@ void Universe::disconnectInputPatch()
 
 void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, ChannelType forcedType)
 {
-    if (channel >= (ushort)m_channelsMask->count())
+    if (channel >= (ushort)m_channelsMask->length())
         return;
 
     if (Utils::vectorRemove(m_intensityChannels, channel))
@@ -849,7 +849,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
 
 uchar Universe::channelCapabilities(ushort channel)
 {
-    if (channel >= (ushort)m_channelsMask->count())
+    if (channel >= (ushort)m_channelsMask->length())
         return Undefined;
 
     return m_channelsMask->at(channel);

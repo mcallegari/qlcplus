@@ -22,7 +22,6 @@
 
 #include "fadechannel.h"
 #include "qlcchannel.h"
-#include "qlcmacros.h"
 #include "universe.h"
 #include "fixture.h"
 

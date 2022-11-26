@@ -22,8 +22,6 @@
 
 #include <QtGlobal>
 
-#include "qlcchannel.h"
-#include "fixture.h"
 #include "doc.h"
 
 /** @addtogroup engine Engine

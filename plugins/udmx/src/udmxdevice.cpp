@@ -207,8 +207,8 @@ const struct libusb_device* UDMXDevice::device() const
 
 void UDMXDevice::outputDMX(const QByteArray& universe)
 {
-    m_universe.replace(0, qMin(universe.size(), m_universe.size()), universe.constData(),
-                          qMin(universe.size(), m_universe.size()));
+    m_universe.replace(qsizetype(0), qMin(universe.size(), m_universe.size()), universe.constData(),
+                       qMin(universe.size(), m_universe.size()));
 }
 
 void UDMXDevice::stop()

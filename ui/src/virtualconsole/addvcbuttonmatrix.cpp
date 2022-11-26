@@ -135,8 +135,7 @@ void AddVCButtonMatrix::slotRemoveClicked()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
-        m_functions.removeAll(
-            item->data(KColumnFunction, Qt::UserRole).toInt());
+        m_functions.removeAll(item->data(KColumnFunction, Qt::UserRole).toUInt());
         delete item;
     }
 
