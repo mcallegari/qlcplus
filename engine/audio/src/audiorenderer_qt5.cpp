@@ -22,11 +22,10 @@
 #include <QDebug>
 
 #include "doc.h"
-#include "audiodecoder.h"
 #include "audiorenderer_qt5.h"
 #include "audioplugincache.h"
 
-AudioRendererQt5::AudioRendererQt5(QString device, QObject * parent)
+AudioRendererQt5::AudioRendererQt5(QString device, Doc *doc, QObject *parent)
     : AudioRenderer(parent)
     , m_audioOutput(NULL)
     , m_output(NULL)
@@ -34,7 +33,6 @@ AudioRendererQt5::AudioRendererQt5(QString device, QObject * parent)
 {
     QSettings settings;
     QString devName = "";
-    Doc *doc = qobject_cast<Doc*>(parent);
 
     QVariant var;
     if (m_device.isEmpty())
