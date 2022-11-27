@@ -36,7 +36,7 @@
 
 #include "oscpacketizer.h"
 
-typedef struct
+typedef struct _uinfo
 {
     QSharedPointer<QUdpSocket> inputSocket;
 

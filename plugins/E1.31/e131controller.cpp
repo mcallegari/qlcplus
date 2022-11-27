@@ -20,21 +20,22 @@
 #include "e131controller.h"
 
 #include <QMutexLocker>
+#include <QVariant>
 #include <QDebug>
 
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-E131Controller::E131Controller(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
+E131Controller::E131Controller(QNetworkInterface const& iface, QNetworkAddressEntry const& address,
                                quint32 line, QObject *parent)
     : QObject(parent)
-    , m_interface(interface)
+    , m_interface(iface)
     , m_ipAddr(address.ip())
     , m_packetSent(0)
     , m_packetReceived(0)
     , m_line(line)
     , m_UdpSocket(new QUdpSocket(this))
-    , m_packetizer(new E131Packetizer(interface.hardwareAddress()))
+    , m_packetizer(new E131Packetizer(iface.hardwareAddress()))
 {
     qDebug() << Q_FUNC_INFO;
     m_UdpSocket->bind(m_ipAddr, 0);
