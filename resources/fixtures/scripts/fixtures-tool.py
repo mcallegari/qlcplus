@@ -315,7 +315,7 @@ def getDefinitionVersion(xmlObj):
 
         numversion_tok = re.findall('\d+', version_tag.text)
         #print("Definition version: " + version_tag.text)
-    
+
         # extract a unified number from the QLC version string
         if len(numversion_tok) == 3:
             qlc_version = (int(numversion_tok[0]) * 10000) + (int(numversion_tok[1]) * 100) + int(numversion_tok[2])
