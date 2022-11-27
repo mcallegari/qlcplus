@@ -68,11 +68,13 @@
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Diverse functions">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Blackout during pan/tilt movement, fast LED switching</Capability>
   <Capability Min="80" Max="89">Disable Blackout during pan/tilt movement</Capability>
-  <Capability Min="200" Max="209">reset after 3 seconds within these values</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset after 3 seconds within these values</Capability>
   <Capability Min="210" Max="239" Preset="ResetAll">No Function</Capability>
-  <Capability Min="240" Max="255">sound activated mode</Capability>
+  <Capability Min="240" Max="255">Sound activated mode</Capability>
  </Channel>
  <Channel Name="Sound-controlled Shows">
   <Group Byte="0">Effect</Group>
