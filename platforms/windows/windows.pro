@@ -210,9 +210,9 @@ INSTALLS += audio
 nsis.path  = $$INSTALLROOT/$$DATADIR
 
 qmlui: {
-    nsis.files = qlcplus5Qt5.nsi
+    nsis.files = qlcplus5$${QT_V}.nsi
 } else {
-    nsis.files = qlcplus4Qt5.nsi
+    nsis.files = qlcplus4$${QT_V}.nsi
 }
 
 INSTALLS  += nsis
