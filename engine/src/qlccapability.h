@@ -109,7 +109,6 @@ public:
         SlowToFast,
         FastToSlow,
         NearToFar,
-        NoFunction,
         FarToNear,
         BigToSmall,
         SmallToBig,
