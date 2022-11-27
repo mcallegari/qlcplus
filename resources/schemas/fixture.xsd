@@ -296,7 +296,6 @@ when changing this list -->
         <xs:enumeration value="SilentModeOff" />
         <xs:enumeration value="SilentModeAutomatic" />
         <xs:enumeration value="Alias" />
-        <xs:enumeration value="NoFunction" />
     </xs:restriction>
 </xs:simpleType>
 
