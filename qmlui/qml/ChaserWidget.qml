@@ -50,6 +50,7 @@ Column
     signal requestEditor(int funcID)
     signal dragEntered(var item)
     signal dragExited(var item)
+    signal enterPressed(int index)
 
     function editStepTime(stepIndex, stepItem, type)
     {
@@ -410,8 +411,19 @@ Column
         delegate:
             Item
             {
+                id: itemRoot
                 width: cStepsList.width
                 height: UISettings.listItemHeight
+
+                Keys.onPressed:
+                {
+                    if (event.key === Qt.Key_Return ||
+                        event.key === Qt.Key_Enter)
+                    {
+                        widgetRoot.enterPressed(index)
+                        event.accepted = true
+                    }
+                }
 
                 MouseArea
                 {
@@ -428,6 +440,7 @@ Column
                         console.log("mouse mods: " + mouse.modifiers)
                         if ((mouse.modifiers & Qt.ControlModifier) == 0)
                             widgetRoot.indexChanged(index)
+                        itemRoot.forceActiveFocus()
                     }
 
                     onDoubleClicked: csDelegate.handleDoubleClick(mouse.x, mouse.y)

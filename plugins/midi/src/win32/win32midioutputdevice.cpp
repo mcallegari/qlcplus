@@ -182,7 +182,7 @@ void Win32MidiOutputDevice::writeSysEx(QByteArray message)
     midiHdr.lpData = (LPSTR)message.data();
 
     /* Store its size in the MIDIHDR */
-    midiHdr.dwBufferLength = message.count();
+    midiHdr.dwBufferLength = message.length();
 
     /* Flags must be set to 0 */
     midiHdr.dwFlags = 0;

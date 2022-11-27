@@ -178,7 +178,7 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
         for (DWORD i = 0; i < num; i++)
         {
             QString vendor, name, serial;
-            quint16 VID, PID;
+            quint16 VID = 0, PID = 0;
             FT_STATUS s = get_interface_info(i, vendor, name, serial, VID, PID);
             if (s != FT_OK || name.isEmpty() || serial.isEmpty())
             {

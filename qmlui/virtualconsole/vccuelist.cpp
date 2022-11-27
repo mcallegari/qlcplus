@@ -62,6 +62,11 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
     m_stepsList->setRoleNames(listRoles);
 
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotProgressTimeout()));
+
+    connect(m_doc, SIGNAL(functionRemoved(quint32)),
+            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(m_doc, SIGNAL(functionNameChanged(quint32)),
+            this, SLOT(slotFunctionNameChanged(quint32)));
 }
 
 VCCueList::~VCCueList()
@@ -411,6 +416,19 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
     }
 }
 
+void VCCueList::setStepNote(int index, QString text)
+{
+    Chaser *ch = chaser();
+    if (ch == NULL)
+        return;
+
+    ChaserStep *step = ch->stepAt(index);
+    step->note = text;
+
+    QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());
+    m_stepsList->setDataWithRole(mIdx, "note", text);
+}
+
 quint32 VCCueList::chaserID() const
 {
     return m_chaserID;
@@ -435,8 +453,10 @@ void VCCueList::setChaserID(quint32 fid)
                    this, SLOT(slotFunctionStopped(quint32)));
         disconnect(current, SIGNAL(currentStepChanged(int)),
                    this, SLOT(slotCurrentStepChanged(int)));
+        connect(current, SIGNAL(stepChanged(int)),
+                this, SLOT(slotStepChanged(int)));
 
-        if(current->isRunning())
+        if (current->isRunning())
         {
             running = true;
             current->stop(functionParent());
@@ -462,6 +482,8 @@ void VCCueList::setChaserID(quint32 fid)
                 this, SLOT(slotFunctionStopped(quint32)));
         connect(function, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
+        connect(function, SIGNAL(stepChanged(int)),
+                this, SLOT(slotStepChanged(int)));
 
         emit chaserIDChanged(fid);
     }
@@ -478,6 +500,30 @@ void VCCueList::setChaserID(quint32 fid)
     Tardis::instance()->enqueueAction(Tardis::VCCueListSetChaserID, id(),
                                       current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
+}
+
+void VCCueList::slotFunctionRemoved(quint32 fid)
+{
+    if (fid == m_chaserID)
+    {
+        m_chaserID = Function::invalidId();
+        m_stepsList->clear();
+        emit chaserIDChanged(-1);
+
+        resetIntensityOverrideAttribute();
+    }
+}
+
+void VCCueList::slotStepChanged(int index)
+{
+    ChaserStep *step = chaser()->stepAt(index);
+    ChaserEditor::updateStepInListModel(m_doc, chaser(), m_stepsList, step, index);
+}
+
+void VCCueList::slotFunctionNameChanged(quint32 fid)
+{
+    if (fid == m_chaserID)
+        emit chaserIDChanged(fid);
 }
 
 /*********************************************************************
@@ -773,6 +819,29 @@ void VCCueList::nextClicked()
                 Q_ASSERT(false);
         }
     }
+}
+
+void VCCueList::playCurrentStep()
+{
+    Chaser *ch = chaser();
+    if (ch == nullptr)
+        return;
+
+    if (ch->isRunning())
+    {
+        ChaserAction action;
+        action.m_action = ChaserSetStepIndex;
+        action.m_stepIndex = m_playbackIndex;
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
+        action.m_fadeMode = getFadeMode();
+        ch->setAction(action);
+    }
+    else
+    {
+        startChaser(m_playbackIndex == -1 ? 0 : m_playbackIndex);
+    }
+
 }
 
 void VCCueList::slotFunctionRunning(quint32 fid)

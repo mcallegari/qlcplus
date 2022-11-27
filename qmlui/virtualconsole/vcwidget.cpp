@@ -515,14 +515,14 @@ bool VCWidget::hasSoloParent()
 {
     VCWidget *wParent = qobject_cast<VCWidget*>(parent());
 
-    if (wParent == nullptr)
+    if (wParent == nullptr || wParent == this)
         return false;
-
-    if (wParent->type() == VCWidget::FrameWidget)
-        return wParent->hasSoloParent();
 
     if (wParent->type() == VCWidget::SoloFrameWidget)
         return true;
+
+    if (wParent->type() == VCWidget::FrameWidget)
+        return wParent->hasSoloParent();
 
     return false;
 }

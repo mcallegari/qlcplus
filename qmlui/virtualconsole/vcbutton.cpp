@@ -139,11 +139,13 @@ void VCButton::setFunctionID(quint32 fid)
         disconnect(current, SIGNAL(flashing(quint32,bool)),
                 this, SLOT(slotFunctionFlashing(quint32,bool)));
 
-        if(current->isRunning())
+        if (current->isRunning())
         {
             running = true;
             current->stop(functionParent());
+            resetIntensityOverrideAttribute();
         }
+
     }
 
     if (function != nullptr)
@@ -191,6 +193,20 @@ void VCButton::adjustFunctionIntensity(Function *f, qreal value)
     VCWidget::adjustFunctionIntensity(f, finalValue);
 }
 
+void VCButton::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+
+    if (state() == Active)
+    {
+        Function *f = m_doc->function(m_functionID);
+        if (f == nullptr)
+            return;
+
+        adjustFunctionIntensity(f, val);
+    }
+}
+
 void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
 {
     Q_UNUSED(widget)
@@ -208,7 +224,10 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
     if (m_functionID != fid)
     {
         if (f->isRunning())
+        {
             f->stop(functionParent());
+            resetIntensityOverrideAttribute();
+        }
     }
     else
     {
@@ -312,6 +331,7 @@ void VCButton::requestStateChange(bool pressed)
                 if (f->isRunning())
                 {
                     f->stop(functionParent());
+                    resetIntensityOverrideAttribute();
                     setState(Inactive);
                 }
             }

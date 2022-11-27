@@ -30,9 +30,9 @@
 #include "qlcioplugin.h"
 #include "artnetcontroller.h"
 
-typedef struct
+typedef struct _aio
 {
-    QNetworkInterface interface;
+    QNetworkInterface iface;
     QNetworkAddressEntry address;
     ArtNetController* controller;
 } ArtNetIO;

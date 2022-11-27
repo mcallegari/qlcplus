@@ -30,7 +30,7 @@
 #include "qlcioplugin.h"
 #include "osccontroller.h"
 
-typedef struct
+typedef struct _oio
 {
     QString IPAddress;
     OSCController* controller;

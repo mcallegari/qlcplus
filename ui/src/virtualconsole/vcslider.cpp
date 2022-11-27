@@ -702,7 +702,7 @@ void VCSlider::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
             continue;
 
         if (lch.channel >= fxi->channels() ||
-            fxi->address() + lch.channel >= (quint32)universeData.count())
+            fxi->address() + lch.channel >= (quint32)universeData.length())
             continue;
 
         quint32 dmx_ch = fxi->address() + lch.channel;

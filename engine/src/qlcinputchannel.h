@@ -21,6 +21,7 @@
 #define QLCINPUTCHANNEL_H
 
 #include <QIcon>
+#include <QObject>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;

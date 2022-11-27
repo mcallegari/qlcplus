@@ -190,7 +190,7 @@ Rectangle
                 }
                 onPositionChanged:
                 {
-                    if (drag.target === null)
+                    if (drag.target == null)
                         return;
                     drag.maximumX = wRoot.width - handleSize
                     drag.maximumY = wRoot.height - handleSize
@@ -227,7 +227,7 @@ Rectangle
                 }
                 onPositionChanged:
                 {
-                    if (drag.target === null)
+                    if (drag.target == null)
                         return;
                     drag.maximumY = wRoot.height - handleSize
                     wRoot.width = trHandle.x + trHandle.width
@@ -262,7 +262,7 @@ Rectangle
                 }
                 onPositionChanged:
                 {
-                    if (drag.target === null)
+                    if (drag.target == null)
                         return;
                     wRoot.width = brHandle.x + brHandle.width
                     wRoot.height = brHandle.y + brHandle.height
@@ -295,7 +295,7 @@ Rectangle
                 }
                 onPositionChanged:
                 {
-                    if (drag.target === null)
+                    if (drag.target == null)
                         return;
                     drag.maximumX = wRoot.width - handleSize
                     wRoot.height = blHandle.y + blHandle.height

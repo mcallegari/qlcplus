@@ -30,9 +30,9 @@
 #include "qlcioplugin.h"
 #include "e131controller.h"
 
-typedef struct
+typedef struct _eio
 {
-    QNetworkInterface interface;
+    QNetworkInterface iface;
     QNetworkAddressEntry address;
     E131Controller* controller;
 } E131IO;
