@@ -19,8 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 1.2 as QC1
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 
@@ -63,15 +62,16 @@ Rectangle
         }
     }
 
-    QC1.SplitView
+    SplitView
     {
         anchors.fill: parent
 
         Loader
         {
             id: fxTreeLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
             height: efxeContainer.height
             source: ""
 
@@ -88,13 +88,13 @@ Rectangle
                 width: 2
                 height: parent.height
                 x: parent.width - 2
-                color: UISettings.bgLighter
+                color: UISettings.bgLight
             }
         }
 
         Rectangle
         {
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
             color: "transparent"
 
             EditorTopBar
@@ -105,6 +105,13 @@ Rectangle
 
                 onBackClicked:
                 {
+                    if (fxTreeLoader.visible)
+                    {
+                        fxTreeLoader.source = ""
+                        fxTreeLoader.visible = false
+                        rightSidePanel.width -= fxTreeLoader.width
+                    }
+
                     var prevID = efxEditor.previousID
                     functionManager.setEditorFunction(prevID, false, true)
                     requestView(prevID, functionManager.getEditorResource(prevID))
@@ -188,16 +195,17 @@ Rectangle
                                         {
                                             if (checked)
                                             {
-                                                rightSidePanel.width += UISettings.sidePanelWidth
-                                                fxTreeLoader.width = UISettings.sidePanelWidth
+                                                if (!fxTreeLoader.visible)
+                                                    rightSidePanel.width += UISettings.sidePanelWidth
+                                                fxTreeLoader.visible = true
                                                 fxTreeLoader.modelProvider = efxEditor
                                                 fxTreeLoader.source = "qrc:/FixtureGroupManager.qml"
                                             }
                                             else
                                             {
-                                                rightSidePanel.width = rightSidePanel.width - fxTreeLoader.width
+                                                rightSidePanel.width -= fxTreeLoader.width
                                                 fxTreeLoader.source = ""
-                                                fxTreeLoader.width = 0
+                                                fxTreeLoader.visible = false
                                             }
                                         }
                                     }

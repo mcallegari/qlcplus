@@ -20,8 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
-import QtQuick.Controls 2.1
-import QtQuick.Controls 1.2 as QC1
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -54,7 +53,7 @@ Rectangle
         onTriggered: scriptEditor.scriptContent = scriptEdit.text
     }
 
-    QC1.SplitView
+    SplitView
     {
         width: parent.width
         height: parent.height - topBar.height
@@ -62,15 +61,20 @@ Rectangle
         Loader
         {
             id: sideLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
+
             height: seContainer.height
             source: ""
 
             onLoaded:
             {
                 if (source)
+                {
                     item.allowEditing = false
+                    item.width = Qt.binding(function() { return sideLoader.width - 2 })
+                }
             }
 
             Rectangle
@@ -78,7 +82,7 @@ Rectangle
                 width: 2
                 height: parent.height
                 x: parent.width - 2
-                color: UISettings.bgLighter
+                color: UISettings.bgLight
             }
 
             Connections
@@ -96,7 +100,7 @@ Rectangle
 
         Column
         {
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
 
             EditorTopBar
             {
@@ -106,6 +110,13 @@ Rectangle
 
                 onBackClicked:
                 {
+                    if (sideLoader.visible)
+                    {
+                        sideLoader.source = ""
+                        sideLoader.visible = false
+                        rightSidePanel.width -= sideLoader.width
+                    }
+
                     var prevID = scriptEditor.previousID
                     functionManager.setEditorFunction(prevID, false, true)
                     requestView(prevID, functionManager.getEditorResource(prevID))
@@ -137,15 +148,16 @@ Rectangle
 
                         if (checked)
                         {
-                            rightSidePanel.width += UISettings.sidePanelWidth
-                            sideLoader.width = UISettings.sidePanelWidth
+                            if (!sideLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.visible = true
                             sideLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else
                         {
-                            rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                            rightSidePanel.width -= sideLoader.width
                             sideLoader.source = ""
-                            sideLoader.width = 0
+                            sideLoader.visible = false
                         }
                     }
                 }
@@ -166,15 +178,16 @@ Rectangle
 
                         if (checked)
                         {
-                            rightSidePanel.width += UISettings.sidePanelWidth
-                            sideLoader.width = UISettings.sidePanelWidth
+                            if (!sideLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.visible = true
                             sideLoader.source = "qrc:/FixtureGroupManager.qml"
                         }
                         else
                         {
                             rightSidePanel.width = rightSidePanel.width - sideLoader.width
                             sideLoader.source = ""
-                            sideLoader.width = 0
+                            sideLoader.visible = false
                         }
                     }
                 }

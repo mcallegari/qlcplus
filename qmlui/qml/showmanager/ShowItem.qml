@@ -18,8 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Private 1.0
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
