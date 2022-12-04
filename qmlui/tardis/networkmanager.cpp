@@ -329,7 +329,7 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
             m_packetizer->addSection(packet, QVariant((int)workspace.size()));
 
         }
-        else if(data.count() < WORKSPACE_CHUNK_SIZE)
+        else if(data.length() < WORKSPACE_CHUNK_SIZE)
         {
             m_packetizer->addSection(packet, QVariant(2));
         }
