@@ -417,6 +417,12 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     InputPatch *ip = NULL;
     QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
 
+    if (plugin == NULL)
+    {
+        qWarning() << "No plugin found by the name" << pluginName;
+        return false;
+    }
+
     if (!inputUID.isEmpty())
     {
         QStringList inputs = plugin->inputs();
@@ -490,6 +496,12 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
 
     QMutexLocker locker(&m_universeMutex);
     QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+
+    if (plugin == NULL)
+    {
+        qWarning() << "No plugin found by the name" << pluginName;
+        return false;
+    }
 
     if (!outputUID.isEmpty())
     {
