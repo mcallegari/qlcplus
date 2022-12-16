@@ -123,7 +123,7 @@ Dialog
                 Button
                 {
                     id: buttonControl
-                    width: buttonBoxControl.count === 1 ? UISettings.bigItemHeight * 2 : undefined
+                    implicitWidth: UISettings.bigItemHeight * 2
                     //implicitWidth: width
 
                     hoverEnabled: true
