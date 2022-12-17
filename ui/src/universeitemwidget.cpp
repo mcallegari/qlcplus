@@ -20,13 +20,14 @@
 #include <QApplication>
 #include <QWidget>
 #include <QFont>
+#include <QDebug>
 
 #include "universeitemwidget.h"
 
 UniverseItemWidget::UniverseItemWidget(QWidget *parent)
     : QItemDelegate(parent)
 {
-
+    setClipping(false);
 }
 
 UniverseItemWidget::~UniverseItemWidget()
@@ -35,6 +36,8 @@ UniverseItemWidget::~UniverseItemWidget()
 
 void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    QWidget *list = qobject_cast<QWidget *>(parent());
+    qreal pWidth = list->geometry().width();
     QRect r = option.rect;
     QFont font = qApp->font();
     font.setBold(true);
@@ -44,7 +47,7 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
     // draw background gradient
     QLinearGradient linearGrad(r.left(), r.top(), r.left(), r.height() + r.top());
 
-    if(option.state & QStyle::State_Selected)
+    if (option.state & QStyle::State_Selected)
     {
         linearGrad.setColorAt(0, QColor(50, 64, 75, 255));
         linearGrad.setColorAt(1, QColor(76, 98, 115, 255));
@@ -57,9 +60,9 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
         painter->setPen(QPen(QColor(30, 30, 30, 255), 2));
     }
     painter->setBrush(linearGrad);
-    painter->drawRoundedRect(r.left() + 2, r.top() + 2, r.width() - 6, r.height() - 4, 5, 5);
+    painter->drawRoundedRect(r.left() + 2, r.top() + 2, pWidth - 6, r.height() - 4, 5, 5);
 
-    if(option.state & QStyle::State_Selected)
+    if (option.state & QStyle::State_Selected)
         painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
     else
         painter->setPen(QPen(QColor(0, 0, 0, 255), 2));
@@ -77,11 +80,11 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
     {
         QIcon icon = var.value<QIcon>();
         if (icon.isNull() == false)
-            painter->drawPixmap(r.width() - 36, r.top() + 9, 32, 32, icon.pixmap(32, 32));
+            painter->drawPixmap(pWidth - 36, r.top() + 9, 32, 32, icon.pixmap(32, 32));
     }
 
     // draw input output labels
-    int midPos = (r.width() - 10 - 150) / 2;
+    int midPos = (pWidth - 10 - 150) / 2;
     midPos += 170;
     QString inStr = tr("Input:");
     QString proStr = tr("Profile:");
@@ -119,11 +122,11 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     painter->drawText(QRect(inPos, r.top() + 10, midPos - inPos, 20),
                       Qt::AlignLeft, inputName);
-    painter->drawText(QRect(proPos, r.top() + 10, r.width() - proPos, 20),
+    painter->drawText(QRect(proPos, r.top() + 10, pWidth - proPos, 20),
                       Qt::AlignLeft, profileName);
     painter->drawText(QRect(outPos, r.top() + 30, midPos - outPos, 20),
                       Qt::AlignLeft, outputName);
-    painter->drawText(QRect(fbPos, r.top() + 30, r.width() - fbPos, 20),
+    painter->drawText(QRect(fbPos, r.top() + 30, pWidth - fbPos, 20),
                       Qt::AlignLeft, fbName);
 }
 
