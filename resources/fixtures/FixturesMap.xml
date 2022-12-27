@@ -650,6 +650,11 @@
   <M n="Enterius">
     <F n="Enterius-EC-133DMX" m="EC-133DMX"/>
   </M>
+  <M n="ENTTEC">
+    <F n="ENTTEC-CVC4" m="CVC4"/>
+    <F n="ENTTEC-SMART-PXL-40-Dot" m="SMART PXL 40 Dot"/>
+    <F n="ENTTEC-SMART-PXL-60-Dot" m="SMART PXL 60 Dot"/>
+  </M>
   <M n="Epsilon">
     <F n="Epsilon-PixBeam" m="PixBeam"/>
   </M>
@@ -775,6 +780,7 @@
     <F n="Event-Lighting-PAR19X12O" m="PAR19x12O"/>
     <F n="Event-Lighting-PAR6X12OB" m="PAR6x12OB"/>
     <F n="Event-Lighting-PAR6X12OB2" m="PAR6x12OB2"/>
+    <F n="Event-Lighting-Pixbar12x12" m="Pixbar 12x12W"/>
   </M>
   <M n="Evolight">
     <F n="Evolight-Colours-SL3" m="Colours SL3"/>
@@ -1337,6 +1343,7 @@
   <M n="Rockville">
     <F n="Rockville-Best-Strip-60-RGBWAUV" m="Best Strip 60"/>
     <F n="Rockville-Motionstrip-RGBW" m="Motionstrip RGBW"/>
+    <F n="Rockville-Rockwedge-LED" m="Rockwedge LED"/>
   </M>
   <M n="Rosco">
     <F n="Rosco-I-Cue" m="I-Cue"/>
@@ -1440,6 +1447,7 @@
     <F n="Showtec-Spectral-CYC650" m="Spectral CYC650"/>
     <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
+    <F n="Showtec-Star-Dream-144-LED-White" m="Star Dream 144 LED White"/>
     <F n="Showtec-Sunraise-LED" m="Sunraise LED"/>
     <F n="Showtec-Sunstrip-Active" m="Sunstrip Active"/>
     <F n="Showtec-Vintage-Blaze" m="Vintage Blaze"/>
@@ -1456,7 +1464,9 @@
   </M>
   <M n="Stage_Right">
     <F n="Stage-Right-10Wx9-LED-Flat-PAR" m="10Wx9 LED Flat PAR"/>
+    <F n="Stage-Right-200W-COB-LED-Ellipsoidal" m="200W COB LED Ellipsoidal"/>
     <F n="Stage-Right-3-Color-LED-Light-Bar" m="3-Color LED Light Bar"/>
+    <F n="Stage-Right-30W-LED-Spot" m="30W LED Spot"/>
     <F n="Stage-Right-7x20W-COB-LED-Theater-PAR" m="7x20W COB LED Theater PAR"/>
     <F n="Stage-Right-Stage-Wash-18Wx18-LED-PAR" m="Stage Wash 18Wx18 LED PAR"/>
     <F n="Stage-Right-StageLight-12Wx7-LED-PAR" m="PAR StageLight 12Wx7 LED"/>

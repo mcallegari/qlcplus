@@ -27,12 +27,14 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixtures: Chauvet Intimidator Spot 375Z IRC, Eliminator Lighting LP 12 HEX (thanks to Andrew Pavlin)
   * New fixtures: Chauvet SlimPAR T12BT, Q12ILS and Q12BT (thanks to Andrew Pavlin)
   * New fixture: Lumeri Eco COB 15 (thanks to Robert Rieks)
-  * New fixture: Martin ERA 400 Performance (thanks to Yestalgia)
+  * New fixtures: Martin ERA 400 Performance, ENTTEC SMART PXL 40/60 Dot, ENTTEC CVC4 (thanks to Yestalgia)
   * New fixtures: Varytec Hero Wash 712 Z RGBW Zoom, Cameo Studio PAR 64 Q 8W (thanks to Anton Luka Šijanec)
-  * New fixture: American DJ Jolt 300 (thanks to David Gouronc)
+  * New fixtures: American DJ Jolt 300, Showtec Star Dream 144 LED White (thanks to David Gouronc)
   * New fixture: Antari Z-1000 MKII (thanks to Jérôme)
-  * New fixtures: Event Lighting PAR19x12O, PAR6x12OB2, PAR6x12OB (thanks to Michael Tosatto)
+  * New fixtures: Event Lighting PAR19x12O, PAR6x12OB2, PAR6x12OB, Pixbar 12x12W (thanks to Michael Tosatto)
   * New fixture: U'King ZQ-B93 Pinspot RGBW (thanks to Jarosław Biernacki)
+  * New fixtures: Stage Right 200W COB LED Ellipsoidal, Stage Right 30W LED Spot (thanks to Dave Vecchio)
+  * New fixture: Rockville Rockwedge LED (thanks to Ryan Carter)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Jan 2023 12:13:14 +0200
 
