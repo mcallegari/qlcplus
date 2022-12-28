@@ -57,7 +57,8 @@ var testAlgo;
       ["Magenta"      , 0xFF00FF],  // 28
       ["Hot Pink"     , 0xFF003F],  // 29
       ["Deep Pink"    , 0x7F001F],  // 30
-      ["OFF"          , 0x000000]); // 31
+      ["Grey"         , 0xAAAAAA],  // 31 
+      ["OFF"          , 0x000000]); // 32
     
     colorPalette.makeSubArray = function(_index)
     {
@@ -73,6 +74,8 @@ var testAlgo;
     var util = new Object;
     util.initialized = false;
     util.altCheck = 0;
+    util.width = 0;
+    util.height = 0;
 
     var algo = new Object;
     algo.apiVersion = 2;
@@ -184,16 +187,6 @@ var testAlgo;
       return algo.getColor(1);
     };
 
-    var checkers = new Array();
-    function Check(y, x, step, space)
-    {
-      // upper left corner
-      this.x = x;
-      this.y = y;
-      this.step = step;
-      this.space = space;
-    }
-
     function mod(n, m) {
       return ((n % m) + m) % m;
     }
@@ -236,15 +229,34 @@ var testAlgo;
       return algo.checkDepth;
     };
 
+    util.checkers = new Array();
+    function Check(y, x, step, space)
+    {
+      // upper left corner
+      this.x = x;
+      this.y = y;
+      this.step = step;
+      this.space = space;
+    }
+
+
     util.initialize = function(width, height)
     {
-      checkers = new Array();
+      util.checkers = new Array();
       var i = 0
       var r = 0
-      // console.log('creating checkers with boundaries: ' + height + ' ' + width );
-      // console.log('creating checkers with size: ' + algo.checkHeight + ' ' + algo.checkWidth );
-      for (var y = 0; y < height; y+=Number(algo.checkHeight)) {
-        for (var x = 0; x < width; x+=Number(algo.checkWidth)) {
+
+      console.log('portal with size: ' + height + ',' + width );
+      var ch = Number(algo.checkHeight)
+      var cw = Number(algo.checkWidth)
+      console.log('creating checkers with size: ' + ch + ', ' + cw );
+      // compute check grid 1 check bigger than the view portal
+      // and add checks evenly across the grid
+      util.gridy = ch * (Math.ceil(height / ch) + 1)
+      util.gridx = cw * (Math.ceil(width / cw) + 1 )
+      console.log('creating checker grid with size: ' + util.gridy + ',' + util.gridx );
+      for (var y = 0; y < util.gridy; y+=ch) {
+        for (var x = 0; x < util.gridx; x+=cw) {
           var space = 0
           if ( Math.floor(r/2) === r/2 ) { 
             if ( Math.floor(i/2) === i/2 ) { space = 1 }
@@ -253,12 +265,15 @@ var testAlgo;
             if ( Math.floor(i/2) === i/2 ) { space = 0 }
           }
           // console.log('creating check: ' + i + ' pos: ' +y + ',' + x + ' space:' + space);
-          checkers.push(new Check(y, x, 0, space));
+          util.checkers.push(new Check(y, x, 0, space));
           i++;
         }
         r++;
       }
+      // reset initialization
       util.initialized = true;
+      util.width = width;
+      util.height = height;
     };
 
     util.getColor = function(check, h, w)
@@ -304,26 +319,33 @@ var testAlgo;
       }
 
       // checkers onto map
-      for ( var i = 0; i < checkers.length; i++) 
-      {
-        var check = checkers[i]
-        // if sliding add one square per step
+      for ( var i = 0; i < util.checkers.length; i++) {
+        var check = util.checkers[i]
+        // if sliding add one square on the grid per step
         if (algo.checkSlide > 0) {
-          if ( algo.checkSlide == 1 || algo.checkSlide == 5 || algo.checkSlide == 6 ) { check.y = mod((check.y - 1), height); } 
-          if ( algo.checkSlide == 2 || algo.checkSlide == 7 || algo.checkSlide == 8 ) { check.y = mod((check.y + 1), height); }
-          if ( algo.checkSlide == 3 || algo.checkSlide == 6 || algo.checkSlide == 8 ) { check.x = mod((check.x - 1), width); } 
-          if ( algo.checkSlide == 4 || algo.checkSlide == 5 || algo.checkSlide == 7 ) { check.x = mod((check.x + 1), width); }
+          if ( algo.checkSlide == 1 || algo.checkSlide == 5 || algo.checkSlide == 6 ) { check.y = mod((check.y - 1), util.gridy); } 
+          if ( algo.checkSlide == 2 || algo.checkSlide == 7 || algo.checkSlide == 8 ) { check.y = mod((check.y + 1), util.gridy); }
+          if ( algo.checkSlide == 3 || algo.checkSlide == 6 || algo.checkSlide == 8 ) { check.x = mod((check.x - 1), util.gridx); } 
+          if ( algo.checkSlide == 4 || algo.checkSlide == 5 || algo.checkSlide == 7 ) { check.x = mod((check.x + 1), util.gridx); }
         }
-        for ( var w = 0; w < algo.checkWidth; w++) 
-        {
-          for ( var h = 0; h < algo.checkHeight; h++)  
-          {
-            var color = util.getColor(check, h, w);
-            var actualY = mod((check.y + h), height);
-            var actualX = mod((check.x + w), width);
-            if ( actualY <= height && actualX <= width ) {
-              // console.log('mapping check: ' + i + ' pos:' + actualY + ',' + actualX + ' color ' + color)
-              map[actualY][actualX] = color;
+        // if the check upper left hand corner is in the view port map it
+        if ( check.y <= height && check.x <= width ) {
+          for ( var w = 0; w < algo.checkWidth; w++) {
+            for ( var h = 0; h < algo.checkHeight; h++) {
+              // compute where pixel will be 
+              var actualY = mod((check.y + h), util.gridy);
+              var actualX = mod((check.x + w), util.gridx);
+              // if this pixel is in the view port .. map it
+              if ( actualY <= height && actualX <= width ) {
+                // if it's already mapped.. that's a problem
+                if ( map[actualY][actualX] != 0 ) {
+                  console.log('skipping pixel in check: ' + i + ': ('+ check.y + '.' + check.x + ') pos: (' + actualY + ',' + actualX + ') color ' + map[actualY][actualX])
+                } else {
+                // if it's in the grid .. get color and map it 
+                var color = util.getColor(check, h, w);
+                map[actualY][actualX] = color;
+                }
+              }
             }
           }
         }
@@ -337,10 +359,10 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-      // console.log('width: ' + width + ' height: ' + height )
-      if (util.initialized === false)
-      {
-          util.initialize(width, height);
+      if (util.initialized === false || width != util.width || height != util.height) {
+        console.log('width: ' + width + ' height: ' + height )
+        console.log('util.width: ' + util.width + ' util.height: ' + height )
+        util.initialize(width, height);
       }
       var rgbmap = util.getNextStep(width, height);
       return rgbmap
