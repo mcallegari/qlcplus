@@ -10,6 +10,7 @@ CustomComboBox 0.1 ../CustomComboBox.qml
 CustomScrollBar 0.1 ../CustomScrollBar.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
+CustomTextInput 0.1 ../CustomTextInput.qml
 DMXPercentageButton 0.1 ../DMXPercentageButton.qml
 FixtureConsole 0.1 ../FixtureConsole.qml
 FixtureDelegate 0.1 ../FixtureDelegate.qml

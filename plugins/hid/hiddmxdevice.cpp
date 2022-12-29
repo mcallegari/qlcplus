@@ -61,7 +61,7 @@ void HIDDMXDevice::init()
     {
         QMessageBox::warning(NULL, (tr("HID DMX Interface Error")),
             (tr("Unable to open %1. Make sure the udev rule is installed.").arg(name())),
-             QMessageBox::AcceptRole, QMessageBox::AcceptRole);
+             QMessageBox::Ok, QMessageBox::Ok);
         return;
     }
 
@@ -103,11 +103,6 @@ void HIDDMXDevice::closeOutput()
     updateMode();
 }
 
-QString HIDDMXDevice::path() const
-{
-    return m_file.fileName();
-}
-
 bool HIDDMXDevice::readEvent()
 {
     return true;
@@ -121,7 +116,7 @@ QString HIDDMXDevice::infoText()
 {
     QString info;
 
-    info += QString("<B>%1</B><P>").arg(m_name);
+    info += QString("<H3>%1</H3><P>").arg(m_name);
 
     return info;
 }

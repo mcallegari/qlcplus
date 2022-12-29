@@ -1128,6 +1128,7 @@ void ChaserEditor::slotTestPlay()
         action.m_stepIndex = idx;
         action.m_masterIntensity = 1.0;
         action.m_stepIntensity = 1.0;
+        action.m_fadeMode = Chaser::FromFunction;
         m_chaser->setAction(action);
     }
     m_chaser->start(m_doc->masterTimer(), functionParent());

@@ -537,7 +537,7 @@ void CueStack_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Speed")
+        if (xmlReader.name().toString() == "Speed")
         {
             speed++;
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("200"));
@@ -545,7 +545,7 @@ void CueStack_Test::save()
             QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("400"));
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Cue")
+        else if (xmlReader.name().toString() == "Cue")
         {
             // The contents of a Cue tag are tested in Cue tests
             cue++;

@@ -35,7 +35,7 @@ class ChaserStep;
 class MasterTimer;
 class QXmlStreamReader;
 
-#define KXMLQLCChaserSpeedModes "SpeedModes"
+#define KXMLQLCChaserSpeedModes QString("SpeedModes")
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -154,6 +154,9 @@ public slots:
      * @param fid The ID of the function that was removed
      */
     void slotFunctionRemoved(quint32 fid);
+
+signals:
+    void stepChanged(int index);
 
 protected:
     QList <ChaserStep> m_steps;

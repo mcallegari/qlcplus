@@ -27,9 +27,9 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KXMLQLCFixtureGroupHead "Head"
-#define KXMLQLCFixtureGroupSize "Size"
-#define KXMLQLCFixtureGroupName "Name"
+#define KXMLQLCFixtureGroupHead QString("Head")
+#define KXMLQLCFixtureGroupSize QString("Size")
+#define KXMLQLCFixtureGroupName QString("Name")
 
 /****************************************************************************
  * Initialization

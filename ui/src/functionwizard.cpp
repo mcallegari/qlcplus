@@ -457,7 +457,7 @@ void FunctionWizard::updateWidgetsTree()
             frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
         }
         frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)palette));
-        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
         frame->setCheckState(KWidgetName, Qt::Unchecked);
 
         QTreeWidgetItem *soloFrameItem = NULL;
@@ -466,7 +466,7 @@ void FunctionWizard::updateWidgetsTree()
             soloFrameItem = new QTreeWidgetItem(frame);
             soloFrameItem->setText(KWidgetName, tr("Presets solo frame"));
             soloFrameItem->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
-            soloFrameItem->setFlags(soloFrameItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+            soloFrameItem->setFlags(soloFrameItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
             soloFrameItem->setCheckState(KWidgetName, Qt::Unchecked);
             soloFrameItem->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
         }

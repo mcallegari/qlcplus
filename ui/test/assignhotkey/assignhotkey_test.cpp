@@ -81,18 +81,18 @@ void AssignHotKey_Test::keyPressEventOnlyModifiers()
     QCOMPARE(ahk.keySequence(), QKeySequence());
     QCOMPARE(ahk.result(), (int) QDialog::Rejected);
 
-    ev = QKeyEvent(QEvent::KeyPress, Qt::Key_Control, Qt::ControlModifier);
-    ahk.keyPressEvent(&ev);
+    QKeyEvent ev2(QEvent::KeyPress, Qt::Key_Control, Qt::ControlModifier);
+    ahk.keyPressEvent(&ev2);
     QCOMPARE(ahk.keySequence(), QKeySequence());
     QCOMPARE(ahk.result(), (int) QDialog::Rejected);
 
-    ev = QKeyEvent(QEvent::KeyPress, Qt::Key_Alt, Qt::AltModifier);
-    ahk.keyPressEvent(&ev);
+    QKeyEvent ev3(QEvent::KeyPress, Qt::Key_Alt, Qt::AltModifier);
+    ahk.keyPressEvent(&ev3);
     QCOMPARE(ahk.keySequence(), QKeySequence());
     QCOMPARE(ahk.result(), (int) QDialog::Rejected);
 
-    ev = QKeyEvent(QEvent::KeyPress, Qt::Key_Meta, Qt::MetaModifier);
-    ahk.keyPressEvent(&ev);
+    QKeyEvent ev4(QEvent::KeyPress, Qt::Key_Meta, Qt::MetaModifier);
+    ahk.keyPressEvent(&ev4);
     QCOMPARE(ahk.keySequence(), QKeySequence());
     QCOMPARE(ahk.result(), (int) QDialog::Rejected);
 

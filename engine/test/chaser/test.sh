@@ -1,4 +1,4 @@
 #!/bin/bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../src
+export LD_LIBRARY_PATH=../../src:$LD_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=../../src
 ./chaser_test

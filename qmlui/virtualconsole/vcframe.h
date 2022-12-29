@@ -22,23 +22,23 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCFrame "Frame"
-#define KXMLQLCVCFrameAllowChildren "AllowChildren"  // LEGACY
-#define KXMLQLCVCFrameAllowResize   "AllowResize"
-#define KXMLQLCVCFrameShowHeader    "ShowHeader"
-#define KXMLQLCVCFrameIsCollapsed   "Collapsed"
-#define KXMLQLCVCFrameIsDisabled    "Disabled"
-#define KXMLQLCVCFrameEnableSource  "Enable"
-#define KXMLQLCVCFrameShowEnableButton "ShowEnableButton"
-#define KXMLQLCVCFrameSignature     "Signature"
+#define KXMLQLCVCFrame              QString("Frame")
+#define KXMLQLCVCFrameAllowChildren QString("AllowChildren")  // LEGACY
+#define KXMLQLCVCFrameAllowResize   QString("AllowResize")
+#define KXMLQLCVCFrameShowHeader    QString("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed   QString("Collapsed")
+#define KXMLQLCVCFrameIsDisabled    QString("Disabled")
+#define KXMLQLCVCFrameEnableSource  QString("Enable")
+#define KXMLQLCVCFrameShowEnableButton QString("ShowEnableButton")
+#define KXMLQLCVCFramePIN           QString("PIN")
 
-#define KXMLQLCVCFrameMultipage   "Multipage"
-#define KXMLQLCVCFramePagesNumber "PagesNum"
-#define KXMLQLCVCFrameCurrentPage "CurrentPage"
-#define KXMLQLCVCFrameKey         "Key"
-#define KXMLQLCVCFrameNext        "Next"
-#define KXMLQLCVCFramePrevious    "Previous"
-#define KXMLQLCVCFramePagesLoop   "PagesLoop"
+#define KXMLQLCVCFrameMultipage     QString("Multipage")
+#define KXMLQLCVCFramePagesNumber   QString("PagesNum")
+#define KXMLQLCVCFrameCurrentPage   QString("CurrentPage")
+#define KXMLQLCVCFrameKey           QString("Key")
+#define KXMLQLCVCFrameNext          QString("Next")
+#define KXMLQLCVCFramePrevious      QString("Previous")
+#define KXMLQLCVCFramePagesLoop     QString("PagesLoop")
 
 class VirtualConsole;
 
@@ -53,6 +53,7 @@ class VCFrame : public VCWidget
     Q_PROPERTY(bool pagesLoop READ pagesLoop WRITE setPagesLoop NOTIFY pagesLoopChanged)
     Q_PROPERTY(int currentPage READ currentPage NOTIFY currentPageChanged)
     Q_PROPERTY(int totalPagesNumber READ totalPagesNumber WRITE setTotalPagesNumber NOTIFY totalPagesNumberChanged)
+    Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
 
     /*********************************************************************
      * Initialization
@@ -236,6 +237,29 @@ protected:
     /** This holds a map of pages/widgets to be
      *  shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
+
+    /*********************************************************************
+     * PIN
+     *********************************************************************/
+public:
+    /** Get/Set a protection PIN for this Frame. Note that only top level frames
+     *  will expose this functionality */
+    int PIN() const;
+    void setPIN(int newPIN);
+
+    /** Validate the Frame PIN for the entire session */
+    void validatePIN();
+
+    /** Returns true if this Frame has a PIN set and has not been validated for the session.
+     *  Otherwise false is returned, and the Frame can be displayed by everyone */
+    Q_INVOKABLE bool requirePIN() const;
+
+signals:
+    void PINChanged(int PIN);
+
+protected:
+    int m_PIN;
+    bool m_validatedPIN;
 
     /*********************************************************************
      * Widget Function

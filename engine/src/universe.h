@@ -27,6 +27,7 @@
 #include <QThread>
 #include <QSet>
 
+#include "inputpatch.h"
 #include "qlcchannel.h"
 
 class QXmlStreamReader;
@@ -46,20 +47,20 @@ class Doc;
 
 #define UNIVERSE_SIZE 512
 
-#define KXMLQLCUniverse "Universe"
-#define KXMLQLCUniverseName "Name"
-#define KXMLQLCUniverseID "ID"
-#define KXMLQLCUniversePassthrough "Passthrough"
+#define KXMLQLCUniverse             QString("Universe")
+#define KXMLQLCUniverseName         QString("Name")
+#define KXMLQLCUniverseID           QString("ID")
+#define KXMLQLCUniversePassthrough  QString("Passthrough")
 
-#define KXMLQLCUniverseInputPatch "Input"
-#define KXMLQLCUniverseOutputPatch "Output"
-#define KXMLQLCUniverseFeedbackPatch "Feedback"
+#define KXMLQLCUniverseInputPatch    QString("Input")
+#define KXMLQLCUniverseOutputPatch   QString("Output")
+#define KXMLQLCUniverseFeedbackPatch QString("Feedback")
 
-#define KXMLQLCUniversePlugin "Plugin"
-#define KXMLQLCUniverseLine "Line"
-#define KXMLQLCUniverseLineUID "UID"
-#define KXMLQLCUniverseProfileName "Profile"
-#define KXMLQLCUniversePluginParameters "PluginParameters"
+#define KXMLQLCUniversePlugin           QString("Plugin")
+#define KXMLQLCUniverseLine             QString("Line")
+#define KXMLQLCUniverseLineUID          QString("UID")
+#define KXMLQLCUniverseProfileName      QString("Profile")
+#define KXMLQLCUniversePluginParameters QString("PluginParameters")
 
 /** Universe class contains input/output data for one DMX universe
  */
@@ -221,7 +222,7 @@ public:
      * Get the reference to the output plugin associated to this universe.
      * If not present NULL is returned.
      */
-    Q_INVOKABLE OutputPatch *outputPatch(int index = 0) const;
+    Q_INVOKABLE OutputPatch *outputPatch(int index) const;
 
     /** Return the number of output patches associated to this Universe */
     int outputPatchesCount() const;
@@ -236,17 +237,6 @@ public:
      * This is the actual function that writes data to an output patch
      */
     void dumpOutput(const QByteArray& data);
-
-    /**
-     * @brief dumpBlackout
-     */
-    void dumpBlackout();
-
-    /**
-     * @brief blackoutData
-     * @return
-     */
-    const QByteArray& blackoutData();
 
     void flushInput();
 
@@ -490,6 +480,8 @@ protected:
     QScopedPointer<QByteArray> m_postGMValues;
     /** Array of the last preGM values written before the zeroIntensityChannels call  */
     QScopedPointer<QByteArray> m_lastPostGMValues;
+    /** Array of non-intensity only values */
+    QScopedPointer<QByteArray> m_blackoutValues;
 
     /** Array of values from input line, when passtrhough is enabled */
     QScopedPointer<QByteArray> m_passthroughValues;
@@ -566,6 +558,8 @@ public:
      * Load a universe contents from the given XML node.
      *
      * @param root An XML subtree containing the universe contents
+     * @param index The QLC+ Universe index
+     * @param ioMap Reference to the QLC+ Input/Output map class
      * @return true if the Universe was loaded successfully, otherwise false
      */
     bool loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap);
@@ -573,10 +567,11 @@ public:
     /**
      * Load an optional tag defining the plugin specific parameters
      * @param root An XML subtree containing the plugin parameters contents
-     * @param currentTag the type of Patch where the parameters should be set
+     * @param currentTag The type of Patch where the parameters should be set
+     * @param patchIndex Index of the patch to configure (ATM used only for output)
      * @return true if the parameters were loaded successfully, otherwise false
      */
-    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag);
+    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag, int patchIndex);
 
     /**
      * Save the universe instance into an XML document, under the given

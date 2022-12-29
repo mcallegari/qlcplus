@@ -160,10 +160,3 @@ void Velleman::writeUniverse(quint32 universe, quint32 output, const QByteArray 
 
     SetAllData(m_values);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(velleman, Velleman)
-#endif

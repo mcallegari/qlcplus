@@ -148,6 +148,13 @@ void EFX::setDuration(uint ms)
     emit durationChanged(ms);
 }
 
+uint EFX::loopDuration() const
+{
+    uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
+    return duration() - fadeIn;
+}
+
 /*****************************************************************************
  * Algorithm
  *****************************************************************************/
@@ -284,9 +291,21 @@ void EFX::rotateAndScale(float* x, float* y) const
     float yy = *y;
     float w = getAttributeValue(Width);
     float h = getAttributeValue(Height);
+    float fadeScale = 1.0;
 
-    *x = (getAttributeValue(XOffset)) + xx * m_cosR * w + yy * m_sinR * h;
-    *y = (getAttributeValue(YOffset)) + -xx * m_sinR * w + yy * m_cosR * h;
+    if (isRunning())
+    {
+        uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+        if (fadeIn > 0 && elapsed() <= fadeIn)
+        {
+            fadeScale = SCALE(float(elapsed()),
+                              float(0), float(fadeIn),
+                              float(0), float(1.0));
+        }
+    }
+
+    *x = (getAttributeValue(XOffset)) + xx * m_cosR * (w * fadeScale) + yy * m_sinR * (h * fadeScale);
+    *y = (getAttributeValue(YOffset)) + -xx * m_sinR * (w * fadeScale) + yy * m_cosR * (h * fadeScale);
 }
 
 float EFX::calculateDirection(Function::Direction direction, float iterator) const
@@ -618,6 +637,15 @@ bool EFX::addFixture(EFXFixture* ef)
     emit changed(this->id());
 
     return true;
+}
+
+bool EFX::addFixture(quint32 fxi, int head)
+{
+    EFXFixture *ef = new EFXFixture(this);
+    GroupHead gHead(fxi, head);
+    ef->setHead(gHead);
+
+    return addFixture(ef);
 }
 
 bool EFX::removeFixture(EFXFixture* ef)
@@ -1049,11 +1077,6 @@ void EFX::preRun(MasterTimer* timer)
         ef->setSerialNumber(serialNumber++);
     }
 
-    //Q_ASSERT(m_fader == NULL);
-    //m_fader = new GenericFader(doc());
-    //m_fader->adjustIntensity(getAttributeValue(Intensity));
-    //m_fader->setBlendMode(blendMode());
-
     Function::preRun(timer);
 }
 
@@ -1086,7 +1109,6 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
     /* Check for stop condition */
     if (ready == m_fixtures.count())
         stop(FunctionParent::master());
-    //m_fader->write(universes);
 }
 
 void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)

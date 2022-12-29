@@ -32,9 +32,9 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCSceneValue "Value"
-#define KXMLQLCSceneValueFixture "Fixture"
-#define KXMLQLCSceneValueChannel "Channel"
+#define KXMLQLCSceneValue        QString("Value")
+#define KXMLQLCSceneValueFixture QString("Fixture")
+#define KXMLQLCSceneValueChannel QString("Channel")
 
 /**
  * SceneValue is a helper class used to store individual channel TARGET values

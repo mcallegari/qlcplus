@@ -77,7 +77,6 @@ Rectangle
     SplitView
     {
         anchors.fill: parent
-        orientation: Qt.Horizontal
 
         // left view: definition sections
         Flickable

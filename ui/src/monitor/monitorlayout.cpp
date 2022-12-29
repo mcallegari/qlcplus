@@ -150,7 +150,7 @@ QSize MonitorLayout::minimumSize() const
     foreach (item, m_items)
     size = size.expandedTo(item->minimumSize());
 
-    size += QSize(2 * margin(), 2 * margin());
+    size += QSize(2 * contentsMargins().left(), 2 * contentsMargins().top());
 
     return size;
 }

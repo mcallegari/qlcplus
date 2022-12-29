@@ -34,6 +34,14 @@ Popup
 
     onClosed: submenuItem = null
 
+    function handleSaveAction()
+    {
+        if (qlcplus.fileName())
+            qlcplus.saveWorkspace(qlcplus.fileName())
+        else
+            saveDialog.open()
+    }
+
     function saveBeforeExit()
     {
         saveFirstPopup.action = "#EXIT"
@@ -75,7 +83,10 @@ Popup
         onAccepted:
         {
             if (qlcplus.loadImportWorkspace(fileUrl) === true)
+            {
+                importLoader.source = ""
                 importLoader.source = "qrc:/PopupImportProject.qml"
+            }
         }
     }
 
@@ -242,11 +253,7 @@ Popup
 
             onClicked:
             {
-                if (qlcplus.fileName())
-                    qlcplus.saveWorkspace(qlcplus.fileName())
-                else
-                    saveDialog.open()
-
+                handleSaveAction()
                 menuRoot.close()
             }
         }

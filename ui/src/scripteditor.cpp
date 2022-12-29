@@ -475,7 +475,7 @@ void ScriptEditor::slotCheckSyntax()
     }
     else
     {
-        QStringList lines = scriptText.split(QRegExp("(\r\n|\n\r|\r|\n)"));
+        QStringList lines = scriptText.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
         foreach(int line, errLines)
         {
             errResult.append(tr("Syntax error at line %1:\n%2\n\n").arg(line).arg(lines.at(line - 1)));

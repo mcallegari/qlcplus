@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.0.0 Beta 1</Version>
+  <Version>5.0.0 Beta 2</Version>
   <Author>Michał Kluska</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -345,7 +345,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="14000" ColourTemperature="8000"/>
   <Dimensions Weight="38" Width="571" Height="805" Depth="465"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="2.1" DegreesMax="31.2"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="750" DmxConnector="5-pin"/>
  </Physical>

@@ -42,6 +42,8 @@
 #define KXMLQLCChaserSpeedModePerStep "PerStep"
 #define KXMLQLCChaserSpeedModeDefault "Default"
 
+#define KXMLQLCChaserLegacySequence QString("Sequence")
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -171,6 +173,7 @@ bool Chaser::replaceStep(const ChaserStep& step, int index)
         }
 
         emit changed(this->id());
+        emit stepChanged(index);
         return true;
     }
     else
@@ -438,7 +441,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
                     m_steps.insert(stepNumber, step);
             }
         }
-        else if (root.name() == "Sequence")
+        else if (root.name() == KXMLQLCChaserLegacySequence)
         {
             doc()->appendToErrorLog(QString("<b>Unsupported sequences found</b>. Please convert your project "
                                             "at <a href=http://www.qlcplus.org/sequence_migration.php>http://www.qlcplus.org/sequence_migration.php</a>"));

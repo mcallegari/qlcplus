@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QRandomGenerator>
+#include <QRegularExpression>
 #include <QDebug>
 #include <QUrl>
 
@@ -30,8 +31,8 @@
 #include "scriptv4.h"
 #include "doc.h"
 
-#define KXMLQLCScriptCommand "Command"
-#define KXMLQLCScriptVersion "Version"
+#define KXMLQLCScriptCommand QString("Command")
+#define KXMLQLCScriptVersion QString("Version")
 
 const QString Script::startFunctionLegacy = QString("startfunction");
 const QString Script::startFunctionCmd = QString("Engine.startFunction");
@@ -46,6 +47,10 @@ const QString Script::setFixtureCmd = QString("Engine.setFixture");
 const QString Script::systemLegacy = QString("systemcommand");
 const QString Script::systemCmd = QString("Engine.systemCommand");
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+
+const QString Script::blackoutOn = QString("on"); // LEGACY - NOT USED
+const QString Script::blackoutOff = QString("off"); // LEGACY - NOT USED
+const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
 
 /****************************************************************************
  * Initialization
@@ -143,7 +148,7 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
+    QStringList result = m_data.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
 
     while (result.count() && result.last().isEmpty())
         result.takeLast();
@@ -460,7 +465,7 @@ QString Script::convertLine(const QString& str, bool *ok)
         else
         {
             // No quotes. Find the next whitespace.
-            right = line.indexOf(QRegExp("\\s"), left);
+            right = line.indexOf(QRegularExpression("\\s"), left);
             if (right == -1)
             {
                 qDebug() << "Syntax error (whitespace before value missing):" << line.mid(left);

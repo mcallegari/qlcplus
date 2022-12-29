@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6</Version>
+  <Author>Andrew Pavlin</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>LP 12 HEX</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Amber Dimmer" Preset="IntensityAmber"/>
+ <Channel Name="UV Dimmer" Preset="IntensityUV"/>
+ <Channel Name="Change Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="16" Max="75">Jump Change Mode, slow to fast</Capability>
+  <Capability Min="76" Max="135">Pulse Change Mode, slow to fast</Capability>
+  <Capability Min="136" Max="195">Fade Change, slow to fast</Capability>
+  <Capability Min="196" Max="255">Sound Active Pulse Mode</Capability>
+ </Channel>
+ <Channel Name="Sound Active Pulse Mode Speed/Sensitivty">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Sound Active Pulse Mode Speed/Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Flash/Strobe speed" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="6 channel">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">White Dimmer</Channel>
+  <Channel Number="4">Amber Dimmer</Channel>
+  <Channel Number="5">UV Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">White Dimmer</Channel>
+  <Channel Number="5">Amber Dimmer</Channel>
+  <Channel Number="6">UV Dimmer</Channel>
+  <Channel Number="7">Flash/Strobe speed</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">White Dimmer</Channel>
+  <Channel Number="5">Amber Dimmer</Channel>
+  <Channel Number="6">UV Dimmer</Channel>
+  <Channel Number="7">Change Mode</Channel>
+  <Channel Number="8">Sound Active Pulse Mode Speed/Sensitivty</Channel>
+  <Channel Number="9">Flash/Strobe speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="280" Height="68" Depth="247"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="72" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

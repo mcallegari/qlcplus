@@ -22,13 +22,10 @@
 #include <QDebug>
 
 #include "audioplugincache.h"
-#include "genericdmxsource.h"
 #include "collectioneditor.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
-#include "contextmanager.h"
 #include "treemodelitem.h"
-#include "scriptwrapper.h"
 #include "chasereditor.h"
 #include "scripteditor.h"
 #include "sceneeditor.h"
@@ -40,6 +37,7 @@
 #include "rgbmatrix.h"
 #include "function.h"
 #include "sequence.h"
+#include "script.h"
 #include "chaser.h"
 #include "scene.h"
 #include "audio.h"
@@ -75,8 +73,9 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
     // register SceneValue to perform QVariant comparisons
     qRegisterMetaType<SceneValue>();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QMetaType::registerComparators<SceneValue>();
-
+#endif
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
     QStringList treeColumns;
@@ -237,7 +236,7 @@ quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool sel
     return Function::invalidId();
 }
 
-quint32 FunctionManager::createFunction(int type, QStringList fileList)
+quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
 {
     Function* f = nullptr;
     QString name;
@@ -248,6 +247,12 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
         {
             f = new Scene(m_doc);
             name = tr("New Scene");
+            if (fixturesList.count())
+            {
+                Scene *scene = qobject_cast<Scene *>(f);
+                for (QVariant fixtureID : fixturesList)
+                    scene->addFixture(fixtureID.toUInt());
+            }
             m_sceneCount++;
             emit sceneCountChanged();
         }
@@ -291,6 +296,19 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
         {
             f = new EFX(m_doc);
             name = tr("New EFX");
+            if (fixturesList.count())
+            {
+                EFX *efx = qobject_cast<EFX *>(f);
+                for (QVariant fixtureID : fixturesList)
+                {
+                    Fixture *fixture = m_doc->fixture(fixtureID.toUInt());
+                    if (fixture == nullptr)
+                        continue;
+
+                    for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
+                        efx->addFixture(fixture->id(), headIdx);
+                }
+            }
             m_efxCount++;
             emit efxCountChanged();
         }
@@ -334,6 +352,20 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
             emit showCountChanged();
         }
         break;
+        default:
+        break;
+    }
+
+    return addFunctiontoDoc(f, name, true);
+}
+
+quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList)
+{
+    Function* f = nullptr;
+    QString name;
+
+    switch(type)
+    {
         case Function::AudioType:
         {
             name = tr("New Audio");
@@ -398,8 +430,6 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
             }
         }
         break;
-        default:
-        break;
     }
 
     return addFunctiontoDoc(f, name, true);
@@ -440,13 +470,18 @@ QString FunctionManager::functionPath(quint32 id)
 
 void FunctionManager::clearTree()
 {
-    setPreview(false);
+    setPreviewEnabled(false);
     m_selectedIDList.clear();
     m_selectedFolderList.clear();
     m_functionTree->clear();
 }
 
-void FunctionManager::setPreview(bool enable)
+bool FunctionManager::previewEnabled() const
+{
+    return m_previewEnabled;
+}
+
+void FunctionManager::setPreviewEnabled(bool enable)
 {
     if (m_currentEditor != nullptr)
     {
@@ -462,14 +497,13 @@ void FunctionManager::setPreview(bool enable)
                 if (enable == false)
                     f->stop(FunctionParent::master());
                 else
-                {
                     f->start(m_doc->masterTimer(), FunctionParent::master());
-                }
             }
         }
     }
 
     m_previewEnabled = enable;
+    emit previewEnabledChanged();
 }
 
 void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
@@ -664,7 +698,7 @@ void FunctionManager::deleteFunction(quint32 fid)
         return;
 
     if (f->isRunning())
-        f->stop(FunctionParent::master());
+        f->stopAndWait();
 
     Tardis::instance()->enqueueAction(Tardis::FunctionDelete, f->id(),
                                       Tardis::instance()->actionToByteArray(Tardis::FunctionDelete, f->id()),
@@ -1059,9 +1093,9 @@ quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
     if (ch->group() == QLCChannel::Intensity)
     {
         if (ch->colour() == QLCChannel::NoColour)
-            chTypeBit |= ContextManager::DimmerType;
+            chTypeBit |= App::DimmerType;
         else
-            chTypeBit |= ContextManager::ColorType;
+            chTypeBit |= App::ColorType;
     }
     else
     {
@@ -1097,7 +1131,7 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
 
     if (m_doc->addFunction(newScene) == true)
     {
-        setPreview(false);
+        setPreviewEnabled(false);
         Tardis::instance()->enqueueAction(Tardis::FunctionCreate, newScene->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
     }
@@ -1278,7 +1312,7 @@ void FunctionManager::updateFunctionsTree()
 
 void FunctionManager::slotDocLoaded()
 {
-    setPreview(false);
+    setPreviewEnabled(false);
     updateFunctionsTree();
 }
 

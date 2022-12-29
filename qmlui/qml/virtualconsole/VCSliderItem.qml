@@ -288,7 +288,7 @@ VCWidgetItem
                 {
                     ignoreUnknownSignals: true
                     target: colorToolLoader.item
-                    onColorChanged:
+                    function onColorChanged(r, g, b, w, a, uv)
                     {
                         if (sliderObj)
                             sliderObj.setClickAndGoColors(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
@@ -298,7 +298,7 @@ VCWidgetItem
                 {
                     ignoreUnknownSignals: true
                     target: colorToolLoader.item
-                    onPresetSelected:
+                    function onPresetSelected(cap, fxID, chIdx, value)
                     {
                         if (sliderObj)
                             sliderObj.setClickAndGoPresetValue(value)

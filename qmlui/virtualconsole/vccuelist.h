@@ -20,20 +20,22 @@
 #ifndef VCCUELIST_H
 #define VCCUELIST_H
 
+#include <QTimer>
+
 #include "vcwidget.h"
 
-#define KXMLQLCVCCueList "CueList"
-#define KXMLQLCVCCueListChaser "Chaser"
-#define KXMLQLCVCCueListPlaybackLayout "PlaybackLayout"
-#define KXMLQLCVCCueListNextPrevBehavior "NextPrevBehavior"
-#define KXMLQLCVCCueListCrossfade "Crossfade"
-#define KXMLQLCVCCueListNext "Next"
-#define KXMLQLCVCCueListPrevious "Previous"
-#define KXMLQLCVCCueListPlayback "Playback"
-#define KXMLQLCVCCueListStop "Stop"
-#define KXMLQLCVCCueListSlidersMode "SlidersMode"
-#define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
-#define KXMLQLCVCCueListCrossfadeRight "CrossRight"
+#define KXMLQLCVCCueList                    QString("CueList")
+#define KXMLQLCVCCueListChaser              QString("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout      QString("PlaybackLayout")
+#define KXMLQLCVCCueListNextPrevBehavior    QString("NextPrevBehavior")
+#define KXMLQLCVCCueListCrossfade           QString("Crossfade")
+#define KXMLQLCVCCueListNext                QString("Next")
+#define KXMLQLCVCCueListPrevious            QString("Previous")
+#define KXMLQLCVCCueListPlayback            QString("Playback")
+#define KXMLQLCVCCueListStop                QString("Stop")
+#define KXMLQLCVCCueListSlidersMode         QString("SlidersMode")
+#define KXMLQLCVCCueListCrossfadeLeft       QString("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight      QString("CrossRight")
 
 class ListModel;
 
@@ -180,6 +182,13 @@ public:
 
     Q_INVOKABLE void addFunctions(QVariantList idsList, int insertIndex = -1);
 
+    Q_INVOKABLE void setStepNote(int index, QString text);
+
+private slots:
+    void slotFunctionRemoved(quint32 fid);
+    void slotFunctionNameChanged(quint32 fid);
+    void slotStepChanged(int index);
+
 private:
     FunctionParent functionParent() const;
 
@@ -209,6 +218,15 @@ public:
     };
     Q_ENUM(PlaybackStatus)
 
+    enum ProgressStatus
+    {
+        ProgressIdle,
+        ProgressFadeIn,
+        ProgressHold,
+        ProgressInfinite
+    };
+    Q_ENUM(ProgressStatus)
+
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
@@ -218,6 +236,7 @@ public:
     Q_INVOKABLE void stopClicked();
     Q_INVOKABLE void previousClicked();
     Q_INVOKABLE void nextClicked();
+    Q_INVOKABLE void playCurrentStep();
 
 signals:
     void playbackStatusChanged();
@@ -232,6 +251,9 @@ private slots:
 
     /** Called when m_runner skips to another step */
     void slotCurrentStepChanged(int stepNumber);
+
+    /** Method to update the playback progress status */
+    void slotProgressTimeout();
 
 private:
     /** Get the index of the next item, based on the chaser direction */
@@ -255,6 +277,8 @@ private:
 private:
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
+
+    QTimer *m_timer;
 
     /*********************************************************************
      * External input

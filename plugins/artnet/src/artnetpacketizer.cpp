@@ -161,7 +161,7 @@ void ArtNetPacketizer::setupArtNetTodRequest(QByteArray &data, const int &univer
 
     data.append((char)(universe >> 8));     // Net
     data.append(char(0x00));                // Command: TodFull
-    data.append(char(0x00));                // AddCount
+    data.append(char(0x01));                // AddCount
     data.append((char)(universe & 0x00FF)); // Address
 }
 
@@ -250,7 +250,7 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray const& data, QByteArray &dmx, quin
 
 bool ArtNetPacketizer::processTODdata(const QByteArray &data, quint32 &universe, QVariantMap &values)
 {
-    if (data.isNull())
+    if (data.isNull() || data.length() < 28)
         return false;
 
     // 0 - 11 ArtNet header
@@ -283,7 +283,7 @@ bool ArtNetPacketizer::processTODdata(const QByteArray &data, quint32 &universe,
 
 bool ArtNetPacketizer::processRDMdata(const QByteArray &data, quint32 &universe, QVariantMap &values)
 {
-    if (data.isNull())
+    if (data.isNull() || data.length() < 24)
         return false;
 
     // 0 - 11 ArtNet header

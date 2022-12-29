@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Arie Roos</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Slidebar 4</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Mode Name="Default">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="Dimmer" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="1310" Height="80" Depth="70"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="3"/>
+  <Technical PowerConsumption="3680" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

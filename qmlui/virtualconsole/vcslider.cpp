@@ -64,9 +64,9 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_controlledAttributeId(Function::invalidAttributeId())
     , m_attributeMinValue(0)
     , m_attributeMaxValue(UCHAR_MAX)
-    , m_priorityRequest(-1)
 {
     setType(VCWidget::SliderWidget);
+    setSliderMode(Adjust);
 
     registerExternalControl(INPUT_SLIDER_CONTROL_ID, tr("Slider Control"), false);
     registerExternalControl(INPUT_SLIDER_RESET_ID, tr("Reset Control"), false);
@@ -80,12 +80,7 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 
     // request to delete all the active faders
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
-    {
-        if (!fader.isNull())
-            fader->requestDelete();
-    }
-    m_fadersMap.clear();
+    removeActiveFaders();
 
     if (m_item)
         delete m_item;
@@ -255,12 +250,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         m_doc->masterTimer()->unregisterDMXSource(this);
 
         // request to delete all the active faders
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
-        {
-            if (!fader.isNull())
-                fader->requestDelete();
-        }
-        m_fadersMap.clear();
+        removeActiveFaders();
     }
 }
 
@@ -404,7 +394,6 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
         case Level:
             if (m_monitorEnabled == true && m_isOverriding == false && setDMX)
             {
-                m_priorityRequest = Universe::Override;
                 m_isOverriding = true;
                 emit isOverridingChanged();
             }
@@ -482,7 +471,6 @@ void VCSlider::setMonitorEnabled(bool enable)
         return;
 
     m_monitorEnabled = enable;
-    m_priorityRequest = Universe::Override;
 
     emit monitorEnabledChanged();
 }
@@ -504,11 +492,19 @@ bool VCSlider::isOverriding() const
 
 void VCSlider::setIsOverriding(bool enable)
 {
-    if (enable == m_isOverriding)
-        return;
-
     if (enable == false && m_monitorEnabled)
-        setValue(m_monitorValue, false, false);
+    {
+        if (m_isOverriding)
+        {
+            removeActiveFaders();
+            setValue(m_monitorValue, false, false);
+        }
+        else
+        {
+            // reset once more
+            //setValue(0, true, true);
+        }
+    }
 
     m_isOverriding = enable;
     emit isOverridingChanged();
@@ -546,7 +542,7 @@ QVariant VCSlider::groupsTreeModel()
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
         QStringList treeColumns;
-        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
+        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
 
@@ -587,6 +583,16 @@ void VCSlider::setSearchFilter(QString searchFilter)
     emit searchFilterChanged();
 }
 
+void VCSlider::removeActiveFaders()
+{
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+    m_fadersMap.clear();
+}
+
 void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
 {
     qDebug() << "Slider tree data changed" << value.toInt();
@@ -596,8 +602,8 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
         return;
 
     QVariantList itemData = item->data();
-    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-    if (itemData.count() != 5)
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+    if (itemData.count() != 6)
         return;
 
     //QString type = itemData.at(1).toString();
@@ -828,7 +834,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
 
-        if(running)
+        if (running)
             function->start(m_doc->masterTimer(), functionParent());
 
         emit controlledFunctionChanged(fid);
@@ -858,6 +864,11 @@ void VCSlider::adjustIntensity(qreal val)
 
         qreal fraction = sliderValueToAttributeValue(m_value);
         adjustFunctionAttribute(function, fraction * intensity());
+    }
+    else if (sliderMode() == Level)
+    {
+        // force channel levels refresh
+        m_levelValueChanged = true;
     }
 }
 
@@ -1088,6 +1099,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         // have the same value. If so, move the widget slider or knob
         // to the detected position
         if (mixedDMXlevels == false &&
+            monitorSliderValue != -1 &&
             monitorSliderValue != m_monitorValue)
         {
             //qDebug() << caption() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_value;
@@ -1116,7 +1128,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>(nullptr));
             if (fader.isNull())
             {
-                fader = universes[universe]->requestFader();
+                fader = universes[universe]->requestFader(m_monitorEnabled ? Universe::Override : Universe::Auto);
                 m_fadersMap[universe] = fader;
             }
 
@@ -1131,10 +1143,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
             // on override, force channel to LTP
             if (m_isOverriding)
-            {
-                fc->removeFlag(FadeChannel::HTP);
-                fc->addFlag(FadeChannel::LTP);
-            }
+                fc->addFlag(FadeChannel::Override);
 
             if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)
             {
@@ -1159,7 +1168,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             }
 
             fc->setStart(fc->current());
-            fc->setTarget(modLevel * intensity());
+            fc->setTarget(qreal(modLevel) * intensity());
             fc->setReady(false);
             fc->setElapsed(0);
         }
@@ -1224,10 +1233,16 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
 
 void VCSlider::slotInputValueChanged(quint8 id, uchar value)
 {
-    if (id != INPUT_SLIDER_CONTROL_ID)
-        return;
-
-    setValue(value, true, false);
+    switch (id)
+    {
+        case INPUT_SLIDER_CONTROL_ID:
+            setValue(value, true, false);
+        break;
+        case INPUT_SLIDER_RESET_ID:
+            if (value)
+                setIsOverriding(false);
+        break;
+    }
 }
 
 /*********************************************************************
@@ -1243,6 +1258,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
     }
 
     QString str;
+    bool enableMonitoring = false;
 
     /* Widget commons */
     loadXMLCommon(root);
@@ -1291,10 +1307,8 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
 
             if (mAttrs.hasAttribute(KXMLQLCVCSliderLevelMonitor))
             {
-                if (mAttrs.value(KXMLQLCVCSliderLevelMonitor).toString() == "false")
-                    setMonitorEnabled(false);
-                else
-                    setMonitorEnabled(true);
+                if (mAttrs.value(KXMLQLCVCSliderLevelMonitor).toString() != "false")
+                    enableMonitoring = true;
             }
         }
         else if (root.name() == KXMLQLCVCSliderOverrideReset)
@@ -1319,6 +1333,8 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
             root.skipCurrentElement();
         }
     }
+
+    setMonitorEnabled(enableMonitoring);
 
     if (clickAndGoType() == CnGPreset)
     {
@@ -1502,7 +1518,10 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     /* Level high limit */
     doc->writeAttribute(KXMLQLCVCSliderLevelHighLimit, QString::number(rangeHighLimit()));
     /* Level value */
-    doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(value()));
+    if (monitorEnabled())
+        doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(0));
+    else
+        doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(value()));
 
     /* Level channels */
     for (SceneValue scv : m_levelChannels)
@@ -1518,13 +1537,13 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
 
     if (controlledFunction() != Function::invalidId())
     {
-        /* Adjust */
+        /* Start the <Adjust> tag */
         doc->writeStartElement(KXMLQLCVCSliderAdjust);
         /* Controlled attribute index */
         doc->writeAttribute(KXMLQLCVCSliderAdjustAttribute, QString::number(controlledAttribute()));
         /* Controlled function ID */
-        doc->writeTextElement(KXMLQLCVCSliderControlledFunction, QString::number(controlledFunction()));
-        /* End the <Playback> tag */
+        doc->writeAttribute(KXMLQLCVCSliderControlledFunction, QString::number(controlledFunction()));
+        /* End the <Adjust> tag */
         doc->writeEndElement();
     }
 

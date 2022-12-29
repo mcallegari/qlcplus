@@ -6,8 +6,13 @@ LANGUAGE = C++
 TARGET   = qlcpluswebaccess
 
 CONFIG += qt
-QT     += core gui script network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+QT     += core gui network
+QT     += widgets multimedia
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
+  QT += qml
+} else {
+  QT += script
+}
 
 INCLUDEPATH     += qhttpserver
 INCLUDEPATH     += ../../engine/src ../../engine/audio/src

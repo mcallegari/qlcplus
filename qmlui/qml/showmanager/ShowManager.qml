@@ -64,7 +64,7 @@ Rectangle
     Rectangle
     {
         id: topBar
-        width: showMgrContainer.width
+        width: showMgrContainer.width - rightPanel.width
         height: UISettings.iconSizeDefault
         z: 5
         gradient: Gradient
@@ -274,8 +274,33 @@ Rectangle
             {
                 Layout.fillWidth: true
             }
+
+            ZoomItem
+            {
+                implicitWidth: UISettings.mediumItemHeight * 1.3
+                implicitHeight: parent.height - 2
+                fontColor: "#222"
+
+                onZoomOutClicked:
+                {
+                    if (showManager.timeScale >= 1.0)
+                        showManager.timeScale += 1.0
+                    else
+                        showManager.timeScale += 0.1
+                    centerView()
+                }
+
+                onZoomInClicked:
+                {
+                    if (showManager.timeScale > 1.0)
+                        showManager.timeScale -= 1.0
+                    else
+                        showManager.timeScale -= 0.1
+                    centerView()
+                }
+            }
         }
-    }
+    } // top bar
 
     RightPanel
     {
@@ -331,30 +356,6 @@ Rectangle
                 Layout.fillWidth: true
                 color: "transparent"
             }
-            ZoomItem
-            {
-                implicitWidth: UISettings.mediumItemHeight * 1.3
-                implicitHeight: parent.height - 2
-                fontColor: "#222"
-
-                onZoomOutClicked:
-                {
-                    if (showManager.timeScale >= 1.0)
-                        showManager.timeScale += 1.0
-                    else
-                        showManager.timeScale += 0.1
-                    centerView()
-                }
-
-                onZoomInClicked:
-                {
-                    if (showManager.timeScale > 1.0)
-                        showManager.timeScale -= 1.0
-                    else
-                        showManager.timeScale -= 0.1
-                    centerView()
-                }
-            }
 
             Rectangle
             {
@@ -374,7 +375,7 @@ Rectangle
         y: topBar.height
         z: 4
         height: showMgrContainer.headerHeight
-        width: showMgrContainer.width - trackWidth - rightPanel.width
+        width: showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick
@@ -421,7 +422,7 @@ Rectangle
         contentHeight: totalTracksHeight > height ? totalTracksHeight : height
         //contentWidth: timelineHeader.contentWidth
 
-        property real totalTracksHeight: (tracksBox.count + 1) * trackHeight
+        property real totalTracksHeight: (tracksBox.count + 2) * trackHeight
 
         Rectangle
         {
@@ -474,12 +475,13 @@ Rectangle
             z: 1
             width: showMgrContainer.width - trackWidth
             height: parent.height
+            clip: true
 
             boundsBehavior: Flickable.StopAtBounds
             contentHeight: showContents.contentHeight
             contentWidth: timelineHeader.contentWidth
             contentX: xViewOffset
-            ScrollBar.horizontal: CustomScrollBar { orientation: Qt.Horizontal }
+            ScrollBar.horizontal: horScrollBar
 
             onContentXChanged: xViewOffset = contentX
 
@@ -613,19 +615,16 @@ Rectangle
                     }
                 }
             }
-        }
-    }
-/*
+        } // Flickable (horizontal)
+    } // Flickable (vertical)
+
     CustomScrollBar
     {
-        id: horScrollbar
-        z: 4
+        id: horScrollBar
+        x: timelineHeader.x
+        y: showMgrContainer.height - height
+        z: 10
+        width: timelineHeader.width
         orientation: Qt.Horizontal
-        anchors.bottom: parent.bottom
-        x: trackWidth
-        flickable: timelineHeader
     }
-
-    CustomScrollBar { z: 5; flickable: showContents; doubleBars: true }
-*/
 }

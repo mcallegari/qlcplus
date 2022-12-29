@@ -35,11 +35,11 @@
 #include "apputil.h"
 #include "doc.h"
 
-#define KXMLQLCVCATKey "Key"
-#define KXMLQLCVCATBarsNumber "BarsNumber"
+#define KXMLQLCVCATKey          QString("Key")
+#define KXMLQLCVCATBarsNumber   QString("BarsNumber")
 
-#define KXMLQLCVolumeBar    "VolumeBar"
-#define KXMLQLCSpectrumBar  "SpectrumBar"
+#define KXMLQLCVolumeBar    QString("VolumeBar")
+#define KXMLQLCSpectrumBar  QString("SpectrumBar")
 
 const QSize VCAudioTriggers::defaultSize(QSize(300, 200));
 
@@ -49,9 +49,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     , m_button(NULL)
     , m_label(NULL)
     , m_spectrum(NULL)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     , m_volumeSlider(NULL)
-#endif
     , m_inputCapture(NULL)
 {
     /* Set the class name "VCAudioTriggers" as the object name as well */
@@ -116,7 +114,6 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
         m_spectrumBars.append(asb);
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QHBoxLayout *hbox2 = new QHBoxLayout();
     m_volumeSlider = new ClickAndGoSlider(this);
     m_volumeSlider->setOrientation(Qt::Vertical);
@@ -128,19 +125,16 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
 
     connect(m_volumeSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotVolumeChanged(int)));
-#endif
+
     m_spectrum = new AudioTriggerWidget(this);
     m_spectrum->setBarsNumber(m_inputCapture->defaultBarsNumber());
     m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
     m_spectrum->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    layout()->addWidget(m_spectrum);
-#else
     layout()->addItem(hbox2);
     hbox2->addWidget(m_spectrum);
     hbox2->addWidget(m_volumeSlider);
-#endif
+
     /* Initial size */
     QSettings settings;
     QVariant var = settings.value(SETTINGS_AUDIOTRIGGERS_SIZE);
@@ -164,9 +158,8 @@ void VCAudioTriggers::enableWidgetUI(bool enable)
 {
     if (m_button)
         m_button->setEnabled(enable);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+
     m_volumeSlider->setEnabled(enable);
-#endif
 }
 
 void VCAudioTriggers::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -300,6 +293,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                     m_fadersMap[universe] = fader;
                 }
                 lastUniverse = universe;
+                fader->setEnabled(m_button->isChecked() ? true : false);
             }
 
             FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);           
@@ -327,6 +321,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                         fader->adjustIntensity(intensity());
                         m_fadersMap[universe] = fader;
                     }
+                    fader->setEnabled(m_button->isChecked() ? true : false);
                     lastUniverse = universe;
                 }
 

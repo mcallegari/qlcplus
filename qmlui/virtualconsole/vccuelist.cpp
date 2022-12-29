@@ -34,6 +34,8 @@
 #define INPUT_STOP_PAUSE_ID         3
 #define INPUT_SIDE_FADER_ID         4
 
+#define PROGRESS_INTERVAL           200
+
 VCCueList::VCCueList(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_nextPrevBehavior(DefaultRunFirst)
@@ -44,6 +46,7 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
     , m_primaryTop(true)
     , m_chaserID(Function::invalidId())
     , m_playbackIndex(-1)
+    , m_timer(new QTimer())
 {
     setType(VCWidget::CueListWidget);
 
@@ -57,6 +60,13 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
     QStringList listRoles;
     listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
     m_stepsList->setRoleNames(listRoles);
+
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(slotProgressTimeout()));
+
+    connect(m_doc, SIGNAL(functionRemoved(quint32)),
+            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(m_doc, SIGNAL(functionNameChanged(quint32)),
+            this, SLOT(slotFunctionNameChanged(quint32)));
 }
 
 VCCueList::~VCCueList()
@@ -278,7 +288,7 @@ void VCCueList::setSideFaderLevel(int level)
         }
     }
 
-    //updateFeedback(); // TODO
+    sendFeedback(m_sideFaderLevel, INPUT_SIDE_FADER_ID, VCWidget::ExactValue);
 
     emit sideFaderLevelChanged();
 }
@@ -406,6 +416,19 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
     }
 }
 
+void VCCueList::setStepNote(int index, QString text)
+{
+    Chaser *ch = chaser();
+    if (ch == NULL)
+        return;
+
+    ChaserStep *step = ch->stepAt(index);
+    step->note = text;
+
+    QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());
+    m_stepsList->setDataWithRole(mIdx, "note", text);
+}
+
 quint32 VCCueList::chaserID() const
 {
     return m_chaserID;
@@ -430,8 +453,10 @@ void VCCueList::setChaserID(quint32 fid)
                    this, SLOT(slotFunctionStopped(quint32)));
         disconnect(current, SIGNAL(currentStepChanged(int)),
                    this, SLOT(slotCurrentStepChanged(int)));
+        connect(current, SIGNAL(stepChanged(int)),
+                this, SLOT(slotStepChanged(int)));
 
-        if(current->isRunning())
+        if (current->isRunning())
         {
             running = true;
             current->stop(functionParent());
@@ -457,6 +482,8 @@ void VCCueList::setChaserID(quint32 fid)
                 this, SLOT(slotFunctionStopped(quint32)));
         connect(function, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
+        connect(function, SIGNAL(stepChanged(int)),
+                this, SLOT(slotStepChanged(int)));
 
         emit chaserIDChanged(fid);
     }
@@ -473,6 +500,30 @@ void VCCueList::setChaserID(quint32 fid)
     Tardis::instance()->enqueueAction(Tardis::VCCueListSetChaserID, id(),
                                       current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
+}
+
+void VCCueList::slotFunctionRemoved(quint32 fid)
+{
+    if (fid == m_chaserID)
+    {
+        m_chaserID = Function::invalidId();
+        m_stepsList->clear();
+        emit chaserIDChanged(-1);
+
+        resetIntensityOverrideAttribute();
+    }
+}
+
+void VCCueList::slotStepChanged(int index)
+{
+    ChaserStep *step = chaser()->stepAt(index);
+    ChaserEditor::updateStepInListModel(m_doc, chaser(), m_stepsList, step, index);
+}
+
+void VCCueList::slotFunctionNameChanged(quint32 fid)
+{
+    if (fid == m_chaserID)
+        emit chaserIDChanged(fid);
 }
 
 /*********************************************************************
@@ -770,12 +821,37 @@ void VCCueList::nextClicked()
     }
 }
 
+void VCCueList::playCurrentStep()
+{
+    Chaser *ch = chaser();
+    if (ch == nullptr)
+        return;
+
+    if (ch->isRunning())
+    {
+        ChaserAction action;
+        action.m_action = ChaserSetStepIndex;
+        action.m_stepIndex = m_playbackIndex;
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
+        action.m_fadeMode = getFadeMode();
+        ch->setAction(action);
+    }
+    else
+    {
+        startChaser(m_playbackIndex == -1 ? 0 : m_playbackIndex);
+    }
+
+}
+
 void VCCueList::slotFunctionRunning(quint32 fid)
 {
     if (fid == m_chaserID)
     {
         emit playbackStatusChanged();
-        // updateFeedback(); TODO
+        sendFeedback(UCHAR_MAX, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
+
+        m_timer->start(PROGRESS_INTERVAL);
     }
 }
 
@@ -785,13 +861,70 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     {
         emit playbackStatusChanged();
         setPlaybackIndex(-1);
-        // updateFeedback(); TODO
+        sendFeedback(0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
+
+        m_timer->stop();
+
+        if (m_item != nullptr)
+        {
+            m_item->setProperty("progressStatus", ProgressIdle);
+            m_item->setProperty("progressValue", 0);
+            m_item->setProperty("progressText", "");
+        }
     }
 }
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
 {
     setPlaybackIndex(stepNumber);
+}
+
+void VCCueList::slotProgressTimeout()
+{
+    Chaser *ch = chaser();
+    if (ch == nullptr || !ch->isRunning() || m_item == nullptr)
+        return;
+
+    ChaserRunnerStep step(ch->currentRunningStep());
+    if (step.m_function != NULL)
+    {
+        ProgressStatus status = ProgressIdle;
+        double progress = 0;
+
+        if (step.m_fadeIn == Function::infiniteSpeed())
+            status = ProgressInfinite;
+        else if (step.m_elapsed <= (quint32)step.m_fadeIn)
+            status = ProgressFadeIn;
+        else
+            status = ProgressHold;
+
+        m_item->setProperty("progressStatus", status);
+
+        if (step.m_duration == Function::infiniteSpeed())
+        {
+            if (status == ProgressFadeIn && step.m_fadeIn != Function::defaultSpeed())
+            {
+                progress = ((double)step.m_elapsed / (double)step.m_fadeIn);
+                m_item->setProperty("progressValue", progress);
+                m_item->setProperty("progressText", QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
+            }
+            else
+            {
+                m_item->setProperty("progressValue", 100);
+                m_item->setProperty("progressText", "");
+            }
+        }
+        else
+        {
+            progress = ((double)step.m_elapsed / (double)step.m_duration);
+            m_item->setProperty("progressValue", progress);
+            m_item->setProperty("progressText", QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
+        }
+    }
+    else
+    {
+        m_item->setProperty("progressValue", 0);
+    }
 }
 
 /*********************************************************************

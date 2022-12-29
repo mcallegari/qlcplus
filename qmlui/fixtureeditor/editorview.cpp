@@ -21,7 +21,6 @@
 #include "qlcfixturedef.h"
 #include "qlcchannel.h"
 
-#include "physicaledit.h"
 #include "channeledit.h"
 #include "editorview.h"
 #include "listmodel.h"
@@ -278,6 +277,10 @@ bool EditorView::saveAs(QString path)
     QString localFilename = path;
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(path).toLocalFile();
+
+    /* Always use the fixture suffix */
+    if (localFilename.right(4) != KExtFixture)
+        localFilename += KExtFixture;
 
     m_fileName = localFilename;
 

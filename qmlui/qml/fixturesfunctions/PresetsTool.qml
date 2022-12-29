@@ -37,6 +37,7 @@ Rectangle
     property int selectedFixture: -1
     property int selectedChannel: -1
     property bool showPalette: false
+    property int currentValue: 0 // as DMX value
 
     signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
     signal valueChanged(int value)
@@ -82,7 +83,7 @@ Rectangle
                 Rectangle
                 {
                     id: delegateRoot
-                    width: UISettings.bigItemHeight
+                    width: UISettings.bigItemHeight * 1.3
                     height: presetToolBar.height
                     color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
@@ -104,11 +105,11 @@ Rectangle
 
                     RobotoText
                     {
-                        x: 1
-                        width: parent.width - 2
+                        x: 2
+                        width: parent.width - 4
                         height: parent.height
                         label: modelData.name
-                        fontSize: UISettings.textSizeDefault * 0.75
+                        fontSize: UISettings.textSizeDefault * 0.70
                         wrapText: true
                     }
                     MouseArea
@@ -153,6 +154,7 @@ Rectangle
                     capIndex: index + 1
                     onValueChanged:
                     {
+                        toolRoot.currentValue = value
                         toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
                         toolRoot.valueChanged(value)
                         if (closeOnSelect)

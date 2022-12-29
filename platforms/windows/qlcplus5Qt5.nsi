@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_5.0.0_beta1.exe"
+OutFile "QLC+_5.0.0_beta2.exe"
 InstallDir C:\QLC+5
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -88,6 +88,7 @@ Section
 	File /r mediaservice
 	File /r platforms
 	File /r printsupport
+	File /r renderers
 	File /r sceneparsers
 	File /r Qt
 	File /r Qt3D

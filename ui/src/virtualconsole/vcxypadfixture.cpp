@@ -70,7 +70,11 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
 {
     Q_ASSERT(m_doc != NULL);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (variant.canConvert(QVariant::StringList) == true)
+#else
+    if (variant.canConvert<QStringList>() == true)
+#endif
     {
         QStringList list(variant.toStringList());
         if (list.size() == 10)

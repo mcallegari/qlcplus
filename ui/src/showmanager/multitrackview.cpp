@@ -291,7 +291,6 @@ void MultiTrackView::addEFX(EFX *efx, Track *track, ShowFunction *sf)
     setItemCommonProperties(item, func, trackNum);
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 void MultiTrackView::addVideo(Video *video, Track *track, ShowFunction *sf)
 {
     if (m_tracks.isEmpty())
@@ -309,7 +308,6 @@ void MultiTrackView::addVideo(Video *video, Track *track, ShowFunction *sf)
     VideoItem *item = new VideoItem(video, func);
     setItemCommonProperties(item, func, trackNum);
 }
-#endif
 
 quint32 MultiTrackView::deleteSelectedItem()
 {

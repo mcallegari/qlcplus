@@ -4,19 +4,27 @@ Summary: Q Light Controller Plus - The free DMX lighting console
 License: Apache License, Version 2.0
 Name: qlcplus
 Version: %{version}
-BuildRequires: gcc-c++ pkg-config
-BuildRequires: libusb-devel, libudev-devel
-BuildRequires: alsa-lib-devel >= 1.0.23, libsndfile-devel, libmad-devel, fftw-devel >= 3.0.0
-#BuildRequires: libola-devel
-BuildRequires: desktop-file-utils
+BuildRequires:  desktop-file-utils
+BuildRequires:  fdupes
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(Qt5Multimedia)
+BuildRequires:  pkgconfig(Qt5Script)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  pkgconfig(libftdi1)
+BuildRequires:  pkgconfig(libola)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(libusb1)
+BuildRequires:  pkgconfig(mad)
+BuildRequires:  pkgconfig(sndfile)
 %if %{defined fedora}
-BuildRequires: libftdi-devel
-BuildRequires: qt5-qtbase-devel, qt5-qtmultimedia-devel, qt5-qtscript-devel, qt5-linguist
-%endif
-%if %{defined suse_version}
-BuildRequires: libftdi1-devel
-BuildRequires: libqt5-qtbase-devel, libqt5-qtmultimedia-devel, libqt5-qtscript-devel, libqt5-linguist
-%endif
+BuildRequires:  qt5-linguist
+BuildRequires:  qt5-qtconfiguration-devel
+%else
+BuildRequires:  libqt5-linguist-devel
+BuildRequires:  update-desktop-files
 Release: 1
 Source: qlcplus-%{version}.tar.gz
 URL: https://www.qlcplus.org/

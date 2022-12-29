@@ -32,19 +32,19 @@
  */
 
 // Fixture document type
-#define KXMLQLCFixtureDefDocument "FixtureDefinition"
+#define KXMLQLCFixtureDefDocument QString("FixtureDefinition")
 
 // Fixture definition XML tags
-#define KXMLQLCFixtureDef "FixtureDefinition"
-#define KXMLQLCFixtureDefManufacturer "Manufacturer"
-#define KXMLQLCFixtureDefModel "Model"
-#define KXMLQLCFixtureDefType "Type"
+#define KXMLQLCFixtureDef               QString("FixtureDefinition")
+#define KXMLQLCFixtureDefManufacturer   QString("Manufacturer")
+#define KXMLQLCFixtureDefModel          QString("Model")
+#define KXMLQLCFixtureDefType           QString("Type")
 
 // Fixture instance XML tags
-#define KXMLQLCFixtureName "Name"
-#define KXMLQLCFixtureID "ID"
-#define KXMLQLCFixtureUniverse "Universe"
-#define KXMLQLCFixtureAddress "Address"
+#define KXMLQLCFixtureName      QString("Name")
+#define KXMLQLCFixtureID        QString("ID")
+#define KXMLQLCFixtureUniverse  QString("Universe")
+#define KXMLQLCFixtureAddress   QString("Address")
 
 class QXmlStreamReader;
 class QLCFixtureMode;

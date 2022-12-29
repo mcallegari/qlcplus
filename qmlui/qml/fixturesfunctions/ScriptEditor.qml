@@ -20,8 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
-import QtQuick.Controls 2.1
-import QtQuick.Controls 1.2 as QC1
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -54,7 +53,7 @@ Rectangle
         onTriggered: scriptEditor.scriptContent = scriptEdit.text
     }
 
-    QC1.SplitView
+    SplitView
     {
         width: parent.width
         height: parent.height - topBar.height
@@ -62,15 +61,20 @@ Rectangle
         Loader
         {
             id: sideLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
+
             height: seContainer.height
             source: ""
 
             onLoaded:
             {
                 if (source)
+                {
                     item.allowEditing = false
+                    item.width = Qt.binding(function() { return sideLoader.width - 2 })
+                }
             }
 
             Rectangle
@@ -78,14 +82,14 @@ Rectangle
                 width: 2
                 height: parent.height
                 x: parent.width - 2
-                color: UISettings.bgLighter
+                color: UISettings.bgLight
             }
 
             Connections
             {
                 ignoreUnknownSignals: true
                 target: sideLoader.item
-                onDoubleClicked:
+                function onDoubleClicked()
                 {
                     if (fixtureTreeButton.checked)
                         ID = fixtureManager.fixtureIDfromItemID(ID)
@@ -96,7 +100,7 @@ Rectangle
 
         Column
         {
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
 
             EditorTopBar
             {
@@ -106,6 +110,13 @@ Rectangle
 
                 onBackClicked:
                 {
+                    if (sideLoader.visible)
+                    {
+                        sideLoader.source = ""
+                        sideLoader.visible = false
+                        rightSidePanel.width -= sideLoader.width
+                    }
+
                     var prevID = scriptEditor.previousID
                     functionManager.setEditorFunction(prevID, false, true)
                     requestView(prevID, functionManager.getEditorResource(prevID))
@@ -137,15 +148,16 @@ Rectangle
 
                         if (checked)
                         {
-                            rightSidePanel.width += UISettings.sidePanelWidth
-                            sideLoader.width = UISettings.sidePanelWidth
+                            if (!sideLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.visible = true
                             sideLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else
                         {
-                            rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                            rightSidePanel.width -= sideLoader.width
                             sideLoader.source = ""
-                            sideLoader.width = 0
+                            sideLoader.visible = false
                         }
                     }
                 }
@@ -166,15 +178,16 @@ Rectangle
 
                         if (checked)
                         {
-                            rightSidePanel.width += UISettings.sidePanelWidth
-                            sideLoader.width = UISettings.sidePanelWidth
+                            if (!sideLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.visible = true
                             sideLoader.source = "qrc:/FixtureGroupManager.qml"
                         }
                         else
                         {
                             rightSidePanel.width = rightSidePanel.width - sideLoader.width
                             sideLoader.source = ""
-                            sideLoader.width = 0
+                            sideLoader.visible = false
                         }
                     }
                 }
@@ -209,7 +222,7 @@ Rectangle
                 height: parent.height - topBar.height
                 boundsBehavior: Flickable.StopAtBounds
 
-                contentWidth: scriptEdit.paintedWidth
+                contentWidth: width //scriptEdit.paintedWidth
                 contentHeight: scriptEdit.paintedHeight
                 clip: true
 
@@ -225,9 +238,28 @@ Rectangle
                         contentY = r.y + r.height - height;
                 }
 
+                DropArea
+                {
+                    anchors.fill: parent
+                    onDropped:
+                    {
+                        if (drag.source.itemsList[0].itemType === App.FixtureDragItem)
+                        {
+                            //console.log("Fixture ID: " + drag.source.itemsList[0].cRef.id)
+                            scriptEdit.insert(scriptEdit.cursorPosition, drag.source.itemsList[0].cRef.id)
+                        }
+                        else if (drag.source.hasOwnProperty("fromFunctionManager"))
+                        {
+                            //console.log("Function ID: " + drag.source.itemsList[0])
+                            scriptEdit.insert(scriptEdit.cursorPosition, drag.source.itemsList[0])
+                        }
+                    }
+                }
+
                 TextEdit
                 {
                     id: scriptEdit
+                    width: parent.width
                     focus: true
                     font.family: "Roboto Mono"
                     font.pixelSize: UISettings.textSizeDefault * 0.8
@@ -242,7 +274,7 @@ Rectangle
 
                 ScrollBar.vertical: CustomScrollBar { }
                 ScrollBar.horizontal: CustomScrollBar { }
-            }
+            } // Flickable
         } // Column
     } // SplitView
 

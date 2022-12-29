@@ -371,24 +371,24 @@ void FadeChannel_Test::calculateCurrent()
     fch.setTarget(101);
     fch.setReady(false);
     QCOMPARE(fch.calculateCurrent(200, 0), uchar(245));
-    QCOMPARE(fch.calculateCurrent(200, 1), uchar(245));
-    QCOMPARE(fch.calculateCurrent(200, 2), uchar(244));
-    QCOMPARE(fch.calculateCurrent(200, 3), uchar(243));
-    QCOMPARE(fch.calculateCurrent(200, 4), uchar(243));
-    QCOMPARE(fch.calculateCurrent(200, 5), uchar(242));
-    QCOMPARE(fch.calculateCurrent(200, 6), uchar(241));
-    QCOMPARE(fch.calculateCurrent(200, 7), uchar(240));
-    QCOMPARE(fch.calculateCurrent(200, 8), uchar(240));
-    QCOMPARE(fch.calculateCurrent(200, 9), uchar(239));
-    QCOMPARE(fch.calculateCurrent(200, 10), uchar(238));
-    QCOMPARE(fch.calculateCurrent(200, 11), uchar(238));
+    QCOMPARE(fch.calculateCurrent(200, 1), uchar(244));
+    QCOMPARE(fch.calculateCurrent(200, 2), uchar(243));
+    QCOMPARE(fch.calculateCurrent(200, 3), uchar(242));
+    QCOMPARE(fch.calculateCurrent(200, 4), uchar(242));
+    QCOMPARE(fch.calculateCurrent(200, 5), uchar(241));
+    QCOMPARE(fch.calculateCurrent(200, 6), uchar(240));
+    QCOMPARE(fch.calculateCurrent(200, 7), uchar(239));
+    QCOMPARE(fch.calculateCurrent(200, 8), uchar(239));
+    QCOMPARE(fch.calculateCurrent(200, 9), uchar(238));
+    QCOMPARE(fch.calculateCurrent(200, 10), uchar(237));
+    QCOMPARE(fch.calculateCurrent(200, 11), uchar(237));
     // Skip...
     QCOMPARE(fch.calculateCurrent(200, 100), uchar(173));
-    QCOMPARE(fch.calculateCurrent(200, 101), uchar(173));
-    QCOMPARE(fch.calculateCurrent(200, 102), uchar(172));
+    QCOMPARE(fch.calculateCurrent(200, 101), uchar(172));
+    QCOMPARE(fch.calculateCurrent(200, 102), uchar(171));
     // Skip...
-    QCOMPARE(fch.calculateCurrent(200, 198), uchar(103));
-    QCOMPARE(fch.calculateCurrent(200, 199), uchar(102));
+    QCOMPARE(fch.calculateCurrent(200, 198), uchar(102));
+    QCOMPARE(fch.calculateCurrent(200, 199), uchar(101));
     QCOMPARE(fch.calculateCurrent(200, 200), uchar(101));
 }
 

@@ -115,10 +115,10 @@ QString App::appVersion() const
 
 void App::startup()
 {
+    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App!");
     qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture!");
     qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App!");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
@@ -141,10 +141,10 @@ void App::startup()
     m_ioManager = new InputOutputManager(this, m_doc);
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
-    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
     m_functionManager = new FunctionManager(this, m_doc);
-    m_simpleDesk = new SimpleDesk(this, m_doc);
-    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager, m_simpleDesk);
+    m_simpleDesk = new SimpleDesk(this, m_doc, m_functionManager);
+    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
     m_paletteManager = new PaletteManager(this, m_doc, m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
@@ -169,7 +169,7 @@ void App::startup()
     qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager!");
     qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager!");
     qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager!");
-    qmlRegisterUncreatableType<SimpleDesk>("org.qlcplus.classes", 1, 0, "SimpleDesk", "Can't create a NetworkManager!");
+    qmlRegisterUncreatableType<SimpleDesk>("org.qlcplus.classes", 1, 0, "SimpleDesk", "Can't create a SimpleDesk!");
 
     // Start up in non-modified state
     m_doc->resetModified();
@@ -239,11 +239,17 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (openglContext() == nullptr)
         return false;
 
     int glVersion = (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
     return glVersion < 33 ? false : true;
+#else
+    // TODO: Qt6
+
+    return true;
+#endif
 }
 
 void App::exit()
@@ -299,10 +305,14 @@ bool App::event(QEvent *event)
 
 void App::slotSceneGraphInitialized()
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (openglContext() == nullptr)
         return;
 
     qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
+#else
+    // TODO: Qt6
+#endif
 }
 
 void App::slotScreenChanged(QScreen *screen)
@@ -332,30 +342,17 @@ void App::slotAccessMaskChanged(int mask)
     setAccessMask(mask);
 }
 
-void App::clearDocument()
-{
-    if (m_videoProvider)
-    {
-        delete m_videoProvider;
-        m_videoProvider = nullptr;
-    }
-
-    m_doc->masterTimer()->stop();
-    m_doc->clearContents();
-    m_virtualConsole->resetContents();
-    //SimpleDesk::instance()->clearContents();
-    m_showManager->resetContents();
-    m_tardis->resetHistory();
-    m_doc->inputOutputMap()->resetUniverses();
-    setFileName(QString());
-    m_doc->resetModified();
-    m_doc->inputOutputMap()->startUniverses();
-    m_doc->masterTimer()->start();
-}
-
+/*********************************************************************
+ * Doc
+ *********************************************************************/
 Doc *App::doc()
 {
     return m_doc;
+}
+
+bool App::docLoaded()
+{
+    return m_docLoaded;
 }
 
 bool App::docModified() const
@@ -369,6 +366,8 @@ void App::initDoc()
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
+    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()),
+            this, SIGNAL(runningFunctionsCountChanged()));
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
@@ -407,6 +406,44 @@ void App::initDoc()
     m_doc->inputOutputMap()->setBeatGeneratorType(InputOutputMap::Internal);
     m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
+}
+
+void App::clearDocument()
+{
+    if (m_videoProvider)
+    {
+        delete m_videoProvider;
+        m_videoProvider = nullptr;
+    }
+
+    m_contextManager->resetFixtureSelection();
+    //m_simpleDesk->resetContents(); // TODO
+    m_showManager->resetContents();
+    m_virtualConsole->resetContents();
+
+    m_doc->masterTimer()->stop();
+    m_doc->clearContents();
+
+    m_tardis->resetHistory();
+    m_doc->inputOutputMap()->resetUniverses();
+    setFileName(QString());
+    m_doc->resetModified();
+    m_doc->inputOutputMap()->startUniverses();
+    m_doc->masterTimer()->start();
+}
+
+int App::runningFunctionsCount() const
+{
+    return m_doc->masterTimer()->runningFunctions();
+}
+
+void App::stopAllFunctions()
+{
+    // first, gracefully stop via Function Manager (if that's the case)
+    m_functionManager->setPreviewEnabled(false);
+
+    // then, brutally kill the rest (could be started from VC, etc)
+    m_doc->masterTimer()->stopAllFunctions();
 }
 
 void App::enableKioskMode()
@@ -788,8 +825,9 @@ QFile::FileError App::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
-
+#endif
     doc.writeStartDocument();
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
 
@@ -869,6 +907,7 @@ void App::importFromWorkspace()
         return;
 
     m_importManager->apply();
+    m_paletteManager->updatePaletteList();
 
     delete m_importManager;
     m_importManager = nullptr;

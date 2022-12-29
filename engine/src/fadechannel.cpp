@@ -22,7 +22,6 @@
 
 #include "fadechannel.h"
 #include "qlcchannel.h"
-#include "qlcmacros.h"
 #include "universe.h"
 #include "fixture.h"
 
@@ -170,16 +169,19 @@ void FadeChannel::autoDetect(const Doc *doc)
         else
             addFlag(FadeChannel::LTP);
 
-        if (fixture->forcedHTPChannels().contains(m_channel))
+        if (fixture->forcedHTPChannels().contains(int(m_channel)))
         {
             removeFlag(FadeChannel::LTP);
             addFlag(FadeChannel::HTP);
         }
-        else if (fixture->forcedLTPChannels().contains(m_channel))
+        else if (fixture->forcedLTPChannels().contains(int(m_channel)))
         {
             removeFlag(FadeChannel::HTP);
             addFlag(FadeChannel::LTP);
         }
+
+        if (channel != NULL && channel->controlByte() == QLCChannel::LSB)
+            addFlag(FadeChannel::Fine);
     }
 }
 
@@ -317,9 +319,14 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
     }
     else
     {
-        m_current  = m_target - m_start;
-        m_current  = m_current * (qreal(elapsedTime) / qreal(fadeTime));
-        m_current += m_start;
+        // 16 bit fading works as long as MSB and LSB channels
+        // are targeting the same value. E.g. Red and Red Fine both at 158
+        float val = (float(m_target - m_start) * (float(elapsedTime) / float(fadeTime))) + float(m_start);
+        long rval = lrintf(val * 256);
+        if (m_flags & Fine)
+            m_current = rval & 0xff;
+        else
+            m_current = rval / 256;
     }
 
     return uchar(m_current);

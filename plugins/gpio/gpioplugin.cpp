@@ -425,10 +425,3 @@ void GPIOPlugin::setParameter(quint32 universe, quint32 line, Capability type,
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(gpioplugin, GPIOPlugin)
-#endif

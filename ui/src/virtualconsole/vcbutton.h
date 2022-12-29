@@ -41,24 +41,24 @@ class QEvent;
  * @{
  */
 
-#define KXMLQLCVCButton "Button"
-#define KXMLQLCVCButtonIcon "Icon"
+#define KXMLQLCVCButton     QString("Button")
+#define KXMLQLCVCButtonIcon QString("Icon")
 
-#define KXMLQLCVCButtonFunction "Function"
-#define KXMLQLCVCButtonFunctionID "ID"
+#define KXMLQLCVCButtonFunction     QString("Function")
+#define KXMLQLCVCButtonFunctionID   QString("ID")
 
-#define KXMLQLCVCButtonAction "Action"
-#define KXMLQLCVCButtonActionFlash "Flash"
-#define KXMLQLCVCButtonActionToggle "Toggle"
-#define KXMLQLCVCButtonActionBlackout "Blackout"
-#define KXMLQLCVCButtonActionStopAll "StopAll"
+#define KXMLQLCVCButtonAction           QString("Action")
+#define KXMLQLCVCButtonActionFlash      QString("Flash")
+#define KXMLQLCVCButtonActionToggle     QString("Toggle")
+#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
+#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
 
-#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
 
-#define KXMLQLCVCButtonKey "Key"
+#define KXMLQLCVCButtonKey QString("Key")
 
-#define KXMLQLCVCButtonIntensity "Intensity"
-#define KXMLQLCVCButtonIntensityAdjust "Adjust"
+#define KXMLQLCVCButtonIntensity        QString("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
 
 class VCButton : public VCWidget
 {

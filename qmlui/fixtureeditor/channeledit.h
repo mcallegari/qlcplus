@@ -22,7 +22,8 @@
 
 #include <QQuickView>
 
-class QLCChannel;
+#include "qlcchannel.h"
+
 class QLCCapability;
 
 class ChannelEdit : public QObject

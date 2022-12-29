@@ -114,7 +114,7 @@
  <Physical>
   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="5600"/>
   <Dimensions Weight="28.5" Width="405" Height="550" Depth="395"/>
-  <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="30"/>
   <Focus Type="Head" PanMax="570" TiltMax="270"/>
   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
  </Physical>

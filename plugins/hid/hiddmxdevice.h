@@ -81,9 +81,6 @@ public:
     void closeOutput();
 
     /** @reimp */
-    QString path() const;
-
-    /** @reimp */
     bool readEvent();
 
     /*********************************************************************

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ChannelModifier>
+<ChannelModifier xmlns="http://www.qlcplus.org/ChannelModifier">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Name>S-curve</Name>
+ <Handler Original="0" Modified="0"/>
+ <Handler Original="16" Modified="7"/>
+ <Handler Original="32" Modified="15"/>
+ <Handler Original="48" Modified="26"/>
+ <Handler Original="64" Modified="40"/>
+ <Handler Original="80" Modified="58"/>
+ <Handler Original="96" Modified="78"/>
+ <Handler Original="112" Modified="100"/>
+ <Handler Original="128" Modified="124"/>
+ <Handler Original="142" Modified="146"/>
+ <Handler Original="158" Modified="170"/>
+ <Handler Original="174" Modified="192"/>
+ <Handler Original="190" Modified="211"/>
+ <Handler Original="206" Modified="227"/>
+ <Handler Original="222" Modified="239"/>
+ <Handler Original="238" Modified="248"/>
+ <Handler Original="255" Modified="255"/>
+</ChannelModifier>

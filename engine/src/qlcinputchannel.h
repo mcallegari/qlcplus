@@ -21,6 +21,7 @@
 #define QLCINPUTCHANNEL_H
 
 #include <QIcon>
+#include <QObject>
 
 class QXmlStreamWriter;
 class QXmlStreamReader;
@@ -31,25 +32,25 @@ class QString;
  * @{
  */
 
-#define KXMLQLCInputChannel         "Channel"
-#define KXMLQLCInputChannelName     "Name"
-#define KXMLQLCInputChannelType     "Type"
-#define KXMLQLCInputChannelNumber   "Number"
-#define KXMLQLCInputChannelSlider   "Slider"
-#define KXMLQLCInputChannelKnob     "Knob"
-#define KXMLQLCInputChannelEncoder  "Encoder"
-#define KXMLQLCInputChannelButton   "Button"
-#define KXMLQLCInputChannelPageUp   "Next Page"
-#define KXMLQLCInputChannelPageDown "Previous Page"
-#define KXMLQLCInputChannelPageSet  "Page Set"
-#define KXMLQLCInputChannelNone     "None"
-#define KXMLQLCInputChannelMovement "Movement"
-#define KXMLQLCInputChannelRelative "Relative"
-#define KXMLQLCInputChannelSensitivity "Sensitivity"
-#define KXMLQLCInputChannelExtraPress "ExtraPress"
-#define KXMLQLCInputChannelFeedbacks "Feedbacks"
-#define KXMLQLCInputChannelLowerValue "LowerValue"
-#define KXMLQLCInputChannelUpperValue "UpperValue"
+#define KXMLQLCInputChannel         QString("Channel")
+#define KXMLQLCInputChannelName     QString("Name")
+#define KXMLQLCInputChannelType     QString("Type")
+#define KXMLQLCInputChannelNumber   QString("Number")
+#define KXMLQLCInputChannelSlider   QString("Slider")
+#define KXMLQLCInputChannelKnob     QString("Knob")
+#define KXMLQLCInputChannelEncoder  QString("Encoder")
+#define KXMLQLCInputChannelButton   QString("Button")
+#define KXMLQLCInputChannelPageUp   QString("Next Page")
+#define KXMLQLCInputChannelPageDown QString("Previous Page")
+#define KXMLQLCInputChannelPageSet  QString("Page Set")
+#define KXMLQLCInputChannelNone     QString("None")
+#define KXMLQLCInputChannelMovement QString("Movement")
+#define KXMLQLCInputChannelRelative QString("Relative")
+#define KXMLQLCInputChannelSensitivity QString("Sensitivity")
+#define KXMLQLCInputChannelExtraPress QString("ExtraPress")
+#define KXMLQLCInputChannelFeedbacks QString("Feedbacks")
+#define KXMLQLCInputChannelLowerValue QString("LowerValue")
+#define KXMLQLCInputChannelUpperValue QString("UpperValue")
 
 class QLCInputChannel : public QObject
 {

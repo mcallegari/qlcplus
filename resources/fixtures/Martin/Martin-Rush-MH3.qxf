@@ -245,7 +245,7 @@
  <Physical>
   <Bulb Type="MSD Platinum 5R" Lumens="0" ColourTemperature="8000"/>
   <Dimensions Weight="20.5" Width="418" Height="321" Depth="489"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="3.8"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="348" DmxConnector="3-pin and 5-pin"/>
  </Physical>

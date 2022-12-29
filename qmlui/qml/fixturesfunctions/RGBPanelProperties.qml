@@ -18,7 +18,6 @@
 */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 import org.qlcplus.classes 1.0
@@ -116,6 +115,7 @@ Rectangle
                 height: propsGrid.itemsHeight
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
+                textRole: ""
                 model: ioManager.universeNames
             }
 

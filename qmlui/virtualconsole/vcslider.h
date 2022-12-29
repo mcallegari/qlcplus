@@ -25,33 +25,33 @@
 #include "dmxsource.h"
 #include "grandmaster.h"
 
-#define KXMLQLCVCSlider "Slider"
+#define KXMLQLCVCSlider QString("Slider")
 
-#define KXMLQLCVCSliderMode "SliderMode"
-#define KXMLQLCVCSliderWidgetStyle "WidgetStyle"
+#define KXMLQLCVCSliderMode         QString("SliderMode")
+#define KXMLQLCVCSliderWidgetStyle  QString("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
-#define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
-#define KXMLQLCVCSliderValueDisplayStylePercentage "Percentage"
+#define KXMLQLCVCSliderValueDisplayStyle            QString("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact       QString("Exact")
+#define KXMLQLCVCSliderValueDisplayStylePercentage  QString("Percentage")
 
-#define KXMLQLCVCSliderClickAndGoType "ClickAndGoType"
+#define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
 
-#define KXMLQLCVCSliderInvertedAppearance "InvertedAppearance"
+#define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
 
-#define KXMLQLCVCSliderLevel "Level"
-#define KXMLQLCVCSliderLevelLowLimit "LowLimit"
-#define KXMLQLCVCSliderLevelHighLimit "HighLimit"
-#define KXMLQLCVCSliderLevelValue "Value"
-#define KXMLQLCVCSliderLevelMonitor "Monitor"
-#define KXMLQLCVCSliderOverrideReset "Reset"
+#define KXMLQLCVCSliderLevel            QString("Level")
+#define KXMLQLCVCSliderLevelLowLimit    QString("LowLimit")
+#define KXMLQLCVCSliderLevelHighLimit   QString("HighLimit")
+#define KXMLQLCVCSliderLevelValue       QString("Value")
+#define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
+#define KXMLQLCVCSliderOverrideReset    QString("Reset")
 
-#define KXMLQLCVCSliderChannel "Channel"
-#define KXMLQLCVCSliderChannelFixture "Fixture"
+#define KXMLQLCVCSliderChannel          QString("Channel")
+#define KXMLQLCVCSliderChannelFixture   QString("Fixture")
 
-#define KXMLQLCVCSliderPlayback "Playback" // LEGACY
-#define KXMLQLCVCSliderAdjust "Adjust"
-#define KXMLQLCVCSliderAdjustAttribute "Attribute"
-#define KXMLQLCVCSliderControlledFunction "Function"
+#define KXMLQLCVCSliderPlayback             QString("Playback") // LEGACY
+#define KXMLQLCVCSliderAdjust               QString("Adjust")
+#define KXMLQLCVCSliderAdjustAttribute      QString("Attribute")
+#define KXMLQLCVCSliderControlledFunction   QString("Function")
 
 class FunctionParent;
 class GenericFader;
@@ -280,6 +280,9 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+private:
+    void removeActiveFaders();
+
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 
@@ -439,7 +442,6 @@ protected:
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
-    int m_priorityRequest;
 
     /*********************************************************************
      * External input

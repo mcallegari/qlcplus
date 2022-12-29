@@ -4,7 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = spi
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 
 INCLUDEPATH += ../interfaces
 INCLUDEPATH += $SYSROOT/usr/include

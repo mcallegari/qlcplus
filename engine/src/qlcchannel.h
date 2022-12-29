@@ -22,6 +22,7 @@
 #define QLCCHANNEL_H
 
 #include <climits>
+#include <QObject>
 #include <QString>
 #include <QList>
 #include <QIcon>
@@ -29,7 +30,6 @@
 class QFile;
 class QString;
 class QLCChannel;
-class QStringList;
 class QLCCapability;
 class QXmlStreamReader;
 class QXmlStreamWriter;

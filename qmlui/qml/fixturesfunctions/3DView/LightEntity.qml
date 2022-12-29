@@ -45,24 +45,12 @@ Entity
     property real headLength
     property real coneBottomRadius
     property real coneTopRadius
-    property real tiltRotation
-    property real panRotation: 0
     property Texture2D goboTexture
     property real goboRotation: 0
 
     readonly property Layer spotlightShadingLayer: Layer { }
     readonly property Layer outputDepthLayer: Layer { }
     readonly property Layer spotlightScatteringLayer: Layer { }
-
-    /* ********************** Light matrices ********************** */
-    property matrix4x4 lightMatrix
-    property matrix4x4 lightViewMatrix:
-        Math3D.getLightViewMatrix(lightMatrix, 0, tiltRotation, lightPos)
-    property matrix4x4 lightProjectionMatrix:
-        Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
-    property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
-    property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
-        Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
 
     property Transform headTransform: Transform { translation: Qt.vector3d(0.1 * headIndex, 0, 0) }
 

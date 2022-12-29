@@ -13,12 +13,13 @@ CustomPopupDialog 0.1 CustomPopupDialog.qml
 CustomScrollBar 0.1 CustomScrollBar.qml
 CustomSlider 0.1 CustomSlider.qml
 CustomSpinBox 0.1 CustomSpinBox.qml
+CustomDoubleSpinBox 0.1 CustomDoubleSpinBox.qml
 CustomTextEdit 0.1 CustomTextEdit.qml
+CustomTextInput 0.1 CustomTextInput.qml
 DayTimeTool 0.1 DayTimeTool.qml
 DMXAddressTool 0.1 DMXAddressTool.qml
 DMXAddressWidget 0.1 DMXAddressWidget.qml
 DMXPercentageButton 0.1 DMXPercentageButton.qml
-EditableTextBox 0.1 EditableTextBox.qml
 ExternalControls.qml 0.1 ExternalControls.qml
 ExternalControlDelegate.qml 0.1 ExternalControlDelegate.qml
 FixtureConsole 0.1 FixtureConsole.qml

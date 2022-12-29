@@ -45,6 +45,12 @@ Item
             palette = paletteManager.getEditingPalette(paletteType)
     }
 
+    Component.onDestruction:
+    {
+        paletteManager.releaseEditingPalette(paletteType)
+        palette = null
+    }
+
     function updateValue(value)
     {
         paletteManager.updatePalette(palette, value)
@@ -112,32 +118,6 @@ Item
     {
         colorPreview.color = color
         palette.fanningValue = color
-    }
-
-    function stringFromType()
-    {
-        switch(typeButton.currentValue)
-        {
-            case QLCPalette.Flat: return qsTr("Flat")
-            case QLCPalette.Linear: return qsTr("Linear")
-            case QLCPalette.Square: return qsTr("Square")
-            case QLCPalette.Saw: return qsTr("Saw")
-            case QLCPalette.Sine: return qsTr("Sine")
-        }
-        return ""
-    }
-
-    function stringFromLayout()
-    {
-        switch(layoutButton.currentValue)
-        {
-            case QLCPalette.LeftToRight: return qsTr("Left to right")
-            case QLCPalette.RightToLeft: return qsTr("Right to left")
-            case QLCPalette.TopToBottom: return qsTr("Top to bottom")
-            case QLCPalette.BottomToTop: return qsTr("Bottom to top")
-            case QLCPalette.Centered: return qsTr("Centered")
-        }
-        return ""
     }
 
     PopupCreatePalette
@@ -233,7 +213,7 @@ Item
                 RobotoText
                 {
                     height: UISettings.iconSizeMedium
-                    label: stringFromType()
+                    label: typeButton.currentText
                 }
             }
 
@@ -257,15 +237,19 @@ Item
                     ListModel
                     {
                         id: layoutModel
-                        ListElement { mLabel: qsTr("Left to right"); mIcon: "qrc:/layout-ltr.svg"; mValue: QLCPalette.LeftToRight }
-                        ListElement { mLabel: qsTr("Right to left"); mIcon: "qrc:/layout-rtl.svg"; mValue: QLCPalette.RightToLeft }
-                        ListElement { mLabel: qsTr("Top to bottom"); mIcon: "qrc:/layout-ttb.svg"; mValue: QLCPalette.TopToBottom }
-                        ListElement { mLabel: qsTr("Bottom to top"); mIcon: "qrc:/layout-btt.svg"; mValue: QLCPalette.BottomToTop }
-                        ListElement { mLabel: qsTr("Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.Centered }
+                        ListElement { mLabel: qsTr("X Ascending"); mIcon: "qrc:/layout-ltr.svg"; mValue: QLCPalette.XAscending }
+                        ListElement { mLabel: qsTr("X Descending"); mIcon: "qrc:/layout-rtl.svg"; mValue: QLCPalette.XDescending }
+                        //ListElement { mLabel: qsTr("X Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.XCentered }
+                        ListElement { mLabel: qsTr("Y Ascending"); mIcon: "qrc:/layout-btt.svg"; mValue: QLCPalette.YAscending }
+                        ListElement { mLabel: qsTr("Y Descending"); mIcon: "qrc:/layout-ttb.svg"; mValue: QLCPalette.YDescending }
+                        //ListElement { mLabel: qsTr("Y Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.YCentered }
+                        ListElement { mLabel: qsTr("Z Ascending"); mIcon: "qrc:/layout-ftb.svg"; mValue: QLCPalette.ZAscending }
+                        ListElement { mLabel: qsTr("Z Descending"); mIcon: "qrc:/layout-btf.svg"; mValue: QLCPalette.ZDescending }
+                        //ListElement { mLabel: qsTr("Z Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.ZCentered }
                     }
                     model: layoutModel
 
-                    currValue: boxRoot.palette ? boxRoot.palette.fanningLayout : QLCPalette.LeftToRight
+                    currValue: boxRoot.palette ? boxRoot.palette.fanningLayout : QLCPalette.XAscending
                     onValueChanged:
                     {
                         if (boxRoot.palette)
@@ -279,7 +263,7 @@ Item
                 RobotoText
                 {
                     height: UISettings.iconSizeMedium
-                    label: stringFromLayout()
+                    label: layoutButton.currentText
                 }
             }
 

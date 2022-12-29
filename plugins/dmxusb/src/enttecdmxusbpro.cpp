@@ -34,7 +34,11 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *interface, quint32 outputLine, qu
     , m_dmxKingMode(false)
     , m_inputThread(NULL)
     , m_outputRunning(false)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    , m_outputMutex()
+#else
     , m_outputMutex(QMutex::Recursive)
+#endif
     , m_rdm(NULL)
     , m_universe(UINT_MAX)
 {
@@ -296,7 +300,8 @@ int readData(DMXInterface *interface, QByteArray &payload, bool &isMIDI, bool ne
     interface->readByte();
 
 #ifdef DEBUG_RDM
-    qDebug() << "Got payload:" << payload.toHex(',');
+    if (needRDM)
+        qDebug() << "Got payload:" << payload.toHex(',');
 #endif
 
     return dataLength;

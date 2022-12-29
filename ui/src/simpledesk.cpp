@@ -839,15 +839,9 @@ void SimpleDesk::slotAliasChanged()
                     this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
             connect(newCC, SIGNAL(resetRequest(quint32,quint32)),
                     this, SLOT(slotChannelResetClicked(quint32,quint32)));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+
             QLayoutItem *item = m_universeGroup->layout()->replaceWidget(cc, newCC);
             delete item;
-#else
-            QHBoxLayout *hbox = qobject_cast<QHBoxLayout*>(m_universeGroup->layout());
-            int wIndex = hbox->indexOf(cc);
-            hbox->removeWidget(cc);
-            hbox->insertWidget(wIndex, newCC);
-#endif
             delete cc;
             m_universeSliders.replace(i, newCC);
         }

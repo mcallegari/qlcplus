@@ -260,6 +260,10 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
 #ifdef DEBUG_RDM
     qDebug() << "[RDM] Packet payload:" << buffer.toHex(',');
 #endif
+
+    if (buffer.length() == 0)
+        return false;
+
     // check first bytes
     if (buffer.at(i) == char(RDM_START_CODE))
     {

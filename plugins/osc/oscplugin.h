@@ -30,7 +30,7 @@
 #include "qlcioplugin.h"
 #include "osccontroller.h"
 
-typedef struct
+typedef struct _oio
 {
     QString IPAddress;
     OSCController* controller;
@@ -47,9 +47,7 @@ class OSCPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
-#endif
 
     /*********************************************************************
      * Initialization

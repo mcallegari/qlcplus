@@ -147,7 +147,7 @@ void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
     QVariantList dmxValues;
     QByteArray values = m_channelsCache[fixtureID];
 
-    for (int i = 0; i < values.count(); i++)
+    for (int i = 0; i < values.length(); i++)
         dmxValues.append(QString::number((uchar)values.at(i)));
 
     item->setProperty("values", QVariant::fromValue(dmxValues));
@@ -194,17 +194,22 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
     {
         connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
 
+        // Add the fixture to the side panel list
         QVariantMap fxMap;
         fxMap.insert("cRef", QVariant::fromValue(fixture));
         fxMap.insert("isSelected", false);
         m_fixtureList->addDataMap(fxMap);
         m_fixtureIDs.append(scv.fxi);
+
+        // update the fixture list for the UI
         updateLists();
     }
 
+    // update the channel values cache
+    setCacheChannelValue(scv);
+
     if (m_sceneConsole)
     {
-
         if (m_fxConsoleMap.contains(fxIndex))
         {
             QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",

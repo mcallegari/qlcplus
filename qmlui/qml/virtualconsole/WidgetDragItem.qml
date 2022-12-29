@@ -49,7 +49,7 @@ Rectangle
                     GradientStop { position: 1 ; color: "#222" }
                 }
             border.width: 2
-            border.color: "#111"
+            border.color: UISettings.borderColorDark
             x: 5
             y: 2
 

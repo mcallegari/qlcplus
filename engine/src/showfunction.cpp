@@ -121,9 +121,7 @@ QColor ShowFunction::defaultColor(Function::Type type)
         case Function::AudioType:     return QColor(96, 128, 83);
         case Function::RGBMatrixType: return QColor(101, 155, 155);
         case Function::EFXType:       return QColor(128, 60, 60);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         case Function::VideoType:     return QColor(147, 140, 20);
-#endif
         default: return QColor(100, 100, 100);
     }
 }

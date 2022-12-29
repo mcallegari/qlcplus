@@ -213,7 +213,7 @@
  <Physical>
   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
-  <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Fresnel" DegreesMin="9" DegreesMax="50"/>
   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
   <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
  </Physical>

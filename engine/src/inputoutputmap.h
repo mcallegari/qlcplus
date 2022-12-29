@@ -42,7 +42,7 @@ class Doc;
  * @{
  */
 
-#define KXMLIOMap "InputOutputMap"
+#define KXMLIOMap QString("InputOutputMap")
 
 class InputOutputMap : public QObject
 {
@@ -355,7 +355,7 @@ public:
      * @param inputUID Unique plugin output line identifier as string
      * @param output A universe provided by the plugin to patch to
      * @param isFeedback Determine if this line is a feedback output
-     * @param index the output patch index
+     * @param index The output patch index
      *
      * @return true if successful, otherwise false
      */
@@ -500,6 +500,10 @@ public:
      * sliders & knobs, set indicator leds etc.
      */
     bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+
+private:
+    /** In case of duplicate strings, append a number to make them unique */
+    void removeDuplicates(QStringList &list);
 
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */

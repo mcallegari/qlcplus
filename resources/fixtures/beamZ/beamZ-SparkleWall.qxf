@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 2</Version>
+  <Author>Jan Fries</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>SparkleWall</Model>
+ <Type>Effect</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="LED Red" Preset="IntensityRed"/>
+ <Channel Name="LED Green" Preset="IntensityGreen"/>
+ <Channel Name="LED Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="4" Max="255" Preset="StrobeSlowToFast">Strobe (slow-fast)</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">Manual control CH1-6</Capability>
+  <Capability Min="51" Max="200">Auto mode</Capability>
+  <Capability Min="201" Max="255">Sound mode</Capability>
+ </Channel>
+ <Channel Name="1/4 Coolwhite" Preset="IntensityWhite"/>
+ <Channel Name="2/4 Coolwhite" Preset="IntensityWhite"/>
+ <Channel Name="3/4 Coolwhite" Preset="IntensityWhite"/>
+ <Channel Name="4/4 Coolwhite" Preset="IntensityWhite"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto mode speed</Capability>
+ </Channel>
+ <Mode Name="LED96 RGBW 3x2m">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">LED Red</Channel>
+  <Channel Number="2">LED Green</Channel>
+  <Channel Number="3">LED Blue</Channel>
+  <Channel Number="4">LED White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Mode</Channel>
+  <Channel Number="7" ActsOn="6">Speed</Channel>
+ </Mode>
+ <Mode Name="LED96 Coolwhite 3x2mtr">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">1/4 Coolwhite</Channel>
+  <Channel Number="2">2/4 Coolwhite</Channel>
+  <Channel Number="3">3/4 Coolwhite</Channel>
+  <Channel Number="4">4/4 Coolwhite</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Mode</Channel>
+  <Channel Number="7" ActsOn="6">Speed</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="LED36 RGBW 1x2m">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.3" Width="1000" Height="2000" Depth="10"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="1" Height="4"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">LED Red</Channel>
+  <Channel Number="2">LED Green</Channel>
+  <Channel Number="3">LED Blue</Channel>
+  <Channel Number="4">LED White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Mode</Channel>
+  <Channel Number="7" ActsOn="6">Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.3" Width="3000" Height="2000" Depth="10"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="1" Height="4"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

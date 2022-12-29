@@ -18,6 +18,7 @@
 */
 
 #include <QQmlContext>
+#include <QQmlEngine>
 
 #include "palettemanager.h"
 #include "contextmanager.h"
@@ -58,7 +59,9 @@ QVariant PaletteManager::paletteList()
 
 QLCPalette *PaletteManager::getPalette(quint32 id)
 {
-    return m_doc->palette(id);
+    QLCPalette *palette = m_doc->palette(id);
+    QQmlEngine::setObjectOwnership(palette, QQmlEngine::CppOwnership);
+    return palette;
 }
 
 QLCPalette *PaletteManager::getEditingPalette(int type)
@@ -66,9 +69,25 @@ QLCPalette *PaletteManager::getEditingPalette(int type)
     qDebug() << "Requesting a palette for editing. Type" << type;
 
     if (m_editingMap.contains(type) == false)
-        m_editingMap[type] = new QLCPalette(QLCPalette::PaletteType(type));
+    {
+        QLCPalette *palette = new QLCPalette(QLCPalette::PaletteType(type));
+        m_editingMap[type] = palette;
+        QQmlEngine::setObjectOwnership(palette, QQmlEngine::CppOwnership);
+    }
 
     return m_editingMap.value(type);
+}
+
+bool PaletteManager::releaseEditingPalette(int type)
+{
+    if (m_editingMap.contains(type))
+    {
+        QLCPalette *palette = m_editingMap.take(type);
+        delete palette;
+        return true;
+    }
+
+    return false;
 }
 
 quint32 PaletteManager::createPalette(QLCPalette *palette, QString name)

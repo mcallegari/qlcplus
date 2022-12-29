@@ -233,7 +233,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
         }
         content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
     }
-  #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if (reqUrl == "/system")
     {
         if(m_auth && user.level < SUPER_ADMIN_LEVEL)
@@ -243,10 +243,19 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
         }
         content = m_netConfig->getHTML();
     }
-  #endif
+#endif
     else if (reqUrl.endsWith(".png"))
     {
-        if (sendFile(resp, QString(":%1").arg(reqUrl), "image/png") == true)
+        QString clUri = QString(":%1").arg(reqUrl);
+        QFile resFile(clUri);
+        if (!resFile.exists())
+            clUri = reqUrl;
+        if (sendFile(resp, clUri, "image/png") == true)
+            return;
+    }
+    else if (reqUrl.endsWith(".jpg"))
+    {
+        if (sendFile(resp, reqUrl, "image/jpg") == true)
             return;
     }
     else if (reqUrl.endsWith(".css"))
@@ -803,7 +812,7 @@ bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString cont
     if (resFile.open(QIODevice::ReadOnly))
     {
         QByteArray resContent = resFile.readAll();
-        qDebug() << "Resource file length:" << resContent.length();
+        //qDebug() << "Resource file length:" << resContent.length();
         resFile.close();
 
         response->setHeader("Content-Type", contentType);
@@ -825,6 +834,19 @@ void WebAccess::sendWebSocketMessage(QByteArray message)
         conn->webSocketWrite(QHttpConnection::TextFrame, message);
 }
 
+QString WebAccess::getWidgetBackgroundImage(VCWidget *widget)
+{
+    if (widget == NULL || widget->backgroundImage().isEmpty())
+        return QString();
+
+    QString str = QString("background-image: url(%1); ").arg(widget->backgroundImage());
+    str += "background-position: center; ";
+    str += "background-repeat: no-repeat; ";
+    //str += "background-size: cover; ";
+
+    return str;
+}
+
 QString WebAccess::getWidgetHTML(VCWidget *widget)
 {
     QString str = "<div class=\"vcwidget\" style=\""
@@ -832,7 +854,8 @@ QString WebAccess::getWidgetHTML(VCWidget *widget)
             "top: " + QString::number(widget->y()) + "px; "
             "width: " + QString::number(widget->width()) + "px; "
             "height: " + QString::number(widget->height()) + "px; "
-            "background-color: " + widget->backgroundColor().name() + ";\">\n";
+            "background-color: " + widget->backgroundColor().name() + ";" +
+            getWidgetBackgroundImage(widget) + "\">\n";
 
     str +=  tr("Widget not supported (yet) for web access") + "</div>\n";
 
@@ -862,7 +885,8 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
           "style=\"left: " + QString::number(frame->x()) +
           "px; top: " + QString::number(frame->y()) + "px; width: " + QString::number(w) +
           "px; height: " + QString::number(h) + "px; "
-          "background-color: " + frame->backgroundColor().name() + "; "
+          "background-color: " + frame->backgroundColor().name() + "; " +
+          getWidgetBackgroundImage(frame) +
           "border: 1px solid " + border.name() + ";\">\n";
 
     str += getChildrenHTML(frame, frame->totalPagesNumber(), frame->currentPage());
@@ -914,7 +938,8 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
           "style=\"left: " + QString::number(frame->x()) +
           "px; top: " + QString::number(frame->y()) + "px; width: " + QString::number(w) +
           "px; height: " + QString::number(h) + "px; "
-          "background-color: " + frame->backgroundColor().name() + "; "
+          "background-color: " + frame->backgroundColor().name() + "; " +
+          getWidgetBackgroundImage(frame) +
           "border: 1px solid " + border.name() + ";\">\n";
 
     str += getChildrenHTML(frame, frame->totalPagesNumber(), frame->currentPage());
@@ -992,7 +1017,8 @@ QString WebAccess::getButtonHTML(VCButton *btn)
             "style=\""
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
-            "color: " + btn->foregroundColor().name() + "; "
+            "color: " + btn->foregroundColor().name() + "; " +
+            getWidgetBackgroundImage(btn) +
             "background-color: " + btn->backgroundColor().name() + "; " + onCSS + "\">" +
             btn->caption() + "</a>\n</div>\n";
 
@@ -1023,7 +1049,8 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "top: " + QString::number(slider->y()) + "px; "
             "width: " + QString::number(slider->width()) + "px; "
             "height: " + QString::number(slider->height()) + "px; "
-            "background-color: " + slider->backgroundColor().name() + ";\">\n";
+            "background-color: " + slider->backgroundColor().name() + ";" +
+            getWidgetBackgroundImage(slider) + "\">\n";
 
     str += "<div id=\"slv" + slID + "\" "
             "class=\"vcslLabel\" style=\"top:0px;\">" +
@@ -1064,7 +1091,8 @@ QString WebAccess::getLabelHTML(VCLabel *label)
             "width: " + QString::number(label->width()) + "px; "
             "height: " + QString::number(label->height()) + "px; "
             "color: " + label->foregroundColor().name() + "; "
-            "background-color: " + label->backgroundColor().name() + "\">" +
+            "background-color: " + label->backgroundColor().name() + "; " +
+            getWidgetBackgroundImage(label) + "\">" +
             label->caption() + "</div>\n</div>\n";
 
     return str;
@@ -1295,7 +1323,8 @@ QString WebAccess::getClockHTML(VCClock *clock)
     str +=  "style=\"width: " + QString::number(clock->width()) + "px; "
             "height: " + QString::number(clock->height()) + "px; "
             "color: " + clock->foregroundColor().name() + "; "
-            "background-color: " + clock->backgroundColor().name() + "\">";
+            "background-color: " + clock->backgroundColor().name() + ";" +
+            getWidgetBackgroundImage(clock) + "\">";
 
 
     if (clock->clockType() == VCClock::Stopwatch)

@@ -3,11 +3,22 @@
 # https://wkhtmltopdf.org/downloads.html
 #
 
+set -e
+
 WKHTMLTOPDF=$(which wkhtmltopdf)
 
-cd $1
+test -d "$1"
+cd "$1"
+test -f "index_pdf.html"
 
-$WKHTMLTOPDF --footer-center "Page [page]" --image-quality 100 --javascript-delay 1000 \
+$WKHTMLTOPDF \
+  --footer-center "Page [page]" \
+  --image-quality 100 \
+  --enable-external-links \
+  --enable-javascript \
+  --javascript-delay 1000 \
+  --enable-local-file-access \
+  --allow . \
   pdf_cover.html \
   index_pdf.html \
   concept.html \

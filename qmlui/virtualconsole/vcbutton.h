@@ -22,21 +22,21 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCButton "Button"
+#define KXMLQLCVCButton QString("Button")
 
-#define KXMLQLCVCButtonFunction "Function"
-#define KXMLQLCVCButtonFunctionID "ID"
+#define KXMLQLCVCButtonFunction     QString("Function")
+#define KXMLQLCVCButtonFunctionID   QString("ID")
 
-#define KXMLQLCVCButtonAction "Action"
-#define KXMLQLCVCButtonActionFlash "Flash"
-#define KXMLQLCVCButtonActionToggle "Toggle"
-#define KXMLQLCVCButtonActionBlackout "Blackout"
-#define KXMLQLCVCButtonActionStopAll "StopAll"
+#define KXMLQLCVCButtonAction           QString("Action")
+#define KXMLQLCVCButtonActionFlash      QString("Flash")
+#define KXMLQLCVCButtonActionToggle     QString("Toggle")
+#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
+#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
 
-#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
 
-#define KXMLQLCVCButtonIntensity "Intensity"
-#define KXMLQLCVCButtonIntensityAdjust "Adjust"
+#define KXMLQLCVCButtonIntensity        QString("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
 
 class FunctionParent;
 
@@ -99,6 +99,9 @@ public:
 
     /** @reimp */
     void adjustFunctionIntensity(Function *f, qreal value);
+
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /**
      *  The actual method used to request a change of state of this

@@ -32,7 +32,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCChannelsGroup "ChannelsGroup"
+#define KXMLQLCChannelsGroup QString("ChannelsGroup")
 
 class ChannelsGroup : public QObject
 {

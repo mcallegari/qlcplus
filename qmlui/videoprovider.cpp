@@ -235,10 +235,17 @@ void VideoContent::slotDetectResolution()
                 this, SLOT(slotMetaDataChanged(QString,QVariant)));
 
     QString sourceURL = m_video->sourceUrl();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (sourceURL.contains("://"))
         m_mediaPlayer->setMedia(QUrl(sourceURL));
     else
         m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
+#else
+    if (sourceURL.contains("://"))
+        m_mediaPlayer->setSource(QUrl(sourceURL));
+    else
+        m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
+#endif
 }
 
 QVariant VideoContent::getAttribute(quint32 id, const char *propName)

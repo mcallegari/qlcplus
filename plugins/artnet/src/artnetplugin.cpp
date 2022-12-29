@@ -37,15 +37,15 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol)
             {
                 ArtNetIO tmpIO;
-                tmpIO.interface = interface;
+                tmpIO.iface = iface;
                 tmpIO.address = entry;
                 tmpIO.controller = NULL;
 
@@ -178,7 +178,7 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
     // if the controller doesn't exist, create it
     if (m_IOmapping[output].controller == NULL)
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).interface,
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).iface,
                                                             m_IOmapping.at(output).address,
                                                             getUdpSocket(),
                                                             output, this);
@@ -250,7 +250,7 @@ bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
     // We need to have only one input controller.
     if (m_IOmapping[input].controller == NULL)
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).interface,
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).iface,
                                                             m_IOmapping.at(input).address,
                                                             getUdpSocket(),
                                                             input, this);
@@ -462,10 +462,3 @@ void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& 
         }
     }
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(artnetplugin, ArtNetPlugin)
-#endif

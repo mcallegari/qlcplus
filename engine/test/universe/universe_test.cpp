@@ -49,17 +49,17 @@ void Universe_Test::initial()
     QCOMPARE(m_uni->hasChanged(), false);
     QCOMPARE(m_uni->passthrough(), false);
     QVERIFY(m_uni->inputPatch() == NULL);
-    QVERIFY(m_uni->outputPatch() == NULL);
+    QVERIFY(m_uni->outputPatch(0) == NULL);
     QVERIFY(m_uni->feedbackPatch() == NULL);
     QVERIFY(m_uni->intensityChannels().isEmpty());
 
     QByteArray const preGM = m_uni->preGMValues();
 
-    QCOMPARE(preGM.count(), 512);
+    QCOMPARE(preGM.length(), 512);
 
     QByteArray const *postGM = m_uni->postGMValues();
     QVERIFY(postGM != NULL);
-    QCOMPARE(postGM->count(), 512);
+    QCOMPARE(postGM->length(), 512);
 
     for(ushort i = 0; i < 512; ++i)
     {

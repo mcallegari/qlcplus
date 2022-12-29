@@ -417,7 +417,7 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     InputPatch *ip = NULL;
     QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
 
-    if (!inputUID.isEmpty())
+    if (!inputUID.isEmpty() && plugin != NULL)
     {
         QStringList inputs = plugin->inputs();
         int lIdx = inputs.indexOf(inputUID);
@@ -491,7 +491,7 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     QMutexLocker locker(&m_universeMutex);
     QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
 
-    if (!outputUID.isEmpty())
+    if (!outputUID.isEmpty() && plugin != NULL)
     {
         QStringList inputs = plugin->outputs();
         int lIdx = inputs.indexOf(outputUID);
@@ -581,9 +581,13 @@ quint32 InputOutputMap::outputMapping(const QString &pluginName, quint32 output)
 {
     for (quint32 uni = 0; uni < universesCount(); uni++)
     {
-        const OutputPatch* p = m_universeArray.at(uni)->outputPatch();
-        if (p != NULL && p->pluginName() == pluginName && p->output() == output)
-            return uni;
+        Universe *universe = m_universeArray.at(uni);
+        for (int i = 0; i < universe->outputPatchesCount(); i++)
+        {
+            const OutputPatch* p = universe->outputPatch(i);
+            if (p != NULL && p->pluginName() == pluginName && p->output() == output)
+                return uni;
+        }
     }
 
     return QLCIOPlugin::invalidLine();
@@ -606,6 +610,26 @@ QString InputOutputMap::pluginDescription(const QString &pluginName)
     }
     else
         return "";
+}
+
+void InputOutputMap::removeDuplicates(QStringList &list)
+{
+    if (list.count() == 1)
+        return;
+
+    int c = 2;
+
+    for (int i = 1; i < list.count(); i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (list.at(i) == list.at(j))
+            {
+                list.replace(i, QString("%1 %2").arg(list.at(j)).arg(c));
+                c++;
+            }
+        }
+    }
 }
 
 QStringList InputOutputMap::inputPluginNames()
@@ -640,7 +664,11 @@ QStringList InputOutputMap::pluginInputs(const QString& pluginName)
     if (ip == NULL)
         return QStringList();
     else
-        return ip->inputs();
+    {
+        QStringList iList = ip->inputs();
+        removeDuplicates(iList);
+        return iList;
+    }
 }
 
 QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
@@ -649,7 +677,11 @@ QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
     if (op == NULL)
         return QStringList();
     else
-        return op->outputs();
+    {
+        QStringList oList = op->outputs();
+        removeDuplicates(oList);
+        return oList;
+    }
 }
 
 bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)
@@ -741,11 +773,15 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
     bool success = true;
     for (quint32 i = 0; i < universesCount(); i++)
     {
-        OutputPatch* op = m_universeArray.at(i)->outputPatch();
-
-        if (op != NULL && op->plugin() == plugin)
+        Universe *universe = m_universeArray.at(i);
+        for (int oi = 0; oi < universe->outputPatchesCount(); oi++)
         {
-            /*success = */ op->reconnect();
+            OutputPatch* op = universe->outputPatch(oi);
+
+            if (op != NULL && op->plugin() == plugin)
+            {
+                /*success = */ op->reconnect();
+            }
         }
 
         InputPatch* ip = m_universeArray.at(i)->inputPatch();

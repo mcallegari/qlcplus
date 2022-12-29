@@ -30,15 +30,16 @@
 #include "qlcioplugin.h"
 #include "e131controller.h"
 
-typedef struct
+typedef struct _eio
 {
-    QNetworkInterface interface;
+    QNetworkInterface iface;
     QNetworkAddressEntry address;
     E131Controller* controller;
 } E131IO;
 
 #define E131_MULTICAST "multicast"
 #define E131_MCASTIP "mcastIP"
+#define E131_MCASTFULLIP "mcastFullIP"
 #define E131_UCASTIP "ucastIP"
 #define E131_UCASTPORT "ucastPort"
 #define E131_UNIVERSE "universe"
@@ -49,9 +50,7 @@ class E131Plugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
-#endif
 
     /*********************************************************************
      * Initialization

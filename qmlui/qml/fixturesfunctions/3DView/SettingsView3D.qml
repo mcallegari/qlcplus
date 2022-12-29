@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.3
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
@@ -95,6 +95,12 @@ Rectangle
         isUpdating = true
         currentPosition = generic ? View3D.genericItemsPosition : contextManager.fixturesPosition
         isUpdating = false
+    }
+
+    ModelSelector
+    {
+        id: giSelector
+        onItemsCountChanged: { }
     }
 
     Flickable
@@ -627,28 +633,97 @@ Rectangle
                 }
 
                 sectionContents:
-                    RowLayout
+                    ColumnLayout
                     {
                         width: parent.width
-                        spacing: 5
 
-                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Actions") }
-                        IconButton
+                        Rectangle
                         {
+                            width: parent.width
                             height: UISettings.iconSizeMedium
-                            width: height
-                            imgSource: "qrc:/add.svg"
-                            tooltip: qsTr("Add a new item to the scene")
-                            onClicked: meshDialog.open()
+
+                            gradient: Gradient
+                            {
+                                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                                GradientStop { position: 1; color: UISettings.toolbarEnd }
+                            }
+
+                            RowLayout
+                            {
+                                width: parent.width
+                                height: UISettings.iconSizeMedium
+
+                                IconButton
+                                {
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    imgSource: "qrc:/add.svg"
+                                    tooltip: qsTr("Add a new item to the scene")
+                                    onClicked: meshDialog.open()
+                                }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    imgSource: "qrc:/remove.svg"
+                                    tooltip: qsTr("Remove the selected items")
+                                    onClicked: View3D.removeSelectedGenericItems()
+                                }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    faSource: FontAwesome.fa_compress
+                                    faColor: UISettings.fgMain
+                                    tooltip: qsTr("Normalize the selected items")
+                                    onClicked: View3D.normalizeSelectedGenericItems()
+                                }
+                                Rectangle
+                                {
+                                    Layout.fillWidth: true
+                                    height: UISettings.iconSizeMedium
+                                    color: "transparent"
+                                }
+                            }
                         }
-                        IconButton
+
+                        ListView
                         {
-                            visible: selGenericCount
-                            height: UISettings.iconSizeMedium
-                            width: height
-                            imgSource: "qrc:/remove.svg"
-                            tooltip: qsTr("Remove the selected items")
-                            onClicked: View3D.removeSelectedGenericItems()
+                            id: itemsList
+                            width: parent.width
+                            height: UISettings.bigItemHeight * 4
+                            boundsBehavior: Flickable.StopAtBounds
+                            model: View3D.genericItemsList
+
+                            delegate:
+                                Rectangle
+                                {
+                                    width: itemsList.width
+                                    height: UISettings.listItemHeight
+                                    color: isSelected ? UISettings.highlight : "transparent"
+
+                                    IconTextEntry
+                                    {
+                                        width: parent.width
+                                        height: UISettings.listItemHeight
+
+                                        tLabel: name
+                                        faSource: FontAwesome.fa_cube
+                                        faColor: UISettings.fgMain
+
+                                        MouseArea
+                                        {
+                                            anchors.fill: parent
+                                            onClicked:
+                                            {
+                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers & Qt.ControlModifier)
+                                                View3D.setItemSelection(itemID, isSelected, mouse.modifiers)
+                                            }
+                                        }
+                                    }
+                                }
                         }
                     }
             }

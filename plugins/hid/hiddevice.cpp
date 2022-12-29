@@ -26,6 +26,7 @@ HIDDevice::HIDDevice(HIDPlugin* parent, quint32 line, const QString &name, const
     : QThread(parent)
 {
     m_name = name;
+    m_filename = path;
     m_file.setFileName(path);
     m_line = line;
     m_running = false;
@@ -65,7 +66,7 @@ void HIDDevice::closeOutput()
 
 QString HIDDevice::path() const
 {
-    return QString();
+    return m_filename;
 }
 
 int HIDDevice::handle() const

@@ -124,7 +124,8 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
 AudioEditor::~AudioEditor()
 {
-    m_audio->stop(functionParent());
+    if (m_previewButton->isChecked())
+        m_audio->stop(functionParent());
 }
 
 void AudioEditor::slotNameEdited(const QString& text)

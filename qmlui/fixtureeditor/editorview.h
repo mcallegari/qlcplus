@@ -22,8 +22,9 @@
 
 #include <QQuickView>
 
+#include "physicaledit.h"
+
 class QLCFixtureDef;
-class PhysicalEdit;
 class ChannelEdit;
 class QLCChannel;
 class ListModel;

@@ -4,7 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = uart
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 QT += serialport
 
 INCLUDEPATH += ../interfaces

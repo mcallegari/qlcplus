@@ -212,7 +212,7 @@ int FunctionEditor::holdSpeed() const
     if (m_function == nullptr)
         return Function::defaultSpeed();
 
-    return m_function->duration();
+    return m_function->duration() - m_function->fadeInSpeed();
 }
 
 void FunctionEditor::setHoldSpeed(int holdSpeed)

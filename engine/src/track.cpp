@@ -26,12 +26,12 @@
 #include "scene.h"
 #include "doc.h"
 
-#define KXMLQLCTrackID        "ID"
-#define KXMLQLCTrackName      "Name"
-#define KXMLQLCTrackSceneID   "SceneID"
-#define KXMLQLCTrackIsMute    "isMute"
+#define KXMLQLCTrackID        QString("ID")
+#define KXMLQLCTrackName      QString("Name")
+#define KXMLQLCTrackSceneID   QString("SceneID")
+#define KXMLQLCTrackIsMute    QString("isMute")
 
-#define KXMLQLCTrackFunctions "Functions"
+#define KXMLQLCTrackFunctions QString("Functions")
 
 Track::Track(quint32 sceneID)
     : m_id(Track::invalidId())
