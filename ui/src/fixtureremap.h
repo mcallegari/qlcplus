@@ -59,14 +59,16 @@ protected:
     QTreeWidgetItem *getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree);
 
     void fillFixturesTree(Doc *doc, QTreeWidget *tree);
+    void updateTargetFixturesTree();
+    QString createImportDialog();
+    void connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem *targetItem);
 
     QList<SceneValue> remapSceneValues(QList<SceneValue> funcList,
                                        QList<SceneValue> &srcList,
                                        QList<SceneValue> &tgtList);
 
-    QList<VCWidget *> getVCChildren(VCWidget *obj);
-
 protected slots:
+    void slotImportFixtures();
     void slotAddTargetFixture();
     void slotRemoveTargetFixture();
     void slotCloneSourceFixture();

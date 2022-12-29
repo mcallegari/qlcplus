@@ -24,8 +24,12 @@
 
 #include "vcmatrixpresetselection.h"
 #include "ui_vcmatrixpresetselection.h"
-#include "rgbscript.h"
 #include "rgbscriptscache.h"
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "rgbscript.h"
+#else
+ #include "rgbscriptv4.h"
+#endif
 #include "doc.h"
 
 VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
@@ -85,14 +89,13 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 propCombo->addItems(prop.m_listValues);
                 propCombo->setProperty("pName", prop.m_name);
                 QString pValue = script->property(prop.m_name);
+
                 if (!pValue.isEmpty())
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
                     propCombo->setCurrentText(pValue);
-#else
-                    propCombo->setCurrentIndex(propCombo->findText(pValue));
-#endif
+
                 connect(propCombo, SIGNAL(currentIndexChanged(QString)),
                         this, SLOT(slotPropertyComboChanged(QString)));
+
                 m_propertiesLayout->addWidget(propCombo, gridRowIdx, 1);
                 m_properties[prop.m_name] = pValue;
                 gridRowIdx++;

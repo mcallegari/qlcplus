@@ -29,7 +29,6 @@
 #include "inputpatch.h"
 #include "treemodel.h"
 #include "vccuelist.h"
-#include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcframe.h"
@@ -40,20 +39,20 @@
 #include "doc.h"
 #include "app.h"
 
-#define KXMLQLCVCProperties "Properties"
-#define KXMLQLCVCPropertiesSize "Size"
-#define KXMLQLCVCPropertiesSizeWidth "Width"
-#define KXMLQLCVCPropertiesSizeHeight "Height"
+#define KXMLQLCVCProperties             QString("Properties")
+#define KXMLQLCVCPropertiesSize         QString("Size")
+#define KXMLQLCVCPropertiesSizeWidth    QString("Width")
+#define KXMLQLCVCPropertiesSizeHeight   QString("Height")
 
-#define KXMLQLCVCPropertiesGrandMaster "GrandMaster"
-#define KXMLQLCVCPropertiesGrandMasterVisible "Visible"
-#define KXMLQLCVCPropertiesGrandMasterChannelMode "ChannelMode"
-#define KXMLQLCVCPropertiesGrandMasterValueMode "ValueMode"
-#define KXMLQLCVCPropertiesGrandMasterSliderMode "SliderMode"
+#define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
+#define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
+#define KXMLQLCVCPropertiesGrandMasterChannelMode   QString("ChannelMode")
+#define KXMLQLCVCPropertiesGrandMasterValueMode     QString("ValueMode")
+#define KXMLQLCVCPropertiesGrandMasterSliderMode    QString("SliderMode")
 
-#define KXMLQLCVCPropertiesInput "Input"
-#define KXMLQLCVCPropertiesInputUniverse "Universe"
-#define KXMLQLCVCPropertiesInputChannel "Channel"
+#define KXMLQLCVCPropertiesInput            QString("Input")
+#define KXMLQLCVCPropertiesInputUniverse    QString("Universe")
+#define KXMLQLCVCPropertiesInputChannel     QString("Channel")
 
 #define DEFAULT_VC_PAGES_NUMBER 4
 
@@ -113,6 +112,8 @@ qreal VirtualConsole::pixelDensity() const
 
 void VirtualConsole::resetContents()
 {
+    resetWidgetSelection();
+
     foreach (VCPage *page, m_pages)
     {
         page->deleteChildren();
@@ -349,9 +350,11 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
     if (newPIN.length() != 0 && newPIN.length() != 4)
         return false;
 
+    VCPage *page = m_pages.at(index);
+
     /* If the current PIN is set, check if
      * the entered PIN is numeric */
-    if (m_pages.at(index)->PIN() != 0)
+    if (page->PIN() != 0)
     {
         iPIN = currentPIN.toInt(&ok);
         if (ok == false)
@@ -359,13 +362,13 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
     }
 
     /* Check if the current PIN matches with the page PIN */
-    if (m_pages.at(index)->PIN() != 0 &&
-        m_pages.at(index)->PIN() != currentPIN.toInt())
+    if (page->PIN() != 0 &&
+        page->PIN() != currentPIN.toInt())
         return false;
 
     /* At last, set the new PIN for the page */
     if (newPIN.isEmpty())
-        m_pages.at(index)->setPIN(0);
+        page->setPIN(0);
     else
     {
         /* If the new PIN is numeric */
@@ -373,7 +376,7 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
         if (ok == false)
             return false;
 
-        m_pages.at(index)->setPIN(newPIN.toInt());
+        page->setPIN(newPIN.toInt());
     }
 
     return true;
@@ -387,7 +390,7 @@ bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember)
     if (m_pages.at(index)->PIN() != PIN.toInt())
         return false;
 
-    if(remember)
+    if (remember)
         m_pages.at(index)->validatePIN();
 
     return true;
@@ -840,6 +843,10 @@ void VirtualConsole::pasteFromClipboard()
         if (cWidget == nullptr)
             continue;
 
+        // do not allow pasting an item into itself
+        if (cWidget->id() == frame->id())
+            continue;
+
         VCWidget *copy = cWidget->createCopy(frame);
         frame->addWidget(renderParent, copy, currPos);
 
@@ -1014,8 +1021,15 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
         if (e->isAutoRepeat())
             return;
 
-        for(VCPage *page : m_pages) // C++11
-            page->handleKeyEvent(e, pressed);
+        int pageIdx = 0;
+
+        for (VCPage *page : m_pages) // C++11
+        {
+            if (pageIdx == selectedPage())
+                page->handleKeyEvent(e, pressed);
+
+            pageIdx++;
+        }
     }
     else
     {
@@ -1123,10 +1137,14 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
     qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
     if (m_inputDetectionEnabled == false)
     {
-        for(VCPage *page : m_pages) // C++11
+        int pageIdx = 0;
+
+        for (VCPage *page : m_pages) // C++11
         {
-            // TODO: send only to enabled (visible) pages
-            page->inputValueChanged(universe, channel, value);
+            if (pageIdx == selectedPage())
+                page->inputValueChanged(universe, channel, value);
+
+            pageIdx++;
         }
     }
     else
@@ -1177,6 +1195,8 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
             m_pages.at(currPageIdx)->loadXML(root);
             if (m_pages.at(currPageIdx)->caption().isEmpty())
                 m_pages.at(currPageIdx)->setCaption(tr("Page %1").arg(currPageIdx + 1));
+
+            m_pages.at(currPageIdx)->buildKeySequenceMap();
             currPageIdx++;
 
         }
@@ -1191,6 +1211,10 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
             root.skipCurrentElement();
         }
     }
+
+    // delete the exceeding pages
+    while (m_pages.count() - currPageIdx > 0)
+        deletePage(m_pages.count() - 1);
 
     m_loadStatus = Loaded;
 

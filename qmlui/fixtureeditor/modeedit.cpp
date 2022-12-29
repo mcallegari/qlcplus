@@ -18,7 +18,6 @@
 */
 
 #include "qlcfixturemode.h"
-#include "physicaledit.h"
 #include "listmodel.h"
 #include "modeedit.h"
 

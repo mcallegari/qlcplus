@@ -21,11 +21,7 @@
 
 #include <QToolButton>
 #include <QtCore>
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#include <QtGui>
-#else
 #include <QtWidgets>
-#endif
 
 #if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
@@ -54,12 +50,10 @@
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
 #include "qlcfixturedef.h"
+#include "videoprovider.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
- #include "videoprovider.h"
-#endif
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include "hotplugmonitor.h"
 #endif
@@ -122,9 +116,7 @@ App::App()
     , m_toolbar(NULL)
 
     , m_dumpProperties(NULL)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     , m_videoProvider(NULL)
-#endif
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -165,10 +157,8 @@ App::~App()
     if (m_dumpProperties != NULL)
         delete m_dumpProperties;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     if (m_videoProvider != NULL)
         delete m_videoProvider;
-#endif
 
     if (m_doc != NULL)
         delete m_doc;
@@ -317,7 +307,7 @@ void App::init()
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
+    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
                             .arg(USERQLCPLUSDIR);
     free(home);
     HotPlugMonitor::setWinId(winId());
@@ -334,9 +324,7 @@ void App::init()
         this->setStyleSheet(styleSheet);
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_videoProvider = new VideoProvider(m_doc, this);
-#endif
 }
 
 void App::setActiveWindow(const QString& name)
@@ -558,10 +546,7 @@ void App::enableKioskMode()
     m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
 
     // Hide the tab bar to save some pixels
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    // tabBar() in QT4 is protected.
     m_tab->tabBar()->hide();
-#endif
 
     // No need for the toolbar
     delete m_toolbar;
@@ -842,8 +827,8 @@ bool App::saveModifiedDoc(const QString & title, const QString & message)
 
     int result = QMessageBox::warning(this, title,
                                           message,
-                                          QMessageBox::Yes,
-                                          QMessageBox::No,
+                                          QMessageBox::Yes |
+                                          QMessageBox::No |
                                           QMessageBox::Cancel);
     if (result == QMessageBox::Yes)
     {
@@ -1451,7 +1436,9 @@ QFile::FileError App::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
 
     doc.writeStartDocument();
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));

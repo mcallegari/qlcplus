@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QMdiSubWindow>
 #include <QApplication>
 #include <QCloseEvent>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6 GIT</Version>
+  <Author>Sidde Persson</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>ZQ-B370</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Laser Off</Capability>
+  <Capability Min="50" Max="99">Static Pattern</Capability>
+  <Capability Min="100" Max="149">Dynamic Pattern</Capability>
+  <Capability Min="150" Max="199">Sound active</Capability>
+  <Capability Min="200" Max="255">Auto mode</Capability>
+ </Channel>
+ <Channel Name="Pattern Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Circle</Capability>
+  <Capability Min="5" Max="9">Dot Circle 1</Capability>
+  <Capability Min="10" Max="14">Dot Circle 2</Capability>
+  <Capability Min="15" Max="19">Scan Circle</Capability>
+  <Capability Min="20" Max="24">Horizontal line</Capability>
+  <Capability Min="25" Max="29">Horizontal dot line</Capability>
+  <Capability Min="30" Max="34">Vertical line</Capability>
+  <Capability Min="35" Max="39">Vertical dot line</Capability>
+  <Capability Min="40" Max="44">45' diagonal</Capability>
+  <Capability Min="45" Max="49">Dot Diagonal 1</Capability>
+  <Capability Min="50" Max="54">135' Diagonal</Capability>
+  <Capability Min="55" Max="59">Dot Diagonal 2</Capability>
+  <Capability Min="60" Max="64">V Line 1</Capability>
+  <Capability Min="65" Max="69">V Dot Line 1</Capability>
+  <Capability Min="70" Max="74">V line 2</Capability>
+  <Capability Min="75" Max="79">V Dot line 2</Capability>
+  <Capability Min="80" Max="84">Triangle 1</Capability>
+  <Capability Min="85" Max="89">Dot triangle 1</Capability>
+  <Capability Min="90" Max="94">Triangle 2</Capability>
+  <Capability Min="95" Max="99">Dot Triangle 2</Capability>
+  <Capability Min="100" Max="104">Square</Capability>
+  <Capability Min="105" Max="109">Dot Square</Capability>
+  <Capability Min="110" Max="114">Rectangle 1</Capability>
+  <Capability Min="115" Max="119">Dot Rectangle 1</Capability>
+  <Capability Min="120" Max="124">Rectangle 2</Capability>
+  <Capability Min="125" Max="129">Dot Rectangle 2</Capability>
+  <Capability Min="130" Max="134">Christcross</Capability>
+  <Capability Min="135" Max="139">Chiasma Line</Capability>
+  <Capability Min="140" Max="144">Horizontal Extend Line</Capability>
+  <Capability Min="145" Max="149">Horizontal Shrink Line</Capability>
+  <Capability Min="150" Max="154">Horizontal Flex Line</Capability>
+  <Capability Min="155" Max="159">Horizontal Flex Dot Line</Capability>
+  <Capability Min="160" Max="164">Vertical Extend Line</Capability>
+  <Capability Min="165" Max="169">Vertical Shrink Line</Capability>
+  <Capability Min="170" Max="174">Vertical Flex Line</Capability>
+  <Capability Min="175" Max="179">Vertical Flex Dot Line</Capability>
+  <Capability Min="180" Max="184">Ladder Line 1</Capability>
+  <Capability Min="185" Max="189">Ladder Line 2</Capability>
+  <Capability Min="190" Max="194">Ladder Line 3</Capability>
+  <Capability Min="195" Max="199">Ladder Line 4</Capability>
+  <Capability Min="200" Max="204">Tetragon 1</Capability>
+  <Capability Min="205" Max="209">Tetragon 2</Capability>
+  <Capability Min="210" Max="214">Pentagon 1</Capability>
+  <Capability Min="215" Max="219">Pentagon 2</Capability>
+  <Capability Min="220" Max="224">Pentagon 3</Capability>
+  <Capability Min="225" Max="229">Pentagon 4</Capability>
+  <Capability Min="230" Max="234">Wave Line</Capability>
+  <Capability Min="235" Max="239">Wave Dot Line</Capability>
+  <Capability Min="240" Max="244">Spirality line</Capability>
+  <Capability Min="245" Max="249">Many Dot 1</Capability>
+  <Capability Min="250" Max="254">Many Dot 2</Capability>
+  <Capability Min="255" Max="255">Square Dot</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Scanning Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Dynamic Pattern Play Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Dynamic Speed</Capability>
+ </Channel>
+ <Channel Name="Static Pattern Size" Preset="BeamZoomSmallBig"/>
+ <Mode Name="Standard">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern Selection</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Scanning Speed</Channel>
+  <Channel Number="5">Dynamic Pattern Play Speed</Channel>
+  <Channel Number="6">Static Pattern Size</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.8" Width="600" Height="180" Depth="150"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="50"/>
+  <Focus Type="Mirror" PanMax="30" TiltMax="30"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

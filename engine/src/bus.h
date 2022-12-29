@@ -32,16 +32,16 @@ class BusEntry;
  * @{
  */
 
-#define KXMLQLCBus "Bus"
-#define KXMLQLCBusID "ID"
-#define KXMLQLCBusName "Name"
-#define KXMLQLCBusValue "Value"
-#define KXMLQLCBusLowLimit "LowLimit"
-#define KXMLQLCBusHighLimit "HighLimit"
+#define KXMLQLCBus          QString("Bus")
+#define KXMLQLCBusID        QString("ID")
+#define KXMLQLCBusName      QString("Name")
+#define KXMLQLCBusValue     QString("Value")
+#define KXMLQLCBusLowLimit  QString("LowLimit")
+#define KXMLQLCBusHighLimit QString("HighLimit")
 
-#define KXMLQLCBusRole "Role"
-#define KXMLQLCBusFade "Fade"
-#define KXMLQLCBusHold "Hold"
+#define KXMLQLCBusRole QString("Role")
+#define KXMLQLCBusFade QString("Fade")
+#define KXMLQLCBusHold QString("Hold")
 
 /**
  * WARNING! THIS CLASS IS DEPRECATED AND IS USED ONLY FOR LOADING LEGACY WORKSPACE FILES!

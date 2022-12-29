@@ -48,7 +48,11 @@ public:
     /** Returns if the Chaser being edited is a Sequence */
     bool isSequence() const;
 
+    /** Static method to update the whole steps list */
     static void updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList);
+
+    /** Static method to update the data of a specific step */
+    static void updateStepInListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step, int index);
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
@@ -100,11 +104,13 @@ protected:
      *  otherwise it will be applied to all the steps */
     void setSelectedValue(Function::PropType type, QString param, uint value, bool selectedOnly = true);
 
+    static QVariantMap stepDataMap(Doc *doc, Chaser *chaser, ChaserStep *step);
+
     static void addStepToListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step);
 
 protected slots:
     /** Slot invoked during Chaser playback when the step index changes */
-    void slotStepChanged(int index);
+    void slotStepIndexChanged(int index);
 
 signals:
     void stepsListChanged();

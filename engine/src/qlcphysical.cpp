@@ -19,7 +19,8 @@
 */
 
 #include <QXmlStreamReader>
-#include <QRegExp>
+#include <QRegularExpression>
+#include <QLocale>
 #include <QString>
 #include <QDebug>
 
@@ -265,7 +266,7 @@ int QLCPhysical::powerConsumption() const
         /* If power consumption value is missing, return bulb watts
          * plus a guesstimate 100W, since there's usually other
           * electronics consuming power as well. */
-        int bulbWatts = bulbType().remove(QRegExp("[A-Z]")).toInt();
+        int bulbWatts = bulbType().remove(QRegularExpression("[A-Z]*")).toInt();
         if (bulbWatts > 0)
             return bulbWatts + 100;
         else

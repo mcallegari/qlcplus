@@ -5,8 +5,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = artnet
 
-QT      += network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT      += network widgets
 
 CONFIG      += plugin
 INCLUDEPATH += ../../interfaces

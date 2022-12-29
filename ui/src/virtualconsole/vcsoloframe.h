@@ -33,8 +33,8 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCSoloFrame "SoloFrame"
-#define KXMLQLCVCSoloFrameMixing "Mixing"
+#define KXMLQLCVCSoloFrame       QString("SoloFrame")
+#define KXMLQLCVCSoloFrameMixing QString("Mixing")
 
 class VCSoloFrame : public VCFrame
 {

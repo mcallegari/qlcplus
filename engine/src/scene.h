@@ -37,11 +37,11 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCFixtureValues "FixtureVal"
-#define KXMLQLCSceneChannelGroupsValues "ChannelGroupsVal"
+#define KXMLQLCFixtureValues QString("FixtureVal")
+#define KXMLQLCSceneChannelGroupsValues QString("ChannelGroupsVal")
 
 // Legacy: these do not contain ChannelGroups values
-#define KXMLQLCSceneChannelGroups "ChannelGroups"
+#define KXMLQLCSceneChannelGroups QString("ChannelGroups")
 
 /**
  * Scene encapsulates the values of selected channels from one or more fixture
@@ -269,6 +269,9 @@ public:
 private:
     /** Internal helper method to abtract Scene value processing */
     void processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv);
+
+    /** Check whether a fade out is needed and cleanup faders */
+    void handleFadersEnd(MasterTimer* timer);
 
     /*********************************************************************
      * Attributes

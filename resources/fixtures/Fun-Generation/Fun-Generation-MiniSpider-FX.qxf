@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 2</Version>
+  <Author>Klaus Muth</Author>
+ </Creator>
+ <Manufacturer>Fun-Generation</Manufacturer>
+ <Model>MiniSpider FX</Model>
+ <Type>Effect</Type>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Tilt 1 fine" Preset="PositionTiltFine"/>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Tilt 2 fine" Preset="PositionTiltFine"/>
+ <Channel Name="Motor Speed" Preset="SpeedTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Stroboscope" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Automatic mode / reset / sound control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="139">Without Function</Capability>
+  <Capability Min="140" Max="229">Automatic mode</Capability>
+  <Capability Min="230" Max="233">Without Function</Capability>
+  <Capability Min="234" Max="236" Preset="ResetAll">Reset</Capability>
+  <Capability Min="237" Max="249">Without Function</Capability>
+  <Capability Min="250" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Sensitivity/Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Sensitivity/Speed low to high</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Red Pixel 1" Preset="IntensityRed"/>
+ <Channel Name="Green Pixel 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Pixel 1" Preset="IntensityBlue"/>
+ <Channel Name="White Pixel 1" Preset="IntensityWhite"/>
+ <Channel Name="Red Pixel 2" Preset="IntensityRed"/>
+ <Channel Name="Green Pixel 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Pixel 2" Preset="IntensityBlue"/>
+ <Channel Name="White Pixel 2" Preset="IntensityWhite"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Tilt 1</Channel>
+  <Channel Number="1">Tilt 2</Channel>
+  <Channel Number="2">Motor Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Stroboscope</Channel>
+  <Channel Number="5">Automatic mode / reset / sound control</Channel>
+  <Channel Number="6">Sensitivity/Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Tilt 1</Channel>
+  <Channel Number="1">Tilt 2</Channel>
+  <Channel Number="2">Motor Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Stroboscope</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Automatic mode / reset / sound control</Channel>
+  <Channel Number="10">Sensitivity/Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Tilt 1</Channel>
+  <Channel Number="1">Tilt 1 fine</Channel>
+  <Channel Number="2">Tilt 2</Channel>
+  <Channel Number="3">Tilt 2 fine</Channel>
+  <Channel Number="4">Motor Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Stroboscope</Channel>
+  <Channel Number="7">Red Pixel 1</Channel>
+  <Channel Number="8">Green Pixel 1</Channel>
+  <Channel Number="9">Blue Pixel 1</Channel>
+  <Channel Number="10">White Pixel 1</Channel>
+  <Channel Number="11">Red Pixel 2</Channel>
+  <Channel Number="12">Green Pixel 2</Channel>
+  <Channel Number="13">Blue Pixel 2</Channel>
+  <Channel Number="14">White Pixel 2</Channel>
+  <Channel Number="15">Automatic mode / reset / sound control</Channel>
+  <Channel Number="16">Sensitivity/Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.2" Width="280" Height="125" Depth="160"/>
+  <Lens Name="Other" DegreesMin="3" DegreesMax="3"/>
+  <Focus Type="Head" PanMax="0" TiltMax="270"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

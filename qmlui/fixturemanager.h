@@ -28,13 +28,13 @@
 #include <QDir>
 
 #include "scenevalue.h"
+#include "colorfilters.h"
 
 class Doc;
 class Fixture;
 class TreeModel;
 class TreeModelItem;
 class FixtureGroup;
-class ColorFilters;
 class MonitorProperties;
 
 class FixtureManager : public QObject
@@ -309,10 +309,6 @@ public:
      * Universe Grid Editing
      *********************************************************************/
 public:
-    /** Returns a list of the universe indices occupied by a Fixture
-        at the requested $address */
-    Q_INVOKABLE QVariantList fixtureSelection(quint32 address);
-
     /** Returns a list of fixture names for representation in a GridEditor QML component */
     QVariantList fixtureNamesMap();
 
@@ -321,6 +317,8 @@ public:
 
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();
+
+    Q_INVOKABLE int pasteFromClipboard(QVariantList fixtureIDs);
 
 signals:
     /** Notify the listeners that the fixture names map has changed */
@@ -388,7 +386,6 @@ public:
     Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
                                    quint8 white, quint8 amber, quint8 uv);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
-    Q_INVOKABLE void setBeamValue(quint8 value);
 
     /**
      * @brief setFixtureCapabilities
@@ -408,6 +405,8 @@ public:
      *  DMX values properly scaled depending on the Fixture max Pan/Tilt degrees.
      *  It also provides multiple results if multiple heads are available */
     QList<SceneValue> getFixturePosition(quint32 fxID, int type, int degrees);
+
+    QList<SceneValue> getFixtureZoom(quint32 fxID, float degrees);
 
     /** Returns the names of the currently selected fixtures with gobo channels.
      *  The names are in the format: Product - Channel name */
@@ -485,6 +484,7 @@ private:
 
     double m_minBeamDegrees;
     double m_maxBeamDegrees;
+    bool m_invertedZoom;
 
     /** Bitmask holding the colors supported by the currently selected fixtures */
     int m_colorsMask;

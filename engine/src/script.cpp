@@ -707,7 +707,13 @@ QString Script::handleSystemCommand(const QList<QStringList> &tokens)
         programArgs << tokens[i][1];
 #if !defined(Q_OS_IOS)
     QProcess *newProcess = new QProcess();
-    newProcess->start(programName, programArgs);
+
+    // startDetached() enables to delete QProcess object without killing actual process
+    qint64 pid;
+    newProcess->setProgram(programName);
+    newProcess->setArguments(programArgs);
+    newProcess->startDetached(&pid);
+    delete newProcess;
 #endif
     return QString();
 }

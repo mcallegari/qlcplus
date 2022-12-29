@@ -34,11 +34,12 @@
 #include "mainview3d.h"
 #include "simpledesk.h"
 #include "tardis.h"
+#include "app.h"
 #include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
                                FixtureManager *fxMgr,
-                               FunctionManager *funcMgr, SimpleDesk *sDesk,
+                               FunctionManager *funcMgr,
                                QObject *parent)
     : QObject(parent)
     , m_view(view)
@@ -46,7 +47,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_monProps(doc->monitorProperties())
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
-    , m_simpleDesk(sDesk)
     , m_multipleSelection(false)
     , m_positionPicking(false)
     , m_universeFilter(Universe::invalid())
@@ -88,7 +88,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
-    connect(m_simpleDesk, &SimpleDesk::channelValueChanged, this, &ContextManager::slotSimpleDeskValueChanged);
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)),
             this, SLOT(slotChannelTypeValueChanged(int, quint8)));
     connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
@@ -292,7 +291,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     if (positionPicking() == false)
         return;
 
-    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2, point.y(), point.z() + m_monProps->gridSize().z() / 2);
+    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2,
+                      point.y(),
+                      point.z() + m_monProps->gridSize().z() / 2);
 
     for (quint32 itemID : m_selectedFixtures)
     {
@@ -304,6 +305,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
         quint32 panMSB = fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB);
         quint32 tiltMSB = fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+        int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        int headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint32 itemFlags = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
 
         // don't even bother if the fixture doesn't have PAN/TILT channels
         if (panMSB == QLCChannel::invalid() && tiltMSB == QLCChannel::invalid())
@@ -347,6 +351,13 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             else if(!xLeft && zBack)
                 panDeg = 270.0 + (90.0 - panDeg);
 
+            if (itemFlags & MonitorProperties::InvertedPanFlag)
+            {
+                QLCPhysical phy = fixture->fixtureMode()->physical();
+                double maxPanDeg = phy.focusPanMax() ? phy.focusPanMax() : 360;
+                panDeg = maxPanDeg - panDeg;
+            }
+
             qDebug() << "Fixture" << fxID << "pan degrees:" << panDeg;
 
             QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Pan, panDeg);
@@ -367,7 +378,6 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QVector3D ya = QVector3D(res.x(), res.y(), res.z());
 
             qreal tiltDeg =  qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, ya)));
-
             QLCPhysical phy = fixture->fixtureMode()->physical();
 
             // clamp the tilt.
@@ -377,7 +387,10 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             if (tiltDeg > phy.focusTiltMax() / 2)
                 tiltDeg = phy.focusTiltMax() / 2;
 
-            tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
+            if (itemFlags & MonitorProperties::InvertedTiltFlag)
+                tiltDeg = phy.focusTiltMax() / 2 + tiltDeg;
+            else
+                tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
 
             qDebug() << "Fixture" << fxID << "tilt degrees:" << tiltDeg;
 
@@ -434,11 +447,14 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             case Qt::Key_A:
                 toggleFixturesSelection();
             break;
+            case Qt::Key_P:
+                setPositionPicking(true);
+            break;
             case Qt::Key_R:
                 resetDumpValues();
             break;
-            case Qt::Key_P:
-                setPositionPicking(true);
+            case Qt::Key_S:
+                QMetaObject::invokeMethod(m_view->rootObject(), "saveProject");
             break;
             case Qt::Key_Z:
                 if (e->modifiers() & Qt::ShiftModifier)
@@ -452,7 +468,7 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
     }
 
 
-    for(PreviewContext *context : m_contextsMap.values()) // C++11
+    for (PreviewContext *context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, true);
 }
 
@@ -466,7 +482,7 @@ void ContextManager::handleKeyRelease(QKeyEvent *e)
 
     qDebug() << "Key release event received:" << e->text();
 
-    for(PreviewContext *context : m_contextsMap.values()) // C++11
+    for (PreviewContext *context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, false);
 }
 
@@ -555,6 +571,8 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     emit dumpValuesCountChanged();
 
     Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);
@@ -590,8 +608,11 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
         return;
 
     qDebug() << "[ContextManager] found" << channels.keys().count() << "capabilities";
-
-    QHashIterator<int, SceneValue>it(channels);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QHashIterator<int, SceneValue> it(channels);
+#else
+    QMultiHashIterator<int, SceneValue> it(channels);
+#endif
     while(it.hasNext())
     {
         it.next();
@@ -688,10 +709,45 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
     if (m_2DView->isEnabled())
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 
-    for (quint32 itemID : fxIDList)
+    for (quint32 itemID : qAsConst(fxIDList))
         setFixtureSelection(itemID, -1, true);
 
     emit selectedFixturesChanged();
+}
+
+QVariantList ContextManager::selectedFixtureAddress()
+{
+    QVariantList addresses;
+    for (quint32 itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == nullptr)
+            continue;
+
+        quint32 startAddr = fixture->address();
+        for (quint32 i = 0; i < fixture->channels(); i++)
+            addresses.append(startAddr + i);
+    }
+
+    std::sort(addresses.begin(), addresses.end(),
+              [](QVariant a, QVariant b) {
+                  return a.toUInt() < b.toUInt();
+              });
+
+    return addresses;
+}
+
+QVariantList ContextManager::selectedFixtureIDVariantList()
+{
+    QVariantList list;
+    for (quint32 itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        list.append(fxID);
+    }
+
+    return list;
 }
 
 int ContextManager::selectedFixturesCount()
@@ -1022,7 +1078,7 @@ void ContextManager::setLinkedFixture(quint32 itemID)
         // 3- add the new item to monitor properties
         QString newName = QString("%1 (%2 %3)").arg(fixture->name()).arg(tr("linked")).arg(newIndex);
         m_monProps->setFixturePosition(fixtureID, headIndex, newIndex, pos);
-        m_monProps->setFixtureResource(fixtureID, headIndex, newIndex, newName);
+        m_monProps->setFixtureName(fixtureID, headIndex, newIndex, newName);
 
         // 4- add the new item to the Fixture Manager tree
         quint32 linkedItemID = FixtureUtils::fixtureItemID(fixtureID, headIndex, newIndex);
@@ -1258,14 +1314,38 @@ void ContextManager::setPositionValue(int type, int degrees)
     }
 }
 
+void ContextManager::setBeamDegrees(float degrees)
+{
+    // list to keep track of the already processed Fixture IDs
+    QList<quint32>fxIDs;
+    QList<SceneValue> typeList = m_channelsMap.values(QLCChannel::Beam);
+
+    for (SceneValue sv : typeList)
+    {
+        if (fxIDs.contains(sv.fxi) == true)
+            continue;
+
+        fxIDs.append(sv.fxi);
+
+        QList<SceneValue> svList = m_fixtureManager->getFixtureZoom(sv.fxi, degrees);
+        for (SceneValue zSv : svList)
+        {
+            if (m_editingEnabled == false)
+                setDumpValue(zSv.fxi, zSv.channel, zSv.value);
+            else
+                m_functionManager->setChannelValue(zSv.fxi, zSv.channel, zSv.value);
+        }
+    }
+}
+
 void ContextManager::setChannelValues(QList<SceneValue> values)
 {
     for (SceneValue sv : values)
     {
-            if (m_editingEnabled == false)
-                setDumpValue(sv.fxi, sv.channel, sv.value);
-            else
-                m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);
+        if (m_editingEnabled == false)
+            setDumpValue(sv.fxi, sv.channel, sv.value);
+        else
+            m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);
     }
 }
 
@@ -1358,9 +1438,9 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, bo
                 if (ch->group() == QLCChannel::Intensity)
                 {
                     if (ch->colour() == QLCChannel::NoColour)
-                        m_dumpChannelMask |= DimmerType;
+                        m_dumpChannelMask |= App::DimmerType;
                     else
-                        m_dumpChannelMask |= ColorType;
+                        m_dumpChannelMask |= App::ColorType;
                 }
                 else
                 {

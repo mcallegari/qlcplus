@@ -146,7 +146,7 @@ Rectangle
                         id: chDelegate
                         color: "transparent"
                         border.width: 1
-                        border.color: "#111"
+                        border.color: UISettings.borderColorDark
                         width: UISettings.iconSizeDefault
                         height: channelsRow.height
 

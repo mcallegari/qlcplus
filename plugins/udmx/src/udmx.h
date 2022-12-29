@@ -26,15 +26,14 @@
 
 #include "qlcioplugin.h"
 
+struct libusb_device;
 class UDMXDevice;
 
 class UDMX : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
-#endif
 
     /*********************************************************************
      * Initialization
@@ -79,9 +78,11 @@ private:
     void rescanDevices();
 
     /** Get a UDMXDevice entry by its usbdev struct */
-    UDMXDevice* device(struct usb_device* usbdev);
+    UDMXDevice* device(libusb_device *usbdev);
 
 private:
+    struct libusb_context* m_ctx;
+
     /** List of available devices */
     QList <UDMXDevice*> m_devices;
 

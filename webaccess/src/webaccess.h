@@ -60,6 +60,7 @@ private:
     bool sendFile(QHttpResponse *response, QString filename, QString contentType);
     void sendWebSocketMessage(QByteArray message);
 
+    QString getWidgetBackgroundImage(VCWidget *widget);
     QString getWidgetHTML(VCWidget *widget);
     QString getFrameHTML(VCFrame *frame);
     QString getSoloFrameHTML(VCSoloFrame *frame);

@@ -334,6 +334,14 @@ void SceneEditor::init(bool applyValues)
     }
     connect(m_channelGroupsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotChannelGroupsChanged(QTreeWidgetItem*,int)));
+    connect(m_enableChannelsButton, SIGNAL(clicked()),
+            this, SLOT(slotEnableAll()));
+    connect(m_disableChannelsButton, SIGNAL(clicked()),
+            this, SLOT(slotDisableAll()));
+    connect(m_selectAllGroups, SIGNAL(clicked()),
+            this, SLOT(slotEnableAllChannelGroups()));
+    connect(m_deselectAllGroups, SIGNAL(clicked()),
+            this, SLOT(slotDisableAllChannelGroups()));
     updateChannelsGroupsTab();
 
     // Apply any mode related change

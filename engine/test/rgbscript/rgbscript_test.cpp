@@ -87,8 +87,39 @@ void RGBScript_Test::scripts()
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
 
+    // Prepare check that file is registered for delivery
+    QString proFilePath = dir.filePath("rgbscripts.pro");
+    QFile proFile(proFilePath);
+    proFile.open(QIODevice::ReadWrite);
+    QTextStream pro (&proFile);
+
+    // Catch syntax / JS engine errors explicitly in the test.
+    foreach (QString file, dir.entryList()) {
+        RGBScript* script = new RGBScript(m_doc);
+        QVERIFY(script->load(dir, file));
+
+        qDebug() << "Searching 'scripts.files += " + file + "' in rgbscripts.pro";
+
+        // Check that the script is listed in the pro file.
+        // scripts.files += noise.js
+        if (file != "empty.js") {
+            QString searchString = "scripts.files += " + file;
+            QString line;
+            bool foundInProFile = false;
+            do {
+                line = pro.readLine();
+                if (line.contains(searchString, Qt::CaseSensitive)) {
+                    foundInProFile = true;
+                }
+            } while (!line.isNull() && foundInProFile == false);
+
+            QVERIFY(foundInProFile);
+        }
+    }
+    proFile.close();
+
     QVERIFY(m_doc->rgbScriptsCache()->load(dir));
-    QVERIFY(m_doc->rgbScriptsCache()->names().size() >= 0);
+    QVERIFY(m_doc->rgbScriptsCache()->names().size() > 0);
 }
 
 void RGBScript_Test::script()
@@ -204,6 +235,7 @@ void RGBScript_Test::rgbMap()
 void RGBScript_Test::runScripts()
 {
     QSize mapSize = QSize(7, 11); // Use different numbers for x and y for the test
+    QSize mapSizePlus = QSize(12, 22); // Prepare a larger matrix to check behaviour on matrix change
     // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
     // This test also wants to test that there is no color space overrun.
     int red = 0xff0000;
@@ -223,7 +255,11 @@ void RGBScript_Test::runScripts()
         // Verify that the basename only uses lower case characters
         QString baseName = fileName;
         baseName.truncate(fileName.size() - 3);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         QVERIFY(QRegExp("[a-z]*").exactMatch(baseName));
+#else
+        QVERIFY(QRegularExpression("[a-z]+").match(baseName).hasMatch());
+#endif
 
 #ifdef QT_QML_LIB
         QVERIFY(!s.m_script.isUndefined());
@@ -253,11 +289,11 @@ void RGBScript_Test::runScripts()
 
         // Run a few steps with the standard set of parameters.
         int realsteps = (steps > 5) ? 5 : steps;
+        RGBMap rgbMap;
         for (int step = 0; step < realsteps; step++)
         {
-            RGBMap map;
-            s.rgbMap(mapSize, red, step, map);
-            QVERIFY(map.isEmpty() == false);
+            s.rgbMap(mapSize, red, step, rgbMap);
+            QVERIFY(rgbMap.isEmpty() == false);
             // Check that the color values are limited to a valid range
             for (int y = 0; y < mapSize.height(); y++)
             {
@@ -269,7 +305,43 @@ void RGBScript_Test::runScripts()
                     //    uint pxb = (map[y][x] & 0x000000ff);
                     //    qDebug() << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " (" << Qt::hex << map[y][x]<< ")";
                     //}
-                    QVERIFY(map[y][x] <= 0xffffff);
+                    QVERIFY(rgbMap[y][x] <= 0xffffff);
+                }
+            }
+        }
+        // Prepare a reference RGB map
+        bool randomScript = fileName.contains("random", Qt::CaseInsensitive);
+        RGBMap rgbRefMap;
+        if (1 < s.acceptColors() && 2 < steps && ! randomScript) {
+            // When more than 2 colors are accepted, the steps shall be reproducible to allow back and forth color fade.
+            s.rgbMap(mapSizePlus, red, 0, rgbRefMap);
+        }
+        // Switch to the larger map and step a few times.
+        for (int step = 0; step < realsteps; step++)
+        {
+            s.rgbMap(mapSizePlus, red, step, rgbMap);
+            // Check that the color values are limited to a valid range
+            for (int y = 0; y < mapSizePlus.height(); y++)
+            {
+                for (int x = 0; x < mapSizePlus.width(); x++)
+                {
+                    if (s.acceptColors() > 0)
+                    {
+                        // If colors are accepted, verify that the requested color is applied
+                        QVERIFY((rgbMap[y][x] & 0xff00ffff) == 0);
+                        QVERIFY((rgbMap[y][x] >> 16) <= 0x0000ff);
+                        if (!randomScript && 0 == step && 1 < s.acceptColors() && 2 < steps)
+                        {
+                            // if more than one color is accepted  and the script has more than two steps - one per color,
+                            // the color fade shall be relative and reproducible to the step
+                            // as otherwise, the color fade cannot be aligned on stage and depends on e.g. matrix sizes or script settings.
+                            QVERIFY(rgbMap[y][x] == rgbRefMap[y][x]);
+                        }
+                    }
+                    else
+                    {
+                        QVERIFY(rgbMap[y][x] <= 0x00ffffff);
+                    }
                 }
             }
         }

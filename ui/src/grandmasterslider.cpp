@@ -46,7 +46,7 @@ GrandMasterSlider::GrandMasterSlider(QWidget* parent, InputOutputMap *ioMap)
     setMaximumSize(QSize(40, USHRT_MAX));
 
     new QVBoxLayout(this);
-    layout()->setMargin(2);
+    layout()->setContentsMargins(2, 2, 2, 2);
 
     m_valueLabel = new QLabel(this);
     m_valueLabel->setAlignment(Qt::AlignHCenter);

@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -273,74 +273,8 @@
  </widget>
  <resources>
   <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>m_enableChannelsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>SceneEditor</receiver>
-   <slot>slotEnableAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>61</x>
-     <y>213</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>569</x>
-     <y>195</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_disableChannelsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>SceneEditor</receiver>
-   <slot>slotDisableAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>61</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>570</x>
-     <y>241</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_selectAllGroups</sender>
-   <signal>clicked()</signal>
-   <receiver>SceneEditor</receiver>
-   <slot>slotEnableAllChannelGroups()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>585</x>
-     <y>88</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>313</x>
-     <y>267</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_deselectAllGroups</sender>
-   <signal>clicked()</signal>
-   <receiver>SceneEditor</receiver>
-   <slot>slotDisableAllChannelGroups()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>585</x>
-     <y>135</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>313</x>
-     <y>267</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>slotEnableAll()</slot>
   <slot>slotDisableAll()</slot>

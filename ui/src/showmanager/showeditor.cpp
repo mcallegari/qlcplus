@@ -51,11 +51,7 @@ ShowEditor::ShowEditor(QWidget* parent, Show* show, Doc* doc)
     m_tree->setRootIsDecorated(true);
     m_tree->setSortingEnabled(false);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    m_tree->header()->setResizeMode(QHeaderView::Interactive);
-#else
     m_tree->header()->setSectionResizeMode(QHeaderView::Interactive);
-#endif
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));

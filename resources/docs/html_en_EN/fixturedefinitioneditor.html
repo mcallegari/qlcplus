@@ -10,7 +10,7 @@
 <H1><img src="qrc:/qlcplus-fixtureeditor.png" width=32 align="absmiddle"> Fixture Definition Editor</H1>
 <P>
 Fixture Definition Editor is a separate application bundled together with QLC+ for creating and modifying
-<A HREF="file:concept.html#Fixtures">fixture definitions</A> used by QLC+. The
+<A HREF="concept.html#Fixtures">fixture definitions</A> used by QLC+. The
 definitions tell QLC+ (and users) important details about fixtures, such as
 which channel is used for pan movement, what value in which channel changes
 the beam color to green, how the fixture is reset etc...
@@ -26,7 +26,7 @@ the actual editor windows used to edit fixture definitions.
 QLC+ system fixtures folder. The most important is that when you uninstall QLC+, the system
 fixtures folder gets deleted, so your fixtures.<br>
 You are recommended to save them in the user fixtures folder. To find it, please refer to the
-<A HREF="file:questionsandanswers.html">Q & A section</A> of this documentation.</B>
+<A HREF="questionsandanswers.html">Q & A section</A> of this documentation.</B>
 </P>
 
 <H2>Main toolbar</H2>
@@ -68,7 +68,7 @@ This is the section where the Fixture general information is provided.
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_general.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_general.png" WIDTH="700"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -115,7 +115,7 @@ the global physical information can be overridden by <I>per-mode</I> physical in
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_physical.png" WIDTH="700" />
+  <TD><IMG SRC="../images/fixtureeditor_physical.png" WIDTH="700" />
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -196,7 +196,7 @@ the <B>Channel</B> tab, only the channel names, their <B>capabilities</B>
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channels.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_channels.png" WIDTH="700"/>
   <TD valign="top">
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -246,16 +246,16 @@ while editing a Fixture channel.
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_preset.png" width="600"/></TD>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_shutter.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_preset.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_shutter.png" width="600"/></TD>
  </TR>
  <TR>
   <TD>Fig. 1</TD>
   <TD>Fig. 2</TD>
  </TR>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_color.png" width="600"/></TD>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_gobo.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_color.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_gobo.png" width="600"/></TD>
  </TR>
  <TR>
   <TD>Fig. 3</TD>
@@ -291,7 +291,7 @@ Reference to the above figures will be done to point you to a visual context.
   <TD><B>Type</B></TD>
   <TD>
    <P>This indicated the channel's type (its role in the fixture). Selecting a type, implicitely defines also
-    the channel precedence (<A HREF="file:concept.html#LTP">LTP</A> or <A HREF="file:concept.html#HTP">HTP</A>).
+    the channel precedence (<A HREF="concept.html#LTP">LTP</A> or <A HREF="concept.html#HTP">HTP</A>).
     It is therefore very important to pick the correct type here, to avoid undesired behaviours within QLC+.<br>
     All the intensity/color channel types obey to the <B>HTP</B> rule: <B>Intensity, Red, Green, Blue,
     Cyan, Magenta, Yellow, White, Amber, UV, Lime and Indigo</B>.<br>
@@ -301,9 +301,9 @@ Reference to the above figures will be done to point you to a visual context.
    <LI><B>Intensity</B> is used for dimmer / master dimmer channels.<br></LI>
    <LI><B>Primary colors</B> (Red, Cyan, White, etc) are used to control single color channels. Please
        do not confuse these types with the "Color" type (see below)<br>
-       Note that the <A HREF="file:concept.html#GrandMaster">Grand Master</A> controls only Intensity
+       Note that the <A HREF="concept.html#GrandMaster">Grand Master</A> controls only Intensity
        and primary color channels by default. Note also that the Color Tool
-       in <A HREF="file:sceneeditor.html">Scene Editor</A> is available only if a fixture provides
+       in <A HREF="sceneeditor.html">Scene Editor</A> is available only if a fixture provides
        <B>Primary color</B> channels for RGBAWUV/CMY.</LI>
    <LI>The <B>Color</B> type is used to control a fixed color
        wheel or pre-defined color macros. <I>Don't</I> assign individual RGBAW/CMY color channels
@@ -401,7 +401,7 @@ and various macro channels.
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_channel_wizard.png"/>
+  <TD><IMG SRC="../images/fixtureeditor_channel_wizard.png"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -440,13 +440,13 @@ and various macro channels.
 <H2 id="modes">Modes Tab</H2>
 
 <P>
-The modes tab contains all <A HREF="file:concept.html#FixtureMode">modes</A> the
+The modes tab contains all <A HREF="concept.html#FixtureMode">modes</A> the
 fixture can be configured to.
 </P>
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_modes.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_modes.png" WIDTH="700"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>
@@ -460,7 +460,7 @@ fixture can be configured to.
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/edit_add.png"/></TD>
-     <TD>Create a new mode for the fixture, using the <A HREF="file:modeeditor.html">Mode Editor</A>.</TD>
+     <TD>Create a new mode for the fixture, using the <A HREF="modeeditor.html">Mode Editor</A>.</TD>
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
@@ -470,7 +470,7 @@ fixture can be configured to.
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/edit.png"/></TD>
-     <TD>Edit the currently selected mode, using the <A HREF="file:modeeditor.html">Mode Editor</A>.</TD>
+     <TD>Edit the currently selected mode, using the <A HREF="modeeditor.html">Mode Editor</A>.</TD>
     </TR>
     <TR>
      <TD><IMG SRC="qrc:/editcopy.png"/></TD>
@@ -506,7 +506,7 @@ of channel 5 enters or exits the alias.
 
 <TABLE>
  <TR>
-  <TD><IMG SRC="file:../images/fixtureeditor_aliases.png" WIDTH="700"/>
+  <TD><IMG SRC="../images/fixtureeditor_aliases.png" WIDTH="700"/>
   <TD>
    <TABLE BORDER=1 class="qlcTable">
     <TR>

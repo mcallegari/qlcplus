@@ -34,11 +34,11 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCInputProfile "InputProfile"
-#define KXMLQLCInputProfileManufacturer "Manufacturer"
-#define KXMLQLCInputProfileModel "Model"
-#define KXMLQLCInputProfileType "Type"
-#define KXMLQLCInputProfileMidiSendNoteOff "MIDISendNoteOff"
+#define KXMLQLCInputProfile                 QString("InputProfile")
+#define KXMLQLCInputProfileManufacturer     QString("Manufacturer")
+#define KXMLQLCInputProfileModel            QString("Model")
+#define KXMLQLCInputProfileType             QString("Type")
+#define KXMLQLCInputProfileMidiSendNoteOff  QString("MIDISendNoteOff")
 
 class QLCInputProfile
 {

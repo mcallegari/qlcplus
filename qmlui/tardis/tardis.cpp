@@ -200,6 +200,9 @@ void Tardis::redoAction()
 void Tardis::resetHistory()
 {
     m_history.clear();
+    m_historyIndex = -1;
+    m_historyCount = 0;
+    m_busy = false;
 }
 
 void Tardis::forwardActionToNetwork(int code, TardisAction &action)
@@ -301,7 +304,7 @@ void Tardis::run()
 
         m_historyIndex = m_history.count() - 1;
 
-        qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, m_history.count());
+        qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, int(m_history.count()));
 
         /* If there are active network connections, send the action there too */
         forwardActionToNetwork(action.m_action, action);
@@ -385,7 +388,11 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 
 bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (value.type() != QVariant::ByteArray)
+#else
+    if (value.metaType().id() != QMetaType::QByteArray)
+#endif
     {
         qWarning("Action 0x%02X is not buffered!", action);
         return false;
@@ -428,7 +435,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         break;
         case FixtureDelete:
         {
-            m_fixtureManager->deleteFixtures(QVariantList( { objID } ));
+            m_fixtureManager->deleteFixtures(QVariantList() << objID);
         }
         break;
         case FixtureGroupCreate:
@@ -493,7 +500,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             QXmlStreamAttributes attrs = xmlReader.attributes();
 
             if (attrs.hasAttribute(KXMLQLCVCWidgetID))
-                m_virtualConsole->deleteVCWidgets(QVariantList( { attrs.value(KXMLQLCVCWidgetID).toUInt() } ));
+                m_virtualConsole->deleteVCWidgets(QVariantList() << attrs.value(KXMLQLCVCWidgetID).toUInt());
         }
         break;
 

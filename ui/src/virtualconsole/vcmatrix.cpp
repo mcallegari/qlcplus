@@ -498,11 +498,7 @@ void VCMatrix::slotUpdate()
     if (algorithmName != QString())
     {
         m_presetCombo->blockSignals(true);
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
         m_presetCombo->setCurrentText(algorithmName);
-#else
-        m_presetCombo->setCurrentIndex(m_presetCombo->findText(algorithmName));
-#endif
         m_presetCombo->blockSignals(false);
     }
 

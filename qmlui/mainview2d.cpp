@@ -486,7 +486,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Gobo:
             {
-                if (goboSet || (previous.count() && value == uchar(previous.at(i))))
+                if (goboSet || (previous.length() && value == uchar(previous.at(i))))
                     break;
 
                 QLCCapability *cap = ch->searchCapability(value);
@@ -521,7 +521,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Shutter:
             {
-                if (previous.count() && value == uchar(previous.at(i)))
+                if (previous.length() && value == uchar(previous.at(i)))
                     break;
 
                 int high = 200, low = 800;

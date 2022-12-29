@@ -42,34 +42,34 @@ class VCSliderProperties;
  * @{
  */
 
-#define KXMLQLCVCSlider "Slider"
-#define KXMLQLCVCSliderMode "SliderMode"
-#define KXMLQLCVCSliderWidgetStyle "WidgetStyle"
+#define KXMLQLCVCSlider             QString("Slider")
+#define KXMLQLCVCSliderMode         QString("SliderMode")
+#define KXMLQLCVCSliderWidgetStyle  QString("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
-#define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
-#define KXMLQLCVCSliderValueDisplayStylePercentage "Percentage"
-#define KXMLQLCVCSliderCatchValues "CatchValues"
+#define KXMLQLCVCSliderValueDisplayStyle            QString("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact       QString("Exact")
+#define KXMLQLCVCSliderValueDisplayStylePercentage  QString("Percentage")
+#define KXMLQLCVCSliderCatchValues                  QString("CatchValues")
 
-#define KXMLQLCVCSliderClickAndGoType "ClickAndGoType"
+#define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
 
-#define KXMLQLCVCSliderInvertedAppearance "InvertedAppearance"
+#define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
 
-#define KXMLQLCVCSliderBusLowLimit "LowLimit"
-#define KXMLQLCVCSliderBusHighLimit "HighLimit"
+#define KXMLQLCVCSliderBusLowLimit  QString("LowLimit")
+#define KXMLQLCVCSliderBusHighLimit QString("HighLimit")
 
-#define KXMLQLCVCSliderLevel "Level"
-#define KXMLQLCVCSliderLevelLowLimit "LowLimit"
-#define KXMLQLCVCSliderLevelHighLimit "HighLimit"
-#define KXMLQLCVCSliderLevelValue "Value"
-#define KXMLQLCVCSliderLevelMonitor "Monitor"
-#define KXMLQLCVCSliderOverrideReset "Reset"
+#define KXMLQLCVCSliderLevel            QString("Level")
+#define KXMLQLCVCSliderLevelLowLimit    QString("LowLimit")
+#define KXMLQLCVCSliderLevelHighLimit   QString("HighLimit")
+#define KXMLQLCVCSliderLevelValue       QString("Value")
+#define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
+#define KXMLQLCVCSliderOverrideReset    QString("Reset")
 
-#define KXMLQLCVCSliderChannel "Channel"
-#define KXMLQLCVCSliderChannelFixture "Fixture"
+#define KXMLQLCVCSliderChannel          QString("Channel")
+#define KXMLQLCVCSliderChannelFixture   QString("Fixture")
 
-#define KXMLQLCVCSliderPlayback "Playback"
-#define KXMLQLCVCSliderPlaybackFunction "Function"
+#define KXMLQLCVCSliderPlayback         QString("Playback")
+#define KXMLQLCVCSliderPlaybackFunction QString("Function")
 
 class VCSlider : public VCWidget, public DMXSource
 {

@@ -127,62 +127,14 @@ Column
                 text: FontAwesome.fa_link
             }
 
-            TextInput
+            CustomTextInput
             {
-                property string originalText
-
                 id: nodeLabel
                 Layout.fillWidth: true
-                z: 0
-                //width: nodeBgRect.width - x - 1
-                height: UISettings.listItemHeight
-                readOnly: true
                 text: textLabel
-                verticalAlignment: TextInput.AlignVCenter
-                color: UISettings.fgMain
-                font.family: UISettings.robotoFontName
-                font.pixelSize: UISettings.textSizeDefault
-                echoMode: TextInput.Normal
-                selectByMouse: true
-                selectionColor: "#4DB8FF"
-                selectedTextColor: "#111"
 
-                function disableEditing()
+                onTextConfirmed:
                 {
-                    z = 0
-                    select(0, 0)
-                    readOnly = true
-                    cursorVisible = false
-                }
-
-                Keys.onPressed:
-                {
-                    switch(event.key)
-                    {
-                        case Qt.Key_F2:
-                            originalText = textLabel
-                            z = 5
-                            readOnly = false
-                            cursorPosition = text.length
-                            cursorVisible = true
-                        break;
-                        case Qt.Key_Escape:
-                            disableEditing()
-                            nodeLabel.text = originalText
-                        break;
-                        default:
-                            event.accepted = false
-                            return
-                    }
-
-                    event.accepted = true
-                }
-
-                onEditingFinished:
-                {
-                    if (readOnly)
-                        return
-                    disableEditing()
                     nodeContainer.pathChanged(nodePath, text)
                     fixtureManager.renameFixture(itemID, text)
                 }
@@ -376,13 +328,13 @@ Column
                     Connections
                     {
                         target: item
-                        onMouseEvent:
+                        function onMouseEvent(type, iID, iType, qItem, mouseMods)
                         {
                             console.log("Got fixture tree node child mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
@@ -390,14 +342,14 @@ Column
                                     }
                                 break;
                                 case App.Checked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         console.log("Channel " + index + " got checked")
                                         model.isChecked = iType
                                     }
                                 break;
                                 case App.DragStarted:
-                                    if (qItem == item && !model.isSelected)
+                                    if (qItem === item && !model.isSelected)
                                     {
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection
@@ -414,7 +366,10 @@ Column
                     {
                         ignoreUnknownSignals: true
                         target: item
-                        onPathChanged: nodeContainer.pathChanged(oldPath, newPath)
+                        function onPathChanged(oldPath, newPath)
+                        {
+                            nodeContainer.pathChanged(oldPath, newPath)
+                        }
                     }
                 }
         }

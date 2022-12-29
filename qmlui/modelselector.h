@@ -40,6 +40,8 @@ public:
      *  deselected. */
     Q_INVOKABLE void selectItem(quint32 index, ListModel *model, bool multiSelection);
 
+    /** Return the list of the currently selected
+     *  item indices, as list of QVariant */
     Q_INVOKABLE QVariantList itemsList();
     Q_INVOKABLE void resetSelection();
 

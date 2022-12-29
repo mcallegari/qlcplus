@@ -22,8 +22,6 @@
 
 #include <QtGlobal>
 
-#include "qlcchannel.h"
-#include "fixture.h"
 #include "doc.h"
 
 /** @addtogroup engine Engine
@@ -46,13 +44,14 @@ public:
     {
         HTP         = (1 << 0),     /** Highest takes precedence */
         LTP         = (1 << 1),     /** Latest takes precedence */
-        Intensity   = (1 << 2),     /** Intensity channel (dimmer, RGB, CMY, etc) */
-        CanFade     = (1 << 3),     /** Subject to fade transitions */
-        Flashing    = (1 << 4),     /** Is flashing */
-        Relative    = (1 << 5),     /** Relative position */
-        Override    = (1 << 6),     /** Override the current universe value */
-        Autoremove  = (1 << 7),     /** Automatically remove the channel once value is written */
-        CrossFade   = (1 << 8)      /** Channel subject to crossfade */
+        Fine        = (1 << 2),     /** LSB channel for 16bit fade */
+        Intensity   = (1 << 3),     /** Intensity channel (dimmer, RGB, CMY, etc) */
+        CanFade     = (1 << 4),     /** Subject to fade transitions */
+        Flashing    = (1 << 5),     /** Is flashing */
+        Relative    = (1 << 6),     /** Relative position */
+        Override    = (1 << 7),     /** Override the current universe value */
+        Autoremove  = (1 << 8),     /** Automatically remove the channel once value is written */
+        CrossFade   = (1 << 9)      /** Channel subject to crossfade */
     };
 
     /** Create a new FadeChannel with empty/invalid values */

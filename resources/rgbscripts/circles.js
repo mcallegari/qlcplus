@@ -46,11 +46,12 @@ var testAlgo;
 
     var circles = new Array();
 
-    function Circle(x, y, step)
+    function Circle(x, y, step, rgb)
     {
       this.xCenter = x;
       this.yCenter = y;
       this.step = step;
+      this.rgb = rgb;
     }
 
     algo.setAmount = function(_amount)
@@ -107,7 +108,7 @@ var testAlgo;
       }
     };
 
-    util.initialize = function(size)
+    util.initialize = function(size, rgb)
     {
       if (size > 0) {
         util.circlesMaxSize = size;
@@ -115,13 +116,13 @@ var testAlgo;
 
       circles = new Array();
       for (var i = 0; i < algo.circlesAmount; i++) {
-        circles[i] = new Circle(-1, -1, 0);
+        circles[i] = new Circle(-1, -1, 0, rgb);
       }
 
       util.initialized = true;
     };
 
-    util.getColor = function(step, rgb)
+    util.getStepColor = function(step, rgb)
     {
       if (algo.fadeMode === 0)
       {
@@ -132,7 +133,6 @@ var testAlgo;
         var r = (rgb >> 16) & 0x00FF;
         var g = (rgb >> 8) & 0x00FF;
         var b = rgb & 0x00FF;
-
 
         var stepCount = Math.floor(util.circlesMaxSize / 2);
         var fadeStep = step;
@@ -183,7 +183,8 @@ var testAlgo;
 
     util.getNextStep = function(width, height, rgb)
     {
-      var x, y;
+      var x = 0;
+      var y = 0;
       // create an empty, black pixelMap
       util.pixelMap = new Array(height);
       for (y = 0; y < height; y++)
@@ -196,7 +197,11 @@ var testAlgo;
 
       for (var i = 0; i < algo.circlesAmount; i++)
       {
-        var color = util.getColor(circles[i].step, rgb);
+        if (circles[i].xCenter === -1)
+        {
+          circles[i].rgb = rgb;
+        }
+        var color = util.getStepColor(circles[i].step, circles[i].rgb);
         //alert("Circle " + i + " xCenter: " + circles[i].xCenter + " color: " + color.toString(16));
         if (circles[i].xCenter === -1)
         {
@@ -249,11 +254,11 @@ var testAlgo;
       if (util.initialized === false)
       {
         if ( algo.circlesSize > 0 ) {
-          util.initialize(algo.circlesSize);
+          util.initialize(algo.circlesSize, rgb);
         } else if (height < width) {
-          util.initialize(height);
+          util.initialize(height, rgb);
         } else {
-          util.initialize(width);
+          util.initialize(width, rgb);
         }
       }
 
@@ -262,7 +267,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return width;
+      return 2;
     };
 
     // Development tool access

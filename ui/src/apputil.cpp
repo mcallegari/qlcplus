@@ -89,12 +89,9 @@ QStyle* AppUtil::saneStyle()
     if (s_saneStyle == NULL)
     {
         QSettings settings;
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-        QVariant var = settings.value(SETTINGS_SLIDERSTYLE, QString("Cleanlooks"));
-#else
         QVariant var = settings.value(SETTINGS_SLIDERSTYLE, QString("Fusion"));
-#endif
         QStringList keys(QStyleFactory::keys());
+
         if (keys.contains(var.toString()) == true)
             s_saneStyle = QStyleFactory::create(var.toString());
         else

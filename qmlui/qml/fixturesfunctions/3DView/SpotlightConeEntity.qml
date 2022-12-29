@@ -50,15 +50,20 @@ Entity
             Parameter { name: "raymarchSteps"; value: mtl.fxItem ? mtl.fxItem.raymarchSteps : 0 },
             Parameter { name: "customModelMatrix";
                         value: {
-                            var m = Qt.matrix4x4();
+                            var m = Qt.matrix4x4()
+
                             if (mtl.fxItem === null)
-                                return m;
-                            m.translate(mtl.fxItem.lightPos.times(+1.0));
+                                return m
+
+                            var panRot = mtl.fxItem.invertedPan ? mtl.fxItem.panMaxDegrees - mtl.fxItem.panRotation : mtl.fxItem.panRotation
+                            var tiltRot = mtl.fxItem.invertedTilt ? mtl.fxItem.tiltMaxDegrees - mtl.fxItem.tiltRotation : mtl.fxItem.tiltRotation
+
+                            m.translate(mtl.fxItem.lightPos.times(+1.0))
                             m = m.times(mtl.fxItem.lightMatrix)
-                            m.rotate(mtl.fxItem.panRotation, Qt.vector3d(0, 1, 0));
-                            m.rotate(mtl.fxItem.tiltRotation, Qt.vector3d(1, 0, 0));
-                            m.translate(Qt.vector3d(0, -0.5 * mtl.fxItem.distCutoff - 0.5 * mtl.fxItem.headLength, 0));
-                            return m;
+                            m.rotate(panRot, Qt.vector3d(0, 1, 0))
+                            m.rotate(tiltRot, Qt.vector3d(1, 0, 0))
+                            m.translate(Qt.vector3d(0, -0.5 * mtl.fxItem.distCutoff - 0.5 * mtl.fxItem.headLength, 0))
+                            return m
                         }},
             Parameter { name: "coneTopRadius"; value: mtl.fxItem ? mtl.fxItem.coneTopRadius : 0 },
             Parameter { name: "coneBottomRadius"; value: mtl.fxItem ? mtl.fxItem.coneBottomRadius : 0 },

@@ -402,6 +402,12 @@ bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
     speed = MIN_GOBO_SPEED;
     bool clockwise = true;
 
+    if (cap->preset() == QLCCapability::Custom)
+    {
+        speed = -1;
+        return true;
+    }
+
     value = SCALE(value, cap->min(), cap->max(), 1, 255);
 
     switch (cap->preset())

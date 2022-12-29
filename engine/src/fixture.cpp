@@ -386,6 +386,48 @@ QList<SceneValue> Fixture::positionToValues(int type, int degrees) const
     return posList;
 }
 
+QList<SceneValue> Fixture::zoomToValues(float degrees) const
+{
+    QList<SceneValue> chList;
+
+    if (m_fixtureMode == NULL)
+        return chList;
+
+    QLCPhysical phy = fixtureMode()->physical();
+    float msbValue = ((degrees - phy.lensDegreesMin()) * (float)UCHAR_MAX) /
+                     (phy.lensDegreesMax() - phy.lensDegreesMin());
+
+    for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
+    {
+        const QLCChannel *ch = m_fixtureMode->channel(i);
+
+        if (ch->group() != QLCChannel::Beam)
+            continue;
+
+        if (ch->preset() != QLCChannel::BeamZoomBigSmall &&
+            ch->preset() != QLCChannel::BeamZoomSmallBig &&
+            ch->preset() != QLCChannel::BeamZoomFine)
+            continue;
+
+        if (ch->controlByte() == QLCChannel::MSB)
+        {
+            if (ch->preset() == QLCChannel::BeamZoomBigSmall)
+                chList.append(SceneValue(id(), i, static_cast<uchar>(qFloor((float)UCHAR_MAX - msbValue))));
+            else
+                chList.append(SceneValue(id(), i, static_cast<uchar>(qFloor(msbValue))));
+        }
+
+        if (ch->controlByte() == QLCChannel::LSB)
+        {
+            float lsbDegrees = (float)(phy.lensDegreesMax() - phy.lensDegreesMin()) / (float)UCHAR_MAX;
+            float lsbValue = (float)((msbValue - qFloor(msbValue)) * (float)UCHAR_MAX) / lsbDegrees;
+            chList.append(SceneValue(id(), i, static_cast<uchar>(lsbValue)));
+        }
+    }
+
+    return chList;
+}
+
 void Fixture::setExcludeFadeChannels(QList<int> indices)
 {
     if (indices.count() > (int)channels())
@@ -530,7 +572,7 @@ void Fixture::checkAlias(int chIndex, uchar value)
     // If the channel @chIndex has aliases, check
     // if replacements are to be done
     QLCCapability *cap = m_fixtureMode->channel(chIndex)->searchCapability(value);
-    if (cap == m_aliasInfo[chIndex].m_currCap)
+    if (cap == NULL || cap == m_aliasInfo[chIndex].m_currCap)
         return;
 
     // first, revert any channel replaced to the original channel set

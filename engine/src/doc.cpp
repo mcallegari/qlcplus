@@ -59,8 +59,10 @@
  #else
   #include "audiocapture_alsa.h"
  #endif
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "audiocapture_qt5.h"
 #else
- #include "audiocapture_qt.h"
+ #include "audiocapture_qt6.h"
 #endif
 
 Doc::Doc(QObject* parent, int universes)
@@ -286,8 +288,10 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
 #else
             new AudioCaptureAlsa()
 #endif
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+            new AudioCaptureQt6()
 #else
-            new AudioCaptureQt()
+            new AudioCaptureQt6()
 #endif
             );
     }
@@ -457,14 +461,14 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     QList<int> forcedLTP = fixture->forcedLTPChannels();
     quint32 fxAddress = fixture->address();
 
-    for (i = 0 ; i < fixture->channels(); i++)
+    for (i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *channel(fixture->channel(i));
 
         // Inform Universe of any HTP/LTP forcing
-        if (forcedHTP.contains(i))
+        if (forcedHTP.contains(int(i)))
             universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
-        else if (forcedLTP.contains(i))
+        else if (forcedLTP.contains(int(i)))
             universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
         else
             universes.at(uni)->setChannelCapability(fxAddress + i, channel->group());
@@ -575,6 +579,9 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         }
 
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
+        newFixture->setForcedHTPChannels(fixture->forcedHTPChannels());
+        newFixture->setForcedLTPChannels(fixture->forcedLTPChannels());
+
         m_fixtures.insert(id, newFixture);
         m_fixturesListCacheUpToDate = false;
 
@@ -616,9 +623,9 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
         const QLCChannel *channel(fixture->channel(i));
 
         // Inform Universe of any HTP/LTP forcing
-        if (forcedHTP.contains(i))
+        if (forcedHTP.contains(int(i)))
             universe->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
-        else if (forcedLTP.contains(i))
+        else if (forcedLTP.contains(int(i)))
             universe->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
         else
             universe->setChannelCapability(fxAddress + i, channel->group());
@@ -1050,6 +1057,16 @@ QList<Function *> Doc::functionsByType(Function::Type type) const
     return list;
 }
 
+Function *Doc::functionByName(QString name)
+{
+    foreach(Function *f, m_functions)
+    {
+        if (f != NULL && f->name() == name)
+            return f;
+    }
+    return NULL;
+}
+
 bool Doc::deleteFunction(quint32 id)
 {
     if (m_functions.contains(id) == true)
@@ -1220,7 +1237,7 @@ MonitorProperties *Doc::monitorProperties()
  * Load & Save
  *****************************************************************************/
 
-bool Doc::loadXML(QXmlStreamReader &doc)
+bool Doc::loadXML(QXmlStreamReader &doc, bool loadIO)
 {
     clearErrorLog();
 
@@ -1270,7 +1287,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
             /* LEGACY */
             Bus::instance()->loadXML(doc);
         }
-        else if (doc.name() == KXMLIOMap)
+        else if (doc.name() == KXMLIOMap && loadIO)
         {
             m_ioMap->loadXML(doc);
         }

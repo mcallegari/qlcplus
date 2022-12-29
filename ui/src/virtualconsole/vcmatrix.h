@@ -40,17 +40,17 @@ class RGBMatrix;
  * @{
  */
 
-#define KXMLQLCVCMatrix "Matrix"
+#define KXMLQLCVCMatrix             QString("Matrix")
 
-#define KXMLQLCVCMatrixFunction "Function"
-#define KXMLQLCVCMatrixFunctionID "ID"
+#define KXMLQLCVCMatrixFunction     QString("Function")
+#define KXMLQLCVCMatrixFunctionID   QString("ID")
 
-#define KXMLQLCVCMatrixInstantApply "InstantApply"
+#define KXMLQLCVCMatrixInstantApply QString("InstantApply")
 
-#define KXMLQLCVCMatrixStartColor "StartColor"
-#define KXMLQLCVCMatrixEndColor "EndColor"
+#define KXMLQLCVCMatrixStartColor   QString("StartColor")
+#define KXMLQLCVCMatrixEndColor     QString("EndColor")
 
-#define KXMLQLCVCMatrixVisibilityMask "Visibility"
+#define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
 
 class VCMatrix : public VCWidget
 {

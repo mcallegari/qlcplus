@@ -9,8 +9,8 @@ addons:
       #base packages for all builds
       - gdb
       - libasound2-dev
-      - libusb-dev
-      - libftdi-dev
+      - libusb-1.0-0-dev
+      - libftdi1-dev
       - shared-mime-info
       - libudev-dev
       - libmad0-dev
@@ -18,8 +18,10 @@ addons:
       - liblo-dev
       - libfftw3-dev
       - libgl1-mesa-dev
- # Needed for `xmllint`
+      # Needed for `xmllint`
       - libxml2-utils
+      # needed for fixtures-tool.xml
+      - python-lxml
     packages: &qt5_pkg
       - *base_pkg
       - qt514-meta-minimal

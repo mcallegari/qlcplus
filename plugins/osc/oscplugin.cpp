@@ -36,9 +36,9 @@ OSCPlugin::~OSCPlugin()
 
 void OSCPlugin::init()
 {
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol)
@@ -347,10 +347,3 @@ QList<OSCIO> OSCPlugin::getIOMapping()
 {
     return m_IOmapping;
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(OSCPlugin, OSCPlugin)
-#endif

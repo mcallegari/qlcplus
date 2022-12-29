@@ -77,8 +77,8 @@ Rectangle
                         width: cellSize
                         height: cellSize
                         border.width: 1
-                        border.color: "#222"
-                        color:  getHTMLColor(index * 36, index * 36, index * 36)
+                        border.color: UISettings.borderColorDark
+                        color:  getHTMLColor(Math.round(index * 36.4285), Math.round(index * 36.4285), Math.round(index * 36.4285))
                         MouseArea
                         {
                             anchors.fill: parent
@@ -111,7 +111,7 @@ Rectangle
                         width: cellSize
                         height: cellSize
                         border.width: 1
-                        border.color: "#222"
+                        border.color: UISettings.borderColorDark
                         color: getBaseHTMLColor(index)
 
                         MouseArea
@@ -155,7 +155,7 @@ Rectangle
                                     width: cellSize
                                     height: cellSize
                                     border.width: 1
-                                    border.color: "#222"
+                                    border.color: UISettings.borderColorDark
                                     color: getShadedColor(colIndex, index)
 
                                     MouseArea

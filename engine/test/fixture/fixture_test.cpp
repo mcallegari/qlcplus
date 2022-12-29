@@ -898,42 +898,42 @@ void Fixture_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Manufacturer")
+        if (xmlReader.name().toString() == "Manufacturer")
         {
             QVERIFY(xmlReader.readElementText() == "Martin");
             manufacturer = true;
         }
-        else if (xmlReader.name() == "Model")
+        else if (xmlReader.name().toString() == "Model")
         {
             QVERIFY(xmlReader.readElementText() == "MAC250+");
             model = true;
         }
-        else if (xmlReader.name() == "Mode")
+        else if (xmlReader.name().toString() == "Mode")
         {
             QVERIFY(xmlReader.readElementText() == fixtureMode->name());
             mode = true;
         }
-        else if (xmlReader.name() == "ID")
+        else if (xmlReader.name().toString() == "ID")
         {
             QVERIFY(xmlReader.readElementText() == "1337");
             id = true;
         }
-        else if (xmlReader.name() == "Name")
+        else if (xmlReader.name().toString() == "Name")
         {
             QVERIFY(xmlReader.readElementText() == "Test Fixture");
             name = true;
         }
-        else if (xmlReader.name() == "Universe")
+        else if (xmlReader.name().toString() == "Universe")
         {
             QVERIFY(xmlReader.readElementText() == "2");
             universe = true;
         }
-        else if (xmlReader.name() == "Address")
+        else if (xmlReader.name().toString() == "Address")
         {
             QVERIFY(xmlReader.readElementText() == "438");
             address = true;
         }
-        else if (xmlReader.name() == "Channels")
+        else if (xmlReader.name().toString() == "Channels")
         {
             QVERIFY(xmlReader.readElementText().toInt()
                     == fixtureMode->channels().count());

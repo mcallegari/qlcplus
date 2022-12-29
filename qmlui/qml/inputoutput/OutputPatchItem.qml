@@ -43,7 +43,7 @@ Rectangle
         radius: 3
         color: UISettings.bgLighter
         border.width: 2
-        border.color: "#111"
+        border.color: UISettings.borderColorDark
 
         RowLayout
         {

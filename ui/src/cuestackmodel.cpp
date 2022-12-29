@@ -32,8 +32,8 @@
 #include "cuestack.h"
 #include "function.h"
 
-#define MIMEDATA_ROOT       "MimeData"
-#define MIMEDATA_DRAGINDEX  "DragIndex"
+#define MIMEDATA_ROOT       QString("MimeData")
+#define MIMEDATA_DRAGINDEX  QString("DragIndex")
 
 CueStackModel::CueStackModel(QObject* parent)
     : QAbstractItemModel(parent)
@@ -107,20 +107,12 @@ void CueStackModel::slotRemoved(int index)
 void CueStackModel::slotChanged(int index)
 {
     Q_ASSERT(m_cueStack != NULL);
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    emit dataChanged(createIndex(index, 0, 0), createIndex(index, 1, 0));
-#else
     emit dataChanged(createIndex(index, 0, quintptr(0)), createIndex(index, 1, quintptr(0)));
-#endif
 }
 
 void CueStackModel::slotCurrentCueChanged(int index)
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    emit dataChanged(createIndex(index, 0, 0), createIndex(index, 1, 0));
-#else
     emit dataChanged(createIndex(index, 0, quintptr(0)), createIndex(index, 1, quintptr(0)));
-#endif
 }
 
 /****************************************************************************
@@ -160,11 +152,7 @@ QModelIndex CueStackModel::index(int row, int column, const QModelIndex& parent)
     if (m_cueStack == NULL || parent.isValid() == true) // No parents
         return QModelIndex();
     else
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-        return createIndex(row, column, 0);
-#else
         return createIndex(row, column, quintptr(0));
-#endif
 }
 
 QModelIndex CueStackModel::parent(const QModelIndex& index) const

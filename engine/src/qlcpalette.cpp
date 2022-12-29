@@ -22,6 +22,7 @@
 #include <QtMath>
 #include <QDebug>
 
+#include "monitorproperties.h"
 #include "qlcpalette.h"
 #include "qlcchannel.h"
 #include "scenevalue.h"
@@ -40,7 +41,7 @@ QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
     , m_id(QLCPalette::invalidId())
     , m_type(type)
     , m_fanningType(Flat)
-    , m_fanningLayout(LeftToRight)
+    , m_fanningLayout(XAscending)
     , m_fanningAmount(100)
 {
 }
@@ -243,10 +244,30 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
     QList<SceneValue> list;
 
     int fxCount = fixtures.count();
-    // nomralized progress in [ 0.0, 1.0 ] range
+    // normalized progress in [ 0.0, 1.0 ] range
     qreal progress = 0.0;
     int intFanValue = fanningValue().toInt();
     FanningType fType = fanningType();
+    FanningLayout fLayout = fanningLayout();
+    MonitorProperties *mProps = doc->monitorProperties();
+
+    // sort the fixtures list based on selected layout
+    std::sort(fixtures.begin(), fixtures.end(),
+        [fLayout, mProps](quint32 a, quint32 b) {
+            QVector3D posA = mProps->fixturePosition(a, 0, 0);
+            QVector3D posB = mProps->fixturePosition(b, 0, 0);
+
+            switch(fLayout)
+            {
+                case XAscending: return posA.x() < posB.x();
+                case XDescending: return posB.x() < posA.x();
+                case YAscending: return posA.y() < posB.y();
+                case YDescending: return posB.y() < posA.y();
+                case ZAscending: return posA.z() < posB.z();
+                case ZDescending: return posB.z() < posA.z();
+                default: return false;
+            }
+        });
 
     foreach (quint32 id, fixtures)
     {
@@ -261,7 +282,8 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             case Dimmer:
             {
                 int dValue = value().toInt();
-                quint32 intCh = fixture->masterIntensityChannel();
+                quint32 intCh = fixture->type() == QLCFixtureDef::Dimmer ?
+                            0 : fixture->masterIntensityChannel();
 
                 if (intCh != QLCChannel::invalid())
                 {
@@ -371,7 +393,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
 
 QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> groups)
 {
-    QList<SceneValue> list;
+    QList<quint32> fixturesList;
 
     foreach (quint32 id, groups)
     {
@@ -379,10 +401,10 @@ QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> g
         if (group == NULL)
             continue;
 
-        list << valuesFromFixtures(doc, group->fixtureList());
+        fixturesList.append(group->fixtureList());
     }
 
-    return list;
+    return valuesFromFixtures(doc, fixturesList);
 }
 
 qreal QLCPalette::valueFactor(qreal progress)
@@ -500,11 +522,15 @@ QString QLCPalette::fanningLayoutToString(QLCPalette::FanningLayout layout)
 {
     switch (layout)
     {
-        case LeftToRight:   return "LeftToRight";
-        case RightToLeft:   return "RightToLeft";
-        case TopToBottom:   return "TopToBottom";
-        case BottomToTop:   return "BottomToTop";
-        case Centered:      return "Centered";
+        case XAscending:    return "XAscending";
+        case XDescending:   return "XDescending";
+        case XCentered:     return "XCentered";
+        case YAscending:    return "YAscending";
+        case YDescending:   return "YDescending";
+        case YCentered:     return "YCentered";
+        case ZAscending:    return "ZAscending";
+        case ZDescending:   return "ZDescending";
+        case ZCentered:     return "ZCentered";
     }
 
     return "";
@@ -512,18 +538,26 @@ QString QLCPalette::fanningLayoutToString(QLCPalette::FanningLayout layout)
 
 QLCPalette::FanningLayout QLCPalette::stringToFanningLayout(const QString &str)
 {
-    if (str == "LeftToRight")
-        return LeftToRight;
-    else if (str == "RightToLeft")
-        return RightToLeft;
-    else if (str == "TopToBottom")
-        return TopToBottom;
-    else if (str == "BottomToTop")
-        return BottomToTop;
-    else if (str == "Centered")
-        return Centered;
+    if (str == "XAscending")
+        return XAscending;
+    else if (str == "XDescending")
+        return XDescending;
+    else if (str == "XCentered")
+        return XCentered;
+    else     if (str == "YAscending")
+        return YAscending;
+    else if (str == "YDescending")
+        return YDescending;
+    else if (str == "YCentered")
+        return YCentered;
+    else if (str == "ZAscending")
+        return ZAscending;
+    else if (str == "ZDescending")
+        return ZDescending;
+    else if (str == "ZCentered")
+        return ZCentered;
 
-    return LeftToRight;
+    return XAscending;
 }
 
 int QLCPalette::fanningAmount() const

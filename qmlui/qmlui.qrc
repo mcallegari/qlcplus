@@ -19,12 +19,13 @@
     <file alias="CustomScrollBar.qml">qml/CustomScrollBar.qml</file>
     <file alias="CustomSlider.qml">qml/CustomSlider.qml</file>
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
+    <file alias="CustomDoubleSpinBox.qml">qml/CustomDoubleSpinBox.qml</file>
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
+    <file alias="CustomTextInput.qml">qml/CustomTextInput.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
     <file alias="DMXAddressTool.qml">qml/DMXAddressTool.qml</file>
     <file alias="DMXAddressWidget.qml">qml/DMXAddressWidget.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
-    <file alias="EditableTextBox.qml">qml/EditableTextBox.qml</file>
     <file alias="ExternalControls.qml">qml/ExternalControls.qml</file>
     <file alias="ExternalControlDelegate.qml">qml/ExternalControlDelegate.qml</file>
     <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>

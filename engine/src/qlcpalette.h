@@ -33,8 +33,8 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCPalette "Palette"
-#define KXMLQLCPaletteID "ID"
+#define KXMLQLCPalette   QString("Palette")
+#define KXMLQLCPaletteID QString("ID")
 
 /**
  * QLCPalette represents a QLC+ Palette, which is the definition
@@ -164,11 +164,15 @@ public:
 
     enum FanningLayout
     {
-        LeftToRight,
-        RightToLeft,
-        TopToBottom,
-        BottomToTop,
-        Centered
+        XAscending,
+        XDescending,
+        XCentered,
+        YAscending,
+        YDescending,
+        YCentered,
+        ZAscending,
+        ZDescending,
+        ZCentered
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(FanningLayout)

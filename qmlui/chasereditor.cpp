@@ -40,12 +40,12 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
 void ChaserEditor::setFunctionID(quint32 ID)
 {
     if (m_chaser)
-        disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
+        disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_chaser != nullptr)
-        connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
+        connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
@@ -240,7 +240,11 @@ void ChaserEditor::deleteItems(QVariantList list)
     if (m_chaser == nullptr)
         return;
 
-    std::sort(list.begin(), list.end());
+    std::sort(list.begin(), list.end(),
+              [](QVariant a, QVariant b) {
+                  return a.toUInt() < b.toUInt();
+              });
+
     qDebug() << "Chaser delete list" << list;
 
     while (!list.isEmpty())
@@ -258,12 +262,12 @@ void ChaserEditor::deleteItems(QVariantList list)
     emit stepsListChanged();
 }
 
-void ChaserEditor::slotStepChanged(int index)
+void ChaserEditor::slotStepIndexChanged(int index)
 {
     setPlaybackIndex(index);
 }
 
-void ChaserEditor::addStepToListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step)
+QVariantMap ChaserEditor::stepDataMap(Doc *doc, Chaser *chaser, ChaserStep *step)
 {
     QVariantMap stepMap;
     Function *func = doc->function(step->fid);
@@ -318,7 +322,21 @@ void ChaserEditor::addStepToListModel(Doc *doc, Chaser *chaser, ListModel *steps
     }
 
     stepMap.insert("note", step->note);
+
+    return stepMap;
+}
+
+void ChaserEditor::addStepToListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step)
+{
+    QVariantMap stepMap = stepDataMap(doc, chaser, step);
     stepsList->addDataMap(stepMap);
+}
+
+void ChaserEditor::updateStepInListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step, int index)
+{
+    QVariantMap stepMap = stepDataMap(doc, chaser, step);
+    QModelIndex idx = stepsList->index(index, 0, QModelIndex());
+    stepsList->setDataMap(idx, stepMap);
 }
 
 void ChaserEditor::updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList)
@@ -346,8 +364,8 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
     for (quint32 i = 0; i < quint32(m_chaser->stepsCount()); i++)
     {
         QModelIndex idx = m_stepsList->index(int(i), 0, QModelIndex());
-
         QVariant isSelected = true;
+
         if (selectedOnly == true)
             isSelected = m_stepsList->data(idx, "isSelected");
 
@@ -636,8 +654,10 @@ void ChaserEditor::setStepNote(int index, QString text)
     if (m_chaser == nullptr || index < 0 || index >= m_chaser->stepsCount())
         return;
 
+    ChaserStep step = m_chaser->steps().at(int(index));
+    step.note = text;
+    m_chaser->replaceStep(step, index);
+
     QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());
-    ChaserStep *step = m_chaser->stepAt(index);
-    step->note = text;
     m_stepsList->setDataWithRole(mIdx, "note", text);
 }

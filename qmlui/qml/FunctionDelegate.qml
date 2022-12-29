@@ -51,7 +51,6 @@ Rectangle
 
     signal toggled
     signal destruction(int ID, var qItem)
-
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     Component.onDestruction:

@@ -33,7 +33,6 @@ Rectangle
     property int functionID: -1
     property QLCFunction func
     property bool showFunctionName: true
-    property string stepLabel
     property string stepFadeIn
     property string stepHold
     property string stepFadeOut
@@ -62,7 +61,6 @@ Rectangle
     onFunctionIDChanged:
     {
         func = functionManager.getFunction(functionID)
-        stepLabel = func.name
         funcIconName.functionType = func.type
     }
 
@@ -177,7 +175,7 @@ Rectangle
             width: col2Width
             height: 35
             anchors.verticalCenter: parent.verticalCenter
-            tLabel: stepLabel
+            tLabel: func ? func.name : ""
             tLabelColor: stepDelegate.labelColor
         }
         Rectangle { visible: showFunctionName; height: parent.height; width: 1; color: UISettings.fgMedium }

@@ -1,4 +1,4 @@
-version: 4.12.5.{build}
+version: 4.12.7.{build}
 
 image: Visual Studio 2019
 
@@ -17,15 +17,16 @@ install:
     #- pacman --noconfirm -Sy
     #- pacman --noconfirm --needed -S pacman-mirrors
     - pacman --noconfirm -Syu
-    - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
-    #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz -P /c/projects
-    #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz -P /c/projects
-    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.14.2-3-any.pkg.tar.zst -P /c/projects
+    - pacman --noconfirm --needed -Sy mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-libusb
+    - pacman --noconfirm --needed -Sy mingw32/mingw-w64-i686-qt5 unzip mingw32/mingw-w64-i686-nsis
+    #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-11.3.0-2-any.pkg.tar.zst -P /c/projects
+    #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-11.3.0-2-any.pkg.tar.zst -P /c/projects
+    #- wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst -P /c/projects
     #- pacman --noconfirm -Rdd mingw-w64-i686-gcc
     #- pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
-    #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz
-    #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.14.2-3-any.pkg.tar.zst
+    #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-11.3.0-2-any.pkg.tar.zst
+    #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-11.3.0-2-any.pkg.tar.zst
+    #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
 
 build_script:
     - ps: >-
@@ -44,7 +45,12 @@ build_script:
           cd i386
           gendef.exe - ftd2xx.dll > ftd2xx.def
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
+          # patch Qt 5.15.x to build with GCC 12
+          cd /c/msys64/mingw32/include/
+          sed -i -e 's/friend Q_CORE_EXPORT uint qHash/\/\/friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
+          sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==/\/\/friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
           cd /c/projects/qlcplus
+          sed -i -e 's/QMAKE_CXXFLAGS += -Werror/QMAKE_CXXFLAGS += -Werror -Wno-error=attributes/g' variables.pri
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
@@ -59,6 +65,7 @@ build_script:
           cp *.qm /c/qlcplus
           cd /c/qlcplus
           sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
+          echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
           #set CURRDATE=`date +%Y%m%d`
           mv QLC+_*.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe
@@ -68,4 +75,4 @@ build_script:
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
-    name: qlcplus_4_12_5
+    name: qlcplus_4_12_7

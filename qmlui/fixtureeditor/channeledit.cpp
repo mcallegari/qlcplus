@@ -19,7 +19,6 @@
 
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
-#include "qlcchannel.h"
 
 #include "channeledit.h"
 

@@ -52,17 +52,17 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPad "XYPad"
-#define KXMLQLCVCXYPadPan "Pan"
-#define KXMLQLCVCXYPadTilt "Tilt"
-#define KXMLQLCVCXYPadWidth "Width"
-#define KXMLQLCVCXYPadHeight "Height"
-#define KXMLQLCVCXYPadPosition "Position"
-#define KXMLQLCVCXYPadRangeWindow "Window"
-#define KXMLQLCVCXYPadRangeHorizMin "hMin"
-#define KXMLQLCVCXYPadRangeHorizMax "hMax"
-#define KXMLQLCVCXYPadRangeVertMin "vMin"
-#define KXMLQLCVCXYPadRangeVertMax "vMax"
+#define KXMLQLCVCXYPad              QString("XYPad")
+#define KXMLQLCVCXYPadPan           QString("Pan")
+#define KXMLQLCVCXYPadTilt          QString("Tilt")
+#define KXMLQLCVCXYPadWidth         QString("Width")
+#define KXMLQLCVCXYPadHeight        QString("Height")
+#define KXMLQLCVCXYPadPosition      QString("Position")
+#define KXMLQLCVCXYPadRangeWindow   QString("Window")
+#define KXMLQLCVCXYPadRangeHorizMin QString("hMin")
+#define KXMLQLCVCXYPadRangeHorizMax QString("hMax")
+#define KXMLQLCVCXYPadRangeVertMin  QString("vMin")
+#define KXMLQLCVCXYPadRangeVertMax  QString("vMax")
 
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy

@@ -46,7 +46,7 @@ QtObject
     property color activeDropArea:   "#9DFF52"
     property color borderColorDark:  "#111"
 
-    property color toolbarStartMain: "#1a1a1a"
+    property color toolbarStartMain: "#222"
     property color toolbarStartSub:  "#333"
     property color toolbarEnd:       "#111"
     property color toolbarHoverStart:"#444"

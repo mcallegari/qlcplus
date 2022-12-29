@@ -31,7 +31,7 @@ class Doc;
  * @{
  */
 
-#define KXMLShowFunction "ShowFunction"
+#define KXMLShowFunction QString("ShowFunction")
 
 class ShowFunction: public QObject
 {

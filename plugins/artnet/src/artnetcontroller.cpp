@@ -29,11 +29,11 @@
 
 #define _DEBUG_RECEIVED_PACKETS 0
 
-ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
+ArtNetController::ArtNetController(QNetworkInterface const& iface, QNetworkAddressEntry const& address,
                                    QSharedPointer<QUdpSocket> const& udpSocket,
                                    quint32 line, QObject *parent)
     : QObject(parent)
-    , m_interface(interface)
+    , m_interface(iface)
     , m_address(address)
     , m_ipAddr(address.ip())
     , m_packetSent(0)
@@ -51,7 +51,7 @@ ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkA
     else
     {
         m_broadcastAddr = address.broadcast();
-        m_MACAddress = interface.hardwareAddress();
+        m_MACAddress = iface.hardwareAddress();
     }
 
     qDebug() << "[ArtNetController] IP Address:" << m_ipAddr.toString() << " Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
@@ -467,9 +467,6 @@ bool ArtNetController::handleArtNetRDM(const QByteArray &datagram, const QHostAd
 
 bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
 {
-    if (senderAddress.toIPv4Address() == m_ipAddr.toIPv4Address())
-        return false;
-
 #if _DEBUG_RECEIVED_PACKETS
     qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
 #endif

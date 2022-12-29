@@ -141,7 +141,7 @@ void Monitor::initDMXView()
     m_monitorWidget->setBackgroundRole(QPalette::Dark);
     m_monitorLayout = new MonitorLayout(m_monitorWidget);
     m_monitorLayout->setSpacing(1);
-    m_monitorLayout->setMargin(1);
+    m_monitorLayout->setContentsMargins(1, 1, 1, 1);
 
     m_scrollArea->setWidget(m_monitorWidget);
 

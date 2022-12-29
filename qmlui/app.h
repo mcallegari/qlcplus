@@ -45,7 +45,7 @@ class VideoProvider;
 class FixtureEditor;
 class Tardis;
 
-#define KXMLQLCWorkspace "Workspace"
+#define KXMLQLCWorkspace QString("Workspace")
 
 class App : public QQuickView
 {
@@ -56,6 +56,7 @@ class App : public QQuickView
     Q_PROPERTY(QStringList recentFiles READ recentFiles NOTIFY recentFilesChanged)
     Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
     Q_PROPERTY(int accessMask READ accessMask WRITE setAccessMask NOTIFY accessMaskChanged)
+    Q_PROPERTY(int runningFunctionsCount READ runningFunctionsCount NOTIFY runningFunctionsCountChanged)
 
     Q_PROPERTY(QString appName READ appName CONSTANT)
     Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
@@ -94,6 +95,23 @@ public:
         WidgetDragItem
     };
     Q_ENUM(DragItemTypes)
+
+    enum ChannelType
+    {
+        DimmerType      = (1 << QLCChannel::Intensity),
+        ColorMacroType  = (1 << QLCChannel::Colour), // Color wheels, color macros
+        GoboType        = (1 << QLCChannel::Gobo),
+        SpeedType       = (1 << QLCChannel::Speed),
+        PanType         = (1 << QLCChannel::Pan),
+        TiltType        = (1 << QLCChannel::Tilt),
+        ShutterType     = (1 << QLCChannel::Shutter),
+        PrismType       = (1 << QLCChannel::Prism),
+        BeamType        = (1 << QLCChannel::Beam),
+        EffectType      = (1 << QLCChannel::Effect),
+        MaintenanceType = (1 << QLCChannel::Maintenance),
+        ColorType       = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
+    };
+    Q_ENUM(ChannelType)
 
     enum ChannelColors
     {
@@ -166,7 +184,7 @@ signals:
     void accessMaskChanged(int mask);
 
 private:
-    /** The number of pixels in one millimiter */
+    /** The number of pixels in one millimeter */
     qreal m_pixelDensity;
 
     /** Bitmask to enable/disable UI functionalities */
@@ -193,13 +211,23 @@ private:
      * Doc
      *********************************************************************/
 public:
-    void clearDocument();
-
+    /** Return a reference to the Doc instance */
     Doc *doc();
 
-    bool docLoaded() { return m_docLoaded; }
+    /** Return if the current Doc instance has been loaded */
+    bool docLoaded();
 
+    /** Return the Doc instance modified flag */
     bool docModified() const;
+
+    /** Reset the currently loaded Doc instance */
+    void clearDocument();
+
+    /** Return the number of currently running Functions */
+    int runningFunctionsCount() const;
+
+    /** Stop all the currently running Functions */
+    Q_INVOKABLE void stopAllFunctions();
 
 private:
     void initDoc();
@@ -207,6 +235,7 @@ private:
 signals:
     void docLoadedChanged();
     void docModifiedChanged();
+    void runningFunctionsCountChanged();
 
 private:
     Doc *m_doc;

@@ -155,7 +155,10 @@ Rectangle
                         }
 
                         if (fxDeleteList.length)
+                        {
+                            contextManager.resetFixtureSelection()
                             fixtureManager.deleteFixtures(fxDeleteList)
+                        }
 
                         if (fxGroupDeleteList.length)
                             fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
@@ -341,7 +344,7 @@ Rectangle
             color: UISettings.bgMain
             radius: 5
             border.width: 2
-            border.color: "#111"
+            border.color: UISettings.borderColorDark
 
             TextInput
             {
@@ -397,7 +400,7 @@ Rectangle
                             if (type)
                             {
                                 item.itemType = type
-                                if (type == App.UniverseDragItem)
+                                if (type === App.UniverseDragItem)
                                     isExpanded = true
                             }
                             item.isExpanded = isExpanded
@@ -411,7 +414,7 @@ Rectangle
                     {
                         target: item
 
-                        onMouseEvent:
+                        function onMouseEvent(type, iID, iType, qItem, mouseMods)
                         {
                             switch (type)
                             {
@@ -440,7 +443,7 @@ Rectangle
                                     }
                                 break;
                                 case App.Clicked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
@@ -479,7 +482,7 @@ Rectangle
                                         fgmContainer.doubleClicked(iID, qItem.itemType)
                                 break;
                                 case App.DragStarted:
-                                    if (qItem == item && !model.isSelected)
+                                    if (qItem === item && !model.isSelected)
                                     {
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection

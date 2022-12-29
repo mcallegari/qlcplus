@@ -20,7 +20,6 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QInputDialog>
 #include <QColorDialog>
@@ -45,11 +44,9 @@
 #include "addvcslidermatrix.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
-#include "dmxdumpfactory.h"
 #include "vcproperties.h"
 #include "vcspeeddial.h"
 #include "vcsoloframe.h"
-#include "mastertimer.h"
 #include "vcdockarea.h"
 #include "vccuelist.h"
 #include "vcbutton.h"
@@ -144,7 +141,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
 
     /* Main layout */
     new QHBoxLayout(this);
-    layout()->setMargin(1);
+    layout()->setContentsMargins(1, 1, 1, 1);
     layout()->setSpacing(1);
 
     initActions();

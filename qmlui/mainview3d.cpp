@@ -28,9 +28,13 @@
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DCore/QNode>
-#include <Qt3DRender/QGeometry>
-#include <Qt3DRender/QAttribute>
-#include <Qt3DRender/QBuffer>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include <Qt3DRender/QGeometry>
+ #include <Qt3DRender/QAttribute>
+ #include <Qt3DRender/QBuffer>
+#else
+ #include <Qt3DCore/QAttribute>
+#endif
 #include <Qt3DRender/QParameter>
 #include <Qt3DExtras/QPhongMaterial>
 
@@ -38,6 +42,7 @@
 #include "tardis.h"
 #include "qlcfile.h"
 #include "qlcconfig.h"
+#include "listmodel.h"
 #include "mainview3d.h"
 #include "fixtureutils.h"
 #include "qlccapability.h"
@@ -80,6 +85,11 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     // the order of StageType enum in MonitorProperties class
     m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage") << tr("Theatre stage");
     m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml" << "qrc:/StageTheatre.qml";
+
+    m_genericItemsList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "itemID" << "name" << "isSelected";
+    m_genericItemsList->setRoleNames(listRoles);
 }
 
 MainView3D::~MainView3D()
@@ -568,6 +578,9 @@ void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
 
     meshRef->m_rootItem->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
     meshRef->m_selectionBox->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
+
+    meshRef->m_rootItem->setProperty("invertedPan", (flags & MonitorProperties::InvertedPanFlag) ? true : false);
+    meshRef->m_rootItem->setProperty("invertedTilt", (flags & MonitorProperties::InvertedTiltFlag) ? true : false);
 }
 
 Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
@@ -637,7 +650,7 @@ void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
 
     if (!meshGeometry)
         return;
-
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     Qt3DRender::QAttribute *vPosAttribute = nullptr;
     for (Qt3DRender::QAttribute *attribute : meshGeometry->attributes())
     {
@@ -647,6 +660,17 @@ void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
             break;
         }
     }
+#else
+    Qt3DCore::QAttribute *vPosAttribute = nullptr;
+    for (Qt3DCore::QAttribute *attribute : meshGeometry->attributes())
+    {
+        if (attribute->name() == Qt3DCore::QAttribute::defaultPositionAttributeName())
+        {
+            vPosAttribute = attribute;
+            break;
+        }
+    }
+#endif
     if (vPosAttribute)
     {
         const float *bufferPtr =
@@ -720,7 +744,7 @@ void MainView3D::addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D m
                                            vminY + meshRef->m_volume.m_extents.y() / 2.0f,
                                            vminZ + meshRef->m_volume.m_extents.z() / 2.0f);
 
-    qDebug() << "-- extent" << meshRef->m_volume.m_extents << "-- center" << meshRef->m_volume.m_center;
+    //qDebug() << "-- extent" << meshRef->m_volume.m_extents << "-- center" << meshRef->m_volume.m_center;
 }
 
 QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
@@ -1012,6 +1036,12 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         meshRef->m_selectionBox->setProperty("enabled", false);
     }
 
+    if (itemFlags & MonitorProperties::InvertedPanFlag)
+        meshRef->m_rootItem->setProperty("invertedPan", true);
+
+    if (itemFlags & MonitorProperties::InvertedTiltFlag)
+        meshRef->m_rootItem->setProperty("invertedTilt", true);
+
     m_createItemCount--;
 
     // Update the Scene Graph only when the last fixture has been added to the Scene
@@ -1145,7 +1175,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Speed:
             {
-                if (previous.count() && value == uchar(previous.at(i)))
+                if (previous.length() && value == uchar(previous.at(i)))
                     break;
 
                 int panSpeed, tiltSpeed;
@@ -1181,7 +1211,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Beam:
             {
-                if (previous.count() && value == uchar(previous.at(i)))
+                if (previous.length() && value == uchar(previous.at(i)))
                     break;
 
                 switch (ch->preset())
@@ -1199,7 +1229,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Gobo:
             {
-                if (previous.count() && value == uchar(previous.at(i)))
+                if (previous.length() && value == uchar(previous.at(i)))
                     break;
 
                 QLCCapability *cap = ch->searchCapability(value);
@@ -1243,7 +1273,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Shutter:
             {
-                if (previous.count() && value == uchar(previous.at(i)))
+                if (previous.length() && value == uchar(previous.at(i)))
                     break;
 
                 int high = 200, low = 800;
@@ -1274,9 +1304,12 @@ void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
     {
         it.next();
         quint32 fxID = it.key();
-        SceneItem *meshRef = m_entitiesMap.value(fxID);
+        SceneItem *meshRef = m_entitiesMap.value(fxID, nullptr);
 
-        if(fixtures.contains(fxID))
+        if (meshRef == nullptr || meshRef->m_rootItem == nullptr)
+            return;
+
+        if (fixtures.contains(fxID))
         {
             meshRef->m_rootItem->setProperty("isSelected", true);
             meshRef->m_selectionBox->setProperty("isSelected", true);
@@ -1294,7 +1327,7 @@ void MainView3D::updateFixtureSelection(quint32 itemID, bool enable)
     qDebug() << "[View3D] item" << itemID << "selected:" << enable;
 
     SceneItem *meshRef = m_entitiesMap.value(itemID, nullptr);
-    if (meshRef)
+    if (meshRef && meshRef->m_rootItem)
     {
         meshRef->m_rootItem->setProperty("isSelected", enable);
         meshRef->m_selectionBox->setProperty("isSelected", enable);
@@ -1547,9 +1580,10 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     // Walk through the scene tree and add each mesh to the deferred pipeline.
     // If needed, calculate also the bounding volume */
-    /*QEntity *baseItem =*/ inspectEntity(root, meshRef, sceneDeferredLayer, sceneEffect, calculateVolume, translation);
+    inspectEntity(root, meshRef, sceneDeferredLayer, sceneEffect, calculateVolume, translation);
 
-    qDebug() << "Calculated volume" << meshRef->m_volume.m_extents << meshRef->m_volume.m_center;
+    qDebug() << "Calculated volume:" << meshRef->m_volume.m_extents << ", center:" << meshRef->m_volume.m_center;
+    qDebug() << "Translation:" << translation;
 
     if (calculateVolume)
         m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
@@ -1580,6 +1614,7 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     itemEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     itemEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
+    updateGenericItemsList();
 }
 
 void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
@@ -1636,6 +1671,58 @@ void MainView3D::removeSelectedGenericItems()
     }
     m_genericSelectedItems.clear();
     emit genericSelectedCountChanged();
+    updateGenericItemsList();
+}
+
+void MainView3D::normalizeSelectedGenericItems()
+{
+    for (int id : m_genericSelectedItems)
+    {
+        SceneItem *meshRef = m_genericMap.value(id, nullptr);
+        if (meshRef)
+        {
+            // adjust the item scale to target size
+            float factor = 1.0;
+            float targetSize = 2.0;
+
+            if (targetSize / meshRef->m_volume.m_extents.x() < factor)
+                factor = targetSize / meshRef->m_volume.m_extents.x();
+
+            if (targetSize / meshRef->m_volume.m_extents.y() < factor)
+                factor = targetSize / meshRef->m_volume.m_extents.y();
+
+            if (targetSize / meshRef->m_volume.m_extents.z() < factor)
+                factor = targetSize / meshRef->m_volume.m_extents.z();
+
+            updateGenericItemScale(id, QVector3D(factor, factor, factor));
+
+            // adjust the item position to scene origin
+            updateGenericItemPosition(id, QVector3D(meshRef->m_volume.m_center.x() * -1000.0,
+                                                    meshRef->m_volume.m_center.y() * -1000.0,
+                                                    meshRef->m_volume.m_center.z() * -1000.0));
+        }
+    }
+}
+
+void MainView3D::updateGenericItemsList()
+{
+    m_genericItemsList->clear();
+
+    for (quint32 itemID : m_monProps->genericItemsID())
+    {
+        QVariantMap itemMap;
+        itemMap.insert("itemID", itemID);
+        itemMap.insert("name", m_monProps->itemName(itemID));
+        itemMap.insert("isSelected", false);
+        m_genericItemsList->addDataMap(itemMap);
+    }
+
+    emit genericItemsListChanged();
+}
+
+QVariant MainView3D::genericItemsList() const
+{
+    return QVariant::fromValue(m_genericItemsList);
 }
 
 void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos)

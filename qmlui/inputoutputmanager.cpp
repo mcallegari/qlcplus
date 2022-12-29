@@ -24,8 +24,13 @@
 #include "inputoutputmanager.h"
 #include "monitorproperties.h"
 #include "audioplugincache.h"
-#include "audiorenderer_qt.h"
-#include "audiocapture_qt.h"
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "audiorenderer_qt5.h"
+ #include "audiocapture_qt5.h"
+#else
+#include "audiorenderer_qt6.h"
+#include "audiocapture_qt6.h"
+#endif
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"

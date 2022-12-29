@@ -149,7 +149,7 @@ QString QLCFile::currentUserName()
     DWORD length = UNLEN + 1;
     TCHAR name[length];
     if (GetUserName(name, &length))
-        return QString::fromUtf16((ushort*) name);
+        return QString::fromUtf16(reinterpret_cast<char16_t*>(name));
     else
         return QString("Unknown windows user");
 #else
@@ -224,7 +224,7 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
     LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
     dir.setPath(QString("%1/%2")
-                    .arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
+                    .arg(QString::fromUtf16(reinterpret_cast<char16_t*>(home)))
                     .arg(path));
     free(home);
 #endif

@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-!qmlui: APPVERSION = 4.12.5 GIT
+!qmlui: APPVERSION = 4.12.7 GIT
 qmlui:  APPVERSION = 5.0.0 Beta 2
 
 # Disable these if you don't want to see GIT short hash in the About Box
@@ -57,10 +57,7 @@ unix:OLA_GIT    = /usr/src/ola    # OLA directories
 #macx:CONFIG   += x86 ppc  # Build universal binaries (Leopard only)
 macx:CONFIG    -= app_bundle # Let QLC+ construct the .app bundle
 macx:QMAKE_STRIP = strip -x
-# Qt 5.5 and above
-greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
-  macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
-}
+macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 
 # Produce build targets to the source directory
 win32:DESTDIR  = ./

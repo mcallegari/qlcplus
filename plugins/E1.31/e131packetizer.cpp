@@ -72,10 +72,22 @@ E131Packetizer::E131Packetizer(QString MACaddr)
     m_commonHeader.append((char)0x19);
 
     QStringList MAC = MACaddr.split(":");
-    foreach (QString couple, MAC)
+    if (MAC.length() == 6)
     {
-        bool ok;
-        m_commonHeader.append((char)couple.toInt(&ok, 16));
+        foreach (QString couple, MAC)
+        {
+            bool ok;
+            m_commonHeader.append((char)couple.toInt(&ok, 16));
+        }
+    }
+    else
+    {
+        m_commonHeader.append((char)0x31);
+        m_commonHeader.append((char)0x7A);
+        m_commonHeader.append((char)0x07);
+        m_commonHeader.append((char)0xC1);
+        m_commonHeader.append((char)0x00);
+        m_commonHeader.append((char)0x52);
     }
 
     // empty flags & PDU length (bytes 38-39)
@@ -157,10 +169,10 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const i
 
     data.append(values);
 
-    int rootLayerSize = data.count() - 16;
-    int e131LayerSize = data.count() - 38;
-    int dmpLayerSize = data.count() - 115;
-    int valCountPlusOne = values.count() + 1;
+    int rootLayerSize = data.length() - 16;
+    int e131LayerSize = data.length() - 38;
+    int dmpLayerSize = data.length() - 115;
+    int valCountPlusOne = values.length() + 1;
 
     data[16] = 0x70 | (char)(rootLayerSize >> 8);
     data[17] = (char)(rootLayerSize & 0x00FF);
@@ -193,11 +205,14 @@ bool E131Packetizer::checkPacket(QByteArray &data)
     if (data.length() < 125)
         return false;
 
-    if (data[4] != (char)0x41 || data[5] != (char)0x53 || data[6] != (char)0x43 ||
-        data[7] != (char)0x2D || data[8] != (char)0x45 || data[9] != (char)0x31 ||
-        data[10] != (char)0x2E || data[11] != (char)0x31 || data[12] != (char)0x37 ||
+    // check ACN packet identifier
+    if (data[4] != 'A' || data[5] != 'S' || data[6] != 'C' ||
+        data[7] != '-' || data[8] != 'E' || data[9] != '1' ||
+        data[10] != '.' || data[11] != '1' || data[12] != '7' ||
         data[13] != (char)0x00 || data[14] != (char)0x00 || data[15] != (char)0x00)
             return false;
+
+    // check streaming DMX vector
     if (data[40] != (char)0x00 || data[41] != (char)0x00 || data[42] != (char)0x00 || data[43] != (char)0x02)
         return false;
 
@@ -217,13 +232,10 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &uni
     if (data[125] != (char)0x00)
         return false;
 
-    universe = (data[113] << 8) + data[114];
+    universe = (uchar(data[113]) << 8) + uchar(data[114]);
+    int length = (uchar(data[123]) << 8) + uchar(data[124]);
 
-    unsigned int msb = (data[123] & 0xff);
-    unsigned int lsb = (data[124] & 0xff);
-    int length = (msb << 8) | lsb;
-
-    qDebug() << "[E1.31 fillDMXdata] length: " << length - 1;
+    qDebug() << "[E1.31 fillDMXdata] universe:" << universe << ", length:" << length - 1;
 
     dmx.clear();
     dmx.append(data.mid(126, length - 1));
