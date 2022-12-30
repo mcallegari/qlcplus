@@ -293,7 +293,7 @@
  <Channel Name="Aura Red" Preset="IntensityRed"/>
  <Channel Name="Aura Green" Preset="IntensityGreen"/>
  <Channel Name="Aura Blue" Preset="IntensityBlue"/>
- <Mode Name="Extended">
+ <Mode Name="Extended Mode">
   <Channel Number="0">Beam electronic shutter effect</Channel>
   <Channel Number="1">Beam dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -337,7 +337,7 @@
    <Channel>23</Channel>
   </Head>
  </Mode>
- <Mode Name="Standard">
+ <Mode Name="Standard Mode">
   <Channel Number="0">Beam electronic shutter effect</Channel>
   <Channel Number="1">Beam dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
