@@ -88,7 +88,7 @@
   <Capability Min="81" Max="100">Theatre</Capability>
   <Capability Min="101" Max="255">Default to unit curve setting</Capability>
  </Channel>
- <Mode Name="9 Channel">
+ <Mode Name="9 Channel Mode">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colors</Channel>
@@ -99,7 +99,7 @@
   <Channel Number="7">Function</Channel>
   <Channel Number="8">Dimmer Curves</Channel>
  </Mode>
- <Mode Name="11 Channel">
+ <Mode Name="11 Channel Mode">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>

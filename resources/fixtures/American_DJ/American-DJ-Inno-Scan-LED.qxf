@@ -90,7 +90,7 @@
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter - Clockwise rotation Slow to Fast</Capability>
  </Channel>
  <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
- <Mode Name="8 Channel">
+ <Mode Name="8 Channel Mode">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -100,7 +100,7 @@
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">Reset / Blackout</Channel>
  </Mode>
- <Mode Name="11 Channel">
+ <Mode Name="11 Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="6.3" Width="208" Height="555" Depth="274"/>
