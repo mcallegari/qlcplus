@@ -76,7 +76,7 @@
   <Capability Min="10" Max="20" Preset="ResetAll">Reset after 5 seconds</Capability>
   <Capability Min="21" Max="255">No function</Capability>
  </Channel>
- <Mode Name="9 ch">
+ <Mode Name="Mode 1: dmx 9 ch mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="6000"/>
    <Dimensions Weight="5.8" Width="280" Height="374" Depth="150"/>
@@ -94,7 +94,7 @@
   <Channel Number="7">Gobo rotation</Channel>
   <Channel Number="8">Focus</Channel>
  </Mode>
- <Mode Name="12 ch">
+ <Mode Name="Mode 2: dmx 12 ch mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="6000"/>
    <Dimensions Weight="5.8" Width="280" Height="374" Depth="150"/>

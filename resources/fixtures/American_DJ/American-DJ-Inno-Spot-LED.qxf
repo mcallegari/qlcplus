@@ -88,7 +88,7 @@
   <Capability Min="0" Max="6">No effect</Capability>
   <Capability Min="7" Max="255">3 facet prism</Capability>
  </Channel>
- <Mode Name="10 channel">
+ <Mode Name="10 channel mode">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colours</Channel>

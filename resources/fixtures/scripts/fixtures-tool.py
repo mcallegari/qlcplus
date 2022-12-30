@@ -442,7 +442,7 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
 
         # better to skip this for now. Still too many errors
         qlc_version = getDefinitionVersion(xmlObj)
-        if qlc_version >= 41204 and 'mode' in modeName.lower():
+        if qlc_version >= 41207 and 'mode' in modeName.lower():
             print(absname + ":" + modeName + ": word 'mode' found in mode name (version " + str(qlc_version) +")")
             errNum += 1
 
