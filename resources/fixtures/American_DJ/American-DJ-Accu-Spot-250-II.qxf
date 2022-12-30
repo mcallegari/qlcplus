@@ -93,7 +93,7 @@
   <Capability Min="236" Max="245">Blackout By Wheel Movement</Capability>
   <Capability Min="246" Max="255">No function</Capability>
  </Channel>
- <Mode Name="8 Channel">
+ <Mode Name="8 Channel Mode">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -103,7 +103,7 @@
   <Channel Number="6">Lamp On/Off/Reset/Internal Programs</Channel>
   <Channel Number="7">Movement Speed</Channel>
  </Mode>
- <Mode Name="9 Channel">
+ <Mode Name="9 Channel Mode">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
