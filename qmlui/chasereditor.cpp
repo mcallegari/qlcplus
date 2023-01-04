@@ -159,27 +159,59 @@ bool ChaserEditor::moveSteps(QVariantList indicesList, int insertIndex)
         return false;
 
     QVector<int>sortedList;
+    bool firstDecreased = false;
 
     if (insertIndex == -1)
         insertIndex = m_chaser->stepsCount() - 1;
 
+    int insIdx = insertIndex;
+
     // create a list of ordered step indices
-    for (QVariant vIndex : indicesList)
+    for (QVariant &vIndex : indicesList)
     {
         int idx = vIndex.toInt();
         sortedList.append(idx);
     }
     std::sort(sortedList.begin(), sortedList.end());
 
-    for (int index : sortedList)
+    for (int i = 0; i < sortedList.count(); i++)
     {
-        qDebug() << "Moving step from" << index << "to" << insertIndex;
-        m_chaser->moveStep(index, insertIndex);
+        int index = sortedList.at(i);
+
+        // when moving an item down, every other step with index < destination
+        // needs to have their index decreased by one
+        if (index < insIdx)
+        {
+            if (firstDecreased == false)
+            {
+                insIdx--;
+                firstDecreased = true;
+            }
+
+            for (int j = i + 1; j < sortedList.count(); j++)
+                sortedList[j]--;
+            insertIndex--;
+        }
+
+        qDebug() << "Moving step from" << index << "to" << insIdx;
+        m_chaser->moveStep(index, insIdx);
+
+        if (index > insIdx)
+            insIdx++;
         // TODO: tardis
     }
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
+
+    QQuickItem *chaserWidget = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("chaserEditorWidget"));
+
+    for (int i = 0; i < indicesList.length(); i++)
+    {
+        QMetaObject::invokeMethod(chaserWidget, "selectStep",
+                Q_ARG(QVariant, insertIndex + i),
+                Q_ARG(QVariant, i == 0 ? false : true));
+    }
 
     return true;
 }
@@ -213,7 +245,7 @@ void ChaserEditor::setPlaybackIndex(int playbackIndex)
 
         if (currScene != nullptr)
         {
-            for(SceneValue scv : m_chaser->stepAt(playbackIndex)->values)
+            for (SceneValue &scv : m_chaser->stepAt(playbackIndex)->values)
                 currScene->setValue(scv);
         }
     }
@@ -483,7 +515,7 @@ void ChaserEditor::setTempoType(int tempoType)
     int beatDuration = m_doc->masterTimer()->beatTimeDuration();
     quint32 index = 0;
 
-    for (ChaserStep step : m_chaser->steps())
+    for (ChaserStep &step : m_chaser->steps())
     {
         UIntPair oldDuration(index, step.duration);
         UIntPair oldFadeIn(index, step.fadeIn);

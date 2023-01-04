@@ -146,6 +146,7 @@ Rectangle
             ChaserWidget
             {
                 id: chWidget
+                objectName: "chaserEditorWidget"
                 isSequence: ceContainer.isSequence
                 width: ceContainer.width
                 height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chModes.height
