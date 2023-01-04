@@ -516,7 +516,7 @@
   <Channel Number="34">Layer 3 Strobe Indexing Speed Nothing</Channel>
   <Channel Number="35">Layer 3 Strobe Fade</Channel>
  </Mode>
- <Mode Name="Pixels RGB">
+ <Mode Name="Pixels RGB mode">
   <Channel Number="0">Red led 1</Channel>
   <Channel Number="1">Green Led 1</Channel>
   <Channel Number="2">Blue Led 1</Channel>
@@ -550,7 +550,7 @@
    <Channel>11</Channel>
   </Head>
  </Mode>
- <Mode Name="Pixels RGBW">
+ <Mode Name="Pixels RGBW mode">
   <Channel Number="0">Red led 1</Channel>
   <Channel Number="1">Green Led 1</Channel>
   <Channel Number="2">Blue Led 1</Channel>
@@ -592,7 +592,7 @@
    <Channel>15</Channel>
   </Head>
  </Mode>
- <Mode Name="Pixels Strobe">
+ <Mode Name="Pixels Strobe mode">
   <Channel Number="0">White Led 1</Channel>
   <Channel Number="1">White Led 2</Channel>
   <Channel Number="2">White Led 3</Channel>
