@@ -206,7 +206,7 @@
   <Channel Number="15">Auto Program</Channel>
   <Channel Number="16">Pan/Tilt Macro</Channel>
   <Channel Number="17">Set dimmer curve</Channel>
-  <Channel Number="18">Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Program / Pan&amp;Tilt Macros)</Channel>
+  <Channel Number="18">Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Programs / Pan&amp;Tilt Macros)</Channel>
   <Channel Number="19">Device settings</Channel>
   <Channel Number="20">Dimmer Colour Ring</Channel>
   <Channel Number="21">Strobe Colour Ring</Channel>
