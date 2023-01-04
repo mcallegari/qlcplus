@@ -256,7 +256,7 @@
   <Capability Min="222" Max="228">Effect 29</Capability>
   <Capability Min="229" Max="235">Effect 30</Capability>
   <Capability Min="236" Max="242">Effect 31</Capability>
-  <Capability Min="243" Max="248">Effect 31</Capability>
+  <Capability Min="243" Max="248">Effect 32</Capability>
   <Capability Min="249" Max="255">Effect 33</Capability>
  </Channel>
  <Channel Name="Layer 2 Fade">
