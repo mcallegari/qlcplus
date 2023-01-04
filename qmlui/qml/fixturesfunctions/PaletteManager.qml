@@ -227,7 +227,7 @@ Rectangle
                           if ((mouse.modifiers & Qt.ControlModifier) == 0)
                               pDragItem.itemsList = []
 
-                          pDragItem.itemsList.push(pDelegate)
+                          pDragItem.itemsList = pmSelector.itemsList()
                       }
                       onDoubleClicked:
                       {
