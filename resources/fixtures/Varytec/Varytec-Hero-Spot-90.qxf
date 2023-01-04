@@ -33,15 +33,15 @@
  <Channel Name="Moving Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="32">Pan-Tilt auto programme 1</Capability>
-  <Capability Min="33" Max="58">Pan-Tilt auto programme 2</Capability>
-  <Capability Min="59" Max="84">Pan-Tilt auto programme 3</Capability>
-  <Capability Min="85" Max="110">Pan-Tilt auto programme 4</Capability>
-  <Capability Min="111" Max="136">Pan-Tilt auto programme 5</Capability>
-  <Capability Min="137" Max="162">Pan-Tilt auto programme 6</Capability>
-  <Capability Min="163" Max="188">Pan-Tilt auto programme 7</Capability>
-  <Capability Min="189" Max="214">Pan-Tilt auto programme 8</Capability>
-  <Capability Min="215" Max="240">Pan-Tilt auto programme 9</Capability>
+  <Capability Min="8" Max="32">Pan-Tilt auto program 1</Capability>
+  <Capability Min="33" Max="58">Pan-Tilt auto program 2</Capability>
+  <Capability Min="59" Max="84">Pan-Tilt auto program 3</Capability>
+  <Capability Min="85" Max="110">Pan-Tilt auto program 4</Capability>
+  <Capability Min="111" Max="136">Pan-Tilt auto program 5</Capability>
+  <Capability Min="137" Max="162">Pan-Tilt auto program 6</Capability>
+  <Capability Min="163" Max="188">Pan-Tilt auto program 7</Capability>
+  <Capability Min="189" Max="214">Pan-Tilt auto program 8</Capability>
+  <Capability Min="215" Max="240">Pan-Tilt auto program 9</Capability>
   <Capability Min="241" Max="255">Sound Control Pan/Tilt</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>

@@ -110,17 +110,17 @@
   <Capability Min="152" Max="159" Preset="ResetAll">All channels reset</Capability>
   <Capability Min="160" Max="255">Unused</Capability>
  </Channel>
- <Channel Name="Built in Programmes">
+ <Channel Name="Built in Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Unused</Capability>
-  <Capability Min="8" Max="23">Programme 1</Capability>
-  <Capability Min="24" Max="39">Programme 2</Capability>
-  <Capability Min="40" Max="55">Programme 3</Capability>
-  <Capability Min="56" Max="71">Programme 4</Capability>
-  <Capability Min="72" Max="87">Programme 5</Capability>
-  <Capability Min="88" Max="103">Programme 6</Capability>
-  <Capability Min="104" Max="119">Programme 7</Capability>
-  <Capability Min="120" Max="135">Programme 8</Capability>
+  <Capability Min="8" Max="23">Program 1</Capability>
+  <Capability Min="24" Max="39">Program 2</Capability>
+  <Capability Min="40" Max="55">Program 3</Capability>
+  <Capability Min="56" Max="71">Program 4</Capability>
+  <Capability Min="72" Max="87">Program 5</Capability>
+  <Capability Min="88" Max="103">Program 6</Capability>
+  <Capability Min="104" Max="119">Program 7</Capability>
+  <Capability Min="120" Max="135">Program 8</Capability>
   <Capability Min="136" Max="151">Sound-control 1</Capability>
   <Capability Min="152" Max="167">Sound-control 2</Capability>
   <Capability Min="168" Max="183">Sound-control 3</Capability>
@@ -154,7 +154,7 @@
   <Channel Number="8">Gobo Wheel</Channel>
   <Channel Number="9">Gobo Rotation</Channel>
   <Channel Number="10">Special Functions</Channel>
-  <Channel Number="11">Built in Programmes</Channel>
+  <Channel Number="11">Built in Programs</Channel>
   <Channel Number="12">Prism</Channel>
   <Channel Number="13">Sharpness</Channel>
  </Mode>

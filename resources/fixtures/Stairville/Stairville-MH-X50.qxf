@@ -97,7 +97,7 @@
   <Capability Min="152" Max="159" Preset="ResetAll">Reset all channels</Capability>
   <Capability Min="160" Max="255">Unused</Capability>
  </Channel>
- <Channel Name="Built-in programmes">
+ <Channel Name="Built-in programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Unused</Capability>
   <Capability Min="8" Max="23">Program 1</Capability>
@@ -146,7 +146,7 @@
   <Channel Number="8">Gobo Wheel</Channel>
   <Channel Number="9">Gobo rotation</Channel>
   <Channel Number="10">Special functions</Channel>
-  <Channel Number="11">Built-in programmes</Channel>
+  <Channel Number="11">Built-in programs</Channel>
   <Channel Number="12">Prism</Channel>
   <Channel Number="13">Focus</Channel>
  </Mode>

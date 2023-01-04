@@ -19,7 +19,7 @@
   <Capability Min="40" Max="47">Constant unicoloured pattern in blue</Capability>
   <Capability Min="48" Max="55">Constant unicoloured pattern in blue and red</Capability>
   <Capability Min="56" Max="63">Constant unicoloured pattern in red, green and blue</Capability>
-  <Capability Min="64" Max="231" Preset="Alias">Built-in automatic show programmes
+  <Capability Min="64" Max="231" Preset="Alias">Built-in automatic show programs
    <Alias Mode="2 Channel" Channel="No function" With="Speed"/>
   </Capability>
   <Capability Min="232" Max="255" Preset="Alias">Sound-controlled show
