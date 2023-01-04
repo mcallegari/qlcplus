@@ -177,7 +177,7 @@
   <Capability Min="230" Max="239" Preset="LampOff">Lamp off</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
- <Mode Name="1">
+ <Mode Name="Mode 1">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Fine Pan</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -194,7 +194,7 @@
   <Channel Number="13">Frost</Channel>
   <Channel Number="14">Control</Channel>
  </Mode>
- <Mode Name="2">
+ <Mode Name="Mode 2">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Fine Pan</Channel>
   <Channel Number="2">Tilt</Channel>
