@@ -46,12 +46,12 @@
   <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="7" Max="12" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="13" Max="18" Preset="ColorMacro" Res1="#00ffb6">Aqua Marine</Capability>
-  <Capability Min="19" Max="25" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="19" Max="25" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="26" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="32" Max="37" Preset="ColorMacro" Res1="#ffaa00">CTO 8000K</Capability>
   <Capability Min="38" Max="44" Preset="ColorMacro" Res1="#ffff67">CTO 5600K</Capability>
   <Capability Min="45" Max="50" Preset="ColorMacro" Res1="#ffffd0">CTO 3200K</Capability>
-  <Capability Min="51" Max="56" Preset="ColorMacro" Res1="#00ff7f">Lime Green</Capability>
+  <Capability Min="51" Max="56" Preset="ColorMacro" Res1="#32cd32">Lime Green</Capability>
   <Capability Min="57" Max="63" Preset="ColorMacro" Res1="#55007f">UV</Capability>
   <Capability Min="64" Max="127" Preset="RotationIndexed">Color Index</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Clockwise color wheel rotation (fast-&gt;slow)</Capability>

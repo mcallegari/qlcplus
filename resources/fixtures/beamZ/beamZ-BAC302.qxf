@@ -48,7 +48,7 @@
   <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
   <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa55ff">UV</Capability>
-  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#f9f06b">Yellow</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#ff8c00">Dark orange</Capability>
