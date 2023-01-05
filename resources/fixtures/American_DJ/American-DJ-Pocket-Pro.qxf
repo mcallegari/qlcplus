@@ -26,7 +26,7 @@
   <Capability Min="57" Max="66" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White &amp; Red</Capability>
   <Capability Min="67" Max="76" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red &amp; Orange</Capability>
   <Capability Min="77" Max="86" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffff00">Orange &amp; Yellow</Capability>
-  <Capability Min="88" Max="96" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow &amp; Green</Capability>
+  <Capability Min="87" Max="96" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow &amp; Green</Capability>
   <Capability Min="97" Max="106" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green &amp; UV</Capability>
   <Capability Min="107" Max="116" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#00aaff">UV &amp; Light Blue</Capability>
   <Capability Min="117" Max="127" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ffaaff">Light Blue &amp; Pink</Capability>
@@ -58,7 +58,7 @@
  </Channel>
  <Channel Name="Pan/Tilt Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Macro 1</Capability>
   <Capability Min="16" Max="23">Macro 2</Capability>
   <Capability Min="24" Max="31">Macro 3</Capability>
@@ -121,16 +121,16 @@
  <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Enable Blackout w pan/tilt</Capability>
   <Capability Min="80" Max="89">Disable Blackout w pan/tilt</Capability>
   <Capability Min="90" Max="99">Target Mode 1 (0-180 deg)</Capability>
   <Capability Min="100" Max="109">Target Mode 2 (90 deg - 270 deg)</Capability>
   <Capability Min="110" Max="119">Target Mode 3 (180 deg - 360 deg)</Capability>
   <Capability Min="120" Max="129">Target Mode 4 (270 deg - 540 deg)</Capability>
-  <Capability Min="130" Max="199">No Function</Capability>
+  <Capability Min="130" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All</Capability>
-  <Capability Min="210" Max="255">No Function</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
  </Channel>
  <Mode Name="11 Channel">
   <Channel Number="0">Pan</Channel>

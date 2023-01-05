@@ -134,7 +134,7 @@
   <Capability Min="85" Max="89" Preset="ResetPrism">Reset prism</Capability>
   <Capability Min="90" Max="99" Preset="ResetAll">Reset channels</Capability>
   <Capability Min="100" Max="129">Free</Capability>
-  <Capability Min="130" Max="192">Random programme sequence</Capability>
+  <Capability Min="130" Max="192">Random program sequence</Capability>
   <Capability Min="193" Max="255">Sound-control</Capability>
  </Channel>
  <Channel Name="Effects">

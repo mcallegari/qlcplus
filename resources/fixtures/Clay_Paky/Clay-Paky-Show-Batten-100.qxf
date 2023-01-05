@@ -32,13 +32,14 @@
   <Capability Min="238" Max="250" Preset="StrobeRandom">Random Strobe Fast</Capability>
   <Capability Min="251" Max="255" Preset="ShutterOpen">Light on</Capability>
  </Channel>
- <Channel Name="Macro Colordark Pink">
+ <Channel Name="Macro Color">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Unused range</Capability>
   <Capability Min="10" Max="10">Red</Capability>
   <Capability Min="11" Max="11">Green</Capability>
   <Capability Min="12" Max="12">Blue</Capability>
   <Capability Min="13" Max="13">Cyan</Capability>
+  <Capability Min="14" Max="14">Yellow</Capability>
   <Capability Min="15" Max="15">Magenta</Capability>
   <Capability Min="16" Max="16">White 7000K</Capability>
   <Capability Min="17" Max="17">White 3700K</Capability>
@@ -150,7 +151,7 @@
   <Channel Number="4">CTO</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Strobe</Channel>
-  <Channel Number="7">Macro Colordark Pink</Channel>
+  <Channel Number="7">Macro Color</Channel>
   <Channel Number="8">Zoom</Channel>
   <Channel Number="9">Tilt</Channel>
   <Channel Number="10">Red 1</Channel>
@@ -262,7 +263,7 @@
   <Channel Number="4">CTO</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Strobe</Channel>
-  <Channel Number="7">Macro Colordark Pink</Channel>
+  <Channel Number="7">Macro Color</Channel>
   <Channel Number="8">Zoom</Channel>
   <Channel Number="9">Tilt</Channel>
  </Mode>

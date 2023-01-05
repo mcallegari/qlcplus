@@ -32,8 +32,8 @@
   <Capability Min="85" Max="98">Gobo 6</Capability>
   <Capability Min="99" Max="112">Gobo 7</Capability>
   <Capability Min="113" Max="127">Gobo 8</Capability>
-  <Capability Min="129" Max="191">Rainbow CW speed</Capability>
-  <Capability Min="192" Max="255">Rainbow CCW speed</Capability>
+  <Capability Min="128" Max="191">Gobo Change, fast to slow</Capability>
+  <Capability Min="192" Max="255">Gobo Change, slow to fast</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>

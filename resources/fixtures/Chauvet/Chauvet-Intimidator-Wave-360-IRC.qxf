@@ -71,7 +71,7 @@
  <Channel Name="Head 4 White Dimmer" Preset="IntensityWhite"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Color 1</Capability>
   <Capability Min="16" Max="23">Color 2</Capability>
   <Capability Min="24" Max="31">Color 3</Capability>
@@ -87,11 +87,11 @@
   <Capability Min="104" Max="111">Color 13</Capability>
   <Capability Min="112" Max="119">Color 14</Capability>
   <Capability Min="120" Max="127">Color 15</Capability>
-  <Capability Min="128" Max="179">No Function</Capability>
+  <Capability Min="128" Max="179">No function</Capability>
   <Capability Min="180" Max="201" Preset="GoboMacro" Res1="Others/rainbow.png">Fade rainbow clockwise (speed fast to slow)</Capability>
   <Capability Min="202" Max="207">Stop</Capability>
   <Capability Min="208" Max="229" Preset="GoboMacro" Res1="Others/rainbow.png">Fade rainbow counter-clockwise (speed fast to slow)</Capability>
-  <Capability Min="230" Max="234">No Function</Capability>
+  <Capability Min="230" Max="234">No function</Capability>
   <Capability Min="235" Max="249">Snap change (speed fast to slow)</Capability>
   <Capability Min="250" Max="255">Sound color</Capability>
  </Channel>
@@ -132,7 +132,7 @@
  </Channel>
  <Channel Name="Auto Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="20">Program 1</Capability>
   <Capability Min="21" Max="25">Program 2</Capability>
   <Capability Min="26" Max="30">Program 3</Capability>
@@ -214,7 +214,7 @@
  </Channel>
  <Channel Name="Settings">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Move-in-black</Capability>
   <Capability Min="15" Max="19">Cancel move-in-black</Capability>
   <Capability Min="20" Max="24">Independent macros – cancels macro product combinations below</Capability>
@@ -242,7 +242,7 @@
   <Capability Min="130" Max="134">Reserved for future use</Capability>
   <Capability Min="135" Max="139">Reserved for future use</Capability>
   <Capability Min="140" Max="144">Reserved for future use</Capability>
-  <Capability Min="145" Max="255">No Function</Capability>
+  <Capability Min="145" Max="255">No function</Capability>
  </Channel>
  <Mode Name="33 ch.">
   <Channel Number="0">Pan</Channel>

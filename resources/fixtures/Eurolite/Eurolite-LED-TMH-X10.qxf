@@ -82,7 +82,7 @@
  </Channel>
  <Channel Name="Frost">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127">No Function</Capability>
+  <Capability Min="0" Max="127">No function</Capability>
   <Capability Min="128" Max="255">Frost Effect</Capability>
  </Channel>
  <Channel Name="Macros / step response">
@@ -97,13 +97,13 @@
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="25">No Function</Capability>
+  <Capability Min="0" Max="25">No function</Capability>
   <Capability Min="26" Max="45">Reset others</Capability>
-  <Capability Min="46" Max="103">No Function</Capability>
+  <Capability Min="46" Max="103">No function</Capability>
   <Capability Min="104" Max="119" Preset="ResetPanTilt">Reset Pan/Tilt</Capability>
-  <Capability Min="120" Max="190">No Function</Capability>
+  <Capability Min="120" Max="190">No function</Capability>
   <Capability Min="191" Max="205" Preset="ResetAll">Reset all</Capability>
-  <Capability Min="206" Max="255">No Function</Capability>
+  <Capability Min="206" Max="255">No function</Capability>
  </Channel>
  <Mode Name="15 channel">
   <Channel Number="0">Horizontal Movement (Pan)</Channel>

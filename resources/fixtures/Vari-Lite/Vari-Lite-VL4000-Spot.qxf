@@ -61,6 +61,7 @@
   <Capability Min="106" Max="110" Preset="GoboMacro" Res1="">Gobo 5 (Bricked Out) Rotate with Mega Stepping</Capability>
   <Capability Min="111" Max="115" Preset="GoboMacro" Res1="">Gobo 6 (On The Rocks) Rotate with Mega Stepping</Capability>
   <Capability Min="116" Max="120" Preset="GoboMacro" Res1="">Gobo 7 (Droplets) Rotate with Mega Stepping</Capability>
+  <Capability Min="121" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Shutter Frame 1A" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Shutter Frame 1B" Preset="ShutterIrisMaxToMin"/>
@@ -173,7 +174,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -199,7 +200,7 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
   <Capability Min="229" Max="230">220s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
@@ -233,14 +234,17 @@
   <Capability Min="76" Max="80">Display Status Toggle</Capability>
   <Capability Min="81" Max="85">Standard Mode</Capability>
   <Capability Min="86" Max="90">Studio Mode</Capability>
+  <Capability Min="91" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Edge Fine" Preset="BeamFocusFine"/>
  <Channel Name="Zoom Fine" Preset="BeamZoomFine"/>
  <Channel Name="Programming Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="2">Idle</Capability>
-  <Capability Min="3" Max="15">Dimmer Snap OFF</Capability>
+  <Capability Min="3" Max="10">Reserved</Capability>
+  <Capability Min="11" Max="15">Dimmer Snap OFF (hold 3s)</Capability>
   <Capability Min="16" Max="20">Dimmer Snap ON (Fixture Default)</Capability>
+  <Capability Min="21" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Color Wheel 2">
   <Group Byte="0">Colour</Group>
@@ -257,7 +261,7 @@
   <Capability Min="232" Max="243" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
   <Capability Min="244" Max="255" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffffff">Amber/Open</Capability>
  </Channel>
- <Channel Name="Color Wheen 1 Control">
+ <Channel Name="Color Wheel 1 Control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="5">Linear Movement Quickest Path</Capability>
   <Capability Min="6" Max="10">Linear Movement Normal Path</Capability>
@@ -266,8 +270,9 @@
   <Capability Min="21" Max="25">Wheel Spin Reverse (Slow to Fast)</Capability>
   <Capability Min="26" Max="56">Color Shake Quickest Path (Slow to Fast)</Capability>
   <Capability Min="57" Max="87">Color Shake Normal Path (Slow to Fast)</Capability>
+  <Capability Min="88" Max="255">Reserved</Capability>
  </Channel>
- <Channel Name="Color Wheen 2 Control">
+ <Channel Name="Color Wheel 2 Control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="5">Linear Movement Quickest Path</Capability>
   <Capability Min="6" Max="10">Linear Movement Normal Path</Capability>
@@ -276,6 +281,7 @@
   <Capability Min="21" Max="25">Wheel Spin Reverse (Slow to Fast)</Capability>
   <Capability Min="26" Max="56">Color Shake Quickest Path (Slow to Fast)</Capability>
   <Capability Min="57" Max="87">Color Shake Normal Path (Slow to Fast)</Capability>
+  <Capability Min="88" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
@@ -303,6 +309,7 @@
   <Capability Min="106" Max="110" Preset="GoboMacro" Res1="">Gobo 5 (Wavy Triangle) Rotate with Mega Stepping</Capability>
   <Capability Min="111" Max="115" Preset="GoboMacro" Res1="">Gobo 6 (Dot Buffet) Rotate with Mega Stepping</Capability>
   <Capability Min="116" Max="120" Preset="GoboMacro" Res1="">Gobo 7 (Quadcone Red) Rotate with Mega Stepping</Capability>
+  <Capability Min="121" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1 Index/Rotate" Default="127">
   <Group Byte="0">Gobo</Group>
@@ -336,6 +343,7 @@
   <Capability Min="121" Max="150" Preset="SlowToFast">Gobo Shake Normal Path (Slow to Fast)</Capability>
   <Capability Min="151" Max="180" Preset="SlowToFast">Gobo Twist Quickest Path (Slow to Fast)</Capability>
   <Capability Min="181" Max="210" Preset="SlowToFast">Gobo Twist Normal Path (Slow to Fast)</Capability>
+  <Capability Min="211" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2 Control">
   <Group Byte="0">Gobo</Group>
@@ -349,6 +357,7 @@
   <Capability Min="121" Max="150" Preset="SlowToFast">Gobo Shake Normal Path (Slow to Fast)</Capability>
   <Capability Min="151" Max="180" Preset="SlowToFast">Gobo Twist Quickest Path (Slow to Fast)</Capability>
   <Capability Min="181" Max="210" Preset="SlowToFast">Gobo Twist Normal Path (Slow to Fast)</Capability>
+  <Capability Min="211" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Animation Wheel 1 (Dichro*Fusion)">
   <Group Byte="0">Effect</Group>
@@ -387,6 +396,7 @@
   <Capability Min="21" Max="25">Reserved</Capability>
   <Capability Min="26" Max="56" Preset="SlowToFast">Image Shake Quickest Path (Slow to Fast)</Capability>
   <Capability Min="57" Max="87" Preset="SlowToFast">Image Shake Normal Path (Slow to Fast)</Capability>
+  <Capability Min="88" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Animation Wheel 2 (Wicked Waves) Control">
   <Group Byte="0">Effect</Group>
@@ -397,6 +407,7 @@
   <Capability Min="21" Max="25">Reserved</Capability>
   <Capability Min="26" Max="56" Preset="SlowToFast">Image Shake Quickest Path (Slow to Fast)</Capability>
   <Capability Min="57" Max="87" Preset="SlowToFast">Image Shake Normal Path (Slow to Fast)</Capability>
+  <Capability Min="88" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Beam Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Prism">
@@ -405,6 +416,7 @@
   <Capability Min="6" Max="10">Index</Capability>
   <Capability Min="11" Max="15">Rotate Normal</Capability>
   <Capability Min="16" Max="20">Rotate with Mega Stepping</Capability>
+  <Capability Min="21" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Prism Index/Rotate" Default="127">
   <Group Byte="0">Prism</Group>
@@ -432,6 +444,7 @@
   <Capability Min="11" Max="15">Normal Strobe</Capability>
   <Capability Min="16" Max="20">Random Strobe</Capability>
   <Capability Min="21" Max="25">Random Sync</Capability>
+  <Capability Min="26" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Optics Timing" Default="255">
   <Group Byte="0">Maintenance</Group>
@@ -530,7 +543,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -556,9 +569,9 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
-  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="229" Max="230">210s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
   <Capability Min="234" Max="235">240s</Capability>
   <Capability Min="236" Max="238">250s</Capability>
@@ -667,7 +680,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -693,9 +706,9 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
-  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="229" Max="230">210s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
   <Capability Min="234" Max="235">240s</Capability>
   <Capability Min="236" Max="238">250s</Capability>
@@ -804,7 +817,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -830,7 +843,7 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
   <Capability Min="229" Max="230">220s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
@@ -941,7 +954,7 @@
   <Capability Min="149" Max="151">49s</Capability>
   <Capability Min="152" Max="154">50s</Capability>
   <Capability Min="155" Max="156">51s</Capability>
-  <Capability Min="157" Max="158">52s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
   <Capability Min="160" Max="161">53s</Capability>
   <Capability Min="162" Max="164">54s</Capability>
   <Capability Min="165" Max="166">55s</Capability>
@@ -967,7 +980,7 @@
   <Capability Min="216" Max="217">170s</Capability>
   <Capability Min="218" Max="220">180s</Capability>
   <Capability Min="221" Max="222">190s</Capability>
-  <Capability Min="223" Max="224">200s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
   <Capability Min="226" Max="228">210s</Capability>
   <Capability Min="229" Max="230">220s</Capability>
   <Capability Min="231" Max="233">230s</Capability>
@@ -997,9 +1010,9 @@
   <Channel Number="12">Magenta</Channel>
   <Channel Number="13">CTO</Channel>
   <Channel Number="14">Color Wheel 1</Channel>
-  <Channel Number="15">Color Wheen 1 Control</Channel>
+  <Channel Number="15">Color Wheel 1 Control</Channel>
   <Channel Number="16">Color Wheel 2</Channel>
-  <Channel Number="17">Color Wheen 2 Control</Channel>
+  <Channel Number="17">Color Wheel 2 Control</Channel>
   <Channel Number="18">Gobo Wheel 1</Channel>
   <Channel Number="19">Gobo Wheel 1 Index/Rotate</Channel>
   <Channel Number="20">Gobo Wheel 1 Index/Rotate Fine</Channel>
@@ -1051,9 +1064,9 @@
   <Channel Number="12">Magenta</Channel>
   <Channel Number="13">CTO</Channel>
   <Channel Number="14">Color Wheel 1</Channel>
-  <Channel Number="15">Color Wheen 1 Control</Channel>
+  <Channel Number="15">Color Wheel 1 Control</Channel>
   <Channel Number="16">Color Wheel 2</Channel>
-  <Channel Number="17">Color Wheen 2 Control</Channel>
+  <Channel Number="17">Color Wheel 2 Control</Channel>
   <Channel Number="18">Gobo Wheel 1</Channel>
   <Channel Number="19" ActsOn="18">Gobo Wheel 1 Index/Rotate</Channel>
   <Channel Number="20" ActsOn="18">Gobo Wheel 1 Index/Rotate Fine</Channel>

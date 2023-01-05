@@ -11,13 +11,13 @@
  <Type>Strobe</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">Slow to fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Sound">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Sound Control</Capability>
  </Channel>
  <Mode Name="3 Ch">

@@ -16,11 +16,11 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Function">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="49">No Function</Capability>
+  <Capability Min="0" Max="49">No function</Capability>
   <Capability Min="50" Max="99">Pan &amp; Tilt Reset (Hold 3 second)</Capability>
-  <Capability Min="100" Max="149">No Function</Capability>
+  <Capability Min="100" Max="149">No function</Capability>
   <Capability Min="150" Max="199">Zoom Reset (Hold 3 seconds)</Capability>
-  <Capability Min="200" Max="255">No Function</Capability>
+  <Capability Min="200" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
@@ -40,7 +40,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Color Function">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">CTC function on channel 14 (2000K to 8000K)</Capability>
   <Capability Min="40" Max="59">Forward Spin on channel 14 (slow to fast)</Capability>
   <Capability Min="60" Max="79">Reverse Spin on channel 14 (slow to fast)</Capability>

@@ -153,7 +153,7 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="29">No Function</Capability>
+  <Capability Min="0" Max="29">No function</Capability>
   <Capability Min="30" Max="39">Dimmer conventional mode</Capability>
   <Capability Min="40" Max="49">Dimmer linear mode</Capability>
   <Capability Min="50" Max="59">Pan/tilt fast mode</Capability>
@@ -169,7 +169,7 @@
   <Capability Min="150" Max="159" Preset="ResetColor">Color reset</Capability>
   <Capability Min="160" Max="169" Preset="ResetGobo">Gobo reset</Capability>
   <Capability Min="170" Max="179" Preset="ResetPrism">Shutter/prism reset</Capability>
-  <Capability Min="180" Max="189">No Function</Capability>
+  <Capability Min="180" Max="189">No function</Capability>
   <Capability Min="190" Max="199" Preset="ResetFrost">Frost/focus/zoom reset</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset all</Capability>
   <Capability Min="210" Max="219">Enable all movement blackout modes</Capability>

@@ -15,12 +15,12 @@
  <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="199">Auto Mode via DMX</Capability>
   <Capability Min="200" Max="255">Sound Mode via DMX</Capability>
  </Channel>
@@ -30,7 +30,7 @@
  </Channel>
  <Channel Name="Color Presets">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">No function</Capability>
   <Capability Min="10" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="30" Max="49" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="50" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>

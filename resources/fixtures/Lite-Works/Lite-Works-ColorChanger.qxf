@@ -14,6 +14,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="20">Red</Capability>
   <Capability Min="21" Max="40">Yellow</Capability>
+  <Capability Min="41" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Fade time">
   <Group Byte="0">Speed</Group>

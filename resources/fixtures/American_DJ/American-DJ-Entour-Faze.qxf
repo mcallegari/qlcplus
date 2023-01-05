@@ -26,6 +26,7 @@
  <Channel Name="Interval">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="1">0 Seconds</Capability>
+  <Capability Min="2" Max="8">No function</Capability>
   <Capability Min="9" Max="255">5 - 255 Seconds</Capability>
  </Channel>
  <Mode Name="1 Channel">

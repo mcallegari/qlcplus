@@ -22,7 +22,7 @@
   <Capability Min="32" Max="63" Preset="ShutterOpen">LED ON</Capability>
   <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Stobing Slow-Fast</Capability>
   <Capability Min="96" Max="127" Preset="ShutterOpen">LED ON</Capability>
-  <Capability Min="128" Max="159">Pulse Effekt in Sequence</Capability>
+  <Capability Min="128" Max="159">Pulse Effect in Sequence</Capability>
   <Capability Min="160" Max="191" Preset="ShutterOpen">LED ON</Capability>
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">RandomeStrobe Slow-Fast</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">LED ON</Capability>

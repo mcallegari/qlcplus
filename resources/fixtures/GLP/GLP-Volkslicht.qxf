@@ -54,6 +54,7 @@
  <Channel Name="Dimmer coarse" Preset="IntensityDimmer"/>
  <Channel Name="Special">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">No function</Capability>
   <Capability Min="250" Max="255" Preset="ResetAll">RESET</Capability>
  </Channel>
  <Channel Name="Movement">

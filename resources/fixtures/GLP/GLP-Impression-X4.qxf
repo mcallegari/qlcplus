@@ -45,6 +45,7 @@
   <Capability Min="48" Max="79" Preset="StrobeRandom">Up-dimming then Shutter closing (random patterns) slow &gt; fast</Capability>
   <Capability Min="80" Max="111" Preset="StrobeRandom">Shutter open then down-dimming (random patterns) slow &gt; fast</Capability>
   <Capability Min="112" Max="143" Preset="StrobeRandom">Up-dimming then down-dimming (random patterns) slow &gt; fast</Capability>
+  <Capability Min="144" Max="159">No function</Capability>
   <Capability Min="160" Max="199" Preset="StrobeSlowToFast">Strobe effect pause - 5s &gt; 1s</Capability>
   <Capability Min="200" Max="239" Preset="StrobeFreqRange" Res1="1" Res2="10">Strobe effect slow &gt; fast - 1 Hz &gt; 10 Hz</Capability>
   <Capability Min="240" Max="249" Preset="ShutterOpen">Shutter open</Capability>
@@ -60,9 +61,11 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="3">Pattern Block 1 -&gt; channel 17</Capability>
   <Capability Min="4" Max="7">Pattern Block 2 -&gt; channel 17</Capability>
+  <Capability Min="8" Max="99">No function</Capability>
   <Capability Min="100" Max="149" Preset="ResetAll">PWM lower 582 Hz &gt; 600 Hz</Capability>
   <Capability Min="150" Max="150">PWM (default) 600 Hz</Capability>
   <Capability Min="151" Max="200">PWM higher 600 Hz &gt; 618 Hz</Capability>
+  <Capability Min="201" Max="249">No function</Capability>
   <Capability Min="250" Max="255">RESET</Capability>
  </Channel>
  <Channel Name="Speed Pan / Tilt">
@@ -222,6 +225,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="2">No pattern</Capability>
   <Capability Min="3" Max="253">Pre-defined patterns</Capability>
+  <Capability Min="254" Max="255">Direct pattern access</Capability>
  </Channel>
  <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Zoom (Extended Mode)" Preset="BeamZoomSmallBig"/>

@@ -16,11 +16,11 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Lamp on/off &amp; Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="127">No Function</Capability>
+  <Capability Min="0" Max="127">No function</Capability>
   <Capability Min="128" Max="139" Preset="LampOn">Lamp on after 3 seconds when lamp is off</Capability>
-  <Capability Min="140" Max="229">No Function</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
   <Capability Min="230" Max="239" Preset="LampOff">Lamp off after 3 seconds</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>

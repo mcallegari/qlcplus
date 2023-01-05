@@ -23,7 +23,7 @@
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">No Function</Capability>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Channel Name="Programs">

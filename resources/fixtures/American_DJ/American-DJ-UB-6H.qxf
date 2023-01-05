@@ -18,6 +18,7 @@
  <Channel Name="Colour macros" Preset="ColorMacro"/>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="25">P1</Capability>
   <Capability Min="26" Max="35">P2</Capability>
   <Capability Min="36" Max="45">P3</Capability>

@@ -48,7 +48,35 @@
  </Channel>
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="1" Max="8" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0004">White/Deep Red</Capability>
+  <Capability Min="9" Max="9" Preset="ColorMacro" Res1="#ff0004">Deep Red</Capability>
+  <Capability Min="10" Max="17" Preset="ColorDoubleMacro" Res1="#ff0004" Res2="#2600ff">Deep Red/Deep Blue</Capability>
+  <Capability Min="18" Max="18" Preset="ColorMacro" Res1="#2600ff">Deep Blue</Capability>
+  <Capability Min="19" Max="26" Preset="ColorDoubleMacro" Res1="#2600ff" Res2="#ffff00">Deep Blue/Yellow</Capability>
+  <Capability Min="27" Max="27" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="28" Max="36" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#22ff00">Yellow/Green</Capability>
+  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#22ff00">Green</Capability>
+  <Capability Min="38" Max="45" Preset="ColorDoubleMacro" Res1="#22ff00" Res2="#ff00ff">Green/Magenta</Capability>
+  <Capability Min="46" Max="46" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="47" Max="54" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00aaff">Magenta/Azure</Capability>
+  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#00aaff">Azure</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ca4345">Azure/Red</Capability>
+  <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#ca4345">Red</Capability>
+  <Capability Min="65" Max="72" Preset="ColorDoubleMacro" Res1="#ca4345" Res2="#0d8700">Red/Dark Green</Capability>
+  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#0d8700">Dark Green</Capability>
+  <Capability Min="74" Max="81" Preset="ColorDoubleMacro" Res1="#0d8700" Res2="#ffb339">Dark Green/Amber</Capability>
+  <Capability Min="82" Max="82" Preset="ColorMacro" Res1="#ffb339">Amber</Capability>
+  <Capability Min="83" Max="90" Preset="ColorDoubleMacro" Res1="#ffb339" Res2="#5555ff">Amber/Blue</Capability>
+  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#5555ff">Blue</Capability>
+  <Capability Min="92" Max="100" Preset="ColorDoubleMacro" Res1="#5555ff" Res2="#ff9d00">Blue/Orange</Capability>
+  <Capability Min="101" Max="101" Preset="ColorMacro" Res1="#ff9d00">Orange</Capability>
+  <Capability Min="102" Max="109" Preset="ColorDoubleMacro" Res1="#ff9d00" Res2="#ffc800">Orange/CTO</Capability>
+  <Capability Min="110" Max="110" Preset="ColorMacro" Res1="#ffc800">CTO</Capability>
+  <Capability Min="111" Max="118" Preset="ColorDoubleMacro" Res1="#ffc800" Res2="#aa33ff">CTO/UV</Capability>
+  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#8800ff">UV</Capability>  
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#8800ff" Res2="#ffffff">UV/White</Capability>
+  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#ff0004">Deep Red</Capability>
   <Capability Min="135" Max="138" Preset="ColorMacro" Res1="#2600ff">Deep Blue</Capability>
   <Capability Min="139" Max="143" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>

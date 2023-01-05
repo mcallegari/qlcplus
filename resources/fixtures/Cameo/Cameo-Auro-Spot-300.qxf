@@ -50,7 +50,7 @@
   <Capability Min="34" Max="56" Preset="RampUpSlowToFast">Ramp up Random, slow -&gt; fast</Capability>
   <Capability Min="57" Max="79" Preset="RampDownSlowToFast">Ramp down Random, slow -&gt; fast</Capability>
   <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random Strobe Effect, slow -&gt; fast</Capability>
-  <Capability Min="103" Max="127">Strobe Break Effekt, 5s…..1s (Short burst with break)</Capability>
+  <Capability Min="103" Max="127">Strobe Break Effect, 5s…..1s (Short burst with break)</Capability>
   <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
   <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
  </Channel>

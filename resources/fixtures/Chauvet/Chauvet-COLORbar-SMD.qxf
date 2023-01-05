@@ -40,7 +40,7 @@
  </Channel>
  <Channel Name="Auto Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="25" Preset="Alias">No Function
+  <Capability Min="0" Max="25" Preset="Alias">No function
    <Alias Mode="7 Channel" Channel="Speed" With="Strobe"/>
   </Capability>
   <Capability Min="26" Max="50">Fading 0~100%</Capability>

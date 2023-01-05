@@ -100,7 +100,7 @@
  </Channel>
  <Channel Name="Movement Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Effect 1</Capability>
   <Capability Min="16" Max="23">Effect 2</Capability>
   <Capability Min="24" Max="31">Effect 3</Capability>

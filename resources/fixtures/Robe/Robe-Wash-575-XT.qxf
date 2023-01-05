@@ -23,22 +23,30 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">Fan speed Max to Min</Capability>
   <Capability Min="128" Max="139">Lamp ON Reset</Capability>
-  <Capability Min="140" Max="229">No Function</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
   <Capability Min="230" Max="239" Preset="LampOff">Lamp OFF</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="1" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#aa0000">While/Red</Capability>
   <Capability Min="16" Max="16" Preset="ColorMacro" Res1="#aa0000">Deep Red</Capability>
+  <Capability Min="17" Max="31" Preset="ColorDoubleMacro" Res1="#aa0000" Res2="#0000ff">Red/Blue</Capability>
   <Capability Min="32" Max="32" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="33" Max="47" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue/Green</Capability>
   <Capability Min="48" Max="48" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="49" Max="63" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff8000">Green/Orange</Capability>
   <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="65" Max="79" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ffdab4">Orange/3200 K</Capability>
   <Capability Min="80" Max="80" Preset="ColorMacro" Res1="#ffdab4">3200 K</Capability>
+  <Capability Min="81" Max="95" Preset="ColorDoubleMacro" Res1="#ffdab4" Res2="#c6d8ff">3200 K/5600 K</Capability>
   <Capability Min="96" Max="96" Preset="ColorMacro" Res1="#c6d8ff">5600 K</Capability>
+  <Capability Min="97" Max="111" Preset="ColorDoubleMacro" Res1="#c6d8ff" Res2="#7f00ff">5600 K/UV</Capability>
   <Capability Min="112" Max="112" Preset="ColorMacro" Res1="#7f00ff">UV Filter</Capability>
+  <Capability Min="113" Max="127" Preset="ColorDoubleMacro" Res1="#7f00ff" Res2="#ffffff">UV/White</Capability>
   <Capability Min="128" Max="190">Rainbow Fast to Slow</Capability>
-  <Capability Min="191" Max="192">No Function</Capability>
+  <Capability Min="191" Max="192">No function</Capability>
   <Capability Min="193" Max="255">CCW Rainbow Slow to Fast</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -101,15 +109,29 @@
   <Capability Min="71" Max="180">Beam Shaper</Capability>
   <Capability Min="181" Max="255">Frost</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="0">28°</Capability>
-  <Capability Min="255" Max="255">7°</Capability>
- </Channel>
- <Mode Name="Mode 1/2">
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Mode Name="Mode 1">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Speed P/T</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Colours</Channel>
+  <Channel Number="7">Cyan</Channel>
+  <Channel Number="8">Magenta</Channel>
+  <Channel Number="9">Yellow</Channel>
+  <Channel Number="10">Speed CMY/Dimmer</Channel>
+  <Channel Number="11">Color Macros</Channel>
+  <Channel Number="12">Beam</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Shutter</Channel>
+  <Channel Number="15">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Speed P/T</Channel>
   <Channel Number="5">Control</Channel>

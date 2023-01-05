@@ -111,7 +111,7 @@
  <Channel Name="Colour Mixing/Colours/Programs/Music Control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">Colour mixing channel 4 - 7</Capability>
-  <Capability Min="22" Max="23" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#007f00">Green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#7f7f7f">White</Capability>

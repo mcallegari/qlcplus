@@ -50,7 +50,7 @@
   <Capability Min="201" Max="255" Preset="ColorMacro">Colour transition (fade), increasing speed</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
- <Channel Name="Auto programmes">
+ <Channel Name="Auto programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="20">preprogrammed automatic show 1</Capability>
@@ -73,7 +73,7 @@
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Colour macros</Channel>
   <Channel Number="6">Zoom</Channel>
-  <Channel Number="7">Auto programmes</Channel>
+  <Channel Number="7">Auto programs</Channel>
  </Mode>
  <Mode Name="15-channel">
   <Channel Number="0">Pan</Channel>
@@ -90,7 +90,7 @@
   <Channel Number="11">Colour temperature</Channel>
   <Channel Number="12">Colour macros</Channel>
   <Channel Number="13">Zoom</Channel>
-  <Channel Number="14">Auto programmes</Channel>
+  <Channel Number="14">Auto programs</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>

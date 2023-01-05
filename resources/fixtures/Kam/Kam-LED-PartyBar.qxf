@@ -11,7 +11,7 @@
  <Type>Color Changer</Type>
  <Channel Name="Sound">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="40">Auto 1</Capability>
   <Capability Min="41" Max="70">Auto 2</Capability>
   <Capability Min="71" Max="100">Auto 3</Capability>

@@ -136,17 +136,17 @@
   <Capability Min="208" Max="247">Preprogrammed automatic show 6</Capability>
   <Capability Min="248" Max="255">Sound control colour wheel</Capability>
  </Channel>
- <Channel Name="Pan-Tilt auto programmes">
+ <Channel Name="Pan-Tilt auto programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="32">Pan-Tilt auto programme 1</Capability>
-  <Capability Min="33" Max="58">Pan-Tilt auto programme 2</Capability>
-  <Capability Min="59" Max="84">Pan-Tilt auto programme 3</Capability>
-  <Capability Min="85" Max="110">Pan-Tilt auto programme 4</Capability>
-  <Capability Min="111" Max="136">Pan-Tilt auto programme 5</Capability>
-  <Capability Min="137" Max="162">Pan-Tilt auto programme 6</Capability>
-  <Capability Min="163" Max="188">Pan-Tilt auto programme 7</Capability>
-  <Capability Min="189" Max="214">Pan-Tilt auto programme 8</Capability>
+  <Capability Min="8" Max="32">Pan-Tilt auto program 1</Capability>
+  <Capability Min="33" Max="58">Pan-Tilt auto program 2</Capability>
+  <Capability Min="59" Max="84">Pan-Tilt auto program 3</Capability>
+  <Capability Min="85" Max="110">Pan-Tilt auto program 4</Capability>
+  <Capability Min="111" Max="136">Pan-Tilt auto program 5</Capability>
+  <Capability Min="137" Max="162">Pan-Tilt auto program 6</Capability>
+  <Capability Min="163" Max="188">Pan-Tilt auto program 7</Capability>
+  <Capability Min="189" Max="214">Pan-Tilt auto program 8</Capability>
   <Capability Min="215" Max="255">Sound control Pan and Tilt</Capability>
  </Channel>
  <Channel Name="Reset">
@@ -174,7 +174,7 @@
   <Channel Number="14">Frost Filter</Channel>
   <Channel Number="15">7 colours effect wheel</Channel>
   <Channel Number="16">Preprogrammed automatic shows</Channel>
-  <Channel Number="17">Pan-Tilt auto programmes</Channel>
+  <Channel Number="17">Pan-Tilt auto programs</Channel>
   <Channel Number="18">Reset</Channel>
  </Mode>
  <Mode Name="6 Channel">
@@ -183,7 +183,7 @@
   <Channel Number="2">Dimmer</Channel>
   <Channel Number="3">Stroboscope</Channel>
   <Channel Number="4">Preprogrammed automatic shows</Channel>
-  <Channel Number="5">Pan-Tilt auto programmes</Channel>
+  <Channel Number="5">Pan-Tilt auto programs</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="80000" ColourTemperature="0"/>

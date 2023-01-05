@@ -99,6 +99,7 @@
   <Capability Min="112" Max="119">Macro 13, frost</Capability>
   <Capability Min="120" Max="127">Macro 14, frost</Capability>
   <Capability Min="128" Max="135">Macro 15, frost</Capability>
+  <Capability Min="136" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Beam shaper">
   <Group Byte="0">Beam</Group>

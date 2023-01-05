@@ -51,7 +51,7 @@
  </Channel>
  <Channel Name="Strobo">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="255">Strobe function from slow to fast</Capability>
  </Channel>
  <Mode Name="Mode1">

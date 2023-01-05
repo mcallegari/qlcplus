@@ -53,9 +53,10 @@
   <Capability Min="187" Max="197" Preset="ColorMacro" Res1="#aaff00">Lime Green</Capability>
   <Capability Min="198" Max="208" Preset="ColorMacro" Res1="#00aaff">Peacock Blue</Capability>
   <Capability Min="209" Max="219" Preset="ColorMacro" Res1="#aa1618">Mauve</Capability>
-  <Capability Min="220" Max="230">Red UV</Capability>
+  <Capability Min="220" Max="230" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#5555ff">Red UV</Capability>
   <Capability Min="231" Max="241" Preset="ColorMacro" Res1="#39d1ff">Steel Blue</Capability>
-  <Capability Min="242" Max="252">Full On - for Static colors / 23 static colors - for sound control</Capability>
+  <Capability Min="242" Max="252" Preset="ColorMacro" Res1="#ffffff">Daylight</Capability>
+  <Capability Min="253" Max="255">Full On - for Static colors / 23 static colors - for sound control</Capability>
  </Channel>
  <Mode Name="6 channel">
   <Channel Number="0">Red</Channel>

@@ -22,7 +22,7 @@
  </Channel>
  <Channel Name="Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="1" Preset="ColorMacro" Res1="#000000">No Function</Capability>
+  <Capability Min="0" Max="1" Preset="ColorMacro" Res1="#000000">No function</Capability>
   <Capability Min="2" Max="19" Preset="ColorMacro" Res1="#ffee9e">RGB Colour Fade</Capability>
   <Capability Min="20" Max="39">Colour changing</Capability>
   <Capability Min="40" Max="59">Random colour changing</Capability>

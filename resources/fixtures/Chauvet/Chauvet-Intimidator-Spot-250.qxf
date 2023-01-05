@@ -75,7 +75,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Mode Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Pan/Tilt Move in Black</Capability>
   <Capability Min="15" Max="19">Pan/Tilt Move in Black (disable)</Capability>
   <Capability Min="20" Max="24">Color Wheel Move in Black</Capability>
@@ -91,16 +91,16 @@
   <Capability Min="70" Max="74" Preset="ResetAll">Reset Focus</Capability>
   <Capability Min="75" Max="79" Preset="ResetPrism">Reset Prism</Capability>
   <Capability Min="80" Max="89" Preset="ResetAll">Reset All</Capability>
-  <Capability Min="90" Max="111">No Function</Capability>
+  <Capability Min="90" Max="111">No function</Capability>
   <Capability Min="112" Max="119" Preset="LampOff">Lamp Off</Capability>
   <Capability Min="120" Max="127" Preset="LampOn">Lamp On</Capability>
-  <Capability Min="128" Max="129">No Function</Capability>
+  <Capability Min="128" Max="129">No function</Capability>
   <Capability Min="130" Max="192">Auto Program</Capability>
   <Capability Min="193" Max="255">Sound Program</Capability>
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="19">Effect 1</Capability>
   <Capability Min="20" Max="29">Effect 2</Capability>
   <Capability Min="30" Max="39">Effect 3</Capability>

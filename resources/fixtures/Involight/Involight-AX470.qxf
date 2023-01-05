@@ -11,7 +11,7 @@
  <Type>Flower</Type>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="1" Max="9">Blackout</Capability>
+  <Capability Min="0" Max="9">Blackout</Capability>
   <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>

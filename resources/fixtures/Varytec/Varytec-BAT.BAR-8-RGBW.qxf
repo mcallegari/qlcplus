@@ -16,7 +16,7 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Scene-Mode 1</Capability>
   <Capability Min="16" Max="23">Scene-Mode 2</Capability>
   <Capability Min="24" Max="31">Scene-Mode 3</Capability>

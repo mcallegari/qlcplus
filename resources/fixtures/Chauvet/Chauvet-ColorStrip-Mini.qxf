@@ -36,34 +36,26 @@
   <Capability Min="220" Max="229">Color fade</Capability>
   <Capability Min="230" Max="255">Sound active (auto run)</Capability>
  </Channel>
- <Channel Name="Run Speed/Sound Active/Red Intensity/Fade Speed">
+ <Channel Name="Run Speed/Red/Fade Speed">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127">Automatic/No function</Capability>
-  <Capability Min="128" Max="209">No function/Sound active/No function</Capability>
-  <Capability Min="210" Max="219">No function/Sound active/Red 0~100%/No function</Capability>
-  <Capability Min="220" Max="229">No function/Sound active/No function/Fade speed</Capability>
-  <Capability Min="230" Max="255">No function/Sound active/No function</Capability>
+  <Capability Min="0" Max="127">Slow to fast/Red 0-50%/Fade Speed 0-50%</Capability>
+  <Capability Min="128" Max="255">Sound active/Red 50-100%/Fade Speed 50-100%</Capability>
  </Channel>
- <Channel Name="Strobe Speed/Sound Active/Green Intensity">
+ <Channel Name="Strobe/Green">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127">Strobe speed/No function</Capability>
-  <Capability Min="128" Max="209">No function</Capability>
-  <Capability Min="210" Max="229">No function/Green 0~100%</Capability>
-  <Capability Min="230" Max="249">No function</Capability>
-  <Capability Min="250" Max="255">No function/Sound active/No function</Capability>
+  <Capability Min="0" Max="249">Strobe slow to fast/Green 0~98%</Capability>
+  <Capability Min="250" Max="255">Sound active/Green 98~100%</Capability>
  </Channel>
- <Channel Name="RGB Blue">
+ <Channel Name="Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="109">No function</Capability>
-  <Capability Min="220" Max="229">0~100%</Capability>
-  <Capability Min="230" Max="255">No function</Capability>
+  <Capability Min="0" Max="255">0~100%</Capability>
  </Channel>
  <Mode Name="Default">
   <Channel Number="0">Static Colors/Color Effects/RGB Color Mix/Sound-Active</Channel>
-  <Channel Number="1">Run Speed/Sound Active/Red Intensity/Fade Speed</Channel>
-  <Channel Number="2">Strobe Speed/Sound Active/Green Intensity</Channel>
-  <Channel Number="3">RGB Blue</Channel>
+  <Channel Number="1">Run Speed/Red/Fade Speed</Channel>
+  <Channel Number="2">Strobe/Green</Channel>
+  <Channel Number="3">Blue</Channel>
  </Mode>
 <Physical>
    <Bulb Type="LED" Lumens="820" ColourTemperature="0"/>

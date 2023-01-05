@@ -18,7 +18,7 @@
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="Power/Colour Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="10">High Power</Capability>
   <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red:100% Green:Up Blue:0%</Capability>
   <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red:Down Green:100% Blue:0%</Capability>
@@ -44,13 +44,13 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">1 - 20 Hz</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">Pan/Tilt Black Activation</Capability>
   <Capability Min="40" Max="59">Pan/Tilt Black Deactivation</Capability>
   <Capability Min="60" Max="79">Automatic Fan Speed</Capability>
@@ -61,9 +61,9 @@
   <Capability Min="150" Max="159">Auto Program 2</Capability>
   <Capability Min="160" Max="169">Test</Capability>
   <Capability Min="170" Max="179">Custom Program</Capability>
-  <Capability Min="180" Max="199">No Function</Capability>
+  <Capability Min="180" Max="199">No function</Capability>
   <Capability Min="200" Max="219" Preset="ResetAll">Reset</Capability>
-  <Capability Min="220" Max="235">No Function</Capability>
+  <Capability Min="220" Max="235">No function</Capability>
   <Capability Min="236" Max="239">DIM0</Capability>
   <Capability Min="240" Max="243">DIM1</Capability>
   <Capability Min="244" Max="247">DIM2</Capability>

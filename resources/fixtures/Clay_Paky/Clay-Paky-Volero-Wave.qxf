@@ -132,6 +132,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused range</Capability>
+  <Capability Min="26" Max="127">Individual functions reset</Capability>
   <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
  </Channel>
  <Channel Name="Red 1" Preset="IntensityRed"/>

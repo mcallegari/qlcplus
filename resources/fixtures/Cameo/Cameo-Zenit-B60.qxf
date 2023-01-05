@@ -71,7 +71,7 @@
  </Channel>
  <Channel Name="Device Settings">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="127">Dimmer Response LED (hold 5s)</Capability>
   <Capability Min="128" Max="191">Dimmer Response Halogen (hold 5s)</Capability>
   <Capability Min="192" Max="211">No Runtime / Full LED Power (hold 5s)</Capability>

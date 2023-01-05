@@ -63,7 +63,7 @@
  </Channel>
  <Channel Name="Speed and music sensitivity">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="125">Slow to fast speed</Capability>
+  <Capability Min="0" Max="127">Slow to fast speed</Capability>
   <Capability Min="128" Max="255">Increasing music sensitivity</Capability>
  </Channel>
  <Channel Name="White" Preset="IntensityWhite"/>

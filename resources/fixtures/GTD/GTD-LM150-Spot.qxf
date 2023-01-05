@@ -88,6 +88,7 @@
   <Capability Min="70" Max="79" Preset="ResetPanTilt">Reset P/T</Capability>
   <Capability Min="80" Max="89" Preset="ResetColor">Reset Colour</Capability>
   <Capability Min="90" Max="99" Preset="ResetGobo">Reset Gobo</Capability>
+  <Capability Min="100" Max="219">No function</Capability>
   <Capability Min="220" Max="255">Music Control</Capability>
  </Channel>
  <Channel Name="Scan Speed">

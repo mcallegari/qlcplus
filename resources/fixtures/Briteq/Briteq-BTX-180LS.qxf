@@ -125,7 +125,7 @@
  <Channel Name="Focus (close to distant)" Preset="BeamFocusNearFar"/>
  <Channel Name="Special functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Activate blackout during pan/tilt (*)</Capability>
   <Capability Min="80" Max="89">Disable blackout during pan/tilt (*)</Capability>
   <Capability Min="90" Max="99">Activate blackout during color change (*)</Capability>

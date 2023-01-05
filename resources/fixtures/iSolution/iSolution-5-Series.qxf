@@ -54,9 +54,9 @@
   <Capability Min="118" Max="127" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
   <Capability Min="128" Max="255">Rainbow Effect Speed</Capability>
  </Channel>
- <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="No Function2" Preset="NoFunction"/>
+ <Channel Name="No function2" Preset="NoFunction"/>
  <Mode Name="iMove 5S">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -69,8 +69,8 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Shutter / Shake</Channel>
   <Channel Number="3">Colour</Channel>
-  <Channel Number="4">No Function</Channel>
-  <Channel Number="5">No Function2</Channel>
+  <Channel Number="4">No function</Channel>
+  <Channel Number="5">No function2</Channel>
   <Channel Number="6">Dimmer</Channel>
  </Mode>
  <Physical>

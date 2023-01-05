@@ -64,7 +64,7 @@
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Blackout during Pan/Tilt movement</Capability>
   <Capability Min="15" Max="19">Blackout during Colorwheel movement</Capability>
   <Capability Min="20" Max="24">Blackout during Gobowheel movement</Capability>
@@ -72,24 +72,24 @@
   <Capability Min="30" Max="34">Blackout during Pan/Tilt/Gobowheel movement</Capability>
   <Capability Min="35" Max="39">Blackout during Gobowheel /Colorwheel movement</Capability>
   <Capability Min="40" Max="44">Blackout during Pan/Tilt/Gobowheel /Colorwheel movement</Capability>
-  <Capability Min="45" Max="69">No Function</Capability>
+  <Capability Min="45" Max="69">No function</Capability>
   <Capability Min="70" Max="74">Reset after 5 seconds</Capability>
-  <Capability Min="75" Max="79">No Function</Capability>
+  <Capability Min="75" Max="79">No function</Capability>
   <Capability Min="80" Max="84">X, Y negative direction after 5 seconds</Capability>
   <Capability Min="85" Max="89">X negative direction after 5 seconds</Capability>
-  <Capability Min="90" Max="94">No Function</Capability>
+  <Capability Min="90" Max="94">No function</Capability>
   <Capability Min="95" Max="99">Y negative direction after 5 seconds</Capability>
-  <Capability Min="100" Max="104">No Function</Capability>
+  <Capability Min="100" Max="104">No function</Capability>
   <Capability Min="105" Max="109">Cancel X negative direction after 5 seconds</Capability>
-  <Capability Min="110" Max="114">No Function</Capability>
+  <Capability Min="110" Max="114">No function</Capability>
   <Capability Min="115" Max="119">Cancel Y negative direction after 5 seconds</Capability>
-  <Capability Min="120" Max="124">No Functions</Capability>
+  <Capability Min="120" Max="124">No functions</Capability>
   <Capability Min="125" Max="129">Cancel X, Y direction after 5 seconds</Capability>
-  <Capability Min="130" Max="255">No Function</Capability>
+  <Capability Min="130" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Built-In Programs + Sound-controlled Program">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="22">Built-in Program 1</Capability>
   <Capability Min="23" Max="37">Built-in Program 2</Capability>
   <Capability Min="38" Max="52">Built-in Program 3</Capability>
