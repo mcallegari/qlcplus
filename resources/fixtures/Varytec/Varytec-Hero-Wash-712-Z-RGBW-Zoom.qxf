@@ -32,16 +32,16 @@
  <Channel Name="Colour macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#e01b24">Red</Capability>
-  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#33d17a">Green</Capability>
-  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#3584e4">Blue</Capability>
+  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="41" Max="50" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="51" Max="60" Preset="ColorDoubleMacro" Res1="#e01b24" Res2="#ffffff">Red, white</Capability>
-  <Capability Min="61" Max="70" Preset="ColorDoubleMacro" Res1="#33d17a" Res2="#ffffff">Green, white</Capability>
-  <Capability Min="71" Max="80" Preset="ColorDoubleMacro" Res1="#3584e4" Res2="#ffffff">Blue, white</Capability>
-  <Capability Min="81" Max="90" Preset="ColorDoubleMacro" Res1="#e01b24" Res2="#33d17a">Red, green</Capability>
-  <Capability Min="91" Max="100" Preset="ColorDoubleMacro" Res1="#33d17a" Res2="#3584e4">Green, blue</Capability>
-  <Capability Min="101" Max="110" Preset="ColorDoubleMacro" Res1="#e01b24" Res2="#3584e4">Red, blue</Capability>
+  <Capability Min="51" Max="60" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red, white</Capability>
+  <Capability Min="61" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green, white</Capability>
+  <Capability Min="71" Max="80" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue, white</Capability>
+  <Capability Min="81" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red, green</Capability>
+  <Capability Min="91" Max="100" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green, blue</Capability>
+  <Capability Min="101" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red, blue</Capability>
   <Capability Min="111" Max="120" Preset="ColorDoubleMacro" Res1="#f66151" Res2="#8ff0a4">Red, green, white</Capability>
   <Capability Min="121" Max="130" Preset="ColorDoubleMacro" Res1="#8ff0a4" Res2="#99c1f1">Green, blue, white</Capability>
   <Capability Min="131" Max="140" Preset="ColorDoubleMacro" Res1="#f66151" Res2="#99c1f1">Red, blue, white</Capability>

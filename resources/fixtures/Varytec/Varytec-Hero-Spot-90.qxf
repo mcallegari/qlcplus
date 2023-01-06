@@ -58,10 +58,10 @@
   <Capability Min="68" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="77" Max="85" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue/Yellow</Capability>
   <Capability Min="86" Max="94" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ffff">Yellow/Light Blue</Capability>
-  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
-  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#8a2be2">Light Blue/Violet</Capability>
-  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#8a2be2">Violet</Capability>
+  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#add8e6">Yellow/Light Blue</Capability>
+  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ee82ee">Light Blue/Violet</Capability>
+  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
   <Capability Min="131" Max="139" Preset="ColorMacro" Res1="#ffffff">Open (White)</Capability>
   <Capability Min="140" Max="195" Preset="RotationClockwiseFastToSlow">Rainbow Clockwise</Capability>
   <Capability Min="196" Max="199" Preset="RotationStop">Rotation Stop</Capability>
