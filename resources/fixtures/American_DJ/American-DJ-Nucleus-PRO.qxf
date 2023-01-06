@@ -69,7 +69,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -115,7 +115,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -151,7 +151,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -187,7 +187,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -223,7 +223,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -259,7 +259,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>

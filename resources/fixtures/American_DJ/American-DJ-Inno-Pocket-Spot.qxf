@@ -21,8 +21,8 @@
   <Capability Min="22" Max="28" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="29" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="36" Max="42" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="43" Max="49" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
-  <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="43" Max="49" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="57" Max="127">Split Colors</Capability>
   <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll Fast to Slow</Capability>
   <Capability Min="190" Max="193">Stop</Capability>

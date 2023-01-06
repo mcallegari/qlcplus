@@ -31,7 +31,7 @@
   <Capability Min="37" Max="54" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="55" Max="72" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
   <Capability Min="73" Max="90" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="91" Max="108" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
+  <Capability Min="91" Max="108" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
   <Capability Min="109" Max="127" Preset="ColorMacro" Res1="#800080">Purple</Capability>
   <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Slow to fast anticlockwise rotation</Capability>
   <Capability Min="188" Max="247" Preset="GoboMacro" Res1="Others/rainbow.png">Fast to slow rotation clockwise</Capability>

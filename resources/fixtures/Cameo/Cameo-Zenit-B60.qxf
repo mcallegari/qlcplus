@@ -44,7 +44,7 @@
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#aaaaff">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
-  <Capability Min="86" Max="94" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="86" Max="94" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="95" Max="102" Preset="ColorMacro" Res1="#fff0b9">Warm White</Capability>
   <Capability Min="103" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#dcf5ff">Cold White</Capability>
