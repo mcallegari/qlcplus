@@ -61,8 +61,8 @@
   <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
-  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Turquoise</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="119" Max="169" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow color mixing (static)</Capability>
   <Capability Min="170" Max="220" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow color mixing (moving)</Capability>
   <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
