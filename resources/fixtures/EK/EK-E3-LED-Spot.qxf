@@ -29,7 +29,7 @@
   <Capability Min="0" Max="7">Nothing</Capability>
   <Capability Min="8" Max="22" Preset="ColorMacro" Res1="#ff0000">RED</Capability>
   <Capability Min="23" Max="37" Preset="ColorMacro" Res1="#ffff00">YELLOW</Capability>
-  <Capability Min="38" Max="52" Preset="ColorMacro" Res1="#55ff00">GREEN</Capability>
+  <Capability Min="38" Max="52" Preset="ColorMacro" Res1="#00ff00">GREEN</Capability>
   <Capability Min="53" Max="67" Preset="ColorMacro" Res1="#00ffff">CYAN</Capability>
   <Capability Min="68" Max="82" Preset="ColorMacro" Res1="#0000ff">BLUE</Capability>
   <Capability Min="83" Max="97" Preset="ColorMacro" Res1="#ff00ff">MAGENTA</Capability>
