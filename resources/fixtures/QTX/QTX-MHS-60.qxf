@@ -14,9 +14,9 @@
   <Capability Min="0" Max="16" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#ff0000">Fire red</Capability>
   <Capability Min="34" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="50" Max="66" Preset="ColorMacro" Res1="#00ffff">Light blue</Capability>
+  <Capability Min="50" Max="66" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
   <Capability Min="67" Max="83" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
-  <Capability Min="84" Max="100" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="84" Max="100" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="101" Max="106" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
   <Capability Min="107" Max="126" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
   <Capability Min="127" Max="192" Preset="GoboMacro" Res1="Others/rainbow.png">Scrolling colour wheel, fast to slow</Capability>

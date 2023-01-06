@@ -29,9 +29,9 @@
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="1" Max="9" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff7f">While/Turquoise</Capability>
-  <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#00ff7f">Turquoise</Capability>
-  <Capability Min="11" Max="20" Preset="ColorDoubleMacro" Res1="#00ff7f" Res2="#ff0000">Turquoise/Red</Capability>
+  <Capability Min="1" Max="9" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#40e0d0">While/Turquoise</Capability>
+  <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="11" Max="20" Preset="ColorDoubleMacro" Res1="#40e0d0" Res2="#ff0000">Turquoise/Red</Capability>
   <Capability Min="21" Max="21" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="22" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ffff">Red/Cyan</Capability>
   <Capability Min="32" Max="32" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
