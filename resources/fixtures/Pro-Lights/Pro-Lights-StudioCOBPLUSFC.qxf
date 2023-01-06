@@ -57,7 +57,7 @@
   <Capability Min="101" Max="130" Preset="ColorMacro" Res1="#fffac4">RGB W 5000K ~ 6000K</Capability>
   <Capability Min="131" Max="160" Preset="ColorMacro" Res1="#fffabd">RGB W 6000K ~ 7000K</Capability>
   <Capability Min="161" Max="190" Preset="ColorMacro" Res1="#ffffff">RGB W 7000K ~ 8000K</Capability>
-  <Capability Min="191" Max="220" Preset="ColorDoubleMacro" Res1="#cbfff9">RGB W 8000K ~ 9000K</Capability>
+  <Capability Min="191" Max="220" Preset="ColorMacro" Res1="#cbfff9">RGB W 8000K ~ 9000K</Capability>
   <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#aefff6">RGB W 9000K ~ 10000K</Capability>
  </Channel>
  <Channel Name="Color macro">

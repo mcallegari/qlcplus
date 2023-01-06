@@ -43,7 +43,7 @@
   <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffaaff">Red + Blue + White</Capability>
   <Capability Min="190" Max="199" Preset="ColorMacro" Res1="#aaffff">Green + Blue + White</Capability>
   <Capability Min="200" Max="209" Preset="ColorMacro" Res1="#d9d9d9">Red + Green + Blue</Capability>
-  <Capability Min="210" Max="255" Preset="ColorMacro">ALL</Capability>
+  <Capability Min="210" Max="255" Preset="ColorMacro" Res1="#ffffff">ALL</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>

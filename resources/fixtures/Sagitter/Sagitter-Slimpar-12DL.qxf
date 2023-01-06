@@ -20,10 +20,10 @@
  <Channel Name="Color Macro / Sound Mode">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="50">No function</Capability>
-  <Capability Min="51" Max="101" Preset="ColorMacro">Color Macro 1 (Fade)
+  <Capability Min="51" Max="101">Color Macro 1 (Fade)
    <Alias Mode="10 Channels Mode" Channel="Color Macro speed" With="Microphone Sensibility"/>
   </Capability>
-  <Capability Min="102" Max="152" Preset="ColorMacro">Color Macro 2 (Color Change)</Capability>
+  <Capability Min="102" Max="152">Color Macro 2 (Color Change)</Capability>
   <Capability Min="153" Max="203" Preset="Alias">Sound Mode 1 (Strobe)
    <Alias Mode="10 Channels Mode" Channel="Color Macro speed" With="Microphone Sensibility"/>
   </Capability>

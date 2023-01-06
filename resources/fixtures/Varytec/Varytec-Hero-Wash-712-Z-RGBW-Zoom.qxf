@@ -27,7 +27,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Colour temperature">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Preset="ColorMacro">Colour temperature (0 % to 100 %)</Capability>
+  <Capability Min="0" Max="255">Colour temperature (0 % to 100 %)</Capability>
  </Channel>
  <Channel Name="Colour macros">
   <Group Byte="0">Colour</Group>
@@ -45,9 +45,9 @@
   <Capability Min="111" Max="120" Preset="ColorDoubleMacro" Res1="#f66151" Res2="#8ff0a4">Red, green, white</Capability>
   <Capability Min="121" Max="130" Preset="ColorDoubleMacro" Res1="#8ff0a4" Res2="#99c1f1">Green, blue, white</Capability>
   <Capability Min="131" Max="140" Preset="ColorDoubleMacro" Res1="#f66151" Res2="#99c1f1">Red, blue, white</Capability>
-  <Capability Min="141" Max="150" Preset="ColorMacro">Red, green, blue, white</Capability>
-  <Capability Min="151" Max="200" Preset="ColorMacro">Colour sequence, increasing speed</Capability>
-  <Capability Min="201" Max="255" Preset="ColorMacro">Colour transition (fade), increasing speed</Capability>
+  <Capability Min="141" Max="150">Red, green, blue, white</Capability>
+  <Capability Min="151" Max="200">Colour sequence, increasing speed</Capability>
+  <Capability Min="201" Max="255">Colour transition (fade), increasing speed</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Auto programs">
