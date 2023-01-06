@@ -703,6 +703,9 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
                     qlc_version,
                     errNum,
                     colorRgb)
+            if capPreset == "ColorMacro" and capability.attrib.get('Res2', "") != "":
+                print(absname + ":" + chName + ": Res2 not evaluated in Preset=ColorMacro")
+                errNum += 1
 
             capCount += 1
 
