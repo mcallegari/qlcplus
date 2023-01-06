@@ -149,9 +149,9 @@
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="PAR 2+3 Colour">
   <Group Byte="0">Colour</Group>
@@ -171,9 +171,9 @@
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Flash 1-4">
   <Group Byte="0">Shutter</Group>
@@ -220,9 +220,9 @@
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
@@ -242,9 +242,9 @@
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Derby 1-2">
   <Group Byte="0">Speed</Group>
@@ -276,9 +276,9 @@
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Derby 1-2 Colour">
   <Group Byte="0">Colour</Group>
@@ -298,9 +298,9 @@
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="PAR 1+4 - Red" Preset="IntensityRed"/>
  <Channel Name="PAR 1+4 - Green" Preset="IntensityGreen"/>

@@ -688,7 +688,10 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
             capPreset = capability.attrib.get('Preset', "")
             if capPreset == "ColorMacro" or capPreset == "ColorDoubleMacro":
                 if capability.attrib.get('Res1', "") == "":
-                    print(absname + ":" + chName + ": Res1 required in Preset=ColorMacro and ColorDoubleMacro")
+                    alternativeMsg = ""
+                    if capability.text in colorRgb["nameToRgb"]:
+                        alternativeMsg = " (" + colorRgb["NameToRgb"][capability.text] + ")"
+                    print(absname + ":" + chName + "/" + capName + ": Res1 required in Preset=ColorMacro and ColorDoubleMacro" + alternativeMsg)
                     errNum += 1
                 errNum = validate_color_codes(
                     absname + ":" + chName + "/" + capName + "/Res1",
@@ -699,7 +702,7 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
                     colorRgb)
             if capPreset == "ColorDoubleMacro":
                 if capability.attrib.get('Res2', "") == "":
-                    print(absname + ":" + chName + ": Res2 required in ColorDoubleMacro")
+                    print(absname + ":" + chName + "/" + capName + ": Res2 required in ColorDoubleMacro")
                     errNum += 1
                 errNum = validate_color_codes(
                     absname + ":" + chName + "/" + capName + "/Res2",

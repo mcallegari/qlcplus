@@ -119,8 +119,8 @@
   <Capability Min="60" Max="69">Pan/tilt normal mode</Capability>
   <Capability Min="70" Max="79">Enable blackout with pan/tilt movement</Capability>
   <Capability Min="80" Max="89">Disable blackout with pan/tilt movement</Capability>
-  <Capability Min="90" Max="99" Preset="ColorMacro">Enable blackout with color change</Capability>
-  <Capability Min="100" Max="109" Preset="ColorMacro">Disable blackout with color change</Capability>
+  <Capability Min="90" Max="99">Enable blackout with color change</Capability>
+  <Capability Min="100" Max="109">Disable blackout with color change</Capability>
   <Capability Min="110" Max="119" Preset="GoboMacro">Enable blackout with gobo change</Capability>
   <Capability Min="120" Max="129" Preset="GoboMacro">Disable blackout with gobo change</Capability>
   <Capability Min="130" Max="139" Preset="LampOn">Lamp on</Capability>

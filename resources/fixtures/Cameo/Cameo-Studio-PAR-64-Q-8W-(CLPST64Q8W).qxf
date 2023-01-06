@@ -47,9 +47,9 @@
   <Capability Min="66" Max="70" Preset="ColorMacro" Res1="#ff00c7">Bright Magenta</Capability>
   <Capability Min="71" Max="75" Preset="ColorMacro" Res1="#87fffa">Pale Cyan</Capability>
   <Capability Min="76" Max="80" Preset="ColorMacro" Res1="#fff1d5">Warm White</Capability>
-  <Capability Min="81" Max="150" Preset="ColorMacro">Colour Jumping Speed: from slowest to fastest</Capability>
-  <Capability Min="151" Max="220" Preset="ColorMacro">Colour Fading Speed: from slowest to fastest</Capability>
-  <Capability Min="221" Max="255" Preset="ColorMacro">Sound Control (Mic Sensitivity)</Capability>
+  <Capability Min="81" Max="150">Colour Jumping Speed: from slowest to fastest</Capability>
+  <Capability Min="151" Max="220">Colour Fading Speed: from slowest to fastest</Capability>
+  <Capability Min="221" Max="255">Sound Control (Mic Sensitivity)</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>

@@ -98,8 +98,8 @@
  </Channel>
  <Channel Name="Reset &amp; Internal Programs">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19" Preset="ColorMacro">Color Change Normal</Capability>
-  <Capability Min="20" Max="39" Preset="ColorMacro">Color Change to any Position</Capability>
+  <Capability Min="0" Max="19">Color Change Normal</Capability>
+  <Capability Min="20" Max="39">Color Change to any Position</Capability>
   <Capability Min="40" Max="79">No function</Capability>
   <Capability Min="80" Max="84" Preset="ResetAll">All Motor Reset</Capability>
   <Capability Min="85" Max="87">Scan Motor Reset</Capability>

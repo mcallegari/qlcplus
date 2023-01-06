@@ -69,7 +69,7 @@
  <Channel Name="Color2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="1" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="">White/CTC 3200-4100</Capability>
+  <Capability Min="1" Max="15" Preset="ColorMacro" Res1="#ffffff">White/CTC 3200-4100</Capability>
   <Capability Min="16" Max="16">CTC 3200-4100</Capability>
   <Capability Min="17" Max="31" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffffff">CTC 3200-4100/CTC 3200-5600</Capability>
   <Capability Min="32" Max="32">CTC 3200-5600</Capability>
