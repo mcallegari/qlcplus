@@ -687,6 +687,9 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
             # Check for consistent color codes for given color names
             capPreset = capability.attrib.get('Preset', "")
             if capPreset == "ColorMacro" or capPreset == "ColorDoubleMacro":
+                if capability.attrib.get('Res1', "") == "":
+                    print(absname + ":" + chName + ": Res1 required in Preset=ColorMacro and ColorDoubleMacro")
+                    errNum += 1
                 errNum = validate_color_codes(
                     absname + ":" + chName + "/" + capName + "/Res1",
                     capability.text,
@@ -695,6 +698,9 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
                     errNum,
                     colorRgb)
             if capPreset == "ColorDoubleMacro":
+                if capability.attrib.get('Res2', "") == "":
+                    print(absname + ":" + chName + ": Res2 required in ColorDoubleMacro")
+                    errNum += 1
                 errNum = validate_color_codes(
                     absname + ":" + chName + "/" + capName + "/Res2",
                     capability.text,
