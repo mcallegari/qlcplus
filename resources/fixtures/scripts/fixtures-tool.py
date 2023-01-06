@@ -537,8 +537,7 @@ def validate_color_codes(propName, fxColorName, fxColorCode, qlc_version, errNum
             if fxSearchCode in colorRgb["rgbToName"]:
                 alternativeMsg = ", the name for given FX color code is " + colorRgb["rgbToName"][fxSearchCode]
 
-            #if qlc_version >= 41206 or alternativeMsg != "":
-            if qlc_version >= 41206:
+            if qlc_version >= 41206 or alternativeMsg != "":
                 print(propName + ": FX color " + fxColorName + " (" + fxColorCode + ") should have color code " + targetCode + alternativeMsg)
                 errNum += 1
 
