@@ -508,11 +508,12 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames, colorRgb):
 # propName: Reference to the property for error messages
 # fxColorName: the TX color name
 # fxColorCode: the TX color code
+# qlc_version: Version of the ficture file
 # errNum: Current number of errors
 # colorRgb: Hash array with names mapping to color codes
 ###########################################################################################
 
-def validate_color_codes(propName, fxColorName, fxColorCode, errNum, colorRgb):
+def validate_color_codes(propName, fxColorName, fxColorCode, qlc_version, errNum, colorRgb):
     targetCode = ""
     
     # Normalize name and code
@@ -520,8 +521,8 @@ def validate_color_codes(propName, fxColorName, fxColorCode, errNum, colorRgb):
     fxSearchCode = fxColorCode.lower()
     
     # Try to find the code for the given name
-    if fxSearchName in colorRgb:
-         targetCode = colorRgb[fxSearchName]
+    if fxSearchName in colorRgb["nameToRgb"]:
+         targetCode = colorRgb["nameToRgb"][fxSearchName]
     else:
         # Search for alternative color name from potential list
         if fxSearchName in colorRgb:
@@ -533,13 +534,13 @@ def validate_color_codes(propName, fxColorName, fxColorCode, errNum, colorRgb):
         if fxSearchCode != targetCode:
             # try to find alternative color code for color name
             alternativeMsg = ""
-            for key, value in colorRgb.items():
-                if value == fxSearchCode:
-                    alternativeMsg = ", the name for given FX color code is " + key
-                    break 
+            if fxSearchCode in colorRgb["rgbToName"]:
+                alternativeMsg = ", the name for given FX color code is " + colorRgb["rgbToName"][fxSearchCode]
 
-            print(propName + ": FX color " + fxColorName + " (" + fxColorCode + ") should have color code " + targetCode + alternativeMsg)
-            errNum += 1
+            #if qlc_version >= 41206 or alternativeMsg != "":
+            if qlc_version >= 41206:
+                print(propName + ": FX color " + fxColorName + " (" + fxColorCode + ") should have color code " + targetCode + alternativeMsg)
+                errNum += 1
 
     return errNum
 
@@ -684,22 +685,24 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
                         else:
                             capability.set('Res', resource)
 
-            if qlc_version >= 41206:
-                capPreset = capability.attrib.get('Preset', "")
-                if capPreset == "ColorMacro" or capPreset == "ColorDoubleMacro":
-                    errNum = validate_color_codes(
-                        absname + ":" + chName + "/" + capName + "/Res1",
-                        capability.text,
-                        capability.attrib.get('Res1', ""),
-                        errNum,
-                        colorRgb)
-                if capPreset == "ColorDoubleMacro":
-                    errNum = validate_color_codes(
-                        absname + ":" + chName + "/" + capName + "/Res2",
-                        capability.text,
-                        capability.attrib.get('Res2', ""),
-                        errNum,
-                        colorRgb)
+            # Check for consistent color codes for given color names
+            capPreset = capability.attrib.get('Preset', "")
+            if capPreset == "ColorMacro" or capPreset == "ColorDoubleMacro":
+                errNum = validate_color_codes(
+                    absname + ":" + chName + "/" + capName + "/Res1",
+                    capability.text,
+                    capability.attrib.get('Res1', ""),
+                    qlc_version,
+                    errNum,
+                    colorRgb)
+            if capPreset == "ColorDoubleMacro":
+                errNum = validate_color_codes(
+                    absname + ":" + chName + "/" + capName + "/Res2",
+                    capability.text,
+                    capability.attrib.get('Res2', ""),
+                    qlc_version,
+                    errNum,
+                    colorRgb)
 
             capCount += 1
 
@@ -882,8 +885,13 @@ if args.validate is not None:
     rgbRoot = rgbObj.getroot()
     
     colorRgb = {}
+    colorRgb["nameToRgb"] = {}
+    colorRgb["rgbToName"] = {}
     for colorEntry in rgbRoot.findall('{http://www.qlcplus.org/ColorFilters}Color'):
-        colorRgb[colorEntry.attrib['Name'].title()] = colorEntry.attrib['RGB'].lower()
+        rgbCode = colorEntry.attrib['RGB'].lower()
+        colorName = colorEntry.attrib['Name'].title()
+        colorRgb["nameToRgb"][colorName] = rgbCode
+        colorRgb["rgbToName"][rgbCode] = colorName 
 
     paths = ["."]
     if len(args.validate) >= 1:
