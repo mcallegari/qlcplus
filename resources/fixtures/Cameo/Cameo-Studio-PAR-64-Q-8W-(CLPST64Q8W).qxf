@@ -12,16 +12,16 @@
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Colour (2CH)">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#e01b24">Red</Capability>
-  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#33d17a">Green</Capability>
-  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#3584e4">Blue</Capability>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ff7800">Orange</Capability>
-  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#00faff">Cyan</Capability>
-  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#9141ac">Lavender</Capability>
-  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#fc2cf4">Pink</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#8ff0a4">Bright Green</Capability>
-  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#da00d8">Magenta</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff73ea">Pale Pink</Capability>
   <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#c64600">Amber</Capability>
   <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#ff00d4">Bright Magenta</Capability>
@@ -32,16 +32,16 @@
  <Channel Name="Colour-Macro (3CH/7CH)">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
-  <Capability Min="5" Max="10" Preset="ColorMacro" Res1="#e01b24">Red</Capability>
-  <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#33d17a">Green</Capability>
+  <Capability Min="5" Max="10" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="16" Max="20">Blue</Capability>
   <Capability Min="21" Max="25" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="26" Max="30" Preset="ColorMacro" Res1="#f9f06b">Yellow</Capability>
+  <Capability Min="26" Max="30" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="31" Max="35" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
-  <Capability Min="36" Max="40" Preset="ColorMacro" Res1="#da00d8">Magenta</Capability>
-  <Capability Min="41" Max="45" Preset="ColorMacro" Res1="#ff73ea">Pink</Capability>
+  <Capability Min="36" Max="40" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="41" Max="45" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="46" Max="50" Preset="ColorMacro" Res1="#8ff0a4">Bright Green</Capability>
-  <Capability Min="51" Max="55" Preset="ColorMacro" Res1="#9141ac">Lavender</Capability>
+  <Capability Min="51" Max="55" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="56" Max="60" Preset="ColorMacro" Res1="#ffa2f3">Pale Pink</Capability>
   <Capability Min="61" Max="65" Preset="ColorMacro" Res1="#c64600">Amber</Capability>
   <Capability Min="66" Max="70" Preset="ColorMacro" Res1="#ff00c7">Bright Magenta</Capability>
