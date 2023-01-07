@@ -515,11 +515,11 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames, colorRgb):
 
 def validate_color_codes(propName, fxColorName, fxColorCode, qlc_version, errNum, colorRgb):
     targetCode = ""
-    
+
     # Normalize name and code
     fxSearchName = fxColorName.title()
     fxSearchCode = fxColorCode.lower()
-    
+
     # Try to find the code for the given name
     if fxSearchName in colorRgb["nameToRgb"]:
          targetCode = colorRgb["nameToRgb"][fxSearchName]
@@ -894,7 +894,7 @@ if args.validate is not None:
     rgbParser = etree.XMLParser(ns_clean=True, recover=True)
     rgbObj = etree.parse(rgbAbsname, parser=rgbParser)
     rgbRoot = rgbObj.getroot()
-    
+
     colorRgb = {}
     colorRgb["nameToRgb"] = {}
     colorRgb["rgbToName"] = {}
@@ -902,7 +902,7 @@ if args.validate is not None:
         rgbCode = colorEntry.attrib['RGB'].lower()
         colorName = colorEntry.attrib['Name'].title()
         colorRgb["nameToRgb"][colorName] = rgbCode
-        colorRgb["rgbToName"][rgbCode] = colorName 
+        colorRgb["rgbToName"][rgbCode] = colorName
 
     paths = ["."]
     if len(args.validate) >= 1:
