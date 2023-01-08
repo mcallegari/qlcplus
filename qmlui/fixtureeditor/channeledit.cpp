@@ -33,7 +33,7 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
         m_channel->addCapability(cap);
     }
 
-    connect(m_channel, SIGNAL(presetChanged()), this, SIGNAL(channelChanged()));
+    connect(m_channel, SIGNAL(presetChanged()), this, SLOT(setupPreset()));
     connect(m_channel, SIGNAL(nameChanged()), this, SIGNAL(channelChanged()));
     connect(m_channel, SIGNAL(defaultValueChanged()), this, SIGNAL(channelChanged()));
     connect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
@@ -177,6 +177,23 @@ void ChannelEdit::updateCapabilities()
     emit capabilitiesChanged();
 }
 
+void ChannelEdit::setupPreset()
+{
+    if (m_channel->preset() == QLCChannel::Custom)
+    {
+        emit channelChanged();
+        return;
+    }
+
+    for (QLCCapability *cap : m_channel->capabilities())
+        m_channel->removeCapability(cap);
+
+    m_channel->addPresetCapability();
+
+    emit capabilitiesChanged();
+    emit channelChanged();
+}
+
 QVariantList ChannelEdit::capabilities() const
 {
     return m_capabilities;
@@ -206,6 +223,17 @@ int ChannelEdit::getCapabilityPresetAtIndex(int index)
         return 0;
 
     return caps.at(index)->preset();
+}
+
+void ChannelEdit::setCapabilityPresetAtIndex(int index, int preset)
+{
+    QList<QLCCapability *> caps = m_channel->capabilities();
+
+    if (index < 0 || index >= caps.count())
+        return;
+
+    QLCCapability *cap = caps.at(index);
+    cap->setPreset(QLCCapability::Preset(preset));
 }
 
 int ChannelEdit::getCapabilityPresetType(int index)

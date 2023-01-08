@@ -56,8 +56,9 @@ public:
 
     Q_INVOKABLE QLCCapability *addCapability();
 
-    /** Get the selected preset for a capability at the given index */
+    /** Get/Set a preset for a capability at the given index */
     Q_INVOKABLE int getCapabilityPresetAtIndex(int index);
+    Q_INVOKABLE void setCapabilityPresetAtIndex(int index, int preset);
 
     /** Get the type of preset for a capability at the given index */
     Q_INVOKABLE int getCapabilityPresetType(int index);
@@ -73,6 +74,9 @@ public:
 
 private:
     void updateCapabilities();
+
+protected slots:
+    void setupPreset();
 
 signals:
     void channelChanged();

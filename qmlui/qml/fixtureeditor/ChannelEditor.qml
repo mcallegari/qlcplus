@@ -26,7 +26,8 @@ import "."
 
 GridLayout
 {
-    columns: 4
+    columns: 2
+    rowSpacing: 5
 
     property EditorRef editorView: null
     property ChannelEdit editor: null
@@ -39,31 +40,63 @@ GridLayout
         nameEdit.selectAndFocus()
     }
 
+    function updatePresetBox(capIndex)
+    {
+        capPresetCombo.currentIndex = editor.getCapabilityPresetAtIndex(capIndex)
+        presetBox.presetType = editor.getCapabilityPresetType(capIndex)
+
+        switch (presetBox.presetType)
+        {
+            case QLCCapability.SingleColor:
+                colorPreview.biColor = false
+                colorPreview.primary = editor.getCapabilityValueAt(capIndex, 0)
+                colorPreview.secondary = "black"
+            break
+            case QLCCapability.DoubleColor:
+                colorPreview.biColor = true
+                colorPreview.primary = editor.getCapabilityValueAt(capIndex, 0)
+                colorPreview.secondary = editor.getCapabilityValueAt(capIndex, 1)
+            break
+            case QLCCapability.Picture:
+                goboPicture.source = "file://" + editor.getCapabilityValueAt(capIndex, 0)
+            break
+            case QLCCapability.SingleValue:
+                pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
+                pValueSpin.suffix = editor.getCapabilityPresetUnits(capIndex)
+            break
+            case QLCCapability.DoubleValue:
+                pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
+                pValueSpin.suffix = editor.getCapabilityPresetUnits(capIndex)
+                sValueSpin.value = editor.getCapabilityValueAt(capIndex, 1)
+                sValueSpin.suffix = pValueSpin.suffix
+            break
+            default:
+            break
+        }
+    }
+
     // row 1
-    RobotoText { label: qsTr("Name") }
+    RobotoText { label: qsTr("Name"); height: UISettings.listItemHeight }
     CustomTextEdit
     {
         id: nameEdit
         Layout.fillWidth: true
-        Layout.columnSpan: 3
         text: channel ? channel.name : ""
         onTextChanged: if (channel) channel.name = text
     }
 
     // row 2
-    RobotoText { label: qsTr("Preset") }
+    RobotoText { label: qsTr("Preset"); height: UISettings.listItemHeight }
     CustomComboBox
     {
         Layout.fillWidth: true
-        Layout.columnSpan: 3
-
         model: editor ? editor.channelPresetList : null
         currentIndex: channel ? channel.preset : 0
         onCurrentIndexChanged: if (channel) channel.preset = currentIndex
     }
 
     // row 3
-    RobotoText { label: qsTr("Type") }
+    RobotoText { label: qsTr("Type"); height: UISettings.listItemHeight }
     CustomComboBox
     {
         Layout.fillWidth: true
@@ -73,7 +106,8 @@ GridLayout
         onValueChanged: if (editor) editor.group = value
     }
 
-    RobotoText { label: qsTr("Role") }
+    // row 4
+    RobotoText { label: qsTr("Role"); height: UISettings.listItemHeight }
     RowLayout
     {
         Layout.fillWidth: true
@@ -89,7 +123,7 @@ GridLayout
             checked: channel ? !channel.controlByte : false
             onToggled: if (channel) channel.controlByte = 0
         }
-        RobotoText { label: qsTr("Coarse (MSB)") }
+        RobotoText { label: qsTr("Coarse (MSB)"); height: UISettings.listItemHeight }
         CustomCheckBox
         {
             implicitHeight: UISettings.listItemHeight
@@ -99,25 +133,31 @@ GridLayout
             checked: channel ? channel.controlByte : false
             onToggled: if (channel) channel.controlByte = 1
         }
-        RobotoText { label: qsTr("Fine (LSB)") }
+        RobotoText { label: qsTr("Fine (LSB)"); height: UISettings.listItemHeight }
     }
 
-    // row 4
-    RobotoText { label: qsTr("Default value") }
-    CustomSpinBox
-    {
-        Layout.columnSpan: 2
-        from: 0
-        to: 255
-        stepSize: 1
-        value: channel ? channel.defaultValue : 0
-        onValueChanged: if (channel) channel.defaultValue = value
-    }
-
+    // row 5
+    RobotoText { label: qsTr("Default value"); height: UISettings.listItemHeight }
     RowLayout
     {
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignRight
+
+        CustomSpinBox
+        {
+            from: 0
+            to: 255
+            stepSize: 1
+            value: channel ? channel.defaultValue : 0
+            onValueChanged: if (channel) channel.defaultValue = value
+        }
+
+        Rectangle
+        {
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            color: "transparent"
+        }
 
         IconButton
         {
@@ -130,7 +170,7 @@ GridLayout
     // row 5 - capability editor
     Rectangle
     {
-        Layout.columnSpan: 4
+        Layout.columnSpan: 2
         Layout.fillHeight: true
         Layout.fillWidth: true
         color: "transparent"
@@ -175,35 +215,7 @@ GridLayout
                 editItem.focusItem(fieldIndex)
 
                 // setup the capability preset items
-                capPresetCombo.currentIndex = editor.getCapabilityPresetAtIndex(index)
-                presetBox.presetType = editor.getCapabilityPresetType(index)
-
-                switch (presetBox.presetType)
-                {
-                    case QLCCapability.SingleColor:
-                        colorPreview.primary = editor.getCapabilityValueAt(index, 0)
-                    break
-                    case QLCCapability.DoubleColor:
-                        colorPreview.primary = editor.getCapabilityValueAt(index, 0)
-                        colorPreview.secondary = editor.getCapabilityValueAt(index, 1)
-                    break
-                    case QLCCapability.Picture:
-                        goboPicture.source = "file://" + editor.getCapabilityValueAt(index, 0)
-                    break
-                    case QLCCapability.SingleValue:
-                        pValueSpin.value = editor.getCapabilityValueAt(index, 0)
-                        pValueSpin.suffix = editor.getCapabilityPresetUnits(index)
-                    break
-                    case QLCCapability.DoubleValue:
-                        pValueSpin.value = editor.getCapabilityValueAt(index, 0)
-                        pValueSpin.suffix = editor.getCapabilityPresetUnits(index)
-                        sValueSpin.value = editor.getCapabilityValueAt(index, 1)
-                        sValueSpin.suffix = pValueSpin.suffix
-                    break
-                    default:
-                    break
-                }
-
+                updatePresetBox(index)
                 editItem.visible = true
             }
 
@@ -245,7 +257,7 @@ GridLayout
                         label: qsTr("From")
                         color: UISettings.sectionHeader
                     }
-                    Rectangle { width: 1; height: UISettings.listItemHeight }
+                    Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
                     RobotoText
                     {
@@ -254,7 +266,7 @@ GridLayout
                         label: qsTr("To")
                         color: UISettings.sectionHeader
                     }
-                    Rectangle { width: 1; height: UISettings.listItemHeight }
+                    Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
                     RobotoText
                     {
@@ -289,7 +301,7 @@ GridLayout
                             height: UISettings.listItemHeight
                             label: cap.min
                         }
-                        Rectangle { width: 1; height: UISettings.listItemHeight }
+                        Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
                         RobotoText
                         {
@@ -298,7 +310,7 @@ GridLayout
                             height: UISettings.listItemHeight
                             label: cap.max
                         }
-                        Rectangle { width: 1; height: UISettings.listItemHeight }
+                        Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
                         RobotoText
                         {
@@ -318,6 +330,15 @@ GridLayout
                             faColor: "yellow"
                             tooltip: capsList.warningDescription(cap.warning)
                         }
+                    }
+
+                    Rectangle
+                    {
+                        width: capsList.width
+                        height: 1
+                        y: UISettings.listItemHeight - 1
+                        color: UISettings.fgMedium
+
                     }
 
                     MouseArea
@@ -430,7 +451,7 @@ GridLayout
     GroupBox
     {
         //title: qsTr("Preset")
-        Layout.columnSpan: 3
+        Layout.columnSpan: 2
         Layout.fillWidth: true
         //font.family: UISettings.robotoFontName
         //font.pixelSize: UISettings.textSizeDefault
@@ -451,7 +472,11 @@ GridLayout
                 id: capPresetCombo
                 Layout.fillWidth: true
                 model: editor ? editor.capabilityPresetList : null
-                //currValue: channel ? channel.group : 0
+                onValueChanged:
+                {
+                    editor.setCapabilityPresetAtIndex(editItem.indexInList, value)
+                    updatePresetBox(editItem.indexInList)
+                }
             }
 
             GroupBox

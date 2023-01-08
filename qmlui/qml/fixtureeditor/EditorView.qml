@@ -134,28 +134,28 @@ Rectangle
                                     ListModel
                                     {
                                         id: typeModel
-                                        ListElement { mLabel: "Color Changer"; mIcon: "qrc:/fixture.svg" }
-                                        ListElement { mLabel: "Dimmer"; mIcon: "qrc:/dimmer.svg" }
-                                        ListElement { mLabel: "Effect"; mIcon: "qrc:/effect.svg" }
-                                        ListElement { mLabel: "Fan"; mIcon: "qrc:/fan.svg" }
-                                        ListElement { mLabel: "Flower"; mIcon: "qrc:/flower.svg" }
-                                        ListElement { mLabel: "Hazer"; mIcon: "qrc:/hazer.svg" }
-                                        ListElement { mLabel: "Laser"; mIcon: "qrc:/laser.svg" }
-                                        ListElement { mLabel: "LED Bar (Beams)"; mIcon: "qrc:/ledbar_beams.svg" }
-                                        ListElement { mLabel: "LED Bar (Pixels)"; mIcon: "qrc:/ledbar_pixels.svg" }
-                                        ListElement { mLabel: "Moving Head"; mIcon: "qrc:/movinghead.svg" }
-                                        ListElement { mLabel: "Other"; mIcon: "qrc:/other.svg" }
-                                        ListElement { mLabel: "Scanner"; mIcon: "qrc:/scanner.svg" }
-                                        ListElement { mLabel: "Smoke"; mIcon: "qrc:/smoke.svg" }
-                                        ListElement { mLabel: "Strobe"; mIcon: "qrc:/strobe.svg" }
+                                        ListElement { mLabel: "Color Changer"; mIcon: "qrc:/fixture.svg"; mValue: 0 }
+                                        ListElement { mLabel: "Dimmer"; mIcon: "qrc:/dimmer.svg"; mValue: 1 }
+                                        ListElement { mLabel: "Effect"; mIcon: "qrc:/effect.svg"; mValue: 2 }
+                                        ListElement { mLabel: "Fan"; mIcon: "qrc:/fan.svg"; mValue: 3 }
+                                        ListElement { mLabel: "Flower"; mIcon: "qrc:/flower.svg"; mValue: 4 }
+                                        ListElement { mLabel: "Hazer"; mIcon: "qrc:/hazer.svg"; mValue: 5 }
+                                        ListElement { mLabel: "Laser"; mIcon: "qrc:/laser.svg"; mValue: 6 }
+                                        ListElement { mLabel: "LED Bar (Beams)"; mIcon: "qrc:/ledbar_beams.svg"; mValue: 7 }
+                                        ListElement { mLabel: "LED Bar (Pixels)"; mIcon: "qrc:/ledbar_pixels.svg"; mValue: 8 }
+                                        ListElement { mLabel: "Moving Head"; mIcon: "qrc:/movinghead.svg"; mValue: 9 }
+                                        ListElement { mLabel: "Other"; mIcon: "qrc:/other.svg"; mValue: 10 }
+                                        ListElement { mLabel: "Scanner"; mIcon: "qrc:/scanner.svg"; mValue: 11 }
+                                        ListElement { mLabel: "Smoke"; mIcon: "qrc:/smoke.svg"; mValue: 12 }
+                                        ListElement { mLabel: "Strobe"; mIcon: "qrc:/strobe.svg"; mValue: 13 }
                                     }
 
                                     implicitHeight: UISettings.bigItemHeight
                                     delegateHeight: UISettings.listItemHeight
                                     width: UISettings.bigItemHeight
                                     model: typeModel
-                                    currentIndex: editorView ? editorView.productType : 0
-                                    onCurrentIndexChanged: if (editorView) editorView.productType = currentIndex
+                                    currValue: editorView ? editorView.productType : 0
+                                    onValueChanged: if (editorView) editorView.productType = value
                                 }
                             }
 
