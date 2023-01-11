@@ -69,7 +69,7 @@
   <Capability Min="46" Max="46" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="47" Max="57" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#400080">Magenta/UV</Capability>
   <Capability Min="58" Max="58" Preset="ColorMacro" Res1="#400080">UV filter</Capability>
-  <Capability Min="59" Max="69" Preset="ColorDoubleMacro" Res1="400080#" Res2="#ffff00">UV/Yellow</Capability>
+  <Capability Min="59" Max="69" Preset="ColorDoubleMacro" Res1="#400080" Res2="#ffff00">UV/Yellow</Capability>
   <Capability Min="70" Max="70" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="71" Max="80" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/Green</Capability>
   <Capability Min="81" Max="81" Preset="ColorMacro" Res1="#00ff00">Green</Capability>

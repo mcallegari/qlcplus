@@ -525,8 +525,8 @@ def validate_color_codes(propName, fxColorName, fxColorCode, qlc_version, errNum
          targetCode = colorRgb["nameToRgb"][fxSearchName]
     else:
         # Search for alternative color name from potential list
-        if fxSearchName in colorRgb:
-            targetCode = colorRgb[fxSearchName + " 1"]
+        if fxSearchName in colorRgb["nameToRgb"]:
+            targetCode = colorRgb["nameToRgb"][fxSearchName + " 1"]
         # else the string cannot be aligned to a known color code.
 
     if targetCode != "":
@@ -685,29 +685,32 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
                             capability.set('Res', resource)
 
             # Check for consistent color codes for given color names
+            hexPattern = re.compile(r'^#([0-9a-fA-F]){6}$')
             capPreset = capability.attrib.get('Preset', "")
             if capPreset == "ColorMacro" or capPreset == "ColorDoubleMacro":
-                if capability.attrib.get('Res1', "") == "":
+                res = capability.attrib.get('Res1', "")
+                if not re.search(hexPattern, res):
                     alternativeMsg = ""
                     if capability.text in colorRgb["nameToRgb"]:
-                        alternativeMsg = " (" + colorRgb["NameToRgb"][capability.text] + ")"
-                    print(absname + ":" + chName + "/" + capName + ": Res1 required in Preset=ColorMacro and ColorDoubleMacro" + alternativeMsg)
+                        alternativeMsg = " (" + colorRgb["nameToRgb"][capability.text] + ")"
+                    print(absname + ":" + chName + "/" + capName + ": Res1 (" + res + ") required to start with '#' in Preset=ColorMacro and ColorDoubleMacro" + alternativeMsg)
                     errNum += 1
                 errNum = validate_color_codes(
                     absname + ":" + chName + "/" + capName + "/Res1",
                     capability.text,
-                    capability.attrib.get('Res1', ""),
+                    res,
                     qlc_version,
                     errNum,
                     colorRgb)
             if capPreset == "ColorDoubleMacro":
-                if capability.attrib.get('Res2', "") == "":
-                    print(absname + ":" + chName + "/" + capName + ": Res2 required in ColorDoubleMacro")
+                res = capability.attrib.get('Res2', "")
+                if not re.search(hexPattern, res):
+                    print(absname + ":" + chName + "/" + capName + ": Res2 (" + res + ") required to start with '#' in ColorDoubleMacro")
                     errNum += 1
                 errNum = validate_color_codes(
                     absname + ":" + chName + "/" + capName + "/Res2",
                     capability.text,
-                    capability.attrib.get('Res2', ""),
+                    res,
                     qlc_version,
                     errNum,
                     colorRgb)
