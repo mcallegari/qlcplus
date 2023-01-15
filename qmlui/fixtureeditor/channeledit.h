@@ -66,8 +66,9 @@ public:
     /** Get the units of a preset for a capability at the given index */
     Q_INVOKABLE QString getCapabilityPresetUnits(int index);
 
-    /** Get the value/resource of a preset for a capability at the given index */
+    /** Get/Set the value/resource of a preset for a capability at the given index */
     Q_INVOKABLE QVariant getCapabilityValueAt(int index, int vIndex);
+    Q_INVOKABLE void setCapabilityValueAt(int index, int vIndex, QVariant value);
 
     /** Perform a check on a recently modified capability for overlapping and integrity */
     Q_INVOKABLE void checkCapabilities();

@@ -266,6 +266,16 @@ QVariant ChannelEdit::getCapabilityValueAt(int index, int vIndex)
     return caps.at(index)->resource(vIndex);
 }
 
+void ChannelEdit::setCapabilityValueAt(int index, int vIndex, QVariant value)
+{
+    QList<QLCCapability *> caps = m_channel->capabilities();
+
+    if (index < 0 || index >= caps.count())
+        return;
+
+    caps.at(index)->setResource(vIndex, value);
+}
+
 void ChannelEdit::checkCapabilities()
 {
     QVector<bool>allocation;
@@ -288,5 +298,3 @@ void ChannelEdit::checkCapabilities()
         }
     }
 }
-
-

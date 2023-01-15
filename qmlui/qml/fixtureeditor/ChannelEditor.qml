@@ -20,6 +20,7 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import QtQuick.Controls 2.14
+import QtQuick.Dialogs 1.3
 
 import org.qlcplus.classes 1.0
 import "."
@@ -72,6 +73,22 @@ GridLayout
             break
             default:
             break
+        }
+    }
+
+    FileDialog
+    {
+        id: openDialog
+        visible: false
+        title: qsTr("Open a picture file")
+        folder: "file://" + qlcplus.goboSystemPath()
+        nameFilters: [ qsTr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp *.svg)", qsTr("All files") + " (*)" ]
+
+        onAccepted:
+        {
+            var str = fileUrl.toString().slice(7)
+            editor.setCapabilityValueAt(editItem.indexInList, 0, str)
+            updatePresetBox(editItem.indexInList)
         }
     }
 
@@ -513,7 +530,10 @@ GridLayout
                             closeOnSelect: true
                             showPalette: false
 
-                            //onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
+                            onColorChanged: {
+                                editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
+                                updatePresetBox(editItem.indexInList)
+                            }
                         }
                     }
 
@@ -532,6 +552,7 @@ GridLayout
                         width: UISettings.iconSizeMedium
                         height: UISettings.iconSizeMedium
                         label: "..."
+                        onClicked: openDialog.open()
                     }
 
                     Rectangle
@@ -571,7 +592,10 @@ GridLayout
                             closeOnSelect: true
                             showPalette: false
 
-                            //onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
+                            onColorChanged: {
+                                editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
+                                updatePresetBox(editItem.indexInList)
+                            }
                         }
                     }
                 }
@@ -603,6 +627,8 @@ GridLayout
                         Layout.fillWidth: true
                         from: -1000
                         to: 1000
+
+                        onValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 0, value)
                     }
 
                     RobotoText
@@ -618,6 +644,8 @@ GridLayout
                         Layout.fillWidth: true
                         from: -1000
                         to: 1000
+
+                        onValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 1, value)
                     }
                 }
             }

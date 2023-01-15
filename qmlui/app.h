@@ -149,6 +149,8 @@ public:
 
     Q_INVOKABLE void setLanguage(QString locale);
 
+    Q_INVOKABLE QString goboSystemPath() const;
+
     void enableKioskMode();
     void createKioskCloseButton(const QRect& rect);
 
