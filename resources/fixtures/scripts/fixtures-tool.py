@@ -714,8 +714,17 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
                     qlc_version,
                     errNum,
                     colorRgb)
+            elif capPreset == "":
+                res = capability.attrib.get('Res1', "__.NOT._.SET.___")
+                if res != "__.NOT._.SET.___":
+                    print(absname + ":" + chName + "/" + capName + ": Res1 not evaluated withour Preset=")
+                    errNum += 1
+                res = capability.attrib.get('Res2', "__.NOT._.SET.___")
+                if res != "__.NOT._.SET.___":
+                    print(absname + ":" + chName + "/" + capName + ": Res2 not evaluated withour Preset=")
+                    errNum += 1
             if capPreset == "ColorMacro" and capability.attrib.get('Res2', "") != "":
-                print(absname + ":" + chName + ": Res2 not evaluated in Preset=ColorMacro")
+                print(absname + ":" + chName + "/" + capName + ": Res2 not evaluated in Preset=ColorMacro")
                 errNum += 1
 
             capCount += 1
