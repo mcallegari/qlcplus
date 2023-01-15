@@ -21,9 +21,9 @@
   <Capability Min="37" Max="45" Preset="ColorMacro" Res1="#eeeeee">CTO 3200</Capability>
   <Capability Min="46" Max="54" Preset="ColorDoubleMacro" Res1="#eeeeee" Res2="#00ff00">CTO 3200 + Green</Capability>
   <Capability Min="55" Max="63" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="64" Max="73" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Green + Aquamarine</Capability>
-  <Capability Min="74" Max="82" Preset="ColorMacro" Res1="#00ffff">Aquamarine</Capability>
-  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffaa00">Aquamarine + Orange</Capability>
+  <Capability Min="64" Max="73" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#7fffd4">Green + Aquamarine</Capability>
+  <Capability Min="74" Max="82" Preset="ColorMacro" Res1="#7fffd4">Aquamarine</Capability>
+  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#7fffd4" Res2="#ffaa00">Aquamarine + Orange</Capability>
   <Capability Min="92" Max="100" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="101" Max="109" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#0000ff">Orange + Blue</Capability>
   <Capability Min="110" Max="118" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>

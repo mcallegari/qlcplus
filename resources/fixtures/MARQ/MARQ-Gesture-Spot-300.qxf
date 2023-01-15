@@ -104,7 +104,7 @@
   <Capability Min="21" Max="27" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
-  <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
+  <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff55ff">Pink</Capability>
   <Capability Min="64" Max="127" Preset="RotationIndexed">Colour Indexing</Capability>

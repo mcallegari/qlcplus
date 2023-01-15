@@ -48,9 +48,9 @@
   <Capability Min="16" Max="16" Preset="ColorMacro" Res1="#aa0000">Deep Red</Capability>
   <Capability Min="17" Max="31" Preset="ColorDoubleMacro" Res1="#aa0000" Res2="#0000ff">Deep Red/Deep Blue</Capability>
   <Capability Min="32" Max="32" Preset="ColorMacro" Res1="#0000ff">Deep Blue</Capability>
-  <Capability Min="33" Max="47" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff7f00">Deep Blue/Orange</Capability>
-  <Capability Min="48" Max="48" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
-  <Capability Min="49" Max="63" Preset="ColorDoubleMacro" Res1="#ff7f00" Res2="#00ff00">Orange/Green</Capability>
+  <Capability Min="33" Max="47" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffa500">Deep Blue/Orange</Capability>
+  <Capability Min="48" Max="48" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="49" Max="63" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00ff00">Orange/Green</Capability>
   <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="65" Max="79" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff4000">Green/3200K</Capability>
   <Capability Min="80" Max="80" Preset="ColorMacro" Res1="#ff4000">3200°K Filter</Capability>
@@ -62,7 +62,7 @@
   <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="130" Max="137" Preset="ColorMacro" Res1="#aa0000">Deep red - positioning</Capability>
   <Capability Min="138" Max="145" Preset="ColorMacro" Res1="#0000ff">Deep blue - positioning</Capability>
-  <Capability Min="146" Max="153" Preset="ColorMacro" Res1="#ff7f00">Orange - positioning</Capability>
+  <Capability Min="146" Max="153" Preset="ColorMacro" Res1="#ffa500">Orange - positioning</Capability>
   <Capability Min="154" Max="163" Preset="ColorMacro" Res1="#00ff00">Green - positioning</Capability>
   <Capability Min="164" Max="171" Preset="ColorMacro" Res1="#ffebd2">3200°K temperature filter - positioning</Capability>
   <Capability Min="172" Max="181" Preset="ColorMacro" Res1="#ffcc00">Amber - positioning</Capability>

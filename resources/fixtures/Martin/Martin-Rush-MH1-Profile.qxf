@@ -39,7 +39,7 @@
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffa000">Orange</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#0000ff">Dark Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="64" Max="127">Indexing</Capability>
   <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Scroll CW</Capability>

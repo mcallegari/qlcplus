@@ -33,7 +33,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="7" Max="13" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="21" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#d76aed">Peachblow</Capability>
   <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -41,8 +41,8 @@
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
   <Capability Min="64" Max="70" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + yellow</Capability>
-  <Capability Min="71" Max="77" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + pink</Capability>
-  <Capability Min="78" Max="84" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Pink + green</Capability>
+  <Capability Min="71" Max="77" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffc0cb">Yellow + pink</Capability>
+  <Capability Min="78" Max="84" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#00ff00">Pink + green</Capability>
   <Capability Min="85" Max="91" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#d76aed">Green + peachblow</Capability>
   <Capability Min="92" Max="98" Preset="ColorDoubleMacro" Res1="#d76aed" Res2="#0000ff">Peachblow + blue</Capability>
   <Capability Min="99" Max="105" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#4cbb17">Blue + kelly-green</Capability>

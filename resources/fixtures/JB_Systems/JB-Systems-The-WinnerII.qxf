@@ -57,9 +57,9 @@
   <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="1" Max="10" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">White/Green</Capability>
   <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="12" Max="21" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff7f00">Green/Orange</Capability>
-  <Capability Min="22" Max="22" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
-  <Capability Min="23" Max="32" Preset="ColorDoubleMacro" Res1="#ff7f00" Res2="#7f7fff">Orange/Light blue</Capability>
+  <Capability Min="12" Max="21" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffa500">Green/Orange</Capability>
+  <Capability Min="22" Max="22" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="23" Max="32" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#7f7fff">Orange/Light blue</Capability>
   <Capability Min="33" Max="33" Preset="ColorMacro" Res1="#7f7fff">Light blue</Capability>
   <Capability Min="34" Max="43" Preset="ColorDoubleMacro" Res1="#7f7fff" Res2="#ffc000">Light blue/Amber</Capability>
   <Capability Min="44" Max="44" Preset="ColorMacro" Res1="#ffc000">Amber</Capability>

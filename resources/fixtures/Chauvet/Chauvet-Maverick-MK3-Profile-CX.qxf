@@ -39,11 +39,11 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
-  <Capability Min="48" Max="59" Preset="ColorMacro">8000k CTB</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="48" Max="59">8000k CTB</Capability>
   <Capability Min="60" Max="187" Preset="RotationIndexed">Color wheel indexing</Capability>
   <Capability Min="188" Max="219" Preset="RotationClockwiseFastToSlow">Color scroll, fast to slow</Capability>
   <Capability Min="220" Max="223" Preset="RotationStop">Stop</Capability>
@@ -247,12 +247,12 @@
  <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="CMY Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Preset="ColorMacro">No function</Capability>
-  <Capability Min="10" Max="255" Preset="ColorMacro">CMY macro</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">CMY macro</Capability>
  </Channel>
  <Channel Name="CMY Macro Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255" Preset="ColorMacro">CMY macro speed, fast to slow</Capability>
+  <Capability Min="0" Max="255">CMY macro speed, fast to slow</Capability>
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>

@@ -23,7 +23,7 @@
   <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#ff99cc">Pink</Capability>
   <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#66ff66">Light Green</Capability>
   <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#00ffff">Turquoise</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
   <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#edfeff">Cool White</Capability>
   <Capability Min="238" Max="255" Preset="ColorMacro" Res1="#fff3f6">Warm White</Capability>
@@ -43,7 +43,7 @@
   <Capability Min="46" Max="50" Preset="ColorMacro" Res1="#ff99cc">Pink</Capability>
   <Capability Min="51" Max="55" Preset="ColorMacro" Res1="#66ff66">Light Green</Capability>
   <Capability Min="56" Max="60" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="61" Max="65" Preset="ColorMacro" Res1="#00ffff">Turquoise</Capability>
+  <Capability Min="61" Max="65" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="66" Max="70" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
   <Capability Min="71" Max="75" Preset="ColorMacro" Res1="#edfeff">Cool White</Capability>
   <Capability Min="76" Max="80" Preset="ColorMacro" Res1="#fff3f6">Warm White</Capability>
@@ -64,7 +64,7 @@
   <Capability Min="46" Max="50" Preset="ColorMacro" Res1="#ff99cc">Pink</Capability>
   <Capability Min="51" Max="55" Preset="ColorMacro" Res1="#66ff66">Light Green</Capability>
   <Capability Min="56" Max="60" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="61" Max="65" Preset="ColorMacro" Res1="#00ffff">Turquoise</Capability>
+  <Capability Min="61" Max="65" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="66" Max="70" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
   <Capability Min="71" Max="75" Preset="ColorMacro" Res1="#edfeff">Cool White</Capability>
   <Capability Min="76" Max="80" Preset="ColorMacro" Res1="#fff3f6">Warm White</Capability>

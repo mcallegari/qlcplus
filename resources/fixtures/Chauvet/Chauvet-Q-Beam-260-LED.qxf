@@ -24,7 +24,7 @@
   <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#55ff7f">Light Green</Capability>
-  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
   <Capability Min="136" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow or linear effect</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">

@@ -17,8 +17,8 @@
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
-  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#aaff7f">Lime green</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#32cd32">Lime green</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>

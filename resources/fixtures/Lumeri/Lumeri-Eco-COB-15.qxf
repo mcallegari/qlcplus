@@ -21,7 +21,7 @@
   <Capability Min="58" Max="64" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="65" Max="71" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="72" Max="78" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="79" Max="85" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="79" Max="85" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="86" Max="92" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="93" Max="100" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="101" Max="200">Color Fade</Capability>

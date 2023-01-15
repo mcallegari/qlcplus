@@ -48,9 +48,9 @@
   <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#0000bf">Deep blue</Capability>
   <Capability Min="38" Max="54" Preset="ColorDoubleMacro" Res1="#0000bf" Res2="#00ff00">Deep blue/Green</Capability>
   <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="56" Max="72" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff7f00">Green/Orange</Capability>
-  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
-  <Capability Min="74" Max="90" Preset="ColorDoubleMacro" Res1="#ff7f00" Res2="#eaf1ff">6000K/Orange</Capability>
+  <Capability Min="56" Max="72" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffa500">Green/Orange</Capability>
+  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="74" Max="90" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#eaf1ff">6000K/Orange</Capability>
   <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#eaf1ff">6000K filter</Capability>
   <Capability Min="92" Max="109" Preset="ColorDoubleMacro" Res1="#eaf1ff" Res2="#dcb48c">6000K/UV</Capability>
   <Capability Min="110" Max="110" Preset="ColorMacro" Res1="#dcb48c">UV filter</Capability>
@@ -59,7 +59,7 @@
   <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#bf0000">Deep red</Capability>
   <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#0000bf">Deep blue</Capability>
   <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#eaf1ff">6000K filter</Capability>
   <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#dcb48c">UV filter</Capability>
   <Capability Min="190" Max="215" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>

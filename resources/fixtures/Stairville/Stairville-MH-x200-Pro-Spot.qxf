@@ -23,7 +23,7 @@
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#55ff00">Green</Capability>
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00aaff">Light blue</Capability>
-  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#ff0000">Orange Red</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#ff0000">Orange/Red</Capability>
   <Capability Min="64" Max="66" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="67" Max="78" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">Stepwise transition from white to blue</Capability>
   <Capability Min="79" Max="92" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Stepwise transition from blue to yellow</Capability>

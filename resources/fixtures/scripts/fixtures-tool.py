@@ -416,7 +416,7 @@ def validate_fx_generals(absname, xmlObj, errNum):
 # channelNames List of channel names
 ###########################################################################################
 
-def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
+def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames, colorRgb):
     global namespace
     root = xmlObj.getroot()
     errNum = 0
@@ -501,6 +501,49 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
     return errNum
 
 ###########################################################################################
+# validate_color_codes
+#
+# Validate color codes for given color names
+#
+# propName: Reference to the property for error messages
+# fxColorName: the TX color name
+# fxColorCode: the TX color code
+# qlc_version: Version of the ficture file
+# errNum: Current number of errors
+# colorRgb: Hash array with names mapping to color codes
+###########################################################################################
+
+def validate_color_codes(propName, fxColorName, fxColorCode, qlc_version, errNum, colorRgb):
+    targetCode = ""
+
+    # Normalize name and code
+    fxSearchName = fxColorName.title()
+    fxSearchCode = fxColorCode.lower()
+
+    # Try to find the code for the given name
+    if fxSearchName in colorRgb["nameToRgb"]:
+         targetCode = colorRgb["nameToRgb"][fxSearchName]
+    else:
+        # Search for alternative color name from potential list
+        if fxSearchName in colorRgb["nameToRgb"]:
+            targetCode = colorRgb["nameToRgb"][fxSearchName + " 1"]
+        # else the string cannot be aligned to a known color code.
+
+    if targetCode != "":
+        # Name could be mapped to a code.
+        if fxSearchCode != targetCode:
+            # try to find alternative color code for color name
+            alternativeMsg = ""
+            if fxSearchCode in colorRgb["rgbToName"]:
+                alternativeMsg = ", the name for given FX color code is " + colorRgb["rgbToName"][fxSearchCode]
+
+            if qlc_version >= 41206 or alternativeMsg != "":
+                print(propName + ": FX color " + fxColorName + " (" + fxColorCode + ") should have color code " + targetCode + alternativeMsg)
+                errNum += 1
+
+    return errNum
+
+###########################################################################################
 # validate_fx_channels
 #
 # Validate the fixture channels
@@ -509,7 +552,7 @@ def validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames):
 # xmlObj The fixture XML object
 ###########################################################################################
 
-def validate_fx_channels(absname, xmlObj, errNum):
+def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
     global namespace
     root = xmlObj.getroot()
     hasPan = False
@@ -519,6 +562,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
 
     chCount = 0
     channelNames = []
+    qlc_version = getDefinitionVersion(xmlObj)
 
     for channel in root.findall('{' + namespace + '}Channel'):
         chName = ""
@@ -640,6 +684,49 @@ def validate_fx_channels(absname, xmlObj, errNum):
                         else:
                             capability.set('Res', resource)
 
+            # Check for consistent color codes for given color names
+            hexPattern = re.compile(r'^#([0-9a-fA-F]){6}$')
+            capPreset = capability.attrib.get('Preset', "")
+            if capPreset == "ColorMacro" or capPreset == "ColorDoubleMacro":
+                res = capability.attrib.get('Res1', "")
+                if not re.search(hexPattern, res):
+                    alternativeMsg = ""
+                    if capability.text in colorRgb["nameToRgb"]:
+                        alternativeMsg = " (" + colorRgb["nameToRgb"][capability.text] + ")"
+                    print(absname + ":" + chName + "/" + capName + ": Res1 (" + res + ") required to start with '#' in Preset=ColorMacro and ColorDoubleMacro" + alternativeMsg)
+                    errNum += 1
+                errNum = validate_color_codes(
+                    absname + ":" + chName + "/" + capName + "/Res1",
+                    capability.text,
+                    res,
+                    qlc_version,
+                    errNum,
+                    colorRgb)
+            if capPreset == "ColorDoubleMacro":
+                res = capability.attrib.get('Res2', "")
+                if not re.search(hexPattern, res):
+                    print(absname + ":" + chName + "/" + capName + ": Res2 (" + res + ") required to start with '#' in ColorDoubleMacro")
+                    errNum += 1
+                errNum = validate_color_codes(
+                    absname + ":" + chName + "/" + capName + "/Res2",
+                    capability.text,
+                    res,
+                    qlc_version,
+                    errNum,
+                    colorRgb)
+            elif capPreset == "":
+                res = capability.attrib.get('Res1', "__.NOT._.SET.___")
+                if res != "__.NOT._.SET.___":
+                    print(absname + ":" + chName + "/" + capName + ": Res1 not evaluated withour Preset=")
+                    errNum += 1
+                res = capability.attrib.get('Res2', "__.NOT._.SET.___")
+                if res != "__.NOT._.SET.___":
+                    print(absname + ":" + chName + "/" + capName + ": Res2 not evaluated withour Preset=")
+                    errNum += 1
+            if capPreset == "ColorMacro" and capability.attrib.get('Res2', "") != "":
+                print(absname + ":" + chName + "/" + capName + ": Res2 not evaluated in Preset=ColorMacro")
+                errNum += 1
+
             capCount += 1
 
         # Evaluate completeness of ranges
@@ -658,7 +745,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
         errNum += 1
 
     ###################################### CHECK MODES ###################################
-    errNum += validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames)
+    errNum += validate_fx_modes(absname, xmlObj, hasPan, hasTilt, channelNames, colorRgb)
 
     if needSave:
         print("Saving back " + absname + "...")
@@ -681,7 +768,7 @@ def validate_fx_channels(absname, xmlObj, errNum):
 # absname: the absolute file path
 ###########################################################################################
 
-def validate_fixture(absname):
+def validate_fixture(absname, colorRgb):
     parser = etree.XMLParser(ns_clean=True, recover=True)
     xmlObj = etree.parse(absname, parser=parser)
     root = xmlObj.getroot()
@@ -699,7 +786,7 @@ def validate_fixture(absname):
     errNum = validate_fx_generals(absname, xmlObj, errNum)
 
     ##################################### CHECK CHANNELS #################################
-    errNum, hasPan, hasTilt, hasZoom = validate_fx_channels(absname, xmlObj, errNum)
+    errNum, hasPan, hasTilt, hasZoom = validate_fx_channels(absname, xmlObj, errNum, colorRgb)
 
     ################################ CHECK GLOBAL PHYSICAL ################################
     errNum = check_physical(absname, root, hasPan, hasTilt, hasZoom, errNum)
@@ -815,6 +902,20 @@ if args.map:
 if args.validate is not None:
     print("Starting validation")
 
+    rgbAbsname = os.path.join("..", "colorfilters", "namedrgb.qxcf")
+    rgbParser = etree.XMLParser(ns_clean=True, recover=True)
+    rgbObj = etree.parse(rgbAbsname, parser=rgbParser)
+    rgbRoot = rgbObj.getroot()
+
+    colorRgb = {}
+    colorRgb["nameToRgb"] = {}
+    colorRgb["rgbToName"] = {}
+    for colorEntry in rgbRoot.findall('{http://www.qlcplus.org/ColorFilters}Color'):
+        rgbCode = colorEntry.attrib['RGB'].lower()
+        colorName = colorEntry.attrib['Name'].title()
+        colorRgb["nameToRgb"][colorName] = rgbCode
+        colorRgb["rgbToName"][rgbCode] = colorName
+
     paths = ["."]
     if len(args.validate) >= 1:
         paths = args.validate
@@ -828,7 +929,7 @@ if args.validate is not None:
 
     for file in files:
         #print("Processing file " + filepath)
-        errorCount += validate_fixture(file)
+        errorCount += validate_fixture(file, colorRgb)
 
     print(str(len(files)) + " definitions processed. " + str(errorCount) + " errors detected")
 

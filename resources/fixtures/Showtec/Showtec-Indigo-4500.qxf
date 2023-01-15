@@ -23,8 +23,8 @@
   <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#008000">Green</Capability>
   <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
-  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#00ff00">Light Green</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
   <Capability Min="153" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse (CCW) Rainbow slow to fast</Capability>
  </Channel>
  <Channel Name="Static Gobo">

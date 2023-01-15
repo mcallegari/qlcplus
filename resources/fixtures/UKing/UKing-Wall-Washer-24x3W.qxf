@@ -18,12 +18,12 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="16" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="17" Max="27" Preset="ColorMacro" Res1="#55ff00">Green</Capability>
+  <Capability Min="17" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="28" Max="38" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="39" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="50" Max="60" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="50" Max="60" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="61" Max="71" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
-  <Capability Min="72" Max="82" Preset="ColorMacro">White</Capability>
+  <Capability Min="72" Max="82" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="83" Max="93">Point-to-Point-1</Capability>
   <Capability Min="94" Max="104">Point-to-Point-2</Capability>
   <Capability Min="105" Max="115">Point-to-Point-3</Capability>

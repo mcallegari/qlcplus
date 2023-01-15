@@ -27,7 +27,7 @@
   <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#55ffff">Turquoise</Capability>
   <Capability Min="11" Max="20" Preset="ColorDoubleMacro" Res1="#55ffff" Res2="#ff0000">Turquoise/Red</Capability>
   <Capability Min="21" Max="21" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="22" Max="31" Preset="ColorDoubleMacro" Res1="ff0000#" Res2="#6fcbdc">Red/Cyan</Capability>
+  <Capability Min="22" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#6fcbdc">Red/Cyan</Capability>
   <Capability Min="32" Max="32" Preset="ColorMacro" Res1="#6fcbdc">Cyan</Capability>
   <Capability Min="33" Max="41" Preset="ColorDoubleMacro" Res1="#6fcbdc" Res2="#a8ff9b">Cyan/Light Green</Capability>
   <Capability Min="42" Max="42" Preset="ColorMacro" Res1="#a8ff9b">Light Green</Capability>

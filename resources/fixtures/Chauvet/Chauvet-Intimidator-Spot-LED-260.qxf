@@ -24,7 +24,7 @@
   <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#21ff06">Green</Capability>
   <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#fc02ff">Magenta</Capability>
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ffff0a">Yellow</Capability>
-  <Capability Min="56" Max="62" Preset="ColorMacro" Res1="#0000ff">Dark Blue</Capability>
+  <Capability Min="56" Max="62" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="63" Max="64" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="65" Max="189" Preset="ColorWheelIndex">Color indexing</Capability>
   <Capability Min="190" Max="221" Preset="RotationClockwiseFastToSlow">Color cycling rainbow, fast to slow</Capability>
