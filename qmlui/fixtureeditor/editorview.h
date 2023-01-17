@@ -23,10 +23,10 @@
 #include <QQuickView>
 
 #include "physicaledit.h"
+#include "qlcchannel.h"
 
 class QLCFixtureDef;
 class ChannelEdit;
-class QLCChannel;
 class ListModel;
 class ModeEdit;
 
@@ -99,12 +99,22 @@ private:
      * Channels
      ************************************************************************/
 public:
+    enum CompositeChannelTypes
+    {
+        RGBChannel = QLCChannel::Nothing + 100,
+        RGBWChannel,
+        RGBAWChannel
+    };
+    Q_ENUM(CompositeChannelTypes)
+
     /** Get a list of all the available channels in the definition */
     QVariant channels() const;
 
     /** Request a channel editor.
      *  If $name is empty, a new channel is added */
     Q_INVOKABLE ChannelEdit *requestChannelEditor(QString name);
+
+    Q_INVOKABLE void addPresetChannel(QString name, int group);
 
     /** Delete the given $channel from the definition */
     Q_INVOKABLE bool deleteChannel(QLCChannel *channel);

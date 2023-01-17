@@ -255,6 +255,20 @@ Rectangle
                                         Layout.fillWidth: true
                                         color: "transparent"
                                     }
+
+                                    IconButton
+                                    {
+                                        id: chWizButton
+                                        imgSource: "qrc:/wizard.svg"
+                                        tooltip: qsTr("Channel wizard")
+                                        onClicked: wizardPopup.open()
+
+                                        PopupChannelWizard
+                                        {
+                                            id: wizardPopup
+                                            editorView: editorRoot.editorView
+                                        }
+                                    }
                                 }
                             } // Rectangle - toolbar
 

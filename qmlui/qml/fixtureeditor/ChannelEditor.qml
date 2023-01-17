@@ -181,6 +181,25 @@ GridLayout
             id: removeCapButton
             imgSource: "qrc:/remove.svg"
             tooltip: qsTr("Delete the selected capabilities")
+            onClicked: {
+                editItem.visible = false
+                editor.removeCapabilityAtIndex(editItem.indexInList)
+            }
+        }
+
+        IconButton
+        {
+            id: chWizButton
+            imgSource: "qrc:/wizard.svg"
+            tooltip: qsTr("Capability wizard")
+            onClicked: wizardPopup.open()
+
+            PopupChannelWizard
+            {
+                id: wizardPopup
+                chEdit: editor
+                capabilityWizard: true
+            }
         }
     }
 
@@ -220,7 +239,7 @@ GridLayout
                 else if (index === capsList.count)
                 {
                     // create a new capability
-                    editor.addCapability()
+                    editor.addNewCapability()
                 }
 
                 var item = capsList.itemAtIndex(index)
@@ -316,7 +335,7 @@ GridLayout
                             id: minValBox
                             width: UISettings.bigItemHeight
                             height: UISettings.listItemHeight
-                            label: cap.min
+                            label: cap ? cap.min : 0
                         }
                         Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
@@ -325,7 +344,7 @@ GridLayout
                             id: maxValBox
                             width: UISettings.bigItemHeight
                             height: UISettings.listItemHeight
-                            label: cap.max
+                            label: cap ? cap.max : 255
                         }
                         Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
@@ -334,18 +353,18 @@ GridLayout
                             id: capDescription
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            label: cap.name
+                            label: cap ? cap.name : ""
                         }
 
                         IconButton
                         {
-                            visible: cap.warning
+                            visible: cap ? cap.warning : false
                             height: UISettings.listItemHeight
                             width: height
                             border.width: 0
                             faSource: FontAwesome.fa_warning
                             faColor: "yellow"
-                            tooltip: capsList.warningDescription(cap.warning)
+                            tooltip: visible ? capsList.warningDescription(cap.warning) : ""
                         }
                     }
 

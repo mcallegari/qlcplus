@@ -54,7 +54,12 @@ public:
     /** Get the list of capabilities for the channel being edited */
     QVariantList capabilities() const;
 
-    Q_INVOKABLE QLCCapability *addCapability();
+    /** Methods to add a new capability */
+    Q_INVOKABLE QLCCapability *addNewCapability();
+    Q_INVOKABLE QLCCapability *addCapability(int min, int max, QString name);
+
+    /** Delete the capability at the given index */
+    Q_INVOKABLE void removeCapabilityAtIndex(int index);
 
     /** Get/Set a preset for a capability at the given index */
     Q_INVOKABLE int getCapabilityPresetAtIndex(int index);

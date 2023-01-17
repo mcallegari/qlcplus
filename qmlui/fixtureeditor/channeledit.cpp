@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
+
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
 
@@ -29,6 +31,7 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
     if (m_channel->capabilities().count() == 0)
     {
         QLCCapability *cap = new QLCCapability(0, UCHAR_MAX);
+        QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
         cap->setWarning(QLCCapability::EmptyName);
         m_channel->addCapability(cap);
     }
@@ -199,7 +202,7 @@ QVariantList ChannelEdit::capabilities() const
     return m_capabilities;
 }
 
-QLCCapability *ChannelEdit::addCapability()
+QLCCapability *ChannelEdit::addNewCapability()
 {
     int min = 0;
     if (m_channel->capabilities().count())
@@ -208,11 +211,48 @@ QLCCapability *ChannelEdit::addCapability()
         min = last->max() + 1;
     }
     QLCCapability *cap = new QLCCapability(min, UCHAR_MAX);
+    QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
     cap->setWarning(QLCCapability::EmptyName);
     if (m_channel->addCapability(cap))
+    {
         updateCapabilities();
+    }
+    else
+    {
+        delete cap;
+        return nullptr;
+    }
 
     return cap;
+}
+
+QLCCapability *ChannelEdit::addCapability(int min, int max, QString name)
+{
+    QLCCapability *cap = new QLCCapability(min, max);
+    QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
+    cap->setName(name);
+    if (m_channel->addCapability(cap))
+    {
+        updateCapabilities();
+    }
+    else
+    {
+        delete cap;
+        return nullptr;
+    }
+
+    return cap;
+}
+
+void ChannelEdit::removeCapabilityAtIndex(int index)
+{
+    QList<QLCCapability *> caps = m_channel->capabilities();
+
+    if (index < 0 || index >= caps.count())
+        return;
+
+    if (m_channel->removeCapability(caps[index]))
+        updateCapabilities();
 }
 
 int ChannelEdit::getCapabilityPresetAtIndex(int index)
