@@ -39,6 +39,7 @@ QtObject
     property color fgLight:    "#aaa"
 
     property color sectionHeader:    "#31456B"
+    property color sectionHeaderDiv: "#22304a"
     property color highlight:        "#0978FF"
     property color highlightPressed: "#044089"
     property color hover:            "#B6B6B6"
