@@ -32,25 +32,25 @@
  </Channel>
  <Channel Name="Strobe (laser)">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="249">Strobe (slow to fast)</Capability>
   <Capability Min="250" Max="255">Strobe (sound active)</Capability>
  </Channel>
  <Channel Name="Rotation (laser)">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="127">Clockwise rotation (slow to fast)</Capability>
-  <Capability Min="128" Max="133">No Function</Capability>
+  <Capability Min="128" Max="133">No function</Capability>
   <Capability Min="134" Max="255">Counterclockwise rotation (slow to fast)</Capability>
  </Channel>
  <Channel Name="Vibration">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="255">Vibration (slow to fast)</Capability>
  </Channel>
  <Channel Name="Flash">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="255">Flash (slow to fast)</Capability>
  </Channel>
  <Channel Name="Red">
@@ -80,15 +80,15 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe (LED)">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="249">Strobe (slow to fast)</Capability>
   <Capability Min="250" Max="255">Strobe (sound active)</Capability>
  </Channel>
  <Channel Name="Rotation (LED)">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="127">Clockwise rotation (slow to fast)</Capability>
-  <Capability Min="128" Max="133">No Function</Capability>
+  <Capability Min="128" Max="133">No function</Capability>
   <Capability Min="134" Max="255">Counterclockwise rotation (slow to fast)</Capability>
  </Channel>
  <Mode Name="12 Ch">

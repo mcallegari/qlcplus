@@ -77,9 +77,9 @@
   <Capability Min="100" Max="109">Disable blackout while Color Change</Capability>
   <Capability Min="110" Max="119">Enable blackout while Gobo Change</Capability>
   <Capability Min="120" Max="129">Disable blackout while Gobo Change</Capability>
-  <Capability Min="130" Max="139">No Function</Capability>
+  <Capability Min="130" Max="199">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
-  <Capability Min="210" Max="239">No Function</Capability>
+  <Capability Min="210" Max="239">No function</Capability>
   <Capability Min="240" Max="255">Sound Active</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">

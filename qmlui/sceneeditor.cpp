@@ -147,7 +147,7 @@ void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
     QVariantList dmxValues;
     QByteArray values = m_channelsCache[fixtureID];
 
-    for (int i = 0; i < values.count(); i++)
+    for (int i = 0; i < values.length(); i++)
         dmxValues.append(QString::number((uchar)values.at(i)));
 
     item->setProperty("values", QVariant::fromValue(dmxValues));

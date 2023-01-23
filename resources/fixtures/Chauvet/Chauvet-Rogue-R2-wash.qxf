@@ -246,33 +246,33 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Blackout during pan/tilt</Capability>
-  <Capability Min="15" Max="19">No Function</Capability>
-  <Capability Min="20" Max="24">No Function</Capability>
-  <Capability Min="25" Max="29">No Function</Capability>
-  <Capability Min="30" Max="34">No Function</Capability>
-  <Capability Min="35" Max="39">No Function</Capability>
-  <Capability Min="40" Max="44">No Function</Capability>
-  <Capability Min="45" Max="49">No Function</Capability>
+  <Capability Min="15" Max="19">No function</Capability>
+  <Capability Min="20" Max="24">No function</Capability>
+  <Capability Min="25" Max="29">No function</Capability>
+  <Capability Min="30" Max="34">No function</Capability>
+  <Capability Min="35" Max="39">No function</Capability>
+  <Capability Min="40" Max="44">No function</Capability>
+  <Capability Min="45" Max="49">No function</Capability>
   <Capability Min="50" Max="54">Pan reset (5s activation delay)</Capability>
   <Capability Min="55" Max="59">Tilt reset (5s activation delay )</Capability>
   <Capability Min="60" Max="64">Zoom reset ( 5s activation delay )</Capability>
-  <Capability Min="65" Max="69">No Function</Capability>
+  <Capability Min="65" Max="69">No function</Capability>
   <Capability Min="70" Max="74">All reset (5s activation delay )</Capability>
-  <Capability Min="75" Max="79">No Function</Capability>
+  <Capability Min="75" Max="79">No function</Capability>
   <Capability Min="80" Max="84">Pan/tilt movement reverse (5 s activation delay)</Capability>
   <Capability Min="85" Max="89">Pan movement reverse (5 s activation delay)</Capability>
   <Capability Min="90" Max="94">Tilt movement reverse (5s activation delay)</Capability>
   <Capability Min="95" Max="99">Disable pan movement reverse (5s activation delay)</Capability>
   <Capability Min="100" Max="104">Disable Tilt movement reverse (5s activation delay)</Capability>
   <Capability Min="105" Max="109">Disable Pan/Tilt movement reverse (5s activation delay)</Capability>
-  <Capability Min="110" Max="114">No Function</Capability>
-  <Capability Min="115" Max="119">No Function</Capability>
+  <Capability Min="110" Max="114">No function</Capability>
+  <Capability Min="115" Max="119">No function</Capability>
   <Capability Min="120" Max="124">Economy fan (5s activation delay)</Capability>
   <Capability Min="125" Max="129">Full fan (5s activation delay)</Capability>
   <Capability Min="130" Max="134">Auto fan (5 s activation delay)</Capability>
   <Capability Min="135" Max="139">Fast dimmer curve (5s acitvation delay)</Capability>
   <Capability Min="140" Max="144">Smooth dimmer curve (5s activation delay)</Capability>
-  <Capability Min="145" Max="255">No Function</Capability>
+  <Capability Min="145" Max="255">No function</Capability>
  </Channel>
  <Mode Name="56 Channel">
   <Channel Number="0">Pan</Channel>

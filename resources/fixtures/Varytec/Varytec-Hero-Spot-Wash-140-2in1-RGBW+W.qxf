@@ -26,18 +26,18 @@
   <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="5" Max="13" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White, red</Capability>
   <Capability Min="14" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="23" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red, orange</Capability>
-  <Capability Min="32" Max="40" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
-  <Capability Min="41" Max="49" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#00ff00">Orange, green</Capability>
+  <Capability Min="23" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffa500">Red, orange</Capability>
+  <Capability Min="32" Max="40" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="41" Max="49" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00ff00">Orange, green</Capability>
   <Capability Min="50" Max="58" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="59" Max="67" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green, blue</Capability>
   <Capability Min="68" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="77" Max="85" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue, yellow</Capability>
   <Capability Min="86" Max="94" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00aaff">Yellow, light blue</Capability>
-  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#00aaff">Light blue</Capability>
-  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#aa55ff">Light blue, purple</Capability>
-  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#add8e6">Yellow, light blue</Capability>
+  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#a020f0">Light blue, purple</Capability>
+  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
   <Capability Min="131" Max="139" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="140" Max="195" Preset="RotationCounterClockwiseFastToSlow">Counter-clockwise rotation, speed decreasing</Capability>
   <Capability Min="196" Max="199" Preset="RotationStop">Rotation stop</Capability>

@@ -31,8 +31,10 @@
  <Channel Name="Shutter, strobe function">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15" Preset="ShutterOpen">Normal Shutter Functions</Capability>
-  <Capability Min="16" Max="31" Preset="RampUpSlowToFast">Opening pulse-effect</Capability>
-  <Capability Min="32" Max="47" Preset="RampDownSlowToFast">Closing pulse-effect</Capability>
+  <Capability Min="16" Max="31" Preset="StrobeSlowToFast">Opening pulse-effect</Capability>
+  <Capability Min="32" Max="47" Preset="PulseSlowToFast">Closing pulse-effect</Capability>
+  <Capability Min="48" Max="63" Preset="StrobeRandom">Random pulse-effect</Capability>
+  <Capability Min="64" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Shutter, strobe normal shutter functions">
   <Group Byte="0">Shutter</Group>
@@ -94,6 +96,7 @@
  <Channel Name="White fine" Preset="IntensityWhiteFine"/>
  <Channel Name="Reset, display control">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ResetMotors">Reset all motors</Capability>
   <Capability Min="16" Max="23" Preset="ResetPanTilt">Reset only Pan/Tilt</Capability>
   <Capability Min="24" Max="55">No function</Capability>

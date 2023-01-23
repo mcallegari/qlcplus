@@ -188,10 +188,16 @@ VCWidgetItem
         onExited: frameRoot.dropActive = false
         onDropped:
         {
-            if (frameObj === null || frameRoot.dropActive === false)
+            if (frameObj == null || frameRoot.dropActive === false)
                 return
 
             frameRoot.dropActive = false
+
+            if (drag.source.wObj === frameObj)
+            {
+                console.log("ERROR: Source and target are the same!!!")
+                return
+            }
 
             var pos = drag.source.mapToItem(frameRoot, 0, 0)
             console.log("Item dropped in frame " + frameObj.id + " at pos " + pos)

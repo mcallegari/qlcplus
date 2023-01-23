@@ -29,6 +29,7 @@
   <Capability Min="180" Max="199">7 colors strobe 1</Capability>
   <Capability Min="200" Max="219">7 colors strobe 2</Capability>
   <Capability Min="220" Max="240">Color jump change</Capability>
+  <Capability Min="241" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto speed">
   <Group Byte="0">Speed</Group>

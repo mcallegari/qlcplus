@@ -49,7 +49,38 @@
   <Capability Min="116" Max="119" Preset="ColorMacro" Res1="#ff8f88">RWA: Light Orange</Capability>
   <Capability Min="120" Max="123" Preset="ColorMacro" Res1="#ff8888">RWV: Light Pink</Capability>
   <Capability Min="124" Max="127" Preset="ColorMacro" Res1="#ff8f33">RAV: Neon Orange</Capability>
-  <Capability Min="152" Max="255" Preset="ColorMacro" Res1="#ffffff">Bright White</Capability>
+  <Capability Min="128" Max="131">G+B+W</Capability>
+  <Capability Min="132" Max="135">G+B+A</Capability>
+  <Capability Min="136" Max="139">G+B+UV</Capability>
+  <Capability Min="140" Max="143">G+W+A</Capability>
+  <Capability Min="144" Max="147">G+W+UV</Capability>
+  <Capability Min="148" Max="151">G+A+UV</Capability>
+  <Capability Min="152" Max="155">B+W+UV</Capability>
+  <Capability Min="156" Max="159">B+W+UV</Capability>
+  <Capability Min="160" Max="163">B+A+UV</Capability>
+  <Capability Min="164" Max="167">W+A+UV</Capability>
+  <Capability Min="168" Max="171">R+G+B+W</Capability>
+  <Capability Min="172" Max="175">R+G+B+A</Capability>
+  <Capability Min="176" Max="179">R+G+B+UV</Capability>
+  <Capability Min="180" Max="183">R+G+W+A</Capability>
+  <Capability Min="184" Max="187">R+G+W+UV</Capability>
+  <Capability Min="188" Max="191">R+G+A+UV</Capability>
+  <Capability Min="192" Max="195">R+B+W+A</Capability>
+  <Capability Min="196" Max="199">R+B+W+UV</Capability>
+  <Capability Min="200" Max="203">R+B+A+UV</Capability>
+  <Capability Min="204" Max="207">R+W+A+UV</Capability>
+  <Capability Min="208" Max="211">G+B+W+A</Capability>
+  <Capability Min="212" Max="215">G+B+W+UV</Capability>
+  <Capability Min="216" Max="219">G+B+A+UV</Capability>
+  <Capability Min="220" Max="223">G+W+A+UV</Capability>
+  <Capability Min="224" Max="227">B+W+A+UV</Capability>
+  <Capability Min="228" Max="231">R+G+B+W+A</Capability>
+  <Capability Min="232" Max="235">R+G+B+W+UV</Capability>
+  <Capability Min="236" Max="239">R+G+B+A+UV</Capability>
+  <Capability Min="240" Max="243">R+B+W+A+UV</Capability>
+  <Capability Min="244" Max="247">G+B+W+A+UV</Capability>
+  <Capability Min="248" Max="251">R+G+B+W+A+UV</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffffff">Bright White</Capability>
  </Channel>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
@@ -60,7 +91,7 @@
   <Capability Min="128" Max="159" Preset="PulseSlowToFast">Strobing Pulse (slow to fast)</Capability>
   <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
   <Capability Min="192" Max="223" Preset="StrobeRandom">Random Strobe</Capability>
-  <Capability Min="254" Max="255" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
  </Channel>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Dimmer Mode">

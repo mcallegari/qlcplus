@@ -21,14 +21,12 @@
 #define E131CONTROLLER_H
 
 #if defined(ANDROID)
-#include <QNetworkInterface>
 #include <QScopedPointer>
 #include <QSharedPointer>
+#endif
+#include <QNetworkInterface>
 #include <QHostAddress>
 #include <QUdpSocket>
-#else
-#include <QtNetwork>
-#endif
 #include <QMutex>
 #include <QTimer>
 
@@ -36,7 +34,7 @@
 
 #define E131_DEFAULT_PORT     5568
 
-typedef struct
+typedef struct _uinfo
 {
     bool inputMulticast;
     QHostAddress inputMcastAddress;
@@ -67,7 +65,7 @@ public:
 
     enum TransmissionMode { Full, Partial };
 
-    explicit E131Controller(QNetworkInterface const& interface,
+    explicit E131Controller(QNetworkInterface const& iface,
                             QNetworkAddressEntry const& address,
                             quint32 line, QObject *parent = 0);
 

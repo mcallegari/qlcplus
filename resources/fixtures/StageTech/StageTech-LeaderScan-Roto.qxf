@@ -49,8 +49,8 @@
   <Capability Min="200" Max="210" Preset="ColorMacro" Res1="#e251c8">Pink</Capability>
   <Capability Min="211" Max="221" Preset="ColorDoubleMacro" Res1="#e251c8" Res2="#aaff00">Pink / Light green</Capability>
   <Capability Min="222" Max="232" Preset="ColorMacro" Res1="#aaff00">Light green</Capability>
-  <Capability Min="233" Max="243" Preset="ColorDoubleMacro" Res1="#aaff00" Res2="#ff8c00">Light green / Orange</Capability>
-  <Capability Min="244" Max="250" Preset="ColorMacro" Res1="#ff8c00">Orange</Capability>
+  <Capability Min="233" Max="243" Preset="ColorDoubleMacro" Res1="#aaff00" Res2="#ffa500">Light green / Orange</Capability>
+  <Capability Min="244" Max="250" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="251" Max="253">Rainbow 1</Capability>
   <Capability Min="254" Max="255">Rainbow 2</Capability>
  </Channel>

@@ -155,6 +155,9 @@ public slots:
      */
     void slotFunctionRemoved(quint32 fid);
 
+signals:
+    void stepChanged(int index);
+
 protected:
     QList <ChaserStep> m_steps;
     QMutex m_stepListMutex;

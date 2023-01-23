@@ -199,7 +199,9 @@ VCWidgetItem
 
             onIndexChanged: if (cueListObj) cueListObj.playbackIndex = index
             //onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
+            onNoteTextChanged: if (cueListObj) cueListObj.setStepNote(index, text)
             onAddFunctions: if (cueListObj) cueListObj.addFunctions(list, index)
+            onEnterPressed: if (cueListObj) cueListObj.playCurrentStep()
 
             states: [
                 State
@@ -258,6 +260,7 @@ VCWidgetItem
                 id: playbackBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayPauseStop) ?
                                (cueListRoot.playbackStatus === VCCueList.Stopped ||
                                 cueListRoot.playbackStatus === VCCueList.Paused ? "qrc:/play.svg" : "qrc:/pause.svg") :
@@ -270,6 +273,7 @@ VCWidgetItem
                 id: stopBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayStopPause) ? "qrc:/pause.svg" : "qrc:/stop.svg"
                 tooltip: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayStopPause) ? qsTr("Pause") : qsTr("Stop")
                 onClicked: if (cueListObj) cueListObj.stopClicked()
@@ -279,6 +283,7 @@ VCWidgetItem
                 id: previousBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: "qrc:/back.svg"
                 tooltip: qsTr("Previous cue")
                 onClicked: if (cueListObj) cueListObj.previousClicked()
@@ -288,6 +293,7 @@ VCWidgetItem
                 id: nextBtn
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: "qrc:/forward.svg"
                 tooltip: qsTr("Next cue")
                 onClicked: if (cueListObj) cueListObj.nextClicked()

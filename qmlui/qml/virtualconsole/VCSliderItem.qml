@@ -120,7 +120,7 @@ VCWidgetItem
         {
             id: slFader
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WSlider : false
-            enabled: visible
+            enabled: visible && !sliderObj.isDisabled
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             width: parent.width
@@ -141,7 +141,7 @@ VCWidgetItem
         {
             id: slKnob
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WKnob : false
-            enabled: visible
+            enabled: visible && !sliderObj.isDisabled
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             //width: parent.width

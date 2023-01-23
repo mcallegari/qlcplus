@@ -86,9 +86,9 @@
   <Capability Min="11" Max="72">Macro function 1: Iris from large to small change with speed from slow to fast</Capability>
   <Capability Min="73" Max="136">Macro function 2: Iris from small to large change with speed from slow to fast</Capability>
   <Capability Min="137" Max="206">Macro function 3: Iris retractable speed from slow to fast</Capability>
-  <Capability Min="207" Max="214">Macro Fonction 4</Capability>
-  <Capability Min="215" Max="222">Macro Fonction 5</Capability>
-  <Capability Min="223" Max="230">Macro Fonction 6</Capability>
+  <Capability Min="207" Max="214">Macro function 4</Capability>
+  <Capability Min="215" Max="222">Macro function 5</Capability>
+  <Capability Min="223" Max="230">Macro function 6</Capability>
   <Capability Min="231" Max="255">Full Open</Capability>
  </Channel>
  <Channel Name="Fixed Gobo Wheel">

@@ -15,7 +15,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Vector mode speed</Capability>
   <Capability Min="226" Max="235">BO with pan/tilt</Capability>
-  <Capability Min="236" Max="245">No function</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Rainbow">
   <Group Byte="0">Speed</Group>

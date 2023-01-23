@@ -21,22 +21,22 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="7" Max="13" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="21" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#d7735b">Peachblow</Capability>
-  <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#00ffff">Blue</Capability>
+  <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#11855b">Kelly</Capability>
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#0000ff">Dark Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="64" Max="70" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + Yellow</Capability>
-  <Capability Min="71" Max="77" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + Pink</Capability>
-  <Capability Min="78" Max="84" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Pink + Green</Capability>
+  <Capability Min="71" Max="77" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + Magenta</Capability>
+  <Capability Min="78" Max="84" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Magenta + Green</Capability>
   <Capability Min="85" Max="91" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#d7735b">Green + Peachblow</Capability>
   <Capability Min="92" Max="98" Preset="ColorDoubleMacro" Res1="#d7735b" Res2="#0000ff">Peachblow + Blue</Capability>
-  <Capability Min="99" Max="105" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#11855b">Blue + Kelly</Capability>
+  <Capability Min="99" Max="105" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#11855b">Blue + Kelly</Capability>
   <Capability Min="106" Max="112" Preset="ColorDoubleMacro" Res1="#11855b" Res2="#ff0000">Kelly + Red</Capability>
-  <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Dark Blue</Capability>
-  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Dark Blue + White</Capability>
+  <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00008b">Red + Dark Blue</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#00008b" Res2="#ffffff">Dark Blue + White</Capability>
   <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Positive rainbow effect with increasing speed</Capability>
   <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Negative rainbow effect with increasing speed</Capability>
  </Channel>

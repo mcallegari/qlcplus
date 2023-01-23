@@ -43,6 +43,7 @@
   <Capability Min="25" Max="37">Tilt speed: Standard</Capability>
   <Capability Min="38" Max="42">Dimmer curve 1 (default)</Capability>
   <Capability Min="43" Max="47">Dimmer curve 2</Capability>
+  <Capability Min="48" Max="52">Dimmer curve 3</Capability>
   <Capability Min="53" Max="55">Dimmer curve 4</Capability>
   <Capability Min="56" Max="57">Dimmer curve 5</Capability>
   <Capability Min="58" Max="62">Raw colour gamma 1</Capability>
@@ -126,6 +127,7 @@
   <Capability Min="222" Max="228">Effect 29</Capability>
   <Capability Min="229" Max="235">Effect 30</Capability>
   <Capability Min="236" Max="242">Effect 31</Capability>
+  <Capability Min="243" Max="248">Effect 32</Capability>
   <Capability Min="249" Max="255">Effect 33</Capability>
  </Channel>
  <Channel Name="Indexing Speed">
@@ -254,6 +256,7 @@
   <Capability Min="222" Max="228">Effect 29</Capability>
   <Capability Min="229" Max="235">Effect 30</Capability>
   <Capability Min="236" Max="242">Effect 31</Capability>
+  <Capability Min="243" Max="248">Effect 32</Capability>
   <Capability Min="249" Max="255">Effect 33</Capability>
  </Channel>
  <Channel Name="Layer 2 Fade">

@@ -100,6 +100,9 @@ public:
     /** @reimp */
     void adjustFunctionIntensity(Function *f, qreal value);
 
+    /** @reimp */
+    void adjustIntensity(qreal val);
+
     /**
      *  The actual method used to request a change of state of this
      *  Button. Depending on the action type this will start/stop

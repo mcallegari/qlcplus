@@ -75,7 +75,7 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Dimmer reset</Capability>
   <Capability Min="16" Max="23">Red Shift On</Capability>
   <Capability Min="24" Max="31">Red Shift Off</Capability>
@@ -91,11 +91,11 @@
   <Capability Min="104" Max="111">Fan On</Capability>
   <Capability Min="112" Max="119">Fan Off</Capability>
   <Capability Min="120" Max="127">Fan Silent</Capability>
-  <Capability Min="128" Max="255">No Function</Capability>
+  <Capability Min="128" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Programs">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="60">Auto Program 1</Capability>
   <Capability Min="61" Max="110">Auto Program 2</Capability>
   <Capability Min="111" Max="160">Auto Program 3</Capability>

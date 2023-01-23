@@ -25,7 +25,7 @@
  </Channel>
  <Channel Name="Color Selection">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="84">Color Mixing</Capability>
   <Capability Min="85" Max="255">Color Fading Slow - Fast</Capability>
  </Channel>

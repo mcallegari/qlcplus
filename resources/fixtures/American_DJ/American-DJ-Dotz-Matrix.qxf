@@ -25,7 +25,7 @@
  </Channel>
  <Channel Name="Colour Macros &amp; Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>

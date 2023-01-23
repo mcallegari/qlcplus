@@ -48,7 +48,7 @@
  <Channel Name="Blue 12" Preset="IntensityBlue"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Channel Name="Speed / Strobe">

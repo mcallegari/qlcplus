@@ -37,7 +37,7 @@
  </Channel>
  <Channel Name="Program Speed - channel 1 from 160 to 229">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="255">Program speed increasing to 100%</Capability>
  </Channel>
  <Channel Name="Rotation Speed - channel 1 from 10 to 229">

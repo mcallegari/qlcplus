@@ -24,9 +24,9 @@
   <Capability Min="13" Max="14" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="15" Max="16" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff7f">Green and light yellow</Capability>
   <Capability Min="17" Max="18" Preset="ColorMacro" Res1="#ffff7f">Light yellow</Capability>
-  <Capability Min="19" Max="21" Preset="ColorDoubleMacro" Res1="#ffff7f" Res2="#ff7f00">Light yellow &amp; orange</Capability>
-  <Capability Min="22" Max="23" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
-  <Capability Min="24" Max="25" Preset="ColorDoubleMacro" Res1="#ff7f01" Res2="#ff00ff">Orange &amp; magenta</Capability>
+  <Capability Min="19" Max="21" Preset="ColorDoubleMacro" Res1="#ffff7f" Res2="#ffa500">Light yellow &amp; orange</Capability>
+  <Capability Min="22" Max="23" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="24" Max="25" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ff00ff">Orange &amp; magenta</Capability>
   <Capability Min="26" Max="27" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="28" Max="29" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#7f7fff">Magenta &amp; light blue</Capability>
   <Capability Min="30" Max="31" Preset="ColorMacro" Res1="#7f7fff">Light blue</Capability>
@@ -119,8 +119,8 @@
   <Capability Min="60" Max="69">Pan/tilt normal mode</Capability>
   <Capability Min="70" Max="79">Enable blackout with pan/tilt movement</Capability>
   <Capability Min="80" Max="89">Disable blackout with pan/tilt movement</Capability>
-  <Capability Min="90" Max="99" Preset="ColorMacro">Enable blackout with color change</Capability>
-  <Capability Min="100" Max="109" Preset="ColorMacro">Disable blackout with color change</Capability>
+  <Capability Min="90" Max="99">Enable blackout with color change</Capability>
+  <Capability Min="100" Max="109">Disable blackout with color change</Capability>
   <Capability Min="110" Max="119" Preset="GoboMacro">Enable blackout with gobo change</Capability>
   <Capability Min="120" Max="129" Preset="GoboMacro">Disable blackout with gobo change</Capability>
   <Capability Min="130" Max="139" Preset="LampOn">Lamp on</Capability>

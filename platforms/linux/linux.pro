@@ -117,6 +117,12 @@ appimage: {
     geometryloaders.files = $$QT_PLUGINS_PATH/geometryloaders/libdefaultgeometryloader.so
     INSTALLS += geometryloaders
 
+versionAtLeast(QT_VERSION, 5.15.0) {
+    renderers.path = $$INSTALLROOT/$$LIBSDIR/qt5/plugins/renderers
+    renderers.files = $$QT_PLUGINS_PATH/renderers/libopenglrenderer.so
+    INSTALLS += renderers
+}
+
     qmldeps.path   = $$INSTALLROOT/bin
     qmldeps.files += $$QT_QML_PATH/QtQml \
                      $$QT_QML_PATH/QtQuick \

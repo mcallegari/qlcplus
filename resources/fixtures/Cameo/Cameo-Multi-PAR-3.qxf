@@ -15,7 +15,7 @@
   <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
   <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#007f00">Green</Capability>
   <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
-  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#7f7f7f">White</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#7f7f00">Yellow</Capability>
   <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#7fffff">Cyan bright</Capability>
   <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#b47fff">Violet bright</Capability>
@@ -57,7 +57,7 @@
   <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
   <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#007f00">Green</Capability>
   <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
-  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#7f7f7f">White</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#7f7f00">Yellow</Capability>
   <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#7fffff">Cyan bright</Capability>
   <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#b47fff">Violet bright</Capability>
@@ -76,7 +76,7 @@
   <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
   <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#007f00">Green</Capability>
   <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
-  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#7f7f7f">White</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#7f7f00">Yellow</Capability>
   <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#7fffff">Cyan bright</Capability>
   <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#b47fff">Violet bright</Capability>
@@ -95,7 +95,7 @@
   <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
   <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#007f00">Green</Capability>
   <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
-  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#7f7f7f">White</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#7f7f00">Yellow</Capability>
   <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#7fffff">Cyan bright</Capability>
   <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#b47fff">Violet bright</Capability>
@@ -111,10 +111,10 @@
  <Channel Name="Colour Mixing/Colours/Programs/Music Control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">Colour mixing channel 4 - 7</Capability>
-  <Capability Min="22" Max="23" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#7f0000">Red</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#007f00">Green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
-  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#7f7f7f">White</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#7f7f00">RG</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#007f7f">GB</Capability>
   <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#7f7fff">BW</Capability>

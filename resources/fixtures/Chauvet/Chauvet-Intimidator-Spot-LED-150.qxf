@@ -74,7 +74,7 @@
  </Channel>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="27">Blackout while moving Pan/Tilt</Capability>
   <Capability Min="28" Max="47">Blackout while moving Gobo Gheel</Capability>
   <Capability Min="48" Max="67">Disable blackout while Pan/Tilt / moving Gobo Wheel</Capability>
@@ -87,11 +87,11 @@
   <Capability Min="188" Max="207" Preset="ResetColor">Reset Color Wheel</Capability>
   <Capability Min="208" Max="227" Preset="ResetGobo">Reset Gobo Wheel</Capability>
   <Capability Min="228" Max="247" Preset="ResetAll">Reset All Channels</Capability>
-  <Capability Min="248" Max="255">No Function</Capability>
+  <Capability Min="248" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Auto Movement 1</Capability>
   <Capability Min="24" Max="39">Auto Movement 2</Capability>
   <Capability Min="40" Max="55">Auto Movement 3</Capability>

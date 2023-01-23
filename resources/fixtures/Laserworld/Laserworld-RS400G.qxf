@@ -51,6 +51,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="63">No function</Capability>
   <Capability Min="64" Max="127">Rotating</Capability>
+  <Capability Min="128" Max="191">No function</Capability>
   <Capability Min="192" Max="255">Rotating &amp; dotting</Capability>
  </Channel>
  <Channel Name="Move">

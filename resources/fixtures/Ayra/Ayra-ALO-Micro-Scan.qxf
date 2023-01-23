@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6</Version>
+  <Author>Frank Rosquin</Author>
+ </Creator>
+ <Manufacturer>Ayra</Manufacturer>
+ <Model>ALO Micro Scan</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open White</Capability>
+  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">SPLC 1</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffa500">SPLC 2</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ffff00">SPLC 3</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">SPLC 4</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00008b">SPLC 5</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#00008b" Res2="#add8e6">SPLC 6</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ff00ff">SPLC 7</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Rainbow effect, slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Others/gobo00016.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Others/gobo00046.svg">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="Others/open.svg">Open Shake</Capability>
+  <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="GLP/gobo00002.svg">Gobo 1 Shake</Capability>
+  <Capability Min="80" Max="87" Preset="GoboShakeMacro" Res1="SGM/gobo00008.svg">Gobo 2 Shake</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="">Gobo 3 Shake</Capability>
+  <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="Others/gobo00016.svg">Gobo 4 Shake</Capability>
+  <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Chauvet/gobo00034.svg">Gobo 5 Shake</Capability>
+  <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00046.svg">Gobo 6 Shake</Capability>
+  <Capability Min="120" Max="127" Preset="GoboShakeMacro" Res1="Chauvet/gobo00003.svg">Gobo 7 Shake</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Gobo Scroll, slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Stroboscope mode, slow -&gt; fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Shutter slow open, close fast, slow -&gt; fast</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Shutter slow close, open fast, slow -&gt; fast</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Diverse functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="69">No function</Capability>
+  <Capability Min="70" Max="79">Blackout during pan/tilt movement, fast LED switching</Capability>
+  <Capability Min="80" Max="89">Disable Blackout during pan/tilt movement</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset after 3 seconds within these values</Capability>
+  <Capability Min="210" Max="239" Preset="ResetAll">No Function</Capability>
+  <Capability Min="240" Max="255">Sound activated mode</Capability>
+ </Channel>
+ <Channel Name="Sound-controlled Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="37">Show 1</Capability>
+  <Capability Min="38" Max="67">Show 2</Capability>
+  <Capability Min="68" Max="97">Show 3</Capability>
+  <Capability Min="98" Max="127">Show 4</Capability>
+  <Capability Min="128" Max="157">Show 5</Capability>
+  <Capability Min="158" Max="187">Show 6</Capability>
+  <Capability Min="188" Max="217">Show 7</Capability>
+  <Capability Min="218" Max="247">Show 8</Capability>
+  <Capability Min="248" Max="255">Random Show</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color wheel</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Diverse functions</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Color wheel</Channel>
+  <Channel Number="5">Gobo</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+  <Channel Number="9">Diverse functions</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Sound-controlled Shows</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1200" ColourTemperature="7000"/>
+  <Dimensions Weight="2.6" Width="130" Height="280" Depth="130"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Mirror" PanMax="170" TiltMax="85"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

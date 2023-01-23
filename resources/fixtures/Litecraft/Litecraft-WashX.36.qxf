@@ -149,6 +149,7 @@
   <Capability Min="241" Max="241">ID 52</Capability>
   <Capability Min="242" Max="242">ID 53</Capability>
   <Capability Min="243" Max="243">ID 54</Capability>
+  <Capability Min="244" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Color Mode">
   <Channel Number="0">Strobe functions</Channel>

@@ -23,8 +23,8 @@
   <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#008000">Green</Capability>
   <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
-  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#00ff00">Light Green</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
   <Capability Min="153" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse (CCW) Rainbow slow to fast</Capability>
  </Channel>
  <Channel Name="Static Gobo">
@@ -97,7 +97,7 @@
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">Blackout during Pan/Tilt movement</Capability>
   <Capability Min="40" Max="59">Blackout during Pan/Tilt movement deactivated</Capability>
   <Capability Min="60" Max="79">Auto 1 (activated after 3 seconds)</Capability>
@@ -106,9 +106,9 @@
   <Capability Min="120" Max="139">Sound 2 (activated after 3 seconds)</Capability>
   <Capability Min="140" Max="159">Userdefined</Capability>
   <Capability Min="160" Max="179">Test (activated after 6 seconds)</Capability>
-  <Capability Min="180" Max="199">No Function</Capability>
+  <Capability Min="180" Max="199">No function</Capability>
   <Capability Min="200" Max="219">RESET (activated after 3 seconds)</Capability>
-  <Capability Min="220" Max="255">No Function</Capability>
+  <Capability Min="220" Max="255">No function</Capability>
  </Channel>
  <Mode Name="11 Channel">
   <Channel Number="0">Pan</Channel>

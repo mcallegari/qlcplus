@@ -62,6 +62,7 @@
  <Channel Name="Color Snap">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="1">Off</Capability>
+  <Capability Min="2" Max="253">No function</Capability>
   <Capability Min="254" Max="255">On</Capability>
  </Channel>
  <Channel Name="Snap Speed">
@@ -71,6 +72,7 @@
  <Channel Name="Color Fade">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="1">Off</Capability>
+  <Capability Min="2" Max="253">No function</Capability>
   <Capability Min="254" Max="255">On</Capability>
  </Channel>
  <Channel Name="Fade Speed">

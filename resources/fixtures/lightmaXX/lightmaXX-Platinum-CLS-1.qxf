@@ -18,7 +18,7 @@
   <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="99" Max="109">Dream</Capability>
   <Capability Min="110" Max="120">Meteor</Capability>
@@ -38,10 +38,10 @@
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="219">No Function</Capability>
+  <Capability Min="0" Max="219">No function</Capability>
   <Capability Min="220" Max="230">Color select</Capability>
   <Capability Min="231" Max="241">Color select</Capability>
-  <Capability Min="242" Max="255">No Function</Capability>
+  <Capability Min="242" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>

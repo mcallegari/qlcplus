@@ -49,12 +49,12 @@
  <Channel Name="Blue/Yellow (All Zones)" Preset="IntensityBlue"/>
  <Channel Name="CTC">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">Colour temperature correction from 20000K to 2700K (menu item &quot;Colour Calibration Mode&quot;=Off) Colour temperature correction from 15500K to 2700K (menu item &quot;Colour Calibration Mode&quot;=On)</Capability>
  </Channel>
  <Channel Name="Virtual Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">No Function</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">No function</Capability>
   <Capability Min="1" Max="2" Preset="ColorMacro" Res1="#ffc58f">2700K White</Capability>
   <Capability Min="3" Max="3" Preset="ColorMacro" Res1="#ffc58f">2700K White (Halogen)</Capability>
   <Capability Min="4" Max="5" Preset="ColorMacro" Res1="#fff1e0">3200K White</Capability>

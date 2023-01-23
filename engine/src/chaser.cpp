@@ -173,6 +173,7 @@ bool Chaser::replaceStep(const ChaserStep& step, int index)
         }
 
         emit changed(this->id());
+        emit stepChanged(index);
         return true;
     }
     else

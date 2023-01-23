@@ -218,6 +218,11 @@ void App::setLanguage(QString locale)
     engine()->retranslate();
 }
 
+QString App::goboSystemPath() const
+{
+    return QLCFile::systemDirectory(GOBODIR).absolutePath();
+}
+
 void App::show()
 {
     QScreen *currScreen = screen();

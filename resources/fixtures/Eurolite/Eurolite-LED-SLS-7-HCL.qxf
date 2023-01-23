@@ -43,7 +43,7 @@
  </Channel>
  <Channel Name="Internal Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="69" Preset="SlowToFast">Color fade with increasing speed</Capability>
   <Capability Min="70" Max="129" Preset="SlowToFast">Color change with increasing speed</Capability>
   <Capability Min="130" Max="189" Preset="SlowToFast">Sound mode color fade with increasing speed</Capability>

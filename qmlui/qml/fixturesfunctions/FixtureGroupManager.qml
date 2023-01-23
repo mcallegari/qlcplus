@@ -439,7 +439,6 @@ Rectangle
                                             else
                                                 gfhcDragItem.itemIcon = ""
                                         }
-                                        gfhcDragItem.multipleItems = gfhcDragItem.itemsList.length > 1 ? true : false
                                     }
                                 break;
                                 case App.Clicked:

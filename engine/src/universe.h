@@ -238,17 +238,6 @@ public:
      */
     void dumpOutput(const QByteArray& data);
 
-    /**
-     * @brief dumpBlackout
-     */
-    void dumpBlackout();
-
-    /**
-     * @brief blackoutData
-     * @return
-     */
-    const QByteArray& blackoutData();
-
     void flushInput();
 
 protected slots:
@@ -491,6 +480,8 @@ protected:
     QScopedPointer<QByteArray> m_postGMValues;
     /** Array of the last preGM values written before the zeroIntensityChannels call  */
     QScopedPointer<QByteArray> m_lastPostGMValues;
+    /** Array of non-intensity only values */
+    QScopedPointer<QByteArray> m_blackoutValues;
 
     /** Array of values from input line, when passtrhough is enabled */
     QScopedPointer<QByteArray> m_passthroughValues;

@@ -23,7 +23,7 @@
   <Capability Min="96" Max="127" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="128" Max="159" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="160" Max="191" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="192" Max="223" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="192" Max="223" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="224" Max="255" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
  </Channel>
  <Channel Name="Pattern select">

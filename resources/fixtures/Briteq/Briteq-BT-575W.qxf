@@ -59,9 +59,13 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Lamp On/Off/Reset">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="129">Normal</Capability>
   <Capability Min="130" Max="139" Preset="LampOn">Lamp On (Keep 5 seconds to activate)</Capability>
+  <Capability Min="140" Max="199">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">DMX Reset (Keep 5 seconds to activate)</Capability>
+  <Capability Min="210" Max="229">No function</Capability>
   <Capability Min="230" Max="239" Preset="LampOff">Lamp Off (Keep 5 seconds to activate)</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="16 Channel">
   <Channel Number="0">Pan</Channel>

@@ -31,7 +31,7 @@
   <Capability Min="37" Max="54" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="55" Max="72" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
   <Capability Min="73" Max="90" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="91" Max="108" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
+  <Capability Min="91" Max="108" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
   <Capability Min="109" Max="127" Preset="ColorMacro" Res1="#800080">Purple</Capability>
   <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Slow to fast anticlockwise rotation</Capability>
   <Capability Min="188" Max="247" Preset="GoboMacro" Res1="Others/rainbow.png">Fast to slow rotation clockwise</Capability>
@@ -87,7 +87,7 @@
   <Capability Min="33" Max="239">Beam shape rotation</Capability>
   <Capability Min="240" Max="255">Frost</Capability>
  </Channel>
- <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Lamp On/Off/Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="255" Preset="ResetAll">Normal to reset</Capability>
@@ -105,7 +105,7 @@
   <Channel Number="9">CYM Color Mix</Channel>
   <Channel Number="10">CMY Speed</Channel>
   <Channel Number="11">Effect Wheel</Channel>
-  <Channel Number="12">No Function</Channel>
+  <Channel Number="12">No function</Channel>
   <Channel Number="13">Pan 16 bit</Channel>
   <Channel Number="14">Tilt 16 bit</Channel>
   <Channel Number="15">Lamp On/Off/Reset</Channel>

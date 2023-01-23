@@ -21,7 +21,7 @@
  <Channel Name="White fine" Preset="IntensityWhiteFine"/>
  <Channel Name="Color Macro + White Balance">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">R: 100% G: 0-100% B: 0%</Capability>
   <Capability Min="31" Max="50">R: 100-0% G: 100% B: 0%</Capability>
   <Capability Min="51" Max="70">R: 0% G: 100% B: 0-100%</Capability>
@@ -45,12 +45,12 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">0 - 20 Hz</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="40">No Function</Capability>
+  <Capability Min="0" Max="40">No function</Capability>
   <Capability Min="41" Max="50">Auto 1</Capability>
   <Capability Min="51" Max="60">Auto 2</Capability>
   <Capability Min="61" Max="70">Auto 3</Capability>
@@ -70,7 +70,7 @@
   <Capability Min="201" Max="210">Custom 7</Capability>
   <Capability Min="211" Max="220">Custom 8</Capability>
   <Capability Min="221" Max="230">Custom 9</Capability>
-  <Capability Min="231" Max="240">Custom 10</Capability>
+  <Capability Min="231" Max="255">Custom 10</Capability>
  </Channel>
  <Channel Name="Auto Speed">
   <Group Byte="0">Speed</Group>

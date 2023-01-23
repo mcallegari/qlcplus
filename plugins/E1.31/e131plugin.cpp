@@ -37,15 +37,15 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol)
             {
                 E131IO tmpIO;
-                tmpIO.interface = interface;
+                tmpIO.iface = iface;
                 tmpIO.address = entry;
                 tmpIO.controller = NULL;
 
@@ -166,7 +166,7 @@ bool E131Plugin::openOutput(quint32 output, quint32 universe)
     // if the controller doesn't exist, create it
     if (m_IOmapping[output].controller == NULL)
     {
-        E131Controller *controller = new E131Controller(m_IOmapping.at(output).interface,
+        E131Controller *controller = new E131Controller(m_IOmapping.at(output).iface,
                                                         m_IOmapping.at(output).address,
                                                         output, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
@@ -236,7 +236,7 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
     // if the controller doesn't exist, create it
     if (m_IOmapping[input].controller == NULL)
     {
-        E131Controller *controller = new E131Controller(m_IOmapping.at(input).interface,
+        E131Controller *controller = new E131Controller(m_IOmapping.at(input).iface,
                                                         m_IOmapping.at(input).address,
                                                         input, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),

@@ -112,6 +112,7 @@
  <Channel Name="White Section 12" Preset="IntensityWhite"/>
  <Channel Name="Color running programs">
   <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="1">No function</Capability>
   <Capability Min="2" Max="35">Program 1</Capability>
   <Capability Min="36" Max="53">Program 2</Capability>
   <Capability Min="54" Max="71">Program 3</Capability>

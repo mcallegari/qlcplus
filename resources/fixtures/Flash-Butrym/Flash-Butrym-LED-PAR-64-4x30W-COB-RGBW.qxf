@@ -15,7 +15,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe From Slow To Fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
@@ -33,17 +33,17 @@
  <Channel Name="White 3" Preset="IntensityWhite"/>
  <Channel Name="Strobe 1">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe From Slow To Fast</Capability>
  </Channel>
  <Channel Name="Strobe 2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe From Slow To Fast</Capability>
  </Channel>
  <Channel Name="Strobe 3">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe From Slow To Fast</Capability>
  </Channel>
  <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
@@ -51,7 +51,7 @@
  <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
  <Channel Name="Macro Color">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="10">Red</Capability>
   <Capability Min="11" Max="15">Green</Capability>
   <Capability Min="16" Max="20">Blue</Capability>
@@ -105,10 +105,10 @@
  </Channel>
  <Channel Name="Macro Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="125">Pulse Speed</Capability>
   <Capability Min="126" Max="235">Macro Speed: Slow To Fast</Capability>
-  <Capability Min="236" Max="255">No Function</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Classic-18">
   <Channel Number="0">Dimmer</Channel>

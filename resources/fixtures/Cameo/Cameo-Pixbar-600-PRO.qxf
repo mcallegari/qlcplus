@@ -18,7 +18,7 @@
   <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fdf1a9">Yellow warm</Capability>
   <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff01">Yellow</Capability>
   <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#00e5ee">Turquoise</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>

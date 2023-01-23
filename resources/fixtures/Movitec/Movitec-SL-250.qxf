@@ -41,6 +41,9 @@
   <Capability Min="96" Max="105">Pink</Capability>
   <Capability Min="106" Max="116">Blue</Capability>
   <Capability Min="117" Max="127">Orange</Capability>
+  <Capability Min="128" Max="189">Forwards rainbow, fast to slow</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255">Backwards rainbow, slow to fast</Capability>
  </Channel>
  <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Effect wheel">
@@ -71,7 +74,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="31">Open</Capability>
   <Capability Min="32" Max="63">Gobo 1</Capability>
-  <Capability Min="64" Max="94">Gobo 2</Capability>
+  <Capability Min="64" Max="95">Gobo 2</Capability>
   <Capability Min="96" Max="127">Gobo 3</Capability>
   <Capability Min="128" Max="159">Gobo 4</Capability>
   <Capability Min="160" Max="191">Gobo 5</Capability>

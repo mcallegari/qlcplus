@@ -24,7 +24,7 @@
   <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#21ff06">Green</Capability>
   <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#fc02ff">Magenta</Capability>
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ffff0a">Yellow</Capability>
-  <Capability Min="56" Max="62" Preset="ColorMacro" Res1="#0000ff">Dark Blue</Capability>
+  <Capability Min="56" Max="62" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="63" Max="64" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="65" Max="189" Preset="ColorWheelIndex">Color indexing</Capability>
   <Capability Min="190" Max="221" Preset="RotationClockwiseFastToSlow">Color cycling rainbow, fast to slow</Capability>
@@ -72,14 +72,14 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Blackout on pan/tilt movement</Capability>
   <Capability Min="16" Max="23">Blackout on color wheel movement</Capability>
   <Capability Min="24" Max="31">Blackout on gobo wheel movement</Capability>
   <Capability Min="32" Max="39">Blackout on pan/tilt/color wheel movement</Capability>
   <Capability Min="40" Max="47">Blackout on pan/tilt/gobo wheel movement</Capability>
   <Capability Min="48" Max="55">Blackout on pan/tilt/color/gobo wheel movement</Capability>
-  <Capability Min="59" Max="95">No function</Capability>
+  <Capability Min="56" Max="95">No function</Capability>
   <Capability Min="96" Max="103">Pan reset</Capability>
   <Capability Min="104" Max="111">Tilt reset</Capability>
   <Capability Min="112" Max="119">Color wheel reset</Capability>
@@ -88,11 +88,11 @@
   <Capability Min="136" Max="143">Prism reset</Capability>
   <Capability Min="144" Max="151">Focus reset</Capability>
   <Capability Min="152" Max="159">Reset all</Capability>
-  <Capability Min="160" Max="255">No Function</Capability>
+  <Capability Min="160" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Movement macro 1</Capability>
   <Capability Min="24" Max="39">Movement macro 2</Capability>
   <Capability Min="40" Max="55">Movement macro 3</Capability>

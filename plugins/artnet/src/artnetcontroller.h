@@ -21,14 +21,13 @@
 #define ARTNETCONTROLLER_H
 
 #if defined(ANDROID)
+#include <QScopedPointer>
+#include <QSharedPointer>
+#endif
 #include <QNetworkInterface>
 #include <QHostAddress>
 #include <QUdpSocket>
-#include <QScopedPointer>
-#include <QSharedPointer>
-#else
-#include <QtNetwork>
-#endif
+#include <QVariant>
 #include <QMutex>
 #include <QTimer>
 
@@ -36,7 +35,7 @@
 
 #define ARTNET_PORT      6454
 
-typedef struct
+typedef struct _uinfo
 {
     ushort inputUniverse;
 
@@ -59,7 +58,7 @@ public:
 
     enum TransmissionMode { Full, Partial };
 
-    ArtNetController(QNetworkInterface const& interface,
+    ArtNetController(QNetworkInterface const& iface,
                      QNetworkAddressEntry const& address,
                      QSharedPointer<QUdpSocket> const& udpSocket,
                      quint32 line, QObject *parent = 0);

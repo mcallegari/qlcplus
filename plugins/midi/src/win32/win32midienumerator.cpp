@@ -62,7 +62,7 @@ QString MidiEnumeratorPrivate::extractInputName(UINT id)
     if (result == MMSYSERR_NOERROR)
     {
 #ifdef UNICODE
-        return QString::fromUtf16((ushort*) caps.szPname);
+        return QString::fromUtf16(reinterpret_cast<char16_t*>(caps.szPname));
 #else
         return QString::fromLocal8Bit(caps.szPname);
 #endif
@@ -80,7 +80,7 @@ QString MidiEnumeratorPrivate::extractOutputName(UINT id)
     if (result == MMSYSERR_NOERROR)
     {
 #ifdef UNICODE
-        return QString::fromUtf16((ushort*) caps.szPname);
+        return QString::fromUtf16(reinterpret_cast<char16_t*>(caps.szPname));
 #else
         return QString::fromLocal8Bit(caps.szPname);
 #endif

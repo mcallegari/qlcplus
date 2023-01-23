@@ -73,6 +73,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="60">CCW Indexing</Capability>
   <Capability Min="61" Max="150">CW Rotation Slow-&gt;Fast</Capability>
+  <Capability Min="151" Max="165">No function</Capability>
   <Capability Min="166" Max="255">CCW Rotation Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="Prism/Effects">
@@ -136,8 +137,9 @@
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">Blackout during Pan/Tilt</Capability>
+  <Capability Min="40" Max="139">No function</Capability>
   <Capability Min="140" Max="149">Auto 1</Capability>
   <Capability Min="150" Max="159">Auto 2</Capability>
   <Capability Min="160" Max="169">Test</Capability>
@@ -145,6 +147,7 @@
   <Capability Min="180" Max="189">Sound 1</Capability>
   <Capability Min="190" Max="199">Sound 2</Capability>
   <Capability Min="200" Max="219">Reset</Capability>
+  <Capability Min="220" Max="236">No function</Capability>
   <Capability Min="237" Max="239">DIM 0</Capability>
   <Capability Min="240" Max="243">DIM 1</Capability>
   <Capability Min="244" Max="247">DIM 2</Capability>

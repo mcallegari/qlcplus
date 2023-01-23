@@ -14,7 +14,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="1" Max="7" Preset="ColorMacro" Res1="#fece8f">Bastard Amber</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#fece8f">Bastard Amber</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff8b00">Medium Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffc08a">Pale Amber Gold</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffa562">Gallo Gold</Capability>

@@ -1,6 +1,5 @@
 #!/bin/sh
 DIR=`dirname $0`
-set -x
 set -e
 
 # Validate the fixtures against the XML scheme
@@ -14,11 +13,8 @@ else
 	echo "Fixtures: OK"
 fi
 
-printenv
-which python
-/usr/bin/env python --version
 cd "$DIR"/.. && ./scripts/fixtures-tool.py --validate || exit $?
-cd -
+cd - >>/dev/null
 
 # Validate the fixture map against the XML scheme
 xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml >/dev/null 2>&1

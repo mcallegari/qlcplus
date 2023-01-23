@@ -86,8 +86,10 @@ void AudioRenderer::stop()
 
 void AudioRenderer::run()
 {
+    qint64 audioDataWritten;
     m_userStop = false;
     audioDataRead = 0;
+
     int sampleSize = m_adec->audioParameters().sampleSize();
     if (sampleSize > 2)
         sampleSize = 2;
@@ -95,7 +97,7 @@ void AudioRenderer::run()
     while (!m_userStop)
     {
         QMutexLocker locker(&m_mutex);
-        qint64 audioDataWritten = 0;
+        audioDataWritten = 0;
         if (m_pause == false)
         {
             //qDebug() << "Pending audio bytes: " << pendingAudioBytes;
@@ -175,7 +177,7 @@ void AudioRenderer::run()
                 if (audioDataWritten == 0)
                     usleep(15000);
             }
-            //qDebug() << "[Cycle] read: " << audioDataRead << ", written: " << audioDataWritten;
+            //qDebug() << "[Cycle] read:" << audioDataRead << ", written:" << audioDataWritten << ", pending:" << pendingAudioBytes;
         }
         else
         {
