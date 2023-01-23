@@ -143,6 +143,17 @@ jobs:
       - name: Build
         run: make -j $NPROC
 
+      - name: Install
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        run: make INSTALLROOT=./install
+
+      - name: Store Artifacts
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: $(( matrix.task ))
+          path: ./install
+
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: make check
