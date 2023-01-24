@@ -64,7 +64,7 @@ jobs:
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          echo "INSTALL_ROOT=install" >> $GITHUB_ENV
+          echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
