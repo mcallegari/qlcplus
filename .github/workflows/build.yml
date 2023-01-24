@@ -153,8 +153,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: $(( matrix.task ))
-          path: ${INSTALL_ROOT}
-
+          path: ${{ env.INSTALL_ROOT} }}/*
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: make check
