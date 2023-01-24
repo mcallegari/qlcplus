@@ -64,6 +64,7 @@ jobs:
           echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
+          echo "INSTALL_ROOT=install" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
@@ -145,14 +146,14 @@ jobs:
 
       - name: Install
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: make INSTALLROOT=./install
+        run: mkdir -p ${INSTALL_ROOT} && make INSTALL_ROOT=${INSTALL_ROOT}
 
       - name: Store Artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         uses: actions/upload-artifact@v3
         with:
           name: $(( matrix.task ))
-          path: ./install
+          path: ${INSTALL_ROOT}
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
