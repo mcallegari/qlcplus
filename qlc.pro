@@ -72,7 +72,7 @@ unix:run.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBR
 }
 
 # run-fxe
-run.target = run-fxe
+run-fxe.target = run-fxe
 QMAKE_EXTRA_TARGETS += run-fxe
 qmlui: {
 } else {
