@@ -146,7 +146,7 @@ jobs:
 
       - name: Install
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: mkdir -p ${INSTALL_ROOT} && make INSTALL_ROOT=${INSTALL_ROOT}
+        run: mkdir -p ${INSTALL_ROOT} && make INSTALL_ROOT=${INSTALL_ROOT} install
 
       - name: Store Artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
