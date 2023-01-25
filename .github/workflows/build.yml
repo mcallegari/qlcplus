@@ -150,7 +150,7 @@ jobs:
           make INSTALL_ROOT=${INSTALL_ROOT} install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
-          if [ "compile-qt5qml" == "${{ matrix.task }}" ]; then sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/qlcplus.desktop; fi
+          if [ "compile-qt5qml" == "${{ matrix.task }}" ]; then sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop; fi
 
       - name: Store build artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -162,11 +162,11 @@ jobs:
       - name: Build AppImage
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
-          wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -O $TARGET_DIR/AppRun
+          wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -O ${INSTALL_ROOT}/AppRun
           chmod a+x ${INSTALL_ROOT}/AppRun
           wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ./appimagetool-x86_64.AppImage
           chmod a+x ./appimagetool-x86_64.AppImage
-          ./appimagetool-x86_64.AppImage -v $TARGET_DIR
+          ./appimagetool-x86_64.AppImage -v ${INSTALL_ROOT}
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
