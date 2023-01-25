@@ -33,6 +33,7 @@ jobs:
         libxml2-utils
         xvfb
         ccache
+        wget
       PACKAGES_QML_BASE:
         libpulse-dev
       PACKAGES_COVERAGE_BASE:
@@ -85,7 +86,7 @@ jobs:
       - name: Download, cache and install packages
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: ${PACKAGES_ALL}
+          packages: ${{env.PACKAGES_ALL}}
           version: ${{runner.os}}-apt
 
       - name: Install Qt through aqt (and python)
@@ -131,15 +132,15 @@ jobs:
 
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
-        run: ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}"
+        run: ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
-        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=qmlui
+        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" QMAKE_CXXFLAGS+="-fno-sized-deallocation" CONFIG+=qmlui
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
-        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
+        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" QMAKE_CXXFLAGS+="-fno-sized-deallocation" CONFIG+=coverage
 
       - name: Build
         run: make -j $NPROC
@@ -150,14 +151,40 @@ jobs:
           make INSTALL_ROOT=${INSTALL_ROOT} install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
-          if [ "compile-qt5qml" == "${{ matrix.task }}" ]; then sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop; fi
+
+      - name: Adapt qlcplus.desktop (qt5qml)
+        if: ${{ matrix.task == 'coverage-qt5qml' }}
+        run: |
+          sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
 
       - name: Store build artifacts
-        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        if: false && ${{ ! startsWith( matrix.task, 'coverage') }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.task }}-files
           path: ${{ env.INSTALL_ROOT }}/*
+
+      - name: Strip Binaries (qt5)
+        if: ${{ matrix.task == 'coverage-qt5' }}
+        run: |
+          strip -v ${INSTALL_ROOT}/usr/bin/qlcplus
+          find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
+
+      - name: Strip Binaries (qt5qml)
+        if: ${{ matrix.task == 'coverage-qt5qml' }}
+        run: |
+          strip -v ${INSTALL_ROOT}/usr/bin/qlcplus-qml
+          find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
+
+      - name: Delete unused files
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        run: |
+          find ${INSTALL_ROOT}/usr/bin/ -name plugins.qmltypes -type f -delete
+          find ${INSTALL_ROOT}/usr/bin -name *.qmlc -type f -delete
+          rm -rf ${INSTALL_ROOT}/usr/bin/QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
+          rm -rf ${INSTALL_ROOT}/usr/bin/QtQuick/Controls.2/designer QtQuick/Controls.2/Material
+          rm -rf ${INSTALL_ROOT}/usr/bin/QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion
+          rm -rf ${INSTALL_ROOT}/usr/bin/QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D
 
       - name: Build AppImage
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -167,6 +194,11 @@ jobs:
           wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ./appimagetool-x86_64.AppImage
           chmod a+x ./appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage -v ${INSTALL_ROOT}
+
+      - name: Load AppImage
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        run: |
+          ./Q_Light_Controller_Plus-x86_64.AppImage --version
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -193,7 +225,7 @@ jobs:
   build-windows:
     if: false
     runs-on: windows-latest
-    name: QLCplus Windows Build ${{matrix.task}}
+    name: QLCplus Windows ${{matrix.task}}
     strategy:
       fail-fast: false
       matrix:
