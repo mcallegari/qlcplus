@@ -155,7 +155,7 @@ jobs:
       - name: Adapt qlcplus (qt5qml)
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml
+          chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus-qml
           sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
 
       - name: Strip Binaries (qt5)
