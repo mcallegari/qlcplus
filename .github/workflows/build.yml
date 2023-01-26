@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-20.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         task: [compile-qt5, compile-qt5qml,coverage-qt5]
         #task: [compile-qt5qml]
@@ -153,7 +153,7 @@ jobs:
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
 
       - name: Adapt qlcplus.desktop (qt5qml)
-        if: ${{ matrix.task == 'coverage-qt5qml' }}
+        if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
           sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
 
