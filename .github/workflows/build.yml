@@ -198,7 +198,7 @@ jobs:
       - name: Load AppImage
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
-          ./Q_Light_Controller_Plus-x86_64.AppImage --version
+          xvfb-run ./Q_Light_Controller_Plus-x86_64.AppImage --version
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
