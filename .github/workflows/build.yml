@@ -188,8 +188,8 @@ jobs:
           chmod a+x ./appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage -v ${INSTALL_ROOT}
 
-      - name: Load AppImage
-        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+      - name: Test Load AppImage
+        if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
           xvfb-run ./Q_Light_Controller_Plus-x86_64.AppImage --version
 
