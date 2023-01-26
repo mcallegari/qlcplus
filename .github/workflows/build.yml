@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-20.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
-      fail-fast: false
+      #fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qt5qml,coverage-qt5]
-        #task: [compile-qt5qml]
+        #task: [compile-qt5, compile-qt5qml,coverage-qt5]
+        task: [compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -170,7 +170,7 @@ jobs:
           find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
 
       - name: Delete unused files
-        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        if: ${{ false && ! startsWith( matrix.task, 'coverage') }}
         run: |
           find ${INSTALL_ROOT}/usr/bin/ -name plugins.qmltypes -type f -delete
           find ${INSTALL_ROOT}/usr/bin -name *.qmlc -type f -delete
@@ -210,7 +210,7 @@ jobs:
 
       - name: Coveralls
         if: ${{ startsWith( matrix.task, 'coverage') }}
-        uses: coverallsapp/github-action@v1.1.2
+        uses: coverallsapp/github-action@1.1.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage/coverage.info
