@@ -152,9 +152,10 @@ jobs:
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
 
-      - name: Adapt qlcplus.desktop (qt5qml)
+      - name: Adapt qlcplus (qt5qml)
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
+          chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml
           sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
 
       - name: Strip Binaries (qt5)
@@ -164,7 +165,7 @@ jobs:
           find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
 
       - name: Strip Binaries (qt5qml)
-        if: ${{ matrix.task == 'compile-qt5qml' }}
+        if: ${{ false && matrix.task == 'compile-qt5qml' }}
         run: |
           strip -v ${INSTALL_ROOT}/usr/bin/qlcplus-qml
           find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
