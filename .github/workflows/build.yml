@@ -163,7 +163,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.task }}-files
-          path: ${INSTALL_ROOT}
+          path: ${{ env.INSTALL_ROOT }}
 
       - name: Strip Binaries (qt5)
         if: ${{ matrix.task == 'compile-qt5' }}
