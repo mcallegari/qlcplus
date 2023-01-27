@@ -166,7 +166,7 @@ jobs:
           path: ${INSTALL_ROOT}
 
       - name: Strip Binaries (qt5)
-        if: ${{ matrix.task == 'compile-qt5qml' }}
+        if: ${{ matrix.task == 'compile-qt5' }}
         run: |
           strip -v ${INSTALL_ROOT}/usr/bin/qlcplus
           find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
