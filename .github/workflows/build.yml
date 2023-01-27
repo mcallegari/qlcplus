@@ -158,8 +158,15 @@ jobs:
           chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus-qml
           sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
 
+      - name: Store install artifacts
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.task }}-files
+          path: ${INSTALL_ROOT}
+
       - name: Strip Binaries (qt5)
-        if: ${{ ! matrix.task == 'compile-qt5' }}
+        if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
           strip -v ${INSTALL_ROOT}/usr/bin/qlcplus
           find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
