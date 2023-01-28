@@ -114,6 +114,7 @@ SidePanel
 
             IconButton
             {
+                id: intToolButton
                 objectName: "capIntensity"
                 width: iconSize
                 height: iconSize
@@ -134,6 +135,7 @@ SidePanel
                     visible: false
 
                     onValueChanged: fixtureManager.setIntensityValue(value)
+                    onClose: intToolButton.toggle()
                 }
             }
 
@@ -189,11 +191,13 @@ SidePanel
                     visible: false
                     panMaxDegrees: posToolButton.panDegrees
                     tiltMaxDegrees: posToolButton.tiltDegrees
+                    onClose: posToolButton.toggle()
                 }
             }
 
             IconButton
             {
+                id: colorToolButton
                 objectName: "capColor"
                 width: iconSize
                 height: iconSize
@@ -215,6 +219,7 @@ SidePanel
                     colorsMask: fixtureManager.colorsMask
 
                     onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
+                    onClose: colorToolButton.toggle()
                 }
             }
 
@@ -296,6 +301,7 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
+                    onClose: beamToolButton.toggle()
                 }
             }
 

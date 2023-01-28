@@ -39,6 +39,7 @@ Rectangle
     property alias currentValue: spinBox.value
 
     signal valueChanged(int value)
+    signal close()
 
     onCurrentValueChanged:
     {
@@ -111,6 +112,17 @@ Rectangle
             {
                 anchors.fill: parent
                 drag.target: intRoot
+            }
+
+            GenericButton
+            {
+                width: height
+                height: parent.height
+                anchors.right: parent.right
+                border.color: UISettings.bgMedium
+                useFontawesome: true
+                label: FontAwesome.fa_times
+                onClicked: intRoot.close()
             }
         }
 

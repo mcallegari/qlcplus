@@ -36,6 +36,8 @@ Rectangle
     property bool invertedZoom: false
     property real projectedDiameter: 0
 
+    signal close()
+
     onMinDegreesChanged: gCanvas.requestPaint()
     onMaxDegreesChanged: gCanvas.requestPaint()
 
@@ -94,6 +96,16 @@ Rectangle
         {
             anchors.fill: parent
             drag.target: toolRoot
+        }
+        GenericButton
+        {
+            width: height
+            height: parent.height
+            anchors.right: parent.right
+            border.color: UISettings.bgMedium
+            useFontawesome: true
+            label: FontAwesome.fa_times
+            onClicked: toolRoot.close()
         }
     }
 
