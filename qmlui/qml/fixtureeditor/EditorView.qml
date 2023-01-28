@@ -318,7 +318,10 @@ Rectangle
                                                 if ((mouse.modifiers & Qt.ControlModifier) == 0)
                                                     cDragItem.itemsList = []
 
-                                                cDragItem.itemsList.push(cDelegate)
+                                                // workaround array length notification
+                                                var arr = cDragItem.itemsList
+                                                arr.push(cDelegate)
+                                                cDragItem.itemsList = arr
                                             }
 
                                             onDoubleClicked:

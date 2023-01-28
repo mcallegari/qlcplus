@@ -135,10 +135,13 @@ Rectangle
                 visible: allowEditing
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Delete the selected palette(s)")
-                //counter: paletteManager.positionCount
+                enabled: pDragItem.itemsList.length
                 onClicked:
                 {
-                    var selNames = paletteManager.selectedItemNames(pmSelector.itemsList())
+                    var selNames = []
+                    for (var i = 0; i < pDragItem.itemsList.length; i++)
+                        selNames.push(pDragItem.itemsList[i].cRef.name)
+
                     //console.log(selNames)
                     deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
                     deleteItemsPopup.open()
@@ -148,7 +151,15 @@ Rectangle
                 {
                     id: deleteItemsPopup
                     title: qsTr("Delete items")
-                    onAccepted: paletteManager.deletePalettes(pmSelector.itemsList())
+                    onAccepted:
+                    {
+                        var idList = []
+                        for (var i = 0; i < pDragItem.itemsList.length; i++)
+                            idList.push(pDragItem.itemsList[i].cRef.id)
+
+                        paletteManager.deletePalettes(idList)
+                        pDragItem.itemsList = []
+                    }
                 }
             }
         } // RowLayout
@@ -193,6 +204,8 @@ Rectangle
 
           property bool dragActive: false
 
+          Component.onDestruction: pmSelector.resetSelection(pListView.model)
+
           model: paletteManager.paletteList
           delegate:
               Item
@@ -227,7 +240,10 @@ Rectangle
                           if ((mouse.modifiers & Qt.ControlModifier) == 0)
                               pDragItem.itemsList = []
 
-                          pDragItem.itemsList = pmSelector.itemsList()
+                          // workaround array length notification
+                          var arr = pDragItem.itemsList
+                          arr.push(pDelegate)
+                          pDragItem.itemsList = arr
                       }
                       onDoubleClicked:
                       {

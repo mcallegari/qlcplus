@@ -28,7 +28,6 @@ ModelSelector::ModelSelector(QObject *parent)
 
 ModelSelector::~ModelSelector()
 {
-    m_selectedIndices.clear();
 }
 
 void ModelSelector::selectItem(quint32 index, ListModel *model, bool multiSelection)
@@ -38,22 +37,25 @@ void ModelSelector::selectItem(quint32 index, ListModel *model, bool multiSelect
 
     //qDebug() << "select item with index:" << index;
     if (multiSelection == false)
-    {
-        for (quint32 &sidx : m_selectedIndices)
-        {
-            QModelIndex idx = model->index(int(sidx), 0, QModelIndex());
-            model->setDataWithRole(idx, "isSelected", false);
-        }
-
-        m_selectedIndices.clear();
-        m_itemsCount = 0;
-    }
+        resetSelection(model);
 
     QModelIndex idx = model->index(int(index), 0, QModelIndex());
     model->setDataWithRole(idx, "isSelected", true);
     m_selectedIndices.append(index);
     m_itemsCount++;
     emit itemsCountChanged(m_itemsCount);
+}
+
+void ModelSelector::resetSelection(ListModel *model)
+{
+    for (quint32 &sidx : m_selectedIndices)
+    {
+        QModelIndex idx = model->index(int(sidx), 0, QModelIndex());
+        model->setDataWithRole(idx, "isSelected", false);
+    }
+
+    m_selectedIndices.clear();
+    m_itemsCount = 0;
 }
 
 QVariantList ModelSelector::itemsList()
@@ -63,12 +65,6 @@ QVariantList ModelSelector::itemsList()
         list.append(sidx);
 
     return list;
-}
-
-void ModelSelector::resetSelection()
-{
-    //qDebug() << "[ModelSelector] resetSelection";
-    m_selectedIndices.clear();
 }
 
 int ModelSelector::itemsCount() const
