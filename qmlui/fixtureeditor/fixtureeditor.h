@@ -49,7 +49,7 @@ public:
     Q_INVOKABLE bool loadDefinition(QString fileName);
 
     /** Edit an existing fixture definition */
-    void editDefinition(QString manufacturer, QString model);
+    bool editDefinition(QString manufacturer, QString model);
 
     /** Returns a list of the created editors */
     QVariantList editorsList() const;

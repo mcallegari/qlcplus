@@ -949,14 +949,27 @@ void App::loadFixture(QString fileName)
 
 void App::editFixture(QString manufacturer, QString model)
 {
+    bool switchToEditor = false;
+
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
+        switchToEditor = true;
+    }
+
+    if (m_fixtureEditor->editDefinition(manufacturer, model) == false)
+    {
+        delete m_fixtureEditor;
+        m_fixtureEditor = nullptr;
+        return;
+    }
+
+    if (switchToEditor)
+    {
         QMetaObject::invokeMethod(rootObject(), "switchToContext",
                                   Q_ARG(QVariant, "FXEDITOR"),
                                   Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
     }
-    m_fixtureEditor->editDefinition(manufacturer, model);
 }
 
 void App::closeFixtureEditor()
