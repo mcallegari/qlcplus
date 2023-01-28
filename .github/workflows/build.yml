@@ -10,8 +10,8 @@ jobs:
     strategy:
       #fail-fast: false
       matrix:
-        #task: [compile-qt5, compile-qt5qml,coverage-qt5]
-        task: [compile-qt5qml]
+        task: [compile-qt5, compile-qt5qml,coverage-qt5]
+        #task: [compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -66,9 +66,9 @@ jobs:
           echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
 
       - name: Set QT ENV variables (qt5)
-        if: ${{ ! endsWith( matrix.task, 'qt5') }}
+        if: ${{ endsWith( matrix.task, 'qt5') }}
         run: |
-          echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
+          echo "QT_VERSION=5.14.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
@@ -76,7 +76,7 @@ jobs:
       - name: Set QT ENV variables (qt5qml)
         if: ${{ endsWith( matrix.task, 'qt5qml') }}
         run: |
-          echo "QT_VERSION=6.4.2" >> $GITHUB_ENV
+          echo "QT_VERSION=5.14.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
@@ -144,15 +144,19 @@ jobs:
 
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
-        run: ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" QMAKE_CXXFLAGS+="-fno-sized-deallocation"
+        run: |
+          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}"
+          # Consider to use QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
-        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" QMAKE_CXXFLAGS+="-fno-sized-deallocation -std=c++11" CONFIG+=qmlui
+        run: |
+          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=qmlui
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
-        run: $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" QMAKE_CXXFLAGS+="-fno-sized-deallocation" CONFIG+=coverage
+        run: |
+          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" QMAKE_CXXFLAGS+="-fno-sized-deallocation" CONFIG+=coverage
 
       - name: Build
         run: make -j $NPROC
@@ -164,14 +168,20 @@ jobs:
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
 
-      - name: Adapt qlcplus (qt5qml)
+      - name: Adapt qlcplus for AppImage (qt5)
+        if: ${{ matrix.task == 'compile-qt5' }}
+        run: |
+          chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus
+
+      - name: Adapt qlcplus for AppImage (qt5qml)
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
           chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus-qml
           sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
 
-      - name: Store install artifacts
-        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+      - name: Store original install artifacts before stripping and AppImage
+        # Activate for debugging
+        if: ${{ false && ! startsWith( matrix.task, 'coverage') }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.task }}-files
@@ -184,13 +194,13 @@ jobs:
           find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
 
       - name: Strip Binaries (qt5qml)
-        if: ${{ false && matrix.task == 'compile-qt5qml' }}
+        if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
           strip -v ${INSTALL_ROOT}/usr/bin/qlcplus-qml
           find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
 
-      - name: Delete unused files
-        if: ${{ false && ! startsWith( matrix.task, 'coverage') }}
+      - name: Delete unused files for AppImage
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
           find ${INSTALL_ROOT}/usr/bin/ -name plugins.qmltypes -type f -delete
           find ${INSTALL_ROOT}/usr/bin -name *.qmlc -type f -delete
