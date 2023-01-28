@@ -145,8 +145,8 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}"
-          # Consider to use QMAKE_CXXFLAGS+="-fno-sized-deallocation"
+          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" QMAKE_CXXFLAGS+="-fno-sized-deallocation"
+          # -fno-sized-deallocation: fix symbol lookup error: qlcplus: undefined symbol: _ZdlPvm, version Qt_5
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
