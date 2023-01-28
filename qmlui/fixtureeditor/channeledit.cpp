@@ -193,7 +193,8 @@ void ChannelEdit::setupPreset()
 
     m_channel->addPresetCapability();
 
-    emit capabilitiesChanged();
+    updateCapabilities();
+
     emit channelChanged();
 }
 
