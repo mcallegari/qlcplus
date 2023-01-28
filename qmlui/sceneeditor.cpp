@@ -277,13 +277,16 @@ void SceneEditor::addComponent(int type, quint32 id)
         break;
         case App::FixtureGroupDragItem:
             m_scene->addFixtureGroup(id);
+            m_doc->setModified();
         break;
         case App::FixtureDragItem:
             m_scene->addFixture(id);
+            m_doc->setModified();
         break;
         case App::PaletteDragItem:
         {
             m_scene->addPalette(id);
+            m_doc->setModified();
         }
         break;
         default:
@@ -295,7 +298,7 @@ void SceneEditor::addComponent(int type, quint32 id)
 
 void SceneEditor::deleteItems(QVariantList list)
 {
-    if (m_scene == nullptr)
+    if (m_scene == nullptr || list.isEmpty())
         return;
 
     for (QVariant vIdx : list)
@@ -309,9 +312,15 @@ void SceneEditor::deleteItems(QVariantList list)
             case App::FixtureDragItem:
             {
                 Fixture *fixture = dataMap["cRef"].value<Fixture *>();
-                qDebug() << "removing fixture with ID" << fixture->id();
+                quint32 fixtureID = fixture->id();
+                qDebug() << "removing fixture with ID" << fixtureID;
                 // TODO: tardis
-                m_scene->removeFixture(fixture->id());
+                for (SceneValue &scv : m_scene->values())
+                {
+                    if (scv.fxi == fixtureID)
+                        m_scene->unsetValue(fixtureID, scv.channel);
+                }
+                m_scene->removeFixture(fixtureID);
             }
             break;
             case App::FixtureGroupDragItem:
@@ -332,6 +341,8 @@ void SceneEditor::deleteItems(QVariantList list)
             break;
         }
     }
+
+    m_doc->setModified();
 
     updateLists();
 }
