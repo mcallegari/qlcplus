@@ -882,6 +882,7 @@ void ContextManager::setFixturesGelColor(QColor color)
         if (m_3DView->isEnabled())
             m_3DView->updateFixtureItem(fixture, headIndex, linkedIndex, ba);
     }
+    m_doc->setModified();
 }
 
 void ContextManager::setFixturesAlignment(int alignment)
@@ -908,6 +909,7 @@ void ContextManager::setFixturesAlignment(int alignment)
         if (m_3DView->isEnabled())
             m_3DView->updateFixturePosition(itemID, fxPos);
     }
+    m_doc->setModified();
 }
 
 void ContextManager::setFixturesDistribution(int direction)
@@ -1024,6 +1026,7 @@ void ContextManager::setFixturesDistribution(int direction)
 
         newPos += size + gap;
     }
+    m_doc->setModified();
 }
 
 void ContextManager::setLinkedFixture(quint32 itemID)

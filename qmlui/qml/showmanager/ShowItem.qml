@@ -41,6 +41,7 @@ Item
     property bool isSelected: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
+    property string toolTipText: ""
 
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
     onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale, tickSize)
@@ -54,6 +55,18 @@ Item
     {
         if (isSelected && sfRef)
             sfRef.color = globalColor
+    }
+
+    onFuncRefChanged: updateTooltipText()
+    //onXChanged: updateTooltipText()
+    //onWidthChanged: updateTooltipText()
+
+    function updateTooltipText()
+    {
+        var tooltip = funcRef ? funcRef.name + "\n" : ""
+        tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+        tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+        toolTipText = tooltip
     }
 
     /* Locker image */
@@ -252,6 +265,7 @@ Item
             }
             itemRoot.z--
             showManager.enableFlicking(true)
+            updateTooltipText()
         }
 
         onClicked:
@@ -261,22 +275,14 @@ Item
         }
 
         onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true, false)
+    }
 
-        onExited: Tooltip.hideText()
-        onCanceled: Tooltip.hideText()
-
-        Timer
-        {
-           interval: 1000
-           running: sfMouseArea.containsMouse
-           onTriggered:
-           {
-               var tooltip = funcRef ? funcRef.name + "\n" : "0"
-               tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-               tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
-               Tooltip.showText(sfMouseArea, Qt.point(sfMouseArea.mouseX, sfMouseArea.mouseY), tooltip)
-           }
-        }
+    Text
+    {
+        anchors.fill: parent
+        ToolTip.visible: sfMouseArea.containsMouse
+        ToolTip.delay: 1000
+        ToolTip.text: toolTipText
     }
 
     /* horizontal left handler */
