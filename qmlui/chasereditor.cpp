@@ -261,6 +261,9 @@ void ChaserEditor::setPreviewEnabled(bool enable)
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = m_playbackIndex;
+        action.m_masterIntensity = 1.0;
+        action.m_stepIntensity = 1.0;
+        action.m_fadeMode = Chaser::FromFunction;
         m_chaser->setAction(action);
     }
 
