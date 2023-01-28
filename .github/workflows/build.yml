@@ -50,7 +50,7 @@ jobs:
         with:
           submodules: false
 
-      - name: Set ENV variables
+      - name: Set General ENV variables
         run: |
           echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
@@ -62,10 +62,22 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $1}')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $2}')}" >> $GITHUB_ENV
-          echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
-          echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
+
+      - name: Set QT ENV variables (qt5)
+        if: ${{ ! endsWith( matrix.task, 'qt5') }}
+        run: |
+          echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
+          echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
+          source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
+          source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
+
+      - name: Set QT ENV variables (qt5qml)
+        if: ${{ ! endsWith( matrix.task, 'qt5qml') }}
+        run: |
+          echo "QT_VERSION=6.4.2" >> $GITHUB_ENV
+          echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
