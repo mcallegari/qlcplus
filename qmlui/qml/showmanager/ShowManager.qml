@@ -335,20 +335,32 @@ Rectangle
 
             IconButton
             {
-                visible: showManager.selectedTrack > 0 ? true : false
+                visible: showManager.selectedTrackIndex > 0 ? true : false
                 height: parent.height - 2
                 width: height
                 imgSource: "qrc:/up.svg"
                 tooltip: qsTr("Move the selected track up")
+                onClicked:
+                {
+                    showManager.moveTrack(showManager.selectedTrackIndex, -1)
+                    showManager.selectedTrackIndex--
+                    renderAndCenter()
+                }
             }
 
             IconButton
             {
-                visible: showManager.selectedTrack >= 0 ? true : false
+                visible: showManager.selectedTrackIndex < tracksBox.count - 1 ? true : false
                 height: parent.height - 2
                 width: height
                 imgSource: "qrc:/down.svg"
                 tooltip: qsTr("Move the selected track down")
+                onClicked:
+                {
+                    showManager.moveTrack(showManager.selectedTrackIndex, 1)
+                    showManager.selectedTrackIndex++
+                    renderAndCenter()
+                }
             }
 
             // layout filler
@@ -449,7 +461,7 @@ Rectangle
                             height: trackHeight
                             trackRef: modelData
                             trackIndex: index
-                            isSelected: showManager.selectedTrack === index ? true : false
+                            isSelected: showManager.selectedTrackIndex === index ? true : false
                         }
                 }
             }

@@ -116,7 +116,7 @@ Rectangle
         propagateComposedEvents: true
         onClicked:
         {
-            showManager.selectedTrack = trackIndex
+            showManager.selectedTrackIndex = trackIndex
             mouse.accepted = false
         }
     }
