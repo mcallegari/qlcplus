@@ -17,7 +17,6 @@ qmlui:  APPVERSION = 5.0.0 Beta 2
 
 # Treat all compiler warnings as errors
 QMAKE_CXXFLAGS += -Werror
-unix:QMAKE_CFLAGS += -Werror
 
 CONFIG         += warn_on
 
