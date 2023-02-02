@@ -25,6 +25,7 @@ BuildRequires:  qt5-qtconfiguration-devel
 %else
 BuildRequires:  libqt5-linguist-devel
 BuildRequires:  update-desktop-files
+%endif
 Release: 1
 Source: qlcplus-%{version}.tar.gz
 URL: https://www.qlcplus.org/
