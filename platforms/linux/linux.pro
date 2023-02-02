@@ -19,9 +19,11 @@ appdata.path   = $$METAINFODIR
 appdata.files += org.qlcplus.QLCPlus.appdata.xml org.qlcplus.QLCPlusFixtureEditor.appdata.xml
 INSTALLS      += appdata
 
+!qmlui: {
 manpages.path = $$INSTALLROOT/$$MANDIR
 manpages.files += *.1
 INSTALLS += manpages
+}
 
 # This is nowadays run by dpkg (TODO: rpm)
 #MIMEUPDATE    = $$system("which update-mime-database")
