@@ -16,13 +16,14 @@ BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(libftdi1)
 BuildRequires:  pkgconfig(libola)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(libusb1)
 BuildRequires:  pkgconfig(mad)
 BuildRequires:  pkgconfig(sndfile)
 %if %{defined fedora}
+BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtconfiguration-devel
 %else
+BuildRequires:  pkgconfig(libusb1)
 BuildRequires:  libqt5-linguist-devel
 BuildRequires:  update-desktop-files
 %endif
