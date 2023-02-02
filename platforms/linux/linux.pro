@@ -4,11 +4,17 @@ TEMPLATE = subdirs
 TARGET   = icons
 
 desktop.path   = $$INSTALLROOT/share/applications/
-desktop.files += qlcplus.desktop qlcplus-fixtureeditor.desktop
+desktop.files += qlcplus.desktop
+!qmlui: {
+    desktop.files += qlcplus-fixtureeditor.desktop
+}
 INSTALLS      += desktop
 
 icons.path   = $$INSTALLROOT/share/pixmaps/
-icons.files += ../../resources/icons/png/qlcplus.png ../../resources/icons/png/qlcplus-fixtureeditor.png
+icons.files += ../../resources/icons/png/qlcplus.png
+!qmlui: {
+    icons.files += ../../resources/icons/png/qlcplus-fixtureeditor.png
+}
 INSTALLS    += icons
 
 mime.path   = $$INSTALLROOT/share/mime/packages
@@ -16,7 +22,10 @@ mime.files += qlcplus.xml
 INSTALLS   += mime
 
 appdata.path   = $$METAINFODIR
-appdata.files += org.qlcplus.QLCPlus.appdata.xml org.qlcplus.QLCPlusFixtureEditor.appdata.xml
+appdata.files += org.qlcplus.QLCPlus.appdata.xml
+!qmlui: {
+    appdata.files += org.qlcplus.QLCPlusFixtureEditor.appdata.xml
+}
 INSTALLS      += appdata
 
 !qmlui: {
