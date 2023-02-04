@@ -26,7 +26,7 @@ Rectangle
 {
     id: beatChooserBox
     width: UISettings.bigItemHeight * 3
-    height: contentsColumn.height + 30
+    height: toolbar.height + contentsColumn.height + 10
     color: UISettings.bgMedium
     border.color: UISettings.bgLight
     border.width: 2
@@ -39,36 +39,49 @@ Rectangle
 
     ButtonGroup { id: selGeneratorGroup }
 
+    Rectangle
+    {
+        id: toolbar
+        x: 2
+        y: 2
+        z: 1
+        width: parent.width - 4
+        height: UISettings.listItemHeight
+
+        gradient:
+            Gradient
+            {
+                id: cBarGradient
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
+            }
+
+        // allow the tool to be dragged around
+        // by holding it on the title bar
+        MouseArea
+        {
+            anchors.fill: parent
+            drag.target: beatChooserBox
+        }
+        GenericButton
+        {
+            width: height
+            height: parent.height
+            anchors.right: parent.right
+            border.color: UISettings.bgMedium
+            useFontawesome: true
+            label: FontAwesome.fa_times
+            onClicked: beatChooserBox.visible = false
+        }
+    }
+
     Column
     {
         id: contentsColumn
         spacing: 3
         x: 5
-        y: 5
+        y: toolbar.height + 7
         width: parent.width - 10
-
-        Rectangle
-        {
-            id: toolbar
-            width: parent.width
-            height: UISettings.listItemHeight
-            z: 1
-            gradient:
-                Gradient
-                {
-                    id: cBarGradient
-                    GradientStop { position: 0; color: UISettings.toolbarStartSub }
-                    GradientStop { position: 1; color: UISettings.toolbarEnd }
-                }
-
-            // allow the tool to be dragged around
-            // by holding it on the title bar
-            MouseArea
-            {
-                anchors.fill: parent
-                drag.target: beatChooserBox
-            }
-        }
 
         ListView
         {
