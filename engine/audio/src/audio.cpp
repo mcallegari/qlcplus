@@ -344,7 +344,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->adjustIntensity(getAttributeValue(Intensity));
-        m_audio_out->setFadeIn(fadeIn);
+        m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
@@ -402,7 +402,7 @@ void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
     else
     {
         if (m_audio_out != NULL)
-            m_audio_out->setFadeOut(overrideFadeOutSpeed());
+            m_audio_out->setFadeOut(fadeout);
     }
 
     Function::postRun(timer, universes);
