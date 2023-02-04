@@ -39,6 +39,7 @@ class Track : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(bool mute READ isMute WRITE setMute NOTIFY muteChanged)
 
     /************************************************************************
      * Initialization
@@ -117,6 +118,9 @@ public:
 
     /** Return the mute state of the track */
     bool isMute();
+
+signals:
+    void muteChanged(bool mute);
 
 private:
     /** Flag to mute/unmute this track */

@@ -127,6 +127,22 @@ void ShowManager::setSelectedTrackIndex(int index)
     emit selectedTrackIndexChanged(index);
 }
 
+void ShowManager::setTrackSolo(int index, bool solo)
+{
+    QList<Track*> tracks = m_currentShow->tracks();
+
+    if (index < 0 || index >= tracks.count())
+        return;
+
+    for (int i = 0; i < tracks.count(); i++)
+    {
+        if (i == index)
+            tracks.at(i)->setMute(false);
+        else
+            tracks.at(i)->setMute(solo);
+    }
+}
+
 void ShowManager::moveTrack(int index, int direction)
 {
     QList<Track*> tracks = m_currentShow->tracks();
@@ -648,9 +664,22 @@ QVariantList ShowManager::previewData(Function *f) const
         break;
 
         /* All the other Function types */
-        default:
+        case Function::AudioType:
+        case Function::VideoType:
+        {
             data.append(RepeatingDuration);
             data.append(f->totalDuration());
+            data.append(FadeIn);
+            data.append(f->fadeInSpeed());
+            data.append(FadeOut);
+            data.append(f->fadeOutSpeed());
+        }
+        break;
+        default:
+        {
+            data.append(RepeatingDuration);
+            data.append(f->totalDuration());
+        }
         break;
     }
 

@@ -155,6 +155,8 @@ public:
     int selectedTrackIndex() const;
     void setSelectedTrackIndex(int index);
 
+    Q_INVOKABLE void setTrackSolo(int index, bool solo);
+
     /** Move the track with the provided index in the provided direction */
     Q_INVOKABLE void moveTrack(int index, int direction);
 
