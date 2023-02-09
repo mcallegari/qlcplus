@@ -153,10 +153,12 @@ Rectangle
 
                 GenericButton
                 {
+                    enabled: widgetRef ? widgetRef.totalPagesNumber > 1 : false
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
                     height: gridItemsHeight
                     label: qsTr("Clone first page widgets")
+                    onClicked: if (widgetRef) widgetRef.cloneFirstPage()
                 }
               }
         }

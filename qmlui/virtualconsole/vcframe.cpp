@@ -751,6 +751,29 @@ void VCFrame::gotoNextPage()
     sendFeedback(m_currentPage, INPUT_NEXT_PAGE_ID);
 }
 
+void VCFrame::cloneFirstPage()
+{
+    if (m_totalPagesNumber == 1)
+        return;
+
+    for (int pg = 1; pg < totalPagesNumber(); pg++)
+    {
+        QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+        while (it.hasNext() == true)
+        {
+            VCWidget* child = it.next();
+            if (child->page() == 0 && child->parent() == this)
+            {
+                VCWidget *newWidget = child->createCopy(this);
+                m_vc->addWidgetToMap(newWidget);
+                newWidget->setPage(pg);
+                setupWidget(newWidget, pg);
+                newWidget->render(m_vc->view(), m_item);
+            }
+        }
+    }
+}
+
 /*********************************************************************
  * PIN
  *********************************************************************/

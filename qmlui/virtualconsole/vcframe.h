@@ -218,6 +218,8 @@ public:
     Q_INVOKABLE void gotoPreviousPage();
     Q_INVOKABLE void gotoNextPage();
 
+    Q_INVOKABLE void cloneFirstPage();
+
 signals:
     void multiPageModeChanged(bool multiPageMode);
     void pagesLoopChanged(bool loop);
