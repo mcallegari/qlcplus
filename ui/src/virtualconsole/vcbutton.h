@@ -268,7 +268,7 @@ public:
     static Action stringToAction(const QString& str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeTime();
+    int stopAllFadeTime() const;
 
 protected:
     Action m_action;

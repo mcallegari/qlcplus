@@ -176,7 +176,7 @@ public:
     static ButtonAction stringToAction(const QString& str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeOutTime();
+    int stopAllFadeOutTime() const;
 
 signals:
     void actionTypeChanged(ButtonAction actionType);
