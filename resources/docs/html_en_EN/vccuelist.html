@@ -18,7 +18,7 @@ and toggle the next cue as the performance goes on.
 
 <P>
 The first column on the Cue List displays the cue number that runs from 1 to
-infinity and beyond <A HREF="https://en.wikipedia.org/wiki/Buzz_Lightyear">.</A>
+infinity and beyond<A HREF="https://en.wikipedia.org/wiki/Buzz_Lightyear">*</A>.
 The second column shows the individual <A HREF="concept.html#Functions">Function</A>
 name that has been assigned to that particular cue.
 </P>
@@ -60,7 +60,7 @@ by double clicking on the Cue List widget.<br>
    <IMG SRC="qrc:/attach.png"> Associate a <A HREF="concept.html#Chaser">Chaser</A> with the Cue List using
    the <A HREF="selectfunction.html">Select Function</A> dialog.<br>
    <IMG SRC="qrc:/detach.png"> Detach the selected Chaser from the Cue List.<br><br>
-   <b>Playback buttons layout</b>: Select how the playback can be controlled with the two available buttons.<br>
+   <b>Playback buttons layout</b>: Select how the playback can be controlled with the two available buttons.<br><br>
    <b>Behavior of the Next/Previous buttons when the chaser is not active</b>: Select the behaviour
    of the Next and Previous buttons when the Chaser is not running. Basically this option determines
    the action that should be taken when the Chaser is started for the first time or when the Chaser
@@ -106,16 +106,16 @@ by double clicking on the Cue List widget.<br>
  </TR>
  <TR>
   <TD>
-   <B>Side Sliders</B>
+   <B>Side Fader</B>
   </TD>
   <TD>
-   <B>Behaviour</B>: Select the behaviour of the side sliders. If "Crossfade" is selected, 2 sliders will
-   be displayed on the left side panel, implementing the crossfade functionality between cues.<br>
-   If "Steps" is selected, only one slider will be displayed,
-   and its value will determine which cue of the Cue List to run.<br>
-   <B>Left Slider</B>: Select an external input for the left slider.<br>
-   <B>Right Slider</B>: Select an external input for the right slider.
-   This has no effect with the "Steps" behaviour.<br>
+   <B>Behaviour</B>: Select the behaviour of the side sliders. 
+   <UL>
+    <LI>If "Crossfade" is selected, a slider will be displayed on the left side of the panel, 
+     implementing the crossfade functionality between cues.</LI>
+	<LI>If "Steps" is selected, a slider will be displayed on the left side of the panel,
+     and its value will determine which cue of the Cue List to run.</LI>
+   </UL>
   </TD>
  </TR>
 </TABLE>
@@ -125,7 +125,7 @@ by double clicking on the Cue List widget.<br>
 
 <P>
 When switching QLC+ to <A HREF="concept.html#Modes">Operate Mode</A>, the Cue List will
-become active, allowing the selection of the desired cues included in the associated Chaser.<br>
+become active, allowing the selection of the desired cues included in the associated Chaser.<br><br>
 Pressing the ENTER key will start the selected cue.<br><br>
 The following items are displayed at the bottom of the Cue List widget:<br><br>
 
@@ -146,8 +146,9 @@ The following items are displayed at the bottom of the Cue List widget:<br><br>
  </TR>
  <TR>
   <TD><IMG src="qrc:/slider.png"></TD>
-  <TD>When clicked, this button will open/close a side panel showing two sliders for controlling crossfade.
-  (See next chapter)
+  <TD>When clicked, this button will open/close a side panel showing the slider for controlling 
+   crossfade or step selection.<BR>
+   (See next chapter for Crossfade details)
   </TD>
  </TR>
  <TR>
@@ -199,35 +200,26 @@ The following items are displayed at the bottom of the Cue List widget:<br><br>
 <H3>Crossfade</H3>
 
 <P>
-  There are two faders that can be used to manually control crossfade between two consecutive cues.<br><br>
-  Each slider is connected to a cue and to help understanding their purpose we'll call them
-  "current cue" and "next cue" sliders.<br>
-  The label at the bottom of each slider will show the number of the cue that the slider is controlling
-  and a color to show the status of that cue.<br><br>
-  There are two check boxes at the top:<br>
-  <ul>
-   <li><b>Blend</b>: if checked, will activate an additive blend mode between the two cues being crossfaded.<br>
-    This means that the DMX channels affected by the faded cues will be subject to a sort of "morphing" between each other.<br>
-    In this way, DMX channels with the same value will not change at all.
-   </li>
-   <li><b>Link</b>: will link the sliders together to facilitate crossfading between cues, for example by
-    using a single external fader instead of two.
-   </li>
-  </ul>
-  When the Cue list is running, the crossfade sliders control the intensity of the associated cues,
-  overriding their Fade In and Fade Out speeds and so allowing manual control of the transition.<br><br>
-  The slider for the <span style="background-color:#4E8DDE">current cue</span> has a blue label.
+  The side slider can be used to manually control crossfade between two consecutive cues.<br>
+  <br>
+  The numbers at the top and bottom of the slider show the "current cue" and "next cue".<br>
+  The label for the current cue has a <span style="background-color:#4E8DDE">blue label</span>.
   This will be at 100% when the playback of the Cue List is started.<br>
-  The slider for the next cue</span> has an <span style="background-color:orange">orange label</span> and will be
+  The label for the next cue has an <span style="background-color:orange">orange label</span> and will be
   at 0% when the playback of the Cue List is started.<br>
-  The intensities of both cues can be adjusted by moving the corresponding slider.<br><br>
-  However, after both sliders have been moved to the opposite ends of their travel, the following changes take place:<br>
-  The orange <span style="background-color:orange">next cue</span> label changes to
-  <span style="background-color:#4E8DDE">blue</span> (slider at 100%). This indicates that the old next cue
-  has become the new current cue.<br>
-  The blue <span style="background-color:#4E8DDE">current cue</span> label changes to
-  <span style="background-color:orange">orange</span> and the number of the cue is increased by 2 (slider at 0%).
-  So this slider now controls the cue which comes after the old next cue.
+  <br>
+  When the Cue list is running, the crossfade slider controls the intensity of the associated cues,
+  overriding their Fade In and Fade Out speeds and so allowing manual control of the transition.<br>
+  <br>
+  After the slider has been moved to the opposite end of its travel, the following changes take place:<br>
+  <UL>
+   <LI>The orange <span style="background-color:orange">next cue</span> label changes to
+    <span style="background-color:#4E8DDE">blue</span>. This indicates that the old next cue
+    has become the new current cue.</LI>
+   <LI>The blue <span style="background-color:#4E8DDE">current cue</span> label changes to
+    <span style="background-color:orange">orange</span> and the number of the cue is increased by 2.
+    So this slider now controls the cue which comes after the old next cue.</LI>
+  </UL>
 </P>
 
 <br>
