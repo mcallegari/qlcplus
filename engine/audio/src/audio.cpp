@@ -46,6 +46,7 @@
 
 #define KXMLQLCAudioSource QString("Source")
 #define KXMLQLCAudioDevice QString("Device")
+#define KXMLQLCAudioVolume QString("Volume")
 
 /*****************************************************************************
  * Initialization
@@ -59,6 +60,7 @@ Audio::Audio(Doc* doc)
   , m_audioDevice(QString())
   , m_sourceFileName("")
   , m_audioDuration(0)
+  , m_volume(1.0)
 {
     setName(tr("New Audio"));
     setRunOrder(Audio::SingleShot);
@@ -195,6 +197,16 @@ void Audio::setAudioDevice(QString dev)
     m_audioDevice = dev;
 }
 
+qreal Audio::volume() const
+{
+    return m_volume;
+}
+
+void Audio::setVolume(qreal volume)
+{
+    m_volume = volume;
+}
+
 QString Audio::audioDevice()
 {
     return m_audioDevice;
@@ -205,7 +217,7 @@ int Audio::adjustAttribute(qreal fraction, int attributeId)
     int attrIndex = Function::adjustAttribute(fraction, attributeId);
 
     if (m_audio_out != NULL && attrIndex == Intensity)
-        m_audio_out->adjustIntensity(getAttributeValue(Function::Intensity));
+        m_audio_out->adjustIntensity(m_volume * getAttributeValue(Function::Intensity));
 
     return attrIndex;
 }
@@ -253,6 +265,9 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     if (m_audioDevice.isEmpty() == false)
         doc->writeAttribute(KXMLQLCAudioDevice, m_audioDevice);
 
+    if (m_volume != 1.0)
+        doc->writeAttribute(KXMLQLCAudioVolume, QString::number(m_volume));
+
     doc->writeCharacters(m_doc->normalizeComponentPath(m_sourceFileName));
 
     doc->writeEndElement();
@@ -288,6 +303,8 @@ bool Audio::loadXML(QXmlStreamReader &root)
 
             if (attrs.hasAttribute(KXMLQLCAudioDevice))
                 setAudioDevice(attrs.value(KXMLQLCAudioDevice).toString());
+            if (attrs.hasAttribute(KXMLQLCAudioVolume))
+                setVolume(attrs.value(KXMLQLCAudioVolume).toString().toDouble());
 
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
@@ -343,7 +360,7 @@ void Audio::preRun(MasterTimer* timer)
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
-        m_audio_out->adjustIntensity(getAttributeValue(Intensity));
+        m_audio_out->adjustIntensity(m_volume * getAttributeValue(Intensity));
         m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();

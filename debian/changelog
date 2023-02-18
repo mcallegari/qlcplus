@@ -5,6 +5,7 @@ qlcplus (4.12.7) stable; urgency=low
   * engine: make sure input/output device names are unique
   * engine: fix crash when no IO plugin is found
   * engine: fix blackout to leave LTP channels untouched
+  * engine: add volume control to audio function
   * UI/Monitor: fix 2D view multiple heads not showing correctly
   * UI/Audio Editor: do not stop audio function if not previewing
   * UI/Fixture Remap: add button to import fixture lists (.qxfl)

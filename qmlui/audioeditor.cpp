@@ -110,7 +110,29 @@ void AudioEditor::setLooped(bool looped)
             m_audio->setRunOrder(Audio::Loop);
         else
             m_audio->setRunOrder(Audio::SingleShot);
+
+        emit loopedChanged();
     }
+}
+
+qreal AudioEditor::volume()
+{
+    if (m_audio != nullptr)
+        return m_audio->volume() * 100;
+
+    return 100;
+}
+
+void AudioEditor::setVolume(qreal volume)
+{
+    if (m_audio == nullptr)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::AudioSetVolume, m_audio->id(), m_audio->volume(), volume / 100.0);
+
+    m_audio->setVolume(volume / 100);
+
+    emit volumeChanged();
 }
 
 int AudioEditor::cardLineIndex() const

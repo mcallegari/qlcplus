@@ -47,6 +47,7 @@ private:
 private slots:
     void slotNameEdited(const QString& text);
     void slotSourceFileClicked();
+    void slotVolumeChanged(int value);
     void slotFadeInEdited();
     void slotFadeOutEdited();
     void slotAudioDeviceChanged(int idx);

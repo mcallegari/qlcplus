@@ -135,6 +135,7 @@ public:
         RGBMatrixSetAnimationStyle,
 
         AudioSetSource,
+        AudioSetVolume,
 
         VideoSetSource,
         VideoSetScreenIndex,

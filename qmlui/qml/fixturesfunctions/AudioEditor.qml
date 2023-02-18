@@ -237,7 +237,6 @@ Rectangle
         }
         CustomComboBox
         {
-            id: audioCardsCombo
             height: UISettings.listItemHeight
             Layout.fillWidth: true
             model: ioManager.audioOutputSources
@@ -246,6 +245,23 @@ Rectangle
         }
 
         // row 8
+        RobotoText
+        {
+            label: qsTr("Volume")
+            height: UISettings.listItemHeight
+        }
+        CustomSpinBox
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            from: 0
+            to: 100
+            value: audioEditor.volume
+            suffix: "%"
+            onValueChanged: audioEditor.volume = value
+       }
+
+        // row 9
         RobotoText
         {
             id: fiLabel
@@ -276,7 +292,7 @@ Rectangle
             }
         }
 
-        // row 9
+        // row 10
         RobotoText
         {
             id: foLabel
