@@ -49,7 +49,7 @@ static void MidiInProc(const MIDIPacketList* pktList, void* readProcRefCon,
             uchar value = 0;
 
             // MIDI Command
-            cmd = packet->data[0];
+            cmd = packet->data[i];
             if (!MIDI_IS_CMD(cmd))
                 continue; // Not a MIDI command. Skip to the next byte.
             if (cmd == MIDI_SYSEX)
