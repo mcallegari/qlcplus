@@ -280,6 +280,7 @@ jobs:
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
           echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
           echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
+          echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -388,17 +389,17 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          echo 'Silently installing QLC+...'
-          make install -s
-          cp *.qm /c/qlcplus
+          #echo 'Silently installing QLC+...'
+          make INSTALL_ROOT=${INSTALL_ROOT} install
+          cp *.qm ${INSTALL_ROOT}
 
       - name: Build installation package
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          cd /c/qlcplus
+          cd ${INSTALL_ROOT}
           sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
           #set CURRDATE=`date +%Y%m%d`
-          mv QLC+_*.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe
+          #mv QLC+_*.exe ${INSTALL_ROOT}/QLC+_$APPVEYOR_BUILD_VERSION.exe

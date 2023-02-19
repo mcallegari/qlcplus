@@ -6,6 +6,7 @@
 
 CURRUSER=$(whoami)
 TESTPREFIX=""
+TESTSUFFIX=""
 SLEEPCMD=""
 HAS_XSERVER="0"
 THISCMD=`basename "$0"`
@@ -17,9 +18,12 @@ if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
   exit 1
 fi
 
-if [ "$CURRUSER" == "runner" ] \
-    || [ "$CURRUSER" == "buildbot" ] \
-    || [ "$CURRUSER" == "abuild" ]; then
+if [ "$CURRUSER" == "runner" ];then
+  TESTSUFFIX="--platform offscreen"
+fi
+
+if [ "$CURRUSER" == "buildbot" ] || \
+   [ "$CURRUSER" == "abuild" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ $(which xvfb-run) == "" ]; then
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
@@ -42,11 +46,6 @@ else
     fi
     if [ ${#XPID} -gt 0 ]; then
       HAS_XSERVER="1"
-    fi
-
-    # no X server ? Let's look for xvfb. This is how Travis is setup
-    if [ -n "$TRAVIS" ]; then
-        HAS_XSERVER="1"
     fi
   fi
 fi
@@ -76,13 +75,17 @@ do
     $SLEEPCMD
     # Execute the test
     pushd ${TESTDIR}/${test}
-    $TESTPREFIX ./test.sh
-    RESULT=${?}
-    popd
-    if [ ${RESULT} != 0 ]; then
+    if [ -e ${test}_test ]; then
+      DYLD_FALLBACK_LIBRARY_PATH=../../../engine/src:../../src:$DYLD_FALLBACK_LIBRARY_PATH \
+      LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test $TESTSUFFIX
+      RESULT=${?}
+
+      if [ ${RESULT} != 0 ]; then
         echo "${RESULT} Engine unit tests failed. Please fix before commit."
         exit ${RESULT}
+      fi
     fi
+    popd
 done
 
 #############################################################################
@@ -108,7 +111,7 @@ do
     # Execute the test
     pushd ${TESTDIR}/${test}
     DYLD_FALLBACK_LIBRARY_PATH=../../../engine/src:../../src:$DYLD_FALLBACK_LIBRARY_PATH \
-        LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test
+        LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test $TESTSUFFIX
     RESULT=${?}
     popd
     if [ ${RESULT} != 0 ]; then
