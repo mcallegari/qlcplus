@@ -213,7 +213,7 @@ jobs:
       - name: Test Load AppImage
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          xvfb-run ./Q_Light_Controller_Plus-x86_64.AppImage --version
+          ./Q_Light_Controller_Plus-x86_64.AppImage --platform offscreen --version
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -336,7 +336,7 @@ jobs:
           echo "qmake:"
           which qmake || true
           qmake -v || true
-          ${QMAKE} -v || true
+          pkg-config --modversion libusb-1.0
           #ls -l /mingw*/bin/ || true
           #ls -l /mingw*/usr/bin/ || true
           #ls -l /msys*/bin/ || true
