@@ -1,12 +1,7 @@
 #!/bin/bash
 
-#############################################################################
-# Engine tests
-#############################################################################
-
 CURRUSER=$(whoami)
 TESTPREFIX=""
-TESTSUFFIX=""
 SLEEPCMD=""
 HAS_XSERVER="0"
 THISCMD=`basename "$0"`
@@ -16,10 +11,6 @@ TARGET=${1:-}
 if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
   echo >&2 "Usage: $THISCMD ui|qmlui"
   exit 1
-fi
-
-if [ "$CURRUSER" == "runner" ];then
-  TESTSUFFIX="--platform offscreen"
 fi
 
 if [ "$CURRUSER" == "buildbot" ] || \
@@ -47,10 +38,18 @@ else
     if [ ${#XPID} -gt 0 ]; then
       HAS_XSERVER="1"
     fi
+
+    # no X server ? Let's look for xvfb. This is how Travis is setup
+    if [ -n "$TRAVIS" ]; then
+        HAS_XSERVER="1"
+    fi
   fi
 fi
 
-# run xmllint on fixture definitions
+#############################################################################
+# Fixture definitions check with xmllint
+#############################################################################
+
 pushd resources/fixtures/scripts
 ./check
 RET=$?
@@ -59,6 +58,10 @@ if [ $RET -ne 0 ]; then
     echo "Fixture definitions are not valid. Please fix before commit."
     exit $RET
 fi
+
+#############################################################################
+# Engine tests
+#############################################################################
 
 TESTDIR=engine/test
 TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
@@ -75,17 +78,13 @@ do
     $SLEEPCMD
     # Execute the test
     pushd ${TESTDIR}/${test}
-    if [ -e ${test}_test ]; then
-      DYLD_FALLBACK_LIBRARY_PATH=../../../engine/src:../../src:$DYLD_FALLBACK_LIBRARY_PATH \
-      LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test $TESTSUFFIX
-      RESULT=${?}
-
-      if [ ${RESULT} != 0 ]; then
+    $TESTPREFIX ./test.sh
+    RESULT=${?}
+    popd
+    if [ ${RESULT} != 0 ]; then
         echo "${RESULT} Engine unit tests failed. Please fix before commit."
         exit ${RESULT}
-      fi
     fi
-    popd
 done
 
 #############################################################################
@@ -111,7 +110,7 @@ do
     # Execute the test
     pushd ${TESTDIR}/${test}
     DYLD_FALLBACK_LIBRARY_PATH=../../../engine/src:../../src:$DYLD_FALLBACK_LIBRARY_PATH \
-        LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test $TESTSUFFIX
+        LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test
     RESULT=${?}
     popd
     if [ ${RESULT} != 0 ]; then

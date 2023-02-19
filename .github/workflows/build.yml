@@ -224,9 +224,8 @@ jobs:
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: |
-          export DISPLAY=:99.0
-          make check
+        uses: GabrielBB/xvfb-action@v1
+        run: make check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
@@ -280,7 +279,8 @@ jobs:
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
           echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
           echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
-          echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
+          #echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
+          echo "INSTALL_ROOT=/tmp/install_root" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
