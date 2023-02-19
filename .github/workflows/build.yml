@@ -55,12 +55,12 @@ jobs:
           echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\"/\"}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | cut -d '/' -f 3)" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $1}')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $2}')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
 
@@ -256,10 +256,6 @@ jobs:
       CC: /mingw32/bin/i686-w64-mingw32-gcc.exe
       CXX: /mingw32/bin/i686-w64-mingw32-g++.exe
 
-    #defaults:
-    #  run:
-    #    shell: bash
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -269,14 +265,12 @@ jobs:
       - name: Set ENV variables
         shell: bash
         run: |
-          echo "GITHUB_REF: $GITHUB_REF"
-          echo "MATRIX TASK: ${{matrix.task}}"
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\\"/\\"}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | cut -d '/' -f 3)" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $1}')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $2}')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.8" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           #echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
@@ -349,7 +343,7 @@ jobs:
           #ls -l /msys*/usr/bin/ || true
           #ls -l /usr/bin/ || true
 
-      - name: Disable unit tests build
+      - name: Patch Qt header and disable test units build
         #if: false
         shell: msys2 {0}
         run: |
@@ -372,16 +366,16 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          ${QMAKE} FORCECONFIG=release
+          qmake FORCECONFIG=release
 
       - name: Build for Windows
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          make
+          make -j${NPROC}
 
       - name: Test
-        #if: false
+        if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
