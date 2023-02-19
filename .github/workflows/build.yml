@@ -224,7 +224,9 @@ jobs:
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: make check
+        run: |
+          export DISPLAY=:99.0
+          make check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
@@ -358,6 +360,7 @@ jobs:
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
           sed -i -e 's/ SUBDIRS              += velleman/#SUBDIRS += velleman/g' plugins/plugins.pro
+          sed -i -e 's/ SUBDIRS              += udmx/#SUBDIRS += udmx/g' plugins/plugins.pro
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' plugins/artnet/artnet.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
