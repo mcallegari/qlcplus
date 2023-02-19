@@ -269,16 +269,18 @@ jobs:
       - name: Set ENV variables
         shell: bash
         run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "MATRIX TASK: ${{matrix.task}}"
           echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\\"/\\"}; {print $3}')" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $1}')" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $2}')}" >> $GITHUB_ENV
-          echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
+          echo "QT_VERSION=5.15.8" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
-          echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QTDIR=/mingw32/qt5-static" >> $GITHUB_ENV
+          #echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
+          #source $GITHUB_ENV && echo "QTDIR=/mingw32/qt5-static" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
           echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
           echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
@@ -316,16 +318,6 @@ jobs:
             mingw-w64-i686-qt5
             mingw-w64-i686-nsis
 
-      - name: Install GCC and libs
-        #if: false
-        shell: msys2 {0}
-        run: |
-          set MSYSTEM=MINGW32
-          #ls -l /usr/bin/
-          #find / -iname 'wget*'
-          # pacman --noconfirm -Sy
-          # pacman --noconfirm --needed -S pacman-mirrors
-
       - name: D2XX SDK
         shell: msys2 {0}
         run: |
@@ -351,11 +343,11 @@ jobs:
           which qmake || true
           qmake -v || true
           ${QMAKE} -v || true
-          ls -l /mingw*/bin/ || true
-          ls -l /mingw*/usr/bin/ || true
-          ls -l /msys*/bin/ || true
-          ls -l /msys*/usr/bin/ || true
-          ls -l /usr/bin/ || true
+          #ls -l /mingw*/bin/ || true
+          #ls -l /mingw*/usr/bin/ || true
+          #ls -l /msys*/bin/ || true
+          #ls -l /msys*/usr/bin/ || true
+          #ls -l /usr/bin/ || true
 
       - name: Disable unit tests build
         #if: false
@@ -363,7 +355,7 @@ jobs:
         run: |
           set MSYSTEM=MINGW32
           # patch Qt 5.15.x to build with GCC 12
-          cd /c/msys64/mingw32/include/
+          cd /mingw32/include/
           sed -i -e 's/friend Q_CORE_EXPORT uint qHash/\/\/friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
           sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==/\/\/friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
           cd -
