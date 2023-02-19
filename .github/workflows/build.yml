@@ -225,7 +225,8 @@ jobs:
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         uses: GabrielBB/xvfb-action@v1
-        run: make check
+        with:
+          run: make check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
