@@ -10,7 +10,7 @@ jobs:
     strategy:
       #fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qt5qml,coverage-qt5]
+        task: [compile-qt5, compile-qt5qml, coverage-qt5]
         #task: [compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
@@ -32,7 +32,6 @@ jobs:
         libgl1-mesa-dev
         libxml2-utils
         xvfb
-        ccache
         wget
       PACKAGES_QML_BASE:
         libpulse-dev
@@ -112,15 +111,6 @@ jobs:
       - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
         run: pip install lxml
 
-      - name: Setup ccache
-        uses: Chocobo1/setup-ccache-action@v1
-        with:
-          update_packager_index: false
-          install_ccache: false
-          ccache_options: |
-            max_size=2G
-            compression=false
-
       - name: Setup ruby cache
         uses: ruby/setup-ruby@v1
         with:
@@ -145,18 +135,20 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" QMAKE_CXXFLAGS+="-fno-sized-deallocation"
+          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" FORCECONFIG=release
+          # QMAKE_CXXFLAGS+="-fno-sized-deallocation"
           # -fno-sized-deallocation: fix symbol lookup error: qlcplus: undefined symbol: _ZdlPvm, version Qt_5
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=qmlui
+          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=qmlui FORCECONFIG=release
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" QMAKE_CXXFLAGS+="-fno-sized-deallocation" CONFIG+=coverage
+          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" FORCECONFIG=release CONFIG+=coverage
+          #QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Build
         run: make -j $NPROC
@@ -246,7 +238,7 @@ jobs:
           path-to-lcov: coverage/coverage.info
 
   build-windows:
-    if: false
+    #if: false
     runs-on: windows-latest
     name: QLCplus Windows ${{matrix.task}}
     strategy:
@@ -320,44 +312,19 @@ jobs:
             mingw-w64-i686-flac
             mingw-w64-i686-fftw
             mingw-w64-i686-libusb
-            mingw-w64-i686-gcc-libs
-            mingw-w64-i686-gcc
             mingw-w64-i686-python-lxml
-            mingw-w64-i686-qt5-static
-            mingw-w64-i686-qt5-script
-            mingw-w64-i686-qt5-tools
+            mingw-w64-i686-qt5
+            mingw-w64-i686-nsis
 
       - name: Install GCC and libs
-        if: false
+        #if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          ls -l /usr/bin/
-          find / -iname 'wget*'
+          #ls -l /usr/bin/
+          #find / -iname 'wget*'
           # pacman --noconfirm -Sy
           # pacman --noconfirm --needed -S pacman-mirrors
-          ##pacman --noconfirm -Syu
-          ##pacman --noconfirm --needed -Sy mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-libusb
-          # pacman --noconfirm --needed -Sy mingw32/mingw-w64-i686-qt5 unzip mingw32/mingw-w64-i686-nsis
-          wget.exe http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-11.3.0-2-any.pkg.tar.zst -P /c/projects
-          wget.exe http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-11.3.0-2-any.pkg.tar.zst -P /c/projects
-          # wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst -P /c/projects
-          pacman --noconfirm -Rdd mingw-w64-i686-gcc
-          pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
-          pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-11.3.0-2-any.pkg.tar.zst
-          pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-11.3.0-2-any.pkg.tar.zst
-          # pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
-
-      - name: Setup ccache
-        uses: Chocobo1/setup-ccache-action@v1
-        with:
-          msystem: mingw32
-          windows_compile_environment: msys2
-          update_packager_index: false
-          install_ccache: true
-          ccache_options: |
-            max_size=2G
-            compression=false
 
       - name: D2XX SDK
         shell: msys2 {0}
@@ -395,6 +362,12 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
+          # patch Qt 5.15.x to build with GCC 12
+          cd /c/msys64/mingw32/include/
+          sed -i -e 's/friend Q_CORE_EXPORT uint qHash/\/\/friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
+          sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==/\/\/friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
+          cd -
+          sed -i -e 's/QMAKE_CXXFLAGS += -Werror/QMAKE_CXXFLAGS += -Werror -Wno-error=attributes/g' variables.pri
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro

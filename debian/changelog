@@ -12,6 +12,7 @@ qlcplus (4.12.7) stable; urgency=low
   * UI/Fixture Remap: fix wrong widgets remapping
   * Plugins/OSC: fix broadcast packets reception (thanks to Jannis Achstetter)
   * Plugins/E1.31: allow to set 2 digits of the IP address
+  * Plugins/MIDI: fix consecutive notes not notified on macOS (thanks to Nils Tijtgat)
   * Virtual Console/Audio Triggers: stop sending DMX values on deactivation
   * Virtual Console: submaster now affects widgets on all pages but only on active frames
   * Web Access: add support for widget background images
@@ -39,7 +40,7 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixtures: Stage Right 200W COB LED Ellipsoidal, Stage Right 30W LED Spot (thanks to Dave Vecchio)
   * New fixture: Rockville Rockwedge LED (thanks to Ryan Carter)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Jan 2023 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 
 qlcplus (4.12.6) stable; urgency=low
 
