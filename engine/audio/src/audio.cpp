@@ -341,6 +341,13 @@ void Audio::preRun(MasterTimer* timer)
     {
         uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
 
+        if (m_audio_out != NULL && m_audio_out->isRunning())
+        {
+            m_audio_out->stop();
+            m_audio_out->deleteLater();
+            m_audio_out = NULL;
+        }
+
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

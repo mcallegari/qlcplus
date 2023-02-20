@@ -49,6 +49,9 @@ void AudioRenderer::adjustIntensity(qreal fraction)
 
 void AudioRenderer::setFadeIn(uint fadeTime)
 {
+    m_fadeStep = 0;
+    m_currentIntensity = 1.0;
+
     if (fadeTime == 0 || m_adec == NULL)
         return;
 
