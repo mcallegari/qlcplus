@@ -13,14 +13,16 @@ if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
   exit 1
 fi
 
-if [ "$CURRUSER" == "buildbot" ] || \
-   [ "$CURRUSER" == "abuild" ]; then
+if [ "$CURRUSER" == "runner" ] \
+    || [ "$CURRUSER" == "buildbot" ] \
+    || [ "$CURRUSER" == "abuild" ]; then
+  echo "Found build environment with CURRUSER='$CURRUSER' and OSTYPE='$OSTYPE'"
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ $(which xvfb-run) == "" ]; then
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
       exit
     fi
-    TESTPREFIX="xvfb-run"
+    TESTPREFIX="xvfb-run --auto-servernum"
     HAS_XSERVER="1"
     # if we're running as build slave, set a sleep time to start/stop xvfb between tests
     SLEEPCMD="sleep 1"
@@ -78,6 +80,7 @@ do
     $SLEEPCMD
     # Execute the test
     pushd ${TESTDIR}/${test}
+    echo "$TESTPREFIX ./test.sh"
     $TESTPREFIX ./test.sh
     RESULT=${?}
     popd
