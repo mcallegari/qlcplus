@@ -27,7 +27,9 @@ if [ "$CURRUSER" == "buildbot" ] || \
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "We're on OSX. Any prefix needed?"
   fi
-
+elif [ "$CURRUSER" == "runner" ]; then
+  TESTPREFIX="QT_QPA_PLATFORM=minimal xvfb-run --auto-servernum"
+  SLEEPCMD="sleep 1"
 else
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -37,11 +39,6 @@ else
     fi
     if [ ${#XPID} -gt 0 ]; then
       HAS_XSERVER="1"
-    fi
-
-    # no X server ? Let's look for xvfb. This is how Travis is setup
-    if [ -n "$TRAVIS" ]; then
-        HAS_XSERVER="1"
     fi
   fi
 fi
@@ -78,7 +75,8 @@ do
     $SLEEPCMD
     # Execute the test
     pushd ${TESTDIR}/${test}
-    $TESTPREFIX ./test.sh
+    echo "$TESTPREFIX ./test.sh"
+    eval $TESTPREFIX ./test.sh
     RESULT=${?}
     popd
     if [ ${RESULT} != 0 ]; then
@@ -109,7 +107,7 @@ do
     $SLEEPCMD
     # Execute the test
     pushd ${TESTDIR}/${test}
-    DYLD_FALLBACK_LIBRARY_PATH=../../../engine/src:../../src:$DYLD_FALLBACK_LIBRARY_PATH \
+    eval DYLD_FALLBACK_LIBRARY_PATH=../../../engine/src:../../src:$DYLD_FALLBACK_LIBRARY_PATH \
         LD_LIBRARY_PATH=../../../engine/src:../../src:$LD_LIBRARY_PATH $TESTPREFIX ./${test}_test
     RESULT=${?}
     popd
@@ -127,7 +125,7 @@ fi
 
 $SLEEPCMD
 pushd plugins/enttecwing/test
-$TESTPREFIX ./test.sh
+eval $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
 	echo "${RESULT} Enttec wing unit tests failed. Please fix before commit."
@@ -144,7 +142,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
   $SLEEPCMD
   pushd plugins/velleman/test
-  $TESTPREFIX ./test.sh
+  eval $TESTPREFIX ./test.sh
   RESULT=$?
   if [ $RESULT != 0 ]; then
     echo "Velleman unit test failed ($RESULT). Please fix before commit."
@@ -159,7 +157,7 @@ fi
 
 $SLEEPCMD
 pushd plugins/midi/test
-$TESTPREFIX ./test.sh
+eval $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
 	echo "${RESULT} MIDI unit tests failed. Please fix before commit."
@@ -173,7 +171,7 @@ popd
 
 $SLEEPCMD
 pushd plugins/artnet/test
-$TESTPREFIX ./test.sh
+eval $TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
 	echo "${RESULT} ArtNet unit tests failed. Please fix before commit."
