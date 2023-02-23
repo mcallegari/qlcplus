@@ -157,7 +157,7 @@ jobs:
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" FORCECONFIG=release CONFIG+=coverage
+          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
           #QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Build
@@ -290,8 +290,7 @@ jobs:
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
           echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
           echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
-          #echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
-          echo "INSTALL_ROOT=/tmp/install_root" >> $GITHUB_ENV
+          echo "INSTALL_ROOT=/tmp/" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -401,6 +400,8 @@ jobs:
         run: |
           set MSYSTEM=MINGW32
           #echo 'Silently installing QLC+...'
+          echo "Available disk space:"
+          df
           make INSTALL_ROOT=${INSTALL_ROOT} install
           cp *.qm ${INSTALL_ROOT}
 
