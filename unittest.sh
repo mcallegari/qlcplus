@@ -81,7 +81,7 @@ do
     # Execute the test
     pushd ${TESTDIR}/${test}
     echo "$TESTPREFIX ./test.sh"
-    $TESTPREFIX ./test.sh
+    eval $TESTPREFIX ./test.sh
     RESULT=${?}
     popd
     if [ ${RESULT} != 0 ]; then
