@@ -161,6 +161,21 @@ jobs:
       - name: Build
         run: make -j $NPROC
 
+      - name: Test
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        run: make check
+
+      - name: Test with Coverage
+        if: ${{ startsWith( matrix.task, 'coverage') }}
+        run: make lcov
+
+      - name: Coveralls
+        if: ${{ startsWith( matrix.task, 'coverage') }}
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage/coverage.info
+
       - name: Install
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
@@ -221,7 +236,7 @@ jobs:
       - name: Test Load AppImage
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          xvfb-run ./Q_Light_Controller_Plus-x86_64.AppImage --version
+          QT_QPA_PLATFORM=minimal xvfb-run --auto-servernum ./Q_Light_Controller_Plus-x86_64.AppImage --version
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -229,21 +244,6 @@ jobs:
         with:
           name: ${{ matrix.task }}-AppImage
           path: Q_Light_Controller_Plus-x86_64.AppImage
-
-      - name: Test
-        if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: make check
-
-      - name: Test with Coverage
-        if: ${{ startsWith( matrix.task, 'coverage') }}
-        run: make lcov
-
-      - name: Coveralls
-        if: ${{ startsWith( matrix.task, 'coverage') }}
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage/coverage.info
 
   build-windows:
     if: false
