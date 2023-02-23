@@ -236,7 +236,7 @@ jobs:
       - name: Test Load AppImage
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          xvfb-run --auto-servernum ./Q_Light_Controller_Plus-x86_64.AppImage --version
+          QT_QPA_PLATFORM=xcb xvfb-run --auto-servernum ./Q_Light_Controller_Plus-x86_64.AppImage --version
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
