@@ -605,6 +605,16 @@ int ChaserRunner::getNextStepIndex()
         m_chaser->direction() == Function::Backward)
             currentStepIndex = m_chaser->stepsCount();
 
+    // Handle reverse Ping Pong at boundaries
+    if (m_chaser->runOrder() == Function::PingPong &&
+        m_pendingAction.m_action == ChaserPreviousStep)
+    {
+        if (currentStepIndex == 0)
+            m_direction = Function::Backward;
+        else if (currentStepIndex == m_chaser->stepsCount() - 1)
+            m_direction = Function::Forward;
+    }
+
     // Next step
     if (m_direction == Function::Forward)
     {
