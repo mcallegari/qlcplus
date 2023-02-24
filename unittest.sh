@@ -3,7 +3,7 @@
 CURRUSER=$(whoami)
 TESTPREFIX=""
 SLEEPCMD=""
-HAS_XSERVER="0"
+RUN_UI_TESTS="0"
 THISCMD=`basename "$0"`
 
 TARGET=${1:-}
@@ -21,7 +21,7 @@ if [ "$CURRUSER" == "buildbot" ] || \
       exit
     fi
     TESTPREFIX="xvfb-run"
-    HAS_XSERVER="1"
+    RUN_UI_TESTS="1"
     # if we're running as build slave, set a sleep time to start/stop xvfb between tests
     SLEEPCMD="sleep 1"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -30,6 +30,7 @@ if [ "$CURRUSER" == "buildbot" ] || \
 elif [ "$CURRUSER" == "runner" ]; then
   TESTPREFIX="QT_QPA_PLATFORM=minimal xvfb-run --auto-servernum"
   SLEEPCMD="sleep 1"
+  RUN_UI_TESTS="1"
 else
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -38,7 +39,7 @@ else
       XPID=$(pidof Xorg)
     fi
     if [ ${#XPID} -gt 0 ]; then
-      HAS_XSERVER="1"
+      RUN_UI_TESTS="1"
     fi
   fi
 fi
@@ -90,7 +91,7 @@ done
 #############################################################################
 
 # Skip ui in qmlui mode
-if [ "$HAS_XSERVER" -eq "1" ] && [ "$TARGET" != "qmlui" ]; then
+if [ "$RUN_UI_TESTS" -eq "1" ] && [ "$TARGET" != "qmlui" ]; then
 
 TESTDIR=ui/test
 TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)

@@ -290,7 +290,7 @@ jobs:
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
           echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
           echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
-          echo "INSTALL_ROOT=/tmp/" >> $GITHUB_ENV
+          echo "INSTALL_ROOT=/c/" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
