@@ -419,10 +419,13 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
 void VCCueList::setStepNote(int index, QString text)
 {
     Chaser *ch = chaser();
-    if (ch == NULL)
+    if (ch == nullptr)
         return;
 
     ChaserStep *step = ch->stepAt(index);
+    if (step == nullptr)
+        return;
+
     step->note = text;
 
     QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());
