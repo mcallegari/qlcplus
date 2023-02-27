@@ -23,7 +23,7 @@
 
 RDMProtocol::RDMProtocol()
     : m_estaID(QLCPLUS_ESTA_ID)
-    , m_deviceID(0x01090709)
+    , m_deviceID(QLCPLUS_DEVICE_ID)
     , m_transactionNum(0x01)
 {
 }
@@ -287,6 +287,10 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
     i += 6;
     QString sourceUID = byteArrayToUID(buffer.mid(i, 6), ESTAId, deviceId);
     i += 6;
+
+    // check if we are reading our own request
+    if (ESTAId == m_estaID && deviceId == m_deviceID)
+        return false;
 
     values.insert("UID_INFO", sourceUID);
 

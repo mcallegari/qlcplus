@@ -146,6 +146,7 @@
 #define PID_POWER_ON_SELF_TEST      0x1044
 
 #define QLCPLUS_ESTA_ID             0x7FF8
+#define QLCPLUS_DEVICE_ID           0x01090709
 #define BROADCAST_ESTA_ID           0xFFFF
 #define BROADCAST_DEVICE_ID         0xFFFFFFFF
 

@@ -467,6 +467,9 @@ bool ArtNetController::handleArtNetRDM(const QByteArray &datagram, const QHostAd
 
 bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
 {
+    //if (senderAddress.toIPv4Address() == m_ipAddr.toIPv4Address())
+    //    return false;
+
 #if _DEBUG_RECEIVED_PACKETS
     qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
 #endif

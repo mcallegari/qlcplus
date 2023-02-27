@@ -91,7 +91,7 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
     for (i = 0; i < 14; i++)
         data.append((char)0x00); // 14 bytes of stuffing
     data.append("Q Light Controller Plus - ArtNet interface"); // Long Name
-    for (i = 0; i < 22; i++) // 64-42 bytes of stuffing. 42 is the lenght of the long name
+    for (i = 0; i < 22; i++) // 64-42 bytes of stuffing. 42 is the length of the long name
         data.append((char)0x00);
     for (i = 0; i < 64; i++)
         data.append((char)0x00); // Node report
