@@ -211,6 +211,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_rdmTree</tabstop>
+  <tabstop>m_getInfoButton</tabstop>
+  <tabstop>m_pidEdit</tabstop>
+  <tabstop>m_pidArgsEdit</tabstop>
+  <tabstop>m_readButton</tabstop>
+  <tabstop>m_writeButton</tabstop>
+  <tabstop>m_dataTypeCombo</tabstop>
+  <tabstop>m_pidResult</tabstop>
+  <tabstop>m_refreshButton</tabstop>
+ </tabstops>
  <resources>
   <include location="qlcui.qrc"/>
  </resources>

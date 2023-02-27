@@ -29,7 +29,7 @@ class Doc;
 
 typedef struct
 {
-    QString maufacturer;
+    QString manufacturer;
     QString name;
     quint32 universe;
     quint32 pluginLine;

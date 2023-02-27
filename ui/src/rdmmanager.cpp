@@ -177,40 +177,47 @@ void RDMManager::slotWritePID()
         QStringList argList = m_pidArgsEdit->text().split(",");
         bool ok;
 
-        for (int i = 0; i < argList.count(); i++)
+        if (m_dataTypeCombo->currentIndex() == ArrayArg)
         {
-            QString arg = argList.at(i);
+            QByteArray baArg;
 
-            switch(m_dataTypeCombo->currentIndex())
+            params.append(uchar(99)); // special size for array
+
+            for (int i = 0; i < argList.count(); i++)
+                baArg.append(QByteArray::fromHex(argList.at(i).toUtf8()));
+
+            params.append(baArg);
+        }
+        else
+        {
+            for (int i = 0; i < argList.count(); i++)
             {
-                case ByteArg:
-                    params.append(uchar(1));
-                    if (arg.toLower().startsWith("0x"))
-                        params.append(uchar(arg.mid(2).toUShort(&ok, 16)));
-                    else
-                        params.append(uchar(arg.toUShort()));
-                break;
-                case ShortArg:
-                    params.append(uchar(2));
-                    if (arg.toLower().startsWith("0x"))
-                        params.append(arg.mid(2).toShort(&ok, 16));
-                    else
-                        params.append(arg.toShort());
-                break;
-                case LongArg:
-                    params.append(uchar(4));
-                    if (arg.toLower().startsWith("0x"))
-                        params.append(quint32(arg.mid(2).toULong(&ok, 16)));
-                    else
-                        params.append(quint32(arg.toULong()));
-                break;
-                case ArrayArg:
+                QString arg = argList.at(i);
+
+                switch(m_dataTypeCombo->currentIndex())
                 {
-                    QByteArray ba = QByteArray::fromHex(argList.at(i).toUtf8());
-                    params.append(uchar(99)); // special size for array
-                    params.append(ba);
+                    case ByteArg:
+                        params.append(uchar(1));
+                        if (arg.toLower().startsWith("0x"))
+                            params.append(uchar(arg.mid(2).toUShort(&ok, 16)));
+                        else
+                            params.append(uchar(arg.toUShort()));
+                    break;
+                    case ShortArg:
+                        params.append(uchar(2));
+                        if (arg.toLower().startsWith("0x"))
+                            params.append(arg.mid(2).toShort(&ok, 16));
+                        else
+                            params.append(arg.toShort());
+                    break;
+                    case LongArg:
+                        params.append(uchar(4));
+                        if (arg.toLower().startsWith("0x"))
+                            params.append(quint32(arg.mid(2).toULong(&ok, 16)));
+                        else
+                            params.append(quint32(arg.toULong()));
+                    break;
                 }
-                break;
             }
         }
     }
@@ -264,7 +271,7 @@ void RDMManager::updateRDMTreeItem(QString UID, UIDInfo info)
         item->setText(KColumnRDMUID, UID);
     }
 
-    item->setText(KColumnRDMModel, QString ("%1 - %2").arg(info.maufacturer).arg(info.name));
+    item->setText(KColumnRDMModel, QString ("%1 - %2").arg(info.manufacturer).arg(info.name));
     item->setText(KColumnRDMUniverse, QString::number(info.universe + 1));
     item->setText(KColumnRDMAddress,  QString::number(info.dmxAddress));
     item->setText(KColumnRDMChannels, QString::number(info.channels));
@@ -346,7 +353,7 @@ void RDMWorker::getUidInfo(quint32 uni, quint32 line, QString UID, UIDInfo &info
     m_fixtureInfo += title.arg(info.name).arg(UID);
 
     // Manufacturer
-    m_fixtureInfo += genInfo.arg(tr("Manufacturer")).arg(info.maufacturer);
+    m_fixtureInfo += genInfo.arg(tr("Manufacturer")).arg(info.manufacturer);
     m_fixtureInfo += genInfo.arg(tr("Model")).arg(info.name);
     //info += genInfo.arg(tr("Mode")).arg(m_fixtureMode->name());
     m_fixtureInfo += genInfo.arg(tr("Type")).arg(info.params.value("TYPE").toString());
@@ -503,7 +510,8 @@ void RDMWorker::run()
                 for (QVariantMap::const_iterator it = info.params.begin(); it != info.params.end(); ++it)
                     args << it.value().toUInt(); // add parameters
 
-                bool result = m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND, args);
+                uchar command = info.dmxAddress < 0x04 ? DISCOVERY_COMMAND : GET_COMMAND;
+                bool result = m_plugin->sendRDMCommand(m_universe, m_line, command, args);
                 if (result == false)
                 {
                     requestPopup("Error", "RDM command failed");
@@ -652,7 +660,7 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
             }
             else if (key == "MANUFACTURER")
             {
-                info.maufacturer = it.value().toString();
+                info.manufacturer = it.value().toString();
             }
             else if (key == "DMX_CHANNELS")
             {
@@ -694,11 +702,24 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
             else if (key == "SLOT_LIST")
             {
                 QVariant var = it.value();
-                m_requestList = var.value<QVector<quint16>>();
+                if (m_requestList.isEmpty())
+                {
+                    QString header("<TR CLASS='hilite'><TD COLSPAN='4'>%1</TD></TR>");
+                    m_fixtureInfo += header.arg(tr("Channel list"));
+                }
 
-                QString header("<TR CLASS='hilite'><TD COLSPAN='4'>%1</TD></TR>");
-                m_fixtureInfo += header.arg(tr("Channel list"));
-                m_requestState = StateSlots;
+                m_requestList.append(var.value<QVector<quint16>>());
+
+                // check if channels don't fit in a single reply
+                if (info.params.value("Response") == RDMProtocol::responseToString(RESPONSE_TYPE_ACK_OVERFLOW))
+                {
+                    m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
+                                             QVariantList() << UID << PID_SLOT_INFO);
+                }
+                else
+                {
+                    m_requestState = StateSlots;
+                }
             }
             else if (key == "SLOT_DESC")
             {
@@ -731,13 +752,12 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
                 if (m_requestState == StateSupportedPids)
                 {
                     quint16 pid = it.value().toUInt();
-                    if (pid < 0x8000)
+                    if (pid < 0x8000 && pid != PID_PARAMETER_DESCRIPTION)
                     {
                         QString sPid = QString("%1").arg(pid, 4, 16, QChar('0'));
                         m_fixtureInfo += QString("<TR><TD CLASS='emphasis' COLSPAN='4'>PID: 0x%1 (%2)</TD></TR>")
                                 .arg(sPid.toUpper()).arg(RDMProtocol::pidToString(pid));
-                    }
-                }
+                    }                }
                 else if (m_requestState == StateReadSinglePid)
                 {
                     // TODO

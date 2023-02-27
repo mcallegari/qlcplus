@@ -180,6 +180,12 @@ public:
     /** Return a PID as a string */
     static QString pidToString(quint16 pid);
 
+    /** Return the RDM command reply as a string */
+    static QString responseToString(quint8 response);
+
+    /** Return the device info category as string */
+    static QString categoryToString(quint16 category);
+
 private:
     QByteArray UIDToByteArray(quint16 ESTAId, quint32 deviceId);
     QByteArray shortToByteArray(quint16 data);
@@ -187,8 +193,6 @@ private:
     quint16 byteArrayToShort(const QByteArray &buffer, int index);
     quint32 byteArrayToLong(const QByteArray &buffer, int index);
     quint16 calculateChecksum(bool startCode, const QByteArray &ba, int len);
-    QString responseToString(quint8 response);
-    QString categoryToString(quint16 category);
 
 protected:
     quint16 m_estaID;
