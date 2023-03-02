@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>e-shock</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>EL-230RGB MK2</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Laser off</Capability>
+  <Capability Min="50" Max="99">Sound mode</Capability>
+  <Capability Min="100" Max="149">Automatic mode</Capability>
+  <Capability Min="150" Max="199">Static pattern</Capability>
+  <Capability Min="200" Max="255">Dynamic pattern</Capability>
+ </Channel>
+ <Channel Name="Pattern selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Pattern selection</Capability>
+ </Channel>
+ <Channel Name="X axis">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="10">Center Position on X axis</Capability>
+  <Capability Min="11" Max="255">X axis positioning</Capability>
+ </Channel>
+ <Channel Name="Y axis">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="10">Center Position on Y axis</Capability>
+  <Capability Min="11" Max="255">Y axis positioning</Capability>
+ </Channel>
+ <Channel Name="Scanning speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Scanning speed</Capability>
+ </Channel>
+ <Channel Name="Dynamic pattern speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Dynamic pattern speed</Capability>
+ </Channel>
+ <Channel Name="Zoom / size">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Zoom / size</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Color</Capability>
+ </Channel>
+ <Channel Name="Color segment">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Color segment</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern selection</Channel>
+  <Channel Number="2">X axis</Channel>
+  <Channel Number="3">Y axis</Channel>
+  <Channel Number="4">Scanning speed</Channel>
+  <Channel Number="5">Dynamic pattern speed</Channel>
+  <Channel Number="6">Zoom / size</Channel>
+  <Channel Number="7">Color</Channel>
+  <Channel Number="8">Color segment</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="145" Height="75" Depth="205"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="30" TiltMax="30"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

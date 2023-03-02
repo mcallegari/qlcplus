@@ -43,6 +43,10 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Showtec Starforce LED (thanks to gnomesenpai)
   * New fixture: Chauvet SlimPAR Pro Pix (thanks to Ryan Carter)
   * New fixture: DTS Scena LED 200 (thanks to Freddy Hoogstoel)
+  * New fixture: Chauvet Intimidator Beam Q60 (thanks to Nathan)
+  * New fixtures: Eurolite LED T-36 RGB Spot, Eurolite LED SLS-183/10 RGB, Stairville Stage PAR CX-2 RGBAW (thanks to Felix Hartnagel)
+  * New fixture: American DJ WiFly Bar QA5 (thanks to Edgar Aichinger)
+  * New fixture: Laserworld EL-230RGB MK2 (thanks to e-shock)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 
