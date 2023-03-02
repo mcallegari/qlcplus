@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>5.0.0 Beta 3</Version>
   <Author>Gnomesenpai</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -14,7 +14,7 @@
   <Capability Min="0" Max="9">Blackout</Capability>
   <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000bb">Blue</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="50" Max="59" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
   <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
@@ -47,7 +47,7 @@
   <Capability Min="120" Max="129">Stop</Capability>
   <Capability Min="130" Max="255">Rotation CCW slow-fast</Capability>
  </Channel>
- <Mode Name="4-channel">
+ <Mode Name="4 Channel">
   <Channel Number="0">Color Macros</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Auto Speed</Channel>

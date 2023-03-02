@@ -483,6 +483,7 @@
     <F n="Chauvet-SlimPAR-HEX-3" m="SlimPar HEX 3"/>
     <F n="Chauvet-SlimPar-Hex-6" m="SlimPar Hex 6"/>
     <F n="Chauvet-SlimPAR-Pro-H-USB" m="SlimPAR Pro H USB"/>
+    <F n="Chauvet-SlimPAR-Pro-Pix" m="SlimPAR Pro Pix"/>
     <F n="Chauvet-SlimPAR-Pro-Q-USB" m="SlimPAR Pro Q USB"/>
     <F n="Chauvet-SlimPar-Pro-Tri" m="SlimPar Pro Tri"/>
     <F n="Chauvet-SlimPAR-Pro-W-USB" m="SlimPAR Pro W USB"/>
@@ -600,6 +601,7 @@
     <F n="DTS-Katana" m="Katana"/>
     <F n="DTS-Max-FAR" m="Max FAR"/>
     <F n="DTS-Nick-NRG1201" m="Nick NRG1201"/>
+    <F n="DTS-Scena-LED-200" m="Scena LED 200"/>
     <F n="DTS-XR5-Wash" m="XR5 Wash"/>
     <F n="DTS-XR7-Spot" m="XR7 Spot"/>
   </M>
@@ -1448,6 +1450,7 @@
     <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
     <F n="Showtec-Star-Dream-144-LED-White" m="Star Dream 144 LED White"/>
+    <F n="Showtec-Starforce-LED" m="Starforce LED"/>
     <F n="Showtec-Sunraise-LED" m="Sunraise LED"/>
     <F n="Showtec-Sunstrip-Active" m="Sunstrip Active"/>
     <F n="Showtec-Vintage-Blaze" m="Vintage Blaze"/>
