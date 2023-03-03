@@ -50,7 +50,7 @@
   <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
   <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Gobo Scroll Slow to Fast</Capability>
  </Channel>
- 
+ <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
   <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter Open</Capability>
@@ -104,7 +104,7 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Colors</Channel>
   <Channel Number="5">Gobo Wheel</Channel>
-  <Channel Number="6">Shutter/Strobe</Channel>
+  <Channel Number="6">Shutter</Channel>
   <Channel Number="7">Pan/Tilt Speed</Channel>
   <Channel Number="8">Function</Channel>
   <Channel Number="9">Dimmer</Channel>
