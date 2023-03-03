@@ -81,6 +81,15 @@ Rectangle
         }
     }
 
+    CustomPopupDialog
+    {
+        id: fmGenericPopup
+        visible: false
+        title: qsTr("Error")
+        message: ""
+        onAccepted: {}
+    }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -323,6 +332,8 @@ Rectangle
                 anchors.fill: parent
 
                 RobotoText { label: qsTr("Name"); Layout.fillWidth: true; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Mode"); width: UISettings.chPropsModesWidth; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
                 RobotoText { label: qsTr("Flags"); width: UISettings.chPropsFlagsWidth; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
