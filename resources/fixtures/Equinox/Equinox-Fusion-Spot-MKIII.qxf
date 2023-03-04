@@ -87,17 +87,17 @@
   <Capability Min="171" Max="213">Theatre</Capability>
   <Capability Min="214" Max="255">Default to unit curve setting</Capability>
  </Channel>
- <Mode Name="8 Channel Mode">
+ <Mode Name="8 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colors</Channel>
   <Channel Number="3">Gobo Wheel</Channel>
-  <Channel Number="4">Shutter/Strobe</Channel>
+  <Channel Number="4">Shutter</Channel>
   <Channel Number="5">Pan/Tilt Speed</Channel>
   <Channel Number="6">Function</Channel>
   <Channel Number="7">Dimmer</Channel>
  </Mode>
- <Mode Name="10 Channel Mode">
+ <Mode Name="10 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
