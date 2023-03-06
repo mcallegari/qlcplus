@@ -235,7 +235,7 @@ Rectangle
                           pDragItem.y = posnInWindow.y - (pDragItem.height / 4)
                           pDragItem.z = 10
 
-                          pmSelector.selectItem(index, pListView.model, mouse.modifiers & Qt.ControlModifier)
+                          pmSelector.selectItem(index, pListView.model, mouse.modifiers)
 
                           if ((mouse.modifiers & Qt.ControlModifier) == 0)
                               pDragItem.itemsList = []

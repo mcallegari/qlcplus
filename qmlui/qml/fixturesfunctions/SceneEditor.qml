@@ -273,7 +273,7 @@ Rectangle
 
                                 onClicked:
                                 {
-                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
+                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers)
 
                                     if (compDelegate.itemType === App.FixtureDragItem)
                                     {
@@ -300,7 +300,7 @@ Rectangle
                         {
                             if (type === App.Clicked)
                             {
-                                seSelector.selectItem(index, sfxList.model, mouseMods & Qt.ControlModifier)
+                                seSelector.selectItem(index, sfxList.model, mouseMods)
 
                                 if (!(mouseMods & Qt.ControlModifier))
                                     contextManager.resetFixtureSelection()
