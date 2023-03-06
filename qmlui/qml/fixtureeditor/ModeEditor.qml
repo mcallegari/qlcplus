@@ -246,7 +246,7 @@ Rectangle
                                             if (model.isSelected)
                                                 return
 
-                                            modeChanSelector.selectItem(index, channelList.model, mouse.modifiers & Qt.ControlModifier)
+                                            modeChanSelector.selectItem(index, channelList.model, mouse.modifiers)
 
                                             if ((mouse.modifiers & Qt.ControlModifier) == 0)
                                                 mcDragItem.itemsList = []
@@ -461,7 +461,7 @@ Rectangle
                                         anchors.fill: parent
                                         onClicked:
                                         {
-                                            modeHeadSelector.selectItem(index, headList.model, mouse.modifiers & Qt.ControlModifier)
+                                            modeHeadSelector.selectItem(index, headList.model, mouse.modifiers)
                                         }
                                     }
 

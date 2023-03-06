@@ -38,7 +38,7 @@ public:
     /** Add an entry to the selected items list.
      *  If $multiSelection is false, every previous item in the list will be
      *  deselected. */
-    Q_INVOKABLE void selectItem(quint32 index, ListModel *model, bool multiSelection);
+    Q_INVOKABLE void selectItem(int index, ListModel *model, int keyModifiers);
 
     /** Reset the currently active selection */
     Q_INVOKABLE void resetSelection(ListModel *model);
@@ -50,12 +50,18 @@ public:
     /** Return the number of items currently selected */
     int itemsCount() const;
 
+private:
+    void selectSingleItem(int index, ListModel *model);
+
 signals:
     void itemsCountChanged(int itemsCount);
 
 private:
     /** List of the currently selected item indices */
     QList <quint32> m_selectedIndices;
+
+    /** The rpviously selected item index */
+    int m_previousIndex;
 
     /** The number of items currently selected (e.g. Functions, Fixtures, etc..) */
     int m_itemsCount;

@@ -161,6 +161,10 @@ public:
      *  This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteEditorItems(QVariantList list);
 
+    /** Specific method to delete fixtures from the currently edited Sequence.
+     *  This happens AFTER a popup confirmation */
+    Q_INVOKABLE void deleteSequenceFixtures(QVariantList list);
+
     /** Rename the currently selected items (functions and/or folders)
      *  with the provided $newName.
      *  If $numbering is true, then $startNumber and $digits will compose

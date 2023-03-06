@@ -313,7 +313,7 @@ Rectangle
                                                 if (model.isSelected)
                                                     return
 
-                                                chanSelector.selectItem(index, channelList.model, mouse.modifiers & Qt.ControlModifier)
+                                                chanSelector.selectItem(index, channelList.model, mouse.modifiers)
 
                                                 if ((mouse.modifiers & Qt.ControlModifier) == 0)
                                                     cDragItem.itemsList = []

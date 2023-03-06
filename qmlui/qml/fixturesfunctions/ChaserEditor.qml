@@ -36,6 +36,19 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
+    function deleteSelectedItems()
+    {
+        deleteItemsPopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: deleteItemsPopup
+        title: qsTr("Delete steps")
+        message: qsTr("Are you sure you want to remove the selected steps?")
+        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
+    }
+
     SplitView
     {
         anchors.fill: parent
@@ -117,15 +130,7 @@ Rectangle
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected steps")
-                    onClicked: deleteItemsPopup.open()
-
-                    CustomPopupDialog
-                    {
-                        id: deleteItemsPopup
-                        title: qsTr("Delete steps")
-                        message: qsTr("Are you sure you want to remove the selected steps?")
-                        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
-                    }
+                    onClicked: deleteSelectedItems()
                 }
 
                 IconButton

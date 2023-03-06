@@ -13,24 +13,25 @@ if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
   exit 1
 fi
 
-if [ "$CURRUSER" == "buildbot" ] || \
-   [ "$CURRUSER" == "abuild" ]; then
+if [ "$CURRUSER" == "runner" ] \
+    || [ "$CURRUSER" == "buildbot" ] \
+    || [ "$CURRUSER" == "abuild" ]; then
+  echo "Found build environment with CURRUSER='$CURRUSER' and OSTYPE='$OSTYPE'"
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ $(which xvfb-run) == "" ]; then
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
       exit
     fi
-    TESTPREFIX="xvfb-run"
+
+    TESTPREFIX="QT_QPA_PLATFORM=minimal xvfb-run --auto-servernum"
     RUN_UI_TESTS="1"
     # if we're running as build slave, set a sleep time to start/stop xvfb between tests
     SLEEPCMD="sleep 1"
+
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "We're on OSX. Any prefix needed?"
   fi
-elif [ "$CURRUSER" == "runner" ]; then
-  TESTPREFIX="QT_QPA_PLATFORM=minimal xvfb-run --auto-servernum"
-  SLEEPCMD="sleep 1"
-  RUN_UI_TESTS="1"
+
 else
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then

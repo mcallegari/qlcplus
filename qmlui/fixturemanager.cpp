@@ -842,6 +842,63 @@ QString FixtureManager::fixtureIcon(quint32 fixtureID)
     return fixture->iconResource(true);
 }
 
+QStringList FixtureManager::fixtureModes(quint32 itemID)
+{
+    QStringList modes;
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return modes;
+
+    for (QLCFixtureMode *mode : fixture->fixtureDef()->modes())
+        modes.append(mode->name());
+
+    return modes;
+}
+
+int FixtureManager::fixtureModeIndex(quint32 itemID)
+{
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return -1;
+
+    QLCFixtureMode *currMode = fixture->fixtureMode();
+    QList<QLCFixtureMode *> modes = fixture->fixtureDef()->modes();
+
+    return modes.indexOf(currMode);
+}
+
+bool FixtureManager::setFixtureModeIndex(quint32 itemID, int index)
+{
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return false;
+
+    QList<QLCFixtureMode *> modes = fixture->fixtureDef()->modes();
+    if (index < 0 || index >= modes.count())
+        return false;
+
+    QLCFixtureMode *newMode = modes.at(index);
+
+    // check if new channels are available
+    int chNum = newMode->channels().count();
+
+    for (quint32 i = fixture->universeAddress(); i < fixture->universeAddress() + chNum; i++)
+    {
+        quint32 id = m_doc->fixtureForAddress(i);
+        if (id != fixture->id() && id != Fixture::invalidId())
+            return false;
+    }
+
+    fixture->setFixtureDefinition(fixture->fixtureDef(), newMode);
+
+    emit fixturesMapChanged();
+
+    return true;
+}
+
 int FixtureManager::fixtureIDfromItemID(quint32 itemID)
 {
     return FixtureUtils::itemFixtureID(itemID);

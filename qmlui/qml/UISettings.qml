@@ -67,8 +67,9 @@ QtObject
     property real sidePanelWidth:   350
 
     // channel properties column widths
+    property real chPropsModesWidth: bigItemHeight * 1.2
     property real chPropsFlagsWidth: bigItemHeight
-    property real chPropsCanFadeWidth: bigItemHeight * 0.9
+    property real chPropsCanFadeWidth: bigItemHeight * 0.7
     property real chPropsPrecedenceWidth: bigItemHeight * 1.2
     property real chPropsModifierWidth: bigItemHeight
 }

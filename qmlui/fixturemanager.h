@@ -198,6 +198,14 @@ public:
     /** Return the type as string of the Fixture with ID $fixtureID */
     Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);
 
+    /** Return the list of modes available for the item with the provided $itemID */
+    Q_INVOKABLE QStringList fixtureModes(quint32 itemID);
+
+    /** Get/Set the currently selected fixture mode index
+     *  for the item with the provided $itemID */
+    Q_INVOKABLE int fixtureModeIndex(quint32 itemID);
+    Q_INVOKABLE bool setFixtureModeIndex(quint32 itemID, int index);
+
     /** Return the Fixture ID of the provided $itemID */
     Q_INVOKABLE int fixtureIDfromItemID(quint32 itemID);
 

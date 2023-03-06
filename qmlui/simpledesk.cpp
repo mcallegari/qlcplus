@@ -201,7 +201,7 @@ void SimpleDesk::setValue(quint32 fixtureID, uint channel, uchar value)
     if (fixtureID != Fixture::invalidId())
     {
         fixture = m_doc->fixture(fixtureID);
-        channel = fixture->address() + channel;
+        channel -= fixture->address();
     }
     if (m_values.contains(start + channel))
     {

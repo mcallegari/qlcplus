@@ -718,7 +718,7 @@ Rectangle
                                             anchors.fill: parent
                                             onClicked:
                                             {
-                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers & Qt.ControlModifier)
+                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers)
                                                 View3D.setItemSelection(itemID, isSelected, mouse.modifiers)
                                             }
                                         }

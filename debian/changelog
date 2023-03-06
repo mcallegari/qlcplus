@@ -17,6 +17,7 @@ qlcplus (4.12.7) stable; urgency=low
   * Virtual Console: submaster now affects widgets on all pages but only on active frames
   * Web Access: add support for widget background images
   * Input profiles: added ADJ MIDICON-2 (thanks to David Thomas)
+  * Input profiles: added Akai APC Mini MK2 (thanks to Michael Mertens)
   * Fixture updated: Blizzard Lighting Pixellicious (thanks to Yestalgia)
   * New fixture: Vari-Lite VL4000 Spot (thanks to Håvard Ose Nordstrand)
   * New fixtures: Clay Paky Tambora Batten, Tambora Flash, Tambora Linear 100, Sharpy X Frame, Volero Wave (thanks to Gianluca Baggi)
@@ -39,6 +40,13 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: U'King ZQ-B93 Pinspot RGBW (thanks to Jarosław Biernacki)
   * New fixtures: Stage Right 200W COB LED Ellipsoidal, Stage Right 30W LED Spot (thanks to Dave Vecchio)
   * New fixture: Rockville Rockwedge LED (thanks to Ryan Carter)
+  * New fixture: Showtec Starforce LED (thanks to gnomesenpai)
+  * New fixture: Chauvet SlimPAR Pro Pix (thanks to Ryan Carter)
+  * New fixture: DTS Scena LED 200 (thanks to Freddy Hoogstoel)
+  * New fixture: Chauvet Intimidator Beam Q60 (thanks to Nathan)
+  * New fixtures: Eurolite LED T-36 RGB Spot, Eurolite LED SLS-183/10 RGB, Stairville Stage PAR CX-2 RGBAW (thanks to Felix Hartnagel)
+  * New fixture: American DJ WiFly Bar QA5 (thanks to Edgar Aichinger)
+  * New fixture: Laserworld EL-230RGB MK2 (thanks to e-shock)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 

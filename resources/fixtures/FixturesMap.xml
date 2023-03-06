@@ -170,6 +170,7 @@
     <F n="American-DJ-Vizi-Wash-LED-108" m="Vizi Wash LED 108"/>
     <F n="American-DJ-VPar" m="VPar"/>
     <F n="American-DJ-Warlock" m="Warlock"/>
+    <F n="American-DJ-WiFly-Bar-QA5" m="WiFly Bar QA5"/>
     <F n="American-DJ-WiFLY-Chameleon" m="WiFLY Chameleon"/>
     <F n="American-DJ-WiFly-EXR-Dotz-Par" m="WiFly EXR Dotz Par"/>
     <F n="American-DJ-WiFly-EXR-HEX5-IP" m="WiFly EXR HEX5 IP"/>
@@ -411,6 +412,7 @@
     <F n="Chauvet-Intimidator-Barrel-300" m="Intimidator Barrel 300"/>
     <F n="Chauvet-Intimidator-Barrel-305-IRC" m="Intimidator Barrel 305 IRC"/>
     <F n="Chauvet-Intimidator-Beam-LED-350" m="Intimidator Beam LED 350"/>
+    <F n="Chauvet-Intimidator-Beam-Q60" m="Intimidator Beam Q60"/>
     <F n="Chauvet-Intimidator-Hybrid-140SR" m="Intimidator Hybrid 140SR"/>
     <F n="Chauvet-Intimidator-Scan-305-IRC" m="Intimidator Scan 305 IRC"/>
     <F n="Chauvet-Intimidator-Scan-LED-200" m="Intimidator Scan LED 200"/>
@@ -483,6 +485,7 @@
     <F n="Chauvet-SlimPAR-HEX-3" m="SlimPar HEX 3"/>
     <F n="Chauvet-SlimPar-Hex-6" m="SlimPar Hex 6"/>
     <F n="Chauvet-SlimPAR-Pro-H-USB" m="SlimPAR Pro H USB"/>
+    <F n="Chauvet-SlimPAR-Pro-Pix" m="SlimPAR Pro Pix"/>
     <F n="Chauvet-SlimPAR-Pro-Q-USB" m="SlimPAR Pro Q USB"/>
     <F n="Chauvet-SlimPar-Pro-Tri" m="SlimPar Pro Tri"/>
     <F n="Chauvet-SlimPAR-Pro-W-USB" m="SlimPAR Pro W USB"/>
@@ -600,6 +603,7 @@
     <F n="DTS-Katana" m="Katana"/>
     <F n="DTS-Max-FAR" m="Max FAR"/>
     <F n="DTS-Nick-NRG1201" m="Nick NRG1201"/>
+    <F n="DTS-Scena-LED-200" m="Scena LED 200"/>
     <F n="DTS-XR5-Wash" m="XR5 Wash"/>
     <F n="DTS-XR7-Spot" m="XR7 Spot"/>
   </M>
@@ -723,12 +727,14 @@
     <F n="Eurolite-LED-SL-600" m="LED SL-600"/>
     <F n="Eurolite-LED-SLS-18-TCL" m="LED SLS-18x3W TCL"/>
     <F n="Eurolite-LED-SLS-180-RGB" m="LED SLS-180 RGB"/>
+    <F n="Eurolite-LED-SLS-183-10-RGB" m="LED SLS-183/10 RGB"/>
     <F n="Eurolite-LED-SLS-5-BCL" m="LED SLS 5 BCL"/>
     <F n="Eurolite-LED-SLS-603" m="LED SLS-603"/>
     <F n="Eurolite-LED-SLS-7-HCL" m="LED SLS-7 HCL"/>
     <F n="Eurolite-LED-SLS-X-QCL" m="LED SLS-* QCL"/>
     <F n="Eurolite-LED-Strobe-PRO-DMX" m="LED Strobe PRO DMX"/>
     <F n="Eurolite-LED-T-36-RGB-Pinspot" m="LED T-36 RGB Pinspot"/>
+    <F n="Eurolite-LED-T-36-RGB-Spot" m="LED T-36 RGB Spot"/>
     <F n="Eurolite-LED-THA-250F" m="LED THA-250F"/>
     <F n="Eurolite-Led-Theatre-36x3W-CW-WW" m="LED Theatre 36x3W CW/WW"/>
     <F n="Eurolite-LED-TMH-17" m="LED TMH-17"/>
@@ -1005,6 +1011,7 @@
     <F n="Laserworld-CS-1000RGB-MkII" m="CS-1000RGB Mk II"/>
     <F n="Laserworld-CS-1000RGB" m="CS-1000RGB"/>
     <F n="Laserworld-EL-200RGY" m="EL-200RGY"/>
+    <F n="Laserworld-EL-230RGB-MK2" m="EL-230RGB MK2"/>
     <F n="Laserworld-ES-600B" m="ES-600B"/>
     <F n="Laserworld-PRO-1600RGB" m="PRO-1600RGB"/>
     <F n="Laserworld-PRO-730RGB" m="PRO-730RGB"/>
@@ -1448,6 +1455,7 @@
     <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
     <F n="Showtec-Star-Dream-144-LED-White" m="Star Dream 144 LED White"/>
+    <F n="Showtec-Starforce-LED" m="Starforce LED"/>
     <F n="Showtec-Sunraise-LED" m="Sunraise LED"/>
     <F n="Showtec-Sunstrip-Active" m="Sunstrip Active"/>
     <F n="Showtec-Vintage-Blaze" m="Vintage Blaze"/>
@@ -1548,6 +1556,7 @@
     <F n="Stairville-SC-X50-MKII" m="SC-X50 MKII"/>
     <F n="Stairville-SC250H" m="SC250H"/>
     <F n="Stairville-SF-1500" m="SF-1500"/>
+    <F n="Stairville-Stage-PAR-CX-2-RGBAW" m="Stage PAR CX-2 RGBAW"/>
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-WGF-2000" m="WGF 2000"/>

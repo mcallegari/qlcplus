@@ -419,10 +419,13 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
 void VCCueList::setStepNote(int index, QString text)
 {
     Chaser *ch = chaser();
-    if (ch == NULL)
+    if (ch == nullptr)
         return;
 
     ChaserStep *step = ch->stepAt(index);
+    if (step == nullptr)
+        return;
+
     step->note = text;
 
     QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());
@@ -1053,6 +1056,7 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
     saveXMLInputControl(doc, INPUT_PREVIOUS_STEP_ID, KXMLQLCVCCueListPrevious);
     saveXMLInputControl(doc, INPUT_PLAY_PAUSE_ID, KXMLQLCVCCueListPlayback);
     saveXMLInputControl(doc, INPUT_STOP_PAUSE_ID, KXMLQLCVCCueListStop);
+    saveXMLInputControl(doc, INPUT_SIDE_FADER_ID, KXMLQLCVCCueListCrossfadeLeft);
 
     /* End the <CueList> tag */
     doc->writeEndElement();
