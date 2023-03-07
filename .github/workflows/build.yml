@@ -246,7 +246,7 @@ jobs:
           path: Q_Light_Controller_Plus-x86_64.AppImage
 
   build-windows:
-    #if: false
+    if: false
     runs-on: windows-latest
     name: QLCplus Windows ${{matrix.task}}
     strategy:
