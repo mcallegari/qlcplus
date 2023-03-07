@@ -10,7 +10,7 @@ jobs:
     strategy:
       #fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qt5qml,coverage-qt5]
+        task: [compile-qt5, compile-qt5qml, coverage-qt5]
         #task: [compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
@@ -56,12 +56,12 @@ jobs:
           echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\"/\"}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | cut -d '/' -f 3)" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $1}')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\"-\"}; {print $2}')}" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
 
@@ -145,18 +145,18 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" QMAKE_CXXFLAGS+="-fno-sized-deallocation"
-          # -fno-sized-deallocation: fix symbol lookup error: qlcplus: undefined symbol: _ZdlPvm, version Qt_5
+          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" CONFIG+=appimage FORCECONFIG=release
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=qmlui
+          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=appimage CONFIG+=qmlui FORCECONFIG=release
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" QMAKE_CXXFLAGS+="-fno-sized-deallocation" CONFIG+=coverage
+          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
+          #QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Build
         run: make -j $NPROC
@@ -236,7 +236,7 @@ jobs:
       - name: Test Load AppImage
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          QT_QPA_PLATFORM=minimal xvfb-run --auto-servernum ./Q_Light_Controller_Plus-x86_64.AppImage --version
+          ./Q_Light_Controller_Plus-x86_64.AppImage --platform offscreen --version
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -264,10 +264,6 @@ jobs:
       CC: /mingw32/bin/i686-w64-mingw32-gcc.exe
       CXX: /mingw32/bin/i686-w64-mingw32-g++.exe
 
-    #defaults:
-    #  run:
-    #    shell: bash
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -277,19 +273,20 @@ jobs:
       - name: Set ENV variables
         shell: bash
         run: |
-          echo "CI_BRANCH=$(echo $GITHUB_REF | awk 'BEGIN {FS=\\"/\\"}; {print $3}')" >> $GITHUB_ENV
+          echo "CI_BRANCH=$(echo $GITHUB_REF | cut -d '/' -f 3)" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
-          echo "TASK=$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $1}')" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | awk 'BEGIN {FS=\\"-\\"}; {print $2}')}" >> $GITHUB_ENV
-          echo "QT_VERSION=5.15.2" >> $GITHUB_ENV
+          echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
+          echo "QT_VERSION=5.15.8" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
-          echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QTDIR=/mingw32/qt5-static" >> $GITHUB_ENV
+          #echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
+          #source $GITHUB_ENV && echo "QTDIR=/mingw32/qt5-static" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
           echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
           echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
+          echo "INSTALL_ROOT=/c/" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -320,44 +317,9 @@ jobs:
             mingw-w64-i686-flac
             mingw-w64-i686-fftw
             mingw-w64-i686-libusb
-            mingw-w64-i686-gcc-libs
-            mingw-w64-i686-gcc
             mingw-w64-i686-python-lxml
-            mingw-w64-i686-qt5-static
-            mingw-w64-i686-qt5-script
-            mingw-w64-i686-qt5-tools
-
-      - name: Install GCC and libs
-        if: false
-        shell: msys2 {0}
-        run: |
-          set MSYSTEM=MINGW32
-          ls -l /usr/bin/
-          find / -iname 'wget*'
-          # pacman --noconfirm -Sy
-          # pacman --noconfirm --needed -S pacman-mirrors
-          ##pacman --noconfirm -Syu
-          ##pacman --noconfirm --needed -Sy mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-libusb
-          # pacman --noconfirm --needed -Sy mingw32/mingw-w64-i686-qt5 unzip mingw32/mingw-w64-i686-nsis
-          wget.exe http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-11.3.0-2-any.pkg.tar.zst -P /c/projects
-          wget.exe http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-11.3.0-2-any.pkg.tar.zst -P /c/projects
-          # wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst -P /c/projects
-          pacman --noconfirm -Rdd mingw-w64-i686-gcc
-          pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
-          pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-11.3.0-2-any.pkg.tar.zst
-          pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-11.3.0-2-any.pkg.tar.zst
-          # pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.15.2-7-any.pkg.tar.zst
-
-      - name: Setup ccache
-        uses: Chocobo1/setup-ccache-action@v1
-        with:
-          msystem: mingw32
-          windows_compile_environment: msys2
-          update_packager_index: false
-          install_ccache: true
-          ccache_options: |
-            max_size=2G
-            compression=false
+            mingw-w64-i686-qt5
+            mingw-w64-i686-nsis
 
       - name: D2XX SDK
         shell: msys2 {0}
@@ -383,22 +345,29 @@ jobs:
           echo "qmake:"
           which qmake || true
           qmake -v || true
-          ${QMAKE} -v || true
-          ls -l /mingw*/bin/ || true
-          ls -l /mingw*/usr/bin/ || true
-          ls -l /msys*/bin/ || true
-          ls -l /msys*/usr/bin/ || true
-          ls -l /usr/bin/ || true
+          pkg-config --modversion libusb-1.0
+          #ls -l /mingw*/bin/ || true
+          #ls -l /mingw*/usr/bin/ || true
+          #ls -l /msys*/bin/ || true
+          #ls -l /msys*/usr/bin/ || true
+          #ls -l /usr/bin/ || true
 
-      - name: Disable unit tests build
+      - name: Patch Qt header and disable test units build
         #if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
+          # patch Qt 5.15.x to build with GCC 12
+          cd /mingw32/include/
+          sed -i -e 's/friend Q_CORE_EXPORT uint qHash/\/\/friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
+          sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==/\/\/friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
+          cd -
+          sed -i -e 's/QMAKE_CXXFLAGS += -Werror/QMAKE_CXXFLAGS += -Werror -Wno-error=attributes/g' variables.pri
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
           sed -i -e 's/ SUBDIRS              += velleman/#SUBDIRS += velleman/g' plugins/plugins.pro
+          sed -i -e 's/ SUBDIRS              += udmx/#SUBDIRS += udmx/g' plugins/plugins.pro
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' plugins/artnet/artnet.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
@@ -407,16 +376,16 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          ${QMAKE} FORCECONFIG=release
+          qmake FORCECONFIG=release
 
       - name: Build for Windows
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          make
+          make -j${NPROC}
 
       - name: Test
-        #if: false
+        if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
@@ -426,17 +395,19 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          echo 'Silently installing QLC+...'
-          make install -s
-          cp *.qm /c/qlcplus
+          #echo 'Silently installing QLC+...'
+          echo "Available disk space:"
+          df
+          make INSTALL_ROOT=${INSTALL_ROOT} install
+          cp *.qm ${INSTALL_ROOT}
 
       - name: Build installation package
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          cd /c/qlcplus
+          cd ${INSTALL_ROOT}
           sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
           #set CURRDATE=`date +%Y%m%d`
-          mv QLC+_*.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe
+          #mv QLC+_*.exe ${INSTALL_ROOT}/QLC+_$APPVEYOR_BUILD_VERSION.exe

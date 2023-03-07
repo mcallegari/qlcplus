@@ -3,7 +3,7 @@
 CURRUSER=$(whoami)
 TESTPREFIX=""
 SLEEPCMD=""
-HAS_XSERVER="0"
+RUN_UI_TESTS="0"
 THISCMD=`basename "$0"`
 
 TARGET=${1:-}
@@ -22,10 +22,12 @@ if [ "$CURRUSER" == "runner" ] \
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
       exit
     fi
+
     TESTPREFIX="QT_QPA_PLATFORM=minimal xvfb-run --auto-servernum"
-    HAS_XSERVER="1"
+    RUN_UI_TESTS="1"
     # if we're running as build slave, set a sleep time to start/stop xvfb between tests
     SLEEPCMD="sleep 1"
+
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "We're on OSX. Any prefix needed?"
   fi
@@ -38,12 +40,7 @@ else
       XPID=$(pidof Xorg)
     fi
     if [ ${#XPID} -gt 0 ]; then
-      HAS_XSERVER="1"
-    fi
-
-    # no X server ? Let's look for xvfb. This is how Travis is setup
-    if [ -n "$TRAVIS" ]; then
-        HAS_XSERVER="1"
+      RUN_UI_TESTS="1"
     fi
   fi
 fi
@@ -95,7 +92,7 @@ done
 #############################################################################
 
 # Skip ui in qmlui mode
-if [ "$HAS_XSERVER" -eq "1" ] && [ "$TARGET" != "qmlui" ]; then
+if [ "$RUN_UI_TESTS" -eq "1" ] && [ "$TARGET" != "qmlui" ]; then
 
 TESTDIR=ui/test
 TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
