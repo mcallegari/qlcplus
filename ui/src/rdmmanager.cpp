@@ -57,8 +57,12 @@ RDMManager::~RDMManager()
 
 void RDMManager::slotRefresh()
 {
+    m_refreshButton->setEnabled(false);
+
     // reset any previously collected information
     m_rdmTree->clear();
+
+    m_devFoundLabel->setText("Discovering fixtures...");
 
     // go through every universe and launch a RDM discovery for each
     // patched plugin which supports the RDM standard
@@ -74,6 +78,8 @@ void RDMManager::slotRefresh()
                         this, SLOT(updateRDMTreeItem(QString, UIDInfo)));
                 connect(wt, SIGNAL(requestPopup(QString, QString)),
                         this, SLOT(slotDisplayPopup(QString, QString)));
+                connect(wt, SIGNAL(finished()),
+                        this, SLOT(slotTaskFinished()));
                 wt->runDiscovery(uni->id(), op->output());
             }
         }
@@ -244,6 +250,12 @@ void RDMManager::slotUpdatePidInfo(QString info)
 void RDMManager::slotDisplayPopup(QString title, QString message)
 {
     QMessageBox::information(this, title, message);
+    m_refreshButton->setEnabled(true);
+}
+
+void RDMManager::slotTaskFinished()
+{
+    m_refreshButton->setEnabled(true);
 }
 
 void RDMManager::updateRDMTreeItem(QString UID, UIDInfo info)
@@ -277,6 +289,11 @@ void RDMManager::updateRDMTreeItem(QString UID, UIDInfo info)
     item->setText(KColumnRDMChannels, QString::number(info.channels));
 
     m_rdmTree->header()->resizeSections(QHeaderView::ResizeToContents);
+
+    if (m_rdmTree->topLevelItemCount())
+        m_devFoundLabel->setText(QString("Fixtures found: %1").arg(m_rdmTree->topLevelItemCount()));
+    else
+        m_devFoundLabel->setText("No fixtures found");
 }
 
 /************************************************************************
@@ -614,6 +631,9 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
     }
     else if (data.contains("DISCOVERY_ERRORS"))
     {
+        if (m_discoveryList.isEmpty())
+            return;
+
         // Discovery errors mean collisions and/or bad checksum.
         // Split the current range into two branches
         DiscoveryInfo currentRange = m_discoveryList.first();
@@ -638,6 +658,9 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
     }
     else if (data.contains("DISCOVERY_NO_REPLY"))
     {
+        if (m_discoveryList.isEmpty())
+            return;
+
         // No reply means a dead branch. Remove it and continue on other branches.
         qDebug() << "Discovery: no reply";
         m_discoveryList.removeFirst();

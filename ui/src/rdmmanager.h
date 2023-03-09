@@ -162,6 +162,8 @@ private slots:
 
     void slotDisplayPopup(QString title, QString message);
 
+    void slotTaskFinished();
+
 signals:
     void fixtureInfoReady(QString &info);
 
