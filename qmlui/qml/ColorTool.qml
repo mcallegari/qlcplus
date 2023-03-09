@@ -152,7 +152,6 @@ Rectangle
                 {
                     width: height
                     height: parent.height
-                    Layout.alignment: right
                     border.color: UISettings.bgMedium
                     useFontawesome: true
                     label: FontAwesome.fa_times
