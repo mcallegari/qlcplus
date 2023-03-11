@@ -32,7 +32,7 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixtures: Chauvet Intimidator Spot 375Z IRC, Eliminator Lighting LP 12 HEX (thanks to Andrew Pavlin)
   * New fixtures: Chauvet SlimPAR T12BT, Q12ILS and Q12BT (thanks to Andrew Pavlin)
   * New fixture: Lumeri Eco COB 15 (thanks to Robert Rieks)
-  * New fixtures: Martin ERA 400 Performance, ENTTEC SMART PXL 40/60 Dot, ENTTEC CVC4 (thanks to Yestalgia)
+  * New fixtures: Martin ERA 400 Performance, ENTTEC SMART PXL 40/60 Dot, ENTTEC CVC4, UKing ZQ-B243 (thanks to Yestalgia)
   * New fixtures: Varytec Hero Wash 712 Z RGBW Zoom, Cameo Studio PAR 64 Q 8W (thanks to Anton Luka Šijanec)
   * New fixtures: American DJ Jolt 300, Showtec Star Dream 144 LED White (thanks to David Gouronc)
   * New fixture: Antari Z-1000 MKII (thanks to Jérôme)
@@ -46,7 +46,10 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Chauvet Intimidator Beam Q60 (thanks to Nathan)
   * New fixtures: Eurolite LED T-36 RGB Spot, Eurolite LED SLS-183/10 RGB, Stairville Stage PAR CX-2 RGBAW (thanks to Felix Hartnagel)
   * New fixture: American DJ WiFly Bar QA5 (thanks to Edgar Aichinger)
-  * New fixture: Laserworld EL-230RGB MK2 (thanks to e-shock)
+  * New fixtures: Laserworld EL-230RGB MK2, Eurolite LED Multi FX Laser Bar (thanks to e-shock)
+  * New fixture: lightmaXX Vega Shiggy Beam Wash (thanks to Jarada)
+  * New fixture: Eurolite LED Super Strobe ABL (thanks to Sebastian Moeckel)
+  * New fixture: beamZ Fuze75B Beam (thanks to Marcin Kwiecien)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 

@@ -218,6 +218,7 @@
     <F n="beamZ-BAC406" m="BAC406 ProPar 6x18W 6-1 Hex"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
+    <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
     <F n="beamZ-Illusion-II" m="Illusion II"/>
     <F n="beamZ-LCB-252" m="LCB-252"/>
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
@@ -710,6 +711,7 @@
     <F n="Eurolite-LED-KLS-401" m="LED KLS-401"/>
     <F n="Eurolite-LED-KLS-Laser-Bar-FX-Light-Set" m="LED KLS Laser Bar FX Light Set"/>
     <F n="Eurolite-LED-ML-56-QCL-RGBW-RGBA-18x8W" m="LED ML-56 QCL RGBW-RGBA 18x8W"/>
+    <F n="Eurolite-LED-Multi-FX-Laser-Bar" m="LED Multi FX Laser Bar"/>
     <F n="Eurolite-LED-PAR-56-RGB-DMX" m="LED PAR 56 RGB DMX"/>
     <F n="Eurolite-LED-PAR-64-RGBW+UV" m="LED PAR-64 RGBW+UV"/>
     <F n="Eurolite-LED-PAR56" m="LED PAR56"/>
@@ -734,6 +736,7 @@
     <F n="Eurolite-LED-SLS-7-HCL" m="LED SLS-7 HCL"/>
     <F n="Eurolite-LED-SLS-X-QCL" m="LED SLS-* QCL"/>
     <F n="Eurolite-LED-Strobe-PRO-DMX" m="LED Strobe PRO DMX"/>
+    <F n="EuroLite-LED-Super-Strobe-ABL" m="LED Super Strobe ABL"/>
     <F n="Eurolite-LED-T-36-RGB-Pinspot" m="LED T-36 RGB Pinspot"/>
     <F n="Eurolite-LED-T-36-RGB-Spot" m="LED T-36 RGB Spot"/>
     <F n="Eurolite-LED-THA-250F" m="LED THA-250F"/>
@@ -1059,6 +1062,7 @@
     <F n="lightmaXX-Platinum-Line-Mini-TRI-PAR-7x3-W" m="Platinum Line Mini TRI-PAR 7x3 Watt"/>
     <F n="lightmaXX-Star-Sphere-6-RGBAW" m="Star Sphere 6 RGBAW"/>
     <F n="lightmaXX-Tour-Spot-ARC-MKII" m="Tour Spot ARC MKII"/>
+    <F n="lightmaXX-Vega-Shiggy-Beam-Wash" m="Vega Shiggy Beam Wash"/>
     <F n="lightmaXX-Vega-Spot-60" m="Vega Spot 60"/>
     <F n="lightmaXX-Vega-Zoom-Wash-Beam" m="Vega Zoom Wash Beam"/>
   </M>
@@ -1620,8 +1624,9 @@
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
     <F n="UKing-Wall-Washer-24x3W" m="Wall Washer 24x3W"/>
+    <F n="UKing-ZQ-B243" m="ZQ-B243"/>
     <F n="UKing-ZQ-B370-Laser" m="ZQ-B370"/>
-    <F n="UKing-ZQB93-Pinspot-RGBW" m="ZQ-B93 Pinspot RGBW"/>
+    <F n="UKing-ZQ-B93-Pinspot-RGBW" m="ZQ-B93 Pinspot RGBW"/>
   </M>
   <M n="Vari-Lite">
     <F n="Vari-Lite-VL2500-Wash" m="VL2500 Wash"/>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Jarada</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>Vega Shiggy Beam Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Position (X)" Preset="PositionPan"/>
+ <Channel Name="Pan Movement Speed (X)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">empty</Capability>
+  <Capability Min="8" Max="255">Pan (X) Motor movement back and front (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Tilt Position (Y)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Movement Speed (Y)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">empty</Capability>
+  <Capability Min="8" Max="255">Tilt (Y) Motor rotation (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Switch Wash / Beam">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Y1 (Wash) Mode</Capability>
+  <Capability Min="128" Max="255">Y2 (Beam) Mode</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="5" Max="250" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Y1 RGB mixer">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">empty</Capability>
+  <Capability Min="8" Max="16">Y1-R</Capability>
+  <Capability Min="17" Max="25">Y1-G</Capability>
+  <Capability Min="26" Max="34">Y1-B</Capability>
+  <Capability Min="35" Max="43">Y1-W</Capability>
+  <Capability Min="44" Max="52">Y1-RG</Capability>
+  <Capability Min="53" Max="61">Y1-GB</Capability>
+  <Capability Min="62" Max="70">Y1-BW</Capability>
+  <Capability Min="71" Max="79">Y1-RW</Capability>
+  <Capability Min="80" Max="88">Y1-RGB</Capability>
+  <Capability Min="89" Max="97">Y1-GBW</Capability>
+  <Capability Min="98" Max="106">Y1-RBW</Capability>
+  <Capability Min="107" Max="115">Y1-RGW</Capability>
+  <Capability Min="116" Max="127">Y1-RGBW</Capability>
+  <Capability Min="128" Max="255">Y1-Macro color Lin (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Y2 RGB mixer">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">empty</Capability>
+  <Capability Min="8" Max="16">Y2-R</Capability>
+  <Capability Min="17" Max="25">Y2-G</Capability>
+  <Capability Min="26" Max="34">Y2-B</Capability>
+  <Capability Min="35" Max="43">Y2-W</Capability>
+  <Capability Min="44" Max="52">Y2-RG</Capability>
+  <Capability Min="53" Max="61">Y2-GB</Capability>
+  <Capability Min="62" Max="70">Y2-BW</Capability>
+  <Capability Min="71" Max="79">Y2-RW</Capability>
+  <Capability Min="80" Max="88">Y2-RGB</Capability>
+  <Capability Min="89" Max="97">Y2-GBW</Capability>
+  <Capability Min="98" Max="106">Y2-RBW</Capability>
+  <Capability Min="107" Max="115">Y2-RGW</Capability>
+  <Capability Min="116" Max="127">Y2-RGBW</Capability>
+  <Capability Min="128" Max="255">Y2-Macro color Lin (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="LED Auto Play">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">empty</Capability>
+  <Capability Min="8" Max="37">LED Auto Play 1</Capability>
+  <Capability Min="38" Max="67">LED Auto Play 2</Capability>
+  <Capability Min="68" Max="97">LED Auto Play 3</Capability>
+  <Capability Min="98" Max="127">LED Auto Play 4</Capability>
+  <Capability Min="128" Max="157">LED Auto Play 5</Capability>
+  <Capability Min="158" Max="187">LED Auto Play 6</Capability>
+  <Capability Min="188" Max="217">LED Auto Play 7</Capability>
+  <Capability Min="218" Max="247">Auto colour cycle</Capability>
+  <Capability Min="248" Max="255">Sound to light</Capability>
+ </Channel>
+ <Channel Name="LED Auto Play Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">LED Auto Play Spped (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="X/Y Auto Run">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">empty</Capability>
+  <Capability Min="8" Max="32">Pan fast (auto run 1)</Capability>
+  <Capability Min="33" Max="58">Tilt fast (auto run 2)</Capability>
+  <Capability Min="59" Max="84">Pan middle (auto run 3)</Capability>
+  <Capability Min="85" Max="110">Tilt middle (auto run 4)</Capability>
+  <Capability Min="111" Max="136">Pan + Tilt fast (auto run 5)</Capability>
+  <Capability Min="137" Max="162">Pan + Tilt middle (auto run 6)</Capability>
+  <Capability Min="163" Max="188">Pan + Tilt 90° slow (auto run 7)</Capability>
+  <Capability Min="189" Max="214">Pan + Tilt 45° slow (auto run 8)</Capability>
+  <Capability Min="215" Max="240">Pan fast + Tilt swap (auto run 9)</Capability>
+  <Capability Min="241" Max="255">Sound to movement Pan + Tilt</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">reset (105)</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Pan Position (X)</Channel>
+  <Channel Number="1">Pan Movement Speed (X)</Channel>
+  <Channel Number="2">Tilt Position (Y)</Channel>
+  <Channel Number="3">Switch Wash / Beam</Channel>
+  <Channel Number="4">Tilt Movement Speed (Y)</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Y1 RGB mixer</Channel>
+  <Channel Number="12">Y2 RGB mixer</Channel>
+  <Channel Number="13">LED Auto Play</Channel>
+  <Channel Number="14">LED Auto Play Speed</Channel>
+  <Channel Number="15">X/Y Auto Run</Channel>
+  <Channel Number="16">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="180" Height="230" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="360"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
