@@ -44,7 +44,7 @@ Button
     property alias border: contentBody.border
     property alias radius: contentBody.radius
     property string imgSource: ""
-    property int imgMargins: 4
+    property int imgMargins: 6
     property string faSource: ""
     property color faColor: UISettings.bgStrong
 
@@ -110,7 +110,7 @@ Button
                 anchors.centerIn: parent
                 color: faColor
                 font.family: "FontAwesome"
-                font.pixelSize: control.height - imgMargins
+                font.pixelSize: control.height - imgMargins - 2
                 text: faSource
             }
         }
