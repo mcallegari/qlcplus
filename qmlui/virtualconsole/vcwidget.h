@@ -63,7 +63,6 @@
 
 typedef struct
 {
-    quint8 id;
     QString name;
     bool allowKeyboard;
 } ExternalControlInfo;
@@ -460,14 +459,22 @@ public:
      */
     void registerExternalControl(quint8 id, QString name, bool allowKeyboard);
 
+    /** Unregister an existing external control
+     *
+     *  @param id a unique id identifying the external control
+     *  @return true if a match was found
+     */
+    bool unregisterExternalControl(quint8 id);
+
     /** Returns the number of external controls registered by this widget */
     int externalControlsCount() const;
 
     /** Returns a list of the registered external controls suitable for the UI */
     QVariant externalControlsList() const;
 
-    /** Returns the index of a control with the given $id */
-    int controlIndex(quint8 id);
+protected:
+    /** A list of the external controls known by this widget */
+    QMap <quint8, ExternalControlInfo> m_externalControlList;
 
     /*********************************************************************
      * Input sources
@@ -540,9 +547,6 @@ signals:
     void inputSourcesListChanged();
 
 protected:
-    /** A list of the external controls known by this widget */
-    QList <ExternalControlInfo> m_externalControlList;
-
     /** The list of input sources that can control this widget */
     QList <QSharedPointer<QLCInputSource> > m_inputSources;
 

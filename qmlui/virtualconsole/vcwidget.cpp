@@ -596,11 +596,18 @@ QString VCWidget::propertiesResource() const
 void VCWidget::registerExternalControl(quint8 id, QString name, bool allowKeyboard)
 {
     ExternalControlInfo info;
-    info.id = id;
     info.name = name;
     info.allowKeyboard = allowKeyboard;
 
-    m_externalControlList.append(info);
+    m_externalControlList.insert(id, info);
+}
+
+bool VCWidget::unregisterExternalControl(quint8 id)
+{
+    if (m_externalControlList.remove(id))
+        return true;
+
+    return false;
 }
 
 int VCWidget::externalControlsCount() const
@@ -612,31 +619,18 @@ QVariant VCWidget::externalControlsList() const
 {
     QVariantList controlsList;
 
-    for (ExternalControlInfo info : m_externalControlList) // C++11
+    QMapIterator<quint8, ExternalControlInfo> it(m_externalControlList);
+    while(it.hasNext())
     {
+        it.next();
+        ExternalControlInfo info = it.value();
         QVariantMap cMap;
         cMap.insert("mLabel", info.name);
-        cMap.insert("mValue", info.id);
+        cMap.insert("mValue", it.key());
         controlsList.append(cMap);
     }
 
     return QVariant::fromValue(controlsList);
-}
-
-int VCWidget::controlIndex(quint8 id)
-{
-    /* in most cases, the control ID is equal to the index in the list,
-     * so let's check that before hand */
-    if (id < m_externalControlList.count() && m_externalControlList.at(id).id == id)
-        return id;
-
-    for (int i = 0; i < m_externalControlList.count(); i++)
-        if (m_externalControlList.at(i).id == id)
-            return i;
-
-    qDebug() << "ERROR: id" << id << "not registered in controls list!";
-
-    return 0;
 }
 
 /*********************************************************************
@@ -652,7 +646,7 @@ void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
      *  This is needed during the auto detection process, when the user
      *  haven't decided yet the source type */
     if (source->id() == QLCInputSource::invalidID)
-        source->setID(m_externalControlList.first().id);
+        source->setID(m_externalControlList.firstKey());
 
     m_inputSources.append(source);
 
@@ -760,7 +754,6 @@ QVariantList VCWidget::inputSourcesList()
             sourceMap.insert("invalid", true);
         sourceMap.insert("type", Controller);
         sourceMap.insert("id", source->id());
-        sourceMap.insert("cIndex", controlIndex(source->id()));
         sourceMap.insert("uniString", uniName);
         sourceMap.insert("chString", chName);
         sourceMap.insert("universe", source->universe());
@@ -782,7 +775,6 @@ QVariantList VCWidget::inputSourcesList()
         QVariantMap keyMap;
         keyMap.insert("type", Keyboard);
         keyMap.insert("id", id);
-        keyMap.insert("cIndex", controlIndex(id));
 
         if (seq.isEmpty())
         {

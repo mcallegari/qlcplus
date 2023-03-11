@@ -30,7 +30,7 @@ Column
     property var dObjRef: null
     property bool invalid: false
     property int controlID
-    property alias controlIndex: controlsCombo.currentIndex
+    property alias inputModel: controlsCombo.model
     property var universe
     property var channel
     property string uniName
@@ -58,8 +58,6 @@ Column
             Layout.fillWidth: true
             Layout.columnSpan: 2
             height: UISettings.listItemHeight
-            model: dObjRef ? dObjRef.externalControlsList : null
-
             currValue: controlID
             onValueChanged:
             {

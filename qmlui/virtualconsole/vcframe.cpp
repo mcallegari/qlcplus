@@ -37,6 +37,7 @@
 #define INPUT_PREVIOUS_PAGE_ID  1
 #define INPUT_ENABLE_ID         2
 #define INPUT_COLLAPSE_ID       3
+#define INPUT_SHORTCUT_BASE_ID  20
 
 static const quint64 encKey = 0x5131632B5067334B; // this is "Q1c+Pg3K"
 
@@ -672,8 +673,27 @@ void VCFrame::setTotalPagesNumber(int num)
     if (m_totalPagesNumber == num)
         return;
 
+    if (num < m_totalPagesNumber)
+    {
+        for (int i = m_totalPagesNumber - 1; i > num; i--)
+        {
+            m_pageLabels.remove(i);
+            unregisterExternalControl(INPUT_SHORTCUT_BASE_ID + i);
+        }
+    }
+    else
+    {
+        for (int i = m_totalPagesNumber; i < num; i++)
+        {
+            QString name = tr("Page %1").arg(i);
+            m_pageLabels.insert(i, name);
+            registerExternalControl(INPUT_SHORTCUT_BASE_ID + i, name, true);
+        }
+    }
+
     m_totalPagesNumber = num;
     emit totalPagesNumberChanged(num);
+    emit pageLabelsChanged();
 }
 
 int VCFrame::totalPagesNumber() const
@@ -731,6 +751,18 @@ bool VCFrame::pagesLoop() const
     return m_pagesLoop;
 }
 
+QStringList VCFrame::pageLabels()
+{
+    return m_pageLabels.values();
+}
+
+void VCFrame::setShortcutName(int pageIndex, QString name)
+{
+    m_pageLabels[pageIndex] = name;
+
+    emit pageLabelsChanged();
+}
+
 void VCFrame::gotoPreviousPage()
 {
     if (m_pagesLoop && m_currentPage == 0)
@@ -749,6 +781,14 @@ void VCFrame::gotoNextPage()
         setCurrentPage(m_currentPage + 1);
 
     sendFeedback(m_currentPage, INPUT_NEXT_PAGE_ID);
+}
+
+void VCFrame::gotoPage(int pageIndex)
+{
+    if (pageIndex < 0 || pageIndex >= m_totalPagesNumber)
+        return;
+
+    setCurrentPage(pageIndex);
 }
 
 void VCFrame::cloneFirstPage()
@@ -859,6 +899,11 @@ void VCFrame::slotInputValueChanged(quint8 id, uchar value)
         break;
         case INPUT_COLLAPSE_ID:
             setCollapsed(!isCollapsed());
+        break;
+        default:
+            if (id < INPUT_SHORTCUT_BASE_ID || id > INPUT_SHORTCUT_BASE_ID + m_totalPagesNumber)
+                break;
+            setCurrentPage(id - INPUT_SHORTCUT_BASE_ID);
         break;
     }
 }
@@ -1050,7 +1095,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toInt());
 
-            if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
+            if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 currentPage = attrs.value(KXMLQLCVCFrameCurrentPage).toInt();
 
             if(attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
@@ -1085,6 +1130,24 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 setPagesLoop(true);
             else
                 setPagesLoop(false);
+        }
+        else if (root.name() == KXMLQLCVCFrameShortcut)
+        {
+            int page = 0;
+            QString name;
+
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCVCFrameShortcutPage))
+                page = attrs.value(KXMLQLCVCFrameShortcutPage).toInt();
+
+            if (attrs.hasAttribute(KXMLQLCVCFrameShortcutName))
+                name = attrs.value(KXMLQLCVCFrameShortcutName).toString();
+            m_pageLabels.insert(page, name);
+
+            registerExternalControl(INPUT_SHORTCUT_BASE_ID + page, name, true);
+            loadXMLSources(root, INPUT_SHORTCUT_BASE_ID + page);
+
+            //root.skipCurrentElement();
         }
         else
         {
@@ -1165,6 +1228,21 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
 
         saveXMLInputControl(doc, INPUT_NEXT_PAGE_ID, KXMLQLCVCFrameNext);
         saveXMLInputControl(doc, INPUT_PREVIOUS_PAGE_ID, KXMLQLCVCFramePrevious);
+
+        /* Write shortcuts, if any */
+        QMapIterator <int, QString> it(m_pageLabels);
+        while (it.hasNext() == true)
+        {
+            it.next();
+
+            doc->writeStartElement(KXMLQLCVCFrameShortcut);
+            doc->writeAttribute(KXMLQLCVCFrameShortcutPage, QString::number(it.key()));
+            doc->writeAttribute(KXMLQLCVCFrameShortcutName, it.value());
+
+            saveXMLInputControl(doc, INPUT_SHORTCUT_BASE_ID + it.key());
+
+            doc->writeEndElement();
+        }
     }
 
     /* Save children */

@@ -162,6 +162,59 @@ Rectangle
                 }
               }
         }
+
+        SectionBox
+        {
+            sectionLabel: qsTr("Shortcuts")
+            visible: widgetRef ? widgetRef.totalPagesNumber > 1 : false
+
+            sectionContents:
+              GridLayout
+              {
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 3
+
+                // row 1
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Shortcuts")
+                }
+                CustomComboBox
+                {
+                    id: shortcutList
+                    Layout.fillWidth: true
+                    height: gridItemsHeight
+                    textRole: ""
+                    model: widgetRef ? widgetRef.pageLabels : null
+                }
+
+                // row 2
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Shortcut name")
+                }
+                CustomTextEdit
+                {
+                    id: shortcutEdit
+                    Layout.fillWidth: true
+                    text: shortcutList.currentText
+                    onTextChanged:
+                    {
+                        var idx = shortcutList.currentIndex
+                        if (widgetRef)
+                            widgetRef.setShortcutName(shortcutList.currentIndex, text)
+                        // combo model has changed. Restore selected index
+                        shortcutList.currentIndex = idx
+                    }
+                }
+              }
+        }
     }
 
 }
