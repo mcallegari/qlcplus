@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 2
     title: qsTr("Import from project")
     standardButtons: Dialog.Cancel | Dialog.Apply
 

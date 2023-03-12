@@ -25,6 +25,8 @@ import "."
 
 CustomPopupDialog
 {
+    width: mainView.width / 3
+
     property string currentPIN: ""
     property alias sessionValidate: validateCheck.checked
 

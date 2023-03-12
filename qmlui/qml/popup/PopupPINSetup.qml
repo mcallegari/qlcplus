@@ -26,6 +26,7 @@ import "."
 CustomPopupDialog
 {
     id: pinDialogRoot
+    width: mainView.width / 3
 
     property string currentPIN: ""
     property string newPIN: ""

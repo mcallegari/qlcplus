@@ -409,10 +409,12 @@ Popup
             CustomPopupDialog
             {
                 id: addrToolDialog
+                width: mainView.width / 3.5
                 title: qsTr("DMX Address tool")
                 standardButtons: Dialog.Close
 
-                contentItem: DMXAddressTool { }
+                contentItem:
+                    DMXAddressTool { }
             }
         }
 

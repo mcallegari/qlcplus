@@ -27,6 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
+    width: mainView.width / 2
     title: qsTr("Fixture Editor Wizard")
 
     property EditorRef editorView: null

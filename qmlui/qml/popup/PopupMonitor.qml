@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 3
     title: qsTr("2D Point of view selection")
     standardButtons: Dialog.Ok
 

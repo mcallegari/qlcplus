@@ -28,7 +28,7 @@ Dialog
     id: control
     x: (mainView.width - width) / 2
     y: (mainView.height - height) / 2
-    //width: mainView.width / 2
+    width: mainView.width / 3
     parent: mainView
 
     modal: true
