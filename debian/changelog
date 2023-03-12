@@ -46,10 +46,14 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Chauvet Intimidator Beam Q60 (thanks to Nathan)
   * New fixtures: Eurolite LED T-36 RGB Spot, Eurolite LED SLS-183/10 RGB, Stairville Stage PAR CX-2 RGBAW (thanks to Felix Hartnagel)
   * New fixture: American DJ WiFly Bar QA5 (thanks to Edgar Aichinger)
-  * New fixtures: Laserworld EL-230RGB MK2, Eurolite LED Multi FX Laser Bar (thanks to e-shock)
+  * New fixtures: Laserworld EL-230RGB MK2, Eurolite LED Multi FX Laser Bar, UKing Mini Double Sided Moving Head (thanks to e-shock)
   * New fixture: lightmaXX Vega Shiggy Beam Wash (thanks to Jarada)
   * New fixture: Eurolite LED Super Strobe ABL (thanks to Sebastian Moeckel)
   * New fixture: beamZ Fuze75B Beam (thanks to Marcin Kwiecien)
+  * New fixture: Eurolite LED FE-800 (thanks to Clausi4711)
+  * New fixtures: Varytec LED Bar 240/8 CW/WW, Equinox SpectraPix Batten (thanks to Michel Sliepenbeek)
+  * New fixtures: Chauvet Intimidator Scan LED 100, Equinox Fusion Spot Max MKIII (thanks to Michel Sliepenbeek)
+  * New fixture: Elation SIX PAR Z19 IP (thanks to Sophia Rodriguez)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 
