@@ -692,6 +692,7 @@ void VCFrame::setTotalPagesNumber(int num)
     }
 
     m_totalPagesNumber = num;
+    setDocModified();
     emit totalPagesNumberChanged(num);
     emit pageLabelsChanged();
 }
@@ -743,6 +744,7 @@ void VCFrame::setPagesLoop(bool pagesLoop)
         return;
 
     m_pagesLoop = pagesLoop;
+    setDocModified();
     emit pagesLoopChanged(pagesLoop);
 }
 
@@ -759,6 +761,7 @@ QStringList VCFrame::pageLabels()
 void VCFrame::setShortcutName(int pageIndex, QString name)
 {
     m_pageLabels[pageIndex] = name;
+    setDocModified();
 
     emit pageLabelsChanged();
 }
