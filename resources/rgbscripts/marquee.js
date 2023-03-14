@@ -21,55 +21,55 @@
 var testAlgo;
 
 (function () {
-  var colorPalette = new Object();
+  let colorPalette = new Object();
   colorPalette.collection = new Array(
-    ["White", 0xffffff],
-    ["LightGrey", 0xaaaaaa],
-    ["MediumGrey", 0x999999],
-    ["DarkGrey", 0x666666],
-    ["Cream", 0xffff7f],
-    ["Pink", 0xff7f7f],
-    ["Rose", 0x7f3f3f],
-    ["Coral", 0x7f3f1f],
-    ["Dim Red", 0x7f0000],
-    ["Red", 0xff0000],
-    ["Orange", 0xff3f00],
-    ["Dim Orange", 0x7f1f00],
-    ["Goldenrod", 0x7f3f00],
-    ["Gold", 0xff7f00],
-    ["Yellow", 0xffff00],
-    ["Dim Yellow", 0x7f7f00],
-    ["Lime", 0x7fff00],
-    ["Pale Green", 0x3f7f00],
-    ["Dim Green", 0x007f00],
-    ["Green", 0x00ff00],
-    ["Seafoam", 0x00ff3f],
-    ["Turquoise", 0x007f3f],
-    ["Teal", 0x007f7f],
-    ["Cyan", 0x00ffff],
-    ["Electric Blue", 0x007fff],
-    ["Blue", 0x0000ff],
-    ["Dim Blue", 0x00007f],
-    ["Pale Blue", 0x1f1f7f],
-    ["Indigo", 0x1f00bf],
-    ["Purple", 0x3f00bf],
-    ["Violet", 0x7f007f],
-    ["Magenta", 0xff00ff],
-    ["Hot Pink", 0xff003f],
-    ["Deep Pink", 0x7f001f],
-    ["Black", 0x000000]
+    ["White"        , 0xFFFFFF],
+    ["LightGrey"    , 0xAAAAAA],
+    ["MediumGrey"   , 0x999999],
+    ["DarkGrey"     , 0x666666],
+    ["Cream"        , 0xFFFF7F],
+    ["Pink"         , 0xFF7F7F],
+    ["Rose"         , 0x7F3F3F],
+    ["Coral"        , 0x7F3F1F],
+    ["Dim Red"      , 0x7F0000],
+    ["Red"          , 0xFF0000],
+    ["Orange"       , 0xFF3F00],
+    ["Dim Orange"   , 0x7F1F00],
+    ["Goldenrod"    , 0x7F3F00],
+    ["Gold"         , 0xFF7F00],
+    ["Yellow"       , 0xFFFF00],
+    ["Dim Yellow"   , 0x7F7F00],
+    ["Lime"         , 0x7FFF00],
+    ["Pale Green"   , 0x3F7F00],
+    ["Dim Green"    , 0x007F00],
+    ["Green"        , 0x00FF00],
+    ["Seafoam"      , 0x00FF3F],
+    ["Turquoise"    , 0x007F3F],
+    ["Teal"         , 0x007F7F],
+    ["Cyan"         , 0x00FFFF],
+    ["Electric Blue", 0x007FFF],
+    ["Blue"         , 0x0000FF],
+    ["Dim Blue"     , 0x00007F],
+    ["Pale Blue"    , 0x1F1F7F],
+    ["Indigo"       , 0x1F00BF],
+    ["Purple"       , 0x3F00BF],
+    ["Violet"       , 0x7F007F],
+    ["Magenta"      , 0xFF00FF],
+    ["Hot Pink"     , 0xFF003F],
+    ["Deep Pink"    , 0x7F001F],
+    ["Black"        , 0x000000]
   );
 
   colorPalette.makeSubArray = function (_index) {
-    var _array = new Array();
-    for (var i = 0; i < colorPalette.collection.length; i++) {
+    let _array = new Array();
+    for (let i = 0; i < colorPalette.collection.length; i++) {
       _array.push(colorPalette.collection[i][_index]);
     }
     return _array;
   };
   colorPalette.names = colorPalette.makeSubArray(0);
 
-  var algo = new Object();
+  let algo = new Object();
   algo.apiVersion = 2;
   algo.name = "Marquee";
   algo.author = "Branson Matheson";
@@ -96,7 +96,7 @@ var testAlgo;
       "write:setMarqueeColorIndex|read:getMarqueeColorIndex"
   );
 
-  var util = new Object();
+  let util = new Object();
   util.initialized = false;
   util.width = 0;
   util.height = 0;
@@ -153,20 +153,20 @@ var testAlgo;
     util.initialized = false;
   };
 
-  algo.getMarqueeColorIndex = function (_name) {
+  algo.getMarqueeColorIndex = function () {
     return colorPalette.collection[algo.marqueeColorIndex][0];
   };
 
   util.initialize = function (width, height, rgb) {
     // initialize feature
     util.feature = new Array();
-    for (var y = 0; y <= height - 1; y++) {
+    for (let y = 0; y <= height - 1; y++) {
       util.feature[y] = new Array();
-      for (var x = 0; x <= width - 1; x++) {
+      for (let x = 0; x <= width - 1; x++) {
         // write color
-        x_distance = algo.edgeDepth + 1;
-        y_distance = algo.edgeDepth + 1;
-        distance = algo.edgeDepth + 1;
+        let x_distance = algo.edgeDepth + 1;
+        let y_distance = algo.edgeDepth + 1;
+        let distance = algo.edgeDepth + 1;
         if (x <= algo.edgeDepth) {
           x_distance = x;
         } else if (x >= width - algo.edgeDepth - 1) {
@@ -181,7 +181,7 @@ var testAlgo;
 
         distance = Math.min(x_distance, y_distance);
         if (distance <= algo.edgeDepth) {
-          percent = ((algo.edgeDepth - distance) / algo.edgeDepth) * 100;
+          let percent = ((algo.edgeDepth - distance) / algo.edgeDepth) * 100;
           util.feature[y][x] = util.fadeColor(rgb, percent);
         } else {
           util.feature[y][x] = 0;
@@ -189,11 +189,11 @@ var testAlgo;
       }
     }
     // initialize lights array
-    length = height * 2 + width * 2;
+    let length = height * 2 + width * 2;
     util.lights = new Array(length + algo.marqueeCount + 1);
-    count = algo.marqueeCount;
+    let count = algo.marqueeCount;
     count++;
-    for (var i = length + count + 1; i >= 0; i--) {
+    for (let i = length + count + 1; i >= 0; i--) {
       util.lights[i] = 0;
       if (i % count === 1) {
         util.lights[i] = 1;
@@ -206,13 +206,13 @@ var testAlgo;
   };
 
   util.fadeColor = function (rgb, percent) {
-    var r = (rgb >> 16) & 0x00ff;
-    var g = (rgb >> 8) & 0x00ff;
-    var b = rgb & 0x00ff;
-    var newR = Math.round(r * (percent / 100));
-    var newG = Math.round(g * (percent / 100));
-    var newB = Math.round(b * (percent / 100));
-    var newRGB = (newR << 16) + (newG << 8) + newB;
+    let r = (rgb >> 16) & 0x00ff;
+    let g = (rgb >> 8) & 0x00ff;
+    let b = rgb & 0x00ff;
+    let newR = Math.round(r * (percent / 100));
+    let newG = Math.round(g * (percent / 100));
+    let newB = Math.round(b * (percent / 100));
+    let newRGB = (newR << 16) + (newG << 8) + newB;
     return newRGB;
   };
 
@@ -223,27 +223,26 @@ var testAlgo;
       return rgb1;
     }
     // split rgb into components
-    var r1 = (rgb1 >> 16) & 0x00ff;
-    var g1 = (rgb1 >> 8) & 0x00ff;
-    var b1 = rgb1 & 0x00ff;
+    let r1 = (rgb1 >> 16) & 0x00ff;
+    let g1 = (rgb1 >> 8) & 0x00ff;
+    let b1 = rgb1 & 0x00ff;
 
-    var r2 = (rgb2 >> 16) & 0x00ff;
-    var g2 = (rgb2 >> 8) & 0x00ff;
-    var b2 = rgb2 & 0x00ff;
+    let r2 = (rgb2 >> 16) & 0x00ff;
+    let g2 = (rgb2 >> 8) & 0x00ff;
+    let b2 = rgb2 & 0x00ff;
 
-    var r = Math.max(r1, r2);
-    var g = Math.max(g1, g2);
-    var b = Math.max(b1, b2);
+    let r = Math.max(r1, r2);
+    let g = Math.max(g1, g2);
+    let b = Math.max(b1, b2);
 
     return (r << 16) + (g << 8) + b;
   };
 
   util.getNextStep = function (width, height, step) {
-
-    var map = new Array(height);
-    for (var y = 0; y <= height - 1; y++) {
+    let map = new Array(height);
+    for (let y = 0; y <= height - 1; y++) {
       map[y] = new Array(width);
-      for (var x = 0; x <= width - 1; x++) {
+      for (let x = 0; x <= width - 1; x++) {
         map[y][x] = util.feature[y][x];
       }
     }
@@ -251,50 +250,50 @@ var testAlgo;
     if (algo.marquee === 0) { return map }
 
     if (algo.marquee === 1) {
-      first = util.lights.shift();
+      let first = util.lights.shift();
       util.lights.push(first);
     } else if (algo.marquee === 2) {
-      last = util.lights.pop();
+      let last = util.lights.pop();
       util.lights.unshift(last);
     }
 
     // create light map add lights, go around the outside
-    marqueeColor = colorPalette.collection[algo.marqueeColorIndex][1];
-    p = 0;
+    let marqueeColor = colorPalette.collection[algo.marqueeColorIndex][1];
+    let p = 0;
     // left
-    for (var y = 0; y < height; y++) {
-      x = 0;
+    for (let y = 0; y < height; y++) {
+      let x = 0;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
     }
     // bottom
-    for (var x = 0; x < width; x++) {
-      y = height - 1;
+    for (let x = 0; x < width; x++) {
+      let y = height - 1;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
     }
     // right
-    for (var y = height - 1; y >= 0; y--) {
-      x = width - 1;
+    for (let y = height - 1; y >= 0; y--) {
+      let x = width - 1;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
     }
     // top
-    for (var x = width - 1; x >= 0; x--) {
-      y = 0;
+    for (let x = width - 1; x >= 0; x--) {
+      let y = 0;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
     }
-    for (var y = 0; y <= height - 1; y++) {
-      for (var x = 0; x <= width - 1; x++) {
+    for (let y = 0; y <= height - 1; y++) {
+      for (let x = 0; x <= width - 1; x++) {
         map[y][x] = util.mergeRgb(map[y][x], util.feature[y][x]);
       }
     }
@@ -309,17 +308,18 @@ var testAlgo;
     ) {
       util.initialize(width, height, rgb);
     }
-    var map = util.getNextStep(width, height, step);
+    let map = util.getNextStep(width, height, step);
     // for (var y = 0; y <= map.length - 1; y++) {
     //     console.log(map[y]);
     // }
     // console.log(map)
-    return map
+    return map;
   };
 
   algo.rgbMapStepCount = function (width, height) {
     // return algo.marqueeCount;
-    return algo.marqueeCount;
+    let size = Number(algo.marqueeCount);
+    return size
   };
 
   // Development tool access
