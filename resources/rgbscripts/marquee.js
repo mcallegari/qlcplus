@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  squares.js
+  marquee.js
 
-  Copyright (c) Branson Matheson and Massimo Callegari
+  Copyright (c) Branson Matheson
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
