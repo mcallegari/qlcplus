@@ -61,7 +61,7 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="27">Blackout during Pan/Tilt</Capability>
   <Capability Min="28" Max="47">Blackout during Gobowheel movement</Capability>
   <Capability Min="48" Max="67">Blackout during Pan/Tilt/Gobowheel</Capability>
@@ -74,11 +74,11 @@
   <Capability Min="178" Max="187">Reset Gobowheel after 5 sec.</Capability>
   <Capability Min="188" Max="197">Reset Prism (Ch11 must be on and then set to off)</Capability>
   <Capability Min="198" Max="207">Reset all channels after 5 sec.</Capability>
-  <Capability Min="208" Max="255">No Function</Capability>
+  <Capability Min="208" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Built-In Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Auto Program 1</Capability>
   <Capability Min="24" Max="39">Auto Program 2</Capability>
   <Capability Min="40" Max="55">Auto Program 3</Capability>

@@ -16,17 +16,17 @@
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Color Macros</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe, Slow to Fast</Capability>
  </Channel>
  <Channel Name="Automatic/Sound-Active Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="31">No Function</Capability>
+  <Capability Min="0" Max="31">No function</Capability>
   <Capability Min="32" Max="69">Auto Program 1</Capability>
   <Capability Min="70" Max="106">Auto Program 2</Capability>
   <Capability Min="107" Max="143">Auto Program 3</Capability>

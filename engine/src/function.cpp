@@ -26,7 +26,6 @@
 #include <math.h>
 
 #include "qlcmacros.h"
-#include "qlcfile.h"
 
 #include "scriptwrapper.h"
 #include "mastertimer.h"

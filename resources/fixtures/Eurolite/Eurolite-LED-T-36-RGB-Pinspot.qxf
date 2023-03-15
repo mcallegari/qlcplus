@@ -15,7 +15,7 @@
  <Channel Name="Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">Macro off</Capability>
-  <Capability Min="16" Max="25">Macro on</Capability>
+  <Capability Min="16" Max="255">Macro on</Capability>
  </Channel>
  <Channel Name="Speed/strobe">
   <Group Byte="0">Speed</Group>

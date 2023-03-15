@@ -29,7 +29,7 @@ class Doc;
 
 typedef struct
 {
-    QString maufacturer;
+    QString manufacturer;
     QString name;
     quint32 universe;
     quint32 pluginLine;
@@ -161,6 +161,8 @@ private slots:
     void slotUpdatePidInfo(QString info);
 
     void slotDisplayPopup(QString title, QString message);
+
+    void slotTaskFinished();
 
 signals:
     void fixtureInfoReady(QString &info);

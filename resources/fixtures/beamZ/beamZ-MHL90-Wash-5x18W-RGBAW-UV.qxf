@@ -37,10 +37,10 @@
  <Channel Name="Static LED Color Select" Preset="ColorMacro"/>
  <Channel Name="Movement functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">X/Y Move, LED Turn Off</Capability>
   <Capability Min="80" Max="89">Stop X/Y Move, LED Turn Off</Capability>
-  <Capability Min="90" Max="239">No Function</Capability>
+  <Capability Min="90" Max="239">No function</Capability>
   <Capability Min="240" Max="255">Independent Operation</Capability>
  </Channel>
  <Mode Name="Mode 1">

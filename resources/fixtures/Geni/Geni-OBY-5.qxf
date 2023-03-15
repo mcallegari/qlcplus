@@ -16,7 +16,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter / Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="1" Max="7">Open</Capability>
+  <Capability Min="0" Max="7">Open</Capability>
   <Capability Min="8" Max="63">Strobe slow to fast</Capability>
   <Capability Min="64" Max="71">Open</Capability>
   <Capability Min="72" Max="127">Shutter from narrow to wide</Capability>

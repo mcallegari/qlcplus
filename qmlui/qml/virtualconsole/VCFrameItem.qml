@@ -121,12 +121,11 @@ VCWidgetItem
             }
 
             // multi page controls
-            Rectangle
+            RowLayout
             {
                 visible: frameObj ? frameObj.multiPageMode : false
-                width: 168
                 height: parent.height
-                color: "transparent"
+                spacing: 2
 
                 IconButton
                 {
@@ -139,23 +138,14 @@ VCWidgetItem
                     imgMargins: 1
                     onClicked: frameObj.gotoPreviousPage()
                 }
-                Rectangle
+                CustomComboBox
                 {
-                    x: parent.height + 2
-                    width: 100
+                    width: UISettings.bigItemHeight
                     height: parent.height
-                    radius: 3
-                    color: "black"
-
-                    Text
-                    {
-                        anchors.centerIn: parent
-                        font.family: UISettings.robotoFontName
-                        font.pixelSize: UISettings.textSizeDefault
-                        font.bold: true
-                        text: qsTr("Page") + " " + (frameObj ? frameObj.currentPage + 1 : "1")
-                        color: "red"
-                    }
+                    textRole: ""
+                    model: frameObj ? frameObj.pageLabels : null
+                    currentIndex: frameObj ? frameObj.currentPage : 0
+                    onActivated: if (frameObj) frameObj.currentPage = index
                 }
                 IconButton
                 {

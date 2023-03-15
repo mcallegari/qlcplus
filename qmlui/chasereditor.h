@@ -98,6 +98,8 @@ public:
     /** @reimp */
     void deleteItems(QVariantList list);
 
+    void removeFixtures(QVariantList list);
+
 protected:
     /** Set the steps $param to $value.
      *  If $selectedOnly is true, $value is applied only to the selected steps,

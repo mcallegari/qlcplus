@@ -48,7 +48,7 @@
  <Channel Name="Blue 12" Preset="IntensityBlue"/>
  <Channel Name="Auto Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="31">No Function</Capability>
+  <Capability Min="0" Max="31">No function</Capability>
   <Capability Min="32" Max="45">Chase 1</Capability>
   <Capability Min="46" Max="59">Chase 2</Capability>
   <Capability Min="60" Max="72">Chase 3</Capability>
@@ -93,7 +93,7 @@
  </Channel>
  <Channel Name="Color Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Mode Name="5 Channel">

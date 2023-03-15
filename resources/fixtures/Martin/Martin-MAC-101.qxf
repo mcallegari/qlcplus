@@ -41,7 +41,7 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Fixture Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture</Capability>
   <Capability Min="15" Max="39">No function</Capability>
   <Capability Min="40" Max="44">PTSP = NORM</Capability>
@@ -113,7 +113,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Colour Temp Control">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="255">CTC 10000K -&gt; 2500K</Capability>
  </Channel>
  <Mode Name="RAW, RGB">

@@ -12,28 +12,28 @@
  <Channel Name="Program">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="5">all LEDs off</Capability>
-  <Capability Min="6" Max="19">Auto programme 1, if channel 2 = 0 ... 250 Sound programme 1, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="20" Max="34">Auto programme 2, if channel 2 = 0 ... 250 Sound programme 2, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="35" Max="48">Auto programme 3, if channel 2 = 0 ... 250 Sound programme 3, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="49" Max="63">Auto programme 4, if channel 2 = 0 ... 250 Sound programme 4, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="64" Max="77">Auto programme 5, if channel 2 = 0 ... 250 Sound programme 5, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="78" Max="92">Auto programme 6, if channel 2 = 0 ... 250 Sound programme 6, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="93" Max="106">Auto programme 7, if channel 2 = 0 ... 250 Sound programme 7, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="107" Max="121">Auto programme 8, if channel 2 = 0 ... 250 Sound programme 8, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="122" Max="135">Auto programme 9, if channel 2 = 0 ... 250 Sound programme 9, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="136" Max="150">Auto programme 10, if channel 2 = 0 ... 250 Sound programme 10, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="151" Max="164">Auto programme 11, if channel 2 = 0 ... 250 Sound programme 11, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="165" Max="179">Auto programme 12, if channel 2 = 0 ... 250 Sound programme 12, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="180" Max="193">Auto programme 13, if channel 2 = 0 ... 250 Sound programme 13, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="194" Max="208">Auto programme 14, if channel 2 = 0 ... 250 Sound programme 13, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="209" Max="222">Auto programme 15, if channel 2 = 0 ... 250 Sound programme 13, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="223" Max="237">Auto programme 16, if channel 2 = 0 ... 250 Sound programme 13, if channel 2 = 251 ... 255</Capability>
-  <Capability Min="238" Max="255">Auto programme 17, if channel 2 = 0 ... 250 Sound programme 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="6" Max="19">Auto program 1, if channel 2 = 0 ... 250 Sound program 1, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="20" Max="34">Auto program 2, if channel 2 = 0 ... 250 Sound program 2, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="35" Max="48">Auto program 3, if channel 2 = 0 ... 250 Sound program 3, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="49" Max="63">Auto program 4, if channel 2 = 0 ... 250 Sound program 4, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="64" Max="77">Auto program 5, if channel 2 = 0 ... 250 Sound program 5, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="78" Max="92">Auto program 6, if channel 2 = 0 ... 250 Sound program 6, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="93" Max="106">Auto program 7, if channel 2 = 0 ... 250 Sound program 7, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="107" Max="121">Auto program 8, if channel 2 = 0 ... 250 Sound program 8, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="122" Max="135">Auto program 9, if channel 2 = 0 ... 250 Sound program 9, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="136" Max="150">Auto program 10, if channel 2 = 0 ... 250 Sound program 10, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="151" Max="164">Auto program 11, if channel 2 = 0 ... 250 Sound program 11, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="165" Max="179">Auto program 12, if channel 2 = 0 ... 250 Sound program 12, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="180" Max="193">Auto program 13, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="194" Max="208">Auto program 14, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="209" Max="222">Auto program 15, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="223" Max="237">Auto program 16, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="238" Max="255">Auto program 17, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
  </Channel>
  <Channel Name="Program mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="250">Programme speed increasing</Capability>
-  <Capability Min="251" Max="255">Sound-controlled mode, specifies the auto programme / sound programme setting for channel 1.</Capability>
+  <Capability Min="0" Max="250">Program speed increasing</Capability>
+  <Capability Min="251" Max="255">Sound-controlled mode, specifies the auto program / sound program setting for channel 1.</Capability>
  </Channel>
  <Channel Name="Intensity red" Preset="IntensityRed"/>
  <Channel Name="Intensity green" Preset="IntensityGreen"/>
@@ -115,31 +115,31 @@
   <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, strobe LED ring</Capability>
   <Capability Min="251" Max="255">Strobe effect sound mode, strobe LED ring</Capability>
  </Channel>
- <Channel Name="Auto programme ,Sound programme">
+ <Channel Name="Auto programs, Sound programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="5">all LEDs off</Capability>
-  <Capability Min="6" Max="19">Auto programme 1, if channel 22 = 0 ... 250 Sound programme 1, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="20" Max="34">Auto programme 2, if channel 22 = 0 ... 250 Sound programme 2, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="35" Max="48">Auto programme 3, if channel 22 = 0 ... 250 Sound programme 3, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="49" Max="63">Auto programme 4, if channel 22 = 0 ... 250 Sound programme 4, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="64" Max="77">Auto programme 5, if channel 22 = 0 ... 250 Sound programme 5, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="78" Max="92">Auto programme 6, if channel 22 = 0 ... 250 Sound programme 6, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="93" Max="106">Auto programme 7, if channel 22 = 0 ... 250 Sound programme 7, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="107" Max="121">Auto programme 8, if channel 22 = 0 ... 250 Sound programme 8, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="122" Max="135">Auto programme 9, if channel 22 = 0 ... 250 Sound programme 9, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="136" Max="150">Auto programme 10, if channel 22 = 0 ... 250 Sound programme 10, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="151" Max="164">Auto programme 11, if channel 22 = 0 ... 250 Sound programme 11, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="165" Max="179">Auto programme 12, if channel 22 = 0 ... 250 Sound programme 12, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="180" Max="193">Auto programme 13, if channel 22 = 0 ... 250 Sound programme 13, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="194" Max="208">Auto programme 14, if channel 22 = 0 ... 250 Sound programme 13, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="209" Max="222">Auto programme 15, if channel 22 = 0 ... 250 Sound programme 13, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="223" Max="237">Auto programme 16, if channel 22 = 0 ... 250 Sound programme 13, if channel 22 = 251 ... 255</Capability>
-  <Capability Min="238" Max="255">Auto programme 17, if channel 22 = 0 ... 250 Sound programme 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="6" Max="19">Auto program 1, if channel 22 = 0 ... 250 Sound program 1, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="20" Max="34">Auto program 2, if channel 22 = 0 ... 250 Sound program 2, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="35" Max="48">Auto program 3, if channel 22 = 0 ... 250 Sound program 3, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="49" Max="63">Auto program 4, if channel 22 = 0 ... 250 Sound program 4, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="64" Max="77">Auto program 5, if channel 22 = 0 ... 250 Sound program 5, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="78" Max="92">Auto program 6, if channel 22 = 0 ... 250 Sound program 6, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="93" Max="106">Auto program 7, if channel 22 = 0 ... 250 Sound program 7, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="107" Max="121">Auto program 8, if channel 22 = 0 ... 250 Sound program 8, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="122" Max="135">Auto program 9, if channel 22 = 0 ... 250 Sound program 9, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="136" Max="150">Auto program 10, if channel 22 = 0 ... 250 Sound program 10, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="151" Max="164">Auto program 11, if channel 22 = 0 ... 250 Sound program 11, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="165" Max="179">Auto program 12, if channel 22 = 0 ... 250 Sound program 12, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="180" Max="193">Auto program 13, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="194" Max="208">Auto program 14, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="209" Max="222">Auto program 15, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="223" Max="237">Auto program 16, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="238" Max="255">Auto program 17, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
  </Channel>
- <Channel Name="Programme mode">
+ <Channel Name="Program mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="250">Programme speed increasing</Capability>
-  <Capability Min="251" Max="255">Sound-controlled mode, specifies the auto programme / sound programme setting for channel 21.</Capability>
+  <Capability Min="0" Max="250">Program speed increasing</Capability>
+  <Capability Min="251" Max="255">Sound-controlled mode, specifies the auto program / sound program setting for channel 21.</Capability>
  </Channel>
  <Mode Name="2 Channel">
   <Channel Number="0">Program</Channel>
@@ -196,8 +196,8 @@
   <Channel Number="17">Intensity blue COB LED</Channel>
   <Channel Number="18">Strobe effect COB LED</Channel>
   <Channel Number="19">Strobe LED ring</Channel>
-  <Channel Number="20">Auto programme ,Sound programme</Channel>
-  <Channel Number="21">Programme mode</Channel>
+  <Channel Number="20">Auto programs, Sound programs</Channel>
+  <Channel Number="21">Program mode</Channel>
   <Head>
    <Channel>0</Channel>
    <Channel>1</Channel>

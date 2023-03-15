@@ -46,7 +46,7 @@
  <Channel Name="Half Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="2" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
-  <Capability Min="3" Max="5" Preset="ColorDoubleMacro" Res1="#8b0000">Empty position + Dark red</Capability>
+  <Capability Min="3" Max="5" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#8b0000">Empty position + Dark red</Capability>
   <Capability Min="6" Max="8" Preset="ColorMacro" Res1="#8b0000">Dark red</Capability>
   <Capability Min="9" Max="11" Preset="ColorDoubleMacro" Res1="#8b0000" Res2="#ffd260">Dark red + 2500K</Capability>
   <Capability Min="12" Max="14" Preset="ColorMacro" Res1="#ffd260">2500K</Capability>
@@ -96,7 +96,7 @@
   <Capability Min="78" Max="83" Preset="ColorMacro" Res1="#f0f8ff">CCT blue</Capability>
   <Capability Min="84" Max="89" Preset="ColorMacro" Res1="#380088">UV</Capability>
   <Capability Min="90" Max="127">CW rotation from slow to fast</Capability>
-  <Capability Min="128" Max="255" Preset="ColorMacro">Indexing position from 0 to 360°</Capability>
+  <Capability Min="128" Max="255">Indexing position from 0 to 360°</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>

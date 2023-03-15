@@ -15,7 +15,7 @@
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Sound Active">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="255">Sound-controlled</Capability>
  </Channel>
  <Channel Name="Strobe, Audio Sensitivity">
@@ -25,7 +25,7 @@
  </Channel>
  <Channel Name="Sound Active with Built-in Program">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="24">No Function</Capability>
+  <Capability Min="0" Max="24">No function</Capability>
   <Capability Min="25" Max="49">Pr1</Capability>
   <Capability Min="50" Max="74">Pr2</Capability>
   <Capability Min="75" Max="99">Pr3</Capability>

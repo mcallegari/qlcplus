@@ -20,7 +20,7 @@
   <Capability Min="18" Max="26" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="27" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="36" Max="44" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="45" Max="53" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="45" Max="53" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="54" Max="62">Color 6</Capability>
   <Capability Min="63" Max="71">Color 7</Capability>
   <Capability Min="72" Max="80">Color 8</Capability>
@@ -130,7 +130,7 @@
   <Capability Min="0" Max="225">Max to Min Speed</Capability>
   <Capability Min="226" Max="235">Blackout By Movement</Capability>
   <Capability Min="236" Max="245">Blackout By Wheel Changing</Capability>
-  <Capability Min="246" Max="255">No Function</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Lamp On/Off Program">
   <Group Byte="0">Maintenance</Group>

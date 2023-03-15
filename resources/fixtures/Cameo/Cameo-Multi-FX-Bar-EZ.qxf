@@ -142,16 +142,16 @@
   <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6fafa">Lavender</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
   <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="PAR 2+3 Colour">
   <Group Byte="0">Colour</Group>
@@ -164,16 +164,16 @@
   <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6fafa">Lavender</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
   <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Flash 1-4">
   <Group Byte="0">Shutter</Group>
@@ -213,16 +213,16 @@
   <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6fafa">Lavender</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
   <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
@@ -235,16 +235,16 @@
   <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6fafa">Lavender</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
   <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Derby 1-2">
   <Group Byte="0">Speed</Group>
@@ -269,16 +269,16 @@
   <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6fafa">Lavender</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
   <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Derby 1-2 Colour">
   <Group Byte="0">Colour</Group>
@@ -291,16 +291,16 @@
   <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6fafa">Lavender</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
   <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
-  <Capability Min="126" Max="127" Preset="ColorMacro">Colour Jumping Stop</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="PAR 1+4 - Red" Preset="IntensityRed"/>
  <Channel Name="PAR 1+4 - Green" Preset="IntensityGreen"/>

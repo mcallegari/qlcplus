@@ -12,7 +12,7 @@
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="63">RGB control, ch2=red, ch3=green, ch4=blue</Capability>
-  <Capability Min="100" Max="100">7 colour fade, ch5=speed control</Capability>
+  <Capability Min="64" Max="127">7 colour fade, ch5=speed control</Capability>
   <Capability Min="128" Max="191">7 colour change, ch5=speed control</Capability>
   <Capability Min="192" Max="255">3 colour change, ch5=speed control</Capability>
  </Channel>

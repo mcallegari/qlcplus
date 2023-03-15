@@ -33,7 +33,7 @@ VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QO
 
     m_pageContext = new PreviewContext(view, doc, QString("PAGE-%1").arg(pageIndex));
     m_pageContext->setContextResource("qrc:/VCPageArea.qml");
-    m_pageContext->setContextTitle(tr("Virtual Console Page %1").arg(pageIndex));
+    m_pageContext->setContextTitle(tr("Virtual Console Page %1").arg(pageIndex + 1));
     m_pageContext->setContextPage(pageIndex);
 }
 

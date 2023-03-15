@@ -21,7 +21,7 @@
  </Channel>
  <Channel Name="Shows">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="47">Preprogrammed automatic show 1</Capability>
   <Capability Min="48" Max="87">Preprogrammed automatic show 2</Capability>
   <Capability Min="88" Max="127">Preprogrammed automatic show 3</Capability>
@@ -32,16 +32,16 @@
  </Channel>
  <Channel Name="Moving Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
-  <Capability Min="8" Max="32">Pan-Tilt auto programme 1</Capability>
-  <Capability Min="33" Max="58">Pan-Tilt auto programme 2</Capability>
-  <Capability Min="59" Max="84">Pan-Tilt auto programme 3</Capability>
-  <Capability Min="85" Max="110">Pan-Tilt auto programme 4</Capability>
-  <Capability Min="111" Max="136">Pan-Tilt auto programme 5</Capability>
-  <Capability Min="137" Max="162">Pan-Tilt auto programme 6</Capability>
-  <Capability Min="163" Max="188">Pan-Tilt auto programme 7</Capability>
-  <Capability Min="189" Max="214">Pan-Tilt auto programme 8</Capability>
-  <Capability Min="215" Max="240">Pan-Tilt auto programme 9</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="32">Pan-Tilt auto program 1</Capability>
+  <Capability Min="33" Max="58">Pan-Tilt auto program 2</Capability>
+  <Capability Min="59" Max="84">Pan-Tilt auto program 3</Capability>
+  <Capability Min="85" Max="110">Pan-Tilt auto program 4</Capability>
+  <Capability Min="111" Max="136">Pan-Tilt auto program 5</Capability>
+  <Capability Min="137" Max="162">Pan-Tilt auto program 6</Capability>
+  <Capability Min="163" Max="188">Pan-Tilt auto program 7</Capability>
+  <Capability Min="189" Max="214">Pan-Tilt auto program 8</Capability>
+  <Capability Min="215" Max="240">Pan-Tilt auto program 9</Capability>
   <Capability Min="241" Max="255">Sound Control Pan/Tilt</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
@@ -58,10 +58,10 @@
   <Capability Min="68" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="77" Max="85" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue/Yellow</Capability>
   <Capability Min="86" Max="94" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ffff">Yellow/Light Blue</Capability>
-  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
-  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#8a2be2">Light Blue/Violet</Capability>
-  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#8a2be2">Violet</Capability>
+  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#add8e6">Yellow/Light Blue</Capability>
+  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ee82ee">Light Blue/Violet</Capability>
+  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
   <Capability Min="131" Max="139" Preset="ColorMacro" Res1="#ffffff">Open (White)</Capability>
   <Capability Min="140" Max="195" Preset="RotationClockwiseFastToSlow">Rainbow Clockwise</Capability>
   <Capability Min="196" Max="199" Preset="RotationStop">Rotation Stop</Capability>

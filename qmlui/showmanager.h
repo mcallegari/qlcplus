@@ -53,7 +53,7 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
-    Q_PROPERTY(int selectedTrack READ selectedTrack WRITE setSelectedTrack NOTIFY selectedTrackChanged)
+    Q_PROPERTY(int selectedTrackIndex READ selectedTrackIndex WRITE setSelectedTrackIndex NOTIFY selectedTrackIndexChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
 public:
@@ -70,13 +70,6 @@ public:
 
     /** Set the name of the Show Function to edit */
     void setShowName(QString showName);
-
-    /** Return a list of Track objects suitable for QML */
-    QVariant tracks();
-
-    /** Get/Set the selected track index */
-    int selectedTrack() const;
-    void setSelectedTrack(int selectedTrack);
 
     /** Reset the Show Manager contents to an initial state */
     void resetContents();
@@ -129,8 +122,6 @@ signals:
     void currentTimeChanged(int currentTime);
     void isPlayingChanged(bool playing);
     void showDurationChanged(int showDuration);
-    void tracksChanged();
-    void selectedTrackChanged(int selectedTrack);
 
 private:
     /** A reference to the Show Function being edited */
@@ -153,11 +144,32 @@ private:
     /** The current time position of the Show in ms */
     int m_currentTime;
 
+    /*********************************************************************
+      * Tracks
+      ********************************************************************/
+public:
+    /** Return a list of Track objects suitable for QML */
+    QVariant tracks();
+
+    /** Get/Set the selected track index */
+    int selectedTrackIndex() const;
+    void setSelectedTrackIndex(int index);
+
+    Q_INVOKABLE void setTrackSolo(int index, bool solo);
+
+    /** Move the track with the provided index in the provided direction */
+    Q_INVOKABLE void moveTrack(int index, int direction);
+
+signals:
+    void tracksChanged();
+    void selectedTrackIndexChanged(int index);
+
+private:
     /** A list of references to the selected Show Tracks */
     QList <Track*> m_tracksList;
 
     /** The index of the currently selected track */
-    int m_selectedTrack;
+    int m_selectedTrackIndex;
 
     /*********************************************************************
       * Show Items

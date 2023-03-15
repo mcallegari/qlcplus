@@ -161,7 +161,7 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Enable Blackout w/ Pan/Tilt Movement</Capability>
   <Capability Min="80" Max="89">Disable Blackout w/ Pan/Tilt Movement</Capability>
   <Capability Min="90" Max="99">Enable Blackout w/ Color Change</Capability>
@@ -172,9 +172,9 @@
   <Capability Min="140" Max="149" Preset="ResetColor">Color Wheel Reset</Capability>
   <Capability Min="150" Max="159" Preset="ResetGobo">Gobo Wheel Reset</Capability>
   <Capability Min="160" Max="169" Preset="ResetEffects">Effect Reset (Prism, Focus, Frost)</Capability>
-  <Capability Min="170" Max="199">No Function</Capability>
+  <Capability Min="170" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All Motors</Capability>
-  <Capability Min="210" Max="249">No Function</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Sound Active</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1 Rotation">

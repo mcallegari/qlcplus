@@ -40,6 +40,7 @@ Rectangle
     property alias showPalette: paletteBox.visible
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal close()
 
     function loadPalette(id)
     {
@@ -146,6 +147,15 @@ Rectangle
                     Layout.fillWidth: true
                     height: colorToolBar.height
                     drag.target: paletteBox.isEditing ? null : colorToolBox
+                }
+                GenericButton
+                {
+                    width: height
+                    height: parent.height
+                    border.color: UISettings.bgMedium
+                    useFontawesome: true
+                    label: FontAwesome.fa_times
+                    onClicked: colorToolBox.close()
                 }
             }
         }

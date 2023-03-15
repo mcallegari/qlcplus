@@ -27,6 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
+    width: mainView.width / 2
     title: qsTr("Create a new palette")
 
     property QLCPalette paletteObj

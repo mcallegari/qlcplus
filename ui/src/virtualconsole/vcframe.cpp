@@ -117,7 +117,11 @@ void VCFrame::setDisableState(bool disable)
     }
 
     foreach (VCWidget* widget, this->findChildren<VCWidget*>())
+    {
         widget->setDisableState(disable);
+        if (!disable)
+            widget->adjustIntensity(intensity());
+    }
 
     m_disableState = disable;
     updateFeedback();
@@ -647,7 +651,7 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
     while (it.hasNext() == true)
     {
         VCWidget *child = it.next();
-        if (child->parent() == this && child->page() == this->currentPage() && child != submaster)
+        if (child->parent() == this && child != submaster)
             child->adjustIntensity(value);
     }
 }
@@ -669,14 +673,18 @@ void VCFrame::updateSubmasterValue()
 
 void VCFrame::adjustIntensity(qreal val)
 {
+    VCWidget::adjustIntensity(val);
+
+    if (isDisabled())
+        return;
+
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget *child = it.next();
-        if (child->parent() == this && child->page() == this->currentPage())
+        if (child->parent() == this)
             child->adjustIntensity(val);
     }
-    VCWidget::adjustIntensity(val);
 }
 
 /*****************************************************************************

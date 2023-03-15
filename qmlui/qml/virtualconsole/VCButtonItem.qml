@@ -133,6 +133,7 @@ VCWidgetItem
     MouseArea
     {
         anchors.fill: parent
+        enabled: buttonObj && !buttonObj.isDisabled
         onClicked:
         {
             if (virtualConsole.editMode)
@@ -169,6 +170,7 @@ VCWidgetItem
     MultiPointTouchArea
     {
         anchors.fill: parent
+        enabled: buttonObj && !buttonObj.isDisabled
         mouseEnabled: false
         maximumTouchPoints: 1
 

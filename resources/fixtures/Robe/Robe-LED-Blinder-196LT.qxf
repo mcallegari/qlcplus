@@ -26,7 +26,7 @@
  <Channel Name="Blue LEDs" Preset="IntensityBlue"/>
  <Channel Name="Macro Selection">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Macro 1</Capability>
   <Capability Min="16" Max="23">Macro 2</Capability>
   <Capability Min="24" Max="31">Macro 3</Capability>

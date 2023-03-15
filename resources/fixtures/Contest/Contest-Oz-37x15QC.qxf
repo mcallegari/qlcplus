@@ -69,6 +69,8 @@
   <Capability Min="125" Max="129" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue/Red</Capability>
   <Capability Min="130" Max="134" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White/Red</Capability>
   <Capability Min="135" Max="139" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffaaff">White/Pink</Capability>
+  <Capability Min="140" Max="144" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ffff">White/Turquoise</Capability>
+  <Capability Min="145" Max="149" Preset="ColorDoubleMacro" Res1="#ff5163" Res2="#ffffff">Light red/White</Capability>
   <Capability Min="150" Max="255">Slow to fast rainbow effect</Capability>
  </Channel>
  <Channel Name="Preset colour dimmer">

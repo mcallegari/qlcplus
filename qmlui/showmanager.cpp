@@ -35,7 +35,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
     , m_currentTime(0)
-    , m_selectedTrack(-1)
+    , m_selectedTrackIndex(-1)
     , m_itemsColor(Qt::gray)
 {
     view->rootContext()->setContextProperty("showManager", this);
@@ -113,18 +113,47 @@ QVariant ShowManager::tracks()
     return QVariant::fromValue(m_tracksList);
 }
 
-int ShowManager::selectedTrack() const
+int ShowManager::selectedTrackIndex() const
 {
-    return m_selectedTrack;
+    return m_selectedTrackIndex;
 }
 
-void ShowManager::setSelectedTrack(int selectedTrack)
+void ShowManager::setSelectedTrackIndex(int index)
 {
-    if (m_selectedTrack == selectedTrack)
+    if (m_selectedTrackIndex == index)
         return;
 
-    m_selectedTrack = selectedTrack;
-    emit selectedTrackChanged(selectedTrack);
+    m_selectedTrackIndex = index;
+    emit selectedTrackIndexChanged(index);
+}
+
+void ShowManager::setTrackSolo(int index, bool solo)
+{
+    QList<Track*> tracks = m_currentShow->tracks();
+
+    if (index < 0 || index >= tracks.count())
+        return;
+
+    for (int i = 0; i < tracks.count(); i++)
+    {
+        if (i == index)
+            tracks.at(i)->setMute(false);
+        else
+            tracks.at(i)->setMute(solo);
+    }
+}
+
+void ShowManager::moveTrack(int index, int direction)
+{
+    QList<Track*> tracks = m_currentShow->tracks();
+
+    if (index < 0 || index >= tracks.count())
+        return;
+
+    m_currentShow->moveTrack(tracks.at(index), direction);
+    m_doc->setModified();
+
+    emit tracksChanged();
 }
 
 float ShowManager::timeScale() const
@@ -350,7 +379,7 @@ void ShowManager::resetContents()
 {
     resetView();
     m_currentTime = 0;
-    m_selectedTrack = -1;
+    m_selectedTrackIndex = -1;
     emit currentTimeChanged(m_currentTime);
     m_currentShow = nullptr;
 }
@@ -635,9 +664,22 @@ QVariantList ShowManager::previewData(Function *f) const
         break;
 
         /* All the other Function types */
-        default:
+        case Function::AudioType:
+        case Function::VideoType:
+        {
             data.append(RepeatingDuration);
             data.append(f->totalDuration());
+            data.append(FadeIn);
+            data.append(f->fadeInSpeed());
+            data.append(FadeOut);
+            data.append(f->fadeOutSpeed());
+        }
+        break;
+        default:
+        {
+            data.append(RepeatingDuration);
+            data.append(f->totalDuration());
+        }
         break;
     }
 

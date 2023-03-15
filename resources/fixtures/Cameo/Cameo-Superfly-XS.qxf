@@ -47,7 +47,7 @@
  </Channel>
  <Channel Name="LED Rotation">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="127">Motor indexing</Capability>
   <Capability Min="128" Max="255">Motor rotation (slow - fast)</Capability>
  </Channel>

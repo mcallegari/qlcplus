@@ -428,7 +428,6 @@ Rectangle
                           var funcRef = functionManager.getFunction(itemsList[0])
                           itemLabel = funcRef.name
                           itemIcon = functionManager.functionIcon(funcRef.type)
-                          //multipleItems = itemsList.length > 1 ? true : false
                       }
                   }
               }

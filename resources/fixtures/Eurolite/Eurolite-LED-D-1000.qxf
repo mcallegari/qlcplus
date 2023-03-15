@@ -17,7 +17,7 @@
  <Channel Name="Indigo" Preset="IntensityIndigo"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
  </Channel>
  <Channel Name="Step Motor Rotation">
@@ -27,7 +27,7 @@
  </Channel>
  <Channel Name="Mode Auto / Sound">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="200">Auto DMX</Capability>
   <Capability Min="201" Max="255">Sound DMX</Capability>
  </Channel>

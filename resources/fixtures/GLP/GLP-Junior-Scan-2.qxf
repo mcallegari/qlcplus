@@ -65,9 +65,9 @@
   <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
   <Capability Min="12" Max="15" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#007f00">Half-color 2</Capability>
   <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#007f00">Dark green</Capability>
-  <Capability Min="20" Max="23" Preset="ColorDoubleMacro" Res1="#007f00" Res2="#ffff00">Half-color 3</Capability>
-  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#ffff00">Light yellow</Capability>
-  <Capability Min="28" Max="31" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#7f7fff">Half-color 4</Capability>
+  <Capability Min="20" Max="23" Preset="ColorDoubleMacro" Res1="#007f00" Res2="#ffffe0">Half-color 3</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#ffffe0">Light yellow</Capability>
+  <Capability Min="28" Max="31" Preset="ColorDoubleMacro" Res1="#ffffe0" Res2="#7f7fff">Half-color 4</Capability>
   <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#7f7fff">Bright blue</Capability>
   <Capability Min="36" Max="39" Preset="ColorDoubleMacro" Res1="#7f7fff" Res2="#fad2ff">Half-color 5</Capability>
   <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#fad2ff">Lavender</Capability>

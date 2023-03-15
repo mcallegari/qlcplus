@@ -130,14 +130,17 @@
   <Capability Min="20" Max="28">Display off</Capability>
   <Capability Min="29" Max="29">No function</Capability>
   <Capability Min="30" Max="38">Display dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
   <Capability Min="40" Max="48">Display bright</Capability>
   <Capability Min="49" Max="59">No function</Capability>
   <Capability Min="60" Max="68">Home</Capability>
   <Capability Min="69" Max="79">No function</Capability>
   <Capability Min="80" Max="88" Preset="PrismEffectOff">Lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
   <Capability Min="90" Max="98" Preset="LampOff">Lamp off</Capability>
   <Capability Min="99" Max="109">No function</Capability>
   <Capability Min="110" Max="118">Lock</Capability>
+  <Capability Min="119" Max="119">No function</Capability>
   <Capability Min="120" Max="130">Fixture shutdown</Capability>
   <Capability Min="131" Max="255">No function</Capability>
  </Channel>
@@ -195,15 +198,19 @@
   <Capability Min="0" Max="9">Safe (disables all control settings)</Capability>
   <Capability Min="10" Max="19">Pan &amp; Tilt MSpeed off</Capability>
   <Capability Min="20" Max="28">Display off</Capability>
+  <Capability Min="29" Max="29">No function</Capability>
   <Capability Min="30" Max="38">Display dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
   <Capability Min="40" Max="48">Display bright</Capability>
   <Capability Min="49" Max="59">No function</Capability>
   <Capability Min="60" Max="68">Home</Capability>
   <Capability Min="69" Max="79">No function</Capability>
   <Capability Min="80" Max="88" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
   <Capability Min="90" Max="98" Preset="LampOff">Lamp off</Capability>
   <Capability Min="99" Max="109">No function</Capability>
   <Capability Min="110" Max="118">Lock (send for 5 seconds)</Capability>
+  <Capability Min="119" Max="119">No function</Capability>
   <Capability Min="120" Max="130">Shutdown (send for 5 seconds)</Capability>
   <Capability Min="131" Max="133">No function</Capability>
   <Capability Min="134" Max="137">Lamp assisted strobes (periodic and random strobe functions are lamp assisted, ramp functions are not lamp assisted)</Capability>

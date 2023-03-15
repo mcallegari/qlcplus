@@ -42,6 +42,8 @@ Rectangle
     property alias showPalette: paletteBox.visible
     property bool isLoading: false
 
+    signal close()
+
     onPanDegreesChanged:
     {
         if (isLoading)
@@ -146,6 +148,16 @@ Rectangle
         {
             anchors.fill: parent
             drag.target: posToolRoot
+        }
+        GenericButton
+        {
+            width: height
+            height: parent.height
+            anchors.right: parent.right
+            border.color: UISettings.bgMedium
+            useFontawesome: true
+            label: FontAwesome.fa_times
+            onClicked: posToolRoot.close()
         }
     }
 

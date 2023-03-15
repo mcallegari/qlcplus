@@ -105,7 +105,12 @@ quint32 Track::getSceneID()
  *********************************************************************/
 void Track::setMute(bool state)
 {
+    if (m_isMute == state)
+        return;
+
     m_isMute = state;
+
+    emit muteChanged(state);
 }
 
 bool Track::isMute()

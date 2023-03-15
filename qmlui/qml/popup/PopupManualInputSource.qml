@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 2
     title: qsTr("Manual input source selection")
     standardButtons: Dialog.Cancel | Dialog.Ok
 

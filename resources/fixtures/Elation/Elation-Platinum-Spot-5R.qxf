@@ -164,6 +164,7 @@
   <Capability Min="0" Max="225">Max -&gt; Min</Capability>
   <Capability Min="226" Max="235">Blackout By Movement</Capability>
   <Capability Min="236" Max="245">Blackout by All Wheel Change</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Lamp / Internal Programs">
   <Group Byte="0">Maintenance</Group>

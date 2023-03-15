@@ -26,9 +26,9 @@
  <Channel Name="Sequence">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="39" Preset="ColorMacro" Res1="#ffffff">ALL (Flash Cycle)</Capability>
-  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ff5500">Red</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#0055ff">Blue</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffff00">Red + Green</Capability>
   <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#00ffff">Green + Blue</Capability>
   <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ff55ff">Red + Blue</Capability>
@@ -43,7 +43,7 @@
   <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffaaff">Red + Blue + White</Capability>
   <Capability Min="190" Max="199" Preset="ColorMacro" Res1="#aaffff">Green + Blue + White</Capability>
   <Capability Min="200" Max="209" Preset="ColorMacro" Res1="#d9d9d9">Red + Green + Blue</Capability>
-  <Capability Min="210" Max="255" Preset="ColorMacro">ALL</Capability>
+  <Capability Min="210" Max="255" Preset="ColorMacro" Res1="#ffffff">ALL</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>

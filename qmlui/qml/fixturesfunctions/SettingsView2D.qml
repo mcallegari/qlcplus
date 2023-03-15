@@ -85,6 +85,7 @@ Rectangle
         visible: false
 
         onColorChanged: contextManager.setFixturesGelColor(Qt.rgba(r, g, b, 1.0))
+        onClose: visible = false
     }
 
     Column

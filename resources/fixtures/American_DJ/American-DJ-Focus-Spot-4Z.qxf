@@ -103,7 +103,7 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Function, reset, internal programs">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="19">Blackout with Pan/Tilt Movement</Capability>
   <Capability Min="20" Max="29">Blackout with Color Wheel Movement</Capability>
   <Capability Min="30" Max="39">Blackout with Gobo Wheel Movement</Capability>
@@ -119,7 +119,7 @@
   <Capability Min="180" Max="199">Internal Program 5 (Scene 33-40 of EEPRO)</Capability>
   <Capability Min="200" Max="219">Internal Program 6 (Scene 41-48 of EEPRO)</Capability>
   <Capability Min="220" Max="239">Internal Program 7 (Scene 49-56 of EEPRO)</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Pan Fine 16-bit" Preset="PositionPanFine"/>
  <Channel Name="Tilt Fine 16-bit" Preset="PositionTiltFine"/>

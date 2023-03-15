@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Yestalgia</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>ZQ-B243</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="139">Color Selection</Capability>
+  <Capability Min="140" Max="255" Preset="SlowToFast">Automatic Color Change</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="63">Fixed Gobo</Capability>
+  <Capability Min="64" Max="127">Shaking Gobo</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Automatic Change Pattern</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Automatic Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="59">Other channels function</Capability>
+  <Capability Min="60" Max="84">Automatic Mode 3</Capability>
+  <Capability Min="85" Max="109">Automatic Mode 2</Capability>
+  <Capability Min="110" Max="134">Automatic Mode 1</Capability>
+  <Capability Min="135" Max="159">Automatic Mode 0</Capability>
+  <Capability Min="160" Max="184">Voice Control Mode 3</Capability>
+  <Capability Min="185" Max="209">Voice Control Mode2</Capability>
+  <Capability Min="210" Max="234">Voice Control Mode 1</Capability>
+  <Capability Min="235" Max="255">Voice Control Mode 0</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="234">No Function</Capability>
+  <Capability Min="235" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Light Strips">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="109">Color Selection</Capability>
+  <Capability Min="110" Max="255">Color Auto Operation</Capability>
+ </Channel>
+ <Channel Name="Motor Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Color</Channel>
+  <Channel Number="5">Gobo</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Motor Speed</Channel>
+  <Channel Number="9">Automatic Mode</Channel>
+  <Channel Number="10">Reset</Channel>
+  <Channel Number="11">Light Strips</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Motor Speed</Channel>
+  <Channel Number="7">Automatic Mode</Channel>
+  <Channel Number="8">Reset</Channel>
+  <Channel Number="9">Light Strips</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5" ColourTemperature="3000"/>
+  <Dimensions Weight="2.92" Width="81" Height="57" Depth="113"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

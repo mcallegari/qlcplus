@@ -122,7 +122,7 @@
   <Capability Min="0" Max="255">Linear Frost</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
- <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Blade 1">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Linear Insertion</Capability>

@@ -21,9 +21,9 @@
   <Capability Min="37" Max="45" Preset="ColorMacro" Res1="#eeeeee">CTO 3200</Capability>
   <Capability Min="46" Max="54" Preset="ColorDoubleMacro" Res1="#eeeeee" Res2="#00ff00">CTO 3200 + Green</Capability>
   <Capability Min="55" Max="63" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="64" Max="73" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Green + Aquamarine</Capability>
-  <Capability Min="74" Max="82" Preset="ColorMacro" Res1="#00ffff">Aquamarine</Capability>
-  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffaa00">Aquamarine + Orange</Capability>
+  <Capability Min="64" Max="73" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#7fffd4">Green + Aquamarine</Capability>
+  <Capability Min="74" Max="82" Preset="ColorMacro" Res1="#7fffd4">Aquamarine</Capability>
+  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#7fffd4" Res2="#ffaa00">Aquamarine + Orange</Capability>
   <Capability Min="92" Max="100" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="101" Max="109" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#0000ff">Orange + Blue</Capability>
   <Capability Min="110" Max="118" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -95,11 +95,17 @@
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0">0 degree Position</Capability>
+  <Capability Min="1" Max="20">1°-89°</Capability>
   <Capability Min="21" Max="21">90 degree Position</Capability>
+  <Capability Min="22" Max="41">91°-179°</Capability>
   <Capability Min="42" Max="42">180 degree Position</Capability>
+  <Capability Min="43" Max="62">181°-269°</Capability>
   <Capability Min="63" Max="63">270 degree Position</Capability>
+  <Capability Min="64" Max="83">271°-350°</Capability>
   <Capability Min="84" Max="84">360 degree Position</Capability>
+  <Capability Min="85" Max="104">361°-449°</Capability>
   <Capability Min="105" Max="105">450 degree Position</Capability>
+  <Capability Min="106" Max="126">451°-539°</Capability>
   <Capability Min="127" Max="127">540 degree Position</Capability>
   <Capability Min="128" Max="190">CW Fast -&gt; Slow Rotation</Capability>
   <Capability Min="191" Max="192">Stop</Capability>
@@ -115,11 +121,17 @@
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="0">0 degree Position</Capability>
+  <Capability Min="1" Max="20">1°-89°</Capability>
   <Capability Min="21" Max="21">90 degree Position</Capability>
+  <Capability Min="22" Max="41">91°-179°</Capability>
   <Capability Min="42" Max="42">180 degree Position</Capability>
+  <Capability Min="43" Max="62">181°-269°</Capability>
   <Capability Min="63" Max="63">270 degree Position</Capability>
+  <Capability Min="64" Max="83">271°-359°</Capability>
   <Capability Min="84" Max="84">360 degree Position</Capability>
+  <Capability Min="85" Max="104">361°-449°</Capability>
   <Capability Min="105" Max="105">450 degree Position</Capability>
+  <Capability Min="106" Max="126">451°-539°</Capability>
   <Capability Min="127" Max="127">540 degree Position</Capability>
   <Capability Min="128" Max="190">CW Fast -&gt; Slow Rotation</Capability>
   <Capability Min="191" Max="192">Stop</Capability>
@@ -146,12 +158,12 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="12">Unused</Capability>
-  <Capability Min="13" Max="13">Fast Speed (Pan-Tilt Function)</Capability>
-  <Capability Min="26" Max="26">Normal Speed (Pan-Tilt Function)</Capability>
-  <Capability Min="39" Max="39">Conventional (Dimmer Curve Function)</Capability>
-  <Capability Min="51" Max="51">Linear (Dimmer Curve Function)</Capability>
-  <Capability Min="52" Max="255">Unused</Capability>
+  <Capability Min="0" Max="11">No function</Capability>
+  <Capability Min="12" Max="24">Fast Speed (Pan-Tilt Function)</Capability>
+  <Capability Min="25" Max="37">Normal Speed (Pan-Tilt Function)</Capability>
+  <Capability Min="38" Max="50">Conventional (Dimmer Curve Function)</Capability>
+  <Capability Min="51" Max="62">Linear (Dimmer Curve Function)</Capability>
+  <Capability Min="63" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>

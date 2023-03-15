@@ -29,7 +29,7 @@
   <Capability Min="68" Max="87" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="88" Max="97" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="98" Max="107" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="108" Max="117" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="108" Max="117" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="118" Max="255">Fade colour change (very slow &gt; fast)</Capability>
  </Channel>
  <Mode Name="5 Channel">

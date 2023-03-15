@@ -56,6 +56,7 @@
   <Capability Min="101" Max="109">Gobo 5 shake, slow-fast</Capability>
   <Capability Min="110" Max="127">Gobo 6 shake, slow-fast</Capability>
   <Capability Min="128" Max="129">Gobo scroll effect, clockwise, fast-slow</Capability>
+  <Capability Min="130" Max="189">No function</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Gobo scroll effect, anti-clockwise, slow-fast</Capability>
  </Channel>
@@ -74,7 +75,7 @@
  </Channel>
  <Channel Name="Auto mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="10">No function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Auto mode</Capability>
  </Channel>
  <Channel Name="Reset">

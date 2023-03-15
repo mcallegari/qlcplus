@@ -17,26 +17,26 @@
   <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffb500">Amber</Capability>
-  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; Green</Capability>
   <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green &amp; Blue</Capability>
   <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue &amp; White</Capability>
   <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffb400">White &amp; Amber</Capability>
-  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffb400" Res2="#ff00ff">Amber &amp; Pink</Capability>
-  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff00ff">Red &amp; Pink</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffb400" Res2="#ff00ff">Amber &amp; Magenta</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff00ff">Red &amp; Magenta</Capability>
   <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffb400">Green &amp; Amber</Capability>
   <Capability Min="140" Max="149">Red &amp; Green &amp; Blue</Capability>
   <Capability Min="150" Max="159">Red &amp; Green &amp; Amber</Capability>
-  <Capability Min="160" Max="169">Red &amp; Green &amp; Pink</Capability>
-  <Capability Min="170" Max="179">Red &amp; Blue &amp; Pink</Capability>
-  <Capability Min="180" Max="189">Blue &amp; White &amp; Pink</Capability>
+  <Capability Min="160" Max="169">Red &amp; Green &amp; Magenta</Capability>
+  <Capability Min="170" Max="179">Red &amp; Blue &amp; Magenta</Capability>
+  <Capability Min="180" Max="189">Blue &amp; White &amp; Magenta</Capability>
   <Capability Min="190" Max="199">Blue &amp; White &amp; Amber</Capability>
   <Capability Min="200" Max="209">Green &amp; Blue &amp; White</Capability>
   <Capability Min="210" Max="219">Green &amp; Blue &amp; Amber</Capability>
   <Capability Min="220" Max="229">Red &amp; Blue &amp; White</Capability>
   <Capability Min="230" Max="239">Red &amp; Blue &amp; Amber</Capability>
   <Capability Min="240" Max="249">Red &amp; White &amp; Amber</Capability>
-  <Capability Min="250" Max="255">Green &amp; White &amp; Pink</Capability>
+  <Capability Min="250" Max="255">Green &amp; White &amp; Magenta</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -58,7 +58,7 @@
  <Channel Name="Pink" Preset="IntensityMagenta"/>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="200">Auto Program</Capability>
   <Capability Min="201" Max="255">Sound Program</Capability>
  </Channel>

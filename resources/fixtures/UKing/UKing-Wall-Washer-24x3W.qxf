@@ -16,15 +16,34 @@
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="11">No Effect</Capability>
-  <Capability Min="12" Max="23">Red</Capability>
-  <Capability Min="24" Max="35">Green</Capability>
-  <Capability Min="36" Max="47">Blue</Capability>
-  <Capability Min="48" Max="59">Yellow</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="16" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="17" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="28" Max="38" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="39" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="60" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="61" Max="71" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="72" Max="82" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="83" Max="93">Point-to-Point-1</Capability>
+  <Capability Min="94" Max="104">Point-to-Point-2</Capability>
+  <Capability Min="105" Max="115">Point-to-Point-3</Capability>
+  <Capability Min="116" Max="126">Point-to-Point-4</Capability>
+  <Capability Min="127" Max="137">Point-to-Point-5</Capability>
+  <Capability Min="138" Max="148">Point-to-Point-6</Capability>
+  <Capability Min="149" Max="159">Point-to-Point-7</Capability>
+  <Capability Min="160" Max="170">Point-to-Point-8</Capability>
+  <Capability Min="171" Max="181">Point-to-Point-9</Capability>
+  <Capability Min="182" Max="192" Preset="ColorMacro" Res1="#ff0000">Red gradient</Capability>
+  <Capability Min="193" Max="203" Preset="ColorMacro" Res1="#00ff00">Green gradient</Capability>
+  <Capability Min="204" Max="214" Preset="ColorMacro" Res1="#0000ff">Blue gradient</Capability>
+  <Capability Min="215" Max="225" Preset="ColorMacro" Res1="#ff00ff">Purple gradient</Capability>
+  <Capability Min="226" Max="236" Preset="ColorMacro" Res1="#ffff00">Yellow gradient</Capability>
+  <Capability Min="237" Max="247">Cyclic gradient</Capability>
+  <Capability Min="248" Max="255">Sound</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="0">000 - 255 slow to fast</Capability>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Speed, slow to fast</Capability>
  </Channel>
  <Channel Name="Red1" Preset="IntensityRed"/>
  <Channel Name="Green1" Preset="IntensityGreen"/>

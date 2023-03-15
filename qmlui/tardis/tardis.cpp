@@ -924,6 +924,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
+        case AudioSetVolume:
+        {
+            auto member = std::mem_fn(&Audio::setVolume);
+            member(qobject_cast<Audio *>(m_doc->function(action.m_objID)), value->toDouble());
+        }
+        break;
+
         /* *********************** Video editing actions *********************** */
 
         case VideoSetSource:

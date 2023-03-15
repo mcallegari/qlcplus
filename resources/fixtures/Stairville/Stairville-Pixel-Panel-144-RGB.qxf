@@ -446,47 +446,47 @@
  <Channel Name="Red Intensity" Preset="IntensityRed"/>
  <Channel Name="Green Intensity" Preset="IntensityGreen"/>
  <Channel Name="Blue Intensity" Preset="IntensityBlue"/>
- <Channel Name="Show Programmes 1">
+ <Channel Name="Show Programs 1">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="31">Show programme 01</Capability>
-  <Capability Min="32" Max="47">Show programme 02</Capability>
-  <Capability Min="48" Max="63">Show programme 03</Capability>
-  <Capability Min="64" Max="79">Show programme 04</Capability>
-  <Capability Min="80" Max="95">Show programme 05</Capability>
-  <Capability Min="96" Max="111">Show programme 06</Capability>
-  <Capability Min="112" Max="127">Show programme 07</Capability>
-  <Capability Min="128" Max="143">Show programme 08</Capability>
-  <Capability Min="144" Max="159">Show programme 09</Capability>
-  <Capability Min="160" Max="175">Show programme 10</Capability>
-  <Capability Min="176" Max="191">Show programme 11</Capability>
-  <Capability Min="192" Max="207">Show programme 12</Capability>
-  <Capability Min="208" Max="223">Show programme 13</Capability>
-  <Capability Min="224" Max="239">Show programme 14</Capability>
-  <Capability Min="240" Max="255">Show programme 15</Capability>
+  <Capability Min="16" Max="31">Show program 01</Capability>
+  <Capability Min="32" Max="47">Show program 02</Capability>
+  <Capability Min="48" Max="63">Show program 03</Capability>
+  <Capability Min="64" Max="79">Show program 04</Capability>
+  <Capability Min="80" Max="95">Show program 05</Capability>
+  <Capability Min="96" Max="111">Show program 06</Capability>
+  <Capability Min="112" Max="127">Show program 07</Capability>
+  <Capability Min="128" Max="143">Show program 08</Capability>
+  <Capability Min="144" Max="159">Show program 09</Capability>
+  <Capability Min="160" Max="175">Show program 10</Capability>
+  <Capability Min="176" Max="191">Show program 11</Capability>
+  <Capability Min="192" Max="207">Show program 12</Capability>
+  <Capability Min="208" Max="223">Show program 13</Capability>
+  <Capability Min="224" Max="239">Show program 14</Capability>
+  <Capability Min="240" Max="255">Show program 15</Capability>
  </Channel>
- <Channel Name="Show Programmes 2">
+ <Channel Name="Show Programs 2">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="31">Show programme 16</Capability>
-  <Capability Min="32" Max="47">Show programme 17</Capability>
-  <Capability Min="48" Max="63">Show programme 18</Capability>
-  <Capability Min="64" Max="79">Show programme 19</Capability>
-  <Capability Min="80" Max="95">Show programme 20</Capability>
-  <Capability Min="96" Max="111">Show programme 21</Capability>
-  <Capability Min="112" Max="127">Show programme 22</Capability>
-  <Capability Min="128" Max="143">Show programme 23</Capability>
-  <Capability Min="144" Max="159">Show programme 24</Capability>
-  <Capability Min="160" Max="175">Show programme 25</Capability>
-  <Capability Min="176" Max="191">Show programme 26</Capability>
-  <Capability Min="192" Max="207">Show programme 27</Capability>
-  <Capability Min="208" Max="223">Show programme 28</Capability>
-  <Capability Min="224" Max="239">Show programme 29</Capability>
-  <Capability Min="240" Max="255">Show programme 30</Capability>
+  <Capability Min="16" Max="31">Show program 16</Capability>
+  <Capability Min="32" Max="47">Show program 17</Capability>
+  <Capability Min="48" Max="63">Show program 18</Capability>
+  <Capability Min="64" Max="79">Show program 19</Capability>
+  <Capability Min="80" Max="95">Show program 20</Capability>
+  <Capability Min="96" Max="111">Show program 21</Capability>
+  <Capability Min="112" Max="127">Show program 22</Capability>
+  <Capability Min="128" Max="143">Show program 23</Capability>
+  <Capability Min="144" Max="159">Show program 24</Capability>
+  <Capability Min="160" Max="175">Show program 25</Capability>
+  <Capability Min="176" Max="191">Show program 26</Capability>
+  <Capability Min="192" Max="207">Show program 27</Capability>
+  <Capability Min="208" Max="223">Show program 28</Capability>
+  <Capability Min="224" Max="239">Show program 29</Capability>
+  <Capability Min="240" Max="255">Show program 30</Capability>
  </Channel>
- <Channel Name="Programme Speed">
+ <Channel Name="Program Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Programme speed - slow ... fast</Capability>
+  <Capability Min="0" Max="255">Program speed - slow ... fast</Capability>
  </Channel>
  <Mode Name="432 channel">
   <Channel Number="0">Red 1</Channel>
@@ -1648,9 +1648,9 @@
   <Channel Number="2">Red Intensity</Channel>
   <Channel Number="3">Green Intensity</Channel>
   <Channel Number="4">Blue Intensity</Channel>
-  <Channel Number="5">Show Programmes 1</Channel>
-  <Channel Number="6">Show Programmes 2</Channel>
-  <Channel Number="7">Programme Speed</Channel>
+  <Channel Number="5">Show Programs 1</Channel>
+  <Channel Number="6">Show Programs 2</Channel>
+  <Channel Number="7">Program Speed</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>

@@ -54,13 +54,21 @@
  <Channel Name="Gobowheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="32">Open/Beam Reducer 1</Capability>
   <Capability Min="33" Max="33">Beam Reducer 1</Capability>
+  <Capability Min="34" Max="64">Beam Reducer 1/Beam Reducer 2</Capability>
   <Capability Min="65" Max="65">Beam Reducer 2</Capability>
+  <Capability Min="66" Max="96">Beam Reducer 2/Gobo 1</Capability>
   <Capability Min="97" Max="97">Gobo 1</Capability>
+  <Capability Min="98" Max="128">Gobo 1/Gobo 2</Capability>
   <Capability Min="129" Max="129">Gobo 2</Capability>
+  <Capability Min="130" Max="160">Gobo 2/Multi-color-Gobo</Capability>
   <Capability Min="161" Max="161">Multi-color-Gobo</Capability>
+  <Capability Min="162" Max="192">Multi-color-Gobo/Dichro-Gobo 1</Capability>
   <Capability Min="193" Max="193">Dichro-Gobo 1</Capability>
+  <Capability Min="194" Max="224">Dichro-Gobo 1/Dichro-Gobo 2</Capability>
   <Capability Min="225" Max="225">Dichro-Gobo 2</Capability>
+  <Capability Min="226" Max="255">Dichro-Gobo 2/Open</Capability>
  </Channel>
  <Channel Name="Dimmer/Strobe">
   <Group Byte="0">Shutter</Group>

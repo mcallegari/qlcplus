@@ -50,6 +50,26 @@
       </spacer>
      </item>
      <item>
+      <widget class="QLabel" name="m_devFoundLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="QToolButton" name="m_getInfoButton">
        <property name="toolTip">
         <string>Retrieve the selected fixture information</string>
@@ -211,6 +231,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_rdmTree</tabstop>
+  <tabstop>m_getInfoButton</tabstop>
+  <tabstop>m_pidEdit</tabstop>
+  <tabstop>m_pidArgsEdit</tabstop>
+  <tabstop>m_readButton</tabstop>
+  <tabstop>m_writeButton</tabstop>
+  <tabstop>m_dataTypeCombo</tabstop>
+  <tabstop>m_pidResult</tabstop>
+  <tabstop>m_refreshButton</tabstop>
+ </tabstops>
  <resources>
   <include location="qlcui.qrc"/>
  </resources>

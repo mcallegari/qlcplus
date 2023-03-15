@@ -89,6 +89,7 @@
   <Capability Min="176" Max="183">Dark pink</Capability>
   <Capability Min="184" Max="191">Yellow</Capability>
   <Capability Min="192" Max="199">White</Capability>
+  <Capability Min="200" Max="200">No function</Capability>
   <Capability Min="201" Max="255">Rainbow</Capability>
  </Channel>
  <Channel Name="Dimmer/Shutter">

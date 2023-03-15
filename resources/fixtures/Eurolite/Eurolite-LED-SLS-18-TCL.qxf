@@ -16,7 +16,7 @@
  <Channel Name="Shutter" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -43,9 +43,9 @@
  </Channel>
  <Channel Name="ColorControl">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="5">Music Control (7 Colors)</Capability>
-  <Capability Min="6" Max="10">No Function</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeFrequency">Strobe (Increasing)</Capability>
  </Channel>
  <Mode Name="3 Channel">

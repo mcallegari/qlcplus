@@ -27,6 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
+    width: mainView.width / 2
     title: qsTr("Enter a name for the scene")
 
     property bool show: !dontAskCheck.checked

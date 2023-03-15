@@ -23,7 +23,7 @@
 
 RDMProtocol::RDMProtocol()
     : m_estaID(QLCPLUS_ESTA_ID)
-    , m_deviceID(0x01090709)
+    , m_deviceID(QLCPLUS_DEVICE_ID)
     , m_transactionNum(0x01)
 {
 }
@@ -148,6 +148,14 @@ bool RDMProtocol::packetizeCommand(ushort command, QVariantList params, bool sta
             {
                 int size = params.at(i).toInt();
 
+                // special case for byte arrays
+                if (size == 99)
+                {
+                    QByteArray ba = params.at(i + 1).toByteArray();
+                    buffer.append(ba);
+                    break;
+                }
+
                 switch (size)
                 {
                     case 1:
@@ -159,11 +167,6 @@ bool RDMProtocol::packetizeCommand(ushort command, QVariantList params, bool sta
                     case 4:
                         buffer.append(longToByteArray(params.at(i + 1).toUInt()));
                     break;
-                    case 99:
-                    {
-                        QByteArray ba = params.at(i + 1).toByteArray();
-                        buffer.append(ba);
-                    }
                     default:
                     break;
                 }
@@ -285,6 +288,10 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
     QString sourceUID = byteArrayToUID(buffer.mid(i, 6), ESTAId, deviceId);
     i += 6;
 
+    // check if we are reading our own request
+    if (ESTAId == m_estaID && deviceId == m_deviceID)
+        return false;
+
     values.insert("UID_INFO", sourceUID);
 
     // transaction number
@@ -339,12 +346,13 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         case PID_SUPPORTED_PARAMETERS:
         {
             QVector<quint16> pidList;
-
+            QDebug out = qDebug();
+            out.nospace().noquote() << "Supported PIDs list: ";
             for (int n = 0; n < PDL; n += 2)
             {
                 quint16 pid = byteArrayToShort(buffer, i + n);
                 pidList.append(pid);
-                qDebug().nospace().noquote() << "Supported PID: 0x" << QString::number(pid, 16);
+                out << "0x" << QString::number(pid, 16) << ", ";
             }
             values.insert("PID_LIST", QVariant::fromValue(pidList));
         }

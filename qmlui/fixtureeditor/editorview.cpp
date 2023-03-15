@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
+
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlcchannel.h"
 
 #include "channeledit.h"
 #include "editorview.h"
@@ -181,6 +182,7 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     if (ch == nullptr)
     {
         ch = new QLCChannel();
+        QQmlEngine::setObjectOwnership(ch, QQmlEngine::CppOwnership);
         ch->setName(tr("New channel %1").arg(m_fixtureDef->channels().count() + 1));
         m_fixtureDef->addChannel(ch);
         updateChannelList();
@@ -191,11 +193,82 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     return m_channelEdit;
 }
 
+void EditorView::addPresetChannel(QString name, int group)
+{
+    QLCChannel *channel = new QLCChannel();
+    channel->setName(name);
+    if (group > QLCChannel::Nothing)
+    {
+        channel->setGroup(QLCChannel::Intensity);
+        channel->setColour(QLCChannel::PrimaryColour(group));
+
+        switch (QLCChannel::PrimaryColour(group))
+        {
+            case QLCChannel::Red:
+                channel->setPreset(QLCChannel::IntensityRed);
+            break;
+            case QLCChannel::Green:
+                channel->setPreset(QLCChannel::IntensityGreen);
+            break;
+            case QLCChannel::Blue:
+                channel->setPreset(QLCChannel::IntensityBlue);
+            break;
+            case QLCChannel::White:
+                channel->setPreset(QLCChannel::IntensityWhite);
+            break;
+            case QLCChannel::Amber:
+                channel->setPreset(QLCChannel::IntensityAmber);
+            break;
+            case QLCChannel::UV:
+                channel->setPreset(QLCChannel::IntensityUV);
+            break;
+            default:
+            break;
+        }
+    }
+    else
+    {
+        channel->setGroup(QLCChannel::Group(group));
+
+        switch (QLCChannel::Group(group))
+        {
+            case QLCChannel::Intensity:
+                channel->setPreset(QLCChannel::IntensityDimmer);
+            break;
+            case QLCChannel::Pan:
+                channel->setPreset(QLCChannel::PositionPan);
+            break;
+            case QLCChannel::Tilt:
+                channel->setPreset(QLCChannel::PositionTilt);
+            break;
+            case QLCChannel::Colour:
+                channel->setPreset(QLCChannel::ColorMacro);
+            break;
+            case QLCChannel::Shutter:
+                channel->setPreset(QLCChannel::ShutterStrobeSlowFast);
+            break;
+            case QLCChannel::Beam:
+                channel->setPreset(QLCChannel::NoFunction);
+            break;
+            case QLCChannel::Effect:
+                channel->setPreset(QLCChannel::NoFunction);
+            break;
+            default:
+            break;
+        }
+    }
+    channel->addPresetCapability();
+    m_fixtureDef->addChannel(channel);
+    updateChannelList();
+    setModified(true);
+}
+
 bool EditorView::deleteChannel(QLCChannel *channel)
 {
     // TODO: Tardis
     bool res = m_fixtureDef->removeChannel(channel);
     updateChannelList();
+    setModified(true);
     return res;
 }
 
@@ -250,7 +323,7 @@ void EditorView::updateModeList()
 
 void EditorView::modeNameChanged()
 {
-    setModified();
+    setModified(true);
     updateModeList();
 }
 

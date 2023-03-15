@@ -58,7 +58,7 @@
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
-  <Capability Max="127" Min="0">No Function</Capability>
+  <Capability Max="127" Min="0">No function</Capability>
   <Capability Max="255" Min="128">3-facet Prism Effect</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
@@ -75,7 +75,7 @@
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Max="19" Min="0">No Function</Capability>
+  <Capability Max="19" Min="0">No function</Capability>
   <Capability Max="39" Min="20">Blackout during Pan/Tilt movement</Capability>
   <Capability Max="59" Min="40">Disabled blackout during Pan/Tilt movement</Capability>
   <Capability Max="79" Min="60">Auto 1</Capability>
@@ -84,9 +84,9 @@
   <Capability Max="139" Min="120">Sound 2</Capability>
   <Capability Max="159" Min="140">Custom</Capability>
   <Capability Max="179" Min="160">Test</Capability>
-  <Capability Max="199" Min="180">No Function</Capability>
+  <Capability Max="199" Min="180">No function</Capability>
   <Capability Max="219" Min="200">Reset</Capability>
-  <Capability Max="255" Min="220">No Function</Capability>
+  <Capability Max="255" Min="220">No function</Capability>
  </Channel>
  <Mode Name="Advanced">
   <Channel Number="0">Pan</Channel>

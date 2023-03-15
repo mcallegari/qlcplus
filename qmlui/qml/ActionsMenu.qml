@@ -298,13 +298,15 @@ Popup
             }
         }
 
-        Row
+        RowLayout
         {
             height: UISettings.iconSizeDefault
+            width: parent.width
+            spacing: 0
 
             ContextMenuEntry
             {
-                width: actionsMenuEntries.width / 2
+                Layout.fillWidth: true
                 imgSource: "qrc:/undo.svg"
                 entryText: qsTr("Undo")
                 onEntered: submenuItem = null
@@ -317,7 +319,7 @@ Popup
             }
             ContextMenuEntry
             {
-                width: actionsMenuEntries.width / 2
+                Layout.fillWidth: true
                 imgSource: "qrc:/redo.svg"
                 entryText: qsTr("Redo")
                 onEntered: submenuItem = null
@@ -407,10 +409,12 @@ Popup
             CustomPopupDialog
             {
                 id: addrToolDialog
+                width: mainView.width / 3.5
                 title: qsTr("DMX Address tool")
                 standardButtons: Dialog.Close
 
-                contentItem: DMXAddressTool { }
+                contentItem:
+                    DMXAddressTool { }
             }
         }
 

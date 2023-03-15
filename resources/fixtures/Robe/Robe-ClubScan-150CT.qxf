@@ -66,6 +66,7 @@
   <Capability Min="130" Max="135">Gobo 11</Capability>
   <Capability Min="136" Max="141">Gobo 12</Capability>
   <Capability Min="142" Max="147">Gobo 13</Capability>
+  <Capability Min="148" Max="153">Open</Capability>
   <Capability Min="154" Max="157">Open/BlkO</Capability>
   <Capability Min="158" Max="161">BlkO/Gb 1</Capability>
   <Capability Min="162" Max="165">Gb 1/Gb 2</Capability>

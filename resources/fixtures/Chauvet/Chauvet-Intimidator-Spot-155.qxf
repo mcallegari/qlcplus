@@ -24,7 +24,7 @@
   <Capability Min="30" Max="35" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="36" Max="41" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
   <Capability Min="42" Max="47" Preset="ColorMacro" Res1="#0000aa">Blue</Capability>
-  <Capability Min="48" Max="53" Preset="ColorMacro" Res1="#00ff00">Light green</Capability>
+  <Capability Min="48" Max="53" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
   <Capability Min="54" Max="63" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
   <Capability Min="64" Max="69" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + yellow</Capability>
   <Capability Min="70" Max="75" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + magenta</Capability>
@@ -34,7 +34,7 @@
   <Capability Min="94" Max="99" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ff5500">Cyan + orange</Capability>
   <Capability Min="100" Max="105" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#0000ff">Orange + blue</Capability>
   <Capability Min="106" Max="111" Preset="ColorDoubleMacro" Res1="#0000aa" Res2="#00ff00">Blue + light green</Capability>
-  <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffbf00">Light green + amber</Capability>
+  <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#90ee90">Light green + amber</Capability>
   <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffffff">Amber + white</Capability>
   <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color cycling rainbow with increasing speed</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse color cycling rainbow with increasing speed</Capability>
@@ -91,7 +91,7 @@
  </Channel>
  <Channel Name="Movement Macros">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Automatic 1</Capability>
   <Capability Min="24" Max="39">Automatic 2</Capability>
   <Capability Min="40" Max="55">Automatic 3</Capability>

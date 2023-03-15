@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
+
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
 
@@ -29,11 +31,12 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
     if (m_channel->capabilities().count() == 0)
     {
         QLCCapability *cap = new QLCCapability(0, UCHAR_MAX);
+        QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
         cap->setWarning(QLCCapability::EmptyName);
         m_channel->addCapability(cap);
     }
 
-    connect(m_channel, SIGNAL(presetChanged()), this, SIGNAL(channelChanged()));
+    connect(m_channel, SIGNAL(presetChanged()), this, SLOT(setupPreset()));
     connect(m_channel, SIGNAL(nameChanged()), this, SIGNAL(channelChanged()));
     connect(m_channel, SIGNAL(defaultValueChanged()), this, SIGNAL(channelChanged()));
     connect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
@@ -177,12 +180,30 @@ void ChannelEdit::updateCapabilities()
     emit capabilitiesChanged();
 }
 
+void ChannelEdit::setupPreset()
+{
+    if (m_channel->preset() == QLCChannel::Custom)
+    {
+        emit channelChanged();
+        return;
+    }
+
+    for (QLCCapability *cap : m_channel->capabilities())
+        m_channel->removeCapability(cap);
+
+    m_channel->addPresetCapability();
+
+    updateCapabilities();
+
+    emit channelChanged();
+}
+
 QVariantList ChannelEdit::capabilities() const
 {
     return m_capabilities;
 }
 
-QLCCapability *ChannelEdit::addCapability()
+QLCCapability *ChannelEdit::addNewCapability()
 {
     int min = 0;
     if (m_channel->capabilities().count())
@@ -191,11 +212,48 @@ QLCCapability *ChannelEdit::addCapability()
         min = last->max() + 1;
     }
     QLCCapability *cap = new QLCCapability(min, UCHAR_MAX);
+    QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
     cap->setWarning(QLCCapability::EmptyName);
     if (m_channel->addCapability(cap))
+    {
         updateCapabilities();
+    }
+    else
+    {
+        delete cap;
+        return nullptr;
+    }
 
     return cap;
+}
+
+QLCCapability *ChannelEdit::addCapability(int min, int max, QString name)
+{
+    QLCCapability *cap = new QLCCapability(min, max);
+    QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
+    cap->setName(name);
+    if (m_channel->addCapability(cap))
+    {
+        updateCapabilities();
+    }
+    else
+    {
+        delete cap;
+        return nullptr;
+    }
+
+    return cap;
+}
+
+void ChannelEdit::removeCapabilityAtIndex(int index)
+{
+    QList<QLCCapability *> caps = m_channel->capabilities();
+
+    if (index < 0 || index >= caps.count())
+        return;
+
+    if (m_channel->removeCapability(caps[index]))
+        updateCapabilities();
 }
 
 int ChannelEdit::getCapabilityPresetAtIndex(int index)
@@ -206,6 +264,17 @@ int ChannelEdit::getCapabilityPresetAtIndex(int index)
         return 0;
 
     return caps.at(index)->preset();
+}
+
+void ChannelEdit::setCapabilityPresetAtIndex(int index, int preset)
+{
+    QList<QLCCapability *> caps = m_channel->capabilities();
+
+    if (index < 0 || index >= caps.count())
+        return;
+
+    QLCCapability *cap = caps.at(index);
+    cap->setPreset(QLCCapability::Preset(preset));
 }
 
 int ChannelEdit::getCapabilityPresetType(int index)
@@ -238,6 +307,16 @@ QVariant ChannelEdit::getCapabilityValueAt(int index, int vIndex)
     return caps.at(index)->resource(vIndex);
 }
 
+void ChannelEdit::setCapabilityValueAt(int index, int vIndex, QVariant value)
+{
+    QList<QLCCapability *> caps = m_channel->capabilities();
+
+    if (index < 0 || index >= caps.count())
+        return;
+
+    caps.at(index)->setResource(vIndex, value);
+}
+
 void ChannelEdit::checkCapabilities()
 {
     QVector<bool>allocation;
@@ -260,5 +339,3 @@ void ChannelEdit::checkCapabilities()
         }
     }
 }
-
-

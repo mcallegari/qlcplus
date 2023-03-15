@@ -49,6 +49,7 @@
   <Capability Min="184" Max="206" Preset="ColorMacro" Res1="#55007f">Purple</Capability>
   <Capability Min="207" Max="229" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
   <Capability Min="230" Max="252" Preset="ColorMacro" Res1="#005500">Dark Green</Capability>
+  <Capability Min="253" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
  </Channel>
  <Mode Name="1 Channel">
   <Channel Number="0">Colours</Channel>

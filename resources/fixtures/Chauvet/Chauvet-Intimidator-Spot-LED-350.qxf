@@ -21,19 +21,19 @@
   <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ff557f">Pink</Capability>
   <Capability Min="21" Max="27" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
   <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
+  <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
   <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#55ff00">Kelly Green</Capability>
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
-  <Capability Min="56" Max="64" Preset="ColorMacro" Res1="#0000ff">Dark Blue</Capability>
+  <Capability Min="56" Max="64" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="65" Max="71" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + Yellow</Capability>
   <Capability Min="72" Max="78" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + Pink</Capability>
   <Capability Min="79" Max="85" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00aa00">Pink + Green</Capability>
   <Capability Min="86" Max="92" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green + Red</Capability>
-  <Capability Min="93" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aaff">Red + Light Blue</Capability>
-  <Capability Min="100" Max="106" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#00ff00">Light Blue + Kelly Green</Capability>
+  <Capability Min="93" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#add8e6">Red + Light Blue</Capability>
+  <Capability Min="100" Max="106" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#00ff00">Light Blue + Kelly Green</Capability>
   <Capability Min="107" Max="113" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#ff5500">Kelly Green + Orange</Capability>
-  <Capability Min="114" Max="120" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#0000ff">Orange + Dark Blue</Capability>
-  <Capability Min="121" Max="127" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Dark Blue + White</Capability>
+  <Capability Min="114" Max="120" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#00008b">Orange + Dark Blue</Capability>
+  <Capability Min="121" Max="127" Preset="ColorDoubleMacro" Res1="#00008b" Res2="#ffffff">Dark Blue + White</Capability>
   <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color cycling rainbow with increasing speed</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse color cycling rainbow with increasing speed</Capability>
  </Channel>
@@ -74,7 +74,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="27">Blackout while pan/tilt moving</Capability>
   <Capability Min="28" Max="47">Blsckout while moving Gobo wheel</Capability>
   <Capability Min="48" Max="67">Disable Blackout while pan/tilt/moving gobo wheel</Capability>
@@ -88,11 +88,11 @@
   <Capability Min="178" Max="187" Preset="ResetGobo">Reset Gobo wheel</Capability>
   <Capability Min="188" Max="197" Preset="ResetPrism">Reset Prism</Capability>
   <Capability Min="198" Max="207" Preset="ResetAll">Reset all channels</Capability>
-  <Capability Min="208" Max="255">No Function</Capability>
+  <Capability Min="208" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macros">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Automatic Movement 1</Capability>
   <Capability Min="24" Max="39">Automatic Movement 2</Capability>
   <Capability Min="40" Max="55">Automatic Movement 3</Capability>

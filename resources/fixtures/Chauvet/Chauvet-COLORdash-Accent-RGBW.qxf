@@ -42,7 +42,7 @@
  </Channel>
  <Channel Name="Program Selection">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="20">No Function</Capability>
+  <Capability Min="0" Max="20">No function</Capability>
   <Capability Min="21" Max="30">Auto 0</Capability>
   <Capability Min="31" Max="40">Auto 1</Capability>
   <Capability Min="41" Max="50">Auto 2</Capability>

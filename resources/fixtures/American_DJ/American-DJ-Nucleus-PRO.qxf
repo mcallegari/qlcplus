@@ -51,7 +51,7 @@
  <Channel Name="Mirror 1 Tilt" Preset="PositionTilt"/>
  <Channel Name="Color Macros LED 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#fcded8">Bastard Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffbe55">Medium Amber</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fcd7b3">Pale Amber Gold</Capability>
@@ -69,7 +69,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -97,7 +97,7 @@
  <Channel Name="Mirror 6 Tilt" Preset="PositionTilt"/>
  <Channel Name="Color Macros LED 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#fcded8">Bastard Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffbe55">Medium Amber</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fcd7b3">Pale Amber Gold</Capability>
@@ -115,7 +115,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -133,7 +133,7 @@
  </Channel>
  <Channel Name="Color Macros LED 3">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#fcded8">Bastard Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffbe55">Medium Amber</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fcd7b3">Pale Amber Gold</Capability>
@@ -151,7 +151,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -169,7 +169,7 @@
  </Channel>
  <Channel Name="Color Macros LED 4">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#fcded8">Bastard Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffbe55">Medium Amber</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fcd7b3">Pale Amber Gold</Capability>
@@ -187,7 +187,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -205,7 +205,7 @@
  </Channel>
  <Channel Name="Color Macros LED 5">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#fcded8">Bastard Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffbe55">Medium Amber</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fcd7b3">Pale Amber Gold</Capability>
@@ -223,7 +223,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>
@@ -241,7 +241,7 @@
  </Channel>
  <Channel Name="Color Macros LED 6">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#fcded8">Bastard Amber</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffbe55">Medium Amber</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fcd7b3">Pale Amber Gold</Capability>
@@ -259,7 +259,7 @@
   <Capability Min="117" Max="123" Preset="ColorMacro" Res1="#b1c5e0">Hemsley Blue</Capability>
   <Capability Min="124" Max="131" Preset="ColorMacro" Res1="#a8bdff">Tipton Blue</Capability>
   <Capability Min="132" Max="139" Preset="ColorMacro" Res1="#b0c3de">Light Steel Blue</Capability>
-  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#b0c4de">Light Sky Blue</Capability>
+  <Capability Min="140" Max="147" Preset="ColorMacro" Res1="#87cefa">Light Sky Blue</Capability>
   <Capability Min="148" Max="154" Preset="ColorMacro" Res1="#46bff0">Sky Blue</Capability>
   <Capability Min="155" Max="162" Preset="ColorMacro" Res1="#1c7ee7">Brilliant Blue</Capability>
   <Capability Min="163" Max="170" Preset="ColorMacro" Res1="#0eb8e7">Light Breen Blue</Capability>

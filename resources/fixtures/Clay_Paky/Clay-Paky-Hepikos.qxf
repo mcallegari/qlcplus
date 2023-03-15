@@ -27,31 +27,31 @@
   <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#d3eefd">CTB</Capability>
   <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#d3eefd" Res2="#004f9f">CTB + Brilliant Blue</Capability>
   <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#004f9f">Brilliant Blue</Capability>
-  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#004f9f" Res2="#77b82a">Brilliant Blue + Green</Capability>
-  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#77b82a">Green</Capability>
-  <Capability Min="120" Max="126" Preset="ColorDoubleMacro" Res1="#77b82a" Res2="#213a8f">Green + Blue Wood</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#004f9f" Res2="#00ff00">Brilliant Blue + Green</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="120" Max="126" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#213a8f">Green + Blue Wood</Capability>
   <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#213a8f">Blue Wood</Capability>
   <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Continuous CW colour wheel rotation (slow to fast)</Capability>
  </Channel>
  <Channel Name="Colour Wheel 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
-  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#e40513">Empty + Red</Capability>
-  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#e40513">Red</Capability>
-  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#e40513" Res2="#178c39">Red + Dark Green</Capability>
-  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#178c39">Dark Green</Capability>
-  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#178c39" Res2="#f07e24">Dark Green + Orange</Capability>
-  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#f07e24">Orange</Capability>
-  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#f07e24" Res2="#fce2d7">Orange + Light Pink</Capability>
-  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#fce2d7">Light Pink</Capability>
-  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#fce2d7" Res2="#a4bce3">Light Pink + Lavender</Capability>
-  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#a4bce3">Lavender</Capability>
-  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#a4bce3" Res2="#7fc184">Lavender + Aquamarine</Capability>
-  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#7fc184">Aquamarine</Capability>
-  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#7fc184" Res2="#bd1716">Aquamarine + Dark Red</Capability>
-  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#bd1716">Dark Red</Capability>
-  <Capability Min="120" Max="126" Preset="ColorDoubleMacro" Res1="#bd1716" Res2="#005096">Dark Red + Dark Blue</Capability>
-  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#005096">Dark Blue</Capability>
+  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Empty + Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#006400">Red + Dark Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#006400">Dark Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#006400" Res2="#ffa500">Dark Green + Orange</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ffb6c1">Orange + Light Pink</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffb6c1">Light Pink</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#ffb6c1" Res2="#e6e6fa">Light Pink + Lavender</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#e6e6fa" Res2="#7fffd4">Lavender + Aquamarine</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#7fffd4">Aquamarine</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#7fffd4" Res2="#8b0000">Aquamarine + Dark Red</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#8b0000">Dark Red</Capability>
+  <Capability Min="120" Max="126" Preset="ColorDoubleMacro" Res1="#8b0000" Res2="#00008b">Dark Red + Dark Blue</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Continuous CW colour wheel rotation (slow to fast)</Capability>
  </Channel>
  <Channel Name="Stopper / Strobe">

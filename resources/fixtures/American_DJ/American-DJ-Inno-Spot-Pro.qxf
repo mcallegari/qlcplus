@@ -15,7 +15,7 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="8" Max="14" Preset="ColorMacro" Res1="#aa0000">Red</Capability>
   <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="22" Max="28" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
@@ -23,7 +23,7 @@
   <Capability Min="36" Max="42" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="43" Max="49" Preset="ColorMacro" Res1="#aa557f">Purple</Capability>
   <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#aaffff">Light Blue</Capability>
-  <Capability Min="57" Max="63" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="57" Max="63" Preset="ColorMacro" Res1="#ffc0ff">Pink</Capability>
   <Capability Min="64" Max="127">Color Mixing</Capability>
   <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise Rotation (Fast &gt; Slow)</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
@@ -31,7 +31,7 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="18" Preset="GoboMacro" Res1="SGM/gobo00367.svg">Gobo 1</Capability>
   <Capability Min="19" Max="27" Preset="GoboMacro" Res1="ClayPaky/gobo00013.svg">Gobo 2</Capability>
   <Capability Min="28" Max="36" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Gobo 3</Capability>
@@ -58,7 +58,7 @@
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="0" Max="7">Open</Capability>
   <Capability Min="8" Max="255">Prism</Capability>
  </Channel>
  <Channel Name="Prism Rotation">
@@ -78,6 +78,7 @@
   <Capability Min="140" Max="181">Slow Open - Fast Close</Capability>
   <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
   <Capability Min="190" Max="231">Slow Close - Fast Open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
   <Capability Min="240" Max="247" Preset="StrobeRandom">Random Strobe</Capability>
   <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>

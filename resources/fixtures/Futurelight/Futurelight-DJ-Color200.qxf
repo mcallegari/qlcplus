@@ -24,6 +24,7 @@
   <Capability Min="110" Max="120">Dark green</Capability>
   <Capability Min="121" Max="127">Peach</Capability>
   <Capability Min="128" Max="191">Forwards rainbow speed</Capability>
+  <Capability Min="192" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>

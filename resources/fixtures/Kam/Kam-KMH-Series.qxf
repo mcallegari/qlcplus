@@ -33,7 +33,7 @@
  <Channel Name="Tilt Speed" Preset="SpeedTiltSlowFast"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="50">No Function</Capability>
+  <Capability Min="0" Max="50">No function</Capability>
   <Capability Min="51" Max="101" Preset="ResetPan">Pan Reset</Capability>
   <Capability Min="102" Max="152" Preset="ResetTilt">Tilt Reset</Capability>
   <Capability Min="153" Max="203" Preset="ResetPanTilt">Pan/Tilt Reset</Capability>

@@ -214,7 +214,7 @@
   <Capability Min="68" Max="68">Single pixel ring 2</Capability>
   <Capability Min="69" Max="69">Single pixel ring 3</Capability>
   <Capability Min="70" Max="70">Spiral</Capability>
-  <Capability Min="71" Max="255">No Function</Capability>
+  <Capability Min="71" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Shape Speed">
   <Group Byte="0">Speed</Group>

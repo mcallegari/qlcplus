@@ -22,6 +22,7 @@
   <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="102" Max="102">No function</Capability>
   <Capability Min="103" Max="118" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#00aaff">Light blue</Capability>
   <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#aaff00">Light Green</Capability>

@@ -225,7 +225,10 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
         if (fixture == nullptr)
             return;
 
-        SceneItem *meshRef = m_entitiesMap.value(itemID);
+        SceneItem *meshRef = m_entitiesMap.value(itemID, nullptr);
+
+        if (meshRef == nullptr || meshRef->m_rootItem == nullptr)
+            continue;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == (quint32)universeFilter)
         {

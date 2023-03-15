@@ -11,7 +11,7 @@
  <Type>Flower</Type>
  <Channel Name="Program Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="21">Auto 1</Capability>
   <Capability Min="22" Max="27">Auto 2</Capability>
   <Capability Min="28" Max="33">Auto 3</Capability>
@@ -57,12 +57,12 @@
  </Channel>
  <Channel Name="Pods Strobe Speed">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Pods automatic strobe speed (Slow - Fast)</Capability>
  </Channel>
  <Channel Name="SMD Strobe Speed">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">SMD Strobe Speed (Slow - Fast)</Capability>
  </Channel>
  <Mode Name="Mode 1">

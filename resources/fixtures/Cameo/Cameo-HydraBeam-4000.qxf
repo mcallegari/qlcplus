@@ -190,9 +190,9 @@
  </Channel>
  <Channel Name="Sound Mode / Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="199">No Function</Capability>
+  <Capability Min="0" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset</Capability>
-  <Capability Min="210" Max="240">No Function</Capability>
+  <Capability Min="210" Max="240">No function</Capability>
   <Capability Min="241" Max="255">Sound Control Mode</Capability>
  </Channel>
  <Channel Name="Sound Sensitivity">
@@ -317,49 +317,49 @@
  <Channel Name="White 4 56-CH" Preset="IntensityWhite"/>
  <Channel Name="Auto Mode / Sound Mode / Reset Head 1 56-CH">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="30">Show 1</Capability>
   <Capability Min="31" Max="53">Show 2</Capability>
   <Capability Min="54" Max="76">Show 3</Capability>
   <Capability Min="77" Max="99">Show 4</Capability>
   <Capability Min="100" Max="122">Sound Mode</Capability>
-  <Capability Min="123" Max="199">No Function</Capability>
+  <Capability Min="123" Max="199">No function</Capability>
   <Capability Min="200" Max="224">Reset</Capability>
   <Capability Min="225" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Mode / Sound Mode / Reset Head 2 56-CH">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="30">Show 1</Capability>
   <Capability Min="31" Max="53">Show 2</Capability>
   <Capability Min="54" Max="76">Show 3</Capability>
   <Capability Min="77" Max="99">Show 4</Capability>
   <Capability Min="100" Max="122">Sound Mode</Capability>
-  <Capability Min="123" Max="199">No Function</Capability>
+  <Capability Min="123" Max="199">No function</Capability>
   <Capability Min="200" Max="224">Reset</Capability>
   <Capability Min="225" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Mode / Sound Mode / Reset Head 3 56-CH">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="30">Show 1</Capability>
   <Capability Min="31" Max="53">Show 2</Capability>
   <Capability Min="54" Max="76">Show 3</Capability>
   <Capability Min="77" Max="99">Show 4</Capability>
   <Capability Min="100" Max="122">Sound Mode</Capability>
-  <Capability Min="123" Max="199">No Function</Capability>
+  <Capability Min="123" Max="199">No function</Capability>
   <Capability Min="200" Max="224">Reset</Capability>
   <Capability Min="225" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Mode / Sound Mode / Reset Head 4 56-CH">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="30">Show 1</Capability>
   <Capability Min="31" Max="53">Show 2</Capability>
   <Capability Min="54" Max="76">Show 3</Capability>
   <Capability Min="77" Max="99">Show 4</Capability>
   <Capability Min="100" Max="122">Sound Mode</Capability>
-  <Capability Min="123" Max="199">No Function</Capability>
+  <Capability Min="123" Max="199">No function</Capability>
   <Capability Min="200" Max="224">Reset</Capability>
   <Capability Min="225" Max="255">No function</Capability>
  </Channel>

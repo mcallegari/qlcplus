@@ -11,7 +11,7 @@
  <Type>LED Bar (Pixels)</Type>
  <Channel Name="Modes 2 Channel">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="0" Max="127">No function</Capability>
   <Capability Min="128" Max="131">Effect chase #1</Capability>
   <Capability Min="132" Max="135">Effect chase #2</Capability>
   <Capability Min="136" Max="139">Effect chase #3</Capability>
@@ -34,18 +34,21 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="42">7-Channel mode</Capability>
+  <Capability Min="43" Max="191">No function</Capability>
   <Capability Min="192" Max="255">Sound active mode</Capability>
  </Channel>
- <Channel Name="Modes 10 Chanel">
+ <Channel Name="Modes 10 Channel">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="0" Max="84">No function</Capability>
   <Capability Min="85" Max="127">10-Channel mode</Capability>
+  <Capability Min="128" Max="191">No function</Capability>
   <Capability Min="192" Max="255">Sound active mode</Capability>
  </Channel>
  <Channel Name="Modes 31 Channel">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="0" Max="42">No function</Capability>
   <Capability Min="43" Max="84">31-Channel mode</Capability>
+  <Capability Min="85" Max="191">No function</Capability>
   <Capability Min="192" Max="255">Sound active mode</Capability>
  </Channel>
  <Channel Name="Speed">
@@ -111,7 +114,7 @@
   <Channel Number="6">Global White Intensity</Channel>
  </Mode>
  <Mode Name="10-Channel">
-  <Channel Number="0">Modes 10 Chanel</Channel>
+  <Channel Number="0">Modes 10 Channel</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Pixel 1 Global Intensity</Channel>

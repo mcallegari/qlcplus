@@ -33,6 +33,7 @@ class AudioEditor : public FunctionEditor
     Q_PROPERTY(QStringList audioExtensions READ audioExtensions CONSTANT)
     Q_PROPERTY(QVariant mediaInfo READ mediaInfo NOTIFY mediaInfoChanged)
     Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
+    Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged)
     Q_PROPERTY(int cardLineIndex READ cardLineIndex WRITE setCardLineIndex NOTIFY cardLineIndexChanged)
 
 public:
@@ -55,6 +56,10 @@ public:
     bool isLooped();
     void setLooped(bool looped);
 
+    /** Get/Set the Audio function volume */
+    qreal volume();
+    void setVolume(qreal volume);
+
     /** Get/Set the audio card line used to play this Audio function */
     int cardLineIndex() const;
     void setCardLineIndex(int cardLineIndex);
@@ -63,6 +68,7 @@ signals:
     void sourceFileNameChanged(QString sourceFileName);
     void mediaInfoChanged();
     void loopedChanged();
+    void volumeChanged();
     void cardLineIndexChanged(int cardLineIndex);
 
 private:

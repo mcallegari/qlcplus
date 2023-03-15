@@ -146,6 +146,7 @@
 #define PID_POWER_ON_SELF_TEST      0x1044
 
 #define QLCPLUS_ESTA_ID             0x7FF8
+#define QLCPLUS_DEVICE_ID           0x01090709
 #define BROADCAST_ESTA_ID           0xFFFF
 #define BROADCAST_DEVICE_ID         0xFFFFFFFF
 
@@ -180,6 +181,12 @@ public:
     /** Return a PID as a string */
     static QString pidToString(quint16 pid);
 
+    /** Return the RDM command reply as a string */
+    static QString responseToString(quint8 response);
+
+    /** Return the device info category as string */
+    static QString categoryToString(quint16 category);
+
 private:
     QByteArray UIDToByteArray(quint16 ESTAId, quint32 deviceId);
     QByteArray shortToByteArray(quint16 data);
@@ -187,8 +194,6 @@ private:
     quint16 byteArrayToShort(const QByteArray &buffer, int index);
     quint32 byteArrayToLong(const QByteArray &buffer, int index);
     quint16 calculateChecksum(bool startCode, const QByteArray &ba, int len);
-    QString responseToString(quint8 response);
-    QString categoryToString(quint16 category);
 
 protected:
     quint16 m_estaID;

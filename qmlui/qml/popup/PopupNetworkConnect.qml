@@ -26,10 +26,10 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
+    width: mainView.width / 3
+    title: qsTr("Client access request")
 
     property string clientName: ""
-
-    title: qsTr("Client access request")
 
     contentItem:
         GridLayout

@@ -13,10 +13,11 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7" Preset="ShutterOpen">Shutter on</Capability>
-  <Capability Min="8" Max="15" Preset="ShutterClose">Shutter off</Capability>
-  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe</Capability>
-  <Capability Min="132" Max="247">Shake</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="132" Max="247" Preset="SlowToFast">Shake, slow to fast</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>

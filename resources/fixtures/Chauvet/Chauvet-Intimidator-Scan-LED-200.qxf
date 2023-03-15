@@ -76,7 +76,7 @@
   <Capability Min="104" Max="111">No function</Capability>
   <Capability Min="112" Max="119">Reset color wheel</Capability>
   <Capability Min="120" Max="127">Reset gobo wheel</Capability>
-  <Capability Min="128" Max="151">No Function</Capability>
+  <Capability Min="128" Max="151">No function</Capability>
   <Capability Min="152" Max="159">Reset all</Capability>
   <Capability Min="160" Max="255">No function</Capability>
  </Channel>

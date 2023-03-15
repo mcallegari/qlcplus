@@ -27,7 +27,7 @@
  </Channel>
  <Channel Name="Manual LED Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="21" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="36" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -48,7 +48,8 @@
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Motor">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationIndexed">Indexing</Capability>
   <Capability Min="128" Max="255">Speed</Capability>
  </Channel>
  <Channel Name="Pattern Options">

@@ -32,9 +32,28 @@ Rectangle
     color: "transparent"
 
     property int functionID
-    property bool showToolBar: true
+    property bool boundToSequence: false
 
     signal requestView(int ID, string qmlSrc)
+
+    function deleteSelectedItems()
+    {
+        deleteItemsPopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: deleteItemsPopup
+        title: qsTr("Delete items")
+        message: qsTr("Are you sure you want to remove the selected items?")
+        onAccepted:
+        {
+            if (boundToSequence)
+                functionManager.deleteSequenceFixtures(seSelector.itemsList())
+            else
+                functionManager.deleteEditorItems(seSelector.itemsList())
+        }
+    }
 
     ModelSelector
     {
@@ -98,7 +117,7 @@ Rectangle
             EditorTopBar
             {
                 id: toolbar
-                visible: showToolBar
+                visible: !boundToSequence
                 text: sceneEditor ? sceneEditor.functionName : ""
                 onTextChanged: sceneEditor.functionName = text
 
@@ -198,15 +217,7 @@ Rectangle
                     height: UISettings.iconSizeMedium
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected items")
-                    onClicked: deleteItemsPopup.open()
-
-                    CustomPopupDialog
-                    {
-                        id: deleteItemsPopup
-                        title: qsTr("Delete items")
-                        message: qsTr("Are you sure you want to remove the selected items?")
-                        onAccepted: functionManager.deleteEditorItems(seSelector.itemsList())
-                    }
+                    onClicked: deleteSelectedItems()
                 }
             }
 
@@ -262,7 +273,7 @@ Rectangle
 
                                 onClicked:
                                 {
-                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
+                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers)
 
                                     if (compDelegate.itemType === App.FixtureDragItem)
                                     {
@@ -289,7 +300,7 @@ Rectangle
                         {
                             if (type === App.Clicked)
                             {
-                                seSelector.selectItem(index, sfxList.model, mouseMods & Qt.ControlModifier)
+                                seSelector.selectItem(index, sfxList.model, mouseMods)
 
                                 if (!(mouseMods & Qt.ControlModifier))
                                     contextManager.resetFixtureSelection()

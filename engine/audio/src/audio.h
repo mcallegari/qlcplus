@@ -109,6 +109,10 @@ public:
      */
     void setAudioDevice(QString dev);
 
+    /** Get/Set the audio function startup volume */
+    qreal volume() const;
+    void setVolume(qreal volume);
+
     /**
      * Retrieve the audio device set for this function
      */
@@ -129,16 +133,12 @@ private:
     AudioRenderer *m_audio_out;
     /** Audio device to use for rendering */
     QString m_audioDevice;
-    /** Absolute start time of Audio over a timeline (in milliseconds) */
-    quint32 m_startTime;
-    /** Color to use when displaying the audio object in the Show manager */
-    QColor m_color;
-    /** Flag to indicate if a Audio item is locked in the Show Manager timeline */
-    bool m_locked;
     /** Name of the source audio file */
     QString m_sourceFileName;
     /** Duration of the media object */
     qint64 m_audioDuration;
+    /** Startup volume of the audio file */
+    qreal m_volume;
 
     /*********************************************************************
      * Save & Load

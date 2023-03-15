@@ -14,7 +14,7 @@
  <Channel Name="Color-wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="14" Preset="ColorMacro" Res1="#ffffff">Open / White</Capability>
-  <Capability Min="16" Max="29" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="15" Max="29" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="30" Max="44" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
   <Capability Min="45" Max="59" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
   <Capability Min="60" Max="74" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>

@@ -46,7 +46,7 @@
  <Channel Name="Blue 7" Preset="IntensityBlue"/>
  <Channel Name="Color Macros And Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="23">Red</Capability>
   <Capability Min="24" Max="31">Green</Capability>
   <Capability Min="32" Max="39">Blue</Capability>

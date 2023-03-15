@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Ryan Carter</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>SlimPAR Pro Pix</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="Red 10" Preset="IntensityRed"/>
+ <Channel Name="Green 10" Preset="IntensityGreen"/>
+ <Channel Name="Blue 10" Preset="IntensityBlue"/>
+ <Channel Name="Red 11" Preset="IntensityRed"/>
+ <Channel Name="Green 11" Preset="IntensityGreen"/>
+ <Channel Name="Blue 11" Preset="IntensityBlue"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pixel auto/sound programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="16">Pixel auto program 1</Capability>
+  <Capability Min="17" Max="27">Pixel auto program 2</Capability>
+  <Capability Min="28" Max="38">Pixel auto program 3</Capability>
+  <Capability Min="39" Max="49">Pixel auto program 4</Capability>
+  <Capability Min="50" Max="60">Pixel auto program 5</Capability>
+  <Capability Min="61" Max="70">Pixel auto program 6</Capability>
+  <Capability Min="71" Max="80">Pixel auto program 7</Capability>
+  <Capability Min="81" Max="90">Pixel auto program 8</Capability>
+  <Capability Min="91" Max="100">Pixel auto program 9</Capability>
+  <Capability Min="101" Max="110">Pixel auto program 10</Capability>
+  <Capability Min="111" Max="120">Pixel auto program scroll 1-10</Capability>
+  <Capability Min="121" Max="130">Pixel sound program 1</Capability>
+  <Capability Min="131" Max="140">Pixel sound program 2</Capability>
+  <Capability Min="141" Max="150">Pixel sound program 3</Capability>
+  <Capability Min="151" Max="160">Pixel sound program 4</Capability>
+  <Capability Min="161" Max="170">Pixel sound program 5</Capability>
+  <Capability Min="171" Max="180">Pixel sound program 6</Capability>
+  <Capability Min="181" Max="190">Pixel sound program 7</Capability>
+  <Capability Min="191" Max="200">Pixel sound program 8</Capability>
+  <Capability Min="201" Max="210">Pixel sound program 9</Capability>
+  <Capability Min="211" Max="220">Pixel sound program 10</Capability>
+  <Capability Min="221" Max="255">Pixel sound program scroll 1-10</Capability>
+ </Channel>
+ <Channel Name="Auto speed/sound sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto program speed (slow to fast) / Sound sensitivity (low to high)</Capability>
+ </Channel>
+ <Channel Name="Ring Red" Preset="IntensityRed"/>
+ <Channel Name="Ring Green" Preset="IntensityGreen"/>
+ <Channel Name="Ring Blue" Preset="IntensityBlue"/>
+ <Channel Name="Ring strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Ring auto/sound programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="16">Ring auto program 1</Capability>
+  <Capability Min="17" Max="27">Ring auto program 2</Capability>
+  <Capability Min="28" Max="38">Ring auto program 3</Capability>
+  <Capability Min="39" Max="49">Ring auto program 4</Capability>
+  <Capability Min="50" Max="60">Ring auto program 5</Capability>
+  <Capability Min="61" Max="70">Ring auto program 6</Capability>
+  <Capability Min="71" Max="80">Ring auto program 7</Capability>
+  <Capability Min="81" Max="90">Ring auto program 8</Capability>
+  <Capability Min="91" Max="100">Ring auto program 9</Capability>
+  <Capability Min="101" Max="110">Ring auto program 10</Capability>
+  <Capability Min="111" Max="120">Ring auto program scroll 1-10</Capability>
+  <Capability Min="121" Max="130">Ring sound program 1</Capability>
+  <Capability Min="131" Max="140">Ring sound program 2</Capability>
+  <Capability Min="141" Max="150">Ring sound program 3</Capability>
+  <Capability Min="151" Max="160">Ring sound program 4</Capability>
+  <Capability Min="161" Max="170">Ring sound program 5</Capability>
+  <Capability Min="171" Max="180">Ring sound program 6</Capability>
+  <Capability Min="181" Max="190">Ring sound program 7</Capability>
+  <Capability Min="191" Max="200">Ring sound program 8</Capability>
+  <Capability Min="201" Max="210">Ring sound program 9</Capability>
+  <Capability Min="211" Max="220">Ring sound program 10</Capability>
+  <Capability Min="221" Max="255">Ring sound program scroll 1-10</Capability>
+ </Channel>
+ <Channel Name="Ring speed/sound sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto program speed (slow to fast) / Sound sensitivity (low to high)</Capability>
+ </Channel>
+ <Channel Name="Dimmer curve">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">No function (LEDs snap)</Capability>
+  <Capability Min="51" Max="152">Dimmer fade (slow)</Capability>
+  <Capability Min="153" Max="255">Dimmer fade (fast)</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Pixel auto/sound programs</Channel>
+  <Channel Number="9">Auto speed/sound sensitivity</Channel>
+  <Channel Number="10">Ring auto/sound programs</Channel>
+  <Channel Number="11">Ring speed/sound sensitivity</Channel>
+ </Mode>
+ <Mode Name="26 Channel">
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">Red 3</Channel>
+  <Channel Number="8">Green 3</Channel>
+  <Channel Number="9">Blue 3</Channel>
+  <Channel Number="10">Red 4</Channel>
+  <Channel Number="11">Green 4</Channel>
+  <Channel Number="12">Blue 4</Channel>
+  <Channel Number="13">Amber</Channel>
+  <Channel Number="14">White</Channel>
+  <Channel Number="15">UV</Channel>
+  <Channel Number="16">Strobe</Channel>
+  <Channel Number="17">Pixel auto/sound programs</Channel>
+  <Channel Number="18">Auto speed/sound sensitivity</Channel>
+  <Channel Number="19">Ring Red</Channel>
+  <Channel Number="20">Ring Green</Channel>
+  <Channel Number="21">Ring Blue</Channel>
+  <Channel Number="22">Ring strobe</Channel>
+  <Channel Number="23">Ring auto/sound programs</Channel>
+  <Channel Number="24">Ring speed/sound sensitivity</Channel>
+  <Channel Number="25">Dimmer curve</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="48 Channel">
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">Red 3</Channel>
+  <Channel Number="8">Green 3</Channel>
+  <Channel Number="9">Blue 3</Channel>
+  <Channel Number="10">Red 4</Channel>
+  <Channel Number="11">Green 4</Channel>
+  <Channel Number="12">Blue 4</Channel>
+  <Channel Number="13">Red 5</Channel>
+  <Channel Number="14">Green 5</Channel>
+  <Channel Number="15">Blue 5</Channel>
+  <Channel Number="16">Red 6</Channel>
+  <Channel Number="17">Green 6</Channel>
+  <Channel Number="18">Blue 6</Channel>
+  <Channel Number="19">Red 7</Channel>
+  <Channel Number="20">Green 7</Channel>
+  <Channel Number="21">Blue 7</Channel>
+  <Channel Number="22">Red 8</Channel>
+  <Channel Number="23">Green 8</Channel>
+  <Channel Number="24">Blue 8</Channel>
+  <Channel Number="25">Red 9</Channel>
+  <Channel Number="26">Green 9</Channel>
+  <Channel Number="27">Blue 9</Channel>
+  <Channel Number="28">Red 10</Channel>
+  <Channel Number="29">Green 10</Channel>
+  <Channel Number="30">Blue 10</Channel>
+  <Channel Number="31">Red 11</Channel>
+  <Channel Number="32">Green 11</Channel>
+  <Channel Number="33">Blue 11</Channel>
+  <Channel Number="34">Red 12</Channel>
+  <Channel Number="35">Green 12</Channel>
+  <Channel Number="36">Blue 12</Channel>
+  <Channel Number="37">Amber</Channel>
+  <Channel Number="38">White</Channel>
+  <Channel Number="39">UV</Channel>
+  <Channel Number="40">Strobe</Channel>
+  <Channel Number="41">Ring Red</Channel>
+  <Channel Number="42">Ring Green</Channel>
+  <Channel Number="43">Ring Blue</Channel>
+  <Channel Number="44">Ring strobe</Channel>
+  <Channel Number="45">Ring auto/sound programs</Channel>
+  <Channel Number="46">Ring speed/sound sensitivity</Channel>
+  <Channel Number="47">Dimmer curve</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2775" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="290" Height="313" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="93" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

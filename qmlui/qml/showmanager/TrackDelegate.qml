@@ -67,9 +67,7 @@ Rectangle
         imgSource: ""
         checkable: true
         tooltip: qsTr("Solo this track")
-        onToggled:
-        {
-        }
+        onToggled: showManager.setTrackSolo(trackIndex, checked)
 
         RobotoText
         {
@@ -92,12 +90,11 @@ Rectangle
         height: parent.height * 0.3
         bgColor: "#8191A0"
         checkedColor: "red"
+        checked: trackRef ? trackRef.mute : false
         imgSource: ""
         checkable: true
         tooltip: qsTr("Mute this track")
-        onToggled:
-        {
-        }
+        onToggled: if(trackRef) trackRef.mute = checked
 
         RobotoText
         {
@@ -116,7 +113,7 @@ Rectangle
         propagateComposedEvents: true
         onClicked:
         {
-            showManager.selectedTrack = trackIndex
+            showManager.selectedTrackIndex = trackIndex
             mouse.accepted = false
         }
     }

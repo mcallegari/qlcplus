@@ -167,6 +167,7 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setFunction(button->function());
     enableStartupIntensity(button->isStartupIntensityEnabled());
     setStartupIntensity(button->startupIntensity());
+    setStopAllFadeOutTime(button->stopAllFadeTime());
     setAction(button->action());
     m_state = button->m_state;
 
@@ -625,7 +626,7 @@ void VCButton::setStopAllFadeOutTime(int ms)
     m_blackoutFadeOutTime = ms;
 }
 
-int VCButton::stopAllFadeTime()
+int VCButton::stopAllFadeTime() const
 {
     return m_blackoutFadeOutTime;
 }

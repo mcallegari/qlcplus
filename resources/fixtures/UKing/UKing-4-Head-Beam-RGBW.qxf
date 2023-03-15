@@ -49,6 +49,7 @@
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="240">No function</Capability>
   <Capability Min="241" Max="255">Reset (Hold 5 sec)</Capability>
  </Channel>
  <Mode Name="28 Channel">

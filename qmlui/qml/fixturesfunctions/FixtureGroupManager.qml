@@ -81,6 +81,15 @@ Rectangle
         }
     }
 
+    CustomPopupDialog
+    {
+        id: fmGenericPopup
+        visible: false
+        title: qsTr("Error")
+        message: ""
+        onAccepted: {}
+    }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -324,6 +333,8 @@ Rectangle
 
                 RobotoText { label: qsTr("Name"); Layout.fillWidth: true; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Mode"); width: UISettings.chPropsModesWidth; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
                 RobotoText { label: qsTr("Flags"); width: UISettings.chPropsFlagsWidth; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
                 RobotoText { label: qsTr("Can fade"); width: UISettings.chPropsCanFadeWidth; height: parent.height }
@@ -439,7 +450,6 @@ Rectangle
                                             else
                                                 gfhcDragItem.itemIcon = ""
                                         }
-                                        gfhcDragItem.multipleItems = gfhcDragItem.itemsList.length > 1 ? true : false
                                     }
                                 break;
                                 case App.Clicked:

@@ -28,13 +28,13 @@
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">Pod Control</Capability>
-  <Capability Min="11" Max="47">A1</Capability>
-  <Capability Min="48" Max="95">A2</Capability>
-  <Capability Min="96" Max="96">A3</Capability>
-  <Capability Min="120" Max="144">A4</Capability>
-  <Capability Min="145" Max="167">A5</Capability>
-  <Capability Min="168" Max="191">A6</Capability>
-  <Capability Min="192" Max="239">A7</Capability>
+  <Capability Min="11" Max="47">Automatic 1</Capability>
+  <Capability Min="48" Max="95">Automatic 2</Capability>
+  <Capability Min="96" Max="119">Automatic 3</Capability>
+  <Capability Min="120" Max="144">Automatic 4</Capability>
+  <Capability Min="145" Max="167">Automatic 5</Capability>
+  <Capability Min="168" Max="191">Automatic 6</Capability>
+  <Capability Min="192" Max="239">Automatic 7</Capability>
   <Capability Min="240" Max="255">Sound</Capability>
  </Channel>
  <Channel Name="Pod 2">

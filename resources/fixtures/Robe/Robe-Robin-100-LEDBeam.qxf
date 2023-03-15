@@ -32,6 +32,7 @@
   <Capability Min="115" Max="119">Colour calibration mode Off</Capability>
   <Capability Min="120" Max="124">Tilt movement reduction On</Capability>
   <Capability Min="125" Max="129">Tilt movement reduction Off</Capability>
+  <Capability Min="130" Max="139">Reserved</Capability>
   <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/Tilt reset</Capability>
   <Capability Min="150" Max="199">Reserved</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Total reset</Capability>

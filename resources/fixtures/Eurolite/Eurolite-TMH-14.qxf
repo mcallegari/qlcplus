@@ -15,7 +15,7 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
   <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
@@ -26,14 +26,14 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="127">Static Colors</Capability>
   <Capability Min="128" Max="200">Colorchange 1</Capability>
   <Capability Min="201" Max="255">Colorchange 2</Capability>
  </Channel>
  <Channel Name="Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="120">Macro 1</Capability>
   <Capability Min="121" Max="244">Macro 2</Capability>
   <Capability Min="245" Max="255">Music</Capability>
@@ -49,9 +49,9 @@
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="149">No Function</Capability>
+  <Capability Min="0" Max="149">No function</Capability>
   <Capability Min="150" Max="200" Preset="ResetAll">Reset</Capability>
-  <Capability Min="201" Max="255">No Function</Capability>
+  <Capability Min="201" Max="255">No function</Capability>
  </Channel>
  <Mode Name="11 Channel">
   <Channel Number="0">Pan</Channel>

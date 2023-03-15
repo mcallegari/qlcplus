@@ -41,6 +41,7 @@ Item
     property bool isSelected: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
+    property string toolTipText: ""
 
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
     onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale, tickSize)
@@ -54,6 +55,18 @@ Item
     {
         if (isSelected && sfRef)
             sfRef.color = globalColor
+    }
+
+    onFuncRefChanged: updateTooltipText()
+    //onXChanged: updateTooltipText()
+    //onWidthChanged: updateTooltipText()
+
+    function updateTooltipText()
+    {
+        var tooltip = funcRef ? funcRef.name + "\n" : ""
+        tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+        tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+        toolTipText = tooltip
     }
 
     /* Locker image */
@@ -97,44 +110,45 @@ Item
 
             var lastTime = 0
             var xPos = 0
+            var stepsCount = 0
 
-            if (previewData[0] === ShowManager.RepeatingDuration)
-            {
-                var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
-                for (var l = 0; l < loopCount; l++)
-                {
-                    lastTime += previewData[1]
-                    xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
-                    context.moveTo(xPos, 0)
-                    context.lineTo(xPos, itemRoot.height)
-                }
-                context.stroke()
-                return
-            }
-
-            for (var i = 0; i < previewData.length; i+=2)
+            for (var i = 0; i < previewData.length; i += 2)
             {
                 if (i + 1 >= previewData.length)
                     break
 
                 switch(previewData[i])
                 {
+                    case ShowManager.RepeatingDuration:
+                        var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
+                        for (var l = 0; l < loopCount; l++)
+                        {
+                            lastTime += previewData[1]
+                            xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                            context.moveTo(xPos, 0)
+                            context.lineTo(xPos, itemRoot.height)
+                        }
+                        context.stroke()
+                        lastTime = 0
+                        xPos = 0
+                    break
                     case ShowManager.FadeIn:
                         var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
                         context.moveTo(xPos, itemRoot.height)
                         context.lineTo(fiEnd, 0)
-                    break;
+                    break
                     case ShowManager.StepDivider:
                         lastTime = previewData[i + 1]
                         xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
                         context.moveTo(xPos, 0)
                         context.lineTo(xPos, itemRoot.height)
-                    break;
+                        stepsCount++
+                    break
                     case ShowManager.FadeOut:
                         var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
-                        context.moveTo(xPos, 0)
-                        context.lineTo(foEnd, itemRoot.height)
-                    break;
+                        context.moveTo(stepsCount ? xPos : itemRoot.width - foEnd, 0)
+                        context.lineTo(stepsCount ? foEnd : itemRoot.width, itemRoot.height)
+                    break
                 }
 
             }
@@ -252,6 +266,7 @@ Item
             }
             itemRoot.z--
             showManager.enableFlicking(true)
+            updateTooltipText()
         }
 
         onClicked:
@@ -261,22 +276,14 @@ Item
         }
 
         onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true, false)
+    }
 
-        onExited: Tooltip.hideText()
-        onCanceled: Tooltip.hideText()
-
-        Timer
-        {
-           interval: 1000
-           running: sfMouseArea.containsMouse
-           onTriggered:
-           {
-               var tooltip = funcRef ? funcRef.name + "\n" : "0"
-               tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-               tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
-               Tooltip.showText(sfMouseArea, Qt.point(sfMouseArea.mouseX, sfMouseArea.mouseY), tooltip)
-           }
-        }
+    Text
+    {
+        anchors.fill: parent
+        ToolTip.visible: sfMouseArea.containsMouse
+        ToolTip.delay: 1000
+        ToolTip.text: toolTipText
     }
 
     /* horizontal left handler */

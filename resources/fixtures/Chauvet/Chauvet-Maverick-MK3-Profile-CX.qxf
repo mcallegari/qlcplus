@@ -39,11 +39,11 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
-  <Capability Min="48" Max="59" Preset="ColorMacro">8000k CTB</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="48" Max="59">8000k CTB</Capability>
   <Capability Min="60" Max="187" Preset="RotationIndexed">Color wheel indexing</Capability>
   <Capability Min="188" Max="219" Preset="RotationClockwiseFastToSlow">Color scroll, fast to slow</Capability>
   <Capability Min="220" Max="223" Preset="RotationStop">Stop</Capability>
@@ -213,6 +213,7 @@
  <Channel Name="Prism 1 Rotate">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Rotating prism 1 index</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Rotating prism 1 index</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse prism 1 rotation, slow to fast</Capability>
  </Channel>
@@ -243,15 +244,15 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">0-100%</Capability>
  </Channel>
- <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="CMY Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Preset="ColorMacro">No function</Capability>
-  <Capability Min="10" Max="255" Preset="ColorMacro">CMY macro</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">CMY macro</Capability>
  </Channel>
  <Channel Name="CMY Macro Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255" Preset="ColorMacro">CMY macro speed, fast to slow</Capability>
+  <Capability Min="0" Max="255">CMY macro speed, fast to slow</Capability>
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
@@ -338,7 +339,7 @@
   <Channel Number="47">Iris</Channel>
   <Channel Number="48">Frost 1</Channel>
   <Channel Number="49">Frost 2</Channel>
-  <Channel Number="50">No Function</Channel>
+  <Channel Number="50">No function</Channel>
   <Channel Number="51">CMY Macro</Channel>
   <Channel Number="52">CMY Macro Speed</Channel>
   <Channel Number="53">Control</Channel>
@@ -380,7 +381,7 @@
   <Channel Number="33">Iris</Channel>
   <Channel Number="34">Frost 1</Channel>
   <Channel Number="35">Frost 2</Channel>
-  <Channel Number="36">No Function</Channel>
+  <Channel Number="36">No function</Channel>
   <Channel Number="37">Control</Channel>
  </Mode>
  <Physical>

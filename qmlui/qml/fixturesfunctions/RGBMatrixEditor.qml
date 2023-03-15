@@ -299,6 +299,7 @@ Rectangle
                             startColButton.color = Qt.rgba(r, g, b, 1.0)
                             rgbMatrixEditor.startColor = startColButton.color
                         }
+                        onClose: visible = false
                     }
                 }
                 Rectangle
@@ -331,6 +332,7 @@ Rectangle
                         currentRGB: rgbMatrixEditor.endColor
 
                         onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
+                        onClose: visible = false
                     }
                 }
                 IconButton
