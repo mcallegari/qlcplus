@@ -702,10 +702,9 @@ hid_device * HID_API_EXPORT hid_open_path(const char *path)
     CFSetGetValues(device_set, (const void **) device_array);
     for (i = 0; i < num_devices; i++) {
         char cbuf[BUF_LEN];
-        size_t len;
         IOHIDDeviceRef os_dev = device_array[i];
 
-        len = make_path(os_dev, cbuf, sizeof(cbuf));
+        make_path(os_dev, cbuf, sizeof(cbuf));
         if (!strcmp(cbuf, path)) {
             /* Matched Paths. Open this Device. */
             IOReturn ret = IOHIDDeviceOpen(os_dev, kIOHIDOptionsTypeSeizeDevice);
