@@ -139,8 +139,8 @@
  </Mode>
  <Mode Name="Person1">
   <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Tilt</Channel>
-  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt Speed</Channel>
   <Channel Number="5">Color</Channel>
