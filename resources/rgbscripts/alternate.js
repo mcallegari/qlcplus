@@ -209,7 +209,7 @@ var testAlgo;
     var colorSelectOne = (step === 1) ? false : true;
     var rowColorOne = colorSelectOne;
     var realBlockSize = algo.blockSize;
-    
+
     var xMax = width;
     if (algo.align === 1 && width % 2 === 0) {
       // Centered mode
