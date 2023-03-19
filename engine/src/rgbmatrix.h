@@ -197,7 +197,7 @@ public:
     void updateColorDelta();
 
 private:
-    QColor m_rgbColors[RGBMATRIX_MAXCOLORS];
+    QColor m_rgbColors[RGBAlgorithmRawColorCount];
     RGBMatrixStep *m_stepHandler;
 
     /************************************************************************

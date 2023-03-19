@@ -204,7 +204,7 @@ int RGBAudio::apiVersion() const
     return 1;
 }
 
-void RGBAudio::setColors(QColor colors[RGBMATRIX_MAXCOLORS])
+void RGBAudio::setColors(QColor colors[RGBAlgorithmRawColorCount])
 {
     RGBAlgorithm::setColors(colors);
 

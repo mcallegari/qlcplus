@@ -83,7 +83,7 @@ int RGBPlain::apiVersion() const
     return 1;
 }
 
-void RGBPlain::setColors(QColor colors[RGBMATRIX_MAXCOLORS])
+void RGBPlain::setColors(QColor colors[RGBAlgorithmRawColorCount])
 {
     RGBAlgorithm::setColors(colors);
 }

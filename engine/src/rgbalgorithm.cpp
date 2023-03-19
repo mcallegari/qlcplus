@@ -46,9 +46,9 @@ RGBAlgorithm::RGBAlgorithm(Doc * doc)
 {
 }
 
-void RGBAlgorithm::setColors(QColor colors[RGBMATRIX_MAXCOLORS])
+void RGBAlgorithm::setColors(QColor colors[RGBAlgorithmRawColorCount])
 {
-	for (unsigned int i = 0; i < RGBMATRIX_MAXCOLORS; i++)
+	for (unsigned int i = 0; i < RGBAlgorithmRawColorCount; i++)
 		m_colors[i] = colors[i];
 }
 

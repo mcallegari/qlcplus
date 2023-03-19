@@ -171,7 +171,7 @@ bool RGBMatrix::copyFrom(const Function* function)
     else
         setAlgorithm(NULL);
 
-    for(unsigned int i = 0; i < RGBMATRIX_MAXCOLORS; i++)
+    for(unsigned int i = 0; i < RGBAlgorithmRawColorCount; i++)
     	setColor(i, mtx->getColor(i));
 
     return Function::copyFrom(function);
@@ -294,7 +294,7 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
 
 void RGBMatrix::setColor(unsigned int i, QColor c)
 {
-	if (i >= RGBMATRIX_MAXCOLORS)
+	if (i >= RGBAlgorithmRawColorCount)
 		return;
     m_rgbColors[i] = c;
     {
@@ -393,7 +393,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLRunOrder(root);
         }
-#if (2 != RGBMATRIX_MAXCOLORS)
+#if (2 != RGBAlgorithmRawColorCount)
 #error "Further colors need to be read."
 #endif
         else if (root.name() == KXMLQLCRGBMatrixStartColor)
@@ -462,7 +462,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     /* End Color */
     if (getColor(1).isValid())
         doc->writeTextElement(KXMLQLCRGBMatrixEndColor, QString::number(getColor(1).rgb()));
-#if (2 != RGBMATRIX_MAXCOLORS)
+#if (2 != RGBAlgorithmRawColorCount)
 #error "Further colors need to be written."
 #endif
 
