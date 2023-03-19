@@ -134,19 +134,23 @@ var testAlgo;
 
   algo.align = 0;
   algo.properties.push("name:align|type:list|" +
-    "display:Align (for even width)|values:Left,Centered|" +
+    "display:Align (for even width)|values:Left,Centered,Split|" +
     "write:setAlign|read:getAlign");
   // Left aligned is default.
   algo.setAlign = function(_align) {
     if (_align === "Centered") {
       algo.align = 1;
+    } else if (_align === "Split") {
+      algo.align = 2;
     } else {
       algo.align = 0;
     }
   };
   algo.getAlign = function() {
     if (algo.align === 1) {
-      return "Centered";
+      return "Centered Halfs";
+    } else if (algo.align === 2) {
+      return "Split";
     } else {
       return "Left";
     }
@@ -177,8 +181,8 @@ var testAlgo;
 
   algo.blockSize = 1;
   algo.properties.push("name:blockSize|type:range|"
-    + "display:Block Size (1-16)|"
-    + "values:1,16|"
+    + "display:Block Size / Split (>= 1)|"
+    + "values:1,32000|"
     + "write:setBlockSize|read:getBlockSize");
   algo.setBlockSize = function(_size) {
     algo.blockSize = parseInt(_size);
@@ -189,8 +193,8 @@ var testAlgo;
 
   algo.offset = 0;
   algo.properties.push("name:offset|type:range|"
-    + "display:Offset (0-16)|"
-    + "values:0,16|"
+    + "display:Offset (>= 0)|"
+    + "values:0,32000|"
     + "write:setOffset|read:getOffset");
   algo.setOffset = function(_size) {
     algo.offset = parseInt(_size);
@@ -204,25 +208,44 @@ var testAlgo;
     var effectiveStep = step;
     var colorSelectOne = (step === 1) ? false : true;
     var rowColorOne = colorSelectOne;
-
+    var realBlockSize = algo.blockSize;
+    
     var xMax = width;
     if (algo.align === 1 && width % 2 === 0) {
-      xMax = width / 2 + width % 2;
+      // Centered mode
+      xMax = width / 2;
     }
+
+    if (algo.align === 2) {
+      // Split mode
+      if (algo.orientation === 0) {
+        // Horizontal
+        realBlockSize = Math.ceil(width / algo.blockSize);
+      } else if (algo.orientation === 1) {
+        // Vertical
+        realBlockSize = Math.ceil(height / algo.blockSize);
+      } else if (algo.orientation === 2) {
+        // Interleaved
+        realBlockSize = Math.ceil(Math.min(width, height) / algo.blockSize);
+      }
+    }
+
     for (y = 0; y < height; y++) {
       if (algo.orientation === 0) {
+        // Horizontal
         // Initialize vertical bars, each column the same
         colorSelectOne = (step === 1) ? false : true;
       } else if (algo.orientation === 1) {
         // Horizontal Bars, count steps by row
-        effectiveStep = y + step * algo.blockSize + algo.offset;
+        effectiveStep = y + step * realBlockSize + algo.offset;
         // Initialize start color for each row.
-        if (effectiveStep % algo.blockSize === 0) {
+        if (effectiveStep % realBlockSize === 0) {
           colorSelectOne = !colorSelectOne;
         }
       } else if (algo.orientation === 2) {
-        var effectiveY = y + step * algo.blockSize + algo.offset;
-        if (effectiveY % (algo.blockSize) === 0) {
+        // Interleaved
+        var effectiveY = y + step * realBlockSize + algo.offset;
+        if (effectiveY % (realBlockSize) === 0) {
           rowColorOne = !rowColorOne;
         }
         colorSelectOne = rowColorOne;
@@ -232,14 +255,14 @@ var testAlgo;
         if (algo.orientation === 0) {
           // Vertical bars, count steps by column
           effectiveStep = x + algo.offset;
-          if (effectiveStep % algo.blockSize === 0) {
+          if (effectiveStep % realBlockSize === 0) {
             colorSelectOne = !colorSelectOne;
           }
         } else if (algo.orientation === 2) {
           // Horizontal Bars, count steps by row and column
-          var effectiveX = x + step * algo.blockSize + algo.offset;
+          var effectiveX = x + step * realBlockSize + algo.offset;
           // Change color each step.
-          if (effectiveX % algo.blockSize === 0) {
+          if (effectiveX % realBlockSize === 0) {
             colorSelectOne = !colorSelectOne;
           }
         }
