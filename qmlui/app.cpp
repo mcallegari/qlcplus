@@ -35,7 +35,6 @@
 #include <QScreen>
 
 #include "app.h"
-#include "mainview2d.h"
 #include "simpledesk.h"
 #include "showmanager.h"
 #include "fixtureeditor.h"
@@ -57,7 +56,6 @@
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
-#include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
@@ -131,10 +129,7 @@ void App::startup()
 
     rootContext()->setContextProperty("qlcplus", this);
 
-    m_pixelDensity = qMax(screen()->physicalDotsPerInch() *  0.039370, (qreal)screen()->size().height() / 220.0);
-    qDebug() << "Pixel density:" << m_pixelDensity << "size:" << screen()->physicalSize();
-
-    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+    slotScreenChanged(screen());
 
     initDoc();
 
@@ -322,9 +317,13 @@ void App::slotSceneGraphInitialized()
 
 void App::slotScreenChanged(QScreen *screen)
 {
-    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, (qreal)screen->size().height() / 220.0);
-    qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
-    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+    bool isLandscape = (screen->orientation() == Qt::LandscapeOrientation ||
+                     screen->orientation() == Qt::InvertedLandscapeOrientation) ? true : false;
+    qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
+    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, sSize / 220.0);
+    qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
+             << ", physical size:" << screen->physicalSize();
+    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);    
 }
 
 void App::slotClosing()
