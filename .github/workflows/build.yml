@@ -118,7 +118,7 @@ jobs:
           update_packager_index: false
           install_ccache: false
           ccache_options: |
-            max_size=2G
+            max_size=5G
             compression=false
 
       - name: Setup ruby cache
