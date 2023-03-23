@@ -415,6 +415,15 @@ Column
                 editStepIndex = -1
                 visible = false
             }
+
+            Keys.onPressed:
+            {
+                if (event.key === Qt.Key_Escape)
+                {
+                    editStepIndex = -1
+                    visible = false
+                }
+            }
         }
 
         delegate:
