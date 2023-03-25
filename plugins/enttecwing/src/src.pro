@@ -11,14 +11,15 @@ QT            += network widgets
 win32:DEFINES += QLC_EXPORT
 QTPLUGIN       =
 
-win32 {
-    # Qt Libraries
-    qtnetwork.path = $$INSTALLROOT/$$LIBSDIR
-    CONFIG(release, debug|release) qtnetwork.files = $$(QTDIR)/bin/QtNetwork4.dll
-    CONFIG(debug, debug|release) qtnetwork.files = $$(QTDIR)/bin/QtNetworkd4.dll
-    INSTALLS    += qtnetwork
-	QMAKE_LFLAGS += -shared
-}
+# Commented by Itay, 25th March 2023
+#win32 {
+#    # Qt Libraries
+#    qtnetwork.path = $$INSTALLROOT/$$LIBSDIR
+#    CONFIG(release, debug|release) qtnetwork.files = $$(QTDIR)/bin/QtNetwork4.dll
+#    CONFIG(debug, debug|release) qtnetwork.files = $$(QTDIR)/bin/QtNetworkd4.dll
+#    INSTALLS    += qtnetwork
+#	QMAKE_LFLAGS += -shared
+#}
 
 # Input
 HEADERS += ../../interfaces/qlcioplugin.h
