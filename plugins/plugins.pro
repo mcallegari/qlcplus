@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 !android:!ios {
 
- SUBDIRS              += dmxusb
+ # SUBDIRS              += dmxusb
  SUBDIRS              += peperoni
  SUBDIRS              += udmx
  SUBDIRS              += midi
