@@ -98,11 +98,32 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/back.svg"
+                    tooltip: qsTr("Preview the previous step")
+                    visible: chaserEditor.previewEnabled
+                    onClicked: chaserEditor.gotoPreviousStep()
+                }
+
+                IconButton
+                {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/forward.svg"
+                    tooltip: qsTr("Preview the next step")
+                    visible: chaserEditor.previewEnabled
+                    onClicked: chaserEditor.gotoNextStep()
+                }
+
+                IconButton
+                {
                     id: addFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
                     checkable: true
+                    enabled: !chaserEditor.previewEnabled
                     tooltip: qsTr("Add a new step")
 
                     onCheckedChanged:
@@ -125,11 +146,22 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/edit-copy.svg"
+                    tooltip: qsTr("Duplicate the selected step(s)")
+                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    onClicked: chaserEditor.duplicateSteps(chWidget.selector.itemsList())
+                }
+
+                IconButton
+                {
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected steps")
+                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
                     onClicked: deleteSelectedItems()
                 }
 

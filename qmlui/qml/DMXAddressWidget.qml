@@ -51,11 +51,7 @@ Rectangle
     {
         id: dipRow
         spacing: 10
-        anchors
-        {
-            top: flipVertically ? undefined : actText.bottom
-            bottom: flipVertically ? actText.top : undefined
-        }
+        y: flipVertically ? 3: parent.height - height - 3
         anchors.horizontalCenter: parent.horizontalCenter
 
         Repeater

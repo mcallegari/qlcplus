@@ -216,6 +216,28 @@ bool ChaserEditor::moveSteps(QVariantList indicesList, int insertIndex)
     return true;
 }
 
+bool ChaserEditor::duplicateSteps(QVariantList indicesList)
+{
+    if (m_chaser == nullptr || indicesList.count() == 0)
+        return false;
+
+    for (QVariant &vIndex : indicesList)
+    {
+        int stepIndex = vIndex.toInt();
+        ChaserStep *sourceStep = m_chaser->stepAt(stepIndex);
+        ChaserStep step(*sourceStep);
+        m_chaser->addStep(step);
+
+        Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), m_chaser->stepsCount() - 1));
+    }
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+
+    return true;
+}
+
 void ChaserEditor::setSequenceStepValue(SceneValue &scv)
 {
     if (m_chaser == nullptr || m_chaser->type() != Function::SequenceType)
@@ -269,6 +291,26 @@ void ChaserEditor::setPreviewEnabled(bool enable)
     }
 
     FunctionEditor::setPreviewEnabled(enable);
+}
+
+void ChaserEditor::gotoPreviousStep()
+{
+    ChaserAction action;
+    action.m_action = ChaserPreviousStep;
+    action.m_masterIntensity = 1.0;
+    action.m_stepIntensity = 1.0;
+    action.m_fadeMode = Chaser::FromFunction;
+    m_chaser->setAction(action);
+}
+
+void ChaserEditor::gotoNextStep()
+{
+    ChaserAction action;
+    action.m_action = ChaserNextStep;
+    action.m_masterIntensity = 1.0;
+    action.m_stepIntensity = 1.0;
+    action.m_fadeMode = Chaser::FromFunction;
+    m_chaser->setAction(action);
 }
 
 void ChaserEditor::deleteItems(QVariantList list)
