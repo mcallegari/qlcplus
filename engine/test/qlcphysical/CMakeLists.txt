@@ -1,4 +1,4 @@
-qt_add_executable(qlcphysical_test WIN32
+add_executable(qlcphysical_test WIN32
     qlcphysical_test.cpp qlcphysical_test.h
 )
 target_include_directories(qlcphysical_test PRIVATE

@@ -1,4 +1,4 @@
-qt_add_executable(qlcpalette_test WIN32
+add_executable(qlcpalette_test WIN32
     qlcpalette_test.cpp qlcpalette_test.h
 )
 target_include_directories(qlcpalette_test PRIVATE

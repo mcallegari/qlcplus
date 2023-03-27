@@ -1,4 +1,4 @@
-qt_add_executable(qlcinputchannel_test WIN32
+add_executable(qlcinputchannel_test WIN32
     qlcinputchannel_test.cpp qlcinputchannel_test.h
 )
 target_include_directories(qlcinputchannel_test PRIVATE

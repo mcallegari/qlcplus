@@ -1,4 +1,4 @@
-qt_add_executable(cue_test WIN32
+add_executable(cue_test WIN32
     cue_test.cpp cue_test.h
 )
 target_include_directories(cue_test PRIVATE

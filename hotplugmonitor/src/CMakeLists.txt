@@ -1,4 +1,4 @@
-qt_add_library(hotplugmonitor
+add_library(hotplugmonitor
     hotplugmonitor.cpp hotplugmonitor.h
 )
 target_link_libraries(hotplugmonitor PUBLIC

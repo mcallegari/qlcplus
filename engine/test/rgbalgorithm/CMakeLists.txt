@@ -1,4 +1,4 @@
-qt_add_executable(rgbalgorithm_test WIN32
+add_executable(rgbalgorithm_test WIN32
     ../common/resource_paths.h
     rgbalgorithm_test.cpp rgbalgorithm_test.h
 )

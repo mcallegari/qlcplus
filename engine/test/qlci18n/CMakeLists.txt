@@ -1,4 +1,4 @@
-qt_add_executable(qlci18n_test WIN32
+add_executable(qlci18n_test WIN32
     qlci18n_test.cpp qlci18n_test.h
 )
 target_include_directories(qlci18n_test PRIVATE

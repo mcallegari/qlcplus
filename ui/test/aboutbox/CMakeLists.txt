@@ -1,4 +1,4 @@
-qt_add_executable(aboutbox_test WIN32 MACOSX_BUNDLE
+add_executable(aboutbox_test WIN32 MACOSX_BUNDLE
     aboutbox_test.cpp aboutbox_test.h
 )
 target_include_directories(aboutbox_test PRIVATE

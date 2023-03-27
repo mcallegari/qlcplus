@@ -1,4 +1,4 @@
-qt_add_executable(rgbtext_test WIN32
+add_executable(rgbtext_test WIN32
     rgbtext_test.cpp rgbtext_test.h
 )
 target_include_directories(rgbtext_test PRIVATE

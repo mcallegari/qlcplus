@@ -1,4 +1,4 @@
-qt_add_executable(efxpreviewarea_test WIN32 MACOSX_BUNDLE
+add_executable(efxpreviewarea_test WIN32 MACOSX_BUNDLE
     efxpreviewarea_test.cpp efxpreviewarea_test.h
 )
 target_include_directories(efxpreviewarea_test PRIVATE

@@ -1,4 +1,4 @@
-qt_add_executable(fixturegroup_test WIN32
+add_executable(fixturegroup_test WIN32
     ../common/resource_paths.h
     fixturegroup_test.cpp fixturegroup_test.h
 )

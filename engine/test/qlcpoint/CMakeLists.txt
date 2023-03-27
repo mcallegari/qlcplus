@@ -1,4 +1,4 @@
-qt_add_executable(qlcpoint_test WIN32
+add_executable(qlcpoint_test WIN32
     qlcpoint_test.cpp qlcpoint_test.h
 )
 target_include_directories(qlcpoint_test PRIVATE

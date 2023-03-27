@@ -1,4 +1,4 @@
-qt_add_executable(enttecwing_test WIN32 MACOSX_BUNDLE
+add_executable(enttecwing_test WIN32 MACOSX_BUNDLE
     main.cpp
     playbackwing_test.cpp playbackwing_test.h
     programwing_test.cpp programwing_test.h

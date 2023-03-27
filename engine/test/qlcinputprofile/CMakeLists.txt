@@ -1,4 +1,4 @@
-qt_add_executable(qlcinputprofile_test WIN32
+add_executable(qlcinputprofile_test WIN32
     ../common/resource_paths.h
     qlcinputprofile_test.cpp qlcinputprofile_test.h
 )

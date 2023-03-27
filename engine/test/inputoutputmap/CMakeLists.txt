@@ -1,4 +1,4 @@
-qt_add_executable(inputoutputmap_test WIN32
+add_executable(inputoutputmap_test WIN32
     ../common/resource_paths.h
     inputoutputmap_test.cpp inputoutputmap_test.h
 )

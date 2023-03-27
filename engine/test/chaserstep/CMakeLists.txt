@@ -1,4 +1,4 @@
-qt_add_executable(chaserstep_test WIN32
+add_executable(chaserstep_test WIN32
     chaserstep_test.cpp chaserstep_test.h
 )
 target_include_directories(chaserstep_test PRIVATE

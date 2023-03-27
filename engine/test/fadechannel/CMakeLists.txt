@@ -1,4 +1,4 @@
-qt_add_executable(fadechannel_test WIN32
+add_executable(fadechannel_test WIN32
     ../common/resource_paths.h
     fadechannel_test.cpp fadechannel_test.h
 )

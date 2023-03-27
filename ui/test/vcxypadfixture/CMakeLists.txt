@@ -1,4 +1,4 @@
-qt_add_executable(vcxypadfixture_test WIN32 MACOSX_BUNDLE
+add_executable(vcxypadfixture_test WIN32 MACOSX_BUNDLE
     ../common/resource_paths.h
     vcxypadfixture_test.cpp vcxypadfixture_test.h
 )

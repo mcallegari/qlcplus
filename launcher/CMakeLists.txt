@@ -1,4 +1,4 @@
-qt_add_executable(qlcplus-launcher WIN32 MACOSX_BUNDLE
+add_executable(qlcplus-launcher WIN32 MACOSX_BUNDLE
     launcher.cpp launcher.h
     main.cpp
 )

@@ -1,4 +1,4 @@
-qt_add_executable(qlcplus-qml WIN32 MACOSX_BUNDLE
+add_executable(qlcplus-qml WIN32 MACOSX_BUNDLE
     app.cpp app.h
     audioeditor.cpp audioeditor.h
     chasereditor.cpp chasereditor.h

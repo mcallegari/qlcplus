@@ -1,4 +1,4 @@
-qt_add_library(qlcplusengine
+add_library(qlcplusengine
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
     avolitesd4parser.cpp avolitesd4parser.h
     bus.cpp bus.h

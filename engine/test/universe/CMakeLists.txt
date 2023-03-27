@@ -1,4 +1,4 @@
-qt_add_executable(universe_test WIN32
+add_executable(universe_test WIN32
     universe_test.cpp universe_test.h
 )
 target_include_directories(universe_test PRIVATE

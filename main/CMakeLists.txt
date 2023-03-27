@@ -1,4 +1,4 @@
-qt_add_executable(qlcplus WIN32 MACOSX_BUNDLE
+add_executable(qlcplus WIN32 MACOSX_BUNDLE
     main.cpp
 )
 target_include_directories(qlcplus PRIVATE

@@ -1,4 +1,4 @@
-qt_add_executable(velleman_test WIN32 MACOSX_BUNDLE
+add_executable(velleman_test WIN32 MACOSX_BUNDLE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../src/velleman_mock.cpp
     velleman_test.cpp velleman_test.h

@@ -1,4 +1,4 @@
-qt_add_executable(palettegenerator_test WIN32
+add_executable(palettegenerator_test WIN32
     ../common/resource_paths.h
     palettegenerator_test.cpp palettegenerator_test.h
 )

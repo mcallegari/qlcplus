@@ -1,4 +1,4 @@
-qt_add_executable(efx_test WIN32
+add_executable(efx_test WIN32
     ../common/resource_paths.h
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     efx_test.cpp efx_test.h

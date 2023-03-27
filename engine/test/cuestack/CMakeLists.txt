@@ -1,4 +1,4 @@
-qt_add_executable(cuestack_test WIN32
+add_executable(cuestack_test WIN32
     ../common/resource_paths.h
     cuestack_test.cpp cuestack_test.h
 )

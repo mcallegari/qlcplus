@@ -12,3 +12,7 @@ The following files were not successfully converted (2 of 141):
 mkdir build
 cd build
 cmake -DCMAKE_PREFIX_PATH="C:\Qt\Qt5.12.12\5.12.12\msvc2017_64\lib\cmake" ..
+
+Modify CMakeList.txt files
+qt_add_library => add_library
+qt_add_executable => add_executable

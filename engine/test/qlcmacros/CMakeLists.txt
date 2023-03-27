@@ -1,4 +1,4 @@
-qt_add_executable(qlcmacros_test WIN32
+add_executable(qlcmacros_test WIN32
     qlcmacros_test.cpp qlcmacros_test.h
 )
 target_include_directories(qlcmacros_test PRIVATE

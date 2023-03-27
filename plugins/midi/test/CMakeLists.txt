@@ -1,4 +1,4 @@
-qt_add_executable(midi_test WIN32 MACOSX_BUNDLE
+add_executable(midi_test WIN32 MACOSX_BUNDLE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../src/common/midiprotocol.cpp ../src/common/midiprotocol.h
     midi_test.cpp midi_test.h
