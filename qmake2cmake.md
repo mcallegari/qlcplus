@@ -16,3 +16,12 @@ cmake -DCMAKE_PREFIX_PATH="C:\Qt\Qt5.12.12\5.12.12\msvc2017_64\lib\cmake" ..
 Modify CMakeList.txt files
 qt_add_library => add_library
 qt_add_executable => add_executable
+
+if(CONFIG(win32)) => if(WIN32)
+if(CONFIG(coverage)) => if(coverage)
+if(CONFIG(udev)) => if(udev)
+if(CONFIG(iokit)) => if(iokit)
+
+If you want to define a Macro like CONFIG(udev) in Qt *.pro file, you can add -Dudev=ON as a CMake parameter
+E.g.
+cmake -DCMAKE_PREFIX_PATH="C:\Qt\Qt5.12.12\5.12.12\msvc2017_64\lib\cmake" -Dudev=ON ..

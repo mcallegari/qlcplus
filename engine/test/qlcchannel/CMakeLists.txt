@@ -41,7 +41,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(qlcchannel_test PRIVATE
         gcov
     )

@@ -54,7 +54,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(qlcfixturedefcache_test PRIVATE
         gcov
     )

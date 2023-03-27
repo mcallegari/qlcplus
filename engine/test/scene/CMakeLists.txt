@@ -45,7 +45,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(scene_test PRIVATE
         gcov
     )
