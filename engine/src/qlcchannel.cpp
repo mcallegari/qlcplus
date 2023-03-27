@@ -783,7 +783,8 @@ QString QLCChannel::getIntensityColorCode(bool svg) const
         return QString("%1:/intensity.%2").arg(prefix).arg(ext);
     }
 
-    return QString("%1:/intensity.%2").arg(prefix).arg(ext);
+    // unreachable code
+    // return QString("%1:/intensity.%2").arg(prefix).arg(ext);
 }
 
 QIcon QLCChannel::getIcon() const
