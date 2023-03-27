@@ -12,7 +12,7 @@ include(GNUInstallDirs)
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui)
 
-qt_add_executable(common WIN32 MACOSX_BUNDLE
+add_executable(common WIN32 MACOSX_BUNDLE
     inputdevice.cpp inputdevice.h
     iodevice.cpp iodevice.h
     ioenumerator.cpp ioenumerator.h

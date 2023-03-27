@@ -1,4 +1,4 @@
-qt_add_executable(rgbmatrix_test WIN32
+add_executable(rgbmatrix_test WIN32
     ../common/resource_paths.h
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     rgbmatrix_test.cpp rgbmatrix_test.h

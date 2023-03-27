@@ -1,4 +1,4 @@
-qt_add_executable(chaser_test WIN32
+add_executable(chaser_test WIN32
     ../common/resource_paths.h
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     chaser_test.cpp chaser_test.h

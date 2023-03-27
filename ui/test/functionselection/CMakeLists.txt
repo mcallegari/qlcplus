@@ -1,4 +1,4 @@
-qt_add_executable(functionselection_test WIN32 MACOSX_BUNDLE
+add_executable(functionselection_test WIN32 MACOSX_BUNDLE
     functionselection_test.cpp functionselection_test.h
 )
 target_include_directories(functionselection_test PRIVATE

@@ -1,4 +1,4 @@
-qt_add_executable(monitorfixture_test WIN32 MACOSX_BUNDLE
+add_executable(monitorfixture_test WIN32 MACOSX_BUNDLE
     monitorfixture_test.cpp monitorfixture_test.h
 )
 target_include_directories(monitorfixture_test PRIVATE

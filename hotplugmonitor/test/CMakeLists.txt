@@ -1,4 +1,4 @@
-qt_add_executable(test WIN32 MACOSX_BUNDLE
+add_executable(test WIN32 MACOSX_BUNDLE
     hpmtest.cpp hpmtest.h
     main.cpp
 )

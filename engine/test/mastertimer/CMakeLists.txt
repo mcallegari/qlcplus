@@ -1,4 +1,4 @@
-qt_add_executable(mastertimer_test WIN32
+add_executable(mastertimer_test WIN32
     ../../../plugins/interfaces/qlcioplugin.cpp
     ../common/resource_paths.h
     ../function/function_stub.cpp ../function/function_stub.h

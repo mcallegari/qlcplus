@@ -1,4 +1,4 @@
-qt_add_executable(bus_test WIN32
+add_executable(bus_test WIN32
     bus_test.cpp bus_test.h
 )
 target_include_directories(bus_test PRIVATE

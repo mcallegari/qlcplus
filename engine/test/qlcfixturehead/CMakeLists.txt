@@ -1,4 +1,4 @@
-qt_add_executable(qlcfixturehead_test WIN32
+add_executable(qlcfixturehead_test WIN32
     qlcfixturehead_test.cpp qlcfixturehead_test.h
 )
 target_include_directories(qlcfixturehead_test PRIVATE

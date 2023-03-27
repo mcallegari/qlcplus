@@ -1,4 +1,4 @@
-qt_add_executable(vclabel_test WIN32 MACOSX_BUNDLE
+add_executable(vclabel_test WIN32 MACOSX_BUNDLE
     vclabel_test.cpp vclabel_test.h
 )
 target_include_directories(vclabel_test PRIVATE

@@ -1,4 +1,4 @@
-qt_add_executable(grandmaster_test WIN32
+add_executable(grandmaster_test WIN32
     grandmaster_test.cpp grandmaster_test.h
 )
 target_include_directories(grandmaster_test PRIVATE

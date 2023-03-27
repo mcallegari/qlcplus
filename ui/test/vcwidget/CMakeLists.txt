@@ -1,4 +1,4 @@
-qt_add_executable(vcwidget_test WIN32 MACOSX_BUNDLE
+add_executable(vcwidget_test WIN32 MACOSX_BUNDLE
     stubwidget.cpp stubwidget.h
     vcwidget_test.cpp vcwidget_test.h
 )

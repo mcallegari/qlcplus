@@ -1,4 +1,4 @@
-qt_add_executable(addfixture_test WIN32 MACOSX_BUNDLE
+add_executable(addfixture_test WIN32 MACOSX_BUNDLE
     ../common/resource_paths.h
     addfixture_test.cpp addfixture_test.h
 )

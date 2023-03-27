@@ -1,4 +1,4 @@
-qt_add_executable(scenevalue_test WIN32
+add_executable(scenevalue_test WIN32
     scenevalue_test.cpp scenevalue_test.h
 )
 target_include_directories(scenevalue_test PRIVATE

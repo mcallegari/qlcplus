@@ -1,4 +1,4 @@
-qt_add_executable(inputpatch_test WIN32
+add_executable(inputpatch_test WIN32
     inputpatch_test.cpp inputpatch_test.h
 )
 target_include_directories(inputpatch_test PRIVATE

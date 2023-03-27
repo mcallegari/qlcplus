@@ -1,4 +1,4 @@
-qt_add_library(qlcpluswebaccess
+add_library(qlcpluswebaccess
     commonjscss.h
     qhttpserver/http_parser.c qhttpserver/http_parser.h
     qhttpserver/qhttpconnection.cpp qhttpserver/qhttpconnection.h

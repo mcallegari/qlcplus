@@ -1,4 +1,4 @@
-qt_add_library(qlcplusaudio
+add_library(qlcplusaudio
     audio.cpp audio.h
     audiocapture.cpp audiocapture.h
     audiodecoder.cpp audiodecoder.h

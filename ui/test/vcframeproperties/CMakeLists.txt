@@ -1,4 +1,4 @@
-qt_add_executable(vcframeproperties_test WIN32 MACOSX_BUNDLE
+add_executable(vcframeproperties_test WIN32 MACOSX_BUNDLE
     vcframeproperties_test.cpp vcframeproperties_test.h
 )
 target_include_directories(vcframeproperties_test PRIVATE

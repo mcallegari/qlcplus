@@ -1,4 +1,4 @@
-qt_add_executable(scene_test WIN32
+add_executable(scene_test WIN32
     ../common/resource_paths.h
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     scene_test.cpp scene_test.h

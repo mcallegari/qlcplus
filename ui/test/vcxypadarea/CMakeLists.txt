@@ -1,4 +1,4 @@
-qt_add_executable(vcxypadarea_test WIN32 MACOSX_BUNDLE
+add_executable(vcxypadarea_test WIN32 MACOSX_BUNDLE
     vcxypadarea_test.cpp vcxypadarea_test.h
 )
 target_include_directories(vcxypadarea_test PRIVATE

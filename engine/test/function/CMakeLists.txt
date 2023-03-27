@@ -1,4 +1,4 @@
-qt_add_executable(function_test WIN32
+add_executable(function_test WIN32
     function_stub.cpp function_stub.h
     function_test.cpp function_test.h
 )

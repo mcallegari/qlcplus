@@ -1,4 +1,4 @@
-qt_add_executable(qlcplus-fixtureeditor WIN32 MACOSX_BUNDLE
+add_executable(qlcplus-fixtureeditor WIN32 MACOSX_BUNDLE
     ../ui/src/aboutbox.cpp ../ui/src/aboutbox.h ../ui/src/aboutbox.ui
     ../ui/src/apputil.cpp ../ui/src/apputil.h
     ../ui/src/docbrowser.cpp ../ui/src/docbrowser.h

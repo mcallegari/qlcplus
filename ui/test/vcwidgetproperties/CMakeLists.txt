@@ -1,4 +1,4 @@
-qt_add_executable(vcwidgetproperties_test WIN32 MACOSX_BUNDLE
+add_executable(vcwidgetproperties_test WIN32 MACOSX_BUNDLE
     vcwidgetproperties_test.cpp vcwidgetproperties_test.h
 )
 target_include_directories(vcwidgetproperties_test PRIVATE

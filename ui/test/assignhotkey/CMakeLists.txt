@@ -1,4 +1,4 @@
-qt_add_executable(assignhotkey_test WIN32 MACOSX_BUNDLE
+add_executable(assignhotkey_test WIN32 MACOSX_BUNDLE
     assignhotkey_test.cpp assignhotkey_test.h
 )
 target_include_directories(assignhotkey_test PRIVATE

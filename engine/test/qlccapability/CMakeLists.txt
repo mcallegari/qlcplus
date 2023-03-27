@@ -1,4 +1,4 @@
-qt_add_executable(qlccapability_test WIN32
+add_executable(qlccapability_test WIN32
     qlccapability_test.cpp qlccapability_test.h
 )
 target_include_directories(qlccapability_test PRIVATE

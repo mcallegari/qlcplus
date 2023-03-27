@@ -1,4 +1,4 @@
-qt_add_library(qlcplusui
+add_library(qlcplusui
     ../../plugins/interfaces/rdmprotocol.cpp ../../plugins/interfaces/rdmprotocol.h
     aboutbox.cpp aboutbox.h aboutbox.ui
     addchannelsgroup.cpp addchannelsgroup.h addchannelsgroup.ui
