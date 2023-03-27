@@ -218,18 +218,18 @@ void VideoEditor::slotDurationChanged(qint64 duration)
     m_durationLabel->setText(Function::speedToString(duration));
 }
 
-void VideoEditor::slotMetaDataChanged(QString key, QVariant data)
+void VideoEditor::slotMetaDataChanged(QString key, QVariant _data)
 {
     qDebug() << "Got meta data:" << key;
     if (key == "Resolution")
     {
-        QSize res = data.toSize();
+        QSize res = _data.toSize();
         m_resolutionLabel->setText(QString("%1x%2").arg(res.width()).arg(res.height()));
     }
     else if (key == "VideoCodec")
-        m_vcodecLabel->setText(data.toString());
+        m_vcodecLabel->setText(_data.toString());
     else if (key == "AudioCodec")
-        m_acodecLabel->setText(data.toString());
+        m_acodecLabel->setText(_data.toString());
 }
 
 FunctionParent VideoEditor::functionParent() const

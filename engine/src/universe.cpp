@@ -641,7 +641,8 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index)
         return result;
     }
 
-    return false;
+    // unreachable code
+    // return false;
 }
 
 bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
