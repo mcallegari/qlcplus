@@ -52,7 +52,7 @@ if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]")))
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(enttecwing PRIVATE
         gcov
     )

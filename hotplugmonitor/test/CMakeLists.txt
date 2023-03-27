@@ -41,7 +41,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(iokit))
+if(iokit)
     target_link_libraries(test PRIVATE
         "-framework CoreFoundation"
         "-framework IOKit"

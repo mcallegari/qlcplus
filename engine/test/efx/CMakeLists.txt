@@ -44,7 +44,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(efx_test PRIVATE
         gcov
     )

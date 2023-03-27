@@ -44,7 +44,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(chaserrunner_test PRIVATE
         gcov
     )

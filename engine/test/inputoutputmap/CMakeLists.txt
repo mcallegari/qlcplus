@@ -55,7 +55,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(inputoutputmap_test PRIVATE
         gcov
     )

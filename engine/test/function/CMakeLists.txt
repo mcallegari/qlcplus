@@ -42,7 +42,7 @@ if(MACOS)
     )
 endif()
 
-if(CONFIG(coverage))
+if(coverage)
     target_link_libraries(function_test PRIVATE
         gcov
     )

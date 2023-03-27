@@ -10,13 +10,13 @@ target_compile_options(hotplugmonitor
     -Werror
 )
 
-if(CONFIG(udev))
+if(udev)
     target_sources(hotplugmonitor PUBLIC
         hpmprivate-udev.cpp hpmprivate-udev.h
     )
 endif()
 
-if(CONFIG(iokit))
+if(iokit)
     target_sources(hotplugmonitor PUBLIC
         hpmprivate-iokit.cpp hpmprivate-iokit.h
     )
@@ -27,7 +27,7 @@ if(CONFIG(iokit))
     )
 endif()
 
-if(CONFIG(win32))
+if(WIN32)
     target_sources(hotplugmonitor PUBLIC
         hpmprivate-win32.cpp hpmprivate-win32.h
     )
