@@ -1,4 +1,4 @@
-qt_add_plugin(spi)
+add_library(spi)
 target_sources(spi PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     spiconfiguration.cpp spiconfiguration.h spiconfiguration.ui

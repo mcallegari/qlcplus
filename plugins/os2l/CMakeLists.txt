@@ -1,4 +1,4 @@
-qt_add_plugin(os2l)
+add_library(os2l)
 target_sources(os2l PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     os2lconfiguration.cpp os2lconfiguration.h os2lconfiguration.ui

@@ -12,7 +12,7 @@ include(GNUInstallDirs)
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui SerialPort Widgets)
 
-qt_add_plugin(uart)
+add_library(uart)
 target_sources(uart PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     uartplugin.cpp uartplugin.h

@@ -1,7 +1,7 @@
 include(../../../variables.cmake)
 include(../../../coverage.cmake)
 
-qt_add_plugin(velleman)
+add_library(velleman)
 target_sources(velleman PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     velleman.cpp velleman.h

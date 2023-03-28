@@ -1,6 +1,6 @@
 include(../../variables.cmake)
 
-qt_add_plugin(olaio)
+add_library(olaio)
 target_sources(olaio PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     configureolaio.cpp configureolaio.h configureolaio.ui

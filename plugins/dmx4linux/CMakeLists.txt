@@ -1,4 +1,4 @@
-qt_add_plugin(dmx4linux)
+add_library(dmx4linux)
 target_sources(dmx4linux PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     dmx4linux.cpp dmx4linux.h

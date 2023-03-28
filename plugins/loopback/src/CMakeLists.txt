@@ -1,7 +1,7 @@
 include(../../../variables.cmake)
 include(../../../coverage.cmake)
 
-qt_add_plugin(loopback)
+add_library(loopback)
 target_sources(loopback PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     loopback.cpp loopback.h

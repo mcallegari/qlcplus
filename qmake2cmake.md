@@ -25,3 +25,5 @@ if(CONFIG(iokit)) => if(iokit)
 If you want to define a Macro like CONFIG(udev) in Qt *.pro file, you can add -Dudev=ON as a CMake parameter
 E.g.
 cmake -DCMAKE_PREFIX_PATH="C:\Qt\Qt5.12.12\5.12.12\msvc2017\lib\cmake" -Dudev=ON ..
+
+qt_add_plugin => add_library

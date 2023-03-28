@@ -1,4 +1,4 @@
-qt_add_plugin(midiplugin)
+add_library(midiplugin)
 target_sources(midiplugin PRIVATE
     ../../../../engine/src/qlcfile.cpp ../../../../engine/src/qlcfile.h
     ../../../interfaces/qlcioplugin.cpp ../../../interfaces/qlcioplugin.h
