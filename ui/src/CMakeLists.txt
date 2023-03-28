@@ -698,24 +698,31 @@ set(qlcui_resource_files
     "../../resources/icons/png/xypad.png"
 )
 
-# qt_add_resources(qlcplusui "qlcui"
-#     PREFIX
-#         "/"
-#     FILES
-#         ${qlcui_resource_files}
-# )
-
 if((QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(qlcplusui PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
+
+    qt_add_resources(qlcplusui "qlcui"
+        PREFIX
+            "/"
+        FILES
+            ${qlcui_resource_files}
+    )
+
 endif()
 
 if(NOT ((QT_VERSION_MAJOR GREATER 5)))
     target_link_libraries(qlcplusui PUBLIC
         Qt${QT_MAJOR_VERSION}::Script
     )
+
+    qt5_add_resources(qlcplusui_resource_files "qlcui.qrc")    
+    target_sources(qlcplusui PUBLIC
+        ${qlcplusui_resource_files}
+    )
 endif()
+
 
 if(WIN32)
     target_include_directories(qlcplusui PUBLIC
