@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+find_package(PkgConfig REQUIRED)
+
 add_library(qlcplusaudio
     audio.cpp audio.h
     audiocapture.cpp audiocapture.h
@@ -12,13 +15,9 @@ target_include_directories(qlcplusaudio PUBLIC
 )
 
 target_link_libraries(qlcplusaudio PUBLIC
-    Qt::Core
-    Qt::Gui
-    Qt::Multimedia
-)
-
-target_compile_options(qlcplusaudio
-    -Werror
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Multimedia
 )
 
 if(MACOS)
@@ -29,40 +28,42 @@ endif()
 
 if(WIN32)
     target_link_libraries(qlcplusaudio PUBLIC
-        Qt::Widgets
+        Qt${QT_MAJOR_VERSION}::Widgets
     )
 endif()
 
 if(((QT_VERSION_MAJOR LESS 5)) AND (UNIX AND NOT MACOS))
-    target_sources(qlcplusaudio PUBLIC
+    target_sources(qlcplusaudio PRIVATE
         audiocapture_alsa.cpp audiocapture_alsa.h
         audiorenderer_alsa.cpp audiorenderer_alsa.h
     )
 endif()
 
 if(((QT_VERSION_MAJOR LESS 5)) AND (WIN32))
-    target_sources(qlcplusaudio PUBLIC
+    target_sources(qlcplusaudio PRIVATE
         audiocapture_wavein.cpp audiocapture_wavein.h
         audiorenderer_waveout.cpp audiorenderer_waveout.h
     )
 endif()
 
 if((QT_VERSION_MAJOR LESS 6))
-    target_sources(qlcplusaudio PUBLIC
+    target_sources(qlcplusaudio PRIVATE
         audiocapture_qt5.cpp audiocapture_qt5.h
         audiorenderer_qt5.cpp audiorenderer_qt5.h
     )
 endif()
 
 if(NOT ((QT_VERSION_MAJOR LESS 6)))
-    target_sources(qlcplusaudio PUBLIC
+    target_sources(qlcplusaudio PRIVATE
         audiocapture_qt6.cpp audiocapture_qt6.h
         audiorenderer_qt6.cpp audiorenderer_qt6.h
     )
 endif()
 
-if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)) AND (system(pkg-config --exists portaudio-2.0)))
-    target_sources(qlcplusaudio PUBLIC
+pkg_check_modules(PORTAUDIO_2 IMPORTED_TARGET portaudio-2.0)
+
+if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)) AND (${PORTAUDIO_2_FOUND}))
+    target_sources(qlcplusaudio PRIVATE
         audiocapture_portaudio.cpp audiocapture_portaudio.h
         audiorenderer_portaudio.cpp audiorenderer_portaudio.h
     )
@@ -72,13 +73,15 @@ if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)) AND (system(pkg-config --exists por
     )
 endif()
 
-if((NOT ANDROID AND NOT IOS) AND (system(pkg-config --exists fftw3)))
+pkg_check_modules(FFTW3 IMPORTED_TARGET fftw3)
+
+if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(qlcplusaudio PUBLIC
         HAS_FFTW3
     )
 endif()
 
-if(((NOT ANDROID AND NOT IOS) AND (system(pkg-config --exists fftw3))) AND (MACOS))
+if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})) AND (MACOS))
     target_link_libraries(qlcplusaudio PUBLIC
         fftw3
     )
@@ -87,24 +90,6 @@ endif()
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
     target_link_libraries(qlcplusaudio PUBLIC
         asound
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(qlcplusaudio PUBLIC
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcplusaudio
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcplusaudio
-        -Wno-unused-local-typedefs
     )
 endif()
 

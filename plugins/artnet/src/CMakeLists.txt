@@ -12,50 +12,11 @@ target_include_directories(artnet PRIVATE
 )
 
 target_link_libraries(artnet PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Network
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Network
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
-
-target_compile_options(artnet
-    -Werror
-)
-
-if(MACOS)
-    set_target_properties(artnet PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(artnet PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(artnet
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(artnet
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(artnet PRIVATE
-        gcov
-    )
-
-    target_compile_options(artnet
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
 
 install(TARGETS artnet
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

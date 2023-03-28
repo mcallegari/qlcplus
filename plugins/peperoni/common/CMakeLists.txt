@@ -20,12 +20,12 @@ add_executable(common WIN32 MACOSX_BUNDLE
     outputdevice.cpp outputdevice.h
 )
 target_link_libraries(common PRIVATE
-    Qt::Core
-    Qt::Gui
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
 )
 
 if(WIN32)
-    target_sources(common PUBLIC
+    target_sources(common PRIVATE
         ../win32/peperoni/usbdmx-dynamic.cpp ../win32/peperoni/usbdmx-dynamic.h
         win32ioenumerator.cpp win32ioenumerator.h
         win32peperonidevice.cpp win32peperonidevice.h
@@ -46,7 +46,7 @@ if(MACOS)
 endif()
 
 if(UNIX)
-    target_sources(common PUBLIC
+    target_sources(common PRIVATE
         unixioenumerator.cpp unixioenumerator.h
         unixpeperonidevice.cpp unixpeperonidevice.h
     )

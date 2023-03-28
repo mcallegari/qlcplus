@@ -1,3 +1,5 @@
+include(../variables.cmake)
+
 add_executable(qlcplus-launcher WIN32 MACOSX_BUNDLE
     launcher.cpp launcher.h
     main.cpp
@@ -8,13 +10,9 @@ target_include_directories(qlcplus-launcher PRIVATE
 )
 
 target_link_libraries(qlcplus-launcher PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Widgets
-)
-
-target_compile_options(qlcplus-launcher
-    -Werror
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
 
 
@@ -36,30 +34,6 @@ qt_add_resources(qlcplus-launcher "launcher"
     FILES
         ${launcher_resource_files}
 )
-
-if(qmlui)
-    target_compile_definitions(qlcplus-launcher PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcplus-launcher
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcplus-launcher
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(qlcplus-launcher PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
 
 install(TARGETS qlcplus-launcher
     BUNDLE DESTINATION .

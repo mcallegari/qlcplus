@@ -1,23 +1,22 @@
+include(../../variables.cmake)
+
 add_library(hotplugmonitor
     hotplugmonitor.cpp hotplugmonitor.h
 )
-target_link_libraries(hotplugmonitor PUBLIC
-    Qt::Core
-    Qt::Gui
-)
 
-target_compile_options(hotplugmonitor
-    -Werror
+target_link_libraries(hotplugmonitor PUBLIC
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
 )
 
 if(udev)
-    target_sources(hotplugmonitor PUBLIC
+    target_sources(hotplugmonitor PRIVATE
         hpmprivate-udev.cpp hpmprivate-udev.h
     )
 endif()
 
 if(iokit)
-    target_sources(hotplugmonitor PUBLIC
+    target_sources(hotplugmonitor PRIVATE
         hpmprivate-iokit.cpp hpmprivate-iokit.h
     )
 
@@ -28,32 +27,8 @@ if(iokit)
 endif()
 
 if(WIN32)
-    target_sources(hotplugmonitor PUBLIC
+    target_sources(hotplugmonitor PRIVATE
         hpmprivate-win32.cpp hpmprivate-win32.h
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(hotplugmonitor PUBLIC
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(hotplugmonitor
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(hotplugmonitor
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(hotplugmonitor PROPERTIES
-        MACOSX_BUNDLE FALSE
     )
 endif()
 

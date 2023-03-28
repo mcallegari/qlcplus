@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(qlcfixturedefcache_test WIN32
     ../common/resource_paths.h
     qlcfixturedefcache_test.cpp qlcfixturedefcache_test.h
@@ -8,14 +11,10 @@ target_include_directories(qlcfixturedefcache_test PRIVATE
 )
 
 target_link_libraries(qlcfixturedefcache_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
-)
-
-target_compile_options(qlcfixturedefcache_test
-    -Werror
 )
 
 if(IS_TRAVIS___contains___ON)
@@ -24,44 +23,10 @@ if(IS_TRAVIS___contains___ON)
     )
 endif()
 
-if(count(IS_BUILDBOT, 1))
+# if(count(IS_BUILDBOT, 1))
+if(IS_BUILDBOT)
     target_compile_definitions(qlcfixturedefcache_test PRIVATE
         SKIP_TEST
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(qlcfixturedefcache_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcfixturedefcache_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcfixturedefcache_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(qlcfixturedefcache_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(qlcfixturedefcache_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(qlcfixturedefcache_test
-        -fprofile-arcs
-        -ftest-coverage
     )
 endif()
 

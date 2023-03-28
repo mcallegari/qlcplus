@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(qlcinputprofile_test WIN32
     ../common/resource_paths.h
     qlcinputprofile_test.cpp qlcinputprofile_test.h
@@ -8,50 +11,11 @@ target_include_directories(qlcinputprofile_test PRIVATE
 )
 
 target_link_libraries(qlcinputprofile_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
 )
-
-target_compile_options(qlcinputprofile_test
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(qlcinputprofile_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcinputprofile_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcinputprofile_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(qlcinputprofile_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(qlcinputprofile_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(qlcinputprofile_test
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
 
 install(TARGETS qlcinputprofile_test
     BUNDLE DESTINATION .

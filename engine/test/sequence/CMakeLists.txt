@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(sequence_test WIN32
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     sequence_test.cpp sequence_test.h
@@ -9,50 +12,11 @@ target_include_directories(sequence_test PRIVATE
 )
 
 target_link_libraries(sequence_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
 )
-
-target_compile_options(sequence_test
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(sequence_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(sequence_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(sequence_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(sequence_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(sequence_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(sequence_test
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
 
 install(TARGETS sequence_test
     BUNDLE DESTINATION .

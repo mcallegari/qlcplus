@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(rgbmatrix_test WIN32
     ../common/resource_paths.h
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
@@ -10,60 +13,21 @@ target_include_directories(rgbmatrix_test PRIVATE
 )
 
 target_link_libraries(rgbmatrix_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
-)
-
-target_compile_options(rgbmatrix_test
-    -Werror
 )
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(rgbmatrix_test PRIVATE
-        Qt::Qml
+        Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     target_link_libraries(rgbmatrix_test PRIVATE
-        Qt::Script
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(rgbmatrix_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(rgbmatrix_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(rgbmatrix_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(rgbmatrix_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(rgbmatrix_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(rgbmatrix_test
-        -fprofile-arcs
-        -ftest-coverage
+        Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 

@@ -11,38 +11,10 @@ target_include_directories(peperoni PRIVATE
 )
 
 target_link_libraries(peperoni PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
-
-target_compile_options(peperoni
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(peperoni PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(peperoni
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(peperoni
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(peperoni PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
 
 install(TARGETS peperoni
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

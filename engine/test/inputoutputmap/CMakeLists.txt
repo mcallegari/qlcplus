@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(inputoutputmap_test WIN32
     ../common/resource_paths.h
     inputoutputmap_test.cpp inputoutputmap_test.h
@@ -9,14 +12,10 @@ target_include_directories(inputoutputmap_test PRIVATE
 )
 
 target_link_libraries(inputoutputmap_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
-)
-
-target_compile_options(inputoutputmap_test
-    -Werror
 )
 
 if(IS_TRAVIS___contains___ON)
@@ -25,44 +24,10 @@ if(IS_TRAVIS___contains___ON)
     )
 endif()
 
-if(count(IS_BUILDBOT, 1))
+# if(count(IS_BUILDBOT, 1))
+if(IS_BUILDBOT)
     target_compile_definitions(inputoutputmap_test PRIVATE
         SKIP_TEST
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(inputoutputmap_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(inputoutputmap_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(inputoutputmap_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(inputoutputmap_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(inputoutputmap_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(inputoutputmap_test
-        -fprofile-arcs
-        -ftest-coverage
     )
 endif()
 

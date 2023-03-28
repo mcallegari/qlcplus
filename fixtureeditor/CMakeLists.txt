@@ -1,3 +1,5 @@
+include(../variables.cmake)
+
 add_executable(qlcplus-fixtureeditor WIN32 MACOSX_BUNDLE
     ../ui/src/aboutbox.cpp ../ui/src/aboutbox.h ../ui/src/aboutbox.ui
     ../ui/src/apputil.cpp ../ui/src/apputil.h
@@ -20,14 +22,10 @@ target_include_directories(qlcplus-fixtureeditor PRIVATE
 )
 
 target_link_libraries(qlcplus-fixtureeditor PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
     qlcplusengine
-)
-
-target_compile_options(qlcplus-fixtureeditor
-    -Werror
 )
 
 
@@ -583,48 +581,24 @@ set(qlcui_resource_files
     "../ui/src/../../resources/icons/png/xypad.png"
 )
 
-qt_add_resources(qlcplus-fixtureeditor "qlcui"
-    PREFIX
-        "/"
-    BASE
-        "../ui/src"
-    FILES
-        ${qlcui_resource_files}
-)
+# qt_add_resources(qlcplus-fixtureeditor "qlcui"
+#     PREFIX
+#         "/"
+#     BASE
+#         "../ui/src"
+#     FILES
+#         ${qlcui_resource_files}
+# )
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(qlcplus-fixtureeditor PRIVATE
-        Qt::Qml
+        Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     target_link_libraries(qlcplus-fixtureeditor PRIVATE
-        Qt::Script
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(qlcplus-fixtureeditor PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(qlcplus-fixtureeditor PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcplus-fixtureeditor
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcplus-fixtureeditor
-        -Wno-unused-local-typedefs
+        Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 

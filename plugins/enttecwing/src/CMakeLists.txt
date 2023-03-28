@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 qt_add_plugin(enttecwing)
 target_sources(enttecwing PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
@@ -12,54 +15,15 @@ target_include_directories(enttecwing PRIVATE
 )
 
 target_link_libraries(enttecwing PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Network
-    Qt::Widgets
-)
-
-target_compile_options(enttecwing
-    -Werror
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Network
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
 
 if(WIN32)
     target_compile_definitions(enttecwing PRIVATE
         QLC_EXPORT
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(enttecwing PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(enttecwing PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(enttecwing
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(enttecwing
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(enttecwing PRIVATE
-        gcov
-    )
-
-    target_compile_options(enttecwing
-        -fprofile-arcs
-        -ftest-coverage
     )
 endif()
 

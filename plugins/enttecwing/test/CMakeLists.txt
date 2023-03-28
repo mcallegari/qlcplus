@@ -12,41 +12,13 @@ target_include_directories(enttecwing_test PRIVATE
 
 target_link_libraries(enttecwing_test PRIVATE
     # Remove: L../src
-    Qt::Core
-    Qt::Gui
-    Qt::Network
-    Qt::Test
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Network
+    Qt${QT_MAJOR_VERSION}::Test
+    Qt${QT_MAJOR_VERSION}::Widgets
     enttecwing
 )
-
-target_compile_options(enttecwing_test
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(enttecwing_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(enttecwing_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(enttecwing_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(enttecwing_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
 
 install(TARGETS enttecwing_test
     BUNDLE DESTINATION .

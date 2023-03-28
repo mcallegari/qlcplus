@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 qt_add_plugin(velleman)
 target_sources(velleman PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
@@ -8,12 +11,8 @@ target_include_directories(velleman PRIVATE
 )
 
 target_link_libraries(velleman PRIVATE
-    Qt::Core
-    Qt::Gui
-)
-
-target_compile_options(velleman
-    -Werror
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
 )
 
 if(WIN32)
@@ -29,43 +28,8 @@ if(WIN32)
 endif()
 
 if(UNIX)
-    target_sources(velleman PUBLIC
+    target_sources(velleman PRIVATE
         velleman_mock.cpp
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(velleman PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(velleman
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(velleman
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(velleman PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(velleman PRIVATE
-        gcov
-    )
-
-    target_compile_options(velleman
-        -fprofile-arcs
-        -ftest-coverage
     )
 endif()
 

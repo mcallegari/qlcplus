@@ -1,4 +1,7 @@
-add_library(qlcplusengine
+include(../../variables.cmake)
+find_package(PkgConfig REQUIRED)
+
+add_library(qlcplusengine STATIC
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
     avolitesd4parser.cpp avolitesd4parser.h
     bus.cpp bus.h
@@ -75,14 +78,10 @@ target_include_directories(qlcplusengine PUBLIC
 
 target_link_libraries(qlcplusengine PUBLIC
     # Remove: L../audio/src
-    Qt::Core
-    Qt::Gui
-    Qt::Multimedia
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Multimedia
     qlcplusaudio
-)
-
-target_compile_options(qlcplusengine
-    -Werror
 )
 
 if(NOT ANDROID AND NOT IOS)
@@ -96,7 +95,7 @@ if(NOT ANDROID AND NOT IOS)
     )
 endif()
 
-if((NOT ANDROID AND NOT IOS) AND (CONFIG(coverage)))
+if((NOT ANDROID AND NOT IOS) AND (coverage))
     target_link_libraries(qlcplusengine PUBLIC
         gcov
     )
@@ -114,7 +113,7 @@ if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
 endif()
 
 if(WIN32)
-    target_sources(qlcplusengine PUBLIC
+    target_sources(qlcplusengine PRIVATE
         mastertimer-win32.cpp mastertimer-win32.h
     )
 
@@ -123,12 +122,12 @@ if(WIN32)
     )
 
     target_link_libraries(qlcplusengine PUBLIC
-        Qt::Widgets
+        Qt${QT_MAJOR_VERSION}::Widgets
         winmm
     )
 endif()
 
-if((NOT ANDROID AND NOT IOS) AND (CONFIG(iokit)))
+if((NOT ANDROID AND NOT IOS) AND (iokit))
     target_link_libraries(qlcplusengine PUBLIC
         "-framework CoreFoundation"
         "-framework IOKit"
@@ -147,61 +146,45 @@ if(MACOS)
 endif()
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
-    target_sources(qlcplusengine PUBLIC
+    target_sources(qlcplusengine PRIVATE
         rgbscriptv4.cpp rgbscriptv4.h
         scriptrunner.cpp scriptrunner.h
         scriptv4.cpp scriptv4.h
     )
 
     target_link_libraries(qlcplusengine PUBLIC
-        Qt::Qml
+        Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
-    target_sources(qlcplusengine PUBLIC
+    target_sources(qlcplusengine PRIVATE
         rgbscript.cpp rgbscript.h
         script.cpp script.h
     )
 
     target_link_libraries(qlcplusengine PUBLIC
-        Qt::Script
+        Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 
 if(UNIX)
-    target_sources(qlcplusengine PUBLIC
+    target_sources(qlcplusengine PRIVATE
         mastertimer-unix.cpp mastertimer-unix.h
     )
 endif()
 
-if((NOT ANDROID AND NOT IOS) AND (system(pkg-config --exists fftw3)))
+pkg_check_modules(FFTW3 IMPORTED_TARGET fftw3)
+
+if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(qlcplusengine PUBLIC
         HAS_FFTW3
     )
 endif()
 
-if(((NOT ANDROID AND NOT IOS) AND (system(pkg-config --exists fftw3))) AND (MACOS))
+if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})) AND (MACOS))
     target_link_libraries(qlcplusengine PUBLIC
         fftw3
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(qlcplusengine PUBLIC
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcplusengine
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcplusengine
-        -Wno-unused-local-typedefs
     )
 endif()
 

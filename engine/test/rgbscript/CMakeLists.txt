@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(rgbscript_test WIN32
     ../common/resource_paths.h
     rgbscript_test.cpp rgbscript_test.h
@@ -9,60 +12,21 @@ target_include_directories(rgbscript_test PRIVATE
 )
 
 target_link_libraries(rgbscript_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
-)
-
-target_compile_options(rgbscript_test
-    -Werror
 )
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(rgbscript_test PRIVATE
-        Qt::Qml
+        Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     target_link_libraries(rgbscript_test PRIVATE
-        Qt::Script
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(rgbscript_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(rgbscript_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(rgbscript_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(rgbscript_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(rgbscript_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(rgbscript_test
-        -fprofile-arcs
-        -ftest-coverage
+        Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 

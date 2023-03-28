@@ -1,3 +1,9 @@
+include(../variables.cmake)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
 add_executable(qlcplus WIN32 MACOSX_BUNDLE
     main.cpp
 )
@@ -9,61 +15,35 @@ target_include_directories(qlcplus PRIVATE
 )
 
 target_link_libraries(qlcplus PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
     qlcplusengine
     qlcplusui
     qlcpluswebaccess
 )
 
-target_compile_options(qlcplus
-    -Werror
-)
-
 if(WIN32)
-    target_sources(qlcplus PUBLIC
+    target_sources(qlcplus PRIVATE
         ../ui/src/debugbox.cpp ../ui/src/debugbox.h ../ui/src/debugbox.ui
     )
 endif()
 
 if(MACOS)
-    target_sources(qlcplus PUBLIC
+    target_sources(qlcplus PRIVATE
         ../ui/src/debugbox.cpp ../ui/src/debugbox.h ../ui/src/debugbox.ui
-    )
-
-    set_target_properties(qlcplus PROPERTIES
-        MACOSX_BUNDLE FALSE
     )
 endif()
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(qlcplus PRIVATE
-        Qt::Qml
+        Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     target_link_libraries(qlcplus PRIVATE
-        Qt::Script
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(qlcplus PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcplus
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcplus
-        -Wno-unused-local-typedefs
+        Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 

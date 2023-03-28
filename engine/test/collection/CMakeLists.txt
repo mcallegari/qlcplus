@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(collection_test WIN32
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     collection_test.cpp collection_test.h
@@ -9,50 +12,11 @@ target_include_directories(collection_test PRIVATE
 )
 
 target_link_libraries(collection_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
 )
-
-target_compile_options(collection_test
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(collection_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(collection_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(collection_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(collection_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(collection_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(collection_test
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
 
 install(TARGETS collection_test
     BUNDLE DESTINATION .

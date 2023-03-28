@@ -1,3 +1,5 @@
+include(../../variables.cmake)
+
 qt_add_plugin(olaio)
 target_sources(olaio PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
@@ -11,13 +13,9 @@ target_include_directories(olaio PRIVATE
 )
 
 target_link_libraries(olaio PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Widgets
-)
-
-target_compile_options(olaio
-    -Werror
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
 
 if(MACOS)
@@ -45,24 +43,6 @@ if(NOT MACOS)
         ola
         olacommon
         olaserver
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(olaio PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(olaio
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(olaio
-        -Wno-unused-local-typedefs
     )
 endif()
 

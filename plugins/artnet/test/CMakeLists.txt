@@ -11,50 +11,11 @@ target_include_directories(artnet_test PRIVATE
 
 target_link_libraries(artnet_test PRIVATE
     # Remove: L../src
-    Qt::Core
-    Qt::Network
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Network
+    Qt${QT_MAJOR_VERSION}::Test
     artnet
 )
-
-target_compile_options(artnet_test
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(artnet_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(artnet_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(artnet_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(artnet_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(artnet_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(artnet_test
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
 
 install(TARGETS artnet_test
     BUNDLE DESTINATION .

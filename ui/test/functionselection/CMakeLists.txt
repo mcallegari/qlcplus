@@ -1,3 +1,5 @@
+include(../../../variables.cmake)
+
 add_executable(functionselection_test WIN32 MACOSX_BUNDLE
     functionselection_test.cpp functionselection_test.h
 )
@@ -7,51 +9,23 @@ target_include_directories(functionselection_test PRIVATE
 )
 
 target_link_libraries(functionselection_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
+    Qt${QT_MAJOR_VERSION}::Widgets
     qlcplusengine
     qlcplusui
 )
 
-target_compile_options(functionselection_test
-    -Werror
-)
-
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(functionselection_test PRIVATE
-        Qt::Qml
+        Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     target_link_libraries(functionselection_test PRIVATE
-        Qt::Script
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(functionselection_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(functionselection_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(functionselection_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(functionselection_test PROPERTIES
-        MACOSX_BUNDLE FALSE
+        Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 
