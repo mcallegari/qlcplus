@@ -1,3 +1,8 @@
+include(../../variables.cmake)
+include(../../coverage.cmake)
+
+set(CMAKE_AUTOUIC ON)
+
 add_library(qlcplusui
     ../../plugins/interfaces/rdmprotocol.cpp ../../plugins/interfaces/rdmprotocol.h
     aboutbox.cpp aboutbox.h aboutbox.ui
@@ -133,18 +138,13 @@ target_include_directories(qlcplusui PUBLIC
 )
 
 target_link_libraries(qlcplusui PUBLIC
-    Qt::Core
-    Qt::Gui
-    Qt::Multimedia
-    Qt::MultimediaWidgets
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Multimedia
+    Qt${QT_MAJOR_VERSION}::MultimediaWidgets
+    Qt${QT_MAJOR_VERSION}::Widgets
     qlcplusengine
 )
-
-target_compile_options(qlcplusui
-    -Werror
-)
-
 
 # Resources:
 set_source_files_properties("../../resources/icons/png/add_dump.png"
@@ -698,63 +698,28 @@ set(qlcui_resource_files
     "../../resources/icons/png/xypad.png"
 )
 
-qt_add_resources(qlcplusui "qlcui"
-    PREFIX
-        "/"
-    FILES
-        ${qlcui_resource_files}
-)
+# qt_add_resources(qlcplusui "qlcui"
+#     PREFIX
+#         "/"
+#     FILES
+#         ${qlcui_resource_files}
+# )
 
 if((QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(qlcplusui PUBLIC
-        Qt::Qml
+        Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT ((QT_VERSION_MAJOR GREATER 5)))
     target_link_libraries(qlcplusui PUBLIC
-        Qt::Script
+        Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 
 if(WIN32)
     target_include_directories(qlcplusui PUBLIC
         ../../hotplugmonitor/src
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(qlcplusui PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(qlcplusui PUBLIC
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcplusui
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcplusui
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(qlcplusui PUBLIC
-        gcov
-    )
-
-    target_compile_options(qlcplusui
-        -fprofile-arcs
-        -ftest-coverage
     )
 endif()
 

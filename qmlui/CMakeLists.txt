@@ -1,3 +1,5 @@
+include(../variables.cmake)
+
 add_executable(qlcplus-qml WIN32 MACOSX_BUNDLE
     app.cpp app.h
     audioeditor.cpp audioeditor.h
@@ -981,27 +983,22 @@ target_include_directories(qlcplus-qml PRIVATE
 )
 
 target_link_libraries(qlcplus-qml PRIVATE
-    Qt::3DCore
-    Qt::3DInput
-    Qt::3DQuick
-    Qt::3DQuickExtras
-    Qt::3DRender
-    Qt::Core
-    Qt::Gui
-    Qt::Multimedia
-    Qt::MultimediaWidgets
-    Qt::PrintSupport
-    Qt::Qml
-    Qt::Quick
-    Qt::Svg
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::3DCore
+    Qt${QT_MAJOR_VERSION}::3DInput
+    Qt${QT_MAJOR_VERSION}::3DQuick
+    Qt${QT_MAJOR_VERSION}::3DQuickExtras
+    Qt${QT_MAJOR_VERSION}::3DRender
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Multimedia
+    Qt${QT_MAJOR_VERSION}::MultimediaWidgets
+    Qt${QT_MAJOR_VERSION}::PrintSupport
+    Qt${QT_MAJOR_VERSION}::Qml
+    Qt${QT_MAJOR_VERSION}::Quick
+    Qt${QT_MAJOR_VERSION}::Svg
+    Qt${QT_MAJOR_VERSION}::Widgets
     qlcplusengine
 )
-
-target_compile_options(qlcplus-qml
-    -Werror
-)
-
 
 # Resources:
 set_source_files_properties("../resources/icons/svg/2dview.svg"
@@ -1724,37 +1721,13 @@ qt_add_resources(qlcplus-qml "fonts"
 )
 
 if(lupdate_only)
-    target_sources(qlcplus-qml PUBLIC
+    target_sources(qlcplus-qml PRIVATE
         qml/*.qml
         qml/fixturesfunctions/*.qml
         qml/inputoutput/*.qml
         qml/popup/*.qml
         qml/showmanager/*.qml
         qml/virtualconsole/*.qml
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(qlcplus-qml PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(qlcplus-qml PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcplus-qml
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcplus-qml
-        -Wno-unused-local-typedefs
     )
 endif()
 

@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(qlcfixturemode_test WIN32
     qlcfixturemode_test.cpp qlcfixturemode_test.h
 )
@@ -7,50 +10,11 @@ target_include_directories(qlcfixturemode_test PRIVATE
 )
 
 target_link_libraries(qlcfixturemode_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
 )
-
-target_compile_options(qlcfixturemode_test
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(qlcfixturemode_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(qlcfixturemode_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(qlcfixturemode_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(qlcfixturemode_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(qlcfixturemode_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(qlcfixturemode_test
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
 
 install(TARGETS qlcfixturemode_test
     BUNDLE DESTINATION .

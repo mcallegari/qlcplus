@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(mastertimer_test WIN32
     ../../../plugins/interfaces/qlcioplugin.cpp
     ../common/resource_paths.h
@@ -12,14 +15,10 @@ target_include_directories(mastertimer_test PRIVATE
 )
 
 target_link_libraries(mastertimer_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
-)
-
-target_compile_options(mastertimer_test
-    -Werror
 )
 
 if(IS_TRAVIS___contains___ON)
@@ -28,44 +27,10 @@ if(IS_TRAVIS___contains___ON)
     )
 endif()
 
-if(count(IS_BUILDBOT, 1))
+# if(count(IS_BUILDBOT, 1))
+if(IS_BUILDBOT)
     target_compile_definitions(mastertimer_test PRIVATE
         SKIP_TEST
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(mastertimer_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(mastertimer_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(mastertimer_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(mastertimer_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(mastertimer_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(mastertimer_test
-        -fprofile-arcs
-        -ftest-coverage
     )
 endif()
 

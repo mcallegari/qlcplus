@@ -22,39 +22,11 @@ target_include_directories(midiplugin PRIVATE
 )
 
 target_link_libraries(midiplugin PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
     winmm
 )
-
-target_compile_options(midiplugin
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(midiplugin PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(midiplugin
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(midiplugin
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(midiplugin PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
 
 install(TARGETS midiplugin
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

@@ -1,3 +1,5 @@
+include(../../variables.cmake)
+
 qt_add_plugin(hidplugin)
 target_sources(hidplugin PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
@@ -12,17 +14,13 @@ target_include_directories(hidplugin PRIVATE
 )
 
 target_link_libraries(hidplugin PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Widgets
-)
-
-target_compile_options(hidplugin
-    -Werror
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
 
 if(UNIX AND NOT MACOS)
-    target_sources(hidplugin PUBLIC
+    target_sources(hidplugin PRIVATE
         linux/hidapi.cpp
         linux/hidlinuxjoystick.cpp linux/hidlinuxjoystick.h
     )
@@ -33,14 +31,11 @@ if(UNIX AND NOT MACOS)
 endif()
 
 if(MACOS)
-    target_sources(hidplugin PUBLIC
+    target_sources(hidplugin PRIVATE
         macx/hidapi.cpp
         macx/hidosxjoystick.cpp macx/hidosxjoystick.h
     )
-
-    set_target_properties(hidplugin PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
+    
     target_include_directories(hidplugin PRIVATE
         macx
     )
@@ -52,7 +47,7 @@ if(MACOS)
 endif()
 
 if(WIN32)
-    target_sources(hidplugin PUBLIC
+    target_sources(hidplugin PRIVATE
         win32/hidapi.cpp
         win32/hidwindowsjoystick.cpp win32/hidwindowsjoystick.h
     )
@@ -61,24 +56,6 @@ if(WIN32)
         hid
         setupapi
         winmm
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(hidplugin PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(hidplugin
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(hidplugin
-        -Wno-unused-local-typedefs
     )
 endif()
 

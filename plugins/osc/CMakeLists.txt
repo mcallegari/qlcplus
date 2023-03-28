@@ -11,39 +11,11 @@ target_include_directories(osc PRIVATE
 )
 
 target_link_libraries(osc PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Network
-    Qt::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Network
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
-
-target_compile_options(osc
-    -Werror
-)
-
-if(MACOS)
-    set_target_properties(osc PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(qmlui)
-    target_compile_definitions(osc PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(osc
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(osc
-        -Wno-unused-local-typedefs
-    )
-endif()
 
 install(TARGETS osc
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(midi_test WIN32 MACOSX_BUNDLE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../src/common/midiprotocol.cpp ../src/common/midiprotocol.h
@@ -10,48 +13,9 @@ target_include_directories(midi_test PRIVATE
 
 target_link_libraries(midi_test PRIVATE
     # Remove: L../src
-    Qt::Core
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Test
 )
-
-target_compile_options(midi_test
-    -Werror
-)
-
-if(qmlui)
-    target_compile_definitions(midi_test PRIVATE
-        QMLUI
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (system(g++--version OR grep-e"4.6.[0-9]")))
-    target_compile_options(midi_test
-        -Wno-error=strict-overflow
-    )
-endif()
-
-if((NOT MACOS AND NOT IOS) AND (NOT (system(g++--version OR grep-e"4.6.[0-9]"))))
-    target_compile_options(midi_test
-        -Wno-unused-local-typedefs
-    )
-endif()
-
-if(MACOS)
-    set_target_properties(midi_test PROPERTIES
-        MACOSX_BUNDLE FALSE
-    )
-endif()
-
-if(coverage)
-    target_link_libraries(midi_test PRIVATE
-        gcov
-    )
-
-    target_compile_options(midi_test
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
 
 install(TARGETS midi_test
     BUNDLE DESTINATION .
