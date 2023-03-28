@@ -1,4 +1,4 @@
-qt_add_plugin(peperoni)
+add_library(peperoni)
 target_sources(peperoni PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     peperoni.cpp peperoni.h

@@ -1,4 +1,4 @@
-qt_add_plugin(artnet)
+add_library(artnet)
 target_sources(artnet PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../../interfaces/rdmprotocol.cpp ../../interfaces/rdmprotocol.h

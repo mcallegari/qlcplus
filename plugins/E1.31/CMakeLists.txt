@@ -1,4 +1,4 @@
-qt_add_plugin(e131)
+add_library(e131)
 target_sources(e131 PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     configuree131.cpp configuree131.h configuree131.ui

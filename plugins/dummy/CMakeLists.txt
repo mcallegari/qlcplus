@@ -13,7 +13,7 @@ set(CMAKE_AUTOUIC ON)
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets)
 
-qt_add_plugin(dummy)
+add_library(dummy)
 target_sources(dummy PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     dummyconfiguration.cpp dummyconfiguration.h dummyconfiguration.ui

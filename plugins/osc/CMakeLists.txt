@@ -1,4 +1,4 @@
-qt_add_plugin(osc)
+add_library(osc)
 target_sources(osc PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     configureosc.cpp configureosc.h configureosc.ui

@@ -1,6 +1,6 @@
 include(../../variables.cmake)
 
-qt_add_plugin(hidplugin)
+add_library(hidplugin)
 target_sources(hidplugin PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     configurehid.cpp configurehid.h configurehid.ui

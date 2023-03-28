@@ -1,4 +1,4 @@
-qt_add_plugin(udmx)
+add_library(udmx)
 target_sources(udmx PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     udmx.cpp udmx.h

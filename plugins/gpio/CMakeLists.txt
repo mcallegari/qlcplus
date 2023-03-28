@@ -13,7 +13,7 @@ set(CMAKE_AUTOUIC ON)
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets)
 
-qt_add_plugin(gpio)
+add_library(gpio)
 target_sources(gpio PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h
     gpioconfiguration.cpp gpioconfiguration.h gpioconfiguration.ui

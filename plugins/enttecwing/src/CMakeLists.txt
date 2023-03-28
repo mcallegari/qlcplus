@@ -1,7 +1,7 @@
 include(../../../variables.cmake)
 include(../../../coverage.cmake)
 
-qt_add_plugin(enttecwing)
+add_library(enttecwing)
 target_sources(enttecwing PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     enttecwing.cpp enttecwing.h
