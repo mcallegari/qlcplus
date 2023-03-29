@@ -1,103 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   width="48"
-   height="48"
-   viewBox="0 0 48 48"
-   id="svg2"
-   version="1.1"
-   inkscape:version="1.1.2 (1:1.1+202202050852+0a00cf5339)"
-   sodipodi:docname="layout-ftb.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <defs
-     id="defs4" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="11.2"
-     inkscape:cx="21.383929"
-     inkscape:cy="20.803571"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="1600"
-     inkscape:window-height="1123"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:pagecheckerboard="0" />
-  <metadata
-     id="metadata7">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-1004.3622)">
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#232323;stroke-width:2.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4138"
-       width="9.4642859"
-       height="9.4642859"
-       x="3.6880219"
-       y="1033.0901" />
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#232323;stroke-width:2.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4138-3"
-       width="9.4642859"
-       height="9.4642859"
-       x="14.418776"
-       y="1020.2253" />
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#232323;stroke-width:2.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4138-6"
-       width="9.4642859"
-       height="9.4642859"
-       x="25.622915"
-       y="1007.3475" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#232323;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 14.946562,1049.3866 25.375564,-25.2582"
-       id="path4163"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
-    <path
-       sodipodi:type="star"
-       style="fill:#232323;fill-opacity:1;stroke:#232323;stroke-width:2.5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path4165"
-       sodipodi:sides="3"
-       sodipodi:cx="-31.500866"
-       sodipodi:cy="1027.5585"
-       sodipodi:r1="4.3126016"
-       sodipodi:r2="2.1563008"
-       sodipodi:arg1="2.0943951"
-       sodipodi:arg2="3.1415927"
-       inkscape:flatsided="true"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="m -33.657167,1031.2933 0,-7.4697 6.468903,3.7349 z"
-       inkscape:transform-center-x="0.55328227"
-       transform="rotate(-44.86719,-0.10997392,938.12584)"
-       inkscape:transform-center-y="0.56292633" />
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="svg2" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" inkscape:version="1.1.2 (1:1.1+202202050852+0a00cf5339)" sodipodi:docname="layout-ftb.svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 250 250"
+	 style="enable-background:new 0 0 250 250;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<sodipodi:namedview  bordercolor="#666666" borderopacity="1.0" id="base" inkscape:current-layer="layer1" inkscape:cx="21.383929" inkscape:cy="20.803571" inkscape:document-units="px" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="1123" inkscape:window-maximized="1" inkscape:window-width="1600" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="11.2" pagecolor="#ffffff" showgrid="false" units="px">
+	</sodipodi:namedview>
+<g id="layer1" transform="translate(0,-1004.3622)" inkscape:groupmode="layer" inkscape:label="Layer 1">
+	<g id="rect4138">
+		<path class="st0" d="M80.3,1201.3H24.5v-55.8h55.8V1201.3z M36.2,1189.7h32.5v-32.5H36.2V1189.7z"/>
+	</g>
+	<g id="rect4138-3">
+		<path class="st0" d="M130.3,1141.4H74.5v-55.7h55.7V1141.4z M86.2,1129.7h32.5v-32.5H86.2V1129.7z"/>
+	</g>
+	<g id="rect4138-6">
+		<path class="st0" d="M182.5,1081.4h-55.7v-55.8h55.7V1081.4z M138.4,1069.7h32.5v-32.5h-32.5V1069.7z"/>
+	</g>
+	<g id="path4163">
+		
+			<rect x="58.5" y="1160.3" transform="matrix(0.7088 -0.7054 0.7054 0.7088 -782.9483 440.4137)" class="st0" width="166.8" height="16.3"/>
+	</g>
+	<g id="path4165">
+		
+			<path inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-x="0.55328227" inkscape:transform-center-y="0.56292633" sodipodi:arg1="2.0943951" sodipodi:arg2="3.1415927" sodipodi:cx="-31.500866" sodipodi:cy="1027.5585" sodipodi:r1="4.3126016" sodipodi:r2="2.1563008" sodipodi:sides="3" sodipodi:type="star" class="st0" d="
+			M208.1,1126.9l-24.6-24.7l33.6-8.9L208.1,1126.9z"/>
+		<path class="st0" d="M211.1,1138.1l-38.8-39l53.1-14.1L211.1,1138.1z M194.8,1105.2l10.3,10.4l3.8-14.1L194.8,1105.2z"/>
+	</g>
+</g>
 </svg>
