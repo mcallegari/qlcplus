@@ -201,7 +201,9 @@ Rectangle
                         height: channelView.height - sbar.height
                         color: {
                             if (isOverride)
-                                return "red";
+                            {
+                                return "red"
+                            }
                             else
                             {
                                 switch(chDisplay)
@@ -376,7 +378,7 @@ Rectangle
                                 x: parent.width - width
                                 height: UISettings.listItemHeight
                                 rightMargin: 5
-                                label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels + 1)
+                                label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels)
                             }
                         }
                 }

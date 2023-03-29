@@ -69,6 +69,7 @@ SimpleDesk::SimpleDesk(QQuickView *view, Doc *doc,
     connect(m_doc, SIGNAL(loaded()), this, SLOT(updateChannelList()));
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(updateChannelList()));
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(updateChannelList()));
+    connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(updateChannelList()));
     connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)),
             this, SIGNAL(universesListModelChanged()));
     connect(m_doc->inputOutputMap(), SIGNAL(universeRemoved(quint32)),
