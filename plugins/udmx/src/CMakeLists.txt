@@ -1,3 +1,5 @@
+include(../../../variables.cmake)
+
 add_library(udmx)
 target_sources(udmx PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h

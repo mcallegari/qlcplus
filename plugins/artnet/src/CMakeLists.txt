@@ -1,3 +1,5 @@
+include(../../../variables.cmake)
+
 add_library(artnet)
 target_sources(artnet PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h

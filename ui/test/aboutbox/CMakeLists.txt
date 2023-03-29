@@ -2,10 +2,12 @@ include(../../../variables.cmake)
 
 add_executable(aboutbox_test WIN32 MACOSX_BUNDLE
     aboutbox_test.cpp aboutbox_test.h
+    ../../src/aboutbox.h
 )
+
 target_include_directories(aboutbox_test PRIVATE
     ../../../engine/src
-    ../../src
+    ../../src/
 )
 
 target_link_libraries(aboutbox_test PRIVATE

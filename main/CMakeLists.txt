@@ -1,9 +1,5 @@
 include(../variables.cmake)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
-
 add_executable(qlcplus WIN32 MACOSX_BUNDLE
     main.cpp
 )
@@ -23,13 +19,7 @@ target_link_libraries(qlcplus PRIVATE
     qlcpluswebaccess
 )
 
-if(WIN32)
-    target_sources(qlcplus PRIVATE
-        ../ui/src/debugbox.cpp ../ui/src/debugbox.h ../ui/src/debugbox.ui
-    )
-endif()
-
-if(MACOS)
+if(WIN32 OR MACOS)
     target_sources(qlcplus PRIVATE
         ../ui/src/debugbox.cpp ../ui/src/debugbox.h ../ui/src/debugbox.ui
     )
@@ -39,9 +29,7 @@ if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(qlcplus PRIVATE
         Qt${QT_MAJOR_VERSION}::Qml
     )
-endif()
-
-if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
+else()
     target_link_libraries(qlcplus PRIVATE
         Qt${QT_MAJOR_VERSION}::Script
     )

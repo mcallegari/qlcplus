@@ -1,3 +1,5 @@
+include(../../../../variables.cmake)
+
 add_library(midiplugin)
 target_sources(midiplugin PRIVATE
     ../../../../engine/src/qlcfile.cpp ../../../../engine/src/qlcfile.h

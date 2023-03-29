@@ -1,8 +1,9 @@
 include(../../../variables.cmake)
 
 add_executable(vcxypadfixture_test WIN32 MACOSX_BUNDLE
-    # ../common/resource_paths.h
+    ../../../engine/test/common/resource_paths.h
     vcxypadfixture_test.cpp vcxypadfixture_test.h
+    ../../src/virtualconsole/vcxypadfixture.h
 )
 target_include_directories(vcxypadfixture_test PRIVATE
     ../../../engine/src

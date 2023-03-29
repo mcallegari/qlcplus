@@ -1,3 +1,5 @@
+include(../../variables.cmake)
+
 add_library(osc)
 target_sources(osc PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h

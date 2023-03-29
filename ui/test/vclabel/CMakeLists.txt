@@ -2,6 +2,7 @@ include(../../../variables.cmake)
 
 add_executable(vclabel_test WIN32 MACOSX_BUNDLE
     vclabel_test.cpp vclabel_test.h
+    ../../src/virtualconsole/vclabel.h
 )
 target_include_directories(vclabel_test PRIVATE
     ../../../engine/src

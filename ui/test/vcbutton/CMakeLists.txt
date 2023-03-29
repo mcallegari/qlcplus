@@ -2,6 +2,7 @@ include(../../../variables.cmake)
 
 add_executable(vcbutton_test WIN32 MACOSX_BUNDLE
     vcbutton_test.cpp vcbutton_test.h
+    ../../src/virtualconsole/vcbutton.h
 )
 target_include_directories(vcbutton_test PRIVATE
     ../../../engine/src

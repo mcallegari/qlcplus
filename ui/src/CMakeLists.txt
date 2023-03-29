@@ -1,8 +1,6 @@
 include(../../variables.cmake)
 include(../../coverage.cmake)
 
-set(CMAKE_AUTOUIC ON)
-
 add_library(qlcplusui
     ../../plugins/interfaces/rdmprotocol.cpp ../../plugins/interfaces/rdmprotocol.h
     aboutbox.cpp aboutbox.h aboutbox.ui
