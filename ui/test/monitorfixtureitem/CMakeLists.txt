@@ -2,6 +2,7 @@ include(../../../variables.cmake)
 
 add_executable(monitorfixtureitem_test WIN32 MACOSX_BUNDLE
     monitorfixtureitem_test.cpp monitorfixtureitem_test.h
+    ../../src/monitor/monitorfixtureitem.h
 )
 target_include_directories(monitorfixtureitem_test PRIVATE
     ../../../engine/src

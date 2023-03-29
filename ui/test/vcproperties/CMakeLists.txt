@@ -2,6 +2,7 @@ include(../../../variables.cmake)
 
 add_executable(vcproperties_test WIN32 MACOSX_BUNDLE
     vcproperties_test.cpp vcproperties_test.h
+    ../../src/virtualconsole/vcproperties.h
 )
 target_include_directories(vcproperties_test PRIVATE
     ../../../engine/src

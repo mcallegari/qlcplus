@@ -2,7 +2,9 @@ include(../../../variables.cmake)
 
 add_executable(assignhotkey_test WIN32 MACOSX_BUNDLE
     assignhotkey_test.cpp assignhotkey_test.h
+    ../../src/assignhotkey.h
 )
+
 target_include_directories(assignhotkey_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces

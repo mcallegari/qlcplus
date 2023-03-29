@@ -2,6 +2,7 @@ include(../../../variables.cmake)
 
 add_executable(vcframeproperties_test WIN32 MACOSX_BUNDLE
     vcframeproperties_test.cpp vcframeproperties_test.h
+    ../../src/virtualconsole/vcframeproperties.h
 )
 target_include_directories(vcframeproperties_test PRIVATE
     ../../../engine/src

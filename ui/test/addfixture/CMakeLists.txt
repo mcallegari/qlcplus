@@ -1,8 +1,9 @@
 include(../../../variables.cmake)
 
 add_executable(addfixture_test WIN32 MACOSX_BUNDLE
-    # ../common/resource_paths.h
+    ../../../engine/test/common/resource_paths.h
     addfixture_test.cpp addfixture_test.h
+    ../../src/addfixture.h
 )
 target_include_directories(addfixture_test PRIVATE
     ../../../engine/src

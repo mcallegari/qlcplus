@@ -1,3 +1,5 @@
+include(../../variables.cmake)
+
 add_library(os2l)
 target_sources(os2l PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h

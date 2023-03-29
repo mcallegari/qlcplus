@@ -1,3 +1,5 @@
+include(../../../variables.cmake)
+
 add_library(peperoni)
 target_sources(peperoni PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h

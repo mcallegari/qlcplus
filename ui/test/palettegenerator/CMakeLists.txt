@@ -2,8 +2,9 @@ include(../../../variables.cmake)
 include(../../../coverage.cmake)
 
 add_executable(palettegenerator_test WIN32
-    # ../common/resource_paths.h
+    ../../../engine/test/common/resource_paths.h
     palettegenerator_test.cpp palettegenerator_test.h
+    ../../src/palettegenerator.h
 )
 target_include_directories(palettegenerator_test PRIVATE
     ../../../engine/src

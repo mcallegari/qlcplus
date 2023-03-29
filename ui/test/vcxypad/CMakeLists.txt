@@ -1,9 +1,11 @@
 include(../../../variables.cmake)
 
 add_executable(vcxypad_test WIN32 MACOSX_BUNDLE
-    # ../common/resource_paths.h
+    ../../../engine/test/common/resource_paths.h
     vcxypad_test.cpp vcxypad_test.h
+    ../../src/virtualconsole/vcxypad.h
 )
+
 target_include_directories(vcxypad_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces
