@@ -72,6 +72,9 @@ var testAlgo;
 
   var x = 0;
   var y = 0;
+  // current RGB assigned to the step
+//  algo.currentRgb = 0;
+//  algo.rgbStepColorName = "Matrix RGB";
 
   algo.acceptColors = 0;
   algo.properties = new Array();
@@ -86,7 +89,9 @@ var testAlgo;
 
   algo.color1Index = algo.getColorIndex("Red");
   algo.properties.push("name:color1Index|type:list|display:Color 1|" +
-    "values:" + colorPalette.names.toString() + "|" +
+    "values:" + colorPalette.names.toString() +
+//    ",Matrix RGB" +
+    "|" +
     "write:setColor1Index|read:getColor1Name");
   algo.color2Index = algo.getColorIndex("Green");
   algo.properties.push("name:color2Index|type:list|display:Color 2|" +
@@ -106,20 +111,32 @@ var testAlgo;
     if (_index < 0) {
       _index = 0;
     }
-    if (_index >= colorPalette.collection.length) {
+    else if (_index >= colorPalette.collection.length) {
       _index = (colorPalette.collection.length - 1);
     }
     return colorPalette.collection[parseInt(_index)][1];
   };
 
   algo.setColor1Index = function(_name) {
-    algo.color1Index = algo.getColorIndex(_name);
+//    if (_name == algo.rgbStepColorName) {
+//      algo.color1Index = colorPalette.collection.length;
+//    } else {
+      algo.color1Index = algo.getColorIndex(_name);
+//    }
   };
   algo.getColor1Name = function() {
-    return algo.getColorName(algo.color1Index);
+//    if (algo.color1Index == colorPalette.collection.length) {
+//      return algo.rgbStepColorName;
+//    } else {
+      return algo.getColorName(algo.color1Index);
+//    }
   };
   algo.getColor1Value = function() {
-    return algo.getColorValue(algo.color1Index);
+//    if (algo.color1Index == colorPalette.collection.length) {
+//      return algo.currentRgb;
+//    } else {
+      return algo.getColorValue(algo.color1Index);
+//    }
   };
 
   algo.setColor2Index = function(_name) {
@@ -148,7 +165,7 @@ var testAlgo;
   };
   algo.getAlign = function() {
     if (algo.align === 1) {
-      return "Centered Halfs";
+      return "Centered";
     } else if (algo.align === 2) {
       return "Split";
     } else {
@@ -205,64 +222,97 @@ var testAlgo;
 
   algo.rgbMap = function(width, height, rgb, step) {
     var map = new Array(height);
-    var effectiveStep = step;
     var colorSelectOne = (step === 1) ? false : true;
     var rowColorOne = colorSelectOne;
     var realBlockSize = algo.blockSize;
 
+//    algo.currentRgb = rgb;
+
+    for (y = 0; y < height; y++) {
+      map[parseInt(y)] = new Array(width);
+      for (x = 0; x < width; x++) {
+        map[parseInt(y)][parseInt(x)] = 0;
+      }
+    }
+
     var xMax = width;
-    if (algo.align === 1 && width % 2 === 0) {
-      // Centered mode
-      xMax = width / 2;
+    var yMax = height;
+    if (algo.align === 1) {
+      if (algo.orientation === 0 || algo.orientation === 2) {
+        // Centered mode
+        xMax = Math.ceil(width / 2);
+      }
+      if (algo.orientation === 1 || algo.orientation === 2) {
+        // Centered mode
+        yMax = Math.ceil(height / 2);
+      }
     }
 
     if (algo.align === 2) {
       // Split mode
       if (algo.orientation === 0) {
         // Horizontal
-        realBlockSize = Math.ceil(width / algo.blockSize);
+        realBlockSize = width / algo.blockSize;
       } else if (algo.orientation === 1) {
         // Vertical
-        realBlockSize = Math.ceil(height / algo.blockSize);
+        realBlockSize = height / algo.blockSize;
       } else if (algo.orientation === 2) {
         // Interleaved
-        realBlockSize = Math.ceil(Math.min(width, height) / algo.blockSize);
+        realBlockSize = Math.min(width, height) / algo.blockSize;
       }
     }
 
-    for (y = 0; y < height; y++) {
+    for (y = 0; y < yMax; y++) {
       if (algo.orientation === 0) {
-        // Horizontal
+        // Horizontal split; vertical lines
         // Initialize vertical bars, each column the same
         colorSelectOne = (step === 1) ? false : true;
       } else if (algo.orientation === 1) {
         // Horizontal Bars, count steps by row
-        effectiveStep = y + step * realBlockSize + algo.offset;
+        var effectiveStep = y + Math.round(step * realBlockSize) + algo.offset;
+
         // Initialize start color for each row.
-        if (effectiveStep % realBlockSize === 0) {
+        var realBlockCount = Math.floor(effectiveStep / realBlockSize);
+        var lowRest = effectiveStep - realBlockCount * realBlockSize;
+        var highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
+        var rest = Math.min(lowRest, highRest);
+        if (rest < 0.5 || lowRest == 0.5) {
           colorSelectOne = !colorSelectOne;
         }
       } else if (algo.orientation === 2) {
         // Interleaved
-        var effectiveY = y + step * realBlockSize + algo.offset;
-        if (effectiveY % (realBlockSize) === 0) {
+        var effectiveY = y + Math.floor(step * realBlockSize) + algo.offset;
+
+        var realBlockCount = Math.floor(effectiveY / realBlockSize);
+        var lowRest = effectiveY - realBlockCount * realBlockSize;
+        var highRest = (realBlockCount + 1) * realBlockSize - effectiveY;
+        var rest = Math.min(lowRest, highRest);
+        if (rest < 0.5 || lowRest == 0.5) {
           rowColorOne = !rowColorOne;
         }
         colorSelectOne = rowColorOne;
       }
-      map[parseInt(y)] = new Array();
-      for (x = 0; x < width; x++) {
+
+      for (x = 0; x < xMax; x++) {
         if (algo.orientation === 0) {
-          // Vertical bars, count steps by column
-          effectiveStep = x + algo.offset;
-          if (effectiveStep % realBlockSize === 0) {
+          // Horizontal split, vertical bars, count steps by column
+          var effectiveStep = x + algo.offset;
+          var realBlockCount = Math.floor(effectiveStep / realBlockSize);
+          var lowRest = effectiveStep - realBlockCount * realBlockSize;
+          var highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
+          var rest = Math.min(lowRest, highRest);
+          if (rest < 0.5 || lowRest == 0.5) {
             colorSelectOne = !colorSelectOne;
           }
         } else if (algo.orientation === 2) {
-          // Horizontal Bars, count steps by row and column
-          var effectiveX = x + step * realBlockSize + algo.offset;
+          // vertical split, horizontal Bars, count steps by row and column
+          var effectiveX = x + Math.floor(step * realBlockSize) + algo.offset;
           // Change color each step.
-          if (effectiveX % realBlockSize === 0) {
+          var realBlockCount = Math.floor(effectiveX / realBlockSize);
+          var lowRest = effectiveX - realBlockCount * realBlockSize;
+          var highRest = (realBlockCount + 1) * realBlockSize - effectiveX;
+          var rest = Math.min(lowRest, highRest);
+          if (rest < 0.5 || lowRest == 0.5) {
             colorSelectOne = !colorSelectOne;
           }
         }
@@ -274,10 +324,26 @@ var testAlgo;
       }
     }
     // Align centered
-    if (algo.align === 1 && width % 2 === 0) {
-      for (y = 0; y < height; y++) {
-        for (x = 0; x < xMax; x++) {
-          map[parseInt(y)][parseInt(x)] = map[parseInt(y)][parseInt(width - x - 1)];
+    if (algo.align === 1) {
+      if (algo.orientation === 0) {
+        for (y = 0; y < yMax; y++) {
+          for (x = 0; x < xMax; x++) {
+            map[parseInt(y)][parseInt(width - x - 1)] = map[parseInt(y)][parseInt(x)];
+          }
+        }
+      } else if (algo.orientation === 1) {
+        for (y = 0; y < yMax; y++) {
+          for (x = 0; x < xMax; x++) {
+            map[parseInt(height - y - 1)][parseInt(x)] = map[parseInt(y)][parseInt(x)];
+          }
+        }
+      } else if (algo.orientation === 2) {
+        for (y = 0; y < yMax; y++) {
+          for (x = 0; x < xMax; x++) {
+            map[parseInt(height - y - 1)][parseInt(x)] = map[parseInt(y)][parseInt(x)];
+            map[parseInt(y)][parseInt(width - x - 1)] = map[parseInt(y)][parseInt(x)];
+            map[parseInt(height - y - 1)][parseInt(width - x - 1)] = map[parseInt(y)][parseInt(x)];
+          }
         }
       }
     }
