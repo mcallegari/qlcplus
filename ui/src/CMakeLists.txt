@@ -708,17 +708,16 @@ if((QT_VERSION_MAJOR GREATER 5))
             ${qlcui_resource_files}
     )
 
-endif()
-
-if(NOT ((QT_VERSION_MAJOR GREATER 5)))
+else()
     target_link_libraries(qlcplusui PUBLIC
         Qt${QT_MAJOR_VERSION}::Script
     )
 
     qt5_add_resources(qlcplusui_resource_files "qlcui.qrc")    
-    target_sources(qlcplusui PUBLIC
+    target_sources(qlcplusui PRIVATE
         ${qlcplusui_resource_files}
     )
+
 endif()
 
 
