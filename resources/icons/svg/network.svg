@@ -1,1 +1,13 @@
-<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" id="svg2" version="1.1"><defs id="defs4"/><metadata id="metadata7"/><g id="layer1" transform="translate(0,-1004.3622)"><circle id="path4136" cx="25.71" cy="1027.9" r="6.61" style="fill:#6e986e;stroke-miterlimit:4;stroke-width:1.5;stroke:#588a00"/><circle id="path4138" cx="7.46" cy="1012.85" r="3.53" style="fill:#6e986e;stroke-miterlimit:4;stroke-width:1.5;stroke:#588a00"/><circle id="path4138-3" cx="28.3" cy="1012.36" r="3.53" style="fill:#6e986e;stroke-miterlimit:4;stroke-width:1.5;stroke:#588a00"/><circle id="path4138-6" cx="8.39" cy="1043.08" r="3.53" style="fill:#6e986e;stroke-miterlimit:4;stroke-width:1.5;stroke:#588a00"/><path d="m8.39 1043.08 0 0" id="path4200" style="fill:none;stroke:#000"/><path d="m20.75 1032.25-9.7 8.5" id="path4202" style="fill:none;stroke-miterlimit:4;stroke-width:3;stroke:#588a00"/><path d="M20.62 1023.7 10.18 1015.1" id="path4204" style="fill:none;stroke-miterlimit:4;stroke-width:3;stroke:#588a00"/><path d="m26.8 1021.38 0.92-5.54" id="path4206" style="fill:none;stroke-miterlimit:4;stroke-width:3;stroke:#588a00"/><circle id="path4138-35" cx="30.8" cy="1046.29" r="3.53" style="fill:#d1db53;stroke-miterlimit:4;stroke-width:1.5;stroke:#d8bc2c"/><circle id="path4138-35-2" cx="40.8" cy="1037.54" r="3.53" style="fill:#d1db53;stroke-miterlimit:4;stroke-width:1.5;stroke:#d8bc2c"/><circle id="path4138-35-9" cx="42.23" cy="1024.06" r="3.53" style="fill:#d1db53;stroke-miterlimit:4;stroke-width:1.5;stroke:#d8bc2c"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<path class="st0" d="M106.7,64h42.7v21.3h-42.7V64z M101.3,42.7c-8.8,0-16,7.2-16,16v32c0,8.8,7.2,16,16,16h16v10.7H32
+	c-5.9,0-10.7,4.8-10.7,10.7c0,5.9,4.8,10.7,10.7,10.7h32v10.7H48c-8.8,0-16,7.2-16,16v32c0,8.8,7.2,16,16,16h53.3
+	c8.8,0,16-7.2,16-16v-32c0-8.8-7.2-16-16-16h-16v-10.7h85.3v10.7h-16c-8.8,0-16,7.2-16,16v32c0,8.8,7.2,16,16,16H208
+	c8.8,0,16-7.2,16-16v-32c0-8.8-7.2-16-16-16h-16v-10.7h32c5.9,0,10.7-4.8,10.7-10.7c0-5.9-4.8-10.7-10.7-10.7h-85.3v-10.7h16
+	c8.8,0,16-7.2,16-16v-32c0-8.8-7.2-16-16-16H101.3z M53.3,192v-21.3H96V192H53.3z M160,170.7h42.7V192H160V170.7z"/>
+</svg>

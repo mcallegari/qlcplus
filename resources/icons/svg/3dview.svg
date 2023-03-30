@@ -1,1 +1,13 @@
-<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21.1" height="24.04" id="svg2" version="1"><defs id="defs4"><linearGradient id="linearGradient9396"><stop offset="0" id="stop9398" style="stop-color:#f57900;stop-opacity:1"/><stop offset="1" id="stop9400" style="stop-color:#c66100;stop-opacity:1"/></linearGradient><linearGradient xlink:href="#linearGradient9396" id="linearGradient2487" gradientUnits="userSpaceOnUse" gradientTransform="translate(-2,-10.871051)" x1="23.38" y1="34.75" x2="34.5" y2="36.38"/><linearGradient id="linearGradient8342"><stop offset="0" id="stop8344" style="stop-color:#ef2929;stop-opacity:1"/><stop offset="1" id="stop8346" style="stop-color:#b80d0d;stop-opacity:1"/></linearGradient><linearGradient xlink:href="#linearGradient8342" id="linearGradient2584" gradientUnits="userSpaceOnUse" gradientTransform="translate(28.625,-10.496051)" x1="10.27" y1="18.59" x2="20.64" y2="20"/></defs><metadata id="metadata7"/><g id="layer1" transform="translate(-4.4503449,-2.9794447)"><g id="g2583" transform="matrix(1.4249207,0,0,1.4249207,-6.209905,-8.9348138)"><path id="path9358" d="m15.32 8.37c-0.1 0.01-0.19 0.05-0.27 0.1l-7.21 4.12c-0.22 0.13-0.35 0.36-0.35 0.61l0 7.21c0 0.24 0.12 0.46 0.32 0.6l6.18 4.12c0.22 0.14 0.51 0.15 0.74 0.02l7.21-4.12c0.22-0.13 0.35-0.36 0.35-0.61l0-7.21c0-0.24-0.12-0.46-0.32-0.6L15.79 8.48C15.65 8.39 15.48 8.35 15.32 8.37l0 0z" fill="#6e3600"/><g transform="matrix(0.4521585,0,0,0.4521585,1.8172658,2.1003585)" id="g16787"><path d="m15.9 25.5 12 8 0 14-12-8 0-14z" id="path9362" fill="#fcaf3e"/><path d="m29.9 17.5 12 8-14 8-12-8 14-8z" id="path9364" fill="url(#linearGradient2487)"/><path d="m41.9 25.5 0 14-14 8 0-14 14-8z" id="path9366" fill="#b65100"/></g></g></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<path class="st0" d="M124.7,19.1c2.1-1.1,4.5-1.1,6.6,0L213,63.7c2.2,1.2,3.6,3.5,3.6,6c0,2.5-1.4,4.8-3.6,6l-81.7,44.6
+	c-2.1,1.1-4.5,1.1-6.6,0L43,75.7c-2.2-1.2-3.6-3.5-3.6-6c0-2.5,1.4-4.8,3.6-6L124.7,19.1z M42.2,91.1l75.4,41.1
+	c2.2,1.2,3.6,3.5,3.6,6v92.6c0,2.4-1.3,4.7-3.3,5.9s-4.7,1.3-6.8,0.1l-75.5-41.2c-2.2-1.2-3.6-3.5-3.6-6V97.1c0-2.4,1.3-4.7,3.3-5.9
+	S40,89.9,42.2,91.1L42.2,91.1z M213.9,91.1c2.1-1.2,4.7-1.1,6.8,0.1c2.1,1.2,3.3,3.5,3.3,5.9v92.5c0,2.5-1.4,4.8-3.6,6L145,236.8
+	c-2.1,1.2-4.7,1.1-6.8-0.1c-2.1-1.2-3.3-3.5-3.3-5.9v-92.5c0-2.5,1.4-4.8,3.6-6L213.9,91.1z"/>
+</svg>
