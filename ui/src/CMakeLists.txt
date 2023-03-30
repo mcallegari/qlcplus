@@ -713,8 +713,8 @@ else()
         Qt${QT_MAJOR_VERSION}::Script
     )
 
-    qt5_add_resources(qlcplusui_resource_files "qlcui.qrc")    
-    target_sources(qlcplusui PRIVATE
+    qt5_add_resources(qlcplusui_resource_files "qlcui.qrc")
+    target_sources(qlcplusui PUBLIC
         ${qlcplusui_resource_files}
     )
 
