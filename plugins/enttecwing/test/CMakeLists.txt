@@ -22,6 +22,12 @@ target_link_libraries(enttecwing_test PRIVATE
     enttecwing
 )
 
+if(WIN32)
+    target_compile_definitions(enttecwing_test PRIVATE
+        QLC_EXPORT
+    )
+endif()
+
 install(TARGETS enttecwing_test
     BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
