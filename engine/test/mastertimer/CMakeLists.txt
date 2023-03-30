@@ -2,7 +2,7 @@ include(../../../variables.cmake)
 include(../../../coverage.cmake)
 
 add_executable(mastertimer_test WIN32
-    ../../../plugins/interfaces/qlcioplugin.cpp
+    # ../../../plugins/interfaces/qlcioplugin.cpp
     ../common/resource_paths.h
     ../function/function_stub.cpp ../function/function_stub.h
     dmxsource_stub.cpp dmxsource_stub.h
