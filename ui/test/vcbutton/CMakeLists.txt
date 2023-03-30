@@ -1,9 +1,16 @@
 include(../../../variables.cmake)
 
-add_executable(vcbutton_test WIN32 MACOSX_BUNDLE
-    vcbutton_test.cpp vcbutton_test.h
-    ../../src/virtualconsole/vcbutton.h
-)
+if(MSVC)
+    add_executable(vcbutton_test WIN32 MACOSX_BUNDLE
+        vcbutton_test.cpp vcbutton_test.h
+        ../../src/virtualconsole/vcbutton.h
+    )
+else()
+    add_executable(vcbutton_test WIN32 MACOSX_BUNDLE
+        vcbutton_test.cpp vcbutton_test.h
+    )
+endif()
+
 target_include_directories(vcbutton_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces

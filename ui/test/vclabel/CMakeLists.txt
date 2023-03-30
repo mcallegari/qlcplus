@@ -1,9 +1,16 @@
 include(../../../variables.cmake)
 
-add_executable(vclabel_test WIN32 MACOSX_BUNDLE
-    vclabel_test.cpp vclabel_test.h
-    ../../src/virtualconsole/vclabel.h
-)
+if(MSVC)
+    add_executable(vclabel_test WIN32 MACOSX_BUNDLE
+        vclabel_test.cpp vclabel_test.h
+        ../../src/virtualconsole/vclabel.h
+    )
+else()
+    add_executable(vclabel_test WIN32 MACOSX_BUNDLE
+        vclabel_test.cpp vclabel_test.h
+    )
+endif()
+
 target_include_directories(vclabel_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces

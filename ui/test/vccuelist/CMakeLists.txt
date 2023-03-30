@@ -1,9 +1,16 @@
 include(../../../variables.cmake)
 
-add_executable(vccuelist_test WIN32 MACOSX_BUNDLE
-    vccuelist_test.cpp vccuelist_test.h
-    ../../src/virtualconsole/vccuelist.h
-)
+if(MSVC)
+    add_executable(vccuelist_test WIN32 MACOSX_BUNDLE
+        vccuelist_test.cpp vccuelist_test.h
+        ../../src/virtualconsole/vccuelist.h
+    )
+else()
+    add_executable(vccuelist_test WIN32 MACOSX_BUNDLE
+        vccuelist_test.cpp vccuelist_test.h
+    )
+endif()
+
 target_include_directories(vccuelist_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces

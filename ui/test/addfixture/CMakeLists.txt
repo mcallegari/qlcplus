@@ -1,10 +1,18 @@
 include(../../../variables.cmake)
 
-add_executable(addfixture_test WIN32 MACOSX_BUNDLE
-    ../../../engine/test/common/resource_paths.h
-    addfixture_test.cpp addfixture_test.h
-    ../../src/addfixture.h
-)
+if(MSVC)
+    add_executable(addfixture_test WIN32 MACOSX_BUNDLE
+        ../../../engine/test/common/resource_paths.h
+        addfixture_test.cpp addfixture_test.h
+        ../../src/addfixture.h
+    )
+else()
+    add_executable(addfixture_test WIN32 MACOSX_BUNDLE
+        ../../../engine/test/common/resource_paths.h
+        addfixture_test.cpp addfixture_test.h
+    )
+endif()
+
 target_include_directories(addfixture_test PRIVATE
     ../../../engine/src
     ../../src
