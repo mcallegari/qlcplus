@@ -1,7 +1,7 @@
 include(../../../variables.cmake)
 
 add_executable(velleman_test WIN32 MACOSX_BUNDLE
-    ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
+    # ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../src/velleman_mock.cpp
     velleman_test.cpp velleman_test.h
 )
@@ -16,6 +16,12 @@ target_link_libraries(velleman_test PRIVATE
     Qt${QT_MAJOR_VERSION}::Test
     velleman
 )
+
+if(WIN32)
+    target_compile_definitions(velleman_test PRIVATE
+        QLC_EXPORT
+    )
+endif()
 
 install(TARGETS velleman_test
     BUNDLE DESTINATION .
