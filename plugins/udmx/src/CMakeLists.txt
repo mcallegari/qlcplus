@@ -3,9 +3,8 @@ include(../../../variables.cmake)
 add_library(udmx)
 target_sources(udmx PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
-    udmx.cpp udmx.h
-    udmxdevice.cpp udmxdevice.h
 )
+
 target_include_directories(udmx PRIVATE
     ../../interfaces
 )
@@ -19,6 +18,11 @@ target_link_libraries(udmx PRIVATE
 if(WIN32)
     target_sources(udmx PRIVATE
         libusb_dyn.c libusb_dyn.h
+    )
+else()
+    target_sources(udmx PRIVATE
+        udmx.cpp udmx.h
+        udmxdevice.cpp udmxdevice.h
     )
 endif()
 
