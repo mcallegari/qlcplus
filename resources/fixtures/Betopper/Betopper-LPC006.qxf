@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Jungle Jim</Author>
+ </Creator>
+ <Manufacturer>Betopper</Manufacturer>
+ <Model>LPC006</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Transitions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">Nothing</Capability>
+  <Capability Min="51" Max="100">Auto Snap Transition (13 colors)</Capability>
+  <Capability Min="101" Max="150">Auto Fade Transition (13 colors)</Capability>
+  <Capability Min="151" Max="200">Auto Pulse Transition (13 colors)</Capability>
+  <Capability Min="201" Max="255">Nothing</Capability>
+ </Channel>
+ <Channel Name="Speed for Transitions (ch 3)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed for channel 3 mode</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Dimmer 0-100%</Capability>
+ </Channel>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Mode Name="10 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.48" Width="290" Height="290" Depth="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="1"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Transitions</Channel>
+  <Channel Number="3">Speed for Transitions (ch 3)</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">UV</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.48" Width="290" Height="290" Depth="200"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="1"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
