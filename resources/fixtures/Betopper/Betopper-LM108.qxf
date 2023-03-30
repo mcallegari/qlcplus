@@ -11,7 +11,7 @@
  <Type>Moving Head</Type>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
- <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -22,13 +22,13 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">Other channels work</Capability>
   <Capability Min="11" Max="127">Color combination change</Capability>
-  <Capability Min="128" Max="160">Color saltus step</Capability>
+  <Capability Min="128" Max="160">Color indexed step</Capability>
   <Capability Min="161" Max="200">Color gradual change 1</Capability>
   <Capability Min="201" Max="255">Color gradual change 2</Capability>
  </Channel>
  <Channel Name="Color change speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">From slot to fast</Capability>
+  <Capability Min="0" Max="255">From slow to fast</Capability>
  </Channel>
  <Channel Name="Built-in Effect">
   <Group Byte="0">Effect</Group>
@@ -36,14 +36,14 @@
  </Channel>
  <Channel Name="Built-in effect speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">From slot to fast</Capability>
+  <Capability Min="0" Max="255">From slow to fast</Capability>
  </Channel>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Reset">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="149">No action</Capability>
-  <Capability Min="150" Max="255">Reset</Capability>
+  <Capability Min="150" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Mode Name="9 Channel">
   <Channel Number="0">Pan</Channel>
@@ -78,7 +78,7 @@
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="4.8" Width="252" Height="315" Depth="165"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
