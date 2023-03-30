@@ -1,10 +1,18 @@
 include(../../../variables.cmake)
 
-add_executable(vcxypadfixture_test WIN32 MACOSX_BUNDLE
-    ../../../engine/test/common/resource_paths.h
-    vcxypadfixture_test.cpp vcxypadfixture_test.h
-    ../../src/virtualconsole/vcxypadfixture.h
-)
+if(MSVC)
+    add_executable(vcxypadfixture_test WIN32 MACOSX_BUNDLE
+        ../../../engine/test/common/resource_paths.h
+        vcxypadfixture_test.cpp vcxypadfixture_test.h
+        ../../src/virtualconsole/vcxypadfixture.h
+    )
+else()
+    add_executable(vcxypadfixture_test WIN32 MACOSX_BUNDLE
+        ../../../engine/test/common/resource_paths.h
+        vcxypadfixture_test.cpp vcxypadfixture_test.h
+    )
+endif()
+
 target_include_directories(vcxypadfixture_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces

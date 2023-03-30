@@ -1,9 +1,16 @@
 include(../../../variables.cmake)
 
-add_executable(vcxypadarea_test WIN32 MACOSX_BUNDLE
-    vcxypadarea_test.cpp vcxypadarea_test.h
-    ../../src/virtualconsole/vcxypadarea.h
-)
+if(MSVC)
+    add_executable(vcxypadarea_test WIN32 MACOSX_BUNDLE
+        vcxypadarea_test.cpp vcxypadarea_test.h
+        ../../src/virtualconsole/vcxypadarea.h
+    )
+else()
+    add_executable(vcxypadarea_test WIN32 MACOSX_BUNDLE
+        vcxypadarea_test.cpp vcxypadarea_test.h
+    )
+endif()
+
 target_include_directories(vcxypadarea_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces

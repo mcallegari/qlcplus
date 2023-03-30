@@ -1,10 +1,18 @@
 include(../../../variables.cmake)
 
-add_executable(vcwidget_test WIN32 MACOSX_BUNDLE
-    stubwidget.cpp stubwidget.h
-    vcwidget_test.cpp vcwidget_test.h
-    ../../src/virtualconsole/vcwidget.h
-)
+if(MSVC)
+    add_executable(vcwidget_test WIN32 MACOSX_BUNDLE
+        stubwidget.cpp stubwidget.h
+        vcwidget_test.cpp vcwidget_test.h
+        ../../src/virtualconsole/vcwidget.h
+    )
+else()
+    add_executable(vcwidget_test WIN32 MACOSX_BUNDLE
+        stubwidget.cpp stubwidget.h
+        vcwidget_test.cpp vcwidget_test.h
+    )
+endif()
+
 target_include_directories(vcwidget_test PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces

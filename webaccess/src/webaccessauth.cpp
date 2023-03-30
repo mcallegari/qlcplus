@@ -40,7 +40,7 @@ WebAccessAuth::WebAccessAuth(const QString& realm)
     : m_passwords()
     , m_realm(realm)
 {
-#ifdef WIN32
+#if _MSC_VER
     // To fix warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead.
     char* pValue = NULL;
     size_t len = 0;

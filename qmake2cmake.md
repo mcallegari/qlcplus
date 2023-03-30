@@ -27,3 +27,10 @@ E.g.
 cmake -DCMAKE_PREFIX_PATH="C:\Qt\Qt5.12.12\5.12.12\msvc2017\lib\cmake" -Dudev=ON ..
 
 qt_add_plugin => add_library
+
+
+MinGW
+
+cd build
+cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/cmake" -G"MinGW Makefiles" .. -DCMAKE_CXX_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/g++.exe" -DCMAKE_C_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/gcc.exe"
+"C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/mingw32-make.exe"

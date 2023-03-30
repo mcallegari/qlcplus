@@ -1,9 +1,16 @@
 include(../../../variables.cmake)
 
-add_executable(functionselection_test WIN32 MACOSX_BUNDLE
-    functionselection_test.cpp functionselection_test.h
-    ../../src/functionselection.h
-)
+if(MSVC)
+    add_executable(functionselection_test WIN32 MACOSX_BUNDLE
+        functionselection_test.cpp functionselection_test.h
+        ../../src/functionselection.h
+    )
+else()
+    add_executable(functionselection_test WIN32 MACOSX_BUNDLE
+        functionselection_test.cpp functionselection_test.h
+    )
+endif()
+
 target_include_directories(functionselection_test PRIVATE
     ../../../engine/src
     ../../src
