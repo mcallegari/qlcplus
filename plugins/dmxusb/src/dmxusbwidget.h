@@ -59,7 +59,7 @@ public:
      * @param interface The widget's DMXInterface instance
      * @param outputLine the specific output line this widget is going to control
      */
-    DMXUSBWidget(DMXInterface *interface, quint32 outputLine, int frequency);
+    DMXUSBWidget(DMXInterface *_interface, quint32 outputLine, int frequency);
 
     virtual ~DMXUSBWidget();
 
