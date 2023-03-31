@@ -27,31 +27,31 @@ var testAlgo;
     var colorPalette = new Object;
     colorPalette.collection = new Array(
       ["White"        , 0xFFFFFF],  //  0
-      ["Cream"        , 0xFFFF7F],  //  1
-      ["Pink"         , 0xFF7F7F],  //  2
+    ["Cream", 0xffff7f], //  1
+    ["Pink", 0xff7f7f], //  2
       ["Rose"         , 0x7F3F3F],  //  3
       ["Coral"        , 0x7F3F1F],  //  4
       ["Dim Red"      , 0x7F0000],  //  5
-      ["Red"          , 0xFF0000],  //  6
-      ["Orange"       , 0xFF3F00],  //  7
+    ["Red", 0xff0000], //  6
+    ["Orange", 0xff3f00], //  7
       ["Dim Orange"   , 0x7F1F00],  //  8
       ["Goldenrod"    , 0x7F3F00],  //  9
-      ["Gold"         , 0xFF7F00],  // 10
-      ["Yellow"       , 0xFFFF00],  // 11
-      ["Dim Yellow"   , 0x7F7F00],  // 12
-      ["Lime"         , 0x7FFF00],  // 13
+    ["Gold", 0xff7f00], // 10
+    ["Yellow", 0xffff00], // 11
+    ["Dim Yellow", 0x7f7f00], // 12
+    ["Lime", 0x7fff00], // 13
       ["Pale Green"   , 0x3F7F00],  // 14
       ["Dim Green"    , 0x007F00],  // 15
       ["Green"        , 0x00FF00],  // 16
       ["Seafoam"      , 0x00FF3F],  // 17
       ["Turquoise"    , 0x007F3F],  // 18
       ["Teal"         , 0x007F7F],  // 19
-      ["Cyan"         , 0x00FFFF],  // 20
-      ["Electric Blue", 0x007FFF],  // 21
-      ["Blue"         , 0x0000FF],  // 22
+    ["Cyan", 0x00ffff], // 20
+    ["Electric Blue", 0x007fff], // 21
+    ["Blue", 0x0000ff], // 22
       ["Dim Blue"     , 0x00007F],  // 23
-      ["Pale Blue"    , 0x1F1F7F],  // 24
-      ["Indigo"       , 0x1F00BF],  // 25
+    ["Pale Blue", 0x1f1f7f], // 24
+    ["Indigo", 0x1f00bf], // 25
       ["Purple"       , 0x3F00BF],  // 26
       ["Violet"       , 0x7F007F],  // 27
       ["Magenta"      , 0xFF00FF],  // 28
@@ -59,17 +59,16 @@ var testAlgo;
       ["Deep Pink"    , 0x7F001F],  // 30
       ["Grey"         , 0xAAAAAA],  // 31 
       ["OFF"          , 0x000000]); // 32
-    
     colorPalette.makeSubArray = function(_index)
     {
-      var _array = new Array();
+    var _array = new Array();
       for (var i = 0; i < colorPalette.collection.length; i++)
       {
         _array.push(colorPalette.collection[i][_index]);
       }
       return _array;
     };
-    colorPalette.names  = colorPalette.makeSubArray(0);
+  colorPalette.names = colorPalette.makeSubArray(0);
 
     var util = new Object;
     util.initialized = false;
