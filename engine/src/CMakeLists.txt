@@ -1,7 +1,5 @@
 include(../../variables.cmake)
 
-find_package(PkgConfig REQUIRED)
-
 add_library(qlcplusengine STATIC
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
     avolitesd4parser.cpp avolitesd4parser.h

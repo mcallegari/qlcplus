@@ -26,6 +26,18 @@ else()
     )
 endif()
 
+pkg_check_modules(LIBUSB_1 IMPORTED_TARGET libusb-1.0)
+
+if(${LIBUSB_1_FOUND})
+    include_directories(
+        ${LIBUSB_1_INCLUDE_DIRS}
+    )
+
+    link_libraries(
+        ${LIBUSB_1_LIBRARIES}
+    )
+endif()
+
 install(TARGETS udmx
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}

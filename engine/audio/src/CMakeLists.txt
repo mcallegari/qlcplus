@@ -1,5 +1,4 @@
 include(../../../variables.cmake)
-find_package(PkgConfig REQUIRED)
 
 add_library(qlcplusaudio
     audio.cpp audio.h
@@ -79,9 +78,6 @@ if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(qlcplusaudio PUBLIC
         HAS_FFTW3
     )
-endif()
-
-if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})) AND (MACOS))
     target_link_libraries(qlcplusaudio PUBLIC
         fftw3
     )

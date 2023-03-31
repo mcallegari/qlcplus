@@ -1,3 +1,5 @@
+include(../../variables.cmake)
+
 add_library(spi)
 target_sources(spi PRIVATE
     ../interfaces/qlcioplugin.cpp ../interfaces/qlcioplugin.h

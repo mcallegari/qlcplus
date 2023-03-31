@@ -13,6 +13,9 @@ if(udev)
     target_sources(hotplugmonitor PRIVATE
         hpmprivate-udev.cpp hpmprivate-udev.h
     )
+    target_link_libraries(hotplugmonitor PRIVATE
+        udev
+    )
 endif()
 
 if(iokit)

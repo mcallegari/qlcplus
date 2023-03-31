@@ -17,6 +17,19 @@ target_link_libraries(peperoni PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
+# libusb-1.0
+pkg_check_modules(LIBUSB_1 IMPORTED_TARGET libusb-1.0)
+
+if(${LIBUSB_1_FOUND})
+    include_directories(
+        ${LIBUSB_1_INCLUDE_DIRS}
+    )
+
+    link_libraries(
+        ${LIBUSB_1_LIBRARIES}
+    )
+endif()
+
 install(TARGETS peperoni
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
