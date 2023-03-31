@@ -1,4 +1,5 @@
 include(../../variables.cmake)
+
 find_package(PkgConfig REQUIRED)
 
 add_library(qlcplusengine STATIC
@@ -187,6 +188,11 @@ if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})) AND (MACOS))
         fftw3
     )
 endif()
+
+set(CONFIGFILE ${CMAKE_SOURCE_DIR}/engine/src/qlcconfig.h)
+set(LITERAL_HASH "#")
+
+configure_file(qlcconfig.h.in ${CONFIGFILE})
 
 install(TARGETS qlcplusengine
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

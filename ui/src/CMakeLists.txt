@@ -696,7 +696,7 @@ set(qlcui_resource_files
     "../../resources/icons/png/xypad.png"
 )
 
-if((QT_VERSION_MAJOR GREATER 5))
+if(QT_VERSION_MAJOR GREATER 5)
     target_link_libraries(qlcplusui PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
