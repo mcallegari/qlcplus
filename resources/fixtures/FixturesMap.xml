@@ -230,6 +230,14 @@
     <F n="beamZ-SB200-Stage-Blinder-2x50w" m="SB200 Stage Blinder 2x50W"/>
     <F n="beamZ-SparkleWall" m="SparkleWall"/>
   </M>
+  <M n="Betopper">
+    <F n="Betopper-LM108" m="LM108 Wash Moving Head"/>
+    <F n="Betopper-LM70" m="LM70"/>
+    <F n="Betopper-LPC004" m="LPC004"/>
+    <F n="Betopper-LPC006" m="LPC006"/>
+    <F n="Betopper-LPC007" m="LPC-007"/>
+    <F n="Betopper-LPC017" m="LPC-017"/>
+  </M>
   <M n="Blizzard_Lighting">
     <F n="Blizzard-Lighting-Blade-RGBW" m="Blade RGBW"/>
     <F n="Blizzard-Lighting-Flurry-5" m="Flurry 5"/>

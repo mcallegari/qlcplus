@@ -51,9 +51,11 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Eurolite LED Super Strobe ABL (thanks to Sebastian Moeckel)
   * New fixture: beamZ Fuze75B Beam (thanks to Marcin Kwiecien)
   * New fixture: Eurolite LED FE-800 (thanks to Clausi4711)
-  * New fixtures: Varytec LED Bar 240/8 CW/WW, Equinox SpectraPix Batten (thanks to Michel Sliepenbeek)
+  * New fixtures: Varytec LED Bar 240/8 CW/WW, Equinox SpectraPix Batten, Betopper LPC-017 (thanks to Michel Sliepenbeek)
   * New fixtures: Chauvet Intimidator Scan LED 100, Equinox Fusion Spot Max MKIII (thanks to Michel Sliepenbeek)
   * New fixture: Elation SIX PAR Z19 IP (thanks to Sophia Rodriguez)
+  * New fixture: Betopper LPC007 (thanks to Romil Barticulo)
+  * New fixture: Betopper LM108 Wash Moving Head (thanks to Luca Giovannesi)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 
