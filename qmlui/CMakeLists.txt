@@ -1741,7 +1741,7 @@ if(lupdate_only)
 endif()
 
 if(QT_VERSION_MAJOR EQUAL 5)
-    qt5_add_resources(qlcplusqmlui_resource_files "qmlui.qrc")
+    qt5_add_resources(qlcplusqmlui_resource_files qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc)
     target_sources(qlcplus-qml PUBLIC
         ${qlcplusqmlui_resource_files}
     )

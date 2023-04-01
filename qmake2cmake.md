@@ -37,7 +37,8 @@ cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/cmake" -G"MinG
 "C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/mingw32-make.exe"
 
 Ubuntu
-cmake -Dudev=ON .. 
+cmake -Dudev=ON -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt5" ..
+cmake -Dudev=ON -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt6" ..
 make
 
 
@@ -47,5 +48,11 @@ cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/cmake" -G"MinG
 "C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/mingw32-make.exe"
 
 Ubuntu
-cmake -Dqmlui=ON -Dudev=ON ..
+cmake -Dqmlui=ON -Dudev=ON -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt5" ..
+cmake -Dqmlui=ON -Dudev=ON -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt6" ..
 make
+
+
+
+Install qt6 on Ubuntu
+sudo apt-get install qt6* libqt6svg6-dev
