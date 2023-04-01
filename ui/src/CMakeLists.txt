@@ -714,7 +714,7 @@ else()
     )
 
     qt5_add_resources(qlcplusui_resource_files "qlcui.qrc")
-    target_sources(qlcplusui PUBLIC
+    target_sources(qlcplusui PRIVATE
         ${qlcplusui_resource_files}
     )
 
