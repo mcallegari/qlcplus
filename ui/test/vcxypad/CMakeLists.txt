@@ -1,26 +1,23 @@
 include(../../../variables.cmake)
+include(../../src/include_ui.cmake)
 
-if(MSVC)
-    add_executable(vcxypad_test WIN32 MACOSX_BUNDLE
-        ../../../engine/test/common/resource_paths.h
-        vcxypad_test.cpp vcxypad_test.h
-        ../../src/virtualconsole/vcxypad.h
-    )
-else()
-    add_executable(vcxypad_test WIN32 MACOSX_BUNDLE
-        ../../../engine/test/common/resource_paths.h
-        vcxypad_test.cpp vcxypad_test.h
-    )
-endif()
+set(module_name "vcxypad_test")
 
-target_include_directories(vcxypad_test PRIVATE
+add_executable(${module_name} WIN32 MACOSX_BUNDLE
+    ../../../engine/test/common/resource_paths.h
+    ${module_name}.cpp ${module_name}.h
+)
+
+target_include_directories(${module_name} PRIVATE
     ../../../engine/src
     ../../../plugins/interfaces
     ../../src
     ../../src/virtualconsole
 )
 
-target_link_libraries(vcxypad_test PRIVATE
+include_ui_header(${module_name})
+
+target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Test
@@ -30,18 +27,18 @@ target_link_libraries(vcxypad_test PRIVATE
 )
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
-    target_link_libraries(vcxypad_test PRIVATE
+    target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
-    target_link_libraries(vcxypad_test PRIVATE
+    target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 
-install(TARGETS vcxypad_test
+install(TARGETS ${module_name}
     BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
