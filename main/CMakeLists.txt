@@ -23,10 +23,12 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 
-qt5_add_resources(qlcplusui_resource_files ${CMAKE_SOURCE_DIR}/ui/src/qlcui.qrc)
-target_sources(${module_name} PRIVATE
-    ${qlcplusui_resource_files}
-)
+if(QT_VERSION_MAJOR EQUAL 5)
+    qt5_add_resources(qlcplusui_resource_files ${CMAKE_SOURCE_DIR}/ui/src/qlcui.qrc)
+    target_sources(${module_name} PRIVATE
+        ${qlcplusui_resource_files}
+    )
+endif()
 
 if(WIN32 OR MACOS)
     target_sources(${module_name} PRIVATE
