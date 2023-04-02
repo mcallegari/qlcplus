@@ -56,6 +56,7 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Elation SIX PAR Z19 IP (thanks to Sophia Rodriguez)
   * New fixture: Betopper LPC007 (thanks to Romil Barticulo)
   * New fixture: Betopper LM108 Wash Moving Head (thanks to Luca Giovannesi)
+  * New fixture: Starway Servo Beam 10R (thanks to David Talet)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 
