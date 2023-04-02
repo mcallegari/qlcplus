@@ -30,14 +30,11 @@ add_library(${module_name}
 )
 
 if (LIBFTDI1_FOUND)
-    # Get the include directories from the imported target
-    get_target_property(LIBFTDI1_INCLUDE_DIRS libftdi1 INTERFACE_INCLUDE_DIRECTORIES)
-
     # Add the include directories to the project
     target_include_directories(${module_name} PRIVATE ${LIBFTDI1_INCLUDE_DIRS})
 
     # Link your executable against the libftdi1 library
-    target_link_libraries(${module_name} PkgConfig::LIBFTDI1)
+    target_link_libraries(${module_name} LIBFTDI1_LIBRARIES)
 
     target_compile_definitions(${module_name} PRIVATE LIBFTDI1)
     # execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
@@ -59,14 +56,11 @@ if (LIBFTDI1_FOUND)
     endif()
 
 elseif (LIBFTDI_FOUND)
-    # Get the include directories from the imported target
-    get_target_property(LIBFTDI_INCLUDE_DIRS libftdi1 INTERFACE_INCLUDE_DIRECTORIES)
-
     # Add the include directories to the project
     target_include_directories(${module_name} PRIVATE ${LIBFTDI_INCLUDE_DIRS})
 
     # Link your executable against the libftdi library
-    target_link_libraries(${module_name} PkgConfig::LIBFTDI)
+    target_link_libraries(${module_name} LIBFTDI_LIBRARIES)
 
     target_compile_definitions(${module_name} PRIVATE LIBFTDI)
 
