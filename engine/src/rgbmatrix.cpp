@@ -277,8 +277,12 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
     if (m_group == NULL)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
-    if (m_group != NULL)
-        m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map);
+    if (m_group != NULL) {
+        unsigned int rawColors[] = {
+        		m_startColor.rgb(),
+				m_endColor.isValid() ? m_endColor.rgb() : 0};
+        m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map, rawColors);
+    }
 }
 
 /****************************************************************************
@@ -576,9 +580,13 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                 if (tempoType() == Beats)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
+                unsigned int rawColors[] = {
+                		m_startColor.rgb(),
+						m_endColor.isValid() ? m_endColor.rgb() : 0};
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
-                                    m_stepHandler->currentStepIndex(), m_stepHandler->m_map);
+                                    m_stepHandler->currentStepIndex(), m_stepHandler->m_map,
+									rawColors);
                 updateMapChannels(m_stepHandler->m_map, m_group, universes);
             }
         }

@@ -235,9 +235,10 @@ int RGBImage::rgbMapStepCount(const QSize& size)
     }
 }
 
-void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors)
 {
     Q_UNUSED(rgb);
+    Q_UNUSED(rawColors);
 
     QMutexLocker locker(&m_mutex);
 

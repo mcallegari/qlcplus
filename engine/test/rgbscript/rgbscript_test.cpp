@@ -175,7 +175,11 @@ void RGBScript_Test::evaluateNoRgbMapFunction()
     RGBMap map;
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
-    s.rgbMap(QSize(5, 5), 1, 0, map);
+    uint rawRgbColors[RGBAlgorithmRawColorCount] = {
+    		QColor(Qt::red).rgb(),
+			QColor(Qt::green).rgb()
+    };
+    s.rgbMap(QSize(5, 5), 1, 0, map, rawRgbColors);
     QCOMPARE(map, RGBMap());
 }
 
@@ -208,7 +212,11 @@ void RGBScript_Test::rgbMap()
 {
     RGBMap map;
     RGBScript s = m_doc->rgbScriptsCache()->script("Stripes");
-    s.rgbMap(QSize(3, 4), 0, 0, map);
+    uint rawRgbColors[RGBAlgorithmRawColorCount] = {
+    		QColor(Qt::red).rgb(),
+			uint(0)
+    };
+    s.rgbMap(QSize(3, 4), 0, 0, map, rawRgbColors);
     QVERIFY(map.isEmpty() == false);
 
     s.setProperty("orientation", "Vertical");
@@ -217,16 +225,16 @@ void RGBScript_Test::rgbMap()
     for (int step = 0; step < 5; step++)
     {
         RGBMap map;
-        s.rgbMap(QSize(5, 5), QColor(Qt::red).rgb(), step, map);
+        s.rgbMap(QSize(5, 5), rawRgbColors[0], step, map, rawRgbColors);
 
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
             {
                 if (y == step)
-                    QCOMPARE(map[y][x], QColor(Qt::red).rgb());
+                    QCOMPARE(map[y][x], rawRgbColors[0]);
                 else
-                    QCOMPARE(map[y][x], uint(0));
+                    QCOMPARE(map[y][x], rawRgbColors[1]);
             }
         }
     }
@@ -239,6 +247,10 @@ void RGBScript_Test::runScripts()
     // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
     // This test also wants to test that there is no color space overrun.
     int red = 0xff0000;
+    uint rawRgbColors[RGBAlgorithmRawColorCount] = {
+    		QColor(Qt::red).rgb(),
+			0
+    };
 
     // Iterate the list of scripts
     QStringList names = m_doc->rgbScriptsCache()->names();
@@ -273,7 +285,7 @@ void RGBScript_Test::runScripts()
 
         { // limit the scope of this map to keep it clean for future executions
             RGBMap map;
-            s.rgbMap(mapSize, 0, 0, map);
+            s.rgbMap(mapSize, 0, 0, map, rawRgbColors);
             QVERIFY(map.isEmpty() == false);
         }
 
@@ -292,7 +304,7 @@ void RGBScript_Test::runScripts()
         RGBMap rgbMap;
         for (int step = 0; step < realsteps; step++)
         {
-            s.rgbMap(mapSize, red, step, rgbMap);
+            s.rgbMap(mapSize, red, step, rgbMap, rawRgbColors);
             QVERIFY(rgbMap.isEmpty() == false);
             // Check that the color values are limited to a valid range
             for (int y = 0; y < mapSize.height(); y++)
@@ -314,12 +326,12 @@ void RGBScript_Test::runScripts()
         RGBMap rgbRefMap;
         if (1 < s.acceptColors() && 2 < steps && ! randomScript) {
             // When more than 2 colors are accepted, the steps shall be reproducible to allow back and forth color fade.
-            s.rgbMap(mapSizePlus, red, 0, rgbRefMap);
+            s.rgbMap(mapSizePlus, red, 0, rgbRefMap, rawRgbColors);
         }
         // Switch to the larger map and step a few times.
         for (int step = 0; step < realsteps; step++)
         {
-            s.rgbMap(mapSizePlus, red, step, rgbMap);
+            s.rgbMap(mapSizePlus, red, step, rgbMap, rawRgbColors);
             // Check that the color values are limited to a valid range
             for (int y = 0; y < mapSizePlus.height(); y++)
             {
@@ -386,7 +398,7 @@ void RGBScript_Test::runScripts()
                         for (int step = 0; step < realsteps; step++)
                         {
                             RGBMap map;
-                            s.rgbMap(mapSize, red, step, map);
+                            s.rgbMap(mapSize, red, step, map, rawRgbColors);
                             QVERIFY(map.isEmpty() == false);
                             // Check that the color values are limited to a valid range
                             for (int y = 0; y < mapSize.height(); y++)
@@ -415,7 +427,7 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
+                        s.rgbMap(mapSize, red, step, map, rawRgbColors);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
                         for (int y = 0; y < mapSize.height(); y++)
@@ -433,7 +445,7 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
+                        s.rgbMap(mapSize, red, step, map, rawRgbColors);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
                         for (int y = 0; y < mapSize.height(); y++)
@@ -453,7 +465,7 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
+                        s.rgbMap(mapSize, red, step, map, rawRgbColors);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
                         for (int y = 0; y < mapSize.height(); y++)
@@ -473,7 +485,7 @@ void RGBScript_Test::runScripts()
                     for (int step = 0; step < realsteps; step++)
                     {
                         RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
+                        s.rgbMap(mapSize, red, step, map, rawRgbColors);
                         QVERIFY(map.isEmpty() == false);
                         // Check that the color values are limited to a valid range
                         for (int y = 0; y < mapSize.height(); y++)

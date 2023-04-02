@@ -266,8 +266,9 @@ int RGBText::rgbMapStepCount(const QSize& size)
         return scrollingTextStepCount();
 }
 
-void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors)
 {
+    Q_UNUSED(rawColors);
     if (animationStyle() == StaticLetters)
         renderStaticLetters(size, rgb, step, map);
     else
