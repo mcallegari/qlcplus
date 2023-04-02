@@ -34,7 +34,7 @@ if (LIBFTDI1_FOUND)
     target_include_directories(${module_name} PRIVATE ${LIBFTDI1_INCLUDE_DIRS})
 
     # Link your executable against the libftdi1 library
-    target_link_libraries(${module_name} LIBFTDI1_LIBRARIES)
+    link_libraries(LIBFTDI1_LIBRARIES)
 
     target_compile_definitions(${module_name} PRIVATE LIBFTDI1)
     # execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
@@ -60,7 +60,7 @@ elseif (LIBFTDI_FOUND)
     target_include_directories(${module_name} PRIVATE ${LIBFTDI_INCLUDE_DIRS})
 
     # Link your executable against the libftdi library
-    target_link_libraries(${module_name} LIBFTDI_LIBRARIES)
+    link_libraries(LIBFTDI_LIBRARIES)
 
     target_compile_definitions(${module_name} PRIVATE LIBFTDI)
 
