@@ -1,8 +1,8 @@
 include(../../../variables.cmake)
 find_package(PkgConfig REQUIRED)  # Make sure pkg-config is available
 
-pkg_check_modules(LIBFTDI1 libftdi1 libusb-1.0)
-pkg_check_modules(LIBFTDI libftdi libusb)
+pkg_check_modules(LIBFTDI1 IMPORTED_TARGET libftdi1 libusb-1.0)
+pkg_check_modules(LIBFTDI IMPORTED_TARGET libftdi libusb)
 
 set(module_name "dmxusb")
 
@@ -30,8 +30,17 @@ add_library(${module_name}
 )
 
 if (LIBFTDI1_FOUND)
+    # Get the include directories from the imported target
+    get_target_property(LIBFTDI1_INCLUDE_DIRS libftdi1 INTERFACE_INCLUDE_DIRECTORIES)
+
+    # Add the include directories to the project
+    target_include_directories(${module_name} PRIVATE ${LIBFTDI1_INCLUDE_DIRS})
+
+    # Link your executable against the libftdi1 library
+    target_link_libraries(${module_name} PkgConfig::LIBFTDI1)
+
     target_compile_definitions(${module_name} PRIVATE LIBFTDI1)
-    set(ftdi1_version $$system($$pkgConfigExecutable() --modversion libftdi1))  # Get libFTDI1 version
+    # execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
 
     if (APPLE)
         include(../../../platforms/macos/nametool.pri)
@@ -42,7 +51,7 @@ if (LIBFTDI1_FOUND)
         )
     endif()
 
-    message("Building with libFTDI1 support. Version: ${ftdi1_version}")
+    message("Building with libFTDI1 support. Version: ${LIBFTDI1_VERSION}")
 
     if (NOT ${LIBFTDI1_VERSION} VERSION_LESS "1.5")
         message("Using v1.5+ buffer flush API")
@@ -50,6 +59,15 @@ if (LIBFTDI1_FOUND)
     endif()
 
 elseif (LIBFTDI_FOUND)
+    # Get the include directories from the imported target
+    get_target_property(LIBFTDI_INCLUDE_DIRS libftdi1 INTERFACE_INCLUDE_DIRECTORIES)
+
+    # Add the include directories to the project
+    target_include_directories(${module_name} PRIVATE ${LIBFTDI_INCLUDE_DIRS})
+
+    # Link your executable against the libftdi library
+    target_link_libraries(${module_name} PkgConfig::LIBFTDI)
+
     target_compile_definitions(${module_name} PRIVATE LIBFTDI)
 
     if (APPLE)
