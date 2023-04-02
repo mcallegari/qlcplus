@@ -1,7 +1,28 @@
 include(../../variables.cmake)
 include(../../coverage.cmake)
 
-add_library(qlcplusui
+set(module_name "qlcplusui")
+
+set(TS_FILES
+    qlcplus_fi_FI.ts
+    qlcplus_fr_FR.ts
+    qlcplus_es_ES.ts
+    qlcplus_de_DE.ts
+    qlcplus_it_IT.ts
+    qlcplus_nl_NL.ts
+    qlcplus_cz_CZ.ts
+    qlcplus_pt_BR.ts
+    qlcplus_ca_ES.ts
+    qlcplus_ja_JP.ts
+)
+
+if(QT_VERSION_MAJOR GREATER 5)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
+add_library(${module_name}
     ../../plugins/interfaces/rdmprotocol.cpp ../../plugins/interfaces/rdmprotocol.h
     aboutbox.cpp aboutbox.h aboutbox.ui
     addchannelsgroup.cpp addchannelsgroup.h addchannelsgroup.ui
@@ -124,8 +145,10 @@ add_library(qlcplusui
     virtualconsole/vcxypadpreset.cpp virtualconsole/vcxypadpreset.h
     virtualconsole/vcxypadproperties.cpp virtualconsole/vcxypadproperties.h virtualconsole/vcxypadproperties.ui
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
+    ${QM_FILES}
 )
-target_include_directories(qlcplusui PUBLIC
+
+target_include_directories(${module_name} PUBLIC
     ../../engine/audio/src
     ../../engine/src
     ../../plugins/interfaces
@@ -135,7 +158,7 @@ target_include_directories(qlcplusui PUBLIC
     virtualconsole
 )
 
-target_link_libraries(qlcplusui PUBLIC
+target_link_libraries(${module_name} PUBLIC
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Multimedia
@@ -697,37 +720,34 @@ set(qlcui_resource_files
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
-    target_link_libraries(qlcplusui PUBLIC
+    target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
 
-    qt_add_resources(qlcplusui "qlcui"
+    qt_add_resources(${module_name} "qlcui"
         PREFIX
             "/"
         FILES
             ${qlcui_resource_files}
     )
-
 else()
-    target_link_libraries(qlcplusui PUBLIC
+    target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Script
     )
 
     qt5_add_resources(qlcplusui_resource_files "qlcui.qrc")
-    target_sources(qlcplusui PRIVATE
+    target_sources(${module_name} PRIVATE
         ${qlcplusui_resource_files}
     )
-
 endif()
 
-
 if(WIN32)
-    target_include_directories(qlcplusui PUBLIC
+    target_include_directories(${module_name} PUBLIC
         ../../hotplugmonitor/src
     )
 endif()
 
-install(TARGETS qlcplusui
+install(TARGETS ${module_name}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

@@ -1,20 +1,43 @@
 include(../../../variables.cmake)
 include(../../../coverage.cmake)
 
-add_library(enttecwing)
-target_sources(enttecwing PRIVATE
+set(module_name "enttecwing")
+
+set(TS_FILES
+    ENTTEC_Wing_fi_FI.ts
+    ENTTEC_Wing_de_DE.ts
+    ENTTEC_Wing_es_ES.ts
+    ENTTEC_Wing_fr_FR.ts
+    ENTTEC_Wing_it_IT.ts
+    ENTTEC_Wing_nl_NL.ts
+    ENTTEC_Wing_cz_CZ.ts
+    ENTTEC_Wing_pt_BR.ts
+    ENTTEC_Wing_ca_ES.ts
+    ENTTEC_Wing_ja_JP.ts
+)
+
+if(QT_VERSION_MAJOR GREATER 5)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
+add_library(${module_name}
+    ${QM_FILES}
+)
+target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
-    enttecwing.cpp enttecwing.h
+    ${module_name}.cpp ${module_name}.h
     playbackwing.cpp playbackwing.h
     programwing.cpp programwing.h
     shortcutwing.cpp shortcutwing.h
     wing.cpp wing.h
 )
-target_include_directories(enttecwing PRIVATE
+target_include_directories(${module_name} PRIVATE
     ../../interfaces
 )
 
-target_link_libraries(enttecwing PRIVATE
+target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Network
@@ -22,12 +45,12 @@ target_link_libraries(enttecwing PRIVATE
 )
 
 if(WIN32)
-    target_compile_definitions(enttecwing PRIVATE
+    target_compile_definitions(${module_name} PRIVATE
         QLC_EXPORT
     )
 endif()
 
-install(TARGETS enttecwing
+install(TARGETS ${module_name}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

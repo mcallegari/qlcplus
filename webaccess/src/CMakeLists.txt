@@ -1,7 +1,28 @@
 include(../../variables.cmake)
 include(../../coverage.cmake)
 
-add_library(qlcpluswebaccess
+set(module_name "qlcpluswebaccess")
+
+set(TS_FILES
+    webaccess_fi_FI.ts
+    webaccess_de_DE.ts
+    webaccess_fr_FR.ts
+    webaccess_es_ES.ts
+    webaccess_it_IT.ts
+    webaccess_nl_NL.ts
+    webaccess_cz_CZ.ts
+    webaccess_pt_BR.ts
+    webaccess_ca_ES.ts
+    webaccess_ja_JP.ts
+)
+
+if(QT_VERSION_MAJOR GREATER 5)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
+add_library(${module_name}
     commonjscss.h
     qhttpserver/http_parser.c qhttpserver/http_parser.h
     qhttpserver/qhttpconnection.cpp qhttpserver/qhttpconnection.h
@@ -13,8 +34,9 @@ add_library(qlcpluswebaccess
     webaccessauth.cpp webaccessauth.h
     webaccessconfiguration.cpp webaccessconfiguration.h
     webaccesssimpledesk.cpp webaccesssimpledesk.h
+    ${QM_FILES}
 )
-target_include_directories(qlcpluswebaccess PUBLIC
+target_include_directories(${module_name} PUBLIC
     ../../engine/audio/src
     ../../engine/src
     ../../ui/src
@@ -22,12 +44,12 @@ target_include_directories(qlcpluswebaccess PUBLIC
     qhttpserver
 )
 
-target_compile_definitions(qlcpluswebaccess PUBLIC
+target_compile_definitions(${module_name} PUBLIC
     NO_SSL
     USE_WEBSOCKET
 )
 
-target_link_libraries(qlcpluswebaccess PUBLIC
+target_link_libraries(${module_name} PUBLIC
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Multimedia
@@ -38,35 +60,35 @@ target_link_libraries(qlcpluswebaccess PUBLIC
 )
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
-    target_link_libraries(qlcpluswebaccess PUBLIC
+    target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
-    target_link_libraries(qlcpluswebaccess PUBLIC
+    target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 
 if(WIN32)
-    target_include_directories(qlcpluswebaccess PUBLIC
+    target_include_directories(${module_name} PUBLIC
         /
     )
 
-    target_link_libraries(qlcpluswebaccess PUBLIC
+    target_link_libraries(${module_name} PUBLIC
         ws2_32
     )
 endif()
 
 if(UNIX AND NOT MACOS)
-    target_sources(qlcpluswebaccess PRIVATE
+    target_sources(${module_name} PRIVATE
         webaccessnetwork.cpp webaccessnetwork.h
     )
 endif()
 
 
-install(TARGETS qlcpluswebaccess
+install(TARGETS ${module_name}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

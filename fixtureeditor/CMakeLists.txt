@@ -1,6 +1,27 @@
 include(../variables.cmake)
 
-add_executable(qlcplus-fixtureeditor WIN32 MACOSX_BUNDLE
+set(module_name "qlcplus-fixtureeditor")
+
+set(TS_FILES
+    fixtureeditor_fi_FI.ts
+    fixtureeditor_fr_FR.ts
+    fixtureeditor_de_DE.ts
+    fixtureeditor_es_ES.ts
+    fixtureeditor_it_IT.ts
+    fixtureeditor_nl_NL.ts
+    fixtureeditor_cz_CZ.ts
+    fixtureeditor_pt_BR.ts
+    fixtureeditor_ca_ES.ts
+    fixtureeditor_ja_JP.ts
+)
+
+if(QT_VERSION_MAJOR GREATER 5)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
+add_executable(${module_name} WIN32 MACOSX_BUNDLE
     ../ui/src/aboutbox.cpp ../ui/src/aboutbox.h ../ui/src/aboutbox.ui
     ../ui/src/apputil.cpp ../ui/src/apputil.h
     ../ui/src/docbrowser.cpp ../ui/src/docbrowser.h
@@ -14,14 +35,16 @@ add_executable(qlcplus-fixtureeditor WIN32 MACOSX_BUNDLE
     fixtureeditor.cpp fixtureeditor.h fixtureeditor.ui
     main.cpp
     util.h
+    ${QM_FILES}
 )
-target_include_directories(qlcplus-fixtureeditor PRIVATE
+
+target_include_directories(${module_name} PRIVATE
     ../engine/src
     ../plugins/interfaces
     ../ui/src
 )
 
-target_link_libraries(qlcplus-fixtureeditor PRIVATE
+target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Widgets
@@ -581,28 +604,26 @@ set(qlcui_resource_files
     "../ui/src/../../resources/icons/png/xypad.png"
 )
 
-# qt_add_resources(qlcplus-fixtureeditor "qlcui"
-#     PREFIX
-#         "/"
-#     BASE
-#         "../ui/src"
-#     FILES
-#         ${qlcui_resource_files}
-# )
-
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
-    target_link_libraries(qlcplus-fixtureeditor PRIVATE
+    target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Qml
     )
-endif()
 
-if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
-    target_link_libraries(qlcplus-fixtureeditor PRIVATE
+    qt_add_resources(${module_name} "qlcui"
+        PREFIX
+            "/"
+        BASE
+            "../ui/src"
+        FILES
+            ${qlcui_resource_files}
+    )
+else()
+    target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 
-install(TARGETS qlcplus-fixtureeditor
+install(TARGETS ${module_name}
     BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

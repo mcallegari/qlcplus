@@ -1,6 +1,27 @@
 include(../variables.cmake)
 
-add_executable(qlcplus-qml WIN32 MACOSX_BUNDLE
+set(module_name "qlcplus-qml")
+
+set(TS_FILES
+    qlcplus_ca_ES.ts
+    qlcplus_de_DE.ts
+    qlcplus_es_ES.ts
+    qlcplus_fr_FR.ts
+    qlcplus_it_IT.ts
+    qlcplus_ja_JP.ts
+    qlcplus_nl_NL.ts
+    qlcplus_pl_PL.ts
+    qlcplus_ru_RU.ts
+    qlcplus_uk_UA.ts
+)
+
+if(QT_VERSION_MAJOR GREATER 5)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
+add_executable(${module_name} WIN32 MACOSX_BUNDLE
     app.cpp app.h
     audioeditor.cpp audioeditor.h
     chasereditor.cpp chasereditor.h
@@ -52,10 +73,11 @@ add_executable(qlcplus-qml WIN32 MACOSX_BUNDLE
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
     virtualconsole/vcwidget.cpp virtualconsole/vcwidget.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
+    ${QM_FILES}
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
-    qt_add_qml_module(qlcplus-qml
+    qt_add_qml_module(${module_name}
         URI qlcplus_qml
         VERSION ${PROJECT_VERSION}
         QML_FILES
@@ -977,7 +999,7 @@ set_source_files_properties("qml/virtualconsole/WidgetsList.qml"
     PROPERTIES QT_RESOURCE_ALIAS "WidgetsList.qml"
 )
 
-target_include_directories(qlcplus-qml PRIVATE
+target_include_directories(${module_name} PRIVATE
     ../engine/audio/src
     ../engine/src
     ../plugins/interfaces
@@ -986,7 +1008,7 @@ target_include_directories(qlcplus-qml PRIVATE
     virtualconsole
 )
 
-target_link_libraries(qlcplus-qml PRIVATE
+target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::3DCore
     Qt${QT_MAJOR_VERSION}::3DInput
     Qt${QT_MAJOR_VERSION}::3DQuick
@@ -1693,7 +1715,7 @@ set(svgicons_resource_files
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
-    qt_add_resources(qlcplus-qml "svgicons"
+    qt_add_resources(${module_name} "svgicons"
         PREFIX
             "/"
         BASE
@@ -1719,7 +1741,7 @@ set(fonts_resource_files
 )
 
 if(QT_VERSION_MAJOR GREATER 5)
-    qt_add_resources(qlcplus-qml "fonts"
+    qt_add_resources(${module_name} "fonts"
         PREFIX
             "/"
         BASE
@@ -1730,7 +1752,7 @@ if(QT_VERSION_MAJOR GREATER 5)
 endif()
 
 if(lupdate_only)
-    target_sources(qlcplus-qml PRIVATE
+    target_sources(${module_name} PRIVATE
         qml/*.qml
         qml/fixturesfunctions/*.qml
         qml/inputoutput/*.qml
@@ -1742,12 +1764,12 @@ endif()
 
 if(QT_VERSION_MAJOR EQUAL 5)
     qt5_add_resources(qlcplusqmlui_resource_files qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc)
-    target_sources(qlcplus-qml PUBLIC
+    target_sources(${module_name} PUBLIC
         ${qlcplusqmlui_resource_files}
     )
 endif()
 
-install(TARGETS qlcplus-qml
+install(TARGETS ${module_name}
     BUNDLE DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
