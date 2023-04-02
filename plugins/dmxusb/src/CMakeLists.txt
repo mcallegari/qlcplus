@@ -1,4 +1,8 @@
 include(../../../variables.cmake)
+find_package(PkgConfig REQUIRED)  # Make sure pkg-config is available
+
+pkg_check_modules(LIBFTDI1 libftdi1 libusb-1.0)
+pkg_check_modules(LIBFTDI libftdi libusb)
 
 set(module_name "dmxusb")
 
@@ -24,6 +28,43 @@ endif()
 add_library(${module_name}
     ${QM_FILES}
 )
+
+if (LIBFTDI1_FOUND)
+    target_compile_definitions(${module_name} PRIVATE LIBFTDI1)
+    set(ftdi1_version $$system($$pkgConfigExecutable() --modversion libftdi1))  # Get libFTDI1 version
+
+    if (APPLE)
+        include(../../../platforms/macos/nametool.pri)
+        add_custom_command(TARGET ${module_name}
+            COMMAND ${PKG_CONFIG_NAMETOOL} libusb-1.0 libusb-1.0.0.dylib
+            COMMAND ${PKG_CONFIG_NAMETOOL} libftdi1 libftdi1.2.dylib
+            COMMENT "Creating symlinks for libusb-1.0.0.dylib and libftdi1.2.dylib"
+        )
+    endif()
+
+    message("Building with libFTDI1 support. Version: ${ftdi1_version}")
+
+    if (NOT ${LIBFTDI1_VERSION} VERSION_LESS "1.5")
+        message("Using v1.5+ buffer flush API")
+        target_compile_definitions(${module_name} PRIVATE LIBFTDI1_5)
+    endif()
+
+elseif (LIBFTDI_FOUND)
+    target_compile_definitions(${module_name} PRIVATE LIBFTDI)
+
+    if (APPLE)
+        include(../../../platforms/macos/nametool.pri)
+        add_custom_command(TARGET ${module_name}
+            COMMAND ${PKG_CONFIG_NAMETOOL} libftdi libftdi.1.dylib
+            COMMENT "Creating symlink for libftdi.1.dylib"
+        )
+    endif()
+
+    message("Building with libFTDI support.")
+
+else()
+    message(FATAL_ERROR "Neither libftdi-0.X nor libftdi-1.X found!")
+endif()
 
 target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
