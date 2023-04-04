@@ -75,7 +75,8 @@ public:
     virtual int rgbMapStepCount(const QSize& size) = 0;
 
     /** Load a RGBMap for the given step. */
-    virtual void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors) = 0;
+    virtual void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map,
+    		uint (&rawColors)[RGBAlgorithmRawColorCount]) = 0;
 
     /** Release resources that may have been acquired in rgbMap() */
     virtual void postRun() {}

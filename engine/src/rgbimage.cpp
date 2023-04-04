@@ -235,7 +235,7 @@ int RGBImage::rgbMapStepCount(const QSize& size)
     }
 }
 
-void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors)
+void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount])
 {
     Q_UNUSED(rgb);
     Q_UNUSED(rawColors);

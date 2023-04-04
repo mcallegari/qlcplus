@@ -217,7 +217,7 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     return ret;
 }
 
-void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors)
+void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount])
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -228,7 +228,7 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint 
     if (m_apiVersion <= 2) {
     	args << size.width() << size.height() << rgb << step;
     } else {
-    	QJSValue jsRawColors = s_engine->newArray(RGBAlgorithmRawColorCount);
+    	QVariantList jsRawColors = s_engine->newArray(RGBAlgorithmRawColorCount);
     	Q_ASSERT(2 == RGBAlgorithmRawColorCount);
     	jsRawColors.setProperty(0, QJSValue(rawColors[0]));
     	jsRawColors.setProperty(1, QJSValue(rawColors[1]));

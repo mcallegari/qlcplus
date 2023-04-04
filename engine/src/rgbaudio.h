@@ -71,7 +71,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount]);
 
     /** @reimp */
     virtual void postRun();

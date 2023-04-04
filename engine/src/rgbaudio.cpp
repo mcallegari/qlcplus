@@ -121,7 +121,7 @@ int RGBAudio::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors)
+void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount])
 {
     Q_UNUSED(step);
     Q_UNUSED(rawColors);

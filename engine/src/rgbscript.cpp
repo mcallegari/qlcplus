@@ -231,7 +231,7 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     return ret;
 }
 
-void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint *rawColors)
+void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount])
 {
     QMutexLocker engineLocker(s_engineMutex);
 
