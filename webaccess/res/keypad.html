@@ -97,6 +97,7 @@ function connect()
   };
 
   websocket.onclose = function () {
+    isConnected = false;
     console.log("QLC+ connection is closed. Reconnect will be attempted in 1 second.");
     setTimeout(function () {
       connect();
