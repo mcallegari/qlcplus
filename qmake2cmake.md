@@ -33,8 +33,14 @@ QLC++ 4
 Windows MinGW
 
 cd build
-cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/cmake" -G"MinGW Makefiles" .. -DCMAKE_CXX_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/g++.exe" -DCMAKE_C_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/gcc.exe"
+cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/cmake" -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/g++.exe" -DCMAKE_C_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/gcc.exe" -DCMAKE_MAKE_PROGRAM="C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/mingw32-make.exe" ..
 "C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/mingw32-make.exe"
+
+cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_32/lib/cmake" -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/c++.exe" -DCMAKE_C_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/gcc.exe" -DCMAKE_MAKE_PROGRAM="C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/mingw32-make.exe" ..
+"C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/mingw32-make.exe"
+
+cmake -DCMAKE_PREFIX_PATH="C:/msys64/mingw32/lib/cmake" -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM="/usr/bin/make" -DCMAKE_CXX_COMPILER="/mingw32/bin/c++.exe" -DCMAKE_C_COMPILER="/mingw32/bin/gcc.exe" ..
+"C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/mingw32-make.exe"
 
 Ubuntu
 cmake -Dudev=ON -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt5" ..

@@ -175,15 +175,19 @@ endif()
 
 pkg_check_modules(FFTW3 IMPORTED_TARGET fftw3)
 
+
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(qlcplusengine PUBLIC
         HAS_FFTW3
     )
 endif()
 
-if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})) AND (MACOS))
+if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})))
+    target_link_directories(qlcplusengine PUBLIC
+        ${FFTW3_LIBRARY_DIRS}
+    )
     target_link_libraries(qlcplusengine PUBLIC
-        fftw3
+        ${FFTW3_LIBRARIES}
     )
 endif()
 
