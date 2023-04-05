@@ -47,7 +47,7 @@ if(WIN32)
     target_link_libraries(${module_name} PRIVATE
         # Remove: LC:/Qt/K8062D
         C:/Qt/K8062D/K8062D.a
-        K8062D
+        # K8062D
     )
 endif()
 
