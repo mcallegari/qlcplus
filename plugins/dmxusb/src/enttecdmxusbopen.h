@@ -43,8 +43,8 @@ public:
      * @param id The device's unique ID (FTD2XX only)
      * @param parent The owner of this object
      */
-    EnttecDMXUSBOpen(DMXInterface *interface,
-                     quint32 outputLine, QObject* parent = 0);
+    EnttecDMXUSBOpen(DMXInterface *_interface,
+                     quint32 outputLine, QObject *parent = 0);
 
     /** Destructor */
     virtual ~EnttecDMXUSBOpen();

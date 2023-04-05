@@ -87,7 +87,7 @@ public:
     virtual Type type() const = 0;
 
     /** Get the DMXInterface instance */
-    DMXInterface *interface() const;
+    DMXInterface *_interface() const;
 
     /** Get the DMXInterface driver in use as a string */
     QString interfaceTypeString() const;

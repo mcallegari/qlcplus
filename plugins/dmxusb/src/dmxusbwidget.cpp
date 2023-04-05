@@ -54,7 +54,7 @@ DMXUSBWidget::~DMXUSBWidget()
     delete m_interface;
 }
 
-DMXInterface *DMXUSBWidget::interface() const
+DMXInterface *DMXUSBWidget::_interface() const
 {
     return m_interface;
 }

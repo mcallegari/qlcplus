@@ -56,7 +56,7 @@ QString EuroliteUSBDMXPro::getDeviceName()
     foreach (QString dir, devDirs)
     {
 
-        if (dir.startsWith(QString::number(interface()->busLocation())) &&
+        if (dir.startsWith(QString::number(_interface()->busLocation())) &&
             dir.contains(":") == false)
         {
             // 2- Match the product name
@@ -241,14 +241,14 @@ void EuroliteUSBDMXPro::run()
         request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 
 #ifdef QTSERIAL
-        if (interface()->write(request) == false)
+        if (_interface()->write(request) == false)
 #else
         if (m_file.write(request) == false)
 #endif
         {
             qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
 #ifdef QTSERIAL
-            interface()->purgeBuffers();
+            _interface()->purgeBuffers();
 #endif
         }
 framesleep:
