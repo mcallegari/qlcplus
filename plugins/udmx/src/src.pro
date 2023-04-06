@@ -15,12 +15,16 @@ PKGCONFIG   += libusb-1.0
 win32:QMAKE_LFLAGS += -shared
 
 HEADERS += ../../interfaces/qlcioplugin.h
-HEADERS += udmxdevice.h \
-           udmx.h
-
 SOURCES += ../../interfaces/qlcioplugin.cpp
-SOURCES += udmxdevice.cpp \
-           udmx.cpp
+
+unix {
+    HEADERS += udmxdevice.h \
+            udmx.h
+
+    SOURCES += udmxdevice.cpp \
+            udmx.cpp
+}
+
 
 win32 {
     HEADERS += libusb_dyn.h
