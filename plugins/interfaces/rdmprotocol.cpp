@@ -43,9 +43,9 @@ bool RDMProtocol::packetizeCommand(ushort command, QVariantList params, bool sta
     buffer.clear();
 
     if (startCode)
-        buffer.append(char(RDM_START_CODE));
+        buffer.append(static_cast<char>(RDM_START_CODE));
 
-    buffer.append(char(RDM_SC_SUB_MESSAGE));
+    buffer.append(static_cast<char>(RDM_SC_SUB_MESSAGE));
 
     // temporary length. Fixed at the end
     buffer.append(char(0x00));
@@ -199,18 +199,18 @@ bool RDMProtocol::parseDiscoveryReply(const QByteArray &buffer, QVariantMap &val
     int i = 0;
 
     // check preamble
-    if (buffer.at(i) != char(0xFE) ||
-        buffer.at(i + 1) != char(0xFE) ||
-        buffer.at(i + 2) != char(0xFE) ||
-        buffer.at(i + 3) != char(0xFE) ||
-        buffer.at(i + 4) != char(0xFE) ||
-        buffer.at(i + 5) != char(0xFE) ||
-        buffer.at(i + 6) != char(0xFE))
+    if (buffer.at(i) != static_cast<char>(0xFE) ||
+        buffer.at(i + 1) != static_cast<char>(0xFE) ||
+        buffer.at(i + 2) != static_cast<char>(0xFE) ||
+        buffer.at(i + 3) != static_cast<char>(0xFE) ||
+        buffer.at(i + 4) != static_cast<char>(0xFE) ||
+        buffer.at(i + 5) != static_cast<char>(0xFE) ||
+        buffer.at(i + 6) != static_cast<char>(0xFE))
             return false;
 
     i += 7;
     // check separator
-    if (buffer.at(i++) != char(0xAA))
+    if (buffer.at(i++) != static_cast<char>(0xAA))
         return false;
 
     quint8 mMSB = quint8(buffer.at(i)) & quint8(buffer.at(i + 1));
@@ -268,7 +268,7 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         return false;
 
     // check first bytes
-    if (buffer.at(i) == char(RDM_START_CODE))
+    if (buffer.at(i) == static_cast<char>(RDM_START_CODE))
     {
         startCode = true;
         i++;

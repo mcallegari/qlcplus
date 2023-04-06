@@ -86,7 +86,7 @@ void RDMManager::slotRefresh()
     }
 }
 
-bool RDMManager::getPluginInfo(quint32 universe, quint32 line, quint32 &universeID, quint32 &outputLine)
+bool RDMManager::getPluginInfo(quint32 universe, quint32 _line, quint32 &universeID, quint32 &outputLine)
 {
     Universe *uni = m_doc->inputOutputMap()->universe(universe);
     if (uni == NULL)
@@ -99,7 +99,7 @@ bool RDMManager::getPluginInfo(quint32 universe, quint32 line, quint32 &universe
     for (int i = 0; i < uni->outputPatchesCount(); i++)
     {
         op = uni->outputPatch(i);
-        if (op->output() == line)
+        if (op->output() == _line)
             break;
     }
     if (op == NULL)

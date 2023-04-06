@@ -194,7 +194,8 @@ QString ShowHeaderItem::tempoToString(ShowHeaderItem::TimeDivision type)
         default:
             return QString("Invalid"); break;
     }
-    return QString();
+    // unreachable code
+    // return QString();
 }
 
 ShowHeaderItem::TimeDivision ShowHeaderItem::stringToTempo(QString tempo)

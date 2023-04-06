@@ -147,9 +147,9 @@ QString QLCFile::currentUserName()
 {
 #if defined(WIN32) || defined(Q_OS_WIN)
     DWORD length = UNLEN + 1;
-    TCHAR name[length];
-    if (GetUserName(name, &length))
-        return QString::fromUtf16(reinterpret_cast<char16_t*>(name));
+    std::vector<TCHAR> name(length);
+    if (GetUserName(name.data(), &length))
+        return QString::fromUtf16(reinterpret_cast<char16_t*>(name.data()));
     else
         return QString("Unknown windows user");
 #else

@@ -230,10 +230,10 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
                         QString tmpModel = tmpDef->model();
                         if (tmpManuf == manufacturer && tmpModel == model && tmpMode == mode)
                         {
-                            QTreeWidgetItem* item = fixItem->child(chIdx);
-                            if (item != NULL)
+                            QTreeWidgetItem* _item = fixItem->child(chIdx);
+                            if (_item != NULL)
                             {
-                                item->setCheckState(KColumnGroup, enable);
+                                _item->setCheckState(KColumnGroup, enable);
                                 if (enable == Qt::Checked)
                                     m_checkedChannels++;
                                 else

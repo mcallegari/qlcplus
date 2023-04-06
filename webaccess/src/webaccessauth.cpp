@@ -40,7 +40,17 @@ WebAccessAuth::WebAccessAuth(const QString& realm)
     : m_passwords()
     , m_realm(realm)
 {
+#if _MSC_VER
+    // To fix warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead.
+    char* pValue = NULL;
+    size_t len = 0;
+    errno_t err = _dupenv_s(&pValue, &len, "HOME");
+    if (err || NULL == pValue) return;
+    m_passwordsFile = QString("%1/%2/%3").arg(pValue).arg(USERQLCPLUSDIR).arg(DEFAULT_PASSWORD_FILE);
+    free(pValue);
+#else
     m_passwordsFile = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(DEFAULT_PASSWORD_FILE);
+#endif
 }
 
 bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
