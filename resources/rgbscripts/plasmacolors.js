@@ -73,21 +73,11 @@ function()
   algo.apiVersion = 3;
   algo.name = "Plasma (Colors)";
   algo.author = "Nathan Durnan";
-  algo.acceptColors = 0;
+  algo.acceptColors = 2;
   algo.properties = new Array();
   algo.rstepcount = 0;
   algo.gstepcount = 50;
   algo.bstepcount = 100;
-  algo.color1Index = 0;
-  algo.properties.push(
-    "name:color1Index|type:list|display:Color 1|" +
-    "values:" + colorPalette.names.toString() + "|" +
-    "write:setColor1|read:getColor1");
-  algo.color2Index = 6;
-  algo.properties.push(
-    "name:color2Index|type:list|display:Color 2|" +
-    "values:" + colorPalette.names.toString() + "|" +
-    "write:setColor2|read:getColor2");
   algo.color3Index = 16;
   algo.properties.push(
     "name:color3Index|type:list|display:Color 3|" +
@@ -116,8 +106,6 @@ function()
     "name:stepsize|type:range|display:Speed|" +
     "values:1,50|write:setStep|read:getStep");
   algo.colorIndex = new Array(
-    algo.color1Index,
-    algo.color2Index,
     algo.color3Index,
     algo.color4Index,
     algo.color5Index);
@@ -126,6 +114,7 @@ function()
   util.initialized = false;
   util.gradientData = new Array();
   util.colorArray = new Array();
+  util.colorCache = new Array();
 
   algo.setColor = function(_index, _preset)
   {
@@ -133,13 +122,13 @@ function()
     if (i === -1) {
       i = (colorPalette.collection.length - 1);
     }
-    algo.colorIndex[_index] = i;
-    return algo.colorIndex[_index];
+    algo.colorIndex[_index - algo.acceptColors] = i;
+    return algo.colorIndex[_index - algo.acceptColors];
   };
 
   algo.getColor = function(_index)
   {
-    var i = algo.colorIndex[_index];
+    var i = algo.colorIndex[_index - algo.acceptColors];
     if (i < 0) { i = 0; }
     if (i >= colorPalette.collection.length) {
       i = (colorPalette.collection.length - 1);
@@ -147,30 +136,18 @@ function()
     return colorPalette.collection[i][0];
   };
 
-  algo.setColor1 = function(_preset)
-  {
-    algo.color1Index = algo.setColor(0, _preset);
-    util.initialize();
-  };
-  algo.getColor1 = function()
-  {
-    return algo.getColor(0);
-  };
-
-  algo.setColor2 = function(_preset)
-  {
-    algo.color2Index = algo.setColor(1, _preset);
-    util.initialize();
-  };
-  algo.getColor2 = function()
-  {
-    return algo.getColor(1);
-  };
+  algo.getRawColor = function (rawColors, idx) {
+    if (Array.isArray(rawColors) && ! Number.isNaN(rawColors[idx])) {
+      return rawColors[idx];
+    } else {
+      return 0;
+    }
+  }
 
   algo.setColor3 = function(_preset)
   {
     algo.color3Index = algo.setColor(2, _preset);
-    util.initialize();
+    util.initialized = false;
   };
   algo.getColor3 = function()
   {
@@ -180,7 +157,7 @@ function()
   algo.setColor4 = function(_preset)
   {
     algo.color4Index = algo.setColor(3, _preset);
-    util.initialize();
+    util.initialized = false;
   };
   algo.getColor4 = function()
   {
@@ -190,7 +167,7 @@ function()
   algo.setColor5 = function(_preset)
   {
     algo.color5Index = algo.setColor(4, _preset);
-    util.initialize();
+    util.initialized = false;
   };
   algo.getColor5 = function()
   {
@@ -200,7 +177,7 @@ function()
   algo.setSize = function(_size)
   {
     algo.presetSize = _size;
-    util.initialize();
+    util.initialized = false;
   };
   algo.getSize = function()
   {
@@ -210,7 +187,7 @@ function()
   algo.setRamp = function(_ramp)
   {
     algo.ramp = _ramp;
-    util.initialize();
+    util.initialized = false;
   };
   algo.getRamp = function()
   {
@@ -220,24 +197,26 @@ function()
   algo.setStep = function(_step)
   {
     algo.stepsize = _step;
-    util.initialize();
+    util.initialized = false;
   };
   algo.getStep = function()
   {
     return algo.stepsize;
   };
 
-  util.initialize = function()
+  util.initialize = function(rawColors)
   {
+    // Get the colors from the external preset.
+    for (var i = 0; i < algo.acceptColors; i++) {
+      util.colorArray[i] = algo.getRawColor(rawColors, i);
+    }
+    for (var i = 0; i < algo.colorIndex.length; i++) {
+      util.colorArray[i + algo.acceptColors] = colorPalette.collection[algo.colorIndex[i]][1];
+    }
     // calculate the gradient for the selected preset
     // with the given width
     var gradIdx = 0;
     util.gradientData = new Array();
-    util.colorArray = new Array();
-    for (var j = 0; j < algo.colorIndex.length; j++)
-    {
-      util.colorArray[j] = colorPalette.collection[algo.colorIndex[j]][1];
-    }
     for (var i = 0; i < util.colorArray.length; i++)
     {
       var sColor = util.colorArray[i];
@@ -314,9 +293,16 @@ function()
 
   algo.rgbMap = function(width, height, rgb, step, rawColors)
   {
-    if (util.initialized === false) {
-      util.initialize();
+    for (var i = 0; i < algo.acceptColors; i++) {
+      if (typeof util.colorCache[i] === 'undefined' || util.colorCache[i] !== rawColors[i]) {
+        util.colorCache[i] = algo.getRawColor(rawColors, i);
+        util.initialized = false;
+      }
     }
+    if (util.initialized === false) {
+      util.initialize(rawColors);
+    }
+
     var size = algo.presetSize/2;  // set a scaling value
     var speed = Math.pow(100 , (algo.stepsize / 50)); // create a more uniform speed control
     algo.bstepcount += (speed / 500);
@@ -343,10 +329,7 @@ function()
 
   algo.rgbMapStepCount = function(width, height)
   {
-    if (util.initialized === false) {
-      util.initialize();
-    }
-    return width * height;  // This make no difference to the script ;-)
+    return 2;  // This make no difference to the script ;-)
   };
 
   // Development tool access

@@ -339,8 +339,8 @@ void RGBScript_Test::runScripts()
                 {
                     if (s.acceptColors() > 0)
                     {
-                        // If colors are accepted, verify that the requested color is applied
-                        QVERIFY((rgbMap[y][x] & 0xff00ffff) == 0);
+                    	// verify that the alpha channel is zero
+                        QVERIFY((rgbMap[y][x] & 0xff000000) == 0);
                         QVERIFY((rgbMap[y][x] >> 16) <= 0x0000ff);
                         if (!randomScript && 0 == step && 1 < s.acceptColors() && 2 < steps)
                         {
