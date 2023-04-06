@@ -1,0 +1,66 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
+set(module_name "velleman")
+
+set(TS_FILES
+    Velleman_fi_FI.ts
+    Velleman_de_DE.ts
+    Velleman_es_ES.ts
+    Velleman_fr_FR.ts
+    Velleman_it_IT.ts
+    Velleman_nl_NL.ts
+    Velleman_cz_CZ.ts
+    Velleman_pt_BR.ts
+    Velleman_ca_ES.ts
+    Velleman_ja_JP.ts
+)
+
+if(QT_VERSION_MAJOR GREATER 5)
+    qt_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt5_add_translation(QM_FILES ${TS_FILES})
+endif()
+
+add_library(${module_name}
+    ${QM_FILES}
+)
+
+target_sources(${module_name} PRIVATE
+    ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
+    ${module_name}.cpp ${module_name}.h
+)
+target_include_directories(${module_name} PRIVATE
+    ../../interfaces
+)
+
+target_link_libraries(${module_name} PRIVATE
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+)
+
+if(WIN32)
+    target_compile_definitions(${module_name} PRIVATE
+        QLC_EXPORT
+    )
+
+    target_link_libraries(${module_name} PRIVATE
+        # Remove: LC:/Qt/K8062D
+        C:/Qt/K8062D/K8062D.a
+        # K8062D
+    )
+endif()
+
+if(UNIX)
+    target_sources(${module_name} PRIVATE
+        velleman_mock.cpp
+    )
+endif()
+
+install(TARGETS ${module_name}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})
