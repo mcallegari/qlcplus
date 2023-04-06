@@ -156,7 +156,8 @@ QString VCWidget::typeToString(int type)
         default:
              return QString(tr("Unknown"));
     }
-    return QString(tr("Unknown"));
+    // unreachable code
+    // return QString(tr("Unknown"));
 }
 
 QIcon VCWidget::typeToIcon(int type)
@@ -178,7 +179,8 @@ QIcon VCWidget::typeToIcon(int type)
         default:
              return QIcon(":/virtualconsole.png");
     }
-    return QIcon(":/virtualconsole.png");
+    // unreachable code
+    // return QIcon(":/virtualconsole.png");
 }
 
 /*********************************************************************

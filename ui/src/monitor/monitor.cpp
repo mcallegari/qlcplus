@@ -234,12 +234,12 @@ void Monitor::fillGraphicsView()
 
     if (m_props->gridUnits() == MonitorProperties::Meters)
     {
-        m_graphicsView->setGridMetrics(1000.0);
+        m_graphicsView->setGridMetrics(1000.0f);
         m_unitsCombo->setCurrentIndex(0);
     }
     else // m_props->gridUnits() == MonitorProperties::Feet
     {
-        m_graphicsView->setGridMetrics(304.8);
+        m_graphicsView->setGridMetrics(304.8f);
         m_unitsCombo->setCurrentIndex(1);
     }
 
@@ -711,9 +711,9 @@ void Monitor::slotGridUnitsChanged(int index)
         units = MonitorProperties::GridUnits(var.toInt());
 
     if (units == MonitorProperties::Meters)
-        m_graphicsView->setGridMetrics(1000.0);
+        m_graphicsView->setGridMetrics(1000.0f);
     else if (units == MonitorProperties::Feet)
-        m_graphicsView->setGridMetrics(304.8);
+        m_graphicsView->setGridMetrics(304.8f);
 
     m_props->setGridUnits(units);
 }

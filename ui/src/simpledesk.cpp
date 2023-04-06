@@ -861,8 +861,8 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
             quint32 chanAddr = (chanAbsAddr & 0x01FF) - ((m_universePageSpin->value() - 1) * m_channelsPerPage);
             if (chanAddr < (quint32)m_universeSliders.count())
             {
-                ConsoleChannel *chan = m_universeSliders.at(chanAddr);
-                chan->setChannelStyleSheet(ssOverride);
+                ConsoleChannel *_chan = m_universeSliders.at(chanAddr);
+                _chan->setChannelStyleSheet(ssOverride);
             }
         }
         m_engine->setValue(chanAbsAddr, value);
