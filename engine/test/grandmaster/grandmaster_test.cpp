@@ -18,14 +18,15 @@
 */
 
 #include <QtTest>
+#if !(defined(WIN32) || defined(Q_OS_WIN))
 #include <sys/time.h>
+#endif
 
 #include "grandmaster_test.h"
 
 #define protected public
 #include "grandmaster.h"
 #undef protected
-
 
 void GrandMaster_Test::initTestCase()
 {

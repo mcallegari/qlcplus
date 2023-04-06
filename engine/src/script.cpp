@@ -400,7 +400,7 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     QString strippedStr = str.remove("random(");
     strippedStr.remove(")");
     if (strippedStr.contains(",") == false)
-        return -1;
+        return quint32(-1);
 
     QStringList valList = strippedStr.split(",");
     int min = Function::stringToSpeed(valList.at(0));

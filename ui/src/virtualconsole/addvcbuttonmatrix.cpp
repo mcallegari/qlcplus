@@ -119,7 +119,7 @@ void AddVCButtonMatrix::slotAddClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setDisabledFunctions(functions());
-    if (fs.exec() == true)
+    if (fs.exec() == int(true))
     {
         QListIterator <quint32> it(fs.selection());
         while (it.hasNext() == true)
