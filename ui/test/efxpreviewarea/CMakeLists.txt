@@ -1,3 +1,4 @@
+include(../../../variables.cmake)
 include(../../src/include_ui.cmake)
 
 set(module_name "efxpreviewarea_test")
@@ -33,6 +34,11 @@ if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
         Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
+
+install(TARGETS ${module_name}
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 # Consider using qt_generate_deploy_app_script() for app deployment if
 # the project can use Qt 6.3. In that case rerun qmake2cmake with

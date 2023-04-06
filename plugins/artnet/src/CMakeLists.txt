@@ -1,3 +1,5 @@
+include(../../../variables.cmake)
+
 set(module_name "artnet")
 
 set(TS_FILES
@@ -20,7 +22,6 @@ else()
 endif()
 
 add_library(${module_name}
-    SHARED
     ${QM_FILES}
 )
 
@@ -44,7 +45,9 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

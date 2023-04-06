@@ -1,4 +1,6 @@
-# pkg_check_modules(MAD IMPORTED_TARGET REQUIRED mad)
+include(../../../../variables.cmake)
+
+pkg_check_modules(MAD IMPORTED_TARGET REQUIRED mad)
 
 if(NOT MAD_INCLUDE_DIRS)
     find_path(MAD_INCLUDE_DIR mad.h PATH_SUFFIXES include)
@@ -29,5 +31,7 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${AUDIOPLUGINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

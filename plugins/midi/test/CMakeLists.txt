@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(midi_test WIN32 MACOSX_BUNDLE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../src/common/midiprotocol.cpp ../src/common/midiprotocol.h
@@ -12,6 +15,11 @@ target_link_libraries(midi_test PRIVATE
     # Remove: L../src
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Test
+)
+
+install(TARGETS midi_test
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 # Consider using qt_generate_deploy_app_script() for app deployment if

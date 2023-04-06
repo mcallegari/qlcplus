@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(bus_test WIN32
     bus_test.cpp bus_test.h
 )
@@ -11,6 +14,11 @@ target_link_libraries(bus_test PRIVATE
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
+)
+
+install(TARGETS bus_test
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 # Consider using qt_generate_deploy_app_script() for app deployment if

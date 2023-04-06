@@ -1,3 +1,4 @@
+include(../../../variables.cmake)
 find_package(PkgConfig REQUIRED)  # Make sure pkg-config is available
 
 set(module_name "dmxusb")
@@ -22,7 +23,6 @@ else()
 endif()
 
 add_library(${module_name}
-    SHARED
     ${QM_FILES}
 )
 
@@ -179,16 +179,10 @@ if(libftdi)
     )
 endif()
 
-if (UNIX AND NOT APPLE)
-   # Rules to make USB DMX devices readable & writable by normal users
-   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/z65-dmxusb.rules"
-           DESTINATION ${UDEVRULESDIR})
-   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.dmxusb.metainfo.xml"
-           DESTINATION ${METAINFODIR})
-endif()
-
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

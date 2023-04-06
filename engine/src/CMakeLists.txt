@@ -1,6 +1,6 @@
-set(module_name "qlcplusengine")
+include(../../variables.cmake)
 
-add_library(${module_name} SHARED
+add_library(qlcplusengine STATIC
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
     avolitesd4parser.cpp avolitesd4parser.h
     bus.cpp bus.h
@@ -70,79 +70,74 @@ add_library(${module_name} SHARED
     utils.h
     video.cpp video.h
 )
-target_include_directories(${module_name} PUBLIC
+target_include_directories(qlcplusengine PUBLIC
     ../../plugins/interfaces
     ../audio/src
 )
 
-target_link_libraries(${module_name} PUBLIC
+target_link_libraries(qlcplusengine PUBLIC
+    # Remove: L../audio/src
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Multimedia
-)
-
-target_link_libraries(${module_name} PRIVATE
     qlcplusaudio
 )
 
 if(NOT ANDROID AND NOT IOS)
-    target_include_directories(${module_name} PUBLIC
+    target_include_directories(qlcplusengine PUBLIC
         ../../hotplugmonitor/src
     )
 
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
+        # Remove: L../../hotplugmonitor/src
         hotplugmonitor
-    )
-
-    target_link_directories(${module_name} PUBLIC
-        ${CMAKE_CURRENT_BINARY_DIR}/../../hotplugmonitor/src
     )
 endif()
 
 if((NOT ANDROID AND NOT IOS) AND (coverage))
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         gcov
     )
 
-    target_compile_options(${module_name}
+    target_compile_options(qlcplusengine
         -fprofile-arcs
         -ftest-coverage
     )
 endif()
 
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         asound
     )
 endif()
 
 if(WIN32)
-    target_sources(${module_name} PRIVATE
+    target_sources(qlcplusengine PRIVATE
         mastertimer-win32.cpp mastertimer-win32.h
     )
 
-    target_include_directories(${module_name} PUBLIC
+    target_include_directories(qlcplusengine PUBLIC
         /
     )
 
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         Qt${QT_MAJOR_VERSION}::Widgets
         winmm
     )
 endif()
 
 if((NOT ANDROID AND NOT IOS) AND (iokit))
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         "-framework CoreFoundation"
         "-framework IOKit"
     )
 endif()
 
 if(MACOS)
-    set_target_properties(${module_name} PROPERTIES
+    set_target_properties(qlcplusengine PROPERTIES
         MACOSX_BUNDLE FALSE
     )
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         "-framework AudioToolbox"
         "-framework CoreAudio"
         "-framework CoreFoundation"
@@ -150,30 +145,30 @@ if(MACOS)
 endif()
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
-    target_sources(${module_name} PRIVATE
+    target_sources(qlcplusengine PRIVATE
         rgbscriptv4.cpp rgbscriptv4.h
         scriptrunner.cpp scriptrunner.h
         scriptv4.cpp scriptv4.h
     )
 
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
 endif()
 
 if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
-    target_sources(${module_name} PRIVATE
+    target_sources(qlcplusengine PRIVATE
         rgbscript.cpp rgbscript.h
         script.cpp script.h
     )
 
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
 
 if(UNIX)
-    target_sources(${module_name} PRIVATE
+    target_sources(qlcplusengine PRIVATE
         mastertimer-unix.cpp mastertimer-unix.h
     )
 endif()
@@ -182,16 +177,16 @@ pkg_check_modules(FFTW3 IMPORTED_TARGET fftw3)
 
 
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
-    target_compile_definitions(${module_name} PUBLIC
+    target_compile_definitions(qlcplusengine PUBLIC
         HAS_FFTW3
     )
 endif()
 
 if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})))
-    target_link_directories(${module_name} PUBLIC
+    target_link_directories(qlcplusengine PUBLIC
         ${FFTW3_LIBRARY_DIRS}
     )
-    target_link_libraries(${module_name} PUBLIC
+    target_link_libraries(qlcplusengine PUBLIC
         ${FFTW3_LIBRARIES}
     )
 endif()
@@ -200,8 +195,9 @@ set(CONFIGFILE ${CMAKE_SOURCE_DIR}/engine/src/qlcconfig.h)
 set(LITERAL_HASH "#")
 
 configure_file(qlcconfig.h.in ${CONFIGFILE})
-set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${CONFIGFILE})
 
-install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${LIBSDIR}
+install(TARGETS qlcplusengine
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

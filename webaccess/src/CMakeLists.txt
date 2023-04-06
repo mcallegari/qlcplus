@@ -1,3 +1,6 @@
+include(../../variables.cmake)
+include(../../coverage.cmake)
+
 set(module_name "qlcpluswebaccess")
 
 set(TS_FILES
@@ -19,25 +22,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
-    pkg_check_modules(PORTAUDIO_2 IMPORTED_TARGET portaudio-2.0)
-    if (${PORTAUDIO_2_FOUND})
-        target_compile_definitions(${module_name} PUBLIC
-            HAS_PORTAUDIO
-        )
-
-        target_include_directories(${module_name} PUBLIC
-            ${PORTAUDIO_2_INCLUDE_DIRS}
-        )
-
-        target_link_libraries(${module_name} PUBLIC
-            ${PORTAUDIO_2_LIBRARIES}
-        )
-    endif()
-endif()
-
 add_library(${module_name}
-    SHARED
     commonjscss.h
     qhttpserver/http_parser.c qhttpserver/http_parser.h
     qhttpserver/qhttpconnection.cpp qhttpserver/qhttpconnection.h
@@ -51,7 +36,6 @@ add_library(${module_name}
     webaccesssimpledesk.cpp webaccesssimpledesk.h
     ${QM_FILES}
 )
-
 target_include_directories(${module_name} PUBLIC
     ../../engine/audio/src
     ../../engine/src
@@ -105,7 +89,9 @@ endif()
 
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${INSTALLROOT}/${LIBSDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

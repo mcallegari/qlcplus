@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(qlcfixturehead_test WIN32
     qlcfixturehead_test.cpp qlcfixturehead_test.h
 )
@@ -11,6 +14,11 @@ target_link_libraries(qlcfixturehead_test PRIVATE
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
+)
+
+install(TARGETS qlcfixturehead_test
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 # Consider using qt_generate_deploy_app_script() for app deployment if

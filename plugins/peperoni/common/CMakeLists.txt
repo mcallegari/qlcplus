@@ -19,7 +19,6 @@ add_executable(common WIN32 MACOSX_BUNDLE
     main.cpp
     outputdevice.cpp outputdevice.h
 )
-
 target_link_libraries(common PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
@@ -52,6 +51,11 @@ if(UNIX)
         unixpeperonidevice.cpp unixpeperonidevice.h
     )
 endif()
+
+install(TARGETS common
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 # Consider using qt_generate_deploy_app_script() for app deployment if
 # the project can use Qt 6.3. In that case rerun qmake2cmake with

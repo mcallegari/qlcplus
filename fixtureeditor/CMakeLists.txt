@@ -1,3 +1,5 @@
+include(../variables.cmake)
+
 set(module_name "qlcplus-fixtureeditor")
 
 set(TS_FILES
@@ -622,7 +624,8 @@ else()
 endif()
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${BINDIR}
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

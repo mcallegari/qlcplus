@@ -1,3 +1,4 @@
+include(../../../variables.cmake)
 
 add_executable(velleman_test WIN32 MACOSX_BUNDLE
     # ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
@@ -21,6 +22,11 @@ if(WIN32)
         QLC_EXPORT
     )
 endif()
+
+install(TARGETS velleman_test
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 # Consider using qt_generate_deploy_app_script() for app deployment if
 # the project can use Qt 6.3. In that case rerun qmake2cmake with

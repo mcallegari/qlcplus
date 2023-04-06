@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(collection_test WIN32
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     collection_test.cpp collection_test.h
@@ -13,6 +16,11 @@ target_link_libraries(collection_test PRIVATE
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
+)
+
+install(TARGETS collection_test
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 # Consider using qt_generate_deploy_app_script() for app deployment if
