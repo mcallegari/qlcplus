@@ -147,7 +147,7 @@ bool EnttecDMXUSBPro::configureLine(ushort dmxLine, bool isMidi)
         request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
 
         /* Write "Set API Key Request" message */
-        if (interface()->write(request) == false)
+        if (_interface()->write(request) == false)
         {
             qWarning() << Q_FUNC_INFO << name() << "FTDI write filed (DMX2 port config)";
             return false;
@@ -166,7 +166,7 @@ bool EnttecDMXUSBPro::configureLine(ushort dmxLine, bool isMidi)
         request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
 
         /* Write "Set Port Assignment Request" message */
-        if (interface()->write(request) == false)
+        if (_interface()->write(request) == false)
         {
             qWarning() << Q_FUNC_INFO << name() << "FTDI write filed (DMX1 port config)";
             return false;
@@ -181,7 +181,7 @@ bool EnttecDMXUSBPro::open(quint32 line, bool input)
     if (DMXUSBWidget::open(line, input) == false)
         return close(line, input);
 
-    if (interface()->clearRts() == false)
+    if (_interface()->clearRts() == false)
         return close(line, input);
 
     // specific port configuration are needed only by ENTTEC
@@ -211,7 +211,7 @@ bool EnttecDMXUSBPro::open(quint32 line, bool input)
     else if (input == true && m_inputThread == NULL)
     {
         // create (therefore start) the input thread
-        m_inputThread = new EnttecDMXUSBProInput(interface());
+        m_inputThread = new EnttecDMXUSBProInput(_interface());
         connect(m_inputThread, SIGNAL(dataReady(QByteArray,bool)), this, SLOT(slotDataReceived(QByteArray,bool)));
     }
 
@@ -346,15 +346,15 @@ bool EnttecDMXUSBPro::extractSerial()
     request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
     request.append(ENTTEC_PRO_END_OF_MSG);
 
-    interface()->open();
-    interface()->clearRts();
+    _interface()->open();
+    _interface()->clearRts();
 
-    if (interface()->write(request) == true)
+    if (_interface()->write(request) == true)
     {
         msleep(50);
         QByteArray reply;
         bool notUsed;
-        int bytesRead = readData(interface(), reply, notUsed, false);
+        int bytesRead = readData(_interface(), reply, notUsed, false);
 
         if (bytesRead != 4)
         {
@@ -384,7 +384,7 @@ bool EnttecDMXUSBPro::extractSerial()
         qWarning() << Q_FUNC_INFO << name() << "will not accept serial request";
     }
 
-    interface()->close();
+    _interface()->close();
     return result;
 }
 
@@ -551,7 +551,7 @@ void EnttecDMXUSBPro::run()
                         request.append(data2);
                         request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
                         m_outputMutex.lock();
-                        if (interface()->write(request) == false)
+                        if (_interface()->write(request) == false)
                         {
                             qWarning() << Q_FUNC_INFO << name() << "will not accept MIDI data";
                             m_outputMutex.unlock();
@@ -592,7 +592,7 @@ void EnttecDMXUSBPro::run()
 
                 /* Write "Output Only Send DMX Packet Request" message */
                 m_outputMutex.lock();
-                if (interface()->write(request) == false)
+                if (_interface()->write(request) == false)
                 {
                     qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
                     m_outputMutex.unlock();
@@ -663,7 +663,7 @@ bool EnttecDMXUSBPro::sendRDMCommand(quint32 universe, quint32 line, uchar comma
 #endif
 
     QMutexLocker locker(&m_outputMutex);
-    if (interface()->write(ba) == false)
+    if (_interface()->write(ba) == false)
     {
         qWarning() << Q_FUNC_INFO << name() << "will not accept RDM data";
         return false;
@@ -673,7 +673,7 @@ bool EnttecDMXUSBPro::sendRDMCommand(quint32 universe, quint32 line, uchar comma
     {
         QByteArray reply;
         bool isMIDI = false;
-        int bytesRead = readData(interface(), reply, isMIDI, true);
+        int bytesRead = readData(_interface(), reply, isMIDI, true);
 
         if (bytesRead)
         {

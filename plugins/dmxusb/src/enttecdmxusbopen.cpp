@@ -85,12 +85,12 @@ bool EnttecDMXUSBOpen::open(quint32 line, bool input)
 {
     Q_UNUSED(input)
 
-    if (interface()->type() != DMXInterface::QtSerial)
+    if (_interface()->type() != DMXInterface::QtSerial)
     {
         if (DMXUSBWidget::open(line) == false)
             return close(line);
 
-        if (interface()->clearRts() == false)
+        if (_interface()->clearRts() == false)
             return close(line);
     }
     start(QThread::TimeCriticalPriority);
@@ -173,7 +173,7 @@ void EnttecDMXUSBOpen::run()
     else
         m_granularity = Good;
 
-    if (interface()->type() == DMXInterface::QtSerial)
+    if (_interface()->type() == DMXInterface::QtSerial)
     {
         if (DMXUSBWidget::open(0) == false)
         {
@@ -181,7 +181,7 @@ void EnttecDMXUSBOpen::run()
             return;
         }
 
-        if (interface()->clearRts() == false)
+        if (_interface()->clearRts() == false)
         {
             close(0);
             return;
@@ -194,19 +194,19 @@ void EnttecDMXUSBOpen::run()
         // Measure how much time passes during these calls
         time.restart();
 
-        if (interface()->setBreak(true) == false)
+        if (_interface()->setBreak(true) == false)
             goto framesleep;
 
         if (m_granularity == Good)
             usleep(DMX_BREAK);
 
-        if (interface()->setBreak(false) == false)
+        if (_interface()->setBreak(false) == false)
             goto framesleep;
 
         if (m_granularity == Good)
             usleep(DMX_MAB);
 
-        if (interface()->write(m_outputLines[0].m_universeData) == false)
+        if (_interface()->write(m_outputLines[0].m_universeData) == false)
             goto framesleep;
 
 framesleep:
