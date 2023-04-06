@@ -24,7 +24,7 @@ var testAlgo;
   function()
   {
     var algo = new Object;
-    algo.apiVersion = 2;
+    algo.apiVersion = 3;
     algo.name = "Script name";
     algo.author = "Your Name";
     algo.properties = new Array();
@@ -37,7 +37,7 @@ var testAlgo;
       * @param rgb Tells the color requested by user in the UI.
       * @return A two-dimensional array[height][width].
       */
-    algo.rgbMap = function(width, height, rgb, step)
+    algo.rgbMap = function(width, height, rgb, step, rawColors)
     {
       var map = new Array(height);
       for (var y = 0; y < height; y++)

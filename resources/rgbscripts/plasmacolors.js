@@ -70,7 +70,7 @@ function()
   colorPalette.names  = colorPalette.makeSubArray(0);
 
   var algo = new Object;
-  algo.apiVersion = 2;
+  algo.apiVersion = 3;
   algo.name = "Plasma (Colors)";
   algo.author = "Nathan Durnan";
   algo.acceptColors = 0;
@@ -312,7 +312,7 @@ function()
                       grad(p[BB+1], x-1, y-1, z-1 )))));
   };
 
-  algo.rgbMap = function(width, height, rgb, step)
+  algo.rgbMap = function(width, height, rgb, step, rawColors)
   {
     if (util.initialized === false) {
       util.initialize();

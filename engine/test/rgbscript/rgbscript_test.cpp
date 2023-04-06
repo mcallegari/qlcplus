@@ -289,7 +289,7 @@ void RGBScript_Test::runScripts()
             QVERIFY(map.isEmpty() == false);
         }
 
-        QVERIFY(s.apiVersion() >= 1 && s.apiVersion() <= 2);
+        QVERIFY(s.apiVersion() >= 1 && s.apiVersion() <= 3);
         QVERIFY(!s.author().isEmpty());
         QVERIFY(!s.name().isEmpty());
         QVERIFY(s.type() == RGBAlgorithm::Script);

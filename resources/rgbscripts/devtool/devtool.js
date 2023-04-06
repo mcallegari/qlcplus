@@ -247,12 +247,22 @@ devtool.getRgbFromColorInt = function(color)
     return [red, green, blue];
 }
 
-devtool.getCurrentColorInt = function()
+devtool.getPrimaryColorInt = function()
 {
     var primaryColorInput = document.getElementById("primaryColor");
-    var primaryColor = parseInt(primaryColorInput.value, 16);
+    return parseInt(primaryColorInput.value, 16);
+}
+
+devtool.getSecondaryColorInt = function()
+{
     var secondaryColorInput = document.getElementById("secondaryColor");
-    var secondaryColor = parseInt(secondaryColorInput.value, 16);
+    return parseInt(secondaryColorInput.value, 16);
+}
+
+devtool.getCurrentColorInt = function()
+{
+    var primaryColor = devtool.getPrimaryColorInt();
+    var secondaryColor = devtool.getSecondaryColorInt();
 
     if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
         return null;
@@ -283,7 +293,17 @@ devtool.writeCurrentStep = function()
     for (var i = map.rows.length - 1; i >= 0; i--) {
         map.deleteRow(i);
     }
-    var rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep);
+
+    var primaryColorRgb = devtool.getPrimaryColorInt();
+    var secondaryColorRgb = devtool.getSecondaryColorInt();
+    var rawColors = [primaryColorRgb, secondaryColorRgb];
+
+    var rgb;
+    if (testAlgo.apiVersion > 2) {
+      rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep, rawColors);
+    } else {
+      rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep);
+    }
 
     for (var y = 0; y < devtool.gridheight; y++)
     {

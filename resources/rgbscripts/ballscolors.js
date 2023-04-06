@@ -67,7 +67,7 @@ var testAlgo;
     colorPalette.names = colorPalette.makeSubArray(0);
 
     var algo = new Object;
-    algo.apiVersion = 2;
+    algo.apiVersion = 3;
     algo.name = "Balls (Colors)";
     algo.author = "Rob Nieuwenhuizen";
     algo.acceptColors = 0;
@@ -213,7 +213,7 @@ var testAlgo;
       return;
     };
 
-    algo.rgbMap = function (width, height, rgb, progstep) {
+    algo.rgbMap = function (width, height, rgb, progstep, rawColors) {
       if (algo.initialized === false) {
         util.initialize(width, height);
       }
