@@ -39,8 +39,8 @@ public:
      * @param outputline line number
      * @param parent The owner of this object
      */
-    DMXUSBOpenRx(DMXInterface *interface,
-                     quint32 inputLine, QObject* parent = 0);
+    DMXUSBOpenRx(DMXInterface *_interface,
+                 quint32 inputLine, QObject *parent = 0);
 
     /** Destructor */
     virtual ~DMXUSBOpenRx();

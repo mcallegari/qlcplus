@@ -43,7 +43,7 @@ bool Stageprofi::checkReply()
     bool ok = false;
     uchar res;
 
-    res = interface()->readByte(&ok);
+    res = _interface()->readByte(&ok);
     if (ok == false || res != 0x47)
         return false;
 
@@ -72,7 +72,7 @@ bool Stageprofi::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.asprintf("C%03dL%03d", channel, value).toUtf8());
-    return interface()->write(chanMsg);
+    return _interface()->write(chanMsg);
 }
 
 /****************************************************************************
@@ -91,7 +91,7 @@ bool Stageprofi::open(quint32 line, bool input)
 
     /* Check connection */
     initSequence.append("C?");
-    if (interface()->write(initSequence) == true)
+    if (_interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
             qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
@@ -102,7 +102,7 @@ bool Stageprofi::open(quint32 line, bool input)
     /* set the DMX OUT channels number */
     initSequence.clear();
     initSequence.append("N511");
-    if (interface()->write(initSequence) == true)
+    if (_interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
             qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
@@ -219,17 +219,17 @@ void Stageprofi::run()
             }
             fastTrans.append(val);
 
-            if (interface()->write(fastTrans) == false)
+            if (_interface()->write(fastTrans) == false)
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-                interface()->purgeBuffers();
+                _interface()->purgeBuffers();
                 continue;
             }
             else
             {
                 m_outputLines[0].m_compareData[i] = val;
                 if (checkReply() == false)
-                    interface()->purgeBuffers();
+                    _interface()->purgeBuffers();
             }
         }
 
