@@ -22,5 +22,5 @@ SOURCES += ../../interfaces/qlcioplugin.cpp \
 # Test sources
 HEADERS += artnet_test.h 
 
-SOURCES += artnet_test.cpp \
+SOURCES += artnet_test.cpp \ 
            ../src/artnetpacketizer.cpp 
