@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 set(module_name "velleman")
 
 set(TS_FILES
@@ -20,7 +23,6 @@ else()
 endif()
 
 add_library(${module_name}
-    SHARED
     ${QM_FILES}
 )
 
@@ -56,7 +58,9 @@ if(UNIX)
 endif()
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

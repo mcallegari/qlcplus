@@ -1,3 +1,4 @@
+include(../../../variables.cmake)
 
 set(module_name "peperoni")
 
@@ -21,7 +22,6 @@ else()
 endif()
 
 add_library(${module_name}
-    SHARED
     ${QM_FILES}
 )
 

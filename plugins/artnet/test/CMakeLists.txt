@@ -1,3 +1,4 @@
+include(../../../variables.cmake)
 
 add_executable(artnet_test WIN32 MACOSX_BUNDLE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
@@ -16,6 +17,11 @@ target_link_libraries(artnet_test PRIVATE
     Qt${QT_MAJOR_VERSION}::Network
     Qt${QT_MAJOR_VERSION}::Test
     artnet
+)
+
+install(TARGETS artnet_test
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 # Consider using qt_generate_deploy_app_script() for app deployment if

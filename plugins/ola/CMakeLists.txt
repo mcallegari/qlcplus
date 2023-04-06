@@ -1,3 +1,5 @@
+include(../../variables.cmake)
+
 set(module_name "olaio")
 
 set(TS_FILES
@@ -20,7 +22,6 @@ else()
 endif()
 
 add_library(${module_name}
-    SHARED
     ${QM_FILES}
 )
 
@@ -45,31 +46,19 @@ if(MACOS)
     set_target_properties(${module_name} PROPERTIES
         MACOSX_BUNDLE FALSE
     )
-    pkg_check_modules(LIBOLASERVER IMPORTED_TARGET REQUIRED libolaserver)
-    if(${LIBOLASERVER_FOUND})
-        target_include_directories(${module_name} PRIVATE
-            ${LIBOLASERVER_INCLUDE_DIRS}
-        )
+endif()
 
-        target_link_directories(${module_name} PRIVATE
-            ${LIBOLASERVER_LIBRARY_DIRS}
-        )
+if((MACOS) AND (NOT (packagesExist(libolalibolaserver))))
+    target_include_directories(${module_name} PRIVATE
+        /opt/local/include
+    )
 
-        target_link_libraries(${module_name} PRIVATE
-            ${LIBOLASERVER_LIBRARIES}
-        )
-    else()
-        target_include_directories(${module_name} PRIVATE
-            /opt/local/include
-        )
-
-        target_link_libraries(${module_name} PRIVATE
-            # Remove: L/opt/local/lib
-            ola
-            olacommon
-            olaserver
-        )
-    endif()
+    target_link_libraries(${module_name} PRIVATE
+        # Remove: L/opt/local/lib
+        ola
+        olacommon
+        olaserver
+    )
 endif()
 
 if(NOT MACOS)
@@ -81,13 +70,10 @@ if(NOT MACOS)
     )
 endif()
 
-if (UNIX AND NOT APPLE)
-   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.ola.metainfo.xml"
-           DESTINATION ${METAINFODIR})
-endif()
-
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

@@ -1,3 +1,6 @@
+include(../../../variables.cmake)
+include(../../../coverage.cmake)
+
 add_executable(rgbscript_test WIN32
     ../common/resource_paths.h
     rgbscript_test.cpp rgbscript_test.h
@@ -26,6 +29,11 @@ if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
         Qt${QT_MAJOR_VERSION}::Script
     )
 endif()
+
+install(TARGETS rgbscript_test
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 # Consider using qt_generate_deploy_app_script() for app deployment if
 # the project can use Qt 6.3. In that case rerun qmake2cmake with

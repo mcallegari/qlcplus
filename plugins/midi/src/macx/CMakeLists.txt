@@ -1,3 +1,4 @@
+include(../../../../variables.cmake)
 
 set(module_name "midiplugin")
 
@@ -20,7 +21,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_library(${module_name} SHARED
+add_library(${module_name}
     ${QM_FILES}
 )
 

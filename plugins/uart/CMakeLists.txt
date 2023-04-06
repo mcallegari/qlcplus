@@ -1,5 +1,15 @@
-project(uart)
+cmake_minimum_required(VERSION 3.16)
+project(uart VERSION 1.0 LANGUAGES C CXX)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+# Set up AUTOMOC and some sensible defaults for runtime execution
+# When using Qt 6.3, you can replace the code block below with
+# qt_standard_project_setup()
+set(CMAKE_AUTOMOC ON)
+include(GNUInstallDirs)
+
+find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui SerialPort Widgets)
 
 set(module_name "uart")
@@ -23,7 +33,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_library(${module_name} SHARED
+add_library(${module_name}
     ${QM_FILES}
 )
 
@@ -44,7 +54,9 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

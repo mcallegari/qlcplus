@@ -1,19 +1,13 @@
-project(fixtures)
+cmake_minimum_required(VERSION 3.16)
+project(fixtures VERSION 1.0 LANGUAGES C CXX)
 
-# # Find all subdirectories (except ./scripts and .)
-# file(GLOB DIRECTORIES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *)
-# list(FILTER DIRECTORIES EXCLUDE REGEX "^scripts$")
-# list(REMOVE_ITEM DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# # Add a subdirectory for each directory found
-# foreach(directory ${DIRECTORIES})
-#     add_subdirectory(${directory})
-# endforeach()
+# Set up AUTOMOC and some sensible defaults for runtime execution
+# When using Qt 6.3, you can replace the code block below with
+# qt_standard_project_setup()
+set(CMAKE_AUTOMOC ON)
+include(GNUInstallDirs)
 
-# Install FixturesMap.xml and all subdirectories (except ./scripts and .)
-file(GLOB_RECURSE FILES_AND_DIRECTORIES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/*)
-list(FILTER FILES_AND_DIRECTORIES EXCLUDE REGEX "^scripts$")
-list(REMOVE_ITEM FILES_AND_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR})
-list(APPEND FILES_AND_DIRECTORIES FixturesMap.xml)
+find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 
-install(FILES ${FILES_AND_DIRECTORIES} DESTINATION ${INSTALLROOT}/${FIXTUREDIR})

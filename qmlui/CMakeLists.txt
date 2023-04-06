@@ -1,3 +1,5 @@
+include(../variables.cmake)
+
 set(module_name "qlcplus-qml")
 
 set(TS_FILES
@@ -1768,7 +1770,8 @@ if(QT_VERSION_MAJOR EQUAL 5)
 endif()
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${BINDIR}
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})
