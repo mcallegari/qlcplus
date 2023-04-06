@@ -26,6 +26,8 @@
 #include <QColor>
 #include <QSize>
 
+#define RGBMATRIX_MAXCOLORS 2
+
 class QXmlStreamReader;
 class QXmlStreamWriter;
 
@@ -105,14 +107,14 @@ public:
      ************************************************************************/
 public:
     /** Set the start/end color the algorithm can use */
-    virtual void setColors(QColor start, QColor end);
+    virtual void setColors(QColor[RGBMATRIX_MAXCOLORS]);
 
-    QColor startColor() { return m_startColor; }
+    QColor startColor() { return m_colors[0]; }
 
-    QColor endColor() { return m_endColor; }
+    QColor endColor() { return m_colors[1]; }
 
 private:
-    QColor m_startColor, m_endColor;
+    QColor m_colors[RGBMATRIX_MAXCOLORS];
 
     /************************************************************************
      * Available algorithms

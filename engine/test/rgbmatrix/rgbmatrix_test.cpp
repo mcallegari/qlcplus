@@ -82,8 +82,8 @@ void RGBMatrix_Test::initial()
     RGBMatrix mtx(m_doc);
     QCOMPARE(mtx.type(), Function::RGBMatrixType);
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
-    QCOMPARE(mtx.startColor(), QColor(Qt::red));
-    QCOMPARE(mtx.endColor(), QColor());
+    QCOMPARE(mtx.getColor(0), QColor(Qt::red));
+    QCOMPARE(mtx.getColor(1), QColor());
     QCOMPARE(mtx.m_fadersMap.count(), 0);
     QCOMPARE(mtx.m_stepHandler->currentStepIndex(), 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
@@ -110,32 +110,32 @@ void RGBMatrix_Test::group()
 void RGBMatrix_Test::color()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setStartColor(Qt::blue);
-    QCOMPARE(mtx.startColor(), QColor(Qt::blue));
+    mtx.setColor(0, Qt::blue);
+    QCOMPARE(mtx.getColor(0), QColor(Qt::blue));
 
-    mtx.setStartColor(QColor());
-    QCOMPARE(mtx.startColor(), QColor());
+    mtx.setColor(0, QColor());
+    QCOMPARE(mtx.getColor(0), QColor());
 
-    mtx.setEndColor(Qt::green);
-    QCOMPARE(mtx.endColor(), QColor(Qt::green));
+    mtx.setColor(1, Qt::green);
+    QCOMPARE(mtx.getColor(1), QColor(Qt::green));
 
-    mtx.setEndColor(QColor());
-    QCOMPARE(mtx.endColor(), QColor());
+    mtx.setColor(1, QColor());
+    QCOMPARE(mtx.getColor(1), QColor());
 }
 
 void RGBMatrix_Test::copy()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setStartColor(Qt::magenta);
-    mtx.setEndColor(Qt::yellow);
+    mtx.setColor(0, Qt::magenta);
+    mtx.setColor(1, Qt::yellow);
     mtx.setFixtureGroup(0);
     mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx.algorithm() != NULL);
 
     RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
     QVERIFY(copyMtx != NULL);
-    QCOMPARE(copyMtx->startColor(), QColor(Qt::magenta));
-    QCOMPARE(copyMtx->endColor(), QColor(Qt::yellow));
+    QCOMPARE(copyMtx->getColor(0), QColor(Qt::magenta));
+    QCOMPARE(copyMtx->getColor(1), QColor(Qt::yellow));
     QCOMPARE(copyMtx->fixtureGroup(), uint(0));
     QVERIFY(copyMtx->algorithm() != NULL);
     QVERIFY(copyMtx->algorithm() != mtx.algorithm()); // Different object pointer!
@@ -203,8 +203,8 @@ void RGBMatrix_Test::property()
 void RGBMatrix_Test::loadSave()
 {
     RGBMatrix* mtx = new RGBMatrix(m_doc);
-    mtx->setStartColor(Qt::magenta);
-    mtx->setEndColor(Qt::blue);
+    mtx->setColor(0, Qt::magenta);
+    mtx->setColor(1, Qt::blue);
     mtx->setControlMode(RGBMatrix::ControlModeRgb);
     mtx->setFixtureGroup(42);
     mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
@@ -309,8 +309,8 @@ void RGBMatrix_Test::loadSave()
     QVERIFY(mtx2.loadXML(xmlReader) == true);
     QCOMPARE(mtx2.direction(), Function::Backward);
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
-    QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
-    QCOMPARE(mtx2.endColor(), QColor(Qt::blue));
+    QCOMPARE(mtx2.getColor(0), QColor(Qt::magenta));
+    QCOMPARE(mtx2.getColor(1), QColor(Qt::blue));
     QCOMPARE(mtx2.controlMode(), RGBMatrix::ControlModeRgb);
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);

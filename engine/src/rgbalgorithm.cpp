@@ -39,15 +39,17 @@
 
 RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)
-    , m_startColor(QColor())
-    , m_endColor(QColor())
+    , m_colors{
+        QColor(), // was m_startColor
+        QColor() // was m_endColor
+	}
 {
 }
 
-void RGBAlgorithm::setColors(QColor start, QColor end)
+void RGBAlgorithm::setColors(QColor colors[RGBMATRIX_MAXCOLORS])
 {
-    m_startColor = start;
-    m_endColor = end;
+	for (unsigned int i = 0; i < RGBMATRIX_MAXCOLORS; i++)
+		m_colors[i] = colors[i];
 }
 
 /****************************************************************************

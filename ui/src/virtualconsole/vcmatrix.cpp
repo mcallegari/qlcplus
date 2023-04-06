@@ -280,7 +280,7 @@ void VCMatrix::slotStartColorChanged(QRgb color)
     if (matrix == NULL || mode() == Doc::Design)
         return;
 
-    matrix->setStartColor(col);
+    matrix->setColor(0, col);
     if (instantChanges() == true)
         matrix->updateColorDelta();
 }
@@ -296,7 +296,7 @@ void VCMatrix::slotEndColorChanged(QRgb color)
     if (matrix == NULL || mode() == Doc::Design)
         return;
 
-    matrix->setEndColor(col);
+    matrix->setColor(1, col);
     if (instantChanges() == true)
         matrix->updateColorDelta();
 }
@@ -458,8 +458,8 @@ void VCMatrix::slotUpdate()
     if (matrix == NULL)
         return;
 
-    QColor startColor = matrix->startColor();
-    QColor endColor = matrix->endColor();
+    QColor startColor = matrix->getColor(0);
+    QColor endColor = matrix->getColor(1);
     QString algorithmName;
     RGBAlgorithm::Type algorithmType = RGBAlgorithm::Plain;
     QHash<QString, QString> algorithmProperties;
@@ -750,21 +750,21 @@ void VCMatrix::slotCustomControlClicked()
 
         if (control->m_type == VCMatrixControl::StartColor)
         {
-            matrix->setStartColor(control->m_color);
+            matrix->setColor(0, control->m_color);
             if (instantChanges() == true)
                 matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::EndColor)
         {
-            matrix->setEndColor(control->m_color);
+            matrix->setColor(1, control->m_color);
             if (instantChanges() == true)
                 matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::ResetEndColor)
         {
-            matrix->setEndColor(QColor());
+            matrix->setColor(1, QColor());
             if (instantChanges() == true)
                 matrix->updateColorDelta();
         }
@@ -812,21 +812,21 @@ void VCMatrix::slotCustomControlValueChanged()
 
         if (control->m_type == VCMatrixControl::StartColorKnob)
         {
-            QRgb color = matrix->startColor().rgb();
+            QRgb color = matrix->getColor(0).rgb();
             QRgb knobValueColor = control->valueToRgb(knob->value());
             color = (color & ~control->m_color.rgb()) | (knobValueColor & control->m_color.rgb());
 
-            matrix->setStartColor(color);
+            matrix->setColor(0, color);
             if (instantChanges() == true)
                 matrix->updateColorDelta();
         }
         else if (control->m_type == VCMatrixControl::EndColorKnob)
         {
-            QRgb color = matrix->endColor().rgb();
+            QRgb color = matrix->getColor(1).rgb();
             QRgb knobValueColor = control->valueToRgb(knob->value());
             color = (color & ~control->m_color.rgb()) | (knobValueColor & control->m_color.rgb());
 
-            matrix->setEndColor(color);
+            matrix->setColor(1, color);
             if (instantChanges() == true)
                 matrix->updateColorDelta();
         }

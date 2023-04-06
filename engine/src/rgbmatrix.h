@@ -188,17 +188,16 @@ private:
      * Color
      ************************************************************************/
 public:
-    void setStartColor(const QColor& c);
-    QColor startColor() const;
+    void setColor(unsigned int i, QColor c);
+    QColor getColor(unsigned int i) const;
 
-    void setEndColor(const QColor& c);
-    QColor endColor() const;
+    void setRgbColor(const unsigned int i, const QColor& c);
+    QColor rgbColor(const unsigned int i) const;
 
     void updateColorDelta();
 
 private:
-    QColor m_startColor;
-    QColor m_endColor;
+    QColor m_rgbColors[RGBMATRIX_MAXCOLORS];
     RGBMatrixStep *m_stepHandler;
 
     /************************************************************************

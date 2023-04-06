@@ -204,9 +204,9 @@ int RGBAudio::apiVersion() const
     return 1;
 }
 
-void RGBAudio::setColors(QColor start, QColor end)
+void RGBAudio::setColors(QColor colors[RGBMATRIX_MAXCOLORS])
 {
-    RGBAlgorithm::setColors(start, end);
+    RGBAlgorithm::setColors(colors);
 
     // invalidate bars colors so the next time a rendering is
     // required, it will be filled with the right values

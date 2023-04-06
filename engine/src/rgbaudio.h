@@ -86,7 +86,7 @@ public:
     int apiVersion() const;
 
     /** @reimp */
-    void setColors(QColor start, QColor end);
+    void setColors(QColor colors[RGBMATRIX_MAXCOLORS]);
 
     /** @reimp */
     RGBAlgorithm::Type type() const;

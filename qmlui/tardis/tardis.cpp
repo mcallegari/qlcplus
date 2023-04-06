@@ -835,14 +835,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
         break;
         case RGBMatrixSetStartColor:
         {
-            auto member = std::mem_fn(&RGBMatrix::setStartColor);
-            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 0, value->value<QColor>());
         }
         break;
         case RGBMatrixSetEndColor:
         {
-            auto member = std::mem_fn(&RGBMatrix::setEndColor);
-            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 1, value->value<QColor>());
         }
         break;
         case RGBMatrixSetScriptIntValue:
