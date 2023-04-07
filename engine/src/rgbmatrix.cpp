@@ -69,7 +69,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_rgbColors{
         Qt::red, // was m_startColor
         QColor() // was m_endColor
-		}
+    }
     , m_stepHandler(new RGBMatrixStep())
     , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
@@ -172,7 +172,7 @@ bool RGBMatrix::copyFrom(const Function* function)
         setAlgorithm(NULL);
 
     for(unsigned int i = 0; i < RGBAlgorithmRawColorCount; i++)
-    	setColor(i, mtx->getColor(i));
+        setColor(i, mtx->getColor(i));
 
     return Function::copyFrom(function);
 }
@@ -282,8 +282,8 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
 
     if (m_group != NULL) {
         uint rawColors[] = {
-        		m_rgbColors[0].rgb(),
-				m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};
+            m_rgbColors[0].rgb(),
+            m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};
         m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map, rawColors);
     }
 }
@@ -294,8 +294,8 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
 
 void RGBMatrix::setColor(unsigned int i, QColor c)
 {
-	if (i >= RGBAlgorithmRawColorCount)
-		return;
+    if (i >= RGBAlgorithmRawColorCount)
+        return;
     m_rgbColors[i] = c;
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
@@ -573,8 +573,8 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
                 uint rawColors[] = {
-                		m_rgbColors[0].rgb(),
-						m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};
+                    m_rgbColors[0].rgb()
+                    ,m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
                                     m_stepHandler->currentStepIndex(), m_stepHandler->m_map, rawColors);

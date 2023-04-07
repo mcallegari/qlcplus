@@ -678,8 +678,8 @@ void RGBMatrixEditor::slotPatternActivated(const QString& text)
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
     if (algo != NULL) {
         QColor colors[RGBAlgorithmRawColorCount] = {
-        		m_matrix->getColor(0),
-				m_matrix->getColor(1)
+                m_matrix->getColor(0),
+                m_matrix->getColor(1)
         };
         algo->setColors(colors);
     }
