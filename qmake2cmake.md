@@ -115,7 +115,7 @@ cmake -DCMAKE_PREFIX_PATH="C:\Qt\Qt5.12.12\5.12.12\msvc2017\lib\cmake" ..
 
 Next, since we need a compatibility with Qt5 and Qt6, I needed to replace some directives in `CMakeList.txt` files like the following.
 
-```
+```text
 qt_add_library => add_library
 qt_add_executable => add_executable
 qt_add_plugin => add_library
