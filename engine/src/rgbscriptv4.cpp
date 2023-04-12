@@ -173,7 +173,7 @@ bool RGBScript::evaluate()
     m_apiVersion = m_script.property("apiVersion").toInt();
     if (m_apiVersion > 0)
     {
-        if (m_apiVersion == 2)
+        if (m_apiVersion >= 2)
             return loadProperties();
         return true;
     }
