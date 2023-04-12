@@ -1,18 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg id="svg7384" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
- <metadata id="metadata90">
-  <rdf:RDF>
-   <cc:Work rdf:about="">
-    <dc:format>image/svg+xml</dc:format>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:title>Gnome Symbolic Icon Theme</dc:title>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <title id="title9167">Gnome Symbolic Icon Theme</title>
- <g id="layer13" transform="translate(-441 -195)">
-  <path id="path5079" style="block-progression:tb;text-indent:0;color:#000000;enable-background:new;text-transform:none;fill:#bebebe" d="m447.51 196c-3.0289 0-5.5107 2.479-5.5107 5.5045 0 3.0254 2.4819 5.5045 5.5107 5.5045s5.5107-2.479 5.5107-5.5045c0-3.0254-2.4819-5.5045-5.5107-5.5045zm0 2.0089c1.9474 0 3.4995 1.5504 3.4995 3.4955s-1.5522 3.4955-3.4995 3.4955c-1.9474 0-3.4995-1.5504-3.4995-3.4955 0-1.9452 1.5522-3.4955 3.4995-3.4955z"/>
-  <path id="path5081" style="block-progression:tb;text-indent:0;color:#000000;enable-background:new;text-transform:none;fill:#bebebe" d="m450.81 204a1.0001 1.0001 0 0 0 -0.5 1.7188l4 4a1.0055 1.0055 0 1 0 1.4062 -1.4375l-4-4a1.0001 1.0001 0 0 0 -0.91 -0.28z"/>
- </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="svg7384" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
+	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<path class="st0" d="M220,200.4c-0.1-0.1-0.1-0.1-0.2-0.2L169.6,150c8.4-12.1,13.3-26.8,13.3-42.6c0-41.4-34-75.3-75.4-75.3
+	C66,32.1,32,66,32,107.5c0,41.4,34,75.3,75.4,75.3c15.8,0,30.5-4.9,42.7-13.3l50.4,50.4c5.4,5.4,14.1,5.3,19.5,0
+	C225.4,214.5,225.3,205.8,220,200.4z M59.6,107.5c0-26.6,21.2-47.8,47.9-47.8c26.7,0,47.9,21.2,47.9,47.8
+	c0,26.6-21.2,47.8-47.9,47.8C80.8,155.3,59.6,134.1,59.6,107.5z"/>
 </svg>
