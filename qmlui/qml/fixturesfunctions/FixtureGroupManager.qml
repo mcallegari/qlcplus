@@ -27,6 +27,7 @@ import "."
 Rectangle
 {
     id: fgmContainer
+    objectName: "fixtureGroupManager"
     anchors.fill: parent
     color: "transparent"
 
@@ -81,6 +82,14 @@ Rectangle
         }
     }
 
+    function showChannelModifierEditor(itemID, channelIndex, modifierName)
+    {
+        chModifierEditor.itemID = itemID
+        chModifierEditor.chIndex = channelIndex
+        chModifierEditor.modName = modifierName
+        chModifierEditor.open()
+    }
+
     CustomPopupDialog
     {
         id: fmGenericPopup
@@ -88,6 +97,14 @@ Rectangle
         title: qsTr("Error")
         message: ""
         onAccepted: {}
+    }
+
+    PopupChannelModifiers
+    {
+        id: chModifierEditor
+        visible: false
+
+        onAccepted: fixtureManager.setChannelModifier(itemID, chIndex)
     }
 
     ColumnLayout

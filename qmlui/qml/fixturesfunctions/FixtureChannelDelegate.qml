@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
+import QtQuick.Controls 2.14
 
 import org.qlcplus.classes 1.0
 import "."
@@ -42,7 +43,7 @@ Rectangle
     property int chIndex
     property int itemFlags
     property bool canFade: true
-    property int precedence
+    property alias precedence: precedenceCombo.currValue
     property string modifier
     property Item dragItem
 
@@ -142,6 +143,7 @@ Rectangle
         // precedence combo
         CustomComboBox
         {
+            id: precedenceCombo
             visible: showFlags
             implicitWidth: UISettings.chPropsPrecedenceWidth
             height: parent.height - 2
@@ -155,7 +157,6 @@ Rectangle
                 ListElement { mLabel: qsTr("Forced LTP"); mValue: FixtureManager.ForcedLTP }
             }
             model: precModel
-            currentIndex: chDelegate.precedence
             onValueChanged: fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
         }
 
@@ -168,12 +169,44 @@ Rectangle
         }
 
         // modifier
-        Rectangle
+        Button
         {
+            id: cmBtn
             visible: showFlags
-            width: UISettings.chPropsModifierWidth
-            height: parent.height
-            color: "transparent"
+            implicitWidth: UISettings.chPropsModifierWidth
+            implicitHeight: parent.height
+            padding: 0
+            text: modifier === "" ? "..." : modifier
+            hoverEnabled: true
+
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.visible: hovered
+            ToolTip.text: text
+
+            onClicked: fixtureManager.showModifierEditor(itemID, chIndex)
+
+            contentItem:
+                Text
+                {
+                    text: cmBtn.text
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+
+            background:
+                Rectangle
+                {
+                    implicitWidth: cmBtn.implicitWidth
+                    height: parent.height
+                    border.width: 2
+                    border.color: UISettings.bgStrong
+                    color: cmBtn.hovered ? (cmBtn.down ? UISettings.highlightPressed : UISettings.highlight) : UISettings.bgControl
+                }
         }
     }
 
