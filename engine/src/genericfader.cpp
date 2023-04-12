@@ -167,6 +167,13 @@ void GenericFader::write(Universe *universe)
         int address = int(fc.addressInUniverse());
         uchar value;
 
+        if (flags & FadeChannel::SetTarget)
+        {
+            fc.removeFlag(FadeChannel::SetTarget);
+            fc.addFlag(FadeChannel::AutoRemove);
+            fc.setTarget(universe->preGMValue(address));
+        }
+
         // Calculate the next step
         if (m_paused)
             value = fc.current();
@@ -212,7 +219,7 @@ void GenericFader::write(Universe *universe)
                 it.remove();
         }
 
-        if (flags & FadeChannel::Autoremove)
+        if (flags & FadeChannel::AutoRemove && value == fc.target())
             it.remove();
     }
 
@@ -282,11 +289,10 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         {
             FadeChannel& fc(it.next().value());
 
+            // non-intensity channels (eg LTP) should fade
+            // to the current universe value
             if ((fc.flags() & FadeChannel::Intensity) == 0)
-            {
-                fc.addFlag(FadeChannel::Autoremove);
-                continue;
-            }
+                fc.addFlag(FadeChannel::SetTarget);
 
             fc.setStart(fc.current());
             fc.setTarget(0);
