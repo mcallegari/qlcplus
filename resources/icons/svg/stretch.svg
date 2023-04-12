@@ -1,1 +1,14 @@
-<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="48" height="48" id="svg2" version="1.1"><metadata id="metadata10"/><defs id="defs8"/><path d="m26 3 6 0 0 16 6 0 0-5 9 9-9 10 0-5-6 0 0 17-6 0z" id="path4" style="fill:#b4b4b4;stroke-miterlimit:4;stroke-width:1.63;stroke:#000"/><path d="m22 45-6 0 0-17-6 0 0 5-8.6-10 8.6-9 0 5 6 0 0-16 6 0z" id="path4-5" style="fill:#b4b4b4;stroke-miterlimit:4;stroke-width:1.63;stroke:#000"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<path class="st0" d="M32,64c5.9,0,10.7,4.8,10.7,10.7v106.7c0,5.9-4.8,10.7-10.7,10.7s-10.7-4.8-10.7-10.7V74.7
+	C21.3,68.8,26.1,64,32,64z M103.5,88.5c4.2,4.2,4.2,10.9,0,15.1l-13.8,13.8h76.5l-13.8-13.8c-4.2-4.2-4.2-10.9,0-15.1
+	c4.2-4.2,10.9-4.2,15.1,0l32,32c4.2,4.2,4.2,10.9,0,15.1l-32,32c-4.2,4.2-10.9,4.2-15.1,0c-4.2-4.2-4.2-10.9,0-15.1l13.8-13.8H89.7
+	l13.8,13.8c4.2,4.2,4.2,10.9,0,15.1c-4.2,4.2-10.9,4.2-15.1,0l-32-32c-4.2-4.2-4.2-10.9,0-15.1l32-32
+	C92.6,84.3,99.4,84.3,103.5,88.5L103.5,88.5z M234.7,74.7v106.7c0,5.9-4.8,10.7-10.7,10.7s-10.7-4.8-10.7-10.7V74.7
+	c0-5.9,4.8-10.7,10.7-10.7S234.7,68.8,234.7,74.7z"/>
+</svg>
