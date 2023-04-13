@@ -3,11 +3,11 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#364E5E;stroke:#364E5E;stroke-width:11.2662;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st1{fill:#FFFFFF;}
+	.st0{fill:#224458;stroke:#224458;stroke-width:11.2662;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st1{fill:#FFFFFF;stroke:#224458;stroke-miterlimit:10;}
 	.st2{fill:#FFD42A;}
-	.st3{fill:none;stroke:#364E5E;stroke-width:11.2662;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st4{fill:none;stroke:#364E5E;stroke-width:11.5498;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:#224458;stroke:#224458;stroke-width:11.5498;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st4{fill:none;stroke:#224458;stroke-width:11.2662;stroke-linejoin:round;stroke-miterlimit:10;}
 </style>
 <path class="st0" d="M54.4,38.5h148.3c8.5,0,15.4,6.9,15.4,15.4v148.7c0,8.2-6.8,15-15,15H54.4c-8.5,0-15.4-6.9-15.4-15.4V53.9
 	C39,45.5,46,38.5,54.4,38.5z"/>
@@ -16,21 +16,21 @@
 	c0-7.9,7.7-14.3,17.2-14.3c2,0,3.9,0.3,5.7,0.8v-26.1l-45.8,13.8v37.3c0,7.9-7.7,14.3-17.2,14.3s-17.2-6.4-17.2-14.3
 	c0-7.9,7.7-14.3,17.2-14.3c2,0,3.9,0.3,5.7,0.8v-28v-12.9c0-2.5,1.6-4.8,4.1-5.5l57.3-17.2C168.4,114,170.2,114.3,171.6,115.4
 	L171.6,115.4z"/>
-<line class="st3" x1="39" y1="71.7" x2="218" y2="71.7"/>
+<line class="st0" x1="39" y1="71.7" x2="218" y2="71.7"/>
 <g>
-	<line class="st4" x1="49.8" y1="102" x2="83.2" y2="68.6"/>
-	<line class="st4" x1="82.3" y1="102" x2="115.7" y2="68.6"/>
-	<line class="st4" x1="114.8" y1="102" x2="148.3" y2="68.6"/>
-	<line class="st4" x1="147.4" y1="102" x2="180.8" y2="68.6"/>
-	<line class="st4" x1="179.9" y1="102" x2="213.3" y2="68.6"/>
+	<line class="st3" x1="49.8" y1="102" x2="83.2" y2="68.6"/>
+	<line class="st3" x1="82.3" y1="102" x2="115.7" y2="68.6"/>
+	<line class="st3" x1="114.8" y1="102" x2="148.3" y2="68.6"/>
+	<line class="st3" x1="147.4" y1="102" x2="180.8" y2="68.6"/>
+	<line class="st3" x1="179.9" y1="102" x2="213.3" y2="68.6"/>
 </g>
 <g>
-	<line class="st4" x1="213.3" y1="72.5" x2="179.9" y2="39.1"/>
-	<line class="st4" x1="180.8" y1="72.5" x2="147.4" y2="39.1"/>
-	<line class="st4" x1="148.3" y1="72.5" x2="114.8" y2="39.1"/>
-	<line class="st4" x1="115.7" y1="72.5" x2="82.3" y2="39.1"/>
-	<line class="st4" x1="83.2" y1="72.5" x2="49.8" y2="39.1"/>
+	<line class="st3" x1="213.3" y1="72.5" x2="179.9" y2="39.1"/>
+	<line class="st3" x1="180.8" y1="72.5" x2="147.4" y2="39.1"/>
+	<line class="st3" x1="148.3" y1="72.5" x2="114.8" y2="39.1"/>
+	<line class="st3" x1="115.7" y1="72.5" x2="82.3" y2="39.1"/>
+	<line class="st3" x1="83.2" y1="72.5" x2="49.8" y2="39.1"/>
 </g>
-<path class="st3" d="M54.4,38.5h148.3c8.5,0,15.4,6.9,15.4,15.4v148.7c0,8.2-6.8,15-15,15H54.4c-8.5,0-15.4-6.9-15.4-15.4V53.9
-	C39,45.5,46,38.5,54.4,38.5z"/>
+<path class="st4" d="M53.8,38.4h148.3c8.5,0,15.4,6.9,15.4,15.4v148.7c0,8.2-6.8,15-15,15H53.8c-8.5,0-15.4-6.9-15.4-15.4V53.8
+	C38.4,45.4,45.4,38.4,53.8,38.4z"/>
 </svg>
