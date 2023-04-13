@@ -1,1 +1,13 @@
-<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" id="svg6361" version="1.1"><defs id="defs3"><linearGradient id="linearGradient2933"><stop id="stop2935" offset="0" style="stop-color:#9cbcde;stop-opacity:1"/><stop id="stop2937" offset="1" stop-color="#204a87"/></linearGradient><radialGradient xlink:href="#linearGradient2933" id="radialGradient2207" cx="26.54" cy="28.46" fx="26.54" fy="28.46" r="22.38" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.1621121,0.0055897,-0.00610716,1.268412,-4.9979929,-7.5133823)"/><radialGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" cy="14.72" cx="15.96" gradientTransform="matrix(1,0,0,1.04,0,-0.5886)" r="5.97"><stop stop-color="#fff" offset="0" id="stop3153"/><stop stop-color="#E9E9E9" offset="1" id="stop3155"/></radialGradient><radialGradient r="5.97" cy="14.72" cx="15.96" gradientTransform="matrix(1.4602067,0,0,1.5186149,0.9035745,1.4042417)" gradientUnits="userSpaceOnUse" id="radialGradient3179" xlink:href="#SVGID_1_"/></defs><metadata id="metadata4"/><path d="m44.54 24a20.53 20.54 0 0 1-41.07 0 20.53 20.54 0 1 1 41.07 0z" id="path2093" style="fill:url(#radialGradient2207);stroke-width:0.94;stroke:#204a87"/><path id="path2209" d="m42.71 24a18.71 18.71 0 0 1-37.42 0 18.71 18.71 0 1 1 37.42 0z" style="fill:none;opacity:0.96;stroke-width:2.59;stroke:#fff"/><path id="path3157" d="m21.44 11.74 5.53 0 0 4.51-5.53 0 0-4.51zm0 6.73 5.53 0 0 17.3-5.53 0 0-17.3z" fill="url(#radialGradient3179)"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="svg6361" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
+	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<path class="st0" d="M128,234.7c58.9,0,106.7-47.8,106.7-106.7S186.9,21.3,128,21.3S21.3,69.1,21.3,128S69.1,234.7,128,234.7z
+	 M111.3,161.3h10v-26.7h-10c-5.5,0-10-4.5-10-10c0-5.5,4.5-10,10-10h20c5.5,0,10,4.5,10,10v36.7h3.3c5.5,0,10,4.5,10,10
+	s-4.5,10-10,10h-33.3c-5.5,0-10-4.5-10-10S105.8,161.3,111.3,161.3z M128,74.7c7.4,0,13.3,6,13.3,13.3s-6,13.3-13.3,13.3
+	c-7.4,0-13.3-6-13.3-13.3S120.6,74.7,128,74.7z"/>
+</svg>
