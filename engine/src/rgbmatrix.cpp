@@ -281,6 +281,7 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
     if (m_group != NULL) {
+        Q_ASSERT(2 == RGBAlgorithmRawColorCount);
         uint rawColors[] = {
             m_rgbColors[0].rgb(),
             m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};
@@ -572,6 +573,7 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                 if (tempoType() == Beats)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
+                Q_ASSERT(2 == RGBAlgorithmRawColorCount);
                 uint rawColors[] = {
                     m_rgbColors[0].rgb()
                     ,m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};

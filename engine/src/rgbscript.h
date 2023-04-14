@@ -80,6 +80,9 @@ private:
     /** Init engine, engine mutex, and scripts map */
     static void initEngine();
 
+    /** Handle an error after evaluate() or call() of a script */
+    static void displayError(QScriptValue e, const QString& fileName);
+
     /************************************************************************
      * RGBAlgorithm API
      ************************************************************************/

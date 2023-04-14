@@ -114,7 +114,6 @@ function()
   util.initialized = false;
   util.gradientData = new Array();
   util.colorArray = new Array();
-  util.colorCache = new Array();
 
   algo.setColor = function(_index, _preset)
   {
@@ -137,7 +136,7 @@ function()
   };
 
   algo.getRawColor = function (rawColors, idx) {
-    if (Array.isArray(rawColors) && ! Number.isNaN(rawColors[idx])) {
+    if (Array.isArray(rawColors) && rawColors.length > idx && ! Number.isNaN(rawColors[idx])) {
       return rawColors[idx];
     } else {
       return 0;
@@ -293,10 +292,13 @@ function()
 
   algo.rgbMap = function(width, height, rgb, step, rawColors)
   {
-    for (var i = 0; i < algo.acceptColors; i++) {
-      if (typeof util.colorCache[i] === 'undefined' || util.colorCache[i] !== rawColors[i]) {
-        util.colorCache[i] = algo.getRawColor(rawColors, i);
-        util.initialized = false;
+    if (util.colorArray.length == 0) {
+      util.initialized = false;
+    } else if (util.colorArray.length >= algo.acceptColors - 1 && Array.isArray(rawColors)) {
+      for (var i = 0; i < Math.min(algo.acceptColors, rawColors.length); i++) {
+        if (util.colorArray[i] !== rawColors[i]) {
+          util.initialized = false;
+        }
       }
     }
     if (util.initialized === false) {
