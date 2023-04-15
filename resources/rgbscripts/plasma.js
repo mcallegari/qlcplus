@@ -120,7 +120,7 @@ var testAlgo;
       for (var i = 0; i < util.presets[algo.presetIndex].length; i++)
       {
         var sColor = util.presets[algo.presetIndex][i];
-        var eColor = util.presets[algo.presetIndex][0;
+        var eColor = util.presets[algo.presetIndex][0];
         if (i < util.presets.length - 1) {
           eColor = util.presets[algo.presetIndex][i + 1];
         }
