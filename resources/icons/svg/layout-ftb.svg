@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1"
-	 id="svg2" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" inkscape:version="1.1.2 (1:1.1+202202050852+0a00cf5339)" sodipodi:docname="layout-ftb.svg"
+	 id="svg2" xmlns:cc="http://creativecommons.org/ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" sodipodi:docname="layout-ftb.svg"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 250 250"
 	 style="enable-background:new 0 0 250 250;" xml:space="preserve">
 <style type="text/css">
@@ -14,20 +14,13 @@
 		<path class="st0" d="M80.3,1201.3H24.5v-55.8h55.8V1201.3z M36.2,1189.7h32.5v-32.5H36.2V1189.7z"/>
 	</g>
 	<g id="rect4138-3">
-		<path class="st0" d="M130.3,1141.4H74.5v-55.7h55.7V1141.4z M86.2,1129.7h32.5v-32.5H86.2V1129.7z"/>
+		<path class="st0" d="M130.3,1141.4H74.5v-55.7h55.7v55.7H130.3z M86.2,1129.7h32.5v-32.5H86.2V1129.7z"/>
 	</g>
 	<g id="rect4138-6">
 		<path class="st0" d="M182.5,1081.4h-55.7v-55.8h55.7V1081.4z M138.4,1069.7h32.5v-32.5h-32.5V1069.7z"/>
 	</g>
-	<g id="path4163">
-		
-			<rect x="58.5" y="1160.3" transform="matrix(0.7088 -0.7054 0.7054 0.7088 -782.9483 440.4137)" class="st0" width="166.8" height="16.3"/>
-	</g>
 	<g id="path4165">
-		
-			<path inkscape:flatsided="true" inkscape:randomized="0" inkscape:rounded="0" inkscape:transform-center-x="0.55328227" inkscape:transform-center-y="0.56292633" sodipodi:arg1="2.0943951" sodipodi:arg2="3.1415927" sodipodi:cx="-31.500866" sodipodi:cy="1027.5585" sodipodi:r1="4.3126016" sodipodi:r2="2.1563008" sodipodi:sides="3" sodipodi:type="star" class="st0" d="
-			M208.1,1126.9l-24.6-24.7l33.6-8.9L208.1,1126.9z"/>
-		<path class="st0" d="M211.1,1138.1l-38.8-39l53.1-14.1L211.1,1138.1z M194.8,1105.2l10.3,10.4l3.8-14.1L194.8,1105.2z"/>
+		<polygon class="st0" points="225.4,1085 211.1,1138.1 197.6,1124.5 88.5,1233.1 77,1221.6 186.1,1113 172.3,1099.1 		"/>
 	</g>
 </g>
 </svg>
