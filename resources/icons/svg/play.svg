@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1"
-	 id="svg1307" xmlns:svg="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" inkscape:version="0.91 r13725"
+	 id="svg1307" xmlns:cc="http://creativecommons.org/ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
 	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#C0D554;}
-	.st1{fill:none;stroke:#F15A24;stroke-width:0.5333;stroke-miterlimit:10;}
-	.st2{fill:none;stroke:#1A1A1A;stroke-width:1.6;stroke-miterlimit:10;}
+	.st0{fill:#224458;}
 </style>
 <path class="st0" d="M75.1,31.6c-6.6-4-14.8-4.2-21.6-0.4S42.7,42.1,42.7,49.8v156.4c0,7.7,4.2,14.8,10.9,18.6s15,3.6,21.6-0.4
 	l128-78.2c6.4-3.9,10.2-10.8,10.2-18.2s-3.9-14.3-10.2-18.2L75.1,31.6z"/>
-<g>
-	<circle class="st1" cx="128" cy="128" r="106.7"/>
-	<path class="st1" d="M218.6,224H37.4c-3,0-5.4-2.4-5.4-5.4V37.4c0-3,2.4-5.4,5.4-5.4h181.3c3,0,5.4,2.4,5.4,5.4v181.3
-		C224,221.6,221.6,224,218.6,224z"/>
-	<path class="st1" d="M229.3,213.3H26.7c-3,0-5.4-2.4-5.4-5.4V48c0-3,2.4-5.4,5.4-5.4h202.6c3,0,5.4,2.4,5.4,5.4V208
-		C234.7,210.9,232.3,213.3,229.3,213.3z"/>
-	<path class="st1" d="M42.7,229.3V26.7c0-3,2.4-5.4,5.4-5.4H208c3,0,5.4,2.4,5.4,5.4v202.6c0,3-2.4,5.4-5.4,5.4H48
-		C45.1,234.7,42.7,232.3,42.7,229.3z"/>
-	<path class="st1" d="M229.3,234.7H26.7c-3,0-5.4-2.4-5.4-5.4V26.7c0-3,2.4-5.4,5.4-5.4h202.6c3,0,5.4,2.4,5.4,5.4v202.6
-		C234.7,232.3,232.3,234.7,229.3,234.7z"/>
-	<rect class="st2" width="256" height="256"/>
-</g>
 </svg>
