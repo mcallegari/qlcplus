@@ -1,1 +1,24 @@
-<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" id="svg3760" version="1.1"><defs id="defs3762"/><metadata id="metadata3765"/><rect id="rect4136" width="4.94" height="13.79" x="2.89" y="4.08" style="fill:none;stroke-miterlimit:10;stroke-width:0.91;stroke:#4d4d4d"/><rect id="rect4136-3" width="4.94" height="13.79" x="14.17" y="4.13" style="fill:none;stroke-miterlimit:10;stroke-width:0.91;stroke:#4d4d4d"/><path d="m9.46 9.03c0 3.45 0 3.45 0 3.45l0 0" id="path4153" style="fill:none;stroke:#4d4d4d"/><path d="m12.54 9.03c0 3.45 0 3.45 0 3.45l0 0" id="path4153-6" style="fill:none;stroke:#4d4d4d"/><path d="m12.73 10.72c-3.45 0-3.45 0-3.45 0l0 0" id="path4153-7" style="fill:none;stroke:#4d4d4d"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="svg3760" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
+	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<g id="rect4136">
+	<path class="st0" d="M97.5,210.2H31.9V45.3h65.6V210.2z M42.1,200h45.2V55.5H42.1V200z"/>
+</g>
+<g id="rect4136-3">
+	<path class="st0" d="M224.1,210.7h-65.6V45.8h65.6V210.7z M168.7,200.5h45.2V56h-45.2V200.5z"/>
+</g>
+<g id="path4153">
+	<rect x="105.1" y="105.9" class="st0" width="11.2" height="38.7"/>
+</g>
+<g id="path4153-6">
+	<rect x="139.7" y="105.9" class="st0" width="11.2" height="38.7"/>
+</g>
+<g id="path4153-7">
+	<rect x="108.7" y="119.2" class="st0" width="38.7" height="11.2"/>
+</g>
+</svg>
