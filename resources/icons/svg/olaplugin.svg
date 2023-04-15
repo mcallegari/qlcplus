@@ -1,6 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-  <path d="M19.557 24a8.666 8.666 0 1 1-17.332 0 8.666 8.666 0 0 1 17.332 0z" fill="none" stroke="#000" stroke-width="1.60966637"/>
-  <path d="M21.131 14.683h1.778V31.43h5.938l-.7 1.7h-7.016V14.683" style="fill:#000000" font-size="20.746" font-weight="400" letter-spacing="0" word-spacing="0" font-family="Sans"/>
-  <path d="M37.735 18.675l-2.863 6.71h6.61l-2.862-6.71m-1.793-3.85h1.6L46.58 33.13h-1.867l-2.462-6.102h-8.125l-2.562 6.102h-1.703l7.866-18.303" style="fill:#000000" font-size="24.97" font-weight="400" letter-spacing="0" word-spacing="0" font-family="Sans"/>
-  <path d="M6.873 23.45a.718.718 0 1 1-1.435 0 .718.718 0 0 1 1.435 0zM15.938 23.45a.718.718 0 1 1-1.436 0 .718.718 0 0 1 1.436 0zM8.123 27.058a.718.718 0 1 1-1.435 0 .718.718 0 0 1 1.435 0zM14.838 27.057a.718.718 0 1 1-1.436 0 .718.718 0 0 1 1.436 0zM11.41 28.7a.718.718 0 1 1-1.436 0 .718.718 0 0 1 1.435 0z" stroke="#000" stroke-width=".6986330399999999" stroke-linecap="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#224458;}
+</style>
+<g>
+	<g>
+		<path class="st0" d="M66.1,172.8c-24.7,0-44.8-20.1-44.8-44.7c0-12,4.7-23.2,13.1-31.7c8.5-8.4,19.7-13.1,31.6-13.1c0,0,0,0,0,0
+			c24.7,0,44.7,20.1,44.7,44.7c0,12-4.7,23.2-13.1,31.6C89.3,168.1,78,172.8,66.1,172.8C66.1,172.8,66.1,172.8,66.1,172.8z
+			 M66.1,90.9c-20.5,0-37.1,16.7-37.1,37.1c0,20.5,16.7,37.2,37.1,37.2c0,0,0,0,0,0c9.9,0,19.3-3.9,26.3-10.9s10.9-16.3,10.9-26.3
+			C103.2,107.5,86.5,90.9,66.1,90.9C66.1,90.9,66.1,90.9,66.1,90.9z"/>
+	</g>
+	<path class="st0" d="M114.4,84h8.4v79.1h28.1l-3.3,8h-33.2V84"/>
+	<path class="st0" d="M192.9,102.8l-13.5,31.7h31.2l-13.5-31.7 M196.2,84.6l38.5,86.5h-8.8l-11.6-28.8h-38.4l-12.1,28.8h-8
+		l37.2-86.5L196.2,84.6z"/>
+	<circle class="st0" cx="43.7" cy="125.4" r="3.4"/>
+	<circle class="st0" cx="49.6" cy="142.4" r="3.4"/>
+	<circle class="st0" cx="65.1" cy="150.3" r="3.4"/>
+	<circle class="st0" cx="81.3" cy="142.6" r="3.4"/>
+	<circle class="st0" cx="86.5" cy="125.4" r="3.4"/>
+</g>
 </svg>
