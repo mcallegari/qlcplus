@@ -3,8 +3,8 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#224458;}
-	.st1{fill:#FFD42A;}
+	.st0{fill:#d6d6d6;}
+	.st1{fill:#d6d6d6;}
 </style>
 <path class="st0" d="M211,45H45C32,45,21.3,55.7,21.3,68.7v118.5C21.3,200.3,32,211,45,211H211c13.1,0,23.7-10.6,23.7-23.7V68.7
 	C234.7,55.7,224,45,211,45z M216.9,187.3c0,3.3-2.7,5.9-5.9,5.9H45c-3.3,0-5.9-2.7-5.9-5.9V68.7c0-3.3,2.7-5.9,5.9-5.9H211

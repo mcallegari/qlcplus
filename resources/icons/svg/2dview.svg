@@ -3,7 +3,7 @@
 <svg version="1.1" id="table-cells" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
 	 y="0px" viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#224458;}
+	.st0{fill:#d6d6d6;}
 </style>
 <path class="st0" d="M48,34.7c-14.7,0-26.7,12-26.7,26.7v133.3c0,14.7,12,26.7,26.7,26.7h160c14.7,0,26.7-12,26.7-26.7V61.3
 	c0-14.7-12-26.7-26.7-26.7H48z M84.7,61.3V88H48V61.3H84.7z M108,61.3h36.7V88H108V61.3z M208,61.3V88h-36.7V61.3H208z M48,114.7
