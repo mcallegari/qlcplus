@@ -214,14 +214,20 @@ var testAlgo;
       var noise = scale(rawNoise);
       return noise;
     };
+    // Fade function for values between 0 and 1
     function fade(t)
     {
-      return t * t * t * (t * (t * 6 - 15) + 10);
+      // https://www.geogebra.org/calculator
+      // f(t)=t^(3) (t (t*6-15)+10)
+      var fade = t * t * t * (t * (t * 6 - 15) + 10);
+      return fade;
     }
+    // https://en.wikipedia.org/wiki/Linear_interpolation
     function lerp(t, a, b)
     {
       return a + t * (b - a);
     }
+    // https://en.wikipedia.org/wiki/Gradient
     function grad(hash, x, y, z)
     {
       // CONVERT TO 4 BITS OF HASH CODE
@@ -244,11 +250,15 @@ var testAlgo;
         util.initialize();
       }
 
-      var size = algo.presetSize / 2;  // set a scaling value
-      var speed = Math.pow(100 , (algo.stepsize / 50)); // create a more uniform speed control
+      // set a scaling value
+      var size = algo.presetSize / 2;
+      // create a more uniform speed control
+      var speed = Math.pow(100, (algo.stepsize / 50));
       algo.bstepcount += (speed / 500);
-      algo.bstepcount = (algo.bstepcount % 256);  // A rolling step count for the noise function
-      var square = (width > height) ? width : height; // keep the patten square
+      // A rolling step count for the noise function
+      algo.bstepcount = (algo.bstepcount % 256);
+      // keep the patten square
+      var square = (width > height) ? width : height;
 
       var map = new Array(height);
       for (var y = 0; y < height; y++)

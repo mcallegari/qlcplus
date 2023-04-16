@@ -97,7 +97,7 @@ var testAlgo;
     algo.properties.push(
       "name:presetSize|type:range|display:Size|" +
       "values:1,20|write:setSize|read:getSize");
-    algo.ramp = 15;
+    algo.ramp = 20;
     algo.properties.push(
       "name:ramp|type:range|display:Ramp|" +
       "values:10,30|write:setRamp|read:getRamp");
@@ -109,7 +109,7 @@ var testAlgo;
       algo.color3Index,
       algo.color4Index,
       algo.color5Index);
-  
+
     var util = new Object;
     util.initialized = false;
     util.gradientData = new Array();
@@ -216,12 +216,6 @@ var testAlgo;
       for (var i = 0; i < algo.colorIndex.length; i++) {
         util.colorArray[i + algo.acceptColors] = colorPalette.collection[algo.colorIndex[i]][1];
       }
-      // Shift colors 1 & 2 as the outer colors are selected less in the Gauss-Noise function
-      var tempColor = util.colorArray[util.colorArray.length - 1];
-      for (var i = util.colorArray.length - 1; i > 0; i--) {
-        util.colorArray[i] = util.colorArray[i - 1];
-      }
-      util.colorArray[0] = tempColor;
 
       // calculate the gradient for the selected preset
       // with the given width
@@ -324,14 +318,20 @@ var testAlgo;
       var noise = scale(rawNoise);
       return noise;
     };
+    // Fade function for values between 0 and 1
     function fade(t)
     {
-      return t * t * t * (t * (t * 6 - 15) + 10);
+      // https://www.geogebra.org/calculator
+      // f(t)=t^(3) (t (t*6-15)+10)
+      var fade = t * t * t * (t * (t * 6 - 15) + 10);
+      return fade;
     }
+    // https://en.wikipedia.org/wiki/Linear_interpolation
     function lerp(t, a, b)
     {
       return a + t * (b - a);
     }
+    // https://en.wikipedia.org/wiki/Gradient
     function grad(hash, x, y, z)
     {
       // CONVERT TO 4 BITS OF HASH CODE
@@ -364,11 +364,15 @@ var testAlgo;
         util.initialize(rawColors);
       }
 
-      var size = algo.presetSize / 2;  // set a scaling value
-      var speed = Math.pow(100 , (algo.stepsize / 50)); // create a more uniform speed control
+      // set a scaling value
+      var size = algo.presetSize / 2;
+      // create a more uniform speed control
+      var speed = Math.pow(100, (algo.stepsize / 50));
       algo.bstepcount += (speed / 500);
-      algo.bstepcount = (algo.bstepcount % 256);  // A rolling step count for the noise function
-      var square = (width > height) ? width : height; // keep the patten square
+      // A rolling step count for the noise function
+      algo.bstepcount = (algo.bstepcount % 256);
+      // keep the patten square
+      var square = (width > height) ? width : height;
 
       var map = new Array(height);
       for (var y = 0; y < height; y++)
