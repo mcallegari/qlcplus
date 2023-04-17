@@ -248,12 +248,12 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
             even = !even;
         }
     }
-    scene->setName(getNamePrefix(name, "color"));
+    scene->setName(getNamePrefix("color", name));
     m_scenes.append(scene);
     if (subType == OddEven)
     {
-        evenScene->setName(tr("%1 (Even)").arg(getNamePrefix(name, "color")));
-        oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix(name, "color")));
+        evenScene->setName(tr("%1 (Even)").arg(getNamePrefix("color", name)));
+        oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix("color", name))));
         m_scenes.append(evenScene);
         m_scenes.append(oddScene);
     }
