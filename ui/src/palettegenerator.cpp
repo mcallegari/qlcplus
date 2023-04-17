@@ -248,12 +248,12 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
             even = !even;
         }
     }
-    scene->setName(getNamePrefix("color", name));
+    scene->setName(getNamePrefix("Color", name));
     m_scenes.append(scene);
     if (subType == OddEven)
     {
-        evenScene->setName(tr("%1 (Even)").arg(getNamePrefix("color", name)));
-        oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix("color", name))));
+        evenScene->setName(tr("%1 (Even)").arg(getNamePrefix("Color", name)));
+        oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix("Color", name)));
         m_scenes.append(evenScene);
         m_scenes.append(oddScene);
     }
@@ -420,12 +420,12 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap,
             }
         }
 
-        scene->setName(getNamePrefix(name));
+        scene->setName(getNamePrefix(channel->name(),  name));
         m_scenes.append(scene);
         if (subType == OddEven)
         {
-            evenScene->setName(getNamePrefix(name) + tr(" - Even"));
-            oddScene->setName(getNamePrefix(name) + tr(" - Odd"));
+            evenScene->setName(getNamePrefix(channel->name(),  name) + tr(" - Even"));
+            oddScene->setName(getNamePrefix(channel->name(),  name) + tr(" - Odd"));
             m_scenes.append(evenScene);
             m_scenes.append(oddScene);
         }
