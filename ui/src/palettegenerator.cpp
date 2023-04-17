@@ -248,12 +248,12 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
             even = !even;
         }
     }
-    scene->setName(m_model + " - color - " + name);
+    scene->setName(getNamePrefix(name, "color"));
     m_scenes.append(scene);
     if (subType == OddEven)
     {
-        evenScene->setName(tr("%1 - color - %2 (Even)").arg(m_model).arg(name));
-        oddScene->setName(tr("%1 - color - %2 (Odd)").arg(m_model).arg(name));
+        evenScene->setName(tr("%1 (Even)").arg(getNamePrefix(name, "color")));
+        oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix(name, "color")));
         m_scenes.append(evenScene);
         m_scenes.append(oddScene);
     }
@@ -357,12 +357,12 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
         }
         qDebug() << "color name:" << m_colNames.at(i) << "i:" << i << "count:" << m_colNames.count();
 
-        scene->setName(tr("%1 - %2 %3").arg(m_model).arg(m_colNames.at(i)).arg(name));
+        scene->setName(tr("%1").arg(getNamePrefix(m_colNames.at(i),arg(name))));
         m_scenes.append(scene);
         if (subType == OddEven)
         {
-            evenScene->setName(tr("%1 - %2 %3 (Even)").arg(m_model).arg(m_colNames.at(i)).arg(name));
-            oddScene->setName(tr("%1 - %2 %3 (Odd)").arg(m_model).arg(m_colNames.at(i)).arg(name));
+            evenScene->setName(tr("%1 (Even)").arg(getNamePrefix(m_colNames.at(i),arg(name))));
+            oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix(m_colNames.at(i),arg(name))));
             m_scenes.append(evenScene);
             m_scenes.append(oddScene);
         }
@@ -420,12 +420,12 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap,
             }
         }
 
-        scene->setName(m_model + " - " + name);
+        scene->setName(getNamePrefix(name));
         m_scenes.append(scene);
         if (subType == OddEven)
         {
-            evenScene->setName(m_model + " - " + name + tr(" - Even"));
-            oddScene->setName(m_model + " - " + name + tr(" - Odd"));
+            evenScene->setName(getNamePrefix(name) + tr(" - Even"));
+            oddScene->setName(getNamePrefix(name) + tr(" - Odd"));
             m_scenes.append(evenScene);
             m_scenes.append(oddScene);
         }
@@ -586,4 +586,21 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
 
     }
 
+}
+
+QString PaletteGenerator::getNamePrefix(QString name) {
+    if(true) { // Use new naming
+        return m_model + " - " + name;
+    }
+    else {
+        return name + " - " + m_model;
+    }
+}
+QString PaletteGenerator::getNamePrefix(QString type, QString name) {
+    if(true) { // Use new naming
+        return m_model + " - " + type + " - " + name;
+    }
+    else {
+        return name + " - " + type + " - " + m_model;
+    }
 }
