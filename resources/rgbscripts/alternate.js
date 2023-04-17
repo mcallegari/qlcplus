@@ -100,7 +100,7 @@ var testAlgo;
   };
 
   algo.getRawColor = function (rawColors, idx) {
-    if (Array.isArray(rawColors) && ! Number.isNaN(rawColors[idx])) {
+    if (Array.isArray(rawColors) && rawColors.length > idx && ! isNaN(rawColors[idx])) {
       return rawColors[idx];
     } else {
       return 0;
