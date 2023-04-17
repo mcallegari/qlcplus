@@ -208,6 +208,34 @@ void RGBScript_Test::rgbMapStepCount()
     QCOMPARE(s.rgbMapStepCount(QSize(10, 15)), 10);
 }
 
+void RGBScript_Test::rgbMapColorArray()
+{
+    RGBMap map;
+    RGBScript s = m_doc->rgbScriptsCache()->script("Alternate");
+    QCOMPARE(s.evaluate(), true);
+    uint rawRgbColors[RGBAlgorithmRawColorCount] = {
+            QColor(Qt::red).rgb() & 0x00ffffff,
+            QColor(Qt::green).rgb() & 0x00ffffff
+    };
+    QSize mapSize = QSize(5, 5);
+    qDebug() << "C1: " << hex << rawRgbColors[0] << " C2: " << hex << rawRgbColors[1];
+    s.rgbMap(mapSize, 0, 0, map, rawRgbColors);
+    QVERIFY(map.isEmpty() == false);
+
+    // check that both initial colors are used in the same step
+    for (int y = 0; y < mapSize.height(); y++)
+    {
+        for (int x = 0; x < mapSize.width(); x++)
+        {
+            // qDebug() << "y: " << y << " x: " << x << " C: " << hex << map[y][x];
+            if (x % 2 == 0)
+                QCOMPARE(map[y][x], rawRgbColors[1]);
+            else
+                QCOMPARE(map[y][x], rawRgbColors[0]);
+        }
+    }
+}
+
 void RGBScript_Test::rgbMap()
 {
     RGBMap map;
@@ -227,7 +255,6 @@ void RGBScript_Test::rgbMap()
     {
         RGBMap map;
         s.rgbMap(QSize(5, 5), rawRgbColors[0], step, map, rawRgbColors);
-
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
