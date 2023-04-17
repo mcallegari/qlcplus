@@ -64,12 +64,15 @@ jobs:
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
+          echo "BUILD_DATE=`date -u -I | sed 's/-//g'`" >> $GITHUB_ENV
+          echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
 
       - name: Set QT ENV variables (qt5)
         if: ${{ endsWith( matrix.task, 'qt5') }}
         run: |
           echo "QT_VERSION=5.14.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
+          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
@@ -78,6 +81,7 @@ jobs:
         run: |
           echo "QT_VERSION=5.14.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
+          echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
@@ -232,19 +236,19 @@ jobs:
           wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ./appimagetool-x86_64.AppImage
           chmod a+x ./appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage -v ${INSTALL_ROOT}
-          mv -v Q_Light_Controller_Plus-x86_64.AppImage Q_Light_Controller_Plus_${{ env.TASK }}-x86_64.AppImage
+          mv -v Q_Light_Controller_Plus-x86_64.AppImage qlcplus-{{env.TASK}}-{{env.APPVERSION}}-{{env.BUILD_DATE}}-{{env.GIT_REV}}.AppImage
 
       - name: Test Load AppImage
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          ./Q_Light_Controller_Plus_${{ env.TASK }}-x86_64.AppImage --platform offscreen --version
+          ./qlcplus-{{env.TASK}}-{{env.APPVERSION}}-{{env.BUILD_DATE}}-{{env.GIT_REV}}.AppImage --platform offscreen --version
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.task }}-AppImage
-          path: Q_Light_Controller_Plus_${{ env.TASK }}-x86_64.AppImage
+          path: qlcplus-{{env.TASK}}-{{env.APPVERSION}}-{{env.BUILD_DATE}}-{{env.GIT_REV}}.AppImage
 
   build-windows:
     if: false
