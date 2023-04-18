@@ -68,7 +68,7 @@ CustomPopupDialog
                 width: mainView.width / 3
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
                 border.color: UISettings.borderColorDark
@@ -108,7 +108,7 @@ CustomPopupDialog
                 width: mainView.width / 3
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
                 border.color: UISettings.borderColorDark

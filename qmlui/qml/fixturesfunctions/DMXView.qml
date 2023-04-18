@@ -26,7 +26,7 @@ Rectangle
 {
     id: dmxViewRoot
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     property alias contextItem: flowLayout
     property int viewMargin: 20

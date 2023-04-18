@@ -197,7 +197,7 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    bgColor: UISettings.bgMain
+                    bgColor: UISettings.bgMedium
                     faColor: checked ? "white" : "gray"
                     faSource: FontAwesome.fa_search
                     checkable: true
@@ -342,7 +342,7 @@ Rectangle
             implicitHeight: UISettings.iconSizeMedium
             implicitWidth: fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
             z: 5
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
 
             RowLayout
             {
@@ -369,7 +369,7 @@ Rectangle
             width: fgmContainer.width
             implicitHeight: UISettings.iconSizeMedium
             z: 5
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
             radius: 5
             border.width: 2
             border.color: UISettings.borderColorDark

@@ -441,7 +441,7 @@ Rectangle
         {
             width: trackWidth
             height: parent.height
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
             z: 2
 
             Column

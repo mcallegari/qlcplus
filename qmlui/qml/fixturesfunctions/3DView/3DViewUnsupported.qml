@@ -24,7 +24,7 @@ Rectangle
 {
     id: viewRoot
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     function hasSettings()
     {
