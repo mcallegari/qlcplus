@@ -202,7 +202,7 @@ void SimpleDesk::setValue(quint32 fixtureID, uint channel, uchar value)
     if (fixtureID != Fixture::invalidId())
     {
         fixture = m_doc->fixture(fixtureID);
-        channel -= fixture->address();
+        channel += fixture->address();
     }
     if (m_values.contains(start + channel))
     {
@@ -432,7 +432,11 @@ void SimpleDesk::sendKeypadCommand(QString command)
     for (SceneValue scv : scvList)
     {
         quint32 fxID = m_doc->fixtureForAddress((m_universeFilter * 512) + scv.channel);
-        setValue(fxID, scv.channel, scv.value);
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture != nullptr)
+            setValue(fxID, scv.channel - fixture->address(), scv.value);
+        else
+            setValue(fxID, scv.channel, scv.value);
         QModelIndex mIndex = m_channelList->index(int(scv.channel), 0, QModelIndex());
         m_channelList->setData(mIndex, QVariant(scv.value), UserRoleChannelValue);
     }
