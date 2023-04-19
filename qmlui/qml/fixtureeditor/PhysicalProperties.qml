@@ -51,7 +51,7 @@ GridLayout
                 palette.base: UISettings.bgControl
                 palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMain
+                palette.highlightedText: UISettings.bgMedium
 
                 model: ["LED", "CDM 70W", "CDM 150W", "CP29 5000W", "CP41 2000W", "CP60 1000W",
                         "CP61 1000W", "CP62 1000W", "CP86 500W", "CP87 500W", "CP88 500W",
@@ -118,7 +118,7 @@ GridLayout
                 palette.base: UISettings.bgControl
                 palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMain
+                palette.highlightedText: UISettings.bgMedium
                 model: ["Other", "PC", "Fresnel"]
                 editable: true
                 Rectangle
@@ -177,7 +177,7 @@ GridLayout
                 palette.base: UISettings.bgControl
                 palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMain
+                palette.highlightedText: UISettings.bgMedium
                 model: ["Fixed", "Head", "Mirror", "Barrel"]
                 editable: true
                 Rectangle
@@ -343,7 +343,7 @@ GridLayout
                 palette.base: UISettings.bgControl
                 palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMain
+                palette.highlightedText: UISettings.bgMedium
                 model: ["3-pin", "5-pin", "3-pin and 5-pin", "3.5 mm stereo jack", "Other"]
                 editable: true
                 //currentText: phy ? phy.dmxConnector : ""

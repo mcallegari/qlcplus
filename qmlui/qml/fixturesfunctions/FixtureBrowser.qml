@@ -26,7 +26,6 @@ import "."
 
 Rectangle
 {
-    id: fxBrowserBox
     anchors.fill: parent
     color: "transparent"
 
@@ -44,7 +43,7 @@ Rectangle
         {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
             radius: 5
             border.width: 2
             border.color: UISettings.borderColorDark
