@@ -325,8 +325,8 @@ void RGBText_Test::staticLetters()
     QRgb color(0xFFFFFFFF);
     RGBMap map;
     uint rawRgbColors[RGBAlgorithmRawColorCount] = {
-    		QColor(Qt::red).rgb(),
-			QColor(Qt::green).rgb()
+        QColor(Qt::red).rgb(),
+        QColor(Qt::green).rgb()
     };
 
     // Since fonts and their rendering differs from installation to installation,
@@ -367,8 +367,8 @@ void RGBText_Test::horizontalScroll()
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Horizontal);
     uint rawRgbColors[RGBAlgorithmRawColorCount] = {
-    		QColor(Qt::red).rgb(),
-			QColor(Qt::green).rgb()
+        QColor(Qt::red).rgb(),
+        QColor(Qt::green).rgb()
     };
 
     QFontMetrics fm(text.font());
@@ -419,8 +419,8 @@ void RGBText_Test::verticalScroll()
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Vertical);
     uint rawRgbColors[RGBAlgorithmRawColorCount] = {
-    		QColor(Qt::red).rgb(),
-			QColor(Qt::green).rgb()
+        QColor(Qt::red).rgb(),
+        QColor(Qt::green).rgb()
     };
 
     QFontMetrics fm(text.font());

@@ -24,38 +24,38 @@ var testAlgo;
   function () {
     var colorPalette = new Object;
     colorPalette.collection = new Array(
-      ["White"        , 0xFFFFFF],	//  0
-      ["Cream"        , 0xFFFF7F],	//  1
-      ["Pink"         , 0xFF7F7F],	//  2
-      ["Rose"         , 0x7F3F3F],	//  3
-      ["Coral"        , 0x7F3F1F],	//  4
-      ["Dim Red"      , 0x7F0000],	//  5
-      ["Red"          , 0xFF0000],	//  6
-      ["Orange"       , 0xFF3F00],	//  7
-      ["Dim Orange"   , 0x7F1F00],	//  8
-      ["Goldenrod"    , 0x7F3F00],	//  9
-      ["Gold"         , 0xFF7F00],	// 10
-      ["Yellow"       , 0xFFFF00],	// 11
-      ["Dim Yellow"   , 0x7F7F00],	// 12
-      ["Lime"         , 0x7FFF00],	// 13
-      ["Pale Green"   , 0x3F7F00],	// 14
-      ["Dim Green"    , 0x007F00],	// 15
-      ["Green"        , 0x00FF00],	// 16
-      ["Seafoam"      , 0x00FF3F],	// 17
-      ["Turquoise"    , 0x007F3F],	// 18
-      ["Teal"         , 0x007F7F],	// 19
-      ["Cyan"         , 0x00FFFF],	// 20
-      ["Electric Blue", 0x007FFF],	// 21
-      ["Blue"         , 0x0000FF],	// 22
-      ["Dim Blue"     , 0x00007F],	// 23
-      ["Pale Blue"    , 0x1F1F7F],	// 24
-      ["Indigo"       , 0x1F00BF],	// 25
-      ["Purple"       , 0x3F00BF],	// 26
-      ["Violet"       , 0x7F007F],	// 27
-      ["Magenta"      , 0xFF00FF],	// 28
-      ["Hot Pink"     , 0xFF003F],	// 29
-      ["Deep Pink"    , 0x7F001F],	// 30
-      ["Black"        , 0x000000]);	// 31
+      ["White"        , 0xFFFFFF],  //  0
+      ["Cream"        , 0xFFFF7F],  //  1
+      ["Pink"         , 0xFF7F7F],  //  2
+      ["Rose"         , 0x7F3F3F],  //  3
+      ["Coral"        , 0x7F3F1F],  //  4
+      ["Dim Red"      , 0x7F0000],  //  5
+      ["Red"          , 0xFF0000],  //  6
+      ["Orange"       , 0xFF3F00],  //  7
+      ["Dim Orange"   , 0x7F1F00],  //  8
+      ["Goldenrod"    , 0x7F3F00],  //  9
+      ["Gold"         , 0xFF7F00],  // 10
+      ["Yellow"       , 0xFFFF00],  // 11
+      ["Dim Yellow"   , 0x7F7F00],  // 12
+      ["Lime"         , 0x7FFF00],  // 13
+      ["Pale Green"   , 0x3F7F00],  // 14
+      ["Dim Green"    , 0x007F00],  // 15
+      ["Green"        , 0x00FF00],  // 16
+      ["Seafoam"      , 0x00FF3F],  // 17
+      ["Turquoise"    , 0x007F3F],  // 18
+      ["Teal"         , 0x007F7F],  // 19
+      ["Cyan"         , 0x00FFFF],  // 20
+      ["Electric Blue", 0x007FFF],  // 21
+      ["Blue"         , 0x0000FF],  // 22
+      ["Dim Blue"     , 0x00007F],  // 23
+      ["Pale Blue"    , 0x1F1F7F],  // 24
+      ["Indigo"       , 0x1F00BF],  // 25
+      ["Purple"       , 0x3F00BF],  // 26
+      ["Violet"       , 0x7F007F],  // 27
+      ["Magenta"      , 0xFF00FF],  // 28
+      ["Hot Pink"     , 0xFF003F],  // 29
+      ["Deep Pink"    , 0x7F001F],  // 30
+      ["Black"        , 0x000000]); // 31
 
     colorPalette.makeSubArray = function (_index) {
       var _array = new Array();
@@ -206,7 +206,7 @@ var testAlgo;
         algo.colour[i] = algo.getRawColor(rawColors, i);
       }
 
-      var map = new Array(height);	// Clear map data
+      var map = new Array(height); // Clear map data
       for (var y = 0; y < height; y++) {
         map[y] = new Array();
 
@@ -231,7 +231,7 @@ var testAlgo;
           for (var rx = mx - boxSize; rx < mx + boxSize + 2; rx++) {  // to display ball
 
             if (rx < width && rx > -1 && ry < height && ry > -1) {  // if edges are off the map dont draw
-              var pointRGB = map[ry][rx];	    // get curent colour on the map
+              var pointRGB = map[ry][rx];    // get curent colour on the map
               var pointr = (pointRGB >> 16) & 0x00FF;// so that colours mix and don't over
               var pointg = (pointRGB >> 8) & 0x00FF; // write.
               var pointb = pointRGB & 0x00FF;  // splt rgb in to components

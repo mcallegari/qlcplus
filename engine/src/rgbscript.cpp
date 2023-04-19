@@ -263,7 +263,7 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint 
         for (int i = 0; i < RGBAlgorithmRawColorCount; i++) {
             jsRawColors.setProperty(i, QScriptValue(rawColors[i]));
         }
-    	args << size.width() << size.height() << rgb << step << jsRawColors;
+        args << size.width() << size.height() << rgb << step << jsRawColors;
     }
     QScriptValue yarray = m_rgbMap.call(QScriptValue(), args);
     if (yarray.isError())

@@ -176,8 +176,8 @@ void RGBScript_Test::evaluateNoRgbMapFunction()
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
     uint rawRgbColors[RGBAlgorithmRawColorCount] = {
-    		QColor(Qt::red).rgb(),
-			QColor(Qt::green).rgb()
+        QColor(Qt::red).rgb(),
+        QColor(Qt::green).rgb()
     };
     s.rgbMap(QSize(5, 5), 1, 0, map, rawRgbColors);
     QCOMPARE(map, RGBMap());
@@ -241,8 +241,8 @@ void RGBScript_Test::rgbMap()
     RGBMap map;
     RGBScript s = m_doc->rgbScriptsCache()->script("Stripes");
     uint rawRgbColors[RGBAlgorithmRawColorCount] = {
-    		QColor(Qt::red).rgb(),
-			uint(0)
+        QColor(Qt::red).rgb(),
+        uint(0)
     };
     s.rgbMap(QSize(3, 4), 0, 0, map, rawRgbColors);
     // verify that an array within an array has been returned
@@ -273,10 +273,10 @@ void RGBScript_Test::runScripts()
     QSize mapSize = QSize(7, 11); // Use different numbers for x and y for the test
     QSize mapSizePlus = QSize(12, 22); // Prepare a larger matrix to check behaviour on matrix change
     uint rawRgbColors[RGBAlgorithmRawColorCount] = {
-            // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
-            // This test also wants to test that there is no color space overrun.
-    		QColor(Qt::red).rgb() & 0xffffff,
-			uint(0)
+        // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
+        // This test also wants to test that there is no color space overrun.
+        QColor(Qt::red).rgb() & 0xffffff,
+        uint(0)
     };
 
     // Iterate the list of scripts
@@ -366,7 +366,7 @@ void RGBScript_Test::runScripts()
                 {
                     if (s.acceptColors() > 0)
                     {
-                    	// verify that the alpha channel is zero
+                        // verify that the alpha channel is zero
                         if (rgbMap[y][x] > 0x00ffffff)
                         {
                             uint pxr = (rgbMap[y][x] >> 16 & 0x000000ff);

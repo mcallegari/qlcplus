@@ -42,14 +42,14 @@ RGBAlgorithm::RGBAlgorithm(Doc * doc)
     , m_colors{
         QColor(), // was m_startColor
         QColor() // was m_endColor
-	}
+    }
 {
 }
 
 void RGBAlgorithm::setColors(QColor colors[RGBAlgorithmRawColorCount])
 {
-	for (unsigned int i = 0; i < RGBAlgorithmRawColorCount; i++)
-		m_colors[i] = colors[i];
+    for (unsigned int i = 0; i < RGBAlgorithmRawColorCount; i++)
+        m_colors[i] = colors[i];
 }
 
 /****************************************************************************

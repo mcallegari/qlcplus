@@ -239,14 +239,14 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint 
 
     QJSValueList args;
     if (m_apiVersion <= 2) {
-    	args << size.width() << size.height() << rgb << step;
+        args << size.width() << size.height() << rgb << step;
     } else {
         QJSValue jsRawColors = s_engine->newArray(RGBAlgorithmRawColorCount);
         for (int i = 0; i < RGBAlgorithmRawColorCount; i++) {
             jsRawColors.setProperty(i, QJSValue(rawColors[i]));
         }
 
-    	args << size.width() << size.height() << rgb << step << jsRawColors;
+        args << size.width() << size.height() << rgb << step << jsRawColors;
     }
     QJSValue yarray(m_rgbMap.call(args));
     if (yarray.isError())
