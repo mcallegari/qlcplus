@@ -275,7 +275,7 @@ var testAlgo;
         lowRest = effectiveY - realBlockCount * realBlockSize;
         highRest = (realBlockCount + 1) * realBlockSize - effectiveY;
         rest = Math.min(lowRest, highRest);
-        if (rest < 0.5 || lowRest == 0.5) {
+        if (rest < 0.5 || lowRest === 0.5) {
           rowColorOne = !rowColorOne;
         }
         colorSelectOne = rowColorOne;
