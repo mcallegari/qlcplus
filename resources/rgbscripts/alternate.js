@@ -59,7 +59,7 @@ var testAlgo;
   colorPalette.makeSubArray = function(_index) {
     var _array = new Array();
     for (var i = 0; i < colorPalette.collection.length; i++) {
-      _array.push(colorPalette.collection[parseInt(i)][parseInt(_index)]);
+      _array.push(colorPalette.collection[parseInt(i, 10)][parseInt(_index, 10)]);
     }
     return _array;
   };
@@ -105,7 +105,7 @@ var testAlgo;
     if (_index >= colorPalette.collection.length) {
       _index = (colorPalette.collection.length - 1);
     }
-    return colorPalette.collection[parseInt(_index)][0];
+    return colorPalette.collection[parseInt(_index, 10)][0];
   };
   algo.getColorValue = function(_index) {
     if (_index < 0) {
@@ -114,7 +114,7 @@ var testAlgo;
     else if (_index >= colorPalette.collection.length) {
       _index = (colorPalette.collection.length - 1);
     }
-    return colorPalette.collection[parseInt(_index)][1];
+    return colorPalette.collection[parseInt(_index, 10)][1];
   };
 
   algo.setColor1Index = function(_name) {
@@ -187,7 +187,7 @@ var testAlgo;
     }
   };
   algo.getOrientation = function() {
-    if (parseInt(algo.orientation) === 1) {
+    if (parseInt(algo.orientation, 10) === 1) {
       return "Vertical";
     } else if (algo.orientation === 2) {
       return "Interleaved";
@@ -202,7 +202,7 @@ var testAlgo;
     + "values:1,32000|"
     + "write:setBlockSize|read:getBlockSize");
   algo.setBlockSize = function(_size) {
-    algo.blockSize = parseInt(_size);
+    algo.blockSize = parseInt(_size, 10);
   };
   algo.getBlockSize = function() {
     return algo.blockSize;
@@ -214,7 +214,7 @@ var testAlgo;
     + "values:0,32000|"
     + "write:setOffset|read:getOffset");
   algo.setOffset = function(_size) {
-    algo.offset = parseInt(_size);
+    algo.offset = parseInt(_size, 10);
   };
   algo.getOffset = function() {
     return algo.offset;
@@ -229,9 +229,9 @@ var testAlgo;
 //    algo.currentRgb = rgb;
 
     for (y = 0; y < height; y++) {
-      map[parseInt(y)] = new Array(width);
+      map[parseInt(y, 10)] = new Array(width);
       for (x = 0; x < width; x++) {
-        map[parseInt(y)][parseInt(x)] = 0;
+        map[parseInt(y, 10)][parseInt(x, 10)] = 0;
       }
     }
 
@@ -262,6 +262,11 @@ var testAlgo;
       }
     }
 
+    var effectiveStep;
+    var realBlockCount;
+    var lowRest;
+    var highRest;
+    var rest;
     for (y = 0; y < yMax; y++) {
       if (algo.orientation === 0) {
         // Horizontal split; vertical lines
@@ -269,24 +274,24 @@ var testAlgo;
         colorSelectOne = (step === 1) ? false : true;
       } else if (algo.orientation === 1) {
         // Horizontal Bars, count steps by row
-        var effectiveStep = y + Math.round(step * realBlockSize) + algo.offset;
+        effectiveStep = y + Math.round(step * realBlockSize) + algo.offset;
 
         // Initialize start color for each row.
-        var realBlockCount = Math.floor(effectiveStep / realBlockSize);
-        var lowRest = effectiveStep - realBlockCount * realBlockSize;
-        var highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
-        var rest = Math.min(lowRest, highRest);
-        if (rest < 0.5 || lowRest == 0.5) {
+        realBlockCount = Math.floor(effectiveStep / realBlockSize);
+        lowRest = effectiveStep - realBlockCount * realBlockSize;
+        highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
+        rest = Math.min(lowRest, highRest);
+        if (rest < 0.5 || lowRest === 0.5) {
           colorSelectOne = !colorSelectOne;
         }
       } else if (algo.orientation === 2) {
         // Interleaved
         var effectiveY = y + Math.floor(step * realBlockSize) + algo.offset;
 
-        var realBlockCount = Math.floor(effectiveY / realBlockSize);
-        var lowRest = effectiveY - realBlockCount * realBlockSize;
-        var highRest = (realBlockCount + 1) * realBlockSize - effectiveY;
-        var rest = Math.min(lowRest, highRest);
+        realBlockCount = Math.floor(effectiveY / realBlockSize);
+        lowRest = effectiveY - realBlockCount * realBlockSize;
+        highRest = (realBlockCount + 1) * realBlockSize - effectiveY;
+        rest = Math.min(lowRest, highRest);
         if (rest < 0.5 || lowRest == 0.5) {
           rowColorOne = !rowColorOne;
         }
@@ -296,11 +301,11 @@ var testAlgo;
       for (x = 0; x < xMax; x++) {
         if (algo.orientation === 0) {
           // Horizontal split, vertical bars, count steps by column
-          var effectiveStep = x + algo.offset;
-          var realBlockCount = Math.floor(effectiveStep / realBlockSize);
-          var lowRest = effectiveStep - realBlockCount * realBlockSize;
-          var highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
-          var rest = Math.min(lowRest, highRest);
+          effectiveStep = x + algo.offset;
+          realBlockCount = Math.floor(effectiveStep / realBlockSize);
+          lowRest = effectiveStep - realBlockCount * realBlockSize;
+          highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
+          rest = Math.min(lowRest, highRest);
           if (rest < 0.5 || lowRest == 0.5) {
             colorSelectOne = !colorSelectOne;
           }
@@ -308,18 +313,18 @@ var testAlgo;
           // vertical split, horizontal Bars, count steps by row and column
           var effectiveX = x + Math.floor(step * realBlockSize) + algo.offset;
           // Change color each step.
-          var realBlockCount = Math.floor(effectiveX / realBlockSize);
-          var lowRest = effectiveX - realBlockCount * realBlockSize;
-          var highRest = (realBlockCount + 1) * realBlockSize - effectiveX;
-          var rest = Math.min(lowRest, highRest);
+          realBlockCount = Math.floor(effectiveX / realBlockSize);
+          lowRest = effectiveX - realBlockCount * realBlockSize;
+          highRest = (realBlockCount + 1) * realBlockSize - effectiveX;
+          rest = Math.min(lowRest, highRest);
           if (rest < 0.5 || lowRest == 0.5) {
             colorSelectOne = !colorSelectOne;
           }
         }
         if (colorSelectOne) {
-          map[parseInt(y)][parseInt(x)] = algo.getColor1Value();
+          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getColor1Value();
         } else {
-          map[parseInt(y)][parseInt(x)] = algo.getColor2Value();
+          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getColor2Value();
         }
       }
     }
@@ -328,21 +333,21 @@ var testAlgo;
       if (algo.orientation === 0) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(y)][parseInt(width - x - 1)] = map[parseInt(y)][parseInt(x)];
+            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
           }
         }
       } else if (algo.orientation === 1) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1)][parseInt(x)] = map[parseInt(y)][parseInt(x)];
+            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
           }
         }
       } else if (algo.orientation === 2) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1)][parseInt(x)] = map[parseInt(y)][parseInt(x)];
-            map[parseInt(y)][parseInt(width - x - 1)] = map[parseInt(y)][parseInt(x)];
-            map[parseInt(height - y - 1)][parseInt(width - x - 1)] = map[parseInt(y)][parseInt(x)];
+            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[parseInt(height - y - 1, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
           }
         }
       }
