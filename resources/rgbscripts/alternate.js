@@ -72,9 +72,6 @@ var testAlgo;
 
   var x = 0;
   var y = 0;
-  // current RGB assigned to the step
-//  algo.currentRgb = 0;
-//  algo.rgbStepColorName = "Matrix RGB";
 
   algo.acceptColors = 0;
   algo.properties = new Array();
@@ -89,9 +86,7 @@ var testAlgo;
 
   algo.color1Index = algo.getColorIndex("Red");
   algo.properties.push("name:color1Index|type:list|display:Color 1|" +
-    "values:" + colorPalette.names.toString() +
-//    ",Matrix RGB" +
-    "|" +
+    "values:" + colorPalette.names.toString() + "|" +
     "write:setColor1Index|read:getColor1Name");
   algo.color2Index = algo.getColorIndex("Green");
   algo.properties.push("name:color2Index|type:list|display:Color 2|" +
@@ -118,25 +113,13 @@ var testAlgo;
   };
 
   algo.setColor1Index = function(_name) {
-//    if (_name == algo.rgbStepColorName) {
-//      algo.color1Index = colorPalette.collection.length;
-//    } else {
-      algo.color1Index = algo.getColorIndex(_name);
-//    }
+    algo.color1Index = algo.getColorIndex(_name);
   };
   algo.getColor1Name = function() {
-//    if (algo.color1Index == colorPalette.collection.length) {
-//      return algo.rgbStepColorName;
-//    } else {
-      return algo.getColorName(algo.color1Index);
-//    }
+    return algo.getColorName(algo.color1Index);
   };
   algo.getColor1Value = function() {
-//    if (algo.color1Index == colorPalette.collection.length) {
-//      return algo.currentRgb;
-//    } else {
-      return algo.getColorValue(algo.color1Index);
-//    }
+    return algo.getColorValue(algo.color1Index);
   };
 
   algo.setColor2Index = function(_name) {
