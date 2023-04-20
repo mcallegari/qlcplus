@@ -224,7 +224,7 @@ var testAlgo;
       for (var i = 0; i < util.colorArray.length; i++)
       {
         var sColor = util.colorArray[i];
-        var eColor = util.colorArray[0];;
+        var eColor = util.colorArray[0];
         if (i < util.colorArray.length - 1) {
           eColor = util.colorArray[i + 1];
         }
@@ -349,7 +349,7 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, step, rawColors)
     {
-      if (util.colorArray.length == 0) {
+      if (util.colorArray.length === 0) {
         util.initialized = false;
       } else if (util.colorArray.length >= algo.acceptColors - 1 && Array.isArray(rawColors)) {
         // Check if the externally provided color has changed.
