@@ -1,6 +1,19 @@
 cmake_minimum_required(VERSION 3.16)
 project(qlc VERSION 1.0 LANGUAGES C CXX)
 
+# Set Release build type by default
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
+endif()
+
+if(UNIX)
+    if (MACOS)
+        set(iokit ON)
+    else()
+        set(udev ON)
+    endif()
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Set up AUTOMOC and some sensible defaults for runtime execution
