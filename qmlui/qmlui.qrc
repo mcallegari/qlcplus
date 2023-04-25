@@ -54,6 +54,7 @@
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
+    <file alias="UISettingsEditor.qml">qml/UISettingsEditor.qml</file>
     <file alias="UsageList.qml">qml/UsageList.qml</file>
     <file alias="WidgetDelegate.qml">qml/WidgetDelegate.qml</file>
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
