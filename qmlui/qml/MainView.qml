@@ -31,7 +31,7 @@ Rectangle
     width: 800
     height: 600
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     property string currentContext: ""
 
@@ -103,6 +103,11 @@ Rectangle
     {
         //actionsMenu.open()
         actionsMenu.saveBeforeExit()
+    }
+
+    function loadResource(qmlRes)
+    {
+        mainViewLoader.source = qmlRes
     }
 
     FontLoader

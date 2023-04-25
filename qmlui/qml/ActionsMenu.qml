@@ -420,6 +420,19 @@ Popup
 
         ContextMenuEntry
         {
+            id: uiConfig
+            imgSource: "qrc:/configure.svg"
+            entryText: qsTr("UI Settings")
+            onEntered: submenuItem = null
+            onClicked:
+            {
+                menuRoot.close()
+                mainView.loadResource("qrc:/UISettingsEditor.qml")
+            }
+        }
+
+        ContextMenuEntry
+        {
             id: fullScreen
             imgSource: "qrc:/fullscreen.svg"
             entryText: qsTr("Toggle fullscreen")
