@@ -275,11 +275,14 @@ VCWidgetItem
                     item.visible = !item.visible
                     if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
                         item.updatePresets(sliderObj.clickAndGoPresetsList)
+                    item.parent = virtualConsole.currentPageItem()
+                    var posInPage = clickAndGoButton.mapToItem(item.parent, 0, clickAndGoButton.height)
+                    item.x = posInPage.x
+                    item.y = posInPage.y
                 }
 
                 onLoaded:
                 {
-                    item.y = parent.height
                     item.visible = false
                     item.closeOnSelect = true
                 }
@@ -293,15 +296,14 @@ VCWidgetItem
                         if (sliderObj)
                             sliderObj.setClickAndGoColors(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
                     }
-                }
-                Connections
-                {
-                    ignoreUnknownSignals: true
-                    target: colorToolLoader.item
                     function onPresetSelected(cap, fxID, chIdx, value)
                     {
                         if (sliderObj)
                             sliderObj.setClickAndGoPresetValue(value)
+                    }
+                    function onClose()
+                    {
+                        target.visible = false
                     }
                 }
             }
