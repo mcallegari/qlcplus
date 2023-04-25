@@ -209,8 +209,6 @@ var testAlgo;
     var rowColorOne = colorSelectOne;
     var realBlockSize = algo.blockSize;
 
-//    algo.currentRgb = rgb;
-
     for (y = 0; y < height; y++) {
       map[parseInt(y, 10)] = new Array(width);
       for (x = 0; x < width; x++) {
