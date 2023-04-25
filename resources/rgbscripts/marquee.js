@@ -81,7 +81,7 @@ var testAlgo;
   );
   algo.marquee = 0;
   algo.properties.push(
-    "name:marquee|type:list|display:Marquee|values:None,Foreward,Backward|write:setMarquee|read:getMarquee"
+    "name:marquee|type:list|display:Marquee|values:None,Forward,Backward|write:setMarquee|read:getMarquee"
   );
   algo.marqueeCount = 3;
   algo.properties.push(
@@ -118,7 +118,7 @@ var testAlgo;
     if (_marquee === "None") {
       algo.marquee = 0;
     }
-    if (_marquee === "Foreward") {
+    if (_marquee === "Forward") {
       algo.marquee = 1;
     }
     if (_marquee === "Backward") {
@@ -132,7 +132,7 @@ var testAlgo;
       return "None";
     }
     if (algo.marquee === 1) {
-      return "Foreward";
+      return "Forward";
     }
     if (algo.marquee === 2) {
       return "Backward";
