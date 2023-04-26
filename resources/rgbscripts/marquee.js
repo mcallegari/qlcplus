@@ -44,6 +44,7 @@ var testAlgo;
   util.initialized = false;
   util.width = 0;
   util.height = 0;
+  util.featureColor = 0;
   util.step = algo.marqueeCount;
 
   util.lights = new Array();
@@ -94,6 +95,7 @@ var testAlgo;
 
   util.initialize = function (width, height, rawColors) {
     // initialize feature
+    util.featureColor = algo.getRawColor(rawColors, 0);
     util.feature = new Array();
     for (var y = 0; y <= height - 1; y++) {
       util.feature[y] = new Array();
@@ -117,12 +119,13 @@ var testAlgo;
         distance = Math.min(x_distance, y_distance);
         if (distance <= algo.edgeDepth) {
           var percent = ((algo.edgeDepth - distance) / algo.edgeDepth) * 100;
-          util.feature[y][x] = util.fadeColor(algo.getRawColor(rawColors, 0), percent);
+          util.feature[y][x] = util.fadeColor(util.featureColor, percent);
         } else {
           util.feature[y][x] = 0;
         }
       }
     }
+
     // initialize lights array: 2 heights, 2 widths, 4 duplicate corner pixels
     var length = height * 2 + width * 2 - 4;
     var count = length + parseInt(algo.marqueeCount, 10) + 1;
@@ -240,12 +243,14 @@ var testAlgo;
 
   algo.rgbMap = function(width, height, rgb, step, rawColors) {
     if (
-      util.initialized === false ||
-      util.width !== width ||
-      util.height !== height
+        util.width !== width ||
+        util.height !== height ||
+        util.featureColor != algo.getRawColor(rawColors, 0) ||
+        util.initialized === false
     ) {
       util.initialize(width, height, rawColors);
     }
+
     var map = util.getNextStep(width, height, rawColors);
     return map;
   };
