@@ -19,6 +19,7 @@ scripts.files += fireworks.js
 scripts.files += flyingobjects.js
 scripts.files += gradient.js
 scripts.files += lines.js
+scripts.files += marquee.js
 scripts.files += noise.js
 scripts.files += onebyone.js
 scripts.files += opposite.js
