@@ -21,6 +21,7 @@
 
 #include "keypadparser.h"
 #include "qlcmacros.h"
+#include "universe.h"
 
 KeyPadParser::KeyPadParser()
 {
@@ -113,6 +114,9 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
             {
                 case CommandNone:
                     // no command: this is a channel number
+                    if (number <= 0)
+                        break;
+
                     fromChannel = number;
                     toChannel = fromChannel;
                     channelSet = true;
@@ -187,7 +191,10 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
         uchar uniValue = 0;
         SceneValue scv;
 
-        if (quint32(uniData.length()) >= i)
+        if (i >= UNIVERSE_SIZE)
+            continue;
+
+        if (quint32(uniData.length()) > i)
             uniValue = uchar(uniData.at(i));
 
         scv.channel = i;
