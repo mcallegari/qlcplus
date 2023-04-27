@@ -213,6 +213,17 @@ void RGBScript::initEngine()
     Q_ASSERT(s_engine != NULL);
 }
 
+void RGBScript::displayError(QScriptValue e, const QString& fileName)
+{
+    if (e.isError()) {
+        QString msg("%1: Exception at line %2. Error: %3");
+        qWarning() << msg.arg(fileName)
+                         .arg(e.property("lineNumber").toInt32())
+                         .arg(e.toString());
+        qDebug() << "Stack: " << e.property("stack").toString();
+    }
+}
+
 /****************************************************************************
  * Script API
  ****************************************************************************/
@@ -227,8 +238,14 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     QScriptValueList args;
     args << size.width() << size.height();
     QScriptValue value = m_rgbMapStepCount.call(QScriptValue(), args);
-    int ret = value.isNumber() ? value.toInteger() : -1;
-    return ret;
+    if (value.isError())
+    {
+        displayError(value, m_fileName);
+        return -1;
+    } else {
+        int ret = value.isNumber() ? value.toInteger() : -1;
+        return ret;
+    }
 }
 
 void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
@@ -241,7 +258,12 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
     QScriptValueList args;
     args << size.width() << size.height() << rgb << step;
     QScriptValue yarray = m_rgbMap.call(QScriptValue(), args);
-    if (yarray.isArray() == true)
+    if (yarray.isError())
+    {
+        displayError(yarray, m_fileName);
+    }
+
+    if (yarray.isArray())
     {
         int ylen = yarray.property("length").toInteger();
         map.resize(ylen);
@@ -349,7 +371,11 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
         {
             QScriptValueList args;
             QScriptValue value = readMethod.call(QScriptValue(), args);
-            if (value.isValid())
+            if (value.isError())
+            {
+                displayError(value, m_fileName);
+            }
+            else if (value.isValid())
                 properties.insert(cap.m_name, value.toString());
         }
     }
@@ -372,8 +398,14 @@ bool RGBScript::setProperty(QString propertyName, QString value)
             }
             QScriptValueList args;
             args << value;
-            writeMethod.call(QScriptValue(), args);
-            return true;
+            QScriptValue written = writeMethod.call(QScriptValue(), args);
+            if (written.isError())
+            {
+                displayError(written, m_fileName);
+                return false;
+            } else {
+                return true;
+            }
         }
     }
     return false;
@@ -395,7 +427,11 @@ QString RGBScript::property(QString propertyName) const
             }
             QScriptValueList args;
             QScriptValue value = readMethod.call(QScriptValue(), args);
-            if (value.isValid())
+            if (value.isError())
+            {
+                displayError(value, m_fileName);
+                return QString();
+            } else if (value.isValid())
                 return value.toString();
             else
                 return QString();
