@@ -127,14 +127,17 @@ var testAlgo;
     }
 
     // initialize lights array: 2 heights, 2 widths, 4 duplicate corner pixels
-    var length = height * 2 + width * 2 - 4;
-    var count = length + parseInt(algo.marqueeCount, 10) + 1;
-    util.lights = new Array(count);
-    for (var i = 0; i < count; i++) {
-      if (i % (parseInt(algo.marqueeCount, 10) + 1) === 0) {
-        util.lights[i] = 1;
-      } else {
-        util.lights[i] = 0;
+    // only if the dimensions have changes (not on color change)
+    if (util.width != width || util.height != height) {
+      var length = height * 2 + width * 2 - 4;
+      var count = length + parseInt(algo.marqueeCount, 10) + 1;
+      util.lights = new Array(count);
+      for (var i = 0; i < count; i++) {
+        if (i % (parseInt(algo.marqueeCount, 10) + 1) === 0) {
+          util.lights[i] = 1;
+        } else {
+          util.lights[i] = 0;
+        }
       }
     }
     // for testing for change
