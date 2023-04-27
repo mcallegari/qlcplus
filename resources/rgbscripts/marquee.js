@@ -128,9 +128,9 @@ var testAlgo;
 
     // initialize lights array: 2 heights, 2 widths, 4 duplicate corner pixels
     // only if the dimensions have changes (not on color change)
-    if (util.width != width || util.height != height) {
+    if (util.width != width || util.height != height || util.initialized !== true) {
       var length = height * 2 + width * 2 - 4;
-      var count = length + parseInt(algo.marqueeCount, 10) + 1;
+      var count = length + algo.marqueeCount + 1;
       util.lights = new Array(count);
       for (var i = 0; i < count; i++) {
         if (i % (parseInt(algo.marqueeCount, 10) + 1) === 0) {
@@ -224,10 +224,10 @@ var testAlgo;
 
   algo.rgbMap = function(width, height, rgb, step, rawColors) {
     if (
-        util.width !== width ||
-        util.height !== height ||
-        util.featureColor != algo.getRawColor(rawColors, 0) ||
-        util.initialized === false
+      util.initialized === false ||
+      util.featureColor != algo.getRawColor(rawColors, 0) ||
+      util.width !== width ||
+      util.height !== height
     ) {
       util.initialize(width, height, rawColors);
     }
