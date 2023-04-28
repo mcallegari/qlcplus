@@ -144,7 +144,7 @@ VCWidgetItem
             enabled: visible && !sliderObj.isDisabled
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
-            //width: parent.width
+            Layout.fillWidth: true
             from: sliderObj ? sliderObj.rangeLowLimit : 0
             to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
