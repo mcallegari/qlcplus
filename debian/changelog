@@ -11,6 +11,7 @@ qlcplus (4.12.7) stable; urgency=low
   * UI/Audio Editor: do not stop audio function if not previewing
   * UI/Fixture Remap: add button to import fixture lists (.qxfl)
   * UI/Fixture Remap: fix wrong widgets remapping
+  * UI/Wizard: improved generated function names (thanks to netmindz)
   * Plugins/OSC: fix broadcast packets reception (thanks to Jannis Achstetter)
   * Plugins/E1.31: allow to set 2 digits of the IP address
   * Plugins/MIDI: fix consecutive notes not notified on macOS (thanks to Nils Tijtgat)
@@ -18,6 +19,7 @@ qlcplus (4.12.7) stable; urgency=low
   * Virtual Console: submaster now affects widgets on all pages but only on active frames
   * Web Access: add support for widget background images
   * Application: fix qxf file association on Windows (if installed as admin)
+  * RGB scripts: added 'Marquee' script (thanks to Branson Matheson)
   * Input profiles: added ADJ MIDICON-2 (thanks to David Thomas)
   * Input profiles: added Akai APC Mini MK2 (thanks to Michael Mertens)
   * Fixture updated: Blizzard Lighting Pixellicious (thanks to Yestalgia)
@@ -60,7 +62,7 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Betopper LM108 Wash Moving Head (thanks to Luca Giovannesi)
   * New fixture: Starway Servo Beam 10R (thanks to David Talet)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 May 2023 12:13:14 +0200
 
 qlcplus (4.12.6) stable; urgency=low
 
