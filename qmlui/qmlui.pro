@@ -56,6 +56,7 @@ HEADERS += \
     simpledesk.h \
     treemodel.h \
     treemodelitem.h \
+    uimanager.h \
     videoeditor.h \
     videoprovider.h
 
@@ -89,6 +90,7 @@ SOURCES += main.cpp \
     simpledesk.cpp \
     treemodel.cpp \
     treemodelitem.cpp \
+    uimanager.cpp \
     videoeditor.cpp \
     videoprovider.cpp
 

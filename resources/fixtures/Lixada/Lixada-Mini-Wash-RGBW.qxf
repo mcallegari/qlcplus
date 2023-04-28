@@ -103,7 +103,7 @@
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="2.21" Width="18" Height="18" Depth="24"/>
+  <Dimensions Weight="2.21" Width="180" Height="180" Depth="240"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="105" DmxConnector="3-pin"/>

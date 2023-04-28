@@ -74,6 +74,16 @@ SidePanel
                         loaderSource = "qrc:/FixtureBrowser.qml"
                     animatePanel(checked)
                 }
+
+                Image
+                {
+                    x: parent.width - width - 3
+                    y: 3
+                    width: parent.height / 3
+                    height: width
+                    source: "qrc:/add.svg"
+                    sourceSize: Qt.size(width, height)
+                }
             }
 
             IconButton

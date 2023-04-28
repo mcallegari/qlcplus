@@ -795,7 +795,7 @@ Rectangle
         visible: View3D.frameCountEnabled
         z: 4
         opacity: 0.6
-        color: UISettings.bgMain
+        color: UISettings.bgMedium
         width: height
         height: UISettings.bigItemHeight
 

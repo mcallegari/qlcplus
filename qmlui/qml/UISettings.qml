@@ -25,8 +25,9 @@ QtObject
 {
     property string robotoFontName: "Roboto Condensed"
 
+    property real scalingFactor: 1.0
+
     /* Colors */
-    property color bgMain:     "#2e2e2e"
     property color bgStronger: "#161616"
     property color bgStrong:   "#232323"
     property color bgMedium:   "#333"
@@ -34,37 +35,37 @@ QtObject
     property color bgLight:    "#6F6F6F"
     property color bgLighter:  "#8F8F8F"
 
-    property color fgMain:     "#d6d6d6"
-    property color fgMedium:   "#797979"
-    property color fgLight:    "#797979"
+    property color fgMain:     "white"
+    property color fgMedium:   "#888"
+    property color fgLight:    "#aaa"
 
-    property color sectionHeader:    "#224458"
-    property color sectionHeaderDiv: "#224458"
-    property color highlight:        "#78DCE8"
-    property color highlightPressed: "#6c99bb"
+    property color sectionHeader:    "#31456B"
+    property color sectionHeaderDiv: "#22304a"
+    property color highlight:        "#0978FF"
+    property color highlightPressed: "#044089"
     property color hover:            "#B6B6B6"
-    property color selection:        "#ffd42a"
-    property color activeDropArea:   "#A9DC76"
+    property color selection:        "yellow"
+    property color activeDropArea:   "#9DFF52"
     property color borderColorDark:  "#111"
 
-    property color toolbarStartMain: "#2e2e2e"
-    property color toolbarStartSub:  "#2e2e2e"
-    property color toolbarEnd:       "#2e2e2e"
-    property color toolbarHoverStart:"#2e2e2e"
-    property color toolbarHoverEnd:  "#2e2e2e"
+    property color toolbarStartMain: "#222"
+    property color toolbarStartSub:  "#333"
+    property color toolbarEnd:       "#111"
+    property color toolbarHoverStart:"#444"
+    property color toolbarHoverEnd:  "#171717"
 
-    property color toolbarSelectionMain: "#ffd42a"
-    property color toolbarSelectionSub:  "#78DCE8"
+    property color toolbarSelectionMain: "#12B4FF"
+    property color toolbarSelectionSub:  "yellow"
 
     /* Sizes */
-    property int  textSizeDefault:  screenPixelDensity * 4.5
-    property real iconSizeDefault:  screenPixelDensity * 10 // more or less the size of a finger
-    property real iconSizeMedium:   screenPixelDensity * 8
-    property real listItemHeight:   screenPixelDensity * 7
-    property real mediumItemHeight: screenPixelDensity * 15
-    property real bigItemHeight:    screenPixelDensity * 25
-    property real scrollBarWidth:   screenPixelDensity * 6
-    property real sidePanelWidth:   350
+    property int  textSizeDefault:  screenPixelDensity * scalingFactor * 4.5
+    property real iconSizeDefault:  screenPixelDensity * scalingFactor * 10 // more or less the size of a finger
+    property real iconSizeMedium:   screenPixelDensity * scalingFactor * 8
+    property real listItemHeight:   screenPixelDensity * scalingFactor * 7
+    property real mediumItemHeight: screenPixelDensity * scalingFactor * 15
+    property real bigItemHeight:    screenPixelDensity * scalingFactor * 25
+    property real scrollBarWidth:   screenPixelDensity * scalingFactor * 6
+    property real sidePanelWidth:   screenPixelDensity * scalingFactor * 50
 
     // channel properties column widths
     property real chPropsModesWidth: bigItemHeight * 1.2

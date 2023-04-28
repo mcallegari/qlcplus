@@ -30,7 +30,7 @@ Rectangle
     width: 800
     height: 600
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     FontLoader
     {

@@ -54,6 +54,7 @@
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
+    <file alias="UISettingsEditor.qml">qml/UISettingsEditor.qml</file>
     <file alias="UsageList.qml">qml/UsageList.qml</file>
     <file alias="WidgetDelegate.qml">qml/WidgetDelegate.qml</file>
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
@@ -62,6 +63,7 @@
     <!-- Popup system -->
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>
+    <file alias="PopupChannelModifiers.qml">qml/popup/PopupChannelModifiers.qml</file>
     <file alias="PopupChannelWizard.qml">qml/popup/PopupChannelWizard.qml</file>
     <file alias="PopupCreatePalette.qml">qml/popup/PopupCreatePalette.qml</file>
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>

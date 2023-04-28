@@ -59,6 +59,9 @@ class FixtureManager : public QObject
     Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY colorFilterFileIndexChanged)
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
+    Q_PROPERTY(QStringList channelModifiersList READ channelModifiersList NOTIFY channelModifiersListChanged)
+    Q_PROPERTY(QVariantList channelModifierValues READ channelModifierValues NOTIFY channelModifierValuesChanged)
+
 public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~FixtureManager();
@@ -498,6 +501,33 @@ private:
     int m_colorsMask;
     /** A map of the currently available colors and their counters */
     QMap<int, int> m_colorCounters;
+
+    /*********************************************************************
+     * Channel modifiers
+     *********************************************************************/
+public:
+    /** Return a list of the available channel modifiers */
+    QStringList channelModifiersList() const;
+
+    /** Request the UI to open the channel modifier editor */
+    Q_INVOKABLE void showModifierEditor(quint32 itemID, quint32 channelIndex);
+
+    /** Select the current channel modifier to display */
+    Q_INVOKABLE void selectChannelModifier(QString name);
+
+    /** Assign the currently selected channel modifier to the given fixture's channel */
+    Q_INVOKABLE void setChannelModifier(quint32 itemID, quint32 channelIndex);
+
+    /** Return a list of values to render the currently selected channel
+     *  modifier in the UI. Values are stored as original,modified */
+    QVariantList channelModifierValues() const;
+
+signals:
+    void channelModifiersListChanged();
+    void channelModifierValuesChanged();
+
+private:
+    ChannelModifier *m_selectedChannelModifier;
 };
 
 #endif // FIXTUREMANAGER_H

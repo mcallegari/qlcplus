@@ -2,6 +2,7 @@ qlcplus (4.12.7) stable; urgency=low
 
   * engine: improve audio fade in/out
   * engine: consider EFX fade in
+  * engine: handle LTP channels fade out
   * engine: make sure input/output device names are unique
   * engine: fix crash when no IO plugin is found
   * engine: fix blackout to leave LTP channels untouched
@@ -16,6 +17,7 @@ qlcplus (4.12.7) stable; urgency=low
   * Virtual Console/Audio Triggers: stop sending DMX values on deactivation
   * Virtual Console: submaster now affects widgets on all pages but only on active frames
   * Web Access: add support for widget background images
+  * Application: fix qxf file association on Windows (if installed as admin)
   * Input profiles: added ADJ MIDICON-2 (thanks to David Thomas)
   * Input profiles: added Akai APC Mini MK2 (thanks to Michael Mertens)
   * Fixture updated: Blizzard Lighting Pixellicious (thanks to Yestalgia)
@@ -51,9 +53,12 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Eurolite LED Super Strobe ABL (thanks to Sebastian Moeckel)
   * New fixture: beamZ Fuze75B Beam (thanks to Marcin Kwiecien)
   * New fixture: Eurolite LED FE-800 (thanks to Clausi4711)
-  * New fixtures: Varytec LED Bar 240/8 CW/WW, Equinox SpectraPix Batten (thanks to Michel Sliepenbeek)
+  * New fixtures: Varytec LED Bar 240/8 CW/WW, Equinox SpectraPix Batten, Betopper LPC-017 (thanks to Michel Sliepenbeek)
   * New fixtures: Chauvet Intimidator Scan LED 100, Equinox Fusion Spot Max MKIII (thanks to Michel Sliepenbeek)
   * New fixture: Elation SIX PAR Z19 IP (thanks to Sophia Rodriguez)
+  * New fixture: Betopper LPC007 (thanks to Romil Barticulo)
+  * New fixture: Betopper LM108 Wash Moving Head (thanks to Luca Giovannesi)
+  * New fixture: Starway Servo Beam 10R (thanks to David Talet)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Mar 2023 12:13:14 +0200
 

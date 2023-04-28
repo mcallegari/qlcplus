@@ -148,8 +148,11 @@ function resetChannel(pageCh) {
 
 function resetUniverse() {
  currentPage = 1;
+ var pgObj = document.getElementById("pageDiv");
+ pgObj.innerHTML = currentPage;
  var wsMsg = "QLC+API|sdResetUniverse";
  websocket.send(wsMsg);
+ getPage(currentUniverse, currentPage);
 }
 
 function sdSlVchange(id) {

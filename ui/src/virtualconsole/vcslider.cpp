@@ -1140,7 +1140,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
 
             // request to autoremove LTP channels when set
             if (qlcch->group() != QLCChannel::Intensity)
-                fc->addFlag(FadeChannel::Autoremove);
+                fc->addFlag(FadeChannel::AutoRemove);
 
             if (chType & FadeChannel::Intensity)
             {
