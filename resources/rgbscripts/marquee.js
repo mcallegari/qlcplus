@@ -195,10 +195,11 @@ var testAlgo;
     // only if the dimensions have changes (not on color change)
     if (util.width != width || util.height != height || util.initialized !== true) {
       var length = height * 2 + width * 2 - 4;
-      var count = length + algo.marqueeCount + 1;
-      util.lights = new Array(count);
-      for (var i = 0; i < count; i++) {
-        if (i % (parseInt(algo.marqueeCount, 10) + 1) === 0) {
+      util.lights = new Array(length);
+      var pointAmount = Math.floor(util.lights.length / (algo.marqueeCount + 1));
+      var mediumDistance = length / pointAmount;
+      for (var i = 0; i < util.lights.length; i++) {
+        if (i % mediumDistance < 1) {
           util.lights[i] = 1;
         } else {
           util.lights[i] = 0;
