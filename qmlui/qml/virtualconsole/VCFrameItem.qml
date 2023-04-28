@@ -136,10 +136,15 @@ VCWidgetItem
                     tooltip: qsTr("Previous page")
                     imgSource: "qrc:/back.svg"
                     imgMargins: 1
-                    onClicked: frameObj.gotoPreviousPage()
+                    onClicked:
+                    {
+                        frameObj.gotoPreviousPage()
+                        pageSelector.currentIndex = frameObj.currentPage
+                    }
                 }
                 CustomComboBox
                 {
+                    id: pageSelector
                     width: UISettings.bigItemHeight
                     height: parent.height
                     textRole: ""
@@ -157,7 +162,11 @@ VCWidgetItem
                     tooltip: qsTr("Next page")
                     imgSource: "qrc:/forward.svg"
                     imgMargins: 1
-                    onClicked: frameObj.gotoNextPage()
+                    onClicked:
+                    {
+                        frameObj.gotoNextPage()
+                        pageSelector.currentIndex = frameObj.currentPage
+                    }
                 }
             }
         }

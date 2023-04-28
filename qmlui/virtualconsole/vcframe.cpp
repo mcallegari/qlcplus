@@ -49,12 +49,12 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_isCollapsed(false)
     , m_multiPageMode(false)
     , m_currentPage(0)
-    , m_totalPagesNumber(1)
     , m_pagesLoop(false)
     , m_PIN(0)
     , m_validatedPIN(false)
 {
     setType(VCWidget::FrameWidget);
+    setTotalPagesNumber(1);
 
     registerExternalControl(INPUT_NEXT_PAGE_ID, tr("Next Page"), true);
     registerExternalControl(INPUT_PREVIOUS_PAGE_ID, tr("Previous Page"), true);
@@ -685,7 +685,7 @@ void VCFrame::setTotalPagesNumber(int num)
     {
         for (int i = m_totalPagesNumber; i < num; i++)
         {
-            QString name = tr("Page %1").arg(i);
+            QString name = tr("Page %1").arg(i + 1);
             m_pageLabels.insert(i, name);
             registerExternalControl(INPUT_SHORTCUT_BASE_ID + i, name, true);
         }
