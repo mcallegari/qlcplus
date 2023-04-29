@@ -11,13 +11,15 @@ include(GNUInstallDirs)
 
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 
-pkg_check_modules(MAD IMPORTED_TARGET mad)
 
-if((((NOT ANDROID AND NOT IOS) AND (${MAD_FOUND}))))
-    add_subdirectory(mad)
-endif()
+if((((NOT ANDROID AND NOT IOS))))
+    pkg_check_modules(MAD IMPORTED_TARGET mad)
+    if(${MAD_FOUND})
+        add_subdirectory(mad)
+    endif()
 
-pkg_check_modules(SNDFILE IMPORTED_TARGET sndfile)
-if((((NOT ANDROID AND NOT IOS) AND (${SNDFILE_FOUND}))))
-    add_subdirectory(sndfile)
+    pkg_check_modules(SNDFILE IMPORTED_TARGET sndfile)
+    if(${SNDFILE_FOUND})
+        add_subdirectory(sndfile)
+    endif()
 endif()

@@ -46,19 +46,31 @@ if(MACOS)
     set_target_properties(${module_name} PROPERTIES
         MACOSX_BUNDLE FALSE
     )
-endif()
+    pkg_check_modules(LIBOLASERVER IMPORTED_TARGET REQUIRED libolaserver)
+    if(${LIBOLASERVER_FOUND})
+        target_include_directories(${module_name} PRIVATE
+            ${LIBOLASERVER_INCLUDE_DIRS}
+        )
 
-if((MACOS) AND (NOT (packagesExist(libolalibolaserver))))
-    target_include_directories(${module_name} PRIVATE
-        /opt/local/include
-    )
+        target_link_directories(${module_name} PRIVATE
+            ${LIBOLASERVER_LIBRARY_DIRS}
+        )
 
-    target_link_libraries(${module_name} PRIVATE
-        # Remove: L/opt/local/lib
-        ola
-        olacommon
-        olaserver
-    )
+        target_link_libraries(${module_name} PRIVATE
+            ${LIBOLASERVER_LIBRARIES}
+        )
+    else()
+        target_include_directories(${module_name} PRIVATE
+            /opt/local/include
+        )
+
+        target_link_libraries(${module_name} PRIVATE
+            # Remove: L/opt/local/lib
+            ola
+            olacommon
+            olaserver
+        )
+    endif()
 endif()
 
 if(NOT MACOS)
