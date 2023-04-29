@@ -29,6 +29,7 @@ function pluginIconFromName(name)
         case "OSC": return "qrc:/oscplugin.svg";
         case "E1.31": return "qrc:/e131plugin.svg";
         case "Loopback": return "qrc:/loop.svg";
+        case "Enttec": return "qrc:/ENTTEC.svg";
         default: return "";
     }
 }
