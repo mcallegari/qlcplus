@@ -22,6 +22,23 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
+if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
+    pkg_check_modules(PORTAUDIO_2 IMPORTED_TARGET portaudio-2.0)
+    if (${PORTAUDIO_2_FOUND})
+        target_compile_definitions(${module_name} PUBLIC
+            HAS_PORTAUDIO
+        )
+
+        target_include_directories(${module_name} PUBLIC
+            ${PORTAUDIO_2_INCLUDE_DIRS}
+        )
+
+        target_link_libraries(${module_name} PUBLIC
+            ${PORTAUDIO_2_LIBRARIES}
+        )
+    endif()
+endif()
+
 add_library(${module_name}
     ../../plugins/interfaces/rdmprotocol.cpp ../../plugins/interfaces/rdmprotocol.h
     aboutbox.cpp aboutbox.h aboutbox.ui

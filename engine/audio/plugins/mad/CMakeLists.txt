@@ -1,6 +1,6 @@
 include(../../../../variables.cmake)
 
-pkg_check_modules(MAD IMPORTED_TARGET REQUIRED mad)
+# pkg_check_modules(MAD IMPORTED_TARGET REQUIRED mad)
 
 if(NOT MAD_INCLUDE_DIRS)
     find_path(MAD_INCLUDE_DIR mad.h PATH_SUFFIXES include)
