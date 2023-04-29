@@ -808,6 +808,9 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 univers
 
 void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
 {
+    if (isDisabled())
+        return;
+
     for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
     {
         if (source->id() != id)
@@ -842,6 +845,11 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
         }
         m_doc->inputOutputMap()->sendFeedBack(source->universe(), source->channel(), value, chName);
     }
+}
+
+void VCWidget::updateFeedback()
+{
+    /* NOP */
 }
 
 /*********************************************************************

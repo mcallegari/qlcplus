@@ -646,6 +646,21 @@ void VCCueList::stopChaser()
     emit playbackStatusChanged();
 }
 
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCCueList::updateFeedback()
+{
+    sendFeedback(m_sideFaderLevel, INPUT_SIDE_FADER_ID, VCWidget::ExactValue);
+
+    Chaser *ch = chaser();
+    if (ch == NULL)
+        return;
+
+    sendFeedback(ch->isRunning() ? UCHAR_MAX : 0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
+}
+
 void VCCueList::slotInputValueChanged(quint8 id, uchar value)
 {
     switch(id)
