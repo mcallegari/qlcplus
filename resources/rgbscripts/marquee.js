@@ -162,31 +162,28 @@ var testAlgo;
     // initialize feature
     util.featureColor = rgb;
     util.feature = new Array();
-    for (var y = 0; y <= height - 1; y++) {
+    var maxDistance = Math.min(width, height) / 2;
+    for (var y = 0; y < height; y++) {
       util.feature[y] = new Array();
-      for (var x = 0; x <= width - 1; x++) {
+      var y_distance = y;
+      if (y >= height / 2) {
+        y_distance = height - y - 1;
+      }
+
+      for (var x = 0; x < width; x++) {
         // write color
-        var x_distance = algo.edgeDepth + 1;
-        var y_distance = algo.edgeDepth + 1;
         var distance = algo.edgeDepth + 1;
-        if (x <= algo.edgeDepth) {
-          x_distance = x;
-        } else if (x >= width - algo.edgeDepth - 1) {
+        util.feature[y][x] = 0;
+
+        var x_distance = x;
+        if (x >= width / 2) {
           x_distance = width - x - 1;
         }
 
-        if (y <= algo.edgeDepth) {
-          y_distance = y;
-        } else if (y >= height - algo.edgeDepth - 1) {
-          y_distance = height - y - 1;
-        }
-
         distance = Math.min(x_distance, y_distance);
-        if (distance <= algo.edgeDepth) {
+        if (distance <= algo.edgeDepth && distance <= maxDistance) {
           var percent = ((algo.edgeDepth - distance) / algo.edgeDepth) * 100;
           util.feature[y][x] = util.fadeColor(util.featureColor, percent);
-        } else {
-          util.feature[y][x] = 0;
         }
       }
     }
