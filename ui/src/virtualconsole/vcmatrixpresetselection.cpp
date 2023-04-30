@@ -39,7 +39,7 @@ VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
     Q_ASSERT(doc != NULL);
 
     setupUi(this);
-    m_presetCombo->addItems(m_doc->rgbScriptsCache()->names());
+    m_presetCombo->addItems(RGBAlgorithm::algorithms(m_doc));
     slotUpdatePresetProperties();
     connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUpdatePresetProperties()));
