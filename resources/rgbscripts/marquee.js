@@ -77,7 +77,7 @@ var testAlgo;
   algo.properties = new Array();
   algo.edgeDepth = 2;
   algo.properties.push(
-    "name:depth|type:range|display:Depth|values:1,10|write:setDepth|read:getDepth"
+    "name:depth|type:range|display:Depth|values:1,10000|write:setDepth|read:getDepth"
   );
   algo.marquee = 0;
   algo.properties.push(
@@ -85,7 +85,7 @@ var testAlgo;
   );
   algo.marqueeCount = 3;
   algo.properties.push(
-    "name:marqueeCount|type:range|display:Marquee Spaces|values:1,10|write:setMarqueeCount|read:getMarqueeCount"
+    "name:marqueeCount|type:range|display:Marquee Spaces|values:1,100|write:setMarqueeCount|read:getMarqueeCount"
   );
   algo.marqueeColorIndex = 0;
   algo.properties.push(
