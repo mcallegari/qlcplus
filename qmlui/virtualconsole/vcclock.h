@@ -194,7 +194,6 @@ private:
     /*********************************************************************
      * Load & Save
      *********************************************************************/
-
 public:
     bool loadXML(QXmlStreamReader &root);
     bool saveXML(QXmlStreamWriter *doc);

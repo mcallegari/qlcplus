@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>ikr</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Zenit B200</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe functions">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Strobe close</Capability>
+  <Capability Min="11" Max="33" Preset="PulseSlowToFast">Pulse random slow -&gt; fast</Capability>
+  <Capability Min="34" Max="56" Preset="RampUpSlowToFast">Ramp up random slow -&gt; fast</Capability>
+  <Capability Min="57" Max="79" Preset="RampDownSlowToFast">Ramp down random slow -&gt; fast</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random strobe effect slow -&gt; fast</Capability>
+  <Capability Min="103" Max="127">Strobe break effect, 5s.....1s (short burst with break)</Capability>
+  <Capability Min="128" Max="250">Strobe break effect, 5s.....1s (short burst with break)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Color Macros (override RGBW)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Color off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#ffde35">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#874c62">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#ffffc0">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#dcf5ff">Cold White</Capability>
+  <Capability Min="126" Max="127">Color Jumping stop</Capability>
+  <Capability Min="128" Max="191">Color Jumping speed slow -&gt; fast / color 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Color Fading speed slow -&gt; fast / color 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="Color Temperature Correction (affects RGBW &amp; Color Macros)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Off</Capability>
+  <Capability Min="6" Max="255">Cold -&gt; warm</Capability>
+ </Channel>
+ <Channel Name="Set dimmer curve">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="63">Linear dimmer curve</Capability>
+  <Capability Min="64" Max="127">Exponential dimmer curve</Capability>
+  <Capability Min="128" Max="191">Exponential dimmer curve</Capability>
+  <Capability Min="192" Max="255">S-Curve dimmer curve</Capability>
+ </Channel>
+ <Channel Name="Device settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="77">No function</Capability>
+  <Capability Min="78" Max="79">Dimmer response LED (hold 1,5 s)</Capability>
+  <Capability Min="80" Max="81">Dimmer response halogen (hold 1,5s)</Capability>
+  <Capability Min="82" Max="101">No function</Capability>
+  <Capability Min="102" Max="103">Silent fan (hold 3s)</Capability>
+  <Capability Min="104" Max="105">Auto fan (hold 3s)</Capability>
+  <Capability Min="106" Max="123">No function</Capability>
+  <Capability Min="124" Max="125">PWM 1 (800 Hz) (hold 3s)</Capability>
+  <Capability Min="126" Max="127">PWM 2 (1200 Hz) (hold 3s)</Capability>
+  <Capability Min="128" Max="129">PWM 3 (2000 Hz) (hold 3s)</Capability>
+  <Capability Min="130" Max="131">PWM 4 (3600 Hz) (hold 3s)</Capability>
+  <Capability Min="132" Max="133">PWM 5 (12 kHz) (hold 3s)</Capability>
+  <Capability Min="134" Max="135">PWM 6 (25 kHz) (hold 3s)</Capability>
+  <Capability Min="136" Max="143">No function</Capability>
+  <Capability Min="144" Max="145">Display on (hold 3s)</Capability>
+  <Capability Min="146" Max="147">Display off (hold 3s)</Capability>
+  <Capability Min="148" Max="195">No function</Capability>
+  <Capability Min="196" Max="197">No runtime / full LED power (hold 3s)</Capability>
+  <Capability Min="198" Max="199">Set runtime 8h (hold 3S)</Capability>
+  <Capability Min="200" Max="201">Set runtime 12h (hold 3S)</Capability>
+  <Capability Min="202" Max="203">Set runtime 16h (hold 3S)</Capability>
+  <Capability Min="204" Max="205">Set runtime 20h (hold 3S)</Capability>
+  <Capability Min="206" Max="207">Raw mode (hold 3s)</Capability>
+  <Capability Min="208" Max="209">Factory calibrated mode (hold 3s)</Capability>
+  <Capability Min="210" Max="211">User calibrated mode (hold 3s)</Capability>
+  <Capability Min="212" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe functions</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue fine</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">White fine</Channel>
+  <Channel Number="11">Color Macros (override RGBW)</Channel>
+  <Channel Number="12">Color Temperature Correction (affects RGBW &amp; Color Macros)</Channel>
+  <Channel Number="13">Set dimmer curve</Channel>
+  <Channel Number="14">Device settings</Channel>
+ </Mode>
+ <Mode Name="10 Channel Full Access 8 Bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe functions</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Color Macros (override RGBW)</Channel>
+  <Channel Number="7">Color Temperature Correction (affects RGBW &amp; Color Macros)</Channel>
+  <Channel Number="8">Set dimmer curve</Channel>
+  <Channel Number="9">Device settings</Channel>
+ </Mode>
+ <Mode Name="8 Channel User-Calibrated 16 Bit">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+ </Mode>
+ <Mode Name="6 Channel Factory-Calibrated 16 Bit">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+ </Mode>
+ <Mode Name="4 Channel User-Calibrated 8 Bit">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="3 Channel Factory-Calibrated 8 Bit">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="3 Channel Color Macros">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe functions</Channel>
+  <Channel Number="2">Color Macros (override RGBW)</Channel>
+ </Mode>
+ <Mode Name="2 Channel CCT Factory-Calibrated">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Color Temperature Correction (affects RGBW &amp; Color Macros)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6600" ColourTemperature="0"/>
+  <Dimensions Weight="9.2" Width="377" Height="256" Depth="140"/>
+  <Lens Name="Other" DegreesMin="21" DegreesMax="100"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="180" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

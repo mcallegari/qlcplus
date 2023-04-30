@@ -520,6 +520,12 @@ public:
      */
     void sendFeedback(int value, quint8 id = 0, SourceValueType type = ExactValue);
 
+    /**
+     * Send the feedback data again, e.g. after page change
+     * Pure virtual method. Must be implemented in every subclass
+     */
+    virtual void updateFeedback();
+
     /*********************************************************************
      * Key sequences
      *********************************************************************/
