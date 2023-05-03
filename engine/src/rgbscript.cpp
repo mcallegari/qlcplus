@@ -215,7 +215,8 @@ void RGBScript::initEngine()
 
 void RGBScript::displayError(QScriptValue e, const QString& fileName)
 {
-    if (e.isError()) {
+    if (e.isError()) 
+    {
         QString msg("%1: Exception at line %2. Error: %3");
         qWarning() << msg.arg(fileName)
                          .arg(e.property("lineNumber").toInt32())
@@ -242,7 +243,9 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     {
         displayError(value, m_fileName);
         return -1;
-    } else {
+    } 
+    else 
+    {
         int ret = value.isNumber() ? value.toInteger() : -1;
         return ret;
     }
@@ -258,10 +261,9 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
     QScriptValueList args;
     args << size.width() << size.height() << rgb << step;
     QScriptValue yarray = m_rgbMap.call(QScriptValue(), args);
+
     if (yarray.isError())
-    {
         displayError(yarray, m_fileName);
-    }
 
     if (yarray.isArray())
     {
@@ -376,7 +378,9 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
                 displayError(value, m_fileName);
             }
             else if (value.isValid())
+            {
                 properties.insert(cap.m_name, value.toString());
+            }
         }
     }
     return properties;
@@ -403,7 +407,9 @@ bool RGBScript::setProperty(QString propertyName, QString value)
             {
                 displayError(written, m_fileName);
                 return false;
-            } else {
+            }
+            else
+            {
                 return true;
             }
         }
@@ -431,10 +437,15 @@ QString RGBScript::property(QString propertyName) const
             {
                 displayError(value, m_fileName);
                 return QString();
-            } else if (value.isValid())
+            }
+            else if (value.isValid())
+            {
                 return value.toString();
+            }
             else
+            {
                 return QString();
+            }
         }
     }
     return QString();
