@@ -77,7 +77,7 @@ var testAlgo;
   algo.properties = new Array();
   algo.edgeDepth = 2;
   algo.properties.push(
-    "name:depth|type:range|display:Depth|values:1,10|write:setDepth|read:getDepth"
+    "name:depth|type:range|display:Depth|values:1,10000|write:setDepth|read:getDepth"
   );
   algo.marquee = 0;
   algo.properties.push(
@@ -85,7 +85,7 @@ var testAlgo;
   );
   algo.marqueeCount = 3;
   algo.properties.push(
-    "name:marqueeCount|type:range|display:Marquee Spaces|values:1,10|write:setMarqueeCount|read:getMarqueeCount"
+    "name:marqueeCount|type:range|display:Marquee Spaces|values:1,100|write:setMarqueeCount|read:getMarqueeCount"
   );
   algo.marqueeColorIndex = 0;
   algo.properties.push(
@@ -100,13 +100,14 @@ var testAlgo;
   util.initialized = false;
   util.width = 0;
   util.height = 0;
+  util.featureColor = 0;
   util.step = algo.marqueeCount;
 
   util.lights = new Array();
   util.feature = new Array();
 
   algo.setDepth = function (_amount) {
-    algo.edgeDepth = _amount;
+    algo.edgeDepth = parseInt(_amount, 10);
     util.initialized = false;
   };
 
@@ -140,7 +141,7 @@ var testAlgo;
   };
 
   algo.setMarqueeCount = function (_amount) {
-    algo.marqueeCount = _amount;
+    algo.marqueeCount = parseInt(_amount, 10);
     util.initialized = false;
   };
 
@@ -159,44 +160,47 @@ var testAlgo;
 
   util.initialize = function (width, height, rgb) {
     // initialize feature
+    util.featureColor = rgb;
     util.feature = new Array();
-    for (var y = 0; y <= height - 1; y++) {
+    var maxDistance = Math.min(width, height) / 2;
+    for (var y = 0; y < height; y++) {
       util.feature[y] = new Array();
-      for (var x = 0; x <= width - 1; x++) {
+      var y_distance = y;
+      if (y >= height / 2) {
+        y_distance = height - y - 1;
+      }
+
+      for (var x = 0; x < width; x++) {
         // write color
-        var x_distance = algo.edgeDepth + 1;
-        var y_distance = algo.edgeDepth + 1;
         var distance = algo.edgeDepth + 1;
-        if (x <= algo.edgeDepth) {
-          x_distance = x;
-        } else if (x >= width - algo.edgeDepth - 1) {
+        util.feature[y][x] = 0;
+
+        var x_distance = x;
+        if (x >= width / 2) {
           x_distance = width - x - 1;
         }
 
-        if (y <= algo.edgeDepth) {
-          y_distance = y;
-        } else if (y >= height - algo.edgeDepth - 1) {
-          y_distance = height - y - 1;
-        }
-
         distance = Math.min(x_distance, y_distance);
-        if (distance <= algo.edgeDepth) {
+        if (distance <= algo.edgeDepth && distance <= maxDistance) {
           var percent = ((algo.edgeDepth - distance) / algo.edgeDepth) * 100;
-          util.feature[y][x] = util.fadeColor(rgb, percent);
-        } else {
-          util.feature[y][x] = 0;
+          util.feature[y][x] = util.fadeColor(util.featureColor, percent);
         }
       }
     }
-    // initialize lights array
-    var length = height * 2 + width * 2;
-    util.lights = new Array(length + algo.marqueeCount + 1);
-    var count = algo.marqueeCount;
-    count++;
-    for (var i = length + count + 1; i >= 0; i--) {
-      util.lights[i] = 0;
-      if (i % count === 1) {
-        util.lights[i] = 1;
+
+    // initialize lights array: 2 heights, 2 widths, 4 duplicate corner pixels
+    // only if the dimensions have changes (not on color change)
+    if (util.width != width || util.height != height || util.initialized !== true) {
+      var length = height * 2 + width * 2 - 4;
+      util.lights = new Array(length);
+      var pointAmount = Math.floor(util.lights.length / (algo.marqueeCount + 1));
+      var mediumDistance = length / pointAmount;
+      for (var i = 0; i < util.lights.length; i++) {
+        if (i % mediumDistance < 1) {
+          util.lights[i] = 1;
+        } else {
+          util.lights[i] = 0;
+        }
       }
     }
     // for testing for change
@@ -216,29 +220,7 @@ var testAlgo;
     return newRGB;
   };
 
-  util.mergeRgb = function (rgb1, rgb2) {
-    if (rgb1 === 0) {
-      return rgb2;
-    } else if (rgb2 === 0) {
-      return rgb1;
-    }
-    // split rgb into components
-    var r1 = (rgb1 >> 16) & 0x00ff;
-    var g1 = (rgb1 >> 8) & 0x00ff;
-    var b1 = rgb1 & 0x00ff;
-
-    var r2 = (rgb2 >> 16) & 0x00ff;
-    var g2 = (rgb2 >> 8) & 0x00ff;
-    var b2 = rgb2 & 0x00ff;
-
-    var r = Math.max(r1, r2);
-    var g = Math.max(g1, g2);
-    var b = Math.max(b1, b2);
-
-    return (r << 16) + (g << 8) + b;
-  };
-
-  util.getNextStep = function (width, height, step) {
+  util.getNextStep = function (width, height) {
     var map = new Array(height);
     for (var y = 0; y <= height - 1; y++) {
       map[y] = new Array(width);
@@ -269,7 +251,7 @@ var testAlgo;
       p += 1;
     }
     // bottom
-    for (var x = 0; x < width; x++) {
+    for (var x = 1; x < width; x++) {
       var y = height - 1;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
@@ -277,7 +259,7 @@ var testAlgo;
       p += 1;
     }
     // right
-    for (var y = height - 1; y >= 0; y--) {
+    for (var y = height - 2; y >= 0; y--) {
       var x = width - 1;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
@@ -285,17 +267,12 @@ var testAlgo;
       p += 1;
     }
     // top
-    for (var x = width - 1; x >= 0; x--) {
+    for (var x = width - 2; x >= 0; x--) {
       var y = 0;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
-    }
-    for (var y = 0; y <= height - 1; y++) {
-      for (var x = 0; x <= width - 1; x++) {
-        map[y][x] = util.mergeRgb(map[y][x], util.feature[y][x]);
-      }
     }
     return map;
   };
@@ -303,12 +280,14 @@ var testAlgo;
   algo.rgbMap = function (width, height, rgb, step) {
     if (
       util.initialized === false ||
+      util.featureColor != rgb ||
       util.width !== width ||
       util.height !== height
     ) {
       util.initialize(width, height, rgb);
     }
-    var map = util.getNextStep(width, height, step);
+
+    var map = util.getNextStep(width, height);
     return map;
   };
 
