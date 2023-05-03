@@ -224,7 +224,9 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     {
         displayError(value, m_fileName);
         return -1;
-    } else {
+    } 
+    else 
+    {
         int ret = value.isNumber() ? value.toInt() : -1;
         return ret;
     }
@@ -241,9 +243,7 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
     args << size.width() << size.height() << rgb << step;
     QJSValue yarray(m_rgbMap.call(args));
     if (yarray.isError())
-    {
         displayError(yarray, m_fileName);
-    }
 
     if (yarray.isArray())
     {
@@ -354,9 +354,7 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
             QJSValueList args;
             QJSValue value = readMethod.call(args);
             if (value.isError())
-            {
                 displayError(value, m_fileName);
-            }
             else if (!value.isUndefined())
                 properties.insert(cap.m_name, value.toString());
         }
@@ -385,7 +383,9 @@ bool RGBScript::setProperty(QString propertyName, QString value)
             {
                 displayError(written, m_fileName);
                 return false;
-            } else {
+            } 
+            else 
+            {
                 return true;
             }
         }
@@ -413,10 +413,15 @@ QString RGBScript::property(QString propertyName) const
             {
                 displayError(value, m_fileName);
                 return QString();
-            } else if (!value.isUndefined())
+            } 
+            else if (!value.isUndefined())
+            {
                 return value.toString();
+            }
             else
+            {
                 return QString();
+            }
         }
     }
     return QString();
