@@ -126,7 +126,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
     m_presetCombo = new QComboBox(this);
     //m_presetCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    m_presetCombo->addItems(doc->rgbScriptsCache()->names());
+    m_presetCombo->addItems(RGBAlgorithm::algorithms(m_doc));
     connect(m_presetCombo, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(slotAnimationChanged(QString)));
     vbox->addWidget(m_presetCombo);

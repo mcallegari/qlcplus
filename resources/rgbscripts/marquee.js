@@ -29,7 +29,7 @@ var testAlgo;
   algo.properties = new Array();
   algo.edgeDepth = 2;
   algo.properties.push(
-    "name:depth|type:range|display:Depth|values:1,10|write:setDepth|read:getDepth"
+    "name:depth|type:range|display:Depth|values:1,10000|write:setDepth|read:getDepth"
   );
   algo.marquee = 0;
   algo.properties.push(
@@ -37,7 +37,7 @@ var testAlgo;
   );
   algo.marqueeCount = 3;
   algo.properties.push(
-    "name:marqueeCount|type:range|display:Marquee Spaces|values:1,10|write:setMarqueeCount|read:getMarqueeCount"
+    "name:marqueeCount|type:range|display:Marquee Spaces|values:1,100|write:setMarqueeCount|read:getMarqueeCount"
   );
 
   var util = new Object();
@@ -97,27 +97,26 @@ var testAlgo;
     // initialize feature
     util.featureColor = algo.getRawColor(rawColors, 0);
     util.feature = new Array();
-    for (var y = 0; y <= height - 1; y++) {
+    var maxDistance = Math.min(width, height) / 2;
+    for (var y = 0; y < height; y++) {
       util.feature[y] = new Array();
-      for (var x = 0; x <= width - 1; x++) {
+      var y_distance = y;
+      if (y >= height / 2) {
+        y_distance = height - y - 1;
+      }
+
+      for (var x = 0; x < width; x++) {
         // write color
-        var x_distance = algo.edgeDepth + 1;
-        var y_distance = algo.edgeDepth + 1;
         var distance = algo.edgeDepth + 1;
-        if (x <= algo.edgeDepth) {
-          x_distance = x;
-        } else if (x >= width - algo.edgeDepth - 1) {
+        util.feature[y][x] = 0;
+
+        var x_distance = x;
+        if (x >= width / 2) {
           x_distance = width - x - 1;
         }
 
-        if (y <= algo.edgeDepth) {
-          y_distance = y;
-        } else if (y >= height - algo.edgeDepth - 1) {
-          y_distance = height - y - 1;
-        }
-
         distance = Math.min(x_distance, y_distance);
-        if (distance <= algo.edgeDepth) {
+        if (distance <= algo.edgeDepth && distance <= maxDistance) {
           var percent = ((algo.edgeDepth - distance) / algo.edgeDepth) * 100;
           util.feature[y][x] = util.fadeColor(util.featureColor, percent);
         } else {
@@ -130,10 +129,11 @@ var testAlgo;
     // only if the dimensions have changes (not on color change)
     if (util.width != width || util.height != height || util.initialized !== true) {
       var length = height * 2 + width * 2 - 4;
-      var count = length + algo.marqueeCount + 1;
-      util.lights = new Array(count);
-      for (var i = 0; i < count; i++) {
-        if (i % (parseInt(algo.marqueeCount, 10) + 1) === 0) {
+      util.lights = new Array(length);
+      var pointAmount = Math.floor(util.lights.length / (algo.marqueeCount + 1));
+      var mediumDistance = length / pointAmount;
+      for (var i = 0; i < util.lights.length; i++) {
+        if (i % mediumDistance < 1) {
           util.lights[i] = 1;
         } else {
           util.lights[i] = 0;

@@ -419,16 +419,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
         m_levelValueChanged = true;
 
     if (updateFeedback)
-    {
-        int fbv = 0;
-        if (invertedAppearance() == true)
-            fbv = rangeHighLimit() - m_value;
-        else
-            fbv = m_value;
-        fbv = (int)SCALE(float(fbv), float(rangeLowLimit()),
-                         float(rangeHighLimit()), float(0), float(UCHAR_MAX));
-        sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
-    }
+        this->updateFeedback();
 }
 
 void VCSlider::setRangeLowLimit(qreal value)
@@ -1230,6 +1221,15 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
 /*********************************************************************
  * External input
  *********************************************************************/
+
+void VCSlider::updateFeedback()
+{
+    int fbv = invertedAppearance() ? rangeHighLimit() - m_value : m_value;
+    fbv = int(SCALE(float(fbv), float(rangeLowLimit()),
+                    float(rangeHighLimit()), float(0), float(UCHAR_MAX)));
+
+    sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
+}
 
 void VCSlider::slotInputValueChanged(quint8 id, uchar value)
 {

@@ -299,13 +299,7 @@ void VCButton::setState(ButtonState state)
 
     emit stateChanged(m_state);
 
-    if (m_state == Monitoring)
-        return;
-
-    if (m_state == Inactive)
-        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
-    else
-        sendFeedback(255, INPUT_PRESSURE_ID, VCWidget::UpperValue);
+    updateFeedback();
 }
 
 void VCButton::requestStateChange(bool pressed)
@@ -477,6 +471,17 @@ void VCButton::setStartupIntensity(qreal fraction)
 /*********************************************************************
  * External input
  *********************************************************************/
+
+void VCButton::updateFeedback()
+{
+    if (m_state == Monitoring)
+        return;
+
+    if (m_state == Inactive)
+        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
+    else
+        sendFeedback(UCHAR_MAX, INPUT_PRESSURE_ID, VCWidget::UpperValue);
+}
 
 void VCButton::slotInputValueChanged(quint8 id, uchar value)
 {

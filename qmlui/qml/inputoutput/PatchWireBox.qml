@@ -73,24 +73,25 @@ Canvas
 
                 yPos += yDelta
             }
-        }
-        if (showFeedback)
-        {
-            yPos = vCenter + (UISettings.bigItemHeight * 0.4) - (UISettings.iconSizeMedium * 0.4)
-            context.strokeStyle = "#00FF00"
-            context.fillStyle = "#00FF00"
 
-            context.ellipse(0, yPos - halfNode, nodeSize, nodeSize)
-            context.fill()
+            if (showFeedback)
+            {
+                yPos = vCenter + (UISettings.bigItemHeight * 0.4) - (UISettings.iconSizeMedium * 0.4)
+                context.strokeStyle = "green"
+                context.fillStyle = "green"
 
-            context.beginPath()
-            context.moveTo(context.lineWidth, yPos)
-            context.lineTo(targetX, yPos)
-            context.stroke()
+                context.ellipse(0, yPos - halfNode, nodeSize, nodeSize)
+                context.fill()
 
-            context.beginPath()
-            context.ellipse(targetX, yPos - halfNode, nodeSize, nodeSize)
-            context.fill()
+                context.beginPath()
+                context.moveTo(context.lineWidth, yPos)
+                context.lineTo(targetX, yPos)
+                context.stroke()
+
+                context.beginPath()
+                context.ellipse(targetX, yPos - halfNode, nodeSize, nodeSize)
+                context.fill()
+            }
         }
     }
 }
