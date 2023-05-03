@@ -197,7 +197,8 @@ void RGBScript::initEngine()
 
 void RGBScript::displayError(QJSValue e, const QString& fileName)
 {
-    if (e.isError()) {
+    if (e.isError())
+    {
         QString msg("%1: Exception at line %2. Error: %3");
         qWarning() << msg.arg(fileName)
                          .arg(e.property("lineNumber").toInt())
