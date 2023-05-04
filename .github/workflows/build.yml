@@ -33,6 +33,7 @@ jobs:
         libxml2-utils
         xvfb
         ccache
+        indent
         wget
       PACKAGES_QML_BASE:
         libpulse-dev

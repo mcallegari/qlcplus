@@ -53,14 +53,13 @@ fi
 #############################################################################
 
 find engine/ -name '*.cpp' -or -name '*.h' | while read FILE; do
-  indent -st -npro -gnu "$FILE" | diff -u "$FILE" -
+  INDENT_PROFILE="$THISDIR/.indent.pro" indent -st "$FILE" | diff -u "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
     echo >&2 "$FILE: Error in formatting."
     exit $RET
   fi
 done || exit $?
-exit 0
 
 #############################################################################
 # Fixture definitions check with xmllint
