@@ -46,6 +46,8 @@
 
 #define KColumnName 0
 
+#define SETTINGS_GEOMETRY "functionselect/geometry"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -124,10 +126,11 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FILTER);
     if (var.isValid() == true)
-    {
         setFilter(var.toInt(), false);
-    }
-}
+
+    var = settings.value(SETTINGS_GEOMETRY);
+    if (var.isValid() == true)
+        restoreGeometry(var.toByteArray());}
 
 int FunctionSelection::exec()
 {
@@ -205,11 +208,14 @@ void FunctionSelection::showNewTrack(bool show)
 
 FunctionSelection::~FunctionSelection()
 {
-    if(!m_constFilter)
+    if (!m_constFilter)
     {
         QSettings settings;
         settings.setValue(SETTINGS_FILTER, m_filter);
     }
+
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************
