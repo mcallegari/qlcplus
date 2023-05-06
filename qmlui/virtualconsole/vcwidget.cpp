@@ -650,7 +650,36 @@ void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
 
     m_inputSources.append(source);
 
-    // TODO: hook synthetic emitting sources here
+    // now check if the source is defined in the associated universe
+    // profile and if it has specific settings
+    InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+    if (ip != nullptr && ip->profile() != nullptr)
+    {
+        // Do not care about the page since input profiles don't do either
+        QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0xFFFF);
+        if (ich != nullptr)
+        {
+            if (ich->movementType() == QLCInputChannel::Relative)
+            {
+                source->setWorkingMode(QLCInputSource::Relative);
+                source->setSensitivity(ich->movementSensitivity());
+            }
+            else if (ich->type() == QLCInputChannel::Encoder)
+            {
+                source->setWorkingMode(QLCInputSource::Encoder);
+                source->setSensitivity(ich->movementSensitivity());
+            }
+            else if (ich->type() == QLCInputChannel::Button)
+            {
+                if (ich->sendExtraPress() == true)
+                    source->setSendExtraPressRelease(true);
+
+                // user custom feedbacks have precedence over input profile custom feedbacks
+                source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
+                                 (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
+            }
+        }
+    }
 
     emit inputSourcesListChanged();
 }
@@ -844,6 +873,7 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
             }
         }
         m_doc->inputOutputMap()->sendFeedBack(source->universe(), source->channel(), value, chName);
+        return;
     }
 }
 
