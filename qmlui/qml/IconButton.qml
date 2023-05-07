@@ -36,9 +36,10 @@ Button
     rightPadding: 0
 
     property int counter: 1
-    property color hoverColor: UISettings.hover
-    property color pressColor: UISettings.highlightPressed
-    property color checkedColor: UISettings.highlight
+    property color bgColor: UISettings.bgIconButton
+    property color hoverColor: UISettings.bgIconButtonHover
+    property color pressColor: UISettings.bgIconButtonHighlightPressed
+    property color checkedColor: UISettings.bgIconButtonHighlight
 
     property alias border: contentBody.border
     property alias radius: contentBody.radius

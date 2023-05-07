@@ -35,9 +35,15 @@ QtObject
     property color bgLight:    "#6F6F6F"
     property color bgLighter:  "#8F8F8F"
 
+    /* Icon Buttons */
+    property color bgIconButton:                  "#8F8F8F"
+    property color bgIconButtonHover:             "white"
+    property color bgIconButtonHighlight:         "white"
+    property color bgIconButtonHighlightPressed:  "white"
+
     property color fgMain:     "white"
     property color fgMedium:   "#888"
-    property color fgLight:    "#aaa"
+    property color fgLight:    "#aaa" 
 
     property color sectionHeader:    "#31456B"
     property color sectionHeaderDiv: "#22304a"
