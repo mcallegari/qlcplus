@@ -87,6 +87,12 @@ void UiManager::initialize()
     setDefaultParameter("colors", "toolbarSelectionMain", m_uiStyle->property("toolbarSelectionMain"));
     setDefaultParameter("colors", "toolbarSelectionSub", m_uiStyle->property("toolbarSelectionSub"));
 
+    /** Icon Buttons **/
+    setDefaultParameter("colors", "bgIconButton", m_uiStyle->property("bgIconButton"));
+    setDefaultParameter("colors", "bgIconButtonHover", m_uiStyle->property("bgIconButtonHover"));
+    setDefaultParameter("colors", "bgIconButtonHighlight", m_uiStyle->property("bgIconButtonHighlight"));
+    setDefaultParameter("colors", "bgIconButtonHighlightPressed", m_uiStyle->property("bgIconButtonHighlightPressed"));
+    
     /** Then load (if available) the user configuration */
     QFile jsonFile(userConfFilepath());
     if (jsonFile.exists())
