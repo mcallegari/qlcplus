@@ -6,6 +6,7 @@ SLEEPCMD=""
 RUN_UI_TESTS="0"
 THISCMD=`basename "$0"`
 THISDIR=`dirname "$0"`
+DIFFARG="-u"
 
 cd "$THISDIR"
 
@@ -53,7 +54,7 @@ fi
 #############################################################################
 
 find engine/ -name '*.cpp' -or -name '*.h' | while read FILE; do
-  INDENT_PROFILE="$THISDIR/.indent.pro" indent -st "$FILE" | diff -u "$FILE" -
+  clang-format -style=file engine/src/rgbscript.cpp "$FILE" | diff $DIFFARG "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
     echo >&2 "$FILE: Error in formatting."
