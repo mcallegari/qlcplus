@@ -20,71 +20,69 @@
 // Development tool access
 var testAlgo;
 
-(
-  function()
-  {
-    var algo = new Object;
-    algo.apiVersion = 2;
-    algo.name = "Stripes From Center";
-    algo.author = "Massimo Callegari";
+(function() {
+var algo = new Object;
+algo.apiVersion = 2;
+algo.name = "Stripes From Center";
+algo.author = "Massimo Callegari";
 
+algo.orientation = 0;
+algo.properties = new Array();
+algo.properties.push(
+"name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation");
+
+algo.setOrientation = function(_orientation) {
+  if (_orientation === "Vertical") {
+    algo.orientation = 1;
+  } else {
     algo.orientation = 0;
-    algo.properties = new Array();
-    algo.properties.push("name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation");
+  }
+};
 
-    algo.setOrientation = function(_orientation)
-    {
-        if (_orientation === "Vertical") { algo.orientation = 1; }
-        else { algo.orientation = 0; }
-    };
+algo.getOrientation = function() {
+  if (algo.orientation === 1) {
+    return "Vertical";
+  } else {
+    return "Horizontal";
+  }
+};
 
-    algo.getOrientation = function()
-    {
-        if (algo.orientation === 1) { return "Vertical"; }
-        else { return "Horizontal"; }
-    };
+algo.rgbMap = function(width, height, rgb, step) {
+  var center = algo.rgbMapStepCount(width, height) - 1;
+  var isEven = 0;
+  if (algo.orientation === 1) {
+    isEven = (height % 2 === 0);
+  } else {
+    isEven = (width % 2 === 0);
+  }
 
-    algo.rgbMap = function(width, height, rgb, step)
-    {
-        var center = algo.rgbMapStepCount(width, height) - 1;
-        var isEven = 0;
-        if (algo.orientation === 1) {
-            isEven = (height % 2 === 0);
-        } else {
-            isEven = (width % 2 === 0);
-        }
+  var map = new Array(height);
+  for (var y = 0; y < height; y++) {
+    map[y] = new Array();
+    for (var x = 0; x < width; x++) {
+      var cmpAxis = (algo.orientation ? y : x);
 
-        var map = new Array(height);
-        for (var y = 0; y < height; y++)
-        {
-            map[y] = new Array();
-            for (var x = 0; x < width; x++)
-            {
-                var cmpAxis = (algo.orientation ? y : x);
-
-                if (cmpAxis === center + step + (isEven ? 1 : 0 ) || cmpAxis === center - step) {
-                    map[y][x] = rgb;
-                } else {
-                    map[y][x] = 0;
-                }
-            }
-        }
-
-        return map;
-    };
-
-    algo.rgbMapStepCount = function(width, height)
-    {
-        if (algo.orientation === 0) {
-            return Math.floor((parseInt(width) + 1) / 2);
-        } else {
-            return Math.floor((parseInt(height) + 1) / 2);
-        }
-    };
-
-    // Development tool access
-    testAlgo = algo;
-
-    return algo;
+      if (cmpAxis === center + step + (isEven ? 1 : 0) || cmpAxis === center - step) {
+        map[y][x] = rgb;
+      } else {
+        map[y][x] = 0;
+      }
     }
-)();
+  }
+
+  return map;
+};
+
+algo.rgbMapStepCount = function(width, height) {
+  if (algo.orientation === 0) {
+    return Math.floor((parseInt(width) + 1) / 2);
+  } else {
+    return Math.floor((parseInt(height) + 1) / 2);
+  }
+};
+
+// Development tool access
+testAlgo = algo;
+
+return algo;
+})();
