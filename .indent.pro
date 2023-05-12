@@ -35,4 +35,3 @@
 --space-special-semicolon
 --tab-size4
 --indent-label1
---verbose
