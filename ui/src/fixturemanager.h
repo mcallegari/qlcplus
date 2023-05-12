@@ -146,7 +146,7 @@ private slots:
     /** Callback for fixture tree item expand/collapse */
     void slotFixtureItemExpanded();
 
-    void slotDisplayFixtureInfo(QString &info);
+    void slotDisplayFixtureInfo(QString& info);
 
 private:
     /** Select a fixture group */
@@ -188,7 +188,7 @@ private:
     void editChannelGroupProperties();
 
     /** Count the number of heads in the list of fixture items */
-    int headCount(const QList <QTreeWidgetItem*>& items) const;
+    int headCount(const QList<QTreeWidgetItem*>& items) const;
 
     QString createDialog(bool import);
 

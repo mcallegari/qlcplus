@@ -73,8 +73,7 @@ public:
      * @param model The fixture definition's model
      * @return A matching fixture definition or NULL if not found
      */
-    QLCFixtureDef* fixtureDef(const QString& manufacturer,
-                              const QString& model) const;
+    QLCFixtureDef* fixtureDef(const QString& manufacturer, const QString& model) const;
 
     /**
      * Get a list of available manufacturer names.
@@ -87,9 +86,9 @@ public:
     QStringList models(const QString& manufacturer) const;
 
     /** Get a complete map of the available fixtures as:
-      * manufacturer, <model, isUser>
-      */
-    QMap<QString, QMap<QString, bool> > fixtureCache() const;
+     * manufacturer, <model, isUser>
+     */
+    QMap<QString, QMap<QString, bool>> fixtureCache() const;
 
     /**
      * Add a fixture definition to the model map.
@@ -127,7 +126,7 @@ public:
      * @param manufacturer used to elapse the fixture file name relative path
      * @return the number of fixtures found
      */
-    int loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer);
+    int loadMapManufacturer(QXmlStreamReader* doc, QString manufacturer);
 
     /**
      * Load a map of hardcoded fixture definitions that represent
@@ -170,7 +169,7 @@ public:
 
 private:
     QString m_mapAbsolutePath;
-    QList <QLCFixtureDef*> m_defs;
+    QList<QLCFixtureDef*> m_defs;
 };
 
 /** @} */

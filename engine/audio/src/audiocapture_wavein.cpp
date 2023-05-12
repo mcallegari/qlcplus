@@ -26,11 +26,10 @@
 static HWAVEIN deviceHandle = NULL;
 static WAVEHDR waveHeaders[HEADERS_NUMBER];
 
-AudioCaptureWaveIn::AudioCaptureWaveIn(QObject * parent)
+AudioCaptureWaveIn::AudioCaptureWaveIn(QObject* parent)
     : AudioCapture(parent)
     , m_currentBufferIndex(0)
 {
-
 }
 
 AudioCaptureWaveIn::~AudioCaptureWaveIn()
@@ -47,13 +46,11 @@ bool AudioCaptureWaveIn::initialize()
     format.wBitsPerSample = 16;
     format.nChannels = m_channels;
     format.nSamplesPerSec = m_sampleRate;
-    format.nAvgBytesPerSec = format.nSamplesPerSec *
-                             format.nChannels *
-                             (format.wBitsPerSample / 8);
-    format.nBlockAlign = format.nChannels*format.wBitsPerSample/8;
-    format.cbSize=0;
+    format.nAvgBytesPerSec = format.nSamplesPerSec * format.nChannels * (format.wBitsPerSample / 8);
+    format.nBlockAlign = format.nChannels * format.wBitsPerSample / 8;
+    format.cbSize = 0;
 
-    result = waveInOpen(&deviceHandle, WAVE_MAPPER, &format, 0L, 0L, CALLBACK_NULL|WAVE_FORMAT_DIRECT);
+    result = waveInOpen(&deviceHandle, WAVE_MAPPER, &format, 0L, 0L, CALLBACK_NULL | WAVE_FORMAT_DIRECT);
     switch (result)
     {
     case MMSYSERR_ALLOCATED:
@@ -133,13 +130,9 @@ qint64 AudioCaptureWaveIn::latency()
     return 0; // TODO
 }
 
-void AudioCaptureWaveIn::suspend()
-{
-}
+void AudioCaptureWaveIn::suspend() {}
 
-void AudioCaptureWaveIn::resume()
-{
-}
+void AudioCaptureWaveIn::resume() {}
 
 bool AudioCaptureWaveIn::readAudio(int maxSize)
 {
@@ -154,7 +147,7 @@ bool AudioCaptureWaveIn::readAudio(int maxSize)
         return false;
     }
 
-    while ( (waveHeaders[m_currentBufferIndex].dwFlags & WHDR_DONE) == 0)
+    while ((waveHeaders[m_currentBufferIndex].dwFlags & WHDR_DONE) == 0)
         usleep(100);
 
     memcpy(m_audioBuffer, m_internalBuffers[m_currentBufferIndex], maxSize * 2);

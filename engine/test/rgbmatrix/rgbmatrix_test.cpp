@@ -132,7 +132,7 @@ void RGBMatrix_Test::copy()
     mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx.algorithm() != NULL);
 
-    RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
+    RGBMatrix* copyMtx = qobject_cast<RGBMatrix*>(mtx.createCopy(m_doc));
     QVERIFY(copyMtx != NULL);
     QCOMPARE(copyMtx->startColor(), QColor(Qt::magenta));
     QCOMPARE(copyMtx->endColor(), QColor(Qt::yellow));
@@ -355,7 +355,6 @@ void RGBMatrix_Test::loadSave()
     xmlReader.setDevice(&buffer);
     xmlReader.readNextStartElement();
     QVERIFY(mtx2.loadXML(xmlReader) == false); // Not an RGBMatrix node
-
 }
 
 QTEST_MAIN(RGBMatrix_Test)

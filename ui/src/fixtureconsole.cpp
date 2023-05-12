@@ -33,7 +33,7 @@
  * Initialization
  *****************************************************************************/
 
-FixtureConsole::FixtureConsole(QWidget *parent, Doc *doc, GroupType type, bool showCheck)
+FixtureConsole::FixtureConsole(QWidget* parent, Doc* doc, GroupType type, bool showCheck)
     : QGroupBox(parent)
     , m_doc(doc)
     , m_groupType(type)
@@ -46,47 +46,51 @@ FixtureConsole::FixtureConsole(QWidget *parent, Doc *doc, GroupType type, bool s
     layout()->setSpacing(0);
     layout()->setContentsMargins(0, 1, 0, 1);
 
-    int topMargin = m_showCheckBoxes?16:1;
+    int topMargin = m_showCheckBoxes ? 16 : 1;
 
-    QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
-                     "QGroupBox::indicator { width: 18px; height: 18px; } "
-                     "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-                     "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+    QString common =
+        "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
+        "QGroupBox::indicator { width: 18px; height: 18px; } "
+        "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
+        "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
 
     if (m_groupType == GroupEven)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
+        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
+                               "#C3D1C9, stop: 1 #AFBBB4); "
+                               "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                               (m_showCheckBoxes ? common : ""))
+                           .arg(topMargin);
     else if (m_groupType == GroupOdd)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
+        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
+                               "#D6D5E0, stop: 1 #A7A6AF); "
+                               "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                               (m_showCheckBoxes ? common : ""))
+                           .arg(topMargin);
     else
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
+        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
+                               "#D6D2D0, stop: 1 #AFACAB); "
+                               "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                               (m_showCheckBoxes ? common : ""))
+                           .arg(topMargin);
 }
 
-FixtureConsole::~FixtureConsole()
-{
-}
+FixtureConsole::~FixtureConsole() {}
 
 void FixtureConsole::enableResetButton(bool enable)
 {
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
         Q_ASSERT(cc != NULL);
         cc->showResetButton(enable);
-        connect(cc, SIGNAL(resetRequest(quint32,quint32)),
-                this, SIGNAL(resetRequest(quint32,quint32)));
+        connect(cc, SIGNAL(resetRequest(quint32, quint32)), this, SIGNAL(resetRequest(quint32, quint32)));
     }
 }
 
-void FixtureConsole::showEvent(QShowEvent *)
+void FixtureConsole::showEvent(QShowEvent*)
 {
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
@@ -106,7 +110,7 @@ void FixtureConsole::setFixture(quint32 id)
         delete m_channels.takeFirst();
 
     /* Get the new fixture */
-    Fixture *fxi = m_doc->fixture(id);
+    Fixture* fxi = m_doc->fixture(id);
     Q_ASSERT(fxi != NULL);
     if (m_groupType != GroupNone)
         setTitle(fxi->name());
@@ -114,7 +118,7 @@ void FixtureConsole::setFixture(quint32 id)
     /* Create channel units */
     for (uint i = 0; i < fxi->channels(); i++)
     {
-        const QLCChannel *ch = fxi->channel(i);
+        const QLCChannel* ch = fxi->channel(i);
         Q_ASSERT(ch != NULL);
         if (ch->group() == QLCChannel::NoGroup)
             continue;
@@ -125,10 +129,8 @@ void FixtureConsole::setFixture(quint32 id)
 
         m_layout->addWidget(cc);
         m_channels.append(cc);
-        connect(cc, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32,quint32,uchar)));
-        connect(cc, SIGNAL(checked(quint32,quint32,bool)),
-                this, SIGNAL(checked(quint32,quint32,bool)));
+        connect(cc, SIGNAL(valueChanged(quint32, quint32, uchar)), this, SIGNAL(valueChanged(quint32, quint32, uchar)));
+        connect(cc, SIGNAL(checked(quint32, quint32, bool)), this, SIGNAL(checked(quint32, quint32, bool)));
     }
 
     /* Make a spacer item eat excess space to justify channels left */
@@ -147,18 +149,17 @@ quint32 FixtureConsole::fixture() const
 void FixtureConsole::slotAliasChanged()
 {
     quint32 i = 0;
-    Fixture *fxi = m_doc->fixture(m_fixture);
+    Fixture* fxi = m_doc->fixture(m_fixture);
 
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
         if (cc->channel() != fxi->channel(i))
         {
-            disconnect(cc, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                       this, SIGNAL(valueChanged(quint32,quint32,uchar)));
-            disconnect(cc, SIGNAL(checked(quint32,quint32,bool)),
-                       this, SIGNAL(checked(quint32,quint32,bool)));
+            disconnect(cc, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                       SIGNAL(valueChanged(quint32, quint32, uchar)));
+            disconnect(cc, SIGNAL(checked(quint32, quint32, bool)), this, SIGNAL(checked(quint32, quint32, bool)));
 
             ConsoleChannel* newCC = new ConsoleChannel(this, m_doc, fxi->id(), i, m_showCheckBoxes);
             newCC->setVisible(false);
@@ -168,12 +169,11 @@ void FixtureConsole::slotAliasChanged()
             newCC->setValue(cc->value());
             newCC->setVisible(true);
 
-            connect(newCC, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                    this, SIGNAL(valueChanged(quint32,quint32,uchar)));
-            connect(newCC, SIGNAL(checked(quint32,quint32,bool)),
-                    this, SIGNAL(checked(quint32,quint32,bool)));
+            connect(newCC, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                    SIGNAL(valueChanged(quint32, quint32, uchar)));
+            connect(newCC, SIGNAL(checked(quint32, quint32, bool)), this, SIGNAL(checked(quint32, quint32, bool)));
 
-            QLayoutItem *item = m_layout->replaceWidget(cc, newCC);
+            QLayoutItem* item = m_layout->replaceWidget(cc, newCC);
             delete item;
             delete cc;
             m_channels.replace(i, newCC);
@@ -188,7 +188,7 @@ void FixtureConsole::slotAliasChanged()
 
 void FixtureConsole::setChecked(bool state, quint32 channel)
 {
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
@@ -202,7 +202,7 @@ void FixtureConsole::setSceneValue(const SceneValue& scv)
 {
     Q_ASSERT(scv.fxi == m_fixture);
 
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
@@ -215,11 +215,11 @@ void FixtureConsole::setSceneValue(const SceneValue& scv)
     }
 }
 
-QList <SceneValue> FixtureConsole::values() const
+QList<SceneValue> FixtureConsole::values() const
 {
-    QList <SceneValue> list; // list of all checked channels
-    QList <SceneValue> selectedList; // list of selected channels only
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QList<SceneValue> list;         // list of all checked channels
+    QList<SceneValue> selectedList; // list of selected channels only
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
@@ -240,7 +240,7 @@ QList <SceneValue> FixtureConsole::values() const
 
 bool FixtureConsole::hasSelections()
 {
-    foreach(ConsoleChannel *cc, m_channels)
+    foreach (ConsoleChannel* cc, m_channels)
     {
         Q_ASSERT(cc != NULL);
         if (cc->isChecked() && cc->isSelected())
@@ -250,11 +250,11 @@ bool FixtureConsole::hasSelections()
     return false;
 }
 
-void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelection)
+void FixtureConsole::setValues(const QList<SceneValue>& list, bool fromSelection)
 {
-    QList<ConsoleChannel *> toUncheckList = m_channels;
+    QList<ConsoleChannel*> toUncheckList = m_channels;
 
-    QListIterator <SceneValue> it(list);
+    QListIterator<SceneValue> it(list);
     while (it.hasNext() == true)
     {
         SceneValue val(it.next());
@@ -273,7 +273,7 @@ void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelectio
 
     if (fromSelection == false)
     {
-        foreach (ConsoleChannel *cc, toUncheckList)
+        foreach (ConsoleChannel* cc, toUncheckList)
             cc->setChecked(false);
     }
 }
@@ -303,7 +303,7 @@ void FixtureConsole::setChannelStylesheet(quint32 ch, QString ss)
 
 void FixtureConsole::resetChannelsStylesheet()
 {
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
@@ -314,7 +314,7 @@ void FixtureConsole::resetChannelsStylesheet()
 
 ConsoleChannel* FixtureConsole::channel(quint32 ch) const
 {
-    QListIterator <ConsoleChannel*> it(m_channels);
+    QListIterator<ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();

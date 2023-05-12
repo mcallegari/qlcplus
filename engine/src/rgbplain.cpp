@@ -25,25 +25,23 @@
 #include "audiocapture.h"
 #include "doc.h"
 
-RGBPlain::RGBPlain(Doc * doc)
+RGBPlain::RGBPlain(Doc* doc)
     : RGBAlgorithm(doc)
 {
 }
 
-RGBPlain::RGBPlain(const RGBPlain& a, QObject *parent)
+RGBPlain::RGBPlain(const RGBPlain& a, QObject* parent)
     : QObject(parent)
     , RGBAlgorithm(a.doc())
 {
 }
 
-RGBPlain::~RGBPlain()
-{
-}
+RGBPlain::~RGBPlain() {}
 
 RGBAlgorithm* RGBPlain::clone() const
 {
     RGBPlain* plain = new RGBPlain(*this);
-    return static_cast<RGBAlgorithm*> (plain);
+    return static_cast<RGBAlgorithm*>(plain);
 }
 
 /****************************************************************************
@@ -56,7 +54,7 @@ int RGBPlain::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBPlain::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBPlain::rgbMap(const QSize& size, uint rgb, int step, RGBMap& map)
 {
     Q_UNUSED(step)
     map.resize(size.height());
@@ -97,7 +95,7 @@ int RGBPlain::acceptColors() const
     return 1; // only start color is accepted
 }
 
-bool RGBPlain::loadXML(QXmlStreamReader &root)
+bool RGBPlain::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCRGBAlgorithm)
     {
@@ -116,7 +114,7 @@ bool RGBPlain::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBPlain::saveXML(QXmlStreamWriter *doc) const
+bool RGBPlain::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 

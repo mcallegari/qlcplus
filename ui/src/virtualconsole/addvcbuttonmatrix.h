@@ -49,7 +49,7 @@ public:
     };
 
     /** Functions to assign to buttons */
-    QList <quint32> functions() const;
+    QList<quint32> functions() const;
 
     /** Number of buttons horizontally */
     quint32 horizontalCount() const;
@@ -78,7 +78,7 @@ private:
     void setFrameStyle(FrameStyle style);
 
 private:
-    QList <quint32> m_functions;
+    QList<quint32> m_functions;
     quint32 m_horizontalCount;
     quint32 m_verticalCount;
     quint32 m_buttonSize;

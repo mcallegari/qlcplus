@@ -34,19 +34,18 @@ class MasterTimerStub : public MasterTimer
     Q_OBJECT
 
 public:
-    MasterTimerStub(Doc* doc, QList<Universe *> universes);
+    MasterTimerStub(Doc* doc, QList<Universe*> universes);
     ~MasterTimerStub();
 
     virtual void startFunction(Function* function);
     void stopFunction(Function* function);
-    QList <Function*> m_functionList;
+    QList<Function*> m_functionList;
 
     void registerDMXSource(DMXSource* source);
     void unregisterDMXSource(DMXSource* source);
-    QList <DMXSource*> m_dmxSourceList;
+    QList<DMXSource*> m_dmxSourceList;
 
     QList<Universe*> m_universes;
 };
 
 #endif
-

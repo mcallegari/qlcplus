@@ -39,8 +39,7 @@
  * Initialization
  *****************************************************************************/
 
-VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& properties,
-                                       InputOutputMap *ioMap)
+VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& properties, InputOutputMap* ioMap)
     : QDialog(parent)
     , m_ioMap(ioMap)
 {
@@ -77,7 +76,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     // ********************* BUTTON STATUS *********************
     var = settings.value(SETTINGS_BUTTON_STATUSLED);
     if (var.isValid() == true && var.toBool() == true)
-            m_buttonStatusLEDRadio->setChecked(true);
+        m_buttonStatusLEDRadio->setChecked(true);
     // ********************* SLIDER ****************************
     var = settings.value(SETTINGS_SLIDER_SIZE);
     if (var.isValid() == true)
@@ -111,8 +110,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     else
         m_speedValueEdit->setText(Function::speedToString(0));
 
-    connect(m_speedValueEdit, SIGNAL(editingFinished()),
-            this, SLOT(slotSpeedDialConfirmed()));
+    connect(m_speedValueEdit, SIGNAL(editingFinished()), this, SLOT(slotSpeedDialConfirmed()));
 
     // ********************* XY PAD ****************************
     var = settings.value(SETTINGS_XYPAD_SIZE);
@@ -230,9 +228,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     updateGrandMasterInputSource();
 }
 
-VCPropertiesEditor::~VCPropertiesEditor()
-{
-}
+VCPropertiesEditor::~VCPropertiesEditor() {}
 
 VCProperties VCPropertiesEditor::properties() const
 {
@@ -355,18 +351,17 @@ void VCPropertiesEditor::slotAutoDetectGrandMasterInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_ioMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotGrandMasterInputValueChanged(quint32,quint32)));
+        connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                SLOT(slotGrandMasterInputValueChanged(quint32, quint32)));
     }
     else
     {
-        disconnect(m_ioMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotGrandMasterInputValueChanged(quint32,quint32)));
+        disconnect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                   SLOT(slotGrandMasterInputValueChanged(quint32, quint32)));
     }
 }
 
-void VCPropertiesEditor::slotGrandMasterInputValueChanged(quint32 universe,
-                                                          quint32 channel)
+void VCPropertiesEditor::slotGrandMasterInputValueChanged(quint32 universe, quint32 channel)
 {
     m_properties.setGrandMasterInputSource(universe, channel);
     updateGrandMasterInputSource();
@@ -387,12 +382,9 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
     QString uniName;
     QString chName;
 
-    if (m_ioMap->inputSourceNames(
-                QSharedPointer<QLCInputSource>(
-                    new QLCInputSource(
-                        m_properties.grandMasterInputUniverse(),
-                        m_properties.grandMasterInputChannel())),
-                uniName, chName) == true)
+    if (m_ioMap->inputSourceNames(QSharedPointer<QLCInputSource>(new QLCInputSource(
+                                      m_properties.grandMasterInputUniverse(), m_properties.grandMasterInputChannel())),
+                                  uniName, chName) == true)
     {
         /* Display the gathered information */
         m_gmInputUniverseEdit->setText(uniName);

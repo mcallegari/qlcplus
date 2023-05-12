@@ -37,7 +37,7 @@ class GenericFader : public QObject
     Q_OBJECT
 
 public:
-    GenericFader(QObject *parent = 0);
+    GenericFader(QObject* parent = 0);
     ~GenericFader();
 
     /** Get/Set an arbitrary name for this fader */
@@ -76,7 +76,7 @@ public:
     void replace(const FadeChannel& ch);
 
     /** Remove a channel whose fixture & channel match with $fc's */
-    void remove(FadeChannel *ch);
+    void remove(FadeChannel* ch);
 
     /** Remove all channels */
     void removeAll();
@@ -88,10 +88,10 @@ public:
     /** Returns a reference of a FadeChannel for the provided $fixtureID and $channel.
      *  If no FadeChannel is found, a new one is created and added to m_channels.
      *  Also, new channels will have a start value set depending on their type */
-    FadeChannel *getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel);
+    FadeChannel* getChannelFader(const Doc* doc, Universe* universe, quint32 fixtureID, quint32 channel);
 
     /** Get all channels in a non-modifiable hashmap */
-    const QHash <quint32,FadeChannel>& channels() const;
+    const QHash<quint32, FadeChannel>& channels() const;
 
     /** Return the number of channel added to this fader */
     int channelsCount() const;
@@ -102,7 +102,7 @@ public:
      *
      * @param universe The universe that receives channel data.
      */
-    void write(Universe *universe);
+    void write(Universe* universe);
 
     /** Get/Set the intensities of all channels in a 0.0 - 1.0 range */
     qreal intensity() const;
@@ -124,7 +124,7 @@ public:
     bool isFadingOut() const;
 
     /** Set this fader to fade out. If $fadeTime is non-zero,
-      * all the intensity channels will be updated */
+     * all the intensity channels will be updated */
     void setFadeOut(bool enable, uint fadeTime);
 
     /**
@@ -148,7 +148,7 @@ private:
     QString m_name;
     quint32 m_fid;
     int m_priority;
-    QHash <quint32,FadeChannel> m_channels;
+    QHash<quint32, FadeChannel> m_channels;
     qreal m_intensity;
     qreal m_parentIntensity;
     bool m_paused;

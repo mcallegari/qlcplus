@@ -46,9 +46,7 @@ void Collection_Test::cleanupTestCase()
     delete m_doc;
 }
 
-void Collection_Test::init()
-{
-}
+void Collection_Test::init() {}
 
 void Collection_Test::cleanup()
 {
@@ -111,15 +109,15 @@ void Collection_Test::contains()
 {
     Doc* doc = new Doc(this);
 
-    Scene *s1 = new Scene(doc);
-    Scene *s2 = new Scene(doc);
-    Scene *s3 = new Scene(doc);
+    Scene* s1 = new Scene(doc);
+    Scene* s2 = new Scene(doc);
+    Scene* s3 = new Scene(doc);
 
     doc->addFunction(s1);
     doc->addFunction(s2);
     doc->addFunction(s3);
 
-    Chaser *c1 = new Chaser(doc);
+    Chaser* c1 = new Chaser(doc);
     ChaserStep step(s3->id());
     c1->addStep(step);
     doc->addFunction(c1);
@@ -413,7 +411,7 @@ void Collection_Test::createCopy()
     QVERIFY(f != c1);
     QVERIFY(f->id() != c1->id());
 
-    Collection* copy = qobject_cast<Collection*> (f);
+    Collection* copy = qobject_cast<Collection*>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->functions().size() == 3);
     QVERIFY(copy->functions().at(0) == 20);

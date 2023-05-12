@@ -34,27 +34,26 @@ class PositionTool : public QDialog, Ui_PositionTool
      * Initialization
      *************************************************************************/
 public:
-    PositionTool(const QPointF & initial, QRectF degreesRange, QWidget * parent = 0);
+    PositionTool(const QPointF& initial, QRectF degreesRange, QWidget* parent = 0);
     virtual ~PositionTool();
 
 private:
-
     /*************************************************************************
      * Current position
      *************************************************************************/
 public:
     /** Get the pad's current position (i.e. where the point is) */
     QPointF position() const;
-    void setPosition(const QPointF & position);
+    void setPosition(const QPointF& position);
 
 signals:
-    void currentPositionChanged(const QPointF & position);
+    void currentPositionChanged(const QPointF& position);
 
 public slots:
-    void slotPositionChanged(const QPointF & position);
+    void slotPositionChanged(const QPointF& position);
 
 private:
-    VCXYPadArea *m_area;
+    VCXYPadArea* m_area;
 };
 
 #endif

@@ -34,7 +34,7 @@
  * Initialization
  ************************************************************************/
 
-QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject *parent)
+QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject* parent)
     : QObject(parent)
     , m_preset(Custom)
     , m_min(min)
@@ -44,9 +44,9 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject 
 {
 }
 
-QLCCapability *QLCCapability::createCopy()
+QLCCapability* QLCCapability::createCopy()
 {
-    QLCCapability *copy = new QLCCapability(m_min, m_max, m_name);
+    QLCCapability* copy = new QLCCapability(m_min, m_max, m_name);
     copy->setWarning(m_warning);
     copy->setPreset(preset());
     for (int i = 0; i < m_resources.count(); i++)
@@ -57,9 +57,7 @@ QLCCapability *QLCCapability::createCopy()
     return copy;
 }
 
-QLCCapability::~QLCCapability()
-{
-}
+QLCCapability::~QLCCapability() {}
 
 bool QLCCapability::operator<(const QLCCapability& capability) const
 {
@@ -75,7 +73,7 @@ QString QLCCapability::presetToString(QLCCapability::Preset preset)
     return staticMetaObject.enumerator(index).valueToKey(preset);
 }
 
-QLCCapability::Preset QLCCapability::stringToPreset(const QString &preset)
+QLCCapability::Preset QLCCapability::stringToPreset(const QString& preset)
 {
     int index = staticMetaObject.indexOfEnumerator("Preset");
     return Preset(staticMetaObject.enumerator(index).keyToValue(preset.toStdString().c_str()));
@@ -101,26 +99,27 @@ QLCCapability::PresetType QLCCapability::presetType() const
 {
     switch (m_preset)
     {
-        case StrobeFrequency:
-        case PulseFrequency:
-        case RampUpFrequency:
-        case RampDownFrequency:
-        case PrismEffectOn:
-            return SingleValue;
-        case StrobeFreqRange:
-        case PulseFreqRange:
-        case RampUpFreqRange:
-        case RampDownFreqRange:
-            return DoubleValue;
-        case ColorMacro:
-            return SingleColor;
-        case ColorDoubleMacro:
-            return DoubleColor;
-        case GoboMacro:
-        case GoboShakeMacro:
-        case GenericPicture:
-            return Picture;
-        default: return None;
+    case StrobeFrequency:
+    case PulseFrequency:
+    case RampUpFrequency:
+    case RampDownFrequency:
+    case PrismEffectOn:
+        return SingleValue;
+    case StrobeFreqRange:
+    case PulseFreqRange:
+    case RampUpFreqRange:
+    case RampDownFreqRange:
+        return DoubleValue;
+    case ColorMacro:
+        return SingleColor;
+    case ColorDoubleMacro:
+        return DoubleColor;
+    case GoboMacro:
+    case GoboShakeMacro:
+    case GenericPicture:
+        return Picture;
+    default:
+        return None;
     }
 }
 
@@ -131,20 +130,20 @@ QString QLCCapability::presetUnits() const
 {
     switch (m_preset)
     {
-        case StrobeFrequency:
-        case PulseFrequency:
-        case RampUpFrequency:
-        case RampDownFrequency:
-        case StrobeFreqRange:
-        case PulseFreqRange:
-        case RampUpFreqRange:
-        case RampDownFreqRange:
-            return "Hz";
+    case StrobeFrequency:
+    case PulseFrequency:
+    case RampUpFrequency:
+    case RampDownFrequency:
+    case StrobeFreqRange:
+    case PulseFreqRange:
+    case RampUpFreqRange:
+    case RampDownFreqRange:
+        return "Hz";
         break;
-        case PrismEffectOn:
-            return "Faces";
+    case PrismEffectOn:
+        return "Faces";
         break;
-        default:
+    default:
         break;
     }
     return QString();
@@ -238,7 +237,7 @@ QVariantList QLCCapability::resources()
     return m_resources;
 }
 
-bool QLCCapability::overlaps(const QLCCapability *cap)
+bool QLCCapability::overlaps(const QLCCapability* cap)
 {
     if (m_min >= cap->min() && m_min <= cap->max())
         return true;
@@ -270,8 +269,7 @@ void QLCCapability::removeAlias(AliasInfo alias)
     {
         AliasInfo info = m_aliases.at(i);
 
-        if (alias.targetMode == info.targetMode &&
-            alias.sourceChannel == info.sourceChannel &&
+        if (alias.targetMode == info.targetMode && alias.sourceChannel == info.sourceChannel &&
             alias.targetChannel == info.targetChannel)
         {
             m_aliases.takeAt(i);
@@ -291,7 +289,7 @@ void QLCCapability::replaceAliases(QList<AliasInfo> list)
  * Save & Load
  ************************************************************************/
 
-bool QLCCapability::saveXML(QXmlStreamWriter *doc)
+bool QLCCapability::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -313,7 +311,7 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     {
         switch (presetType())
         {
-            case Picture:
+        case Picture:
             {
                 QString modFilename = resource(i).toString();
                 QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
@@ -332,8 +330,8 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
                 doc->writeAttribute(KXMLQLCCapabilityRes1, modFilename);
             }
             break;
-            case SingleColor:
-            case DoubleColor:
+        case SingleColor:
+        case DoubleColor:
             {
                 QColor col = resource(i).value<QColor>();
                 if (i == 0 && col.isValid())
@@ -342,8 +340,8 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
                     doc->writeAttribute(KXMLQLCCapabilityRes2, col.name());
             }
             break;
-            case SingleValue:
-            case DoubleValue:
+        case SingleValue:
+        case DoubleValue:
             {
                 if (i == 0)
                     doc->writeAttribute(KXMLQLCCapabilityRes1, QString::number(resource(i).toFloat()));
@@ -351,7 +349,7 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
                     doc->writeAttribute(KXMLQLCCapabilityRes2, QString::number(resource(i).toFloat()));
             }
             break;
-            default:
+        default:
             break;
         }
     }
@@ -377,7 +375,7 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-bool QLCCapability::loadXML(QXmlStreamReader &doc)
+bool QLCCapability::loadXML(QXmlStreamReader& doc)
 {
     uchar min = 0;
     uchar max = 0;
@@ -420,9 +418,9 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         setPreset(stringToPreset(str));
     }
 
-    switch(presetType())
+    switch (presetType())
     {
-        case Picture:
+    case Picture:
         {
             QString path = attrs.value(KXMLQLCCapabilityRes1).toString();
             if (QFileInfo(path).isRelative())
@@ -433,8 +431,8 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             setResource(0, path);
         }
         break;
-        case SingleColor:
-        case DoubleColor:
+    case SingleColor:
+    case DoubleColor:
         {
             QColor col1 = QColor(attrs.value(KXMLQLCCapabilityRes1).toString());
             QColor col2 = QColor();
@@ -449,8 +447,8 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             }
         }
         break;
-        case SingleValue:
-        case DoubleValue:
+    case SingleValue:
+    case DoubleValue:
         {
             float value = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
             setResource(0, value);
@@ -462,14 +460,14 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             }
         }
         break;
-        default:
+    default:
         break;
     }
 
     /* ************************* LEGACY ATTRIBUTES ************************* */
 
     /* Get (optional) resource name for gobo/effect/... */
-    if(attrs.hasAttribute(KXMLQLCCapabilityResource))
+    if (attrs.hasAttribute(KXMLQLCCapabilityResource))
     {
         QString path = attrs.value(KXMLQLCCapabilityResource).toString();
         if (QFileInfo(path).isRelative())
@@ -521,8 +519,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "Capability min(" << min
-                   << ") is greater than max(" << max << ")";
+        qWarning() << Q_FUNC_INFO << "Capability min(" << min << ") is greater than max(" << max << ")";
         return false;
     }
 
@@ -539,7 +536,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             alias.targetChannel = attrs.value(KXMLQLCCapabilityAliasTargetName).toString();
             addAlias(alias);
 
-            //qDebug() << "Alias found for mode" << alias.targetMode;
+            // qDebug() << "Alias found for mode" << alias.targetMode;
         }
         else
         {
@@ -550,4 +547,3 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
 
     return true;
 }
-

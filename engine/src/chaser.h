@@ -129,14 +129,14 @@ public:
      *
      * @return The requested Chaser Step
      */
-    ChaserStep *stepAt(int idx);
+    ChaserStep* stepAt(int idx);
 
     /**
      * Get the chaser's list of steps
      *
      * @return List of function Chaser Steps
      */
-    QList <ChaserStep> steps() const;
+    QList<ChaserStep> steps() const;
 
     /** @reimpl */
     void setTotalDuration(quint32 msec);
@@ -159,17 +159,18 @@ signals:
     void stepChanged(int index);
 
 protected:
-    QList <ChaserStep> m_steps;
+    QList<ChaserStep> m_steps;
     QMutex m_stepListMutex;
 
     /*********************************************************************
      * Speed modes
      *********************************************************************/
 public:
-    enum SpeedMode {
+    enum SpeedMode
+    {
         Default = 0, //! Use step function's own speed setting
-        Common,  //! Impose a common chaser-specific speed to all steps
-        PerStep  //! Impose a step-specific speed to each step
+        Common,      //! Impose a common chaser-specific speed to all steps
+        PerStep      //! Impose a step-specific speed to each step
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(SpeedMode)
@@ -196,14 +197,14 @@ protected:
      * Save & Load
      *********************************************************************/
 protected:
-    bool loadXMLSpeedModes(QXmlStreamReader &root);
+    bool loadXMLSpeedModes(QXmlStreamReader& root);
 
 public:
     /** @reimpl */
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter* doc);
 
     /** @reimpl */
-    virtual bool loadXML(QXmlStreamReader &root);
+    virtual bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
     virtual void postLoad();
@@ -227,7 +228,7 @@ public:
     /** Set an action to be performed on steps.
      *  Depending on the action type, it might be applied immediately
      *  or deferred to the next write() call */
-    void setAction(ChaserAction &action);
+    void setAction(ChaserAction& action);
 
     /** Get the current step number */
     int currentStepIndex() const;
@@ -273,10 +274,10 @@ public:
     void setPause(bool enable);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe *> universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe *> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 signals:
     /** Tells that the current step number has changed. */
@@ -298,8 +299,7 @@ public:
     int adjustAttribute(qreal fraction, int attributeId);
 
     /** Adjust the intensities of chaser steps. */
-    void adjustStepIntensity(qreal fraction, int stepIndex = -1,
-                             FadeControlMode fadeControl = FromFunction);
+    void adjustStepIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
 };
 
 /** @} */

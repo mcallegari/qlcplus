@@ -72,7 +72,7 @@ private slots:
     void slotDialDestroyed(QObject* dial);
 
 private:
-    SpeedDialWidget *m_speedDials;
+    SpeedDialWidget* m_speedDials;
 };
 
 /** @} */

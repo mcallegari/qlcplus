@@ -41,10 +41,10 @@ AudioDecoderSndFile::~AudioDecoderSndFile()
     m_sndfile = NULL;
 }
 
-AudioDecoder *AudioDecoderSndFile::createCopy()
+AudioDecoder* AudioDecoderSndFile::createCopy()
 {
     AudioDecoderSndFile* copy = new AudioDecoderSndFile();
-    return qobject_cast<AudioDecoder *>(copy);
+    return qobject_cast<AudioDecoder*>(copy);
 }
 
 int AudioDecoderSndFile::priority() const
@@ -52,7 +52,7 @@ int AudioDecoderSndFile::priority() const
     return 10;
 }
 
-bool AudioDecoderSndFile::initialize(const QString &path)
+bool AudioDecoderSndFile::initialize(const QString& path)
 {
     m_path = path;
     m_bitrate = 0;
@@ -64,7 +64,7 @@ bool AudioDecoderSndFile::initialize(const QString &path)
     if (path.isEmpty())
         return false;
 
-    memset (&snd_info, 0, sizeof(snd_info));
+    memset(&snd_info, 0, sizeof(snd_info));
     snd_info.format = 0;
     m_sndfile = sf_open(m_path.toLocal8Bit(), SFM_READ, &snd_info);
     if (!m_sndfile)
@@ -76,27 +76,37 @@ bool AudioDecoderSndFile::initialize(const QString &path)
     m_freq = snd_info.samplerate;
     int chan = snd_info.channels;
     m_totalTime = snd_info.frames * 1000 / m_freq;
-    m_bitrate =  QFileInfo(m_path).size () * 8.0 / m_totalTime + 0.5;
+    m_bitrate = QFileInfo(m_path).size() * 8.0 / m_totalTime + 0.5;
 
-    if((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
+    if ((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
     {
         qDebug() << "DecoderSndFile: Float audio format";
-        sf_command (m_sndfile, SFC_SET_SCALE_FLOAT_INT_READ, NULL, SF_TRUE);
+        sf_command(m_sndfile, SFC_SET_SCALE_FLOAT_INT_READ, NULL, SF_TRUE);
     }
 
     AudioFormat pcmFormat = PCM_S16LE;
-    switch(snd_info.format & SF_FORMAT_SUBMASK)
+    switch (snd_info.format & SF_FORMAT_SUBMASK)
     {
-        case SF_FORMAT_PCM_S8: pcmFormat = PCM_S8; break;
-        case SF_FORMAT_PCM_16: pcmFormat = PCM_S16LE; break;
-        case SF_FORMAT_PCM_24: pcmFormat = PCM_S24LE; break;
-        case SF_FORMAT_PCM_32: pcmFormat = PCM_S32LE; break;
-        default: pcmFormat = PCM_S16LE; break;
+    case SF_FORMAT_PCM_S8:
+        pcmFormat = PCM_S8;
+        break;
+    case SF_FORMAT_PCM_16:
+        pcmFormat = PCM_S16LE;
+        break;
+    case SF_FORMAT_PCM_24:
+        pcmFormat = PCM_S24LE;
+        break;
+    case SF_FORMAT_PCM_32:
+        pcmFormat = PCM_S32LE;
+        break;
+    default:
+        pcmFormat = PCM_S16LE;
+        break;
     }
 
     configure(m_freq, chan, pcmFormat);
-    qDebug() << "DecoderSndFile: detected format: Sample Rate:" << m_freq <<
-            ",Channels: " <<  chan << ", PCM Format: " << pcmFormat /*snd_info.format*/;
+    qDebug() << "DecoderSndFile: detected format: Sample Rate:" << m_freq << ",Channels: " << chan
+             << ", PCM Format: " << pcmFormat /*snd_info.format*/;
 
     return true;
 }
@@ -111,28 +121,28 @@ int AudioDecoderSndFile::bitrate()
     return m_bitrate;
 }
 
-qint64 AudioDecoderSndFile::read(char *audio, qint64 maxSize)
+qint64 AudioDecoderSndFile::read(char* audio, qint64 maxSize)
 {
-    return sizeof(short)* sf_read_short  (m_sndfile, (short *)audio, maxSize / sizeof(short));
+    return sizeof(short) * sf_read_short(m_sndfile, (short*)audio, maxSize / sizeof(short));
 }
 
 void AudioDecoderSndFile::seek(qint64 pos)
 {
-    sf_seek(m_sndfile, m_freq * pos/1000, SEEK_SET);
+    sf_seek(m_sndfile, m_freq * pos / 1000, SEEK_SET);
 }
 
 QStringList AudioDecoderSndFile::supportedFormats()
 {
     QStringList caps;
     SF_FORMAT_INFO format_info;
-    int k, count ;
+    int k, count;
 
-    sf_command (0, SFC_GET_SIMPLE_FORMAT_COUNT, &count, sizeof (int)) ;
+    sf_command(0, SFC_GET_SIMPLE_FORMAT_COUNT, &count, sizeof(int));
 
-    for (k = 0 ; k < count ; k++)
+    for (k = 0; k < count; k++)
     {
         format_info.format = k;
-        sf_command (0, SFC_GET_SIMPLE_FORMAT, &format_info, sizeof (format_info));
+        sf_command(0, SFC_GET_SIMPLE_FORMAT, &format_info, sizeof(format_info));
         qDebug("%08x  %s %s", format_info.format, format_info.name, format_info.extension);
         QString ext = QString(format_info.extension);
         if (ext == "aiff" && !caps.contains("*.aiff"))
@@ -142,7 +152,8 @@ QStringList AudioDecoderSndFile::supportedFormats()
         else if (ext == "flac" && !caps.contains("*.flac"))
             caps << "*.flac";
         else if ((ext == "ogg" || ext == "oga") && !caps.contains("*.ogg"))
-            caps << "*.oga" << "*.ogg";
+            caps << "*.oga"
+                 << "*.ogg";
         else if (ext == "wav" && !caps.contains("*.wav"))
             caps << "*.wav";
     }

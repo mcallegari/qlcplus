@@ -34,16 +34,14 @@ Sequence::Sequence(Doc* doc)
     setName(tr("New Sequence"));
 }
 
-Sequence::~Sequence()
-{
-}
+Sequence::~Sequence() {}
 
 QIcon Sequence::getIcon() const
 {
     return QIcon(":/sequence.png");
 }
 
-Function *Sequence::createCopy(Doc *doc, bool addToDoc)
+Function* Sequence::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -62,9 +60,9 @@ Function *Sequence::createCopy(Doc *doc, bool addToDoc)
     return copy;
 }
 
-bool Sequence::copyFrom(const Function *function)
+bool Sequence::copyFrom(const Function* function)
 {
-    const Sequence* sequence = qobject_cast<const Sequence*> (function);
+    const Sequence* sequence = qobject_cast<const Sequence*>(function);
     if (sequence == NULL)
         return false;
 
@@ -101,7 +99,7 @@ QList<quint32> Sequence::components()
  * Save & Load
  *****************************************************************************/
 
-bool Sequence::saveXML(QXmlStreamWriter *doc)
+bool Sequence::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -139,7 +137,7 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-bool Sequence::loadXML(QXmlStreamReader &root)
+bool Sequence::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -151,8 +149,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
 
     if (funcAttrs.value(KXMLQLCFunctionType).toString() != typeToString(Function::SequenceType))
     {
-        qWarning() << Q_FUNC_INFO << funcAttrs.value(KXMLQLCFunctionType).toString()
-                   << "is not a Sequence";
+        qWarning() << Q_FUNC_INFO << funcAttrs.value(KXMLQLCFunctionType).toString() << "is not a Sequence";
         return false;
     }
 
@@ -164,7 +161,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
 
     setBoundSceneID(funcAttrs.value(KXMLQLCSequenceBoundScene).toString().toUInt());
 
-    Scene *scene = qobject_cast<Scene *>(doc()->function(boundSceneID()));
+    Scene* scene = qobject_cast<Scene*>(doc()->function(boundSceneID()));
     QList<SceneValue> sceneValues;
     if (scene != NULL)
     {
@@ -229,7 +226,7 @@ void Sequence::postLoad()
     Doc* doc = this->doc();
     Q_ASSERT(doc != NULL);
 
-    Scene *scene = qobject_cast<Scene *>(doc->function(boundSceneID()));
+    Scene* scene = qobject_cast<Scene*>(doc->function(boundSceneID()));
     QList<SceneValue> sceneValues;
     if (scene != NULL)
     {
@@ -256,7 +253,7 @@ void Sequence::postLoad()
 
     int stepIndex = 0;
 
-    QMutableListIterator <ChaserStep> it(m_steps);
+    QMutableListIterator<ChaserStep> it(m_steps);
     while (it.hasNext() == true)
     {
         ChaserStep step(it.next());
@@ -266,7 +263,7 @@ void Sequence::postLoad()
             continue;
         }
 
-        QList <SceneValue> tmpList = step.values;
+        QList<SceneValue> tmpList = step.values;
         step.values = sceneValues;
         for (int i = 0; i < tmpList.count(); i++)
         {

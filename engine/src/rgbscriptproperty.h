@@ -37,7 +37,9 @@ public:
         m_writeMethod = QString();
     }
 
-    ~RGBScriptProperty() { /* NOP */ }
+    ~RGBScriptProperty()
+    { /* NOP */
+    }
 
     enum ValueType
     {

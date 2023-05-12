@@ -42,7 +42,7 @@
 #include <QPen>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
- #include <QStyleFactory>
+  #include <QStyleFactory>
 #endif
 
 #include "qlcinputsource.h"
@@ -72,7 +72,8 @@ const QSize VCButton::defaultSize(QSize(50, 50));
  * Initialization
  *****************************************************************************/
 
-VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+VCButton::VCButton(QWidget* parent, Doc* doc)
+    : VCWidget(parent, doc)
     , m_iconPath()
     , m_blackoutFadeOutTime(0)
     , m_startupIntensityEnabled(false)
@@ -92,17 +93,14 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setFrameStyle(KVCFrameStyleNone);
 
     /* Menu actions */
-    m_chooseIconAction = new QAction(QIcon(":/image.png"), tr("Choose..."),
-                                     this);
+    m_chooseIconAction = new QAction(QIcon(":/image.png"), tr("Choose..."), this);
     m_chooseIconAction->setShortcut(QKeySequence("SHIFT+C"));
 
     m_resetIconAction = new QAction(QIcon(":/undo.png"), tr("None"), this);
     m_resetIconAction->setShortcut(QKeySequence("SHIFT+ALT+C"));
 
-    connect(m_chooseIconAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotChooseIcon()));
-    connect(m_resetIconAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotResetIcon()));
+    connect(m_chooseIconAction, SIGNAL(triggered(bool)), this, SLOT(slotChooseIcon()));
+    connect(m_resetIconAction, SIGNAL(triggered(bool)), this, SLOT(slotResetIcon()));
 
     /* Initial size */
     QSettings settings;
@@ -121,13 +119,10 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setStyle(AppUtil::saneStyle());
 
     /* Listen to function removals */
-    connect(m_doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
 }
 
-VCButton::~VCButton()
-{
-}
+VCButton::~VCButton() {}
 
 void VCButton::setID(quint32 id)
 {
@@ -157,7 +152,7 @@ VCWidget* VCButton::createCopy(VCWidget* parent)
 
 bool VCButton::copyFrom(const VCWidget* widget)
 {
-    const VCButton* button = qobject_cast <const VCButton*> (widget);
+    const VCButton* button = qobject_cast<const VCButton*>(widget);
     if (button == NULL)
         return false;
 
@@ -303,23 +298,22 @@ void VCButton::setIconPath(const QString& iconPath)
 void VCButton::slotChooseIcon()
 {
     /* No point coming here if there is no VC */
-    VirtualConsole *vc = VirtualConsole::instance();
+    VirtualConsole* vc = VirtualConsole::instance();
     if (vc == NULL)
         return;
 
     QString formats;
-    QListIterator <QByteArray> it(QImageReader::supportedImageFormats());
+    QListIterator<QByteArray> it(QImageReader::supportedImageFormats());
     while (it.hasNext() == true)
         formats += QString("*.%1 ").arg(QString(it.next()).toLower());
 
     QString path;
-    path = QFileDialog::getOpenFileName(this, tr("Select button icon"),
-                                        iconPath(), tr("Images (%1)").arg(formats));
+    path = QFileDialog::getOpenFileName(this, tr("Select button icon"), iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
-        foreach(VCWidget *widget, vc->selectedWidgets())
+        foreach (VCWidget* widget, vc->selectedWidgets())
         {
-            VCButton *button = qobject_cast<VCButton*> (widget);
+            VCButton* button = qobject_cast<VCButton*>(widget);
             if (button != NULL)
                 button->setIconPath(path);
         }
@@ -366,24 +360,18 @@ void VCButton::setFunction(quint32 fid)
     if (old != NULL)
     {
         /* Get rid of old function connections */
-        disconnect(old, SIGNAL(running(quint32)),
-                this, SLOT(slotFunctionRunning(quint32)));
-        disconnect(old, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
-        disconnect(old, SIGNAL(flashing(quint32,bool)),
-                this, SLOT(slotFunctionFlashing(quint32,bool)));
+        disconnect(old, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
+        disconnect(old, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
+        disconnect(old, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
     }
 
     Function* function = m_doc->function(fid);
     if (function != NULL)
     {
         /* Connect to the new function */
-        connect(function, SIGNAL(running(quint32)),
-                this, SLOT(slotFunctionRunning(quint32)));
-        connect(function, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
-        connect(function, SIGNAL(flashing(quint32,bool)),
-                this, SLOT(slotFunctionFlashing(quint32,bool)));
+        connect(function, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
+        connect(function, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
+        connect(function, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
 
         m_function = fid;
         setToolTip(function->name());
@@ -401,7 +389,7 @@ quint32 VCButton::function() const
     return m_function;
 }
 
-void VCButton::adjustFunctionIntensity(Function *f, qreal value)
+void VCButton::adjustFunctionIntensity(Function* f, qreal value)
 {
     qreal finalValue = isStartupIntensityEnabled() ? startupIntensity() * value : value;
 
@@ -420,7 +408,7 @@ void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
 
     if (m_function != Function::invalidId() && action() == VCButton::Toggle)
     {
-        Function *f = m_doc->function(m_function);
+        Function* f = m_doc->function(m_function);
         if (f != NULL)
         {
             f->stop(functionParent());
@@ -575,11 +563,9 @@ void VCButton::setAction(Action action)
 {
     // Blackout signal connection
     if (m_action == Blackout && action != Blackout)
-        disconnect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
-                this, SLOT(slotBlackoutChanged(bool)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
     else if (m_action != Blackout && action == Blackout)
-        connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
-                this, SLOT(slotBlackoutChanged(bool)));
+        connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Action update
     m_action = action;
@@ -710,7 +696,7 @@ void VCButton::pressFunction()
                 action.m_stepIntensity = 1.0;
                 action.m_fadeMode = Chaser::FromFunction;
 
-                Chaser *chaser = qobject_cast<Chaser*>(f);
+                Chaser* chaser = qobject_cast<Chaser*>(f);
                 chaser->setAction(action);
             }
 
@@ -816,7 +802,7 @@ void VCButton::slotBlink()
     // thus creating a brief opposite-color -- normal-color blink
     QPalette pal = palette();
     QColor color(pal.color(QPalette::Button));
-    color.setRgb(color.red()^0xff, color.green()^0xff, color.blue()^0xff);
+    color.setRgb(color.red() ^ 0xff, color.green() ^ 0xff, color.blue() ^ 0xff);
     pal.setColor(QPalette::Button, color);
     setPalette(pal);
 }
@@ -868,7 +854,7 @@ void VCButton::adjustIntensity(qreal val)
  * Load & Save
  *****************************************************************************/
 
-bool VCButton::loadXML(QXmlStreamReader &root)
+bool VCButton::loadXML(QXmlStreamReader& root)
 {
     bool visible = false;
     int x = 0;
@@ -891,7 +877,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     /* Children */
     while (root.readNextStartElement())
     {
-        //qDebug() << "VC Button tag:" << root.name();
+        // qDebug() << "VC Button tag:" << root.name();
         if (root.name() == KXMLQLCWindowState)
         {
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
@@ -945,7 +931,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCButton::saveXML(QXmlStreamWriter *doc)
+bool VCButton::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -984,8 +970,7 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
 
     /* Intensity adjustment */
     doc->writeStartElement(KXMLQLCVCButtonIntensity);
-    doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust,
-                     isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
+    doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust, isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
     doc->writeCharacters(QString::number(int(startupIntensity() * 100)));
     doc->writeEndElement();
 
@@ -1045,20 +1030,14 @@ void VCButton::paintEvent(QPaintEvent* e)
         }
         else
         {
-            painter.drawPixmap((width() - pxRect.width()) / 2,
-                               (height() - pxRect.height()) / 2,
-                               m_bgPixmap);
+            painter.drawPixmap((width() - pxRect.width()) / 2, (height() - pxRect.height()) / 2, m_bgPixmap);
         }
     }
 
     /* Paint caption with text wrapping */
     if (caption().isEmpty() == false)
     {
-        style()->drawItemText(&painter,
-                              rect(),
-                              Qt::AlignCenter | Qt::TextWordWrap,
-                              palette(),
-                              (mode() == Doc::Operate),
+        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), (mode() == Doc::Operate),
                               caption());
     }
 
@@ -1066,8 +1045,7 @@ void VCButton::paintEvent(QPaintEvent* e)
     if (m_action == Flash)
     {
         QIcon icon(":/flash.png");
-        painter.drawPixmap(rect().width() - 18, 2,
-                           icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
+        painter.drawPixmap(rect().width() - 18, 2, icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
     }
 
     if (m_ledStyle == true)
@@ -1082,10 +1060,11 @@ void VCButton::paintEvent(QPaintEvent* e)
             painter.setBrush(QBrush(QColor(110, 110, 110, 255)));
 
         int dim = rect().width() / 6;
-        if (dim > 14) dim = 14;
+        if (dim > 14)
+            dim = 14;
 
-        painter.drawEllipse(6, 6, dim, dim);      // Style #1
-        //painter.drawRoundedRect(-1, -1, dim, dim, 3, 3);   // Style #2
+        painter.drawEllipse(6, 6, dim, dim); // Style #1
+        // painter.drawRoundedRect(-1, -1, dim, dim, 3, 3);   // Style #2
     }
     else
     {
@@ -1094,18 +1073,16 @@ void VCButton::paintEvent(QPaintEvent* e)
 
         if (state() != Inactive)
         {
-            int borderWidth = (rect().width() > 80)?3:2;
+            int borderWidth = (rect().width() > 80) ? 3 : 2;
             painter.setPen(QPen(QColor(20, 20, 20, 255), borderWidth * 2));
-            painter.drawRoundedRect(borderWidth, borderWidth,
-                                    rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
-                                    borderWidth + 1,  borderWidth + 1);
+            painter.drawRoundedRect(borderWidth, borderWidth, rect().width() - borderWidth * 2,
+                                    rect().height() - (borderWidth * 2), borderWidth + 1, borderWidth + 1);
             if (state() == Monitoring)
                 painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
             else
                 painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
-            painter.drawRoundedRect(borderWidth, borderWidth,
-                                    rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
-                                    borderWidth, borderWidth);
+            painter.drawRoundedRect(borderWidth, borderWidth, rect().width() - borderWidth * 2,
+                                    rect().height() - (borderWidth * 2), borderWidth, borderWidth);
         }
         else
         {

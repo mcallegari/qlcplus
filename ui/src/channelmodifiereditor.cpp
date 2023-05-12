@@ -27,7 +27,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget *parent)
+ChannelModifierEditor::ChannelModifierEditor(Doc* doc, QString modifier, QWidget* parent)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -47,47 +47,34 @@ ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget
     m_modifiedDMXSpin->setEnabled(false);
     m_deleteHandlerButton->setEnabled(false);
 
-    connect(m_view, SIGNAL(itemClicked(uchar,uchar)),
-            this, SLOT(slotHandlerClicked(uchar,uchar)));
-    connect(m_view, SIGNAL(itemDMXMapChanged(uchar,uchar)),
-            this, SLOT(slotItemDMXChanged(uchar,uchar)));
-    connect(m_view, SIGNAL(viewClicked(QMouseEvent*)),
-            this, SLOT(slotViewClicked()));
+    connect(m_view, SIGNAL(itemClicked(uchar, uchar)), this, SLOT(slotHandlerClicked(uchar, uchar)));
+    connect(m_view, SIGNAL(itemDMXMapChanged(uchar, uchar)), this, SLOT(slotItemDMXChanged(uchar, uchar)));
+    connect(m_view, SIGNAL(viewClicked(QMouseEvent*)), this, SLOT(slotViewClicked()));
 
-    connect(m_templatesTree, SIGNAL(itemSelectionChanged()),
-            this, SLOT(slotItemSelectionChanged()));
+    connect(m_templatesTree, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelectionChanged()));
 
-    connect(m_origDMXSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotOriginalDMXValueChanged(int)));
-    connect(m_modifiedDMXSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotModifiedDMXValueChanged(int)));
+    connect(m_origDMXSpin, SIGNAL(valueChanged(int)), this, SLOT(slotOriginalDMXValueChanged(int)));
+    connect(m_modifiedDMXSpin, SIGNAL(valueChanged(int)), this, SLOT(slotModifiedDMXValueChanged(int)));
 
-    connect(m_addHandlerButton, SIGNAL(clicked()),
-            this, SLOT(slotAddHandlerClicked()));
-    connect(m_deleteHandlerButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveHandlerClicked()));
-    connect(m_saveButton, SIGNAL(clicked()),
-            this, SLOT(slotSaveClicked()));
+    connect(m_addHandlerButton, SIGNAL(clicked()), this, SLOT(slotAddHandlerClicked()));
+    connect(m_deleteHandlerButton, SIGNAL(clicked()), this, SLOT(slotRemoveHandlerClicked()));
+    connect(m_saveButton, SIGNAL(clicked()), this, SLOT(slotSaveClicked()));
 
-    connect(m_unsetButton, SIGNAL(clicked()),
-            this, SLOT(slotUnsetClicked()));
+    connect(m_unsetButton, SIGNAL(clicked()), this, SLOT(slotUnsetClicked()));
 
     updateModifiersList(modifier);
 }
 
-ChannelModifierEditor::~ChannelModifierEditor()
-{
+ChannelModifierEditor::~ChannelModifierEditor() {}
 
-}
-
-ChannelModifier *ChannelModifierEditor::selectedModifier()
+ChannelModifier* ChannelModifierEditor::selectedModifier()
 {
     return m_currentTemplate;
 }
 
-static bool alphabeticSort(QString const & left, QString const & right)
+static bool alphabeticSort(QString const& left, QString const& right)
 {
-  return QString::compare(left, right) < 0;
+    return QString::compare(left, right) < 0;
 }
 
 void ChannelModifierEditor::updateModifiersList(QString modifier)
@@ -96,16 +83,15 @@ void ChannelModifierEditor::updateModifiersList(QString modifier)
     std::stable_sort(names.begin(), names.end(), alphabeticSort);
 
     m_templatesTree->clear();
-    foreach(QString name, names)
+    foreach (QString name, names)
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem(m_templatesTree);
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_templatesTree);
         item->setText(0, name);
         if (name == modifier)
             item->setSelected(true);
     }
-    if (m_templatesTree->topLevelItemCount() > 0 &&
-        m_templatesTree->selectedItems().count() == 0)
-            m_templatesTree->setCurrentItem(m_templatesTree->topLevelItem(0));
+    if (m_templatesTree->topLevelItemCount() > 0 && m_templatesTree->selectedItems().count() == 0)
+        m_templatesTree->setCurrentItem(m_templatesTree->topLevelItem(0));
 }
 
 void ChannelModifierEditor::slotViewClicked()
@@ -147,7 +133,7 @@ void ChannelModifierEditor::slotItemSelectionChanged()
 {
     if (m_templatesTree->selectedItems().count() > 0)
     {
-        QTreeWidgetItem *item = m_templatesTree->selectedItems().first();
+        QTreeWidgetItem* item = m_templatesTree->selectedItems().first();
         m_currentTemplate = m_doc->modifiersCache()->modifier(item->text(0));
         m_view->setModifierMap(m_currentTemplate->modifierMap());
         m_templateNameEdit->setText(m_currentTemplate->name());
@@ -176,7 +162,7 @@ void ChannelModifierEditor::slotRemoveHandlerClicked()
 
 void ChannelModifierEditor::slotSaveClicked()
 {
-    ChannelModifier *modifier = m_doc->modifiersCache()->modifier(m_templateNameEdit->text());
+    ChannelModifier* modifier = m_doc->modifiersCache()->modifier(m_templateNameEdit->text());
     if (modifier != NULL && modifier->type() == ChannelModifier::SystemTemplate)
     {
         // cannot overwrite a system template !
@@ -187,19 +173,19 @@ void ChannelModifierEditor::slotSaveClicked()
         return;
     }
 
-    QList< QPair<uchar, uchar> > map = m_view->modifiersMap();
+    QList<QPair<uchar, uchar>> map = m_view->modifiersMap();
     QString filename = QString("%1/%2%3")
-            .arg(QLCModifiersCache::userTemplateDirectory().absolutePath())
-            .arg(m_templateNameEdit->text().simplified())
-            .arg(KExtModifierTemplate);
-    ChannelModifier *newModifier = new ChannelModifier();
+                           .arg(QLCModifiersCache::userTemplateDirectory().absolutePath())
+                           .arg(m_templateNameEdit->text().simplified())
+                           .arg(KExtModifierTemplate);
+    ChannelModifier* newModifier = new ChannelModifier();
     newModifier->setName(m_templateNameEdit->text());
     newModifier->setModifierMap(map);
     newModifier->saveXML(filename);
 
     if (modifier == NULL)
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem(m_templatesTree);
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_templatesTree);
         item->setText(0, m_templateNameEdit->text());
         m_doc->modifiersCache()->addModifier(newModifier);
     }

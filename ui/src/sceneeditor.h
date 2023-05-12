@@ -62,7 +62,7 @@ public:
 
 public slots:
     void slotFunctionManagerActive(bool active);
-    void slotSetSceneValues(QList <SceneValue>&);
+    void slotSetSceneValues(QList<SceneValue>&);
 
 protected slots:
     void slotFixtureRemoved(quint32 id);
@@ -75,7 +75,7 @@ private:
 private:
     void init(bool applyValues);
     void setSceneValue(const SceneValue& scv);
-    SceneUiState * sceneUiState();
+    SceneUiState* sceneUiState();
 
 private:
     bool m_initFinished;
@@ -97,8 +97,8 @@ private slots:
     void slotCopyToAll();
     void slotColorTool();
     void slotPositionTool();
-    QColor slotColorSelectorChanged(const QColor &color);
-    void slotPositionSelectorChanged(const QPointF &position);
+    QColor slotColorSelectorChanged(const QColor& color);
+    void slotPositionSelectorChanged(const QPointF& position);
     void slotSpeedDialToggle(bool state);
     void slotBlindToggled(bool state);
     void slotRecord();
@@ -137,7 +137,7 @@ private:
      *********************************************************************/
 private:
     QTreeWidgetItem* fixtureItem(quint32 fxi_id);
-    QList <Fixture*> selectedFixtures() const;
+    QList<Fixture*> selectedFixtures() const;
 
     bool addFixtureItem(Fixture* fixture);
     void removeFixtureItem(quint32 fixtureID);
@@ -155,7 +155,7 @@ private slots:
     void slotDialDestroyed(QObject* dial);
 
 private:
-    SpeedDialWidget *m_speedDials;
+    SpeedDialWidget* m_speedDials;
 
     /*********************************************************************
      * Channels groups
@@ -176,7 +176,7 @@ public slots:
 
 private slots:
     /** called when the user check/uncheck a group of m_channelGroupsTree */
-    void slotChannelGroupsChanged(QTreeWidgetItem*item, int column);
+    void slotChannelGroupsChanged(QTreeWidgetItem* item, int column);
 
     /** Called when the user moves a fader of the ChannelGroup console */
     void slotGroupValueChanged(quint32 groupID, uchar value);
@@ -208,7 +208,7 @@ private:
     /** Index of the first fixture's tab */
     int m_fixtureFirstTabIndex;
 
-    QMap <quint32, FixtureConsole *> m_consoleList;
+    QMap<quint32, FixtureConsole*> m_consoleList;
 
     /** Flag to indicate if some fixture channels were
      *  manually selected and copied to clipboard */

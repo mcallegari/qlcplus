@@ -134,7 +134,7 @@ void RGBText_Test::clone()
 
     RGBAlgorithm* algo = text.clone();
     QCOMPARE(algo->type(), RGBAlgorithm::Text);
-    RGBText* text3 = static_cast<RGBText*> (algo);
+    RGBText* text3 = static_cast<RGBText*>(algo);
     QVERIFY(text3 != NULL);
     QCOMPARE(text3->text(), QString("Foo"));
     QCOMPARE(text3->font(), text.font());
@@ -282,7 +282,7 @@ void RGBText_Test::load()
     xmlReader.readNextStartElement();
 
     QVERIFY(text.loadXML(xmlReader) == true);
-    QCOMPARE(text.xOffset(), 20); // Valid X offset
+    QCOMPARE(text.xOffset(), 20);  // Valid X offset
     QCOMPARE(text.yOffset(), -20); // Invalid offset is ignored by loadXML()
 
     buffer.close();

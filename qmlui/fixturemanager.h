@@ -48,7 +48,8 @@ class FixtureManager : public QObject
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
     Q_PROPERTY(quint32 itemID READ itemID WRITE setItemID NOTIFY itemIDChanged)
-    Q_PROPERTY(bool propertyEditEnabled READ propertyEditEnabled WRITE setPropertyEditEnabled NOTIFY propertyEditEnabledChanged)
+    Q_PROPERTY(bool propertyEditEnabled READ propertyEditEnabled WRITE setPropertyEditEnabled NOTIFY
+                   propertyEditEnabledChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
@@ -56,14 +57,15 @@ class FixtureManager : public QObject
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
 
     Q_PROPERTY(QStringList colorFiltersFileList READ colorFiltersFileList NOTIFY colorFiltersFileListChanged)
-    Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY colorFilterFileIndexChanged)
-    Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
+    Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY
+                   colorFilterFileIndexChanged)
+    Q_PROPERTY(ColorFilters* selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
     Q_PROPERTY(QStringList channelModifiersList READ channelModifiersList NOTIFY channelModifiersListChanged)
     Q_PROPERTY(QVariantList channelModifierValues READ channelModifierValues NOTIFY channelModifierValuesChanged)
 
 public:
-    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
+    FixtureManager(QQuickView* view, Doc* doc, QObject* parent = nullptr);
     ~FixtureManager();
 
     /** Get/Set the Universe index used to filter Fixture lists/tree */
@@ -101,11 +103,11 @@ public slots:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** Reference to the Doc Monitor properties */
-    MonitorProperties *m_monProps;
+    MonitorProperties* m_monProps;
     /** A filter for m_fixturesMap to restrict data to a specific universe */
     quint32 m_universeFilter;
     /** A string to filter the displayed tree items */
@@ -123,15 +125,15 @@ private:
 public:
     enum
     {
-        ShowCheckBoxes  = (1 << 0),
-        ShowGroups      = (1 << 1),
-        ShowLinked      = (1 << 2),
-        ShowChannels    = (1 << 3),
-        ShowHeads       = (1 << 4),
-        ShowFlags       = (1 << 5),
-        ShowCanFade     = (1 << 6),
-        ShowPrecedence  = (1 << 7),
-        ShowModifier    = (1 << 8)
+        ShowCheckBoxes = (1 << 0),
+        ShowGroups = (1 << 1),
+        ShowLinked = (1 << 2),
+        ShowChannels = (1 << 3),
+        ShowHeads = (1 << 4),
+        ShowFlags = (1 << 5),
+        ShowCanFade = (1 << 6),
+        ShowPrecedence = (1 << 7),
+        ShowModifier = (1 << 8)
     };
 
     enum PrecedenceType
@@ -145,9 +147,9 @@ public:
 
     enum
     {
-        GroupMatch   = (1 << 0),
+        GroupMatch = (1 << 0),
         FixtureMatch = (1 << 1),
-        HeadMatch    = (1 << 2),
+        HeadMatch = (1 << 2),
         ChannelMatch = (1 << 3)
     };
 
@@ -157,9 +159,8 @@ public:
     /** Returns the Fixture ID at the provided $universeAddress */
     Q_INVOKABLE quint32 fixtureForAddress(quint32 universeAddress);
 
-    Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
-                                int uniIdx, int address, int channels, int quantity, quint32 gap,
-                                qreal xPos, qreal yPos);
+    Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name, int uniIdx, int address,
+                                int channels, int quantity, quint32 gap, qreal xPos, qreal yPos);
 
     /** Move the Fixture with the provided $fixtureID to the requested universe address.
      *  Returns true on success, false on error */
@@ -185,16 +186,18 @@ public:
 
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
 
-    static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath, quint32 nodeSubID,
-                               int &matchMask, QString searchFilter = QString(), int showFlags = ShowGroups | ShowLinked | ShowHeads,
+    static void addFixtureNode(Doc* doc, TreeModel* treeModel, Fixture* fixture, QString basePath, quint32 nodeSubID,
+                               int& matchMask, QString searchFilter = QString(),
+                               int showFlags = ShowGroups | ShowLinked | ShowHeads,
                                QList<SceneValue> checkedChannels = QList<SceneValue>());
 
-    static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
-                                        QString searchFilter = QString(), int showFlags = ShowGroups | ShowLinked | ShowHeads,
+    static void addFixtureGroupTreeNode(Doc* doc, TreeModel* treeModel, FixtureGroup* group,
+                                        QString searchFilter = QString(),
+                                        int showFlags = ShowGroups | ShowLinked | ShowHeads,
                                         QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Update the tree of groups/fixtures/channels */
-    static void updateGroupsTree(Doc *doc, TreeModel *treeModel, QString searchFilter = QString(),
+    static void updateGroupsTree(Doc* doc, TreeModel* treeModel, QString searchFilter = QString(),
                                  int showFlags = ShowGroups | ShowLinked | ShowHeads,
                                  QList<SceneValue> checkedChannels = QList<SceneValue>());
 
@@ -254,13 +257,13 @@ public slots:
 
 private:
     /** Comparison method to sort a Fixture list by DMX address */
-    static bool compareFixtures(Fixture *left, Fixture *right);
+    static bool compareFixtures(Fixture* left, Fixture* right);
 
 private:
     /** List of the current Fixture references in Doc */
-    QList<Fixture *> m_fixtureList;
+    QList<Fixture*> m_fixtureList;
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel *m_fixtureTree;
+    TreeModel* m_fixtureTree;
     /** Current flags being used for filling the tree data */
     int m_treeShowFlags;
 
@@ -269,7 +272,7 @@ private:
      *********************************************************************/
 public:
     /** Add a list of fixture IDs to a new fixture group */
-    void addFixturesToNewGroup(QList<quint32>fxList);
+    void addFixturesToNewGroup(QList<quint32> fxList);
 
     Q_INVOKABLE void updateFixtureGroup(quint32 groupID, quint32 itemID, int headIdx);
 
@@ -359,7 +362,7 @@ public:
     void setColorFilterFileIndex(int index);
 
     /** Return a refererence to the currently selected color filters */
-    ColorFilters *selectedFilters();
+    ColorFilters* selectedFilters();
 
 protected:
     /** Returns a QDir for the system color filters location */
@@ -381,7 +384,7 @@ signals:
     void selectedFiltersChanged();
 
 private:
-    QList<ColorFilters *> m_colorFilters;
+    QList<ColorFilters*> m_colorFilters;
     int m_colorFiltersFileIndex;
 
     /*********************************************************************
@@ -394,8 +397,7 @@ public:
     /** Wrapper methods to emit a signal to listeners interested in changes of
      *  channel values per capability */
     Q_INVOKABLE void setIntensityValue(quint8 value);
-    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
-                                   quint8 white, quint8 amber, quint8 uv);
+    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue, quint8 white, quint8 amber, quint8 uv);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
 
     /**
@@ -460,7 +462,7 @@ signals:
     /** Notify the listeners that a preset value has been picked.
      *  To uniquely identify which preset channel has changed, a reference
      *  to a cached QLCChannel is emitted as well */
-    void presetChanged(const QLCChannel *channel, quint8 value);
+    void presetChanged(const QLCChannel* channel, quint8 value);
 
     /** Notify the listeners that the list of fixtures with gobo channels has changed */
     void goboChannelsChanged();
@@ -486,7 +488,7 @@ private:
 
 private:
     /** Keep a map of references to the available preset channels and a related Fixture ID */
-    QMap<const QLCChannel *, quint32>m_presetsCache;
+    QMap<const QLCChannel*, quint32> m_presetsCache;
 
     /** Variables to hold the maximum Pan/Tilt degrees discovered
      *  when enabling the position capability for the selected Fixtures */
@@ -527,7 +529,7 @@ signals:
     void channelModifierValuesChanged();
 
 private:
-    ChannelModifier *m_selectedChannelModifier;
+    ChannelModifier* m_selectedChannelModifier;
 };
 
 #endif // FIXTUREMANAGER_H

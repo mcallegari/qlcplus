@@ -50,11 +50,9 @@ QLCPhysical::QLCPhysical()
     m_dmxConnector = "5-pin";
 }
 
-QLCPhysical::~QLCPhysical()
-{
-}
+QLCPhysical::~QLCPhysical() {}
 
-QLCPhysical::QLCPhysical(const QLCPhysical &other)
+QLCPhysical::QLCPhysical(const QLCPhysical& other)
 {
     *this = other;
 }
@@ -90,16 +88,8 @@ QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
 
 bool QLCPhysical::isEmpty() const
 {
-    if (m_bulbLumens == 0 &&
-        m_bulbColourTemperature == 0 &&
-        m_weight == 0 &&
-        m_width == 0 &&
-        m_height == 0 &&
-        m_depth == 0 &&
-        m_lensDegreesMin == 0 &&
-        m_lensDegreesMax == 0 &&
-        m_focusPanMax == 0 &&
-        m_focusTiltMax == 0 &&
+    if (m_bulbLumens == 0 && m_bulbColourTemperature == 0 && m_weight == 0 && m_width == 0 && m_height == 0 &&
+        m_depth == 0 && m_lensDegreesMin == 0 && m_lensDegreesMax == 0 && m_focusPanMax == 0 && m_focusTiltMax == 0 &&
         m_powerConsumption == 0)
         return true;
 
@@ -265,7 +255,7 @@ int QLCPhysical::powerConsumption() const
     {
         /* If power consumption value is missing, return bulb watts
          * plus a guesstimate 100W, since there's usually other
-          * electronics consuming power as well. */
+         * electronics consuming power as well. */
         int bulbWatts = bulbType().remove(QRegularExpression("[A-Z]*")).toInt();
         if (bulbWatts > 0)
             return bulbWatts + 100;
@@ -288,7 +278,7 @@ QString QLCPhysical::dmxConnector() const
  * Load & Save
  ****************************************************************************/
 
-bool QLCPhysical::loadXML(QXmlStreamReader &doc)
+bool QLCPhysical::loadXML(QXmlStreamReader& doc)
 {
     if (doc.name() != KXMLQLCPhysical)
     {
@@ -349,7 +339,7 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
     return true;
 }
 
-bool QLCPhysical::saveXML(QXmlStreamWriter *doc)
+bool QLCPhysical::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 

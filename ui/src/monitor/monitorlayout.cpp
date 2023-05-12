@@ -3,7 +3,7 @@
   monitorlayout.cpp
 
   Copyright (c) Nokia Corporation/QtSoftware
-		Heikki Junnila
+        Heikki Junnila
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,24 +29,23 @@
  * MonitorLayoutItem
  ****************************************************************************/
 
-MonitorLayoutItem::MonitorLayoutItem(MonitorFixture* mof) : QWidgetItem(mof)
+MonitorLayoutItem::MonitorLayoutItem(MonitorFixture* mof)
+    : QWidgetItem(mof)
 {
 }
 
-MonitorLayoutItem::~MonitorLayoutItem()
-{
-}
+MonitorLayoutItem::~MonitorLayoutItem() {}
 
 bool MonitorLayoutItem::operator<(const MonitorLayoutItem& item)
 {
-    MonitorLayoutItem& ncitem = const_cast<MonitorLayoutItem&> (item);
+    MonitorLayoutItem& ncitem = const_cast<MonitorLayoutItem&>(item);
     MonitorFixture* item_mof;
     MonitorFixture* mof;
 
-    mof = qobject_cast<MonitorFixture*> (widget());
+    mof = qobject_cast<MonitorFixture*>(widget());
     Q_ASSERT(mof != NULL);
 
-    item_mof = qobject_cast<MonitorFixture*> (ncitem.widget());
+    item_mof = qobject_cast<MonitorFixture*>(ncitem.widget());
     Q_ASSERT(item_mof != NULL);
 
     if ((*mof) < (*item_mof))
@@ -59,7 +58,8 @@ bool MonitorLayoutItem::operator<(const MonitorLayoutItem& item)
  * Initialization
  ****************************************************************************/
 
-MonitorLayout::MonitorLayout(QWidget *parent) : QLayout(parent)
+MonitorLayout::MonitorLayout(QWidget* parent)
+    : QLayout(parent)
 {
 }
 
@@ -75,7 +75,7 @@ MonitorLayout::~MonitorLayout()
 
 void MonitorLayout::addItem(QLayoutItem* item)
 {
-    m_items.append(static_cast<MonitorLayoutItem*> (item));
+    m_items.append(static_cast<MonitorLayoutItem*>(item));
     sort();
     update();
 }
@@ -148,7 +148,7 @@ QSize MonitorLayout::minimumSize() const
     QLayoutItem* item;
 
     foreach (item, m_items)
-    size = size.expandedTo(item->minimumSize());
+        size = size.expandedTo(item->minimumSize());
 
     size += QSize(2 * contentsMargins().left(), 2 * contentsMargins().top());
 
@@ -175,8 +175,7 @@ int MonitorLayout::doLayout(const QRect& rect, bool testOnly) const
 
         if (testOnly == false)
         {
-            item->setGeometry(QRect(QPoint(x, y),
-                                    item->sizeHint()));
+            item->setGeometry(QRect(QPoint(x, y), item->sizeHint()));
         }
 
         x = nextX;

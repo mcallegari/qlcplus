@@ -44,8 +44,7 @@ class SimpleDesk : public PreviewContext, public DMXSource
     Q_PROPERTY(QStringList commandHistory READ commandHistory NOTIFY commandHistoryChanged)
 
 public:
-    SimpleDesk(QQuickView *view, Doc *doc,
-               FunctionManager *funcMgr, QObject *parent = 0);
+    SimpleDesk(QQuickView* view, Doc* doc, FunctionManager* funcMgr, QObject* parent = 0);
     ~SimpleDesk();
 
     QVariant universesListModel() const;
@@ -71,10 +70,10 @@ signals:
 
 private:
     /** Reference to the Function Manager */
-    FunctionManager *m_functionManager;
+    FunctionManager* m_functionManager;
 
     /** QML ready model to hold channel values and changes */
-    ListModel *m_channelList;
+    ListModel* m_channelList;
 
     /** Values array for comparison */
     QMap<quint32, QByteArray> m_prevUniverseValues;
@@ -89,7 +88,13 @@ public:
         ResetUniverse
     };
 
-    enum ChannelStatus { None = 0, Odd, Even, Override };
+    enum ChannelStatus
+    {
+        None = 0,
+        Odd,
+        Even,
+        Override
+    };
     Q_ENUM(ChannelStatus)
 
     /** Set the value of a single channel */
@@ -119,15 +124,15 @@ signals:
 
 private:
     /** A map of channel absolute addresses and their values.
-      * Note that only channels overridden by Simple Desk are here */
-    QHash <uint,uchar> m_values;
+     * Note that only channels overridden by Simple Desk are here */
+    QHash<uint, uchar> m_values;
 
     /** Mutex to sync data access */
     mutable QMutex m_mutex;
 
     /** A list of commands to be executed on writeDMX.
      *  This is used to sync reset requests with mastertimer ticks */
-    QList< QPair<int,quint32> > m_commandQueue;
+    QList<QPair<int, quint32>> m_commandQueue;
 
     /*********************************************************************
      * DMX channels dump
@@ -153,7 +158,7 @@ signals:
 
 private:
     /** List of the values available for dumping to a Scene */
-    QList <SceneValue> m_dumpValues;
+    QList<SceneValue> m_dumpValues;
 
     /** Bitmask representing the available channel types for
      *  the DMX channels ready for dumping */
@@ -173,7 +178,7 @@ signals:
     void commandHistoryChanged();
 
 private:
-    KeyPadParser *m_keyPadParser;
+    KeyPadParser* m_keyPadParser;
     QStringList m_keypadCommandHistory;
 
     /************************************************************************
@@ -184,12 +189,11 @@ public:
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 private:
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,
-                          quint32 fixtureID, quint32 channel);
+    FadeChannel* getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 };
 
 #endif // SIMPLEDESK_H

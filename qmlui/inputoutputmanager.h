@@ -52,7 +52,7 @@ class InputOutputManager : public PreviewContext
     Q_PROPERTY(int bpmNumber READ bpmNumber WRITE setBpmNumber NOTIFY bpmNumberChanged)
 
 public:
-    InputOutputManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    InputOutputManager(QQuickView* view, Doc* doc, QObject* parent = 0);
 
 protected slots:
     void slotDocLoaded();
@@ -88,7 +88,7 @@ signals:
 
 private:
     /** List of references to the current Universes in Doc */
-    QList<Universe *> m_universeList;
+    QList<Universe*> m_universeList;
 
     int m_selectedUniverseIndex;
     bool m_blackout;

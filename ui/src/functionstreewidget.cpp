@@ -29,17 +29,16 @@
 #define COL_NAME 0
 #define COL_PATH 1
 
-FunctionsTreeWidget::FunctionsTreeWidget(Doc *doc, QWidget *parent) :
-    QTreeWidget(parent)
-  , m_doc(doc)
+FunctionsTreeWidget::FunctionsTreeWidget(Doc* doc, QWidget* parent)
+    : QTreeWidget(parent)
+    , m_doc(doc)
 {
     sortItems(COL_NAME, Qt::AscendingOrder);
 
-    QTreeWidgetItem *root = invisibleRootItem();
+    QTreeWidgetItem* root = invisibleRootItem();
     root->setFlags(root->flags() & ~Qt::ItemIsDropEnabled);
 
-    connect(this, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-                this, SLOT(slotItemChanged(QTreeWidgetItem*)));
+    connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotItemChanged(QTreeWidgetItem*)));
 }
 
 void FunctionsTreeWidget::updateTree()
@@ -80,7 +79,7 @@ void FunctionsTreeWidget::functionNameChanged(quint32 fid)
     blockSignals(false);
 }
 
-QTreeWidgetItem *FunctionsTreeWidget::addFunction(quint32 fid)
+QTreeWidgetItem* FunctionsTreeWidget::addFunction(quint32 fid)
 {
     Function* function = m_doc->function(fid);
     if (function == NULL || function->isVisible() == false)
@@ -132,11 +131,11 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
         m_foldersMap[QString(basePath + "/")] = item;
     }
 
-    QTreeWidgetItem *pItem = folderItem(function->path());
+    QTreeWidgetItem* pItem = folderItem(function->path());
 
     if (pItem != NULL)
     {
-        //qDebug() << "Found item for function:" << function->name() << ", path: " << function->path();
+        // qDebug() << "Found item for function:" << function->name() << ", path: " << function->path();
         return pItem;
     }
 
@@ -190,7 +189,7 @@ void FunctionsTreeWidget::addFolder()
         return;
     }
 
-    QTreeWidgetItem *item = selectedItems().first();
+    QTreeWidgetItem* item = selectedItems().first();
     if (item->text(COL_PATH).isEmpty())
         item = item->parent();
 
@@ -211,7 +210,7 @@ void FunctionsTreeWidget::addFolder()
 
     fullPath += newName;
 
-    QTreeWidgetItem *folder = new QTreeWidgetItem(item);
+    QTreeWidgetItem* folder = new QTreeWidgetItem(item);
     folder->setText(COL_NAME, newName);
     folder->setIcon(COL_NAME, QIcon(":/folder.png"));
     folder->setData(COL_NAME, Qt::UserRole, Function::invalidId());
@@ -227,7 +226,7 @@ void FunctionsTreeWidget::addFolder()
     scrollToItem(folder, QAbstractItemView::PositionAtCenter);
 }
 
-void FunctionsTreeWidget::deleteFolder(QTreeWidgetItem *item)
+void FunctionsTreeWidget::deleteFolder(QTreeWidgetItem* item)
 {
     if (item == NULL)
         return;
@@ -236,10 +235,10 @@ void FunctionsTreeWidget::deleteFolder(QTreeWidgetItem *item)
     for (int i = 0; i < item->childCount(); i++)
         childrenList.append(item->child(i));
 
-    QListIterator <QTreeWidgetItem*> it(childrenList);
+    QListIterator<QTreeWidgetItem*> it(childrenList);
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem *child = it.next();
+        QTreeWidgetItem* child = it.next();
         quint32 fid = child->data(COL_NAME, Qt::UserRole).toUInt();
         if (fid != Function::invalidId())
         {
@@ -258,7 +257,7 @@ void FunctionsTreeWidget::deleteFolder(QTreeWidgetItem *item)
     delete item;
 }
 
-QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
+QTreeWidgetItem* FunctionsTreeWidget::folderItem(QString name)
 {
     if (selectedItems().count() > 0)
     {
@@ -275,11 +274,11 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
 
     qDebug() << "Folder" << name << "doesn't exist. Creating it...";
 
-    QTreeWidgetItem *parentNode = NULL;
+    QTreeWidgetItem* parentNode = NULL;
     int type = Function::Undefined;
     QString fullPath;
     QStringList levelsList = name.split("/");
-    foreach(QString level, levelsList)
+    foreach (QString level, levelsList)
     {
         // the first round is a category node. Just retrieve the item pointer
         // and the type, then skip it.
@@ -300,7 +299,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
         // create only missing levels
         if (m_foldersMap.contains(fullPath) == false)
         {
-            QTreeWidgetItem *folder = new QTreeWidgetItem(parentNode);
+            QTreeWidgetItem* folder = new QTreeWidgetItem(parentNode);
             folder->setText(COL_NAME, level);
             folder->setIcon(COL_NAME, QIcon(":/folder.png"));
             folder->setData(COL_NAME, Qt::UserRole, Function::invalidId());
@@ -318,7 +317,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
     return m_foldersMap[name];
 }
 
-void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem *item)
+void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem* item)
 {
     blockSignals(true);
     qDebug() << "[FunctionsTreeWidget] TREE item changed";
@@ -328,7 +327,7 @@ void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem *item)
         return;
     }
 
-    QTreeWidgetItem *parent = item->parent();
+    QTreeWidgetItem* parent = item->parent();
     if (parent != NULL)
     {
         QString fullPath = parent->text(COL_PATH);
@@ -345,20 +344,20 @@ void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem *item)
     blockSignals(false);
 }
 
-void FunctionsTreeWidget::slotUpdateChildrenPath(QTreeWidgetItem *root)
+void FunctionsTreeWidget::slotUpdateChildrenPath(QTreeWidgetItem* root)
 {
     if (root->childCount() == 0)
         return;
     for (int i = 0; i < root->childCount(); i++)
     {
-        QTreeWidgetItem *child = root->child(i);
+        QTreeWidgetItem* child = root->child(i);
 
         // child can be a function node or another folder
         QString path = child->text(COL_PATH);
         if (path.isEmpty()) // function node
         {
             quint32 fid = child->data(COL_NAME, Qt::UserRole).toUInt();
-            Function *func = m_doc->function(fid);
+            Function* func = m_doc->function(fid);
             if (func != NULL)
                 func->setPath(root->text(COL_PATH));
         }
@@ -369,20 +368,20 @@ void FunctionsTreeWidget::slotUpdateChildrenPath(QTreeWidgetItem *root)
     }
 }
 
-void FunctionsTreeWidget::mousePressEvent(QMouseEvent *event)
+void FunctionsTreeWidget::mousePressEvent(QMouseEvent* event)
 {
     QTreeWidget::mousePressEvent(event);
 
-    m_draggedItems = selectedItems(); //itemAt(event->pos());
+    m_draggedItems = selectedItems(); // itemAt(event->pos());
 }
 
 
-void FunctionsTreeWidget::dropEvent(QDropEvent *event)
+void FunctionsTreeWidget::dropEvent(QDropEvent* event)
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QTreeWidgetItem *dropItem = itemAt(event->pos());
+    QTreeWidgetItem* dropItem = itemAt(event->pos());
 #else
-    QTreeWidgetItem *dropItem = itemAt(event->position().toPoint());
+    QTreeWidgetItem* dropItem = itemAt(event->position().toPoint());
 #endif
     if (m_draggedItems.count() == 0 || dropItem == NULL)
         return;
@@ -392,17 +391,17 @@ void FunctionsTreeWidget::dropEvent(QDropEvent *event)
         return;
 
     int dropType = var.toInt();
-    //QString folderName = dropItem->text(COL_PATH);
+    // QString folderName = dropItem->text(COL_PATH);
 
-    foreach (QTreeWidgetItem *item, m_draggedItems)
+    foreach (QTreeWidgetItem* item, m_draggedItems)
     {
         quint32 dragFID = item->data(COL_NAME, Qt::UserRole).toUInt();
-        Function *dragFunc = m_doc->function(dragFID);
+        Function* dragFunc = m_doc->function(dragFID);
         if (dragFunc != NULL && dragFunc->type() == dropType)
         {
             QTreeWidget::dropEvent(event);
             quint32 fid = item->data(COL_NAME, Qt::UserRole).toUInt();
-            Function *func = m_doc->function(fid);
+            Function* func = m_doc->function(fid);
             if (func != NULL)
                 func->setPath(dropItem->text(COL_PATH));
         }

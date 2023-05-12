@@ -84,7 +84,7 @@ public:
     bool load(const QDir& dir, bool systemTemplates = false);
 
 private:
-    QHash <QString, ChannelModifier*> m_modifiers;
+    QHash<QString, ChannelModifier*> m_modifiers;
 };
 
 /** @} */

@@ -30,7 +30,9 @@
 
 QHash<int, QString> STATUS_CODES;
 
-QHttpServer::QHttpServer(QObject *parent) : QObject(parent), m_tcpServer(0)
+QHttpServer::QHttpServer(QObject* parent)
+    : QObject(parent)
+    , m_tcpServer(0)
 {
 #define STATUS_CODE(num, reason) STATUS_CODES.insert(num, reason);
     // {{{
@@ -89,9 +91,7 @@ QHttpServer::QHttpServer(QObject *parent) : QObject(parent), m_tcpServer(0)
     // }}}
 }
 
-QHttpServer::~QHttpServer()
-{
-}
+QHttpServer::~QHttpServer() {}
 
 void QHttpServer::newConnection()
 {
@@ -99,26 +99,28 @@ void QHttpServer::newConnection()
 
     while (m_tcpServer->hasPendingConnections())
     {
-        QHttpConnection *connection =
-            new QHttpConnection(m_tcpServer->nextPendingConnection(), this);
-        connect(connection, SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)), this,
-                SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)));
-        connect(connection, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
-                this, SIGNAL(webSocketDataReady(QHttpConnection*,QString)));
-        connect(connection, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
-                this, SIGNAL(webSocketConnectionClose(QHttpConnection*)));
+        QHttpConnection* connection = new QHttpConnection(m_tcpServer->nextPendingConnection(), this);
+        connect(connection, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)), this,
+                SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)));
+        connect(connection, SIGNAL(webSocketDataReady(QHttpConnection*, QString)), this,
+                SIGNAL(webSocketDataReady(QHttpConnection*, QString)));
+        connect(connection, SIGNAL(webSocketConnectionClose(QHttpConnection*)), this,
+                SIGNAL(webSocketConnectionClose(QHttpConnection*)));
     }
 }
 
-bool QHttpServer::listen(const QHostAddress &address, quint16 port)
+bool QHttpServer::listen(const QHostAddress& address, quint16 port)
 {
     Q_ASSERT(!m_tcpServer);
     m_tcpServer = new QTcpServer(this);
 
     bool couldBindToPort = m_tcpServer->listen(address, port);
-    if (couldBindToPort) {
+    if (couldBindToPort)
+    {
         connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
-    } else {
+    }
+    else
+    {
         delete m_tcpServer;
         m_tcpServer = NULL;
     }

@@ -52,17 +52,17 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPad              QString("XYPad")
-#define KXMLQLCVCXYPadPan           QString("Pan")
-#define KXMLQLCVCXYPadTilt          QString("Tilt")
-#define KXMLQLCVCXYPadWidth         QString("Width")
-#define KXMLQLCVCXYPadHeight        QString("Height")
-#define KXMLQLCVCXYPadPosition      QString("Position")
-#define KXMLQLCVCXYPadRangeWindow   QString("Window")
+#define KXMLQLCVCXYPad QString("XYPad")
+#define KXMLQLCVCXYPadPan QString("Pan")
+#define KXMLQLCVCXYPadTilt QString("Tilt")
+#define KXMLQLCVCXYPadWidth QString("Width")
+#define KXMLQLCVCXYPadHeight QString("Height")
+#define KXMLQLCVCXYPadPosition QString("Position")
+#define KXMLQLCVCXYPadRangeWindow QString("Window")
 #define KXMLQLCVCXYPadRangeHorizMin QString("hMin")
 #define KXMLQLCVCXYPadRangeHorizMax QString("hMax")
-#define KXMLQLCVCXYPadRangeVertMin  QString("vMin")
-#define KXMLQLCVCXYPadRangeVertMax  QString("vMax")
+#define KXMLQLCVCXYPadRangeVertMin QString("vMin")
+#define KXMLQLCVCXYPadRangeVertMax QString("vMax")
 
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy
@@ -100,17 +100,17 @@ public:
     void enableWidgetUI(bool enable);
 
 private:
-    QVBoxLayout* m_mainVbox;  // main vertical layout
-    QHBoxLayout* m_padBox; // box containing sliders and XYPad
-    QVBoxLayout* m_lvbox; // left vertical box (vertical ctkSlider)
-    QVBoxLayout* m_cvbox; // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
-    QVBoxLayout* m_rvbox; // right vertical box (vertical slider)
-    QSlider* m_vSlider; // tilt slider
-    QSlider* m_hSlider; // pan slider
-    ctkRangeSlider *m_vRangeSlider; // range window height control
-    ctkRangeSlider *m_hRangeSlider; // range window width control
+    QVBoxLayout* m_mainVbox;        // main vertical layout
+    QHBoxLayout* m_padBox;          // box containing sliders and XYPad
+    QVBoxLayout* m_lvbox;           // left vertical box (vertical ctkSlider)
+    QVBoxLayout* m_cvbox;           // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
+    QVBoxLayout* m_rvbox;           // right vertical box (vertical slider)
+    QSlider* m_vSlider;             // tilt slider
+    QSlider* m_hSlider;             // pan slider
+    ctkRangeSlider* m_vRangeSlider; // range window height control
+    ctkRangeSlider* m_hRangeSlider; // range window width control
     VCXYPadArea* m_area;
-    FlowLayout *m_presetsLayout;
+    FlowLayout* m_presetsLayout;
 
     /*************************************************************************
      * Clipboard
@@ -157,7 +157,7 @@ public:
     /**
      * Remove a fixture by its ID from the XY pad's control list
      */
-    void removeFixture(GroupHead const & head);
+    void removeFixture(GroupHead const& head);
 
     /**
      * Remove all currently controlled fixtures from the XY pad
@@ -167,14 +167,14 @@ public:
     /**
      * Get a list of the pad's currently controlled fixtures
      */
-    QList <VCXYPadFixture> fixtures() const;
+    QList<VCXYPadFixture> fixtures() const;
 
 private:
     QRectF computeCommonDegreesRange() const;
     void updateDegreesRange();
 
 private:
-    QList <VCXYPadFixture> m_fixtures;
+    QList<VCXYPadFixture> m_fixtures;
 
     /*************************************************************************
      * Current position
@@ -201,7 +201,7 @@ private:
     bool m_inputValueChanged;
 
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 
     /*********************************************************************
      * Presets
@@ -209,10 +209,10 @@ private:
 public:
     void addPreset(VCXYPadPreset const& preset);
     void resetPresets();
-    QList<VCXYPadPreset *> presets() const;
+    QList<VCXYPadPreset*> presets() const;
 
 protected:
-    void updateSceneChannel(FadeChannel *fc, uchar value);
+    void updateSceneChannel(FadeChannel* fc, uchar value);
     void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:
@@ -223,16 +223,16 @@ private:
     FunctionParent functionParent() const;
 
 protected:
-    QHash<QWidget *, VCXYPadPreset *> m_presets;
+    QHash<QWidget*, VCXYPadPreset*> m_presets;
     /** Reference to an EFX Function when an EFX Preset is pressed */
-    EFX *m_efx;
+    EFX* m_efx;
     /** Attribute override IDs for a running EFX preset */
     int m_efxStartXOverrideId;
     int m_efxStartYOverrideId;
     int m_efxWidthOverrideId;
     int m_efxHeightOverrideId;
 
-    Scene *m_scene;
+    Scene* m_scene;
     QList<SceneChannel> m_sceneChannels;
 
     /*********************************************************************
@@ -258,10 +258,10 @@ protected slots:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

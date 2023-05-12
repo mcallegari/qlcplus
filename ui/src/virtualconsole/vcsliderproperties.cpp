@@ -40,10 +40,10 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KColumnName  0
-#define KColumnType  1
+#define KColumnName 0
+#define KColumnType 1
 #define KColumnRange 2
-#define KColumnID    3
+#define KColumnID 3
 
 VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     : QDialog(slider)
@@ -62,36 +62,24 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     addAction(action);
 
     /* Level page connections */
-    connect(m_levelLowLimitSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotLevelLowSpinChanged(int)));
-    connect(m_levelHighLimitSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotLevelHighSpinChanged(int)));
-    connect(m_levelCapabilityButton, SIGNAL(clicked()),
-            this, SLOT(slotLevelCapabilityClicked()));
-    connect(m_levelList, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
-            this, SLOT(slotLevelListClicked(QTreeWidgetItem*)));
-    connect(m_levelAllButton, SIGNAL(clicked()),
-            this, SLOT(slotLevelAllClicked()));
-    connect(m_levelNoneButton, SIGNAL(clicked()),
-            this, SLOT(slotLevelNoneClicked()));
-    connect(m_levelInvertButton, SIGNAL(clicked()),
-            this, SLOT(slotLevelInvertClicked()));
-    connect(m_levelByGroupButton, SIGNAL(clicked()),
-            this, SLOT(slotLevelByGroupClicked()));
-    connect(m_switchToLevelModeButton, SIGNAL(clicked()),
-            this, SLOT(slotModeLevelClicked()));
+    connect(m_levelLowLimitSpin, SIGNAL(valueChanged(int)), this, SLOT(slotLevelLowSpinChanged(int)));
+    connect(m_levelHighLimitSpin, SIGNAL(valueChanged(int)), this, SLOT(slotLevelHighSpinChanged(int)));
+    connect(m_levelCapabilityButton, SIGNAL(clicked()), this, SLOT(slotLevelCapabilityClicked()));
+    connect(m_levelList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this,
+            SLOT(slotLevelListClicked(QTreeWidgetItem*)));
+    connect(m_levelAllButton, SIGNAL(clicked()), this, SLOT(slotLevelAllClicked()));
+    connect(m_levelNoneButton, SIGNAL(clicked()), this, SLOT(slotLevelNoneClicked()));
+    connect(m_levelInvertButton, SIGNAL(clicked()), this, SLOT(slotLevelInvertClicked()));
+    connect(m_levelByGroupButton, SIGNAL(clicked()), this, SLOT(slotLevelByGroupClicked()));
+    connect(m_switchToLevelModeButton, SIGNAL(clicked()), this, SLOT(slotModeLevelClicked()));
 
     /* Playback page connections */
-    connect(m_switchToPlaybackModeButton, SIGNAL(clicked()),
-            this, SLOT(slotModePlaybackClicked()));
-    connect(m_attachPlaybackFunctionButton, SIGNAL(clicked()),
-            this, SLOT(slotAttachPlaybackFunctionClicked()));
-    connect(m_detachPlaybackFunctionButton, SIGNAL(clicked()),
-            this, SLOT(slotDetachPlaybackFunctionClicked()));
+    connect(m_switchToPlaybackModeButton, SIGNAL(clicked()), this, SLOT(slotModePlaybackClicked()));
+    connect(m_attachPlaybackFunctionButton, SIGNAL(clicked()), this, SLOT(slotAttachPlaybackFunctionClicked()));
+    connect(m_detachPlaybackFunctionButton, SIGNAL(clicked()), this, SLOT(slotDetachPlaybackFunctionClicked()));
 
     /* Submaster page connections */
-    connect(m_switchToSubmasterModeButton, SIGNAL(clicked()),
-            this, SLOT(slotModeSubmasterClicked()));
+    connect(m_switchToSubmasterModeButton, SIGNAL(clicked()), this, SLOT(slotModeSubmasterClicked()));
 
     /*********************************************************************
      * General page
@@ -110,15 +98,15 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_sliderMode = m_slider->sliderMode();
     switch (m_sliderMode)
     {
-        default:
-        case VCSlider::Level:
-            slotModeLevelClicked();
+    default:
+    case VCSlider::Level:
+        slotModeLevelClicked();
         break;
-        case VCSlider::Playback:
-            slotModePlaybackClicked();
+    case VCSlider::Playback:
+        slotModePlaybackClicked();
         break;
-        case VCSlider::Submaster:
-            slotModeSubmasterClicked();
+    case VCSlider::Submaster:
+        slotModeSubmasterClicked();
         break;
     }
 
@@ -131,12 +119,12 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /* Value display style */
     switch (m_slider->valueDisplayStyle())
     {
-        default:
-        case VCSlider::ExactValue:
-            m_valueExactRadio->setChecked(true);
+    default:
+    case VCSlider::ExactValue:
+        m_valueExactRadio->setChecked(true);
         break;
-        case VCSlider::PercentageValue:
-            m_valuePercentageRadio->setChecked(true);
+    case VCSlider::PercentageValue:
+        m_valuePercentageRadio->setChecked(true);
         break;
     }
 
@@ -167,12 +155,9 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     levelUpdateFixtures();
     levelUpdateChannelSelections();
 
-    connect(m_levelList, SIGNAL(expanded(QModelIndex)),
-            this, SLOT(slotItemExpanded()));
-    connect(m_levelList, SIGNAL(collapsed(QModelIndex)),
-            this, SLOT(slotItemExpanded()));
-    connect(m_monitorValuesCheck, SIGNAL(clicked(bool)),
-            this, SLOT(slotMonitorCheckClicked(bool)));
+    connect(m_levelList, SIGNAL(expanded(QModelIndex)), this, SLOT(slotItemExpanded()));
+    connect(m_levelList, SIGNAL(collapsed(QModelIndex)), this, SLOT(slotItemExpanded()));
+    connect(m_monitorValuesCheck, SIGNAL(clicked(bool)), this, SLOT(slotMonitorCheckClicked(bool)));
 
     m_ovrResetSelWidget = new InputSelectionWidget(m_doc, this);
     m_ovrResetSelWidget->setTitle(tr("Override reset control"));
@@ -218,35 +203,34 @@ void VCSliderProperties::slotModeLevelClicked()
     setSubmasterPageVisibility(false);
 
     int cngType = m_slider->clickAndGoType();
-    switch(cngType)
+    switch (cngType)
     {
-        case ClickAndGoWidget::Red:
-        case ClickAndGoWidget::Green:
-        case ClickAndGoWidget::Blue:
-        case ClickAndGoWidget::Cyan:
-        case ClickAndGoWidget::Magenta:
-        case ClickAndGoWidget::Yellow:
-        case ClickAndGoWidget::Amber:
-        case ClickAndGoWidget::White:
-        case ClickAndGoWidget::UV:
-        case ClickAndGoWidget::Lime:
-        case ClickAndGoWidget::Indigo:
-            m_cngColorCheck->setChecked(true);
+    case ClickAndGoWidget::Red:
+    case ClickAndGoWidget::Green:
+    case ClickAndGoWidget::Blue:
+    case ClickAndGoWidget::Cyan:
+    case ClickAndGoWidget::Magenta:
+    case ClickAndGoWidget::Yellow:
+    case ClickAndGoWidget::Amber:
+    case ClickAndGoWidget::White:
+    case ClickAndGoWidget::UV:
+    case ClickAndGoWidget::Lime:
+    case ClickAndGoWidget::Indigo:
+        m_cngColorCheck->setChecked(true);
         break;
-        case ClickAndGoWidget::RGB:
-            m_cngRGBCheck->setChecked(true);
+    case ClickAndGoWidget::RGB:
+        m_cngRGBCheck->setChecked(true);
         break;
-        case ClickAndGoWidget::CMY:
-            m_cngCMYCheck->setChecked(true);
+    case ClickAndGoWidget::CMY:
+        m_cngCMYCheck->setChecked(true);
         break;
-        case ClickAndGoWidget::Preset:
-            m_cngPresetCheck->setChecked(true);
+    case ClickAndGoWidget::Preset:
+        m_cngPresetCheck->setChecked(true);
         break;
-        default:
-        case ClickAndGoWidget::None:
-            m_cngNoneCheck->setChecked(true);
+    default:
+    case ClickAndGoWidget::None:
+        m_cngNoneCheck->setChecked(true);
         break;
-
     }
 }
 
@@ -286,12 +270,12 @@ void VCSliderProperties::setLevelPageVisibility(bool visible)
     if (visible == true)
     {
         m_switchToLevelModeButton->hide();
-        //m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+        // m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
     }
     else
     {
         m_switchToLevelModeButton->show();
-        //m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+        // m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
     }
 }
 
@@ -333,7 +317,7 @@ void VCSliderProperties::setSubmasterPageVisibility(bool visible)
 
 void VCSliderProperties::levelUpdateFixtures()
 {
-    foreach(Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture* fixture, m_doc->fixtures())
     {
         Q_ASSERT(fixture != NULL);
         levelUpdateFixtureNode(fixture->id());
@@ -363,14 +347,13 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     item->setText(KColumnType, fxi->typeString());
 
     levelUpdateChannels(item, fxi);
-
 }
 
 QTreeWidgetItem* VCSliderProperties::levelFixtureNode(quint32 id)
 {
     for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem* item = m_levelList->topLevelItem(i);
         if (item->text(KColumnID).toUInt() == id)
             return item;
     }
@@ -378,8 +361,7 @@ QTreeWidgetItem* VCSliderProperties::levelFixtureNode(quint32 id)
     return NULL;
 }
 
-void VCSliderProperties::levelUpdateChannels(QTreeWidgetItem* parent,
-                                             Fixture* fxi)
+void VCSliderProperties::levelUpdateChannels(QTreeWidgetItem* parent, Fixture* fxi)
 {
     quint32 channels = 0;
     quint32 ch = 0;
@@ -392,8 +374,7 @@ void VCSliderProperties::levelUpdateChannels(QTreeWidgetItem* parent,
         levelUpdateChannelNode(parent, fxi, ch);
 }
 
-void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
-                                                Fixture* fxi, quint32 ch)
+void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent, Fixture* fxi, quint32 ch)
 {
     Q_ASSERT(parent != NULL);
 
@@ -413,11 +394,9 @@ void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
         item->setCheckState(KColumnName, Qt::Unchecked);
     }
 
-    item->setText(KColumnName, QString("%1:%2").arg(ch + 1)
-                  .arg(channel->name()));
+    item->setText(KColumnName, QString("%1:%2").arg(ch + 1).arg(channel->name()));
     item->setIcon(KColumnName, channel->getIcon());
-    if (channel->group() == QLCChannel::Intensity &&
-        channel->colour() != QLCChannel::NoColour)
+    if (channel->group() == QLCChannel::Intensity && channel->colour() != QLCChannel::NoColour)
         item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));
     else
         item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
@@ -426,8 +405,7 @@ void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
     levelUpdateCapabilities(item, channel);
 }
 
-QTreeWidgetItem* VCSliderProperties::levelChannelNode(QTreeWidgetItem* parent,
-                                                      quint32 ch)
+QTreeWidgetItem* VCSliderProperties::levelChannelNode(QTreeWidgetItem* parent, quint32 ch)
 {
     Q_ASSERT(parent != NULL);
 
@@ -441,19 +419,17 @@ QTreeWidgetItem* VCSliderProperties::levelChannelNode(QTreeWidgetItem* parent,
     return NULL;
 }
 
-void VCSliderProperties::levelUpdateCapabilities(QTreeWidgetItem* parent,
-                                                 const QLCChannel* channel)
+void VCSliderProperties::levelUpdateCapabilities(QTreeWidgetItem* parent, const QLCChannel* channel)
 {
     Q_ASSERT(parent != NULL);
     Q_ASSERT(channel != NULL);
 
-    QListIterator <QLCCapability*> it(channel->capabilities());
+    QListIterator<QLCCapability*> it(channel->capabilities());
     while (it.hasNext() == true)
         levelUpdateCapabilityNode(parent, it.next());
 }
 
-void VCSliderProperties::levelUpdateCapabilityNode(QTreeWidgetItem* parent,
-        QLCCapability* cap)
+void VCSliderProperties::levelUpdateCapabilityNode(QTreeWidgetItem* parent, QLCCapability* cap)
 {
     QTreeWidgetItem* item;
     QString str;
@@ -463,8 +439,7 @@ void VCSliderProperties::levelUpdateCapabilityNode(QTreeWidgetItem* parent,
 
     item = new QTreeWidgetItem(parent);
     item->setText(KColumnName, cap->name());
-    item->setText(KColumnRange, str.asprintf("%.3d - %.3d",
-                                             cap->min(), cap->max()));
+    item->setText(KColumnRange, str.asprintf("%.3d - %.3d", cap->min(), cap->max()));
     item->setFlags(item->flags() & (~Qt::ItemIsUserCheckable));
 }
 
@@ -474,7 +449,7 @@ void VCSliderProperties::levelUpdateChannelSelections()
        controlled channels. We don't need to set other items off,
        because this function is run only during init when everything
        is off. */
-    QListIterator <VCSlider::LevelChannel> it(m_slider->m_levelChannels);
+    QListIterator<VCSlider::LevelChannel> it(m_slider->m_levelChannels);
     while (it.hasNext() == true)
     {
         VCSlider::LevelChannel lch(it.next());
@@ -534,8 +509,7 @@ void VCSliderProperties::slotLevelCapabilityClicked()
     QStringList list;
 
     item = m_levelList->currentItem();
-    if (item == NULL || item->parent() == NULL ||
-            item->parent()->parent() == NULL)
+    if (item == NULL || item->parent() == NULL || item->parent()->parent() == NULL)
         return;
 
     list = item->text(KColumnRange).split("-");
@@ -548,8 +522,7 @@ void VCSliderProperties::slotLevelCapabilityClicked()
 void VCSliderProperties::slotLevelListClicked(QTreeWidgetItem* item)
 {
     /* Enable the capability button if a capability has been selected */
-    if (item != NULL && item->parent() != NULL &&
-            item->parent()->parent() != NULL)
+    if (item != NULL && item->parent() != NULL && item->parent()->parent() != NULL)
     {
         m_levelCapabilityButton->setEnabled(true);
     }
@@ -565,7 +538,7 @@ void VCSliderProperties::slotLevelAllClicked()
        as well because the fixture items are Controller items. */
     for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem* fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
         fxi_item->setCheckState(KColumnName, Qt::Checked);
@@ -578,7 +551,7 @@ void VCSliderProperties::slotLevelNoneClicked()
        as well because the fixture items are Controller items. */
     for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem* fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
         fxi_item->setCheckState(KColumnName, Qt::Unchecked);
@@ -591,20 +564,18 @@ void VCSliderProperties::slotLevelInvertClicked()
        according to their children's state */
     for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem* fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
         for (int j = 0; j < fxi_item->childCount(); j++)
         {
-            QTreeWidgetItem *ch_item = fxi_item->child(j);
+            QTreeWidgetItem* ch_item = fxi_item->child(j);
             Q_ASSERT(ch_item != NULL);
 
             if (ch_item->checkState(KColumnName) == Qt::Checked)
-                ch_item->setCheckState(KColumnName,
-                                       Qt::Unchecked);
+                ch_item->setCheckState(KColumnName, Qt::Unchecked);
             else
-                ch_item->setCheckState(KColumnName,
-                                       Qt::Checked);
+                ch_item->setCheckState(KColumnName, Qt::Checked);
         }
     }
 }
@@ -615,18 +586,17 @@ void VCSliderProperties::slotLevelByGroupClicked()
     QString group;
     QStringList groups;
 
-    foreach(Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture* fixture, m_doc->fixtures())
     {
         Q_ASSERT(fixture != NULL);
 
-        for(quint32 i = 0; i < fixture->channels(); i++)
+        for (quint32 i = 0; i < fixture->channels(); i++)
         {
-            const QLCChannel *channel = fixture->channel(i);
+            const QLCChannel* channel = fixture->channel(i);
 
             QString property = QLCChannel::groupToString(channel->group());
 
-            if (channel->group() == QLCChannel::Intensity &&
-                channel->colour() != QLCChannel::NoColour)
+            if (channel->group() == QLCChannel::Intensity && channel->colour() != QLCChannel::NoColour)
             {
                 property = QLCChannel::colourToString(channel->colour());
             }
@@ -636,11 +606,8 @@ void VCSliderProperties::slotLevelByGroupClicked()
         }
     }
 
-    group = QInputDialog::getItem(this,
-                                  tr("Select channels by group"),
-                                  tr("Select a channel group"),
-                                  groups, 0,
-                                  false, &ok);
+    group = QInputDialog::getItem(this, tr("Select channels by group"), tr("Select a channel group"), groups, 0, false,
+                                  &ok);
 
     if (ok == true)
         levelSelectChannelsByGroup(group);
@@ -667,9 +634,9 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType |
-                 Function::EFXType | Function::AudioType | Function::RGBMatrixType |
-                 Function::CollectionType | Function::VideoType, false);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType |
+                     Function::AudioType | Function::RGBMatrixType | Function::CollectionType | Function::VideoType,
+                 false);
     fs.disableFilters(Function::ScriptType | Function::ShowType);
 
     if (fs.exec() != QDialog::Accepted)
@@ -708,7 +675,7 @@ void VCSliderProperties::updatePlaybackFunctionName()
  * OK & Cancel
  *****************************************************************************/
 
-void VCSliderProperties::checkMajorColor(int *comp, int *max, int type)
+void VCSliderProperties::checkMajorColor(int* comp, int* max, int type)
 {
     if (*comp > *max)
     {
@@ -732,7 +699,7 @@ void VCSliderProperties::storeLevelChannels()
         Q_ASSERT(fxi_item != NULL);
 
         quint32 fxi_id = fxi_item->text(KColumnID).toUInt();
-        Fixture *fxi = m_doc->fixture(fxi_id);
+        Fixture* fxi = m_doc->fixture(fxi_id);
 
         for (int j = 0; j < fxi_item->childCount(); j++)
         {
@@ -744,9 +711,8 @@ void VCSliderProperties::storeLevelChannels()
                 quint32 ch_num = ch_item->text(KColumnID).toUInt();
                 if (fxi != NULL)
                 {
-                    const QLCChannel *ch = fxi->channel(ch_num);
-                    if (ch->group() == QLCChannel::Intensity &&
-                        m_cngColorCheck->isChecked())
+                    const QLCChannel* ch = fxi->channel(ch_num);
+                    if (ch->group() == QLCChannel::Intensity && m_cngColorCheck->isChecked())
                     {
                         if (ch->colour() == QLCChannel::Red)
                         {
@@ -826,9 +792,8 @@ void VCSliderProperties::accept()
         m_slider->setCatchValues(false);
 
     /* Level page */
-    bool limitDiff =
-        (m_slider->levelLowLimit() != m_levelLowLimitSpin->value()) ||
-        (m_slider->levelHighLimit() != m_levelLowLimitSpin->value());
+    bool limitDiff = (m_slider->levelLowLimit() != m_levelLowLimitSpin->value()) ||
+                     (m_slider->levelHighLimit() != m_levelLowLimitSpin->value());
     m_slider->setLevelLowLimit(m_levelLowLimitSpin->value());
     m_slider->setLevelHighLimit(m_levelHighLimitSpin->value());
     storeLevelChannels();

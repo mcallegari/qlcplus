@@ -37,28 +37,28 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCCapability       QString("Capability")
-#define KXMLQLCCapabilityMin    QString("Min")
-#define KXMLQLCCapabilityMax    QString("Max")
+#define KXMLQLCCapability QString("Capability")
+#define KXMLQLCCapabilityMin QString("Min")
+#define KXMLQLCCapabilityMax QString("Max")
 #define KXMLQLCCapabilityPreset QString("Preset")
-#define KXMLQLCCapabilityRes1   QString("Res1")
-#define KXMLQLCCapabilityRes2   QString("Res2")
+#define KXMLQLCCapabilityRes1 QString("Res1")
+#define KXMLQLCCapabilityRes2 QString("Res2")
 
-#define KXMLQLCCapabilityAlias              QString("Alias")
-#define KXMLQLCCapabilityAliasMode          QString("Mode")
-#define KXMLQLCCapabilityAliasSourceName    QString("Channel")
-#define KXMLQLCCapabilityAliasTargetName    QString("With")
+#define KXMLQLCCapabilityAlias QString("Alias")
+#define KXMLQLCCapabilityAliasMode QString("Mode")
+#define KXMLQLCCapabilityAliasSourceName QString("Channel")
+#define KXMLQLCCapabilityAliasTargetName QString("With")
 
 /** ****************** LEGACY ***************** */
-#define KXMLQLCCapabilityResource   QString("Res")
-#define KXMLQLCCapabilityColor1     QString("Color")
-#define KXMLQLCCapabilityColor2     QString("Color2")
+#define KXMLQLCCapabilityResource QString("Res")
+#define KXMLQLCCapabilityColor1 QString("Color")
+#define KXMLQLCCapabilityColor2 QString("Color2")
 
 typedef struct
 {
-    QString targetMode;     /** Name of the mode where this alias has effect */
-    QString sourceChannel;  /** Name of the channel to be replaced by targetChannel */
-    QString targetChannel;  /** Name of the channel that will replace sourceChannel */
+    QString targetMode;    /** Name of the mode where this alias has effect */
+    QString sourceChannel; /** Name of the channel to be replaced by targetChannel */
+    QString targetChannel; /** Name of the channel that will replace sourceChannel */
 } AliasInfo;
 
 /**
@@ -69,7 +69,7 @@ typedef struct
  * values can be represented by setting the same value to both, for example:
  * min == 15 and max == 15.
  */
-class QLCCapability: public QObject
+class QLCCapability : public QObject
 {
     Q_OBJECT
 
@@ -84,10 +84,9 @@ class QLCCapability: public QObject
      ********************************************************************/
 public:
     /** Default constructor */
-    QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
-                  const QString& name = QString(), QObject *parent = 0);
+    QLCCapability(uchar min = 0, uchar max = UCHAR_MAX, const QString& name = QString(), QObject* parent = 0);
 
-    QLCCapability *createCopy();
+    QLCCapability* createCopy();
 
     /** Destructor */
     ~QLCCapability();
@@ -119,8 +118,8 @@ public:
         StrobeRandom,
         StrobeRandomSlowToFast,
         StrobeRandomFastToSlow,
-        StrobeFrequency,        /** precise frequency value in hertz specified in m_resources */
-        StrobeFreqRange,        /** specified in m_resources as 0: min, 1: max hertz */
+        StrobeFrequency, /** precise frequency value in hertz specified in m_resources */
+        StrobeFreqRange, /** specified in m_resources as 0: min, 1: max hertz */
         PulseSlowToFast,
         PulseFastToSlow,
         PulseFrequency,
@@ -196,7 +195,7 @@ public:
 
     /** String <-> value preset conversion helpers */
     static QString presetToString(Preset preset);
-    static Preset stringToPreset(const QString &preset);
+    static Preset stringToPreset(const QString& preset);
 
     /** Get/Set the preset value for this capability */
     Preset preset() const;
@@ -299,10 +298,10 @@ protected:
      ********************************************************************/
 public:
     /** Save the capability into a QXmlStreamWriter */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** Load capability contents from an XML element */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 };
 
 /** @} */

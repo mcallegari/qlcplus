@@ -34,9 +34,9 @@ public:
     VCWidget* createCopy(VCWidget* parent);
 
     /** @reimp */
-    void updateFeedback() { }
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    void updateFeedback() {}
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 #endif

@@ -24,16 +24,14 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-QLCModifiersCache::QLCModifiersCache()
-{
-}
+QLCModifiersCache::QLCModifiersCache() {}
 
-bool QLCModifiersCache::addModifier(ChannelModifier *modifier)
+bool QLCModifiersCache::addModifier(ChannelModifier* modifier)
 {
     if (m_modifiers.contains(modifier->name()))
         return false;
 
-    //qDebug() << "[QLCModifiersCache] added modifier" << modifier->name();
+    // qDebug() << "[QLCModifiersCache] added modifier" << modifier->name();
     m_modifiers[modifier->name()] = modifier;
     return true;
 }
@@ -43,7 +41,7 @@ QList<QString> QLCModifiersCache::templateNames()
     return m_modifiers.keys();
 }
 
-ChannelModifier *QLCModifiersCache::modifier(QString name)
+ChannelModifier* QLCModifiersCache::modifier(QString name)
 {
     if (m_modifiers.contains(name))
         return m_modifiers[name];
@@ -70,7 +68,7 @@ bool QLCModifiersCache::load(const QDir& dir, bool systemTemplates)
         return false;
 
     ChannelModifier::Type type;
-    if (systemTemplates ==true)
+    if (systemTemplates == true)
         type = ChannelModifier::SystemTemplate;
     else
         type = ChannelModifier::UserTemplate;
@@ -98,8 +96,8 @@ bool QLCModifiersCache::load(const QDir& dir, bool systemTemplates)
             }
             else
             {
-                qWarning() << Q_FUNC_INFO << "Channel modifier template loading from"
-                           << path << "failed:" << QLCFile::errorString(error);
+                qWarning() << Q_FUNC_INFO << "Channel modifier template loading from" << path
+                           << "failed:" << QLCFile::errorString(error);
                 delete chMod;
                 chMod = NULL;
             }

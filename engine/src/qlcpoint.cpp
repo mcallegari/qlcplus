@@ -31,7 +31,7 @@ QLCPoint::QLCPoint(int x, int y)
 {
 }
 
-bool QLCPoint::operator<(const QLCPoint &pt) const
+bool QLCPoint::operator<(const QLCPoint& pt) const
 {
     if (y() < pt.y())
         return true;

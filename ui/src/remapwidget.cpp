@@ -24,7 +24,7 @@
 #include "fixtureremap.h"
 #include "remapwidget.h"
 
-RemapWidget::RemapWidget(QTreeWidget *src, QTreeWidget *target, QWidget *parent)
+RemapWidget::RemapWidget(QTreeWidget* src, QTreeWidget* target, QWidget* parent)
     : QWidget(parent)
     , m_sourceTree(src)
     , m_targetTree(target)
@@ -32,9 +32,7 @@ RemapWidget::RemapWidget(QTreeWidget *src, QTreeWidget *target, QWidget *parent)
     setMaximumWidth(100);
 }
 
-RemapWidget::~RemapWidget()
-{
-}
+RemapWidget::~RemapWidget() {}
 
 void RemapWidget::setRemapList(QList<RemapInfo> list)
 {
@@ -42,12 +40,12 @@ void RemapWidget::setRemapList(QList<RemapInfo> list)
     update();
 }
 
-void RemapWidget::resizeEvent(QResizeEvent *e)
+void RemapWidget::resizeEvent(QResizeEvent* e)
 {
     QWidget::resizeEvent(e);
 }
 
-void RemapWidget::paintEvent(QPaintEvent *e)
+void RemapWidget::paintEvent(QPaintEvent* e)
 {
     Q_UNUSED(e)
 
@@ -58,7 +56,7 @@ void RemapWidget::paintEvent(QPaintEvent *e)
 
     int yOffset = m_sourceTree->header()->height() + 10;
 
-    foreach(RemapInfo info, m_list)
+    foreach (RemapInfo info, m_list)
     {
         QRect srcRect = m_sourceTree->visualItemRect(info.source);
         QRect tgtRect = m_targetTree->visualItemRect(info.target);
@@ -69,7 +67,7 @@ void RemapWidget::paintEvent(QPaintEvent *e)
         if (tgtRect.isEmpty())
             tgtRect = m_targetTree->visualItemRect(info.target->parent());
 
-        //qDebug() << "Source rect:" << srcRect << ", target rect:" << tgtRect;
+        // qDebug() << "Source rect:" << srcRect << ", target rect:" << tgtRect;
 
         painter.drawLine(0, srcRect.y() + yOffset, 10, srcRect.y() + yOffset);
         painter.drawLine(10, srcRect.y() + yOffset, 90, tgtRect.y() + yOffset);

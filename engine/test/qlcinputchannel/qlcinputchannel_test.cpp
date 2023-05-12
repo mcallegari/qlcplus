@@ -67,42 +67,26 @@ void QLCInputChannel_Test::type()
 
 void QLCInputChannel_Test::typeToString()
 {
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Button),
-             QString(KXMLQLCInputChannelButton));
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Knob),
-             QString(KXMLQLCInputChannelKnob));
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Encoder),
-             QString(KXMLQLCInputChannelEncoder));
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Slider),
-             QString(KXMLQLCInputChannelSlider));
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::NextPage),
-             QString(KXMLQLCInputChannelPageUp));
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::PrevPage),
-             QString(KXMLQLCInputChannelPageDown));
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::PageSet),
-             QString(KXMLQLCInputChannelPageSet));
-    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Type(42)),
-             QString(KXMLQLCInputChannelNone));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Button), QString(KXMLQLCInputChannelButton));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Knob), QString(KXMLQLCInputChannelKnob));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Encoder), QString(KXMLQLCInputChannelEncoder));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Slider), QString(KXMLQLCInputChannelSlider));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::NextPage), QString(KXMLQLCInputChannelPageUp));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::PrevPage), QString(KXMLQLCInputChannelPageDown));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::PageSet), QString(KXMLQLCInputChannelPageSet));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Type(42)), QString(KXMLQLCInputChannelNone));
 }
 
 void QLCInputChannel_Test::stringToType()
 {
-    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelButton)),
-             QLCInputChannel::Button);
-    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelSlider)),
-             QLCInputChannel::Slider);
-    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelKnob)),
-             QLCInputChannel::Knob);
-    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelEncoder)),
-             QLCInputChannel::Encoder);
-    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageUp)),
-             QLCInputChannel::NextPage);
-    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageDown)),
-             QLCInputChannel::PrevPage);
-    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageSet)),
-             QLCInputChannel::PageSet);
-    QCOMPARE(QLCInputChannel::stringToType(QString("foobar")),
-             QLCInputChannel::NoType);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelButton)), QLCInputChannel::Button);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelSlider)), QLCInputChannel::Slider);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelKnob)), QLCInputChannel::Knob);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelEncoder)), QLCInputChannel::Encoder);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageUp)), QLCInputChannel::NextPage);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageDown)), QLCInputChannel::PrevPage);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageSet)), QLCInputChannel::PageSet);
+    QCOMPARE(QLCInputChannel::stringToType(QString("foobar")), QLCInputChannel::NoType);
 }
 
 void QLCInputChannel_Test::name()
@@ -119,11 +103,11 @@ void QLCInputChannel_Test::copy()
     ch.setType(QLCInputChannel::Slider);
     ch.setName("Foobar");
 
-    QLCInputChannel *copy = ch.createCopy();
+    QLCInputChannel* copy = ch.createCopy();
     QVERIFY(copy->type() == QLCInputChannel::Slider);
     QVERIFY(copy->name() == "Foobar");
 
-    QLCInputChannel *another = ch.createCopy();
+    QLCInputChannel* another = ch.createCopy();
     QVERIFY(another->type() == QLCInputChannel::Slider);
     QVERIFY(another->name() == "Foobar");
 }

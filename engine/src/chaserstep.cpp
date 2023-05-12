@@ -50,7 +50,7 @@ ChaserStep::ChaserStep(const ChaserStep& cs)
 {
 }
 
-ChaserStep &ChaserStep::operator=(const ChaserStep &step)
+ChaserStep& ChaserStep::operator=(const ChaserStep& step)
 {
     if (this != &step)
     {
@@ -79,7 +79,7 @@ Function* ChaserStep::resolveFunction(const Doc* doc) const
         return doc->function(fid);
 }
 
-int ChaserStep::setValue(SceneValue value, int index, bool *created)
+int ChaserStep::setValue(SceneValue value, int index, bool* created)
 {
     if (index == -1)
     {
@@ -141,7 +141,7 @@ int ChaserStep::unSetValue(SceneValue value, int index)
 
 QVariant ChaserStep::toVariant() const
 {
-    QList <QVariant> list;
+    QList<QVariant> list;
     list << fid;
     list << fadeIn;
     list << hold;
@@ -154,7 +154,7 @@ QVariant ChaserStep::toVariant() const
 ChaserStep ChaserStep::fromVariant(const QVariant& var)
 {
     ChaserStep cs;
-    QList <QVariant> list(var.toList());
+    QList<QVariant> list(var.toList());
     if (list.size() == 6)
     {
         cs.fid = list.takeFirst().toUInt();
@@ -167,7 +167,7 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     return cs;
 }
 
-bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
+bool ChaserStep::loadXML(QXmlStreamReader& root, int& stepNumber, Doc* doc)
 {
     bool holdFound = false;
     if (root.name() != KXMLQLCFunctionStep)
@@ -206,7 +206,7 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
             // split the string by Fixture chunks
             QStringList fxArray = stepValues.split(":");
 
-            for (int f = 0; f < fxArray.count(); f+=2)
+            for (int f = 0; f < fxArray.count(); f += 2)
             {
                 if (f + 1 >= fxArray.count())
                     break;
@@ -217,7 +217,7 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
 
                 // now split the chunk into channel/values
                 QStringList varray = fxArray.at(f + 1).split(",");
-                for (int i = 0; i < varray.count(); i+=2)
+                for (int i = 0; i < varray.count(); i += 2)
                 {
                     quint32 chIndex = QString(varray.at(i)).toUInt();
                     SceneValue scv = SceneValue(fxID, chIndex, uchar(QString(varray.at(i + 1)).toInt()));
@@ -235,7 +235,7 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
                         values.append(scv);
                 }
             }
-            //qSort(values.begin(), values.end());
+            // qSort(values.begin(), values.end());
         }
     }
     else
@@ -263,7 +263,7 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
     return true;
 }
 
-bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const
+bool ChaserStep::saveXML(QXmlStreamWriter* doc, int stepNumber, bool isSequence) const
 {
     /* Step tag */
     doc->writeStartElement(KXMLQLCFunctionStep);
@@ -284,7 +284,7 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
         doc->writeAttribute(KXMLQLCSequenceSceneValues, QString::number(values.count()));
         QString stepValues;
         quint32 fixtureID = Fixture::invalidId();
-        foreach(SceneValue scv, values)
+        foreach (SceneValue scv, values)
         {
             // step values are saved as a string with the following syntax:
             // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc

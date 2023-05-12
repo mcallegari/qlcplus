@@ -18,9 +18,9 @@
 */
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#	include <Windows.h>
+  #include <Windows.h>
 #else
-#   include <unistd.h>
+  #include <unistd.h>
 #endif
 
 #include <QXmlStreamReader>
@@ -43,18 +43,18 @@
 
 #include "../../plugins/midi/src/common/midiprotocol.h"
 
-InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
-  : QObject(doc)
-  , m_blackout(false)
-  , m_universeChanged(false)
-  , m_beatTime(new QElapsedTimer())
+InputOutputMap::InputOutputMap(Doc* doc, quint32 universes)
+    : QObject(doc)
+    , m_blackout(false)
+    , m_universeChanged(false)
+    , m_beatTime(new QElapsedTimer())
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
         addUniverse();
 
-    connect(doc->ioPluginCache(), SIGNAL(pluginConfigurationChanged(QLCIOPlugin*)),
-            this, SLOT(slotPluginConfigurationChanged(QLCIOPlugin*)));
+    connect(doc->ioPluginCache(), SIGNAL(pluginConfigurationChanged(QLCIOPlugin*)), this,
+            SLOT(slotPluginConfigurationChanged(QLCIOPlugin*)));
     connect(doc->masterTimer(), SIGNAL(beat()), this, SLOT(slotMasterTimerBeat()));
 }
 
@@ -67,7 +67,7 @@ InputOutputMap::~InputOutputMap()
 
 Doc* InputOutputMap::doc() const
 {
-    return qobject_cast<Doc*> (parent());
+    return qobject_cast<Doc*>(parent());
 }
 
 /*****************************************************************************
@@ -94,11 +94,11 @@ bool InputOutputMap::setBlackout(bool blackout)
 
     // blackout is an atomic setting, so it's safe to do it
     // without mutex locking
-    foreach (Universe *universe, m_universeArray)
+    foreach (Universe* universe, m_universeArray)
     {
         for (int i = 0; i < universe->outputPatchesCount(); i++)
         {
-            OutputPatch *op = universe->outputPatch(i);
+            OutputPatch* op = universe->outputPatch(i);
             if (op != NULL)
                 op->setBlackout(blackout);
         }
@@ -133,7 +133,7 @@ bool InputOutputMap::addUniverse(quint32 id)
 {
     {
         QMutexLocker locker(&m_universeMutex);
-        Universe *uni = NULL;
+        Universe* uni = NULL;
 
         if (id == InputOutputMap::invalidUniverse())
         {
@@ -141,28 +141,27 @@ bool InputOutputMap::addUniverse(quint32 id)
         }
         else if (id < universesCount())
         {
-            qWarning() << Q_FUNC_INFO
-                << "Universe" << id << "is already present in the list."
-                << "The universe list may be unsorted.";
+            qWarning() << Q_FUNC_INFO << "Universe" << id << "is already present in the list."
+                       << "The universe list may be unsorted.";
             return false;
         }
         else if (id > universesCount())
         {
-            qDebug() << Q_FUNC_INFO
-                << "Gap between universe" << (universesCount() - 1)
-                << "and universe" << id << ", filling the gap...";
+            qDebug() << Q_FUNC_INFO << "Gap between universe" << (universesCount() - 1) << "and universe" << id
+                     << ", filling the gap...";
             while (id > universesCount())
             {
                 uni = new Universe(universesCount(), m_grandMaster);
                 connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
-                connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+                connect(uni, SIGNAL(universeWritten(quint32, QByteArray)), this,
+                        SIGNAL(universeWritten(quint32, QByteArray)));
                 m_universeArray.append(uni);
             }
         }
 
         uni = new Universe(id, m_grandMaster);
         connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
-        connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+        connect(uni, SIGNAL(universeWritten(quint32, QByteArray)), this, SIGNAL(universeWritten(quint32, QByteArray)));
         m_universeArray.append(uni);
     }
 
@@ -181,11 +180,11 @@ bool InputOutputMap::removeUniverse(int index)
         if (index != (m_universeArray.size() - 1))
         {
             qWarning() << Q_FUNC_INFO << "Removing universe" << index
-                << "would create a gap in the universe list, cancelling";
+                       << "would create a gap in the universe list, cancelling";
             return false;
         }
 
-        delete  m_universeArray.takeAt(index);
+        delete m_universeArray.takeAt(index);
     }
 
     emit universeRemoved(index);
@@ -202,7 +201,7 @@ bool InputOutputMap::removeAllUniverses()
 
 void InputOutputMap::startUniverses()
 {
-    foreach (Universe *uni, m_universeArray)
+    foreach (Universe* uni, m_universeArray)
         uni->start();
 }
 
@@ -275,12 +274,12 @@ quint32 InputOutputMap::universesCount() const
     return (quint32)m_universeArray.count();
 }
 
-QList<Universe *> InputOutputMap::universes() const
+QList<Universe*> InputOutputMap::universes() const
 {
     return m_universeArray;
 }
 
-Universe *InputOutputMap::universe(quint32 id)
+Universe* InputOutputMap::universe(quint32 id)
 {
     for (int i = 0; i < m_universeArray.size(); i++)
         if (m_universeArray.at(i)->id() == id)
@@ -323,7 +322,7 @@ void InputOutputMap::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->channelMode() != mode)
+    if (m_grandMaster->channelMode() != mode)
     {
         m_grandMaster->setChannelMode(mode);
         m_universeChanged = true;
@@ -341,7 +340,7 @@ void InputOutputMap::setGrandMasterValueMode(GrandMaster::ValueMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->valueMode() != mode)
+    if (m_grandMaster->valueMode() != mode)
     {
         m_grandMaster->setValueMode(mode);
         m_universeChanged = true;
@@ -385,13 +384,12 @@ uchar InputOutputMap::grandMasterValue()
 void InputOutputMap::flushInputs()
 {
     QMutexLocker locker(&m_universeMutex);
-    foreach (Universe *universe, m_universeArray)
+    foreach (Universe* universe, m_universeArray)
         universe->flushInput();
 }
 
-bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
-                                   const QString &inputUID, quint32 input,
-                                   const QString &profileName)
+bool InputOutputMap::setInputPatch(quint32 universe, const QString& pluginName, const QString& inputUID, quint32 input,
+                                   const QString& profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -401,21 +399,21 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     }
 
     QMutexLocker locker(&m_universeMutex);
-    InputPatch *currInPatch = m_universeArray.at(universe)->inputPatch();
-    QLCInputProfile *currProfile = NULL;
+    InputPatch* currInPatch = m_universeArray.at(universe)->inputPatch();
+    QLCInputProfile* currProfile = NULL;
     if (currInPatch != NULL)
     {
         currProfile = currInPatch->profile();
-        disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+        disconnect(currInPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)), this,
+                   SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)));
         if (currInPatch->pluginName() == "MIDI")
         {
-            disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                       this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+            disconnect(currInPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)), this,
+                       SLOT(slotMIDIBeat(quint32, quint32, uchar)));
         }
     }
-    InputPatch *ip = NULL;
-    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+    InputPatch* ip = NULL;
+    QLCIOPlugin* plugin = doc()->ioPluginCache()->plugin(pluginName);
 
     if (!inputUID.isEmpty() && plugin != NULL)
     {
@@ -433,18 +431,17 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         }
     }
 
-    if (m_universeArray.at(universe)->setInputPatch(
-                plugin, input, profile(profileName)) == true)
+    if (m_universeArray.at(universe)->setInputPatch(plugin, input, profile(profileName)) == true)
     {
         ip = m_universeArray.at(universe)->inputPatch();
         if (ip != NULL)
         {
-            connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+            connect(ip, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)), this,
+                    SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)));
             if (ip->pluginName() == "MIDI")
             {
-                connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                        this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+                connect(ip, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)), this,
+                        SLOT(slotMIDIBeat(quint32, quint32, uchar)));
             }
         }
     }
@@ -459,7 +456,7 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     return true;
 }
 
-bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileName)
+bool InputOutputMap::setInputProfile(quint32 universe, const QString& profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -468,7 +465,7 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
         return false;
     }
 
-    InputPatch *currInPatch = m_universeArray.at(universe)->inputPatch();
+    InputPatch* currInPatch = m_universeArray.at(universe)->inputPatch();
     if (currInPatch != NULL)
         currInPatch->set(profile(profileName));
 
@@ -477,9 +474,8 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
     return true;
 }
 
-bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
-                                    const QString &outputUID, quint32 output,
-                                    bool isFeedback, int index)
+bool InputOutputMap::setOutputPatch(quint32 universe, const QString& pluginName, const QString& outputUID,
+                                    quint32 output, bool isFeedback, int index)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -489,7 +485,7 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     }
 
     QMutexLocker locker(&m_universeMutex);
-    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* plugin = doc()->ioPluginCache()->plugin(pluginName);
 
     if (!outputUID.isEmpty() && plugin != NULL)
     {
@@ -497,7 +493,8 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
         int lIdx = inputs.indexOf(outputUID);
         if (lIdx != -1)
         {
-            qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-" << output << "vs" << lIdx;
+            qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-" << output << "vs"
+                     << lIdx;
             output = lIdx;
         }
         else
@@ -526,7 +523,7 @@ int InputOutputMap::outputPatchesCount(quint32 universe) const
     return m_universeArray.at(universe)->outputPatchesCount();
 }
 
-InputPatch *InputOutputMap::inputPatch(quint32 universe) const
+InputPatch* InputOutputMap::inputPatch(quint32 universe) const
 {
     if (universe >= universesCount())
     {
@@ -536,7 +533,7 @@ InputPatch *InputOutputMap::inputPatch(quint32 universe) const
     return m_universeArray.at(universe)->inputPatch();
 }
 
-OutputPatch *InputOutputMap::outputPatch(quint32 universe, int index) const
+OutputPatch* InputOutputMap::outputPatch(quint32 universe, int index) const
 {
     if (universe >= universesCount())
     {
@@ -546,7 +543,7 @@ OutputPatch *InputOutputMap::outputPatch(quint32 universe, int index) const
     return m_universeArray.at(universe)->outputPatch(index);
 }
 
-OutputPatch *InputOutputMap::feedbackPatch(quint32 universe) const
+OutputPatch* InputOutputMap::feedbackPatch(quint32 universe) const
 {
     if (universe >= universesCount())
     {
@@ -565,7 +562,7 @@ QStringList InputOutputMap::universeNames() const
     return list;
 }
 
-quint32 InputOutputMap::inputMapping(const QString &pluginName, quint32 input) const
+quint32 InputOutputMap::inputMapping(const QString& pluginName, quint32 input) const
 {
     for (quint32 uni = 0; uni < universesCount(); uni++)
     {
@@ -577,11 +574,11 @@ quint32 InputOutputMap::inputMapping(const QString &pluginName, quint32 input) c
     return QLCIOPlugin::invalidLine();
 }
 
-quint32 InputOutputMap::outputMapping(const QString &pluginName, quint32 output) const
+quint32 InputOutputMap::outputMapping(const QString& pluginName, quint32 output) const
 {
     for (quint32 uni = 0; uni < universesCount(); uni++)
     {
-        Universe *universe = m_universeArray.at(uni);
+        Universe* universe = m_universeArray.at(uni);
         for (int i = 0; i < universe->outputPatchesCount(); i++)
         {
             const OutputPatch* p = universe->outputPatch(i);
@@ -597,7 +594,7 @@ quint32 InputOutputMap::outputMapping(const QString &pluginName, quint32 output)
  * Plugins
  *****************************************************************************/
 
-QString InputOutputMap::pluginDescription(const QString &pluginName)
+QString InputOutputMap::pluginDescription(const QString& pluginName)
 {
     QLCIOPlugin* plugin = NULL;
 
@@ -612,7 +609,7 @@ QString InputOutputMap::pluginDescription(const QString &pluginName)
         return "";
 }
 
-void InputOutputMap::removeDuplicates(QStringList &list)
+void InputOutputMap::removeDuplicates(QStringList& list)
 {
     if (list.count() == 1)
         return;
@@ -635,7 +632,7 @@ void InputOutputMap::removeDuplicates(QStringList &list)
 QStringList InputOutputMap::inputPluginNames()
 {
     QStringList list;
-    QListIterator <QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
+    QListIterator<QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
         QLCIOPlugin* plg(it.next());
@@ -648,7 +645,7 @@ QStringList InputOutputMap::inputPluginNames()
 QStringList InputOutputMap::outputPluginNames()
 {
     QStringList list;
-    QListIterator <QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
+    QListIterator<QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
         QLCIOPlugin* plg(it.next());
@@ -773,7 +770,7 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
     bool success = true;
     for (quint32 i = 0; i < universesCount(); i++)
     {
-        Universe *universe = m_universeArray.at(i);
+        Universe* universe = m_universeArray.at(i);
         for (int oi = 0; oi < universe->outputPatchesCount(); oi++)
         {
             OutputPatch* op = universe->outputPatch(oi);
@@ -839,7 +836,7 @@ void InputOutputMap::loadProfiles(const QDir& dir)
 QStringList InputOutputMap::profileNames()
 {
     QStringList list;
-    QListIterator <QLCInputProfile*> it(m_profiles);
+    QListIterator<QLCInputProfile*> it(m_profiles);
     while (it.hasNext() == true)
         list << it.next()->name();
     return list;
@@ -847,7 +844,7 @@ QStringList InputOutputMap::profileNames()
 
 QLCInputProfile* InputOutputMap::profile(const QString& name)
 {
-    QListIterator <QLCInputProfile*> it(m_profiles);
+    QListIterator<QLCInputProfile*> it(m_profiles);
     while (it.hasNext() == true)
     {
         QLCInputProfile* profile = it.next();
@@ -876,10 +873,10 @@ bool InputOutputMap::addProfile(QLCInputProfile* profile)
 
 bool InputOutputMap::removeProfile(const QString& name)
 {
-    QMutableListIterator <QLCInputProfile*> it(m_profiles);
+    QMutableListIterator<QLCInputProfile*> it(m_profiles);
     while (it.hasNext() == true)
     {
-        QLCInputProfile *profile = it.next();
+        QLCInputProfile* profile = it.next();
         if (profile->name() == name)
         {
             it.remove();
@@ -891,8 +888,7 @@ bool InputOutputMap::removeProfile(const QString& name)
     return false;
 }
 
-bool InputOutputMap::inputSourceNames(const QLCInputSource *src,
-                                QString& uniName, QString& chName) const
+bool InputOutputMap::inputSourceNames(const QLCInputSource* src, QString& uniName, QString& chName) const
 {
     if (src == NULL || src->isValid() == false)
         return false;
@@ -962,8 +958,8 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src,
     return true;
 }
 
-bool InputOutputMap::inputSourceNames(QSharedPointer<QLCInputSource> const& src,
-                                QString& uniName, QString& chName) const
+bool InputOutputMap::inputSourceNames(QSharedPointer<QLCInputSource> const& src, QString& uniName,
+                                      QString& chName) const
 {
     return inputSourceNames(src.data(), uniName, chName);
 }
@@ -993,26 +989,26 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
 
     switch (m_beatGeneratorType)
     {
-        case Internal:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
-            setBpmNumber(doc()->masterTimer()->bpmNumber());
+    case Internal:
+        doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
+        setBpmNumber(doc()->masterTimer()->bpmNumber());
         break;
-        case MIDI:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
-            // reset the current BPM number and detect it from the MIDI beats
-            setBpmNumber(0);
-            m_beatTime->restart();
+    case MIDI:
+        doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+        // reset the current BPM number and detect it from the MIDI beats
+        setBpmNumber(0);
+        m_beatTime->restart();
         break;
-        case Audio:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
-            // reset the current BPM number and detect it from the audio input
-            setBpmNumber(0);
-            m_beatTime->restart();
+    case Audio:
+        doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+        // reset the current BPM number and detect it from the audio input
+        setBpmNumber(0);
+        m_beatTime->restart();
         break;
-        case Disabled:
-        default:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::None);
-            setBpmNumber(0);
+    case Disabled:
+    default:
+        doc()->masterTimer()->setBeatSourceType(MasterTimer::None);
+        setBpmNumber(0);
         break;
     }
 
@@ -1029,7 +1025,7 @@ void InputOutputMap::setBpmNumber(int bpm)
     if (m_beatGeneratorType == Disabled || bpm == m_currentBPM)
         return;
 
-    //qDebug() << "[InputOutputMap] set BPM to" << bpm;
+    // qDebug() << "[InputOutputMap] set BPM to" << bpm;
     m_currentBPM = bpm;
 
     if (bpm != 0)
@@ -1085,7 +1081,7 @@ void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value
     }
 }
 
-void InputOutputMap::slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+void InputOutputMap::slotAudioSpectrum(double* spectrumBands, int size, double maxMagnitude, quint32 power)
 {
     Q_UNUSED(spectrumBands)
     Q_UNUSED(size)
@@ -1246,7 +1242,7 @@ void InputOutputMap::saveDefaults()
  * Load & Save
  *********************************************************************/
 
-bool InputOutputMap::loadXML(QXmlStreamReader &root)
+bool InputOutputMap::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLIOMap)
     {
@@ -1266,7 +1262,7 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
                 id = root.attributes().value(KXMLQLCUniverseID).toString().toUInt();
             if (addUniverse(id))
             {
-                Universe *uni = m_universeArray.last();
+                Universe* uni = m_universeArray.last();
                 uni->loadXML(root, m_universeArray.count() - 1, this);
             }
         }
@@ -1280,19 +1276,17 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
+bool InputOutputMap::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 
     /* IO Map Instance entry */
     doc->writeStartElement(KXMLIOMap);
 
-    foreach(Universe *uni, m_universeArray)
+    foreach (Universe* uni, m_universeArray)
         uni->saveXML(doc);
 
     doc->writeEndElement();
 
     return true;
 }
-
-

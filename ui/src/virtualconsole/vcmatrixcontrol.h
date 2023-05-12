@@ -34,20 +34,20 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCMatrixControl              QString("Control")
-#define KXMLQLCVCMatrixControlID            QString("ID")
-#define KXMLQLCVCMatrixControlType          QString("Type")
-#define KXMLQLCVCMatrixControlColor         QString("Color")
-#define KXMLQLCVCMatrixControlResource      QString("Resource")
-#define KXMLQLCVCMatrixControlProperty      QString("Property")
-#define KXMLQLCVCMatrixControlPropertyName  QString("Name")
+#define KXMLQLCVCMatrixControl QString("Control")
+#define KXMLQLCVCMatrixControlID QString("ID")
+#define KXMLQLCVCMatrixControlType QString("Type")
+#define KXMLQLCVCMatrixControlColor QString("Color")
+#define KXMLQLCVCMatrixControlResource QString("Resource")
+#define KXMLQLCVCMatrixControlProperty QString("Property")
+#define KXMLQLCVCMatrixControlPropertyName QString("Name")
 
 class VCMatrixControl
 {
 
 public:
     explicit VCMatrixControl(quint8 id);
-    VCMatrixControl(const VCMatrixControl &other);
+    VCMatrixControl(const VCMatrixControl& other);
 
     /** Destructor */
     ~VCMatrixControl();
@@ -83,6 +83,7 @@ public:
      *  get the rgb value for this value of the knob
      */
     QRgb valueToRgb(quint8 value) const;
+
 protected:
     static QString typeToString(ControlType type);
     static ControlType stringToType(QString str);
@@ -96,10 +97,10 @@ public:
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
 public:
     /** Preset unique ID

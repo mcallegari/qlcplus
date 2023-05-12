@@ -39,11 +39,9 @@ QLCFixtureHead::QLCFixtureHead(const QLCFixtureHead& head)
 {
 }
 
-QLCFixtureHead::~QLCFixtureHead()
-{
-}
+QLCFixtureHead::~QLCFixtureHead() {}
 
-QLCFixtureHead &QLCFixtureHead::operator=(const QLCFixtureHead &head)
+QLCFixtureHead& QLCFixtureHead::operator=(const QLCFixtureHead& head)
 {
     if (this != &head)
     {
@@ -99,9 +97,9 @@ quint32 QLCFixtureHead::channelNumber(int type, int controlByte) const
     return val;
 }
 
-QVector <quint32> QLCFixtureHead::rgbChannels() const
+QVector<quint32> QLCFixtureHead::rgbChannels() const
 {
-    QVector <quint32> vector;
+    QVector<quint32> vector;
     quint32 r = channelNumber(QLCChannel::Red, QLCChannel::MSB);
     quint32 g = channelNumber(QLCChannel::Green, QLCChannel::MSB);
     quint32 b = channelNumber(QLCChannel::Blue, QLCChannel::MSB);
@@ -117,9 +115,9 @@ QMap<int, quint32> QLCFixtureHead::channelsMap() const
     return m_channelsMap;
 }
 
-QVector <quint32> QLCFixtureHead::cmyChannels() const
+QVector<quint32> QLCFixtureHead::cmyChannels() const
 {
-    QVector <quint32> vector;
+    QVector<quint32> vector;
     quint32 c = channelNumber(QLCChannel::Cyan, QLCChannel::MSB);
     quint32 m = channelNumber(QLCChannel::Magenta, QLCChannel::MSB);
     quint32 y = channelNumber(QLCChannel::Yellow, QLCChannel::MSB);
@@ -130,12 +128,12 @@ QVector <quint32> QLCFixtureHead::cmyChannels() const
     return vector;
 }
 
-QVector <quint32> QLCFixtureHead::colorWheels() const
+QVector<quint32> QLCFixtureHead::colorWheels() const
 {
     return m_colorWheels;
 }
 
-QVector <quint32> QLCFixtureHead::shutterChannels() const
+QVector<quint32> QLCFixtureHead::shutterChannels() const
 {
     return m_shutterChannels;
 }
@@ -159,7 +157,8 @@ void QLCFixtureHead::setMapIndex(int chType, int controlByte, quint32 index)
     }
     m_channelsMap[chType] = val;
 
-    //qDebug() << this << "chtype:" << chType << "control" << controlByte << "index" << index << "val" << QString::number(val, 16);
+    // qDebug() << this << "chtype:" << chType << "control" << controlByte << "index" << index << "val" <<
+    // QString::number(val, 16);
 }
 
 void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
@@ -174,7 +173,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     m_shutterChannels.clear();
     m_channelsMap.clear();
 
-    foreach(quint32 i, m_channels)
+    foreach (quint32 i, m_channels)
     {
         if ((int)i >= mode->channels().size())
         {
@@ -197,7 +196,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
         {
             if (ch->colour() == QLCChannel::NoColour)
             {
-                 setMapIndex(QLCChannel::Intensity, ch->controlByte(), i);
+                setMapIndex(QLCChannel::Intensity, ch->controlByte(), i);
             }
             else // all the other colors
             {
@@ -236,7 +235,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
  * Load & Save
  ****************************************************************************/
 
-bool QLCFixtureHead::loadXML(QXmlStreamReader &doc)
+bool QLCFixtureHead::loadXML(QXmlStreamReader& doc)
 {
     if (doc.name() != KXMLQLCFixtureHead)
     {
@@ -258,18 +257,16 @@ bool QLCFixtureHead::loadXML(QXmlStreamReader &doc)
     return true;
 }
 
-bool QLCFixtureHead::saveXML(QXmlStreamWriter *doc) const
+bool QLCFixtureHead::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 
     doc->writeStartElement(KXMLQLCFixtureHead);
 
-    foreach(quint32 index, m_channels)
+    foreach (quint32 index, m_channels)
         doc->writeTextElement(KXMLQLCFixtureHeadChannel, QString::number(index));
 
     doc->writeEndElement();
 
     return true;
 }
-
-

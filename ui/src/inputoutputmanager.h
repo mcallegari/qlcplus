@@ -70,7 +70,7 @@ public slots:
 
 private:
     /** Update the contents of the input universe to the item */
-    void updateItem(QListWidgetItem *item, quint32 universe);
+    void updateItem(QListWidgetItem* item, quint32 universe);
 
 private slots:
     /** Listens to input data and displays a small icon to indicate a
@@ -100,17 +100,17 @@ protected:
     void showEvent(QShowEvent* ev);
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
     QSplitter* m_splitter;
-    QToolBar *m_toolbar;
+    QToolBar* m_toolbar;
     QAction* m_addUniverseAction;
     QAction* m_deleteUniverseAction;
-    QLineEdit *m_uniNameEdit;
-    QCheckBox *m_uniPassthroughCheck;
-    QListWidget *m_list;
+    QLineEdit* m_uniNameEdit;
+    QCheckBox* m_uniPassthroughCheck;
+    QListWidget* m_list;
     QIcon m_icon;
     QTimer* m_timer;
-    InputOutputPatchEditor *m_editor;
+    InputOutputPatchEditor* m_editor;
     quint32 m_editorUniverse;
 };
 

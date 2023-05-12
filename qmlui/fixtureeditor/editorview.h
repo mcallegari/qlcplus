@@ -44,13 +44,13 @@ class EditorView : public QObject
     Q_PROPERTY(QString model READ model WRITE setModel NOTIFY modelChanged)
     Q_PROPERTY(QString author READ author WRITE setAuthor NOTIFY authorChanged)
 
-    Q_PROPERTY(PhysicalEdit *globalPhysical READ globalPhysical CONSTANT)
+    Q_PROPERTY(PhysicalEdit* globalPhysical READ globalPhysical CONSTANT)
     Q_PROPERTY(QVariant channels READ channels NOTIFY channelsChanged)
 
     Q_PROPERTY(QVariant modes READ modes NOTIFY modesChanged)
 
 public:
-    EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
+    EditorView(QQuickView* view, int id, QLCFixtureDef* fixtureDef, QObject* parent = nullptr);
     ~EditorView();
 
     int id() const;
@@ -76,7 +76,7 @@ public:
 
     /** Get an editor reference for the
      *  global physical properties */
-    PhysicalEdit *globalPhysical();
+    PhysicalEdit* globalPhysical();
 
 signals:
     void hasChanged();
@@ -87,13 +87,13 @@ signals:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Unique ID of this editor */
     int m_id;
     /** Reference to the definition being edited */
-    QLCFixtureDef *m_fixtureDef;
+    QLCFixtureDef* m_fixtureDef;
     /** Reference to the global physical properties */
-    PhysicalEdit *m_globalPhy;
+    PhysicalEdit* m_globalPhy;
 
     /************************************************************************
      * Channels
@@ -112,22 +112,22 @@ public:
 
     /** Request a channel editor.
      *  If $name is empty, a new channel is added */
-    Q_INVOKABLE ChannelEdit *requestChannelEditor(QString name);
+    Q_INVOKABLE ChannelEdit* requestChannelEditor(QString name);
 
     Q_INVOKABLE void addPresetChannel(QString name, int group);
 
     /** Delete the given $channel from the definition */
-    Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
+    Q_INVOKABLE bool deleteChannel(QLCChannel* channel);
 
 private:
     void updateChannelList();
 
 private:
     /** Reference to a channel list usable in QML */
-    ListModel *m_channelList;
+    ListModel* m_channelList;
 
     /** Reference to a channel editor */
-    ChannelEdit *m_channelEdit;
+    ChannelEdit* m_channelEdit;
 
 signals:
     void channelsChanged();
@@ -141,7 +141,7 @@ public:
 
     /** Request a mode editor.
      *  If name is empty, a new mode is added */
-    Q_INVOKABLE ModeEdit *requestModeEditor(QString name);
+    Q_INVOKABLE ModeEdit* requestModeEditor(QString name);
 
 private:
     void updateModeList();
@@ -151,10 +151,10 @@ protected slots:
 
 private:
     /** Reference to a mode list usable in QML */
-    ListModel *m_modeList;
+    ListModel* m_modeList;
 
     /** Reference to a mode editor */
-    ModeEdit *m_modeEdit;
+    ModeEdit* m_modeEdit;
 
 signals:
     void modesChanged();

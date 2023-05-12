@@ -37,8 +37,8 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCFixtureGroup     QString("FixtureGroup")
-#define KXMLQLCFixtureGroupID   QString("ID")
+#define KXMLQLCFixtureGroup QString("FixtureGroup")
+#define KXMLQLCFixtureGroupID QString("ID")
 
 class FixtureGroup : public QObject
 {
@@ -162,20 +162,20 @@ public:
     GroupHead head(const QLCPoint& pt) const;
 
     /** Get a list of fixtures assigned to a group */
-    QList <GroupHead> headList() const;
+    QList<GroupHead> headList() const;
 
     /** Get the fixture head hash */
-    QMap <QLCPoint,GroupHead> headsMap() const;
+    QMap<QLCPoint, GroupHead> headsMap() const;
 
     /** Get a list of fixture IDs assigned to the group */
-    QList <quint32> fixtureList() const;
+    QList<quint32> fixtureList() const;
 
 private slots:
     /** Listens to Doc fixture removals */
     void slotFixtureRemoved(quint32 id);
 
 private:
-    QMap <QLCPoint,GroupHead> m_heads;
+    QMap<QLCPoint, GroupHead> m_heads;
 
     /************************************************************************
      * Size
@@ -194,9 +194,9 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
-    bool loadXML(QXmlStreamReader &xmlDoc);
-    bool saveXML(QXmlStreamWriter *doc);
+    static bool loader(QXmlStreamReader& xmlDoc, Doc* doc);
+    bool loadXML(QXmlStreamReader& xmlDoc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

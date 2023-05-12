@@ -20,8 +20,8 @@
 #include <QMutexLocker>
 #include <QDebug>
 
-#if defined(WIN32) || defined (Q_OS_WIN)
- #include <Windows.h>
+#if defined(WIN32) || defined(Q_OS_WIN)
+  #include <Windows.h>
 #endif
 
 #include "qlcinputsource.h"
@@ -31,7 +31,7 @@ quint32 QLCInputSource::invalidUniverse = UINT_MAX;
 quint32 QLCInputSource::invalidChannel = UINT_MAX;
 quint32 QLCInputSource::invalidID = UINT_MAX;
 
-QLCInputSource::QLCInputSource(QThread *parent)
+QLCInputSource::QLCInputSource(QThread* parent)
     : QThread(parent)
     , m_universe(invalidUniverse)
     , m_channel(invalidChannel)
@@ -47,7 +47,7 @@ QLCInputSource::QLCInputSource(QThread *parent)
 {
 }
 
-QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *parent)
+QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread* parent)
     : QThread(parent)
     , m_universe(universe)
     , m_channel(channel)
@@ -167,9 +167,8 @@ void QLCInputSource::setWorkingMode(QLCInputSource::WorkingMode mode)
 
 bool QLCInputSource::needsUpdate()
 {
-    if (m_workingMode == Relative || m_workingMode == Encoder ||
-        m_emitExtraPressRelease == true)
-            return true;
+    if (m_workingMode == Relative || m_workingMode == Encoder || m_emitExtraPressRelease == true)
+        return true;
 
     return false;
 }
@@ -262,4 +261,3 @@ void QLCInputSource::run()
         }
     }
 }
-

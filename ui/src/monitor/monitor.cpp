@@ -86,14 +86,10 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
     initView();
 
     /* Listen to fixture additions and changes from Doc */
-    connect(m_doc, SIGNAL(fixtureAdded(quint32)),
-            this, SLOT(slotFixtureAdded(quint32)));
-    connect(m_doc, SIGNAL(fixtureChanged(quint32)),
-            this, SLOT(slotFixtureChanged(quint32)));
-    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
-            this, SLOT(slotFixtureRemoved(quint32)));
-    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
-            this, SLOT(slotFunctionStarted(quint32)));
+    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
+    connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(slotFixtureChanged(quint32)));
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved(quint32)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotFunctionStarted(quint32)));
 }
 
 void Monitor::slotFunctionStarted(quint32 id)
@@ -156,12 +152,11 @@ void Monitor::fillDMXView()
     m_monitorWidget->setFont(m_props->font());
 
     /* Create a bunch of MonitorFixtures for each fixture */
-    foreach(Fixture* fxi, m_doc->fixtures())
+    foreach (Fixture* fxi, m_doc->fixtures())
     {
         Q_ASSERT(fxi != NULL);
-        if (m_currentUniverse == Universe::invalid() ||
-            m_currentUniverse == fxi->universe())
-                createMonitorFixture(fxi);
+        if (m_currentUniverse == Universe::invalid() || m_currentUniverse == fxi->universe())
+            createMonitorFixture(fxi);
     }
 }
 
@@ -204,10 +199,8 @@ void Monitor::initGraphicsView()
     m_graphicsView->setBackgroundBrush(QBrush(QColor(11, 11, 11, 255), Qt::SolidPattern));
     m_splitter->widget(0)->layout()->addWidget(m_graphicsView);
 
-    connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
-            this, SLOT(slotFixtureMoved(quint32,QPointF)));
-    connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent*)),
-            this, SLOT(slotViewClicked()));
+    connect(m_graphicsView, SIGNAL(fixtureMoved(quint32, QPointF)), this, SLOT(slotFixtureMoved(quint32, QPointF)));
+    connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent*)), this, SLOT(slotViewClicked()));
 
     // add container for chaser editor
     QWidget* econtainer = new QWidget(this);
@@ -342,7 +335,7 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
             window->restoreGeometry(var.toByteArray());
         else
         {
-            QScreen *screen = QGuiApplication::screens().first();
+            QScreen* screen = QGuiApplication::screens().first();
             QRect rect = screen->availableGeometry();
             int rWd = rect.width() / 4;
             int rHd = rect.height() / 4;
@@ -377,12 +370,10 @@ void Monitor::initDMXToolbar()
     action = m_DMXToolBar->addAction(tr("2D View"));
     m_DMXToolBar->addSeparator();
     action->setData(MonitorProperties::Graphics);
-    connect(action, SIGNAL(triggered(bool)),
-            this, SLOT(slotSwitchMode()));
+    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotSwitchMode()));
 
     /* Font */
-    m_DMXToolBar->addAction(QIcon(":/fonts.png"), tr("Font"),
-                       this, SLOT(slotChooseFont()));
+    m_DMXToolBar->addAction(QIcon(":/fonts.png"), tr("Font"), this, SLOT(slotChooseFont()));
 
     m_DMXToolBar->addSeparator();
 
@@ -394,8 +385,7 @@ void Monitor::initDMXToolbar()
     action->setToolTip(tr("Show absolute DMX channel numbers"));
     action->setCheckable(true);
     action->setData(MonitorProperties::DMXChannels);
-    connect(action, SIGNAL(triggered(bool)),
-            this, SLOT(slotChannelStyleTriggered()));
+    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotChannelStyleTriggered()));
     m_DMXToolBar->addAction(action);
     group->addAction(action);
     if (m_props->channelStyle() == MonitorProperties::DMXChannels)
@@ -405,8 +395,7 @@ void Monitor::initDMXToolbar()
     action->setToolTip(tr("Show channel numbers relative to fixture"));
     action->setCheckable(true);
     action->setData(MonitorProperties::RelativeChannels);
-    connect(action, SIGNAL(triggered(bool)),
-            this, SLOT(slotChannelStyleTriggered()));
+    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotChannelStyleTriggered()));
     m_DMXToolBar->addAction(action);
     group->addAction(action);
     if (m_props->channelStyle() == MonitorProperties::RelativeChannels)
@@ -422,8 +411,7 @@ void Monitor::initDMXToolbar()
     action->setToolTip(tr("Show DMX values 0-255"));
     action->setCheckable(true);
     action->setData(MonitorProperties::DMXValues);
-    connect(action, SIGNAL(triggered(bool)),
-            this, SLOT(slotValueStyleTriggered()));
+    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotValueStyleTriggered()));
     m_DMXToolBar->addAction(action);
     group->addAction(action);
     action->setChecked(true);
@@ -434,8 +422,7 @@ void Monitor::initDMXToolbar()
     action->setToolTip(tr("Show percentage values 0-100%"));
     action->setCheckable(true);
     action->setData(MonitorProperties::PercentageValues);
-    connect(action, SIGNAL(triggered(bool)),
-            this, SLOT(slotValueStyleTriggered()));
+    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotValueStyleTriggered()));
     m_DMXToolBar->addAction(action);
     group->addAction(action);
     if (m_props->valueStyle() == MonitorProperties::PercentageValues)
@@ -444,19 +431,18 @@ void Monitor::initDMXToolbar()
     /* Universe combo box */
     m_DMXToolBar->addSeparator();
 
-    QLabel *uniLabel = new QLabel(tr("Universe"));
+    QLabel* uniLabel = new QLabel(tr("Universe"));
     uniLabel->setMargin(5);
     m_DMXToolBar->addWidget(uniLabel);
 
-    QComboBox *uniCombo = new QComboBox(this);
+    QComboBox* uniCombo = new QComboBox(this);
     uniCombo->addItem(tr("All universes"), Universe::invalid());
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
     {
         quint32 uniID = m_doc->inputOutputMap()->getUniverseID(i);
         uniCombo->addItem(m_doc->inputOutputMap()->getUniverseNameByIndex(i), uniID);
     }
-    connect(uniCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotUniverseSelected(int)));
+    connect(uniCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUniverseSelected(int)));
     m_DMXToolBar->addWidget(uniCombo);
 
     if (QLCFile::hasWindowManager() == false)
@@ -468,8 +454,7 @@ void Monitor::initDMXToolbar()
         action = m_DMXToolBar->addAction(tr("Close"));
         action->setToolTip(tr("Close this window"));
         action->setIcon(QIcon(":/delete.png"));
-        connect(action, SIGNAL(triggered(bool)),
-                this, SLOT(close()));
+        connect(action, SIGNAL(triggered(bool)), this, SLOT(close()));
         m_DMXToolBar->addAction(action);
         group->addAction(action);
     }
@@ -488,10 +473,9 @@ void Monitor::initGraphicsToolbar()
     action = m_graphicsToolBar->addAction(tr("DMX View"));
     m_graphicsToolBar->addSeparator();
     action->setData(MonitorProperties::DMX);
-    connect(action, SIGNAL(triggered(bool)),
-            this, SLOT(slotSwitchMode()));
+    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotSwitchMode()));
 
-    QLabel *label = new QLabel(tr("Size"));
+    QLabel* label = new QLabel(tr("Size"));
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_graphicsToolBar->addWidget(label);
 
@@ -501,18 +485,16 @@ void Monitor::initGraphicsToolbar()
     m_gridWSpin->setMinimum(1);
     m_gridWSpin->setValue(gridSize.x());
     m_graphicsToolBar->addWidget(m_gridWSpin);
-    connect(m_gridWSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotGridWidthChanged(int)));
+    connect(m_gridWSpin, SIGNAL(valueChanged(int)), this, SLOT(slotGridWidthChanged(int)));
 
-    QLabel *xlabel = new QLabel("x");
+    QLabel* xlabel = new QLabel("x");
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_graphicsToolBar->addWidget(xlabel);
     m_gridHSpin = new QSpinBox();
     m_gridHSpin->setMinimum(1);
     m_gridHSpin->setValue(gridSize.z());
     m_graphicsToolBar->addWidget(m_gridHSpin);
-    connect(m_gridHSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotGridHeightChanged(int)));
+    connect(m_gridHSpin, SIGNAL(valueChanged(int)), this, SLOT(slotGridHeightChanged(int)));
 
     m_unitsCombo = new QComboBox();
     m_unitsCombo->addItem(tr("Meters"), MonitorProperties::Meters);
@@ -520,20 +502,16 @@ void Monitor::initGraphicsToolbar()
     if (m_props->gridUnits() == MonitorProperties::Feet)
         m_unitsCombo->setCurrentIndex(1);
     m_graphicsToolBar->addWidget(m_unitsCombo);
-    connect(m_unitsCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotGridUnitsChanged(int)));
+    connect(m_unitsCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotGridUnitsChanged(int)));
 
     m_graphicsToolBar->addSeparator();
 
-    m_graphicsToolBar->addAction(QIcon(":/edit_add.png"), tr("Add fixture"),
-                       this, SLOT(slotAddFixture()));
-    m_graphicsToolBar->addAction(QIcon(":/edit_remove.png"), tr("Remove fixture"),
-                       this, SLOT(slotRemoveFixture()));
+    m_graphicsToolBar->addAction(QIcon(":/edit_add.png"), tr("Add fixture"), this, SLOT(slotAddFixture()));
+    m_graphicsToolBar->addAction(QIcon(":/edit_remove.png"), tr("Remove fixture"), this, SLOT(slotRemoveFixture()));
 
     m_graphicsToolBar->addSeparator();
 
-    m_graphicsToolBar->addAction(QIcon(":/image.png"), tr("Set a background picture"),
-                       this, SLOT(slotSetBackground()));
+    m_graphicsToolBar->addAction(QIcon(":/image.png"), tr("Set a background picture"), this, SLOT(slotSetBackground()));
 
     m_labelsAction = m_graphicsToolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
     m_labelsAction->setCheckable(true);
@@ -549,8 +527,7 @@ void Monitor::initGraphicsToolbar()
         action = m_graphicsToolBar->addAction(tr("Close"));
         action->setToolTip(tr("Close this window"));
         action->setIcon(QIcon(":/delete.png"));
-        connect(action, SIGNAL(triggered(bool)),
-                this, SLOT(close()));
+        connect(action, SIGNAL(triggered(bool)), this, SLOT(close()));
         m_graphicsToolBar->addAction(action);
     }
 }
@@ -568,7 +545,7 @@ void Monitor::slotChooseFont()
 
 void Monitor::slotChannelStyleTriggered()
 {
-    QAction* action = qobject_cast<QAction*> (QObject::sender());
+    QAction* action = qobject_cast<QAction*>(QObject::sender());
     Q_ASSERT(action != NULL);
 
     action->setChecked(true);
@@ -578,7 +555,7 @@ void Monitor::slotChannelStyleTriggered()
 
 void Monitor::slotValueStyleTriggered()
 {
-    QAction* action = qobject_cast<QAction*> (QObject::sender());
+    QAction* action = qobject_cast<QAction*>(QObject::sender());
     Q_ASSERT(action != NULL);
 
     action->setChecked(true);
@@ -588,7 +565,7 @@ void Monitor::slotValueStyleTriggered()
 
 void Monitor::slotSwitchMode()
 {
-    QAction* action = qobject_cast<QAction*> (QObject::sender());
+    QAction* action = qobject_cast<QAction*>(QObject::sender());
     Q_ASSERT(action != NULL);
 
     m_props->setDisplayMode(MonitorProperties::DisplayMode(action->data().toInt()));
@@ -601,7 +578,7 @@ void Monitor::slotSwitchMode()
 
 void Monitor::updateFixtureLabelStyles()
 {
-    QListIterator <MonitorFixture*> it(m_monitorFixtures);
+    QListIterator<MonitorFixture*> it(m_monitorFixtures);
     while (it.hasNext() == true)
         it.next()->updateLabelStyles();
 }
@@ -615,10 +592,10 @@ void Monitor::createMonitorFixture(Fixture* fxi)
     mof->show();
 
     /* Make mof listen to value & channel style changes */
-    connect(this, SIGNAL(valueStyleChanged(MonitorProperties::ValueStyle)),
-            mof, SLOT(slotValueStyleChanged(MonitorProperties::ValueStyle)));
-    connect(this, SIGNAL(channelStyleChanged(MonitorProperties::ChannelStyle)),
-            mof, SLOT(slotChannelStyleChanged(MonitorProperties::ChannelStyle)));
+    connect(this, SIGNAL(valueStyleChanged(MonitorProperties::ValueStyle)), mof,
+            SLOT(slotValueStyleChanged(MonitorProperties::ValueStyle)));
+    connect(this, SIGNAL(channelStyleChanged(MonitorProperties::ChannelStyle)), mof,
+            SLOT(slotChannelStyleChanged(MonitorProperties::ChannelStyle)));
 
     m_monitorLayout->addItem(new MonitorLayoutItem(mof));
     m_monitorFixtures.append(mof);
@@ -633,7 +610,7 @@ void Monitor::slotFixtureAdded(quint32 fxi_id)
 
 void Monitor::slotFixtureChanged(quint32 fxi_id)
 {
-    QListIterator <MonitorFixture*> it(m_monitorFixtures);
+    QListIterator<MonitorFixture*> it(m_monitorFixtures);
     while (it.hasNext() == true)
     {
         MonitorFixture* mof = it.next();
@@ -649,7 +626,7 @@ void Monitor::slotFixtureChanged(quint32 fxi_id)
 
 void Monitor::slotFixtureRemoved(quint32 fxi_id)
 {
-    QMutableListIterator <MonitorFixture*> it(m_monitorFixtures);
+    QMutableListIterator<MonitorFixture*> it(m_monitorFixtures);
     while (it.hasNext() == true)
     {
         MonitorFixture* mof = it.next();
@@ -665,7 +642,7 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
 
 void Monitor::slotUniverseSelected(int index)
 {
-    QComboBox *combo = qobject_cast<QComboBox *>(sender());
+    QComboBox* combo = qobject_cast<QComboBox*>(sender());
     m_currentUniverse = combo->itemData(index).toUInt();
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
@@ -722,14 +699,14 @@ void Monitor::slotAddFixture()
 {
     Q_ASSERT(m_graphicsView != NULL);
 
-    QList <quint32> disabled = m_graphicsView->fixturesID();
+    QList<quint32> disabled = m_graphicsView->fixturesID();
     /* Get a list of new fixtures to add to the scene */
     FixtureSelection fs(this, m_doc);
     fs.setMultiSelection(true);
     fs.setDisabledFixtures(disabled);
     if (fs.exec() == QDialog::Accepted)
     {
-        QListIterator <quint32> it(fs.selection());
+        QListIterator<quint32> it(fs.selection());
         // TODO position fixtures one after the other
         while (it.hasNext() == true)
         {
@@ -807,14 +784,12 @@ void Monitor::hideFixtureItemEditor()
 
 void Monitor::showFixtureItemEditor()
 {
-    MonitorFixtureItem *item = m_graphicsView->getSelectedItem();
+    MonitorFixtureItem* item = m_graphicsView->getSelectedItem();
     hideFixtureItemEditor();
 
     if (item != NULL)
     {
-        m_fixtureItemEditor = new MonitorFixturePropertiesEditor(
-                    item, m_graphicsView,
-                    m_props, m_splitter->widget(1));
+        m_fixtureItemEditor = new MonitorFixturePropertiesEditor(item, m_graphicsView, m_props, m_splitter->widget(1));
         m_splitter->widget(1)->layout()->addWidget(m_fixtureItemEditor);
         m_splitter->widget(1)->show();
         m_fixtureItemEditor->show();

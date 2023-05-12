@@ -32,7 +32,7 @@ class VCMatrixPresetSelection : public QDialog, public Ui_VCMatrixPresetSelectio
     Q_OBJECT
 
 public:
-    VCMatrixPresetSelection(Doc *doc, QWidget *parent = 0);
+    VCMatrixPresetSelection(Doc* doc, QWidget* parent = 0);
     ~VCMatrixPresetSelection();
 
     QString selectedPreset();
@@ -46,11 +46,11 @@ protected slots:
     void slotPropertySpinChanged(int value);
 
 private:
-    void resetProperties(QLayoutItem *item);
-    void displayProperties(RGBScript *script);
+    void resetProperties(QLayoutItem* item);
+    void displayProperties(RGBScript* script);
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
 
     /** A map holding the customized script properties */
     QHash<QString, QString> m_properties;

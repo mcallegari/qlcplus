@@ -50,7 +50,7 @@ public slots:
 
 private:
     Doc* m_doc;
-    FixtureTreeWidget *m_tree;
+    FixtureTreeWidget* m_tree;
     quint32 m_treeFlags;
 
     /************************************************************************
@@ -58,27 +58,31 @@ private:
      ************************************************************************/
 public:
     /** List of selected fixtures (valid only in Fixture Selection Mode) */
-    QList <quint32> selection() const;
+    QList<quint32> selection() const;
 
     /** Get a list of selected fixture heads (valid only in Head Selection Mode) */
-    QList <GroupHead> selectedHeads() const;
+    QList<GroupHead> selectedHeads() const;
 
 private:
-    QList <quint32> m_selectedFixtures;
-    QList <GroupHead> m_selectedHeads;
+    QList<quint32> m_selectedFixtures;
+    QList<GroupHead> m_selectedHeads;
 
     /************************************************************************
      * Multi-selection
      ************************************************************************/
 public:
-     /** Enable or disable multi-selection */
+    /** Enable or disable multi-selection */
     void setMultiSelection(bool multi);
 
     /************************************************************************
      * Selection mode
      ************************************************************************/
 public:
-    enum SelectionMode { Fixtures, Heads };
+    enum SelectionMode
+    {
+        Fixtures,
+        Heads
+    };
     void setSelectionMode(SelectionMode mode);
 
 private:
@@ -89,10 +93,10 @@ private:
      ************************************************************************/
 public:
     /** Disable (==prevent selection of) a list of fixtures */
-    void setDisabledFixtures(const QList <quint32>& disabled);
+    void setDisabledFixtures(const QList<quint32>& disabled);
 
     /** Disable (==prevent selection of) a list of heads */
-    void setDisabledHeads(const QList <GroupHead>& disabled);
+    void setDisabledHeads(const QList<GroupHead>& disabled);
 
     /************************************************************************
      * Tree

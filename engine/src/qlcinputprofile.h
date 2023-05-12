@@ -34,11 +34,11 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCInputProfile                 QString("InputProfile")
-#define KXMLQLCInputProfileManufacturer     QString("Manufacturer")
-#define KXMLQLCInputProfileModel            QString("Model")
-#define KXMLQLCInputProfileType             QString("Type")
-#define KXMLQLCInputProfileMidiSendNoteOff  QString("MIDISendNoteOff")
+#define KXMLQLCInputProfile QString("InputProfile")
+#define KXMLQLCInputProfileManufacturer QString("Manufacturer")
+#define KXMLQLCInputProfileModel QString("Model")
+#define KXMLQLCInputProfileType QString("Type")
+#define KXMLQLCInputProfileMidiSendNoteOff QString("MIDISendNoteOff")
 
 class QLCInputProfile
 {
@@ -91,7 +91,7 @@ public:
 
     static QString typeToString(Type type);
 
-    static Type stringToType(const QString & str);
+    static Type stringToType(const QString& str);
 
     static QList<Type> types();
 
@@ -172,7 +172,7 @@ public:
     /**
      * Get available channels.
      */
-    QMap <quint32,QLCInputChannel*> channels() const;
+    QMap<quint32, QLCInputChannel*> channels() const;
 
 private:
     /** Delete and remove all channels */
@@ -181,7 +181,7 @@ private:
 protected:
     /** Channel objects present in this profile. This is a QMap and not a
         QList because not all channels might be present. */
-    QMap <quint32, QLCInputChannel*> m_channels;
+    QMap<quint32, QLCInputChannel*> m_channels;
 
     /********************************************************************
      * Load & Save
@@ -194,7 +194,7 @@ public:
     bool saveXML(const QString& fileName);
 
     /** Load an input profile from the given document */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 };
 
 /** @} */

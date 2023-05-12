@@ -23,17 +23,16 @@
 #include "treemodel.h"
 #include "treemodelitem.h"
 
-TreeModel::TreeModel(QObject *parent)
+TreeModel::TreeModel(QObject* parent)
     : QAbstractListModel(parent)
     , m_sorting(false)
     , m_checkable(false)
 {
-
 }
 
 TreeModel::~TreeModel()
 {
-    //qDebug() << "!!! WARNING TreeModel destroyed WARNING !!!";
+    // qDebug() << "!!! WARNING TreeModel destroyed WARNING !!!";
     clear();
 }
 
@@ -50,7 +49,7 @@ void TreeModel::clear()
 
     for (int i = 0; i < itemsCount; i++)
     {
-        TreeModelItem *item = m_items.takeLast();
+        TreeModelItem* item = m_items.takeLast();
         if (item->hasChildren())
             item->children()->clear();
         beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
@@ -76,13 +75,13 @@ void TreeModel::setCheckable(bool enable)
     m_checkable = enable;
 }
 
-void TreeModel::setSingleSelection(TreeModelItem *item)
+void TreeModel::setSingleSelection(TreeModelItem* item)
 {
-    //bool parentSignalSent = false;
-    //qDebug() << "Set single selection" << this;
+    // bool parentSignalSent = false;
+    // qDebug() << "Set single selection" << this;
     for (int i = 0; i < m_items.count(); i++)
     {
-        TreeModelItem *target = m_items.at(i);
+        TreeModelItem* target = m_items.at(i);
 
         if (target != item && target->flags() & Selected)
         {
@@ -101,11 +100,11 @@ void TreeModel::setSingleSelection(TreeModelItem *item)
     }
 }
 
-TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
+TreeModelItem* TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
-    //qDebug() << "Adding item" << label << path;
+    // qDebug() << "Adding item" << label << path;
 
-    TreeModelItem *item = nullptr;
+    TreeModelItem* item = nullptr;
 
     // fewer roles are allowed, while exceeding are probably a mistake
     if (data.count() > m_roles.count())
@@ -146,8 +145,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             if (item->setChildrenColumns(m_roles) == true)
             {
-                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant)),
-                        this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*, int, const QVariant)), this,
+                        SLOT(slotRoleChanged(TreeModelItem*, int, const QVariant&)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
 
@@ -162,8 +161,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         {
             if (item->addChild(label, data, m_sorting, "", flags) == true)
             {
-                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
-                        this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*, int, const QVariant&)), this,
+                        SLOT(slotRoleChanged(TreeModelItem*, int, const QVariant&)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
         }
@@ -172,8 +171,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             QString newPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
             if (item->addChild(label, data, m_sorting, newPath, flags) == true)
             {
-                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
-                        this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*, int, const QVariant&)), this,
+                        SLOT(slotRoleChanged(TreeModelItem*, int, const QVariant&)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
         }
@@ -182,7 +181,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
     return item;
 }
 
-TreeModelItem *TreeModel::itemAtPath(QString path)
+TreeModelItem* TreeModel::itemAtPath(QString path)
 {
     if (path.isEmpty())
         return nullptr;
@@ -202,7 +201,7 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
             return nullptr;
     }
 
-    TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+    TreeModelItem* item = m_itemsPathMap[pathList.at(0)];
     QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
     return item->children()->itemAtPath(subPath);
 }
@@ -236,7 +235,7 @@ bool TreeModel::removeItem(QString path)
     }
     else
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        TreeModelItem* item = m_itemsPathMap[pathList.at(0)];
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->removeItem(subPath);
     }
@@ -244,12 +243,12 @@ bool TreeModel::removeItem(QString path)
     return true;
 }
 
-void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
+void TreeModel::setItemRoleData(QString path, const QVariant& value, int role)
 {
     if (path.isEmpty())
         return;
 
-    //qDebug() << "Looking for item with path:" << path;
+    // qDebug() << "Looking for item with path:" << path;
 
     QStringList pathList = path.split(TreeModel::separator());
 
@@ -270,13 +269,13 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
     }
     else
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        TreeModelItem* item = m_itemsPathMap[pathList.at(0)];
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->setItemRoleData(subPath, value, role);
     }
 }
 
-void TreeModel::setItemRoleData(TreeModelItem *item, const QVariant &value, int role)
+void TreeModel::setItemRoleData(TreeModelItem* item, const QVariant& value, int role)
 {
     if (item == nullptr)
         return;
@@ -289,7 +288,7 @@ void TreeModel::setItemRoleData(TreeModelItem *item, const QVariant &value, int 
     setData(mIndex, value, role);
 }
 
-QList<TreeModelItem *> TreeModel::items()
+QList<TreeModelItem*> TreeModel::items()
 {
     return m_items;
 }
@@ -302,7 +301,7 @@ void TreeModel::setPathData(QString path, QVariantList data)
     QStringList pathList = path.split(TreeModel::separator());
     if (m_itemsPathMap.contains(pathList.at(0)))
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        TreeModelItem* item = m_itemsPathMap[pathList.at(0)];
         if (pathList.count() == 1)
         {
             item->setData(data);
@@ -320,13 +319,13 @@ int TreeModel::roleIndex(QString role)
     return roleNames().key(role.toLatin1(), -1);
 }
 
-int TreeModel::rowCount(const QModelIndex &parent) const
+int TreeModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
     return m_items.count();
 }
 
-QVariant TreeModel::data(const QModelIndex &index, int role) const
+QVariant TreeModel::data(const QModelIndex& index, int role) const
 {
     if (index.row() < 0 || index.row() >= m_items.count())
         return QVariant();
@@ -335,57 +334,57 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     if (itemRow < 0 || itemRow >= m_items.count())
         return false;
 
-    TreeModelItem *item = m_items.at(itemRow);
+    TreeModelItem* item = m_items.at(itemRow);
 
-    switch(role)
+    switch (role)
     {
-        case LabelRole:
-            return item->label();
-        case PathRole:
-            return item->path();
-        case IsExpandedRole:
-            return (item->flags() & Expanded) ? true : false;
-        case IsSelectedRole:
-            return (item->flags() & Selected) ? true : false;
-        case IsCheckableRole:
-            return (item->flags() & Checkable) ? true : false;
-        case IsCheckedRole:
-            return (item->flags() & Checked) ? true : false;
-        case IsDraggableRole:
-            return (item->flags() & Draggable) ? true : false;
-        case ItemsCountRole:
-            return m_items.count();
-        case HasChildrenRole:
-            return item->hasChildren() || (item->flags() & EmptyNode);
-        case ChildrenModel:
-            return QVariant::fromValue(item->children());
-        default:
-            return m_items.at(index.row())->data(role - FixedRolesEnd);
+    case LabelRole:
+        return item->label();
+    case PathRole:
+        return item->path();
+    case IsExpandedRole:
+        return (item->flags() & Expanded) ? true : false;
+    case IsSelectedRole:
+        return (item->flags() & Selected) ? true : false;
+    case IsCheckableRole:
+        return (item->flags() & Checkable) ? true : false;
+    case IsCheckedRole:
+        return (item->flags() & Checked) ? true : false;
+    case IsDraggableRole:
+        return (item->flags() & Draggable) ? true : false;
+    case ItemsCountRole:
+        return m_items.count();
+    case HasChildrenRole:
+        return item->hasChildren() || (item->flags() & EmptyNode);
+    case ChildrenModel:
+        return QVariant::fromValue(item->children());
+    default:
+        return m_items.at(index.row())->data(role - FixedRolesEnd);
     }
 }
 
-bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool TreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_items.count())
         return false;
 
-    TreeModelItem *item = m_items.at(itemRow);
+    TreeModelItem* item = m_items.at(itemRow);
 
-    //qDebug() << "Setting role" << role << "on row" << itemRow << "with value" << value;
+    // qDebug() << "Setting role" << role << "on row" << itemRow << "with value" << value;
 
-    switch(role)
+    switch (role)
     {
-        case LabelRole:
-            item->setLabel(value.toString());
+    case LabelRole:
+        item->setLabel(value.toString());
         break;
-        case PathRole:
-            item->setPath(value.toString());
+    case PathRole:
+        item->setPath(value.toString());
         break;
-        case IsExpandedRole:
-            item->setFlag(Expanded, value.toBool());
+    case IsExpandedRole:
+        item->setFlag(Expanded, value.toBool());
         break;
-        case IsSelectedRole:
+    case IsSelectedRole:
         {
             if (value.toInt() > 0)
             {
@@ -397,17 +396,17 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
                 item->setFlag(Selected, false);
         }
         break;
-        case IsCheckableRole:
-            item->setFlag(Checkable, value.toBool());
+    case IsCheckableRole:
+        item->setFlag(Checkable, value.toBool());
         break;
-        case IsCheckedRole:
-            item->setFlag(Checked, value.toBool());
+    case IsCheckedRole:
+        item->setFlag(Checked, value.toBool());
         break;
-        case IsDraggableRole:
-            item->setFlag(Draggable, value.toBool());
+    case IsDraggableRole:
+        item->setFlag(Draggable, value.toBool());
         break;
-        default:
-            item->setRoleData(role - FixedRolesEnd, value);
+    default:
+        item->setRoleData(role - FixedRolesEnd, value);
         break;
     }
 
@@ -417,14 +416,14 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
     return true;
 }
 
-void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &value)
+void TreeModel::slotRoleChanged(TreeModelItem* item, int role, const QVariant& value)
 {
     if (item == nullptr)
         return;
 
-    switch(role)
+    switch (role)
     {
-        case IsSelectedRole:
+    case IsSelectedRole:
         {
             if (value.toInt() == 1)
                 setSingleSelection(item);
@@ -438,7 +437,7 @@ void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &v
 
 void TreeModel::printTree(int tab)
 {
-    for (TreeModelItem *item : m_items)
+    for (TreeModelItem* item : m_items)
     {
         item->printItem(tab);
         if (item->hasChildren())
@@ -507,8 +506,7 @@ QHash<int, QByteArray> TreeModel::roleNames() const
     for (int i = roleStartIdx, t = 0; i < roleStartIdx + m_roles.count(); i++, t++)
         roles[i] = m_roles.at(t).toLatin1();
 
-    //qDebug() << "Returned" << roles.count() << "roles";
+    // qDebug() << "Returned" << roles.count() << "roles";
 
     return roles;
 }
-

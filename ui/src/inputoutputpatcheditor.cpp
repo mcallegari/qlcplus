@@ -46,24 +46,24 @@
 #include "doc.h"
 
 /* Plugin column structure */
-#define KMapColumnPluginName    0
-#define KMapColumnDeviceName    1
-#define KMapColumnHasInput      2
-#define KMapColumnHasOutput     3
-#define KMapColumnHasFeedback   4
-#define KMapColumnInputLine     5
-#define KMapColumnOutputLine    6
+#define KMapColumnPluginName 0
+#define KMapColumnDeviceName 1
+#define KMapColumnHasInput 2
+#define KMapColumnHasOutput 3
+#define KMapColumnHasFeedback 4
+#define KMapColumnInputLine 5
+#define KMapColumnOutputLine 6
 
-#define KAudioColumnDeviceName  0
-#define KAudioColumnHasInput    1
-#define KAudioColumnHasOutput   2
-#define KAudioColumnPrivate     3
+#define KAudioColumnDeviceName 0
+#define KAudioColumnHasInput 1
+#define KAudioColumnHasOutput 2
+#define KAudioColumnPrivate 3
 
 /* Profile column structure */
 #define KProfileColumnName 0
 #define KProfileColumnType 1
 
-InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap *ioMap, Doc *doc)
+InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap* ioMap, Doc* doc)
     : QWidget(parent)
     , m_ioMap(ioMap)
     , m_doc(doc)
@@ -121,27 +121,23 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     if (var.isValid() && var.toBool() == true)
         m_hotplugButton->setChecked(true);
 
-    connect(m_hotplugButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotHotpluggingChanged(bool)));
+    connect(m_hotplugButton, SIGNAL(toggled(bool)), this, SLOT(slotHotpluggingChanged(bool)));
 
     initAudioTab();
 
     /* Listen to itemChanged() signals to catch check state changes */
-    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
-            this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
-    connect(m_srateCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotSampleRateIndexChanged(int)));
-    connect(m_chansCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotAudioChannelsChanged(int)));
-    connect(m_audioPreviewButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAudioInputPreview(bool)));
+    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+            SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
+    connect(m_srateCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSampleRateIndexChanged(int)));
+    connect(m_chansCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotAudioChannelsChanged(int)));
+    connect(m_audioPreviewButton, SIGNAL(toggled(bool)), this, SLOT(slotAudioInputPreview(bool)));
 
     /* Select the top-most "None" item */
     m_mapTree->setCurrentItem(m_mapTree->topLevelItem(0));
 
     /* Listen to plugin configuration changes */
-    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&, bool)),
-            this, SLOT(slotPluginConfigurationChanged(const QString&, bool)));
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&, bool)), this,
+            SLOT(slotPluginConfigurationChanged(const QString&, bool)));
 }
 
 InputOutputPatchEditor::~InputOutputPatchEditor()
@@ -184,23 +180,21 @@ void InputOutputPatchEditor::setupMappingPage()
     fillMappingTree();
 
     /* Selection changes */
-    connect(m_mapTree, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
-            this, SLOT(slotMapCurrentItemChanged(QTreeWidgetItem*)));
+    connect(m_mapTree, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this,
+            SLOT(slotMapCurrentItemChanged(QTreeWidgetItem*)));
 
     /* Configure button */
-    connect(m_configureButton, SIGNAL(clicked()),
-            this, SLOT(slotConfigureInputClicked()));
+    connect(m_configureButton, SIGNAL(clicked()), this, SLOT(slotConfigureInputClicked()));
 
     /* Double click acts as edit button click */
-    connect(m_mapTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
-            this, SLOT(slotConfigureInputClicked()));
+    connect(m_mapTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotConfigureInputClicked()));
 }
 
 void InputOutputPatchEditor::fillMappingTree()
 {
     /* Disable check state change tracking when the tree is filled */
-    disconnect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-               this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
+    disconnect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+               SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
 
     m_mapTree->clear();
 
@@ -218,7 +212,7 @@ void InputOutputPatchEditor::fillMappingTree()
         QStringList inputs = m_ioMap->pluginInputs(pluginName);
         QStringList outputs = m_ioMap->pluginOutputs(pluginName);
         bool hasFeedback = m_ioMap->pluginSupportsFeedback(pluginName);
-        QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        QLCIOPlugin* plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int lineNumber = 1;
 
         // 1st case: this plugin has no input or output
@@ -237,10 +231,11 @@ void InputOutputPatchEditor::fillMappingTree()
             {
                 quint32 uni = m_ioMap->inputMapping(pluginName, inputId);
                 QString inputName = inputs.at(inputId);
-                //qDebug() << "Plugin: " << pluginName << ", deviceName: " << inputName << ", input: " << inputId << ", universe:" << uni;
+                // qDebug() << "Plugin: " << pluginName << ", deviceName: " << inputName << ", input: " << inputId << ",
+                // universe:" << uni;
 
                 if (uni == InputOutputMap::invalidUniverse() ||
-                   (uni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
+                    (uni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                 {
                     QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
                     pitem->setText(KMapColumnPluginName, pluginName);
@@ -259,10 +254,10 @@ void InputOutputPatchEditor::fillMappingTree()
                     if (outLine != -1)
                     {
                         quint32 outUni = m_ioMap->outputMapping(pluginName, outLine);
-                        //qDebug() << "Device" << inputName << "has also an output on line" << outLine;
+                        // qDebug() << "Device" << inputName << "has also an output on line" << outLine;
 
                         if (outUni == InputOutputMap::invalidUniverse() ||
-                           (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
+                            (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                         {
                             if (m_currentOutputPluginName == pluginName && m_currentOutput == quint32(outLine))
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
@@ -287,10 +282,10 @@ void InputOutputPatchEditor::fillMappingTree()
                     if (outLine != -1)
                     {
                         quint32 outUni = m_ioMap->outputMapping(pluginName, outLine);
-                        //qDebug() << "Device" << inputName << "has also an output on line" << outLine;
+                        // qDebug() << "Device" << inputName << "has also an output on line" << outLine;
 
                         if (outUni == InputOutputMap::invalidUniverse() ||
-                           (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
+                            (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                         {
                             qDebug() << "Plugin: " << pluginName << ", output: " << outLine << ", universe:" << outUni;
                             QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
@@ -325,7 +320,8 @@ void InputOutputPatchEditor::fillMappingTree()
                     if (outUni == InputOutputMap::invalidUniverse() ||
                         (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                     {
-                        //qDebug() << "Plugin: " << pluginName << ", deviceName: " << outputName << ", output: " << outputId << ", universe:" << outUni;
+                        // qDebug() << "Plugin: " << pluginName << ", deviceName: " << outputName << ", output: " <<
+                        // outputId << ", universe:" << outUni;
                         QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
                         pitem->setText(KMapColumnPluginName, pluginName);
                         pitem->setText(KMapColumnDeviceName, QString("%1: %2").arg(lineNumber++).arg(outputName));
@@ -354,8 +350,8 @@ void InputOutputPatchEditor::fillMappingTree()
     m_mapTree->resizeColumnToContents(KMapColumnDeviceName);
 
     /* Enable check state change tracking after the tree has been filled */
-    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotMapItemChanged(QTreeWidgetItem*,int)));
+    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+            SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
 }
 
 void InputOutputPatchEditor::slotMapCurrentItemChanged(QTreeWidgetItem* item)
@@ -382,10 +378,10 @@ void InputOutputPatchEditor::slotMapCurrentItemChanged(QTreeWidgetItem* item)
 
         info = m_ioMap->pluginDescription(plugin);
 
-        //if (input != QLCIOPlugin::invalidLine())
-            info += m_ioMap->inputPluginStatus(plugin, input);
-        //if (output != QLCIOPlugin::invalidLine())
-            info += m_ioMap->outputPluginStatus(plugin, output);
+        // if (input != QLCIOPlugin::invalidLine())
+        info += m_ioMap->inputPluginStatus(plugin, input);
+        // if (output != QLCIOPlugin::invalidLine())
+        info += m_ioMap->outputPluginStatus(plugin, output);
         configurable = m_ioMap->canConfigurePlugin(plugin);
     }
 
@@ -402,8 +398,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
         return;
 
     /* Temporarily disable this signal to prevent an endless loop */
-    disconnect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-               this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
+    disconnect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+               SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
 
     if (item->checkState(col) == Qt::Checked)
     {
@@ -427,8 +423,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
 
             /* Apply the patch immediately so that input data can be used in the
                input profile editor */
-            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "",
-                                       m_currentInput, m_currentProfileName) == false)
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", m_currentInput,
+                                       m_currentProfileName) == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasOutput)
@@ -436,8 +432,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             if (item->checkState(KMapColumnHasFeedback) == Qt::Checked)
             {
                 item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
-                QMessageBox::warning(this, tr("Error"),
-                                     tr("Output line already assigned"));
+                QMessageBox::warning(this, tr("Error"), tr("Output line already assigned"));
             }
             else
             {
@@ -446,8 +441,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentOutput = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "",
-                                            m_currentOutput, false) == false)
+                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false) == false)
                     showPluginMappingError();
             }
         }
@@ -456,8 +450,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             if (item->checkState(KMapColumnHasOutput) == Qt::Checked)
             {
                 item->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
-                QMessageBox::warning(this, tr("Error"),
-                                     tr("Output line already assigned"));
+                QMessageBox::warning(this, tr("Error"), tr("Output line already assigned"));
             }
             else
             {
@@ -465,8 +458,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentFeedback = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "",
-                                            m_currentFeedback, true) == false)
+                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", m_currentFeedback, true) ==
+                    false)
                     showPluginMappingError();
             }
         }
@@ -505,8 +498,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
     slotMapCurrentItemChanged(item);
 
     /* Start listening to this signal once again */
-    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
+    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+            SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
 
     emit mappingChanged();
 }
@@ -577,23 +570,19 @@ void InputOutputPatchEditor::showPluginMappingError()
 
 void InputOutputPatchEditor::setupProfilePage()
 {
-    connect(m_addProfileButton, SIGNAL(clicked()),
-            this, SLOT(slotAddProfileClicked()));
-    connect(m_removeProfileButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveProfileClicked()));
-    connect(m_editProfileButton, SIGNAL(clicked()),
-            this, SLOT(slotEditProfileClicked()));
+    connect(m_addProfileButton, SIGNAL(clicked()), this, SLOT(slotAddProfileClicked()));
+    connect(m_removeProfileButton, SIGNAL(clicked()), this, SLOT(slotRemoveProfileClicked()));
+    connect(m_editProfileButton, SIGNAL(clicked()), this, SLOT(slotEditProfileClicked()));
 
     /* Fill the profile tree with available profile names */
     fillProfileTree();
 
     /* Listen to itemChanged() signals to catch check state changes */
-    connect(m_profileTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotProfileItemChanged(QTreeWidgetItem*)));
+    connect(m_profileTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+            SLOT(slotProfileItemChanged(QTreeWidgetItem*)));
 
     /* Double click acts as edit button click */
-    connect(m_profileTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
-            this, SLOT(slotEditProfileClicked()));
+    connect(m_profileTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotEditProfileClicked()));
 }
 
 void InputOutputPatchEditor::fillProfileTree()
@@ -621,7 +610,7 @@ void InputOutputPatchEditor::updateProfileItem(const QString& name, QTreeWidgetI
     Q_ASSERT(item != NULL);
 
     item->setText(KProfileColumnName, name);
-    QLCInputProfile * prof = m_ioMap->profile(name);
+    QLCInputProfile* prof = m_ioMap->profile(name);
     if (prof)
     {
         item->setText(KProfileColumnType, QLCInputProfile::typeToString(prof->type()));
@@ -634,13 +623,10 @@ void InputOutputPatchEditor::updateProfileItem(const QString& name, QTreeWidgetI
         item->setCheckState(KProfileColumnName, Qt::Unchecked);
 }
 
-QString InputOutputPatchEditor::fullProfilePath(const QString& manufacturer,
-                                          const QString& model) const
+QString InputOutputPatchEditor::fullProfilePath(const QString& manufacturer, const QString& model) const
 {
     QDir dir(InputOutputMap::userProfileDirectory());
-    QString path = QString("%1/%2-%3%4").arg(dir.absolutePath())
-                                        .arg(manufacturer).arg(model)
-                                        .arg(KExtInputProfile);
+    QString path = QString("%1/%2-%3%4").arg(dir.absolutePath()).arg(manufacturer).arg(model).arg(KExtInputProfile);
 
     return path;
 }
@@ -650,9 +636,7 @@ void InputOutputPatchEditor::slotProfileItemChanged(QTreeWidgetItem* item)
     if (item->checkState(KProfileColumnName) == Qt::Checked)
     {
         /* Temporarily disable this signal to prevent an endless loop */
-        disconnect(m_profileTree,
-                   SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-                   this,
+        disconnect(m_profileTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
                    SLOT(slotProfileItemChanged(QTreeWidgetItem*)));
 
         /* Set all other items unchecked... */
@@ -661,15 +645,12 @@ void InputOutputPatchEditor::slotProfileItemChanged(QTreeWidgetItem* item)
         {
             /* ...except the one that was just checked */
             if (*it != item)
-                (*it)->setCheckState(KProfileColumnName,
-                                     Qt::Unchecked);
+                (*it)->setCheckState(KProfileColumnName, Qt::Unchecked);
             ++it;
         }
 
         /* Start listening to this signal once again */
-        connect(m_profileTree,
-                SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-                this,
+        connect(m_profileTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
                 SLOT(slotProfileItemChanged(QTreeWidgetItem*)));
     }
     else
@@ -683,7 +664,7 @@ void InputOutputPatchEditor::slotProfileItemChanged(QTreeWidgetItem* item)
     m_currentProfileName = item->text(KProfileColumnName);
 
     /* Apply the patch immediately */
-    //if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput, m_currentProfileName) == false)
+    // if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput, m_currentProfileName) == false)
     if (m_ioMap->setInputProfile(m_universe, m_currentProfileName) == false)
         showPluginMappingError();
 
@@ -705,18 +686,17 @@ edit:
         /* If another profile with the same name exists, ask permission to overwrite */
         if (QFile::exists(path) == true && path != ite.profile()->path())
         {
-            int r = QMessageBox::warning(this, tr("Existing Input Profile"),
-                    tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
-                    QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel,
-                    QMessageBox::No);
+            int r = QMessageBox::warning(
+                this, tr("Existing Input Profile"),
+                tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
+                QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
             if (r == QMessageBox::Cancel)
             {
                 goto edit;
             }
             else if (r == QMessageBox::No)
             {
-                path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"),
-                                                    path, tr("Input Profiles (*.qxi)"));
+                path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"), path, tr("Input Profiles (*.qxi)"));
                 if (path.isEmpty() == true)
                     goto edit;
             }
@@ -730,8 +710,7 @@ edit:
         if (profile->saveXML(path) == false)
         {
             QMessageBox::warning(this, tr("Saving failed"),
-                                 tr("Unable to save the profile to %1")
-                                 .arg(QDir::toNativeSeparators(path)));
+                                 tr("Unable to save the profile to %1").arg(QDir::toNativeSeparators(path)));
             delete profile;
             goto edit;
         }
@@ -768,8 +747,7 @@ void InputOutputPatchEditor::slotRemoveProfileClicked()
 
     /* Ask for user confirmation */
     r = QMessageBox::question(this, tr("Delete profile"),
-                              tr("Do you wish to permanently delete profile \"%1\"?")
-                              .arg(profile->name()),
+                              tr("Do you wish to permanently delete profile \"%1\"?").arg(profile->name()),
                               QMessageBox::Yes, QMessageBox::No);
     if (r == QMessageBox::Yes)
     {
@@ -784,8 +762,7 @@ void InputOutputPatchEditor::slotRemoveProfileClicked()
                 QTreeWidgetItem* none;
                 none = m_profileTree->topLevelItem(0);
                 Q_ASSERT(none != NULL);
-                none->setCheckState(KProfileColumnName,
-                                    Qt::Checked);
+                none->setCheckState(KProfileColumnName, Qt::Checked);
             }
 
             /* Successful deletion. Remove the profile from
@@ -797,8 +774,7 @@ void InputOutputPatchEditor::slotRemoveProfileClicked()
         {
             /* Annoy the user even more after deletion failure */
             QMessageBox::warning(this, tr("File deletion failed"),
-                                 tr("Unable to delete file %1")
-                                 .arg(file.errorString()));
+                                 tr("Unable to delete file %1").arg(file.errorString()));
         }
     }
 }
@@ -839,18 +815,17 @@ edit:
     /* If another profile with the same name exists, ask permission to overwrite */
     if (QFile::exists(path) == true && path != ite.profile()->path())
     {
-        int r = QMessageBox::warning(this, tr("Existing Input Profile"),
-                tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
-                QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel,
-                QMessageBox::No);
+        int r =
+            QMessageBox::warning(this, tr("Existing Input Profile"),
+                                 tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
+                                 QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
         if (r == QMessageBox::Cancel)
         {
             goto edit;
         }
         else if (r == QMessageBox::No)
         {
-            path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"),
-                                                path, tr("Input Profiles (*.qxi)"));
+            path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"), path, tr("Input Profiles (*.qxi)"));
             if (path.isEmpty() == true)
                 goto edit;
         }
@@ -867,9 +842,7 @@ edit:
     else
     {
         QMessageBox::warning(this, tr("Saving failed"),
-                             tr("Unable to save %1 to %2")
-                             .arg(profile->name())
-                             .arg(QDir::toNativeSeparators(path)));
+                             tr("Unable to save %1 to %2").arg(profile->name()).arg(QDir::toNativeSeparators(path)));
         goto edit;
     }
 }
@@ -898,7 +871,7 @@ void InputOutputPatchEditor::initAudioTab()
     if (var.isValid() == true)
         outputName = var.toString();
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_audioMapTree);
         item->setText(KAudioColumnDeviceName, info.deviceName);
@@ -967,14 +940,14 @@ void InputOutputPatchEditor::initAudioTab()
     }
 }
 
-void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, int col)
+void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem* item, int col)
 {
     if (item == NULL)
         return;
 
     /* Temporarily disable this signal to prevent an endless loop */
-    disconnect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
-               this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
+    disconnect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+               SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
 
     QSettings settings;
 
@@ -1027,8 +1000,8 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
     }
 
     /* Start listening to this signal once again */
-    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*,int)));
+    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+            SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
 }
 
 void InputOutputPatchEditor::slotSampleRateIndexChanged(int index)
@@ -1047,7 +1020,7 @@ void InputOutputPatchEditor::slotSampleRateIndexChanged(int index)
 void InputOutputPatchEditor::slotAudioChannelsChanged(int index)
 {
     QSettings settings;
-    int channels = (index == 0) ? 1: 2;
+    int channels = (index == 0) ? 1 : 2;
     if (channels == AUDIO_DEFAULT_CHANNELS)
         settings.remove(SETTINGS_AUDIO_INPUT_CHANNELS);
     else
@@ -1064,19 +1037,19 @@ void InputOutputPatchEditor::slotAudioInputPreview(bool enable)
 
     if (enable == true)
     {
-        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32)));
+        connect(m_inputCapture, SIGNAL(dataProcessed(double*, int, double, quint32)), this,
+                SLOT(slotAudioUpdateLevel(double*, int, double, quint32)));
         m_inputCapture->registerBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
     }
     else
     {
         m_inputCapture->unregisterBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
-        disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                   this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32)));
+        disconnect(m_inputCapture, SIGNAL(dataProcessed(double*, int, double, quint32)), this,
+                   SLOT(slotAudioUpdateLevel(double*, int, double, quint32)));
     }
 }
 
-void InputOutputPatchEditor::slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+void InputOutputPatchEditor::slotAudioUpdateLevel(double* spectrumBands, int size, double maxMagnitude, quint32 power)
 {
     Q_UNUSED(spectrumBands)
     Q_UNUSED(size)

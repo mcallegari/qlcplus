@@ -39,7 +39,7 @@
  * @author Brad Hughes <bhughes@trolltech.com>
  * @author Ilya Kotov <forkotov@hotmail.ru>
  */
-class AudioDecoder: public QObject
+class AudioDecoder : public QObject
 {
     Q_OBJECT
 
@@ -47,9 +47,11 @@ public:
     /*!
      * Destructor.
      */
-    virtual ~AudioDecoder() { /* NOP */ }
+    virtual ~AudioDecoder()
+    { /* NOP */
+    }
 
-    virtual AudioDecoder *createCopy() = 0;
+    virtual AudioDecoder* createCopy() = 0;
 
     /*!
      * Returns the plugin priority
@@ -65,7 +67,7 @@ public:
      * Prepares decoder for usage.
      * Subclass should reimplement this function.
      */
-    virtual bool initialize(const QString &path) = 0;
+    virtual bool initialize(const QString& path) = 0;
     /*!
      * Returns the total time in milliseconds.
      * Subclass should reimplement this function.
@@ -80,7 +82,7 @@ public:
      * Returns the number of bytes read, or -1 if an error occurred.
      * In most cases subclass should reimplement this function.
      */
-    virtual qint64 read(char *data, qint64 maxSize) = 0;
+    virtual qint64 read(char* data, qint64 maxSize) = 0;
     /*!
      * Returns current bitrate (in kbps).
      * Subclass should reimplement this function.

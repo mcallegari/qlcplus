@@ -131,7 +131,7 @@ public:
     /**
      * Get a list of values in this scene
      */
-    QList <SceneValue> values() const;
+    QList<SceneValue> values() const;
 
     /** @reimp */
     QList<quint32> components();
@@ -152,7 +152,7 @@ signals:
     void valueChanged(SceneValue scv);
 
 protected:
-    QMap <SceneValue, uchar> m_values;
+    QMap<SceneValue, uchar> m_values;
     QMutex m_valueListMutex;
 
     /*********************************************************************
@@ -185,8 +185,8 @@ public:
     QList<uchar> channelGroupsLevels();
 
 protected:
-    QList <quint32> m_channelGroups;
-    QList <uchar> m_channelGroupsLevels;
+    QList<quint32> m_channelGroups;
+    QList<uchar> m_channelGroupsLevels;
 
     /*********************************************************************
      * Fixtures
@@ -229,10 +229,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
     void postLoad();
@@ -245,30 +245,30 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void flash(MasterTimer *timer);
+    void flash(MasterTimer* timer);
 
     /** @reimp */
-    void unFlash(MasterTimer *timer);
+    void unFlash(MasterTimer* timer);
 
     /** @reimp from DMXSource */
-    void writeDMX(MasterTimer *timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
     /*********************************************************************
      * Running
      *********************************************************************/
 public:
     /** @reimp */
-    void write(MasterTimer *timer, QList<Universe*> ua);
+    void write(MasterTimer* timer, QList<Universe*> ua);
 
     /** @reimp */
-    void postRun(MasterTimer *timer, QList<Universe*> ua);
+    void postRun(MasterTimer* timer, QList<Universe*> ua);
 
     /** @reimp */
     void setPause(bool enable);
 
 private:
     /** Internal helper method to abtract Scene value processing */
-    void processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv);
+    void processValue(MasterTimer* timer, QList<Universe*> ua, uint fadeIn, SceneValue& scv);
 
     /** Check whether a fade out is needed and cleanup faders */
     void handleFadersEnd(MasterTimer* timer);

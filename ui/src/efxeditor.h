@@ -75,7 +75,7 @@ private:
 
     FunctionParent functionParent() const;
 
-    EfxUiState * efxUiState();
+    EfxUiState* efxUiState();
 
 private slots:
     void slotTestClicked();
@@ -95,7 +95,7 @@ private:
 private:
     void updateFixtureTree();
     QTreeWidgetItem* fixtureItem(EFXFixture* ef);
-    const QList <EFXFixture*> selectedFixtures() const;
+    const QList<EFXFixture*> selectedFixtures() const;
     void updateIndices(int from, int to);
     void addFixtureItem(EFXFixture* ef);
     void updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef);
@@ -106,7 +106,7 @@ private:
     void updateSpeedDials();
 
 private slots:
-    void slotNameEdited(const QString &text);
+    void slotNameEdited(const QString& text);
     void slotSpeedDialToggle(bool state);
     void slotFixtureItemChanged(QTreeWidgetItem* item, int column);
     void slotFixtureModeChanged(int index);
@@ -129,13 +129,13 @@ private slots:
     void slotFixtureChanged();
 
 private:
-    SpeedDialWidget *m_speedDials;
+    SpeedDialWidget* m_speedDials;
 
     /*********************************************************************
      * Movement page
      *********************************************************************/
 private slots:
-    void slotAlgorithmSelected(const QString &text);
+    void slotAlgorithmSelected(const QString& text);
     void slotWidthSpinChanged(int value);
     void slotHeightSpinChanged(int value);
     void slotXOffsetSpinChanged(int value);

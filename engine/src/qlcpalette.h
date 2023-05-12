@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCPalette   QString("Palette")
+#define KXMLQLCPalette QString("Palette")
 #define KXMLQLCPaletteID QString("ID")
 
 /**
@@ -66,13 +66,13 @@ public:
     enum PaletteType
     {
         Undefined = 0,
-        Dimmer    = 1 << 0,
-        Color     = 1 << 1,
-        Pan       = 1 << 2,
-        Tilt      = 1 << 3,
-        PanTilt   = 1 << 4,
-        Shutter   = 1 << 5,
-        Gobo      = 1 << 6
+        Dimmer = 1 << 0,
+        Color = 1 << 1,
+        Pan = 1 << 2,
+        Tilt = 1 << 3,
+        PanTilt = 1 << 4,
+        Shutter = 1 << 5,
+        Gobo = 1 << 6
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(PaletteType)
@@ -82,8 +82,8 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    QLCPalette(QLCPalette::PaletteType type, QObject *parent = 0);
-    QLCPalette *createCopy();
+    QLCPalette(QLCPalette::PaletteType type, QObject* parent = 0);
+    QLCPalette* createCopy();
 
     virtual ~QLCPalette();
 
@@ -126,8 +126,8 @@ public:
     void setValues(QVariantList values);
     void resetValues();
 
-    QList<SceneValue> valuesFromFixtures(Doc *doc, QList<quint32>fixtures);
-    QList<SceneValue> valuesFromFixtureGroups(Doc *doc, QList<quint32>groups);
+    QList<SceneValue> valuesFromFixtures(Doc* doc, QList<quint32> fixtures);
+    QList<SceneValue> valuesFromFixtureGroups(Doc* doc, QList<quint32> groups);
 
 protected:
     /** This method returns a normalized factor between 0.0 and 1.0
@@ -224,20 +224,20 @@ public:
 
     /** Helper method to convert a string created with colorToString
      *  back to 2 separate QColor */
-    static bool stringToColor(QString str, QColor &rgb, QColor &wauv);
+    static bool stringToColor(QString str, QColor& rgb, QColor& wauv);
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** Helper method to allocate and add a Palette to a Doc */
-    static bool loader(QXmlStreamReader &xmlDoc, Doc *doc);
+    static bool loader(QXmlStreamReader& xmlDoc, Doc* doc);
 
     /** Load a Palette from the given QXmlStreamReader */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 
     /** Save a Palette to the given XML tag in the given document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

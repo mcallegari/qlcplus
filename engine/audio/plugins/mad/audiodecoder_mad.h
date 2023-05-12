@@ -36,7 +36,7 @@
 
 extern "C"
 {
-    #include <mad.h>
+#include <mad.h>
 }
 
 /** @addtogroup engine_audio Audio
@@ -53,13 +53,13 @@ public:
     virtual ~AudioDecoderMAD();
 
     /** @reimpl */
-    AudioDecoder *createCopy();
+    AudioDecoder* createCopy();
 
     /** @reimp */
     int priority() const;
 
     /** @reimp */
-    bool initialize(const QString &path);
+    bool initialize(const QString& path);
 
     /** @reimp */
     qint64 totalTime();
@@ -68,7 +68,7 @@ public:
     int bitrate();
 
     /** @reimp */
-    qint64 read(char *data, qint64 size);
+    qint64 read(char* data, qint64 size);
 
     /** @reimp */
     void seek(qint64);
@@ -78,12 +78,12 @@ public:
 
 private:
     // helper functions
-    qint64 madOutput(char *data, qint64 size);
+    qint64 madOutput(char* data, qint64 size);
     bool fillBuffer();
     void deinit();
     bool findHeader();
     bool findXingHeader(struct mad_bitptr, unsigned int);
-    uint findID3v2(uchar *data, ulong size);
+    uint findID3v2(uchar* data, ulong size);
 
     QFile m_input;
     bool m_inited, m_eof;
@@ -94,7 +94,7 @@ private:
     qint64 m_output_bytes, m_output_at;
 
     // file input buffer
-    char *m_input_buf;
+    char* m_input_buf;
     qint64 m_input_bytes;
 
     // MAD decoder
@@ -110,9 +110,9 @@ private:
     enum
     {
         XING_FRAMES = 0x0001,
-        XING_BYTES  = 0x0002,
-        XING_TOC    = 0x0004,
-        XING_SCALE  = 0x0008
+        XING_BYTES = 0x0002,
+        XING_TOC = 0x0004,
+        XING_SCALE = 0x0008
     };
 
     struct audio_dither
@@ -126,10 +126,10 @@ private:
     struct mad_synth m_synth;
     struct audio_dither m_left_dither, m_right_dither;
 
-    //converter functions
+    // converter functions
     unsigned long prng(unsigned long state);
-    void clip(mad_fixed_t *sample);
-    long audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither *dither);
+    void clip(mad_fixed_t* sample);
+    long audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither* dither);
     long audio_linear_round(unsigned int bits, mad_fixed_t sample);
 };
 

@@ -31,8 +31,7 @@ void loadTranslation(const QString& locale, QApplication& app)
 {
     QString file(QString("launcher_%1").arg(locale));
 #if defined(__APPLE__) || defined(Q_OS_MAC)
-    QString path(QString("%1/../%2").arg(QApplication::applicationDirPath())
-                 .arg(TRANSLATIONDIR));
+    QString path(QString("%1/../%2").arg(QApplication::applicationDirPath()).arg(TRANSLATIONDIR));
 #else
     QString path(TRANSLATIONDIR);
 #endif
@@ -45,8 +44,7 @@ void loadTranslation(const QString& locale, QApplication& app)
     }
     else
     {
-        qDebug() << "Unable to find translation for" << locale
-        << "in" << path;
+        qDebug() << "Unable to find translation for" << locale << "in" << path;
     }
 }
 

@@ -61,9 +61,11 @@ void RGBItem::draw(uint elapsedMs, uint targetMs)
         red = CLAMP(red, 0, 255);
 
         if (m_oldColor.green() < m_color.green())
-            green = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.green()), qreal(m_color.green()));
+            green =
+                SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.green()), qreal(m_color.green()));
         else
-            green = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.green()), qreal(m_oldColor.green()));
+            green =
+                SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.green()), qreal(m_oldColor.green()));
         green = CLAMP(green, 0, 255);
 
         if (m_oldColor.blue() < m_color.blue())

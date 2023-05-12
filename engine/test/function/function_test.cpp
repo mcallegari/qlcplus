@@ -33,9 +33,7 @@
 
 #include "doc.h"
 
-void Function_Test::initTestCase()
-{
-}
+void Function_Test::initTestCase() {}
 
 void Function_Test::initial()
 {
@@ -143,7 +141,7 @@ void Function_Test::flashUnflash()
     Doc doc(this);
 
     Function_Stub* stub = new Function_Stub(&doc);
-    QSignalSpy spy(stub, SIGNAL(flashing(quint32,bool)));
+    QSignalSpy spy(stub, SIGNAL(flashing(quint32, bool)));
 
     QVERIFY(stub->flashing() == false);
     stub->flash(NULL);
@@ -211,8 +209,8 @@ void Function_Test::stopAndWait()
     stub->incrementElapsed();
 
     // @todo Make stopAndWait() return before the 2s watchdog timer
-    //QSignalSpy spyStopped(stub, SIGNAL(stopped(quint32)));
-    //QVERIFY(stub->stopAndWait() == true);
+    // QSignalSpy spyStopped(stub, SIGNAL(stopped(quint32)));
+    // QVERIFY(stub->stopAndWait() == true);
 }
 
 void Function_Test::stopAndWaitFail()
@@ -365,8 +363,10 @@ void Function_Test::speedToString()
     QCOMPARE(Function::speedToString(990), QString("990ms"));
     QCOMPARE(Function::speedToString(990 + 59 * 1000), QString("59s990ms"));
     QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60), QString("59m59s990ms"));
-    QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60), QString("99h59m59s990ms"));
-    QCOMPARE(Function::speedToString(999 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60), QString("99h59m59s999ms"));
+    QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60),
+             QString("99h59m59s990ms"));
+    QCOMPARE(Function::speedToString(999 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60),
+             QString("99h59m59s999ms"));
     QCOMPARE(Function::speedToString(1 + 1 * 1000 + 1 * 1000 * 60 + 1 * 1000 * 60 * 60), QString("1h01m01s001ms"));
     QCOMPARE(Function::speedToString(100), QString("100ms"));
 
@@ -727,7 +727,7 @@ void Function_Test::loaderCollection()
 
     xmlWriter.writeStartElement("Function");
     xmlWriter.writeAttribute("Type", "Collection");
-    xmlWriter.writeAttribute("ID","120");
+    xmlWriter.writeAttribute("ID", "120");
     xmlWriter.writeAttribute("Name", "Spiers");
 
     xmlWriter.writeTextElement("Step", "87");
@@ -760,7 +760,7 @@ void Function_Test::loaderEFX()
     xmlWriter.writeStartElement("Function");
     xmlWriter.writeAttribute("Type", "EFX");
     xmlWriter.writeAttribute("Name", "Guarnere");
-    xmlWriter.writeAttribute("ID","0");
+    xmlWriter.writeAttribute("ID", "0");
 
     xmlWriter.writeTextElement("PropagationMode", "Serial");
 
@@ -949,7 +949,7 @@ void Function_Test::runOrderXML()
     QVERIFY(stub.loadXMLRunOrder(xmlReader) == true);
     QCOMPARE(stub.runOrder(), Function::PingPong);
 
-    //QVERIFY(stub.loadXMLRunOrder(root) == false);
+    // QVERIFY(stub.loadXMLRunOrder(root) == false);
 }
 
 void Function_Test::directionXML()
@@ -1005,7 +1005,7 @@ void Function_Test::directionXML()
     QVERIFY(stub.loadXMLDirection(xmlReader) == true);
     QCOMPARE(stub.direction(), Function::Forward);
 
-    //QVERIFY(stub.loadXMLDirection(root) == false);
+    // QVERIFY(stub.loadXMLDirection(root) == false);
 }
 
 void Function_Test::speedXML()
@@ -1043,7 +1043,7 @@ void Function_Test::speedXML()
     QCOMPARE(stub.fadeOutSpeed(), uint(1000));
     QCOMPARE(stub.duration(), uint(1500));
 
-    //QVERIFY(stub.loadXMLSpeed(root) == false);
+    // QVERIFY(stub.loadXMLSpeed(root) == false);
 }
 
 QTEST_APPLESS_MAIN(Function_Test)

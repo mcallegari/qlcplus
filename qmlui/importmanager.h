@@ -33,14 +33,16 @@ class ImportManager : public QObject
 
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QVariant functionsTreeModel READ functionsTreeModel NOTIFY functionsTreeModelChanged)
-    Q_PROPERTY(QString fixtureSearchFilter READ fixtureSearchFilter WRITE setFixtureSearchFilter NOTIFY fixtureSearchFilterChanged)
-    Q_PROPERTY(QString functionSearchFilter READ functionSearchFilter WRITE setFunctionSearchFilter NOTIFY functionSearchFilterChanged)
+    Q_PROPERTY(QString fixtureSearchFilter READ fixtureSearchFilter WRITE setFixtureSearchFilter NOTIFY
+                   fixtureSearchFilterChanged)
+    Q_PROPERTY(QString functionSearchFilter READ functionSearchFilter WRITE setFunctionSearchFilter NOTIFY
+                   functionSearchFilterChanged)
 
 public:
-    ImportManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ImportManager(QQuickView* view, Doc* doc, QObject* parent = 0);
     ~ImportManager();
 
-    bool loadWorkspace(const QString &fileName);
+    bool loadWorkspace(const QString& fileName);
 
     void apply();
 
@@ -50,11 +52,11 @@ private:
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 
     /** Get the first available fixture address with a space of $channels positions.
      *  This sets $universe and $address accordingly */
-    void getAvailableFixtureAddress(int channels, int &universe, int &address);
+    void getAvailableFixtureAddress(int channels, int& universe, int& address);
 
     /** Perform the actual import of Fixtures */
     void importFixtures();
@@ -67,15 +69,15 @@ private:
     void importFunctionID(quint32 funcID);
 
     /** Method called recursively to check/uncheck all the sub-items of a tree */
-    void setChildrenChecked(TreeModel *tree, bool checked);
+    void setChildrenChecked(TreeModel* tree, bool checked);
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** Reference to the project where to import from */
-    Doc *m_importDoc;
+    Doc* m_importDoc;
 
     /** The list of selected Palette IDs */
     QList<quint32> m_paletteIDList;
@@ -93,14 +95,14 @@ public:
     void setFixtureSearchFilter(QString searchFilter);
 
     /** Method called recursively to update Fixture items checked state */
-    void checkFixtureTree(TreeModel *tree);
+    void checkFixtureTree(TreeModel* tree);
 
 protected slots:
-    void slotFixtureTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
+    void slotFixtureTreeDataChanged(TreeModelItem* item, int role, const QVariant& value);
 
 private:
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel *m_fixtureTree;
+    TreeModel* m_fixtureTree;
     /** Flag to filter signals when updating checked states */
     bool m_fixtureTreeUpdating;
     /** A string to filter the displayed fixture tree items */
@@ -132,14 +134,14 @@ private:
     void updateFunctionsTree();
 
     /** Method called recursively to create a map of ID / TreeModelItems */
-    void checkFunctionTree(TreeModel *tree);
+    void checkFunctionTree(TreeModel* tree);
 
     /** Method called recursively to check all the Functions needed
      *  by the Function with the provided $id */
     void checkFunctionDependency(quint32 fid);
 
 protected slots:
-    void slotFunctionTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
+    void slotFunctionTreeDataChanged(TreeModelItem* item, int role, const QVariant& value);
 
 signals:
     /** Notify the listeners that the fixture tree model has changed */
@@ -154,7 +156,7 @@ signals:
 
 private:
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel *m_functionTree;
+    TreeModel* m_functionTree;
     /** Flag to filter signals when updating checked states */
     bool m_functionTreeUpdating;
     /** A string to filter the displayed fixture tree items */

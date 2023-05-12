@@ -60,7 +60,7 @@ class QHttpServer : public QObject
 public:
     /// Construct a new HTTP Server.
     /** @param parent Parent QObject for the server. */
-    QHttpServer(QObject *parent = 0);
+    QHttpServer(QObject* parent = 0);
 
     virtual ~QHttpServer();
 
@@ -71,7 +71,7 @@ public:
         @param port Port number on which the server should run.
         @return True if the server was started successfully, false otherwise.
         @sa listen(quint16) */
-    bool listen(const QHostAddress &address = QHostAddress::Any, quint16 port = 80);
+    bool listen(const QHostAddress& address = QHostAddress::Any, quint16 port = 80);
 
     /// Starts the server on @c port listening on all interfaces.
     /** @param port Port number on which the server should run.
@@ -87,16 +87,16 @@ Q_SIGNALS:
         objects to communicate with the client.
         @param request New incoming request.
         @param response Response object to the request. */
-    void newRequest(QHttpRequest *request, QHttpResponse *response);
+    void newRequest(QHttpRequest* request, QHttpResponse* response);
 
-    void webSocketDataReady(QHttpConnection *conn, QString data);
-    void webSocketConnectionClose(QHttpConnection *conn);
+    void webSocketDataReady(QHttpConnection* conn, QString data);
+    void webSocketConnectionClose(QHttpConnection* conn);
 
 private Q_SLOTS:
     void newConnection();
 
 private:
-    QTcpServer *m_tcpServer;
+    QTcpServer* m_tcpServer;
 };
 
 #endif

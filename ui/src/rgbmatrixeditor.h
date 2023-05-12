@@ -64,8 +64,8 @@ private:
     void fillImageAnimationCombo();
     void updateExtraOptions();
     void updateColors();
-    void resetProperties(QLayoutItem *item);
-    void displayProperties(RGBScript *script);
+    void resetProperties(QLayoutItem* item);
+    void displayProperties(RGBScript* script);
 
     bool createPreviewItems();
 
@@ -124,11 +124,11 @@ private:
 private:
     Doc* m_doc;
     RGBMatrix* m_matrix; // The RGBMatrix being edited
-    RGBMatrixStep *m_previewHandler;
+    RGBMatrixStep* m_previewHandler;
 
-    QList <RGBScript> m_scripts;
+    QList<RGBScript> m_scripts;
 
-    SpeedDialWidget *m_speedDials;
+    SpeedDialWidget* m_speedDials;
 
     QGraphicsScene* m_scene;
     QTimer* m_previewTimer;

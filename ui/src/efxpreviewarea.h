@@ -50,7 +50,7 @@ public:
      *
      * @param points The point array
      */
-    void setPolygon(const QPolygonF &polygon);
+    void setPolygon(const QPolygonF& polygon);
 
     /** Returns the number of polygons elapsed when calculating the EFX path */
     int polygonsCount() const;
@@ -60,7 +60,7 @@ public:
      *
      * @param fixturePoints The array of point arrays (one array for each fixture)
      */
-    void setFixturePolygons(const QVector<QPolygonF> &fixturePoints);
+    void setFixturePolygons(const QVector<QPolygonF>& fixturePoints);
 
     /**
      * Tell the preview area to draw the points.
@@ -96,8 +96,8 @@ private:
     QPolygonF m_scaled;
     QPolygonF m_original;
 
-    QVector <QPolygonF> m_fixturePoints;
-    QVector <QPolygonF> m_originalFixturePoints;
+    QVector<QPolygonF> m_fixturePoints;
+    QVector<QPolygonF> m_originalFixturePoints;
 
     /** Animation timer */
     QTimer m_timer;

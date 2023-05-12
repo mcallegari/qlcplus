@@ -32,7 +32,7 @@ Cue::Cue(const QString& name)
 {
 }
 
-Cue::Cue(const QHash <uint,uchar> values)
+Cue::Cue(const QHash<uint, uchar> values)
     : m_name(QString())
     , m_values(values)
     , m_fadeInSpeed(0)
@@ -50,11 +50,9 @@ Cue::Cue(const Cue& cue)
 {
 }
 
-Cue::~Cue()
-{
-}
+Cue::~Cue() {}
 
-Cue &Cue::operator=(const Cue &cue)
+Cue& Cue::operator=(const Cue& cue)
 {
     if (this != &cue)
     {
@@ -105,7 +103,7 @@ uchar Cue::value(uint channel) const
         return 0;
 }
 
-QHash <uint,uchar> Cue::values() const
+QHash<uint, uchar> Cue::values() const
 {
     return m_values;
 }
@@ -148,7 +146,7 @@ uint Cue::duration() const
  * Load & Save
  ****************************************************************************/
 
-bool Cue::loadXML(QXmlStreamReader &root)
+bool Cue::loadXML(QXmlStreamReader& root)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -183,7 +181,7 @@ bool Cue::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool Cue::saveXML(QXmlStreamWriter *doc) const
+bool Cue::saveXML(QXmlStreamWriter* doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
@@ -191,7 +189,7 @@ bool Cue::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLQLCCue);
     doc->writeAttribute(KXMLQLCCueName, name());
 
-    QHashIterator <uint,uchar> it(values());
+    QHashIterator<uint, uchar> it(values());
     while (it.hasNext() == true)
     {
         it.next();
@@ -209,7 +207,7 @@ bool Cue::saveXML(QXmlStreamWriter *doc) const
     return true;
 }
 
-bool Cue::loadXMLSpeed(QXmlStreamReader &speedRoot)
+bool Cue::loadXMLSpeed(QXmlStreamReader& speedRoot)
 {
     if (speedRoot.name() != KXMLQLCCueSpeed)
         return false;
@@ -222,7 +220,7 @@ bool Cue::loadXMLSpeed(QXmlStreamReader &speedRoot)
     return true;
 }
 
-bool Cue::saveXMLSpeed(QXmlStreamWriter *doc) const
+bool Cue::saveXMLSpeed(QXmlStreamWriter* doc) const
 {
     doc->writeStartElement(KXMLQLCCueSpeed);
     doc->writeAttribute(KXMLQLCCueSpeedFadeIn, QString::number(fadeInSpeed()));

@@ -66,10 +66,10 @@ private slots:
     void save();
 
 private:
-    void createFixtureNode(QXmlStreamWriter &doc, quint32 id, quint32 address, quint32 channels);
-    void createFixtureGroupNode(QXmlStreamWriter &doc, quint32 id);
-    void createCollectionNode(QXmlStreamWriter &doc, quint32 id);
-    void createBusNode(QXmlStreamWriter &doc, quint32 id, quint32 value);
+    void createFixtureNode(QXmlStreamWriter& doc, quint32 id, quint32 address, quint32 channels);
+    void createFixtureGroupNode(QXmlStreamWriter& doc, quint32 id);
+    void createCollectionNode(QXmlStreamWriter& doc, quint32 id);
+    void createBusNode(QXmlStreamWriter& doc, quint32 id, quint32 value);
 
 private:
     Doc* m_doc;

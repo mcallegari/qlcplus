@@ -24,19 +24,17 @@
 
 #include "universeitemwidget.h"
 
-UniverseItemWidget::UniverseItemWidget(QWidget *parent)
+UniverseItemWidget::UniverseItemWidget(QWidget* parent)
     : QItemDelegate(parent)
 {
     setClipping(false);
 }
 
-UniverseItemWidget::~UniverseItemWidget()
-{
-}
+UniverseItemWidget::~UniverseItemWidget() {}
 
-void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void UniverseItemWidget::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    QWidget *list = qobject_cast<QWidget *>(parent());
+    QWidget* list = qobject_cast<QWidget*>(parent());
     qreal pWidth = list->geometry().width();
     QRect r = option.rect;
     QFont font = qApp->font();
@@ -69,8 +67,8 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     // draw universe name
     painter->setFont(font);
-    painter->drawText(QRect(10, r.top() + 5, 150, r.height() - 10),
-                      Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignVCenter, index.data(Qt::DisplayRole).toString());
+    painter->drawText(QRect(10, r.top() + 5, 150, r.height() - 10), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignVCenter,
+                      index.data(Qt::DisplayRole).toString());
 
     font.setPixelSize(12);
     painter->setFont(font);
@@ -112,23 +110,20 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     // draw input output plugin/profile names
     QString inputName = index.data(Qt::UserRole + 1).toString();
-    if (inputName == "None") inputName = tr("None");
+    if (inputName == "None")
+        inputName = tr("None");
     QString profileName = index.data(Qt::UserRole + 2).toString();
-    if (profileName == "None") profileName = tr("None");
+    if (profileName == "None")
+        profileName = tr("None");
     QString outputName = index.data(Qt::UserRole + 3).toString();
-    if (outputName == "None") outputName = tr("None");
+    if (outputName == "None")
+        outputName = tr("None");
     QString fbName = index.data(Qt::UserRole + 4).toString();
-    if (fbName == "None") fbName = tr("None");
+    if (fbName == "None")
+        fbName = tr("None");
 
-    painter->drawText(QRect(inPos, r.top() + 10, midPos - inPos, 20),
-                      Qt::AlignLeft, inputName);
-    painter->drawText(QRect(proPos, r.top() + 10, pWidth - proPos, 20),
-                      Qt::AlignLeft, profileName);
-    painter->drawText(QRect(outPos, r.top() + 30, midPos - outPos, 20),
-                      Qt::AlignLeft, outputName);
-    painter->drawText(QRect(fbPos, r.top() + 30, pWidth - fbPos, 20),
-                      Qt::AlignLeft, fbName);
+    painter->drawText(QRect(inPos, r.top() + 10, midPos - inPos, 20), Qt::AlignLeft, inputName);
+    painter->drawText(QRect(proPos, r.top() + 10, pWidth - proPos, 20), Qt::AlignLeft, profileName);
+    painter->drawText(QRect(outPos, r.top() + 30, midPos - outPos, 20), Qt::AlignLeft, outputName);
+    painter->drawText(QRect(fbPos, r.top() + 30, pWidth - fbPos, 20), Qt::AlignLeft, fbName);
 }
-
-
-

@@ -23,26 +23,25 @@
 
 #include "stubwidget.h"
 
-StubWidget::StubWidget(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+StubWidget::StubWidget(QWidget* parent, Doc* doc)
+    : VCWidget(parent, doc)
 {
 }
 
-StubWidget::~StubWidget()
-{
-}
+StubWidget::~StubWidget() {}
 
 VCWidget* StubWidget::createCopy(VCWidget* parent)
 {
     return parent;
 }
 
-bool StubWidget::loadXML(QXmlStreamReader &root)
+bool StubWidget::loadXML(QXmlStreamReader& root)
 {
     Q_UNUSED(root);
     return true;
 }
 
-bool StubWidget::saveXML(QXmlStreamWriter *doc)
+bool StubWidget::saveXML(QXmlStreamWriter* doc)
 {
     Q_UNUSED(doc);
     return true;

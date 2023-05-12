@@ -26,34 +26,44 @@
 #include "video.h"
 #include "doc.h"
 
-#define KXMLQLCVideoSource      QString("Source")
-#define KXMLQLCVideoScreen      QString("Screen")
-#define KXMLQLCVideoFullscreen  QString("Fullscreen")
-#define KXMLQLCVideoGeometry    QString("Geometry")
-#define KXMLQLCVideoRotation    QString("Rotation")
-#define KXMLQLCVideoZIndex      QString("ZIndex")
+#define KXMLQLCVideoSource QString("Source")
+#define KXMLQLCVideoScreen QString("Screen")
+#define KXMLQLCVideoFullscreen QString("Fullscreen")
+#define KXMLQLCVideoGeometry QString("Geometry")
+#define KXMLQLCVideoRotation QString("Rotation")
+#define KXMLQLCVideoZIndex QString("ZIndex")
 
-const QStringList Video::m_defaultVideoCaps =
-        QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
-const QStringList Video::m_defaultPictureCaps =
-        QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
+const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi"
+                                                            << "*.wmv"
+                                                            << "*.mkv"
+                                                            << "*.mp4"
+                                                            << "*.mov"
+                                                            << "*.mpg"
+                                                            << "*.mpeg"
+                                                            << "*.flv"
+                                                            << "*.webm";
+const QStringList Video::m_defaultPictureCaps = QStringList() << "*.png"
+                                                              << "*.bmp"
+                                                              << "*.jpg"
+                                                              << "*.jpeg"
+                                                              << "*.gif";
 
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 Video::Video(Doc* doc)
-  : Function(doc, Function::VideoType)
-  , m_doc(doc)
-  , m_sourceUrl("")
-  , m_isPicture(false)
-  , m_videoDuration(0)
-  , m_resolution(QSize(0,0))
-  , m_customGeometry(QRect())
-  , m_rotation(QVector3D(0, 0, 0))
-  , m_zIndex(1)
-  , m_screen(0)
-  , m_fullscreen(false)
+    : Function(doc, Function::VideoType)
+    , m_doc(doc)
+    , m_sourceUrl("")
+    , m_isPicture(false)
+    , m_videoDuration(0)
+    , m_resolution(QSize(0, 0))
+    , m_customGeometry(QRect())
+    , m_rotation(QVector3D(0, 0, 0))
+    , m_zIndex(1)
+    , m_screen(0)
+    , m_fullscreen(false)
 {
     setName(tr("New Video"));
     setRunOrder(Video::SingleShot);
@@ -68,13 +78,10 @@ Video::Video(Doc* doc)
     registerAttribute(tr("Height scale"), Function::LastWins, 0, 1000.0, 100.0);
 
     // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
 }
 
-Video::~Video()
-{
-}
+Video::~Video() {}
 
 QIcon Video::getIcon() const
 {
@@ -106,7 +113,7 @@ Function* Video::createCopy(Doc* doc, bool addToDoc)
 
 bool Video::copyFrom(const Function* function)
 {
-    const Video* vid = qobject_cast<const Video*> (function);
+    const Video* vid = qobject_cast<const Video*>(function);
     if (vid == NULL)
         return false;
 
@@ -132,20 +139,30 @@ QStringList Video::getVideoCapabilities()
     {
         qDebug() << "Supported video types:" << mimeTypes;
 
-        foreach(QString mime, mimeTypes)
+        foreach (QString mime, mimeTypes)
         {
             if (mime.startsWith("video/"))
             {
-                if (mime.endsWith("/3gpp")) caps << "*.3gp";
-                else if (mime.endsWith("/mp4")) caps << "*.mp4";
-                else if (mime.endsWith("/avi")) caps << "*.avi";
-                else if (mime.endsWith("/m2ts")) caps << "*.m2ts";
-                else if (mime.endsWith("m4v")) caps << "*.m4v";
-                else if (mime.endsWith("/mpeg")) caps << "*.mpeg";
-                else if (mime.endsWith("/mpg")) caps << "*.mpg";
-                else if (mime.endsWith("/quicktime")) caps << "*.mov";
-                else if (mime.endsWith("/webm")) caps << "*.webm";
-                else if (mime.endsWith("matroska")) caps << "*.mkv";
+                if (mime.endsWith("/3gpp"))
+                    caps << "*.3gp";
+                else if (mime.endsWith("/mp4"))
+                    caps << "*.mp4";
+                else if (mime.endsWith("/avi"))
+                    caps << "*.avi";
+                else if (mime.endsWith("/m2ts"))
+                    caps << "*.m2ts";
+                else if (mime.endsWith("m4v"))
+                    caps << "*.m4v";
+                else if (mime.endsWith("/mpeg"))
+                    caps << "*.mpeg";
+                else if (mime.endsWith("/mpg"))
+                    caps << "*.mpg";
+                else if (mime.endsWith("/quicktime"))
+                    caps << "*.mov";
+                else if (mime.endsWith("/webm"))
+                    caps << "*.webm";
+                else if (mime.endsWith("matroska"))
+                    caps << "*.mkv";
             }
         }
     }
@@ -331,14 +348,14 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
 
     switch (attrIndex)
     {
-        case Intensity:
+    case Intensity:
         {
             int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
             emit requestBrightnessAdjust(b);
             emit intensityChanged();
         }
         break;
-        default:
+    default:
         break;
     }
 
@@ -354,7 +371,7 @@ void Video::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Video::saveXML(QXmlStreamWriter *doc)
+bool Video::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -379,8 +396,10 @@ bool Video::saveXML(QXmlStreamWriter *doc)
     if (m_customGeometry.isNull() == false)
     {
         QString rect = QString("%1,%2,%3,%4")
-                .arg(m_customGeometry.x()).arg(m_customGeometry.y())
-                .arg(m_customGeometry.width()).arg(m_customGeometry.height());
+                           .arg(m_customGeometry.x())
+                           .arg(m_customGeometry.y())
+                           .arg(m_customGeometry.width())
+                           .arg(m_customGeometry.height());
         doc->writeAttribute(KXMLQLCVideoGeometry, rect);
     }
     if (m_rotation.isNull() == false)
@@ -403,7 +422,7 @@ bool Video::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-bool Video::loadXML(QXmlStreamReader &root)
+bool Video::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -413,8 +432,7 @@ bool Video::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::VideoType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
-                   << "is not Video";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not Video";
         return false;
     }
 
@@ -494,9 +512,7 @@ bool Video::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-void Video::postLoad()
-{
-}
+void Video::postLoad() {}
 
 /*********************************************************************
  * Running
@@ -516,7 +532,7 @@ void Video::setPause(bool enable)
     }
 }
 
-void Video::write(MasterTimer* timer, QList<Universe *> universes)
+void Video::write(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)

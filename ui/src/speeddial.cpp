@@ -36,15 +36,15 @@
 #include "function.h"
 
 #define THRESHOLD 10
-#define HRS_MAX   (596 - 1) // INT_MAX can hold 596h 31m 23s 647ms
-#define MIN_MAX   59
-#define SEC_MAX   59
-#define MS_MAX    999
+#define HRS_MAX (596 - 1) // INT_MAX can hold 596h 31m 23s 647ms
+#define MIN_MAX 59
+#define SEC_MAX 59
+#define MS_MAX 999
 
-#define TIMER_HOLD       250
-#define TIMER_REPEAT     10
+#define TIMER_HOLD 250
+#define TIMER_REPEAT 10
 #define TAP_STOP_TIMEOUT 30000
-#define MIN_FLASH_TIME   125
+#define MIN_FLASH_TIME 125
 
 #define DEFAULT_VISIBILITY_MASK 0x00FF
 
@@ -132,7 +132,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     taVBox3->addWidget(m_tap);
     connect(m_tap, SIGNAL(clicked()), this, SLOT(slotTapClicked()));
 
-    topHBox->addItem (taVBox3);
+    topHBox->addItem(taVBox3);
 
     QHBoxLayout* timeHBox = new QHBoxLayout();
     layout()->addItem(timeHBox);
@@ -188,10 +188,9 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_tapTickElapseTimer = new QTimer();
     m_tapTickElapseTimer->setTimerType(Qt::PreciseTimer);
     m_tapTickElapseTimer->setSingleShot(true);
-    connect(m_tapTickElapseTimer, SIGNAL(timeout()),
-                this, SLOT(slotTapTimeout()));
+    connect(m_tapTickElapseTimer, SIGNAL(timeout()), this, SLOT(slotTapTimeout()));
 
-    //Hide elements according to current visibility mask
+    // Hide elements according to current visibility mask
     setVisibilityMask(m_visibilityMask);
 }
 
@@ -213,7 +212,7 @@ void SpeedDial::setValue(int ms, bool emitValue)
     m_value = ms;
     setSpinValues(ms);
 
-    if (ms == (int) Function::infiniteSpeed())
+    if (ms == (int)Function::infiniteSpeed())
         m_infiniteCheck->setChecked(true);
     else
         m_infiniteCheck->setChecked(false);
@@ -271,8 +270,7 @@ void SpeedDial::updateTapTimer()
     if (m_tapTickTimer)
         m_tapTickTimer->stop();
 
-    if (m_value != (int) Function::infiniteSpeed()
-       && m_tapTickTimer == NULL)
+    if (m_value != (int)Function::infiniteSpeed() && m_tapTickTimer == NULL)
     {
         m_tapTickTimer = new QTimer();
         m_tapTickTimer->setTimerType(Qt::PreciseTimer);
@@ -304,7 +302,7 @@ void SpeedDial::setSpinValues(int ms)
     m_sec->blockSignals(true);
     m_ms->blockSignals(true);
 
-    if (ms == (int) Function::infiniteSpeed())
+    if (ms == (int)Function::infiniteSpeed())
     {
         m_hrs->setValue(m_hrs->minimum());
         m_min->setValue(m_min->minimum());
@@ -531,7 +529,7 @@ void SpeedDial::slotInfiniteChecked(bool state)
 
 void SpeedDial::slotSpinFocusGained()
 {
-    m_focus = qobject_cast <FocusSpinBox*> (QObject::sender());
+    m_focus = qobject_cast<FocusSpinBox*>(QObject::sender());
     Q_ASSERT(m_focus != NULL);
     m_dial->setRange(m_focus->minimum(), m_focus->maximum());
     m_dial->setSingleStep(m_focus->singleStep());
@@ -566,13 +564,13 @@ void SpeedDial::slotTapClicked()
     m_tapHistory.append(m_value);
     // This algorithm stabilizes around a tempo very quickly,
     // so keeping more than a few taps in the history merely complicates tempo changes.
-    while(m_tapHistory.count() > 16)
+    while (m_tapHistory.count() > 16)
         m_tapHistory.removeFirst();
 
     // Find the median time between taps, assume that the tempo is +-40% of this
     QList<int> tapHistorySorted(m_tapHistory);
     std::sort(tapHistorySorted.begin(), tapHistorySorted.end());
-    int tapHistoryMedian = tapHistorySorted[tapHistorySorted.length()/2];
+    int tapHistoryMedian = tapHistorySorted[tapHistorySorted.length() / 2];
 
     // Tempo detection is not as easy as averaging together the durations,
     // which causes all but the first and last taps to cancel each other out.
@@ -585,7 +583,7 @@ void SpeedDial::slotTapClicked()
     {
         n += 1;
         // Divide by tapHistoryMedian to determine if a tap was skipped during input
-        x += (tapHistoryMedian/2 + interval_ms) / tapHistoryMedian;
+        x += (tapHistoryMedian / 2 + interval_ms) / tapHistoryMedian;
         y += interval_ms;
         sum_x += x;
         sum_y += y;
@@ -647,26 +645,40 @@ void SpeedDial::setVisibilityMask(quint16 mask)
         m_minus->hide();
     }
 
-    if (mask & Dial) m_dial->show();
-    else m_dial->hide();
+    if (mask & Dial)
+        m_dial->show();
+    else
+        m_dial->hide();
 
-    if (mask & Tap) m_tap->show();
-    else m_tap->hide();
+    if (mask & Tap)
+        m_tap->show();
+    else
+        m_tap->hide();
 
-    if (mask & Hours) m_hrs->show();
-    else m_hrs->hide();
+    if (mask & Hours)
+        m_hrs->show();
+    else
+        m_hrs->hide();
 
-    if (mask & Minutes) m_min->show();
-    else m_min->hide();
+    if (mask & Minutes)
+        m_min->show();
+    else
+        m_min->hide();
 
-    if (mask & Seconds) m_sec->show();
-    else m_sec->hide();
+    if (mask & Seconds)
+        m_sec->show();
+    else
+        m_sec->hide();
 
-    if (mask & Milliseconds) m_ms->show();
-    else m_ms->hide();
+    if (mask & Milliseconds)
+        m_ms->show();
+    else
+        m_ms->hide();
 
-    if (mask & Infinite) m_infiniteCheck->show();
-    else m_infiniteCheck->hide();
+    if (mask & Infinite)
+        m_infiniteCheck->show();
+    else
+        m_infiniteCheck->hide();
 
     m_visibilityMask = mask;
 }

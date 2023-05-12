@@ -36,7 +36,7 @@
  * Initialization
  *****************************************************************************/
 
-GroupsConsole::GroupsConsole(QWidget* parent, Doc* doc, QList <quint32> ids, QList<uchar> levels)
+GroupsConsole::GroupsConsole(QWidget* parent, Doc* doc, QList<quint32> ids, QList<uchar> levels)
     : QWidget(parent)
     , m_doc(doc)
     , m_ids(ids)
@@ -48,11 +48,9 @@ GroupsConsole::GroupsConsole(QWidget* parent, Doc* doc, QList <quint32> ids, QLi
     init();
 }
 
-GroupsConsole::~GroupsConsole()
-{
-}
+GroupsConsole::~GroupsConsole() {}
 
-QList<ConsoleChannel *> GroupsConsole::groups()
+QList<ConsoleChannel*> GroupsConsole::groups()
 {
     return m_groups;
 }
@@ -60,9 +58,9 @@ QList<ConsoleChannel *> GroupsConsole::groups()
 void GroupsConsole::init()
 {
     int idx = 0;
-    foreach(quint32 id, m_ids)
+    foreach (quint32 id, m_ids)
     {
-        ChannelsGroup *grp = m_doc->channelsGroup(id);
+        ChannelsGroup* grp = m_doc->channelsGroup(id);
         if (grp != NULL && grp->getChannels().count() > 0)
         {
             SceneValue scv = grp->getChannels().at(0);
@@ -76,16 +74,10 @@ void GroupsConsole::init()
             layout()->addWidget(cc);
             m_groups.append(cc);
 
-            connect(cc, SIGNAL(groupValueChanged(quint32, uchar)),
-                    this, SIGNAL(groupValueChanged(quint32, uchar)));
+            connect(cc, SIGNAL(groupValueChanged(quint32, uchar)), this, SIGNAL(groupValueChanged(quint32, uchar)));
             idx++;
         }
     }
     /* Make a spacer item eat excess space to justify channels left */
     layout()->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding));
 }
-
-
-
-
-

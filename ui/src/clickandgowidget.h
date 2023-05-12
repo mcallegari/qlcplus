@@ -32,7 +32,7 @@ class ClickAndGoWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ClickAndGoWidget(QWidget *parent = 0);
+    explicit ClickAndGoWidget(QWidget* parent = 0);
 
     enum ClickAndGo
     {
@@ -57,7 +57,7 @@ public:
      * Set the widget type. This is fundamental
      * for the whole widget behaviour
      */
-    void setType(int type, const QLCChannel *chan = NULL);
+    void setType(int type, const QLCChannel* chan = NULL);
 
     /**
      * Returns the widget type
@@ -101,7 +101,7 @@ protected:
      * Prepare the list of gobos/effects to be used
      * when the widget is in Preset mode
      */
-    void createPresetList(const QLCChannel *chan);
+    void createPresetList(const QLCChannel* chan);
 
     /**
      * Prepare the widget to display a grid of the
@@ -156,13 +156,13 @@ protected:
     QSize sizeHint() const;
 
     /** @reimp */
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent* event);
 
     /** @reimp */
-    void mouseMoveEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent* event);
 
     /** @reimp */
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent* event);
 
 signals:
     void levelChanged(uchar level);
@@ -170,7 +170,6 @@ signals:
     void levelAndPresetChanged(uchar level, QImage img);
 
 public slots:
-
 };
 
 /** @} */

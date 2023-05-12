@@ -23,7 +23,7 @@
 #include "audio.h"
 #include "doc.h"
 
-AudioEditor::AudioEditor(QQuickView *view, Doc *doc, QObject *parent)
+AudioEditor::AudioEditor(QQuickView* view, Doc* doc, QObject* parent)
     : FunctionEditor(view, doc, parent)
     , m_audio(nullptr)
 {
@@ -32,11 +32,10 @@ AudioEditor::AudioEditor(QQuickView *view, Doc *doc, QObject *parent)
 
 void AudioEditor::setFunctionID(quint32 ID)
 {
-    m_audio = qobject_cast<Audio *>(m_doc->function(ID));
+    m_audio = qobject_cast<Audio*>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_audio != nullptr)
-        connect(m_audio, SIGNAL(totalDurationChanged()),
-                this, SIGNAL(mediaInfoChanged()));
+        connect(m_audio, SIGNAL(totalDurationChanged()), this, SIGNAL(mediaInfoChanged()));
 }
 
 QString AudioEditor::sourceFileName() const
@@ -55,7 +54,8 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     if (m_audio == nullptr || m_audio->getSourceFileName() == sourceFileName)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(), sourceFileName);
+    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(),
+                                      sourceFileName);
     m_audio->setSourceFileName(sourceFileName);
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
@@ -78,7 +78,7 @@ QVariant AudioEditor::mediaInfo() const
     if (m_audio == nullptr)
         return QVariant();
 
-    AudioDecoder *adec = m_audio->getAudioDecoder();
+    AudioDecoder* adec = m_audio->getAudioDecoder();
     if (adec == nullptr)
         return QVariant();
 
@@ -144,7 +144,7 @@ int AudioEditor::cardLineIndex() const
     int i = 1;
     QString device = m_audio->audioDevice();
 
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
@@ -152,7 +152,6 @@ int AudioEditor::cardLineIndex() const
                 return i;
             i++;
         }
-
     }
     return 0;
 }
@@ -174,7 +173,7 @@ void AudioEditor::setCardLineIndex(int cardLineIndex)
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     int i = 1;
 
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
@@ -188,6 +187,5 @@ void AudioEditor::setCardLineIndex(int cardLineIndex)
             }
             i++;
         }
-
     }
 }

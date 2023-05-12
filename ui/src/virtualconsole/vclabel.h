@@ -63,14 +63,14 @@ public:
      * External input
      *****************************************************************************/
     /** @reimp */
-    void updateFeedback() { }
+    void updateFeedback() {}
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /*********************************************************************
      * Painting

@@ -20,17 +20,13 @@
 
 #include "physicaledit.h"
 
-PhysicalEdit::PhysicalEdit(QLCPhysical phy, QObject *parent)
+PhysicalEdit::PhysicalEdit(QLCPhysical phy, QObject* parent)
     : QObject(parent)
     , m_phy(phy)
 {
-
 }
 
-PhysicalEdit::~PhysicalEdit()
-{
-
-}
+PhysicalEdit::~PhysicalEdit() {}
 
 QString PhysicalEdit::bulbType() const
 {

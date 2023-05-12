@@ -25,9 +25,9 @@
 #include "tardis.h"
 #include "doc.h"
 
-#define INPUT_PRESSURE_ID   0
+#define INPUT_PRESSURE_ID 0
 
-VCButton::VCButton(Doc *doc, QObject *parent)
+VCButton::VCButton(Doc* doc, QObject* parent)
     : VCWidget(doc, parent)
     , m_functionID(Function::invalidId())
     , m_state(Inactive)
@@ -59,12 +59,12 @@ void VCButton::setupLookAndFeel(qreal pixelDensity, int page)
     setBackgroundColor(QColor("#444"));
 }
 
-void VCButton::render(QQuickView *view, QQuickItem *parent)
+void VCButton::render(QQuickView* view, QQuickItem* parent)
 {
     if (view == nullptr || parent == nullptr)
         return;
 
-    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCButtonItem.qml"));
+    QQmlComponent* component = new QQmlComponent(view->engine(), QUrl("qrc:/VCButtonItem.qml"));
 
     if (component->isError())
     {
@@ -83,11 +83,11 @@ QString VCButton::propertiesResource() const
     return QString("qrc:/VCButtonProperties.qml");
 }
 
-VCWidget *VCButton::createCopy(VCWidget *parent)
+VCWidget* VCButton::createCopy(VCWidget* parent)
 {
     Q_ASSERT(parent != nullptr);
 
-    VCButton *button = new VCButton(m_doc, parent);
+    VCButton* button = new VCButton(m_doc, parent);
     if (button->copyFrom(this) == false)
     {
         delete button;
@@ -99,12 +99,12 @@ VCWidget *VCButton::createCopy(VCWidget *parent)
 
 bool VCButton::copyFrom(const VCWidget* widget)
 {
-    const VCButton *button = qobject_cast <const VCButton*> (widget);
+    const VCButton* button = qobject_cast<const VCButton*>(widget);
     if (button == nullptr)
         return false;
 
     /* Copy button-specific stuff */
-    //setIconPath(button->iconPath()); // TODO ?
+    // setIconPath(button->iconPath()); // TODO ?
     setFunctionID(button->functionID());
     setStartupIntensityEnabled(button->startupIntensityEnabled());
     setStartupIntensity(button->startupIntensity());
@@ -127,18 +127,15 @@ void VCButton::setFunctionID(quint32 fid)
     if (m_functionID == fid)
         return;
 
-    Function *current = m_doc->function(m_functionID);
-    Function *function = m_doc->function(fid);
+    Function* current = m_doc->function(m_functionID);
+    Function* function = m_doc->function(fid);
 
     if (current != nullptr)
     {
         /* Get rid of old function connections */
-        disconnect(current, SIGNAL(running(quint32)),
-                this, SLOT(slotFunctionRunning(quint32)));
-        disconnect(current, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
-        disconnect(current, SIGNAL(flashing(quint32,bool)),
-                this, SLOT(slotFunctionFlashing(quint32,bool)));
+        disconnect(current, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
+        disconnect(current, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
+        disconnect(current, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
 
         if (current->isRunning())
         {
@@ -146,24 +143,20 @@ void VCButton::setFunctionID(quint32 fid)
             current->stop(functionParent());
             resetIntensityOverrideAttribute();
         }
-
     }
 
     if (function != nullptr)
     {
         /* Connect to the new function */
-        connect(function, SIGNAL(running(quint32)),
-                this, SLOT(slotFunctionRunning(quint32)));
-        connect(function, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
-        connect(function, SIGNAL(flashing(quint32,bool)),
-                this, SLOT(slotFunctionFlashing(quint32,bool)));
+        connect(function, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
+        connect(function, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
+        connect(function, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
 
         m_functionID = fid;
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
 
-        if(running)
+        if (running)
         {
             function->start(m_doc->masterTimer(), functionParent());
             setState(Active);
@@ -187,7 +180,7 @@ quint32 VCButton::functionID() const
     return m_functionID;
 }
 
-void VCButton::adjustFunctionIntensity(Function *f, qreal value)
+void VCButton::adjustFunctionIntensity(Function* f, qreal value)
 {
     qreal finalValue = startupIntensityEnabled() ? startupIntensity() * value : value;
 
@@ -200,7 +193,7 @@ void VCButton::adjustIntensity(qreal val)
 
     if (state() == Active)
     {
-        Function *f = m_doc->function(m_functionID);
+        Function* f = m_doc->function(m_functionID);
         if (f == nullptr)
             return;
 
@@ -208,7 +201,7 @@ void VCButton::adjustIntensity(qreal val)
     }
 }
 
-void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
+void VCButton::notifyFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity)
 {
     Q_UNUSED(widget)
     Q_UNUSED(fIntensity)
@@ -218,7 +211,7 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
     if (m_functionID == Function::invalidId() || actionType() != VCButton::Toggle)
         return;
 
-    Function *f = m_doc->function(m_functionID);
+    Function* f = m_doc->function(m_functionID);
     if (f == nullptr)
         return;
 
@@ -244,7 +237,7 @@ void VCButton::slotFunctionRunning(quint32 fid)
     {
         if (state() == Inactive)
             setState(Monitoring);
-        //emit functionStarting(this, m_functionID);
+        // emit functionStarting(this, m_functionID);
     }
 }
 
@@ -306,11 +299,11 @@ void VCButton::requestStateChange(bool pressed)
 {
     qDebug() << "Requested button state" << pressed;
 
-    switch(actionType())
+    switch (actionType())
     {
-        case Toggle:
+    case Toggle:
         {
-            Function *f = m_doc->function(m_functionID);
+            Function* f = m_doc->function(m_functionID);
             if (f == nullptr)
                 return;
 
@@ -332,9 +325,9 @@ void VCButton::requestStateChange(bool pressed)
             }
         }
         break;
-        case Flash:
+    case Flash:
         {
-            Function *f = m_doc->function(m_functionID);
+            Function* f = m_doc->function(m_functionID);
             if (f != nullptr)
             {
                 if (state() == Inactive && pressed == true)
@@ -350,13 +343,13 @@ void VCButton::requestStateChange(bool pressed)
             }
         }
         break;
-        case Blackout:
+    case Blackout:
         {
             m_doc->inputOutputMap()->toggleBlackout();
             setState(pressed ? Active : Inactive);
         }
         break;
-        case StopAll:
+    case StopAll:
         {
             if (stopAllFadeOutTime() == 0)
                 m_doc->masterTimer()->stopAllFunctions();
@@ -364,7 +357,7 @@ void VCButton::requestStateChange(bool pressed)
                 m_doc->masterTimer()->fadeAndStopAll(stopAllFadeOutTime());
         }
         break;
-        default:
+    default:
         break;
     }
 
@@ -508,7 +501,7 @@ void VCButton::slotInputValueChanged(quint8 id, uchar value)
  * Load & Save
  *********************************************************************/
 
-bool VCButton::loadXML(QXmlStreamReader &root)
+bool VCButton::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCButton)
     {
@@ -574,7 +567,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCButton::saveXML(QXmlStreamWriter *doc)
+bool VCButton::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != nullptr);
 

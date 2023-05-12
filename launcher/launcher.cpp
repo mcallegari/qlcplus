@@ -33,7 +33,8 @@
 
 #include "launcher.h"
 
-Launcher::Launcher(QWidget* parent) : QWidget(parent)
+Launcher::Launcher(QWidget* parent)
+    : QWidget(parent)
 {
     QGridLayout* lay;
     lay = new QGridLayout(this);
@@ -60,9 +61,7 @@ Launcher::Launcher(QWidget* parent) : QWidget(parent)
     lay->addWidget(qlc, 1, 2, 1, 1);
 }
 
-Launcher::~Launcher()
-{
-}
+Launcher::~Launcher() {}
 
 void Launcher::slotFXEDClicked()
 {

@@ -61,8 +61,8 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
     , m_filter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::CollectionType |
-               Function::EFXType | Function::ScriptType | Function::RGBMatrixType |
-               Function::ShowType | Function::AudioType | Function::VideoType)
+               Function::EFXType | Function::ScriptType | Function::RGBMatrixType | Function::ShowType |
+               Function::AudioType | Function::VideoType)
     , m_disableFilters(0)
     , m_constFilter(false)
 {
@@ -85,41 +85,29 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
-    connect(m_allFunctionsRadio, SIGNAL(clicked()),
-            this, SLOT(slotAllFunctionsChecked()));
+    connect(m_allFunctionsRadio, SIGNAL(clicked()), this, SLOT(slotAllFunctionsChecked()));
 
-    connect(m_runningFunctionsRadio, SIGNAL(clicked()),
-            this, SLOT(slotRunningFunctionsChecked()));
+    connect(m_runningFunctionsRadio, SIGNAL(clicked()), this, SLOT(slotRunningFunctionsChecked()));
 
-    connect(m_sceneCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotSceneChecked(bool)));
+    connect(m_sceneCheck, SIGNAL(toggled(bool)), this, SLOT(slotSceneChecked(bool)));
 
-    connect(m_chaserCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotChaserChecked(bool)));
+    connect(m_chaserCheck, SIGNAL(toggled(bool)), this, SLOT(slotChaserChecked(bool)));
 
-    connect(m_sequenceCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotSequenceChecked(bool)));
+    connect(m_sequenceCheck, SIGNAL(toggled(bool)), this, SLOT(slotSequenceChecked(bool)));
 
-    connect(m_efxCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotEFXChecked(bool)));
+    connect(m_efxCheck, SIGNAL(toggled(bool)), this, SLOT(slotEFXChecked(bool)));
 
-    connect(m_collectionCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotCollectionChecked(bool)));
+    connect(m_collectionCheck, SIGNAL(toggled(bool)), this, SLOT(slotCollectionChecked(bool)));
 
-    connect(m_scriptCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotScriptChecked(bool)));
+    connect(m_scriptCheck, SIGNAL(toggled(bool)), this, SLOT(slotScriptChecked(bool)));
 
-    connect(m_rgbMatrixCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotRGBMatrixChecked(bool)));
+    connect(m_rgbMatrixCheck, SIGNAL(toggled(bool)), this, SLOT(slotRGBMatrixChecked(bool)));
 
-    connect(m_showCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotShowChecked(bool)));
+    connect(m_showCheck, SIGNAL(toggled(bool)), this, SLOT(slotShowChecked(bool)));
 
-    connect(m_audioCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotAudioChecked(bool)));
+    connect(m_audioCheck, SIGNAL(toggled(bool)), this, SLOT(slotAudioChecked(bool)));
 
-    connect(m_videoCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotVideoChecked(bool)));
+    connect(m_videoCheck, SIGNAL(toggled(bool)), this, SLOT(slotVideoChecked(bool)));
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FILTER);
@@ -179,10 +167,9 @@ int FunctionSelection::exec()
 
     refillTree();
 
-    connect(m_funcTree, SIGNAL(itemSelectionChanged()),
-            this, SLOT(slotItemSelectionChanged()));
-    connect(m_funcTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
-            this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
+    connect(m_funcTree, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelectionChanged()));
+    connect(m_funcTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this,
+            SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
 
     slotItemSelectionChanged();
 
@@ -205,7 +192,7 @@ void FunctionSelection::showNewTrack(bool show)
 
 FunctionSelection::~FunctionSelection()
 {
-    if(!m_constFilter)
+    if (!m_constFilter)
     {
         QSettings settings;
         settings.setValue(SETTINGS_FILTER, m_filter);
@@ -256,12 +243,12 @@ void FunctionSelection::disableFilters(int types)
  * Disabled functions
  *****************************************************************************/
 
-void FunctionSelection::setDisabledFunctions(const QList <quint32>& ids)
+void FunctionSelection::setDisabledFunctions(const QList<quint32>& ids)
 {
     m_disabledFunctions = ids;
 }
 
-QList <quint32> FunctionSelection::disabledFunctions() const
+QList<quint32> FunctionSelection::disabledFunctions() const
 {
     return m_disabledFunctions;
 }
@@ -275,7 +262,7 @@ void FunctionSelection::setSelection(QList<quint32> selection)
     m_selection = selection;
 }
 
-const QList <quint32> FunctionSelection::selection() const
+const QList<quint32> FunctionSelection::selection() const
 {
     return m_selection;
 }
@@ -335,7 +322,7 @@ void FunctionSelection::refillTree()
     m_funcTree->resizeColumnToContents(KColumnName);
     for (int i = 0; i < m_funcTree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *item = m_funcTree->topLevelItem(i);
+        QTreeWidgetItem* item = m_funcTree->topLevelItem(i);
         m_funcTree->expandItem(item);
     }
 }
@@ -344,14 +331,14 @@ void FunctionSelection::slotItemSelectionChanged()
 {
     m_selection.clear();
 
-    QListIterator <QTreeWidgetItem*> it(m_funcTree->selectedItems());
+    QListIterator<QTreeWidgetItem*> it(m_funcTree->selectedItems());
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem *item = it.next();
+        QTreeWidgetItem* item = it.next();
         quint32 id = item->data(KColumnName, Qt::UserRole).toUInt();
-        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem)
-             && m_selection.contains(id) == false)
-                    m_selection.append(id);
+        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem) &&
+            m_selection.contains(id) == false)
+            m_selection.append(id);
     }
 
     if (m_selection.isEmpty() == true)

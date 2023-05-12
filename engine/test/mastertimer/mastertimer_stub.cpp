@@ -30,9 +30,7 @@ MasterTimerStub::MasterTimerStub(Doc* doc, QList<Universe*> universes)
 {
 }
 
-MasterTimerStub::~MasterTimerStub()
-{
-}
+MasterTimerStub::~MasterTimerStub() {}
 
 void MasterTimerStub::startFunction(Function* function)
 {

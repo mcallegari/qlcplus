@@ -26,7 +26,7 @@
 
 #include <QDebug>
 
-InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
+InputSelectionWidget::InputSelectionWidget(Doc* doc, QWidget* parent)
     : QWidget(parent)
     , m_doc(doc)
     , m_widgetPage(0)
@@ -45,22 +45,15 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
 
-    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectInputToggled(bool)));
-    connect(m_chooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotChooseInputClicked()));
+    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)), this, SLOT(slotAutoDetectInputToggled(bool)));
+    connect(m_chooseInputButton, SIGNAL(clicked()), this, SLOT(slotChooseInputClicked()));
 
-    connect(m_customFbButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotCustomFeedbackToggled(bool)));
-    connect(m_lowerSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotLowerSpinValueChanged(int)));
-    connect(m_upperSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotUpperSpinValueChanged(int)));
+    connect(m_customFbButton, SIGNAL(toggled(bool)), this, SLOT(slotCustomFeedbackToggled(bool)));
+    connect(m_lowerSpin, SIGNAL(valueChanged(int)), this, SLOT(slotLowerSpinValueChanged(int)));
+    connect(m_upperSpin, SIGNAL(valueChanged(int)), this, SLOT(slotUpperSpinValueChanged(int)));
 }
 
-InputSelectionWidget::~InputSelectionWidget()
-{
-}
+InputSelectionWidget::~InputSelectionWidget() {}
 
 void InputSelectionWidget::setKeyInputVisibility(bool visible)
 {
@@ -84,7 +77,7 @@ void InputSelectionWidget::setWidgetPage(int page)
 
 bool InputSelectionWidget::isAutoDetecting()
 {
-   return m_autoDetectInputButton->isChecked();
+    return m_autoDetectInputButton->isChecked();
 }
 
 void InputSelectionWidget::stopAutoDetection()
@@ -98,7 +91,7 @@ void InputSelectionWidget::emitOddValues(bool enable)
     m_emitOdd = enable;
 }
 
-void InputSelectionWidget::setKeySequence(const QKeySequence &keySequence)
+void InputSelectionWidget::setKeySequence(const QKeySequence& keySequence)
 {
     m_keySequence = QKeySequence(keySequence);
     m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
@@ -109,7 +102,7 @@ QKeySequence InputSelectionWidget::keySequence() const
     return m_keySequence;
 }
 
-void InputSelectionWidget::setInputSource(const QSharedPointer<QLCInputSource> &source)
+void InputSelectionWidget::setInputSource(const QSharedPointer<QLCInputSource>& source)
 {
     m_inputSource = source;
     updateInputSource();
@@ -140,15 +133,13 @@ void InputSelectionWidget::slotAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputOutputMap(),
-                SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32)));
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                SLOT(slotInputValueChanged(quint32, quint32)));
     }
     else
     {
-        disconnect(m_doc->inputOutputMap(),
-                   SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotInputValueChanged(quint32,quint32)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                   SLOT(slotInputValueChanged(quint32, quint32)));
     }
     emit autoDetectToggled(checked);
 }
@@ -175,7 +166,8 @@ void InputSelectionWidget::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
+        m_inputSource =
+            QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
         updateInputSource();
         emit inputValueChanged(sic.universe(), (m_widgetPage << 16) | sic.channel());
     }
@@ -217,10 +209,10 @@ void InputSelectionWidget::updateInputSource()
 
         uchar min = 0, max = UCHAR_MAX;
 
-        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
+        InputPatch* ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
         if (ip != NULL && ip->profile() != NULL)
         {
-            QLCInputChannel *ich = ip->profile()->channel(m_inputSource->channel());
+            QLCInputChannel* ich = ip->profile()->channel(m_inputSource->channel());
             if (ich != NULL && ich->type() == QLCInputChannel::Button)
             {
                 min = ich->lowerValue();

@@ -28,13 +28,13 @@
 #include "qlcmacros.h"
 #include "doc.h"
 
-#define KXMLQLCRGBImageFilename       QString("Filename")
+#define KXMLQLCRGBImageFilename QString("Filename")
 #define KXMLQLCRGBImageAnimationStyle QString("Animation")
-#define KXMLQLCRGBImageOffset         QString("Offset")
-#define KXMLQLCRGBImageOffsetX        QString("X")
-#define KXMLQLCRGBImageOffsetY        QString("Y")
+#define KXMLQLCRGBImageOffset QString("Offset")
+#define KXMLQLCRGBImageOffsetX QString("X")
+#define KXMLQLCRGBImageOffsetY QString("Y")
 
-RGBImage::RGBImage(Doc * doc)
+RGBImage::RGBImage(Doc* doc)
     : RGBAlgorithm(doc)
     , m_filename("")
     , m_animatedSource(false)
@@ -45,7 +45,7 @@ RGBImage::RGBImage(Doc * doc)
 }
 
 RGBImage::RGBImage(const RGBImage& i)
-    : RGBAlgorithm( i.doc())
+    : RGBAlgorithm(i.doc())
     , m_filename(i.filename())
     , m_animatedSource(i.animatedSource())
     , m_animationStyle(i.animationStyle())
@@ -55,14 +55,12 @@ RGBImage::RGBImage(const RGBImage& i)
     reloadImage();
 }
 
-RGBImage::~RGBImage()
-{
-}
+RGBImage::~RGBImage() {}
 
 RGBAlgorithm* RGBImage::clone() const
 {
     RGBImage* image = new RGBImage(*this);
-    return static_cast<RGBAlgorithm*> (image);
+    return static_cast<RGBAlgorithm*>(image);
 }
 
 /****************************************************************************
@@ -80,7 +78,7 @@ QString RGBImage::filename() const
     return m_filename;
 }
 
-void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
+void RGBImage::setImageData(int width, int height, const QByteArray& pixelData)
 {
     QMutexLocker locker(&m_mutex);
 
@@ -97,7 +95,7 @@ void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
                 break;
             QRgb pixel = qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
             newImg.setPixel(x, y, pixel);
-            i+=3;
+            i += 3;
         }
     }
     m_image = newImg;
@@ -158,15 +156,15 @@ QString RGBImage::animationStyleToString(RGBImage::AnimationStyle ani)
 {
     switch (ani)
     {
-        default:
-        case Static:
-            return QString("Static");
-        case Horizontal:
-            return QString("Horizontal");
-        case Vertical:
-            return QString("Vertical");
-        case Animation:
-            return QString("Animation");
+    default:
+    case Static:
+        return QString("Static");
+    case Horizontal:
+        return QString("Horizontal");
+    case Vertical:
+        return QString("Vertical");
+    case Animation:
+        return QString("Animation");
     }
 }
 
@@ -222,20 +220,20 @@ int RGBImage::rgbMapStepCount(const QSize& size)
 
     switch (animationStyle())
     {
-        default:
-        case Static:
-            return 1;
-        case Horizontal:
-            return m_image.width();
-        case Vertical:
-            return m_image.height();
-        case Animation:
-            qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
-            return MAX(1, m_image.width() / size.width());
+    default:
+    case Static:
+        return 1;
+    case Horizontal:
+        return m_image.width();
+    case Vertical:
+        return m_image.height();
+    case Animation:
+        qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
+        return MAX(1, m_image.width() / size.width());
     }
 }
 
-void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap& map)
 {
     Q_UNUSED(rgb);
 
@@ -247,19 +245,19 @@ void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
     int xOffs = xOffset();
     int yOffs = yOffset();
 
-    switch(animationStyle())
+    switch (animationStyle())
     {
-        default:
-        case Static:
+    default:
+    case Static:
         break;
-        case Horizontal:
-            xOffs += step;
+    case Horizontal:
+        xOffs += step;
         break;
-        case Vertical:
-            yOffs += step;
+    case Vertical:
+        yOffs += step;
         break;
-        case Animation:
-            xOffs += step * size.width();
+    case Animation:
+        xOffs += step * size.width();
         break;
     }
 
@@ -278,7 +276,7 @@ void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
             int x1 = (x + xOffs) % m_image.width();
             int y1 = (y + yOffs) % m_image.height();
 
-            map[y][x] = m_image.pixel(x1,y1);
+            map[y][x] = m_image.pixel(x1, y1);
             if (qAlpha(map[y][x]) == 0)
                 map[y][x] = 0;
         }
@@ -310,7 +308,7 @@ int RGBImage::acceptColors() const
     return 0;
 }
 
-bool RGBImage::loadXML(QXmlStreamReader &root)
+bool RGBImage::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCRGBAlgorithm)
     {
@@ -368,7 +366,7 @@ bool RGBImage::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBImage::saveXML(QXmlStreamWriter *doc) const
+bool RGBImage::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 

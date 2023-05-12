@@ -38,7 +38,7 @@ extern "C"
     {
         Q_UNUSED(TimerOrWaitFired);
 
-        MasterTimerPrivate* mtp = (MasterTimerPrivate*) lpParameter;
+        MasterTimerPrivate* mtp = (MasterTimerPrivate*)lpParameter;
         Q_ASSERT(mtp != NULL);
         mtp->timerTick();
     }
@@ -85,13 +85,8 @@ void MasterTimerPrivate::start()
         return;
     }
 
-    BOOL ok = CreateTimerQueueTimer(&m_phTimer,
-                                    NULL,
-                                    (WAITORTIMERCALLBACK) masterTimerWin32Callback,
-                                    this,
-                                    0,
-                                    m_masterTimer->tick(),
-                                    WT_EXECUTELONGFUNCTION);
+    BOOL ok = CreateTimerQueueTimer(&m_phTimer, NULL, (WAITORTIMERCALLBACK)masterTimerWin32Callback, this, 0,
+                                    m_masterTimer->tick(), WT_EXECUTELONGFUNCTION);
     if (!ok)
     {
         qWarning() << Q_FUNC_INFO << "Unable to create a timer:" << GetLastError();

@@ -42,17 +42,17 @@ class FadeChannel
 public:
     enum ChannelFlag
     {
-        HTP         = (1 << 0),     /** Highest takes precedence */
-        LTP         = (1 << 1),     /** Latest takes precedence */
-        Fine        = (1 << 2),     /** LSB channel for 16bit fade */
-        Intensity   = (1 << 3),     /** Intensity channel (dimmer, RGB, CMY, etc) */
-        CanFade     = (1 << 4),     /** Subject to fade transitions */
-        Flashing    = (1 << 5),     /** Is flashing */
-        Relative    = (1 << 6),     /** Relative position */
-        Override    = (1 << 7),     /** Override the current universe value */
-        SetTarget   = (1 << 8),     /** Set target to current universe value */
-        AutoRemove  = (1 << 9),     /** Automatically remove the channel once target is reached */
-        CrossFade   = (1 << 10)     /** Channel subject to crossfade */
+        HTP = (1 << 0),        /** Highest takes precedence */
+        LTP = (1 << 1),        /** Latest takes precedence */
+        Fine = (1 << 2),       /** LSB channel for 16bit fade */
+        Intensity = (1 << 3),  /** Intensity channel (dimmer, RGB, CMY, etc) */
+        CanFade = (1 << 4),    /** Subject to fade transitions */
+        Flashing = (1 << 5),   /** Is flashing */
+        Relative = (1 << 6),   /** Relative position */
+        Override = (1 << 7),   /** Override the current universe value */
+        SetTarget = (1 << 8),  /** Set target to current universe value */
+        AutoRemove = (1 << 9), /** Automatically remove the channel once target is reached */
+        CrossFade = (1 << 10)  /** Channel subject to crossfade */
     };
 
     /** Create a new FadeChannel with empty/invalid values */
@@ -62,7 +62,7 @@ public:
     FadeChannel(const FadeChannel& ch);
 
     /** Create a new FadeChannel and set fixture ID and channel */
-    FadeChannel(const Doc *doc, quint32 fxi, quint32 channel);
+    FadeChannel(const Doc* doc, quint32 fxi, quint32 channel);
 
     /** Destructor */
     virtual ~FadeChannel();
@@ -81,7 +81,7 @@ public:
     void removeFlag(int flag);
 
 protected:
-    void autoDetect(const Doc *doc);
+    void autoDetect(const Doc* doc);
 
 private:
     /** Bitmask including the channel type
@@ -93,7 +93,7 @@ private:
      ************************************************************************/
 public:
     /** Set the Fixture that is being controlled. */
-    void setFixture(const Doc *doc, quint32 id);
+    void setFixture(const Doc* doc, quint32 id);
 
     /** Get the Fixture that is being controlled. */
     quint32 fixture() const;

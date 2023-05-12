@@ -49,7 +49,7 @@
 #include "tardis.h"
 #include "doc.h"
 
-FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
+FunctionManager::FunctionManager(QQuickView* view, Doc* doc, QObject* parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -79,7 +79,8 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
     QStringList treeColumns;
-    treeColumns << "classRef" << "type";
+    treeColumns << "classRef"
+                << "type";
     m_functionTree->setColumnNames(treeColumns);
     m_functionTree->enableSorting(true);
 
@@ -118,9 +119,9 @@ QVariantList FunctionManager::usageList(quint32 fid)
     QVariantList list;
     QList<quint32> funcUsageList = m_doc->getUsage(fid);
 
-    for (int i = 0; i < funcUsageList.count(); i+=2)
+    for (int i = 0; i < funcUsageList.count(); i += 2)
     {
-        Function *f = m_doc->function(funcUsageList.at(i));
+        Function* f = m_doc->function(funcUsageList.at(i));
         if (f == nullptr)
             continue;
 
@@ -151,7 +152,7 @@ QStringList FunctionManager::selectedItemNames()
 
     for (QVariant fID : m_selectedIDList)
     {
-        Function *f = m_doc->function(fID.toInt());
+        Function* f = m_doc->function(fID.toInt());
         if (f == nullptr)
             continue;
         names.append(f->name());
@@ -200,12 +201,12 @@ void FunctionManager::setSearchFilter(QString searchFilter)
 
     if (searchFilter.length() >= SEARCH_MIN_CHARS ||
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
-            updateFunctionsTree();
+        updateFunctionsTree();
 
     emit searchFilterChanged();
 }
 
-quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool select)
+quint32 FunctionManager::addFunctiontoDoc(Function* func, QString name, bool select)
 {
     if (func == nullptr)
         return Function::invalidId();
@@ -241,15 +242,15 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
     Function* f = nullptr;
     QString name;
 
-    switch(type)
+    switch (type)
     {
-        case Function::SceneType:
+    case Function::SceneType:
         {
             f = new Scene(m_doc);
             name = tr("New Scene");
             if (fixturesList.count())
             {
-                Scene *scene = qobject_cast<Scene *>(f);
+                Scene* scene = qobject_cast<Scene*>(f);
                 for (QVariant fixtureID : fixturesList)
                     scene->addFixture(fixtureID.toUInt());
             }
@@ -257,7 +258,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit sceneCountChanged();
         }
         break;
-        case Function::ChaserType:
+    case Function::ChaserType:
         {
             f = new Chaser(m_doc);
             name = tr("New Chaser");
@@ -265,10 +266,10 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             {
                 /* give the Chaser a meaningful common duration, to avoid
                  * that awful effect of playing steps with 0 duration */
-                Chaser *chaser = qobject_cast<Chaser*>(f);
+                Chaser* chaser = qobject_cast<Chaser*>(f);
                 chaser->setDuration(1000);
 
-                for (QVariant &fId : m_selectedIDList)
+                for (QVariant& fId : m_selectedIDList)
                 {
                     ChaserStep chs;
                     chs.fid = fId.toUInt();
@@ -279,18 +280,18 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit chaserCountChanged();
         }
         break;
-        case Function::SequenceType:
+    case Function::SequenceType:
         {
             /* a Sequence depends on a Scene, so let's create
              * a new hidden Scene first */
-            Function *scene = new Scene(m_doc);
+            Function* scene = new Scene(m_doc);
             scene->setVisible(false);
 
             if (m_doc->addFunction(scene) == true)
             {
                 f = new Sequence(m_doc);
                 name = tr("New Sequence");
-                Sequence *sequence = qobject_cast<Sequence *>(f);
+                Sequence* sequence = qobject_cast<Sequence*>(f);
                 sequence->setBoundSceneID(scene->id());
                 m_sequenceCount++;
                 emit sequenceCountChanged();
@@ -299,16 +300,16 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
                 delete scene;
         }
         break;
-        case Function::EFXType:
+    case Function::EFXType:
         {
             f = new EFX(m_doc);
             name = tr("New EFX");
             if (fixturesList.count())
             {
-                EFX *efx = qobject_cast<EFX *>(f);
+                EFX* efx = qobject_cast<EFX*>(f);
                 for (QVariant fixtureID : fixturesList)
                 {
-                    Fixture *fixture = m_doc->fixture(fixtureID.toUInt());
+                    Fixture* fixture = m_doc->fixture(fixtureID.toUInt());
                     if (fixture == nullptr)
                         continue;
 
@@ -320,13 +321,13 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit efxCountChanged();
         }
         break;
-        case Function::CollectionType:
+    case Function::CollectionType:
         {
             f = new Collection(m_doc);
             name = tr("New Collection");
             if (m_selectedIDList.count())
             {
-                Collection *collection = qobject_cast<Collection *>(f);
+                Collection* collection = qobject_cast<Collection*>(f);
                 for (QVariant fID : m_selectedIDList)
                     collection->addFunction(fID.toUInt());
             }
@@ -335,7 +336,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit collectionCountChanged();
         }
         break;
-        case Function::RGBMatrixType:
+    case Function::RGBMatrixType:
         {
             f = new RGBMatrix(m_doc);
             name = tr("New RGB Matrix");
@@ -343,7 +344,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit rgbMatrixCountChanged();
         }
         break;
-        case Function::ScriptType:
+    case Function::ScriptType:
         {
             f = new Script(m_doc);
             name = tr("New Script");
@@ -351,7 +352,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit scriptCountChanged();
         }
         break;
-        case Function::ShowType:
+    case Function::ShowType:
         {
             f = new Show(m_doc);
             name = tr("New Show");
@@ -359,7 +360,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit showCountChanged();
         }
         break;
-        default:
+    default:
         break;
     }
 
@@ -371,9 +372,9 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
     Function* f = nullptr;
     QString name;
 
-    switch(type)
+    switch (type)
     {
-        case Function::AudioType:
+    case Function::AudioType:
         {
             name = tr("New Audio");
 
@@ -395,7 +396,7 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
                     lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
                     {
-                        Audio *audio = qobject_cast<Audio *>(f);
+                        Audio* audio = qobject_cast<Audio*>(f);
                         audio->setSourceFileName(filePath);
                     }
                     m_audioCount++;
@@ -405,7 +406,7 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
             }
         }
         break;
-        case Function::VideoType:
+    case Function::VideoType:
         {
             name = tr("New Video");
 
@@ -427,7 +428,7 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
                     lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
                     {
-                        Video *video = qobject_cast<Video *>(f);
+                        Video* video = qobject_cast<Video*>(f);
                         video->setSourceUrl(filePath);
                     }
                     m_videoCount++;
@@ -442,7 +443,7 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
     return addFunctiontoDoc(f, name, true);
 }
 
-Function *FunctionManager::getFunction(quint32 id)
+Function* FunctionManager::getFunction(quint32 id)
 {
     return m_doc->function(id);
 }
@@ -451,16 +452,26 @@ QString FunctionManager::functionIcon(int type)
 {
     switch (type)
     {
-        case Function::SceneType: return "qrc:/scene.svg";
-        case Function::ChaserType: return "qrc:/chaser.svg";
-        case Function::SequenceType: return "qrc:/sequence.svg";
-        case Function::EFXType: return "qrc:/efx.svg";
-        case Function::CollectionType: return "qrc:/collection.svg";
-        case Function::ScriptType: return "qrc:/script.svg";
-        case Function::RGBMatrixType: return "qrc:/rgbmatrix.svg";
-        case Function::ShowType: return "qrc:/showmanager.svg";
-        case Function::AudioType: return "qrc:/audio.svg";
-        case Function::VideoType: return "qrc:/video.svg";
+    case Function::SceneType:
+        return "qrc:/scene.svg";
+    case Function::ChaserType:
+        return "qrc:/chaser.svg";
+    case Function::SequenceType:
+        return "qrc:/sequence.svg";
+    case Function::EFXType:
+        return "qrc:/efx.svg";
+    case Function::CollectionType:
+        return "qrc:/collection.svg";
+    case Function::ScriptType:
+        return "qrc:/script.svg";
+    case Function::RGBMatrixType:
+        return "qrc:/rgbmatrix.svg";
+    case Function::ShowType:
+        return "qrc:/showmanager.svg";
+    case Function::AudioType:
+        return "qrc:/audio.svg";
+    case Function::VideoType:
+        return "qrc:/video.svg";
     }
 
     return "";
@@ -468,7 +479,7 @@ QString FunctionManager::functionIcon(int type)
 
 QString FunctionManager::functionPath(quint32 id)
 {
-    Function *f = m_doc->function(id);
+    Function* f = m_doc->function(id);
     if (f == nullptr)
         return "";
 
@@ -498,7 +509,7 @@ void FunctionManager::setPreviewEnabled(bool enable)
     {
         for (QVariant fID : m_selectedIDList)
         {
-            Function *f = m_doc->function(fID.toUInt());
+            Function* f = m_doc->function(fID.toUInt());
             if (f != nullptr)
             {
                 if (enable == false)
@@ -526,7 +537,7 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
         {
             if (m_previewEnabled == true)
             {
-                Function *f = m_doc->function(fID.toUInt());
+                Function* f = m_doc->function(fID.toUInt());
                 if (f != nullptr)
                     f->stop(FunctionParent::master());
             }
@@ -538,7 +549,7 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
 
     if (m_previewEnabled == true)
     {
-        Function *f = m_doc->function(fID);
+        Function* f = m_doc->function(fID);
         if (f != nullptr)
             f->start(m_doc->masterTimer(), FunctionParent::master());
     }
@@ -550,23 +561,35 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
 
 QString FunctionManager::getEditorResource(int funcID)
 {
-    Function *f = m_doc->function((quint32)funcID);
+    Function* f = m_doc->function((quint32)funcID);
     if (f == nullptr)
         return "qrc:/FunctionManager.qml";
 
-    switch(f->type())
+    switch (f->type())
     {
-        case Function::SceneType: return "qrc:/SceneEditor.qml";
-        case Function::ChaserType: return "qrc:/ChaserEditor.qml";
-        case Function::SequenceType: return "qrc:/SequenceEditor.qml";
-        case Function::EFXType: return "qrc:/EFXEditor.qml";
-        case Function::CollectionType: return "qrc:/CollectionEditor.qml";
-        case Function::RGBMatrixType: return "qrc:/RGBMatrixEditor.qml";
-        case Function::ShowType: return "qrc:/ShowManager.qml";
-        case Function::ScriptType: return "qrc:/ScriptEditor.qml";
-        case Function::AudioType: return "qrc:/AudioEditor.qml";
-        case Function::VideoType: return "qrc:/VideoEditor.qml";
-        default: return ""; break;
+    case Function::SceneType:
+        return "qrc:/SceneEditor.qml";
+    case Function::ChaserType:
+        return "qrc:/ChaserEditor.qml";
+    case Function::SequenceType:
+        return "qrc:/SequenceEditor.qml";
+    case Function::EFXType:
+        return "qrc:/EFXEditor.qml";
+    case Function::CollectionType:
+        return "qrc:/CollectionEditor.qml";
+    case Function::RGBMatrixType:
+        return "qrc:/RGBMatrixEditor.qml";
+    case Function::ShowType:
+        return "qrc:/ShowManager.qml";
+    case Function::ScriptType:
+        return "qrc:/ScriptEditor.qml";
+    case Function::AudioType:
+        return "qrc:/AudioEditor.qml";
+    case Function::VideoType:
+        return "qrc:/VideoEditor.qml";
+    default:
+        return "";
+        break;
     }
 }
 
@@ -601,64 +624,64 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
         return;
     }
 
-    Function *f = m_doc->function(fID);
+    Function* f = m_doc->function(fID);
     if (f == nullptr)
         return;
 
-    switch(f->type())
+    switch (f->type())
     {
-        case Function::SceneType:
+    case Function::SceneType:
         {
             m_currentEditor = new SceneEditor(m_view, m_doc, this);
         }
         break;
-        case Function::ChaserType:
+    case Function::ChaserType:
         {
-             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
+            m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
         break;
-        case Function::SequenceType:
+    case Function::SequenceType:
         {
-            Sequence *sequence = qobject_cast<Sequence *>(f);
+            Sequence* sequence = qobject_cast<Sequence*>(f);
             m_sceneEditor = new SceneEditor(m_view, m_doc, this);
             m_sceneEditor->setFunctionID(sequence->boundSceneID());
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
         break;
-        case Function::EFXType:
+    case Function::EFXType:
         {
             m_currentEditor = new EFXEditor(m_view, m_doc, this);
         }
         break;
-        case Function::CollectionType:
+    case Function::CollectionType:
         {
             m_currentEditor = new CollectionEditor(m_view, m_doc, this);
         }
         break;
-        case Function::RGBMatrixType:
+    case Function::RGBMatrixType:
         {
             m_currentEditor = new RGBMatrixEditor(m_view, m_doc, this);
         }
         break;
-        case Function::ScriptType:
+    case Function::ScriptType:
         {
-             m_currentEditor = new ScriptEditor(m_view, m_doc, this);
+            m_currentEditor = new ScriptEditor(m_view, m_doc, this);
         }
         break;
-        case Function::AudioType:
+    case Function::AudioType:
         {
             m_currentEditor = new AudioEditor(m_view, m_doc, this);
         }
         break;
-        case Function::VideoType:
+    case Function::VideoType:
         {
             m_currentEditor = new VideoEditor(m_view, m_doc, this);
         }
         break;
-        case Function::ShowType:
-            // a Show is edited by the Show Manager
+    case Function::ShowType:
+        // a Show is edited by the Show Manager
         break;
-        default:
+    default:
         {
             qDebug() << "Requested function type" << f->type() << "doesn't have a dedicated Function editor";
         }
@@ -674,18 +697,18 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
 
     if (requestUI == true)
     {
-        QQuickItem *rightPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
+        QQuickItem* rightPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject*>("funcRightPanel"));
         if (rightPanel != nullptr)
         {
-            QMetaObject::invokeMethod(rightPanel, "requestEditor",
-                Q_ARG(QVariant, f->id()), Q_ARG(QVariant, f->type()));
+            QMetaObject::invokeMethod(rightPanel, "requestEditor", Q_ARG(QVariant, f->id()),
+                                      Q_ARG(QVariant, f->type()));
         }
     }
 
     emit isEditingChanged(true);
 }
 
-FunctionEditor *FunctionManager::currentEditor() const
+FunctionEditor* FunctionManager::currentEditor() const
 {
     return m_currentEditor == nullptr ? m_sceneEditor : m_currentEditor;
 }
@@ -700,7 +723,7 @@ bool FunctionManager::isEditing() const
 
 void FunctionManager::deleteFunction(quint32 fid)
 {
-    Function *f = m_doc->function(fid);
+    Function* f = m_doc->function(fid);
     if (f == nullptr)
         return;
 
@@ -726,7 +749,7 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
 {
     for (QVariant fID : IDList)
     {
-        Function *f = m_doc->function(fID.toInt());
+        Function* f = m_doc->function(fID.toInt());
         if (f == nullptr)
             continue;
 
@@ -744,7 +767,7 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
 
 void FunctionManager::moveFunction(quint32 fID, QString newPath)
 {
-    Function *f = m_doc->function(fID);
+    Function* f = m_doc->function(fID);
     if (f == nullptr)
         return;
 
@@ -759,8 +782,10 @@ void FunctionManager::moveFunction(quint32 fID, QString newPath)
     else
     {
         QString ftPath = fPath;
-        QString itemPath = QString("%1%2%3").arg(ftPath.replace("/", TreeModel::separator()))
-                                            .arg(TreeModel::separator()).arg(f->name());
+        QString itemPath = QString("%1%2%3")
+                               .arg(ftPath.replace("/", TreeModel::separator()))
+                               .arg(TreeModel::separator())
+                               .arg(f->name());
         m_functionTree->removeItem(itemPath);
     }
 
@@ -769,7 +794,7 @@ void FunctionManager::moveFunction(quint32 fID, QString newPath)
 
     QVariantList params;
     params.append(QVariant::fromValue(f)); // classRef
-    params.append(App::FunctionDragItem); // type
+    params.append(App::FunctionDragItem);  // type
     m_functionTree->addItem(f->name(), params, newPath);
 }
 
@@ -792,7 +817,7 @@ void FunctionManager::moveFunctions(QString newPath)
     if (wasEmptyNode)
     {
         QVariantList folderParams;
-        folderParams.append(QVariant()); // classRef
+        folderParams.append(QVariant());          // classRef
         folderParams.append(App::FolderDragItem); // type
         m_functionTree->setPathData(newPath, folderParams);
     }
@@ -811,14 +836,14 @@ void FunctionManager::moveFunctions(QString newPath)
         }
     }
 
-    //updateFunctionsTree();
+    // updateFunctionsTree();
 }
 
 void FunctionManager::cloneFunctions()
 {
     for (QVariant fidVar : m_selectedIDList)
     {
-        Function *func = m_doc->function(fidVar.toUInt());
+        Function* func = m_doc->function(fidVar.toUInt());
         if (func == nullptr)
             continue;
 
@@ -831,12 +856,12 @@ void FunctionManager::cloneFunctions()
              * clone the bound Scene too */
             if (func->type() == Function::SequenceType)
             {
-                Sequence *sequence = qobject_cast<Sequence *>(copy);
+                Sequence* sequence = qobject_cast<Sequence*>(copy);
                 quint32 sceneID = sequence->boundSceneID();
-                Function *scene = m_doc->function(sceneID);
+                Function* scene = m_doc->function(sceneID);
                 if (scene != nullptr)
                 {
-                    Function *sceneCopy = scene->createCopy(m_doc);
+                    Function* sceneCopy = scene->createCopy(m_doc);
                     if (sceneCopy != nullptr)
                         sequence->setBoundSceneID(sceneCopy->id());
                 }
@@ -857,7 +882,7 @@ void FunctionManager::deleteSequenceFixtures(QVariantList list)
         return;
 
     // First remove fixtures from the Sequence steps
-    ChaserEditor *chaserEditor = qobject_cast<ChaserEditor*>(m_currentEditor);
+    ChaserEditor* chaserEditor = qobject_cast<ChaserEditor*>(m_currentEditor);
     chaserEditor->removeFixtures(list);
 
     // Then delete the fixtures from the Scene
@@ -877,7 +902,7 @@ void FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
 
     for (QVariant id : m_selectedIDList) // C++11
     {
-        Function *f = m_doc->function(id.toUInt());
+        Function* f = m_doc->function(id.toUInt());
         if (f == nullptr)
             continue;
 
@@ -994,7 +1019,7 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool is
         oldAbsPathSlashed.replace(TreeModel::separator(), "/");
         newAbsPathSlashed.replace(TreeModel::separator(), "/");
 
-        for (Function *f : m_doc->functions())
+        for (Function* f : m_doc->functions())
         {
             QString funcPath = f->path(true);
             if (funcPath.startsWith(oldAbsPathSlashed))
@@ -1017,7 +1042,7 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool is
     if (isRelative == false)
         m_functionTree->removeItem(oldAbsPath);
 
-    //m_functionTree->printTree();
+    // m_functionTree->printTree();
 }
 
 void FunctionManager::createFolder()
@@ -1033,7 +1058,7 @@ void FunctionManager::createFolder()
         if (m_emptyFolderList.contains(fName) == false)
             break;
         index++;
-    } while(1);
+    } while (1);
 
     // check if there is some selected folder
     if (m_selectedFolderList.count())
@@ -1043,7 +1068,7 @@ void FunctionManager::createFolder()
     else if (m_selectedIDList.count())
     {
         quint32 firstID = m_selectedIDList.first().toUInt();
-        Function *firstFunc = m_doc->function(firstID);
+        Function* firstFunc = m_doc->function(firstID);
         if (firstFunc)
             basePath = firstFunc->path(true).replace("/", TreeModel::separator());
     }
@@ -1059,7 +1084,7 @@ void FunctionManager::createFolder()
     }
 
     QVariantList params;
-    params.append(QVariant()); // classRef
+    params.append(QVariant());          // classRef
     params.append(App::FolderDragItem); // type
 
     m_functionTree->addItem(fName, params, basePath, TreeModel::EmptyNode | TreeModel::Expanded);
@@ -1077,7 +1102,7 @@ void FunctionManager::deleteSelectedFolders()
         }
         else
         {
-            for (Function *func : m_doc->functions())
+            for (Function* func : m_doc->functions())
             {
                 if (func == nullptr)
                     continue;
@@ -1100,11 +1125,11 @@ void FunctionManager::deleteSelectedFolders()
 
 quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
 {
-    Fixture *fixture = m_doc->fixture(fxID);
+    Fixture* fixture = m_doc->fixture(fxID);
     if (fixture == nullptr)
         return 0;
 
-    const QLCChannel *ch = fixture->channel(channel);
+    const QLCChannel* ch = fixture->channel(channel);
     if (ch == nullptr)
         return 0;
 
@@ -1125,13 +1150,13 @@ quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
     return chTypeBit;
 }
 
-void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
-                                     quint32 channelMask, QString name)
+void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, quint32 channelMask,
+                                     QString name)
 {
     if (dumpValues.isEmpty() || channelMask == 0)
         return;
 
-    Scene *newScene = new Scene(m_doc);
+    Scene* newScene = new Scene(m_doc);
 
     for (SceneValue sv : dumpValues)
     {
@@ -1152,20 +1177,21 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
     if (m_doc->addFunction(newScene) == true)
     {
         setPreviewEnabled(false);
-        Tardis::instance()->enqueueAction(Tardis::FunctionCreate, newScene->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
+        Tardis::instance()->enqueueAction(
+            Tardis::FunctionCreate, newScene->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
     }
     else
         delete newScene;
 }
 
-void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
-                                  quint32 channelMask, quint32 sceneID)
+void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, quint32 channelMask,
+                                  quint32 sceneID)
 {
     if (dumpValues.isEmpty() || channelMask == 0)
         return;
 
-    Scene *scene = qobject_cast<Scene *>(m_doc->function(sceneID));
+    Scene* scene = qobject_cast<Scene*>(m_doc->function(sceneID));
 
     if (scene == nullptr)
         return;
@@ -1194,7 +1220,7 @@ void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> s
 
 void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
 {
-    FunctionEditor *editor = m_currentEditor;
+    FunctionEditor* editor = m_currentEditor;
     SceneValue scv(fxID, channel, value);
     QVariant currentVal, newVal;
 
@@ -1203,14 +1229,14 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 
     if (editor->functionType() == Function::SequenceType)
     {
-        ChaserEditor *cEditor = qobject_cast<ChaserEditor *>(editor);
+        ChaserEditor* cEditor = qobject_cast<ChaserEditor*>(editor);
         cEditor->setSequenceStepValue(scv);
         editor = m_sceneEditor;
     }
 
     if (editor->functionType() == Function::SceneType)
     {
-        Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
+        Scene* scene = qobject_cast<Scene*>(m_doc->function(editor->functionID()));
         if (scene == nullptr)
             return;
 
@@ -1235,7 +1261,7 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
     }
 }
 
-void FunctionManager::addFunctionTreeItem(Function *func)
+void FunctionManager::addFunctionTreeItem(Function* func)
 {
     if (func == nullptr || func->isVisible() == false)
         return;
@@ -1249,26 +1275,46 @@ void FunctionManager::addFunctionTreeItem(Function *func)
     {
         QVariantList params;
         params.append(QVariant::fromValue(func)); // classRef
-        params.append(App::FunctionDragItem); // type
+        params.append(App::FunctionDragItem);     // type
         QString fPath = func->path(true).replace("/", TreeModel::separator());
-        TreeModelItem *item = m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
+        TreeModelItem* item = m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
         if (m_selectedIDList.contains(QVariant(func->id())))
             item->setFlag(TreeModel::Selected, true);
     }
 
     switch (func->type())
     {
-        case Function::SceneType: m_sceneCount++; break;
-        case Function::ChaserType: m_chaserCount++; break;
-        case Function::SequenceType: m_sequenceCount++; break;
-        case Function::EFXType: m_efxCount++; break;
-        case Function::CollectionType: m_collectionCount++; break;
-        case Function::RGBMatrixType: m_rgbMatrixCount++; break;
-        case Function::ScriptType: m_scriptCount++; break;
-        case Function::ShowType: m_showCount++; break;
-        case Function::AudioType: m_audioCount++; break;
-        case Function::VideoType: m_videoCount++; break;
-        default:
+    case Function::SceneType:
+        m_sceneCount++;
+        break;
+    case Function::ChaserType:
+        m_chaserCount++;
+        break;
+    case Function::SequenceType:
+        m_sequenceCount++;
+        break;
+    case Function::EFXType:
+        m_efxCount++;
+        break;
+    case Function::CollectionType:
+        m_collectionCount++;
+        break;
+    case Function::RGBMatrixType:
+        m_rgbMatrixCount++;
+        break;
+    case Function::ScriptType:
+        m_scriptCount++;
+        break;
+    case Function::ShowType:
+        m_showCount++;
+        break;
+    case Function::AudioType:
+        m_audioCount++;
+        break;
+    case Function::VideoType:
+        m_videoCount++;
+        break;
+    default:
         break;
     }
 }
@@ -1283,7 +1329,7 @@ void FunctionManager::updateFunctionsTree()
 
     m_functionTree->clear();
 
-    for (Function *func : m_doc->functions()) // C++11
+    for (Function* func : m_doc->functions()) // C++11
     {
         QString fPath = func->path(true);
         if (pathsList.contains(fPath) == false)
@@ -1292,7 +1338,7 @@ void FunctionManager::updateFunctionsTree()
     }
 
     QVariantList folderParams;
-    folderParams.append(QVariant()); // classRef
+    folderParams.append(QVariant());          // classRef
     folderParams.append(App::FolderDragItem); // type
 
     for (QString path : pathsList)
@@ -1314,7 +1360,7 @@ void FunctionManager::updateFunctionsTree()
         m_functionTree->addItem(fName, folderParams, basePath, TreeModel::EmptyNode | TreeModel::Expanded);
     }
 
-    //m_functionTree->printTree(); // enable for debug purposes
+    // m_functionTree->printTree(); // enable for debug purposes
 
     emit sceneCountChanged();
     emit chaserCountChanged();
@@ -1341,8 +1387,6 @@ void FunctionManager::slotFunctionAdded(quint32 fid)
     if (m_doc->loadStatus() == Doc::Loading)
         return;
 
-    Function *func = m_doc->function(fid);
+    Function* func = m_doc->function(fid);
     addFunctionTreeItem(func);
 }
-
-

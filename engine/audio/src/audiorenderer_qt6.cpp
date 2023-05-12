@@ -26,7 +26,7 @@
 #include "audiorenderer_qt6.h"
 #include "audioplugincache.h"
 
-AudioRendererQt6::AudioRendererQt6(QString device, Doc *doc, QObject *parent)
+AudioRendererQt6::AudioRendererQt6(QString device, Doc* doc, QObject* parent)
     : AudioRenderer(parent)
     , m_audioSink(NULL)
     , m_output(NULL)
@@ -61,23 +61,23 @@ bool AudioRendererQt6::initialize(quint32 freq, int chan, AudioFormat format)
 {
     m_format.setChannelCount(chan);
     m_format.setSampleRate(freq);
-    //m_format.setCodec("audio/pcm");
+    // m_format.setCodec("audio/pcm");
 
     switch (format)
     {
-        case PCM_S8:
-            m_format.setSampleFormat(QAudioFormat::UInt8);
+    case PCM_S8:
+        m_format.setSampleFormat(QAudioFormat::UInt8);
         break;
-        case PCM_S16LE:
-        case PCM_S24LE:
-            m_format.setSampleFormat(QAudioFormat::Int16);
+    case PCM_S16LE:
+    case PCM_S24LE:
+        m_format.setSampleFormat(QAudioFormat::Int16);
         break;
-        case PCM_S32LE:
-            m_format.setSampleFormat(QAudioFormat::Int32);
+    case PCM_S32LE:
+        m_format.setSampleFormat(QAudioFormat::Int32);
         break;
-        default:
-            qWarning("AudioRendererQt6: unsupported format detected");
-            return false;
+    default:
+        qWarning("AudioRendererQt6: unsupported format detected");
+        return false;
     }
 
     if (!m_deviceInfo.isFormatSupported(m_format))
@@ -100,16 +100,16 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
     QStringList outDevs, inDevs;
 
     // create a preliminary list of input devices only
-    foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioInputs())
+    foreach (const QAudioDevice& deviceInfo, QMediaDevices::audioInputs())
         inDevs.append(deviceInfo.description());
 
     // loop through output devices and check if they're input devices too
-    foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioOutputs())
+    foreach (const QAudioDevice& deviceInfo, QMediaDevices::audioOutputs())
     {
         outDevs.append(deviceInfo.description());
         AudioDeviceInfo info;
         info.deviceName = deviceInfo.description();
-        info.privateName = deviceInfo.description(); //QString::number(i);
+        info.privateName = deviceInfo.description(); // QString::number(i);
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_OUTPUT;
         if (inDevs.contains(deviceInfo.description()))
@@ -121,11 +121,11 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
     }
 
     // add the devices left in the input list. These don't have output capabilities
-    foreach(QString dev, inDevs)
+    foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;
-        info.privateName = dev; //QString::number(i);
+        info.privateName = dev; // QString::number(i);
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_INPUT;
         devList.append(info);
@@ -134,20 +134,20 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererQt6::writeAudio(unsigned char *data, qint64 maxSize)
+qint64 AudioRendererQt6::writeAudio(unsigned char* data, qint64 maxSize)
 {
     qsizetype bFree = m_audioSink->bytesFree();
 
     if (m_audioSink == NULL || bFree < maxSize)
         return 0;
 
-    //qDebug() << "writeAudio called !! - " << maxSize << m_outputBuffer.length() << bFree;
+    // qDebug() << "writeAudio called !! - " << maxSize << m_outputBuffer.length() << bFree;
 
-    m_outputBuffer.append((char *)data, maxSize);
+    m_outputBuffer.append((char*)data, maxSize);
 
     if (m_outputBuffer.length() >= bFree)
     {
-       qint64 written = m_output->write(m_outputBuffer.data(), bFree);
+        qint64 written = m_output->write(m_outputBuffer.data(), bFree);
 
         if (written != bFree)
             qDebug() << "[writeAudio] expexcted to write" << bFree << "but wrote" << written;

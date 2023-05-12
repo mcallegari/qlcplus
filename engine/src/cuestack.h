@@ -41,11 +41,11 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCCueStack              QString("CueStack")
-#define KXMLQLCCueStackID            QString("ID")
-#define KXMLQLCCueStackSpeed         QString("Speed")
-#define KXMLQLCCueStackSpeedFadeIn   QString("FadeIn")
-#define KXMLQLCCueStackSpeedFadeOut  QString("FadeOut")
+#define KXMLQLCCueStack QString("CueStack")
+#define KXMLQLCCueStackID QString("ID")
+#define KXMLQLCCueStackSpeed QString("Speed")
+#define KXMLQLCCueStackSpeedFadeIn QString("FadeIn")
+#define KXMLQLCCueStackSpeedFadeOut QString("FadeOut")
 #define KXMLQLCCueStackSpeedDuration QString("Duration")
 
 class CueStack : public QObject, public DMXSource
@@ -176,10 +176,10 @@ public:
     void removeCue(int index);
 
     /** Remove cues from the given $indexes */
-    void removeCues(const QList <int>& indexes);
+    void removeCues(const QList<int>& indexes);
 
     /** Get a list of all cues */
-    QList <Cue> cues() const;
+    QList<Cue> cues() const;
 
 signals:
     void added(int index);
@@ -187,16 +187,16 @@ signals:
     void changed(int index);
 
 private:
-    QList <Cue> m_cues;
+    QList<Cue> m_cues;
     QMutex m_mutex;
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
-    static uint loadXMLID(QXmlStreamReader &root);
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc, uint id) const;
+    static uint loadXMLID(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc, uint id) const;
 
     /************************************************************************
      * Running
@@ -232,7 +232,7 @@ public:
     void setFlashing(bool enable);
     bool isFlashing() const;
 
-    void writeDMX(MasterTimer* timer, QList<Universe *> ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 private:
     bool m_flashing;
@@ -244,19 +244,19 @@ public:
     bool isStarted() const;
 
     void preRun();
-    void write(QList<Universe *> ua);
-    void postRun(MasterTimer *timer, QList<Universe *> ua);
+    void write(QList<Universe*> ua);
+    void postRun(MasterTimer* timer, QList<Universe*> ua);
 
 private:
     int next();
     int previous();
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
-    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
-    void switchCue(int from, int to, const QList<Universe *> ua);
+    FadeChannel* getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    void updateFaderValues(FadeChannel* fc, uchar value, uint fadeTime);
+    void switchCue(int from, int to, const QList<Universe*> ua);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
     uint m_elapsed;
     bool m_previous;
     bool m_next;

@@ -320,7 +320,7 @@ void ChaserRunner_Test::currentDuration()
     QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3200));
     cr.m_lastRunStepIdx = 2;
     QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3400));
-    cr.m_lastRunStepIdx = 3; // Nonexistent step
+    cr.m_lastRunStepIdx = 3;                                     // Nonexistent step
     QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300)); // Fall back to common speed
 
     // Check that override speed really overrides any setting

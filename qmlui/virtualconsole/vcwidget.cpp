@@ -26,13 +26,13 @@
 #include "tardis.h"
 #include "doc.h"
 
-VCWidget::VCWidget(Doc *doc, QObject *parent)
+VCWidget::VCWidget(Doc* doc, QObject* parent)
     : QObject(parent)
     , m_doc(doc)
     , m_item(nullptr)
     , m_id(invalidId())
     , m_type(UnknownWidget)
-    , m_geometry(QRect(0,0,0,0))
+    , m_geometry(QRect(0, 0, 0, 0))
     , m_scaleFactor(1.0)
     , m_allowResize(true)
     , m_isDisabled(false)
@@ -52,9 +52,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     m_font = QFont("Roboto Condensed");
 }
 
-VCWidget::~VCWidget()
-{
-}
+VCWidget::~VCWidget() {}
 
 void VCWidget::setDocModified()
 {
@@ -68,11 +66,9 @@ void VCWidget::setupLookAndFeel(qreal pixelDensity, int page)
     setPage(page);
 }
 
-void VCWidget::render(QQuickView *, QQuickItem *)
-{
-}
+void VCWidget::render(QQuickView*, QQuickItem*) {}
 
-QQuickItem *VCWidget::renderItem() const
+QQuickItem* VCWidget::renderItem() const
 {
     return m_item;
 }
@@ -82,11 +78,11 @@ void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
     if (Tardis::instance() == nullptr)
         return;
 
-    Tardis *tardis = Tardis::instance();
+    Tardis* tardis = Tardis::instance();
     tardis->enqueueAction(code, id(), oldVal, newVal);
 }
 
-VCWidget *VCWidget::createCopy(VCWidget *parent)
+VCWidget* VCWidget::createCopy(VCWidget* parent)
 {
     Q_UNUSED(parent)
     return nullptr;
@@ -125,7 +121,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     }
 
     QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -181,20 +177,31 @@ QString VCWidget::typeToString(int type)
 {
     switch (type)
     {
-        case ButtonWidget: return QString(tr("Button"));
-        case SliderWidget: return QString(tr("Slider"));
-        case FrameWidget: return QString(tr("Frame"));
-        case SoloFrameWidget: return QString(tr("Solo Frame"));
-        case SpeedDialWidget: return QString(tr("Speed Dial"));
-        case XYPadWidget: return QString(tr("XY Pad"));
-        case CueListWidget: return QString(tr("Cue list"));
-        case LabelWidget: return QString(tr("Label"));
-        case AudioTriggersWidget: return QString(tr("Audio Triggers"));
-        case AnimationWidget: return QString(tr("Animation"));
-        case ClockWidget: return QString(tr("Clock"));
-        case UnknownWidget:
-        default:
-             return QString(tr("Unknown"));
+    case ButtonWidget:
+        return QString(tr("Button"));
+    case SliderWidget:
+        return QString(tr("Slider"));
+    case FrameWidget:
+        return QString(tr("Frame"));
+    case SoloFrameWidget:
+        return QString(tr("Solo Frame"));
+    case SpeedDialWidget:
+        return QString(tr("Speed Dial"));
+    case XYPadWidget:
+        return QString(tr("XY Pad"));
+    case CueListWidget:
+        return QString(tr("Cue list"));
+    case LabelWidget:
+        return QString(tr("Label"));
+    case AudioTriggersWidget:
+        return QString(tr("Audio Triggers"));
+    case AnimationWidget:
+        return QString(tr("Animation"));
+    case ClockWidget:
+        return QString(tr("Clock"));
+    case UnknownWidget:
+    default:
+        return QString(tr("Unknown"));
     }
     return QString(tr("Unknown"));
 }
@@ -203,38 +210,61 @@ QString VCWidget::typeToIcon(int type)
 {
     switch (type)
     {
-        case ButtonWidget: return QString("qrc:/button.svg");
-        case SliderWidget: return QString("qrc:/slider.svg");
-        case FrameWidget: return QString("qrc:/frame.svg");
-        case SoloFrameWidget: return QString("qrc:/soloframe.svg");
-        case SpeedDialWidget: return QString("qrc:/speed.svg");
-        case XYPadWidget: return QString("qrc:/xypad.svg");
-        case CueListWidget: return QString("qrc:/cuelist.svg");
-        case LabelWidget: return QString("qrc:/label.svg");
-        case AudioTriggersWidget: return QString("qrc:/audioinput.svg");
-        case AnimationWidget: return QString("qrc:/rgbmatrix.svg");
-        case ClockWidget: return QString("qrc:/clock.svg");
-        case UnknownWidget:
-        default:
-             return QString("qrc:/virtualconsole.svg");
+    case ButtonWidget:
+        return QString("qrc:/button.svg");
+    case SliderWidget:
+        return QString("qrc:/slider.svg");
+    case FrameWidget:
+        return QString("qrc:/frame.svg");
+    case SoloFrameWidget:
+        return QString("qrc:/soloframe.svg");
+    case SpeedDialWidget:
+        return QString("qrc:/speed.svg");
+    case XYPadWidget:
+        return QString("qrc:/xypad.svg");
+    case CueListWidget:
+        return QString("qrc:/cuelist.svg");
+    case LabelWidget:
+        return QString("qrc:/label.svg");
+    case AudioTriggersWidget:
+        return QString("qrc:/audioinput.svg");
+    case AnimationWidget:
+        return QString("qrc:/rgbmatrix.svg");
+    case ClockWidget:
+        return QString("qrc:/clock.svg");
+    case UnknownWidget:
+    default:
+        return QString("qrc:/virtualconsole.svg");
     }
     return QString("qrc:/virtualconsole.svg");
 }
 
 VCWidget::WidgetType VCWidget::stringToType(QString str)
 {
-    if (str == "Button") return ButtonWidget;
-    else if (str == "Slider") return SliderWidget;
-    else if (str == "Knob") return SliderWidget;
-    else if (str == "XYPad") return XYPadWidget;
-    else if (str == "Frame") return FrameWidget;
-    else if (str == "Solo frame") return SoloFrameWidget;
-    else if (str == "Speed dial") return SpeedDialWidget;
-    else if (str == "Cue list") return CueListWidget;
-    else if (str == "Label") return LabelWidget;
-    else if (str == "Audio Triggers") return AudioTriggersWidget;
-    else if (str == "Animation") return AnimationWidget;
-    else if (str == "Clock") return ClockWidget;
+    if (str == "Button")
+        return ButtonWidget;
+    else if (str == "Slider")
+        return SliderWidget;
+    else if (str == "Knob")
+        return SliderWidget;
+    else if (str == "XYPad")
+        return XYPadWidget;
+    else if (str == "Frame")
+        return FrameWidget;
+    else if (str == "Solo frame")
+        return SoloFrameWidget;
+    else if (str == "Speed dial")
+        return SpeedDialWidget;
+    else if (str == "Cue list")
+        return CueListWidget;
+    else if (str == "Label")
+        return LabelWidget;
+    else if (str == "Audio Triggers")
+        return AudioTriggersWidget;
+    else if (str == "Animation")
+        return AnimationWidget;
+    else if (str == "Clock")
+        return ClockWidget;
 
     return UnknownWidget;
 }
@@ -245,14 +275,14 @@ VCWidget::WidgetType VCWidget::stringToType(QString str)
 
 QRectF VCWidget::geometry() const
 {
-    return QRectF(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor,
-                  m_geometry.width() * m_scaleFactor, m_geometry.height() * m_scaleFactor);
+    return QRectF(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor, m_geometry.width() * m_scaleFactor,
+                  m_geometry.height() * m_scaleFactor);
 }
 
 void VCWidget::setGeometry(QRectF rect)
 {
-    QRectF scaled = QRectF(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor,
-                           rect.width() / m_scaleFactor, rect.height() / m_scaleFactor);
+    QRectF scaled = QRectF(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor, rect.width() / m_scaleFactor,
+                           rect.height() / m_scaleFactor);
 
     if (m_geometry == scaled)
         return;
@@ -513,7 +543,7 @@ int VCWidget::page()
 
 bool VCWidget::hasSoloParent()
 {
-    VCWidget *wParent = qobject_cast<VCWidget*>(parent());
+    VCWidget* wParent = qobject_cast<VCWidget*>(parent());
 
     if (wParent == nullptr || wParent == this)
         return false;
@@ -527,7 +557,7 @@ bool VCWidget::hasSoloParent()
     return false;
 }
 
-void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
+void VCWidget::notifyFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity)
 {
     Q_UNUSED(widget)
     Q_UNUSED(fid);
@@ -538,12 +568,12 @@ void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
  * Intensity
  *********************************************************************/
 
-void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
+void VCWidget::adjustFunctionIntensity(Function* f, qreal value)
 {
     if (f == nullptr)
         return;
 
-    //qDebug() << "adjustFunctionIntensity" << caption() << "value" << value;
+    // qDebug() << "adjustFunctionIntensity" << caption() << "value" << value;
 
     if (m_intensityOverrideId == Function::invalidAttributeId())
         m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
@@ -620,7 +650,7 @@ QVariant VCWidget::externalControlsList() const
     QVariantList controlsList;
 
     QMapIterator<quint8, ExternalControlInfo> it(m_externalControlList);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         ExternalControlInfo info = it.value();
@@ -712,7 +742,7 @@ void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
     }
 }
 
-QList<QSharedPointer<QLCInputSource> > VCWidget::inputSources() const
+QList<QSharedPointer<QLCInputSource>> VCWidget::inputSources() const
 {
     return m_inputSources;
 }
@@ -737,10 +767,10 @@ QVariantList VCWidget::inputSourcesList()
             chName = tr("None");
         }
 
-        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+        InputPatch* ip = m_doc->inputOutputMap()->inputPatch(source->universe());
         if (ip != nullptr && ip->profile() != nullptr)
         {
-            QLCInputChannel *ich = ip->profile()->channel(source->channel());
+            QLCInputChannel* ich = ip->profile()->channel(source->channel());
             if (ich != nullptr && ich->type() == QLCInputChannel::Button)
             {
                 min = ich->lowerValue();
@@ -765,7 +795,7 @@ QVariantList VCWidget::inputSourcesList()
     }
 
     QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -832,7 +862,7 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
 
         QString chName = QString();
 
-        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+        InputPatch* ip = m_doc->inputOutputMap()->inputPatch(source->universe());
         if (ip != nullptr)
         {
             QLCInputProfile* profile = ip->profile();
@@ -856,7 +886,7 @@ void VCWidget::updateFeedback()
  * Key sequences
  *********************************************************************/
 
-void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id)
+void VCWidget::addKeySequence(const QKeySequence& keySequence, const quint32& id)
 {
     m_keySequenceMap[keySequence] = id;
     setDocModified();
@@ -864,7 +894,7 @@ void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id
     emit inputSourcesListChanged();
 }
 
-void VCWidget::deleteKeySequence(const QKeySequence &keySequence)
+void VCWidget::deleteKeySequence(const QKeySequence& keySequence)
 {
     m_keySequenceMap.remove(keySequence);
     setDocModified();
@@ -890,7 +920,7 @@ void VCWidget::updateKeySequence(QKeySequence oldSequence, QKeySequence newSeque
 void VCWidget::updateKeySequenceControlID(QKeySequence sequence, quint32 id)
 {
     m_keySequenceMap[sequence] = id;
-    //emit inputSourcesListChanged();
+    // emit inputSourcesListChanged();
 }
 
 QMap<QKeySequence, quint32> VCWidget::keySequenceMap() const
@@ -902,19 +932,19 @@ QMap<QKeySequence, quint32> VCWidget::keySequenceMap() const
  * Load & Save
  *****************************************************************************/
 
-bool VCWidget::loadXML(QXmlStreamReader &root)
+bool VCWidget::loadXML(QXmlStreamReader& root)
 {
     Q_UNUSED(root)
     return false;
 }
 
-bool VCWidget::saveXML(QXmlStreamWriter *doc)
+bool VCWidget::saveXML(QXmlStreamWriter* doc)
 {
     Q_UNUSED(doc)
     return false;
 }
 
-bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
+bool VCWidget::loadXMLCommon(QXmlStreamReader& root)
 {
     if (root.device() == nullptr || root.hasError())
         return false;
@@ -936,7 +966,7 @@ bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
     return true;
 }
 
-bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
+bool VCWidget::loadXMLAppearance(QXmlStreamReader& root)
 {
     if (root.device() == nullptr || root.hasError())
         return false;
@@ -995,11 +1025,9 @@ bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
     return true;
 }
 
-bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
-                                  int* w, int* h, bool* visible)
+bool VCWidget::loadXMLWindowState(QXmlStreamReader& root, int* x, int* y, int* w, int* h, bool* visible)
 {
-    if (root.device() == nullptr || x == nullptr || y == nullptr || w == nullptr || h == nullptr ||
-            visible == nullptr)
+    if (root.device() == nullptr || x == nullptr || y == nullptr || w == nullptr || h == nullptr || visible == nullptr)
         return false;
 
     if (root.name() == KXMLQLCWindowState)
@@ -1025,7 +1053,7 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
     }
 }
 
-bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
+bool VCWidget::loadXMLInputSource(QXmlStreamReader& root, const quint8& id)
 {
     if (root.device() == nullptr || root.hasError())
         return false;
@@ -1039,7 +1067,7 @@ bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
     quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
     uchar min = 0, max = UCHAR_MAX;
 
-    QSharedPointer<QLCInputSource>inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+    QSharedPointer<QLCInputSource> inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     inputSource->setID(id);
 
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
@@ -1056,7 +1084,7 @@ bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
     return true;
 }
 
-bool VCWidget::loadXMLInputKey(QXmlStreamReader &root, const quint8 &id)
+bool VCWidget::loadXMLInputKey(QXmlStreamReader& root, const quint8& id)
 {
     if (root.device() == nullptr || root.hasError())
         return false;
@@ -1076,7 +1104,7 @@ bool VCWidget::loadXMLInputKey(QXmlStreamReader &root, const quint8 &id)
     return true;
 }
 
-bool VCWidget::loadXMLSources(QXmlStreamReader &root, const quint8 &id)
+bool VCWidget::loadXMLSources(QXmlStreamReader& root, const quint8& id)
 {
     while (root.readNextStartElement())
     {
@@ -1097,7 +1125,7 @@ bool VCWidget::loadXMLSources(QXmlStreamReader &root, const quint8 &id)
     return true;
 }
 
-bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLCommon(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1115,17 +1143,16 @@ bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLAppearance(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != nullptr);
 
     QString str;
 
-    if (hasCustomForegroundColor() == false &&
-        hasCustomBackgroundColor() == false &&
-        //backgroundImage().isEmpty() &&
+    if (hasCustomForegroundColor() == false && hasCustomBackgroundColor() == false &&
+        // backgroundImage().isEmpty() &&
         hasCustomFont() == false)
-            return true;
+        return true;
 
     /* VC widget appearance entry */
     doc->writeStartElement(KXMLQLCVCWidgetAppearance);
@@ -1134,8 +1161,8 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     if (hasCustomForegroundColor() == true)
     {
         str.setNum(foregroundColor().rgb());
-    //else
-    //    str = KXMLQLCVCWidgetColorDefault;
+        // else
+        //     str = KXMLQLCVCWidgetColorDefault;
         doc->writeTextElement(KXMLQLCVCWidgetForegroundColor, str);
     }
 
@@ -1143,24 +1170,23 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     if (hasCustomBackgroundColor() == true)
     {
         str.setNum(backgroundColor().rgb());
-    //else
-    //    str = KXMLQLCVCWidgetColorDefault;
+        // else
+        //     str = KXMLQLCVCWidgetColorDefault;
         doc->writeTextElement(KXMLQLCVCWidgetBackgroundColor, str);
     }
 
     /* Background image */
     if (backgroundImage().isEmpty() == false)
     {
-        doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage,
-                              m_doc->normalizeComponentPath(m_backgroundImage));
+        doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage, m_doc->normalizeComponentPath(m_backgroundImage));
     }
 
     /* Font */
     if (hasCustomFont() == true)
     {
         str = font().toString();
-    //else
-    //    str = KXMLQLCVCWidgetFontDefault;
+        // else
+        //     str = KXMLQLCVCWidgetFontDefault;
         doc->writeTextElement(KXMLQLCVCWidgetFont, str);
     }
 
@@ -1170,7 +1196,7 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLWindowState(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1195,7 +1221,7 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName)
+bool VCWidget::saveXMLInputControl(QXmlStreamWriter* doc, quint8 controlId, QString tagName)
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1247,4 +1273,3 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
 
     return true;
 }
-

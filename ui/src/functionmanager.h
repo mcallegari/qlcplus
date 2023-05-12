@@ -81,7 +81,6 @@ protected:
      * Function tree
      *********************************************************************/
 public:
-
     /** Select the function with the given ID */
     void selectFunction(quint32 id);
 

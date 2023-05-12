@@ -28,15 +28,15 @@
 #include "scenevalue.h"
 #include "doc.h"
 
-#define KXMLQLCPaletteType      "Type"
-#define KXMLQLCPaletteName      "Name"
-#define KXMLQLCPaletteValue     "Value"
-#define KXMLQLCPaletteFanning   "Fan"
+#define KXMLQLCPaletteType "Type"
+#define KXMLQLCPaletteName "Name"
+#define KXMLQLCPaletteValue "Value"
+#define KXMLQLCPaletteFanning "Fan"
 #define KXMLQLCPaletteFanLayout "Layout"
 #define KXMLQLCPaletteFanAmount "Amount"
-#define KXMLQLCPaletteFanValue  "FanValue"
+#define KXMLQLCPaletteFanValue "FanValue"
 
-QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
+QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject* parent)
     : QObject(parent)
     , m_id(QLCPalette::invalidId())
     , m_type(type)
@@ -46,9 +46,9 @@ QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
 {
 }
 
-QLCPalette *QLCPalette::createCopy()
+QLCPalette* QLCPalette::createCopy()
 {
-    QLCPalette *copy = new QLCPalette(type());
+    QLCPalette* copy = new QLCPalette(type());
     copy->setValues(this->values());
     copy->setName(this->name());
     copy->setFanningType(this->fanningType());
@@ -59,10 +59,7 @@ QLCPalette *QLCPalette::createCopy()
     return copy;
 }
 
-QLCPalette::~QLCPalette()
-{
-
-}
+QLCPalette::~QLCPalette() {}
 
 /************************************************************************
  * Properties
@@ -92,20 +89,28 @@ QString QLCPalette::typeToString(QLCPalette::PaletteType type)
 {
     switch (type)
     {
-        case Dimmer:    return "Dimmer";
-        case Color:     return "Color";
-        case Pan:       return "Pan";
-        case Tilt:      return "Tilt";
-        case PanTilt:   return "PanTilt";
-        case Shutter:   return "Shutter";
-        case Gobo:      return "Gobo";
-        case Undefined: return "";
+    case Dimmer:
+        return "Dimmer";
+    case Color:
+        return "Color";
+    case Pan:
+        return "Pan";
+    case Tilt:
+        return "Tilt";
+    case PanTilt:
+        return "PanTilt";
+    case Shutter:
+        return "Shutter";
+    case Gobo:
+        return "Gobo";
+    case Undefined:
+        return "";
     }
 
     return "";
 }
 
-QLCPalette::PaletteType QLCPalette::stringToType(const QString &str)
+QLCPalette::PaletteType QLCPalette::stringToType(const QString& str)
 {
     if (str == "Dimmer")
         return Dimmer;
@@ -130,16 +135,24 @@ QString QLCPalette::iconResource(bool svg) const
     QString prefix = svg ? "qrc" : "";
     QString ext = svg ? "svg" : "png";
 
-    switch(type())
+    switch (type())
     {
-        case Dimmer: return QString("%1:/intensity.%2").arg(prefix).arg(ext);
-        case Color: return QString("%1:/color.%2").arg(prefix).arg(ext);
-        case Pan: return QString("%1:/pan.%2").arg(prefix).arg(ext);
-        case Tilt: return QString("%1:/tilt.%2").arg(prefix).arg(ext);
-        case PanTilt: return QString("%1:/position.%2").arg(prefix).arg(ext);
-        case Shutter: return QString("%1:/shutter.%2").arg(prefix).arg(ext);
-        case Gobo: return QString("%1:/gobo.%2").arg(prefix).arg(ext);
-        default: return "";
+    case Dimmer:
+        return QString("%1:/intensity.%2").arg(prefix).arg(ext);
+    case Color:
+        return QString("%1:/color.%2").arg(prefix).arg(ext);
+    case Pan:
+        return QString("%1:/pan.%2").arg(prefix).arg(ext);
+    case Tilt:
+        return QString("%1:/tilt.%2").arg(prefix).arg(ext);
+    case PanTilt:
+        return QString("%1:/position.%2").arg(prefix).arg(ext);
+    case Shutter:
+        return QString("%1:/shutter.%2").arg(prefix).arg(ext);
+    case Gobo:
+        return QString("%1:/gobo.%2").arg(prefix).arg(ext);
+    default:
+        return "";
     }
 }
 
@@ -148,7 +161,7 @@ QString QLCPalette::name() const
     return m_name;
 }
 
-void QLCPalette::setName(const QString &name)
+void QLCPalette::setName(const QString& name)
 {
     if (name == m_name)
         return;
@@ -239,7 +252,7 @@ void QLCPalette::resetValues()
     m_values.clear();
 }
 
-QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtures)
+QList<SceneValue> QLCPalette::valuesFromFixtures(Doc* doc, QList<quint32> fixtures)
 {
     QList<SceneValue> list;
 
@@ -249,41 +262,48 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
     int intFanValue = fanningValue().toInt();
     FanningType fType = fanningType();
     FanningLayout fLayout = fanningLayout();
-    MonitorProperties *mProps = doc->monitorProperties();
+    MonitorProperties* mProps = doc->monitorProperties();
 
     // sort the fixtures list based on selected layout
     std::sort(fixtures.begin(), fixtures.end(),
-        [fLayout, mProps](quint32 a, quint32 b) {
-            QVector3D posA = mProps->fixturePosition(a, 0, 0);
-            QVector3D posB = mProps->fixturePosition(b, 0, 0);
+              [fLayout, mProps](quint32 a, quint32 b)
+              {
+                  QVector3D posA = mProps->fixturePosition(a, 0, 0);
+                  QVector3D posB = mProps->fixturePosition(b, 0, 0);
 
-            switch(fLayout)
-            {
-                case XAscending: return posA.x() < posB.x();
-                case XDescending: return posB.x() < posA.x();
-                case YAscending: return posA.y() < posB.y();
-                case YDescending: return posB.y() < posA.y();
-                case ZAscending: return posA.z() < posB.z();
-                case ZDescending: return posB.z() < posA.z();
-                default: return false;
-            }
-        });
+                  switch (fLayout)
+                  {
+                  case XAscending:
+                      return posA.x() < posB.x();
+                  case XDescending:
+                      return posB.x() < posA.x();
+                  case YAscending:
+                      return posA.y() < posB.y();
+                  case YDescending:
+                      return posB.y() < posA.y();
+                  case ZAscending:
+                      return posA.z() < posB.z();
+                  case ZDescending:
+                      return posB.z() < posA.z();
+                  default:
+                      return false;
+                  }
+              });
 
     foreach (quint32 id, fixtures)
     {
-        Fixture *fixture = doc->fixture(id);
+        Fixture* fixture = doc->fixture(id);
         if (fixture == NULL)
             continue;
 
         qreal factor = valueFactor(progress);
 
-        switch(type())
+        switch (type())
         {
-            case Dimmer:
+        case Dimmer:
             {
                 int dValue = value().toInt();
-                quint32 intCh = fixture->type() == QLCFixtureDef::Dimmer ?
-                            0 : fixture->masterIntensityChannel();
+                quint32 intCh = fixture->type() == QLCFixtureDef::Dimmer ? 0 : fixture->masterIntensityChannel();
 
                 if (intCh != QLCChannel::invalid())
                 {
@@ -294,7 +314,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 }
             }
             break;
-            case Color:
+        case Color:
             {
                 QColor startColor = value().value<QColor>();
                 QColor col = startColor;
@@ -329,7 +349,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 }
             }
             break;
-            case Pan:
+        case Pan:
             {
                 int degrees = value().toInt();
 
@@ -339,7 +359,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 list << fixture->positionToValues(QLCChannel::Pan, degrees);
             }
             break;
-            case Tilt:
+        case Tilt:
             {
                 int degrees = m_values.count() == 2 ? m_values.at(1).toInt() : value().toInt();
 
@@ -349,7 +369,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 list << fixture->positionToValues(QLCChannel::Tilt, degrees);
             }
             break;
-            case PanTilt:
+        case PanTilt:
             {
                 if (m_values.count() == 2)
                 {
@@ -367,21 +387,21 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 }
             }
             break;
-            case Shutter:
+        case Shutter:
             {
                 quint32 shCh = fixture->channelNumber(QLCChannel::Shutter, QLCChannel::MSB);
                 if (shCh != QLCChannel::invalid())
                     list << SceneValue(id, shCh, uchar(value().toUInt()));
             }
             break;
-            case Gobo:
+        case Gobo:
             {
                 quint32 goboCh = fixture->channelNumber(QLCChannel::Gobo, QLCChannel::MSB);
                 if (goboCh != QLCChannel::invalid())
                     list << SceneValue(id, goboCh, uchar(value().toUInt()));
             }
             break;
-            case Undefined:
+        case Undefined:
             break;
         }
 
@@ -391,13 +411,13 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
     return list;
 }
 
-QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> groups)
+QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc* doc, QList<quint32> groups)
 {
     QList<quint32> fixturesList;
 
     foreach (quint32 id, groups)
     {
-        FixtureGroup *group = doc->fixtureGroup(id);
+        FixtureGroup* group = doc->fixtureGroup(id);
         if (group == NULL)
             continue;
 
@@ -414,10 +434,10 @@ qreal QLCPalette::valueFactor(qreal progress)
 
     switch (m_fanningType)
     {
-        case Flat:
-            // nothing to do. Factor is always 1.0
+    case Flat:
+        // nothing to do. Factor is always 1.0
         break;
-        case Linear:
+    case Linear:
         {
             if (normalizedAmount < 1.0)
             {
@@ -436,18 +456,18 @@ qreal QLCPalette::valueFactor(qreal progress)
             }
         }
         break;
-        case Sine:
+    case Sine:
         {
             qreal degrees = (progress * 360.0) + 270.0;
             factor = (qSin(normalizedAmount * qDegreesToRadians(degrees)) + 1.0) / 2.0;
         }
         break;
-        case Square:
+    case Square:
         {
             factor = qSin(normalizedAmount * qDegreesToRadians(progress * 360.0)) < 0 ? 1 : 0;
         }
         break;
-        case Saw:
+    case Saw:
         break;
     }
 
@@ -477,17 +497,22 @@ QString QLCPalette::fanningTypeToString(QLCPalette::FanningType type)
 {
     switch (type)
     {
-        case Flat:      return "Flat";
-        case Linear:    return "Linear";
-        case Sine:      return "Sine";
-        case Square:    return "Square";
-        case Saw:       return "Saw";
+    case Flat:
+        return "Flat";
+    case Linear:
+        return "Linear";
+    case Sine:
+        return "Sine";
+    case Square:
+        return "Square";
+    case Saw:
+        return "Saw";
     }
 
     return "";
 }
 
-QLCPalette::FanningType QLCPalette::stringToFanningType(const QString &str)
+QLCPalette::FanningType QLCPalette::stringToFanningType(const QString& str)
 {
     if (str == "Flat")
         return Flat;
@@ -522,21 +547,30 @@ QString QLCPalette::fanningLayoutToString(QLCPalette::FanningLayout layout)
 {
     switch (layout)
     {
-        case XAscending:    return "XAscending";
-        case XDescending:   return "XDescending";
-        case XCentered:     return "XCentered";
-        case YAscending:    return "YAscending";
-        case YDescending:   return "YDescending";
-        case YCentered:     return "YCentered";
-        case ZAscending:    return "ZAscending";
-        case ZDescending:   return "ZDescending";
-        case ZCentered:     return "ZCentered";
+    case XAscending:
+        return "XAscending";
+    case XDescending:
+        return "XDescending";
+    case XCentered:
+        return "XCentered";
+    case YAscending:
+        return "YAscending";
+    case YDescending:
+        return "YDescending";
+    case YCentered:
+        return "YCentered";
+    case ZAscending:
+        return "ZAscending";
+    case ZDescending:
+        return "ZDescending";
+    case ZCentered:
+        return "ZCentered";
     }
 
     return "";
 }
 
-QLCPalette::FanningLayout QLCPalette::stringToFanningLayout(const QString &str)
+QLCPalette::FanningLayout QLCPalette::stringToFanningLayout(const QString& str)
 {
     if (str == "XAscending")
         return XAscending;
@@ -544,7 +578,7 @@ QLCPalette::FanningLayout QLCPalette::stringToFanningLayout(const QString &str)
         return XDescending;
     else if (str == "XCentered")
         return XCentered;
-    else     if (str == "YAscending")
+    else if (str == "YAscending")
         return YAscending;
     else if (str == "YDescending")
         return YDescending;
@@ -601,7 +635,7 @@ QString QLCPalette::colorToString(QColor rgb, QColor wauv)
     return final;
 }
 
-bool QLCPalette::stringToColor(QString str, QColor &rgb, QColor &wauv)
+bool QLCPalette::stringToColor(QString str, QColor& rgb, QColor& wauv)
 {
     // string must be like #rrggbb or #rrggbbwwaauv
     if (str.length() != 7 && str.length() != 13)
@@ -621,9 +655,9 @@ bool QLCPalette::stringToColor(QString str, QColor &rgb, QColor &wauv)
  * Load & Save
  ************************************************************************/
 
-bool QLCPalette::loader(QXmlStreamReader &xmlDoc, Doc *doc)
+bool QLCPalette::loader(QXmlStreamReader& xmlDoc, Doc* doc)
 {
-    QLCPalette *palette = new QLCPalette(Dimmer, doc);
+    QLCPalette* palette = new QLCPalette(Dimmer, doc);
     Q_ASSERT(palette != NULL);
 
     if (palette->loadXML(xmlDoc) == true)
@@ -640,7 +674,7 @@ bool QLCPalette::loader(QXmlStreamReader &xmlDoc, Doc *doc)
     return true;
 }
 
-bool QLCPalette::loadXML(QXmlStreamReader &doc)
+bool QLCPalette::loadXML(QXmlStreamReader& doc)
 {
     if (doc.name() != KXMLQLCPalette)
     {
@@ -676,24 +710,27 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
         QString strVal = attrs.value(KXMLQLCPaletteValue).toString();
         switch (m_type)
         {
-            case Dimmer:
-            case Pan:
-            case Tilt:
-                setValue(strVal.toInt());
+        case Dimmer:
+        case Pan:
+        case Tilt:
+            setValue(strVal.toInt());
             break;
-            case Color:
-                setValue(strVal);
+        case Color:
+            setValue(strVal);
             break;
-            case PanTilt:
+        case PanTilt:
             {
                 QStringList posList = strVal.split(",");
                 if (posList.count() == 2)
                     setValue(posList.at(0).toInt(), posList.at(1).toInt());
             }
             break;
-            case Shutter:   break;
-            case Gobo:      break;
-            case Undefined: break;
+        case Shutter:
+            break;
+        case Gobo:
+            break;
+        case Undefined:
+            break;
         }
     }
 
@@ -712,18 +749,21 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
             QString strVal = attrs.value(KXMLQLCPaletteFanValue).toString();
             switch (m_type)
             {
-                case Dimmer:
-                case Pan:
-                case Tilt:
-                case PanTilt:
-                    setFanningValue(strVal.toInt());
+            case Dimmer:
+            case Pan:
+            case Tilt:
+            case PanTilt:
+                setFanningValue(strVal.toInt());
                 break;
-                case Color:
-                    setFanningValue(strVal);
+            case Color:
+                setFanningValue(strVal);
                 break;
-                case Shutter:   break;
-                case Gobo:      break;
-                case Undefined: break;
+            case Shutter:
+                break;
+            case Gobo:
+                break;
+            case Undefined:
+                break;
             }
         }
     }
@@ -731,7 +771,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
     return true;
 }
 
-bool QLCPalette::saveXML(QXmlStreamWriter *doc)
+bool QLCPalette::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -750,19 +790,22 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
     /* write value */
     switch (m_type)
     {
-        case Dimmer:
-        case Pan:
-        case Tilt:
-        case Color:
-            doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
+    case Dimmer:
+    case Pan:
+    case Tilt:
+    case Color:
+        doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
         break;
-        case PanTilt:
-            doc->writeAttribute(KXMLQLCPaletteValue,
-                                QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
+    case PanTilt:
+        doc->writeAttribute(KXMLQLCPaletteValue,
+                            QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
         break;
-        case Shutter:   break;
-        case Gobo:      break;
-        case Undefined: break;
+    case Shutter:
+        break;
+    case Gobo:
+        break;
+    case Undefined:
+        break;
     }
 
     /* write fanning */
@@ -778,4 +821,3 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
 
     return true;
 }
-

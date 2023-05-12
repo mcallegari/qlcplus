@@ -43,7 +43,7 @@ public:
     void load(const QDir& dir);
 
     /** Get a list of available I/O plugins. */
-    QList <QLCIOPlugin*> plugins() const;
+    QList<QLCIOPlugin*> plugins() const;
 
     /** Get an I/O plugin by its name. */
     QLCIOPlugin* plugin(const QString& name) const;
@@ -59,7 +59,7 @@ private slots:
     void slotConfigurationChanged();
 
 private:
-    QList <QLCIOPlugin*> m_plugins;
+    QList<QLCIOPlugin*> m_plugins;
 };
 
 /** @} */

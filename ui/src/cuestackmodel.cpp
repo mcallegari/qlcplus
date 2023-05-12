@@ -32,8 +32,8 @@
 #include "cuestack.h"
 #include "function.h"
 
-#define MIMEDATA_ROOT       QString("MimeData")
-#define MIMEDATA_DRAGINDEX  QString("DragIndex")
+#define MIMEDATA_ROOT QString("MimeData")
+#define MIMEDATA_DRAGINDEX QString("DragIndex")
 
 CueStackModel::CueStackModel(QObject* parent)
     : QAbstractItemModel(parent)
@@ -41,13 +41,11 @@ CueStackModel::CueStackModel(QObject* parent)
 {
 }
 
-CueStackModel::~CueStackModel()
-{
-}
+CueStackModel::~CueStackModel() {}
 
 void CueStackModel::setCueStack(CueStack* cs)
 {
-    //qDebug() << Q_FUNC_INFO << "old:" << (void*)m_cueStack << "new:" << (void*) cs;
+    // qDebug() << Q_FUNC_INFO << "old:" << (void*)m_cueStack << "new:" << (void*) cs;
 
     if (m_cueStack != NULL)
     {
@@ -130,7 +128,7 @@ QVariant CueStackModel::headerData(int section, Qt::Orientation orientation, int
     if (role != Qt::DisplayRole || orientation != Qt::Horizontal)
         return QVariant();
 
-    switch(section)
+    switch (section)
     {
     case IndexColumn:
         return tr("Number");
@@ -186,32 +184,32 @@ QVariant CueStackModel::data(const QModelIndex& index, int role) const
             var = QVariant(m_cueStack->cues()[index.row()].name());
             break;
         case FadeInColumn:
-        {
-            uint ms = m_cueStack->cues()[index.row()].fadeInSpeed();
-            if (ms > 0)
-                var = QVariant(Function::speedToString(ms));
-            else
-                var = QVariant();
-            break;
-        }
+            {
+                uint ms = m_cueStack->cues()[index.row()].fadeInSpeed();
+                if (ms > 0)
+                    var = QVariant(Function::speedToString(ms));
+                else
+                    var = QVariant();
+                break;
+            }
         case FadeOutColumn:
-        {
-            uint ms = m_cueStack->cues()[index.row()].fadeOutSpeed();
-            if (ms > 0)
-                var = QVariant(Function::speedToString(ms));
-            else
-                var = QVariant();
-            break;
-        }
+            {
+                uint ms = m_cueStack->cues()[index.row()].fadeOutSpeed();
+                if (ms > 0)
+                    var = QVariant(Function::speedToString(ms));
+                else
+                    var = QVariant();
+                break;
+            }
         case DurationColumn:
-        {
-            uint ms = m_cueStack->cues()[index.row()].duration();
-            if (ms > 0)
-                var = QVariant(Function::speedToString(ms));
-            else
-                var = QVariant();
-            break;
-        }
+            {
+                uint ms = m_cueStack->cues()[index.row()].duration();
+                if (ms > 0)
+                    var = QVariant(Function::speedToString(ms));
+                else
+                    var = QVariant();
+                break;
+            }
         default:
             var = QVariant();
             break;
@@ -226,7 +224,7 @@ QVariant CueStackModel::data(const QModelIndex& index, int role) const
     return var;
 }
 
-QStringList CueStackModel::mimeTypes () const
+QStringList CueStackModel::mimeTypes() const
 {
     return QStringList() << QString("text/plain");
 }
@@ -236,7 +234,7 @@ Qt::DropActions CueStackModel::supportedDropActions() const
     return Qt::MoveAction | Qt::CopyAction;
 }
 
-Qt::ItemFlags CueStackModel::flags(const QModelIndex &index) const
+Qt::ItemFlags CueStackModel::flags(const QModelIndex& index) const
 {
     Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
     if (index.isValid() == true)
@@ -245,8 +243,8 @@ Qt::ItemFlags CueStackModel::flags(const QModelIndex &index) const
         return Qt::ItemIsDropEnabled | defaultFlags;
 }
 
-bool CueStackModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row,
-                                 int column, const QModelIndex& parent)
+bool CueStackModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column,
+                                 const QModelIndex& parent)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -312,7 +310,7 @@ QMimeData* CueStackModel::mimeData(const QModelIndexList& indexes) const
     doc.writeStartElement(MIMEDATA_ROOT);
     doc.writeAttribute(MIMEDATA_DRAGINDEX, QString::number(indexes.first().row()));
 
-    QSet <int> rows;
+    QSet<int> rows;
     foreach (QModelIndex index, indexes)
     {
         // $indexes contains all rows' columns but we want to store one row only once.

@@ -26,10 +26,10 @@
 #include "scene.h"
 #include "doc.h"
 
-#define KXMLQLCTrackID        QString("ID")
-#define KXMLQLCTrackName      QString("Name")
-#define KXMLQLCTrackSceneID   QString("SceneID")
-#define KXMLQLCTrackIsMute    QString("isMute")
+#define KXMLQLCTrackID QString("ID")
+#define KXMLQLCTrackName QString("Name")
+#define KXMLQLCTrackSceneID QString("SceneID")
+#define KXMLQLCTrackIsMute QString("isMute")
 
 #define KXMLQLCTrackFunctions QString("Functions")
 
@@ -43,10 +43,7 @@ Track::Track(quint32 sceneID)
     setName(tr("New Track"));
 }
 
-Track::~Track()
-{
-
-}
+Track::~Track() {}
 
 /****************************************************************************
  * ID
@@ -124,14 +121,14 @@ bool Track::isMute()
 
 ShowFunction* Track::createShowFunction(quint32 id)
 {
-    ShowFunction *func = new ShowFunction();
+    ShowFunction* func = new ShowFunction();
     func->setFunctionID(id);
     m_functions.append(func);
 
     return func;
 }
 
-bool Track::addShowFunction(ShowFunction *func)
+bool Track::addShowFunction(ShowFunction* func)
 {
     if (func == NULL || func->functionID() == Function::invalidId())
         return false;
@@ -141,19 +138,19 @@ bool Track::addShowFunction(ShowFunction *func)
     return true;
 }
 
-bool Track::removeShowFunction(ShowFunction *function, bool performDelete)
+bool Track::removeShowFunction(ShowFunction* function, bool performDelete)
 {
     if (m_functions.contains(function) == false)
         return false;
 
-    ShowFunction *func = m_functions.takeAt(m_functions.indexOf(function));
+    ShowFunction* func = m_functions.takeAt(m_functions.indexOf(function));
     if (performDelete)
         delete func;
 
     return true;
 }
 
-QList <ShowFunction *> Track::showFunctions() const
+QList<ShowFunction*> Track::showFunctions() const
 {
     return m_functions;
 }
@@ -161,7 +158,7 @@ QList <ShowFunction *> Track::showFunctions() const
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool Track::saveXML(QXmlStreamWriter *doc)
+bool Track::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -176,7 +173,7 @@ bool Track::saveXML(QXmlStreamWriter *doc)
     /* Save the list of Functions if any is present */
     if (m_functions.isEmpty() == false)
     {
-        foreach(ShowFunction *func, showFunctions())
+        foreach (ShowFunction* func, showFunctions())
             func->saveXML(doc);
     }
 
@@ -185,7 +182,7 @@ bool Track::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-bool Track::loadXML(QXmlStreamReader &root)
+bool Track::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCTrack)
     {
@@ -233,7 +230,7 @@ bool Track::loadXML(QXmlStreamReader &root)
     {
         if (root.name() == KXMLShowFunction)
         {
-            ShowFunction *newFunc = new ShowFunction();
+            ShowFunction* newFunc = new ShowFunction();
             newFunc->loadXML(root);
             if (addShowFunction(newFunc) == false)
                 delete newFunc;
@@ -268,9 +265,7 @@ bool Track::postLoad(Doc* doc)
         ShowFunction* showFunction = it.next();
 
         Function* function = doc->function(showFunction->functionID());
-        if (function == NULL
-                || (m_showId != Function::invalidId()
-                    && function->contains(m_showId)))
+        if (function == NULL || (m_showId != Function::invalidId() && function->contains(m_showId)))
         {
             it.remove();
             delete showFunction;
@@ -278,8 +273,8 @@ bool Track::postLoad(Doc* doc)
             continue;
         }
 
-        //if (showFunction->duration() == 0)
-        //    showFunction->setDuration(function->totalDuration());
+        // if (showFunction->duration() == 0)
+        //     showFunction->setDuration(function->totalDuration());
         if (showFunction->color().isValid() == false)
             showFunction->setColor(ShowFunction::defaultColor(function->type()));
 

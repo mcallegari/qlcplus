@@ -32,8 +32,8 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCFixtureHead          QString("Head")
-#define KXMLQLCFixtureHeadChannel   QString("Channel")
+#define KXMLQLCFixtureHead QString("Head")
+#define KXMLQLCFixtureHeadChannel QString("Channel")
 
 class QLCFixtureHead
 {
@@ -65,10 +65,10 @@ public:
     void removeChannel(quint32 channel);
 
     /** Get all channels used by the head */
-    QList <quint32> channels() const;
+    QList<quint32> channels() const;
 
 private:
-    QList <quint32> m_channels;
+    QList<quint32> m_channels;
 
     /************************************************************************
      * Cached channels
@@ -85,7 +85,7 @@ public:
      * the list is empty. The first item is always red, then green, then blue.
      * @return A list of three channels or an empty list
      */
-    QVector <quint32> rgbChannels() const;
+    QVector<quint32> rgbChannels() const;
 
     /**
      * Return a copy of the cached channel map
@@ -97,25 +97,25 @@ public:
      * the list is empty. The first item is always cyan, then magenta, then yellow.
      * @return A list of three channels or an empty list
      */
-    QVector <quint32> cmyChannels() const;
+    QVector<quint32> cmyChannels() const;
 
     /**
      * Get a list of color wheel channels. Channels are ordered by their number
      * @return A list of zero or more channels
      */
-    QVector <quint32> colorWheels() const;
+    QVector<quint32> colorWheels() const;
 
     /**
      * Get a list of shutter channels. Channels are ordered by their number
      * @return A list of zero or more channels
      */
-    QVector <quint32> shutterChannels() const;
+    QVector<quint32> shutterChannels() const;
 
     /** Find some interesting channels from $mode and store their indices. */
     void cacheChannels(const QLCFixtureMode* mode);
 
 private:
-    void setMapIndex(int chType, int controlByte,  quint32 index);
+    void setMapIndex(int chType, int controlByte, quint32 index);
 
 protected:
     /** Indicates, whether cacheChannels() has already been called */
@@ -128,20 +128,20 @@ protected:
     QMap<int, quint32> m_channelsMap;
 
     /** The color wheel channels */
-    QVector <quint32> m_colorWheels;
+    QVector<quint32> m_colorWheels;
 
     /** The shutter channels */
-    QVector <quint32> m_shutterChannels;
+    QVector<quint32> m_shutterChannels;
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** Load a Fixture Head from an XML tag */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 
     /** Save a Fixture Head to an XML $doc */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 };
 
 /** @} */

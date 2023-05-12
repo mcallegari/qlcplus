@@ -24,18 +24,15 @@
 #include "debugbox.h"
 
 DebugBox::DebugBox(QWidget* parent, Qt::WindowFlags flags)
-    : QDialog (parent, flags)
+    : QDialog(parent, flags)
 {
     setupUi(this);
 }
 
-DebugBox::~DebugBox()
-{
-}
+DebugBox::~DebugBox() {}
 
 void DebugBox::addText(QString text)
 {
     QMutexLocker locker(&m_mutex);
     m_debugBrowser->append(text);
 }
-

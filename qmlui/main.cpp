@@ -27,16 +27,16 @@
 #include "qlcconfig.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-#define endl Qt::endl
+  #define endl Qt::endl
 #endif
 
-void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+void debugMessageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
 {
     Q_UNUSED(context)
     Q_UNUSED(type)
 
     QByteArray localMsg = msg.toLocal8Bit();
-    //if (type >= QtSystemMsg)
+    // if (type >= QtSystemMsg)
     {
         fprintf(stderr, "%s\n", localMsg.constData());
         fflush(stderr);
@@ -51,7 +51,8 @@ void printVersion()
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
     cout << endl;
-    cout << APPNAME << " " << "version " << APPVERSION << endl;
+    cout << APPNAME << " "
+         << "version " << APPVERSION << endl;
     cout << "This program is licensed under the terms of the ";
     cout << "Apache 2.0 license." << endl;
     cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << endl;
@@ -59,7 +60,7 @@ void printVersion()
     cout << endl;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
@@ -75,26 +76,29 @@ int main(int argc, char *argv[])
 
     parser.addHelpOption();
     parser.addVersionOption();
-    QCommandLineOption debugOption(QStringList() << "d" << "debug",
-                                      "Enable debug messages.");
+    QCommandLineOption debugOption(QStringList() << "d"
+                                                 << "debug",
+                                   "Enable debug messages.");
     parser.addOption(debugOption);
 
-    QCommandLineOption openFileOption(QStringList() << "o" << "open",
-                                      "Specify a file to open.",
-                                      "filename", "");
+    QCommandLineOption openFileOption(QStringList() << "o"
+                                                    << "open",
+                                      "Specify a file to open.", "filename", "");
     parser.addOption(openFileOption);
 
-    QCommandLineOption kioskOption(QStringList() << "k" << "kiosk",
-                                      "Enable kiosk mode (only Virtual Console)");
+    QCommandLineOption kioskOption(QStringList() << "k"
+                                                 << "kiosk",
+                                   "Enable kiosk mode (only Virtual Console)");
     parser.addOption(kioskOption);
 
-    QCommandLineOption localeOption(QStringList() << "l" << "locale",
-                                      "Specify a language to use.",
-                                      "locale", "");
+    QCommandLineOption localeOption(QStringList() << "l"
+                                                  << "locale",
+                                    "Specify a language to use.", "locale", "");
     parser.addOption(localeOption);
 
-    QCommandLineOption threedSupportOption(QStringList() << "3" << "no3d",
-                                      "Disable the 3D preview.");
+    QCommandLineOption threedSupportOption(QStringList() << "3"
+                                                         << "no3d",
+                                           "Disable the 3D preview.");
     parser.addOption(threedSupportOption);
 
     parser.process(app);

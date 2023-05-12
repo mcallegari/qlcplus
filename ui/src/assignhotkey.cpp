@@ -50,7 +50,10 @@ AssignHotKey::AssignHotKey(QWidget* parent, const QKeySequence& keySequence)
     str += QString("<H1>") + tr("Assign Key") + QString("</H1>");
     str += tr("Hit the key combination that you wish to assign. "
               "You may hit either a single key or a combination "
-              "using %1, %2, and %3.").arg(shift).arg(alt).arg(meta);
+              "using %1, %2, and %3.")
+               .arg(shift)
+               .arg(alt)
+               .arg(meta);
     str += QString("</CENTER></BODY></HTML>");
 
     m_infoText->setText(str);
@@ -81,8 +84,8 @@ QKeySequence AssignHotKey::keySequence() const
 void AssignHotKey::keyPressEvent(QKeyEvent* event)
 {
     int key = event->key();
-    if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Alt ||
-        event->key() == Qt::Key_Shift || event->key() == Qt::Key_Meta)
+    if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Alt || event->key() == Qt::Key_Shift ||
+        event->key() == Qt::Key_Meta)
     {
         key = 0;
     }

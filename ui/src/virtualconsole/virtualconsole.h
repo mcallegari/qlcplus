@@ -63,7 +63,7 @@ public:
     /** Get the singleton instance */
     static VirtualConsole* instance();
 
-    Doc *getDoc();
+    Doc* getDoc();
 
 protected:
     /** Create a new widget ID */
@@ -91,7 +91,12 @@ private:
      * Selected widgets
      *********************************************************************/
 public:
-    enum EditAction { EditNone, EditCut, EditCopy };
+    enum EditAction
+    {
+        EditNone,
+        EditCut,
+        EditCopy
+    };
 
     /** Set the edit action for selected widgets */
     void setEditAction(EditAction action);
@@ -100,7 +105,7 @@ public:
     EditAction editAction() const;
 
     /** Get a list of currently selected widgets */
-    const QList <VCWidget*> selectedWidgets() const;
+    const QList<VCWidget*> selectedWidgets() const;
 
     /** Either select or unselect a widget */
     void setWidgetSelected(VCWidget* widget, bool selected);
@@ -116,10 +121,10 @@ public:
 
 protected:
     /** The widgets that are currently selected */
-    QList <VCWidget*> m_selectedWidgets;
+    QList<VCWidget*> m_selectedWidgets;
 
     /** The widgets that are currently either copied or cut */
-    QList <VCWidget*> m_clipboard;
+    QList<VCWidget*> m_clipboard;
 
     /** Indicates, whether the selected widgets should be copied or cut */
     EditAction m_editAction;
@@ -220,13 +225,13 @@ private:
      * inform the frame of the new addition.
      * This shall be called every time a widget is added in a frame.
      */
-    void connectWidgetToParent(VCWidget *widget, VCWidget *parent);
+    void connectWidgetToParent(VCWidget* widget, VCWidget* parent);
 
     /**
      * If a widget is moved away from a frame (because of
      * a deletion or a cut/paste), this shall be called.
      */
-    void disconnectWidgetFromParent(VCWidget *widget, VCWidget *parent);
+    void disconnectWidgetFromParent(VCWidget* widget, VCWidget* parent);
 
 public slots:
     void slotAddButton();
@@ -324,21 +329,21 @@ public:
     void resetContents();
 
     void addWidgetInMap(VCWidget* widget);
-    void setupWidget(VCWidget *widget, VCWidget *parent);
+    void setupWidget(VCWidget* widget, VCWidget* parent);
 
-    VCWidget *widget(quint32 id);
+    VCWidget* widget(quint32 id);
 
 protected:
     /** Place the contents area to the VC view */
     void initContents();
 
-    QList<VCWidget *> getChildren(VCWidget *obj);
+    QList<VCWidget*> getChildren(VCWidget* obj);
 
 protected:
     QVBoxLayout* m_contentsLayout;
     QScrollArea* m_scrollArea;
     VCFrame* m_contents;
-    QHash <quint32, VCWidget *> m_widgetsMap;
+    QHash<quint32, VCWidget*> m_widgetsMap;
 
     /*********************************************************************
      * Key press handler
@@ -383,10 +388,10 @@ public slots:
      *********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** Do post-load cleanup & checks */
     void postLoad();

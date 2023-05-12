@@ -31,28 +31,31 @@ VCXYPadPreset::VCXYPadPreset(quint8 id)
     , m_dmxPos(QPointF())
     , m_funcID(Function::invalidId())
 {
-
 }
 
-VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &other)
+VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset& other)
 {
     *this = other;
 }
 
-VCXYPadPreset::~VCXYPadPreset()
-{
-}
+VCXYPadPreset::~VCXYPadPreset() {}
 
 QString VCXYPadPreset::getColor() const
 {
-    switch(m_type)
+    switch (m_type)
     {
-        case EFX: return ("#BBBB8D"); break;
-        case Scene: return ("#BB8E8E"); break;
-        case FixtureGroup: return ("#95BB95"); break;
-        case Position:
-        default:
-            return ("#BBBBBB");
+    case EFX:
+        return ("#BBBB8D");
+        break;
+    case Scene:
+        return ("#BB8E8E");
+        break;
+    case FixtureGroup:
+        return ("#95BB95");
+        break;
+    case Position:
+    default:
+        return ("#BBBBBB");
         break;
     }
 }
@@ -87,7 +90,7 @@ QList<GroupHead> VCXYPadPreset::fixtureGroup() const
     return m_fxGroup;
 }
 
-VCXYPadPreset &VCXYPadPreset::operator=(const VCXYPadPreset &vcpp)
+VCXYPadPreset& VCXYPadPreset::operator=(const VCXYPadPreset& vcpp)
 {
     if (this != &vcpp)
     {
@@ -101,20 +104,20 @@ VCXYPadPreset &VCXYPadPreset::operator=(const VCXYPadPreset &vcpp)
 
         if (vcpp.m_inputSource != NULL)
         {
-            m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcpp.m_inputSource->universe(),
-                                                   vcpp.m_inputSource->channel()));
+            m_inputSource = QSharedPointer<QLCInputSource>(
+                new QLCInputSource(vcpp.m_inputSource->universe(), vcpp.m_inputSource->channel()));
             m_inputSource->setRange(vcpp.m_inputSource->lowerValue(), vcpp.m_inputSource->upperValue());
         }
     }
     return *this;
 }
 
-bool VCXYPadPreset::operator<(const VCXYPadPreset &right) const
+bool VCXYPadPreset::operator<(const VCXYPadPreset& right) const
 {
     return m_id < right.m_id;
 }
 
-bool VCXYPadPreset::compare(const VCXYPadPreset *left, const VCXYPadPreset *right)
+bool VCXYPadPreset::compare(const VCXYPadPreset* left, const VCXYPadPreset* right)
 {
     return *left < *right;
 }
@@ -147,7 +150,7 @@ VCXYPadPreset::PresetType VCXYPadPreset::stringToType(QString str)
  * Load & Save
  ***********************************************************************/
 
-bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
+bool VCXYPadPreset::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCXYPadPreset)
     {
@@ -228,7 +231,7 @@ bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCXYPadPreset::saveXML(QXmlStreamWriter *doc)
+bool VCXYPadPreset::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -273,5 +276,3 @@ bool VCXYPadPreset::saveXML(QXmlStreamWriter *doc)
 
     return true;
 }
-
-

@@ -28,7 +28,7 @@
 #include "showitem.h"
 #include "function.h"
 
-ShowItem::ShowItem(ShowFunction *function, QObject *)
+ShowItem::ShowItem(ShowFunction* function, QObject*)
     : m_color(100, 100, 100)
     , m_locked(false)
     , m_pressed(false)
@@ -51,11 +51,9 @@ ShowItem::ShowItem(ShowFunction *function, QObject *)
     setLocked(m_function->isLocked());
 
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
-    connect(m_alignToCursor, SIGNAL(triggered()),
-            this, SLOT(slotAlignToCursorClicked()));
+    connect(m_alignToCursor, SIGNAL(triggered()), this, SLOT(slotAlignToCursorClicked()));
     m_lockAction = new QAction(tr("Lock item"), this);
-    connect(m_lockAction, SIGNAL(triggered()),
-            this, SLOT(slotLockItemClicked()));
+    connect(m_lockAction, SIGNAL(triggered()), this, SLOT(slotLockItemClicked()));
 }
 
 void ShowItem::updateTooltip()
@@ -64,15 +62,15 @@ void ShowItem::updateTooltip()
         return;
 
     setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-              .arg(functionName())
-              .arg(Function::speedToString(m_function->startTime()))
-              .arg(Function::speedToString(getDuration()))
-              .arg(tr("Click to move this item along the timeline")));
+                   .arg(functionName())
+                   .arg(Function::speedToString(m_function->startTime()))
+                   .arg(Function::speedToString(getDuration()))
+                   .arg(tr("Click to move this item along the timeline")));
 }
 
-QList<QAction *> ShowItem::getDefaultActions()
+QList<QAction*> ShowItem::getDefaultActions()
 {
-    QList<QAction *> actions;
+    QList<QAction*> actions;
     actions.append(m_alignToCursor);
 
     if (isLocked())
@@ -202,7 +200,7 @@ quint32 ShowItem::functionID()
     return Function::invalidId();
 }
 
-ShowFunction *ShowItem::showFunction() const
+ShowFunction* ShowItem::showFunction() const
 {
     return m_function;
 }
@@ -220,28 +218,29 @@ void ShowItem::slotAlignToCursorClicked()
 void ShowItem::slotLockItemClicked()
 {
     setLocked(!isLocked());
-    //update();
+    // update();
 }
 
-void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
-    if(event->button() == Qt::LeftButton)
+    if (event->button() == Qt::LeftButton)
         m_pressed = true;
     this->setSelected(true);
 }
 
-void ShowItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ShowItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
-    qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
+    qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <"
+             << event->pos().toPoint().y() << ">";
     setCursor(Qt::OpenHandCursor);
     m_pressed = false;
     emit itemDropped(event, this);
 }
 
-void ShowItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+void ShowItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
     Q_UNUSED(event)
 
@@ -271,7 +270,7 @@ QRectF ShowItem::boundingRect() const
     return QRectF(0, 0, m_width, TRACK_HEIGHT - 3);
 }
 
-void ShowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void ShowItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -288,7 +287,7 @@ void ShowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->setFont(m_font);
 }
 
-void ShowItem::postPaint(QPainter *painter)
+void ShowItem::postPaint(QPainter* painter)
 {
     // draw the function name shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
@@ -305,10 +304,7 @@ void ShowItem::postPaint(QPainter *painter)
     {
         quint32 s_time = 0;
         if (x() > TRACK_WIDTH)
-            s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
-                     (double)(HALF_SECOND_WIDTH);
+            s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) / (double)(HALF_SECOND_WIDTH);
         painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
 }
-
-

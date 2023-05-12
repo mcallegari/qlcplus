@@ -35,16 +35,16 @@
 #define KXMLQLCFixtureDefDocument QString("FixtureDefinition")
 
 // Fixture definition XML tags
-#define KXMLQLCFixtureDef               QString("FixtureDefinition")
-#define KXMLQLCFixtureDefManufacturer   QString("Manufacturer")
-#define KXMLQLCFixtureDefModel          QString("Model")
-#define KXMLQLCFixtureDefType           QString("Type")
+#define KXMLQLCFixtureDef QString("FixtureDefinition")
+#define KXMLQLCFixtureDefManufacturer QString("Manufacturer")
+#define KXMLQLCFixtureDefModel QString("Model")
+#define KXMLQLCFixtureDefType QString("Type")
 
 // Fixture instance XML tags
-#define KXMLQLCFixtureName      QString("Name")
-#define KXMLQLCFixtureID        QString("ID")
-#define KXMLQLCFixtureUniverse  QString("Universe")
-#define KXMLQLCFixtureAddress   QString("Address")
+#define KXMLQLCFixtureName QString("Name")
+#define KXMLQLCFixtureID QString("ID")
+#define KXMLQLCFixtureUniverse QString("Universe")
+#define KXMLQLCFixtureAddress QString("Address")
 
 class QXmlStreamReader;
 class QLCFixtureMode;
@@ -139,7 +139,7 @@ public:
     static QString typeToString(FixtureType type);
 
     /** Convert string into a fixture type */
-    static FixtureType stringToType(const QString &type);
+    static FixtureType stringToType(const QString& type);
 
     /** Set the definition's author */
     void setAuthor(const QString& author);
@@ -183,11 +183,11 @@ public:
      *
      * @return An arbitrarily-ordered list of possible channels in a fixture
      */
-    QList <QLCChannel*> channels() const;
+    QList<QLCChannel*> channels() const;
 
 protected:
     /** Available channels */
-    QList <QLCChannel*> m_channels;
+    QList<QLCChannel*> m_channels;
 
     /*********************************************************************
      * Modes
@@ -204,11 +204,11 @@ public:
 
     /** Get all modes in this fixture. Changes to the list won't end
         up into the fixture definition. */
-    QList <QLCFixtureMode*> modes();
+    QList<QLCFixtureMode*> modes();
 
 protected:
     /** Modes (i.e. ordered collections of channels) */
-    QList <QLCFixtureMode*> m_modes;
+    QList<QLCFixtureMode*> m_modes;
 
 
     /*********************************************************************
@@ -234,10 +234,10 @@ public:
 
 protected:
     /** Load fixture contents from an XML document */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 
     /** Load <Creator> information */
-    bool loadCreator(QXmlStreamReader &doc);
+    bool loadCreator(QXmlStreamReader& doc);
 };
 
 /** @} */

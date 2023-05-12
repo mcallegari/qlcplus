@@ -23,7 +23,7 @@
 #include "tardis.h"
 #include "doc.h"
 
-CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
+CollectionEditor::CollectionEditor(QQuickView* view, Doc* doc, QObject* parent)
     : FunctionEditor(view, doc, parent)
     , m_collection(nullptr)
 {
@@ -31,13 +31,14 @@ CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
 
     m_functionsList = new ListModel(this);
     QStringList listRoles;
-    listRoles << "funcID" << "isSelected";
+    listRoles << "funcID"
+              << "isSelected";
     m_functionsList->setRoleNames(listRoles);
 }
 
 void CollectionEditor::setFunctionID(quint32 ID)
 {
-    m_collection = qobject_cast<Collection *>(m_doc->function(ID));
+    m_collection = qobject_cast<Collection*>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     updateFunctionsList();
 }
@@ -51,7 +52,7 @@ bool CollectionEditor::addFunction(quint32 fid, int insertIndex)
 {
     if (m_collection != nullptr)
     {
-        if(m_collection->addFunction(fid, insertIndex) == true)
+        if (m_collection->addFunction(fid, insertIndex) == true)
         {
             Tardis::instance()->enqueueAction(Tardis::CollectionAddFunction, m_collection->id(), QVariant(),
                                               QVariant::fromValue(UIntPair(fid, insertIndex)));
@@ -117,4 +118,3 @@ void CollectionEditor::updateFunctionsList()
     }
     emit functionsListChanged();
 }
-

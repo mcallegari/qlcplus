@@ -65,7 +65,7 @@
 #define SETTINGS_RECENTFILE "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
 
-#define MAX_RECENT_FILES    10
+#define MAX_RECENT_FILES 10
 
 App::App()
     : QQuickView()
@@ -101,9 +101,7 @@ App::App()
     connect(this, &App::sceneGraphInitialized, this, &App::slotSceneGraphInitialized);
 }
 
-App::~App()
-{
-}
+App::~App() {}
 
 QString App::appName() const
 {
@@ -157,8 +155,8 @@ void App::startup()
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
 
-    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
-                          m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
+    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager, m_contextManager,
+                          m_simpleDesk, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("tardis", m_tardis);
 
     m_contextManager->registerContext(m_virtualConsole);
@@ -167,9 +165,11 @@ void App::startup()
     m_contextManager->registerContext(m_ioManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager!");
+    qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager",
+                                               "Can't create a ContextManager!");
     qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager!");
-    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager!");
+    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager",
+                                               "Can't create a NetworkManager!");
     qmlRegisterUncreatableType<SimpleDesk>("org.qlcplus.classes", 1, 0, "SimpleDesk", "Can't create a SimpleDesk!");
 
     // Start up in non-modified state
@@ -228,7 +228,7 @@ QString App::goboSystemPath() const
 
 void App::show()
 {
-    QScreen *currScreen = screen();
+    QScreen* currScreen = screen();
     QRect rect(0, 0, 800, 600);
     rect.moveTopLeft(currScreen->geometry().topLeft());
     setGeometry(rect);
@@ -262,7 +262,7 @@ bool App::is3DSupported() const
 
 void App::exit()
 {
-    //destroy();
+    // destroy();
     QApplication::quit();
 }
 
@@ -277,11 +277,11 @@ void App::setAccessMask(int mask)
 
 int App::defaultMask() const
 {
-    return AC_FixtureEditing | AC_FunctionEditing | AC_InputOutput |
-            AC_ShowManager | AC_SimpleDesk | AC_VCControl | AC_VCEditing;
+    return AC_FixtureEditing | AC_FunctionEditing | AC_InputOutput | AC_ShowManager | AC_SimpleDesk | AC_VCControl |
+           AC_VCEditing;
 }
 
-void App::keyPressEvent(QKeyEvent *e)
+void App::keyPressEvent(QKeyEvent* e)
 {
     if (m_contextManager)
         m_contextManager->handleKeyPress(e);
@@ -289,7 +289,7 @@ void App::keyPressEvent(QKeyEvent *e)
     QQuickView::keyPressEvent(e);
 }
 
-void App::keyReleaseEvent(QKeyEvent *e)
+void App::keyReleaseEvent(QKeyEvent* e)
 {
     if (m_contextManager)
         m_contextManager->handleKeyRelease(e);
@@ -297,7 +297,7 @@ void App::keyReleaseEvent(QKeyEvent *e)
     QQuickView::keyReleaseEvent(e);
 }
 
-bool App::event(QEvent *event)
+bool App::event(QEvent* event)
 {
     if (event->type() == QEvent::Close)
     {
@@ -317,18 +317,21 @@ void App::slotSceneGraphInitialized()
     if (openglContext() == nullptr)
         return;
 
-    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
+    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion()
+             << openglContext()->format().minorVersion();
 #else
     // TODO: Qt6
 #endif
 }
 
-void App::slotScreenChanged(QScreen *screen)
+void App::slotScreenChanged(QScreen* screen)
 {
-    bool isLandscape = (screen->orientation() == Qt::LandscapeOrientation ||
-                     screen->orientation() == Qt::InvertedLandscapeOrientation) ? true : false;
+    bool isLandscape =
+        (screen->orientation() == Qt::LandscapeOrientation || screen->orientation() == Qt::InvertedLandscapeOrientation)
+            ? true
+            : false;
     qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
-    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, sSize / 220.0);
+    m_pixelDensity = qMax(screen->physicalDotsPerInch() * 0.039370, sSize / 220.0);
     qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
              << ", physical size:" << screen->physicalSize();
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
@@ -345,8 +348,7 @@ void App::slotClosing()
 
 void App::slotClientAccessRequest(QString name)
 {
-    QMetaObject::invokeMethod(rootObject(), "openAccessRequest",
-                              Q_ARG(QVariant, name));
+    QMetaObject::invokeMethod(rootObject(), "openAccessRequest", Q_ARG(QVariant, name));
 }
 
 void App::slotAccessMaskChanged(int mask)
@@ -357,7 +359,7 @@ void App::slotAccessMaskChanged(int mask)
 /*********************************************************************
  * Doc
  *********************************************************************/
-Doc *App::doc()
+Doc* App::doc()
 {
     return m_doc;
 }
@@ -378,8 +380,7 @@ void App::initDoc()
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
-    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()),
-            this, SIGNAL(runningFunctionsCountChanged()));
+    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SIGNAL(runningFunctionsCountChanged()));
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
@@ -429,7 +430,7 @@ void App::clearDocument()
     }
 
     m_contextManager->resetFixtureSelection();
-    //m_simpleDesk->resetContents(); // TODO
+    // m_simpleDesk->resetContents(); // TODO
     m_showManager->resetContents();
     m_virtualConsole->resetContents();
 
@@ -464,7 +465,7 @@ void App::enableKioskMode()
     setAccessMask(AC_VCControl);
 }
 
-void App::createKioskCloseButton(const QRect &rect)
+void App::createKioskCloseButton(const QRect& rect)
 {
     Q_UNUSED(rect)
     // TODO
@@ -474,7 +475,7 @@ void App::createKioskCloseButton(const QRect &rect)
  * Printer
  *********************************************************************/
 
-void App::printItem(QQuickItem *item)
+void App::printItem(QQuickItem* item)
 {
     if (item == nullptr)
         return;
@@ -487,8 +488,8 @@ void App::printItem(QQuickItem *item)
 void App::slotItemReadyForPrinting()
 {
     QPrinter printer;
-    QPrintDialog *dlg = new QPrintDialog(&printer);
-    if(dlg->exec() == QDialog::Accepted)
+    QPrintDialog* dlg = new QPrintDialog(&printer);
+    if (dlg->exec() == QDialog::Accepted)
     {
         QRectF pageRect = printer.pageLayout().paintRect();
         QSize imgSize = m_printerImage->image().size();
@@ -511,7 +512,7 @@ void App::slotItemReadyForPrinting()
         }
 
         // handle multi-page printing
-        while(totalHeight > 0)
+        while (totalHeight > 0)
         {
             painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
             yOffset += pageRect.height();
@@ -532,7 +533,7 @@ void App::slotItemReadyForPrinting()
  * Load & Save
  *********************************************************************/
 
-void App::setFileName(const QString &fileName)
+void App::setFileName(const QString& fileName)
 {
     m_fileName = fileName;
 }
@@ -548,7 +549,7 @@ void App::updateRecentFilesList(QString filename)
     if (filename.isEmpty() == false)
     {
         m_recentFiles.removeAll(filename); // in case the string is already present, remove it...
-        m_recentFiles.prepend(filename); // and add it to the top
+        m_recentFiles.prepend(filename);   // and add it to the top
         for (int i = 0; i < m_recentFiles.count(); i++)
         {
             settings.setValue(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i), m_recentFiles.at(i));
@@ -600,14 +601,14 @@ bool App::newWorkspace()
     return true;
 }
 
-bool App::loadWorkspace(const QString &fileName)
+bool App::loadWorkspace(const QString& fileName)
 {
     /* Clear existing document data */
     clearDocument();
     m_docLoaded = false;
     emit docLoadedChanged();
 
-    QString localFilename =  fileName;
+    QString localFilename = fileName;
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(fileName).toLocalFile();
 
@@ -625,7 +626,7 @@ bool App::loadWorkspace(const QString &fileName)
         // autostart Function if set
         if (m_doc->startupFunction() != Function::invalidId())
         {
-            Function *func = m_doc->function(m_doc->startupFunction());
+            Function* func = m_doc->function(m_doc->startupFunction());
             if (func != nullptr)
             {
                 qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_doc->startupFunction() << ")";
@@ -633,7 +634,8 @@ bool App::loadWorkspace(const QString &fileName)
             }
             else
             {
-                qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. (" << m_doc->startupFunction() << ")";
+                qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. (" << m_doc->startupFunction()
+                           << ")";
                 m_doc->setStartupFunction(Function::invalidId());
             }
         }
@@ -645,7 +647,7 @@ bool App::loadWorkspace(const QString &fileName)
     return false;
 }
 
-void App::slotLoadDocFromMemory(QByteArray &xmlData)
+void App::slotLoadDocFromMemory(QByteArray& xmlData)
 {
     if (xmlData.isEmpty())
         return;
@@ -657,7 +659,7 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
     databuf.setData(xmlData);
     databuf.open(QIODevice::ReadOnly | QIODevice::Text);
 
-    //qDebug() << "Buffer data:" << databuf.data();
+    // qDebug() << "Buffer data:" << databuf.data();
     QXmlStreamReader doc(&databuf);
 
     if (doc.hasError())
@@ -683,7 +685,7 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
         qDebug() << "XML doesn't have a Workspace tag";
 }
 
-bool App::saveWorkspace(const QString &fileName)
+bool App::saveWorkspace(const QString& fileName)
 {
     QString localFilename = fileName;
     if (localFilename.startsWith("file:"))
@@ -707,14 +709,14 @@ bool App::saveWorkspace(const QString &fileName)
     return false;
 }
 
-QFileDevice::FileError App::loadXML(const QString &fileName)
+QFileDevice::FileError App::loadXML(const QString& fileName)
 {
     QFile::FileError retval = QFile::NoError;
 
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
     if (doc == nullptr || doc->device() == nullptr || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
@@ -760,7 +762,7 @@ QFileDevice::FileError App::loadXML(const QString &fileName)
     return retval;
 }
 
-bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
+bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
 {
     if (doc.readNextStartElement() == false)
         return false;
@@ -811,8 +813,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
     // Perform post-load operations
     m_virtualConsole->postLoad();
 
-    if (m_doc->errorLog().isEmpty() == false &&
-        fromMemory == false)
+    if (m_doc->errorLog().isEmpty() == false && fromMemory == false)
     {
         // TODO: emit a signal to inform the QML UI to display an error message
         /*
@@ -863,7 +864,7 @@ QFile::FileError App::saveXML(const QString& fileName)
     m_virtualConsole->saveXML(&doc);
 
     /* Write Simple Desk to the XML document */
-    //SimpleDesk::instance()->saveXML(&doc);
+    // SimpleDesk::instance()->saveXML(&doc);
 
     doc.writeEndElement(); // close KXMLQLCWorkspace
 
@@ -896,7 +897,7 @@ QFile::FileError App::saveXML(const QString& fileName)
  * Import project
  *********************************************************************/
 
-bool App::loadImportWorkspace(const QString &fileName)
+bool App::loadImportWorkspace(const QString& fileName)
 {
     if (m_importManager != nullptr)
         delete m_importManager;
@@ -934,8 +935,7 @@ void App::createFixture()
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
-        QMetaObject::invokeMethod(rootObject(), "switchToContext",
-                                  Q_ARG(QVariant, "FXEDITOR"),
+        QMetaObject::invokeMethod(rootObject(), "switchToContext", Q_ARG(QVariant, "FXEDITOR"),
                                   Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
     }
 
@@ -947,8 +947,7 @@ void App::loadFixture(QString fileName)
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
-        QMetaObject::invokeMethod(rootObject(), "switchToContext",
-                                  Q_ARG(QVariant, "FXEDITOR"),
+        QMetaObject::invokeMethod(rootObject(), "switchToContext", Q_ARG(QVariant, "FXEDITOR"),
                                   Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
     }
     m_fixtureEditor->loadDefinition(fileName);
@@ -973,8 +972,7 @@ void App::editFixture(QString manufacturer, QString model)
 
     if (switchToEditor)
     {
-        QMetaObject::invokeMethod(rootObject(), "switchToContext",
-                                  Q_ARG(QVariant, "FXEDITOR"),
+        QMetaObject::invokeMethod(rootObject(), "switchToContext", Q_ARG(QVariant, "FXEDITOR"),
                                   Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
     }
 }
@@ -988,9 +986,7 @@ void App::closeFixtureEditor()
     }
 
     // reload the QLC+ main view
-    //setSource(QUrl("qrc:/MainView.qml"));
-    QMetaObject::invokeMethod(rootObject(), "switchToContext",
-                              Q_ARG(QVariant, "FIXANDFUNC"),
+    // setSource(QUrl("qrc:/MainView.qml"));
+    QMetaObject::invokeMethod(rootObject(), "switchToContext", Q_ARG(QVariant, "FIXANDFUNC"),
                               Q_ARG(QVariant, "qrc:/FixturesAndFunctions.qml"));
 }
-

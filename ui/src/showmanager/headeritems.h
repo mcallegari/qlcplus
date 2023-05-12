@@ -25,8 +25,8 @@
 #include <QAction>
 #include <QFont>
 
-#define HEADER_HEIGHT       35
-#define HALF_SECOND_WIDTH   25
+#define HEADER_HEIGHT 35
+#define HALF_SECOND_WIDTH 25
 
 /** @addtogroup ui_functions
  * @{
@@ -38,7 +38,7 @@
  *
  */
 
-class ShowHeaderItem :  public QObject, public QGraphicsItem
+class ShowHeaderItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
@@ -56,7 +56,7 @@ public:
     };
 
     QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
     void setTimeScale(int val);
     int getTimeScale();
@@ -75,10 +75,10 @@ public:
     static TimeDivision stringToTempo(QString tempo);
 
 signals:
-    void itemClicked(QGraphicsSceneMouseEvent *);
+    void itemClicked(QGraphicsSceneMouseEvent*);
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
 private:
     /** Total width of the item */
@@ -110,10 +110,11 @@ public:
     void setHeight(int height);
 
     QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
     void setTime(quint32 t);
     quint32 getTime();
+
 private:
     int m_height;
     quint32 m_time;

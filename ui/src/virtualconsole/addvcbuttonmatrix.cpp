@@ -29,7 +29,7 @@
 #include "doc.h"
 
 #define KColumnFunction 0
-#define KColumnType     1
+#define KColumnType 1
 
 #define HORIZONTAL_COUNT "addvcbuttonmatrix/horizontalcount"
 #define VERTICAL_COUNT "addvcbuttonmatrix/verticalcount"
@@ -90,7 +90,7 @@ AddVCButtonMatrix::~AddVCButtonMatrix()
     settings.setValue(BUTTON_SIZE, buttonSize());
 }
 
-QList <quint32> AddVCButtonMatrix::functions() const
+QList<quint32> AddVCButtonMatrix::functions() const
 {
     return m_functions;
 }
@@ -121,7 +121,7 @@ void AddVCButtonMatrix::slotAddClicked()
     fs.setDisabledFunctions(functions());
     if (fs.exec() == true)
     {
-        QListIterator <quint32> it(fs.selection());
+        QListIterator<quint32> it(fs.selection());
         while (it.hasNext() == true)
             addFunction(it.next());
     }
@@ -131,7 +131,7 @@ void AddVCButtonMatrix::slotAddClicked()
 
 void AddVCButtonMatrix::slotRemoveClicked()
 {
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
@@ -189,8 +189,7 @@ void AddVCButtonMatrix::addFunction(quint32 fid)
 void AddVCButtonMatrix::setAllocationText()
 {
     QString text("%1 / %2");
-    m_allocationEdit->setText(text.arg(m_tree->topLevelItemCount())
-                              .arg(horizontalCount() * verticalCount()));
+    m_allocationEdit->setText(text.arg(m_tree->topLevelItemCount()).arg(horizontalCount() * verticalCount()));
 }
 
 void AddVCButtonMatrix::setFrameStyle(AddVCButtonMatrix::FrameStyle style)

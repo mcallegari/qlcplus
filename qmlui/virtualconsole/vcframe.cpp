@@ -33,15 +33,15 @@
 #include "simplecrypt.h"
 #include "virtualconsole.h"
 
-#define INPUT_NEXT_PAGE_ID      0
-#define INPUT_PREVIOUS_PAGE_ID  1
-#define INPUT_ENABLE_ID         2
-#define INPUT_COLLAPSE_ID       3
-#define INPUT_SHORTCUT_BASE_ID  20
+#define INPUT_NEXT_PAGE_ID 0
+#define INPUT_PREVIOUS_PAGE_ID 1
+#define INPUT_ENABLE_ID 2
+#define INPUT_COLLAPSE_ID 3
+#define INPUT_SHORTCUT_BASE_ID 20
 
 static const quint64 encKey = 0x5131632B5067334B; // this is "Q1c+Pg3K"
 
-VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
+VCFrame::VCFrame(Doc* doc, VirtualConsole* vc, QObject* parent)
     : VCWidget(doc, parent)
     , m_vc(vc)
     , m_showHeader(true)
@@ -81,12 +81,12 @@ void VCFrame::setupLookAndFeel(qreal pixelDensity, int page)
     setDefaultFontSize(pixelDensity * 3.5);
 }
 
-void VCFrame::render(QQuickView *view, QQuickItem *parent)
+void VCFrame::render(QQuickView* view, QQuickItem* parent)
 {
     if (view == nullptr || parent == nullptr)
         return;
 
-    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCFrameItem.qml"));
+    QQmlComponent* component = new QQmlComponent(view->engine(), QUrl("qrc:/VCFrameItem.qml"));
 
     if (component->isError())
     {
@@ -102,9 +102,9 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     if (m_pagesMap.count() > 0)
     {
         QString chName = QString("frameDropArea%1").arg(id());
-        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
+        QQuickItem* childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject*>(chName));
 
-        foreach(VCWidget *child, m_pagesMap.keys())
+        foreach (VCWidget* child, m_pagesMap.keys())
             child->render(view, childrenArea);
     }
 }
@@ -119,11 +119,11 @@ QString VCFrame::propertiesResource() const
     return QString("qrc:/VCFrameProperties.qml");
 }
 
-VCWidget *VCFrame::createCopy(VCWidget *parent)
+VCWidget* VCFrame::createCopy(VCWidget* parent)
 {
     Q_ASSERT(parent != nullptr);
 
-    VCFrame *frame = new VCFrame(m_doc, m_vc, parent);
+    VCFrame* frame = new VCFrame(m_doc, m_vc, parent);
     QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
 
     if (frame->copyFrom(this) == false)
@@ -135,9 +135,9 @@ VCWidget *VCFrame::createCopy(VCWidget *parent)
     return frame;
 }
 
-bool VCFrame::copyFrom(const VCWidget *widget)
+bool VCFrame::copyFrom(const VCWidget* widget)
 {
-    const VCFrame *frame = qobject_cast<const VCFrame*> (widget);
+    const VCFrame* frame = qobject_cast<const VCFrame*>(widget);
     if (frame == nullptr)
         return false;
 
@@ -148,11 +148,11 @@ bool VCFrame::copyFrom(const VCWidget *widget)
     setTotalPagesNumber(frame->totalPagesNumber());
     setPagesLoop(frame->pagesLoop());
 
-    QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget *child = it.next();
-        VCWidget *childCopy = nullptr;
+        VCWidget* child = it.next();
+        VCWidget* childCopy = nullptr;
 
         /* findChildren() is recursive, so the list contains all
            possible child widgets below this frame. Each frame must
@@ -186,20 +186,20 @@ bool VCFrame::hasChildren()
     return !m_pagesMap.isEmpty();
 }
 
-QList<VCWidget *> VCFrame::children(bool recursive)
+QList<VCWidget*> VCFrame::children(bool recursive)
 {
-    QList<VCWidget *> widgetsList;
+    QList<VCWidget*> widgetsList;
 
     if (recursive == false)
         return m_pagesMap.keys();
     else
     {
-        foreach(VCWidget *widget, m_pagesMap.keys())
+        foreach (VCWidget* widget, m_pagesMap.keys())
         {
             widgetsList.append(widget);
             if (widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
             {
-                VCFrame *frame = qobject_cast<VCFrame *>(widget);
+                VCFrame* frame = qobject_cast<VCFrame*>(widget);
                 widgetsList.append(frame->children(true));
             }
         }
@@ -208,7 +208,7 @@ QList<VCWidget *> VCFrame::children(bool recursive)
     return widgetsList;
 }
 
-void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
+void VCFrame::addWidget(QQuickItem* parent, QString wType, QPoint pos)
 {
     VCWidget::WidgetType type = stringToType(wType);
 
@@ -222,61 +222,66 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 
     switch (type)
     {
-        case FrameWidget:
+    case FrameWidget:
         {
-            VCFrame *frame = new VCFrame(m_doc, m_vc, this);
+            VCFrame* frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(frame);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, frame->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, frame->id()));
             frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame, currentPage());
             frame->render(m_vc->view(), parent);
         }
         break;
-        case SoloFrameWidget:
+    case SoloFrameWidget:
         {
-            VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
+            VCSoloFrame* soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(soloframe);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, soloframe->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, soloframe->id()));
             soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe, currentPage());
             soloframe->render(m_vc->view(), parent);
         }
         break;
-        case ButtonWidget:
+    case ButtonWidget:
         {
-            VCButton *button = new VCButton(m_doc, this);
+            VCButton* button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(button);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
             button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button, currentPage());
             button->render(m_vc->view(), parent);
         }
         break;
-        case LabelWidget:
+    case LabelWidget:
         {
-            VCLabel *label = new VCLabel(m_doc, this);
+            VCLabel* label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(label);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, label->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, label->id()));
             label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label, currentPage());
             label->render(m_vc->view(), parent);
         }
         break;
-        case SliderWidget:
+    case SliderWidget:
         {
-            VCSlider *slider = new VCSlider(m_doc, this);
+            VCSlider* slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(slider);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
             if (wType == "Knob")
             {
                 slider->setWidgetStyle(VCSlider::WKnob);
@@ -289,36 +294,38 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             slider->render(m_vc->view(), parent);
         }
         break;
-        case ClockWidget:
+    case ClockWidget:
         {
-            VCClock *clock = new VCClock(m_doc, this);
+            VCClock* clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(clock);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, clock->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, clock->id()));
             clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock, currentPage());
             clock->render(m_vc->view(), parent);
         }
         break;
-        case CueListWidget:
+    case CueListWidget:
         {
-            VCCueList *cuelist = new VCCueList(m_doc, this);
+            VCCueList* cuelist = new VCCueList(m_doc, this);
             QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(cuelist);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
             cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
             setupWidget(cuelist, currentPage());
             cuelist->render(m_vc->view(), parent);
         }
         break;
-        default:
+    default:
         break;
     }
 }
 
-void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
+void VCFrame::addWidget(QQuickItem* parent, VCWidget* widget, QPoint pos)
 {
     if (m_vc->snapping())
     {
@@ -336,9 +343,10 @@ void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
     widget->render(m_vc->view(), parent);
 }
 
-void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos, QSize matrixSize, QSize widgetSize, bool soloFrame)
+void VCFrame::addWidgetMatrix(QQuickItem* parent, QString matrixType, QPoint pos, QSize matrixSize, QSize widgetSize,
+                              bool soloFrame)
 {
-    VCFrame *frame;
+    VCFrame* frame;
     int totalWidth = (matrixSize.width() * widgetSize.width()) + (m_vc->pixelDensity() * 2);
     int totalHeight = (matrixSize.height() * widgetSize.height()) + (m_vc->pixelDensity() * 2);
     int yPos = m_vc->pixelDensity();
@@ -348,8 +356,8 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
     if (soloFrame)
     {
-        VCSoloFrame *solo = new VCSoloFrame(m_doc, m_vc, this);
-        frame = qobject_cast<VCFrame *>(solo);
+        VCSoloFrame* solo = new VCSoloFrame(m_doc, m_vc, this);
+        frame = qobject_cast<VCFrame*>(solo);
     }
     else
     {
@@ -376,7 +384,9 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
         for (int col = 0; col < matrixSize.width(); col++)
         {
-            frame->addWidget(nullptr, matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget), QPoint(xPos, yPos));
+            frame->addWidget(nullptr,
+                             matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget),
+                             QPoint(xPos, yPos));
             xPos += widgetSize.width();
         }
         yPos += widgetSize.height();
@@ -385,17 +395,17 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
     frame->render(m_vc->view(), parent);
 }
 
-void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos)
+void VCFrame::addWidgetsFromClipboard(QQuickItem* parent, QVariantList idsList, QPoint pos)
 {
     QPoint currPos = pos;
 
     for (QVariant wID : idsList)
     {
-        VCWidget *widget = m_vc->widget(wID.toUInt());
+        VCWidget* widget = m_vc->widget(wID.toUInt());
         if (widget == nullptr)
             continue;
 
-        VCWidget *copy = widget->createCopy(this);
+        VCWidget* copy = widget->createCopy(this);
         addWidget(parent, copy, currPos);
 
         currPos.setX(currPos.x() + copy->geometry().width());
@@ -407,9 +417,9 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
     }
 }
 
-void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
+void VCFrame::addFunctions(QQuickItem* parent, QVariantList idsList, QPoint pos, int keyModifiers)
 {
-    //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
+    // qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
 
     if (m_vc->snapping())
     {
@@ -422,18 +432,19 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
     for (QVariant vID : idsList) // C++11
     {
         quint32 funcID = vID.toUInt();
-        Function *func = m_doc->function(funcID);
+        Function* func = m_doc->function(funcID);
 
         if (func == nullptr)
             continue;
 
         if (keyModifiers & Qt::ShiftModifier)
         {
-            VCSlider *slider = new VCSlider(m_doc, this);
+            VCSlider* slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(slider);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
             slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             slider->setCaption(func->name());
             slider->setControlledFunction(funcID);
@@ -450,16 +461,17 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
         }
         else if (keyModifiers & Qt::ControlModifier)
         {
-            Function *f = m_doc->function(funcID);
+            Function* f = m_doc->function(funcID);
             if (f->type() != Function::ChaserType)
                 return;
 
-            VCCueList *cuelist = new VCCueList(m_doc, this);
+            VCCueList* cuelist = new VCCueList(m_doc, this);
             QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(cuelist);
 
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
             cuelist->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
             cuelist->setCaption(func->name());
             cuelist->setChaserID(funcID);
@@ -476,11 +488,12 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
         }
         else
         {
-            VCButton *button = new VCButton(m_doc, this);
+            VCButton* button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(button);
-            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
+            Tardis::instance()->enqueueAction(
+                Tardis::VCWidgetCreate, this->id(), QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
             button->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             button->setCaption(func->name());
             button->setFunctionID(funcID);
@@ -503,14 +516,14 @@ void VCFrame::deleteChildren()
     if (m_pagesMap.isEmpty())
         return;
 
-    QMapIterator <VCWidget*, int> it(m_pagesMap);
+    QMapIterator<VCWidget*, int> it(m_pagesMap);
     while (it.hasNext() == true)
     {
         it.next();
-        VCWidget *widget = it.key();
-        if(widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
+        VCWidget* widget = it.key();
+        if (widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
         {
-            VCFrame *frame = qobject_cast<VCFrame*>(widget);
+            VCFrame* frame = qobject_cast<VCFrame*>(widget);
             frame->deleteChildren();
         }
         /* Remove the widget from the frame pages map */
@@ -521,7 +534,7 @@ void VCFrame::deleteChildren()
     }
 }
 
-void VCFrame::setupWidget(VCWidget *widget, int page)
+void VCFrame::setupWidget(VCWidget* widget, int page)
 {
     if (m_vc->loadStatus() != VirtualConsole::Loading)
         widget->setupLookAndFeel(m_vc->pixelDensity(), page);
@@ -530,19 +543,18 @@ void VCFrame::setupWidget(VCWidget *widget, int page)
     checkSubmasterConnection(widget);
 }
 
-void VCFrame::checkSubmasterConnection(VCWidget *widget)
+void VCFrame::checkSubmasterConnection(VCWidget* widget)
 {
     if (widget->type() == VCWidget::SliderWidget)
     {
-        VCSlider *slider = qobject_cast<VCSlider *>(widget);
+        VCSlider* slider = qobject_cast<VCSlider*>(widget);
 
         // always connect a slider in case it emits a submaster signal
-        connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                this, SLOT(slotSubmasterValueChanged(qreal)));
+        connect(slider, SIGNAL(submasterValueChanged(qreal)), this, SLOT(slotSubmasterValueChanged(qreal)));
     }
 }
 
-void VCFrame::addWidgetToPageMap(VCWidget *widget)
+void VCFrame::addWidgetToPageMap(VCWidget* widget)
 {
     m_pagesMap.insert(widget, widget->page());
 
@@ -565,7 +577,7 @@ void VCFrame::addWidgetToPageMap(VCWidget *widget)
     }
 }
 
-void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
+void VCFrame::removeWidgetFromPageMap(VCWidget* widget)
 {
     m_pagesMap.remove(widget);
 
@@ -590,7 +602,7 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 
 void VCFrame::setDisabled(bool disable)
 {
-    for (VCWidget *widget : children(true)) // C++11
+    for (VCWidget* widget : children(true)) // C++11
         widget->setDisabled(disable);
 
     VCWidget::setDisabled(disable);
@@ -718,12 +730,12 @@ void VCFrame::setCurrentPage(int pageNum)
 
     m_currentPage = pageNum;
 
-    QMapIterator <VCWidget*, int> it(m_pagesMap);
+    QMapIterator<VCWidget*, int> it(m_pagesMap);
     while (it.hasNext() == true)
     {
         it.next();
         int page = it.value();
-        VCWidget *widget = it.key();
+        VCWidget* widget = it.key();
         if (page == m_currentPage)
         {
             widget->setDisabled(false);
@@ -805,13 +817,13 @@ void VCFrame::cloneFirstPage()
 
     for (int pg = 1; pg < totalPagesNumber(); pg++)
     {
-        QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+        QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
         while (it.hasNext() == true)
         {
             VCWidget* child = it.next();
             if (child->page() == 0 && child->parent() == this)
             {
-                VCWidget *newWidget = child->createCopy(this);
+                VCWidget* newWidget = child->createCopy(this);
                 m_vc->addWidgetToMap(newWidget);
                 newWidget->setPage(pg);
                 setupWidget(newWidget, pg);
@@ -857,7 +869,7 @@ bool VCFrame::requirePIN() const
  * Widget Function
  *********************************************************************/
 
-void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
+void VCFrame::slotFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity)
 {
     Q_UNUSED(widget)
     Q_UNUSED(fid)
@@ -874,8 +886,8 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
 void VCFrame::slotSubmasterValueChanged(qreal value)
 {
     qDebug() << Q_FUNC_INFO << "val:" << value;
-    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
-    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    VCSlider* submaster = qobject_cast<VCSlider*>(sender());
+    QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
@@ -903,7 +915,7 @@ void VCFrame::updateFeedback()
         sendFeedback(UCHAR_MAX, INPUT_ENABLE_ID, VCWidget::UpperValue);
     }
 
-    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
@@ -911,7 +923,7 @@ void VCFrame::updateFeedback()
             child->updateFeedback();
     }
 
-    for (int &pIdx : m_pageLabels.keys())
+    for (int& pIdx : m_pageLabels.keys())
     {
         if (pIdx == m_currentPage)
             sendFeedback(UCHAR_MAX, INPUT_SHORTCUT_BASE_ID + pIdx, VCWidget::UpperValue);
@@ -925,24 +937,24 @@ void VCFrame::slotInputValueChanged(quint8 id, uchar value)
     if (value != UCHAR_MAX)
         return;
 
-    switch(id)
+    switch (id)
     {
-        case INPUT_NEXT_PAGE_ID:
-            gotoNextPage();
+    case INPUT_NEXT_PAGE_ID:
+        gotoNextPage();
         break;
-        case INPUT_PREVIOUS_PAGE_ID:
-            gotoPreviousPage();
+    case INPUT_PREVIOUS_PAGE_ID:
+        gotoPreviousPage();
         break;
-        case INPUT_ENABLE_ID:
-            setDisabled(isDisabled() ? false : true);
+    case INPUT_ENABLE_ID:
+        setDisabled(isDisabled() ? false : true);
         break;
-        case INPUT_COLLAPSE_ID:
-            setCollapsed(!isCollapsed());
+    case INPUT_COLLAPSE_ID:
+        setCollapsed(!isCollapsed());
         break;
-        default:
-            if (id < INPUT_SHORTCUT_BASE_ID || id > INPUT_SHORTCUT_BASE_ID + m_totalPagesNumber)
-                break;
-            setCurrentPage(id - INPUT_SHORTCUT_BASE_ID);
+    default:
+        if (id < INPUT_SHORTCUT_BASE_ID || id > INPUT_SHORTCUT_BASE_ID + m_totalPagesNumber)
+            break;
+        setCurrentPage(id - INPUT_SHORTCUT_BASE_ID);
         break;
     }
 }
@@ -956,7 +968,7 @@ QString VCFrame::xmlTagName() const
     return KXMLQLCVCFrame;
 }
 
-bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
+bool VCFrame::loadWidgetXML(QXmlStreamReader& root, bool render)
 {
     if (root.name() == KXMLQLCVCFrame)
     {
@@ -977,7 +989,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCSoloFrame)
     {
         /* Create a new frame into its parent */
-        VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
+        VCSoloFrame* soloframe = new VCSoloFrame(m_doc, m_vc, this);
         if (soloframe->loadXML(root) == false)
             delete soloframe;
         else
@@ -992,7 +1004,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCButton)
     {
         /* Create a new button into its parent */
-        VCButton *button = new VCButton(m_doc, this);
+        VCButton* button = new VCButton(m_doc, this);
         if (button->loadXML(root) == false)
             delete button;
         else
@@ -1007,7 +1019,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCLabel)
     {
         /* Create a new label into its parent */
-        VCLabel *label = new VCLabel(m_doc, this);
+        VCLabel* label = new VCLabel(m_doc, this);
         if (label->loadXML(root) == false)
             delete label;
         else
@@ -1022,7 +1034,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCSlider)
     {
         /* Create a new slider into its parent */
-        VCSlider *slider = new VCSlider(m_doc, this);
+        VCSlider* slider = new VCSlider(m_doc, this);
         if (slider->loadXML(root) == false)
             delete slider;
         else
@@ -1037,7 +1049,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCClock)
     {
         /* Create a new clock into its parent */
-        VCClock *clock = new VCClock(m_doc, this);
+        VCClock* clock = new VCClock(m_doc, this);
         if (clock->loadXML(root) == false)
             delete clock;
         else
@@ -1052,7 +1064,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCCueList)
     {
         /* Create a new cue list into its parent */
-        VCCueList *cuelist = new VCCueList(m_doc, this);
+        VCCueList* cuelist = new VCCueList(m_doc, this);
         if (cuelist->loadXML(root) == false)
             delete cuelist;
         else
@@ -1072,7 +1084,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     return true;
 }
 
-bool VCFrame::loadXML(QXmlStreamReader &root)
+bool VCFrame::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != xmlTagName())
     {
@@ -1137,7 +1149,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 currentPage = attrs.value(KXMLQLCVCFrameCurrentPage).toInt();
 
-            if(attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
+            if (attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
                 setPagesLoop(true);
 
             root.skipCurrentElement();
@@ -1186,7 +1198,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             registerExternalControl(INPUT_SHORTCUT_BASE_ID + page, name, true);
             loadXMLSources(root, INPUT_SHORTCUT_BASE_ID + page);
 
-            //root.skipCurrentElement();
+            // root.skipCurrentElement();
         }
         else
         {
@@ -1204,7 +1216,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCFrame::saveXML(QXmlStreamWriter *doc)
+bool VCFrame::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1269,7 +1281,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
         saveXMLInputControl(doc, INPUT_PREVIOUS_PAGE_ID, KXMLQLCVCFramePrevious);
 
         /* Write shortcuts, if any */
-        QMapIterator <int, QString> it(m_pageLabels);
+        QMapIterator<int, QString> it(m_pageLabels);
         while (it.hasNext() == true)
         {
             it.next();
@@ -1285,7 +1297,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Save children */
-    foreach(VCWidget *child, children(false))
+    foreach (VCWidget* child, children(false))
         child->saveXML(doc);
 
     /* End the <Frame> tag */

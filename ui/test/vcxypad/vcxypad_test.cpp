@@ -88,7 +88,7 @@ void VCXYPad_Test::fixtures()
     VCXYPad pad(&w, m_doc);
 
     VCXYPadFixture xyf1(m_doc);
-    xyf1.setHead(GroupHead(1,0));
+    xyf1.setHead(GroupHead(1, 0));
 
     pad.appendFixture(xyf1);
     QCOMPARE(pad.m_fixtures.size(), 1);
@@ -96,7 +96,7 @@ void VCXYPad_Test::fixtures()
     QCOMPARE(pad.m_fixtures.size(), 1);
 
     VCXYPadFixture xyf2(m_doc);
-    xyf2.setHead(GroupHead(2,5));
+    xyf2.setHead(GroupHead(2, 5));
 
     pad.appendFixture(xyf2);
     QCOMPARE(pad.m_fixtures.size(), 2);
@@ -105,10 +105,10 @@ void VCXYPad_Test::fixtures()
     pad.appendFixture(xyf1);
     QCOMPARE(pad.m_fixtures.size(), 2);
 
-    pad.removeFixture(GroupHead(3,0));
+    pad.removeFixture(GroupHead(3, 0));
     QCOMPARE(pad.m_fixtures.size(), 2);
 
-    pad.removeFixture(GroupHead(1,0));
+    pad.removeFixture(GroupHead(1, 0));
     QCOMPARE(pad.m_fixtures.size(), 1);
     QCOMPARE(pad.m_fixtures[0].head().fxi, quint32(2));
     QCOMPARE(pad.m_fixtures[0].head().head, 5);
@@ -136,18 +136,18 @@ void VCXYPad_Test::copy()
     pad.m_area->setPosition(pt);
 
     VCXYPadFixture xyf1(m_doc);
-    xyf1.setHead(GroupHead(1,5));
+    xyf1.setHead(GroupHead(1, 5));
     pad.appendFixture(xyf1);
 
     VCXYPadFixture xyf2(m_doc);
-    xyf2.setHead(GroupHead(2,7));
+    xyf2.setHead(GroupHead(2, 7));
     pad.appendFixture(xyf2);
 
     VCXYPadFixture xyf3(m_doc);
-    xyf3.setHead(GroupHead(3,9));
+    xyf3.setHead(GroupHead(3, 9));
     pad.appendFixture(xyf3);
 
-    VCXYPad* copy = qobject_cast<VCXYPad*> (pad.createCopy(&parent));
+    VCXYPad* copy = qobject_cast<VCXYPad*>(pad.createCopy(&parent));
     QVERIFY(copy != NULL);
     QCOMPARE(copy->m_fixtures.size(), 3);
     QVERIFY(copy->m_fixtures[0] == xyf1);
@@ -416,7 +416,7 @@ void VCXYPad_Test::saveXML()
 
 void VCXYPad_Test::modeChange()
 {
-    //UniverseArray ua(512);
+    // UniverseArray ua(512);
     QWidget w;
 
     Fixture* fxi = new Fixture(m_doc);
@@ -444,18 +444,18 @@ void VCXYPad_Test::modeChange()
     QVERIFY(pad->fixtures()[0].m_yMSB != QLCChannel::invalid());
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], pad);
-/*
-    // FIXME !!
-    pad->m_area->setPosition(QPoint(pad->m_area->width(), pad->m_area->height()));
-    pad->writeDMX(m_doc->masterTimer(), &ua);
-    QCOMPARE(ua.preGMValues()[0], char(255));
-    QCOMPARE(ua.preGMValues()[1], char(255));
+    /*
+        // FIXME !!
+        pad->m_area->setPosition(QPoint(pad->m_area->width(), pad->m_area->height()));
+        pad->writeDMX(m_doc->masterTimer(), &ua);
+        QCOMPARE(ua.preGMValues()[0], char(255));
+        QCOMPARE(ua.preGMValues()[1], char(255));
 
-    pad->m_area->setPosition(QPoint(pad->m_area->width() / 2, pad->m_area->height() / 4));
-    pad->writeDMX(m_doc->masterTimer(), &ua);
-    QCOMPARE(ua.preGMValues()[0], char(128));
-    QCOMPARE(ua.preGMValues()[1], char(64));
-*/
+        pad->m_area->setPosition(QPoint(pad->m_area->width() / 2, pad->m_area->height() / 4));
+        pad->writeDMX(m_doc->masterTimer(), &ua);
+        QCOMPARE(ua.preGMValues()[0], char(128));
+        QCOMPARE(ua.preGMValues()[1], char(64));
+    */
     m_doc->setMode(Doc::Design);
     QCOMPARE(pad->fixtures()[0].m_xMSB, QLCChannel::invalid());
     QCOMPARE(pad->fixtures()[0].m_yMSB, QLCChannel::invalid());

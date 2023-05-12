@@ -29,7 +29,7 @@
 #include "headeritems.h"
 #include "audiodecoder.h"
 
-EFXItem::EFXItem(EFX *efx, ShowFunction *func)
+EFXItem::EFXItem(EFX* efx, ShowFunction* func)
     : ShowItem(func)
     , m_efx(efx)
 {
@@ -59,7 +59,7 @@ void EFXItem::calculateWidth()
     setWidth(newWidth);
 }
 
-void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void EFXItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -115,7 +115,7 @@ QString EFXItem::functionName()
     return QString();
 }
 
-EFX *EFXItem::getEFX()
+EFX* EFXItem::getEFX()
 {
     return m_efx;
 }
@@ -127,14 +127,14 @@ void EFXItem::slotEFXChanged(quint32)
     updateTooltip();
 }
 
-void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction* action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

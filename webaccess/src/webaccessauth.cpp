@@ -24,7 +24,7 @@
 #include <QStringList>
 #include <QCryptographicHash>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-#include <QRandomGenerator>
+  #include <QRandomGenerator>
 #endif
 
 #include "webaccessauth.h"
@@ -33,7 +33,7 @@
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
-#define SALT_LENGTH           32
+#define SALT_LENGTH 32
 #define DEFAULT_PASSWORD_FILE "web_passwd"
 
 WebAccessAuth::WebAccessAuth(const QString& realm)
@@ -75,13 +75,7 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
         QString hashType = (parts.size() >= 4) ? (parts[3]) : (DEFAULT_PASSWORD_HASH_TYPE);
         QString salt = (parts.size() >= 5) ? (parts[4]) : ("");
 
-        WebAccessUser user(
-            username,
-            passwordHash,
-            (WebAccessUserLevel)userLevel,
-            hashType,
-            salt
-        );
+        WebAccessUser user(username, passwordHash, (WebAccessUserLevel)userLevel, hashType, salt);
 
         // Silently overrides duplicate usernames due to unique keys in maps
         this->m_passwords.insert(username, user);
@@ -105,15 +99,11 @@ bool WebAccessAuth::savePasswordsFile() const
     foreach (QString username, m_passwords.keys())
     {
         WebAccessUser user = m_passwords.value(username);
-        stream
-            << user.username << ':'
-            << user.passwordHash << ':'
-            << (int)user.level << ':'
-            << user.hashType << ':'
+        stream << user.username << ':' << user.passwordHash << ':' << (int)user.level << ':' << user.hashType << ':'
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-            << user.passwordSalt << Qt::endl;
+               << user.passwordSalt << Qt::endl;
 #else
-            << user.passwordSalt << endl;
+               << user.passwordSalt << endl;
 #endif
     }
 
@@ -145,7 +135,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
     QString password = authentication.mid(colonIndex + 1);
 
     QMap<QString, WebAccessUser>::const_iterator userIterator = m_passwords.find(username);
-    if(userIterator == m_passwords.end() || ! this->verifyPassword(password, *userIterator))
+    if (userIterator == m_passwords.end() || !this->verifyPassword(password, *userIterator))
         return WebAccessUser();
 
     return *userIterator;
@@ -154,13 +144,8 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
 void WebAccessAuth::addUser(const QString& username, const QString& password, WebAccessUserLevel level)
 {
     QString salt = this->generateSalt();
-    WebAccessUser user(
-        username,
-        this->hashPassword(DEFAULT_PASSWORD_HASH_TYPE, password, salt),
-        level,
-        DEFAULT_PASSWORD_HASH_TYPE,
-        salt
-    );
+    WebAccessUser user(username, this->hashPassword(DEFAULT_PASSWORD_HASH_TYPE, password, salt), level,
+                       DEFAULT_PASSWORD_HASH_TYPE, salt);
     m_passwords.insert(username, user);
 }
 
@@ -187,20 +172,19 @@ QList<WebAccessUser> WebAccessAuth::getUsers() const
 
 void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
 {
-    //TODO: Allow for localization of this
-    const static QByteArray text = QString(
-        "<html>"
-            "<head>"
-                "<meta charset=\"utf-8\">"
-                "<title>Unauthorized</title>"
-            "</head>"
-            "<body>"
-                "<h1>401 Unauthorized</h1>"
-                "<p>Access to this resource requires proper authorization"
-                " and you have failed to authenticate.</p>"
-            "</body>"
-        "</html>"
-    ).toUtf8();
+    // TODO: Allow for localization of this
+    const static QByteArray text = QString("<html>"
+                                           "<head>"
+                                           "<meta charset=\"utf-8\">"
+                                           "<title>Unauthorized</title>"
+                                           "</head>"
+                                           "<body>"
+                                           "<h1>401 Unauthorized</h1>"
+                                           "<p>Access to this resource requires proper authorization"
+                                           " and you have failed to authenticate.</p>"
+                                           "</body>"
+                                           "</html>")
+                                       .toUtf8();
 
     res->setHeader("Content-Type", "text/html");
     res->setHeader("Content-Length", QString::number(text.size()));
@@ -213,7 +197,7 @@ QString WebAccessAuth::generateSalt() const
 {
     QString salt;
 
-    for(int i = 0; i < SALT_LENGTH; i++)
+    for (int i = 0; i < SALT_LENGTH; i++)
     {
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
         int halfByte = qrand() % 16;
@@ -231,7 +215,7 @@ QString WebAccessAuth::hashPassword(const QString& hashType, const QString& pass
     QString passwordWithSalt = password + passwordSalt;
     QCryptographicHash::Algorithm algorithm = QCryptographicHash::Sha1;
 
-    if(hashType == "sha1")
+    if (hashType == "sha1")
     {
         algorithm = QCryptographicHash::Sha1;
     }
@@ -240,7 +224,7 @@ QString WebAccessAuth::hashPassword(const QString& hashType, const QString& pass
     {
         algorithm = QCryptographicHash::Md5;
     }
-    else if(hashType == "sha256")
+    else if (hashType == "sha256")
     {
         algorithm = QCryptographicHash::Sha256;
     }
@@ -263,7 +247,7 @@ bool WebAccessAuth::hasAtLeastOneAdmin() const
 {
     foreach (WebAccessUser user, m_passwords.values())
     {
-        if(user.level >= SUPER_ADMIN_LEVEL)
+        if (user.level >= SUPER_ADMIN_LEVEL)
             return true;
     }
 

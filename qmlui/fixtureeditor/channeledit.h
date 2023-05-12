@@ -30,7 +30,7 @@ class ChannelEdit : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QLCChannel *channel READ channel)
+    Q_PROPERTY(QLCChannel* channel READ channel)
     Q_PROPERTY(QVariantList channelPresetList READ channelPresetList CONSTANT)
     Q_PROPERTY(QVariantList channelTypeList READ channelTypeList CONSTANT)
     Q_PROPERTY(int group READ group WRITE setGroup NOTIFY groupChanged)
@@ -38,10 +38,10 @@ class ChannelEdit : public QObject
     Q_PROPERTY(QVariantList capabilities READ capabilities NOTIFY capabilitiesChanged)
 
 public:
-    ChannelEdit(QLCChannel *channel, QObject *parent = nullptr);
+    ChannelEdit(QLCChannel* channel, QObject* parent = nullptr);
     ~ChannelEdit();
 
-    QLCChannel *channel();
+    QLCChannel* channel();
 
     QVariantList channelPresetList() const;
     QVariantList channelTypeList() const;
@@ -55,8 +55,8 @@ public:
     QVariantList capabilities() const;
 
     /** Methods to add a new capability */
-    Q_INVOKABLE QLCCapability *addNewCapability();
-    Q_INVOKABLE QLCCapability *addCapability(int min, int max, QString name);
+    Q_INVOKABLE QLCCapability* addNewCapability();
+    Q_INVOKABLE QLCCapability* addCapability(int min, int max, QString name);
 
     /** Delete the capability at the given index */
     Q_INVOKABLE void removeCapabilityAtIndex(int index);
@@ -91,7 +91,7 @@ signals:
 
 private:
     /** Reference to the channel being edited */
-    QLCChannel *m_channel;
+    QLCChannel* m_channel;
 
     /** List of capabilities used in QML */
     QVariantList m_capabilities;

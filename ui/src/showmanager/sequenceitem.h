@@ -43,10 +43,10 @@ class SequenceItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    SequenceItem(Chaser *seq, ShowFunction *func);
+    SequenceItem(Chaser* seq, ShowFunction* func);
 
     /** @reimp */
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
     /** @reimp */
     void setTimeScale(int val);
@@ -60,11 +60,11 @@ public:
     void setSelectedStep(int idx);
 
     /** Return a pointer to a Chaser Function associated to this item */
-    Chaser *getChaser();
+    Chaser* getChaser();
 
 protected:
     /** @reimp */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent*);
 
 protected slots:
     void slotSequenceChanged(quint32);
@@ -75,7 +75,7 @@ private:
 
 private:
     /** Reference to the actual Chaser Function which holds the sequence steps */
-    Chaser *m_chaser;
+    Chaser* m_chaser;
 
     /** index of the selected step for highlighting (-1 if none) */
     int m_selectedStep;

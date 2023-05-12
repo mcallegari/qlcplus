@@ -51,7 +51,7 @@ class RGBMatrixStep
 {
 public:
     RGBMatrixStep();
-    ~RGBMatrixStep() { }
+    ~RGBMatrixStep() {}
 
 public:
     /** Set/Get the current step index */
@@ -70,7 +70,7 @@ public:
     void updateStepColor(int step, QColor startColor, int stepsCount);
 
     /** Initialize the playback direction and set the initial step index and
-      * color based on $startColor and $endColor */
+     * color based on $startColor and $endColor */
     void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount);
 
     /** Check the steps progression based on $order and the internal m_direction.
@@ -98,7 +98,7 @@ class RGBMatrix : public Function
     Q_OBJECT
     Q_DISABLE_COPY(RGBMatrix)
 
-   /*********************************************************************
+    /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
@@ -151,7 +151,7 @@ public:
 
 private:
     quint32 m_fixtureGroupID;
-    FixtureGroup *m_group;
+    FixtureGroup* m_group;
 
     /************************************************************************
      * Algorithm
@@ -174,10 +174,10 @@ public:
     int stepsCount();
 
     /** Get the preview of the current algorithm at the given step */
-    void previewMap(int step, RGBMatrixStep *handler);
+    void previewMap(int step, RGBMatrixStep* handler);
 
 private:
-    RGBAlgorithm *m_algorithm;
+    RGBAlgorithm* m_algorithm;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
 #else
@@ -199,7 +199,7 @@ public:
 private:
     QColor m_startColor;
     QColor m_endColor;
-    RGBMatrixStep *m_stepHandler;
+    RGBMatrixStep* m_stepHandler;
 
     /************************************************************************
      * Properties
@@ -213,17 +213,17 @@ public:
 
 private:
     /** A map of the custom properties for this matrix */
-    QHash<QString, QString>m_properties;
+    QHash<QString, QString> m_properties;
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /************************************************************************
      * Running
@@ -233,23 +233,23 @@ public:
     void tap();
 
     /** @reimp */
-    void preRun(MasterTimer *timer);
+    void preRun(MasterTimer* timer);
 
     /** @reimp */
-    void write(MasterTimer *timer, QList<Universe*> universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimp */
-    void postRun(MasterTimer *timer, QList<Universe*> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
-    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
+    FadeChannel* getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    void updateFaderValues(FadeChannel* fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */
-    void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);
+    void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe*> universes);
 
 public:
     /** Convert color values to fader value */
@@ -257,7 +257,7 @@ public:
 
 private:
     /** Reference to a timer counting the time in ms between steps */
-    QElapsedTimer *m_roundTime;
+    QElapsedTimer* m_roundTime;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;

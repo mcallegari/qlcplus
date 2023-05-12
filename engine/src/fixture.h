@@ -44,27 +44,27 @@ class Doc;
  * @{
  */
 
-#define KXMLFixture             QString("Fixture")
-#define KXMLFixtureName         QString("Name")
-#define KXMLFixtureUniverse     QString("Universe")
-#define KXMLFixtureAddress      QString("Address")
-#define KXMLFixtureID           QString("ID")
-#define KXMLFixtureGeneric      QString("Generic")
-#define KXMLFixtureRGBPanel     QString("RGBPanel")
-#define KXMLFixtureChannels     QString("Channels")
-#define KXMLFixtureDimmer       QString("Dimmer")
-#define KXMLFixtureExcludeFade  QString("ExcludeFade")
-#define KXMLFixtureForcedHTP    QString("ForcedHTP")
-#define KXMLFixtureForcedLTP    QString("ForcedLTP")
+#define KXMLFixture QString("Fixture")
+#define KXMLFixtureName QString("Name")
+#define KXMLFixtureUniverse QString("Universe")
+#define KXMLFixtureAddress QString("Address")
+#define KXMLFixtureID QString("ID")
+#define KXMLFixtureGeneric QString("Generic")
+#define KXMLFixtureRGBPanel QString("RGBPanel")
+#define KXMLFixtureChannels QString("Channels")
+#define KXMLFixtureDimmer QString("Dimmer")
+#define KXMLFixtureExcludeFade QString("ExcludeFade")
+#define KXMLFixtureForcedHTP QString("ForcedHTP")
+#define KXMLFixtureForcedLTP QString("ForcedLTP")
 
-#define KXMLFixtureChannelModifier  QString("Modifier")
-#define KXMLFixtureChannelIndex     QString("Channel")
-#define KXMLFixtureModifierName     QString("Name")
+#define KXMLFixtureChannelModifier QString("Modifier")
+#define KXMLFixtureChannelIndex QString("Channel")
+#define KXMLFixtureModifierName QString("Name")
 
 typedef struct
 {
-    bool m_hasAlias;        /** Flag to enable/disable aliases check */
-    QLCCapability *m_currCap; /** The current capability in use */
+    bool m_hasAlias;          /** Flag to enable/disable aliases check */
+    QLCCapability* m_currCap; /** The current capability in use */
 } ChannelAlias;
 
 class Fixture : public QObject
@@ -249,8 +249,7 @@ public:
      * @param colour Primary color to search for
      * @return The first matching channel number
      */
-    quint32 channel(QLCChannel::Group group,
-        QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
+    quint32 channel(QLCChannel::Group group, QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /**
      * Get a set of channels from the given group of channels and by their primary color
@@ -259,9 +258,7 @@ public:
      * @param color Primary color to search for
      * @return A QSet containing the matching channel numbers
      */
-    QSet <quint32> channels(
-                    QLCChannel::Group group,
-                    QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
+    QSet<quint32> channels(QLCChannel::Group group, QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /** @see QLCFixtureHead */
     quint32 channelNumber(int type, int controlByte, int head = 0) const;
@@ -270,10 +267,10 @@ public:
     quint32 masterIntensityChannel() const;
 
     /** @see QLCFixtureHead */
-    QVector <quint32> rgbChannels(int head = 0) const;
+    QVector<quint32> rgbChannels(int head = 0) const;
 
     /** @see QLCFixtureHead */
-    QVector <quint32> cmyChannels(int head = 0) const;
+    QVector<quint32> cmyChannels(int head = 0) const;
 
     /** Return a list of DMX values based on the given position degrees
      *  and the provided type (Pan or Tilt) */
@@ -307,11 +304,11 @@ public:
     QList<int> forcedLTPChannels();
 
     /** Set a ChannelModifier to the channel with the given $idx */
-    void setChannelModifier(quint32 idx, ChannelModifier *mod);
+    void setChannelModifier(quint32 idx, ChannelModifier* mod);
 
     /** Get the ChannelModifier for the channel with the given $idx.
      *  Returns NULL if no modifier has been assigned */
-    ChannelModifier *channelModifier(quint32 idx);
+    ChannelModifier* channelModifier(quint32 idx);
 
 protected:
     /** Find and store channel numbers (pan, tilt, intensity) */
@@ -344,7 +341,7 @@ protected:
 public:
     /** Store DMX values for this fixture. If values have changed,
      * it returns true, otherwise false */
-    bool setChannelValues(const QByteArray &values);
+    bool setChannelValues(const QByteArray& values);
 
     /** Return the current DMX values of this fixture */
     QByteArray channelValues();
@@ -377,15 +374,14 @@ public:
      * @param fixtureDef The new fixture definition
      * @param fixtureMode The new fixture mode (member of $fixtureDef)
      */
-    void setFixtureDefinition(QLCFixtureDef *fixtureDef,
-                              QLCFixtureMode *fixtureMode);
+    void setFixtureDefinition(QLCFixtureDef* fixtureDef, QLCFixtureMode* fixtureMode);
 
     /**
      * Get the fixture definition that this fixture instance is based on.
      *
      * @return A QLCFixture definition
      */
-    QLCFixtureDef *fixtureDef() const;
+    QLCFixtureDef* fixtureDef() const;
 
     /**
      * Get the fixture mode that this fixture instance is based on.
@@ -432,16 +428,17 @@ protected:
      *********************************************************************/
 public:
     /** Creates and returns a definition for a generic dimmer pack */
-    QLCFixtureDef *genericDimmerDef(int channels);
+    QLCFixtureDef* genericDimmerDef(int channels);
 
     /** Creates and returns a fixture mode for a generic dimmer pack */
-    QLCFixtureMode *genericDimmerMode(QLCFixtureDef *def, int channels);
+    QLCFixtureMode* genericDimmerMode(QLCFixtureDef* def, int channels);
 
     /*********************************************************************
      * Generic RGB panel
      *********************************************************************/
 public:
-    enum Components {
+    enum Components
+    {
         RGB = 0,
         BGR,
         BRG,
@@ -456,10 +453,10 @@ public:
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
+    QLCFixtureDef* genericRGBPanelDef(int columns, Components components);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
+    QLCFixtureMode* genericRGBPanelMode(QLCFixtureDef* def, Components components, quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save
@@ -472,7 +469,7 @@ public:
      * @param root The Fixture node to load from
      * @param doc The doc that owns all fixtures
      */
-    static bool loader(QXmlStreamReader &root, Doc* doc);
+    static bool loader(QXmlStreamReader& root, Doc* doc);
 
     /**
      * Load a fixture's contents from the given XML node.
@@ -480,8 +477,7 @@ public:
      * @param root An XML subtree containing a single fixture instance
      * @return true if the fixture was loaded successfully, otherwise false
      */
-    bool loadXML(QXmlStreamReader &xmlDoc, Doc* doc,
-                 QLCFixtureDefCache* fixtureDefCache);
+    bool loadXML(QXmlStreamReader& xmlDoc, Doc* doc, QLCFixtureDefCache* fixtureDefCache);
 
     /**
      * Save the fixture instance into an XML document, under the given
@@ -490,7 +486,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 
     /*********************************************************************
      * Status
@@ -507,4 +503,3 @@ public:
 /** @} */
 
 #endif
-

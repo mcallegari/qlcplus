@@ -77,8 +77,8 @@ protected:
 private:
     static QList<QColor> rgbColorList();
     void updateTree();
-    VCMatrixControl *getSelectedControl();
-    void addControl(VCMatrixControl *control);
+    VCMatrixControl* getSelectedControl();
+    void addControl(VCMatrixControl* control);
     void removeControl(quint8 id);
     void updateControlInputSource(QSharedPointer<QLCInputSource> const& source);
 
@@ -99,7 +99,7 @@ protected slots:
 protected:
     quint8 m_lastAssignedID;
     QList<VCMatrixControl*> m_controls;
-    InputSelectionWidget *m_presetInputWidget;
+    InputSelectionWidget* m_presetInputWidget;
 
 protected slots:
     /** @reimp */

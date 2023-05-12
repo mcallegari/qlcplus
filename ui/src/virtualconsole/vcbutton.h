@@ -41,24 +41,24 @@ class QEvent;
  * @{
  */
 
-#define KXMLQLCVCButton     QString("Button")
+#define KXMLQLCVCButton QString("Button")
 #define KXMLQLCVCButtonIcon QString("Icon")
 
-#define KXMLQLCVCButtonFunction     QString("Function")
-#define KXMLQLCVCButtonFunctionID   QString("ID")
+#define KXMLQLCVCButtonFunction QString("Function")
+#define KXMLQLCVCButtonFunctionID QString("ID")
 
-#define KXMLQLCVCButtonAction           QString("Action")
-#define KXMLQLCVCButtonActionFlash      QString("Flash")
-#define KXMLQLCVCButtonActionToggle     QString("Toggle")
-#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
-#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
+#define KXMLQLCVCButtonAction QString("Action")
+#define KXMLQLCVCButtonActionFlash QString("Flash")
+#define KXMLQLCVCButtonActionToggle QString("Toggle")
+#define KXMLQLCVCButtonActionBlackout QString("Blackout")
+#define KXMLQLCVCButtonActionStopAll QString("StopAll")
 
-#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
+#define KXMLQLCVCButtonStopAllFadeTime QString("FadeOut")
 
 #define KXMLQLCVCButtonKey QString("Key")
 
-#define KXMLQLCVCButtonIntensity        QString("Intensity")
-#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
+#define KXMLQLCVCButtonIntensity QString("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust QString("Adjust")
 
 class VCButton : public VCWidget
 {
@@ -150,7 +150,6 @@ public:
     void setIconPath(const QString& iconPath);
 
 private:
-
     /** Reload icon file from disk */
     void updateIcon();
 
@@ -187,7 +186,7 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    void adjustFunctionIntensity(Function *f, qreal value);
+    void adjustFunctionIntensity(Function* f, qreal value);
 
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
@@ -256,7 +255,13 @@ public:
      * Blackout: Toggle blackout on/off.
      * StopAll: Stop all functions (panic button).
      */
-    enum Action { Toggle, Flash, Blackout, StopAll };
+    enum Action
+    {
+        Toggle,
+        Flash,
+        Blackout,
+        StopAll
+    };
 
     /** Set this button's action */
     void setAction(Action action);
@@ -344,8 +349,8 @@ protected:
     bool isChildOfSoloFrame() const;
 
     /*********************************************************************
-    * Custom menu
-    *********************************************************************/
+     * Custom menu
+     *********************************************************************/
 public:
     /** Get a custom menu specific to this widget. Must be deleted. */
     QMenu* customMenu(QMenu* parentMenu);
@@ -368,7 +373,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -376,7 +381,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /*********************************************************************
      * Event Handlers

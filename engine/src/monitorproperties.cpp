@@ -27,51 +27,51 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define KXMLQLCMonitorDisplay       QString("DisplayMode")
-#define KXMLQLCMonitorChannels      QString("ChannelStyle")
-#define KXMLQLCMonitorValues        QString("ValueStyle")
-#define KXMLQLCMonitorFont          QString("Font")
-#define KXMLQLCMonitorGrid          QString("Grid")
-#define KXMLQLCMonitorGridWidth     QString("Width")
-#define KXMLQLCMonitorGridHeight    QString("Height")
-#define KXMLQLCMonitorGridDepth     QString("Depth")
-#define KXMLQLCMonitorGridUnits     QString("Units")
-#define KXMLQLCMonitorPointOfView   QString("POV")
-#define KXMLQLCMonitorItemID        QString("ID")
-#define KXMLQLCMonitorShowLabels    QString("ShowLabels")
+#define KXMLQLCMonitorDisplay QString("DisplayMode")
+#define KXMLQLCMonitorChannels QString("ChannelStyle")
+#define KXMLQLCMonitorValues QString("ValueStyle")
+#define KXMLQLCMonitorFont QString("Font")
+#define KXMLQLCMonitorGrid QString("Grid")
+#define KXMLQLCMonitorGridWidth QString("Width")
+#define KXMLQLCMonitorGridHeight QString("Height")
+#define KXMLQLCMonitorGridDepth QString("Depth")
+#define KXMLQLCMonitorGridUnits QString("Units")
+#define KXMLQLCMonitorPointOfView QString("POV")
+#define KXMLQLCMonitorItemID QString("ID")
+#define KXMLQLCMonitorShowLabels QString("ShowLabels")
 
-#define KXMLQLCMonitorCommonBackground  QString("Background")
-#define KXMLQLCMonitorCustomBgItem      QString("BackgroundItem")
+#define KXMLQLCMonitorCommonBackground QString("Background")
+#define KXMLQLCMonitorCustomBgItem QString("BackgroundItem")
 
-#define KXMLQLCMonitorFixtureItem   QString("FxItem")
-#define KXMLQLCMonitorStageItem     QString("StageItem")
-#define KXMLQLCMonitorMeshItem      QString("MeshItem")
-#define KXMLQLCMonitorItemName      QString("Name")
-#define KXMLQLCMonitorItemRes       QString("Res")
+#define KXMLQLCMonitorFixtureItem QString("FxItem")
+#define KXMLQLCMonitorStageItem QString("StageItem")
+#define KXMLQLCMonitorMeshItem QString("MeshItem")
+#define KXMLQLCMonitorItemName QString("Name")
+#define KXMLQLCMonitorItemRes QString("Res")
 
-#define KXMLQLCMonitorItemXPosition     QString("XPos")
-#define KXMLQLCMonitorItemYPosition     QString("YPos")
-#define KXMLQLCMonitorItemZPosition     QString("ZPos")
-#define KXMLQLCMonitorItemXRotation     QString("XRot")
-#define KXMLQLCMonitorItemYRotation     QString("YRot")
-#define KXMLQLCMonitorItemZRotation     QString("ZRot")
-#define KXMLQLCMonitorFixtureRotation   QString("Rotation") // LEGACY
-#define KXMLQLCMonitorItemXScale        QString("XScale")
-#define KXMLQLCMonitorItemYScale        QString("YScale")
-#define KXMLQLCMonitorItemZScale        QString("ZScale")
+#define KXMLQLCMonitorItemXPosition QString("XPos")
+#define KXMLQLCMonitorItemYPosition QString("YPos")
+#define KXMLQLCMonitorItemZPosition QString("ZPos")
+#define KXMLQLCMonitorItemXRotation QString("XRot")
+#define KXMLQLCMonitorItemYRotation QString("YRot")
+#define KXMLQLCMonitorItemZRotation QString("ZRot")
+#define KXMLQLCMonitorFixtureRotation QString("Rotation") // LEGACY
+#define KXMLQLCMonitorItemXScale QString("XScale")
+#define KXMLQLCMonitorItemYScale QString("YScale")
+#define KXMLQLCMonitorItemZScale QString("ZScale")
 
-#define KXMLQLCMonitorFixtureHeadIndex      QString("Head")
-#define KXMLQLCMonitorFixtureLinkedIndex    QString("Linked")
+#define KXMLQLCMonitorFixtureHeadIndex QString("Head")
+#define KXMLQLCMonitorFixtureLinkedIndex QString("Linked")
 
 #define KXMLQLCMonitorFixtureGelColor QString("GelColor")
 
-#define KXMLQLCMonitorFixtureHiddenFlag     QString("Hidden")
-#define KXMLQLCMonitorFixtureInvPanFlag     QString("InvertedPan")
-#define KXMLQLCMonitorFixtureInvTiltFlag    QString("InvertedTilt")
+#define KXMLQLCMonitorFixtureHiddenFlag QString("Hidden")
+#define KXMLQLCMonitorFixtureInvPanFlag QString("InvertedPan")
+#define KXMLQLCMonitorFixtureInvTiltFlag QString("InvertedTilt")
 
-#define GRID_DEFAULT_WIDTH  5
+#define GRID_DEFAULT_WIDTH 5
 #define GRID_DEFAULT_HEIGHT 3
-#define GRID_DEFAULT_DEPTH  5
+#define GRID_DEFAULT_DEPTH 5
 
 MonitorProperties::MonitorProperties()
     : m_displayMode(DMX)
@@ -117,14 +117,14 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
             // convert the grid size first
             switch (pov)
             {
-                case TopView:
-                    setGridSize(QVector3D(gSize.x(), GRID_DEFAULT_HEIGHT, gSize.y()));
+            case TopView:
+                setGridSize(QVector3D(gSize.x(), GRID_DEFAULT_HEIGHT, gSize.y()));
                 break;
-                case RightSideView:
-                case LeftSideView:
-                    setGridSize(QVector3D(GRID_DEFAULT_WIDTH, gSize.x(), gSize.x()));
+            case RightSideView:
+            case LeftSideView:
+                setGridSize(QVector3D(GRID_DEFAULT_WIDTH, gSize.x(), gSize.x()));
                 break;
-                default:
+            default:
                 break;
             }
         }
@@ -138,23 +138,23 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
 
                 switch (pov)
                 {
-                    case TopView:
+                case TopView:
                     {
                         newPos = QVector3D(pos.x(), 1000, pos.y());
                     }
                     break;
-                    case RightSideView:
+                case RightSideView:
                     {
                         newPos = QVector3D(0, pos.y(), (gridSize().z() * units) - pos.x());
                     }
                     break;
-                    case LeftSideView:
+                case LeftSideView:
                     {
                         newPos = QVector3D(0, pos.y(), pos.x());
                     }
                     break;
-                    default:
-                        newPos = QVector3D(pos.x(), (gridSize().y() * units) - pos.y(), 1000);
+                default:
+                    newPos = QVector3D(pos.x(), (gridSize().y() * units) - pos.y(), 1000);
                     break;
                 }
                 setFixturePosition(fid, fixtureHeadIndex(subID), fixtureLinkedIndex(subID), newPos);
@@ -220,7 +220,7 @@ bool MonitorProperties::containsItem(quint32 fid, quint16 head, quint16 linked)
 
 void MonitorProperties::setFixturePosition(quint32 fid, quint16 head, quint16 linked, QVector3D pos)
 {
-    //qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();
+    // qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();
     if (head == 0 && linked == 0)
     {
         m_fixtureItems[fid].m_baseItem.m_position = pos;
@@ -273,7 +273,7 @@ QVector3D MonitorProperties::fixtureRotation(quint32 fid, quint16 head, quint16 
 
 void MonitorProperties::setFixtureGelColor(quint32 fid, quint16 head, quint16 linked, QColor col)
 {
-    //qDebug() << Q_FUNC_INFO << "Gel color:" << col;
+    // qDebug() << Q_FUNC_INFO << "Gel color:" << col;
     if (head == 0 && linked == 0)
     {
         m_fixtureItems[fid].m_baseItem.m_color = col;
@@ -482,7 +482,7 @@ QString MonitorProperties::customBackground(quint32 fid)
  * Load & Save
  *********************************************************************/
 
-bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
+bool MonitorProperties::loadXML(QXmlStreamReader& root, const Doc* mainDocument)
 {
     if (root.name() != KXMLQLCMonitorProperties)
     {
@@ -621,7 +621,6 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
 
             setFixtureItem(fid, headIndex, linkedIndex, item);
             root.skipCurrentElement();
-
         }
         else if (root.name() == KXMLQLCMonitorMeshItem)
         {
@@ -685,7 +684,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
     return true;
 }
 
-bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) const
+bool MonitorProperties::saveXML(QXmlStreamWriter* doc, const Doc* mainDocument) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -707,9 +706,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
         doc->writeTextElement(KXMLQLCMonitorCommonBackground,
                               mainDocument->normalizeComponentPath(commonBackgroundImage()));
     }
-    else if(customBackgroundList().isEmpty() == false)
+    else if (customBackgroundList().isEmpty() == false)
     {
-        QMapIterator <quint32, QString> it(customBackgroundList());
+        QMapIterator<quint32, QString> it(customBackgroundList());
         while (it.hasNext() == true)
         {
             it.next();
@@ -801,7 +800,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     // *             write generic items information             *
     // ***********************************************************
     QMapIterator<quint32, PreviewItem> it(m_genericItems);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 itemID = it.key();

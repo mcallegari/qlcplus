@@ -36,7 +36,7 @@ class VCClockProperties : public QDialog, public Ui_VCClockProperties
     Q_OBJECT
 
 public:
-    VCClockProperties(VCClock *clock, Doc *doc);
+    VCClockProperties(VCClock* clock, Doc* doc);
     ~VCClockProperties();
 
 private:
@@ -51,12 +51,12 @@ protected slots:
     void slotRemoveSchedule();
 
 private:
-    VCClock *m_clock;
+    VCClock* m_clock;
     Doc* m_doc;
 
 protected:
-    InputSelectionWidget *m_playInputWidget;
-    InputSelectionWidget *m_resetInputWidget;
+    InputSelectionWidget* m_playInputWidget;
+    InputSelectionWidget* m_resetInputWidget;
 };
 
 /** @} */

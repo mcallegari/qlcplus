@@ -90,7 +90,7 @@ private slots:
     void slotShuffleClicked();
     void slotSpeedDialToggle(bool state);
     void slotItemSelectionChanged();
-    void slotItemChanged(QTreeWidgetItem*,int);
+    void slotItemChanged(QTreeWidgetItem*, int);
 
     /************************************************************************
      * Clipboard
@@ -135,7 +135,7 @@ private:
     void updateSpeedDials();
 
 private:
-    SpeedDialWidget *m_speedDials;
+    SpeedDialWidget* m_speedDials;
 
     /************************************************************************
      * Test

@@ -50,14 +50,14 @@ GenericDMXSource::~GenericDMXSource()
 void GenericDMXSource::set(quint32 fxi, quint32 ch, uchar value)
 {
     QMutexLocker locker(&m_mutex);
-    m_values[QPair<quint32,quint32>(fxi, ch)] = value;
+    m_values[QPair<quint32, quint32>(fxi, ch)] = value;
     m_changed = true;
 }
 
 void GenericDMXSource::unset(quint32 fxi, quint32 ch)
 {
     QMutexLocker locker(&m_mutex);
-    m_values.remove(QPair<quint32,quint32>(fxi, ch));
+    m_values.remove(QPair<quint32, quint32>(fxi, ch));
     m_changed = true;
 }
 
@@ -87,7 +87,7 @@ quint32 GenericDMXSource::channelsCount() const
 QList<SceneValue> GenericDMXSource::channels()
 {
     QList<SceneValue> chList;
-    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
+    QMutableMapIterator<QPair<quint32, quint32>, uchar> it(m_values);
     while (it.hasNext() == true)
     {
         it.next();
@@ -100,7 +100,7 @@ QList<SceneValue> GenericDMXSource::channels()
     return chList;
 }
 
-void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
+void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe*> ua)
 {
     Q_UNUSED(timer);
 
@@ -109,11 +109,11 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
     if (m_outputEnabled && m_changed)
     {
 
-        QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
+        QMutableMapIterator<QPair<quint32, quint32>, uchar> it(m_values);
         while (it.hasNext())
         {
             it.next();
-            Fixture *fixture = m_doc->fixture(it.key().first);
+            Fixture* fixture = m_doc->fixture(it.key().first);
             if (fixture == NULL)
                 continue;
 
@@ -125,7 +125,7 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
                 m_fadersMap[universe] = fader;
             }
 
-            FadeChannel *fc = fader->getChannelFader(m_doc, ua[universe], fixture->id(), it.key().second);
+            FadeChannel* fc = fader->getChannelFader(m_doc, ua[universe], fixture->id(), it.key().second);
             fc->setCurrent(it.value());
             fc->setTarget(it.value());
         }
@@ -135,7 +135,7 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         m_clearRequest = false;
         m_values.clear();
 
-        QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
+        QMapIterator<quint32, QSharedPointer<GenericFader>> it(m_fadersMap);
         while (it.hasNext() == true)
         {
             it.next();

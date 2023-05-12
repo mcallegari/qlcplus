@@ -43,9 +43,9 @@ class VideoItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    VideoItem(Video *vid, ShowFunction *func);
+    VideoItem(Video* vid, ShowFunction* func);
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
     /** @reimp */
     void setTimeScale(int val);
@@ -57,11 +57,11 @@ public:
     QString functionName();
 
     /** Return a pointer to a Video Function associated to this item */
-    Video *getVideo();
+    Video* getVideo();
 
 protected:
     /** @reimp */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 protected slots:
     void slotVideoChanged(quint32);
@@ -75,10 +75,10 @@ private:
 
 private:
     /** Reference to the actual Video Function */
-    Video *m_video;
+    Video* m_video;
 
     /** Context menu actions */
-    QAction *m_fullscreenAction;
+    QAction* m_fullscreenAction;
 };
 
 /** @} */

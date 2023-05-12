@@ -44,7 +44,7 @@ class VideoEditor : public FunctionEditor
     Q_PROPERTY(int layer READ layer WRITE setLayer NOTIFY layerChanged)
 
 public:
-    VideoEditor(QQuickView *view, Doc *doc, QObject *parent = nullptr);
+    VideoEditor(QQuickView* view, Doc* doc, QObject* parent = nullptr);
     ~VideoEditor();
 
     /** @reimp */
@@ -107,13 +107,13 @@ signals:
 
 private:
     /** Reference of the Video currently being edited */
-    Video *m_video;
+    Video* m_video;
 
     /** A map representing the Video metadata */
     QVariantMap infoMap;
 
     /** temporary player to retrieve metadata information */
-    QMediaPlayer *m_mediaPlayer;
+    QMediaPlayer* m_mediaPlayer;
 };
 
 #endif // VIDEOEDITOR_H

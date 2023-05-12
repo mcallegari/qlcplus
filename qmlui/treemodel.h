@@ -23,7 +23,7 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
-#define SEARCH_MIN_CHARS    3
+#define SEARCH_MIN_CHARS 3
 
 class TreeModelItem;
 
@@ -50,15 +50,15 @@ public:
 
     enum TreeItemsFlags
     {
-        Selected  = (1 << 0),
+        Selected = (1 << 0),
         EmptyNode = (1 << 1),
-        Expanded  = (1 << 2),
+        Expanded = (1 << 2),
         Checkable = (1 << 3),
-        Checked   = (1 << 4),
+        Checked = (1 << 4),
         Draggable = (1 << 5)
     };
 
-    TreeModel(QObject *parent = 0);
+    TreeModel(QObject* parent = 0);
     ~TreeModel();
 
     static QChar separator();
@@ -76,7 +76,7 @@ public:
     void setCheckable(bool enable);
 
     /** Given an item $item, deselect all the other items in the tree */
-    void setSingleSelection(TreeModelItem *item);
+    void setSingleSelection(TreeModelItem* item);
 
     /** Add a new item to this tree.
      *  Note that by 'item' here we mean 'leaf' with name $label and path $path.
@@ -85,9 +85,9 @@ public:
      *  Therefore, $data belongs to the leaf, if you want to add data to a top node,
      *  use the setPathData method.
      *  $flags are used to give an item a specific initial state. See TreeItemsFlags */
-    TreeModelItem *addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
+    TreeModelItem* addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
 
-    TreeModelItem *itemAtPath(QString path);
+    TreeModelItem* itemAtPath(QString path);
 
     /** Remove an item with the given $path from the tree */
     bool removeItem(QString path);
@@ -99,7 +99,7 @@ public:
      * @param value the value to set
      * @param role the model data role for which value is provided
      */
-    void setItemRoleData(QString path, const QVariant &value, int role = Qt::EditRole);
+    void setItemRoleData(QString path, const QVariant& value, int role = Qt::EditRole);
 
     /**
      * Set the value of an item role by item reference. This is not recursive.
@@ -108,10 +108,10 @@ public:
      * @param value the value to set
      * @param role the model data role for which value is provided
      */
-    void setItemRoleData(TreeModelItem *item, const QVariant &value, int role = Qt::EditRole);
+    void setItemRoleData(TreeModelItem* item, const QVariant& value, int role = Qt::EditRole);
 
     /** Get the list of first level items of this tree. This doesn't include children. */
-    QList<TreeModelItem *> items();
+    QList<TreeModelItem*> items();
 
     /** Set columns data on a specific item with the provided $path */
     void setPathData(QString path, QVariantList data);
@@ -120,22 +120,22 @@ public:
     int roleIndex(QString role);
 
     /** @reimp */
-    Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    Q_INVOKABLE int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
     /** @reimp */
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
     /** @reimp */
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
 
     /** Helper method to print the tree in human readable form */
     void printTree(int tab = 0);
 
 signals:
-    void roleChanged(TreeModelItem *item, int role, const QVariant &value);
+    void roleChanged(TreeModelItem* item, int role, const QVariant& value);
 
 protected slots:
-    void slotRoleChanged(TreeModelItem *item, int role, const QVariant &value);
+    void slotRoleChanged(TreeModelItem* item, int role, const QVariant& value);
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -146,8 +146,8 @@ protected:
     QStringList m_roles;
     bool m_sorting;
     bool m_checkable;
-    QList<TreeModelItem *> m_items;
-    QMap<QString, TreeModelItem *> m_itemsPathMap;
+    QList<TreeModelItem*> m_items;
+    QMap<QString, TreeModelItem*> m_itemsPathMap;
 };
 
 #endif // TREEMODEL_H

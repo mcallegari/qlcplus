@@ -63,8 +63,8 @@ PlaybackSlider::PlaybackSlider(QWidget* parent)
     /* Value slider */
     m_slider = new ClickAndGoSlider(this);
     m_slider->setRange(0, UCHAR_MAX);
-    //m_slider->setTickInterval(16);
-    //m_slider->setTickPosition(QSlider::TicksBothSides);
+    // m_slider->setTickInterval(16);
+    // m_slider->setTickPosition(QSlider::TicksBothSides);
     m_slider->setFixedWidth(32);
     m_slider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     layout()->addWidget(m_slider);
@@ -90,9 +90,7 @@ PlaybackSlider::PlaybackSlider(QWidget* parent)
     slotSliderChanged(0);
 }
 
-PlaybackSlider::~PlaybackSlider()
-{
-}
+PlaybackSlider::~PlaybackSlider() {}
 
 void PlaybackSlider::setValue(uchar value)
 {

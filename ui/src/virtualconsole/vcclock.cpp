@@ -32,16 +32,16 @@
 
 #define HYSTERESIS 3 // Hysteresis for pause/reset external input
 
-#define KXMLQLCVCClockType      QString("Type")
-#define KXMLQLCVCClockHours     QString("Hours")
-#define KXMLQLCVCClockMinutes   QString("Minutes")
-#define KXMLQLCVCClockSeconds   QString("Seconds")
+#define KXMLQLCVCClockType QString("Type")
+#define KXMLQLCVCClockHours QString("Hours")
+#define KXMLQLCVCClockMinutes QString("Minutes")
+#define KXMLQLCVCClockSeconds QString("Seconds")
 
-#define KXMLQLCVCClockSchedule      QString("Schedule")
-#define KXMLQLCVCClockScheduleFunc  QString("Function")
-#define KXMLQLCVCClockScheduleTime  QString("Time")
+#define KXMLQLCVCClockSchedule QString("Schedule")
+#define KXMLQLCVCClockScheduleFunc QString("Function")
+#define KXMLQLCVCClockScheduleTime QString("Time")
 
-#define KXMLQLCVCClockPlay  QString("PlayPause")
+#define KXMLQLCVCClockPlay QString("PlayPause")
 #define KXMLQLCVCClockReset QString("Reset")
 
 const quint8 VCClock::playInputSourceId = 0;
@@ -69,14 +69,12 @@ VCClock::VCClock(QWidget* parent, Doc* doc)
     font.setPixelSize(28);
     setFont(font);
 
-    QTimer *timer = new QTimer(this);
+    QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()));
     timer->start(1000);
 }
 
-VCClock::~VCClock()
-{
-}
+VCClock::~VCClock() {}
 
 void VCClock::slotModeChanged(Doc::Mode mode)
 {
@@ -87,7 +85,7 @@ void VCClock::slotModeChanged(Doc::Mode mode)
         if (m_scheduleList.count() > 0)
         {
             QTime currTime = QDateTime::currentDateTime().time();
-            for(int i = 0; i < m_scheduleList.count(); i++)
+            for (int i = 0; i < m_scheduleList.count(); i++)
             {
                 VCClockSchedule sch = m_scheduleList.at(i);
                 if (sch.time().time() >= currTime)
@@ -199,11 +197,12 @@ void VCClock::slotUpdateTime()
                 {
                     QTime currTime = QDateTime::currentDateTime().time();
                     VCClockSchedule sch = m_scheduleList.at(m_scheduleIndex);
-                    //qDebug() << "--- > currTime:" << currTime.toString() << ", schTime:" << sch.time().time().toString();
+                    // qDebug() << "--- > currTime:" << currTime.toString() << ", schTime:" <<
+                    // sch.time().time().toString();
                     if (sch.time().time().toString() == currTime.toString())
                     {
                         quint32 fid = sch.function();
-                        Function *func = m_doc->function(fid);
+                        Function* func = m_doc->function(fid);
                         if (func != NULL)
                         {
                             func->start(m_doc->masterTimer(), functionParent());
@@ -369,7 +368,7 @@ VCWidget* VCClock::createCopy(VCWidget* parent)
 
 bool VCClock::copyFrom(const VCWidget* widget)
 {
-    const VCClock* clock = qobject_cast<const VCClock*> (widget);
+    const VCClock* clock = qobject_cast<const VCClock*>(widget);
     if (clock == NULL)
         return false;
 
@@ -403,7 +402,7 @@ void VCClock::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCClock::loadXML(QXmlStreamReader &root)
+bool VCClock::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCClock)
     {
@@ -425,7 +424,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
                 m = attrs.value(KXMLQLCVCClockMinutes).toString().toInt();
             if (attrs.hasAttribute(KXMLQLCVCClockSeconds))
                 s = attrs.value(KXMLQLCVCClockSeconds).toString().toInt();
-            setCountdown(h, m ,s);
+            setCountdown(h, m, s);
         }
     }
 
@@ -457,7 +456,8 @@ bool VCClock::loadXML(QXmlStreamReader &root)
             QString str = loadXMLSources(root, playInputSourceId);
             if (str.isEmpty() == false)
                 m_playKeySequence = stripKeySequence(QKeySequence(str));
-        }else if (root.name() == KXMLQLCVCClockReset)
+        }
+        else if (root.name() == KXMLQLCVCClockReset)
         {
             QString str = loadXMLSources(root, resetInputSourceId);
             if (str.isEmpty() == false)
@@ -473,7 +473,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCClock::saveXML(QXmlStreamWriter *doc)
+bool VCClock::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -498,7 +498,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    foreach(VCClockSchedule sch, schedules())
+    foreach (VCClockSchedule sch, schedules())
         sch.saveXML(doc);
 
     if (type != Clock)
@@ -535,8 +535,8 @@ void VCClock::paintEvent(QPaintEvent* e)
     if (clockType() == Clock)
     {
         QDateTime currTime = QDateTime::currentDateTime();
-        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(),
-                              true, currTime.time().toString(), foregroundRole());
+        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), true,
+                              currTime.time().toString(), foregroundRole());
     }
     else
     {
@@ -548,16 +548,17 @@ void VCClock::paintEvent(QPaintEvent* e)
 
         m = secTime / 60;
         secTime -= (m * 60);
-        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(),
-                              true, QString("%1:%2:%3").arg(h, 2, 10, QChar('0'))
-                              .arg(m, 2, 10, QChar('0')).arg(secTime, 2, 10, QChar('0')), foregroundRole());
+        style()->drawItemText(
+            &painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), true,
+            QString("%1:%2:%3").arg(h, 2, 10, QChar('0')).arg(m, 2, 10, QChar('0')).arg(secTime, 2, 10, QChar('0')),
+            foregroundRole());
     }
     painter.end();
 
     VCWidget::paintEvent(e);
 }
 
-void VCClock::mousePressEvent(QMouseEvent *e)
+void VCClock::mousePressEvent(QMouseEvent* e)
 {
     if (mode() == Doc::Design)
     {
@@ -580,14 +581,14 @@ void VCClock::mousePressEvent(QMouseEvent *e)
  * VCClockSchedule Class methods
  *********************************************************************/
 
-bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
+bool VCClockSchedule::operator<(const VCClockSchedule& sch) const
 {
     if (sch.time() < time())
         return false;
     return true;
 }
 
-bool VCClockSchedule::loadXML(QXmlStreamReader &root)
+bool VCClockSchedule::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCClockSchedule)
     {
@@ -612,7 +613,7 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
+bool VCClockSchedule::saveXML(QXmlStreamWriter* doc)
 {
     /* Schedule tag */
     doc->writeStartElement(KXMLQLCVCClockSchedule);

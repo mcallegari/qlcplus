@@ -43,8 +43,7 @@ class ChaserStep
      ***********************************************************************/
 public:
     /** Construct a new ChaserStep with the given attributes */
-    ChaserStep(quint32 aFid = Function::invalidId(),
-               uint aFadeIn = 0, uint aHold = 0, uint aFadeOut = 0);
+    ChaserStep(quint32 aFid = Function::invalidId(), uint aFadeIn = 0, uint aHold = 0, uint aFadeOut = 0);
 
     /** Copy constructor */
     ChaserStep(const ChaserStep& cs);
@@ -57,7 +56,7 @@ public:
     /** Return the actual function pointer for $fid from $doc */
     Function* resolveFunction(const Doc* doc) const;
 
-    int setValue(SceneValue value, int index = -1, bool *created = NULL);
+    int setValue(SceneValue value, int index = -1, bool* created = NULL);
 
     int unSetValue(SceneValue value, int index = -1);
 
@@ -77,19 +76,19 @@ public:
      ***********************************************************************/
 public:
     /** Load ChaserStep contents from $root and return step index in $stepNumber.
-      * $doc is used to check fixture existance. If NULL the check is skipped */
-    bool loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc);
+     * $doc is used to check fixture existance. If NULL the check is skipped */
+    bool loadXML(QXmlStreamReader& root, int& stepNumber, Doc* doc);
 
     /** Save ChaserStep contents to $doc, with $stepNumber */
-    bool saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const;
+    bool saveXML(QXmlStreamWriter* doc, int stepNumber, bool isSequence) const;
 
 public:
-    quint32 fid;                 //! The function ID
-    uint fadeIn;                 //! Fade in speed
-    uint hold;                   //! Hold time
-    uint fadeOut;                //! Fade out speed
-    uint duration;               //! Duration
-    QList <SceneValue> values;   //! specific DMX values for this step (chaser in sequence mode)
+    quint32 fid;              //! The function ID
+    uint fadeIn;              //! Fade in speed
+    uint hold;                //! Hold time
+    uint fadeOut;             //! Fade out speed
+    uint duration;            //! Duration
+    QList<SceneValue> values; //! specific DMX values for this step (chaser in sequence mode)
     QString note;
 };
 

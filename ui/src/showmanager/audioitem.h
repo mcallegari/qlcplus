@@ -43,10 +43,10 @@ class AudioItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    AudioItem(Audio *aud, ShowFunction *func);
+    AudioItem(Audio* aud, ShowFunction* func);
 
     /** @reimp */
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
     /** @reimp */
     void setTimeScale(int val);
@@ -58,11 +58,11 @@ public:
     QString functionName();
 
     /** Return a pointer to a Audio Function associated to this item */
-    Audio *getAudio();
+    Audio* getAudio();
 
 protected:
     /** @reimp */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 protected slots:
     void slotAudioChanged(quint32);
@@ -80,28 +80,28 @@ private:
 
 public:
     /** Reference to the actual Audio Function */
-    Audio *m_audio;
+    Audio* m_audio;
 
     /** Context menu actions */
-    QAction *m_previewLeftAction;
-    QAction *m_previewRightAction;
-    QAction *m_previewStereoAction;
+    QAction* m_previewLeftAction;
+    QAction* m_previewRightAction;
+    QAction* m_previewStereoAction;
 
     /** Pixmap holding the waveform (if enabled) */
-    QPixmap *m_preview;
+    QPixmap* m_preview;
 };
 
 class PreviewThread : public QThread
 {
 public:
-    void setAudioItem(AudioItem *item);
+    void setAudioItem(AudioItem* item);
 
 private:
     /** Retrieve a sample value from an audio buffer, given the sample size */
-    qint32 getSample(unsigned char *data, quint32 idx, int sampleSize);
+    qint32 getSample(unsigned char* data, quint32 idx, int sampleSize);
     void run();
 
-    AudioItem *m_item;
+    AudioItem* m_item;
 };
 
 /** @} */

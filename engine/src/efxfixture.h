@@ -37,17 +37,17 @@ class QImage;
  * @{
  */
 
-#define KXMLQLCEFXFixture               QString("Fixture")
-#define KXMLQLCEFXFixtureID             QString("ID")
-#define KXMLQLCEFXFixtureHead           QString("Head")
-#define KXMLQLCEFXFixtureMode           QString("Mode")
-#define KXMLQLCEFXFixtureDirection      QString("Direction")
-#define KXMLQLCEFXFixtureStartOffset    QString("StartOffset")
-#define KXMLQLCEFXFixtureIntensity      QString("Intensity")
+#define KXMLQLCEFXFixture QString("Fixture")
+#define KXMLQLCEFXFixtureID QString("ID")
+#define KXMLQLCEFXFixtureHead QString("Head")
+#define KXMLQLCEFXFixtureMode QString("Mode")
+#define KXMLQLCEFXFixtureDirection QString("Direction")
+#define KXMLQLCEFXFixtureStartOffset QString("StartOffset")
+#define KXMLQLCEFXFixtureIntensity QString("Intensity")
 
-#define KXMLQLCEFXFixtureModePanTilt    QString("Position")
-#define KXMLQLCEFXFixtureModeDimmer     QString("Dimmer")
-#define KXMLQLCEFXFixtureModeRGB        QString("RGB")
+#define KXMLQLCEFXFixtureModePanTilt QString("Position")
+#define KXMLQLCEFXFixtureModeDimmer QString("Dimmer")
+#define KXMLQLCEFXFixtureModeRGB QString("RGB")
 
 class EFXFixture
 {
@@ -83,10 +83,10 @@ private:
      *************************************************************************/
 public:
     /** Set the Fixture Head that this EFXFixture represents. */
-    void setHead(GroupHead const & head);
+    void setHead(GroupHead const& head);
 
     /** Get the Fixture Head that this EFXFixture represents. */
-    GroupHead const & head() const;
+    GroupHead const& head() const;
 
     /** Set this fixture's initial direction. */
     void setDirection(Function::Direction dir);
@@ -138,8 +138,8 @@ private:
      * Load & Save
      *************************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc) const;
 
     /*************************************************************************
      * Run-time properties
@@ -192,14 +192,14 @@ private:
     void stop();
 
     /** Calculate the next step data for this fixture */
-    void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader);
+    void nextStep(QList<Universe*> universes, QSharedPointer<GenericFader> fader);
 
-    void updateFaderValues(FadeChannel *fc, uchar value);
+    void updateFaderValues(FadeChannel* fc, uchar value);
 
     /** Write this EFXFixture's channel data to universe faders */
-    void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
-    void setPointDimmer(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer);
-    void setPointRGB (QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y);
+    void setPointPanTilt(QList<Universe*> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
+    void setPointDimmer(QList<Universe*> universes, QSharedPointer<GenericFader> fader, float dimmer);
+    void setPointRGB(QList<Universe*> universes, QSharedPointer<GenericFader> fader, float x, float y);
 
 private:
     static QImage m_rgbGradient;

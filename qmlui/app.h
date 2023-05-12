@@ -99,46 +99,46 @@ public:
 
     enum ChannelType
     {
-        DimmerType      = (1 << QLCChannel::Intensity),
-        ColorMacroType  = (1 << QLCChannel::Colour), // Color wheels, color macros
-        GoboType        = (1 << QLCChannel::Gobo),
-        SpeedType       = (1 << QLCChannel::Speed),
-        PanType         = (1 << QLCChannel::Pan),
-        TiltType        = (1 << QLCChannel::Tilt),
-        ShutterType     = (1 << QLCChannel::Shutter),
-        PrismType       = (1 << QLCChannel::Prism),
-        BeamType        = (1 << QLCChannel::Beam),
-        EffectType      = (1 << QLCChannel::Effect),
+        DimmerType = (1 << QLCChannel::Intensity),
+        ColorMacroType = (1 << QLCChannel::Colour), // Color wheels, color macros
+        GoboType = (1 << QLCChannel::Gobo),
+        SpeedType = (1 << QLCChannel::Speed),
+        PanType = (1 << QLCChannel::Pan),
+        TiltType = (1 << QLCChannel::Tilt),
+        ShutterType = (1 << QLCChannel::Shutter),
+        PrismType = (1 << QLCChannel::Prism),
+        BeamType = (1 << QLCChannel::Beam),
+        EffectType = (1 << QLCChannel::Effect),
         MaintenanceType = (1 << QLCChannel::Maintenance),
-        ColorType       = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
+        ColorType = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
     };
     Q_ENUM(ChannelType)
 
     enum ChannelColors
     {
-        Red     = (1 << 0),
-        Green   = (1 << 1),
-        Blue    = (1 << 2),
-        Cyan    = (1 << 3),
+        Red = (1 << 0),
+        Green = (1 << 1),
+        Blue = (1 << 2),
+        Cyan = (1 << 3),
         Magenta = (1 << 4),
-        Yellow  = (1 << 5),
-        White   = (1 << 6),
-        Amber   = (1 << 7),
-        UV      = (1 << 8),
-        Lime    = (1 << 9),
-        Indigo  = (1 << 10),
+        Yellow = (1 << 5),
+        White = (1 << 6),
+        Amber = (1 << 7),
+        UV = (1 << 8),
+        Lime = (1 << 9),
+        Indigo = (1 << 10),
     };
     Q_ENUM(ChannelColors)
 
     enum AccessControl
     {
-        AC_FixtureEditing  = (1 << 0),
+        AC_FixtureEditing = (1 << 0),
         AC_FunctionEditing = (1 << 1),
-        AC_VCControl       = (1 << 2),
-        AC_VCEditing       = (1 << 3),
-        AC_SimpleDesk      = (1 << 4),
-        AC_ShowManager     = (1 << 5),
-        AC_InputOutput     = (1 << 6)
+        AC_VCControl = (1 << 2),
+        AC_VCEditing = (1 << 3),
+        AC_SimpleDesk = (1 << 4),
+        AC_ShowManager = (1 << 5),
+        AC_InputOutput = (1 << 6)
     };
     Q_ENUM(AccessControl)
 
@@ -172,13 +172,13 @@ public slots:
     void setAccessMask(int mask);
 
 protected:
-    void keyPressEvent(QKeyEvent * e) override;
-    void keyReleaseEvent(QKeyEvent * e) override;
-    bool event(QEvent *event) override;
+    void keyPressEvent(QKeyEvent* e) override;
+    void keyReleaseEvent(QKeyEvent* e) override;
+    bool event(QEvent* event) override;
 
 protected slots:
     void slotSceneGraphInitialized();
-    void slotScreenChanged(QScreen *screen);
+    void slotScreenChanged(QScreen* screen);
     void slotClosing();
     void slotClientAccessRequest(QString name);
     void slotAccessMaskChanged(int mask);
@@ -193,30 +193,30 @@ private:
     /** Bitmask to enable/disable UI functionalities */
     int m_accessMask;
 
-    QTranslator *m_translator;
+    QTranslator* m_translator;
 
-    FixtureBrowser *m_fixtureBrowser;
-    FixtureManager *m_fixtureManager;
-    FixtureGroupEditor *m_fixtureGroupEditor;
-    PaletteManager *m_paletteManager;
-    ContextManager *m_contextManager;
-    FunctionManager *m_functionManager;
-    InputOutputManager *m_ioManager;
-    VirtualConsole *m_virtualConsole;
-    ShowManager *m_showManager;
-    SimpleDesk *m_simpleDesk;
-    ActionManager *m_actionManager;
-    VideoProvider *m_videoProvider;
-    NetworkManager *m_networkManager;
-    UiManager *m_uiManager;
-    Tardis *m_tardis;
+    FixtureBrowser* m_fixtureBrowser;
+    FixtureManager* m_fixtureManager;
+    FixtureGroupEditor* m_fixtureGroupEditor;
+    PaletteManager* m_paletteManager;
+    ContextManager* m_contextManager;
+    FunctionManager* m_functionManager;
+    InputOutputManager* m_ioManager;
+    VirtualConsole* m_virtualConsole;
+    ShowManager* m_showManager;
+    SimpleDesk* m_simpleDesk;
+    ActionManager* m_actionManager;
+    VideoProvider* m_videoProvider;
+    NetworkManager* m_networkManager;
+    UiManager* m_uiManager;
+    Tardis* m_tardis;
 
     /*********************************************************************
      * Doc
      *********************************************************************/
 public:
     /** Return a reference to the Doc instance */
-    Doc *doc();
+    Doc* doc();
 
     /** Return if the current Doc instance has been loaded */
     bool docLoaded();
@@ -242,7 +242,7 @@ signals:
     void runningFunctionsCountChanged();
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
     bool m_docLoaded;
 
     /*********************************************************************
@@ -250,13 +250,13 @@ private:
      *********************************************************************/
 public:
     /** Send $item content to a printer */
-    Q_INVOKABLE void printItem(QQuickItem *item);
+    Q_INVOKABLE void printItem(QQuickItem* item);
 
 protected slots:
     void slotItemReadyForPrinting();
 
 private:
-    QQuickItem *m_printItem;
+    QQuickItem* m_printItem;
     QSharedPointer<QQuickItemGrabResult> m_printerImage;
 
     /*********************************************************************
@@ -296,7 +296,7 @@ public:
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(QXmlStreamReader &doc, bool goToConsole = false, bool fromMemory = false);
+    bool loadXML(QXmlStreamReader& doc, bool goToConsole = false, bool fromMemory = false);
 
     /**
      * Save workspace contents to a file with the given name. Changes the
@@ -320,7 +320,7 @@ signals:
     void workingPathChanged(QString workingPath);
 
 public slots:
-    void slotLoadDocFromMemory(QByteArray &xmlData);
+    void slotLoadDocFromMemory(QByteArray& xmlData);
 
 private:
     QString m_fileName;
@@ -341,7 +341,7 @@ public:
     Q_INVOKABLE void importFromWorkspace();
 
 private:
-    ImportManager *m_importManager;
+    ImportManager* m_importManager;
 
     /*********************************************************************
      * Fixture editor
@@ -355,6 +355,6 @@ public:
     Q_INVOKABLE void closeFixtureEditor();
 
 private:
-    FixtureEditor *m_fixtureEditor;
+    FixtureEditor* m_fixtureEditor;
 };
 #endif // APP_H

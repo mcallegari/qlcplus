@@ -31,7 +31,7 @@ class ScriptEditor : public FunctionEditor
     Q_PROPERTY(QString scriptContent READ scriptContent WRITE setScriptContent NOTIFY scriptContentChanged)
 
 public:
-    ScriptEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ScriptEditor(QQuickView* view, Doc* doc, QObject* parent = 0);
 
     /** Set the ID of the Audio being edited */
     void setFunctionID(quint32 ID);
@@ -47,7 +47,7 @@ signals:
 
 private:
     /** Reference of the Script currently being edited */
-    Script *m_script;
+    Script* m_script;
 };
 
 #endif // SCRIPTEDITOR_H

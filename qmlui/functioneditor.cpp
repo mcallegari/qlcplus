@@ -21,7 +21,7 @@
 #include "tardis.h"
 #include "doc.h"
 
-FunctionEditor::FunctionEditor(QQuickView *view, Doc *doc, QObject *parent)
+FunctionEditor::FunctionEditor(QQuickView* view, Doc* doc, QObject* parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -33,10 +33,7 @@ FunctionEditor::FunctionEditor(QQuickView *view, Doc *doc, QObject *parent)
 {
 }
 
-FunctionEditor::~FunctionEditor()
-{
-
-}
+FunctionEditor::~FunctionEditor() {}
 
 void FunctionEditor::setFunctionID(quint32 ID)
 {
@@ -146,7 +143,8 @@ void FunctionEditor::setTempoType(int tempoType)
     if (m_function == nullptr || m_function->tempoType() == Function::TempoType(tempoType))
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::FunctionSetTempoType, m_function->id(), m_function->tempoType(), tempoType);
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetTempoType, m_function->id(), m_function->tempoType(),
+                                      tempoType);
 
     m_function->setTempoType(Function::TempoType(tempoType));
 
@@ -159,9 +157,12 @@ void FunctionEditor::setTempoType(int tempoType)
         uint fadeOut = Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration);
         uint duration = Function::timeToBeats(m_function->duration(), beatDuration);
 
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(), fadeIn);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_function->id(), m_function->duration(), duration);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(), fadeOut);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(),
+                                          fadeIn);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_function->id(), m_function->duration(),
+                                          duration);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(),
+                                          fadeOut);
 
         m_function->setFadeInSpeed(fadeIn);
         m_function->setDuration(duration);
@@ -174,9 +175,12 @@ void FunctionEditor::setTempoType(int tempoType)
         uint fadeOut = Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration);
         uint duration = Function::beatsToTime(m_function->duration(), beatDuration);
 
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(), fadeIn);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_function->id(), m_function->duration(), duration);
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(), fadeOut);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(),
+                                          fadeIn);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_function->id(), m_function->duration(),
+                                          duration);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(),
+                                          fadeOut);
 
         m_function->setFadeInSpeed(fadeIn);
         m_function->setDuration(duration);
@@ -202,7 +206,8 @@ void FunctionEditor::setFadeInSpeed(int fadeInSpeed)
     if (m_function->fadeInSpeed() == (uint)fadeInSpeed)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(), fadeInSpeed);
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(),
+                                      fadeInSpeed);
     m_function->setFadeInSpeed(fadeInSpeed);
     emit fadeInSpeedChanged(fadeInSpeed);
 }
@@ -247,7 +252,8 @@ void FunctionEditor::setFadeOutSpeed(int fadeOutSpeed)
     if (m_function->fadeOutSpeed() == (uint)fadeOutSpeed)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(), fadeOutSpeed);
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeOut, m_function->id(), m_function->fadeOutSpeed(),
+                                      fadeOutSpeed);
     m_function->setFadeOutSpeed(fadeOutSpeed);
     emit fadeOutSpeedChanged(fadeOutSpeed);
 }
@@ -296,7 +302,8 @@ void FunctionEditor::setDirection(int direction)
     if (m_function == nullptr || m_function->direction() == Function::Direction(direction))
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::FunctionSetDirection, m_function->id(), m_function->direction(), direction);
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetDirection, m_function->id(), m_function->direction(),
+                                      direction);
 
     m_function->setDirection(Function::Direction(direction));
     emit directionChanged(direction);
@@ -306,4 +313,3 @@ void FunctionEditor::deleteItems(QVariantList list)
 {
     Q_UNUSED(list)
 }
-

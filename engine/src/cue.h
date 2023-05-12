@@ -33,21 +33,21 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCCue              QString("Cue")
-#define KXMLQLCCueName          QString("Name")
-#define KXMLQLCCueValue         QString("Value")
-#define KXMLQLCCueValueChannel  QString("Channel")
+#define KXMLQLCCue QString("Cue")
+#define KXMLQLCCueName QString("Name")
+#define KXMLQLCCueValue QString("Value")
+#define KXMLQLCCueValueChannel QString("Channel")
 
-#define KXMLQLCCueSpeed         QString("Speed")
-#define KXMLQLCCueSpeedFadeIn   QString("FadeIn")
-#define KXMLQLCCueSpeedFadeOut  QString("FadeOut")
+#define KXMLQLCCueSpeed QString("Speed")
+#define KXMLQLCCueSpeedFadeIn QString("FadeIn")
+#define KXMLQLCCueSpeedFadeOut QString("FadeOut")
 #define KXMLQLCCueSpeedDuration QString("Duration")
 
 class Cue
 {
 public:
     Cue(const QString& name = QString());
-    Cue(const QHash <uint,uchar> values);
+    Cue(const QHash<uint, uchar> values);
     Cue(const Cue& cue);
     ~Cue();
 
@@ -71,10 +71,10 @@ public:
     void unsetValue(uint channel);
     uchar value(uint channel) const;
 
-    QHash <uint,uchar> values() const;
+    QHash<uint, uchar> values() const;
 
 private:
-    QHash <uint,uchar> m_values;
+    QHash<uint, uchar> m_values;
 
     /************************************************************************
      * Speed
@@ -98,12 +98,12 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc) const;
 
 private:
-    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
-    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
+    bool loadXMLSpeed(QXmlStreamReader& speedRoot);
+    bool saveXMLSpeed(QXmlStreamWriter* doc) const;
 };
 
 /** @} */

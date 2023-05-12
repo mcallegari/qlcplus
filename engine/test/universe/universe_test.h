@@ -62,9 +62,8 @@ private slots:
     void zeroIntensityChannelsEfficiency2();
 
 private:
-
-    GrandMaster *m_gm;
-    Universe *m_uni;
+    GrandMaster* m_gm;
+    Universe* m_uni;
 };
 
 #endif

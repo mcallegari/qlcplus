@@ -47,38 +47,33 @@ struct WebAccessUser
     QString hashType;
     QString passwordSalt;
 
-    WebAccessUser(
-        const QString& _username,
-        const QString& _passwordHash,
-        WebAccessUserLevel _level,
-        const QString& _hashType,
-        const QString& _passwordSalt
-    )
-    : username(_username)
-    , passwordHash(_passwordHash)
-    , level(_level)
-    , hashType(_hashType)
-    , passwordSalt(_passwordSalt)
-    {}
+    WebAccessUser(const QString& _username, const QString& _passwordHash, WebAccessUserLevel _level,
+                  const QString& _hashType, const QString& _passwordSalt)
+        : username(_username)
+        , passwordHash(_passwordHash)
+        , level(_level)
+        , hashType(_hashType)
+        , passwordSalt(_passwordSalt)
+    {
+    }
 
-    WebAccessUser(
-        WebAccessUserLevel _level
-    )
-    : username("")
-    , passwordHash("")
-    , level(_level)
-    , hashType(DEFAULT_PASSWORD_HASH_TYPE)
-    , passwordSalt("")
-    {}
+    WebAccessUser(WebAccessUserLevel _level)
+        : username("")
+        , passwordHash("")
+        , level(_level)
+        , hashType(DEFAULT_PASSWORD_HASH_TYPE)
+        , passwordSalt("")
+    {
+    }
 
     WebAccessUser()
-    : username()
-    , passwordHash()
-    , level(GUEST_LEVEL)
-    , hashType(DEFAULT_PASSWORD_HASH_TYPE)
-    , passwordSalt("")
-    {}
-
+        : username()
+        , passwordHash()
+        , level(GUEST_LEVEL)
+        , hashType(DEFAULT_PASSWORD_HASH_TYPE)
+        , passwordSalt("")
+    {
+    }
 };
 
 /**

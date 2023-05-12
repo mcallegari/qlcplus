@@ -132,9 +132,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
         m_play_pause_stop->setChecked(true);
 }
 
-VCCueListProperties::~VCCueListProperties()
-{
-}
+VCCueListProperties::~VCCueListProperties() {}
 
 void VCCueListProperties::accept()
 {

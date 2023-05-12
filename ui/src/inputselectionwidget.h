@@ -33,7 +33,7 @@ class InputSelectionWidget : public QWidget, public Ui_InputSelectionWidget
     Q_OBJECT
 
 public:
-    InputSelectionWidget(Doc* doc, QWidget *parent = 0);
+    InputSelectionWidget(Doc* doc, QWidget* parent = 0);
     ~InputSelectionWidget();
 
     void setKeyInputVisibility(bool visible);

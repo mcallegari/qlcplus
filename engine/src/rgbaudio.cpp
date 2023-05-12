@@ -25,7 +25,7 @@
 #include "audiocapture.h"
 #include "doc.h"
 
-RGBAudio::RGBAudio(Doc * doc)
+RGBAudio::RGBAudio(Doc* doc)
     : RGBAlgorithm(doc)
     , m_audioInput(NULL)
     , m_bandsNumber(-1)
@@ -33,7 +33,7 @@ RGBAudio::RGBAudio(Doc * doc)
 {
 }
 
-RGBAudio::RGBAudio(const RGBAudio& a, QObject *parent)
+RGBAudio::RGBAudio(const RGBAudio& a, QObject* parent)
     : QObject(parent)
     , RGBAlgorithm(a.doc())
     , m_audioInput(NULL)
@@ -54,7 +54,7 @@ RGBAudio::~RGBAudio()
 RGBAlgorithm* RGBAudio::clone() const
 {
     RGBAudio* audio = new RGBAudio(*this);
-    return static_cast<RGBAlgorithm*> (audio);
+    return static_cast<RGBAlgorithm*>(audio);
 }
 
 void RGBAudio::setAudioCapture(AudioCapture* cap)
@@ -62,13 +62,12 @@ void RGBAudio::setAudioCapture(AudioCapture* cap)
     qDebug() << Q_FUNC_INFO << "Audio capture set";
 
     m_audioInput = cap;
-    connect(m_audioInput, SIGNAL(dataProcessed(double*,int,double,quint32)),
-            this, SLOT(slotAudioBarsChanged(double*,int,double,quint32)));
+    connect(m_audioInput, SIGNAL(dataProcessed(double*, int, double, quint32)), this,
+            SLOT(slotAudioBarsChanged(double*, int, double, quint32)));
     m_bandsNumber = -1;
 }
 
-void RGBAudio::slotAudioBarsChanged(double *spectrumBands, int size,
-                                    double maxMagnitude, quint32 power)
+void RGBAudio::slotAudioBarsChanged(double* spectrumBands, int size, double maxMagnitude, quint32 power)
 {
     if (size != m_bandsNumber)
         return;
@@ -87,8 +86,7 @@ void RGBAudio::calculateColors(int barsHeight)
     if (barsHeight > 0)
     {
         m_barColors.clear();
-        if (endColor() == QColor()
-            || barsHeight == 1) // to avoid division by 0 below
+        if (endColor() == QColor() || barsHeight == 1) // to avoid division by 0 below
         {
             for (int i = 0; i < barsHeight; i++)
                 m_barColors.append(startColor().rgb());
@@ -103,9 +101,8 @@ void RGBAudio::calculateColors(int barsHeight)
             for (int i = 0; i < barsHeight; i++)
             {
                 m_barColors.append(pixelColor.rgb());
-                pixelColor = QColor(pixelColor.red() + crDelta,
-                                    pixelColor.green() + cgDelta,
-                                    pixelColor.blue() + cbDelta);
+                pixelColor =
+                    QColor(pixelColor.red() + crDelta, pixelColor.green() + cgDelta, pixelColor.blue() + cbDelta);
             }
         }
     }
@@ -121,7 +118,7 @@ int RGBAudio::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap& map)
 {
     Q_UNUSED(step);
 
@@ -179,8 +176,8 @@ void RGBAudio::postRun()
     QSharedPointer<AudioCapture> capture = doc()->audioInputCapture();
     if (capture.data() == m_audioInput)
     {
-        disconnect(m_audioInput, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                   this, SLOT(slotAudioBarsChanged(double*,int,double,quint32)));
+        disconnect(m_audioInput, SIGNAL(dataProcessed(double*, int, double, quint32)), this,
+                   SLOT(slotAudioBarsChanged(double*, int, double, quint32)));
         if (m_bandsNumber > 0)
             m_audioInput->unregisterBandsNumber(m_bandsNumber);
     }
@@ -222,7 +219,7 @@ int RGBAudio::acceptColors() const
     return 2; // start and end colors accepted
 }
 
-bool RGBAudio::loadXML(QXmlStreamReader &root)
+bool RGBAudio::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCRGBAlgorithm)
     {
@@ -241,7 +238,7 @@ bool RGBAudio::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBAudio::saveXML(QXmlStreamWriter *doc) const
+bool RGBAudio::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 

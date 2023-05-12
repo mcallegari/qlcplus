@@ -63,11 +63,10 @@ private:
 public:
     explicit FunctionParent(Type type, quint32 id)
     {
-        m_id = quint64((quint64(type) & 0xffffffff) << 32)
-            | quint64(id & 0xffffffff);
+        m_id = quint64((quint64(type) & 0xffffffff) << 32) | quint64(id & 0xffffffff);
     }
 
-    bool operator ==(FunctionParent const& right) const
+    bool operator==(FunctionParent const& right) const
     {
         return m_id == right.m_id;
     }

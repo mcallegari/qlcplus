@@ -86,7 +86,6 @@ private:
     QString angleString() const;
 
 private:
-
     /** Position in DMX coordinates 0.0..(256.0 - 1/256) */
     QPointF m_dmxPos;
 
@@ -157,7 +156,7 @@ protected:
     void paintEvent(QPaintEvent* e);
 
     /** @reimp */
-    void resizeEvent(QResizeEvent *e);
+    void resizeEvent(QResizeEvent* e);
 
     /** @reimp */
     void mousePressEvent(QMouseEvent* e);
@@ -169,10 +168,10 @@ protected:
     void mouseMoveEvent(QMouseEvent* e);
 
     /** @reimp */
-    void keyPressEvent(QKeyEvent *e);
+    void keyPressEvent(QKeyEvent* e);
 
     /** @reimp */
-    void keyReleaseEvent (QKeyEvent * e);
+    void keyReleaseEvent(QKeyEvent* e);
 };
 
 /** @} */

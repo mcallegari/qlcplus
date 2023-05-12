@@ -34,9 +34,7 @@ VCFramePageShortcut::VCFramePageShortcut(int pageIndex, quint8 inputID)
     setName();
 }
 
-VCFramePageShortcut::~VCFramePageShortcut()
-{
-}
+VCFramePageShortcut::~VCFramePageShortcut() {}
 
 QString VCFramePageShortcut::name() const
 {
@@ -51,7 +49,7 @@ void VCFramePageShortcut::setName(QString name)
         m_name = name;
 }
 
-bool VCFramePageShortcut::loadXML(QXmlStreamReader &root)
+bool VCFramePageShortcut::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCFramePageShortcut)
     {
@@ -96,7 +94,7 @@ bool VCFramePageShortcut::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCFramePageShortcut::saveXML(QXmlStreamWriter *doc)
+bool VCFramePageShortcut::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 

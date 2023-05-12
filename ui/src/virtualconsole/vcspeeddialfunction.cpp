@@ -28,8 +28,8 @@
 #define KXMLQLCSequenceSceneValues "Values"
 #define KXMLQLCStepNote "Note"
 
-VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn,
-                                         SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
+VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut,
+                                         SpeedMultiplier aDuration)
     : functionId(aFid)
     , fadeInMultiplier(aFadeIn)
     , fadeOutMultiplier(aFadeOut)
@@ -37,8 +37,8 @@ VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn,
 {
 }
 
-bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn,
-                                  SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
+bool VCSpeedDialFunction::loadXML(QXmlStreamReader& root, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut,
+                                  SpeedMultiplier aDuration)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -65,14 +65,15 @@ bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeI
     else
         fadeOutMultiplier = aFadeOut;
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
-        durationMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt());
+        durationMultiplier =
+            static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt());
     else
         durationMultiplier = aDuration;
 
     return true;
 }
 
-bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
+bool VCSpeedDialFunction::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -82,7 +83,7 @@ bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
     /* Multipliers */
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInMultiplier));
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutMultiplier));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration,QString::number( durationMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(durationMultiplier));
 
     /* Function ID */
     doc->writeCharacters(QString::number(functionId));
@@ -93,9 +94,9 @@ bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
     return true;
 }
 
-const QStringList &VCSpeedDialFunction::speedMultiplierNames()
+const QStringList& VCSpeedDialFunction::speedMultiplierNames()
 {
-    static QStringList *names = 0;
+    static QStringList* names = 0;
 
     if (names == 0)
     {
@@ -116,13 +117,13 @@ const QStringList &VCSpeedDialFunction::speedMultiplierNames()
     return *names;
 }
 
-const QVector <quint32> &VCSpeedDialFunction::speedMultiplierValuesTimes1000()
+const QVector<quint32>& VCSpeedDialFunction::speedMultiplierValuesTimes1000()
 {
-    static QVector <quint32> *values = 0;
+    static QVector<quint32>* values = 0;
 
     if (values == 0)
     {
-        values = new QVector <quint32>;
+        values = new QVector<quint32>;
         *values << 0; // None
         *values << 0; // Zero
         *values << 1000 / 16;

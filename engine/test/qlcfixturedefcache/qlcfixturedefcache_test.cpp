@@ -140,28 +140,28 @@ void QLCFixtureDefCache_Test::fixtureDef()
     QVERIFY(cache.m_defs.first()->definitionSourceFile() == relPath);
 
     // request a fixture cached but not yet loaded
-    QLCFixtureDef *def = cache.fixtureDef("Futurelight", "CY-200");
+    QLCFixtureDef* def = cache.fixtureDef("Futurelight", "CY-200");
     // check that once loaded, the relative path is reset
     QVERIFY(def->definitionSourceFile().isEmpty());
 
     cache.clear();
 
-    QLCFixtureDef *def1 = new QLCFixtureDef();
+    QLCFixtureDef* def1 = new QLCFixtureDef();
     def1->setManufacturer("Martin");
     def1->setModel("MAC250");
     cache.addFixtureDef(def1);
 
-    QLCFixtureDef *def2 = new QLCFixtureDef();
+    QLCFixtureDef* def2 = new QLCFixtureDef();
     def2->setManufacturer("Martin");
     def2->setModel("MAC500");
     cache.addFixtureDef(def2);
 
-    QLCFixtureDef *def3 = new QLCFixtureDef();
+    QLCFixtureDef* def3 = new QLCFixtureDef();
     def3->setManufacturer("Robe");
     def3->setModel("WL250");
     cache.addFixtureDef(def3);
 
-    QLCFixtureDef *def4 = new QLCFixtureDef();
+    QLCFixtureDef* def4 = new QLCFixtureDef();
     def4->setManufacturer("Futurelight");
     def4->setModel("DJ Scan 250");
     cache.addFixtureDef(def4);
@@ -212,7 +212,6 @@ void QLCFixtureDefCache_Test::defDirectories()
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtFixture)));
     QVERIFY(dir.absolutePath().contains(USERFIXTUREDIR));
-
 }
 
 QTEST_APPLESS_MAIN(QLCFixtureDefCache_Test)

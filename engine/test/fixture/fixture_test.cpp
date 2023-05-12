@@ -312,8 +312,8 @@ void Fixture_Test::rgbPanel()
 {
     Fixture fxi(this);
     fxi.setName("RGB Panel");
-    QLCFixtureDef *rowDef = fxi.genericRGBPanelDef(10, Fixture::RGBW);
-    QLCFixtureMode *rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGBW, 1000, 100);
+    QLCFixtureDef* rowDef = fxi.genericRGBPanelDef(10, Fixture::RGBW);
+    QLCFixtureMode* rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGBW, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
     QVERIFY(fxi.channels() == 40);
@@ -496,8 +496,8 @@ void Fixture_Test::fixtureDef()
     QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(8));
     QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), quint32(10));
     QCOMPARE(fxi.masterIntensityChannel(), quint32(1));
-    QCOMPARE(fxi.rgbChannels(), QVector <quint32> ());
-    QCOMPARE(fxi.cmyChannels(), QVector <quint32> () << 2 << 3 << 4);
+    QCOMPARE(fxi.rgbChannels(), QVector<quint32>());
+    QCOMPARE(fxi.cmyChannels(), QVector<quint32>() << 2 << 3 << 4);
 }
 
 void Fixture_Test::channels()
@@ -511,7 +511,7 @@ void Fixture_Test::channels()
 
     QCOMPARE(fxi.channel(QLCChannel::Intensity, QLCChannel::Red), quint32(3));
 
-    QSet <quint32> chs;
+    QSet<quint32> chs;
     chs << 3 << 4 << 21 << 22 << 12 << 13 << 30 << 31;
     QCOMPARE(chs, fxi.channels(QLCChannel::Intensity, QLCChannel::Red));
     chs.clear();
@@ -893,8 +893,8 @@ void Fixture_Test::save()
     xmlReader.readNextStartElement();
     QVERIFY(xmlReader.name().toString() == "Fixture");
 
-    bool manufacturer = false, model = false, mode = false, name = false,
-                                       channels = false, universe = false, address = false, id = false;
+    bool manufacturer = false, model = false, mode = false, name = false, channels = false, universe = false,
+         address = false, id = false;
 
     while (xmlReader.readNextStartElement())
     {
@@ -935,14 +935,12 @@ void Fixture_Test::save()
         }
         else if (xmlReader.name().toString() == "Channels")
         {
-            QVERIFY(xmlReader.readElementText().toInt()
-                    == fixtureMode->channels().count());
+            QVERIFY(xmlReader.readElementText().toInt() == fixtureMode->channels().count());
             channels = true;
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString())
-                  .toLatin1());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toLatin1());
             xmlReader.skipCurrentElement();
         }
     }

@@ -57,9 +57,9 @@ void MasterTimerPrivate::stop()
 }
 
 #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
-int MasterTimerPrivate::compareTime(mach_timespec_t *time1, mach_timespec_t *time2)
+int MasterTimerPrivate::compareTime(mach_timespec_t* time1, mach_timespec_t* time2)
 #else
-int MasterTimerPrivate::compareTime(struct timespec *time1, struct timespec *time2)
+int MasterTimerPrivate::compareTime(struct timespec* time1, struct timespec* time2)
 #endif
 {
     if (time1->tv_sec < time2->tv_sec)
@@ -86,7 +86,7 @@ void MasterTimerPrivate::run()
     if (m_run == true)
         return;
 
-    MasterTimer* mt = qobject_cast <MasterTimer*> (parent());
+    MasterTimer* mt = qobject_cast<MasterTimer*>(parent());
     Q_ASSERT(mt != NULL);
 
     /* How long to wait each loop, in nanoseconds */
@@ -98,14 +98,14 @@ void MasterTimerPrivate::run()
 
     /* Allocate all the memory at the start so we don't waste any time */
 #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
-    mach_timespec_t* finish = static_cast<mach_timespec_t*> (malloc(sizeof(mach_timespec_t)));
-    mach_timespec_t* current = static_cast<mach_timespec_t*> (malloc(sizeof(mach_timespec_t)));
+    mach_timespec_t* finish = static_cast<mach_timespec_t*>(malloc(sizeof(mach_timespec_t)));
+    mach_timespec_t* current = static_cast<mach_timespec_t*>(malloc(sizeof(mach_timespec_t)));
 #else
-    struct timespec* finish = static_cast<struct timespec*> (malloc(sizeof(struct timespec)));
-    struct timespec* current = static_cast<struct timespec*> (malloc(sizeof(struct timespec)));
+    struct timespec* finish = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
+    struct timespec* current = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
 #endif
-    struct timespec* sleepTime = static_cast<struct timespec*> (malloc(sizeof(struct timespec)));
-    struct timespec* remainingTime = static_cast<struct timespec*> (malloc(sizeof(struct timespec)));
+    struct timespec* sleepTime = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
+    struct timespec* remainingTime = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
 
     sleepTime->tv_sec = 0;
 
@@ -117,8 +117,8 @@ void MasterTimerPrivate::run()
 #endif
     if (ret == -1)
     {
-        qWarning() << Q_FUNC_INFO << "Unable to get the time accurately:"
-                   << strerror(errno) << "- Stopping MasterTimerPrivate";
+        qWarning() << Q_FUNC_INFO << "Unable to get the time accurately:" << strerror(errno)
+                   << "- Stopping MasterTimerPrivate";
         m_run = false;
     }
     else
@@ -139,8 +139,7 @@ void MasterTimerPrivate::run()
 #endif
         if (ret == -1)
         {
-            qWarning() << Q_FUNC_INFO << "Unable to get the current time:"
-                       << strerror(errno);
+            qWarning() << Q_FUNC_INFO << "Unable to get the current time:" << strerror(errno);
             m_run = false;
             break;
         }
@@ -167,13 +166,13 @@ void MasterTimerPrivate::run()
         sleepTime->tv_sec = finish->tv_sec - current->tv_sec;
         if (finish->tv_nsec < current->tv_nsec)
         {
-            sleepTime->tv_nsec = finish->tv_nsec + 1000000000L - current->tv_nsec ;
+            sleepTime->tv_nsec = finish->tv_nsec + 1000000000L - current->tv_nsec;
             sleepTime->tv_sec--; /* Decrease a second. */
         }
         else
             sleepTime->tv_nsec = finish->tv_nsec - current->tv_nsec;
 
-        //qDebug() << Q_FUNC_INFO << "Sleeping ns:" << sleepTime->tv_nsec;
+        // qDebug() << Q_FUNC_INFO << "Sleeping ns:" << sleepTime->tv_nsec;
 
         ret = nanosleep(sleepTime, remainingTime);
         while (ret == -1 && sleepTime->tv_nsec > 100)
@@ -185,20 +184,20 @@ void MasterTimerPrivate::run()
 #if 0
         /* Now take full CPU for precision (only a few nanoseconds,
            at maximum 100 nanoseconds) */
-#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+  #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
         ret = clock_get_time(cclock, current);
-#else
+  #else
         ret = clock_gettime(CLOCK_MONOTONIC, current);
-#endif
+  #endif
         sleepTime->tv_nsec = finish->tv_nsec - current->tv_nsec;
 
         while (sleepTime->tv_nsec > 5)
         {
-#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+  #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
             ret = clock_get_time(cclock, current);
-#else
+  #else
             ret = clock_gettime(CLOCK_MONOTONIC, current);
-#endif
+  #endif
             sleepTime->tv_nsec = finish->tv_nsec - current->tv_nsec;
             qDebug() << "Full CPU wait:" << sleepTime->tv_nsec;
         }

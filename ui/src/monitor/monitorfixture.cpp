@@ -123,7 +123,7 @@ void MonitorFixture::setFixture(quint32 fxi_id)
            the fixture name, second row for channel numbers and the
            third row for channel values. Each channel is in its own
            column. */
-        QGridLayout* lay = qobject_cast<QGridLayout*> (layout());
+        QGridLayout* lay = qobject_cast<QGridLayout*>(layout());
         lay->setVerticalSpacing(1);
 
         /* Create a new fixture label and set the fixture name there */
@@ -131,21 +131,20 @@ void MonitorFixture::setFixture(quint32 fxi_id)
         m_fixtureLabel->setText(QString("<B>%1</B>").arg(fxi->name()));
 
         /* Set the fixture name to span all channels horizontally */
-        lay->addWidget(m_fixtureLabel, 0, 0, 1, fxi->channels(),
-                       Qt::AlignLeft);
+        lay->addWidget(m_fixtureLabel, 0, 0, 1, fxi->channels(), Qt::AlignLeft);
 
         QByteArray fxValues = fxi->channelValues();
 
         /* Create channel numbers and value labels */
         for (quint32 i = 0; i < fxi->channels(); i++)
         {
-            const QLCChannel * channel = fxi->channel(i);
+            const QLCChannel* channel = fxi->channel(i);
             /* Create the icon over the channel number */
-            QLabel *icon = new QLabel(this);
+            QLabel* icon = new QLabel(this);
             icon->setFixedSize(22, 22);
 
             /* Create a label for channel number */
-            QLabel *label = new QLabel(this);
+            QLabel* label = new QLabel(this);
 
             if (channel != NULL)
             {
@@ -199,7 +198,7 @@ void MonitorFixture::slotChannelStyleChanged(MonitorProperties::ChannelStyle sty
     else
         i = 1;
 
-    QListIterator <QLabel*> it(m_channelLabels);
+    QListIterator<QLabel*> it(m_channelLabels);
     while (it.hasNext() == true)
         it.next()->setText(str.asprintf("<B>%.3d</B>", i++));
 }
@@ -215,7 +214,7 @@ void MonitorFixture::slotValueStyleChanged(MonitorProperties::ValueStyle style)
 
     m_valueStyle = style;
 
-    QListIterator <QLabel*> it(m_valueLabels);
+    QListIterator<QLabel*> it(m_valueLabels);
     while (it.hasNext() == true)
     {
         QLabel* label;
@@ -229,15 +228,11 @@ void MonitorFixture::slotValueStyleChanged(MonitorProperties::ValueStyle style)
 
         if (style == MonitorProperties::DMXValues)
         {
-            value = int(ceil(SCALE(qreal(value),
-                                   qreal(0), qreal(100),
-                                   qreal(0), qreal(UCHAR_MAX))));
+            value = int(ceil(SCALE(qreal(value), qreal(0), qreal(100), qreal(0), qreal(UCHAR_MAX))));
         }
         else
         {
-            value = int(ceil(SCALE(qreal(value),
-                                   qreal(0), qreal(UCHAR_MAX),
-                                   qreal(0), qreal(100))));
+            value = int(ceil(SCALE(qreal(value), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))));
         }
 
         label->setText(str.asprintf("%.3d", value));
@@ -258,7 +253,7 @@ void MonitorFixture::slotValuesChanged()
     QByteArray fxValues = fxi->channelValues();
     int i = 0;
 
-    QListIterator <QLabel*> it(m_valueLabels);
+    QListIterator<QLabel*> it(m_valueLabels);
     while (it.hasNext() == true)
     {
         QLabel* label = it.next();
@@ -272,8 +267,7 @@ void MonitorFixture::slotValuesChanged()
         }
         else
         {
-            label->setText(str.asprintf("%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))),
-                                                               qreal(0), qreal(UCHAR_MAX),
+            label->setText(str.asprintf("%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))), qreal(0), qreal(UCHAR_MAX),
                                                                qreal(0), qreal(100))))));
         }
         i++;

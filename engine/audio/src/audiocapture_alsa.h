@@ -35,7 +35,7 @@ class AudioCaptureAlsa : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureAlsa(QObject * parent = 0);
+    AudioCaptureAlsa(QObject* parent = 0);
     ~AudioCaptureAlsa();
 
     /** @reimpl */
@@ -58,8 +58,8 @@ protected:
     bool readAudio(int maxSize);
 
 private:
-    snd_pcm_t *m_captureHandle;
-    char *pcm_name;
+    snd_pcm_t* m_captureHandle;
+    char* pcm_name;
 };
 
 /** @} */

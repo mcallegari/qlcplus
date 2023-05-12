@@ -46,13 +46,10 @@ Collection::Collection(Doc* doc)
     setName(tr("New Collection"));
 
     // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
 }
 
-Collection::~Collection()
-{
-}
+Collection::~Collection() {}
 
 QIcon Collection::getIcon() const
 {
@@ -63,7 +60,7 @@ quint32 Collection::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    foreach(QVariant fid, functions())
+    foreach (QVariant fid, functions())
     {
         Function* function = doc()->function(fid.toUInt());
         totalDuration += function->totalDuration();
@@ -97,7 +94,7 @@ Function* Collection::createCopy(Doc* doc, bool addToDoc)
 
 bool Collection::copyFrom(const Function* function)
 {
-    const Collection* coll = qobject_cast<const Collection*> (function);
+    const Collection* coll = qobject_cast<const Collection*>(function);
     if (coll == NULL)
         return false;
 
@@ -168,7 +165,7 @@ void Collection::slotFunctionRemoved(quint32 fid)
  * Load & Save
  *****************************************************************************/
 
-bool Collection::saveXML(QXmlStreamWriter *doc)
+bool Collection::saveXML(QXmlStreamWriter* doc)
 {
     int i = 0;
 
@@ -181,7 +178,7 @@ bool Collection::saveXML(QXmlStreamWriter *doc)
     saveXMLCommon(doc);
 
     /* Steps */
-    QListIterator <quint32> it(m_functions);
+    QListIterator<quint32> it(m_functions);
     while (it.hasNext() == true)
     {
         /* Step tag */
@@ -201,7 +198,7 @@ bool Collection::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-bool Collection::loadXML(QXmlStreamReader &root)
+bool Collection::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -211,8 +208,7 @@ bool Collection::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::CollectionType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
-                   << "is not a collection";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not a collection";
         return false;
     }
 
@@ -233,7 +229,7 @@ bool Collection::loadXML(QXmlStreamReader &root)
 
 void Collection::postLoad()
 {
-    Doc* doc = qobject_cast <Doc*> (parent());
+    Doc* doc = qobject_cast<Doc*>(parent());
     Q_ASSERT(doc != NULL);
 
     /* Check that all member functions exist (nonexistent functions can
@@ -251,7 +247,7 @@ void Collection::postLoad()
 
 bool Collection::contains(quint32 functionId)
 {
-    Doc* doc = qobject_cast <Doc*> (parent());
+    Doc* doc = qobject_cast<Doc*>(parent());
     Q_ASSERT(doc != NULL);
 
     foreach (quint32 fid, m_functions)
@@ -284,19 +280,20 @@ FunctionParent Collection::functionParent() const
     return FunctionParent(FunctionParent::Function, id());
 }
 
-void Collection::preRun(MasterTimer *timer)
+void Collection::preRun(MasterTimer* timer)
 {
-    Doc *doc = this->doc();
+    Doc* doc = this->doc();
     Q_ASSERT(doc != NULL);
     {
         QMutexLocker locker(&m_functionListMutex);
         m_runningChildren.clear();
         foreach (quint32 fid, m_functions)
         {
-            Function *function = doc->function(fid);
+            Function* function = doc->function(fid);
             Q_ASSERT(function != NULL);
 
-            m_intensityOverrideIds << function->requestAttributeOverride(Function::Intensity, getAttributeValue(Function::Intensity));
+            m_intensityOverrideIds << function->requestAttributeOverride(Function::Intensity,
+                                                                         getAttributeValue(Function::Intensity));
 
             // Append the IDs of all functions started by this collection
             // to a set so that we can track which of them are still controlled
@@ -305,16 +302,15 @@ void Collection::preRun(MasterTimer *timer)
 
             // Listen to the children's stopped signals so that this Collection
             // can give up its rights to stop the function later.
-            connect(function, SIGNAL(stopped(quint32)),
-                    this, SLOT(slotChildStopped(quint32)));
+            connect(function, SIGNAL(stopped(quint32)), this, SLOT(slotChildStopped(quint32)));
 
             // Listen to the children's stopped signals so that this collection
             // can give up its rights to stop the function later.
-            connect(function, SIGNAL(running(quint32)),
-                    this, SLOT(slotChildStarted(quint32)));
+            connect(function, SIGNAL(running(quint32)), this, SLOT(slotChildStarted(quint32)));
 
-            //function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
-            function->start(timer, functionParent(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
+            // function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
+            function->start(timer, functionParent(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(),
+                            overrideDuration());
         }
         m_tick = 1;
     }
@@ -323,18 +319,18 @@ void Collection::preRun(MasterTimer *timer)
 
 void Collection::setPause(bool enable)
 {
-    Doc *doc = this->doc();
+    Doc* doc = this->doc();
     Q_ASSERT(doc != NULL);
     foreach (quint32 fid, m_runningChildren)
     {
-        Function *function = doc->function(fid);
+        Function* function = doc->function(fid);
         Q_ASSERT(function != NULL);
         function->setPause(enable);
     }
     Function::setPause(enable);
 }
 
-void Collection::write(MasterTimer *timer, QList<Universe *> universes)
+void Collection::write(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -348,19 +344,18 @@ void Collection::write(MasterTimer *timer, QList<Universe *> universes)
     else if (m_tick == 2)
     {
         m_tick = 0;
-        Doc *doc = this->doc();
+        Doc* doc = this->doc();
         Q_ASSERT(doc != NULL);
 
         QMutexLocker locker(&m_functionListMutex);
         foreach (quint32 fid, m_runningChildren)
         {
-            Function *function = doc->function(fid);
+            Function* function = doc->function(fid);
             Q_ASSERT(function != NULL);
 
             // First tick may correspond to this collection starting the function
             // Now that first tick is over, stop listening to running signal
-            disconnect(function, SIGNAL(running(quint32)),
-                    this, SLOT(slotChildStarted(quint32)));
+            disconnect(function, SIGNAL(running(quint32)), this, SLOT(slotChildStarted(quint32)));
         }
     }
 
@@ -375,16 +370,16 @@ void Collection::write(MasterTimer *timer, QList<Universe *> universes)
     stop(functionParent());
 }
 
-void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Collection::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    Doc* doc = qobject_cast <Doc*> (parent());
+    Doc* doc = qobject_cast<Doc*>(parent());
     Q_ASSERT(doc != NULL);
 
     {
         QMutexLocker locker(&m_functionListMutex);
         /** Stop the member functions only if they have been started by this
             collection. */
-        QSetIterator <quint32> it(m_runningChildren);
+        QSetIterator<quint32> it(m_runningChildren);
         while (it.hasNext() == true)
         {
             Function* function = doc->function(it.next());
@@ -399,12 +394,10 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
             Function* function = doc->function(m_functions.at(i));
             Q_ASSERT(function != NULL);
 
-            disconnect(function, SIGNAL(stopped(quint32)),
-                    this, SLOT(slotChildStopped(quint32)));
+            disconnect(function, SIGNAL(stopped(quint32)), this, SLOT(slotChildStopped(quint32)));
             if (m_tick == 2)
             {
-                disconnect(function, SIGNAL(running(quint32)),
-                        this, SLOT(slotChildStarted(quint32)));
+                disconnect(function, SIGNAL(running(quint32)), this, SLOT(slotChildStarted(quint32)));
             }
         }
 

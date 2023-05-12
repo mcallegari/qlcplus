@@ -42,6 +42,7 @@ public:
     ~DebugBox();
 
     void addText(QString text);
+
 private:
     QMutex m_mutex;
 };

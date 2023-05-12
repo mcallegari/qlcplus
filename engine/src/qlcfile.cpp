@@ -24,18 +24,18 @@
 #include <QFile>
 
 #ifdef QT_XML_LIB
-#   include <QtXml>
+  #include <QtXml>
 #else
-#   include <QDebug>
+  #include <QDebug>
 #endif
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#   include <windows.h>
-#   include <lmcons.h>
+  #include <windows.h>
+  #include <lmcons.h>
 #else
-#   include <sys/types.h>
-#   include <unistd.h>
-#   include <pwd.h>
+  #include <sys/types.h>
+  #include <unistd.h>
+  #include <pwd.h>
 #endif
 
 #include "qlcconfig.h"
@@ -43,18 +43,17 @@
 
 bool QLCFile::m_hasWindowManager = true;
 
-QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
+QXmlStreamReader* QLCFile::getXMLReader(const QString& path)
 {
-    QXmlStreamReader *reader = NULL;
+    QXmlStreamReader* reader = NULL;
 
     if (path.isEmpty() == true)
     {
-        qWarning() << Q_FUNC_INFO
-                   << "Empty path given. Not attempting to load file.";
+        qWarning() << Q_FUNC_INFO << "Empty path given. Not attempting to load file.";
         return reader;
     }
 
-    QFile *file = new QFile(path);
+    QFile* file = new QFile(path);
     if (file->open(QIODevice::ReadOnly | QFile::Text) == true)
     {
         reader = new QXmlStreamReader(file);
@@ -67,7 +66,7 @@ QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
     return reader;
 }
 
-void QLCFile::releaseXMLReader(QXmlStreamReader *reader)
+void QLCFile::releaseXMLReader(QXmlStreamReader* reader)
 {
     if (reader == NULL)
         return;
@@ -81,7 +80,7 @@ void QLCFile::releaseXMLReader(QXmlStreamReader *reader)
     delete reader;
 }
 
-bool QLCFile::writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author)
+bool QLCFile::writeXMLHeader(QXmlStreamWriter* xml, const QString& content, const QString& author)
 {
     if (xml == NULL || xml->device() == NULL)
         return false;
@@ -153,9 +152,9 @@ QString QLCFile::currentUserName()
     else
         return QString("Unknown windows user");
 #else
- #if defined(Q_OS_ANDROID)
+  #if defined(Q_OS_ANDROID)
     return QString(getenv("USER"));
- #else
+  #else
     QString name;
     struct passwd* passwd = getpwuid(getuid());
     if (passwd == NULL)
@@ -164,7 +163,7 @@ QString QLCFile::currentUserName()
         name.append(passwd->pw_gecos);
     name.remove(",,,");
     return name;
- #endif
+  #endif
 #endif
 }
 
@@ -182,15 +181,11 @@ QDir QLCFile::systemDirectory(QString path, QString extension)
 {
     QDir dir;
 #if defined(Q_OS_IOS)
-    dir.setPath(QString("%1/%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(path));
+    dir.setPath(QString("%1/%2").arg(QCoreApplication::applicationDirPath()).arg(path));
 #elif defined(__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(path));
+    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath()).arg(path));
 #elif defined(WIN32) || defined(Q_OS_WIN)
-    dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
-                                 .arg(QDir::separator())
-                                 .arg(path));
+    dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath()).arg(QDir::separator()).arg(path));
 #elif defined(Q_OS_ANDROID)
     dir.setPath(QString("assets:/%1").arg(path.remove(0, path.lastIndexOf("/") + 1)));
 #else
@@ -216,16 +211,14 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
         dir = QDir(fallBackPath);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(path));
-#elif defined(__APPLE__) || defined (Q_OS_MAC)
+#elif defined(__APPLE__) || defined(Q_OS_MAC)
     /* User's input profile directory on OSX */
     dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(path));
 #else
     /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+    LPTSTR home = (LPTSTR)malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    dir.setPath(QString("%1/%2")
-                    .arg(QString::fromUtf16(reinterpret_cast<char16_t*>(home)))
-                    .arg(path));
+    dir.setPath(QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*>(home))).arg(path));
     free(home);
 #endif
 

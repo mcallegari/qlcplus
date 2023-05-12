@@ -28,7 +28,7 @@
 #include "modeedit.h"
 #include "qlcfile.h"
 
-EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent)
+EditorView::EditorView(QQuickView* view, int id, QLCFixtureDef* fixtureDef, QObject* parent)
     : QObject(parent)
     , m_view(view)
     , m_id(id)
@@ -45,14 +45,18 @@ EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObj
 
     m_channelList = new ListModel(this);
     QStringList chRoles;
-    chRoles << "cRef" << "isSelected";
+    chRoles << "cRef"
+            << "isSelected";
     m_channelList->setRoleNames(chRoles);
 
     updateChannelList();
 
     m_modeList = new ListModel(this);
     QStringList modeRoles;
-    modeRoles << "name" << "channels" << "heads" << "isSelected";
+    modeRoles << "name"
+              << "channels"
+              << "heads"
+              << "isSelected";
     m_modeList->setRoleNames(modeRoles);
 
     updateModeList();
@@ -140,7 +144,7 @@ void EditorView::setAuthor(QString author)
     setModified(true);
 }
 
-PhysicalEdit *EditorView::globalPhysical()
+PhysicalEdit* EditorView::globalPhysical()
 {
     return m_globalPhy;
 }
@@ -153,7 +157,7 @@ void EditorView::updateChannelList()
 {
     m_channelList->clear();
 
-    for (QLCChannel *channel : m_fixtureDef->channels())
+    for (QLCChannel* channel : m_fixtureDef->channels())
     {
         QVariantMap chanMap;
         chanMap.insert("cRef", QVariant::fromValue(channel));
@@ -169,7 +173,7 @@ QVariant EditorView::channels() const
     return QVariant::fromValue(m_channelList);
 }
 
-ChannelEdit *EditorView::requestChannelEditor(QString name)
+ChannelEdit* EditorView::requestChannelEditor(QString name)
 {
     if (m_channelEdit != nullptr)
     {
@@ -178,7 +182,7 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
         delete m_channelEdit;
     }
 
-    QLCChannel *ch = m_fixtureDef->channel(name);
+    QLCChannel* ch = m_fixtureDef->channel(name);
     if (ch == nullptr)
     {
         ch = new QLCChannel();
@@ -195,7 +199,7 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
 
 void EditorView::addPresetChannel(QString name, int group)
 {
-    QLCChannel *channel = new QLCChannel();
+    QLCChannel* channel = new QLCChannel();
     channel->setName(name);
     if (group > QLCChannel::Nothing)
     {
@@ -204,25 +208,25 @@ void EditorView::addPresetChannel(QString name, int group)
 
         switch (QLCChannel::PrimaryColour(group))
         {
-            case QLCChannel::Red:
-                channel->setPreset(QLCChannel::IntensityRed);
+        case QLCChannel::Red:
+            channel->setPreset(QLCChannel::IntensityRed);
             break;
-            case QLCChannel::Green:
-                channel->setPreset(QLCChannel::IntensityGreen);
+        case QLCChannel::Green:
+            channel->setPreset(QLCChannel::IntensityGreen);
             break;
-            case QLCChannel::Blue:
-                channel->setPreset(QLCChannel::IntensityBlue);
+        case QLCChannel::Blue:
+            channel->setPreset(QLCChannel::IntensityBlue);
             break;
-            case QLCChannel::White:
-                channel->setPreset(QLCChannel::IntensityWhite);
+        case QLCChannel::White:
+            channel->setPreset(QLCChannel::IntensityWhite);
             break;
-            case QLCChannel::Amber:
-                channel->setPreset(QLCChannel::IntensityAmber);
+        case QLCChannel::Amber:
+            channel->setPreset(QLCChannel::IntensityAmber);
             break;
-            case QLCChannel::UV:
-                channel->setPreset(QLCChannel::IntensityUV);
+        case QLCChannel::UV:
+            channel->setPreset(QLCChannel::IntensityUV);
             break;
-            default:
+        default:
             break;
         }
     }
@@ -232,28 +236,28 @@ void EditorView::addPresetChannel(QString name, int group)
 
         switch (QLCChannel::Group(group))
         {
-            case QLCChannel::Intensity:
-                channel->setPreset(QLCChannel::IntensityDimmer);
+        case QLCChannel::Intensity:
+            channel->setPreset(QLCChannel::IntensityDimmer);
             break;
-            case QLCChannel::Pan:
-                channel->setPreset(QLCChannel::PositionPan);
+        case QLCChannel::Pan:
+            channel->setPreset(QLCChannel::PositionPan);
             break;
-            case QLCChannel::Tilt:
-                channel->setPreset(QLCChannel::PositionTilt);
+        case QLCChannel::Tilt:
+            channel->setPreset(QLCChannel::PositionTilt);
             break;
-            case QLCChannel::Colour:
-                channel->setPreset(QLCChannel::ColorMacro);
+        case QLCChannel::Colour:
+            channel->setPreset(QLCChannel::ColorMacro);
             break;
-            case QLCChannel::Shutter:
-                channel->setPreset(QLCChannel::ShutterStrobeSlowFast);
+        case QLCChannel::Shutter:
+            channel->setPreset(QLCChannel::ShutterStrobeSlowFast);
             break;
-            case QLCChannel::Beam:
-                channel->setPreset(QLCChannel::NoFunction);
+        case QLCChannel::Beam:
+            channel->setPreset(QLCChannel::NoFunction);
             break;
-            case QLCChannel::Effect:
-                channel->setPreset(QLCChannel::NoFunction);
+        case QLCChannel::Effect:
+            channel->setPreset(QLCChannel::NoFunction);
             break;
-            default:
+        default:
             break;
         }
     }
@@ -263,7 +267,7 @@ void EditorView::addPresetChannel(QString name, int group)
     setModified(true);
 }
 
-bool EditorView::deleteChannel(QLCChannel *channel)
+bool EditorView::deleteChannel(QLCChannel* channel)
 {
     // TODO: Tardis
     bool res = m_fixtureDef->removeChannel(channel);
@@ -281,7 +285,7 @@ QVariant EditorView::modes() const
     return QVariant::fromValue(m_modeList);
 }
 
-ModeEdit *EditorView::requestModeEditor(QString name)
+ModeEdit* EditorView::requestModeEditor(QString name)
 {
     if (m_modeEdit != nullptr)
     {
@@ -290,7 +294,7 @@ ModeEdit *EditorView::requestModeEditor(QString name)
         delete m_modeEdit;
     }
 
-    QLCFixtureMode *mode = m_fixtureDef->mode(name);
+    QLCFixtureMode* mode = m_fixtureDef->mode(name);
     if (mode == nullptr)
     {
         mode = new QLCFixtureMode(m_fixtureDef);
@@ -309,7 +313,7 @@ void EditorView::updateModeList()
 {
     m_modeList->clear();
 
-    for (QLCFixtureMode *mode : m_fixtureDef->modes())
+    for (QLCFixtureMode* mode : m_fixtureDef->modes())
     {
         QVariantMap modeMap;
         modeMap.insert("name", mode->name());
@@ -336,7 +340,7 @@ bool EditorView::save()
     if (m_fileName.isEmpty())
         setFilenameFromModel();
 
-    //m_fixtureDef->setPhysical(m_phyEdit->physical());
+    // m_fixtureDef->setPhysical(m_phyEdit->physical());
     QFile::FileError error = m_fixtureDef->saveXML(m_fileName);
     if (error != QFile::NoError)
         return false;

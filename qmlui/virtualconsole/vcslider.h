@@ -27,31 +27,31 @@
 
 #define KXMLQLCVCSlider QString("Slider")
 
-#define KXMLQLCVCSliderMode         QString("SliderMode")
-#define KXMLQLCVCSliderWidgetStyle  QString("WidgetStyle")
+#define KXMLQLCVCSliderMode QString("SliderMode")
+#define KXMLQLCVCSliderWidgetStyle QString("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle            QString("ValueDisplayStyle")
-#define KXMLQLCVCSliderValueDisplayStyleExact       QString("Exact")
-#define KXMLQLCVCSliderValueDisplayStylePercentage  QString("Percentage")
+#define KXMLQLCVCSliderValueDisplayStyle QString("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact QString("Exact")
+#define KXMLQLCVCSliderValueDisplayStylePercentage QString("Percentage")
 
 #define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
 
 #define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
 
-#define KXMLQLCVCSliderLevel            QString("Level")
-#define KXMLQLCVCSliderLevelLowLimit    QString("LowLimit")
-#define KXMLQLCVCSliderLevelHighLimit   QString("HighLimit")
-#define KXMLQLCVCSliderLevelValue       QString("Value")
-#define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
-#define KXMLQLCVCSliderOverrideReset    QString("Reset")
+#define KXMLQLCVCSliderLevel QString("Level")
+#define KXMLQLCVCSliderLevelLowLimit QString("LowLimit")
+#define KXMLQLCVCSliderLevelHighLimit QString("HighLimit")
+#define KXMLQLCVCSliderLevelValue QString("Value")
+#define KXMLQLCVCSliderLevelMonitor QString("Monitor")
+#define KXMLQLCVCSliderOverrideReset QString("Reset")
 
-#define KXMLQLCVCSliderChannel          QString("Channel")
-#define KXMLQLCVCSliderChannelFixture   QString("Fixture")
+#define KXMLQLCVCSliderChannel QString("Channel")
+#define KXMLQLCVCSliderChannelFixture QString("Fixture")
 
-#define KXMLQLCVCSliderPlayback             QString("Playback") // LEGACY
-#define KXMLQLCVCSliderAdjust               QString("Adjust")
-#define KXMLQLCVCSliderAdjustAttribute      QString("Attribute")
-#define KXMLQLCVCSliderControlledFunction   QString("Function")
+#define KXMLQLCVCSliderPlayback QString("Playback") // LEGACY
+#define KXMLQLCVCSliderAdjust QString("Adjust")
+#define KXMLQLCVCSliderAdjustAttribute QString("Attribute")
+#define KXMLQLCVCSliderControlledFunction QString("Function")
 
 class FunctionParent;
 class GenericFader;
@@ -63,8 +63,10 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(QVariant channelsList READ channelsList CONSTANT)
 
     Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
-    Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
-    Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
+    Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY
+                   valueDisplayStyleChanged)
+    Q_PROPERTY(
+        bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
 
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
@@ -75,14 +77,18 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
 
-    Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
-    Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
+    Q_PROPERTY(
+        quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
+    Q_PROPERTY(
+        int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
     Q_PROPERTY(QStringList availableAttributes READ availableAttributes NOTIFY availableAttributesChanged)
     Q_PROPERTY(qreal attributeMinValue READ attributeMinValue NOTIFY attributeMinValueChanged)
     Q_PROPERTY(qreal attributeMaxValue READ attributeMaxValue NOTIFY attributeMaxValueChanged)
 
-    Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode NOTIFY grandMasterValueModeChanged)
-    Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
+    Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode
+                   NOTIFY grandMasterValueModeChanged)
+    Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE
+                   setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
 
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
@@ -97,7 +103,7 @@ class VCSlider : public VCWidget, public DMXSource
      * Initialization
      *********************************************************************/
 public:
-    VCSlider(Doc* doc = nullptr, QObject *parent = nullptr);
+    VCSlider(Doc* doc = nullptr, QObject* parent = nullptr);
     virtual ~VCSlider();
 
     /** @reimp */
@@ -107,13 +113,13 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView* view, QQuickItem* parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget* createCopy(VCWidget* parent);
 
 protected:
     /** @reimp */
@@ -121,8 +127,8 @@ protected:
 
 protected:
     /** Reference to a tree model representing Groups/Fitures/Channels
-      * This is created only when the UI requests it to confgure the Level mode */
-    TreeModel *m_channelsTree;
+     * This is created only when the UI requests it to confgure the Level mode */
+    TreeModel* m_channelsTree;
 
     /*********************************************************************
      * Widget style
@@ -184,7 +190,13 @@ protected:
      * Slider Mode
      *********************************************************************/
 public:
-    enum SliderMode { Level, Adjust, Submaster, GrandMaster };
+    enum SliderMode
+    {
+        Level,
+        Adjust,
+        Submaster,
+        GrandMaster
+    };
     Q_ENUM(SliderMode)
 
 public:
@@ -218,7 +230,6 @@ public:
     qreal rangeHighLimit() const;
 
 protected:
-
     qreal sliderValueToAttributeValue(int value);
     qreal attributeValueToSliderValue(qreal value);
 
@@ -269,7 +280,7 @@ public:
     void clearLevelChannels();
 
     /** Get the list of channels that this slider controls */
-    QList <SceneValue> levelChannels() const;
+    QList<SceneValue> levelChannels() const;
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
@@ -284,7 +295,7 @@ private:
     void removeActiveFaders();
 
 protected slots:
-    void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
+    void slotTreeDataChanged(TreeModelItem* item, int role, const QVariant& value);
 
 signals:
     void monitorEnabledChanged();
@@ -296,7 +307,7 @@ signals:
     void searchFilterChanged();
 
 protected:
-    QList <SceneValue> m_levelChannels;
+    QList<SceneValue> m_levelChannels;
 
     QMutex m_levelValueMutex;
     bool m_levelValueChanged;
@@ -306,7 +317,7 @@ protected:
     bool m_isOverriding;
 
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel *m_fixtureTree;
+    TreeModel* m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
 
@@ -370,7 +381,7 @@ public:
     int controlledAttribute() const;
     void setControlledAttribute(int attributeIndex);
 
-    void adjustFunctionAttribute(Function *f, qreal value);
+    void adjustFunctionAttribute(Function* f, qreal value);
 
     /** Get the list of the available attributes for the Function to control */
     QStringList availableAttributes() const;
@@ -414,7 +425,6 @@ signals:
      * Grand Master mode
      *********************************************************************/
 public:
-
     GrandMaster::ValueMode grandMasterValueMode() const;
     void setGrandMasterValueMode(GrandMaster::ValueMode mode);
 
@@ -441,7 +451,7 @@ protected:
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 
     /*********************************************************************
      * External input
@@ -459,13 +469,13 @@ public slots:
      *********************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
-    bool loadXMLLevel(QXmlStreamReader &level_root);
-    bool loadXMLAdjust(QXmlStreamReader &adj_root);
-    bool loadXMLLegacyPlayback(QXmlStreamReader &pb_root);
+    bool loadXML(QXmlStreamReader& root);
+    bool loadXMLLevel(QXmlStreamReader& level_root);
+    bool loadXMLAdjust(QXmlStreamReader& adj_root);
+    bool loadXMLLegacyPlayback(QXmlStreamReader& pb_root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 #endif

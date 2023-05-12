@@ -62,7 +62,7 @@ private:
     Show* m_show;
 
     /** The list of Functions of the show to play */
-    QList <ShowFunction *> m_functions;
+    QList<ShowFunction*> m_functions;
 
     /** Elapsed time since runner start. Used also to move the cursor in MultiTrackView */
     quint32 m_elapsedTime;
@@ -71,7 +71,7 @@ private:
     quint32 m_totalRunTime;
 
     /** List of the currently running Functions and their stop time */
-    QList < QPair<Function *, quint32> > m_runningQueue;
+    QList<QPair<Function*, quint32>> m_runningQueue;
 
     /** Index of the item in m_functions to be considered for playback */
     int m_currentFunctionIndex;
@@ -90,11 +90,10 @@ public:
     /**
      * Adjust the intensity of show track
      */
-    void adjustIntensity(qreal fraction, Track *track);
+    void adjustIntensity(qreal fraction, Track* track);
 
 private:
     QMap<quint32, qreal> m_intensityMap;
-
 };
 
 /** @} */

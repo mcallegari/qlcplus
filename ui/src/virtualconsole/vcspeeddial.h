@@ -39,28 +39,28 @@ class QLabel;
  * @{
  */
 
-#define KXMLQLCVCSpeedDial                  QString("SpeedDial")
-#define KXMLQLCVCSpeedDialSpeedTypes        QString("SpeedTypes")
-#define KXMLQLCVCSpeedDialAbsoluteValue     QString("AbsoluteValue")
-#define KXMLQLCVCSpeedDialAbsoluteValueMin  QString("Minimum")
-#define KXMLQLCVCSpeedDialAbsoluteValueMax  QString("Maximum")
-#define KXMLQLCVCSpeedDialTap               QString("Tap")
-#define KXMLQLCVCSpeedDialMult              QString("Mult")
-#define KXMLQLCVCSpeedDialDiv               QString("Div")
-#define KXMLQLCVCSpeedDialMultDivReset      QString("MultDivReset")
-#define KXMLQLCVCSpeedDialApply             QString("Apply")
-#define KXMLQLCVCSpeedDialTapKey            QString("Key")
-#define KXMLQLCVCSpeedDialMultKey           QString("MultKey")
-#define KXMLQLCVCSpeedDialDivKey            QString("DivKey")
-#define KXMLQLCVCSpeedDialMultDivResetKey   QString("MultDivResetKey")
-#define KXMLQLCVCSpeedDialApplyKey          QString("ApplyKey")
+#define KXMLQLCVCSpeedDial QString("SpeedDial")
+#define KXMLQLCVCSpeedDialSpeedTypes QString("SpeedTypes")
+#define KXMLQLCVCSpeedDialAbsoluteValue QString("AbsoluteValue")
+#define KXMLQLCVCSpeedDialAbsoluteValueMin QString("Minimum")
+#define KXMLQLCVCSpeedDialAbsoluteValueMax QString("Maximum")
+#define KXMLQLCVCSpeedDialTap QString("Tap")
+#define KXMLQLCVCSpeedDialMult QString("Mult")
+#define KXMLQLCVCSpeedDialDiv QString("Div")
+#define KXMLQLCVCSpeedDialMultDivReset QString("MultDivReset")
+#define KXMLQLCVCSpeedDialApply QString("Apply")
+#define KXMLQLCVCSpeedDialTapKey QString("Key")
+#define KXMLQLCVCSpeedDialMultKey QString("MultKey")
+#define KXMLQLCVCSpeedDialDivKey QString("DivKey")
+#define KXMLQLCVCSpeedDialMultDivResetKey QString("MultDivResetKey")
+#define KXMLQLCVCSpeedDialApplyKey QString("ApplyKey")
 #define KXMLQLCVCSpeedDialResetFactorOnDialChange QString("ResetFactorOnDialChange")
-#define KXMLQLCVCSpeedDialVisibilityMask    QString("Visibility")
-#define KXMLQLCVCSpeedDialTime              QString("Time")
+#define KXMLQLCVCSpeedDialVisibilityMask QString("Visibility")
+#define KXMLQLCVCSpeedDialTime QString("Time")
 
 // Legacy: infinite checkbox
-#define KXMLQLCVCSpeedDialInfinite      QString("Infinite")
-#define KXMLQLCVCSpeedDialInfiniteKey   QString("InfiniteKey")
+#define KXMLQLCVCSpeedDialInfinite QString("Infinite")
+#define KXMLQLCVCSpeedDialInfiniteKey QString("InfiniteKey")
 
 class VCSpeedDial : public VCWidget
 {
@@ -72,8 +72,8 @@ public:
     // VCSpeedDial uses the 0xffff0000 mask.
     enum Visibility
     {
-        MultDiv    = 0x10000 << 0,
-        Apply      = 0x10000 << 1,
+        MultDiv = 0x10000 << 0,
+        Apply = 0x10000 << 1,
     };
 
     static const quint8 absoluteInputSourceId;
@@ -126,14 +126,14 @@ public:
     /** @reimp */
     void editProperties();
 
-     /************************************************************************
+    /************************************************************************
      * Speed Type
      ************************************************************************/
 public:
     enum SpeedType
     {
-        FadeIn   = 1 << 0,
-        FadeOut  = 1 << 1,
+        FadeIn = 1 << 0,
+        FadeOut = 1 << 1,
         Duration = 1 << 2
     };
     Q_DECLARE_FLAGS(SpeedTypes, SpeedType)
@@ -148,12 +148,12 @@ public:
     /**
      * Set the list of functions that are controlled by the dial.
      */
-    void setFunctions(const QList <VCSpeedDialFunction> & functions);
+    void setFunctions(const QList<VCSpeedDialFunction>& functions);
 
     /**
      * Get the list of functions that are controlled by the dial.
      */
-    QList <VCSpeedDialFunction> functions() const;
+    QList<VCSpeedDialFunction> functions() const;
 
     /** Simulate tap button press
      */
@@ -170,7 +170,7 @@ private slots:
     void slotTapTimeout();
 
 private:
-    QList <VCSpeedDialFunction> m_functions;
+    QList<VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
     QToolButton* m_multButton;
     QLabel* m_multDivLabel;
@@ -252,7 +252,7 @@ public:
     quint32 visibilityMask() const;
 
     /** Set the visibility of the widget's elements
-      * according to the provided bitmask */
+     * according to the provided bitmask */
     void setVisibilityMask(quint32 mask);
 
 private:
@@ -264,7 +264,7 @@ private:
 public:
     void addPreset(VCSpeedDialPreset const& preset);
     void resetPresets();
-    QList<VCSpeedDialPreset *> presets() const;
+    QList<VCSpeedDialPreset*> presets() const;
 
 protected slots:
     void slotPresetClicked();
@@ -284,12 +284,12 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
-    bool loadXMLInfiniteLegacy(QXmlStreamReader &root, QSharedPointer<VCSpeedDialPreset> preset);
+    bool loadXMLInfiniteLegacy(QXmlStreamReader& root, QSharedPointer<VCSpeedDialPreset> preset);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** @reimp */
     void postLoad();

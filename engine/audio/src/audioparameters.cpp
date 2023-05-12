@@ -32,33 +32,33 @@ AudioParameters::AudioParameters()
 {
 }
 
-AudioParameters::AudioParameters(const AudioParameters &other)
+AudioParameters::AudioParameters(const AudioParameters& other)
     : m_srate(other.sampleRate())
     , m_chan(other.channels())
     , m_format(other.format())
 {
 }
 
-AudioParameters::AudioParameters(quint32 srate, int chan, AudioFormat  format)
+AudioParameters::AudioParameters(quint32 srate, int chan, AudioFormat format)
     : m_srate(srate)
     , m_chan(chan)
     , m_format(format)
 {
 }
 
-void AudioParameters::operator=(const AudioParameters &p)
+void AudioParameters::operator=(const AudioParameters& p)
 {
     m_srate = p.sampleRate();
     m_chan = p.channels();
     m_format = p.format();
 }
 
-bool AudioParameters::operator==(const AudioParameters &p) const
+bool AudioParameters::operator==(const AudioParameters& p) const
 {
     return m_srate == p.sampleRate() && m_chan == p.channels() && m_format == p.format();
 }
 
-bool AudioParameters::operator!=(const AudioParameters &p) const
+bool AudioParameters::operator!=(const AudioParameters& p) const
 {
     return !operator==(p);
 }
@@ -85,17 +85,16 @@ int AudioParameters::sampleSize() const
 
 int AudioParameters::sampleSize(AudioFormat format)
 {
-    switch(format)
+    switch (format)
     {
-        case PCM_S8:
-            return 1;
-        case PCM_S16LE:
-        case PCM_UNKNOWN:
-            return 2;
-        case PCM_S24LE:
-        case PCM_S32LE:
-            return 4;
+    case PCM_S8:
+        return 1;
+    case PCM_S16LE:
+    case PCM_UNKNOWN:
+        return 2;
+    case PCM_S24LE:
+    case PCM_S32LE:
+        return 4;
     }
     return 2;
 }
-

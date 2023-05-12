@@ -29,9 +29,9 @@
 #include "assignhotkey.h"
 #include "inputpatch.h"
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
- #include "rgbscript.h"
+  #include "rgbscript.h"
 #else
- #include "rgbscriptv4.h"
+  #include "rgbscriptv4.h"
 #endif
 
 VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
@@ -61,21 +61,24 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     m_sliderInputSource = m_matrix->inputSource();
     updateSliderInputSource();
 
-    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectSliderInputToggled(bool)));
-    connect(m_chooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotChooseSliderInputClicked()));
+    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)), this, SLOT(slotAutoDetectSliderInputToggled(bool)));
+    connect(m_chooseInputButton, SIGNAL(clicked()), this, SLOT(slotChooseSliderInputClicked()));
 
     /* Visibility */
     quint32 visibilityMask = m_matrix->visibilityMask();
-    if (visibilityMask & VCMatrix::ShowSlider) m_sliderCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowLabel) m_labelCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowStartColorButton) m_startColorButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowEndColorButton) m_endColorButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowPresetCombo) m_presetComboCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowSlider)
+        m_sliderCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowLabel)
+        m_labelCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowStartColorButton)
+        m_startColorButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowEndColorButton)
+        m_endColorButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowPresetCombo)
+        m_presetComboCheck->setChecked(true);
 
     /* Custom controls */
-    foreach(const VCMatrixControl *control, m_matrix->customControls())
+    foreach (const VCMatrixControl* control, m_matrix->customControls())
     {
         m_controls.append(new VCMatrixControl(*control));
         if (control->m_id > m_lastAssignedID)
@@ -86,26 +89,17 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
 
     updateTree();
 
-    connect(m_controlsTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
-            this, SLOT(slotTreeSelectionChanged()));
+    connect(m_controlsTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotTreeSelectionChanged()));
 
-    connect(m_addStartColorButton, SIGNAL(clicked()),
-            this, SLOT(slotAddStartColorClicked()));
-    connect(m_addStartColorKnobsButton, SIGNAL(clicked()),
-            this, SLOT(slotAddStartColorKnobsClicked()));
-    connect(m_addEndColorButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorClicked()));
-    connect(m_addEndColorKnobsButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorKnobsClicked()));
-    connect(m_addEndColorResetButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorResetClicked()));
-    connect(m_addPresetButton, SIGNAL(clicked()),
-            this, SLOT(slotAddAnimationClicked()));
-    connect(m_addTextButton, SIGNAL(clicked()),
-            this, SLOT(slotAddTextClicked()));
+    connect(m_addStartColorButton, SIGNAL(clicked()), this, SLOT(slotAddStartColorClicked()));
+    connect(m_addStartColorKnobsButton, SIGNAL(clicked()), this, SLOT(slotAddStartColorKnobsClicked()));
+    connect(m_addEndColorButton, SIGNAL(clicked()), this, SLOT(slotAddEndColorClicked()));
+    connect(m_addEndColorKnobsButton, SIGNAL(clicked()), this, SLOT(slotAddEndColorKnobsClicked()));
+    connect(m_addEndColorResetButton, SIGNAL(clicked()), this, SLOT(slotAddEndColorResetClicked()));
+    connect(m_addPresetButton, SIGNAL(clicked()), this, SLOT(slotAddAnimationClicked()));
+    connect(m_addTextButton, SIGNAL(clicked()), this, SLOT(slotAddTextClicked()));
 
-    connect(m_removeButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveClicked()));
+    connect(m_removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveClicked()));
 
     m_presetInputWidget = new InputSelectionWidget(m_doc, this);
     m_presetInputWidget->setCustomFeedbackVisibility(true);
@@ -113,10 +107,10 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     m_presetInputWidget->show();
     m_presetInputLayout->addWidget(m_presetInputWidget);
 
-    connect(m_presetInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
-            this, SLOT(slotInputValueChanged(quint32,quint32)));
-    connect(m_presetInputWidget, SIGNAL(keySequenceChanged(QKeySequence)),
-            this, SLOT(slotKeySequenceChanged(QKeySequence)));
+    connect(m_presetInputWidget, SIGNAL(inputValueChanged(quint32, quint32)), this,
+            SLOT(slotInputValueChanged(quint32, quint32)));
+    connect(m_presetInputWidget, SIGNAL(keySequenceChanged(QKeySequence)), this,
+            SLOT(slotKeySequenceChanged(QKeySequence)));
 }
 
 VCMatrixProperties::~VCMatrixProperties()
@@ -136,9 +130,8 @@ void VCMatrixProperties::slotAttachFunction()
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
     fs.setFilter(Function::RGBMatrixType);
-    fs.disableFilters(Function::SceneType | Function::ChaserType | Function::EFXType |
-                      Function::ShowType | Function::ScriptType | Function::CollectionType |
-                      Function::AudioType | Function::VideoType);
+    fs.disableFilters(Function::SceneType | Function::ChaserType | Function::EFXType | Function::ShowType |
+                      Function::ScriptType | Function::CollectionType | Function::AudioType | Function::VideoType);
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
         slotSetFunction(fs.selection().first());
@@ -169,19 +162,20 @@ void VCMatrixProperties::slotAutoDetectSliderInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotSliderInputValueChanged(quint32,quint32)));
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                SLOT(slotSliderInputValueChanged(quint32, quint32)));
     }
     else
     {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotSliderInputValueChanged(quint32,quint32)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                   SLOT(slotSliderInputValueChanged(quint32, quint32)));
     }
 }
 
 void VCMatrixProperties::slotSliderInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_sliderInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
+    m_sliderInputSource =
+        QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
     updateSliderInputSource();
 }
 
@@ -218,42 +212,42 @@ void VCMatrixProperties::updateTree()
 {
     m_controlsTree->blockSignals(true);
     m_controlsTree->clear();
-    foreach(VCMatrixControl *control, m_controls)
+    foreach (VCMatrixControl* control, m_controls)
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem(m_controlsTree);
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_controlsTree);
         item->setData(0, Qt::UserRole, control->m_id);
 
-        switch(control->m_type)
+        switch (control->m_type)
         {
-            case VCMatrixControl::StartColor:
-                item->setIcon(0, QIcon(":/color.png"));
-                item->setText(0, tr("Start Color"));
-                item->setText(1, control->m_color.name());
-                item->setBackground(1, QBrush(control->m_color));
+        case VCMatrixControl::StartColor:
+            item->setIcon(0, QIcon(":/color.png"));
+            item->setText(0, tr("Start Color"));
+            item->setText(1, control->m_color.name());
+            item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::StartColorKnob:
-                item->setIcon(0, QIcon(":/knob.png"));
-                item->setText(0, tr("Start Color Knob"));
-                item->setText(1, control->m_color.name());
-                item->setBackground(1, QBrush(control->m_color));
+        case VCMatrixControl::StartColorKnob:
+            item->setIcon(0, QIcon(":/knob.png"));
+            item->setText(0, tr("Start Color Knob"));
+            item->setText(1, control->m_color.name());
+            item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::EndColor:
-                item->setIcon(0, QIcon(":/color.png"));
-                item->setText(0, tr("End Color"));
-                item->setText(1, control->m_color.name());
-                item->setBackground(1, QBrush(control->m_color));
+        case VCMatrixControl::EndColor:
+            item->setIcon(0, QIcon(":/color.png"));
+            item->setText(0, tr("End Color"));
+            item->setText(1, control->m_color.name());
+            item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::EndColorKnob:
-                item->setIcon(0, QIcon(":/knob.png"));
-                item->setText(0, tr("End Color Knob"));
-                item->setText(1, control->m_color.name());
-                item->setBackground(1, QBrush(control->m_color));
+        case VCMatrixControl::EndColorKnob:
+            item->setIcon(0, QIcon(":/knob.png"));
+            item->setText(0, tr("End Color Knob"));
+            item->setText(1, control->m_color.name());
+            item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::ResetEndColor:
-                item->setIcon(0, QIcon(":/fileclose.png"));
-                item->setText(0, tr("End Color Reset"));
+        case VCMatrixControl::ResetEndColor:
+            item->setIcon(0, QIcon(":/fileclose.png"));
+            item->setText(0, tr("End Color Reset"));
             break;
-            case VCMatrixControl::Animation:
+        case VCMatrixControl::Animation:
             {
                 item->setIcon(0, QIcon(":/script.png"));
                 item->setText(0, tr("Animation"));
@@ -262,7 +256,7 @@ void VCMatrixProperties::updateTree()
                 {
                     presetName += " (";
                     QHashIterator<QString, QString> it(control->m_properties);
-                    while(it.hasNext())
+                    while (it.hasNext())
                     {
                         it.next();
                         presetName += it.value();
@@ -274,12 +268,12 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, presetName);
             }
             break;
-            case VCMatrixControl::Image:
+        case VCMatrixControl::Image:
             break;
-            case VCMatrixControl::Text:
-                item->setIcon(0, QIcon(":/fonts.png"));
-                item->setText(0, tr("Text"));
-                item->setText(1, control->m_resource);
+        case VCMatrixControl::Text:
+            item->setIcon(0, QIcon(":/fonts.png"));
+            item->setText(0, tr("Text"));
+            item->setText(1, control->m_resource);
             break;
         }
     }
@@ -287,16 +281,16 @@ void VCMatrixProperties::updateTree()
     m_controlsTree->blockSignals(false);
 }
 
-VCMatrixControl *VCMatrixProperties::getSelectedControl()
+VCMatrixControl* VCMatrixProperties::getSelectedControl()
 {
     if (m_controlsTree->selectedItems().isEmpty())
         return NULL;
 
-    QTreeWidgetItem * item = m_controlsTree->selectedItems().first();
+    QTreeWidgetItem* item = m_controlsTree->selectedItems().first();
     if (item != NULL)
     {
         quint8 ctlID = item->data(0, Qt::UserRole).toUInt();
-        foreach(VCMatrixControl *control, m_controls)
+        foreach (VCMatrixControl* control, m_controls)
         {
             if (control->m_id == ctlID)
                 return control;
@@ -316,14 +310,14 @@ QList<QColor> VCMatrixProperties::rgbColorList()
     return colors;
 }
 
-void VCMatrixProperties::addControl(VCMatrixControl *control)
+void VCMatrixProperties::addControl(VCMatrixControl* control)
 {
     m_controls.append(control);
 }
 
 void VCMatrixProperties::removeControl(quint8 id)
 {
-    for(int i = 0; i < m_controls.count(); i++)
+    for (int i = 0; i < m_controls.count(); i++)
     {
         if (m_controls.at(i)->m_id == id)
         {
@@ -338,7 +332,7 @@ void VCMatrixProperties::slotAddStartColorClicked()
     QColor col = QColorDialog::getColor();
     if (col.isValid() == true)
     {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        VCMatrixControl* newControl = new VCMatrixControl(++m_lastAssignedID);
         newControl->m_type = VCMatrixControl::StartColor;
         newControl->m_color = col;
         addControl(newControl);
@@ -350,7 +344,7 @@ void VCMatrixProperties::slotAddStartColorKnobsClicked()
 {
     foreach (QColor col, VCMatrixProperties::rgbColorList())
     {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        VCMatrixControl* newControl = new VCMatrixControl(++m_lastAssignedID);
         newControl->m_type = VCMatrixControl::StartColorKnob;
         newControl->m_color = col;
         addControl(newControl);
@@ -363,7 +357,7 @@ void VCMatrixProperties::slotAddEndColorClicked()
     QColor col = QColorDialog::getColor();
     if (col.isValid() == true)
     {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        VCMatrixControl* newControl = new VCMatrixControl(++m_lastAssignedID);
         newControl->m_type = VCMatrixControl::EndColor;
         newControl->m_color = col;
         addControl(newControl);
@@ -375,7 +369,7 @@ void VCMatrixProperties::slotAddEndColorKnobsClicked()
 {
     foreach (QColor col, VCMatrixProperties::rgbColorList())
     {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        VCMatrixControl* newControl = new VCMatrixControl(++m_lastAssignedID);
         newControl->m_type = VCMatrixControl::EndColorKnob;
         newControl->m_color = col;
         addControl(newControl);
@@ -385,7 +379,7 @@ void VCMatrixProperties::slotAddEndColorKnobsClicked()
 
 void VCMatrixProperties::slotAddEndColorResetClicked()
 {
-    VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+    VCMatrixControl* newControl = new VCMatrixControl(++m_lastAssignedID);
     newControl->m_type = VCMatrixControl::ResetEndColor;
     addControl(newControl);
     updateTree();
@@ -397,7 +391,7 @@ void VCMatrixProperties::slotAddAnimationClicked()
 
     if (ps.exec() == QDialog::Accepted)
     {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        VCMatrixControl* newControl = new VCMatrixControl(++m_lastAssignedID);
         newControl->m_type = VCMatrixControl::Animation;
         newControl->m_resource = ps.selectedPreset();
         newControl->m_properties = ps.customizedProperties();
@@ -409,12 +403,11 @@ void VCMatrixProperties::slotAddAnimationClicked()
 void VCMatrixProperties::slotAddTextClicked()
 {
     bool ok;
-    QString text = QInputDialog::getText(this, tr("Enter a text"),
-                                      tr("Text"), QLineEdit::Normal,
-                                      "Q Light Controller+", &ok);
+    QString text =
+        QInputDialog::getText(this, tr("Enter a text"), tr("Text"), QLineEdit::Normal, "Q Light Controller+", &ok);
     if (ok && !text.isEmpty())
     {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        VCMatrixControl* newControl = new VCMatrixControl(++m_lastAssignedID);
         newControl->m_type = VCMatrixControl::Text;
         newControl->m_resource = text;
         addControl(newControl);
@@ -426,17 +419,16 @@ void VCMatrixProperties::slotRemoveClicked()
 {
     if (m_controlsTree->selectedItems().isEmpty())
         return;
-    QTreeWidgetItem *selItem = m_controlsTree->selectedItems().first();
+    QTreeWidgetItem* selItem = m_controlsTree->selectedItems().first();
     quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
 
     {
         // For R/G/B Knobs:
         // Remove the two others
-        VCMatrixControl *control = getSelectedControl();
+        VCMatrixControl* control = getSelectedControl();
         if (control != NULL)
         {
-            if (control->m_type == VCMatrixControl::StartColorKnob
-                    || control->m_type == VCMatrixControl::EndColorKnob)
+            if (control->m_type == VCMatrixControl::StartColorKnob || control->m_type == VCMatrixControl::EndColorKnob)
             {
                 if (control->m_color == Qt::red)
                 {
@@ -470,16 +462,17 @@ void VCMatrixProperties::slotInputValueChanged(quint32 universe, quint32 channel
     Q_UNUSED(universe);
     Q_UNUSED(channel);
 
-    VCMatrixControl *preset = getSelectedControl();
+    VCMatrixControl* preset = getSelectedControl();
 
-    if (preset != NULL) {
+    if (preset != NULL)
+    {
         preset->m_inputSource = m_presetInputWidget->inputSource();
     }
 }
 
 void VCMatrixProperties::slotKeySequenceChanged(QKeySequence key)
 {
-    VCMatrixControl *preset = getSelectedControl();
+    VCMatrixControl* preset = getSelectedControl();
 
     if (preset != NULL)
         preset->m_keySequence = key;
@@ -488,7 +481,7 @@ void VCMatrixProperties::slotKeySequenceChanged(QKeySequence key)
 
 void VCMatrixProperties::slotTreeSelectionChanged()
 {
-    VCMatrixControl *control = getSelectedControl();
+    VCMatrixControl* control = getSelectedControl();
 
     if (control != NULL)
     {
@@ -521,11 +514,16 @@ void VCMatrixProperties::accept()
 
     /* Visibility */
     quint32 visibilityMask = 0;
-    if (m_sliderCheck->isChecked()) visibilityMask |= VCMatrix::ShowSlider;
-    if (m_labelCheck->isChecked()) visibilityMask |= VCMatrix::ShowLabel;
-    if (m_startColorButtonCheck->isChecked()) visibilityMask |= VCMatrix::ShowStartColorButton;
-    if (m_endColorButtonCheck->isChecked()) visibilityMask |= VCMatrix::ShowEndColorButton;
-    if (m_presetComboCheck->isChecked()) visibilityMask |= VCMatrix::ShowPresetCombo;
+    if (m_sliderCheck->isChecked())
+        visibilityMask |= VCMatrix::ShowSlider;
+    if (m_labelCheck->isChecked())
+        visibilityMask |= VCMatrix::ShowLabel;
+    if (m_startColorButtonCheck->isChecked())
+        visibilityMask |= VCMatrix::ShowStartColorButton;
+    if (m_endColorButtonCheck->isChecked())
+        visibilityMask |= VCMatrix::ShowEndColorButton;
+    if (m_presetComboCheck->isChecked())
+        visibilityMask |= VCMatrix::ShowPresetCombo;
     m_matrix->setVisibilityMask(visibilityMask);
 
     /* Controls */

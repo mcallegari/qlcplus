@@ -32,18 +32,18 @@ class QString;
  * @{
  */
 
-#define KXMLQLCInputChannel         QString("Channel")
-#define KXMLQLCInputChannelName     QString("Name")
-#define KXMLQLCInputChannelType     QString("Type")
-#define KXMLQLCInputChannelNumber   QString("Number")
-#define KXMLQLCInputChannelSlider   QString("Slider")
-#define KXMLQLCInputChannelKnob     QString("Knob")
-#define KXMLQLCInputChannelEncoder  QString("Encoder")
-#define KXMLQLCInputChannelButton   QString("Button")
-#define KXMLQLCInputChannelPageUp   QString("Next Page")
+#define KXMLQLCInputChannel QString("Channel")
+#define KXMLQLCInputChannelName QString("Name")
+#define KXMLQLCInputChannelType QString("Type")
+#define KXMLQLCInputChannelNumber QString("Number")
+#define KXMLQLCInputChannelSlider QString("Slider")
+#define KXMLQLCInputChannelKnob QString("Knob")
+#define KXMLQLCInputChannelEncoder QString("Encoder")
+#define KXMLQLCInputChannelButton QString("Button")
+#define KXMLQLCInputChannelPageUp QString("Next Page")
 #define KXMLQLCInputChannelPageDown QString("Previous Page")
-#define KXMLQLCInputChannelPageSet  QString("Page Set")
-#define KXMLQLCInputChannelNone     QString("None")
+#define KXMLQLCInputChannelPageSet QString("Page Set")
+#define KXMLQLCInputChannelNone QString("None")
 #define KXMLQLCInputChannelMovement QString("Movement")
 #define KXMLQLCInputChannelRelative QString("Relative")
 #define KXMLQLCInputChannelSensitivity QString("Sensitivity")
@@ -67,8 +67,8 @@ public:
     QLCInputChannel();
 
     /** Copy constructor */
-    //QLCInputChannel(const QLCInputChannel& channel);
-    QLCInputChannel *createCopy();
+    // QLCInputChannel(const QLCInputChannel& channel);
+    QLCInputChannel* createCopy();
 
     /** Destructor */
     virtual ~QLCInputChannel();
@@ -136,7 +136,8 @@ protected:
      *********************************************************************/
 public:
     /** Movement behaviour */
-    enum MovementType {
+    enum MovementType
+    {
         Absolute = 0,
         Relative = 1
     };
@@ -175,7 +176,7 @@ public:
      * @param root An input channel tag
      * @return true if successful, otherwise false
      */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /**
      * Save this channel's contents to the given XML document, setting the
@@ -185,7 +186,7 @@ public:
      * @param channelNumber The channel's number in the channel map
      * @return true if successful, otherwise false
      */
-    bool saveXML(QXmlStreamWriter *doc, quint32 channelNumber) const;
+    bool saveXML(QXmlStreamWriter* doc, quint32 channelNumber) const;
 };
 
 /** @} */

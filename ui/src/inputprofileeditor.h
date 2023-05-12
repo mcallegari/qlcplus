@@ -51,7 +51,7 @@ protected:
     void setOptionsVisibility(QLCInputChannel::Type type);
 
 protected slots:
-    void slotTypeComboChanged(int );
+    void slotTypeComboChanged(int);
 
 private:
     InputOutputMap* m_ioMap;
@@ -74,7 +74,7 @@ protected slots:
     void slotRemoveClicked();
     void slotEditClicked();
     void slotWizardClicked(bool checked);
-    void slotItemClicked(QTreeWidgetItem *item, int col);
+    void slotItemClicked(QTreeWidgetItem* item, int col);
     void slotMovementComboChanged(int index);
     void slotSensitivitySpinChanged(int value);
     void slotExtraPressChecked(bool checked);

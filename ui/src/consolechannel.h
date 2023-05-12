@@ -52,7 +52,7 @@ class ConsoleChannel : public QGroupBox
      * Initialization
      *************************************************************************/
 public:
-    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channelIndex, bool isCheckable = true);
+    ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channelIndex, bool isCheckable = true);
 
     ~ConsoleChannel();
 
@@ -75,13 +75,13 @@ public:
     /** Get the channel number within $m_fixture that this channel controls */
     quint32 channelIndex() const;
 
-    const QLCChannel *channel();
+    const QLCChannel* channel();
 
 private:
     Doc* m_doc;
     quint32 m_fixture;
     quint32 m_chIndex;
-    const QLCChannel *m_channel;
+    const QLCChannel* m_channel;
     /** this value is set only through setChannelsGroup,
      *  to emit the proper signal when value changes */
     quint32 m_group;
@@ -137,7 +137,7 @@ signals:
 
 private:
     QToolButton* m_presetButton;
-    ClickAndGoWidget *m_cngWidget;
+    ClickAndGoWidget* m_cngWidget;
     QSpinBox* m_spin;
     ClickAndGoSlider* m_slider;
     QLabel* m_label;

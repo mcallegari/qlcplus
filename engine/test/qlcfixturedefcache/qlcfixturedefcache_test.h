@@ -34,7 +34,7 @@ private slots:
     void duplicates();
     void add();
     void fixtureDef();
-	void load();
+    void load();
     void defDirectories();
 
 private:

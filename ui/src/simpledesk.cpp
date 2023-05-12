@@ -50,26 +50,30 @@
 #include "cue.h"
 #include "doc.h"
 
-#define PROP_ADDRESS    "address"
-#define PROP_PLAYBACK   "playback"
+#define PROP_ADDRESS "address"
+#define PROP_PLAYBACK "playback"
 
-#define SETTINGS_SPLITTER       "simpledesk/splitter"
-#define SETTINGS_PAGE_CHANNELS  "simpledesk/channelsperpage"
+#define SETTINGS_SPLITTER "simpledesk/splitter"
+#define SETTINGS_PAGE_CHANNELS "simpledesk/channelsperpage"
 #define SETTINGS_PAGE_PLAYBACKS "simpledesk/playbacksperpage"
-#define SETTINGS_CHANNEL_NAMES  "simpledesk/showchannelnames"
-#define DEFAULT_PAGE_CHANNELS   32
-#define DEFAULT_PAGE_PLAYBACKS  15
+#define SETTINGS_CHANNEL_NAMES "simpledesk/showchannelnames"
+#define DEFAULT_PAGE_CHANNELS 32
+#define DEFAULT_PAGE_PLAYBACKS 15
 
 SimpleDesk* SimpleDesk::s_instance = NULL;
 
-QString ssEven =  "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
-                 " border: 1px solid gray; border-radius: 4px; }";
-QString ssOdd = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
-                 " border: 1px solid gray; border-radius: 4px; }";
-QString ssNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                 " border: 1px solid gray; border-radius: 4px; }";
-QString ssOverride = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF2D2D, stop: 1 #FF5050); "
-                     " border: 1px solid gray; border-radius: 4px; }";
+QString ssEven =
+    "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
+    " border: 1px solid gray; border-radius: 4px; }";
+QString ssOdd =
+    "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
+    " border: 1px solid gray; border-radius: 4px; }";
+QString ssNone =
+    "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+    " border: 1px solid gray; border-radius: 4px; }";
+QString ssOverride =
+    "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF2D2D, stop: 1 #FF5050); "
+    " border: 1px solid gray; border-radius: 4px; }";
 
 /*****************************************************************************
  * Initialization
@@ -117,24 +121,17 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
 
     slotSelectPlayback(0);
 
-    connect(m_doc, SIGNAL(fixtureAdded(quint32)),
-            this, SLOT(slotDocChanged()));
-    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
-            this, SLOT(slotDocChanged()));
-    connect(m_doc, SIGNAL(fixtureChanged(quint32)),
-            this, SLOT(slotDocChanged()));
-    connect(m_doc, SIGNAL(channelsGroupAdded(quint32)),
-            this, SLOT(slotDocChanged()));
-    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)),
-            this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(channelsGroupAdded(quint32)), this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)), this, SLOT(slotDocChanged()));
 
-    connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)),
-            this, SLOT(slotDocChanged()));
-    connect(m_doc->inputOutputMap(), SIGNAL(universeRemoved(quint32)),
-            this, SLOT(slotDocChanged()));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)), this, SLOT(slotDocChanged()));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeRemoved(quint32)), this, SLOT(slotDocChanged()));
 
-    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)),
-            this, SLOT(slotUniverseWritten(quint32, const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)), this,
+            SLOT(slotUniverseWritten(quint32, const QByteArray&)));
 }
 
 SimpleDesk::~SimpleDesk()
@@ -156,8 +153,8 @@ SimpleDesk* SimpleDesk::instance()
 
 void SimpleDesk::clearContents()
 {
-    //qDebug() << Q_FUNC_INFO;
-    CueStackModel* model = qobject_cast<CueStackModel*> (m_cueStackView->model());
+    // qDebug() << Q_FUNC_INFO;
+    CueStackModel* model = qobject_cast<CueStackModel*>(m_cueStackView->model());
     Q_ASSERT(model != NULL);
     model->setCueStack(NULL);
 
@@ -169,14 +166,14 @@ void SimpleDesk::clearContents()
 
 void SimpleDesk::initEngine()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     connect(m_engine, SIGNAL(cueStackStarted(uint)), this, SLOT(slotCueStackStarted(uint)));
     connect(m_engine, SIGNAL(cueStackStopped(uint)), this, SLOT(slotCueStackStopped(uint)));
 }
 
 void SimpleDesk::initView()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 
     new QVBoxLayout(this);
     layout()->setContentsMargins(0, 0, 0, 0);
@@ -244,29 +241,28 @@ void SimpleDesk::initTopSide()
 
     uniLay->addSpacing(50);
 
-    QLabel *label = new QLabel(tr("Universe"));
+    QLabel* label = new QLabel(tr("Universe"));
     label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     uniLay->addWidget(label);
 
     m_universesCombo = new QComboBox(this);
-    //m_universesCombo->setFixedWidth(200);
+    // m_universesCombo->setFixedWidth(200);
     m_universesCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     uniLay->addWidget(m_universesCombo);
     lay->addLayout(uniLay);
 
     initUniversesCombo();
-    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotUniversesComboChanged(int)));
+    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUniversesComboChanged(int)));
 
     m_universeGroup = new QFrame(this);
-    //m_universeGroup->setTitle(tr("Universe"));
-    QHBoxLayout *grpLay = new QHBoxLayout(m_universeGroup);
-    //m_universeGroup->setFlat(true);
+    // m_universeGroup->setTitle(tr("Universe"));
+    QHBoxLayout* grpLay = new QHBoxLayout(m_universeGroup);
+    // m_universeGroup->setFlat(true);
     grpLay->setContentsMargins(1, 1, 1, 1);
     grpLay->setSpacing(1);
     lay->addWidget(m_universeGroup);
 
-    QVBoxLayout *vbox = new QVBoxLayout;
+    QVBoxLayout* vbox = new QVBoxLayout;
     m_grandMasterSlider = new GrandMasterSlider(this, m_doc->inputOutputMap());
     vbox->addWidget(m_grandMasterSlider);
 
@@ -285,14 +281,14 @@ void SimpleDesk::initBottomSide()
 
     m_playbackGroup = new QGroupBox(this);
     m_playbackGroup->setTitle(tr("Playback"));
-    QHBoxLayout *grpLay = new QHBoxLayout(m_playbackGroup);
+    QHBoxLayout* grpLay = new QHBoxLayout(m_playbackGroup);
     grpLay->setContentsMargins(0, 6, 0, 0);
     grpLay->setSpacing(1);
     lay->addWidget(m_playbackGroup);
 
     m_cueStackGroup = new QGroupBox(this);
     m_cueStackGroup->setTitle(tr("Cue Stack"));
-    QVBoxLayout *grpLay2 = new QVBoxLayout(m_cueStackGroup);
+    QVBoxLayout* grpLay2 = new QVBoxLayout(m_cueStackGroup);
     grpLay2->setContentsMargins(0, 6, 0, 0);
     lay->addWidget(m_cueStackGroup);
 
@@ -411,8 +407,7 @@ void SimpleDesk::resetUniverse()
 
 void SimpleDesk::initUniversesCombo()
 {
-    disconnect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotUniversesComboChanged(int)));
+    disconnect(m_universesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUniversesComboChanged(int)));
     int currIdx = m_universesCombo->currentIndex();
     m_universesCombo->clear();
     m_universesCombo->addItems(m_doc->inputOutputMap()->universeNames());
@@ -420,13 +415,12 @@ void SimpleDesk::initUniversesCombo()
         m_universesCombo->setCurrentIndex(currIdx);
     while (m_universesPage.length() < m_universesCombo->count())
         m_universesPage.append(1);
-    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotUniversesComboChanged(int)));
+    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUniversesComboChanged(int)));
 }
 
 void SimpleDesk::initUniverseSliders()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     quint32 start = m_universesPage.at(m_currentUniverse) * m_channelsPerPage;
     for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
@@ -443,16 +437,15 @@ void SimpleDesk::initUniverseSliders()
         slider->showResetButton(true);
         m_universeGroup->layout()->addWidget(slider);
         m_universeSliders << slider;
-        connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-        connect(slider, SIGNAL(resetRequest(quint32,quint32)),
-                this, SLOT(slotChannelResetClicked(quint32,quint32)));
+        connect(slider, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+        connect(slider, SIGNAL(resetRequest(quint32, quint32)), this, SLOT(slotChannelResetClicked(quint32, quint32)));
     }
 }
 
 void SimpleDesk::initUniversePager()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     m_universePageSpin->setRange(1, int((512 + m_channelsPerPage - 1) / m_channelsPerPage));
     m_universePageSpin->setValue(1);
     slotUniversePageChanged(1);
@@ -466,8 +459,8 @@ void SimpleDesk::initUniversePager()
 
 void SimpleDesk::resetUniverseSliders()
 {
-    //qDebug() << Q_FUNC_INFO;
-    foreach (ConsoleChannel *channel, m_universeSliders)
+    // qDebug() << Q_FUNC_INFO;
+    foreach (ConsoleChannel* channel, m_universeSliders)
     {
         if (channel != NULL)
             channel->setValue(0);
@@ -491,12 +484,12 @@ void SimpleDesk::initSliderView(bool fullMode)
         fixturesLayout->setContentsMargins(2, 2, 2, 2);
 
         int c = 0;
-        foreach(Fixture *fixture, m_doc->fixtures())
+        foreach (Fixture* fixture, m_doc->fixtures())
         {
             if (fixture->universe() != (quint32)m_universesCombo->currentIndex())
                 continue;
             FixtureConsole* console = NULL;
-            if (c%2 == 0)
+            if (c % 2 == 0)
                 console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupOdd, false);
             else
                 console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven, false);
@@ -519,10 +512,10 @@ void SimpleDesk::initSliderView(bool fullMode)
                 }
             }
             fixturesLayout->addWidget(console);
-            connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-            connect(console, SIGNAL(resetRequest(quint32,quint32)),
-                    this, SLOT(slotChannelResetClicked(quint32,quint32)));
+            connect(console, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                    SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+            connect(console, SIGNAL(resetRequest(quint32, quint32)), this,
+                    SLOT(slotChannelResetClicked(quint32, quint32)));
             c++;
             m_consoleList[fixture->id()] = console;
         }
@@ -550,14 +543,13 @@ void SimpleDesk::initChannelGroupsView()
     {
         m_chGroupsArea = new QScrollArea();
         QList<quint32> chGrpIDs;
-        foreach(ChannelsGroup *grp, m_doc->channelsGroups())
+        foreach (ChannelsGroup* grp, m_doc->channelsGroups())
             chGrpIDs.append(grp->id());
         GroupsConsole* console = new GroupsConsole(m_chGroupsArea, m_doc, chGrpIDs, QList<uchar>());
         m_chGroupsArea->setWidget(console);
         m_chGroupsArea->setWidgetResizable(true);
         m_tabs->addTab(m_chGroupsArea, tr("Channel groups"));
-        connect(console, SIGNAL(groupValueChanged(quint32,uchar)),
-                this, SLOT(slotGroupValueChanged(quint32,uchar)));
+        connect(console, SIGNAL(groupValueChanged(quint32, uchar)), this, SLOT(slotGroupValueChanged(quint32, uchar)));
     }
 }
 
@@ -590,13 +582,13 @@ void SimpleDesk::slotViewModeClicked(bool toggle)
             if (slider != NULL)
             {
                 m_universeGroup->layout()->removeWidget(slider);
-                disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                       this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-                disconnect(slider, SIGNAL(resetRequest(quint32,quint32)),
-                        this, SLOT(slotChannelResetClicked(quint32,quint32)));
+                disconnect(slider, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                           SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+                disconnect(slider, SIGNAL(resetRequest(quint32, quint32)), this,
+                           SLOT(slotChannelResetClicked(quint32, quint32)));
                 if (fxRemoveList.contains(slider->fixture()) == false)
                 {
-                    Fixture *currFx = m_doc->fixture(slider->fixture());
+                    Fixture* currFx = m_doc->fixture(slider->fixture());
                     if (currFx != NULL)
                     {
                         disconnect(currFx, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
@@ -644,22 +636,22 @@ void SimpleDesk::slotUniversePageChanged(int page)
     /* Set the new page for this universe */
     m_universesPage.replace(m_currentUniverse, page);
 
-    //qDebug() << "[slotUniversePageChanged] start: " << start << ", absoluteAddr: " << absoluteAddr;
+    // qDebug() << "[slotUniversePageChanged] start: " << start << ", absoluteAddr: " << absoluteAddr;
 
     for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
-        ConsoleChannel *slider = m_universeSliders[i];
+        ConsoleChannel* slider = m_universeSliders[i];
         if (slider != NULL)
         {
             m_universeGroup->layout()->removeWidget(slider);
-            disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-            disconnect(slider, SIGNAL(resetRequest(quint32,quint32)),
-                    this, SLOT(slotChannelResetClicked(quint32,quint32)));
+            disconnect(slider, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                       SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+            disconnect(slider, SIGNAL(resetRequest(quint32, quint32)), this,
+                       SLOT(slotChannelResetClicked(quint32, quint32)));
 
             if (fxRemoveList.contains(slider->fixture()) == false)
             {
-                Fixture *currFx = m_doc->fixture(slider->fixture());
+                Fixture* currFx = m_doc->fixture(slider->fixture());
                 if (currFx != NULL)
                 {
                     disconnect(currFx, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
@@ -669,7 +661,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
             delete slider;
             m_universeSliders[i] = NULL;
         }
-        Fixture *fx = m_doc->fixture(m_doc->fixtureForAddress(absoluteAddr + i));
+        Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(absoluteAddr + i));
         if (fx == NULL)
         {
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
@@ -710,13 +702,13 @@ void SimpleDesk::slotUniversePageChanged(int page)
             slider->setEnabled(true);
             slider->setProperty(PROP_ADDRESS, absoluteAddr + i);
             slider->setLabel(QString::number(start + i + 1));
-            //qDebug() << "Set slider value[" << (absoluteAddr + i) << "] = " << m_engine->value(absoluteAddr + i);
+            // qDebug() << "Set slider value[" << (absoluteAddr + i) << "] = " << m_engine->value(absoluteAddr + i);
             if (m_engine->hasChannel(absoluteAddr + i))
                 slider->setValue(m_engine->value(absoluteAddr + i), false);
-            connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-            connect(slider, SIGNAL(resetRequest(quint32,quint32)),
-                    this, SLOT(slotChannelResetClicked(quint32,quint32)));
+            connect(slider, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                    SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+            connect(slider, SIGNAL(resetRequest(quint32, quint32)), this,
+                    SLOT(slotChannelResetClicked(quint32, quint32)));
         }
         else
         {
@@ -741,12 +733,12 @@ void SimpleDesk::slotUniverseResetClicked()
         slotUniversePageChanged(1);
     else
     {
-        QHashIterator <quint32,FixtureConsole*> it(m_consoleList);
+        QHashIterator<quint32, FixtureConsole*> it(m_consoleList);
 
         while (it.hasNext() == true)
         {
             it.next();
-            FixtureConsole *fc = it.value();
+            FixtureConsole* fc = it.value();
             Q_ASSERT(fc != NULL);
             fc->resetChannelsStylesheet();
         }
@@ -757,7 +749,7 @@ void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
 {
     if (fxID != Fixture::invalidId())
     {
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture* fixture = m_doc->fixture(fxID);
         if (fixture == NULL)
             return;
 
@@ -766,13 +758,13 @@ void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
 
         if (m_viewModeButton->isChecked() == true)
         {
-            Fixture *fixture = m_doc->fixture(fxID);
+            Fixture* fixture = m_doc->fixture(fxID);
             if (fixture == NULL)
                 return;
 
             if (m_consoleList.contains(fxID))
             {
-                FixtureConsole *fc = m_consoleList[fxID];
+                FixtureConsole* fc = m_consoleList[fxID];
                 if (fc != NULL)
                 {
                     if (fixture->id() % 2 == 0)
@@ -784,7 +776,7 @@ void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
         }
         else
         {
-            ConsoleChannel *slider = qobject_cast<ConsoleChannel *>(sender());
+            ConsoleChannel* slider = qobject_cast<ConsoleChannel*>(sender());
             if (fixture->id() % 2 == 0)
                 slider->setChannelStyleSheet(ssOdd);
             else
@@ -793,7 +785,7 @@ void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
     }
     else
     {
-        ConsoleChannel *slider = qobject_cast<ConsoleChannel *>(sender());
+        ConsoleChannel* slider = qobject_cast<ConsoleChannel*>(sender());
         m_engine->resetChannel(channel);
         slider->setChannelStyleSheet(ssNone);
     }
@@ -801,21 +793,21 @@ void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
 
 void SimpleDesk::slotAliasChanged()
 {
-    Fixture *fxi = qobject_cast<Fixture *>(sender());
+    Fixture* fxi = qobject_cast<Fixture*>(sender());
     int i = 0;
 
-    foreach (ConsoleChannel *cc, m_universeSliders)
+    foreach (ConsoleChannel* cc, m_universeSliders)
     {
         quint32 chIndex = cc->channelIndex();
 
         if (cc->fixture() == fxi->id() && cc->channel() != fxi->channel(chIndex))
         {
-            disconnect(cc, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                       this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-            disconnect(cc, SIGNAL(resetRequest(quint32,quint32)),
-                       this, SLOT(slotChannelResetClicked(quint32,quint32)));
+            disconnect(cc, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                       SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+            disconnect(cc, SIGNAL(resetRequest(quint32, quint32)), this,
+                       SLOT(slotChannelResetClicked(quint32, quint32)));
 
-            ConsoleChannel *newCC = new ConsoleChannel(this, m_doc, fxi->id(), chIndex, false);
+            ConsoleChannel* newCC = new ConsoleChannel(this, m_doc, fxi->id(), chIndex, false);
             newCC->setVisible(false);
 
             if (m_engine->hasChannel(fxi->universeAddress() + chIndex))
@@ -835,12 +827,12 @@ void SimpleDesk::slotAliasChanged()
             newCC->setProperty(PROP_ADDRESS, fxi->universeAddress() + chIndex);
             newCC->setVisible(true);
 
-            connect(newCC, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-            connect(newCC, SIGNAL(resetRequest(quint32,quint32)),
-                    this, SLOT(slotChannelResetClicked(quint32,quint32)));
+            connect(newCC, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                    SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+            connect(newCC, SIGNAL(resetRequest(quint32, quint32)), this,
+                    SLOT(slotChannelResetClicked(quint32, quint32)));
 
-            QLayoutItem *item = m_universeGroup->layout()->replaceWidget(cc, newCC);
+            QLayoutItem* item = m_universeGroup->layout()->replaceWidget(cc, newCC);
             delete item;
             delete cc;
             m_universeSliders.replace(i, newCC);
@@ -855,13 +847,12 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     if (var.isValid()) // Not true with disabled sliders
     {
         quint32 chanAbsAddr = var.toUInt();
-        if (m_viewModeButton->isChecked() == false &&
-            m_engine->hasChannel(chanAbsAddr) == false)
+        if (m_viewModeButton->isChecked() == false && m_engine->hasChannel(chanAbsAddr) == false)
         {
             quint32 chanAddr = (chanAbsAddr & 0x01FF) - ((m_universePageSpin->value() - 1) * m_channelsPerPage);
             if (chanAddr < (quint32)m_universeSliders.count())
             {
-                ConsoleChannel *chan = m_universeSliders.at(chanAddr);
+                ConsoleChannel* chan = m_universeSliders.at(chanAddr);
                 chan->setChannelStyleSheet(ssOverride);
             }
         }
@@ -872,17 +863,16 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     }
     else // calculate the absolute address from the given parameters
     {
-        Fixture *fixture = m_doc->fixture(fid);
+        Fixture* fixture = m_doc->fixture(fid);
         if (fixture == NULL)
             return;
 
         quint32 chanAbsAddr = fixture->universeAddress() + chan;
-        if (m_viewModeButton->isChecked() == true &&
-            m_engine->hasChannel(chanAbsAddr) == false)
+        if (m_viewModeButton->isChecked() == true && m_engine->hasChannel(chanAbsAddr) == false)
         {
             if (m_consoleList.contains(fid))
             {
-                FixtureConsole *fc = m_consoleList[fid];
+                FixtureConsole* fc = m_consoleList[fid];
                 if (fc != NULL)
                     fc->setChannelStylesheet(chan, ssOverride);
             }
@@ -903,7 +893,7 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData
     if (idx != (quint32)m_currentUniverse)
         return;
 
-    //qDebug() << "SIMPLE DESK UNIVERSE WRITTEN" << idx;
+    // qDebug() << "SIMPLE DESK UNIVERSE WRITTEN" << idx;
 
     if (m_viewModeButton->isChecked() == false)
     {
@@ -916,7 +906,7 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData
                 break;
 
             quint32 absAddr = i + (idx << 9);
-            ConsoleChannel *cc = m_universeSliders[i - start];
+            ConsoleChannel* cc = m_universeSliders[i - start];
             if (cc == NULL)
                 continue;
 
@@ -939,13 +929,13 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole* fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
 
             quint32 fxi = fc->fixture();
-            Fixture *fixture = m_doc->fixture(fxi);
+            Fixture* fixture = m_doc->fixture(fxi);
             if (fixture != NULL)
             {
                 quint32 startAddr = fixture->address();
@@ -968,7 +958,7 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData
 
 void SimpleDesk::slotUpdateUniverseSliders()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     if (m_viewModeButton->isChecked() == true)
     {
         m_universeGroup->layout()->removeWidget(scrollArea);
@@ -987,7 +977,7 @@ void SimpleDesk::slotUpdateUniverseSliders()
 
 void SimpleDesk::initPlaybackSliders()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     for (uint i = 0; i < m_playbacksPerPage; i++)
     {
         PlaybackSlider* slider = new PlaybackSlider(m_playbackGroup);
@@ -1005,15 +995,15 @@ void SimpleDesk::initPlaybackSliders()
 
 void SimpleDesk::resetPlaybackSliders()
 {
-    //qDebug() << Q_FUNC_INFO;
-    QListIterator <PlaybackSlider*> it(m_playbackSliders);
+    // qDebug() << Q_FUNC_INFO;
+    QListIterator<PlaybackSlider*> it(m_playbackSliders);
     while (it.hasNext() == true)
         it.next()->setValue(0);
 }
 
 void SimpleDesk::slotPlaybackSelected()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     Q_ASSERT(sender() != NULL);
     uint pb = sender()->property(PROP_PLAYBACK).toUInt();
     if (m_selectedPlayback == pb)
@@ -1024,7 +1014,7 @@ void SimpleDesk::slotPlaybackSelected()
 
 void SimpleDesk::slotSelectPlayback(uint pb)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 
     if (m_selectedPlayback != UINT_MAX)
         m_playbackSliders[m_selectedPlayback]->setSelected(false);
@@ -1036,7 +1026,7 @@ void SimpleDesk::slotSelectPlayback(uint pb)
     CueStack* cueStack = m_engine->cueStack(pb);
     Q_ASSERT(cueStack != NULL);
 
-    CueStackModel* model = qobject_cast<CueStackModel*> (m_cueStackView->model());
+    CueStackModel* model = qobject_cast<CueStackModel*>(m_cueStackView->model());
     Q_ASSERT(model != NULL);
     model->setCueStack(cueStack);
 
@@ -1047,7 +1037,7 @@ void SimpleDesk::slotSelectPlayback(uint pb)
 
 void SimpleDesk::slotPlaybackStarted()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     int pb = sender()->property(PROP_PLAYBACK).toUInt();
     CueStack* cueStack = m_engine->cueStack(pb);
     Q_ASSERT(cueStack != NULL);
@@ -1058,7 +1048,7 @@ void SimpleDesk::slotPlaybackStarted()
 
 void SimpleDesk::slotPlaybackStopped()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     int pb = sender()->property(PROP_PLAYBACK).toUInt();
     CueStack* cueStack = m_engine->cueStack(pb);
     Q_ASSERT(cueStack != NULL);
@@ -1087,14 +1077,14 @@ void SimpleDesk::slotPlaybackValueChanged(uchar value)
 
 void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
 {
-    ChannelsGroup *group = m_doc->channelsGroup(groupID);
+    ChannelsGroup* group = m_doc->channelsGroup(groupID);
     if (group == NULL)
         return;
     quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
 
     foreach (SceneValue scv, group->getChannels())
     {
-        Fixture *fixture = m_doc->fixture(scv.fxi);
+        Fixture* fixture = m_doc->fixture(scv.fxi);
         if (fixture == NULL)
             continue;
         quint32 absAddr = fixture->universeAddress() + scv.channel;
@@ -1102,11 +1092,10 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
         // Update sliders on screen
         if (m_viewModeButton->isChecked() == false)
         {
-            if (fixture->universe() == (quint32)m_currentUniverse &&
-                absAddr >= start &&
+            if (fixture->universe() == (quint32)m_currentUniverse && absAddr >= start &&
                 absAddr < start + m_channelsPerPage)
             {
-                ConsoleChannel *cc = m_universeSliders[absAddr - start];
+                ConsoleChannel* cc = m_universeSliders[absAddr - start];
                 if (cc != NULL)
                 {
                     cc->blockSignals(true);
@@ -1119,8 +1108,8 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
         {
             if (m_consoleList.contains(fixture->id()))
             {
-                FixtureConsole *fc = m_consoleList[fixture->id()];
-                if(fc != NULL)
+                FixtureConsole* fc = m_consoleList[fixture->id()];
+                if (fc != NULL)
                 {
                     fc->blockSignals(true);
                     if (m_engine->hasChannel(absAddr) == false)
@@ -1141,7 +1130,7 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
 
 void SimpleDesk::initCueStack()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     CueStackModel* model = new CueStackModel(this);
     m_cueStackView->setModel(model);
 
@@ -1152,14 +1141,13 @@ void SimpleDesk::initCueStack()
     connect(m_editCueStackButton, SIGNAL(toggled(bool)), this, SLOT(slotEditCueStackClicked(bool)));
     connect(m_recordCueButton, SIGNAL(clicked()), this, SLOT(slotRecordCueClicked()));
 
-    connect(m_cueStackView->selectionModel(),
-            SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),
+    connect(m_cueStackView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
             this, SLOT(slotCueStackSelectionChanged()));
 }
 
 void SimpleDesk::updateCueStackButtons()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     CueStack* cueStack = m_engine->cueStack(m_selectedPlayback);
     if (cueStack == NULL)
         return;
@@ -1196,16 +1184,11 @@ void SimpleDesk::createSpeedDials()
 
     m_speedDials = new SpeedDialWidget(this);
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
-    connect(m_speedDials, SIGNAL(fadeInChanged(int)),
-            this, SLOT(slotFadeInDialChanged(int)));
-    connect(m_speedDials, SIGNAL(fadeOutChanged(int)),
-            this, SLOT(slotFadeOutDialChanged(int)));
-    connect(m_speedDials, SIGNAL(holdChanged(int)),
-            this, SLOT(slotHoldDialChanged(int)));
-    connect(m_speedDials, SIGNAL(destroyed(QObject*)),
-            this, SLOT(slotDialDestroyed(QObject*)));
-    connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)),
-            this, SLOT(slotCueNameEdited(const QString&)));
+    connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInDialChanged(int)));
+    connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
+    connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldDialChanged(int)));
+    connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
+    connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)), this, SLOT(slotCueNameEdited(const QString&)));
     m_speedDials->raise();
     m_speedDials->show();
 }
@@ -1409,8 +1392,7 @@ void SimpleDesk::slotCloneCueStackClicked()
     }
 
     bool ok = false;
-    QString text = QInputDialog::getItem(this, tr("Clone Cue Stack"), tr("Clone To Playback#"),
-                                         items, 0, false, &ok);
+    QString text = QInputDialog::getItem(this, tr("Clone Cue Stack"), tr("Clone To Playback#"), items, 0, false, &ok);
     if (ok == false)
         return;
 
@@ -1423,14 +1405,14 @@ void SimpleDesk::slotCloneCueStackClicked()
     while (clone->cues().size() > 0)
         clone->removeCue(0);
 
-    QListIterator <Cue> it(cs->cues());
+    QListIterator<Cue> it(cs->cues());
     while (it.hasNext() == true)
         clone->appendCue(it.next());
 
     slotSelectPlayback(pb);
 }
 
-void SimpleDesk::slotDialDestroyed(QObject *)
+void SimpleDesk::slotDialDestroyed(QObject*)
 {
     if (m_speedDials != NULL)
         m_speedDials->deleteLater();
@@ -1498,7 +1480,7 @@ void SimpleDesk::slotDeleteCueClicked()
     QModelIndex current = m_cueStackView->selectionModel()->currentIndex();
     CueStack* cueStack = currentCueStack();
     Q_ASSERT(cueStack != NULL);
-    QList <int> indexes;
+    QList<int> indexes;
     foreach (QModelIndex index, selected)
         indexes << index.row();
     cueStack->removeCues(indexes);
@@ -1583,14 +1565,14 @@ void SimpleDesk::hideEvent(QHideEvent* ev)
     QWidget::hideEvent(ev);
 }
 
-void SimpleDesk::resizeEvent(QResizeEvent *ev)
+void SimpleDesk::resizeEvent(QResizeEvent* ev)
 {
     QWidget::resizeEvent(ev);
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_PAGE_CHANNELS);
     QSize newSize = ev->size();
-    //qDebug() << "Resize event. Frame size:" << newSize;
+    // qDebug() << "Resize event. Frame size:" << newSize;
 
     // this block makes sense only in a fixed layout
     if (m_viewModeButton->isChecked() == false)
@@ -1603,7 +1585,7 @@ void SimpleDesk::resizeEvent(QResizeEvent *ev)
             // 42 is the answer to life, the universe and everything...
             // but also the width of a console channel slider :)
             m_channelsPerPage = (newSize.width() - m_grandMasterSlider->width()) / 42;
-            //qDebug() << "Old channels per page:" << currChannels << ", new value:" << m_channelsPerPage;
+            // qDebug() << "Old channels per page:" << currChannels << ", new value:" << m_channelsPerPage;
             if (m_channelsPerPage != currChannels)
             {
                 int slidersDiff = (int)currChannels - (int)m_channelsPerPage;
@@ -1620,10 +1602,10 @@ void SimpleDesk::resizeEvent(QResizeEvent *ev)
                         if (slider != NULL)
                         {
                             m_universeGroup->layout()->removeWidget(slider);
-                            disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                                   this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-                            disconnect(slider, SIGNAL(resetRequest(quint32,quint32)),
-                                    this, SLOT(slotChannelResetClicked(quint32,quint32)));
+                            disconnect(slider, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                                       SLOT(slotUniverseSliderValueChanged(quint32, quint32, uchar)));
+                            disconnect(slider, SIGNAL(resetRequest(quint32, quint32)), this,
+                                       SLOT(slotChannelResetClicked(quint32, quint32)));
                             delete slider;
                         }
                     }
@@ -1644,7 +1626,7 @@ void SimpleDesk::resizeEvent(QResizeEvent *ev)
     // always have playback sliders to fill half of the window
     m_playbacksPerPage = (newSize.width() / 2) / 42;
 
-    //qDebug() << "Old playback per page:" << currPlayback << ", new value:" << m_playbacksPerPage;
+    // qDebug() << "Old playback per page:" << currPlayback << ", new value:" << m_playbacksPerPage;
 
     if (currPlayback != m_playbacksPerPage)
     {
@@ -1682,14 +1664,13 @@ void SimpleDesk::resizeEvent(QResizeEvent *ev)
             }
         }
     }
-
 }
 
 /****************************************************************************
  * Load & Save
  ****************************************************************************/
 
-bool SimpleDesk::loadXML(QXmlStreamReader &root)
+bool SimpleDesk::loadXML(QXmlStreamReader& root)
 {
     Q_ASSERT(m_engine != NULL);
 
@@ -1719,7 +1700,7 @@ bool SimpleDesk::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool SimpleDesk::saveXML(QXmlStreamWriter *doc) const
+bool SimpleDesk::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(m_engine != NULL);
@@ -1733,4 +1714,3 @@ bool SimpleDesk::saveXML(QXmlStreamWriter *doc) const
 
     return true;
 }
-

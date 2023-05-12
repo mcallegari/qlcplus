@@ -40,9 +40,7 @@ EFXPreviewArea::EFXPreviewArea(QWidget* parent)
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(slotTimeout()));
 }
 
-EFXPreviewArea::~EFXPreviewArea()
-{
-}
+EFXPreviewArea::~EFXPreviewArea() {}
 
 void EFXPreviewArea::setPolygon(const QPolygonF& polygon)
 {
@@ -55,12 +53,12 @@ int EFXPreviewArea::polygonsCount() const
     return m_original.size();
 }
 
-void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF> &fixturePoints)
+void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF>& fixturePoints)
 {
     m_originalFixturePoints.resize(fixturePoints.size());
     m_fixturePoints.resize(fixturePoints.size());
 
-    for(int i = 0; i < m_fixturePoints.size(); ++i)
+    for (int i = 0; i < m_fixturePoints.size(); ++i)
     {
         m_originalFixturePoints[i] = QPolygonF(fixturePoints[i]);
         m_fixturePoints[i] = scale(m_originalFixturePoints[i], size());
@@ -89,8 +87,8 @@ QPolygonF EFXPreviewArea::scale(const QPolygonF& poly, const QSize& target)
     for (int i = 0; i < poly.size(); i++)
     {
         QPointF pt = poly.at(i);
-        pt.setX((int) SCALE(qreal(pt.x()), qreal(0), qreal(255), qreal(0), qreal(target.width())));
-        pt.setY((int) SCALE(qreal(pt.y()), qreal(0), qreal(255), qreal(0), qreal(target.height())));
+        pt.setX((int)SCALE(qreal(pt.x()), qreal(0), qreal(255), qreal(0), qreal(target.width())));
+        pt.setY((int)SCALE(qreal(pt.y()), qreal(0), qreal(255), qreal(0), qreal(target.height())));
         scaled << pt;
     }
 
@@ -148,12 +146,12 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
         {
             point = m_fixturePoints.at(i).at(m_iter);
             painter.drawEllipse(point, 8, 8);
-            painter.drawText(point.x() - 4, point.y() + 5, QString::number(i+1));
+            painter.drawText(point.x() - 4, point.y() + 5, QString::number(i + 1));
         }
     }
     else
     {
-        //Change old behaviour from stop to restart
+        // Change old behaviour from stop to restart
         restart();
     }
 }

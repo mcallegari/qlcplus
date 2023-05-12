@@ -31,11 +31,9 @@ GroupHead::GroupHead(const GroupHead& another)
 {
 }
 
-GroupHead::~GroupHead()
-{
-}
+GroupHead::~GroupHead() {}
 
-GroupHead &GroupHead::operator=(const GroupHead &grp)
+GroupHead& GroupHead::operator=(const GroupHead& grp)
 {
     if (this != &grp)
     {
@@ -61,4 +59,3 @@ bool GroupHead::operator==(const GroupHead& another) const
     else
         return false;
 }
-

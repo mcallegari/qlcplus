@@ -27,7 +27,7 @@
  * @{
  */
 
-class QLCInputSource: public QThread
+class QLCInputSource : public QThread
 {
     Q_OBJECT
 
@@ -37,8 +37,8 @@ public:
     static quint32 invalidID;
 
 public:
-    QLCInputSource(QThread * parent = 0);
-    QLCInputSource(quint32 universe, quint32 channel, QThread * parent = 0);
+    QLCInputSource(QThread* parent = 0);
+    QLCInputSource(quint32 universe, quint32 channel, QThread* parent = 0);
     virtual ~QLCInputSource();
 
     bool isValid() const;
@@ -88,7 +88,8 @@ protected:
      *********************************************************************/
 public:
     /** Movement behaviour */
-    enum WorkingMode {
+    enum WorkingMode
+    {
         Absolute = 0,
         Relative = 1,
         Encoder = 2
@@ -141,8 +142,7 @@ protected:
 signals:
     /** Signal emitted when the input source is in relative
      *  working mode. It emits synthetic generated values */
-    void inputValueChanged(quint32 universe, quint32 channel,
-                           uchar value, const QString& key = 0);
+    void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 };
 
 /** @} */

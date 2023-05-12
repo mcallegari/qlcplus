@@ -29,7 +29,7 @@
 #include "vcproperties.h"
 #include "vcdockarea.h"
 
-VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
+VCDockArea::VCDockArea(QWidget* parent, InputOutputMap* ioMap)
     : QFrame(parent)
 {
     Q_ASSERT(ioMap != NULL);
@@ -42,9 +42,7 @@ VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
     layout()->addWidget(m_gm);
 }
 
-VCDockArea::~VCDockArea()
-{
-}
+VCDockArea::~VCDockArea() {}
 
 void VCDockArea::setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode)
 {
@@ -54,4 +52,3 @@ void VCDockArea::setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode)
     else
         m_gm->setInvertedAppearance(true);
 }
-

@@ -40,15 +40,15 @@ class RGBMatrix;
  * @{
  */
 
-#define KXMLQLCVCMatrix             QString("Matrix")
+#define KXMLQLCVCMatrix QString("Matrix")
 
-#define KXMLQLCVCMatrixFunction     QString("Function")
-#define KXMLQLCVCMatrixFunctionID   QString("ID")
+#define KXMLQLCVCMatrixFunction QString("Function")
+#define KXMLQLCVCMatrixFunctionID QString("ID")
 
 #define KXMLQLCVCMatrixInstantApply QString("InstantApply")
 
-#define KXMLQLCVCMatrixStartColor   QString("StartColor")
-#define KXMLQLCVCMatrixEndColor     QString("EndColor")
+#define KXMLQLCVCMatrixStartColor QString("StartColor")
+#define KXMLQLCVCMatrixEndColor QString("EndColor")
 
 #define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
 
@@ -60,12 +60,12 @@ class VCMatrix : public VCWidget
 public:
     enum Visibility
     {
-        None                 = 0,
-        ShowSlider           = 1 << 0,
-        ShowLabel            = 1 << 1,
+        None = 0,
+        ShowSlider = 1 << 0,
+        ShowLabel = 1 << 1,
         ShowStartColorButton = 1 << 2,
-        ShowEndColorButton   = 1 << 3,
-        ShowPresetCombo      = 1 << 4,
+        ShowEndColorButton = 1 << 3,
+        ShowPresetCombo = 1 << 4,
     };
 
 public:
@@ -83,15 +83,15 @@ public:
     void setID(quint32 id);
 
 private:
-    ClickAndGoSlider *m_slider;
+    ClickAndGoSlider* m_slider;
     bool m_sliderExternalMovement;
-    QLabel *m_label;
-    QToolButton *m_startColorButton;
-    ClickAndGoWidget *m_scCnGWidget;
-    QToolButton *m_endColorButton;
-    ClickAndGoWidget *m_ecCnGWidget;
-    QComboBox *m_presetCombo;
-    FlowLayout *m_controlsLayout;
+    QLabel* m_label;
+    QToolButton* m_startColorButton;
+    ClickAndGoWidget* m_scCnGWidget;
+    QToolButton* m_endColorButton;
+    ClickAndGoWidget* m_ecCnGWidget;
+    QComboBox* m_presetCombo;
+    FlowLayout* m_controlsLayout;
 
     /*********************************************************************
      * Clipboard
@@ -209,14 +209,14 @@ private:
 public:
     void addCustomControl(VCMatrixControl const& control);
     void resetCustomControls();
-    QList<VCMatrixControl *> customControls() const;
+    QList<VCMatrixControl*> customControls() const;
 
 protected slots:
     void slotCustomControlClicked();
     void slotCustomControlValueChanged();
 
 protected:
-    QHash<QWidget *, VCMatrixControl *> m_controls;
+    QHash<QWidget*, VCMatrixControl*> m_controls;
 
     /*********************************************************************
      * QLC+ Mode
@@ -242,9 +242,8 @@ protected slots:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
-
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

@@ -46,25 +46,26 @@ const QString Script::setFixtureLegacy = QString("setfixture");
 const QString Script::setFixtureCmd = QString("Engine.setFixture");
 const QString Script::systemLegacy = QString("systemcommand");
 const QString Script::systemCmd = QString("Engine.systemCommand");
-const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+const QStringList knownKeywords(QStringList() << "ch"
+                                              << "val"
+                                              << "arg");
 
-const QString Script::blackoutOn = QString("on"); // LEGACY - NOT USED
-const QString Script::blackoutOff = QString("off"); // LEGACY - NOT USED
+const QString Script::blackoutOn = QString("on");      // LEGACY - NOT USED
+const QString Script::blackoutOff = QString("off");    // LEGACY - NOT USED
 const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
 
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
-Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
+Script::Script(Doc* doc)
+    : Function(doc, Function::ScriptType)
     , m_runner(NULL)
 {
     setName(tr("New Script"));
 }
 
-Script::~Script()
-{
-}
+Script::~Script() {}
 
 QIcon Script::getIcon() const
 {
@@ -75,10 +76,10 @@ quint32 Script::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    ScriptRunner *runner = new ScriptRunner(doc(), m_data);
+    ScriptRunner* runner = new ScriptRunner(doc(), m_data);
     runner->collectScriptData();
     totalDuration = runner->currentWaitTime();
-    //runner->deleteLater();
+    // runner->deleteLater();
 
     qDebug() << "Script total duration:" << totalDuration;
 
@@ -106,7 +107,7 @@ Function* Script::createCopy(Doc* doc, bool addToDoc)
 
 bool Script::copyFrom(const Function* function)
 {
-    const Script* script = qobject_cast<const Script*> (function);
+    const Script* script = qobject_cast<const Script*>(function);
     if (script == NULL)
         return false;
 
@@ -126,16 +127,16 @@ bool Script::setData(const QString& str)
 
     m_data = str;
 
-    Doc* doc = qobject_cast<Doc*> (parent());
+    Doc* doc = qobject_cast<Doc*>(parent());
     Q_ASSERT(doc != NULL);
     doc->setModified();
 
     return true;
 }
 
-bool Script::appendData(const QString &str)
+bool Script::appendData(const QString& str)
 {
-    //m_data.append(str + QString("\n"));
+    // m_data.append(str + QString("\n"));
     m_data.append(convertLine(str + QString("\n")));
 
     return true;
@@ -163,9 +164,8 @@ QList<quint32> Script::functionList() const
 
     foreach (QString line, dataLines())
     {
-        count ++;
-        if (line.startsWith(startFunctionCmd + "(") ||
-                line.startsWith(stopFunctionCmd + "("))
+        count++;
+        if (line.startsWith(startFunctionCmd + "(") || line.startsWith(stopFunctionCmd + "("))
         {
             QStringList tokens = line.split("(");
             if (tokens.isEmpty() || tokens.count() < 2)
@@ -218,9 +218,9 @@ QList<quint32> Script::fixtureList() const
 
 QStringList Script::syntaxErrorsLines()
 {
-    ScriptRunner *runner = new ScriptRunner(doc(), m_data);
+    ScriptRunner* runner = new ScriptRunner(doc(), m_data);
     QStringList errorList = runner->collectScriptData();
-    //runner->deleteLater();
+    // runner->deleteLater();
 
     return errorList;
 }
@@ -229,7 +229,7 @@ QStringList Script::syntaxErrorsLines()
  * Load & Save
  ****************************************************************************/
 
-bool Script::loadXML(QXmlStreamReader &root)
+bool Script::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -241,8 +241,7 @@ bool Script::loadXML(QXmlStreamReader &root)
 
     if (attrs.value(KXMLQLCFunctionType).toString() != typeToString(Function::ScriptType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
-                   << "is not a script";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not a script";
         return false;
     }
 
@@ -283,7 +282,7 @@ bool Script::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool Script::saveXML(QXmlStreamWriter *doc)
+bool Script::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -306,7 +305,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
     saveXMLRunOrder(doc);
 
     /* Contents */
-    foreach(QString cmd, dataLines())
+    foreach (QString cmd, dataLines())
     {
         doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }
@@ -330,7 +329,7 @@ void Script::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Script::write(MasterTimer *timer, QList<Universe *> universes)
+void Script::write(MasterTimer* timer, QList<Universe*> universes)
 {
     if (isPaused())
         return;
@@ -344,7 +343,7 @@ void Script::write(MasterTimer *timer, QList<Universe *> universes)
     }
 }
 
-void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Script::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
     if (m_runner)
     {
@@ -362,7 +361,7 @@ void Script::slotRunnerFinished()
     m_runner = NULL;
 }
 
-quint32 Script::getValueFromString(QString str, bool *ok)
+quint32 Script::getValueFromString(QString str, bool* ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -383,7 +382,7 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
 }
 
-QString Script::convertLine(const QString& str, bool *ok)
+QString Script::convertLine(const QString& str, bool* ok)
 {
     QStringList values;
     QString comment;
@@ -551,12 +550,18 @@ QString Script::convertLine(const QString& str, bool *ok)
 
 QString Script::convertLegacyMethod(QString method)
 {
-    if (method == startFunctionLegacy) return startFunctionCmd;
-    else if (method == stopFunctionLegacy) return stopFunctionCmd;
-    else if (method == blackoutLegacy) return blackoutCmd;
-    else if (method == waitLegacy) return waitCmd;
-    else if (method == setFixtureLegacy) return setFixtureCmd;
-    else if (method == systemLegacy) return systemCmd;
-    else return "";
+    if (method == startFunctionLegacy)
+        return startFunctionCmd;
+    else if (method == stopFunctionLegacy)
+        return stopFunctionCmd;
+    else if (method == blackoutLegacy)
+        return blackoutCmd;
+    else if (method == waitLegacy)
+        return waitCmd;
+    else if (method == setFixtureLegacy)
+        return setFixtureCmd;
+    else if (method == systemLegacy)
+        return systemCmd;
+    else
+        return "";
 }
-

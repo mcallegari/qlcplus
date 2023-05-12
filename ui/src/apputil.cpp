@@ -33,17 +33,17 @@
  * Widget visibility helper
  ****************************************************************************/
 
-void AppUtil::ensureWidgetIsVisible(QWidget *widget)
+void AppUtil::ensureWidgetIsVisible(QWidget* widget)
 {
     if (widget == NULL)
         return;
 
-    QWidget *parent = widget->parentWidget();
+    QWidget* parent = widget->parentWidget();
     if (widget->windowFlags() & Qt::Window)
     {
         // The widget is a top-level window (a dialog, for instance)
         // @todo Use the screen where the main application currently is?
-        QScreen *screen = QGuiApplication::screens().first();
+        QScreen* screen = QGuiApplication::screens().first();
         if (screen != NULL)
         {
             // Move the widget to the center of the default screen
@@ -117,40 +117,37 @@ unsigned int AppUtil::digits(unsigned int n)
  * ComboBoxDelegate
  *****************************************************************************/
 
-ComboBoxDelegate::ComboBoxDelegate(const QStringList &strings, QWidget *parent)
+ComboBoxDelegate::ComboBoxDelegate(const QStringList& strings, QWidget* parent)
     : QStyledItemDelegate(parent)
     , m_strings(strings)
 {
 }
 
-QWidget *ComboBoxDelegate::createEditor(QWidget *parent,
-        const QStyleOptionViewItem &/*option*/,
-        const QModelIndex &/*index*/) const
+QWidget* ComboBoxDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& /*option*/,
+                                        const QModelIndex& /*index*/) const
 {
-    QComboBox *comboBox = new QComboBox(parent);
+    QComboBox* comboBox = new QComboBox(parent);
     comboBox->addItems(m_strings);
     return comboBox;
 }
 
-void ComboBoxDelegate::setEditorData(QWidget *editor,
-        const QModelIndex &index) const
+void ComboBoxDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     int value = index.model()->data(index, Qt::UserRole).toInt();
-    QComboBox *comboBox = static_cast<QComboBox*>(editor);
+    QComboBox* comboBox = static_cast<QComboBox*>(editor);
     comboBox->setCurrentIndex(value);
 }
 
-void ComboBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
-        const QModelIndex &index) const
+void ComboBoxDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-    QComboBox *comboBox = static_cast<QComboBox*>(editor);
+    QComboBox* comboBox = static_cast<QComboBox*>(editor);
     int value = comboBox->currentIndex();
     model->setData(index, value, Qt::UserRole);
     model->setData(index, comboBox->currentText(), Qt::DisplayRole);
 }
 
-void ComboBoxDelegate::updateEditorGeometry(QWidget *editor,
-        const QStyleOptionViewItem &option, const QModelIndex &/*index*/) const
+void ComboBoxDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option,
+                                            const QModelIndex& /*index*/) const
 {
     editor->setGeometry(option.rect);
 }

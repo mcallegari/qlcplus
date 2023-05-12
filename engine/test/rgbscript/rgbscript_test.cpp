@@ -58,10 +58,9 @@ void RGBScript_Test::directories()
     QDir dir = RGBScriptsCache::systemScriptsDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-#if defined( __APPLE__) || defined(Q_OS_MAC)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     QString path("%1/../%2");
-    QCOMPARE(dir.path(), path.arg(QCoreApplication::applicationDirPath())
-                             .arg("Resources/RGBScripts"));
+    QCOMPARE(dir.path(), path.arg(QCoreApplication::applicationDirPath()).arg("Resources/RGBScripts"));
 #elif defined(WIN32) || defined(Q_OS_WIN)
     QVERIFY(dir.path().endsWith("RGBScripts"));
 #else
@@ -71,7 +70,7 @@ void RGBScript_Test::directories()
     dir = RGBScriptsCache::userScriptsDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-#if defined( __APPLE__) || defined(Q_OS_MAC)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     QVERIFY(dir.path().endsWith("Library/Application Support/QLC+/RGBScripts"));
 #elif defined(WIN32) || defined(Q_OS_WIN)
     QVERIFY(dir.path().endsWith("RGBScripts"));
@@ -91,10 +90,11 @@ void RGBScript_Test::scripts()
     QString proFilePath = dir.filePath("rgbscripts.pro");
     QFile proFile(proFilePath);
     proFile.open(QIODevice::ReadWrite);
-    QTextStream pro (&proFile);
+    QTextStream pro(&proFile);
 
     // Catch syntax / JS engine errors explicitly in the test.
-    foreach (QString file, dir.entryList()) {
+    foreach (QString file, dir.entryList())
+    {
         RGBScript* script = new RGBScript(m_doc);
         QVERIFY(script->load(dir, file));
 
@@ -102,13 +102,16 @@ void RGBScript_Test::scripts()
 
         // Check that the script is listed in the pro file.
         // scripts.files += noise.js
-        if (file != "empty.js") {
+        if (file != "empty.js")
+        {
             QString searchString = "scripts.files += " + file;
             QString line;
             bool foundInProFile = false;
-            do {
+            do
+            {
                 line = pro.readLine();
-                if (line.contains(searchString, Qt::CaseSensitive)) {
+                if (line.contains(searchString, Qt::CaseSensitive))
+                {
                     foundInProFile = true;
                 }
             } while (!line.isNull() && foundInProFile == false);
@@ -192,7 +195,8 @@ void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
 void RGBScript_Test::evaluateInvalidApiVersion()
 {
     // No apiVersion property
-    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; foo.rgbMapStepCount = function(width, height) { return 0; }; return foo; } )()");
+    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; foo.rgbMapStepCount = "
+                 "function(width, height) { return 0; }; return foo; } )()");
     RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
@@ -234,7 +238,7 @@ void RGBScript_Test::rgbMap()
 
 void RGBScript_Test::runScripts()
 {
-    QSize mapSize = QSize(7, 11); // Use different numbers for x and y for the test
+    QSize mapSize = QSize(7, 11);      // Use different numbers for x and y for the test
     QSize mapSizePlus = QSize(12, 22); // Prepare a larger matrix to check behaviour on matrix change
     // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
     // This test also wants to test that there is no color space overrun.
@@ -242,7 +246,7 @@ void RGBScript_Test::runScripts()
 
     // Iterate the list of scripts
     QStringList names = m_doc->rgbScriptsCache()->names();
-    foreach(QString name, names)
+    foreach (QString name, names)
     {
         qDebug() << "Evaluating script" << name;
         RGBScript s = m_doc->rgbScriptsCache()->script(name);
@@ -284,7 +288,7 @@ void RGBScript_Test::runScripts()
         QVERIFY(s.acceptColors() >= 0 && s.acceptColors() <= 2);
 
         int steps = s.rgbMapStepCount(mapSize);
-        //qDebug() << "steps: " << steps;
+        // qDebug() << "steps: " << steps;
         QVERIFY(steps > 0);
 
         // Run a few steps with the standard set of parameters.
@@ -299,12 +303,13 @@ void RGBScript_Test::runScripts()
             {
                 for (int x = 0; x < mapSize.width(); x++)
                 {
-                    //if (map[y][x] > 0x00ffffff) {
-                    //    uint pxr = (map[y][x] >> 16 & 0x000000ff);
-                    //    uint pxg = (map[y][x] >> 8 & 0x000000ff);
-                    //    uint pxb = (map[y][x] & 0x000000ff);
-                    //    qDebug() << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " (" << Qt::hex << map[y][x]<< ")";
-                    //}
+                    // if (map[y][x] > 0x00ffffff) {
+                    //     uint pxr = (map[y][x] >> 16 & 0x000000ff);
+                    //     uint pxg = (map[y][x] >> 8 & 0x000000ff);
+                    //     uint pxb = (map[y][x] & 0x000000ff);
+                    //     qDebug() << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " ("
+                    //     << Qt::hex << map[y][x]<< ")";
+                    // }
                     QVERIFY(rgbMap[y][x] <= 0xffffff);
                 }
             }
@@ -312,7 +317,8 @@ void RGBScript_Test::runScripts()
         // Prepare a reference RGB map
         bool randomScript = fileName.contains("random", Qt::CaseInsensitive);
         RGBMap rgbRefMap;
-        if (1 < s.acceptColors() && 2 < steps && ! randomScript) {
+        if (1 < s.acceptColors() && 2 < steps && !randomScript)
+        {
             // When more than 2 colors are accepted, the steps shall be reproducible to allow back and forth color fade.
             s.rgbMap(mapSizePlus, red, 0, rgbRefMap);
         }
@@ -332,9 +338,10 @@ void RGBScript_Test::runScripts()
                         QVERIFY((rgbMap[y][x] >> 16) <= 0x0000ff);
                         if (!randomScript && 0 == step && 1 < s.acceptColors() && 2 < steps)
                         {
-                            // if more than one color is accepted  and the script has more than two steps - one per color,
-                            // the color fade shall be relative and reproducible to the step
-                            // as otherwise, the color fade cannot be aligned on stage and depends on e.g. matrix sizes or script settings.
+                            // if more than one color is accepted  and the script has more than two steps - one per
+                            // color, the color fade shall be relative and reproducible to the step as otherwise, the
+                            // color fade cannot be aligned on stage and depends on e.g. matrix sizes or script
+                            // settings.
                             QVERIFY(rgbMap[y][x] == rgbRefMap[y][x]);
                         }
                     }
@@ -356,17 +363,15 @@ void RGBScript_Test::runScripts()
             {
                 // Consider to even mix the properties for testing,
                 // do not just test one combination with each value
-                QVERIFY(! property.m_name.isEmpty());
-                QVERIFY(! property.m_displayName.isEmpty());
-                QVERIFY(! property.m_readMethod.isEmpty());
-                QVERIFY(! property.m_writeMethod.isEmpty());
+                QVERIFY(!property.m_name.isEmpty());
+                QVERIFY(!property.m_displayName.isEmpty());
+                QVERIFY(!property.m_readMethod.isEmpty());
+                QVERIFY(!property.m_writeMethod.isEmpty());
                 QList<RGBScriptProperty> properties = s.properties();
                 qDebug() << property.m_name;
                 // Unknown, new and RGBScriptProperty::None are not valid
-                QVERIFY(property.m_type == RGBScriptProperty::List ||
-                        property.m_type == RGBScriptProperty::Range ||
-                        property.m_type == RGBScriptProperty::Integer ||
-                        property.m_type == RGBScriptProperty::String);
+                QVERIFY(property.m_type == RGBScriptProperty::List || property.m_type == RGBScriptProperty::Range ||
+                        property.m_type == RGBScriptProperty::Integer || property.m_type == RGBScriptProperty::String);
                 // Check property specificities
                 switch (property.m_type)
                 {
@@ -403,7 +408,7 @@ void RGBScript_Test::runScripts()
                     QVERIFY(property.m_rangeMinValue < property.m_rangeMaxValue);
                     // Verify the default value is in the valid range
                     qDebug() << "  Default: " << s.property(property.m_name).toInt()
-                           << " Min: " << property.m_rangeMinValue << " Max: " << property.m_rangeMaxValue;
+                             << " Min: " << property.m_rangeMinValue << " Max: " << property.m_rangeMaxValue;
                     QVERIFY(s.property(property.m_name).toInt() >= property.m_rangeMinValue);
                     QVERIFY(s.property(property.m_name).toInt() <= property.m_rangeMaxValue);
                     // test with min and max value from the list

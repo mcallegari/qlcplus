@@ -63,19 +63,21 @@ const quint8 VCXYPad::widthInputSourceId = 2;
 const quint8 VCXYPad::heightInputSourceId = 3;
 
 const qreal MAX_VALUE = 256.0;
-const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0/256;
+const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0 / 256;
 
-static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
-                                   "QPushButton:pressed { border: 2px solid #0000FF; }"
-                                   "QPushButton:checked { border: 2px solid #0000FF; }"
-                                   "QPushButton:unchecked { border: 2px solid #6A6A6A; }"
-                                   "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
+static const QString presetBtnSS =
+    "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
+    "QPushButton:pressed { border: 2px solid #0000FF; }"
+    "QPushButton:checked { border: 2px solid #0000FF; }"
+    "QPushButton:unchecked { border: 2px solid #6A6A6A; }"
+    "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 /*****************************************************************************
  * VCXYPad Initialization
  *****************************************************************************/
 
-VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+VCXYPad::VCXYPad(QWidget* parent, Doc* doc)
+    : VCWidget(parent, doc)
 {
     /* Set the class name "VCXYPad" as the object name as well */
     setObjectName(VCXYPad::staticMetaObject.className());
@@ -145,18 +147,12 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_hRangeSlider->setMaximumPosition(256);
     m_vRangeSlider->setMaximumPosition(256);
 
-    connect(m_area, SIGNAL(positionChanged(const QPointF&)),
-            this, SLOT(slotPositionChanged(const QPointF&)));
-    connect(this, SIGNAL(fixturePositions(const QVariantList)),
-            m_area, SLOT(slotFixturePositions(const QVariantList)));
-    connect(m_vSlider, SIGNAL(valueChanged(int)),
-            this, SLOT(slotSliderValueChanged()));
-    connect(m_hSlider, SIGNAL(valueChanged(int)),
-            this, SLOT(slotSliderValueChanged()));
-    connect(m_hRangeSlider, SIGNAL(positionsChanged(int,int)),
-            this, SLOT(slotRangeValueChanged()));
-    connect(m_vRangeSlider, SIGNAL(positionsChanged(int,int)),
-            this, SLOT(slotRangeValueChanged()));
+    connect(m_area, SIGNAL(positionChanged(const QPointF&)), this, SLOT(slotPositionChanged(const QPointF&)));
+    connect(this, SIGNAL(fixturePositions(const QVariantList)), m_area, SLOT(slotFixturePositions(const QVariantList)));
+    connect(m_vSlider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderValueChanged()));
+    connect(m_hSlider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderValueChanged()));
+    connect(m_hRangeSlider, SIGNAL(positionsChanged(int, int)), this, SLOT(slotRangeValueChanged()));
+    connect(m_vRangeSlider, SIGNAL(positionsChanged(int, int)), this, SLOT(slotRangeValueChanged()));
 
     setFrameStyle(KVCFrameStyleSunken);
     setType(VCWidget::XYPadWidget);
@@ -177,8 +173,8 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setLiveEdit(m_liveEdit);
 
     m_doc->masterTimer()->registerDMXSource(this);
-    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)),
-            this, SLOT(slotUniverseWritten(quint32,QByteArray)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, QByteArray)), this,
+            SLOT(slotUniverseWritten(quint32, QByteArray)));
 }
 
 VCXYPad::~VCXYPad()
@@ -198,7 +194,7 @@ void VCXYPad::enableWidgetUI(bool enable)
     m_hSlider->setEnabled(enable);
     m_area->setMode(enable ? Doc::Operate : Doc::Design);
 
-    QMutableListIterator <VCXYPadFixture> it(m_fixtures);
+    QMutableListIterator<VCXYPadFixture> it(m_fixtures);
     while (it.hasNext() == true)
     {
         VCXYPadFixture fxi = it.next();
@@ -209,7 +205,7 @@ void VCXYPad::enableWidgetUI(bool enable)
         it.setValue(fxi);
     }
 
-    foreach(QWidget *presetBtn, m_presets.keys())
+    foreach (QWidget* presetBtn, m_presets.keys())
         presetBtn->setEnabled(enable);
 
     /* Reset the changed flag in m_area so that the pad won't immediately set a value
@@ -237,7 +233,7 @@ VCWidget* VCXYPad::createCopy(VCWidget* parent)
 
 bool VCXYPad::copyFrom(const VCWidget* widget)
 {
-    const VCXYPad* xypad = qobject_cast <const VCXYPad*> (widget);
+    const VCXYPad* xypad = qobject_cast<const VCXYPad*>(widget);
     if (xypad == NULL)
         return false;
     resize(xypad->size());
@@ -303,7 +299,7 @@ void VCXYPad::appendFixture(const VCXYPadFixture& fxi)
     updateDegreesRange();
 }
 
-void VCXYPad::removeFixture(GroupHead const & head)
+void VCXYPad::removeFixture(GroupHead const& head)
 {
     VCXYPadFixture fixture(m_doc);
     fixture.setHead(head);
@@ -320,7 +316,7 @@ void VCXYPad::clearFixtures()
     updateDegreesRange();
 }
 
-QList <VCXYPadFixture> VCXYPad::fixtures() const
+QList<VCXYPadFixture> VCXYPad::fixtures() const
 {
     return m_fixtures;
 }
@@ -360,7 +356,7 @@ void VCXYPad::updateDegreesRange()
  * Current XY position
  *****************************************************************************/
 
-void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
+void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe*> universes)
 {
     if (m_scene != NULL)
         writeScenePositions(timer, universes);
@@ -368,7 +364,7 @@ void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
         writeXYFixtures(timer, universes);
 }
 
-void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
+void VCXYPad::writeXYFixtures(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
 
@@ -406,7 +402,7 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
     }
 }
 
-void VCXYPad::updateSceneChannel(FadeChannel *fc, uchar value)
+void VCXYPad::updateSceneChannel(FadeChannel* fc, uchar value)
 {
     fc->addFlag(FadeChannel::Relative);
     fc->setStart(value);
@@ -416,7 +412,7 @@ void VCXYPad::updateSceneChannel(FadeChannel *fc, uchar value)
     fc->setReady(false);
 }
 
-void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universes)
+void VCXYPad::writeScenePositions(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
 
@@ -429,7 +425,7 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
     uchar tiltCoarse = uchar(qFloor(pt.y()));
     uchar tiltFine = uchar((pt.y() - qFloor(pt.y())) * 256);
 
-    foreach(SceneChannel sc, m_sceneChannels)
+    foreach (SceneChannel sc, m_sceneChannels)
     {
         if (sc.m_universe >= (quint32)universes.count())
             continue;
@@ -446,12 +442,12 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
         {
             if (sc.m_subType == QLCChannel::MSB)
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel* fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, panCoarse);
             }
             else
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel* fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, panFine);
             }
         }
@@ -459,12 +455,12 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
         {
             if (sc.m_subType == QLCChannel::MSB)
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel* fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, tiltCoarse);
             }
             else
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel* fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, tiltFine);
             }
         }
@@ -505,8 +501,8 @@ void VCXYPad::slotSliderValueChanged()
     {
         pt.setX(m_hSlider->value());
 
-        int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
-                             float(m_hSlider->maximum()), float(0), float(UCHAR_MAX));
+        int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()), float(m_hSlider->maximum()),
+                             float(0), float(UCHAR_MAX));
         sendFeedback(Xfb, panInputSourceId);
     }
     else
@@ -516,8 +512,8 @@ void VCXYPad::slotSliderValueChanged()
         else
             pt.setY(MAX_DMX_VALUE - m_vSlider->value());
 
-        int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
-                             float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
+        int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()), float(m_vSlider->maximum()),
+                             float(0), float(UCHAR_MAX));
         sendFeedback(Yfb, tiltInputSourceId);
     }
 
@@ -529,7 +525,7 @@ void VCXYPad::slotSliderValueChanged()
 void VCXYPad::slotRangeValueChanged()
 {
     QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
-               QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
+                QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
     m_area->setRangeWindow(rect);
     if (m_efx != NULL && m_efx->isRunning())
     {
@@ -542,7 +538,7 @@ void VCXYPad::slotRangeValueChanged()
         QPolygonF polygon;
         m_efx->preview(polygon);
 
-        QVector <QPolygonF> fixturePoints;
+        QVector<QPolygonF> fixturePoints;
         m_efx->previewFixtures(fixturePoints);
 
         m_area->setEFXPolygons(polygon, fixturePoints);
@@ -551,19 +547,19 @@ void VCXYPad::slotRangeValueChanged()
     m_area->update();
     if (QObject::sender() == m_hRangeSlider)
         sendFeedback(m_hRangeSlider->maximumValue(), heightInputSourceId);
-    else if(QObject::sender() == m_vRangeSlider)
+    else if (QObject::sender() == m_vRangeSlider)
         sendFeedback(m_vRangeSlider->maximumValue(), widthInputSourceId);
 }
 
-void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
+void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray& universeData)
 {
     QVariantList positions;
 
     if (m_scene)
     {
-        QMap <quint32, QPointF> fxMap;
+        QMap<quint32, QPointF> fxMap;
 
-        foreach(SceneChannel sc, m_sceneChannels)
+        foreach (SceneChannel sc, m_sceneChannels)
         {
             if (sc.m_universe != idx)
                 continue;
@@ -588,7 +584,7 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
             fxMap[sc.m_fixture] = QPointF(x, y);
         }
 
-        foreach(QPointF pt, fxMap.values())
+        foreach (QPointF pt, fxMap.values())
         {
             if (invertedAppearance())
                 pt.setY(256 - pt.y());
@@ -607,14 +603,14 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
 
             qreal x(-1), y(-1);
             fixture.readDMX(universeData, x, y);
-            if( x != -1.0 && y != -1.0)
+            if (x != -1.0 && y != -1.0)
             {
                 if (invertedAppearance())
                     y = qreal(1) - y;
 
-               x *= 256;
-               y *= 256;
-               positions.append(QPointF(x, y));
+                x *= 256;
+                y *= 256;
+                positions.append(QPointF(x, y));
             }
         }
     }
@@ -626,30 +622,28 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
  * Presets
  *********************************************************************/
 
-void VCXYPad::addPreset(const VCXYPadPreset &preset)
+void VCXYPad::addPreset(const VCXYPadPreset& preset)
 {
     QString label = preset.m_name;
 
-    if(label.isEmpty())
+    if (label.isEmpty())
     {
         qDebug() << "VCXYPad Preset label empty. Not adding it";
         return;
     }
 
-    QPushButton *presetButton = new QPushButton(this);
-    QWidget *presetWidget = presetButton;
+    QPushButton* presetButton = new QPushButton(this);
+    QWidget* presetWidget = presetButton;
     presetButton->setStyleSheet(presetBtnSS.arg(preset.getColor()));
     presetButton->setMinimumWidth(36);
     presetButton->setMaximumWidth(80);
     presetButton->setFocusPolicy(Qt::TabFocus);
     presetButton->setText(fontMetrics().elidedText(label, Qt::ElideRight, 72));
-    if (preset.m_type == VCXYPadPreset::EFX ||
-        preset.m_type == VCXYPadPreset::Scene ||
+    if (preset.m_type == VCXYPadPreset::EFX || preset.m_type == VCXYPadPreset::Scene ||
         preset.m_type == VCXYPadPreset::FixtureGroup)
-            presetButton->setCheckable(true);
+        presetButton->setCheckable(true);
 
-    connect(presetButton, SIGNAL(clicked(bool)),
-            this, SLOT(slotPresetClicked(bool)));
+    connect(presetButton, SIGNAL(clicked(bool)), this, SLOT(slotPresetClicked(bool)));
 
     if (mode() == Doc::Design)
         presetWidget->setEnabled(false);
@@ -665,8 +659,7 @@ void VCXYPad::addPreset(const VCXYPadPreset &preset)
 
 void VCXYPad::resetPresets()
 {
-    for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin();
-            it != m_presets.end(); ++it)
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
     {
         QWidget* widget = it.key();
         m_presetsLayout->removeWidget(widget);
@@ -680,7 +673,7 @@ void VCXYPad::resetPresets()
     m_presets.clear();
 }
 
-QList<VCXYPadPreset *> VCXYPad::presets() const
+QList<VCXYPadPreset*> VCXYPad::presets() const
 {
     QList<VCXYPadPreset*> presets = m_presets.values();
     std::sort(presets.begin(), presets.end(), VCXYPadPreset::compare);
@@ -692,8 +685,8 @@ void VCXYPad::slotPresetClicked(bool checked)
     if (mode() == Doc::Design)
         return;
 
-    QPushButton *btn = qobject_cast<QPushButton*>(sender());
-    VCXYPadPreset *preset = m_presets[btn];
+    QPushButton* btn = qobject_cast<QPushButton*>(sender());
+    VCXYPadPreset* preset = m_presets[btn];
 
     Q_ASSERT(preset != NULL);
 
@@ -724,27 +717,24 @@ void VCXYPad::slotPresetClicked(bool checked)
     }
 
     // deactivate all previously activated buttons first
-    for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin();
-            it != m_presets.end(); ++it)
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
     {
         QPushButton* cBtn = reinterpret_cast<QPushButton*>(it.key());
-        VCXYPadPreset *cPr = it.value();
+        VCXYPadPreset* cPr = it.value();
         if (preset->m_id == cPr->m_id)
             continue;
 
         cBtn->blockSignals(true);
         if (preset->m_type == VCXYPadPreset::FixtureGroup)
         {
-            if (cPr->m_type == VCXYPadPreset::FixtureGroup &&
-                cBtn->isChecked() == true)
+            if (cPr->m_type == VCXYPadPreset::FixtureGroup && cBtn->isChecked() == true)
             {
                 cBtn->setChecked(false);
                 if (cPr->m_inputSource.isNull() == false)
                     sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
             }
         }
-        else if (cPr->m_type == VCXYPadPreset::EFX ||
-            cPr->m_type == VCXYPadPreset::Scene)
+        else if (cPr->m_type == VCXYPadPreset::EFX || cPr->m_type == VCXYPadPreset::Scene)
         {
             if (cBtn->isChecked() == true)
             {
@@ -775,13 +765,13 @@ void VCXYPad::slotPresetClicked(bool checked)
             return;
         }
 
-        Function *f = m_doc->function(preset->m_funcID);
+        Function* f = m_doc->function(preset->m_funcID);
         if (f == NULL || f->type() != Function::EFXType)
             return;
         m_efx = qobject_cast<EFX*>(f);
 
         QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
-                   QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
+                    QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
         m_area->setRangeWindow(rect);
         if (rect.isValid())
         {
@@ -794,7 +784,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         QPolygonF polygon;
         m_efx->preview(polygon);
 
-        QVector <QPolygonF> fixturePoints;
+        QVector<QPolygonF> fixturePoints;
         m_efx->previewFixtures(fixturePoints);
 
         m_area->enableEFXPreview(true);
@@ -812,19 +802,19 @@ void VCXYPad::slotPresetClicked(bool checked)
         if (checked == false)
             return;
 
-        Function *f = m_doc->function(preset->m_funcID);
+        Function* f = m_doc->function(preset->m_funcID);
         if (f == NULL || f->type() != Function::SceneType)
             return;
 
         m_scene = qobject_cast<Scene*>(f);
         m_sceneChannels.clear();
 
-        foreach(SceneValue scv, m_scene->values())
+        foreach (SceneValue scv, m_scene->values())
         {
-            Fixture *fixture = m_doc->fixture(scv.fxi);
+            Fixture* fixture = m_doc->fixture(scv.fxi);
             if (fixture == NULL)
                 continue;
-            const QLCChannel *ch = fixture->channel(scv.channel);
+            const QLCChannel* ch = fixture->channel(scv.channel);
             if (ch == NULL)
                 continue;
             if (ch->group() != QLCChannel::Pan && ch->group() != QLCChannel::Tilt)
@@ -853,7 +843,7 @@ void VCXYPad::slotPresetClicked(bool checked)
     {
         m_area->enableEFXPreview(false);
         QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
-                   QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
+                    QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
         m_area->setRangeWindow(rect);
         m_area->setPosition(preset->m_dmxPos);
         m_area->repaint();
@@ -909,36 +899,35 @@ FunctionParent VCXYPad::functionParent() const
 
 void VCXYPad::updateFeedback()
 {
-    int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
-                         float(m_hSlider->maximum()), float(0), float(UCHAR_MAX));
+    int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()), float(m_hSlider->maximum()), float(0),
+                         float(UCHAR_MAX));
     sendFeedback(Xfb, panInputSourceId);
 
-    int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
-                         float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
+    int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()), float(m_vSlider->maximum()), float(0),
+                         float(UCHAR_MAX));
     sendFeedback(Yfb, tiltInputSourceId);
 
-/*
-    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
-            it != m_presets.end(); ++it)
-    {
-        VCXYPadPreset* preset = it.value();
-        if (preset->m_inputSource != NULL)
+    /*
+        for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+                it != m_presets.end(); ++it)
         {
+            VCXYPadPreset* preset = it.value();
+            if (preset->m_inputSource != NULL)
             {
-                QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                if (preset->m_inputSource.isNull() == false)
-                    sendFeedback(button->isDown() ?
-                                 preset->m_inputSource->upperValue() :
-                                 preset->m_inputSource->lowerValue(),
-                                 preset->m_inputSource);
+                {
+                    QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+                    if (preset->m_inputSource.isNull() == false)
+                        sendFeedback(button->isDown() ?
+                                     preset->m_inputSource->upperValue() :
+                                     preset->m_inputSource->lowerValue(),
+                                     preset->m_inputSource);
+                }
             }
         }
-    }
-*/
+    */
 }
 
-void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
-                                     uchar value)
+void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     /* Don't let input data through in design mode or if disabled */
     if (acceptsInput() == false)
@@ -959,8 +948,7 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                 areaWidth = rangeWindow.width();
                 xOffset = rangeWindow.x();
             }
-            pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255),
-                          qreal(0), areaWidth));
+            pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255), qreal(0), areaWidth));
         }
         else
         {
@@ -984,11 +972,9 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                 yOffset = rangeWindow.y();
             }
             if (invertedAppearance() == false)
-                pt.setY(yOffset + SCALE(qreal(value), qreal(0), qreal(255),
-                              qreal(0), areaHeight));
+                pt.setY(yOffset + SCALE(qreal(value), qreal(0), qreal(255), qreal(0), areaHeight));
             else
-                pt.setY(yOffset + SCALE(qreal(value), qreal(255), qreal(0),
-                              qreal(0), areaHeight));
+                pt.setY(yOffset + SCALE(qreal(value), qreal(255), qreal(0), qreal(0), areaHeight));
         }
         else
         {
@@ -1019,16 +1005,14 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     }
     else
     {
-        for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
-                it != m_presets.end(); ++it)
+        for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
         {
-            VCXYPadPreset *preset = it.value();
-            if (preset->m_inputSource != NULL &&
-                    preset->m_inputSource->universe() == universe &&
-                    preset->m_inputSource->channel() == pagedCh)
+            VCXYPadPreset* preset = it.value();
+            if (preset->m_inputSource != NULL && preset->m_inputSource->universe() == universe &&
+                preset->m_inputSource->channel() == pagedCh)
             {
                 {
-                    QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+                    QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
                     button->click();
                     return;
                 }
@@ -1042,18 +1026,17 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     m_area->update();
 }
 
-void VCXYPad::slotKeyPressed(const QKeySequence &keySequence)
+void VCXYPad::slotKeyPressed(const QKeySequence& keySequence)
 {
     if (acceptsInput() == false)
         return;
 
-    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
-            it != m_presets.end(); ++it)
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
     {
-        VCXYPadPreset *preset = it.value();
+        VCXYPadPreset* preset = it.value();
         if (preset->m_keySequence == keySequence)
         {
-            QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
             button->click();
         }
     }
@@ -1081,7 +1064,7 @@ void VCXYPad::slotModeChanged(Doc::Mode mode)
  * Load & Save
  *****************************************************************************/
 
-bool VCXYPad::loadXML(QXmlStreamReader &root)
+bool VCXYPad::loadXML(QXmlStreamReader& root)
 {
     bool visible = false;
     int x = 0;
@@ -1170,7 +1153,7 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
             if (fxi.loadXML(root) == true)
                 appendFixture(fxi);
         }
-        else if(root.name() == KXMLQLCVCXYPadPreset)
+        else if (root.name() == KXMLQLCVCXYPadPreset)
         {
             VCXYPadPreset preset(0xff);
             if (preset.loadXML(root))
@@ -1193,7 +1176,7 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCXYPad::saveXML(QXmlStreamWriter *doc)
+bool VCXYPad::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -1218,10 +1201,8 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     QPointF pt(m_area->position(false));
 
     /* Custom range window */
-    if (m_hRangeSlider->minimumPosition() != 0 ||
-        m_hRangeSlider->maximumPosition() != 256 ||
-        m_vRangeSlider->minimumPosition() != 0 ||
-        m_vRangeSlider->maximumPosition() != 256)
+    if (m_hRangeSlider->minimumPosition() != 0 || m_hRangeSlider->maximumPosition() != 256 ||
+        m_vRangeSlider->minimumPosition() != 0 || m_vRangeSlider->maximumPosition() != 256)
     {
         doc->writeStartElement(KXMLQLCVCXYPadRangeWindow);
         doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
@@ -1262,7 +1243,7 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     }
 
     // Presets
-    foreach(VCXYPadPreset *preset, presets())
+    foreach (VCXYPadPreset* preset, presets())
         preset->saveXML(doc);
 
     /* End the >XYPad> tag */

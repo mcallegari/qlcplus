@@ -46,27 +46,28 @@ class ContextManager : public QObject
     Q_PROPERTY(QVector3D environmentSize READ environmentSize WRITE setEnvironmentSize NOTIFY environmentSizeChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(int selectedFixturesCount READ selectedFixturesCount NOTIFY selectedFixturesChanged)
-    Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
-    Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
+    Q_PROPERTY(
+        QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
+    Q_PROPERTY(
+        QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
     Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
     Q_PROPERTY(quint32 dumpChannelMask READ dumpChannelMask NOTIFY dumpChannelMaskChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
 
 public:
-    explicit ContextManager(QQuickView *view, Doc *doc,
-                            FixtureManager *fxMgr, FunctionManager *funcMgr,
-                            QObject *parent = 0);
+    explicit ContextManager(QQuickView* view, Doc* doc, FixtureManager* fxMgr, FunctionManager* funcMgr,
+                            QObject* parent = 0);
     ~ContextManager();
 
     /** Register/Unregister a context to the map of known contexts */
-    void registerContext(PreviewContext *context);
+    void registerContext(PreviewContext* context);
     void unregisterContext(QString name);
 
     /** Enable/disable the context with the specified $name.
      *  This sets a flag in the context to know if it is visible
      *  on the screen, so to decide if changes should be applied to it */
-    Q_INVOKABLE void enableContext(QString name, bool enable, QQuickItem *item);
+    Q_INVOKABLE void enableContext(QString name, bool enable, QQuickItem* item);
 
     /** Detach/Reattach a context from/to the application main window */
     Q_INVOKABLE void detachContext(QString name);
@@ -104,34 +105,34 @@ public slots:
     void resetContexts();
 
     /** Handle a key press from a QQuickView context */
-    void handleKeyPress(QKeyEvent *e);
+    void handleKeyPress(QKeyEvent* e);
 
     /** Handle a key release from a QQuickView context */
-    void handleKeyRelease(QKeyEvent *e);
+    void handleKeyRelease(QKeyEvent* e);
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** Reference to the Doc Monitor properties */
-    MonitorProperties *m_monProps;
+    MonitorProperties* m_monProps;
 
     /** Reference to a simple PreviewContext representing
      *  the universe grid view, since it doesn't have a dedicated class */
-    PreviewContext *m_uniGridView;
+    PreviewContext* m_uniGridView;
     /** Reference to the DMX Preview context */
-    MainViewDMX *m_DMXView;
+    MainViewDMX* m_DMXView;
     /** Reference to the 2D Preview context */
-    MainView2D *m_2DView;
+    MainView2D* m_2DView;
     /** Reference to the 3D Preview context */
-    MainView3D *m_3DView;
+    MainView3D* m_3DView;
     /** Reference to the Fixture Manager */
-    FixtureManager *m_fixtureManager;
+    FixtureManager* m_fixtureManager;
     /** Reference to the Function Manager */
-    FunctionManager *m_functionManager;
+    FunctionManager* m_functionManager;
 
-    QMap <QString, PreviewContext *> m_contextsMap;
+    QMap<QString, PreviewContext*> m_contextsMap;
 
     /** Flag that indicates if multiple item selection is active */
     bool m_multipleSelection;
@@ -151,7 +152,7 @@ signals:
 
 private:
     /** The currently displayed universe
-      * The value Universe::invalid() means "All universes" */
+     * The value Universe::invalid() means "All universes" */
     quint32 m_universeFilter;
 
     /*********************************************************************
@@ -238,7 +239,7 @@ protected slots:
     void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);
 
-    void slotPresetChanged(const QLCChannel *channel, quint8 value);
+    void slotPresetChanged(const QLCChannel* channel, quint8 value);
 
     void slotSimpleDeskValueChanged(quint32 fxID, quint32 channel, quint8 value);
 
@@ -291,7 +292,7 @@ public:
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
 
-    GenericDMXSource *dmxSource() const;
+    GenericDMXSource* dmxSource() const;
 
     /** Return a list only of the fixture IDs from the selected preview items */
     QList<quint32> selectedFixtureIDList() const;
@@ -302,7 +303,7 @@ signals:
 
 private:
     /** List of the values available for dumping to a Scene */
-    QList <SceneValue> m_dumpValues;
+    QList<SceneValue> m_dumpValues;
 
     /** Bitmask representing the available channel types for
      *  the DMX channels ready for dumping */

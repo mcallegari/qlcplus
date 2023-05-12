@@ -79,7 +79,7 @@ void InputPatch_Test::defaults()
 void InputPatch_Test::patch()
 {
     QCOMPARE(m_doc->ioPluginCache()->plugins().size(), 1);
-    IOPluginStub* stub = static_cast<IOPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QLCInputProfile prof1;
@@ -142,7 +142,7 @@ void InputPatch_Test::patch()
 void InputPatch_Test::parameters()
 {
     InputPatch* ip = new InputPatch(0, this);
-    IOPluginStub* stub = static_cast<IOPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QVERIFY(ip->set(stub, 0, NULL) == true);

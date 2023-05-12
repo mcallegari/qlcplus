@@ -18,10 +18,10 @@
 */
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#   define WIN32_LEAN_AND_MEAN
-#   include <Windows.h>
+  #define WIN32_LEAN_AND_MEAN
+  #include <Windows.h>
 #else
-#   include <unistd.h>
+  #include <unistd.h>
 #endif
 
 #include "qlcioplugin.h"
@@ -97,7 +97,7 @@ bool OutputPatch::reconnect()
         bool ret = m_plugin->openOutput(m_pluginLine, m_universe);
         if (ret == true)
         {
-            foreach(QString par, m_parametersCache.keys())
+            foreach (QString par, m_parametersCache.keys())
                 m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, par, m_parametersCache[par]);
         }
         return ret;

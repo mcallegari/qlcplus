@@ -28,17 +28,17 @@
 #include "audioplugincache.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-   #include "audiorenderer_portaudio.h"
- #elif defined(WIN32) || defined(Q_OS_WIN)
-   #include "audiorenderer_waveout.h"
- #else
-   #include "audiorenderer_alsa.h"
- #endif
+  #if defined(__APPLE__) || defined(Q_OS_MAC)
+    #include "audiorenderer_portaudio.h"
+  #elif defined(WIN32) || defined(Q_OS_WIN)
+    #include "audiorenderer_waveout.h"
+  #else
+    #include "audiorenderer_alsa.h"
+  #endif
 #elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
- #include "audiorenderer_qt5.h"
+  #include "audiorenderer_qt5.h"
 #else
- #include "audiorenderer_qt6.h"
+  #include "audiorenderer_qt6.h"
 #endif
 
 #include "audio.h"
@@ -53,21 +53,20 @@
  *****************************************************************************/
 
 Audio::Audio(Doc* doc)
-  : Function(doc, Function::AudioType)
-  , m_doc(doc)
-  , m_decoder(NULL)
-  , m_audio_out(NULL)
-  , m_audioDevice(QString())
-  , m_sourceFileName("")
-  , m_audioDuration(0)
-  , m_volume(1.0)
+    : Function(doc, Function::AudioType)
+    , m_doc(doc)
+    , m_decoder(NULL)
+    , m_audio_out(NULL)
+    , m_audioDevice(QString())
+    , m_sourceFileName("")
+    , m_audioDuration(0)
+    , m_volume(1.0)
 {
     setName(tr("New Audio"));
     setRunOrder(Audio::SingleShot);
 
     // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
 }
 
 Audio::~Audio()
@@ -111,7 +110,7 @@ Function* Audio::createCopy(Doc* doc, bool addToDoc)
 
 bool Audio::copyFrom(const Function* function)
 {
-    const Audio* aud = qobject_cast<const Audio*> (function);
+    const Audio* aud = qobject_cast<const Audio*>(function);
     if (aud == NULL)
         return false;
 
@@ -164,7 +163,7 @@ bool Audio::setSourceFileName(QString filename)
     {
         doc()->appendToErrorLog(tr("Audio file <b>%1</b> not found").arg(m_sourceFileName));
         setName(tr("File not found"));
-        //m_audioDuration = 0;
+        // m_audioDuration = 0;
         emit changed(id());
         return true;
     }
@@ -187,7 +186,7 @@ QString Audio::getSourceFileName()
     return m_sourceFileName;
 }
 
-AudioDecoder *Audio::getAudioDecoder()
+AudioDecoder* Audio::getAudioDecoder()
 {
     return m_decoder;
 }
@@ -244,7 +243,7 @@ void Audio::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Audio::saveXML(QXmlStreamWriter *doc)
+bool Audio::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -278,7 +277,7 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-bool Audio::loadXML(QXmlStreamReader &root)
+bool Audio::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -288,8 +287,7 @@ bool Audio::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::AudioType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
-                   << "is not Audio";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not Audio";
         return false;
     }
 
@@ -328,9 +326,7 @@ bool Audio::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-void Audio::postLoad()
-{
-}
+void Audio::postLoad() {}
 
 /*********************************************************************
  * Running
@@ -351,14 +347,14 @@ void Audio::preRun(MasterTimer* timer)
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-        //m_audio_out = new AudioRendererCoreAudio();
+  #if defined(__APPLE__) || defined(Q_OS_MAC)
+        // m_audio_out = new AudioRendererCoreAudio();
         m_audio_out = new AudioRendererPortAudio(m_audioDevice);
- #elif defined(WIN32) || defined(Q_OS_WIN)
+  #elif defined(WIN32) || defined(Q_OS_WIN)
         m_audio_out = new AudioRendererWaveOut(m_audioDevice);
- #else
+  #else
         m_audio_out = new AudioRendererAlsa(m_audioDevice);
- #endif
+  #endif
         m_audio_out->moveToThread(QCoreApplication::instance()->thread());
 #elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         m_audio_out = new AudioRendererQt5(m_audioDevice, doc());
@@ -371,8 +367,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
-        connect(m_audio_out, SIGNAL(endOfStreamReached()),
-                this, SLOT(slotEndOfStream()));
+        connect(m_audio_out, SIGNAL(endOfStreamReached()), this, SLOT(slotEndOfStream()));
     }
 
     Function::preRun(timer);
@@ -394,7 +389,7 @@ void Audio::setPause(bool enable)
     }
 }
 
-void Audio::write(MasterTimer* timer, QList<Universe *> universes)
+void Audio::write(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)

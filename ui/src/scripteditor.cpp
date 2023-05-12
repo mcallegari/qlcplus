@@ -50,8 +50,7 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
     /* Name */
     m_nameEdit->setText(m_script->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
 
     /* Document */
     m_document = new QTextDocument(m_script->data(), this);
@@ -90,64 +89,52 @@ ScriptEditor::~ScriptEditor()
 void ScriptEditor::initAddMenu()
 {
     m_addStartFunctionAction = new QAction(QIcon(":/function.png"), tr("Start Function"), this);
-    connect(m_addStartFunctionAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddStartFunction()));
+    connect(m_addStartFunctionAction, SIGNAL(triggered(bool)), this, SLOT(slotAddStartFunction()));
 
     m_addStopFunctionAction = new QAction(QIcon(":/fileclose.png"), tr("Stop Function"), this);
-    connect(m_addStopFunctionAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddStopFunction()));
+    connect(m_addStopFunctionAction, SIGNAL(triggered(bool)), this, SLOT(slotAddStopFunction()));
 
     m_addBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Blackout"), this);
-    connect(m_addBlackoutAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddBlackout()));
+    connect(m_addBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotAddBlackout()));
 
     m_addWaitAction = new QAction(QIcon(":/speed.png"), tr("Wait"), this);
-    connect(m_addWaitAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddWait()));
+    connect(m_addWaitAction, SIGNAL(triggered(bool)), this, SLOT(slotAddWait()));
 
     m_addWaitKeyAction = new QAction(QIcon(":/key_bindings.png"), tr("Wait Key"), this);
-    connect(m_addWaitKeyAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddWaitKey()));
+    connect(m_addWaitKeyAction, SIGNAL(triggered(bool)), this, SLOT(slotAddWaitKey()));
 
     m_addSetHtpAction = new QAction(QIcon(":/fixture.png"), tr("Set HTP"), this);
-    connect(m_addSetHtpAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddSetHtp()));
+    connect(m_addSetHtpAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSetHtp()));
 
     m_addSetLtpAction = new QAction(QIcon(":/fixture.png"), tr("Set LTP"), this);
-    connect(m_addSetLtpAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddSetLtp()));
+    connect(m_addSetLtpAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSetLtp()));
 
     m_addSetFixtureAction = new QAction(QIcon(":/movinghead.png"), tr("Set Fixture"), this);
-    connect(m_addSetFixtureAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddSetFixture()));
+    connect(m_addSetFixtureAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSetFixture()));
 
     m_addSystemCommandAction = new QAction(QIcon(":/player_play.png"), tr("System Command"), this);
-    connect(m_addSystemCommandAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddSystemCommand()));
+    connect(m_addSystemCommandAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSystemCommand()));
 
     m_addCommentAction = new QAction(QIcon(":/label.png"), tr("Comment"), this);
-    connect(m_addCommentAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddComment()));
+    connect(m_addCommentAction, SIGNAL(triggered(bool)), this, SLOT(slotAddComment()));
 
     m_addRandomAction = new QAction(QIcon(":/other.png"), tr("Random Number"), this);
-    connect(m_addRandomAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddRandom()));
+    connect(m_addRandomAction, SIGNAL(triggered(bool)), this, SLOT(slotAddRandom()));
 
     m_addFilePathAction = new QAction(QIcon(":/fileopen.png"), tr("File Path"), this);
-    connect(m_addFilePathAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddFilePath()));
+    connect(m_addFilePathAction, SIGNAL(triggered(bool)), this, SLOT(slotAddFilePath()));
 
     m_addMenu = new QMenu(this);
     m_addMenu->addAction(m_addStartFunctionAction);
     m_addMenu->addAction(m_addStopFunctionAction);
     m_addMenu->addAction(m_addBlackoutAction);
-    //m_addMenu->addAction(m_addSetHtpAction);
-    //m_addMenu->addAction(m_addSetLtpAction);
+    // m_addMenu->addAction(m_addSetHtpAction);
+    // m_addMenu->addAction(m_addSetLtpAction);
     m_addMenu->addAction(m_addSetFixtureAction);
     m_addMenu->addAction(m_addSystemCommandAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addWaitAction);
-    //m_addMenu->addAction(m_addWaitKeyAction);
+    // m_addMenu->addAction(m_addWaitKeyAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addCommentAction);
     m_addMenu->addAction(m_addRandomAction);
@@ -172,7 +159,7 @@ QString ScriptEditor::getFilePath()
     dialog.setNameFilters(filters);
 
     /* Append useful URLs to the dialog */
-    QList <QUrl> sidebar;
+    QList<QUrl> sidebar;
     sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
     sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
     dialog.setSidebarUrls(sidebar);
@@ -223,7 +210,7 @@ void ScriptEditor::slotFunctionStopped(quint32 id)
 void ScriptEditor::slotAddStartFunction()
 {
     FunctionSelection fs(this, m_doc);
-    fs.setDisabledFunctions(QList <quint32> () << m_script->id());
+    fs.setDisabledFunctions(QList<quint32>() << m_script->id());
     if (fs.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
@@ -233,9 +220,7 @@ void ScriptEditor::slotAddStartFunction()
         {
             Function* function = m_doc->function(id);
             Q_ASSERT(function != NULL);
-            QString cmd = QString("%1:%2 // %3\n").arg(Script::startFunctionCmd)
-                                                   .arg(id)
-                                                   .arg(function->name());
+            QString cmd = QString("%1:%2 // %3\n").arg(Script::startFunctionCmd).arg(id).arg(function->name());
             cursor.insertText(cmd);
             m_editor->moveCursor(QTextCursor::Down);
         }
@@ -245,7 +230,7 @@ void ScriptEditor::slotAddStartFunction()
 void ScriptEditor::slotAddStopFunction()
 {
     FunctionSelection fs(this, m_doc);
-    fs.setDisabledFunctions(QList <quint32> () << m_script->id());
+    fs.setDisabledFunctions(QList<quint32>() << m_script->id());
     if (fs.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
@@ -255,9 +240,7 @@ void ScriptEditor::slotAddStopFunction()
         {
             Function* function = m_doc->function(id);
             Q_ASSERT(function != NULL);
-            QString cmd = QString("%1:%2 // %3\n").arg(Script::stopFunctionCmd)
-                                                  .arg(id)
-                                                  .arg(function->name());
+            QString cmd = QString("%1:%2 // %3\n").arg(Script::stopFunctionCmd).arg(id).arg(function->name());
             cursor.insertText(cmd);
             m_editor->moveCursor(QTextCursor::Down);
         }
@@ -270,13 +253,12 @@ void ScriptEditor::slotAddBlackout()
     // Use a layout allowing to have a label next to each field
     QVBoxLayout dLayout(&dialog);
 
-    QCheckBox *cb = new QCheckBox(tr("Blackout state"));
+    QCheckBox* cb = new QCheckBox(tr("Blackout state"));
     cb->setChecked(true);
     dLayout.addWidget(cb);
 
     // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
-    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
-                               Qt::Horizontal, &dialog);
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, &dialog);
     dLayout.addWidget(&buttonBox);
     QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
     QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
@@ -286,8 +268,8 @@ void ScriptEditor::slotAddBlackout()
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
         m_editor->textCursor().insertText(QString("%1:%2\n")
-                              .arg(Script::blackoutCmd)
-                              .arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
+                                              .arg(Script::blackoutCmd)
+                                              .arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
     }
 }
 
@@ -298,7 +280,7 @@ void ScriptEditor::slotAddWait()
     QVBoxLayout dLayout(&dialog);
 
     dLayout.addWidget(new QLabel(tr("Enter the desired time")));
-    SpeedDial *sd = new SpeedDial(this);
+    SpeedDial* sd = new SpeedDial(this);
     ushort dialMask = sd->visibilityMask();
     dialMask = (dialMask & ~SpeedDial::Infinite);
     dialMask = (dialMask & ~SpeedDial::Tap);
@@ -307,8 +289,7 @@ void ScriptEditor::slotAddWait()
     dLayout.addWidget(sd);
 
     // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
-    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
-                               Qt::Horizontal, &dialog);
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, &dialog);
     dLayout.addWidget(&buttonBox);
     QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
     QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
@@ -317,8 +298,8 @@ void ScriptEditor::slotAddWait()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("%1:%2\n")
-                              .arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
+        m_editor->textCursor().insertText(
+            QString("%1:%2\n").arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
     }
 }
 
@@ -328,9 +309,8 @@ void ScriptEditor::slotAddWaitKey()
     if (ahk.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("%1:%2 // Not supported yet\n")
-                                                    .arg(Script::waitKeyCmd)
-                                                    .arg(ahk.keySequence().toString()));
+        m_editor->textCursor().insertText(
+            QString("%1:%2 // Not supported yet\n").arg(Script::waitKeyCmd).arg(ahk.keySequence().toString()));
     }
 }
 
@@ -355,7 +335,7 @@ void ScriptEditor::slotAddSetFixture()
         return; // User pressed cancel
 
     QList<SceneValue> channelsList = cfg.channelsList();
-    foreach(SceneValue sv, channelsList)
+    foreach (SceneValue sv, channelsList)
     {
         Fixture* fxi = m_doc->fixture(sv.fxi);
         if (fxi != NULL)
@@ -363,9 +343,11 @@ void ScriptEditor::slotAddSetFixture()
             const QLCChannel* channel = fxi->channel(sv.channel);
             m_editor->moveCursor(QTextCursor::StartOfLine);
             m_editor->textCursor().insertText(QString("%1:%2 ch:%3 val:0 // %4, %5\n")
-                                                .arg(Script::setFixtureCmd)
-                                                .arg(fxi->id()).arg(sv.channel)
-                                                .arg(fxi->name()).arg(channel->name()));
+                                                  .arg(Script::setFixtureCmd)
+                                                  .arg(fxi->id())
+                                                  .arg(sv.channel)
+                                                  .arg(fxi->name())
+                                                  .arg(channel->name()));
             m_editor->moveCursor(QTextCursor::Down);
         }
     }
@@ -388,32 +370,29 @@ void ScriptEditor::slotAddSystemCommand()
     m_lastUsedPath = fInfo.absolutePath();
 
     QString args = QInputDialog::getText(this, tr("Enter the program arguments (leave empty if not required)"), "",
-                                        QLineEdit::Normal, QString());
+                                         QLineEdit::Normal, QString());
 
     QStringList argsList = args.split(" ");
     QString formattedArgs;
-    foreach(QString arg, argsList)
+    foreach (QString arg, argsList)
     {
         formattedArgs.append(QString("arg:%1 ").arg(arg));
     }
 
     m_editor->moveCursor(QTextCursor::StartOfLine);
-    m_editor->textCursor().insertText(QString("%1:%2 %3\n")
-                                        .arg(Script::systemCmd)
-                                        .arg(fn).arg(formattedArgs));
+    m_editor->textCursor().insertText(QString("%1:%2 %3\n").arg(Script::systemCmd).arg(fn).arg(formattedArgs));
     m_editor->moveCursor(QTextCursor::Down);
 }
 
 void ScriptEditor::slotAddComment()
 {
     bool ok = false;
-    QString str = QInputDialog::getText(this, tr("Add Comment"), "",
-                                        QLineEdit::Normal, QString(), &ok);
+    QString str = QInputDialog::getText(this, tr("Add Comment"), "", QLineEdit::Normal, QString(), &ok);
     if (ok == true)
     {
-        //m_editor->moveCursor(QTextCursor::StartOfLine);
+        // m_editor->moveCursor(QTextCursor::StartOfLine);
         m_editor->textCursor().insertText(QString("// %1").arg(str));
-        //m_editor->moveCursor(QTextCursor::EndOfLine);
+        // m_editor->moveCursor(QTextCursor::EndOfLine);
     }
 }
 
@@ -425,17 +404,16 @@ void ScriptEditor::slotAddRandom()
 
     dLayout.addRow(new QLabel(tr("Enter the range for the randomization")));
 
-    QSpinBox *minSB = new QSpinBox(this);
+    QSpinBox* minSB = new QSpinBox(this);
     minSB->setRange(0, 999);
-    QSpinBox *maxSB = new QSpinBox(this);
+    QSpinBox* maxSB = new QSpinBox(this);
     maxSB->setRange(0, 999);
     maxSB->setValue(255);
     dLayout.addRow(tr("Minimum value"), minSB);
     dLayout.addRow(tr("Maximum value"), maxSB);
 
     // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
-    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
-                               Qt::Horizontal, &dialog);
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, &dialog);
     dLayout.addRow(&buttonBox);
     QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
     QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
@@ -444,8 +422,7 @@ void ScriptEditor::slotAddRandom()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("random(%1,%2)")
-                              .arg(minSB->value()).arg(maxSB->value()));
+        m_editor->textCursor().insertText(QString("random(%1,%2)").arg(minSB->value()).arg(maxSB->value()));
         m_editor->moveCursor(QTextCursor::EndOfLine);
     }
 }
@@ -459,7 +436,7 @@ void ScriptEditor::slotAddFilePath()
     QFileInfo fInfo(fn);
     m_lastUsedPath = fInfo.absolutePath();
 
-    //m_editor->textCursor().insertText(QUrl::toPercentEncoding(fn));
+    // m_editor->textCursor().insertText(QUrl::toPercentEncoding(fn));
     m_editor->textCursor().insertText(fn);
 }
 
@@ -476,7 +453,7 @@ void ScriptEditor::slotCheckSyntax()
     else
     {
         QStringList lines = scriptText.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
-        foreach(int line, errLines)
+        foreach (int line, errLines)
         {
             errResult.append(tr("Syntax error at line %1:\n%2\n\n").arg(line).arg(lines.at(line - 1)));
         }

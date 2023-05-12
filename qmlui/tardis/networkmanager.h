@@ -43,7 +43,7 @@ typedef struct
     /** The unique host name in the QLC+ network */
     QString hostName;
     /** The TCP socket for unicast client/server communication */
-    QTcpSocket *tcpSocket;
+    QTcpSocket* tcpSocket;
 } NetworkHost;
 
 class NetworkManager : public QObject
@@ -57,7 +57,7 @@ class NetworkManager : public QObject
     Q_PROPERTY(int connectionsCount READ connectionsCount NOTIFY connectionsCountChanged)
 
 public:
-    explicit NetworkManager(QObject *parent = nullptr, Doc *doc = nullptr);
+    explicit NetworkManager(QObject* parent = nullptr, Doc* doc = nullptr);
     ~NetworkManager();
 
     enum HostType
@@ -80,7 +80,7 @@ protected:
     QString defaultName();
 
     /** Send the content of $packet using the provided $socket */
-    bool sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt);
+    bool sendTCPPacket(QTcpSocket* socket, QByteArray& packet, bool encrypt);
 
 signals:
     void hostNameChanged(QString hostName);
@@ -96,7 +96,7 @@ protected slots:
 
 private:
     /** Reference to the QLC+ Doc */
-    Doc *m_doc;
+    Doc* m_doc;
 
     /** Global flag to enable/disable packets encryption */
     bool m_encryptPackets;
@@ -108,10 +108,10 @@ private:
     HostType m_hostType;
 
     /** The UDP socket used to send/receive QLC+ announce packets */
-    QUdpSocket *m_udpSocket;
+    QUdpSocket* m_udpSocket;
 
     /** Reference to an encryption engine. For now we use SimpleCrypt */
-    SimpleCrypt *m_crypt;
+    SimpleCrypt* m_crypt;
 
     /** Reference to a class in charge of packetize/extract data
      *  according to the QLC+ network protocol */
@@ -146,13 +146,13 @@ protected slots:
 
 private:
     /** Instance of a TCP server used by a QLC+ server */
-    QTcpServer *m_tcpServer;
+    QTcpServer* m_tcpServer;
 
     /** Flag that indicates if a server instance is running */
     bool m_serverStarted;
 
     /** Map of the QLC+ hosts detected on the network */
-    QHash<QHostAddress, NetworkHost *> m_hostsMap;
+    QHash<QHostAddress, NetworkHost*> m_hostsMap;
 
     /*********************************************************************
      * Client
@@ -181,11 +181,11 @@ signals:
     void clientStatusChanged(bool clientStatus);
     void serverListChanged();
     void accessMaskChanged(int mask);
-    void requestProjectLoad(QByteArray &data);
+    void requestProjectLoad(QByteArray& data);
 
 private:
     /** The socket used to send/receive unicast TCP packets */
-    QTcpSocket *m_tcpSocket;
+    QTcpSocket* m_tcpSocket;
 
     /** Map used during automatic server discovery */
     QHash<QHostAddress, QString> m_serverList;

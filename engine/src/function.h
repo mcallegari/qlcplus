@@ -66,10 +66,10 @@ class FunctionUiState;
 
 #define KXMLQLCFunctionEnabled QString("Enabled")
 
-#define KXMLQLCFunctionSpeed         QString("Speed")
-#define KXMLQLCFunctionSpeedFadeIn   QString("FadeIn")
-#define KXMLQLCFunctionSpeedHold     QString("Hold")
-#define KXMLQLCFunctionSpeedFadeOut  QString("FadeOut")
+#define KXMLQLCFunctionSpeed QString("Speed")
+#define KXMLQLCFunctionSpeedFadeIn QString("FadeIn")
+#define KXMLQLCFunctionSpeedHold QString("Hold")
+#define KXMLQLCFunctionSpeedFadeOut QString("FadeOut")
 #define KXMLQLCFunctionSpeedDuration QString("Duration")
 
 typedef struct
@@ -107,18 +107,19 @@ public:
      */
     enum Type
     {
-        Undefined      = 0,
-        SceneType      = 1 << 0,
-        ChaserType     = 1 << 1,
-        EFXType        = 1 << 2,
+        Undefined = 0,
+        SceneType = 1 << 0,
+        ChaserType = 1 << 1,
+        EFXType = 1 << 2,
         CollectionType = 1 << 3,
-        ScriptType     = 1 << 4,
-        RGBMatrixType  = 1 << 5,
-        ShowType       = 1 << 6,
-        SequenceType   = 1 << 7,
-        AudioType      = 1 << 8
+        ScriptType = 1 << 4,
+        RGBMatrixType = 1 << 5,
+        ShowType = 1 << 6,
+        SequenceType = 1 << 7,
+        AudioType = 1 << 8
 #if QT_VERSION >= 0x050000
-        , VideoType    = 1 << 9
+        ,
+        VideoType = 1 << 9
 #endif
     };
 #if QT_VERSION >= 0x050500
@@ -134,7 +135,15 @@ public:
     };
 
 public:
-    enum PropType { Name = 0, FadeIn, Hold, FadeOut, Duration, Notes };
+    enum PropType
+    {
+        Name = 0,
+        FadeIn,
+        Hold,
+        FadeOut,
+        Duration,
+        Notes
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(PropType)
 #endif
@@ -266,7 +275,7 @@ public:
     static Type stringToType(const QString& str);
 
     /** Virtual method to retrieve a QIcon based on a Function type.
-      * Subclasses should reimplement this */
+     * Subclasses should reimplement this */
     virtual QIcon getIcon() const;
 
 protected:
@@ -303,13 +312,19 @@ private:
      *********************************************************************/
 protected:
     /** Save function's common attributes in $doc, under $root */
-    bool saveXMLCommon(QXmlStreamWriter *doc) const;
+    bool saveXMLCommon(QXmlStreamWriter* doc) const;
 
     /*********************************************************************
      * Running order
      *********************************************************************/
 public:
-    enum RunOrder { Loop = 0, SingleShot, PingPong, Random };
+    enum RunOrder
+    {
+        Loop = 0,
+        SingleShot,
+        PingPong,
+        Random
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(RunOrder)
 #endif
@@ -343,10 +358,10 @@ public:
 
 protected:
     /** Save function's running order in $doc */
-    bool saveXMLRunOrder(QXmlStreamWriter *doc) const;
+    bool saveXMLRunOrder(QXmlStreamWriter* doc) const;
 
     /** Load function's direction from $root */
-    bool loadXMLRunOrder(QXmlStreamReader &root);
+    bool loadXMLRunOrder(QXmlStreamReader& root);
 
 signals:
     void runOrderChanged();
@@ -358,7 +373,11 @@ private:
      * Direction
      *********************************************************************/
 public:
-    enum Direction { Forward = 0, Backward };
+    enum Direction
+    {
+        Forward = 0,
+        Backward
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(Direction)
 #endif
@@ -392,10 +411,10 @@ public:
 
 protected:
     /** Save function's direction in $doc */
-    bool saveXMLDirection(QXmlStreamWriter *doc) const;
+    bool saveXMLDirection(QXmlStreamWriter* doc) const;
 
     /** Load function's direction from $root */
-    bool loadXMLDirection(QXmlStreamReader &root);
+    bool loadXMLDirection(QXmlStreamReader& root);
 
 private:
     Direction m_direction;
@@ -404,8 +423,18 @@ private:
      * Tempo type
      *********************************************************************/
 public:
-    enum TempoType { Original = -1, Time = 0, Beats = 1 };
-    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
+    enum TempoType
+    {
+        Original = -1,
+        Time = 0,
+        Beats = 1
+    };
+    enum FractionsType
+    {
+        NoFractions = 0,
+        ByTwoFractions,
+        AllFractions
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(TempoType)
     Q_ENUM(FractionsType)
@@ -537,10 +566,10 @@ signals:
 
 protected:
     /** Load the contents of a speed node */
-    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
+    bool loadXMLSpeed(QXmlStreamReader& speedRoot);
 
     /** Save function's speed values in $doc */
-    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
+    bool saveXMLSpeed(QXmlStreamWriter* doc) const;
 
 private:
     uint m_fadeInSpeed;
@@ -584,7 +613,7 @@ public:
      *
      * @param doc The XML document to save to
      */
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter* doc);
 
     /**
      * Read this function's contents from an XML document
@@ -592,7 +621,7 @@ public:
      * @param doc An XML document to load from
      * @param root An XML root element of a function
      */
-    virtual bool loadXML(QXmlStreamReader &root);
+    virtual bool loadXML(QXmlStreamReader& root);
 
     /**
      * Load a new function from an XML tag and add it to the given doc
@@ -602,7 +631,7 @@ public:
      * @param doc The QLC document object, that owns all functions
      * @return true if successful, otherwise false
      */
-    static bool loader(QXmlStreamReader &root, Doc* doc);
+    static bool loader(QXmlStreamReader& root, Doc* doc);
 
     /**
      * Called for each Function-based object after everything has been loaded.
@@ -722,7 +751,7 @@ signals:
 
 protected:
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer <GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 
     /*********************************************************************
      * Elapsed
@@ -770,10 +799,8 @@ public:
      * @param overrideDuration Override the function's default duration
      * @param overrideTempoType Override the tempo type of the function
      */
-    void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
-               uint overrideFadeIn = defaultSpeed(),
-               uint overrideFadeOut = defaultSpeed(),
-               uint overrideDuration = defaultSpeed(),
+    void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0, uint overrideFadeIn = defaultSpeed(),
+               uint overrideFadeOut = defaultSpeed(), uint overrideDuration = defaultSpeed(),
                TempoType overrideTempoType = Original);
 
     /**
@@ -852,7 +879,7 @@ public:
     {
         Multiply = (1 << 0), /** The original attribute value should be multiplied by the overridden values */
         LastWins = (1 << 1), /** The original attribute value is overridden by the last requested override value */
-        Single   = (1 << 2)  /** Only one attribute override ID will be allowed */
+        Single = (1 << 2)    /** Only one attribute override ID will be allowed */
     };
 
     static int invalidAttributeId();
@@ -948,7 +975,7 @@ public:
      *
      * @return a list of Attributes
      */
-    QList <Attribute> attributes() const;
+    QList<Attribute> attributes() const;
 
 protected:
     /**
@@ -965,10 +992,10 @@ signals:
 
 private:
     /** A list of the registered attributes */
-    QList <Attribute> m_attributes;
+    QList<Attribute> m_attributes;
 
     /** A map of the overridden attributes */
-    QMap <int, AttributeOverride> m_overrideMap;
+    QMap<int, AttributeOverride> m_overrideMap;
 
     /** Last assigned override ID */
     int m_lastOverrideAttributeId;

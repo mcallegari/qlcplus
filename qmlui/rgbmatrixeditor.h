@@ -56,7 +56,7 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(QSize algoOffset READ algoOffset WRITE setAlgoOffset NOTIFY algoOffsetChanged)
 
 public:
-    RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    RGBMatrixEditor(QQuickView* view, Doc* doc, QObject* parent = 0);
     ~RGBMatrixEditor();
 
     /** Set the ID of the RGBMatrix to edit */
@@ -70,9 +70,9 @@ signals:
 
 private:
     /** Reference of the RGBMatrix currently being edited */
-    RGBMatrix *m_matrix;
+    RGBMatrix* m_matrix;
     /** Reference to the Fixture Group associated to the RGBMatrix */
-    FixtureGroup *m_group;
+    FixtureGroup* m_group;
 
     /************************************************************************
      * Algorithm
@@ -121,7 +121,7 @@ public:
      *    - combo boxes are created in QML, and C++ sends the model and properties
      *    - spin boxes are created in QML, and C++ sends the range and properties
      */
-    Q_INVOKABLE void createScriptObjects(QQuickItem *parent);
+    Q_INVOKABLE void createScriptObjects(QQuickItem* parent);
 
     Q_INVOKABLE void setScriptStringProperty(QString paramName, QString value);
     Q_INVOKABLE void setScriptIntProperty(QString paramName, int value);
@@ -183,7 +183,7 @@ private:
     /** A timer to perform a timed preview of the RGBMatrix pattern */
     QTimer* m_previewTimer;
     uint m_previewElapsed;
-    RGBMatrixStep *m_previewStepHandler;
+    RGBMatrixStep* m_previewStepHandler;
     bool m_gotBeat;
     QMutex m_previewMutex;
 

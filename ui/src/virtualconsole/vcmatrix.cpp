@@ -46,13 +46,14 @@
 
 #define UPDATE_TIMEOUT 50
 
-static const QString controlBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
-                                    "QPushButton:pressed { border: 2px solid #0000FF; }"
-                                    "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
+static const QString controlBtnSS =
+    "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
+    "QPushButton:pressed { border: 2px solid #0000FF; }"
+    "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 const QSize VCMatrix::defaultSize(QSize(160, 120));
 
-VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
+VCMatrix::VCMatrix(QWidget* parent, Doc* doc)
     : VCWidget(parent, doc)
     , m_sliderExternalMovement(false)
     , m_matrixID(Function::invalidId())
@@ -63,9 +64,9 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     setObjectName(VCMatrix::staticMetaObject.className());
     setFrameStyle(KVCFrameStyleSunken);
 
-    QHBoxLayout *hBox = new QHBoxLayout(this);
-    //hBox->setContentsMargins(3, 3, 3, 10);
-    //hBox->setSpacing(5);
+    QHBoxLayout* hBox = new QHBoxLayout(this);
+    // hBox->setContentsMargins(3, 3, 3, 10);
+    // hBox->setSpacing(5);
 
     m_slider = new ClickAndGoSlider();
     m_slider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
@@ -75,10 +76,9 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_slider->setInvertedAppearance(false);
     hBox->addWidget(m_slider);
 
-    connect(m_slider, SIGNAL(valueChanged(int)),
-            this, SLOT(slotSliderMoved(int)));
+    connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderMoved(int)));
 
-    QVBoxLayout *vbox = new QVBoxLayout();
+    QVBoxLayout* vbox = new QVBoxLayout();
 
     m_startColorButton = new QToolButton(this);
     m_startColorButton->setFixedSize(48, 48);
@@ -88,13 +88,12 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_scCnGWidget = new ClickAndGoWidget();
     m_scCnGWidget->setType(ClickAndGoWidget::RGB, NULL);
     scAction->setDefaultWidget(m_scCnGWidget);
-    QMenu *startColorMenu = new QMenu();
+    QMenu* startColorMenu = new QMenu();
     startColorMenu->addAction(scAction);
     m_startColorButton->setMenu(startColorMenu);
     m_startColorButton->setPopupMode(QToolButton::InstantPopup);
 
-    connect(m_scCnGWidget, SIGNAL(colorChanged(QRgb)),
-            this, SLOT(slotStartColorChanged(QRgb)));
+    connect(m_scCnGWidget, SIGNAL(colorChanged(QRgb)), this, SLOT(slotStartColorChanged(QRgb)));
 
     m_endColorButton = new QToolButton(this);
     m_endColorButton->setFixedSize(48, 48);
@@ -104,20 +103,19 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_ecCnGWidget = new ClickAndGoWidget();
     m_ecCnGWidget->setType(ClickAndGoWidget::RGB, NULL);
     ecAction->setDefaultWidget(m_ecCnGWidget);
-    QMenu *endColorMenu = new QMenu();
+    QMenu* endColorMenu = new QMenu();
     endColorMenu->addAction(ecAction);
     m_endColorButton->setMenu(endColorMenu);
     m_endColorButton->setPopupMode(QToolButton::InstantPopup);
 
-    connect(m_ecCnGWidget, SIGNAL(colorChanged(QRgb)),
-            this, SLOT(slotEndColorChanged(QRgb)));
+    connect(m_ecCnGWidget, SIGNAL(colorChanged(QRgb)), this, SLOT(slotEndColorChanged(QRgb)));
 
     m_label = new QLabel(this);
     m_label->setAlignment(Qt::AlignCenter);
     m_label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
     vbox->addWidget(m_label);
 
-    QHBoxLayout *btnHbox = new QHBoxLayout();
+    QHBoxLayout* btnHbox = new QHBoxLayout();
 
     btnHbox->addWidget(m_startColorButton);
     btnHbox->addWidget(m_endColorButton);
@@ -125,10 +123,9 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     vbox->addLayout(btnHbox);
 
     m_presetCombo = new QComboBox(this);
-    //m_presetCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    // m_presetCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_presetCombo->addItems(RGBAlgorithm::algorithms(m_doc));
-    connect(m_presetCombo, SIGNAL(currentIndexChanged(QString)),
-            this, SLOT(slotAnimationChanged(QString)));
+    connect(m_presetCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotAnimationChanged(QString)));
     vbox->addWidget(m_presetCombo);
 
     hBox->addLayout(vbox);
@@ -148,8 +145,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
     /* Update timer */
     m_updateTimer = new QTimer(this);
-    connect(m_updateTimer, SIGNAL(timeout()),
-            this, SLOT(slotUpdate()));
+    connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(slotUpdate()));
     m_updateTimer->setSingleShot(true);
 
     /* Update the slider according to current mode */
@@ -159,7 +155,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
 VCMatrix::~VCMatrix()
 {
-    foreach(VCMatrixControl* control, m_controls)
+    foreach (VCMatrixControl* control, m_controls)
     {
         delete control;
     }
@@ -177,7 +173,7 @@ void VCMatrix::setID(quint32 id)
  * Clipboard
  *********************************************************************/
 
-VCWidget *VCMatrix::createCopy(VCWidget *parent)
+VCWidget* VCMatrix::createCopy(VCWidget* parent)
 {
     Q_ASSERT(parent != NULL);
 
@@ -193,7 +189,7 @@ VCWidget *VCMatrix::createCopy(VCWidget *parent)
 
 bool VCMatrix::copyFrom(const VCWidget* widget)
 {
-    const VCMatrix* matrix = qobject_cast <const VCMatrix*> (widget);
+    const VCMatrix* matrix = qobject_cast<const VCMatrix*>(widget);
     if (matrix == NULL)
         return false;
 
@@ -216,7 +212,7 @@ bool VCMatrix::copyFrom(const VCWidget* widget)
  * GUI
  *********************************************************************/
 
-void VCMatrix::setCaption(const QString &text)
+void VCMatrix::setCaption(const QString& text)
 {
     VCWidget::setCaption(text);
     m_label->setText(text);
@@ -229,7 +225,7 @@ void VCMatrix::enableWidgetUI(bool enable)
     m_endColorButton->setEnabled(enable);
     m_presetCombo->setEnabled(enable);
 
-    foreach(QWidget *ctlBtn, m_controls.keys())
+    foreach (QWidget* ctlBtn, m_controls.keys())
         ctlBtn->setEnabled(enable);
 
     // Update buttons state
@@ -315,20 +311,30 @@ void VCMatrix::slotAnimationChanged(QString name)
 
 void VCMatrix::setVisibilityMask(quint32 mask)
 {
-    if (mask & ShowSlider) m_slider->show();
-    else m_slider->hide();
+    if (mask & ShowSlider)
+        m_slider->show();
+    else
+        m_slider->hide();
 
-    if (mask & ShowLabel) m_label->show();
-    else m_label->hide();
+    if (mask & ShowLabel)
+        m_label->show();
+    else
+        m_label->hide();
 
-    if (mask & ShowStartColorButton) m_startColorButton->show();
-    else m_startColorButton->hide();
+    if (mask & ShowStartColorButton)
+        m_startColorButton->show();
+    else
+        m_startColorButton->hide();
 
-    if (mask & ShowEndColorButton) m_endColorButton->show();
-    else m_endColorButton->hide();
+    if (mask & ShowEndColorButton)
+        m_endColorButton->show();
+    else
+        m_endColorButton->hide();
 
-    if (mask & ShowPresetCombo) m_presetCombo->show();
-    else m_presetCombo->hide();
+    if (mask & ShowPresetCombo)
+        m_presetCombo->show();
+    else
+        m_presetCombo->hide();
 
     m_visibilityMask = mask;
 }
@@ -340,12 +346,7 @@ quint32 VCMatrix::visibilityMask() const
 
 quint32 VCMatrix::defaultVisibilityMask()
 {
-    return ShowSlider
-        | ShowLabel
-        | ShowStartColorButton
-        | ShowEndColorButton
-        | ShowPresetCombo
-        ;
+    return ShowSlider | ShowLabel | ShowStartColorButton | ShowEndColorButton | ShowPresetCombo;
 }
 
 /*********************************************************************
@@ -375,26 +376,22 @@ void VCMatrix::adjustIntensity(qreal val)
 
 void VCMatrix::setFunction(quint32 id)
 {
-    Function *old = m_doc->function(m_matrixID);
+    Function* old = m_doc->function(m_matrixID);
     if (old != NULL)
     {
-        disconnect(old, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped()));
-        disconnect(old, SIGNAL(changed(quint32)),
-                this, SLOT(slotFunctionChanged()));
+        disconnect(old, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped()));
+        disconnect(old, SIGNAL(changed(quint32)), this, SLOT(slotFunctionChanged()));
     }
 
-    RGBMatrix* matrix = qobject_cast<RGBMatrix*> (m_doc->function(id));
+    RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(id));
 
     if (matrix == NULL)
         m_matrixID = Function::invalidId();
     else
     {
         m_matrixID = id;
-        connect(matrix, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped()));
-        connect(matrix, SIGNAL(changed(quint32)),
-                this, SLOT(slotFunctionChanged()));
+        connect(matrix, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped()));
+        connect(matrix, SIGNAL(changed(quint32)), this, SLOT(slotFunctionChanged()));
     }
 
     slotUpdate();
@@ -413,9 +410,7 @@ void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
     if (fid == m_matrixID)
         return;
 
-    int value = SCALE(1.0 - functionIntensity,
-            0, 1.0,
-            m_slider->minimum(), m_slider->maximum());
+    int value = SCALE(1.0 - functionIntensity, 0, 1.0, m_slider->minimum(), m_slider->maximum());
     if (m_slider->value() > value)
     {
         m_sliderExternalMovement = true;
@@ -503,8 +498,7 @@ void VCMatrix::slotUpdate()
     }
 
     // Custom Buttons
-    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
-            it != m_controls.end(); ++it)
+    for (QHash<QWidget*, VCMatrixControl*>::iterator it = m_controls.begin(); it != m_controls.end(); ++it)
     {
         QWidget* widget = it.key();
         VCMatrixControl* control = it.value();
@@ -542,7 +536,7 @@ void VCMatrix::slotUpdate()
                 {
                     on = true;
                     for (QHash<QString, QString>::const_iterator it = control->m_properties.begin();
-                            it != control->m_properties.end(); ++it)
+                         it != control->m_properties.end(); ++it)
                     {
                         if (algorithmProperties.value(it.key(), QString()) != it.value())
                             on = false;
@@ -595,11 +589,11 @@ bool VCMatrix::instantChanges() const
 
 void VCMatrix::addCustomControl(VCMatrixControl const& control)
 {
-    QWidget *controlWidget = NULL;
+    QWidget* controlWidget = NULL;
 
     if (control.m_type == VCMatrixControl::StartColor)
     {
-        QPushButton *controlButton = new QPushButton(this);
+        QPushButton* controlButton = new QPushButton(this);
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg(control.m_color.name()));
         controlButton->setFixedWidth(36);
@@ -608,7 +602,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     }
     else if (control.m_type == VCMatrixControl::EndColor)
     {
-        QPushButton *controlButton = new QPushButton(this);
+        QPushButton* controlButton = new QPushButton(this);
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg(control.m_color.name()));
         controlButton->setFixedWidth(36);
@@ -617,7 +611,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     }
     else if (control.m_type == VCMatrixControl::ResetEndColor)
     {
-        QPushButton *controlButton = new QPushButton(this);
+        QPushButton* controlButton = new QPushButton(this);
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
         controlButton->setMinimumWidth(36);
@@ -627,10 +621,9 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlButton->setToolTip(btnLabel);
         controlButton->setText(fontMetrics().elidedText(btnLabel, Qt::ElideRight, 72));
     }
-    else if (control.m_type == VCMatrixControl::Animation ||
-             control.m_type == VCMatrixControl::Text)
+    else if (control.m_type == VCMatrixControl::Animation || control.m_type == VCMatrixControl::Text)
     {
-        QPushButton *controlButton = new QPushButton(this);
+        QPushButton* controlButton = new QPushButton(this);
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
         controlButton->setMinimumWidth(36);
@@ -641,7 +634,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         {
             btnLabel += " (";
             QHashIterator<QString, QString> it(control.m_properties);
-            while(it.hasNext())
+            while (it.hasNext())
             {
                 it.next();
                 btnLabel += it.value();
@@ -655,7 +648,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     }
     else if (control.m_type == VCMatrixControl::StartColorKnob)
     {
-        KnobWidget *controlKnob = new KnobWidget(this);
+        KnobWidget* controlKnob = new KnobWidget(this);
         controlWidget = controlKnob;
         controlKnob->setColor(control.m_color);
         controlKnob->setFixedWidth(36);
@@ -671,7 +664,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     }
     else if (control.m_type == VCMatrixControl::EndColorKnob)
     {
-        KnobWidget *controlKnob = new KnobWidget(this);
+        KnobWidget* controlKnob = new KnobWidget(this);
         controlWidget = controlKnob;
         controlKnob->setColor(control.m_color.darker(250));
         controlKnob->setFixedWidth(36);
@@ -690,13 +683,13 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
 
     if (control.widgetType() == VCMatrixControl::Knob)
     {
-        connect(reinterpret_cast<KnobWidget*>(controlWidget), SIGNAL(valueChanged(int)),
-                this, SLOT(slotCustomControlValueChanged()));
+        connect(reinterpret_cast<KnobWidget*>(controlWidget), SIGNAL(valueChanged(int)), this,
+                SLOT(slotCustomControlValueChanged()));
     }
     else
     {
-        connect(reinterpret_cast<QPushButton*>(controlWidget), SIGNAL(clicked()),
-                this, SLOT(slotCustomControlClicked()));
+        connect(reinterpret_cast<QPushButton*>(controlWidget), SIGNAL(clicked()), this,
+                SLOT(slotCustomControlClicked()));
     }
 
 
@@ -716,8 +709,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
 
 void VCMatrix::resetCustomControls()
 {
-    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
-            it != m_controls.end(); ++it)
+    for (QHash<QWidget*, VCMatrixControl*>::iterator it = m_controls.begin(); it != m_controls.end(); ++it)
     {
         QWidget* widget = it.key();
         m_controlsLayout->removeWidget(widget);
@@ -731,7 +723,7 @@ void VCMatrix::resetCustomControls()
     m_controls.clear();
 }
 
-QList<VCMatrixControl *> VCMatrix::customControls() const
+QList<VCMatrixControl*> VCMatrix::customControls() const
 {
     QList<VCMatrixControl*> controls = m_controls.values();
     std::sort(controls.begin(), controls.end(), VCMatrixControl::compare);
@@ -740,8 +732,8 @@ QList<VCMatrixControl *> VCMatrix::customControls() const
 
 void VCMatrix::slotCustomControlClicked()
 {
-    QPushButton *btn = qobject_cast<QPushButton*>(sender());
-    VCMatrixControl *control = m_controls[btn];
+    QPushButton* btn = qobject_cast<QPushButton*>(sender());
+    VCMatrixControl* control = m_controls[btn];
     if (control != NULL)
     {
         RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
@@ -773,9 +765,9 @@ void VCMatrix::slotCustomControlClicked()
             RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, control->m_resource);
             if (!control->m_properties.isEmpty())
             {
-                RGBScript *script = static_cast<RGBScript*> (algo);
+                RGBScript* script = static_cast<RGBScript*>(algo);
                 QHashIterator<QString, QString> it(control->m_properties);
-                while(it.hasNext())
+                while (it.hasNext())
                 {
                     it.next();
                     script->setProperty(it.key(), it.value());
@@ -790,7 +782,7 @@ void VCMatrix::slotCustomControlClicked()
         else if (control->m_type == VCMatrixControl::Text)
         {
             RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, "Text");
-            RGBText* text = static_cast<RGBText*> (algo);
+            RGBText* text = static_cast<RGBText*>(algo);
             text->setText(control->m_resource);
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
@@ -802,8 +794,8 @@ void VCMatrix::slotCustomControlClicked()
 
 void VCMatrix::slotCustomControlValueChanged()
 {
-    KnobWidget *knob = qobject_cast<KnobWidget*>(sender());
-    VCMatrixControl *control = m_controls[knob];
+    KnobWidget* knob = qobject_cast<KnobWidget*>(sender());
+    VCMatrixControl* control = m_controls[knob];
     if (control != NULL)
     {
         RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
@@ -852,19 +844,18 @@ void VCMatrix::slotModeChanged(Doc::Mode mode)
  * External input
  *********************************************************************/
 
-void VCMatrix::slotKeyPressed(const QKeySequence &keySequence)
+void VCMatrix::slotKeyPressed(const QKeySequence& keySequence)
 {
     if (acceptsInput() == false)
         return;
 
-    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
-            it != m_controls.end(); ++it)
+    for (QHash<QWidget*, VCMatrixControl*>::iterator it = m_controls.begin(); it != m_controls.end(); ++it)
     {
-        VCMatrixControl *control = it.value();
+        VCMatrixControl* control = it.value();
         if (control->m_keySequence == keySequence &&
-                control->widgetType() == VCMatrixControl::Button) // Only for buttons
+            control->widgetType() == VCMatrixControl::Button) // Only for buttons
         {
-            QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
             button->click();
         }
     }
@@ -874,10 +865,9 @@ void VCMatrix::updateFeedback()
 {
     sendFeedback(m_slider->value());
 
-    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
-            it != m_controls.end(); ++it)
+    for (QHash<QWidget*, VCMatrixControl*>::iterator it = m_controls.begin(); it != m_controls.end(); ++it)
     {
-        VCMatrixControl *control = it.value();
+        VCMatrixControl* control = it.value();
         if (control->m_inputSource != NULL)
         {
             if (control->widgetType() == VCMatrixControl::Knob)
@@ -888,10 +878,9 @@ void VCMatrix::updateFeedback()
             else // if (control->widgetType() == VCMatrixControl::Button)
             {
                 QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                sendFeedback(button->isDown() ?
-                                 control->m_inputSource->upperValue() :
-                                 control->m_inputSource->lowerValue(),
-                                 control->m_inputSource);
+                sendFeedback(button->isDown() ? control->m_inputSource->upperValue()
+                                              : control->m_inputSource->lowerValue(),
+                             control->m_inputSource);
             }
         }
     }
@@ -907,17 +896,15 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
 
     if (checkInputSource(universe, pagedCh, value, sender()))
     {
-        m_slider->setValue((int) value);
+        m_slider->setValue((int)value);
         return;
     }
 
-    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
-            it != m_controls.end(); ++it)
+    for (QHash<QWidget*, VCMatrixControl*>::iterator it = m_controls.begin(); it != m_controls.end(); ++it)
     {
-        VCMatrixControl *control = it.value();
-        if (control->m_inputSource != NULL &&
-                control->m_inputSource->universe() == universe &&
-                control->m_inputSource->channel() == pagedCh)
+        VCMatrixControl* control = it.value();
+        if (control->m_inputSource != NULL && control->m_inputSource->universe() == universe &&
+            control->m_inputSource->channel() == pagedCh)
         {
             if (control->widgetType() == VCMatrixControl::Knob)
             {
@@ -926,14 +913,14 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
             }
             else
             {
-                QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+                QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
                 button->click();
             }
         }
     }
 }
 
-bool VCMatrix::loadXML(QXmlStreamReader &root)
+bool VCMatrix::loadXML(QXmlStreamReader& root)
 {
     QString str;
 
@@ -976,7 +963,7 @@ bool VCMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLInput(root);
         }
-        else if(root.name() == KXMLQLCVCMatrixControl)
+        else if (root.name() == KXMLQLCVCMatrixControl)
         {
             VCMatrixControl control(0xff);
             if (control.loadXML(root))
@@ -999,7 +986,7 @@ bool VCMatrix::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCMatrix::saveXML(QXmlStreamWriter *doc)
+bool VCMatrix::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -1029,7 +1016,7 @@ bool VCMatrix::saveXML(QXmlStreamWriter *doc)
     /* Slider External input */
     saveXMLInput(doc);
 
-    foreach(VCMatrixControl *control, customControls())
+    foreach (VCMatrixControl* control, customControls())
         control->saveXML(doc);
 
     /* End the <Matrix> tag */

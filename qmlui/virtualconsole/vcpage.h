@@ -32,11 +32,12 @@ class VCPage : public VCFrame
      * Initialization
      *********************************************************************/
 public:
-    VCPage(QQuickView *view = nullptr, Doc* doc = nullptr, VirtualConsole *vc = nullptr, int pageIndex = 0, QObject *parent = nullptr);
+    VCPage(QQuickView* view = nullptr, Doc* doc = nullptr, VirtualConsole* vc = nullptr, int pageIndex = 0,
+           QObject* parent = nullptr);
     ~VCPage();
 
     /** Return the Preview Context associated to this VC page */
-    PreviewContext *previewContext() const;
+    PreviewContext* previewContext() const;
 
     /** Get/Set the widgets scale factor currently applied to this VC page */
     qreal pageScale() const;
@@ -44,7 +45,7 @@ public:
 
 private:
     /** Reference to a PreviewContext, registered to the Context Manager */
-    PreviewContext *m_pageContext;
+    PreviewContext* m_pageContext;
 
     qreal m_pageScale;
 
@@ -53,10 +54,10 @@ private:
      *********************************************************************/
 public:
     /** Map a single input source for a specific VC widget. */
-    void mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget, bool checkChildren = false);
+    void mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget* widget, bool checkChildren = false);
 
     /** Unmap a single input source for a specific VC widget. */
-    void unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget, bool checkChildren = false);
+    void unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget* widget, bool checkChildren = false);
 
     /** Map all the children widgets input sources into $m_inputSourcesMap.
      *  This method is called only by VirtualConsole postLoad event */
@@ -70,13 +71,13 @@ public:
     void inputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /** Map a single key sequence for a specific VC widget. */
-    void mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+    void mapKeySequence(QKeySequence sequence, quint32 id, VCWidget* widget, bool checkChildren = false);
 
     /** Unmap a single key sequence for a specific VC widget. */
-    void unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+    void unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget* widget, bool checkChildren = false);
 
     /** Update the key sequences map for a matching $sequence and $widget with the specified $id */
-    void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+    void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget* widget, bool checkChildren = false);
 
     /** Rebuild the entire key sequence map for all the child widgets
      *  of thiss page. This is called on project XML loading */
@@ -84,7 +85,7 @@ public:
 
     /** Method invoked by the Virtual Console when an key press/release signal is received.
      *  This is in charge of delivering the event to the children widgets expecting it. */
-    void handleKeyEvent(QKeyEvent *e, bool pressed);
+    void handleKeyEvent(QKeyEvent* e, bool pressed);
 
 private:
     /** This variable represents the map of all the external controllers
@@ -97,7 +98,7 @@ private:
      *
      *  The hash value is a pair of the actual input source and VC widget references
      */
-    QMultiHash <quint32, QPair<QSharedPointer<QLCInputSource>, VCWidget *> > m_inputSourcesMap;
+    QMultiHash<quint32, QPair<QSharedPointer<QLCInputSource>, VCWidget*>> m_inputSourcesMap;
 
     /** This variable represents the map of all the key bindings for every
      *  child widget of this VC Page.
@@ -105,7 +106,7 @@ private:
      *  The hash key is a QKeySequence, which can be used by multiple widgets
      *  The hash value is a pair of the widget reference and control ID
      */
-    QMultiHash <QKeySequence, QPair<quint32, VCWidget *> > m_keySequencesMap;
+    QMultiHash<QKeySequence, QPair<quint32, VCWidget*>> m_keySequencesMap;
 };
 
 

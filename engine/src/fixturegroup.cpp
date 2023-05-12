@@ -42,13 +42,10 @@ FixtureGroup::FixtureGroup(Doc* parent)
     Q_ASSERT(parent != NULL);
 
     // Listen to fixture removals
-    connect(parent, SIGNAL(fixtureRemoved(quint32)),
-            this, SLOT(slotFixtureRemoved(quint32)));
+    connect(parent, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved(quint32)));
 }
 
-FixtureGroup::~FixtureGroup()
-{
-}
+FixtureGroup::~FixtureGroup() {}
 
 void FixtureGroup::copyFrom(const FixtureGroup* grp)
 {
@@ -60,7 +57,7 @@ void FixtureGroup::copyFrom(const FixtureGroup* grp)
 
 Doc* FixtureGroup::doc() const
 {
-    return qobject_cast<Doc*> (parent());
+    return qobject_cast<Doc*>(parent());
 }
 
 /****************************************************************************
@@ -233,7 +230,7 @@ GroupHead FixtureGroup::head(const QLCPoint& pt) const
     return m_heads.value(pt);
 }
 
-QList <GroupHead> FixtureGroup::headList() const
+QList<GroupHead> FixtureGroup::headList() const
 {
     return m_heads.values();
 }
@@ -243,9 +240,9 @@ QMap<QLCPoint, GroupHead> FixtureGroup::headsMap() const
     return m_heads;
 }
 
-QList <quint32> FixtureGroup::fixtureList() const
+QList<quint32> FixtureGroup::fixtureList() const
 {
-    QList <quint32> list;
+    QList<quint32> list;
     foreach (GroupHead head, headList())
     {
         if (list.contains(head.fxi) == false)
@@ -279,7 +276,7 @@ QSize FixtureGroup::size() const
  * Load & Save
  ****************************************************************************/
 
-bool FixtureGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
+bool FixtureGroup::loader(QXmlStreamReader& xmlDoc, Doc* doc)
 {
     bool result = false;
 
@@ -301,7 +298,7 @@ bool FixtureGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
     return result;
 }
 
-bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
+bool FixtureGroup::loadXML(QXmlStreamReader& xmlDoc)
 {
     if (xmlDoc.name() != KXMLQLCFixtureGroup)
     {
@@ -359,7 +356,7 @@ bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
     return true;
 }
 
-bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
+bool FixtureGroup::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -379,7 +376,7 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
     /* Fixture heads */
     QList<QLCPoint> pointsList = m_heads.keys();
 
-    foreach(QLCPoint pt, pointsList)
+    foreach (QLCPoint pt, pointsList)
     {
         GroupHead head = m_heads[pt];
         doc->writeStartElement(KXMLQLCFixtureGroupHead);

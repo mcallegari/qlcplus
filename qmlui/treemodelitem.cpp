@@ -23,7 +23,7 @@
 #include "treemodelitem.h"
 #include "treemodel.h"
 
-TreeModelItem::TreeModelItem(QString label, QObject *parent)
+TreeModelItem::TreeModelItem(QString label, QObject* parent)
     : QObject(parent)
     , m_label(label)
     , m_path(QString())
@@ -34,7 +34,7 @@ TreeModelItem::TreeModelItem(QString label, QObject *parent)
 
 TreeModelItem::~TreeModelItem()
 {
-    //qDebug() << "!!! WARNING TreeModelItem destroyed WARNING !!!";
+    // qDebug() << "!!! WARNING TreeModelItem destroyed WARNING !!!";
     if (hasChildren())
     {
         m_children->clear();
@@ -83,7 +83,7 @@ int TreeModelItem::flags() const
 
 QVariant TreeModelItem::data(int index)
 {
-    //qDebug() << "Getting data at" << index << label();
+    // qDebug() << "Getting data at" << index << label();
     if (index < 0 || index >= m_data.count())
         return QVariant();
 
@@ -145,7 +145,7 @@ bool TreeModelItem::hasChildren()
     return false;
 }
 
-TreeModel *TreeModelItem::children()
+TreeModel* TreeModelItem::children()
 {
     return m_children;
 }
@@ -154,5 +154,3 @@ void TreeModelItem::printItem(int tab)
 {
     qDebug() << QString("%1%2").arg(QString(tab, QChar(0x20))).arg(label()) << m_path << m_data;
 }
-
-

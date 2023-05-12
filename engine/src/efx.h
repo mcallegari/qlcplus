@@ -37,35 +37,35 @@ class Fixture;
  * @{
  */
 
-#define KXMLQLCEFXPropagationMode           QString("PropagationMode")
-#define KXMLQLCEFXPropagationModeParallel   QString("Parallel")
-#define KXMLQLCEFXPropagationModeSerial     QString("Serial")
+#define KXMLQLCEFXPropagationMode QString("PropagationMode")
+#define KXMLQLCEFXPropagationModeParallel QString("Parallel")
+#define KXMLQLCEFXPropagationModeSerial QString("Serial")
 #define KXMLQLCEFXPropagationModeAsymmetric QString("Asymmetric")
-#define KXMLQLCEFXAlgorithm                 QString("Algorithm")
-#define KXMLQLCEFXWidth                     QString("Width")
-#define KXMLQLCEFXHeight                    QString("Height")
-#define KXMLQLCEFXRotation                  QString("Rotation")
-#define KXMLQLCEFXStartOffset               QString("StartOffset")
-#define KXMLQLCEFXIsRelative                QString("IsRelative")
-#define KXMLQLCEFXAxis                      QString("Axis")
-#define KXMLQLCEFXOffset                    QString("Offset")
-#define KXMLQLCEFXFrequency                 QString("Frequency")
-#define KXMLQLCEFXPhase                     QString("Phase")
-#define KXMLQLCEFXChannel                   QString("Channel")
-#define KXMLQLCEFXX                         QString("X")
-#define KXMLQLCEFXY                         QString("Y")
-#define KXMLQLCEFXStartScene                QString("StartScene")
-#define KXMLQLCEFXStopScene                 QString("StopScene")
+#define KXMLQLCEFXAlgorithm QString("Algorithm")
+#define KXMLQLCEFXWidth QString("Width")
+#define KXMLQLCEFXHeight QString("Height")
+#define KXMLQLCEFXRotation QString("Rotation")
+#define KXMLQLCEFXStartOffset QString("StartOffset")
+#define KXMLQLCEFXIsRelative QString("IsRelative")
+#define KXMLQLCEFXAxis QString("Axis")
+#define KXMLQLCEFXOffset QString("Offset")
+#define KXMLQLCEFXFrequency QString("Frequency")
+#define KXMLQLCEFXPhase QString("Phase")
+#define KXMLQLCEFXChannel QString("Channel")
+#define KXMLQLCEFXX QString("X")
+#define KXMLQLCEFXY QString("Y")
+#define KXMLQLCEFXStartScene QString("StartScene")
+#define KXMLQLCEFXStopScene QString("StopScene")
 
-#define KXMLQLCEFXCircleAlgorithmName       QString("Circle")
-#define KXMLQLCEFXEightAlgorithmName        QString("Eight")
-#define KXMLQLCEFXLineAlgorithmName         QString("Line")
-#define KXMLQLCEFXLine2AlgorithmName        QString("Line2")
-#define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
-#define KXMLQLCEFXSquareAlgorithmName       QString("Square")
+#define KXMLQLCEFXCircleAlgorithmName QString("Circle")
+#define KXMLQLCEFXEightAlgorithmName QString("Eight")
+#define KXMLQLCEFXLineAlgorithmName QString("Line")
+#define KXMLQLCEFXLine2AlgorithmName QString("Line2")
+#define KXMLQLCEFXDiamondAlgorithmName QString("Diamond")
+#define KXMLQLCEFXSquareAlgorithmName QString("Square")
 #define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
-#define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
-#define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
+#define KXMLQLCEFXLeafAlgorithmName QString("Leaf")
+#define KXMLQLCEFXLissajousAlgorithmName QString("Lissajous")
 
 /**
  * An EFX (effects) function that is used to create
@@ -161,7 +161,7 @@ public:
      *
      * @param polygon The polygon to fill with preview points
      */
-    void preview(QPolygonF &polygon) const;
+    void preview(QPolygonF& polygon) const;
 
     /**
      * Get a preview of path for all contained fixtures. For format of the polygons,
@@ -169,7 +169,7 @@ public:
      *
      * @param polygons Array of polygons, one for each contained fixture.
      */
-    void previewFixtures(QVector<QPolygonF> &polygons) const;
+    void previewFixtures(QVector<QPolygonF>& polygons) const;
 
     /**
      * Calculate a single point with the currently selected algorithm,
@@ -184,8 +184,7 @@ public:
     void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
 
 private:
-
-    void preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const;
+    void preview(QPolygonF& polygon, Function::Direction direction, int startOffset) const;
 
     /**
      * Rotate a point of the pattern by rot degrees and scale the point
@@ -199,7 +198,7 @@ private:
      * @param yOff Y offset of the pattern
      * @param rotation Degrees to rotate
      */
-    void rotateAndScale(float *x, float *y) const;
+    void rotateAndScale(float* x, float* y) const;
 
     /**
      * Calculate a single point with the currently selected algorithm,
@@ -477,13 +476,13 @@ private:
      *********************************************************************/
 public:
     /** Add a new fixture to this EFX */
-    bool addFixture(EFXFixture *ef);
+    bool addFixture(EFXFixture* ef);
 
     /** Add the provided fixture id and head to this EFX */
     bool addFixture(quint32 fxi, int head = 0);
 
     /** Remove the designated fixture from this EFX but don't delete it */
-    bool removeFixture(EFXFixture *ef);
+    bool removeFixture(EFXFixture* ef);
 
     bool removeFixture(quint32 fxi, int head);
 
@@ -491,17 +490,17 @@ public:
     void removeAllFixtures();
 
     /** Raise a fixture in the serial order to an earlier position */
-    bool raiseFixture(EFXFixture *ef);
+    bool raiseFixture(EFXFixture* ef);
 
     /** Lower a fixture in the serial order to a later position */
-    bool lowerFixture(EFXFixture *ef);
+    bool lowerFixture(EFXFixture* ef);
 
     /** Get a list of fixtures taking part in this EFX */
-    const QList <EFXFixture *> fixtures() const;
+    const QList<EFXFixture*> fixtures() const;
 
     /** Get an EFXFixture reference from Fixture $id and &headIndex
      *  Returns NULL on failure */
-    EFXFixture *fixture(quint32 id, int headIndex);
+    EFXFixture* fixture(quint32 id, int headIndex);
 
     /** @reimp */
     QList<quint32> components();
@@ -511,7 +510,7 @@ public slots:
     void slotFixtureRemoved(quint32 fxi_id);
 
 private:
-    QList <EFXFixture *> m_fixtures;
+    QList<EFXFixture*> m_fixtures;
 
     /*********************************************************************
      * Fixture propagation mode
@@ -519,9 +518,9 @@ private:
 public:
     enum PropagationMode
     {
-        Parallel,   /**< All fixtures move in unison (el-cheapo) */
-        Serial,     /**< Pattern propagates to the next fixture after a delay */
-        Asymmetric  /**< All fixtures move with an offset */
+        Parallel,  /**< All fixtures move in unison (el-cheapo) */
+        Serial,    /**< Pattern propagates to the next fixture after a delay */
+        Asymmetric /**< All fixtures move with an offset */
     };
 
     /** Set the EFX's fixture propagation mode (see the enum above) */
@@ -543,13 +542,13 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QXmlStreamWriter *doc);
-    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader& root);
     void postLoad();
 
 private:
     /** Load an axis' contents from an XML document*/
-    bool loadXMLAxis(QXmlStreamReader &root);
+    bool loadXMLAxis(QXmlStreamReader& root);
 
     /*********************************************************************
      * Speed
@@ -566,13 +565,13 @@ public:
     void preRun(MasterTimer* timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe *> universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:
-    QSharedPointer<GenericFader> getFader(QList<Universe *> universes, quint32 universeID);
+    QSharedPointer<GenericFader> getFader(QList<Universe*> universes, quint32 universeID);
 
     /*********************************************************************
      * Intensity

@@ -35,7 +35,7 @@
 class RGBText : public RGBAlgorithm
 {
 public:
-    RGBText(Doc * doc);
+    RGBText(Doc* doc);
     RGBText(const RGBText& t);
     ~RGBText();
 
@@ -66,7 +66,12 @@ private:
      * Animation
      ************************************************************************/
 public:
-    enum AnimationStyle { StaticLetters, Horizontal, Vertical };
+    enum AnimationStyle
+    {
+        StaticLetters,
+        Horizontal,
+        Vertical
+    };
 
     void setAnimationStyle(AnimationStyle ani);
     AnimationStyle animationStyle() const;
@@ -83,8 +88,8 @@ public:
 
 private:
     int scrollingTextStepCount() const;
-    void renderScrollingText(const QSize& size, uint rgb, int step, RGBMap &map) const;
-    void renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap &map) const;
+    void renderScrollingText(const QSize& size, uint rgb, int step, RGBMap& map) const;
+    void renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap& map) const;
 
 private:
     AnimationStyle m_animationStyle;
@@ -99,7 +104,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
 
     /** @reimp */
     QString name() const;
@@ -117,10 +122,10 @@ public:
     int acceptColors() const;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 };
 
 /** @} */

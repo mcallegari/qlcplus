@@ -47,21 +47,21 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCCueList                QString("CueList")
-#define KXMLQLCVCCueListFunction        QString("Function") // Legacy
-#define KXMLQLCVCCueListChaser          QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout  QString("PlaybackLayout")
+#define KXMLQLCVCCueList QString("CueList")
+#define KXMLQLCVCCueListFunction QString("Function") // Legacy
+#define KXMLQLCVCCueListChaser QString("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout QString("PlaybackLayout")
 #define KXMLQLCVCCueListNextPrevBehavior QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade       QString("Crossfade")
-#define KXMLQLCVCCueListBlend           QString("Blend")
-#define KXMLQLCVCCueListLinked          QString("Linked")
-#define KXMLQLCVCCueListNext            QString("Next")
-#define KXMLQLCVCCueListPrevious        QString("Previous")
-#define KXMLQLCVCCueListPlayback        QString("Playback")
-#define KXMLQLCVCCueListStop            QString("Stop")
-#define KXMLQLCVCCueListCrossfadeLeft   QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight  QString("CrossRight")
-#define KXMLQLCVCCueListSlidersMode     QString("SlidersMode")
+#define KXMLQLCVCCueListCrossfade QString("Crossfade")
+#define KXMLQLCVCCueListBlend QString("Blend")
+#define KXMLQLCVCCueListLinked QString("Linked")
+#define KXMLQLCVCCueListNext QString("Next")
+#define KXMLQLCVCCueListPrevious QString("Previous")
+#define KXMLQLCVCCueListPlayback QString("Playback")
+#define KXMLQLCVCCueListStop QString("Stop")
+#define KXMLQLCVCCueListCrossfadeLeft QString("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight QString("CrossRight")
+#define KXMLQLCVCCueListSlidersMode QString("SlidersMode")
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.
@@ -88,7 +88,7 @@ public:
      *************************************************************************/
 public:
     /** Constructor */
-    VCCueList(QWidget *parent, Doc *doc);
+    VCCueList(QWidget* parent, Doc* doc);
 
     /** Destructor */
     ~VCCueList();
@@ -101,11 +101,11 @@ public:
      *************************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget* createCopy(VCWidget* parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget *widget);
+    bool copyFrom(const VCWidget* widget);
 
     /*************************************************************************
      * Cue list
@@ -118,7 +118,7 @@ public:
     quint32 chaserID() const;
 
     /** Get the chaser function that is used as cue list steps */
-    Chaser *chaser();
+    Chaser* chaser();
 
 public:
     /** Get the currently selected item index, otherwise 0 */
@@ -162,7 +162,7 @@ private:
     void updateStepList();
 
     /** timer for updating the step list */
-    QTimer *m_updateTimer;
+    QTimer* m_updateTimer;
 
 public slots:
     /** Play/stop/resume the cue list from the current selection */
@@ -195,11 +195,11 @@ private slots:
 
     /** Slot that is called whenever the current item changes (either by
         pressing the key binding or clicking an item with mouse) */
-    void slotItemActivated(QTreeWidgetItem *item);
+    void slotItemActivated(QTreeWidgetItem* item);
 
     /** Slot that is called whenever an item field has been changed.
         Note that only 'Notes" column is considered */
-    void slotItemChanged(QTreeWidgetItem*item, int column);
+    void slotItemChanged(QTreeWidgetItem* item, int column);
 
     /** Slot called whenever a function is started */
     void slotFunctionRunning(quint32 fid);
@@ -246,16 +246,16 @@ private:
 
     NextPrevBehavior m_nextPrevBehavior;
     PlaybackLayout m_playbackLayout;
-    QTreeWidget *m_tree;
-    QToolButton *m_crossfadeButton;
-    QToolButton *m_playbackButton;
-    QToolButton *m_stopButton;
-    QToolButton *m_previousButton;
-    QToolButton *m_nextButton;
-    QProgressBar *m_progress;
+    QTreeWidget* m_tree;
+    QToolButton* m_crossfadeButton;
+    QToolButton* m_playbackButton;
+    QToolButton* m_stopButton;
+    QToolButton* m_previousButton;
+    QToolButton* m_nextButton;
+    QProgressBar* m_progress;
     bool m_listIsUpdating;
 
-    QTimer *m_timer;
+    QTimer* m_timer;
 
     /*************************************************************************
      * Crossfade
@@ -282,14 +282,14 @@ protected slots:
     void slotSideFaderValueChanged(int value);
 
 protected:
-    void stopStepIfNeeded(Chaser *ch);
+    void stopStepIfNeeded(Chaser* ch);
 
 private:
-    QLabel *m_topPercentageLabel;
-    QLabel *m_topStepLabel;
-    ClickAndGoSlider *m_sideFader;
-    QLabel *m_bottomPercentageLabel;
-    QLabel *m_bottomStepLabel;
+    QLabel* m_topPercentageLabel;
+    QLabel* m_topStepLabel;
+    ClickAndGoSlider* m_sideFader;
+    QLabel* m_bottomPercentageLabel;
+    QLabel* m_bottomStepLabel;
 
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
@@ -386,10 +386,10 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

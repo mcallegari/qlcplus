@@ -30,12 +30,12 @@
 #include "vcslider.h"
 #include "gradient.h"
 
-#define CELL_W  150
-#define CELL_H  45
-#define TITLE_H  18
+#define CELL_W 150
+#define CELL_H 45
+#define TITLE_H 18
 
-ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
-    QWidget(parent)
+ClickAndGoWidget::ClickAndGoWidget(QWidget* parent)
+    : QWidget(parent)
 {
     // This makes the application crash when a clickAndGoWidget
     // is created in a QDialog.
@@ -59,7 +59,7 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
 
 void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
 {
-    QLinearGradient linearGrad(QPointF(10,0), QPointF(266, 0));
+    QLinearGradient linearGrad(QPointF(10, 0), QPointF(266, 0));
     linearGrad.setColorAt(0, begin);
     linearGrad.setColorAt(1, end);
 
@@ -103,10 +103,10 @@ void ClickAndGoWidget::setupColorPicker()
     painter.drawImage(cw * 2, 0, Gradient::getRGBGradient());
 }
 
-void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
+void ClickAndGoWidget::setType(int type, const QLCChannel* chan)
 {
     m_linearColor = false;
-    //qDebug() << Q_FUNC_INFO << "Type: " << type;
+    // qDebug() << Q_FUNC_INFO << "Type: " << type;
     if (type == None)
     {
         m_image = QImage();
@@ -155,41 +155,85 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
 {
     switch (type)
     {
-        default:
-        case None: return "None"; break;
-        case Red: return "Red"; break;
-        case Green: return "Green"; break;
-        case Blue: return "Blue"; break;
-        case Cyan: return "Cyan"; break;
-        case Magenta: return "Magenta"; break;
-        case Yellow: return "Yellow"; break;
-        case Amber: return "Amber"; break;
-        case White: return "White"; break;
-        case UV: return "UV"; break;
-        case Lime: return "Lime"; break;
-        case Indigo: return "Indigo"; break;
-        case RGB: return "RGB"; break;
-        case CMY: return "CMY"; break;
-        case Preset: return "Preset"; break;
+    default:
+    case None:
+        return "None";
+        break;
+    case Red:
+        return "Red";
+        break;
+    case Green:
+        return "Green";
+        break;
+    case Blue:
+        return "Blue";
+        break;
+    case Cyan:
+        return "Cyan";
+        break;
+    case Magenta:
+        return "Magenta";
+        break;
+    case Yellow:
+        return "Yellow";
+        break;
+    case Amber:
+        return "Amber";
+        break;
+    case White:
+        return "White";
+        break;
+    case UV:
+        return "UV";
+        break;
+    case Lime:
+        return "Lime";
+        break;
+    case Indigo:
+        return "Indigo";
+        break;
+    case RGB:
+        return "RGB";
+        break;
+    case CMY:
+        return "CMY";
+        break;
+    case Preset:
+        return "Preset";
+        break;
     }
 }
 
 ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString str)
 {
-    if (str == "Red") return Red;
-    else if (str == "Green") return Green;
-    else if (str == "Blue") return Blue;
-    else if (str == "Cyan") return Cyan;
-    else if (str == "Magenta") return Magenta;
-    else if (str == "Yellow") return Yellow;
-    else if (str == "Amber") return Amber;
-    else if (str == "White") return White;
-    else if (str == "UV") return UV;
-    else if (str == "Lime") return Lime;
-    else if (str == "Indigo") return Indigo;
-    else if (str == "RGB") return RGB;
-    else if (str == "CMY") return CMY;
-    else if (str == "Preset") return Preset;
+    if (str == "Red")
+        return Red;
+    else if (str == "Green")
+        return Green;
+    else if (str == "Blue")
+        return Blue;
+    else if (str == "Cyan")
+        return Cyan;
+    else if (str == "Magenta")
+        return Magenta;
+    else if (str == "Yellow")
+        return Yellow;
+    else if (str == "Amber")
+        return Amber;
+    else if (str == "White")
+        return White;
+    else if (str == "UV")
+        return UV;
+    else if (str == "Lime")
+        return Lime;
+    else if (str == "Indigo")
+        return Indigo;
+    else if (str == "RGB")
+        return RGB;
+    else if (str == "CMY")
+        return CMY;
+    else if (str == "Preset")
+        return Preset;
 
     return None;
 }
@@ -201,7 +245,7 @@ QColor ClickAndGoWidget::getColorAt(uchar pos)
         QRgb col = m_image.pixel(10 + pos, 10);
         return QColor(col);
     }
-    return QColor(0,0,0);
+    return QColor(0, 0, 0);
 }
 
 QImage ClickAndGoWidget::getImageFromValue(uchar value)
@@ -210,7 +254,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
      *  the pre-loaded resource */
     if (m_type == Preset)
     {
-        foreach(PresetResource res, m_resources)
+        foreach (PresetResource res, m_resources)
         {
             if (value >= res.m_min && value <= res.m_max)
                 return res.m_thumbnail;
@@ -231,7 +275,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
     return img;
 }
 
-void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
+void ClickAndGoWidget::createPresetList(const QLCChannel* chan)
 {
     int i = 1;
     if (chan == NULL)
@@ -240,14 +284,13 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
     m_title = chan->name();
     m_resources.clear();
 
-    //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
+    // qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
-    foreach(QLCCapability* cap, chan->capabilities())
+    foreach (QLCCapability* cap, chan->capabilities())
     {
         if (cap->presetType() == QLCCapability::Picture)
         {
-            m_resources.append(PresetResource(cap->resource(0).toString(), cap->name(),
-                                              cap->min(), cap->max()));
+            m_resources.append(PresetResource(cap->resource(0).toString(), cap->name(), cap->min(), cap->max()));
         }
         else if (cap->presetType() == QLCCapability::SingleColor)
         {
@@ -273,7 +316,7 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
-    QScreen *scr = QGuiApplication::screens().first();
+    QScreen* scr = QGuiApplication::screens().first();
     QRect screen = scr->availableGeometry();
 
     m_cols = 2;
@@ -302,7 +345,7 @@ void ClickAndGoWidget::setupPresetPicker()
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
-    QLinearGradient presetGrad(QPointF(0,0), QPointF(0, m_height));
+    QLinearGradient presetGrad(QPointF(0, 0), QPointF(0, m_height));
     presetGrad.setColorAt(0, QApplication::palette().window().color());
     presetGrad.setColorAt(1, QColor(173, 171, 179));
     painter.fillRect(0, 0, m_width, m_height, presetGrad);
@@ -318,7 +361,7 @@ void ClickAndGoWidget::setupPresetPicker()
         painter.setPen(Qt::black);
         painter.drawRect(x, y, m_cellWidth, CELL_H);
         painter.drawImage(x + 1, y + 4, res.m_thumbnail);
-        painter.drawText(x + 43, y + 4, m_cellWidth - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
+        painter.drawText(x + 43, y + 4, m_cellWidth - 42, CELL_H - 5, Qt::TextWordWrap | Qt::AlignVCenter, res.m_descr);
         if (i % m_cols == m_cols - 1)
         {
             y += CELL_H;
@@ -326,7 +369,6 @@ void ClickAndGoWidget::setupPresetPicker()
         }
         else
             x += m_cellWidth;
-
     }
 }
 
@@ -335,7 +377,7 @@ QSize ClickAndGoWidget::sizeHint() const
     return QSize(m_width, m_height);
 }
 
-void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
+void ClickAndGoWidget::mousePressEvent(QMouseEvent* event)
 {
     if (m_linearColor == true)
     {
@@ -357,17 +399,15 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
             PresetResource res = m_resources.at(m_hoverCellIdx);
             qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min << "max:" << res.m_max;
 
-            float f = SCALE(float(m_cellBarWidth),
-                        float(0),
-                        float(m_cellWidth),
-                        float(0), float(res.m_max - res.m_min));
+            float f =
+                SCALE(float(m_cellBarWidth), float(0), float(m_cellWidth), float(0), float(res.m_max - res.m_min));
             emit levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
         }
     }
     QWidget::mousePressEvent(event);
 }
 
-void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
+void ClickAndGoWidget::mouseMoveEvent(QMouseEvent* event)
 {
     if (m_linearColor == true && event->buttons() == Qt::LeftButton)
     {
@@ -403,7 +443,7 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void ClickAndGoWidget::paintEvent(QPaintEvent *event)
+void ClickAndGoWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
 
@@ -428,12 +468,11 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     m_thumbnail.fill(Qt::white);
     QPainter painter(&m_thumbnail);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
-    painter.drawImage(QRect(0,0,40,40), px);
-    //qDebug() << "PATH: adding " << path << ", descr: " << text;
+    painter.drawImage(QRect(0, 0, 40, 40), px);
+    // qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
 
-ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
-                                                 QString text, uchar min, uchar max)
+ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2, QString text, uchar min, uchar max)
 {
     m_descr = text;
     m_min = min;
@@ -447,7 +486,7 @@ ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
         painter.fillRect(0, 0, 20, 40, color1);
         painter.fillRect(20, 0, 40, 40, color2);
     }
-    //qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
+    // qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
 }
 
 ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar min, uchar max)
@@ -462,8 +501,6 @@ ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar 
     tfont.setPixelSize(20);
     QPainter painter(&m_thumbnail);
     painter.setFont(tfont);
-    painter.drawText(0, 0, 40, 40, Qt::AlignHCenter|Qt::AlignVCenter, QString("%1").arg(index));
-    //qDebug() << "GENERIC: adding " << index << ", descr: " << text;
+    painter.drawText(0, 0, 40, 40, Qt::AlignHCenter | Qt::AlignVCenter, QString("%1").arg(index));
+    // qDebug() << "GENERIC: adding " << index << ", descr: " << text;
 }
-
-

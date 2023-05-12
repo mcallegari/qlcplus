@@ -20,18 +20,16 @@
 #include "modelselector.h"
 #include "listmodel.h"
 
-ModelSelector::ModelSelector(QObject *parent)
+ModelSelector::ModelSelector(QObject* parent)
     : QObject(parent)
     , m_previousIndex(-1)
     , m_itemsCount(0)
 {
 }
 
-ModelSelector::~ModelSelector()
-{
-}
+ModelSelector::~ModelSelector() {}
 
-void ModelSelector::selectSingleItem(int index, ListModel *model)
+void ModelSelector::selectSingleItem(int index, ListModel* model)
 {
     if (model == nullptr)
         return;
@@ -42,12 +40,12 @@ void ModelSelector::selectSingleItem(int index, ListModel *model)
     m_itemsCount++;
 }
 
-void ModelSelector::selectItem(int index, ListModel *model, int keyModifiers)
+void ModelSelector::selectItem(int index, ListModel* model, int keyModifiers)
 {
     if (model == nullptr)
         return;
 
-    //qDebug() << "select item with index:" << index;
+    // qDebug() << "select item with index:" << index;
     if (keyModifiers == 0)
         resetSelection(model);
 
@@ -72,9 +70,9 @@ void ModelSelector::selectItem(int index, ListModel *model, int keyModifiers)
     emit itemsCountChanged(m_itemsCount);
 }
 
-void ModelSelector::resetSelection(ListModel *model)
+void ModelSelector::resetSelection(ListModel* model)
 {
-    for (quint32 &sidx : m_selectedIndices)
+    for (quint32& sidx : m_selectedIndices)
     {
         QModelIndex idx = model->index(int(sidx), 0, QModelIndex());
         model->setDataWithRole(idx, "isSelected", false);
@@ -88,7 +86,7 @@ void ModelSelector::resetSelection(ListModel *model)
 QVariantList ModelSelector::itemsList()
 {
     QVariantList list;
-    for (quint32 &sidx : m_selectedIndices)
+    for (quint32& sidx : m_selectedIndices)
         list.append(sidx);
 
     return list;
@@ -98,5 +96,3 @@ int ModelSelector::itemsCount() const
 {
     return m_itemsCount;
 }
-
-

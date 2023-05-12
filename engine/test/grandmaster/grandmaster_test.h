@@ -39,8 +39,7 @@ private slots:
     void value();
 
 private:
-
-    GrandMaster *m_gm;
+    GrandMaster* m_gm;
 };
 
 #endif

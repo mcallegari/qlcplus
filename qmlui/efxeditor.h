@@ -42,9 +42,12 @@ class EFXEditor : public FunctionEditor
     Q_PROPERTY(int algorithmXOffset READ algorithmXOffset WRITE setAlgorithmXOffset NOTIFY algorithmXOffsetChanged)
     Q_PROPERTY(int algorithmYOffset READ algorithmYOffset WRITE setAlgorithmYOffset NOTIFY algorithmYOffsetChanged)
     Q_PROPERTY(int algorithmRotation READ algorithmRotation WRITE setAlgorithmRotation NOTIFY algorithmRotationChanged)
-    Q_PROPERTY(int algorithmStartOffset READ algorithmStartOffset WRITE setAlgorithmStartOffset NOTIFY algorithmStartOffsetChanged)
-    Q_PROPERTY(int algorithmXFrequency READ algorithmXFrequency WRITE setAlgorithmXFrequency NOTIFY algorithmXFrequencyChanged)
-    Q_PROPERTY(int algorithmYFrequency READ algorithmYFrequency WRITE setAlgorithmYFrequency NOTIFY algorithmYFrequencyChanged)
+    Q_PROPERTY(int algorithmStartOffset READ algorithmStartOffset WRITE setAlgorithmStartOffset NOTIFY
+                   algorithmStartOffsetChanged)
+    Q_PROPERTY(
+        int algorithmXFrequency READ algorithmXFrequency WRITE setAlgorithmXFrequency NOTIFY algorithmXFrequencyChanged)
+    Q_PROPERTY(
+        int algorithmYFrequency READ algorithmYFrequency WRITE setAlgorithmYFrequency NOTIFY algorithmYFrequencyChanged)
     Q_PROPERTY(int algorithmXPhase READ algorithmXPhase WRITE setAlgorithmXPhase NOTIFY algorithmXPhaseChanged)
     Q_PROPERTY(int algorithmYPhase READ algorithmYPhase WRITE setAlgorithmYPhase NOTIFY algorithmYPhaseChanged)
 
@@ -57,7 +60,7 @@ class EFXEditor : public FunctionEditor
     Q_PROPERTY(QVariantList fixturesData READ fixturesData NOTIFY fixturesDataChanged)
 
 public:
-    EFXEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    EFXEditor(QQuickView* view, Doc* doc, QObject* parent = 0);
     ~EFXEditor();
 
     /** Set the ID of the EFX to edit */
@@ -68,7 +71,7 @@ protected slots:
 
 private:
     /** Reference of the EFX currently being edited */
-    EFX *m_efx;
+    EFX* m_efx;
 
     /************************************************************************
      * Algorithm
@@ -181,9 +184,9 @@ signals:
 
 private:
     /** Reference to a ListModel representing the fixtures list for the QML UI */
-    ListModel *m_fixtureList;
+    ListModel* m_fixtureList;
     /** Data model used by the QML UI to represent groups/fixtures/heads */
-    TreeModel *m_fixtureTree;
+    TreeModel* m_fixtureTree;
 
     qreal m_maxPanDegrees, m_maxTiltDegrees;
 

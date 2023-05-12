@@ -23,20 +23,18 @@
 #include "audiodecoder.h"
 #include "audiorenderer_coreaudio.h"
 
-AudioRendererCoreAudio::AudioRendererCoreAudio(QObject * parent)
+AudioRendererCoreAudio::AudioRendererCoreAudio(QObject* parent)
     : AudioRenderer(parent)
 {
     m_buffersFilled = 0;
     m_bufferIndex = 0;
 }
 
-AudioRendererCoreAudio::~AudioRendererCoreAudio()
-{
-}
+AudioRendererCoreAudio::~AudioRendererCoreAudio() {}
 
-void AudioRendererCoreAudio::inCallback(void *inUserData, AudioQueueRef, AudioQueueBufferRef)
+void AudioRendererCoreAudio::inCallback(void* inUserData, AudioQueueRef, AudioQueueBufferRef)
 {
-    AudioRendererCoreAudio *CAobj = (AudioRendererCoreAudio *)inUserData;
+    AudioRendererCoreAudio* CAobj = (AudioRendererCoreAudio*)inUserData;
     qDebug() << "inCallback called !!";
     CAobj->m_buffersFilled--;
 }
@@ -69,11 +67,11 @@ bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat form
         qWarning("AudioRendererCoreAudio: unsupported format detected");
         return false;
     }
-    fmt.mBytesPerFrame = fmt.mChannelsPerFrame * fmt.mBitsPerChannel/8;
+    fmt.mBytesPerFrame = fmt.mChannelsPerFrame * fmt.mBitsPerChannel / 8;
     fmt.mBytesPerPacket = fmt.mBytesPerFrame * fmt.mFramesPerPacket;
 
     status = AudioQueueNewOutput(&fmt, AudioRendererCoreAudio::inCallback, this, CFRunLoopGetMain(),
-                    kCFRunLoopCommonModes, 0, &m_queue);
+                                 kCFRunLoopCommonModes, 0, &m_queue);
 
     if (status == kAudioFormatUnsupportedDataFormatError)
     {
@@ -85,7 +83,7 @@ bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat form
 
     for (int i = 0; i < AUDIO_BUFFERS_NUM; i++)
     {
-        status = AudioQueueAllocateBuffer (m_queue, AUDIO_BUFFER_SIZE, &m_buffer[i]);
+        status = AudioQueueAllocateBuffer(m_queue, AUDIO_BUFFER_SIZE, &m_buffer[i]);
         qDebug() << Q_FUNC_INFO << "Buffer #" << i << " allocate status: " << status;
     }
 
@@ -104,9 +102,9 @@ qint64 AudioRendererCoreAudio::latency()
     return 0;
 }
 
-qint64 AudioRendererCoreAudio::writeAudio(unsigned char *data, qint64 maxSize)
+qint64 AudioRendererCoreAudio::writeAudio(unsigned char* data, qint64 maxSize)
 {
-    if(m_buffersFilled == AUDIO_BUFFERS_NUM)
+    if (m_buffersFilled == AUDIO_BUFFERS_NUM)
         return 0;
 
     qint64 size = maxSize;
@@ -125,9 +123,7 @@ qint64 AudioRendererCoreAudio::writeAudio(unsigned char *data, qint64 maxSize)
     return size;
 }
 
-void AudioRendererCoreAudio::drain()
-{
-}
+void AudioRendererCoreAudio::drain() {}
 
 void AudioRendererCoreAudio::reset()
 {

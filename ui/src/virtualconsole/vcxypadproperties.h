@@ -46,16 +46,16 @@ class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties, public DM
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadProperties(VCXYPad *xypad, Doc *doc);
+    VCXYPadProperties(VCXYPad* xypad, Doc* doc);
     ~VCXYPadProperties();
 
 private:
-    VCXYPad *m_xypad;
-    Doc *m_doc;
-    InputSelectionWidget *m_panInputWidget;
-    InputSelectionWidget *m_tiltInputWidget;
-    InputSelectionWidget *m_widthInputWidget;
-    InputSelectionWidget *m_heightInputWidget;
+    VCXYPad* m_xypad;
+    Doc* m_doc;
+    InputSelectionWidget* m_panInputWidget;
+    InputSelectionWidget* m_tiltInputWidget;
+    InputSelectionWidget* m_widthInputWidget;
+    InputSelectionWidget* m_heightInputWidget;
 
     /********************************************************************
      * Fixtures page
@@ -63,11 +63,11 @@ private:
 private:
     void fillFixturesTree();
     void updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
-    QList <VCXYPadFixture> selectedFixtures() const;
+    QList<VCXYPadFixture> selectedFixtures() const;
     QTreeWidgetItem* fixtureItem(const VCXYPadFixture& fxi);
 
     void updateFixtureItem(QTreeWidgetItem* item, const VCXYPadFixture& fxi);
-    void removeFixtureItem(GroupHead const & head);
+    void removeFixtureItem(GroupHead const& head);
 
 private slots:
     void slotAddClicked();
@@ -93,19 +93,19 @@ private slots:
      ********************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 private:
     void updatePresetsTree();
     void selectItemOnPresetsTree(quint8 presetId);
     void updateTreeItem(VCXYPadPreset const& preset);
-    VCXYPadPreset *getSelectedPreset();
+    VCXYPadPreset* getSelectedPreset();
     void removePreset(quint8 id);
 
-    //move preset up and swap id with previous preset. Return new preset id.
+    // move preset up and swap id with previous preset. Return new preset id.
     quint8 moveUpPreset(quint8 id);
 
-    //move preset down and swap id with the next preset. Return new preset id.
+    // move preset down and swap id with the next preset. Return new preset id.
     quint8 moveDownPreset(quint8 id);
 
 protected slots:
@@ -123,14 +123,14 @@ protected slots:
     void slotKeySequenceChanged(QKeySequence key);
 
 private:
-    VCXYPadArea *m_xyArea;
-    InputSelectionWidget *m_presetInputWidget;
+    VCXYPadArea* m_xyArea;
+    InputSelectionWidget* m_presetInputWidget;
 
     quint8 m_lastAssignedID;
     QList<VCXYPadPreset*> m_presetList;
 
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 
     /********************************************************************
      * OK/Cancel

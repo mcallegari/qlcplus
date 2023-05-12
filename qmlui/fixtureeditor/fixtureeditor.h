@@ -33,7 +33,7 @@ class FixtureEditor : public QObject
     Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
 
 public:
-    FixtureEditor(QQuickView *view, Doc *doc, QObject *parent = nullptr);
+    FixtureEditor(QQuickView* view, Doc* doc, QObject* parent = nullptr);
     ~FixtureEditor();
 
     /** Return the definitions user folder absolute location */
@@ -63,15 +63,15 @@ signals:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** Persistent working path across sessions */
     QString m_workingPath;
     /** The last assigned editor ID */
     int m_lastId;
     /** Map of id / references to the open editors */
-    QMap<int, EditorView *>m_editors;
+    QMap<int, EditorView*> m_editors;
 };
 
 #endif // FIXTUREEDITOR_H

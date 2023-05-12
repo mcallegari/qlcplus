@@ -22,7 +22,7 @@
 
 #include "vclabel.h"
 
-VCLabel::VCLabel(Doc *doc, QObject *parent)
+VCLabel::VCLabel(Doc* doc, QObject* parent)
     : VCWidget(doc, parent)
 {
     setType(VCWidget::LabelWidget);
@@ -45,12 +45,12 @@ void VCLabel::setupLookAndFeel(qreal pixelDensity, int page)
     setDefaultFontSize(pixelDensity * 3.5);
 }
 
-void VCLabel::render(QQuickView *view, QQuickItem *parent)
+void VCLabel::render(QQuickView* view, QQuickItem* parent)
 {
     if (view == nullptr || parent == nullptr)
         return;
 
-    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCLabelItem.qml"));
+    QQmlComponent* component = new QQmlComponent(view->engine(), QUrl("qrc:/VCLabelItem.qml"));
 
     if (component->isError())
     {
@@ -64,11 +64,11 @@ void VCLabel::render(QQuickView *view, QQuickItem *parent)
     m_item->setProperty("labelObj", QVariant::fromValue(this));
 }
 
-VCWidget *VCLabel::createCopy(VCWidget *parent)
+VCWidget* VCLabel::createCopy(VCWidget* parent)
 {
     Q_ASSERT(parent != nullptr);
 
-    VCLabel *label = new VCLabel(m_doc, parent);
+    VCLabel* label = new VCLabel(m_doc, parent);
     if (label->copyFrom(this) == false)
     {
         delete label;
@@ -82,7 +82,7 @@ VCWidget *VCLabel::createCopy(VCWidget *parent)
  * Load & Save
  *********************************************************************/
 
-bool VCLabel::loadXML(QXmlStreamReader &root)
+bool VCLabel::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCLabel)
     {
@@ -116,7 +116,7 @@ bool VCLabel::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCLabel::saveXML(QXmlStreamWriter *doc)
+bool VCLabel::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != nullptr);
 

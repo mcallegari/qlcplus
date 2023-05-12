@@ -34,7 +34,7 @@
  *  If the need arises, Universe::slotGMValueChanged() needs to be fixed (recompute
  *  all channels, for the case when mode is changed from AllChannels to Intensity)
  */
-class GrandMaster: public QObject
+class GrandMaster : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(GrandMaster)
@@ -67,8 +67,8 @@ public:
 
     enum SliderMode
     {
-        Normal,     /** GM slider in normal mode 0-255 */
-        Inverted    /** GM Slider inverted mode 255-0 */
+        Normal,  /** GM slider in normal mode 0-255 */
+        Inverted /** GM Slider inverted mode 255-0 */
     };
 
     static ValueMode stringToValueMode(const QString& str);

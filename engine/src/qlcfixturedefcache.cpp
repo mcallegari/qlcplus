@@ -24,9 +24,9 @@
 #include <QSet>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#   include <windows.h>
+  #include <windows.h>
 #else
-#   include <unistd.h>
+  #include <unistd.h>
 #endif
 
 #include "qlcfixturedefcache.h"
@@ -38,19 +38,16 @@
 #define FIXTURES_MAP_NAME QString("FixturesMap.xml")
 #define KXMLQLCFixtureMap QString("FixturesMap")
 
-QLCFixtureDefCache::QLCFixtureDefCache()
-{
-}
+QLCFixtureDefCache::QLCFixtureDefCache() {}
 
 QLCFixtureDefCache::~QLCFixtureDefCache()
 {
     clear();
 }
 
-QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
-    const QString& manufacturer, const QString& model) const
+QLCFixtureDef* QLCFixtureDefCache::fixtureDef(const QString& manufacturer, const QString& model) const
 {
-    QListIterator <QLCFixtureDef*> it(m_defs);
+    QListIterator<QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
     {
         QLCFixtureDef* def = it.next();
@@ -66,10 +63,10 @@ QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
 
 QStringList QLCFixtureDefCache::manufacturers() const
 {
-    QSet <QString> makers;
+    QSet<QString> makers;
 
     // Gather a list of manufacturers
-    QListIterator <QLCFixtureDef*> it(m_defs);
+    QListIterator<QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
         makers << it.next()->manufacturer();
 
@@ -83,8 +80,8 @@ QStringList QLCFixtureDefCache::manufacturers() const
 
 QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
 {
-    QSet <QString> models;
-    QListIterator <QLCFixtureDef*> it(m_defs);
+    QSet<QString> models;
+    QListIterator<QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
     {
         QLCFixtureDef* def = it.next();
@@ -100,14 +97,14 @@ QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
     return list;
 }
 
-QMap<QString, QMap<QString, bool> > QLCFixtureDefCache::fixtureCache() const
+QMap<QString, QMap<QString, bool>> QLCFixtureDefCache::fixtureCache() const
 {
-    QMap<QString, QMap<QString, bool> > map;
+    QMap<QString, QMap<QString, bool>> map;
 
-    QListIterator <QLCFixtureDef*> it(m_defs);
+    QListIterator<QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
     {
-        QLCFixtureDef *def = it.next();
+        QLCFixtureDef* def = it.next();
         map[def->manufacturer()][def->model()] = def->isUser();
     }
 
@@ -126,8 +123,7 @@ bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "Cache already contains"
-                   << fixtureDef->name();
+        qWarning() << Q_FUNC_INFO << "Cache already contains" << fixtureDef->name();
         return false;
     }
 }
@@ -173,7 +169,7 @@ bool QLCFixtureDefCache::load(const QDir& dir)
     return true;
 }
 
-int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer)
+int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader* doc, QString manufacturer)
 {
     int count = 0;
     QString spacedManufacturer = manufacturer;
@@ -189,19 +185,19 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manuf
             if (doc->attributes().hasAttribute("n"))
             {
                 defFile = QString("%1%2%3%4")
-                            .arg(manufacturer).arg(QDir::separator())
-                            .arg(doc->attributes().value("n").toString()).arg(KExtFixture);
-                //qDebug() << "Manufacturer" << spacedManufacturer << "file" << defFile;
+                              .arg(manufacturer)
+                              .arg(QDir::separator())
+                              .arg(doc->attributes().value("n").toString())
+                              .arg(KExtFixture);
+                // qDebug() << "Manufacturer" << spacedManufacturer << "file" << defFile;
             }
 
             if (doc->attributes().hasAttribute("m"))
                 model = doc->attributes().value("m").toString();
 
-            if (defFile.isEmpty() == false &&
-                spacedManufacturer.isEmpty() == false &&
-                model.isEmpty() == false)
+            if (defFile.isEmpty() == false && spacedManufacturer.isEmpty() == false && model.isEmpty() == false)
             {
-                QLCFixtureDef *fxi = new QLCFixtureDef();
+                QLCFixtureDef* fxi = new QLCFixtureDef();
                 Q_ASSERT(fxi != NULL);
 
                 fxi->setDefinitionSourceFile(defFile);
@@ -225,7 +221,7 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manuf
     return count;
 }
 
-bool QLCFixtureDefCache::loadMap(const QDir &dir)
+bool QLCFixtureDefCache::loadMap(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
@@ -241,7 +237,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
     // definition absolute path
     m_mapAbsolutePath = dir.absolutePath();
 
-    QXmlStreamReader *doc = QLCFile::getXMLReader(mapPath);
+    QXmlStreamReader* doc = QLCFile::getXMLReader(mapPath);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << mapPath;
@@ -354,7 +350,7 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
 
 bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
 {
-    QLCFixtureDef *fxi = new QLCFixtureDef();
+    QLCFixtureDef* fxi = new QLCFixtureDef();
     Q_ASSERT(fxi != NULL);
 
     QFile::FileError error = fxi->loadXML(path);
@@ -369,8 +365,8 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "Fixture definition loading from"
-                   << path << "failed:" << QLCFile::errorString(error);
+        qWarning() << Q_FUNC_INFO << "Fixture definition loading from" << path
+                   << "failed:" << QLCFile::errorString(error);
         delete fxi;
         fxi = NULL;
         return false;
@@ -380,12 +376,11 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
 
 bool QLCFixtureDefCache::loadD4(const QString& path)
 {
-    QLCFixtureDef *fxi = new QLCFixtureDef();
+    QLCFixtureDef* fxi = new QLCFixtureDef();
     AvolitesD4Parser parser;
     if (parser.loadXML(path, fxi) == false)
     {
-        qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path
-                   << ":" << parser.lastError();
+        qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path << ":" << parser.lastError();
         delete fxi;
         return false;
     }

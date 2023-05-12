@@ -58,8 +58,8 @@ public:
     static const QString systemLegacy;
     static const QString systemCmd;
 
-    static const QString waitKeyCmd; // LEGACY - NOT USED
-    static const QString blackoutOn; // LEGACY - NOT USED
+    static const QString waitKeyCmd;  // LEGACY - NOT USED
+    static const QString blackoutOn;  // LEGACY - NOT USED
     static const QString blackoutOff; // LEGACY - NOT USED
 
     /************************************************************************
@@ -119,23 +119,23 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer *timer);
+    void preRun(MasterTimer* timer);
 
     /** @reimp */
-    void write(MasterTimer *timer, QList<Universe*> universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimp */
-    void postRun(MasterTimer *timer, QList<Universe*> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:
     void slotRunnerFinished();
@@ -147,7 +147,7 @@ private:
      *
      * @return the randomized value requested
      */
-    static quint32 getValueFromString(QString str, bool *ok);
+    static quint32 getValueFromString(QString str, bool* ok);
 
     /**
      * Parse one line of script data into a list of token string lists
@@ -162,8 +162,8 @@ private:
     static QString convertLegacyMethod(QString method);
 
 private:
-    ScriptRunner *m_runner;
-    QList <int> m_syntaxErrorLines;
+    ScriptRunner* m_runner;
+    QList<int> m_syntaxErrorLines;
 };
 
 /** @} */

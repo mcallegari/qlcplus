@@ -37,7 +37,8 @@
 #include "vclabel.h"
 #include "doc.h"
 
-VCLabel::VCLabel(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+VCLabel::VCLabel(QWidget* parent, Doc* doc)
+    : VCWidget(parent, doc)
 {
     /* Set the class name "VCLabel" as the object name as well */
     setObjectName(VCLabel::staticMetaObject.className());
@@ -47,9 +48,7 @@ VCLabel::VCLabel(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     resize(QSize(100, 30));
 }
 
-VCLabel::~VCLabel()
-{
-}
+VCLabel::~VCLabel() {}
 
 /*****************************************************************************
  * Clipboard
@@ -76,8 +75,7 @@ VCWidget* VCLabel::createCopy(VCWidget* parent)
 void VCLabel::editProperties()
 {
     bool ok = false;
-    QString text = QInputDialog::getText(NULL, tr("Rename Label"), tr("Caption:"),
-                                         QLineEdit::Normal, caption(), &ok);
+    QString text = QInputDialog::getText(NULL, tr("Rename Label"), tr("Caption:"), QLineEdit::Normal, caption(), &ok);
     if (ok == true)
         setCaption(text);
 }
@@ -86,7 +84,7 @@ void VCLabel::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCLabel::loadXML(QXmlStreamReader &root)
+bool VCLabel::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCLabel)
     {
@@ -121,7 +119,7 @@ bool VCLabel::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCLabel::saveXML(QXmlStreamWriter *doc)
+bool VCLabel::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -153,8 +151,8 @@ void VCLabel::paintEvent(QPaintEvent* e)
         enabled = true;
 
     QPainter painter(this);
-    style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(),
-                          enabled, caption(), foregroundRole());
+    style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), enabled, caption(),
+                          foregroundRole());
     painter.end();
 
     VCWidget::paintEvent(e);

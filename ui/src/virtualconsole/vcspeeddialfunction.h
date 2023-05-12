@@ -53,31 +53,31 @@ public:
     /**
      * Get the ordered list of existing speed multiplier names
      */
-    static const QStringList &speedMultiplierNames();
+    static const QStringList& speedMultiplierNames();
     /**
      * Get the ordered list of existing speed multiplier values, times 1000
      * (value for multiplier 1/4 will be 250)
      */
-    static const QVector <quint32> &speedMultiplierValuesTimes1000();
+    static const QVector<quint32>& speedMultiplierValuesTimes1000();
 
     /************************************************************************
      * Initialization
      ***********************************************************************/
 public:
     /** Construct a new VCSpeedDialFunction with the given attributes */
-    VCSpeedDialFunction(quint32 aFid = Function::invalidId(),
-            SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
+    VCSpeedDialFunction(quint32 aFid = Function::invalidId(), SpeedMultiplier aFadeIn = None,
+                        SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
 
     /************************************************************************
      * Load & Save
      ***********************************************************************/
 public:
     /** Load SpeedDialFunction with default values for multipliers */
-    bool loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn = None,
-                 SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
+    bool loadXML(QXmlStreamReader& root, SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None,
+                 SpeedMultiplier aDuration = One);
 
     /** Save SpeedDialFunction contents to $doc, under $root */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 
 public:
     quint32 functionId;

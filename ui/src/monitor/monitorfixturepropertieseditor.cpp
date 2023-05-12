@@ -24,13 +24,12 @@
 #include "monitorfixtureitem.h"
 #include "monitorproperties.h"
 
-MonitorFixturePropertiesEditor::MonitorFixturePropertiesEditor(
-        MonitorFixtureItem *fxItem, MonitorGraphicsView *gfxView,
-        MonitorProperties *props, QWidget *parent) :
-    QWidget(parent)
-  , m_fxItem(fxItem)
-  , m_gfxView(gfxView)
-  , m_props(props)
+MonitorFixturePropertiesEditor::MonitorFixturePropertiesEditor(MonitorFixtureItem* fxItem, MonitorGraphicsView* gfxView,
+                                                               MonitorProperties* props, QWidget* parent)
+    : QWidget(parent)
+    , m_fxItem(fxItem)
+    , m_gfxView(gfxView)
+    , m_props(props)
 {
     Q_ASSERT(fxItem != NULL);
     Q_ASSERT(gfxView != NULL);
@@ -64,29 +63,21 @@ MonitorFixturePropertiesEditor::MonitorFixturePropertiesEditor(
         m_gelColorButton->setIcon(QIcon(pm));
     }
 
-    connect(m_xPosSpin, SIGNAL(valueChanged(double)),
-            this, SLOT(slotSetPosition()));
-    connect(m_yPosSpin, SIGNAL(valueChanged(double)),
-            this, SLOT(slotSetPosition()));
-    connect(m_rotationSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotRotationChanged(int)));
-    connect(m_gelColorButton, SIGNAL(clicked()),
-            this, SLOT(slotGelColorClicked()));
-    connect(m_gelResetButton, SIGNAL(clicked()),
-            this, SLOT(slotGelResetClicked()));
+    connect(m_xPosSpin, SIGNAL(valueChanged(double)), this, SLOT(slotSetPosition()));
+    connect(m_yPosSpin, SIGNAL(valueChanged(double)), this, SLOT(slotSetPosition()));
+    connect(m_rotationSpin, SIGNAL(valueChanged(int)), this, SLOT(slotRotationChanged(int)));
+    connect(m_gelColorButton, SIGNAL(clicked()), this, SLOT(slotGelColorClicked()));
+    connect(m_gelResetButton, SIGNAL(clicked()), this, SLOT(slotGelResetClicked()));
 }
 
-MonitorFixturePropertiesEditor::~MonitorFixturePropertiesEditor()
-{
-
-}
+MonitorFixturePropertiesEditor::~MonitorFixturePropertiesEditor() {}
 
 void MonitorFixturePropertiesEditor::slotSetPosition()
 {
     QPointF itemPos(m_xPosSpin->value() * 1000, m_yPosSpin->value() * 1000);
     m_fxItem->setPos(m_gfxView->realPositionToPixels(itemPos.x(), itemPos.y()));
     m_fxItem->setRealPosition(itemPos);
-    m_props->setFixturePosition(m_fxItem->fixtureID(), 0, 0,QVector3D(itemPos.x(), itemPos.y(), 0));
+    m_props->setFixturePosition(m_fxItem->fixtureID(), 0, 0, QVector3D(itemPos.x(), itemPos.y(), 0));
 }
 
 void MonitorFixturePropertiesEditor::slotRotationChanged(int value)
@@ -116,4 +107,3 @@ void MonitorFixturePropertiesEditor::slotGelResetClicked()
     m_fxItem->setGelColor(QColor());
     m_props->setFixtureGelColor(m_fxItem->fixtureID(), 0, 0, QColor());
 }
-

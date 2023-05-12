@@ -24,19 +24,19 @@
 
 #define KXMLQLCVCButton QString("Button")
 
-#define KXMLQLCVCButtonFunction     QString("Function")
-#define KXMLQLCVCButtonFunctionID   QString("ID")
+#define KXMLQLCVCButtonFunction QString("Function")
+#define KXMLQLCVCButtonFunctionID QString("ID")
 
-#define KXMLQLCVCButtonAction           QString("Action")
-#define KXMLQLCVCButtonActionFlash      QString("Flash")
-#define KXMLQLCVCButtonActionToggle     QString("Toggle")
-#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
-#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
+#define KXMLQLCVCButtonAction QString("Action")
+#define KXMLQLCVCButtonActionFlash QString("Flash")
+#define KXMLQLCVCButtonActionToggle QString("Toggle")
+#define KXMLQLCVCButtonActionBlackout QString("Blackout")
+#define KXMLQLCVCButtonActionStopAll QString("StopAll")
 
-#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
+#define KXMLQLCVCButtonStopAllFadeTime QString("FadeOut")
 
-#define KXMLQLCVCButtonIntensity        QString("Intensity")
-#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
+#define KXMLQLCVCButtonIntensity QString("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust QString("Adjust")
 
 class FunctionParent;
 
@@ -47,15 +47,17 @@ class VCButton : public VCWidget
     Q_PROPERTY(ButtonAction actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
     Q_PROPERTY(ButtonState state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
-    Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY startupIntensityEnabledChanged)
+    Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY
+                   startupIntensityEnabledChanged)
     Q_PROPERTY(qreal startupIntensity READ startupIntensity WRITE setStartupIntensity NOTIFY startupIntensityChanged)
-    Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
+    Q_PROPERTY(
+        int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    VCButton(Doc* doc = nullptr, QObject *parent = nullptr);
+    VCButton(Doc* doc = nullptr, QObject* parent = nullptr);
     virtual ~VCButton();
 
     /** @reimp */
@@ -65,13 +67,13 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView* view, QQuickItem* parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget* createCopy(VCWidget* parent);
 
 protected:
     /** @reimp */
@@ -98,7 +100,7 @@ public:
     quint32 functionID() const;
 
     /** @reimp */
-    void adjustFunctionIntensity(Function *f, qreal value);
+    void adjustFunctionIntensity(Function* f, qreal value);
 
     /** @reimp */
     void adjustIntensity(qreal val);
@@ -110,7 +112,7 @@ public:
     Q_INVOKABLE void requestStateChange(bool pressed);
 
     /** @reimp */
-    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
+    void notifyFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity);
 
 signals:
     void functionIDChanged(quint32 id);
@@ -165,7 +167,13 @@ public:
      * Blackout: Toggle blackout on/off.
      * StopAll: Stop all functions (panic button).
      */
-    enum ButtonAction { Toggle, Flash, Blackout, StopAll };
+    enum ButtonAction
+    {
+        Toggle,
+        Flash,
+        Blackout,
+        StopAll
+    };
     Q_ENUM(ButtonAction)
 
     ButtonAction actionType() const;
@@ -227,10 +235,10 @@ public slots:
 
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 #endif

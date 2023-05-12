@@ -28,9 +28,9 @@
 #include "speeddial.h"
 #include "apputil.h"
 
-#define WINDOW_FLAGS Qt::WindowFlags( \
-    (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | \
-     Qt::WindowStaysOnTopHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
+#define WINDOW_FLAGS                                                                                                   \
+  Qt::WindowFlags((Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint |             \
+                   Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
 
 #define SETTINGS_GEOMETRY "speeddialwidget/geometry"
 #define SETTINGS_DIRECTION "speeddialwidget/direction"
@@ -82,8 +82,7 @@ SpeedDialWidget::SpeedDialWidget(QWidget* parent)
     m_optionalTextEdit = new QLineEdit(m_optionalTextGroup);
     m_optionalTextGroup->layout()->addWidget(m_optionalTextEdit);
     m_optionalTextGroup->setVisible(false);
-    connect(m_optionalTextEdit, SIGNAL(textEdited(const QString&)),
-            this, SIGNAL(optionalTextEdited(const QString&)));
+    connect(m_optionalTextEdit, SIGNAL(textEdited(const QString&)), this, SIGNAL(optionalTextEdited(const QString&)));
 
     lay->addStretch();
 

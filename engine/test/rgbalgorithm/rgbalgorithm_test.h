@@ -35,8 +35,9 @@ private slots:
     void algorithms();
     void algorithm();
     void loader();
+
 private:
-   Doc * m_doc;
+    Doc* m_doc;
 };
 
 #endif

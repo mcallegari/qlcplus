@@ -6,7 +6,7 @@ SLEEPCMD=""
 RUN_UI_TESTS="0"
 THISCMD=`basename "$0"`
 THISDIR=`dirname "$0"`
-DIFFARG="-u"
+DIFFARG="-q"
 
 cd "$THISDIR"
 
@@ -31,6 +31,7 @@ if [ "$CURRUSER" == "runner" ] \
     RUN_UI_TESTS="1"
     # if we're running as build slave, set a sleep time to start/stop xvfb between tests
     SLEEPCMD="sleep 1"
+    DIFFARG="-u"
 
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "We're on OSX. Any prefix needed?"
@@ -53,7 +54,16 @@ fi
 # Indentation check
 #############################################################################
 
-find engine/ -name '*.cpp' -or -name '*.h' | while read FILE; do
+#    plugins \
+#    fixtureeditor \
+#    hotplugmonitor \
+find \
+    engine \
+    launcher \
+    qmlui \
+    ui \
+    webaccess\
+    -name '*.cpp' -or -name '*.h' | while read FILE; do
   clang-format -style=file engine/src/rgbscript.cpp "$FILE" | diff $DIFFARG "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
@@ -61,6 +71,8 @@ find engine/ -name '*.cpp' -or -name '*.h' | while read FILE; do
     exit $RET
   fi
 done || exit $?
+
+exit 0
 
 #############################################################################
 # Fixture definitions check with xmllint

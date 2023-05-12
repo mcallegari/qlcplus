@@ -19,7 +19,7 @@
 
 #include <QPluginLoader>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-#include <QMediaDevices>
+  #include <QMediaDevices>
 #endif
 #include <QDebug>
 
@@ -28,46 +28,44 @@
 #include "qlcfile.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-  #include "audiorenderer_portaudio.h"
- #elif defined(WIN32) || defined(Q_OS_WIN)
-  #include "audiorenderer_waveout.h"
- #else
-  #include "audiorenderer_alsa.h"
- #endif
+  #if defined(__APPLE__) || defined(Q_OS_MAC)
+    #include "audiorenderer_portaudio.h"
+  #elif defined(WIN32) || defined(Q_OS_WIN)
+    #include "audiorenderer_waveout.h"
+  #else
+    #include "audiorenderer_alsa.h"
+  #endif
 #elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
- #include "audiorenderer_qt5.h"
+  #include "audiorenderer_qt5.h"
 #else
- #include "audiorenderer_qt6.h"
+  #include "audiorenderer_qt6.h"
 #endif
 
-AudioPluginCache::AudioPluginCache(QObject *parent)
+AudioPluginCache::AudioPluginCache(QObject* parent)
     : QObject(parent)
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
+  #if defined(__APPLE__) || defined(Q_OS_MAC)
     m_audioDevicesList = AudioRendererPortAudio::getDevicesInfo();
- #elif defined(WIN32) || defined(Q_OS_WIN)
+  #elif defined(WIN32) || defined(Q_OS_WIN)
     m_audioDevicesList = AudioRendererWaveOut::getDevicesInfo();
- #else
+  #else
     m_audioDevicesList = AudioRendererAlsa::getDevicesInfo();
- #endif
+  #endif
 #else
- #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+  #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_audioDevicesList = AudioRendererQt5::getDevicesInfo();
     m_outputDevicesList = QAudioDeviceInfo::availableDevices(QAudio::AudioOutput);
- #else
+  #else
     m_audioDevicesList = AudioRendererQt6::getDevicesInfo();
     m_outputDevicesList = QMediaDevices::audioOutputs();
- #endif
+  #endif
 #endif
 }
 
-AudioPluginCache::~AudioPluginCache()
-{
-}
+AudioPluginCache::~AudioPluginCache() {}
 
-void AudioPluginCache::load(const QDir &dir)
+void AudioPluginCache::load(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
@@ -84,7 +82,7 @@ void AudioPluginCache::load(const QDir &dir)
         QString path = dir.absoluteFilePath(fileName);
 
         QPluginLoader loader(path, this);
-        AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
+        AudioDecoder* ptr = qobject_cast<AudioDecoder*>(loader.instance());
         if (ptr != NULL)
         {
             qDebug() << "Loaded audio decoder plugin from" << fileName;
@@ -102,10 +100,10 @@ void AudioPluginCache::load(const QDir &dir)
 QStringList AudioPluginCache::getSupportedFormats()
 {
     QStringList caps;
-    foreach(QString path, m_pluginsMap.values())
+    foreach (QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
-        AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
+        AudioDecoder* ptr = qobject_cast<AudioDecoder*>(loader.instance());
         if (ptr != NULL)
         {
             ptr->initialize("");
@@ -117,24 +115,24 @@ QStringList AudioPluginCache::getSupportedFormats()
     return caps;
 }
 
-AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
+AudioDecoder* AudioPluginCache::getDecoderForFile(const QString& filename)
 {
     QFile fn(filename);
     if (fn.exists() == false)
         return NULL;
 
-    foreach(QString path, m_pluginsMap.values())
+    foreach (QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
-        AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
+        AudioDecoder* ptr = qobject_cast<AudioDecoder*>(loader.instance());
         if (ptr != NULL)
         {
             ptr->initialize("");
-            AudioDecoder* copy = qobject_cast<AudioDecoder*> (ptr->createCopy());
+            AudioDecoder* copy = qobject_cast<AudioDecoder*>(ptr->createCopy());
             if (copy->initialize(filename) == false)
             {
                 loader.unload();
-                //delete copy;
+                // delete copy;
                 continue;
             }
             return copy;
@@ -152,7 +150,7 @@ QList<AudioDeviceInfo> AudioPluginCache::audioDevicesList() const
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
 {
-    foreach (const QAudioDeviceInfo &deviceInfo, m_outputDevicesList)
+    foreach (const QAudioDeviceInfo& deviceInfo, m_outputDevicesList)
     {
         if (deviceInfo.deviceName() == devName)
             return deviceInfo;
@@ -163,7 +161,7 @@ QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
 #else
 QAudioDevice AudioPluginCache::getOutputDeviceInfo(QString devName) const
 {
-    foreach (const QAudioDevice &deviceInfo, m_outputDevicesList)
+    foreach (const QAudioDevice& deviceInfo, m_outputDevicesList)
     {
         if (deviceInfo.description() == devName)
             return deviceInfo;

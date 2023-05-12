@@ -116,12 +116,12 @@ signals:
 
 private:
     /** Execute one timer tick for each registered Function */
-    void timerTickFunctions(QList<Universe *> universes);
+    void timerTickFunctions(QList<Universe*> universes);
 
 private:
     /** List of currently running functions */
-    QList <Function*> m_functionList;
-    QList <Function*> m_startQueue;
+    QList<Function*> m_functionList;
+    QList<Function*> m_startQueue;
 
     /** Mutex that guards access to m_startQueue */
     QMutex m_functionListMutex;
@@ -140,7 +140,7 @@ public:
      *
      * @param source The DMXSource to register
      */
-    virtual void registerDMXSource(DMXSource *source);
+    virtual void registerDMXSource(DMXSource* source);
 
     /**
      * Unregister a previously registered DMXSource. This should be called
@@ -148,15 +148,15 @@ public:
      *
      * @param source The DMXSource to unregister
      */
-    virtual void unregisterDMXSource(DMXSource *source);
+    virtual void unregisterDMXSource(DMXSource* source);
 
 private:
     /** Execute one timer tick for each registered DMXSource */
-    void timerTickDMXSources(QList<Universe *> universes);
+    void timerTickDMXSources(QList<Universe*> universes);
 
 private:
     /** List of currently registered DMX sources */
-    QList <DMXSource*> m_dmxSourceList;
+    QList<DMXSource*> m_dmxSourceList;
 
     /** Mutex that guards access to m_dmxSourceList
      *
@@ -175,10 +175,10 @@ private:
 public:
     enum BeatsSourceType
     {
-        None,       //! MasterTimer won't bother to perform any beat generation
-        Internal,   //! MasterTimer will be the beat generator
-        External    //! Beats requests will come from an external source,
-                    //! like MIDI beat clock or AudioInput BPM detection
+        None,     //! MasterTimer won't bother to perform any beat generation
+        Internal, //! MasterTimer will be the beat generator
+        External  //! Beats requests will come from an external source,
+                  //! like MIDI beat clock or AudioInput BPM detection
     };
 
     /** Set the type of source for beats generation. */
@@ -236,7 +236,7 @@ private:
     /** Flag to request a beat generation at the next MasterTimer tick */
     bool m_beatRequested;
     /** The reference of a platform dependent timer to measure precise elapsed time */
-    QElapsedTimer *m_beatTimer;
+    QElapsedTimer* m_beatTimer;
     /** Time offset in milliseconds when the last beat occured */
     int m_lastBeatOffset;
 };

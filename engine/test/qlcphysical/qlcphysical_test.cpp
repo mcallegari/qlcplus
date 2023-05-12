@@ -297,7 +297,7 @@ void QLCPhysical_Test::save()
 
     QVERIFY(p.saveXML(&xmlWriter) == true);
 
-    //qDebug() << buffer.buffer();
+    // qDebug() << buffer.buffer();
     xmlWriter.setDevice(NULL);
     buffer.close();
 
@@ -352,8 +352,7 @@ void QLCPhysical_Test::save()
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString())
-                  .toLatin1());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toLatin1());
         }
         xmlReader.skipCurrentElement();
     }

@@ -30,36 +30,36 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define KXMLQLCVCCaption    QString("Caption")
-#define KXMLQLCVCFrameStyle QString("FrameStyle")    // LEGACY
+#define KXMLQLCVCCaption QString("Caption")
+#define KXMLQLCVCFrameStyle QString("FrameStyle") // LEGACY
 
-#define KXMLQLCVCWidgetID           QString("ID")
-#define KXMLQLCVCWidgetPage         QString("Page")
-#define KXMLQLCVCWidgetAppearance   QString("Appearance")
+#define KXMLQLCVCWidgetID QString("ID")
+#define KXMLQLCVCWidgetPage QString("Page")
+#define KXMLQLCVCWidgetAppearance QString("Appearance")
 
-#define KXMLQLCVCWidgetForegroundColor  QString("ForegroundColor")
-#define KXMLQLCVCWidgetBackgroundColor  QString("BackgroundColor")
-#define KXMLQLCVCWidgetColorDefault     QString("Default")
+#define KXMLQLCVCWidgetForegroundColor QString("ForegroundColor")
+#define KXMLQLCVCWidgetBackgroundColor QString("BackgroundColor")
+#define KXMLQLCVCWidgetColorDefault QString("Default")
 
-#define KXMLQLCVCWidgetFont         QString("Font")
-#define KXMLQLCVCWidgetFontDefault  QString("Default")
+#define KXMLQLCVCWidgetFont QString("Font")
+#define KXMLQLCVCWidgetFontDefault QString("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage      QString("BackgroundImage")
-#define KXMLQLCVCWidgetBackgroundImageNone  QString("None")
+#define KXMLQLCVCWidgetBackgroundImage QString("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImageNone QString("None")
 
-#define KXMLQLCWindowState          QString("WindowState")
-#define KXMLQLCWindowStateVisible   QString("Visible")
-#define KXMLQLCWindowStateX         QString("X")
-#define KXMLQLCWindowStateY         QString("Y")
-#define KXMLQLCWindowStateWidth     QString("Width")
-#define KXMLQLCWindowStateHeight    QString("Height")
+#define KXMLQLCWindowState QString("WindowState")
+#define KXMLQLCWindowStateVisible QString("Visible")
+#define KXMLQLCWindowStateX QString("X")
+#define KXMLQLCWindowStateY QString("Y")
+#define KXMLQLCWindowStateWidth QString("Width")
+#define KXMLQLCWindowStateHeight QString("Height")
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey QString("Key")
+#define KXMLQLCVCWidgetInput QString("Input")
+#define KXMLQLCVCWidgetInputUniverse QString("Universe")
+#define KXMLQLCVCWidgetInputChannel QString("Channel")
+#define KXMLQLCVCWidgetInputLowerValue QString("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue QString("UpperValue")
 
 typedef struct
 {
@@ -101,15 +101,15 @@ public:
 
     virtual void setupLookAndFeel(qreal pixelDensity, int page);
 
-    virtual void render(QQuickView *view, QQuickItem *parent);
+    virtual void render(QQuickView* view, QQuickItem* parent);
 
-    QQuickItem *renderItem() const;
+    QQuickItem* renderItem() const;
 
     void enqueueTardisAction(int code, QVariant oldVal, QVariant newVal);
 
     /** Create a copy of this widget into the given parent and return it
-      * Pure virtual method: subclasses must reimplement this */
-    virtual VCWidget *createCopy(VCWidget *parent);
+     * Pure virtual method: subclasses must reimplement this */
+    virtual VCWidget* createCopy(VCWidget* parent);
 
 protected:
     /** Copy the contents for this widget from the given widget */
@@ -120,7 +120,7 @@ protected:
     Doc* m_doc;
 
     /** Reference to the onscreen Quick item */
-    QQuickItem *m_item;
+    QQuickItem* m_item;
 
     /*********************************************************************
      * ID
@@ -279,7 +279,6 @@ protected:
      * Background color
      *********************************************************************/
 public:
-
     /** Get the widget's background color. The color is invalid if the
         widget has a background image. */
     QColor backgroundColor() const;
@@ -391,18 +390,18 @@ public:
      *  and Audio Triggers can benefit from this.
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
-    virtual void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
+    virtual void notifyFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity);
 
-    virtual void adjustFunctionIntensity(Function *f, qreal value);
+    virtual void adjustFunctionIntensity(Function* f, qreal value);
 
     void resetIntensityOverrideAttribute();
 
 signals:
     /** Signal emitted when a VCWidget controlling a Function has been
-      * requested to start the Function.
-      * At the moment this is used by a restriceted number of widgets (see above)
-      */
-    void functionStarting(VCWidget *widget, quint32 fid, qreal intensity = 1.0);
+     * requested to start the Function.
+     * At the moment this is used by a restriceted number of widgets (see above)
+     */
+    void functionStarting(VCWidget* widget, quint32 fid, qreal intensity = 1.0);
 
 protected:
     int m_intensityOverrideId;
@@ -443,7 +442,11 @@ private:
      * External inputs
      *********************************************************************/
 public:
-    enum InputSourceTypes { Controller, Keyboard };
+    enum InputSourceTypes
+    {
+        Controller,
+        Keyboard
+    };
     Q_ENUM(InputSourceTypes)
 
     /*********************************************************************
@@ -474,13 +477,18 @@ public:
 
 protected:
     /** A list of the external controls known by this widget */
-    QMap <quint8, ExternalControlInfo> m_externalControlList;
+    QMap<quint8, ExternalControlInfo> m_externalControlList;
 
     /*********************************************************************
      * Input sources
      *********************************************************************/
 public:
-    enum SourceValueType { ExactValue, LowerValue, UpperValue };
+    enum SourceValueType
+    {
+        ExactValue,
+        LowerValue,
+        UpperValue
+    };
     Q_ENUM(SourceValueType)
 
     /**
@@ -491,7 +499,7 @@ public:
     void addInputSource(QSharedPointer<QLCInputSource> const& source);
 
     /** Update an existing input source with the provided $universe and $channel */
-    bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
+    bool updateInputSource(const QSharedPointer<QLCInputSource>& source, quint32 universe, quint32 channel);
 
     /** Update the control ID of an existing input source bound to $universe and $channel */
     Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
@@ -504,7 +512,7 @@ public:
 
     /** Return a list of references to the input sources currently
      *  added to this widget */
-    QList <QSharedPointer<QLCInputSource> > inputSources() const;
+    QList<QSharedPointer<QLCInputSource>> inputSources() const;
 
     /** Return a list of input sources to be used by the UI */
     QVariantList inputSourcesList();
@@ -543,7 +551,7 @@ public:
     void updateKeySequenceControlID(QKeySequence sequence, quint32 id);
 
     /** Retrieve the whole key sequences map of this widget */
-    QMap <QKeySequence, quint32> keySequenceMap() const;
+    QMap<QKeySequence, quint32> keySequenceMap() const;
 
 public slots:
     /** Virtual slot called when an input value changed */
@@ -554,11 +562,11 @@ signals:
 
 protected:
     /** The list of input sources that can control this widget */
-    QList <QSharedPointer<QLCInputSource> > m_inputSources;
+    QList<QSharedPointer<QLCInputSource>> m_inputSources;
 
     /** The map of key sequences that can control this widget,
      *  arranged by sequence / control ID */
-    QMap <QKeySequence, quint32> m_keySequenceMap;
+    QMap<QKeySequence, quint32> m_keySequenceMap;
 
     QVariantList m_sourcesList;
 
@@ -566,17 +574,17 @@ protected:
      * Load & Save
      *********************************************************************/
 public:
-    virtual bool loadXML(QXmlStreamReader &root);
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool loadXML(QXmlStreamReader& root);
+    virtual bool saveXML(QXmlStreamWriter* doc);
 
 protected:
-    bool loadXMLCommon(QXmlStreamReader &root);
+    bool loadXMLCommon(QXmlStreamReader& root);
 
     /**
      * Read this widget's appearance XML tag, to load properties
      * such as background and foreground color, font, etc..
      */
-    bool loadXMLAppearance(QXmlStreamReader &root);
+    bool loadXMLAppearance(QXmlStreamReader& root);
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
@@ -590,33 +598,32 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
-                            int* w, int* h, bool* visible);
+    bool loadXMLWindowState(QXmlStreamReader& root, int* x, int* y, int* w, int* h, bool* visible);
 
     /** Load an input source from $root with the given $id */
-    bool loadXMLInputSource(QXmlStreamReader &root, const quint8& id = 0);
+    bool loadXMLInputSource(QXmlStreamReader& root, const quint8& id = 0);
 
     /** Load an input key sequence from $root with the given $id */
-    bool loadXMLInputKey(QXmlStreamReader &root, const quint8& id = 0);
+    bool loadXMLInputKey(QXmlStreamReader& root, const quint8& id = 0);
 
     /** Parse the $root XML section and:
      *  - set an input source with the given $id
      *  - if present, set an input key sequence with the given $id
      */
-    bool loadXMLSources(QXmlStreamReader &root, const quint8& id);
+    bool loadXMLSources(QXmlStreamReader& root, const quint8& id);
 
     /** Write the widget common properties */
-    bool saveXMLCommon(QXmlStreamWriter *doc);
+    bool saveXMLCommon(QXmlStreamWriter* doc);
 
     /** Write the widget appearance, if customized */
-    bool saveXMLAppearance(QXmlStreamWriter *doc);
+    bool saveXMLAppearance(QXmlStreamWriter* doc);
 
     /** Write this widget's geometry and visibility to an XML document */
-    bool saveXMLWindowState(QXmlStreamWriter *doc);
+    bool saveXMLWindowState(QXmlStreamWriter* doc);
 
     /** Save all the input sources and key combination with the given $controlId
      *  in a tag with the given $tagName */
-    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName = QString());
+    bool saveXMLInputControl(QXmlStreamWriter* doc, quint8 controlId, QString tagName = QString());
 };
 
 #endif

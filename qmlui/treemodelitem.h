@@ -25,12 +25,12 @@
 
 class TreeModel;
 
-class TreeModelItem: public QObject
+class TreeModelItem : public QObject
 {
     Q_OBJECT
 
 public:
-    TreeModelItem(QString label, QObject *parent = 0);
+    TreeModelItem(QString label, QObject* parent = 0);
     ~TreeModelItem();
 
     /** Get/Set the item display label */
@@ -38,7 +38,7 @@ public:
     void setLabel(QString label);
 
     /** Get/Set the item path, to be used to rebuild
-      * the folder structure */
+     * the folder structure */
     QString path() const;
     void setPath(QString path);
 
@@ -71,7 +71,7 @@ public:
     bool hasChildren();
 
     /** Return a reference to the item's children */
-    TreeModel *children();
+    TreeModel* children();
 
     void printItem(int tab = 0);
 
@@ -80,7 +80,7 @@ private:
     QString m_path;
     int m_flags;
     QVariantList m_data;
-    TreeModel *m_children;
+    TreeModel* m_children;
 };
 
 #endif // TREEMODELITEM_H

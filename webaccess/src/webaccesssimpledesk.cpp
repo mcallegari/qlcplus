@@ -26,12 +26,12 @@
 #include "qlcconfig.h"
 #include "doc.h"
 
-WebAccessSimpleDesk::WebAccessSimpleDesk(QObject *parent) :
-    QObject(parent)
+WebAccessSimpleDesk::WebAccessSimpleDesk(QObject* parent)
+    : QObject(parent)
 {
 }
 
-QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
+QString WebAccessSimpleDesk::getHTML(Doc* doc, SimpleDesk* sd)
 {
     int uni = sd->getCurrentUniverseIndex() + 1;
     int page = sd->getCurrentPage();
@@ -47,27 +47,36 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     CSScode += "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"simpledesk.css\">\n";
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
+                       "<a class=\"button button-blue\" href=\"/\"><span>" +
+                       tr("Back") +
+                       "</span></a>\n"
                        "<a class=\"button button-blue\" href=\"/keypad.html\"><span>DMX Keypad</span></a>\n"
-                       "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
+                       "<div class=\"swInfo\">" +
+                       QString(APPNAME) + " " + QString(APPVERSION) +
+                       "</div>"
                        "</div>\n";
 
     bodyHTML += "<div style=\"margin: 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; color: #fff;\">\n";
-    bodyHTML += tr("Page") + "  <a class=\"sdButton\" href=\"javascript:previousPage();\">\n"
-                "<img src=\"back.png\" title=\""+tr("Previous page")+"\" width=\"27\" ></a>\n";
+    bodyHTML += tr("Page") +
+                "  <a class=\"sdButton\" href=\"javascript:previousPage();\">\n"
+                "<img src=\"back.png\" title=\"" +
+                tr("Previous page") + "\" width=\"27\" ></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block;\">";
     bodyHTML += "<div id=\"pageDiv\" style=\"vertical-align: middle; text-align: center; color: #000;"
                 "width: 50px; background-color: #888; border-radius: 6px;\">" +
-                QString::number(page) +  "</div></div>\n";
+                QString::number(page) + "</div></div>\n";
 
     bodyHTML += "<a class=\"sdButton\" href=\"javascript:nextPage();\">\n"
-                "<img src=\"forward.png\" title=\""+tr("Next page")+"\"  width=\"27\"></a>\n";
+                "<img src=\"forward.png\" title=\"" +
+                tr("Next page") + "\"  width=\"27\"></a>\n";
 
     bodyHTML += "<a class=\"sdButton\" href=\"javascript:resetUniverse();\">\n"
-                "<img src=\"fileclose.png\" title=\""+tr("Reset universe")+"\" width=\"27\"></a>\n";
+                "<img src=\"fileclose.png\" title=\"" +
+                tr("Reset universe") + "\" width=\"27\"></a>\n";
 
-    bodyHTML += "<div style=\"display: inline-block; margin-left: 50px;\">" + tr("Universe") + "</div>\n"
+    bodyHTML += "<div style=\"display: inline-block; margin-left: 50px;\">" + tr("Universe") +
+                "</div>\n"
                 "<div class=\"styled-select\" style=\"display: inline-block;\">\n"
                 "<select onchange=\"universeChanged(this.value);\">\n";
 
@@ -86,12 +95,11 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     return str;
 }
 
-QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,
-                                                quint32 universe, int startAddr, int chNumber)
+QString WebAccessSimpleDesk::getChannelsMessage(Doc* doc, SimpleDesk* sd, quint32 universe, int startAddr, int chNumber)
 {
     QString message;
     quint32 universeAddr = (universe << 9);
-    qDebug () << "Uni addr:" << universeAddr;
+    qDebug() << "Uni addr:" << universeAddr;
 
     for (int i = startAddr; i < startAddr + chNumber; i++)
     {
@@ -100,15 +108,13 @@ QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,
         Fixture* fxi = doc->fixture(doc->fixtureForAddress(universeAddr + i));
         if (fxi != NULL)
         {
-            const QLCChannel *ch = fxi->channel(universeAddr + i - fxi->universeAddress());
+            const QLCChannel* ch = fxi->channel(universeAddr + i - fxi->universeAddress());
             if (ch != NULL)
             {
                 if (ch->group() == QLCChannel::Intensity)
                 {
                     QString hexCol;
-                    type = QString("%1.#%2")
-                            .arg(ch->group())
-                            .arg(hexCol.asprintf("%06X", ch->colour()));
+                    type = QString("%1.#%2").arg(ch->group()).arg(hexCol.asprintf("%06X", ch->colour()));
                 }
                 else
                     type = QString::number(ch->group());

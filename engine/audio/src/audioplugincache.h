@@ -22,9 +22,9 @@
 
 #include <QtGlobal>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
- #include <QAudioDeviceInfo>
+  #include <QAudioDeviceInfo>
 #else
- #include <QAudioDevice>
+  #include <QAudioDevice>
 #endif
 #include <QObject>
 #include <QDir>
@@ -55,7 +55,7 @@ public:
 
     /** Get an audio decoder instance suitable for the given $filename.
      *  If $filename can't be decoded, this method returns NULL */
-    AudioDecoder *getDecoderForFile(const QString& filename);
+    AudioDecoder* getDecoderForFile(const QString& filename);
 
     /** Get the list of cached audio devices detected on creation */
     QList<AudioDeviceInfo> audioDevicesList() const;

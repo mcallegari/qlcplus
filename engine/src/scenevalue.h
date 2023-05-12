@@ -32,7 +32,7 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCSceneValue        QString("Value")
+#define KXMLQLCSceneValue QString("Value")
 #define KXMLQLCSceneValueFixture QString("Fixture")
 #define KXMLQLCSceneValueChannel QString("Channel")
 
@@ -58,9 +58,7 @@ class SceneValue
 {
 public:
     /** Normal constructor */
-    SceneValue(quint32 fxi_id = Fixture::invalidId(),
-               quint32 channel = QLCChannel::invalid(),
-               uchar value = 0);
+    SceneValue(quint32 fxi_id = Fixture::invalidId(), quint32 channel = QLCChannel::invalid(), uchar value = 0);
 
     /** Copy constructor */
     SceneValue(const SceneValue& scv);
@@ -80,16 +78,16 @@ public:
     SceneValue& operator=(const SceneValue& scv);
 
     /** Comparator function for qSort() */
-    bool operator< (const SceneValue& scv) const;
+    bool operator<(const SceneValue& scv) const;
 
     /** Comparator function for matching SceneValues */
-    bool operator== (const SceneValue& scv) const;
+    bool operator==(const SceneValue& scv) const;
 
     /** Load this SceneValue's contents from an XML tag */
-    bool loadXML(QXmlStreamReader &tag);
+    bool loadXML(QXmlStreamReader& tag);
 
     /** Save this SceneValue to an XML document */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 
 public:
     /** Fixture ID */
@@ -100,7 +98,7 @@ public:
 
 Q_DECLARE_METATYPE(SceneValue)
 
-QDebug operator<<(QDebug debug, const SceneValue &sv);
+QDebug operator<<(QDebug debug, const SceneValue& sv);
 
 /** @} */
 

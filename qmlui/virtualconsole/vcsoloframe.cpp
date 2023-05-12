@@ -19,27 +19,25 @@
 
 #include "vcsoloframe.h"
 
-VCSoloFrame::VCSoloFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
+VCSoloFrame::VCSoloFrame(Doc* doc, VirtualConsole* vc, QObject* parent)
     : VCFrame(doc, vc, parent)
 {
     setType(VCWidget::SoloFrameWidget);
 }
 
-VCSoloFrame::~VCSoloFrame()
-{
-}
+VCSoloFrame::~VCSoloFrame() {}
 
 QString VCSoloFrame::defaultCaption()
 {
     return tr("Solo Frame %1").arg(id() + 1);
 }
 
-void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
+void VCSoloFrame::render(QQuickView* view, QQuickItem* parent)
 {
     if (view == nullptr || parent == nullptr)
         return;
 
-    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCFrameItem.qml"));
+    QQmlComponent* component = new QQmlComponent(view->engine(), QUrl("qrc:/VCFrameItem.qml"));
 
     if (component->isError())
     {
@@ -47,7 +45,7 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    QQuickItem* item = qobject_cast<QQuickItem*>(component->create());
 
     item->setParentItem(parent);
     item->setProperty("isSolo", true);
@@ -56,18 +54,18 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
     if (m_pagesMap.count() > 0)
     {
         QString chName = QString("frameDropArea%1").arg(id());
-        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
+        QQuickItem* childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject*>(chName));
 
-        foreach(VCWidget *child, m_pagesMap.keys())
+        foreach (VCWidget* child, m_pagesMap.keys())
             child->render(view, childrenArea);
     }
 }
 
-VCWidget *VCSoloFrame::createCopy(VCWidget *parent)
+VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
 {
     Q_ASSERT(parent != nullptr);
 
-    VCSoloFrame *frame = new VCSoloFrame(m_doc, m_vc, parent);
+    VCSoloFrame* frame = new VCSoloFrame(m_doc, m_vc, parent);
     if (frame->copyFrom(this) == false)
     {
         delete frame;
@@ -77,9 +75,9 @@ VCWidget *VCSoloFrame::createCopy(VCWidget *parent)
     return frame;
 }
 
-bool VCSoloFrame::copyFrom(const VCWidget *widget)
+bool VCSoloFrame::copyFrom(const VCWidget* widget)
 {
-    const VCSoloFrame *frame = qobject_cast<const VCSoloFrame*> (widget);
+    const VCSoloFrame* frame = qobject_cast<const VCSoloFrame*>(widget);
     if (frame == nullptr)
         return false;
 
@@ -92,10 +90,10 @@ bool VCSoloFrame::copyFrom(const VCWidget *widget)
  * Widget Function
  *********************************************************************/
 
-void VCSoloFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity)
+void VCSoloFrame::slotFunctionStarting(VCWidget* widget, quint32 fid, qreal intensity)
 {
     qDebug() << "[VCSoloFrame] requested to start a Function with ID:" << fid << intensity << widget->caption();
-    foreach(VCWidget *child, children(true))
+    foreach (VCWidget* child, children(true))
     {
         if (child != widget)
             child->notifyFunctionStarting(widget, fid, intensity);

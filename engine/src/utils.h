@@ -56,7 +56,6 @@ struct Utils
         }
         vec.append(val);
     }
-
 };
 
 /** @} */

@@ -36,8 +36,8 @@ class SceneValue;
 
 struct RemapInfo
 {
-    QTreeWidgetItem *source;
-    QTreeWidgetItem *target;
+    QTreeWidgetItem* source;
+    QTreeWidgetItem* target;
 };
 
 class FixtureRemap : public QDialog, public Ui_FixtureRemap
@@ -46,26 +46,25 @@ class FixtureRemap : public QDialog, public Ui_FixtureRemap
     Q_DISABLE_COPY(FixtureRemap)
 
 public:
-    explicit FixtureRemap(Doc* doc, QWidget *parent = 0);
+    explicit FixtureRemap(Doc* doc, QWidget* parent = 0);
     ~FixtureRemap();
 
 private:
     Doc* m_doc;
     Doc* m_targetDoc;
-    RemapWidget *remapWidget;
-    QList <RemapInfo> m_remapList;
+    RemapWidget* remapWidget;
+    QList<RemapInfo> m_remapList;
 
 protected:
-    QTreeWidgetItem *getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree);
+    QTreeWidgetItem* getUniverseItem(Doc* doc, quint32 universe, QTreeWidget* tree);
 
-    void fillFixturesTree(Doc *doc, QTreeWidget *tree);
+    void fillFixturesTree(Doc* doc, QTreeWidget* tree);
     void updateTargetFixturesTree();
     QString createImportDialog();
-    void connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem *targetItem);
+    void connectFixtures(QTreeWidgetItem* sourceItem, QTreeWidgetItem* targetItem);
 
-    QList<SceneValue> remapSceneValues(QList<SceneValue> funcList,
-                                       QList<SceneValue> &srcList,
-                                       QList<SceneValue> &tgtList);
+    QList<SceneValue> remapSceneValues(QList<SceneValue> funcList, QList<SceneValue>& srcList,
+                                       QList<SceneValue>& tgtList);
 
 protected slots:
     void slotImportFixtures();
@@ -79,7 +78,6 @@ protected slots:
 
     /** Callback for OK button clicks */
     void accept();
-
 };
 
 /** @} */

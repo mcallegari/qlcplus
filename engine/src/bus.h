@@ -32,11 +32,11 @@ class BusEntry;
  * @{
  */
 
-#define KXMLQLCBus          QString("Bus")
-#define KXMLQLCBusID        QString("ID")
-#define KXMLQLCBusName      QString("Name")
-#define KXMLQLCBusValue     QString("Value")
-#define KXMLQLCBusLowLimit  QString("LowLimit")
+#define KXMLQLCBus QString("Bus")
+#define KXMLQLCBusID QString("ID")
+#define KXMLQLCBusName QString("Name")
+#define KXMLQLCBusValue QString("Value")
+#define KXMLQLCBusLowLimit QString("LowLimit")
 #define KXMLQLCBusHighLimit QString("HighLimit")
 
 #define KXMLQLCBusRole QString("Role")
@@ -128,7 +128,7 @@ protected:
     Bus(QObject* parent);
 
 protected:
-    QList <BusEntry*> m_buses;
+    QList<BusEntry*> m_buses;
     static Bus* s_instance;
 
     /********************************************************************
@@ -217,7 +217,7 @@ signals:
      ********************************************************************/
 public:
     /** Load all buses from an XML document */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 };
 
 /** @} */

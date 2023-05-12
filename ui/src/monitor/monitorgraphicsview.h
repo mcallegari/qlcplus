@@ -38,14 +38,17 @@ class MonitorGraphicsView : public QGraphicsView
     Q_OBJECT
 
 public:
-    MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
+    MonitorGraphicsView(Doc* doc, QWidget* parent = 0);
     ~MonitorGraphicsView();
 
     /** Set the graphics view size in monitor units */
     void setGridSize(QSize size);
 
     /** Get the grid size in monitor units */
-    QSize gridSize() const { return m_gridSize; }
+    QSize gridSize() const
+    {
+        return m_gridSize;
+    }
 
     /** Set the measure unit to use */
     void setGridMetrics(float value);
@@ -55,11 +58,11 @@ public:
     quint32 selectedFixtureID();
 
     /** Return a list of the fixture IDs in the current view */
-    QList <quint32> fixturesID() const;
+    QList<quint32> fixturesID() const;
 
     /** Retrieve the currently selected MonitorFixtureItem.
      *  Return NULL if none */
-    MonitorFixtureItem *getSelectedItem();
+    MonitorFixtureItem* getSelectedItem();
 
     /** Set the gel color of the fixture with the given ID */
     void setFixtureGelColor(quint32 id, QColor col);
@@ -98,7 +101,10 @@ public:
     void setBackgroundImage(QString filename);
 
     /** Retrieve the path to the background image currently set */
-    QString backgroundImage() { return m_backgroundImage; }
+    QString backgroundImage()
+    {
+        return m_backgroundImage;
+    }
 
 protected:
     /** Triggers the whole view repaint and metrics
@@ -106,25 +112,25 @@ protected:
     void updateGrid();
 
     /** Event caught when the GraphicsView is resized */
-    void resizeEvent( QResizeEvent *event );
+    void resizeEvent(QResizeEvent* event);
 
 public slots:
-    void mouseReleaseEvent(QMouseEvent * e);
+    void mouseReleaseEvent(QMouseEvent* e);
 
 protected slots:
     /** Slot called when a MonitorFixtureItem is dropped after a drag */
-    void slotFixtureMoved(MonitorFixtureItem * item);
+    void slotFixtureMoved(MonitorFixtureItem* item);
 
 signals:
     /** Signal emitted after fixture point -> metrics conversion */
     void fixtureMoved(quint32 id, QPointF pos);
 
     /** Signal emitted when the graphics view is clicked */
-    void viewClicked(QMouseEvent * e);
+    void viewClicked(QMouseEvent* e);
 
 private:
-    Doc *m_doc;
-    QGraphicsScene *m_scene;
+    Doc* m_doc;
+    QGraphicsScene* m_scene;
 
     /** Size of the grid. How many horizontal and vertical cells */
     QSize m_gridSize;
@@ -142,7 +148,7 @@ private:
     float m_unitValue;
 
     /** List of Fixture items represented graphically */
-    QList <QGraphicsLineItem *> m_gridItems;
+    QList<QGraphicsLineItem*> m_gridItems;
 
     /** Flag to enable/disable the grid rendering */
     bool m_gridEnabled;
@@ -152,10 +158,10 @@ private:
 
     QPixmap m_bgPixmap;
 
-    QGraphicsPixmapItem *m_bgItem;
+    QGraphicsPixmapItem* m_bgItem;
 
     /** Map of the rendered MonitorFixtureItem with their ID */
-    QHash <quint32, MonitorFixtureItem*> m_fixtures;
+    QHash<quint32, MonitorFixtureItem*> m_fixtures;
 };
 
 /** @} */

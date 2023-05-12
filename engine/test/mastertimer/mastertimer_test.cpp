@@ -47,9 +47,7 @@ void MasterTimer_Test::cleanupTestCase()
     delete m_doc;
 }
 
-void MasterTimer_Test::init()
-{
-}
+void MasterTimer_Test::init() {}
 
 void MasterTimer_Test::cleanup()
 {
@@ -69,7 +67,7 @@ void MasterTimer_Test::initial()
     QVERIFY(mt->m_dmxSourceListMutex.tryLock() == true);
     mt->m_dmxSourceListMutex.unlock();
 
-    //QVERIFY(mt->m_running == false);
+    // QVERIFY(mt->m_running == false);
     QVERIFY(mt->m_stopAllFunctions == false);
 }
 

@@ -21,8 +21,8 @@
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #else
-#   include <sys/types.h>
-#   include <sys/stat.h>
+  #include <sys/types.h>
+  #include <sys/stat.h>
 #endif
 
 #include "qlcfile_test.h"
@@ -33,7 +33,7 @@ void QLCFile_Test::XMLReader()
 {
     QVERIFY(QLCFile::getXMLReader("") == NULL);
 
-    QXmlStreamReader *reader = QLCFile::getXMLReader("readonly.xml.in");
+    QXmlStreamReader* reader = QLCFile::getXMLReader("readonly.xml.in");
 
     QVERIFY(reader != NULL);
     QVERIFY(reader->device() != NULL);
@@ -77,8 +77,7 @@ void QLCFile_Test::getXMLHeader()
             break;
     }
 
-    bool creatorTag = false, author = false, appname = false,
-         appversion = false;
+    bool creatorTag = false, author = false, appname = false, appversion = false;
 
     QVERIFY(xmlReader.hasError() == false);
     QVERIFY(xmlReader.dtdName().toString() == "DocumentTag");
@@ -116,38 +115,22 @@ void QLCFile_Test::getXMLHeader()
 
 void QLCFile_Test::errorString()
 {
-    QCOMPARE(QLCFile::errorString(QFile::NoError),
-             tr("No error occurred."));
-    QCOMPARE(QLCFile::errorString(QFile::ReadError),
-             tr("An error occurred when reading from the file."));
-    QCOMPARE(QLCFile::errorString(QFile::WriteError),
-             tr("An error occurred when writing to the file."));
-    QCOMPARE(QLCFile::errorString(QFile::FatalError),
-             tr("A fatal error occurred."));
-    QCOMPARE(QLCFile::errorString(QFile::ResourceError),
-             tr("Resource error occurred."));
-    QCOMPARE(QLCFile::errorString(QFile::OpenError),
-             tr("The file could not be opened."));
-    QCOMPARE(QLCFile::errorString(QFile::AbortError),
-             tr("The operation was aborted."));
-    QCOMPARE(QLCFile::errorString(QFile::TimeOutError),
-             tr("A timeout occurred."));
-    QCOMPARE(QLCFile::errorString(QFile::UnspecifiedError),
-             tr("An unspecified error occurred."));
-    QCOMPARE(QLCFile::errorString(QFile::RemoveError),
-             tr("The file could not be removed."));
-    QCOMPARE(QLCFile::errorString(QFile::RenameError),
-             tr("The file could not be renamed."));
-    QCOMPARE(QLCFile::errorString(QFile::PositionError),
-             tr("The position in the file could not be changed."));
-    QCOMPARE(QLCFile::errorString(QFile::ResizeError),
-             tr("The file could not be resized."));
-    QCOMPARE(QLCFile::errorString(QFile::PermissionsError),
-             tr("The file could not be accessed."));
-    QCOMPARE(QLCFile::errorString(QFile::CopyError),
-             tr("The file could not be copied."));
-    QCOMPARE(QLCFile::errorString(QFile::FileError(31337)),
-             tr("An unknown error occurred."));
+    QCOMPARE(QLCFile::errorString(QFile::NoError), tr("No error occurred."));
+    QCOMPARE(QLCFile::errorString(QFile::ReadError), tr("An error occurred when reading from the file."));
+    QCOMPARE(QLCFile::errorString(QFile::WriteError), tr("An error occurred when writing to the file."));
+    QCOMPARE(QLCFile::errorString(QFile::FatalError), tr("A fatal error occurred."));
+    QCOMPARE(QLCFile::errorString(QFile::ResourceError), tr("Resource error occurred."));
+    QCOMPARE(QLCFile::errorString(QFile::OpenError), tr("The file could not be opened."));
+    QCOMPARE(QLCFile::errorString(QFile::AbortError), tr("The operation was aborted."));
+    QCOMPARE(QLCFile::errorString(QFile::TimeOutError), tr("A timeout occurred."));
+    QCOMPARE(QLCFile::errorString(QFile::UnspecifiedError), tr("An unspecified error occurred."));
+    QCOMPARE(QLCFile::errorString(QFile::RemoveError), tr("The file could not be removed."));
+    QCOMPARE(QLCFile::errorString(QFile::RenameError), tr("The file could not be renamed."));
+    QCOMPARE(QLCFile::errorString(QFile::PositionError), tr("The position in the file could not be changed."));
+    QCOMPARE(QLCFile::errorString(QFile::ResizeError), tr("The file could not be resized."));
+    QCOMPARE(QLCFile::errorString(QFile::PermissionsError), tr("The file could not be accessed."));
+    QCOMPARE(QLCFile::errorString(QFile::CopyError), tr("The file could not be copied."));
+    QCOMPARE(QLCFile::errorString(QFile::FileError(31337)), tr("An unknown error occurred."));
 }
 
 void QLCFile_Test::version()

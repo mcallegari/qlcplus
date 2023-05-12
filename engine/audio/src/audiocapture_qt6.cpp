@@ -25,7 +25,7 @@
 
 #include "audiocapture_qt6.h"
 
-AudioCaptureQt6::AudioCaptureQt6(QObject * parent)
+AudioCaptureQt6::AudioCaptureQt6(QObject* parent)
     : AudioCapture(parent)
     , m_audioSource(NULL)
     , m_input(NULL)
@@ -48,7 +48,7 @@ bool AudioCaptureQt6::initialize()
     if (var.isValid() == true)
     {
         devName = var.toString();
-        foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioInputs())
+        foreach (const QAudioDevice& deviceInfo, QMediaDevices::audioInputs())
         {
             if (deviceInfo.description() == devName)
             {
@@ -61,7 +61,7 @@ bool AudioCaptureQt6::initialize()
     m_format.setSampleRate(m_sampleRate);
     m_format.setChannelCount(m_channels);
     m_format.setSampleFormat(QAudioFormat::Int16);
-    //m_format.setCodec("audio/pcm");
+    // m_format.setCodec("audio/pcm");
 
     if (!audioDevice.isFormatSupported(m_format))
     {
@@ -118,13 +118,9 @@ void AudioCaptureQt6::setVolume(qreal volume)
         m_audioSource->setVolume(volume);
 }
 
-void AudioCaptureQt6::suspend()
-{
-}
+void AudioCaptureQt6::suspend() {}
 
-void AudioCaptureQt6::resume()
-{
-}
+void AudioCaptureQt6::resume() {}
 
 bool AudioCaptureQt6::readAudio(int maxSize)
 {
@@ -136,7 +132,8 @@ bool AudioCaptureQt6::readAudio(int maxSize)
     QByteArray readBuffer = m_input->readAll();
     m_currentReadBuffer += readBuffer;
 
-    // qDebug() << "[QT readAudio] " << readBuffer.size() << "bytes read -> (" << m_currentReadBuffer.size() << "/" << bufferSize << ")";
+    // qDebug() << "[QT readAudio] " << readBuffer.size() << "bytes read -> (" << m_currentReadBuffer.size() << "/" <<
+    // bufferSize << ")";
 
     if (m_currentReadBuffer.size() < bufferSize)
     {

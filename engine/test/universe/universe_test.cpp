@@ -36,8 +36,10 @@ void Universe_Test::init()
 
 void Universe_Test::cleanup()
 {
-    delete m_uni; m_uni = 0;
-    delete m_gm; m_gm = 0;
+    delete m_uni;
+    m_uni = 0;
+    delete m_gm;
+    m_gm = 0;
 }
 
 void Universe_Test::initial()
@@ -57,11 +59,11 @@ void Universe_Test::initial()
 
     QCOMPARE(preGM.length(), 512);
 
-    QByteArray const *postGM = m_uni->postGMValues();
+    QByteArray const* postGM = m_uni->postGMValues();
     QVERIFY(postGM != NULL);
     QCOMPARE(postGM->length(), 512);
 
-    for(ushort i = 0; i < 512; ++i)
+    for (ushort i = 0; i < 512; ++i)
     {
         QVERIFY(m_uni->channelCapabilities(i) == Universe::Undefined);
         QCOMPARE(int(preGM.at(i)), 0);
@@ -77,11 +79,11 @@ void Universe_Test::channelCapabilities()
     m_uni->setChannelCapability(3, QLCChannel::Tilt, Universe::HTP);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
 
-    QVERIFY(m_uni->channelCapabilities(0) == (Universe::Intensity|Universe::HTP));
-    QVERIFY(m_uni->channelCapabilities(1) == (Universe::Intensity|Universe::HTP));
+    QVERIFY(m_uni->channelCapabilities(0) == (Universe::Intensity | Universe::HTP));
+    QVERIFY(m_uni->channelCapabilities(1) == (Universe::Intensity | Universe::HTP));
     QVERIFY(m_uni->channelCapabilities(2) == Universe::LTP);
     QVERIFY(m_uni->channelCapabilities(3) == Universe::HTP);
-    QVERIFY(m_uni->channelCapabilities(4) == (Universe::Intensity|Universe::HTP));
+    QVERIFY(m_uni->channelCapabilities(4) == (Universe::Intensity | Universe::HTP));
     QCOMPARE(m_uni->totalChannels(), ushort(5));
 }
 
@@ -270,15 +272,15 @@ void Universe_Test::applyGM()
     m_gm->setValue(127);
     for (int i = 0; i < 256; ++i)
     {
-        QCOMPARE(m_uni->applyGM(0, i), uchar(i/2));
+        QCOMPARE(m_uni->applyGM(0, i), uchar(i / 2));
         QCOMPARE(m_uni->applyGM(1, i), uchar(i));
     }
 
     m_gm->setChannelMode(GrandMaster::AllChannels);
     for (int i = 0; i < 256; ++i)
     {
-        QCOMPARE(m_uni->applyGM(0, i), uchar(i/2));
-        QCOMPARE(m_uni->applyGM(1, i), uchar(i/2));
+        QCOMPARE(m_uni->applyGM(0, i), uchar(i / 2));
+        QCOMPARE(m_uni->applyGM(1, i), uchar(i / 2));
     }
 
     m_gm->setValueMode(GrandMaster::Limit);
@@ -426,7 +428,7 @@ void Universe_Test::loadEmpty()
 
     xmlWriter.writeStartElement("Universe");
     xmlWriter.writeAttribute("Name", "Universe 123");
-    //xmlWriter.writeAttribute("ID", "1");
+    // xmlWriter.writeAttribute("ID", "1");
 
     xmlWriter.writeEndDocument();
     xmlWriter.setDevice(NULL);
@@ -438,7 +440,7 @@ void Universe_Test::loadEmpty()
 
     QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
     QCOMPARE(m_uni->name(), QString("Universe 123"));
-    //QCOMPARE(m_uni->id(), 1U);
+    // QCOMPARE(m_uni->id(), 1U);
     QCOMPARE(m_uni->passthrough(), false);
 }
 
@@ -450,7 +452,7 @@ void Universe_Test::loadPassthroughTrue()
 
     xmlWriter.writeStartElement("Universe");
     xmlWriter.writeAttribute("Name", "Universe 123");
-    //xmlWriter.writeAttribute("ID", "1");
+    // xmlWriter.writeAttribute("ID", "1");
     xmlWriter.writeAttribute("Passthrough", "True");
 
     xmlWriter.writeEndDocument();
@@ -463,7 +465,7 @@ void Universe_Test::loadPassthroughTrue()
 
     QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
     QCOMPARE(m_uni->name(), QString("Universe 123"));
-    //QCOMPARE(m_uni->id(), 1U);
+    // QCOMPARE(m_uni->id(), 1U);
     QCOMPARE(m_uni->passthrough(), true);
 }
 
@@ -475,7 +477,7 @@ void Universe_Test::loadPassthrough1()
 
     xmlWriter.writeStartElement("Universe");
     xmlWriter.writeAttribute("Name", "Universe 123");
-    //xmlWriter.writeAttribute("ID", "1");
+    // xmlWriter.writeAttribute("ID", "1");
     xmlWriter.writeAttribute("Passthrough", "1");
 
     xmlWriter.writeEndDocument();
@@ -488,7 +490,7 @@ void Universe_Test::loadPassthrough1()
 
     QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
     QCOMPARE(m_uni->name(), QString("Universe 123"));
-    //QCOMPARE(m_uni->id(), 1U);
+    // QCOMPARE(m_uni->id(), 1U);
     QCOMPARE(m_uni->passthrough(), true);
 }
 
@@ -500,7 +502,7 @@ void Universe_Test::loadWrong()
 
     xmlWriter.writeStartElement("U");
     xmlWriter.writeAttribute("Name", "Universe 123");
-    //xmlWriter.writeAttribute("ID", "1");
+    // xmlWriter.writeAttribute("ID", "1");
     xmlWriter.writeAttribute("Passthrough", "1");
 
     xmlWriter.writeEndDocument();
@@ -522,7 +524,7 @@ void Universe_Test::loadPassthroughFalse()
 
     xmlWriter.writeStartElement("Universe");
     xmlWriter.writeAttribute("Name", "Universe 123");
-    //xmlWriter.writeAttribute("ID", "1");
+    // xmlWriter.writeAttribute("ID", "1");
     xmlWriter.writeAttribute("Passthrough", "False");
 
     xmlWriter.writeEndDocument();
@@ -535,7 +537,7 @@ void Universe_Test::loadPassthroughFalse()
 
     QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
     QCOMPARE(m_uni->name(), QString("Universe 123"));
-    //QCOMPARE(m_uni->id(), 1U);
+    // QCOMPARE(m_uni->id(), 1U);
     QCOMPARE(m_uni->passthrough(), false);
 }
 

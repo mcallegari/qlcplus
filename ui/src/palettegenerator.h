@@ -43,7 +43,7 @@ class Doc;
  * to automatically generate functions for their capabilities (color, gobo..)
  * for easy and quick initial setup.
  */
-class PaletteGenerator: public QObject
+class PaletteGenerator : public QObject
 {
     Q_OBJECT
 
@@ -72,8 +72,8 @@ public:
      * @param doc The Doc object that takes all generated functions
      * @param fxiList List of fixtures to create functions for
      */
-    PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
-                     PaletteType type = Undefined, PaletteSubType subType = None);
+    PaletteGenerator(Doc* doc, const QList<Fixture*>& fxList, PaletteType type = Undefined,
+                     PaletteSubType subType = None);
 
     /** Destructor */
     ~PaletteGenerator();
@@ -109,19 +109,17 @@ public:
      ********************************************************************/
     static QStringList getCapabilities(const Fixture* fixture);
 
-    QList<Scene *> scenes();
-    QList<Chaser *> chasers();
-    QList<RGBMatrix *> matrices();
+    QList<Scene*> scenes();
+    QList<Chaser*> chasers();
+    QList<RGBMatrix*> matrices();
 
     void addToDoc();
 
 private:
     void createColorScene(QList<SceneValue> chMap, QString name, PaletteSubType subType);
 
-    void createRGBCMYScene(QList<SceneValue> rcMap,
-                           QList<SceneValue> gmMap,
-                           QList<SceneValue> byMap,
-                           QString name, bool rgb, PaletteSubType subType);
+    void createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneValue> gmMap, QList<SceneValue> byMap, QString name,
+                           bool rgb, PaletteSubType subType);
 
     void createCapabilityScene(QHash<quint32, quint32> chMap, PaletteSubType subType);
 
@@ -146,12 +144,12 @@ private:
     QString m_name;
     PaletteType m_type;
     PaletteSubType m_subType;
-    QList <Fixture*> m_fixtures;
-    FixtureGroup *m_fixtureGroup;
+    QList<Fixture*> m_fixtures;
+    FixtureGroup* m_fixtureGroup;
     QString m_model;
-    QList <Scene*> m_scenes;
-    QList <Chaser*> m_chasers;
-    QList <RGBMatrix*> m_matrices;
+    QList<Scene*> m_scenes;
+    QList<Chaser*> m_chasers;
+    QList<RGBMatrix*> m_matrices;
 };
 
 /** @} */

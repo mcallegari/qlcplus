@@ -65,7 +65,7 @@ void VCXYPadFixtureEditor_Test::initTestCase()
 
 void VCXYPadFixtureEditor_Test::initial()
 {
-    QList <VCXYPadFixture> list;
+    QList<VCXYPadFixture> list;
 
     VCXYPadFixture fxi(m_doc);
     fxi.setDisplayMode(VCXYPadFixture::Percentage);
@@ -103,7 +103,7 @@ void VCXYPadFixtureEditor_Test::initial()
 
 void VCXYPadFixtureEditor_Test::valueSlots()
 {
-    QList <VCXYPadFixture> list;
+    QList<VCXYPadFixture> list;
     VCXYPadFixtureEditor fe(NULL, list);
 
     fe.m_xMin->setValue(50);
@@ -127,7 +127,7 @@ void VCXYPadFixtureEditor_Test::valueSlots()
 
 void VCXYPadFixtureEditor_Test::accept()
 {
-    QList <VCXYPadFixture> list;
+    QList<VCXYPadFixture> list;
 
     VCXYPadFixture fxi(m_doc);
     fxi.setDisplayMode(VCXYPadFixture::Percentage);

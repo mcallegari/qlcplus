@@ -69,28 +69,18 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
-    connect(m_tree, SIGNAL(itemSelectionChanged()),
-            this, SLOT(slotSelectionChanged()));
-    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
-            this, SLOT(slotTreeDoubleClicked(QTreeWidgetItem*)));
-    connect(m_modeCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotModeActivated(const QString&)));
-    connect(m_universeCombo, SIGNAL(activated(int)),
-            this, SLOT(slotUniverseActivated(int)));
-    connect(m_addressSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotAddressChanged(int)));
-    connect(m_channelsSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotChannelsChanged(int)));
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameEdited(const QString&)));
-    connect(m_gapSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotGapSpinChanged(int)));
-    connect(m_amountSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotAmountSpinChanged(int)));
-    connect(m_searchEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(slotSearchFilterChanged(QString)));
-    connect(m_diptoolButton, SIGNAL(clicked()),
-            this, SLOT(slotDiptoolButtonClicked()));
+    connect(m_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
+    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this,
+            SLOT(slotTreeDoubleClicked(QTreeWidgetItem*)));
+    connect(m_modeCombo, SIGNAL(activated(const QString&)), this, SLOT(slotModeActivated(const QString&)));
+    connect(m_universeCombo, SIGNAL(activated(int)), this, SLOT(slotUniverseActivated(int)));
+    connect(m_addressSpin, SIGNAL(valueChanged(int)), this, SLOT(slotAddressChanged(int)));
+    connect(m_channelsSpin, SIGNAL(valueChanged(int)), this, SLOT(slotChannelsChanged(int)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_gapSpin, SIGNAL(valueChanged(int)), this, SLOT(slotGapSpinChanged(int)));
+    connect(m_amountSpin, SIGNAL(valueChanged(int)), this, SLOT(slotAmountSpinChanged(int)));
+    connect(m_searchEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchFilterChanged(QString)));
+    connect(m_diptoolButton, SIGNAL(clicked()), this, SLOT(slotDiptoolButtonClicked()));
 
     /* Fill fixture definition tree (and select a fixture def) */
     if (fxi != NULL)
@@ -155,11 +145,11 @@ AddFixture::~AddFixture()
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 
     QList<QVariant> expanded;
-    QTreeWidgetItem * root = m_tree->invisibleRootItem();
+    QTreeWidgetItem* root = m_tree->invisibleRootItem();
 
-    for (int i=0; i < root->childCount(); i++)
+    for (int i = 0; i < root->childCount(); i++)
     {
-        QTreeWidgetItem * manuf = root->child(i);
+        QTreeWidgetItem* manuf = root->child(i);
         if (manuf->isExpanded())
         {
             expanded << manuf->text(KColumnName);
@@ -178,7 +168,7 @@ QLCFixtureDef* AddFixture::fixtureDef() const
     return m_fixtureDef;
 }
 
-QLCFixtureMode *AddFixture::mode() const
+QLCFixtureMode* AddFixture::mode() const
 {
     return m_mode;
 }
@@ -222,8 +212,7 @@ bool AddFixture::invalidAddress()
  * Fillers
  *****************************************************************************/
 
-void AddFixture::fillTree(const QString& selectManufacturer,
-                          const QString& selectModel)
+void AddFixture::fillTree(const QString& selectManufacturer, const QString& selectModel)
 {
     QTreeWidgetItem* parent = NULL;
     QTreeWidgetItem* child;
@@ -258,10 +247,9 @@ void AddFixture::fillTree(const QString& selectManufacturer,
         {
             model = modit.next();
 
-            if (filter.isEmpty() == false &&
-                manuf.toLower().contains(filter) == false &&
+            if (filter.isEmpty() == false && manuf.toLower().contains(filter) == false &&
                 model.toLower().contains(filter) == false)
-                    continue;
+                continue;
 
             if (manufAdded == false)
             {
@@ -272,13 +260,12 @@ void AddFixture::fillTree(const QString& selectManufacturer,
             child = new QTreeWidgetItem(parent);
             child->setText(KColumnName, model);
 
-            if (manuf == selectManufacturer &&
-                    model == selectModel)
+            if (manuf == selectManufacturer && model == selectModel)
             {
                 parent->setExpanded(true);
                 m_tree->setCurrentItem(child);
             }
-            else if(expanded.indexOf(manuf) != -1)
+            else if (expanded.indexOf(manuf) != -1)
             {
                 parent->setExpanded(true);
             }
@@ -299,13 +286,12 @@ void AddFixture::fillTree(const QString& selectManufacturer,
         child = new QTreeWidgetItem(parent);
         child->setText(KColumnName, model);
 
-        if (selectManufacturer == KXMLFixtureGeneric &&
-                model == selectModel)
+        if (selectManufacturer == KXMLFixtureGeneric && model == selectModel)
         {
             parent->setExpanded(true);
             m_tree->setCurrentItem(child);
         }
-        else if(expanded.indexOf(manuf) != -1)
+        else if (expanded.indexOf(manuf) != -1)
         {
             parent->setExpanded(true);
         }
@@ -319,8 +305,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
     parent->sortChildren(0, Qt::AscendingOrder);
 
     /* Select generic dimmer by default */
-    if (selectManufacturer == KXMLFixtureGeneric &&
-            selectModel == KXMLFixtureGeneric)
+    if (selectManufacturer == KXMLFixtureGeneric && selectModel == KXMLFixtureGeneric)
     {
         parent->setExpanded(true);
         m_tree->setCurrentItem(child);
@@ -342,7 +327,7 @@ void AddFixture::fillModeCombo(const QString& text)
     {
         m_modeCombo->setEnabled(true);
 
-        QListIterator <QLCFixtureMode*> it(m_fixtureDef->modes());
+        QListIterator<QLCFixtureMode*> it(m_fixtureDef->modes());
         while (it.hasNext() == true)
             m_modeCombo->addItem(it.next()->name());
 
@@ -356,8 +341,7 @@ void AddFixture::findAddress()
 {
     /* Find the next free address space for x fixtures, each taking y
        channels, leaving z channels gap in-between. */
-    quint32 address = findAddress((m_channelsValue + m_gapValue) * m_amountValue,
-                                  m_doc->fixtures(),
+    quint32 address = findAddress((m_channelsValue + m_gapValue) * m_amountValue, m_doc->fixtures(),
                                   m_doc->inputOutputMap()->universesCount());
 
     /* Set the address only if the channel space was really found */
@@ -368,9 +352,7 @@ void AddFixture::findAddress()
     }
 }
 
-quint32 AddFixture::findAddress(quint32 numChannels,
-                                QList<Fixture*> const& fixtures,
-                                quint32 maxUniverses)
+quint32 AddFixture::findAddress(quint32 numChannels, QList<Fixture*> const& fixtures, quint32 maxUniverses)
 {
     /* Try to find contiguous space from one universe at a time */
     for (quint32 universe = 0; universe < maxUniverses; universe++)
@@ -383,8 +365,8 @@ quint32 AddFixture::findAddress(quint32 numChannels,
     return QLCChannel::invalid();
 }
 
-quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
-                                QList<Fixture*> const& fixtures, quint32 currentFixture)
+quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels, QList<Fixture*> const& fixtures,
+                                quint32 currentFixture)
 {
     quint32 freeSpace = 0;
     quint32 maxChannels = 512;
@@ -393,7 +375,7 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
     int map[maxChannels];
     std::fill(map, map + maxChannels, 0);
 
-    QListIterator <Fixture*> fxit(fixtures);
+    QListIterator<Fixture*> fxit(fixtures);
     while (fxit.hasNext() == true)
     {
         Fixture* fxi(fxit.next());
@@ -426,8 +408,7 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
 
 void AddFixture::updateMaximumAmount()
 {
-    m_amountSpin->setRange(1, (513 - m_addressSpin->value()) /
-                           (m_channelsSpin->value() + m_gapSpin->value()));
+    m_amountSpin->setRange(1, (513 - m_addressSpin->value()) / (m_channelsSpin->value() + m_gapSpin->value()));
 }
 
 bool AddFixture::checkAddressAvailability(int value, int channels)
@@ -468,9 +449,7 @@ void AddFixture::slotModeActivated(const QString& modeName)
         QLCChannel* channel = m_mode->channel(i);
         Q_ASSERT(channel != NULL);
 
-        new QListWidgetItem(
-            QString("%1: %2").arg(i + 1).arg(channel->name()),
-            m_channelList);
+        new QListWidgetItem(QString("%1: %2").arg(i + 1).arg(channel->name()), m_channelList);
     }
 }
 
@@ -512,7 +491,7 @@ void AddFixture::slotChannelsChanged(int value)
     checkOverlapping();
 }
 
-void AddFixture::slotNameEdited(const QString &text)
+void AddFixture::slotNameEdited(const QString& text)
 {
     /* If the user clears the text in the name field,
        start substituting the name with the model again. */
@@ -592,7 +571,7 @@ void AddFixture::slotSelectionChanged()
         /* Generic dimmer selected. User enters number of channels. */
         if (m_fixtureID != Fixture::invalidId())
         {
-            Fixture *fxi = m_doc->fixture(m_fixtureID);
+            Fixture* fxi = m_doc->fixture(m_fixtureID);
             if (fxi != NULL)
             {
                 m_fixtureDef = fxi->fixtureDef();
@@ -674,8 +653,7 @@ void AddFixture::slotSelectionChanged()
         m_addressSpin->setValue(1);
 
     /* OK is again possible */
-    m_buttonBox->setStandardButtons(QDialogButtonBox::Ok |
-                                    QDialogButtonBox::Cancel);
+    m_buttonBox->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 }
 
 void AddFixture::slotTreeDoubleClicked(QTreeWidgetItem* item)

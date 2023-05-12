@@ -28,18 +28,17 @@ class FixtureGroup;
 class Fixture;
 class Doc;
 
-#define PROP_ID       Qt::UserRole
+#define PROP_ID Qt::UserRole
 #define PROP_UNIVERSE Qt::UserRole + 1
-#define PROP_GROUP    Qt::UserRole + 2
-#define PROP_HEAD     Qt::UserRole + 3
-#define PROP_CHANNEL  Qt::UserRole + 4
+#define PROP_GROUP Qt::UserRole + 2
+#define PROP_HEAD Qt::UserRole + 3
+#define PROP_CHANNEL Qt::UserRole + 4
 
 class FixtureTreeWidget : public QTreeWidget
 {
     Q_OBJECT
 public:
-
-    FixtureTreeWidget(Doc* doc, quint32 flags, QWidget *parent = 0);
+    FixtureTreeWidget(Doc* doc, quint32 flags, QWidget* parent = 0);
 
     void updateTree();
 
@@ -71,7 +70,7 @@ protected slots:
     void slotItemExpanded();
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
 
     // counters
     int m_universesCount;
@@ -82,17 +81,16 @@ private:
      * Tree visualization flags
      ************************************************************************/
 public:
-
     enum TreeFlags
     {
-        UniverseNumber   = 1 << 0,
-        AddressRange     = 1 << 1,
-        ChannelType      = 1 << 2,
-        HeadsNumber      = 1 << 3,
-        Manufacturer     = 1 << 4,
-        Model            = 1 << 5,
-        ShowGroups       = 1 << 6,
-        ShowHeads        = 1 << 7,
+        UniverseNumber = 1 << 0,
+        AddressRange = 1 << 1,
+        ChannelType = 1 << 2,
+        HeadsNumber = 1 << 3,
+        Manufacturer = 1 << 4,
+        Model = 1 << 5,
+        ShowGroups = 1 << 6,
+        ShowHeads = 1 << 7,
         ChannelSelection = 1 << 8
     };
 
@@ -116,31 +114,31 @@ private:
      ****************************************************************************/
 public:
     /** Disable (==prevent selection of) a list of fixtures */
-    void setDisabledFixtures(const QList <quint32>& disabled);
+    void setDisabledFixtures(const QList<quint32>& disabled);
 
     /** Disable (==prevent selection of) a list of heads */
-    void setDisabledHeads(const QList <GroupHead>& disabled);
+    void setDisabledHeads(const QList<GroupHead>& disabled);
 
 private:
-    QList <quint32> m_disabledFixtures;
-    QList <GroupHead> m_disabledHeads;
+    QList<quint32> m_disabledFixtures;
+    QList<GroupHead> m_disabledHeads;
 
     /************************************************************************
      * Selected items
      ************************************************************************/
 public:
     /** List of selected fixtures */
-    QList <quint32> selectedFixtures();
+    QList<quint32> selectedFixtures();
 
     /** Get a list of selected fixture heads (valid only with ShowHeads flag) */
-    QList <GroupHead> selectedHeads();
+    QList<GroupHead> selectedHeads();
 
 protected:
     void updateSelections();
 
 private:
-    QList <quint32> m_selectedFixtures;
-    QList <GroupHead> m_selectedHeads;
+    QList<quint32> m_selectedFixtures;
+    QList<GroupHead> m_selectedHeads;
 
     /****************************************************************************
      * Channels selection

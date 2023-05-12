@@ -76,7 +76,7 @@ public:
 private:
     Doc* m_doc;
     QMap<QString, RGBScript*> m_scriptsMap; //! One instance of each script, filename-based map
-    RGBScript* m_dummyScript; //! Dummy empty script
+    RGBScript* m_dummyScript;               //! Dummy empty script
 };
 
 /** @} */

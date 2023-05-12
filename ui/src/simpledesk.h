@@ -89,16 +89,16 @@ protected:
     void hideEvent(QHideEvent* ev);
 
     /** @reimp */
-    void resizeEvent(QResizeEvent *ev);
+    void resizeEvent(QResizeEvent* ev);
 
 protected slots:
     void slotDocChanged();
 
 private:
-    static SimpleDesk *s_instance;
-    SimpleDeskEngine *m_engine;
-    QSplitter *m_splitter;
-    Doc *m_doc;
+    static SimpleDesk* s_instance;
+    SimpleDeskEngine* m_engine;
+    QSplitter* m_splitter;
+    Doc* m_doc;
     bool m_docChanged;
 
     /*********************************************************************
@@ -135,28 +135,28 @@ private slots:
     void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
 
 private:
-    QFrame *m_universeGroup;
-    QComboBox *m_universesCombo;
-    QToolButton *m_viewModeButton;
-    QToolButton *m_universePageUpButton;
-    QSpinBox *m_universePageSpin;
-    QToolButton *m_universePageDownButton;
-    QToolButton *m_universeResetButton;
-    GrandMasterSlider *m_grandMasterSlider;
-    QScrollArea *scrollArea;
-    QScrollArea *m_chGroupsArea;
+    QFrame* m_universeGroup;
+    QComboBox* m_universesCombo;
+    QToolButton* m_viewModeButton;
+    QToolButton* m_universePageUpButton;
+    QSpinBox* m_universePageSpin;
+    QToolButton* m_universePageDownButton;
+    QToolButton* m_universeResetButton;
+    GrandMasterSlider* m_grandMasterSlider;
+    QScrollArea* scrollArea;
+    QScrollArea* m_chGroupsArea;
 
     /**
      * List holding pointers to the current view sliders.
      * Their number is always equal to m_channelsPerPage
      */
-    QList <ConsoleChannel*> m_universeSliders;
+    QList<ConsoleChannel*> m_universeSliders;
 
     /**
      * Map of the Fixture ID/FixtureConsole representing
      * each fixture in the selected universe
      */
-    QHash <quint32, FixtureConsole *> m_consoleList;
+    QHash<quint32, FixtureConsole*> m_consoleList;
 
     /** Currently selected universe. Basically the index of m_universesCombo */
     int m_currentUniverse;
@@ -186,9 +186,9 @@ private slots:
     void slotGroupValueChanged(quint32 groupID, uchar value);
 
 private:
-    QTabWidget *m_tabs;
-    QGroupBox *m_playbackGroup;
-    QList <PlaybackSlider*> m_playbackSliders;
+    QTabWidget* m_tabs;
+    QGroupBox* m_playbackGroup;
+    QList<PlaybackSlider*> m_playbackSliders;
     uint m_selectedPlayback;
     uint m_playbacksPerPage;
 
@@ -202,7 +202,7 @@ private:
     void updateSpeedDials();
     void createSpeedDials();
 
-    CueStack *currentCueStack() const;
+    CueStack* currentCueStack() const;
     int currentCueIndex() const;
 
 private slots:
@@ -221,27 +221,27 @@ private slots:
     void slotFadeInDialChanged(int ms);
     void slotFadeOutDialChanged(int ms);
     void slotHoldDialChanged(int ms);
-    void slotDialDestroyed(QObject *);
+    void slotDialDestroyed(QObject*);
     void slotCueNameEdited(const QString& name);
 
 private:
-    QGroupBox *m_cueStackGroup;
-    QToolButton *m_previousCueButton;
-    QToolButton *m_nextCueButton;
-    QToolButton *m_stopCueStackButton;
-    QToolButton *m_cloneCueStackButton;
-    QToolButton *m_editCueStackButton;
-    QToolButton *m_recordCueButton;
-    QTreeView *m_cueStackView;
-    SpeedDialWidget *m_speedDials;
+    QGroupBox* m_cueStackGroup;
+    QToolButton* m_previousCueButton;
+    QToolButton* m_nextCueButton;
+    QToolButton* m_stopCueStackButton;
+    QToolButton* m_cloneCueStackButton;
+    QToolButton* m_editCueStackButton;
+    QToolButton* m_recordCueButton;
+    QTreeView* m_cueStackView;
+    SpeedDialWidget* m_speedDials;
     QModelIndex m_cueDeleteIconIndex;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc) const;
 };
 
 /** @} */

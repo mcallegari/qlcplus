@@ -79,14 +79,10 @@ protected:
     void fillTree();
 
     /** Update the contents of a universe item */
-    void updateUniverseItem(QTreeWidgetItem* item,
-                            quint32 uni,
-                            InputPatch* patch);
+    void updateUniverseItem(QTreeWidgetItem* item, quint32 uni, InputPatch* patch);
 
     /** Update the contents of a channel item */
-    void updateChannelItem(QTreeWidgetItem* item,
-                           quint32 universe,
-                           const QLCInputChannel* channel,
+    void updateChannelItem(QTreeWidgetItem* item, quint32 universe, const QLCInputChannel* channel,
                            const QLCInputProfile* profile);
 
 protected slots:

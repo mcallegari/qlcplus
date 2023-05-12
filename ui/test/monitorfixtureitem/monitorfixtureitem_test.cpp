@@ -118,119 +118,119 @@ void MonitorFixtureItem_Test::computeAlpha()
 
     if (masterDimmer == QLCChannel::invalid() && head1Dimmer == QLCChannel::invalid())
     {
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 127);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
-       }
+        {
+            QByteArray values(fxi->channels(), 127);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 0);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
-       }
+        {
+            QByteArray values(fxi->channels(), 0);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
+        }
     }
     else if (masterDimmer != QLCChannel::invalid() && head1Dimmer == QLCChannel::invalid())
     {
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 127);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)127u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)127u);
-       }
+        {
+            QByteArray values(fxi->channels(), 127);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)127u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)127u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 0);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
-       }
+        {
+            QByteArray values(fxi->channels(), 0);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
+        }
     }
     else if (masterDimmer == QLCChannel::invalid() && head1Dimmer != QLCChannel::invalid())
     {
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 127);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)127u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)127u);
-       }
+        {
+            QByteArray values(fxi->channels(), 127);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)127u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)127u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 0);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
-       }
+        {
+            QByteArray values(fxi->channels(), 0);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
+        }
     }
     else // masterDimmer != QLCChannel::invalid() && head1Dimmer != QLCChannel::invalid()
     {
-       // change both master & head dimmer
+        // change both master & head dimmer
 
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 127);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)63u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)63u);
-       }
+        {
+            QByteArray values(fxi->channels(), 127);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)63u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)63u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), 0);
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
-       }
+        {
+            QByteArray values(fxi->channels(), 0);
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
+        }
 
-       // change only master dimmer
+        // change only master dimmer
 
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           values[masterDimmer] = 127;
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)127u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)127u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            values[masterDimmer] = 127;
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)127u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)127u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           values[masterDimmer] = 0;
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            values[masterDimmer] = 0;
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
+        }
 
-       // change only head dimmer
+        // change only head dimmer
 
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           values[head1Dimmer] = 100;
-           values[head2Dimmer] = (char)200;
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)100u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)200u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            values[head1Dimmer] = 100;
+            values[head2Dimmer] = (char)200;
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)100u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)200u);
+        }
 
-       {
-           QByteArray values(fxi->channels(), (char)255);
-           values[head1Dimmer] = 0;
-           values[head2Dimmer] = 0;
-           QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
-           QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
-       }
+        {
+            QByteArray values(fxi->channels(), (char)255);
+            values[head1Dimmer] = 0;
+            values[head2Dimmer] = 0;
+            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
+            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
+        }
     }
 }
 
@@ -243,53 +243,32 @@ void MonitorFixtureItem_Test::computeAlpha_data()
     QTest::addColumn<quint32>("head1Dimmer");
     QTest::addColumn<quint32>("head2Dimmer");
 
-    QTest::newRow("5 heads with dimmer")
-        << "Showtec"
-        << "Sunstrip Active"
-        << "5 Channels Mode"
-        << QLCChannel::invalid()
-        << 0u
-        << 1u;
+    QTest::newRow("5 heads with dimmer") << "Showtec"
+                                         << "Sunstrip Active"
+                                         << "5 Channels Mode" << QLCChannel::invalid() << 0u << 1u;
 
-    QTest::newRow("4 heads with dimmer and RGB")
-        << "American DJ"
-        << "Quad Scan LED"
-        << "28 Channels mode"
-        << QLCChannel::invalid()
-        << 5u
-        << 12u;
+    QTest::newRow("4 heads with dimmer and RGB") << "American DJ"
+                                                 << "Quad Scan LED"
+                                                 << "28 Channels mode" << QLCChannel::invalid() << 5u << 12u;
 
-    QTest::newRow("Master dimmer and 4 heads with dimmer")
-        << "American DJ"
-        << "Event Bar LED"
-        << "25 Channel Mode"
-        << 24u
-        << 4u
-        << 9u;
+    QTest::newRow("Master dimmer and 4 heads with dimmer") << "American DJ"
+                                                           << "Event Bar LED"
+                                                           << "25 Channel Mode" << 24u << 4u << 9u;
 
     QTest::newRow("Master dimmer and 3 heads with RGB")
         << "American DJ"
         << "Mega Bar LED"
-        << "11 Channels"
-        << 10u
-        << QLCChannel::invalid()
-        << QLCChannel::invalid();
+        << "11 Channels" << 10u << QLCChannel::invalid() << QLCChannel::invalid();
 
     QTest::newRow("Master dimmer and 4 heads with dimmer and RGB")
         << "ADB"
         << "ALC4"
-        << "Extended 21 Channels (CT Linear)"
-        << 0u
-        << 1u
-        << 6u;
+        << "Extended 21 Channels (CT Linear)" << 0u << 1u << 6u;
 
-     QTest::newRow("4 RGB heads")
-        << "American DJ"
-        << "Dotz Bar 1.4"
-        << "12 Channel"
-        << QLCChannel::invalid()
-        << QLCChannel::invalid()
-        << QLCChannel::invalid();
+    QTest::newRow("4 RGB heads") << "American DJ"
+                                 << "Dotz Bar 1.4"
+                                 << "12 Channel" << QLCChannel::invalid() << QLCChannel::invalid()
+                                 << QLCChannel::invalid();
 }
 
 QTEST_MAIN(MonitorFixtureItem_Test)

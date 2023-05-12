@@ -40,19 +40,31 @@ class Doc;
 class VCClockSchedule
 {
 public:
-    VCClockSchedule() { }
+    VCClockSchedule() {}
 
-    void setFunction(quint32 id) { m_id = id; }
-    quint32 function() const { return m_id; }
-    void setTime(QDateTime time) { m_time = time; }
-    QDateTime time() const { return m_time; }
+    void setFunction(quint32 id)
+    {
+        m_id = id;
+    }
+    quint32 function() const
+    {
+        return m_id;
+    }
+    void setTime(QDateTime time)
+    {
+        m_time = time;
+    }
+    QDateTime time() const
+    {
+        return m_time;
+    }
 
     /** Sorting operator */
     bool operator<(const VCClockSchedule& sch) const;
 
     /** Load & Save */
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc);
 
 private:
     quint32 m_id;
@@ -106,7 +118,7 @@ public:
 
 private:
     ClockType m_clocktype;
-    QList<VCClockSchedule>m_scheduleList;
+    QList<VCClockSchedule> m_scheduleList;
     int m_scheduleIndex;
 
 private:
@@ -120,10 +132,22 @@ public:
     void setCountdown(int h, int m, int s);
     void playPauseTimer();
     void resetTimer();
-    long currentTime() { return m_currentTime; }
-    int getHours() { return m_hh; }
-    int getMinutes() { return m_mm; }
-    int getSeconds() { return m_ss; }
+    long currentTime()
+    {
+        return m_currentTime;
+    }
+    int getHours()
+    {
+        return m_hh;
+    }
+    int getMinutes()
+    {
+        return m_mm;
+    }
+    int getSeconds()
+    {
+        return m_ss;
+    }
 
 signals:
     void timeChanged(quint32 time);
@@ -182,7 +206,7 @@ private:
      *********************************************************************/
 public:
     VCWidget* createCopy(VCWidget* parent);
-    bool copyFrom(const VCWidget *widget);
+    bool copyFrom(const VCWidget* widget);
 
     /*********************************************************************
      * Properties
@@ -194,8 +218,8 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /*********************************************************************
      * Painting

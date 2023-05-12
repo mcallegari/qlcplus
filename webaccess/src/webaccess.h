@@ -50,36 +50,35 @@ class WebAccess : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
-                       int portNumber, bool enableAuth, QString passwdFile = QString(),
-                       QObject *parent = 0);
+    explicit WebAccess(Doc* doc, VirtualConsole* vcInstance, SimpleDesk* sdInstance, int portNumber, bool enableAuth,
+                       QString passwdFile = QString(), QObject* parent = 0);
     /** Destructor */
     ~WebAccess();
 
 private:
-    bool sendFile(QHttpResponse *response, QString filename, QString contentType);
+    bool sendFile(QHttpResponse* response, QString filename, QString contentType);
     void sendWebSocketMessage(QByteArray message);
 
-    QString getWidgetBackgroundImage(VCWidget *widget);
-    QString getWidgetHTML(VCWidget *widget);
-    QString getFrameHTML(VCFrame *frame);
-    QString getSoloFrameHTML(VCSoloFrame *frame);
-    QString getButtonHTML(VCButton *btn);
-    QString getSliderHTML(VCSlider *slider);
-    QString getLabelHTML(VCLabel *label);
-    QString getAudioTriggersHTML(VCAudioTriggers *triggers);
-    QString getCueListHTML(VCCueList *cue);
-    QString getClockHTML(VCClock *clock);
+    QString getWidgetBackgroundImage(VCWidget* widget);
+    QString getWidgetHTML(VCWidget* widget);
+    QString getFrameHTML(VCFrame* frame);
+    QString getSoloFrameHTML(VCSoloFrame* frame);
+    QString getButtonHTML(VCButton* btn);
+    QString getSliderHTML(VCSlider* slider);
+    QString getLabelHTML(VCLabel* label);
+    QString getAudioTriggersHTML(VCAudioTriggers* triggers);
+    QString getCueListHTML(VCCueList* cue);
+    QString getClockHTML(VCClock* clock);
 
-    QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
+    QString getChildrenHTML(VCWidget* frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
 
     QString getSimpleDeskHTML();
 
 protected slots:
-    void slotHandleRequest(QHttpRequest *req, QHttpResponse *resp);
-    void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
-    void slotHandleWebSocketClose(QHttpConnection *conn);
+    void slotHandleRequest(QHttpRequest* req, QHttpResponse* resp);
+    void slotHandleWebSocketRequest(QHttpConnection* conn, QString data);
+    void slotHandleWebSocketClose(QHttpConnection* conn);
 
     void slotVCLoaded();
     void slotButtonStateChanged(int state);
@@ -94,16 +93,16 @@ protected:
     QString m_CSScode;
 
 protected:
-    Doc *m_doc;
-    VirtualConsole *m_vc;
-    SimpleDesk *m_sd;
-    WebAccessAuth *m_auth;
+    Doc* m_doc;
+    VirtualConsole* m_vc;
+    SimpleDesk* m_sd;
+    WebAccessAuth* m_auth;
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    WebAccessNetwork *m_netConfig;
+    WebAccessNetwork* m_netConfig;
 #endif
 
-    QHttpServer *m_httpServer;
-    QList<QHttpConnection *> m_webSocketsList;
+    QHttpServer* m_httpServer;
+    QList<QHttpConnection*> m_webSocketsList;
 
     bool m_pendingProjectLoaded;
 
@@ -113,7 +112,6 @@ signals:
     void storeAutostartProject(QString filename);
 
 public slots:
-
 };
 
 #endif // WEBACCESS_H

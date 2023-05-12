@@ -24,10 +24,10 @@
 #include <QPixmap>
 #include <QMouseEvent>
 
-AddressTool::AddressTool(QWidget *parent, int presetValue) :
-    QDialog(parent)
-  , ui(new Ui::AddressTool)
-  , m_dipSwitch(NULL)
+AddressTool::AddressTool(QWidget* parent, int presetValue)
+    : QDialog(parent)
+    , ui(new Ui::AddressTool)
+    , m_dipSwitch(NULL)
 {
     ui->setupUi(this);
     QPixmap px(16, 16);
@@ -47,15 +47,10 @@ AddressTool::AddressTool(QWidget *parent, int presetValue) :
     ui->m_gridLayout->addWidget(m_dipSwitch, 0, 0, 1, 5);
     m_dipSwitch->setMinimumHeight(80);
 
-    connect(ui->m_addressSpin, SIGNAL(valueChanged(int)),
-            m_dipSwitch, SLOT(slotSetValue(int)));
-    connect(m_dipSwitch, SIGNAL(valueChanged(int)),
-            ui->m_addressSpin, SLOT(setValue(int)));
-    connect(ui->m_reverseVertCheck, SIGNAL(toggled(bool)),
-            m_dipSwitch, SLOT(slotReverseVertically(bool)));
-    connect(ui->m_reverseHorizCheck, SIGNAL(toggled(bool)),
-            m_dipSwitch, SLOT(slotReverseHorizontally(bool)));
-
+    connect(ui->m_addressSpin, SIGNAL(valueChanged(int)), m_dipSwitch, SLOT(slotSetValue(int)));
+    connect(m_dipSwitch, SIGNAL(valueChanged(int)), ui->m_addressSpin, SLOT(setValue(int)));
+    connect(ui->m_reverseVertCheck, SIGNAL(toggled(bool)), m_dipSwitch, SLOT(slotReverseVertically(bool)));
+    connect(ui->m_reverseHorizCheck, SIGNAL(toggled(bool)), m_dipSwitch, SLOT(slotReverseHorizontally(bool)));
 }
 
 AddressTool::~AddressTool()
@@ -87,8 +82,8 @@ void AddressTool::slotChangeColor()
  *
  ***************************************************************************/
 
-DIPSwitchWidget::DIPSwitchWidget(QWidget *parent, int presetValue) :
-    QWidget(parent)
+DIPSwitchWidget::DIPSwitchWidget(QWidget* parent, int presetValue)
+    : QWidget(parent)
 {
     m_value = presetValue;
     m_backCol = QColor("#0165DF");
@@ -99,13 +94,11 @@ DIPSwitchWidget::DIPSwitchWidget(QWidget *parent, int presetValue) :
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
-    for (quint8 i=0; i < 10; ++i)
+    for (quint8 i = 0; i < 10; ++i)
         m_sliders[i] = new DIPSwitchSlider(this);
 }
 
-DIPSwitchWidget::~DIPSwitchWidget()
-{
-}
+DIPSwitchWidget::~DIPSwitchWidget() {}
 
 void DIPSwitchWidget::slotReverseVertically(bool toggle)
 {
@@ -142,32 +135,36 @@ void DIPSwitchWidget::updateSliders()
     for (quint8 i = 0; i < 10; i++)
     {
         quint8 slider_id = i;
-        if (m_horizontalReverse) slider_id = 9 - i;
+        if (m_horizontalReverse)
+            slider_id = 9 - i;
 
         m_sliders[slider_id]->setPosition(QPoint(xpos, 20), QSize(dipW, height() - 40));
         xpos += minDiv;
     }
 }
 
-void DIPSwitchWidget::resizeEvent(QResizeEvent *e)
+void DIPSwitchWidget::resizeEvent(QResizeEvent* e)
 {
     QWidget::resizeEvent(e);
 
     updateSliders();
 }
 
-void DIPSwitchWidget::mousePressEvent(QMouseEvent *e)
+void DIPSwitchWidget::mousePressEvent(QMouseEvent* e)
 {
     QMap<quint8, DIPSwitchSlider*>::iterator it;
     for (it = m_sliders.begin(); it != m_sliders.end(); ++it)
     {
         if (it.value()->isClicked(e->pos()))
         {
-            quint32 newvalue = m_value ^ (1<<it.key());
+            quint32 newvalue = m_value ^ (1 << it.key());
 
-			if (newvalue == 0 && m_value != 512) newvalue = m_value;
-			if (newvalue == 0 ) newvalue = 1;
-            if (newvalue > 512) newvalue = 512;
+            if (newvalue == 0 && m_value != 512)
+                newvalue = m_value;
+            if (newvalue == 0)
+                newvalue = 1;
+            if (newvalue > 512)
+                newvalue = 512;
 
             m_value = newvalue;
             update();
@@ -176,7 +173,7 @@ void DIPSwitchWidget::mousePressEvent(QMouseEvent *e)
     }
 }
 
-void DIPSwitchWidget::paintEvent(QPaintEvent *e)
+void DIPSwitchWidget::paintEvent(QPaintEvent* e)
 {
     QWidget::paintEvent(e);
 
@@ -184,7 +181,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     int margin = 20;
     float minDiv = (width() - (margin * 2)) / 10;
     float xpos = margin + (minDiv / 3);
-    int onPos = 15; // position of the "ON" string
+    int onPos = 15;            // position of the "ON" string
     int numPos = height() - 5; // position of number labels
 
     QPainter painter(this);
@@ -195,7 +192,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
 
     // draw DIP switch sliders
     for (i = 0; i < 10; i++)
-        m_sliders[i]->paint(&painter, (1<<i) & m_value, m_verticalReverse);
+        m_sliders[i]->paint(&painter, (1 << i) & m_value, m_verticalReverse);
 
     // draw labels and value
     painter.setFont(m_font);
@@ -215,7 +212,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
 
         for (i = 0, j = 9; i < 10; i++, j--)
         {
-            painter.drawText((i == 9)?(xpos-2):(xpos+2), numPos, QString("%1").arg(i + 1));
+            painter.drawText((i == 9) ? (xpos - 2) : (xpos + 2), numPos, QString("%1").arg(i + 1));
             xpos += minDiv;
         }
     }
@@ -223,7 +220,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     {
         for (i = 10, j = 0; i > 0; i--, j++)
         {
-            painter.drawText((i == 10)?(xpos-2):(xpos + 2), numPos, QString("%1").arg(i));
+            painter.drawText((i == 10) ? (xpos - 2) : (xpos + 2), numPos, QString("%1").arg(i));
             xpos += minDiv;
         }
     }
@@ -234,16 +231,14 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
  * DIPSwitchSlider class implementation
  *
  ***************************************************************************/
-DIPSwitchSlider::DIPSwitchSlider(QObject *parent) :
-    QObject(parent)
+DIPSwitchSlider::DIPSwitchSlider(QObject* parent)
+    : QObject(parent)
 {
 }
 
-DIPSwitchSlider::~DIPSwitchSlider()
-{
-}
+DIPSwitchSlider::~DIPSwitchSlider() {}
 
-void DIPSwitchSlider::paint(QPainter *painter, bool value, bool vreverse)
+void DIPSwitchSlider::paint(QPainter* painter, bool value, bool vreverse)
 {
     // Draw outer Rectangle
     painter->setBrush(Qt::darkGray);
@@ -274,5 +269,5 @@ void DIPSwitchSlider::setPosition(QPoint pos, QSize size)
 
 bool DIPSwitchSlider::isClicked(QPoint click)
 {
-    return(QRect(m_pos, m_size).contains(click));
+    return (QRect(m_pos, m_size).contains(click));
 }

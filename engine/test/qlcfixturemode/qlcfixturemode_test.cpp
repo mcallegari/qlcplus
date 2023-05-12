@@ -413,19 +413,19 @@ void QLCFixtureMode_Test::intensityChannels()
 {
     QLCFixtureDef def;
 
-    QLCChannel * masterCh = new QLCChannel();
+    QLCChannel* masterCh = new QLCChannel();
     masterCh->setGroup(QLCChannel::Intensity);
     masterCh->setControlByte(QLCChannel::MSB);
     masterCh->setColour(QLCChannel::NoColour);
     def.addChannel(masterCh);
 
-    QLCChannel * h1Ch = new QLCChannel();
+    QLCChannel* h1Ch = new QLCChannel();
     h1Ch->setGroup(QLCChannel::Intensity);
     h1Ch->setControlByte(QLCChannel::MSB);
     h1Ch->setColour(QLCChannel::NoColour);
     def.addChannel(h1Ch);
 
-    QLCChannel * h2Ch = new QLCChannel();
+    QLCChannel* h2Ch = new QLCChannel();
     h2Ch->setGroup(QLCChannel::Intensity);
     h2Ch->setControlByte(QLCChannel::MSB);
     h2Ch->setColour(QLCChannel::NoColour);
@@ -621,7 +621,7 @@ void QLCFixtureMode_Test::save()
 
     bool physical = false;
     int heads = 0;
-    QMap <int,QString> channels;
+    QMap<int, QString> channels;
 
     QVERIFY(mode.saveXML(&xmlWriter) == true);
 

@@ -35,17 +35,17 @@ class VCWidgetSelection : public QDialog, public Ui_VCWidgetSelection
     Q_OBJECT
 
 public:
-    explicit VCWidgetSelection(QList<int> filters, QWidget *parent = 0);
+    explicit VCWidgetSelection(QList<int> filters, QWidget* parent = 0);
     ~VCWidgetSelection();
 
     VCWidget* getSelectedWidget();
 
 private:
     QList<int> m_filters;
-    QList<VCWidget *> m_widgetsList;
+    QList<VCWidget*> m_widgetsList;
 
 protected:
-    QList<VCWidget *> getChildren(VCWidget *obj);
+    QList<VCWidget*> getChildren(VCWidget* obj);
     void updateWidgetsTree();
 
 protected slots:

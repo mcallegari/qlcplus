@@ -80,7 +80,7 @@ protected:
     /** Currently selected show */
     Show* m_show;
     /** Currently selected track */
-    Track *m_currentTrack;
+    Track* m_currentTrack;
     /** Currently selected scene */
     Scene* m_currentScene;
     /** Scene editor instance reference */
@@ -95,14 +95,14 @@ protected:
     int m_selectedShowIndex;
 
 private:
-    void showSceneEditor(Scene *scene);
+    void showSceneEditor(Scene* scene);
     void hideRightEditor();
-    void showRightEditor(Function *function);
+    void showRightEditor(Function* function);
 
 private:
-    QSplitter* m_splitter; // main view splitter (horizontal)
+    QSplitter* m_splitter;  // main view splitter (horizontal)
     QSplitter* m_vsplitter; // multitrack view splitter (vertical)
-    MultiTrackView *m_showview;
+    MultiTrackView* m_showview;
 
     /*********************************************************************
      * Menus, toolbar & actions
@@ -172,20 +172,20 @@ protected slots:
      * UI events
      *********************************************************************/
 protected slots:
-    void slotViewClicked(QMouseEvent *event);
-    void slotShowItemMoved(ShowItem *item, quint32 time, bool moved);
+    void slotViewClicked(QMouseEvent* event);
+    void slotShowItemMoved(ShowItem* item, quint32 time, bool moved);
 
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
-    void slotTrackClicked(Track *track);
-    void slotTrackDoubleClicked(Track *track);
-    void slotTrackMoved(Track *track, int direction);
-    void slotTrackDelete(Track *track);
+    void slotTrackClicked(Track* track);
+    void slotTrackDoubleClicked(Track* track);
+    void slotTrackMoved(Track* track, int direction);
+    void slotTrackDelete(Track* track);
     void slotChangeColor();
     void slotChangeLock();
     void slotShowTimingsTool();
-    void slotShowItemStartTimeChanged(ShowItem *item, int msec);
-    void slotShowItemDurationChanged(ShowItem *item, int msec, bool stretch);
+    void slotShowItemStartTimeChanged(ShowItem* item, int msec);
+    void slotShowItemDurationChanged(ShowItem* item, int msec, bool stretch);
     void slotToggleSnapToGrid(bool enable);
     void slotChangeSize(int width, int height);
     void slotStepSelectionChanged(int index);

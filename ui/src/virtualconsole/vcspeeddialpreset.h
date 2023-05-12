@@ -32,10 +32,10 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCSpeedDialPreset         QString("Preset")
-#define KXMLQLCVCSpeedDialPresetID       QString("ID")
-#define KXMLQLCVCSpeedDialPresetName     QString("Name")
-#define KXMLQLCVCSpeedDialPresetValue    QString("Value")
+#define KXMLQLCVCSpeedDialPreset QString("Preset")
+#define KXMLQLCVCSpeedDialPresetID QString("ID")
+#define KXMLQLCVCSpeedDialPresetName QString("Name")
+#define KXMLQLCVCSpeedDialPresetValue QString("Value")
 
 class VCSpeedDialPreset
 {
@@ -55,10 +55,10 @@ public:
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
 public:
     /**

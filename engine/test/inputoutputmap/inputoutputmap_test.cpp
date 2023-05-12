@@ -81,8 +81,7 @@ void InputOutputMap_Test::pluginInputs()
 
     QVERIFY(im.pluginInputs("Foo").size() == 0);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QVERIFY(im.pluginInputs(stub->name()).size() == 4);
@@ -96,8 +95,7 @@ void InputOutputMap_Test::pluginOutputs()
 {
     InputOutputMap om(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QStringList ls(om.pluginOutputs(stub->name()));
@@ -112,8 +110,7 @@ void InputOutputMap_Test::configurePlugin()
 
     QCOMPARE(im.canConfigurePlugin("Foo"), false);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QCOMPARE(im.canConfigurePlugin("Foo"), false);
@@ -140,11 +137,11 @@ void InputOutputMap_Test::inputPluginStatus()
     QVERIFY(im.inputPluginStatus("Xyzzy", 2).contains("Nothing selected"));
     QVERIFY(im.inputPluginStatus("AYBABTU", 3).contains("Nothing selected"));
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QVERIFY(im.inputPluginStatus(stub->name(), QLCIOPlugin::invalidLine()) == stub->inputInfo(QLCIOPlugin::invalidLine()));
+    QVERIFY(im.inputPluginStatus(stub->name(), QLCIOPlugin::invalidLine()) ==
+            stub->inputInfo(QLCIOPlugin::invalidLine()));
     QVERIFY(im.inputPluginStatus(stub->name(), 0) == stub->inputInfo(0));
     QVERIFY(im.inputPluginStatus(stub->name(), 1) == stub->inputInfo(1));
     QVERIFY(im.inputPluginStatus(stub->name(), 2) == stub->inputInfo(2));
@@ -163,8 +160,7 @@ void InputOutputMap_Test::outputPluginStatus()
     QVERIFY(om.outputPluginStatus("Xyzzy", 2).contains("Nothing selected"));
     QVERIFY(om.outputPluginStatus("AYBABTU", 3).contains("Nothing selected"));
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QVERIFY(om.outputPluginStatus(stub->name(), 4) == stub->outputInfo(QLCIOPlugin::invalidLine()));
@@ -183,8 +179,7 @@ void InputOutputMap_Test::universeNames()
     QVERIFY(iom.universeNames().at(2).contains("Universe"));
     QVERIFY(iom.universeNames().at(3).contains("Universe"));
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     iom.setOutputPatch(0, stub->name(), "", 3);
@@ -292,8 +287,7 @@ void InputOutputMap_Test::setInputPatch()
 {
     InputOutputMap im(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QLCInputProfile* prof = new QLCInputProfile();
@@ -367,8 +361,7 @@ void InputOutputMap_Test::setOutputPatch()
 {
     InputOutputMap iom(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QVERIFY(iom.setOutputPatch(0, "Foobar", "", 0) == false);
@@ -416,8 +409,7 @@ void InputOutputMap_Test::setMultipleOutputPatches()
 {
     InputOutputMap iom(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     // add an output patch
@@ -448,8 +440,7 @@ void InputOutputMap_Test::slotValueChanged()
 {
     InputOutputMap im(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QVERIFY(im.setInputPatch(0, stub->name(), stub->inputs().at(0), 0) == true);
@@ -527,8 +518,7 @@ void InputOutputMap_Test::slotConfigurationChanged()
 {
     InputOutputMap im(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString, bool)));
@@ -571,7 +561,7 @@ void InputOutputMap_Test::inputSourceNames()
 {
     InputOutputMap im(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QDir dir(INTERNAL_PROFILEDIR);
@@ -634,8 +624,7 @@ void InputOutputMap_Test::claimReleaseDumpReset()
 {
     InputOutputMap iom(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     iom.setOutputPatch(0, stub->name(), stub->outputs().at(0), 0);
@@ -654,7 +643,7 @@ void InputOutputMap_Test::claimReleaseDumpReset()
         unis[3]->write(i, 'd');
     iom.releaseUniverses();
 
-    foreach (Universe *universe, unis)
+    foreach (Universe* universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
         universe->dumpOutput(postGM);
@@ -684,8 +673,7 @@ void InputOutputMap_Test::blackout()
 {
     InputOutputMap iom(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>
-                                (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     iom.setOutputPatch(0, stub->name(), stub->outputs().at(0), 0);
@@ -709,7 +697,7 @@ void InputOutputMap_Test::blackout()
         unis[3]->write(i, 'd');
     iom.releaseUniverses();
 
-    foreach (Universe *universe, unis)
+    foreach (Universe* universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
         universe->dumpOutput(postGM);
@@ -718,7 +706,7 @@ void InputOutputMap_Test::blackout()
     iom.setBlackout(true);
     QVERIFY(iom.blackout() == true);
 
-    foreach (Universe *universe, unis)
+    foreach (Universe* universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
         universe->dumpOutput(postGM);
@@ -731,15 +719,15 @@ void InputOutputMap_Test::blackout()
         for (int i = 0; i < 512; i++)
         {
             if (i == 42)
-                QVERIFY(stub->m_universe[offset + i] == (char) 0);
+                QVERIFY(stub->m_universe[offset + i] == (char)0);
             else if (u == 0)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'a');
+                QVERIFY(stub->m_universe[offset + i] == (char)'a');
             else if (u == 1)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'b');
+                QVERIFY(stub->m_universe[offset + i] == (char)'b');
             else if (u == 2)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'c');
+                QVERIFY(stub->m_universe[offset + i] == (char)'c');
             else if (u == 3)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'd');
+                QVERIFY(stub->m_universe[offset + i] == (char)'d');
         }
 
         offset += 512;
@@ -748,7 +736,7 @@ void InputOutputMap_Test::blackout()
     iom.setBlackout(true);
     QVERIFY(iom.blackout() == true);
 
-    foreach (Universe *universe, unis)
+    foreach (Universe* universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
         universe->dumpOutput(postGM);
@@ -761,15 +749,15 @@ void InputOutputMap_Test::blackout()
         for (int i = 0; i < 512; i++)
         {
             if (i == 42)
-                QVERIFY(stub->m_universe[offset + i] == (char) 0);
+                QVERIFY(stub->m_universe[offset + i] == (char)0);
             else if (u == 0)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'a');
+                QVERIFY(stub->m_universe[offset + i] == (char)'a');
             else if (u == 1)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'b');
+                QVERIFY(stub->m_universe[offset + i] == (char)'b');
             else if (u == 2)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'c');
+                QVERIFY(stub->m_universe[offset + i] == (char)'c');
             else if (u == 3)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'd');
+                QVERIFY(stub->m_universe[offset + i] == (char)'d');
         }
 
         offset += 512;
@@ -778,7 +766,7 @@ void InputOutputMap_Test::blackout()
     iom.toggleBlackout();
     QVERIFY(iom.blackout() == false);
 
-    foreach (Universe *universe, unis)
+    foreach (Universe* universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
         universe->dumpOutput(postGM);
@@ -796,7 +784,7 @@ void InputOutputMap_Test::blackout()
     iom.setBlackout(false);
     QVERIFY(iom.blackout() == false);
 
-    foreach (Universe *universe, unis)
+    foreach (Universe* universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
         universe->dumpOutput(postGM);
@@ -814,7 +802,7 @@ void InputOutputMap_Test::blackout()
     iom.toggleBlackout();
     QVERIFY(iom.blackout() == true);
 
-    foreach (Universe *universe, unis)
+    foreach (Universe* universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
         universe->dumpOutput(postGM);
@@ -827,15 +815,15 @@ void InputOutputMap_Test::blackout()
         for (int i = 0; i < 512; i++)
         {
             if (i == 42)
-                QVERIFY(stub->m_universe[offset + i] == (char) 0);
+                QVERIFY(stub->m_universe[offset + i] == (char)0);
             else if (u == 0)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'a');
+                QVERIFY(stub->m_universe[offset + i] == (char)'a');
             else if (u == 1)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'b');
+                QVERIFY(stub->m_universe[offset + i] == (char)'b');
             else if (u == 2)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'c');
+                QVERIFY(stub->m_universe[offset + i] == (char)'c');
             else if (u == 3)
-                QVERIFY(stub->m_universe[offset + i] == (char) 'd');
+                QVERIFY(stub->m_universe[offset + i] == (char)'d');
         }
 
         offset += 512;

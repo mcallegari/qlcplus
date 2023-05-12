@@ -39,26 +39,50 @@ class VCClockSchedule : public QObject
 public:
     VCClockSchedule(QObject* parent = 0);
 
-    virtual ~VCClockSchedule() { }
+    virtual ~VCClockSchedule() {}
 
-    void setFunctionID(quint32 id) { m_id = id; }
-    quint32 functionID() const { return m_id; }
+    void setFunctionID(quint32 id)
+    {
+        m_id = id;
+    }
+    quint32 functionID() const
+    {
+        return m_id;
+    }
 
-    void setStartTime(int time) { m_startTime = time; }
-    int startTime() const { return m_startTime; }
+    void setStartTime(int time)
+    {
+        m_startTime = time;
+    }
+    int startTime() const
+    {
+        return m_startTime;
+    }
 
-    void setStopTime(int time) { m_stopTime = time; }
-    int stopTime() const { return m_stopTime; }
+    void setStopTime(int time)
+    {
+        m_stopTime = time;
+    }
+    int stopTime() const
+    {
+        return m_stopTime;
+    }
 
-    void setWeekFlags(int flags) { m_weekFlags = flags; }
-    int weekFlags() const { return m_weekFlags; }
+    void setWeekFlags(int flags)
+    {
+        m_weekFlags = flags;
+    }
+    int weekFlags() const
+    {
+        return m_weekFlags;
+    }
 
     /** Sorting operator */
     bool operator<(const VCClockSchedule& sch) const;
 
     /** Load & Save */
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc);
 
 public:
     bool m_canPlay;
@@ -75,7 +99,10 @@ signals:
 
 protected:
     /** Get the parent Doc object */
-    Doc* doc() const { return qobject_cast<Doc*>(parent()); }
+    Doc* doc() const
+    {
+        return qobject_cast<Doc*>(parent());
+    }
 
 private:
     quint32 m_id;
@@ -90,15 +117,15 @@ class VCClock : public VCWidget
 
     Q_PROPERTY(bool enableSchedule READ enableSchedule WRITE setEnableSchedule NOTIFY enableScheduleChanged)
     Q_PROPERTY(ClockType clockType READ clockType WRITE setClockType NOTIFY clockTypeChanged)
-    Q_PROPERTY(int  currentTime READ currentTime NOTIFY currentTimeChanged)
-    Q_PROPERTY(int  targetTime READ targetTime WRITE setTargetTime NOTIFY targetTimeChanged)
+    Q_PROPERTY(int currentTime READ currentTime NOTIFY currentTimeChanged)
+    Q_PROPERTY(int targetTime READ targetTime WRITE setTargetTime NOTIFY targetTimeChanged)
     Q_PROPERTY(QVariantList scheduleList READ scheduleList NOTIFY scheduleListChanged)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    VCClock(Doc* doc = nullptr, QObject *parent = nullptr);
+    VCClock(Doc* doc = nullptr, QObject* parent = nullptr);
     virtual ~VCClock();
 
     /** @reimp */
@@ -108,13 +135,13 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView* view, QQuickItem* parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget* createCopy(VCWidget* parent);
 
 protected:
     /** @reimp */
@@ -127,7 +154,12 @@ private:
      * Type
      *********************************************************************/
 public:
-    enum ClockType { Clock, Stopwatch, Countdown };
+    enum ClockType
+    {
+        Clock,
+        Stopwatch,
+        Countdown
+    };
     Q_ENUM(ClockType)
 
     void setClockType(ClockType type);
@@ -167,7 +199,7 @@ private:
     /** the target time in ms of the clock. Used by Countdown and Stopwatch */
     int m_targetTime;
     /** The 1 second timer active when m_clocktype is Clock */
-    QTimer *m_timer;
+    QTimer* m_timer;
 
     /*********************************************************************
      * Functions scheduling
@@ -179,7 +211,7 @@ public:
     QVariantList scheduleList();
     QList<VCClockSchedule*> schedules() const;
 
-    void addSchedule(VCClockSchedule *schedule);
+    void addSchedule(VCClockSchedule* schedule);
     Q_INVOKABLE void addSchedules(QVariantList idsList);
     Q_INVOKABLE void removeSchedule(int index);
 
@@ -189,14 +221,14 @@ signals:
 
 private:
     bool m_enableSchedule;
-    QList<VCClockSchedule*>m_scheduleList;
+    QList<VCClockSchedule*> m_scheduleList;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 #endif

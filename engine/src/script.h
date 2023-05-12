@@ -116,23 +116,23 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer *timer);
+    void preRun(MasterTimer* timer);
 
     /** @reimp */
-    void write(MasterTimer *timer, QList<Universe*> universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimp */
-    void postRun(MasterTimer *timer, QList<Universe*> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:
     /**
@@ -144,7 +144,7 @@ private:
      * @return true to continue loop immediately, false to return control back
      *         to MasterTimer.
      */
-    bool executeCommand(int index, MasterTimer *timer, QList<Universe*> universes);
+    bool executeCommand(int index, MasterTimer* timer, QList<Universe*> universes);
 
     /**
      * Check, if the script should still wait or if it should proceed to executing
@@ -160,7 +160,7 @@ private:
      *
      * @return the randomized value requested
      */
-    static quint32 getValueFromString(QString str, bool *ok);
+    static quint32 getValueFromString(QString str, bool* ok);
 
     /**
      * Handle "startfunction" command.
@@ -244,15 +244,15 @@ private:
      * @param ok Tells if the line was parsed OK or not
      * @return A list of tokens parsed from the line
      */
-    static QList <QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
+    static QList<QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
 
 private:
-    int m_currentCommand;        //! Current command line being handled
-    quint32 m_waitCount;         //! Timer ticks to wait before executing the next line
-    QList < QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
-    QMap <QString,int> m_labels; //! Labels and their line numbers
-    QList <Function*> m_startedFunctions; //! Functions started by this script
-    QList <int> m_syntaxErrorLines;
+    int m_currentCommand;                //! Current command line being handled
+    quint32 m_waitCount;                 //! Timer ticks to wait before executing the next line
+    QList<QList<QStringList>> m_lines;   //! Raw data parsed into lines of tokens
+    QMap<QString, int> m_labels;         //! Labels and their line numbers
+    QList<Function*> m_startedFunctions; //! Functions started by this script
+    QList<int> m_syntaxErrorLines;
 
     GenericFader* m_fader;
 };

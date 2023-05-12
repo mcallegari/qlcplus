@@ -3,7 +3,7 @@
   monitorlayout.h
 
   Copyright (c) Nokia Corporation/QtSoftware
-		Heikki Junnila
+        Heikki Junnila
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ class MonitorLayout : public QLayout
      * Initialization
      ********************************************************************/
 public:
-    MonitorLayout(QWidget *parent);
+    MonitorLayout(QWidget* parent);
     virtual ~MonitorLayout();
 
     /********************************************************************
@@ -70,7 +70,7 @@ public:
     void sort();
 
 protected:
-    QList <MonitorLayoutItem*> m_items;
+    QList<MonitorLayoutItem*> m_items;
 
     /********************************************************************
      * Size & Geometry
@@ -84,7 +84,7 @@ public:
     QSize sizeHint() const;
 
 protected:
-    int doLayout(const QRect &rect, bool testOnly) const;
+    int doLayout(const QRect& rect, bool testOnly) const;
 };
 
 /** @} */

@@ -38,40 +38,40 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCVCCaption    QString("Caption")
+#define KXMLQLCVCCaption QString("Caption")
 #define KXMLQLCVCFrameStyle QString("FrameStyle")
 
-#define KXMLQLCVCWidgetID           QString("ID")
-#define KXMLQLCVCWidgetPage         QString("Page")
-#define KXMLQLCVCWidgetAppearance   QString("Appearance")
+#define KXMLQLCVCWidgetID QString("ID")
+#define KXMLQLCVCWidgetPage QString("Page")
+#define KXMLQLCVCWidgetAppearance QString("Appearance")
 
-#define KXMLQLCVCWidgetForegroundColor  QString("ForegroundColor")
-#define KXMLQLCVCWidgetBackgroundColor  QString("BackgroundColor")
-#define KXMLQLCVCWidgetColorDefault     QString("Default")
+#define KXMLQLCVCWidgetForegroundColor QString("ForegroundColor")
+#define KXMLQLCVCWidgetBackgroundColor QString("BackgroundColor")
+#define KXMLQLCVCWidgetColorDefault QString("Default")
 
-#define KXMLQLCVCWidgetFont         QString("Font")
-#define KXMLQLCVCWidgetFontDefault  QString("Default")
+#define KXMLQLCVCWidgetFont QString("Font")
+#define KXMLQLCVCWidgetFontDefault QString("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage      QString("BackgroundImage")
-#define KXMLQLCVCWidgetBackgroundImageNone  QString("None")
+#define KXMLQLCVCWidgetBackgroundImage QString("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImageNone QString("None")
 
 #define KVCFrameStyleSunken (QFrame::Panel | QFrame::Sunken)
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
-#define KVCFrameStyleNone   (QFrame::NoFrame)
+#define KVCFrameStyleNone (QFrame::NoFrame)
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey QString("Key")
+#define KXMLQLCVCWidgetInput QString("Input")
+#define KXMLQLCVCWidgetInputUniverse QString("Universe")
+#define KXMLQLCVCWidgetInputChannel QString("Channel")
+#define KXMLQLCVCWidgetInputLowerValue QString("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue QString("UpperValue")
 
-#define KXMLQLCWindowState          QString("WindowState")
-#define KXMLQLCWindowStateVisible   QString("Visible")
-#define KXMLQLCWindowStateX         QString("X")
-#define KXMLQLCWindowStateY         QString("Y")
-#define KXMLQLCWindowStateWidth     QString("Width")
-#define KXMLQLCWindowStateHeight    QString("Height")
+#define KXMLQLCWindowState QString("WindowState")
+#define KXMLQLCWindowStateVisible QString("Visible")
+#define KXMLQLCWindowStateX QString("X")
+#define KXMLQLCWindowStateY QString("Y")
+#define KXMLQLCWindowStateWidth QString("Width")
+#define KXMLQLCWindowStateHeight QString("Height")
 
 class VCWidget : public QWidget
 {
@@ -343,17 +343,20 @@ public:
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity)
-    { Q_UNUSED(fid); Q_UNUSED(intensity); }
+    {
+        Q_UNUSED(fid);
+        Q_UNUSED(intensity);
+    }
 
-    virtual void adjustFunctionIntensity(Function *f, qreal value);
+    virtual void adjustFunctionIntensity(Function* f, qreal value);
 
     void resetIntensityOverrideAttribute();
 
 signals:
     /** Signal emitted when a VCWidget controlling a Function has been
-      * requested to start the Function.
-      * At the moment this is used by a restriceted number of widgets (see above)
-      */
+     * requested to start the Function.
+     * At the moment this is used by a restriceted number of widgets (see above)
+     */
     void functionStarting(quint32 fid, qreal intensity = 1.0);
 
 protected:
@@ -382,7 +385,6 @@ private:
      * External input
      *********************************************************************/
 public:
-
     /**
      * Helper method to check if the widget is in a state to accept external inputs
      */
@@ -401,8 +403,7 @@ public:
      * @return true in case source and target matches and the event
      *         can pass through, otherwise false
      */
-    bool checkInputSource(quint32 universe, quint32 channel,
-                          uchar value, QObject *sender, quint32 id = 0);
+    bool checkInputSource(quint32 universe, quint32 channel, uchar value, QObject* sender, quint32 id = 0);
 
     /**
      * Set external input $source to listen to. If a widget supports more
@@ -471,7 +472,7 @@ protected slots:
     virtual void slotInputProfileChanged(quint32 universe, const QString& profileName);
 
 protected:
-    QHash <quint8, QSharedPointer<QLCInputSource> > m_inputs;
+    QHash<quint8, QSharedPointer<QLCInputSource>> m_inputs;
 
     /*********************************************************************
      * Key sequence handler
@@ -498,8 +499,8 @@ signals:
      * Load & Save
      *********************************************************************/
 public:
-    virtual bool loadXML(QXmlStreamReader &root) = 0;
-    virtual bool saveXML(QXmlStreamWriter *doc) = 0;
+    virtual bool loadXML(QXmlStreamReader& root) = 0;
+    virtual bool saveXML(QXmlStreamWriter* doc) = 0;
 
     /**
      * Called for every VCWidget-based object after everything has been loaded.
@@ -508,31 +509,31 @@ public:
      */
     virtual void postLoad();
 
-    static QSharedPointer<QLCInputSource> getXMLInput(QXmlStreamReader &root);
+    static QSharedPointer<QLCInputSource> getXMLInput(QXmlStreamReader& root);
 
     /** Save input source from a $src input source to $root */
-    static bool saveXMLInput(QXmlStreamWriter *doc, const QLCInputSource *src);
+    static bool saveXMLInput(QXmlStreamWriter* doc, const QLCInputSource* src);
     /** Save input source from a $src input source to $root */
-    static bool saveXMLInput(QXmlStreamWriter *doc, QSharedPointer<QLCInputSource> const& src);
+    static bool saveXMLInput(QXmlStreamWriter* doc, QSharedPointer<QLCInputSource> const& src);
 
 protected:
-    bool loadXMLCommon(QXmlStreamReader &root);
-    bool loadXMLAppearance(QXmlStreamReader &appearance_root);
-    bool loadXMLInput(QXmlStreamReader &root, const quint8& id = 0);
+    bool loadXMLCommon(QXmlStreamReader& root);
+    bool loadXMLAppearance(QXmlStreamReader& appearance_root);
+    bool loadXMLInput(QXmlStreamReader& root, const quint8& id = 0);
 
     /** Parse an input XML section and:
      *  - set an input source with the given $sourceID
      *  - return a string of a KeySequence if present
      */
-    QString loadXMLSources(QXmlStreamReader &root, quint8 sourceID);
+    QString loadXMLSources(QXmlStreamReader& root, quint8 sourceID);
 
     /** Load input source from $root to $uni and $ch */
-    bool loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
+    bool loadXMLInput(QXmlStreamReader& root, quint32* uni, quint32* ch) const;
 
-    bool saveXMLCommon(QXmlStreamWriter *doc);
-    bool saveXMLAppearance(QXmlStreamWriter *doc);
+    bool saveXMLCommon(QXmlStreamWriter* doc);
+    bool saveXMLAppearance(QXmlStreamWriter* doc);
     /** Save the defualt input source to $root */
-    bool saveXMLInput(QXmlStreamWriter *doc);
+    bool saveXMLInput(QXmlStreamWriter* doc);
 
     /**
      * Write this widget's geometry and visibility to an XML document.
@@ -541,7 +542,7 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool saveXMLWindowState(QXmlStreamWriter *doc);
+    bool saveXMLWindowState(QXmlStreamWriter* doc);
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
@@ -555,8 +556,7 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
-                            int* w, int* h, bool* visible);
+    bool loadXMLWindowState(QXmlStreamReader& tag, int* x, int* y, int* w, int* h, bool* visible);
 
 
     /*********************************************************************

@@ -99,21 +99,15 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     connect(m_stopAll, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
     connect(m_flash, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
 
-    connect(m_speedDialButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotSpeedDialToggle(bool)));
+    connect(m_speedDialButton, SIGNAL(toggled(bool)), this, SLOT(slotSpeedDialToggle(bool)));
 
-    connect(m_intensitySlider, SIGNAL(valueChanged(int)),
-            this, SLOT(slotIntensitySliderMoved(int)));
-    connect(m_intensityEdit, SIGNAL(textEdited(QString)),
-            this, SLOT(slotIntensityEdited(QString)));
+    connect(m_intensitySlider, SIGNAL(valueChanged(int)), this, SLOT(slotIntensitySliderMoved(int)));
+    connect(m_intensityEdit, SIGNAL(textEdited(QString)), this, SLOT(slotIntensityEdited(QString)));
 
-    connect(m_fadeOutEdit, SIGNAL(editingFinished()),
-            this, SLOT(slotFadeOutTextEdited()));
+    connect(m_fadeOutEdit, SIGNAL(editingFinished()), this, SLOT(slotFadeOutTextEdited()));
 }
 
-VCButtonProperties::~VCButtonProperties()
-{
-}
+VCButtonProperties::~VCButtonProperties() {}
 
 void VCButtonProperties::slotAttachFunction()
 {
@@ -187,7 +181,7 @@ void VCButtonProperties::slotFadeOutDialChanged(int ms)
     m_fadeOutTime = ms;
 }
 
-void VCButtonProperties::slotDialDestroyed(QObject *)
+void VCButtonProperties::slotDialDestroyed(QObject*)
 {
     m_speedDialButton->setChecked(false);
 }
@@ -235,4 +229,3 @@ void VCButtonProperties::accept()
 
     QDialog::accept();
 }
-

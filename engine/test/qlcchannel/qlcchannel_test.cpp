@@ -99,7 +99,7 @@ void QLCChannel_Test::colourList()
     QStringList list(QLCChannel::colourList());
 
     QCOMPARE(list.size(), 11);
-    //QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::NoColour)));
+    // QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::NoColour)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Red)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Green)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Blue)));
@@ -345,7 +345,7 @@ void QLCChannel_Test::sortCapabilities()
     QLCCapability* cap8 = new QLCCapability(20, 25, "20-25");
     QVERIFY(channel->addCapability(cap8) == true);
 
-    QList <QLCCapability*> orig(channel->capabilities());
+    QList<QLCCapability*> orig(channel->capabilities());
     QVERIFY(orig.at(0) == cap1);
     QVERIFY(orig.at(1) == cap2);
     QVERIFY(orig.at(2) == cap3);
@@ -357,7 +357,7 @@ void QLCChannel_Test::sortCapabilities()
 
     channel->sortCapabilities();
 
-    QList <QLCCapability*> sorted(channel->capabilities());
+    QList<QLCCapability*> sorted(channel->capabilities());
     QVERIFY(sorted.at(0) == cap4);
     QVERIFY(sorted.at(1) == cap1);
     QVERIFY(sorted.at(2) == cap8);
@@ -414,7 +414,7 @@ void QLCChannel_Test::copy()
 
     /* Verify that the capabilities in the copied channel are also
        copies i.e. their pointers are not the same as the originals. */
-    QList <QLCCapability*> caps(copy->capabilities());
+    QList<QLCCapability*> caps(copy->capabilities());
     QVERIFY(caps.size() == 8);
     QVERIFY(caps.at(0) != cap1);
     QVERIFY(caps.at(0)->name() == cap1->name());
@@ -639,8 +639,7 @@ void QLCChannel_Test::save()
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString())
-                  .toLatin1());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toLatin1());
             xmlReader.skipCurrentElement();
         }
     }

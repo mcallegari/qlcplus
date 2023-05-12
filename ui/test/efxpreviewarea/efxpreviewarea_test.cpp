@@ -76,9 +76,9 @@ void EFXPreviewArea_Test::draw()
     QCOMPARE(area.m_timer.isActive(), true);
     QCOMPARE(area.m_timer.interval(), 20);
 
-    //QTest::qWait(300);
-    //QVERIFY(area.m_iter >= 5);
-    //QCOMPARE(area.m_timer.isActive(), false);
+    // QTest::qWait(300);
+    // QVERIFY(area.m_iter >= 5);
+    // QCOMPARE(area.m_timer.isActive(), false);
 }
 
 QTEST_MAIN(EFXPreviewArea_Test)

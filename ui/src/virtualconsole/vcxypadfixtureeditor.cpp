@@ -30,7 +30,7 @@
  * Initialization
  *****************************************************************************/
 
-VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent, QList <VCXYPadFixture> fixtures)
+VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent, QList<VCXYPadFixture> fixtures)
     : QDialog(parent)
 {
     setupUi(this);
@@ -76,9 +76,7 @@ VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent, QList <VCXYPadFixtur
     }
 }
 
-VCXYPadFixtureEditor::~VCXYPadFixtureEditor()
-{
-}
+VCXYPadFixtureEditor::~VCXYPadFixtureEditor() {}
 
 void VCXYPadFixtureEditor::slotXMinChanged(int value)
 {
@@ -107,7 +105,7 @@ void VCXYPadFixtureEditor::slotYMaxChanged(int value)
 void VCXYPadFixtureEditor::accept()
 {
     /* Put dialog values to all fixtures */
-    QMutableListIterator <VCXYPadFixture> it(m_fixtures);
+    QMutableListIterator<VCXYPadFixture> it(m_fixtures);
     while (it.hasNext() == true)
     {
         VCXYPadFixture fxi(it.next());
@@ -127,8 +125,7 @@ void VCXYPadFixtureEditor::accept()
  * Fixtures
  ****************************************************************************/
 
-QList <VCXYPadFixture> VCXYPadFixtureEditor::fixtures() const
+QList<VCXYPadFixture> VCXYPadFixtureEditor::fixtures() const
 {
     return m_fixtures;
 }
-

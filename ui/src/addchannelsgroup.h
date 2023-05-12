@@ -48,7 +48,7 @@ public:
      * @param parent The parent widget for the dialog
      * @param doc The QLC engine instance
      */
-    AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *group);
+    AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup* group);
     ~AddChannelsGroup();
 
     /** @reimp */
@@ -57,14 +57,14 @@ public:
 private:
     Doc* m_doc;
     ChannelsGroup* m_chansGroup;
-    InputSelectionWidget *m_inputSelWidget;
+    InputSelectionWidget* m_inputSelWidget;
 
 protected:
     int m_checkedChannels;
     bool m_isUpdating;
 
 protected slots:
-    void slotItemChecked(QTreeWidgetItem *item, int col);
+    void slotItemChecked(QTreeWidgetItem* item, int col);
 };
 
 /** @} */

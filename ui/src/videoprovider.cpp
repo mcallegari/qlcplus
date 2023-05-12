@@ -22,22 +22,20 @@
 #include "doc.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
- #include <QMediaMetaData>
+  #include <QMediaMetaData>
 #endif
 #include <QApplication>
 #include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QScreen>
 
-VideoProvider::VideoProvider(Doc *doc, QObject *parent)
+VideoProvider::VideoProvider(Doc* doc, QObject* parent)
     : QObject(parent)
     , m_doc(doc)
 {
     Q_ASSERT(doc != NULL);
-    connect(m_doc, SIGNAL(functionAdded(quint32)),
-            this, SLOT(slotFunctionAdded(quint32)));
-    connect(m_doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
+    connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
 }
 
 VideoProvider::~VideoProvider()
@@ -47,13 +45,13 @@ VideoProvider::~VideoProvider()
 
 void VideoProvider::slotFunctionAdded(quint32 id)
 {
-    Function *func = m_doc->function(id);
+    Function* func = m_doc->function(id);
     if (func == NULL)
         return;
 
-    if(func->type() == Function::VideoType)
+    if (func->type() == Function::VideoType)
     {
-        VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
+        VideoWidget* vWidget = new VideoWidget(qobject_cast<Video*>(func));
         m_videoMap[id] = vWidget;
     }
 }
@@ -62,7 +60,7 @@ void VideoProvider::slotFunctionRemoved(quint32 id)
 {
     if (m_videoMap.contains(id))
     {
-        VideoWidget *vw = m_videoMap.take(id);
+        VideoWidget* vw = m_videoMap.take(id);
         delete vw;
     }
 }
@@ -71,7 +69,7 @@ void VideoProvider::slotFunctionRemoved(quint32 id)
  * VideoWidget class implementation
  *********************************************************************/
 
-VideoWidget::VideoWidget(Video *video, QObject *parent)
+VideoWidget::VideoWidget(Video* video, QObject* parent)
     : QObject(parent)
     , m_video(video)
     , m_videoPlayer(NULL)
@@ -93,28 +91,21 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
         m_videoPlayer->setVideoOutput(m_videoWidget);
     }
 
-    connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
-            this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
+    connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this,
+            SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    connect(m_videoPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-            this, SLOT(slotMetaDataChanged(QString,QVariant)));
+    connect(m_videoPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this,
+            SLOT(slotMetaDataChanged(QString, QVariant)));
 #else
-    connect(m_videoPlayer, SIGNAL(metaDataChanged()),
-            this, SLOT(slotMetaDataChanged()));
+    connect(m_videoPlayer, SIGNAL(metaDataChanged()), this, SLOT(slotMetaDataChanged()));
 #endif
-    connect(m_videoPlayer, SIGNAL(durationChanged(qint64)),
-            this, SLOT(slotTotalTimeChanged(qint64)));
+    connect(m_videoPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(slotTotalTimeChanged(qint64)));
 
-    connect(m_video, SIGNAL(sourceChanged(QString)),
-            this, SLOT(slotSourceUrlChanged(QString)));
-    connect(m_video, SIGNAL(requestPlayback()),
-            this, SLOT(slotPlaybackVideo()));
-    connect(m_video, SIGNAL(requestPause(bool)),
-            this, SLOT(slotSetPause(bool)));
-    connect(m_video, SIGNAL(requestStop()),
-            this, SLOT(slotStopVideo()));
-    connect(m_video, SIGNAL(requestBrightnessAdjust(int)),
-            this, SLOT(slotBrightnessAdjust(int)));
+    connect(m_video, SIGNAL(sourceChanged(QString)), this, SLOT(slotSourceUrlChanged(QString)));
+    connect(m_video, SIGNAL(requestPlayback()), this, SLOT(slotPlaybackVideo()));
+    connect(m_video, SIGNAL(requestPause(bool)), this, SLOT(slotSetPause(bool)));
+    connect(m_video, SIGNAL(requestStop()), this, SLOT(slotStopVideo()));
+    connect(m_video, SIGNAL(requestBrightnessAdjust(int)), this, SLOT(slotBrightnessAdjust(int)));
 
     QString sourceURL = m_video->sourceUrl();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -159,19 +150,19 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
     qDebug() << Q_FUNC_INFO << status;
     switch (status)
     {
-        case QMediaPlayer::NoMedia:
-        case QMediaPlayer::LoadedMedia:
-        case QMediaPlayer::BufferingMedia:
-        case QMediaPlayer::BufferedMedia:
-            //setStatusInfo(QString());
+    case QMediaPlayer::NoMedia:
+    case QMediaPlayer::LoadedMedia:
+    case QMediaPlayer::BufferingMedia:
+    case QMediaPlayer::BufferedMedia:
+        // setStatusInfo(QString());
         break;
-        case QMediaPlayer::LoadingMedia:
-            //setStatusInfo(tr("Loading..."));
+    case QMediaPlayer::LoadingMedia:
+        // setStatusInfo(tr("Loading..."));
         break;
-        case QMediaPlayer::StalledMedia:
-            //setStatusInfo(tr("Media Stalled"));
+    case QMediaPlayer::StalledMedia:
+        // setStatusInfo(tr("Media Stalled"));
         break;
-        case QMediaPlayer::EndOfMedia:
+    case QMediaPlayer::EndOfMedia:
         {
             if (m_videoPlayer != NULL)
                 m_videoPlayer->stop();
@@ -188,9 +179,9 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
             m_video->stop(functionParent());
             break;
         }
-        default:
-        case QMediaPlayer::InvalidMedia:
-            //displayErrorMessage();
+    default:
+    case QMediaPlayer::InvalidMedia:
+        // displayErrorMessage();
         break;
     }
 }
@@ -216,21 +207,21 @@ void VideoWidget::slotMetaDataChanged()
         return;
 
     QMediaMetaData md = m_videoPlayer->metaData();
-    foreach(QMediaMetaData::Key k, md.keys())
+    foreach (QMediaMetaData::Key k, md.keys())
     {
         qDebug() << "[Metadata]" << md.metaDataKeyToString(k) << ":" << md.stringValue(k);
         switch (k)
         {
-            case QMediaMetaData::Resolution:
-                m_video->setResolution(md.value(k).toSize());
+        case QMediaMetaData::Resolution:
+            m_video->setResolution(md.value(k).toSize());
             break;
-            case QMediaMetaData::VideoCodec:
-                m_video->setVideoCodec(md.stringValue(k));
+        case QMediaMetaData::VideoCodec:
+            m_video->setVideoCodec(md.stringValue(k));
             break;
-            case QMediaMetaData::AudioCodec:
-                m_video->setAudioCodec(md.stringValue(k));
+        case QMediaMetaData::AudioCodec:
+            m_video->setAudioCodec(md.stringValue(k));
             break;
-            default:
+        default:
             break;
         }
     }
@@ -241,7 +232,7 @@ void VideoWidget::slotPlaybackVideo()
 {
     int screen = m_video->screen();
     QList<QScreen*> screens = QGuiApplication::screens();
-    QScreen *scr = screens.count() > screen ? screens.at(screen) : screens.first();
+    QScreen* scr = screens.count() > screen ? screens.at(screen) : screens.first();
     QRect rect = scr->availableGeometry();
 
     if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)

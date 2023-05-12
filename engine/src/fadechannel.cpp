@@ -53,10 +53,10 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
     , m_fadeTime(ch.m_fadeTime)
     , m_elapsed(ch.m_elapsed)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 }
 
-FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
+FadeChannel::FadeChannel(const Doc* doc, quint32 fxi, quint32 channel)
     : m_flags(0)
     , m_fixture(fxi)
     , m_channel(channel)
@@ -70,11 +70,9 @@ FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
     autoDetect(doc);
 }
 
-FadeChannel::~FadeChannel()
-{
-}
+FadeChannel::~FadeChannel() {}
 
-FadeChannel &FadeChannel::operator=(const FadeChannel &fc)
+FadeChannel& FadeChannel::operator=(const FadeChannel& fc)
 {
     if (this != &fc)
     {
@@ -119,7 +117,7 @@ void FadeChannel::removeFlag(int flag)
     m_flags &= (~flag);
 }
 
-void FadeChannel::autoDetect(const Doc *doc)
+void FadeChannel::autoDetect(const Doc* doc)
 {
     bool fixtureWasInvalid = false;
     // reset before autodetecting
@@ -134,7 +132,7 @@ void FadeChannel::autoDetect(const Doc *doc)
         m_fixture = doc->fixtureForAddress(channel());
     }
 
-    Fixture *fixture = doc->fixture(m_fixture);
+    Fixture* fixture = doc->fixture(m_fixture);
     if (fixture == NULL)
     {
         m_universe = Universe::invalid();
@@ -151,7 +149,7 @@ void FadeChannel::autoDetect(const Doc *doc)
         if (fixtureWasInvalid)
             m_channel -= fixture->address();
 
-        const QLCChannel *channel = fixture->channel(m_channel);
+        const QLCChannel* channel = fixture->channel(m_channel);
 
         // non existing channel within fixture
         if (channel == NULL)
@@ -185,7 +183,7 @@ void FadeChannel::autoDetect(const Doc *doc)
     }
 }
 
-void FadeChannel::setFixture(const Doc *doc, quint32 id)
+void FadeChannel::setFixture(const Doc* doc, quint32 id)
 {
     m_fixture = id;
     autoDetect(doc);
@@ -203,7 +201,7 @@ quint32 FadeChannel::universe() const
     return m_universe;
 }
 
-void FadeChannel::setChannel(const Doc *doc, quint32 num)
+void FadeChannel::setChannel(const Doc* doc, quint32 num)
 {
     m_channel = num;
     autoDetect(doc);
@@ -331,4 +329,3 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
 
     return uchar(m_current);
 }
-

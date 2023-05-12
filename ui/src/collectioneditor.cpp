@@ -46,14 +46,12 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
 
     setupUi(this);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAdd()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
     connect(m_moveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()));
     connect(m_moveDown, SIGNAL(clicked()), this, SLOT(slotMoveDown()));
-    connect(m_testButton, SIGNAL(clicked()),
-            this, SLOT(slotTestClicked()));
+    connect(m_testButton, SIGNAL(clicked()), this, SLOT(slotTestClicked()));
 
     m_nameEdit->setText(m_collection->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
@@ -67,7 +65,7 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
 CollectionEditor::~CollectionEditor()
 {
     if (m_testButton->isChecked())
-        m_collection->stopAndWait ();
+        m_collection->stopAndWait();
 }
 
 void CollectionEditor::slotNameEdited(const QString& text)
@@ -91,7 +89,7 @@ void CollectionEditor::slotAdd()
 
     if (fs.exec() == QDialog::Accepted)
     {
-        QListIterator <quint32> it(fs.selection());
+        QListIterator<quint32> it(fs.selection());
         while (it.hasNext() == true)
             m_collection->addFunction(it.next());
         updateFunctionList();
@@ -100,8 +98,8 @@ void CollectionEditor::slotAdd()
 
 void CollectionEditor::slotRemove()
 {
-    QList <QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator <QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem*> it(items);
 
     while (it.hasNext() == true)
     {
@@ -114,8 +112,8 @@ void CollectionEditor::slotRemove()
 
 void CollectionEditor::slotMoveUp()
 {
-    QList <QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator <QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem*> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
     // cancel the operation if that is the case.
@@ -149,8 +147,8 @@ void CollectionEditor::slotMoveUp()
 
 void CollectionEditor::slotMoveDown()
 {
-    QList <QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator <QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem*> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
     // cancel the operation if that is the case.
@@ -199,7 +197,7 @@ void CollectionEditor::updateFunctionList()
 {
     m_tree->clear();
 
-    foreach(QVariant fid, m_collection->functions())
+    foreach (QVariant fid, m_collection->functions())
     {
         Function* function = m_doc->function(fid.toUInt());
         Q_ASSERT(function != NULL);

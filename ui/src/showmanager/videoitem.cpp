@@ -26,7 +26,7 @@
 #include "trackitem.h"
 #include "headeritems.h"
 
-VideoItem::VideoItem(Video *vid, ShowFunction *func)
+VideoItem::VideoItem(Video* vid, ShowFunction* func)
     : ShowItem(func)
     , m_video(vid)
     , m_fullscreenAction(NULL)
@@ -42,17 +42,14 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
         func->setDuration(m_video->totalDuration());
 
     calculateWidth();
-    connect(m_video, SIGNAL(changed(quint32)),
-            this, SLOT(slotVideoChanged(quint32)));
-    connect(m_video, SIGNAL(totalTimeChanged(qint64)),
-            this, SLOT(slotVideoDurationChanged(qint64)));
+    connect(m_video, SIGNAL(changed(quint32)), this, SLOT(slotVideoChanged(quint32)));
+    connect(m_video, SIGNAL(totalTimeChanged(qint64)), this, SLOT(slotVideoDurationChanged(qint64)));
 
     m_fullscreenAction = new QAction(tr("Fullscreen"), this);
     m_fullscreenAction->setCheckable(true);
     if (m_video->fullscreen() == true)
         m_fullscreenAction->setChecked(true);
-    connect(m_fullscreenAction, SIGNAL(toggled(bool)),
-            this, SLOT(slotFullscreenToggled(bool)));
+    connect(m_fullscreenAction, SIGNAL(toggled(bool)), this, SLOT(slotFullscreenToggled(bool)));
 }
 
 void VideoItem::calculateWidth()
@@ -61,7 +58,7 @@ void VideoItem::calculateWidth()
     qint64 video_duration = m_function->duration();
 
     if (video_duration != 0)
-        newWidth = ((50/(float)getTimeScale()) * (float)video_duration) / 1000;
+        newWidth = ((50 / (float)getTimeScale()) * (float)video_duration) / 1000;
     else
         newWidth = 100;
 
@@ -70,9 +67,9 @@ void VideoItem::calculateWidth()
     setWidth(newWidth);
 }
 
-void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void VideoItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-    float timeScale = 50/(float)m_timeScale;
+    float timeScale = 50 / (float)m_timeScale;
     quint32 videoDuration = m_video->totalDuration();
 
     ShowItem::paint(painter, option, widget);
@@ -132,7 +129,7 @@ QString VideoItem::functionName()
     return QString();
 }
 
-Video *VideoItem::getVideo()
+Video* VideoItem::getVideo()
 {
     return m_video;
 }
@@ -157,7 +154,7 @@ void VideoItem::slotVideoDurationChanged(qint64)
 
 void VideoItem::slotScreenChanged()
 {
-    QAction *action = (QAction *)sender();
+    QAction* action = (QAction*)sender();
     int scrIdx = action->data().toInt();
 
     m_video->setScreen(scrIdx);
@@ -168,7 +165,7 @@ void VideoItem::slotFullscreenToggled(bool toggle)
     m_video->setFullscreen(toggle);
 }
 
-void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
@@ -181,18 +178,17 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     {
         for (int i = 0; i < screenCount; i++)
         {
-            QAction *scrAction = new QAction(tr("Screen %1").arg(i + 1), this);
+            QAction* scrAction = new QAction(tr("Screen %1").arg(i + 1), this);
             scrAction->setCheckable(true);
             if (m_video->screen() == i)
                 scrAction->setChecked(true);
             scrAction->setData(i);
-            connect(scrAction, SIGNAL(triggered()),
-                    this, SLOT(slotScreenChanged()));
+            connect(scrAction, SIGNAL(triggered()), this, SLOT(slotScreenChanged()));
             menu.addAction(scrAction);
         }
     }
     menu.addAction(m_fullscreenAction);
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction* action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

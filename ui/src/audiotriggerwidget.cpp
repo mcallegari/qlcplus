@@ -24,12 +24,12 @@
 #include "audiotriggerwidget.h"
 #include "qlcmacros.h"
 
-AudioTriggerWidget::AudioTriggerWidget(QWidget *parent) :
-    QWidget(parent)
-  , m_spectrumBands(NULL)
-  , m_volumeBarHeight(0)
-  , m_barsNumber(0)
-  , m_maxFrequency(0)
+AudioTriggerWidget::AudioTriggerWidget(QWidget* parent)
+    : QWidget(parent)
+    , m_spectrumBands(NULL)
+    , m_volumeBarHeight(0)
+    , m_barsNumber(0)
+    , m_maxFrequency(0)
 {
 }
 
@@ -69,23 +69,23 @@ uchar AudioTriggerWidget::getUcharBand(int idx)
     return 0;
 }
 
-void AudioTriggerWidget::displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power)
+void AudioTriggerWidget::displaySpectrum(double* spectrumData, double maxMagnitude, quint32 power)
 {
     m_volumeBarHeight = (power * m_spectrumHeight) / 0x7FFF;
     for (int i = 0; i < m_barsNumber; i++)
-        m_spectrumBands[i] =  (m_volumeBarHeight * spectrumData[i]) / maxMagnitude;
+        m_spectrumBands[i] = (m_volumeBarHeight * spectrumData[i]) / maxMagnitude;
 
-    //qDebug() << "[displaySpectrum] power: " << power << ", first bar: " << m_spectrumBands[0];
+    // qDebug() << "[displaySpectrum] power: " << power << ", first bar: " << m_spectrumBands[0];
     update();
 }
 
-void AudioTriggerWidget::resizeEvent(QResizeEvent *e)
+void AudioTriggerWidget::resizeEvent(QResizeEvent* e)
 {
     QWidget::resizeEvent(e);
     m_barWidth = (width() - 10) / (m_barsNumber + 1);
 }
 
-void AudioTriggerWidget::paintEvent(QPaintEvent *e)
+void AudioTriggerWidget::paintEvent(QPaintEvent* e)
 {
     QWidget::paintEvent(e);
 
@@ -139,7 +139,7 @@ void AudioTriggerWidget::paintEvent(QPaintEvent *e)
             painter.drawText(xpos - 50, height() - 5, QString("%1Hz").arg(freqIncr * i));
         painter.drawLine(xpos - 2, m_spectrumHeight + 1, xpos - 2, height());
     }
-    //painter.drawText(width() - 15, height() - 5, "V");
+    // painter.drawText(width() - 15, height() - 5, "V");
 
     painter.setPen(QPen(Qt::NoPen));
     painter.setBrush(QBrush(Qt::green));

@@ -29,16 +29,14 @@ class WebAccessSimpleDesk : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebAccessSimpleDesk(QObject *parent = 0);
+    explicit WebAccessSimpleDesk(QObject* parent = 0);
 
-    static QString getHTML(Doc *doc, SimpleDesk *sd);
-    static QString getChannelsMessage(Doc *doc, SimpleDesk *sd,
-                                      quint32 universe, int startAddr, int chNumber);
+    static QString getHTML(Doc* doc, SimpleDesk* sd);
+    static QString getChannelsMessage(Doc* doc, SimpleDesk* sd, quint32 universe, int startAddr, int chNumber);
 
 signals:
 
 public slots:
-
 };
 
 #endif // WEBACCESSSIMPLEDESK_H

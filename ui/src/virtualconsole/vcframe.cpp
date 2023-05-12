@@ -98,9 +98,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse)
     m_height = this->height();
 }
 
-VCFrame::~VCFrame()
-{
-}
+VCFrame::~VCFrame() {}
 
 bool VCFrame::isBottomFrame()
 {
@@ -147,7 +145,7 @@ void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL)
     {
-        if(!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
+        if (!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
         {
             // Show caption, if there is no page name
             if (m_pageShortcuts.at(m_currentPage)->name() == "")
@@ -168,7 +166,7 @@ void VCFrame::setCaption(const QString& text)
     VCWidget::setCaption(text);
 }
 
-void VCFrame::setFont(const QFont &font)
+void VCFrame::setFont(const QFont& font)
 {
     if (m_label != NULL)
     {
@@ -186,12 +184,14 @@ QFont VCFrame::font() const
         return VCWidget::font();
 }
 
-void VCFrame::setForegroundColor(const QColor &color)
+void VCFrame::setForegroundColor(const QColor& color)
 {
     if (m_label != NULL)
     {
-        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
-                               "color: " + color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+        m_label->setStyleSheet(
+            "QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+            "color: " +
+            color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
         m_hasCustomForegroundColor = true;
         m_doc->setModified();
     }
@@ -234,8 +234,10 @@ bool VCFrame::isHeaderVisible() const
 
 void VCFrame::setEnableButtonVisible(bool show)
 {
-    if (show && m_showHeader) m_enableButton->show();
-    else m_enableButton->hide();
+    if (show && m_showHeader)
+        m_enableButton->show();
+    else
+        m_enableButton->hide();
 
     m_showEnableButton = show;
 }
@@ -263,8 +265,10 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         m_height = this->height();
         if (m_multiPageMode == true)
         {
-            if (m_prevPageBtn) m_prevPageBtn->hide();
-            if (m_nextPageBtn) m_nextPageBtn->hide();
+            if (m_prevPageBtn)
+                m_prevPageBtn->hide();
+            if (m_nextPageBtn)
+                m_nextPageBtn->hide();
         }
         resize(QSize(200, 40));
         m_collapsed = true;
@@ -274,8 +278,10 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         resize(QSize(m_width, m_height));
         if (m_multiPageMode == true)
         {
-            if (m_prevPageBtn) m_prevPageBtn->show();
-            if (m_nextPageBtn) m_nextPageBtn->show();
+            if (m_prevPageBtn)
+                m_prevPageBtn->show();
+            if (m_nextPageBtn)
+                m_nextPageBtn->show();
         }
         m_collapsed = false;
     }
@@ -292,7 +298,7 @@ void VCFrame::createHeader()
     if (m_hbox != NULL)
         return;
 
-    QVBoxLayout *vbox = new QVBoxLayout(this);
+    QVBoxLayout* vbox = new QVBoxLayout(this);
     /* Main HBox */
     m_hbox = new QHBoxLayout();
     m_hbox->setGeometry(QRect(0, 0, 200, 40));
@@ -309,8 +315,10 @@ void VCFrame::createHeader()
     m_collapseButton->setMaximumSize(QSize(32, 32));
     m_collapseButton->setIcon(QIcon(":/expand.png"));
     m_collapseButton->setCheckable(true);
-    QString cBtnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-    cBtnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    QString cBtnSS =
+        "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    cBtnSS +=
+        "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
     m_collapseButton->setStyleSheet(cBtnSS);
 
     m_hbox->addWidget(m_collapseButton);
@@ -321,8 +329,10 @@ void VCFrame::createHeader()
     QString txtColor = "white";
     if (m_hasCustomForegroundColor)
         txtColor = this->foregroundColor().name();
-    m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
-                           "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; margin-right: 2px; }");
+    m_label->setStyleSheet(
+        "QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+        "color: " +
+        txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; margin-right: 2px; }");
 
     if (m_hasCustomFont)
         m_label->setFont(font());
@@ -342,8 +352,10 @@ void VCFrame::createHeader()
     m_enableButton->setMaximumSize(QSize(32, 32));
     m_enableButton->setIcon(QIcon(":/check.png"));
     m_enableButton->setCheckable(true);
-    QString eBtnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-    eBtnSS += "QToolButton:checked { background-color: #D7DE75; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    QString eBtnSS =
+        "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    eBtnSS +=
+        "QToolButton:checked { background-color: #D7DE75; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
     m_enableButton->setStyleSheet(eBtnSS);
     m_enableButton->setEnabled(true);
     m_enableButton->setChecked(true);
@@ -368,8 +380,10 @@ void VCFrame::setMultipageMode(bool enable)
         if (m_prevPageBtn != NULL && m_nextPageBtn != NULL && m_pageCombo != NULL)
             return;
 
-        QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; margin-left: 2px; }";
-        btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; margin-left: 2px; }";
+        QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: "
+                        "3px; margin-left: 2px; }";
+        btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; "
+                 "padding: 3px; margin-left: 2px; }";
 
         m_prevPageBtn = new QToolButton(this);
         m_prevPageBtn->setStyle(AppUtil::saneStyle());
@@ -388,7 +402,8 @@ void VCFrame::setMultipageMode(bool enable)
         /** Add a single shortcut until setTotalPagesNumber kicks in */
         addShortcut();
 
-        m_pageCombo->setStyleSheet("QComboBox { background-color: black; color: red; margin-left: 2px; padding: 3px; }");
+        m_pageCombo->setStyleSheet(
+            "QComboBox { background-color: black; color: red; margin-left: 2px; padding: 3px; }");
         if (m_hasCustomFont)
         {
             m_pageCombo->setFont(font());
@@ -411,11 +426,11 @@ void VCFrame::setMultipageMode(bool enable)
         m_nextPageBtn->setStyleSheet(btnSS);
         m_hbox->addWidget(m_nextPageBtn);
 
-        connect (m_prevPageBtn, SIGNAL(clicked()), this, SLOT(slotPreviousPage()));
-        connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSetPage(int)));
-        connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
+        connect(m_prevPageBtn, SIGNAL(clicked()), this, SLOT(slotPreviousPage()));
+        connect(m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSetPage(int)));
+        connect(m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
-        if(this->isCollapsed() == false)
+        if (this->isCollapsed() == false)
         {
             m_prevPageBtn->show();
             m_nextPageBtn->show();
@@ -429,7 +444,7 @@ void VCFrame::setMultipageMode(bool enable)
 
         if (m_pagesMap.isEmpty())
         {
-            QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+            QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
             while (it.hasNext() == true)
             {
                 VCWidget* child = it.next();
@@ -523,10 +538,10 @@ void VCFrame::addShortcut()
     m_pageCombo->addItem(m_pageShortcuts.last()->name());
 }
 
-void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
+void VCFrame::setShortcuts(QList<VCFramePageShortcut*> shortcuts)
 {
     resetShortcuts();
-    foreach(VCFramePageShortcut const* shortcut, shortcuts)
+    foreach (VCFramePageShortcut const* shortcut, shortcuts)
     {
         m_pageShortcuts.append(new VCFramePageShortcut(*shortcut));
         if (shortcut->m_inputSource != NULL)
@@ -561,12 +576,12 @@ bool VCFrame::pagesLoop() const
     return m_pagesLoop;
 }
 
-void VCFrame::addWidgetToPageMap(VCWidget *widget)
+void VCFrame::addWidgetToPageMap(VCWidget* widget)
 {
     m_pagesMap.insert(widget, widget->page());
 }
 
-void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
+void VCFrame::removeWidgetFromPageMap(VCWidget* widget)
 {
     m_pagesMap.remove(widget);
 }
@@ -602,12 +617,12 @@ void VCFrame::slotSetPage(int pageNum)
         m_pageCombo->blockSignals(false);
         setCaption(caption());
 
-        QMapIterator <VCWidget*, int> it(m_pagesMap);
+        QMapIterator<VCWidget*, int> it(m_pagesMap);
         while (it.hasNext() == true)
         {
             it.next();
             int page = it.value();
-            VCWidget *widget = it.key();
+            VCWidget* widget = it.key();
             if (page == m_currentPage)
             {
                 widget->setEnabled(true);
@@ -646,11 +661,11 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
 void VCFrame::slotSubmasterValueChanged(qreal value)
 {
     qDebug() << Q_FUNC_INFO << "val:" << value;
-    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
-    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    VCSlider* submaster = qobject_cast<VCSlider*>(sender());
+    QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget *child = it.next();
+        VCWidget* child = it.next();
         if (child->parent() == this && child != submaster)
             child->adjustIntensity(value);
     }
@@ -658,7 +673,7 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
 
 void VCFrame::updateSubmasterValue()
 {
-    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
@@ -678,10 +693,10 @@ void VCFrame::adjustIntensity(qreal val)
     if (isDisabled())
         return;
 
-    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget *child = it.next();
+        VCWidget* child = it.next();
         if (child->parent() == this)
             child->adjustIntensity(val);
     }
@@ -691,7 +706,7 @@ void VCFrame::adjustIntensity(qreal val)
  * Key Sequences
  *****************************************************************************/
 
-void VCFrame::setEnableKeySequence(const QKeySequence &keySequence)
+void VCFrame::setEnableKeySequence(const QKeySequence& keySequence)
 {
     m_enableKeySequence = QKeySequence(keySequence);
 }
@@ -773,7 +788,7 @@ void VCFrame::updateFeedback()
         }
     }
 
-    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
@@ -803,9 +818,8 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
     {
         foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
         {
-            if (shortcut->m_inputSource != NULL &&
-                    shortcut->m_inputSource->universe() == universe &&
-                    shortcut->m_inputSource->channel() == pagedCh)
+            if (shortcut->m_inputSource != NULL && shortcut->m_inputSource->universe() == universe &&
+                shortcut->m_inputSource->channel() == pagedCh)
             {
                 slotSetPage(shortcut->m_page);
             }
@@ -833,7 +847,7 @@ VCWidget* VCFrame::createCopy(VCWidget* parent)
 
 bool VCFrame::copyFrom(const VCWidget* widget)
 {
-    const VCFrame* frame = qobject_cast<const VCFrame*> (widget);
+    const VCFrame* frame = qobject_cast<const VCFrame*>(widget);
     if (frame == NULL)
         return false;
 
@@ -850,7 +864,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
     setPreviousPageKeySequence(frame->m_previousPageKeySequence);
     setShortcuts(frame->shortcuts());
 
-    QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
@@ -875,12 +889,11 @@ bool VCFrame::copyFrom(const VCWidget* widget)
 
             if (childCopy->type() == VCWidget::SliderWidget)
             {
-                VCSlider *slider = qobject_cast<VCSlider*>(childCopy);
+                VCSlider* slider = qobject_cast<VCSlider*>(childCopy);
                 // always connect a slider as it it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster
-                connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                        this, SLOT(slotSubmasterValueChanged(qreal)));
+                connect(slider, SIGNAL(submasterValueChanged(qreal)), this, SLOT(slotSubmasterValueChanged(qreal)));
             }
         }
     }
@@ -902,15 +915,16 @@ void VCFrame::applyProperties(VCFrameProperties const& prop)
     {
         for (int pg = 1; pg < totalPagesNumber(); pg++)
         {
-            QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+            QListIterator<VCWidget*> it(this->findChildren<VCWidget*>());
             while (it.hasNext() == true)
             {
                 VCWidget* child = it.next();
                 if (child->page() == 0 && child->parentWidget() == this)
                 {
-                    VCWidget *newWidget = child->createCopy(this);
+                    VCWidget* newWidget = child->createCopy(this);
                     VirtualConsole::instance()->addWidgetInMap(newWidget);
-                    //qDebug() << "Cloning:" << newWidget->caption() << ", copy page:" << newWidget->page() << ", page to set:" << pg;
+                    // qDebug() << "Cloning:" << newWidget->caption() << ", copy page:" << newWidget->page() << ", page
+                    // to set:" << pg;
                     newWidget->setPage(pg);
                     newWidget->remapInputSources(pg);
                     newWidget->show();
@@ -918,7 +932,7 @@ void VCFrame::applyProperties(VCFrameProperties const& prop)
                     bool multiPageFrame = false;
                     if (newWidget->type() == VCWidget::FrameWidget || newWidget->type() == VCWidget::SoloFrameWidget)
                     {
-                        VCFrame *fr = qobject_cast<VCFrame *>(newWidget);
+                        VCFrame* fr = qobject_cast<VCFrame*>(newWidget);
                         multiPageFrame = fr->multipageMode();
                     }
                     /** If the cloned widget is again a multipage frame, then there's not much
@@ -933,7 +947,8 @@ void VCFrame::applyProperties(VCFrameProperties const& prop)
                          */
                         foreach (VCWidget* widget, newWidget->findChildren<VCWidget*>())
                         {
-                            //qDebug() << "Child" << widget->caption() << ", page:" << widget->page() << ", new page:" << pg;
+                            // qDebug() << "Child" << widget->caption() << ", page:" << widget->page() << ", new page:"
+                            // << pg;
                             widget->setPage(pg);
                             widget->remapInputSources(pg);
                         }
@@ -950,12 +965,12 @@ void VCFrame::applyProperties(VCFrameProperties const& prop)
         setTotalPagesNumber(1);
         resize(QSize(this->width(), this->height()));
 
-        QMapIterator <VCWidget*, int> it(m_pagesMap);
+        QMapIterator<VCWidget*, int> it(m_pagesMap);
         while (it.hasNext() == true)
         {
             it.next();
             int page = it.value();
-            VCWidget *widget = it.key();
+            VCWidget* widget = it.key();
             if (page > 0)
             {
                 removeWidgetFromPageMap(widget);
@@ -990,7 +1005,7 @@ void VCFrame::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCFrame::loadXML(QXmlStreamReader &root)
+bool VCFrame::loadXML(QXmlStreamReader& root)
 {
     bool disableState = false;
 
@@ -1004,7 +1019,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     loadXMLCommon(root);
 
     // Sorted list for new shortcuts
-    QList<VCFramePageShortcut *> newShortcuts;
+    QList<VCFramePageShortcut*> newShortcuts;
 
     /* Children */
     while (root.readNextStartElement())
@@ -1086,7 +1101,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toString().toInt());
 
-            if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
+            if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(attrs.value(KXMLQLCVCFrameCurrentPage).toString().toInt());
             root.skipCurrentElement();
         }
@@ -1117,7 +1132,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCFramePageShortcut)
         {
-            VCFramePageShortcut *shortcut = new VCFramePageShortcut(0xFF, 0xFF);
+            VCFramePageShortcut* shortcut = new VCFramePageShortcut(0xFF, 0xFF);
             if (shortcut->loadXML(root))
             {
                 shortcut->m_id = VCFrame::shortcutsBaseInputSourceId + shortcut->m_page;
@@ -1187,8 +1202,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 // always connect a slider as if it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster
-                connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                        this, SLOT(slotSubmasterValueChanged(qreal)));
+                connect(slider, SIGNAL(submasterValueChanged(qreal)), this, SLOT(slotSubmasterValueChanged(qreal)));
             }
         }
         else if (root.name() == KXMLQLCVCSoloFrame)
@@ -1288,7 +1302,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCFrame::saveXML(QXmlStreamWriter *doc)
+bool VCFrame::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -1387,7 +1401,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
             }
 
             /* Page shortcuts */
-            foreach (VCFramePageShortcut *shortcut, shortcuts())
+            foreach (VCFramePageShortcut* shortcut, shortcuts())
                 shortcut->saveXML(doc);
 
             /* Pages Loop */
@@ -1396,7 +1410,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Save children */
-    QListIterator <VCWidget*> it(findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* widget = it.next();
@@ -1418,7 +1432,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
 
 void VCFrame::postLoad()
 {
-    QListIterator <VCWidget*> it(findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* widget = it.next();
@@ -1454,7 +1468,7 @@ QMenu* VCFrame::customMenu(QMenu* parentMenu)
            changes, we have to copy the menu's contents into a new menu. */
         menu = new QMenu(parentMenu);
         menu->setTitle(tr("Add"));
-        QListIterator <QAction*> it(vc->addMenu()->actions());
+        QListIterator<QAction*> it(vc->addMenu()->actions());
         while (it.hasNext() == true)
             menu->addAction(it.next());
     }

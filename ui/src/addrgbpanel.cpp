@@ -26,7 +26,7 @@
 #include "qlcfixturedef.h"
 #include "doc.h"
 
-AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
+AddRGBPanel::AddRGBPanel(QWidget* parent, const Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -45,25 +45,19 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
 
     checkAddressAvailability();
 
-    connect(m_uniCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotUniverseChanged()));
-    connect(m_addressSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotAddressChanged()));
-    connect(m_columnSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotSizeChanged(int)));
-    connect(m_rowSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotSizeChanged(int)));
+    connect(m_uniCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUniverseChanged()));
+    connect(m_addressSpin, SIGNAL(valueChanged(int)), this, SLOT(slotAddressChanged()));
+    connect(m_columnSpin, SIGNAL(valueChanged(int)), this, SLOT(slotSizeChanged(int)));
+    connect(m_rowSpin, SIGNAL(valueChanged(int)), this, SLOT(slotSizeChanged(int)));
 }
 
-AddRGBPanel::~AddRGBPanel()
-{
-}
+AddRGBPanel::~AddRGBPanel() {}
 bool AddRGBPanel::checkAddressAvailability()
 {
     int uniAddr = m_doc->inputOutputMap()->getUniverseID(m_uniCombo->currentIndex());
     int startAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (uniAddr << 9);
     int channels = m_columnSpin->value() * m_rowSpin->value() * 3;
-    QPushButton *okBtn = buttonBox->button(QDialogButtonBox::Ok);
+    QPushButton* okBtn = buttonBox->button(QDialogButtonBox::Ok);
 
     qDebug() << "Check availability for address: " << startAddress;
 
@@ -153,12 +147,12 @@ AddRGBPanel::Type AddRGBPanel::type()
 
 AddRGBPanel::Direction AddRGBPanel::direction()
 {
-	if (m_verticalRadio->isChecked())
-		return Vertical;
-	else if (m_horizontalRadio->isChecked())
-		return Horizontal;
+    if (m_verticalRadio->isChecked())
+        return Vertical;
+    else if (m_horizontalRadio->isChecked())
+        return Horizontal;
 
-	return Undefined;
+    return Undefined;
 }
 
 Fixture::Components AddRGBPanel::components()

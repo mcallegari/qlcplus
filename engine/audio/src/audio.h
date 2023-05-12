@@ -48,7 +48,7 @@ public:
     QIcon getIcon() const;
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
     /*********************************************************************
      * Copying
      *********************************************************************/
@@ -128,9 +128,9 @@ protected slots:
 
 private:
     /** Instance of an AudioDecoder to perform actual audio decoding */
-    AudioDecoder *m_decoder;
+    AudioDecoder* m_decoder;
     /** output interface to render audio data got from m_decoder */
-    AudioRenderer *m_audio_out;
+    AudioRenderer* m_audio_out;
     /** Audio device to use for rendering */
     QString m_audioDevice;
     /** Name of the source audio file */
@@ -145,10 +145,10 @@ private:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** Load function's contents from an XML document */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
     void postLoad();
@@ -167,7 +167,7 @@ public:
     void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, QList<Universe *> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 };
 
 /** @} */

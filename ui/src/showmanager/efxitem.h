@@ -43,10 +43,10 @@ class EFXItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    EFXItem(EFX *efx, ShowFunction *func);
+    EFXItem(EFX* efx, ShowFunction* func);
 
     /** @reimp */
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
     /** @reimp */
     void setTimeScale(int val);
@@ -61,11 +61,11 @@ public:
     QString functionName();
 
     /** Return a pointer to a EFX Function associated to this item */
-    EFX *getEFX();
+    EFX* getEFX();
 
 protected:
     /** @reimp */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 protected slots:
     void slotEFXChanged(quint32);
@@ -76,7 +76,7 @@ private:
 
 private:
     /** Reference to the actual EFX Function */
-    EFX *m_efx;
+    EFX* m_efx;
 };
 
 /** @} */

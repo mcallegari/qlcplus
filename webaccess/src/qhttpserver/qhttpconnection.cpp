@@ -33,19 +33,19 @@
 
 /// @cond nodoc
 
-QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
-    : QObject(parent),
-      m_socket(socket),
-      m_parser(0),
-      m_parserSettings(0),
-      m_request(0),
-      m_transmitLen(0),
-      m_transmitPos(0),
-      m_postPending(false),
-      m_isWebSocket(false),
-      m_pollTimer(NULL)
+QHttpConnection::QHttpConnection(QTcpSocket* socket, QObject* parent)
+    : QObject(parent)
+    , m_socket(socket)
+    , m_parser(0)
+    , m_parserSettings(0)
+    , m_request(0)
+    , m_transmitLen(0)
+    , m_transmitPos(0)
+    , m_postPending(false)
+    , m_isWebSocket(false)
+    , m_pollTimer(NULL)
 {
-    m_parser = (http_parser *)malloc(sizeof(http_parser));
+    m_parser = (http_parser*)malloc(sizeof(http_parser));
     http_parser_init(m_parser, HTTP_REQUEST);
 
     m_parserSettings = new http_parser_settings();
@@ -103,7 +103,7 @@ void QHttpConnection::updateWriteCount(qint64 count)
 {
     if (m_isWebSocket == false)
     {
-        //Q_ASSERT(m_transmitPos + count <= m_transmitLen);
+        // Q_ASSERT(m_transmitPos + count <= m_transmitLen);
         if (m_transmitPos + count > m_transmitLen)
             return;
 
@@ -132,7 +132,7 @@ void QHttpConnection::parseRequest()
     }
 }
 
-void QHttpConnection::write(const QByteArray &data)
+void QHttpConnection::write(const QByteArray& data)
 {
     m_socket->write(data);
     m_transmitLen += data.size();
@@ -150,21 +150,19 @@ void QHttpConnection::waitForBytesWritten()
 
 void QHttpConnection::responseDone()
 {
-    QHttpResponse *response = qobject_cast<QHttpResponse *>(QObject::sender());
+    QHttpResponse* response = qobject_cast<QHttpResponse*>(QObject::sender());
     if (response->m_last && m_isWebSocket == false)
         m_socket->disconnectFromHost();
 }
 
 /* URL Utilities */
-#define HAS_URL_FIELD(info, field) (info.field_set &(1 << (field)))
+#define HAS_URL_FIELD(info, field) (info.field_set & (1 << (field)))
 
-#define GET_FIELD(data, info, field)                                                               \
-    QString::fromLatin1(data + info.field_data[field].off, info.field_data[field].len)
+#define GET_FIELD(data, info, field) QString::fromLatin1(data + info.field_data[field].off, info.field_data[field].len)
 
-#define CHECK_AND_GET_FIELD(data, info, field)                                                     \
-    (HAS_URL_FIELD(info, field) ? GET_FIELD(data, info, field) : QString())
+#define CHECK_AND_GET_FIELD(data, info, field) (HAS_URL_FIELD(info, field) ? GET_FIELD(data, info, field) : QString())
 
-QUrl createUrl(const char *urlData, const http_parser_url &urlInfo)
+QUrl createUrl(const char* urlData, const http_parser_url& urlInfo)
 {
     QUrl url;
     url.setScheme(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_SCHEMA));
@@ -189,9 +187,9 @@ QUrl createUrl(const char *urlData, const http_parser_url &urlInfo)
  * Static Callbacks *
  *******************/
 
-int QHttpConnection::MessageBegin(http_parser *parser)
+int QHttpConnection::MessageBegin(http_parser* parser)
 {
-    QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
+    QHttpConnection* theConnection = static_cast<QHttpConnection*>(parser->data);
     theConnection->m_currentHeaders.clear();
     theConnection->m_currentUrl.clear();
     theConnection->m_currentUrl.reserve(128);
@@ -207,22 +205,20 @@ int QHttpConnection::MessageBegin(http_parser *parser)
     return 0;
 }
 
-int QHttpConnection::HeadersComplete(http_parser *parser)
+int QHttpConnection::HeadersComplete(http_parser* parser)
 {
-    QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
+    QHttpConnection* theConnection = static_cast<QHttpConnection*>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
     /** set method **/
     theConnection->m_request->setMethod(static_cast<QHttpRequest::HttpMethod>(parser->method));
 
     /** set version **/
-    theConnection->m_request->setVersion(
-        QString("%1.%2").arg(parser->http_major).arg(parser->http_minor));
+    theConnection->m_request->setVersion(QString("%1.%2").arg(parser->http_major).arg(parser->http_minor));
 
     /** get parsed url **/
     struct http_parser_url urlInfo;
-    int r = http_parser_parse_url(theConnection->m_currentUrl.constData(),
-                                  theConnection->m_currentUrl.size(),
+    int r = http_parser_parse_url(theConnection->m_currentUrl.constData(), theConnection->m_currentUrl.size(),
                                   parser->method == HTTP_CONNECT, &urlInfo);
     Q_ASSERT(r == 0);
     Q_UNUSED(r);
@@ -238,7 +234,7 @@ int QHttpConnection::HeadersComplete(http_parser *parser)
     theConnection->m_request->m_remoteAddress = theConnection->m_socket->peerAddress().toString();
     theConnection->m_request->m_remotePort = theConnection->m_socket->peerPort();
 
-    QHttpResponse *response = new QHttpResponse(theConnection);
+    QHttpResponse* response = new QHttpResponse(theConnection);
     if (parser->http_major < 1 || parser->http_minor < 1)
         response->m_keepAlive = false;
 
@@ -260,10 +256,10 @@ int QHttpConnection::HeadersComplete(http_parser *parser)
     return 0;
 }
 
-int QHttpConnection::MessageComplete(http_parser *parser)
+int QHttpConnection::MessageComplete(http_parser* parser)
 {
     // TODO: do cleanup and prepare for next request
-    QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
+    QHttpConnection* theConnection = static_cast<QHttpConnection*>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
     theConnection->m_request->setSuccessful(true);
@@ -271,30 +267,30 @@ int QHttpConnection::MessageComplete(http_parser *parser)
     if (theConnection->m_postPending == true)
     {
         theConnection->m_postPending = false;
-        QHttpResponse *response = new QHttpResponse(theConnection);
+        QHttpResponse* response = new QHttpResponse(theConnection);
         Q_EMIT theConnection->newRequest(theConnection->m_request, response);
     }
     return 0;
 }
 
-int QHttpConnection::Url(http_parser *parser, const char *at, size_t length)
+int QHttpConnection::Url(http_parser* parser, const char* at, size_t length)
 {
-    QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
+    QHttpConnection* theConnection = static_cast<QHttpConnection*>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
     theConnection->m_currentUrl.append(at, length);
     return 0;
 }
 
-int QHttpConnection::HeaderField(http_parser *parser, const char *at, size_t length)
+int QHttpConnection::HeaderField(http_parser* parser, const char* at, size_t length)
 {
-    QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
+    QHttpConnection* theConnection = static_cast<QHttpConnection*>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
     // insert the header we parsed previously
     // into the header map
-    if (!theConnection->m_currentHeaderField.isEmpty() &&
-        !theConnection->m_currentHeaderValue.isEmpty()) {
+    if (!theConnection->m_currentHeaderField.isEmpty() && !theConnection->m_currentHeaderValue.isEmpty())
+    {
         // header names are always lower-cased
         theConnection->m_currentHeaders[theConnection->m_currentHeaderField.toLower()] =
             theConnection->m_currentHeaderValue;
@@ -310,9 +306,9 @@ int QHttpConnection::HeaderField(http_parser *parser, const char *at, size_t len
     return 0;
 }
 
-int QHttpConnection::HeaderValue(http_parser *parser, const char *at, size_t length)
+int QHttpConnection::HeaderValue(http_parser* parser, const char* at, size_t length)
 {
-    QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
+    QHttpConnection* theConnection = static_cast<QHttpConnection*>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
     QString valueSuffix = QString::fromLatin1(at, length);
@@ -320,9 +316,9 @@ int QHttpConnection::HeaderValue(http_parser *parser, const char *at, size_t len
     return 0;
 }
 
-int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
+int QHttpConnection::Body(http_parser* parser, const char* at, size_t length)
 {
-    QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
+    QHttpConnection* theConnection = static_cast<QHttpConnection*>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
     Q_EMIT theConnection->m_request->data(QByteArray(at, length));
@@ -333,14 +329,13 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
  * WebSocket methods
  *************************************************************************/
 
-QHttpConnection *QHttpConnection::enableWebSocket(bool enable)
+QHttpConnection* QHttpConnection::enableWebSocket(bool enable)
 {
     m_isWebSocket = enable;
     m_pollTimer = new QTimer(this);
     m_pollTimer->setInterval(5000);
 
-    connect(m_pollTimer, SIGNAL(timeout()),
-            this, SLOT(slotWebSocketPollTimeout()));
+    connect(m_pollTimer, SIGNAL(timeout()), this, SLOT(slotWebSocketPollTimeout()));
 
     m_pollTimer->start();
     return this;
@@ -419,12 +414,12 @@ void QHttpConnection::webSocketRead(QByteArray data)
         if (dataLen == 126)
         {
             dataLen = (data.at(dataPos) << 8) + data.at(dataPos + 1);
-            dataPos+=2;
+            dataPos += 2;
         }
         else if (dataLen == 127)
         {
             // TODO: 64bit length...really ?
-            dataPos+=8;
+            dataPos += 8;
         }
 
         quint8 mask[4];
@@ -434,7 +429,7 @@ void QHttpConnection::webSocketRead(QByteArray data)
             mask[1] = quint8(data.at(dataPos + 1));
             mask[2] = quint8(data.at(dataPos + 2));
             mask[3] = quint8(data.at(dataPos + 3));
-            dataPos+=4;
+            dataPos += 4;
         }
 
         qDebug() << "[webSocketRead] opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
@@ -447,7 +442,7 @@ void QHttpConnection::webSocketRead(QByteArray data)
             if (masked == true)
             {
                 int i = 0;
-                char *cData = data.data() + dataPos;
+                char* cData = data.data() + dataPos;
                 while (lengthCounter-- > 0)
                     *cData++ ^= mask[i++ % 4];
             }

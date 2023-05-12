@@ -19,10 +19,9 @@
 
 #include "listmodel.h"
 
-ListModel::ListModel(QObject *parent)
+ListModel::ListModel(QObject* parent)
     : QAbstractListModel(parent)
 {
-
 }
 
 ListModel::~ListModel()
@@ -44,13 +43,13 @@ void ListModel::clear()
     endRemoveRows();
 }
 
-int ListModel::rowCount(const QModelIndex &parent) const
+int ListModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
     return m_data.count();
 }
 
-QVariant ListModel::data(const QModelIndex &index, int role) const
+QVariant ListModel::data(const QModelIndex& index, int role) const
 {
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_data.count())
@@ -65,7 +64,7 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
     return dataMap[roleName];
 }
 
-QVariant ListModel::data(const QModelIndex &index, QString role) const
+QVariant ListModel::data(const QModelIndex& index, QString role) const
 {
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_data.count() || m_roles.contains(role) == false)
@@ -84,7 +83,7 @@ QVariant ListModel::itemAt(int index) const
     return m_data.at(index);
 }
 
-bool ListModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool ListModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_data.count())
@@ -103,7 +102,7 @@ bool ListModel::setData(const QModelIndex &index, const QVariant &value, int rol
     return true;
 }
 
-bool ListModel::setDataWithRole(const QModelIndex &index, QString roleName, const QVariant &value)
+bool ListModel::setDataWithRole(const QModelIndex& index, QString roleName, const QVariant& value)
 {
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_data.count() || m_roles.contains(roleName) == false)
@@ -126,7 +125,7 @@ void ListModel::addDataMap(QVariantMap data)
     endInsertRows();
 }
 
-void ListModel::setDataMap(const QModelIndex &index, QVariantMap data)
+void ListModel::setDataMap(const QModelIndex& index, QVariantMap data)
 {
     int itemRow = index.row();
     if (itemRow >= m_data.count())

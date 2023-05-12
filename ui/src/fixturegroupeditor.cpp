@@ -51,19 +51,13 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
     m_xSpin->setValue(m_grp->size().width());
     m_ySpin->setValue(m_grp->size().height());
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameEdited(const QString&)));
-    connect(m_xSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotXSpinValueChanged(int)));
-    connect(m_ySpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotYSpinValueChanged(int)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_xSpin, SIGNAL(valueChanged(int)), this, SLOT(slotXSpinValueChanged(int)));
+    connect(m_ySpin, SIGNAL(valueChanged(int)), this, SLOT(slotYSpinValueChanged(int)));
 
-    connect(m_rightButton, SIGNAL(clicked()),
-            this, SLOT(slotRightClicked()));
-    connect(m_downButton, SIGNAL(clicked()),
-            this, SLOT(slotDownClicked()));
-    connect(m_removeButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveFixtureClicked()));
+    connect(m_rightButton, SIGNAL(clicked()), this, SLOT(slotRightClicked()));
+    connect(m_downButton, SIGNAL(clicked()), this, SLOT(slotDownClicked()));
+    connect(m_removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveFixtureClicked()));
 
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     m_table->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -71,9 +65,7 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
     updateTable();
 }
 
-FixtureGroupEditor::~FixtureGroupEditor()
-{
-}
+FixtureGroupEditor::~FixtureGroupEditor() {}
 
 void FixtureGroupEditor::updateTable()
 {
@@ -82,19 +74,16 @@ void FixtureGroupEditor::updateTable()
     int savedRow = m_row;
     int savedCol = m_column;
 
-    disconnect(m_table, SIGNAL(cellChanged(int,int)),
-               this, SLOT(slotCellChanged(int,int)));
-    disconnect(m_table, SIGNAL(cellPressed(int,int)),
-               this, SLOT(slotCellActivated(int,int)));
-    disconnect(m_table->horizontalHeader(), SIGNAL(sectionResized(int,int,int)),
-            this, SLOT(slotResized()));
+    disconnect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
+    disconnect(m_table, SIGNAL(cellPressed(int, int)), this, SLOT(slotCellActivated(int, int)));
+    disconnect(m_table->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this, SLOT(slotResized()));
 
     m_table->clear();
 
     m_table->setRowCount(m_grp->size().height());
     m_table->setColumnCount(m_grp->size().width());
 
-    QMapIterator <QLCPoint,GroupHead> it(m_grp->headsMap());
+    QMapIterator<QLCPoint, GroupHead> it(m_grp->headsMap());
     while (it.hasNext() == true)
     {
         it.next();
@@ -107,10 +96,11 @@ void FixtureGroupEditor::updateTable()
             continue;
 
         QIcon icon = fxi->getIconFromType();
-        QString str = QString("%1 H:%2\nA:%3 U:%4").arg(fxi->name())
-                                               .arg(head.head + 1)
-                                               .arg(fxi->address() + 1)
-                                               .arg(fxi->universe() + 1);
+        QString str = QString("%1 H:%2\nA:%3 U:%4")
+                          .arg(fxi->name())
+                          .arg(head.head + 1)
+                          .arg(fxi->address() + 1)
+                          .arg(fxi->universe() + 1);
 
         QTableWidgetItem* item = new QTableWidgetItem(icon, str);
         item->setData(PROP_FIXTURE, head.fxi);
@@ -120,12 +110,9 @@ void FixtureGroupEditor::updateTable()
         m_table->setItem(pt.y(), pt.x(), item);
     }
 
-    connect(m_table, SIGNAL(cellPressed(int,int)),
-            this, SLOT(slotCellActivated(int,int)));
-    connect(m_table, SIGNAL(cellChanged(int,int)),
-            this, SLOT(slotCellChanged(int,int)));
-    connect(m_table->horizontalHeader(), SIGNAL(sectionResized(int,int,int)),
-            this, SLOT(slotResized()));
+    connect(m_table, SIGNAL(cellPressed(int, int)), this, SLOT(slotCellActivated(int, int)));
+    connect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
+    connect(m_table->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this, SLOT(slotResized()));
 
     if (savedRow < m_table->rowCount() && savedCol < m_table->columnCount())
     {
@@ -198,7 +185,7 @@ void FixtureGroupEditor::slotCellChanged(int row, int column)
         return;
     }
 
-    QMap <QLCPoint,GroupHead> hash = m_grp->headsMap();
+    QMap<QLCPoint, GroupHead> hash = m_grp->headsMap();
     QLCPoint from(m_column, m_row);
     QLCPoint to(column, row);
     GroupHead fromHead;
@@ -218,8 +205,7 @@ void FixtureGroupEditor::slotCellChanged(int row, int column)
 
 void FixtureGroupEditor::slotResized()
 {
-    disconnect(m_table, SIGNAL(cellChanged(int,int)),
-               this, SLOT(slotCellChanged(int,int)));
+    disconnect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
 
     float cellWidth = (float)(m_table->columnWidth(0) - m_table->iconSize().width());
     QFont font = m_table->font();
@@ -235,9 +221,9 @@ void FixtureGroupEditor::slotResized()
             {
                 QFont scaledFont = font;
 #if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
-                float baseWidth  = (float)fm.width(item->text());
+                float baseWidth = (float)fm.width(item->text());
 #else
-                float baseWidth  = (float)fm.horizontalAdvance(item->text());
+                float baseWidth = (float)fm.horizontalAdvance(item->text());
 #endif
                 float factor = cellWidth / baseWidth;
                 if (factor != 1)
@@ -250,8 +236,7 @@ void FixtureGroupEditor::slotResized()
         }
     }
 
-    connect(m_table, SIGNAL(cellChanged(int,int)),
-            this, SLOT(slotCellChanged(int,int)));
+    connect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
 }
 
 void FixtureGroupEditor::addFixtureHeads(Qt::ArrowType direction)

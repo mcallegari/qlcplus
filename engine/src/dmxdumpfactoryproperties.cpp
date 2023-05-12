@@ -88,4 +88,3 @@ DmxDumpFactoryProperties::TargetType DmxDumpFactoryProperties::selectedTarget()
 {
     return m_selectedTarget;
 }
-

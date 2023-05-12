@@ -45,7 +45,7 @@ void Bus_Test::defaults()
 
 void Bus_Test::value()
 {
-    QSignalSpy spy(Bus::instance(), SIGNAL(valueChanged(quint32,quint32)));
+    QSignalSpy spy(Bus::instance(), SIGNAL(valueChanged(quint32, quint32)));
 
     /* Setting bus value should produce a signal */
     Bus::instance()->setValue(0, 15);
@@ -80,7 +80,7 @@ void Bus_Test::value()
 
 void Bus_Test::name()
 {
-    QSignalSpy spy(Bus::instance(), SIGNAL(nameChanged(quint32,QString)));
+    QSignalSpy spy(Bus::instance(), SIGNAL(nameChanged(quint32, QString)));
 
     /* Setting bus name should produce a signal */
     QVERIFY(Bus::instance()->name(0) == QString("Fade"));

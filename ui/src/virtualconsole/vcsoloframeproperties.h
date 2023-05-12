@@ -36,14 +36,14 @@ class VCSoloFrameProperties : public VCFrameProperties
     Q_DISABLE_COPY(VCSoloFrameProperties)
 
 public:
-    VCSoloFrameProperties(QWidget* parent, VCSoloFrame *frame, Doc *doc);
+    VCSoloFrameProperties(QWidget* parent, VCSoloFrame* frame, Doc* doc);
     virtual ~VCSoloFrameProperties();
 
 protected:
     void setupSoloframeUi();
 
 protected:
-    VCSoloFrame *m_soloframe;
+    VCSoloFrame* m_soloframe;
 
     QCheckBox* m_soloframeMixingCb;
 
@@ -54,4 +54,3 @@ public slots:
 /** @} */
 
 #endif
-

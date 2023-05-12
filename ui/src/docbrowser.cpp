@@ -51,17 +51,14 @@ QLCTextBrowser::QLCTextBrowser(QWidget* parent)
     m_hysteresis.start();
 }
 
-QLCTextBrowser::~QLCTextBrowser()
-{
-}
+QLCTextBrowser::~QLCTextBrowser() {}
 
 bool QLCTextBrowser::event(QEvent* ev)
 {
     if (ev->type() == QEvent::Gesture)
     {
-        QGestureEvent* gesture = static_cast<QGestureEvent*> (ev);
-        QSwipeGesture* swipe = qobject_cast<QSwipeGesture*> (
-            gesture->gesture(Qt::SwipeGesture));
+        QGestureEvent* gesture = static_cast<QGestureEvent*>(ev);
+        QSwipeGesture* swipe = qobject_cast<QSwipeGesture*>(gesture->gesture(Qt::SwipeGesture));
         if (swipe == NULL)
         {
             /* NOP */
@@ -115,7 +112,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     }
     else
     {
-        QScreen *screen = QGuiApplication::screens().first();
+        QScreen* screen = QGuiApplication::screens().first();
         QRect rect = screen->availableGeometry();
         int rWd = rect.width() / 4;
         int rHd = rect.height() / 4;
@@ -158,24 +155,17 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_browser->setOpenLinks(false);
     layout()->addWidget(m_browser);
 
-    connect(m_browser, SIGNAL(backwardAvailable(bool)),
-            this, SLOT(slotBackwardAvailable(bool)));
-    connect(m_browser, SIGNAL(forwardAvailable(bool)),
-            this, SLOT(slotForwardAvailable(bool)));
-    connect(m_backwardAction, SIGNAL(triggered(bool)),
-            m_browser, SLOT(backward()));
-    connect(m_forwardAction, SIGNAL(triggered(bool)),
-            m_browser, SLOT(forward()));
-    connect(m_homeAction, SIGNAL(triggered(bool)),
-            m_browser, SLOT(home()));
-    connect(m_aboutQtAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAboutQt()));
+    connect(m_browser, SIGNAL(backwardAvailable(bool)), this, SLOT(slotBackwardAvailable(bool)));
+    connect(m_browser, SIGNAL(forwardAvailable(bool)), this, SLOT(slotForwardAvailable(bool)));
+    connect(m_backwardAction, SIGNAL(triggered(bool)), m_browser, SLOT(backward()));
+    connect(m_forwardAction, SIGNAL(triggered(bool)), m_browser, SLOT(forward()));
+    connect(m_homeAction, SIGNAL(triggered(bool)), m_browser, SLOT(home()));
+    connect(m_aboutQtAction, SIGNAL(triggered(bool)), this, SLOT(slotAboutQt()));
     connect(m_browser, SIGNAL(anchorClicked(QUrl)), this, SLOT(slotAnchorClicked(QUrl)));
     if (QLCFile::hasWindowManager() == false)
     {
         m_toolbar->addAction(m_closeAction);
-        connect(m_closeAction, SIGNAL(triggered(bool)),
-                this, SLOT(slotCloseWindow()));
+        connect(m_closeAction, SIGNAL(triggered(bool)), this, SLOT(slotCloseWindow()));
     }
 
     /* Set document search paths */
@@ -193,15 +183,16 @@ DocBrowser::~DocBrowser()
     s_instance = NULL;
 }
 
-void DocBrowser::slotAnchorClicked(QUrl url){
-    if(url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
-     {
+void DocBrowser::slotAnchorClicked(QUrl url)
+{
+    if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
+    {
         QDesktopServices::openUrl(url);
-     }
-     else
-     {
+    }
+    else
+    {
         m_browser->setSource(url);
-     }
+    }
 }
 
 void DocBrowser::createAndShow(QWidget* parent)

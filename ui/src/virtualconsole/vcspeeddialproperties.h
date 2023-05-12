@@ -64,13 +64,13 @@ private slots:
 
 private:
     /** Generate a QList of functions currently in the tree widget */
-    QList <VCSpeedDialFunction> functions() const;
+    QList<VCSpeedDialFunction> functions() const;
 
     /** Create a tree item for the given function $id */
-    void createFunctionItem(const VCSpeedDialFunction &speeddialfunction);
+    void createFunctionItem(const VCSpeedDialFunction& speeddialfunction);
 
     /** Reference to the tree item used for copy & paste */
-    QTreeWidgetItem *m_copyItem;
+    QTreeWidgetItem* m_copyItem;
 
     /************************************************************************
      * Input page
@@ -79,13 +79,13 @@ private slots:
     void slotAbsolutePrecisionCbChecked(bool checked);
 
 private:
-    InputSelectionWidget *m_absoluteInputWidget;
-    InputSelectionWidget *m_tapInputWidget;
-    InputSelectionWidget *m_applyInputWidget;
+    InputSelectionWidget* m_absoluteInputWidget;
+    InputSelectionWidget* m_tapInputWidget;
+    InputSelectionWidget* m_applyInputWidget;
 
-    InputSelectionWidget *m_multInputWidget;
-    InputSelectionWidget *m_divInputWidget;
-    InputSelectionWidget *m_multDivResetInputWidget;
+    InputSelectionWidget* m_multInputWidget;
+    InputSelectionWidget* m_divInputWidget;
+    InputSelectionWidget* m_multDivResetInputWidget;
 
     /*********************************************************************
      * Presets
@@ -110,7 +110,7 @@ protected slots:
 protected:
     quint8 m_lastAssignedID;
     QList<VCSpeedDialPreset*> m_presets;
-    InputSelectionWidget *m_presetInputWidget;
+    InputSelectionWidget* m_presetInputWidget;
 };
 
 /** @} */

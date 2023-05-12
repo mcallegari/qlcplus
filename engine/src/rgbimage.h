@@ -38,7 +38,7 @@
 class RGBImage : public RGBAlgorithm
 {
 public:
-    RGBImage(Doc * doc);
+    RGBImage(Doc* doc);
     RGBImage(const RGBImage& t);
     ~RGBImage();
 
@@ -61,7 +61,6 @@ public:
     bool animatedSource() const;
 
 private:
-
     void reloadImage();
 
 private:
@@ -75,7 +74,13 @@ private:
      * Animation
      ************************************************************************/
 public:
-    enum AnimationStyle { Static, Horizontal, Vertical, Animation };
+    enum AnimationStyle
+    {
+        Static,
+        Horizontal,
+        Vertical,
+        Animation
+    };
 
     void setAnimationStyle(AnimationStyle ani);
     AnimationStyle animationStyle() const;
@@ -103,7 +108,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
 
     /** @reimp */
     QString name() const;
@@ -121,10 +126,10 @@ public:
     int acceptColors() const;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 };
 
 /** @} */

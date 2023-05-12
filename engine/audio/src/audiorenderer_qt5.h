@@ -35,7 +35,7 @@ class AudioRendererQt5 : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererQt5(QString device, Doc *doc, QObject *parent = 0);
+    AudioRendererQt5(QString device, Doc* doc, QObject* parent = 0);
     ~AudioRendererQt5();
 
     /** @reimpl */
@@ -48,7 +48,7 @@ public:
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char *data, qint64 maxSize);
+    qint64 writeAudio(unsigned char* data, qint64 maxSize);
 
     /** @reimpl */
     void drain();
@@ -70,8 +70,8 @@ public:
     void run();
 
 private:
-    QAudioOutput *m_audioOutput;
-    QIODevice *m_output;
+    QAudioOutput* m_audioOutput;
+    QIODevice* m_output;
     QAudioFormat m_format;
     QString m_device;
     QAudioDeviceInfo m_deviceInfo;

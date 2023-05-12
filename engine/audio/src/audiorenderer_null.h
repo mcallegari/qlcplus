@@ -31,32 +31,40 @@ class AudioRendererNull : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererNull(QObject * parent = 0);
+    AudioRendererNull(QObject* parent = 0);
 
-    ~AudioRendererNull() { }
-
-    /** @reimpl */
-    bool initialize(quint32, int, AudioFormat) { return true; }
+    ~AudioRendererNull() {}
 
     /** @reimpl */
-    qint64 latency() { return 0; } // not bad for a null device huh ? ;)
+    bool initialize(quint32, int, AudioFormat)
+    {
+        return true;
+    }
+
+    /** @reimpl */
+    qint64 latency()
+    {
+        return 0;
+    } // not bad for a null device huh ? ;)
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char *, qint64 maxSize) { return maxSize; }
+    qint64 writeAudio(unsigned char*, qint64 maxSize)
+    {
+        return maxSize;
+    }
 
     /** @reimpl */
-    void drain() { }
+    void drain() {}
 
     /** @reimpl */
-    void reset() { }
+    void reset() {}
 
     /** @reimpl */
-    void suspend() { }
+    void suspend() {}
 
     /** @reimpl */
-    void resume() { }
-
+    void resume() {}
 };
 
 /** @} */

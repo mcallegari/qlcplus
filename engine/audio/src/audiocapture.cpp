@@ -25,15 +25,15 @@
 #include "audiocapture.h"
 
 #ifdef HAS_FFTW3
-#include "fftw3.h"
+  #include "fftw3.h"
 #endif
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
-#define M_2PI       6.28318530718           /* 2*pi */
+#define M_2PI 6.28318530718 /* 2*pi */
 
-AudioCapture::AudioCapture (QObject* parent)
-    : QThread (parent)
+AudioCapture::AudioCapture(QObject* parent)
+    : QThread(parent)
     , m_userStop(true)
     , m_pause(false)
     , m_captureSize(0)
@@ -165,8 +165,9 @@ double AudioCapture::fillBandsData(int number)
         {
             if (i == bufferSize)
                 break;
-            magnitudeSum += qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
-                                  (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
+            magnitudeSum +=
+                qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
+                      (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
         }
         double bandMagnitude = (magnitudeSum / (subBandWidth * M_2PI));
         m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] = bandMagnitude;
@@ -188,7 +189,7 @@ void AudioCapture::processData()
 
     // 1 ********* Initialize FFTW
     fftw_plan plan_forward;
-    plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer, (fftw_complex*)m_fftOutputBuffer , 0);
+    plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer, (fftw_complex*)m_fftOutputBuffer, 0);
 
     // 2 ********* Apply a window to audio data
     // *********** and convert it to doubles
@@ -199,25 +200,26 @@ void AudioCapture::processData()
         m_audioMixdown[i] = 0;
         for (j = 0; j < m_channels; j++)
         {
-            m_audioMixdown[i] += m_audioBuffer[i*m_channels + j] / m_channels;
+            m_audioMixdown[i] += m_audioBuffer[i * m_channels + j] / m_channels;
         }
     }
 
     for (i = 0; i < bufferSize; i++)
     {
-#ifdef USE_BLACKMAN
-        double a0 = (1-0.16)/2;
+  #ifdef USE_BLACKMAN
+        double a0 = (1 - 0.16) / 2;
         double a1 = 0.5;
-        double a2 = 0.16/2;
-        m_fftInputBuffer[i] = m_audioMixdown[i] * (a0 - a1 * qCos((M_2PI * i) / (bufferSize - 1)) +
-                              a2 * qCos((2 * M_2PI * i) / (bufferSize - 1))) / 32768.;
-#endif
-#ifdef USE_HANNING
+        double a2 = 0.16 / 2;
+        m_fftInputBuffer[i] =
+            m_audioMixdown[i] *
+            (a0 - a1 * qCos((M_2PI * i) / (bufferSize - 1)) + a2 * qCos((2 * M_2PI * i) / (bufferSize - 1))) / 32768.;
+  #endif
+  #ifdef USE_HANNING
         m_fftInputBuffer[i] = m_audioMixdown[i] * (0.5 * (1.00 - qCos((M_2PI * i) / (bufferSize - 1)))) / 32768.;
-#endif
-#ifdef USE_NO_WINDOW
+  #endif
+  #ifdef USE_NO_WINDOW
         m_fftInputBuffer[i] = (double)m_audioMixdown[i] / 32768.;
-#endif
+  #endif
     }
 
     // 3 ********* Perform FFT
@@ -225,17 +227,17 @@ void AudioCapture::processData()
     fftw_destroy_plan(plan_forward);
 
     // 4 ********* Clear FFT noise
-#ifdef CLEAR_FFT_NOISE
-    //We delete some values since these will ruin our output
+  #ifdef CLEAR_FFT_NOISE
+    // We delete some values since these will ruin our output
     for (int n = 0; n < 5; n++)
     {
         ((fftw_complex*)m_fftOutputBuffer)[n][0] = 0;
         ((fftw_complex*)m_fftOutputBuffer)[n][1] = 0;
     }
-#endif
+  #endif
 
     // 5 ********* Calculate the average signal power
-    foreach(int barsNumber, m_fftMagnitudeMap.keys())
+    foreach (int barsNumber, m_fftMagnitudeMap.keys())
     {
         maxMagnitude = fillBandsData(barsNumber);
         pwrSum = 0.;
@@ -245,8 +247,7 @@ void AudioCapture::processData()
         }
         m_signalPower = 32768 * pwrSum * qSqrt(M_2PI) / (double)barsNumber;
         emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
-                           m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
-                           maxMagnitude, m_signalPower);
+                           m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(), maxMagnitude, m_signalPower);
     }
 #endif
 }
@@ -274,10 +275,9 @@ void AudioCapture::run()
             }
             else
             {
-                //qDebug() << "Error reading data from audio source";
+                // qDebug() << "Error reading data from audio source";
                 QThread::msleep(5);
             }
-
         }
         else
         {

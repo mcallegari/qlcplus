@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCSoloFrame       QString("SoloFrame")
+#define KXMLQLCVCSoloFrame QString("SoloFrame")
 #define KXMLQLCVCSoloFrameMixing QString("Mixing")
 
 class VCSoloFrame : public VCFrame
@@ -60,8 +60,8 @@ protected:
     virtual bool copyFrom(const VCWidget* widget);
 
     /*************************************************************************
-    * Solo behaviour
-    *************************************************************************/
+     * Solo behaviour
+     *************************************************************************/
 public:
     /** Method to connect/disconnect the children widgets
      *  to implement the solo behaviour.
@@ -92,6 +92,7 @@ protected:
     virtual void editProperties();
 
     bool m_soloframeMixing;
+
 public:
     bool soloframeMixing() const;
     void setSoloframeMixing(bool soloframeMixing);
@@ -107,7 +108,6 @@ protected:
      *************************************************************************/
 protected:
     virtual void paintEvent(QPaintEvent* e);
-
 };
 
 /** @} */

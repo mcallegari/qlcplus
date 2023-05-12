@@ -72,7 +72,7 @@ public:
 
 public:
     /** List of outputs that have been opened */
-    QList <quint32> m_openOutputs;
+    QList<quint32> m_openOutputs;
 
     /** Fake universe buffer */
     QByteArray m_universe;
@@ -101,7 +101,7 @@ public:
 
 public:
     /** List of inputs that have been opened */
-    QList <quint32> m_openInputs;
+    QList<quint32> m_openInputs;
 
     /*********************************************************************
      * Configuration

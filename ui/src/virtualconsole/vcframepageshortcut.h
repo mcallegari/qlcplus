@@ -33,9 +33,9 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCFramePageShortcut       QString("Shortcut")
-#define KXMLQLCVCFramePageShortcutPage   QString("Page")
-#define KXMLQLCVCFramePageShortcutName   QString("Name")
+#define KXMLQLCVCFramePageShortcut QString("Shortcut")
+#define KXMLQLCVCFramePageShortcutPage QString("Page")
+#define KXMLQLCVCFramePageShortcutName QString("Name")
 
 class VCFramePageShortcut
 {
@@ -53,10 +53,10 @@ public:
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
 protected:
     /** The page name */

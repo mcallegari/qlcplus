@@ -31,12 +31,12 @@ VCMatrixControl::VCMatrixControl(quint8 id)
     m_resource = QString();
 }
 
-VCMatrixControl::VCMatrixControl(const VCMatrixControl &other)
+VCMatrixControl::VCMatrixControl(const VCMatrixControl& other)
 {
     *this = other;
 }
 
-VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
+VCMatrixControl& VCMatrixControl::operator=(const VCMatrixControl& vcmc)
 {
     if (this != &vcmc)
     {
@@ -49,8 +49,8 @@ VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
 
         if (vcmc.m_inputSource != NULL)
         {
-            m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcmc.m_inputSource->universe(),
-                                                   vcmc.m_inputSource->channel()));
+            m_inputSource = QSharedPointer<QLCInputSource>(
+                new QLCInputSource(vcmc.m_inputSource->universe(), vcmc.m_inputSource->channel()));
             m_inputSource->setRange(vcmc.m_inputSource->lowerValue(), vcmc.m_inputSource->upperValue());
         }
     }
@@ -58,9 +58,7 @@ VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
     return *this;
 }
 
-VCMatrixControl::~VCMatrixControl()
-{
-}
+VCMatrixControl::~VCMatrixControl() {}
 
 quint8 VCMatrixControl::rgbToValue(QRgb color) const
 {
@@ -92,18 +90,18 @@ QRgb VCMatrixControl::valueToRgb(quint8 value) const
 
 VCMatrixControl::WidgetType VCMatrixControl::widgetType() const
 {
-    switch(m_type)
+    switch (m_type)
     {
-        case StartColor:
-        case EndColor:
-        case Animation:
-        case Image:
-        case Text:
-        case ResetEndColor:
-            return Button;
-        case StartColorKnob:
-        case EndColorKnob:
-            return Knob;
+    case StartColor:
+    case EndColor:
+    case Animation:
+    case Image:
+    case Text:
+    case ResetEndColor:
+        return Button;
+    case StartColorKnob:
+    case EndColorKnob:
+        return Knob;
     }
 
     // We're never supposed to be here
@@ -113,30 +111,54 @@ VCMatrixControl::WidgetType VCMatrixControl::widgetType() const
 
 QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
 {
-    switch(type)
+    switch (type)
     {
-        case StartColor: return "StartColor"; break;
-        case EndColor: return "EndColor"; break;
-        case ResetEndColor: return "ResetEndColor"; break;
-        case Animation: return "Animation"; break;
-        case Image: return "Image"; break;
-        case Text: return "Text"; break;
-        case StartColorKnob: return "StartColorKnob"; break;
-        case EndColorKnob: return "EndColorKnob"; break;
+    case StartColor:
+        return "StartColor";
+        break;
+    case EndColor:
+        return "EndColor";
+        break;
+    case ResetEndColor:
+        return "ResetEndColor";
+        break;
+    case Animation:
+        return "Animation";
+        break;
+    case Image:
+        return "Image";
+        break;
+    case Text:
+        return "Text";
+        break;
+    case StartColorKnob:
+        return "StartColorKnob";
+        break;
+    case EndColorKnob:
+        return "EndColorKnob";
+        break;
     }
     return QString();
 }
 
 VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
 {
-    if (str == "StartColor") return StartColor;
-    else if (str == "EndColor") return EndColor;
-    else if (str == "ResetEndColor") return ResetEndColor;
-    else if (str == "Animation") return Animation;
-    else if (str == "Image") return Image;
-    else if (str == "Text") return Text;
-    else if (str == "StartColorKnob") return StartColorKnob;
-    else if (str == "EndColorKnob") return EndColorKnob;
+    if (str == "StartColor")
+        return StartColor;
+    else if (str == "EndColor")
+        return EndColor;
+    else if (str == "ResetEndColor")
+        return ResetEndColor;
+    else if (str == "Animation")
+        return Animation;
+    else if (str == "Image")
+        return Image;
+    else if (str == "Text")
+        return Text;
+    else if (str == "StartColorKnob")
+        return StartColorKnob;
+    else if (str == "EndColorKnob")
+        return EndColorKnob;
     else
         return StartColor;
 }
@@ -151,7 +173,7 @@ bool VCMatrixControl::compare(VCMatrixControl const* left, VCMatrixControl const
     return *left < *right;
 }
 
-bool VCMatrixControl::loadXML(QXmlStreamReader &root)
+bool VCMatrixControl::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCMatrixControl)
     {
@@ -210,7 +232,7 @@ bool VCMatrixControl::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
+bool VCMatrixControl::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -231,7 +253,7 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
     if (!m_properties.isEmpty())
     {
         QHashIterator<QString, QString> it(m_properties);
-        while(it.hasNext())
+        while (it.hasNext())
         {
             it.next();
             doc->writeStartElement(KXMLQLCVCMatrixControlProperty);
@@ -254,4 +276,3 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
 
     return true;
 }
-

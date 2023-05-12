@@ -39,26 +39,26 @@ class QString;
 #define KXMLQLCplusNamespace "http://www.qlcplus.org/"
 
 // File extensions
-#define KExtFixture          ".qxf"  // 'Q'LC+ 'X'ml 'F'ixture
-#define KExtFixtureList      ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
-#define KExtWorkspace        ".qxw"  // 'Q'LC+ 'X'ml 'W'orkspace
-#define KExtInputProfile     ".qxi"  // 'Q'LC+ 'X'ml 'I'nput profile
+#define KExtFixture ".qxf"           // 'Q'LC+ 'X'ml 'F'ixture
+#define KExtFixtureList ".qxfl"      // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
+#define KExtWorkspace ".qxw"         // 'Q'LC+ 'X'ml 'W'orkspace
+#define KExtInputProfile ".qxi"      // 'Q'LC+ 'X'ml 'I'nput profile
 #define KExtModifierTemplate ".qxmt" // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
-#define KExtColorFilters     ".qxcf" // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
+#define KExtColorFilters ".qxcf"     // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#   define KExtPlugin    ".dll" // Dynamic-Link Library
+  #define KExtPlugin ".dll" // Dynamic-Link Library
 #elif defined(__APPLE__) || defined(Q_OS_MAC)
-#   define KExtPlugin  ".dylib" // DYnamic LIBrary
+  #define KExtPlugin ".dylib" // DYnamic LIBrary
 #else
-#   define KExtPlugin    ".so"  // Shared Object
+  #define KExtPlugin ".so" // Shared Object
 #endif
 
 // Generic XML tags common for all documents
-#define KXMLQLCCreator          QString("Creator")
-#define KXMLQLCCreatorName      QString("Name")
-#define KXMLQLCCreatorVersion   QString("Version")
-#define KXMLQLCCreatorAuthor    QString("Author")
+#define KXMLQLCCreator QString("Creator")
+#define KXMLQLCCreatorName QString("Name")
+#define KXMLQLCCreatorVersion QString("Version")
+#define KXMLQLCCreatorAuthor QString("Author")
 
 // share fixture list tag
 #define KXMLQLCFixturesList QString("FixtureList")
@@ -76,13 +76,13 @@ public:
      * @param path Path to the file to read
      * @return QXmlStreamReader (unitialized if not successful)
      */
-    static QXmlStreamReader *getXMLReader(const QString& path);
+    static QXmlStreamReader* getXMLReader(const QString& path);
 
     /**
      * Release an existing instance of an XML reader, by closing
      * the device file, and freeing the resources
      */
-    static void releaseXMLReader(QXmlStreamReader *reader);
+    static void releaseXMLReader(QXmlStreamReader* reader);
 
     /**
      * Write a common XML header on the given document
@@ -92,7 +92,7 @@ public:
      * @param author The file's author (overridden by current user name if empty)
      * @return true on success, false on failure
      */
-    static bool writeXMLHeader(QXmlStreamWriter *xml, const QString& content, const QString& author = QString());
+    static bool writeXMLHeader(QXmlStreamWriter* xml, const QString& content, const QString& author = QString());
 
     /**
      * Get a string that gives a textual description for the given file
@@ -129,7 +129,7 @@ public:
      * @param extension
      * @return
      */
-    static QDir systemDirectory(QString path, QString extension = QString() );
+    static QDir systemDirectory(QString path, QString extension = QString());
 
     /**
      * @brief systemDirectory returns a system dependant QDir based
@@ -141,7 +141,7 @@ public:
     static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
 
     /** @brief Return a OS dependent prefix used for local file URLs.
-      *        Linux and macOS needs "file://", while Windows needs "file:///" */
+     *        Linux and macOS needs "file://", while Windows needs "file:///" */
     static QString fileUrlPrefix();
 
     /**

@@ -56,7 +56,7 @@ class FunctionsTreeWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    FunctionsTreeWidget(Doc* doc, QWidget *parent = 0);
+    FunctionsTreeWidget(Doc* doc, QWidget* parent = 0);
 
     /** Update all functions to function tree */
     void updateTree();
@@ -91,29 +91,29 @@ private:
 public:
     void addFolder();
 
-    void deleteFolder(QTreeWidgetItem *item);
+    void deleteFolder(QTreeWidgetItem* item);
 
 private:
-    QTreeWidgetItem *folderItem(QString name);
+    QTreeWidgetItem* folderItem(QString name);
 
 private slots:
-    void slotItemChanged(QTreeWidgetItem *item);
+    void slotItemChanged(QTreeWidgetItem* item);
 
-    void slotUpdateChildrenPath(QTreeWidgetItem *root);
+    void slotUpdateChildrenPath(QTreeWidgetItem* root);
 
 private:
-    QHash <QString, QTreeWidgetItem *> m_foldersMap;
+    QHash<QString, QTreeWidgetItem*> m_foldersMap;
 
     /*********************************************************************
      * Drag & Drop events
      *********************************************************************/
 protected:
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent* event);
 
-    void dropEvent(QDropEvent *event);
+    void dropEvent(QDropEvent* event);
 
 private:
-    QList<QTreeWidgetItem *>m_draggedItems;
+    QList<QTreeWidgetItem*> m_draggedItems;
 };
 
 /** @} */

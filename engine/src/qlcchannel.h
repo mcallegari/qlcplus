@@ -38,21 +38,21 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCChannel          QString("Channel")
-#define KXMLQLCChannelName      QString("Name")
-#define KXMLQLCChannelPreset    QString("Preset")
-#define KXMLQLCChannelGroup     QString("Group")
-#define KXMLQLCChannelDefault   QString("Default")
+#define KXMLQLCChannel QString("Channel")
+#define KXMLQLCChannelName QString("Name")
+#define KXMLQLCChannelPreset QString("Preset")
+#define KXMLQLCChannelGroup QString("Group")
+#define KXMLQLCChannelDefault QString("Default")
 #define KXMLQLCChannelGroupByte QString("Byte")
-#define KXMLQLCChannelColour    QString("Colour")
+#define KXMLQLCChannelColour QString("Colour")
 
 /* Compound strings used by PaletteGenerator to identify
  * special fixture modes
  */
-#define KQLCChannelMovement  QString("Movement")
-#define KQLCChannelRGB       QString("RGB")
-#define KQLCChannelCMY       QString("CMY")
-#define KQLCChannelWhite     QString("White")
+#define KQLCChannelMovement QString("Movement")
+#define KQLCChannelRGB QString("RGB")
+#define KQLCChannelCMY QString("CMY")
+#define KQLCChannelWhite QString("White")
 
 /**
  * QLCChannel represents one DMX channel with one or more DMX value ranges,
@@ -82,9 +82,9 @@ class QLCChannel : public QObject
 
 public:
     /** Standard constructor */
-    QLCChannel(QObject *parent = 0);
+    QLCChannel(QObject* parent = 0);
 
-    QLCChannel *createCopy();
+    QLCChannel* createCopy();
 
     /** Destructor */
     ~QLCChannel();
@@ -184,12 +184,12 @@ public:
     Q_ENUM(Preset)
 
     static QString presetToString(Preset preset);
-    static Preset stringToPreset(const QString &preset);
+    static Preset stringToPreset(const QString& preset);
 
     Preset preset() const;
     void setPreset(Preset preset);
 
-    QLCCapability *addPresetCapability();
+    QLCCapability* addPresetCapability();
 
 signals:
     void presetChanged();
@@ -304,18 +304,18 @@ protected:
 public:
     enum PrimaryColour
     {
-        NoColour    = 0,
-        Red         = 0xFF0000,
-        Green       = 0x00FF00,
-        Blue        = 0x0000FF,
-        Cyan        = 0x00FFFF,
-        Magenta     = 0xFF00FF,
-        Yellow      = 0xFFFF00,
-        Amber       = 0xFF7E00,
-        White       = 0xFFFFFF,
-        UV          = 0x9400D3,
-        Lime        = 0xADFF2F,
-        Indigo      = 0x4B0082
+        NoColour = 0,
+        Red = 0xFF0000,
+        Green = 0x00FF00,
+        Blue = 0x0000FF,
+        Cyan = 0x00FFFF,
+        Magenta = 0xFF00FF,
+        Yellow = 0xFFFF00,
+        Amber = 0xFF7E00,
+        White = 0xFFFFFF,
+        UV = 0x9400D3,
+        Lime = 0xADFF2F,
+        Indigo = 0x4B0082
     };
 
     Q_ENUM(PrimaryColour)
@@ -346,7 +346,7 @@ private:
      *********************************************************************/
 public:
     /** Get a list of channel's capabilities */
-    const QList <QLCCapability*> capabilities() const;
+    const QList<QLCCapability*> capabilities() const;
 
     /** Search for a particular capability by its channel value */
     QLCCapability* searchCapability(uchar value) const;
@@ -362,8 +362,7 @@ public:
      *                   otherwise a "contains" comparison is made.
      * @return QLCCapability or NULL
      */
-    QLCCapability* searchCapability(const QString& name,
-                                    bool exactMatch = true) const;
+    QLCCapability* searchCapability(const QString& name, bool exactMatch = true) const;
 
     /** Add a new capability to the channel */
     bool addCapability(QLCCapability* cap);
@@ -379,17 +378,17 @@ public:
 
 protected:
     /** List of channel's capabilities */
-    QList <QLCCapability*> m_capabilities;
+    QList<QLCCapability*> m_capabilities;
 
     /*********************************************************************
      * File operations
      *********************************************************************/
 public:
     /** Save the channel to a QXmlStreamWriter */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 
     /** Load channel contents from an XML element */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 };
 
 /** @} */

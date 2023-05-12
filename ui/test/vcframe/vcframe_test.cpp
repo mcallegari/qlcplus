@@ -79,7 +79,7 @@ void VCFrame_Test::copy()
     QCOMPARE(frame2->parentWidget(), &parent);
 
     // Also children should get copied
-    QList <VCButton*> list = frame2->findChildren<VCButton*>();
+    QList<VCButton*> list = frame2->findChildren<VCButton*>();
     QCOMPARE(list.size(), 1);
     QCOMPARE(list[0]->caption(), QString("Foobar"));
 
@@ -148,7 +148,7 @@ void VCFrame_Test::loadXML()
     QVERIFY(parent.allowChildren() == false);
     QVERIFY(parent.allowResize() == false);
 
-    QSet <QString> childSet;
+    QSet<QString> childSet;
     QCOMPARE(parent.children().size(), 7);
     foreach (QObject* child, parent.children())
         childSet << child->metaObject()->className();
@@ -203,8 +203,8 @@ void VCFrame_Test::saveXML()
     int appearance = 0, windowstate = 0, frame = 0, allowChildren = 0, allowResize = 0;
     int collapsed = 0, showheader = 0, disabled = 0, enableInput = 0, showEnableButton = 0;
 
-    //qDebug() << "Buffer:" << buffer.data();
-    // Parent
+    // qDebug() << "Buffer:" << buffer.data();
+    //  Parent
     while (xmlReader.readNextStartElement())
     {
         if (xmlReader.name() == QString("Appearance"))
@@ -397,8 +397,8 @@ void VCFrame_Test::handleWidgetSelection()
     VCFrame* frame = VirtualConsole::instance()->contents();
     QVERIFY(frame->isBottomFrame() == true);
 
-    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
-                   Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0), Qt::LeftButton, Qt::LeftButton,
+                   Qt::NoModifier);
     frame->handleWidgetSelection(&ev);
 
     // Select bottom frame (->no selection)
@@ -419,8 +419,8 @@ void VCFrame_Test::handleWidgetSelection()
 void VCFrame_Test::mouseMoveEvent()
 {
     // Well, there isn't much that can be checked here... Actual moving happens in VCWidget.
-    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
-                   Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0), Qt::LeftButton, Qt::LeftButton,
+                   Qt::NoModifier);
 
     QWidget w;
     VCFrame frame(&w, m_doc);

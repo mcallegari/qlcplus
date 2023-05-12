@@ -26,14 +26,14 @@
 
 #include "rgbtext.h"
 
-#define KXMLQLCRGBTextContent        QString("Content")
-#define KXMLQLCRGBTextFont           QString("Font")
+#define KXMLQLCRGBTextContent QString("Content")
+#define KXMLQLCRGBTextFont QString("Font")
 #define KXMLQLCRGBTextAnimationStyle QString("Animation")
-#define KXMLQLCRGBTextOffset         QString("Offset")
-#define KXMLQLCRGBTextOffsetX        QString("X")
-#define KXMLQLCRGBTextOffsetY        QString("Y")
+#define KXMLQLCRGBTextOffset QString("Offset")
+#define KXMLQLCRGBTextOffsetX QString("X")
+#define KXMLQLCRGBTextOffsetY QString("Y")
 
-RGBText::RGBText(Doc * doc)
+RGBText::RGBText(Doc* doc)
     : RGBAlgorithm(doc)
     , m_text(" Q LIGHT CONTROLLER + ")
     , m_animationStyle(Horizontal)
@@ -52,14 +52,12 @@ RGBText::RGBText(const RGBText& t)
 {
 }
 
-RGBText::~RGBText()
-{
-}
+RGBText::~RGBText() {}
 
 RGBAlgorithm* RGBText::clone() const
 {
     RGBText* txt = new RGBText(*this);
-    return static_cast<RGBAlgorithm*> (txt);
+    return static_cast<RGBAlgorithm*>(txt);
 }
 
 /****************************************************************************
@@ -161,7 +159,8 @@ int RGBText::scrollingTextStepCount() const
     QFontMetrics fm(m_font);
     if (animationStyle() == Vertical)
         return m_text.length() * fm.ascent();
-    else{
+    else
+    {
 #if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
         return fm.width(m_text);
 #else
@@ -170,7 +169,7 @@ int RGBText::scrollingTextStepCount() const
     }
 }
 
-void RGBText::renderScrollingText(const QSize& size, uint rgb, int step, RGBMap &map) const
+void RGBText::renderScrollingText(const QSize& size, uint rgb, int step, RGBMap& map) const
 {
     QImage image;
     if (animationStyle() == Horizontal)
@@ -228,7 +227,7 @@ void RGBText::renderScrollingText(const QSize& size, uint rgb, int step, RGBMap 
     }
 }
 
-void RGBText::renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap &map) const
+void RGBText::renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap& map) const
 {
     QImage image(size, QImage::Format_RGB32);
     image.fill(QRgb(0));
@@ -266,7 +265,7 @@ int RGBText::rgbMapStepCount(const QSize& size)
         return scrollingTextStepCount();
 }
 
-void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap& map)
 {
     if (animationStyle() == StaticLetters)
         renderStaticLetters(size, rgb, step, map);
@@ -299,7 +298,7 @@ int RGBText::acceptColors() const
     return 2; // start and end colors accepted
 }
 
-bool RGBText::loadXML(QXmlStreamReader &root)
+bool RGBText::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCRGBAlgorithm)
     {
@@ -366,7 +365,7 @@ bool RGBText::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBText::saveXML(QXmlStreamWriter *doc) const
+bool RGBText::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 

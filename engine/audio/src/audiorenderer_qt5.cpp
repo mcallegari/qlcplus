@@ -25,7 +25,7 @@
 #include "audiorenderer_qt5.h"
 #include "audioplugincache.h"
 
-AudioRendererQt5::AudioRendererQt5(QString device, Doc *doc, QObject *parent)
+AudioRendererQt5::AudioRendererQt5(QString device, Doc* doc, QObject* parent)
     : AudioRenderer(parent)
     , m_audioOutput(NULL)
     , m_output(NULL)
@@ -64,28 +64,28 @@ bool AudioRendererQt5::initialize(quint32 freq, int chan, AudioFormat format)
 
     switch (format)
     {
-        case PCM_S8:
-            m_format.setSampleSize(8);
-            m_format.setSampleType(QAudioFormat::SignedInt);
+    case PCM_S8:
+        m_format.setSampleSize(8);
+        m_format.setSampleType(QAudioFormat::SignedInt);
         break;
-        case PCM_S16LE:
-            m_format.setSampleSize(16);
-            m_format.setSampleType(QAudioFormat::SignedInt);
-            m_format.setByteOrder(QAudioFormat::LittleEndian);
+    case PCM_S16LE:
+        m_format.setSampleSize(16);
+        m_format.setSampleType(QAudioFormat::SignedInt);
+        m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
-        case PCM_S24LE:
-            m_format.setSampleSize(16);
-            m_format.setSampleType(QAudioFormat::SignedInt);
-            m_format.setByteOrder(QAudioFormat::LittleEndian);
+    case PCM_S24LE:
+        m_format.setSampleSize(16);
+        m_format.setSampleType(QAudioFormat::SignedInt);
+        m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
-        case PCM_S32LE:
-            m_format.setSampleSize(16);
-            m_format.setSampleType(QAudioFormat::SignedInt);
-            m_format.setByteOrder(QAudioFormat::LittleEndian);
+    case PCM_S32LE:
+        m_format.setSampleSize(16);
+        m_format.setSampleType(QAudioFormat::SignedInt);
+        m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
-        default:
-            qWarning("AudioRendererQt5: unsupported format detected");
-            return false;
+    default:
+        qWarning("AudioRendererQt5: unsupported format detected");
+        return false;
     }
 
     if (!m_deviceInfo.isFormatSupported(m_format))
@@ -108,11 +108,11 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     QStringList outDevs, inDevs;
 
     // create a preliminary list of input devices only
-    foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+    foreach (const QAudioDeviceInfo& deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
         inDevs.append(deviceInfo.deviceName());
 
     // loop through output devices and check if they're input devices too
-    foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+    foreach (const QAudioDeviceInfo& deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
     {
         outDevs.append(deviceInfo.deviceName());
         AudioDeviceInfo info;
@@ -129,7 +129,7 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     }
 
     // add the devices left in the input list. These don't have output capabilities
-    foreach(QString dev, inDevs)
+    foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;
@@ -142,13 +142,13 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererQt5::writeAudio(unsigned char *data, qint64 maxSize)
+qint64 AudioRendererQt5::writeAudio(unsigned char* data, qint64 maxSize)
 {
     if (m_audioOutput == NULL || m_audioOutput->bytesFree() < maxSize)
         return 0;
 
-    //qDebug() << "writeAudio called !! - " << maxSize;
-    qint64 written = m_output->write((const char *)data, maxSize);
+    // qDebug() << "writeAudio called !! - " << maxSize;
+    qint64 written = m_output->write((const char*)data, maxSize);
 
     if (written != maxSize)
         qDebug() << "[writeAudio] expexcted to write" << maxSize << "but wrote" << written;

@@ -31,14 +31,14 @@
  * @{
  */
 
-#define AUDIO_BUFFER_SIZE   8192
-#define AUDIO_BUFFERS_NUM   4
+#define AUDIO_BUFFER_SIZE 8192
+#define AUDIO_BUFFERS_NUM 4
 
 class AudioRendererCoreAudio : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererCoreAudio(QObject * parent = 0);
+    AudioRendererCoreAudio(QObject* parent = 0);
     ~AudioRendererCoreAudio();
 
     /** @reimpl */
@@ -49,7 +49,7 @@ public:
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char *data, qint64 maxSize);
+    qint64 writeAudio(unsigned char* data, qint64 maxSize);
 
     /** @reimpl */
     void drain();
@@ -64,7 +64,7 @@ protected:
     void resume();
 
 private:
-    static void inCallback (void *inUserData, AudioQueueRef queue, AudioQueueBufferRef buf_ref);
+    static void inCallback(void* inUserData, AudioQueueRef queue, AudioQueueBufferRef buf_ref);
 
     AudioQueueRef m_queue;
     AudioQueueBufferRef m_buffer[AUDIO_BUFFERS_NUM];

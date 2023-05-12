@@ -23,7 +23,7 @@
 #include "qlcfixturemode.h"
 #include "doc.h"
 
-MonitorGraphicsView::MonitorGraphicsView(Doc *doc, QWidget *parent)
+MonitorGraphicsView::MonitorGraphicsView(Doc* doc, QWidget* parent)
     : QGraphicsView(parent)
     , m_doc(doc)
     , m_unitValue(1000)
@@ -48,7 +48,7 @@ void MonitorGraphicsView::setGridSize(QSize size)
 {
     m_gridSize = size;
     updateGrid();
-    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
+    QHashIterator<quint32, MonitorFixtureItem*> it(m_fixtures);
     while (it.hasNext() == true)
     {
         it.next();
@@ -59,7 +59,7 @@ void MonitorGraphicsView::setGridSize(QSize size)
 void MonitorGraphicsView::setGridMetrics(float value)
 {
     m_unitValue = value;
-    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
+    QHashIterator<quint32, MonitorFixtureItem*> it(m_fixtures);
     while (it.hasNext() == true)
     {
         it.next();
@@ -69,7 +69,7 @@ void MonitorGraphicsView::setGridMetrics(float value)
 
 quint32 MonitorGraphicsView::selectedFixtureID()
 {
-    MonitorFixtureItem *item = getSelectedItem();
+    MonitorFixtureItem* item = getSelectedItem();
     if (item != NULL)
         return item->fixtureID();
     else
@@ -83,27 +83,27 @@ QList<quint32> MonitorGraphicsView::fixturesID() const
 
 void MonitorGraphicsView::setFixtureGelColor(quint32 id, QColor col)
 {
-    MonitorFixtureItem *item = m_fixtures[id];
+    MonitorFixtureItem* item = m_fixtures[id];
     if (item != NULL)
         item->setGelColor(col);
 }
 
 void MonitorGraphicsView::setFixtureRotation(quint32 id, ushort degrees)
 {
-    MonitorFixtureItem *item = m_fixtures[id];
+    MonitorFixtureItem* item = m_fixtures[id];
     if (item != NULL)
         item->setRotation(degrees);
 }
 
 void MonitorGraphicsView::showFixturesLabels(bool visible)
 {
-    foreach(MonitorFixtureItem *item, m_fixtures.values())
+    foreach (MonitorFixtureItem* item, m_fixtures.values())
         item->showLabel(visible);
 }
 
 QColor MonitorGraphicsView::fixtureGelColor(quint32 id)
 {
-    MonitorFixtureItem *item = m_fixtures[id];
+    MonitorFixtureItem* item = m_fixtures[id];
     if (item == NULL)
         return QColor();
 
@@ -120,11 +120,11 @@ QPointF MonitorGraphicsView::realPositionToPixels(qreal xpos, qreal ypos)
 
 void MonitorGraphicsView::updateFixture(quint32 id)
 {
-    Fixture *fxi = m_doc->fixture(id);
+    Fixture* fxi = m_doc->fixture(id);
     if (fxi == NULL || m_fixtures.contains(id) == false)
         return;
 
-    const QLCFixtureMode *mode = fxi->fixtureMode();
+    const QLCFixtureMode* mode = fxi->fixtureMode();
     int width = 0;
     int height = 0;
 
@@ -134,11 +134,13 @@ void MonitorGraphicsView::updateFixture(quint32 id)
         height = mode->physical().height();
     }
 
-    if (width == 0) width = 300;
-    if (height == 0) height = 300;
+    if (width == 0)
+        width = 300;
+    if (height == 0)
+        height = 300;
 
 
-    MonitorFixtureItem *item = m_fixtures[id];
+    MonitorFixtureItem* item = m_fixtures[id];
     item->setSize(QSize((width * m_cellPixels) / m_unitValue, (height * m_cellPixels) / m_unitValue));
 
     item->setPos(realPositionToPixels(item->realPosition().x(), item->realPosition().y()));
@@ -163,13 +165,13 @@ void MonitorGraphicsView::setBackgroundImage(QString filename)
     updateGrid();
 }
 
-MonitorFixtureItem *MonitorGraphicsView::getSelectedItem()
+MonitorFixtureItem* MonitorGraphicsView::getSelectedItem()
 {
-    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
+    QHashIterator<quint32, MonitorFixtureItem*> it(m_fixtures);
     while (it.hasNext() == true)
     {
         it.next();
-        MonitorFixtureItem *item = it.value();
+        MonitorFixtureItem* item = it.value();
         if (item->isSelected() == true)
             return item;
     }
@@ -184,19 +186,18 @@ void MonitorGraphicsView::addFixture(quint32 id, QPointF pos)
     if (m_doc->fixture(id) == NULL)
         return;
 
-    MonitorFixtureItem *item = new MonitorFixtureItem(m_doc, id);
+    MonitorFixtureItem* item = new MonitorFixtureItem(m_doc, id);
     item->setZValue(2);
     item->setRealPosition(pos);
     m_fixtures[id] = item;
     m_scene->addItem(item);
     updateFixture(id);
-    connect(item, SIGNAL(itemDropped(MonitorFixtureItem*)),
-            this, SLOT(slotFixtureMoved(MonitorFixtureItem*)));
+    connect(item, SIGNAL(itemDropped(MonitorFixtureItem*)), this, SLOT(slotFixtureMoved(MonitorFixtureItem*)));
 }
 
 bool MonitorGraphicsView::removeFixture(quint32 id)
 {
-    MonitorFixtureItem *item = NULL;
+    MonitorFixtureItem* item = NULL;
 
     if (id == Fixture::invalidId())
     {
@@ -220,7 +221,7 @@ bool MonitorGraphicsView::removeFixture(quint32 id)
 
 void MonitorGraphicsView::clearFixtures()
 {
-    foreach(MonitorFixtureItem *item, m_fixtures.values())
+    foreach (MonitorFixtureItem* item, m_fixtures.values())
         delete item;
     m_fixtures.clear();
 }
@@ -229,7 +230,7 @@ void MonitorGraphicsView::updateGrid()
 {
     int itemsCount = m_gridItems.count();
     for (int i = 0; i < itemsCount; i++)
-        m_scene->removeItem((QGraphicsItem *)m_gridItems.takeLast());
+        m_scene->removeItem((QGraphicsItem*)m_gridItems.takeLast());
 
     if (m_gridEnabled == true)
     {
@@ -251,8 +252,8 @@ void MonitorGraphicsView::updateGrid()
         int yPos = m_yOffset;
         for (int i = 0; i < m_gridSize.width() + 1; i++)
         {
-            QGraphicsLineItem *item = m_scene->addLine(xPos, m_yOffset, xPos, this->height() - m_yOffset,
-                                                       QPen( QColor(40, 40, 40, 255) ));
+            QGraphicsLineItem* item =
+                m_scene->addLine(xPos, m_yOffset, xPos, this->height() - m_yOffset, QPen(QColor(40, 40, 40, 255)));
             item->setZValue(1);
             xPos += m_cellPixels;
             m_gridItems.append(item);
@@ -260,8 +261,8 @@ void MonitorGraphicsView::updateGrid()
 
         for (int i = 0; i < m_gridSize.height() + 1; i++)
         {
-            QGraphicsLineItem *item = m_scene->addLine(m_xOffset, yPos, this->width() - m_xOffset, yPos,
-                                                       QPen( QColor(40, 40, 40, 255) ));
+            QGraphicsLineItem* item =
+                m_scene->addLine(m_xOffset, yPos, this->width() - m_xOffset, yPos, QPen(QColor(40, 40, 40, 255)));
             item->setZValue(1);
             yPos += m_cellPixels;
             m_gridItems.append(item);
@@ -275,11 +276,11 @@ void MonitorGraphicsView::updateGrid()
     }
 }
 
-void MonitorGraphicsView::resizeEvent(QResizeEvent *event)
+void MonitorGraphicsView::resizeEvent(QResizeEvent* event)
 {
     QGraphicsView::resizeEvent(event);
     updateGrid();
-    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
+    QHashIterator<quint32, MonitorFixtureItem*> it(m_fixtures);
     while (it.hasNext() == true)
     {
         it.next();
@@ -287,14 +288,14 @@ void MonitorGraphicsView::resizeEvent(QResizeEvent *event)
     }
 }
 
-void MonitorGraphicsView::mouseReleaseEvent(QMouseEvent *e)
+void MonitorGraphicsView::mouseReleaseEvent(QMouseEvent* e)
 {
     emit viewClicked(e);
 
     QGraphicsView::mouseReleaseEvent(e);
 }
 
-void MonitorGraphicsView::slotFixtureMoved(MonitorFixtureItem *item)
+void MonitorGraphicsView::slotFixtureMoved(MonitorFixtureItem* item)
 {
     quint32 fid = m_fixtures.key(item);
 

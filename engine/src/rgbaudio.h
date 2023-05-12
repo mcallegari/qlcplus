@@ -38,8 +38,8 @@ class RGBAudio : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBAudio(Doc * doc);
-    RGBAudio(const RGBAudio& t, QObject *parent = 0);
+    RGBAudio(Doc* doc);
+    RGBAudio(const RGBAudio& t, QObject* parent = 0);
     ~RGBAudio();
 
     /** @reimp */
@@ -49,16 +49,16 @@ private:
     void setAudioCapture(AudioCapture* cap);
 
 protected slots:
-    void slotAudioBarsChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotAudioBarsChanged(double* spectrumBands, int size, double maxMagnitude, quint32 power);
 
 private:
     void calculateColors(int barsHeight = 0);
 
 protected:
-    AudioCapture *m_audioInput;
+    AudioCapture* m_audioInput;
     int m_bandsNumber;
     QMutex m_mutex;
-    QVector<double>m_spectrumValues;
+    QVector<double> m_spectrumValues;
     double m_maxMagnitude;
     quint32 m_volumePower;
     QList<uint> m_barColors;
@@ -71,7 +71,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
 
     /** @reimp */
     virtual void postRun();
@@ -99,10 +99,10 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 };
 
 /** @} */

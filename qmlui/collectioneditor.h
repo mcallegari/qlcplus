@@ -32,7 +32,7 @@ class CollectionEditor : public FunctionEditor
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
 
 public:
-    CollectionEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    CollectionEditor(QQuickView* view, Doc* doc, QObject* parent = 0);
 
     /** Set the ID of the Collection being edited */
     void setFunctionID(quint32 ID);
@@ -54,9 +54,9 @@ protected:
 
 private:
     /** Reference of the Collection currently being edited */
-    Collection *m_collection;
+    Collection* m_collection;
 
-    ListModel *m_functionsList;
+    ListModel* m_functionsList;
 };
 
 #endif // COLLECTIONEDITOR_H

@@ -60,7 +60,7 @@ protected slots:
 protected:
     VCButton* m_button;
     Doc* m_doc;
-    InputSelectionWidget *m_inputSelWidget;
+    InputSelectionWidget* m_inputSelWidget;
     quint32 m_function;
 
     /************************************************************************
@@ -73,9 +73,8 @@ private slots:
     void slotDialDestroyed(QObject* dial);
 
 private:
-    SpeedDialWidget *m_speedDials;
+    SpeedDialWidget* m_speedDials;
     int m_fadeOutTime;
-
 };
 
 /** @} */

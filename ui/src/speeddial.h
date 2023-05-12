@@ -70,15 +70,15 @@ class SpeedDial : public QGroupBox
 public:
     enum Visibility
     {
-        None         = 0,
-        PlusMinus    = 1 << 0,
-        Dial         = 1 << 1,
-        Tap          = 1 << 2,
-        Hours        = 1 << 3,
-        Minutes      = 1 << 4,
-        Seconds      = 1 << 5,
+        None = 0,
+        PlusMinus = 1 << 0,
+        Dial = 1 << 1,
+        Tap = 1 << 2,
+        Hours = 1 << 3,
+        Minutes = 1 << 4,
+        Seconds = 1 << 5,
         Milliseconds = 1 << 6,
-        Infinite     = 1 << 7,
+        Infinite = 1 << 7,
     };
 
     SpeedDial(QWidget* parent);
@@ -167,7 +167,7 @@ public:
     quint16 visibilityMask();
 
     /** Set the visibility of the widget's elements
-      * according to the provided bitmask */
+     * according to the provided bitmask */
     void setVisibilityMask(quint16 mask);
 
 private:

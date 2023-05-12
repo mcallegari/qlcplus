@@ -23,8 +23,8 @@
 #include "audiorenderer.h"
 #include "qlcmacros.h"
 
-AudioRenderer::AudioRenderer (QObject* parent)
-    : QThread (parent)
+AudioRenderer::AudioRenderer(QObject* parent)
+    : QThread(parent)
     , m_fadeStep(0.0)
     , m_userStop(true)
     , m_pause(false)
@@ -37,7 +37,7 @@ AudioRenderer::AudioRenderer (QObject* parent)
 {
 }
 
-void AudioRenderer::setDecoder(AudioDecoder *adec)
+void AudioRenderer::setDecoder(AudioDecoder* adec)
 {
     m_adec = adec;
 }
@@ -66,7 +66,7 @@ void AudioRenderer::setFadeIn(uint fadeTime)
 
 void AudioRenderer::setFadeOut(uint fadeTime)
 {
-    if (fadeTime == 0 || m_fadeStep != 0  || m_adec == NULL)
+    if (fadeTime == 0 || m_fadeStep != 0 || m_adec == NULL)
         return;
 
     quint32 sampleRate = m_adec->audioParameters().sampleRate();
@@ -103,10 +103,10 @@ void AudioRenderer::run()
         audioDataWritten = 0;
         if (m_pause == false)
         {
-            //qDebug() << "Pending audio bytes: " << pendingAudioBytes;
+            // qDebug() << "Pending audio bytes: " << pendingAudioBytes;
             if (pendingAudioBytes == 0)
             {
-                audioDataRead = m_adec->read((char *)audioData, 8192);
+                audioDataRead = m_adec->read((char*)audioData, 8192);
                 if (audioDataRead == 0)
                 {
                     if (m_looped)
@@ -122,7 +122,7 @@ void AudioRenderer::run()
                 }
                 if (m_intensity != 1.0 || m_fadeStep != 0)
                 {
-                    for (int i = 0; i < audioDataRead; i+=sampleSize)
+                    for (int i = 0; i < audioDataRead; i += sampleSize)
                     {
                         qreal scaleFactor = m_intensity;
                         if (m_fadeStep != 0)
@@ -131,21 +131,20 @@ void AudioRenderer::run()
                             scaleFactor = m_currentIntensity;
                             if ((m_fadeStep > 0 && m_currentIntensity >= m_intensity) ||
                                 (m_fadeStep < 0 && m_currentIntensity <= 0))
-                                    m_fadeStep = 0;
+                                m_fadeStep = 0;
                         }
                         if (sampleSize >= 2)
                         {
-                            short sample = ((short)audioData[i+1] << 8) + (short)audioData[i];
+                            short sample = ((short)audioData[i + 1] << 8) + (short)audioData[i];
                             sample *= scaleFactor;
-                            audioData[i+1] = (sample >> 8) & 0x00FF;
+                            audioData[i + 1] = (sample >> 8) & 0x00FF;
                             audioData[i] = sample & 0x00FF;
                         }
                         /*
                         else if (sampleSize == 3)
                         {
-                            long sample = ((long)audioData[i+2] << 16) + ((long)audioData[i+1] << 8) + (short)audioData[i];
-                            sample *= scaleFactor;
-                            audioData[i+2] = (sample >> 16) & 0x000000FF;
+                            long sample = ((long)audioData[i+2] << 16) + ((long)audioData[i+1] << 8) +
+                        (short)audioData[i]; sample *= scaleFactor; audioData[i+2] = (sample >> 16) & 0x000000FF;
                             audioData[i+1] = (sample >> 8) & 0x000000FF;
                             audioData[i] = sample & 0x000000FF;
                         }
@@ -180,7 +179,8 @@ void AudioRenderer::run()
                 if (audioDataWritten == 0)
                     usleep(15000);
             }
-            //qDebug() << "[Cycle] read:" << audioDataRead << ", written:" << audioDataWritten << ", pending:" << pendingAudioBytes;
+            // qDebug() << "[Cycle] read:" << audioDataRead << ", written:" << audioDataWritten << ", pending:" <<
+            // pendingAudioBytes;
         }
         else
         {

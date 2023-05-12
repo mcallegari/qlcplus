@@ -49,7 +49,7 @@ class ScriptRunner : public QThread
      * Initialization
      ************************************************************************/
 public:
-    ScriptRunner(Doc *doc, QString &content, QObject *parent = 0);
+    ScriptRunner(Doc* doc, QString& content, QObject* parent = 0);
     ~ScriptRunner();
 
     /** Start the thread execution and therefore the JavaScript code */
@@ -61,7 +61,7 @@ public:
 
     int currentWaitTime();
 
-    bool write(MasterTimer *timer, QList<Universe*> universes);
+    bool write(MasterTimer* timer, QList<Universe*> universes);
 
     /************************************************************************
      * JS exported methods
@@ -196,21 +196,21 @@ protected:
     void run();
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
     QString m_content;
     bool m_running;
 
-    QJSEngine *m_engine;
+    QJSEngine* m_engine;
     // Queue holding the Function IDs to start/stop
-    QQueue<QPair<quint32,bool>> m_functionQueue;
+    QQueue<QPair<quint32, bool>> m_functionQueue;
     // Queue holding Fixture values to send to Universes
     QQueue<FixtureValue> m_fixtureValueQueue;
     // IDs of the Functions started by this script
-    QList <quint32> m_startedFunctions;
+    QList<quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
     // Map used to lookup a GenericFader instance for a Universe ID
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 };
 
 #endif

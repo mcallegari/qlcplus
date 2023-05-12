@@ -30,29 +30,25 @@
 
 #undef private
 
-static QString script0(
-"// Comment over there\n"
-"startfunction:12\r"
-"stopfunction:33 paska\n"
-"waitkey:\"SHIFT+K\"\n"
-"startfunction:\"54\"\r\n"
-"wait:1.05\n"
-"setfixture:99 value:255 channel:1\n"
-"jump:label1\n"
-"wait:1.05\n"
-"label:label1\n"
-"blackout:on\n"
-"systemcommand:echo arg:asdf\n"
-"blackout:off\n"
-);
+static QString script0("// Comment over there\n"
+                       "startfunction:12\r"
+                       "stopfunction:33 paska\n"
+                       "waitkey:\"SHIFT+K\"\n"
+                       "startfunction:\"54\"\r\n"
+                       "wait:1.05\n"
+                       "setfixture:99 value:255 channel:1\n"
+                       "jump:label1\n"
+                       "wait:1.05\n"
+                       "label:label1\n"
+                       "blackout:on\n"
+                       "systemcommand:echo arg:asdf\n"
+                       "blackout:off\n");
 
-void Script_Test::initTestCase()
-{
-}
+void Script_Test::initTestCase() {}
 void Script_Test::initial()
 {
     Doc doc(this);
-    GrandMaster *gm = new GrandMaster();
+    GrandMaster* gm = new GrandMaster();
     QList<Universe*> ua;
     ua.append(new Universe(0, gm));
     ua.append(new Universe(1, gm));

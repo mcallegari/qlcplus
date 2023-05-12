@@ -33,7 +33,7 @@ class AudioCaptureQt6 : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureQt6(QObject * parent = 0);
+    AudioCaptureQt6(QObject* parent = 0);
     ~AudioCaptureQt6();
 
     /** @reimpl */
@@ -59,8 +59,8 @@ protected:
     bool readAudio(int maxSize);
 
 private:
-    QAudioSource *m_audioSource;
-    QIODevice *m_input;
+    QAudioSource* m_audioSource;
+    QIODevice* m_input;
     QAudioFormat m_format;
     qreal m_volume;
     QByteArray m_currentReadBuffer;

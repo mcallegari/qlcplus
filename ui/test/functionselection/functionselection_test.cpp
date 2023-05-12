@@ -39,7 +39,7 @@ void FunctionSelection_Test::initTestCase()
 void FunctionSelection_Test::cleanupTestCase()
 {
     QSettings settings;
-    if(m_savedFilter.isValid())
+    if (m_savedFilter.isValid())
     {
         settings.setValue(SETTINGS_FILTER, m_savedFilter);
     }
@@ -100,7 +100,7 @@ void FunctionSelection_Test::constFilter()
     {
         FunctionSelection fs2(&w, m_doc);
         fs2.setFilter(Function::SceneType | Function::ChaserType, true);
-        QCOMPARE(fs2.m_filter, Function::SceneType | Function::ChaserType );
+        QCOMPARE(fs2.m_filter, Function::SceneType | Function::ChaserType);
     }
 
     {

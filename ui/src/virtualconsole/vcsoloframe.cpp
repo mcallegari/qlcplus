@@ -49,13 +49,15 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
 
     m_frameStyle = KVCFrameStyleSunken;
 
-    if(canCollapse == true)
+    if (canCollapse == true)
     {
         QString txtColor = "white";
         if (m_hasCustomForegroundColor)
             txtColor = this->foregroundColor().name();
-        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #BC0A0A, stop: 1 #370303); "
-                               "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+        m_label->setStyleSheet(
+            "QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #BC0A0A, stop: 1 #370303); "
+            "color: " +
+            txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
     }
 
     QSettings settings;
@@ -68,9 +70,7 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
     m_height = this->height();
 }
 
-VCSoloFrame::~VCSoloFrame()
-{
-}
+VCSoloFrame::~VCSoloFrame() {}
 
 /*****************************************************************************
  * Clipboard
@@ -92,7 +92,7 @@ VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
 
 bool VCSoloFrame::copyFrom(const VCWidget* widget)
 {
-    const VCSoloFrame* frame = qobject_cast<const VCSoloFrame*> (widget);
+    const VCSoloFrame* frame = qobject_cast<const VCSoloFrame*>(widget);
     if (frame == NULL)
         return false;
 
@@ -102,12 +102,12 @@ bool VCSoloFrame::copyFrom(const VCWidget* widget)
 }
 
 /*****************************************************************************
-* Solo behaviour
-*****************************************************************************/
+ * Solo behaviour
+ *****************************************************************************/
 
 void VCSoloFrame::updateChildrenConnection(bool doConnect)
 {
-    QListIterator <VCWidget*> it(findChildren<VCWidget*>());
+    QListIterator<VCWidget*> it(findChildren<VCWidget*>());
     while (it.hasNext())
     {
         VCWidget* widget = it.next();
@@ -115,13 +115,13 @@ void VCSoloFrame::updateChildrenConnection(bool doConnect)
         {
             if (doConnect)
             {
-                connect(widget, SIGNAL(functionStarting(quint32, qreal)),
-                        this, SLOT(slotWidgetFunctionStarting(quint32, qreal)));
+                connect(widget, SIGNAL(functionStarting(quint32, qreal)), this,
+                        SLOT(slotWidgetFunctionStarting(quint32, qreal)));
             }
             else
             {
-                disconnect(widget, SIGNAL(functionStarting(quint32, qreal)),
-                        this, SLOT(slotWidgetFunctionStarting(quint32, qreal)));
+                disconnect(widget, SIGNAL(functionStarting(quint32, qreal)), this,
+                           SLOT(slotWidgetFunctionStarting(quint32, qreal)));
             }
         }
     }
@@ -150,7 +150,7 @@ bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
     {
         widget = widget->parentWidget();
 
-        VCSoloFrame *sf = qobject_cast<VCSoloFrame*>(widget);
+        VCSoloFrame* sf = qobject_cast<VCSoloFrame*>(widget);
         if (sf != NULL)
         {
             return sf == this;
@@ -168,7 +168,7 @@ void VCSoloFrame::slotWidgetFunctionStarting(quint32 fid, qreal intensity)
     {
         // get every widget that is a child of this soloFrame and turn their
         // functions off
-        QListIterator <VCWidget*> it(findChildren<VCWidget*>());
+        QListIterator<VCWidget*> it(findChildren<VCWidget*>());
 
         while (it.hasNext() == true)
         {
@@ -247,7 +247,7 @@ void VCSoloFrame::paintEvent(QPaintEvent* e)
     }
 
     painter.setPen(pen);
-    painter.drawRect(0, 0, rect().width()-1, rect().height()-1);
+    painter.drawRect(0, 0, rect().width() - 1, rect().height() - 1);
 
     if (drawSelectionFrame)
     {

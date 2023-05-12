@@ -62,7 +62,7 @@ signals:
 
 private:
     InputOutputMap* m_ioMap;
-    Doc *m_doc;
+    Doc* m_doc;
 
     quint32 m_universe; //! The input universe that is being edited
 
@@ -81,7 +81,7 @@ private:
     InputPatch* patch() const;
     QTreeWidgetItem* currentlyMappedItem() const;
     void setupMappingPage();
-    QTreeWidgetItem *itemLookup(QString pluginName, QString devName);
+    QTreeWidgetItem* itemLookup(QString pluginName, QString devName);
     void fillMappingTree();
     QTreeWidgetItem* pluginItem(const QString& pluginName);
     void showPluginMappingError();
@@ -119,10 +119,10 @@ private slots:
     void slotSampleRateIndexChanged(int index);
     void slotAudioChannelsChanged(int index);
     void slotAudioInputPreview(bool enable);
-    void slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotAudioUpdateLevel(double* spectrumBands, int size, double maxMagnitude, quint32 power);
 
 private:
-    AudioCapture *m_inputCapture;
+    AudioCapture* m_inputCapture;
 };
 
 /** @} */

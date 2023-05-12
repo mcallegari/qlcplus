@@ -36,11 +36,9 @@ VCSpeedDialPreset::VCSpeedDialPreset(VCSpeedDialPreset const& other)
     *this = other;
 }
 
-VCSpeedDialPreset::~VCSpeedDialPreset()
-{
-}
+VCSpeedDialPreset::~VCSpeedDialPreset() {}
 
-VCSpeedDialPreset &VCSpeedDialPreset::operator=(const VCSpeedDialPreset &preset)
+VCSpeedDialPreset& VCSpeedDialPreset::operator=(const VCSpeedDialPreset& preset)
 {
     if (this != &preset)
     {
@@ -51,8 +49,8 @@ VCSpeedDialPreset &VCSpeedDialPreset::operator=(const VCSpeedDialPreset &preset)
 
         if (preset.m_inputSource != NULL)
         {
-            m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(preset.m_inputSource->universe(),
-                                                           preset.m_inputSource->channel()));
+            m_inputSource = QSharedPointer<QLCInputSource>(
+                new QLCInputSource(preset.m_inputSource->universe(), preset.m_inputSource->channel()));
             m_inputSource->setRange(preset.m_inputSource->lowerValue(), preset.m_inputSource->upperValue());
         }
     }
@@ -69,7 +67,7 @@ bool VCSpeedDialPreset::compare(VCSpeedDialPreset const* left, VCSpeedDialPreset
     return *left < *right;
 }
 
-bool VCSpeedDialPreset::loadXML(QXmlStreamReader &root)
+bool VCSpeedDialPreset::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLQLCVCSpeedDialPreset)
     {
@@ -115,7 +113,7 @@ bool VCSpeedDialPreset::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCSpeedDialPreset::saveXML(QXmlStreamWriter *doc)
+bool VCSpeedDialPreset::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -138,5 +136,3 @@ bool VCSpeedDialPreset::saveXML(QXmlStreamWriter *doc)
 
     return true;
 }
-
-

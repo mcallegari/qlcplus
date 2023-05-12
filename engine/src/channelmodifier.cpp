@@ -51,7 +51,7 @@ ChannelModifier::Type ChannelModifier::type() const
     return m_type;
 }
 
-void ChannelModifier::setModifierMap(QList<QPair<uchar, uchar> > map)
+void ChannelModifier::setModifierMap(QList<QPair<uchar, uchar>> map)
 {
     m_map = map;
     m_values.fill(0, 256);
@@ -80,15 +80,15 @@ void ChannelModifier::setModifierMap(QList<QPair<uchar, uchar> > map)
         }
         lastDMXPair = dmxPair;
     }
-// Enable the following to display the template full range of value
-/*
-    qDebug() << "Template:" << m_name;
-    for (int d = 0; d < m_values.count(); d++)
-        qDebug() << "Pos:" << d << "val:" << QString::number((uchar)m_values.at(d));
-*/
+    // Enable the following to display the template full range of value
+    /*
+        qDebug() << "Template:" << m_name;
+        for (int d = 0; d < m_values.count(); d++)
+            qDebug() << "Pos:" << d << "val:" << QString::number((uchar)m_values.at(d));
+    */
 }
 
-QList< QPair<uchar, uchar> > ChannelModifier::modifierMap() const
+QList<QPair<uchar, uchar>> ChannelModifier::modifierMap() const
 {
     return m_map;
 }
@@ -98,7 +98,7 @@ uchar ChannelModifier::getValue(uchar dmxValue)
     return m_values.at(dmxValue);
 }
 
-QFile::FileError ChannelModifier::saveXML(const QString &fileName)
+QFile::FileError ChannelModifier::saveXML(const QString& fileName)
 {
     QFile::FileError error;
 
@@ -120,7 +120,7 @@ QFile::FileError ChannelModifier::saveXML(const QString &fileName)
     doc.writeTextElement(KXMLQLCChannelModName, m_name);
 
     qDebug() << "Got map with" << m_map.count() << "handlers";
-    for(int i = 0; i < m_map.count(); i++)
+    for (int i = 0; i < m_map.count(); i++)
     {
         QPair<uchar, uchar> mapElement = m_map.at(i);
         doc.writeStartElement(KXMLQLCChannelModHandler);
@@ -137,14 +137,14 @@ QFile::FileError ChannelModifier::saveXML(const QString &fileName)
     return error;
 }
 
-QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
+QFile::FileError ChannelModifier::loadXML(const QString& fileName, Type type)
 {
     QFile::FileError error = QFile::NoError;
 
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
@@ -162,7 +162,7 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
         return QFile::ResourceError;
     }
 
-    QList< QPair<uchar, uchar> > modMap;
+    QList<QPair<uchar, uchar>> modMap;
 
     if (doc->dtdName() == KXMLQLCChannelModifierDocument)
     {
@@ -177,9 +177,9 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
                 {
                     setName(doc->readElementText());
                 }
-                else if(doc->name() == KXMLQLCChannelModHandler)
+                else if (doc->name() == KXMLQLCChannelModHandler)
                 {
-                    QPair <uchar, uchar> dmxPair(0, 0);
+                    QPair<uchar, uchar> dmxPair(0, 0);
                     QXmlStreamAttributes attrs = doc->attributes();
                     if (attrs.hasAttribute(KXMLQLCChannelModOriginalDMX))
                         dmxPair.first = attrs.value(KXMLQLCChannelModOriginalDMX).toString().toUInt();

@@ -57,9 +57,7 @@ void Scene_Test::cleanupTestCase()
     delete m_doc;
 }
 
-void Scene_Test::init()
-{
-}
+void Scene_Test::init() {}
 
 void Scene_Test::cleanup()
 {
@@ -181,26 +179,26 @@ void Scene_Test::colorValue()
     fxi1->setUniverse(0);
     doc->addFixture(fxi1);
 
-    QLCFixtureDef *def2 = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "PCC-250CMY");
+    QLCFixtureDef* def2 = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "PCC-250CMY");
     QVERIFY(def2 != NULL);
 
-    QLCFixtureMode *mode2 = def2->mode("Mode 1");
+    QLCFixtureMode* mode2 = def2->mode("Mode 1");
     QVERIFY(mode2 != NULL);
 
-    Fixture *fxi2 = new Fixture(doc);
+    Fixture* fxi2 = new Fixture(doc);
     fxi2->setFixtureDefinition(def2, mode2);
     QCOMPARE(fxi2->channels(), quint32(12));
     fxi2->setAddress(50);
     fxi2->setUniverse(0);
     doc->addFixture(fxi2);
 
-    QLCFixtureDef *def3 = m_doc->fixtureDefCache()->fixtureDef("Showtec", "Phantom 95 LED Spot");
+    QLCFixtureDef* def3 = m_doc->fixtureDefCache()->fixtureDef("Showtec", "Phantom 95 LED Spot");
     QVERIFY(def3 != NULL);
 
-    QLCFixtureMode *mode3 = def3->mode("15 Channels");
+    QLCFixtureMode* mode3 = def3->mode("15 Channels");
     QVERIFY(mode3 != NULL);
 
-    Fixture *fxi3 = new Fixture(doc);
+    Fixture* fxi3 = new Fixture(doc);
     fxi3->setFixtureDefinition(def3, mode3);
     QCOMPARE(fxi3->channels(), quint32(15));
     fxi3->setAddress(80);
@@ -240,7 +238,7 @@ void Scene_Test::channelGroup()
     QVERIFY(s.channelGroups().count() == 0);
     QVERIFY(s.channelGroupsLevels().count() == 0);
 
-    ChannelsGroup *cg = new ChannelsGroup(m_doc);
+    ChannelsGroup* cg = new ChannelsGroup(m_doc);
     cg->addChannel(0, 1);
     cg->addChannel(0, 2);
     cg->addChannel(0, 3);
@@ -557,7 +555,7 @@ void Scene_Test::createCopy()
     QVERIFY(f != s1);
     QVERIFY(f->id() != s1->id());
 
-    Scene* copy = qobject_cast<Scene*> (f);
+    Scene* copy = qobject_cast<Scene*>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->fadeInSpeed() == 200);
     QVERIFY(copy->fadeOutSpeed() == 2000);
@@ -604,17 +602,17 @@ void Scene_Test::preRunPostRun()
 
 void Scene_Test::flashUnflash()
 {
-    Doc *doc = new Doc(this);
+    Doc* doc = new Doc(this);
     QList<Universe*> ua;
     MasterTimer timer(doc);
 
-    Fixture *fxi = new Fixture(doc);
+    Fixture* fxi = new Fixture(doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(10);
     doc->addFixture(fxi);
 
-    Scene *s1 = new Scene(doc);
+    Scene* s1 = new Scene(doc);
     s1->setName("First");
     s1->setValue(fxi->id(), 0, 123);
     s1->setValue(fxi->id(), 1, 45);
@@ -690,9 +688,9 @@ void Scene_Test::writeHTPZeroTicks()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 255);
-    QVERIFY(ua[0]->preGMValues()[1] == (char) 127);
-    QVERIFY(ua[0]->preGMValues()[2] == (char) 0);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)255);
+    QVERIFY(ua[0]->preGMValues()[1] == (char)127);
+    QVERIFY(ua[0]->preGMValues()[2] == (char)0);
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
@@ -703,9 +701,9 @@ void Scene_Test::writeHTPZeroTicks()
     QVERIFY(s1->isRunning() == false);
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 0);
-    QVERIFY(ua[0]->preGMValues()[1] == (char) 0);
-    QVERIFY(ua[0]->preGMValues()[2] == (char) 0);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)0);
+    QVERIFY(ua[0]->preGMValues()[1] == (char)0);
+    QVERIFY(ua[0]->preGMValues()[2] == (char)0);
     doc->inputOutputMap()->releaseUniverses(false);
 }
 
@@ -738,8 +736,8 @@ void Scene_Test::writeHTPTwoTicks()
 
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 0);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 0);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)0);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)0);
     doc->inputOutputMap()->releaseUniverses(false);
 
     QVERIFY(s1->stopped() == true);
@@ -750,15 +748,15 @@ void Scene_Test::writeHTPTwoTicks()
     QVERIFY(s1->isRunning() == true);
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 125);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 50);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)125);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)50);
     doc->inputOutputMap()->releaseUniverses(false);
 
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)250);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
@@ -766,8 +764,8 @@ void Scene_Test::writeHTPTwoTicks()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)250);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     QVERIFY(s1->stopped() == false);
     ua[0]->write(5, 255); // Overridden in the next round
     ua[0]->write(0, 42);  // Not overridden in the next round
@@ -777,8 +775,8 @@ void Scene_Test::writeHTPTwoTicks()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)250);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
@@ -787,8 +785,8 @@ void Scene_Test::writeHTPTwoTicks()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 254);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)254);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Write a value when running (no HTP check)
@@ -796,8 +794,8 @@ void Scene_Test::writeHTPTwoTicks()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 180);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)180);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     doc->inputOutputMap()->releaseUniverses(false);
 
     s1->stop(FunctionParent::master());
@@ -810,16 +808,16 @@ void Scene_Test::writeHTPTwoTicks()
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QCOMPARE(ua[0]->preGMValues()[5], (char) 90); // HTP fades out
-    QCOMPARE(ua[0]->preGMValues()[0], (char) 100);  // LTP doesn't
+    QCOMPARE(ua[0]->preGMValues()[5], (char)90);  // HTP fades out
+    QCOMPARE(ua[0]->preGMValues()[0], (char)100); // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 0);  // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100); // LTP doesn't
+    QVERIFY(ua[0]->preGMValues()[5] == (char)0);   // HTP fades out
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100); // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 }
 
@@ -852,8 +850,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
 
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 0);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 0);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)0);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)0);
     doc->inputOutputMap()->releaseUniverses(false);
 
     s1->adjustAttribute(0.5, Function::Intensity);
@@ -866,8 +864,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(s1->isRunning() == true);
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(125) * qreal(0.5)) + 0.5));
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 50); // Intensity affects only HTP channels
+    QVERIFY(ua[0]->preGMValues()[5] == (char)floor((qreal(125) * qreal(0.5)) + 0.5));
+    QVERIFY(ua[0]->preGMValues()[0] == (char)50); // Intensity affects only HTP channels
     doc->inputOutputMap()->releaseUniverses(false);
 
     s1->adjustAttribute(1.0, Function::Intensity);
@@ -875,8 +873,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)250);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
@@ -886,8 +884,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(250) * qreal(0.2)) + 0.5));
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)floor((qreal(250) * qreal(0.2)) + 0.5));
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     QVERIFY(s1->stopped() == false);
     ua[0]->write(5, 255); // Overridden in the next round
     ua[0]->write(0, 42);  // Not overridden in the next round
@@ -897,8 +895,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(250) * qreal(0.2)) + 0.5));
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[5] == (char)floor((qreal(250) * qreal(0.2)) + 0.5));
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
@@ -912,16 +910,16 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(125) * qreal(0.2)) + 0.5)); // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);  // LTP doesn't
+    QVERIFY(ua[0]->preGMValues()[5] == (char)floor((qreal(125) * qreal(0.2)) + 0.5)); // HTP fades out
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100);                                    // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 0);  // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100); // LTP doesn't
+    QVERIFY(ua[0]->preGMValues()[5] == (char)0);   // HTP fades out
+    QVERIFY(ua[0]->preGMValues()[0] == (char)100); // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 }
 
@@ -960,17 +958,17 @@ void Scene_Test::writeLTPReady()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 125);
-    QVERIFY(ua[0]->preGMValues()[1] == (char) 100);
-    QVERIFY(ua[0]->preGMValues()[2] == (char) 50);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)125);
+    QVERIFY(ua[0]->preGMValues()[1] == (char)100);
+    QVERIFY(ua[0]->preGMValues()[2] == (char)50);
     doc->inputOutputMap()->releaseUniverses(false);
 
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 250);
-    QVERIFY(ua[0]->preGMValues()[1] == (char) 200);
-    QVERIFY(ua[0]->preGMValues()[2] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)250);
+    QVERIFY(ua[0]->preGMValues()[1] == (char)200);
+    QVERIFY(ua[0]->preGMValues()[2] == (char)100);
     doc->inputOutputMap()->releaseUniverses(false);
 
     QVERIFY(s1->stopped() == false);
@@ -980,9 +978,9 @@ void Scene_Test::writeLTPReady()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 250);
-    QVERIFY(ua[0]->preGMValues()[1] == (char) 200);
-    QVERIFY(ua[0]->preGMValues()[2] == (char) 100);
+    QVERIFY(ua[0]->preGMValues()[0] == (char)250);
+    QVERIFY(ua[0]->preGMValues()[1] == (char)200);
+    QVERIFY(ua[0]->preGMValues()[2] == (char)100);
     doc->inputOutputMap()->releaseUniverses(false);
 
     QVERIFY(s1->stopped() == false);

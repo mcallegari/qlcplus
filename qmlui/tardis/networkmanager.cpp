@@ -28,14 +28,14 @@
 #include "tardis.h"
 #include "doc.h"
 
-#define DEFAULT_UDP_PORT    9997
-#define DEFAULT_TCP_PORT    9998
+#define DEFAULT_UDP_PORT 9997
+#define DEFAULT_TCP_PORT 9998
 
-#define WORKSPACE_CHUNK_SIZE    8 * 1024
+#define WORKSPACE_CHUNK_SIZE 8 * 1024
 
 static const quint64 defaultKey = 0x5131632B4E33744B; // this is "Q1c+N3tK"
 
-NetworkManager::NetworkManager(QObject *parent, Doc *doc)
+NetworkManager::NetworkManager(QObject* parent, Doc* doc)
     : QObject(parent)
     , m_doc(doc)
     , m_encryptPackets(true)
@@ -100,24 +100,24 @@ void NetworkManager::sendAction(int code, TardisAction action)
 
     switch (action.m_action)
     {
-        case Tardis::FixtureCreate:
-        case Tardis::FixtureGroupCreate:
-        case Tardis::FunctionCreate:
-        case Tardis::ChaserAddStep:
-        case Tardis::EFXAddFixture:
-        case Tardis::VCWidgetCreate:
-            m_packetizer->addSection(packet, action.m_newValue);
+    case Tardis::FixtureCreate:
+    case Tardis::FixtureGroupCreate:
+    case Tardis::FunctionCreate:
+    case Tardis::ChaserAddStep:
+    case Tardis::EFXAddFixture:
+    case Tardis::VCWidgetCreate:
+        m_packetizer->addSection(packet, action.m_newValue);
         break;
 
-        case Tardis::FixtureDelete:
-        case Tardis::FixtureGroupDelete:
-        case Tardis::FunctionDelete:
-        case Tardis::VCWidgetDelete:
-            m_packetizer->addSection(packet, action.m_oldValue);
+    case Tardis::FixtureDelete:
+    case Tardis::FixtureGroupDelete:
+    case Tardis::FunctionDelete:
+    case Tardis::VCWidgetDelete:
+        m_packetizer->addSection(packet, action.m_oldValue);
         break;
 
-        default:
-            m_packetizer->addSection(packet, action.m_newValue);
+    default:
+        m_packetizer->addSection(packet, action.m_newValue);
         break;
     }
 
@@ -127,7 +127,7 @@ void NetworkManager::sendAction(int code, TardisAction action)
         auto i = m_hostsMap.constBegin();
         while (i != m_hostsMap.constEnd())
         {
-            NetworkHost *host = i.value();
+            NetworkHost* host = i.value();
             sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
             ++i;
         }
@@ -155,7 +155,7 @@ QString NetworkManager::defaultName()
     return QString();
 }
 
-bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt)
+bool NetworkManager::sendTCPPacket(QTcpSocket* socket, QByteArray& packet, bool encrypt)
 {
     if (socket == nullptr)
         return false;
@@ -166,7 +166,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     if (encrypt)
     {
         QByteArray encPacket = m_packetizer->encryptPacket(packet, m_crypt);
-        while(totalBytesSent < (quint64)encPacket.length())
+        while (totalBytesSent < (quint64)encPacket.length())
         {
             sent = socket->write(encPacket.data() + totalBytesSent, encPacket.length() - totalBytesSent);
             totalBytesSent += sent;
@@ -176,7 +176,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     }
     else
     {
-        while(totalBytesSent < (quint64)packet.length())
+        while (totalBytesSent < (quint64)packet.length())
         {
             sent = socket->write(packet.data() + totalBytesSent, packet.length() - totalBytesSent);
             totalBytesSent += sent;
@@ -267,7 +267,7 @@ bool NetworkManager::stopServer()
 bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMask)
 {
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
+    NetworkHost* host = m_hostsMap.value(clientAddress, nullptr);
 
     if (host == nullptr || clientAddress.isNull())
         return false;
@@ -299,7 +299,7 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
     int pktCounter = 0;
     QFile workspace(filename);
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
+    NetworkHost* host = m_hostsMap.value(clientAddress, nullptr);
 
     if (host == nullptr || clientAddress.isNull())
         return false;
@@ -327,9 +327,8 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
         {
             m_packetizer->addSection(packet, QVariant(0));
             m_packetizer->addSection(packet, QVariant((int)workspace.size()));
-
         }
-        else if(data.length() < WORKSPACE_CHUNK_SIZE)
+        else if (data.length() < WORKSPACE_CHUNK_SIZE)
         {
             m_packetizer->addSection(packet, QVariant(2));
         }
@@ -367,7 +366,7 @@ QHostAddress NetworkManager::getHostFromName(QString name)
     auto i = m_hostsMap.constBegin();
     while (i != m_hostsMap.constEnd())
     {
-        NetworkHost *host = i.value();
+        NetworkHost* host = i.value();
         if (host->hostName == name)
             return i.key();
 
@@ -410,7 +409,7 @@ bool NetworkManager::initializeClient()
     m_packetizer->addSection(packet, QVariant(m_hostName));
 
     /* now send the packet on every network interface */
-    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
@@ -524,7 +523,7 @@ void NetworkManager::slotProcessUDPPackets()
 
         switch (opCode)
         {
-            case Tardis::NetAnnounce:
+        case Tardis::NetAnnounce:
             {
                 QByteArray packet;
                 m_packetizer->initializePacket(packet, Tardis::NetAnnounceReply);
@@ -535,10 +534,9 @@ void NetworkManager::slotProcessUDPPackets()
             }
             break;
 
-            case Tardis::NetAnnounceReply:
+        case Tardis::NetAnnounceReply:
             {
-                if (m_hostType == ClientHostType &&
-                    paramsList.count() == 2 &&
+                if (m_hostType == ClientHostType && paramsList.count() == 2 &&
                     paramsList.at(0).toInt() == ServerHostType)
                 {
                     m_serverList[senderAddress] = paramsList.at(1).toString();
@@ -547,8 +545,8 @@ void NetworkManager::slotProcessUDPPackets()
             }
             break;
 
-            default:
-                qDebug() << "Unsupported opCode" << opCode;
+        default:
+            qDebug() << "Unsupported opCode" << opCode;
             break;
         }
     }
@@ -556,7 +554,7 @@ void NetworkManager::slotProcessUDPPackets()
 
 void NetworkManager::slotProcessTCPPackets()
 {
-    QTcpSocket *socket = (QTcpSocket *)sender();
+    QTcpSocket* socket = (QTcpSocket*)sender();
     if (socket == nullptr)
         return;
 
@@ -577,7 +575,8 @@ void NetworkManager::slotProcessTCPPackets()
         QByteArray datagram = wholeData.mid(bytesProcessed);
         int read = m_packetizer->decodePacket(datagram, actionCode, paramsList, m_crypt);
 
-        qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16) << "params" << paramsList.count();
+        qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16) << "params"
+                 << paramsList.count();
 
         if (read < 0)
         {
@@ -595,7 +594,7 @@ void NetworkManager::slotProcessTCPPackets()
 
         switch (actionCode)
         {
-            case Tardis::NetAuthentication:
+        case Tardis::NetAuthentication:
             {
                 bool success = false;
 
@@ -609,7 +608,7 @@ void NetworkManager::slotProcessTCPPackets()
                     }
                 }
 
-                NetworkHost *host = m_hostsMap[senderAddress];
+                NetworkHost* host = m_hostsMap[senderAddress];
                 if (success == true)
                 {
                     host->isAuthenticated = true;
@@ -627,7 +626,7 @@ void NetworkManager::slotProcessTCPPackets()
                 }
             }
             break;
-            case Tardis::NetAuthenticationReply:
+        case Tardis::NetAuthenticationReply:
             {
                 if (!paramsList.isEmpty() && paramsList.at(0).toString() == "Success")
                 {
@@ -641,7 +640,7 @@ void NetworkManager::slotProcessTCPPackets()
                 }
             }
             break;
-            case Tardis::NetProjectTransfer:
+        case Tardis::NetProjectTransfer:
             {
                 if (m_hostType != ClientHostType || paramsList.count() < 2)
                     break;
@@ -675,14 +674,14 @@ void NetworkManager::slotProcessTCPPackets()
             }
             break;
 
-            default:
+        default:
             {
                 if (paramsList.count() == 2)
                     emit actionReady(actionCode, paramsList.at(0).toUInt(), paramsList.at(1));
                 else
                     emit actionReady(actionCode, paramsList.at(0).toUInt(), QVariant());
 
-                //qDebug() << "Unsupported opCode" << opCode;
+                // qDebug() << "Unsupported opCode" << opCode;
             }
             break;
         }
@@ -695,39 +694,38 @@ void NetworkManager::slotProcessTCPPackets()
 void NetworkManager::slotProcessNewTCPConnection()
 {
     qDebug() << Q_FUNC_INFO;
-    QTcpSocket *clientConnection = m_tcpServer->nextPendingConnection();
+    QTcpSocket* clientConnection = m_tcpServer->nextPendingConnection();
     if (clientConnection == nullptr)
         return;
 
     QHostAddress senderAddress = clientConnection->peerAddress();
     if (m_hostsMap.contains(senderAddress) == true)
     {
-        NetworkHost *host = m_hostsMap[senderAddress];
+        NetworkHost* host = m_hostsMap[senderAddress];
         host->isAuthenticated = false;
         host->tcpSocket = clientConnection;
     }
     else
     {
         qDebug() << "[slotProcessNewTCPConnection] Adding a new host to map:" << senderAddress.toString();
-        NetworkHost *newHost = new NetworkHost;
+        NetworkHost* newHost = new NetworkHost;
         newHost->isAuthenticated = false;
         newHost->tcpSocket = clientConnection;
         m_hostsMap[senderAddress] = newHost;
         emit connectionsCountChanged();
     }
-    connect(clientConnection, SIGNAL(readyRead()),
-            this, SLOT(slotProcessTCPPackets()));
+    connect(clientConnection, SIGNAL(readyRead()), this, SLOT(slotProcessTCPPackets()));
 }
 
 void NetworkManager::slotHostDisconnected()
 {
-    QTcpSocket *socket = (QTcpSocket *)sender();
+    QTcpSocket* socket = (QTcpSocket*)sender();
     QHostAddress senderAddress = socket->peerAddress();
     qDebug() << "Host with address" << senderAddress.toString() << "disconnected!";
 
     if (m_hostsMap.contains(senderAddress) == true)
     {
-        NetworkHost *host = m_hostsMap.take(senderAddress);
+        NetworkHost* host = m_hostsMap.take(senderAddress);
         delete host;
         emit connectionsCountChanged();
     }

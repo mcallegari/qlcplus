@@ -66,14 +66,12 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     init();
 }
 
-ConsoleChannel::~ConsoleChannel()
-{
-}
+ConsoleChannel::~ConsoleChannel() {}
 
 void ConsoleChannel::init()
 {
     Fixture* fxi = m_doc->fixture(m_fixture);
-    //Q_ASSERT(fxi != NULL);
+    // Q_ASSERT(fxi != NULL);
 
     new QVBoxLayout(this);
     layout()->setSpacing(0);
@@ -94,7 +92,8 @@ void ConsoleChannel::init()
         if (fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
             initMenu();
         else
-            m_presetButton->setStyleSheet("QToolButton { border-image: url(:/intensity.png) 0 0 0 0 stretch stretch; }");
+            m_presetButton->setStyleSheet(
+                "QToolButton { border-image: url(:/intensity.png) 0 0 0 0 stretch stretch; }");
     }
 
     /* Value edit */
@@ -117,35 +116,37 @@ void ConsoleChannel::init()
     m_slider->setPageStep(1);
     m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_slider->setFocusPolicy(Qt::NoFocus);
-    connect(m_slider, SIGNAL(controlClicked()),
-            this, SLOT(slotControlClicked()));
+    connect(m_slider, SIGNAL(controlClicked()), this, SLOT(slotControlClicked()));
 
     m_slider->setMinimumWidth(25);
     m_slider->setMaximumWidth(40);
     m_slider->setVisible(false);
-    m_slider->setSliderStyleSheet(
-        "QSlider::groove:vertical { background: transparent; width: 32px; } "
+    m_slider->setSliderStyleSheet("QSlider::groove:vertical { background: transparent; width: 32px; } "
 
-        "QSlider::handle:vertical { "
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #5c5c5c;"
-        "border-radius: 4px; margin: 0 -1px; height: 20px; }"
+                                  "QSlider::handle:vertical { "
+                                  "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, "
+                                  "stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+                                  "border: 1px solid #5c5c5c;"
+                                  "border-radius: 4px; margin: 0 -1px; height: 20px; }"
 
-        "QSlider::handle:vertical:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
-        "border: 1px solid #000; }"
+                                  "QSlider::handle:vertical:hover {"
+                                  "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, "
+                                  "stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+                                  "border: 1px solid #000; }"
 
-        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
-        "border: 1px solid #5288A7; margin: 0 13px; }"
+                                  "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: "
+                                  "0, stop: 0 #78d, stop: 1 #97CDEC );"
+                                  "border: 1px solid #5288A7; margin: 0 13px; }"
 
-        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
-        "border: 1px solid #8E8A86; margin: 0 13px; }"
+                                  "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: "
+                                  "0, stop: 0 #888, stop: 1 #ddd );"
+                                  "border: 1px solid #8E8A86; margin: 0 13px; }"
 
-        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #666; }"
-        );
+                                  "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, "
+                                  "y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+                                  "border: 1px solid #666; }");
     layout()->addWidget(m_slider);
-    //layout()->setAlignment(m_slider, Qt::AlignHCenter);
+    // layout()->setAlignment(m_slider, Qt::AlignHCenter);
 
     /* Channel number label */
     m_label = new QLabel(this);
@@ -164,7 +165,7 @@ void ConsoleChannel::init()
     }
     else
     {
-        const QLCChannel *ch = fxi->channel(m_chIndex);
+        const QLCChannel* ch = fxi->channel(m_chIndex);
         Q_ASSERT(ch != NULL);
         setToolTip(QString("%1").arg(ch->name()));
         setValue(ch->defaultValue(), false);
@@ -176,7 +177,7 @@ void ConsoleChannel::init()
     connect(this, SIGNAL(toggled(bool)), this, SLOT(slotChecked(bool)));
 }
 
-void ConsoleChannel::showEvent(QShowEvent *)
+void ConsoleChannel::showEvent(QShowEvent*)
 {
     if (m_styleSheet.isEmpty() == false)
     {
@@ -200,7 +201,7 @@ quint32 ConsoleChannel::channelIndex() const
     return m_chIndex;
 }
 
-const QLCChannel *ConsoleChannel::channel()
+const QLCChannel* ConsoleChannel::channel()
 {
     return m_channel;
 }
@@ -216,9 +217,8 @@ void ConsoleChannel::setLabel(QString label)
 void ConsoleChannel::setChannelsGroup(quint32 grpid)
 {
     m_group = grpid;
-    ChannelsGroup *grp = m_doc->channelsGroup(grpid);
-    connect(grp, SIGNAL(valueChanged(quint32,uchar)),
-            this, SLOT(slotInputValueChanged(quint32,uchar)));
+    ChannelsGroup* grp = m_doc->channelsGroup(grpid);
+    connect(grp, SIGNAL(valueChanged(quint32, uchar)), this, SLOT(slotInputValueChanged(quint32, uchar)));
 }
 
 void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
@@ -233,9 +233,8 @@ void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
 
 void ConsoleChannel::setValue(uchar value, bool apply)
 {
-    if (m_slider->value() == value &&
-        m_spin->value() == value)
-            return;
+    if (m_slider->value() == value && m_spin->value() == value)
+        return;
 
     if (apply == false)
     {
@@ -287,9 +286,9 @@ void ConsoleChannel::slotChecked(bool state)
  * Look & Feel
  *************************************************************************/
 
-void ConsoleChannel::setChannelStyleSheet(const QString &styleSheet)
+void ConsoleChannel::setChannelStyleSheet(const QString& styleSheet)
 {
-    if(isVisible())
+    if (isVisible())
         QGroupBox::setStyleSheet(styleSheet);
     else
         m_styleSheet = styleSheet;
@@ -312,8 +311,7 @@ void ConsoleChannel::showResetButton(bool show)
             m_resetButton->setIcon(QIcon(":/fileclose.png"));
             m_resetButton->setToolTip(tr("Reset this channel"));
         }
-        connect(m_resetButton, SIGNAL(clicked(bool)),
-                this, SLOT(slotResetButtonClicked()));
+        connect(m_resetButton, SIGNAL(clicked(bool)), this, SLOT(slotResetButtonClicked()));
     }
     else
     {
@@ -369,7 +367,7 @@ void ConsoleChannel::initMenu()
         setIntensityButton(ch);
     }
 
-    switch(ch->group())
+    switch (ch->group())
     {
     case QLCChannel::Colour:
         m_cngWidget = new ClickAndGoWidget();
@@ -392,10 +390,9 @@ void ConsoleChannel::initMenu()
         QWidgetAction* action = new QWidgetAction(this);
         action->setDefaultWidget(m_cngWidget);
         m_menu->addAction(action);
-        connect(m_cngWidget, SIGNAL(levelChanged(uchar)),
-                this, SLOT(slotClickAndGoLevelChanged(uchar)));
-        connect(m_cngWidget, SIGNAL(levelAndPresetChanged(uchar,QImage)),
-                this, SLOT(slotClickAndGoLevelAndPresetChanged(uchar, QImage)));
+        connect(m_cngWidget, SIGNAL(levelChanged(uchar)), this, SLOT(slotClickAndGoLevelChanged(uchar)));
+        connect(m_cngWidget, SIGNAL(levelAndPresetChanged(uchar, QImage)), this,
+                SLOT(slotClickAndGoLevelAndPresetChanged(uchar, QImage)));
     }
     else
     {
@@ -500,14 +497,13 @@ void ConsoleChannel::initCapabilityMenu(const QLCChannel* ch)
     QString s;
     QString t;
 
-    QListIterator <QLCCapability*> it(ch->capabilities());
+    QListIterator<QLCCapability*> it(ch->capabilities());
     while (it.hasNext() == true)
     {
         cap = it.next();
 
         // Set the value range and name as the menu item's name
-        s = QString("%1: %2 - %3").arg(cap->name())
-            .arg(cap->min()).arg(cap->max());
+        s = QString("%1: %2 - %3").arg(cap->name()).arg(cap->min()).arg(cap->max());
 
         if (cap->max() - cap->min() > 0)
         {
@@ -540,8 +536,7 @@ void ConsoleChannel::initCapabilityMenu(const QLCChannel* ch)
     }
 
     // Connect menu item activation signal to this
-    connect(m_menu, SIGNAL(triggered(QAction*)),
-            this, SLOT(slotContextMenuTriggered(QAction*)));
+    connect(m_menu, SIGNAL(triggered(QAction*)), this, SLOT(slotContextMenuTriggered(QAction*)));
 
     // Set the menu also as the preset button's popup menu
     m_presetButton->setMenu(m_menu);
@@ -550,8 +545,7 @@ void ConsoleChannel::initCapabilityMenu(const QLCChannel* ch)
 QIcon ConsoleChannel::colorIcon(const QString& name)
 {
     /* Return immediately with a rainbow icon -- if appropriate */
-    if (name.toLower().contains("rainbow") ||
-            name.toLower().contains("cw") == true)
+    if (name.toLower().contains("rainbow") || name.toLower().contains("cw") == true)
     {
         return QIcon(":/rainbow.png");
     }
@@ -594,7 +588,7 @@ QIcon ConsoleChannel::colorIcon(const QString& name)
     else
     {
         QString re("(");
-        QListIterator <QString> it(name.toLower().split(" "));
+        QListIterator<QString> it(name.toLower().split(" "));
         while (it.hasNext() == true)
         {
             re += it.next();
@@ -667,15 +661,19 @@ void ConsoleChannel::slotControlClicked()
     if (m_selected == false)
     {
         m_originalStyle = styleSheet();
-        int topMargin = isCheckable()?16:1;
+        int topMargin = isCheckable() ? 16 : 1;
 
-        QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
-                         "QGroupBox::indicator { width: 18px; height: 18px; } "
-                         "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-                         "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
-        QString ssSelected = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: 1 #AFAD27); "
-                                 "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                                 (isCheckable()?common:"")).arg(topMargin);
+        QString common =
+            "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
+            "QGroupBox::indicator { width: 18px; height: 18px; } "
+            "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
+            "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+        QString ssSelected =
+            QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: "
+                    "1 #AFAD27); "
+                    "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                    (isCheckable() ? common : ""))
+                .arg(topMargin);
         setChannelStyleSheet(ssSelected);
         m_selected = true;
     }

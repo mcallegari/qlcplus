@@ -62,13 +62,13 @@ private:
      ********************************************************************/
 protected:
     /** Create or retrieve an existing item to group fixtures of the same type */
-    QTreeWidgetItem *getFixtureGroupItem(QString manufacturer, QString model);
+    QTreeWidgetItem* getFixtureGroupItem(QString manufacturer, QString model);
 
     /** Add a fixture to the tree widget */
     void addFixture(quint32 fxi_id);
 
     /** Get a list of currently selected fixture ids */
-    QList <quint32> fixtureIds() const;
+    QList<quint32> fixtureIds() const;
 
 protected slots:
     void slotAddClicked();
@@ -78,15 +78,14 @@ protected slots:
      * Functions
      ********************************************************************/
 protected:
-
-    void addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetItem *grpItem,
-                           QString name, PaletteGenerator::PaletteType type);
+    void addFunctionsGroup(QTreeWidgetItem* fxGrpItem, QTreeWidgetItem* grpItem, QString name,
+                           PaletteGenerator::PaletteType type);
 
     /** Populate the available functions tree based on the available fixtures */
     void updateAvailableFunctionsTree();
 
     /** Create or retrieve an existing item to group functions of the same type */
-    QTreeWidgetItem *getFunctionGroupItem(const Function *func);
+    QTreeWidgetItem* getFunctionGroupItem(const Function* func);
 
     /** Populate the result functions tree based on selected preset functions */
     void updateResultFunctionsTree();
@@ -95,20 +94,18 @@ protected slots:
     void slotFunctionItemChanged(QTreeWidgetItem* item, int col);
 
 protected:
-    QList<PaletteGenerator *> m_paletteList;
+    QList<PaletteGenerator*> m_paletteList;
 
     /********************************************************************
      * Widgets
      ********************************************************************/
 protected:
-
     /** Populate the widgets tree based on selected preset functions */
     void updateWidgetsTree();
 
-    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,
-                           Function *func = NULL, int pType = 0);
+    VCWidget* createWidget(int type, VCWidget* parent, int xpos, int ypos, Function* func = NULL, int pType = 0);
 
-    QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type);
+    QSize recursiveCreateWidget(QTreeWidgetItem* item, VCWidget* parent, int type);
 
     void addWidgetsToVirtualConsole();
 };

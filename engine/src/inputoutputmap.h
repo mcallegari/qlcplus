@@ -133,7 +133,6 @@ private:
      * Universes
      *********************************************************************/
 public:
-
     /**
      * Invalid universe number (for comparison etc.)
      */
@@ -238,7 +237,7 @@ public:
      * Get a reference to a Universe from the given Universe ID
      * Return NULL if no Universe is found
      */
-    Universe *universe(quint32 id);
+    Universe* universe(quint32 id);
 
     /**
      * Claim access to a universe. This is declared virtual to make
@@ -266,7 +265,7 @@ signals:
 
 private:
     /** The values of all universes */
-    QList<Universe *> m_universeArray;
+    QList<Universe*> m_universeArray;
 
     /** When true, universes are dumped. Otherwise not. */
     bool m_universeChanged;
@@ -314,7 +313,7 @@ signals:
 
 private:
     /** The Grand Master reference */
-    GrandMaster *m_grandMaster;
+    GrandMaster* m_grandMaster;
 
     /*********************************************************************
      * Patch
@@ -333,8 +332,7 @@ public:
      * @param profileName The name of an input profile
      * @return true if successful, otherwise false
      */
-    bool setInputPatch(quint32 universe, const QString& pluginName,
-                       const QString& inputUID, quint32 input,
+    bool setInputPatch(quint32 universe, const QString& pluginName, const QString& inputUID, quint32 input,
                        const QString& profileName = QString());
 
     /**
@@ -359,8 +357,7 @@ public:
      *
      * @return true if successful, otherwise false
      */
-    bool setOutputPatch(quint32 universe, const QString& pluginName,
-                        const QString& outputUID, quint32 output = 0,
+    bool setOutputPatch(quint32 universe, const QString& pluginName, const QString& outputUID, quint32 output = 0,
                         bool isFeedback = false, int index = 0);
 
     int outputPatchesCount(quint32 universe) const;
@@ -503,10 +500,10 @@ public:
 
 private:
     /** In case of duplicate strings, append a number to make them unique */
-    void removeDuplicates(QStringList &list);
+    void removeDuplicates(QStringList& list);
 
 private slots:
-   /** Slot that catches plugin configuration change notifications from UIPluginCache */
+    /** Slot that catches plugin configuration change notifications from UIPluginCache */
     void slotPluginConfigurationChanged(QLCIOPlugin* plugin);
 
 signals:
@@ -547,10 +544,8 @@ public:
      *
      * @return true if uniName & chName contain something, otherwise false
      */
-    bool inputSourceNames(const QLCInputSource *src,
-                          QString& uniName, QString& chName) const;
-    bool inputSourceNames(QSharedPointer<QLCInputSource> const& src,
-                          QString& uniName, QString& chName) const;
+    bool inputSourceNames(const QLCInputSource* src, QString& uniName, QString& chName) const;
+    bool inputSourceNames(QSharedPointer<QLCInputSource> const& src, QString& uniName, QString& chName) const;
 
     /**
      * Get the default system input profile directory that contains installed
@@ -570,7 +565,7 @@ public:
 
 private:
     /** List that contains all available profiles */
-    QList <QLCInputProfile*> m_profiles;
+    QList<QLCInputProfile*> m_profiles;
 
     /*********************************************************************
      * Beats
@@ -578,10 +573,10 @@ private:
 public:
     enum BeatGeneratorType
     {
-        Disabled,   //! No one is generating beats
-        Internal,   //! MasterTimer is the beat generator
-        MIDI,       //! A MIDI plugin is the beat generator
-        Audio       //! An audio input device is the beat generator
+        Disabled, //! No one is generating beats
+        Internal, //! MasterTimer is the beat generator
+        MIDI,     //! A MIDI plugin is the beat generator
+        Audio     //! An audio input device is the beat generator
     };
 
     void setBeatGeneratorType(BeatGeneratorType type);
@@ -593,7 +588,7 @@ public:
 protected slots:
     void slotMasterTimerBeat();
     void slotMIDIBeat(quint32 universe, quint32 channel, uchar value);
-    void slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotAudioSpectrum(double* spectrumBands, int size, double maxMagnitude, quint32 power);
 
 signals:
     void beatGeneratorTypeChanged();
@@ -603,7 +598,7 @@ signals:
 private:
     BeatGeneratorType m_beatGeneratorType;
     int m_currentBPM;
-    QElapsedTimer *m_beatTime;
+    QElapsedTimer* m_beatTime;
 
     /*********************************************************************
      * Defaults
@@ -629,7 +624,7 @@ public:
      * @param root An XML subtree containing the input/output map contents
      * @return true if the map was loaded successfully, otherwise false
      */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /**
      * Save the input/output map instance into an XML document, under the given
@@ -638,8 +633,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QXmlStreamWriter *doc) const;
-
+    bool saveXML(QXmlStreamWriter* doc) const;
 };
 
 /** @} */

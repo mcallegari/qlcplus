@@ -43,7 +43,7 @@ class FixtureGroupEditor : public QObject
     Q_PROPERTY(QVariantList selectionData READ selectionData NOTIFY selectionDataChanged)
 
 public:
-    FixtureGroupEditor(QQuickView *view, Doc *doc, FixtureManager *fxMgr, QObject *parent = 0);
+    FixtureGroupEditor(QQuickView* view, Doc* doc, FixtureManager* fxMgr, QObject* parent = 0);
     ~FixtureGroupEditor();
 
     /** Returns the data model to display a list of FixtureGroups with icons */
@@ -62,13 +62,13 @@ signals:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** Reference to the Fixture Manager */
-    FixtureManager *m_fixtureManager;
+    FixtureManager* m_fixtureManager;
     /** Reference to the Fixture Group currently being edited */
-    FixtureGroup *m_editGroup;
+    FixtureGroup* m_editGroup;
 
     /*********************************************************************
      * Fixture Group Grid Editing

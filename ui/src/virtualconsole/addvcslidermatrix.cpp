@@ -61,9 +61,7 @@ AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
     m_widthSpin->setValue(m_width);
 }
 
-AddVCSliderMatrix::~AddVCSliderMatrix()
-{
-}
+AddVCSliderMatrix::~AddVCSliderMatrix() {}
 
 int AddVCSliderMatrix::amount() const
 {

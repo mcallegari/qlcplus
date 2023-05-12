@@ -92,7 +92,7 @@ public:
     /**
      * Get this function's list of member functions
      */
-    QList <quint32> functions() const;
+    QList<quint32> functions() const;
 
 signals:
     void functionsChanged();
@@ -104,10 +104,10 @@ public slots:
 
 protected:
     /** The list of Function IDs added to this Collection */
-    QList <quint32> m_functions;
+    QList<quint32> m_functions;
     /** A list of intesity attribute override IDs populated when this Collection is
      *  started and cleaned when it's stopped */
-    QList <int> m_intensityOverrideIds;
+    QList<int> m_intensityOverrideIds;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     mutable QMutex m_functionListMutex;
@@ -120,10 +120,10 @@ protected:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** Load function's contents from an XML document */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
     void postLoad();
@@ -149,10 +149,10 @@ public:
     void setPause(bool enable);
 
     /** @reimpl */
-    void write(MasterTimer* timer, QList<Universe *> universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, QList<Universe *> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:
     /** Called whenever one of this function's child functions stops */
@@ -163,7 +163,7 @@ protected slots:
 
 protected:
     /** Number of currently running children */
-    QSet <quint32> m_runningChildren;
+    QSet<quint32> m_runningChildren;
     unsigned int m_tick;
 
     /*************************************************************************

@@ -26,7 +26,7 @@
 #include "chaserstep.h"
 #include "trackitem.h"
 
-SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
+SequenceItem::SequenceItem(Chaser* seq, ShowFunction* func)
     : ShowItem(func)
     , m_chaser(seq)
     , m_selectedStep(-1)
@@ -43,8 +43,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
 
     calculateWidth();
 
-    connect(m_chaser, SIGNAL(changed(quint32)),
-            this, SLOT(slotSequenceChanged(quint32)));
+    connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
 }
 
 void SequenceItem::calculateWidth()
@@ -53,17 +52,17 @@ void SequenceItem::calculateWidth()
     unsigned long seq_duration = m_chaser->totalDuration();
 
     if (seq_duration != 0)
-        newWidth = ((50/(float)getTimeScale()) * (float)seq_duration) / 1000;
+        newWidth = ((50 / (float)getTimeScale()) * (float)seq_duration) / 1000;
 
     if (newWidth < (50 / m_timeScale))
         newWidth = 50 / m_timeScale;
     setWidth(newWidth);
 }
 
-void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void SequenceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     float xpos = 0;
-    float timeScale = 50/(float)m_timeScale;
+    float timeScale = 50 / (float)m_timeScale;
     int stepIdx = 0;
 
     ShowItem::paint(painter, option, widget);
@@ -150,7 +149,7 @@ void SequenceItem::setSelectedStep(int idx)
     update();
 }
 
-Chaser *SequenceItem::getChaser()
+Chaser* SequenceItem::getChaser()
 {
     return m_chaser;
 }
@@ -164,14 +163,14 @@ void SequenceItem::slotSequenceChanged(quint32)
     updateTooltip();
 }
 
-void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction* action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

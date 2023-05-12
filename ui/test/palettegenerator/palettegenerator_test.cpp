@@ -50,7 +50,7 @@ void PaletteGenerator_Test::initTestCase()
 void PaletteGenerator_Test::initial()
 {
     Doc doc(this);
-    QList <Fixture*> list;
+    QList<Fixture*> list;
     list << new Fixture(&doc);
     list << new Fixture(&doc);
     list << new Fixture(&doc);
@@ -107,7 +107,7 @@ void PaletteGenerator_Test::createColours()
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
-    QList <Fixture*> list;
+    QList<Fixture*> list;
     Fixture* fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
@@ -123,7 +123,7 @@ void PaletteGenerator_Test::createColours()
     QCOMPARE(doc.functions().size(), 11); // 10 colours
     for (quint32 i = 0; i < 10; i++)
     {
-        Scene* s = qobject_cast<Scene*> (doc.function(i));
+        Scene* s = qobject_cast<Scene*>(doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One colour for two fixtures
         QCOMPARE(s->values().at(0).fxi, fxi1->id());
@@ -144,7 +144,7 @@ void PaletteGenerator_Test::createGobos()
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
-    QList <Fixture*> list;
+    QList<Fixture*> list;
     Fixture* fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
@@ -160,7 +160,7 @@ void PaletteGenerator_Test::createGobos()
     QCOMPARE(doc.functions().size(), 11); // 10 "gobos"
     for (quint32 i = 0; i < 10; i++)
     {
-        Scene* s = qobject_cast<Scene*> (doc.function(i));
+        Scene* s = qobject_cast<Scene*>(doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One gobo for two fixtures
         QCOMPARE(s->values().at(0).fxi, fxi1->id());
@@ -181,7 +181,7 @@ void PaletteGenerator_Test::createShutters()
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
-    QList <Fixture*> list;
+    QList<Fixture*> list;
     Fixture* fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
@@ -198,7 +198,7 @@ void PaletteGenerator_Test::createShutters()
     QCOMPARE(doc.functions().size(), 14);
     for (quint32 i = 0; i < 13; i++)
     {
-        Scene* s = qobject_cast<Scene*> (doc.function(i));
+        Scene* s = qobject_cast<Scene*>(doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One cap for two fixtures
         QCOMPARE(s->values().at(0).fxi, fxi1->id());

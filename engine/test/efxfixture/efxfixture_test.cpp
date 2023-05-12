@@ -355,7 +355,7 @@ void EFXFixture_Test::isValid()
 
     QVERIFY(ef.isValid() == false);
 
-    ef.setHead(GroupHead(0,0));
+    ef.setHead(GroupHead(0, 0));
     QVERIFY(ef.isValid() == true);
 }
 
@@ -364,7 +364,7 @@ void EFXFixture_Test::reset()
     EFX e(m_doc);
 
     EFXFixture* ef1 = new EFXFixture(&e);
-    ef1->setHead(GroupHead(1,0));
+    ef1->setHead(GroupHead(1, 0));
     ef1->setSerialNumber(0);
     ef1->m_runTimeDirection = EFX::Forward;
     ef1->m_ready = true;
@@ -372,7 +372,7 @@ void EFXFixture_Test::reset()
     e.addFixture(ef1);
 
     EFXFixture* ef2 = new EFXFixture(&e);
-    ef2->setHead(GroupHead(2,0));
+    ef2->setHead(GroupHead(2, 0));
     ef2->setSerialNumber(1);
     ef2->m_runTimeDirection = EFX::Forward;
     ef2->m_ready = true;
@@ -380,7 +380,7 @@ void EFXFixture_Test::reset()
     e.addFixture(ef2);
 
     EFXFixture* ef3 = new EFXFixture(&e);
-    ef3->setHead(GroupHead(3,0));
+    ef3->setHead(GroupHead(3, 0));
     ef3->setSerialNumber(2);
     ef3->setDirection(EFX::Forward);
     ef3->m_runTimeDirection = EFX::Backward;
@@ -389,7 +389,7 @@ void EFXFixture_Test::reset()
     e.addFixture(ef3);
 
     EFXFixture* ef4 = new EFXFixture(&e);
-    ef4->setHead(GroupHead(4,0));
+    ef4->setHead(GroupHead(4, 0));
     ef4->setSerialNumber(3);
     ef4->setDirection(EFX::Forward);
     ef4->m_runTimeDirection = EFX::Backward;
@@ -434,10 +434,10 @@ void EFXFixture_Test::startOffset()
 {
     EFX e(m_doc);
     EFXFixture ef(&e);
-    ef.setHead(GroupHead(0,0));
+    ef.setHead(GroupHead(0, 0));
 
     QCOMPARE(0, ef.startOffset());
-    for(int i = 0; i < 360; i += 90)
+    for (int i = 0; i < 360; i += 90)
     {
         ef.setStartOffset(i);
         QCOMPARE(i, ef.startOffset());
@@ -451,7 +451,7 @@ void EFXFixture_Test::setPoint8bit()
     ef.setHead(GroupHead(m_fixture8bit, 0));
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
+    Universe* universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -471,7 +471,7 @@ void EFXFixture_Test::setPoint16bit()
     ef.setHead(GroupHead(m_fixture16bit, 0));
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
+    Universe* universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -490,7 +490,7 @@ void EFXFixture_Test::setPointPanOnly()
     ef.setHead(GroupHead(m_fixturePanOnly, 0));
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
+    Universe* universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -509,7 +509,7 @@ void EFXFixture_Test::setPointLedBar()
     ef.setHead(GroupHead(m_fixtureLedBar, 0));
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
+    Universe* universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -526,7 +526,7 @@ void EFXFixture_Test::setPointLedBar()
 void EFXFixture_Test::nextStepLoop()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
+    Universe* universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
@@ -534,7 +534,7 @@ void EFXFixture_Test::nextStepLoop()
     e.setDuration(1000); // 1s
 
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setHead(GroupHead(0,0));
+    ef->setHead(GroupHead(0, 0));
     e.addFixture(ef);
 
     /* Initialize the EFXFixture so that it can do the math */
@@ -566,7 +566,7 @@ void EFXFixture_Test::nextStepLoop()
 void EFXFixture_Test::nextStepLoopZeroDuration()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
+    Universe* universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
@@ -574,7 +574,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     e.setDuration(0); // 0s
 
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setHead(GroupHead(0,0));
+    ef->setHead(GroupHead(0, 0));
     e.addFixture(ef);
 
     /* Initialize the EFXFixture so that it can do math */
@@ -594,7 +594,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
         {
             ef->nextStep(ua, fader);
             QVERIFY(ef->isReady() == false); // Loop is never ready
-            QVERIFY(ef->m_elapsed == 0); // elapsed is never increased
+            QVERIFY(ef->m_elapsed == 0);     // elapsed is never increased
         }
 
         // m_elapsed is NOT zeroed since there are no "rounds" when duration == 0
@@ -606,7 +606,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
 void EFXFixture_Test::nextStepSingleShot()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
+    Universe* universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
@@ -615,7 +615,7 @@ void EFXFixture_Test::nextStepSingleShot()
     e.setRunOrder(EFX::SingleShot);
 
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setHead(GroupHead(0,0));
+    ef->setHead(GroupHead(0, 0));
     e.addFixture(ef);
 
     /* Initialize the EFXFixture so that it can do math */

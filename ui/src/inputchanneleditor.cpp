@@ -28,15 +28,15 @@
 #include "qlcinputchannel.h"
 #include "inputchanneleditor.h"
 
-#define KMidiMessageCC                  0
-#define KMidiMessageNoteOnOff           1
-#define KMidiMessageNoteAftertouch      2
-#define KMidiMessagePC                  3
-#define KMidiMessageChannelAftertouch   4
-#define KMidiMessagePitchWheel          5
-#define KMidiMessageMBCPlayback         6
-#define KMidiMessageMBCBeat             7
-#define KMidiMessageMBCStop             8
+#define KMidiMessageCC 0
+#define KMidiMessageNoteOnOff 1
+#define KMidiMessageNoteAftertouch 2
+#define KMidiMessagePC 3
+#define KMidiMessageChannelAftertouch 4
+#define KMidiMessagePitchWheel 5
+#define KMidiMessageMBCPlayback 6
+#define KMidiMessageMBCBeat 7
+#define KMidiMessageMBCStop 8
 
 #define KMidiChannelOffset 4096
 
@@ -46,11 +46,9 @@
  * Initialization
  ****************************************************************************/
 
-InputChannelEditor::InputChannelEditor(QWidget* parent,
-                                       const QLCInputProfile* profile,
-                                       const QLCInputChannel* channel,
+InputChannelEditor::InputChannelEditor(QWidget* parent, const QLCInputProfile* profile, const QLCInputChannel* channel,
                                        QLCInputProfile::Type profileType)
-        : QDialog(parent)
+    : QDialog(parent)
 {
     m_channel = 0;
     m_type = QLCInputChannel::NoType;
@@ -64,12 +62,9 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
 
     /* Connect to these already now so that the handlers get called
        during initialization. */
-    connect(m_numberSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotNumberChanged(int)));
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameEdited(const QString&)));
-    connect(m_typeCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotTypeActivated(const QString &)));
+    connect(m_numberSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumberChanged(int)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_typeCombo, SIGNAL(activated(const QString&)), this, SLOT(slotTypeActivated(const QString&)));
 
     /* Fill type combo with type icons and names */
     QStringListIterator it(QLCInputChannel::types());
@@ -103,12 +98,9 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
         {
             slotNumberChanged(m_numberSpin->value());
 
-            connect(m_midiChannelSpin, SIGNAL(valueChanged(int)),
-                this, SLOT(slotMidiChanged()));
-            connect(m_midiMessageCombo, SIGNAL(activated(int)),
-                this, SLOT(slotMidiChanged()));
-            connect(m_midiParamSpin, SIGNAL(valueChanged(int)),
-                this, SLOT(slotMidiChanged()));
+            connect(m_midiChannelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotMidiChanged()));
+            connect(m_midiMessageCombo, SIGNAL(activated(int)), this, SLOT(slotMidiChanged()));
+            connect(m_midiParamSpin, SIGNAL(valueChanged(int)), this, SLOT(slotMidiChanged()));
         }
         else
         {
@@ -126,9 +118,7 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
     }
 }
 
-InputChannelEditor::~InputChannelEditor()
-{
-}
+InputChannelEditor::~InputChannelEditor() {}
 
 /****************************************************************************
  * Properties
@@ -181,7 +171,7 @@ void InputChannelEditor::slotTypeActivated(const QString& text)
  * MIDI
  ****************************************************************************/
 
-void InputChannelEditor::numberToMidi(int number, int & channel, int & message, int & param)
+void InputChannelEditor::numberToMidi(int number, int& channel, int& message, int& param)
 {
     channel = number / KMidiChannelOffset + 1;
     number = number % KMidiChannelOffset;
@@ -311,7 +301,7 @@ QString InputChannelEditor::noteToString(int note)
     int octave = note / 12 - 1;
     int pitch = note % 12;
 
-    switch(pitch)
+    switch (pitch)
     {
     case 0:
         return QString("C%1").arg(octave);
@@ -341,4 +331,3 @@ QString InputChannelEditor::noteToString(int note)
         return "--";
     }
 }
-

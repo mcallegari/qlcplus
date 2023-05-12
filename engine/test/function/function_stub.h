@@ -34,8 +34,8 @@ public:
 
     Function* createCopy(Doc* parent, bool addToDoc = true);
 
-    bool saveXML(QXmlStreamWriter *doc);
-    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader& root);
 
     void preRun(MasterTimer* timer);
     void write(MasterTimer* timer, QList<Universe*> universes);
@@ -53,4 +53,3 @@ public:
 };
 
 #endif
-

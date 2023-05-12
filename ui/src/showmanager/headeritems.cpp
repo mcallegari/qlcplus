@@ -37,7 +37,7 @@ ShowHeaderItem::ShowHeaderItem(int width)
 {
 }
 
-void ShowHeaderItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ShowHeaderItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mousePressEvent(event);
     emit itemClicked(event);
@@ -48,7 +48,7 @@ QRectF ShowHeaderItem::boundingRect() const
     return QRectF(0, 0, m_width, m_height);
 }
 
-void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void ShowHeaderItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -66,8 +66,8 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     for (int i = 0; i < m_width / m_timeStep; i++)
     {
         float xpos = ((float)i * m_timeStep) + 1;
-        painter->setPen(QPen( QColor(250, 250, 250, 255), 1));
-        if (i%m_timeHit == 0)
+        painter->setPen(QPen(QColor(250, 250, 250, 255), 1));
+        if (i % m_timeHit == 0)
         {
             painter->drawLine(xpos, 20, xpos, 34);
             if (m_height > HEADER_HEIGHT)
@@ -75,10 +75,10 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
                 painter->setPen(QPen(QColor(105, 105, 105, 255), 1));
                 painter->drawLine(xpos, HEADER_HEIGHT, xpos, m_height);
             }
-            painter->setPen(QPen( Qt::black, 1));
+            painter->setPen(QPen(Qt::black, 1));
             if (m_type == Time)
             {
-                tmpSec = (i/2) * m_timeScale;
+                tmpSec = (i / 2) * m_timeScale;
                 if (tmpSec < 60)
                     painter->drawText(xpos - 4, 15, QString("%1s").arg(tmpSec));
                 else
@@ -107,7 +107,6 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
             }
         }
     }
-
 }
 
 void ShowHeaderItem::setTimeScale(int val)
@@ -184,15 +183,24 @@ void ShowHeaderItem::setHeight(int h)
 
 QString ShowHeaderItem::tempoToString(ShowHeaderItem::TimeDivision type)
 {
-    switch(type)
+    switch (type)
     {
-        case Time: return QString("Time"); break;
-        case BPM_4_4: return QString("BPM_4_4"); break;
-        case BPM_3_4: return QString("BPM_3_4"); break;
-        case BPM_2_4: return QString("BPM_2_4"); break;
-        case Invalid:
-        default:
-            return QString("Invalid"); break;
+    case Time:
+        return QString("Time");
+        break;
+    case BPM_4_4:
+        return QString("BPM_4_4");
+        break;
+    case BPM_3_4:
+        return QString("BPM_3_4");
+        break;
+    case BPM_2_4:
+        return QString("BPM_2_4");
+        break;
+    case Invalid:
+    default:
+        return QString("Invalid");
+        break;
     }
     return QString();
 }
@@ -244,7 +252,7 @@ QRectF ShowCursorItem::boundingRect() const
     return QRectF(-5, 0, 10, m_height);
 }
 
-void ShowCursorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void ShowCursorItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);

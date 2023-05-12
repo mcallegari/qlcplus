@@ -80,21 +80,21 @@ signals:
     void captureEnabled(bool enabled);
 
 protected slots:
-    void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotDisplaySpectrum(double* spectrumBands, int size, double maxMagnitude, quint32 power);
 #if QT_VERSION >= 0x050000
     void slotVolumeChanged(int volume);
 #endif
 
 protected:
-    QHBoxLayout *m_hbox;
-    QToolButton *m_button;
-    QLabel *m_label;
-    AudioTriggerWidget *m_spectrum;
-    ClickAndGoSlider *m_volumeSlider;
-    AudioCapture *m_inputCapture;
+    QHBoxLayout* m_hbox;
+    QToolButton* m_button;
+    QLabel* m_label;
+    AudioTriggerWidget* m_spectrum;
+    ClickAndGoSlider* m_volumeSlider;
+    AudioCapture* m_inputCapture;
 
-    AudioBar *m_volumeBar;
-    QList <AudioBar *> m_spectrumBars;
+    AudioBar* m_volumeBar;
+    QList<AudioBar*> m_spectrumBars;
 
     /*********************************************************************
      * DMXSource
@@ -105,7 +105,7 @@ public:
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 
     /*********************************************************************
      * Key sequence handler
@@ -124,7 +124,7 @@ protected:
      * External Input
      *************************************************************************/
 public:
-    void updateFeedback() { }
+    void updateFeedback() {}
 
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
@@ -166,15 +166,17 @@ public:
      * Configuration
      *************************************************************************/
 public:
-
-    static int volumeBarIndex() { return 1000; }
+    static int volumeBarIndex()
+    {
+        return 1000;
+    }
 
     /** Get a pointer to a single AudioBar by index.
      */
-    AudioBar *getSpectrumBar(int index);
+    AudioBar* getSpectrumBar(int index);
 
     /** Get a list of pointers to all the current audio bars */
-    QList<AudioBar *> getAudioBars();
+    QList<AudioBar*> getAudioBars();
 
     void setSpectrumBarsNumber(int num);
     void setSpectrumBarType(int index, int type);
@@ -190,7 +192,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -198,7 +200,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

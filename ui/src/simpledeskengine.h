@@ -59,7 +59,7 @@ public:
     void clearContents();
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
 
     /************************************************************************
      * Universe Values
@@ -93,12 +93,12 @@ public:
 
 private:
     /** A map of channel absolute addresses and their values.
-      * Note that only channels overridden by Simple Desk are here */
-    QHash <uint,uchar> m_values;
+     * Note that only channels overridden by Simple Desk are here */
+    QHash<uint, uchar> m_values;
 
     /** A list of commands to be executed on writeDMX.
      *  This is used to sync reset requests with mastertimer ticks */
-    QList< QPair<int,quint32> > m_commandQueue;
+    QList<QPair<int, quint32>> m_commandQueue;
 
     /************************************************************************
      * Cue Stacks
@@ -126,7 +126,7 @@ private slots:
     void slotCueStackStopped();
 
 private:
-    QHash <uint,CueStack*> m_cueStacks;
+    QHash<uint, CueStack*> m_cueStacks;
     mutable QMutex m_mutex;
 
     /************************************************************************
@@ -134,10 +134,10 @@ private:
      ************************************************************************/
 public:
     /** Load SimpleDeskEngine contents from the given XML $root tag */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** Save SimpleDeskEngine content to the given XML $doc */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 
     /************************************************************************
      * DMXSource
@@ -147,12 +147,11 @@ public:
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 private:
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,
-                          quint32 fixtureID, quint32 channel);
+    FadeChannel* getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 };
 
 /** @} */

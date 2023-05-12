@@ -110,8 +110,7 @@ void QLCFixtureHead_Test::save()
         if (xmlReader.name().toString() == "Channel")
         {
             QString chNum = xmlReader.readElementText();
-            QVERIFY(chNum.toInt() == 0 || chNum.toInt() == 1 ||
-                    chNum.toInt() == 2 || chNum.toInt() == 3);
+            QVERIFY(chNum.toInt() == 0 || chNum.toInt() == 1 || chNum.toInt() == 2 || chNum.toInt() == 3);
             ch++;
         }
         else
@@ -187,8 +186,8 @@ void QLCFixtureHead_Test::cacheChannelsRgbMaster()
     QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), QLCChannel::invalid());
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), QLCChannel::invalid());
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
-    QCOMPARE(head.rgbChannels(), QVector <quint32> () << 0 << 1 << 2);
-    QCOMPARE(head.cmyChannels(), QVector <quint32> ());
+    QCOMPARE(head.rgbChannels(), QVector<quint32>() << 0 << 1 << 2);
+    QCOMPARE(head.cmyChannels(), QVector<quint32>());
     QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), quint32(3));
 }
 
@@ -224,8 +223,8 @@ void QLCFixtureHead_Test::cacheChannelsCmyMaster()
     QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), QLCChannel::invalid());
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), QLCChannel::invalid());
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
-    QCOMPARE(head.rgbChannels(), QVector <quint32> ());
-    QCOMPARE(head.cmyChannels(), QVector <quint32> () << 0 << 1 << 3);
+    QCOMPARE(head.rgbChannels(), QVector<quint32>());
+    QCOMPARE(head.cmyChannels(), QVector<quint32>() << 0 << 1 << 3);
     QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), quint32(2));
 }
 
@@ -261,17 +260,17 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(1));
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(2));
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), quint32(3));
-    QCOMPARE(head.rgbChannels(), QVector <quint32> ());
-    QCOMPARE(head.cmyChannels(), QVector <quint32> ());
+    QCOMPARE(head.rgbChannels(), QVector<quint32>());
+    QCOMPARE(head.cmyChannels(), QVector<quint32>());
     QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), QLCChannel::invalid());
 
-    head.cacheChannels((QLCFixtureMode*) 0xDEADBEEF);
+    head.cacheChannels((QLCFixtureMode*)0xDEADBEEF);
     QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(0));
     QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(1));
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(2));
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), quint32(3));
-    QCOMPARE(head.rgbChannels(), QVector <quint32> ());
-    QCOMPARE(head.cmyChannels(), QVector <quint32> ());
+    QCOMPARE(head.rgbChannels(), QVector<quint32>());
+    QCOMPARE(head.cmyChannels(), QVector<quint32>());
     QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), QLCChannel::invalid());
 }
 

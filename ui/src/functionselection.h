@@ -64,7 +64,7 @@ public slots:
 
 private:
     Doc* m_doc;
-    FunctionsTreeWidget *m_funcTree;
+    FunctionsTreeWidget* m_funcTree;
     bool m_isInitializing;
 
     /*********************************************************************
@@ -75,7 +75,7 @@ public:
 
 private:
     bool m_none;
-    QTreeWidgetItem *m_noneItem;
+    QTreeWidgetItem* m_noneItem;
 
     /*********************************************************************
      * New track entry
@@ -85,7 +85,7 @@ public:
 
 private:
     bool m_newTrack;
-    QTreeWidgetItem *m_newTrackItem;
+    QTreeWidgetItem* m_newTrackItem;
 
     /*********************************************************************
      * Multi-selection
@@ -155,13 +155,13 @@ private:
      *********************************************************************/
 public:
     /** Disable the given list of function IDs in the tree */
-    void setDisabledFunctions(const QList <quint32>& ids);
+    void setDisabledFunctions(const QList<quint32>& ids);
 
     /** Get a list of disabled functionIDs */
-    QList <quint32> disabledFunctions() const;
+    QList<quint32> disabledFunctions() const;
 
 protected:
-    QList <quint32> m_disabledFunctions;
+    QList<quint32> m_disabledFunctions;
 
     /*********************************************************************
      * Selection
@@ -171,24 +171,22 @@ public:
     void setSelection(QList<quint32> selection);
 
     /** Get a list of selected function IDs */
-    const QList <quint32> selection() const;
+    const QList<quint32> selection() const;
 
 protected:
     /** The list of selected function IDs */
-    QList <quint32> m_selection;
+    QList<quint32> m_selection;
 
     /*********************************************************************
      * Internal
      *********************************************************************/
 protected:
-
     /** Clear & (re)fill the tree */
     void refillTree();
 
 protected slots:
     void slotItemSelectionChanged();
     void slotItemDoubleClicked(QTreeWidgetItem* item);
-
 };
 
 /** @} */

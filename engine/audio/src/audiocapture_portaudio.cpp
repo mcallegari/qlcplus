@@ -26,9 +26,9 @@
 
 // Since only one instance of this class is allowed, I can
 // afford to do this
-static PaStream *stream = NULL;
+static PaStream* stream = NULL;
 
-AudioCapturePortAudio::AudioCapturePortAudio(QObject * parent)
+AudioCapturePortAudio::AudioCapturePortAudio(QObject* parent)
     : AudioCapture(parent)
 {
 }
@@ -45,7 +45,7 @@ bool AudioCapturePortAudio::initialize()
     PaStreamParameters inputParameters;
 
     err = Pa_Initialize();
-    if( err != paNoError )
+    if (err != paNoError)
         return false;
 
     QSettings settings;
@@ -64,30 +64,30 @@ bool AudioCapturePortAudio::initialize()
 
     inputParameters.channelCount = m_channels;
     inputParameters.sampleFormat = paInt16;
-    inputParameters.suggestedLatency = Pa_GetDeviceInfo( inputParameters.device )->defaultLowInputLatency;
+    inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
 
     // ensure initialize() has not been called multiple times
     Q_ASSERT(stream == NULL);
 
     /* -- setup stream -- */
-    err = Pa_OpenStream( &stream, &inputParameters, NULL, m_sampleRate, paFramesPerBufferUnspecified,
-              paClipOff, /* we won't output out of range samples so don't bother clipping them */
-              NULL, /* no callback, use blocking API */
-              NULL ); /* no callback, so no callback userData */
-    if( err != paNoError )
+    err = Pa_OpenStream(&stream, &inputParameters, NULL, m_sampleRate, paFramesPerBufferUnspecified,
+                        paClipOff, /* we won't output out of range samples so don't bother clipping them */
+                        NULL,      /* no callback, use blocking API */
+                        NULL);     /* no callback, so no callback userData */
+    if (err != paNoError)
     {
-        qWarning("Cannot open audio input stream (%s)\n",  Pa_GetErrorText(err));
+        qWarning("Cannot open audio input stream (%s)\n", Pa_GetErrorText(err));
         Pa_Terminate();
         return false;
     }
 
     /* -- start capture -- */
-    err = Pa_StartStream( stream );
-    if( err != paNoError )
+    err = Pa_StartStream(stream);
+    if (err != paNoError)
     {
-        qWarning("Cannot start stream capture (%s)\n",  Pa_GetErrorText(err));
-        Pa_CloseStream( stream );
+        qWarning("Cannot start stream capture (%s)\n", Pa_GetErrorText(err));
+        Pa_CloseStream(stream);
         stream = NULL;
         Pa_Terminate();
         return false;
@@ -103,19 +103,19 @@ void AudioCapturePortAudio::uninitialize()
     PaError err;
 
     /* -- Now we stop the stream -- */
-    err = Pa_StopStream( stream );
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+    err = Pa_StopStream(stream);
+    if (err != paNoError)
+        qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 
     /* -- don't forget to cleanup! -- */
-    err = Pa_CloseStream( stream );
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+    err = Pa_CloseStream(stream);
+    if (err != paNoError)
+        qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
     stream = NULL;
 
     err = Pa_Terminate();
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+    if (err != paNoError)
+        qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 }
 
 qint64 AudioCapturePortAudio::latency()
@@ -123,22 +123,18 @@ qint64 AudioCapturePortAudio::latency()
     return 0; // TODO
 }
 
-void AudioCapturePortAudio::suspend()
-{
-}
+void AudioCapturePortAudio::suspend() {}
 
-void AudioCapturePortAudio::resume()
-{
-}
+void AudioCapturePortAudio::resume() {}
 
 bool AudioCapturePortAudio::readAudio(int maxSize)
 {
     Q_ASSERT(stream != NULL);
 
-    int err = Pa_ReadStream( stream, m_audioBuffer, maxSize );
-    if( err )
+    int err = Pa_ReadStream(stream, m_audioBuffer, maxSize);
+    if (err)
     {
-        qWarning("read from audio interface failed (%s)\n", Pa_GetErrorText (err));
+        qWarning("read from audio interface failed (%s)\n", Pa_GetErrorText(err));
         return false;
     }
 

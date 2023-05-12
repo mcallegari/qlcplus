@@ -72,7 +72,7 @@ void ChaserStep_Test::variant()
 {
     ChaserStep step(1, 2, 3, 4);
     QVariant var = step.toVariant();
-    QList <QVariant> list(var.toList());
+    QList<QVariant> list(var.toList());
     QCOMPARE(list.size(), 6);
     QCOMPARE(list[0].toUInt(), uint(1));
     QCOMPARE(list[1].toUInt(), uint(2));
@@ -346,7 +346,6 @@ void ChaserStep_Test::save_sequence()
 
     QString valText = xmlReader.readElementText();
     QCOMPARE(valText, QString("1:0,255,2,100,3,200:3:0,255,1,100"));
-
 }
 
 QTEST_APPLESS_MAIN(ChaserStep_Test)

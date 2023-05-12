@@ -35,7 +35,7 @@ void QLCCapability_Test::initial()
 
 void QLCCapability_Test::min_data()
 {
-    QTest::addColumn<uchar> ("value");
+    QTest::addColumn<uchar>("value");
     for (uchar i = 0; i < UCHAR_MAX; i++)
         QTest::newRow("foo") << i;
     QTest::newRow("foo") << uchar(UCHAR_MAX);
@@ -54,7 +54,7 @@ void QLCCapability_Test::min()
 
 void QLCCapability_Test::max_data()
 {
-    QTest::addColumn<uchar> ("value");
+    QTest::addColumn<uchar>("value");
     for (uchar i = 0; i < UCHAR_MAX; i++)
         QTest::newRow("foo") << i;
     QTest::newRow("foo") << uchar(UCHAR_MAX);
@@ -186,7 +186,7 @@ void QLCCapability_Test::copy()
     cap1.setMax(15);
     cap1.setName("Foobar");
 
-    QLCCapability *cap2 = cap1.createCopy();
+    QLCCapability* cap2 = cap1.createCopy();
     QVERIFY(cap2->min() == 5);
     QVERIFY(cap2->max() == 15);
     QVERIFY(cap2->name() == "Foobar");

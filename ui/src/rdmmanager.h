@@ -49,7 +49,7 @@ class RDMWorker : public QThread
     Q_OBJECT
 
 public:
-    RDMWorker(Doc *doc);
+    RDMWorker(Doc* doc);
     ~RDMWorker();
 
     enum RequestState
@@ -72,7 +72,7 @@ public:
     void runDiscovery(quint32 uni, quint32 line);
 
     /** Request the given UID information and handle results via state machine */
-    void getUidInfo(quint32 uni, quint32 line, QString UID, UIDInfo &info);
+    void getUidInfo(quint32 uni, quint32 line, QString UID, UIDInfo& info);
 
     void handlePID(quint32 uni, quint32 line, QString UID, QString pid, QVariantList args, bool write);
 
@@ -91,22 +91,22 @@ signals:
     /** Inform the listeners that a new UID has been discovered */
     void uidFound(QString UID, UIDInfo info);
 
-    void fixtureInfoReady(QString &info);
+    void fixtureInfoReady(QString& info);
 
     void pidInfoReady(QString info);
 
     void requestPopup(QString title, QString message);
 
 private:
-    Doc *m_doc;
+    Doc* m_doc;
     bool m_running;
 
-    QLCIOPlugin *m_plugin;
+    QLCIOPlugin* m_plugin;
     quint32 m_universe;
     quint32 m_line;
 
     /** Map of all the discovered fixtures by UID */
-    QMap <QString, UIDInfo> m_uidMap;
+    QMap<QString, UIDInfo> m_uidMap;
 
     /** FIFO for discovery binary search */
     QList<DiscoveryInfo> m_discoveryList;
@@ -126,7 +126,7 @@ class RDMManager : public QWidget, public Ui_RDMManager
     Q_OBJECT
 
 public:
-    explicit RDMManager(QWidget *parent, Doc* doc);
+    explicit RDMManager(QWidget* parent, Doc* doc);
     ~RDMManager();
 
     enum PidDataType
@@ -138,7 +138,7 @@ public:
     };
 
 private:
-    bool getPluginInfo(quint32 universe, quint32 line, quint32 &universeID, quint32 &outputLine);
+    bool getPluginInfo(quint32 universe, quint32 line, quint32& universeID, quint32& outputLine);
 
 private slots:
     /** Triggers the RDM discovery on all universes */
@@ -165,14 +165,14 @@ private slots:
     void slotTaskFinished();
 
 signals:
-    void fixtureInfoReady(QString &info);
+    void fixtureInfoReady(QString& info);
 
 private:
     /** Reference to the main Doc object */
-    Doc *m_doc;
+    Doc* m_doc;
 
     /** Map of all the discovered fixtures by UID */
-    QMap <QString, UIDInfo> m_uidMap;
+    QMap<QString, UIDInfo> m_uidMap;
 };
 
 #endif // RDMMANAGER_H

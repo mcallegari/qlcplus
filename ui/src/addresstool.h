@@ -24,7 +24,8 @@
 #include <QWidget>
 #include <QMap>
 
-namespace Ui {
+namespace Ui
+{
 class AddressTool;
 }
 
@@ -36,11 +37,11 @@ class DIPSwitchSlider : public QObject
 {
     Q_OBJECT
 public:
-    DIPSwitchSlider(QObject *parent = 0);
+    DIPSwitchSlider(QObject* parent = 0);
     ~DIPSwitchSlider();
 
     void setPosition(QPoint pos, QSize size);
-    void paint(QPainter *painter, bool value, bool vreverse);
+    void paint(QPainter* painter, bool value, bool vreverse);
     bool isClicked(QPoint click);
 
 private:
@@ -48,12 +49,12 @@ private:
     QSize m_size;
 };
 
-class DIPSwitchWidget: public QWidget
+class DIPSwitchWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    DIPSwitchWidget(QWidget *parent = 0, int presetValue = 1);
+    DIPSwitchWidget(QWidget* parent = 0, int presetValue = 1);
     ~DIPSwitchWidget();
 
     void setColor(QColor col);
@@ -78,8 +79,8 @@ private:
 
 protected:
     void paintEvent(QPaintEvent* e);
-    void mousePressEvent(QMouseEvent *e);
-    void resizeEvent(QResizeEvent *e);
+    void mousePressEvent(QMouseEvent* e);
+    void resizeEvent(QResizeEvent* e);
 };
 
 class AddressTool : public QDialog
@@ -87,18 +88,17 @@ class AddressTool : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddressTool(QWidget *parent = 0, int presetValue = 1);
+    explicit AddressTool(QWidget* parent = 0, int presetValue = 1);
     ~AddressTool();
 
     int getAddress();
 
 private:
-    Ui::AddressTool *ui;
-    DIPSwitchWidget *m_dipSwitch;
+    Ui::AddressTool* ui;
+    DIPSwitchWidget* m_dipSwitch;
 
 protected slots:
     void slotChangeColor();
-
 };
 
 /** @} */

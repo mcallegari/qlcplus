@@ -27,7 +27,8 @@
 #include "qlcconfig.h"
 #include "aboutbox.h"
 
-AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
+AboutBox::AboutBox(QWidget* parent)
+    : QDialog(parent)
 {
     setupUi(this);
 
@@ -38,14 +39,12 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
 
     m_titleLabel->setText(APPNAME);
     m_versionLabel->setText(APPVERSION);
-    m_copyrightLabel->setText(QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1")
-                              .arg(tr("and contributors:")));
+    m_copyrightLabel->setText(
+        QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1").arg(tr("and contributors:")));
     m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
-    connect(m_websiteLabel, SIGNAL(linkActivated(QString)),
-            this, SLOT(slotWebsiteClicked()));
+    connect(m_websiteLabel, SIGNAL(linkActivated(QString)), this, SLOT(slotWebsiteClicked()));
 
-    connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(slotItemClicked()));
+    connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(slotItemClicked()));
     m_contributors->clear();
     m_contributors->addItem("Contributors:");
     m_contributors->addItem("Jano Svitok");
@@ -89,9 +88,7 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_timer->start(500);
 }
 
-AboutBox::~AboutBox()
-{
-}
+AboutBox::~AboutBox() {}
 
 void AboutBox::slotTimeout()
 {

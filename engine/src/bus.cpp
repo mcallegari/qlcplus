@@ -52,9 +52,7 @@ public:
         value = 0;
     }
 
-    ~BusEntry()
-    {
-    }
+    ~BusEntry() {}
 
     BusEntry(const BusEntry& entry)
     {
@@ -86,7 +84,8 @@ Bus* Bus::instance()
     return s_instance;
 }
 
-Bus::Bus(QObject* parent) : QObject(parent)
+Bus::Bus(QObject* parent)
+    : QObject(parent)
 {
     for (quint32 i = 0; i < Bus::count(); i++)
         m_buses.append(new BusEntry);
@@ -209,7 +208,7 @@ void Bus::tap(quint32 bus)
  * Load & Save
  ****************************************************************************/
 
-bool Bus::loadXML(QXmlStreamReader &doc)
+bool Bus::loadXML(QXmlStreamReader& doc)
 {
     if (doc.name() != KXMLQLCBus)
     {

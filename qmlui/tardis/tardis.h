@@ -41,7 +41,7 @@ typedef struct
 {
     int m_action;
     quint64 m_timestamp;
-    quint32  m_objID;
+    quint32 m_objID;
     QVariant m_oldValue;
     QVariant m_newValue;
 } TardisAction;
@@ -193,11 +193,9 @@ public:
 
     Q_ENUM(ActionCodes)
 
-    explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
-                    FixtureManager *fxMgr, FunctionManager *funcMgr,
-                    ContextManager *ctxMgr, SimpleDesk *sDesk,
-                    ShowManager *showMgr, VirtualConsole *vc,
-                    QObject *parent = 0);
+    explicit Tardis(QQuickView* view, Doc* doc, NetworkManager* netMgr, FixtureManager* fxMgr, FunctionManager* funcMgr,
+                    ContextManager* ctxMgr, SimpleDesk* sDesk, ShowManager* showMgr, VirtualConsole* vc,
+                    QObject* parent = 0);
 
     ~Tardis();
 
@@ -215,21 +213,21 @@ public:
     Q_INVOKABLE void redoAction();
 
     /** Process an action and return the reversed action if undoing */
-    int processAction(TardisAction &action, bool undo);
+    int processAction(TardisAction& action, bool undo);
 
     QByteArray actionToByteArray(int code, quint32 objID, QVariant data = QVariant());
 
     /** Reset the actions history */
     void resetHistory();
 
-    void forwardActionToNetwork(int code, TardisAction &action);
+    void forwardActionToNetwork(int code, TardisAction& action);
 
     /** @reimp */
     void run(); // thread run function
 
 protected:
     QString actionToString(int action);
-    bool processBufferedAction(int action, quint32 objID, QVariant &value);
+    bool processBufferedAction(int action, quint32 objID, QVariant& value);
 
 protected slots:
     void slotProcessNetworkAction(int code, quint32 id, QVariant value);
@@ -241,24 +239,24 @@ private:
     bool m_running;
 
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** Reference to the Network Manager */
-    NetworkManager *m_networkManager;
+    NetworkManager* m_networkManager;
 
     /** Reference to the Fixture Manager */
-    FixtureManager *m_fixtureManager;
+    FixtureManager* m_fixtureManager;
     /** Reference to the Function Manager */
-    FunctionManager *m_functionManager;
+    FunctionManager* m_functionManager;
     /** Reference to the Context Manager */
-    ContextManager *m_contextManager;
+    ContextManager* m_contextManager;
     /** Reference to the Simple Desk */
-    SimpleDesk *m_simpleDesk;
+    SimpleDesk* m_simpleDesk;
     /** Reference to the Show Manager */
-    ShowManager *m_showManager;
+    ShowManager* m_showManager;
     /** Reference to the Virtual Console */
-    VirtualConsole *m_virtualConsole;
+    VirtualConsole* m_virtualConsole;
 
     /** Time reference since application starts */
     QElapsedTimer m_uptime;

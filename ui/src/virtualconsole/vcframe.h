@@ -37,21 +37,21 @@
  * @{
  */
 
-#define KXMLQLCVCFrame                  QString("Frame")
-#define KXMLQLCVCFrameAllowChildren     QString("AllowChildren")
-#define KXMLQLCVCFrameAllowResize       QString("AllowResize")
-#define KXMLQLCVCFrameShowHeader        QString("ShowHeader")
-#define KXMLQLCVCFrameIsCollapsed       QString("Collapsed")
-#define KXMLQLCVCFrameIsDisabled        QString("Disabled")
-#define KXMLQLCVCFrameEnableSource      QString("Enable")
-#define KXMLQLCVCFrameShowEnableButton  QString("ShowEnableButton")
+#define KXMLQLCVCFrame QString("Frame")
+#define KXMLQLCVCFrameAllowChildren QString("AllowChildren")
+#define KXMLQLCVCFrameAllowResize QString("AllowResize")
+#define KXMLQLCVCFrameShowHeader QString("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed QString("Collapsed")
+#define KXMLQLCVCFrameIsDisabled QString("Disabled")
+#define KXMLQLCVCFrameEnableSource QString("Enable")
+#define KXMLQLCVCFrameShowEnableButton QString("ShowEnableButton")
 
-#define KXMLQLCVCFrameMultipage   QString("Multipage")
+#define KXMLQLCVCFrameMultipage QString("Multipage")
 #define KXMLQLCVCFramePagesNumber QString("PagesNum")
 #define KXMLQLCVCFrameCurrentPage QString("CurrentPage")
-#define KXMLQLCVCFrameNext        QString("Next")
-#define KXMLQLCVCFramePrevious    QString("Previous")
-#define KXMLQLCVCFramePagesLoop   QString("PagesLoop")
+#define KXMLQLCVCFrameNext QString("Next")
+#define KXMLQLCVCFramePrevious QString("Previous")
+#define KXMLQLCVCFramePagesLoop QString("PagesLoop")
 
 class VCFrameProperties;
 class VCFramePageShortcut;
@@ -136,10 +136,10 @@ protected:
     void createHeader();
 
 protected:
-    QHBoxLayout *m_hbox;
-    QToolButton *m_collapseButton;
-    QToolButton *m_enableButton;
-    QLabel *m_label;
+    QHBoxLayout* m_hbox;
+    QToolButton* m_collapseButton;
+    QToolButton* m_enableButton;
+    QLabel* m_label;
     bool m_collapsed;
     bool m_showHeader;
     bool m_showEnableButton;
@@ -152,9 +152,9 @@ public:
     void setMultipageMode(bool enable);
     virtual bool multipageMode() const;
 
-    QList<VCFramePageShortcut *> shortcuts() const;
+    QList<VCFramePageShortcut*> shortcuts() const;
     void addShortcut();
-    void setShortcuts(QList<VCFramePageShortcut *> shortcuts);
+    void setShortcuts(QList<VCFramePageShortcut*> shortcuts);
     void resetShortcuts();
     void updatePageCombo();
 
@@ -166,8 +166,8 @@ public:
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
 
-    virtual void addWidgetToPageMap(VCWidget *widget);
-    virtual void removeWidgetFromPageMap(VCWidget *widget);
+    virtual void addWidgetToPageMap(VCWidget* widget);
+    virtual void removeWidgetFromPageMap(VCWidget* widget);
 
 public slots:
     void slotPreviousPage();
@@ -182,13 +182,13 @@ protected:
     ushort m_currentPage;
     ushort m_totalPagesNumber;
     QToolButton *m_nextPageBtn, *m_prevPageBtn;
-    QComboBox *m_pageCombo;
+    QComboBox* m_pageCombo;
     bool m_pagesLoop;
     QList<VCFramePageShortcut*> m_pageShortcuts;
 
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
-    QMap <VCWidget *, int> m_pagesMap;
+    QMap<VCWidget*, int> m_pagesMap;
 
     /*************************************************************************
      * QLC+ mode
@@ -270,7 +270,7 @@ protected:
      * Properties
      *********************************************************************/
 protected:
-    QList<VCWidget *> getChildren(VCWidget *obj);
+    QList<VCWidget*> getChildren(VCWidget* obj);
     void applyProperties(VCFrameProperties const& prop);
 
 public:
@@ -281,9 +281,9 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /**
      * @reimp

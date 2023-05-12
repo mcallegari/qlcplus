@@ -98,13 +98,13 @@ public:
     void setSceneValue(const SceneValue& scv);
 
     /** Get all channel's values */
-    QList <SceneValue> values() const;
+    QList<SceneValue> values() const;
 
     /** Return true if at least one channel is checked and selected */
     bool hasSelections();
 
     /** Set all channel's values */
-    void setValues(const QList <SceneValue>& list, bool fromSelection);
+    void setValues(const QList<SceneValue>& list, bool fromSelection);
 
     /** Set the value of one channel (doesn't enable it) */
     void setValue(quint32 ch, uchar value, bool apply = true);
@@ -127,7 +127,7 @@ signals:
 
 private:
     /** Get a console channel instance for the given relative channel */
-    ConsoleChannel *channel(quint32 ch) const;
+    ConsoleChannel* channel(quint32 ch) const;
 
 private:
     QList<ConsoleChannel*> m_channels;

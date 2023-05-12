@@ -27,12 +27,12 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KXMLQLCChannelsGroupID    "ID"
-#define KXMLQLCChannelsGroupName  "Name"
+#define KXMLQLCChannelsGroupID "ID"
+#define KXMLQLCChannelsGroupName "Name"
 #define KXMLQLCChannelsGroupValue "Value"
 
 #define KXMLQLCChannelsGroupInputUniverse "InputUniverse"
-#define KXMLQLCChannelsGroupInputChannel  "InputChannel"
+#define KXMLQLCChannelsGroupInputChannel "InputChannel"
 
 
 ChannelsGroup::ChannelsGroup(Doc* doc)
@@ -58,14 +58,11 @@ ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
     init();
 }
 
-ChannelsGroup::~ChannelsGroup()
-{
-}
+ChannelsGroup::~ChannelsGroup() {}
 
 void ChannelsGroup::init()
 {
-    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
-            this, SLOT(slotFixtureRemoved(quint32)));
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved(quint32)));
 }
 
 void ChannelsGroup::slotFixtureRemoved(quint32 fixtureId)
@@ -141,7 +138,7 @@ bool ChannelsGroup::addChannel(quint32 fxid, quint32 channel)
 }
 
 
-QList <SceneValue> ChannelsGroup::getChannels() const
+QList<SceneValue> ChannelsGroup::getChannels() const
 {
     return m_channels;
 }
@@ -149,7 +146,7 @@ QList <SceneValue> ChannelsGroup::getChannels() const
 /*********************************************************************
  * Status
  *********************************************************************/
-QString ChannelsGroup::status(Doc *doc) const
+QString ChannelsGroup::status(Doc* doc) const
 {
     QString info;
 
@@ -170,20 +167,19 @@ QString ChannelsGroup::status(Doc *doc) const
 
     foreach (SceneValue value, m_channels)
     {
-        Fixture *fixture = doc->fixture(value.fxi);
+        Fixture* fixture = doc->fixture(value.fxi);
         if (fixture == NULL)
             return QString();
-        const QLCFixtureMode *mode = fixture->fixtureMode();
+        const QLCFixtureMode* mode = fixture->fixtureMode();
         QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
         if (mode != NULL)
         {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
-                .arg(mode->channels().at(value.channel)->name());
+            info += chInfo.arg(fixture->name()).arg(value.channel + 1).arg(mode->channels().at(value.channel)->name());
         }
         else
         {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
-                .arg(QString(tr("Channel %1")).arg(value.channel));
+            info +=
+                chInfo.arg(fixture->name()).arg(value.channel + 1).arg(QString(tr("Channel %1")).arg(value.channel));
         }
     }
 
@@ -199,15 +195,15 @@ QString ChannelsGroup::status(Doc *doc) const
 void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
 {
     if (!m_input.isNull() && m_input->isValid())
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                   SLOT(slotInputValueChanged(quint32, quint32, uchar)));
 
     m_input = source;
 
     // Connect when the first valid input source is set
     if (!source.isNull() && source->isValid())
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
+                SLOT(slotInputValueChanged(quint32, quint32, uchar)));
 }
 
 QSharedPointer<QLCInputSource> const& ChannelsGroup::inputSource() const
@@ -223,11 +219,9 @@ void ChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel, uch
     if (m_doc->mode() == Doc::Operate)
         return;
 
-    //qDebug() << Q_FUNC_INFO << "universe: " << universe << ", channel: " << channel << ", value: " << value;
+    // qDebug() << Q_FUNC_INFO << "universe: " << universe << ", channel: " << channel << ", value: " << value;
 
-    if (inputSource() != NULL &&
-        inputSource()->universe() == universe &&
-        inputSource()->channel() == channel)
+    if (inputSource() != NULL && inputSource()->universe() == universe && inputSource()->channel() == channel)
     {
         emit valueChanged(channel, value);
     }
@@ -236,7 +230,7 @@ void ChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel, uch
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool ChannelsGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
+bool ChannelsGroup::loader(QXmlStreamReader& xmlDoc, Doc* doc)
 {
     bool result = false;
 
@@ -258,12 +252,12 @@ bool ChannelsGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
     return result;
 }
 
-bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
+bool ChannelsGroup::saveXML(QXmlStreamWriter* doc)
 {
     Q_ASSERT(doc != NULL);
 
     QString str;
-    foreach(SceneValue value, this->getChannels())
+    foreach (SceneValue value, this->getChannels())
     {
         if (str.isEmpty() == false)
             str.append(",");
@@ -278,7 +272,7 @@ bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
 
     if (!m_input.isNull() && m_input->isValid())
     {
-        doc->writeAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input->universe()));
+        doc->writeAttribute(KXMLQLCChannelsGroupInputUniverse, QString("%1").arg(m_input->universe()));
         doc->writeAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input->channel()));
     }
     if (str.isEmpty() == false)
@@ -289,7 +283,7 @@ bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
+bool ChannelsGroup::loadXML(QXmlStreamReader& xmlDoc)
 {
     if (xmlDoc.name() != KXMLQLCChannelsGroup)
     {
@@ -319,10 +313,9 @@ bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
     if (chansValues.isEmpty() == false)
     {
         QStringList varray = chansValues.split(",");
-        for (int i = 0; i < varray.count(); i+=2)
+        for (int i = 0; i < varray.count(); i += 2)
         {
-            SceneValue scv(QString(varray.at(i)).toUInt(),
-                           QString(varray.at(i + 1)).toUInt(), 0);
+            SceneValue scv(QString(varray.at(i)).toUInt(), QString(varray.at(i + 1)).toUInt(), 0);
             Fixture* fxi = m_doc->fixture(scv.fxi);
             if (fxi == NULL)
             {

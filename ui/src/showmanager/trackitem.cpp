@@ -25,7 +25,7 @@
 
 #include "trackitem.h"
 
-TrackItem::TrackItem(Track *track, int number)
+TrackItem::TrackItem(Track* track, int number)
     : m_number(number)
     , m_isActive(false)
     , m_track(track)
@@ -53,22 +53,18 @@ TrackItem::TrackItem(Track *track, int number)
     m_muteRegion = new QRectF(45.0, 10.0, 25.0, 16.0);
 
     m_moveUp = new QAction(QIcon(":/up.png"), tr("Move up"), this);
-    connect(m_moveUp, SIGNAL(triggered()),
-            this, SLOT(slotMoveUpClicked()));
+    connect(m_moveUp, SIGNAL(triggered()), this, SLOT(slotMoveUpClicked()));
     m_moveDown = new QAction(QIcon(":/down.png"), tr("Move down"), this);
-    connect(m_moveDown, SIGNAL(triggered()),
-            this, SLOT(slotMoveDownClicked()));
+    connect(m_moveDown, SIGNAL(triggered()), this, SLOT(slotMoveDownClicked()));
 
     m_changeName = new QAction(QIcon(":/editclear.png"), tr("Change name"), this);
-    connect(m_changeName, SIGNAL(triggered()),
-            this, SLOT(slotChangeNameClicked()));
+    connect(m_changeName, SIGNAL(triggered()), this, SLOT(slotChangeNameClicked()));
 
     m_delete = new QAction(QIcon(":/editdelete.png"), tr("Delete"), this);
-    connect(m_delete, SIGNAL(triggered()),
-            this, SLOT(slotDeleteTrackClicked()));
+    connect(m_delete, SIGNAL(triggered()), this, SLOT(slotDeleteTrackClicked()));
 }
 
-Track *TrackItem::getTrack()
+Track* TrackItem::getTrack()
 {
     return m_track;
 }
@@ -108,7 +104,7 @@ bool TrackItem::isMute()
     return m_isMute;
 }
 
-void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     m_isActive = true;
     QGraphicsItem::mousePressEvent(event);
@@ -125,7 +121,7 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     emit itemClicked(this);
 }
 
-void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
@@ -140,7 +136,7 @@ void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menu.exec(QCursor::pos());
 }
 
-void TrackItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *)
+void TrackItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
 {
     emit itemDoubleClicked(this);
 }
@@ -150,7 +146,7 @@ QRectF TrackItem::boundingRect() const
     return QRectF(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT);
 }
 
-void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void TrackItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -158,7 +154,7 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // draw background gradient
     QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, TRACK_HEIGHT));
     linearGrad.setColorAt(0, QColor(50, 64, 75, 255));
-    //linearGrad.setColorAt(1, QColor(99, 127, 148, 255));
+    // linearGrad.setColorAt(1, QColor(99, 127, 148, 255));
     linearGrad.setColorAt(1, QColor(76, 98, 115, 255));
     painter->setBrush(linearGrad);
     painter->drawRect(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT - 1);

@@ -32,17 +32,18 @@
 #define KXMLQLCChannelModifierDocument QString("ChannelModifier")
 
 // Channel modifier tags and attributes
-#define KXMLQLCChannelModName           QString("Name")
-#define KXMLQLCChannelModHandler        QString("Handler")
-#define KXMLQLCChannelModOriginalDMX    QString("Original")
-#define KXMLQLCChannelModModifiedDMX    QString("Modified")
+#define KXMLQLCChannelModName QString("Name")
+#define KXMLQLCChannelModHandler QString("Handler")
+#define KXMLQLCChannelModOriginalDMX QString("Original")
+#define KXMLQLCChannelModModifiedDMX QString("Modified")
 
 class ChannelModifier
 {
 public:
     ChannelModifier();
 
-    enum Type {
+    enum Type
+    {
         SystemTemplate = 0,
         UserTemplate = 1
     };
@@ -55,9 +56,9 @@ public:
 
     Type type() const;
 
-    void setModifierMap(QList< QPair<uchar, uchar> > map);
+    void setModifierMap(QList<QPair<uchar, uchar>> map);
 
-    QList< QPair<uchar, uchar> > modifierMap() const;
+    QList<QPair<uchar, uchar>> modifierMap() const;
 
     uchar getValue(uchar dmxValue);
 
@@ -74,7 +75,7 @@ public:
 private:
     QString m_name;
     Type m_type;
-    QList< QPair<uchar, uchar> > m_map;
+    QList<QPair<uchar, uchar>> m_map;
     QByteArray m_values;
 };
 

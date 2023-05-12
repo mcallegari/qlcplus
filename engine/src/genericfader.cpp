@@ -24,7 +24,7 @@
 #include "fadechannel.h"
 #include "doc.h"
 
-GenericFader::GenericFader(QObject *parent)
+GenericFader::GenericFader(QObject* parent)
     : QObject(parent)
     , m_fid(Function::invalidId())
     , m_priority(Universe::Auto)
@@ -39,9 +39,7 @@ GenericFader::GenericFader(QObject *parent)
 {
 }
 
-GenericFader::~GenericFader()
-{
-}
+GenericFader::~GenericFader() {}
 
 QString GenericFader::name() const
 {
@@ -82,7 +80,7 @@ void GenericFader::add(const FadeChannel& ch)
 {
     quint32 hash = channelHash(ch.fixture(), ch.channel());
 
-    QHash<quint32,FadeChannel>::iterator channelIterator = m_channels.find(hash);
+    QHash<quint32, FadeChannel>::iterator channelIterator = m_channels.find(hash);
     if (channelIterator != m_channels.end())
     {
         // perform a HTP check
@@ -96,13 +94,13 @@ void GenericFader::add(const FadeChannel& ch)
     }
 }
 
-void GenericFader::replace(const FadeChannel &ch)
+void GenericFader::replace(const FadeChannel& ch)
 {
     quint32 hash = channelHash(ch.fixture(), ch.channel());
     m_channels.insert(hash, ch);
 }
 
-void GenericFader::remove(FadeChannel *ch)
+void GenericFader::remove(FadeChannel* ch)
 {
     if (ch == NULL)
         return;
@@ -127,22 +125,22 @@ void GenericFader::requestDelete()
     m_deleteRequest = true;
 }
 
-FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
+FadeChannel* GenericFader::getChannelFader(const Doc* doc, Universe* universe, quint32 fixtureID, quint32 channel)
 {
     FadeChannel fc(doc, fixtureID, channel);
     quint32 hash = channelHash(fc.fixture(), fc.channel());
-    QHash<quint32,FadeChannel>::iterator channelIterator = m_channels.find(hash);
+    QHash<quint32, FadeChannel>::iterator channelIterator = m_channels.find(hash);
     if (channelIterator != m_channels.end())
         return &channelIterator.value();
 
     fc.setCurrent(universe->preGMValue(fc.address()));
 
     m_channels[hash] = fc;
-    //qDebug() << "Added new fader with hash" << hash;
+    // qDebug() << "Added new fader with hash" << hash;
     return &m_channels[hash];
 }
 
-const QHash<quint32, FadeChannel> &GenericFader::channels() const
+const QHash<quint32, FadeChannel>& GenericFader::channels() const
 {
     return m_channels;
 }
@@ -152,14 +150,14 @@ int GenericFader::channelsCount() const
     return m_channels.count();
 }
 
-void GenericFader::write(Universe *universe)
+void GenericFader::write(Universe* universe)
 {
     if (m_monitoring)
         emit preWriteData(universe->id(), universe->preGMValues());
 
     qreal compIntensity = intensity() * parentIntensity();
 
-    QMutableHashIterator <quint32,FadeChannel> it(m_channels);
+    QMutableHashIterator<quint32, FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());
@@ -194,7 +192,8 @@ void GenericFader::write(Universe *universe)
             }
         }
 
-        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value << "int:" << compIntensity;
+        // qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value <<
+        // "int:" << compIntensity;
         if (flags & FadeChannel::Override)
         {
             universe->write(address, value, true);
@@ -209,9 +208,8 @@ void GenericFader::write(Universe *universe)
             universe->writeBlended(address, value, m_blendMode);
         }
 
-        if (((flags & FadeChannel::Intensity) &&
-            (flags & FadeChannel::HTP) &&
-            m_blendMode == Universe::NormalBlend) || m_fadeOut)
+        if (((flags & FadeChannel::Intensity) && (flags & FadeChannel::HTP) && m_blendMode == Universe::NormalBlend) ||
+            m_fadeOut)
         {
             // Remove all channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves a bit of CPU.
@@ -238,7 +236,7 @@ qreal GenericFader::intensity() const
 
 void GenericFader::adjustIntensity(qreal fraction)
 {
-    //qDebug() << name() << "I FADER intensity" << fraction << ", PARENT:" << m_parentIntensity;
+    // qDebug() << name() << "I FADER intensity" << fraction << ", PARENT:" << m_parentIntensity;
     m_intensity = fraction;
 }
 
@@ -249,7 +247,7 @@ qreal GenericFader::parentIntensity() const
 
 void GenericFader::setParentIntensity(qreal fraction)
 {
-    //qDebug() << name() << "P FADER intensity" << m_intensity << ", PARENT:" << fraction;
+    // qDebug() << name() << "P FADER intensity" << m_intensity << ", PARENT:" << fraction;
     m_parentIntensity = fraction;
 }
 
@@ -284,7 +282,7 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
 
     if (fadeTime)
     {
-        QMutableHashIterator <quint32,FadeChannel> it(m_channels);
+        QMutableHashIterator<quint32, FadeChannel> it(m_channels);
         while (it.hasNext() == true)
         {
             FadeChannel& fc(it.next().value());
@@ -316,7 +314,7 @@ void GenericFader::setMonitoring(bool enable)
 void GenericFader::resetCrossfade()
 {
     qDebug() << name() << "resetting crossfade channels";
-    QMutableHashIterator <quint32,FadeChannel> it(m_channels);
+    QMutableHashIterator<quint32, FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());

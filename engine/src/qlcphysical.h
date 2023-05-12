@@ -33,32 +33,32 @@ class QXmlStreamWriter;
 
 #define KXMLQLCPhysical QString("Physical")
 
-#define KXMLQLCPhysicalBulb         QString("Bulb")
-#define KXMLQLCPhysicalBulbType     QString("Type")
-#define KXMLQLCPhysicalBulbLumens   QString("Lumens")
+#define KXMLQLCPhysicalBulb QString("Bulb")
+#define KXMLQLCPhysicalBulbType QString("Type")
+#define KXMLQLCPhysicalBulbLumens QString("Lumens")
 #define KXMLQLCPhysicalBulbColourTemperature QString("ColourTemperature")
 
-#define KXMLQLCPhysicalLens             QString("Lens")
-#define KXMLQLCPhysicalLensName         QString("Name")
-#define KXMLQLCPhysicalLensDegreesMin   QString("DegreesMin")
-#define KXMLQLCPhysicalLensDegreesMax   QString("DegreesMax")
+#define KXMLQLCPhysicalLens QString("Lens")
+#define KXMLQLCPhysicalLensName QString("Name")
+#define KXMLQLCPhysicalLensDegreesMin QString("DegreesMin")
+#define KXMLQLCPhysicalLensDegreesMax QString("DegreesMax")
 
-#define KXMLQLCPhysicalDimensions       QString("Dimensions")
+#define KXMLQLCPhysicalDimensions QString("Dimensions")
 #define KXMLQLCPhysicalDimensionsWeight QString("Weight")
-#define KXMLQLCPhysicalDimensionsWidth  QString("Width")
+#define KXMLQLCPhysicalDimensionsWidth QString("Width")
 #define KXMLQLCPhysicalDimensionsHeight QString("Height")
-#define KXMLQLCPhysicalDimensionsDepth  QString("Depth")
+#define KXMLQLCPhysicalDimensionsDepth QString("Depth")
 
 #define KXMLQLCPhysicalLayout QString("Layout")
 
-#define KXMLQLCPhysicalFocus        QString("Focus")
-#define KXMLQLCPhysicalFocusType    QString("Type")
-#define KXMLQLCPhysicalFocusPanMax  QString("PanMax")
+#define KXMLQLCPhysicalFocus QString("Focus")
+#define KXMLQLCPhysicalFocusType QString("Type")
+#define KXMLQLCPhysicalFocusPanMax QString("PanMax")
 #define KXMLQLCPhysicalFocusTiltMax QString("TiltMax")
 
-#define KXMLQLCPhysicalTechnical                    QString("Technical")
-#define KXMLQLCPhysicalTechnicalPowerConsumption    QString("PowerConsumption")
-#define KXMLQLCPhysicalTechnicalDmxConnector        QString("DmxConnector")
+#define KXMLQLCPhysicalTechnical QString("Technical")
+#define KXMLQLCPhysicalTechnicalPowerConsumption QString("PowerConsumption")
+#define KXMLQLCPhysicalTechnicalDmxConnector QString("DmxConnector")
 
 
 /**
@@ -73,7 +73,7 @@ class QLCPhysical
      ************************************************************************/
 public:
     QLCPhysical();
-    QLCPhysical(const QLCPhysical &other);
+    QLCPhysical(const QLCPhysical& other);
 
     virtual ~QLCPhysical();
 
@@ -160,10 +160,10 @@ protected:
      ************************************************************************/
 public:
     /** Load physical values from the given QXmlStreamReader */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader& doc);
 
     /** Save physical values to the given XML tag in the given document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

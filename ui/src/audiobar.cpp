@@ -39,15 +39,15 @@ AudioBar::AudioBar(int t, uchar v, quint32 parentId)
     m_function = NULL;
     m_widget = NULL;
     m_widgetID = VCWidget::invalidId();
-    m_minThreshold = 51; // 20%
+    m_minThreshold = 51;  // 20%
     m_maxThreshold = 204; // 80%
     m_divisor = 1;
     m_skippedBeats = 0;
 }
 
-AudioBar *AudioBar::createCopy()
+AudioBar* AudioBar::createCopy()
 {
-    AudioBar *copy = new AudioBar();
+    AudioBar* copy = new AudioBar();
     copy->m_parentId = m_parentId;
     copy->m_type = m_type;
     copy->m_value = m_value;
@@ -83,7 +83,7 @@ void AudioBar::setType(int type)
         m_function = NULL;
         m_widget = NULL;
         m_widgetID = VCWidget::invalidId();
-        m_minThreshold = 51; // 20%
+        m_minThreshold = 51;  // 20%
         m_maxThreshold = 204; // 80%
         m_divisor = 1;
         m_skippedBeats = 0;
@@ -107,14 +107,14 @@ void AudioBar::setDivisor(int value)
         m_skippedBeats = 0;
 }
 
-void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
+void AudioBar::attachDmxChannels(Doc* doc, QList<SceneValue> list)
 {
     m_dmxChannels.clear();
     m_dmxChannels = list;
     m_absDmxChannels.clear();
-    foreach(SceneValue scv, m_dmxChannels)
+    foreach (SceneValue scv, m_dmxChannels)
     {
-        Fixture *fx = doc->fixture(scv.fxi);
+        Fixture* fx = doc->fixture(scv.fxi);
         if (fx != NULL)
         {
             quint32 absAddr = fx->universeAddress() + scv.channel;
@@ -123,7 +123,7 @@ void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
     }
 }
 
-void AudioBar::attachFunction(Function *func)
+void AudioBar::attachFunction(Function* func)
 {
     if (func != NULL)
     {
@@ -143,7 +143,7 @@ void AudioBar::attachWidget(quint32 wID)
     m_tapped = false;
 }
 
-VCWidget *AudioBar::widget()
+VCWidget* AudioBar::widget()
 {
     if (m_widget == NULL)
         m_widget = VirtualConsole::instance()->widget(m_widgetID);
@@ -151,7 +151,7 @@ VCWidget *AudioBar::widget()
     return m_widget;
 }
 
-void AudioBar::checkFunctionThresholds(Doc *doc)
+void AudioBar::checkFunctionThresholds(Doc* doc)
 {
     if (m_function == NULL)
         return;
@@ -175,31 +175,31 @@ void AudioBar::checkWidgetFunctionality()
 
     if (m_widget->type() == VCWidget::ButtonWidget)
     {
-        VCButton *btn = (VCButton *)m_widget;
+        VCButton* btn = (VCButton*)m_widget;
         if (m_value >= m_maxThreshold && btn->state() == VCButton::Inactive)
         {
             btn->pressFunction();
-            //btn->setState(true);
+            // btn->setState(true);
         }
         else if (m_value < m_minThreshold && btn->state() != VCButton::Inactive)
         {
             btn->pressFunction();
             btn->releaseFunction(); // finish flashing
-            //btn->setState(false);
+            // btn->setState(false);
         }
     }
     else if (m_widget->type() == VCWidget::SliderWidget)
     {
-        VCSlider *slider = (VCSlider *)m_widget;
+        VCSlider* slider = (VCSlider*)m_widget;
         slider->setSliderValue(m_value);
     }
     else if (m_widget->type() == VCWidget::SpeedDialWidget)
     {
-        VCSpeedDial *speedDial = (VCSpeedDial *)m_widget;
+        VCSpeedDial* speedDial = (VCSpeedDial*)m_widget;
         if (m_value >= m_maxThreshold && !m_tapped)
         {
             if (m_skippedBeats == 0)
-               speedDial->tap();
+                speedDial->tap();
 
             m_tapped = true;
             m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
@@ -211,7 +211,7 @@ void AudioBar::checkWidgetFunctionality()
     }
     else if (m_widget->type() == VCWidget::CueListWidget)
     {
-        VCCueList *cueList = (VCCueList *)m_widget;
+        VCCueList* cueList = (VCCueList*)m_widget;
         if (m_value >= m_maxThreshold && !m_tapped)
         {
             if (m_skippedBeats == 0)
@@ -229,10 +229,9 @@ void AudioBar::debugInfo()
 {
     qDebug() << "[AudioBar] " << m_name;
     qDebug() << "   type:" << m_type << ", value:" << m_value;
-
 }
 
-bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
+bool AudioBar::loadXML(QXmlStreamReader& root, Doc* doc)
 {
     QXmlStreamAttributes attrs = root.attributes();
 
@@ -246,20 +245,20 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
         m_maxThreshold = attrs.value(KXMLQLCAudioBarMaxThreshold).toString().toInt();
         m_divisor = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
 
-        switch(m_type)
+        switch (m_type)
         {
-            case AudioBar::FunctionBar:
+        case AudioBar::FunctionBar:
             {
                 if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                 {
                     quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
-                    Function *func = doc->function(fid);
+                    Function* func = doc->function(fid);
                     if (func != NULL)
                         m_function = func;
                 }
             }
             break;
-            case AudioBar::VCWidgetBar:
+        case AudioBar::VCWidgetBar:
             {
                 if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
                 {
@@ -268,7 +267,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                 }
             }
             break;
-            case AudioBar::DMXBar:
+        case AudioBar::DMXBar:
             {
                 root.readNextStartElement();
 
@@ -279,10 +278,10 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                     {
                         QList<SceneValue> channels;
                         QStringList varray = dmxValues.split(",");
-                        for (int i = 0; i < varray.count(); i+=2)
+                        for (int i = 0; i < varray.count(); i += 2)
                         {
-                            channels.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                                         QString(varray.at(i + 1)).toUInt(), 0));
+                            channels.append(
+                                SceneValue(QString(varray.at(i)).toUInt(), QString(varray.at(i + 1)).toUInt(), 0));
                         }
                         attachDmxChannels(doc, channels);
                     }
@@ -297,7 +296,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
     return true;
 }
 
-bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
+bool AudioBar::saveXML(QXmlStreamWriter* doc, QString tagName, int index)
 {
     Q_ASSERT(doc != NULL);
 

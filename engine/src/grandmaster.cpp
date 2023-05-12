@@ -29,7 +29,7 @@
 #include "grandmaster.h"
 #include "qlcmacros.h"
 
-GrandMaster::GrandMaster(QObject *parent)
+GrandMaster::GrandMaster(QObject* parent)
     : QObject(parent)
     , m_valueMode(Reduce)
     , m_channelMode(Intensity)
@@ -38,9 +38,7 @@ GrandMaster::GrandMaster(QObject *parent)
 {
 }
 
-GrandMaster::~GrandMaster()
-{
-}
+GrandMaster::~GrandMaster() {}
 
 GrandMaster::ValueMode GrandMaster::stringToValueMode(const QString& str)
 {
@@ -82,7 +80,7 @@ QString GrandMaster::channelModeToString(GrandMaster::ChannelMode mode)
     }
 }
 
-GrandMaster::SliderMode GrandMaster::stringToSliderMode(const QString &str)
+GrandMaster::SliderMode GrandMaster::stringToSliderMode(const QString& str)
 {
     if (str == KXMLQLCGMSliderModeInverted)
         return GrandMaster::Inverted;
@@ -123,18 +121,18 @@ void GrandMaster::setChannelMode(GrandMaster::ChannelMode mode)
         m_channelMode = mode;
         setValue(value());
     }
-/*
-    if (gMChannelMode() == GMIntensity)
-    {
-        QSetIterator <int> it(m_gMNonIntensityChannels);
-        while (it.hasNext() == true)
+    /*
+        if (gMChannelMode() == GMIntensity)
         {
-            int channel(it.next());
-            char chValue(m_preGMValues->data()[channel]);
-            write(channel, chValue, QLCChannel::NoGroup);
+            QSetIterator <int> it(m_gMNonIntensityChannels);
+            while (it.hasNext() == true)
+            {
+                int channel(it.next());
+                char chValue(m_preGMValues->data()[channel]);
+                write(channel, chValue, QLCChannel::NoGroup);
+            }
         }
-    }
-*/
+    */
 }
 
 GrandMaster::ChannelMode GrandMaster::channelMode() const
@@ -159,4 +157,3 @@ double GrandMaster::fraction() const
 {
     return m_fraction;
 }
-

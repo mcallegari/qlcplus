@@ -380,15 +380,15 @@ void CueStack_Test::removeCues()
     QCOMPARE(cs.cues().size(), 5);
     cs.setCurrentIndex(4);
 
-    cs.removeCues(QList <int>());
+    cs.removeCues(QList<int>());
     QCOMPARE(cs.cues().size(), 5);
     QCOMPARE(cs.currentIndex(), 4);
 
-    cs.removeCues(QList <int>() << 5);
+    cs.removeCues(QList<int>() << 5);
     QCOMPARE(cs.cues().size(), 5);
     QCOMPARE(cs.currentIndex(), 4);
 
-    cs.removeCues(QList <int>() << 3);
+    cs.removeCues(QList<int>() << 3);
     QCOMPARE(cs.cues().size(), 4);
     QCOMPARE(cs.currentIndex(), 3); // currentIndex-- because a cue before it was removed
     QCOMPARE(cs.cues().at(0).name(), QString("One"));
@@ -396,17 +396,17 @@ void CueStack_Test::removeCues()
     QCOMPARE(cs.cues().at(2).name(), QString("Three"));
     QCOMPARE(cs.cues().at(3).name(), QString("Five"));
 
-    cs.removeCues(QList <int>() << 2 << 0);
+    cs.removeCues(QList<int>() << 2 << 0);
     QCOMPARE(cs.cues().size(), 2);
     QCOMPARE(cs.currentIndex(), 1); // currentIndex-- times two because two cue before it were removed
     QCOMPARE(cs.cues().at(0).name(), QString("Two"));
     QCOMPARE(cs.cues().at(1).name(), QString("Five"));
 
-    cs.removeCues(QList <int>() << 0 << 1);
+    cs.removeCues(QList<int>() << 0 << 1);
     QCOMPARE(cs.cues().size(), 0);
     QCOMPARE(cs.currentIndex(), 0);
 
-    cs.removeCues(QList <int>() << 0 << 100 << 1000);
+    cs.removeCues(QList<int>() << 0 << 100 << 1000);
     QCOMPARE(cs.cues().size(), 0);
 }
 
@@ -453,7 +453,6 @@ void CueStack_Test::loadID()
     QCOMPARE(CueStack::loadXMLID(xmlReader), uint(15));
     QCOMPARE(cs.loadXML(xmlReader), true);
     QCOMPARE(cs.cues().size(), 0);
-
 }
 
 void CueStack_Test::loadComplete()
@@ -602,7 +601,7 @@ void CueStack_Test::flash()
     cs.appendCue(cue);
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua.at(0);
+    Universe* universe = ua.at(0);
     universe->setChannelCapability(0, QLCChannel::Intensity);
     universe->setChannelCapability(128, QLCChannel::Intensity);
     cs.setFlashing(true);
@@ -612,8 +611,8 @@ void CueStack_Test::flash()
     cs.writeDMX(m_doc->masterTimer(), ua);
     QVERIFY(cs.m_fadersMap.count() == 1);
     universe->processFaders();
-    QCOMPARE(universe->preGMValues()[0], (char) 255);
-    QCOMPARE(universe->preGMValues()[128], (char) 42);
+    QCOMPARE(universe->preGMValues()[0], (char)255);
+    QCOMPARE(universe->preGMValues()[128], (char)42);
 
     cs.setFlashing(false);
     QCOMPARE(cs.isFlashing(), false);
@@ -622,8 +621,8 @@ void CueStack_Test::flash()
     cs.writeDMX(m_doc->masterTimer(), ua);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
     universe->processFaders();
-    QCOMPARE(universe->preGMValues()[0], (char) 0);
-    QCOMPARE(universe->preGMValues()[128], (char) 0);
+    QCOMPARE(universe->preGMValues()[0], (char)0);
+    QCOMPARE(universe->preGMValues()[128], (char)0);
     QVERIFY(cs.m_fadersMap.count() == 0);
 }
 
@@ -648,7 +647,7 @@ void CueStack_Test::intensity()
 
     cs.preRun();
     QCOMPARE(cs.intensity(), qreal(0.5));
-    //QCOMPARE(cs.m_fader->intensity(), qreal(0.5));
+    // QCOMPARE(cs.m_fader->intensity(), qreal(0.5));
     cs.postRun(m_doc->masterTimer(), m_doc->inputOutputMap()->universes());
 }
 
@@ -792,8 +791,8 @@ void CueStack_Test::switchCue()
     cs.switchCue(0, 1, ua);
     QCOMPARE(fader->channels().size(), 7);
 
-    //Universe *universe = ua[0];
-    //universe->processFaders();
+    // Universe *universe = ua[0];
+    // universe->processFaders();
 
     chHash = GenericFader::channelHash(Fixture::invalidId(), 0);
     QCOMPARE(fader->channels()[chHash].start(), uchar(127));

@@ -39,7 +39,7 @@ QStringList RGBScriptsCache::names() const
 {
     QStringList names;
 
-    QListIterator <RGBScript*> it(m_scriptsMap.values());
+    QListIterator<RGBScript*> it(m_scriptsMap.values());
     while (it.hasNext() == true)
         names << it.next()->name();
 
@@ -48,7 +48,7 @@ QStringList RGBScriptsCache::names() const
 
 RGBScript const& RGBScriptsCache::script(QString name) const
 {
-    QListIterator <RGBScript*> it(m_scriptsMap.values());
+    QListIterator<RGBScript*> it(m_scriptsMap.values());
     while (it.hasNext() == true)
     {
         RGBScript* script(it.next());
@@ -104,5 +104,5 @@ QDir RGBScriptsCache::systemScriptsDirectory()
 QDir RGBScriptsCache::userScriptsDirectory()
 {
     return QLCFile::userDirectory(QString(USERRGBSCRIPTDIR), QString(RGBSCRIPTDIR),
-            QStringList() << QString("*%1").arg(".js"));
+                                  QStringList() << QString("*%1").arg(".js"));
 }

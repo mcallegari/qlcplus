@@ -51,7 +51,7 @@ void AddFixture_Test::initTestCase()
 void AddFixture_Test::cleanupTestCase()
 {
     QSettings settings;
-    if(m_expanded.isValid())
+    if (m_expanded.isValid())
     {
         settings.setValue(SETTINGS_EXPANDED, m_expanded);
     }
@@ -65,7 +65,7 @@ void AddFixture_Test::cleanupTestCase()
 
 void AddFixture_Test::findAddress()
 {
-    QList <Fixture*> fixtures;
+    QList<Fixture*> fixtures;
 
     /* All addresses are available (except for fixtures taking more than
        one complete universe). */
@@ -385,7 +385,7 @@ void AddFixture_Test::initialScanner()
     QCOMPARE(af.m_addressSpin->value(), 485);
 
     QVERIFY(af.m_channelsSpin->isEnabled() == false);
-    QCOMPARE(af.m_channelsSpin->value(), (int) fxi->channels());
+    QCOMPARE(af.m_channelsSpin->value(), (int)fxi->channels());
 
     QVERIFY(af.m_nameEdit->isEnabled() == true);
     QCOMPARE(af.m_nameEdit->text(), QString("My scanner"));

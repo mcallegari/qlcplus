@@ -57,10 +57,13 @@ class DetachedContext : public QMainWindow
     Q_OBJECT
 
 public:
-    DetachedContext(QWidget *parent) : QMainWindow(parent) {}
+    DetachedContext(QWidget* parent)
+        : QMainWindow(parent)
+    {
+    }
 
 protected slots:
-    void closeEvent(QCloseEvent *ev)
+    void closeEvent(QCloseEvent* ev)
     {
         emit closing();
         // avoid the real context to be destroyed !
@@ -94,7 +97,7 @@ private:
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 protected:
-    bool nativeEvent(const QByteArray & eventType, void * message, long * result);
+    bool nativeEvent(const QByteArray& eventType, void* message, long* result);
 #endif
 
 private:
@@ -122,7 +125,7 @@ private:
 public:
     void clearDocument();
 
-    Doc *doc();
+    Doc* doc();
 
 private slots:
     void slotDocModified(bool state);
@@ -154,7 +157,7 @@ private:
     void initActions();
     void initToolBar();
     bool handleFileError(QFile::FileError error);
-    bool saveModifiedDoc(const QString & title, const QString & message);
+    bool saveModifiedDoc(const QString& title, const QString& message);
 
 public slots:
     bool slotFileNew();
@@ -180,7 +183,7 @@ public slots:
     void slotHelpIndex();
     void slotHelpAbout();
 
-    void slotRecentFileClicked(QAction *recent);
+    void slotRecentFileClicked(QAction* recent);
 
 private:
     QAction* m_fileNewAction;
@@ -211,9 +214,9 @@ private:
      * Utilities
      *********************************************************************/
 private:
-    DmxDumpFactoryProperties *m_dumpProperties;
+    DmxDumpFactoryProperties* m_dumpProperties;
 #if QT_VERSION >= 0x050000
-    VideoProvider *m_videoProvider;
+    VideoProvider* m_videoProvider;
 #endif
 
     /*********************************************************************
@@ -248,7 +251,7 @@ public:
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(QXmlStreamReader &doc, bool goToConsole = false, bool fromMemory = false);
+    bool loadXML(QXmlStreamReader& doc, bool goToConsole = false, bool fromMemory = false);
 
     /**
      * Save workspace contents to a file with the given name. Changes the

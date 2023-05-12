@@ -24,7 +24,8 @@
 #include "qlcmacros.h"
 #include "knobwidget.h"
 
-KnobWidget::KnobWidget(QWidget *parent) : QDial(parent)
+KnobWidget::KnobWidget(QWidget* parent)
+    : QDial(parent)
 {
     m_background = new QPixmap();
     m_cursor = new QPixmap();
@@ -68,16 +69,16 @@ void KnobWidget::prepareCursor()
 
     QPainter fgP(m_cursor);
     fgP.setRenderHints(QPainter::Antialiasing);
-    //fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+    // fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
     fgP.fillRect(m_cursor->rect(), Qt::transparent);
 
-    //fgP.setCompositionMode(QPainter::CompositionMode_Source);
+    // fgP.setCompositionMode(QPainter::CompositionMode_Source);
     if (isEnabled() == false)
         fgP.setBrush(Qt::gray);
     else
         fgP.setBrush(Qt::green);
-    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2.2)),
-                    cursor_radius, cursor_radius);
+    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2.2)), cursor_radius,
+                    cursor_radius);
 }
 
 void KnobWidget::prepareBody()
@@ -89,10 +90,10 @@ void KnobWidget::prepareBody()
     float dialSize = shortSide - (arcWidth * 2);
     float radius = dialSize / 2;
 
-    QLinearGradient linearGrad(QPointF(0,0), QPointF(0, dialSize));
+    QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, dialSize));
     linearGrad.setColorAt(0, m_gradStartColor);
     linearGrad.setColorAt(1, m_gradEndColor);
-    QLinearGradient linearGrad2(QPointF(0,0), QPointF(0, dialSize));
+    QLinearGradient linearGrad2(QPointF(0, 0), QPointF(0, dialSize));
     linearGrad2.setColorAt(0, m_gradEndColor);
     linearGrad2.setColorAt(1, m_gradStartColor);
 
@@ -112,7 +113,7 @@ void KnobWidget::prepareBody()
     bgP.drawEllipse(QPointF(dialSize / 2, radius), radius - (arcWidth * 2), radius - (arcWidth * 2));
 }
 
-void KnobWidget::resizeEvent(QResizeEvent *e)
+void KnobWidget::resizeEvent(QResizeEvent* e)
 {
     QDial::resizeEvent(e);
 
@@ -120,7 +121,7 @@ void KnobWidget::resizeEvent(QResizeEvent *e)
     prepareCursor();
 }
 
-void KnobWidget::paintEvent(QPaintEvent *e)
+void KnobWidget::paintEvent(QPaintEvent* e)
 {
     Q_UNUSED(e)
 
@@ -143,8 +144,8 @@ void KnobWidget::paintEvent(QPaintEvent *e)
     QPixmap rotNeedle = rotatePix(m_cursor, degrees);
     painter.drawPixmap(pixPoint, rotNeedle);
 
-    QRectF valRect = QRectF(pixPoint.x() - (arcWidth / 2) + 1, arcWidth / 2 + 1,
-                             m_background->width() + arcWidth - 2, m_background->height() + arcWidth - 2);
+    QRectF valRect = QRectF(pixPoint.x() - (arcWidth / 2) + 1, arcWidth / 2 + 1, m_background->width() + arcWidth - 2,
+                            m_background->height() + arcWidth - 2);
 
     int penWidth = arcWidth;
     if (arcWidth <= 5)
@@ -155,25 +156,25 @@ void KnobWidget::paintEvent(QPaintEvent *e)
     QColor col = isEnabled() ? Qt::green : Qt::lightGray;
     painter.setPen(QPen(col, penWidth - 3));
     if (invertedAppearance())
-        painter.drawArc(valRect, -75 * 16, (330-degrees) * 16);
+        painter.drawArc(valRect, -75 * 16, (330 - degrees) * 16);
     else
         painter.drawArc(valRect, -105 * 16, -degrees * 16);
 }
 
-void KnobWidget::wheelEvent(QWheelEvent *e)
+void KnobWidget::wheelEvent(QWheelEvent* e)
 {
     setSliderDown(true);
     QDial::wheelEvent(e);
     setSliderDown(false);
 }
 
-QPixmap KnobWidget::rotatePix(QPixmap *p_pix, float p_deg)
+QPixmap KnobWidget::rotatePix(QPixmap* p_pix, float p_deg)
 {
     // perform rotation, transforming around the center of the image
     QTransform trans;
-    trans.translate(p_pix->width()/2.0 , p_pix->height()/2.0);
+    trans.translate(p_pix->width() / 2.0, p_pix->height() / 2.0);
     trans.rotate(p_deg);
-    trans.translate(-p_pix->width()/2.0 , -p_pix->height()/2.0);
+    trans.translate(-p_pix->width() / 2.0, -p_pix->height() / 2.0);
     QPixmap outPix = p_pix->transformed(trans, Qt::SmoothTransformation);
 
     // re-crop to original size
@@ -182,6 +183,4 @@ QPixmap KnobWidget::rotatePix(QPixmap *p_pix, float p_deg)
     outPix = outPix.copy(xOffset, yOffset, p_pix->width(), p_pix->height());
 
     return outPix;
-
 }
-

@@ -48,12 +48,12 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(bool snapping READ snapping WRITE setSnapping NOTIFY snappingChanged)
     Q_PROPERTY(qreal snappingSize READ snappingSize CONSTANT)
-    Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
+    Q_PROPERTY(VCWidget* selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
     Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
 
 public:
-    VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = 0);
+    VirtualConsole(QQuickView* view, Doc* doc, ContextManager* ctxManager, QObject* parent = 0);
 
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
@@ -98,24 +98,24 @@ protected:
 
     /** Reference to the Context Manager. Used to track VC pages as
      *  regular contexts */
-    ContextManager *m_contextManager;
+    ContextManager* m_contextManager;
 
     /*********************************************************************
      * Pages
      *********************************************************************/
 public:
-    Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
+    Q_INVOKABLE void renderPage(QQuickItem* parent, QQuickItem* contentItem, int page);
 
     /** Enable/disable flicking on the active page.
-      * This is necessary to drag widgets */
+     * This is necessary to drag widgets */
     Q_INVOKABLE void enableFlicking(bool enable);
 
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    Q_INVOKABLE VCPage *page(int page) const;
+    Q_INVOKABLE VCPage* page(int page) const;
 
     /** Return the reference of the currently selected VC page */
-    Q_INVOKABLE QQuickItem *currentPageItem() const;
+    Q_INVOKABLE QQuickItem* currentPageItem() const;
 
     /** Return a list with the VC page names */
     int pagesCount() const;
@@ -170,9 +170,9 @@ public:
 
     /** Return a reference to the VC widget with the specified $id.
      *  On invalid $id, NULL is returned */
-    VCWidget *widget(quint32 id);
+    VCWidget* widget(quint32 id);
 
-    Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi);
+    Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem* item, bool enable, bool multi);
 
     /** Resets the currently selected widgets selection list */
     Q_INVOKABLE void resetWidgetSelection();
@@ -186,11 +186,11 @@ public:
     /** Return a list of the currently selected VC widget IDs */
     Q_INVOKABLE QVariantList selectedWidgetIDs();
 
-    Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
+    Q_INVOKABLE void moveWidget(VCWidget* widget, VCFrame* targetFrame, QPoint pos);
 
     /** Helper methods to handle alignment, label, background/foreground colors,
      *  background image and font when multiple widgets are selected */
-    Q_INVOKABLE void setWidgetsAlignment(VCWidget *refWidget, int alignment);
+    Q_INVOKABLE void setWidgetsAlignment(VCWidget* refWidget, int alignment);
     Q_INVOKABLE void setWidgetsCaption(QString caption);
     Q_INVOKABLE void setWidgetsForegroundColor(QColor color);
     Q_INVOKABLE void setWidgetsBackgroundColor(QColor color);
@@ -201,9 +201,9 @@ public:
     Q_INVOKABLE void deleteVCWidgets(QVariantList IDList);
 
     /** Return a reference to the currently selected VC widget */
-    VCWidget *selectedWidget() const;
+    VCWidget* selectedWidget() const;
 
-    Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos);
+    Q_INVOKABLE void requestAddMatrixPopup(VCFrame* frame, QQuickItem* parent, QString widgetType, QPoint pos);
 
     /** Return the associated qrc icon resource for the specified VCWidget $type */
     Q_INVOKABLE QString widgetIcon(int type);
@@ -220,7 +220,7 @@ protected:
 
 protected:
     /** A map of all the VC widgets references with their IDs */
-    QHash <quint32, VCWidget *> m_widgetsMap;
+    QHash<quint32, VCWidget*> m_widgetsMap;
 
     /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
@@ -249,26 +249,26 @@ public:
     /** Enable the autodetection process for an external controller.
      *  This method creates an empty QLCInputSource in the specified
      *  $widget and fills it later once the first input signal is received */
-    Q_INVOKABLE bool createAndDetectInputSource(VCWidget *widget);
+    Q_INVOKABLE bool createAndDetectInputSource(VCWidget* widget);
 
     /** Create a new input source for the given $universe and $channel and
      *  add it to $widget. This is used for manual input source selection */
-    Q_INVOKABLE void createAndAddInputSource(VCWidget *widget, quint32 universe, quint32 channel);
+    Q_INVOKABLE void createAndAddInputSource(VCWidget* widget, quint32 universe, quint32 channel);
 
     /** Enable the autodetection process for a key sequence.
      *  This method creates an empty QKeySequence in the specified
      *  $widget and updates it later once the first key press is received */
-    Q_INVOKABLE bool createAndDetectInputKey(VCWidget *widget);
+    Q_INVOKABLE bool createAndDetectInputKey(VCWidget* widget);
 
     /** Enable the autodetection process for a specific input source
      *  bound to an external controller. */
-    Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+    Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget* widget, quint32 id, quint32 universe, quint32 channel);
 
     /** Enable the autodetection process for a specific key sequence */
-    Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
+    Q_INVOKABLE bool enableKeyAutoDetection(VCWidget* widget, quint32 id, QString keyText);
 
     /** Update the control ID of a key sequence with $keyText for the specified $widget */
-    Q_INVOKABLE void updateKeySequenceControlID(VCWidget *widget, quint32 id, QString keyText);
+    Q_INVOKABLE void updateKeySequenceControlID(VCWidget* widget, quint32 id, QString keyText);
 
     /** Disable a previously started autodetection process */
     Q_INVOKABLE void disableAutoDetection();
@@ -276,13 +276,13 @@ public:
     /** Delete an existing input source from the specified $widget.
      *  $type, $universe and $channel are also needed to remove the
      *  source from a VC Page multi hash map */
-    Q_INVOKABLE void deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+    Q_INVOKABLE void deleteInputSource(VCWidget* widget, quint32 id, quint32 universe, quint32 channel);
 
     /** Delete an existing key sequence from the specified $widget */
-    Q_INVOKABLE void deleteKeySequence(VCWidget *widget, quint32 id, QString keyText);
+    Q_INVOKABLE void deleteKeySequence(VCWidget* widget, quint32 id, QString keyText);
 
     /** @reimp */
-    void handleKeyEvent(QKeyEvent *e, bool pressed);
+    void handleKeyEvent(QKeyEvent* e, bool pressed);
 
     Q_INVOKABLE QVariant inputChannelsModel();
     Q_INVOKABLE QVariantList universeListModel();
@@ -304,30 +304,30 @@ protected:
 
     /** Temporary reference to a VC widget which is in the process
      *  of auto detecting an input source */
-    VCWidget *m_autoDetectionWidget;
+    VCWidget* m_autoDetectionWidget;
 
     QSharedPointer<QLCInputSource> m_autoDetectionSource;
     QKeySequence m_autoDetectionKey;
     quint32 m_autoDetectionKeyId;
 
     /** Data model used by the QML UI to represent groups/input channels */
-    TreeModel *m_inputChannelsTree;
+    TreeModel* m_inputChannelsTree;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** Load input source from $root to $uni and $ch */
-    bool loadXMLLegacyInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
+    bool loadXMLLegacyInput(QXmlStreamReader& root, quint32* uni, quint32* ch) const;
 
     /** Load the Virtual Console global properties XML tree */
-    bool loadPropertiesXML(QXmlStreamReader &root);
+    bool loadPropertiesXML(QXmlStreamReader& root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** Do post-load cleanup & checks */
     void postLoad();

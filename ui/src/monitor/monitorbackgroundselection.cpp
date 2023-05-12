@@ -26,10 +26,10 @@
 #include "function.h"
 #include "doc.h"
 
-#define KColumnName     0
-#define KColumnImage    1
+#define KColumnName 0
+#define KColumnImage 1
 
-MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc)
+MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -44,12 +44,9 @@ MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc
 
     m_lastUsedPath = QString();
 
-    connect(m_noBgRadio, SIGNAL(clicked(bool)),
-            this, SLOT(slotNoBackgroundChecked(bool)));
-    connect(m_commonBgRadio, SIGNAL(clicked(bool)),
-            this, SLOT(slotCommonBackgroundChecked(bool)));
-    connect(m_customBgRadio, SIGNAL(clicked(bool)),
-            this, SLOT(slotCustomBackgroundChecked(bool)));
+    connect(m_noBgRadio, SIGNAL(clicked(bool)), this, SLOT(slotNoBackgroundChecked(bool)));
+    connect(m_commonBgRadio, SIGNAL(clicked(bool)), this, SLOT(slotCommonBackgroundChecked(bool)));
+    connect(m_customBgRadio, SIGNAL(clicked(bool)), this, SLOT(slotCustomBackgroundChecked(bool)));
 
     if (m_commonBackgroundImage.isEmpty() == false)
     {
@@ -69,18 +66,12 @@ MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc
 
     updateCustomTree();
 
-    connect(m_commonButton, SIGNAL(clicked()),
-            this, SLOT(slotSelectCommonBackground()));
-    connect(m_customAddButton, SIGNAL(clicked()),
-            this, SLOT(slotAddCustomBackground()));
-    connect(m_customRemoveButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveCustomBackground()));
+    connect(m_commonButton, SIGNAL(clicked()), this, SLOT(slotSelectCommonBackground()));
+    connect(m_customAddButton, SIGNAL(clicked()), this, SLOT(slotAddCustomBackground()));
+    connect(m_customRemoveButton, SIGNAL(clicked()), this, SLOT(slotRemoveCustomBackground()));
 }
 
-MonitorBackgroundSelection::~MonitorBackgroundSelection()
-{
-
-}
+MonitorBackgroundSelection::~MonitorBackgroundSelection() {}
 
 void MonitorBackgroundSelection::accept()
 {
@@ -101,16 +92,16 @@ void MonitorBackgroundSelection::accept()
 void MonitorBackgroundSelection::updateCustomTree()
 {
     m_customTree->clear();
-    QMapIterator <quint32, QString> it(m_customBackgroundImages);
+    QMapIterator<quint32, QString> it(m_customBackgroundImages);
     while (it.hasNext() == true)
     {
         it.next();
 
         quint32 fid = it.key();
-        Function *f = m_doc->function(fid);
+        Function* f = m_doc->function(fid);
         if (f != NULL)
         {
-            QTreeWidgetItem *item = new QTreeWidgetItem(m_customTree);
+            QTreeWidgetItem* item = new QTreeWidgetItem(m_customTree);
             item->setIcon(KColumnName, f->getIcon());
             item->setText(KColumnName, f->name());
             item->setData(KColumnName, Qt::UserRole, fid);
@@ -156,10 +147,8 @@ void MonitorBackgroundSelection::slotSelectCommonBackground()
 {
     QString filename = m_props->commonBackgroundImage();
 
-    filename = QFileDialog::getOpenFileName(this,
-                            tr("Select background image"),
-                            m_lastUsedPath,
-                            QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+    filename = QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
+                                            QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
     if (filename.isEmpty() == false)
     {
@@ -178,10 +167,9 @@ void MonitorBackgroundSelection::slotAddCustomBackground()
     if (fs.exec() == QDialog::Accepted)
     {
         quint32 fid = fs.selection().first();
-        QString filename = QFileDialog::getOpenFileName(this,
-                                tr("Select background image"),
-                                m_lastUsedPath,
-                                QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+        QString filename =
+            QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
+                                         QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
         if (filename.isEmpty() == false)
         {
@@ -197,7 +185,7 @@ void MonitorBackgroundSelection::slotRemoveCustomBackground()
     if (m_customTree->selectedItems().isEmpty())
         return;
 
-    QTreeWidgetItem *selItem = m_customTree->selectedItems().first();
+    QTreeWidgetItem* selItem = m_customTree->selectedItems().first();
     quint32 fid = selItem->data(KColumnName, Qt::UserRole).toUInt();
     m_customBackgroundImages.remove(fid);
     updateCustomTree();

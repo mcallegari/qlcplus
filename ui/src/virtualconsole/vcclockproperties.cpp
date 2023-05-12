@@ -23,10 +23,10 @@
 #include "functionselection.h"
 #include "inputselectionwidget.h"
 
-#define KColumnName     0
-#define KColumnTime     1
+#define KColumnName 0
+#define KColumnTime 1
 
-VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
+VCClockProperties::VCClockProperties(VCClock* clock, Doc* doc)
     : QDialog(clock)
     , m_clock(clock)
     , m_doc(doc)
@@ -55,12 +55,12 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
 
     m_noControlLabel->hide();
 
-    switch(m_clock->clockType())
+    switch (m_clock->clockType())
     {
-        case VCClock::Stopwatch:
-            m_stopWatchRadio->setChecked(true);
+    case VCClock::Stopwatch:
+        m_stopWatchRadio->setChecked(true);
         break;
-        case VCClock::Countdown:
+    case VCClock::Countdown:
         {
             m_countdownRadio->setChecked(true);
             m_hoursSpin->setValue(m_clock->getHours());
@@ -68,7 +68,7 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
             m_secondsSpin->setValue(m_clock->getSeconds());
         }
         break;
-        case VCClock::Clock:
+    case VCClock::Clock:
         {
             m_clockRadio->setChecked(true);
             m_playInputWidget->hide();
@@ -76,30 +76,22 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
             m_noControlLabel->show();
         }
         break;
-        default:
-            m_clockRadio->setChecked(true);
+    default:
+        m_clockRadio->setChecked(true);
         break;
     }
 
-    foreach(VCClockSchedule sch, m_clock->schedules())
+    foreach (VCClockSchedule sch, m_clock->schedules())
         addScheduleItem(sch);
 
-    connect(m_clockRadio, SIGNAL(clicked()),
-            this, SLOT(slotTypeSelectChanged()));
-    connect(m_countdownRadio, SIGNAL(clicked()),
-            this, SLOT(slotTypeSelectChanged()));
-    connect(m_stopWatchRadio, SIGNAL(clicked()),
-            this, SLOT(slotTypeSelectChanged()));
-    connect(m_addScheduleBtn, SIGNAL(clicked()),
-            this, SLOT(slotAddSchedule()));
-    connect(m_removeScheduleBtn, SIGNAL(clicked()),
-            this, SLOT(slotRemoveSchedule()));
+    connect(m_clockRadio, SIGNAL(clicked()), this, SLOT(slotTypeSelectChanged()));
+    connect(m_countdownRadio, SIGNAL(clicked()), this, SLOT(slotTypeSelectChanged()));
+    connect(m_stopWatchRadio, SIGNAL(clicked()), this, SLOT(slotTypeSelectChanged()));
+    connect(m_addScheduleBtn, SIGNAL(clicked()), this, SLOT(slotAddSchedule()));
+    connect(m_removeScheduleBtn, SIGNAL(clicked()), this, SLOT(slotRemoveSchedule()));
 }
 
-VCClockProperties::~VCClockProperties()
-{
-
-}
+VCClockProperties::~VCClockProperties() {}
 
 void VCClockProperties::addScheduleItem(VCClockSchedule schedule)
 {
@@ -107,14 +99,14 @@ void VCClockProperties::addScheduleItem(VCClockSchedule schedule)
     if (fid == Function::invalidId())
         return;
 
-    Function *func = m_doc->function(fid);
+    Function* func = m_doc->function(fid);
     if (func != NULL)
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem(m_scheduleTree);
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_scheduleTree);
         item->setText(KColumnName, func->name());
         item->setIcon(KColumnName, func->getIcon());
         item->setData(KColumnName, Qt::UserRole, func->id());
-        QTimeEdit *timeEdit = new QTimeEdit();
+        QTimeEdit* timeEdit = new QTimeEdit();
         timeEdit->setDisplayFormat("HH:mm:ss");
         timeEdit->setTime(schedule.time().time());
         m_scheduleTree->setItemWidget(item, KColumnTime, timeEdit);
@@ -137,10 +129,10 @@ void VCClockProperties::accept()
     m_clock->removeAllSchedule();
     for (int i = 0; i < m_scheduleTree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *item = m_scheduleTree->topLevelItem(i);
+        QTreeWidgetItem* item = m_scheduleTree->topLevelItem(i);
         VCClockSchedule sch;
         sch.setFunction(item->data(KColumnName, Qt::UserRole).toUInt());
-        QTimeEdit *timeEdit = (QTimeEdit *)m_scheduleTree->itemWidget(item, KColumnTime);
+        QTimeEdit* timeEdit = (QTimeEdit*)m_scheduleTree->itemWidget(item, KColumnTime);
         if (timeEdit != NULL)
         {
             QDateTime dt;
@@ -184,7 +176,7 @@ void VCClockProperties::slotAddSchedule()
     if (fs.exec() == QDialog::Accepted)
     {
         /* Append selected functions */
-        QListIterator <quint32> it(fs.selection());
+        QListIterator<quint32> it(fs.selection());
         while (it.hasNext() == true)
         {
             VCClockSchedule sch;
@@ -197,7 +189,7 @@ void VCClockProperties::slotAddSchedule()
 
 void VCClockProperties::slotRemoveSchedule()
 {
-    QListIterator <QTreeWidgetItem *> it(m_scheduleTree->selectedItems());
+    QListIterator<QTreeWidgetItem*> it(m_scheduleTree->selectedItems());
 
     while (it.hasNext() == true)
     {

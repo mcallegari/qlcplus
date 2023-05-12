@@ -50,13 +50,13 @@ CueStack::CueStack(Doc* doc)
     , m_previous(false)
     , m_next(false)
 {
-    //qDebug() << Q_FUNC_INFO << (void*) this;
+    // qDebug() << Q_FUNC_INFO << (void*) this;
     Q_ASSERT(doc != NULL);
 }
 
 CueStack::~CueStack()
 {
-    //qDebug() << Q_FUNC_INFO << (void*) this;
+    // qDebug() << Q_FUNC_INFO << (void*) this;
     Q_ASSERT(isStarted() == false);
     Q_ASSERT(isFlashing() == false);
     m_cues.clear(); // Crashes without this, WTF?!
@@ -64,7 +64,7 @@ CueStack::~CueStack()
 
 Doc* CueStack::doc() const
 {
-    return qobject_cast<Doc*> (parent());
+    return qobject_cast<Doc*>(parent());
 }
 
 /****************************************************************************
@@ -198,8 +198,8 @@ void CueStack::replaceCue(int index, const Cue& cue)
 
         if (index >= 0 && index < m_cues.size())
         {
-           m_cues[index] = cue;
-           cueChanged = true;
+            m_cues[index] = cue;
+            cueChanged = true;
         }
     }
 
@@ -231,16 +231,16 @@ void CueStack::removeCue(int index)
     }
 }
 
-void CueStack::removeCues(const QList <int>& indexes)
+void CueStack::removeCues(const QList<int>& indexes)
 {
     qDebug() << Q_FUNC_INFO;
 
     // Sort the list so that the items can be removed in reverse order.
     // This way, the indices are always correct.
-    QList <int> indexList = indexes;
+    QList<int> indexList = indexes;
     std::sort(indexList.begin(), indexList.end());
 
-    QListIterator <int> it(indexList);
+    QListIterator<int> it(indexList);
     it.toBack();
 
     QMutexLocker locker(&m_mutex);
@@ -262,7 +262,7 @@ void CueStack::removeCues(const QList <int>& indexes)
     }
 }
 
-QList <Cue> CueStack::cues() const
+QList<Cue> CueStack::cues() const
 {
     return m_cues;
 }
@@ -300,7 +300,7 @@ void CueStack::nextCue()
  * Save & Load
  ****************************************************************************/
 
-uint CueStack::loadXMLID(QXmlStreamReader &root)
+uint CueStack::loadXMLID(QXmlStreamReader& root)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -318,7 +318,7 @@ uint CueStack::loadXMLID(QXmlStreamReader &root)
         return UINT_MAX;
 }
 
-bool CueStack::loadXML(QXmlStreamReader &root)
+bool CueStack::loadXML(QXmlStreamReader& root)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -355,7 +355,7 @@ bool CueStack::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool CueStack::saveXML(QXmlStreamWriter *doc, uint id) const
+bool CueStack::saveXML(QXmlStreamWriter* doc, uint id) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
@@ -435,7 +435,7 @@ bool CueStack::isFlashing() const
     return m_flashing;
 }
 
-void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
+void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
 {
     Q_UNUSED(timer);
     if (m_cues.isEmpty())
@@ -445,7 +445,7 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
     {
         if (m_fadersMap.isEmpty())
         {
-            QHashIterator <uint,uchar> it(m_cues.first().values());
+            QHashIterator<uint, uchar> it(m_cues.first().values());
             while (it.hasNext() == true)
             {
                 it.next();
@@ -469,7 +469,7 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
     }
     else
     {
-        QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
+        QMapIterator<quint32, QSharedPointer<GenericFader>> it(m_fadersMap);
         while (it.hasNext() == true)
         {
             it.next();
@@ -526,21 +526,21 @@ void CueStack::write(QList<Universe*> ua)
         m_next = false;
         emit currentCueChanged(m_currentIndex);
     }
-/*
-    else if (m_elapsed >= duration())
-    {
-        // Duration expired
-        m_elapsed = 0;
-        switchCue(next(), ua);
-        emit currentCueChanged(m_currentIndex);
-    }
-*/
-    //m_fader->write(ua);
+    /*
+        else if (m_elapsed >= duration())
+        {
+            // Duration expired
+            m_elapsed = 0;
+            switchCue(next(), ua);
+            emit currentCueChanged(m_currentIndex);
+        }
+    */
+    // m_fader->write(ua);
 
     m_elapsed += MasterTimer::tick();
 }
 
-void CueStack::postRun(MasterTimer* timer, QList<Universe *> ua)
+void CueStack::postRun(MasterTimer* timer, QList<Universe*> ua)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -551,7 +551,7 @@ void CueStack::postRun(MasterTimer* timer, QList<Universe *> ua)
      * when done */
     if (fadeOutSpeed() == 0)
     {
-        QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
+        QMapIterator<quint32, QSharedPointer<GenericFader>> it(m_fadersMap);
         while (it.hasNext() == true)
         {
             it.next();
@@ -594,7 +594,7 @@ int CueStack::previous()
     return m_currentIndex;
 }
 
-FadeChannel *CueStack::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+FadeChannel* CueStack::getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
@@ -608,7 +608,7 @@ FadeChannel *CueStack::getFader(QList<Universe *> universes, quint32 universeID,
     return fader->getChannelFader(doc(), universes[universeID], fixtureID, channel);
 }
 
-void CueStack::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
+void CueStack::updateFaderValues(FadeChannel* fc, uchar value, uint fadeTime)
 {
     fc->setStart(fc->current());
     fc->setTarget(value);
@@ -632,7 +632,7 @@ int CueStack::next()
     return m_currentIndex;
 }
 
-void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
+void CueStack::switchCue(int from, int to, const QList<Universe*> ua)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -649,27 +649,26 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     }
 
     // Fade out the HTP channels of the previous cue
-    QHashIterator <uint,uchar> oldit(oldCue.values());
+    QHashIterator<uint, uchar> oldit(oldCue.values());
     while (oldit.hasNext() == true)
     {
         oldit.next();
         uint absChannel = oldit.key();
         quint32 universe = (absChannel >> 9);
-        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
+        FadeChannel* fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
 
         if (fc->flags() & FadeChannel::Intensity)
             updateFaderValues(fc, 0, oldCue.fadeOutSpeed());
     }
 
     // Fade in all channels of the new cue
-    QHashIterator <uint,uchar> newit(newCue.values());
+    QHashIterator<uint, uchar> newit(newCue.values());
     while (newit.hasNext() == true)
     {
         newit.next();
         uint absChannel = newit.key();
         quint32 universe = (absChannel >> 9);
-        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
+        FadeChannel* fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
         updateFaderValues(fc, newit.value(), newCue.fadeInSpeed());
     }
 }
-

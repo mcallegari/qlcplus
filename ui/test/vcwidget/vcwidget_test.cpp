@@ -65,7 +65,7 @@ void VCWidget_Test::initial()
     QCOMPARE(stub.hasCustomFont(), false);
     QCOMPARE(stub.frameStyle(), 0);
     QCOMPARE(stub.allowChildren(), false);
-    QCOMPARE(stub.customMenu(0), (QMenu*) 0);
+    QCOMPARE(stub.customMenu(0), (QMenu*)0);
     QCOMPARE(stub.lastClickPoint(), QPoint(0, 0));
 
     for (quint8 i = 0; i < 255; i++)
@@ -273,15 +273,15 @@ void VCWidget_Test::frame()
 
     StubWidget stub(&w, m_doc);
     stub.setFrameStyle(KVCFrameStyleSunken);
-    QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
+    QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleSunken);
     QCOMPARE(spy.size(), 1);
 
     stub.setFrameStyle(KVCFrameStyleRaised);
-    QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleRaised);
+    QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleRaised);
     QCOMPARE(spy.size(), 2);
 
     stub.resetFrameStyle();
-    QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleNone);
+    QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleNone);
     QCOMPARE(spy.size(), 3);
 
     QCOMPARE(stub.frameStyleToString(KVCFrameStyleSunken), QString("Sunken"));
@@ -289,10 +289,10 @@ void VCWidget_Test::frame()
     QCOMPARE(stub.frameStyleToString(KVCFrameStyleNone), QString("None"));
     QCOMPARE(stub.frameStyleToString(QFrame::Plain), QString("None"));
 
-    QCOMPARE(stub.stringToFrameStyle("Sunken"), (int) KVCFrameStyleSunken);
-    QCOMPARE(stub.stringToFrameStyle("Raised"), (int) KVCFrameStyleRaised);
-    QCOMPARE(stub.stringToFrameStyle("None"), (int) KVCFrameStyleNone);
-    QCOMPARE(stub.stringToFrameStyle("Foo"), (int) KVCFrameStyleNone);
+    QCOMPARE(stub.stringToFrameStyle("Sunken"), (int)KVCFrameStyleSunken);
+    QCOMPARE(stub.stringToFrameStyle("Raised"), (int)KVCFrameStyleRaised);
+    QCOMPARE(stub.stringToFrameStyle("None"), (int)KVCFrameStyleNone);
+    QCOMPARE(stub.stringToFrameStyle("Foo"), (int)KVCFrameStyleNone);
 }
 
 void VCWidget_Test::inputSource()
@@ -359,19 +359,19 @@ void VCWidget_Test::copy()
     QCOMPARE(copy.hasCustomForegroundColor(), true);
     QCOMPARE(copy.foregroundColor(), QColor(Qt::green));
     QCOMPARE(copy.font(), font);
-    QCOMPARE(copy.frameStyle(), (int) KVCFrameStyleRaised);
+    QCOMPARE(copy.frameStyle(), (int)KVCFrameStyleRaised);
     QCOMPARE(copy.pos(), QPoint(10, 20));
     QCOMPARE(copy.size(), QSize(20, 30));
 
-    QLCInputSource *src1 = new QLCInputSource(0, 12);
+    QLCInputSource* src1 = new QLCInputSource(0, 12);
     QCOMPARE(copy.inputSource()->universe(), src1->universe());
     QCOMPARE(copy.inputSource()->channel(), src1->channel());
 
-    QLCInputSource *src2 = new QLCInputSource(1, 2);
+    QLCInputSource* src2 = new QLCInputSource(1, 2);
     QCOMPARE(copy.inputSource(15)->universe(), src2->universe());
     QCOMPARE(copy.inputSource(15)->channel(), src2->channel());
 
-    QLCInputSource *src3 = new QLCInputSource(3, 4);
+    QLCInputSource* src3 = new QLCInputSource(3, 4);
     QCOMPARE(copy.inputSource(1)->universe(), src3->universe());
     QCOMPARE(copy.inputSource(1)->channel(), src3->channel());
 
@@ -429,7 +429,7 @@ void VCWidget_Test::loadInput()
     StubWidget stub(&w, m_doc);
     QCOMPARE(stub.loadXMLInput(xmlReader), true);
 
-    QLCInputSource *src = new QLCInputSource(12, 34);
+    QLCInputSource* src = new QLCInputSource(12, 34);
     QCOMPARE(stub.inputSource()->universe(), src->universe());
     QCOMPARE(stub.inputSource()->channel(), src->channel());
 
@@ -478,7 +478,7 @@ void VCWidget_Test::loadAppearance()
 
     StubWidget stub(&w, m_doc);
     QVERIFY(stub.loadXMLAppearance(xmlReader) == true);
-    QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
+    QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), true);
     QCOMPARE(stub.foregroundColor(), QColor(Qt::red));
     QCOMPARE(stub.hasCustomBackgroundColor(), true);
@@ -497,7 +497,7 @@ void VCWidget_Test::loadAppearance()
     xmlReader.readNextStartElement();
 
     QVERIFY(stub.loadXMLAppearance(xmlReader) == true);
-    QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
+    QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
@@ -513,7 +513,7 @@ void VCWidget_Test::loadAppearance()
     xmlReader.readNextStartElement();
 
     QVERIFY(stub.loadXMLAppearance(xmlReader) == false);
-    QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
+    QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
@@ -555,7 +555,7 @@ void VCWidget_Test::saveInput()
 
     stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(34, 56)), 1);
     QVERIFY(stub.saveXMLInput(&xmlWriter) == true);
-    //QCOMPARE(root.childNodes().count(), 0);
+    // QCOMPARE(root.childNodes().count(), 0);
 }
 
 void VCWidget_Test::saveAppearance()
@@ -937,8 +937,8 @@ void VCWidget_Test::mousePress()
     stub->resize(QSize(20, 20));
     QCOMPARE(stub->pos(), QPoint(0, 0));
 
-    QMouseEvent e(QEvent::MouseButtonPress, QPoint(10, 10), QPoint(0, 0), QPoint(0, 0),
-                  Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    QMouseEvent e(QEvent::MouseButtonPress, QPoint(10, 10), QPoint(0, 0), QPoint(0, 0), Qt::LeftButton, Qt::NoButton,
+                  Qt::NoModifier);
 
     stub->mousePressEvent(&e);
     QCOMPARE(vc->selectedWidgets().size(), 1);
@@ -946,8 +946,8 @@ void VCWidget_Test::mousePress()
     QCOMPARE(stub->lastClickPoint(), QPoint(10, 10));
     QTest::qWait(10);
 
-    QMouseEvent e2(QEvent::MouseMove, QPoint(20, 20), QPoint(0, 0), QPoint(0, 0),
-                   Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent e2(QEvent::MouseMove, QPoint(20, 20), QPoint(0, 0), QPoint(0, 0), Qt::NoButton, Qt::LeftButton,
+                   Qt::NoModifier);
     stub->mouseMoveEvent(&e2);
     QTest::qWait(10);
     QCOMPARE(stub->pos(), QPoint(10, 10));

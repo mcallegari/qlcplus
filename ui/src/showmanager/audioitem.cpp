@@ -29,7 +29,7 @@
 #include "audiodecoder.h"
 #include "audioplugincache.h"
 
-AudioItem::AudioItem(Audio *aud, ShowFunction *func)
+AudioItem::AudioItem(Audio* aud, ShowFunction* func)
     : ShowItem(func)
     , m_audio(aud)
     , m_previewLeftAction(NULL)
@@ -48,22 +48,18 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
         func->setDuration(aud->totalDuration());
 
     calculateWidth();
-    connect(m_audio, SIGNAL(changed(quint32)),
-            this, SLOT(slotAudioChanged(quint32)));
+    connect(m_audio, SIGNAL(changed(quint32)), this, SLOT(slotAudioChanged(quint32)));
 
     /* Preview actions */
     m_previewLeftAction = new QAction(tr("Preview Left Channel"), this);
     m_previewLeftAction->setCheckable(true);
-    connect(m_previewLeftAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAudioPreviewLeft()));
+    connect(m_previewLeftAction, SIGNAL(triggered(bool)), this, SLOT(slotAudioPreviewLeft()));
     m_previewRightAction = new QAction(tr("Preview Right Channel"), this);
     m_previewRightAction->setCheckable(true);
-    connect(m_previewRightAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAudioPreviewRight()));
+    connect(m_previewRightAction, SIGNAL(triggered(bool)), this, SLOT(slotAudioPreviewRight()));
     m_previewStereoAction = new QAction(tr("Preview Stereo Channels"), this);
     m_previewStereoAction->setCheckable(true);
-    connect(m_previewStereoAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAudioPreviewStereo()));
+    connect(m_previewStereoAction, SIGNAL(triggered(bool)), this, SLOT(slotAudioPreviewStereo()));
 }
 
 void AudioItem::calculateWidth()
@@ -72,7 +68,7 @@ void AudioItem::calculateWidth()
     qint64 audio_duration = m_audio->totalDuration();
 
     if (audio_duration != 0)
-        newWidth = ((50/(float)getTimeScale()) * (float)audio_duration) / 1000;
+        newWidth = ((50 / (float)getTimeScale()) * (float)audio_duration) / 1000;
     else
         newWidth = 100;
 
@@ -81,12 +77,12 @@ void AudioItem::calculateWidth()
     setWidth(newWidth);
 }
 
-void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void AudioItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    float timeScale = 50/(float)m_timeScale;
+    float timeScale = 50 / (float)m_timeScale;
 
     ShowItem::paint(painter, option, widget);
 
@@ -133,14 +129,14 @@ QString AudioItem::functionName()
     return QString();
 }
 
-Audio *AudioItem::getAudio()
+Audio* AudioItem::getAudio()
 {
     return m_audio;
 }
 
 void AudioItem::updateWaveformPreview()
 {
-    PreviewThread *waveformThread = new PreviewThread;
+    PreviewThread* waveformThread = new PreviewThread;
     waveformThread->setAudioItem(this);
     connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
     waveformThread->start();
@@ -176,7 +172,7 @@ void AudioItem::slotAudioPreviewStereo()
     updateWaveformPreview();
 }
 
-void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
@@ -185,7 +181,7 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 
     if (m_audio->getAudioDecoder() != NULL)
     {
-        AudioDecoder *ad = m_audio->getAudioDecoder();
+        AudioDecoder* ad = m_audio->getAudioDecoder();
         AudioParameters ap = ad->audioParameters();
 
         if (ap.channels() == 1)
@@ -200,18 +196,18 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         menu.addSeparator();
     }
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction* action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }
 
-void PreviewThread::setAudioItem(AudioItem *item)
+void PreviewThread::setAudioItem(AudioItem* item)
 {
     m_item = item;
 }
 
-qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize)
+qint32 PreviewThread::getSample(unsigned char* data, quint32 idx, int sampleSize)
 {
     qint32 value = 0;
     if (sampleSize == 1)
@@ -220,15 +216,15 @@ qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize
     }
     else if (sampleSize == 2)
     {
-        qint16 *array = (qint16 *)data;
+        qint16* array = (qint16*)data;
         value = array[idx / 2];
     }
     else if (sampleSize == 3 || sampleSize == 4)
     {
-        qint32 *array = (qint32 *)data;
+        qint32* array = (qint32*)data;
         value = array[idx / 4] >> 16;
     }
-    //qDebug() << "sampleValue:" << value;
+    // qDebug() << "sampleValue:" << value;
     return value;
 }
 
@@ -239,7 +235,8 @@ void PreviewThread::run()
 
     if ((left || right) && m_item->m_audio->getAudioDecoder() != NULL)
     {
-        AudioDecoder *ad = m_item->m_audio->doc()->audioPluginCache()->getDecoderForFile(m_item->m_audio->getSourceFileName());
+        AudioDecoder* ad =
+            m_item->m_audio->doc()->audioPluginCache()->getDecoderForFile(m_item->m_audio->getSourceFileName());
         AudioParameters ap = ad->audioParameters();
         ad->seek(0);
         // 1- find out how many samples have to be represented on a single pixel on a 1:1 time scale
@@ -265,16 +262,15 @@ void PreviewThread::run()
         qint64 dataRead = 1;
         unsigned char audioData[onePixelReadLen * 4];
         quint32 audioDataOffset = 0;
-        QPixmap *preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
+        QPixmap* preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
         preview->fill(Qt::transparent);
         QPainter p(preview);
         int xpos = 0;
 
-        qDebug() << "Audio duration:" << m_item->m_audio->totalDuration() <<
-                    ", channels:" << channels << ", pixmap width:" << preview->width() <<
-                    ", maxValue:" << maxValue << ", samples:" << sampleSize;
-        qDebug() << "Samples per second:" << oneSecondSamples << ", for one pixel:" << onePixelSamples <<
-                    ", onePixelReadLen:" << onePixelReadLen;
+        qDebug() << "Audio duration:" << m_item->m_audio->totalDuration() << ", channels:" << channels
+                 << ", pixmap width:" << preview->width() << ", maxValue:" << maxValue << ", samples:" << sampleSize;
+        qDebug() << "Samples per second:" << oneSecondSamples << ", for one pixel:" << onePixelSamples
+                 << ", onePixelReadLen:" << onePixelReadLen;
 
         delete m_item->m_preview;
         m_item->m_preview = NULL;
@@ -285,10 +281,10 @@ void PreviewThread::run()
             quint32 tmpExceedData = 0;
             if (audioDataOffset < onePixelReadLen)
             {
-                dataRead = ad->read((char *)audioData + audioDataOffset, onePixelReadLen * 2);
+                dataRead = ad->read((char*)audioData + audioDataOffset, onePixelReadLen * 2);
                 if (dataRead > 0)
                 {
-                    if((quint32)dataRead + audioDataOffset >= onePixelReadLen)
+                    if ((quint32)dataRead + audioDataOffset >= onePixelReadLen)
                     {
                         tmpExceedData = (dataRead + audioDataOffset) - onePixelReadLen;
                         dataRead = onePixelReadLen;
@@ -335,7 +331,7 @@ void PreviewThread::run()
 
                     if (i >= dataRead)
                     {
-                        //qDebug() << "i:" << i << "xpos:" << xpos;
+                        // qDebug() << "i:" << i << "xpos:" << xpos;
                         done = true;
                     }
                 }
@@ -344,7 +340,7 @@ void PreviewThread::run()
                     rmsLeft = sqrt(rmsLeft / onePixelSamples);
                 if (right)
                     rmsRight = sqrt(rmsRight / onePixelSamples);
-                //qDebug() << "sample" << i << "RMS right:" << rmsRight << ", RMS left:" << rmsLeft;
+                // qDebug() << "sample" << i << "RMS right:" << rmsRight << ", RMS left:" << rmsLeft;
 
                 // 3- Draw the actual waveform
                 unsigned short lineHeightLeft = 0, lineHeightRight = 0;
@@ -374,13 +370,14 @@ void PreviewThread::run()
                         p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
                     else
                         p.drawLine(xpos, 38, xpos + 1, 38);
-                    //qDebug() << "Data read: " << dataRead << ", rms: " << rmsRight << ", line height: " << lineHeight << ", xpos = " << xpos;
+                    // qDebug() << "Data read: " << dataRead << ", rms: " << rmsRight << ", line height: " << lineHeight
+                    // << ", xpos = " << xpos;
                 }
                 xpos++;
 
                 if (tmpExceedData > 0)
                 {
-                    //qDebug() << "Exceed data found: " << tmpExceedData;
+                    // qDebug() << "Exceed data found: " << tmpExceedData;
                     memmove(audioData, audioData + onePixelReadLen, tmpExceedData);
                     audioDataOffset = tmpExceedData;
                 }
@@ -388,7 +385,7 @@ void PreviewThread::run()
                     audioDataOffset = 0;
             }
         }
-        //qDebug() << "Iterations done: " << xpos;
+        // qDebug() << "Iterations done: " << xpos;
         delete ad;
         m_item->m_preview = preview;
     }

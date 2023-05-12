@@ -63,7 +63,7 @@ protected:
 
 protected:
     int m_sliderMode;
-    InputSelectionWidget *m_inputSelWidget;
+    InputSelectionWidget* m_inputSelWidget;
 
     /*********************************************************************
      * Level page
@@ -133,7 +133,7 @@ protected slots:
     void slotMonitorCheckClicked(bool checked);
 
 protected:
-    InputSelectionWidget *m_ovrResetSelWidget;
+    InputSelectionWidget* m_ovrResetSelWidget;
 
     /*************************************************************************
      * Playback page
@@ -163,7 +163,7 @@ protected:
 protected:
     /** Check if the given comp color is the predominant and set the
      *  proper value for ClickAndGo color functionality */
-    void checkMajorColor(int *comp, int *max, int type);
+    void checkMajorColor(int* comp, int* max, int type);
 
     /** Store selected channels to the slider */
     void storeLevelChannels();

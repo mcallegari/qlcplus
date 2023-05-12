@@ -21,7 +21,8 @@
 #include "fixture.h"
 #include "function_stub.h"
 
-Function_Stub::Function_Stub(Doc* doc) : Function(doc, Function::Type(0xDEADBEEF))
+Function_Stub::Function_Stub(Doc* doc)
+    : Function(doc, Function::Type(0xDEADBEEF))
 {
     m_writeCalls = 0;
     m_preRunCalls = 0;
@@ -29,9 +30,7 @@ Function_Stub::Function_Stub(Doc* doc) : Function(doc, Function::Type(0xDEADBEEF
     m_slotFixtureRemovedId = Fixture::invalidId();
 }
 
-Function_Stub::~Function_Stub()
-{
-}
+Function_Stub::~Function_Stub() {}
 
 Function* Function_Stub::createCopy(Doc* doc, bool addToDoc)
 {
@@ -54,14 +53,14 @@ Function* Function_Stub::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Function_Stub::saveXML(QXmlStreamWriter *doc)
+bool Function_Stub::saveXML(QXmlStreamWriter* doc)
 {
     Q_UNUSED(doc);
 
     return false;
 }
 
-bool Function_Stub::loadXML(QXmlStreamReader &root)
+bool Function_Stub::loadXML(QXmlStreamReader& root)
 {
     Q_UNUSED(root);
     return false;
@@ -74,7 +73,7 @@ void Function_Stub::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Function_Stub::write(MasterTimer* timer, QList<Universe *> universes)
+void Function_Stub::write(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -83,7 +82,7 @@ void Function_Stub::write(MasterTimer* timer, QList<Universe *> universes)
     m_writeCalls++;
 }
 
-void Function_Stub::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Function_Stub::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);

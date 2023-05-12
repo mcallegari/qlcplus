@@ -22,7 +22,7 @@
 #include "vcsoloframeproperties.h"
 #include "vcsoloframe.h"
 
-VCSoloFrameProperties::VCSoloFrameProperties(QWidget* parent, VCSoloFrame *frame, Doc *doc)
+VCSoloFrameProperties::VCSoloFrameProperties(QWidget* parent, VCSoloFrame* frame, Doc* doc)
     : VCFrameProperties(parent, frame, doc)
     , m_soloframe(frame)
 {
@@ -47,9 +47,7 @@ void VCSoloFrameProperties::setupSoloframeUi()
     tabLayout->insertWidget(tabLayout->count() - 1, groupBox);
 }
 
-VCSoloFrameProperties::~VCSoloFrameProperties()
-{
-}
+VCSoloFrameProperties::~VCSoloFrameProperties() {}
 
 void VCSoloFrameProperties::accept()
 {

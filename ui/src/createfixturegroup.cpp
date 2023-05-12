@@ -25,9 +25,7 @@ CreateFixtureGroup::CreateFixtureGroup(QWidget* parent)
     setupUi(this);
 }
 
-CreateFixtureGroup::~CreateFixtureGroup()
-{
-}
+CreateFixtureGroup::~CreateFixtureGroup() {}
 
 QString CreateFixtureGroup::name() const
 {

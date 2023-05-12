@@ -64,6 +64,7 @@ public:
 
     /** Refresh fixtures & show current view */
     void updateView();
+
 protected:
     /** Initialize the monitor view */
     void initView();
@@ -87,6 +88,7 @@ protected:
     void showGraphicsView();
 
     void showCurrentView();
+
 protected:
     void saveSettings();
 
@@ -97,7 +99,7 @@ protected:
     /** The singleton Monitor instance */
     static Monitor* s_instance;
     Doc* m_doc;
-    MonitorProperties *m_props;
+    MonitorProperties* m_props;
 
     /*********************************************************************
      * Running functions
@@ -109,7 +111,6 @@ protected slots:
      * Menu
      *********************************************************************/
 protected:
-
     /** Create DMX view toolbar */
     void initDMXToolbar();
 
@@ -161,7 +162,7 @@ protected:
     QScrollArea* m_scrollArea;
     QWidget* m_monitorWidget;
     MonitorLayout* m_monitorLayout;
-    QList <MonitorFixture*> m_monitorFixtures;
+    QList<MonitorFixture*> m_monitorFixtures;
     quint32 m_currentUniverse;
 
     /********************************************************************
@@ -210,11 +211,11 @@ protected:
     QToolBar* m_graphicsToolBar;
     QSplitter* m_splitter;
     MonitorGraphicsView* m_graphicsView;
-    QWidget *m_fixtureItemEditor;
+    QWidget* m_fixtureItemEditor;
     QSpinBox* m_gridWSpin;
-    QSpinBox *m_gridHSpin;
-    QComboBox *m_unitsCombo;
-    QAction *m_labelsAction;
+    QSpinBox* m_gridHSpin;
+    QComboBox* m_unitsCombo;
+    QAction* m_labelsAction;
 };
 
 /** @} */

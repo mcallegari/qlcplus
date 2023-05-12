@@ -45,29 +45,22 @@ FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
-    m_treeFlags = FixtureTreeWidget::UniverseNumber |
-                  FixtureTreeWidget::HeadsNumber |
-                  FixtureTreeWidget::Manufacturer |
-                  FixtureTreeWidget::Model |
-                  FixtureTreeWidget::ShowGroups;
+    m_treeFlags = FixtureTreeWidget::UniverseNumber | FixtureTreeWidget::HeadsNumber | FixtureTreeWidget::Manufacturer |
+                  FixtureTreeWidget::Model | FixtureTreeWidget::ShowGroups;
 
     m_tree = new FixtureTreeWidget(m_doc, m_treeFlags, this);
     m_mainLayout->addWidget(m_tree);
 
-    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
-            this, SLOT(slotItemDoubleClicked()));
+    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotItemDoubleClicked()));
 
-    connect(m_tree, SIGNAL(itemSelectionChanged()),
-            this, SLOT(slotSelectionChanged()));
+    connect(m_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
 }
 
-FixtureSelection::~FixtureSelection()
-{
-}
+FixtureSelection::~FixtureSelection() {}
 
 int FixtureSelection::exec()
 {
-    //fillTree();
+    // fillTree();
     m_tree->updateTree();
     if (m_tree->topLevelItemCount() == 0)
     {
@@ -85,12 +78,12 @@ int FixtureSelection::exec()
  * Selected fixtures
  ****************************************************************************/
 
-QList <quint32> FixtureSelection::selection() const
+QList<quint32> FixtureSelection::selection() const
 {
     return m_selectedFixtures;
 }
 
-QList <GroupHead> FixtureSelection::selectedHeads() const
+QList<GroupHead> FixtureSelection::selectedHeads() const
 {
     return m_selectedHeads;
 }
@@ -133,12 +126,12 @@ void FixtureSelection::setSelectionMode(SelectionMode mode)
  * Disabled items
  ****************************************************************************/
 
-void FixtureSelection::setDisabledFixtures(const QList <quint32>& disabled)
+void FixtureSelection::setDisabledFixtures(const QList<quint32>& disabled)
 {
     m_tree->setDisabledFixtures(disabled);
 }
 
-void FixtureSelection::setDisabledHeads(const QList <GroupHead>& disabled)
+void FixtureSelection::setDisabledHeads(const QList<GroupHead>& disabled)
 {
     m_tree->setDisabledHeads(disabled);
 }

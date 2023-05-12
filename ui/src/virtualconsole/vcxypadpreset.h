@@ -32,16 +32,16 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCXYPadPreset         QString("Preset")
-#define KXMLQLCVCXYPadPresetID       QString("ID")
-#define KXMLQLCVCXYPadPresetType     QString("Type")
-#define KXMLQLCVCXYPadPresetName     QString("Name")
+#define KXMLQLCVCXYPadPreset QString("Preset")
+#define KXMLQLCVCXYPadPresetID QString("ID")
+#define KXMLQLCVCXYPadPresetType QString("Type")
+#define KXMLQLCVCXYPadPresetName QString("Name")
 
-#define KXMLQLCVCXYPadPresetFuncID      QString("FuncID")
-#define KXMLQLCVCXYPadPresetXPos        QString("X")
-#define KXMLQLCVCXYPadPresetYPos        QString("Y")
-#define KXMLQLCVCXYPadPresetFixture     QString("Fixture")
-#define KXMLQLCVCXYPadPresetFixtureID   QString("ID")
+#define KXMLQLCVCXYPadPresetFuncID QString("FuncID")
+#define KXMLQLCVCXYPadPresetXPos QString("X")
+#define KXMLQLCVCXYPadPresetYPos QString("Y")
+#define KXMLQLCVCXYPadPresetFixture QString("Fixture")
+#define KXMLQLCVCXYPadPresetFixtureID QString("ID")
 #define KXMLQLCVCXYPadPresetFixtureHead QString("Head")
 
 class VCXYPadPreset
@@ -69,7 +69,7 @@ public:
     void setPosition(QPointF pos);
     QPointF position() const;
 
-    void setFixtureGroup(QList<GroupHead>heads);
+    void setFixtureGroup(QList<GroupHead> heads);
     QList<GroupHead> fixtureGroup() const;
 
 public:
@@ -92,7 +92,7 @@ public:
     QString m_name;
 
     /** Position in DMX coordinates 0.0..(256.0 - 1/256)
-      * when the preset type is Position */
+     * when the preset type is Position */
     QPointF m_dmxPos;
 
     /** ID of the Function controlled by this preset
@@ -111,10 +111,10 @@ public:
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 };
 
 /** @} */

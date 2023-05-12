@@ -31,7 +31,7 @@
 #define KXMLShowFunctionColor "Color"
 #define KXMLShowFunctionLocked "Locked"
 
-ShowFunction::ShowFunction(QObject *parent)
+ShowFunction::ShowFunction(QObject* parent)
     : QObject(parent)
     , m_id(Function::invalidId())
     , m_startTime(UINT_MAX)
@@ -84,7 +84,7 @@ quint32 ShowFunction::duration() const
     return m_duration;
 }
 
-quint32 ShowFunction::duration(const Doc *doc) const
+quint32 ShowFunction::duration(const Doc* doc) const
 {
     if (m_duration)
         return m_duration;
@@ -92,7 +92,7 @@ quint32 ShowFunction::duration(const Doc *doc) const
     if (doc == NULL)
         return 0;
 
-    Function *f = doc->function(m_id);
+    Function* f = doc->function(m_id);
     if (f == NULL)
         return 0;
 
@@ -117,12 +117,18 @@ QColor ShowFunction::defaultColor(Function::Type type)
 {
     switch (type)
     {
-        case Function::ChaserType:    return QColor(85, 107, 128);
-        case Function::AudioType:     return QColor(96, 128, 83);
-        case Function::RGBMatrixType: return QColor(101, 155, 155);
-        case Function::EFXType:       return QColor(128, 60, 60);
-        case Function::VideoType:     return QColor(147, 140, 20);
-        default: return QColor(100, 100, 100);
+    case Function::ChaserType:
+        return QColor(85, 107, 128);
+    case Function::AudioType:
+        return QColor(96, 128, 83);
+    case Function::RGBMatrixType:
+        return QColor(101, 155, 155);
+    case Function::EFXType:
+        return QColor(128, 60, 60);
+    case Function::VideoType:
+        return QColor(147, 140, 20);
+    default:
+        return QColor(100, 100, 100);
     }
 }
 
@@ -154,7 +160,7 @@ void ShowFunction::setIntensityOverrideId(int id)
  * Load & Save
  ***********************************************************************/
 
-bool ShowFunction::loadXML(QXmlStreamReader &root)
+bool ShowFunction::loadXML(QXmlStreamReader& root)
 {
     if (root.name() != KXMLShowFunction)
     {
@@ -180,7 +186,7 @@ bool ShowFunction::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool ShowFunction::saveXML(QXmlStreamWriter *doc) const
+bool ShowFunction::saveXML(QXmlStreamWriter* doc) const
 {
     Q_ASSERT(doc != NULL);
 

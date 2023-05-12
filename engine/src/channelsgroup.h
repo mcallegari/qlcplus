@@ -43,7 +43,7 @@ class ChannelsGroup : public QObject
      ************************************************************************/
 public:
     /** Create a new ChannelsGroup with empty/invalid values */
-    ChannelsGroup(Doc *doc);
+    ChannelsGroup(Doc* doc);
 
     /** Copy constructor */
     ChannelsGroup(Doc* doc, const ChannelsGroup* chg);
@@ -52,7 +52,7 @@ public:
     ~ChannelsGroup();
 
 protected:
-    Doc * m_doc;
+    Doc* m_doc;
 
     void init();
 
@@ -67,11 +67,11 @@ public slots:
      * Load & Save
      *********************************************************************/
 public:
-    static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
+    static bool loader(QXmlStreamReader& xmlDoc, Doc* doc);
 
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
-    bool loadXML(QXmlStreamReader &xmlDoc);
+    bool loadXML(QXmlStreamReader& xmlDoc);
 
     /************************************************************************
      * ID
@@ -109,7 +109,7 @@ public:
     bool addChannel(quint32 fxid, quint32 channel);
 
     /** Returns the current list of channels of this group */
-    QList <SceneValue> getChannels() const;
+    QList<SceneValue> getChannels() const;
 
     /*********************************************************************
      * Status
@@ -120,7 +120,7 @@ public:
      *
      * @return A sort-of HTML-RTF-gibberish for Fixture Manager
      */
-    QString status(Doc *doc) const;
+    QString status(Doc* doc) const;
 
     /*********************************************************************
      * External input
@@ -157,7 +157,7 @@ private:
     QString m_name;
 
     uchar m_masterValue;
-    QList <SceneValue> m_channels;
+    QList<SceneValue> m_channels;
 
     QSharedPointer<QLCInputSource> m_input;
 };

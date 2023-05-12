@@ -33,12 +33,12 @@ class Doc;
  * @{
  */
 
-class QLCClipboard: public QObject
+class QLCClipboard : public QObject
 {
     Q_OBJECT
 
 public:
-    QLCClipboard(Doc *doc);
+    QLCClipboard(Doc* doc);
 
 public:
     void resetContents();
@@ -51,22 +51,22 @@ private:
      ********************************************************************/
 
 public:
-    void copyContent(quint32 sourceID, QList <ChaserStep> steps);
-    void copyContent(quint32 sourceID, QList <SceneValue> values);
-    void copyContent(quint32 sourceID, Function *function);
+    void copyContent(quint32 sourceID, QList<ChaserStep> steps);
+    void copyContent(quint32 sourceID, QList<SceneValue> values);
+    void copyContent(quint32 sourceID, Function* function);
 
     bool hasChaserSteps();
     bool hasSceneValues();
     bool hasFunction();
 
-    QList <ChaserStep> getChaserSteps();
-    QList <SceneValue> getSceneValues();
-    Function *getFunction();
+    QList<ChaserStep> getChaserSteps();
+    QList<SceneValue> getSceneValues();
+    Function* getFunction();
 
 private:
-    QList <ChaserStep> m_copySteps;
-    QList <SceneValue> m_copySceneValues;
-    Function *m_copyFunction;
+    QList<ChaserStep> m_copySteps;
+    QList<SceneValue> m_copySceneValues;
+    Function* m_copyFunction;
 };
 
 /** @} */

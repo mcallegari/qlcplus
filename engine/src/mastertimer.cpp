@@ -24,10 +24,10 @@
 #include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#   include "mastertimer-win32.h"
+  #include "mastertimer-win32.h"
 #else
-#   include <unistd.h>
-#   include "mastertimer-unix.h"
+  #include <unistd.h>
+  #include "mastertimer-unix.h"
 #endif
 
 #include "inputoutputmap.h"
@@ -108,7 +108,7 @@ void MasterTimer::stop()
 
 void MasterTimer::timerTick()
 {
-    Doc *doc = qobject_cast<Doc*> (parent());
+    Doc* doc = qobject_cast<Doc*>(parent());
     Q_ASSERT(doc != NULL);
 
 #ifdef DEBUG_MASTERTIMER
@@ -117,10 +117,10 @@ void MasterTimer::timerTick()
 
     switch (m_beatSourceType)
     {
-        case Internal:
+    case Internal:
         {
             int elapsedTime = qRound((double)m_beatTimer->nsecsElapsed() / 1000000) + m_lastBeatOffset;
-            //qDebug() << "Elapsed beat:" << elapsedTime;
+            // qDebug() << "Elapsed beat:" << elapsedTime;
             if (elapsedTime >= m_beatTimeDuration)
             {
                 // it's time to fire a beat
@@ -128,7 +128,7 @@ void MasterTimer::timerTick()
 
                 // restart the time for the next beat, starting at a delta
                 // milliseconds, otherwise it will generate an unpleasant drift
-                //qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
+                // qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
                 m_lastBeatOffset = elapsedTime - m_beatTimeDuration;
                 m_beatTimer->restart();
 
@@ -137,16 +137,16 @@ void MasterTimer::timerTick()
             }
         }
         break;
-        case External:
+    case External:
         break;
 
-        case None:
-        default:
-            m_beatRequested = false;
+    case None:
+    default:
+        m_beatRequested = false;
         break;
     }
 
-    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
+    QList<Universe*> universes = doc->inputOutputMap()->claimUniverses();
 
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
@@ -155,7 +155,7 @@ void MasterTimer::timerTick()
 
     m_beatRequested = false;
 
-    //qDebug() << ">>>>>>>> MASTERTIMER TICK";
+    // qDebug() << ">>>>>>>> MASTERTIMER TICK";
     emit tickReady();
 }
 
@@ -204,11 +204,11 @@ void MasterTimer::fadeAndStopAll(int timeout)
 {
     if (timeout)
     {
-        Doc *doc = qobject_cast<Doc*> (parent());
+        Doc* doc = qobject_cast<Doc*>(parent());
         Q_ASSERT(doc != NULL);
 
-        QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
-        foreach (Universe *universe, universes)
+        QList<Universe*> universes = doc->inputOutputMap()->claimUniverses();
+        foreach (Universe* universe, universes)
         {
             foreach (QSharedPointer<GenericFader> fader, universe->faders())
             {
@@ -228,7 +228,7 @@ int MasterTimer::runningFunctions() const
     return m_functionList.size();
 }
 
-void MasterTimer::timerTickFunctions(QList<Universe *> universes)
+void MasterTimer::timerTickFunctions(QList<Universe*> universes)
 {
     // List of m_functionList indices that should be removed at the end of this
     // function. The functions at the indices have been stopped.
@@ -262,7 +262,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
                         function->stop(FunctionParent::master());
                     /* Function should be stopped instead */
                     function->postRun(this, universes);
-                    //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
+                    // qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
                     removeList << i; // Don't remove the item from the list just yet.
                     functionListHasChanged = true;
                     stoppedAFunction = true;
@@ -277,7 +277,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
         // on this round. The indices in removeList are automatically sorted because the
         // list is iterated with an int above from 0 to size, so iterating the removeList
         // backwards here will always remove the correct indices.
-        QListIterator <int> it(removeList);
+        QListIterator<int> it(removeList);
         it.toBack();
         while (it.hasPrevious() == true)
             m_functionList.removeAt(it.previous());
@@ -321,7 +321,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource *source)
+void MasterTimer::registerDMXSource(DMXSource* source)
 {
     Q_ASSERT(source != NULL);
 
@@ -330,7 +330,7 @@ void MasterTimer::registerDMXSource(DMXSource *source)
         m_dmxSourceList.append(source);
 }
 
-void MasterTimer::unregisterDMXSource(DMXSource *source)
+void MasterTimer::unregisterDMXSource(DMXSource* source)
 {
     Q_ASSERT(source != NULL);
 
@@ -338,12 +338,12 @@ void MasterTimer::unregisterDMXSource(DMXSource *source)
     m_dmxSourceList.removeAll(source);
 }
 
-void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
+void MasterTimer::timerTickDMXSources(QList<Universe*> universes)
 {
     /* Lock before accessing the DMX sources list. */
     QMutexLocker lock(&m_dmxSourceListMutex);
 
-    foreach (DMXSource *source, m_dmxSourceList)
+    foreach (DMXSource* source, m_dmxSourceList)
     {
         Q_ASSERT(source != NULL);
 

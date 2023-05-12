@@ -37,10 +37,8 @@
 #include "app.h"
 #include "doc.h"
 
-ContextManager::ContextManager(QQuickView *view, Doc *doc,
-                               FixtureManager *fxMgr,
-                               FunctionManager *funcMgr,
-                               QObject *parent)
+ContextManager::ContextManager(QQuickView* view, Doc* doc, FixtureManager* fxMgr, FunctionManager* funcMgr,
+                               QObject* parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -81,25 +79,27 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_view->rootContext()->setContextProperty("View3D", m_3DView);
 
     qmlRegisterUncreatableType<QLCChannel>("org.qlcplus.classes", 1, 0, "QLCChannel", "Can't create a QLCChannel!");
-    qmlRegisterUncreatableType<MonitorProperties>("org.qlcplus.classes", 1, 0, "MonitorProperties", "Can't create MonitorProperties!");
+    qmlRegisterUncreatableType<MonitorProperties>("org.qlcplus.classes", 1, 0, "MonitorProperties",
+                                                  "Can't create MonitorProperties!");
 
     connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
     connect(m_fixtureManager, &FixtureManager::fixtureDeleted, this, &ContextManager::slotFixtureDeleted);
     connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
-    connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)),
-            this, SLOT(slotChannelTypeValueChanged(int, quint8)));
+    connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)), this,
+            SLOT(slotChannelTypeValueChanged(int, quint8)));
     connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
 
-    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)), this, SLOT(slotUniverseWritten(quint32,QByteArray)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, QByteArray)), this,
+            SLOT(slotUniverseWritten(quint32, QByteArray)));
     connect(m_functionManager, &FunctionManager::isEditingChanged, this, &ContextManager::slotFunctionEditingChanged);
 }
 
 ContextManager::~ContextManager()
 {
-    for (PreviewContext *context : m_contextsMap.values())
+    for (PreviewContext* context : m_contextsMap.values())
     {
         if (context->detached())
             context->deleteLater();
@@ -108,7 +108,7 @@ ContextManager::~ContextManager()
     m_view->rootContext()->setContextProperty("contextManager", nullptr);
 }
 
-void ContextManager::registerContext(PreviewContext *context)
+void ContextManager::registerContext(PreviewContext* context)
 {
     if (context == nullptr)
         return;
@@ -123,20 +123,18 @@ void ContextManager::unregisterContext(QString name)
     if (m_contextsMap.contains(name) == false)
         return;
 
-    PreviewContext *context = m_contextsMap.take(name);
+    PreviewContext* context = m_contextsMap.take(name);
 
-    disconnect(context, SIGNAL(keyPressed(QKeyEvent*)),
-               this, SLOT(handleKeyPress(QKeyEvent*)));
-    disconnect(context, SIGNAL(keyReleased(QKeyEvent*)),
-               this, SLOT(handleKeyRelease(QKeyEvent*)));
+    disconnect(context, SIGNAL(keyPressed(QKeyEvent*)), this, SLOT(handleKeyPress(QKeyEvent*)));
+    disconnect(context, SIGNAL(keyReleased(QKeyEvent*)), this, SLOT(handleKeyRelease(QKeyEvent*)));
 }
 
-void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
+void ContextManager::enableContext(QString name, bool enable, QQuickItem* item)
 {
     if (m_contextsMap.contains(name) == false)
         return;
 
-    PreviewContext *context = m_contextsMap[name];
+    PreviewContext* context = m_contextsMap[name];
 
     if (enable == false && context->detached() == true)
         reattachContext(name);
@@ -160,7 +158,7 @@ void ContextManager::detachContext(QString name)
     if (m_contextsMap.contains(name) == false)
         return;
 
-    PreviewContext *context = m_contextsMap[name];
+    PreviewContext* context = m_contextsMap[name];
     context->setDetached(true);
 }
 
@@ -170,32 +168,27 @@ void ContextManager::reattachContext(QString name)
     if (m_contextsMap.contains(name) == false)
         return;
 
-    PreviewContext *context = m_contextsMap[name];
+    PreviewContext* context = m_contextsMap[name];
     context->setDetached(false);
 
     if (name == "DMX" || name == "2D" || name == "3D" || name == "UNIGRID")
     {
-        QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions"));
+        QQuickItem* viewObj =
+            qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject*>("fixturesAndFunctions"));
         if (viewObj == nullptr)
             return;
-        QMetaObject::invokeMethod(viewObj, "enableContext",
-                Q_ARG(QVariant, name),
-                Q_ARG(QVariant, false));
+        QMetaObject::invokeMethod(viewObj, "enableContext", Q_ARG(QVariant, name), Q_ARG(QVariant, false));
     }
     else if (name.startsWith("PAGE-"))
     {
-        QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
+        QQuickItem* viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject*>("virtualConsole"));
         if (viewObj == nullptr)
             return;
-        QMetaObject::invokeMethod(viewObj, "enableContext",
-                Q_ARG(QVariant, name),
-                Q_ARG(QVariant, false));
+        QMetaObject::invokeMethod(viewObj, "enableContext", Q_ARG(QVariant, name), Q_ARG(QVariant, false));
     }
     else
     {
-        QMetaObject::invokeMethod(m_view->rootObject(), "enableContext",
-                Q_ARG(QVariant, name),
-                Q_ARG(QVariant, false));
+        QMetaObject::invokeMethod(m_view->rootObject(), "enableContext", Q_ARG(QVariant, name), Q_ARG(QVariant, false));
     }
 }
 
@@ -203,8 +196,18 @@ void ContextManager::switchToContext(QString name)
 {
     QString ctxName = name;
     QStringList qlc4names, qlc5names;
-    qlc4names << "FixtureManager" << "FunctionManager" << "ShowManager" << "VirtualConsole" << "SimpleDesk" << "InputOutputManager";
-    qlc5names << "FIXANDFUNC" << "FIXANDFUNC" << "SHOWMGR" << "VC" << "SDESK" << "IOMGR";
+    qlc4names << "FixtureManager"
+              << "FunctionManager"
+              << "ShowManager"
+              << "VirtualConsole"
+              << "SimpleDesk"
+              << "InputOutputManager";
+    qlc5names << "FIXANDFUNC"
+              << "FIXANDFUNC"
+              << "SHOWMGR"
+              << "VC"
+              << "SDESK"
+              << "IOMGR";
 
     int ctxIndex = qlc5names.indexOf(name);
     if (ctxIndex < 0)
@@ -213,8 +216,7 @@ void ContextManager::switchToContext(QString name)
         ctxName = qlc5names.at(ctxIndex < 0 ? 0 : ctxIndex);
     }
 
-    QMetaObject::invokeMethod(m_view->rootObject(), "switchToContext",
-                              Q_ARG(QVariant, ctxName),
+    QMetaObject::invokeMethod(m_view->rootObject(), "switchToContext", Q_ARG(QVariant, ctxName),
                               Q_ARG(QVariant, QString()));
 }
 
@@ -243,14 +245,15 @@ void ContextManager::setEnvironmentSize(QVector3D environmentSize)
         m_2DView->setGridSize(environmentSize);
     if (m_3DView->isEnabled())
     {
-        for(Fixture *fixture : m_doc->fixtures()) // C++11
+        for (Fixture* fixture : m_doc->fixtures()) // C++11
         {
             for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
             {
                 quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
                 quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
                 quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-                m_3DView->updateFixturePosition(itemID, m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
+                m_3DView->updateFixturePosition(itemID,
+                                                m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
             }
         }
     }
@@ -291,15 +294,14 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     if (positionPicking() == false)
         return;
 
-    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2,
-                      point.y(),
-                      point.z() + m_monProps->gridSize().z() / 2);
+    point =
+        QVector3D(point.x() + m_monProps->gridSize().x() / 2, point.y(), point.z() + m_monProps->gridSize().z() / 2);
 
     for (quint32 itemID : m_selectedFixtures)
     {
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
 
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture* fixture = m_doc->fixture(fxID);
         if (fixture == nullptr)
             continue;
 
@@ -316,8 +318,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         QVector3D lightPos = m_3DView->lightPosition(itemID);
         QMatrix4x4 lightMatrix = m_3DView->lightMatrix(itemID);
 
-        lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2,
-                             lightPos.y(),
+        lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2, lightPos.y(),
                              lightPos.z() + m_monProps->gridSize().z() / 2);
 
         qDebug() << "3D point picked:" << point << "light position:" << lightPos;
@@ -348,7 +349,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
                 panDeg = 90.0 + (90.0 - panDeg);
             else if (!xLeft && !zBack)
                 panDeg = 180.0 + panDeg;
-            else if(!xLeft && zBack)
+            else if (!xLeft && zBack)
                 panDeg = 270.0 + (90.0 - panDeg);
 
             if (itemFlags & MonitorProperties::InvertedPanFlag)
@@ -377,7 +378,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QVector4D res = lightMatrix * QVector4D(0.0, -1.0, 0.0, 0.0);
             QVector3D ya = QVector3D(res.x(), res.y(), res.z());
 
-            qreal tiltDeg =  qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, ya)));
+            qreal tiltDeg = qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, ya)));
             QLCPhysical phy = fixture->fixtureMode()->physical();
 
             // clamp the tilt.
@@ -430,7 +431,7 @@ void ContextManager::resetContexts()
     /** TODO: nothing to do on the other contexts ? */
 }
 
-void ContextManager::handleKeyPress(QKeyEvent *e)
+void ContextManager::handleKeyPress(QKeyEvent* e)
 {
     int key = e->key();
 
@@ -442,37 +443,37 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
 
     if (e->modifiers() & Qt::ControlModifier)
     {
-        switch(e->key())
+        switch (e->key())
         {
-            case Qt::Key_A:
-                toggleFixturesSelection();
+        case Qt::Key_A:
+            toggleFixturesSelection();
             break;
-            case Qt::Key_P:
-                setPositionPicking(true);
+        case Qt::Key_P:
+            setPositionPicking(true);
             break;
-            case Qt::Key_R:
-                resetDumpValues();
+        case Qt::Key_R:
+            resetDumpValues();
             break;
-            case Qt::Key_S:
-                QMetaObject::invokeMethod(m_view->rootObject(), "saveProject");
+        case Qt::Key_S:
+            QMetaObject::invokeMethod(m_view->rootObject(), "saveProject");
             break;
-            case Qt::Key_Z:
-                if (e->modifiers() & Qt::ShiftModifier)
-                    Tardis::instance()->redoAction();
-                else
-                    Tardis::instance()->undoAction();
+        case Qt::Key_Z:
+            if (e->modifiers() & Qt::ShiftModifier)
+                Tardis::instance()->redoAction();
+            else
+                Tardis::instance()->undoAction();
             break;
-            default:
+        default:
             break;
         }
     }
 
 
-    for (PreviewContext *context : m_contextsMap.values()) // C++11
+    for (PreviewContext* context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, true);
 }
 
-void ContextManager::handleKeyRelease(QKeyEvent *e)
+void ContextManager::handleKeyRelease(QKeyEvent* e)
 {
     int key = e->key();
 
@@ -482,7 +483,7 @@ void ContextManager::handleKeyRelease(QKeyEvent *e)
 
     qDebug() << "Key release event received:" << e->text();
 
-    for (PreviewContext *context : m_contextsMap.values()) // C++11
+    for (PreviewContext* context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, false);
 }
 
@@ -525,7 +526,7 @@ void ContextManager::setItemSelection(quint32 itemID, bool enable, int keyModifi
     }
 
     quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-    Fixture *fixture = m_doc->fixture(fxID);
+    Fixture* fixture = m_doc->fixture(fxID);
     if (fixture == nullptr)
         return;
 
@@ -570,7 +571,7 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
 
     emit dumpValuesCountChanged();
 
-    Fixture *fixture = m_doc->fixture(fixtureID);
+    Fixture* fixture = m_doc->fixture(fixtureID);
     if (fixture == nullptr)
         return;
 
@@ -604,7 +605,7 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     }
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(itemID, headIndex, enable);
-    if(channels.keys().isEmpty())
+    if (channels.keys().isEmpty())
         return;
 
     qDebug() << "[ContextManager] found" << channels.keys().count() << "capabilities";
@@ -613,7 +614,7 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
 #else
     QMultiHashIterator<int, SceneValue> it(channels);
 #endif
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 chType = it.key();
@@ -649,7 +650,7 @@ void ContextManager::setFixtureIDSelection(quint32 fixtureID, bool enable)
 
 void ContextManager::resetFixtureSelection()
 {
-    for (Fixture *fixture : m_doc->fixtures()) // C++11
+    for (Fixture* fixture : m_doc->fixtures()) // C++11
     {
         if (fixture == nullptr)
             continue;
@@ -684,7 +685,7 @@ void ContextManager::toggleFixturesSelection()
     if (m_selectedFixtures.count() == visibleCount)
         selectAll = false;
 
-    for (Fixture *fixture : m_doc->fixtures()) // C++11
+    for (Fixture* fixture : m_doc->fixtures()) // C++11
     {
         if (fixture == nullptr)
             continue;
@@ -721,7 +722,7 @@ QVariantList ContextManager::selectedFixtureAddress()
     for (quint32 itemID : m_selectedFixtures)
     {
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture* fixture = m_doc->fixture(fxID);
         if (fixture == nullptr)
             continue;
 
@@ -730,10 +731,7 @@ QVariantList ContextManager::selectedFixtureAddress()
             addresses.append(startAddr + i);
     }
 
-    std::sort(addresses.begin(), addresses.end(),
-              [](QVariant a, QVariant b) {
-                  return a.toUInt() < b.toUInt();
-              });
+    std::sort(addresses.begin(), addresses.end(), [](QVariant a, QVariant b) { return a.toUInt() < b.toUInt(); });
 
     return addresses;
 }
@@ -789,17 +787,17 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
 
         switch (m_monProps->pointOfView())
         {
-            case MonitorProperties::TopView:
-                newPos = QVector3D(currPos.x() + x, currPos.y(), currPos.z() + y);
+        case MonitorProperties::TopView:
+            newPos = QVector3D(currPos.x() + x, currPos.y(), currPos.z() + y);
             break;
-            case MonitorProperties::RightSideView:
-                newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() - x);
+        case MonitorProperties::RightSideView:
+            newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() - x);
             break;
-            case MonitorProperties::LeftSideView:
-                newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() + x);
+        case MonitorProperties::LeftSideView:
+            newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() + x);
             break;
-            default:
-                newPos = QVector3D(currPos.x() + x, currPos.y() - y, currPos.z());
+        default:
+            newPos = QVector3D(currPos.x() + x, currPos.y() - y, currPos.z());
             break;
         }
 
@@ -874,7 +872,7 @@ void ContextManager::setFixturesGelColor(QColor color)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture* fixture = m_doc->fixture(fxID);
 
         m_monProps->setFixtureGelColor(fxID, headIndex, linkedIndex, color);
         if (m_2DView->isEnabled())
@@ -934,7 +932,7 @@ void ContextManager::setFixturesDistribution(int direction)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture* fixture = m_doc->fixture(fxID);
         QPointF fxPos = FixtureUtils::item2DPosition(m_monProps, m_monProps->pointOfView(),
                                                      m_monProps->fixturePosition(fxID, headIndex, linkedIndex));
         QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), m_monProps->pointOfView());
@@ -981,7 +979,7 @@ void ContextManager::setFixturesDistribution(int direction)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture* fixture = m_doc->fixture(fxID);
         QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), m_monProps->pointOfView());
         qreal size = direction == Qt::Horizontal ? fxRect.width() : fxRect.height();
         QVector3D fxPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
@@ -989,31 +987,31 @@ void ContextManager::setFixturesDistribution(int direction)
         // the first and last fixture don't need any adjustment
         if (idx > 0 && idx < sortedIDs.count() - 1)
         {
-            switch(m_monProps->pointOfView())
+            switch (m_monProps->pointOfView())
             {
-                case MonitorProperties::TopView:
-                    if (direction == Qt::Horizontal)
-                        fxPos.setX(newPos);
-                    else
-                        fxPos.setZ(newPos);
+            case MonitorProperties::TopView:
+                if (direction == Qt::Horizontal)
+                    fxPos.setX(newPos);
+                else
+                    fxPos.setZ(newPos);
                 break;
-                case MonitorProperties::RightSideView:
-                    if (direction == Qt::Horizontal)
-                        fxPos.setZ(m_monProps->gridSize().z() - newPos);
-                    else
-                        fxPos.setY(newPos);
+            case MonitorProperties::RightSideView:
+                if (direction == Qt::Horizontal)
+                    fxPos.setZ(m_monProps->gridSize().z() - newPos);
+                else
+                    fxPos.setY(newPos);
                 break;
-                case MonitorProperties::LeftSideView:
-                    if (direction == Qt::Horizontal)
-                        fxPos.setZ(newPos);
-                    else
-                        fxPos.setY(newPos);
+            case MonitorProperties::LeftSideView:
+                if (direction == Qt::Horizontal)
+                    fxPos.setZ(newPos);
+                else
+                    fxPos.setY(newPos);
                 break;
-                default:
-                    if (direction == Qt::Horizontal)
-                        fxPos.setX(newPos);
-                    else
-                        fxPos.setY(newPos);
+            default:
+                if (direction == Qt::Horizontal)
+                    fxPos.setX(newPos);
+                else
+                    fxPos.setY(newPos);
                 break;
             }
 
@@ -1055,7 +1053,7 @@ void ContextManager::setLinkedFixture(quint32 itemID)
     {
         // create a new linked fixture - itemID is the base fixture
         int newIndex = 1;
-        Fixture *fixture = m_doc->fixture(fixtureID);
+        Fixture* fixture = m_doc->fixture(fixtureID);
         if (fixture == nullptr)
             return;
 
@@ -1152,14 +1150,20 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
             QVector3D newRot = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex) + degrees;
 
             // normalize back to a 0-359 range
-            if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
-            else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
+            if (newRot.x() < 0)
+                newRot.setX(newRot.x() + 360);
+            else if (newRot.x() >= 360)
+                newRot.setX(newRot.x() - 360);
 
-            if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
-            else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
+            if (newRot.y() < 0)
+                newRot.setY(newRot.y() + 360);
+            else if (newRot.y() >= 360)
+                newRot.setY(newRot.y() - 360);
 
-            if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
-            else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
+            if (newRot.z() < 0)
+                newRot.setZ(newRot.z() + 360);
+            else if (newRot.z() >= 360)
+                newRot.setZ(newRot.z() - 360);
 
             m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, newRot);
             if (m_2DView->isEnabled())
@@ -1176,7 +1180,7 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
 {
     if (isUniverse)
     {
-        for (Fixture *fixture : m_doc->fixtures())
+        for (Fixture* fixture : m_doc->fixtures())
         {
             if (fixture->universe() == id)
             {
@@ -1192,13 +1196,13 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
     }
     else
     {
-        FixtureGroup *group = m_doc->fixtureGroup(id);
+        FixtureGroup* group = m_doc->fixtureGroup(id);
         if (group == nullptr)
             return;
 
         for (quint32 fxID : group->fixtureList())
         {
-            Fixture *fixture = m_doc->fixture(fxID);
+            Fixture* fixture = m_doc->fixture(fxID);
             if (fixture == nullptr)
                 continue;
 
@@ -1263,7 +1267,7 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
-    //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
+    // qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
     for (SceneValue sv : svList)
     {
@@ -1296,7 +1300,7 @@ void ContextManager::slotColorChanged(QColor col, QColor wauv)
 void ContextManager::setPositionValue(int type, int degrees)
 {
     // list to keep track of the already processed Fixture IDs
-    QList<quint32>fxIDs;
+    QList<quint32> fxIDs;
     QList<SceneValue> typeList = m_channelsMap.values(type);
 
     for (SceneValue sv : typeList)
@@ -1320,7 +1324,7 @@ void ContextManager::setPositionValue(int type, int degrees)
 void ContextManager::setBeamDegrees(float degrees)
 {
     // list to keep track of the already processed Fixture IDs
-    QList<quint32>fxIDs;
+    QList<quint32> fxIDs;
     QList<SceneValue> typeList = m_channelsMap.values(QLCChannel::Beam);
 
     for (SceneValue sv : typeList)
@@ -1352,18 +1356,18 @@ void ContextManager::setChannelValues(QList<SceneValue> values)
     }
 }
 
-void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
+void ContextManager::slotPresetChanged(const QLCChannel* channel, quint8 value)
 {
     for (quint32 itemID : m_selectedFixtures)
     {
         quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
-        Fixture *fixture = m_doc->fixture(fixtureID);
+        Fixture* fixture = m_doc->fixture(fixtureID);
         if (fixture == nullptr)
             continue;
 
         if (fixture->fixtureDef() != nullptr && fixture->fixtureMode() != nullptr)
         {
-            quint32 chIdx = fixture->fixtureMode()->channelNumber((QLCChannel *)channel);
+            quint32 chIdx = fixture->fixtureMode()->channelNumber((QLCChannel*)channel);
             if (chIdx != QLCChannel::invalid())
                 slotChannelTypeValueChanged((int)channel->group(), value, chIdx);
         }
@@ -1376,9 +1380,9 @@ void ContextManager::slotSimpleDeskValueChanged(quint32 fxID, quint32 channel, q
         setDumpValue(fxID, channel, uchar(value), false);
 }
 
-void ContextManager::slotUniverseWritten(quint32 idx, const QByteArray &ua)
+void ContextManager::slotUniverseWritten(quint32 idx, const QByteArray& ua)
 {
-    for (Fixture *fixture : m_doc->fixtures())
+    for (Fixture* fixture : m_doc->fixtures())
     {
         if (fixture->universe() != idx)
             continue;
@@ -1435,7 +1439,7 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, bo
             m_dumpValues.append(sValue);
             emit dumpValuesCountChanged();
 
-            const QLCChannel *ch = m_doc->fixture(fxID)->channel(channel);
+            const QLCChannel* ch = m_doc->fixture(fxID)->channel(channel);
             if (ch != nullptr)
             {
                 if (ch->group() == QLCChannel::Intensity)
@@ -1453,7 +1457,7 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, bo
             }
         }
 
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture* fixture = m_doc->fixture(fxID);
         if (fixture)
             fixture->checkAlias(channel, value);
     }
@@ -1529,7 +1533,7 @@ void ContextManager::resetDumpValues()
     emit dumpChannelMaskChanged();
 }
 
-GenericDMXSource *ContextManager::dmxSource() const
+GenericDMXSource* ContextManager::dmxSource() const
 {
     return m_source;
 }

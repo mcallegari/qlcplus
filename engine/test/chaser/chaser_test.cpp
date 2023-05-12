@@ -201,7 +201,7 @@ void Chaser_Test::stepAt()
     QVERIFY(c.stepsCount() == 1);
 
     QVERIFY(c.stepAt(10) == NULL);
-    ChaserStep *cs = c.stepAt(0);
+    ChaserStep* cs = c.stepAt(0);
     QVERIFY(cs != NULL);
 
     QVERIFY(cs->fadeIn == 1000);
@@ -336,7 +336,7 @@ void Chaser_Test::createCopy()
     QVERIFY(f != c1);
     QVERIFY(f->id() != c1->id());
 
-    Chaser* copy = qobject_cast<Chaser*> (f);
+    Chaser* copy = qobject_cast<Chaser*>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->fadeInSpeed() == 42);
     QVERIFY(copy->fadeOutSpeed() == 69);
@@ -484,9 +484,9 @@ void Chaser_Test::loadSuccess()
     xmlWriter.writeStartElement("Step");
     xmlWriter.writeAttribute("Number", "0");
     // Let's leave these out from this step just for test's sake
-    //s3.setAttribute("FadeIn", 2600);
-    //s3.setAttribute("FadeOut", 2700);
-    //s3.setAttribute("Duration", 2800);
+    // s3.setAttribute("FadeIn", 2600);
+    // s3.setAttribute("FadeOut", 2700);
+    // s3.setAttribute("Duration", 2800);
     xmlWriter.writeCharacters("87");
     xmlWriter.writeEndElement();
 
@@ -874,7 +874,7 @@ void Chaser_Test::preRun()
     c->preRun(&timer);
     QVERIFY(c->m_runner != NULL);
     QCOMPARE(c->isRunning(), true); // Make sure Function::preRun() is called
-    //QCOMPARE(c->m_runner->m_elapsed, uint(0)); // Make sure ChaserRunner::reset() is called
+    // QCOMPARE(c->m_runner->m_elapsed, uint(0)); // Make sure ChaserRunner::reset() is called
     c->postRun(&timer, ua);
 }
 

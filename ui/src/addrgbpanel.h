@@ -34,10 +34,11 @@ class AddRGBPanel : public QDialog, public Ui_AddRGBPanel
     Q_DISABLE_COPY(AddRGBPanel)
 
 public:
-    AddRGBPanel(QWidget *parent, const Doc* doc);
+    AddRGBPanel(QWidget* parent, const Doc* doc);
     ~AddRGBPanel();
 
-    enum Orientation {
+    enum Orientation
+    {
         None,
         TopLeft,
         TopRight,
@@ -45,16 +46,18 @@ public:
         BottomRight
     };
 
-    enum Type {
+    enum Type
+    {
         Unknown,
         Snake,
         ZigZag
     };
 
-    enum Direction {
-    	Undefined,
-		Horizontal,
-		Vertical
+    enum Direction
+    {
+        Undefined,
+        Horizontal,
+        Vertical
     };
 
     QString name();
@@ -81,8 +84,7 @@ protected slots:
     void slotSizeChanged(int val);
 
 protected:
-    const Doc *m_doc;
-
+    const Doc* m_doc;
 };
 
 #endif // ADDRGBPANEL_H

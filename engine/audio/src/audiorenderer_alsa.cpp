@@ -30,7 +30,7 @@
 
 #include "audiorenderer_alsa.h"
 
-AudioRendererAlsa::AudioRendererAlsa(QString device, QObject * parent)
+AudioRendererAlsa::AudioRendererAlsa(QString device, QObject* parent)
     : AudioRenderer(parent)
 {
     QString dev_name = "default";
@@ -58,7 +58,7 @@ AudioRendererAlsa::~AudioRendererAlsa()
 {
     qDebug() << Q_FUNC_INFO;
     uninitialize();
-    free (pcm_name);
+    free(pcm_name);
 }
 
 bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
@@ -70,27 +70,27 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
 
     if (snd_pcm_open(&pcm_handle, pcm_name, SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK) < 0)
     {
-        qWarning ("OutputALSA: Error opening PCM device %s", pcm_name);
+        qWarning("OutputALSA: Error opening PCM device %s", pcm_name);
         // if it fails, fallback to the default device
         pcm_name = strdup("default");
         if (snd_pcm_open(&pcm_handle, pcm_name, SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK) < 0)
         {
-            qWarning ("OutputALSA: Error opening default PCM device. Giving up.");
+            qWarning("OutputALSA: Error opening default PCM device. Giving up.");
             return false;
         }
     }
 
-    uint rate = freq; /* Sample rate */
-    uint exact_rate = freq;   /* Sample rate returned by */
+    uint rate = freq;       /* Sample rate */
+    uint exact_rate = freq; /* Sample rate returned by */
 
     uint buffer_time = 500000;
     uint period_time = 100000;
 
-    snd_pcm_hw_params_t *hwparams = 0;
-    snd_pcm_sw_params_t *swparams = 0;
-    int err; //alsa error code
+    snd_pcm_hw_params_t* hwparams = 0;
+    snd_pcm_sw_params_t* swparams = 0;
+    int err; // alsa error code
 
-    //hw params
+    // hw params
     snd_pcm_hw_params_alloca(&hwparams);
     if ((err = snd_pcm_hw_params_any(pcm_handle, hwparams)) < 0)
     {
@@ -147,7 +147,8 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     }
     if (rate != exact_rate)
     {
-        qWarning("OutputALSA: The rate %d Hz is not supported by your hardware.\n==> Using %d Hz instead.", rate, exact_rate);
+        qWarning("OutputALSA: The rate %d Hz is not supported by your hardware.\n==> Using %d Hz instead.", rate,
+                 exact_rate);
     }
     uint c = chan;
     if ((err = snd_pcm_hw_params_set_channels_near(pcm_handle, hwparams, &c)) < 0)
@@ -155,12 +156,12 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
         qWarning("OutputALSA: Error setting channels: %s", snd_strerror(err));
         return false;
     }
-    if ((err = snd_pcm_hw_params_set_period_time_near(pcm_handle, hwparams, &period_time ,0)) < 0)
+    if ((err = snd_pcm_hw_params_set_period_time_near(pcm_handle, hwparams, &period_time, 0)) < 0)
     {
         qWarning("OutputALSA: Error setting period time: %s", snd_strerror(err));
         return false;
     }
-    if ((err = snd_pcm_hw_params_set_buffer_time_near(pcm_handle, hwparams, &buffer_time ,0)) < 0)
+    if ((err = snd_pcm_hw_params_set_buffer_time_near(pcm_handle, hwparams, &buffer_time, 0)) < 0)
     {
         qWarning("OutputALSA: Error setting buffer time: %s", snd_strerror(err));
         return false;
@@ -170,7 +171,7 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
         qWarning("OutputALSA: Error setting HW params: %s", snd_strerror(err));
         return false;
     }
-    //read some alsa parameters
+    // read some alsa parameters
     snd_pcm_uframes_t buffer_size = 0;
     snd_pcm_uframes_t period_size = 0;
     if ((err = snd_pcm_hw_params_get_buffer_size(hwparams, &buffer_size)) < 0)
@@ -183,27 +184,26 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
         qWarning("OutputALSA: Error reading period size: %s", snd_strerror(err));
         return false;
     }
-    //swparams
+    // swparams
     snd_pcm_sw_params_alloca(&swparams);
     snd_pcm_sw_params_current(pcm_handle, swparams);
-    if ((err = snd_pcm_sw_params_set_start_threshold(pcm_handle, swparams,
-               buffer_size - period_size)) < 0)
+    if ((err = snd_pcm_sw_params_set_start_threshold(pcm_handle, swparams, buffer_size - period_size)) < 0)
         qWarning("OutputALSA: Error setting threshold: %s", snd_strerror(err));
     if ((err = snd_pcm_sw_params(pcm_handle, swparams)) < 0)
     {
         qWarning("OutputALSA: Error setting SW params: %s", snd_strerror(err));
         return false;
     }
-    //setup needed values
+    // setup needed values
     m_bits_per_frame = snd_pcm_format_physical_width(alsa_format) * chan;
     m_chunk_size = period_size;
     m_can_pause = snd_pcm_hw_params_can_pause(hwparams);
 
     qDebug("OutputALSA: can pause: %d", m_can_pause);
 
-    //create alsa prebuffer;
+    // create alsa prebuffer;
     m_prebuf_size = m_bits_per_frame * m_chunk_size / 8;
-    m_prebuf = (uchar *)malloc(m_prebuf_size);
+    m_prebuf = (uchar*)malloc(m_prebuf_size);
 
     m_inited = true;
     return true;
@@ -211,7 +211,7 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
 
 qint64 AudioRendererAlsa::latency()
 {
-    //return m_prebuf_fill * 1000 / sampleRate() / channels() / sampleSize();
+    // return m_prebuf_fill * 1000 / sampleRate() / channels() / sampleSize();
     return 0;
 }
 
@@ -220,10 +220,10 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
     QList<AudioDeviceInfo> devList;
     int cardIdx = -1;
 
-    while( snd_card_next( &cardIdx ) == 0 && cardIdx >= 0 )
+    while (snd_card_next(&cardIdx) == 0 && cardIdx >= 0)
     {
-        snd_ctl_t *cardHandle;
-        snd_ctl_card_info_t *cardInfo;
+        snd_ctl_t* cardHandle;
+        snd_ctl_card_info_t* cardInfo;
         char str[64];
         int devIdx = -1;
         int err;
@@ -249,31 +249,31 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 
         qDebug() << "[getDevicesInfo] Card" << cardIdx << "=" << snd_ctl_card_info_get_name(cardInfo);
 
-        while( snd_ctl_pcm_next_device( cardHandle, &devIdx ) == 0 && devIdx >= 0 )
+        while (snd_ctl_pcm_next_device(cardHandle, &devIdx) == 0 && devIdx >= 0)
         {
-            snd_pcm_info_t *pcmInfo;
+            snd_pcm_info_t* pcmInfo;
             int tmpCaps = 0;
 
-            snd_pcm_info_alloca( &pcmInfo );
+            snd_pcm_info_alloca(&pcmInfo);
 
-            snprintf( str, sizeof (str), "plughw:%d,%d", cardIdx, devIdx );
+            snprintf(str, sizeof(str), "plughw:%d,%d", cardIdx, devIdx);
 
             /* Obtain info about this particular device */
-            snd_pcm_info_set_device( pcmInfo, devIdx );
-            snd_pcm_info_set_subdevice( pcmInfo, 0 );
-            snd_pcm_info_set_stream( pcmInfo, SND_PCM_STREAM_CAPTURE );
-            if( snd_ctl_pcm_info( cardHandle, pcmInfo ) >= 0 )
+            snd_pcm_info_set_device(pcmInfo, devIdx);
+            snd_pcm_info_set_subdevice(pcmInfo, 0);
+            snd_pcm_info_set_stream(pcmInfo, SND_PCM_STREAM_CAPTURE);
+            if (snd_ctl_pcm_info(cardHandle, pcmInfo) >= 0)
                 tmpCaps |= AUDIO_CAP_INPUT;
 
-            snd_pcm_info_set_stream( pcmInfo, SND_PCM_STREAM_PLAYBACK );
-            if( snd_ctl_pcm_info( cardHandle, pcmInfo ) >= 0 )
+            snd_pcm_info_set_stream(pcmInfo, SND_PCM_STREAM_PLAYBACK);
+            if (snd_ctl_pcm_info(cardHandle, pcmInfo) >= 0)
                 tmpCaps |= AUDIO_CAP_OUTPUT;
 
             if (tmpCaps != 0)
             {
                 AudioDeviceInfo info;
-                info.deviceName = QString(snd_ctl_card_info_get_name(cardInfo)) + " - " +
-                                  QString (snd_pcm_info_get_name( pcmInfo ));
+                info.deviceName =
+                    QString(snd_ctl_card_info_get_name(cardInfo)) + " - " + QString(snd_pcm_info_get_name(pcmInfo));
                 info.privateName = QString(str);
                 info.capabilities = tmpCaps;
                 devList.append(info);
@@ -292,12 +292,12 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)
+qint64 AudioRendererAlsa::writeAudio(unsigned char* data, qint64 maxSize)
 {
     if (pcm_handle == NULL || m_prebuf == NULL)
         return 0;
 
-    if((maxSize = qMin(maxSize, m_prebuf_size - m_prebuf_fill)) > 0)
+    if ((maxSize = qMin(maxSize, m_prebuf_size - m_prebuf_fill)) > 0)
     {
         memmove(m_prebuf + m_prebuf_fill, data, maxSize);
         m_prebuf_fill += maxSize;
@@ -314,7 +314,7 @@ qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)
             l -= m;
             m = snd_pcm_frames_to_bytes(pcm_handle, m); // convert frames to bytes
             m_prebuf_fill -= m;
-            memmove(m_prebuf, m_prebuf + m, m_prebuf_fill); //move data to begin
+            memmove(m_prebuf, m_prebuf + m, m_prebuf_fill); // move data to begin
         }
         else
             return -1;
@@ -322,19 +322,19 @@ qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)
     return maxSize;
 }
 
-long AudioRendererAlsa::alsa_write(unsigned char *data, long size)
+long AudioRendererAlsa::alsa_write(unsigned char* data, long size)
 {
     long m = snd_pcm_avail_update(pcm_handle);
-    if(m >= 0 && m < size)
+    if (m >= 0 && m < size)
     {
         snd_pcm_wait(pcm_handle, 500);
         return 0;
     }
 
     if (m_use_mmap)
-        m = snd_pcm_mmap_writei (pcm_handle, data, size);
+        m = snd_pcm_mmap_writei(pcm_handle, data, size);
     else
-        m = snd_pcm_writei (pcm_handle, data, size);
+        m = snd_pcm_writei(pcm_handle, data, size);
 
     if (m == -EAGAIN)
     {
@@ -351,11 +351,10 @@ long AudioRendererAlsa::alsa_write(unsigned char *data, long size)
     }
     else if (m == -EPIPE)
     {
-        qDebug ("OutputALSA: buffer underrun!");
+        qDebug("OutputALSA: buffer underrun!");
         if ((m = snd_pcm_prepare(pcm_handle)) < 0)
         {
-            qDebug ("OutputALSA: Can't recover after underrun: %s",
-                    snd_strerror(m));
+            qDebug("OutputALSA: Can't recover after underrun: %s", snd_strerror(m));
             /* TODO: reopen the device */
             return -1;
         }
@@ -364,25 +363,23 @@ long AudioRendererAlsa::alsa_write(unsigned char *data, long size)
 #ifdef ESTRPIPE
     else if (m == -ESTRPIPE)
     {
-        qDebug ("OutputALSA: Suspend, trying to resume");
-        while ((m = snd_pcm_resume(pcm_handle))
-                == -EAGAIN)
-            sleep (1);
+        qDebug("OutputALSA: Suspend, trying to resume");
+        while ((m = snd_pcm_resume(pcm_handle)) == -EAGAIN)
+            sleep(1);
         if (m < 0)
         {
-            qDebug ("OutputALSA: Failed, restarting");
+            qDebug("OutputALSA: Failed, restarting");
             if ((m = snd_pcm_prepare(pcm_handle)) < 0)
             {
-                qDebug ("OutputALSA: Failed to restart device: %s.",
-                        snd_strerror(m));
+                qDebug("OutputALSA: Failed to restart device: %s.", snd_strerror(m));
                 return -1;
             }
         }
         return 0;
     }
 #endif
-    qDebug ("OutputALSA: error: %s", snd_strerror(m));
-    return snd_pcm_prepare (pcm_handle);
+    qDebug("OutputALSA: error: %s", snd_strerror(m));
+    return snd_pcm_prepare(pcm_handle);
 }
 
 void AudioRendererAlsa::drain()

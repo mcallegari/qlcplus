@@ -46,9 +46,9 @@
 
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
 
-#define KColumnNumber  0
-#define KColumnName    1
-#define KColumnMode    2
+#define KColumnNumber 0
+#define KColumnName 1
+#define KColumnMode 2
 #define KColumnReverse 3
 #define KColumnStartOffset 4
 
@@ -76,8 +76,7 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
 
     setupUi(this);
 
-    connect(m_speedDial, SIGNAL(toggled(bool)),
-            this, SLOT(slotSpeedDialToggle(bool)));
+    connect(m_speedDial, SIGNAL(toggled(bool)), this, SLOT(slotSpeedDialToggle(bool)));
 
     initGeneralPage();
     initMovementPage();
@@ -89,8 +88,7 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
         m_tab->setCurrentIndex(tabIndex.toInt());
 
     /* Tab widget */
-    connect(m_tab, SIGNAL(currentChanged(int)),
-            this, SLOT(slotTabChanged(int)));
+    connect(m_tab, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
 
     // Used for UI parameter changes
     m_testTimer.setSingleShot(true);
@@ -159,42 +157,28 @@ void EFXEditor::initGeneralPage()
     if (m_doc->mode() == Doc::Operate)
         m_testButton->setEnabled(false);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
 
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotFixtureItemChanged(QTreeWidgetItem*,int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
+            SLOT(slotFixtureItemChanged(QTreeWidgetItem*, int)));
 
-    connect(m_addFixtureButton, SIGNAL(clicked()),
-            this, SLOT(slotAddFixtureClicked()));
-    connect(m_removeFixtureButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveFixtureClicked()));
+    connect(m_addFixtureButton, SIGNAL(clicked()), this, SLOT(slotAddFixtureClicked()));
+    connect(m_removeFixtureButton, SIGNAL(clicked()), this, SLOT(slotRemoveFixtureClicked()));
 
-    connect(m_raiseFixtureButton, SIGNAL(clicked()),
-            this, SLOT(slotRaiseFixtureClicked()));
-    connect(m_lowerFixtureButton, SIGNAL(clicked()),
-            this, SLOT(slotLowerFixtureClicked()));
+    connect(m_raiseFixtureButton, SIGNAL(clicked()), this, SLOT(slotRaiseFixtureClicked()));
+    connect(m_lowerFixtureButton, SIGNAL(clicked()), this, SLOT(slotLowerFixtureClicked()));
 
-    connect(m_parallelRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotParallelRadioToggled(bool)));
-    connect(m_serialRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotSerialRadioToggled(bool)));
-    connect(m_asymmetricRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotAsymmetricRadioToggled(bool)));
+    connect(m_parallelRadio, SIGNAL(toggled(bool)), this, SLOT(slotParallelRadioToggled(bool)));
+    connect(m_serialRadio, SIGNAL(toggled(bool)), this, SLOT(slotSerialRadioToggled(bool)));
+    connect(m_asymmetricRadio, SIGNAL(toggled(bool)), this, SLOT(slotAsymmetricRadioToggled(bool)));
 
     // Test slots
-    connect(m_testButton, SIGNAL(clicked()),
-            this, SLOT(slotTestClicked()));
-    connect(m_raiseFixtureButton, SIGNAL(clicked()),
-            this, SLOT(slotRestartTest()));
-    connect(m_lowerFixtureButton, SIGNAL(clicked()),
-            this, SLOT(slotRestartTest()));
-    connect(m_parallelRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotRestartTest()));
-    connect(m_serialRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotRestartTest()));
-    connect(m_asymmetricRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotRestartTest()));
+    connect(m_testButton, SIGNAL(clicked()), this, SLOT(slotTestClicked()));
+    connect(m_raiseFixtureButton, SIGNAL(clicked()), this, SLOT(slotRestartTest()));
+    connect(m_lowerFixtureButton, SIGNAL(clicked()), this, SLOT(slotRestartTest()));
+    connect(m_parallelRadio, SIGNAL(toggled(bool)), this, SLOT(slotRestartTest()));
+    connect(m_serialRadio, SIGNAL(toggled(bool)), this, SLOT(slotRestartTest()));
+    connect(m_asymmetricRadio, SIGNAL(toggled(bool)), this, SLOT(slotRestartTest()));
 }
 
 void EFXEditor::initMovementPage()
@@ -238,70 +222,52 @@ void EFXEditor::initMovementPage()
     /* Running order */
     switch (m_efx->runOrder())
     {
-        default:
-        case Function::Loop:
-            m_loop->setChecked(true);
+    default:
+    case Function::Loop:
+        m_loop->setChecked(true);
         break;
-        case Function::SingleShot:
-            m_singleShot->setChecked(true);
+    case Function::SingleShot:
+        m_singleShot->setChecked(true);
         break;
-        case Function::PingPong:
-            m_pingPong->setChecked(true);
+    case Function::PingPong:
+        m_pingPong->setChecked(true);
         break;
     }
 
     /* Direction */
     switch (m_efx->direction())
     {
-        default:
-        case Function::Forward:
-            m_forward->setChecked(true);
+    default:
+    case Function::Forward:
+        m_forward->setChecked(true);
         break;
-        case Function::Backward:
-            m_backward->setChecked(true);
+    case Function::Backward:
+        m_backward->setChecked(true);
         break;
     }
 
-    connect(m_loop, SIGNAL(clicked()),
-            this, SLOT(slotLoopClicked()));
-    connect(m_singleShot, SIGNAL(clicked()),
-            this, SLOT(slotSingleShotClicked()));
-    connect(m_pingPong, SIGNAL(clicked()),
-            this, SLOT(slotPingPongClicked()));
+    connect(m_loop, SIGNAL(clicked()), this, SLOT(slotLoopClicked()));
+    connect(m_singleShot, SIGNAL(clicked()), this, SLOT(slotSingleShotClicked()));
+    connect(m_pingPong, SIGNAL(clicked()), this, SLOT(slotPingPongClicked()));
 
-    connect(m_forward, SIGNAL(clicked()),
-            this, SLOT(slotForwardClicked()));
-    connect(m_backward, SIGNAL(clicked()),
-            this, SLOT(slotBackwardClicked()));
+    connect(m_forward, SIGNAL(clicked()), this, SLOT(slotForwardClicked()));
+    connect(m_backward, SIGNAL(clicked()), this, SLOT(slotBackwardClicked()));
 
-    connect(m_algorithmCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotAlgorithmSelected(const QString&)));
-    connect(m_widthSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotWidthSpinChanged(int)));
-    connect(m_heightSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotHeightSpinChanged(int)));
-    connect(m_xOffsetSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotXOffsetSpinChanged(int)));
-    connect(m_yOffsetSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotYOffsetSpinChanged(int)));
-    connect(m_rotationSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotRotationSpinChanged(int)));
-    connect(m_startOffsetSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotStartOffsetSpinChanged(int)));
-    connect(m_isRelativeCheckbox, SIGNAL(stateChanged(int)),
-            this, SLOT(slotIsRelativeCheckboxChanged(int)));
+    connect(m_algorithmCombo, SIGNAL(activated(const QString&)), this, SLOT(slotAlgorithmSelected(const QString&)));
+    connect(m_widthSpin, SIGNAL(valueChanged(int)), this, SLOT(slotWidthSpinChanged(int)));
+    connect(m_heightSpin, SIGNAL(valueChanged(int)), this, SLOT(slotHeightSpinChanged(int)));
+    connect(m_xOffsetSpin, SIGNAL(valueChanged(int)), this, SLOT(slotXOffsetSpinChanged(int)));
+    connect(m_yOffsetSpin, SIGNAL(valueChanged(int)), this, SLOT(slotYOffsetSpinChanged(int)));
+    connect(m_rotationSpin, SIGNAL(valueChanged(int)), this, SLOT(slotRotationSpinChanged(int)));
+    connect(m_startOffsetSpin, SIGNAL(valueChanged(int)), this, SLOT(slotStartOffsetSpinChanged(int)));
+    connect(m_isRelativeCheckbox, SIGNAL(stateChanged(int)), this, SLOT(slotIsRelativeCheckboxChanged(int)));
 
-    connect(m_xFrequencySpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotXFrequencySpinChanged(int)));
-    connect(m_yFrequencySpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotYFrequencySpinChanged(int)));
-    connect(m_xPhaseSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotXPhaseSpinChanged(int)));
-    connect(m_yPhaseSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotYPhaseSpinChanged(int)));
+    connect(m_xFrequencySpin, SIGNAL(valueChanged(int)), this, SLOT(slotXFrequencySpinChanged(int)));
+    connect(m_yFrequencySpin, SIGNAL(valueChanged(int)), this, SLOT(slotYFrequencySpinChanged(int)));
+    connect(m_xPhaseSpin, SIGNAL(valueChanged(int)), this, SLOT(slotXPhaseSpinChanged(int)));
+    connect(m_yPhaseSpin, SIGNAL(valueChanged(int)), this, SLOT(slotYPhaseSpinChanged(int)));
 
-    connect(m_colorCheck, SIGNAL(toggled(bool)),
-            this, SLOT(slotSetColorBackground(bool)));
+    connect(m_colorCheck, SIGNAL(toggled(bool)), this, SLOT(slotSetColorBackground(bool)));
 
     redrawPreview();
 }
@@ -312,7 +278,7 @@ void EFXEditor::slotTestClicked()
     {
         m_efx->start(m_doc->masterTimer(), functionParent());
 
-        //Restart animation so preview it is in sync with real test
+        // Restart animation so preview it is in sync with real test
         m_previewArea->restart();
     }
     else
@@ -347,9 +313,9 @@ void EFXEditor::slotTabChanged(int tab)
 {
     m_efx->setUiStateValue(UI_STATE_TAB_INDEX, tab);
 
-    //When preview animation is opened restart animation but avoid restart if test is running.
-    if(tab == 1 && (m_testButton->isChecked () == false))
-        m_previewArea->restart ();
+    // When preview animation is opened restart animation but avoid restart if test is running.
+    if (tab == 1 && (m_testButton->isChecked() == false))
+        m_previewArea->restart();
 }
 
 void EFXEditor::slotSetColorBackground(bool checked)
@@ -394,7 +360,7 @@ FunctionParent EFXEditor::functionParent() const
 void EFXEditor::updateFixtureTree()
 {
     m_tree->clear();
-    QListIterator <EFXFixture*> it(m_efx->fixtures());
+    QListIterator<EFXFixture*> it(m_efx->fixtures());
     while (it.hasNext() == true)
         addFixtureItem(it.next());
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
@@ -406,8 +372,7 @@ QTreeWidgetItem* EFXEditor::fixtureItem(EFXFixture* ef)
     while (*it != NULL)
     {
         QTreeWidgetItem* item = *it;
-        EFXFixture* ef_item = reinterpret_cast<EFXFixture*>
-                              (item->data(0, Qt::UserRole).toULongLong());
+        EFXFixture* ef_item = reinterpret_cast<EFXFixture*>(item->data(0, Qt::UserRole).toULongLong());
         if (ef_item == ef)
             return item;
         ++it;
@@ -416,16 +381,15 @@ QTreeWidgetItem* EFXEditor::fixtureItem(EFXFixture* ef)
     return NULL;
 }
 
-const QList <EFXFixture*> EFXEditor::selectedFixtures() const
+const QList<EFXFixture*> EFXEditor::selectedFixtures() const
 {
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
-    QList <EFXFixture*> list;
+    QListIterator<QTreeWidgetItem*> it(m_tree->selectedItems());
+    QList<EFXFixture*> list;
 
     /* Put all selected fixture IDs to a list and return it */
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = reinterpret_cast <EFXFixture*>
-                         (it.next()->data(0, Qt::UserRole).toULongLong());
+        EFXFixture* ef = reinterpret_cast<EFXFixture*>(it.next()->data(0, Qt::UserRole).toULongLong());
         list << ef;
     }
 
@@ -436,11 +400,10 @@ void EFXEditor::updateIndices(int from, int to)
 {
     for (int i = from; i <= to; i++)
     {
-        QTreeWidgetItem *item = m_tree->topLevelItem(i);
+        QTreeWidgetItem* item = m_tree->topLevelItem(i);
         Q_ASSERT(item != NULL);
 
-        item->setText(KColumnNumber,
-                      QString("%1").arg(i + 1, 3, 10, QChar('0')));
+        item->setText(KColumnNumber, QString("%1").arg(i + 1, 3, 10, QChar('0')));
     }
 }
 
@@ -465,7 +428,7 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
     {
         item->setText(KColumnName, fxi->name());
     }
-    item->setData(0, Qt::UserRole, QVariant(reinterpret_cast<qulonglong> (ef)));
+    item->setData(0, Qt::UserRole, QVariant(reinterpret_cast<qulonglong>(ef)));
     item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 
     if (ef->direction() == Function::Backward)
@@ -476,8 +439,7 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
     updateModeColumn(item, ef);
     updateStartOffsetColumn(item, ef);
 
-    updateIndices(m_tree->indexOfTopLevelItem(item),
-                  m_tree->topLevelItemCount() - 1);
+    updateIndices(m_tree->indexOfTopLevelItem(item), m_tree->topLevelItemCount() - 1);
 
     /* Select newly-added fixtures so that they can be moved quickly */
     m_tree->setCurrentItem(item);
@@ -493,14 +455,13 @@ void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
         QComboBox* combo = new QComboBox(m_tree);
         combo->setAutoFillBackground(true);
         combo->addItems(ef->modeList());
-        combo->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
+        combo->setProperty(PROPERTY_FIXTURE, (qulonglong)ef);
         m_tree->setItemWidget(item, KColumnMode, combo);
 
         const int index = combo->findText(ef->modeToString(ef->mode()));
         combo->setCurrentIndex(index);
 
-        connect(combo, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(slotFixtureModeChanged(int)));
+        connect(combo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotFixtureModeChanged(int)));
     }
 }
 
@@ -517,9 +478,8 @@ void EFXEditor::updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef)
         spin->setValue(ef->startOffset());
         spin->setSuffix(QChar(0x00b0)); // degree
         m_tree->setItemWidget(item, KColumnStartOffset, spin);
-        spin->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
-        connect(spin, SIGNAL(valueChanged(int)),
-                this, SLOT(slotFixtureStartOffsetChanged(int)));
+        spin->setProperty(PROPERTY_FIXTURE, (qulonglong)ef);
+        connect(spin, SIGNAL(valueChanged(int)), this, SLOT(slotFixtureStartOffsetChanged(int)));
     }
 }
 
@@ -542,7 +502,7 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
-void EFXEditor::slotDialDestroyed(QObject *)
+void EFXEditor::slotDialDestroyed(QObject*)
 {
     m_speedDial->setChecked(false);
 }
@@ -564,7 +524,7 @@ void EFXEditor::createSpeedDials()
 
 void EFXEditor::updateSpeedDials()
 {
-   if (m_speedDial->isChecked() == false)
+    if (m_speedDial->isChecked() == false)
         return;
 
     createSpeedDials();
@@ -578,7 +538,7 @@ void EFXEditor::updateSpeedDials()
         m_speedDials->setDuration(m_efx->duration() - m_efx->fadeInSpeed() - m_efx->fadeOutSpeed());
 }
 
-void EFXEditor::slotNameEdited(const QString &text)
+void EFXEditor::slotNameEdited(const QString& text)
 {
     m_efx->setName(text);
     if (m_speedDials)
@@ -605,8 +565,7 @@ void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
 {
     if (column == KColumnReverse)
     {
-        EFXFixture* ef = reinterpret_cast <EFXFixture*>
-                         (item->data(0, Qt::UserRole).toULongLong());
+        EFXFixture* ef = reinterpret_cast<EFXFixture*>(item->data(0, Qt::UserRole).toULongLong());
         Q_ASSERT(ef != NULL);
 
         if (item->checkState(column) == Qt::Checked)
@@ -623,10 +582,10 @@ void EFXEditor::slotFixtureModeChanged(int index)
     QComboBox* combo = qobject_cast<QComboBox*>(QObject::sender());
     Q_ASSERT(combo != NULL);
 
-    EFXFixture* ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture* ef = (EFXFixture*)combo->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
 
-    ef->setMode ( ef->stringToMode (combo->itemText(index)) );
+    ef->setMode(ef->stringToMode(combo->itemText(index)));
 
     // Restart the test after the latest mode change, delayed
     m_testTimer.start();
@@ -636,7 +595,7 @@ void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
 {
     QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
     Q_ASSERT(spin != NULL);
-    EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture* ef = (EFXFixture*)spin->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
     ef->setStartOffset(startOffset);
 
@@ -653,7 +612,7 @@ void EFXEditor::slotAddFixtureClicked()
 
     /* Put all fixtures already present into a list of fixtures that
        will be disabled in the fixture selection dialog */
-    QList <GroupHead> disabled;
+    QList<GroupHead> disabled;
     QTreeWidgetItemIterator twit(m_tree);
     /*
     while (*twit != NULL)
@@ -709,7 +668,7 @@ void EFXEditor::slotAddFixtureClicked()
         // Stop running while adding fixtures
         bool running = interruptRunning();
 
-        QListIterator <GroupHead> it(fs.selectedHeads());
+        QListIterator<GroupHead> it(fs.selectedHeads());
         while (it.hasNext() == true)
         {
             EFXFixture* ef = new EFXFixture(m_efx);
@@ -732,17 +691,15 @@ void EFXEditor::slotAddFixtureClicked()
 
 void EFXEditor::slotRemoveFixtureClicked()
 {
-    int r = QMessageBox::question(
-                this, tr("Remove fixtures"),
-                tr("Do you want to remove the selected fixture(s)?"),
-                QMessageBox::Yes, QMessageBox::No);
+    int r = QMessageBox::question(this, tr("Remove fixtures"), tr("Do you want to remove the selected fixture(s)?"),
+                                  QMessageBox::Yes, QMessageBox::No);
 
     if (r == QMessageBox::Yes)
     {
         // Stop running while removing fixtures
         bool running = interruptRunning();
 
-        QListIterator <EFXFixture*> it(selectedFixtures());
+        QListIterator<EFXFixture*> it(selectedFixtures());
         while (it.hasNext() == true)
         {
             EFXFixture* ef = it.next();
@@ -772,8 +729,7 @@ void EFXEditor::slotRaiseFixtureClicked()
         if (index == 0)
             return;
 
-        EFXFixture* ef = reinterpret_cast <EFXFixture*>
-                         (item->data(0, Qt::UserRole).toULongLong());
+        EFXFixture* ef = reinterpret_cast<EFXFixture*>(item->data(0, Qt::UserRole).toULongLong());
         Q_ASSERT(ef != NULL);
 
         if (m_efx->raiseFixture(ef) == true)
@@ -807,8 +763,7 @@ void EFXEditor::slotLowerFixtureClicked()
         if (index == (m_tree->topLevelItemCount() - 1))
             return;
 
-        EFXFixture* ef = reinterpret_cast <EFXFixture*>
-                         (item->data(0, Qt::UserRole).toULongLong());
+        EFXFixture* ef = reinterpret_cast<EFXFixture*>(item->data(0, Qt::UserRole).toULongLong());
         Q_ASSERT(ef != NULL);
 
         if (m_efx->lowerFixture(ef) == true)
@@ -889,7 +844,7 @@ void EFXEditor::slotFixtureChanged()
  * Movement page
  *****************************************************************************/
 
-void EFXEditor::slotAlgorithmSelected(const QString &text)
+void EFXEditor::slotAlgorithmSelected(const QString& text)
 {
     Q_ASSERT(m_efx != NULL);
 
@@ -1057,7 +1012,7 @@ void EFXEditor::redrawPreview()
     QPolygonF polygon;
     m_efx->preview(polygon);
 
-    QVector <QPolygonF> fixturePoints;
+    QVector<QPolygonF> fixturePoints;
     m_efx->previewFixtures(fixturePoints);
 
     m_previewArea->setPolygon(polygon);
@@ -1065,4 +1020,3 @@ void EFXEditor::redrawPreview()
 
     m_previewArea->draw(m_efx->duration() / polygon.size());
 }
-

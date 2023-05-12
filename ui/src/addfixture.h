@@ -65,7 +65,7 @@ public:
      *********************************************************************/
 public:
     /** Get the selected QLCFixtureDef */
-    QLCFixtureDef *fixtureDef() const;
+    QLCFixtureDef* fixtureDef() const;
 
     /** Get the selected QLCFixtureMode */
     QLCFixtureMode* mode() const;
@@ -112,8 +112,7 @@ protected:
 protected:
     /** Fill all known fixture definitions to the tree view. Select the
         given model from the given manufacturer. */
-    void fillTree(const QString& selectManufacturer,
-                  const QString& selectModel);
+    void fillTree(const QString& selectManufacturer, const QString& selectModel);
 
     /** Fill all modes of the current fixture to the mode combo */
     void fillModeCombo(const QString& text = QString());
@@ -131,8 +130,7 @@ protected:
      * @param numChannels Number of channels in the address space
      * @return The address or QLCChannel::invalid() if not found
      */
-    static quint32 findAddress(quint32 numChannels, QList<Fixture*> const& fixtures,
-                               quint32 maxUniverses);
+    static quint32 findAddress(quint32 numChannels, QList<Fixture*> const& fixtures, quint32 maxUniverses);
 
     /**
      * Try to find the next free address from the given universe for
@@ -145,8 +143,8 @@ protected:
      * @param currentFixture ID of current fixture, that will be ignored
      * @return An address or QLCChannel::invalid() if address space not available
      */
-    static quint32 findAddress(quint32 universe, quint32 numChannels,
-                               QList<Fixture*> const& fixtures, quint32 currentFixture = Fixture::invalidId());
+    static quint32 findAddress(quint32 universe, quint32 numChannels, QList<Fixture*> const& fixtures,
+                               quint32 currentFixture = Fixture::invalidId());
 
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();
@@ -182,7 +180,7 @@ protected slots:
     void slotTreeDoubleClicked(QTreeWidgetItem* item);
 
     /** Callback for friendly name editing */
-    void slotNameEdited(const QString &text);
+    void slotNameEdited(const QString& text);
 
     /** Callback for fixture amount value changes */
     void slotAmountSpinChanged(int value);

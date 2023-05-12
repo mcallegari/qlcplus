@@ -64,8 +64,8 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 {
     if (this != &fixture)
     {
-        QListIterator <QLCChannel*> chit(fixture.m_channels);
-        QListIterator <QLCFixtureMode*> modeit(fixture.m_modes);
+        QListIterator<QLCChannel*> chit(fixture.m_channels);
+        QListIterator<QLCFixtureMode*> modeit(fixture.m_modes);
 
         m_manufacturer = fixture.m_manufacturer;
         m_model = fixture.m_model;
@@ -97,7 +97,7 @@ QString QLCFixtureDef::definitionSourceFile() const
     return m_fileAbsolutePath;
 }
 
-void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
+void QLCFixtureDef::setDefinitionSourceFile(const QString& absPath)
 {
     m_fileAbsolutePath = absPath;
     m_isLoaded = false;
@@ -144,41 +144,68 @@ QLCFixtureDef::FixtureType QLCFixtureDef::type()
 
 QLCFixtureDef::FixtureType QLCFixtureDef::stringToType(const QString& type)
 {
-    if (type == "Color Changer") return ColorChanger;
-    else if (type == "Dimmer") return Dimmer;
-    else if (type == "Effect") return Effect;
-    else if (type == "Fan") return Fan;
-    else if (type == "Flower") return Flower;
-    else if (type == "Hazer") return Hazer;
-    else if (type == "Laser") return Laser;
-    else if (type == "Moving Head") return MovingHead;
-    else if (type == "Scanner") return Scanner;
-    else if (type == "Smoke") return Smoke;
-    else if (type == "Strobe") return Strobe;
-    else if (type == "LED Bar (Beams)") return LEDBarBeams;
-    else if (type == "LED Bar (Pixels)") return LEDBarPixels;
+    if (type == "Color Changer")
+        return ColorChanger;
+    else if (type == "Dimmer")
+        return Dimmer;
+    else if (type == "Effect")
+        return Effect;
+    else if (type == "Fan")
+        return Fan;
+    else if (type == "Flower")
+        return Flower;
+    else if (type == "Hazer")
+        return Hazer;
+    else if (type == "Laser")
+        return Laser;
+    else if (type == "Moving Head")
+        return MovingHead;
+    else if (type == "Scanner")
+        return Scanner;
+    else if (type == "Smoke")
+        return Smoke;
+    else if (type == "Strobe")
+        return Strobe;
+    else if (type == "LED Bar (Beams)")
+        return LEDBarBeams;
+    else if (type == "LED Bar (Pixels)")
+        return LEDBarPixels;
 
     return Other;
 }
 
 QString QLCFixtureDef::typeToString(QLCFixtureDef::FixtureType type)
 {
-    switch(type)
+    switch (type)
     {
-        case ColorChanger: return "Color Changer";
-        case Dimmer: return "Dimmer";
-        case Effect: return "Effect";
-        case Fan: return "Fan";
-        case Flower: return "Flower";
-        case Hazer: return "Hazer";
-        case Laser: return "Laser";
-        case MovingHead: return "Moving Head";
-        case Scanner: return "Scanner";
-        case Smoke: return "Smoke";
-        case Strobe: return "Strobe";
-        case LEDBarBeams: return "LED Bar (Beams)";
-        case LEDBarPixels: return "LED Bar (Pixels)";
-        default: return "Other";
+    case ColorChanger:
+        return "Color Changer";
+    case Dimmer:
+        return "Dimmer";
+    case Effect:
+        return "Effect";
+    case Fan:
+        return "Fan";
+    case Flower:
+        return "Flower";
+    case Hazer:
+        return "Hazer";
+    case Laser:
+        return "Laser";
+    case MovingHead:
+        return "Moving Head";
+    case Scanner:
+        return "Scanner";
+    case Smoke:
+        return "Smoke";
+    case Strobe:
+        return "Strobe";
+    case LEDBarBeams:
+        return "LED Bar (Beams)";
+    case LEDBarPixels:
+        return "LED Bar (Pixels)";
+    default:
+        return "Other";
     }
 }
 
@@ -198,8 +225,7 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
     if (m_isLoaded == true)
         return;
 
-    if (manufacturer() == KXMLFixtureGeneric &&
-       (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
+    if (manufacturer() == KXMLFixtureGeneric && (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
     {
         m_isLoaded = true;
         return;
@@ -250,12 +276,12 @@ bool QLCFixtureDef::addChannel(QLCChannel* channel)
 bool QLCFixtureDef::removeChannel(QLCChannel* channel)
 {
     /* First remove the channel from all modes */
-    QListIterator <QLCFixtureMode*> modeit(m_modes);
+    QListIterator<QLCFixtureMode*> modeit(m_modes);
     while (modeit.hasNext() == true)
         modeit.next()->removeChannel(channel);
 
     /* Then remove the actual channel from this fixture definition */
-    QMutableListIterator <QLCChannel*> chit(m_channels);
+    QMutableListIterator<QLCChannel*> chit(m_channels);
     while (chit.hasNext() == true)
     {
         if (chit.next() == channel)
@@ -271,7 +297,7 @@ bool QLCFixtureDef::removeChannel(QLCChannel* channel)
 
 QLCChannel* QLCFixtureDef::channel(const QString& name)
 {
-    QListIterator <QLCChannel*> it(m_channels);
+    QListIterator<QLCChannel*> it(m_channels);
 
     while (it.hasNext() == true)
     {
@@ -283,7 +309,7 @@ QLCChannel* QLCFixtureDef::channel(const QString& name)
     return NULL;
 }
 
-QList <QLCChannel*> QLCFixtureDef::channels() const
+QList<QLCChannel*> QLCFixtureDef::channels() const
 {
     return m_channels;
 }
@@ -307,7 +333,7 @@ bool QLCFixtureDef::addMode(QLCFixtureMode* mode)
 
 bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
 {
-    QMutableListIterator <QLCFixtureMode*> it(m_modes);
+    QMutableListIterator<QLCFixtureMode*> it(m_modes);
     while (it.hasNext() == true)
     {
         if (it.next() == mode)
@@ -321,13 +347,13 @@ bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
     return false;
 }
 
-QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
+QLCFixtureMode* QLCFixtureDef::mode(const QString& name)
 {
-    QListIterator <QLCFixtureMode*> it(m_modes);
+    QListIterator<QLCFixtureMode*> it(m_modes);
 
     while (it.hasNext() == true)
     {
-        QLCFixtureMode *mode = it.next();
+        QLCFixtureMode* mode = it.next();
         if (mode->name() == name)
             return mode;
     }
@@ -335,7 +361,7 @@ QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
     return NULL;
 }
 
-QList <QLCFixtureMode*> QLCFixtureDef::modes()
+QList<QLCFixtureMode*> QLCFixtureDef::modes()
 {
     return m_modes;
 }
@@ -384,12 +410,12 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     doc.writeTextElement(KXMLQLCFixtureDefType, typeToString(m_type));
 
     /* Channels */
-    QListIterator <QLCChannel*> chit(m_channels);
+    QListIterator<QLCChannel*> chit(m_channels);
     while (chit.hasNext() == true)
         chit.next()->saveXML(&doc);
 
     /* Modes */
-    QListIterator <QLCFixtureMode*> modeit(m_modes);
+    QListIterator<QLCFixtureMode*> modeit(m_modes);
     while (modeit.hasNext() == true)
         modeit.next()->saveXML(&doc);
 
@@ -423,7 +449,7 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
@@ -448,18 +474,18 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
             error = QFile::NoError;
         else
         {
-            qWarning() << fileName << QString("%1\nLine %2, column %3")
-                        .arg(doc->errorString())
-                        .arg(doc->lineNumber())
-                        .arg(doc->columnNumber());
+            qWarning() << fileName
+                       << QString("%1\nLine %2, column %3")
+                              .arg(doc->errorString())
+                              .arg(doc->lineNumber())
+                              .arg(doc->columnNumber());
             error = QFile::ReadError;
         }
     }
     else
     {
         error = QFile::ReadError;
-        qWarning() << Q_FUNC_INFO << fileName
-                   << "is not a fixture definition file";
+        qWarning() << Q_FUNC_INFO << fileName << "is not a fixture definition file";
     }
 
     QLCFile::releaseXMLReader(doc);
@@ -557,7 +583,7 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
     return retval;
 }
 
-bool QLCFixtureDef::loadCreator(QXmlStreamReader &doc)
+bool QLCFixtureDef::loadCreator(QXmlStreamReader& doc)
 {
     if (doc.name() != KXMLQLCCreator)
     {

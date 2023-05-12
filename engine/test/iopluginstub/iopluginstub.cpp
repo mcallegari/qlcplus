@@ -24,9 +24,7 @@
  * Initialization
  *****************************************************************************/
 
-IOPluginStub::~IOPluginStub()
-{
-}
+IOPluginStub::~IOPluginStub() {}
 
 void IOPluginStub::init()
 {
@@ -86,7 +84,7 @@ QString IOPluginStub::outputInfo(quint32 output)
     return QString("This is a plugin stub for testing.");
 }
 
-void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
 {
     Q_UNUSED(universe)
 

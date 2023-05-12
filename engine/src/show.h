@@ -86,7 +86,7 @@ public:
      * @param id The track to add
      * @return true if successful, otherwise false
      */
-    bool addTrack(Track *track, quint32 id = Track::invalidId());
+    bool addTrack(Track* track, quint32 id = Track::invalidId());
 
     /**
      * Remove a track from this show. If the track is not a
@@ -107,10 +107,10 @@ public:
     int getTracksCount();
 
     /** Move a track ID up or down */
-    void moveTrack(Track *track, int direction);
+    void moveTrack(Track* track, int direction);
 
     /** Get a list of available tracks */
-    QList <Track*> tracks() const;
+    QList<Track*> tracks() const;
 
 private:
     /** Create a new track ID */
@@ -118,7 +118,7 @@ private:
 
 protected:
     /** Map of the available tracks coupled by ID */
-    QMap <quint32,Track*> m_tracks;
+    QMap<quint32, Track*> m_tracks;
 
     /** Latest assigned track ID */
     quint32 m_latestTrackId;
@@ -128,10 +128,10 @@ protected:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter* doc);
 
     /** Load function's contents from an XML document */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
     void postLoad();
@@ -168,9 +168,9 @@ signals:
     void showFinished();
 
 protected:
-    ShowRunner *m_runner;
+    ShowRunner* m_runner;
     /** Number of currently running children */
-    QSet <quint32> m_runningChildren;
+    QSet<quint32> m_runningChildren;
 
     /*************************************************************************
      * Attributes

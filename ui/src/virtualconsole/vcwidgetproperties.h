@@ -32,12 +32,12 @@ class QWidget;
  */
 
 #define KXMLQLCWidgetProperties QString("WidgetProperties")
-#define KXMLQLCWidgetX          QString("X")
-#define KXMLQLCWidgetY          QString("Y")
-#define KXMLQLCWidgetWidth      QString("Width")
-#define KXMLQLCWidgetHeight     QString("Height")
-#define KXMLQLCWidgetState      QString("State")
-#define KXMLQLCWidgetVisible    QString("Visible")
+#define KXMLQLCWidgetX QString("X")
+#define KXMLQLCWidgetY QString("Y")
+#define KXMLQLCWidgetWidth QString("Width")
+#define KXMLQLCWidgetHeight QString("Height")
+#define KXMLQLCWidgetState QString("State")
+#define KXMLQLCWidgetVisible QString("Visible")
 
 /** Simple class to store a widget's visibility, state and dimensions */
 class VCWidgetProperties
@@ -51,7 +51,7 @@ public:
      * Properties
      ************************************************************************/
 public:
-    QFlags <Qt::WindowState> state() const;
+    QFlags<Qt::WindowState> state() const;
     bool visible() const;
     int x() const;
     int y() const;
@@ -66,13 +66,13 @@ public:
      ************************************************************************/
 public:
     /** Load properties from an XML tag */
-    virtual bool loadXML(QXmlStreamReader &root);
+    virtual bool loadXML(QXmlStreamReader& root);
 
     /** Save stored properties to the given XML document */
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter* doc);
 
 protected:
-    QFlags <Qt::WindowState> m_state;
+    QFlags<Qt::WindowState> m_state;
     bool m_visible;
     int m_x;
     int m_y;

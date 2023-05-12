@@ -30,36 +30,36 @@ class QWidget;
 
 namespace AppUtil
 {
-    /************************************************************************
-     * Widget visibility helper
-     ************************************************************************/
-    /**
-     * This helper makes sure that the given widget is within the widget's
-     * parent's visible area (if the parent exists). If there is no parent,
-     * it ensures that the widget is exposed on an existing screen. The widget
-     * is automatically moved to a safe and visible place ONLY if necessary.
-     *
-     * @param widget The widget to expose
-     */
-    void ensureWidgetIsVisible(QWidget* widget);
+/************************************************************************
+ * Widget visibility helper
+ ************************************************************************/
+/**
+ * This helper makes sure that the given widget is within the widget's
+ * parent's visible area (if the parent exists). If there is no parent,
+ * it ensures that the widget is exposed on an existing screen. The widget
+ * is automatically moved to a safe and visible place ONLY if necessary.
+ *
+ * @param widget The widget to expose
+ */
+void ensureWidgetIsVisible(QWidget* widget);
 
-    /*********************************************************************
-     * Sane style
-     *********************************************************************/
-    /**
-     * Attempt to get a sane style that replaces Windows' & OSX's crappy
-     * sliders as well as buttons that don't obey background color setting.
-     */
-    QStyle* saneStyle();
+/*********************************************************************
+ * Sane style
+ *********************************************************************/
+/**
+ * Attempt to get a sane style that replaces Windows' & OSX's crappy
+ * sliders as well as buttons that don't obey background color setting.
+ */
+QStyle* saneStyle();
 
-    /*********************************************************************
-     * Digits
-     *********************************************************************/
-    /**
-     * Helper: get the number of digits in an unsigned int (base 10)
-     */
-    unsigned int digits(unsigned int num);
-};
+/*********************************************************************
+ * Digits
+ *********************************************************************/
+/**
+ * Helper: get the number of digits in an unsigned int (base 10)
+ */
+unsigned int digits(unsigned int num);
+}; // namespace AppUtil
 
 /*****************************************************************************
  * NoEditDelegate
@@ -67,11 +67,14 @@ namespace AppUtil
 /**
  * Set as Item Delegate to make sure that the item will never be editable.
  */
-class NoEditDelegate: public QStyledItemDelegate
+class NoEditDelegate : public QStyledItemDelegate
 {
 public:
-    NoEditDelegate(QObject* parent=0): QStyledItemDelegate(parent) {}
-    virtual QWidget* createEditor(QWidget *, const QStyleOptionViewItem &, const QModelIndex &) const
+    NoEditDelegate(QObject* parent = 0)
+        : QStyledItemDelegate(parent)
+    {
+    }
+    virtual QWidget* createEditor(QWidget*, const QStyleOptionViewItem&, const QModelIndex&) const
     {
         return 0;
     }
@@ -94,20 +97,15 @@ public:
      * Create a combobox delegate.
      * @param strings The selectable strings in the combobox, arranged in order.
      */
-    ComboBoxDelegate(const QStringList &strings, QWidget *parent = 0);
+    ComboBoxDelegate(const QStringList& strings, QWidget* parent = 0);
 
-    QWidget *createEditor(QWidget *parent,
-            const QStyleOptionViewItem &option,
-            const QModelIndex &index) const;
+    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
-    void setEditorData(QWidget *editor,
-            const QModelIndex &index) const;
+    void setEditorData(QWidget* editor, const QModelIndex& index) const;
 
-    void setModelData(QWidget *editor, QAbstractItemModel *model,
-            const QModelIndex &index) const;
+    void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
 
-    void updateEditorGeometry(QWidget *editor,
-            const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 };
 
 /** @} */

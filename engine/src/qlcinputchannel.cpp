@@ -40,9 +40,9 @@ QLCInputChannel::QLCInputChannel()
 {
 }
 
-QLCInputChannel *QLCInputChannel::createCopy()
+QLCInputChannel* QLCInputChannel::createCopy()
 {
-    QLCInputChannel *copy = new QLCInputChannel();
+    QLCInputChannel* copy = new QLCInputChannel();
     copy->setName(this->name());
     copy->setType(this->type());
     copy->setMovementType(this->movementType());
@@ -53,9 +53,7 @@ QLCInputChannel *QLCInputChannel::createCopy()
     return copy;
 }
 
-QLCInputChannel::~QLCInputChannel()
-{
-}
+QLCInputChannel::~QLCInputChannel() {}
 
 /****************************************************************************
  * Type
@@ -79,22 +77,22 @@ QString QLCInputChannel::typeToString(Type type)
 {
     switch (type)
     {
-        case Button:
-            return KXMLQLCInputChannelButton;
-        case Knob:
-            return KXMLQLCInputChannelKnob;
-        case Encoder:
-            return KXMLQLCInputChannelEncoder;
-        case Slider:
-            return KXMLQLCInputChannelSlider;
-        case NextPage:
-            return KXMLQLCInputChannelPageUp;
-        case PrevPage:
-            return KXMLQLCInputChannelPageDown;
-        case PageSet:
-            return KXMLQLCInputChannelPageSet;
-        default:
-            return KXMLQLCInputChannelNone;
+    case Button:
+        return KXMLQLCInputChannelButton;
+    case Knob:
+        return KXMLQLCInputChannelKnob;
+    case Encoder:
+        return KXMLQLCInputChannelEncoder;
+    case Slider:
+        return KXMLQLCInputChannelSlider;
+    case NextPage:
+        return KXMLQLCInputChannelPageUp;
+    case PrevPage:
+        return KXMLQLCInputChannelPageDown;
+    case PageSet:
+        return KXMLQLCInputChannelPageSet;
+    default:
+        return KXMLQLCInputChannelNone;
     }
 }
 
@@ -135,14 +133,22 @@ QIcon QLCInputChannel::typeToIcon(Type type)
 {
     switch (type)
     {
-        case Button: return QIcon(":/button.png");
-        case Knob: return QIcon(":/knob.png");
-        case Encoder: return QIcon(":/knob.png");
-        case Slider: return QIcon(":/slider.png");
-        case PrevPage: return QIcon(":/forward.png");
-        case NextPage: return QIcon(":/back.png");
-        case PageSet: return QIcon(":/star.png");
-        default: return QIcon();
+    case Button:
+        return QIcon(":/button.png");
+    case Knob:
+        return QIcon(":/knob.png");
+    case Encoder:
+        return QIcon(":/knob.png");
+    case Slider:
+        return QIcon(":/slider.png");
+    case PrevPage:
+        return QIcon(":/forward.png");
+    case NextPage:
+        return QIcon(":/back.png");
+    case PageSet:
+        return QIcon(":/star.png");
+    default:
+        return QIcon();
     }
 }
 
@@ -228,7 +234,7 @@ uchar QLCInputChannel::upperValue() const
  * Load & Save
  ****************************************************************************/
 
-bool QLCInputChannel::loadXML(QXmlStreamReader &root)
+bool QLCInputChannel::loadXML(QXmlStreamReader& root)
 {
     if (root.isStartElement() == false || root.name() != KXMLQLCInputChannel)
     {
@@ -281,14 +287,13 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) const
+bool QLCInputChannel::saveXML(QXmlStreamWriter* doc, quint32 channelNumber) const
 {
     if (doc == NULL || doc->device() == NULL)
         return false;
 
     doc->writeStartElement(KXMLQLCInputChannel);
-    doc->writeAttribute(KXMLQLCInputChannelNumber,
-                        QString("%1").arg(channelNumber));
+    doc->writeAttribute(KXMLQLCInputChannelNumber, QString("%1").arg(channelNumber));
 
     doc->writeTextElement(KXMLQLCInputChannelName, m_name);
     doc->writeTextElement(KXMLQLCInputChannelType, typeToString(m_type));

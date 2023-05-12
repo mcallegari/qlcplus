@@ -38,27 +38,27 @@ typedef struct
     QString wpaPass;
 } InterfaceInfo;
 
-class WebAccessNetwork: public QObject
+class WebAccessNetwork : public QObject
 {
 public:
-    WebAccessNetwork(QObject *parent = 0);
+    WebAccessNetwork(QObject* parent = 0);
 
-    void resetInterface(InterfaceInfo *iface);
+    void resetInterface(InterfaceInfo* iface);
     void appendInterface(InterfaceInfo iface);
-    QString getInterfaceHTML(InterfaceInfo *iface);
+    QString getInterfaceHTML(InterfaceInfo* iface);
     QString getNetworkHTML();
     QString getHTML();
 
     bool updateNetworkFile(QStringList cmdList);
 
 protected:
-    void parseWPAConfFile(InterfaceInfo *iface);
+    void parseWPAConfFile(InterfaceInfo* iface);
     bool writeNetworkFile();
     QString netmaskToString(int mask);
     int stringToNetmask(QString mask);
 
 protected:
-    QList<InterfaceInfo>m_interfaces;
+    QList<InterfaceInfo> m_interfaces;
     QStringList m_dhcpcdConfCache;
 };
 

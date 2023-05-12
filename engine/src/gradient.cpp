@@ -37,13 +37,13 @@ QImage Gradient::getRGBGradient(const int width, const int height)
 {
     initialize();
 
-    return m_rgb.scaled (width, height);
+    return m_rgb.scaled(width, height);
 }
 
-void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
+void Gradient::fillWithGradient(int r, int g, int b, QPainter* painter, int x)
 {
     QColor top = Qt::black;
-    QColor col(r, g , b);
+    QColor col(r, g, b);
     QColor bottom = Qt::white;
 
     QLinearGradient blackGrad(QPointF(0, 0), QPointF(0, 127));
@@ -59,7 +59,7 @@ void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
 
 void Gradient::initialize()
 {
-    if( m_rgb.isNull() == false )
+    if (m_rgb.isNull() == false)
         return;
 
     m_rgb = QImage(256, 256, QImage::Format_RGB32);
@@ -85,12 +85,10 @@ void Gradient::initialize()
         for (int i = x; i < x + 42; i++)
         {
             fillWithGradient(r, g, b, &painter, i);
-            r+=rD;
-            g+=gD;
-            b+=bD;
+            r += rD;
+            g += gD;
+            b += bD;
         }
-        x+=42;
+        x += 42;
     }
 }
-
-

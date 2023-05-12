@@ -37,14 +37,15 @@ class GenericDMXSource;
 typedef struct
 {
     quint32 m_fID;
-    QQuickItem *m_item;
+    QQuickItem* m_item;
 } selectedFunction;
 
 class FunctionManager : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(quint32 startupFunctionID READ startupFunctionID WRITE setStartupFunctionID NOTIFY startupFunctionIDChanged)
+    Q_PROPERTY(
+        quint32 startupFunctionID READ startupFunctionID WRITE setStartupFunctionID NOTIFY startupFunctionIDChanged)
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
@@ -72,7 +73,7 @@ class FunctionManager : public QObject
     Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
 
 public:
-    FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FunctionManager(QQuickView* view, Doc* doc, QObject* parent = 0);
     ~FunctionManager();
 
     quint32 startupFunctionID() const;
@@ -106,9 +107,9 @@ public:
     void setSearchFilter(QString searchFilter);
 
     /** Create a new Function with the specified $type
-      * If the optional fixturesList is provided, fixture IDs
-      * will be added to the Function where possible.
-      */
+     * If the optional fixturesList is provided, fixture IDs
+     * will be added to the Function where possible.
+     */
     Q_INVOKABLE quint32 createFunction(int type, QVariantList fixturesList = QVariantList());
 
     /** Create a new Audio/Video Function for each
@@ -117,7 +118,7 @@ public:
     Q_INVOKABLE quint32 createAudioVideoFunction(int type, QStringList fileList = QStringList());
 
     /** Return a reference to a Function with the specified $id */
-    Q_INVOKABLE Function *getFunction(quint32 id);
+    Q_INVOKABLE Function* getFunction(quint32 id);
 
     /** Return the associated qrc icon resource for the specified Function $type */
     Q_INVOKABLE QString functionIcon(int type);
@@ -139,7 +140,7 @@ public:
     Q_INVOKABLE void setEditorFunction(quint32 fID, bool requestUI, bool back);
 
     /** Return a reference of the currently open Function editor */
-    FunctionEditor *currentEditor() const;
+    FunctionEditor* currentEditor() const;
 
     /** Returns if the UI is editing a Function */
     bool isEditing() const;
@@ -174,16 +175,46 @@ public:
     /** Returns the number of the currently selected Functions */
     int selectedFunctionCount() const;
 
-    int sceneCount() const { return m_sceneCount; }
-    int chaserCount() const { return m_chaserCount; }
-    int sequenceCount() const { return m_sequenceCount; }
-    int efxCount() const { return m_efxCount; }
-    int collectionCount() const { return m_collectionCount; }
-    int rgbMatrixCount() const { return m_rgbMatrixCount; }
-    int scriptCount() const { return m_scriptCount; }
-    int showCount() const { return m_showCount; }
-    int audioCount() const { return m_audioCount; }
-    int videoCount() const { return m_videoCount; }
+    int sceneCount() const
+    {
+        return m_sceneCount;
+    }
+    int chaserCount() const
+    {
+        return m_chaserCount;
+    }
+    int sequenceCount() const
+    {
+        return m_sequenceCount;
+    }
+    int efxCount() const
+    {
+        return m_efxCount;
+    }
+    int collectionCount() const
+    {
+        return m_collectionCount;
+    }
+    int rgbMatrixCount() const
+    {
+        return m_rgbMatrixCount;
+    }
+    int scriptCount() const
+    {
+        return m_scriptCount;
+    }
+    int showCount() const
+    {
+        return m_showCount;
+    }
+    int audioCount() const
+    {
+        return m_audioCount;
+    }
+    int videoCount() const
+    {
+        return m_videoCount;
+    }
 
     QStringList audioExtensions() const;
     QStringList pictureExtensions() const;
@@ -193,8 +224,8 @@ public:
     int viewPosition() const;
 
 protected:
-    quint32 addFunctiontoDoc(Function *func, QString name, bool select);
-    void addFunctionTreeItem(Function *func);
+    quint32 addFunctiontoDoc(Function* func, QString name, bool select);
+    void addFunctionTreeItem(Function* func);
     void updateFunctionsTree();
     void clearTree();
     void moveFunction(quint32 fID, QString newPath);
@@ -223,11 +254,11 @@ public slots:
 
 private:
     /** Reference of the QML view */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference of the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** Reference to the Functions tree model */
-    TreeModel *m_functionTree;
+    TreeModel* m_functionTree;
     /** The QML ListView position in pixel for state restoring */
     int m_viewPosition;
 
@@ -245,8 +276,8 @@ private:
     int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
     int m_showCount, m_audioCount, m_videoCount;
 
-    FunctionEditor *m_currentEditor;
-    FunctionEditor *m_sceneEditor;
+    FunctionEditor* m_currentEditor;
+    FunctionEditor* m_sceneEditor;
 
     /*********************************************************************
      * Folders
@@ -282,9 +313,8 @@ private:
      * DMX values (dumping and Scene editor)
      *********************************************************************/
 public:
-
     /** Return the currently set channel values */
-    QList <SceneValue> dumpValues() const;
+    QList<SceneValue> dumpValues() const;
 
     /** Reset the currently set channel values */
     void resetDumpValues();
@@ -292,13 +322,13 @@ public:
     /** Dump DMX values provided by $dumpValues, filtered by the provided $selectedFixtures
      *  and the provided $channelMask.
      *  The new Scene will be named with $name if not empty, otherwise with an autogenerated name */
-    void dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
-                        quint32 channelMask, QString name);
+    void dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, quint32 channelMask,
+                        QString name);
 
     /** Dump DMX values provided by $dumpValues, filtered by the provided $selectedFixtures
      *  and the provided $channelMask. Values are dumped on an existing Scene with $sceneID */
-    void dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
-                     quint32 channelMask, quint32 sceneID);
+    void dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, quint32 channelMask,
+                     quint32 sceneID);
 
     Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 

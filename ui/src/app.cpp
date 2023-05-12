@@ -55,7 +55,7 @@
 #include "qlcfile.h"
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#   include "hotplugmonitor.h"
+  #include "hotplugmonitor.h"
 #endif
 
 #if defined(__APPLE__) || defined(Q_OS_MAC)
@@ -65,8 +65,8 @@ extern void qt_set_sequence_auto_mnemonic(bool b);
 //#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
- #include <QTime>
- QTime speedTime;
+  #include <QTime>
+QTime speedTime;
 #endif
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
@@ -74,7 +74,7 @@ extern void qt_set_sequence_auto_mnemonic(bool b);
 #define SETTINGS_RECENTFILE "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
 
-#define MAX_RECENT_FILES    10
+#define MAX_RECENT_FILES 10
 
 #define KModeTextOperate QObject::tr("Operate")
 #define KModeTextDesign QObject::tr("Design")
@@ -226,7 +226,7 @@ void App::init()
         {
             if (QLCFile::hasWindowManager() == false)
             {
-                QScreen *screen = QGuiApplication::screens().first();
+                QScreen* screen = QGuiApplication::screens().first();
                 QRect geometry = screen->geometry();
                 if (m_noGui == true)
                 {
@@ -291,8 +291,8 @@ void App::init()
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Listen to DMX value changes and update each Fixture values array
-    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)),
-            this, SLOT(slotUniverseWritten(quint32, const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)), this,
+            SLOT(slotUniverseWritten(quint32, const QByteArray&)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -305,10 +305,9 @@ void App::init()
 
 #if defined(WIN32) || defined(Q_OS_WIN)
     /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+    LPTSTR home = (LPTSTR)malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
-                            .arg(USERQLCPLUSDIR);
+    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*>(home))).arg(USERQLCPLUSDIR);
     free(home);
     HotPlugMonitor::setWinId(winId());
 #else
@@ -344,10 +343,10 @@ void App::setActiveWindow(const QString& name)
 }
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
+bool App::nativeEvent(const QByteArray& eventType, void* message, long* result)
 {
     Q_UNUSED(eventType)
-    //qDebug() << Q_FUNC_INFO << eventType;
+    // qDebug() << Q_FUNC_INFO << eventType;
     return HotPlugMonitor::parseWinEvent(message, result);
 }
 #endif
@@ -356,9 +355,8 @@ void App::closeEvent(QCloseEvent* e)
 {
     if (m_doc->mode() == Doc::Operate && m_doc->isKiosk() == false)
     {
-        QMessageBox::warning(this,
-                             tr("Cannot exit in Operate mode"),
-                             tr("You must switch back to Design mode " \
+        QMessageBox::warning(this, tr("Cannot exit in Operate mode"),
+                             tr("You must switch back to Design mode "
                                 "to close the application."));
         e->ignore();
         return;
@@ -366,7 +364,7 @@ void App::closeEvent(QCloseEvent* e)
 
     if (m_doc->isKiosk() == false)
     {
-        if( saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
+        if (saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace "
                                             "before closing the application?")) == true)
         {
             e->accept();
@@ -380,9 +378,9 @@ void App::closeEvent(QCloseEvent* e)
     {
         if (m_doc->isKiosk() == true)
         {
-            int result = QMessageBox::warning(this, tr("Close the application?"),
-                                              tr("Do you wish to close the application?"),
-                                              QMessageBox::Yes, QMessageBox::No);
+            int result =
+                QMessageBox::warning(this, tr("Close the application?"), tr("Do you wish to close the application?"),
+                                     QMessageBox::Yes, QMessageBox::No);
             if (result == QMessageBox::No)
             {
                 e->ignore();
@@ -422,9 +420,7 @@ void App::slotSetProgressText(const QString& text)
 
     static int progress = 0;
     m_progressDialog->setValue(progress++);
-    m_progressDialog->setLabelText(QString("<B>%1</B><BR/>%2")
-                                   .arg(tr("Starting Q Light Controller Plus"))
-                                   .arg(text));
+    m_progressDialog->setLabelText(QString("<B>%1</B><BR/>%2").arg(tr("Starting Q Light Controller Plus")).arg(text));
     QApplication::processEvents();
 }
 
@@ -448,7 +444,7 @@ void App::clearDocument()
     m_doc->masterTimer()->start();
 }
 
-Doc *App::doc()
+Doc* App::doc()
 {
     return m_doc;
 }
@@ -476,8 +472,8 @@ void App::initDoc()
     m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
-    connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
-            this, SLOT(slotSetProgressText(const QString&)));
+    connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)), this,
+            SLOT(slotSetProgressText(const QString&)));
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
 
     /* Load audio decoder plugins
@@ -517,9 +513,9 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption);
 }
 
-void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
+void App::slotUniverseWritten(quint32 idx, const QByteArray& ua)
 {
-    foreach(Fixture *fixture, m_doc->fixtures())
+    foreach (Fixture* fixture, m_doc->fixtures())
     {
         if (fixture->universe() != idx)
             continue;
@@ -572,14 +568,11 @@ void App::slotModeDesign()
 {
     if (m_doc->masterTimer()->runningFunctions() > 0)
     {
-        int result = QMessageBox::warning(
-                         this,
-                         tr("Switch to Design Mode"),
-                         tr("There are still running functions.\n"
-                            "Really stop them and switch back to "
-                            "Design mode?"),
-                         QMessageBox::Yes,
-                         QMessageBox::No);
+        int result = QMessageBox::warning(this, tr("Switch to Design Mode"),
+                                          tr("There are still running functions.\n"
+                                             "Really stop them and switch back to "
+                                             "Design mode?"),
+                                          QMessageBox::Yes, QMessageBox::No);
 
         if (result == QMessageBox::No)
             return;
@@ -671,7 +664,8 @@ void App::initActions()
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
     m_liveEditAction->setEnabled(false);
 
-    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
+    m_liveEditVirtualConsoleAction =
+        new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
     connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this, SLOT(slotLiveEditVirtualConsole()));
     m_liveEditVirtualConsoleAction->setCheckable(true);
     m_liveEditVirtualConsoleAction->setEnabled(false);
@@ -685,22 +679,22 @@ void App::initActions()
     connect(m_controlPanicAction, SIGNAL(triggered(bool)), this, SLOT(slotControlPanic()));
 
     m_fadeAndStopMenu = new QMenu();
-    QAction *fade1 = new QAction(tr("Fade 1 second and stop"), this);
+    QAction* fade1 = new QAction(tr("Fade 1 second and stop"), this);
     fade1->setData(QVariant(1000));
     connect(fade1, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade1);
 
-    QAction *fade5 = new QAction(tr("Fade 5 seconds and stop"), this);
+    QAction* fade5 = new QAction(tr("Fade 5 seconds and stop"), this);
     fade5->setData(QVariant(5000));
     connect(fade5, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade5);
 
-    QAction *fade10 = new QAction(tr("Fade 10 second and stop"), this);
+    QAction* fade10 = new QAction(tr("Fade 10 second and stop"), this);
     fade10->setData(QVariant(10000));
     connect(fade10, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade10);
 
-    QAction *fade30 = new QAction(tr("Fade 30 second and stop"), this);
+    QAction* fade30 = new QAction(tr("Fade 30 second and stop"), this);
     fade30->setData(QVariant(30000));
     connect(fade30, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade30);
@@ -764,12 +758,12 @@ void App::initToolBar()
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_modeToggleAction);
 
-    QToolButton* btn = qobject_cast<QToolButton*> (m_toolbar->widgetForAction(m_fileOpenAction));
+    QToolButton* btn = qobject_cast<QToolButton*>(m_toolbar->widgetForAction(m_fileOpenAction));
     Q_ASSERT(btn != NULL);
     btn->setPopupMode(QToolButton::DelayedPopup);
     updateFileOpenMenu("");
 
-    btn = qobject_cast<QToolButton*> (m_toolbar->widgetForAction(m_controlPanicAction));
+    btn = qobject_cast<QToolButton*>(m_toolbar->widgetForAction(m_controlPanicAction));
     Q_ASSERT(btn != NULL);
     btn->setPopupMode(QToolButton::DelayedPopup);
 }
@@ -784,33 +778,33 @@ bool App::handleFileError(QFile::FileError error)
 
     switch (error)
     {
-        case QFile::NoError:
-            return true;
+    case QFile::NoError:
+        return true;
         break;
-        case QFile::ReadError:
-            msg = tr("Unable to read from file");
+    case QFile::ReadError:
+        msg = tr("Unable to read from file");
         break;
-        case QFile::WriteError:
-            msg = tr("Unable to write to file");
+    case QFile::WriteError:
+        msg = tr("Unable to write to file");
         break;
-        case QFile::FatalError:
-            msg = tr("A fatal error occurred");
+    case QFile::FatalError:
+        msg = tr("A fatal error occurred");
         break;
-        case QFile::ResourceError:
-            msg = tr("Unable to access resource");
+    case QFile::ResourceError:
+        msg = tr("Unable to access resource");
         break;
-        case QFile::OpenError:
-            msg = tr("Unable to open file for reading or writing");
+    case QFile::OpenError:
+        msg = tr("Unable to open file for reading or writing");
         break;
-        case QFile::AbortError:
-            msg = tr("Operation was aborted");
+    case QFile::AbortError:
+        msg = tr("Operation was aborted");
         break;
-        case QFile::TimeOutError:
-            msg = tr("Operation timed out");
+    case QFile::TimeOutError:
+        msg = tr("Operation timed out");
         break;
-        default:
-        case QFile::UnspecifiedError:
-            msg = tr("An unspecified error has occurred. Nice.");
+    default:
+    case QFile::UnspecifiedError:
+        msg = tr("An unspecified error has occurred. Nice.");
         break;
     }
 
@@ -819,17 +813,13 @@ bool App::handleFileError(QFile::FileError error)
     return false;
 }
 
-bool App::saveModifiedDoc(const QString & title, const QString & message)
+bool App::saveModifiedDoc(const QString& title, const QString& message)
 {
     // if it's not modified, there's nothing to save
     if (m_doc->isModified() == false)
         return true;
 
-    int result = QMessageBox::warning(this, title,
-                                          message,
-                                          QMessageBox::Yes |
-                                          QMessageBox::No |
-                                          QMessageBox::Cancel);
+    int result = QMessageBox::warning(this, title, message, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
     if (result == QMessageBox::Yes)
     {
         slotFileSave();
@@ -863,13 +853,13 @@ void App::updateFileOpenMenu(QString addRecent)
     if (m_fileOpenMenu == NULL)
     {
         m_fileOpenMenu = new QMenu(this);
-        QString style = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #B9D9E8, stop:1 #A4C0CE);"
-                        "border: 1px solid black; font:bold; }"
-                        "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; border: 1px solid black; }"
-                        "QMenu::item:selected { background-color: #2D8CFF; }";
+        QString style =
+            "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #B9D9E8, stop:1 #A4C0CE);"
+            "border: 1px solid black; font:bold; }"
+            "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; border: 1px solid black; }"
+            "QMenu::item:selected { background-color: #2D8CFF; }";
         m_fileOpenMenu->setStyleSheet(style);
-        connect(m_fileOpenMenu, SIGNAL(triggered(QAction*)),
-                this, SLOT(slotRecentFileClicked(QAction*)));
+        connect(m_fileOpenMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotRecentFileClicked(QAction*)));
     }
 
     foreach (QAction* a, m_fileOpenMenu->actions())
@@ -881,7 +871,7 @@ void App::updateFileOpenMenu(QString addRecent)
     if (addRecent.isEmpty() == false)
     {
         menuRecentList.removeAll(addRecent); // in case the string is already present, remove it...
-        menuRecentList.prepend(addRecent); // and add it to the top
+        menuRecentList.prepend(addRecent);   // and add it to the top
         for (int i = 0; i < menuRecentList.count(); i++)
         {
             settings.setValue(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i), menuRecentList.at(i));
@@ -908,7 +898,7 @@ void App::updateFileOpenMenu(QString addRecent)
 
 bool App::slotFileNew()
 {
-    QString msg(tr("Do you wish to save the current workspace?\n" \
+    QString msg(tr("Do you wish to save the current workspace?\n"
                    "Changes will be lost if you don't save them."));
     if (saveModifiedDoc(tr("New Workspace"), msg) == false)
     {
@@ -924,7 +914,7 @@ QFile::FileError App::slotFileOpen()
     QString fn;
 
     /* Check that the user is aware of losing previous changes */
-    QString msg(tr("Do you wish to save the current workspace?\n" \
+    QString msg(tr("Do you wish to save the current workspace?\n"
                    "Changes will be lost if you don't save them."));
     if (saveModifiedDoc(tr("Open Workspace"), msg) == false)
     {
@@ -951,7 +941,7 @@ QFile::FileError App::slotFileOpen()
     dialog.setNameFilters(filters);
 
     /* Append useful URLs to the dialog */
-    QList <QUrl> sidebar;
+    QList<QUrl> sidebar;
     sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
     sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
     dialog.setSidebarUrls(sidebar);
@@ -985,8 +975,8 @@ QFile::FileError App::slotFileOpen()
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
-    //if (FunctionManager::instance() != NULL)
-    //    FunctionManager::instance()->updateTree();
+    // if (FunctionManager::instance() != NULL)
+    //     FunctionManager::instance()->updateTree();
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
@@ -1034,7 +1024,7 @@ QFile::FileError App::slotFileSaveAs()
     dialog.setNameFilters(filters);
 
     /* Append useful URLs to the dialog */
-    QList <QUrl> sidebar;
+    QList<QUrl> sidebar;
     sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
     sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
     dialog.setSidebarUrls(sidebar);
@@ -1095,7 +1085,7 @@ void App::slotControlPanic()
 
 void App::slotFadeAndStopAll()
 {
-    QAction *action = (QAction *)sender();
+    QAction* action = (QAction*)sender();
     int timeout = action->data().toInt();
 
     m_doc->masterTimer()->fadeAndStopAll(timeout);
@@ -1120,7 +1110,8 @@ void App::slotFunctionLiveEdit()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType | Function::RGBMatrixType);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType |
+                 Function::RGBMatrixType);
     fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType | Function::AudioType);
 
     if (fs.exec() == QDialog::Accepted)
@@ -1141,28 +1132,27 @@ void App::slotLiveEditVirtualConsole()
 void App::slotDetachContext(int index)
 {
     /* Get the widget that has been double-clicked */
-    QWidget *context = m_tab->widget(index);
+    QWidget* context = m_tab->widget(index);
     context->setProperty("tabIndex", index);
     context->setProperty("tabIcon", QVariant::fromValue(m_tab->tabIcon(index)));
     context->setProperty("tabLabel", m_tab->tabText(index));
 
     qDebug() << "Detaching context" << context;
 
-    DetachedContext *detachedWindow = new DetachedContext(this);
+    DetachedContext* detachedWindow = new DetachedContext(this);
     detachedWindow->setCentralWidget(context);
     detachedWindow->resize(800, 600);
     detachedWindow->show();
     context->show();
 
-    connect(detachedWindow, SIGNAL(closing()),
-            this, SLOT(slotReattachContext()));
+    connect(detachedWindow, SIGNAL(closing()), this, SLOT(slotReattachContext()));
 }
 
 void App::slotReattachContext()
 {
-    DetachedContext *window = qobject_cast<DetachedContext *>(sender());
+    DetachedContext* window = qobject_cast<DetachedContext*>(sender());
 
-    QWidget *context = window->centralWidget();
+    QWidget* context = window->centralWidget();
     int tabIndex = context->property("tabIndex").toInt();
     QIcon tabIcon = context->property("tabIcon").value<QIcon>();
     QString tabLabel = context->property("tabLabel").toString();
@@ -1200,7 +1190,7 @@ void App::slotControlFullScreen(bool usingGeometry)
 {
     if (usingGeometry == true)
     {
-        QScreen *screen = QGuiApplication::screens().first();
+        QScreen* screen = QGuiApplication::screens().first();
         setGeometry(screen->geometry());
     }
     else
@@ -1224,7 +1214,7 @@ void App::slotHelpAbout()
     ab.exec();
 }
 
-void App::slotRecentFileClicked(QAction *recent)
+void App::slotRecentFileClicked(QAction* recent)
 {
     if (recent == NULL)
         return;
@@ -1233,14 +1223,13 @@ void App::slotRecentFileClicked(QAction *recent)
     QFile testFile(recentAbsPath);
     if (testFile.exists() == false)
     {
-        QMessageBox::critical(this, tr("Error"),
-                              tr("File not found!\nThe selected file has been moved or deleted."),
+        QMessageBox::critical(this, tr("Error"), tr("File not found!\nThe selected file has been moved or deleted."),
                               QMessageBox::Close);
         return;
     }
 
     /* Check that the user is aware of losing previous changes */
-    QString msg(tr("Do you wish to save the current workspace?\n" \
+    QString msg(tr("Do you wish to save the current workspace?\n"
                    "Changes will be lost if you don't save them."));
     if (saveModifiedDoc(tr("Open Workspace"), msg) == false)
     {
@@ -1270,8 +1259,8 @@ void App::slotRecentFileClicked(QAction *recent)
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
-    //if (FunctionManager::instance() != NULL)
-    //    FunctionManager::instance()->updateTree();
+    // if (FunctionManager::instance() != NULL)
+    //     FunctionManager::instance()->updateTree();
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
@@ -1301,7 +1290,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
@@ -1339,8 +1328,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     else
     {
         retval = QFile::ReadError;
-        qWarning() << Q_FUNC_INFO << fileName
-                   << "is not a workspace file";
+        qWarning() << Q_FUNC_INFO << fileName << "is not a workspace file";
     }
 
     QLCFile::releaseXMLReader(doc);
@@ -1407,8 +1395,7 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
 
-    if (m_doc->errorLog().isEmpty() == false &&
-        fromMemory == false)
+    if (m_doc->errorLog().isEmpty() == false && fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
                         tr("Some errors occurred while loading the project:") + "<br><br>" + m_doc->errorLog(),
@@ -1504,7 +1491,7 @@ void App::slotLoadDocFromMemory(QString xmlData)
     databuf.setData(xmlData.simplified().toUtf8());
     databuf.open(QIODevice::ReadOnly | QIODevice::Text);
 
-    //qDebug() << "Buffer data:" << databuf.data();
+    // qDebug() << "Buffer data:" << databuf.data();
     QXmlStreamReader doc(&databuf);
 
     if (doc.hasError())

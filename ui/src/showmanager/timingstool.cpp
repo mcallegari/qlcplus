@@ -25,13 +25,13 @@
 #include "showitem.h"
 #include "apputil.h"
 
-#define WINDOW_FLAGS Qt::WindowFlags( \
-    (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | \
-     Qt::WindowStaysOnTopHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
+#define WINDOW_FLAGS                                                                                                   \
+  Qt::WindowFlags((Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint |             \
+                   Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
 
 #define SETTINGS_GEOMETRY "timingstool/geometry"
 
-TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
+TimingsTool::TimingsTool(ShowItem* item, QWidget* parent)
     : QWidget(parent)
     , m_startDial(NULL)
     , m_durationDial(NULL)
@@ -54,16 +54,14 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
     m_startDial->setVisibilityMask(dialMask);
     m_startDial->setValue(m_item->getStartTime());
     layout()->addWidget(m_startDial);
-    connect(m_startDial, SIGNAL(valueChanged(int)),
-            this, SLOT(slotStartTimeChanged(int)));
+    connect(m_startDial, SIGNAL(valueChanged(int)), this, SLOT(slotStartTimeChanged(int)));
 
     m_durationDial = new SpeedDial(this);
     m_durationDial->setTitle(tr("Duration"));
     m_durationDial->setVisibilityMask(dialMask);
     m_durationDial->setValue(m_item->getDuration());
     layout()->addWidget(m_durationDial);
-    connect(m_durationDial, SIGNAL(valueChanged(int)),
-            this, SLOT(slotDurationChanged(int)));
+    connect(m_durationDial, SIGNAL(valueChanged(int)), this, SLOT(slotDurationChanged(int)));
 
     m_durationOptions = new QGroupBox(tr("Duration options"));
 

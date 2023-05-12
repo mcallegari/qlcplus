@@ -47,7 +47,7 @@ class FunctionEditor : public QObject
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
 
 public:
-    FunctionEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FunctionEditor(QQuickView* view, Doc* doc, QObject* parent = 0);
     virtual ~FunctionEditor();
 
     /** Set the ID of the Function being edit */
@@ -73,7 +73,7 @@ public:
     void setPreviousID(int previousID);
 
     /** Generic method to delete items of an editor.
-      * $list might be a list of indices, IDs or something else */
+     * $list might be a list of indices, IDs or something else */
     virtual void deleteItems(QVariantList list);
 
 signals:
@@ -83,15 +83,15 @@ signals:
 
 protected:
     /** Reference of the QML view */
-    QQuickView *m_view;
+    QQuickView* m_view;
     /** Reference of the project workspace */
-    Doc *m_doc;
+    Doc* m_doc;
     /** ID of the Function being edited */
     quint32 m_functionID;
     /** ID of the item of the previous view */
     int m_previousID;
     /** Reference of the Function being edited */
-    Function *m_function;
+    Function* m_function;
     /** Type of the Function being edited */
     Function::Type m_functionType;
     /** Flag that holds if the editor should preview its function */

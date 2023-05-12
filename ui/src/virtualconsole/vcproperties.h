@@ -35,22 +35,22 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVirtualConsole           QString("VirtualConsole")
+#define KXMLQLCVirtualConsole QString("VirtualConsole")
 
-#define KXMLQLCVCProperties             QString("Properties")
-#define KXMLQLCVCPropertiesSize         QString("Size")
-#define KXMLQLCVCPropertiesSizeWidth    QString("Width")
-#define KXMLQLCVCPropertiesSizeHeight   QString("Height")
+#define KXMLQLCVCProperties QString("Properties")
+#define KXMLQLCVCPropertiesSize QString("Size")
+#define KXMLQLCVCPropertiesSizeWidth QString("Width")
+#define KXMLQLCVCPropertiesSizeHeight QString("Height")
 
-#define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
-#define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
-#define KXMLQLCVCPropertiesGrandMasterChannelMode   QString("ChannelMode")
-#define KXMLQLCVCPropertiesGrandMasterValueMode     QString("ValueMode")
-#define KXMLQLCVCPropertiesGrandMasterSliderMode    QString("SliderMode")
+#define KXMLQLCVCPropertiesGrandMaster QString("GrandMaster")
+#define KXMLQLCVCPropertiesGrandMasterVisible QString("Visible")
+#define KXMLQLCVCPropertiesGrandMasterChannelMode QString("ChannelMode")
+#define KXMLQLCVCPropertiesGrandMasterValueMode QString("ValueMode")
+#define KXMLQLCVCPropertiesGrandMasterSliderMode QString("SliderMode")
 
-#define KXMLQLCVCPropertiesInput         QString("Input")
+#define KXMLQLCVCPropertiesInput QString("Input")
 #define KXMLQLCVCPropertiesInputUniverse QString("Universe")
-#define KXMLQLCVCPropertiesInputChannel  QString("Channel")
+#define KXMLQLCVCPropertiesInputChannel QString("Channel")
 
 /*****************************************************************************
  * Properties
@@ -107,14 +107,14 @@ private:
      *************************************************************************/
 public:
     /** Load VirtualConsole properties from the given XML tag */
-    bool loadXML(QXmlStreamReader &vc_root);
+    bool loadXML(QXmlStreamReader& vc_root);
 
     /** Save VirtualConsole properties to the given XML document */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 
 private:
     /** Load the properties of a default slider */
-    static bool loadXMLInput(QXmlStreamReader &root, quint32* universe, quint32* channel);
+    static bool loadXMLInput(QXmlStreamReader& root, quint32* universe, quint32* channel);
 };
 
 /** @} */

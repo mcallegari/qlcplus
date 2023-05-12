@@ -33,16 +33,16 @@
 
 #include "audiorenderer_waveout.h"
 
-#define MAX_WAVEBLOCKS    256
+#define MAX_WAVEBLOCKS 256
 
-static CRITICAL_SECTION  cs;
-static HWAVEOUT          dev                    = NULL;
-static unsigned int      ScheduledBlocks        = 0;
-static int               PlayedWaveHeadersCount = 0;          // free index
-static WAVEHDR*          PlayedWaveHeaders [MAX_WAVEBLOCKS];
+static CRITICAL_SECTION cs;
+static HWAVEOUT dev = NULL;
+static unsigned int ScheduledBlocks = 0;
+static int PlayedWaveHeadersCount = 0; // free index
+static WAVEHDR* PlayedWaveHeaders[MAX_WAVEBLOCKS];
 
 
-static void CALLBACK wave_callback (HWAVE hWave, UINT uMsg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2)
+static void CALLBACK wave_callback(HWAVE hWave, UINT uMsg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2)
 {
     Q_UNUSED(hWave)
     Q_UNUSED(dwInstance)
@@ -50,36 +50,35 @@ static void CALLBACK wave_callback (HWAVE hWave, UINT uMsg, DWORD dwInstance, DW
 
     if (uMsg == WOM_DONE)
     {
-        EnterCriticalSection (&cs);
-        PlayedWaveHeaders [PlayedWaveHeadersCount++] = (WAVEHDR*) dwParam1;
-        LeaveCriticalSection (&cs);
+        EnterCriticalSection(&cs);
+        PlayedWaveHeaders[PlayedWaveHeadersCount++] = (WAVEHDR*)dwParam1;
+        LeaveCriticalSection(&cs);
     }
 }
 
-static void
-free_memory (void)
+static void free_memory(void)
 {
-    WAVEHDR*  wh;
-    HGLOBAL   hg;
+    WAVEHDR* wh;
+    HGLOBAL hg;
 
-    EnterCriticalSection (&cs);
-    wh = PlayedWaveHeaders [--PlayedWaveHeadersCount];
-    ScheduledBlocks--;                        // decrease the number of USED blocks
-    LeaveCriticalSection (&cs);
+    EnterCriticalSection(&cs);
+    wh = PlayedWaveHeaders[--PlayedWaveHeadersCount];
+    ScheduledBlocks--; // decrease the number of USED blocks
+    LeaveCriticalSection(&cs);
 
-    waveOutUnprepareHeader (dev, wh, sizeof (WAVEHDR));
+    waveOutUnprepareHeader(dev, wh, sizeof(WAVEHDR));
 
-    hg = GlobalHandle (wh -> lpData);       // Deallocate the buffer memory
-    GlobalUnlock (hg);
-    GlobalFree   (hg);
+    hg = GlobalHandle(wh->lpData); // Deallocate the buffer memory
+    GlobalUnlock(hg);
+    GlobalFree(hg);
 
-    hg = GlobalHandle (wh);                 // Deallocate the header memory
-    GlobalUnlock (hg);
-    GlobalFree   (hg);
+    hg = GlobalHandle(wh); // Deallocate the header memory
+    GlobalUnlock(hg);
+    GlobalFree(hg);
 }
 
-AudioRendererWaveOut::AudioRendererWaveOut(QString device, QObject * parent)
-	: AudioRenderer(parent)
+AudioRendererWaveOut::AudioRendererWaveOut(QString device, QObject* parent)
+    : AudioRenderer(parent)
 {
     deviceID = WAVE_MAPPER;
     if (device.isEmpty())
@@ -102,7 +101,7 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
 {
     Q_UNUSED(format)
 
-    if (!waveOutGetNumDevs ())
+    if (!waveOutGetNumDevs())
     {
         qWarning("AudioRendererWaveOut: no audio device found");
         return false;
@@ -110,13 +109,13 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
     WAVEFORMATEX fmt;
 
     fmt.wFormatTag = WAVE_FORMAT_PCM;
-    fmt.wBitsPerSample  = 16;
-    fmt.nChannels       = chan;
-    fmt.nSamplesPerSec  = (unsigned long)(freq);
-    fmt.nBlockAlign     = fmt.nChannels * fmt.wBitsPerSample/8;
-    fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nChannels * fmt.wBitsPerSample/8;
+    fmt.wBitsPerSample = 16;
+    fmt.nChannels = chan;
+    fmt.nSamplesPerSec = (unsigned long)(freq);
+    fmt.nBlockAlign = fmt.nChannels * fmt.wBitsPerSample / 8;
+    fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nChannels * fmt.wBitsPerSample / 8;
 
-    switch (waveOutOpen (&dev, deviceID, &fmt, (DWORD)wave_callback, 0, CALLBACK_FUNCTION))
+    switch (waveOutOpen(&dev, deviceID, &fmt, (DWORD)wave_callback, 0, CALLBACK_FUNCTION))
     {
     case MMSYSERR_ALLOCATED:
         qWarning("AudioRendererWaveOut: Device is already open.");
@@ -143,8 +142,8 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
         break;
     }
 
-    waveOutReset (dev);
-    InitializeCriticalSection (&cs);
+    waveOutReset(dev);
+    InitializeCriticalSection(&cs);
 
     return true;
 }
@@ -173,9 +172,9 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
         if (!waveInGetDevCaps(i, &wic, sizeof(WAVEINCAPS)))
         {
             /* Display its Device ID and name */
-            //printf("Device ID #%u: %s\r\n", i, wic.szPname);
+            // printf("Device ID #%u: %s\r\n", i, wic.szPname);
             AudioDeviceInfo info;
-            info.deviceName = QString((const QChar *)wic.szPname);
+            info.deviceName = QString((const QChar*)wic.szPname);
             info.privateName = QString::number(i);
             info.capabilities = AUDIO_CAP_INPUT;
             devList.append(info);
@@ -192,9 +191,9 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
         if (!waveOutGetDevCaps(i, &woc, sizeof(WAVEOUTCAPS)))
         {
             /* Display its Device ID and name */
-            //printf("Device ID #%u: %s\r\n", i, woc.szPname);
+            // printf("Device ID #%u: %s\r\n", i, woc.szPname);
             AudioDeviceInfo info;
-            info.deviceName = QString((const QChar *)woc.szPname);
+            info.deviceName = QString((const QChar*)woc.szPname);
             info.privateName = QString::number(i);
             info.capabilities = AUDIO_CAP_OUTPUT;
             devList.append(info);
@@ -204,57 +203,57 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererWaveOut::writeAudio(unsigned char *data, qint64 len)
+qint64 AudioRendererWaveOut::writeAudio(unsigned char* data, qint64 len)
 {
-    HGLOBAL    hg;
-    HGLOBAL    hg2;
-    LPWAVEHDR  wh;
-    void*      allocptr;
+    HGLOBAL hg;
+    HGLOBAL hg2;
+    LPWAVEHDR wh;
+    void* allocptr;
     len = qMin(len, (qint64)1024);
 
 
     while (PlayedWaveHeadersCount > 0) // free used blocks ...
-        free_memory ();
+        free_memory();
 
-    if (ScheduledBlocks >= sizeof(PlayedWaveHeaders)/sizeof(*PlayedWaveHeaders)) // wait for a free block ...
+    if (ScheduledBlocks >= sizeof(PlayedWaveHeaders) / sizeof(*PlayedWaveHeaders)) // wait for a free block ...
     {
         usleep(500);
         return 0;
     }
 
-    if ((hg2 = GlobalAlloc (GMEM_MOVEABLE, len)) == NULL)   // allocate some memory for a copy of the buffer
+    if ((hg2 = GlobalAlloc(GMEM_MOVEABLE, len)) == NULL) // allocate some memory for a copy of the buffer
     {
         qWarning("AudioRendererWaveOut: GlobalAlloc failed");
         return 0;
     }
 
-    allocptr = GlobalLock (hg2);
-    CopyMemory (allocptr, data, len);                         // Here we can call any modification output functions we want....
+    allocptr = GlobalLock(hg2);
+    CopyMemory(allocptr, data, len); // Here we can call any modification output functions we want....
 
-    if ((hg = GlobalAlloc (GMEM_MOVEABLE | GMEM_ZEROINIT, sizeof (WAVEHDR))) == NULL) // now make a header and WRITE IT!
+    if ((hg = GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, sizeof(WAVEHDR))) == NULL) // now make a header and WRITE IT!
         return -1;
 
-    wh                   = (wavehdr_tag*)GlobalLock (hg);
-    wh->dwBufferLength   = len;
-    wh->lpData           = (CHAR *)allocptr;
+    wh = (wavehdr_tag*)GlobalLock(hg);
+    wh->dwBufferLength = len;
+    wh->lpData = (CHAR*)allocptr;
 
-    if (waveOutPrepareHeader (dev, wh, sizeof (WAVEHDR)) != MMSYSERR_NOERROR)
+    if (waveOutPrepareHeader(dev, wh, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        GlobalUnlock (hg);
-        GlobalFree   (hg);
+        GlobalUnlock(hg);
+        GlobalFree(hg);
         return -1;
     }
 
-    if (waveOutWrite (dev, wh, sizeof (WAVEHDR)) != MMSYSERR_NOERROR)
+    if (waveOutWrite(dev, wh, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        GlobalUnlock (hg);
-        GlobalFree   (hg);
+        GlobalUnlock(hg);
+        GlobalFree(hg);
         return -1;
     }
 
-    EnterCriticalSection (&cs);
+    EnterCriticalSection(&cs);
     ScheduledBlocks++;
-    LeaveCriticalSection (&cs);
+    LeaveCriticalSection(&cs);
 
     return len;
 }
@@ -264,7 +263,7 @@ void AudioRendererWaveOut::drain()
     while (ScheduledBlocks > 0)
     {
         Sleep(ScheduledBlocks);
-        while (PlayedWaveHeadersCount > 0)                        // free used blocks ...
+        while (PlayedWaveHeadersCount > 0) // free used blocks ...
             free_memory();
     }
 }
@@ -281,9 +280,9 @@ void AudioRendererWaveOut::resume()
 
 void AudioRendererWaveOut::reset()
 {
-   while (PlayedWaveHeadersCount > 0)                        // free used blocks ...
-      free_memory ();
-   waveOutReset (dev);
+    while (PlayedWaveHeadersCount > 0) // free used blocks ...
+        free_memory();
+    waveOutReset(dev);
 }
 
 void AudioRendererWaveOut::uninitialize()
@@ -292,17 +291,17 @@ void AudioRendererWaveOut::uninitialize()
     {
         while (ScheduledBlocks > 0)
         {
-            Sleep (ScheduledBlocks);
-            while (PlayedWaveHeadersCount > 0)                        // free used blocks ...
-                free_memory ();
+            Sleep(ScheduledBlocks);
+            while (PlayedWaveHeadersCount > 0) // free used blocks ...
+                free_memory();
         }
 
-        waveOutReset (dev);      // reset the device
-        waveOutClose (dev);      // close the device
+        waveOutReset(dev); // reset the device
+        waveOutClose(dev); // close the device
         dev = 0;
     }
 
-    DeleteCriticalSection (&cs);
+    DeleteCriticalSection(&cs);
     ScheduledBlocks = 0;
     return;
 }

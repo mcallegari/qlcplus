@@ -124,16 +124,14 @@ public:
     QMap<QString, QVariant> getPluginParameters();
 
 signals:
-    void inputValueChanged(quint32 inputUniverse, quint32 channel,
-                           uchar value, const QString& key = 0);
+    void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, const QString& key = 0);
 
     void inputNameChanged();
     void pluginNameChanged();
     void profileNameChanged();
 
 private slots:
-    void slotValueChanged(quint32 universe, quint32 input,
-                          quint32 channel, uchar value, const QString& key = 0);
+    void slotValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value, const QString& key = 0);
 
 private:
     /** The reference of the plugin associated by this Input patch */
@@ -143,7 +141,7 @@ private:
     /** The reference of an input profile if activated by the user (otherwise NULL) */
     QLCInputProfile* m_profile;
     /** The patch parameters cache */
-    QMap<QString, QVariant>m_parametersCache;
+    QMap<QString, QVariant> m_parametersCache;
 
     /************************************************************************
      * Pages
@@ -163,7 +161,8 @@ public:
         InputValue(uchar v, QString const& k)
             : value(v)
             , key(k)
-        {}
+        {
+        }
         uchar value;
         QString key;
     };

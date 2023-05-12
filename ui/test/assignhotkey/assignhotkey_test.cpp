@@ -44,9 +44,9 @@ void AssignHotKey_Test::keyPressEventAuto()
     // Autoclose on
     ahk.m_autoCloseCheckBox->setChecked(true);
     QKeyEvent ev(QEvent::KeyPress, Qt::Key_B, Qt::ShiftModifier);
-    QCOMPARE(ahk.result(), (int) QDialog::Rejected);
+    QCOMPARE(ahk.result(), (int)QDialog::Rejected);
     ahk.keyPressEvent(&ev);
-    QCOMPARE(ahk.result(), (int) QDialog::Accepted);
+    QCOMPARE(ahk.result(), (int)QDialog::Accepted);
     QCOMPARE(ahk.keySequence(), QKeySequence(Qt::Key_B | Qt::SHIFT));
 
     // Reset autoclose
@@ -61,9 +61,9 @@ void AssignHotKey_Test::keyPressEventNoAuto()
     // Autoclose off
     ahk.m_autoCloseCheckBox->setChecked(false);
     QKeyEvent ev(QEvent::KeyPress, Qt::Key_B, Qt::ShiftModifier);
-    QCOMPARE(ahk.result(), (int) QDialog::Rejected);
+    QCOMPARE(ahk.result(), (int)QDialog::Rejected);
     ahk.keyPressEvent(&ev);
-    QCOMPARE(ahk.result(), (int) QDialog::Rejected);
+    QCOMPARE(ahk.result(), (int)QDialog::Rejected);
     QCOMPARE(ahk.keySequence(), QKeySequence(Qt::Key_B | Qt::SHIFT));
 
     // Reset autoclose
@@ -79,22 +79,22 @@ void AssignHotKey_Test::keyPressEventOnlyModifiers()
     QKeyEvent ev(QEvent::KeyPress, Qt::Key_Shift, Qt::ShiftModifier);
     ahk.keyPressEvent(&ev);
     QCOMPARE(ahk.keySequence(), QKeySequence());
-    QCOMPARE(ahk.result(), (int) QDialog::Rejected);
+    QCOMPARE(ahk.result(), (int)QDialog::Rejected);
 
     QKeyEvent ev2(QEvent::KeyPress, Qt::Key_Control, Qt::ControlModifier);
     ahk.keyPressEvent(&ev2);
     QCOMPARE(ahk.keySequence(), QKeySequence());
-    QCOMPARE(ahk.result(), (int) QDialog::Rejected);
+    QCOMPARE(ahk.result(), (int)QDialog::Rejected);
 
     QKeyEvent ev3(QEvent::KeyPress, Qt::Key_Alt, Qt::AltModifier);
     ahk.keyPressEvent(&ev3);
     QCOMPARE(ahk.keySequence(), QKeySequence());
-    QCOMPARE(ahk.result(), (int) QDialog::Rejected);
+    QCOMPARE(ahk.result(), (int)QDialog::Rejected);
 
     QKeyEvent ev4(QEvent::KeyPress, Qt::Key_Meta, Qt::MetaModifier);
     ahk.keyPressEvent(&ev4);
     QCOMPARE(ahk.keySequence(), QKeySequence());
-    QCOMPARE(ahk.result(), (int) QDialog::Rejected);
+    QCOMPARE(ahk.result(), (int)QDialog::Rejected);
 
     // Reset autoclose
     ahk.m_autoCloseCheckBox->setChecked(autoclose);

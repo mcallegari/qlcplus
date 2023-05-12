@@ -42,7 +42,7 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc * doc);
+    RGBScript(Doc* doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
 
@@ -75,14 +75,14 @@ private:
     static void displayError(QJSValue e, const QString& fileName);
 
 private:
-    static QJSEngine* s_engine;      //! The engine that runs all scripts
+    static QJSEngine* s_engine; //! The engine that runs all scripts
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-    static QMutex* s_engineMutex;   //! Protection
+    static QMutex* s_engineMutex; //! Protection
 #else
     static QRecursiveMutex* s_engineMutex;
 #endif
-    QString m_fileName;             //! The file name that contains this script
-    QString m_contents;             //! The file's contents
+    QString m_fileName; //! The file name that contains this script
+    QString m_contents; //! The file's contents
 
     /************************************************************************
      * RGBAlgorithm API
@@ -92,7 +92,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
 
     /** @reimp */
     QString name() const;
@@ -110,10 +110,10 @@ public:
     int acceptColors() const;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader& root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter* doc) const;
 
 private:
     int m_apiVersion;           //! The API version that the script uses

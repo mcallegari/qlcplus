@@ -27,7 +27,7 @@
 #include "video.h"
 #include "doc.h"
 
-VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
+VideoEditor::VideoEditor(QWidget* parent, Video* video, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_video(video)
@@ -40,20 +40,14 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     m_nameEdit->setText(m_video->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
-    connect(m_video, SIGNAL(totalTimeChanged(qint64)),
-            this, SLOT(slotDurationChanged(qint64)));
-    connect(m_video, SIGNAL(metaDataChanged(QString,QVariant)),
-            this, SLOT(slotMetaDataChanged(QString,QVariant)));
+    connect(m_video, SIGNAL(totalTimeChanged(qint64)), this, SLOT(slotDurationChanged(qint64)));
+    connect(m_video, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameEdited(const QString&)));
-    connect(m_fileButton, SIGNAL(clicked()),
-            this, SLOT(slotSourceFileClicked()));
-    connect(m_urlButton, SIGNAL(clicked()),
-            this, SLOT(slotSourceUrlClicked()));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotSourceFileClicked()));
+    connect(m_urlButton, SIGNAL(clicked()), this, SLOT(slotSourceUrlClicked()));
 
-    connect(m_previewButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotPreviewToggled(bool)));
+    connect(m_previewButton, SIGNAL(toggled(bool)), this, SLOT(slotPreviewToggled(bool)));
 
     m_filenameLabel->setText(m_video->sourceUrl());
     m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
@@ -77,22 +71,17 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     else
         m_winCheck->setChecked(true);
 
-    connect(m_screenCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotScreenIndexChanged(int)));
-    connect(m_winCheck, SIGNAL(clicked()),
-            this, SLOT(slotWindowedCheckClicked()));
-    connect(m_fullCheck, SIGNAL(clicked()),
-            this, SLOT(slotFullscreenCheckClicked()));
+    connect(m_screenCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotScreenIndexChanged(int)));
+    connect(m_winCheck, SIGNAL(clicked()), this, SLOT(slotWindowedCheckClicked()));
+    connect(m_fullCheck, SIGNAL(clicked()), this, SLOT(slotFullscreenCheckClicked()));
 
-    if(m_video->runOrder() == Video::Loop)
+    if (m_video->runOrder() == Video::Loop)
         m_loopCheck->setChecked(true);
     else
         m_singleCheck->setChecked(true);
 
-    connect(m_loopCheck, SIGNAL(clicked()),
-            this, SLOT(slotLoopCheckClicked()));
-    connect(m_singleCheck, SIGNAL(clicked()),
-            this, SLOT(slotSingleShotCheckClicked()));
+    connect(m_loopCheck, SIGNAL(clicked()), this, SLOT(slotLoopCheckClicked()));
+    connect(m_singleCheck, SIGNAL(clicked()), this, SLOT(slotSingleShotCheckClicked()));
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -132,7 +121,7 @@ void VideoEditor::slotSourceFileClicked()
     dialog.setNameFilters(filters);
 
     /* Append useful URLs to the dialog */
-    QList <QUrl> sidebar;
+    QList<QUrl> sidebar;
     sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
     sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
     dialog.setSidebarUrls(sidebar);
@@ -155,9 +144,8 @@ void VideoEditor::slotSourceFileClicked()
 void VideoEditor::slotSourceUrlClicked()
 {
     bool ok;
-    QString videoURL = QInputDialog::getText(this, tr("Video source URL"),
-                                         tr("Enter a URL:"), QLineEdit::Normal,
-                                         "http://", &ok);
+    QString videoURL =
+        QInputDialog::getText(this, tr("Video source URL"), tr("Enter a URL:"), QLineEdit::Normal, "http://", &ok);
 
     if (ok == true)
     {
@@ -196,8 +184,7 @@ void VideoEditor::slotPreviewToggled(bool state)
     if (state == true)
     {
         m_video->start(m_doc->masterTimer(), functionParent());
-        connect(m_video, SIGNAL(stopped(quint32)),
-                this, SLOT(slotPreviewStopped(quint32)));
+        connect(m_video, SIGNAL(stopped(quint32)), this, SLOT(slotPreviewStopped(quint32)));
     }
     else
         m_video->stop(functionParent());
