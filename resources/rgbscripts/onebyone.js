@@ -20,43 +20,36 @@
 // Development tool access
 var testAlgo;
 
-(
-  function()
-  {
-    var algo = new Object;
-    algo.apiVersion = 2;
-    algo.name = "One By One";
-    algo.author = "Jano Svitok";
+(function() {
+var algo = new Object;
+algo.apiVersion = 2;
+algo.name = "One By One";
+algo.author = "Jano Svitok";
 
-    algo.properties = new Array();
+algo.properties = new Array();
 
-    algo.rgbMap = function(width, height, rgb, step)
-    {
-        var map = new Array(height);
-        for (var y = 0; y < height; y++)
-        {
-            map[y] = new Array();
-            for (var x = 0; x < width; x++)
-            {
-                map[y][x] = 0;
-            }
-        }
-
-        var xx = step % width;
-        var yy = (step - xx) / width;
-        map[yy][xx] = rgb;
-
-        return map;
-    };
-
-    algo.rgbMapStepCount = function(width, height)
-    {
-        return width * height;
-    };
-
-    // Development tool access
-    testAlgo = algo;
-
-    return algo;
+algo.rgbMap = function(width, height, rgb, step) {
+  var map = new Array(height);
+  for (var y = 0; y < height; y++) {
+    map[y] = new Array();
+    for (var x = 0; x < width; x++) {
+      map[y][x] = 0;
     }
-)();
+  }
+
+  var xx = step % width;
+  var yy = (step - xx) / width;
+  map[yy][xx] = rgb;
+
+  return map;
+};
+
+algo.rgbMapStepCount = function(width, height) {
+  return width * height;
+};
+
+// Development tool access
+testAlgo = algo;
+
+return algo;
+})();

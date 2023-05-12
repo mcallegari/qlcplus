@@ -64,17 +64,30 @@ find \
     ui \
     webaccess\
     -name '*.cpp' -or -name '*.h' | while read FILE; do
-  clang-format -style=file "$FILE" | diff $DIFFARG "$FILE" -
+  clang-format -style=file:. "$FILE" | diff $DIFFARG "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
-    echo >&2 "$FILE: Error in formatting."
+    echo >&2 "$FILE: Error in formatting. Run:"
+    echo >&2 "       clang-format -i -style=file:.clang-format \"$FILE\""
     exit $RET
   else
     echo >&2 "$FILE: Formatting checked OK"
   fi
 done || exit $?
 
-exit 0
+find \
+    resources/rgbscripts/ \
+    -name '*.js' | while read FILE; do
+  clang-format -style=file:.clang-format-js "$FILE" | diff $DIFFARG "$FILE" -
+  RET=$?
+  if [ $RET -ne 0 ]; then
+    echo >&2 "$FILE: Error in formatting. Run:"
+    echo >&2 "       clang-format -i -style=file:.clang-format-js \"$FILE\""
+    exit $RET
+  else
+    echo >&2 "$FILE: Formatting checked OK"
+  fi
+done || exit $?
 
 #############################################################################
 # Fixture definitions check with xmllint
