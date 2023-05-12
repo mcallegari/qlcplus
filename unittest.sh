@@ -64,11 +64,13 @@ find \
     ui \
     webaccess\
     -name '*.cpp' -or -name '*.h' | while read FILE; do
-  clang-format -style=file engine/src/rgbscript.cpp "$FILE" | diff $DIFFARG "$FILE" -
+  clang-format -style=file "$FILE" | diff $DIFFARG "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
     echo >&2 "$FILE: Error in formatting."
     exit $RET
+  else
+    echo >&2 "$FILE: Formatting checked OK"
   fi
 done || exit $?
 
