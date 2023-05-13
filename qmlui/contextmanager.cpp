@@ -32,7 +32,6 @@
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
-#include "simpledesk.h"
 #include "tardis.h"
 #include "app.h"
 #include "doc.h"
@@ -88,9 +87,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
-    connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)),
-            this, SLOT(slotChannelTypeValueChanged(int, quint8)));
-    connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
 
     connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)), this, SLOT(slotUniverseWritten(quint32,QByteArray)));
@@ -1101,6 +1097,47 @@ void ContextManager::updateFixturesCapabilities()
         m_fixtureManager->getFixtureCapabilities(itemID, -1, true);
 }
 
+qreal ContextManager::getCurrentValue(int type)
+{
+    qreal currMsbValue = -1;
+    qreal currLsbValue = -1;
+    qreal currValue = -1;
+
+    QList<SceneValue> svList = m_channelsMap.values(type);
+    for (SceneValue &sv : svList)
+    {
+        Fixture *fixture = m_doc->fixture(sv.fxi);
+        if (fixture == nullptr)
+            continue;
+
+        const QLCChannel *ch = fixture->channel(sv.channel);
+        if (ch == nullptr)
+            continue;
+
+        uchar dmxValue = fixture->channelValueAt(sv.channel);
+
+        if (ch->controlByte() == QLCChannel::MSB)
+        {
+            if (currMsbValue != -1 && currMsbValue != dmxValue)
+                return -1;
+
+            currMsbValue = dmxValue;
+        }
+        else if (ch->controlByte() == QLCChannel::LSB)
+        {
+            if (currLsbValue != -1 && currLsbValue != dmxValue)
+                return -1;
+
+            currLsbValue = dmxValue;
+        }
+    }
+
+    qDebug() << "Channel type" << type << "MSB" << currMsbValue << "LSB" << currLsbValue;
+    currValue = currMsbValue + currLsbValue / 255.0;
+
+    return currValue;
+}
+
 void ContextManager::createFixtureGroup()
 {
     if (m_selectedFixtures.isEmpty())
@@ -1261,36 +1298,51 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
         m_functionManager->setChannelValue(fxID, channel, uchar(value));
 }
 
-void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
+void ContextManager::setColorValue(QColor col, QColor wauv)
 {
-    //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
+    setChannelValueByType((int)QLCChannel::Red, col.red());
+    setChannelValueByType((int)QLCChannel::Green, col.green());
+    setChannelValueByType((int)QLCChannel::Blue, col.blue());
+
+    setChannelValueByType((int)QLCChannel::White, wauv.red());
+    setChannelValueByType((int)QLCChannel::Amber, wauv.green());
+    setChannelValueByType((int)QLCChannel::UV, wauv.blue());
+
+    QColor cmykColor = col.toCmyk();
+    setChannelValueByType((int)QLCChannel::Cyan, cmykColor.cyan());
+    setChannelValueByType((int)QLCChannel::Magenta, cmykColor.magenta());
+    setChannelValueByType((int)QLCChannel::Yellow, cmykColor.yellow());
+}
+
+void ContextManager::setChannelValueByType(int type, int value, bool isRelative, quint32 channel)
+{
+    //qDebug() << "[setChannelValueByType] type:" << type << "value:" << value << "relative:" << isRelative << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
-    for (SceneValue sv : svList)
+    for (SceneValue &sv : svList)
     {
         if (channel == UINT_MAX || channel == sv.channel)
         {
+            uchar val = value;
+
+            if (isRelative)
+            {
+                Fixture *fixture = m_doc->fixture(sv.fxi);
+                if (fixture == nullptr)
+                    continue;
+
+                const QLCChannel *ch = fixture->channel(sv.channel);
+                if (ch == nullptr)
+                    continue;
+
+                val = std::clamp(fixture->channelValueAt(sv.channel) + value, 0, 255);
+            }
+
             if (m_editingEnabled == false)
-                setDumpValue(sv.fxi, sv.channel, uchar(value));
+                setDumpValue(sv.fxi, sv.channel, val);
             else
-                m_functionManager->setChannelValue(sv.fxi, sv.channel, uchar(value));
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, val);
         }
     }
-}
-
-void ContextManager::slotColorChanged(QColor col, QColor wauv)
-{
-    slotChannelTypeValueChanged((int)QLCChannel::Red, (quint8)col.red());
-    slotChannelTypeValueChanged((int)QLCChannel::Green, (quint8)col.green());
-    slotChannelTypeValueChanged((int)QLCChannel::Blue, (quint8)col.blue());
-
-    slotChannelTypeValueChanged((int)QLCChannel::White, (quint8)wauv.red());
-    slotChannelTypeValueChanged((int)QLCChannel::Amber, (quint8)wauv.green());
-    slotChannelTypeValueChanged((int)QLCChannel::UV, (quint8)wauv.blue());
-
-    QColor cmykColor = col.toCmyk();
-    slotChannelTypeValueChanged((int)QLCChannel::Cyan, (quint8)cmykColor.cyan());
-    slotChannelTypeValueChanged((int)QLCChannel::Magenta, (quint8)cmykColor.magenta());
-    slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
 }
 
 void ContextManager::setPositionValue(int type, int degrees)
@@ -1365,7 +1417,7 @@ void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
         {
             quint32 chIdx = fixture->fixtureMode()->channelNumber((QLCChannel *)channel);
             if (chIdx != QLCChannel::invalid())
-                slotChannelTypeValueChanged((int)channel->group(), value, chIdx);
+                setChannelValueByType((int)channel->group(), value, false, chIdx);
         }
     }
 }

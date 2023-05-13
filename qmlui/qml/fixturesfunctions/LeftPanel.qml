@@ -144,7 +144,7 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: false
 
-                    onValueChanged: fixtureManager.setIntensityValue(value)
+                    onValueChanged: contextManager.setChannelValueByType(QLCChannel.Intensity, value, relativeValue)
                     onClose: intToolButton.toggle()
                 }
             }
@@ -228,7 +228,7 @@ SidePanel
                     visible: false
                     colorsMask: fixtureManager.colorsMask
 
-                    onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
+                    onColorChanged: contextManager.setColorValue(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
                     onClose: colorToolButton.toggle()
                 }
             }
