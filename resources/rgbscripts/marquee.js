@@ -22,16 +22,41 @@ var testAlgo;
 
 (function() {
 var colorPalette = new Object();
-colorPalette.collection =
-new Array([ "White", 0xFFFFFF ], [ "LightGrey", 0xAAAAAA ], [ "MediumGrey", 0x999999 ], [ "DarkGrey", 0x666666 ],
-          [ "Cream", 0xFFFF7F ], [ "Pink", 0xFF7F7F ], [ "Rose", 0x7F3F3F ], [ "Coral", 0x7F3F1F ],
-          [ "Dim Red", 0x7F0000 ], [ "Red", 0xFF0000 ], [ "Orange", 0xFF3F00 ], [ "Dim Orange", 0x7F1F00 ],
-          [ "Goldenrod", 0x7F3F00 ], [ "Gold", 0xFF7F00 ], [ "Yellow", 0xFFFF00 ], [ "Dim Yellow", 0x7F7F00 ],
-          [ "Lime", 0x7FFF00 ], [ "Pale Green", 0x3F7F00 ], [ "Dim Green", 0x007F00 ], [ "Green", 0x00FF00 ],
-          [ "Seafoam", 0x00FF3F ], [ "Turquoise", 0x007F3F ], [ "Teal", 0x007F7F ], [ "Cyan", 0x00FFFF ],
-          [ "Electric Blue", 0x007FFF ], [ "Blue", 0x0000FF ], [ "Dim Blue", 0x00007F ], [ "Pale Blue", 0x1F1F7F ],
-          [ "Indigo", 0x1F00BF ], [ "Purple", 0x3F00BF ], [ "Violet", 0x7F007F ], [ "Magenta", 0xFF00FF ],
-          [ "Hot Pink", 0xFF003F ], [ "Deep Pink", 0x7F001F ], [ "Black", 0x000000 ]);
+colorPalette.collection = new Array([ "White", 0xFFFFFF ],         // 0
+                                    [ "LightGrey", 0xAAAAAA ],     // 1
+                                    [ "MediumGrey", 0x999999 ],    // 2
+                                    [ "DarkGrey", 0x666666 ],      // 3
+                                    [ "Cream", 0xFFFF7F ],         // 4
+                                    [ "Pink", 0xFF7F7F ],          // 5
+                                    [ "Rose", 0x7F3F3F ],          // 6
+                                    [ "Coral", 0x7F3F1F ],         // 7
+                                    [ "Dim Red", 0x7F0000 ],       // 8
+                                    [ "Red", 0xFF0000 ],           // 9
+                                    [ "Orange", 0xFF3F00 ],        // 10
+                                    [ "Dim Orange", 0x7F1F00 ],    // 11
+                                    [ "Goldenrod", 0x7F3F00 ],     // 12
+                                    [ "Gold", 0xFF7F00 ],          // 13
+                                    [ "Yellow", 0xFFFF00 ],        // 14
+                                    [ "Dim Yellow", 0x7F7F00 ],    // 15
+                                    [ "Lime", 0x7FFF00 ],          // 16
+                                    [ "Pale Green", 0x3F7F00 ],    // 17
+                                    [ "Dim Green", 0x007F00 ],     // 18
+                                    [ "Green", 0x00FF00 ],         // 19
+                                    [ "Seafoam", 0x00FF3F ],       // 20
+                                    [ "Turquoise", 0x007F3F ],     // 21
+                                    [ "Teal", 0x007F7F ],          // 22
+                                    [ "Cyan", 0x00FFFF ],          // 23
+                                    [ "Electric Blue", 0x007FFF ], // 24
+                                    [ "Blue", 0x0000FF ],          // 25
+                                    [ "Dim Blue", 0x00007F ],      // 26
+                                    [ "Pale Blue", 0x1F1F7F ],     // 27
+                                    [ "Indigo", 0x1F00BF ],        // 28
+                                    [ "Purple", 0x3F00BF ],        // 29
+                                    [ "Violet", 0x7F007F ],        // 30
+                                    [ "Magenta", 0xFF00FF ],       // 31
+                                    [ "Hot Pink", 0xFF003F ],      // 32
+                                    [ "Deep Pink", 0x7F001F ],     // 32
+                                    [ "Black", 0x000000 ]);        // 33
 
 colorPalette.makeSubArray = function(_index) {
   var _array = new Array();

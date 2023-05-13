@@ -31,10 +31,12 @@ algo.acceptColors = 1;
 algo.properties = new Array();
 algo.initialized = false;
 
-algo.triggerPoints =
-new Array([ "Upper Half", {minFactor : 0.5, maxFactor : 1} ], [ "Upper Third", {minFactor : 0.7, maxFactor : 1} ],
-          [ "Bottom Half", {minFactor : 0, maxFactor : 0.5} ], [ "Bottom Third", {minFactor : 0, maxFactor : 0.3} ],
-          [ "Centered Third", {minFactor : 0.3, maxFactor : 0.7} ], [ "Full Size", {minFactor : 0, maxFactor : 1} ]);
+algo.triggerPoints = new Array([ "Upper Half", {minFactor : 0.5, maxFactor : 1} ],       // 0
+                               [ "Upper Third", {minFactor : 0.7, maxFactor : 1} ],      // 1
+                               [ "Bottom Half", {minFactor : 0, maxFactor : 0.5} ],      // 2
+                               [ "Bottom Third", {minFactor : 0, maxFactor : 0.3} ],     // 3
+                               [ "Centered Third", {minFactor : 0.3, maxFactor : 0.7} ], // 4
+                               [ "Full Size", {minFactor : 0, maxFactor : 1} ]);
 algo.makeSubArray = function(_index) {
   var _array = new Array();
   for (var i = 0; i < algo.triggerPoints.length; i++) {

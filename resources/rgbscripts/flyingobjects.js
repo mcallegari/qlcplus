@@ -61,7 +61,8 @@ bellAlgo.updateCache = function() {
   bellAlgo.cache.clapperSwing = 0.5 * algo.presetRadius;
   bellAlgo.cache.clapperDeflection = 0.025 * algo.twoPi;
   bellAlgo.cache.presetRadius = algo.presetRadius;
-} bellAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+};
+bellAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
   if (bellAlgo.cache.presetRadius != algo.presetRadius) {
     bellAlgo.updateCache();
   }
@@ -99,14 +100,14 @@ var candleAlgo = new Object;
 candleAlgo.cache = {
   presetRadius : 0,
 };
-candleAlgo.updateCache =
-function() {
+candleAlgo.updateCache = function() {
   candleAlgo.cache.bottomWidth = 0.9 * algo.presetRadius;
   candleAlgo.cache.bottomHeight = 0.8 * algo.presetRadius;
   candleAlgo.cache.blindoutPercent = algo.presetRadius * 1.9;
   candleAlgo.cache.sharpness = 1 / algo.presetRadius;
   candleAlgo.cache.presetRadius = algo.presetRadius;
-} candleAlgo.getMapPixelColor =
+};
+candleAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (candleAlgo.cache.presetRadius != algo.presetRadius) {
     candleAlgo.updateCache();
@@ -216,13 +217,13 @@ var eyeAlgo = new Object;
 eyeAlgo.cache = {
   presetRadius : 0,
 };
-eyeAlgo.updateCache =
-function() {
+eyeAlgo.updateCache = function() {
   eyeAlgo.cache.turn = algo.presetRadius / 10;
   eyeAlgo.cache.targetDistanceOuter = algo.presetRadius / 3;
   eyeAlgo.cache.targetDistanceInner = algo.presetRadius / 8;
   eyeAlgo.cache.presetRadius = algo.presetRadius;
-} eyeAlgo.getMapPixelColor =
+};
+eyeAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (eyeAlgo.cache.presetRadius != algo.presetRadius) {
     eyeAlgo.updateCache();
@@ -257,11 +258,11 @@ var flowerAlgo = new Object;
 flowerAlgo.cache = {
   presetRadius : 0,
 };
-flowerAlgo.updateCache =
-function() {
+flowerAlgo.updateCache = function() {
   flowerAlgo.cache.innerCircle = 0.3 * algo.presetRadius;
   flowerAlgo.cache.presetRadius = algo.presetRadius;
-} flowerAlgo.getMapPixelColor =
+};
+flowerAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (flowerAlgo.cache.presetRadius != algo.presetRadius) {
     flowerAlgo.updateCache();
@@ -303,12 +304,12 @@ var heartAlgo = new Object;
 heartAlgo.cache = {
   presetRadius : 0,
 };
-heartAlgo.updateCache =
-function() {
+heartAlgo.updateCache = function() {
   heartAlgo.cache.targetDistanceTop = algo.presetRadius * 3 / 7;
   heartAlgo.cache.circleOffset = algo.presetSize / 5;
   heartAlgo.cache.presetRadius = algo.presetRadius;
-} heartAlgo.getMapPixelColor =
+};
+heartAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (heartAlgo.cache.presetRadius != algo.presetRadius) {
     heartAlgo.updateCache();
@@ -365,12 +366,12 @@ var maskAlgo = new Object;
 maskAlgo.cache = {
   presetRadius : 0,
 };
-maskAlgo.updateCache =
-function() {
+maskAlgo.updateCache = function() {
   maskAlgo.cache.targetDistanceOpening = algo.presetRadius / 5;
   maskAlgo.cache.openingOffset = algo.presetSize / 5;
   maskAlgo.cache.presetRadius = algo.presetRadius;
-} maskAlgo.getMapPixelColor =
+};
+maskAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (maskAlgo.cache.presetRadius != algo.presetRadius) {
     maskAlgo.updateCache();
@@ -444,14 +445,14 @@ var snowflakeAlgo = new Object;
 snowflakeAlgo.cache = {
   presetRadius : 0,
 };
-snowflakeAlgo.updateCache =
-function() {
+snowflakeAlgo.updateCache = function() {
   snowflakeAlgo.cache.lineWidth = 0.9 + 0.02 * algo.presetRadius;
   snowflakeAlgo.cache.intersect = Math.max(4.5, 0.6 * algo.presetRadius);
   snowflakeAlgo.cache.cWidthSmall = 0.5 * algo.presetRadius;
   snowflakeAlgo.cache.cWidthMain = 1.5 * algo.presetRadius;
   snowflakeAlgo.cache.presetRadius = algo.presetRadius;
-} snowflakeAlgo.getMapPixelColor =
+};
+snowflakeAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (snowflakeAlgo.cache.presetRadius != algo.presetRadius) {
     snowflakeAlgo.updateCache();
@@ -519,8 +520,7 @@ var snowmanAlgo = new Object;
 snowmanAlgo.cache = {
   presetRadius : 0,
 };
-snowmanAlgo.updateCache =
-function() {
+snowmanAlgo.updateCache = function() {
   snowmanAlgo.cache.size1 = algo.presetSize / 5;
   snowmanAlgo.cache.yOffset1 = algo.presetRadius - 0.75 * snowmanAlgo.cache.size1;
   snowmanAlgo.cache.size2 = algo.presetSize * 1.5 / 5;
@@ -528,7 +528,8 @@ function() {
   snowmanAlgo.cache.size3 = algo.presetSize * 2 / 5;
   snowmanAlgo.cache.yOffset3 = 0.75 * snowmanAlgo.cache.size3 - algo.presetRadius;
   snowmanAlgo.cache.presetRadius = algo.presetRadius;
-} snowmanAlgo.getMapPixelColor =
+};
+snowmanAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (snowmanAlgo.cache.presetRadius != algo.presetRadius) {
     snowmanAlgo.updateCache();
@@ -584,13 +585,13 @@ var starAlgo = new Object;
 starAlgo.cache = {
   presetRadius : 0,
 };
-starAlgo.updateCache =
-function() {
+starAlgo.updateCache = function() {
   starAlgo.cache.triangleSide = algo.presetRadius * Math.sqrt(3);
   starAlgo.cache.expression = 1 + algo.presetSize / 50;
   starAlgo.cache.sharpness = 0.3 + algo.presetSize / 18;
   starAlgo.cache.presetRadius = algo.presetRadius;
-} starAlgo.getMapPixelColor =
+};
+starAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (starAlgo.cache.presetRadius != algo.presetRadius) {
     starAlgo.updateCache();
@@ -643,8 +644,7 @@ var steeringwheelAlgo = new Object;
 steeringwheelAlgo.cache = {
   presetRadius : 0,
 };
-steeringwheelAlgo.updateCache =
-function() {
+steeringwheelAlgo.updateCache = function() {
   if (algo.presetSize < 7) {
     steeringwheelAlgo.cache.outerCircle = 0.5 * algo.presetRadius;
     steeringwheelAlgo.cache.innerCircle = 0;
@@ -658,7 +658,8 @@ function() {
   // line length
   steeringwheelAlgo.cache.lineLength = 1.4 * algo.presetRadius;
   steeringwheelAlgo.cache.presetRadius = algo.presetRadius;
-} steeringwheelAlgo.getMapPixelColor =
+};
+steeringwheelAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (steeringwheelAlgo.cache.presetRadius != algo.presetRadius) {
     steeringwheelAlgo.updateCache();
@@ -697,11 +698,11 @@ var tornadoAlgo = new Object;
 tornadoAlgo.cache = {
   presetRadius : 0,
 };
-tornadoAlgo.updateCache =
-function() {
+tornadoAlgo.updateCache = function() {
   tornadoAlgo.cache.centerCircle = 0.15 * algo.presetRadius;
   tornadoAlgo.cache.presetRadius = algo.presetRadius;
-} tornadoAlgo.getMapPixelColor =
+};
+tornadoAlgo.getMapPixelColor =
 function(i, rx, ry, r, g, b) {
   if (tornadoAlgo.cache.presetRadius != algo.presetRadius) {
     tornadoAlgo.updateCache();
@@ -754,7 +755,8 @@ treeAlgo.updateCache = function() {
   treeAlgo.cache.offyScaling = 0.1 * algo.presetSize;
   treeAlgo.cache.sharpness = 0.025 * algo.presetRadius;
   treeAlgo.cache.presetRadius = algo.presetRadius;
-} treeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
+};
+treeAlgo.getMapPixelColor = function(i, rx, ry, r, g, b) {
   if (treeAlgo.cache.presetRadius != algo.presetRadius) {
     treeAlgo.updateCache();
   }
@@ -789,7 +791,8 @@ treeAlgo.updateCache = function() {
 
   // add the object color to the algo.mapped location
   return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
-} treeAlgo.unused = function(i, rx, ry, r, g, b) {
+};
+treeAlgo.unused = function(i, rx, ry, r, g, b) {
   // calculate the offset difference of algo.map location to the float
   // location of the object
   var offx = rx - algo.obj[i].x;
@@ -1063,8 +1066,7 @@ algo.getSelectedAlgo = function() {
 geometryCalc.cache = {
   presetRadius : 0,
 };
-geometryCalc.updateCache =
-function(tips) {
+geometryCalc.updateCache = function(tips) {
   if (tips === 6) {
     geometryCalc.cache.innerRadius = 0.866 * algo.presetRadius;
   } else if (tips === 5) {
@@ -1077,7 +1079,8 @@ function(tips) {
   geometryCalc.cache.r = algo.twoPi / tips / 2;
   geometryCalc.cache.presetRadius = algo.presetRadius;
   geometryCalc.cache.tips = tips;
-} geometryCalc.getTargetDistance =
+};
+geometryCalc.getTargetDistance =
 function(angle, tips) {
   if (geometryCalc.cache.presetRadius != algo.presetRadius || geometryCalc.cache.tips != tips) {
     geometryCalc.updateCache(tips);

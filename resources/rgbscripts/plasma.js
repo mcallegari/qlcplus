@@ -31,8 +31,8 @@ algo.rstepcount = 0;
 algo.gstepcount = 50;
 algo.bstepcount = 100;
 algo.presetIndex = 0;
-algo.properties.push(
-"name:presetIndex|type:list|display:Preset|values:Rainbow,Fire,Abstract,Ocean|write:setPreset|read:getPreset");
+algo.properties.push("name:presetIndex|type:list|display:Preset|" +
+                     "values:Rainbow,Fire,Abstract,Ocean|write:setPreset|read:getPreset");
 algo.presetSize = 5;
 algo.properties.push("name:presetSize|type:range|display:Size|values:1,20|write:setSize|read:getSize");
 algo.ramp = 20;
