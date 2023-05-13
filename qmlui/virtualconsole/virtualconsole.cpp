@@ -1151,7 +1151,10 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
         for (VCPage* page : m_pages) // C++11
         {
             if (pageIdx == selectedPage())
+            {
                 page->inputValueChanged(universe, channel, value);
+                break;
+            }
 
             pageIdx++;
         }

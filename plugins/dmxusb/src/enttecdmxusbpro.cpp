@@ -687,6 +687,8 @@ bool EnttecDMXUSBPro::sendRDMCommand(quint32 universe, quint32 line, uchar comma
 
             if (result == true)
             {
+                discoveryFailureCount = 0;
+                discoveryNoReplyCount = 0;
                 emit rdmValueChanged(universe, line, values);
                 break;
             }

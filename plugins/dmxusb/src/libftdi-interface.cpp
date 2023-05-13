@@ -81,23 +81,27 @@ QString LibFTDIInterface::readLabel(uchar label, int *ESTA_code)
     uchar *buffer = (uchar*) malloc(sizeof(uchar) * 40);
     Q_ASSERT(buffer != NULL);
 
-    QByteArray array;
-    usleep(300000); // give some time to the device to respond
-    int read = ftdi_read_data(&m_handle, buffer, 40);
-    //qDebug() << Q_FUNC_INFO << "Data read: " << read;
-    array = QByteArray::fromRawData((char*) buffer, read);
+    for (int i = 0; i < 3; i++)
+    {
+        QByteArray array = read(40, buffer);
+        if (array.size() >= 7)
+        {
+            if (array[0] != ENTTEC_PRO_START_OF_MSG)
+                qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
+            *ESTA_code = (array[5] << 8) | array[4];
+            array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
+            array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
 
-    if (array[0] != ENTTEC_PRO_START_OF_MSG)
-        qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-    *ESTA_code = (array[5] << 8) | array[4];
-    array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
-    array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
+            ftdi_usb_close(&m_handle);
 
-    //for (int i = 0; i < array.size(); i++)
-    //    qDebug() << "-Data: " << array[i];
+            return QString(array);
+        }
+        usleep(100000);
+    }
+
     ftdi_usb_close(&m_handle);
 
-    return QString(array);
+    return QString();
 }
 
 void LibFTDIInterface::setBusLocation(quint8 location)

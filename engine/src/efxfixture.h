@@ -157,9 +157,9 @@ private:
     /** Reset the fixture when the EFX is stopped */
     void reset();
 
-    /** Check, whether this EFXFixture is ready (no more events).
+    /** Check, whether this EFXFixture is done (no more events).
         This can happen basically only if SingleShot mode is enabled. */
-    bool isReady() const;
+    bool isDone() const;
 
     /** Get this fixture's time offset (in serial and asymmetric modes) */
     uint timeOffset() const;
@@ -171,9 +171,9 @@ private:
     /** This fixture's current run-time direction */
     Function::Direction m_runTimeDirection;
 
-    /** When running in single shot mode, the fixture is marked ready
+    /** When running in single shot mode, the fixture is marked done
         after it has completed a full cycle. */
-    bool m_ready;
+    bool m_done;
 
     /** Indicates, whether start() has been called for this fixture */
     bool m_started;

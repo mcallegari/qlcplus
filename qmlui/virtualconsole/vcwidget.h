@@ -557,6 +557,10 @@ public slots:
     /** Virtual slot called when an input value changed */
     virtual void slotInputValueChanged(quint8 id, uchar value);
 
+    /** Slot connected directly to input sources with specific needs
+     *  (e.g. extra press) */
+    void slotInputSourceValueChanged(quint32 universe, quint32 channel, uchar value);
+
 signals:
     void inputSourcesListChanged();
 
