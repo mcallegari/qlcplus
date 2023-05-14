@@ -64,11 +64,11 @@ find \
     ui \
     webaccess\
     -name '*.h' -or -name '*.cpp' -and -not -name 'moc_*' | while read FILE; do
-  clang-format -style=file "$FILE" | diff $DIFFARG "$FILE" -
+  clang-format-14 -style=file:.clang-format "$FILE" | diff $DIFFARG "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
     echo >&2 "$FILE: Error in formatting. Run:"
-    echo >&2 "       clang-format -i -style=file:.clang-format \"$FILE\""
+    echo >&2 "       clang-format-14 -i -style=file:.clang-format \"$FILE\""
     exit $RET
   else
     echo >&2 "$FILE: Formatting OK"
@@ -78,11 +78,11 @@ done || exit $?
 find \
     resources/rgbscripts/ \
     -name '*.js' | while read FILE; do
-  clang-format -style=file "$FILE" | diff $DIFFARG "$FILE" -
+  clang-format-14 -style=file:.clang-format-js "$FILE" | diff $DIFFARG "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
     echo >&2 "$FILE: Error in formatting. Run:"
-    echo >&2 "       clang-format -i -style=file:.clang-format-js \"$FILE\""
+    echo >&2 "       clang-format-14 -i -style=file:.clang-format-js \"$FILE\""
     exit $RET
   else
     echo >&2 "$FILE: Formatting OK"
