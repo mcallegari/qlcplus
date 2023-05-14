@@ -36,7 +36,10 @@ Rectangle
     property bool dmxValues: true
     property bool closeOnSelect: false
     property alias showPalette: paletteBox.visible
+
     property alias currentValue: spinBox.value
+    property real previousValue: 0
+    property bool relativeValue: false
 
     signal valueChanged(int value)
     signal close()
@@ -51,13 +54,36 @@ Rectangle
         }
         else
         {
-            intRoot.valueChanged(dmxValues ? currentValue : currentValue * 2.55)
+            var val = relativeValue ? currentValue - previousValue : currentValue
+            intRoot.valueChanged(dmxValues ? val : val * 2.55)
             if (closeOnSelect)
                 intRoot.visible = false
         }
+        previousValue = currentValue
     }
 
-    onVisibleChanged: if(!visible) paletteBox.checked = false
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            previousValue = 0
+            var val = contextManager.getCurrentValue(QLCChannel.Intensity, false)
+            if (val === -1)
+            {
+                relativeValue = true
+                currentValue = 0
+            }
+            else
+            {
+                relativeValue = false
+                currentValue = dmxValues ? Math.round(val) : Math.round(val / 2.55)
+            }
+        }
+        else
+        {
+            paletteBox.checked = false
+        }
+    }
 
     function loadPalette(pId)
     {
@@ -155,21 +181,20 @@ Rectangle
             {
                 id: rectMask
                 color: "transparent"
-                width: Math.round((parent.height * currentValue) / (dmxValues ? 256.0 : 100.0))
-                y: parent.height
-                height: parent.width
-                transformOrigin: Item.TopLeft
-                rotation: -90
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: {
+                    var range = relativeValue ? 512 : (dmxValues ? 256.0 : 100.0)
+                    var multValue = relativeValue ? currentValue + 255 : currentValue
+                    return Math.round((parent.height * multValue) / range)
+                }
                 clip: true
 
                 Image
                 {
-                    id: intForegroundImg
-                    y: -height
+                    anchors.bottom: parent.bottom
                     width: intBackgroundImg.width
                     height: intBackgroundImg.height
-                    transformOrigin: Item.BottomLeft
-                    rotation: 90
                     source: "qrc:/dimmer-fill.svg"
                     sourceSize: Qt.size(width, height)
                 }
@@ -177,10 +202,9 @@ Rectangle
 
             Slider
             {
-                id: slider
                 anchors.fill: parent
                 orientation: Qt.Vertical
-                from: 0
+                from: relativeValue ? (dmxValues ? -255 : -100) : 0
                 to: dmxValues ? 255 : 100
                 stepSize: 1.0
                 background: Rectangle { color: "transparent" }
@@ -204,7 +228,7 @@ Rectangle
                 id: spinBox
                 Layout.fillWidth: true
                 height: UISettings.listItemHeight
-                from: 0
+                from: relativeValue ? (dmxValues ? -255 : -100) : 0
                 suffix: dmxValues ? "" : "%"
                 to: dmxValues ? 255 : 100
 

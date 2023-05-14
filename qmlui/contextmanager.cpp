@@ -32,7 +32,6 @@
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
-#include "simpledesk.h"
 #include "tardis.h"
 #include "app.h"
 #include "doc.h"
@@ -87,9 +86,6 @@ ContextManager::ContextManager(QQuickView* view, Doc* doc, FixtureManager* fxMgr
     connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
-    connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)), this,
-            SLOT(slotChannelTypeValueChanged(int, quint8)));
-    connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
 
     connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, QByteArray)), this,
@@ -361,7 +357,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
             qDebug() << "Fixture" << fxID << "pan degrees:" << panDeg;
 
-            QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Pan, panDeg);
+            QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Pan, panDeg);
             for (SceneValue posSv : svList)
             {
                 if (m_editingEnabled == false)
@@ -395,7 +391,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
             qDebug() << "Fixture" << fxID << "tilt degrees:" << tiltDeg;
 
-            QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Tilt, tiltDeg);
+            QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Tilt, tiltDeg);
             for (SceneValue posSv : svList)
             {
                 if (m_editingEnabled == false)
@@ -1099,6 +1095,66 @@ void ContextManager::updateFixturesCapabilities()
         m_fixtureManager->getFixtureCapabilities(itemID, -1, true);
 }
 
+qreal ContextManager::getCurrentValue(int type, bool degrees)
+{
+    qreal currMsbValue = -1;
+    qreal currLsbValue = -1;
+    qreal currValue = -1;
+
+    QList<SceneValue> svList = m_channelsMap.values(type);
+    for (SceneValue& sv : svList)
+    {
+        Fixture* fixture = m_doc->fixture(sv.fxi);
+        if (fixture == nullptr)
+            continue;
+
+        const QLCChannel* ch = fixture->channel(sv.channel);
+        if (ch == nullptr)
+            continue;
+
+        qreal chValue = fixture->channelValueAt(sv.channel);
+
+        if (ch->controlByte() == QLCChannel::MSB)
+        {
+            if (degrees)
+            {
+                QLCFixtureMode* fxMode = fixture->fixtureMode();
+                QLCPhysical phy = fxMode->physical();
+                if (type == QLCChannel::Pan)
+                    chValue = (qreal(phy.focusPanMax()) / 256.0) * chValue;
+                else if (type == QLCChannel::Tilt)
+                    chValue = (qreal(phy.focusTiltMax()) / 256.0) * chValue;
+            }
+            if (currMsbValue != -1 && currMsbValue != chValue)
+                return -1;
+
+            currMsbValue = chValue;
+        }
+        else if (ch->controlByte() == QLCChannel::LSB)
+        {
+            if (degrees)
+            {
+                QLCFixtureMode* fxMode = fixture->fixtureMode();
+                QLCPhysical phy = fxMode->physical();
+                if (type == QLCChannel::Pan)
+                    chValue = (qreal(phy.focusPanMax()) / 65536.0) * chValue;
+                else if (type == QLCChannel::Tilt)
+                    chValue = (qreal(phy.focusTiltMax()) / 65536.0) * chValue;
+            }
+
+            if (currLsbValue != -1 && currLsbValue != chValue)
+                return -1;
+
+            currLsbValue = chValue;
+        }
+    }
+
+    qDebug() << "Channel type" << type << "MSB" << currMsbValue << "LSB" << currLsbValue;
+    currValue = currMsbValue + currLsbValue / 255.0;
+
+    return currValue;
+}
+
 void ContextManager::createFixtureGroup()
 {
     if (m_selectedFixtures.isEmpty())
@@ -1265,53 +1321,77 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
         m_functionManager->setChannelValue(fxID, channel, uchar(value));
 }
 
-void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
+void ContextManager::setColorValue(QColor col, QColor wauv)
 {
+<<<<<<< HEAD
     // qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
+=======
+    setChannelValueByType((int)QLCChannel::Red, col.red());
+    setChannelValueByType((int)QLCChannel::Green, col.green());
+    setChannelValueByType((int)QLCChannel::Blue, col.blue());
+
+    setChannelValueByType((int)QLCChannel::White, wauv.red());
+    setChannelValueByType((int)QLCChannel::Amber, wauv.green());
+    setChannelValueByType((int)QLCChannel::UV, wauv.blue());
+
+    QColor cmykColor = col.toCmyk();
+    setChannelValueByType((int)QLCChannel::Cyan, cmykColor.cyan());
+    setChannelValueByType((int)QLCChannel::Magenta, cmykColor.magenta());
+    setChannelValueByType((int)QLCChannel::Yellow, cmykColor.yellow());
+}
+
+void ContextManager::setChannelValueByType(int type, int value, bool isRelative, quint32 channel)
+{
+    // qDebug() << "[setChannelValueByType] type:" << type << "value:" << value << "relative:" << isRelative <<
+    // "channel:" << channel;
+>>>>>>> f22f397f539cc661a40b384e6f9323ac58faa9d2
     QList<SceneValue> svList = m_channelsMap.values(type);
-    for (SceneValue sv : svList)
+    for (SceneValue& sv : svList)
     {
         if (channel == UINT_MAX || channel == sv.channel)
         {
+            uchar val = value;
+
+            if (isRelative)
+            {
+                Fixture* fixture = m_doc->fixture(sv.fxi);
+                if (fixture == nullptr)
+                    continue;
+
+                const QLCChannel* ch = fixture->channel(sv.channel);
+                if (ch == nullptr)
+                    continue;
+
+                val = qBound(0, fixture->channelValueAt(sv.channel) + value, 255);
+            }
+
             if (m_editingEnabled == false)
-                setDumpValue(sv.fxi, sv.channel, uchar(value));
+                setDumpValue(sv.fxi, sv.channel, val);
             else
-                m_functionManager->setChannelValue(sv.fxi, sv.channel, uchar(value));
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, val);
         }
     }
 }
 
-void ContextManager::slotColorChanged(QColor col, QColor wauv)
-{
-    slotChannelTypeValueChanged((int)QLCChannel::Red, (quint8)col.red());
-    slotChannelTypeValueChanged((int)QLCChannel::Green, (quint8)col.green());
-    slotChannelTypeValueChanged((int)QLCChannel::Blue, (quint8)col.blue());
-
-    slotChannelTypeValueChanged((int)QLCChannel::White, (quint8)wauv.red());
-    slotChannelTypeValueChanged((int)QLCChannel::Amber, (quint8)wauv.green());
-    slotChannelTypeValueChanged((int)QLCChannel::UV, (quint8)wauv.blue());
-
-    QColor cmykColor = col.toCmyk();
-    slotChannelTypeValueChanged((int)QLCChannel::Cyan, (quint8)cmykColor.cyan());
-    slotChannelTypeValueChanged((int)QLCChannel::Magenta, (quint8)cmykColor.magenta());
-    slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
-}
-
-void ContextManager::setPositionValue(int type, int degrees)
+void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32> fxIDs;
     QList<SceneValue> typeList = m_channelsMap.values(type);
 
-    for (SceneValue sv : typeList)
+    for (SceneValue& sv : typeList)
     {
         if (fxIDs.contains(sv.fxi) == true)
             continue;
 
         fxIDs.append(sv.fxi);
 
-        QList<SceneValue> svList = m_fixtureManager->getFixturePosition(sv.fxi, type, degrees);
-        for (SceneValue posSv : svList)
+        Fixture* fixture = m_doc->fixture(sv.fxi);
+        if (fixture == nullptr || fixture->fixtureMode() == nullptr)
+            continue;
+
+        QList<SceneValue> svList = fixture->positionToValues(type, degrees, isRelative);
+        for (SceneValue& posSv : svList)
         {
             if (m_editingEnabled == false)
                 setDumpValue(posSv.fxi, posSv.channel, posSv.value);
@@ -1369,7 +1449,7 @@ void ContextManager::slotPresetChanged(const QLCChannel* channel, quint8 value)
         {
             quint32 chIdx = fixture->fixtureMode()->channelNumber((QLCChannel*)channel);
             if (chIdx != QLCChannel::invalid())
-                slotChannelTypeValueChanged((int)channel->group(), value, chIdx);
+                setChannelValueByType((int)channel->group(), value, false, chIdx);
         }
     }
 }
