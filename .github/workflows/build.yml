@@ -100,7 +100,7 @@ jobs:
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
 
-      - name: Register clang-format in apt
+      - name: Register clang-format apt repository
         uses: myci-actions/add-deb-repo@11
         with:
           repo: deb http://apt.llvm.org/focal/ llvm-toolchain-focal main
