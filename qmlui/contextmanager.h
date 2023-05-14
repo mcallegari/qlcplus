@@ -212,10 +212,10 @@ public:
 
     Q_INVOKABLE void updateFixturesCapabilities();
 
-    /** Get the DMX value of the current fixture selection
+    /** Get the DMX/degrees value of the current fixture selection
      *  for the requested channel type.
      *  Returns -1 in case of mixed values */
-    Q_INVOKABLE qreal getCurrentValue(int type);
+    Q_INVOKABLE qreal getCurrentValue(int type, bool degrees);
 
     Q_INVOKABLE void createFixtureGroup();
 
@@ -231,7 +231,7 @@ public:
     Q_INVOKABLE void setColorValue(QColor col, QColor wauv);
 
     /** Set a Pan/Tilt position in degrees */
-    Q_INVOKABLE void setPositionValue(int type, int degrees);
+    Q_INVOKABLE void setPositionValue(int type, int degrees, bool isRelative);
 
     /** Set a zoom channel in degrees */
     Q_INVOKABLE void setBeamDegrees(float degrees);

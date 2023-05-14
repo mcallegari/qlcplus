@@ -189,8 +189,8 @@ SidePanel
                 onCheckedChanged: posTool.visible = !posTool.visible
                 onCounterChanged: if (counter == 0) posTool.visible = false
 
-                property int panDegrees: 360
-                property int tiltDegrees: 270
+                property alias panDegrees: posTool.panMaxDegrees
+                property alias tiltDegrees: posTool.tiltMaxDegrees
 
                 PositionTool
                 {
@@ -199,8 +199,6 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    panMaxDegrees: posToolButton.panDegrees
-                    tiltMaxDegrees: posToolButton.tiltDegrees
                     onClose: posToolButton.toggle()
                 }
             }

@@ -356,7 +356,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
             qDebug() << "Fixture" << fxID << "pan degrees:" << panDeg;
 
-            QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Pan, panDeg);
+            QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Pan, panDeg);
             for (SceneValue posSv : svList)
             {
                 if (m_editingEnabled == false)
@@ -390,7 +390,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
             qDebug() << "Fixture" << fxID << "tilt degrees:" << tiltDeg;
 
-            QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Tilt, tiltDeg);
+            QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Tilt, tiltDeg);
             for (SceneValue posSv : svList)
             {
                 if (m_editingEnabled == false)
@@ -1097,7 +1097,7 @@ void ContextManager::updateFixturesCapabilities()
         m_fixtureManager->getFixtureCapabilities(itemID, -1, true);
 }
 
-qreal ContextManager::getCurrentValue(int type)
+qreal ContextManager::getCurrentValue(int type, bool degrees)
 {
     qreal currMsbValue = -1;
     qreal currLsbValue = -1;
@@ -1114,21 +1114,40 @@ qreal ContextManager::getCurrentValue(int type)
         if (ch == nullptr)
             continue;
 
-        uchar dmxValue = fixture->channelValueAt(sv.channel);
+        qreal chValue = fixture->channelValueAt(sv.channel);
 
         if (ch->controlByte() == QLCChannel::MSB)
         {
-            if (currMsbValue != -1 && currMsbValue != dmxValue)
+            if (degrees)
+            {
+                QLCFixtureMode *fxMode = fixture->fixtureMode();
+                QLCPhysical phy = fxMode->physical();
+                if (type == QLCChannel::Pan)
+                    chValue = (qreal(phy.focusPanMax()) / 256.0) * chValue;
+                else if (type == QLCChannel::Tilt)
+                    chValue = (qreal(phy.focusTiltMax()) / 256.0) * chValue;
+            }
+            if (currMsbValue != -1 && currMsbValue != chValue)
                 return -1;
 
-            currMsbValue = dmxValue;
+            currMsbValue = chValue;
         }
         else if (ch->controlByte() == QLCChannel::LSB)
         {
-            if (currLsbValue != -1 && currLsbValue != dmxValue)
+            if (degrees)
+            {
+                QLCFixtureMode *fxMode = fixture->fixtureMode();
+                QLCPhysical phy = fxMode->physical();
+                if (type == QLCChannel::Pan)
+                    chValue = (qreal(phy.focusPanMax()) / 65536.0) * chValue;
+                else if (type == QLCChannel::Tilt)
+                    chValue = (qreal(phy.focusTiltMax()) / 65536.0) * chValue;
+            }
+
+            if (currLsbValue != -1 && currLsbValue != chValue)
                 return -1;
 
-            currLsbValue = dmxValue;
+            currLsbValue = chValue;
         }
     }
 
@@ -1334,7 +1353,7 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
                 if (ch == nullptr)
                     continue;
 
-                val = std::clamp(fixture->channelValueAt(sv.channel) + value, 0, 255);
+                val = qBound(0, fixture->channelValueAt(sv.channel) + value, 255);
             }
 
             if (m_editingEnabled == false)
@@ -1345,21 +1364,25 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
     }
 }
 
-void ContextManager::setPositionValue(int type, int degrees)
+void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32>fxIDs;
     QList<SceneValue> typeList = m_channelsMap.values(type);
 
-    for (SceneValue sv : typeList)
+    for (SceneValue &sv : typeList)
     {
         if (fxIDs.contains(sv.fxi) == true)
             continue;
 
         fxIDs.append(sv.fxi);
 
-        QList<SceneValue> svList = m_fixtureManager->getFixturePosition(sv.fxi, type, degrees);
-        for (SceneValue posSv : svList)
+        Fixture *fixture = m_doc->fixture(sv.fxi);
+        if (fixture == nullptr || fixture->fixtureMode() == nullptr)
+            continue;
+
+        QList<SceneValue> svList = fixture->positionToValues(type, degrees, isRelative);
+        for (SceneValue &posSv : svList)
         {
             if (m_editingEnabled == false)
                 setDumpValue(posSv.fxi, posSv.channel, posSv.value);

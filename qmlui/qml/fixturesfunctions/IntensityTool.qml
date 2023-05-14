@@ -36,6 +36,7 @@ Rectangle
     property bool dmxValues: true
     property bool closeOnSelect: false
     property alias showPalette: paletteBox.visible
+
     property alias currentValue: spinBox.value
     property real previousValue: 0
     property bool relativeValue: false
@@ -66,7 +67,7 @@ Rectangle
         if (visible)
         {
             previousValue = 0
-            var val = contextManager.getCurrentValue(QLCChannel.Intensity)
+            var val = contextManager.getCurrentValue(QLCChannel.Intensity, false)
             if (val === -1)
             {
                 relativeValue = true
