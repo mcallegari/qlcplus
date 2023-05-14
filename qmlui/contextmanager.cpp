@@ -1323,9 +1323,6 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 
 void ContextManager::setColorValue(QColor col, QColor wauv)
 {
-<<<<<<< HEAD
-    // qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
-=======
     setChannelValueByType((int)QLCChannel::Red, col.red());
     setChannelValueByType((int)QLCChannel::Green, col.green());
     setChannelValueByType((int)QLCChannel::Blue, col.blue());
@@ -1344,7 +1341,6 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
 {
     // qDebug() << "[setChannelValueByType] type:" << type << "value:" << value << "relative:" << isRelative <<
     // "channel:" << channel;
->>>>>>> f22f397f539cc661a40b384e6f9323ac58faa9d2
     QList<SceneValue> svList = m_channelsMap.values(type);
     for (SceneValue& sv : svList)
     {
