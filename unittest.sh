@@ -63,7 +63,7 @@ find \
     qmlui \
     ui \
     webaccess\
-    -name '*.h' -and -not -name 'moc_*' -or -name '*.cpp' -and -not -name 'moc_*' | while read FILE; do
+    -name '*.h' -and -not -name 'moc_*' -and -not -name 'qlcconfig.h' -or -name '*.cpp' -and -not -name 'moc_*' | while read FILE; do
   clang-format-14 -style=file:.clang-format "$FILE" | diff $DIFFARG "$FILE" -
   RET=$?
   if [ $RET -ne 0 ]; then
