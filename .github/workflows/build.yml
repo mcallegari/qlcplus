@@ -102,10 +102,10 @@ jobs:
 
       - name: Register clang-format in apt
         uses: myci-actions/add-deb-repo@11
-          with:
-            repo: deb http://apt.llvm.org/focal/ llvm-toolchain-focal main
-            repo-name: apt.llvm.org
-            keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
+        with:
+          repo: deb http://apt.llvm.org/focal/ llvm-toolchain-focal main
+          repo-name: apt.llvm.org
+          keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
 
       - name: Download, cache and install packages
         uses: awalsh128/cache-apt-pkgs-action@latest
