@@ -101,9 +101,11 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Register clang-format in apt
-        run: |
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          sudo echo "deb http://apt.llvm.org/focal/ llvm-toolchain-focal main" >> /etc/apt/sources.list.d/apt.llvm.org.list
+        uses: myci-actions/add-deb-repo@11
+          with:
+            repo: deb http://apt.llvm.org/focal/ llvm-toolchain-focal main
+            repo-name: apt.llvm.org
+            keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
 
       - name: Download, cache and install packages
         uses: awalsh128/cache-apt-pkgs-action@latest
