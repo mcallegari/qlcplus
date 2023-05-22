@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # requires Python LXML (sudo apt-get install python-lxml)
 #

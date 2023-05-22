@@ -40,6 +40,7 @@ if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
 endif()
 
 add_library(${module_name}
+    SHARED
     ../../plugins/interfaces/rdmprotocol.cpp ../../plugins/interfaces/rdmprotocol.h
     aboutbox.cpp aboutbox.h aboutbox.ui
     addchannelsgroup.cpp addchannelsgroup.h addchannelsgroup.ui
