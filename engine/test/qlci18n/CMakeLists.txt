@@ -30,11 +30,6 @@ target_link_libraries(${module_name} PRIVATE
     qlcplusengine
 )
 
-install(TARGETS ${module_name}
-    BUNDLE DESTINATION .
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})
 
 # Consider using qt_generate_deploy_app_script() for app deployment if

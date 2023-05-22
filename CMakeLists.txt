@@ -52,6 +52,123 @@ if(MACOS AND NOT qmlui)
     add_subdirectory(launcher)
 endif()
 
+# Unit testing thru "make check"
+if(qmlui)
+    if(WIN32)
+       add_custom_target(unittests
+            COMMAND unittest.bat "qmlui"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+    else()
+       add_custom_target(unittests
+            COMMAND ./unittest.sh "qmlui"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+    endif()
+else()
+    if(WIN32)
+       add_custom_target(unittests
+            COMMAND unittest.bat "ui"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+    else()
+       add_custom_target(unittests
+            COMMAND ./unittest.sh "ui"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+    endif()
+endif()
+
+add_custom_target(check
+    DEPENDS unittests
+)
+
+# Unit test coverage measurement
+if(WIN32)
+    add_custom_target(coverage
+        COMMAND @echo Get a better OS.
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+else()
+    if(qmlui)
+       add_custom_target(coverage
+            COMMAND ./coverage.sh "qmlui"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+    else()
+       add_custom_target(coverage
+            COMMAND ./coverage.sh "ui"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+    endif()
+endif()
+
+add_custom_target(lcov
+    DEPENDS coverage
+)
+
+# Translations
+add_custom_target(translations ALL)
+set(translations_qm_files)
+
+if (qmlui)
+  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/translations 
+    COMMAND ./translate.sh "qmlui" 
+    COMMENT "Translating qmlui translations..."
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+else ()
+  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/translations
+    COMMAND ./translate.sh "ui" 
+    COMMENT "Translating ui translations..."
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
+
+## Add the generated qm files to the list
+file(GLOB translations_qm_files "${CMAKE_CURRENT_BINARY_DIR}/*.qm")
+
+## Install the qm files
+if (appimage)
+  set(translations_install_path "${TARGET_DIR}/${INSTALLROOT}/${TRANSLATIONDIR}")
+else ()
+  set(translations_install_path "${INSTALLROOT}/${TRANSLATIONDIR}")
+endif()
+
+install(FILES ${translations_qm_files} DESTINATION ${translations_install_path})
+
+## Clean the generated files
+set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_BINARY_DIR}/*.qm")
+
+# run
+if(UNIX)
+    if(qmlui)
+       add_custom_target(run
+            COMMAND ${CMAKE_COMMAND} -E env LD_LIBRARY_PATH=engine/src:$ENV{LD_LIBRARY_PATH} qmlui/qlcplus-qml
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        )
+    else()
+       add_custom_target(run
+            COMMAND ${CMAKE_COMMAND} -E env LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:$ENV{LD_LIBRARY_PATH} main/qlcplus
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        )
+    endif()
+endif()
+
+# run-fxe
+if(UNIX AND NOT qmlui)
+    add_custom_target(run-fxe
+        COMMAND ${CMAKE_COMMAND} -E env LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:$ENV{LD_LIBRARY_PATH} ./fixtureeditor/qlcplus-fixtureeditor
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    )
+endif()
+
+# doxygen
+if(UNIX)
+    add_custom_target(doxygen
+        COMMAND cd resources/doxygen && rm -rf html/ && doxygen qlcplus.dox
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endif()
+
 # uninstall target
 if(NOT TARGET uninstall)
   configure_file(

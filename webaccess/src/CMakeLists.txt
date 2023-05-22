@@ -40,6 +40,7 @@ if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
 endif()
 
 add_library(${module_name}
+    SHARED
     commonjscss.h
     qhttpserver/http_parser.c qhttpserver/http_parser.h
     qhttpserver/qhttpconnection.cpp qhttpserver/qhttpconnection.h
@@ -53,6 +54,7 @@ add_library(${module_name}
     webaccesssimpledesk.cpp webaccesssimpledesk.h
     ${QM_FILES}
 )
+
 target_include_directories(${module_name} PUBLIC
     ../../engine/audio/src
     ../../engine/src
