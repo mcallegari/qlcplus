@@ -2,6 +2,7 @@ include(../../../variables.cmake)
 set(module_name "qlcplusaudio")
 
 add_library(${module_name}
+    STATIC
     audio.cpp audio.h
     audiocapture.cpp audiocapture.h
     audiodecoder.cpp audiodecoder.h
@@ -98,9 +99,3 @@ if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
         asound
     )
 endif()
-
-install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)

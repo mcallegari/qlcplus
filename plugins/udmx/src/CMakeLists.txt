@@ -22,6 +22,7 @@ else()
 endif()
 
 add_library(${module_name}
+    SHARED
     ${QM_FILES}
 )
 
