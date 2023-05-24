@@ -81,6 +81,11 @@
        <string>Init Message</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Note Off Triggers Scene</string>
+      </property>
+     </column>
     </widget>
    </item>
   </layout>

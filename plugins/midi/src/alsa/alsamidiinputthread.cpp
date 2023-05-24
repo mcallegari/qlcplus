@@ -295,7 +295,7 @@ void AlsaMidiInputThread::readEvent()
         //         << "channel" << MIDI_CH(cmd) << "devch" << device->midiChannel();
 
         if (QLCMIDIProtocol::midiToInput(cmd, data1, data2, uchar(device->midiChannel()),
-                                         &channel, &value) == true)
+                                         &channel, &value, device->noteOffTriggersScene()) == true)
         {
             device->emitValueChanged(channel, value);
             // for MIDI beat clock signals,

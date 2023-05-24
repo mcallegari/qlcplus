@@ -50,7 +50,7 @@ static void CALLBACK MidiInProc(HMIDIIN hMidiIn, UINT wMsg,
         uchar value = 0;
 
         if (QLCMIDIProtocol::midiToInput(cmd, data1, data2,
-            uchar(self->midiChannel()), &channel, &value) == true)
+            uchar(self->midiChannel()), &channel, &value, self->noteOffTriggersScene()) == true)
         {
             self->emitValueChanged(channel, value);
             // for MIDI beat clock signals,

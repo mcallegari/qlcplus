@@ -72,6 +72,7 @@ MidiDevice::MidiDevice(const QVariant& uid, const QString& name, DeviceType devi
     , m_midiChannel(0)
     , m_mode(ControlChange)
     , m_sendNoteOff(true)
+    , m_noteOffTriggersScene(false)
 {
     loadSettings();
 }
@@ -158,6 +159,20 @@ void MidiDevice::setSendNoteOff(bool sendNoteOff)
 bool MidiDevice::sendNoteOff() const
 {
     return m_sendNoteOff;
+}
+
+/****************************************************************************
+ * Note Off Trigger Scene
+ ****************************************************************************/
+
+void MidiDevice::setNoteOffTriggersScene(bool noteOffTriggersScene)
+{
+    m_noteOffTriggersScene = noteOffTriggersScene;
+}
+
+bool MidiDevice::noteOffTriggersScene() const
+{
+    return m_noteOffTriggersScene;
 }
 
 /****************************************************************************

@@ -35,10 +35,11 @@ namespace QLCMIDIProtocol
      * @param midiChannel MIDI channel to expect data on (255 for all)
      * @param channel The input channel that is mapped from the given MIDI data
      * @param value The value for the input channel
+     * @param noteOffTriggersScene Note off values will trigger QLC scenes
      * @return true if the values were parsed successfully, otherwise false
      */
     bool midiToInput(uchar cmd, uchar data1, uchar data2, uchar midiChannel,
-                     quint32* channel, uchar* value);
+                     quint32* channel, uchar* value, bool noteOffTriggersScene);
 
     /**
      * Convert MIDI system common message to QLC input data
