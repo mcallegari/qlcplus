@@ -49,7 +49,7 @@ EFXFixture::EFXFixture(const EFX* parent)
 
     , m_serialNumber(0)
     , m_runTimeDirection(Function::Forward)
-    , m_ready(false)
+    , m_done(false)
     , m_started(false)
     , m_elapsed(0)
     , m_currentAngle(0)
@@ -72,7 +72,7 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
 
     m_serialNumber = ef->m_serialNumber;
     m_runTimeDirection = ef->m_runTimeDirection;
-    m_ready = ef->m_ready;
+    m_done = ef->m_done;
     m_started = ef->m_started;
     m_elapsed = ef->m_elapsed;
     m_currentAngle = ef->m_currentAngle;
@@ -353,16 +353,16 @@ int EFXFixture::serialNumber() const
 
 void EFXFixture::reset()
 {
-    m_ready = false;
+    m_done = false;
     m_runTimeDirection = m_direction;
     m_started = false;
     m_elapsed = 0;
     m_currentAngle = 0;
 }
 
-bool EFXFixture::isReady() const
+bool EFXFixture::isDone() const
 {
-    return m_ready;
+    return m_done;
 }
 
 uint EFXFixture::timeOffset() const
@@ -400,7 +400,7 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
 
     // Bail out without doing anything if this fixture is ready (after single-shot)
     // or it has no pan&tilt channels (not valid).
-    if (m_ready == true || isValid() == false)
+    if (m_done == true || isValid() == false)
         return;
 
     m_elapsed += MasterTimer::tick();
@@ -419,7 +419,7 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
         else if (m_parent->runOrder() == Function::SingleShot)
         {
             /* De-initialize the fixture and mark as ready. */
-            m_ready = true;
+            m_done = true;
             stop();
         }
 

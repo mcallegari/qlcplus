@@ -783,8 +783,8 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
             m_lastFunctionID = step->m_function->type() == Function::SceneType ? step->m_function->id() : Function::invalidId();
             step->m_function->stop(functionParent(), m_chaser->type() == Function::SequenceType);
-            delete step;
             m_runnerSteps.removeOne(step);
+            delete step;
         }
         else
         {

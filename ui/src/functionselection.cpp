@@ -21,30 +21,18 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QSettings>
 #include <QToolBar>
 #include <QDebug>
-#include <QSettings>
 
 #include "functionselection.h"
 #include "functionstreewidget.h"
-#include "collectioneditor.h"
-#include "rgbmatrixeditor.h"
-#include "chasereditor.h"
-#include "scripteditor.h"
-#include "sceneeditor.h"
-#include "mastertimer.h"
-#include "collection.h"
-#include "rgbmatrix.h"
-#include "efxeditor.h"
-#include "function.h"
-#include "fixture.h"
-#include "chaser.h"
-#include "script.h"
-#include "scene.h"
-#include "efx.h"
 #include "doc.h"
 
 #define KColumnName 0
+
+#define SETTINGS_GEOMETRY "functionselect/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -124,9 +112,11 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FILTER);
     if (var.isValid() == true)
-    {
         setFilter(var.toInt(), false);
-    }
+
+    var = settings.value(SETTINGS_GEOMETRY);
+    if (var.isValid() == true)
+        restoreGeometry(var.toByteArray());
 }
 
 int FunctionSelection::exec()
@@ -205,11 +195,14 @@ void FunctionSelection::showNewTrack(bool show)
 
 FunctionSelection::~FunctionSelection()
 {
-    if(!m_constFilter)
+    if (!m_constFilter)
     {
         QSettings settings;
         settings.setValue(SETTINGS_FILTER, m_filter);
     }
+
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************

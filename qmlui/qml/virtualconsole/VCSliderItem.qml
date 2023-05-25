@@ -111,7 +111,7 @@ VCWidgetItem
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
-                               sliderValue : parseInt((sliderValue * 100) / 255) + "%") : sliderValue
+                               sliderValue : Math.round((sliderValue * 100.0) / 255.0) + "%") : sliderValue
             color: sliderObj ? sliderObj.foregroundColor : "white"
         }
 

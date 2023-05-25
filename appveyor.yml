@@ -1,4 +1,4 @@
-version: 4.12.7.{build}
+version: 4.12.8.{build}
 
 image: Visual Studio 2019
 
@@ -45,12 +45,7 @@ build_script:
           cd i386
           gendef.exe - ftd2xx.dll > ftd2xx.def
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
-          # patch Qt 5.15.x to build with GCC 12
-          cd /c/msys64/mingw32/include/
-          sed -i -e 's/friend Q_CORE_EXPORT uint qHash/\/\/friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
-          sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==/\/\/friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
           cd /c/projects/qlcplus
-          sed -i -e 's/QMAKE_CXXFLAGS += -Werror/QMAKE_CXXFLAGS += -Werror -Wno-error=attributes/g' variables.pri
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
@@ -75,4 +70,4 @@ build_script:
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
-    name: qlcplus_4_12_7
+    name: qlcplus_4_12_8

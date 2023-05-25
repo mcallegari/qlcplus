@@ -357,17 +357,11 @@ jobs:
           #ls -l /msys*/usr/bin/ || true
           #ls -l /usr/bin/ || true
 
-      - name: Patch Qt header and disable test units build
+      - name: Disable test units build
         #if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          # patch Qt 5.15.x to build with GCC 12
-          cd /mingw32/include/
-          sed -i -e 's/friend Q_CORE_EXPORT uint qHash/\/\/friend Q_CORE_EXPORT uint qHash/g' QtCore/qbitarray.h
-          sed -i -e 's/friend Q_NETWORK_EXPORT bool operator==/\/\/friend Q_NETWORK_EXPORT bool operator==/g' QtNetwork/qssldiffiehellmanparameters.h
-          cd -
-          sed -i -e 's/QMAKE_CXXFLAGS += -Werror/QMAKE_CXXFLAGS += -Werror -Wno-error=attributes/g' variables.pri
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
