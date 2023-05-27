@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(outputpatch_test WIN32
     outputpatch_test.cpp outputpatch_test.h
 )

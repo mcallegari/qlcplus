@@ -1,4 +1,3 @@
-include(../../../variables.cmake)
 
 add_library(iopluginstub SHARED)
 target_sources(iopluginstub PRIVATE

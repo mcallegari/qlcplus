@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(genericfader_test WIN32
     ../common/resource_paths.h
     genericfader_test.cpp genericfader_test.h

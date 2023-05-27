@@ -1,5 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
 include(../../src/include_ui.cmake)
 
 set(module_name "palettegenerator_test")

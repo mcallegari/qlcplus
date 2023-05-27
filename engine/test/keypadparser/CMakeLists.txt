@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(keypadparser_test WIN32
     keypadparser_test.cpp keypadparser_test.h
 )

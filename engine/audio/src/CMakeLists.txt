@@ -1,4 +1,3 @@
-include(../../../variables.cmake)
 set(module_name "qlcplusaudio")
 
 add_library(${module_name}

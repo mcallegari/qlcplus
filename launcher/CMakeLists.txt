@@ -1,5 +1,3 @@
-include(../variables.cmake)
-
 set(module_name "qlcplus-launcher")
 
 set(TS_FILES
@@ -59,8 +57,7 @@ qt_add_resources(${module_name} "launcher"
 )
 
 install(TARGETS ${module_name}
-    BUNDLE DESTINATION .
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${BINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

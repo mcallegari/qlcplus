@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(rgbtext_test WIN32
     rgbtext_test.cpp rgbtext_test.h
 )

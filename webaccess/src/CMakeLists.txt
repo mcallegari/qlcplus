@@ -1,6 +1,3 @@
-include(../../variables.cmake)
-include(../../coverage.cmake)
-
 set(module_name "qlcpluswebaccess")
 
 set(TS_FILES
@@ -108,9 +105,7 @@ endif()
 
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${LIBSDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

@@ -1,5 +1,3 @@
-include(../../variables.cmake)
-
 add_executable(test WIN32 MACOSX_BUNDLE
     hpmtest.cpp hpmtest.h
     main.cpp

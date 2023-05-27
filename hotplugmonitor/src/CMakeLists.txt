@@ -1,5 +1,3 @@
-include(../../variables.cmake)
-
 add_library(hotplugmonitor
     hotplugmonitor.cpp hotplugmonitor.h
 )

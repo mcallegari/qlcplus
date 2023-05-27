@@ -1,4 +1,3 @@
-include(../../../variables.cmake)
 include(../../src/include_ui.cmake)
 
 set(module_name "functionselection_test")
