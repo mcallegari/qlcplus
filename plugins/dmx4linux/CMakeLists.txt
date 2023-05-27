@@ -1,5 +1,3 @@
-include(../../variables.cmake)
-
 set(module_name "dmx4linux")
 
 set(TS_FILES
@@ -39,9 +37,9 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
+
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.dmx4linux.metainfo.xml" DESTINATION ${METAINFODIR})
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

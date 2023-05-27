@@ -1,4 +1,3 @@
-include(../../../../variables.cmake)
 
 set(module_name "midiplugin")
 

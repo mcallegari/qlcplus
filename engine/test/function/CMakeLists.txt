@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(function_test WIN32
     function_stub.cpp function_stub.h
     function_test.cpp function_test.h

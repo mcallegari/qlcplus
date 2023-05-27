@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(qlcfixturehead_test WIN32
     qlcfixturehead_test.cpp qlcfixturehead_test.h
 )

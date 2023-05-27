@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(script_test WIN32
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h
     script_test.cpp script_test.h

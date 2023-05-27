@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(doc_test WIN32
     ../common/resource_paths.h
     doc_test.cpp doc_test.h

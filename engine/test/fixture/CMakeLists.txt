@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(fixture_test WIN32
     ../common/resource_paths.h
     fixture_test.cpp fixture_test.h

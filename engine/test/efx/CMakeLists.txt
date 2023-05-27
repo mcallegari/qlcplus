@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(efx_test WIN32
     ../common/resource_paths.h
     ../mastertimer/mastertimer_stub.cpp ../mastertimer/mastertimer_stub.h

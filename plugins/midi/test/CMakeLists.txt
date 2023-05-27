@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(midi_test WIN32 MACOSX_BUNDLE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../src/common/midiprotocol.cpp ../src/common/midiprotocol.h

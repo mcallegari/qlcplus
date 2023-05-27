@@ -1,5 +1,3 @@
-include(../../../variables.cmake)
-
 set(module_name "udmx")
 
 set(TS_FILES
@@ -64,9 +62,14 @@ if(${LIBUSB_1_FOUND})
 endif()
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
+
+if (UNIX AND NOT APPLE)
+   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/z65-anyma-udmx.rules"
+           DESTINATION ${UDEVRULESDIR})
+   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.udmx.metainfo.xml"
+           DESTINATION ${METAINFODIR})
+endif()
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})
