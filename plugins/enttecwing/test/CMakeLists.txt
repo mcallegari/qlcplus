@@ -1,4 +1,3 @@
-include(../../../variables.cmake)
 
 add_executable(enttecwing_test WIN32 MACOSX_BUNDLE
     main.cpp

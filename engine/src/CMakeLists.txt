@@ -1,5 +1,3 @@
-include(../../variables.cmake)
-
 set(module_name "qlcplusengine")
 
 add_library(${module_name} SHARED
@@ -205,7 +203,5 @@ configure_file(qlcconfig.h.in ${CONFIGFILE})
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${CONFIGFILE})
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${LIBSDIR}
 )

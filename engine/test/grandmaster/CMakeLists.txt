@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(grandmaster_test WIN32
     grandmaster_test.cpp grandmaster_test.h
 )

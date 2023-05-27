@@ -1,5 +1,3 @@
-include(../../variables.cmake)
-
 set(module_name "os2l")
 
 set(TS_FILES
@@ -42,9 +40,12 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
+
+if (UNIX AND NOT APPLE)
+   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.os2l.metainfo.xml"
+           DESTINATION ${METAINFODIR})
+endif()
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

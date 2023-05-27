@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(chaserstep_test WIN32
     chaserstep_test.cpp chaserstep_test.h
 )

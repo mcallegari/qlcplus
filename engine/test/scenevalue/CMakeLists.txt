@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(scenevalue_test WIN32
     scenevalue_test.cpp scenevalue_test.h
 )

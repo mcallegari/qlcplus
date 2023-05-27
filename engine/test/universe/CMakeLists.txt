@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(universe_test WIN32
     universe_test.cpp universe_test.h
 )

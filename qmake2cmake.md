@@ -161,6 +161,20 @@ make
 
 You can select other appropriate `CMAKE_PREFIX_PATH` as described in the section above.
 
+### Running and installing `qlcplus`
+
+After you build `qlcplus`, you can simply run it with `make run` command.
+
+And you can also install it with `sudo make install` command.
+
+But when you build `qlcplus` with the official Qt installation which is not installed in system path like `/usr/lib/`, you will fail to run the installed `qlcplus`.
+In this case, you will need to specify `LD_LIBRARY_PATH` so that the `qlcplus` program can find its dependencies like `libQt5Core.so.5`.
+
+```bash
+export LD_LIBRARY_PATH=/home/<user>/Qt/5.15.2/gcc_64/lib/
+qlcplus
+```
+
 ## Work History (For developer notes)
 
 ### qmake2cmake

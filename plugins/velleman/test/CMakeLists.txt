@@ -1,4 +1,3 @@
-include(../../../variables.cmake)
 
 add_executable(velleman_test WIN32 MACOSX_BUNDLE
     # ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
