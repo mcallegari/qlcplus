@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(qlcfixturedefcache_test WIN32
     ../common/resource_paths.h
     qlcfixturedefcache_test.cpp qlcfixturedefcache_test.h

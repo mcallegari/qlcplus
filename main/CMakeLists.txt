@@ -1,5 +1,3 @@
-include(../variables.cmake)
-
 set(module_name "qlcplus")
 
 add_executable(${module_name} WIN32 MACOSX_BUNDLE
@@ -47,8 +45,7 @@ else()
 endif()
 
 install(TARGETS ${module_name}
-    BUNDLE DESTINATION .
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${BINDIR}
 )
 
 # Consider using qt_generate_deploy_app_script() for app deployment if

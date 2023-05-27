@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 set(module_name "qlci18n_test")
 
 set(TS_FILES

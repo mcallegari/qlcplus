@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(qlcphysical_test WIN32
     qlcphysical_test.cpp qlcphysical_test.h
 )

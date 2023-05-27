@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(rgbscript_test WIN32
     ../common/resource_paths.h
     rgbscript_test.cpp rgbscript_test.h

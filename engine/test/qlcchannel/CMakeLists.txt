@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(qlcchannel_test WIN32
     qlcchannel_test.cpp qlcchannel_test.h
 )

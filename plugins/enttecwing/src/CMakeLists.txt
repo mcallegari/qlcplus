@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 set(module_name "enttecwing")
 
 set(TS_FILES
@@ -51,9 +48,12 @@ if(WIN32)
 endif()
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
+
+if (UNIX AND NOT APPLE)
+   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.enttecwing.metainfo.xml"
+           DESTINATION "${METAINFODIR}")
+endif()
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

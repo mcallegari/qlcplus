@@ -1,5 +1,3 @@
-include(../../variables.cmake)
-
 set(module_name "hidplugin")
 
 set(TS_FILES
@@ -83,10 +81,15 @@ if(WIN32)
     )
 endif()
 
+if (UNIX AND NOT APPLE)
+   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/linux/z65-fx5-hid.rules"
+           DESTINATION ${UDEVRULESDIR})
+   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/linux/org.qlcplus.QLCPlus.hid.metainfo.xml"
+           DESTINATION ${METAINFODIR})
+endif()
+
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

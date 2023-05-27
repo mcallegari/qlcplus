@@ -1,5 +1,3 @@
-include(../../../../variables.cmake)
-
 # pkg_check_modules(MAD IMPORTED_TARGET REQUIRED mad)
 
 if(NOT MAD_INCLUDE_DIRS)
@@ -31,7 +29,5 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${INSTALLROOT}/${AUDIOPLUGINDIR}
 )

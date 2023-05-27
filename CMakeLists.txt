@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(qlc VERSION 1.0 LANGUAGES C CXX)
 
+
 # Set Release build type by default
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
@@ -25,13 +26,16 @@ include(GNUInstallDirs)
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 3DCore 3DInput 3DQuick 3DQuickExtras 3DRender Gui Multimedia MultimediaWidgets Network PrintSupport Qml Quick Svg Test Widgets LinguistTools)
 
+message("Found Qt version ${QT_VERSION_MAJOR}: ${QT_DIR}")
+
 if(QT_VERSION_MAJOR EQUAL 5)
     find_package(Qt${QT_VERSION_MAJOR} OPTIONAL_COMPONENTS Script)
 endif()
 
 find_package(PkgConfig REQUIRED)
 
-
+include(./variables.cmake)
+include(./coverage.cmake)
 
 add_subdirectory(hotplugmonitor)
 add_subdirectory(engine)

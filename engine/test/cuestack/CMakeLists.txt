@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(cuestack_test WIN32
     ../common/resource_paths.h
     cuestack_test.cpp cuestack_test.h

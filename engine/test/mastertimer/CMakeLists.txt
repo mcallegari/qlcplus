@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(mastertimer_test WIN32
     # ../../../plugins/interfaces/qlcioplugin.cpp
     ../common/resource_paths.h

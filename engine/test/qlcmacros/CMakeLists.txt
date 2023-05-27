@@ -1,6 +1,3 @@
-include(../../../variables.cmake)
-include(../../../coverage.cmake)
-
 add_executable(qlcmacros_test WIN32
     qlcmacros_test.cpp qlcmacros_test.h
 )
