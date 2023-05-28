@@ -1,29 +1,38 @@
-add_executable(inputoutputmap_test WIN32
+set(module_name "inputoutputmap_test")
+
+add_executable(${module_name} WIN32
     ../common/resource_paths.h
-    inputoutputmap_test.cpp inputoutputmap_test.h
+    ${module_name}.cpp ${module_name}.h
 )
-target_include_directories(inputoutputmap_test PRIVATE
+target_include_directories(${module_name} PRIVATE
     ../../../plugins/interfaces
     ../../src
     ../iopluginstub
 )
 
-target_link_libraries(inputoutputmap_test PRIVATE
+target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
 )
 
-if(IS_TRAVIS___contains___ON)
-    target_compile_definitions(inputoutputmap_test PRIVATE
+if ("$ENV{TRAVIS}" STREQUAL "true")
+    target_compile_definitions(${module_name} PRIVATE
         SKIP_TEST
     )
 endif()
 
-# if(count(IS_BUILDBOT, 1))
-if(IS_BUILDBOT)
-    target_compile_definitions(inputoutputmap_test PRIVATE
+if(WIN32)
+    set(CURRUSR $ENV{USERNAME})
+else()
+    set(CURRUSR $ENV{USER})
+endif()
+
+string(STRIP ${CURRUSR} CURRUSR)
+string(FIND ${CURRUSR} "build" IS_BUILDBOT)
+if(IS_BUILDBOT GREATER -1)
+    target_compile_definitions(${module_name} PRIVATE
         SKIP_TEST
     )
 endif()
