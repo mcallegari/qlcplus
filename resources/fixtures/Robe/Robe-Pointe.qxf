@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4 GIT</Version>
+  <Version>5.0.0 Beta 3</Version>
   <Author>Moehritz</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -74,7 +74,7 @@
   <Capability Min="102" Max="109" Preset="ColorDoubleMacro" Res1="#ff9d00" Res2="#ffc800">Orange/CTO</Capability>
   <Capability Min="110" Max="110" Preset="ColorMacro" Res1="#ffc800">CTO</Capability>
   <Capability Min="111" Max="118" Preset="ColorDoubleMacro" Res1="#ffc800" Res2="#aa33ff">CTO/UV</Capability>
-  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#8800ff">UV</Capability>  
+  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#8800ff">UV</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#8800ff" Res2="#ffffff">UV/White</Capability>
   <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#ff0004">Deep Red</Capability>
@@ -261,10 +261,7 @@
   <Capability Min="234" Max="255">Raming from fast to slow</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
- <Channel Name="Zoom fine">
-  <Group Byte="1">Beam</Group>
-  <Capability Min="0" Max="255">Zoom fine</Capability>
- </Channel>
+ <Channel Name="Zoom fine" Preset="BeamZoomFine"/>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus fine">
   <Group Byte="1">Beam</Group>

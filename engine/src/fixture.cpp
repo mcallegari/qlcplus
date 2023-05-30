@@ -349,17 +349,11 @@ QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelati
                 }
             }
 
-            // maxDegrees : 256 = headDegrees : msbValue
-            msbValue = (headDegrees * 256.0) / maxDegrees;
-            posList.append(SceneValue(id(), panMSB, static_cast<uchar>(qFloor(msbValue))));
+            quint16 degToDmx = (headDegrees * 65535.0) / qreal(phy.focusPanMax());
+            posList.append(SceneValue(id(), panMSB, static_cast<uchar>(degToDmx >> 8)));
 
             if (panLSB != QLCChannel::invalid())
-            {
-                float lsbDegrees = maxDegrees / 256.0;
-                // lsbDegree : 256 = deltaDeg : lsbValue
-                lsbValue = ((headDegrees - (qFloor(msbValue) * lsbDegrees)) * 256.0) / lsbDegrees;
-                posList.append(SceneValue(id(), panLSB, static_cast<uchar>(qRound(lsbValue))));
-            }
+                posList.append(SceneValue(id(), panLSB, static_cast<uchar>(degToDmx & 0x00FF)));
 
             qDebug() << "[positionToValues] Pan MSB:" << msbValue << "LSB:" << lsbValue;
 
@@ -392,15 +386,11 @@ QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelati
                 }
             }
 
-            msbValue = (headDegrees * 256.0) / maxDegrees;
-            posList.append(SceneValue(id(), tiltMSB, static_cast<uchar>(qFloor(msbValue))));
+            quint16 degToDmx = (headDegrees * 65535.0) / qreal(phy.focusTiltMax());
+            posList.append(SceneValue(id(), tiltMSB, static_cast<uchar>(degToDmx >> 8)));
 
             if (tiltLSB != QLCChannel::invalid())
-            {
-                float lsbDegrees = maxDegrees / 256.0;
-                lsbValue = ((headDegrees - (qFloor(msbValue) * lsbDegrees)) * 256.0) / lsbDegrees;
-                posList.append(SceneValue(id(), tiltLSB, static_cast<uchar>(lsbValue)));
-            }
+                posList.append(SceneValue(id(), tiltLSB, static_cast<uchar>(degToDmx & 0x00FF)));
 
             qDebug() << "[positionToValues] Tilt MSB:" << msbValue << "LSB:" << lsbValue;
 
@@ -412,7 +402,7 @@ QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelati
     return posList;
 }
 
-QList<SceneValue> Fixture::zoomToValues(float degrees) const
+QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
 {
     QList<SceneValue> chList;
 
@@ -420,8 +410,13 @@ QList<SceneValue> Fixture::zoomToValues(float degrees) const
         return chList;
 
     QLCPhysical phy = fixtureMode()->physical();
-    float msbValue = ((degrees - phy.lensDegreesMin()) * (float)UCHAR_MAX) /
-                     (phy.lensDegreesMax() - phy.lensDegreesMin());
+    if (!isRelative)
+        degrees = qBound(float(phy.lensDegreesMin()), degrees, float(phy.lensDegreesMax()));
+
+    float deltaDegrees = phy.lensDegreesMax() - phy.lensDegreesMin();
+    // delta : 0xFFFF = deg : x
+    quint16 degToDmx = ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
+    //qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
 
     for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
     {
@@ -435,19 +430,29 @@ QList<SceneValue> Fixture::zoomToValues(float degrees) const
             ch->preset() != QLCChannel::BeamZoomFine)
             continue;
 
+        if (isRelative)
+        {
+            // degrees is a relative value upon the current value.
+            // Recalculate absolute degrees here
+            qreal divider = ch->controlByte() == QLCChannel::MSB ? 256.0 : 65536.0;
+            float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * float(channelValueAt(i));
+
+            //qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
+
+            quint16 currDmxVal = (chDegrees * 65535.0) / deltaDegrees;
+            degToDmx += currDmxVal;
+        }
+
         if (ch->controlByte() == QLCChannel::MSB)
         {
             if (ch->preset() == QLCChannel::BeamZoomBigSmall)
-                chList.append(SceneValue(id(), i, static_cast<uchar>(qFloor((float)UCHAR_MAX - msbValue))));
+                chList.append(SceneValue(id(), i, static_cast<uchar>(UCHAR_MAX - (degToDmx >> 8))));
             else
-                chList.append(SceneValue(id(), i, static_cast<uchar>(qFloor(msbValue))));
+                chList.append(SceneValue(id(), i, static_cast<uchar>(degToDmx >> 8)));
         }
-
-        if (ch->controlByte() == QLCChannel::LSB)
+        else if (ch->controlByte() == QLCChannel::LSB)
         {
-            float lsbDegrees = (float)(phy.lensDegreesMax() - phy.lensDegreesMin()) / (float)UCHAR_MAX;
-            float lsbValue = (float)((msbValue - qFloor(msbValue)) * (float)UCHAR_MAX) / lsbDegrees;
-            chList.append(SceneValue(id(), i, static_cast<uchar>(lsbValue)));
+            chList.append(SceneValue(id(), i, static_cast<uchar>(degToDmx & 0x00FF)));
         }
     }
 

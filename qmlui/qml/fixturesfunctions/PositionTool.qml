@@ -49,6 +49,43 @@ Rectangle
 
     signal close()
 
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            previousPanDegrees = 0
+            previousTiltDegrees = 0
+
+            var pan = contextManager.getCurrentValue(QLCChannel.Pan, true)
+            if (pan === -1)
+            {
+                relativePanValue = true
+                panDegrees = 0
+            }
+            else
+            {
+                relativePanValue = false
+                panDegrees = Math.round(pan)
+            }
+
+            var tilt = contextManager.getCurrentValue(QLCChannel.Tilt, true)
+            if (tilt === -1)
+            {
+                relativeTiltValue = true
+                tiltDegrees = 0
+            }
+            else
+            {
+                relativeTiltValue = false
+                tiltDegrees = Math.round(tilt)
+            }
+        }
+        else
+        {
+            paletteBox.checked = false
+        }
+    }
+
     onPanDegreesChanged:
     {
         if (isLoading)
@@ -93,43 +130,6 @@ Rectangle
 
     onPanMaxDegreesChanged: gCanvas.requestPaint()
     onTiltMaxDegreesChanged: gCanvas.requestPaint()
-
-    onVisibleChanged:
-    {
-        if (visible)
-        {
-            previousPanDegrees = 0
-            previousTiltDegrees = 0
-
-            var pan = contextManager.getCurrentValue(QLCChannel.Pan, true)
-            if (pan === -1)
-            {
-                relativePanValue = true
-                panDegrees = 0
-            }
-            else
-            {
-                relativePanValue = false
-                panDegrees = Math.round(pan)
-            }
-
-            var tilt = contextManager.getCurrentValue(QLCChannel.Tilt, true)
-            if (tilt === -1)
-            {
-                relativeTiltValue = true
-                tiltDegrees = 0
-            }
-            else
-            {
-                relativeTiltValue = false
-                tiltDegrees = Math.round(tilt)
-            }
-        }
-        else
-        {
-            paletteBox.checked = false
-        }
-    }
 
     function tiltPositionsArray()
     {

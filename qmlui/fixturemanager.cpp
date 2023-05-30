@@ -1870,7 +1870,8 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             case QLCChannel::Beam:
             {
                 if (channel->preset() != QLCChannel::BeamZoomBigSmall &&
-                    channel->preset() != QLCChannel::BeamZoomSmallBig)
+                    channel->preset() != QLCChannel::BeamZoomSmallBig &&
+                    channel->preset() != QLCChannel::BeamZoomFine)
                     break;
 
                 hasBeam = true;
@@ -1936,7 +1937,7 @@ QList<SceneValue> FixtureManager::getFixtureZoom(quint32 fxID, float degrees)
     if (fixture == nullptr || fixture->fixtureMode() == nullptr)
         return QList<SceneValue>();
 
-    return fixture->zoomToValues(degrees);
+    return fixture->zoomToValues(degrees, false);
 }
 
 QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
