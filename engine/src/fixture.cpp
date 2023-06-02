@@ -415,7 +415,7 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
     float deltaDegrees = phy.lensDegreesMax() - phy.lensDegreesMin();
     // delta : 0xFFFF = deg : x
     quint16 degToDmx = ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
-    //qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
+    // qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
 
     for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
     {
@@ -435,7 +435,7 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
             qreal divider = ch->controlByte() == QLCChannel::MSB ? 256.0 : 65536.0;
             float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * float(channelValueAt(i));
 
-            //qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
+            // qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
 
             quint16 currDmxVal = (chDegrees * 65535.0) / deltaDegrees;
             degToDmx += currDmxVal;

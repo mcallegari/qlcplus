@@ -1118,16 +1118,16 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
             QLCPhysical phy = fxMode->physical();
             switch (type)
             {
-                case QLCChannel::Pan:
-                    chValue = (qreal(phy.focusPanMax()) / divider) * chValue;
+            case QLCChannel::Pan:
+                chValue = (qreal(phy.focusPanMax()) / divider) * chValue;
                 break;
-                case QLCChannel::Tilt:
-                    chValue = (qreal(phy.focusTiltMax()) / divider) * chValue;
+            case QLCChannel::Tilt:
+                chValue = (qreal(phy.focusTiltMax()) / divider) * chValue;
                 break;
-                case QLCChannel::Beam:
-                    chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
-                    if (ch->controlByte() == QLCChannel::MSB)
-                        chValue += phy.lensDegreesMin();
+            case QLCChannel::Beam:
+                chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
+                if (ch->controlByte() == QLCChannel::MSB)
+                    chValue += phy.lensDegreesMin();
                 break;
             }
         }

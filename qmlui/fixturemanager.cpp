@@ -1873,9 +1873,8 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             break;
         case QLCChannel::Beam:
             {
-                if (channel->preset() != QLCChannel::BeamZoomBigSmall &&
-                    channel->preset() != QLCChannel::BeamZoomSmallBig &&
-                    channel->preset() != QLCChannel::BeamZoomFine)
+                if (channel->preset() != QLCChannel::BeamZoomBigSmall && channel->preset() != QLCChannel::BeamZoomSmallBig
+                    && channel->preset() != QLCChannel::BeamZoomFine)
                     break;
 
                 hasBeam = true;
