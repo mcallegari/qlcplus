@@ -20,7 +20,7 @@
 #include <QVariantList>
 #include <QByteArray>
 
-#define DEBUG_RDM
+//#define DEBUG_RDM
 
 #define RDM_START_CODE              0xCC
 #define RDM_SC_SUB_MESSAGE          0x01

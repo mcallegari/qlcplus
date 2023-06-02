@@ -233,7 +233,7 @@ public:
     Q_INVOKABLE void setPositionValue(int type, int degrees, bool isRelative);
 
     /** Set a zoom channel in degrees */
-    Q_INVOKABLE void setBeamDegrees(float degrees);
+    Q_INVOKABLE void setBeamDegrees(float degrees, bool isRelative);
 
     void setChannelValues(QList<SceneValue> values);
 

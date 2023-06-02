@@ -1,3 +1,7 @@
+qlcplus (4.12.8) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
+
 qlcplus (4.12.7) stable; urgency=low
 
   * engine: improve audio fade in/out
@@ -20,6 +24,7 @@ qlcplus (4.12.7) stable; urgency=low
   * Virtual Console/Animation: include all available presets
   * Virtual Console: submaster now affects widgets on all pages but only on active frames
   * Web Access: add support for widget background images
+  * Web Access: improve button layout and text overflow (thanks to pomowunk)
   * Application: fix qxf file association on Windows (if installed as admin)
   * RGB scripts: added 'Marquee' script (thanks to Branson Matheson)
   * Input profiles: added ADJ MIDICON-2 (thanks to David Thomas)
@@ -65,8 +70,11 @@ qlcplus (4.12.7) stable; urgency=low
   * New fixture: Starway Servo Beam 10R (thanks to David Talet)
   * New fixture: Cameo Zenit B200 (thanks to ikr)
   * New fixture: Stairville BEL4 - Battery Event Light 4x15W (thanks to Pascal)
+  * New fixture: U'King B117 Par Can 4in1 RGBW (thanks to Turning Point)
+  * New fixture: Chauvet Followspot 120ST (thanks to Scott Yarbrough)
+  * New fixture: Chauvet COLORband T3 BT (thanks to William Todd)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 May 2023 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 19 May 2023 12:13:14 +0200
 
 qlcplus (4.12.6) stable; urgency=low
 

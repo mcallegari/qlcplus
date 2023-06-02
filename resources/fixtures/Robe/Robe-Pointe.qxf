@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4 GIT</Version>
+  <Version>5.0.0 Beta 3</Version>
   <Author>Moehritz</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -55,39 +55,39 @@
   <Capability Min="18" Max="18" Preset="ColorMacro" Res1="#2600ff">Deep Blue</Capability>
   <Capability Min="19" Max="26" Preset="ColorDoubleMacro" Res1="#2600ff" Res2="#ffff00">Deep Blue/Yellow</Capability>
   <Capability Min="27" Max="27" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="28" Max="36" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#22ff00">Yellow/Green</Capability>
-  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#22ff00">Green</Capability>
-  <Capability Min="38" Max="45" Preset="ColorDoubleMacro" Res1="#22ff00" Res2="#ff00ff">Green/Magenta</Capability>
+  <Capability Min="28" Max="36" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/Green</Capability>
+  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="38" Max="45" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Green/Magenta</Capability>
   <Capability Min="46" Max="46" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="47" Max="54" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00aaff">Magenta/Azure</Capability>
-  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#00aaff">Azure</Capability>
-  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ca4345">Azure/Red</Capability>
-  <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#ca4345">Red</Capability>
-  <Capability Min="65" Max="72" Preset="ColorDoubleMacro" Res1="#ca4345" Res2="#0d8700">Red/Dark Green</Capability>
-  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#0d8700">Dark Green</Capability>
-  <Capability Min="74" Max="81" Preset="ColorDoubleMacro" Res1="#0d8700" Res2="#ffb339">Dark Green/Amber</Capability>
+  <Capability Min="47" Max="54" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#f0ffff">Magenta/Azure</Capability>
+  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#f0ffff">Azure</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#f0ffff" Res2="#ca4345">Azure/Red</Capability>
+  <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="65" Max="72" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#006400">Red/Dark Green</Capability>
+  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#006400">Dark Green</Capability>
+  <Capability Min="74" Max="81" Preset="ColorDoubleMacro" Res1="#006400" Res2="#ffb339">Dark Green/Amber</Capability>
   <Capability Min="82" Max="82" Preset="ColorMacro" Res1="#ffb339">Amber</Capability>
-  <Capability Min="83" Max="90" Preset="ColorDoubleMacro" Res1="#ffb339" Res2="#5555ff">Amber/Blue</Capability>
-  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#5555ff">Blue</Capability>
-  <Capability Min="92" Max="100" Preset="ColorDoubleMacro" Res1="#5555ff" Res2="#ff9d00">Blue/Orange</Capability>
-  <Capability Min="101" Max="101" Preset="ColorMacro" Res1="#ff9d00">Orange</Capability>
-  <Capability Min="102" Max="109" Preset="ColorDoubleMacro" Res1="#ff9d00" Res2="#ffc800">Orange/CTO</Capability>
+  <Capability Min="83" Max="90" Preset="ColorDoubleMacro" Res1="#ffb339" Res2="#0000ff">Amber/Blue</Capability>
+  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="92" Max="100" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffa500">Blue/Orange</Capability>
+  <Capability Min="101" Max="101" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="102" Max="109" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ffc800">Orange/CTO</Capability>
   <Capability Min="110" Max="110" Preset="ColorMacro" Res1="#ffc800">CTO</Capability>
   <Capability Min="111" Max="118" Preset="ColorDoubleMacro" Res1="#ffc800" Res2="#aa33ff">CTO/UV</Capability>
-  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#8800ff">UV</Capability>  
+  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#8800ff">UV</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#8800ff" Res2="#ffffff">UV/White</Capability>
   <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#ff0004">Deep Red</Capability>
   <Capability Min="135" Max="138" Preset="ColorMacro" Res1="#2600ff">Deep Blue</Capability>
   <Capability Min="139" Max="143" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="144" Max="147" Preset="ColorMacro" Res1="#22ff00">Green</Capability>
+  <Capability Min="144" Max="147" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="148" Max="152" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="153" Max="157" Preset="ColorMacro" Res1="#00aaff">Azure</Capability>
-  <Capability Min="158" Max="161" Preset="ColorMacro" Res1="#ca4345">Red</Capability>
-  <Capability Min="162" Max="166" Preset="ColorMacro" Res1="#0d8700">Dark Green</Capability>
+  <Capability Min="153" Max="157" Preset="ColorMacro" Res1="#f0ffff">Azure</Capability>
+  <Capability Min="158" Max="161" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="162" Max="166" Preset="ColorMacro" Res1="#006400">Dark Green</Capability>
   <Capability Min="167" Max="171" Preset="ColorMacro" Res1="#ffb339">Amber</Capability>
-  <Capability Min="172" Max="176" Preset="ColorMacro" Res1="#5555ff">Blue</Capability>
-  <Capability Min="177" Max="180" Preset="ColorMacro" Res1="#ff9d00">Orange</Capability>
+  <Capability Min="172" Max="176" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="177" Max="180" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="181" Max="185" Preset="ColorMacro" Res1="#ffffff">CTO</Capability>
   <Capability Min="186" Max="189" Preset="ColorMacro" Res1="#8800ff">UV</Capability>
   <Capability Min="190" Max="215">Forwards Rainbow</Capability>
@@ -261,10 +261,7 @@
   <Capability Min="234" Max="255">Raming from fast to slow</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
- <Channel Name="Zoom fine">
-  <Group Byte="1">Beam</Group>
-  <Capability Min="0" Max="255">Zoom fine</Capability>
- </Channel>
+ <Channel Name="Zoom fine" Preset="BeamZoomFine"/>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus fine">
   <Group Byte="1">Beam</Group>
