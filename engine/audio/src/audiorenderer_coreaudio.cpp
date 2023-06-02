@@ -23,7 +23,7 @@
 #include "audiodecoder.h"
 #include "audiorenderer_coreaudio.h"
 
-AudioRendererCoreAudio::AudioRendererCoreAudio(QObject* parent)
+AudioRendererCoreAudio::AudioRendererCoreAudio(QObject *parent)
     : AudioRenderer(parent)
 {
     m_buffersFilled = 0;
@@ -32,9 +32,9 @@ AudioRendererCoreAudio::AudioRendererCoreAudio(QObject* parent)
 
 AudioRendererCoreAudio::~AudioRendererCoreAudio() {}
 
-void AudioRendererCoreAudio::inCallback(void* inUserData, AudioQueueRef, AudioQueueBufferRef)
+void AudioRendererCoreAudio::inCallback(void *inUserData, AudioQueueRef, AudioQueueBufferRef)
 {
-    AudioRendererCoreAudio* CAobj = (AudioRendererCoreAudio*)inUserData;
+    AudioRendererCoreAudio *CAobj = (AudioRendererCoreAudio *)inUserData;
     qDebug() << "inCallback called !!";
     CAobj->m_buffersFilled--;
 }
@@ -102,7 +102,7 @@ qint64 AudioRendererCoreAudio::latency()
     return 0;
 }
 
-qint64 AudioRendererCoreAudio::writeAudio(unsigned char* data, qint64 maxSize)
+qint64 AudioRendererCoreAudio::writeAudio(unsigned char *data, qint64 maxSize)
 {
     if (m_buffersFilled == AUDIO_BUFFERS_NUM)
         return 0;

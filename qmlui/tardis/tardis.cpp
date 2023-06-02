@@ -53,10 +53,10 @@
 /* The maximum number of action a Tardis can hold */
 #define TARDIS_MAX_ACTIONS_NUMBER 100
 
-Tardis* Tardis::s_instance = nullptr;
+Tardis *Tardis::s_instance = nullptr;
 
-Tardis::Tardis(QQuickView* view, Doc* doc, NetworkManager* netMgr, FixtureManager* fxMgr, FunctionManager* funcMgr,
-               ContextManager* ctxMgr, SimpleDesk* sDesk, ShowManager* showMgr, VirtualConsole* vc, QObject* parent)
+Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr, FixtureManager *fxMgr, FunctionManager *funcMgr,
+               ContextManager *ctxMgr, SimpleDesk *sDesk, ShowManager *showMgr, VirtualConsole *vc, QObject *parent)
     : QThread(parent)
     , m_running(false)
     , m_view(view)
@@ -93,7 +93,7 @@ Tardis::~Tardis()
     }
 }
 
-Tardis* Tardis::instance()
+Tardis *Tardis::instance()
 {
     return s_instance;
 }
@@ -202,7 +202,7 @@ void Tardis::resetHistory()
     m_busy = false;
 }
 
-void Tardis::forwardActionToNetwork(int code, TardisAction& action)
+void Tardis::forwardActionToNetwork(int code, TardisAction &action)
 {
     if (m_networkManager->connectionsCount())
     {
@@ -270,8 +270,8 @@ void Tardis::run()
                 if (action.m_timestamp - m_history.at(i).m_timestamp > TARDIS_ACTION_INTERTIME)
                     break;
 
-                if (action.m_action == m_history.at(i).m_action && action.m_objID == m_history.at(i).m_objID &&
-                    action.m_oldValue == m_history.at(i).m_newValue)
+                if (action.m_action == m_history.at(i).m_action && action.m_objID == m_history.at(i).m_objID
+                    && action.m_oldValue == m_history.at(i).m_newValue)
                 {
                     qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
                     action.m_oldValue = m_history.at(i).m_oldValue;
@@ -320,7 +320,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
             if (objID >= quint32(m_doc->inputOutputMap()->universes().count()))
                 break;
 
-            Universe* universe = m_doc->inputOutputMap()->universes().at(int(objID));
+            Universe *universe = m_doc->inputOutputMap()->universes().at(int(objID));
             universe->saveXML(&xmlWriter);
         }
         break;
@@ -328,7 +328,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
     case FixtureCreate:
     case FixtureDelete:
         {
-            Fixture* fixture = qobject_cast<Fixture*>(m_doc->fixture(objID));
+            Fixture *fixture = qobject_cast<Fixture *>(m_doc->fixture(objID));
             if (fixture)
                 fixture->saveXML(&xmlWriter);
         }
@@ -336,7 +336,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
     case FixtureGroupCreate:
     case FixtureGroupDelete:
         {
-            FixtureGroup* group = qobject_cast<FixtureGroup*>(m_doc->fixtureGroup(objID));
+            FixtureGroup *group = qobject_cast<FixtureGroup *>(m_doc->fixtureGroup(objID));
             if (group)
                 group->saveXML(&xmlWriter);
         }
@@ -344,7 +344,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
     case FunctionCreate:
     case FunctionDelete:
         {
-            Function* function = qobject_cast<Function*>(m_doc->function(objID));
+            Function *function = qobject_cast<Function *>(m_doc->function(objID));
             if (function)
                 function->saveXML(&xmlWriter);
         }
@@ -352,8 +352,8 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
     case ChaserAddStep:
     case ChaserRemoveStep:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(objID));
-            ChaserStep* step = chaser->stepAt(data.toInt());
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
+            ChaserStep *step = chaser->stepAt(data.toInt());
             step->saveXML(&xmlWriter, data.toInt(), chaser->type() == Function::SequenceType ? true : false);
         }
         break;
@@ -361,14 +361,14 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
     case EFXRemoveFixture:
         {
             // EFXFixture reference is stored on data, so let's C-cast the QVariant value
-            EFXFixture* fixture = (EFXFixture*)data.value<void*>();
+            EFXFixture *fixture = (EFXFixture *)data.value<void *>();
             fixture->saveXML(&xmlWriter);
         }
         break;
     case VCWidgetCreate:
     case VCWidgetDelete:
         {
-            VCWidget* widget = qobject_cast<VCWidget*>(m_virtualConsole->widget(objID));
+            VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(objID));
             if (widget)
                 widget->saveXML(&xmlWriter);
         }
@@ -381,7 +381,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
     return buffer.buffer();
 }
 
-bool Tardis::processBufferedAction(int action, quint32 objID, QVariant& value)
+bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (value.type() != QVariant::ByteArray)
@@ -411,8 +411,8 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant& value)
                 m_doc->inputOutputMap()->startUniverses();
             }
 
-            QList<Universe*> uniList = m_doc->inputOutputMap()->universes();
-            Universe* universe = qobject_cast<Universe*>(uniList.at(int(objID)));
+            QList<Universe *> uniList = m_doc->inputOutputMap()->universes();
+            Universe *universe = qobject_cast<Universe *>(uniList.at(int(objID)));
             universe->loadXML(xmlReader, int(objID), m_doc->inputOutputMap());
         }
         break;
@@ -450,7 +450,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant& value)
         break;
     case ChaserAddStep:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             ChaserStep step;
             int stepNumber = -1;
 
@@ -460,14 +460,14 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant& value)
         break;
     case ChaserRemoveStep:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             chaser->removeStep(value.toInt());
         }
         break;
     case EFXAddFixture:
         {
-            EFX* efx = qobject_cast<EFX*>(m_doc->function(objID));
-            EFXFixture* ef = new EFXFixture(efx);
+            EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
+            EFXFixture *ef = new EFXFixture(efx);
 
             ef->loadXML(xmlReader);
             efx->addFixture(ef);
@@ -475,8 +475,8 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant& value)
         break;
     case EFXRemoveFixture:
         {
-            EFX* efx = qobject_cast<EFX*>(m_doc->function(objID));
-            EFXFixture* ef = new EFXFixture(efx);
+            EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
+            EFXFixture *ef = new EFXFixture(efx);
 
             ef->loadXML(xmlReader);
             efx->removeFixture(ef->head().fxi, ef->head().head);
@@ -485,7 +485,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant& value)
         break;
     case VCWidgetCreate:
         {
-            VCFrame* frame = qobject_cast<VCFrame*>(m_virtualConsole->widget(objID));
+            VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(objID));
             if (frame)
                 frame->loadWidgetXML(xmlReader, true);
         }
@@ -524,9 +524,9 @@ void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
     m_busy = false;
 }
 
-int Tardis::processAction(TardisAction& action, bool undo)
+int Tardis::processAction(TardisAction &action, bool undo)
 {
-    QVariant* value = undo ? &action.m_oldValue : &action.m_newValue;
+    QVariant *value = undo ? &action.m_oldValue : &action.m_newValue;
 
     switch (action.m_action)
     {
@@ -590,49 +590,49 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case FunctionSetName:
         {
             auto member = std::mem_fn(&Function::setName);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), value->toString());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
     case FunctionSetPath:
         {
             auto member = std::mem_fn(&Function::setPath);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), value->toString());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
     case FunctionSetTempoType:
         {
             auto member = std::mem_fn(&Function::setTempoType);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), Function::TempoType(value->toInt()));
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::TempoType(value->toInt()));
         }
         break;
     case FunctionSetRunOrder:
         {
             auto member = std::mem_fn(&Function::setRunOrder);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), Function::RunOrder(value->toInt()));
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::RunOrder(value->toInt()));
         }
         break;
     case FunctionSetDirection:
         {
             auto member = std::mem_fn(&Function::setDirection);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), Function::Direction(value->toInt()));
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::Direction(value->toInt()));
         }
         break;
     case FunctionSetFadeIn:
         {
             auto member = std::mem_fn(&Function::setFadeInSpeed);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), value->toUInt());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
     case FunctionSetFadeOut:
         {
             auto member = std::mem_fn(&Function::setFadeOutSpeed);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), value->toUInt());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
     case FunctionSetDuration:
         {
             auto member = std::mem_fn(&Function::setDuration);
-            member(qobject_cast<Function*>(m_doc->function(action.m_objID)), value->toUInt());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
 
@@ -642,7 +642,7 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case SceneUnsetChannelValue:
         {
             SceneValue scv = value->value<SceneValue>();
-            Scene* scene = qobject_cast<Scene*>(m_doc->function(action.m_objID));
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
 
             if (scene)
             {
@@ -672,7 +672,7 @@ int Tardis::processAction(TardisAction& action, bool undo)
 
     case ChaserSetStepFadeIn:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(action.m_objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.fadeIn = pairValue.second;
@@ -681,7 +681,7 @@ int Tardis::processAction(TardisAction& action, bool undo)
         break;
     case ChaserSetStepHold:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(action.m_objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.hold = pairValue.second;
@@ -690,7 +690,7 @@ int Tardis::processAction(TardisAction& action, bool undo)
         break;
     case ChaserSetStepFadeOut:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(action.m_objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.fadeOut = pairValue.second;
@@ -699,7 +699,7 @@ int Tardis::processAction(TardisAction& action, bool undo)
         break;
     case ChaserSetStepDuration:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(action.m_objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.duration = pairValue.second;
@@ -720,73 +720,73 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), EFX::Algorithm(value->toInt()));
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), EFX::Algorithm(value->toInt()));
         }
         break;
     case EFXSetRelative:
         {
             auto member = std::mem_fn(&EFX::setIsRelative);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toBool());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toBool());
         }
         break;
     case EFXSetWidth:
         {
             auto member = std::mem_fn(&EFX::setWidth);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetHeight:
         {
             auto member = std::mem_fn(&EFX::setHeight);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetXOffset:
         {
             auto member = std::mem_fn(&EFX::setXOffset);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetYOffset:
         {
             auto member = std::mem_fn(&EFX::setYOffset);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetRotation:
         {
             auto member = std::mem_fn(&EFX::setRotation);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetStartOffset:
         {
             auto member = std::mem_fn(&EFX::setStartOffset);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetXFrequency:
         {
             auto member = std::mem_fn(&EFX::setXFrequency);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetYFrequency:
         {
             auto member = std::mem_fn(&EFX::setYFrequency);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetXPhase:
         {
             auto member = std::mem_fn(&EFX::setXPhase);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case EFXSetYPhase:
         {
             auto member = std::mem_fn(&EFX::setYPhase);
-            member(qobject_cast<EFX*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
 
@@ -794,7 +794,7 @@ int Tardis::processAction(TardisAction& action, bool undo)
 
     case CollectionAddFunction:
         {
-            Collection* collection = qobject_cast<Collection*>(m_doc->function(action.m_objID));
+            Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
                 collection->removeFunction(pairValue.first);
@@ -804,7 +804,7 @@ int Tardis::processAction(TardisAction& action, bool undo)
         break;
     case CollectionRemoveFunction:
         {
-            Collection* collection = qobject_cast<Collection*>(m_doc->function(action.m_objID));
+            Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
                 collection->addFunction(pairValue.first, int(pairValue.second));
@@ -818,54 +818,54 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case RGBMatrixSetFixtureGroup:
         {
             auto member = std::mem_fn(&RGBMatrix::setFixtureGroup);
-            member(qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID)), value->toUInt());
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
     case RGBMatrixSetAlgorithmIndex:
         {
             QStringList algoList = RGBAlgorithm::algorithms(m_doc);
-            RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, algoList.at(value->toInt()));
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
+            RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoList.at(value->toInt()));
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             matrix->setAlgorithm(algo);
         }
         break;
     case RGBMatrixSetStartColor:
         {
             auto member = std::mem_fn(&RGBMatrix::setStartColor);
-            member(qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID)), value->value<QColor>());
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
         }
         break;
     case RGBMatrixSetEndColor:
         {
             auto member = std::mem_fn(&RGBMatrix::setEndColor);
-            member(qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID)), value->value<QColor>());
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
         }
         break;
     case RGBMatrixSetScriptIntValue:
         {
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             StringIntPair pairValue = value->value<StringIntPair>(); // param name on first, value on second
             matrix->setProperty(pairValue.first, QString::number(pairValue.second));
         }
         break;
     case RGBMatrixSetScriptStringValue:
         {
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             StringStringPair pairValue = value->value<StringStringPair>(); // param name on first, value on second
             matrix->setProperty(pairValue.first, pairValue.second);
         }
         break;
     case RGBMatrixSetText:
         {
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
-            RGBText* algo = static_cast<RGBText*>(matrix->algorithm());
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
             algo->setText(value->toString());
         }
         break;
     case RGBMatrixSetTextFont:
         {
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
-            RGBText* algo = static_cast<RGBText*>(matrix->algorithm());
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
             QFont font;
             font.fromString(value->toString());
             algo->setFont(font);
@@ -873,23 +873,23 @@ int Tardis::processAction(TardisAction& action, bool undo)
         break;
     case RGBMatrixSetImage:
         {
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
-            RGBImage* algo = static_cast<RGBImage*>(matrix->algorithm());
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBImage *algo = static_cast<RGBImage *>(matrix->algorithm());
             algo->setFilename(value->toString());
         }
         break;
     case RGBMatrixSetOffset:
         {
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             if (matrix->algorithm()->type() == RGBAlgorithm::Image)
             {
-                RGBImage* algo = static_cast<RGBImage*>(matrix->algorithm());
+                RGBImage *algo = static_cast<RGBImage *>(matrix->algorithm());
                 algo->setXOffset(value->toSize().width());
                 algo->setYOffset(value->toSize().height());
             }
             else if (matrix->algorithm()->type() == RGBAlgorithm::Text)
             {
-                RGBText* algo = static_cast<RGBText*>(matrix->algorithm());
+                RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
                 algo->setXOffset(value->toSize().width());
                 algo->setYOffset(value->toSize().height());
             }
@@ -897,15 +897,15 @@ int Tardis::processAction(TardisAction& action, bool undo)
         break;
     case RGBMatrixSetAnimationStyle:
         {
-            RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(action.m_objID));
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             if (matrix->algorithm()->type() == RGBAlgorithm::Image)
             {
-                RGBImage* algo = static_cast<RGBImage*>(matrix->algorithm());
+                RGBImage *algo = static_cast<RGBImage *>(matrix->algorithm());
                 algo->setAnimationStyle(RGBImage::AnimationStyle(value->toInt()));
             }
             else if (matrix->algorithm()->type() == RGBAlgorithm::Text)
             {
-                RGBText* algo = static_cast<RGBText*>(matrix->algorithm());
+                RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
                 algo->setAnimationStyle(RGBText::AnimationStyle(value->toInt()));
             }
         }
@@ -916,14 +916,14 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case AudioSetSource:
         {
             auto member = std::mem_fn(&Audio::setSourceFileName);
-            member(qobject_cast<Audio*>(m_doc->function(action.m_objID)), value->toString());
+            member(qobject_cast<Audio *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
 
     case AudioSetVolume:
         {
             auto member = std::mem_fn(&Audio::setVolume);
-            member(qobject_cast<Audio*>(m_doc->function(action.m_objID)), value->toDouble());
+            member(qobject_cast<Audio *>(m_doc->function(action.m_objID)), value->toDouble());
         }
         break;
 
@@ -932,38 +932,38 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case VideoSetSource:
         {
             auto member = std::mem_fn(&Video::setSourceUrl);
-            member(qobject_cast<Video*>(m_doc->function(action.m_objID)), value->toString());
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
     case VideoSetScreenIndex:
         {
             auto member = std::mem_fn(&Video::setScreen);
-            member(qobject_cast<Video*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
     case VideoSetFullscreen:
         {
             auto member = std::mem_fn(&Video::setFullscreen);
-            member(qobject_cast<Video*>(m_doc->function(action.m_objID)), value->toBool());
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toBool());
         }
         break;
     case VideoSetGeometry:
         {
             auto member = std::mem_fn(&Video::setCustomGeometry);
-            member(qobject_cast<Video*>(m_doc->function(action.m_objID)), value->toRect());
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toRect());
         }
         break;
     case VideoSetRotation:
         {
             QVector3D rotation = value->value<QVector3D>();
             auto member = std::mem_fn(&Video::setRotation);
-            member(qobject_cast<Video*>(m_doc->function(action.m_objID)), rotation);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), rotation);
         }
         break;
     case VideoSetLayer:
         {
             auto member = std::mem_fn(&Video::setZIndex);
-            member(qobject_cast<Video*>(m_doc->function(action.m_objID)), value->toInt());
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
 
@@ -1004,115 +1004,115 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case VCWidgetGeometry:
         {
             auto member = std::mem_fn(&VCWidget::setGeometry);
-            member(qobject_cast<VCWidget*>(m_virtualConsole->widget(action.m_objID)), value->toRectF());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toRectF());
         }
         break;
     case VCWidgetCaption:
         {
             auto member = std::mem_fn(&VCWidget::setCaption);
-            member(qobject_cast<VCWidget*>(m_virtualConsole->widget(action.m_objID)), value->toString());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toString());
         }
         break;
     case VCWidgetBackgroundColor:
         {
             auto member = std::mem_fn(&VCWidget::setBackgroundColor);
-            member(qobject_cast<VCWidget*>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
         }
         break;
     case VCWidgetBackgroundImage:
         {
             auto member = std::mem_fn(&VCWidget::setBackgroundImage);
-            member(qobject_cast<VCWidget*>(m_virtualConsole->widget(action.m_objID)), value->toString());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toString());
         }
         break;
     case VCWidgetForegroundColor:
         {
             auto member = std::mem_fn(&VCWidget::setForegroundColor);
-            member(qobject_cast<VCWidget*>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
         }
         break;
     case VCWidgetFont:
         {
             auto member = std::mem_fn(&VCWidget::setFont);
-            member(qobject_cast<VCWidget*>(m_virtualConsole->widget(action.m_objID)), value->value<QFont>());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QFont>());
         }
         break;
 
     case VCButtonSetActionType:
         {
             auto member = std::mem_fn(&VCButton::setActionType);
-            member(qobject_cast<VCButton*>(m_virtualConsole->widget(action.m_objID)),
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)),
                    VCButton::ButtonAction(value->toInt()));
         }
         break;
     case VCButtonSetFunctionID:
         {
             auto member = std::mem_fn(&VCButton::setFunctionID);
-            member(qobject_cast<VCButton*>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
     case VCButtonEnableStartupIntensity:
         {
             auto member = std::mem_fn(&VCButton::setStartupIntensityEnabled);
-            member(qobject_cast<VCButton*>(m_virtualConsole->widget(action.m_objID)), value->toBool());
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
         }
         break;
     case VCButtonSetStartupIntensity:
         {
             auto member = std::mem_fn(&VCButton::setStartupIntensity);
-            member(qobject_cast<VCButton*>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
         }
         break;
 
     case VCSliderSetMode:
         {
             auto member = std::mem_fn(&VCSlider::setSliderMode);
-            member(qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID)),
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)),
                    VCSlider::SliderMode(value->toInt()));
         }
         break;
     case VCSliderSetDisplayStyle:
         {
             auto member = std::mem_fn(&VCSlider::setValueDisplayStyle);
-            member(qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID)),
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)),
                    VCSlider::ValueDisplayStyle(value->toInt()));
         }
         break;
     case VCSliderSetInverted:
         {
             auto member = std::mem_fn(&VCSlider::setInvertedAppearance);
-            member(qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID)), value->toBool());
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
         }
         break;
     case VCSliderSetFunctionID:
         {
             auto member = std::mem_fn(&VCSlider::setControlledFunction);
-            member(qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
     case VCSliderSetControlledAttribute:
         {
             auto member = std::mem_fn(&VCSlider::setControlledAttribute);
-            member(qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID)), value->toInt());
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toInt());
         }
         break;
     case VCSliderSetLowLimit:
         {
             auto member = std::mem_fn(&VCSlider::setRangeLowLimit);
-            member(qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
         }
         break;
     case VCSliderSetHighLimit:
         {
             auto member = std::mem_fn(&VCSlider::setRangeHighLimit);
-            member(qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
         }
         break;
 
     case VCCueListSetChaserID:
         {
             auto member = std::mem_fn(&VCCueList::setChaserID);
-            member(qobject_cast<VCCueList*>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
+            member(qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
 
@@ -1120,12 +1120,12 @@ int Tardis::processAction(TardisAction& action, bool undo)
     case VCButtonSetPressed:
         {
             auto member = std::mem_fn(&VCButton::requestStateChange);
-            member(qobject_cast<VCButton*>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toBool());
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toBool());
         }
         break;
     case VCSliderSetValue:
         {
-            VCSlider* slider = qobject_cast<VCSlider*>(m_virtualConsole->widget(action.m_objID));
+            VCSlider *slider = qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID));
             if (slider)
                 slider->setValue(value->toInt());
         }

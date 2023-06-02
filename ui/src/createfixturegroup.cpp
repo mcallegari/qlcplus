@@ -19,7 +19,7 @@
 
 #include "createfixturegroup.h"
 
-CreateFixtureGroup::CreateFixtureGroup(QWidget* parent)
+CreateFixtureGroup::CreateFixtureGroup(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
@@ -33,7 +33,7 @@ QString CreateFixtureGroup::name() const
     return m_nameEdit->text();
 }
 
-void CreateFixtureGroup::setSize(const QSize& size)
+void CreateFixtureGroup::setSize(const QSize &size)
 {
     Q_ASSERT(m_widthSpin != NULL);
     Q_ASSERT(m_heightSpin != NULL);

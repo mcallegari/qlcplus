@@ -24,7 +24,7 @@
 
 #include "universeitemwidget.h"
 
-UniverseItemWidget::UniverseItemWidget(QWidget* parent)
+UniverseItemWidget::UniverseItemWidget(QWidget *parent)
     : QItemDelegate(parent)
 {
     setClipping(false);
@@ -32,9 +32,9 @@ UniverseItemWidget::UniverseItemWidget(QWidget* parent)
 
 UniverseItemWidget::~UniverseItemWidget() {}
 
-void UniverseItemWidget::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QWidget* list = qobject_cast<QWidget*>(parent());
+    QWidget *list = qobject_cast<QWidget *>(parent());
     qreal pWidth = list->geometry().width();
     QRect r = option.rect;
     QFont font = qApp->font();

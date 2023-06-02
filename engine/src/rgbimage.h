@@ -38,25 +38,25 @@
 class RGBImage : public RGBAlgorithm
 {
 public:
-    RGBImage(Doc* doc);
-    RGBImage(const RGBImage& t);
+    RGBImage(Doc *doc);
+    RGBImage(const RGBImage &t);
     ~RGBImage();
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm *clone() const;
 
     /************************************************************************
      * Image file
      ************************************************************************/
 public:
     /** Set filename of the image */
-    void setFilename(const QString& fileName);
+    void setFilename(const QString &fileName);
 
     /** Get filename of the image */
     QString filename() const;
 
     /** Set the image data from an array of RGB888 values */
-    void setImageData(int width, int height, const QByteArray& pixelData);
+    void setImageData(int width, int height, const QByteArray &pixelData);
 
     bool animatedSource() const;
 
@@ -86,7 +86,7 @@ public:
     AnimationStyle animationStyle() const;
 
     static QString animationStyleToString(AnimationStyle ani);
-    static AnimationStyle stringToAnimationStyle(const QString& str);
+    static AnimationStyle stringToAnimationStyle(const QString &str);
     static QStringList animationStyles();
 
     void setXOffset(int offset);
@@ -105,10 +105,10 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize &size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
+    void rgbMap(const QSize &size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -126,10 +126,10 @@ public:
     int acceptColors() const;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

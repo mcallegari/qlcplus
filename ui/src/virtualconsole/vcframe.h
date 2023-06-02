@@ -75,7 +75,7 @@ public:
      * Initialization
      *********************************************************************/
 public:
-    VCFrame(QWidget* parent, Doc* doc, bool canCollapse = false);
+    VCFrame(QWidget *parent, Doc *doc, bool canCollapse = false);
     virtual ~VCFrame();
 
     void init(bool bottomFrame = false);
@@ -94,16 +94,16 @@ public:
     void setLiveEdit(bool liveEdit);
 
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString &text);
 
     /** @reimp */
-    void setFont(const QFont& font);
+    void setFont(const QFont &font);
 
     /** @reimp */
     QFont font() const;
 
     /** @reimp */
-    void setForegroundColor(const QColor& color);
+    void setForegroundColor(const QColor &color);
 
     /** @reimp */
     QColor foregroundColor() const;
@@ -136,10 +136,10 @@ protected:
     void createHeader();
 
 protected:
-    QHBoxLayout* m_hbox;
-    QToolButton* m_collapseButton;
-    QToolButton* m_enableButton;
-    QLabel* m_label;
+    QHBoxLayout *m_hbox;
+    QToolButton *m_collapseButton;
+    QToolButton *m_enableButton;
+    QLabel *m_label;
     bool m_collapsed;
     bool m_showHeader;
     bool m_showEnableButton;
@@ -152,9 +152,9 @@ public:
     void setMultipageMode(bool enable);
     virtual bool multipageMode() const;
 
-    QList<VCFramePageShortcut*> shortcuts() const;
+    QList<VCFramePageShortcut *> shortcuts() const;
     void addShortcut();
-    void setShortcuts(QList<VCFramePageShortcut*> shortcuts);
+    void setShortcuts(QList<VCFramePageShortcut *> shortcuts);
     void resetShortcuts();
     void updatePageCombo();
 
@@ -166,8 +166,8 @@ public:
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
 
-    virtual void addWidgetToPageMap(VCWidget* widget);
-    virtual void removeWidgetFromPageMap(VCWidget* widget);
+    virtual void addWidgetToPageMap(VCWidget *widget);
+    virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 public slots:
     void slotPreviousPage();
@@ -182,13 +182,13 @@ protected:
     ushort m_currentPage;
     ushort m_totalPagesNumber;
     QToolButton *m_nextPageBtn, *m_prevPageBtn;
-    QComboBox* m_pageCombo;
+    QComboBox *m_pageCombo;
     bool m_pagesLoop;
-    QList<VCFramePageShortcut*> m_pageShortcuts;
+    QList<VCFramePageShortcut *> m_pageShortcuts;
 
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
-    QMap<VCWidget*, int> m_pagesMap;
+    QMap<VCWidget *, int> m_pagesMap;
 
     /*************************************************************************
      * QLC+ mode
@@ -218,26 +218,26 @@ public:
      *************************************************************************/
 public:
     /** Set the keyboard key combination to enable/disable the frame */
-    void setEnableKeySequence(const QKeySequence& keySequence);
+    void setEnableKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination to enable/disable the frame */
     QKeySequence enableKeySequence() const;
 
     /** Set the keyboard key combination for skipping to the next page */
-    void setNextPageKeySequence(const QKeySequence& keySequence);
+    void setNextPageKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for skipping to the next page */
     QKeySequence nextPageKeySequence() const;
 
     /** Set the keyboard key combination for skipping to the previous page */
-    void setPreviousPageKeySequence(const QKeySequence& keySequence);
+    void setPreviousPageKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for skipping to the previous page */
     QKeySequence previousPageKeySequence() const;
 
 protected slots:
     /** @reimp */
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
 
 private:
     QKeySequence m_enableKeySequence;
@@ -260,18 +260,18 @@ protected slots:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 protected:
-    QList<VCWidget*> getChildren(VCWidget* obj);
-    void applyProperties(VCFrameProperties const& prop);
+    QList<VCWidget *> getChildren(VCWidget *obj);
+    void applyProperties(VCFrameProperties const &prop);
 
 public:
     /** @reimp */
@@ -281,9 +281,9 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /**
      * @reimp
@@ -302,14 +302,14 @@ protected:
 public:
     /** Get a custom menu specific to this widget. Ownership is transferred
         to the caller, which must delete the returned menu pointer. */
-    virtual QMenu* customMenu(QMenu* parentMenu);
+    virtual QMenu *customMenu(QMenu *parentMenu);
 
     /*********************************************************************
      * Event handlers
      *********************************************************************/
 protected:
-    void handleWidgetSelection(QMouseEvent* e);
-    void mouseMoveEvent(QMouseEvent* e);
+    void handleWidgetSelection(QMouseEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
 };
 
 /** @} */

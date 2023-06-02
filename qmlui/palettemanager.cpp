@@ -26,7 +26,7 @@
 #include "scene.h"
 #include "doc.h"
 
-PaletteManager::PaletteManager(QQuickView* view, Doc* doc, ContextManager* ctxManager, QObject* parent)
+PaletteManager::PaletteManager(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -55,20 +55,20 @@ QVariant PaletteManager::paletteList()
     return QVariant::fromValue(m_paletteList);
 }
 
-QLCPalette* PaletteManager::getPalette(quint32 id)
+QLCPalette *PaletteManager::getPalette(quint32 id)
 {
-    QLCPalette* palette = m_doc->palette(id);
+    QLCPalette *palette = m_doc->palette(id);
     QQmlEngine::setObjectOwnership(palette, QQmlEngine::CppOwnership);
     return palette;
 }
 
-QLCPalette* PaletteManager::getEditingPalette(int type)
+QLCPalette *PaletteManager::getEditingPalette(int type)
 {
     qDebug() << "Requesting a palette for editing. Type" << type;
 
     if (m_editingMap.contains(type) == false)
     {
-        QLCPalette* palette = new QLCPalette(QLCPalette::PaletteType(type));
+        QLCPalette *palette = new QLCPalette(QLCPalette::PaletteType(type));
         m_editingMap[type] = palette;
         QQmlEngine::setObjectOwnership(palette, QQmlEngine::CppOwnership);
     }
@@ -80,7 +80,7 @@ bool PaletteManager::releaseEditingPalette(int type)
 {
     if (m_editingMap.contains(type))
     {
-        QLCPalette* palette = m_editingMap.take(type);
+        QLCPalette *palette = m_editingMap.take(type);
         delete palette;
         return true;
     }
@@ -88,12 +88,12 @@ bool PaletteManager::releaseEditingPalette(int type)
     return false;
 }
 
-quint32 PaletteManager::createPalette(QLCPalette* palette, QString name)
+quint32 PaletteManager::createPalette(QLCPalette *palette, QString name)
 {
     if (palette == nullptr)
         return QLCPalette::invalidId();
 
-    QLCPalette* newPalette = palette->createCopy();
+    QLCPalette *newPalette = palette->createCopy();
     newPalette->setName(name);
 
     if (palette->type() == QLCPalette::Pan)
@@ -118,7 +118,7 @@ quint32 PaletteManager::createPalette(QLCPalette* palette, QString name)
     return newPalette->id();
 }
 
-void PaletteManager::previewPalette(QLCPalette* palette)
+void PaletteManager::previewPalette(QLCPalette *palette)
 {
     if (palette == nullptr)
         return;
@@ -126,7 +126,7 @@ void PaletteManager::previewPalette(QLCPalette* palette)
     m_contextManager->setChannelValues(palette->valuesFromFixtures(m_doc, m_contextManager->selectedFixtureIDList()));
 }
 
-void PaletteManager::updatePalette(QLCPalette* palette, QVariant value1)
+void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1)
 {
     if (palette == nullptr)
         return;
@@ -135,7 +135,7 @@ void PaletteManager::updatePalette(QLCPalette* palette, QVariant value1)
     palette->setValue(value1);
 }
 
-void PaletteManager::updatePalette(QLCPalette* palette, QVariant value1, QVariant value2)
+void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1, QVariant value2)
 {
     if (palette == nullptr)
         return;
@@ -148,7 +148,7 @@ void PaletteManager::deletePalettes(QVariantList list)
 {
     for (QVariant pID : list)
     {
-        QLCPalette* p = m_doc->palette(pID.toInt());
+        QLCPalette *p = m_doc->palette(pID.toInt());
         if (p == nullptr)
             continue;
 
@@ -164,7 +164,7 @@ void PaletteManager::addPaletteToNewScene(quint32 id, QString sceneName)
     if (m_doc->palette(id) == nullptr)
         return;
 
-    Scene* scene = new Scene(m_doc);
+    Scene *scene = new Scene(m_doc);
     scene->setName(sceneName);
     scene->addPalette(id);
     m_doc->addFunction(scene);
@@ -200,8 +200,8 @@ void PaletteManager::setSearchFilter(QString searchFilter)
 
     m_searchFilter = searchFilter;
 
-    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
-        (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+    if (searchFilter.length() >= SEARCH_MIN_CHARS
+        || (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
         updatePaletteList();
 
     emit searchFilterChanged();
@@ -213,7 +213,7 @@ QStringList PaletteManager::selectedItemNames(QVariantList list)
 
     for (QVariant pID : list)
     {
-        QLCPalette* p = m_doc->palette(pID.toInt());
+        QLCPalette *p = m_doc->palette(pID.toInt());
         if (p == nullptr)
             continue;
         names.append(p->name());
@@ -227,10 +227,10 @@ void PaletteManager::updatePaletteList()
     m_paletteList->clear();
     m_dimmerCount = m_colorCount = m_positionCount = 0;
 
-    for (QLCPalette* palette : m_doc->palettes())
+    for (QLCPalette *palette : m_doc->palettes())
     {
-        if ((m_typeFilter == QLCPalette::Undefined || m_typeFilter & palette->type()) &&
-            (m_searchFilter.length() < SEARCH_MIN_CHARS || palette->name().toLower().contains(m_searchFilter)))
+        if ((m_typeFilter == QLCPalette::Undefined || m_typeFilter & palette->type())
+            && (m_searchFilter.length() < SEARCH_MIN_CHARS || palette->name().toLower().contains(m_searchFilter)))
         {
             QVariantMap funcMap;
             funcMap.insert("paletteID", palette->id());

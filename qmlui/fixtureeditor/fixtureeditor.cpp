@@ -33,7 +33,7 @@
 
 #define SETTINGS_DEF_WORKINGPATH "defeditor/workingpath"
 
-FixtureEditor::FixtureEditor(QQuickView* view, Doc* doc, QObject* parent)
+FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -83,7 +83,7 @@ void FixtureEditor::setWorkingPath(QString workingPath)
 
 void FixtureEditor::createDefinition()
 {
-    QLCFixtureDef* def = new QLCFixtureDef();
+    QLCFixtureDef *def = new QLCFixtureDef();
     def->setIsUser(true);
     m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
     m_lastId++;
@@ -92,7 +92,7 @@ void FixtureEditor::createDefinition()
 
 bool FixtureEditor::loadDefinition(QString fileName)
 {
-    QLCFixtureDef* def = new QLCFixtureDef();
+    QLCFixtureDef *def = new QLCFixtureDef();
     QString localFilename = fileName;
     bool result = false;
 
@@ -129,7 +129,7 @@ bool FixtureEditor::loadDefinition(QString fileName)
 
 bool FixtureEditor::editDefinition(QString manufacturer, QString model)
 {
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
 
     if (def == nullptr)
         return false;
@@ -144,7 +144,7 @@ QVariantList FixtureEditor::editorsList() const
 {
     QVariantList list;
 
-    QMap<int, EditorView*>::const_iterator i = m_editors.constBegin();
+    QMap<int, EditorView *>::const_iterator i = m_editors.constBegin();
     while (i != m_editors.constEnd())
     {
         QVariantMap eMap;
@@ -165,7 +165,7 @@ void FixtureEditor::deleteEditor(int id)
         return;
     }
 
-    EditorView* editor = m_editors.take(id);
+    EditorView *editor = m_editors.take(id);
     delete editor;
     emit editorsListChanged();
 }

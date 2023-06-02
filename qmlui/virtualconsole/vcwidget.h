@@ -94,33 +94,33 @@ class VCWidget : public QObject
      * Initialization
      *********************************************************************/
 public:
-    VCWidget(Doc* doc = nullptr, QObject* parent = nullptr);
+    VCWidget(Doc *doc = nullptr, QObject *parent = nullptr);
     virtual ~VCWidget();
 
     void setDocModified();
 
     virtual void setupLookAndFeel(qreal pixelDensity, int page);
 
-    virtual void render(QQuickView* view, QQuickItem* parent);
+    virtual void render(QQuickView *view, QQuickItem *parent);
 
-    QQuickItem* renderItem() const;
+    QQuickItem *renderItem() const;
 
     void enqueueTardisAction(int code, QVariant oldVal, QVariant newVal);
 
     /** Create a copy of this widget into the given parent and return it
      * Pure virtual method: subclasses must reimplement this */
-    virtual VCWidget* createCopy(VCWidget* parent);
+    virtual VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from the given widget */
-    virtual bool copyFrom(const VCWidget* widget);
+    virtual bool copyFrom(const VCWidget *widget);
 
 protected:
     /** Reference to the project document */
-    Doc* m_doc;
+    Doc *m_doc;
 
     /** Reference to the onscreen Quick item */
-    QQuickItem* m_item;
+    QQuickItem *m_item;
 
     /*********************************************************************
      * ID
@@ -310,7 +310,7 @@ public:
     QString backgroundImage() const;
 
 signals:
-    void backgroundImageChanged(const QString& path);
+    void backgroundImageChanged(const QString &path);
 
 protected:
     QString m_backgroundImage;
@@ -347,7 +347,7 @@ public:
     void setDefaultFontSize(qreal size);
 
     /** Set the font used for the widget's caption */
-    void setFont(const QFont& font);
+    void setFont(const QFont &font);
 
     /** Get the font used for the widget's caption */
     QFont font() const;
@@ -390,9 +390,9 @@ public:
      *  and Audio Triggers can benefit from this.
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
-    virtual void notifyFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity);
+    virtual void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
 
-    virtual void adjustFunctionIntensity(Function* f, qreal value);
+    virtual void adjustFunctionIntensity(Function *f, qreal value);
 
     void resetIntensityOverrideAttribute();
 
@@ -401,7 +401,7 @@ signals:
      * requested to start the Function.
      * At the moment this is used by a restriceted number of widgets (see above)
      */
-    void functionStarting(VCWidget* widget, quint32 fid, qreal intensity = 1.0);
+    void functionStarting(VCWidget *widget, quint32 fid, qreal intensity = 1.0);
 
 protected:
     int m_intensityOverrideId;
@@ -496,10 +496,10 @@ public:
      *
      * @param source The input source to add
      */
-    void addInputSource(QSharedPointer<QLCInputSource> const& source);
+    void addInputSource(QSharedPointer<QLCInputSource> const &source);
 
     /** Update an existing input source with the provided $universe and $channel */
-    bool updateInputSource(const QSharedPointer<QLCInputSource>& source, quint32 universe, quint32 channel);
+    bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
 
     /** Update the control ID of an existing input source bound to $universe and $channel */
     Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
@@ -539,10 +539,10 @@ public:
      *********************************************************************/
 public:
     /** Add a new key sequence to this widget, bound to the specified control $id */
-    void addKeySequence(const QKeySequence& keySequence, const quint32& id = 0);
+    void addKeySequence(const QKeySequence &keySequence, const quint32 &id = 0);
 
     /** Delete an existing key sequence from this widget */
-    void deleteKeySequence(const QKeySequence& keySequence);
+    void deleteKeySequence(const QKeySequence &keySequence);
 
     /** Update an existing key sequence with the specified $id */
     void updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id = 0);
@@ -578,17 +578,17 @@ protected:
      * Load & Save
      *********************************************************************/
 public:
-    virtual bool loadXML(QXmlStreamReader& root);
-    virtual bool saveXML(QXmlStreamWriter* doc);
+    virtual bool loadXML(QXmlStreamReader &root);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
 protected:
-    bool loadXMLCommon(QXmlStreamReader& root);
+    bool loadXMLCommon(QXmlStreamReader &root);
 
     /**
      * Read this widget's appearance XML tag, to load properties
      * such as background and foreground color, font, etc..
      */
-    bool loadXMLAppearance(QXmlStreamReader& root);
+    bool loadXMLAppearance(QXmlStreamReader &root);
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
@@ -602,32 +602,32 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool loadXMLWindowState(QXmlStreamReader& root, int* x, int* y, int* w, int* h, bool* visible);
+    bool loadXMLWindowState(QXmlStreamReader &root, int *x, int *y, int *w, int *h, bool *visible);
 
     /** Load an input source from $root with the given $id */
-    bool loadXMLInputSource(QXmlStreamReader& root, const quint8& id = 0);
+    bool loadXMLInputSource(QXmlStreamReader &root, const quint8 &id = 0);
 
     /** Load an input key sequence from $root with the given $id */
-    bool loadXMLInputKey(QXmlStreamReader& root, const quint8& id = 0);
+    bool loadXMLInputKey(QXmlStreamReader &root, const quint8 &id = 0);
 
     /** Parse the $root XML section and:
      *  - set an input source with the given $id
      *  - if present, set an input key sequence with the given $id
      */
-    bool loadXMLSources(QXmlStreamReader& root, const quint8& id);
+    bool loadXMLSources(QXmlStreamReader &root, const quint8 &id);
 
     /** Write the widget common properties */
-    bool saveXMLCommon(QXmlStreamWriter* doc);
+    bool saveXMLCommon(QXmlStreamWriter *doc);
 
     /** Write the widget appearance, if customized */
-    bool saveXMLAppearance(QXmlStreamWriter* doc);
+    bool saveXMLAppearance(QXmlStreamWriter *doc);
 
     /** Write this widget's geometry and visibility to an XML document */
-    bool saveXMLWindowState(QXmlStreamWriter* doc);
+    bool saveXMLWindowState(QXmlStreamWriter *doc);
 
     /** Save all the input sources and key combination with the given $controlId
      *  in a tag with the given $tagName */
-    bool saveXMLInputControl(QXmlStreamWriter* doc, quint8 controlId, QString tagName = QString());
+    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName = QString());
 };
 
 #endif

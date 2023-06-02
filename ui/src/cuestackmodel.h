@@ -34,14 +34,14 @@ class CueStackModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    CueStackModel(QObject* parent = 0);
+    CueStackModel(QObject *parent = 0);
     ~CueStackModel();
 
-    void setCueStack(CueStack* cs);
-    CueStack* cueStack() const;
+    void setCueStack(CueStack *cs);
+    CueStack *cueStack() const;
 
 private:
-    CueStack* m_cueStack;
+    CueStack *m_cueStack;
 
     /************************************************************************
      * CueStack slots
@@ -66,21 +66,21 @@ public:
         ColumnCount = 5
     };
 
-    int columnCount(const QModelIndex& index) const;
+    int columnCount(const QModelIndex &index) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
-    QModelIndex parent(const QModelIndex& index) const;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     QStringList mimeTypes() const;
     Qt::DropActions supportedDropActions() const;
-    Qt::ItemFlags flags(const QModelIndex& index) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent);
-    QMimeData* mimeData(const QModelIndexList& indexes) const;
-    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
+    QMimeData *mimeData(const QModelIndexList &indexes) const;
+    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
 
 private:
     /** Convert $ms milliseconds to a nicer seconds.milliseconds figure */

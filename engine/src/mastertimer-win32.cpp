@@ -38,7 +38,7 @@ extern "C"
     {
         Q_UNUSED(TimerOrWaitFired);
 
-        MasterTimerPrivate* mtp = (MasterTimerPrivate*)lpParameter;
+        MasterTimerPrivate *mtp = (MasterTimerPrivate *)lpParameter;
         Q_ASSERT(mtp != NULL);
         mtp->timerTick();
     }
@@ -48,7 +48,7 @@ extern "C"
  * MasterTimerPrivate
  ****************************************************************************/
 
-MasterTimerPrivate::MasterTimerPrivate(MasterTimer* masterTimer)
+MasterTimerPrivate::MasterTimerPrivate(MasterTimer *masterTimer)
     : m_masterTimer(masterTimer)
     , m_systemTimerResolution(0)
     , m_phTimer(NULL)

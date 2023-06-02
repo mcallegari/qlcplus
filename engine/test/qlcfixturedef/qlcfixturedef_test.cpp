@@ -26,7 +26,7 @@
 
 void QLCFixtureDef_Test::initial()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
+    QLCFixtureDef *fd = new QLCFixtureDef();
     QVERIFY(fd->manufacturer().isEmpty());
     QVERIFY(fd->model().isEmpty());
     QVERIFY(fd->name() == " ");
@@ -36,7 +36,7 @@ void QLCFixtureDef_Test::initial()
 
 void QLCFixtureDef_Test::manufacturer()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
+    QLCFixtureDef *fd = new QLCFixtureDef();
     fd->setManufacturer("Martin");
     QVERIFY(fd->manufacturer() == "Martin");
     QVERIFY(fd->name() == "Martin ");
@@ -45,7 +45,7 @@ void QLCFixtureDef_Test::manufacturer()
 
 void QLCFixtureDef_Test::model()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
+    QLCFixtureDef *fd = new QLCFixtureDef();
     fd->setModel("MAC600");
     QVERIFY(fd->model() == "MAC600");
     QVERIFY(fd->name() == " MAC600");
@@ -54,7 +54,7 @@ void QLCFixtureDef_Test::model()
 
 void QLCFixtureDef_Test::name()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
+    QLCFixtureDef *fd = new QLCFixtureDef();
     fd->setManufacturer("Martin");
     fd->setModel("MAC600");
     QVERIFY(fd->name() == "Martin MAC600");
@@ -63,7 +63,7 @@ void QLCFixtureDef_Test::name()
 
 void QLCFixtureDef_Test::type()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
+    QLCFixtureDef *fd = new QLCFixtureDef();
     fd->setType(QLCFixtureDef::Scanner);
     QVERIFY(fd->typeToString(fd->type()) == "Scanner");
     delete fd;
@@ -71,13 +71,13 @@ void QLCFixtureDef_Test::type()
 
 void QLCFixtureDef_Test::addChannel()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
+    QLCFixtureDef *fd = new QLCFixtureDef();
     QVERIFY(fd->channels().size() == 0);
 
     fd->addChannel(NULL);
     QVERIFY(fd->channels().size() == 0);
 
-    QLCChannel* ch1 = new QLCChannel();
+    QLCChannel *ch1 = new QLCChannel();
     fd->addChannel(ch1);
     QVERIFY(fd->channels().size() == 1);
     QVERIFY(fd->channels().at(0) == ch1);
@@ -85,7 +85,7 @@ void QLCFixtureDef_Test::addChannel()
     fd->addChannel(ch1);
     QVERIFY(fd->channels().size() == 1);
 
-    QLCChannel* ch2 = new QLCChannel();
+    QLCChannel *ch2 = new QLCChannel();
     fd->addChannel(ch2);
     QVERIFY(fd->channels().size() == 2);
     QVERIFY(fd->channels().at(0) == ch1);
@@ -96,9 +96,9 @@ void QLCFixtureDef_Test::addChannel()
 
 void QLCFixtureDef_Test::removeChannel()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
-    QLCChannel* ch1 = new QLCChannel();
-    QLCChannel* ch2 = new QLCChannel();
+    QLCFixtureDef *fd = new QLCFixtureDef();
+    QLCChannel *ch1 = new QLCChannel();
+    QLCChannel *ch2 = new QLCChannel();
 
     QVERIFY(fd->channels().size() == 0);
     QVERIFY(fd->removeChannel(NULL) == false);
@@ -129,16 +129,16 @@ void QLCFixtureDef_Test::removeChannel()
 
 void QLCFixtureDef_Test::channel()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
-    QLCChannel* ch1 = new QLCChannel();
+    QLCFixtureDef *fd = new QLCFixtureDef();
+    QLCChannel *ch1 = new QLCChannel();
     ch1->setName("foo");
     fd->addChannel(ch1);
 
-    QLCChannel* ch2 = new QLCChannel();
+    QLCChannel *ch2 = new QLCChannel();
     ch2->setName("bar");
     fd->addChannel(ch2);
 
-    QLCChannel* ch3 = new QLCChannel();
+    QLCChannel *ch3 = new QLCChannel();
     ch3->setName("xyzzy");
     fd->addChannel(ch3);
 
@@ -152,10 +152,10 @@ void QLCFixtureDef_Test::channel()
 
 void QLCFixtureDef_Test::channels()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
-    QLCChannel* ch1 = new QLCChannel();
-    QLCChannel* ch2 = new QLCChannel();
-    QLCChannel* ch3 = new QLCChannel();
+    QLCFixtureDef *fd = new QLCFixtureDef();
+    QLCChannel *ch1 = new QLCChannel();
+    QLCChannel *ch2 = new QLCChannel();
+    QLCChannel *ch3 = new QLCChannel();
 
     QVERIFY(fd->channels().size() == 0);
     fd->addChannel(ch1);
@@ -176,9 +176,9 @@ void QLCFixtureDef_Test::channels()
 
 void QLCFixtureDef_Test::addMode()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
-    QLCFixtureMode* mode1 = new QLCFixtureMode(fd);
-    QLCFixtureMode* mode2 = new QLCFixtureMode(fd);
+    QLCFixtureDef *fd = new QLCFixtureDef();
+    QLCFixtureMode *mode1 = new QLCFixtureMode(fd);
+    QLCFixtureMode *mode2 = new QLCFixtureMode(fd);
 
     QVERIFY(fd->modes().size() == 0);
 
@@ -203,9 +203,9 @@ void QLCFixtureDef_Test::addMode()
 
 void QLCFixtureDef_Test::removeMode()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
-    QLCFixtureMode* mode1 = new QLCFixtureMode(fd);
-    QLCFixtureMode* mode2 = new QLCFixtureMode(fd);
+    QLCFixtureDef *fd = new QLCFixtureDef();
+    QLCFixtureMode *mode1 = new QLCFixtureMode(fd);
+    QLCFixtureMode *mode2 = new QLCFixtureMode(fd);
 
     QVERIFY(fd->modes().size() == 0);
     QVERIFY(fd->removeMode(NULL) == false);
@@ -237,16 +237,16 @@ void QLCFixtureDef_Test::removeMode()
 
 void QLCFixtureDef_Test::mode()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
-    QLCFixtureMode* mode1 = new QLCFixtureMode(fd);
+    QLCFixtureDef *fd = new QLCFixtureDef();
+    QLCFixtureMode *mode1 = new QLCFixtureMode(fd);
     mode1->setName("foo");
     fd->addMode(mode1);
 
-    QLCFixtureMode* mode2 = new QLCFixtureMode(fd);
+    QLCFixtureMode *mode2 = new QLCFixtureMode(fd);
     mode2->setName("bar");
     fd->addMode(mode2);
 
-    QLCFixtureMode* mode3 = new QLCFixtureMode(fd);
+    QLCFixtureMode *mode3 = new QLCFixtureMode(fd);
     mode3->setName("xyzzy");
     fd->addMode(mode3);
 
@@ -260,10 +260,10 @@ void QLCFixtureDef_Test::mode()
 
 void QLCFixtureDef_Test::modes()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
-    QLCFixtureMode* mode1 = new QLCFixtureMode(fd);
-    QLCFixtureMode* mode2 = new QLCFixtureMode(fd);
-    QLCFixtureMode* mode3 = new QLCFixtureMode(fd);
+    QLCFixtureDef *fd = new QLCFixtureDef();
+    QLCFixtureMode *mode1 = new QLCFixtureMode(fd);
+    QLCFixtureMode *mode2 = new QLCFixtureMode(fd);
+    QLCFixtureMode *mode3 = new QLCFixtureMode(fd);
 
     QVERIFY(fd->modes().size() == 0);
     fd->addMode(mode1);
@@ -284,21 +284,21 @@ void QLCFixtureDef_Test::modes()
 
 void QLCFixtureDef_Test::copy()
 {
-    QLCFixtureDef* fd = new QLCFixtureDef();
+    QLCFixtureDef *fd = new QLCFixtureDef();
     fd->setManufacturer("Martin");
     fd->setModel("MAC600");
     fd->setType(QLCFixtureDef::MovingHead);
 
-    QLCChannel* ch = new QLCChannel();
+    QLCChannel *ch = new QLCChannel();
     ch->setName("TestChannel");
     fd->addChannel(ch);
 
-    QLCFixtureMode* mode = new QLCFixtureMode(fd);
+    QLCFixtureMode *mode = new QLCFixtureMode(fd);
     mode->setName("TestMode");
     fd->addMode(mode);
     mode->insertChannel(ch, 0);
 
-    QLCFixtureDef* copy = new QLCFixtureDef(fd);
+    QLCFixtureDef *copy = new QLCFixtureDef(fd);
     QVERIFY(copy->manufacturer() == "Martin");
     QVERIFY(copy->model() == "MAC600");
     QVERIFY(copy->typeToString(copy->type()) == "Moving Head");
@@ -323,16 +323,16 @@ void QLCFixtureDef_Test::saveLoadXML()
 {
     const QString path("qlcfixturedef_test_saveXML.qxf");
 
-    QLCFixtureDef* def = new QLCFixtureDef;
+    QLCFixtureDef *def = new QLCFixtureDef;
     def->setManufacturer("Foobar");
     def->setModel("Xyzzy");
     def->setType(QLCFixtureDef::Other);
 
-    QLCChannel* ch = new QLCChannel();
+    QLCChannel *ch = new QLCChannel();
     ch->setName("Whatever");
     def->addChannel(ch);
 
-    QLCFixtureMode* mode = new QLCFixtureMode(def);
+    QLCFixtureMode *mode = new QLCFixtureMode(def);
     mode->setName("Barfoo");
     def->addMode(mode);
     mode->insertChannel(ch, 0);
@@ -342,7 +342,7 @@ void QLCFixtureDef_Test::saveLoadXML()
 
     // Test only QLCFixtureDef's doings and don't go into channel/mode details
     // since they are tested in their individual unit tests.
-    QLCFixtureDef* def2 = new QLCFixtureDef;
+    QLCFixtureDef *def2 = new QLCFixtureDef;
     QCOMPARE(def2->loadXML(QString()), QFile::OpenError);
     QCOMPARE(def2->loadXML("/path/beyond/this/universe/foo.qxf"), QFile::ReadError);
     QCOMPARE(def2->loadXML("readonly.xml"), QFile::ReadError);

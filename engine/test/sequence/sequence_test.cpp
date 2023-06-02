@@ -70,13 +70,13 @@ void Sequence_Test::createCopy()
 {
     Doc doc(this);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(5);
     m_doc->addFixture(fxi);
 
-    Scene* scene = new Scene(m_doc);
+    Scene *scene = new Scene(m_doc);
     scene->addFixture(fxi->id());
     scene->setValue(SceneValue(0, 0, 0));
     scene->setValue(SceneValue(0, 1, 0));
@@ -85,7 +85,7 @@ void Sequence_Test::createCopy()
     doc.addFunction(scene);
     QVERIFY(scene->id() != Function::invalidId());
 
-    Sequence* seq = new Sequence(m_doc);
+    Sequence *seq = new Sequence(m_doc);
     seq->setName("First");
     seq->setFadeInSpeed(42);
     seq->setFadeOutSpeed(69);
@@ -112,12 +112,12 @@ void Sequence_Test::createCopy()
     doc.addFunction(seq);
     QVERIFY(seq->id() != Function::invalidId());
 
-    Function* f = seq->createCopy(&doc);
+    Function *f = seq->createCopy(&doc);
     QVERIFY(f != NULL);
     QVERIFY(f != seq);
     QVERIFY(f->id() != seq->id());
 
-    Sequence* copy = qobject_cast<Sequence*>(f);
+    Sequence *copy = qobject_cast<Sequence *>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->fadeInSpeed() == 42);
     QVERIFY(copy->fadeOutSpeed() == 69);
@@ -232,26 +232,26 @@ void Sequence_Test::loadWithScene()
     xmlWriter.setDevice(NULL);
     buffer.close();
 
-    Fixture* fxi1 = new Fixture(m_doc);
+    Fixture *fxi1 = new Fixture(m_doc);
     fxi1->setAddress(0);
     fxi1->setUniverse(0);
     fxi1->setChannels(8);
     m_doc->addFixture(fxi1);
 
-    Fixture* fxi2 = new Fixture(m_doc);
+    Fixture *fxi2 = new Fixture(m_doc);
     fxi2->setAddress(10);
     fxi2->setUniverse(0);
     fxi2->setChannels(8);
     m_doc->addFixture(fxi2);
 
-    Fixture* fxi3 = new Fixture(m_doc);
+    Fixture *fxi3 = new Fixture(m_doc);
     fxi3->setAddress(20);
     fxi3->setUniverse(0);
     fxi3->setChannels(8);
     m_doc->addFixture(fxi3);
 
     /* prepare a Scene bound to the Sequence */
-    Scene* s = new Scene(m_doc);
+    Scene *s = new Scene(m_doc);
     s->addFixture(0);
     s->addFixture(1);
     s->addFixture(2);
@@ -275,7 +275,7 @@ void Sequence_Test::loadWithScene()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    Sequence* seq = new Sequence(m_doc);
+    Sequence *seq = new Sequence(m_doc);
 
     /* load the XML contents and check that no fixup was needed
      * since the bound Scene is present in Doc */
@@ -303,7 +303,7 @@ void Sequence_Test::loadWithScene()
     /* Now steps are fully loaded and contains all the Scene
      * values (12), so check how the XML values went into
      * ChaserStep values */
-    ChaserStep* cs = seq->stepAt(0);
+    ChaserStep *cs = seq->stepAt(0);
     QVERIFY(cs->values.at(1) == SceneValue(0, 6));
     QVERIFY(cs->values.at(1).value == 255);
     QVERIFY(cs->values.at(5) == SceneValue(1, 6));
@@ -408,25 +408,25 @@ void Sequence_Test::loadWithoutScene()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    Fixture* fxi1 = new Fixture(m_doc);
+    Fixture *fxi1 = new Fixture(m_doc);
     fxi1->setAddress(0);
     fxi1->setUniverse(0);
     fxi1->setChannels(8);
     m_doc->addFixture(fxi1);
 
-    Fixture* fxi2 = new Fixture(m_doc);
+    Fixture *fxi2 = new Fixture(m_doc);
     fxi2->setAddress(10);
     fxi2->setUniverse(0);
     fxi2->setChannels(8);
     m_doc->addFixture(fxi2);
 
-    Fixture* fxi3 = new Fixture(m_doc);
+    Fixture *fxi3 = new Fixture(m_doc);
     fxi3->setAddress(20);
     fxi3->setUniverse(0);
     fxi3->setChannels(8);
     m_doc->addFixture(fxi3);
 
-    Sequence* seq = new Sequence(m_doc);
+    Sequence *seq = new Sequence(m_doc);
 
     /* load the XML contents and check that a fixup is needed
      * cause the bound Scene is not present in Doc */
@@ -452,7 +452,7 @@ void Sequence_Test::loadWithoutScene()
     QVERIFY(seq->stepAt(2)->values.count() == 9);
 
     /* now add the Scene bound to the Sequence and call postLoad */
-    Scene* s = new Scene(m_doc);
+    Scene *s = new Scene(m_doc);
     s->addFixture(0);
     s->addFixture(1);
     s->addFixture(2);
@@ -483,7 +483,7 @@ void Sequence_Test::loadWithoutScene()
     /* After postLoad, steps are fully loaded and contains all the Scene
      * values (12), so check how the values has been fixed into
      * ChaserStep values */
-    ChaserStep* cs = seq->stepAt(0);
+    ChaserStep *cs = seq->stepAt(0);
     QVERIFY(cs->values.at(1) == SceneValue(0, 6));
     QVERIFY(cs->values.at(1).value == 255);
     QVERIFY(cs->values.at(5) == SceneValue(1, 6));
@@ -528,7 +528,7 @@ void Sequence_Test::loadWithoutScene()
 
 void Sequence_Test::save()
 {
-    Sequence* seq = new Sequence(m_doc);
+    Sequence *seq = new Sequence(m_doc);
     seq->setName("First");
     seq->setFadeInSpeed(42);
     seq->setFadeOutSpeed(69);

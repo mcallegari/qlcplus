@@ -24,7 +24,7 @@
 #include "qlcmacros.h"
 #include "knobwidget.h"
 
-KnobWidget::KnobWidget(QWidget* parent)
+KnobWidget::KnobWidget(QWidget *parent)
     : QDial(parent)
 {
     m_background = new QPixmap();
@@ -77,8 +77,7 @@ void KnobWidget::prepareCursor()
         fgP.setBrush(Qt::gray);
     else
         fgP.setBrush(Qt::green);
-    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2.2)), cursor_radius,
-                    cursor_radius);
+    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2.2)), cursor_radius, cursor_radius);
 }
 
 void KnobWidget::prepareBody()
@@ -113,7 +112,7 @@ void KnobWidget::prepareBody()
     bgP.drawEllipse(QPointF(dialSize / 2, radius), radius - (arcWidth * 2), radius - (arcWidth * 2));
 }
 
-void KnobWidget::resizeEvent(QResizeEvent* e)
+void KnobWidget::resizeEvent(QResizeEvent *e)
 {
     QDial::resizeEvent(e);
 
@@ -121,7 +120,7 @@ void KnobWidget::resizeEvent(QResizeEvent* e)
     prepareCursor();
 }
 
-void KnobWidget::paintEvent(QPaintEvent* e)
+void KnobWidget::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e)
 
@@ -161,14 +160,14 @@ void KnobWidget::paintEvent(QPaintEvent* e)
         painter.drawArc(valRect, -105 * 16, -degrees * 16);
 }
 
-void KnobWidget::wheelEvent(QWheelEvent* e)
+void KnobWidget::wheelEvent(QWheelEvent *e)
 {
     setSliderDown(true);
     QDial::wheelEvent(e);
     setSliderDown(false);
 }
 
-QPixmap KnobWidget::rotatePix(QPixmap* p_pix, float p_deg)
+QPixmap KnobWidget::rotatePix(QPixmap *p_pix, float p_deg)
 {
     // perform rotation, transforming around the center of the image
     QTransform trans;

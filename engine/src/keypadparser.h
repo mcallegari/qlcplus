@@ -48,7 +48,7 @@ public:
      *
      *  @return a list of SceneValues
      */
-    QList<SceneValue> parseCommand(Doc* doc, QString command, QByteArray& uniData);
+    QList<SceneValue> parseCommand(Doc *doc, QString command, QByteArray &uniData);
 
 private:
     QVector<quint16> m_channels;

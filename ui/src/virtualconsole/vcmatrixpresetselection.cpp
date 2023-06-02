@@ -32,7 +32,7 @@
 #endif
 #include "doc.h"
 
-VCMatrixPresetSelection::VCMatrixPresetSelection(Doc* doc, QWidget* parent)
+VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -49,7 +49,7 @@ VCMatrixPresetSelection::~VCMatrixPresetSelection() {}
 /**
  * Helper function. Deletes all child widgets of the given layout @a item.
  */
-void VCMatrixPresetSelection::resetProperties(QLayoutItem* item)
+void VCMatrixPresetSelection::resetProperties(QLayoutItem *item)
 {
     if (item->layout())
     {
@@ -60,7 +60,7 @@ void VCMatrixPresetSelection::resetProperties(QLayoutItem* item)
     delete item->widget();
 }
 
-void VCMatrixPresetSelection::displayProperties(RGBScript* script)
+void VCMatrixPresetSelection::displayProperties(RGBScript *script)
 {
     if (script == NULL)
         return;
@@ -81,9 +81,9 @@ void VCMatrixPresetSelection::displayProperties(RGBScript* script)
         {
         case RGBScriptProperty::List:
             {
-                QLabel* propLabel = new QLabel(prop.m_displayName);
+                QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
-                QComboBox* propCombo = new QComboBox(this);
+                QComboBox *propCombo = new QComboBox(this);
                 propCombo->addItems(prop.m_listValues);
                 propCombo->setProperty("pName", prop.m_name);
                 QString pValue = script->property(prop.m_name);
@@ -100,9 +100,9 @@ void VCMatrixPresetSelection::displayProperties(RGBScript* script)
             break;
         case RGBScriptProperty::Range:
             {
-                QLabel* propLabel = new QLabel(prop.m_displayName);
+                QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
-                QSpinBox* propSpin = new QSpinBox(this);
+                QSpinBox *propSpin = new QSpinBox(this);
                 propSpin->setRange(prop.m_rangeMinValue, prop.m_rangeMaxValue);
                 propSpin->setProperty("pName", prop.m_name);
                 QString pValue = script->property(prop.m_name);
@@ -131,7 +131,7 @@ void VCMatrixPresetSelection::slotUpdatePresetProperties()
 void VCMatrixPresetSelection::slotPropertyComboChanged(QString value)
 {
     qDebug() << "Property combo changed to" << value;
-    QComboBox* combo = (QComboBox*)sender();
+    QComboBox *combo = (QComboBox *)sender();
     QString pName = combo->property("pName").toString();
     m_properties[pName] = value;
 }
@@ -139,7 +139,7 @@ void VCMatrixPresetSelection::slotPropertyComboChanged(QString value)
 void VCMatrixPresetSelection::slotPropertySpinChanged(int value)
 {
     qDebug() << "Property spin changed to" << value;
-    QSpinBox* spin = (QSpinBox*)sender();
+    QSpinBox *spin = (QSpinBox *)sender();
     QString pName = spin->property("pName").toString();
     m_properties[pName] = QString::number(value);
 }

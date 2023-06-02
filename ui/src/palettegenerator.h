@@ -72,8 +72,7 @@ public:
      * @param doc The Doc object that takes all generated functions
      * @param fxiList List of fixtures to create functions for
      */
-    PaletteGenerator(Doc* doc, const QList<Fixture*>& fxList, PaletteType type = Undefined,
-                     PaletteSubType subType = None);
+    PaletteGenerator(Doc *doc, const QList<Fixture *> &fxList, PaletteType type = Undefined, PaletteSubType subType = None);
 
     /** Destructor */
     ~PaletteGenerator();
@@ -107,11 +106,11 @@ public:
     /********************************************************************
      * Contents
      ********************************************************************/
-    static QStringList getCapabilities(const Fixture* fixture);
+    static QStringList getCapabilities(const Fixture *fixture);
 
-    QList<Scene*> scenes();
-    QList<Chaser*> chasers();
-    QList<RGBMatrix*> matrices();
+    QList<Scene *> scenes();
+    QList<Chaser *> chasers();
+    QList<RGBMatrix *> matrices();
 
     void addToDoc();
 
@@ -140,16 +139,16 @@ private:
     QString getNamePrefix(QString type, QString name);
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     QString m_name;
     PaletteType m_type;
     PaletteSubType m_subType;
-    QList<Fixture*> m_fixtures;
-    FixtureGroup* m_fixtureGroup;
+    QList<Fixture *> m_fixtures;
+    FixtureGroup *m_fixtureGroup;
     QString m_model;
-    QList<Scene*> m_scenes;
-    QList<Chaser*> m_chasers;
-    QList<RGBMatrix*> m_matrices;
+    QList<Scene *> m_scenes;
+    QList<Chaser *> m_chasers;
+    QList<RGBMatrix *> m_matrices;
 };
 
 /** @} */

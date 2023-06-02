@@ -106,7 +106,7 @@ public:
     /// The complete URL for the request.
     /** This includes the path and query string.
         @sa path() */
-    const QUrl& url() const;
+    const QUrl &url() const;
 
     /// The path portion of the query URL.
     /** @sa url() */
@@ -114,7 +114,7 @@ public:
 
     /// The HTTP version of the request.
     /** @return A string in the form of "x.x" */
-    const QString& httpVersion() const;
+    const QString &httpVersion() const;
 
     /// Return all the headers sent by the client.
     /** This returns a reference. If you want to store headers
@@ -122,23 +122,23 @@ public:
         make sure you store them as a copy.
         @note All header names are <b>lowercase</b>
         so that Content-Length becomes content-length etc. */
-    const HeaderHash& headers() const;
+    const HeaderHash &headers() const;
 
     /// Get the value of a header.
     /** Headers are stored as lowercase so the input @c field will be lowercased.
         @param field Name of the header field
         @return Value of the header or empty string if not found. */
-    QString header(const QString& field) const;
+    QString header(const QString &field) const;
 
     /// IP Address of the client in dotted decimal format.
-    const QString& remoteAddress() const;
+    const QString &remoteAddress() const;
 
     /// Outbound connection port for the client.
     quint16 remotePort() const;
 
     /// Request body data, empty for non POST/PUT requests.
     /** @sa storeBody() */
-    const QByteArray& body() const
+    const QByteArray &body() const
     {
         return m_body;
     }
@@ -168,17 +168,17 @@ Q_SIGNALS:
     /** @note This may be emitted zero or more times
         depending on the request type.
         @param data Received data. */
-    void data(const QByteArray& data);
+    void data(const QByteArray &data);
 
     /// Emitted when the request has been fully received.
     /** @note The no more data() signals will be emitted after this. */
     void end();
 
 private Q_SLOTS:
-    void appendBody(const QByteArray& body);
+    void appendBody(const QByteArray &body);
 
 private:
-    QHttpRequest(QHttpConnection* connection, QObject* parent = 0);
+    QHttpRequest(QHttpConnection *connection, QObject *parent = 0);
 
     static QString MethodToString(HttpMethod method);
 
@@ -186,11 +186,11 @@ private:
     {
         m_method = method;
     }
-    void setVersion(const QString& version)
+    void setVersion(const QString &version)
     {
         m_version = version;
     }
-    void setUrl(const QUrl& url)
+    void setUrl(const QUrl &url)
     {
         m_url = url;
     }
@@ -203,7 +203,7 @@ private:
         m_success = success;
     }
 
-    QHttpConnection* m_connection;
+    QHttpConnection *m_connection;
     HeaderHash m_headers;
     HttpMethod m_method;
     QUrl m_url;

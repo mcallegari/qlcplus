@@ -36,7 +36,7 @@ class FixtureGroupEditor : public QWidget, public Ui_FixtureGroupEditor
     Q_OBJECT
 
 public:
-    FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* parent);
+    FixtureGroupEditor(FixtureGroup *grp, Doc *doc, QWidget *parent);
     ~FixtureGroupEditor();
 
 private:
@@ -44,7 +44,7 @@ private:
     void addFixtureHeads(Qt::ArrowType direction);
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotXSpinValueChanged(int value);
     void slotYSpinValueChanged(int value);
 
@@ -57,8 +57,8 @@ private slots:
     void slotResized();
 
 private:
-    FixtureGroup* m_grp; //! The group being edited
-    Doc* m_doc;          //! The QLC engine object
+    FixtureGroup *m_grp; //! The group being edited
+    Doc *m_doc;          //! The QLC engine object
     int m_row;           //! Currently selected row
     int m_column;        //! Currently selected column
 };

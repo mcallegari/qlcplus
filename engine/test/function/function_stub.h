@@ -29,17 +29,17 @@ class Function_Stub : public Function
     Q_OBJECT
 
 public:
-    Function_Stub(Doc* doc);
+    Function_Stub(Doc *doc);
     ~Function_Stub();
 
-    Function* createCopy(Doc* parent, bool addToDoc = true);
+    Function *createCopy(Doc *parent, bool addToDoc = true);
 
-    bool saveXML(QXmlStreamWriter* doc);
-    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root);
 
-    void preRun(MasterTimer* timer);
-    void write(MasterTimer* timer, QList<Universe*> universes);
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void preRun(MasterTimer *timer);
+    void write(MasterTimer *timer, QList<Universe *> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 public slots:
     void slotFixtureRemoved(quint32 id);

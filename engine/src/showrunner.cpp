@@ -32,14 +32,14 @@
 
 #define TIMER_INTERVAL 50
 
-static bool compareShowFunctions(const ShowFunction* sf1, const ShowFunction* sf2)
+static bool compareShowFunctions(const ShowFunction *sf1, const ShowFunction *sf2)
 {
     if (sf1->startTime() < sf2->startTime())
         return true;
     return false;
 }
 
-ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
+ShowRunner::ShowRunner(const Doc *doc, quint32 showID, quint32 startTime)
     : QObject(NULL)
     , m_doc(doc)
     , m_elapsedTime(startTime)
@@ -49,11 +49,11 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(showID != Show::invalidId());
 
-    m_show = qobject_cast<Show*>(m_doc->function(showID));
+    m_show = qobject_cast<Show *>(m_doc->function(showID));
     if (m_show == NULL)
         return;
 
-    foreach (Track* track, m_show->tracks())
+    foreach (Track *track, m_show->tracks())
     {
         // some sanity checks
         if (track == NULL || track->id() == Track::invalidId())
@@ -63,12 +63,12 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
             continue;
 
         // get all the functions of the track and append them to the runner queue
-        foreach (ShowFunction* sfunc, track->showFunctions())
+        foreach (ShowFunction *sfunc, track->showFunctions())
         {
             if (sfunc->startTime() + sfunc->duration(m_doc) <= startTime)
                 continue;
 
-            Function* f = m_doc->function(sfunc->functionID());
+            Function *f = m_doc->function(sfunc->functionID());
             if (f == NULL)
                 continue;
 
@@ -86,7 +86,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
 
 #if 1
     qDebug() << "Ordered list of ShowFunctions:";
-    foreach (ShowFunction* sfunc, m_functions)
+    foreach (ShowFunction *sfunc, m_functions)
         qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
 #endif
     m_runningQueue.clear();
@@ -105,7 +105,7 @@ void ShowRunner::setPause(bool enable)
 {
     for (int i = 0; i < m_runningQueue.count(); i++)
     {
-        Function* f = m_runningQueue.at(i).first;
+        Function *f = m_runningQueue.at(i).first;
         f->setPause(enable);
     }
 }
@@ -116,7 +116,7 @@ void ShowRunner::stop()
     m_currentFunctionIndex = 0;
     for (int i = 0; i < m_runningQueue.count(); i++)
     {
-        Function* f = m_runningQueue.at(i).first;
+        Function *f = m_runningQueue.at(i).first;
         f->stop(functionParent());
     }
 
@@ -143,10 +143,10 @@ void ShowRunner::write()
         if (m_currentFunctionIndex == m_functions.count())
             break;
 
-        ShowFunction* sf = m_functions.at(m_currentFunctionIndex);
+        ShowFunction *sf = m_functions.at(m_currentFunctionIndex);
         quint32 funcStartTime = sf->startTime();
         quint32 functionTimeOffset = 0;
-        Function* f = m_doc->function(sf->functionID());
+        Function *f = m_doc->function(sf->functionID());
 
         // this should happen only when a Show is not started from 0
         if (m_elapsedTime > funcStartTime)
@@ -156,7 +156,7 @@ void ShowRunner::write()
         }
         if (m_elapsedTime >= funcStartTime)
         {
-            foreach (Track* track, m_show->tracks())
+            foreach (Track *track, m_show->tracks())
             {
                 if (track->showFunctions().contains(sf))
                 {
@@ -168,7 +168,7 @@ void ShowRunner::write()
             }
 
             f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset);
-            m_runningQueue.append(QPair<Function*, quint32>(f, sf->startTime() + sf->duration(m_doc)));
+            m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration(m_doc)));
             m_currentFunctionIndex++;
         }
         else
@@ -181,7 +181,7 @@ void ShowRunner::write()
     // 2- to avoid messing up with indices when an entry is removed
     for (int i = m_runningQueue.count() - 1; i >= 0; i--)
     {
-        Function* func = m_runningQueue.at(i).first;
+        Function *func = m_runningQueue.at(i).first;
         quint32 stopTime = m_runningQueue.at(i).second;
 
         // if we passed the function stop time
@@ -211,7 +211,7 @@ void ShowRunner::write()
  * Intensity
  ************************************************************************/
 
-void ShowRunner::adjustIntensity(qreal fraction, Track* track)
+void ShowRunner::adjustIntensity(qreal fraction, Track *track)
 {
     if (track == NULL)
         return;
@@ -219,15 +219,15 @@ void ShowRunner::adjustIntensity(qreal fraction, Track* track)
     qDebug() << Q_FUNC_INFO << "Track ID: " << track->id() << ", val:" << fraction;
     m_intensityMap[track->id()] = fraction;
 
-    foreach (ShowFunction* sf, track->showFunctions())
+    foreach (ShowFunction *sf, track->showFunctions())
     {
-        Function* f = m_doc->function(sf->functionID());
+        Function *f = m_doc->function(sf->functionID());
         if (f == NULL)
             continue;
 
         for (int i = 0; i < m_runningQueue.count(); i++)
         {
-            Function* rf = m_runningQueue.at(i).first;
+            Function *rf = m_runningQueue.at(i).first;
             if (f == rf)
                 f->adjustAttribute(fraction, sf->intensityOverrideId());
         }

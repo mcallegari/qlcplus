@@ -58,12 +58,12 @@ void EFXFixture_Test::init()
 {
     int address = 0;
     {
-        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+        QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
         QVERIFY(def != NULL);
-        QLCFixtureMode* mode = def->modes().first();
+        QLCFixtureMode *mode = def->modes().first();
         QVERIFY(mode != NULL);
 
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(address);
         m_fixture8bitAddress = address;
@@ -73,12 +73,12 @@ void EFXFixture_Test::init()
     }
 
     {
-        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "MH-440");
+        QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "MH-440");
         QVERIFY(def != NULL);
-        QLCFixtureMode* mode = def->modes().first();
+        QLCFixtureMode *mode = def->modes().first();
         QVERIFY(mode != NULL);
 
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(address);
         m_fixture16bitAddress = address;
@@ -88,12 +88,12 @@ void EFXFixture_Test::init()
     }
 
     {
-        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "CY-200");
+        QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "CY-200");
         QVERIFY(def != NULL);
-        QLCFixtureMode* mode = def->modes().first();
+        QLCFixtureMode *mode = def->modes().first();
         QVERIFY(mode != NULL);
 
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(address);
         m_fixturePanOnlyAddress = address;
@@ -103,12 +103,12 @@ void EFXFixture_Test::init()
     }
 
     {
-        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Sweeper Beam Quad LED");
+        QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Sweeper Beam Quad LED");
         QVERIFY(def != NULL);
-        QLCFixtureMode* mode = def->modes().last(); // 39 Channel mode
+        QLCFixtureMode *mode = def->modes().last(); // 39 Channel mode
         QVERIFY(mode != NULL);
 
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(address);
         m_fixtureLedBarAddress = address;
@@ -363,7 +363,7 @@ void EFXFixture_Test::reset()
 {
     EFX e(m_doc);
 
-    EFXFixture* ef1 = new EFXFixture(&e);
+    EFXFixture *ef1 = new EFXFixture(&e);
     ef1->setHead(GroupHead(1, 0));
     ef1->setSerialNumber(0);
     ef1->m_runTimeDirection = EFX::Forward;
@@ -371,7 +371,7 @@ void EFXFixture_Test::reset()
     ef1->m_elapsed = 1337;
     e.addFixture(ef1);
 
-    EFXFixture* ef2 = new EFXFixture(&e);
+    EFXFixture *ef2 = new EFXFixture(&e);
     ef2->setHead(GroupHead(2, 0));
     ef2->setSerialNumber(1);
     ef2->m_runTimeDirection = EFX::Forward;
@@ -379,7 +379,7 @@ void EFXFixture_Test::reset()
     ef2->m_elapsed = 13;
     e.addFixture(ef2);
 
-    EFXFixture* ef3 = new EFXFixture(&e);
+    EFXFixture *ef3 = new EFXFixture(&e);
     ef3->setHead(GroupHead(3, 0));
     ef3->setSerialNumber(2);
     ef3->setDirection(EFX::Forward);
@@ -388,7 +388,7 @@ void EFXFixture_Test::reset()
     ef3->m_elapsed = 69;
     e.addFixture(ef3);
 
-    EFXFixture* ef4 = new EFXFixture(&e);
+    EFXFixture *ef4 = new EFXFixture(&e);
     ef4->setHead(GroupHead(4, 0));
     ef4->setSerialNumber(3);
     ef4->setDirection(EFX::Forward);
@@ -450,8 +450,8 @@ void EFXFixture_Test::setPoint8bit()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixture8bit, 0));
 
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua[0];
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -470,8 +470,8 @@ void EFXFixture_Test::setPoint16bit()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixture16bit, 0));
 
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua[0];
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -489,8 +489,8 @@ void EFXFixture_Test::setPointPanOnly()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixturePanOnly, 0));
 
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua[0];
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -508,8 +508,8 @@ void EFXFixture_Test::setPointLedBar()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixtureLedBar, 0));
 
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua[0];
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -525,15 +525,15 @@ void EFXFixture_Test::setPointLedBar()
 
 void EFXFixture_Test::nextStepLoop()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua[0];
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(1000); // 1s
 
-    EFXFixture* ef = new EFXFixture(&e);
+    EFXFixture *ef = new EFXFixture(&e);
     ef->setHead(GroupHead(0, 0));
     e.addFixture(ef);
 
@@ -565,15 +565,15 @@ void EFXFixture_Test::nextStepLoop()
 
 void EFXFixture_Test::nextStepLoopZeroDuration()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua[0];
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(0); // 0s
 
-    EFXFixture* ef = new EFXFixture(&e);
+    EFXFixture *ef = new EFXFixture(&e);
     ef->setHead(GroupHead(0, 0));
     e.addFixture(ef);
 
@@ -605,8 +605,8 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
 
 void EFXFixture_Test::nextStepSingleShot()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua[0];
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
@@ -614,7 +614,7 @@ void EFXFixture_Test::nextStepSingleShot()
     e.setDuration(1000); // 1s
     e.setRunOrder(EFX::SingleShot);
 
-    EFXFixture* ef = new EFXFixture(&e);
+    EFXFixture *ef = new EFXFixture(&e);
     ef->setHead(GroupHead(0, 0));
     e.addFixture(ef);
 

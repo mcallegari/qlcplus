@@ -27,7 +27,7 @@
 #include "video.h"
 #include "doc.h"
 
-VideoEditor::VideoEditor(QWidget* parent, Video* video, Doc* doc)
+VideoEditor::VideoEditor(QWidget *parent, Video *video, Doc *doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_video(video)
@@ -43,7 +43,7 @@ VideoEditor::VideoEditor(QWidget* parent, Video* video, Doc* doc)
     connect(m_video, SIGNAL(totalTimeChanged(qint64)), this, SLOT(slotDurationChanged(qint64)));
     connect(m_video, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
     connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotSourceFileClicked()));
     connect(m_urlButton, SIGNAL(clicked()), this, SLOT(slotSourceUrlClicked()));
 
@@ -92,7 +92,7 @@ VideoEditor::~VideoEditor()
     m_video->stopAndWait();
 }
 
-void VideoEditor::slotNameEdited(const QString& text)
+void VideoEditor::slotNameEdited(const QString &text)
 {
     m_video->setName(text);
     m_doc->setModified();

@@ -25,7 +25,7 @@
 
 #include "audiocapture_qt6.h"
 
-AudioCaptureQt6::AudioCaptureQt6(QObject* parent)
+AudioCaptureQt6::AudioCaptureQt6(QObject *parent)
     : AudioCapture(parent)
     , m_audioSource(NULL)
     , m_input(NULL)
@@ -48,7 +48,7 @@ bool AudioCaptureQt6::initialize()
     if (var.isValid() == true)
     {
         devName = var.toString();
-        foreach (const QAudioDevice& deviceInfo, QMediaDevices::audioInputs())
+        foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioInputs())
         {
             if (deviceInfo.description() == devName)
             {
@@ -132,8 +132,8 @@ bool AudioCaptureQt6::readAudio(int maxSize)
     QByteArray readBuffer = m_input->readAll();
     m_currentReadBuffer += readBuffer;
 
-    // qDebug() << "[QT readAudio] " << readBuffer.size() << "bytes read -> (" << m_currentReadBuffer.size() << "/" <<
-    // bufferSize << ")";
+    // qDebug() << "[QT readAudio] " << readBuffer.size() << "bytes read -> (" <<
+    // m_currentReadBuffer.size() << "/" << bufferSize << ")";
 
     if (m_currentReadBuffer.size() < bufferSize)
     {

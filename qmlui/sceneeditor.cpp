@@ -28,7 +28,7 @@
 #include "doc.h"
 #include "app.h"
 
-SceneEditor::SceneEditor(QQuickView* view, Doc* doc, QObject* parent)
+SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_scene(nullptr)
     , m_sceneConsole(nullptr)
@@ -53,7 +53,7 @@ SceneEditor::SceneEditor(QQuickView* view, Doc* doc, QObject* parent)
 SceneEditor::~SceneEditor()
 {
     m_view->rootContext()->setContextProperty("sceneEditor", nullptr);
-    QQuickItem* bottomPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject*>("bottomPanelItem"));
+    QQuickItem *bottomPanel = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
     if (bottomPanel != nullptr)
         bottomPanel->setProperty("visible", false);
 
@@ -63,7 +63,7 @@ SceneEditor::~SceneEditor()
 
 void SceneEditor::setFunctionID(quint32 id)
 {
-    QQuickItem* bottomPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject*>("bottomPanelItem"));
+    QQuickItem *bottomPanel = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
 
     if (id == Function::invalidId())
     {
@@ -77,7 +77,7 @@ void SceneEditor::setFunctionID(quint32 id)
             bottomPanel->setProperty("visible", false);
         return;
     }
-    m_scene = qobject_cast<Scene*>(m_doc->function(id));
+    m_scene = qobject_cast<Scene *>(m_doc->function(id));
 
     connect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
 
@@ -131,11 +131,11 @@ void SceneEditor::sceneConsoleLoaded(bool status)
     }
     else
     {
-        m_sceneConsole = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject*>("sceneFixtureConsole"));
+        m_sceneConsole = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("sceneFixtureConsole"));
     }
 }
 
-void SceneEditor::registerFixtureConsole(int index, QQuickItem* item)
+void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
 {
     qDebug() << "[SceneEditor] Fixture console registered at index" << index;
     m_fxConsoleMap[index] = item;
@@ -187,7 +187,7 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
     if (m_source->isOutputEnabled() == false)
         blindMode = true;
 
-    Fixture* fixture = m_doc->fixture(scv.fxi);
+    Fixture *fixture = m_doc->fixture(scv.fxi);
     if (fixture == nullptr)
         return;
 
@@ -233,7 +233,7 @@ void SceneEditor::slotAliasChanged()
 
     qDebug() << "Fixture alias changed";
 
-    Fixture* fxi = qobject_cast<Fixture*>(sender());
+    Fixture *fxi = qobject_cast<Fixture *>(sender());
     int fxIndex = m_fixtureIDs.indexOf(fxi->id());
     if (m_fxConsoleMap.contains(fxIndex))
         QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "updateChannels");
@@ -311,11 +311,11 @@ void SceneEditor::deleteItems(QVariantList list)
         {
         case App::FixtureDragItem:
             {
-                Fixture* fixture = dataMap["cRef"].value<Fixture*>();
+                Fixture *fixture = dataMap["cRef"].value<Fixture *>();
                 quint32 fixtureID = fixture->id();
                 qDebug() << "removing fixture with ID" << fixtureID;
                 // TODO: tardis
-                for (SceneValue& scv : m_scene->values())
+                for (SceneValue &scv : m_scene->values())
                 {
                     if (scv.fxi == fixtureID)
                         m_scene->unsetValue(fixtureID, scv.channel);
@@ -325,7 +325,7 @@ void SceneEditor::deleteItems(QVariantList list)
             break;
         case App::FixtureGroupDragItem:
             {
-                FixtureGroup* group = dataMap["cRef"].value<FixtureGroup*>();
+                FixtureGroup *group = dataMap["cRef"].value<FixtureGroup *>();
                 qDebug() << "removing fixture group with ID" << group->id();
                 // TODO: tardis
                 m_scene->removeFixtureGroup(group->id());
@@ -333,7 +333,7 @@ void SceneEditor::deleteItems(QVariantList list)
             break;
         case App::PaletteDragItem:
             {
-                QLCPalette* palette = dataMap["cRef"].value<QLCPalette*>();
+                QLCPalette *palette = dataMap["cRef"].value<QLCPalette *>();
                 qDebug() << "removing palette with ID" << palette->id();
                 // TODO: tardis
                 m_scene->removePalette(palette->id());
@@ -352,7 +352,7 @@ void SceneEditor::addFixtureToList(quint32 fid)
     if (m_fixtureIDs.contains(fid))
         return;
 
-    Fixture* fixture = m_doc->fixture(fid);
+    Fixture *fixture = m_doc->fixture(fid);
     if (fixture == nullptr)
         return;
 
@@ -379,7 +379,7 @@ void SceneEditor::updateLists()
 
     for (quint32 fxID : m_fixtureIDs)
     {
-        Fixture* fixture = m_doc->fixture(fxID);
+        Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == nullptr)
             continue;
 
@@ -403,7 +403,7 @@ void SceneEditor::updateLists()
     // fixture groups
     for (quint32 grpId : m_scene->fixtureGroups())
     {
-        FixtureGroup* grp = m_doc->fixtureGroup(grpId);
+        FixtureGroup *grp = m_doc->fixtureGroup(grpId);
         if (grp == nullptr)
             continue;
 
@@ -417,7 +417,7 @@ void SceneEditor::updateLists()
         {
             if (m_fixtureIDs.contains(fxId) == false)
             {
-                Fixture* fixture = m_doc->fixture(fxId);
+                Fixture *fixture = m_doc->fixture(fxId);
                 if (fixture != nullptr)
                 {
                     QVariantMap fxMap;
@@ -434,7 +434,7 @@ void SceneEditor::updateLists()
     // palettes
     for (quint32 pId : m_scene->palettes())
     {
-        QLCPalette* palette = m_doc->palette(pId);
+        QLCPalette *palette = m_doc->palette(pId);
         if (palette == nullptr)
             continue;
 
@@ -467,7 +467,7 @@ void SceneEditor::setCacheChannelValue(SceneValue scv)
     }
     else
     {
-        Fixture* fixture = m_doc->fixture(scv.fxi);
+        Fixture *fixture = m_doc->fixture(scv.fxi);
         int chNumber = fixture->channels();
         QByteArray values;
 
@@ -483,7 +483,7 @@ void SceneEditor::cacheChannelValues()
 
     for (quint32 pId : m_scene->palettes())
     {
-        QLCPalette* palette = m_doc->palette(pId);
+        QLCPalette *palette = m_doc->palette(pId);
         if (palette == nullptr)
             continue;
 

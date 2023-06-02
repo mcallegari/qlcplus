@@ -52,14 +52,14 @@ class SimpleDeskEngine : public QObject, public DMXSource
      * Initialization
      ************************************************************************/
 public:
-    SimpleDeskEngine(Doc* doc);
+    SimpleDeskEngine(Doc *doc);
     virtual ~SimpleDeskEngine();
 
     /** Start from scratch; clear everything */
     void clearContents();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /************************************************************************
      * Universe Values
@@ -80,7 +80,7 @@ public:
     bool hasChannel(uint channel);
 
     /** Set a complete cue to universe */
-    void setCue(const Cue& cue);
+    void setCue(const Cue &cue);
 
     /** Get universe contents as a Cue */
     Cue cue() const;
@@ -105,7 +105,7 @@ private:
      ************************************************************************/
 public:
     /** Get (and create if necessary) a cue stack with the given stack ID */
-    CueStack* cueStack(uint stack);
+    CueStack *cueStack(uint stack);
 
 signals:
     /** Tells that the current cue within cuestack $stack has changed to $index */
@@ -118,7 +118,7 @@ signals:
     void cueStackStopped(uint stack);
 
 private:
-    CueStack* createCueStack();
+    CueStack *createCueStack();
 
 private slots:
     void slotCurrentCueChanged(int index);
@@ -126,7 +126,7 @@ private slots:
     void slotCueStackStopped();
 
 private:
-    QHash<uint, CueStack*> m_cueStacks;
+    QHash<uint, CueStack *> m_cueStacks;
     mutable QMutex m_mutex;
 
     /************************************************************************
@@ -134,20 +134,20 @@ private:
      ************************************************************************/
 public:
     /** Load SimpleDeskEngine contents from the given XML $root tag */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save SimpleDeskEngine content to the given XML $doc */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /************************************************************************
      * DMXSource
      ************************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer *timer, QList<Universe *> ua);
 
 private:
-    FadeChannel* getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */

@@ -29,7 +29,7 @@
 
 #define UISTYLEFILE "qlcplusUiStyle.json"
 
-UiManager::UiManager(QQuickView* view, Doc* doc, QObject* parent)
+UiManager::UiManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -44,14 +44,14 @@ void UiManager::initialize()
      *  store a reference to it. In this way it is possible
      *  to change the UI settings at runtime */
     QQmlComponent component(m_view->engine());
-    const char* source = "import QtQuick 2.0\n"
+    const char *source = "import QtQuick 2.0\n"
                          "import \".\"\n"
                          "QtObject {\n"
                          "    property var style: UISettings\n"
                          "}";
     component.setData(source, QUrl("qrc:/"));
-    QObject* item = component.create();
-    m_uiStyle = qvariant_cast<QObject*>(item->property("style"));
+    QObject *item = component.create();
+    m_uiStyle = qvariant_cast<QObject *>(item->property("style"));
 
     /** Store default values first */
     setDefaultParameter("sizes", "scalingFactor", 1.0);
@@ -102,10 +102,10 @@ void UiManager::initialize()
         else
         {
             QJsonObject jsonObject = jsonDoc.object();
-            for (QString& category : jsonObject.keys())
+            for (QString &category : jsonObject.keys())
             {
                 QJsonObject categoryObj = jsonObject.value(category).toObject();
-                for (QString& paramName : categoryObj.keys())
+                for (QString &paramName : categoryObj.keys())
                 {
                     QJsonValue paramVal = categoryObj.value(paramName);
                     setModified(paramName, paramVal.toVariant());
@@ -156,7 +156,7 @@ bool UiManager::saveSettings()
 {
     bool ret = true;
     QFile jsonFile(userConfFilepath());
-    QMap<QString, QJsonObject*> objMap;
+    QMap<QString, QJsonObject *> objMap;
     QJsonObject objRoot;
 
     /** Add parameters to JSON objects representing categories */
@@ -170,12 +170,12 @@ bool UiManager::saveSettings()
         if (objMap.contains(prop.m_category) == false)
             objMap.insert(prop.m_category, new QJsonObject());
 
-        QJsonObject* categoryObj = objMap.value(prop.m_category);
+        QJsonObject *categoryObj = objMap.value(prop.m_category);
         categoryObj->insert(paramName, QJsonValue::fromVariant(prop.m_modified));
     }
 
     /** Add each JSON object to the root object */
-    QMapIterator<QString, QJsonObject*> cIt(objMap);
+    QMapIterator<QString, QJsonObject *> cIt(objMap);
     while (cIt.hasNext())
     {
         cIt.next();

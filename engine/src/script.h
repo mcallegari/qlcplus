@@ -63,7 +63,7 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    Script(Doc* doc);
+    Script(Doc *doc);
     virtual ~Script();
 
     /** @reimp */
@@ -77,20 +77,20 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** @reimp */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
     /************************************************************************
      * Script data
      ************************************************************************/
 public:
     /** Set the raw script data */
-    bool setData(const QString& str);
+    bool setData(const QString &str);
 
     /** Append a line of script to the raw data */
-    bool appendData(const QString& str);
+    bool appendData(const QString &str);
 
     /** Get the raw script data */
     QString data() const;
@@ -116,23 +116,23 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe *> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 private:
     /**
@@ -144,7 +144,7 @@ private:
      * @return true to continue loop immediately, false to return control back
      *         to MasterTimer.
      */
-    bool executeCommand(int index, MasterTimer* timer, QList<Universe*> universes);
+    bool executeCommand(int index, MasterTimer *timer, QList<Universe *> universes);
 
     /**
      * Check, if the script should still wait or if it should proceed to executing
@@ -160,7 +160,7 @@ private:
      *
      * @return the randomized value requested
      */
-    static quint32 getValueFromString(QString str, bool* ok);
+    static quint32 getValueFromString(QString str, bool *ok);
 
     /**
      * Handle "startfunction" command.
@@ -169,7 +169,7 @@ private:
      * @param timer The MasterTimer that should run the function
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleStartFunction(const QList<QStringList>& tokens, MasterTimer* timer);
+    QString handleStartFunction(const QList<QStringList> &tokens, MasterTimer *timer);
 
     /**
      * Handle "stopfunction" command.
@@ -177,7 +177,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleStopFunction(const QList<QStringList>& tokens);
+    QString handleStopFunction(const QList<QStringList> &tokens);
 
     /**
      * Handle "blackout" command.
@@ -185,7 +185,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleBlackout(const QList<QStringList>& tokens);
+    QString handleBlackout(const QList<QStringList> &tokens);
 
     /**
      * Handle "wait" command.
@@ -193,7 +193,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleWait(const QList<QStringList>& tokens);
+    QString handleWait(const QList<QStringList> &tokens);
 
     /**
      * Handle "waitkey" command.
@@ -201,7 +201,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleWaitKey(const QList<QStringList>& tokens);
+    QString handleWaitKey(const QList<QStringList> &tokens);
 
     /**
      * Handle "setfixture" command.
@@ -210,7 +210,7 @@ private:
      * @param universes The universe array to write DMX data
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleSetFixture(const QList<QStringList>& tokens, QList<Universe*> universes);
+    QString handleSetFixture(const QList<QStringList> &tokens, QList<Universe *> universes);
 
     /**
      * Handle "systemcommand" command.
@@ -218,7 +218,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleSystemCommand(const QList<QStringList>& tokens);
+    QString handleSystemCommand(const QList<QStringList> &tokens);
 
     /**
      * Handle "label" command.
@@ -226,7 +226,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleLabel(const QList<QStringList>& tokens);
+    QString handleLabel(const QList<QStringList> &tokens);
 
     /**
      * Handle "jump" command.
@@ -234,7 +234,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleJump(const QList<QStringList>& tokens);
+    QString handleJump(const QList<QStringList> &tokens);
 
     /**
      * Parse one line of script data into a list of token string lists
@@ -244,17 +244,17 @@ private:
      * @param ok Tells if the line was parsed OK or not
      * @return A list of tokens parsed from the line
      */
-    static QList<QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
+    static QList<QStringList> tokenizeLine(const QString &line, bool *ok = NULL);
 
 private:
-    int m_currentCommand;                //! Current command line being handled
-    quint32 m_waitCount;                 //! Timer ticks to wait before executing the next line
-    QList<QList<QStringList>> m_lines;   //! Raw data parsed into lines of tokens
-    QMap<QString, int> m_labels;         //! Labels and their line numbers
-    QList<Function*> m_startedFunctions; //! Functions started by this script
+    int m_currentCommand;                 //! Current command line being handled
+    quint32 m_waitCount;                  //! Timer ticks to wait before executing the next line
+    QList<QList<QStringList>> m_lines;    //! Raw data parsed into lines of tokens
+    QMap<QString, int> m_labels;          //! Labels and their line numbers
+    QList<Function *> m_startedFunctions; //! Functions started by this script
     QList<int> m_syntaxErrorLines;
 
-    GenericFader* m_fader;
+    GenericFader *m_fader;
 };
 
 /** @} */

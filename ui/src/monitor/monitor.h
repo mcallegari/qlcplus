@@ -54,10 +54,10 @@ class Monitor : public QWidget
      *********************************************************************/
 public:
     /** Get the monitor singleton instance. Can be NULL. */
-    static Monitor* instance();
+    static Monitor *instance();
 
     /** Create or show Monitor */
-    static void createAndShow(QWidget* parent, Doc* doc);
+    static void createAndShow(QWidget *parent, Doc *doc);
 
     /** Normal public destructor */
     ~Monitor();
@@ -93,13 +93,13 @@ protected:
     void saveSettings();
 
     /** Protected constructor to prevent multiple instances. */
-    Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f = Qt::Widget);
+    Monitor(QWidget *parent, Doc *doc, Qt::WindowFlags f = Qt::Widget);
 
 protected:
     /** The singleton Monitor instance */
-    static Monitor* s_instance;
-    Doc* m_doc;
-    MonitorProperties* m_props;
+    static Monitor *s_instance;
+    Doc *m_doc;
+    MonitorProperties *m_props;
 
     /*********************************************************************
      * Running functions
@@ -138,7 +138,7 @@ public:
 
 protected:
     /** Create a new MonitorFixture* and append it to the layout */
-    void createMonitorFixture(Fixture* fxi);
+    void createMonitorFixture(Fixture *fxi);
 
 protected slots:
     /** Slot for fixture additions (to append the new fixture to layout) */
@@ -158,11 +158,11 @@ signals:
     void valueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
-    QToolBar* m_DMXToolBar;
-    QScrollArea* m_scrollArea;
-    QWidget* m_monitorWidget;
-    MonitorLayout* m_monitorLayout;
-    QList<MonitorFixture*> m_monitorFixtures;
+    QToolBar *m_DMXToolBar;
+    QScrollArea *m_scrollArea;
+    QWidget *m_monitorWidget;
+    MonitorLayout *m_monitorLayout;
+    QList<MonitorFixture *> m_monitorFixtures;
     quint32 m_currentUniverse;
 
     /********************************************************************
@@ -208,14 +208,14 @@ protected slots:
     void slotViewClicked();
 
 protected:
-    QToolBar* m_graphicsToolBar;
-    QSplitter* m_splitter;
-    MonitorGraphicsView* m_graphicsView;
-    QWidget* m_fixtureItemEditor;
-    QSpinBox* m_gridWSpin;
-    QSpinBox* m_gridHSpin;
-    QComboBox* m_unitsCombo;
-    QAction* m_labelsAction;
+    QToolBar *m_graphicsToolBar;
+    QSplitter *m_splitter;
+    MonitorGraphicsView *m_graphicsView;
+    QWidget *m_fixtureItemEditor;
+    QSpinBox *m_gridWSpin;
+    QSpinBox *m_gridHSpin;
+    QComboBox *m_unitsCombo;
+    QAction *m_labelsAction;
 };
 
 /** @} */

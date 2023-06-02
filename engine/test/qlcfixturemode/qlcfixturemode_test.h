@@ -54,11 +54,11 @@ private slots:
     void cleanupTestCase();
 
 private:
-    QLCFixtureDef* m_fixtureDef;
-    QLCChannel* m_ch1;
-    QLCChannel* m_ch2;
-    QLCChannel* m_ch3;
-    QLCChannel* m_ch4;
+    QLCFixtureDef *m_fixtureDef;
+    QLCChannel *m_ch1;
+    QLCChannel *m_ch2;
+    QLCChannel *m_ch3;
+    QLCChannel *m_ch4;
 };
 
 #endif

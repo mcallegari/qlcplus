@@ -29,7 +29,7 @@
 #define KXMLColorFiltersRGB QString("RGB")
 #define KXMLColorFiltersWAUV QString("WAUV")
 
-ColorFilters::ColorFilters(QObject* parent)
+ColorFilters::ColorFilters(QObject *parent)
     : QObject(parent)
     , m_name(QString())
     , m_path(QString())
@@ -97,8 +97,7 @@ void ColorFilters::addFilter(QString name, quint8 red, quint8 green, quint8 blue
     emit filtersListChanged();
 }
 
-void ColorFilters::changeFilterAt(int index, quint8 red, quint8 green, quint8 blue, quint8 white, quint8 amber,
-                                  quint8 uv)
+void ColorFilters::changeFilterAt(int index, quint8 red, quint8 green, quint8 blue, quint8 white, quint8 amber, quint8 uv)
 {
     if (index < 0 || index >= m_filterList.count())
         return;
@@ -134,7 +133,7 @@ void ColorFilters::save()
     saveXML(m_path);
 }
 
-QFileDevice::FileError ColorFilters::saveXML(const QString& fileName)
+QFileDevice::FileError ColorFilters::saveXML(const QString &fileName)
 {
     QFile::FileError error;
 
@@ -176,14 +175,14 @@ QFileDevice::FileError ColorFilters::saveXML(const QString& fileName)
     return error;
 }
 
-QFileDevice::FileError ColorFilters::loadXML(const QString& fileName)
+QFileDevice::FileError ColorFilters::loadXML(const QString &fileName)
 {
     QFile::FileError error = QFile::NoError;
 
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
     if (doc == nullptr || doc->device() == nullptr || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;

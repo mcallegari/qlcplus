@@ -89,7 +89,7 @@ public:
      *********************************************************************/
 public:
     /** Normal constructor */
-    VCSlider(QWidget* parent, Doc* doc);
+    VCSlider(QWidget *parent, Doc *doc);
 
     /** Destructor */
     ~VCSlider();
@@ -106,24 +106,24 @@ public:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * GUI
      *********************************************************************/
 public:
-    void setCaption(const QString& text);
+    void setCaption(const QString &text);
 
     /** @reimp */
     void enableWidgetUI(bool enable);
 
 protected:
     /** @reimp */
-    void hideEvent(QHideEvent* ev);
+    void hideEvent(QHideEvent *ev);
 
     /*********************************************************************
      * Properties
@@ -165,7 +165,7 @@ public:
      * @param mode The string to convert
      * @return SliderMode
      */
-    static SliderMode stringToSliderMode(const QString& mode);
+    static SliderMode stringToSliderMode(const QString &mode);
 
     /**
      * Get the slider's current SliderMode
@@ -230,15 +230,15 @@ public:
         /** Construct a new LevelChannel with the given fixture & channel */
         LevelChannel(quint32 fid, quint32 ch);
         /** Copy constructor */
-        LevelChannel(const LevelChannel& lc);
+        LevelChannel(const LevelChannel &lc);
         /** Copy operator */
-        LevelChannel& operator=(const LevelChannel& lc);
+        LevelChannel &operator=(const LevelChannel &lc);
         /** Comparison operator */
-        bool operator==(const LevelChannel& lc) const;
+        bool operator==(const LevelChannel &lc) const;
         /** Sorting operator */
-        bool operator<(const LevelChannel& lc) const;
+        bool operator<(const LevelChannel &lc) const;
         /** Save the contents of a LevelChannel instance to an XML document */
-        void saveXML(QXmlStreamWriter* doc) const;
+        void saveXML(QXmlStreamWriter *doc) const;
 
     public:
         /** The associated fixture ID */
@@ -341,7 +341,7 @@ protected slots:
      *  has changed */
     void slotMonitorDMXValueChanged(int value);
 
-    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
+    void slotUniverseWritten(quint32 idx, const QByteArray &universeData);
 
 protected:
     QList<VCSlider::LevelChannel> m_levelChannels;
@@ -424,14 +424,14 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe *> universes);
 
 protected:
     /** writeDMX for Level mode */
-    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXLevel(MasterTimer *timer, QList<Universe *> universes);
 
     /** writeDMX for Playback mode */
-    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXPlayback(MasterTimer *timer, QList<Universe *> universes);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
@@ -452,7 +452,7 @@ public:
     QString topLabelText();
 
 protected:
-    QLabel* m_topLabel;
+    QLabel *m_topLabel;
 
     /*********************************************************************
      * Slider / Knob
@@ -489,8 +489,8 @@ private slots:
     void slotSliderMoved(int value);
 
 protected:
-    QHBoxLayout* m_hbox;
-    QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
+    QHBoxLayout *m_hbox;
+    QAbstractSlider *m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -501,7 +501,7 @@ public:
     /**
      * Set the text for the bottom label
      */
-    void setBottomLabelText(const QString& text);
+    void setBottomLabelText(const QString &text);
 
     /**
      * Get the text in the top label
@@ -509,7 +509,7 @@ public:
     QString bottomLabelText();
 
 protected:
-    QLabel* m_bottomLabel;
+    QLabel *m_bottomLabel;
 
     /*********************************************************************
      * Click & Go Button
@@ -535,7 +535,7 @@ public:
      * Returns the Click & Go widget. Used by
      * configuration dialog to setup the widget
      */
-    ClickAndGoWidget* getClickAndGoWidget();
+    ClickAndGoWidget *getClickAndGoWidget();
 
 protected:
     void setClickAndGoWidgetFromLevel(uchar level);
@@ -547,10 +547,10 @@ private slots:
 
 protected:
     ClickAndGoWidget::ClickAndGo m_cngType;
-    QHBoxLayout* m_cngBox;
-    QToolButton* m_cngButton;
-    QMenu* m_menu;
-    ClickAndGoWidget* m_cngWidget;
+    QHBoxLayout *m_cngBox;
+    QToolButton *m_cngButton;
+    QMenu *m_menu;
+    ClickAndGoWidget *m_cngWidget;
     QColor m_cngRGBvalue;
 
     /*********************************************************************
@@ -558,7 +558,7 @@ protected:
      *********************************************************************/
 public:
     /** Set the keyboard key combination to reset a level override */
-    void setOverrideResetKeySequence(const QKeySequence& keySequence);
+    void setOverrideResetKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination to reset a level override */
     QKeySequence overrideResetKeySequence() const;
@@ -567,10 +567,10 @@ private slots:
     void slotResetButtonClicked();
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
 
 protected:
-    QToolButton* m_resetButton;
+    QToolButton *m_resetButton;
     bool m_isOverriding;
 
 private:
@@ -597,11 +597,11 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
-    bool loadXMLLevel(QXmlStreamReader& level_root);
-    bool loadXMLPlayback(QXmlStreamReader& pb_root);
+    bool loadXML(QXmlStreamReader &root);
+    bool loadXMLLevel(QXmlStreamReader &level_root);
+    bool loadXMLPlayback(QXmlStreamReader &pb_root);
 
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

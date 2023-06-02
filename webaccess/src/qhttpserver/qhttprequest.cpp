@@ -24,33 +24,33 @@
 
 #include "qhttpconnection.h"
 
-QHttpRequest::QHttpRequest(QHttpConnection* connection, QObject* parent)
+QHttpRequest::QHttpRequest(QHttpConnection *connection, QObject *parent)
     : QObject(parent)
     , m_connection(connection)
     , m_url("http://localhost/")
     , m_success(false)
 {
-    connect(this, SIGNAL(data(const QByteArray&)), this, SLOT(appendBody(const QByteArray&)), Qt::UniqueConnection);
+    connect(this, SIGNAL(data(const QByteArray &)), this, SLOT(appendBody(const QByteArray &)), Qt::UniqueConnection);
 }
 
 QHttpRequest::~QHttpRequest() {}
 
-QString QHttpRequest::header(const QString& field) const
+QString QHttpRequest::header(const QString &field) const
 {
     return m_headers.value(field.toLower(), "");
 }
 
-const HeaderHash& QHttpRequest::headers() const
+const HeaderHash &QHttpRequest::headers() const
 {
     return m_headers;
 }
 
-const QString& QHttpRequest::httpVersion() const
+const QString &QHttpRequest::httpVersion() const
 {
     return m_version;
 }
 
-const QUrl& QHttpRequest::url() const
+const QUrl &QHttpRequest::url() const
 {
     return m_url;
 }
@@ -70,7 +70,7 @@ QHttpRequest::HttpMethod QHttpRequest::method() const
     return m_method;
 }
 
-const QString& QHttpRequest::remoteAddress() const
+const QString &QHttpRequest::remoteAddress() const
 {
     return m_remoteAddress;
 }
@@ -82,7 +82,7 @@ quint16 QHttpRequest::remotePort() const
 
 void QHttpRequest::storeBody()
 {
-    connect(this, SIGNAL(data(const QByteArray&)), this, SLOT(appendBody(const QByteArray&)), Qt::UniqueConnection);
+    connect(this, SIGNAL(data(const QByteArray &)), this, SLOT(appendBody(const QByteArray &)), Qt::UniqueConnection);
 }
 
 QString QHttpRequest::MethodToString(HttpMethod method)
@@ -91,7 +91,7 @@ QString QHttpRequest::MethodToString(HttpMethod method)
     return staticMetaObject.enumerator(index).valueToKey(method);
 }
 
-void QHttpRequest::appendBody(const QByteArray& body)
+void QHttpRequest::appendBody(const QByteArray &body)
 {
     // qDebug() << "Appending body data:" << body.size();
     m_body.append(body);

@@ -36,7 +36,7 @@
 
 #define PROP_ID Qt::UserRole
 
-CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
+CollectionEditor::CollectionEditor(QWidget *parent, Collection *fc, Doc *doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_collection(fc)
@@ -46,7 +46,7 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
 
     setupUi(this);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAdd()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
     connect(m_moveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()));
@@ -68,7 +68,7 @@ CollectionEditor::~CollectionEditor()
         m_collection->stopAndWait();
 }
 
-void CollectionEditor::slotNameEdited(const QString& text)
+void CollectionEditor::slotNameEdited(const QString &text)
 {
     m_collection->setName(text);
 }
@@ -79,7 +79,7 @@ void CollectionEditor::slotAdd()
     {
         QList<quint32> disabledList;
         disabledList << m_collection->id();
-        foreach (Function* function, m_doc->functions())
+        foreach (Function *function, m_doc->functions())
         {
             if (function->contains(m_collection->id()))
                 disabledList << function->id();
@@ -98,12 +98,12 @@ void CollectionEditor::slotAdd()
 
 void CollectionEditor::slotRemove()
 {
-    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator<QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(items);
 
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         quint32 id = item->data(0, PROP_ID).toUInt();
         m_collection->removeFunction(id);
         delete item;
@@ -112,14 +112,14 @@ void CollectionEditor::slotRemove()
 
 void CollectionEditor::slotMoveUp()
 {
-    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator<QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
     // cancel the operation if that is the case.
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         int index = m_tree->indexOfTopLevelItem(item);
         if (index == 0)
             return;
@@ -129,7 +129,7 @@ void CollectionEditor::slotMoveUp()
     it.toFront();
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         int index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index - 1, item);
@@ -147,14 +147,14 @@ void CollectionEditor::slotMoveUp()
 
 void CollectionEditor::slotMoveDown()
 {
-    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator<QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
     // cancel the operation if that is the case.
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         int index = m_tree->indexOfTopLevelItem(item);
         if (index == m_tree->topLevelItemCount() - 1)
             return;
@@ -164,7 +164,7 @@ void CollectionEditor::slotMoveDown()
     it.toBack();
     while (it.hasPrevious() == true)
     {
-        QTreeWidgetItem* item(it.previous());
+        QTreeWidgetItem *item(it.previous());
         int index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index + 1, item);
@@ -199,10 +199,10 @@ void CollectionEditor::updateFunctionList()
 
     foreach (QVariant fid, m_collection->functions())
     {
-        Function* function = m_doc->function(fid.toUInt());
+        Function *function = m_doc->function(fid.toUInt());
         Q_ASSERT(function != NULL);
 
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_tree);
         item->setText(0, function->name());
         item->setData(0, PROP_ID, function->id());
         item->setIcon(0, function->getIcon());

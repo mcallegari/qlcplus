@@ -54,7 +54,7 @@ class ShowItem : public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    ShowItem(ShowFunction* function, QObject* parent = 0);
+    ShowItem(ShowFunction *function, QObject *parent = 0);
 
 protected:
     /**
@@ -69,7 +69,7 @@ protected:
      * @return a QList of QAction pointers
      */
 
-    QList<QAction*> getDefaultActions();
+    QList<QAction *> getDefaultActions();
 
 public:
     /**
@@ -198,7 +198,7 @@ public:
      * @brief showFunction return the item's associate ShowFunction
      * @return the ShowFuntion pointer
      */
-    ShowFunction* showFunction() const;
+    ShowFunction *showFunction() const;
 
     /**
      * @brief functionName pure virtual method that returns the item's associated
@@ -220,13 +220,13 @@ public:
      * @brief paint overridden method to paint the item's basic elements such as the
      * background rectangle and selection state
      */
-    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     /**
      * @brief postPaint method to be called to paint the "overlay" elements after a subclass
      * has painted its specific item's contents
      */
-    virtual void postPaint(QPainter* painter);
+    virtual void postPaint(QPainter *painter);
 
 protected slots:
     /**
@@ -245,13 +245,13 @@ signals:
     /**
      * @brief itemDropped signal emitted when the user drops and item after dragging it
      */
-    void itemDropped(QGraphicsSceneMouseEvent*, ShowItem*);
+    void itemDropped(QGraphicsSceneMouseEvent *, ShowItem *);
 
     /**
      * @brief alignToCursor signal emitted to request the item alignment to the
      * Show Manager header cursor
      */
-    void alignToCursor(ShowItem*);
+    void alignToCursor(ShowItem *);
 
 protected:
     /**
@@ -259,19 +259,19 @@ protected:
      * This method stores the starting position of a dragging event, to be used later
      * to restore the item position if the drag is not valid
      */
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
     /**
      * @brief mouseReleaseEvent overridden method to handle the mouse release event over an item.
      * This method emits the itemDropped signal to be handled by the above layers
      */
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
     /**
      * @brief contextMenuEvent overridden method to handle the mouse right click over an item
      * and request the display of a contextual menu.
      */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 protected:
     /** Font used for the item's labels */
@@ -299,11 +299,11 @@ protected:
     int m_trackIdx;
 
     /** The ShowFunction associated to this item */
-    ShowFunction* m_function;
+    ShowFunction *m_function;
 
     /** Contextual menu actions */
-    QAction* m_alignToCursor;
-    QAction* m_lockAction;
+    QAction *m_alignToCursor;
+    QAction *m_lockAction;
 };
 
 /** @} */

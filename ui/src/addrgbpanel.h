@@ -34,7 +34,7 @@ class AddRGBPanel : public QDialog, public Ui_AddRGBPanel
     Q_DISABLE_COPY(AddRGBPanel)
 
 public:
-    AddRGBPanel(QWidget* parent, const Doc* doc);
+    AddRGBPanel(QWidget *parent, const Doc *doc);
     ~AddRGBPanel();
 
     enum Orientation
@@ -84,7 +84,7 @@ protected slots:
     void slotSizeChanged(int val);
 
 protected:
-    const Doc* m_doc;
+    const Doc *m_doc;
 };
 
 #endif // ADDRGBPANEL_H

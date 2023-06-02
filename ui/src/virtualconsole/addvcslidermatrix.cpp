@@ -26,7 +26,7 @@
 
 #define SETTINGS_SLIDER_MATRIX_SIZE "slidermatrix/defaultSize"
 
-AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
+AddVCSliderMatrix::AddVCSliderMatrix(QWidget *parent)
     : QDialog(parent)
     , m_amount(1)
     , m_height(100)
@@ -34,7 +34,7 @@ AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
 {
     setupUi(this);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);

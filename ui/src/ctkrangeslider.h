@@ -61,8 +61,8 @@ public:
     /// Constructor, builds a ctkRangeSlider that ranges from 0 to 100 and has
     /// a lower and upper values of 0 and 100 respectively, other properties
     /// are set the QSlider default properties.
-    explicit ctkRangeSlider(Qt::Orientation o, QWidget* par = 0);
-    explicit ctkRangeSlider(QWidget* par = 0);
+    explicit ctkRangeSlider(Qt::Orientation o, QWidget *par = 0);
+    explicit ctkRangeSlider(QWidget *par = 0);
     virtual ~ctkRangeSlider();
 
     ///
@@ -108,7 +108,7 @@ public:
     /// "%1" is replaced by the current value of the slider.
     /// Empty string (by default) means no tooltip.
     QString handleToolTip() const;
-    void setHandleToolTip(const QString& toolTip);
+    void setHandleToolTip(const QString &toolTip);
 
     /// Returns true if the minimum value handle is down, false if it is up.
     /// \sa isMaximumSliderDown()
@@ -179,24 +179,24 @@ protected Q_SLOTS:
     void onRangeChanged(int minimum, int maximum);
 
 protected:
-    ctkRangeSlider(ctkRangeSliderPrivate* impl, Qt::Orientation o, QWidget* par = 0);
-    ctkRangeSlider(ctkRangeSliderPrivate* impl, QWidget* par = 0);
+    ctkRangeSlider(ctkRangeSliderPrivate *impl, Qt::Orientation o, QWidget *par = 0);
+    ctkRangeSlider(ctkRangeSliderPrivate *impl, QWidget *par = 0);
 
     // Description:
     // Standard Qt UI events
-    virtual void mousePressEvent(QMouseEvent* ev);
-    virtual void mouseMoveEvent(QMouseEvent* ev);
-    virtual void mouseReleaseEvent(QMouseEvent* ev);
+    virtual void mousePressEvent(QMouseEvent *ev);
+    virtual void mouseMoveEvent(QMouseEvent *ev);
+    virtual void mouseReleaseEvent(QMouseEvent *ev);
 
     // Description:
     // Rendering is done here.
-    virtual void paintEvent(QPaintEvent* ev);
-    virtual void initMinimumSliderStyleOption(QStyleOptionSlider* option) const;
-    virtual void initMaximumSliderStyleOption(QStyleOptionSlider* option) const;
+    virtual void paintEvent(QPaintEvent *ev);
+    virtual void initMinimumSliderStyleOption(QStyleOptionSlider *option) const;
+    virtual void initMaximumSliderStyleOption(QStyleOptionSlider *option) const;
 
     // Description:
     // Reimplemented for the tooltips
-    virtual bool event(QEvent* event);
+    virtual bool event(QEvent *event);
 
 protected:
     QScopedPointer<ctkRangeSliderPrivate> d_ptr;

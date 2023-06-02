@@ -24,7 +24,7 @@
 #include "fadechannel.h"
 #include "doc.h"
 
-GenericFader::GenericFader(QObject* parent)
+GenericFader::GenericFader(QObject *parent)
     : QObject(parent)
     , m_fid(Function::invalidId())
     , m_priority(Universe::Auto)
@@ -76,7 +76,7 @@ quint32 GenericFader::channelHash(quint32 fixtureID, quint32 channel)
     return ((fixtureID & 0x0000FFFF) << 16) | (channel & 0x0000FFFF);
 }
 
-void GenericFader::add(const FadeChannel& ch)
+void GenericFader::add(const FadeChannel &ch)
 {
     quint32 hash = channelHash(ch.fixture(), ch.channel());
 
@@ -94,13 +94,13 @@ void GenericFader::add(const FadeChannel& ch)
     }
 }
 
-void GenericFader::replace(const FadeChannel& ch)
+void GenericFader::replace(const FadeChannel &ch)
 {
     quint32 hash = channelHash(ch.fixture(), ch.channel());
     m_channels.insert(hash, ch);
 }
 
-void GenericFader::remove(FadeChannel* ch)
+void GenericFader::remove(FadeChannel *ch)
 {
     if (ch == NULL)
         return;
@@ -125,7 +125,7 @@ void GenericFader::requestDelete()
     m_deleteRequest = true;
 }
 
-FadeChannel* GenericFader::getChannelFader(const Doc* doc, Universe* universe, quint32 fixtureID, quint32 channel)
+FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
 {
     FadeChannel fc(doc, fixtureID, channel);
     quint32 hash = channelHash(fc.fixture(), fc.channel());
@@ -140,7 +140,7 @@ FadeChannel* GenericFader::getChannelFader(const Doc* doc, Universe* universe, q
     return &m_channels[hash];
 }
 
-const QHash<quint32, FadeChannel>& GenericFader::channels() const
+const QHash<quint32, FadeChannel> &GenericFader::channels() const
 {
     return m_channels;
 }
@@ -150,7 +150,7 @@ int GenericFader::channelsCount() const
     return m_channels.count();
 }
 
-void GenericFader::write(Universe* universe)
+void GenericFader::write(Universe *universe)
 {
     if (m_monitoring)
         emit preWriteData(universe->id(), universe->preGMValues());
@@ -160,7 +160,7 @@ void GenericFader::write(Universe* universe)
     QMutableHashIterator<quint32, FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
-        FadeChannel& fc(it.next().value());
+        FadeChannel &fc(it.next().value());
         int flags = fc.flags();
         int address = int(fc.addressInUniverse());
         uchar value;
@@ -192,8 +192,8 @@ void GenericFader::write(Universe* universe)
             }
         }
 
-        // qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value <<
-        // "int:" << compIntensity;
+        // qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ",
+        // value:" << value << "int:" << compIntensity;
         if (flags & FadeChannel::Override)
         {
             universe->write(address, value, true);
@@ -208,8 +208,8 @@ void GenericFader::write(Universe* universe)
             universe->writeBlended(address, value, m_blendMode);
         }
 
-        if (((flags & FadeChannel::Intensity) && (flags & FadeChannel::HTP) && m_blendMode == Universe::NormalBlend) ||
-            m_fadeOut)
+        if (((flags & FadeChannel::Intensity) && (flags & FadeChannel::HTP) && m_blendMode == Universe::NormalBlend)
+            || m_fadeOut)
         {
             // Remove all channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves a bit of CPU.
@@ -285,7 +285,7 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         QMutableHashIterator<quint32, FadeChannel> it(m_channels);
         while (it.hasNext() == true)
         {
-            FadeChannel& fc(it.next().value());
+            FadeChannel &fc(it.next().value());
 
             // non-intensity channels (eg LTP) should fade
             // to the current universe value
@@ -317,7 +317,7 @@ void GenericFader::resetCrossfade()
     QMutableHashIterator<quint32, FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
-        FadeChannel& fc(it.next().value());
+        FadeChannel &fc(it.next().value());
         fc.removeFlag(FadeChannel::CrossFade);
     }
 }

@@ -58,7 +58,7 @@ private slots:
     void nextStepSingleShot();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     int m_fixture8bit;
     int m_fixture8bitAddress;

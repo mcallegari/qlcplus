@@ -31,12 +31,12 @@ VCMatrixControl::VCMatrixControl(quint8 id)
     m_resource = QString();
 }
 
-VCMatrixControl::VCMatrixControl(const VCMatrixControl& other)
+VCMatrixControl::VCMatrixControl(const VCMatrixControl &other)
 {
     *this = other;
 }
 
-VCMatrixControl& VCMatrixControl::operator=(const VCMatrixControl& vcmc)
+VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
 {
     if (this != &vcmc)
     {
@@ -163,17 +163,17 @@ VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
         return StartColor;
 }
 
-bool VCMatrixControl::operator<(VCMatrixControl const& right) const
+bool VCMatrixControl::operator<(VCMatrixControl const &right) const
 {
     return m_id < right.m_id;
 }
 
-bool VCMatrixControl::compare(VCMatrixControl const* left, VCMatrixControl const* right)
+bool VCMatrixControl::compare(VCMatrixControl const *left, VCMatrixControl const *right)
 {
     return *left < *right;
 }
 
-bool VCMatrixControl::loadXML(QXmlStreamReader& root)
+bool VCMatrixControl::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCMatrixControl)
     {
@@ -232,7 +232,7 @@ bool VCMatrixControl::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCMatrixControl::saveXML(QXmlStreamWriter* doc)
+bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 

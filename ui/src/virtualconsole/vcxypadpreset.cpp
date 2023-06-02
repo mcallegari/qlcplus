@@ -33,7 +33,7 @@ VCXYPadPreset::VCXYPadPreset(quint8 id)
 {
 }
 
-VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset& other)
+VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &other)
 {
     *this = other;
 }
@@ -90,7 +90,7 @@ QList<GroupHead> VCXYPadPreset::fixtureGroup() const
     return m_fxGroup;
 }
 
-VCXYPadPreset& VCXYPadPreset::operator=(const VCXYPadPreset& vcpp)
+VCXYPadPreset &VCXYPadPreset::operator=(const VCXYPadPreset &vcpp)
 {
     if (this != &vcpp)
     {
@@ -112,12 +112,12 @@ VCXYPadPreset& VCXYPadPreset::operator=(const VCXYPadPreset& vcpp)
     return *this;
 }
 
-bool VCXYPadPreset::operator<(const VCXYPadPreset& right) const
+bool VCXYPadPreset::operator<(const VCXYPadPreset &right) const
 {
     return m_id < right.m_id;
 }
 
-bool VCXYPadPreset::compare(const VCXYPadPreset* left, const VCXYPadPreset* right)
+bool VCXYPadPreset::compare(const VCXYPadPreset *left, const VCXYPadPreset *right)
 {
     return *left < *right;
 }
@@ -150,7 +150,7 @@ VCXYPadPreset::PresetType VCXYPadPreset::stringToType(QString str)
  * Load & Save
  ***********************************************************************/
 
-bool VCXYPadPreset::loadXML(QXmlStreamReader& root)
+bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCXYPadPreset)
     {
@@ -231,7 +231,7 @@ bool VCXYPadPreset::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCXYPadPreset::saveXML(QXmlStreamWriter* doc)
+bool VCXYPadPreset::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 

@@ -31,7 +31,7 @@ SceneValue::SceneValue(quint32 id, quint32 ch, uchar val)
 {
 }
 
-SceneValue::SceneValue(const SceneValue& scv)
+SceneValue::SceneValue(const SceneValue &scv)
     : fxi(scv.fxi)
     , channel(scv.channel)
     , value(scv.value)
@@ -48,7 +48,7 @@ bool SceneValue::isValid() const
         return true;
 }
 
-SceneValue& SceneValue::operator=(const SceneValue& scv)
+SceneValue &SceneValue::operator=(const SceneValue &scv)
 {
     if (this != &scv)
     {
@@ -60,7 +60,7 @@ SceneValue& SceneValue::operator=(const SceneValue& scv)
     return *this;
 }
 
-bool SceneValue::operator<(const SceneValue& scv) const
+bool SceneValue::operator<(const SceneValue &scv) const
 {
     if (fxi < scv.fxi)
     {
@@ -79,7 +79,7 @@ bool SceneValue::operator<(const SceneValue& scv) const
     }
 }
 
-bool SceneValue::operator==(const SceneValue& scv) const
+bool SceneValue::operator==(const SceneValue &scv) const
 {
     if (fxi == scv.fxi && channel == scv.channel)
         return true;
@@ -87,7 +87,7 @@ bool SceneValue::operator==(const SceneValue& scv) const
         return false;
 }
 
-bool SceneValue::loadXML(QXmlStreamReader& tag)
+bool SceneValue::loadXML(QXmlStreamReader &tag)
 {
     if (tag.name() != KXMLQLCSceneValue)
     {
@@ -103,7 +103,7 @@ bool SceneValue::loadXML(QXmlStreamReader& tag)
     return isValid();
 }
 
-bool SceneValue::saveXML(QXmlStreamWriter* doc) const
+bool SceneValue::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -119,7 +119,7 @@ bool SceneValue::saveXML(QXmlStreamWriter* doc) const
     return true;
 }
 
-QDebug operator<<(QDebug debug, const SceneValue& sv)
+QDebug operator<<(QDebug debug, const SceneValue &sv)
 {
     debug.nospace() << "SceneValue(" << sv.fxi << ", " << sv.channel << ", " << sv.value << ")";
     return debug;

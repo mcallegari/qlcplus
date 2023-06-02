@@ -26,9 +26,9 @@
 
 // Since only one instance of this class is allowed, I can
 // afford to do this
-static PaStream* stream = NULL;
+static PaStream *stream = NULL;
 
-AudioCapturePortAudio::AudioCapturePortAudio(QObject* parent)
+AudioCapturePortAudio::AudioCapturePortAudio(QObject *parent)
     : AudioCapture(parent)
 {
 }

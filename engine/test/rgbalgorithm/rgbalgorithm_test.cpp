@@ -65,7 +65,7 @@ void RGBAlgorithm_Test::algorithms()
 
 void RGBAlgorithm_Test::algorithm()
 {
-    RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, "Foo");
+    RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, "Foo");
     QVERIFY(algo != NULL);
     QCOMPARE(algo->apiVersion(), 0); // Invalid
     delete algo;
@@ -114,7 +114,7 @@ void RGBAlgorithm_Test::loader()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    RGBAlgorithm* algo = RGBAlgorithm::loader(m_doc, xmlReader);
+    RGBAlgorithm *algo = RGBAlgorithm::loader(m_doc, xmlReader);
     QVERIFY(algo != NULL);
     QCOMPARE(algo->type(), RGBAlgorithm::Script);
     QCOMPARE(algo->name(), QString("Stripes"));

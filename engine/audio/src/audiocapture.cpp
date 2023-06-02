@@ -32,7 +32,7 @@
 #define CLEAR_FFT_NOISE
 #define M_2PI 6.28318530718 /* 2*pi */
 
-AudioCapture::AudioCapture(QObject* parent)
+AudioCapture::AudioCapture(QObject *parent)
     : QThread(parent)
     , m_userStop(true)
     , m_pause(false)
@@ -166,8 +166,8 @@ double AudioCapture::fillBandsData(int number)
             if (i == bufferSize)
                 break;
             magnitudeSum +=
-                qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
-                      (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
+                qSqrt((((fftw_complex *)m_fftOutputBuffer)[i][0] * ((fftw_complex *)m_fftOutputBuffer)[i][0])
+                      + (((fftw_complex *)m_fftOutputBuffer)[i][1] * ((fftw_complex *)m_fftOutputBuffer)[i][1]));
         }
         double bandMagnitude = (magnitudeSum / (subBandWidth * M_2PI));
         m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] = bandMagnitude;
@@ -189,7 +189,7 @@ void AudioCapture::processData()
 
     // 1 ********* Initialize FFTW
     fftw_plan plan_forward;
-    plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer, (fftw_complex*)m_fftOutputBuffer, 0);
+    plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer, (fftw_complex *)m_fftOutputBuffer, 0);
 
     // 2 ********* Apply a window to audio data
     // *********** and convert it to doubles
@@ -211,8 +211,8 @@ void AudioCapture::processData()
         double a1 = 0.5;
         double a2 = 0.16 / 2;
         m_fftInputBuffer[i] =
-            m_audioMixdown[i] *
-            (a0 - a1 * qCos((M_2PI * i) / (bufferSize - 1)) + a2 * qCos((2 * M_2PI * i) / (bufferSize - 1))) / 32768.;
+            m_audioMixdown[i]
+            * (a0 - a1 * qCos((M_2PI * i) / (bufferSize - 1)) + a2 * qCos((2 * M_2PI * i) / (bufferSize - 1))) / 32768.;
   #endif
   #ifdef USE_HANNING
         m_fftInputBuffer[i] = m_audioMixdown[i] * (0.5 * (1.00 - qCos((M_2PI * i) / (bufferSize - 1)))) / 32768.;
@@ -231,8 +231,8 @@ void AudioCapture::processData()
     // We delete some values since these will ruin our output
     for (int n = 0; n < 5; n++)
     {
-        ((fftw_complex*)m_fftOutputBuffer)[n][0] = 0;
-        ((fftw_complex*)m_fftOutputBuffer)[n][1] = 0;
+        ((fftw_complex *)m_fftOutputBuffer)[n][0] = 0;
+        ((fftw_complex *)m_fftOutputBuffer)[n][1] = 0;
     }
   #endif
 

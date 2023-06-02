@@ -59,7 +59,7 @@ class Chaser : public Function
      * Initialization
      *********************************************************************/
 public:
-    Chaser(Doc* doc);
+    Chaser(Doc *doc);
     virtual ~Chaser();
 
     /** @reimp */
@@ -73,10 +73,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
     /*********************************************************************
      * Chaser contents
@@ -92,7 +92,7 @@ public:
      * @param step The step to add
      * @param index Insertion point. -1 to append.
      */
-    bool addStep(const ChaserStep& step, int index = -1);
+    bool addStep(const ChaserStep &step, int index = -1);
 
     /**
      * Remove a function from the given step index. If the given index is
@@ -110,7 +110,7 @@ public:
      * @param index The index of the step to replace
      * @return true if successful, otherwise false (index out of bounds)
      */
-    bool replaceStep(const ChaserStep& step, int index);
+    bool replaceStep(const ChaserStep &step, int index);
 
     /**
      * Move a step from $sourceIdx to $destIdx
@@ -129,7 +129,7 @@ public:
      *
      * @return The requested Chaser Step
      */
-    ChaserStep* stepAt(int idx);
+    ChaserStep *stepAt(int idx);
 
     /**
      * Get the chaser's list of steps
@@ -186,7 +186,7 @@ public:
     SpeedMode durationMode() const;
 
     static QString speedModeToString(SpeedMode mode);
-    static SpeedMode stringToSpeedMode(const QString& str);
+    static SpeedMode stringToSpeedMode(const QString &str);
 
 protected:
     SpeedMode m_fadeInMode;
@@ -197,14 +197,14 @@ protected:
      * Save & Load
      *********************************************************************/
 protected:
-    bool loadXMLSpeedModes(QXmlStreamReader& root);
+    bool loadXMLSpeedModes(QXmlStreamReader &root);
 
 public:
     /** @reimpl */
-    virtual bool saveXML(QXmlStreamWriter* doc);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimpl */
-    virtual bool loadXML(QXmlStreamReader& root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     virtual void postLoad();
@@ -228,7 +228,7 @@ public:
     /** Set an action to be performed on steps.
      *  Depending on the action type, it might be applied immediately
      *  or deferred to the next write() call */
-    void setAction(ChaserAction& action);
+    void setAction(ChaserAction &action);
 
     /** Get the current step number */
     int currentStepIndex() const;
@@ -268,16 +268,16 @@ private:
 
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
     void setPause(bool enable);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe *> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 signals:
     /** Tells that the current step number has changed. */
@@ -289,7 +289,7 @@ private:
 #else
     QRecursiveMutex m_runnerMutex;
 #endif
-    ChaserRunner* m_runner;
+    ChaserRunner *m_runner;
 
     /*************************************************************************
      * Intensity

@@ -24,8 +24,8 @@
 #include "monitorfixtureitem.h"
 #include "monitorproperties.h"
 
-MonitorFixturePropertiesEditor::MonitorFixturePropertiesEditor(MonitorFixtureItem* fxItem, MonitorGraphicsView* gfxView,
-                                                               MonitorProperties* props, QWidget* parent)
+MonitorFixturePropertiesEditor::MonitorFixturePropertiesEditor(MonitorFixtureItem *fxItem, MonitorGraphicsView *gfxView,
+                                                               MonitorProperties *props, QWidget *parent)
     : QWidget(parent)
     , m_fxItem(fxItem)
     , m_gfxView(gfxView)

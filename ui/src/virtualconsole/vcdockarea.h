@@ -42,13 +42,13 @@ class VCDockArea : public QFrame
      * Initialization
      *********************************************************************/
 public:
-    VCDockArea(QWidget* parent, InputOutputMap* ioMap);
+    VCDockArea(QWidget *parent, InputOutputMap *ioMap);
     ~VCDockArea();
 
     void setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode);
 
 private:
-    GrandMasterSlider* m_gm;
+    GrandMasterSlider *m_gm;
 };
 
 /** @} */

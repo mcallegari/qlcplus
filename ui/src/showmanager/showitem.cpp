@@ -28,7 +28,7 @@
 #include "showitem.h"
 #include "function.h"
 
-ShowItem::ShowItem(ShowFunction* function, QObject*)
+ShowItem::ShowItem(ShowFunction *function, QObject *)
     : m_color(100, 100, 100)
     , m_locked(false)
     , m_pressed(false)
@@ -68,9 +68,9 @@ void ShowItem::updateTooltip()
                    .arg(tr("Click to move this item along the timeline")));
 }
 
-QList<QAction*> ShowItem::getDefaultActions()
+QList<QAction *> ShowItem::getDefaultActions()
 {
-    QList<QAction*> actions;
+    QList<QAction *> actions;
     actions.append(m_alignToCursor);
 
     if (isLocked())
@@ -200,7 +200,7 @@ quint32 ShowItem::functionID()
     return Function::invalidId();
 }
 
-ShowFunction* ShowItem::showFunction() const
+ShowFunction *ShowItem::showFunction() const
 {
     return m_function;
 }
@@ -221,7 +221,7 @@ void ShowItem::slotLockItemClicked()
     // update();
 }
 
-void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
@@ -230,7 +230,7 @@ void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     this->setSelected(true);
 }
 
-void ShowItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+void ShowItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
     qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <"
@@ -240,7 +240,7 @@ void ShowItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     emit itemDropped(event, this);
 }
 
-void ShowItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
+void ShowItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     Q_UNUSED(event)
 
@@ -270,7 +270,7 @@ QRectF ShowItem::boundingRect() const
     return QRectF(0, 0, m_width, TRACK_HEIGHT - 3);
 }
 
-void ShowItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void ShowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -287,7 +287,7 @@ void ShowItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
     painter->setFont(m_font);
 }
 
-void ShowItem::postPaint(QPainter* painter)
+void ShowItem::postPaint(QPainter *painter)
 {
     // draw the function name shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));

@@ -40,15 +40,15 @@ class CollectionEditor : public QWidget, public Ui_CollectionEditor
     Q_DISABLE_COPY(CollectionEditor)
 
 public:
-    CollectionEditor(QWidget* parent, Collection* fc, Doc* doc);
+    CollectionEditor(QWidget *parent, Collection *fc, Doc *doc);
     ~CollectionEditor();
 
 private:
-    Doc* m_doc;
-    Collection* m_collection; // The Collection being edited
+    Doc *m_doc;
+    Collection *m_collection; // The Collection being edited
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotAdd();
     void slotRemove();
     void slotMoveUp();

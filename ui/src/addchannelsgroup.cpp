@@ -37,7 +37,7 @@
 
 #define SETTINGS_APPLYALL "addchannelsgroup/applyall"
 
-AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup* group)
+AddChannelsGroup::AddChannelsGroup(QWidget *parent, Doc *doc, ChannelsGroup *group)
     : QDialog(parent)
     , m_doc(doc)
     , m_chansGroup(group)
@@ -59,13 +59,13 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup* gro
     QList<SceneValue> chans = group->getChannels();
     int ch = 0;
 
-    foreach (Fixture* fxi, m_doc->fixtures())
+    foreach (Fixture *fxi, m_doc->fixtures())
     {
-        QTreeWidgetItem* topItem = NULL;
+        QTreeWidgetItem *topItem = NULL;
         quint32 uni = fxi->universe();
         for (int i = 0; i < m_tree->topLevelItemCount(); i++)
         {
-            QTreeWidgetItem* tItem = m_tree->topLevelItem(i);
+            QTreeWidgetItem *tItem = m_tree->topLevelItem(i);
             quint32 tUni = tItem->text(KColumnID).toUInt();
             if (tUni == uni)
             {
@@ -82,7 +82,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup* gro
             topItem->setExpanded(true);
         }
 
-        QTreeWidgetItem* fItem = new QTreeWidgetItem(topItem);
+        QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setExpanded(true);
         fItem->setText(KColumnName, fxi->name());
         fItem->setIcon(KColumnName, fxi->getIconFromType());
@@ -90,8 +90,8 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup* gro
 
         for (quint32 c = 0; c < fxi->channels(); c++)
         {
-            const QLCChannel* channel = fxi->channel(c);
-            QTreeWidgetItem* item = new QTreeWidgetItem(fItem);
+            const QLCChannel *channel = fxi->channel(c);
+            QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
             item->setText(KColumnName, QString("%1:%2").arg(c + 1).arg(channel->name()));
             item->setIcon(KColumnName, channel->getIcon());
             if (channel->group() == QLCChannel::Intensity && channel->colour() != QLCChannel::NoColour)
@@ -128,7 +128,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup* gro
     if (m_checkedChannels == 0)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChecked(QTreeWidgetItem *, int)));
     connect(m_collapseButton, SIGNAL(clicked(bool)), m_tree, SLOT(collapseAll()));
     connect(m_expandButton, SIGNAL(clicked(bool)), m_tree, SLOT(expandAll()));
 }
@@ -145,17 +145,17 @@ void AddChannelsGroup::accept()
 
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
     {
-        QTreeWidgetItem* uniItem = m_tree->topLevelItem(t);
+        QTreeWidgetItem *uniItem = m_tree->topLevelItem(t);
         for (int f = 0; f < uniItem->childCount(); f++)
         {
-            QTreeWidgetItem* fixItem = uniItem->child(f);
+            QTreeWidgetItem *fixItem = uniItem->child(f);
             quint32 fxID = fixItem->text(KColumnID).toUInt();
-            Fixture* fxi = m_doc->fixture(fxID);
+            Fixture *fxi = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
-                    QTreeWidgetItem* chanItem = fixItem->child(c);
+                    QTreeWidgetItem *chanItem = fixItem->child(c);
                     if (chanItem->checkState(KColumnGroup) == Qt::Checked)
                     {
                         m_chansGroup->addChannel(QString(chanItem->text(KColumnID)).toUInt(),
@@ -173,7 +173,7 @@ void AddChannelsGroup::accept()
     QDialog::accept();
 }
 
-void AddChannelsGroup::slotItemChecked(QTreeWidgetItem* item, int col)
+void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
 {
     if (m_isUpdating == true || col != KColumnGroup || item->text(KColumnID).isEmpty())
         return;
@@ -189,11 +189,11 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem* item, int col)
     }
     else
     {
-        Fixture* fixture = m_doc->fixture(item->text(KColumnID).toUInt());
+        Fixture *fixture = m_doc->fixture(item->text(KColumnID).toUInt());
         if (fixture == NULL)
             return;
 
-        const QLCFixtureDef* def = fixture->fixtureDef();
+        const QLCFixtureDef *def = fixture->fixtureDef();
         if (def == NULL)
             return;
 
@@ -208,23 +208,23 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem* item, int col)
 
         for (int t = 0; t < m_tree->topLevelItemCount(); t++)
         {
-            QTreeWidgetItem* uniItem = m_tree->topLevelItem(t);
+            QTreeWidgetItem *uniItem = m_tree->topLevelItem(t);
             for (int f = 0; f < uniItem->childCount(); f++)
             {
-                QTreeWidgetItem* fixItem = uniItem->child(f);
+                QTreeWidgetItem *fixItem = uniItem->child(f);
                 quint32 fxID = fixItem->text(KColumnID).toUInt();
-                Fixture* fxi = m_doc->fixture(fxID);
+                Fixture *fxi = m_doc->fixture(fxID);
                 if (fxi != NULL)
                 {
                     QString tmpMode = fxi->fixtureMode() ? fxi->fixtureMode()->name() : "";
-                    const QLCFixtureDef* tmpDef = fxi->fixtureDef();
+                    const QLCFixtureDef *tmpDef = fxi->fixtureDef();
                     if (tmpDef != NULL)
                     {
                         QString tmpManuf = tmpDef->manufacturer();
                         QString tmpModel = tmpDef->model();
                         if (tmpManuf == manufacturer && tmpModel == model && tmpMode == mode)
                         {
-                            QTreeWidgetItem* item = fixItem->child(chIdx);
+                            QTreeWidgetItem *item = fixItem->child(chIdx);
                             if (item != NULL)
                             {
                                 item->setCheckState(KColumnGroup, enable);

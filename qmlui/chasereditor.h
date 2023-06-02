@@ -40,7 +40,7 @@ class ChaserEditor : public FunctionEditor
     Q_PROPERTY(int playbackIndex READ playbackIndex WRITE setPlaybackIndex NOTIFY playbackIndexChanged)
 
 public:
-    ChaserEditor(QQuickView* view, Doc* doc, QObject* parent = 0);
+    ChaserEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     /** Set the ID of the Chaser being edited */
     void setFunctionID(quint32 ID);
@@ -49,10 +49,10 @@ public:
     bool isSequence() const;
 
     /** Static method to update the whole steps list */
-    static void updateStepsList(Doc* doc, Chaser* chaser, ListModel* stepsList);
+    static void updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList);
 
     /** Static method to update the data of a specific step */
-    static void updateStepInListModel(Doc* doc, Chaser* chaser, ListModel* stepsList, ChaserStep* step, int index);
+    static void updateStepInListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step, int index);
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
@@ -97,7 +97,7 @@ public:
     /** @reimp */
     void deleteItems(QVariantList list);
 
-    void setSequenceStepValue(SceneValue& scv);
+    void setSequenceStepValue(SceneValue &scv);
     void removeFixtures(QVariantList list);
 
     /** Get/Set the Chaser playback start index */
@@ -116,9 +116,9 @@ protected:
      *  otherwise it will be applied to all the steps */
     void setSelectedValue(Function::PropType type, QString param, uint value, bool selectedOnly = true);
 
-    static QVariantMap stepDataMap(Doc* doc, Chaser* chaser, ChaserStep* step);
+    static QVariantMap stepDataMap(Doc *doc, Chaser *chaser, ChaserStep *step);
 
-    static void addStepToListModel(Doc* doc, Chaser* chaser, ListModel* stepsList, ChaserStep* step);
+    static void addStepToListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step);
 
 protected slots:
     /** Slot invoked during Chaser playback when the step index changes */
@@ -130,13 +130,13 @@ signals:
 
 private:
     /** Reference of the Chaser currently being edited */
-    Chaser* m_chaser;
+    Chaser *m_chaser;
 
     /** Reference to a ListModel representing the steps list for the QML UI,
      *  organized as follows:
      *  funcID | isSelected | fadeIn | fadeOut | hold | duration | note
      */
-    ListModel* m_stepsList;
+    ListModel *m_stepsList;
 
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;

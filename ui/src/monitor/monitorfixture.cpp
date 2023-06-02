@@ -33,7 +33,7 @@
 #include "doc.h"
 #include "qlccapability.h"
 
-MonitorFixture::MonitorFixture(QWidget* parent, Doc* doc)
+MonitorFixture::MonitorFixture(QWidget *parent, Doc *doc)
     : QFrame(parent)
     , m_doc(doc)
 {
@@ -56,7 +56,7 @@ MonitorFixture::~MonitorFixture()
 {
     if (m_fixture != Fixture::invalidId())
     {
-        Fixture* fxi = m_doc->fixture(m_fixture);
+        Fixture *fxi = m_doc->fixture(m_fixture);
         if (fxi != NULL)
             disconnect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotValuesChanged()));
     }
@@ -72,10 +72,10 @@ MonitorFixture::~MonitorFixture()
         delete m_valueLabels.takeFirst();
 }
 
-bool MonitorFixture::operator<(const MonitorFixture& mof)
+bool MonitorFixture::operator<(const MonitorFixture &mof)
 {
-    Fixture* fxi;
-    Fixture* mof_fxi;
+    Fixture *fxi;
+    Fixture *mof_fxi;
 
     fxi = m_doc->fixture(m_fixture);
     if (fxi == NULL)
@@ -103,7 +103,7 @@ void MonitorFixture::updateLabelStyles()
 
 void MonitorFixture::setFixture(quint32 fxi_id)
 {
-    Fixture* fxi;
+    Fixture *fxi;
 
     /* Get rid of old stuff first, if such exists */
     if (m_fixtureLabel != NULL)
@@ -123,7 +123,7 @@ void MonitorFixture::setFixture(quint32 fxi_id)
            the fixture name, second row for channel numbers and the
            third row for channel values. Each channel is in its own
            column. */
-        QGridLayout* lay = qobject_cast<QGridLayout*>(layout());
+        QGridLayout *lay = qobject_cast<QGridLayout *>(layout());
         lay->setVerticalSpacing(1);
 
         /* Create a new fixture label and set the fixture name there */
@@ -138,13 +138,13 @@ void MonitorFixture::setFixture(quint32 fxi_id)
         /* Create channel numbers and value labels */
         for (quint32 i = 0; i < fxi->channels(); i++)
         {
-            const QLCChannel* channel = fxi->channel(i);
+            const QLCChannel *channel = fxi->channel(i);
             /* Create the icon over the channel number */
-            QLabel* icon = new QLabel(this);
+            QLabel *icon = new QLabel(this);
             icon->setFixedSize(22, 22);
 
             /* Create a label for channel number */
-            QLabel* label = new QLabel(this);
+            QLabel *label = new QLabel(this);
 
             if (channel != NULL)
             {
@@ -189,7 +189,7 @@ void MonitorFixture::slotChannelStyleChanged(MonitorProperties::ChannelStyle sty
     if (m_fixture == Fixture::invalidId())
         return;
 
-    Fixture* fxi = m_doc->fixture(m_fixture);
+    Fixture *fxi = m_doc->fixture(m_fixture);
     Q_ASSERT(fxi != NULL);
 
     /* Start channel numbering from this fixture's address */
@@ -198,7 +198,7 @@ void MonitorFixture::slotChannelStyleChanged(MonitorProperties::ChannelStyle sty
     else
         i = 1;
 
-    QListIterator<QLabel*> it(m_channelLabels);
+    QListIterator<QLabel *> it(m_channelLabels);
     while (it.hasNext() == true)
         it.next()->setText(str.asprintf("<B>%.3d</B>", i++));
 }
@@ -214,10 +214,10 @@ void MonitorFixture::slotValueStyleChanged(MonitorProperties::ValueStyle style)
 
     m_valueStyle = style;
 
-    QListIterator<QLabel*> it(m_valueLabels);
+    QListIterator<QLabel *> it(m_valueLabels);
     while (it.hasNext() == true)
     {
-        QLabel* label;
+        QLabel *label;
         QString str;
         int value;
 
@@ -246,17 +246,17 @@ void MonitorFixture::slotValuesChanged()
         return;
 
     /* Check that this MonitorFixture's fixture really exists */
-    Fixture* fxi = m_doc->fixture(m_fixture);
+    Fixture *fxi = m_doc->fixture(m_fixture);
     if (fxi == NULL)
         return;
 
     QByteArray fxValues = fxi->channelValues();
     int i = 0;
 
-    QListIterator<QLabel*> it(m_valueLabels);
+    QListIterator<QLabel *> it(m_valueLabels);
     while (it.hasNext() == true)
     {
-        QLabel* label = it.next();
+        QLabel *label = it.next();
         Q_ASSERT(label != NULL);
         QString str;
 
@@ -267,8 +267,8 @@ void MonitorFixture::slotValuesChanged()
         }
         else
         {
-            label->setText(str.asprintf("%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))), qreal(0), qreal(UCHAR_MAX),
-                                                               qreal(0), qreal(100))))));
+            label->setText(str.asprintf(
+                "%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))))));
         }
         i++;
     }

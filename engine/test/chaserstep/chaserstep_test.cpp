@@ -63,7 +63,7 @@ void ChaserStep_Test::resolveFunction()
     Doc doc(this);
     QVERIFY(step.resolveFunction(&doc) == NULL);
 
-    Scene* scene = new Scene(&doc);
+    Scene *scene = new Scene(&doc);
     doc.addFunction(scene);
     QVERIFY(step.resolveFunction(&doc) == scene);
 }

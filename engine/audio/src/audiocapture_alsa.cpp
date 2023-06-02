@@ -22,7 +22,7 @@
 
 #include "audiocapture_alsa.h"
 
-AudioCaptureAlsa::AudioCaptureAlsa(QObject* parent)
+AudioCaptureAlsa::AudioCaptureAlsa(QObject *parent)
     : AudioCapture(parent)
     , m_captureHandle(NULL)
 {
@@ -36,7 +36,7 @@ AudioCaptureAlsa::~AudioCaptureAlsa()
 
 bool AudioCaptureAlsa::initialize()
 {
-    snd_pcm_hw_params_t* hw_params = NULL;
+    snd_pcm_hw_params_t *hw_params = NULL;
     QString dev_name = "default";
     int err;
 

@@ -23,7 +23,7 @@
 
 #include "debugbox.h"
 
-DebugBox::DebugBox(QWidget* parent, Qt::WindowFlags flags)
+DebugBox::DebugBox(QWidget *parent, Qt::WindowFlags flags)
     : QDialog(parent, flags)
 {
     setupUi(this);

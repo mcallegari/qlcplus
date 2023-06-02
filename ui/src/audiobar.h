@@ -59,30 +59,30 @@ public:
         VCWidgetBar
     };
 
-    AudioBar* createCopy();
+    AudioBar *createCopy();
     void setName(QString nme);
     void setType(int type);
     void setMinThreshold(uchar value);
     void setMaxThreshold(uchar value);
     void setDivisor(int value);
 
-    void attachDmxChannels(Doc* doc, QList<SceneValue> list);
-    void attachFunction(Function* func);
+    void attachDmxChannels(Doc *doc, QList<SceneValue> list);
+    void attachFunction(Function *func);
     void attachWidget(quint32 wID);
 
     /** Get widget, sets m_widget to proper value if necessary */
-    VCWidget* widget();
+    VCWidget *widget();
 
-    void checkFunctionThresholds(Doc* doc);
+    void checkFunctionThresholds(Doc *doc);
     void checkWidgetFunctionality();
 
     void debugInfo();
 
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader& root, Doc* doc);
+    bool loadXML(QXmlStreamReader &root, Doc *doc);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc, QString tagName, int index);
+    bool saveXML(QXmlStreamWriter *doc, QString tagName, int index);
 
 public:
     QString m_name;
@@ -99,7 +99,7 @@ public:
     QList<int> m_absDmxChannels;
 
     /** Reference to an attached Function when m_type == FunctionBar */
-    Function* m_function;
+    Function *m_function;
 
     /** ID of the attchaed VCWidget when m_type == VCWidgetBar */
     quint32 m_widgetID;
@@ -114,7 +114,7 @@ private:
 
 private:
     /** Reference to an attached VCWidget when m_type == VCWidgetBar */
-    VCWidget* m_widget;
+    VCWidget *m_widget;
 };
 
 /** @} */

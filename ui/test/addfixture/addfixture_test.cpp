@@ -65,7 +65,7 @@ void AddFixture_Test::cleanupTestCase()
 
 void AddFixture_Test::findAddress()
 {
-    QList<Fixture*> fixtures;
+    QList<Fixture *> fixtures;
 
     /* All addresses are available (except for fixtures taking more than
        one complete universe). */
@@ -74,7 +74,7 @@ void AddFixture_Test::findAddress()
     QVERIFY(AddFixture::findAddress(512, fixtures, 4) == 0);
     QVERIFY(AddFixture::findAddress(513, fixtures, 4) == QLCChannel::invalid());
 
-    Fixture* f1 = new Fixture(m_doc);
+    Fixture *f1 = new Fixture(m_doc);
     f1->setChannels(15);
     f1->setAddress(10);
     f1->setID(1);
@@ -84,7 +84,7 @@ void AddFixture_Test::findAddress()
     QVERIFY(AddFixture::findAddress(10, fixtures, 4) == 0);
     QVERIFY(AddFixture::findAddress(11, fixtures, 4) == 25);
 
-    Fixture* f2 = new Fixture(m_doc);
+    Fixture *f2 = new Fixture(m_doc);
     f2->setChannels(15);
     f2->setAddress(10);
     f2->setID(2);
@@ -101,7 +101,7 @@ void AddFixture_Test::findAddress()
     QVERIFY(AddFixture::findAddress(10, fixtures, 4) == 25);
     QVERIFY(AddFixture::findAddress(11, fixtures, 4) == 25);
 
-    Fixture* f3 = new Fixture(m_doc);
+    Fixture *f3 = new Fixture(m_doc);
     f3->setChannels(5);
     f3->setAddress(30);
     f3->setID(3);
@@ -143,14 +143,14 @@ void AddFixture_Test::initialNoFixture()
     QVERIFY(makers.isEmpty() == false);
     for (int i = 0; i < af.m_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* top = af.m_tree->topLevelItem(i);
+        QTreeWidgetItem *top = af.m_tree->topLevelItem(i);
 
         if (top->text(0) != KXMLFixtureGeneric)
         {
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
             for (int j = 0; j < top->childCount(); j++)
             {
-                QTreeWidgetItem* child = top->child(j);
+                QTreeWidgetItem *child = top->child(j);
                 QCOMPARE(child->childCount(), 0);
                 QCOMPARE(models.removeAll(child->text(0)), 1);
             }
@@ -166,7 +166,7 @@ void AddFixture_Test::initialNoFixture()
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
             for (int j = 0; j < top->childCount(); j++)
             {
-                QTreeWidgetItem* child = top->child(j);
+                QTreeWidgetItem *child = top->child(j);
                 QCOMPARE(child->childCount(), 0);
                 QCOMPARE(models.removeAll(child->text(0)), child->text(0) == KXMLFixtureGeneric ? 0 : 1);
             }
@@ -211,7 +211,7 @@ void AddFixture_Test::initialNoFixture()
 
 void AddFixture_Test::initialDimmer()
 {
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(6);
     fxi->setName("My dimmer");
     fxi->setUniverse(2);
@@ -234,14 +234,14 @@ void AddFixture_Test::initialDimmer()
     QVERIFY(makers.isEmpty() == false);
     for (int i = 0; i < af.m_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* top = af.m_tree->topLevelItem(i);
+        QTreeWidgetItem *top = af.m_tree->topLevelItem(i);
 
         if (top->text(0) != KXMLFixtureGeneric)
         {
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
             for (int j = 0; j < top->childCount(); j++)
             {
-                QTreeWidgetItem* child = top->child(j);
+                QTreeWidgetItem *child = top->child(j);
                 QCOMPARE(child->childCount(), 0);
                 QCOMPARE(models.removeAll(child->text(0)), 1);
             }
@@ -257,7 +257,7 @@ void AddFixture_Test::initialDimmer()
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
             for (int j = 0; j < top->childCount(); j++)
             {
-                QTreeWidgetItem* child = top->child(j);
+                QTreeWidgetItem *child = top->child(j);
                 QCOMPARE(child->childCount(), 0);
                 QCOMPARE(models.removeAll(child->text(0)), child->text(0) == KXMLFixtureGeneric ? 0 : 1);
             }
@@ -303,14 +303,14 @@ void AddFixture_Test::initialDimmer()
 
 void AddFixture_Test::initialScanner()
 {
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setName("My scanner");
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC300");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC300");
     Q_ASSERT(def != NULL);
     Q_ASSERT(def != NULL);
     Q_ASSERT(def->channels().size() > 0);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     Q_ASSERT(def->modes().size() > 1);
 
     fxi->setFixtureDefinition(def, mode);
@@ -334,14 +334,14 @@ void AddFixture_Test::initialScanner()
     QVERIFY(makers.isEmpty() == false);
     for (int i = 0; i < af.m_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* top = af.m_tree->topLevelItem(i);
+        QTreeWidgetItem *top = af.m_tree->topLevelItem(i);
 
         if (top->text(0) != KXMLFixtureGeneric)
         {
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
             for (int j = 0; j < top->childCount(); j++)
             {
-                QTreeWidgetItem* child = top->child(j);
+                QTreeWidgetItem *child = top->child(j);
                 QCOMPARE(child->childCount(), 0);
                 QCOMPARE(models.removeAll(child->text(0)), 1);
             }
@@ -357,7 +357,7 @@ void AddFixture_Test::initialScanner()
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
             for (int j = 0; j < top->childCount(); j++)
             {
-                QTreeWidgetItem* child = top->child(j);
+                QTreeWidgetItem *child = top->child(j);
                 QCOMPARE(child->childCount(), 0);
                 QCOMPARE(models.removeAll(child->text(0)), child->text(0) == KXMLFixtureGeneric ? 0 : 1);
             }
@@ -444,7 +444,7 @@ void AddFixture_Test::selectionGeneric()
     AddFixture af(NULL, m_doc);
 
     // Select the last item which should be Generic - Generic
-    QTreeWidgetItem* item = af.m_tree->topLevelItem(af.m_tree->topLevelItemCount() - 1);
+    QTreeWidgetItem *item = af.m_tree->topLevelItem(af.m_tree->topLevelItemCount() - 1);
     QVERIFY(item != NULL);
     // First, select the parent node so that selectionChanged() fires
     QCOMPARE(item->childCount(), 4);

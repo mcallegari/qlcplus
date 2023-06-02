@@ -93,7 +93,7 @@ public:
         StartOffset
     };
 
-    EFX(Doc* doc);
+    EFX(Doc *doc);
     ~EFX();
 
     /** @reimp */
@@ -104,10 +104,10 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
     /*********************************************************************
      * Contents
@@ -151,7 +151,7 @@ public:
     static QString algorithmToString(Algorithm algo);
 
     /** Convert a string to an algorithm type */
-    static Algorithm stringToAlgorithm(const QString& str);
+    static Algorithm stringToAlgorithm(const QString &str);
 
     /**
      * Get a preview of the current algorithm. Puts 128 points to the
@@ -161,7 +161,7 @@ public:
      *
      * @param polygon The polygon to fill with preview points
      */
-    void preview(QPolygonF& polygon) const;
+    void preview(QPolygonF &polygon) const;
 
     /**
      * Get a preview of path for all contained fixtures. For format of the polygons,
@@ -169,7 +169,7 @@ public:
      *
      * @param polygons Array of polygons, one for each contained fixture.
      */
-    void previewFixtures(QVector<QPolygonF>& polygons) const;
+    void previewFixtures(QVector<QPolygonF> &polygons) const;
 
     /**
      * Calculate a single point with the currently selected algorithm,
@@ -181,10 +181,10 @@ public:
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
+    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const;
 
 private:
-    void preview(QPolygonF& polygon, Function::Direction direction, int startOffset) const;
+    void preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const;
 
     /**
      * Rotate a point of the pattern by rot degrees and scale the point
@@ -198,7 +198,7 @@ private:
      * @param yOff Y offset of the pattern
      * @param rotation Degrees to rotate
      */
-    void rotateAndScale(float* x, float* y) const;
+    void rotateAndScale(float *x, float *y) const;
 
     /**
      * Calculate a single point with the currently selected algorithm,
@@ -208,7 +208,7 @@ private:
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(float iterator, float* x, float* y) const;
+    void calculatePoint(float iterator, float *x, float *y) const;
 
     /**
      * Recalculate iterator depending on direction
@@ -476,13 +476,13 @@ private:
      *********************************************************************/
 public:
     /** Add a new fixture to this EFX */
-    bool addFixture(EFXFixture* ef);
+    bool addFixture(EFXFixture *ef);
 
     /** Add the provided fixture id and head to this EFX */
     bool addFixture(quint32 fxi, int head = 0);
 
     /** Remove the designated fixture from this EFX but don't delete it */
-    bool removeFixture(EFXFixture* ef);
+    bool removeFixture(EFXFixture *ef);
 
     bool removeFixture(quint32 fxi, int head);
 
@@ -490,17 +490,17 @@ public:
     void removeAllFixtures();
 
     /** Raise a fixture in the serial order to an earlier position */
-    bool raiseFixture(EFXFixture* ef);
+    bool raiseFixture(EFXFixture *ef);
 
     /** Lower a fixture in the serial order to a later position */
-    bool lowerFixture(EFXFixture* ef);
+    bool lowerFixture(EFXFixture *ef);
 
     /** Get a list of fixtures taking part in this EFX */
-    const QList<EFXFixture*> fixtures() const;
+    const QList<EFXFixture *> fixtures() const;
 
     /** Get an EFXFixture reference from Fixture $id and &headIndex
      *  Returns NULL on failure */
-    EFXFixture* fixture(quint32 id, int headIndex);
+    EFXFixture *fixture(quint32 id, int headIndex);
 
     /** @reimp */
     QList<quint32> components();
@@ -510,7 +510,7 @@ public slots:
     void slotFixtureRemoved(quint32 fxi_id);
 
 private:
-    QList<EFXFixture*> m_fixtures;
+    QList<EFXFixture *> m_fixtures;
 
     /*********************************************************************
      * Fixture propagation mode
@@ -542,13 +542,13 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QXmlStreamWriter* doc);
-    bool loadXML(QXmlStreamReader& root);
+    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root);
     void postLoad();
 
 private:
     /** Load an axis' contents from an XML document*/
-    bool loadXMLAxis(QXmlStreamReader& root);
+    bool loadXMLAxis(QXmlStreamReader &root);
 
     /*********************************************************************
      * Speed
@@ -562,16 +562,16 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe *> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 private:
-    QSharedPointer<GenericFader> getFader(QList<Universe*> universes, quint32 universeID);
+    QSharedPointer<GenericFader> getFader(QList<Universe *> universes, quint32 universeID);
 
     /*********************************************************************
      * Intensity

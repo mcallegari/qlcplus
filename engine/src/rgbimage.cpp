@@ -34,7 +34,7 @@
 #define KXMLQLCRGBImageOffsetX QString("X")
 #define KXMLQLCRGBImageOffsetY QString("Y")
 
-RGBImage::RGBImage(Doc* doc)
+RGBImage::RGBImage(Doc *doc)
     : RGBAlgorithm(doc)
     , m_filename("")
     , m_animatedSource(false)
@@ -44,7 +44,7 @@ RGBImage::RGBImage(Doc* doc)
 {
 }
 
-RGBImage::RGBImage(const RGBImage& i)
+RGBImage::RGBImage(const RGBImage &i)
     : RGBAlgorithm(i.doc())
     , m_filename(i.filename())
     , m_animatedSource(i.animatedSource())
@@ -57,17 +57,17 @@ RGBImage::RGBImage(const RGBImage& i)
 
 RGBImage::~RGBImage() {}
 
-RGBAlgorithm* RGBImage::clone() const
+RGBAlgorithm *RGBImage::clone() const
 {
-    RGBImage* image = new RGBImage(*this);
-    return static_cast<RGBAlgorithm*>(image);
+    RGBImage *image = new RGBImage(*this);
+    return static_cast<RGBAlgorithm *>(image);
 }
 
 /****************************************************************************
  * Image file
  ****************************************************************************/
 
-void RGBImage::setFilename(const QString& filename)
+void RGBImage::setFilename(const QString &filename)
 {
     m_filename = filename;
     reloadImage();
@@ -78,7 +78,7 @@ QString RGBImage::filename() const
     return m_filename;
 }
 
-void RGBImage::setImageData(int width, int height, const QByteArray& pixelData)
+void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
 {
     QMutexLocker locker(&m_mutex);
 
@@ -168,7 +168,7 @@ QString RGBImage::animationStyleToString(RGBImage::AnimationStyle ani)
     }
 }
 
-RGBImage::AnimationStyle RGBImage::stringToAnimationStyle(const QString& str)
+RGBImage::AnimationStyle RGBImage::stringToAnimationStyle(const QString &str)
 {
     if (str == QString("Horizontal"))
         return Horizontal;
@@ -214,7 +214,7 @@ int RGBImage::yOffset() const
  * RGBAlgorithm
  ****************************************************************************/
 
-int RGBImage::rgbMapStepCount(const QSize& size)
+int RGBImage::rgbMapStepCount(const QSize &size)
 {
     QMutexLocker locker(&m_mutex);
 
@@ -233,7 +233,7 @@ int RGBImage::rgbMapStepCount(const QSize& size)
     }
 }
 
-void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap& map)
+void RGBImage::rgbMap(const QSize &size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(rgb);
 
@@ -308,7 +308,7 @@ int RGBImage::acceptColors() const
     return 0;
 }
 
-bool RGBImage::loadXML(QXmlStreamReader& root)
+bool RGBImage::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCRGBAlgorithm)
     {
@@ -366,7 +366,7 @@ bool RGBImage::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool RGBImage::saveXML(QXmlStreamWriter* doc) const
+bool RGBImage::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

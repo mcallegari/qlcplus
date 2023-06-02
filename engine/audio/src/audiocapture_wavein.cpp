@@ -26,7 +26,7 @@
 static HWAVEIN deviceHandle = NULL;
 static WAVEHDR waveHeaders[HEADERS_NUMBER];
 
-AudioCaptureWaveIn::AudioCaptureWaveIn(QObject* parent)
+AudioCaptureWaveIn::AudioCaptureWaveIn(QObject *parent)
     : AudioCapture(parent)
     , m_currentBufferIndex(0)
 {

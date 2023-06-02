@@ -38,21 +38,21 @@ class FixtureTreeWidget : public QTreeWidget
 {
     Q_OBJECT
 public:
-    FixtureTreeWidget(Doc* doc, quint32 flags, QWidget* parent = 0);
+    FixtureTreeWidget(Doc *doc, quint32 flags, QWidget *parent = 0);
 
     void updateTree();
 
     /** Get a QTreeWidgetItem whose fixture ID is $id */
-    QTreeWidgetItem* fixtureItem(quint32 id) const;
+    QTreeWidgetItem *fixtureItem(quint32 id) const;
 
     /** Get a QTreeWidgetItem whose group ID is $id */
-    QTreeWidgetItem* groupItem(quint32 id) const;
+    QTreeWidgetItem *groupItem(quint32 id) const;
 
     /** Update a single fixture's data into a QTreeWidgetItem */
-    void updateFixtureItem(QTreeWidgetItem* item, Fixture* fixture);
+    void updateFixtureItem(QTreeWidgetItem *item, Fixture *fixture);
 
     /** Update a group's data to and under $item */
-    void updateGroupItem(QTreeWidgetItem* item, const FixtureGroup* grp);
+    void updateGroupItem(QTreeWidgetItem *item, const FixtureGroup *grp);
 
     /** Return the number of universes added to the tree during the last
      *  updateTree call */
@@ -70,7 +70,7 @@ protected slots:
     void slotItemExpanded();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     // counters
     int m_universesCount;
@@ -114,10 +114,10 @@ private:
      ****************************************************************************/
 public:
     /** Disable (==prevent selection of) a list of fixtures */
-    void setDisabledFixtures(const QList<quint32>& disabled);
+    void setDisabledFixtures(const QList<quint32> &disabled);
 
     /** Disable (==prevent selection of) a list of heads */
-    void setDisabledHeads(const QList<GroupHead>& disabled);
+    void setDisabledHeads(const QList<GroupHead> &disabled);
 
 private:
     QList<quint32> m_disabledFixtures;

@@ -81,51 +81,51 @@ extern "C"
      * many times for each string. E.G. you might get 10 callbacks for "on_url"
      * each providing just a few characters more data.
      */
-    typedef int (*http_data_cb)(http_parser*, const char* at, size_t length);
-    typedef int (*http_cb)(http_parser*);
+    typedef int (*http_data_cb)(http_parser *, const char *at, size_t length);
+    typedef int (*http_cb)(http_parser *);
 
 
 /* Request Methods */
-#define HTTP_METHOD_MAP(XX)                                                                                            \
-  XX(0, DELETE, DELETE)                                                                                                \
-  XX(1, GET, GET)                                                                                                      \
-  XX(2, HEAD, HEAD)                                                                                                    \
-  XX(3, POST, POST)                                                                                                    \
-  XX(4, PUT, PUT)                                                                                                      \
-  /* pathological */                                                                                                   \
-  XX(5, CONNECT, CONNECT)                                                                                              \
-  XX(6, OPTIONS, OPTIONS)                                                                                              \
-  XX(7, TRACE, TRACE)                                                                                                  \
-  /* WebDAV */                                                                                                         \
-  XX(8, COPY, COPY)                                                                                                    \
-  XX(9, LOCK, LOCK)                                                                                                    \
-  XX(10, MKCOL, MKCOL)                                                                                                 \
-  XX(11, MOVE, MOVE)                                                                                                   \
-  XX(12, PROPFIND, PROPFIND)                                                                                           \
-  XX(13, PROPPATCH, PROPPATCH)                                                                                         \
-  XX(14, SEARCH, SEARCH)                                                                                               \
-  XX(15, UNLOCK, UNLOCK)                                                                                               \
-  XX(16, BIND, BIND)                                                                                                   \
-  XX(17, REBIND, REBIND)                                                                                               \
-  XX(18, UNBIND, UNBIND)                                                                                               \
-  XX(19, ACL, ACL)                                                                                                     \
-  /* subversion */                                                                                                     \
-  XX(20, REPORT, REPORT)                                                                                               \
-  XX(21, MKACTIVITY, MKACTIVITY)                                                                                       \
-  XX(22, CHECKOUT, CHECKOUT)                                                                                           \
-  XX(23, MERGE, MERGE)                                                                                                 \
-  /* upnp */                                                                                                           \
-  XX(24, MSEARCH, M - SEARCH)                                                                                          \
-  XX(25, NOTIFY, NOTIFY)                                                                                               \
-  XX(26, SUBSCRIBE, SUBSCRIBE)                                                                                         \
-  XX(27, UNSUBSCRIBE, UNSUBSCRIBE)                                                                                     \
-  /* RFC-5789 */                                                                                                       \
-  XX(28, PATCH, PATCH)                                                                                                 \
-  XX(29, PURGE, PURGE)                                                                                                 \
-  /* CalDAV */                                                                                                         \
-  XX(30, MKCALENDAR, MKCALENDAR)                                                                                       \
-  /* RFC-2068, section 19.6.1.2 */                                                                                     \
-  XX(31, LINK, LINK)                                                                                                   \
+#define HTTP_METHOD_MAP(XX)        \
+  XX(0, DELETE, DELETE)            \
+  XX(1, GET, GET)                  \
+  XX(2, HEAD, HEAD)                \
+  XX(3, POST, POST)                \
+  XX(4, PUT, PUT)                  \
+  /* pathological */               \
+  XX(5, CONNECT, CONNECT)          \
+  XX(6, OPTIONS, OPTIONS)          \
+  XX(7, TRACE, TRACE)              \
+  /* WebDAV */                     \
+  XX(8, COPY, COPY)                \
+  XX(9, LOCK, LOCK)                \
+  XX(10, MKCOL, MKCOL)             \
+  XX(11, MOVE, MOVE)               \
+  XX(12, PROPFIND, PROPFIND)       \
+  XX(13, PROPPATCH, PROPPATCH)     \
+  XX(14, SEARCH, SEARCH)           \
+  XX(15, UNLOCK, UNLOCK)           \
+  XX(16, BIND, BIND)               \
+  XX(17, REBIND, REBIND)           \
+  XX(18, UNBIND, UNBIND)           \
+  XX(19, ACL, ACL)                 \
+  /* subversion */                 \
+  XX(20, REPORT, REPORT)           \
+  XX(21, MKACTIVITY, MKACTIVITY)   \
+  XX(22, CHECKOUT, CHECKOUT)       \
+  XX(23, MERGE, MERGE)             \
+  /* upnp */                       \
+  XX(24, MSEARCH, M - SEARCH)      \
+  XX(25, NOTIFY, NOTIFY)           \
+  XX(26, SUBSCRIBE, SUBSCRIBE)     \
+  XX(27, UNSUBSCRIBE, UNSUBSCRIBE) \
+  /* RFC-5789 */                   \
+  XX(28, PATCH, PATCH)             \
+  XX(29, PURGE, PURGE)             \
+  /* CalDAV */                     \
+  XX(30, MKCALENDAR, MKCALENDAR)   \
+  /* RFC-2068, section 19.6.1.2 */ \
+  XX(31, LINK, LINK)               \
   XX(32, UNLINK, UNLINK)
 
     enum http_method
@@ -162,44 +162,44 @@ extern "C"
  *
  * The provided argument should be a macro that takes 2 arguments.
  */
-#define HTTP_ERRNO_MAP(XX)                                                                                             \
-  /* No error */                                                                                                       \
-  XX(OK, "success")                                                                                                    \
-                                                                                                                       \
-  /* Callback-related errors */                                                                                        \
-  XX(CB_message_begin, "the on_message_begin callback failed")                                                         \
-  XX(CB_url, "the on_url callback failed")                                                                             \
-  XX(CB_header_field, "the on_header_field callback failed")                                                           \
-  XX(CB_header_value, "the on_header_value callback failed")                                                           \
-  XX(CB_headers_complete, "the on_headers_complete callback failed")                                                   \
-  XX(CB_body, "the on_body callback failed")                                                                           \
-  XX(CB_message_complete, "the on_message_complete callback failed")                                                   \
-  XX(CB_status, "the on_status callback failed")                                                                       \
-  XX(CB_chunk_header, "the on_chunk_header callback failed")                                                           \
-  XX(CB_chunk_complete, "the on_chunk_complete callback failed")                                                       \
-                                                                                                                       \
-  /* Parsing-related errors */                                                                                         \
-  XX(INVALID_EOF_STATE, "stream ended at an unexpected time")                                                          \
-  XX(HEADER_OVERFLOW, "too many header bytes seen; overflow detected")                                                 \
-  XX(CLOSED_CONNECTION, "data received after completed connection: close message")                                     \
-  XX(INVALID_VERSION, "invalid HTTP version")                                                                          \
-  XX(INVALID_STATUS, "invalid HTTP status code")                                                                       \
-  XX(INVALID_METHOD, "invalid HTTP method")                                                                            \
-  XX(INVALID_URL, "invalid URL")                                                                                       \
-  XX(INVALID_HOST, "invalid host")                                                                                     \
-  XX(INVALID_PORT, "invalid port")                                                                                     \
-  XX(INVALID_PATH, "invalid path")                                                                                     \
-  XX(INVALID_QUERY_STRING, "invalid query string")                                                                     \
-  XX(INVALID_FRAGMENT, "invalid fragment")                                                                             \
-  XX(LF_EXPECTED, "LF character expected")                                                                             \
-  XX(INVALID_HEADER_TOKEN, "invalid character in header")                                                              \
-  XX(INVALID_CONTENT_LENGTH, "invalid character in content-length header")                                             \
-  XX(UNEXPECTED_CONTENT_LENGTH, "unexpected content-length header")                                                    \
-  XX(INVALID_CHUNK_SIZE, "invalid character in chunk size header")                                                     \
-  XX(INVALID_CONSTANT, "invalid constant string")                                                                      \
-  XX(INVALID_INTERNAL_STATE, "encountered unexpected internal state")                                                  \
-  XX(STRICT, "strict mode assertion failed")                                                                           \
-  XX(PAUSED, "parser is paused")                                                                                       \
+#define HTTP_ERRNO_MAP(XX)                                                         \
+  /* No error */                                                                   \
+  XX(OK, "success")                                                                \
+                                                                                   \
+  /* Callback-related errors */                                                    \
+  XX(CB_message_begin, "the on_message_begin callback failed")                     \
+  XX(CB_url, "the on_url callback failed")                                         \
+  XX(CB_header_field, "the on_header_field callback failed")                       \
+  XX(CB_header_value, "the on_header_value callback failed")                       \
+  XX(CB_headers_complete, "the on_headers_complete callback failed")               \
+  XX(CB_body, "the on_body callback failed")                                       \
+  XX(CB_message_complete, "the on_message_complete callback failed")               \
+  XX(CB_status, "the on_status callback failed")                                   \
+  XX(CB_chunk_header, "the on_chunk_header callback failed")                       \
+  XX(CB_chunk_complete, "the on_chunk_complete callback failed")                   \
+                                                                                   \
+  /* Parsing-related errors */                                                     \
+  XX(INVALID_EOF_STATE, "stream ended at an unexpected time")                      \
+  XX(HEADER_OVERFLOW, "too many header bytes seen; overflow detected")             \
+  XX(CLOSED_CONNECTION, "data received after completed connection: close message") \
+  XX(INVALID_VERSION, "invalid HTTP version")                                      \
+  XX(INVALID_STATUS, "invalid HTTP status code")                                   \
+  XX(INVALID_METHOD, "invalid HTTP method")                                        \
+  XX(INVALID_URL, "invalid URL")                                                   \
+  XX(INVALID_HOST, "invalid host")                                                 \
+  XX(INVALID_PORT, "invalid port")                                                 \
+  XX(INVALID_PATH, "invalid path")                                                 \
+  XX(INVALID_QUERY_STRING, "invalid query string")                                 \
+  XX(INVALID_FRAGMENT, "invalid fragment")                                         \
+  XX(LF_EXPECTED, "LF character expected")                                         \
+  XX(INVALID_HEADER_TOKEN, "invalid character in header")                          \
+  XX(INVALID_CONTENT_LENGTH, "invalid character in content-length header")         \
+  XX(UNEXPECTED_CONTENT_LENGTH, "unexpected content-length header")                \
+  XX(INVALID_CHUNK_SIZE, "invalid character in chunk size header")                 \
+  XX(INVALID_CONSTANT, "invalid constant string")                                  \
+  XX(INVALID_INTERNAL_STATE, "encountered unexpected internal state")              \
+  XX(STRICT, "strict mode assertion failed")                                       \
+  XX(PAUSED, "parser is paused")                                                   \
   XX(UNKNOWN, "an unknown error occurred")
 
 
@@ -244,7 +244,7 @@ extern "C"
         unsigned int upgrade : 1;
 
         /** PUBLIC **/
-        void* data; /* A pointer to get hook to the "connection" or "socket" object */
+        void *data; /* A pointer to get hook to the "connection" or "socket" object */
     };
 
 
@@ -311,17 +311,17 @@ extern "C"
      */
     unsigned long http_parser_version(void);
 
-    void http_parser_init(http_parser* parser, enum http_parser_type type);
+    void http_parser_init(http_parser *parser, enum http_parser_type type);
 
 
     /* Initialize http_parser_settings members to 0
      */
-    void http_parser_settings_init(http_parser_settings* settings);
+    void http_parser_settings_init(http_parser_settings *settings);
 
 
     /* Executes the parser. Returns number of parsed bytes. Sets
      * `parser->http_errno` on error. */
-    size_t http_parser_execute(http_parser* parser, const http_parser_settings* settings, const char* data, size_t len);
+    size_t http_parser_execute(http_parser *parser, const http_parser_settings *settings, const char *data, size_t len);
 
 
     /* If http_should_keep_alive() in the on_headers_complete or
@@ -330,28 +330,28 @@ extern "C"
      * If you are the server, respond with the "Connection: close" header.
      * If you are the client, close the connection.
      */
-    int http_should_keep_alive(const http_parser* parser);
+    int http_should_keep_alive(const http_parser *parser);
 
     /* Returns a string version of the HTTP method. */
-    const char* http_method_str(enum http_method m);
+    const char *http_method_str(enum http_method m);
 
     /* Return a string name of the given error */
-    const char* http_errno_name(enum http_errno err);
+    const char *http_errno_name(enum http_errno err);
 
     /* Return a string description of the given error */
-    const char* http_errno_description(enum http_errno err);
+    const char *http_errno_description(enum http_errno err);
 
     /* Initialize all http_parser_url members to 0 */
-    void http_parser_url_init(struct http_parser_url* u);
+    void http_parser_url_init(struct http_parser_url *u);
 
     /* Parse a URL; return nonzero on failure */
-    int http_parser_parse_url(const char* buf, size_t buflen, int is_connect, struct http_parser_url* u);
+    int http_parser_parse_url(const char *buf, size_t buflen, int is_connect, struct http_parser_url *u);
 
     /* Pause or un-pause the parser; a nonzero value pauses */
-    void http_parser_pause(http_parser* parser, int paused);
+    void http_parser_pause(http_parser *parser, int paused);
 
     /* Checks if this is the final chunk of the body. */
-    int http_body_is_final(const http_parser* parser);
+    int http_body_is_final(const http_parser *parser);
 
 #ifdef __cplusplus
 }

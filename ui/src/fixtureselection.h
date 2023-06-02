@@ -41,7 +41,7 @@ class FixtureSelection : public QDialog, public Ui_FixtureSelection
     Q_DISABLE_COPY(FixtureSelection)
 
 public:
-    FixtureSelection(QWidget* parent, Doc* doc);
+    FixtureSelection(QWidget *parent, Doc *doc);
     ~FixtureSelection();
 
 public slots:
@@ -49,8 +49,8 @@ public slots:
     int exec();
 
 private:
-    Doc* m_doc;
-    FixtureTreeWidget* m_tree;
+    Doc *m_doc;
+    FixtureTreeWidget *m_tree;
     quint32 m_treeFlags;
 
     /************************************************************************
@@ -93,10 +93,10 @@ private:
      ************************************************************************/
 public:
     /** Disable (==prevent selection of) a list of fixtures */
-    void setDisabledFixtures(const QList<quint32>& disabled);
+    void setDisabledFixtures(const QList<quint32> &disabled);
 
     /** Disable (==prevent selection of) a list of heads */
-    void setDisabledHeads(const QList<GroupHead>& disabled);
+    void setDisabledHeads(const QList<GroupHead> &disabled);
 
     /************************************************************************
      * Tree

@@ -43,7 +43,7 @@ class AudioRendererAlsa : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererAlsa(QString device, QObject* parent = 0);
+    AudioRendererAlsa(QString device, QObject *parent = 0);
     ~AudioRendererAlsa();
 
     /** @reimpl */
@@ -56,7 +56,7 @@ public:
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char* data, qint64 maxSize);
+    qint64 writeAudio(unsigned char *data, qint64 maxSize);
 
     /** @reimpl */
     void drain();
@@ -72,7 +72,7 @@ protected:
 
 private:
     // helper functions
-    long alsa_write(unsigned char* data, long size);
+    long alsa_write(unsigned char *data, long size);
 
     void uninitialize();
 
@@ -80,12 +80,12 @@ private:
     bool m_use_mmap;
 
     // ALSA specific
-    snd_pcm_t* pcm_handle;
-    char* pcm_name;
+    snd_pcm_t *pcm_handle;
+    char *pcm_name;
     snd_pcm_uframes_t m_chunk_size;
     size_t m_bits_per_frame;
     // prebuffer
-    uchar* m_prebuf;
+    uchar *m_prebuf;
     qint64 m_prebuf_size;
     qint64 m_prebuf_fill;
     bool m_can_pause;

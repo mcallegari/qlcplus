@@ -31,7 +31,7 @@ QLCPoint::QLCPoint(int x, int y)
 {
 }
 
-bool QLCPoint::operator<(const QLCPoint& pt) const
+bool QLCPoint::operator<(const QLCPoint &pt) const
 {
     if (y() < pt.y())
         return true;
@@ -41,7 +41,7 @@ bool QLCPoint::operator<(const QLCPoint& pt) const
     return false;
 }
 
-uint qHash(const QLCPoint& key)
+uint qHash(const QLCPoint &key)
 {
     uint hash;
     hash = key.x() << 16;

@@ -49,13 +49,13 @@ class FocusSpinBox : public QSpinBox
     Q_OBJECT
 
 public:
-    FocusSpinBox(QWidget* parent = 0);
+    FocusSpinBox(QWidget *parent = 0);
 
 signals:
     void focusGained();
 
 protected:
-    void focusInEvent(QFocusEvent* event);
+    void focusInEvent(QFocusEvent *event);
 };
 
 /****************************************************************************
@@ -81,7 +81,7 @@ public:
         Infinite = 1 << 7,
     };
 
-    SpeedDial(QWidget* parent);
+    SpeedDial(QWidget *parent);
     ~SpeedDial();
 
     /**
@@ -134,17 +134,17 @@ private slots:
     void slotTapTimeout();
 
 private:
-    QTimer* m_timer;
-    QDial* m_dial;
-    QToolButton* m_plus;
-    QToolButton* m_minus;
-    FocusSpinBox* m_hrs;
-    FocusSpinBox* m_min;
-    FocusSpinBox* m_sec;
-    FocusSpinBox* m_ms;
-    QCheckBox* m_infiniteCheck;
-    QPushButton* m_tap;
-    FocusSpinBox* m_focus;
+    QTimer *m_timer;
+    QDial *m_dial;
+    QToolButton *m_plus;
+    QToolButton *m_minus;
+    FocusSpinBox *m_hrs;
+    FocusSpinBox *m_min;
+    FocusSpinBox *m_sec;
+    FocusSpinBox *m_ms;
+    QCheckBox *m_infiniteCheck;
+    QPushButton *m_tap;
+    FocusSpinBox *m_focus;
 
     int m_previousDialValue;
     bool m_preventSignals;
@@ -152,9 +152,9 @@ private:
     QList<int> m_tapHistory;
 
     bool m_tapTick;
-    QElapsedTimer* m_tapTime;
-    QTimer* m_tapTickTimer;
-    QTimer* m_tapTickElapseTimer;
+    QElapsedTimer *m_tapTime;
+    QTimer *m_tapTickTimer;
+    QTimer *m_tapTickElapseTimer;
 
     /*************************************************************************
      * Elements visibility

@@ -66,27 +66,27 @@ public:
      *************************************************************************/
 public:
     /** Constructor */
-    EFXFixture(const EFX* parent);
+    EFXFixture(const EFX *parent);
 
     /** Destructor */
     ~EFXFixture();
 
     /** Copy contents from another EFXFixture */
-    void copyFrom(const EFXFixture* ef);
+    void copyFrom(const EFXFixture *ef);
 
 private:
     /** The EFX function that this fixture belongs to. */
-    const EFX* const m_parent;
+    const EFX *const m_parent;
 
     /*************************************************************************
      * Public properties
      *************************************************************************/
 public:
     /** Set the Fixture Head that this EFXFixture represents. */
-    void setHead(GroupHead const& head);
+    void setHead(GroupHead const &head);
 
     /** Get the Fixture Head that this EFXFixture represents. */
-    GroupHead const& head() const;
+    GroupHead const &head() const;
 
     /** Set this fixture's initial direction. */
     void setDirection(Function::Direction dir);
@@ -125,7 +125,7 @@ public:
     static QString modeToString(Mode algo);
 
     /** Convert a string to an mode type */
-    static Mode stringToMode(const QString& str);
+    static Mode stringToMode(const QString &str);
 
 private:
     GroupHead m_head;
@@ -138,15 +138,15 @@ private:
      * Load & Save
      *************************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /*************************************************************************
      * Run-time properties
      *************************************************************************/
 private:
     /** Get the master engine instance */
-    const Doc* doc() const;
+    const Doc *doc() const;
 
     /** Set the order number in serial propagation mode */
     void setSerialNumber(int number);
@@ -192,14 +192,14 @@ private:
     void stop();
 
     /** Calculate the next step data for this fixture */
-    void nextStep(QList<Universe*> universes, QSharedPointer<GenericFader> fader);
+    void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader);
 
-    void updateFaderValues(FadeChannel* fc, uchar value);
+    void updateFaderValues(FadeChannel *fc, uchar value);
 
     /** Write this EFXFixture's channel data to universe faders */
-    void setPointPanTilt(QList<Universe*> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
-    void setPointDimmer(QList<Universe*> universes, QSharedPointer<GenericFader> fader, float dimmer);
-    void setPointRGB(QList<Universe*> universes, QSharedPointer<GenericFader> fader, float x, float y);
+    void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
+    void setPointDimmer(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer);
+    void setPointRGB(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y);
 
 private:
     static QImage m_rgbGradient;

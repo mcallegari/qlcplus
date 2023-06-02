@@ -57,21 +57,21 @@ class VirtualConsole : public QWidget
      * Initialization
      *********************************************************************/
 public:
-    VirtualConsole(QWidget* parent, Doc* doc);
+    VirtualConsole(QWidget *parent, Doc *doc);
     ~VirtualConsole();
 
     /** Get the singleton instance */
-    static VirtualConsole* instance();
+    static VirtualConsole *instance();
 
-    Doc* getDoc();
+    Doc *getDoc();
 
 protected:
     /** Create a new widget ID */
     quint32 newWidgetId();
 
 protected:
-    static VirtualConsole* s_instance;
-    Doc* m_doc;
+    static VirtualConsole *s_instance;
+    Doc *m_doc;
 
 private:
     /** Latest assigned widget ID */
@@ -105,13 +105,13 @@ public:
     EditAction editAction() const;
 
     /** Get a list of currently selected widgets */
-    const QList<VCWidget*> selectedWidgets() const;
+    const QList<VCWidget *> selectedWidgets() const;
 
     /** Either select or unselect a widget */
-    void setWidgetSelected(VCWidget* widget, bool selected);
+    void setWidgetSelected(VCWidget *widget, bool selected);
 
     /** Check, whether the given widget is selected */
-    bool isWidgetSelected(VCWidget* widget) const;
+    bool isWidgetSelected(VCWidget *widget) const;
 
     /** Clear the list of selected widgets */
     void clearWidgetSelection();
@@ -121,10 +121,10 @@ public:
 
 protected:
     /** The widgets that are currently selected */
-    QList<VCWidget*> m_selectedWidgets;
+    QList<VCWidget *> m_selectedWidgets;
 
     /** The widgets that are currently either copied or cut */
-    QList<VCWidget*> m_clipboard;
+    QList<VCWidget *> m_clipboard;
 
     /** Indicates, whether the selected widgets should be copied or cut */
     EditAction m_editAction;
@@ -133,10 +133,10 @@ protected:
      * Actions, menu- and toolbar
      *********************************************************************/
 public:
-    QMenu* customMenu() const;
-    QMenu* toolsMenu() const;
-    QMenu* editMenu() const;
-    QMenu* addMenu() const;
+    QMenu *customMenu() const;
+    QMenu *toolsMenu() const;
+    QMenu *editMenu() const;
+    QMenu *addMenu() const;
 
 protected:
     /** Initialize actions */
@@ -152,61 +152,61 @@ protected:
     void updateActions();
 
 protected:
-    QToolBar* m_toolbar;
+    QToolBar *m_toolbar;
 
-    QActionGroup* m_addActionGroup;
-    QActionGroup* m_editActionGroup;
-    QActionGroup* m_bgActionGroup;
-    QActionGroup* m_fgActionGroup;
-    QActionGroup* m_fontActionGroup;
-    QActionGroup* m_frameActionGroup;
-    QActionGroup* m_stackingActionGroup;
+    QActionGroup *m_addActionGroup;
+    QActionGroup *m_editActionGroup;
+    QActionGroup *m_bgActionGroup;
+    QActionGroup *m_fgActionGroup;
+    QActionGroup *m_fontActionGroup;
+    QActionGroup *m_frameActionGroup;
+    QActionGroup *m_stackingActionGroup;
 
-    QAction* m_addButtonAction;
-    QAction* m_addButtonMatrixAction;
-    QAction* m_addSliderAction;
-    QAction* m_addSliderMatrixAction;
-    QAction* m_addKnobAction;
-    QAction* m_addSpeedDialAction;
-    QAction* m_addXYPadAction;
-    QAction* m_addCueListAction;
-    QAction* m_addFrameAction;
-    QAction* m_addSoloFrameAction;
-    QAction* m_addLabelAction;
-    QAction* m_addAudioTriggersAction;
-    QAction* m_addClockAction;
-    QAction* m_addAnimationAction;
+    QAction *m_addButtonAction;
+    QAction *m_addButtonMatrixAction;
+    QAction *m_addSliderAction;
+    QAction *m_addSliderMatrixAction;
+    QAction *m_addKnobAction;
+    QAction *m_addSpeedDialAction;
+    QAction *m_addXYPadAction;
+    QAction *m_addCueListAction;
+    QAction *m_addFrameAction;
+    QAction *m_addSoloFrameAction;
+    QAction *m_addLabelAction;
+    QAction *m_addAudioTriggersAction;
+    QAction *m_addClockAction;
+    QAction *m_addAnimationAction;
 
-    QAction* m_toolsSettingsAction;
+    QAction *m_toolsSettingsAction;
 
-    QAction* m_editCutAction;
-    QAction* m_editCopyAction;
-    QAction* m_editPasteAction;
-    QAction* m_editDeleteAction;
-    QAction* m_editPropertiesAction;
-    QAction* m_editRenameAction;
+    QAction *m_editCutAction;
+    QAction *m_editCopyAction;
+    QAction *m_editPasteAction;
+    QAction *m_editDeleteAction;
+    QAction *m_editPropertiesAction;
+    QAction *m_editRenameAction;
 
-    QAction* m_bgColorAction;
-    QAction* m_bgImageAction;
-    QAction* m_bgDefaultAction;
+    QAction *m_bgColorAction;
+    QAction *m_bgImageAction;
+    QAction *m_bgDefaultAction;
 
-    QAction* m_fgColorAction;
-    QAction* m_fgDefaultAction;
+    QAction *m_fgColorAction;
+    QAction *m_fgDefaultAction;
 
-    QAction* m_fontAction;
-    QAction* m_resetFontAction;
+    QAction *m_fontAction;
+    QAction *m_resetFontAction;
 
-    QAction* m_frameSunkenAction;
-    QAction* m_frameRaisedAction;
-    QAction* m_frameNoneAction;
+    QAction *m_frameSunkenAction;
+    QAction *m_frameRaisedAction;
+    QAction *m_frameNoneAction;
 
-    QAction* m_stackingRaiseAction;
-    QAction* m_stackingLowerAction;
+    QAction *m_stackingRaiseAction;
+    QAction *m_stackingLowerAction;
 
 protected:
-    QMenu* m_customMenu;
-    QMenu* m_editMenu;
-    QMenu* m_addMenu;
+    QMenu *m_customMenu;
+    QMenu *m_editMenu;
+    QMenu *m_addMenu;
 
     /*********************************************************************
      * Add menu callbacks
@@ -217,7 +217,7 @@ private:
      *
      * @return Closest parent VCWidget* that allows children
      */
-    VCWidget* closestParent() const;
+    VCWidget *closestParent() const;
 
     /**
      * If a newly created widget belongs to a multipage frame,
@@ -225,13 +225,13 @@ private:
      * inform the frame of the new addition.
      * This shall be called every time a widget is added in a frame.
      */
-    void connectWidgetToParent(VCWidget* widget, VCWidget* parent);
+    void connectWidgetToParent(VCWidget *widget, VCWidget *parent);
 
     /**
      * If a widget is moved away from a frame (because of
      * a deletion or a cut/paste), this shall be called.
      */
-    void disconnectWidgetFromParent(VCWidget* widget, VCWidget* parent);
+    void disconnectWidgetFromParent(VCWidget *widget, VCWidget *parent);
 
 public slots:
     void slotAddButton();
@@ -308,7 +308,7 @@ public slots:
      *********************************************************************/
 public:
     /** Get a pointer to the dock area that holds the default sliders */
-    VCDockArea* dockArea() const;
+    VCDockArea *dockArea() const;
 
 protected:
     /** Initialize default sliders */
@@ -316,34 +316,34 @@ protected:
 
 protected:
     /** Dock area that holds the default sliders */
-    VCDockArea* m_dockArea;
+    VCDockArea *m_dockArea;
 
     /*********************************************************************
      * Contents
      *********************************************************************/
 public:
     /** Get the Virtual Console's current contents */
-    VCFrame* contents() const;
+    VCFrame *contents() const;
 
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
-    void addWidgetInMap(VCWidget* widget);
-    void setupWidget(VCWidget* widget, VCWidget* parent);
+    void addWidgetInMap(VCWidget *widget);
+    void setupWidget(VCWidget *widget, VCWidget *parent);
 
-    VCWidget* widget(quint32 id);
+    VCWidget *widget(quint32 id);
 
 protected:
     /** Place the contents area to the VC view */
     void initContents();
 
-    QList<VCWidget*> getChildren(VCWidget* obj);
+    QList<VCWidget *> getChildren(VCWidget *obj);
 
 protected:
-    QVBoxLayout* m_contentsLayout;
-    QScrollArea* m_scrollArea;
-    VCFrame* m_contents;
-    QHash<quint32, VCWidget*> m_widgetsMap;
+    QVBoxLayout *m_contentsLayout;
+    QScrollArea *m_scrollArea;
+    VCFrame *m_contents;
+    QHash<quint32, VCWidget *> m_widgetsMap;
 
     /*********************************************************************
      * Key press handler
@@ -351,17 +351,17 @@ protected:
 
 protected:
     /** Handler for keyboard key presse events */
-    void keyPressEvent(QKeyEvent* event);
+    void keyPressEvent(QKeyEvent *event);
 
     /** Handler for keyboard key release events */
-    void keyReleaseEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 signals:
     /** Signal telling that the keySequence was pressed down */
-    void keyPressed(const QKeySequence& keySequence);
+    void keyPressed(const QKeySequence &keySequence);
 
     /** Signal telling that the keySequence was released */
-    void keyReleased(const QKeySequence& keySequence);
+    void keyReleased(const QKeySequence &keySequence);
 
     /*********************************************************************
      * Main application mode
@@ -388,10 +388,10 @@ public slots:
      *********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Do post-load cleanup & checks */
     void postLoad();

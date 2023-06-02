@@ -63,7 +63,7 @@ class VCFrame : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCFrame(Doc* doc = nullptr, VirtualConsole* vc = nullptr, QObject* parent = nullptr);
+    VCFrame(Doc *doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     virtual ~VCFrame();
 
     /** @reimp */
@@ -73,21 +73,21 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    virtual void render(QQuickView* view, QQuickItem* parent);
+    virtual void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
 protected:
     /** Reference to the Virtual Console, used to add new widgets */
-    VirtualConsole* m_vc;
+    VirtualConsole *m_vc;
 
     /*********************************************************************
      * Children
@@ -98,15 +98,15 @@ public:
 
     /** Returns a list of the children widgets with the specified
      *  $recursive method */
-    QList<VCWidget*> children(bool recursive = false);
+    QList<VCWidget *> children(bool recursive = false);
 
     /** Add a new widget of type $wType at position $pos to this frame.
      *  $parent is used only to render the new widget */
-    Q_INVOKABLE void addWidget(QQuickItem* parent, QString wType, QPoint pos);
+    Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
     /** Add an existing widget at position $pos to this frame.
      *  $parent is used only to render the new widget */
-    void addWidget(QQuickItem* parent, VCWidget* widget, QPoint pos);
+    void addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos);
 
     /** Add a matrix of widgets with the specified parameters:
      *
@@ -117,7 +117,7 @@ public:
      *  @param widgetSize the individual widget size in pixel
      *  @param soloFrame the type of Frame to create as container for the widget matrix
      */
-    Q_INVOKABLE void addWidgetMatrix(QQuickItem* parent, QString matrixType, QPoint pos, QSize matrixSize,
+    Q_INVOKABLE void addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos, QSize matrixSize,
                                      QSize widgetSize, bool soloFrame = false);
 
     /** Add a list of widgets previously copied to the VC clipboard
@@ -126,7 +126,7 @@ public:
      *  @param idsList a list of VC widget IDs
      *  @param pos the matrix position within this frame
      */
-    Q_INVOKABLE void addWidgetsFromClipboard(QQuickItem* parent, QVariantList idsList, QPoint pos);
+    Q_INVOKABLE void addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos);
 
     /** Add all the Functions IDs in $idsList at position $pos to this frame.
      *  $keyModifiers determines the type of widget to create:
@@ -134,21 +134,21 @@ public:
      *      Ctrl: VC Cue List (only when dropping Chasers)
      *      None: VC Button
      *  $parent is used only to render the new widget */
-    Q_INVOKABLE void addFunctions(QQuickItem* parent, QVariantList idsList, QPoint pos, int keyModifiers);
+    Q_INVOKABLE void addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers);
 
     /** Delete all the frame children */
     void deleteChildren();
 
     /** Add a child widget to the frame page map */
-    virtual void addWidgetToPageMap(VCWidget* widget);
+    virtual void addWidgetToPageMap(VCWidget *widget);
 
     /** Remove the child $widget from the frame page map */
-    virtual void removeWidgetFromPageMap(VCWidget* widget);
+    virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected:
-    void setupWidget(VCWidget* widget, int page);
+    void setupWidget(VCWidget *widget, int page);
 
-    void checkSubmasterConnection(VCWidget* widget);
+    void checkSubmasterConnection(VCWidget *widget);
 
     /*********************************************************************
      * Disable state
@@ -248,7 +248,7 @@ protected:
 
     /** This holds a map of pages/widgets to be
      *  shown/hidden when page is changed */
-    QMap<VCWidget*, int> m_pagesMap;
+    QMap<VCWidget *, int> m_pagesMap;
 
     /*********************************************************************
      * PIN
@@ -277,7 +277,7 @@ protected:
      * Widget Function
      *********************************************************************/
 protected slots:
-    virtual void slotFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity = 1.0);
+    virtual void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity = 1.0);
 
     /*********************************************************************
      * Submasters
@@ -301,9 +301,9 @@ public slots:
      *********************************************************************/
 
 public:
-    bool loadWidgetXML(QXmlStreamReader& root, bool render = false);
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc);
+    bool loadWidgetXML(QXmlStreamReader &root, bool render = false);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
 protected:
     /** Can be overridden by subclasses */

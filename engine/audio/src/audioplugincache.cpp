@@ -41,7 +41,7 @@
   #include "audiorenderer_qt6.h"
 #endif
 
-AudioPluginCache::AudioPluginCache(QObject* parent)
+AudioPluginCache::AudioPluginCache(QObject *parent)
     : QObject(parent)
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -65,7 +65,7 @@ AudioPluginCache::AudioPluginCache(QObject* parent)
 
 AudioPluginCache::~AudioPluginCache() {}
 
-void AudioPluginCache::load(const QDir& dir)
+void AudioPluginCache::load(const QDir &dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
@@ -82,7 +82,7 @@ void AudioPluginCache::load(const QDir& dir)
         QString path = dir.absoluteFilePath(fileName);
 
         QPluginLoader loader(path, this);
-        AudioDecoder* ptr = qobject_cast<AudioDecoder*>(loader.instance());
+        AudioDecoder *ptr = qobject_cast<AudioDecoder *>(loader.instance());
         if (ptr != NULL)
         {
             qDebug() << "Loaded audio decoder plugin from" << fileName;
@@ -103,7 +103,7 @@ QStringList AudioPluginCache::getSupportedFormats()
     foreach (QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
-        AudioDecoder* ptr = qobject_cast<AudioDecoder*>(loader.instance());
+        AudioDecoder *ptr = qobject_cast<AudioDecoder *>(loader.instance());
         if (ptr != NULL)
         {
             ptr->initialize("");
@@ -115,7 +115,7 @@ QStringList AudioPluginCache::getSupportedFormats()
     return caps;
 }
 
-AudioDecoder* AudioPluginCache::getDecoderForFile(const QString& filename)
+AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
 {
     QFile fn(filename);
     if (fn.exists() == false)
@@ -124,11 +124,11 @@ AudioDecoder* AudioPluginCache::getDecoderForFile(const QString& filename)
     foreach (QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
-        AudioDecoder* ptr = qobject_cast<AudioDecoder*>(loader.instance());
+        AudioDecoder *ptr = qobject_cast<AudioDecoder *>(loader.instance());
         if (ptr != NULL)
         {
             ptr->initialize("");
-            AudioDecoder* copy = qobject_cast<AudioDecoder*>(ptr->createCopy());
+            AudioDecoder *copy = qobject_cast<AudioDecoder *>(ptr->createCopy());
             if (copy->initialize(filename) == false)
             {
                 loader.unload();
@@ -150,7 +150,7 @@ QList<AudioDeviceInfo> AudioPluginCache::audioDevicesList() const
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
 {
-    foreach (const QAudioDeviceInfo& deviceInfo, m_outputDevicesList)
+    foreach (const QAudioDeviceInfo &deviceInfo, m_outputDevicesList)
     {
         if (deviceInfo.deviceName() == devName)
             return deviceInfo;
@@ -161,7 +161,7 @@ QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
 #else
 QAudioDevice AudioPluginCache::getOutputDeviceInfo(QString devName) const
 {
-    foreach (const QAudioDevice& deviceInfo, m_outputDevicesList)
+    foreach (const QAudioDevice &deviceInfo, m_outputDevicesList)
     {
         if (deviceInfo.description() == devName)
             return deviceInfo;

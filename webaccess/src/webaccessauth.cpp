@@ -36,14 +36,14 @@
 #define SALT_LENGTH 32
 #define DEFAULT_PASSWORD_FILE "web_passwd"
 
-WebAccessAuth::WebAccessAuth(const QString& realm)
+WebAccessAuth::WebAccessAuth(const QString &realm)
     : m_passwords()
     , m_realm(realm)
 {
     m_passwordsFile = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(DEFAULT_PASSWORD_FILE);
 }
 
-bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
+bool WebAccessAuth::loadPasswordsFile(const QString &filePath)
 {
     if (!filePath.isEmpty())
         m_passwordsFile = filePath;
@@ -110,7 +110,7 @@ bool WebAccessAuth::savePasswordsFile() const
     return true;
 }
 
-WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpResponse* res) const
+WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest *req, QHttpResponse *res) const
 {
     // Disable authentication when no administrative accounts are proviced
     if (!this->hasAtLeastOneAdmin())
@@ -141,7 +141,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
     return *userIterator;
 }
 
-void WebAccessAuth::addUser(const QString& username, const QString& password, WebAccessUserLevel level)
+void WebAccessAuth::addUser(const QString &username, const QString &password, WebAccessUserLevel level)
 {
     QString salt = this->generateSalt();
     WebAccessUser user(username, this->hashPassword(DEFAULT_PASSWORD_HASH_TYPE, password, salt), level,
@@ -149,7 +149,7 @@ void WebAccessAuth::addUser(const QString& username, const QString& password, We
     m_passwords.insert(username, user);
 }
 
-bool WebAccessAuth::setUserLevel(const QString& username, WebAccessUserLevel level)
+bool WebAccessAuth::setUserLevel(const QString &username, WebAccessUserLevel level)
 {
     QMap<QString, WebAccessUser>::iterator userIt = m_passwords.find(username);
     if (userIt == m_passwords.end())
@@ -160,7 +160,7 @@ bool WebAccessAuth::setUserLevel(const QString& username, WebAccessUserLevel lev
     return true;
 }
 
-void WebAccessAuth::deleteUser(const QString& username)
+void WebAccessAuth::deleteUser(const QString &username)
 {
     m_passwords.remove(username);
 }
@@ -170,7 +170,7 @@ QList<WebAccessUser> WebAccessAuth::getUsers() const
     return m_passwords.values();
 }
 
-void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
+void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse *res) const
 {
     // TODO: Allow for localization of this
     const static QByteArray text = QString("<html>"
@@ -210,7 +210,7 @@ QString WebAccessAuth::generateSalt() const
     return salt;
 }
 
-QString WebAccessAuth::hashPassword(const QString& hashType, const QString& password, const QString& passwordSalt) const
+QString WebAccessAuth::hashPassword(const QString &hashType, const QString &password, const QString &passwordSalt) const
 {
     QString passwordWithSalt = password + passwordSalt;
     QCryptographicHash::Algorithm algorithm = QCryptographicHash::Sha1;
@@ -238,7 +238,7 @@ QString WebAccessAuth::hashPassword(const QString& hashType, const QString& pass
     return QCryptographicHash::hash(passwordWithSalt.toUtf8(), algorithm).toHex();
 }
 
-bool WebAccessAuth::verifyPassword(const QString& password, const WebAccessUser& user) const
+bool WebAccessAuth::verifyPassword(const QString &password, const WebAccessUser &user) const
 {
     return this->hashPassword(user.hashType, password, user.passwordSalt) == user.passwordHash;
 }

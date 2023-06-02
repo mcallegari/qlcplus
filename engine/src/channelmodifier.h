@@ -67,10 +67,10 @@ public:
      *********************************************************************/
 public:
     /** Save the modifier into an XML file */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString &fileName);
 
     /** Load this modifier's content from the given file */
-    QFile::FileError loadXML(const QString& fileName, Type type);
+    QFile::FileError loadXML(const QString &fileName, Type type);
 
 private:
     QString m_name;

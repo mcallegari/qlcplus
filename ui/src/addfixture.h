@@ -55,7 +55,7 @@ public:
      * @param doc QLC engine instance
      * @param fxi Fixture to edit (optional)
      */
-    AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi = NULL);
+    AddFixture(QWidget *parent, const Doc *doc, const Fixture *fxi = NULL);
 
     /** Destructor */
     ~AddFixture();
@@ -65,10 +65,10 @@ public:
      *********************************************************************/
 public:
     /** Get the selected QLCFixtureDef */
-    QLCFixtureDef* fixtureDef() const;
+    QLCFixtureDef *fixtureDef() const;
 
     /** Get the selected QLCFixtureMode */
-    QLCFixtureMode* mode() const;
+    QLCFixtureMode *mode() const;
 
     /** Get the assigned friendly name */
     QString name() const;
@@ -92,9 +92,9 @@ public:
     bool invalidAddress();
 
 protected:
-    const Doc* m_doc;
-    QLCFixtureDef* m_fixtureDef;
-    QLCFixtureMode* m_mode;
+    const Doc *m_doc;
+    QLCFixtureDef *m_fixtureDef;
+    QLCFixtureMode *m_mode;
     quint32 m_fixtureID;
 
     QString m_nameValue;
@@ -112,10 +112,10 @@ protected:
 protected:
     /** Fill all known fixture definitions to the tree view. Select the
         given model from the given manufacturer. */
-    void fillTree(const QString& selectManufacturer, const QString& selectModel);
+    void fillTree(const QString &selectManufacturer, const QString &selectModel);
 
     /** Fill all modes of the current fixture to the mode combo */
-    void fillModeCombo(const QString& text = QString());
+    void fillModeCombo(const QString &text = QString());
 
     /** Find the next free address space for current fixture selection,
         amount and address gap. Sets the address to address spin. */
@@ -130,7 +130,7 @@ protected:
      * @param numChannels Number of channels in the address space
      * @return The address or QLCChannel::invalid() if not found
      */
-    static quint32 findAddress(quint32 numChannels, QList<Fixture*> const& fixtures, quint32 maxUniverses);
+    static quint32 findAddress(quint32 numChannels, QList<Fixture *> const &fixtures, quint32 maxUniverses);
 
     /**
      * Try to find the next free address from the given universe for
@@ -143,7 +143,7 @@ protected:
      * @param currentFixture ID of current fixture, that will be ignored
      * @return An address or QLCChannel::invalid() if address space not available
      */
-    static quint32 findAddress(quint32 universe, quint32 numChannels, QList<Fixture*> const& fixtures,
+    static quint32 findAddress(quint32 universe, quint32 numChannels, QList<Fixture *> const &fixtures,
                                quint32 currentFixture = Fixture::invalidId());
 
     /** Update the maximum amount of fixtures for the universe */
@@ -162,7 +162,7 @@ protected:
      *********************************************************************/
 protected slots:
     /** Callback for mode selection changes */
-    void slotModeActivated(const QString& modeName);
+    void slotModeActivated(const QString &modeName);
 
     /** Callback for universe combo activations */
     void slotUniverseActivated(int universe);
@@ -177,10 +177,10 @@ protected slots:
     void slotSelectionChanged();
 
     /** Callback for tree double clicks (same as select + OK) */
-    void slotTreeDoubleClicked(QTreeWidgetItem* item);
+    void slotTreeDoubleClicked(QTreeWidgetItem *item);
 
     /** Callback for friendly name editing */
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
 
     /** Callback for fixture amount value changes */
     void slotAmountSpinChanged(int value);

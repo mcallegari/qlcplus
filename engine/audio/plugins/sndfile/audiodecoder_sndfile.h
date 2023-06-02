@@ -50,13 +50,13 @@ public:
     virtual ~AudioDecoderSndFile();
 
     /** @reimpl */
-    AudioDecoder* createCopy();
+    AudioDecoder *createCopy();
 
     /** @reimp */
     int priority() const;
 
     /** @reimp */
-    bool initialize(const QString& path);
+    bool initialize(const QString &path);
 
     /** @reimp */
     qint64 totalTime();
@@ -65,7 +65,7 @@ public:
     int bitrate();
 
     /** @reimp */
-    qint64 read(char* audio, qint64 maxSize);
+    qint64 read(char *audio, qint64 maxSize);
 
     /** @reimp */
     void seek(qint64 time);
@@ -74,7 +74,7 @@ public:
     QStringList supportedFormats();
 
 private:
-    SNDFILE* m_sndfile;
+    SNDFILE *m_sndfile;
     int m_bitrate;
     quint32 m_freq;
     qint64 m_totalTime;

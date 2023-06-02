@@ -42,7 +42,7 @@
  * Initialization
  *****************************************************************************/
 
-VCXYPadFixture::VCXYPadFixture(Doc* doc)
+VCXYPadFixture::VCXYPadFixture(Doc *doc)
     : m_doc(doc)
     , m_head()
     , m_xMin(0)
@@ -65,7 +65,7 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc)
     precompute();
 }
 
-VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
+VCXYPadFixture::VCXYPadFixture(Doc *doc, const QVariant &variant)
     : m_doc(doc)
 {
     Q_ASSERT(m_doc != NULL);
@@ -118,14 +118,14 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
     }
 }
 
-VCXYPadFixture::VCXYPadFixture(const VCXYPadFixture& other)
+VCXYPadFixture::VCXYPadFixture(const VCXYPadFixture &other)
 {
     *this = other;
 }
 
 VCXYPadFixture::~VCXYPadFixture() {}
 
-VCXYPadFixture& VCXYPadFixture::operator=(const VCXYPadFixture& fxi)
+VCXYPadFixture &VCXYPadFixture::operator=(const VCXYPadFixture &fxi)
 {
     m_doc = fxi.m_doc;
     Q_ASSERT(m_doc != NULL);
@@ -156,7 +156,7 @@ VCXYPadFixture& VCXYPadFixture::operator=(const VCXYPadFixture& fxi)
     return *this;
 }
 
-bool VCXYPadFixture::operator==(const VCXYPadFixture& fxi) const
+bool VCXYPadFixture::operator==(const VCXYPadFixture &fxi) const
 {
     if (m_head == fxi.m_head)
         return true;
@@ -189,19 +189,19 @@ VCXYPadFixture::operator QVariant() const
  * Fixture
  ****************************************************************************/
 
-void VCXYPadFixture::setHead(GroupHead const& head)
+void VCXYPadFixture::setHead(GroupHead const &head)
 {
     m_head = head;
 }
 
-GroupHead const& VCXYPadFixture::head() const
+GroupHead const &VCXYPadFixture::head() const
 {
     return m_head;
 }
 
 QRectF VCXYPadFixture::degreesRange() const
 {
-    Fixture* fxi = m_doc->fixture(m_head.fxi);
+    Fixture *fxi = m_doc->fixture(m_head.fxi);
     if (fxi == NULL)
     {
         return QRectF();
@@ -217,7 +217,7 @@ QString VCXYPadFixture::name() const
     if (!m_head.isValid())
         return QString();
 
-    Fixture* fxi = m_doc->fixture(m_head.fxi);
+    Fixture *fxi = m_doc->fixture(m_head.fxi);
     if (fxi == NULL)
         return QString();
 
@@ -379,7 +379,7 @@ VCXYPadFixture::DisplayMode VCXYPadFixture::displayMode() const
  * Load & Save
  ****************************************************************************/
 
-bool VCXYPadFixture::loadXML(QXmlStreamReader& root)
+bool VCXYPadFixture::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCXYPadFixture)
     {
@@ -434,7 +434,7 @@ bool VCXYPadFixture::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCXYPadFixture::saveXML(QXmlStreamWriter* doc) const
+bool VCXYPadFixture::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -477,7 +477,7 @@ bool VCXYPadFixture::saveXML(QXmlStreamWriter* doc) const
 
 void VCXYPadFixture::arm()
 {
-    Fixture* fxi = m_doc->fixture(m_head.fxi);
+    Fixture *fxi = m_doc->fixture(m_head.fxi);
     if (fxi == NULL)
     {
         m_xMSB = QLCChannel::invalid();
@@ -523,7 +523,7 @@ quint32 VCXYPadFixture::universe() const
     return m_universe;
 }
 
-void VCXYPadFixture::updateChannel(FadeChannel* fc, uchar value)
+void VCXYPadFixture::updateChannel(FadeChannel *fc, uchar value)
 {
     fc->setStart(value);
     fc->setCurrent(value);
@@ -532,7 +532,7 @@ void VCXYPadFixture::updateChannel(FadeChannel* fc, uchar value)
     fc->setReady(false);
 }
 
-void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFader> fader, Universe* universe)
+void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFader> fader, Universe *universe)
 {
     if (m_xMSB == QLCChannel::invalid() || m_yMSB == QLCChannel::invalid())
         return;
@@ -543,7 +543,7 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFade
     ushort x = floor(m_xRange * xmul + m_xOffset + 0.5);
     ushort y = floor(m_yRange * ymul + m_yOffset + 0.5);
 
-    FadeChannel* fc = fader->getChannelFader(m_doc, universe, m_head.fxi, m_xMSB);
+    FadeChannel *fc = fader->getChannelFader(m_doc, universe, m_head.fxi, m_xMSB);
     updateChannel(fc, uchar(x >> 8));
 
     fc = fader->getChannelFader(m_doc, universe, m_head.fxi, m_yMSB);
@@ -559,7 +559,7 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFade
     }
 }
 
-void VCXYPadFixture::readDMX(const QByteArray& universeData, qreal& xmul, qreal& ymul)
+void VCXYPadFixture::readDMX(const QByteArray &universeData, qreal &xmul, qreal &ymul)
 {
     xmul = -1;
     ymul = -1;

@@ -37,7 +37,7 @@ class AudioEditor : public FunctionEditor
     Q_PROPERTY(int cardLineIndex READ cardLineIndex WRITE setCardLineIndex NOTIFY cardLineIndexChanged)
 
 public:
-    AudioEditor(QQuickView* view, Doc* doc, QObject* parent = 0);
+    AudioEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     /** Set the ID of the Audio being edited */
     void setFunctionID(quint32 ID);
@@ -73,7 +73,7 @@ signals:
 
 private:
     /** Reference of the Audio currently being edited */
-    Audio* m_audio;
+    Audio *m_audio;
 };
 
 #endif // AUDIOEDITOR_H

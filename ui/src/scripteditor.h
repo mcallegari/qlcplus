@@ -46,13 +46,13 @@ class ScriptEditor : public QWidget, public Ui_ScriptEditor
      * Initialization
      ************************************************************************/
 public:
-    ScriptEditor(QWidget* parent, Script* script, Doc* doc);
+    ScriptEditor(QWidget *parent, Script *script, Doc *doc);
     ~ScriptEditor();
 
 private:
-    QTextDocument* m_document;
-    Script* m_script;
-    Doc* m_doc;
+    QTextDocument *m_document;
+    Script *m_script;
+    Doc *m_doc;
     QString m_lastUsedPath;
 
     /************************************************************************
@@ -63,7 +63,7 @@ private:
     QString getFilePath();
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotContentsChanged();
     void slotFunctionStopped(quint32 id);
 
@@ -85,19 +85,19 @@ private:
     FunctionParent functionParent() const;
 
 private:
-    QAction* m_addStartFunctionAction;
-    QAction* m_addStopFunctionAction;
-    QAction* m_addBlackoutAction;
-    QAction* m_addWaitAction;
-    QAction* m_addWaitKeyAction;
-    QAction* m_addSetHtpAction;
-    QAction* m_addSetLtpAction;
-    QAction* m_addSetFixtureAction;
-    QAction* m_addSystemCommandAction;
-    QAction* m_addCommentAction;
-    QAction* m_addRandomAction;
-    QAction* m_addFilePathAction;
-    QMenu* m_addMenu;
+    QAction *m_addStartFunctionAction;
+    QAction *m_addStopFunctionAction;
+    QAction *m_addBlackoutAction;
+    QAction *m_addWaitAction;
+    QAction *m_addWaitKeyAction;
+    QAction *m_addSetHtpAction;
+    QAction *m_addSetLtpAction;
+    QAction *m_addSetFixtureAction;
+    QAction *m_addSystemCommandAction;
+    QAction *m_addCommentAction;
+    QAction *m_addRandomAction;
+    QAction *m_addFilePathAction;
+    QMenu *m_addMenu;
 
     /************************************************************************
      * Test execution

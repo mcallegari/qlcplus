@@ -161,11 +161,11 @@ void Fixture_Test::type()
     QCOMPARE(fxi.type(), QLCFixtureDef::Dimmer);
     QCOMPARE(fxi.iconResource(), QString(":/dimmer.png"));
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     QVERIFY(fixtureDef != NULL);
 
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     QVERIFY(fixtureMode != NULL);
 
@@ -289,7 +289,7 @@ void Fixture_Test::dimmer()
     fxi.setChannels(5);
     QVERIFY(fxi.channels() == 5);
     QVERIFY(fxi.channel(0) != NULL);
-    const QLCChannel* ch = fxi.channel(0);
+    const QLCChannel *ch = fxi.channel(0);
     QVERIFY(fxi.channel(1) != fxi.channel(0));
     QVERIFY(fxi.channel(2) != fxi.channel(1));
     QVERIFY(fxi.channel(3) != fxi.channel(2));
@@ -312,8 +312,8 @@ void Fixture_Test::rgbPanel()
 {
     Fixture fxi(this);
     fxi.setName("RGB Panel");
-    QLCFixtureDef* rowDef = fxi.genericRGBPanelDef(10, Fixture::RGBW);
-    QLCFixtureMode* rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGBW, 1000, 100);
+    QLCFixtureDef *rowDef = fxi.genericRGBPanelDef(10, Fixture::RGBW);
+    QLCFixtureMode *rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGBW, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
     QVERIFY(fxi.channels() == 40);
@@ -461,7 +461,7 @@ void Fixture_Test::fixtureDef()
     QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
     QCOMPARE(fxi.masterIntensityChannel(), QLCChannel::invalid());
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC300");
     Q_ASSERT(fixtureDef != NULL);
 
@@ -469,7 +469,7 @@ void Fixture_Test::fixtureDef()
     QVERIFY(fxi.fixtureDef() == NULL);
     QVERIFY(fxi.fixtureMode() == NULL);
 
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().last();
     Q_ASSERT(fixtureMode != NULL);
 
@@ -488,7 +488,7 @@ void Fixture_Test::fixtureDef()
     QVERIFY(fxi.channel(fxi.channels()) == NULL);
 
     QVERIFY(fxi.channel(QLCChannel::Pan) != QLCChannel::invalid());
-    const QLCChannel* ch = fxi.channel(fxi.channel(QLCChannel::Pan));
+    const QLCChannel *ch = fxi.channel(fxi.channel(QLCChannel::Pan));
     QVERIFY(ch != NULL);
 
     QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(7));
@@ -503,9 +503,9 @@ void Fixture_Test::fixtureDef()
 void Fixture_Test::channels()
 {
     Fixture fxi(this);
-    QLCFixtureDef* fixtureDef = m_doc->fixtureDefCache()->fixtureDef("i-Pix", "BB4");
+    QLCFixtureDef *fixtureDef = m_doc->fixtureDefCache()->fixtureDef("i-Pix", "BB4");
     QVERIFY(fixtureDef != NULL);
-    QLCFixtureMode* fixtureMode = fixtureDef->modes().last();
+    QLCFixtureMode *fixtureMode = fixtureDef->modes().last();
     QVERIFY(fixtureMode != NULL);
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
 
@@ -528,11 +528,11 @@ void Fixture_Test::degrees()
 {
     Fixture fxi(this);
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     QVERIFY(fixtureDef != NULL);
 
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(1);
     QVERIFY(fixtureMode != NULL);
 
@@ -571,11 +571,11 @@ void Fixture_Test::heads()
 {
     Fixture fxi(this);
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Equinox", "Photon");
     QVERIFY(fixtureDef != NULL);
 
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().last();
     QVERIFY(fixtureMode != NULL);
 
@@ -848,7 +848,7 @@ void Fixture_Test::loader()
     QVERIFY(m_doc->fixtures().size() == 1);
     QVERIFY(m_doc->fixture(0) == NULL); // No ID auto-assignment
 
-    Fixture* fxi = m_doc->fixture(42);
+    Fixture *fxi = m_doc->fixture(42);
     QVERIFY(fxi != NULL);
     QVERIFY(fxi->name() == "Foobar");
     QVERIFY(fxi->channels() == 18);
@@ -860,11 +860,11 @@ void Fixture_Test::loader()
 
 void Fixture_Test::save()
 {
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     Q_ASSERT(fixtureDef != NULL);
 
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
@@ -979,11 +979,11 @@ void Fixture_Test::status()
     fxi.setChannels(12);
     info = fxi.status();
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     Q_ASSERT(fixtureDef != NULL);
 
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 

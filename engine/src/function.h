@@ -153,7 +153,7 @@ public:
      *********************************************************************/
 public:
     /** Create a new function instance with the given QObject parent. */
-    Function(QObject* parent = 0);
+    Function(QObject *parent = 0);
 
     /**
      * Create a new function
@@ -161,7 +161,7 @@ public:
      * @param doc The parent object that owns this function (Doc)
      * @param t The function type (see enum Type)
      */
-    Function(Doc* doc, Type t);
+    Function(Doc *doc, Type t);
 
     /**
      * Destroy this function
@@ -169,7 +169,7 @@ public:
     virtual ~Function();
 
     /** Get the parent Doc object */
-    Doc* doc() const;
+    Doc *doc() const;
 
 signals:
     /** Signal telling that the contents of this function have changed */
@@ -187,7 +187,7 @@ public:
      * @param addToDoc enable/disable addition of the function copy to Doc
      * @return The newly-created function or NULL in case of an error
      */
-    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
+    virtual Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /**
      * Copy this function's contents from the given function. Finally emits
@@ -197,7 +197,7 @@ public:
      * @param function The function to copy from
      * @return true if successful, otherwise false
      */
-    virtual bool copyFrom(const Function* function);
+    virtual bool copyFrom(const Function *function);
 
     /*********************************************************************
      * ID
@@ -232,7 +232,7 @@ public:
      *
      * @param name The function's new name
      */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /**
      * Return the name of this function
@@ -272,7 +272,7 @@ public:
      *
      * @param str The string to convert
      */
-    static Type stringToType(const QString& str);
+    static Type stringToType(const QString &str);
 
     /** Virtual method to retrieve a QIcon based on a Function type.
      * Subclasses should reimplement this */
@@ -312,7 +312,7 @@ private:
      *********************************************************************/
 protected:
     /** Save function's common attributes in $doc, under $root */
-    bool saveXMLCommon(QXmlStreamWriter* doc) const;
+    bool saveXMLCommon(QXmlStreamWriter *doc) const;
 
     /*********************************************************************
      * Running order
@@ -335,7 +335,7 @@ public:
      *
      * @param dir This function's running order
      */
-    void setRunOrder(const Function::RunOrder& order);
+    void setRunOrder(const Function::RunOrder &order);
 
     /**
      * Get this function's running order
@@ -347,21 +347,21 @@ public:
      *
      * @param order RunOrder to convert
      */
-    static QString runOrderToString(const Function::RunOrder& order);
+    static QString runOrderToString(const Function::RunOrder &order);
 
     /**
      * Convert a string to RunOrder
      *
      * @param str The string to convert
      */
-    static Function::RunOrder stringToRunOrder(const QString& str);
+    static Function::RunOrder stringToRunOrder(const QString &str);
 
 protected:
     /** Save function's running order in $doc */
-    bool saveXMLRunOrder(QXmlStreamWriter* doc) const;
+    bool saveXMLRunOrder(QXmlStreamWriter *doc) const;
 
     /** Load function's direction from $root */
-    bool loadXMLRunOrder(QXmlStreamReader& root);
+    bool loadXMLRunOrder(QXmlStreamReader &root);
 
 signals:
     void runOrderChanged();
@@ -388,7 +388,7 @@ public:
      *
      * @param dir This function's direction
      */
-    void setDirection(const Function::Direction& dir);
+    void setDirection(const Function::Direction &dir);
 
     /**
      * Get this function's direction
@@ -400,21 +400,21 @@ public:
      *
      * @param dir Direction to convert
      */
-    static QString directionToString(const Function::Direction& dir);
+    static QString directionToString(const Function::Direction &dir);
 
     /**
      * Convert a string to Direction
      *
      * @param str The string to convert
      */
-    static Function::Direction stringToDirection(const QString& str);
+    static Function::Direction stringToDirection(const QString &str);
 
 protected:
     /** Save function's direction in $doc */
-    bool saveXMLDirection(QXmlStreamWriter* doc) const;
+    bool saveXMLDirection(QXmlStreamWriter *doc) const;
 
     /** Load function's direction from $root */
-    bool loadXMLDirection(QXmlStreamReader& root);
+    bool loadXMLDirection(QXmlStreamReader &root);
 
 private:
     Direction m_direction;
@@ -448,7 +448,7 @@ public:
      *
      * @param type the speed type
      */
-    void setTempoType(const Function::TempoType& type);
+    void setTempoType(const Function::TempoType &type);
 
     /**
      * Get the Function current speed type
@@ -460,14 +460,14 @@ public:
      *
      * @param type Tempo type to convert
      */
-    static QString tempoTypeToString(const Function::TempoType& type);
+    static QString tempoTypeToString(const Function::TempoType &type);
 
     /**
      * Convert a string to a tempo type
      *
      * @param str The string to convert
      */
-    static Function::TempoType stringToTempoType(const QString& str);
+    static Function::TempoType stringToTempoType(const QString &str);
 
     /** Convert a time value in milliseconds to a beat value */
     static uint timeToBeats(uint time, int beatDuration);
@@ -566,10 +566,10 @@ signals:
 
 protected:
     /** Load the contents of a speed node */
-    bool loadXMLSpeed(QXmlStreamReader& speedRoot);
+    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
 
     /** Save function's speed values in $doc */
-    bool saveXMLSpeed(QXmlStreamWriter* doc) const;
+    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
 
 private:
     uint m_fadeInSpeed;
@@ -613,7 +613,7 @@ public:
      *
      * @param doc The XML document to save to
      */
-    virtual bool saveXML(QXmlStreamWriter* doc);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
     /**
      * Read this function's contents from an XML document
@@ -621,7 +621,7 @@ public:
      * @param doc An XML document to load from
      * @param root An XML root element of a function
      */
-    virtual bool loadXML(QXmlStreamReader& root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /**
      * Load a new function from an XML tag and add it to the given doc
@@ -631,7 +631,7 @@ public:
      * @param doc The QLC document object, that owns all functions
      * @return true if successful, otherwise false
      */
-    static bool loader(QXmlStreamReader& root, Doc* doc);
+    static bool loader(QXmlStreamReader &root, Doc *doc);
 
     /**
      * Called for each Function-based object after everything has been loaded.
@@ -657,10 +657,10 @@ public:
      *********************************************************************/
 public:
     /** Flash the function */
-    virtual void flash(MasterTimer* timer);
+    virtual void flash(MasterTimer *timer);
 
     /** UnFlash the function */
-    virtual void unFlash(MasterTimer* timer);
+    virtual void unFlash(MasterTimer *timer);
 
     /** Check, whether the function is flashing */
     virtual bool flashing() const;
@@ -692,7 +692,7 @@ public:
      * @param timer The MasterTimer instance that takes care of running
      *              the function in correct intervals.
      */
-    virtual void preRun(MasterTimer* timer);
+    virtual void preRun(MasterTimer *timer);
 
     /**
      * Write next values to universes. This method is called periodically
@@ -709,7 +709,7 @@ public:
      * @param timer The MasterTimer that is running the function
      * @param universes The DMX universe buffer to write values into
      */
-    virtual void write(MasterTimer* timer, QList<Universe*> universes);
+    virtual void write(MasterTimer *timer, QList<Universe *> universes);
 
     /**
      * Called by MasterTimer when the function is stopped. No more write()
@@ -724,7 +724,7 @@ public:
      * @param timer The MasterTimer that has stopped running the function
      * @param universes Universe buffer to write the function's exit data
      */
-    virtual void postRun(MasterTimer* timer, QList<Universe*> universes);
+    virtual void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 protected:
     /** Helper method to dismiss all the faders previously added to
@@ -799,7 +799,7 @@ public:
      * @param overrideDuration Override the function's default duration
      * @param overrideTempoType Override the tempo type of the function
      */
-    void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0, uint overrideFadeIn = defaultSpeed(),
+    void start(MasterTimer *timer, FunctionParent parent, quint32 startTime = 0, uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(), uint overrideDuration = defaultSpeed(),
                TempoType overrideTempoType = Original);
 

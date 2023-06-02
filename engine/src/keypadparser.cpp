@@ -25,7 +25,7 @@
 
 KeyPadParser::KeyPadParser() {}
 
-QList<SceneValue> KeyPadParser::parseCommand(Doc* doc, QString command, QByteArray& uniData)
+QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArray &uniData)
 {
     QList<SceneValue> values;
     if (doc == NULL)

@@ -39,7 +39,7 @@
  * Initialization
  *****************************************************************************/
 
-VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& properties, InputOutputMap* ioMap)
+VCPropertiesEditor::VCPropertiesEditor(QWidget *parent, const VCProperties &properties, InputOutputMap *ioMap)
     : QDialog(parent)
     , m_ioMap(ioMap)
 {
@@ -47,7 +47,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
 
     setupUi(this);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -384,7 +384,8 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
 
     if (m_ioMap->inputSourceNames(QSharedPointer<QLCInputSource>(new QLCInputSource(
                                       m_properties.grandMasterInputUniverse(), m_properties.grandMasterInputChannel())),
-                                  uniName, chName) == true)
+                                  uniName, chName)
+        == true)
     {
         /* Display the gathered information */
         m_gmInputUniverseEdit->setText(uniName);

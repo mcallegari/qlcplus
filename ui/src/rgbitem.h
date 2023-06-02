@@ -30,14 +30,14 @@
 class RGBItem
 {
 public:
-    RGBItem(QAbstractGraphicsShapeItem* graphicsItem);
+    RGBItem(QAbstractGraphicsShapeItem *graphicsItem);
 
     void setColor(QRgb rgb);
     QRgb color() const;
 
     void draw(uint elapsedMs, uint targetMs);
 
-    QAbstractGraphicsShapeItem* graphicsItem() const;
+    QAbstractGraphicsShapeItem *graphicsItem() const;
 
 private:
     QColor m_color;

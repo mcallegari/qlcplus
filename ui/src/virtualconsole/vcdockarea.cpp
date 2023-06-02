@@ -29,7 +29,7 @@
 #include "vcproperties.h"
 #include "vcdockarea.h"
 
-VCDockArea::VCDockArea(QWidget* parent, InputOutputMap* ioMap)
+VCDockArea::VCDockArea(QWidget *parent, InputOutputMap *ioMap)
     : QFrame(parent)
 {
     Q_ASSERT(ioMap != NULL);

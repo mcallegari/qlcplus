@@ -29,7 +29,7 @@
 #include "doc.h"
 
 
-VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc* doc)
+VCFrameProperties::VCFrameProperties(QWidget *parent, VCFrame *frame, Doc *doc)
     : QDialog(parent)
     , m_frame(frame)
     , m_doc(doc)
@@ -96,7 +96,7 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc* doc)
     /************************************************************************
      * Page shortcuts
      ************************************************************************/
-    foreach (VCFramePageShortcut const* shortcut, m_frame->shortcuts())
+    foreach (VCFramePageShortcut const *shortcut, m_frame->shortcuts())
     {
         m_shortcuts.append(new VCFramePageShortcut(*shortcut));
         m_pageCombo->addItem(shortcut->name());
@@ -126,7 +126,7 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc* doc)
 
 VCFrameProperties::~VCFrameProperties()
 {
-    foreach (VCFramePageShortcut* shortcut, m_shortcuts)
+    foreach (VCFramePageShortcut *shortcut, m_shortcuts)
     {
         delete shortcut;
     }
@@ -193,8 +193,8 @@ void VCFrameProperties::slotPageNameEditingFinished()
     int index = m_pageCombo->currentIndex();
     m_shortcuts[index]->setName(m_pageName->text());
     m_pageCombo->setItemText(index, m_shortcuts[index]->name());
-    // m_pageCombo->setItemText(index, tr("Page %1").arg(index + 1) + (m_pageName->text() != "" ? (" - " +
-    // m_pageName->text()) : ""));
+    // m_pageCombo->setItemText(index, tr("Page %1").arg(index + 1) + (m_pageName->text() != "" ? ("
+    // - " + m_pageName->text()) : ""));
 }
 
 void VCFrameProperties::slotTotalPagesNumberChanged(int number)
@@ -205,7 +205,7 @@ void VCFrameProperties::slotTotalPagesNumberChanged(int number)
     if (number < m_shortcuts.count())
     {
         m_pageCombo->removeItem(m_shortcuts.count() - 1);
-        VCFramePageShortcut* sc = m_shortcuts.takeLast();
+        VCFramePageShortcut *sc = m_shortcuts.takeLast();
         delete sc;
     }
     else
@@ -221,7 +221,7 @@ void VCFrameProperties::slotInputValueChanged(quint32 universe, quint32 channel)
     Q_UNUSED(universe);
     Q_UNUSED(channel);
 
-    VCFramePageShortcut* shortcut = m_shortcuts[m_pageCombo->currentIndex()];
+    VCFramePageShortcut *shortcut = m_shortcuts[m_pageCombo->currentIndex()];
 
     if (shortcut != NULL)
         shortcut->m_inputSource = m_shortcutInputWidget->inputSource();
@@ -229,7 +229,7 @@ void VCFrameProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 
 void VCFrameProperties::slotKeySequenceChanged(QKeySequence key)
 {
-    VCFramePageShortcut* shortcut = m_shortcuts[m_pageCombo->currentIndex()];
+    VCFramePageShortcut *shortcut = m_shortcuts[m_pageCombo->currentIndex()];
 
     if (shortcut != NULL)
         shortcut->m_keySequence = key;
@@ -248,7 +248,7 @@ void VCFrameProperties::accept()
      * all the children widgets must be moved down */
     if (m_showHeaderCheck->isChecked() && hasHeader == false)
     {
-        QListIterator<VCWidget*> it(m_frame->findChildren<VCWidget*>());
+        QListIterator<VCWidget *> it(m_frame->findChildren<VCWidget *>());
 
         // resize the frame too if it contains children
         if (it.hasNext())
@@ -256,7 +256,7 @@ void VCFrameProperties::accept()
 
         while (it.hasNext() == true)
         {
-            VCWidget* child = it.next();
+            VCWidget *child = it.next();
 
             // move only first level children
             if (child->parentWidget() == m_frame)

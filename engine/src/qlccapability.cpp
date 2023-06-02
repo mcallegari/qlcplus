@@ -34,7 +34,7 @@
  * Initialization
  ************************************************************************/
 
-QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject* parent)
+QLCCapability::QLCCapability(uchar min, uchar max, const QString &name, QObject *parent)
     : QObject(parent)
     , m_preset(Custom)
     , m_min(min)
@@ -44,9 +44,9 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject*
 {
 }
 
-QLCCapability* QLCCapability::createCopy()
+QLCCapability *QLCCapability::createCopy()
 {
-    QLCCapability* copy = new QLCCapability(m_min, m_max, m_name);
+    QLCCapability *copy = new QLCCapability(m_min, m_max, m_name);
     copy->setWarning(m_warning);
     copy->setPreset(preset());
     for (int i = 0; i < m_resources.count(); i++)
@@ -59,7 +59,7 @@ QLCCapability* QLCCapability::createCopy()
 
 QLCCapability::~QLCCapability() {}
 
-bool QLCCapability::operator<(const QLCCapability& capability) const
+bool QLCCapability::operator<(const QLCCapability &capability) const
 {
     if (m_min < capability.m_min)
         return true;
@@ -73,7 +73,7 @@ QString QLCCapability::presetToString(QLCCapability::Preset preset)
     return staticMetaObject.enumerator(index).valueToKey(preset);
 }
 
-QLCCapability::Preset QLCCapability::stringToPreset(const QString& preset)
+QLCCapability::Preset QLCCapability::stringToPreset(const QString &preset)
 {
     int index = staticMetaObject.indexOfEnumerator("Preset");
     return Preset(staticMetaObject.enumerator(index).keyToValue(preset.toStdString().c_str()));
@@ -191,7 +191,7 @@ QString QLCCapability::name() const
     return m_name;
 }
 
-void QLCCapability::setName(const QString& name)
+void QLCCapability::setName(const QString &name)
 {
     if (m_name == name)
         return;
@@ -237,7 +237,7 @@ QVariantList QLCCapability::resources()
     return m_resources;
 }
 
-bool QLCCapability::overlaps(const QLCCapability* cap)
+bool QLCCapability::overlaps(const QLCCapability *cap)
 {
     if (m_min >= cap->min() && m_min <= cap->max())
         return true;
@@ -269,8 +269,8 @@ void QLCCapability::removeAlias(AliasInfo alias)
     {
         AliasInfo info = m_aliases.at(i);
 
-        if (alias.targetMode == info.targetMode && alias.sourceChannel == info.sourceChannel &&
-            alias.targetChannel == info.targetChannel)
+        if (alias.targetMode == info.targetMode && alias.sourceChannel == info.sourceChannel
+            && alias.targetChannel == info.targetChannel)
         {
             m_aliases.takeAt(i);
             return;
@@ -289,7 +289,7 @@ void QLCCapability::replaceAliases(QList<AliasInfo> list)
  * Save & Load
  ************************************************************************/
 
-bool QLCCapability::saveXML(QXmlStreamWriter* doc)
+bool QLCCapability::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -375,7 +375,7 @@ bool QLCCapability::saveXML(QXmlStreamWriter* doc)
     return true;
 }
 
-bool QLCCapability::loadXML(QXmlStreamReader& doc)
+bool QLCCapability::loadXML(QXmlStreamReader &doc)
 {
     uchar min = 0;
     uchar max = 0;

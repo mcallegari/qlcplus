@@ -77,7 +77,7 @@ public:
      *
      * @param fixtureDef The parent fixture definition
      */
-    QLCFixtureMode(QLCFixtureDef* fixtureDef);
+    QLCFixtureMode(QLCFixtureDef *fixtureDef);
 
     /**
      * Create a copy of the given mode, taking channels from the given
@@ -87,20 +87,20 @@ public:
      *                   that belong to this mode.
      * @param mode The mode to copy
      */
-    QLCFixtureMode(QLCFixtureDef* fixtureDef, const QLCFixtureMode* mode);
+    QLCFixtureMode(QLCFixtureDef *fixtureDef, const QLCFixtureMode *mode);
 
     /** Destructor */
     virtual ~QLCFixtureMode();
 
     /** Assignment operator */
-    QLCFixtureMode& operator=(const QLCFixtureMode& mode);
+    QLCFixtureMode &operator=(const QLCFixtureMode &mode);
 
     /*********************************************************************
      * Name
      *********************************************************************/
 public:
     /** Set the name of the fixture mode */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get the name of the fixture mode */
     QString name() const;
@@ -113,10 +113,10 @@ protected:
      *********************************************************************/
 public:
     /** Get the fixture that this mode is associated to */
-    QLCFixtureDef* fixtureDef() const;
+    QLCFixtureDef *fixtureDef() const;
 
 protected:
-    QLCFixtureDef* m_fixtureDef;
+    QLCFixtureDef *m_fixtureDef;
 
     /*********************************************************************
      * Channels
@@ -131,7 +131,7 @@ public:
      * @param index The position to insert the channel at
      * @return true, if successful, otherwise false
      */
-    bool insertChannel(QLCChannel* channel, quint32 index);
+    bool insertChannel(QLCChannel *channel, quint32 index);
 
     /**
      * Remove a channel from this mode. The channel is only removed from
@@ -141,7 +141,7 @@ public:
      * @param channel The channel to remove
      * @return true if the channel was found and removed. Otherwise false.
      */
-    bool removeChannel(const QLCChannel* channel);
+    bool removeChannel(const QLCChannel *channel);
 
     /**
      * Replace an existing channel with one from the fixture definition pool.
@@ -150,7 +150,7 @@ public:
      * @param newChannel reference to the replacement channel
      * @return true if currChannel was found and replaced. Otherwise false.
      */
-    bool replaceChannel(QLCChannel* currChannel, QLCChannel* newChannel);
+    bool replaceChannel(QLCChannel *currChannel, QLCChannel *newChannel);
 
     /**
      * Remove all channels from this mode. The channels are only removed from
@@ -167,7 +167,7 @@ public:
      * @param name The name of the channel to get
      * @return The channel or NULL if not found
      */
-    QLCChannel* channel(const QString& name) const;
+    QLCChannel *channel(const QString &name) const;
 
     /**
      * Get a channel by its index (channel number). One DMX channel is
@@ -176,7 +176,7 @@ public:
      * @param ch The number of the channel to get
      * @return The channel or NULL if ch >= size.
      */
-    QLCChannel* channel(quint32 ch) const;
+    QLCChannel *channel(quint32 ch) const;
 
     /**
      * Get an ordered list of channels in a mode. Returns a copy of the list;
@@ -185,7 +185,7 @@ public:
      *
      * @return A list of channels in the mode.
      */
-    QVector<QLCChannel*> channels() const;
+    QVector<QLCChannel *> channels() const;
 
     /**
      * Get a channel's index (i.e. the DMX channel number) within a mode.
@@ -194,7 +194,7 @@ public:
      * @param channel The channel, whose number to get
      * @return Channel number or QLCChannel::invalid()
      */
-    quint32 channelNumber(QLCChannel* channel) const;
+    quint32 channelNumber(QLCChannel *channel) const;
 
     /**
      * Get the channel's index (i.e. the DMX channel number) for the specified
@@ -217,20 +217,20 @@ public:
 
     struct ChannelActsOnData
     {
-        QLCChannel* channel;
+        QLCChannel *channel;
         int actsOnIndex;
 
-        ChannelActsOnData(QLCChannel* newChannel, int newAcsOnIndex);
+        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex);
     };
 
-    void updateActsOnChannel(QLCChannel* mainChannel, QLCChannel* actsOnChannel);
+    void updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel);
 
 protected:
     /** List of channels (pointers are not owned) */
-    QVector<QLCChannel*> m_channels;
+    QVector<QLCChannel *> m_channels;
 
     /** List of acts on channels */
-    QHash<QLCChannel*, QLCChannel*> m_actsOnChannelsList;
+    QHash<QLCChannel *, QLCChannel *> m_actsOnChannelsList;
 
     quint32 m_masterIntensityChannel;
 
@@ -244,7 +244,7 @@ public:
      * @param index The index to insert the head at (if invalid, append occurs)
      * @param head The head to insert
      */
-    void insertHead(int index, const QLCFixtureHead& head);
+    void insertHead(int index, const QLCFixtureHead &head);
 
     /**
      * Replace a head at the given position with the given head.
@@ -252,7 +252,7 @@ public:
      * @param index The index to replace the head at (must be valid)
      * @param head The head to replace
      */
-    void replaceHead(int index, const QLCFixtureHead& head);
+    void replaceHead(int index, const QLCFixtureHead &head);
 
     /**
      * Remove a head at the given index.
@@ -264,7 +264,7 @@ public:
     /**
      * Get a list of available fixture heads within the fixture mode
      */
-    QVector<QLCFixtureHead> const& heads() const;
+    QVector<QLCFixtureHead> const &heads() const;
 
     /**
      * Find a head number for the given channel number
@@ -291,7 +291,7 @@ public:
      *
      * @param physical Properties to set
      */
-    void setPhysical(const QLCPhysical& physical);
+    void setPhysical(const QLCPhysical &physical);
 
     /**
      * Get physical properties for a mode. The returned properties is a
@@ -317,11 +317,11 @@ protected:
      *********************************************************************/
 public:
     /** Load a mode's properties from an XML tag */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Save a mode to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
-    QHash<QLCChannel*, QLCChannel*> actsOnChannelsList() const;
+    bool saveXML(QXmlStreamWriter *doc);
+    QHash<QLCChannel *, QLCChannel *> actsOnChannelsList() const;
 };
 
 /** @} */

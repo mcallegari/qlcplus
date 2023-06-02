@@ -34,7 +34,7 @@
 #define CELL_H 45
 #define TITLE_H 18
 
-ClickAndGoWidget::ClickAndGoWidget(QWidget* parent)
+ClickAndGoWidget::ClickAndGoWidget(QWidget *parent)
     : QWidget(parent)
 {
     // This makes the application crash when a clickAndGoWidget
@@ -103,7 +103,7 @@ void ClickAndGoWidget::setupColorPicker()
     painter.drawImage(cw * 2, 0, Gradient::getRGBGradient());
 }
 
-void ClickAndGoWidget::setType(int type, const QLCChannel* chan)
+void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
 {
     m_linearColor = false;
     // qDebug() << Q_FUNC_INFO << "Type: " << type;
@@ -275,7 +275,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
     return img;
 }
 
-void ClickAndGoWidget::createPresetList(const QLCChannel* chan)
+void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 {
     int i = 1;
     if (chan == NULL)
@@ -286,7 +286,7 @@ void ClickAndGoWidget::createPresetList(const QLCChannel* chan)
 
     // qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
-    foreach (QLCCapability* cap, chan->capabilities())
+    foreach (QLCCapability *cap, chan->capabilities())
     {
         if (cap->presetType() == QLCCapability::Picture)
         {
@@ -316,7 +316,7 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
-    QScreen* scr = QGuiApplication::screens().first();
+    QScreen *scr = QGuiApplication::screens().first();
     QRect screen = scr->availableGeometry();
 
     m_cols = 2;
@@ -377,7 +377,7 @@ QSize ClickAndGoWidget::sizeHint() const
     return QSize(m_width, m_height);
 }
 
-void ClickAndGoWidget::mousePressEvent(QMouseEvent* event)
+void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 {
     if (m_linearColor == true)
     {
@@ -399,15 +399,14 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent* event)
             PresetResource res = m_resources.at(m_hoverCellIdx);
             qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min << "max:" << res.m_max;
 
-            float f =
-                SCALE(float(m_cellBarWidth), float(0), float(m_cellWidth), float(0), float(res.m_max - res.m_min));
+            float f = SCALE(float(m_cellBarWidth), float(0), float(m_cellWidth), float(0), float(res.m_max - res.m_min));
             emit levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
         }
     }
     QWidget::mousePressEvent(event);
 }
 
-void ClickAndGoWidget::mouseMoveEvent(QMouseEvent* event)
+void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_linearColor == true && event->buttons() == Qt::LeftButton)
     {
@@ -443,7 +442,7 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent* event)
     }
 }
 
-void ClickAndGoWidget::paintEvent(QPaintEvent* event)
+void ClickAndGoWidget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
 

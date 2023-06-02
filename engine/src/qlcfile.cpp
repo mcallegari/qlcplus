@@ -43,9 +43,9 @@
 
 bool QLCFile::m_hasWindowManager = true;
 
-QXmlStreamReader* QLCFile::getXMLReader(const QString& path)
+QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
 {
-    QXmlStreamReader* reader = NULL;
+    QXmlStreamReader *reader = NULL;
 
     if (path.isEmpty() == true)
     {
@@ -53,7 +53,7 @@ QXmlStreamReader* QLCFile::getXMLReader(const QString& path)
         return reader;
     }
 
-    QFile* file = new QFile(path);
+    QFile *file = new QFile(path);
     if (file->open(QIODevice::ReadOnly | QFile::Text) == true)
     {
         reader = new QXmlStreamReader(file);
@@ -66,7 +66,7 @@ QXmlStreamReader* QLCFile::getXMLReader(const QString& path)
     return reader;
 }
 
-void QLCFile::releaseXMLReader(QXmlStreamReader* reader)
+void QLCFile::releaseXMLReader(QXmlStreamReader *reader)
 {
     if (reader == NULL)
         return;
@@ -80,7 +80,7 @@ void QLCFile::releaseXMLReader(QXmlStreamReader* reader)
     delete reader;
 }
 
-bool QLCFile::writeXMLHeader(QXmlStreamWriter* xml, const QString& content, const QString& author)
+bool QLCFile::writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author)
 {
     if (xml == NULL || xml->device() == NULL)
         return false;
@@ -148,7 +148,7 @@ QString QLCFile::currentUserName()
     DWORD length = UNLEN + 1;
     TCHAR name[length];
     if (GetUserName(name, &length))
-        return QString::fromUtf16(reinterpret_cast<char16_t*>(name));
+        return QString::fromUtf16(reinterpret_cast<char16_t *>(name));
     else
         return QString("Unknown windows user");
 #else
@@ -156,7 +156,7 @@ QString QLCFile::currentUserName()
     return QString(getenv("USER"));
   #else
     QString name;
-    struct passwd* passwd = getpwuid(getuid());
+    struct passwd *passwd = getpwuid(getuid());
     if (passwd == NULL)
         name.append(getenv("USER"));
     else
@@ -218,7 +218,7 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR)malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    dir.setPath(QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*>(home))).arg(path));
+    dir.setPath(QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t *>(home))).arg(path));
     free(home);
 #endif
 

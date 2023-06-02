@@ -30,7 +30,7 @@ class TreeModelItem : public QObject
     Q_OBJECT
 
 public:
-    TreeModelItem(QString label, QObject* parent = 0);
+    TreeModelItem(QString label, QObject *parent = 0);
     ~TreeModelItem();
 
     /** Get/Set the item display label */
@@ -71,7 +71,7 @@ public:
     bool hasChildren();
 
     /** Return a reference to the item's children */
-    TreeModel* children();
+    TreeModel *children();
 
     void printItem(int tab = 0);
 
@@ -80,7 +80,7 @@ private:
     QString m_path;
     int m_flags;
     QVariantList m_data;
-    TreeModel* m_children;
+    TreeModel *m_children;
 };
 
 #endif // TREEMODELITEM_H

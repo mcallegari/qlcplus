@@ -21,7 +21,7 @@
 #include "scriptwrapper.h"
 #include "doc.h"
 
-ScriptEditor::ScriptEditor(QQuickView* view, Doc* doc, QObject* parent)
+ScriptEditor::ScriptEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_script(nullptr)
 {
@@ -30,7 +30,7 @@ ScriptEditor::ScriptEditor(QQuickView* view, Doc* doc, QObject* parent)
 
 void ScriptEditor::setFunctionID(quint32 ID)
 {
-    m_script = qobject_cast<Script*>(m_doc->function(ID));
+    m_script = qobject_cast<Script *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
 }
 

@@ -37,7 +37,7 @@ class UiManager : public QObject
     Q_OBJECT
 
 public:
-    UiManager(QQuickView* view, Doc* doc, QObject* parent = nullptr);
+    UiManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~UiManager();
 
     void initialize();
@@ -53,13 +53,13 @@ public:
 
 private:
     /** Reference to the QML view root */
-    QQuickView* m_view;
+    QQuickView *m_view;
 
     /** Reference to the project workspace */
-    Doc* m_doc;
+    Doc *m_doc;
 
     /** Reference to the UI QML settings */
-    QObject* m_uiStyle;
+    QObject *m_uiStyle;
 
     /** A map ok key,value representing every UI parameter
      *  that can be changed at runtime */

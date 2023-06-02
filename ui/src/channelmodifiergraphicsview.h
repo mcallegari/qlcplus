@@ -30,7 +30,7 @@ class HandlerGraphicsItem : public QObject, public QGraphicsEllipseItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen& pen = QPen(), const QBrush& brush = QBrush());
+    HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen &pen = QPen(), const QBrush &brush = QBrush());
 
     void setBoundingBox(QRectF rect);
     QRectF boundingBox();
@@ -39,20 +39,20 @@ private:
     QRectF m_boundingBox;
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 signals:
-    void itemDropped(HandlerGraphicsItem*);
-    void itemSelected(HandlerGraphicsItem* item);
-    void itemMoved(HandlerGraphicsItem* item, QGraphicsSceneMouseEvent* event, QRectF limits);
+    void itemDropped(HandlerGraphicsItem *);
+    void itemSelected(HandlerGraphicsItem *item);
+    void itemMoved(HandlerGraphicsItem *item, QGraphicsSceneMouseEvent *event, QRectF limits);
 };
 
 typedef struct
 {
-    HandlerGraphicsItem* m_item;
-    QGraphicsLineItem* m_line;
+    HandlerGraphicsItem *m_item;
+    QGraphicsLineItem *m_line;
     QPoint m_pos;
     QPair<uchar, uchar> m_dmxMap;
 } HandlerItem;
@@ -61,7 +61,7 @@ class ChannelModifierGraphicsView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    ChannelModifierGraphicsView(QWidget* parent);
+    ChannelModifierGraphicsView(QWidget *parent);
 
     /** Set the DMX position map of the currently selected handler */
     void setHandlerDMXValue(uchar pos, uchar value);
@@ -79,17 +79,17 @@ public:
     QList<QPair<uchar, uchar>> modifiersMap();
 
 private:
-    QGraphicsScene* m_scene;
-    QGraphicsRectItem* m_bgRect;
-    QList<HandlerItem*> m_handlers;
-    HandlerGraphicsItem* m_currentHandler;
+    QGraphicsScene *m_scene;
+    QGraphicsRectItem *m_bgRect;
+    QList<HandlerItem *> m_handlers;
+    HandlerGraphicsItem *m_currentHandler;
 
 protected:
     /** Get a pointer to the currently selected handler item */
-    HandlerItem* getSelectedHandler();
+    HandlerItem *getSelectedHandler();
 
     /** Update the position of a given handler after a resize event */
-    HandlerGraphicsItem* updateHandlerItem(HandlerGraphicsItem* item, QPoint pos);
+    HandlerGraphicsItem *updateHandlerItem(HandlerGraphicsItem *item, QPoint pos);
 
     /** Update the handler's bounding box at index $itemIndex to limit
      *  the drag and drop movements */
@@ -105,17 +105,17 @@ protected:
     void updateView();
 
     /** Event caught when the GraphicsView is resized */
-    void resizeEvent(QResizeEvent* event);
+    void resizeEvent(QResizeEvent *event);
 
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent *e);
 
 protected slots:
-    void slotItemSelected(HandlerGraphicsItem* item);
-    void slotItemMoved(HandlerGraphicsItem* item, QGraphicsSceneMouseEvent* event, QRectF limits);
+    void slotItemSelected(HandlerGraphicsItem *item);
+    void slotItemMoved(HandlerGraphicsItem *item, QGraphicsSceneMouseEvent *event, QRectF limits);
 
 signals:
     /** Signal emitted when the graphics view is clicked */
-    void viewClicked(QMouseEvent* e);
+    void viewClicked(QMouseEvent *e);
 
     /** Signal emitted when a handler is clicked */
     void itemClicked(uchar pos, uchar value);

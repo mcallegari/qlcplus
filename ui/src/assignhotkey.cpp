@@ -31,7 +31,7 @@
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
-AssignHotKey::AssignHotKey(QWidget* parent, const QKeySequence& keySequence)
+AssignHotKey::AssignHotKey(QWidget *parent, const QKeySequence &keySequence)
     : QDialog(parent)
 {
     setupUi(this);
@@ -81,11 +81,11 @@ QKeySequence AssignHotKey::keySequence() const
     return m_keySequence;
 }
 
-void AssignHotKey::keyPressEvent(QKeyEvent* event)
+void AssignHotKey::keyPressEvent(QKeyEvent *event)
 {
     int key = event->key();
-    if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Alt || event->key() == Qt::Key_Shift ||
-        event->key() == Qt::Key_Meta)
+    if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Alt || event->key() == Qt::Key_Shift
+        || event->key() == Qt::Key_Meta)
     {
         key = 0;
     }

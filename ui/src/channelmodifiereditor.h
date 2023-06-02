@@ -34,14 +34,14 @@ class ChannelModifierEditor : public QDialog, public Ui_ChannelModifierEditor
     Q_OBJECT
 
 public:
-    explicit ChannelModifierEditor(Doc* doc, QString modifier, QWidget* parent = 0);
+    explicit ChannelModifierEditor(Doc *doc, QString modifier, QWidget *parent = 0);
     ~ChannelModifierEditor();
 
-    ChannelModifier* selectedModifier();
+    ChannelModifier *selectedModifier();
 
 private:
-    Doc* m_doc;
-    ChannelModifierGraphicsView* m_view;
+    Doc *m_doc;
+    ChannelModifierGraphicsView *m_view;
 
 protected:
     /**
@@ -72,7 +72,7 @@ protected slots:
     void slotUnsetClicked();
 
 private:
-    ChannelModifier* m_currentTemplate;
+    ChannelModifier *m_currentTemplate;
 };
 
 #endif // CHANNELMODIFIEREDITOR_H

@@ -36,7 +36,7 @@ private slots:
     void computeAlpha_data();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

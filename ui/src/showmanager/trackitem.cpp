@@ -25,7 +25,7 @@
 
 #include "trackitem.h"
 
-TrackItem::TrackItem(Track* track, int number)
+TrackItem::TrackItem(Track *track, int number)
     : m_number(number)
     , m_isActive(false)
     , m_track(track)
@@ -64,7 +64,7 @@ TrackItem::TrackItem(Track* track, int number)
     connect(m_delete, SIGNAL(triggered()), this, SLOT(slotDeleteTrackClicked()));
 }
 
-Track* TrackItem::getTrack()
+Track *TrackItem::getTrack()
 {
     return m_track;
 }
@@ -104,7 +104,7 @@ bool TrackItem::isMute()
     return m_isMute;
 }
 
-void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     m_isActive = true;
     QGraphicsItem::mousePressEvent(event);
@@ -121,7 +121,7 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     emit itemClicked(this);
 }
 
-void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
+void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
@@ -136,7 +136,7 @@ void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
     menu.exec(QCursor::pos());
 }
 
-void TrackItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
+void TrackItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *)
 {
     emit itemDoubleClicked(this);
 }
@@ -146,7 +146,7 @@ QRectF TrackItem::boundingRect() const
     return QRectF(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT);
 }
 
-void TrackItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);

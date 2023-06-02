@@ -97,7 +97,7 @@ App::App()
     setAccessMask(defaultMask());
 
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
-    connect(this, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotClosing()));
+    connect(this, SIGNAL(closing(QQuickCloseEvent *)), this, SLOT(slotClosing()));
     connect(this, &App::sceneGraphInitialized, this, &App::slotSceneGraphInitialized);
 }
 
@@ -228,7 +228,7 @@ QString App::goboSystemPath() const
 
 void App::show()
 {
-    QScreen* currScreen = screen();
+    QScreen *currScreen = screen();
     QRect rect(0, 0, 800, 600);
     rect.moveTopLeft(currScreen->geometry().topLeft());
     setGeometry(rect);
@@ -277,11 +277,11 @@ void App::setAccessMask(int mask)
 
 int App::defaultMask() const
 {
-    return AC_FixtureEditing | AC_FunctionEditing | AC_InputOutput | AC_ShowManager | AC_SimpleDesk | AC_VCControl |
-           AC_VCEditing;
+    return AC_FixtureEditing | AC_FunctionEditing | AC_InputOutput | AC_ShowManager | AC_SimpleDesk | AC_VCControl
+           | AC_VCEditing;
 }
 
-void App::keyPressEvent(QKeyEvent* e)
+void App::keyPressEvent(QKeyEvent *e)
 {
     if (m_contextManager)
         m_contextManager->handleKeyPress(e);
@@ -289,7 +289,7 @@ void App::keyPressEvent(QKeyEvent* e)
     QQuickView::keyPressEvent(e);
 }
 
-void App::keyReleaseEvent(QKeyEvent* e)
+void App::keyReleaseEvent(QKeyEvent *e)
 {
     if (m_contextManager)
         m_contextManager->handleKeyRelease(e);
@@ -297,7 +297,7 @@ void App::keyReleaseEvent(QKeyEvent* e)
     QQuickView::keyReleaseEvent(e);
 }
 
-bool App::event(QEvent* event)
+bool App::event(QEvent *event)
 {
     if (event->type() == QEvent::Close)
     {
@@ -317,14 +317,13 @@ void App::slotSceneGraphInitialized()
     if (openglContext() == nullptr)
         return;
 
-    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion()
-             << openglContext()->format().minorVersion();
+    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
 #else
     // TODO: Qt6
 #endif
 }
 
-void App::slotScreenChanged(QScreen* screen)
+void App::slotScreenChanged(QScreen *screen)
 {
     bool isLandscape =
         (screen->orientation() == Qt::LandscapeOrientation || screen->orientation() == Qt::InvertedLandscapeOrientation)
@@ -359,7 +358,7 @@ void App::slotAccessMaskChanged(int mask)
 /*********************************************************************
  * Doc
  *********************************************************************/
-Doc* App::doc()
+Doc *App::doc()
 {
     return m_doc;
 }
@@ -465,7 +464,7 @@ void App::enableKioskMode()
     setAccessMask(AC_VCControl);
 }
 
-void App::createKioskCloseButton(const QRect& rect)
+void App::createKioskCloseButton(const QRect &rect)
 {
     Q_UNUSED(rect)
     // TODO
@@ -475,7 +474,7 @@ void App::createKioskCloseButton(const QRect& rect)
  * Printer
  *********************************************************************/
 
-void App::printItem(QQuickItem* item)
+void App::printItem(QQuickItem *item)
 {
     if (item == nullptr)
         return;
@@ -488,7 +487,7 @@ void App::printItem(QQuickItem* item)
 void App::slotItemReadyForPrinting()
 {
     QPrinter printer;
-    QPrintDialog* dlg = new QPrintDialog(&printer);
+    QPrintDialog *dlg = new QPrintDialog(&printer);
     if (dlg->exec() == QDialog::Accepted)
     {
         QRectF pageRect = printer.pageLayout().paintRect();
@@ -533,7 +532,7 @@ void App::slotItemReadyForPrinting()
  * Load & Save
  *********************************************************************/
 
-void App::setFileName(const QString& fileName)
+void App::setFileName(const QString &fileName)
 {
     m_fileName = fileName;
 }
@@ -601,7 +600,7 @@ bool App::newWorkspace()
     return true;
 }
 
-bool App::loadWorkspace(const QString& fileName)
+bool App::loadWorkspace(const QString &fileName)
 {
     /* Clear existing document data */
     clearDocument();
@@ -626,7 +625,7 @@ bool App::loadWorkspace(const QString& fileName)
         // autostart Function if set
         if (m_doc->startupFunction() != Function::invalidId())
         {
-            Function* func = m_doc->function(m_doc->startupFunction());
+            Function *func = m_doc->function(m_doc->startupFunction());
             if (func != nullptr)
             {
                 qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_doc->startupFunction() << ")";
@@ -647,7 +646,7 @@ bool App::loadWorkspace(const QString& fileName)
     return false;
 }
 
-void App::slotLoadDocFromMemory(QByteArray& xmlData)
+void App::slotLoadDocFromMemory(QByteArray &xmlData)
 {
     if (xmlData.isEmpty())
         return;
@@ -685,7 +684,7 @@ void App::slotLoadDocFromMemory(QByteArray& xmlData)
         qDebug() << "XML doesn't have a Workspace tag";
 }
 
-bool App::saveWorkspace(const QString& fileName)
+bool App::saveWorkspace(const QString &fileName)
 {
     QString localFilename = fileName;
     if (localFilename.startsWith("file:"))
@@ -709,14 +708,14 @@ bool App::saveWorkspace(const QString& fileName)
     return false;
 }
 
-QFileDevice::FileError App::loadXML(const QString& fileName)
+QFileDevice::FileError App::loadXML(const QString &fileName)
 {
     QFile::FileError retval = QFile::NoError;
 
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
     if (doc == nullptr || doc->device() == nullptr || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
@@ -762,7 +761,7 @@ QFileDevice::FileError App::loadXML(const QString& fileName)
     return retval;
 }
 
-bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
+bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
 {
     if (doc.readNextStartElement() == false)
         return false;
@@ -818,16 +817,15 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
         // TODO: emit a signal to inform the QML UI to display an error message
         /*
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
-                        tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
-                        QMessageBox::Ok);
-        msg.exec();
+                        tr("Some errors occurred while loading the project:") + "\n\n" +
+        m_doc->errorLog(), QMessageBox::Ok); msg.exec();
         */
     }
 
     return true;
 }
 
-QFile::FileError App::saveXML(const QString& fileName)
+QFile::FileError App::saveXML(const QString &fileName)
 {
     QString tempFileName(fileName);
     tempFileName += ".temp";
@@ -897,7 +895,7 @@ QFile::FileError App::saveXML(const QString& fileName)
  * Import project
  *********************************************************************/
 
-bool App::loadImportWorkspace(const QString& fileName)
+bool App::loadImportWorkspace(const QString &fileName)
 {
     if (m_importManager != nullptr)
         delete m_importManager;

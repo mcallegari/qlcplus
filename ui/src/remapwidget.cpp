@@ -24,7 +24,7 @@
 #include "fixtureremap.h"
 #include "remapwidget.h"
 
-RemapWidget::RemapWidget(QTreeWidget* src, QTreeWidget* target, QWidget* parent)
+RemapWidget::RemapWidget(QTreeWidget *src, QTreeWidget *target, QWidget *parent)
     : QWidget(parent)
     , m_sourceTree(src)
     , m_targetTree(target)
@@ -40,12 +40,12 @@ void RemapWidget::setRemapList(QList<RemapInfo> list)
     update();
 }
 
-void RemapWidget::resizeEvent(QResizeEvent* e)
+void RemapWidget::resizeEvent(QResizeEvent *e)
 {
     QWidget::resizeEvent(e);
 }
 
-void RemapWidget::paintEvent(QPaintEvent* e)
+void RemapWidget::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e)
 

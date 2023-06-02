@@ -35,25 +35,25 @@
 class RGBText : public RGBAlgorithm
 {
 public:
-    RGBText(Doc* doc);
-    RGBText(const RGBText& t);
+    RGBText(Doc *doc);
+    RGBText(const RGBText &t);
     ~RGBText();
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm *clone() const;
 
     /************************************************************************
      * Text & Font
      ************************************************************************/
 public:
     /** Set the text to be rendered */
-    void setText(const QString& str);
+    void setText(const QString &str);
 
     /** Get the text to be rendered */
     QString text() const;
 
     /** Set the font with which to render the text */
-    void setFont(const QFont& font);
+    void setFont(const QFont &font);
 
     /** Get the font with which to render the text */
     QFont font() const;
@@ -77,7 +77,7 @@ public:
     AnimationStyle animationStyle() const;
 
     static QString animationStyleToString(AnimationStyle ani);
-    static AnimationStyle stringToAnimationStyle(const QString& str);
+    static AnimationStyle stringToAnimationStyle(const QString &str);
     static QStringList animationStyles();
 
     void setXOffset(int offset);
@@ -88,8 +88,8 @@ public:
 
 private:
     int scrollingTextStepCount() const;
-    void renderScrollingText(const QSize& size, uint rgb, int step, RGBMap& map) const;
-    void renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap& map) const;
+    void renderScrollingText(const QSize &size, uint rgb, int step, RGBMap &map) const;
+    void renderStaticLetters(const QSize &size, uint rgb, int step, RGBMap &map) const;
 
 private:
     AnimationStyle m_animationStyle;
@@ -101,10 +101,10 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize &size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
+    void rgbMap(const QSize &size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -122,10 +122,10 @@ public:
     int acceptColors() const;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

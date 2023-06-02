@@ -45,7 +45,7 @@ class ChaserEditor : public QWidget, public Ui_ChaserEditor
      * Initialization
      ************************************************************************/
 public:
-    ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveMode = false);
+    ChaserEditor(QWidget *parent, Chaser *chaser, Doc *doc, bool liveMode = false);
     ~ChaserEditor();
 
     /** Set the visible state of the Order and
@@ -62,7 +62,7 @@ private:
     FunctionParent functionParent() const;
 
 signals:
-    void applyValues(QList<SceneValue>&);
+    void applyValues(QList<SceneValue> &);
     void stepSelectionChanged(int index);
 
 public slots:
@@ -73,11 +73,11 @@ public slots:
     void slotUpdateCurrentStep(SceneValue sv, bool enabled);
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
 
 private:
-    Doc* m_doc;
-    Chaser* m_chaser; // The Chaser being edited
+    Doc *m_doc;
+    Chaser *m_chaser; // The Chaser being edited
 
     /************************************************************************
      * List manipulation
@@ -90,7 +90,7 @@ private slots:
     void slotShuffleClicked();
     void slotSpeedDialToggle(bool state);
     void slotItemSelectionChanged();
-    void slotItemChanged(QTreeWidgetItem*, int);
+    void slotItemChanged(QTreeWidgetItem *, int);
 
     /************************************************************************
      * Clipboard
@@ -101,9 +101,9 @@ private slots:
     void slotPasteClicked();
 
 private:
-    QAction* m_cutAction;
-    QAction* m_copyAction;
-    QAction* m_pasteAction;
+    QAction *m_cutAction;
+    QAction *m_copyAction;
+    QAction *m_pasteAction;
 
     /************************************************************************
      * Run order & Direction
@@ -128,14 +128,14 @@ private slots:
     void slotFadeOutToggled();
     void slotDurationToggled();
 
-    void slotDialDestroyed(QObject* dial);
+    void slotDialDestroyed(QObject *dial);
 
 private:
     void createSpeedDials();
     void updateSpeedDials();
 
 private:
-    SpeedDialWidget* m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
     /************************************************************************
      * Test
@@ -160,13 +160,13 @@ private:
     void updateTree(bool clear = false);
 
     /** Get the step at the given $item */
-    ChaserStep stepAtItem(const QTreeWidgetItem* item) const;
+    ChaserStep stepAtItem(const QTreeWidgetItem *item) const;
 
     /** Get the step at the given $index */
     ChaserStep stepAtIndex(int index) const;
 
     /** Update $item contents from $step */
-    void updateItem(QTreeWidgetItem* item, ChaserStep& step);
+    void updateItem(QTreeWidgetItem *item, ChaserStep &step);
 
     /** Update the step numbers (col 0) for each list item */
     void updateStepNumbers();

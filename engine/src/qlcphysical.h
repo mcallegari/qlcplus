@@ -73,11 +73,11 @@ class QLCPhysical
      ************************************************************************/
 public:
     QLCPhysical();
-    QLCPhysical(const QLCPhysical& other);
+    QLCPhysical(const QLCPhysical &other);
 
     virtual ~QLCPhysical();
 
-    QLCPhysical& operator=(const QLCPhysical& physical);
+    QLCPhysical &operator=(const QLCPhysical &physical);
 
     bool isEmpty() const;
 
@@ -85,7 +85,7 @@ public:
      * Properties
      ************************************************************************/
 public:
-    void setBulbType(const QString& type);
+    void setBulbType(const QString &type);
     QString bulbType() const;
 
     void setBulbLumens(int lumens);
@@ -106,7 +106,7 @@ public:
     void setDepth(int depth);
     int depth() const;
 
-    void setLensName(const QString& name);
+    void setLensName(const QString &name);
     QString lensName() const;
 
     void setLensDegreesMin(double degrees);
@@ -115,7 +115,7 @@ public:
     void setLensDegreesMax(double degrees);
     double lensDegreesMax() const;
 
-    void setFocusType(const QString& type);
+    void setFocusType(const QString &type);
     QString focusType() const;
 
     void setFocusPanMax(int pan);
@@ -130,7 +130,7 @@ public:
     void setPowerConsumption(int watt);
     int powerConsumption() const;
 
-    void setDmxConnector(const QString& type);
+    void setDmxConnector(const QString &type);
     QString dmxConnector() const;
 
 protected:
@@ -160,10 +160,10 @@ protected:
      ************************************************************************/
 public:
     /** Load physical values from the given QXmlStreamReader */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Save physical values to the given XML tag in the given document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

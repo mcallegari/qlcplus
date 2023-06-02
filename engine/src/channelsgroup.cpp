@@ -35,7 +35,7 @@
 #define KXMLQLCChannelsGroupInputChannel "InputChannel"
 
 
-ChannelsGroup::ChannelsGroup(Doc* doc)
+ChannelsGroup::ChannelsGroup(Doc *doc)
     : QObject(doc)
     , m_id(ChannelsGroup::invalidId())
     , m_masterValue(0)
@@ -46,7 +46,7 @@ ChannelsGroup::ChannelsGroup(Doc* doc)
     init();
 }
 
-ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
+ChannelsGroup::ChannelsGroup(Doc *doc, const ChannelsGroup *chg)
     : QObject(doc)
     , m_doc(doc)
     , m_id(chg->id())
@@ -107,7 +107,7 @@ quint32 ChannelsGroup::invalidId()
  * Name
  ****************************************************************************/
 
-void ChannelsGroup::setName(const QString& name)
+void ChannelsGroup::setName(const QString &name)
 {
     m_name = name;
     emit changed(this->id());
@@ -146,7 +146,7 @@ QList<SceneValue> ChannelsGroup::getChannels() const
 /*********************************************************************
  * Status
  *********************************************************************/
-QString ChannelsGroup::status(Doc* doc) const
+QString ChannelsGroup::status(Doc *doc) const
 {
     QString info;
 
@@ -167,10 +167,10 @@ QString ChannelsGroup::status(Doc* doc) const
 
     foreach (SceneValue value, m_channels)
     {
-        Fixture* fixture = doc->fixture(value.fxi);
+        Fixture *fixture = doc->fixture(value.fxi);
         if (fixture == NULL)
             return QString();
-        const QLCFixtureMode* mode = fixture->fixtureMode();
+        const QLCFixtureMode *mode = fixture->fixtureMode();
         QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
         if (mode != NULL)
         {
@@ -178,8 +178,7 @@ QString ChannelsGroup::status(Doc* doc) const
         }
         else
         {
-            info +=
-                chInfo.arg(fixture->name()).arg(value.channel + 1).arg(QString(tr("Channel %1")).arg(value.channel));
+            info += chInfo.arg(fixture->name()).arg(value.channel + 1).arg(QString(tr("Channel %1")).arg(value.channel));
         }
     }
 
@@ -192,7 +191,7 @@ QString ChannelsGroup::status(Doc* doc) const
 /*********************************************************************
  * External input
  *********************************************************************/
-void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
+void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const &source)
 {
     if (!m_input.isNull() && m_input->isValid())
         disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
@@ -206,7 +205,7 @@ void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
                 SLOT(slotInputValueChanged(quint32, quint32, uchar)));
 }
 
-QSharedPointer<QLCInputSource> const& ChannelsGroup::inputSource() const
+QSharedPointer<QLCInputSource> const &ChannelsGroup::inputSource() const
 {
     return m_input;
 }
@@ -230,11 +229,11 @@ void ChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel, uch
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool ChannelsGroup::loader(QXmlStreamReader& xmlDoc, Doc* doc)
+bool ChannelsGroup::loader(QXmlStreamReader &xmlDoc, Doc *doc)
 {
     bool result = false;
 
-    ChannelsGroup* grp = new ChannelsGroup(doc);
+    ChannelsGroup *grp = new ChannelsGroup(doc);
     Q_ASSERT(grp != NULL);
 
     if (grp->loadXML(xmlDoc) == true)
@@ -252,7 +251,7 @@ bool ChannelsGroup::loader(QXmlStreamReader& xmlDoc, Doc* doc)
     return result;
 }
 
-bool ChannelsGroup::saveXML(QXmlStreamWriter* doc)
+bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -283,7 +282,7 @@ bool ChannelsGroup::saveXML(QXmlStreamWriter* doc)
     return true;
 }
 
-bool ChannelsGroup::loadXML(QXmlStreamReader& xmlDoc)
+bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
 {
     if (xmlDoc.name() != KXMLQLCChannelsGroup)
     {
@@ -316,13 +315,13 @@ bool ChannelsGroup::loadXML(QXmlStreamReader& xmlDoc)
         for (int i = 0; i < varray.count(); i += 2)
         {
             SceneValue scv(QString(varray.at(i)).toUInt(), QString(varray.at(i + 1)).toUInt(), 0);
-            Fixture* fxi = m_doc->fixture(scv.fxi);
+            Fixture *fxi = m_doc->fixture(scv.fxi);
             if (fxi == NULL)
             {
                 qWarning() << Q_FUNC_INFO << "Fixture not present:" << scv.fxi;
                 continue;
             }
-            const QLCChannel* ch = fxi->channel(scv.channel);
+            const QLCChannel *ch = fxi->channel(scv.channel);
             if (ch == NULL)
             {
                 qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi << "does not have channel" << scv.channel;
@@ -332,8 +331,8 @@ bool ChannelsGroup::loadXML(QXmlStreamReader& xmlDoc)
         }
     }
 
-    if (attrs.hasAttribute(KXMLQLCChannelsGroupInputUniverse) == true &&
-        attrs.hasAttribute(KXMLQLCChannelsGroupInputChannel) == true)
+    if (attrs.hasAttribute(KXMLQLCChannelsGroupInputUniverse) == true
+        && attrs.hasAttribute(KXMLQLCChannelsGroupInputChannel) == true)
     {
         quint32 uni = attrs.value(KXMLQLCChannelsGroupInputUniverse).toString().toInt();
         quint32 ch = attrs.value(KXMLQLCChannelsGroupInputChannel).toString().toInt();

@@ -186,7 +186,7 @@ void QLCCapability_Test::copy()
     cap1.setMax(15);
     cap1.setName("Foobar");
 
-    QLCCapability* cap2 = cap1.createCopy();
+    QLCCapability *cap2 = cap1.createCopy();
     QVERIFY(cap2->min() == 5);
     QVERIFY(cap2->max() == 15);
     QVERIFY(cap2->name() == "Foobar");

@@ -56,7 +56,7 @@ class FunctionsTreeWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    FunctionsTreeWidget(Doc* doc, QWidget* parent = 0);
+    FunctionsTreeWidget(Doc *doc, QWidget *parent = 0);
 
     /** Update all functions to function tree */
     void updateTree();
@@ -67,23 +67,23 @@ public:
 
     /** Add the Function with the given ID and returns
      *  a pointer to the created item */
-    QTreeWidgetItem* addFunction(quint32 fid);
+    QTreeWidgetItem *addFunction(quint32 fid);
 
     /** Return a suitable parent item for the $function's type */
-    QTreeWidgetItem* parentItem(const Function* function);
+    QTreeWidgetItem *parentItem(const Function *function);
 
     /** Get the ID of the function represented by $item. */
-    quint32 itemFunctionId(const QTreeWidgetItem* item) const;
+    quint32 itemFunctionId(const QTreeWidgetItem *item) const;
 
     /** Get the item that represents the given function. */
-    QTreeWidgetItem* functionItem(const Function* function);
+    QTreeWidgetItem *functionItem(const Function *function);
 
 private:
     /** Update $item's contents from the given $function */
-    void updateFunctionItem(QTreeWidgetItem* item, const Function* function);
+    void updateFunctionItem(QTreeWidgetItem *item, const Function *function);
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /*********************************************************************
      * Tree folders
@@ -91,29 +91,29 @@ private:
 public:
     void addFolder();
 
-    void deleteFolder(QTreeWidgetItem* item);
+    void deleteFolder(QTreeWidgetItem *item);
 
 private:
-    QTreeWidgetItem* folderItem(QString name);
+    QTreeWidgetItem *folderItem(QString name);
 
 private slots:
-    void slotItemChanged(QTreeWidgetItem* item);
+    void slotItemChanged(QTreeWidgetItem *item);
 
-    void slotUpdateChildrenPath(QTreeWidgetItem* root);
+    void slotUpdateChildrenPath(QTreeWidgetItem *root);
 
 private:
-    QHash<QString, QTreeWidgetItem*> m_foldersMap;
+    QHash<QString, QTreeWidgetItem *> m_foldersMap;
 
     /*********************************************************************
      * Drag & Drop events
      *********************************************************************/
 protected:
-    void mousePressEvent(QMouseEvent* event);
+    void mousePressEvent(QMouseEvent *event);
 
-    void dropEvent(QDropEvent* event);
+    void dropEvent(QDropEvent *event);
 
 private:
-    QList<QTreeWidgetItem*> m_draggedItems;
+    QList<QTreeWidgetItem *> m_draggedItems;
 };
 
 /** @} */

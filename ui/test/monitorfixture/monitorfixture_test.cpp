@@ -64,7 +64,7 @@ void MonitorFixture_Test::fixture()
 {
     QWidget w;
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(6);
     fxi->setAddress(m_currentAddr);
     fxi->setName("Foobar");
@@ -93,7 +93,7 @@ void MonitorFixture_Test::lessThan()
 {
     QWidget w;
 
-    Fixture* fxi1 = new Fixture(m_doc);
+    Fixture *fxi1 = new Fixture(m_doc);
     fxi1->setChannels(6);
     fxi1->setName("Foo");
     fxi1->setAddress(m_currentAddr);
@@ -104,7 +104,7 @@ void MonitorFixture_Test::lessThan()
     MonitorFixture mof1(&w, m_doc);
     mof1.setFixture(fxi1->id());
 
-    Fixture* fxi2 = new Fixture(m_doc);
+    Fixture *fxi2 = new Fixture(m_doc);
     fxi2->setChannels(4);
     fxi2->setName("Bar");
     fxi2->setAddress(m_currentAddr);
@@ -135,7 +135,7 @@ void MonitorFixture_Test::channelValueStyles()
 {
     QWidget w;
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(6);
     fxi->setAddress(m_currentAddr);
     fxi->setName("Foobar");
@@ -204,7 +204,7 @@ void MonitorFixture_Test::updateValues()
 {
     QWidget w;
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(6);
     fxi->setAddress(m_currentAddr);
     fxi->setName("Foobar");
@@ -230,9 +230,8 @@ void MonitorFixture_Test::updateValues()
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;
-        QCOMPARE(
-            mof.m_valueLabels[i]->text(),
-            str.asprintf("%.3d", int(ceil(SCALE(qreal(127 + i), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))))));
+        QCOMPARE(mof.m_valueLabels[i]->text(),
+                 str.asprintf("%.3d", int(ceil(SCALE(qreal(127 + i), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))))));
     }
 }
 

@@ -38,7 +38,7 @@ private slots:
     void updateValues();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     int m_currentAddr;
 };
 

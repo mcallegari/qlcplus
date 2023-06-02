@@ -46,7 +46,7 @@
  * Initialization
  ****************************************************************************/
 
-InputChannelEditor::InputChannelEditor(QWidget* parent, const QLCInputProfile* profile, const QLCInputChannel* channel,
+InputChannelEditor::InputChannelEditor(QWidget *parent, const QLCInputProfile *profile, const QLCInputChannel *channel,
                                        QLCInputProfile::Type profileType)
     : QDialog(parent)
 {
@@ -55,7 +55,7 @@ InputChannelEditor::InputChannelEditor(QWidget* parent, const QLCInputProfile* p
 
     setupUi(this);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -63,8 +63,8 @@ InputChannelEditor::InputChannelEditor(QWidget* parent, const QLCInputProfile* p
     /* Connect to these already now so that the handlers get called
        during initialization. */
     connect(m_numberSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumberChanged(int)));
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
-    connect(m_typeCombo, SIGNAL(activated(const QString&)), this, SLOT(slotTypeActivated(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_typeCombo, SIGNAL(activated(const QString &)), this, SLOT(slotTypeActivated(const QString &)));
 
     /* Fill type combo with type icons and names */
     QStringListIterator it(QLCInputChannel::types());
@@ -157,12 +157,12 @@ void InputChannelEditor::slotNumberChanged(int number)
     enableMidiParam(midiMessage, midiParam);
 }
 
-void InputChannelEditor::slotNameEdited(const QString& text)
+void InputChannelEditor::slotNameEdited(const QString &text)
 {
     m_name = text;
 }
 
-void InputChannelEditor::slotTypeActivated(const QString& text)
+void InputChannelEditor::slotTypeActivated(const QString &text)
 {
     m_type = QLCInputChannel::stringToType(text);
 }
@@ -171,7 +171,7 @@ void InputChannelEditor::slotTypeActivated(const QString& text)
  * MIDI
  ****************************************************************************/
 
-void InputChannelEditor::numberToMidi(int number, int& channel, int& message, int& param)
+void InputChannelEditor::numberToMidi(int number, int &channel, int &message, int &param)
 {
     channel = number / KMidiChannelOffset + 1;
     number = number % KMidiChannelOffset;

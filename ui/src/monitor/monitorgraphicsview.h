@@ -38,7 +38,7 @@ class MonitorGraphicsView : public QGraphicsView
     Q_OBJECT
 
 public:
-    MonitorGraphicsView(Doc* doc, QWidget* parent = 0);
+    MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
     ~MonitorGraphicsView();
 
     /** Set the graphics view size in monitor units */
@@ -62,7 +62,7 @@ public:
 
     /** Retrieve the currently selected MonitorFixtureItem.
      *  Return NULL if none */
-    MonitorFixtureItem* getSelectedItem();
+    MonitorFixtureItem *getSelectedItem();
 
     /** Set the gel color of the fixture with the given ID */
     void setFixtureGelColor(quint32 id, QColor col);
@@ -112,25 +112,25 @@ protected:
     void updateGrid();
 
     /** Event caught when the GraphicsView is resized */
-    void resizeEvent(QResizeEvent* event);
+    void resizeEvent(QResizeEvent *event);
 
 public slots:
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent *e);
 
 protected slots:
     /** Slot called when a MonitorFixtureItem is dropped after a drag */
-    void slotFixtureMoved(MonitorFixtureItem* item);
+    void slotFixtureMoved(MonitorFixtureItem *item);
 
 signals:
     /** Signal emitted after fixture point -> metrics conversion */
     void fixtureMoved(quint32 id, QPointF pos);
 
     /** Signal emitted when the graphics view is clicked */
-    void viewClicked(QMouseEvent* e);
+    void viewClicked(QMouseEvent *e);
 
 private:
-    Doc* m_doc;
-    QGraphicsScene* m_scene;
+    Doc *m_doc;
+    QGraphicsScene *m_scene;
 
     /** Size of the grid. How many horizontal and vertical cells */
     QSize m_gridSize;
@@ -148,7 +148,7 @@ private:
     float m_unitValue;
 
     /** List of Fixture items represented graphically */
-    QList<QGraphicsLineItem*> m_gridItems;
+    QList<QGraphicsLineItem *> m_gridItems;
 
     /** Flag to enable/disable the grid rendering */
     bool m_gridEnabled;
@@ -158,10 +158,10 @@ private:
 
     QPixmap m_bgPixmap;
 
-    QGraphicsPixmapItem* m_bgItem;
+    QGraphicsPixmapItem *m_bgItem;
 
     /** Map of the rendered MonitorFixtureItem with their ID */
-    QHash<quint32, MonitorFixtureItem*> m_fixtures;
+    QHash<quint32, MonitorFixtureItem *> m_fixtures;
 };
 
 /** @} */

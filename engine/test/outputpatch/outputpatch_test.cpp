@@ -63,10 +63,10 @@ void OutputPatch_Test::patch()
 {
     InputOutputMap om(m_doc, 4);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub *stub = static_cast<IOPluginStub *>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    OutputPatch* op = new OutputPatch(0, this);
+    OutputPatch *op = new OutputPatch(0, this);
     op->set(stub, 0);
     QVERIFY(op->m_plugin == stub);
     QVERIFY(op->m_pluginLine == 0);
@@ -102,9 +102,9 @@ void OutputPatch_Test::dump()
     uni[169] = 50;
     uni[511] = 25;
 
-    OutputPatch* op = new OutputPatch(0, this);
+    OutputPatch *op = new OutputPatch(0, this);
 
-    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub *stub = static_cast<IOPluginStub *>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     op->set(stub, 0);

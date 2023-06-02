@@ -37,7 +37,7 @@ void QLCi18n::init()
     QLCi18n::setTranslationFilePath(QLCFile::systemDirectory(TRANSLATIONDIR).absolutePath());
 }
 
-void QLCi18n::setDefaultLocale(const QString& locale)
+void QLCi18n::setDefaultLocale(const QString &locale)
 {
     s_defaultLocale = locale;
 }
@@ -47,7 +47,7 @@ QString QLCi18n::defaultLocale()
     return s_defaultLocale;
 }
 
-void QLCi18n::setTranslationFilePath(const QString& path)
+void QLCi18n::setTranslationFilePath(const QString &path)
 {
     s_translationFilePath = path;
 }
@@ -57,7 +57,7 @@ QString QLCi18n::translationFilePath()
     return s_translationFilePath;
 }
 
-bool QLCi18n::loadTranslation(const QString& component)
+bool QLCi18n::loadTranslation(const QString &component)
 {
     QString lc;
 
@@ -67,7 +67,7 @@ bool QLCi18n::loadTranslation(const QString& component)
         lc = defaultLocale();
 
     QString file(QString("%1_%2").arg(component).arg(lc));
-    QTranslator* translator = new QTranslator(QCoreApplication::instance());
+    QTranslator *translator = new QTranslator(QCoreApplication::instance());
     if (translator->load(file, translationFilePath()) == true)
     {
         QCoreApplication::installTranslator(translator);

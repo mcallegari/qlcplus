@@ -29,23 +29,23 @@
  * MonitorLayoutItem
  ****************************************************************************/
 
-MonitorLayoutItem::MonitorLayoutItem(MonitorFixture* mof)
+MonitorLayoutItem::MonitorLayoutItem(MonitorFixture *mof)
     : QWidgetItem(mof)
 {
 }
 
 MonitorLayoutItem::~MonitorLayoutItem() {}
 
-bool MonitorLayoutItem::operator<(const MonitorLayoutItem& item)
+bool MonitorLayoutItem::operator<(const MonitorLayoutItem &item)
 {
-    MonitorLayoutItem& ncitem = const_cast<MonitorLayoutItem&>(item);
-    MonitorFixture* item_mof;
-    MonitorFixture* mof;
+    MonitorLayoutItem &ncitem = const_cast<MonitorLayoutItem &>(item);
+    MonitorFixture *item_mof;
+    MonitorFixture *mof;
 
-    mof = qobject_cast<MonitorFixture*>(widget());
+    mof = qobject_cast<MonitorFixture *>(widget());
     Q_ASSERT(mof != NULL);
 
-    item_mof = qobject_cast<MonitorFixture*>(ncitem.widget());
+    item_mof = qobject_cast<MonitorFixture *>(ncitem.widget());
     Q_ASSERT(item_mof != NULL);
 
     if ((*mof) < (*item_mof))
@@ -58,7 +58,7 @@ bool MonitorLayoutItem::operator<(const MonitorLayoutItem& item)
  * Initialization
  ****************************************************************************/
 
-MonitorLayout::MonitorLayout(QWidget* parent)
+MonitorLayout::MonitorLayout(QWidget *parent)
     : QLayout(parent)
 {
 }
@@ -73,9 +73,9 @@ MonitorLayout::~MonitorLayout()
  * Items
  ****************************************************************************/
 
-void MonitorLayout::addItem(QLayoutItem* item)
+void MonitorLayout::addItem(QLayoutItem *item)
 {
-    m_items.append(static_cast<MonitorLayoutItem*>(item));
+    m_items.append(static_cast<MonitorLayoutItem *>(item));
     sort();
     update();
 }
@@ -85,12 +85,12 @@ int MonitorLayout::count() const
     return m_items.size();
 }
 
-MonitorLayoutItem* MonitorLayout::itemAt(int index) const
+MonitorLayoutItem *MonitorLayout::itemAt(int index) const
 {
     return m_items.value(index);
 }
 
-MonitorLayoutItem* MonitorLayout::takeAt(int index)
+MonitorLayoutItem *MonitorLayout::takeAt(int index)
 {
     if (index >= 0 && index < m_items.size())
         return m_items.takeAt(index);
@@ -98,7 +98,7 @@ MonitorLayoutItem* MonitorLayout::takeAt(int index)
         return NULL;
 }
 
-static bool MonitorLayoutLessThan(MonitorLayoutItem* i1, MonitorLayoutItem* i2)
+static bool MonitorLayoutLessThan(MonitorLayoutItem *i1, MonitorLayoutItem *i2)
 {
     if ((*i1) < (*i2))
         return true;
@@ -131,7 +131,7 @@ int MonitorLayout::heightForWidth(int width) const
     return height;
 }
 
-void MonitorLayout::setGeometry(const QRect& rect)
+void MonitorLayout::setGeometry(const QRect &rect)
 {
     QLayout::setGeometry(rect);
     doLayout(rect, false);
@@ -145,7 +145,7 @@ QSize MonitorLayout::sizeHint() const
 QSize MonitorLayout::minimumSize() const
 {
     QSize size;
-    QLayoutItem* item;
+    QLayoutItem *item;
 
     foreach (item, m_items)
         size = size.expandedTo(item->minimumSize());
@@ -155,12 +155,12 @@ QSize MonitorLayout::minimumSize() const
     return size;
 }
 
-int MonitorLayout::doLayout(const QRect& rect, bool testOnly) const
+int MonitorLayout::doLayout(const QRect &rect, bool testOnly) const
 {
     int x = rect.x();
     int y = rect.y();
     int lineHeight = 0;
-    QLayoutItem* item;
+    QLayoutItem *item;
 
     foreach (item, m_items)
     {

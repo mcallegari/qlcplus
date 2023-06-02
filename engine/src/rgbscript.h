@@ -41,24 +41,24 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc* doc);
-    RGBScript(const RGBScript& s);
+    RGBScript(Doc *doc);
+    RGBScript(const RGBScript &s);
     ~RGBScript();
 
-    RGBScript& operator=(const RGBScript& s);
+    RGBScript &operator=(const RGBScript &s);
 
     /** Comparison operator. Uses simply fileName() == s.fileName(). */
-    bool operator==(const RGBScript& s) const;
+    bool operator==(const RGBScript &s) const;
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm *clone() const;
 
     /************************************************************************
      * Load & Evaluation
      ************************************************************************/
 public:
     /** Load script contents from $file located in $dir */
-    bool load(const QDir& dir, const QString& fileName);
+    bool load(const QDir &dir, const QString &fileName);
 
     /** Get the filename for this script */
     QString fileName() const;
@@ -67,11 +67,11 @@ public:
     bool evaluate();
 
 private:
-    static QScriptEngine* s_engine; //! The engine that runs all scripts
+    static QScriptEngine *s_engine; //! The engine that runs all scripts
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-    static QMutex* s_engineMutex; //! Protection
+    static QMutex *s_engineMutex; //! Protection
 #else
-    static QRecursiveMutex* s_engineMutex;
+    static QRecursiveMutex *s_engineMutex;
 #endif
     QString m_fileName; //! The file name that contains this script
     QString m_contents; //! The file's contents
@@ -81,17 +81,17 @@ private:
     static void initEngine();
 
     /** Handle an error after evaluate() or call() of a script */
-    static void displayError(QScriptValue e, const QString& fileName);
+    static void displayError(QScriptValue e, const QString &fileName);
 
     /************************************************************************
      * RGBAlgorithm API
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize &size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
+    void rgbMap(const QSize &size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -109,10 +109,10 @@ public:
     int acceptColors() const;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
     int m_apiVersion;               //! The API version that the script uses

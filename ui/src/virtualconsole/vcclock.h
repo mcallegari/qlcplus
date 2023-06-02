@@ -60,11 +60,11 @@ public:
     }
 
     /** Sorting operator */
-    bool operator<(const VCClockSchedule& sch) const;
+    bool operator<(const VCClockSchedule &sch) const;
 
     /** Load & Save */
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
 private:
     quint32 m_id;
@@ -80,7 +80,7 @@ class VCClock : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCClock(QWidget* parent, Doc* doc);
+    VCClock(QWidget *parent, Doc *doc);
     ~VCClock();
 
     /*********************************************************************
@@ -170,13 +170,13 @@ public:
      *************************************************************************/
 public:
     /** Set the keyboard key combination for playing/pausing the timer */
-    void setPlayKeySequence(const QKeySequence& keySequence);
+    void setPlayKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for playing/pausing the timer */
     QKeySequence playKeySequence() const;
 
     /** Set the keyboard key combination for resetting the timer */
-    void setResetKeySequence(const QKeySequence& keySequence);
+    void setResetKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for resetting the timer */
     QKeySequence resetKeySequence() const;
@@ -186,7 +186,7 @@ private:
     QKeySequence m_resetKeySequence;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
 
     /*************************************************************************
      * External Input
@@ -205,8 +205,8 @@ private:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent);
-    bool copyFrom(const VCWidget* widget);
+    VCWidget *createCopy(VCWidget *parent);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * Properties
@@ -218,15 +218,15 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /*********************************************************************
      * Painting
      *********************************************************************/
 protected:
-    void paintEvent(QPaintEvent* e);
-    void mousePressEvent(QMouseEvent* e);
+    void paintEvent(QPaintEvent *e);
+    void mousePressEvent(QMouseEvent *e);
 };
 
 /** @} */

@@ -54,15 +54,15 @@ class FixtureManager : public QWidget
      * Initialization
      ********************************************************************/
 public:
-    FixtureManager(QWidget* parent, Doc* doc);
+    FixtureManager(QWidget *parent, Doc *doc);
     ~FixtureManager();
 
     /** Get the singleton instance */
-    static FixtureManager* instance();
+    static FixtureManager *instance();
 
 private:
     /** The singleton FixtureManager instance */
-    static FixtureManager* s_instance;
+    static FixtureManager *s_instance;
 
     /********************************************************************
      * Doc signal handlers
@@ -87,7 +87,7 @@ public slots:
     void slotDocLoaded();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /********************************************************************
      * Data view
@@ -122,7 +122,7 @@ private:
     void fixtureSelected(quint32 id);
 
     /** Handle fixture group selection */
-    void fixtureGroupSelected(FixtureGroup* grp);
+    void fixtureGroupSelected(FixtureGroup *grp);
 
     /** Create the text browser for displaying information */
     void createInfo();
@@ -135,10 +135,10 @@ private slots:
     void slotChannelsGroupSelectionChanged();
 
     /** Callback for mouse double clicks */
-    void slotDoubleClicked(QTreeWidgetItem* item);
+    void slotDoubleClicked(QTreeWidgetItem *item);
 
     /** Callback for channels group mouse double clicks */
-    void slotChannelsGroupDoubleClicked(QTreeWidgetItem*);
+    void slotChannelsGroupDoubleClicked(QTreeWidgetItem *);
 
     /** Callback for tab selection changes */
     void slotTabChanged(int index = 0);
@@ -146,7 +146,7 @@ private slots:
     /** Callback for fixture tree item expand/collapse */
     void slotFixtureItemExpanded();
 
-    void slotDisplayFixtureInfo(QString& info);
+    void slotDisplayFixtureInfo(QString &info);
 
 private:
     /** Select a fixture group */
@@ -159,13 +159,13 @@ private:
     QString channelsGroupInfoStyleSheetHeader();
 
 private:
-    QSplitter* m_splitter;
-    FixtureTreeWidget* m_fixtures_tree;
-    QTreeWidget* m_channel_groups_tree;
-    QWidget* m_rdmManager;
+    QSplitter *m_splitter;
+    FixtureTreeWidget *m_fixtures_tree;
+    QTreeWidget *m_channel_groups_tree;
+    QWidget *m_rdmManager;
 
-    QTextBrowser* m_info;
-    FixtureGroupEditor* m_groupEditor;
+    QTextBrowser *m_info;
+    FixtureGroupEditor *m_groupEditor;
     int m_currentTabIndex;
 
     /********************************************************************
@@ -188,7 +188,7 @@ private:
     void editChannelGroupProperties();
 
     /** Count the number of heads in the list of fixture items */
-    int headCount(const QList<QTreeWidgetItem*>& items) const;
+    int headCount(const QList<QTreeWidgetItem *> &items) const;
 
     QString createDialog(bool import);
 
@@ -200,32 +200,32 @@ private slots:
     void slotFadeConfig();
     void slotRemap();
     void slotUnGroup();
-    void slotGroupSelected(QAction* action);
+    void slotGroupSelected(QAction *action);
     void slotMoveGroupUp();
     void slotMoveGroupDown();
     void slotImport();
     void slotExport();
 
     /** Callback for right mouse button clicks over a fixture item */
-    void slotContextMenuRequested(const QPoint& pos);
+    void slotContextMenuRequested(const QPoint &pos);
 
 private:
-    QAction* m_addAction;
-    QAction* m_addRGBAction;
-    QAction* m_removeAction;
-    QAction* m_propertiesAction;
-    QAction* m_fadeConfigAction;
-    QAction* m_remapAction;
-    QAction* m_groupAction;
-    QAction* m_unGroupAction;
-    QAction* m_newGroupAction;
+    QAction *m_addAction;
+    QAction *m_addRGBAction;
+    QAction *m_removeAction;
+    QAction *m_propertiesAction;
+    QAction *m_fadeConfigAction;
+    QAction *m_remapAction;
+    QAction *m_groupAction;
+    QAction *m_unGroupAction;
+    QAction *m_newGroupAction;
 
-    QAction* m_moveUpAction;
-    QAction* m_moveDownAction;
+    QAction *m_moveUpAction;
+    QAction *m_moveDownAction;
 
-    QAction* m_importAction;
-    QAction* m_exportAction;
-    QMenu* m_groupMenu;
+    QAction *m_importAction;
+    QAction *m_exportAction;
+    QMenu *m_groupMenu;
 };
 
 /** @} */

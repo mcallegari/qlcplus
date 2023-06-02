@@ -38,7 +38,7 @@
  * Initialization
  *****************************************************************************/
 
-FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
+FunctionSelection::FunctionSelection(QWidget *parent, Doc *doc)
     : QDialog(parent)
     , m_doc(doc)
     , m_isInitializing(true)
@@ -48,9 +48,9 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_newTrackItem(NULL)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
-    , m_filter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::CollectionType |
-               Function::EFXType | Function::ScriptType | Function::RGBMatrixType | Function::ShowType |
-               Function::AudioType | Function::VideoType)
+    , m_filter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::CollectionType
+               | Function::EFXType | Function::ScriptType | Function::RGBMatrixType | Function::ShowType
+               | Function::AudioType | Function::VideoType)
     , m_disableFilters(0)
     , m_constFilter(false)
 {
@@ -68,7 +68,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     m_funcTree->sortByColumn(KColumnName, Qt::AscendingOrder);
     m_treeVbox->addWidget(m_funcTree);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -158,8 +158,8 @@ int FunctionSelection::exec()
     refillTree();
 
     connect(m_funcTree, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelectionChanged()));
-    connect(m_funcTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this,
-            SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
+    connect(m_funcTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemDoubleClicked(QTreeWidgetItem *)));
 
     slotItemSelectionChanged();
 
@@ -236,7 +236,7 @@ void FunctionSelection::disableFilters(int types)
  * Disabled functions
  *****************************************************************************/
 
-void FunctionSelection::setDisabledFunctions(const QList<quint32>& ids)
+void FunctionSelection::setDisabledFunctions(const QList<quint32> &ids)
 {
     m_disabledFunctions = ids;
 }
@@ -294,7 +294,7 @@ void FunctionSelection::refillTree()
     }
 
     /* Fill the tree */
-    foreach (Function* function, m_doc->functions())
+    foreach (Function *function, m_doc->functions())
     {
         if (m_runningOnlyFlag == true && !function->isRunning())
             continue;
@@ -304,7 +304,7 @@ void FunctionSelection::refillTree()
 
         if (m_filter & function->type())
         {
-            QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
+            QTreeWidgetItem *item = m_funcTree->addFunction(function->id());
             if (disabledFunctions().contains(function->id()))
                 item->setFlags(Qt::NoItemFlags); // Disable the item
             else
@@ -315,7 +315,7 @@ void FunctionSelection::refillTree()
     m_funcTree->resizeColumnToContents(KColumnName);
     for (int i = 0; i < m_funcTree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_funcTree->topLevelItem(i);
+        QTreeWidgetItem *item = m_funcTree->topLevelItem(i);
         m_funcTree->expandItem(item);
     }
 }
@@ -324,13 +324,12 @@ void FunctionSelection::slotItemSelectionChanged()
 {
     m_selection.clear();
 
-    QListIterator<QTreeWidgetItem*> it(m_funcTree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(m_funcTree->selectedItems());
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item = it.next();
+        QTreeWidgetItem *item = it.next();
         quint32 id = item->data(KColumnName, Qt::UserRole).toUInt();
-        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem) &&
-            m_selection.contains(id) == false)
+        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem) && m_selection.contains(id) == false)
             m_selection.append(id);
     }
 
@@ -340,7 +339,7 @@ void FunctionSelection::slotItemSelectionChanged()
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 
-void FunctionSelection::slotItemDoubleClicked(QTreeWidgetItem* item)
+void FunctionSelection::slotItemDoubleClicked(QTreeWidgetItem *item)
 {
     if (item == NULL)
         return;

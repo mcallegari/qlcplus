@@ -30,7 +30,7 @@
 
 NetworkPacketizer::NetworkPacketizer() {}
 
-void NetworkPacketizer::initializePacket(QByteArray& packet, int opCode)
+void NetworkPacketizer::initializePacket(QByteArray &packet, int opCode)
 {
     packet.clear();
     packet.append((char)0xE6);            // protocol ID MSB
@@ -42,7 +42,7 @@ void NetworkPacketizer::initializePacket(QByteArray& packet, int opCode)
     packet.append((char)0x00);            // sections length LSB
 }
 
-void NetworkPacketizer::addSection(QByteArray& packet, QVariant value)
+void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
 {
     if (value.isNull())
         return;
@@ -71,7 +71,7 @@ void NetworkPacketizer::addSection(QByteArray& packet, QVariant value)
         {
             float val = value.toFloat();
             packet.append(FloatType);
-            packet.append(reinterpret_cast<const char*>(&val), sizeof(val));
+            packet.append(reinterpret_cast<const char *>(&val), sizeof(val));
         }
         break;
     case QMetaType::QByteArray:
@@ -99,9 +99,9 @@ void NetworkPacketizer::addSection(QByteArray& packet, QVariant value)
             float y = vect.y();
             float z = vect.z();
             packet.append(Vector3DType);
-            packet.append(reinterpret_cast<const char*>(&x), sizeof(x));
-            packet.append(reinterpret_cast<const char*>(&y), sizeof(y));
-            packet.append(reinterpret_cast<const char*>(&z), sizeof(z));
+            packet.append(reinterpret_cast<const char *>(&x), sizeof(x));
+            packet.append(reinterpret_cast<const char *>(&y), sizeof(y));
+            packet.append(reinterpret_cast<const char *>(&z), sizeof(z));
         }
         break;
     case QMetaType::QRectF:
@@ -112,10 +112,10 @@ void NetworkPacketizer::addSection(QByteArray& packet, QVariant value)
             float w = rect.width();
             float h = rect.height();
             packet.append(RectFType);
-            packet.append(reinterpret_cast<const char*>(&x), sizeof(x));
-            packet.append(reinterpret_cast<const char*>(&y), sizeof(y));
-            packet.append(reinterpret_cast<const char*>(&w), sizeof(w));
-            packet.append(reinterpret_cast<const char*>(&h), sizeof(h));
+            packet.append(reinterpret_cast<const char *>(&x), sizeof(x));
+            packet.append(reinterpret_cast<const char *>(&y), sizeof(y));
+            packet.append(reinterpret_cast<const char *>(&w), sizeof(w));
+            packet.append(reinterpret_cast<const char *>(&h), sizeof(h));
         }
         break;
     case QMetaType::QColor:
@@ -207,7 +207,7 @@ void NetworkPacketizer::addSection(QByteArray& packet, QVariant value)
     packet[6] = newLength & 0xFF;
 }
 
-QByteArray NetworkPacketizer::encryptPacket(QByteArray& packet, SimpleCrypt* crypter)
+QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *crypter)
 {
     QByteArray encPacket = packet.mid(0, HEADER_LENGTH);                      // copy the fixed size header
     encPacket.append(crypter->encryptToByteArray(packet.mid(HEADER_LENGTH))); // encrypt the rest
@@ -219,7 +219,7 @@ QByteArray NetworkPacketizer::encryptPacket(QByteArray& packet, SimpleCrypt* cry
     return encPacket;
 }
 
-int NetworkPacketizer::decodePacket(QByteArray& packet, int& opCode, QVariantList& sections, SimpleCrypt* decrypter)
+int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter)
 {
     int bytes_read = 0;
     quint8 sections_number = 0;
@@ -277,15 +277,15 @@ int NetworkPacketizer::decodePacket(QByteArray& packet, int& opCode, QVariantLis
             break;
         case IntType:
             {
-                int intVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
-                             ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                int intVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                             + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
                 sections.append(QVariant(intVal));
             }
             break;
         case FloatType:
             {
-                float val = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float val = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(val);
                 sections.append(QVariant(val));
             }
@@ -323,32 +323,32 @@ int NetworkPacketizer::decodePacket(QByteArray& packet, int& opCode, QVariantLis
             break;
         case Vector3DType:
             {
-                float x = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float x = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(x);
-                float y = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float y = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(y);
-                float z = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float z = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(z);
                 sections.append(QVariant(QVector3D(x, y, z)));
             }
             break;
         case RectFType:
             {
-                float x = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float x = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(x);
-                float y = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float y = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(y);
-                float w = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float w = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(w);
-                float h = *reinterpret_cast<const float*>(ba.data() + bytes_read);
+                float h = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(h);
                 sections.append(QVariant(QRectF(x, y, w, h)));
             }
             break;
         case ColorType:
             {
-                QRgb rgbVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
-                              ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                QRgb rgbVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                              + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
                 sections.append(QVariant(QColor(rgbVal)));
             }
@@ -356,8 +356,8 @@ int NetworkPacketizer::decodePacket(QByteArray& packet, int& opCode, QVariantLis
         case SceneValueType:
             {
                 SceneValue scv;
-                scv.fxi = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
-                          ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                scv.fxi = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                          + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
                 scv.channel = ((quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
                 bytes_read += 2;
@@ -371,11 +371,11 @@ int NetworkPacketizer::decodePacket(QByteArray& packet, int& opCode, QVariantLis
         case UIntPairType:
             {
                 UIntPair pairVal;
-                pairVal.first = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
-                                ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                pairVal.first = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                                + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
-                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
-                                 ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                                 + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
                 QVariant var;
                 var.setValue(pairVal);
@@ -393,8 +393,8 @@ int NetworkPacketizer::decodePacket(QByteArray& packet, int& opCode, QVariantLis
                 pairVal.first = strVal;
                 bytes_read += sLength;
 
-                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
-                                 ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                                 + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
 
                 QVariant var;

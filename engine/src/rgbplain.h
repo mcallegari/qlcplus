@@ -35,22 +35,22 @@ class RGBPlain : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBPlain(Doc* doc);
-    RGBPlain(const RGBPlain& t, QObject* parent = 0);
+    RGBPlain(Doc *doc);
+    RGBPlain(const RGBPlain &t, QObject *parent = 0);
     ~RGBPlain();
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm *clone() const;
 
     /************************************************************************
      * RGBAlgorithm
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize &size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map);
+    void rgbMap(const QSize &size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -75,10 +75,10 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

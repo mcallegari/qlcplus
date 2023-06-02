@@ -26,7 +26,7 @@
 #define KColumnName 0
 #define KColumnTime 1
 
-VCClockProperties::VCClockProperties(VCClock* clock, Doc* doc)
+VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
     : QDialog(clock)
     , m_clock(clock)
     , m_doc(doc)
@@ -99,14 +99,14 @@ void VCClockProperties::addScheduleItem(VCClockSchedule schedule)
     if (fid == Function::invalidId())
         return;
 
-    Function* func = m_doc->function(fid);
+    Function *func = m_doc->function(fid);
     if (func != NULL)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_scheduleTree);
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_scheduleTree);
         item->setText(KColumnName, func->name());
         item->setIcon(KColumnName, func->getIcon());
         item->setData(KColumnName, Qt::UserRole, func->id());
-        QTimeEdit* timeEdit = new QTimeEdit();
+        QTimeEdit *timeEdit = new QTimeEdit();
         timeEdit->setDisplayFormat("HH:mm:ss");
         timeEdit->setTime(schedule.time().time());
         m_scheduleTree->setItemWidget(item, KColumnTime, timeEdit);
@@ -129,10 +129,10 @@ void VCClockProperties::accept()
     m_clock->removeAllSchedule();
     for (int i = 0; i < m_scheduleTree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_scheduleTree->topLevelItem(i);
+        QTreeWidgetItem *item = m_scheduleTree->topLevelItem(i);
         VCClockSchedule sch;
         sch.setFunction(item->data(KColumnName, Qt::UserRole).toUInt());
-        QTimeEdit* timeEdit = (QTimeEdit*)m_scheduleTree->itemWidget(item, KColumnTime);
+        QTimeEdit *timeEdit = (QTimeEdit *)m_scheduleTree->itemWidget(item, KColumnTime);
         if (timeEdit != NULL)
         {
             QDateTime dt;
@@ -189,7 +189,7 @@ void VCClockProperties::slotAddSchedule()
 
 void VCClockProperties::slotRemoveSchedule()
 {
-    QListIterator<QTreeWidgetItem*> it(m_scheduleTree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(m_scheduleTree->selectedItems());
 
     while (it.hasNext() == true)
     {

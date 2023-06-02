@@ -71,15 +71,15 @@ void VCFrame_Test::copy()
 
     VCFrame parent(&w, m_doc);
     VCFrame frame(&parent, m_doc);
-    VCButton* btn = new VCButton(&frame, m_doc);
+    VCButton *btn = new VCButton(&frame, m_doc);
     btn->setCaption("Foobar");
-    VCWidget* frame2 = frame.createCopy(&parent);
+    VCWidget *frame2 = frame.createCopy(&parent);
     QVERIFY(frame2 != NULL && frame2 != &frame);
     QCOMPARE(frame2->objectName(), QString("VCFrame"));
     QCOMPARE(frame2->parentWidget(), &parent);
 
     // Also children should get copied
-    QList<VCButton*> list = frame2->findChildren<VCButton*>();
+    QList<VCButton *> list = frame2->findChildren<VCButton *>();
     QCOMPARE(list.size(), 1);
     QCOMPARE(list[0]->caption(), QString("Foobar"));
 
@@ -150,7 +150,7 @@ void VCFrame_Test::loadXML()
 
     QSet<QString> childSet;
     QCOMPARE(parent.children().size(), 7);
-    foreach (QObject* child, parent.children())
+    foreach (QObject *child, parent.children())
         childSet << child->metaObject()->className();
     QVERIFY(childSet.contains("VCFrame"));
     QVERIFY(childSet.contains("VCLabel"));
@@ -382,11 +382,11 @@ void VCFrame_Test::saveXML()
 
 void VCFrame_Test::customMenu()
 {
-    VCFrame* frame = VirtualConsole::instance()->contents();
+    VCFrame *frame = VirtualConsole::instance()->contents();
     QVERIFY(frame != NULL);
 
     QMenu menu;
-    QMenu* customMenu = frame->customMenu(&menu);
+    QMenu *customMenu = frame->customMenu(&menu);
     QVERIFY(customMenu != NULL);
     QCOMPARE(customMenu->title(), tr("Add"));
     delete customMenu;
@@ -394,7 +394,7 @@ void VCFrame_Test::customMenu()
 
 void VCFrame_Test::handleWidgetSelection()
 {
-    VCFrame* frame = VirtualConsole::instance()->contents();
+    VCFrame *frame = VirtualConsole::instance()->contents();
     QVERIFY(frame->isBottomFrame() == true);
 
     QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0), Qt::LeftButton, Qt::LeftButton,
@@ -406,7 +406,7 @@ void VCFrame_Test::handleWidgetSelection()
     QCOMPARE(VirtualConsole::instance()->selectedWidgets().size(), 0);
 
     // Select a child frame
-    VCFrame* child = new VCFrame(frame, m_doc);
+    VCFrame *child = new VCFrame(frame, m_doc);
     QVERIFY(child->isBottomFrame() == false);
     child->handleWidgetSelection(&ev);
     QCOMPARE(VirtualConsole::instance()->selectedWidgets().size(), 1);

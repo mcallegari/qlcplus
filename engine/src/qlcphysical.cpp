@@ -52,12 +52,12 @@ QLCPhysical::QLCPhysical()
 
 QLCPhysical::~QLCPhysical() {}
 
-QLCPhysical::QLCPhysical(const QLCPhysical& other)
+QLCPhysical::QLCPhysical(const QLCPhysical &other)
 {
     *this = other;
 }
 
-QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
+QLCPhysical &QLCPhysical::operator=(const QLCPhysical &physical)
 {
     if (this != &physical)
     {
@@ -88,9 +88,9 @@ QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
 
 bool QLCPhysical::isEmpty() const
 {
-    if (m_bulbLumens == 0 && m_bulbColourTemperature == 0 && m_weight == 0 && m_width == 0 && m_height == 0 &&
-        m_depth == 0 && m_lensDegreesMin == 0 && m_lensDegreesMax == 0 && m_focusPanMax == 0 && m_focusTiltMax == 0 &&
-        m_powerConsumption == 0)
+    if (m_bulbLumens == 0 && m_bulbColourTemperature == 0 && m_weight == 0 && m_width == 0 && m_height == 0
+        && m_depth == 0 && m_lensDegreesMin == 0 && m_lensDegreesMax == 0 && m_focusPanMax == 0 && m_focusTiltMax == 0
+        && m_powerConsumption == 0)
         return true;
 
     return false;
@@ -100,7 +100,7 @@ bool QLCPhysical::isEmpty() const
  * Properties
  ****************************************************************************/
 
-void QLCPhysical::setBulbType(const QString& type)
+void QLCPhysical::setBulbType(const QString &type)
 {
     m_bulbType = type;
 }
@@ -170,7 +170,7 @@ int QLCPhysical::depth() const
     return m_depth;
 }
 
-void QLCPhysical::setLensName(const QString& name)
+void QLCPhysical::setLensName(const QString &name)
 {
     m_lensName = name;
 }
@@ -200,7 +200,7 @@ double QLCPhysical::lensDegreesMax() const
     return m_lensDegreesMax;
 }
 
-void QLCPhysical::setFocusType(const QString& type)
+void QLCPhysical::setFocusType(const QString &type)
 {
     m_focusType = type;
 }
@@ -264,7 +264,7 @@ int QLCPhysical::powerConsumption() const
     }
 }
 
-void QLCPhysical::setDmxConnector(const QString& type)
+void QLCPhysical::setDmxConnector(const QString &type)
 {
     m_dmxConnector = type;
 }
@@ -278,7 +278,7 @@ QString QLCPhysical::dmxConnector() const
  * Load & Save
  ****************************************************************************/
 
-bool QLCPhysical::loadXML(QXmlStreamReader& doc)
+bool QLCPhysical::loadXML(QXmlStreamReader &doc)
 {
     if (doc.name() != KXMLQLCPhysical)
     {
@@ -339,7 +339,7 @@ bool QLCPhysical::loadXML(QXmlStreamReader& doc)
     return true;
 }
 
-bool QLCPhysical::saveXML(QXmlStreamWriter* doc)
+bool QLCPhysical::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 

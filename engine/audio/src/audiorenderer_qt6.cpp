@@ -26,7 +26,7 @@
 #include "audiorenderer_qt6.h"
 #include "audioplugincache.h"
 
-AudioRendererQt6::AudioRendererQt6(QString device, Doc* doc, QObject* parent)
+AudioRendererQt6::AudioRendererQt6(QString device, Doc *doc, QObject *parent)
     : AudioRenderer(parent)
     , m_audioSink(NULL)
     , m_output(NULL)
@@ -100,11 +100,11 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
     QStringList outDevs, inDevs;
 
     // create a preliminary list of input devices only
-    foreach (const QAudioDevice& deviceInfo, QMediaDevices::audioInputs())
+    foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioInputs())
         inDevs.append(deviceInfo.description());
 
     // loop through output devices and check if they're input devices too
-    foreach (const QAudioDevice& deviceInfo, QMediaDevices::audioOutputs())
+    foreach (const QAudioDevice &deviceInfo, QMediaDevices::audioOutputs())
     {
         outDevs.append(deviceInfo.description());
         AudioDeviceInfo info;
@@ -134,7 +134,7 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererQt6::writeAudio(unsigned char* data, qint64 maxSize)
+qint64 AudioRendererQt6::writeAudio(unsigned char *data, qint64 maxSize)
 {
     qsizetype bFree = m_audioSink->bytesFree();
 
@@ -143,7 +143,7 @@ qint64 AudioRendererQt6::writeAudio(unsigned char* data, qint64 maxSize)
 
     // qDebug() << "writeAudio called !! - " << maxSize << m_outputBuffer.length() << bFree;
 
-    m_outputBuffer.append((char*)data, maxSize);
+    m_outputBuffer.append((char *)data, maxSize);
 
     if (m_outputBuffer.length() >= bFree)
     {

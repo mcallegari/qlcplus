@@ -43,10 +43,10 @@ class RGBMatrixItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    RGBMatrixItem(RGBMatrix* rgbm, ShowFunction* func);
+    RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func);
 
     /** @reimp */
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     /** @reimp */
     void setTimeScale(int val);
@@ -61,11 +61,11 @@ public:
     QString functionName();
 
     /** Return a pointer to a RGBMatrix Function associated to this item */
-    RGBMatrix* getRGBMatrix();
+    RGBMatrix *getRGBMatrix();
 
 protected:
     /** @reimp */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 protected slots:
     void slotRGBMatrixChanged(quint32);
@@ -76,7 +76,7 @@ private:
 
 private:
     /** Reference to the actual RGBMatrix Function */
-    RGBMatrix* m_matrix;
+    RGBMatrix *m_matrix;
 };
 
 /** @} */

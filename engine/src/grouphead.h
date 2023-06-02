@@ -30,13 +30,13 @@ class GroupHead
 {
 public:
     GroupHead(quint32 aFxi = Fixture::invalidId(), int aHead = -1);
-    GroupHead(const GroupHead& another);
+    GroupHead(const GroupHead &another);
     ~GroupHead();
 
-    GroupHead& operator=(const GroupHead& grp);
+    GroupHead &operator=(const GroupHead &grp);
 
     bool isValid() const;
-    bool operator==(const GroupHead& another) const;
+    bool operator==(const GroupHead &another) const;
 
 public:
     quint32 fxi;

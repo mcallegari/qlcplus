@@ -41,11 +41,11 @@ class QLCTextBrowser : public QTextBrowser
 {
     Q_OBJECT
 public:
-    QLCTextBrowser(QWidget* parent);
+    QLCTextBrowser(QWidget *parent);
     virtual ~QLCTextBrowser();
 
 protected:
-    bool event(QEvent* ev);
+    bool event(QEvent *ev);
 
 private:
     QElapsedTimer m_hysteresis;
@@ -61,10 +61,10 @@ class DocBrowser : public QWidget
     Q_DISABLE_COPY(DocBrowser)
 
 private:
-    DocBrowser(QWidget* parent);
+    DocBrowser(QWidget *parent);
 
 public:
-    static void createAndShow(QWidget* parent);
+    static void createAndShow(QWidget *parent);
     ~DocBrowser();
 
 private slots:
@@ -75,15 +75,15 @@ private slots:
     void slotAnchorClicked(QUrl);
 
 private:
-    static DocBrowser* s_instance;
-    QLCTextBrowser* m_browser;
-    QToolBar* m_toolbar;
+    static DocBrowser *s_instance;
+    QLCTextBrowser *m_browser;
+    QToolBar *m_toolbar;
 
-    QAction* m_backwardAction;
-    QAction* m_forwardAction;
-    QAction* m_homeAction;
-    QAction* m_aboutQtAction;
-    QAction* m_closeAction;
+    QAction *m_backwardAction;
+    QAction *m_forwardAction;
+    QAction *m_homeAction;
+    QAction *m_aboutQtAction;
+    QAction *m_closeAction;
 };
 
 /** @} */

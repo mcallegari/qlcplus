@@ -54,7 +54,7 @@
  * Initialization
  ****************************************************************************/
 
-VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
+VCXYPadProperties::VCXYPadProperties(VCXYPad *xypad, Doc *doc)
     : QDialog(xypad)
     , m_xypad(xypad)
     , m_doc(doc)
@@ -67,7 +67,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     // IDs 0-15 are reserved for XYPad base controls
     m_lastAssignedID = 15;
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -154,8 +154,8 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(m_removePresetButton, SIGNAL(clicked()), this, SLOT(slotRemovePresetClicked()));
     connect(m_moveUpPresetButton, SIGNAL(clicked()), this, SLOT(slotMoveUpPresetClicked()));
     connect(m_moveDownPresetButton, SIGNAL(clicked()), this, SLOT(slotMoveDownPresetClicked()));
-    connect(m_presetNameEdit, SIGNAL(textEdited(QString const&)), this, SLOT(slotPresetNameEdited(QString const&)));
-    connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotPresetSelectionChanged()));
+    connect(m_presetNameEdit, SIGNAL(textEdited(QString const &)), this, SLOT(slotPresetNameEdited(QString const &)));
+    connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotPresetSelectionChanged()));
 
     m_xyArea = new VCXYPadArea(this);
     // m_xyArea->setFixedSize(140, 140);
@@ -164,7 +164,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     m_presetLayout->addWidget(m_xyArea);
     connect(m_xyArea, SIGNAL(positionChanged(QPointF)), this, SLOT(slotXYPadPositionChanged(QPointF)));
 
-    foreach (const VCXYPadPreset* preset, m_xypad->presets())
+    foreach (const VCXYPadPreset *preset, m_xypad->presets())
     {
         m_presetList.append(new VCXYPadPreset(*preset));
         if (preset->m_id > m_lastAssignedID)
@@ -216,7 +216,7 @@ void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
 {
     for (int i = 0; i < m_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
+        QTreeWidgetItem *item = m_tree->topLevelItem(i);
         QVariant var(item->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fx = VCXYPadFixture(m_doc, var);
         fx.setDisplayMode(mode);
@@ -224,7 +224,7 @@ void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
     }
 }
 
-void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem* item, const VCXYPadFixture& fxi)
+void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem *item, const VCXYPadFixture &fxi)
 {
     Q_ASSERT(item != NULL);
 
@@ -236,7 +236,7 @@ void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem* item, const VCXYPadFi
 
 QList<VCXYPadFixture> VCXYPadProperties::selectedFixtures() const
 {
-    QListIterator<QTreeWidgetItem*> it(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
     QList<VCXYPadFixture> list;
 
     /* Put all selected fixtures to a list and return it */
@@ -246,7 +246,7 @@ QList<VCXYPadFixture> VCXYPadProperties::selectedFixtures() const
     return list;
 }
 
-QTreeWidgetItem* VCXYPadProperties::fixtureItem(const VCXYPadFixture& fxi)
+QTreeWidgetItem *VCXYPadProperties::fixtureItem(const VCXYPadFixture &fxi)
 {
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
@@ -262,7 +262,7 @@ QTreeWidgetItem* VCXYPadProperties::fixtureItem(const VCXYPadFixture& fxi)
     return NULL;
 }
 
-void VCXYPadProperties::removeFixtureItem(GroupHead const& head)
+void VCXYPadProperties::removeFixtureItem(GroupHead const &head)
 {
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
@@ -294,28 +294,28 @@ void VCXYPadProperties::slotAddClicked()
     }
 
     /* Disable all fixtures that don't have pan OR tilt channels */
-    QListIterator<Fixture*> fxit(m_doc->fixtures());
+    QListIterator<Fixture *> fxit(m_doc->fixtures());
     while (fxit.hasNext() == true)
     {
-        Fixture* fixture(fxit.next());
+        Fixture *fixture(fxit.next());
         Q_ASSERT(fixture != NULL);
 
         // If a channel with pan or tilt group exists, don't disable this fixture
-        if (fixture->channel(QLCChannel::Pan) == QLCChannel::invalid() &&
-            fixture->channel(QLCChannel::Tilt) == QLCChannel::invalid())
+        if (fixture->channel(QLCChannel::Pan) == QLCChannel::invalid()
+            && fixture->channel(QLCChannel::Tilt) == QLCChannel::invalid())
         {
             // Disable all fixtures without pan or tilt channels
             disabled << fixture->id();
         }
         else
         {
-            QVector<QLCFixtureHead> const& heads = fixture->fixtureMode()->heads();
+            QVector<QLCFixtureHead> const &heads = fixture->fixtureMode()->heads();
             for (int i = 0; i < heads.size(); ++i)
             {
-                if (heads[i].channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid() &&
-                    heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid() &&
-                    heads[i].channelNumber(QLCChannel::Pan, QLCChannel::LSB) == QLCChannel::invalid() &&
-                    heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
+                if (heads[i].channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid()
+                    && heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid()
+                    && heads[i].channelNumber(QLCChannel::Pan, QLCChannel::LSB) == QLCChannel::invalid()
+                    && heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
                 {
                     // Disable heads without pan or tilt channels
                     disabled << GroupHead(fixture->id(), i);
@@ -325,7 +325,7 @@ void VCXYPadProperties::slotAddClicked()
     }
 
     /* Get a list of new fixtures to add to the pad */
-    QTreeWidgetItem* item = NULL;
+    QTreeWidgetItem *item = NULL;
     FixtureSelection fs(this, m_doc);
     fs.setMultiSelection(true);
     fs.setSelectionMode(FixtureSelection::Heads);
@@ -355,7 +355,7 @@ void VCXYPadProperties::slotRemoveClicked()
 
     if (r == QMessageBox::Yes)
     {
-        QListIterator<QTreeWidgetItem*> it(m_tree->selectedItems());
+        QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
         while (it.hasNext() == true)
             delete it.next();
     }
@@ -374,7 +374,7 @@ void VCXYPadProperties::slotEditClicked()
         while (it.hasNext() == true)
         {
             VCXYPadFixture fxi(it.next());
-            QTreeWidgetItem* item = fixtureItem(fxi);
+            QTreeWidgetItem *item = fixtureItem(fxi);
 
             updateFixtureItem(item, fxi);
         }
@@ -382,7 +382,7 @@ void VCXYPadProperties::slotEditClicked()
     }
 }
 
-void VCXYPadProperties::slotSelectionChanged(QTreeWidgetItem* item)
+void VCXYPadProperties::slotSelectionChanged(QTreeWidgetItem *item)
 {
     if (item == NULL)
     {
@@ -441,7 +441,7 @@ void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
         m_panInputWidget->setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
 }
 
-void VCXYPadProperties::writeDMX(MasterTimer* timer, QList<Universe*> universes)
+void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
@@ -493,8 +493,8 @@ void VCXYPadProperties::updatePresetsTree()
 
     for (int i = 0; i < m_presetList.count(); i++)
     {
-        VCXYPadPreset* preset = m_presetList.at(i);
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_presetsTree);
+        VCXYPadPreset *preset = m_presetList.at(i);
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_presetsTree);
         item->setData(0, Qt::UserRole, preset->m_id);
         item->setText(0, preset->m_name);
         if (preset->m_type == VCXYPadPreset::EFX)
@@ -516,7 +516,7 @@ void VCXYPadProperties::selectItemOnPresetsTree(quint8 presetId)
 
     for (int i = 0; i < m_presetsTree->topLevelItemCount(); ++i)
     {
-        QTreeWidgetItem* treeItem = m_presetsTree->topLevelItem(i);
+        QTreeWidgetItem *treeItem = m_presetsTree->topLevelItem(i);
         if (treeItem->data(0, Qt::UserRole).toUInt() == presetId)
         {
             treeItem->setSelected(true);
@@ -527,13 +527,13 @@ void VCXYPadProperties::selectItemOnPresetsTree(quint8 presetId)
     m_presetsTree->blockSignals(false);
 }
 
-void VCXYPadProperties::updateTreeItem(const VCXYPadPreset& preset)
+void VCXYPadProperties::updateTreeItem(const VCXYPadPreset &preset)
 {
     m_presetsTree->blockSignals(true);
 
     for (int i = 0; i < m_presetsTree->topLevelItemCount(); ++i)
     {
-        QTreeWidgetItem* treeItem = m_presetsTree->topLevelItem(i);
+        QTreeWidgetItem *treeItem = m_presetsTree->topLevelItem(i);
         if (treeItem->data(0, Qt::UserRole).toUInt() == preset.m_id)
         {
             treeItem->setText(0, preset.m_name);
@@ -545,16 +545,16 @@ void VCXYPadProperties::updateTreeItem(const VCXYPadPreset& preset)
     Q_ASSERT(false);
 }
 
-VCXYPadPreset* VCXYPadProperties::getSelectedPreset()
+VCXYPadPreset *VCXYPadProperties::getSelectedPreset()
 {
     if (m_presetsTree->selectedItems().isEmpty())
         return NULL;
 
-    QTreeWidgetItem* item = m_presetsTree->selectedItems().first();
+    QTreeWidgetItem *item = m_presetsTree->selectedItems().first();
     if (item != NULL)
     {
         quint8 presetID = item->data(0, Qt::UserRole).toUInt();
-        foreach (VCXYPadPreset* preset, m_presetList)
+        foreach (VCXYPadPreset *preset, m_presetList)
         {
             if (preset->m_id == presetID)
                 return preset;
@@ -638,7 +638,7 @@ quint8 VCXYPadProperties::moveDownPreset(quint8 id)
 
 void VCXYPadProperties::slotAddPositionClicked()
 {
-    VCXYPadPreset* newPreset = new VCXYPadPreset(++m_lastAssignedID);
+    VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
     newPreset->m_type = VCXYPadPreset::Position;
     newPreset->m_dmxPos = m_xyArea->position();
     newPreset->m_name = QString("X:%1 - Y:%2").arg((int)newPreset->m_dmxPos.x()).arg((int)newPreset->m_dmxPos.y());
@@ -653,7 +653,7 @@ void VCXYPadProperties::slotAddEFXClicked()
     fs.setMultiSelection(false);
     fs.setFilter(Function::EFXType, true);
     QList<quint32> ids;
-    foreach (VCXYPadPreset* preset, m_presetList)
+    foreach (VCXYPadPreset *preset, m_presetList)
     {
         if (preset->m_type == VCXYPadPreset::EFX)
             ids.append(preset->m_funcID);
@@ -662,10 +662,10 @@ void VCXYPadProperties::slotAddEFXClicked()
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
         quint32 fID = fs.selection().first();
-        Function* f = m_doc->function(fID);
+        Function *f = m_doc->function(fID);
         if (f == NULL || f->type() != Function::EFXType)
             return;
-        VCXYPadPreset* newPreset = new VCXYPadPreset(++m_lastAssignedID);
+        VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
         newPreset->m_type = VCXYPadPreset::EFX;
         newPreset->m_funcID = fID;
         newPreset->m_name = f->name();
@@ -681,7 +681,7 @@ void VCXYPadProperties::slotAddSceneClicked()
     fs.setMultiSelection(false);
     fs.setFilter(Function::SceneType, true);
     QList<quint32> ids;
-    foreach (VCXYPadPreset* preset, m_presetList)
+    foreach (VCXYPadPreset *preset, m_presetList)
     {
         if (preset->m_type == VCXYPadPreset::Scene)
             ids.append(preset->m_funcID);
@@ -690,17 +690,17 @@ void VCXYPadProperties::slotAddSceneClicked()
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
         quint32 fID = fs.selection().first();
-        Function* f = m_doc->function(fID);
+        Function *f = m_doc->function(fID);
         if (f == NULL || f->type() != Function::SceneType)
             return;
-        Scene* scene = qobject_cast<Scene*>(f);
+        Scene *scene = qobject_cast<Scene *>(f);
         bool panTiltFound = false;
         foreach (SceneValue scv, scene->values())
         {
-            Fixture* fixture = m_doc->fixture(scv.fxi);
+            Fixture *fixture = m_doc->fixture(scv.fxi);
             if (fixture == NULL)
                 continue;
-            const QLCChannel* ch = fixture->channel(scv.channel);
+            const QLCChannel *ch = fixture->channel(scv.channel);
             if (ch == NULL)
                 continue;
             if (ch->group() == QLCChannel::Pan || ch->group() == QLCChannel::Tilt)
@@ -717,7 +717,7 @@ void VCXYPadProperties::slotAddSceneClicked()
                                   QMessageBox::Close);
             return;
         }
-        VCXYPadPreset* newPreset = new VCXYPadPreset(++m_lastAssignedID);
+        VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
         newPreset->m_type = VCXYPadPreset::Scene;
         newPreset->m_funcID = fID;
         newPreset->m_name = f->name();
@@ -741,7 +741,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         ++it;
     }
 
-    foreach (Fixture* fx, m_doc->fixtures())
+    foreach (Fixture *fx, m_doc->fixtures())
     {
         for (int i = 0; i < fx->heads(); i++)
         {
@@ -766,7 +766,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
             return;
         }
 
-        VCXYPadPreset* newPreset = new VCXYPadPreset(++m_lastAssignedID);
+        VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
         newPreset->m_type = VCXYPadPreset::FixtureGroup;
         newPreset->m_name = tr("Fixture Group");
         newPreset->setFixtureGroup(selectedGH);
@@ -780,7 +780,7 @@ void VCXYPadProperties::slotRemovePresetClicked()
 {
     if (m_presetsTree->selectedItems().isEmpty())
         return;
-    QTreeWidgetItem* selItem = m_presetsTree->selectedItems().first();
+    QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
     quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
     removePreset(ctlID);
     updatePresetsTree();
@@ -790,7 +790,7 @@ void VCXYPadProperties::slotMoveUpPresetClicked()
 {
     if (m_presetsTree->selectedItems().isEmpty())
         return;
-    QTreeWidgetItem* selItem = m_presetsTree->selectedItems().first();
+    QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
     quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
     quint8 newID = moveUpPreset(ctlID);
     updatePresetsTree();
@@ -803,7 +803,7 @@ void VCXYPadProperties::slotMoveDownPresetClicked()
 {
     if (m_presetsTree->selectedItems().isEmpty())
         return;
-    QTreeWidgetItem* selItem = m_presetsTree->selectedItems().first();
+    QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
     quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
     quint8 newID = moveDownPreset(ctlID);
     updatePresetsTree();
@@ -812,9 +812,9 @@ void VCXYPadProperties::slotMoveDownPresetClicked()
     selectItemOnPresetsTree(newID);
 }
 
-void VCXYPadProperties::slotPresetNameEdited(const QString& newName)
+void VCXYPadProperties::slotPresetNameEdited(const QString &newName)
 {
-    VCXYPadPreset* preset = getSelectedPreset();
+    VCXYPadPreset *preset = getSelectedPreset();
 
     if (preset != NULL)
     {
@@ -826,7 +826,7 @@ void VCXYPadProperties::slotPresetNameEdited(const QString& newName)
 
 void VCXYPadProperties::slotPresetSelectionChanged()
 {
-    VCXYPadPreset* preset = getSelectedPreset();
+    VCXYPadPreset *preset = getSelectedPreset();
 
     if (preset != NULL)
     {
@@ -835,10 +835,10 @@ void VCXYPadProperties::slotPresetSelectionChanged()
         m_presetInputWidget->setKeySequence(preset->m_keySequence.toString(QKeySequence::NativeText));
         if (preset->m_type == VCXYPadPreset::EFX)
         {
-            Function* f = m_doc->function(preset->functionID());
+            Function *f = m_doc->function(preset->functionID());
             if (f == NULL || f->type() != Function::EFXType)
                 return;
-            EFX* efx = qobject_cast<EFX*>(f);
+            EFX *efx = qobject_cast<EFX *>(f);
             QPolygonF polygon;
             efx->preview(polygon);
 
@@ -867,9 +867,9 @@ void VCXYPadProperties::slotPresetSelectionChanged()
     }
 }
 
-void VCXYPadProperties::slotXYPadPositionChanged(const QPointF& pt)
+void VCXYPadProperties::slotXYPadPositionChanged(const QPointF &pt)
 {
-    VCXYPadPreset* preset = getSelectedPreset();
+    VCXYPadPreset *preset = getSelectedPreset();
 
     if (preset != NULL)
     {
@@ -890,7 +890,7 @@ void VCXYPadProperties::slotInputValueChanged(quint32 universe, quint32 channel)
     Q_UNUSED(universe);
     Q_UNUSED(channel);
 
-    VCXYPadPreset* preset = getSelectedPreset();
+    VCXYPadPreset *preset = getSelectedPreset();
 
     if (preset != NULL)
         preset->m_inputSource = m_presetInputWidget->inputSource();
@@ -898,7 +898,7 @@ void VCXYPadProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 
 void VCXYPadProperties::slotKeySequenceChanged(QKeySequence key)
 {
-    VCXYPadPreset* preset = getSelectedPreset();
+    VCXYPadPreset *preset = getSelectedPreset();
 
     if (preset != NULL)
         preset->m_keySequence = key;

@@ -36,30 +36,30 @@ class IOPluginCache : public QObject
     Q_OBJECT
 
 public:
-    IOPluginCache(QObject* parent);
+    IOPluginCache(QObject *parent);
     ~IOPluginCache();
 
     /** Load plugins from the given directory. */
-    void load(const QDir& dir);
+    void load(const QDir &dir);
 
     /** Get a list of available I/O plugins. */
-    QList<QLCIOPlugin*> plugins() const;
+    QList<QLCIOPlugin *> plugins() const;
 
     /** Get an I/O plugin by its name. */
-    QLCIOPlugin* plugin(const QString& name) const;
+    QLCIOPlugin *plugin(const QString &name) const;
 
     /** Get the system plugin directory. */
     static QDir systemPluginDirectory();
 
 signals:
-    void pluginConfigurationChanged(QLCIOPlugin* plugin);
-    void pluginLoaded(const QString& name);
+    void pluginConfigurationChanged(QLCIOPlugin *plugin);
+    void pluginLoaded(const QString &name);
 
 private slots:
     void slotConfigurationChanged();
 
 private:
-    QList<QLCIOPlugin*> m_plugins;
+    QList<QLCIOPlugin *> m_plugins;
 };
 
 /** @} */

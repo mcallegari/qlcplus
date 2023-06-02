@@ -36,7 +36,7 @@ private slots:
     void parameters();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

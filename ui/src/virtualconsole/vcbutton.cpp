@@ -72,7 +72,7 @@ const QSize VCButton::defaultSize(QSize(50, 50));
  * Initialization
  *****************************************************************************/
 
-VCButton::VCButton(QWidget* parent, Doc* doc)
+VCButton::VCButton(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
     , m_iconPath()
     , m_blackoutFadeOutTime(0)
@@ -136,11 +136,11 @@ void VCButton::setID(quint32 id)
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCButton::createCopy(VCWidget* parent)
+VCWidget *VCButton::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != NULL);
 
-    VCButton* button = new VCButton(parent, m_doc);
+    VCButton *button = new VCButton(parent, m_doc);
     if (button->copyFrom(this) == false)
     {
         delete button;
@@ -150,9 +150,9 @@ VCWidget* VCButton::createCopy(VCWidget* parent)
     return button;
 }
 
-bool VCButton::copyFrom(const VCWidget* widget)
+bool VCButton::copyFrom(const VCWidget *widget)
 {
-    const VCButton* button = qobject_cast<const VCButton*>(widget);
+    const VCButton *button = qobject_cast<const VCButton *>(widget);
     if (button == NULL)
         return false;
 
@@ -185,7 +185,7 @@ void VCButton::editProperties()
  * Background color
  *****************************************************************************/
 
-void VCButton::setBackgroundImage(const QString& path)
+void VCButton::setBackgroundImage(const QString &path)
 {
     m_bgPixmap = QPixmap(path);
     m_backgroundImage = path;
@@ -193,7 +193,7 @@ void VCButton::setBackgroundImage(const QString& path)
     update();
 }
 
-void VCButton::setBackgroundColor(const QColor& color)
+void VCButton::setBackgroundColor(const QColor &color)
 {
     QPalette pal = palette();
 
@@ -239,7 +239,7 @@ QColor VCButton::backgroundColor() const
  * Foreground color
  *****************************************************************************/
 
-void VCButton::setForegroundColor(const QColor& color)
+void VCButton::setForegroundColor(const QColor &color)
 {
     QPalette pal = palette();
 
@@ -286,7 +286,7 @@ QString VCButton::iconPath() const
     return m_iconPath;
 }
 
-void VCButton::setIconPath(const QString& iconPath)
+void VCButton::setIconPath(const QString &iconPath)
 {
     m_iconPath = iconPath;
 
@@ -298,7 +298,7 @@ void VCButton::setIconPath(const QString& iconPath)
 void VCButton::slotChooseIcon()
 {
     /* No point coming here if there is no VC */
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     if (vc == NULL)
         return;
 
@@ -311,9 +311,9 @@ void VCButton::slotChooseIcon()
     path = QFileDialog::getOpenFileName(this, tr("Select button icon"), iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
-        foreach (VCWidget* widget, vc->selectedWidgets())
+        foreach (VCWidget *widget, vc->selectedWidgets())
         {
-            VCButton* button = qobject_cast<VCButton*>(widget);
+            VCButton *button = qobject_cast<VCButton *>(widget);
             if (button != NULL)
                 button->setIconPath(path);
         }
@@ -356,7 +356,7 @@ void VCButton::slotResetIcon()
 
 void VCButton::setFunction(quint32 fid)
 {
-    Function* old = m_doc->function(m_function);
+    Function *old = m_doc->function(m_function);
     if (old != NULL)
     {
         /* Get rid of old function connections */
@@ -365,7 +365,7 @@ void VCButton::setFunction(quint32 fid)
         disconnect(old, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
     }
 
-    Function* function = m_doc->function(fid);
+    Function *function = m_doc->function(fid);
     if (function != NULL)
     {
         /* Connect to the new function */
@@ -389,7 +389,7 @@ quint32 VCButton::function() const
     return m_function;
 }
 
-void VCButton::adjustFunctionIntensity(Function* f, qreal value)
+void VCButton::adjustFunctionIntensity(Function *f, qreal value)
 {
     qreal finalValue = isStartupIntensityEnabled() ? startupIntensity() * value : value;
 
@@ -408,7 +408,7 @@ void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
 
     if (m_function != Function::invalidId() && action() == VCButton::Toggle)
     {
-        Function* f = m_doc->function(m_function);
+        Function *f = m_doc->function(m_function);
         if (f != NULL)
         {
             f->stop(functionParent());
@@ -461,7 +461,7 @@ void VCButton::updateState()
     }
     else if (m_action == Toggle)
     {
-        Function* function = m_doc->function(m_function);
+        Function *function = m_doc->function(m_function);
         if (function != NULL && function->isRunning())
             state = Active;
     }
@@ -474,7 +474,7 @@ void VCButton::updateState()
  * Key sequence handler
  *****************************************************************************/
 
-void VCButton::setKeySequence(const QKeySequence& keySequence)
+void VCButton::setKeySequence(const QKeySequence &keySequence)
 {
     m_keySequence = QKeySequence(keySequence);
 }
@@ -484,7 +484,7 @@ QKeySequence VCButton::keySequence() const
     return m_keySequence;
 }
 
-void VCButton::slotKeyPressed(const QKeySequence& keySequence)
+void VCButton::slotKeyPressed(const QKeySequence &keySequence)
 {
     if (acceptsInput() == false)
         return;
@@ -493,7 +493,7 @@ void VCButton::slotKeyPressed(const QKeySequence& keySequence)
         pressFunction();
 }
 
-void VCButton::slotKeyReleased(const QKeySequence& keySequence)
+void VCButton::slotKeyReleased(const QKeySequence &keySequence)
 {
     if (acceptsInput() == false)
         return;
@@ -595,7 +595,7 @@ QString VCButton::actionToString(VCButton::Action action)
         return QString(KXMLQLCVCButtonActionToggle);
 }
 
-VCButton::Action VCButton::stringToAction(const QString& str)
+VCButton::Action VCButton::stringToAction(const QString &str)
 {
     if (str == KXMLQLCVCButtonActionFlash)
         return Flash;
@@ -665,7 +665,7 @@ void VCButton::pressFunction()
     if (mode() == Doc::Design)
         return;
 
-    Function* f = NULL;
+    Function *f = NULL;
     if (m_action == Toggle)
     {
         f = m_doc->function(m_function);
@@ -696,7 +696,7 @@ void VCButton::pressFunction()
                 action.m_stepIntensity = 1.0;
                 action.m_fadeMode = Chaser::FromFunction;
 
-                Chaser* chaser = qobject_cast<Chaser*>(f);
+                Chaser *chaser = qobject_cast<Chaser *>(f);
                 chaser->setAction(action);
             }
 
@@ -741,7 +741,7 @@ void VCButton::releaseFunction()
 
     if (m_action == Flash && state() == Active)
     {
-        Function* f = m_doc->function(m_function);
+        Function *f = m_doc->function(m_function);
         if (f != NULL)
         {
             f->unFlash(m_doc->masterTimer());
@@ -781,7 +781,7 @@ void VCButton::slotFunctionFlashing(quint32 fid, bool state)
         return;
 
     // if the function was flashed by another button, and the function is still running, keep the button pushed
-    Function* f = m_doc->function(m_function);
+    Function *f = m_doc->function(m_function);
     if (state == false && m_action == Toggle && f != NULL && f->isRunning())
     {
         return;
@@ -814,10 +814,10 @@ void VCButton::slotBlackoutChanged(bool state)
 
 bool VCButton::isChildOfSoloFrame() const
 {
-    QWidget* parent = parentWidget();
+    QWidget *parent = parentWidget();
     while (parent != NULL)
     {
-        if (qobject_cast<VCSoloFrame*>(parent) != NULL)
+        if (qobject_cast<VCSoloFrame *>(parent) != NULL)
             return true;
         parent = parent->parentWidget();
     }
@@ -828,9 +828,9 @@ bool VCButton::isChildOfSoloFrame() const
  * Custom menu
  *****************************************************************************/
 
-QMenu* VCButton::customMenu(QMenu* parentMenu)
+QMenu *VCButton::customMenu(QMenu *parentMenu)
 {
-    QMenu* menu = new QMenu(parentMenu);
+    QMenu *menu = new QMenu(parentMenu);
     menu->setTitle(tr("Icon"));
     menu->addAction(m_chooseIconAction);
     menu->addAction(m_resetIconAction);
@@ -842,7 +842,7 @@ void VCButton::adjustIntensity(qreal val)
 {
     if (state() == Active)
     {
-        Function* func = m_doc->function(m_function);
+        Function *func = m_doc->function(m_function);
         if (func != NULL)
             adjustFunctionIntensity(func, val);
     }
@@ -854,7 +854,7 @@ void VCButton::adjustIntensity(qreal val)
  * Load & Save
  *****************************************************************************/
 
-bool VCButton::loadXML(QXmlStreamReader& root)
+bool VCButton::loadXML(QXmlStreamReader &root)
 {
     bool visible = false;
     int x = 0;
@@ -931,7 +931,7 @@ bool VCButton::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCButton::saveXML(QXmlStreamWriter* doc)
+bool VCButton::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -987,7 +987,7 @@ bool VCButton::saveXML(QXmlStreamWriter* doc)
  * Event handlers
  *****************************************************************************/
 
-void VCButton::paintEvent(QPaintEvent* e)
+void VCButton::paintEvent(QPaintEvent *e)
 {
     QStyleOptionButton option;
     option.initFrom(this);
@@ -1098,7 +1098,7 @@ void VCButton::paintEvent(QPaintEvent* e)
     VCWidget::paintEvent(e);
 }
 
-void VCButton::mousePressEvent(QMouseEvent* e)
+void VCButton::mousePressEvent(QMouseEvent *e)
 {
     if (mode() == Doc::Design)
         VCWidget::mousePressEvent(e);
@@ -1155,7 +1155,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
 #endif
 }
 
-void VCButton::mouseReleaseEvent(QMouseEvent* e)
+void VCButton::mouseReleaseEvent(QMouseEvent *e)
 {
     if (mode() == Doc::Design)
         VCWidget::mouseReleaseEvent(e);

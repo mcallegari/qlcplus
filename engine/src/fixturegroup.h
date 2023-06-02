@@ -51,18 +51,18 @@ class FixtureGroup : public QObject
      * Initialization
      ************************************************************************/
 public:
-    FixtureGroup(Doc* parent);
+    FixtureGroup(Doc *parent);
     ~FixtureGroup();
 
     /** Copy properties from $grp to this */
-    void copyFrom(const FixtureGroup* grp);
+    void copyFrom(const FixtureGroup *grp);
 
 signals:
     /** Emitted whenever a fixture group's properties are changed */
     void changed(quint32 id);
 
 private:
-    Doc* doc() const;
+    Doc *doc() const;
 
     /************************************************************************
      * ID
@@ -85,7 +85,7 @@ private:
      ************************************************************************/
 public:
     /** Set the name of a fixture group */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get the name of a fixture group */
     QString name() const;
@@ -109,7 +109,7 @@ public:
      *
      * @return true if at least one fixture head was added, otherwise false
      */
-    bool assignFixture(quint32 id, const QLCPoint& pt = QLCPoint());
+    bool assignFixture(quint32 id, const QLCPoint &pt = QLCPoint());
 
     /**
      * Assign a fixture head to a group at the given point. If point is null,
@@ -123,7 +123,7 @@ public:
      *
      * @return true if head was added, otherwise false
      */
-    bool assignHead(const QLCPoint& pt, const GroupHead& head);
+    bool assignHead(const QLCPoint &pt, const GroupHead &head);
 
     /**
      * Resign a fixture, along with all of its heads from a group.
@@ -139,7 +139,7 @@ public:
      * @param pt The point to clear
      * @return true if successful (cleared), otherwise false (no such point)
      */
-    bool resignHead(const QLCPoint& pt);
+    bool resignHead(const QLCPoint &pt);
 
     /**
      * Switch places with fixture heads at two points a and b.
@@ -147,7 +147,7 @@ public:
      * @param a First point
      * @param b Second point
      */
-    void swap(const QLCPoint& a, const QLCPoint& b);
+    void swap(const QLCPoint &a, const QLCPoint &b);
 
     /** Reset the whole group but preserve its size */
     void reset();
@@ -159,7 +159,7 @@ public:
      * @param pt Get the fixture head at this point
      * @return The fixture head at the given point or an invalid head
      */
-    GroupHead head(const QLCPoint& pt) const;
+    GroupHead head(const QLCPoint &pt) const;
 
     /** Get a list of fixtures assigned to a group */
     QList<GroupHead> headList() const;
@@ -182,7 +182,7 @@ private:
      ************************************************************************/
 public:
     /** Set the group's matrix size */
-    void setSize(const QSize& sz);
+    void setSize(const QSize &sz);
 
     /** Get the group's matrix size */
     QSize size() const;
@@ -194,9 +194,9 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    static bool loader(QXmlStreamReader& xmlDoc, Doc* doc);
-    bool loadXML(QXmlStreamReader& xmlDoc);
-    bool saveXML(QXmlStreamWriter* doc);
+    static bool loader(QXmlStreamReader &xmlDoc, Doc *doc);
+    bool loadXML(QXmlStreamReader &xmlDoc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

@@ -153,7 +153,7 @@ public:
     Q_INVOKABLE QString goboSystemPath() const;
 
     void enableKioskMode();
-    void createKioskCloseButton(const QRect& rect);
+    void createKioskCloseButton(const QRect &rect);
 
     void show();
 
@@ -172,13 +172,13 @@ public slots:
     void setAccessMask(int mask);
 
 protected:
-    void keyPressEvent(QKeyEvent* e) override;
-    void keyReleaseEvent(QKeyEvent* e) override;
-    bool event(QEvent* event) override;
+    void keyPressEvent(QKeyEvent *e) override;
+    void keyReleaseEvent(QKeyEvent *e) override;
+    bool event(QEvent *event) override;
 
 protected slots:
     void slotSceneGraphInitialized();
-    void slotScreenChanged(QScreen* screen);
+    void slotScreenChanged(QScreen *screen);
     void slotClosing();
     void slotClientAccessRequest(QString name);
     void slotAccessMaskChanged(int mask);
@@ -193,30 +193,30 @@ private:
     /** Bitmask to enable/disable UI functionalities */
     int m_accessMask;
 
-    QTranslator* m_translator;
+    QTranslator *m_translator;
 
-    FixtureBrowser* m_fixtureBrowser;
-    FixtureManager* m_fixtureManager;
-    FixtureGroupEditor* m_fixtureGroupEditor;
-    PaletteManager* m_paletteManager;
-    ContextManager* m_contextManager;
-    FunctionManager* m_functionManager;
-    InputOutputManager* m_ioManager;
-    VirtualConsole* m_virtualConsole;
-    ShowManager* m_showManager;
-    SimpleDesk* m_simpleDesk;
-    ActionManager* m_actionManager;
-    VideoProvider* m_videoProvider;
-    NetworkManager* m_networkManager;
-    UiManager* m_uiManager;
-    Tardis* m_tardis;
+    FixtureBrowser *m_fixtureBrowser;
+    FixtureManager *m_fixtureManager;
+    FixtureGroupEditor *m_fixtureGroupEditor;
+    PaletteManager *m_paletteManager;
+    ContextManager *m_contextManager;
+    FunctionManager *m_functionManager;
+    InputOutputManager *m_ioManager;
+    VirtualConsole *m_virtualConsole;
+    ShowManager *m_showManager;
+    SimpleDesk *m_simpleDesk;
+    ActionManager *m_actionManager;
+    VideoProvider *m_videoProvider;
+    NetworkManager *m_networkManager;
+    UiManager *m_uiManager;
+    Tardis *m_tardis;
 
     /*********************************************************************
      * Doc
      *********************************************************************/
 public:
     /** Return a reference to the Doc instance */
-    Doc* doc();
+    Doc *doc();
 
     /** Return if the current Doc instance has been loaded */
     bool docLoaded();
@@ -242,7 +242,7 @@ signals:
     void runningFunctionsCountChanged();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     bool m_docLoaded;
 
     /*********************************************************************
@@ -250,13 +250,13 @@ private:
      *********************************************************************/
 public:
     /** Send $item content to a printer */
-    Q_INVOKABLE void printItem(QQuickItem* item);
+    Q_INVOKABLE void printItem(QQuickItem *item);
 
 protected slots:
     void slotItemReadyForPrinting();
 
 private:
-    QQuickItem* m_printItem;
+    QQuickItem *m_printItem;
     QSharedPointer<QQuickItemGrabResult> m_printerImage;
 
     /*********************************************************************
@@ -265,7 +265,7 @@ private:
 public:
     /** Get/Set the name of the current workspace file */
     Q_INVOKABLE QString fileName() const;
-    void setFileName(const QString& fileName);
+    void setFileName(const QString &fileName);
 
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;
@@ -278,10 +278,10 @@ public:
     Q_INVOKABLE bool newWorkspace();
 
     /** Load the workspace with the given $fileName */
-    Q_INVOKABLE bool loadWorkspace(const QString& fileName);
+    Q_INVOKABLE bool loadWorkspace(const QString &fileName);
 
     /** Save the current workspace with the given $fileName */
-    Q_INVOKABLE bool saveWorkspace(const QString& fileName);
+    Q_INVOKABLE bool saveWorkspace(const QString &fileName);
 
     /**
      * Load workspace contents from a XML file with the given name.
@@ -289,14 +289,14 @@ public:
      * @param fileName The name of the file to load from.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError loadXML(const QString& fileName);
+    QFile::FileError loadXML(const QString &fileName);
 
     /**
      * Load workspace contents from the given XML document.
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(QXmlStreamReader& doc, bool goToConsole = false, bool fromMemory = false);
+    bool loadXML(QXmlStreamReader &doc, bool goToConsole = false, bool fromMemory = false);
 
     /**
      * Save workspace contents to a file with the given name. Changes the
@@ -305,7 +305,7 @@ public:
      * @param fileName The name of the file to save to.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString &fileName);
 
 private:
     /**
@@ -320,7 +320,7 @@ signals:
     void workingPathChanged(QString workingPath);
 
 public slots:
-    void slotLoadDocFromMemory(QByteArray& xmlData);
+    void slotLoadDocFromMemory(QByteArray &xmlData);
 
 private:
     QString m_fileName;
@@ -332,7 +332,7 @@ private:
      *********************************************************************/
 public:
     /** Start the import process for the workspace with the given $fileName */
-    Q_INVOKABLE bool loadImportWorkspace(const QString& fileName);
+    Q_INVOKABLE bool loadImportWorkspace(const QString &fileName);
 
     /** Cancel an ongoing import process started with loadImportWorkspace */
     Q_INVOKABLE void cancelImport();
@@ -341,7 +341,7 @@ public:
     Q_INVOKABLE void importFromWorkspace();
 
 private:
-    ImportManager* m_importManager;
+    ImportManager *m_importManager;
 
     /*********************************************************************
      * Fixture editor
@@ -355,6 +355,6 @@ public:
     Q_INVOKABLE void closeFixtureEditor();
 
 private:
-    FixtureEditor* m_fixtureEditor;
+    FixtureEditor *m_fixtureEditor;
 };
 #endif // APP_H

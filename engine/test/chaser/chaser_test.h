@@ -58,7 +58,7 @@ private slots:
     void quickChaser();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

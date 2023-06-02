@@ -34,7 +34,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-IOPluginCache::IOPluginCache(QObject* parent)
+IOPluginCache::IOPluginCache(QObject *parent)
     : QObject(parent)
 {
 }
@@ -45,7 +45,7 @@ IOPluginCache::~IOPluginCache()
         delete m_plugins.takeFirst();
 }
 
-void IOPluginCache::load(const QDir& dir)
+void IOPluginCache::load(const QDir &dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
@@ -64,12 +64,12 @@ void IOPluginCache::load(const QDir& dir)
         QString fileName(it.next());
         QString path = dir.absoluteFilePath(fileName);
 #if defined Q_OS_ANDROID
-        if (fileName.toLower().contains("qt") || fileName.toLower().startsWith("libplugins") ||
-            fileName.toLower().contains("qlcplus"))
+        if (fileName.toLower().contains("qt") || fileName.toLower().startsWith("libplugins")
+            || fileName.toLower().contains("qlcplus"))
             continue;
 #endif
         QPluginLoader loader(path, this);
-        QLCIOPlugin* ptr = qobject_cast<QLCIOPlugin*>(loader.instance());
+        QLCIOPlugin *ptr = qobject_cast<QLCIOPlugin *>(loader.instance());
         if (ptr != NULL)
         {
             /* Check for duplicates */
@@ -102,17 +102,17 @@ void IOPluginCache::load(const QDir& dir)
     }
 }
 
-QList<QLCIOPlugin*> IOPluginCache::plugins() const
+QList<QLCIOPlugin *> IOPluginCache::plugins() const
 {
     return m_plugins;
 }
 
-QLCIOPlugin* IOPluginCache::plugin(const QString& name) const
+QLCIOPlugin *IOPluginCache::plugin(const QString &name) const
 {
-    QListIterator<QLCIOPlugin*> it(m_plugins);
+    QListIterator<QLCIOPlugin *> it(m_plugins);
     while (it.hasNext() == true)
     {
-        QLCIOPlugin* ptr(it.next());
+        QLCIOPlugin *ptr(it.next());
         if (ptr->name() == name)
             return ptr;
     }
@@ -124,7 +124,7 @@ void IOPluginCache::slotConfigurationChanged()
 {
     qDebug() << Q_FUNC_INFO;
 
-    QLCIOPlugin* plugin = static_cast<QLCIOPlugin*>(QObject::sender());
+    QLCIOPlugin *plugin = static_cast<QLCIOPlugin *>(QObject::sender());
     if (plugin != NULL) // 3rd party plugins might not behave correctly
         emit pluginConfigurationChanged(plugin);
 }

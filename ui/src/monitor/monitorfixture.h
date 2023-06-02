@@ -41,17 +41,17 @@ class MonitorFixture : public QFrame
     Q_OBJECT
 
 public:
-    MonitorFixture(QWidget* parent, Doc* doc);
+    MonitorFixture(QWidget *parent, Doc *doc);
     virtual ~MonitorFixture();
 
     /** Less-than operator for qSort() */
-    bool operator<(const MonitorFixture& mof);
+    bool operator<(const MonitorFixture &mof);
 
     /** Update channel and value label styles */
     void updateLabelStyles();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /********************************************************************
      * Fixture
@@ -66,9 +66,9 @@ public slots:
 protected:
     quint32 m_fixture;
     MonitorProperties::ChannelStyle m_channelStyle;
-    QLabel* m_fixtureLabel;
-    QList<QLabel*> m_iconsLabels;
-    QList<QLabel*> m_channelLabels;
+    QLabel *m_fixtureLabel;
+    QList<QLabel *> m_iconsLabels;
+    QList<QLabel *> m_channelLabels;
 
     /********************************************************************
      * Values
@@ -78,7 +78,7 @@ public slots:
     void slotValuesChanged();
 
 protected:
-    QList<QLabel*> m_valueLabels;
+    QList<QLabel *> m_valueLabels;
     MonitorProperties::ValueStyle m_valueStyle;
 };
 

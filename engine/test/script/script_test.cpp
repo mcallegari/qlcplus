@@ -48,8 +48,8 @@ void Script_Test::initTestCase() {}
 void Script_Test::initial()
 {
     Doc doc(this);
-    GrandMaster* gm = new GrandMaster();
-    QList<Universe*> ua;
+    GrandMaster *gm = new GrandMaster();
+    QList<Universe *> ua;
     ua.append(new Universe(0, gm));
     ua.append(new Universe(1, gm));
     ua.append(new Universe(2, gm));

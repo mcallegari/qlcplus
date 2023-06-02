@@ -30,7 +30,7 @@ QLCFixtureHead::QLCFixtureHead()
 {
 }
 
-QLCFixtureHead::QLCFixtureHead(const QLCFixtureHead& head)
+QLCFixtureHead::QLCFixtureHead(const QLCFixtureHead &head)
     : m_channels(head.m_channels)
     , m_channelsCached(head.m_channelsCached)
     , m_channelsMap(head.m_channelsMap)
@@ -41,7 +41,7 @@ QLCFixtureHead::QLCFixtureHead(const QLCFixtureHead& head)
 
 QLCFixtureHead::~QLCFixtureHead() {}
 
-QLCFixtureHead& QLCFixtureHead::operator=(const QLCFixtureHead& head)
+QLCFixtureHead &QLCFixtureHead::operator=(const QLCFixtureHead &head)
 {
     if (this != &head)
     {
@@ -157,11 +157,11 @@ void QLCFixtureHead::setMapIndex(int chType, int controlByte, quint32 index)
     }
     m_channelsMap[chType] = val;
 
-    // qDebug() << this << "chtype:" << chType << "control" << controlByte << "index" << index << "val" <<
-    // QString::number(val, 16);
+    // qDebug() << this << "chtype:" << chType << "control" << controlByte << "index" << index <<
+    // "val" << QString::number(val, 16);
 }
 
-void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
+void QLCFixtureHead::cacheChannels(const QLCFixtureMode *mode)
 {
     Q_ASSERT(mode != NULL);
 
@@ -181,7 +181,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
             continue;
         }
 
-        const QLCChannel* ch = mode->channels().at(i);
+        const QLCChannel *ch = mode->channels().at(i);
         Q_ASSERT(ch != NULL);
 
         if (ch->group() == QLCChannel::Pan)
@@ -235,7 +235,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
  * Load & Save
  ****************************************************************************/
 
-bool QLCFixtureHead::loadXML(QXmlStreamReader& doc)
+bool QLCFixtureHead::loadXML(QXmlStreamReader &doc)
 {
     if (doc.name() != KXMLQLCFixtureHead)
     {
@@ -257,7 +257,7 @@ bool QLCFixtureHead::loadXML(QXmlStreamReader& doc)
     return true;
 }
 
-bool QLCFixtureHead::saveXML(QXmlStreamWriter* doc) const
+bool QLCFixtureHead::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

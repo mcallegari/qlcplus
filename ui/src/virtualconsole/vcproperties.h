@@ -60,17 +60,17 @@ class VCProperties
 {
 public:
     VCProperties();
-    VCProperties(const VCProperties& properties);
+    VCProperties(const VCProperties &properties);
     ~VCProperties();
 
-    VCProperties& operator=(const VCProperties& props);
+    VCProperties &operator=(const VCProperties &props);
 
     /*********************************************************************
      * Size
      *********************************************************************/
 public:
     /** Set Virtual Console bottom frame size */
-    void setSize(const QSize& size);
+    void setSize(const QSize &size);
 
     /** Get Virtual Console bottom frame size */
     QSize size() const;
@@ -107,14 +107,14 @@ private:
      *************************************************************************/
 public:
     /** Load VirtualConsole properties from the given XML tag */
-    bool loadXML(QXmlStreamReader& vc_root);
+    bool loadXML(QXmlStreamReader &vc_root);
 
     /** Save VirtualConsole properties to the given XML document */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
     /** Load the properties of a default slider */
-    static bool loadXMLInput(QXmlStreamReader& root, quint32* universe, quint32* channel);
+    static bool loadXMLInput(QXmlStreamReader &root, quint32 *universe, quint32 *channel);
 };
 
 /** @} */

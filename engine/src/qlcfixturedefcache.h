@@ -73,7 +73,7 @@ public:
      * @param model The fixture definition's model
      * @return A matching fixture definition or NULL if not found
      */
-    QLCFixtureDef* fixtureDef(const QString& manufacturer, const QString& model) const;
+    QLCFixtureDef *fixtureDef(const QString &manufacturer, const QString &model) const;
 
     /**
      * Get a list of available manufacturer names.
@@ -83,7 +83,7 @@ public:
     /**
      * Get a list of available model names for the given manufacturer.
      */
-    QStringList models(const QString& manufacturer) const;
+    QStringList models(const QString &manufacturer) const;
 
     /** Get a complete map of the available fixtures as:
      * manufacturer, <model, isUser>
@@ -96,7 +96,7 @@ public:
      * @param fixtureDef The fixture definition to add
      * @return true, if $fixtureDef was added, otherwise false
      */
-    bool addFixtureDef(QLCFixtureDef* fixtureDef);
+    bool addFixtureDef(QLCFixtureDef *fixtureDef);
 
     /**
      * Store a fixture in the fixtures user data folder
@@ -117,7 +117,7 @@ public:
      * @param dir The directory to load definitions from.
      * @return true, if the path could be accessed, otherwise false.
      */
-    bool load(const QDir& dir);
+    bool load(const QDir &dir);
 
     /**
      * Load all the fixture information found for the given manufacturer.
@@ -126,7 +126,7 @@ public:
      * @param manufacturer used to elapse the fixture file name relative path
      * @return the number of fixtures found
      */
-    int loadMapManufacturer(QXmlStreamReader* doc, QString manufacturer);
+    int loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer);
 
     /**
      * Load a map of hardcoded fixture definitions that represent
@@ -135,7 +135,7 @@ public:
      * @param dir The directory to load definitions from.
      * @return true, if the path could be accessed, otherwise false.
      */
-    bool loadMap(const QDir& dir);
+    bool loadMap(const QDir &dir);
 
     /**
      * Cleans the contents of the fixture definition cache, deleting
@@ -162,14 +162,14 @@ public:
     static QDir userDefinitionDirectory();
 
     /** Load a QLC native fixture definition from the file specified in $path */
-    bool loadQXF(const QString& path, bool isUser = false);
+    bool loadQXF(const QString &path, bool isUser = false);
 
     /** Load an Avolites D4 fixture definition from the file specified in $path */
-    bool loadD4(const QString& path);
+    bool loadD4(const QString &path);
 
 private:
     QString m_mapAbsolutePath;
-    QList<QLCFixtureDef*> m_defs;
+    QList<QLCFixtureDef *> m_defs;
 };
 
 /** @} */

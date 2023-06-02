@@ -42,7 +42,7 @@ class EFXPreviewArea : public QWidget
     Q_OBJECT
 
 public:
-    EFXPreviewArea(QWidget* parent);
+    EFXPreviewArea(QWidget *parent);
     ~EFXPreviewArea();
 
     /**
@@ -50,7 +50,7 @@ public:
      *
      * @param points The point array
      */
-    void setPolygon(const QPolygonF& polygon);
+    void setPolygon(const QPolygonF &polygon);
 
     /** Returns the number of polygons elapsed when calculating the EFX path */
     int polygonsCount() const;
@@ -60,7 +60,7 @@ public:
      *
      * @param fixturePoints The array of point arrays (one array for each fixture)
      */
-    void setFixturePolygons(const QVector<QPolygonF>& fixturePoints);
+    void setFixturePolygons(const QVector<QPolygonF> &fixturePoints);
 
     /**
      * Tell the preview area to draw the points.
@@ -70,7 +70,7 @@ public:
     void draw(int timerInterval = 20);
 
     /** Scale the points in the given polygon of size [0, 255] to the given target size */
-    static QPolygonF scale(const QPolygonF& poly, const QSize& target);
+    static QPolygonF scale(const QPolygonF &poly, const QSize &target);
 
     /** Restart animation. */
     void restart();
@@ -82,10 +82,10 @@ public:
 
 protected:
     /** @reimp */
-    void resizeEvent(QResizeEvent* e);
+    void resizeEvent(QResizeEvent *e);
 
     /** @reimp */
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent *e);
 
 private slots:
     /** Animation timeout */

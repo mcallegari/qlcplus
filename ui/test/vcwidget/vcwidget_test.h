@@ -59,7 +59,7 @@ private slots:
     void acceptInput();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

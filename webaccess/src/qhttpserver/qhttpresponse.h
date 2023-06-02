@@ -98,7 +98,7 @@ public Q_SLOTS:
         before calling writeHead(), write() or end().
         @param field Header field to be set.
         @param value Header value to be set. */
-    void setHeader(const QString& field, const QString& value);
+    void setHeader(const QString &field, const QString &value);
 
     /// Writes the header section of the response
     /// using @c status as the response status code.
@@ -112,7 +112,7 @@ public Q_SLOTS:
 
     /// Writes a block of @c data to the client.
     /** @note writeHead() must be called before this function. */
-    void write(const QByteArray& data);
+    void write(const QByteArray &data);
 
     /// Flushes the written data to the client.
     /** @note writeHead() must be called before this function. */
@@ -143,7 +143,7 @@ public Q_SLOTS:
      * @param enable boolean enable flag
      * @return the connection reference
      */
-    QHttpConnection* enableWebSocket(bool enable);
+    QHttpConnection *enableWebSocket(bool enable);
 
     /// End/finish the response.
     /** Data will be flushed to the underlying socket
@@ -153,7 +153,7 @@ public Q_SLOTS:
         This will emit done() and queue this object
         for deletion. For details see \ref memorymanagement.
         @param data Optional data to be written before finishing. */
-    void end(const QByteArray& data = "");
+    void end(const QByteArray &data = "");
 
 Q_SIGNALS:
     /// Emitted when all the data has been sent
@@ -170,12 +170,12 @@ Q_SIGNALS:
     void done();
 
 private:
-    QHttpResponse(QHttpConnection* connection);
+    QHttpResponse(QHttpConnection *connection);
 
     void writeHeaders();
-    void writeHeader(const char* field, const QString& value);
+    void writeHeader(const char *field, const QString &value);
 
-    QHttpConnection* m_connection;
+    QHttpConnection *m_connection;
 
     HeaderHash m_headers;
 

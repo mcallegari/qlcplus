@@ -45,12 +45,12 @@ QLCFixtureDefCache::~QLCFixtureDefCache()
     clear();
 }
 
-QLCFixtureDef* QLCFixtureDefCache::fixtureDef(const QString& manufacturer, const QString& model) const
+QLCFixtureDef *QLCFixtureDefCache::fixtureDef(const QString &manufacturer, const QString &model) const
 {
-    QListIterator<QLCFixtureDef*> it(m_defs);
+    QListIterator<QLCFixtureDef *> it(m_defs);
     while (it.hasNext() == true)
     {
-        QLCFixtureDef* def = it.next();
+        QLCFixtureDef *def = it.next();
         if (def->manufacturer() == manufacturer && def->model() == model)
         {
             def->checkLoaded(m_mapAbsolutePath);
@@ -66,7 +66,7 @@ QStringList QLCFixtureDefCache::manufacturers() const
     QSet<QString> makers;
 
     // Gather a list of manufacturers
-    QListIterator<QLCFixtureDef*> it(m_defs);
+    QListIterator<QLCFixtureDef *> it(m_defs);
     while (it.hasNext() == true)
         makers << it.next()->manufacturer();
 
@@ -78,13 +78,13 @@ QStringList QLCFixtureDefCache::manufacturers() const
     return list;
 }
 
-QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
+QStringList QLCFixtureDefCache::models(const QString &manufacturer) const
 {
     QSet<QString> models;
-    QListIterator<QLCFixtureDef*> it(m_defs);
+    QListIterator<QLCFixtureDef *> it(m_defs);
     while (it.hasNext() == true)
     {
-        QLCFixtureDef* def = it.next();
+        QLCFixtureDef *def = it.next();
         if (def->manufacturer() == manufacturer)
             models << def->model();
     }
@@ -101,17 +101,17 @@ QMap<QString, QMap<QString, bool>> QLCFixtureDefCache::fixtureCache() const
 {
     QMap<QString, QMap<QString, bool>> map;
 
-    QListIterator<QLCFixtureDef*> it(m_defs);
+    QListIterator<QLCFixtureDef *> it(m_defs);
     while (it.hasNext() == true)
     {
-        QLCFixtureDef* def = it.next();
+        QLCFixtureDef *def = it.next();
         map[def->manufacturer()][def->model()] = def->isUser();
     }
 
     return map;
 }
 
-bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
+bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef *fixtureDef)
 {
     if (fixtureDef == NULL)
         return false;
@@ -145,7 +145,7 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
     return true;
 }
 
-bool QLCFixtureDefCache::load(const QDir& dir)
+bool QLCFixtureDefCache::load(const QDir &dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
@@ -169,7 +169,7 @@ bool QLCFixtureDefCache::load(const QDir& dir)
     return true;
 }
 
-int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader* doc, QString manufacturer)
+int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer)
 {
     int count = 0;
     QString spacedManufacturer = manufacturer;
@@ -197,7 +197,7 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader* doc, QString manuf
 
             if (defFile.isEmpty() == false && spacedManufacturer.isEmpty() == false && model.isEmpty() == false)
             {
-                QLCFixtureDef* fxi = new QLCFixtureDef();
+                QLCFixtureDef *fxi = new QLCFixtureDef();
                 Q_ASSERT(fxi != NULL);
 
                 fxi->setDefinitionSourceFile(defFile);
@@ -221,7 +221,7 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader* doc, QString manuf
     return count;
 }
 
-bool QLCFixtureDefCache::loadMap(const QDir& dir)
+bool QLCFixtureDefCache::loadMap(const QDir &dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
@@ -237,7 +237,7 @@ bool QLCFixtureDefCache::loadMap(const QDir& dir)
     // definition absolute path
     m_mapAbsolutePath = dir.absolutePath();
 
-    QXmlStreamReader* doc = QLCFile::getXMLReader(mapPath);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(mapPath);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << mapPath;
@@ -348,9 +348,9 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
     return QLCFile::userDirectory(QString(USERFIXTUREDIR), QString(FIXTUREDIR), filters);
 }
 
-bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
+bool QLCFixtureDefCache::loadQXF(const QString &path, bool isUser)
 {
-    QLCFixtureDef* fxi = new QLCFixtureDef();
+    QLCFixtureDef *fxi = new QLCFixtureDef();
     Q_ASSERT(fxi != NULL);
 
     QFile::FileError error = fxi->loadXML(path);
@@ -365,8 +365,7 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "Fixture definition loading from" << path
-                   << "failed:" << QLCFile::errorString(error);
+        qWarning() << Q_FUNC_INFO << "Fixture definition loading from" << path << "failed:" << QLCFile::errorString(error);
         delete fxi;
         fxi = NULL;
         return false;
@@ -374,9 +373,9 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     return true;
 }
 
-bool QLCFixtureDefCache::loadD4(const QString& path)
+bool QLCFixtureDefCache::loadD4(const QString &path)
 {
-    QLCFixtureDef* fxi = new QLCFixtureDef();
+    QLCFixtureDef *fxi = new QLCFixtureDef();
     AvolitesD4Parser parser;
     if (parser.loadXML(path, fxi) == false)
     {

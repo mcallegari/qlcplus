@@ -36,7 +36,7 @@
  * Initialization
  *****************************************************************************/
 
-GroupsConsole::GroupsConsole(QWidget* parent, Doc* doc, QList<quint32> ids, QList<uchar> levels)
+GroupsConsole::GroupsConsole(QWidget *parent, Doc *doc, QList<quint32> ids, QList<uchar> levels)
     : QWidget(parent)
     , m_doc(doc)
     , m_ids(ids)
@@ -50,7 +50,7 @@ GroupsConsole::GroupsConsole(QWidget* parent, Doc* doc, QList<quint32> ids, QLis
 
 GroupsConsole::~GroupsConsole() {}
 
-QList<ConsoleChannel*> GroupsConsole::groups()
+QList<ConsoleChannel *> GroupsConsole::groups()
 {
     return m_groups;
 }
@@ -60,12 +60,12 @@ void GroupsConsole::init()
     int idx = 0;
     foreach (quint32 id, m_ids)
     {
-        ChannelsGroup* grp = m_doc->channelsGroup(id);
+        ChannelsGroup *grp = m_doc->channelsGroup(id);
         if (grp != NULL && grp->getChannels().count() > 0)
         {
             SceneValue scv = grp->getChannels().at(0);
 
-            ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel, false);
+            ConsoleChannel *cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel, false);
             cc->setLabel(grp->name());
             cc->setChannelsGroup(id);
             cc->setChannelStyleSheet(CNG_DEFAULT_STYLE);

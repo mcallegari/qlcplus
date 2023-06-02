@@ -25,7 +25,7 @@
 #include "audiorenderer_qt5.h"
 #include "audioplugincache.h"
 
-AudioRendererQt5::AudioRendererQt5(QString device, Doc* doc, QObject* parent)
+AudioRendererQt5::AudioRendererQt5(QString device, Doc *doc, QObject *parent)
     : AudioRenderer(parent)
     , m_audioOutput(NULL)
     , m_output(NULL)
@@ -108,11 +108,11 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     QStringList outDevs, inDevs;
 
     // create a preliminary list of input devices only
-    foreach (const QAudioDeviceInfo& deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+    foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
         inDevs.append(deviceInfo.deviceName());
 
     // loop through output devices and check if they're input devices too
-    foreach (const QAudioDeviceInfo& deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+    foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
     {
         outDevs.append(deviceInfo.deviceName());
         AudioDeviceInfo info;
@@ -142,13 +142,13 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererQt5::writeAudio(unsigned char* data, qint64 maxSize)
+qint64 AudioRendererQt5::writeAudio(unsigned char *data, qint64 maxSize)
 {
     if (m_audioOutput == NULL || m_audioOutput->bytesFree() < maxSize)
         return 0;
 
     // qDebug() << "writeAudio called !! - " << maxSize;
-    qint64 written = m_output->write((const char*)data, maxSize);
+    qint64 written = m_output->write((const char *)data, maxSize);
 
     if (written != maxSize)
         qDebug() << "[writeAudio] expexcted to write" << maxSize << "but wrote" << written;

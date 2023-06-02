@@ -38,7 +38,7 @@
  * Initialization
  ****************************************************************************/
 
-SimpleDeskEngine::SimpleDeskEngine(Doc* doc)
+SimpleDeskEngine::SimpleDeskEngine(Doc *doc)
     : QObject(doc)
     , m_doc(doc)
 {
@@ -60,7 +60,7 @@ void SimpleDeskEngine::clearContents()
     qDebug() << Q_FUNC_INFO;
 
     // Stop all cuestacks and wait for each of them to stop
-    foreach (CueStack* cs, m_cueStacks.values())
+    foreach (CueStack *cs, m_cueStacks.values())
     {
         cs->stop();
         while (cs->isStarted() == true)
@@ -69,7 +69,7 @@ void SimpleDeskEngine::clearContents()
     }
 
     QMutexLocker locker(&m_mutex);
-    foreach (CueStack* cs, m_cueStacks.values())
+    foreach (CueStack *cs, m_cueStacks.values())
         delete cs;
     m_cueStacks.clear();
     m_values.clear();
@@ -103,7 +103,7 @@ bool SimpleDeskEngine::hasChannel(uint channel)
     return m_values.contains(channel);
 }
 
-void SimpleDeskEngine::setCue(const Cue& cue)
+void SimpleDeskEngine::setCue(const Cue &cue)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -153,7 +153,7 @@ void SimpleDeskEngine::resetChannel(uint channel)
  * Cue Stacks
  ****************************************************************************/
 
-CueStack* SimpleDeskEngine::cueStack(uint stack)
+CueStack *SimpleDeskEngine::cueStack(uint stack)
 {
     QMutexLocker locker(&m_mutex);
 
@@ -166,11 +166,11 @@ CueStack* SimpleDeskEngine::cueStack(uint stack)
     return m_cueStacks[stack];
 }
 
-CueStack* SimpleDeskEngine::createCueStack()
+CueStack *SimpleDeskEngine::createCueStack()
 {
     qDebug() << Q_FUNC_INFO;
 
-    CueStack* cs = new CueStack(m_doc);
+    CueStack *cs = new CueStack(m_doc);
     Q_ASSERT(cs != NULL);
     connect(cs, SIGNAL(currentCueChanged(int)), this, SLOT(slotCurrentCueChanged(int)));
     connect(cs, SIGNAL(started()), this, SLOT(slotCueStackStarted()));
@@ -215,7 +215,7 @@ void SimpleDeskEngine::slotCueStackStopped()
  * Save & Load
  ************************************************************************/
 
-bool SimpleDeskEngine::loadXML(QXmlStreamReader& root)
+bool SimpleDeskEngine::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCSimpleDeskEngine)
     {
@@ -230,7 +230,7 @@ bool SimpleDeskEngine::loadXML(QXmlStreamReader& root)
             uint id = CueStack::loadXMLID(root);
             if (id != UINT_MAX)
             {
-                CueStack* cs = cueStack(id);
+                CueStack *cs = cueStack(id);
                 cs->loadXML(root);
             }
             else
@@ -248,7 +248,7 @@ bool SimpleDeskEngine::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool SimpleDeskEngine::saveXML(QXmlStreamWriter* doc) const
+bool SimpleDeskEngine::saveXML(QXmlStreamWriter *doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
@@ -257,13 +257,13 @@ bool SimpleDeskEngine::saveXML(QXmlStreamWriter* doc) const
 
     QMutexLocker locker(&m_mutex);
 
-    QHashIterator<uint, CueStack*> it(m_cueStacks);
+    QHashIterator<uint, CueStack *> it(m_cueStacks);
     while (it.hasNext() == true)
     {
         it.next();
 
         // Save CueStack only if it contains something
-        const CueStack* cs = it.value();
+        const CueStack *cs = it.value();
         if (cs->cues().size() > 0)
             cs->saveXML(doc, it.key());
     }
@@ -278,8 +278,7 @@ bool SimpleDeskEngine::saveXML(QXmlStreamWriter* doc) const
  * DMXSource
  ****************************************************************************/
 
-FadeChannel* SimpleDeskEngine::getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID,
-                                        quint32 channel)
+FadeChannel *SimpleDeskEngine::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
@@ -292,7 +291,7 @@ FadeChannel* SimpleDeskEngine::getFader(QList<Universe*> universes, quint32 univ
     return fader->getChannelFader(m_doc, universes[universeID], fixtureID, channel);
 }
 
-void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe*> ua)
+void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 {
     QMutexLocker locker(&m_mutex);
 
@@ -318,11 +317,11 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe*> ua)
                     {
                         it.next();
                         FadeChannel fc = it.value();
-                        Fixture* fixture = m_doc->fixture(fc.fixture());
+                        Fixture *fixture = m_doc->fixture(fc.fixture());
                         quint32 chIndex = fc.channel();
                         if (fixture != NULL)
                         {
-                            const QLCChannel* ch = fixture->channel(chIndex);
+                            const QLCChannel *ch = fixture->channel(chIndex);
                             if (ch != NULL)
                             {
                                 qDebug() << "Restoring default value of fixture" << fixture->id() << "channel"
@@ -343,13 +342,13 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe*> ua)
                 if (!fader.isNull())
                 {
                     FadeChannel fc(m_doc, Fixture::invalidId(), channel);
-                    Fixture* fixture = m_doc->fixture(fc.fixture());
+                    Fixture *fixture = m_doc->fixture(fc.fixture());
                     quint32 chIndex = fc.channel();
                     fader->remove(&fc);
                     ua[universe]->reset(channel & 0x01FF, 1);
                     if (fixture != NULL)
                     {
-                        const QLCChannel* ch = fixture->channel(chIndex);
+                        const QLCChannel *ch = fixture->channel(chIndex);
                         if (ch != NULL)
                         {
                             qDebug() << "Restoring default value of fixture" << fixture->id() << "channel" << chIndex
@@ -372,7 +371,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe*> ua)
             int uni = it.key() >> 9;
             int address = it.key();
             uchar value = it.value();
-            FadeChannel* fc = getFader(ua, uni, Fixture::invalidId(), address);
+            FadeChannel *fc = getFader(ua, uni, Fixture::invalidId(), address);
             fc->setCurrent(value);
             fc->setTarget(value);
             fc->addFlag(FadeChannel::Override);
@@ -380,7 +379,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe*> ua)
         setChanged(false);
     }
 
-    foreach (CueStack* cueStack, m_cueStacks)
+    foreach (CueStack *cueStack, m_cueStacks)
     {
         if (cueStack == NULL)
             continue;

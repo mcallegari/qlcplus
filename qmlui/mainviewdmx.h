@@ -36,7 +36,7 @@ class MainViewDMX : public PreviewContext
     Q_PROPERTY(bool relativeAddresses READ relativeAddresses WRITE setRelativeAddresses NOTIFY relativeAddressesChanged)
 
 public:
-    explicit MainViewDMX(QQuickView* view, Doc* doc, QObject* parent = 0);
+    explicit MainViewDMX(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainViewDMX();
 
     /** @reimp */
@@ -52,7 +52,7 @@ public:
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
-    void updateFixture(Fixture* fixture);
+    void updateFixture(Fixture *fixture);
 
     void updateFixtureSelection(QList<quint32> fixtures);
 
@@ -81,7 +81,7 @@ protected slots:
 
 private:
     /** Pre-cached QML component for quick item creation */
-    QQmlComponent* fixtureComponent;
+    QQmlComponent *fixtureComponent;
     bool m_showAddresses;
     bool m_relativeAddresses;
 };

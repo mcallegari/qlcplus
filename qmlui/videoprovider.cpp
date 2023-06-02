@@ -24,7 +24,7 @@
 #include "videoprovider.h"
 #include "doc.h"
 
-VideoProvider::VideoProvider(QQuickView* view, Doc* doc, QObject* parent)
+VideoProvider::VideoProvider(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -34,7 +34,7 @@ VideoProvider::VideoProvider(QQuickView* view, Doc* doc, QObject* parent)
 
     qmlRegisterUncreatableType<Video>("org.qlcplus.classes", 1, 0, "VideoFunction", "Can't create a Video!");
 
-    for (Function* f : m_doc->functionsByType(Function::VideoType))
+    for (Function *f : m_doc->functionsByType(Function::VideoType))
         slotFunctionAdded(f->id());
 
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
@@ -46,12 +46,12 @@ VideoProvider::~VideoProvider()
     m_videoMap.clear();
 }
 
-QQuickView* VideoProvider::fullscreenContext()
+QQuickView *VideoProvider::fullscreenContext()
 {
     return m_fullscreenContext;
 }
 
-void VideoProvider::setFullscreenContext(QQuickView* context)
+void VideoProvider::setFullscreenContext(QQuickView *context)
 {
     if (context == nullptr && m_fullscreenContext)
         m_fullscreenContext->deleteLater();
@@ -61,11 +61,11 @@ void VideoProvider::setFullscreenContext(QQuickView* context)
 
 void VideoProvider::slotFunctionAdded(quint32 id)
 {
-    Function* func = m_doc->function(id);
+    Function *func = m_doc->function(id);
     if (func == nullptr || func->type() != Function::VideoType)
         return;
 
-    Video* video = qobject_cast<Video*>(func);
+    Video *video = qobject_cast<Video *>(func);
     m_videoMap[id] = new VideoContent(video, this);
 
     connect(video, SIGNAL(requestPlayback()), this, SLOT(slotRequestPlayback()));
@@ -77,14 +77,14 @@ void VideoProvider::slotFunctionRemoved(quint32 id)
 {
     if (m_videoMap.contains(id))
     {
-        VideoContent* vc = m_videoMap.take(id);
+        VideoContent *vc = m_videoMap.take(id);
         delete vc;
     }
 }
 
 void VideoProvider::slotRequestPlayback()
 {
-    Video* video = qobject_cast<Video*>(sender());
+    Video *video = qobject_cast<Video *>(sender());
     if (video == nullptr)
         return;
 
@@ -99,7 +99,7 @@ void VideoProvider::slotRequestPause(bool enable)
 
 void VideoProvider::slotRequestStop()
 {
-    Video* video = qobject_cast<Video*>(sender());
+    Video *video = qobject_cast<Video *>(sender());
     if (video == nullptr)
         return;
 
@@ -111,7 +111,7 @@ void VideoProvider::slotRequestStop()
  * VideoContent class implementation
  *********************************************************************/
 
-VideoContent::VideoContent(Video* video, VideoProvider* parent)
+VideoContent::VideoContent(Video *video, VideoProvider *parent)
     : m_provider(parent)
     , m_video(video)
     , m_mediaPlayer(nullptr)
@@ -147,7 +147,7 @@ void VideoContent::destroyContext()
 
 void VideoContent::playContent()
 {
-    QScreen* vScreen = nullptr;
+    QScreen *vScreen = nullptr;
 
     if (m_video->fullscreen())
         m_viewContext = m_provider->fullscreenContext();
@@ -165,7 +165,7 @@ void VideoContent::playContent()
 
     if (m_viewContext == nullptr)
     {
-        QList<QScreen*> screens = QGuiApplication::screens();
+        QList<QScreen *> screens = QGuiApplication::screens();
 
         if (m_video->screen() < screens.count())
             vScreen = screens.at(m_video->screen());
@@ -188,18 +188,16 @@ void VideoContent::playContent()
             m_viewContext->setPosition(topLeft);
         }
 
-        connect(m_viewContext, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotWindowClosing()));
+        connect(m_viewContext, SIGNAL(closing(QQuickCloseEvent *)), this, SLOT(slotWindowClosing()));
     }
 
     if (m_video->isPicture())
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addPicture",
-                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addPicture", Q_ARG(QVariant, QVariant::fromValue(m_video)));
     }
     else
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo",
-                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo", Q_ARG(QVariant, QVariant::fromValue(m_video)));
     }
 
     m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
@@ -228,8 +226,7 @@ void VideoContent::slotDetectResolution()
 
     m_mediaPlayer = new QMediaPlayer();
 
-    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this,
-            SLOT(slotMetaDataChanged(QString, QVariant)));
+    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
 
     QString sourceURL = m_video->sourceUrl();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -245,18 +242,18 @@ void VideoContent::slotDetectResolution()
 #endif
 }
 
-QVariant VideoContent::getAttribute(quint32 id, const char* propName)
+QVariant VideoContent::getAttribute(quint32 id, const char *propName)
 {
-    QQuickItem* item = qobject_cast<QQuickItem*>(m_viewContext->findChild<QQuickItem*>(QString("media-%1").arg(id)));
+    QQuickItem *item = qobject_cast<QQuickItem *>(m_viewContext->findChild<QQuickItem *>(QString("media-%1").arg(id)));
     if (item)
         return item->property(propName);
 
     return QVariant();
 }
 
-void VideoContent::updateAttribute(quint32 id, const char* propName, QVariant value)
+void VideoContent::updateAttribute(quint32 id, const char *propName, QVariant value)
 {
-    QQuickItem* item = qobject_cast<QQuickItem*>(m_viewContext->findChild<QQuickItem*>(QString("media-%1").arg(id)));
+    QQuickItem *item = qobject_cast<QQuickItem *>(m_viewContext->findChild<QQuickItem *>(QString("media-%1").arg(id)));
     if (item)
         item->setProperty(propName, value);
 }
@@ -332,7 +329,7 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
     }
 }
 
-void VideoContent::slotMetaDataChanged(const QString& key, const QVariant& value)
+void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value)
 {
     if (key == "Resolution")
     {

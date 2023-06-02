@@ -25,13 +25,13 @@
 #include "showitem.h"
 #include "apputil.h"
 
-#define WINDOW_FLAGS                                                                                                   \
-  Qt::WindowFlags((Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint |             \
-                   Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
+#define WINDOW_FLAGS                                                                                     \
+  Qt::WindowFlags((Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint \
+                   | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
 
 #define SETTINGS_GEOMETRY "timingstool/geometry"
 
-TimingsTool::TimingsTool(ShowItem* item, QWidget* parent)
+TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
     : QWidget(parent)
     , m_startDial(NULL)
     , m_durationDial(NULL)
@@ -43,7 +43,7 @@ TimingsTool::TimingsTool(ShowItem* item, QWidget* parent)
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(m_item->functionName());
 
-    QBoxLayout* lay = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    QBoxLayout *lay = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
     /* Create dials */
     m_startDial = new SpeedDial(this);

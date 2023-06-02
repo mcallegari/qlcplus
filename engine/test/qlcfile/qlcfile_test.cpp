@@ -33,7 +33,7 @@ void QLCFile_Test::XMLReader()
 {
     QVERIFY(QLCFile::getXMLReader("") == NULL);
 
-    QXmlStreamReader* reader = QLCFile::getXMLReader("readonly.xml.in");
+    QXmlStreamReader *reader = QLCFile::getXMLReader("readonly.xml.in");
 
     QVERIFY(reader != NULL);
     QVERIFY(reader->device() != NULL);

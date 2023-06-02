@@ -30,7 +30,7 @@
 
 #include "audiorenderer_alsa.h"
 
-AudioRendererAlsa::AudioRendererAlsa(QString device, QObject* parent)
+AudioRendererAlsa::AudioRendererAlsa(QString device, QObject *parent)
     : AudioRenderer(parent)
 {
     QString dev_name = "default";
@@ -86,8 +86,8 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     uint buffer_time = 500000;
     uint period_time = 100000;
 
-    snd_pcm_hw_params_t* hwparams = 0;
-    snd_pcm_sw_params_t* swparams = 0;
+    snd_pcm_hw_params_t *hwparams = 0;
+    snd_pcm_sw_params_t *swparams = 0;
     int err; // alsa error code
 
     // hw params
@@ -147,8 +147,9 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     }
     if (rate != exact_rate)
     {
-        qWarning("OutputALSA: The rate %d Hz is not supported by your hardware.\n==> Using %d Hz instead.", rate,
-                 exact_rate);
+        qWarning("OutputALSA: The rate %d Hz is not supported by your hardware.\n==> Using %d Hz "
+                 "instead.",
+                 rate, exact_rate);
     }
     uint c = chan;
     if ((err = snd_pcm_hw_params_set_channels_near(pcm_handle, hwparams, &c)) < 0)
@@ -203,7 +204,7 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
 
     // create alsa prebuffer;
     m_prebuf_size = m_bits_per_frame * m_chunk_size / 8;
-    m_prebuf = (uchar*)malloc(m_prebuf_size);
+    m_prebuf = (uchar *)malloc(m_prebuf_size);
 
     m_inited = true;
     return true;
@@ -222,8 +223,8 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 
     while (snd_card_next(&cardIdx) == 0 && cardIdx >= 0)
     {
-        snd_ctl_t* cardHandle;
-        snd_ctl_card_info_t* cardInfo;
+        snd_ctl_t *cardHandle;
+        snd_ctl_card_info_t *cardInfo;
         char str[64];
         int devIdx = -1;
         int err;
@@ -251,7 +252,7 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 
         while (snd_ctl_pcm_next_device(cardHandle, &devIdx) == 0 && devIdx >= 0)
         {
-            snd_pcm_info_t* pcmInfo;
+            snd_pcm_info_t *pcmInfo;
             int tmpCaps = 0;
 
             snd_pcm_info_alloca(&pcmInfo);
@@ -292,7 +293,7 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererAlsa::writeAudio(unsigned char* data, qint64 maxSize)
+qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)
 {
     if (pcm_handle == NULL || m_prebuf == NULL)
         return 0;
@@ -322,7 +323,7 @@ qint64 AudioRendererAlsa::writeAudio(unsigned char* data, qint64 maxSize)
     return maxSize;
 }
 
-long AudioRendererAlsa::alsa_write(unsigned char* data, long size)
+long AudioRendererAlsa::alsa_write(unsigned char *data, long size)
 {
     long m = snd_pcm_avail_update(pcm_handle);
     if (m >= 0 && m < size)

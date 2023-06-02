@@ -44,7 +44,7 @@
  * Initialization
  *****************************************************************************/
 
-EFX::EFX(Doc* doc)
+EFX::EFX(Doc *doc)
     : Function(doc, Function::EFXType)
     , m_algorithm(EFX::Circle)
     , m_isRelative(false)
@@ -83,11 +83,11 @@ QIcon EFX::getIcon() const
  * Copying
  *****************************************************************************/
 
-Function* EFX::createCopy(Doc* doc, bool addToDoc)
+Function *EFX::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new EFX(doc);
+    Function *copy = new EFX(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -102,19 +102,19 @@ Function* EFX::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool EFX::copyFrom(const Function* function)
+bool EFX::copyFrom(const Function *function)
 {
-    const EFX* efx = qobject_cast<const EFX*>(function);
+    const EFX *efx = qobject_cast<const EFX *>(function);
     if (efx == NULL)
         return false;
 
     while (m_fixtures.isEmpty() == false)
         delete m_fixtures.takeFirst();
 
-    QListIterator<EFXFixture*> it(efx->m_fixtures);
+    QListIterator<EFXFixture *> it(efx->m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = new EFXFixture(this);
+        EFXFixture *ef = new EFXFixture(this);
         ef->copyFrom(it.next());
         m_fixtures.append(ef);
     }
@@ -218,7 +218,7 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
     }
 }
 
-EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
+EFX::Algorithm EFX::stringToAlgorithm(const QString &str)
 {
     if (str == QString(KXMLQLCEFXEightAlgorithmName))
         return EFX::Eight;
@@ -240,19 +240,19 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Circle;
 }
 
-void EFX::preview(QPolygonF& polygon) const
+void EFX::preview(QPolygonF &polygon) const
 {
     preview(polygon, Function::Forward, 0);
 }
 
-void EFX::previewFixtures(QVector<QPolygonF>& polygons) const
+void EFX::previewFixtures(QVector<QPolygonF> &polygons) const
 {
     polygons.resize(m_fixtures.size());
     for (int i = 0; i < m_fixtures.size(); ++i)
         preview(polygons[i], m_fixtures[i]->m_direction, m_fixtures[i]->m_startOffset);
 }
 
-void EFX::preview(QPolygonF& polygon, Function::Direction direction, int startOffset) const
+void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
 {
     float stepCount = 128.0;
     int step = 0;
@@ -274,7 +274,7 @@ void EFX::preview(QPolygonF& polygon, Function::Direction direction, int startOf
     }
 }
 
-void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const
+void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const
 {
     iterator = calculateDirection(direction, iterator);
     iterator += convertOffset(startOffset + getAttributeValue(StartOffset));
@@ -285,7 +285,7 @@ void EFX::calculatePoint(Function::Direction direction, int startOffset, float i
     calculatePoint(iterator, x, y);
 }
 
-void EFX::rotateAndScale(float* x, float* y) const
+void EFX::rotateAndScale(float *x, float *y) const
 {
     float xx = *x;
     float yy = *y;
@@ -329,7 +329,7 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
 }
 
 // this function should map from 0..M_PI * 2 -> -1..1
-void EFX::calculatePoint(float iterator, float* x, float* y) const
+void EFX::calculatePoint(float iterator, float *x, float *y) const
 {
     switch (algorithm())
     {
@@ -611,7 +611,7 @@ bool EFX::isPhaseEnabled() const
  * Fixtures
  *****************************************************************************/
 
-bool EFX::addFixture(EFXFixture* ef)
+bool EFX::addFixture(EFXFixture *ef)
 {
     Q_ASSERT(ef != NULL);
 
@@ -639,14 +639,14 @@ bool EFX::addFixture(EFXFixture* ef)
 
 bool EFX::addFixture(quint32 fxi, int head)
 {
-    EFXFixture* ef = new EFXFixture(this);
+    EFXFixture *ef = new EFXFixture(this);
     GroupHead gHead(fxi, head);
     ef->setHead(gHead);
 
     return addFixture(ef);
 }
 
-bool EFX::removeFixture(EFXFixture* ef)
+bool EFX::removeFixture(EFXFixture *ef)
 {
     Q_ASSERT(ef != NULL);
 
@@ -665,7 +665,7 @@ bool EFX::removeFixture(quint32 fxi, int head)
 {
     for (int i = 0; i < m_fixtures.count(); i++)
     {
-        EFXFixture* ef = m_fixtures.at(i);
+        EFXFixture *ef = m_fixtures.at(i);
         if (ef->head().fxi == fxi && ef->head().head == head)
         {
             m_fixtures.removeAt(i);
@@ -682,7 +682,7 @@ void EFX::removeAllFixtures()
     emit changed(this->id());
 }
 
-bool EFX::raiseFixture(EFXFixture* ef)
+bool EFX::raiseFixture(EFXFixture *ef)
 {
     Q_ASSERT(ef != NULL);
 
@@ -699,7 +699,7 @@ bool EFX::raiseFixture(EFXFixture* ef)
     }
 }
 
-bool EFX::lowerFixture(EFXFixture* ef)
+bool EFX::lowerFixture(EFXFixture *ef)
 {
     int index = m_fixtures.indexOf(ef);
     if (index < (m_fixtures.count() - 1))
@@ -714,14 +714,14 @@ bool EFX::lowerFixture(EFXFixture* ef)
     }
 }
 
-const QList<EFXFixture*> EFX::fixtures() const
+const QList<EFXFixture *> EFX::fixtures() const
 {
     return m_fixtures;
 }
 
-EFXFixture* EFX::fixture(quint32 id, int headIndex)
+EFXFixture *EFX::fixture(quint32 id, int headIndex)
 {
-    foreach (EFXFixture* ef, m_fixtures)
+    foreach (EFXFixture *ef, m_fixtures)
     {
         if (ef->head().fxi == id && ef->head().head == headIndex)
             return ef;
@@ -734,7 +734,7 @@ QList<quint32> EFX::components()
 {
     QList<quint32> ids;
 
-    foreach (EFXFixture* ef, m_fixtures)
+    foreach (EFXFixture *ef, m_fixtures)
     {
         if (ids.contains(ef->head().fxi) == false)
             ids.append(ef->head().fxi);
@@ -746,7 +746,7 @@ QList<quint32> EFX::components()
 void EFX::slotFixtureRemoved(quint32 fxi_id)
 {
     /* Remove the destroyed fixture from our list */
-    QMutableListIterator<EFXFixture*> it(m_fixtures);
+    QMutableListIterator<EFXFixture *> it(m_fixtures);
     while (it.hasNext() == true)
     {
         it.next();
@@ -799,7 +799,7 @@ EFX::PropagationMode EFX::stringToPropagationMode(QString str)
  * Load & Save
  *****************************************************************************/
 
-bool EFX::saveXML(QXmlStreamWriter* doc)
+bool EFX::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -810,7 +810,7 @@ bool EFX::saveXML(QXmlStreamWriter* doc)
     saveXMLCommon(doc);
 
     /* Fixtures */
-    QListIterator<EFXFixture*> it(m_fixtures);
+    QListIterator<EFXFixture *> it(m_fixtures);
     while (it.hasNext() == true)
         it.next()->saveXML(doc);
 
@@ -875,7 +875,7 @@ bool EFX::saveXML(QXmlStreamWriter* doc)
     return true;
 }
 
-bool EFX::loadXML(QXmlStreamReader& root)
+bool EFX::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -907,7 +907,7 @@ bool EFX::loadXML(QXmlStreamReader& root)
         }
         else if (root.name() == KXMLQLCEFXFixture)
         {
-            EFXFixture* ef = new EFXFixture(this);
+            EFXFixture *ef = new EFXFixture(this);
             ef->loadXML(root);
             if (ef->head().isValid())
             {
@@ -973,7 +973,7 @@ bool EFX::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool EFX::loadXMLAxis(QXmlStreamReader& root)
+bool EFX::loadXMLAxis(QXmlStreamReader &root)
 {
     int frequency = 0;
     int offset = 0;
@@ -1046,7 +1046,7 @@ void EFX::postLoad()
 /*****************************************************************************
  * Running
  *****************************************************************************/
-QSharedPointer<GenericFader> EFX::getFader(QList<Universe*> universes, quint32 universeID)
+QSharedPointer<GenericFader> EFX::getFader(QList<Universe *> universes, quint32 universeID)
 {
     // get the universe Fader first. If doesn't exist, create it
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
@@ -1063,14 +1063,14 @@ QSharedPointer<GenericFader> EFX::getFader(QList<Universe*> universes, quint32 u
     return fader;
 }
 
-void EFX::preRun(MasterTimer* timer)
+void EFX::preRun(MasterTimer *timer)
 {
     int serialNumber = 0;
 
-    QListIterator<EFXFixture*> it(m_fixtures);
+    QListIterator<EFXFixture *> it(m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = it.next();
+        EFXFixture *ef = it.next();
         Q_ASSERT(ef != NULL);
         ef->setSerialNumber(serialNumber++);
     }
@@ -1078,7 +1078,7 @@ void EFX::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void EFX::write(MasterTimer* timer, QList<Universe*> universes)
+void EFX::write(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
@@ -1087,10 +1087,10 @@ void EFX::write(MasterTimer* timer, QList<Universe*> universes)
 
     int done = 0;
 
-    QListIterator<EFXFixture*> it(m_fixtures);
+    QListIterator<EFXFixture *> it(m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = it.next();
+        EFXFixture *ef = it.next();
         if (ef->isDone() == false)
         {
             QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
@@ -1109,13 +1109,13 @@ void EFX::write(MasterTimer* timer, QList<Universe*> universes)
         stop(FunctionParent::master());
 }
 
-void EFX::postRun(MasterTimer* timer, QList<Universe*> universes)
+void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     /* Reset all fixtures */
-    QListIterator<EFXFixture*> it(m_fixtures);
+    QListIterator<EFXFixture *> it(m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef(it.next());
+        EFXFixture *ef(it.next());
 
         /* Run the EFX's stop scene for Loop & PingPong modes */
         if (runOrder() != SingleShot)

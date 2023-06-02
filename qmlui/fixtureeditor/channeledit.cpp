@@ -24,13 +24,13 @@
 
 #include "channeledit.h"
 
-ChannelEdit::ChannelEdit(QLCChannel* channel, QObject* parent)
+ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
     : QObject(parent)
     , m_channel(channel)
 {
     if (m_channel->capabilities().count() == 0)
     {
-        QLCCapability* cap = new QLCCapability(0, UCHAR_MAX);
+        QLCCapability *cap = new QLCCapability(0, UCHAR_MAX);
         QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
         cap->setWarning(QLCCapability::EmptyName);
         m_channel->addCapability(cap);
@@ -52,7 +52,7 @@ ChannelEdit::~ChannelEdit()
     disconnect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
 }
 
-QLCChannel* ChannelEdit::channel()
+QLCChannel *ChannelEdit::channel()
 {
     return m_channel;
 }
@@ -135,7 +135,7 @@ QVariantList ChannelEdit::channelTypeList() const
 {
     QVariantList list;
 
-    for (QString& grp : QLCChannel::groupList())
+    for (QString &grp : QLCChannel::groupList())
     {
         QLCChannel ch;
         ch.setGroup(QLCChannel::stringToGroup(grp));
@@ -148,7 +148,7 @@ QVariantList ChannelEdit::channelTypeList() const
 
         if (ch.group() == QLCChannel::Intensity)
         {
-            for (QString& color : QLCChannel::colourList())
+            for (QString &color : QLCChannel::colourList())
             {
                 QLCChannel cc;
                 cc.setGroup(QLCChannel::Intensity);
@@ -170,7 +170,7 @@ void ChannelEdit::updateCapabilities()
 {
     m_capabilities.clear();
 
-    for (QLCCapability* cap : m_channel->capabilities())
+    for (QLCCapability *cap : m_channel->capabilities())
     {
         QVariantMap capMap;
         capMap.insert("cRef", QVariant::fromValue(cap));
@@ -188,7 +188,7 @@ void ChannelEdit::setupPreset()
         return;
     }
 
-    for (QLCCapability* cap : m_channel->capabilities())
+    for (QLCCapability *cap : m_channel->capabilities())
         m_channel->removeCapability(cap);
 
     m_channel->addPresetCapability();
@@ -203,15 +203,15 @@ QVariantList ChannelEdit::capabilities() const
     return m_capabilities;
 }
 
-QLCCapability* ChannelEdit::addNewCapability()
+QLCCapability *ChannelEdit::addNewCapability()
 {
     int min = 0;
     if (m_channel->capabilities().count())
     {
-        QLCCapability* last = m_channel->capabilities().last();
+        QLCCapability *last = m_channel->capabilities().last();
         min = last->max() + 1;
     }
-    QLCCapability* cap = new QLCCapability(min, UCHAR_MAX);
+    QLCCapability *cap = new QLCCapability(min, UCHAR_MAX);
     QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
     cap->setWarning(QLCCapability::EmptyName);
     if (m_channel->addCapability(cap))
@@ -227,9 +227,9 @@ QLCCapability* ChannelEdit::addNewCapability()
     return cap;
 }
 
-QLCCapability* ChannelEdit::addCapability(int min, int max, QString name)
+QLCCapability *ChannelEdit::addCapability(int min, int max, QString name)
 {
-    QLCCapability* cap = new QLCCapability(min, max);
+    QLCCapability *cap = new QLCCapability(min, max);
     QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
     cap->setName(name);
     if (m_channel->addCapability(cap))
@@ -247,7 +247,7 @@ QLCCapability* ChannelEdit::addCapability(int min, int max, QString name)
 
 void ChannelEdit::removeCapabilityAtIndex(int index)
 {
-    QList<QLCCapability*> caps = m_channel->capabilities();
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
     if (index < 0 || index >= caps.count())
         return;
@@ -258,7 +258,7 @@ void ChannelEdit::removeCapabilityAtIndex(int index)
 
 int ChannelEdit::getCapabilityPresetAtIndex(int index)
 {
-    QList<QLCCapability*> caps = m_channel->capabilities();
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
     if (index < 0 || index >= caps.count())
         return 0;
@@ -268,18 +268,18 @@ int ChannelEdit::getCapabilityPresetAtIndex(int index)
 
 void ChannelEdit::setCapabilityPresetAtIndex(int index, int preset)
 {
-    QList<QLCCapability*> caps = m_channel->capabilities();
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
     if (index < 0 || index >= caps.count())
         return;
 
-    QLCCapability* cap = caps.at(index);
+    QLCCapability *cap = caps.at(index);
     cap->setPreset(QLCCapability::Preset(preset));
 }
 
 int ChannelEdit::getCapabilityPresetType(int index)
 {
-    QList<QLCCapability*> caps = m_channel->capabilities();
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
     if (index < 0 || index >= caps.count())
         return QLCCapability::None;
@@ -289,7 +289,7 @@ int ChannelEdit::getCapabilityPresetType(int index)
 
 QString ChannelEdit::getCapabilityPresetUnits(int index)
 {
-    QList<QLCCapability*> caps = m_channel->capabilities();
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
     if (index < 0 || index >= caps.count())
         return QString();
@@ -299,7 +299,7 @@ QString ChannelEdit::getCapabilityPresetUnits(int index)
 
 QVariant ChannelEdit::getCapabilityValueAt(int index, int vIndex)
 {
-    QList<QLCCapability*> caps = m_channel->capabilities();
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
     if (index < 0 || index >= caps.count())
         return QVariant();
@@ -309,7 +309,7 @@ QVariant ChannelEdit::getCapabilityValueAt(int index, int vIndex)
 
 void ChannelEdit::setCapabilityValueAt(int index, int vIndex, QVariant value)
 {
-    QList<QLCCapability*> caps = m_channel->capabilities();
+    QList<QLCCapability *> caps = m_channel->capabilities();
 
     if (index < 0 || index >= caps.count())
         return;
@@ -322,10 +322,10 @@ void ChannelEdit::checkCapabilities()
     QVector<bool> allocation;
     allocation.fill(false, 256);
 
-    QListIterator<QLCCapability*> it(m_channel->capabilities());
+    QListIterator<QLCCapability *> it(m_channel->capabilities());
     while (it.hasNext() == true)
     {
-        QLCCapability* cap = it.next();
+        QLCCapability *cap = it.next();
         cap->setWarning(QLCCapability::NoWarning);
         if (cap->name().isEmpty())
             cap->setWarning(QLCCapability::EmptyName);

@@ -63,7 +63,7 @@ const QStringList knownKeywords(QStringList() << "ch"
  * Initialization
  ****************************************************************************/
 
-Script::Script(Doc* doc)
+Script::Script(Doc *doc)
     : Function(doc, Function::ScriptType)
     , m_currentCommand(0)
     , m_waitCount(0)
@@ -100,11 +100,11 @@ quint32 Script::totalDuration()
     return totalDuration;
 }
 
-Function* Script::createCopy(Doc* doc, bool addToDoc)
+Function *Script::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Script(doc);
+    Function *copy = new Script(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -119,9 +119,9 @@ Function* Script::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Script::copyFrom(const Function* function)
+bool Script::copyFrom(const Function *function)
 {
-    const Script* script = qobject_cast<const Script*>(function);
+    const Script *script = qobject_cast<const Script *>(function);
     if (script == NULL)
         return false;
 
@@ -134,7 +134,7 @@ bool Script::copyFrom(const Function* function)
  * Script data
  ****************************************************************************/
 
-bool Script::setData(const QString& str)
+bool Script::setData(const QString &str)
 {
     m_data = str;
     m_syntaxErrorLines.clear();
@@ -172,7 +172,7 @@ bool Script::setData(const QString& str)
     return true;
 }
 
-bool Script::appendData(const QString& str)
+bool Script::appendData(const QString &str)
 {
     m_data.append(str + QString("\n"));
     m_lines << tokenizeLine(str + QString("\n"));
@@ -243,7 +243,7 @@ QList<int> Script::syntaxErrorsLines()
  * Load & Save
  ****************************************************************************/
 
-bool Script::loadXML(QXmlStreamReader& root)
+bool Script::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -287,7 +287,7 @@ bool Script::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool Script::saveXML(QXmlStreamWriter* doc)
+bool Script::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -322,7 +322,7 @@ bool Script::saveXML(QXmlStreamWriter* doc)
  * Running
  ****************************************************************************/
 
-void Script::preRun(MasterTimer* timer)
+void Script::preRun(MasterTimer *timer)
 {
     // Reset
     m_waitCount = 0;
@@ -332,7 +332,7 @@ void Script::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Script::write(MasterTimer* timer, QList<Universe*> universes)
+void Script::write(MasterTimer *timer, QList<Universe *> universes)
 {
     if (stopped() || isPaused())
         return;
@@ -360,10 +360,10 @@ void Script::write(MasterTimer* timer, QList<Universe*> universes)
     //    m_fader->write(universes);
 }
 
-void Script::postRun(MasterTimer* timer, QList<Universe*> universes)
+void Script::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     // Stop all functions started by this script
-    foreach (Function* function, m_startedFunctions)
+    foreach (Function *function, m_startedFunctions)
         function->stop(FunctionParent::master());
 
     m_startedFunctions.clear();
@@ -388,7 +388,7 @@ bool Script::waiting()
     }
 }
 
-quint32 Script::getValueFromString(QString str, bool* ok)
+quint32 Script::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -413,7 +413,7 @@ quint32 Script::getValueFromString(QString str, bool* ok)
 #endif
 }
 
-bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe*> universes)
+bool Script::executeCommand(int index, MasterTimer *timer, QList<Universe *> universes)
 {
     if (index < 0 || index >= m_lines.size())
     {
@@ -495,7 +495,7 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe*> univ
     return continueLoop;
 }
 
-QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTimer* timer)
+QString Script::handleStartFunction(const QList<QStringList> &tokens, MasterTimer *timer)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -507,10 +507,10 @@ QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTime
     if (ok == false)
         return QString("Invalid function ID: %1").arg(tokens[0][1]);
 
-    Doc* doc = qobject_cast<Doc*>(parent());
+    Doc *doc = qobject_cast<Doc *>(parent());
     Q_ASSERT(doc != NULL);
 
-    Function* function = doc->function(id);
+    Function *function = doc->function(id);
     if (function != NULL)
     {
         function->start(timer, FunctionParent::master());
@@ -524,7 +524,7 @@ QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTime
     }
 }
 
-QString Script::handleStopFunction(const QList<QStringList>& tokens)
+QString Script::handleStopFunction(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -536,10 +536,10 @@ QString Script::handleStopFunction(const QList<QStringList>& tokens)
     if (ok == false)
         return QString("Invalid function ID: %1").arg(tokens[0][1]);
 
-    Doc* doc = qobject_cast<Doc*>(parent());
+    Doc *doc = qobject_cast<Doc *>(parent());
     Q_ASSERT(doc != NULL);
 
-    Function* function = doc->function(id);
+    Function *function = doc->function(id);
     if (function != NULL)
     {
         function->stop(FunctionParent::master());
@@ -553,7 +553,7 @@ QString Script::handleStopFunction(const QList<QStringList>& tokens)
     }
 }
 
-QString Script::handleBlackout(const QList<QStringList>& tokens)
+QString Script::handleBlackout(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -575,7 +575,7 @@ QString Script::handleBlackout(const QList<QStringList>& tokens)
         return QString("Invalid argument: %1").arg(tokens[0][1]);
     }
 
-    Doc* doc = qobject_cast<Doc*>(parent());
+    Doc *doc = qobject_cast<Doc *>(parent());
     Q_ASSERT(doc != NULL);
 
     doc->inputOutputMap()->requestBlackout(request);
@@ -583,7 +583,7 @@ QString Script::handleBlackout(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleWait(const QList<QStringList>& tokens)
+QString Script::handleWait(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -600,7 +600,7 @@ QString Script::handleWait(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleWaitKey(const QList<QStringList>& tokens)
+QString Script::handleWaitKey(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO << tokens;
 
@@ -613,7 +613,7 @@ QString Script::handleWaitKey(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Universe*> universes)
+QString Script::handleSetFixture(const QList<QStringList> &tokens, QList<Universe *> universes)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -651,10 +651,10 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
         }
     }
 
-    Doc* doc = qobject_cast<Doc*>(parent());
+    Doc *doc = qobject_cast<Doc *>(parent());
     Q_ASSERT(doc != NULL);
 
-    Fixture* fxi = doc->fixture(id);
+    Fixture *fxi = doc->fixture(id);
     if (fxi != NULL)
     {
         if (ch < fxi->channels())
@@ -674,7 +674,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
                     m_fadersMap[universe] = fader;
                 }
 
-                FadeChannel* fc = fader->getChannelFader(doc, universes[universe], fxi->id(), ch);
+                FadeChannel *fc = fader->getChannelFader(doc, universes[universe], fxi->id(), ch);
                 fc->setTarget(value);
                 fc->setFadeTime(time);
 
@@ -696,7 +696,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
     }
 }
 
-QString Script::handleSystemCommand(const QList<QStringList>& tokens)
+QString Script::handleSystemCommand(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -705,7 +705,7 @@ QString Script::handleSystemCommand(const QList<QStringList>& tokens)
     for (int i = 1; i < tokens.size(); i++)
         programArgs << tokens[i][1];
 #if !defined(Q_OS_IOS)
-    QProcess* newProcess = new QProcess();
+    QProcess *newProcess = new QProcess();
 
     // startDetached() enables to delete QProcess object without killing actual process
     qint64 pid;
@@ -717,7 +717,7 @@ QString Script::handleSystemCommand(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleLabel(const QList<QStringList>& tokens)
+QString Script::handleLabel(const QList<QStringList> &tokens)
 {
     // A label just exists. Not much to do here.
     qDebug() << Q_FUNC_INFO;
@@ -728,7 +728,7 @@ QString Script::handleLabel(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleJump(const QList<QStringList>& tokens)
+QString Script::handleJump(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -748,7 +748,7 @@ QString Script::handleJump(const QList<QStringList>& tokens)
     }
 }
 
-QList<QStringList> Script::tokenizeLine(const QString& str, bool* ok)
+QList<QStringList> Script::tokenizeLine(const QString &str, bool *ok)
 {
     QList<QStringList> tokens;
     QString keyword;

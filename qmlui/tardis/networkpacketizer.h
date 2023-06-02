@@ -50,11 +50,11 @@ public:
         StringStringPairType
     };
 
-    void initializePacket(QByteArray& packet, int opCode);
-    void addSection(QByteArray& packet, QVariant value);
+    void initializePacket(QByteArray &packet, int opCode);
+    void addSection(QByteArray &packet, QVariant value);
 
-    QByteArray encryptPacket(QByteArray& packet, SimpleCrypt* crypter);
-    int decodePacket(QByteArray& packet, int& opCode, QVariantList& sections, SimpleCrypt* decrypter);
+    QByteArray encryptPacket(QByteArray &packet, SimpleCrypt *crypter);
+    int decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter);
 
 private:
 };

@@ -51,15 +51,15 @@ class InputOutputManager : public QWidget
      * Initialization
      *************************************************************************/
 public:
-    InputOutputManager(QWidget* parent, Doc* doc);
+    InputOutputManager(QWidget *parent, Doc *doc);
     virtual ~InputOutputManager();
 
     /** Get the singleton instance */
-    static InputOutputManager* instance();
+    static InputOutputManager *instance();
 
 private:
-    static InputOutputManager* s_instance;
-    InputOutputMap* m_ioMap;
+    static InputOutputManager *s_instance;
+    InputOutputMap *m_ioMap;
 
     /*************************************************************************
      * Tree widget
@@ -70,7 +70,7 @@ public slots:
 
 private:
     /** Update the contents of the input universe to the item */
-    void updateItem(QListWidgetItem* item, quint32 universe);
+    void updateItem(QListWidgetItem *item, quint32 universe);
 
 private slots:
     /** Listens to input data and displays a small icon to indicate a
@@ -97,20 +97,20 @@ private slots:
 
 protected:
     /** @reimp */
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent *ev);
 
 private:
-    Doc* m_doc;
-    QSplitter* m_splitter;
-    QToolBar* m_toolbar;
-    QAction* m_addUniverseAction;
-    QAction* m_deleteUniverseAction;
-    QLineEdit* m_uniNameEdit;
-    QCheckBox* m_uniPassthroughCheck;
-    QListWidget* m_list;
+    Doc *m_doc;
+    QSplitter *m_splitter;
+    QToolBar *m_toolbar;
+    QAction *m_addUniverseAction;
+    QAction *m_deleteUniverseAction;
+    QLineEdit *m_uniNameEdit;
+    QCheckBox *m_uniPassthroughCheck;
+    QListWidget *m_list;
     QIcon m_icon;
-    QTimer* m_timer;
-    InputOutputPatchEditor* m_editor;
+    QTimer *m_timer;
+    InputOutputPatchEditor *m_editor;
     quint32 m_editorUniverse;
 };
 

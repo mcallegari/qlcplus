@@ -43,7 +43,7 @@ public:
      *
      * @param parent Owning parent widget (optional)
      */
-    Launcher(QWidget* parent = 0);
+    Launcher(QWidget *parent = 0);
 
     /** Destructor */
     ~Launcher();
@@ -57,14 +57,14 @@ private slots:
 
 private:
     /** Launch Fixture Editor with given additional arguments */
-    void launchFXED(const QStringList& arguments = QStringList());
+    void launchFXED(const QStringList &arguments = QStringList());
 
     /** Launch Q Light Controller with given additional arguments */
-    void launchQLC(const QStringList& arguments = QStringList());
+    void launchQLC(const QStringList &arguments = QStringList());
 
 protected:
     /** Acts as QApplication's event filter for QFileOpen events */
-    bool eventFilter(QObject* object, QEvent* event);
+    bool eventFilter(QObject *object, QEvent *event);
 };
 
 #endif

@@ -38,7 +38,7 @@
 #include "script.h"
 #include "doc.h"
 
-ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
+ScriptEditor::ScriptEditor(QWidget *parent, Script *script, Doc *doc)
     : QWidget(parent)
     , m_script(script)
     , m_doc(doc)
@@ -50,7 +50,7 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
     /* Name */
     m_nameEdit->setText(m_script->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
 
     /* Document */
     m_document = new QTextDocument(m_script->data(), this);
@@ -185,7 +185,7 @@ QString ScriptEditor::getFilePath()
         return fn;
 }
 
-void ScriptEditor::slotNameEdited(const QString& name)
+void ScriptEditor::slotNameEdited(const QString &name)
 {
     m_script->setName(name);
 }
@@ -218,7 +218,7 @@ void ScriptEditor::slotAddStartFunction()
 
         foreach (quint32 id, fs.selection())
         {
-            Function* function = m_doc->function(id);
+            Function *function = m_doc->function(id);
             Q_ASSERT(function != NULL);
             QString cmd = QString("%1:%2 // %3\n").arg(Script::startFunctionCmd).arg(id).arg(function->name());
             cursor.insertText(cmd);
@@ -238,7 +238,7 @@ void ScriptEditor::slotAddStopFunction()
 
         foreach (quint32 id, fs.selection())
         {
-            Function* function = m_doc->function(id);
+            Function *function = m_doc->function(id);
             Q_ASSERT(function != NULL);
             QString cmd = QString("%1:%2 // %3\n").arg(Script::stopFunctionCmd).arg(id).arg(function->name());
             cursor.insertText(cmd);
@@ -253,7 +253,7 @@ void ScriptEditor::slotAddBlackout()
     // Use a layout allowing to have a label next to each field
     QVBoxLayout dLayout(&dialog);
 
-    QCheckBox* cb = new QCheckBox(tr("Blackout state"));
+    QCheckBox *cb = new QCheckBox(tr("Blackout state"));
     cb->setChecked(true);
     dLayout.addWidget(cb);
 
@@ -267,9 +267,8 @@ void ScriptEditor::slotAddBlackout()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("%1:%2\n")
-                                              .arg(Script::blackoutCmd)
-                                              .arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
+        m_editor->textCursor().insertText(
+            QString("%1:%2\n").arg(Script::blackoutCmd).arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
     }
 }
 
@@ -280,7 +279,7 @@ void ScriptEditor::slotAddWait()
     QVBoxLayout dLayout(&dialog);
 
     dLayout.addWidget(new QLabel(tr("Enter the desired time")));
-    SpeedDial* sd = new SpeedDial(this);
+    SpeedDial *sd = new SpeedDial(this);
     ushort dialMask = sd->visibilityMask();
     dialMask = (dialMask & ~SpeedDial::Infinite);
     dialMask = (dialMask & ~SpeedDial::Tap);
@@ -298,8 +297,7 @@ void ScriptEditor::slotAddWait()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(
-            QString("%1:%2\n").arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
+        m_editor->textCursor().insertText(QString("%1:%2\n").arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
     }
 }
 
@@ -337,10 +335,10 @@ void ScriptEditor::slotAddSetFixture()
     QList<SceneValue> channelsList = cfg.channelsList();
     foreach (SceneValue sv, channelsList)
     {
-        Fixture* fxi = m_doc->fixture(sv.fxi);
+        Fixture *fxi = m_doc->fixture(sv.fxi);
         if (fxi != NULL)
         {
-            const QLCChannel* channel = fxi->channel(sv.channel);
+            const QLCChannel *channel = fxi->channel(sv.channel);
             m_editor->moveCursor(QTextCursor::StartOfLine);
             m_editor->textCursor().insertText(QString("%1:%2 ch:%3 val:0 // %4, %5\n")
                                                   .arg(Script::setFixtureCmd)
@@ -404,9 +402,9 @@ void ScriptEditor::slotAddRandom()
 
     dLayout.addRow(new QLabel(tr("Enter the range for the randomization")));
 
-    QSpinBox* minSB = new QSpinBox(this);
+    QSpinBox *minSB = new QSpinBox(this);
     minSB->setRange(0, 999);
-    QSpinBox* maxSB = new QSpinBox(this);
+    QSpinBox *maxSB = new QSpinBox(this);
     maxSB->setRange(0, 999);
     maxSB->setValue(255);
     dLayout.addRow(tr("Minimum value"), minSB);

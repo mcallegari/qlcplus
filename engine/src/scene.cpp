@@ -40,7 +40,7 @@
  * Initialization
  *****************************************************************************/
 
-Scene::Scene(Doc* doc)
+Scene::Scene(Doc *doc)
     : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
     , m_blendFunctionID(Function::invalidId())
@@ -65,11 +65,11 @@ quint32 Scene::totalDuration()
  * Copying
  *****************************************************************************/
 
-Function* Scene::createCopy(Doc* doc, bool addToDoc)
+Function *Scene::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Scene(doc);
+    Function *copy = new Scene(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -84,9 +84,9 @@ Function* Scene::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Scene::copyFrom(const Function* function)
+bool Scene::copyFrom(const Function *function)
 {
-    const Scene* scene = qobject_cast<const Scene*>(function);
+    const Scene *scene = qobject_cast<const Scene *>(function);
     if (scene == NULL)
         return false;
 
@@ -110,7 +110,7 @@ bool Scene::copyFrom(const Function* function)
  * Values
  *****************************************************************************/
 
-void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
+void Scene::setValue(const SceneValue &scv, bool blind, bool checkHTP)
 {
     bool valChanged = false;
 
@@ -131,7 +131,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
         }
         else if (it.value() != scv.value)
         {
-            const_cast<uchar&>(it.key().value) = scv.value;
+            const_cast<uchar &>(it.key().value) = scv.value;
             it.value() = scv.value;
             valChanged = true;
         }
@@ -140,7 +140,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
         // update/add the changed channel
         if (blind == false && m_fadersMap.isEmpty() == false)
         {
-            Fixture* fixture = doc()->fixture(scv.fxi);
+            Fixture *fixture = doc()->fixture(scv.fxi);
             if (fixture != NULL)
             {
                 quint32 universe = fixture->universe();
@@ -225,11 +225,11 @@ QColor Scene::colorValue(quint32 fxi)
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
 
-        Fixture* fixture = doc()->fixture(scv.fxi);
+        Fixture *fixture = doc()->fixture(scv.fxi);
         if (fixture == NULL)
             continue;
 
-        const QLCChannel* channel = fixture->channel(scv.channel);
+        const QLCChannel *channel = fixture->channel(scv.channel);
         if (channel == NULL)
             continue;
 
@@ -269,9 +269,8 @@ QColor Scene::colorValue(quint32 fxi)
         }
         else if (channel->group() == QLCChannel::Colour)
         {
-            QLCCapability* cap = channel->searchCapability(scv.value);
-            if (cap &&
-                (cap->presetType() == QLCCapability::SingleColor || cap->presetType() == QLCCapability::DoubleColor))
+            QLCCapability *cap = channel->searchCapability(scv.value);
+            if (cap && (cap->presetType() == QLCCapability::SingleColor || cap->presetType() == QLCCapability::DoubleColor))
             {
                 QColor col = cap->resource(0).value<QColor>();
                 rVal = col.red();
@@ -431,7 +430,7 @@ QList<quint32> Scene::palettes() const
  * Load & Save
  *****************************************************************************/
 
-bool Scene::saveXML(QXmlStreamWriter* doc)
+bool Scene::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -515,7 +514,7 @@ bool Scene::saveXML(QXmlStreamWriter* doc)
     return true;
 }
 
-bool Scene::saveXMLFixtureValues(QXmlStreamWriter* doc, quint32 fixtureID, QStringList const& values)
+bool Scene::saveXMLFixtureValues(QXmlStreamWriter *doc, quint32 fixtureID, QStringList const &values)
 {
     doc->writeStartElement(KXMLQLCFixtureValues);
     doc->writeAttribute(KXMLQLCFixtureID, QString::number(fixtureID));
@@ -525,7 +524,7 @@ bool Scene::saveXMLFixtureValues(QXmlStreamWriter* doc, quint32 fixtureID, QStri
     return true;
 }
 
-bool Scene::loadXML(QXmlStreamReader& root)
+bool Scene::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -640,7 +639,7 @@ void Scene::postLoad()
     while (it.hasNext() == true)
     {
         SceneValue value(it.next().key());
-        Fixture* fxi = doc()->fixture(value.fxi);
+        Fixture *fxi = doc()->fixture(value.fxi);
         if (fxi == NULL || fxi->channel(value.channel) == NULL)
             it.remove();
     }
@@ -650,7 +649,7 @@ void Scene::postLoad()
  * Flashing
  ****************************************************************************/
 
-void Scene::flash(MasterTimer* timer)
+void Scene::flash(MasterTimer *timer)
 {
     if (flashing() == true)
         return;
@@ -660,7 +659,7 @@ void Scene::flash(MasterTimer* timer)
     timer->registerDMXSource(this);
 }
 
-void Scene::unFlash(MasterTimer* timer)
+void Scene::unFlash(MasterTimer *timer)
 {
     if (flashing() == false)
         return;
@@ -669,7 +668,7 @@ void Scene::unFlash(MasterTimer* timer)
     Function::unFlash(timer);
 }
 
-void Scene::writeDMX(MasterTimer* timer, QList<Universe*> ua)
+void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 {
     Q_ASSERT(timer != NULL);
 
@@ -679,7 +678,7 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe*> ua)
         {
             // Keep HTP and LTP channels up. Flash is more or less a forceful intervention
             // so enforce all values that the user has chosen to flash.
-            foreach (const SceneValue& sv, m_values.keys())
+            foreach (const SceneValue &sv, m_values.keys())
             {
                 FadeChannel fc(doc(), sv.fxi, sv.channel);
                 quint32 universe = fc.universe();
@@ -714,9 +713,9 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe*> ua)
  * Running
  ****************************************************************************/
 
-void Scene::processValue(MasterTimer* timer, QList<Universe*> ua, uint fadeIn, SceneValue& scv)
+void Scene::processValue(MasterTimer *timer, QList<Universe *> ua, uint fadeIn, SceneValue &scv)
 {
-    Fixture* fixture = doc()->fixture(scv.fxi);
+    Fixture *fixture = doc()->fixture(scv.fxi);
 
     if (fixture == NULL)
         return;
@@ -738,14 +737,14 @@ void Scene::processValue(MasterTimer* timer, QList<Universe*> ua, uint fadeIn, S
         fader->setParentIntensity(getAttributeValue(ParentIntensity));
     }
 
-    FadeChannel* fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
+    FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
 
     /** If a blend Function has been set, check if this channel needs to
      *  be blended from a previous value. If so, mark it for crossfade
      *  and set its current value */
     if (blendFunctionID() != Function::invalidId())
     {
-        Scene* blendScene = qobject_cast<Scene*>(doc()->function(blendFunctionID()));
+        Scene *blendScene = qobject_cast<Scene *>(doc()->function(blendFunctionID()));
         if (blendScene != NULL && blendScene->checkValue(scv))
         {
             fc->addFlag(FadeChannel::CrossFade);
@@ -785,7 +784,7 @@ void Scene::processValue(MasterTimer* timer, QList<Universe*> ua, uint fadeIn, S
     }
 }
 
-void Scene::handleFadersEnd(MasterTimer* timer)
+void Scene::handleFadersEnd(MasterTimer *timer)
 {
     uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
 
@@ -814,7 +813,7 @@ void Scene::handleFadersEnd(MasterTimer* timer)
     setBlendFunctionID(Function::invalidId());
 }
 
-void Scene::write(MasterTimer* timer, QList<Universe*> ua)
+void Scene::write(MasterTimer *timer, QList<Universe *> ua)
 {
     // qDebug() << Q_FUNC_INFO << elapsed();
 
@@ -830,7 +829,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
         foreach (quint32 paletteID, palettes())
         {
-            QLCPalette* palette = doc()->palette(paletteID);
+            QLCPalette *palette = doc()->palette(paletteID);
             if (palette == NULL)
                 continue;
 
@@ -858,7 +857,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
     }
 }
 
-void Scene::postRun(MasterTimer* timer, QList<Universe*> ua)
+void Scene::postRun(MasterTimer *timer, QList<Universe *> ua)
 {
     handleFadersEnd(timer);
 

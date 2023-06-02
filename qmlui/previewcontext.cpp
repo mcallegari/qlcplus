@@ -23,7 +23,7 @@
 #include "previewcontext.h"
 #include "doc.h"
 
-PreviewContext::PreviewContext(QQuickView* view, Doc* doc, QString name, QObject* parent)
+PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_mainView(view)
@@ -84,17 +84,17 @@ void PreviewContext::setUniverseFilter(quint32 universeFilter)
     emit universeFilterChanged(universeFilter);
 }
 
-QQuickView* PreviewContext::view()
+QQuickView *PreviewContext::view()
 {
     return m_view;
 }
 
-QQuickItem* PreviewContext::contextItem()
+QQuickItem *PreviewContext::contextItem()
 {
     return m_contextItem;
 }
 
-void PreviewContext::setContextItem(QQuickItem* item)
+void PreviewContext::setContextItem(QQuickItem *item)
 {
     m_contextItem = item;
 }
@@ -137,7 +137,7 @@ void PreviewContext::setDetached(bool detached)
     if (detached == true)
     {
         /** Create a new Quick View, as a true separate window */
-        ContextQuickView* cqView = new ContextQuickView();
+        ContextQuickView *cqView = new ContextQuickView();
         m_view = cqView;
         connect(cqView, &ContextQuickView::keyPressed, this, &PreviewContext::keyPressed);
         connect(cqView, &ContextQuickView::keyReleased, this, &PreviewContext::keyReleased);
@@ -184,11 +184,11 @@ void PreviewContext::setDetached(bool detached)
         m_view->setGeometry(0, 0, 800, 600);
         m_view->show();
 
-        connect(m_view, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotWindowClosing()));
+        connect(m_view, SIGNAL(closing(QQuickCloseEvent *)), this, SLOT(slotWindowClosing()));
     }
     else
     {
-        ContextQuickView* cqView = qobject_cast<ContextQuickView*>(m_view);
+        ContextQuickView *cqView = qobject_cast<ContextQuickView *>(m_view);
         disconnect(cqView, &ContextQuickView::keyPressed, this, &PreviewContext::keyPressed);
         disconnect(cqView, &ContextQuickView::keyReleased, this, &PreviewContext::keyReleased);
         m_view->deleteLater();
@@ -198,7 +198,7 @@ void PreviewContext::setDetached(bool detached)
     m_detached = detached;
 }
 
-void PreviewContext::handleKeyEvent(QKeyEvent* e, bool pressed)
+void PreviewContext::handleKeyEvent(QKeyEvent *e, bool pressed)
 {
     Q_UNUSED(e)
     Q_UNUSED(pressed)
@@ -212,19 +212,19 @@ void PreviewContext::slotWindowClosing()
 void PreviewContext::slotRefreshView() {}
 
 
-void ContextQuickView::keyPressEvent(QKeyEvent* e)
+void ContextQuickView::keyPressEvent(QKeyEvent *e)
 {
     emit keyPressed(e);
     QQuickView::keyPressEvent(e);
 }
 
-void ContextQuickView::keyReleaseEvent(QKeyEvent* e)
+void ContextQuickView::keyReleaseEvent(QKeyEvent *e)
 {
     emit keyReleased(e);
     QQuickView::keyReleaseEvent(e);
 }
 
-void ContextQuickView::slotScreenChanged(QScreen* screen)
+void ContextQuickView::slotScreenChanged(QScreen *screen)
 {
     qDebug() << "Context screen changed";
     qreal pixelDensity = qMax(screen->physicalDotsPerInch() * 0.039370, (qreal)screen->size().height() / 220.0);

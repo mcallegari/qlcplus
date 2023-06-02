@@ -82,8 +82,8 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    QLCPalette(QLCPalette::PaletteType type, QObject* parent = 0);
-    QLCPalette* createCopy();
+    QLCPalette(QLCPalette::PaletteType type, QObject *parent = 0);
+    QLCPalette *createCopy();
 
     virtual ~QLCPalette();
 
@@ -103,13 +103,13 @@ public:
 
     /** Helper methods to convert palette type <-> string */
     static QString typeToString(QLCPalette::PaletteType type);
-    static PaletteType stringToType(const QString& str);
+    static PaletteType stringToType(const QString &str);
 
     Q_INVOKABLE QString iconResource(bool svg = false) const;
 
     /** Get/Set the name of this palette */
     QString name() const;
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get/Set the value(s) for this Palette.
      *  Some types like Position will store 2 values */
@@ -126,8 +126,8 @@ public:
     void setValues(QVariantList values);
     void resetValues();
 
-    QList<SceneValue> valuesFromFixtures(Doc* doc, QList<quint32> fixtures);
-    QList<SceneValue> valuesFromFixtureGroups(Doc* doc, QList<quint32> groups);
+    QList<SceneValue> valuesFromFixtures(Doc *doc, QList<quint32> fixtures);
+    QList<SceneValue> valuesFromFixtureGroups(Doc *doc, QList<quint32> groups);
 
 protected:
     /** This method returns a normalized factor between 0.0 and 1.0
@@ -184,7 +184,7 @@ public:
 
     /** Helper methods to convert fanning type <-> string */
     static QString fanningTypeToString(QLCPalette::FanningType type);
-    static FanningType stringToFanningType(const QString& str);
+    static FanningType stringToFanningType(const QString &str);
 
     /** Get/Set the fanning layout */
     FanningLayout fanningLayout() const;
@@ -192,7 +192,7 @@ public:
 
     /** Helper methods to convert fanning layout <-> string */
     static QString fanningLayoutToString(QLCPalette::FanningLayout layout);
-    static FanningLayout stringToFanningLayout(const QString& str);
+    static FanningLayout stringToFanningLayout(const QString &str);
 
     /** Get/Set the amount of fanning applied to this palette */
     int fanningAmount() const;
@@ -224,20 +224,20 @@ public:
 
     /** Helper method to convert a string created with colorToString
      *  back to 2 separate QColor */
-    static bool stringToColor(QString str, QColor& rgb, QColor& wauv);
+    static bool stringToColor(QString str, QColor &rgb, QColor &wauv);
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** Helper method to allocate and add a Palette to a Doc */
-    static bool loader(QXmlStreamReader& xmlDoc, Doc* doc);
+    static bool loader(QXmlStreamReader &xmlDoc, Doc *doc);
 
     /** Load a Palette from the given QXmlStreamReader */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Save a Palette to the given XML tag in the given document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

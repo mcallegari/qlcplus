@@ -82,11 +82,11 @@ class VCWidget : public QWidget
      * Initialization
      *********************************************************************/
 public:
-    VCWidget(QWidget* parent, Doc* doc);
+    VCWidget(QWidget *parent, Doc *doc);
     virtual ~VCWidget();
 
 protected:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /*********************************************************************
      * ID
@@ -185,18 +185,18 @@ protected:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent and return it */
-    virtual VCWidget* createCopy(VCWidget* parent) = 0;
+    virtual VCWidget *createCopy(VCWidget *parent) = 0;
 
 protected:
     /** Copy the contents for this widget from the given widget */
-    virtual bool copyFrom(const VCWidget* widget);
+    virtual bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * Background image
      *********************************************************************/
 public:
     /** Set the widget's background image */
-    virtual void setBackgroundImage(const QString& path);
+    virtual void setBackgroundImage(const QString &path);
 
     /** Get the widget's background image */
     virtual QString backgroundImage() const;
@@ -209,7 +209,7 @@ protected:
      *********************************************************************/
 public:
     /** Set the widget's background color and invalidate background image */
-    virtual void setBackgroundColor(const QColor& color);
+    virtual void setBackgroundColor(const QColor &color);
 
     /** Get the widget's background color. The color is invalid if the
         widget has a background image. */
@@ -229,7 +229,7 @@ protected:
      *********************************************************************/
 public:
     /** Set the widget's foreground color */
-    virtual void setForegroundColor(const QColor& color);
+    virtual void setForegroundColor(const QColor &color);
 
     /** Get the widget's foreground color */
     virtual QColor foregroundColor() const;
@@ -248,7 +248,7 @@ protected:
      *********************************************************************/
 public:
     /** Set the font used for the widget's caption */
-    virtual void setFont(const QFont& font);
+    virtual void setFont(const QFont &font);
 
     /** Get the font used for the widget's caption */
     virtual QFont font() const;
@@ -268,7 +268,7 @@ protected:
      *********************************************************************/
 public:
     /** Set this widget's caption text */
-    virtual void setCaption(const QString& text);
+    virtual void setCaption(const QString &text);
 
     /** Get this widget's caption text */
     virtual QString caption() const;
@@ -290,7 +290,7 @@ public:
     static QString frameStyleToString(int style);
 
     /** Convert the given string to frame style */
-    static int stringToFrameStyle(const QString& style);
+    static int stringToFrameStyle(const QString &style);
 
 protected:
     int m_frameStyle;
@@ -348,7 +348,7 @@ public:
         Q_UNUSED(intensity);
     }
 
-    virtual void adjustFunctionIntensity(Function* f, qreal value);
+    virtual void adjustFunctionIntensity(Function *f, qreal value);
 
     void resetIntensityOverrideAttribute();
 
@@ -403,7 +403,7 @@ public:
      * @return true in case source and target matches and the event
      *         can pass through, otherwise false
      */
-    bool checkInputSource(quint32 universe, quint32 channel, uchar value, QObject* sender, quint32 id = 0);
+    bool checkInputSource(quint32 universe, quint32 channel, uchar value, QObject *sender, quint32 id = 0);
 
     /**
      * Set external input $source to listen to. If a widget supports more
@@ -413,7 +413,7 @@ public:
      * @param source The input source to set
      * @param id The id of the source (default: 0)
      */
-    void setInputSource(QSharedPointer<QLCInputSource> const& source, quint8 id = 0);
+    void setInputSource(QSharedPointer<QLCInputSource> const &source, quint8 id = 0);
 
     /**
      * Get an assigned external input source. Without parameters the
@@ -469,7 +469,7 @@ protected slots:
      * @param universe the profile universe
      * @param profileName the profile name
      */
-    virtual void slotInputProfileChanged(quint32 universe, const QString& profileName);
+    virtual void slotInputProfileChanged(quint32 universe, const QString &profileName);
 
 protected:
     QHash<quint8, QSharedPointer<QLCInputSource>> m_inputs;
@@ -479,28 +479,28 @@ protected:
      *********************************************************************/
 public:
     /** Strip restricted keys from the given QKeySequence */
-    static QKeySequence stripKeySequence(const QKeySequence& seq);
+    static QKeySequence stripKeySequence(const QKeySequence &seq);
 
 protected slots:
     /** Handle key presses. Default implementation passes to children. */
-    virtual void slotKeyPressed(const QKeySequence& keySequence);
+    virtual void slotKeyPressed(const QKeySequence &keySequence);
 
     /** Handle key releases. Default implementation passes to children. */
-    virtual void slotKeyReleased(const QKeySequence& keySequence);
+    virtual void slotKeyReleased(const QKeySequence &keySequence);
 
 signals:
     /** Tell listeners that a key was pressed */
-    void keyPressed(const QKeySequence& keySequence);
+    void keyPressed(const QKeySequence &keySequence);
 
     /** Tell listeners that a key was released */
-    void keyReleased(const QKeySequence& keySequence);
+    void keyReleased(const QKeySequence &keySequence);
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    virtual bool loadXML(QXmlStreamReader& root) = 0;
-    virtual bool saveXML(QXmlStreamWriter* doc) = 0;
+    virtual bool loadXML(QXmlStreamReader &root) = 0;
+    virtual bool saveXML(QXmlStreamWriter *doc) = 0;
 
     /**
      * Called for every VCWidget-based object after everything has been loaded.
@@ -509,31 +509,31 @@ public:
      */
     virtual void postLoad();
 
-    static QSharedPointer<QLCInputSource> getXMLInput(QXmlStreamReader& root);
+    static QSharedPointer<QLCInputSource> getXMLInput(QXmlStreamReader &root);
 
     /** Save input source from a $src input source to $root */
-    static bool saveXMLInput(QXmlStreamWriter* doc, const QLCInputSource* src);
+    static bool saveXMLInput(QXmlStreamWriter *doc, const QLCInputSource *src);
     /** Save input source from a $src input source to $root */
-    static bool saveXMLInput(QXmlStreamWriter* doc, QSharedPointer<QLCInputSource> const& src);
+    static bool saveXMLInput(QXmlStreamWriter *doc, QSharedPointer<QLCInputSource> const &src);
 
 protected:
-    bool loadXMLCommon(QXmlStreamReader& root);
-    bool loadXMLAppearance(QXmlStreamReader& appearance_root);
-    bool loadXMLInput(QXmlStreamReader& root, const quint8& id = 0);
+    bool loadXMLCommon(QXmlStreamReader &root);
+    bool loadXMLAppearance(QXmlStreamReader &appearance_root);
+    bool loadXMLInput(QXmlStreamReader &root, const quint8 &id = 0);
 
     /** Parse an input XML section and:
      *  - set an input source with the given $sourceID
      *  - return a string of a KeySequence if present
      */
-    QString loadXMLSources(QXmlStreamReader& root, quint8 sourceID);
+    QString loadXMLSources(QXmlStreamReader &root, quint8 sourceID);
 
     /** Load input source from $root to $uni and $ch */
-    bool loadXMLInput(QXmlStreamReader& root, quint32* uni, quint32* ch) const;
+    bool loadXMLInput(QXmlStreamReader &root, quint32 *uni, quint32 *ch) const;
 
-    bool saveXMLCommon(QXmlStreamWriter* doc);
-    bool saveXMLAppearance(QXmlStreamWriter* doc);
+    bool saveXMLCommon(QXmlStreamWriter *doc);
+    bool saveXMLAppearance(QXmlStreamWriter *doc);
     /** Save the defualt input source to $root */
-    bool saveXMLInput(QXmlStreamWriter* doc);
+    bool saveXMLInput(QXmlStreamWriter *doc);
 
     /**
      * Write this widget's geometry and visibility to an XML document.
@@ -542,7 +542,7 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool saveXMLWindowState(QXmlStreamWriter* doc);
+    bool saveXMLWindowState(QXmlStreamWriter *doc);
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
@@ -556,7 +556,7 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool loadXMLWindowState(QXmlStreamReader& tag, int* x, int* y, int* w, int* h, bool* visible);
+    bool loadXMLWindowState(QXmlStreamReader &tag, int *x, int *y, int *w, int *h, bool *visible);
 
 
     /*********************************************************************
@@ -587,7 +587,7 @@ protected:
      *********************************************************************/
 protected:
     /** Invoke a context menu */
-    virtual void invokeMenu(const QPoint& point);
+    virtual void invokeMenu(const QPoint &point);
 
     /*********************************************************************
      * Custom menu
@@ -595,17 +595,17 @@ protected:
 public:
     /** Get a custom menu specific to this widget. Ownership is transferred
         to the caller, which must delete the returned menu pointer. */
-    virtual QMenu* customMenu(QMenu* parentMenu);
+    virtual QMenu *customMenu(QMenu *parentMenu);
 
     /*********************************************************************
      * Widget move & resize
      *********************************************************************/
 public:
     /** Resize this widget to the given size. */
-    virtual void resize(const QSize& size);
+    virtual void resize(const QSize &size);
 
     /** Move this widget to the given point */
-    virtual void move(const QPoint& point);
+    virtual void move(const QPoint &point);
 
     /** Get the point where the mouse was clicked last in this widget */
     QPoint lastClickPoint() const;
@@ -618,14 +618,14 @@ protected:
      * Event handlers
      *********************************************************************/
 protected:
-    virtual void paintEvent(QPaintEvent* e);
+    virtual void paintEvent(QPaintEvent *e);
 
-    virtual void mousePressEvent(QMouseEvent* e);
-    virtual void handleWidgetSelection(QMouseEvent* e);
+    virtual void mousePressEvent(QMouseEvent *e);
+    virtual void handleWidgetSelection(QMouseEvent *e);
 
-    virtual void mouseReleaseEvent(QMouseEvent* e);
-    virtual void mouseDoubleClickEvent(QMouseEvent* e);
-    virtual void mouseMoveEvent(QMouseEvent* e);
+    virtual void mouseReleaseEvent(QMouseEvent *e);
+    virtual void mouseDoubleClickEvent(QMouseEvent *e);
+    virtual void mouseMoveEvent(QMouseEvent *e);
 };
 
 /** @} */

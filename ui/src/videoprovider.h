@@ -34,7 +34,7 @@ class VideoWidget : public QObject
     Q_OBJECT
 
 public:
-    VideoWidget(Video* video, QObject* parent = NULL);
+    VideoWidget(Video *video, QObject *parent = NULL);
 
 protected slots:
     void slotSourceUrlChanged(QString url);
@@ -55,11 +55,11 @@ private:
 
 protected:
     /** reference to the actual Video Function */
-    Video* m_video;
+    Video *m_video;
     /** output interface to render video data */
-    QMediaPlayer* m_videoPlayer;
+    QMediaPlayer *m_videoPlayer;
     /** Qt widget that actually displays the video */
-    QVideoWidget* m_videoWidget;
+    QVideoWidget *m_videoWidget;
 
 private:
     FunctionParent functionParent() const;
@@ -69,7 +69,7 @@ class VideoProvider : public QObject
 {
     Q_OBJECT
 public:
-    VideoProvider(Doc* doc, QObject* parent);
+    VideoProvider(Doc *doc, QObject *parent);
     ~VideoProvider();
 
 protected slots:
@@ -77,8 +77,8 @@ protected slots:
     void slotFunctionRemoved(quint32 id);
 
 private:
-    Doc* m_doc;
-    QHash<quint32, VideoWidget*> m_videoMap;
+    Doc *m_doc;
+    QHash<quint32, VideoWidget *> m_videoMap;
 };
 
 #endif // VIDEOPROVIDER_H

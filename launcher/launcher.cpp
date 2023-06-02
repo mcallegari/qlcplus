@@ -33,29 +33,29 @@
 
 #include "launcher.h"
 
-Launcher::Launcher(QWidget* parent)
+Launcher::Launcher(QWidget *parent)
     : QWidget(parent)
 {
-    QGridLayout* lay;
+    QGridLayout *lay;
     lay = new QGridLayout(this);
     setLayout(lay);
 
     setWindowTitle(APPNAME);
 
-    QLabel* icon = new QLabel(this);
+    QLabel *icon = new QLabel(this);
     icon->setPixmap(QIcon(":/qlcplus.png").pixmap(64));
     lay->addWidget(icon, 0, 0, 1, 1);
 
     QString text("<H1>%1 %2</H1>");
-    QLabel* title = new QLabel(text.arg(APPNAME).arg(APPVERSION), this);
+    QLabel *title = new QLabel(text.arg(APPNAME).arg(APPVERSION), this);
     lay->addWidget(title, 0, 1, 1, 2);
 
-    QPushButton* fxed = new QPushButton(FXEDNAME, this);
+    QPushButton *fxed = new QPushButton(FXEDNAME, this);
     fxed->setToolTip(tr("Launch %1").arg(FXEDNAME));
     connect(fxed, SIGNAL(clicked()), this, SLOT(slotFXEDClicked()));
     lay->addWidget(fxed, 1, 1, 1, 1);
 
-    QPushButton* qlc = new QPushButton(APPNAME, this);
+    QPushButton *qlc = new QPushButton(APPNAME, this);
     qlc->setToolTip(tr("Launch the main %1 application").arg(APPNAME));
     connect(qlc, SIGNAL(clicked()), this, SLOT(slotQLCClicked()));
     lay->addWidget(qlc, 1, 2, 1, 1);
@@ -73,7 +73,7 @@ void Launcher::slotQLCClicked()
     launchQLC(QApplication::arguments());
 }
 
-void Launcher::launchFXED(const QStringList& arguments)
+void Launcher::launchFXED(const QStringList &arguments)
 {
     QString path(QApplication::applicationDirPath());
     if (path.endsWith(QString("/")) == false)
@@ -83,7 +83,7 @@ void Launcher::launchFXED(const QStringList& arguments)
     QApplication::exit();
 }
 
-void Launcher::launchQLC(const QStringList& arguments)
+void Launcher::launchQLC(const QStringList &arguments)
 {
     QString path(QApplication::applicationDirPath());
     if (path.endsWith(QString("/")) == false)
@@ -93,7 +93,7 @@ void Launcher::launchQLC(const QStringList& arguments)
     QApplication::exit();
 }
 
-bool Launcher::eventFilter(QObject* object, QEvent* event)
+bool Launcher::eventFilter(QObject *object, QEvent *event)
 {
     bool retval = false;
 
@@ -103,7 +103,7 @@ bool Launcher::eventFilter(QObject* object, QEvent* event)
 
     if (event->type() == QEvent::FileOpen)
     {
-        QFileOpenEvent* fileOpenEvent(static_cast<QFileOpenEvent*>(event));
+        QFileOpenEvent *fileOpenEvent(static_cast<QFileOpenEvent *>(event));
         QString path(fileOpenEvent->url().path());
         if (path.isEmpty() == true)
         {

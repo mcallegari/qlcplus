@@ -102,7 +102,7 @@ class RGBMatrix : public Function
      * Initialization
      *********************************************************************/
 public:
-    RGBMatrix(Doc* parent);
+    RGBMatrix(Doc *parent);
     ~RGBMatrix();
 
     /** @reimp */
@@ -133,10 +133,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
+    virtual Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** @reimp */
-    virtual bool copyFrom(const Function* function);
+    virtual bool copyFrom(const Function *function);
 
     /************************************************************************
      * Fixture Group
@@ -151,33 +151,33 @@ public:
 
 private:
     quint32 m_fixtureGroupID;
-    FixtureGroup* m_group;
+    FixtureGroup *m_group;
 
     /************************************************************************
      * Algorithm
      ************************************************************************/
 public:
     /** Set the current RGB Algorithm. RGBMatrix takes ownership of the pointer. */
-    void setAlgorithm(RGBAlgorithm* algo);
+    void setAlgorithm(RGBAlgorithm *algo);
 
     /** Get the current RGB Algorithm. */
-    RGBAlgorithm* algorithm() const;
+    RGBAlgorithm *algorithm() const;
 
     /** Get the algorithm protection mutex */
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-    QMutex& algorithmMutex();
+    QMutex &algorithmMutex();
 #else
-    QRecursiveMutex& algorithmMutex();
+    QRecursiveMutex &algorithmMutex();
 #endif
 
     /** Get the number of steps of the current algorithm */
     int stepsCount();
 
     /** Get the preview of the current algorithm at the given step */
-    void previewMap(int step, RGBMatrixStep* handler);
+    void previewMap(int step, RGBMatrixStep *handler);
 
 private:
-    RGBAlgorithm* m_algorithm;
+    RGBAlgorithm *m_algorithm;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
 #else
@@ -188,10 +188,10 @@ private:
      * Color
      ************************************************************************/
 public:
-    void setStartColor(const QColor& c);
+    void setStartColor(const QColor &c);
     QColor startColor() const;
 
-    void setEndColor(const QColor& c);
+    void setEndColor(const QColor &c);
     QColor endColor() const;
 
     void updateColorDelta();
@@ -199,7 +199,7 @@ public:
 private:
     QColor m_startColor;
     QColor m_endColor;
-    RGBMatrixStep* m_stepHandler;
+    RGBMatrixStep *m_stepHandler;
 
     /************************************************************************
      * Properties
@@ -220,10 +220,10 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /************************************************************************
      * Running
@@ -233,23 +233,23 @@ public:
     void tap();
 
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe *> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    FadeChannel* getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
-    void updateFaderValues(FadeChannel* fc, uchar value, uint fadeTime);
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */
-    void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe*> universes);
+    void updateMapChannels(const RGBMap &map, const FixtureGroup *grp, QList<Universe *> universes);
 
 public:
     /** Convert color values to fader value */
@@ -257,7 +257,7 @@ public:
 
 private:
     /** Reference to a timer counting the time in ms between steps */
-    QElapsedTimer* m_roundTime;
+    QElapsedTimer *m_roundTime;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;

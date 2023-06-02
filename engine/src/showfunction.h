@@ -45,7 +45,7 @@ class ShowFunction : public QObject
     Q_PROPERTY(bool locked READ isLocked WRITE setLocked NOTIFY lockedChanged)
 
 public:
-    ShowFunction(QObject* parent = 0);
+    ShowFunction(QObject *parent = 0);
     virtual ~ShowFunction() {}
 
     /** Get/Set the Function ID this class represents */
@@ -60,7 +60,7 @@ public:
      *  to the original Function duration */
     void setDuration(quint32 duration);
     quint32 duration() const;
-    quint32 duration(const Doc* doc) const;
+    quint32 duration(const Doc *doc) const;
 
     /** Get/Set the color of the item when rendered in the Show Manager */
     void setColor(QColor color);
@@ -109,10 +109,10 @@ private:
      ***********************************************************************/
 public:
     /** Load ShowFunction contents from $root */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save ShowFunction contents to $doc */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

@@ -56,7 +56,7 @@
 #define KXMLQLCChannelColourLime QString("Lime")
 #define KXMLQLCChannelColourIndigo QString("Indigo")
 
-QLCChannel::QLCChannel(QObject* parent)
+QLCChannel::QLCChannel(QObject *parent)
     : QObject(parent)
     , m_preset(Custom)
     , m_group(Intensity)
@@ -66,9 +66,9 @@ QLCChannel::QLCChannel(QObject* parent)
 {
 }
 
-QLCChannel* QLCChannel::createCopy()
+QLCChannel *QLCChannel::createCopy()
 {
-    QLCChannel* copy = new QLCChannel();
+    QLCChannel *copy = new QLCChannel();
     copy->setPreset(this->preset());
     if (this->preset() != Custom)
     {
@@ -82,7 +82,7 @@ QLCChannel* QLCChannel::createCopy()
         copy->setColour(this->colour());
         copy->setName(this->name());
 
-        QListIterator<QLCCapability*> it(this->capabilities());
+        QListIterator<QLCCapability *> it(this->capabilities());
         while (it.hasNext() == true)
             copy->addCapability(it.next()->createCopy());
     }
@@ -97,11 +97,11 @@ QLCChannel::~QLCChannel()
         delete m_capabilities.takeFirst();
 }
 
-QLCChannel& QLCChannel::operator=(const QLCChannel& channel)
+QLCChannel &QLCChannel::operator=(const QLCChannel &channel)
 {
     if (this != &channel)
     {
-        QListIterator<QLCCapability*> it(channel.m_capabilities);
+        QListIterator<QLCCapability *> it(channel.m_capabilities);
 
         m_name = channel.m_name;
         m_preset = channel.m_preset;
@@ -137,7 +137,7 @@ QString QLCChannel::presetToString(QLCChannel::Preset preset)
     return staticMetaObject.enumerator(index).valueToKey(preset);
 }
 
-QLCChannel::Preset QLCChannel::stringToPreset(const QString& preset)
+QLCChannel::Preset QLCChannel::stringToPreset(const QString &preset)
 {
     int index = staticMetaObject.indexOfEnumerator("Preset");
     return Preset(staticMetaObject.enumerator(index).keyToValue(preset.toStdString().c_str()));
@@ -464,9 +464,9 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
 /* please see
 https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
 when changing this function */
-QLCCapability* QLCChannel::addPresetCapability()
+QLCCapability *QLCChannel::addPresetCapability()
 {
-    QLCCapability* cap = new QLCCapability();
+    QLCCapability *cap = new QLCCapability();
     switch (m_preset)
     {
     case IntensityMasterDimmer:
@@ -645,7 +645,7 @@ QString QLCChannel::groupToString(Group grp)
     }
 }
 
-QLCChannel::Group QLCChannel::stringToGroup(const QString& str)
+QLCChannel::Group QLCChannel::stringToGroup(const QString &str)
 {
     if (str == KXMLQLCChannelGroupIntensity)
         return Intensity;
@@ -853,7 +853,7 @@ QString QLCChannel::name() const
     return m_name;
 }
 
-void QLCChannel::setName(const QString& name)
+void QLCChannel::setName(const QString &name)
 {
     if (name == m_name)
         return;
@@ -944,7 +944,7 @@ QString QLCChannel::colourToString(PrimaryColour colour)
     }
 }
 
-QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
+QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString &str)
 {
     if (str == KXMLQLCChannelColourRed)
         return Red;
@@ -991,17 +991,17 @@ QLCChannel::PrimaryColour QLCChannel::colour() const
  * Capabilities
  *****************************************************************************/
 
-const QList<QLCCapability*> QLCChannel::capabilities() const
+const QList<QLCCapability *> QLCChannel::capabilities() const
 {
     return m_capabilities;
 }
 
-QLCCapability* QLCChannel::searchCapability(uchar value) const
+QLCCapability *QLCChannel::searchCapability(uchar value) const
 {
-    QListIterator<QLCCapability*> it(m_capabilities);
+    QListIterator<QLCCapability *> it(m_capabilities);
     while (it.hasNext() == true)
     {
-        QLCCapability* capability = it.next();
+        QLCCapability *capability = it.next();
         if (capability->min() <= value && capability->max() >= value)
             return capability;
     }
@@ -1009,12 +1009,12 @@ QLCCapability* QLCChannel::searchCapability(uchar value) const
     return NULL;
 }
 
-QLCCapability* QLCChannel::searchCapability(const QString& name, bool exactMatch) const
+QLCCapability *QLCChannel::searchCapability(const QString &name, bool exactMatch) const
 {
-    QListIterator<QLCCapability*> it(m_capabilities);
+    QListIterator<QLCCapability *> it(m_capabilities);
     while (it.hasNext() == true)
     {
-        QLCCapability* capability = it.next();
+        QLCCapability *capability = it.next();
         if (exactMatch == true && capability->name() == name)
             return capability;
         else if (exactMatch == false && capability->name().contains(name) == true)
@@ -1024,12 +1024,12 @@ QLCCapability* QLCChannel::searchCapability(const QString& name, bool exactMatch
     return NULL;
 }
 
-bool QLCChannel::addCapability(QLCCapability* cap)
+bool QLCChannel::addCapability(QLCCapability *cap)
 {
     Q_ASSERT(cap != NULL);
 
     /* Check for overlapping values */
-    foreach (QLCCapability* another, m_capabilities)
+    foreach (QLCCapability *another, m_capabilities)
     {
         if (another->overlaps(cap) == true)
             return false;
@@ -1039,7 +1039,7 @@ bool QLCChannel::addCapability(QLCCapability* cap)
     return true;
 }
 
-bool QLCChannel::setCapabilityRange(QLCCapability* cap, uchar min, uchar max)
+bool QLCChannel::setCapabilityRange(QLCCapability *cap, uchar min, uchar max)
 {
     Q_ASSERT(cap != NULL);
 
@@ -1049,7 +1049,7 @@ bool QLCChannel::setCapabilityRange(QLCCapability* cap, uchar min, uchar max)
     cap->setMax(max);
 
     /* Check for overlapping values */
-    foreach (QLCCapability* another, m_capabilities)
+    foreach (QLCCapability *another, m_capabilities)
     {
         if (another == cap)
             continue;
@@ -1065,11 +1065,11 @@ bool QLCChannel::setCapabilityRange(QLCCapability* cap, uchar min, uchar max)
     return true;
 }
 
-bool QLCChannel::removeCapability(QLCCapability* cap)
+bool QLCChannel::removeCapability(QLCCapability *cap)
 {
     Q_ASSERT(cap != NULL);
 
-    QMutableListIterator<QLCCapability*> it(m_capabilities);
+    QMutableListIterator<QLCCapability *> it(m_capabilities);
     while (it.hasNext() == true)
     {
         if (it.next() == cap)
@@ -1083,7 +1083,7 @@ bool QLCChannel::removeCapability(QLCCapability* cap)
     return false;
 }
 
-static bool capsort(const QLCCapability* cap1, const QLCCapability* cap2)
+static bool capsort(const QLCCapability *cap1, const QLCCapability *cap2)
 {
     return (*cap1) < (*cap2);
 }
@@ -1097,7 +1097,7 @@ void QLCChannel::sortCapabilities()
  * File operations
  *****************************************************************************/
 
-bool QLCChannel::saveXML(QXmlStreamWriter* doc) const
+bool QLCChannel::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -1128,7 +1128,7 @@ bool QLCChannel::saveXML(QXmlStreamWriter* doc) const
         doc->writeTextElement(KXMLQLCChannelColour, QLCChannel::colourToString(colour()));
 
     /* Capabilities */
-    QListIterator<QLCCapability*> it(m_capabilities);
+    QListIterator<QLCCapability *> it(m_capabilities);
     while (it.hasNext() == true)
         it.next()->saveXML(doc);
 
@@ -1136,7 +1136,7 @@ bool QLCChannel::saveXML(QXmlStreamWriter* doc) const
     return true;
 }
 
-bool QLCChannel::loadXML(QXmlStreamReader& doc)
+bool QLCChannel::loadXML(QXmlStreamReader &doc)
 {
     if (doc.name() != KXMLQLCChannel)
     {
@@ -1171,7 +1171,7 @@ bool QLCChannel::loadXML(QXmlStreamReader& doc)
         if (doc.name() == KXMLQLCCapability)
         {
             /* Create a new capability and attempt to load it */
-            QLCCapability* cap = new QLCCapability();
+            QLCCapability *cap = new QLCCapability();
             if (cap->loadXML(doc) == true)
             {
                 /* Loading succeeded */

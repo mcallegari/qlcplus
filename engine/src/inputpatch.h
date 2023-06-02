@@ -63,8 +63,8 @@ class InputPatch : public QObject
      * Initialization
      ************************************************************************/
 public:
-    InputPatch(QObject* parent = 0);
-    InputPatch(quint32 inputUniverse, QObject* parent);
+    InputPatch(QObject *parent = 0);
+    InputPatch(quint32 inputUniverse, QObject *parent);
     virtual ~InputPatch();
 
 private:
@@ -83,7 +83,7 @@ public:
      * @param profile An input profile for a patch (NULL for none)
      * @return true if successful, otherwise false
      */
-    bool set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile);
+    bool set(QLCIOPlugin *plugin, quint32 input, QLCInputProfile *profile);
 
     /**
      * Assign an input profile to the InputPatch
@@ -91,13 +91,13 @@ public:
      * @param profile Th reference to an input profile (NULL to unset)
      * @return true if successful, otherwise false
      */
-    bool set(QLCInputProfile* profile);
+    bool set(QLCInputProfile *profile);
 
     /** Close & open the current plugin-input combination (if any) */
     bool reconnect();
 
     /** The plugin instance that has been assigned to a patch */
-    QLCIOPlugin* plugin() const;
+    QLCIOPlugin *plugin() const;
 
     /** Friendly name of the plugin assigned to a patch ("None" if none) */
     QString pluginName() const;
@@ -109,7 +109,7 @@ public:
     QString inputName() const;
 
     /** Assigned input profile instance */
-    QLCInputProfile* profile() const;
+    QLCInputProfile *profile() const;
 
     /** Name of the assigned input profile (empty if none) */
     QString profileName() const;
@@ -124,22 +124,22 @@ public:
     QMap<QString, QVariant> getPluginParameters();
 
 signals:
-    void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, const QString& key = 0);
+    void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, const QString &key = 0);
 
     void inputNameChanged();
     void pluginNameChanged();
     void profileNameChanged();
 
 private slots:
-    void slotValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value, const QString& key = 0);
+    void slotValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &key = 0);
 
 private:
     /** The reference of the plugin associated by this Input patch */
-    QLCIOPlugin* m_plugin;
+    QLCIOPlugin *m_plugin;
     /** The plugin line open by this Input patch */
     quint32 m_pluginLine;
     /** The reference of an input profile if activated by the user (otherwise NULL) */
-    QLCInputProfile* m_profile;
+    QLCInputProfile *m_profile;
     /** The patch parameters cache */
     QMap<QString, QVariant> m_parametersCache;
 
@@ -158,7 +158,7 @@ public:
     struct InputValue
     {
         InputValue() {}
-        InputValue(uchar v, QString const& k)
+        InputValue(uchar v, QString const &k)
             : value(v)
             , key(k)
         {

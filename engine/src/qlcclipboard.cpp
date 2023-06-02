@@ -21,7 +21,7 @@
 #include "chaser.h"
 #include "scene.h"
 
-QLCClipboard::QLCClipboard(Doc* doc)
+QLCClipboard::QLCClipboard(Doc *doc)
     : m_doc(doc)
     , m_copyFunction(NULL)
 {
@@ -50,7 +50,7 @@ void QLCClipboard::copyContent(quint32 sourceID, QList<SceneValue> values)
     m_copySceneValues = values;
 }
 
-void QLCClipboard::copyContent(quint32 sourceID, Function* function)
+void QLCClipboard::copyContent(quint32 sourceID, Function *function)
 {
     Q_UNUSED(sourceID)
 
@@ -62,7 +62,7 @@ void QLCClipboard::copyContent(quint32 sourceID, Function* function)
     m_copyFunction = NULL;
 
     /* Attempt to create a copy of the function to Doc */
-    Function* copy = function->createCopy(m_doc, false);
+    Function *copy = function->createCopy(m_doc, false);
     if (copy != NULL)
     {
         copy->setName(tr("Copy of %1").arg(function->name()));
@@ -104,7 +104,7 @@ QList<SceneValue> QLCClipboard::getSceneValues()
     return m_copySceneValues;
 }
 
-Function* QLCClipboard::getFunction()
+Function *QLCClipboard::getFunction()
 {
     return m_copyFunction;
 }

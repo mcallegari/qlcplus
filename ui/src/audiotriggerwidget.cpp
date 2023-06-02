@@ -24,7 +24,7 @@
 #include "audiotriggerwidget.h"
 #include "qlcmacros.h"
 
-AudioTriggerWidget::AudioTriggerWidget(QWidget* parent)
+AudioTriggerWidget::AudioTriggerWidget(QWidget *parent)
     : QWidget(parent)
     , m_spectrumBands(NULL)
     , m_volumeBarHeight(0)
@@ -69,7 +69,7 @@ uchar AudioTriggerWidget::getUcharBand(int idx)
     return 0;
 }
 
-void AudioTriggerWidget::displaySpectrum(double* spectrumData, double maxMagnitude, quint32 power)
+void AudioTriggerWidget::displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power)
 {
     m_volumeBarHeight = (power * m_spectrumHeight) / 0x7FFF;
     for (int i = 0; i < m_barsNumber; i++)
@@ -79,13 +79,13 @@ void AudioTriggerWidget::displaySpectrum(double* spectrumData, double maxMagnitu
     update();
 }
 
-void AudioTriggerWidget::resizeEvent(QResizeEvent* e)
+void AudioTriggerWidget::resizeEvent(QResizeEvent *e)
 {
     QWidget::resizeEvent(e);
     m_barWidth = (width() - 10) / (m_barsNumber + 1);
 }
 
-void AudioTriggerWidget::paintEvent(QPaintEvent* e)
+void AudioTriggerWidget::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
 

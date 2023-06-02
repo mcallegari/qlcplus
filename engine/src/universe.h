@@ -72,13 +72,13 @@ class Universe : public QThread
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
-    Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
+    Q_PROPERTY(InputPatch *inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
     Q_PROPERTY(bool hasFeedbacks READ hasFeedbacks NOTIFY hasFeedbacksChanged)
 
 public:
     /** Construct a new Universe */
-    Universe(quint32 id = invalid(), GrandMaster* gm = NULL, QObject* parent = 0);
+    Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject *parent = 0);
 
     /** Destructor */
     virtual ~Universe();
@@ -188,7 +188,7 @@ protected:
     /** The universe friendly name */
     QString m_name;
     /** Reference to the Grand Master to perform values scaling */
-    GrandMaster* m_grandMaster;
+    GrandMaster *m_grandMaster;
     /** Variable that determine if a universe is in passthrough mode */
     bool m_passthrough;
     /** Flag to monitor the universe changes */
@@ -203,13 +203,13 @@ public:
     bool isPatched();
 
     /** Sets an input patch for this Universe, and connect to it to receive signals */
-    bool setInputPatch(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile = NULL);
+    bool setInputPatch(QLCIOPlugin *plugin, quint32 input, QLCInputProfile *profile = NULL);
 
     /** Add/Remove/Replace an output patch on this Universe */
-    bool setOutputPatch(QLCIOPlugin* plugin, quint32 output, int index = 0);
+    bool setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index = 0);
 
     /** Sets a feedback patch for this Universe */
-    bool setFeedbackPatch(QLCIOPlugin* plugin, quint32 output);
+    bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
 
     /** Flag that indicates if this Universe has a patched feedback line */
     bool hasFeedbacks() const;
@@ -218,13 +218,13 @@ public:
      * Get the reference to the input plugin associated to this universe.
      * If not present NULL is returned.
      */
-    InputPatch* inputPatch() const;
+    InputPatch *inputPatch() const;
 
     /**
      * Get the reference to the output plugin associated to this universe.
      * If not present NULL is returned.
      */
-    Q_INVOKABLE OutputPatch* outputPatch(int index) const;
+    Q_INVOKABLE OutputPatch *outputPatch(int index) const;
 
     /** Return the number of output patches associated to this Universe */
     int outputPatchesCount() const;
@@ -233,22 +233,22 @@ public:
      * Get the reference to the feedback plugin associated to this universe.
      * If not present NULL is returned.
      */
-    OutputPatch* feedbackPatch() const;
+    OutputPatch *feedbackPatch() const;
 
     /**
      * This is the actual function that writes data to an output patch
      */
-    void dumpOutput(const QByteArray& data);
+    void dumpOutput(const QByteArray &data);
 
     void flushInput();
 
 protected slots:
     /** Slot called every time an input patch sends data */
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key = 0);
 
 signals:
     /** Everyone interested in input data should connect to this signal */
-    void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+    void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key = 0);
 
     /** Notify the listeners that the input patch has changed */
     void inputPatchChanged();
@@ -264,13 +264,13 @@ signals:
 
 private:
     /** Reference to the input patch associated to this universe. */
-    InputPatch* m_inputPatch;
+    InputPatch *m_inputPatch;
 
     /** List of references to the output patches associated to this universe. */
-    QList<OutputPatch*> m_outputPatchList;
+    QList<OutputPatch *> m_outputPatchList;
 
     /** Reference to the feedback patch associated to this universe. */
-    OutputPatch* m_fbPatch;
+    OutputPatch *m_fbPatch;
 
 private:
     // Connect to inputPatch's valueChanged signal
@@ -307,11 +307,11 @@ public:
 
     /** Assign a Channel Modifier to the given channel index
      * $modifier can be NULL if the channel has no modifier */
-    void setChannelModifier(ushort channel, ChannelModifier* modifier);
+    void setChannelModifier(ushort channel, ChannelModifier *modifier);
 
     /** Return the Channel Modifier assigned to the given channel
      * or NULL if none or not valid */
-    ChannelModifier* channelModifier(ushort channel);
+    ChannelModifier *channelModifier(ushort channel);
 
 protected:
     /** An array of each channel's capabilities. This helps to optimize HTP/LTP/Relative checks */
@@ -319,7 +319,7 @@ protected:
 
     /** Vector of pointer to ChannelModifier classes. If not NULL, they will modify
      *  a DMX value right before HTP/LTP check and before being assigned to preGM */
-    QVector<ChannelModifier*> m_modifiers;
+    QVector<ChannelModifier *> m_modifiers;
 
     /** Modified channels with the non-modified value at 0.
      *  This is used for ranged initialization operations. */
@@ -366,7 +366,7 @@ protected:
     void run();
 
 signals:
-    void universeWritten(quint32 universeID, const QByteArray& universeData);
+    void universeWritten(quint32 universeID, const QByteArray &universeData);
 
 protected:
     QSemaphore m_semaphore;
@@ -411,7 +411,7 @@ public:
      *
      * @return The current values
      */
-    const QByteArray* postGMValues() const;
+    const QByteArray *postGMValues() const;
 
     /**
      * Get the current pre-Grand-Master values (used by functions and everyone
@@ -569,7 +569,7 @@ public:
      * @param ioMap Reference to the QLC+ Input/Output map class
      * @return true if the Universe was loaded successfully, otherwise false
      */
-    bool loadXML(QXmlStreamReader& root, int index, InputOutputMap* ioMap);
+    bool loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap);
 
     /**
      * Load an optional tag defining the plugin specific parameters
@@ -578,7 +578,7 @@ public:
      * @param patchIndex Index of the patch to configure (ATM used only for output)
      * @return true if the parameters were loaded successfully, otherwise false
      */
-    bool loadXMLPluginParameters(QXmlStreamReader& root, PatchTagType currentTag, int patchIndex);
+    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag, int patchIndex);
 
     /**
      * Save the universe instance into an XML document, under the given
@@ -587,7 +587,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /**
      * Save one patch (input/output/feedback)
@@ -599,7 +599,7 @@ public:
      * @param profileName
      * @param parameters
      */
-    void savePatchXML(QXmlStreamWriter* doc, QString const& tag, QString const& pluginName, const QString& lineName,
+    void savePatchXML(QXmlStreamWriter *doc, QString const &tag, QString const &pluginName, const QString &lineName,
                       quint32 line, QString profileName, QMap<QString, QVariant> parameters) const;
 
     /**
@@ -610,7 +610,7 @@ public:
      * @param wksp_root The workspace root element
      * @param parameters The map of custom parameters to save
      */
-    bool savePluginParametersXML(QXmlStreamWriter* doc, QMap<QString, QVariant> parameters) const;
+    bool savePluginParametersXML(QXmlStreamWriter *doc, QMap<QString, QVariant> parameters) const;
 };
 
 /** @} */

@@ -25,7 +25,7 @@
 
 #define KXMLQLCSequenceBoundScene "BoundScene"
 
-Sequence::Sequence(Doc* doc)
+Sequence::Sequence(Doc *doc)
     : Chaser(doc)
     , m_boundSceneID(Function::invalidId())
     , m_needFixup(true)
@@ -41,11 +41,11 @@ QIcon Sequence::getIcon() const
     return QIcon(":/sequence.png");
 }
 
-Function* Sequence::createCopy(Doc* doc, bool addToDoc)
+Function *Sequence::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Sequence(doc);
+    Function *copy = new Sequence(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -60,9 +60,9 @@ Function* Sequence::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Sequence::copyFrom(const Function* function)
+bool Sequence::copyFrom(const Function *function)
 {
-    const Sequence* sequence = qobject_cast<const Sequence*>(function);
+    const Sequence *sequence = qobject_cast<const Sequence *>(function);
     if (sequence == NULL)
         return false;
 
@@ -99,7 +99,7 @@ QList<quint32> Sequence::components()
  * Save & Load
  *****************************************************************************/
 
-bool Sequence::saveXML(QXmlStreamWriter* doc)
+bool Sequence::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -137,7 +137,7 @@ bool Sequence::saveXML(QXmlStreamWriter* doc)
     return true;
 }
 
-bool Sequence::loadXML(QXmlStreamReader& root)
+bool Sequence::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -161,7 +161,7 @@ bool Sequence::loadXML(QXmlStreamReader& root)
 
     setBoundSceneID(funcAttrs.value(KXMLQLCSequenceBoundScene).toString().toUInt());
 
-    Scene* scene = qobject_cast<Scene*>(doc()->function(boundSceneID()));
+    Scene *scene = qobject_cast<Scene *>(doc()->function(boundSceneID()));
     QList<SceneValue> sceneValues;
     if (scene != NULL)
     {
@@ -223,10 +223,10 @@ void Sequence::postLoad()
     if (m_needFixup == false)
         return;
 
-    Doc* doc = this->doc();
+    Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
 
-    Scene* scene = qobject_cast<Scene*>(doc->function(boundSceneID()));
+    Scene *scene = qobject_cast<Scene *>(doc->function(boundSceneID()));
     QList<SceneValue> sceneValues;
     if (scene != NULL)
     {

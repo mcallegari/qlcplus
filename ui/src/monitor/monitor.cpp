@@ -52,13 +52,13 @@
 #define SETTINGS_GEOMETRY "monitor/geometry"
 #define SETTINGS_VSPLITTER "monitor/vsplitter"
 
-Monitor* Monitor::s_instance = NULL;
+Monitor *Monitor::s_instance = NULL;
 
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
-Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
+Monitor::Monitor(QWidget *parent, Doc *doc, Qt::WindowFlags f)
     : QWidget(parent, f)
     , m_doc(doc)
     , m_props(NULL)
@@ -152,7 +152,7 @@ void Monitor::fillDMXView()
     m_monitorWidget->setFont(m_props->font());
 
     /* Create a bunch of MonitorFixtures for each fixture */
-    foreach (Fixture* fxi, m_doc->fixtures())
+    foreach (Fixture *fxi, m_doc->fixtures())
     {
         Q_ASSERT(fxi != NULL);
         if (m_currentUniverse == Universe::invalid() || m_currentUniverse == fxi->universe())
@@ -187,7 +187,7 @@ void Monitor::initGraphicsView()
 {
     m_splitter = new QSplitter(Qt::Horizontal, this);
     layout()->addWidget(m_splitter);
-    QWidget* gcontainer = new QWidget(this);
+    QWidget *gcontainer = new QWidget(this);
     m_splitter->addWidget(gcontainer);
     gcontainer->setLayout(new QVBoxLayout);
     gcontainer->layout()->setContentsMargins(0, 0, 0, 0);
@@ -200,10 +200,10 @@ void Monitor::initGraphicsView()
     m_splitter->widget(0)->layout()->addWidget(m_graphicsView);
 
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32, QPointF)), this, SLOT(slotFixtureMoved(quint32, QPointF)));
-    connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent*)), this, SLOT(slotViewClicked()));
+    connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent *)), this, SLOT(slotViewClicked()));
 
     // add container for chaser editor
-    QWidget* econtainer = new QWidget(this);
+    QWidget *econtainer = new QWidget(this);
     m_splitter->addWidget(econtainer);
     econtainer->setLayout(new QVBoxLayout);
     econtainer->layout()->setContentsMargins(0, 0, 0, 0);
@@ -292,7 +292,7 @@ void Monitor::updateView()
     showCurrentView();
 }
 
-Monitor* Monitor::instance()
+Monitor *Monitor::instance()
 {
     return s_instance;
 }
@@ -312,9 +312,9 @@ void Monitor::saveSettings()
         m_props->setFont(m_monitorWidget->font());
 }
 
-void Monitor::createAndShow(QWidget* parent, Doc* doc)
+void Monitor::createAndShow(QWidget *parent, Doc *doc)
 {
-    QWidget* window = NULL;
+    QWidget *window = NULL;
 
     /* Must not create more than one instance */
     if (s_instance == NULL)
@@ -335,7 +335,7 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
             window->restoreGeometry(var.toByteArray());
         else
         {
-            QScreen* screen = QGuiApplication::screens().first();
+            QScreen *screen = QGuiApplication::screens().first();
             QRect rect = screen->availableGeometry();
             int rWd = rect.width() / 4;
             int rHd = rect.height() / 4;
@@ -359,8 +359,8 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
 
 void Monitor::initDMXToolbar()
 {
-    QActionGroup* group;
-    QAction* action;
+    QActionGroup *group;
+    QAction *action;
     m_DMXToolBar = new QToolBar(this);
 
     /* Menu bar */
@@ -431,11 +431,11 @@ void Monitor::initDMXToolbar()
     /* Universe combo box */
     m_DMXToolBar->addSeparator();
 
-    QLabel* uniLabel = new QLabel(tr("Universe"));
+    QLabel *uniLabel = new QLabel(tr("Universe"));
     uniLabel->setMargin(5);
     m_DMXToolBar->addWidget(uniLabel);
 
-    QComboBox* uniCombo = new QComboBox(this);
+    QComboBox *uniCombo = new QComboBox(this);
     uniCombo->addItem(tr("All universes"), Universe::invalid());
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
     {
@@ -447,7 +447,7 @@ void Monitor::initDMXToolbar()
 
     if (QLCFile::hasWindowManager() == false)
     {
-        QWidget* widget = new QWidget(this);
+        QWidget *widget = new QWidget(this);
         widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         m_DMXToolBar->addWidget(widget);
 
@@ -462,7 +462,7 @@ void Monitor::initDMXToolbar()
 
 void Monitor::initGraphicsToolbar()
 {
-    QAction* action;
+    QAction *action;
 
     m_graphicsToolBar = new QToolBar(this);
 
@@ -475,7 +475,7 @@ void Monitor::initGraphicsToolbar()
     action->setData(MonitorProperties::DMX);
     connect(action, SIGNAL(triggered(bool)), this, SLOT(slotSwitchMode()));
 
-    QLabel* label = new QLabel(tr("Size"));
+    QLabel *label = new QLabel(tr("Size"));
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_graphicsToolBar->addWidget(label);
 
@@ -487,7 +487,7 @@ void Monitor::initGraphicsToolbar()
     m_graphicsToolBar->addWidget(m_gridWSpin);
     connect(m_gridWSpin, SIGNAL(valueChanged(int)), this, SLOT(slotGridWidthChanged(int)));
 
-    QLabel* xlabel = new QLabel("x");
+    QLabel *xlabel = new QLabel("x");
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_graphicsToolBar->addWidget(xlabel);
     m_gridHSpin = new QSpinBox();
@@ -520,7 +520,7 @@ void Monitor::initGraphicsToolbar()
 
     if (QLCFile::hasWindowManager() == false)
     {
-        QWidget* widget = new QWidget(this);
+        QWidget *widget = new QWidget(this);
         widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         m_graphicsToolBar->addWidget(widget);
 
@@ -545,7 +545,7 @@ void Monitor::slotChooseFont()
 
 void Monitor::slotChannelStyleTriggered()
 {
-    QAction* action = qobject_cast<QAction*>(QObject::sender());
+    QAction *action = qobject_cast<QAction *>(QObject::sender());
     Q_ASSERT(action != NULL);
 
     action->setChecked(true);
@@ -555,7 +555,7 @@ void Monitor::slotChannelStyleTriggered()
 
 void Monitor::slotValueStyleTriggered()
 {
-    QAction* action = qobject_cast<QAction*>(QObject::sender());
+    QAction *action = qobject_cast<QAction *>(QObject::sender());
     Q_ASSERT(action != NULL);
 
     action->setChecked(true);
@@ -565,7 +565,7 @@ void Monitor::slotValueStyleTriggered()
 
 void Monitor::slotSwitchMode()
 {
-    QAction* action = qobject_cast<QAction*>(QObject::sender());
+    QAction *action = qobject_cast<QAction *>(QObject::sender());
     Q_ASSERT(action != NULL);
 
     m_props->setDisplayMode(MonitorProperties::DisplayMode(action->data().toInt()));
@@ -578,14 +578,14 @@ void Monitor::slotSwitchMode()
 
 void Monitor::updateFixtureLabelStyles()
 {
-    QListIterator<MonitorFixture*> it(m_monitorFixtures);
+    QListIterator<MonitorFixture *> it(m_monitorFixtures);
     while (it.hasNext() == true)
         it.next()->updateLabelStyles();
 }
 
-void Monitor::createMonitorFixture(Fixture* fxi)
+void Monitor::createMonitorFixture(Fixture *fxi)
 {
-    MonitorFixture* mof = new MonitorFixture(m_monitorWidget, m_doc);
+    MonitorFixture *mof = new MonitorFixture(m_monitorWidget, m_doc);
     mof->setFixture(fxi->id());
     mof->slotChannelStyleChanged(m_props->channelStyle());
     mof->slotValueStyleChanged(m_props->valueStyle());
@@ -603,17 +603,17 @@ void Monitor::createMonitorFixture(Fixture* fxi)
 
 void Monitor::slotFixtureAdded(quint32 fxi_id)
 {
-    Fixture* fxi = m_doc->fixture(fxi_id);
+    Fixture *fxi = m_doc->fixture(fxi_id);
     if (fxi != NULL)
         createMonitorFixture(fxi);
 }
 
 void Monitor::slotFixtureChanged(quint32 fxi_id)
 {
-    QListIterator<MonitorFixture*> it(m_monitorFixtures);
+    QListIterator<MonitorFixture *> it(m_monitorFixtures);
     while (it.hasNext() == true)
     {
-        MonitorFixture* mof = it.next();
+        MonitorFixture *mof = it.next();
         if (mof->fixture() == fxi_id)
             mof->setFixture(fxi_id);
     }
@@ -626,10 +626,10 @@ void Monitor::slotFixtureChanged(quint32 fxi_id)
 
 void Monitor::slotFixtureRemoved(quint32 fxi_id)
 {
-    QMutableListIterator<MonitorFixture*> it(m_monitorFixtures);
+    QMutableListIterator<MonitorFixture *> it(m_monitorFixtures);
     while (it.hasNext() == true)
     {
-        MonitorFixture* mof = it.next();
+        MonitorFixture *mof = it.next();
         if (mof->fixture() == fxi_id)
         {
             it.remove();
@@ -642,7 +642,7 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
 
 void Monitor::slotUniverseSelected(int index)
 {
-    QComboBox* combo = qobject_cast<QComboBox*>(sender());
+    QComboBox *combo = qobject_cast<QComboBox *>(sender());
     m_currentUniverse = combo->itemData(index).toUInt();
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
@@ -784,7 +784,7 @@ void Monitor::hideFixtureItemEditor()
 
 void Monitor::showFixtureItemEditor()
 {
-    MonitorFixtureItem* item = m_graphicsView->getSelectedItem();
+    MonitorFixtureItem *item = m_graphicsView->getSelectedItem();
     hideFixtureItemEditor();
 
     if (item != NULL)

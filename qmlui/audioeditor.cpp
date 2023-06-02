@@ -23,7 +23,7 @@
 #include "audio.h"
 #include "doc.h"
 
-AudioEditor::AudioEditor(QQuickView* view, Doc* doc, QObject* parent)
+AudioEditor::AudioEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_audio(nullptr)
 {
@@ -32,7 +32,7 @@ AudioEditor::AudioEditor(QQuickView* view, Doc* doc, QObject* parent)
 
 void AudioEditor::setFunctionID(quint32 ID)
 {
-    m_audio = qobject_cast<Audio*>(m_doc->function(ID));
+    m_audio = qobject_cast<Audio *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_audio != nullptr)
         connect(m_audio, SIGNAL(totalDurationChanged()), this, SIGNAL(mediaInfoChanged()));
@@ -54,8 +54,7 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     if (m_audio == nullptr || m_audio->getSourceFileName() == sourceFileName)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(),
-                                      sourceFileName);
+    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(), sourceFileName);
     m_audio->setSourceFileName(sourceFileName);
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
@@ -78,7 +77,7 @@ QVariant AudioEditor::mediaInfo() const
     if (m_audio == nullptr)
         return QVariant();
 
-    AudioDecoder* adec = m_audio->getAudioDecoder();
+    AudioDecoder *adec = m_audio->getAudioDecoder();
     if (adec == nullptr)
         return QVariant();
 

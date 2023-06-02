@@ -77,13 +77,13 @@ public:
     QLCFixtureDef();
 
     /** Copy constructor */
-    QLCFixtureDef(const QLCFixtureDef* fixtureDef);
+    QLCFixtureDef(const QLCFixtureDef *fixtureDef);
 
     /** Destructor */
     ~QLCFixtureDef();
 
     /** Assignment operator */
-    QLCFixtureDef& operator=(const QLCFixtureDef& fixtureDef);
+    QLCFixtureDef &operator=(const QLCFixtureDef &fixtureDef);
 
     /*********************************************************************
      * Fixture information
@@ -112,19 +112,19 @@ public:
     QString definitionSourceFile() const;
 
     /** Set the temporary definition file absolute path */
-    void setDefinitionSourceFile(const QString& absPath);
+    void setDefinitionSourceFile(const QString &absPath);
 
     /** Get the fixture's name string (=="manufacturer model") */
     QString name() const;
 
     /** Set the fixture's manufacturer string */
-    void setManufacturer(const QString& mfg);
+    void setManufacturer(const QString &mfg);
 
     /** Set the fixture's manufacturer string */
     QString manufacturer() const;
 
     /** Set the fixture's model string */
-    void setModel(const QString& model);
+    void setModel(const QString &model);
 
     /** Get the fixture's model string */
     QString model() const;
@@ -139,10 +139,10 @@ public:
     static QString typeToString(FixtureType type);
 
     /** Convert string into a fixture type */
-    static FixtureType stringToType(const QString& type);
+    static FixtureType stringToType(const QString &type);
 
     /** Set the definition's author */
-    void setAuthor(const QString& author);
+    void setAuthor(const QString &author);
 
     /** Get the definition's author */
     QString author();
@@ -168,13 +168,13 @@ protected:
      *********************************************************************/
 public:
     /** Add a new channel to this fixture */
-    bool addChannel(QLCChannel* channel);
+    bool addChannel(QLCChannel *channel);
 
     /** Remove a certain channel from this fixture */
-    bool removeChannel(QLCChannel* channel);
+    bool removeChannel(QLCChannel *channel);
 
     /** Search for a channel by its name */
-    QLCChannel* channel(const QString& name);
+    QLCChannel *channel(const QString &name);
 
     /**
      * Get all channels in this fixture. Changes to the list won't end
@@ -183,32 +183,32 @@ public:
      *
      * @return An arbitrarily-ordered list of possible channels in a fixture
      */
-    QList<QLCChannel*> channels() const;
+    QList<QLCChannel *> channels() const;
 
 protected:
     /** Available channels */
-    QList<QLCChannel*> m_channels;
+    QList<QLCChannel *> m_channels;
 
     /*********************************************************************
      * Modes
      *********************************************************************/
 public:
     /** Add a new mode to this fixture */
-    bool addMode(QLCFixtureMode* mode);
+    bool addMode(QLCFixtureMode *mode);
 
     /** Remove a certain mode from this fixture */
-    bool removeMode(QLCFixtureMode* mode);
+    bool removeMode(QLCFixtureMode *mode);
 
     /** Get a certain mode by its name */
-    QLCFixtureMode* mode(const QString& name);
+    QLCFixtureMode *mode(const QString &name);
 
     /** Get all modes in this fixture. Changes to the list won't end
         up into the fixture definition. */
-    QList<QLCFixtureMode*> modes();
+    QList<QLCFixtureMode *> modes();
 
 protected:
     /** Modes (i.e. ordered collections of channels) */
-    QList<QLCFixtureMode*> m_modes;
+    QList<QLCFixtureMode *> m_modes;
 
 
     /*********************************************************************
@@ -217,7 +217,7 @@ protected:
 public:
     /** Get/Set the global physical information */
     QLCPhysical physical() const;
-    void setPhysical(const QLCPhysical& physical);
+    void setPhysical(const QLCPhysical &physical);
 
 protected:
     QLCPhysical m_physical;
@@ -227,17 +227,17 @@ protected:
      *********************************************************************/
 public:
     /** Save the fixture into an XML file */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString &fileName);
 
     /** Load this fixture's contents from the given file */
-    QFile::FileError loadXML(const QString& fileName);
+    QFile::FileError loadXML(const QString &fileName);
 
 protected:
     /** Load fixture contents from an XML document */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Load <Creator> information */
-    bool loadCreator(QXmlStreamReader& doc);
+    bool loadCreator(QXmlStreamReader &doc);
 };
 
 /** @} */

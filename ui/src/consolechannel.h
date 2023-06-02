@@ -52,7 +52,7 @@ class ConsoleChannel : public QGroupBox
      * Initialization
      *************************************************************************/
 public:
-    ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channelIndex, bool isCheckable = true);
+    ConsoleChannel(QWidget *parent, Doc *doc, quint32 fixture, quint32 channelIndex, bool isCheckable = true);
 
     ~ConsoleChannel();
 
@@ -60,7 +60,7 @@ private:
     void init();
 
 protected:
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent *ev);
 
 private:
     QString m_styleSheet;
@@ -75,13 +75,13 @@ public:
     /** Get the channel number within $m_fixture that this channel controls */
     quint32 channelIndex() const;
 
-    const QLCChannel* channel();
+    const QLCChannel *channel();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     quint32 m_fixture;
     quint32 m_chIndex;
-    const QLCChannel* m_channel;
+    const QLCChannel *m_channel;
     /** this value is set only through setChannelsGroup,
      *  to emit the proper signal when value changes */
     quint32 m_group;
@@ -124,7 +124,7 @@ signals:
      * Look & Feel
      *************************************************************************/
 public:
-    void setChannelStyleSheet(const QString& styleSheet);
+    void setChannelStyleSheet(const QString &styleSheet);
     void showResetButton(bool show);
     bool hasResetButton();
 
@@ -136,12 +136,12 @@ signals:
     void resetRequest(quint32 fxi, quint32 channelIndex);
 
 private:
-    QToolButton* m_presetButton;
-    ClickAndGoWidget* m_cngWidget;
-    QSpinBox* m_spin;
-    ClickAndGoSlider* m_slider;
-    QLabel* m_label;
-    QToolButton* m_resetButton;
+    QToolButton *m_presetButton;
+    ClickAndGoWidget *m_cngWidget;
+    QSpinBox *m_spin;
+    ClickAndGoSlider *m_slider;
+    QLabel *m_label;
+    QToolButton *m_resetButton;
 
     bool m_showResetButton;
 
@@ -149,19 +149,19 @@ private:
      * Menu
      *************************************************************************/
 private slots:
-    void slotContextMenuTriggered(QAction* action);
+    void slotContextMenuTriggered(QAction *action);
     void slotClickAndGoLevelChanged(uchar level);
     void slotClickAndGoLevelAndPresetChanged(uchar level, QImage img);
 
 private:
-    void contextMenuEvent(QContextMenuEvent*);
+    void contextMenuEvent(QContextMenuEvent *);
     void initMenu();
-    void initCapabilityMenu(const QLCChannel* ch);
-    void setIntensityButton(const QLCChannel* ch);
-    static QIcon colorIcon(const QString& name);
+    void initCapabilityMenu(const QLCChannel *ch);
+    void setIntensityButton(const QLCChannel *ch);
+    static QIcon colorIcon(const QString &name);
 
 private:
-    QMenu* m_menu;
+    QMenu *m_menu;
 
     /*************************************************************************
      * Selection

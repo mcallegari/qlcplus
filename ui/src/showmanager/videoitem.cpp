@@ -26,7 +26,7 @@
 #include "trackitem.h"
 #include "headeritems.h"
 
-VideoItem::VideoItem(Video* vid, ShowFunction* func)
+VideoItem::VideoItem(Video *vid, ShowFunction *func)
     : ShowItem(func)
     , m_video(vid)
     , m_fullscreenAction(NULL)
@@ -67,7 +67,7 @@ void VideoItem::calculateWidth()
     setWidth(newWidth);
 }
 
-void VideoItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     float timeScale = 50 / (float)m_timeScale;
     quint32 videoDuration = m_video->totalDuration();
@@ -129,7 +129,7 @@ QString VideoItem::functionName()
     return QString();
 }
 
-Video* VideoItem::getVideo()
+Video *VideoItem::getVideo()
 {
     return m_video;
 }
@@ -154,7 +154,7 @@ void VideoItem::slotVideoDurationChanged(qint64)
 
 void VideoItem::slotScreenChanged()
 {
-    QAction* action = (QAction*)sender();
+    QAction *action = (QAction *)sender();
     int scrIdx = action->data().toInt();
 
     m_video->setScreen(scrIdx);
@@ -165,7 +165,7 @@ void VideoItem::slotFullscreenToggled(bool toggle)
     m_video->setFullscreen(toggle);
 }
 
-void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
+void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
@@ -178,7 +178,7 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
     {
         for (int i = 0; i < screenCount; i++)
         {
-            QAction* scrAction = new QAction(tr("Screen %1").arg(i + 1), this);
+            QAction *scrAction = new QAction(tr("Screen %1").arg(i + 1), this);
             scrAction->setCheckable(true);
             if (m_video->screen() == i)
                 scrAction->setChecked(true);
@@ -188,7 +188,7 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
         }
     }
     menu.addAction(m_fullscreenAction);
-    foreach (QAction* action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

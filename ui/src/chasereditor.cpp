@@ -55,7 +55,7 @@
 #define COL_DURATION 5
 #define COL_NOTES 6
 
-ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveMode)
+ChaserEditor::ChaserEditor(QWidget *parent, Chaser *chaser, Doc *doc, bool liveMode)
     : QWidget(parent)
     , m_doc(doc)
     , m_chaser(chaser)
@@ -164,7 +164,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
         break;
     }
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAddClicked()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemoveClicked()));
     connect(m_raise, SIGNAL(clicked()), this, SLOT(slotRaiseClicked()));
@@ -194,7 +194,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
     connect(m_backward, SIGNAL(clicked()), this, SLOT(slotRestartTest()));
 
     connect(m_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelectionChanged()));
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotItemChanged(QTreeWidgetItem*, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
 
     // connect(m_testButton, SIGNAL(toggled(bool)), this, SLOT(slotTestToggled(bool)));
     connect(m_testPlayButton, SIGNAL(clicked()), this, SLOT(slotTestPlay()));
@@ -253,7 +253,7 @@ void ChaserEditor::selectStepAtTime(quint32 time)
         }
         if (time < stepTime + timeIncr)
         {
-            QTreeWidgetItem* item = m_tree->topLevelItem(i);
+            QTreeWidgetItem *item = m_tree->topLevelItem(i);
             m_tree->setCurrentItem(item);
             m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
             return;
@@ -276,7 +276,7 @@ void ChaserEditor::slotFunctionManagerActive(bool active)
     }
 }
 
-void ChaserEditor::slotNameEdited(const QString& text)
+void ChaserEditor::slotNameEdited(const QString &text)
 {
     m_chaser->setName(text);
 }
@@ -284,12 +284,12 @@ void ChaserEditor::slotNameEdited(const QString& text)
 void ChaserEditor::slotUpdateCurrentStep(SceneValue sv, bool enabled)
 {
     qDebug() << "Value changed: " << sv.fxi << sv.channel << sv.value << enabled;
-    QList<QTreeWidgetItem*> selected(m_tree->selectedItems());
+    QList<QTreeWidgetItem *> selected(m_tree->selectedItems());
 
     if (selected.size() == 0)
         return;
 
-    QTreeWidgetItem* item(selected.first());
+    QTreeWidgetItem *item(selected.first());
     int idx = m_tree->indexOfTopLevelItem(item);
 
     if (enabled == true)
@@ -343,18 +343,18 @@ void ChaserEditor::slotAddClicked()
     bool stepAdded = false;
 
     int insertionPoint = m_tree->topLevelItemCount();
-    QTreeWidgetItem* item = m_tree->currentItem();
+    QTreeWidgetItem *item = m_tree->currentItem();
     if (item != NULL)
         insertionPoint = m_tree->indexOfTopLevelItem(item) + 1;
 
     if (m_chaser->type() == Function::SequenceType)
     {
-        Sequence* sequence = qobject_cast<Sequence*>(m_chaser);
+        Sequence *sequence = qobject_cast<Sequence *>(m_chaser);
         ChaserStep step(sequence->boundSceneID());
         item = new QTreeWidgetItem;
         updateItem(item, step);
         // if this is the first step we add, then copy all DMX channels non-zero values
-        Scene* currScene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
+        Scene *currScene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
         QListIterator<SceneValue> it(currScene->values());
         qDebug() << "First step added !!";
         while (it.hasNext() == true)
@@ -375,7 +375,7 @@ void ChaserEditor::slotAddClicked()
         {
             QList<quint32> disabledList;
             disabledList << m_chaser->id();
-            foreach (Function* function, m_doc->functions())
+            foreach (Function *function, m_doc->functions())
             {
                 if (function->contains(m_chaser->id()))
                     disabledList << function->id();
@@ -418,14 +418,14 @@ void ChaserEditor::slotRemoveClicked()
 
 void ChaserEditor::slotRaiseClicked()
 {
-    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator<QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
     // cancel the operation if that is the case.
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         int index = m_tree->indexOfTopLevelItem(item);
         if (index == 0)
             return;
@@ -435,7 +435,7 @@ void ChaserEditor::slotRaiseClicked()
     it.toFront();
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         int index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index - 1, item);
@@ -455,14 +455,14 @@ void ChaserEditor::slotRaiseClicked()
 
 void ChaserEditor::slotLowerClicked()
 {
-    QList<QTreeWidgetItem*> items(m_tree->selectedItems());
-    QListIterator<QTreeWidgetItem*> it(items);
+    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
     // cancel the operation if that is the case.
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         int index = m_tree->indexOfTopLevelItem(item);
         if (index == m_tree->topLevelItemCount() - 1)
             return;
@@ -472,7 +472,7 @@ void ChaserEditor::slotLowerClicked()
     it.toBack();
     while (it.hasPrevious() == true)
     {
-        QTreeWidgetItem* item(it.previous());
+        QTreeWidgetItem *item(it.previous());
         int index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index + 1, item);
@@ -506,14 +506,14 @@ void ChaserEditor::slotShuffleClicked()
         selectedCount = m_tree->selectedItems().count();
     }
 
-    QList<QTreeWidgetItem*> selectedItems(m_tree->selectedItems());
+    QList<QTreeWidgetItem *> selectedItems(m_tree->selectedItems());
     int indicesToShuffle[selectedCount];
 
     // save the selected scenes and their indices into a sorted array
-    QListIterator<QTreeWidgetItem*> it(selectedItems);
+    QListIterator<QTreeWidgetItem *> it(selectedItems);
     for (i = 0; i < selectedCount; i++)
     {
-        QTreeWidgetItem* item = it.next();
+        QTreeWidgetItem *item = it.next();
         indicesToShuffle[i] = m_tree->indexOfTopLevelItem(item);
     }
     std::sort(indicesToShuffle, indicesToShuffle + selectedCount);
@@ -531,8 +531,8 @@ void ChaserEditor::slotShuffleClicked()
 
         if (indexToShuffle != lastUnshuffledIndex)
         {
-            QTreeWidgetItem* lastUnshuffledItem = m_tree->takeTopLevelItem(lastUnshuffledIndex);
-            QTreeWidgetItem* itemToShuffle = m_tree->takeTopLevelItem(indexToShuffle);
+            QTreeWidgetItem *lastUnshuffledItem = m_tree->takeTopLevelItem(lastUnshuffledIndex);
+            QTreeWidgetItem *itemToShuffle = m_tree->takeTopLevelItem(indexToShuffle);
             m_tree->insertTopLevelItem(indexToShuffle, lastUnshuffledItem);
             m_tree->insertTopLevelItem(lastUnshuffledIndex, itemToShuffle);
             m_chaser->moveStep(indexToShuffle, lastUnshuffledIndex);
@@ -568,7 +568,7 @@ void ChaserEditor::slotItemSelectionChanged()
 
     if (m_tree->selectedItems().count() > 0)
     {
-        QTreeWidgetItem* item = m_tree->selectedItems().first();
+        QTreeWidgetItem *item = m_tree->selectedItems().first();
         int idx = item->text(COL_NUM).toUInt() - 1;
         emit stepSelectionChanged(idx);
     }
@@ -580,7 +580,7 @@ void ChaserEditor::slotItemSelectionChanged()
     applyStepValues();
 }
 
-void ChaserEditor::slotItemChanged(QTreeWidgetItem* item, int column)
+void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 {
     QString itemText = item->text(column);
     quint32 newValue = Function::stringToSpeed(itemText);
@@ -674,10 +674,10 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem* item, int column)
 void ChaserEditor::slotCutClicked()
 {
     QList<ChaserStep> copyList;
-    QListIterator<QTreeWidgetItem*> it(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         int index = m_tree->indexOfTopLevelItem(item);
         copyList << stepAtIndex(index);
         m_chaser->removeStep(index);
@@ -694,9 +694,9 @@ void ChaserEditor::slotCutClicked()
 void ChaserEditor::slotCopyClicked()
 {
     QList<ChaserStep> copyList;
-    foreach (QTreeWidgetItem* item, m_tree->selectedItems())
+    foreach (QTreeWidgetItem *item, m_tree->selectedItems())
         copyList << stepAtItem(item);
-    QLCClipboard* clipboard = m_doc->clipboard();
+    QLCClipboard *clipboard = m_doc->clipboard();
     clipboard->copyContent(m_chaser->id(), copyList);
     updateClipboardButtons();
 }
@@ -712,9 +712,9 @@ void ChaserEditor::slotPasteClicked()
     // this scene
     if (m_chaser->type() == Function::SequenceType)
     {
-        Sequence* sequence = qobject_cast<Sequence*>(m_chaser);
+        Sequence *sequence = qobject_cast<Sequence *>(m_chaser);
         quint32 sceneID = sequence->boundSceneID();
-        Scene* scene = qobject_cast<Scene*>(m_doc->function(sceneID));
+        Scene *scene = qobject_cast<Scene *>(m_doc->function(sceneID));
         foreach (ChaserStep step, pasteList)
         {
             if (step.fid != sceneID) // if IDs are the same then it's a valid step
@@ -733,7 +733,7 @@ void ChaserEditor::slotPasteClicked()
     }
 
     int insertionPoint = 0;
-    QTreeWidgetItem* currentItem = m_tree->currentItem();
+    QTreeWidgetItem *currentItem = m_tree->currentItem();
     if (currentItem != NULL)
     {
         insertionPoint = m_tree->indexOfTopLevelItem(currentItem) + 1;
@@ -744,12 +744,12 @@ void ChaserEditor::slotPasteClicked()
         insertionPoint = m_tree->topLevelItemCount();
     }
 
-    QList<QTreeWidgetItem*> selectionList;
+    QList<QTreeWidgetItem *> selectionList;
 
     QListIterator<ChaserStep> it(pasteList);
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem;
+        QTreeWidgetItem *item = new QTreeWidgetItem;
         ChaserStep step(it.next());
         if (step.resolveFunction(m_doc) == NULL) // Function has been removed
         {
@@ -767,7 +767,7 @@ void ChaserEditor::slotPasteClicked()
     updateClipboardButtons();
 
     // this is done here cause of a misterious performance issue
-    foreach (QTreeWidgetItem* item, selectionList)
+    foreach (QTreeWidgetItem *item, selectionList)
         item->setSelected(true);
 }
 
@@ -851,13 +851,13 @@ void ChaserEditor::slotFadeInDialChanged(int ms)
     switch (m_chaser->fadeInMode())
     {
     case Chaser::Common:
-        if (QTreeWidgetItem* item = m_tree->topLevelItem(0))
+        if (QTreeWidgetItem *item = m_tree->topLevelItem(0))
             item->setText(COL_FADEIN, Function::speedToString(ms));
         else
             m_chaser->setFadeInSpeed(Function::speedNormalize(ms));
         break;
     case Chaser::PerStep:
-        foreach (QTreeWidgetItem* item, m_tree->selectedItems())
+        foreach (QTreeWidgetItem *item, m_tree->selectedItems())
         {
             item->setText(COL_FADEIN, Function::speedToString(ms));
         }
@@ -875,13 +875,13 @@ void ChaserEditor::slotFadeOutDialChanged(int ms)
     switch (m_chaser->fadeOutMode())
     {
     case Chaser::Common:
-        if (QTreeWidgetItem* item = m_tree->topLevelItem(0))
+        if (QTreeWidgetItem *item = m_tree->topLevelItem(0))
             item->setText(COL_FADEOUT, Function::speedToString(ms));
         else
             m_chaser->setFadeOutSpeed(Function::speedNormalize(ms));
         break;
     case Chaser::PerStep:
-        foreach (QTreeWidgetItem* item, m_tree->selectedItems())
+        foreach (QTreeWidgetItem *item, m_tree->selectedItems())
         {
             item->setText(COL_FADEOUT, Function::speedToString(ms));
         }
@@ -899,7 +899,7 @@ void ChaserEditor::slotHoldDialChanged(int ms)
     switch (m_chaser->durationMode())
     {
     case Chaser::Common:
-        if (QTreeWidgetItem* item = m_tree->topLevelItem(0))
+        if (QTreeWidgetItem *item = m_tree->topLevelItem(0))
             item->setText(COL_HOLD, Function::speedToString(ms));
         else
         {
@@ -910,7 +910,7 @@ void ChaserEditor::slotHoldDialChanged(int ms)
         }
         break;
     case Chaser::PerStep:
-        foreach (QTreeWidgetItem* item, m_tree->selectedItems())
+        foreach (QTreeWidgetItem *item, m_tree->selectedItems())
         {
             item->setText(COL_HOLD, Function::speedToString(ms));
         }
@@ -923,7 +923,7 @@ void ChaserEditor::slotHoldDialChanged(int ms)
     m_tree->resizeColumnToContents(COL_HOLD);
 }
 
-void ChaserEditor::slotDialDestroyed(QObject*)
+void ChaserEditor::slotDialDestroyed(QObject *)
 {
     m_speeddial->setChecked(false);
 }
@@ -938,7 +938,7 @@ void ChaserEditor::createSpeedDials()
         connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInDialChanged(int)));
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
         connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldDialChanged(int)));
-        connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
+        connect(m_speedDials, SIGNAL(destroyed(QObject *)), this, SLOT(slotDialDestroyed(QObject *)));
     }
 
     m_speedDials->show();
@@ -958,12 +958,12 @@ void ChaserEditor::updateSpeedDials()
 
     createSpeedDials();
 
-    QList<QTreeWidgetItem*> selected(m_tree->selectedItems());
+    QList<QTreeWidgetItem *> selected(m_tree->selectedItems());
 
     ChaserStep step;
     if (selected.size() != 0)
     {
-        const QTreeWidgetItem* item(selected.first());
+        const QTreeWidgetItem *item(selected.first());
         step = stepAtItem(item);
 
         QString title;
@@ -1170,7 +1170,7 @@ void ChaserEditor::updateTree(bool clear)
 
     for (int i = 0; i < m_chaser->steps().size(); i++)
     {
-        QTreeWidgetItem* item = NULL;
+        QTreeWidgetItem *item = NULL;
 
         if (clear == true)
             item = new QTreeWidgetItem(m_tree);
@@ -1185,9 +1185,9 @@ void ChaserEditor::updateTree(bool clear)
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
-void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
+void ChaserEditor::updateItem(QTreeWidgetItem *item, ChaserStep &step)
 {
-    Function* function = step.resolveFunction(m_doc);
+    Function *function = step.resolveFunction(m_doc);
     Q_ASSERT(function != NULL);
     Q_ASSERT(item != NULL);
 
@@ -1255,13 +1255,13 @@ void ChaserEditor::updateStepNumbers()
 {
     for (int i = 0; i < m_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
+        QTreeWidgetItem *item = m_tree->topLevelItem(i);
         Q_ASSERT(item != NULL);
         item->setText(COL_NUM, QString("%1").arg(i + 1));
     }
 }
 
-ChaserStep ChaserEditor::stepAtItem(const QTreeWidgetItem* item) const
+ChaserStep ChaserEditor::stepAtItem(const QTreeWidgetItem *item) const
 {
     Q_ASSERT(item != NULL);
 
@@ -1301,11 +1301,11 @@ void ChaserEditor::updateClipboardButtons()
 
 void ChaserEditor::applyStepValues()
 {
-    QList<QTreeWidgetItem*> selected(m_tree->selectedItems());
+    QList<QTreeWidgetItem *> selected(m_tree->selectedItems());
 
     if (selected.size() != 0)
     {
-        QTreeWidgetItem* item(selected.first());
+        QTreeWidgetItem *item(selected.first());
         int idx = m_tree->indexOfTopLevelItem(item);
         qDebug() << "Idx: " << idx << ", steps: " << m_chaser->steps().count();
         if (m_chaser != NULL && idx < m_chaser->steps().count())

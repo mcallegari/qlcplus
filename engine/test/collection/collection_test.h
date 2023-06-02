@@ -52,7 +52,7 @@ private slots:
     void stopNotOwnChildren();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

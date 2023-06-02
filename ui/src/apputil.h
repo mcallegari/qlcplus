@@ -41,7 +41,7 @@ namespace AppUtil
  *
  * @param widget The widget to expose
  */
-void ensureWidgetIsVisible(QWidget* widget);
+void ensureWidgetIsVisible(QWidget *widget);
 
 /*********************************************************************
  * Sane style
@@ -50,7 +50,7 @@ void ensureWidgetIsVisible(QWidget* widget);
  * Attempt to get a sane style that replaces Windows' & OSX's crappy
  * sliders as well as buttons that don't obey background color setting.
  */
-QStyle* saneStyle();
+QStyle *saneStyle();
 
 /*********************************************************************
  * Digits
@@ -70,11 +70,11 @@ unsigned int digits(unsigned int num);
 class NoEditDelegate : public QStyledItemDelegate
 {
 public:
-    NoEditDelegate(QObject* parent = 0)
+    NoEditDelegate(QObject *parent = 0)
         : QStyledItemDelegate(parent)
     {
     }
-    virtual QWidget* createEditor(QWidget*, const QStyleOptionViewItem&, const QModelIndex&) const
+    virtual QWidget *createEditor(QWidget *, const QStyleOptionViewItem &, const QModelIndex &) const
     {
         return 0;
     }
@@ -97,15 +97,15 @@ public:
      * Create a combobox delegate.
      * @param strings The selectable strings in the combobox, arranged in order.
      */
-    ComboBoxDelegate(const QStringList& strings, QWidget* parent = 0);
+    ComboBoxDelegate(const QStringList &strings, QWidget *parent = 0);
 
-    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
-    void setEditorData(QWidget* editor, const QModelIndex& index) const;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const;
 
-    void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
 
-    void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
 /** @} */

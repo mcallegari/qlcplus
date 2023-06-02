@@ -28,15 +28,15 @@ class StubWidget : public VCWidget
     Q_OBJECT
 
 public:
-    StubWidget(QWidget* parent, Doc* doc);
+    StubWidget(QWidget *parent, Doc *doc);
     ~StubWidget();
 
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
     /** @reimp */
     void updateFeedback() {}
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

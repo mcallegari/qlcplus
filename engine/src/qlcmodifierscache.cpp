@@ -26,7 +26,7 @@
 
 QLCModifiersCache::QLCModifiersCache() {}
 
-bool QLCModifiersCache::addModifier(ChannelModifier* modifier)
+bool QLCModifiersCache::addModifier(ChannelModifier *modifier)
 {
     if (m_modifiers.contains(modifier->name()))
         return false;
@@ -41,7 +41,7 @@ QList<QString> QLCModifiersCache::templateNames()
     return m_modifiers.keys();
 }
 
-ChannelModifier* QLCModifiersCache::modifier(QString name)
+ChannelModifier *QLCModifiersCache::modifier(QString name)
 {
     if (m_modifiers.contains(name))
         return m_modifiers[name];
@@ -60,7 +60,7 @@ QDir QLCModifiersCache::userTemplateDirectory()
                                   QStringList() << QString("*%1").arg(KExtModifierTemplate));
 }
 
-bool QLCModifiersCache::load(const QDir& dir, bool systemTemplates)
+bool QLCModifiersCache::load(const QDir &dir, bool systemTemplates)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
@@ -81,7 +81,7 @@ bool QLCModifiersCache::load(const QDir& dir, bool systemTemplates)
 
         if (path.toLower().endsWith(KExtModifierTemplate) == true)
         {
-            ChannelModifier* chMod = new ChannelModifier();
+            ChannelModifier *chMod = new ChannelModifier();
             Q_ASSERT(chMod != NULL);
 
             QFile::FileError error = chMod->loadXML(path, type);

@@ -61,12 +61,12 @@ const QString tapTickSS = "QPushButton { background-color: #DDDDDD; border: 3px 
  * FocusSpinBox
  ****************************************************************************/
 
-FocusSpinBox::FocusSpinBox(QWidget* parent)
+FocusSpinBox::FocusSpinBox(QWidget *parent)
     : QSpinBox(parent)
 {
 }
 
-void FocusSpinBox::focusInEvent(QFocusEvent* event)
+void FocusSpinBox::focusInEvent(QFocusEvent *event)
 {
     if (event->gotFocus() == true)
         emit focusGained();
@@ -76,7 +76,7 @@ void FocusSpinBox::focusInEvent(QFocusEvent* event)
  * SpeedDial
  ****************************************************************************/
 
-SpeedDial::SpeedDial(QWidget* parent)
+SpeedDial::SpeedDial(QWidget *parent)
     : QGroupBox(parent)
     , m_timer(new QTimer(this))
     , m_dial(NULL)
@@ -98,9 +98,9 @@ SpeedDial::SpeedDial(QWidget* parent)
     layout()->setSpacing(0);
     layout()->setContentsMargins(2, 2, 2, 2);
 
-    QHBoxLayout* topHBox = new QHBoxLayout();
-    QVBoxLayout* pmVBox1 = new QVBoxLayout();
-    QVBoxLayout* taVBox3 = new QVBoxLayout();
+    QHBoxLayout *topHBox = new QHBoxLayout();
+    QVBoxLayout *pmVBox1 = new QVBoxLayout();
+    QVBoxLayout *taVBox3 = new QVBoxLayout();
     layout()->addItem(topHBox);
 
     m_plus = new QToolButton(this);
@@ -134,7 +134,7 @@ SpeedDial::SpeedDial(QWidget* parent)
 
     topHBox->addItem(taVBox3);
 
-    QHBoxLayout* timeHBox = new QHBoxLayout();
+    QHBoxLayout *timeHBox = new QHBoxLayout();
     layout()->addItem(timeHBox);
 
     m_hrs = new FocusSpinBox(this);
@@ -529,7 +529,7 @@ void SpeedDial::slotInfiniteChecked(bool state)
 
 void SpeedDial::slotSpinFocusGained()
 {
-    m_focus = qobject_cast<FocusSpinBox*>(QObject::sender());
+    m_focus = qobject_cast<FocusSpinBox *>(QObject::sender());
     Q_ASSERT(m_focus != NULL);
     m_dial->setRange(m_focus->minimum(), m_focus->maximum());
     m_dial->setSingleStep(m_focus->singleStep());

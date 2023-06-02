@@ -19,7 +19,7 @@
 
 #include "audiorenderer_null.h"
 
-AudioRendererNull::AudioRendererNull(QObject* parent)
+AudioRendererNull::AudioRendererNull(QObject *parent)
     : AudioRenderer(parent)
 {
 }

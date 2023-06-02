@@ -134,7 +134,7 @@ void FixtureGroup_Test::assignFixtureNoSize()
     FixtureGroup grp(m_doc);
     QCOMPARE(grp.headList().size(), 0);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(2);
     fxi->setAddress(m_currentAddr);
     m_currentAddr += fxi->channels();
@@ -166,9 +166,9 @@ void FixtureGroup_Test::assignFixtureNoSize()
     QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
     QVERIFY(grp.headsMap()[QLCPoint(0, 2)] == GroupHead(1, 0));
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     fxi = new Fixture(m_doc);
@@ -220,12 +220,12 @@ void FixtureGroup_Test::assignFixture4x2()
 
     for (int i = 0; i < 11; i++)
     {
-        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+        QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
         QVERIFY(def != NULL);
-        QLCFixtureMode* mode = def->modes().first();
+        QLCFixtureMode *mode = def->modes().first();
         QVERIFY(mode != NULL);
 
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
@@ -399,12 +399,12 @@ void FixtureGroup_Test::assignFixtureAtPoint()
 
     for (int i = 0; i < 2; i++)
     {
-        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Dotz Bar 1.4");
+        QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Dotz Bar 1.4");
         QVERIFY(def != NULL);
-        QLCFixtureMode* mode = def->modes().last();
+        QLCFixtureMode *mode = def->modes().last();
         QVERIFY(mode != NULL);
 
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
@@ -434,7 +434,7 @@ void FixtureGroup_Test::resignFixture()
     grp.setSize(QSize(4, 4));
     for (quint32 id = 0; id < 16; id++)
     {
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setChannels(1);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
@@ -456,7 +456,7 @@ void FixtureGroup_Test::resignFixture()
     QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == false);
 
     // Test that the gap is again filled
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(1);
     fxi->setAddress(m_currentAddr);
     m_currentAddr += fxi->channels();
@@ -472,7 +472,7 @@ void FixtureGroup_Test::resignHead()
 {
     FixtureGroup grp(m_doc);
     grp.setSize(QSize(4, 4));
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(16);
     fxi->setAddress(m_currentAddr);
     m_currentAddr += fxi->channels();
@@ -526,7 +526,7 @@ void FixtureGroup_Test::fixtureRemoved()
     grp.setSize(QSize(4, 4));
     for (quint32 id = 0; id < 16; id++)
     {
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setChannels(1);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
@@ -540,7 +540,7 @@ void FixtureGroup_Test::fixtureRemoved()
     QCOMPARE(grp.headList().size(), 15);
     QVERIFY(grp.headsMap().contains(QLCPoint(2, 2)) == false);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(5);
     fxi->setAddress(m_currentAddr);
     m_currentAddr += fxi->channels();
@@ -558,7 +558,7 @@ void FixtureGroup_Test::swap()
     grp.setSize(QSize(4, 4));
     for (quint32 id = 0; id < 16; id++)
     {
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setChannels(1);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
@@ -603,7 +603,7 @@ void FixtureGroup_Test::copy()
     grp1.setId(99);
     for (quint32 id = 0; id < 16; id++)
     {
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setChannels(1);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
@@ -792,7 +792,7 @@ void FixtureGroup_Test::load()
     grp.setId(99);
     for (quint32 id = 0; id < 32; id++)
     {
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setChannels(1);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();
@@ -824,7 +824,7 @@ void FixtureGroup_Test::load()
     xmlReader.readNextStartElement();
     QVERIFY(FixtureGroup::loader(xmlReader, m_doc) == true);
     QCOMPARE(m_doc->fixtureGroups().size(), 1);
-    FixtureGroup* grp2 = m_doc->fixtureGroup(99);
+    FixtureGroup *grp2 = m_doc->fixtureGroup(99);
     QVERIFY(grp2 != NULL);
     QCOMPARE(grp2->size(), QSize(4, 5));
     QCOMPARE(grp2->name(), QString("Pertti Pasanen"));
@@ -840,7 +840,7 @@ void FixtureGroup_Test::save()
     grp.setId(99);
     for (quint32 id = 0; id < 32; id++)
     {
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setChannels(1);
         fxi->setAddress(m_currentAddr);
         m_currentAddr += fxi->channels();

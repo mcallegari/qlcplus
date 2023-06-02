@@ -25,7 +25,7 @@
 #include "video.h"
 #include "doc.h"
 
-VideoEditor::VideoEditor(QQuickView* view, Doc* doc, QObject* parent)
+VideoEditor::VideoEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_video(nullptr)
 {
@@ -36,8 +36,7 @@ VideoEditor::VideoEditor(QQuickView* view, Doc* doc, QObject* parent)
     m_mediaPlayer = new QMediaPlayer(this);
 #endif
 
-    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this,
-            SLOT(slotMetaDataChanged(QString, QVariant)));
+    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
     connect(m_mediaPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(slotDurationChanged(qint64)));
 }
 
@@ -48,7 +47,7 @@ VideoEditor::~VideoEditor()
 
 void VideoEditor::setFunctionID(quint32 ID)
 {
-    m_video = qobject_cast<Video*>(m_doc->function(ID));
+    m_video = qobject_cast<Video *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_video != nullptr)
     {
@@ -157,7 +156,7 @@ QStringList VideoEditor::screenList() const
     QStringList list;
     int i = 1;
 
-    for (QScreen* screen : QGuiApplication::screens())
+    for (QScreen *screen : QGuiApplication::screens())
         list.append(QString(QString("Screen %1 - (%2)").arg(i++).arg(screen->name())));
 
     return list;
@@ -241,8 +240,7 @@ void VideoEditor::setCustomGeometry(QRect customGeometry)
     if (m_video == nullptr || m_video->customGeometry() == customGeometry)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::VideoSetGeometry, m_video->id(), m_video->customGeometry(),
-                                      customGeometry);
+    Tardis::instance()->enqueueAction(Tardis::VideoSetGeometry, m_video->id(), m_video->customGeometry(), customGeometry);
     m_video->setCustomGeometry(customGeometry);
     emit customGeometryChanged(customGeometry);
 }

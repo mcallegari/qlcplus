@@ -82,7 +82,7 @@ private:
      ************************************************************************/
 public:
     /** Set the name of the track */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get the name of this track */
     QString name() const;
@@ -136,32 +136,32 @@ public:
      * If the function doesn't exist, it creates it.
      * In any case it returns the ShowFunction pointer
      */
-    ShowFunction* createShowFunction(quint32 id);
+    ShowFunction *createShowFunction(quint32 id);
 
     /** remove a function ID association from this track */
-    bool removeShowFunction(ShowFunction* function, bool performDelete = true);
+    bool removeShowFunction(ShowFunction *function, bool performDelete = true);
 
     /** add a ShowFunction element to this track */
-    bool addShowFunction(ShowFunction* func);
+    bool addShowFunction(ShowFunction *func);
 
-    QList<ShowFunction*> showFunctions() const;
+    QList<ShowFunction *> showFunctions() const;
 
 private:
     /** List of Function IDs present in this track */
-    QList<ShowFunction*> m_functions;
+    QList<ShowFunction *> m_functions;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
-    bool postLoad(Doc* doc);
+    bool postLoad(Doc *doc);
 
 public:
-    bool contains(Doc* doc, quint32 functionId);
+    bool contains(Doc *doc, quint32 functionId);
 
     QList<quint32> components();
 };

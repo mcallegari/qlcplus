@@ -38,7 +38,7 @@ class GrandMasterSlider : public QFrame
     Q_DISABLE_COPY(GrandMasterSlider)
 
 public:
-    GrandMasterSlider(QWidget* parent, InputOutputMap* ioMap);
+    GrandMasterSlider(QWidget *parent, InputOutputMap *ioMap);
     virtual ~GrandMasterSlider();
 
     bool invertedAppearance() const;
@@ -54,10 +54,10 @@ protected slots:
     void slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode);
 
 protected:
-    QLabel* m_valueLabel;
-    QSlider* m_slider;
-    QLabel* m_nameLabel;
-    InputOutputMap* m_ioMap;
+    QLabel *m_valueLabel;
+    QSlider *m_slider;
+    QLabel *m_nameLabel;
+    InputOutputMap *m_ioMap;
 
     /*************************************************************************
      * External input

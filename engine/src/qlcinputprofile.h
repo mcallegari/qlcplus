@@ -50,22 +50,22 @@ public:
     QLCInputProfile();
 
     /** Copy constructor */
-    QLCInputProfile(const QLCInputProfile& profile);
+    QLCInputProfile(const QLCInputProfile &profile);
 
     /** Destructor */
     virtual ~QLCInputProfile();
 
     /** Assignment operator */
-    QLCInputProfile& operator=(const QLCInputProfile& profile);
+    QLCInputProfile &operator=(const QLCInputProfile &profile);
 
     /********************************************************************
      * Profile information
      ********************************************************************/
 public:
-    void setManufacturer(const QString& manufacturer);
+    void setManufacturer(const QString &manufacturer);
     QString manufacturer() const;
 
-    void setModel(const QString& model);
+    void setModel(const QString &model);
     QString model() const;
 
     /** Get the profile name (manufacturer - model) */
@@ -91,7 +91,7 @@ public:
 
     static QString typeToString(Type type);
 
-    static Type stringToType(const QString& str);
+    static Type stringToType(const QString &str);
 
     static QList<Type> types();
 
@@ -132,7 +132,7 @@ public:
      * @param ich The input channel to add.
      * @return true if the channel was inserted, otherwise false.
      */
-    bool insertChannel(quint32 channel, QLCInputChannel* ich);
+    bool insertChannel(quint32 channel, QLCInputChannel *ich);
 
     /**
      * Remove the given channel mapping from this profile. Also deletes the
@@ -151,7 +151,7 @@ public:
      * @param number The new channel number to re-map to.
      * @return true if successful, otherwise false.
      */
-    bool remapChannel(QLCInputChannel* ich, quint32 number);
+    bool remapChannel(QLCInputChannel *ich, quint32 number);
 
     /**
      * Get a channel object by a channel number.
@@ -159,7 +159,7 @@ public:
      * @param channel The number of the channel to get.
      * @return A QLCInputChannel* or NULL if not found.
      */
-    QLCInputChannel* channel(quint32 channel) const;
+    QLCInputChannel *channel(quint32 channel) const;
 
     /**
      * Get the channel number for the given input channel.
@@ -167,12 +167,12 @@ public:
      * @param channel The channel whose number to get
      * @return Channel number or InputMap::invalidChannel() if not found
      */
-    quint32 channelNumber(const QLCInputChannel* channel) const;
+    quint32 channelNumber(const QLCInputChannel *channel) const;
 
     /**
      * Get available channels.
      */
-    QMap<quint32, QLCInputChannel*> channels() const;
+    QMap<quint32, QLCInputChannel *> channels() const;
 
 private:
     /** Delete and remove all channels */
@@ -181,20 +181,20 @@ private:
 protected:
     /** Channel objects present in this profile. This is a QMap and not a
         QList because not all channels might be present. */
-    QMap<quint32, QLCInputChannel*> m_channels;
+    QMap<quint32, QLCInputChannel *> m_channels;
 
     /********************************************************************
      * Load & Save
      ********************************************************************/
 public:
     /** Load an input profile from the given path */
-    static QLCInputProfile* loader(const QString& path);
+    static QLCInputProfile *loader(const QString &path);
 
     /** Save an input profile into a given file name */
-    bool saveXML(const QString& fileName);
+    bool saveXML(const QString &fileName);
 
     /** Load an input profile from the given document */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

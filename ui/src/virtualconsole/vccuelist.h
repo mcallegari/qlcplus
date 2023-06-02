@@ -88,7 +88,7 @@ public:
      *************************************************************************/
 public:
     /** Constructor */
-    VCCueList(QWidget* parent, Doc* doc);
+    VCCueList(QWidget *parent, Doc *doc);
 
     /** Destructor */
     ~VCCueList();
@@ -101,11 +101,11 @@ public:
      *************************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*************************************************************************
      * Cue list
@@ -118,7 +118,7 @@ public:
     quint32 chaserID() const;
 
     /** Get the chaser function that is used as cue list steps */
-    Chaser* chaser();
+    Chaser *chaser();
 
 public:
     /** Get the currently selected item index, otherwise 0 */
@@ -162,7 +162,7 @@ private:
     void updateStepList();
 
     /** timer for updating the step list */
-    QTimer* m_updateTimer;
+    QTimer *m_updateTimer;
 
 public slots:
     /** Play/stop/resume the cue list from the current selection */
@@ -195,11 +195,11 @@ private slots:
 
     /** Slot that is called whenever the current item changes (either by
         pressing the key binding or clicking an item with mouse) */
-    void slotItemActivated(QTreeWidgetItem* item);
+    void slotItemActivated(QTreeWidgetItem *item);
 
     /** Slot that is called whenever an item field has been changed.
         Note that only 'Notes" column is considered */
-    void slotItemChanged(QTreeWidgetItem* item, int column);
+    void slotItemChanged(QTreeWidgetItem *item, int column);
 
     /** Slot called whenever a function is started */
     void slotFunctionRunning(quint32 fid);
@@ -246,16 +246,16 @@ private:
 
     NextPrevBehavior m_nextPrevBehavior;
     PlaybackLayout m_playbackLayout;
-    QTreeWidget* m_tree;
-    QToolButton* m_crossfadeButton;
-    QToolButton* m_playbackButton;
-    QToolButton* m_stopButton;
-    QToolButton* m_previousButton;
-    QToolButton* m_nextButton;
-    QProgressBar* m_progress;
+    QTreeWidget *m_tree;
+    QToolButton *m_crossfadeButton;
+    QToolButton *m_playbackButton;
+    QToolButton *m_stopButton;
+    QToolButton *m_previousButton;
+    QToolButton *m_nextButton;
+    QProgressBar *m_progress;
     bool m_listIsUpdating;
 
-    QTimer* m_timer;
+    QTimer *m_timer;
 
     /*************************************************************************
      * Crossfade
@@ -282,14 +282,14 @@ protected slots:
     void slotSideFaderValueChanged(int value);
 
 protected:
-    void stopStepIfNeeded(Chaser* ch);
+    void stopStepIfNeeded(Chaser *ch);
 
 private:
-    QLabel* m_topPercentageLabel;
-    QLabel* m_topStepLabel;
-    ClickAndGoSlider* m_sideFader;
-    QLabel* m_bottomPercentageLabel;
-    QLabel* m_bottomStepLabel;
+    QLabel *m_topPercentageLabel;
+    QLabel *m_topStepLabel;
+    ClickAndGoSlider *m_sideFader;
+    QLabel *m_bottomPercentageLabel;
+    QLabel *m_bottomStepLabel;
 
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
@@ -301,31 +301,31 @@ private:
      *************************************************************************/
 public:
     /** Set the keyboard key combination for skipping to the next cue */
-    void setNextKeySequence(const QKeySequence& keySequence);
+    void setNextKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for skipping to the next cue */
     QKeySequence nextKeySequence() const;
 
     /** Set the keyboard key combination for skipping to the previous cue */
-    void setPreviousKeySequence(const QKeySequence& keySequence);
+    void setPreviousKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for skipping to the previous cue */
     QKeySequence previousKeySequence() const;
 
     /** Set the keyboard key combination for playing/resuming the cue list */
-    void setPlaybackKeySequence(const QKeySequence& keySequence);
+    void setPlaybackKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for playing/resuming the cue list */
     QKeySequence playbackKeySequence() const;
 
     /** Set the keyboard key combination for stopping the cue list */
-    void setStopKeySequence(const QKeySequence& keySequence);
+    void setStopKeySequence(const QKeySequence &keySequence);
 
     /** Get the keyboard key combination for stopping the cue list */
     QKeySequence stopKeySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
 
 private:
     QKeySequence m_nextKeySequence;
@@ -356,10 +356,10 @@ public:
     void adjustIntensity(qreal val);
 
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString &text);
 
     /** @reimp */
-    void setFont(const QFont& font);
+    void setFont(const QFont &font);
 
     /** @reimp */
     void slotModeChanged(Doc::Mode mode);
@@ -386,10 +386,10 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

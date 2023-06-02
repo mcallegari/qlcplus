@@ -39,7 +39,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
+VCSoloFrame::VCSoloFrame(QWidget *parent, Doc *doc, bool canCollapse)
     : VCFrame(parent, doc, canCollapse)
     , m_soloframeMixing(false)
 {
@@ -54,10 +54,10 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
         QString txtColor = "white";
         if (m_hasCustomForegroundColor)
             txtColor = this->foregroundColor().name();
-        m_label->setStyleSheet(
-            "QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #BC0A0A, stop: 1 #370303); "
-            "color: " +
-            txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, "
+                               "y2: 1, stop: 0 #BC0A0A, stop: 1 #370303); "
+                               "color: "
+                               + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
     }
 
     QSettings settings;
@@ -76,11 +76,11 @@ VCSoloFrame::~VCSoloFrame() {}
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
+VCWidget *VCSoloFrame::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != NULL);
 
-    VCSoloFrame* frame = new VCSoloFrame(parent, m_doc, true);
+    VCSoloFrame *frame = new VCSoloFrame(parent, m_doc, true);
     if (frame->copyFrom(this) == false)
     {
         delete frame;
@@ -90,9 +90,9 @@ VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
     return frame;
 }
 
-bool VCSoloFrame::copyFrom(const VCWidget* widget)
+bool VCSoloFrame::copyFrom(const VCWidget *widget)
 {
-    const VCSoloFrame* frame = qobject_cast<const VCSoloFrame*>(widget);
+    const VCSoloFrame *frame = qobject_cast<const VCSoloFrame *>(widget);
     if (frame == NULL)
         return false;
 
@@ -107,10 +107,10 @@ bool VCSoloFrame::copyFrom(const VCWidget* widget)
 
 void VCSoloFrame::updateChildrenConnection(bool doConnect)
 {
-    QListIterator<VCWidget*> it(findChildren<VCWidget*>());
+    QListIterator<VCWidget *> it(findChildren<VCWidget *>());
     while (it.hasNext())
     {
-        VCWidget* widget = it.next();
+        VCWidget *widget = it.next();
         if (widget != NULL && thisIsNearestSoloFrameParent(widget))
         {
             if (doConnect)
@@ -144,13 +144,13 @@ void VCSoloFrame::setLiveEdit(bool liveEdit)
     updateChildrenConnection(!liveEdit);
 }
 
-bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
+bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget *widget)
 {
     while (widget != NULL)
     {
         widget = widget->parentWidget();
 
-        VCSoloFrame* sf = qobject_cast<VCSoloFrame*>(widget);
+        VCSoloFrame *sf = qobject_cast<VCSoloFrame *>(widget);
         if (sf != NULL)
         {
             return sf == this;
@@ -162,17 +162,17 @@ bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
 
 void VCSoloFrame::slotWidgetFunctionStarting(quint32 fid, qreal intensity)
 {
-    VCWidget* senderWidget = qobject_cast<VCWidget*>(sender());
+    VCWidget *senderWidget = qobject_cast<VCWidget *>(sender());
 
     if (senderWidget != NULL)
     {
         // get every widget that is a child of this soloFrame and turn their
         // functions off
-        QListIterator<VCWidget*> it(findChildren<VCWidget*>());
+        QListIterator<VCWidget *> it(findChildren<VCWidget *>());
 
         while (it.hasNext() == true)
         {
-            VCWidget* widget = it.next();
+            VCWidget *widget = it.next();
             if (widget != NULL && widget != senderWidget)
                 widget->notifyFunctionStarting(fid, soloframeMixing() ? intensity : 1.0);
         }
@@ -215,10 +215,10 @@ QString VCSoloFrame::xmlTagName() const
  * Event handling
  *****************************************************************************/
 
-void VCSoloFrame::paintEvent(QPaintEvent* e)
+void VCSoloFrame::paintEvent(QPaintEvent *e)
 {
     /* No point coming here if there is no VC instance */
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     if (vc == NULL)
         return;
 
@@ -253,7 +253,6 @@ void VCSoloFrame::paintEvent(QPaintEvent* e)
     {
         /* Draw a resize handle */
         QIcon icon(":/resize.png");
-        painter.drawPixmap(rect().width() - 16, rect().height() - 16,
-                           icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
+        painter.drawPixmap(rect().width() - 16, rect().height() - 16, icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
     }
 }

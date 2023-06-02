@@ -48,7 +48,7 @@ class EFXEditor : public QWidget, public Ui_EFXEditor
      * Initialization
      *********************************************************************/
 public:
-    EFXEditor(QWidget* parent, EFX* efx, Doc* doc);
+    EFXEditor(QWidget *parent, EFX *efx, Doc *doc);
     ~EFXEditor();
 
     void stopTest();
@@ -57,8 +57,8 @@ public slots:
     void slotFunctionManagerActive(bool active);
 
 private:
-    Doc* m_doc;
-    EFX* m_efx; // The EFX being edited
+    Doc *m_doc;
+    EFX *m_efx; // The EFX being edited
 
 private:
     void initGeneralPage();
@@ -75,7 +75,7 @@ private:
 
     FunctionParent functionParent() const;
 
-    EfxUiState* efxUiState();
+    EfxUiState *efxUiState();
 
 private slots:
     void slotTestClicked();
@@ -85,8 +85,8 @@ private slots:
     void slotSetColorBackground(bool checked);
 
 private:
-    EFXPreviewArea* m_previewArea;
-    QPolygon* m_points;
+    EFXPreviewArea *m_previewArea;
+    QPolygon *m_points;
     QTimer m_testTimer;
 
     /*********************************************************************
@@ -94,21 +94,21 @@ private:
      *********************************************************************/
 private:
     void updateFixtureTree();
-    QTreeWidgetItem* fixtureItem(EFXFixture* ef);
-    const QList<EFXFixture*> selectedFixtures() const;
+    QTreeWidgetItem *fixtureItem(EFXFixture *ef);
+    const QList<EFXFixture *> selectedFixtures() const;
     void updateIndices(int from, int to);
-    void addFixtureItem(EFXFixture* ef);
-    void updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef);
-    void updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef);
-    void updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef);
-    void removeFixtureItem(EFXFixture* ef);
+    void addFixtureItem(EFXFixture *ef);
+    void updateModeColumn(QTreeWidgetItem *item, EFXFixture *ef);
+    void updateIntensityColumn(QTreeWidgetItem *item, EFXFixture *ef);
+    void updateStartOffsetColumn(QTreeWidgetItem *item, EFXFixture *ef);
+    void removeFixtureItem(EFXFixture *ef);
     void createSpeedDials();
     void updateSpeedDials();
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotSpeedDialToggle(bool state);
-    void slotFixtureItemChanged(QTreeWidgetItem* item, int column);
+    void slotFixtureItemChanged(QTreeWidgetItem *item, int column);
     void slotFixtureModeChanged(int index);
     void slotFixtureStartOffsetChanged(int intensity);
     void slotAddFixtureClicked();
@@ -123,19 +123,19 @@ private slots:
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
-    void slotDialDestroyed(QObject* dial);
+    void slotDialDestroyed(QObject *dial);
 
     void slotFixtureRemoved();
     void slotFixtureChanged();
 
 private:
-    SpeedDialWidget* m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
     /*********************************************************************
      * Movement page
      *********************************************************************/
 private slots:
-    void slotAlgorithmSelected(const QString& text);
+    void slotAlgorithmSelected(const QString &text);
     void slotWidthSpinChanged(int value);
     void slotHeightSpinChanged(int value);
     void slotXOffsetSpinChanged(int value);

@@ -23,7 +23,7 @@
 #include "treemodelitem.h"
 #include "treemodel.h"
 
-TreeModelItem::TreeModelItem(QString label, QObject* parent)
+TreeModelItem::TreeModelItem(QString label, QObject *parent)
     : QObject(parent)
     , m_label(label)
     , m_path(QString())
@@ -145,7 +145,7 @@ bool TreeModelItem::hasChildren()
     return false;
 }
 
-TreeModel* TreeModelItem::children()
+TreeModel *TreeModelItem::children()
 {
     return m_children;
 }

@@ -37,14 +37,14 @@ class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfig
     Q_OBJECT
 
 public:
-    explicit AudioTriggersConfiguration(VCAudioTriggers* triggers, Doc* doc, int bandsNumber, int maxFrequency);
+    explicit AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, int bandsNumber, int maxFrequency);
     ~AudioTriggersConfiguration();
 
     /** @reimp */
     void accept();
 
 private slots:
-    void updateTreeItem(QTreeWidgetItem* item, int idx);
+    void updateTreeItem(QTreeWidgetItem *item, int idx);
     void updateTree();
     void slotTypeComboChanged(int comboIndex);
     void slotDmxSelectionClicked();
@@ -55,10 +55,10 @@ private slots:
     void slotDivisorChanged(int val);
 
 private:
-    Doc* m_doc;
-    VCAudioTriggers* m_triggers;
+    Doc *m_doc;
+    VCAudioTriggers *m_triggers;
     int m_maxFrequency;
-    InputSelectionWidget* m_inputSelWidget;
+    InputSelectionWidget *m_inputSelWidget;
 };
 
 /** @} */

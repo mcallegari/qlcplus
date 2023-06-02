@@ -52,7 +52,7 @@ const QStringList Video::m_defaultPictureCaps = QStringList() << "*.png"
  * Initialization
  *****************************************************************************/
 
-Video::Video(Doc* doc)
+Video::Video(Doc *doc)
     : Function(doc, Function::VideoType)
     , m_doc(doc)
     , m_sourceUrl("")
@@ -92,11 +92,11 @@ QIcon Video::getIcon() const
  * Copying
  *****************************************************************************/
 
-Function* Video::createCopy(Doc* doc, bool addToDoc)
+Function *Video::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Video(doc);
+    Function *copy = new Video(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -111,9 +111,9 @@ Function* Video::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Video::copyFrom(const Function* function)
+bool Video::copyFrom(const Function *function)
 {
-    const Video* vid = qobject_cast<const Video*>(function);
+    const Video *vid = qobject_cast<const Video *>(function);
     if (vid == NULL)
         return false;
 
@@ -371,7 +371,7 @@ void Video::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Video::saveXML(QXmlStreamWriter* doc)
+bool Video::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -422,7 +422,7 @@ bool Video::saveXML(QXmlStreamWriter* doc)
     return true;
 }
 
-bool Video::loadXML(QXmlStreamReader& root)
+bool Video::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -517,7 +517,7 @@ void Video::postLoad() {}
 /*********************************************************************
  * Running
  *********************************************************************/
-void Video::preRun(MasterTimer* timer)
+void Video::preRun(MasterTimer *timer)
 {
     emit requestPlayback();
     Function::preRun(timer);
@@ -532,7 +532,7 @@ void Video::setPause(bool enable)
     }
 }
 
-void Video::write(MasterTimer* timer, QList<Universe*> universes)
+void Video::write(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
@@ -540,7 +540,7 @@ void Video::write(MasterTimer* timer, QList<Universe*> universes)
     incrementElapsed();
 }
 
-void Video::postRun(MasterTimer* timer, QList<Universe*> universes)
+void Video::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     emit requestStop();
     Function::postRun(timer, universes);

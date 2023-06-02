@@ -41,7 +41,7 @@ class GrandMaster : public QObject
 
 public:
     /** Construct a new GrandMaster */
-    GrandMaster(QObject* parent = 0);
+    GrandMaster(QObject *parent = 0);
 
     /** Destructor */
     virtual ~GrandMaster();
@@ -71,13 +71,13 @@ public:
         Inverted /** GM Slider inverted mode 255-0 */
     };
 
-    static ValueMode stringToValueMode(const QString& str);
+    static ValueMode stringToValueMode(const QString &str);
     static QString valueModeToString(ValueMode mode);
 
-    static ChannelMode stringToChannelMode(const QString& str);
+    static ChannelMode stringToChannelMode(const QString &str);
     static QString channelModeToString(ChannelMode mode);
 
-    static SliderMode stringToSliderMode(const QString& str);
+    static SliderMode stringToSliderMode(const QString &str);
     static QString sliderModeToString(SliderMode mode);
 
     /**

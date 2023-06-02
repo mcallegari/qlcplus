@@ -37,15 +37,15 @@ class AudioEditor : public QWidget, public Ui_AudioEditor
     Q_DISABLE_COPY(AudioEditor)
 
 public:
-    AudioEditor(QWidget* parent, Audio* audio, Doc* doc);
+    AudioEditor(QWidget *parent, Audio *audio, Doc *doc);
     ~AudioEditor();
 
 private:
-    Doc* m_doc;
-    Audio* m_audio; // The Audio function being edited
+    Doc *m_doc;
+    Audio *m_audio; // The Audio function being edited
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotSourceFileClicked();
     void slotVolumeChanged(int value);
     void slotFadeInEdited();
@@ -69,10 +69,10 @@ private slots:
     void slotSpeedDialToggle(bool state);
     void slotFadeInDialChanged(int ms);
     void slotFadeOutDialChanged(int ms);
-    void slotDialDestroyed(QObject* dial);
+    void slotDialDestroyed(QObject *dial);
 
 private:
-    SpeedDialWidget* m_speedDials;
+    SpeedDialWidget *m_speedDials;
 };
 
 /** @} */

@@ -41,10 +41,10 @@ AudioDecoderSndFile::~AudioDecoderSndFile()
     m_sndfile = NULL;
 }
 
-AudioDecoder* AudioDecoderSndFile::createCopy()
+AudioDecoder *AudioDecoderSndFile::createCopy()
 {
-    AudioDecoderSndFile* copy = new AudioDecoderSndFile();
-    return qobject_cast<AudioDecoder*>(copy);
+    AudioDecoderSndFile *copy = new AudioDecoderSndFile();
+    return qobject_cast<AudioDecoder *>(copy);
 }
 
 int AudioDecoderSndFile::priority() const
@@ -52,7 +52,7 @@ int AudioDecoderSndFile::priority() const
     return 10;
 }
 
-bool AudioDecoderSndFile::initialize(const QString& path)
+bool AudioDecoderSndFile::initialize(const QString &path)
 {
     m_path = path;
     m_bitrate = 0;
@@ -121,9 +121,9 @@ int AudioDecoderSndFile::bitrate()
     return m_bitrate;
 }
 
-qint64 AudioDecoderSndFile::read(char* audio, qint64 maxSize)
+qint64 AudioDecoderSndFile::read(char *audio, qint64 maxSize)
 {
-    return sizeof(short) * sf_read_short(m_sndfile, (short*)audio, maxSize / sizeof(short));
+    return sizeof(short) * sf_read_short(m_sndfile, (short *)audio, maxSize / sizeof(short));
 }
 
 void AudioDecoderSndFile::seek(qint64 pos)

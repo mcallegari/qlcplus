@@ -47,7 +47,7 @@
 const quint8 VCClock::playInputSourceId = 0;
 const quint8 VCClock::resetInputSourceId = 1;
 
-VCClock::VCClock(QWidget* parent, Doc* doc)
+VCClock::VCClock(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
     , m_clocktype(Clock)
     , m_scheduleIndex(-1)
@@ -69,7 +69,7 @@ VCClock::VCClock(QWidget* parent, Doc* doc)
     font.setPixelSize(28);
     setFont(font);
 
-    QTimer* timer = new QTimer(this);
+    QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()));
     timer->start(1000);
 }
@@ -202,7 +202,7 @@ void VCClock::slotUpdateTime()
                     if (sch.time().time().toString() == currTime.toString())
                     {
                         quint32 fid = sch.function();
-                        Function* func = m_doc->function(fid);
+                        Function *func = m_doc->function(fid);
                         if (func != NULL)
                         {
                             func->start(m_doc->masterTimer(), functionParent());
@@ -246,7 +246,7 @@ void VCClock::playPauseTimer()
  * Key Sequences
  *****************************************************************************/
 
-void VCClock::setPlayKeySequence(const QKeySequence& keySequence)
+void VCClock::setPlayKeySequence(const QKeySequence &keySequence)
 {
     m_playKeySequence = QKeySequence(keySequence);
 }
@@ -256,7 +256,7 @@ QKeySequence VCClock::playKeySequence() const
     return m_playKeySequence;
 }
 
-void VCClock::setResetKeySequence(const QKeySequence& keySequence)
+void VCClock::setResetKeySequence(const QKeySequence &keySequence)
 {
     m_resetKeySequence = QKeySequence(keySequence);
 }
@@ -266,7 +266,7 @@ QKeySequence VCClock::resetKeySequence() const
     return m_resetKeySequence;
 }
 
-void VCClock::slotKeyPressed(const QKeySequence& keySequence)
+void VCClock::slotKeyPressed(const QKeySequence &keySequence)
 {
     if (acceptsInput() == false)
         return;
@@ -352,11 +352,11 @@ void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCClock::createCopy(VCWidget* parent)
+VCWidget *VCClock::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != NULL);
 
-    VCClock* clock = new VCClock(parent, m_doc);
+    VCClock *clock = new VCClock(parent, m_doc);
     if (clock->copyFrom(this) == false)
     {
         delete clock;
@@ -366,9 +366,9 @@ VCWidget* VCClock::createCopy(VCWidget* parent)
     return clock;
 }
 
-bool VCClock::copyFrom(const VCWidget* widget)
+bool VCClock::copyFrom(const VCWidget *widget)
 {
-    const VCClock* clock = qobject_cast<const VCClock*>(widget);
+    const VCClock *clock = qobject_cast<const VCClock *>(widget);
     if (clock == NULL)
         return false;
 
@@ -402,7 +402,7 @@ void VCClock::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCClock::loadXML(QXmlStreamReader& root)
+bool VCClock::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCClock)
     {
@@ -473,7 +473,7 @@ bool VCClock::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCClock::saveXML(QXmlStreamWriter* doc)
+bool VCClock::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -528,7 +528,7 @@ bool VCClock::saveXML(QXmlStreamWriter* doc)
  * Drawing
  ****************************************************************************/
 
-void VCClock::paintEvent(QPaintEvent* e)
+void VCClock::paintEvent(QPaintEvent *e)
 {
     QPainter painter(this);
 
@@ -558,7 +558,7 @@ void VCClock::paintEvent(QPaintEvent* e)
     VCWidget::paintEvent(e);
 }
 
-void VCClock::mousePressEvent(QMouseEvent* e)
+void VCClock::mousePressEvent(QMouseEvent *e)
 {
     if (mode() == Doc::Design)
     {
@@ -581,14 +581,14 @@ void VCClock::mousePressEvent(QMouseEvent* e)
  * VCClockSchedule Class methods
  *********************************************************************/
 
-bool VCClockSchedule::operator<(const VCClockSchedule& sch) const
+bool VCClockSchedule::operator<(const VCClockSchedule &sch) const
 {
     if (sch.time() < time())
         return false;
     return true;
 }
 
-bool VCClockSchedule::loadXML(QXmlStreamReader& root)
+bool VCClockSchedule::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCClockSchedule)
     {
@@ -613,7 +613,7 @@ bool VCClockSchedule::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCClockSchedule::saveXML(QXmlStreamWriter* doc)
+bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
 {
     /* Schedule tag */
     doc->writeStartElement(KXMLQLCVCClockSchedule);

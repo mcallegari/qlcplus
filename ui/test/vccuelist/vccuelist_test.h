@@ -49,7 +49,7 @@ private slots:
     void input();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

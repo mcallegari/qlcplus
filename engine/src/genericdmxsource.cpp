@@ -25,7 +25,7 @@
 #include "universe.h"
 #include "doc.h"
 
-GenericDMXSource::GenericDMXSource(Doc* doc)
+GenericDMXSource::GenericDMXSource(Doc *doc)
     : m_doc(doc)
     , m_outputEnabled(false)
     , m_clearRequest(false)
@@ -100,7 +100,7 @@ QList<SceneValue> GenericDMXSource::channels()
     return chList;
 }
 
-void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe*> ua)
+void GenericDMXSource::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 {
     Q_UNUSED(timer);
 
@@ -113,7 +113,7 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe*> ua)
         while (it.hasNext())
         {
             it.next();
-            Fixture* fixture = m_doc->fixture(it.key().first);
+            Fixture *fixture = m_doc->fixture(it.key().first);
             if (fixture == NULL)
                 continue;
 
@@ -125,7 +125,7 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe*> ua)
                 m_fadersMap[universe] = fader;
             }
 
-            FadeChannel* fc = fader->getChannelFader(m_doc, ua[universe], fixture->id(), it.key().second);
+            FadeChannel *fc = fader->getChannelFader(m_doc, ua[universe], fixture->id(), it.key().second);
             fc->setCurrent(it.value());
             fc->setTarget(it.value());
         }

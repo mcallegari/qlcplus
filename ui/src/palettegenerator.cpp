@@ -35,7 +35,7 @@
 #include "scene.h"
 #include "doc.h"
 
-PaletteGenerator::PaletteGenerator(Doc* doc, const QList<Fixture*>& fxList, PaletteType type, PaletteSubType subType)
+PaletteGenerator::PaletteGenerator(Doc *doc, const QList<Fixture *> &fxList, PaletteType type, PaletteSubType subType)
     : m_doc(doc)
     , m_name(QString())
     , m_type(type)
@@ -116,7 +116,7 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
     }
 }
 
-QStringList PaletteGenerator::getCapabilities(const Fixture* fixture)
+QStringList PaletteGenerator::getCapabilities(const Fixture *fixture)
 {
     QStringList caps;
     bool hasPan = false, hasTilt = false;
@@ -127,7 +127,7 @@ QStringList PaletteGenerator::getCapabilities(const Fixture* fixture)
     Q_ASSERT(fixture != NULL);
     for (quint32 ch = 0; ch < fixture->channels(); ch++)
     {
-        const QLCChannel* channel(fixture->channel(ch));
+        const QLCChannel *channel(fixture->channel(ch));
         Q_ASSERT(channel != NULL);
 
         switch (channel->group())
@@ -201,29 +201,29 @@ QStringList PaletteGenerator::getCapabilities(const Fixture* fixture)
     return caps;
 }
 
-QList<Scene*> PaletteGenerator::scenes()
+QList<Scene *> PaletteGenerator::scenes()
 {
     return m_scenes;
 }
 
-QList<Chaser*> PaletteGenerator::chasers()
+QList<Chaser *> PaletteGenerator::chasers()
 {
     return m_chasers;
 }
 
-QList<RGBMatrix*> PaletteGenerator::matrices()
+QList<RGBMatrix *> PaletteGenerator::matrices()
 {
     return m_matrices;
 }
 
 void PaletteGenerator::addToDoc()
 {
-    foreach (Scene* scene, m_scenes)
+    foreach (Scene *scene, m_scenes)
         m_doc->addFunction(scene);
 
-    foreach (Chaser* chaser, m_chasers)
+    foreach (Chaser *chaser, m_chasers)
     {
-        foreach (Scene* scene, m_scenes)
+        foreach (Scene *scene, m_scenes)
         {
             qDebug() << "Add chaser step:" << scene->id();
             chaser->addStep(ChaserStep(scene->id()));
@@ -234,7 +234,7 @@ void PaletteGenerator::addToDoc()
     if (m_fixtureGroup != NULL)
         m_doc->addFixtureGroup(m_fixtureGroup);
 
-    foreach (RGBMatrix* matrix, m_matrices)
+    foreach (RGBMatrix *matrix, m_matrices)
     {
         matrix->setFixtureGroup(m_fixtureGroup->id());
         m_doc->addFunction(matrix);
@@ -246,9 +246,9 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
     if (chMap.size() == 0)
         return;
 
-    Scene* scene = new Scene(m_doc);
-    Scene* evenScene = NULL;
-    Scene* oddScene = NULL;
+    Scene *scene = new Scene(m_doc);
+    Scene *evenScene = NULL;
+    Scene *oddScene = NULL;
     bool even = false;
 
     if (subType == OddEven)
@@ -312,9 +312,9 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneVal
             by = col.yellow();
         }
 
-        Scene* scene = new Scene(m_doc);
-        Scene* evenScene = NULL;
-        Scene* oddScene = NULL;
+        Scene *scene = new Scene(m_doc);
+        Scene *evenScene = NULL;
+        Scene *oddScene = NULL;
 
         if (subType == OddEven)
         {
@@ -324,7 +324,7 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneVal
 
         foreach (SceneValue scv, rcMap)
         {
-            Fixture* fxi = m_doc->fixture(scv.fxi);
+            Fixture *fxi = m_doc->fixture(scv.fxi);
             int gmCh = -1, byCh = -1;
 
             for (int i = 0; i < fxi->heads(); i++)
@@ -391,21 +391,21 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap, Pale
     if (chMap.size() == 0)
         return;
 
-    Fixture* fxi = m_fixtures.at(0);
+    Fixture *fxi = m_fixtures.at(0);
     Q_ASSERT(fxi != NULL);
     QHashIterator<quint32, quint32> it(chMap);
 
     quint32 ch = it.next().value();
-    const QLCChannel* channel = fxi->channel(ch);
+    const QLCChannel *channel = fxi->channel(ch);
     QStringList tmpCapList;
 
     for (int cIdx = 0; cIdx < channel->capabilities().count(); cIdx++)
     {
-        Scene* scene = new Scene(m_doc);
-        Scene* evenScene = NULL;
-        Scene* oddScene = NULL;
+        Scene *scene = new Scene(m_doc);
+        Scene *evenScene = NULL;
+        Scene *oddScene = NULL;
         bool even = false;
-        QLCCapability* cap = channel->capabilities().at(cIdx);
+        QLCCapability *cap = channel->capabilities().at(cIdx);
         uchar value = cap->middle();
         QString name = cap->name();
 
@@ -461,7 +461,7 @@ void PaletteGenerator::createRGBMatrices(QList<SceneValue> rgbMap)
     QStringList algoList = m_doc->rgbScriptsCache()->names();
     foreach (QString algo, algoList)
     {
-        RGBMatrix* matrix = new RGBMatrix(m_doc);
+        RGBMatrix *matrix = new RGBMatrix(m_doc);
         matrix->setName(tr("Animation %1").arg(algo) + " - " + m_model);
         // matrix->setFixtureGroup();
         matrix->setAlgorithm(RGBAlgorithm::algorithm(m_doc, algo));
@@ -474,7 +474,7 @@ void PaletteGenerator::createChaser(QString name)
     if (m_scenes.count() == 0)
         return;
 
-    Chaser* chaser = new Chaser(m_doc);
+    Chaser *chaser = new Chaser(m_doc);
     chaser->setFadeInMode(Chaser::Common);
     chaser->setFadeInSpeed(3000);
     chaser->setFadeOutMode(Chaser::Common);
@@ -510,13 +510,13 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type, Palet
 
     for (int i = 0; i < m_fixtures.count(); i++)
     {
-        Fixture* fixture = m_fixtures.at(i);
+        Fixture *fixture = m_fixtures.at(i);
         Q_ASSERT(fixture != NULL);
         quint32 fxID = fixture->id();
 
         for (quint32 ch = 0; ch < fixture->channels(); ch++)
         {
-            const QLCChannel* channel(fixture->channel(ch));
+            const QLCChannel *channel(fixture->channel(ch));
             Q_ASSERT(channel != NULL);
 
             switch (channel->group())
@@ -591,8 +591,8 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type, Palet
         {
             if (m_redList.size() > 0 && m_greenList.size() == m_redList.size() && m_blueList.size() == m_redList.size())
                 createRGBCMYScene(m_redList, m_greenList, m_blueList, tr("Scene"), true, subType);
-            else if (m_cyanList.size() > 0 && m_magentaList.size() == m_cyanList.size() &&
-                     m_yellowList.size() == m_cyanList.size())
+            else if (m_cyanList.size() > 0 && m_magentaList.size() == m_cyanList.size()
+                     && m_yellowList.size() == m_cyanList.size())
                 createRGBCMYScene(m_cyanList, m_magentaList, m_yellowList, tr("Scene"), false, subType);
             createChaser(typetoString(type));
         }

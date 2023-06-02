@@ -31,7 +31,7 @@ class AudioRendererNull : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererNull(QObject* parent = 0);
+    AudioRendererNull(QObject *parent = 0);
 
     ~AudioRendererNull() {}
 
@@ -49,7 +49,7 @@ public:
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char*, qint64 maxSize)
+    qint64 writeAudio(unsigned char *, qint64 maxSize)
     {
         return maxSize;
     }

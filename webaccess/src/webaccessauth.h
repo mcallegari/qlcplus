@@ -47,8 +47,8 @@ struct WebAccessUser
     QString hashType;
     QString passwordSalt;
 
-    WebAccessUser(const QString& _username, const QString& _passwordHash, WebAccessUserLevel _level,
-                  const QString& _hashType, const QString& _passwordSalt)
+    WebAccessUser(const QString &_username, const QString &_passwordHash, WebAccessUserLevel _level,
+                  const QString &_hashType, const QString &_passwordSalt)
         : username(_username)
         , passwordHash(_passwordHash)
         , level(_level)
@@ -84,7 +84,7 @@ class WebAccessAuth
 {
 
 public:
-    WebAccessAuth(const QString& realm);
+    WebAccessAuth(const QString &realm);
 
     /**
      * Loads file with entries in form:
@@ -96,7 +96,7 @@ public:
      * Note: duplicate usernames will be silently skipped
      *       (the last entry in file will be used)
      */
-    bool loadPasswordsFile(const QString& filePath);
+    bool loadPasswordsFile(const QString &filePath);
 
     /**
      * Saves current contents of password table into
@@ -108,39 +108,39 @@ public:
      * Note: This function has to be called before any
      *       content is sent, because it adds some headers
      */
-    WebAccessUser authenticateRequest(const QHttpRequest* req, QHttpResponse* res) const;
+    WebAccessUser authenticateRequest(const QHttpRequest *req, QHttpResponse *res) const;
 
     /**
      * Send HTTP 403 response
      *
      * Note: This function ends the response
      */
-    void sendUnauthorizedResponse(QHttpResponse* res) const;
+    void sendUnauthorizedResponse(QHttpResponse *res) const;
 
     /**
      * Adds user to password table. If given username already
      * exists __it is replaced__.
      */
-    void addUser(const QString& username, const QString& password, WebAccessUserLevel level);
+    void addUser(const QString &username, const QString &password, WebAccessUserLevel level);
 
     /**
      * Sets user access level
      *
      * Returns true when user with given username exists
      */
-    bool setUserLevel(const QString& username, WebAccessUserLevel level);
+    bool setUserLevel(const QString &username, WebAccessUserLevel level);
 
     /**
      * Removes user from password table if it exists.
      */
-    void deleteUser(const QString& username);
+    void deleteUser(const QString &username);
 
     QList<WebAccessUser> getUsers() const;
 
 private:
     QString generateSalt() const;
-    QString hashPassword(const QString& hashType, const QString& password, const QString& passwordSalt) const;
-    bool verifyPassword(const QString& password, const WebAccessUser& user) const;
+    QString hashPassword(const QString &hashType, const QString &password, const QString &passwordSalt) const;
+    bool verifyPassword(const QString &password, const WebAccessUser &user) const;
     bool hasAtLeastOneAdmin() const;
 
 private:

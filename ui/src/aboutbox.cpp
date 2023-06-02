@@ -27,12 +27,12 @@
 #include "qlcconfig.h"
 #include "aboutbox.h"
 
-AboutBox::AboutBox(QWidget* parent)
+AboutBox::AboutBox(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -44,7 +44,7 @@ AboutBox::AboutBox(QWidget* parent)
     m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
     connect(m_websiteLabel, SIGNAL(linkActivated(QString)), this, SLOT(slotWebsiteClicked()));
 
-    connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(slotItemClicked()));
+    connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(slotItemClicked()));
     m_contributors->clear();
     m_contributors->addItem("Contributors:");
     m_contributors->addItem("Jano Svitok");

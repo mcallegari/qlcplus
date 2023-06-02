@@ -58,10 +58,10 @@ public:
     void setSource(QString filename);
 
 protected:
-    void paint(QPainter* painter);
+    void paint(QPainter *painter);
 
 private:
-    QSvgRenderer* m_renderer;
+    QSvgRenderer *m_renderer;
     QString m_source;
 };
 
@@ -74,20 +74,20 @@ typedef struct
 typedef struct
 {
     /** Reference to the fixture root item, for hierarchy walk and function calls */
-    QEntity* m_rootItem;
+    QEntity *m_rootItem;
     /** Reference to the root item tranform component, to perform translations/rotations */
-    Qt3DCore::QTransform* m_rootTransform;
+    Qt3DCore::QTransform *m_rootTransform;
     /** Reference to the arm entity used by moving heads */
-    QEntity* m_armItem;
+    QEntity *m_armItem;
     /** Reference to the head entity used by moving heads */
-    QEntity* m_headItem;
+    QEntity *m_headItem;
     /** The bounding volume information */
     BoundingVolume m_volume;
     /** The selection box entity */
-    QEntity* m_selectionBox;
+    QEntity *m_selectionBox;
     /** Reference to the texture used to render the
      *  currently selected gobo picture */
-    GoboTextureImage* m_goboTexture;
+    GoboTextureImage *m_goboTexture;
 } SceneItem;
 
 class MainView3D : public PreviewContext
@@ -109,15 +109,12 @@ class MainView3D : public PreviewContext
 
     Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
-    Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY
-                   genericItemsPositionChanged)
-    Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY
-                   genericItemsRotationChanged)
-    Q_PROPERTY(
-        QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+    Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
+    Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
+    Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
 
 public:
-    explicit MainView3D(QQuickView* view, Doc* doc, QObject* parent = 0);
+    explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainView3D();
 
     /** @reimp */
@@ -140,14 +137,14 @@ public slots:
 
 private:
     /** Reference to the Doc Monitor properties */
-    MonitorProperties* m_monProps;
+    MonitorProperties *m_monProps;
 
     /** Pre-cached QML components for quick item creation */
-    QQmlComponent* m_fixtureComponent;
-    QQmlComponent* m_genericComponent;
-    QQmlComponent* m_selectionComponent;
-    QQmlComponent* m_spotlightConeComponent;
-    QQmlComponent* m_fillGBufferLayer;
+    QQmlComponent *m_fixtureComponent;
+    QQmlComponent *m_genericComponent;
+    QQmlComponent *m_selectionComponent;
+    QQmlComponent *m_spotlightConeComponent;
+    QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
 
     /*********************************************************************
@@ -187,7 +184,7 @@ signals:
 
 private:
     QElapsedTimer m_fpsElapsed;
-    QFrameAction* m_frameAction;
+    QFrameAction *m_frameAction;
     int m_frameCount;
     int m_minFrameCount;
     int m_maxFrameCount;
@@ -199,7 +196,7 @@ private:
 public:
     Q_INVOKABLE void sceneReady();
     Q_INVOKABLE void quadReady();
-    Q_INVOKABLE void resetStage(QEntity* entity);
+    Q_INVOKABLE void resetStage(QEntity *entity);
 
     void createFixtureItems(quint32 fxID, QVector3D pos, bool mmCoords = true);
 
@@ -208,15 +205,15 @@ public:
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
-    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity* fxEntity, QSceneLoader* loader);
+    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader);
 
     Q_INVOKABLE QString makeShader(QString str);
 
     /** Update the fixture preview items when some channels have changed */
-    void updateFixture(Fixture* fixture, QByteArray& previous);
+    void updateFixture(Fixture *fixture, QByteArray &previous);
 
     /** Update a single fixture item for a specific Fixture ID, head index and linked index */
-    void updateFixtureItem(Fixture* fixture, quint16 headIndex, quint16 linkedIndex, QByteArray& previous);
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous);
 
     /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32> fixtures);
@@ -247,38 +244,38 @@ protected:
     void initialize3DProperties();
 
     /** Bounding box volume calculation methods */
-    void getMeshCorners(QGeometryRenderer* mesh, QVector3D& minCorner, QVector3D& maxCorner);
-    void addVolumes(SceneItem* meshRef, QVector3D minCorner, QVector3D maxCorner);
+    void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
+    void addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D maxCorner);
 
     /** Recursive method to get/set all the information of a scene */
-    QEntity* inspectEntity(QEntity* entity, SceneItem* meshRef, QLayer* layer, QEffect* effect, bool calculateVolume,
+    QEntity *inspectEntity(QEntity *entity, SceneItem *meshRef, QLayer *layer, QEffect *effect, bool calculateVolume,
                            QVector3D translation);
 
-    void walkNode(QNode* e, int depth);
+    void walkNode(QNode *e, int depth);
 
 private:
-    Qt3DCore::QTransform* getTransform(QEntity* entity);
-    QMaterial* getMaterial(QEntity* entity);
-    void updateLightMatrix(SceneItem* mesh);
+    Qt3DCore::QTransform *getTransform(QEntity *entity);
+    QMaterial *getMaterial(QEntity *entity);
+    void updateLightMatrix(SceneItem *mesh);
 
 private:
     /** Reference to the Scene3D component */
-    QQuickItem* m_scene3D;
+    QQuickItem *m_scene3D;
 
     /** Reference to the entity containing everything */
-    QEntity* m_scene3DEntity;
+    QEntity *m_scene3DEntity;
 
     /** Reference to the scene root entity for items creation */
-    QEntity* m_sceneRootEntity;
+    QEntity *m_sceneRootEntity;
 
     /** Reference to the light pass entity and material for uniform updates */
-    QEntity* m_quadEntity;
+    QEntity *m_quadEntity;
 
     /** Reference to the render targets used for scattering */
-    QRenderTarget* m_gBuffer;
+    QRenderTarget *m_gBuffer;
 
     /** Map of QLC+ item IDs and SceneItem references */
-    QMap<quint32, SceneItem*> m_entitiesMap;
+    QMap<quint32, SceneItem *> m_entitiesMap;
 
     /** Cache of the loaded models against bounding volumes */
     QMap<QUrl, BoundingVolume> m_boundingVolumesMap;
@@ -289,7 +286,7 @@ private:
 public:
     Q_INVOKABLE void createGenericItem(QString filename, int itemID);
 
-    Q_INVOKABLE void initializeItem(int itemID, QEntity* fxEntity, QSceneLoader* loader);
+    Q_INVOKABLE void initializeItem(int itemID, QEntity *fxEntity, QSceneLoader *loader);
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
@@ -335,12 +332,12 @@ private:
     int m_latestGenericID;
 
     /** QML model for generic items */
-    ListModel* m_genericItemsList;
+    ListModel *m_genericItemsList;
 
     QList<int> m_genericSelectedItems;
 
     /** Map of the generic items in the scene */
-    QMap<int, SceneItem*> m_genericMap;
+    QMap<int, SceneItem *> m_genericMap;
 
     /*********************************************************************
      * Environment
@@ -402,7 +399,7 @@ private:
     QStringList m_stageResourceList;
 
     /** Reference to the selected stage Entity */
-    QEntity* m_stageEntity;
+    QEntity *m_stageEntity;
 
     /** Ambient light amount (0.0 - 1.0) */
     float m_ambientIntensity;

@@ -42,7 +42,7 @@ class AudioRendererWaveOut : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererWaveOut(QString device, QObject* parent = 0);
+    AudioRendererWaveOut(QString device, QObject *parent = 0);
     ~AudioRendererWaveOut();
 
     /** @reimpl */
@@ -55,7 +55,7 @@ public:
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char* data, qint64 maxSize);
+    qint64 writeAudio(unsigned char *data, qint64 maxSize);
 
     /** @reimpl */
     void drain();

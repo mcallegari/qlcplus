@@ -39,7 +39,7 @@ class VCFrameProperties : public QDialog, public Ui_VCFrameProperties
     Q_DISABLE_COPY(VCFrameProperties)
 
 public:
-    VCFrameProperties(QWidget* parent, VCFrame* frame, Doc* doc);
+    VCFrameProperties(QWidget *parent, VCFrame *frame, Doc *doc);
     ~VCFrameProperties();
 
     bool allowChildren() const;
@@ -60,13 +60,13 @@ protected slots:
     void slotKeySequenceChanged(QKeySequence key);
 
 protected:
-    VCFrame* m_frame;
-    Doc* m_doc;
-    InputSelectionWidget* m_inputEnableWidget;
-    InputSelectionWidget* m_inputNextPageWidget;
-    InputSelectionWidget* m_inputPrevPageWidget;
-    QList<VCFramePageShortcut*> m_shortcuts;
-    InputSelectionWidget* m_shortcutInputWidget;
+    VCFrame *m_frame;
+    Doc *m_doc;
+    InputSelectionWidget *m_inputEnableWidget;
+    InputSelectionWidget *m_inputNextPageWidget;
+    InputSelectionWidget *m_inputPrevPageWidget;
+    QList<VCFramePageShortcut *> m_shortcuts;
+    InputSelectionWidget *m_shortcutInputWidget;
 
 public slots:
     void accept();

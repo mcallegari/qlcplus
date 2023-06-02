@@ -57,13 +57,13 @@ class DetachedContext : public QMainWindow
     Q_OBJECT
 
 public:
-    DetachedContext(QWidget* parent)
+    DetachedContext(QWidget *parent)
         : QMainWindow(parent)
     {
     }
 
 protected slots:
-    void closeEvent(QCloseEvent* ev)
+    void closeEvent(QCloseEvent *ev)
     {
         emit closing();
         // avoid the real context to be destroyed !
@@ -92,16 +92,16 @@ public:
 
 private:
     void init();
-    void closeEvent(QCloseEvent*);
-    void setActiveWindow(const QString& name);
+    void closeEvent(QCloseEvent *);
+    void setActiveWindow(const QString &name);
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 protected:
-    bool nativeEvent(const QByteArray& eventType, void* message, long* result);
+    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 #endif
 
 private:
-    QTabWidget* m_tab;
+    QTabWidget *m_tab;
     QDir m_workingDirectory;
     bool m_overscan;
     bool m_noGui;
@@ -114,10 +114,10 @@ public:
     void destroyProgressDialog();
 
 public slots:
-    void slotSetProgressText(const QString& text);
+    void slotSetProgressText(const QString &text);
 
 private:
-    QProgressDialog* m_progressDialog;
+    QProgressDialog *m_progressDialog;
 
     /*********************************************************************
      * Doc
@@ -125,24 +125,24 @@ private:
 public:
     void clearDocument();
 
-    Doc* doc();
+    Doc *doc();
 
 private slots:
     void slotDocModified(bool state);
-    void slotUniverseWritten(quint32 idx, const QByteArray& ua);
+    void slotUniverseWritten(quint32 idx, const QByteArray &ua);
 
 private:
     void initDoc();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /*********************************************************************
      * Main operating mode
      *********************************************************************/
 public:
     void enableKioskMode();
-    void createKioskCloseButton(const QRect& rect);
+    void createKioskCloseButton(const QRect &rect);
 
 public slots:
     void slotModeOperate();
@@ -157,7 +157,7 @@ private:
     void initActions();
     void initToolBar();
     bool handleFileError(QFile::FileError error);
-    bool saveModifiedDoc(const QString& title, const QString& message);
+    bool saveModifiedDoc(const QString &title, const QString &message);
 
 public slots:
     bool slotFileNew();
@@ -183,40 +183,40 @@ public slots:
     void slotHelpIndex();
     void slotHelpAbout();
 
-    void slotRecentFileClicked(QAction* recent);
+    void slotRecentFileClicked(QAction *recent);
 
 private:
-    QAction* m_fileNewAction;
-    QAction* m_fileOpenAction;
-    QAction* m_fileSaveAction;
-    QAction* m_fileSaveAsAction;
+    QAction *m_fileNewAction;
+    QAction *m_fileOpenAction;
+    QAction *m_fileSaveAction;
+    QAction *m_fileSaveAsAction;
 
-    QAction* m_modeToggleAction;
-    QAction* m_controlMonitorAction;
-    QAction* m_addressToolAction;
-    QAction* m_controlFullScreenAction;
-    QAction* m_controlBlackoutAction;
-    QAction* m_controlPanicAction;
-    QAction* m_dumpDmxAction;
-    QAction* m_liveEditAction;
-    QAction* m_liveEditVirtualConsoleAction;
+    QAction *m_modeToggleAction;
+    QAction *m_controlMonitorAction;
+    QAction *m_addressToolAction;
+    QAction *m_controlFullScreenAction;
+    QAction *m_controlBlackoutAction;
+    QAction *m_controlPanicAction;
+    QAction *m_dumpDmxAction;
+    QAction *m_liveEditAction;
+    QAction *m_liveEditVirtualConsoleAction;
 
-    QAction* m_helpIndexAction;
-    QAction* m_helpAboutAction;
-    QAction* m_quitAction;
-    QMenu* m_fileOpenMenu;
-    QMenu* m_fadeAndStopMenu;
+    QAction *m_helpIndexAction;
+    QAction *m_helpAboutAction;
+    QAction *m_quitAction;
+    QMenu *m_fileOpenMenu;
+    QMenu *m_fadeAndStopMenu;
 
 private:
-    QToolBar* m_toolbar;
+    QToolBar *m_toolbar;
 
     /*********************************************************************
      * Utilities
      *********************************************************************/
 private:
-    DmxDumpFactoryProperties* m_dumpProperties;
+    DmxDumpFactoryProperties *m_dumpProperties;
 #if QT_VERSION >= 0x050000
-    VideoProvider* m_videoProvider;
+    VideoProvider *m_videoProvider;
 #endif
 
     /*********************************************************************
@@ -226,7 +226,7 @@ public:
     /**
      * Set the name of the current workspace file
      */
-    void setFileName(const QString& fileName);
+    void setFileName(const QString &fileName);
 
     /**
      * Get the name of the current workspace file
@@ -244,14 +244,14 @@ public:
      * @param fileName The name of the file to load from.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError loadXML(const QString& fileName);
+    QFile::FileError loadXML(const QString &fileName);
 
     /**
      * Load workspace contents from the given XML document.
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(QXmlStreamReader& doc, bool goToConsole = false, bool fromMemory = false);
+    bool loadXML(QXmlStreamReader &doc, bool goToConsole = false, bool fromMemory = false);
 
     /**
      * Save workspace contents to a file with the given name. Changes the
@@ -260,7 +260,7 @@ public:
      * @param fileName The name of the file to save to.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString &fileName);
 
 public slots:
     void slotLoadDocFromMemory(QString xmlData);

@@ -43,7 +43,7 @@ class VCCueListProperties : public QDialog, public Ui_VCCueListProperties
      * Initialization
      ************************************************************************/
 public:
-    VCCueListProperties(VCCueList* cueList, Doc* doc);
+    VCCueListProperties(VCCueList *cueList, Doc *doc);
     ~VCCueListProperties();
 
 public slots:
@@ -51,14 +51,14 @@ public slots:
     void slotTabChanged();
 
 protected:
-    VCCueList* m_cueList;
-    Doc* m_doc;
-    InputSelectionWidget* m_playInputWidget;
-    InputSelectionWidget* m_stopInputWidget;
-    InputSelectionWidget* m_nextInputWidget;
-    InputSelectionWidget* m_prevInputWidget;
+    VCCueList *m_cueList;
+    Doc *m_doc;
+    InputSelectionWidget *m_playInputWidget;
+    InputSelectionWidget *m_stopInputWidget;
+    InputSelectionWidget *m_nextInputWidget;
+    InputSelectionWidget *m_prevInputWidget;
 
-    InputSelectionWidget* m_crossfadeInputWidget;
+    InputSelectionWidget *m_crossfadeInputWidget;
 
     /************************************************************************
      * Cues

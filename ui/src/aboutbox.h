@@ -35,7 +35,7 @@ class AboutBox : public QDialog, public Ui_AboutBox
     Q_DISABLE_COPY(AboutBox)
 
 public:
-    AboutBox(QWidget* parent);
+    AboutBox(QWidget *parent);
     ~AboutBox();
 
 private slots:
@@ -44,7 +44,7 @@ private slots:
     void slotWebsiteClicked();
 
 private:
-    QTimer* m_timer;
+    QTimer *m_timer;
     int m_row;
     int m_increment;
 };

@@ -39,10 +39,10 @@ class QLCFixtureHead
 {
 public:
     QLCFixtureHead();
-    QLCFixtureHead(const QLCFixtureHead& head);
+    QLCFixtureHead(const QLCFixtureHead &head);
     virtual ~QLCFixtureHead();
 
-    QLCFixtureHead& operator=(const QLCFixtureHead& head);
+    QLCFixtureHead &operator=(const QLCFixtureHead &head);
 
     /************************************************************************
      * Channels
@@ -112,7 +112,7 @@ public:
     QVector<quint32> shutterChannels() const;
 
     /** Find some interesting channels from $mode and store their indices. */
-    void cacheChannels(const QLCFixtureMode* mode);
+    void cacheChannels(const QLCFixtureMode *mode);
 
 private:
     void setMapIndex(int chType, int controlByte, quint32 index);
@@ -138,10 +138,10 @@ protected:
      ************************************************************************/
 public:
     /** Load a Fixture Head from an XML tag */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Save a Fixture Head to an XML $doc */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

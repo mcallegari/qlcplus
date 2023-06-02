@@ -30,36 +30,36 @@ class QLineEdit;
  * @{
  */
 
-#define SPEED_DIAL_FLAGS                                                                                               \
-  Qt::WindowFlags((Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint |             \
-                   Qt::WindowMinimizeButtonHint) &                                                                     \
-                  (~Qt::WindowCloseButtonHint))
+#define SPEED_DIAL_FLAGS                                                                                 \
+  Qt::WindowFlags((Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint \
+                   | Qt::WindowMinimizeButtonHint)                                                       \
+                  & (~Qt::WindowCloseButtonHint))
 
 class SpeedDialWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    SpeedDialWidget(QWidget* parent);
+    SpeedDialWidget(QWidget *parent);
     ~SpeedDialWidget();
 
     /************************************************************************
      * Speed settings
      ************************************************************************/
 public:
-    void setFadeInTitle(const QString& title);
+    void setFadeInTitle(const QString &title);
     void setFadeInEnabled(bool set);
     void setFadeInVisible(bool set);
     void setFadeInSpeed(int ms);
     int fadeIn() const;
 
-    void setFadeOutTitle(const QString& title);
+    void setFadeOutTitle(const QString &title);
     void setFadeOutEnabled(bool set);
     void setFadeOutVisible(bool set);
     void setFadeOutSpeed(int ms);
     int fadeOut() const;
 
-    void setDurationTitle(const QString& title);
+    void setDurationTitle(const QString &title);
     void setDurationEnabled(bool set);
     void setDurationVisible(bool set);
     void setDuration(int ms);
@@ -76,26 +76,26 @@ signals:
     void holdTapped();
 
 private:
-    SpeedDial* m_fadeIn;
-    SpeedDial* m_fadeOut;
-    SpeedDial* m_hold;
+    SpeedDial *m_fadeIn;
+    SpeedDial *m_fadeOut;
+    SpeedDial *m_hold;
 
     /************************************************************************
      * Optional text
      ************************************************************************/
 public:
-    void setOptionalTextTitle(const QString& title);
+    void setOptionalTextTitle(const QString &title);
     QString optionalTextTitle() const;
 
-    void setOptionalText(const QString& text);
+    void setOptionalText(const QString &text);
     QString optionalText() const;
 
 signals:
-    void optionalTextEdited(const QString& text);
+    void optionalTextEdited(const QString &text);
 
 private:
-    QGroupBox* m_optionalTextGroup;
-    QLineEdit* m_optionalTextEdit;
+    QGroupBox *m_optionalTextGroup;
+    QLineEdit *m_optionalTextEdit;
 };
 
 /** @} */

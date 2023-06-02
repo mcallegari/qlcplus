@@ -43,7 +43,7 @@ class Doc;
 typedef struct
 {
     int m_index;                     //! Index of the step from the original Chaser
-    Function* m_function;            //! Currently active function
+    Function *m_function;            //! Currently active function
     quint32 m_elapsed;               //! Elapsed milliseconds
     quint32 m_elapsedBeats;          //! Elapsed beats
     uint m_fadeIn;                   //! Step fade in in ms
@@ -59,15 +59,15 @@ class ChaserRunner : public QObject
     Q_OBJECT
 
 public:
-    ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTime = 0);
+    ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTime = 0);
     ~ChaserRunner();
 
 private slots:
     void slotChaserChanged();
 
 private:
-    const Doc* m_doc;
-    const Chaser* m_chaser;
+    const Doc *m_doc;
+    const Chaser *m_chaser;
 
     /************************************************************************
      * Speed
@@ -89,7 +89,7 @@ private:
      * Step control
      ************************************************************************/
 public:
-    void setAction(ChaserAction& action);
+    void setAction(ChaserAction &action);
 
     /**
      * Produce a tap event to the runner, possibly producing a next() call.
@@ -119,13 +119,13 @@ public:
      * Get the first step of the running list.
      * If none is running this returns NULL
      */
-    ChaserRunnerStep* currentRunningStep() const;
+    ChaserRunnerStep *currentRunningStep() const;
 
 private:
     /**
      * Shuffle the current steps order
      */
-    static void shuffle(QVector<int>& data);
+    static void shuffle(QVector<int> &data);
 
     /**
      * Retrieve the randomized index of a
@@ -150,14 +150,14 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
-    Function::Direction m_direction;        //! Run-time direction (reversed by ping-pong)
-    QList<ChaserRunnerStep*> m_runnerSteps; //! Queue of the currently running steps
-    quint32 m_startOffset;                  //! Start step offset time in milliseconds
-    ChaserAction m_pendingAction;           //! Action to be performed on steps at the next write call
-    int m_lastRunStepIdx;                   //! Index of the last step ran
-    quint32 m_lastFunctionID;               //! ID of the last Function ran (Scene only)
-    QElapsedTimer* m_roundTime;             //! Counts the time between steps
-    QVector<int> m_order;                   //! Array of step indices in a randomized order
+    Function::Direction m_direction;         //! Run-time direction (reversed by ping-pong)
+    QList<ChaserRunnerStep *> m_runnerSteps; //! Queue of the currently running steps
+    quint32 m_startOffset;                   //! Start step offset time in milliseconds
+    ChaserAction m_pendingAction;            //! Action to be performed on steps at the next write call
+    int m_lastRunStepIdx;                    //! Index of the last step ran
+    quint32 m_lastFunctionID;                //! ID of the last Function ran (Scene only)
+    QElapsedTimer *m_roundTime;              //! Counts the time between steps
+    QVector<int> m_order;                    //! Array of step indices in a randomized order
 
     /************************************************************************
      * Intensity
@@ -181,12 +181,12 @@ private:
      * $fadeControl specifies how the step Function should fade, according to
      * the Chaser::FadeControlMode enumeration:
      * - Chaser::FromFunction will use the original Function fadeIn time
-     * - Chaser::Crossfade means that the user is manually overriding the Function intensity with a slider
-     *                     so the Function fadeIn time will be set to 0
+     * - Chaser::Crossfade means that the user is manually overriding the Function intensity with a
+     * slider so the Function fadeIn time will be set to 0
      * - Chaser::LinkedCrossfade is like Crossfade, and the Function will also be requested
      *                           to use the Universe::AdditiveBlend mode
      */
-    void startNewStep(int index, MasterTimer* timer, qreal mIntensity, qreal sIntensity, int fadeControl,
+    void startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity, int fadeControl,
                       quint32 elapsed = 0);
 
     /**
@@ -206,10 +206,10 @@ public:
      * @param universes DMX address space
      * @return true if the chaser should continue, otherwise false
      */
-    bool write(MasterTimer* timer, QList<Universe*> universes);
+    bool write(MasterTimer *timer, QList<Universe *> universes);
 
     /** If running, pauses the runner and all the current running steps. */
-    void setPause(bool enable, QList<Universe*> universes);
+    void setPause(bool enable, QList<Universe *> universes);
 
     /**
      * Perform postRun operations. Call this from the parent function's postRun().
@@ -217,7 +217,7 @@ public:
      * @param timer The MasterTimer that runs the show
      * @param universes DMX address space
      */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 };
 
 /** @} */

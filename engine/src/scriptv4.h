@@ -66,7 +66,7 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    Script(Doc* doc);
+    Script(Doc *doc);
     virtual ~Script();
 
     /** @reimp */
@@ -80,20 +80,20 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** @reimp */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
     /************************************************************************
      * Script data
      ************************************************************************/
 public:
     /** Set the raw script data */
-    bool setData(const QString& str);
+    bool setData(const QString &str);
 
     /** Append a line of script to the raw data */
-    bool appendData(const QString& str);
+    bool appendData(const QString &str);
 
     /** Get the raw script data */
     QString data() const;
@@ -119,23 +119,23 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe *> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 protected slots:
     void slotRunnerFinished();
@@ -147,7 +147,7 @@ private:
      *
      * @return the randomized value requested
      */
-    static quint32 getValueFromString(QString str, bool* ok);
+    static quint32 getValueFromString(QString str, bool *ok);
 
     /**
      * Parse one line of script data into a list of token string lists
@@ -157,12 +157,12 @@ private:
      * @param ok Tells if the line was parsed OK or not
      * @return A list of tokens parsed from the line
      */
-    static QString convertLine(const QString& line, bool* ok = NULL);
+    static QString convertLine(const QString &line, bool *ok = NULL);
 
     static QString convertLegacyMethod(QString method);
 
 private:
-    ScriptRunner* m_runner;
+    ScriptRunner *m_runner;
     QList<int> m_syntaxErrorLines;
 };
 

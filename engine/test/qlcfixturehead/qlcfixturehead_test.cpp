@@ -264,7 +264,7 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     QCOMPARE(head.cmyChannels(), QVector<quint32>());
     QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), QLCChannel::invalid());
 
-    head.cacheChannels((QLCFixtureMode*)0xDEADBEEF);
+    head.cacheChannels((QLCFixtureMode *)0xDEADBEEF);
     QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(0));
     QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(1));
     QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(2));

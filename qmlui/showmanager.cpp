@@ -28,7 +28,7 @@
 #include "doc.h"
 #include "app.h"
 
-ShowManager::ShowManager(QQuickView* view, Doc* doc, QObject* parent)
+ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_currentShow(nullptr)
     , m_timeScale(5.0)
@@ -45,7 +45,7 @@ ShowManager::ShowManager(QQuickView* view, Doc* doc, QObject* parent)
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
 
-    App* app = qobject_cast<App*>(m_view);
+    App *app = qobject_cast<App *>(m_view);
     m_tickSize = app->pixelDensity() * 18;
 
     siComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/ShowItem.qml"));
@@ -69,7 +69,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
         disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
     }
 
-    m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
+    m_currentShow = qobject_cast<Show *>(m_doc->function(currentShowID));
     emit currentShowIDChanged(currentShowID);
     if (m_currentShow != nullptr)
     {
@@ -129,7 +129,7 @@ void ShowManager::setSelectedTrackIndex(int index)
 
 void ShowManager::setTrackSolo(int index, bool solo)
 {
-    QList<Track*> tracks = m_currentShow->tracks();
+    QList<Track *> tracks = m_currentShow->tracks();
 
     if (index < 0 || index >= tracks.count())
         return;
@@ -145,7 +145,7 @@ void ShowManager::setTrackSolo(int index, bool solo)
 
 void ShowManager::moveTrack(int index, int direction)
 {
-    QList<Track*> tracks = m_currentShow->tracks();
+    QList<Track *> tracks = m_currentShow->tracks();
 
     if (index < 0 || index >= tracks.count())
         return;
@@ -207,7 +207,7 @@ void ShowManager::setGridEnabled(bool gridEnabled)
  * Show Items
  ********************************************************************/
 
-void ShowManager::addItems(QQuickItem* parent, int trackIdx, int startTime, QVariantList idsList)
+void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList)
 {
     if (idsList.count() == 0)
         return;
@@ -218,7 +218,7 @@ void ShowManager::addItems(QQuickItem* parent, int trackIdx, int startTime, QVar
         QString defaultName = QString("%1 %2").arg(tr("New Show")).arg(m_doc->nextFunctionID());
         m_currentShow = new Show(m_doc);
         m_currentShow->setName(defaultName);
-        Function* f = qobject_cast<Function*>(m_currentShow);
+        Function *f = qobject_cast<Function *>(m_currentShow);
         if (m_doc->addFunction(f) == false)
         {
             qDebug() << "Error in creating a new Show!";
@@ -230,7 +230,7 @@ void ShowManager::addItems(QQuickItem* parent, int trackIdx, int startTime, QVar
         emit showNameChanged(m_currentShow->name());
     }
 
-    Track* selectedTrack = nullptr;
+    Track *selectedTrack = nullptr;
 
     // if no Track index is provided, then add a new one
     if (trackIdx == -1)
@@ -261,16 +261,16 @@ void ShowManager::addItems(QQuickItem* parent, int trackIdx, int startTime, QVar
         }
 
         // and now create the actual ShowFunction and the QML item
-        Function* func = m_doc->function(functionID);
+        Function *func = m_doc->function(functionID);
         if (func == nullptr)
             continue;
 
-        ShowFunction* showFunc = selectedTrack->createShowFunction(functionID);
+        ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
         showFunc->setStartTime(startTime);
         showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
-        QQuickItem* newItem = qobject_cast<QQuickItem*>(siComponent->create());
+        QQuickItem *newItem = qobject_cast<QQuickItem *>(siComponent->create());
 
         newItem->setParentItem(parent);
         newItem->setProperty("trackIndex", trackIdx);
@@ -305,7 +305,7 @@ void ShowManager::deleteShowItems(QVariantList data)
                 m_clipboard.removeAt(i);
         }
 
-        Track* track = m_currentShow->tracks().at(trackIndex);
+        Track *track = m_currentShow->tracks().at(trackIndex);
         track->removeShowFunction(ssi.m_showFunc, true);
         if (ssi.m_item != nullptr)
         {
@@ -320,14 +320,14 @@ void ShowManager::deleteShowItems(QVariantList data)
     emit selectedItemsCountChanged(0);
 }
 
-bool ShowManager::checkAndMoveItem(ShowFunction* sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
+bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
 {
     if (m_currentShow == nullptr || sf == nullptr)
         return false;
 
     // qDebug() << Q_FUNC_INFO << "origIdx:" << originalTrackIdx << "newIdx:" << newTrackIdx << "time:" << newStartTime;
 
-    Track* dstTrack = nullptr;
+    Track *dstTrack = nullptr;
 
     // check if it's moving on a new track or an existing one
     if (newTrackIdx >= m_currentShow->tracks().count())
@@ -350,8 +350,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction* sf, int originalTrackIdx, int n
     if (m_gridEnabled)
     {
         // calculate the X position from time and time scale
-        float xPos =
-            ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
+        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
         // round to the nearest snap position
         xPos = qRound(xPos / m_tickSize) * m_tickSize;
         // recalculate the time from pixels
@@ -366,7 +365,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction* sf, int originalTrackIdx, int n
     // check if we need to move the ShowFunction to a different Track
     if (newTrackIdx != originalTrackIdx)
     {
-        Track* srcTrack = m_currentShow->tracks().at(originalTrackIdx);
+        Track *srcTrack = m_currentShow->tracks().at(originalTrackIdx);
         srcTrack->removeShowFunction(sf, false);
         dstTrack->addShowFunction(sf);
     }
@@ -387,7 +386,7 @@ void ShowManager::resetContents()
 
 void ShowManager::resetView()
 {
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    QMapIterator<quint32, QQuickItem *> it(m_itemsMap);
     while (it.hasNext())
     {
         it.next();
@@ -396,7 +395,7 @@ void ShowManager::resetView()
     m_itemsMap.clear();
 }
 
-void ShowManager::renderView(QQuickItem* parent)
+void ShowManager::renderView(QQuickItem *parent)
 {
     resetView();
 
@@ -407,17 +406,17 @@ void ShowManager::renderView(QQuickItem* parent)
 
     int trkIdx = 0;
 
-    foreach (Track* track, m_currentShow->tracks())
+    foreach (Track *track, m_currentShow->tracks())
     {
         int itemIndex = 0;
 
-        foreach (ShowFunction* sf, track->showFunctions())
+        foreach (ShowFunction *sf, track->showFunctions())
         {
-            Function* func = m_doc->function(sf->functionID());
+            Function *func = m_doc->function(sf->functionID());
             if (func == nullptr)
                 continue;
 
-            QQuickItem* newItem = qobject_cast<QQuickItem*>(siComponent->create());
+            QQuickItem *newItem = qobject_cast<QQuickItem *>(siComponent->create());
 
             newItem->setParentItem(parent);
             newItem->setProperty("trackIndex", trkIdx);
@@ -435,7 +434,7 @@ void ShowManager::renderView(QQuickItem* parent)
 
 void ShowManager::enableFlicking(bool enable)
 {
-    QQuickItem* flickable = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject*>("showItemsArea"));
+    QQuickItem *flickable = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
     flickable->setProperty("interactive", enable);
 }
 
@@ -508,7 +507,7 @@ int ShowManager::selectedItemsCount() const
     return m_selectedItems.count();
 }
 
-void ShowManager::setItemSelection(int trackIdx, ShowFunction* sf, QQuickItem* item, bool selected)
+void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected)
 {
     if (selected == true)
     {
@@ -560,7 +559,7 @@ QStringList ShowManager::selectedItemNames()
     QStringList names;
     foreach (SelectedShowItem si, m_selectedItems)
     {
-        Function* func = m_doc->function(si.m_showFunc->functionID());
+        Function *func = m_doc->function(si.m_showFunc->functionID());
         if (func != nullptr)
             names.append(func->name());
     }
@@ -593,22 +592,21 @@ void ShowManager::slotTimeChanged(quint32 msec_time)
     emit currentTimeChanged(m_currentTime);
 }
 
-bool ShowManager::checkOverlapping(Track* track, ShowFunction* sourceFunc, quint32 startTime, quint32 duration)
+bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc, quint32 startTime, quint32 duration)
 {
     if (track == nullptr)
         return false;
 
-    foreach (ShowFunction* sf, track->showFunctions())
+    foreach (ShowFunction *sf, track->showFunctions())
     {
         if (sf == sourceFunc)
             continue;
 
-        Function* func = m_doc->function(sf->functionID());
+        Function *func = m_doc->function(sf->functionID());
         if (func != nullptr)
         {
             quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            if ((startTime >= fst && startTime <= fst + sf->duration()) || (fst >= startTime && fst <= startTime + duration))
             {
                 return true;
             }
@@ -618,7 +616,7 @@ bool ShowManager::checkOverlapping(Track* track, ShowFunction* sourceFunc, quint
     return false;
 }
 
-QVariantList ShowManager::previewData(Function* f) const
+QVariantList ShowManager::previewData(Function *f) const
 {
     QVariantList data;
     if (f == nullptr)
@@ -629,7 +627,7 @@ QVariantList ShowManager::previewData(Function* f) const
     case Function::ChaserType:
     case Function::SequenceType:
         {
-            Chaser* chaser = qobject_cast<Chaser*>(f);
+            Chaser *chaser = qobject_cast<Chaser *>(f);
             quint32 stepsTimeCounter = 0;
 
             foreach (ChaserStep step, chaser->steps())
@@ -709,16 +707,16 @@ void ShowManager::pasteFromClipboard()
     // and keeping the delta time of the original items
     for (SelectedShowItem item : m_clipboard)
     {
-        Track* track = m_currentShow->tracks().at(item.m_trackIndex);
+        Track *track = m_currentShow->tracks().at(item.m_trackIndex);
 
         if (checkOverlapping(track, item.m_showFunc, m_currentTime, item.m_showFunc->duration()))
             continue;
 
-        Function* func = m_doc->function(item.m_showFunc->functionID());
+        Function *func = m_doc->function(item.m_showFunc->functionID());
         if (func == nullptr)
             continue;
 
-        Function* copyFunc = func->createCopy(m_doc);
+        Function *copyFunc = func->createCopy(m_doc);
         if (copyFunc == nullptr)
             continue;
 
@@ -726,12 +724,12 @@ void ShowManager::pasteFromClipboard()
 
         if (copyFunc->type() == Function::SequenceType)
         {
-            Sequence* sequence = qobject_cast<Sequence*>(copyFunc);
-            Scene* scene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
+            Sequence *sequence = qobject_cast<Sequence *>(copyFunc);
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
             if (scene == nullptr)
                 continue;
 
-            Scene* copyScene = static_cast<Scene*>(scene->createCopy(m_doc, true));
+            Scene *copyScene = static_cast<Scene *>(scene->createCopy(m_doc, true));
             if (copyScene == nullptr)
                 continue;
 

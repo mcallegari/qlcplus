@@ -23,7 +23,7 @@
 #include "tardis.h"
 #include "doc.h"
 
-CollectionEditor::CollectionEditor(QQuickView* view, Doc* doc, QObject* parent)
+CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_collection(nullptr)
 {
@@ -38,7 +38,7 @@ CollectionEditor::CollectionEditor(QQuickView* view, Doc* doc, QObject* parent)
 
 void CollectionEditor::setFunctionID(quint32 ID)
 {
-    m_collection = qobject_cast<Collection*>(m_doc->function(ID));
+    m_collection = qobject_cast<Collection *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     updateFunctionsList();
 }

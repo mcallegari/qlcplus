@@ -33,7 +33,7 @@
  * Initialization
  *****************************************************************************/
 
-OutputPatch::OutputPatch(QObject* parent)
+OutputPatch::OutputPatch(QObject *parent)
     : QObject(parent)
     , m_plugin(NULL)
     , m_pluginLine(QLCIOPlugin::invalidLine())
@@ -43,7 +43,7 @@ OutputPatch::OutputPatch(QObject* parent)
 {
 }
 
-OutputPatch::OutputPatch(quint32 universe, QObject* parent)
+OutputPatch::OutputPatch(quint32 universe, QObject *parent)
     : QObject(parent)
     , m_plugin(NULL)
     , m_pluginLine(QLCIOPlugin::invalidLine())
@@ -63,7 +63,7 @@ OutputPatch::~OutputPatch()
  * Plugin & Output
  ****************************************************************************/
 
-bool OutputPatch::set(QLCIOPlugin* plugin, quint32 output)
+bool OutputPatch::set(QLCIOPlugin *plugin, quint32 output)
 {
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
         m_plugin->closeOutput(m_pluginLine, m_universe);
@@ -113,15 +113,14 @@ QString OutputPatch::pluginName() const
         return KOutputNone;
 }
 
-QLCIOPlugin* OutputPatch::plugin() const
+QLCIOPlugin *OutputPatch::plugin() const
 {
     return m_plugin;
 }
 
 QString OutputPatch::outputName() const
 {
-    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() &&
-        m_pluginLine < quint32(m_plugin->outputs().size()))
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() && m_pluginLine < quint32(m_plugin->outputs().size()))
     {
         return m_plugin->outputs()[m_pluginLine];
     }
@@ -191,7 +190,7 @@ void OutputPatch::setBlackout(bool blackout)
     emit blackoutChanged(m_blackout);
 }
 
-void OutputPatch::dump(quint32 universe, const QByteArray& data)
+void OutputPatch::dump(quint32 universe, const QByteArray &data)
 {
     /* Don't do anything if there is no plugin and/or output line. */
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())

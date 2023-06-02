@@ -38,10 +38,10 @@ class MonitorFixture;
 class MonitorLayoutItem : public QWidgetItem
 {
 public:
-    MonitorLayoutItem(MonitorFixture* mof);
+    MonitorLayoutItem(MonitorFixture *mof);
     ~MonitorLayoutItem();
 
-    bool operator<(const MonitorLayoutItem& item);
+    bool operator<(const MonitorLayoutItem &item);
 };
 
 /****************************************************************************
@@ -54,23 +54,23 @@ class MonitorLayout : public QLayout
      * Initialization
      ********************************************************************/
 public:
-    MonitorLayout(QWidget* parent);
+    MonitorLayout(QWidget *parent);
     virtual ~MonitorLayout();
 
     /********************************************************************
      * Items
      ********************************************************************/
 public:
-    void addItem(QLayoutItem* item);
+    void addItem(QLayoutItem *item);
     int count() const;
 
-    MonitorLayoutItem* itemAt(int index) const;
-    MonitorLayoutItem* takeAt(int index);
+    MonitorLayoutItem *itemAt(int index) const;
+    MonitorLayoutItem *takeAt(int index);
 
     void sort();
 
 protected:
-    QList<MonitorLayoutItem*> m_items;
+    QList<MonitorLayoutItem *> m_items;
 
     /********************************************************************
      * Size & Geometry
@@ -80,11 +80,11 @@ public:
     bool hasHeightForWidth() const;
     int heightForWidth(int) const;
     QSize minimumSize() const;
-    void setGeometry(const QRect& rect);
+    void setGeometry(const QRect &rect);
     QSize sizeHint() const;
 
 protected:
-    int doLayout(const QRect& rect, bool testOnly) const;
+    int doLayout(const QRect &rect, bool testOnly) const;
 };
 
 /** @} */

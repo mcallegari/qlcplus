@@ -62,7 +62,7 @@ void QLCFixtureMode_Test::fixtureDef()
 void QLCFixtureMode_Test::name()
 {
     /* Verify that a name can be set & get for the mode */
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
 
     QVERIFY(mode->name().isEmpty());
     mode->setName("Normal");
@@ -74,7 +74,7 @@ void QLCFixtureMode_Test::name()
 void QLCFixtureMode_Test::physical()
 {
     /* Verify that a QLCPhysical can be set & get for the mode */
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
     QVERIFY(mode->physical().bulbType().isEmpty());
 
     QLCPhysical p;
@@ -87,14 +87,14 @@ void QLCFixtureMode_Test::physical()
 
 void QLCFixtureMode_Test::insertChannel()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
     mode->setName("Test");
 
     QVERIFY(mode->insertChannel(NULL, 0) == false);
     QVERIFY(mode->channels().size() == 0);
 
     /* Channel that doesn't belong to mode->fixtureDef() */
-    QLCChannel* ch = new QLCChannel();
+    QLCChannel *ch = new QLCChannel();
     ch->setName("Rogue");
     mode->insertChannel(ch, 0);
     QVERIFY(mode->channels().size() == 0);
@@ -127,7 +127,7 @@ void QLCFixtureMode_Test::insertChannel()
 
 void QLCFixtureMode_Test::removeChannel()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
 
     mode->insertChannel(m_ch1, 0);
     mode->insertChannel(m_ch2, 1);
@@ -180,7 +180,7 @@ void QLCFixtureMode_Test::removeChannel()
 
 void QLCFixtureMode_Test::channelByName()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
 
     mode->insertChannel(m_ch1, 0);
     mode->insertChannel(m_ch2, 1);
@@ -199,7 +199,7 @@ void QLCFixtureMode_Test::channelByName()
 
 void QLCFixtureMode_Test::channelByIndex()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
 
     mode->insertChannel(m_ch1, 0);
     mode->insertChannel(m_ch2, 1);
@@ -217,7 +217,7 @@ void QLCFixtureMode_Test::channelByIndex()
 
 void QLCFixtureMode_Test::channels()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
     QVERIFY(mode->channels().size() == 0);
 
     mode->insertChannel(m_ch1, 0);
@@ -234,7 +234,7 @@ void QLCFixtureMode_Test::channels()
 
 void QLCFixtureMode_Test::channelNumber()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
 
     mode->insertChannel(m_ch1, 0);
     mode->insertChannel(m_ch2, 1);
@@ -246,7 +246,7 @@ void QLCFixtureMode_Test::channelNumber()
     QVERIFY(mode->channelNumber(m_ch3) == 2);
     QVERIFY(mode->channelNumber(m_ch4) == 3);
 
-    QLCChannel* ch = new QLCChannel();
+    QLCChannel *ch = new QLCChannel();
     QVERIFY(mode->channelNumber(ch) == QLCChannel::invalid());
     QVERIFY(mode->channelNumber(NULL) == QLCChannel::invalid());
     delete ch;
@@ -256,7 +256,7 @@ void QLCFixtureMode_Test::channelNumber()
 
 void QLCFixtureMode_Test::heads()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
 
     QLCFixtureHead head;
     head.addChannel(0);
@@ -340,7 +340,7 @@ void QLCFixtureMode_Test::heads()
 
 void QLCFixtureMode_Test::copy()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(m_fixtureDef);
     mode->setName("Test Mode");
 
     mode->insertChannel(m_ch1, 0);
@@ -355,7 +355,7 @@ void QLCFixtureMode_Test::copy()
     mode->insertHead(-1, head);
 
     /* Create a copy of the mode to the same fixtureDef as the original */
-    QLCFixtureMode* copy = new QLCFixtureMode(m_fixtureDef, mode);
+    QLCFixtureMode *copy = new QLCFixtureMode(m_fixtureDef, mode);
     QVERIFY(copy != NULL);
 
     QVERIFY(copy->name() == "Test Mode");
@@ -372,24 +372,24 @@ void QLCFixtureMode_Test::copy()
     copy = NULL;
 
     /* Create another fixture def with some channels matching, some not */
-    QLCFixtureDef* anotherDef = new QLCFixtureDef();
-    QLCChannel* ch1 = new QLCChannel();
+    QLCFixtureDef *anotherDef = new QLCFixtureDef();
+    QLCChannel *ch1 = new QLCChannel();
     ch1->setName("Channel 1"); // Should match
     anotherDef->addChannel(ch1);
 
-    QLCChannel* ch2 = new QLCChannel();
+    QLCChannel *ch2 = new QLCChannel();
     ch2->setName("Channel 2, not the same name"); // Shouldn't match
     anotherDef->addChannel(ch2);
 
-    QLCChannel* ch3 = new QLCChannel();
+    QLCChannel *ch3 = new QLCChannel();
     ch3->setName("Channel 3, still not the same name"); // Shouldn't match
     anotherDef->addChannel(ch3);
 
-    QLCChannel* ch4 = new QLCChannel();
+    QLCChannel *ch4 = new QLCChannel();
     ch4->setName("Channel 4"); // Should match
     anotherDef->addChannel(ch4);
 
-    QLCChannel* ch5 = new QLCChannel();
+    QLCChannel *ch5 = new QLCChannel();
     ch5->setName("Channel 5"); // Shouldn't match since original has 4 chans
     anotherDef->addChannel(ch5);
 
@@ -413,19 +413,19 @@ void QLCFixtureMode_Test::intensityChannels()
 {
     QLCFixtureDef def;
 
-    QLCChannel* masterCh = new QLCChannel();
+    QLCChannel *masterCh = new QLCChannel();
     masterCh->setGroup(QLCChannel::Intensity);
     masterCh->setControlByte(QLCChannel::MSB);
     masterCh->setColour(QLCChannel::NoColour);
     def.addChannel(masterCh);
 
-    QLCChannel* h1Ch = new QLCChannel();
+    QLCChannel *h1Ch = new QLCChannel();
     h1Ch->setGroup(QLCChannel::Intensity);
     h1Ch->setControlByte(QLCChannel::MSB);
     h1Ch->setColour(QLCChannel::NoColour);
     def.addChannel(h1Ch);
 
-    QLCChannel* h2Ch = new QLCChannel();
+    QLCChannel *h2Ch = new QLCChannel();
     h2Ch->setGroup(QLCChannel::Intensity);
     h2Ch->setControlByte(QLCChannel::MSB);
     h2Ch->setColour(QLCChannel::NoColour);

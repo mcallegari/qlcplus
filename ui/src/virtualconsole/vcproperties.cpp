@@ -46,7 +46,7 @@ VCProperties::VCProperties()
 {
 }
 
-VCProperties::VCProperties(const VCProperties& properties)
+VCProperties::VCProperties(const VCProperties &properties)
     : m_size(properties.m_size)
 
     , m_gmChannelMode(properties.m_gmChannelMode)
@@ -59,7 +59,7 @@ VCProperties::VCProperties(const VCProperties& properties)
 
 VCProperties::~VCProperties() {}
 
-VCProperties& VCProperties::operator=(const VCProperties& props)
+VCProperties &VCProperties::operator=(const VCProperties &props)
 {
     if (this != &props)
     {
@@ -78,7 +78,7 @@ VCProperties& VCProperties::operator=(const VCProperties& props)
  * Size
  *****************************************************************************/
 
-void VCProperties::setSize(const QSize& size)
+void VCProperties::setSize(const QSize &size)
 {
     m_size = size;
 }
@@ -142,7 +142,7 @@ quint32 VCProperties::grandMasterInputChannel() const
  * Load & Save
  *****************************************************************************/
 
-bool VCProperties::loadXML(QXmlStreamReader& root)
+bool VCProperties::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCProperties)
     {
@@ -216,7 +216,7 @@ bool VCProperties::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCProperties::saveXML(QXmlStreamWriter* doc) const
+bool VCProperties::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -260,7 +260,7 @@ bool VCProperties::saveXML(QXmlStreamWriter* doc) const
     return true;
 }
 
-bool VCProperties::loadXMLInput(QXmlStreamReader& root, quint32* universe, quint32* channel)
+bool VCProperties::loadXMLInput(QXmlStreamReader &root, quint32 *universe, quint32 *channel)
 {
     /* External input */
     if (root.name() != KXMLQLCVCPropertiesInput)

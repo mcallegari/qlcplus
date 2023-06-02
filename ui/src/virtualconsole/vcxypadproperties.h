@@ -46,16 +46,16 @@ class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties, public DM
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadProperties(VCXYPad* xypad, Doc* doc);
+    VCXYPadProperties(VCXYPad *xypad, Doc *doc);
     ~VCXYPadProperties();
 
 private:
-    VCXYPad* m_xypad;
-    Doc* m_doc;
-    InputSelectionWidget* m_panInputWidget;
-    InputSelectionWidget* m_tiltInputWidget;
-    InputSelectionWidget* m_widthInputWidget;
-    InputSelectionWidget* m_heightInputWidget;
+    VCXYPad *m_xypad;
+    Doc *m_doc;
+    InputSelectionWidget *m_panInputWidget;
+    InputSelectionWidget *m_tiltInputWidget;
+    InputSelectionWidget *m_widthInputWidget;
+    InputSelectionWidget *m_heightInputWidget;
 
     /********************************************************************
      * Fixtures page
@@ -64,16 +64,16 @@ private:
     void fillFixturesTree();
     void updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
     QList<VCXYPadFixture> selectedFixtures() const;
-    QTreeWidgetItem* fixtureItem(const VCXYPadFixture& fxi);
+    QTreeWidgetItem *fixtureItem(const VCXYPadFixture &fxi);
 
-    void updateFixtureItem(QTreeWidgetItem* item, const VCXYPadFixture& fxi);
-    void removeFixtureItem(GroupHead const& head);
+    void updateFixtureItem(QTreeWidgetItem *item, const VCXYPadFixture &fxi);
+    void removeFixtureItem(GroupHead const &head);
 
 private slots:
     void slotAddClicked();
     void slotRemoveClicked();
     void slotEditClicked();
-    void slotSelectionChanged(QTreeWidgetItem* item);
+    void slotSelectionChanged(QTreeWidgetItem *item);
 
     void slotPercentageRadioChecked();
     void slotDegreesRadioChecked();
@@ -93,13 +93,13 @@ private slots:
      ********************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe *> universes);
 
 private:
     void updatePresetsTree();
     void selectItemOnPresetsTree(quint8 presetId);
-    void updateTreeItem(VCXYPadPreset const& preset);
-    VCXYPadPreset* getSelectedPreset();
+    void updateTreeItem(VCXYPadPreset const &preset);
+    VCXYPadPreset *getSelectedPreset();
     void removePreset(quint8 id);
 
     // move preset up and swap id with previous preset. Return new preset id.
@@ -116,18 +116,18 @@ protected slots:
     void slotRemovePresetClicked();
     void slotMoveUpPresetClicked();
     void slotMoveDownPresetClicked();
-    void slotPresetNameEdited(QString const& newName);
+    void slotPresetNameEdited(QString const &newName);
     void slotPresetSelectionChanged();
-    void slotXYPadPositionChanged(const QPointF& pt);
+    void slotXYPadPositionChanged(const QPointF &pt);
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotKeySequenceChanged(QKeySequence key);
 
 private:
-    VCXYPadArea* m_xyArea;
-    InputSelectionWidget* m_presetInputWidget;
+    VCXYPadArea *m_xyArea;
+    InputSelectionWidget *m_presetInputWidget;
 
     quint8 m_lastAssignedID;
-    QList<VCXYPadPreset*> m_presetList;
+    QList<VCXYPadPreset *> m_presetList;
 
     /** Map used to lookup a GenericFader instance for a Universe ID */
     QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;

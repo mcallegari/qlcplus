@@ -25,7 +25,7 @@
 #include "vccuelist.h"
 #include "doc.h"
 
-VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
+VCCueListProperties::VCCueListProperties(VCCueList *cueList, Doc *doc)
     : QDialog(cueList)
     , m_doc(doc)
 {
@@ -35,7 +35,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
 
     setupUi(this);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -222,7 +222,7 @@ void VCCueListProperties::slotPlaybackLayoutChanged()
 
 void VCCueListProperties::updateChaserName()
 {
-    Function* function = m_doc->function(m_chaserId);
+    Function *function = m_doc->function(m_chaserId);
     if (function == NULL)
         m_chaserEdit->setText(tr("No function"));
     else

@@ -48,7 +48,7 @@ void QLCChannel_Test::groupList()
 void QLCChannel_Test::name()
 {
     /* Verify that a name can be set & get for the channel */
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->name().isEmpty());
 
     channel->setName("Channel");
@@ -59,7 +59,7 @@ void QLCChannel_Test::name()
 
 void QLCChannel_Test::group()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->group() == QLCChannel::Intensity);
 
     channel->setGroup(QLCChannel::Beam);
@@ -73,7 +73,7 @@ void QLCChannel_Test::group()
 
 void QLCChannel_Test::defaultValue()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->defaultValue() == 0);
 
     channel->setDefaultValue(137);
@@ -85,7 +85,7 @@ void QLCChannel_Test::controlByte()
     QCOMPARE(int(QLCChannel::MSB), 0);
     QCOMPARE(int(QLCChannel::LSB), 1);
 
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->controlByte() == QLCChannel::MSB);
 
     channel->setControlByte(QLCChannel::LSB);
@@ -128,7 +128,7 @@ void QLCChannel_Test::colour()
     QCOMPARE(int(QLCChannel::Lime), 0xADFF2F);
     QCOMPARE(int(QLCChannel::Indigo), 0x4B0082);
 
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QCOMPARE(channel->colour(), QLCChannel::NoColour);
 
     channel->setColour(QLCChannel::Red);
@@ -170,18 +170,18 @@ void QLCChannel_Test::colour()
 
 void QLCChannel_Test::searchCapabilityByValue()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->capabilities().size() == 0);
 
-    QLCCapability* cap1 = new QLCCapability(0, 9, "0-9");
+    QLCCapability *cap1 = new QLCCapability(0, 9, "0-9");
     QVERIFY(channel->addCapability(cap1) == true);
     QVERIFY(channel->capabilities().size() == 1);
 
-    QLCCapability* cap2 = new QLCCapability(10, 19, "10-19");
+    QLCCapability *cap2 = new QLCCapability(10, 19, "10-19");
     QVERIFY(channel->addCapability(cap2) == true);
     QVERIFY(channel->capabilities().size() == 2);
 
-    QLCCapability* cap3 = new QLCCapability(20, 29, "20-29");
+    QLCCapability *cap3 = new QLCCapability(20, 29, "20-29");
     QVERIFY(channel->addCapability(cap3) == true);
     QVERIFY(channel->capabilities().size() == 3);
 
@@ -214,16 +214,16 @@ void QLCChannel_Test::searchCapabilityByValue()
 
 void QLCChannel_Test::searchCapabilityByName()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->capabilities().size() == 0);
 
-    QLCCapability* cap1 = new QLCCapability(0, 9, "0-9");
+    QLCCapability *cap1 = new QLCCapability(0, 9, "0-9");
     QVERIFY(channel->addCapability(cap1) == true);
 
-    QLCCapability* cap2 = new QLCCapability(10, 19, "10-19");
+    QLCCapability *cap2 = new QLCCapability(10, 19, "10-19");
     QVERIFY(channel->addCapability(cap2) == true);
 
-    QLCCapability* cap3 = new QLCCapability(20, 29, "20-29");
+    QLCCapability *cap3 = new QLCCapability(20, 29, "20-29");
     QVERIFY(channel->addCapability(cap3) == true);
 
     QVERIFY(channel->searchCapability("0-9") == cap1);
@@ -236,52 +236,52 @@ void QLCChannel_Test::searchCapabilityByName()
 
 void QLCChannel_Test::addCapability()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->capabilities().size() == 0);
 
-    QLCCapability* cap1 = new QLCCapability(15, 19, "15-19");
+    QLCCapability *cap1 = new QLCCapability(15, 19, "15-19");
     QVERIFY(channel->addCapability(cap1) == true);
     QVERIFY(channel->capabilities().size() == 1);
     QVERIFY(channel->capabilities()[0] == cap1);
 
-    QLCCapability* cap2 = new QLCCapability(0, 9, "0-9");
+    QLCCapability *cap2 = new QLCCapability(0, 9, "0-9");
     QVERIFY(channel->addCapability(cap2) == true);
     QVERIFY(channel->capabilities().size() == 2);
     QVERIFY(channel->capabilities()[0] == cap1);
     QVERIFY(channel->capabilities()[1] == cap2);
 
     /* Completely overlapping with cap2 */
-    QLCCapability* cap3 = new QLCCapability(5, 6, "5-6");
+    QLCCapability *cap3 = new QLCCapability(5, 6, "5-6");
     QVERIFY(channel->addCapability(cap3) == false);
     delete cap3;
     cap3 = NULL;
 
     /* Partially overlapping from low-end with cap1 */
-    QLCCapability* cap4 = new QLCCapability(19, 25, "19-25");
+    QLCCapability *cap4 = new QLCCapability(19, 25, "19-25");
     QVERIFY(channel->addCapability(cap4) == false);
     delete cap4;
     cap4 = NULL;
 
     /* Partially overlapping from high end with cap1 */
-    QLCCapability* cap5 = new QLCCapability(10, 15, "10-15");
+    QLCCapability *cap5 = new QLCCapability(10, 15, "10-15");
     QVERIFY(channel->addCapability(cap5) == false);
     delete cap5;
     cap5 = NULL;
 
     /* Partially overlapping with two ranges at both ends (cap1 & cap2) */
-    QLCCapability* cap6 = new QLCCapability(8, 16, "8-16");
+    QLCCapability *cap6 = new QLCCapability(8, 16, "8-16");
     QVERIFY(channel->addCapability(cap6) == false);
     delete cap6;
     cap6 = NULL;
 
     /* Completely containing cap1 */
-    QLCCapability* cap7 = new QLCCapability(14, 20, "14-20");
+    QLCCapability *cap7 = new QLCCapability(14, 20, "14-20");
     QVERIFY(channel->addCapability(cap7) == false);
     delete cap7;
     cap7 = NULL;
 
     /* Non-overlapping, between cap1 & cap2*/
-    QLCCapability* cap8 = new QLCCapability(10, 14, "10-14");
+    QLCCapability *cap8 = new QLCCapability(10, 14, "10-14");
     QVERIFY(channel->addCapability(cap8) == true);
     /* Don't delete cap8 because it's now a member of the channel and gets
        deleted from the channel's destructor. */
@@ -291,14 +291,14 @@ void QLCChannel_Test::addCapability()
 
 void QLCChannel_Test::removeCapability()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->capabilities().size() == 0);
 
-    QLCCapability* cap1 = new QLCCapability(10, 20, "10-20");
+    QLCCapability *cap1 = new QLCCapability(10, 20, "10-20");
     QVERIFY(channel->addCapability(cap1) == true);
     QVERIFY(channel->capabilities().size() == 1);
 
-    QLCCapability* cap2 = new QLCCapability(0, 9, "0-9");
+    QLCCapability *cap2 = new QLCCapability(0, 9, "0-9");
     QVERIFY(channel->addCapability(cap2) == true);
     QVERIFY(channel->capabilities().size() == 2);
 
@@ -318,34 +318,34 @@ void QLCChannel_Test::removeCapability()
 
 void QLCChannel_Test::sortCapabilities()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->capabilities().size() == 0);
 
-    QLCCapability* cap1 = new QLCCapability(10, 19, "10-19");
+    QLCCapability *cap1 = new QLCCapability(10, 19, "10-19");
     QVERIFY(channel->addCapability(cap1) == true);
 
-    QLCCapability* cap2 = new QLCCapability(50, 59, "50-59");
+    QLCCapability *cap2 = new QLCCapability(50, 59, "50-59");
     QVERIFY(channel->addCapability(cap2) == true);
 
-    QLCCapability* cap3 = new QLCCapability(40, 49, "40-49");
+    QLCCapability *cap3 = new QLCCapability(40, 49, "40-49");
     QVERIFY(channel->addCapability(cap3) == true);
 
-    QLCCapability* cap4 = new QLCCapability(0, 9, "0-9");
+    QLCCapability *cap4 = new QLCCapability(0, 9, "0-9");
     QVERIFY(channel->addCapability(cap4) == true);
 
-    QLCCapability* cap5 = new QLCCapability(200, 209, "200-209");
+    QLCCapability *cap5 = new QLCCapability(200, 209, "200-209");
     QVERIFY(channel->addCapability(cap5) == true);
 
-    QLCCapability* cap6 = new QLCCapability(30, 39, "30-39");
+    QLCCapability *cap6 = new QLCCapability(30, 39, "30-39");
     QVERIFY(channel->addCapability(cap6) == true);
 
-    QLCCapability* cap7 = new QLCCapability(26, 29, "26-29");
+    QLCCapability *cap7 = new QLCCapability(26, 29, "26-29");
     QVERIFY(channel->addCapability(cap7) == true);
 
-    QLCCapability* cap8 = new QLCCapability(20, 25, "20-25");
+    QLCCapability *cap8 = new QLCCapability(20, 25, "20-25");
     QVERIFY(channel->addCapability(cap8) == true);
 
-    QList<QLCCapability*> orig(channel->capabilities());
+    QList<QLCCapability *> orig(channel->capabilities());
     QVERIFY(orig.at(0) == cap1);
     QVERIFY(orig.at(1) == cap2);
     QVERIFY(orig.at(2) == cap3);
@@ -357,7 +357,7 @@ void QLCChannel_Test::sortCapabilities()
 
     channel->sortCapabilities();
 
-    QList<QLCCapability*> sorted(channel->capabilities());
+    QList<QLCCapability *> sorted(channel->capabilities());
     QVERIFY(sorted.at(0) == cap4);
     QVERIFY(sorted.at(1) == cap1);
     QVERIFY(sorted.at(2) == cap8);
@@ -372,7 +372,7 @@ void QLCChannel_Test::sortCapabilities()
 
 void QLCChannel_Test::copy()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
     QVERIFY(channel->capabilities().size() == 0);
 
     channel->setName("Foobar");
@@ -380,32 +380,32 @@ void QLCChannel_Test::copy()
     channel->setControlByte(QLCChannel::ControlByte(3));
     channel->setColour(QLCChannel::Yellow);
 
-    QLCCapability* cap1 = new QLCCapability(10, 19, "10-19");
+    QLCCapability *cap1 = new QLCCapability(10, 19, "10-19");
     QVERIFY(channel->addCapability(cap1) == true);
 
-    QLCCapability* cap2 = new QLCCapability(50, 59, "50-59");
+    QLCCapability *cap2 = new QLCCapability(50, 59, "50-59");
     QVERIFY(channel->addCapability(cap2) == true);
 
-    QLCCapability* cap3 = new QLCCapability(40, 49, "40-49");
+    QLCCapability *cap3 = new QLCCapability(40, 49, "40-49");
     QVERIFY(channel->addCapability(cap3) == true);
 
-    QLCCapability* cap4 = new QLCCapability(0, 9, "0-9");
+    QLCCapability *cap4 = new QLCCapability(0, 9, "0-9");
     QVERIFY(channel->addCapability(cap4) == true);
 
-    QLCCapability* cap5 = new QLCCapability(200, 209, "200-209");
+    QLCCapability *cap5 = new QLCCapability(200, 209, "200-209");
     QVERIFY(channel->addCapability(cap5) == true);
 
-    QLCCapability* cap6 = new QLCCapability(30, 39, "30-39");
+    QLCCapability *cap6 = new QLCCapability(30, 39, "30-39");
     QVERIFY(channel->addCapability(cap6) == true);
 
-    QLCCapability* cap7 = new QLCCapability(26, 29, "26-29");
+    QLCCapability *cap7 = new QLCCapability(26, 29, "26-29");
     QVERIFY(channel->addCapability(cap7) == true);
 
-    QLCCapability* cap8 = new QLCCapability(20, 25, "20-25");
+    QLCCapability *cap8 = new QLCCapability(20, 25, "20-25");
     QVERIFY(channel->addCapability(cap8) == true);
 
     /* Create a copy of the original channel */
-    QLCChannel* copy = channel->createCopy();
+    QLCChannel *copy = channel->createCopy();
 
     QVERIFY(copy->name() == "Foobar");
     QVERIFY(copy->group() == QLCChannel::Tilt);
@@ -414,7 +414,7 @@ void QLCChannel_Test::copy()
 
     /* Verify that the capabilities in the copied channel are also
        copies i.e. their pointers are not the same as the originals. */
-    QList<QLCCapability*> caps(copy->capabilities());
+    QList<QLCCapability *> caps(copy->capabilities());
     QVERIFY(caps.size() == 8);
     QVERIFY(caps.at(0) != cap1);
     QVERIFY(caps.at(0)->name() == cap1->name());
@@ -578,22 +578,22 @@ void QLCChannel_Test::loadWrongRoot()
 
 void QLCChannel_Test::save()
 {
-    QLCChannel* channel = new QLCChannel();
+    QLCChannel *channel = new QLCChannel();
 
     channel->setName("Foobar");
     channel->setGroup(QLCChannel::Shutter);
     channel->setControlByte(QLCChannel::LSB);
 
-    QLCCapability* cap1 = new QLCCapability(0, 9, "One");
+    QLCCapability *cap1 = new QLCCapability(0, 9, "One");
     QVERIFY(channel->addCapability(cap1) == true);
 
-    QLCCapability* cap2 = new QLCCapability(10, 19, "Two");
+    QLCCapability *cap2 = new QLCCapability(10, 19, "Two");
     QVERIFY(channel->addCapability(cap2) == true);
 
-    QLCCapability* cap3 = new QLCCapability(20, 29, "Three");
+    QLCCapability *cap3 = new QLCCapability(20, 29, "Three");
     QVERIFY(channel->addCapability(cap3) == true);
 
-    QLCCapability* cap4 = new QLCCapability(30, 39, "Four");
+    QLCCapability *cap4 = new QLCCapability(30, 39, "Four");
     QVERIFY(channel->addCapability(cap4) == true);
 
     QBuffer buffer;

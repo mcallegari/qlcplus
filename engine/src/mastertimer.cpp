@@ -57,7 +57,7 @@ quint64 ticksCount = 0;
  * Initialization
  *****************************************************************************/
 
-MasterTimer::MasterTimer(Doc* doc)
+MasterTimer::MasterTimer(Doc *doc)
     : QObject(doc)
     , d_ptr(new MasterTimerPrivate(this))
     , m_stopAllFunctions(false)
@@ -108,7 +108,7 @@ void MasterTimer::stop()
 
 void MasterTimer::timerTick()
 {
-    Doc* doc = qobject_cast<Doc*>(parent());
+    Doc *doc = qobject_cast<Doc *>(parent());
     Q_ASSERT(doc != NULL);
 
 #ifdef DEBUG_MASTERTIMER
@@ -146,7 +146,7 @@ void MasterTimer::timerTick()
         break;
     }
 
-    QList<Universe*> universes = doc->inputOutputMap()->claimUniverses();
+    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
 
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
@@ -173,7 +173,7 @@ uint MasterTimer::tick()
  * Functions
  *****************************************************************************/
 
-void MasterTimer::startFunction(Function* function)
+void MasterTimer::startFunction(Function *function)
 {
     if (function == NULL)
         return;
@@ -204,11 +204,11 @@ void MasterTimer::fadeAndStopAll(int timeout)
 {
     if (timeout)
     {
-        Doc* doc = qobject_cast<Doc*>(parent());
+        Doc *doc = qobject_cast<Doc *>(parent());
         Q_ASSERT(doc != NULL);
 
-        QList<Universe*> universes = doc->inputOutputMap()->claimUniverses();
-        foreach (Universe* universe, universes)
+        QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
+        foreach (Universe *universe, universes)
         {
             foreach (QSharedPointer<GenericFader> fader, universe->faders())
             {
@@ -228,7 +228,7 @@ int MasterTimer::runningFunctions() const
     return m_functionList.size();
 }
 
-void MasterTimer::timerTickFunctions(QList<Universe*> universes)
+void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 {
     // List of m_functionList indices that should be removed at the end of this
     // function. The functions at the indices have been stopped.
@@ -245,7 +245,7 @@ void MasterTimer::timerTickFunctions(QList<Universe*> universes)
 
         for (int i = 0; i < m_functionList.size(); i++)
         {
-            Function* function = m_functionList.at(i);
+            Function *function = m_functionList.at(i);
 
             if (function != NULL)
             {
@@ -289,11 +289,11 @@ void MasterTimer::timerTickFunctions(QList<Universe*> universes)
         QMutexLocker locker(&m_functionListMutex);
         while (m_startQueue.size() > 0)
         {
-            QList<Function*> startQueue(m_startQueue);
+            QList<Function *> startQueue(m_startQueue);
             m_startQueue.clear();
             locker.unlock();
 
-            foreach (Function* f, startQueue)
+            foreach (Function *f, startQueue)
             {
                 if (m_functionList.contains(f))
                 {
@@ -321,7 +321,7 @@ void MasterTimer::timerTickFunctions(QList<Universe*> universes)
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource* source)
+void MasterTimer::registerDMXSource(DMXSource *source)
 {
     Q_ASSERT(source != NULL);
 
@@ -330,7 +330,7 @@ void MasterTimer::registerDMXSource(DMXSource* source)
         m_dmxSourceList.append(source);
 }
 
-void MasterTimer::unregisterDMXSource(DMXSource* source)
+void MasterTimer::unregisterDMXSource(DMXSource *source)
 {
     Q_ASSERT(source != NULL);
 
@@ -338,12 +338,12 @@ void MasterTimer::unregisterDMXSource(DMXSource* source)
     m_dmxSourceList.removeAll(source);
 }
 
-void MasterTimer::timerTickDMXSources(QList<Universe*> universes)
+void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 {
     /* Lock before accessing the DMX sources list. */
     QMutexLocker lock(&m_dmxSourceListMutex);
 
-    foreach (DMXSource* source, m_dmxSourceList)
+    foreach (DMXSource *source, m_dmxSourceList)
     {
         Q_ASSERT(source != NULL);
 

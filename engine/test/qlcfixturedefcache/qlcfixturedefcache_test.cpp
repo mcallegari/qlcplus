@@ -64,7 +64,7 @@ void QLCFixtureDefCache_Test::add()
     QVERIFY(cache.manufacturers().count() == 0);
 
     /* Add the first fixtureDef */
-    QLCFixtureDef* def = new QLCFixtureDef();
+    QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer("Martin");
     def->setModel("MAC250");
 
@@ -78,7 +78,7 @@ void QLCFixtureDefCache_Test::add()
     QVERIFY(cache.models("Foo").count() == 0);
 
     /* Another fixtureDef, same manufacturer & model. Should be ignored. */
-    QLCFixtureDef* def2 = new QLCFixtureDef();
+    QLCFixtureDef *def2 = new QLCFixtureDef();
     def2->setManufacturer("Martin");
     def2->setModel("MAC250");
 
@@ -104,7 +104,7 @@ void QLCFixtureDefCache_Test::add()
     QVERIFY(cache.models("Martin").contains("MAC500") == true);
 
     /* Another fixtureDef, different manufacturer, different model */
-    QLCFixtureDef* def3 = new QLCFixtureDef();
+    QLCFixtureDef *def3 = new QLCFixtureDef();
     def3->setManufacturer("Futurelight");
     def3->setModel("PHS700");
 
@@ -115,7 +115,7 @@ void QLCFixtureDefCache_Test::add()
     QVERIFY(cache.manufacturers().contains("PHS700") == false);
 
     /* Another fixtureDef, different manufacturer, same model */
-    QLCFixtureDef* def4 = new QLCFixtureDef();
+    QLCFixtureDef *def4 = new QLCFixtureDef();
     def4->setManufacturer("Yoyodyne");
     def4->setModel("MAC250");
 
@@ -140,28 +140,28 @@ void QLCFixtureDefCache_Test::fixtureDef()
     QVERIFY(cache.m_defs.first()->definitionSourceFile() == relPath);
 
     // request a fixture cached but not yet loaded
-    QLCFixtureDef* def = cache.fixtureDef("Futurelight", "CY-200");
+    QLCFixtureDef *def = cache.fixtureDef("Futurelight", "CY-200");
     // check that once loaded, the relative path is reset
     QVERIFY(def->definitionSourceFile().isEmpty());
 
     cache.clear();
 
-    QLCFixtureDef* def1 = new QLCFixtureDef();
+    QLCFixtureDef *def1 = new QLCFixtureDef();
     def1->setManufacturer("Martin");
     def1->setModel("MAC250");
     cache.addFixtureDef(def1);
 
-    QLCFixtureDef* def2 = new QLCFixtureDef();
+    QLCFixtureDef *def2 = new QLCFixtureDef();
     def2->setManufacturer("Martin");
     def2->setModel("MAC500");
     cache.addFixtureDef(def2);
 
-    QLCFixtureDef* def3 = new QLCFixtureDef();
+    QLCFixtureDef *def3 = new QLCFixtureDef();
     def3->setManufacturer("Robe");
     def3->setModel("WL250");
     cache.addFixtureDef(def3);
 
-    QLCFixtureDef* def4 = new QLCFixtureDef();
+    QLCFixtureDef *def4 = new QLCFixtureDef();
     def4->setManufacturer("Futurelight");
     def4->setModel("DJ Scan 250");
     cache.addFixtureDef(def4);

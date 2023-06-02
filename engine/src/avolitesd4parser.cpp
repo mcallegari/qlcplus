@@ -126,7 +126,7 @@ AvolitesD4Parser::AvolitesD4Parser()
 
 AvolitesD4Parser::~AvolitesD4Parser() {}
 
-bool AvolitesD4Parser::loadXML(const QString& path, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::loadXML(const QString &path, QLCFixtureDef *fixtureDef)
 {
     m_lastError = QString();
     m_channels.clear();
@@ -137,7 +137,7 @@ bool AvolitesD4Parser::loadXML(const QString& path, QLCFixtureDef* fixtureDef)
         return false;
     }
 
-    QXmlStreamReader* doc = QLCFile::getXMLReader(path);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(path);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         m_lastError = QString("Unable to read from %1").arg(path);
@@ -337,7 +337,7 @@ bool AvolitesD4Parser::is16Bit(QString dmx) const
     return false;
 }
 
-QLCCapability* AvolitesD4Parser::getCapability(QString dmx, QString name, bool isFine)
+QLCCapability *AvolitesD4Parser::getCapability(QString dmx, QString name, bool isFine)
 {
     if (dmx.isEmpty())
         return NULL;
@@ -376,12 +376,12 @@ QLCCapability* AvolitesD4Parser::getCapability(QString dmx, QString name, bool i
     if (isFine)
         name += " Fine";
 
-    QLCCapability* cap = new QLCCapability(minValue, maxValue, name);
+    QLCCapability *cap = new QLCCapability(minValue, maxValue, name);
 
     return cap;
 }
 
-bool AvolitesD4Parser::parseChannel(QXmlStreamReader* doc, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::parseChannel(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef)
 {
     if (doc->name() != KD4TagControl)
         return false;
@@ -409,7 +409,7 @@ bool AvolitesD4Parser::parseChannel(QXmlStreamReader* doc, QLCFixtureDef* fixtur
     return true;
 }
 
-bool AvolitesD4Parser::parseFunction(QXmlStreamReader* doc, QLCFixtureDef* fixtureDef, QLCChannel* channel, QString ID,
+bool AvolitesD4Parser::parseFunction(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCChannel *channel, QString ID,
                                      QString group)
 {
     QXmlStreamAttributes attrs = doc->attributes();
@@ -421,7 +421,7 @@ bool AvolitesD4Parser::parseFunction(QXmlStreamReader* doc, QLCFixtureDef* fixtu
     }
 
     QString dmx = attrs.value(KD4TagFunctionDmx).toString();
-    QLCCapability* cap = getCapability(dmx, name);
+    QLCCapability *cap = getCapability(dmx, name);
 
     if (cap != NULL)
     {
@@ -433,12 +433,12 @@ bool AvolitesD4Parser::parseFunction(QXmlStreamReader* doc, QLCFixtureDef* fixtu
 
     if (is16Bit(dmx))
     {
-        QLCChannel* fineChan = new QLCChannel();
+        QLCChannel *fineChan = new QLCChannel();
         fineChan->setName(name + " Fine");
         fineChan->setGroup(getGroup(ID, name, group));
         fineChan->setColour(getColour(ID, name, group));
         fineChan->setControlByte(QLCChannel::LSB);
-        QLCCapability* fineCap = getCapability(dmx, name, true);
+        QLCCapability *fineCap = getCapability(dmx, name, true);
         if (fineCap != NULL)
             fineChan->addCapability(fineCap);
         fixtureDef->addChannel(fineChan);
@@ -450,7 +450,7 @@ bool AvolitesD4Parser::parseFunction(QXmlStreamReader* doc, QLCFixtureDef* fixtu
     return true;
 }
 
-bool AvolitesD4Parser::parseAttribute(QXmlStreamReader* doc, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef)
 {
     if (doc->name() != KD4TagAttribute)
         return false;
@@ -460,7 +460,7 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader* doc, QLCFixtureDef* fixt
     QString name = attrs.value(KD4TagName).toString();
     QString group = attrs.value(KD4TagGroup).toString();
 
-    QLCChannel* chan = new QLCChannel();
+    QLCChannel *chan = new QLCChannel();
     chan->setName(name);
     chan->setGroup(getGroup(ID, name, group));
     chan->setColour(getColour(ID, name, group));
@@ -495,7 +495,7 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader* doc, QLCFixtureDef* fixt
     return true;
 }
 
-bool AvolitesD4Parser::parseMode(QXmlStreamReader* doc, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef)
 {
     if (doc->name() != KD4TagMode)
         return false;
@@ -505,7 +505,7 @@ bool AvolitesD4Parser::parseMode(QXmlStreamReader* doc, QLCFixtureDef* fixtureDe
     if (name.isEmpty())
         return false;
 
-    QLCFixtureMode* mode = new QLCFixtureMode(fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(fixtureDef);
     mode->setName(name);
 
     while (doc->readNextStartElement())
@@ -532,25 +532,23 @@ bool AvolitesD4Parser::parseMode(QXmlStreamReader* doc, QLCFixtureDef* fixtureDe
     return true;
 }
 
-bool AvolitesD4Parser::comparePhysical(const QLCPhysical& globalPhy, const QLCPhysical& modePhy) const
+bool AvolitesD4Parser::comparePhysical(const QLCPhysical &globalPhy, const QLCPhysical &modePhy) const
 {
     if (globalPhy.isEmpty())
         return true;
 
-    if (globalPhy.bulbLumens() != modePhy.bulbLumens() ||
-        globalPhy.bulbColourTemperature() != modePhy.bulbColourTemperature() ||
-        globalPhy.weight() != modePhy.weight() || globalPhy.width() != modePhy.width() ||
-        globalPhy.height() != modePhy.height() || globalPhy.depth() != modePhy.depth() ||
-        globalPhy.lensDegreesMin() != modePhy.lensDegreesMin() ||
-        globalPhy.lensDegreesMax() != modePhy.lensDegreesMax() || globalPhy.focusPanMax() != modePhy.focusPanMax() ||
-        globalPhy.focusTiltMax() != modePhy.focusTiltMax() ||
-        globalPhy.powerConsumption() != modePhy.powerConsumption())
+    if (globalPhy.bulbLumens() != modePhy.bulbLumens()
+        || globalPhy.bulbColourTemperature() != modePhy.bulbColourTemperature() || globalPhy.weight() != modePhy.weight()
+        || globalPhy.width() != modePhy.width() || globalPhy.height() != modePhy.height()
+        || globalPhy.depth() != modePhy.depth() || globalPhy.lensDegreesMin() != modePhy.lensDegreesMin()
+        || globalPhy.lensDegreesMax() != modePhy.lensDegreesMax() || globalPhy.focusPanMax() != modePhy.focusPanMax()
+        || globalPhy.focusTiltMax() != modePhy.focusTiltMax() || globalPhy.powerConsumption() != modePhy.powerConsumption())
         return false;
 
     return true;
 }
 
-void AvolitesD4Parser::parsePhysical(QXmlStreamReader* doc, QLCFixtureDef* fixtureDef, QLCFixtureMode* mode)
+void AvolitesD4Parser::parsePhysical(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCFixtureMode *mode)
 {
     if (doc->name() != KD4TagPhysical)
         return;
@@ -630,12 +628,12 @@ void AvolitesD4Parser::parsePhysical(QXmlStreamReader* doc, QLCFixtureDef* fixtu
         mode->setPhysical(phys);
 }
 
-void AvolitesD4Parser::parseInclude(QXmlStreamReader* doc, QLCFixtureMode* mode)
+void AvolitesD4Parser::parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode)
 {
     if (doc->name() != KD4TagModeInclude)
         return;
 
-    QMap<int, QLCChannel*> channelList;
+    QMap<int, QLCChannel *> channelList;
 
     // loop through Attribute tags
     while (doc->readNextStartElement())
@@ -659,8 +657,8 @@ void AvolitesD4Parser::parseInclude(QXmlStreamReader* doc, QLCFixtureMode* mode)
                 {
                     // 16 bit address, we need to add 2 channels, this one, and we need the fine one
                     QStringList offsetValues = offset.split(KD4TagModeChannelSeparator);
-                    // if there's more than 2 addresses, or less than 2, bail out, don't know how to handle this,
-                    // shouldn't happen ever.
+                    // if there's more than 2 addresses, or less than 2, bail out, don't know how to
+                    // handle this, shouldn't happen ever.
                     if (offsetValues.size() > 2 || offsetValues.size() < 2)
                         continue;
 
@@ -669,11 +667,11 @@ void AvolitesD4Parser::parseInclude(QXmlStreamReader* doc, QLCFixtureMode* mode)
                     QString name = m_channels.value(modeID)->name();
 
                     // Search for the fine one
-                    QMapIterator<QString, QLCChannel*> it(m_channels);
+                    QMapIterator<QString, QLCChannel *> it(m_channels);
                     while (it.hasNext() == true)
                     {
                         it.next();
-                        QLCChannel* ch(it.value());
+                        QLCChannel *ch(it.value());
                         Q_ASSERT(ch != NULL);
 
                         if (ch->name() == QString(name + " Fine"))
@@ -693,7 +691,7 @@ void AvolitesD4Parser::parseInclude(QXmlStreamReader* doc, QLCFixtureMode* mode)
         doc->skipCurrentElement();
     }
 
-    QMapIterator<int, QLCChannel*> it(channelList);
+    QMapIterator<int, QLCChannel *> it(channelList);
     while (it.hasNext() == true)
     {
         it.next();
@@ -702,7 +700,7 @@ void AvolitesD4Parser::parseInclude(QXmlStreamReader* doc, QLCFixtureMode* mode)
     }
 }
 
-AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QString& attr)
+AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QString &attr)
 {
     // If there is none, empty or whatever always return something, default is SPECIAL
     if (attr.isEmpty())
@@ -714,7 +712,7 @@ AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QStri
         return AvolitesD4Parser::SPECIAL;
 }
 
-QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef* def) const
+QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef *def) const
 {
     Q_ASSERT(def != NULL);
 
@@ -724,10 +722,10 @@ QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef* def) const
     int haze = 0, smoke = 0;
     int strobe = 0;
 
-    QListIterator<QLCChannel*> it(def->channels());
+    QListIterator<QLCChannel *> it(def->channels());
     while (it.hasNext() == true)
     {
-        const QLCChannel* ch(it.next());
+        const QLCChannel *ch(it.next());
         if (ch->group() == QLCChannel::Pan)
         {
             pan++;

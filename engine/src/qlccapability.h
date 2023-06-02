@@ -84,15 +84,15 @@ class QLCCapability : public QObject
      ********************************************************************/
 public:
     /** Default constructor */
-    QLCCapability(uchar min = 0, uchar max = UCHAR_MAX, const QString& name = QString(), QObject* parent = 0);
+    QLCCapability(uchar min = 0, uchar max = UCHAR_MAX, const QString &name = QString(), QObject *parent = 0);
 
-    QLCCapability* createCopy();
+    QLCCapability *createCopy();
 
     /** Destructor */
     ~QLCCapability();
 
     /** Comparing operator for qSort */
-    bool operator<(const QLCCapability& capability) const;
+    bool operator<(const QLCCapability &capability) const;
 
     /********************************************************************
      * Presets
@@ -195,7 +195,7 @@ public:
 
     /** String <-> value preset conversion helpers */
     static QString presetToString(Preset preset);
-    static Preset stringToPreset(const QString& preset);
+    static Preset stringToPreset(const QString &preset);
 
     /** Get/Set the preset value for this capability */
     Preset preset() const;
@@ -242,7 +242,7 @@ public:
 
     /** Get/Set the capability display name */
     QString name() const;
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get/Set a warning for this capability */
     WarningType warning() const;
@@ -259,7 +259,7 @@ public:
     QVariantList resources();
 
     /** Check, whether the given capability overlaps with this */
-    bool overlaps(const QLCCapability* cap);
+    bool overlaps(const QLCCapability *cap);
 
 signals:
     void minChanged();
@@ -298,10 +298,10 @@ protected:
      ********************************************************************/
 public:
     /** Save the capability into a QXmlStreamWriter */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Load capability contents from an XML element */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

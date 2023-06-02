@@ -50,7 +50,7 @@ void PaletteGenerator_Test::initTestCase()
 void PaletteGenerator_Test::initial()
 {
     Doc doc(this);
-    QList<Fixture*> list;
+    QList<Fixture *> list;
     list << new Fixture(&doc);
     list << new Fixture(&doc);
     list << new Fixture(&doc);
@@ -65,14 +65,14 @@ void PaletteGenerator_Test::capabilities()
 {
     Doc doc(this);
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Showtec", "MiniMax 250");
     Q_ASSERT(fixtureDef != NULL);
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setFixtureDefinition(fixtureDef, fixtureMode);
 
     QStringList caps = PaletteGenerator::getCapabilities(fxi);
@@ -100,20 +100,20 @@ void PaletteGenerator_Test::createColours()
 {
     Doc doc(this);
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Futurelight", "DJScan250");
     Q_ASSERT(fixtureDef != NULL);
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
-    QList<Fixture*> list;
-    Fixture* fxi1 = new Fixture(&doc);
+    QList<Fixture *> list;
+    Fixture *fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
     doc.addFixture(fxi1);
 
-    Fixture* fxi2 = new Fixture(&doc);
+    Fixture *fxi2 = new Fixture(&doc);
     fxi2->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi2;
     doc.addFixture(fxi2);
@@ -123,7 +123,7 @@ void PaletteGenerator_Test::createColours()
     QCOMPARE(doc.functions().size(), 11); // 10 colours
     for (quint32 i = 0; i < 10; i++)
     {
-        Scene* s = qobject_cast<Scene*>(doc.function(i));
+        Scene *s = qobject_cast<Scene *>(doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One colour for two fixtures
         QCOMPARE(s->values().at(0).fxi, fxi1->id());
@@ -137,20 +137,20 @@ void PaletteGenerator_Test::createGobos()
 {
     Doc doc(this);
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Futurelight", "DJScan250");
     Q_ASSERT(fixtureDef != NULL);
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
-    QList<Fixture*> list;
-    Fixture* fxi1 = new Fixture(&doc);
+    QList<Fixture *> list;
+    Fixture *fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
     doc.addFixture(fxi1);
 
-    Fixture* fxi2 = new Fixture(&doc);
+    Fixture *fxi2 = new Fixture(&doc);
     fxi2->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi2;
     doc.addFixture(fxi2);
@@ -160,7 +160,7 @@ void PaletteGenerator_Test::createGobos()
     QCOMPARE(doc.functions().size(), 11); // 10 "gobos"
     for (quint32 i = 0; i < 10; i++)
     {
-        Scene* s = qobject_cast<Scene*>(doc.function(i));
+        Scene *s = qobject_cast<Scene *>(doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One gobo for two fixtures
         QCOMPARE(s->values().at(0).fxi, fxi1->id());
@@ -174,20 +174,20 @@ void PaletteGenerator_Test::createShutters()
 {
     Doc doc(this);
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Martin", "MAC300");
     Q_ASSERT(fixtureDef != NULL);
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
-    QList<Fixture*> list;
-    Fixture* fxi1 = new Fixture(&doc);
+    QList<Fixture *> list;
+    Fixture *fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
     doc.addFixture(fxi1);
 
-    Fixture* fxi2 = new Fixture(&doc);
+    Fixture *fxi2 = new Fixture(&doc);
     fxi2->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi2;
     doc.addFixture(fxi2);
@@ -198,7 +198,7 @@ void PaletteGenerator_Test::createShutters()
     QCOMPARE(doc.functions().size(), 14);
     for (quint32 i = 0; i < 13; i++)
     {
-        Scene* s = qobject_cast<Scene*>(doc.function(i));
+        Scene *s = qobject_cast<Scene *>(doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One cap for two fixtures
         QCOMPARE(s->values().at(0).fxi, fxi1->id());

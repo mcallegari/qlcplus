@@ -33,10 +33,10 @@ public:
     QLCPoint(int x, int y);
 
     /** Comparator function for qSort() */
-    bool operator<(const QLCPoint& pt) const;
+    bool operator<(const QLCPoint &pt) const;
 };
 
-uint qHash(const QLCPoint& key);
+uint qHash(const QLCPoint &key);
 
 /** @} */
 

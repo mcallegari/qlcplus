@@ -40,7 +40,7 @@ public:
      * @param fixtureDef The fixture definition to add
      * @return true, if $modifier was added, otherwise false
      */
-    bool addModifier(ChannelModifier* modifier);
+    bool addModifier(ChannelModifier *modifier);
 
     /**
      * Return a list of strings containing the cached modifiers
@@ -53,7 +53,7 @@ public:
      * @param name The modifier name
      * @return a pointer to the requested modifier or NULL if not found
      */
-    ChannelModifier* modifier(QString name);
+    ChannelModifier *modifier(QString name);
 
     /**
      * Get the default system channels modifiers directory that contains
@@ -81,10 +81,10 @@ public:
      * @param dir The directory to load templates from.
      * @return true, if the path could be accessed, otherwise false.
      */
-    bool load(const QDir& dir, bool systemTemplates = false);
+    bool load(const QDir &dir, bool systemTemplates = false);
 
 private:
-    QHash<QString, ChannelModifier*> m_modifiers;
+    QHash<QString, ChannelModifier *> m_modifiers;
 };
 
 /** @} */

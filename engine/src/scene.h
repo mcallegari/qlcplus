@@ -73,7 +73,7 @@ public:
      *
      * @param doc The parent object who owns the scene
      */
-    Scene(Doc* doc);
+    Scene(Doc *doc);
 
     /**
      * Destroy the scene
@@ -94,10 +94,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** @reimp */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
     /*********************************************************************
      * Values
@@ -106,7 +106,7 @@ public:
     /**
      * Set the value of one fixture channel, using a predefined SceneValue
      */
-    void setValue(const SceneValue& scv, bool blind = false, bool checkHTP = true);
+    void setValue(const SceneValue &scv, bool blind = false, bool checkHTP = true);
 
     /**
      * Set the value of one fixture channel, specify parameters separately
@@ -229,49 +229,49 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();
 
 private:
-    static bool saveXMLFixtureValues(QXmlStreamWriter* doc, quint32 fixtureID, QStringList const& values);
+    static bool saveXMLFixtureValues(QXmlStreamWriter *doc, quint32 fixtureID, QStringList const &values);
 
     /*********************************************************************
      * Flash
      *********************************************************************/
 public:
     /** @reimp */
-    void flash(MasterTimer* timer);
+    void flash(MasterTimer *timer);
 
     /** @reimp */
-    void unFlash(MasterTimer* timer);
+    void unFlash(MasterTimer *timer);
 
     /** @reimp from DMXSource */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer *timer, QList<Universe *> ua);
 
     /*********************************************************************
      * Running
      *********************************************************************/
 public:
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> ua);
+    void write(MasterTimer *timer, QList<Universe *> ua);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> ua);
+    void postRun(MasterTimer *timer, QList<Universe *> ua);
 
     /** @reimp */
     void setPause(bool enable);
 
 private:
     /** Internal helper method to abtract Scene value processing */
-    void processValue(MasterTimer* timer, QList<Universe*> ua, uint fadeIn, SceneValue& scv);
+    void processValue(MasterTimer *timer, QList<Universe *> ua, uint fadeIn, SceneValue &scv);
 
     /** Check whether a fade out is needed and cleanup faders */
-    void handleFadersEnd(MasterTimer* timer);
+    void handleFadersEnd(MasterTimer *timer);
 
     /*********************************************************************
      * Attributes

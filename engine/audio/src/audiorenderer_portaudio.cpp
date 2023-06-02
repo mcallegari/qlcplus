@@ -25,7 +25,7 @@
 #include "audiodecoder.h"
 #include "audiorenderer_portaudio.h"
 
-AudioRendererPortAudio::AudioRendererPortAudio(QString device, QObject* parent)
+AudioRendererPortAudio::AudioRendererPortAudio(QString device, QObject *parent)
     : AudioRenderer(parent)
     , m_paStream(NULL)
     , m_device(device)
@@ -45,10 +45,10 @@ AudioRendererPortAudio::~AudioRendererPortAudio()
         qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 }
 
-int AudioRendererPortAudio::dataCallback(const void*, void* outputBuffer, unsigned long frameCount,
-                                         const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void* userData)
+int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer, unsigned long frameCount,
+                                         const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *userData)
 {
-    AudioRendererPortAudio* PAobj = (AudioRendererPortAudio*)userData;
+    AudioRendererPortAudio *PAobj = (AudioRendererPortAudio *)userData;
 
     unsigned long requestedData = frameCount * PAobj->m_frameSize * PAobj->m_channels;
 
@@ -128,8 +128,7 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
         return false;
     }
 
-    err = Pa_OpenStream(&m_paStream, NULL, &outputParameters, freq, paFramesPerBufferUnspecified, flags, dataCallback,
-                        this);
+    err = Pa_OpenStream(&m_paStream, NULL, &outputParameters, freq, paFramesPerBufferUnspecified, flags, dataCallback, this);
 
     if (err != paNoError)
         return false;
@@ -166,7 +165,7 @@ QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
 
     for (i = 0; i < numDevices; i++)
     {
-        const PaDeviceInfo* deviceInfo = Pa_GetDeviceInfo(i);
+        const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo(i);
         if (deviceInfo != NULL)
         {
             AudioDeviceInfo info;
@@ -188,14 +187,14 @@ QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererPortAudio::writeAudio(unsigned char* data, qint64 maxSize)
+qint64 AudioRendererPortAudio::writeAudio(unsigned char *data, qint64 maxSize)
 {
     if (m_buffer.size() > (8192 * 4))
         return 0;
 
     qDebug() << "writeAudio called !! - " << maxSize;
     QMutexLocker locker(&m_paMutex);
-    m_buffer.append((const char*)data, maxSize);
+    m_buffer.append((const char *)data, maxSize);
 
     return maxSize;
 }

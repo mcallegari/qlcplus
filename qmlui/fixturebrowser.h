@@ -33,8 +33,7 @@ class FixtureBrowser : public QObject
 
     Q_PROPERTY(QStringList manufacturers READ manufacturers CONSTANT)
     Q_PROPERTY(int manufacturerIndex READ manufacturerIndex WRITE setManufacturerIndex NOTIFY manufacturerIndexChanged)
-    Q_PROPERTY(QString selectedManufacturer READ selectedManufacturer WRITE setSelectedManufacturer NOTIFY
-                   selectedManufacturerChanged)
+    Q_PROPERTY(QString selectedManufacturer READ selectedManufacturer WRITE setSelectedManufacturer NOTIFY selectedManufacturerChanged)
 
     Q_PROPERTY(QStringList modelsList READ modelsList NOTIFY modelsListChanged)
     Q_PROPERTY(QString selectedModel READ selectedModel WRITE setSelectedModel NOTIFY selectedModelChanged)
@@ -50,7 +49,7 @@ class FixtureBrowser : public QObject
     Q_PROPERTY(QString fixtureName READ fixtureName WRITE setFixtureName NOTIFY fixtureNameChanged)
 
 public:
-    FixtureBrowser(QQuickView* view, Doc* doc, QObject* parent = 0);
+    FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~FixtureBrowser();
 
     QStringList manufacturers();
@@ -121,8 +120,8 @@ private:
     void updateSearchTree();
 
 private:
-    Doc* m_doc;
-    QQuickView* m_view;
+    Doc *m_doc;
+    QQuickView *m_view;
 
     /** Cache of the organized definitions for browsing */
     QMap<QString, QMap<QString, bool>> m_defCache;
@@ -140,11 +139,11 @@ private:
      *  If no mode is available this can be defined by the user */
     int m_modeChannelsCount;
     /** Reference of the currently selected fixture definition */
-    QLCFixtureDef* m_definition;
+    QLCFixtureDef *m_definition;
     /** Reference of the currently selected fixture mode */
-    QLCFixtureMode* m_mode;
+    QLCFixtureMode *m_mode;
     /** Reference to the tree model used for searches */
-    TreeModel* m_searchTree;
+    TreeModel *m_searchTree;
     /** A string holding the search keyword */
     QString m_searchFilter;
 };

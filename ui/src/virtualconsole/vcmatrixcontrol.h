@@ -47,12 +47,12 @@ class VCMatrixControl
 
 public:
     explicit VCMatrixControl(quint8 id);
-    VCMatrixControl(const VCMatrixControl& other);
+    VCMatrixControl(const VCMatrixControl &other);
 
     /** Destructor */
     ~VCMatrixControl();
 
-    VCMatrixControl& operator=(const VCMatrixControl& vcmc);
+    VCMatrixControl &operator=(const VCMatrixControl &vcmc);
 
     enum ControlType
     {
@@ -89,18 +89,18 @@ protected:
     static ControlType stringToType(QString str);
 
 public:
-    bool operator<(VCMatrixControl const& right) const;
-    static bool compare(VCMatrixControl const* left, VCMatrixControl const* right);
+    bool operator<(VCMatrixControl const &right) const;
+    static bool compare(VCMatrixControl const *left, VCMatrixControl const *right);
 
     /************************************************************************
      * Load & Save
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
 public:
     /** Preset unique ID

@@ -47,10 +47,10 @@ AudioDecoderMAD::~AudioDecoderMAD()
     }
 }
 
-AudioDecoder* AudioDecoderMAD::createCopy()
+AudioDecoder *AudioDecoderMAD::createCopy()
 {
-    AudioDecoderMAD* copy = new AudioDecoderMAD();
-    return qobject_cast<AudioDecoder*>(copy);
+    AudioDecoderMAD *copy = new AudioDecoderMAD();
+    return qobject_cast<AudioDecoder *>(copy);
 }
 
 int AudioDecoderMAD::priority() const
@@ -58,7 +58,7 @@ int AudioDecoderMAD::priority() const
     return 20;
 }
 
-bool AudioDecoderMAD::initialize(const QString& path)
+bool AudioDecoderMAD::initialize(const QString &path)
 {
     m_inited = false;
     m_totalTime = 0;
@@ -115,7 +115,7 @@ bool AudioDecoderMAD::initialize(const QString& path)
         qDebug("DecoderMAD: Can't find a valid MPEG header.");
         return false;
     }
-    mad_stream_buffer(&m_stream, (unsigned char*)m_input_buf, m_input_bytes);
+    mad_stream_buffer(&m_stream, (unsigned char *)m_input_buf, m_input_bytes);
     m_stream.error = MAD_ERROR_BUFLEN;
     mad_frame_mute(&m_frame);
     m_stream.next_frame = 0;
@@ -243,7 +243,7 @@ bool AudioDecoderMAD::findHeader()
                 return false;
             }
 
-            mad_stream_buffer(&m_stream, (unsigned char*)m_input_buf + remaining, m_input_bytes);
+            mad_stream_buffer(&m_stream, (unsigned char *)m_input_buf + remaining, m_input_bytes);
             m_stream.error = MAD_ERROR_NONE;
         }
 
@@ -251,7 +251,7 @@ bool AudioDecoderMAD::findHeader()
         {
             if (m_stream.error == MAD_ERROR_LOSTSYNC)
             {
-                uint tagSize = findID3v2((uchar*)m_stream.this_frame, (ulong)(m_stream.bufend - m_stream.this_frame));
+                uint tagSize = findID3v2((uchar *)m_stream.this_frame, (ulong)(m_stream.bufend - m_stream.this_frame));
                 if (tagSize > 0)
                 {
                     mad_stream_skip(&m_stream, tagSize);
@@ -354,7 +354,7 @@ int AudioDecoderMAD::bitrate()
     return int(m_bitrate);
 }
 
-qint64 AudioDecoderMAD::read(char* data, qint64 size)
+qint64 AudioDecoderMAD::read(char *data, qint64 size)
 {
     forever
     {
@@ -369,8 +369,7 @@ qint64 AudioDecoderMAD::read(char* data, qint64 size)
             case MAD_ERROR_LOSTSYNC:
                 {
                     // skip ID3v2 tag
-                    uint tagSize =
-                        findID3v2((uchar*)m_stream.this_frame, (ulong)(m_stream.bufend - m_stream.this_frame));
+                    uint tagSize = findID3v2((uchar *)m_stream.this_frame, (ulong)(m_stream.bufend - m_stream.this_frame));
                     if (tagSize > 0)
                     {
                         mad_stream_skip(&m_stream, tagSize);
@@ -426,10 +425,10 @@ bool AudioDecoderMAD::fillBuffer()
 {
     if (m_stream.next_frame)
     {
-        m_input_bytes = &m_input_buf[m_input_bytes] - (char*)m_stream.next_frame;
+        m_input_bytes = &m_input_buf[m_input_bytes] - (char *)m_stream.next_frame;
         memmove(m_input_buf, m_stream.next_frame, m_input_bytes);
     }
-    int len = m_input.read((char*)m_input_buf + m_input_bytes, INPUT_BUFFER_SIZE - m_input_bytes);
+    int len = m_input.read((char *)m_input_buf + m_input_bytes, INPUT_BUFFER_SIZE - m_input_bytes);
     if (!len)
     {
         qDebug("DecoderMAD: end of file");
@@ -441,19 +440,19 @@ bool AudioDecoderMAD::fillBuffer()
         return false;
     }
     m_input_bytes += len;
-    mad_stream_buffer(&m_stream, (unsigned char*)m_input_buf, m_input_bytes);
+    mad_stream_buffer(&m_stream, (unsigned char *)m_input_buf, m_input_bytes);
     return true;
 }
 
-uint AudioDecoderMAD::findID3v2(uchar* data, ulong size) // retuns ID3v2 tag size
+uint AudioDecoderMAD::findID3v2(uchar *data, ulong size) // retuns ID3v2 tag size
 {
     if (size < 10)
         return 0;
 
-    if (((data[0] == 'I' && data[1] == 'D' && data[2] == '3') ||  // ID3v2 tag
-         (data[0] == '3' && data[1] == 'D' && data[2] == 'I')) && // ID3v2 footer
-        data[3] < 0xff &&
-        data[4] < 0xff && data[6] < 0x80 && data[7] < 0x80 && data[8] < 0x80 && data[9] < 0x80)
+    if (((data[0] == 'I' && data[1] == 'D' && data[2] == '3') || // ID3v2 tag
+         (data[0] == '3' && data[1] == 'D' && data[2] == 'I'))
+        && // ID3v2 footer
+        data[3] < 0xff && data[4] < 0xff && data[6] < 0x80 && data[7] < 0x80 && data[8] < 0x80 && data[9] < 0x80)
     {
         quint32 id3v2_size = (data[6] << 21) + (data[7] << 14) + (data[8] << 7) + data[9];
         return id3v2_size;
@@ -467,7 +466,7 @@ unsigned long AudioDecoderMAD::prng(unsigned long state) // 32-bit pseudo-random
 }
 
 // gather signal statistics while clipping
-void AudioDecoderMAD::clip(mad_fixed_t* sample)
+void AudioDecoderMAD::clip(mad_fixed_t *sample)
 {
     enum
     {
@@ -481,7 +480,7 @@ void AudioDecoderMAD::clip(mad_fixed_t* sample)
         *sample = MIN;
 }
 
-long AudioDecoderMAD::audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither* dither)
+long AudioDecoderMAD::audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither *dither)
 {
     unsigned int scalebits;
     mad_fixed_t output, mask, random;
@@ -530,7 +529,7 @@ long AudioDecoderMAD::audio_linear_round(unsigned int bits, mad_fixed_t sample)
     return sample >> (MAD_F_FRACBITS + 1 - bits);
 }
 
-qint64 AudioDecoderMAD::madOutput(char* data, qint64 size)
+qint64 AudioDecoderMAD::madOutput(char *data, qint64 size)
 {
     unsigned int samples, channels;
     mad_fixed_t const *left, *right;

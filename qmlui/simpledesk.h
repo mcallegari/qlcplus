@@ -44,7 +44,7 @@ class SimpleDesk : public PreviewContext, public DMXSource
     Q_PROPERTY(QStringList commandHistory READ commandHistory NOTIFY commandHistoryChanged)
 
 public:
-    SimpleDesk(QQuickView* view, Doc* doc, FunctionManager* funcMgr, QObject* parent = 0);
+    SimpleDesk(QQuickView *view, Doc *doc, FunctionManager *funcMgr, QObject *parent = 0);
     ~SimpleDesk();
 
     QVariant universesListModel() const;
@@ -70,10 +70,10 @@ signals:
 
 private:
     /** Reference to the Function Manager */
-    FunctionManager* m_functionManager;
+    FunctionManager *m_functionManager;
 
     /** QML ready model to hold channel values and changes */
-    ListModel* m_channelList;
+    ListModel *m_channelList;
 
     /** Values array for comparison */
     QMap<quint32, QByteArray> m_prevUniverseValues;
@@ -115,7 +115,7 @@ public:
 protected slots:
     /** Invoked by the QLC+ engine to inform the UI that the
      *  Universe at $idx has changed */
-    void slotUniverseWritten(quint32 idx, const QByteArray& ua);
+    void slotUniverseWritten(quint32 idx, const QByteArray &ua);
 
 signals:
     /** Informed the listeners that a channel value has changed.
@@ -178,7 +178,7 @@ signals:
     void commandHistoryChanged();
 
 private:
-    KeyPadParser* m_keyPadParser;
+    KeyPadParser *m_keyPadParser;
     QStringList m_keypadCommandHistory;
 
     /************************************************************************
@@ -186,10 +186,10 @@ private:
      ************************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer *timer, QList<Universe *> ua);
 
 private:
-    FadeChannel* getFader(QList<Universe*> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */

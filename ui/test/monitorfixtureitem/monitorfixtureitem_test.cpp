@@ -65,14 +65,14 @@ void MonitorFixtureItem_Test::computeAlpha()
     QFETCH(quint32, head1Dimmer);
     QFETCH(quint32, head2Dimmer);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setName("Test Fixture");
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
     QVERIFY(def != NULL);
     QVERIFY(def != NULL);
     QVERIFY(def->channels().size() > 0);
-    QLCFixtureMode* m = def->mode(mode);
+    QLCFixtureMode *m = def->mode(mode);
     QVERIFY(m != NULL);
 
     fxi->setFixtureDefinition(def, m);
@@ -80,9 +80,9 @@ void MonitorFixtureItem_Test::computeAlpha()
     fxi->setAddress(0);
     m_doc->addFixture(fxi);
 
-    MonitorFixtureItem* mfi = new MonitorFixtureItem(m_doc, fxi->id());
-    const FixtureHead* h1 = mfi->m_heads.at(0);
-    const FixtureHead* h2 = mfi->m_heads.at(1);
+    MonitorFixtureItem *mfi = new MonitorFixtureItem(m_doc, fxi->id());
+    const FixtureHead *h1 = mfi->m_heads.at(0);
+    const FixtureHead *h2 = mfi->m_heads.at(1);
 
     QVERIFY(h1 != NULL);
     QVERIFY(h2 != NULL);
@@ -260,10 +260,9 @@ void MonitorFixtureItem_Test::computeAlpha_data()
         << "Mega Bar LED"
         << "11 Channels" << 10u << QLCChannel::invalid() << QLCChannel::invalid();
 
-    QTest::newRow("Master dimmer and 4 heads with dimmer and RGB")
-        << "ADB"
-        << "ALC4"
-        << "Extended 21 Channels (CT Linear)" << 0u << 1u << 6u;
+    QTest::newRow("Master dimmer and 4 heads with dimmer and RGB") << "ADB"
+                                                                   << "ALC4"
+                                                                   << "Extended 21 Channels (CT Linear)" << 0u << 1u << 6u;
 
     QTest::newRow("4 RGB heads") << "American DJ"
                                  << "Dotz Bar 1.4"

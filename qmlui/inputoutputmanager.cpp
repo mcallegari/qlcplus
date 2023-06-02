@@ -38,7 +38,7 @@
 #include "tardis.h"
 #include "doc.h"
 
-InputOutputManager::InputOutputManager(QQuickView* view, Doc* doc, QObject* parent)
+InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "IOMGR", parent)
     , m_selectedUniverseIndex(-1)
     , m_blackout(false)
@@ -79,7 +79,7 @@ QVariant InputOutputManager::universes()
 {
     QVariantList universesList;
 
-    for (Universe* uni : m_ioMap->universes())
+    for (Universe *uni : m_ioMap->universes())
     {
         QVariantMap uniMap;
         uniMap.insert("classRef", QVariant::fromValue(uni));
@@ -103,7 +103,7 @@ QVariant InputOutputManager::universesListModel() const
     allMap.insert("mValue", (int)Universe::invalid());
     universesList.append(allMap);
 
-    for (Universe* uni : m_ioMap->universes())
+    for (Universe *uni : m_ioMap->universes())
     {
         QVariantMap uniMap;
         uniMap.insert("mLabel", uni->name());
@@ -165,9 +165,9 @@ void InputOutputManager::removeLastUniverse()
     if (uniID == m_ioMap->invalidUniverse())
         return;
 
-    MonitorProperties* mProps = m_doc->monitorProperties();
+    MonitorProperties *mProps = m_doc->monitorProperties();
 
-    for (Fixture* fixture : m_doc->fixtures())
+    for (Fixture *fixture : m_doc->fixtures())
     {
         if (fixture->universe() != uniID)
             continue;
@@ -191,8 +191,7 @@ void InputOutputManager::removeLastUniverse()
     }
 
     Tardis::instance()->enqueueAction(Tardis::IORemoveUniverse, index,
-                                      Tardis::instance()->actionToByteArray(Tardis::IORemoveUniverse, index),
-                                      QVariant());
+                                      Tardis::instance()->actionToByteArray(Tardis::IORemoveUniverse, index), QVariant());
 
     m_ioMap->removeUniverse(index);
 
@@ -380,7 +379,7 @@ QVariant InputOutputManager::universeInputSources(int universe)
     QVariantList inputSources;
     QString currPlugin;
     int currLine = -1;
-    InputPatch* ip = m_ioMap->inputPatch(universe);
+    InputPatch *ip = m_ioMap->inputPatch(universe);
     if (ip != nullptr)
     {
         currPlugin = ip->pluginName();
@@ -389,7 +388,7 @@ QVariant InputOutputManager::universeInputSources(int universe)
 
     foreach (QString pluginName, m_ioMap->inputPluginNames())
     {
-        QLCIOPlugin* plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
         foreach (QString pLine, m_ioMap->pluginInputs(pluginName))
         {
@@ -399,8 +398,8 @@ QVariant InputOutputManager::universeInputSources(int universe)
                 continue;
             }
             quint32 uni = m_ioMap->inputMapping(pluginName, i);
-            if (uni == InputOutputMap::invalidUniverse() ||
-                (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
+            if (uni == InputOutputMap::invalidUniverse()
+                || (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
             {
                 QVariantMap lineMap;
                 lineMap.insert("universe", universe);
@@ -421,7 +420,7 @@ QVariant InputOutputManager::universeOutputSources(int universe)
     QVariantList outputSources;
     QString currPlugin;
     int currLine = -1;
-    OutputPatch* op = m_ioMap->outputPatch(universe);
+    OutputPatch *op = m_ioMap->outputPatch(universe);
     if (op != nullptr)
     {
         currPlugin = op->pluginName();
@@ -430,7 +429,7 @@ QVariant InputOutputManager::universeOutputSources(int universe)
 
     foreach (QString pluginName, m_ioMap->outputPluginNames())
     {
-        QLCIOPlugin* plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
         foreach (QString pLine, m_ioMap->pluginOutputs(pluginName))
         {
@@ -440,8 +439,8 @@ QVariant InputOutputManager::universeOutputSources(int universe)
                 continue;
             }
             quint32 uni = m_ioMap->outputMapping(pluginName, i);
-            if (uni == InputOutputMap::invalidUniverse() ||
-                (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
+            if (uni == InputOutputMap::invalidUniverse()
+                || (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
             {
                 QVariantMap lineMap;
                 lineMap.insert("universe", universe);
@@ -469,7 +468,7 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
 
     foreach (QString name, profileNames)
     {
-        QLCInputProfile* ip = m_ioMap->profile(name);
+        QLCInputProfile *ip = m_ioMap->profile(name);
         if (ip != nullptr)
         {
             QString type = ip->typeToString(ip->type());
@@ -508,7 +507,7 @@ void InputOutputManager::addInputPatch(int universe, QString plugin, QString lin
 
 void InputOutputManager::setFeedbackPatch(int universe, bool enable)
 {
-    InputPatch* patch = m_ioMap->inputPatch(universe);
+    InputPatch *patch = m_ioMap->inputPatch(universe);
 
     if (patch == nullptr)
         return;
@@ -535,11 +534,11 @@ void InputOutputManager::configurePlugin(bool input)
     if (m_selectedUniverseIndex == -1)
         return;
 
-    QLCIOPlugin* plugin = nullptr;
+    QLCIOPlugin *plugin = nullptr;
 
     if (input)
     {
-        InputPatch* patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
+        InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
         if (patch == nullptr || patch->plugin() == nullptr)
             return;
@@ -547,7 +546,7 @@ void InputOutputManager::configurePlugin(bool input)
     }
     else
     {
-        OutputPatch* patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
+        OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
 
         if (patch == nullptr || patch->plugin() == nullptr)
             return;
@@ -563,7 +562,7 @@ bool InputOutputManager::inputCanConfigure() const
     if (m_selectedUniverseIndex == -1)
         return false;
 
-    InputPatch* patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
+    InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
     if (patch == nullptr || patch->plugin() == nullptr)
         return false;
@@ -576,7 +575,7 @@ bool InputOutputManager::outputCanConfigure() const
     if (m_selectedUniverseIndex == -1)
         return false;
 
-    OutputPatch* patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
+    OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
 
     if (patch == nullptr || patch->plugin() == nullptr)
         return false;
@@ -616,9 +615,9 @@ QVariant InputOutputManager::beatGeneratorsList()
     genList.append(internalMap);
 
     // add the currently open MIDI input devices
-    foreach (Universe* uni, m_ioMap->universes())
+    foreach (Universe *uni, m_ioMap->universes())
     {
-        InputPatch* ip = uni->inputPatch();
+        InputPatch *ip = uni->inputPatch();
         if (ip == nullptr || ip->pluginName() != "MIDI")
             continue;
 

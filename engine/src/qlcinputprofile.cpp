@@ -49,7 +49,7 @@ QLCInputProfile::QLCInputProfile()
 {
 }
 
-QLCInputProfile::QLCInputProfile(const QLCInputProfile& profile)
+QLCInputProfile::QLCInputProfile(const QLCInputProfile &profile)
 {
     *this = profile;
 }
@@ -59,7 +59,7 @@ QLCInputProfile::~QLCInputProfile()
     destroyChannels();
 }
 
-QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
+QLCInputProfile &QLCInputProfile::operator=(const QLCInputProfile &profile)
 {
     if (this != &profile)
     {
@@ -75,7 +75,7 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
         destroyChannels();
 
         /* Copy the other profile's channels */
-        QMapIterator<quint32, QLCInputChannel*> it(profile.m_channels);
+        QMapIterator<quint32, QLCInputChannel *> it(profile.m_channels);
         while (it.hasNext() == true)
         {
             it.next();
@@ -90,7 +90,7 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
  * profile information
  ****************************************************************************/
 
-void QLCInputProfile::setManufacturer(const QString& manufacturer)
+void QLCInputProfile::setManufacturer(const QString &manufacturer)
 {
     m_manufacturer = manufacturer;
 }
@@ -100,7 +100,7 @@ QString QLCInputProfile::manufacturer() const
     return m_manufacturer;
 }
 
-void QLCInputProfile::setModel(const QString& model)
+void QLCInputProfile::setModel(const QString &model)
 {
     m_model = model;
 }
@@ -151,7 +151,7 @@ QString QLCInputProfile::typeToString(Type type)
     }
 }
 
-QLCInputProfile::Type QLCInputProfile::stringToType(const QString& str)
+QLCInputProfile::Type QLCInputProfile::stringToType(const QString &str)
 {
     if (str == KXMLQLCInputProfileTypeMidi)
         return MIDI;
@@ -198,7 +198,7 @@ QMap<QString, QVariant> QLCInputProfile::globalSettings() const
  * Channels
  ****************************************************************************/
 
-bool QLCInputProfile::insertChannel(quint32 channel, QLCInputChannel* ich)
+bool QLCInputProfile::insertChannel(quint32 channel, QLCInputChannel *ich)
 {
     if (ich != NULL && m_channels.contains(channel) == false)
     {
@@ -215,7 +215,7 @@ bool QLCInputProfile::removeChannel(quint32 channel)
 {
     if (m_channels.contains(channel) == true)
     {
-        QLCInputChannel* ich = m_channels.take(channel);
+        QLCInputChannel *ich = m_channels.take(channel);
         Q_ASSERT(ich != NULL);
         delete ich;
         return true;
@@ -226,7 +226,7 @@ bool QLCInputProfile::removeChannel(quint32 channel)
     }
 }
 
-bool QLCInputProfile::remapChannel(QLCInputChannel* ich, quint32 number)
+bool QLCInputProfile::remapChannel(QLCInputChannel *ich, quint32 number)
 {
     if (ich == NULL)
         return false;
@@ -244,7 +244,7 @@ bool QLCInputProfile::remapChannel(QLCInputChannel* ich, quint32 number)
     }
 }
 
-QLCInputChannel* QLCInputProfile::channel(quint32 channel) const
+QLCInputChannel *QLCInputProfile::channel(quint32 channel) const
 {
     if (m_channels.contains(channel) == true)
         return m_channels[channel];
@@ -252,12 +252,12 @@ QLCInputChannel* QLCInputProfile::channel(quint32 channel) const
         return NULL;
 }
 
-quint32 QLCInputProfile::channelNumber(const QLCInputChannel* channel) const
+quint32 QLCInputProfile::channelNumber(const QLCInputChannel *channel) const
 {
     if (channel == NULL)
         return QLCChannel::invalid();
 
-    QMapIterator<quint32, QLCInputChannel*> it(m_channels);
+    QMapIterator<quint32, QLCInputChannel *> it(m_channels);
     while (it.hasNext() == true)
     {
         it.next();
@@ -268,7 +268,7 @@ quint32 QLCInputProfile::channelNumber(const QLCInputChannel* channel) const
     return QLCChannel::invalid();
 }
 
-QMap<quint32, QLCInputChannel*> QLCInputProfile::channels() const
+QMap<quint32, QLCInputChannel *> QLCInputProfile::channels() const
 {
     return m_channels;
 }
@@ -276,7 +276,7 @@ QMap<quint32, QLCInputChannel*> QLCInputProfile::channels() const
 void QLCInputProfile::destroyChannels()
 {
     /* Delete existing channels but leave the pointers there */
-    QMutableMapIterator<quint32, QLCInputChannel*> it(m_channels);
+    QMutableMapIterator<quint32, QLCInputChannel *> it(m_channels);
     while (it.hasNext() == true)
         delete it.next().value();
 
@@ -288,23 +288,20 @@ void QLCInputProfile::destroyChannels()
  * Load & Save
  ****************************************************************************/
 
-QLCInputProfile* QLCInputProfile::loader(const QString& path)
+QLCInputProfile *QLCInputProfile::loader(const QString &path)
 {
-    QXmlStreamReader* doc = QLCFile::getXMLReader(path);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(path);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to load input profile from" << path;
         return NULL;
     }
 
-    QLCInputProfile* profile = new QLCInputProfile();
+    QLCInputProfile *profile = new QLCInputProfile();
     if (profile->loadXML(*doc) == false)
     {
         qWarning() << path
-                   << QString("%1\nLine %2, column %3")
-                          .arg(doc->errorString())
-                          .arg(doc->lineNumber())
-                          .arg(doc->columnNumber());
+                   << QString("%1\nLine %2, column %3").arg(doc->errorString()).arg(doc->lineNumber()).arg(doc->columnNumber());
 
         delete profile;
         profile = NULL;
@@ -319,7 +316,7 @@ QLCInputProfile* QLCInputProfile::loader(const QString& path)
     return profile;
 }
 
-bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
+bool QLCInputProfile::loadXML(QXmlStreamReader &doc)
 {
     if (doc.readNextStartElement() == false)
         return false;
@@ -358,7 +355,7 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
                 if (str.isEmpty() == false)
                 {
                     quint32 ch = str.toInt();
-                    QLCInputChannel* ich = new QLCInputChannel();
+                    QLCInputChannel *ich = new QLCInputChannel();
                     if (ich->loadXML(doc) == true)
                         insertChannel(ch, ich);
                     else
@@ -378,7 +375,7 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
     }
 }
 
-bool QLCInputProfile::saveXML(const QString& fileName)
+bool QLCInputProfile::saveXML(const QString &fileName)
 {
     QFile file(fileName);
     if (file.open(QIODevice::WriteOnly) == false)
@@ -400,7 +397,7 @@ bool QLCInputProfile::saveXML(const QString& fileName)
         doc.writeTextElement(KXMLQLCInputProfileMidiSendNoteOff, QString(KXMLQLCFalse));
 
     /* Write channels to the document */
-    QMapIterator<quint32, QLCInputChannel*> it(m_channels);
+    QMapIterator<quint32, QLCInputChannel *> it(m_channels);
     while (it.hasNext() == true)
     {
         it.next();

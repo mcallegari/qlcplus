@@ -34,8 +34,8 @@ class ShowFunction;
 typedef struct
 {
     quint32 m_trackIndex;
-    ShowFunction* m_showFunc;
-    QQuickItem* m_item;
+    ShowFunction *m_showFunc;
+    QQuickItem *m_item;
 } SelectedShowItem;
 
 class ShowManager : public PreviewContext
@@ -53,12 +53,11 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
-    Q_PROPERTY(
-        int selectedTrackIndex READ selectedTrackIndex WRITE setSelectedTrackIndex NOTIFY selectedTrackIndexChanged)
+    Q_PROPERTY(int selectedTrackIndex READ selectedTrackIndex WRITE setSelectedTrackIndex NOTIFY selectedTrackIndexChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
 public:
-    explicit ShowManager(QQuickView* view, Doc* doc, QObject* parent = 0);
+    explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     /** Return the ID of the Show Function being edited */
     int currentShowID() const;
@@ -79,7 +78,7 @@ public:
     Q_INVOKABLE void resetView();
 
     /** Request to render the current Show items on screen */
-    Q_INVOKABLE void renderView(QQuickItem* parent);
+    Q_INVOKABLE void renderView(QQuickItem *parent);
 
     Q_INVOKABLE void enableFlicking(bool enable);
 
@@ -126,7 +125,7 @@ signals:
 
 private:
     /** A reference to the Show Function being edited */
-    Show* m_currentShow;
+    Show *m_currentShow;
 
     /** The current time scale of the Show Manager timeline */
     float m_timeScale;
@@ -167,7 +166,7 @@ signals:
 
 private:
     /** A list of references to the selected Show Tracks */
-    QList<Track*> m_tracksList;
+    QList<Track *> m_tracksList;
 
     /** The index of the currently selected track */
     int m_selectedTrackIndex;
@@ -202,7 +201,7 @@ public:
      *  If the current Show is NULL, a new Show is created.
      *  If the provided $trackIdx is no valid, a new Track is created
      */
-    Q_INVOKABLE void addItems(QQuickItem* parent, int trackIdx, int startTime, QVariantList idsList);
+    Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList);
 
     Q_INVOKABLE void deleteShowItems(QVariantList data);
 
@@ -213,13 +212,13 @@ public:
      *  If there is enough space, then the item is (in case) removed from the
      *  $originalTrackIdx and moved into $newTrackIdx and true is returned.
      */
-    Q_INVOKABLE bool checkAndMoveItem(ShowFunction* sf, int originalTrackIdx, int newTrackIdx, int newStartTime);
+    Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime);
 
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;
 
     /** Add an item to the selection tracking list */
-    Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction* sf, QQuickItem* item, bool selected);
+    Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected);
 
     /** Deselect all the selected items at once */
     Q_INVOKABLE void resetItemsSelection();
@@ -237,7 +236,7 @@ public:
      * Returns an array of values coupled as: PreviewDrawType, time value
      * The UI will render the lines according to their time value and their type
      */
-    Q_INVOKABLE QVariantList previewData(Function* f) const;
+    Q_INVOKABLE QVariantList previewData(Function *f) const;
 
     Q_INVOKABLE void copyToClipboard();
     Q_INVOKABLE void pasteFromClipboard();
@@ -249,7 +248,7 @@ private:
     /** Check items overlapping for the given track, ShowFunction,
      *  start time and duration. Returns true if overlapping is
      *  detected, otherwise false */
-    bool checkOverlapping(Track* track, ShowFunction* sourceFunc, quint32 startTime, quint32 duration);
+    bool checkOverlapping(Track *track, ShowFunction *sourceFunc, quint32 startTime, quint32 duration);
 
 signals:
     void itemsColorChanged(QColor itemsColor);
@@ -260,7 +259,7 @@ private:
     QColor m_itemsColor;
 
     /** Pre-cached QML component for quick item creation */
-    QQmlComponent* siComponent;
+    QQmlComponent *siComponent;
 
     /** Holds the currently selected Show items */
     QList<SelectedShowItem> m_selectedItems;

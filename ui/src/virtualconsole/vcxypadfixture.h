@@ -58,31 +58,31 @@ class VCXYPadFixture
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadFixture(Doc* doc);
+    VCXYPadFixture(Doc *doc);
 
     /** Initialize from QVariant */
-    VCXYPadFixture(Doc* doc, const QVariant& variant);
-    VCXYPadFixture(const VCXYPadFixture& other);
+    VCXYPadFixture(Doc *doc, const QVariant &variant);
+    VCXYPadFixture(const VCXYPadFixture &other);
     ~VCXYPadFixture();
 
     /** Assignment operator */
-    VCXYPadFixture& operator=(const VCXYPadFixture& fxi);
+    VCXYPadFixture &operator=(const VCXYPadFixture &fxi);
 
     /** Comparing operator */
-    bool operator==(const VCXYPadFixture& fxi) const;
+    bool operator==(const VCXYPadFixture &fxi) const;
 
     /* Serialization operator for VCXYPadFixtureEditor */
     operator QVariant() const;
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /********************************************************************
      * Fixture Head
      ********************************************************************/
 public:
-    void setHead(GroupHead const& head);
-    GroupHead const& head() const;
+    void setHead(GroupHead const &head);
+    GroupHead const &head() const;
 
     QString name() const;
 
@@ -176,8 +176,8 @@ private:
      * Load & Save
      ********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /********************************************************************
      * Running
@@ -203,7 +203,7 @@ public:
      *      (0.0 => min, 1.0 => max, or vice versa if the range is reversed)
      *  \param universes universes where the values are written
      */
-    void writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFader> fader, Universe* universe);
+    void writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFader> fader, Universe *universe);
 
     /** Read position from the current universe
      *  \param universeData universe values where this fixture is present
@@ -212,10 +212,10 @@ public:
      *  \param ymul <0.0;1.0> - tilt value in the range set by setY
      *      (min => 0.0, max => 1.0, or vice versa if the range is reversed)
      */
-    void readDMX(const QByteArray& universeData, qreal& xmul, qreal& ymul);
+    void readDMX(const QByteArray &universeData, qreal &xmul, qreal &ymul);
 
 private:
-    void updateChannel(FadeChannel* fc, uchar value);
+    void updateChannel(FadeChannel *fc, uchar value);
 
 private:
     /** Flag to enable/disable this fixture at runtime */

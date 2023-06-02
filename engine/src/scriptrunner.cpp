@@ -32,7 +32,7 @@
 #include "mastertimer.h"
 #include "universe.h"
 
-ScriptRunner::ScriptRunner(Doc* doc, QString& content, QObject* parent)
+ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
     : QThread(parent)
     , m_doc(doc)
     , m_content(content)
@@ -72,7 +72,7 @@ void ScriptRunner::stop()
     // Stop all functions started by this script
     foreach (quint32 fID, m_startedFunctions)
     {
-        Function* function = m_doc->function(fID);
+        Function *function = m_doc->function(fID);
         if (function == NULL)
             continue;
 
@@ -94,7 +94,7 @@ void ScriptRunner::stop()
 QStringList ScriptRunner::collectScriptData()
 {
     QStringList syntaxErrorList;
-    QJSEngine* engine = new QJSEngine();
+    QJSEngine *engine = new QJSEngine();
     QJSValue objectValue = engine->newQObject(this);
     engine->globalObject().setProperty("Engine", objectValue);
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
@@ -102,9 +102,8 @@ QStringList ScriptRunner::collectScriptData()
     QJSValue script = engine->evaluate("(function run() { " + m_content + " })");
     if (script.isError())
     {
-        QString msg = QString("Uncaught exception at line %2. %3")
-                          .arg(script.property("lineNumber").toInt())
-                          .arg(script.toString());
+        QString msg =
+            QString("Uncaught exception at line %2. %3").arg(script.property("lineNumber").toInt()).arg(script.toString());
         qWarning() << msg;
         // qDebug() << "Stack: " << script.property("stack").toString();
         syntaxErrorList << msg;
@@ -123,9 +122,8 @@ QStringList ScriptRunner::collectScriptData()
         QJSValue ret = script.call(QJSValueList());
         if (ret.isError())
         {
-            QString msg = QString("Uncaught exception at line %2. %3")
-                              .arg(ret.property("lineNumber").toInt())
-                              .arg(ret.toString());
+            QString msg =
+                QString("Uncaught exception at line %2. %3").arg(ret.property("lineNumber").toInt()).arg(ret.toString());
             qWarning() << msg;
             syntaxErrorList << msg;
         }
@@ -141,7 +139,7 @@ int ScriptRunner::currentWaitTime()
     return m_waitCount * MasterTimer::tick();
 }
 
-bool ScriptRunner::write(MasterTimer* timer, QList<Universe*> universes)
+bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 {
     if (m_waitCount > 0)
         m_waitCount--;
@@ -161,7 +159,7 @@ bool ScriptRunner::write(MasterTimer* timer, QList<Universe*> universes)
                 m_fadersMap[val.m_universe] = fader;
             }
 
-            FadeChannel* fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
 
             fc->setStart(fc->current());
             fc->setTarget(val.m_value);
@@ -178,7 +176,7 @@ bool ScriptRunner::write(MasterTimer* timer, QList<Universe*> universes)
             quint32 fID = pair.first;
             bool start = pair.second;
 
-            Function* function = m_doc->function(fID);
+            Function *function = m_doc->function(fID);
             if (function == NULL)
             {
                 qWarning() << QString("No such function (ID %1)").arg(fID);
@@ -248,12 +246,12 @@ int ScriptRunner::getChannelValue(int universe, int channel)
     if (m_running == false)
         return false;
 
-    QList<Universe*> uniList = m_doc->inputOutputMap()->claimUniverses();
+    QList<Universe *> uniList = m_doc->inputOutputMap()->claimUniverses();
     uchar dmxValue = 0;
 
     if (universe >= 0 && universe < uniList.count())
     {
-        Universe* uni = uniList.at(universe);
+        Universe *uni = uniList.at(universe);
         dmxValue = uni->preGMValue(channel);
     }
     m_doc->inputOutputMap()->releaseUniverses(false);
@@ -268,7 +266,7 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
 
     qDebug() << Q_FUNC_INFO;
 
-    Fixture* fxi = m_doc->fixture(fxID);
+    Fixture *fxi = m_doc->fixture(fxID);
     if (fxi == NULL)
     {
         qWarning() << QString("No such fixture (ID: %1)").arg(fxID);
@@ -305,7 +303,7 @@ bool ScriptRunner::startFunction(quint32 fID)
     if (m_running == false)
         return false;
 
-    Function* function = m_doc->function(fID);
+    Function *function = m_doc->function(fID);
     if (function == NULL)
     {
         qWarning() << QString("No such function (ID %1)").arg(fID);
@@ -326,7 +324,7 @@ bool ScriptRunner::stopFunction(quint32 fID)
     if (m_running == false)
         return false;
 
-    Function* function = m_doc->function(fID);
+    Function *function = m_doc->function(fID);
     if (function == NULL)
     {
         qWarning() << QString("No such function (ID %1)").arg(fID);
@@ -347,7 +345,7 @@ bool ScriptRunner::isFunctionRunning(quint32 fID)
     if (m_running == false)
         return false;
 
-    Function* function = m_doc->function(fID);
+    Function *function = m_doc->function(fID);
     if (function == NULL)
     {
         qWarning() << QString("No such function (ID %1)").arg(fID);
@@ -362,7 +360,7 @@ float ScriptRunner::getFunctionAttribute(quint32 fID, int attributeIndex)
     if (m_running == false)
         return false;
 
-    Function* function = m_doc->function(fID);
+    Function *function = m_doc->function(fID);
     if (function == NULL)
     {
         qWarning() << QString("No such function (ID %1)").arg(fID);
@@ -377,7 +375,7 @@ bool ScriptRunner::setFunctionAttribute(quint32 fID, int attributeIndex, float v
     if (m_running == false)
         return false;
 
-    Function* function = m_doc->function(fID);
+    Function *function = m_doc->function(fID);
     if (function == NULL)
     {
         qWarning() << QString("No such function (ID %1)").arg(fID);
@@ -394,7 +392,7 @@ bool ScriptRunner::setFunctionAttribute(quint32 fID, QString attributeName, floa
     if (m_running == false)
         return false;
 
-    Function* function = m_doc->function(fID);
+    Function *function = m_doc->function(fID);
     if (function == NULL)
     {
         qWarning() << QString("No such function (ID %1)").arg(fID);
@@ -454,7 +452,7 @@ bool ScriptRunner::systemCommand(QString command)
 
 #if !defined(Q_OS_IOS)
     qint64 pid;
-    QProcess* newProcess = new QProcess();
+    QProcess *newProcess = new QProcess();
     newProcess->setProgram(programName);
     newProcess->setArguments(programArgs);
     newProcess->startDetached(&pid);

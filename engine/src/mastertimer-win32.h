@@ -32,7 +32,7 @@ class MasterTimer;
 class MasterTimerPrivate
 {
 public:
-    MasterTimerPrivate(MasterTimer* masterTimer);
+    MasterTimerPrivate(MasterTimer *masterTimer);
     ~MasterTimerPrivate();
 
     void start();
@@ -42,7 +42,7 @@ public:
     void timerTick();
 
 private:
-    MasterTimer* m_masterTimer;
+    MasterTimer *m_masterTimer;
     UINT m_systemTimerResolution;
     HANDLE m_phTimer;
     bool m_run;

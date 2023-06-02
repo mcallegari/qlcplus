@@ -28,7 +28,7 @@
 #include "headeritems.h"
 #include "audiodecoder.h"
 
-RGBMatrixItem::RGBMatrixItem(RGBMatrix* rgbm, ShowFunction* func)
+RGBMatrixItem::RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func)
     : ShowItem(func)
     , m_matrix(rgbm)
 {
@@ -58,7 +58,7 @@ void RGBMatrixItem::calculateWidth()
     setWidth(newWidth);
 }
 
-void RGBMatrixItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -120,7 +120,7 @@ QString RGBMatrixItem::functionName()
     return QString();
 }
 
-RGBMatrix* RGBMatrixItem::getRGBMatrix()
+RGBMatrix *RGBMatrixItem::getRGBMatrix()
 {
     return m_matrix;
 }
@@ -132,14 +132,14 @@ void RGBMatrixItem::slotRGBMatrixChanged(quint32)
     updateTooltip();
 }
 
-void RGBMatrixItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
+void RGBMatrixItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach (QAction* action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

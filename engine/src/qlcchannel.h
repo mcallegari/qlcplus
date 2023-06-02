@@ -82,15 +82,15 @@ class QLCChannel : public QObject
 
 public:
     /** Standard constructor */
-    QLCChannel(QObject* parent = 0);
+    QLCChannel(QObject *parent = 0);
 
-    QLCChannel* createCopy();
+    QLCChannel *createCopy();
 
     /** Destructor */
     ~QLCChannel();
 
     /** Assignment operator */
-    QLCChannel& operator=(const QLCChannel& lc);
+    QLCChannel &operator=(const QLCChannel &lc);
 
     /**
      * The invalid channel number (for comparison etc...)
@@ -184,12 +184,12 @@ public:
     Q_ENUM(Preset)
 
     static QString presetToString(Preset preset);
-    static Preset stringToPreset(const QString& preset);
+    static Preset stringToPreset(const QString &preset);
 
     Preset preset() const;
     void setPreset(Preset preset);
 
-    QLCCapability* addPresetCapability();
+    QLCCapability *addPresetCapability();
 
 signals:
     void presetChanged();
@@ -226,7 +226,7 @@ public:
     static QString groupToString(Group grp);
 
     /** Convert a string to a Group */
-    static Group stringToGroup(const QString& str);
+    static Group stringToGroup(const QString &str);
 
     /** Helper method to get a string of the current group */
     Q_INVOKABLE QString groupString() const;
@@ -274,7 +274,7 @@ public:
     QString name() const;
 
     /** Set the channel's name */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get the channel's default value */
     uchar defaultValue() const;
@@ -327,7 +327,7 @@ public:
     static QString colourToString(PrimaryColour colour);
 
     /** Convert a string to a Group */
-    static PrimaryColour stringToColour(const QString& str);
+    static PrimaryColour stringToColour(const QString &str);
 
     /** Set the colour that is controlled by this channel */
     void setColour(PrimaryColour colour);
@@ -346,10 +346,10 @@ private:
      *********************************************************************/
 public:
     /** Get a list of channel's capabilities */
-    const QList<QLCCapability*> capabilities() const;
+    const QList<QLCCapability *> capabilities() const;
 
     /** Search for a particular capability by its channel value */
-    QLCCapability* searchCapability(uchar value) const;
+    QLCCapability *searchCapability(uchar value) const;
 
     /**
      * Search for a particular capability by its name. If exactMatch = true,
@@ -362,33 +362,33 @@ public:
      *                   otherwise a "contains" comparison is made.
      * @return QLCCapability or NULL
      */
-    QLCCapability* searchCapability(const QString& name, bool exactMatch = true) const;
+    QLCCapability *searchCapability(const QString &name, bool exactMatch = true) const;
 
     /** Add a new capability to the channel */
-    bool addCapability(QLCCapability* cap);
+    bool addCapability(QLCCapability *cap);
 
     /** Remove a capability from the channel */
-    bool removeCapability(QLCCapability* cap);
+    bool removeCapability(QLCCapability *cap);
 
     /** Change a current cap range, checking for feasibility */
-    bool setCapabilityRange(QLCCapability* cap, uchar min, uchar max);
+    bool setCapabilityRange(QLCCapability *cap, uchar min, uchar max);
 
     /** Sort capabilities to ascending order by their values */
     void sortCapabilities();
 
 protected:
     /** List of channel's capabilities */
-    QList<QLCCapability*> m_capabilities;
+    QList<QLCCapability *> m_capabilities;
 
     /*********************************************************************
      * File operations
      *********************************************************************/
 public:
     /** Save the channel to a QXmlStreamWriter */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /** Load channel contents from an XML element */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

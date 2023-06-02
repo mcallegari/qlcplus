@@ -26,7 +26,7 @@
 #include "chaserstep.h"
 #include "trackitem.h"
 
-SequenceItem::SequenceItem(Chaser* seq, ShowFunction* func)
+SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
     : ShowItem(func)
     , m_chaser(seq)
     , m_selectedStep(-1)
@@ -59,7 +59,7 @@ void SequenceItem::calculateWidth()
     setWidth(newWidth);
 }
 
-void SequenceItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     float xpos = 0;
     float timeScale = 50 / (float)m_timeScale;
@@ -149,7 +149,7 @@ void SequenceItem::setSelectedStep(int idx)
     update();
 }
 
-Chaser* SequenceItem::getChaser()
+Chaser *SequenceItem::getChaser()
 {
     return m_chaser;
 }
@@ -163,14 +163,14 @@ void SequenceItem::slotSequenceChanged(quint32)
     updateTooltip();
 }
 
-void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
+void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach (QAction* action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

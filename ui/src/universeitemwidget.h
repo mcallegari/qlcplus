@@ -32,7 +32,7 @@ class UniverseItemWidget : public QItemDelegate
     Q_OBJECT
 
 public:
-    UniverseItemWidget(QWidget* parent = 0);
+    UniverseItemWidget(QWidget *parent = 0);
 
     virtual ~UniverseItemWidget();
 
@@ -41,7 +41,7 @@ public:
      *********************************************************************/
 
 protected:
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     // QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 };
 

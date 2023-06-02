@@ -65,7 +65,7 @@ void VCWidget_Test::initial()
     QCOMPARE(stub.hasCustomFont(), false);
     QCOMPARE(stub.frameStyle(), 0);
     QCOMPARE(stub.allowChildren(), false);
-    QCOMPARE(stub.customMenu(0), (QMenu*)0);
+    QCOMPARE(stub.customMenu(0), (QMenu *)0);
     QCOMPARE(stub.lastClickPoint(), QPoint(0, 0));
 
     for (quint8 i = 0; i < 255; i++)
@@ -363,15 +363,15 @@ void VCWidget_Test::copy()
     QCOMPARE(copy.pos(), QPoint(10, 20));
     QCOMPARE(copy.size(), QSize(20, 30));
 
-    QLCInputSource* src1 = new QLCInputSource(0, 12);
+    QLCInputSource *src1 = new QLCInputSource(0, 12);
     QCOMPARE(copy.inputSource()->universe(), src1->universe());
     QCOMPARE(copy.inputSource()->channel(), src1->channel());
 
-    QLCInputSource* src2 = new QLCInputSource(1, 2);
+    QLCInputSource *src2 = new QLCInputSource(1, 2);
     QCOMPARE(copy.inputSource(15)->universe(), src2->universe());
     QCOMPARE(copy.inputSource(15)->channel(), src2->channel());
 
-    QLCInputSource* src3 = new QLCInputSource(3, 4);
+    QLCInputSource *src3 = new QLCInputSource(3, 4);
     QCOMPARE(copy.inputSource(1)->universe(), src3->universe());
     QCOMPARE(copy.inputSource(1)->channel(), src3->channel());
 
@@ -429,7 +429,7 @@ void VCWidget_Test::loadInput()
     StubWidget stub(&w, m_doc);
     QCOMPARE(stub.loadXMLInput(xmlReader), true);
 
-    QLCInputSource* src = new QLCInputSource(12, 34);
+    QLCInputSource *src = new QLCInputSource(12, 34);
     QCOMPARE(stub.inputSource()->universe(), src->universe());
     QCOMPARE(stub.inputSource()->channel(), src->channel());
 
@@ -893,11 +893,11 @@ void VCWidget_Test::move()
 
 void VCWidget_Test::paint()
 {
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     QVERIFY(vc != NULL);
 
     // Just try to cover all local branches with this test
-    StubWidget* stub = new StubWidget(vc->contents(), m_doc);
+    StubWidget *stub = new StubWidget(vc->contents(), m_doc);
     VirtualConsole::instance()->show();
     stub->show();
     QTest::qWait(10);
@@ -927,12 +927,12 @@ void VCWidget_Test::mousePress()
 {
     QCOMPARE(m_doc->mode(), Doc::Design);
 
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     QVERIFY(vc != NULL);
 
     vc->show();
 
-    StubWidget* stub = new StubWidget(vc->contents(), m_doc);
+    StubWidget *stub = new StubWidget(vc->contents(), m_doc);
     stub->show();
     stub->resize(QSize(20, 20));
     QCOMPARE(stub->pos(), QPoint(0, 0));

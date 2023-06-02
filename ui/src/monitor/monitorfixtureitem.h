@@ -31,8 +31,8 @@ class Doc;
 
 struct FixtureHead
 {
-    QGraphicsEllipseItem* m_item;
-    QGraphicsEllipseItem* m_back;
+    QGraphicsEllipseItem *m_item;
+    QGraphicsEllipseItem *m_back;
 
     //! cached rgb channels (channel indices)
     QList<quint32> m_rgb;
@@ -67,7 +67,7 @@ struct FixtureHead
     uchar m_dimmerValue;
     ShutterState m_shutterState;
     int m_strobePhase;
-    QTimer* m_strobeTimer;
+    QTimer *m_strobeTimer;
 
     quint32 m_dimmer;
     quint32 m_masterDimmer;
@@ -87,7 +87,7 @@ class MonitorFixtureItem : public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    MonitorFixtureItem(Doc* doc, quint32 fid);
+    MonitorFixtureItem(Doc *doc, quint32 fid);
 
     ~MonitorFixtureItem();
 
@@ -144,25 +144,25 @@ protected slots:
 
 protected:
     QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent*);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 
 private:
-    void computeTiltPosition(FixtureHead* h, uchar value);
-    void computePanPosition(FixtureHead* h, uchar value);
+    void computeTiltPosition(FixtureHead *h, uchar value);
+    void computePanPosition(FixtureHead *h, uchar value);
 
-    QColor computeColor(const FixtureHead* head, const QByteArray& values);
-    uchar computeAlpha(const FixtureHead* head, const QByteArray& values);
-    FixtureHead::ShutterState computeShutter(const FixtureHead* head, const QByteArray& values);
+    QColor computeColor(const FixtureHead *head, const QByteArray &values);
+    uchar computeAlpha(const FixtureHead *head, const QByteArray &values);
+    FixtureHead::ShutterState computeShutter(const FixtureHead *head, const QByteArray &values);
 
 signals:
-    void itemDropped(MonitorFixtureItem*);
+    void itemDropped(MonitorFixtureItem *);
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /** The Fixture ID this item is associated to */
     quint32 m_fid;
@@ -179,7 +179,7 @@ private:
     /** Position of the item top-left corner in millimeters */
     QPointF m_realPos;
 
-    QList<FixtureHead*> m_heads;
+    QList<FixtureHead *> m_heads;
 
     /** In case of a dimmer, this hold the gel color to apply */
     QColor m_gelColor;

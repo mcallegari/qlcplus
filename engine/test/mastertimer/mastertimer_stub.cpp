@@ -24,7 +24,7 @@
  * MasterTimer Stub
  ****************************************************************************/
 
-MasterTimerStub::MasterTimerStub(Doc* doc, QList<Universe*> universes)
+MasterTimerStub::MasterTimerStub(Doc *doc, QList<Universe *> universes)
     : MasterTimer(doc)
     , m_universes(universes)
 {
@@ -32,25 +32,25 @@ MasterTimerStub::MasterTimerStub(Doc* doc, QList<Universe*> universes)
 
 MasterTimerStub::~MasterTimerStub() {}
 
-void MasterTimerStub::startFunction(Function* function)
+void MasterTimerStub::startFunction(Function *function)
 {
     m_functionList.append(function);
     function->preRun(this);
 }
 
-void MasterTimerStub::stopFunction(Function* function)
+void MasterTimerStub::stopFunction(Function *function)
 {
     function->stop(FunctionParent::master());
     m_functionList.removeAll(function);
     function->postRun(this, m_universes);
 }
 
-void MasterTimerStub::registerDMXSource(DMXSource* source)
+void MasterTimerStub::registerDMXSource(DMXSource *source)
 {
     m_dmxSourceList.append(source);
 }
 
-void MasterTimerStub::unregisterDMXSource(DMXSource* source)
+void MasterTimerStub::unregisterDMXSource(DMXSource *source)
 {
     m_dmxSourceList.removeAll(source);
 }

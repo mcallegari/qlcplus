@@ -54,7 +54,7 @@ public:
      * Initialization
      *********************************************************************/
 public:
-    VCAudioTriggers(QWidget* parent, Doc* doc);
+    VCAudioTriggers(QWidget *parent, Doc *doc);
     virtual ~VCAudioTriggers();
 
     void enableWidgetUI(bool enable);
@@ -80,28 +80,28 @@ signals:
     void captureEnabled(bool enabled);
 
 protected slots:
-    void slotDisplaySpectrum(double* spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 #if QT_VERSION >= 0x050000
     void slotVolumeChanged(int volume);
 #endif
 
 protected:
-    QHBoxLayout* m_hbox;
-    QToolButton* m_button;
-    QLabel* m_label;
-    AudioTriggerWidget* m_spectrum;
-    ClickAndGoSlider* m_volumeSlider;
-    AudioCapture* m_inputCapture;
+    QHBoxLayout *m_hbox;
+    QToolButton *m_button;
+    QLabel *m_label;
+    AudioTriggerWidget *m_spectrum;
+    ClickAndGoSlider *m_volumeSlider;
+    AudioCapture *m_inputCapture;
 
-    AudioBar* m_volumeBar;
-    QList<AudioBar*> m_spectrumBars;
+    AudioBar *m_volumeBar;
+    QList<AudioBar *> m_spectrumBars;
 
     /*********************************************************************
      * DMXSource
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe *> universes);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
@@ -111,11 +111,11 @@ private:
      * Key sequence handler
      *********************************************************************/
 public:
-    void setKeySequence(const QKeySequence& keySequence);
+    void setKeySequence(const QKeySequence &keySequence);
     QKeySequence keySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
 
 protected:
     QKeySequence m_keySequence;
@@ -134,21 +134,21 @@ protected slots:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*************************************************************************
      * VCWidget-inherited
      *************************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString &text);
 
     /** @reimp */
-    void setForegroundColor(const QColor& color);
+    void setForegroundColor(const QColor &color);
 
     /** @reimp */
     QColor foregroundColor() const;
@@ -173,10 +173,10 @@ public:
 
     /** Get a pointer to a single AudioBar by index.
      */
-    AudioBar* getSpectrumBar(int index);
+    AudioBar *getSpectrumBar(int index);
 
     /** Get a list of pointers to all the current audio bars */
-    QList<AudioBar*> getAudioBars();
+    QList<AudioBar *> getAudioBars();
 
     void setSpectrumBarsNumber(int num);
     void setSpectrumBarType(int index, int type);
@@ -192,7 +192,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -200,7 +200,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

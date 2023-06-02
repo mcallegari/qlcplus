@@ -68,7 +68,7 @@ public:
 
     /** Copy constructor */
     // QLCInputChannel(const QLCInputChannel& channel);
-    QLCInputChannel* createCopy();
+    QLCInputChannel *createCopy();
 
     /** Destructor */
     virtual ~QLCInputChannel();
@@ -102,7 +102,7 @@ public:
     static QString typeToString(Type type);
 
     /** Convert the given QString to a QLCInputChannel::Type */
-    static Type stringToType(const QString& type);
+    static Type stringToType(const QString &type);
 
     /** Get a list of available channel types */
     static QStringList types();
@@ -111,7 +111,7 @@ public:
     static QIcon typeToIcon(Type type);
 
     /** Get icon for a type */
-    static QIcon stringToIcon(const QString& str);
+    static QIcon stringToIcon(const QString &str);
 
     QIcon icon() const;
 
@@ -123,7 +123,7 @@ protected:
      ********************************************************************/
 public:
     /** Set the name of this this channel */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get the name of this channel */
     QString name() const;
@@ -176,7 +176,7 @@ public:
      * @param root An input channel tag
      * @return true if successful, otherwise false
      */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save this channel's contents to the given XML document, setting the
@@ -186,7 +186,7 @@ public:
      * @param channelNumber The channel's number in the channel map
      * @return true if successful, otherwise false
      */
-    bool saveXML(QXmlStreamWriter* doc, quint32 channelNumber) const;
+    bool saveXML(QXmlStreamWriter *doc, quint32 channelNumber) const;
 };
 
 /** @} */

@@ -46,8 +46,7 @@ class VCCueList : public VCWidget
     Q_PROPERTY(quint32 chaserID READ chaserID WRITE setChaserID NOTIFY chaserIDChanged)
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
 
-    Q_PROPERTY(NextPrevBehavior nextPrevBehavior READ nextPrevBehavior WRITE setNextPrevBehavior NOTIFY
-                   nextPrevBehaviorChanged)
+    Q_PROPERTY(NextPrevBehavior nextPrevBehavior READ nextPrevBehavior WRITE setNextPrevBehavior NOTIFY nextPrevBehaviorChanged)
     Q_PROPERTY(PlaybackLayout playbackLayout READ playbackLayout WRITE setPlaybackLayout NOTIFY playbackLayoutChanged)
 
     Q_PROPERTY(FaderMode sideFaderMode READ sideFaderMode WRITE setSideFaderMode NOTIFY sideFaderModeChanged)
@@ -62,7 +61,7 @@ class VCCueList : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCCueList(Doc* doc = nullptr, QObject* parent = nullptr);
+    VCCueList(Doc *doc = nullptr, QObject *parent = nullptr);
     virtual ~VCCueList();
 
     /** @reimp */
@@ -72,20 +71,20 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView* view, QQuickItem* parent);
+    void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
     /** @reimp */
     void adjustIntensity(qreal val);
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * UI settings
@@ -153,7 +152,7 @@ public:
 protected:
     qreal getPrimaryIntensity() const;
     int getFadeMode() const;
-    void stopStepIfNeeded(Chaser* ch);
+    void stopStepIfNeeded(Chaser *ch);
 
 signals:
     void sideFaderModeChanged();
@@ -176,7 +175,7 @@ public:
     Q_INVOKABLE void setChaserID(quint32 fid);
 
     /** Get the chaser function that is used as cue list steps */
-    Chaser* chaser();
+    Chaser *chaser();
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
@@ -205,7 +204,7 @@ private:
      *  organized as follows:
      *  funcID | isSelected | fadeIn | fadeOut | hold | duration | note
      */
-    ListModel* m_stepsList;
+    ListModel *m_stepsList;
 
     /*********************************************************************
      * Playback
@@ -279,7 +278,7 @@ private:
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
 
-    QTimer* m_timer;
+    QTimer *m_timer;
 
     /*********************************************************************
      * External input
@@ -297,10 +296,10 @@ public slots:
      *********************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

@@ -73,7 +73,7 @@ public:
      * Initialization
      *********************************************************************/
 public:
-    VCButton(QWidget* parent, Doc* doc);
+    VCButton(QWidget *parent, Doc *doc);
     ~VCButton();
 
     /*********************************************************************
@@ -88,11 +88,11 @@ public:
      *********************************************************************/
 public:
     /** Create a copy of this widget to the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * Properties
@@ -106,7 +106,7 @@ public:
      *********************************************************************/
 public:
     /** Set the button's background image */
-    void setBackgroundImage(const QString& path);
+    void setBackgroundImage(const QString &path);
 
 protected:
     QPixmap m_bgPixmap;
@@ -116,7 +116,7 @@ protected:
      *********************************************************************/
 public:
     /** Set the button's background color */
-    void setBackgroundColor(const QColor& color);
+    void setBackgroundColor(const QColor &color);
 
     /** Get the button's background color */
     QColor backgroundColor() const;
@@ -129,7 +129,7 @@ public:
      *********************************************************************/
 public:
     /** Set the button's foreground color */
-    void setForegroundColor(const QColor& color);
+    void setForegroundColor(const QColor &color);
 
     /** Get the button's foreground color */
     QColor foregroundColor() const;
@@ -147,7 +147,7 @@ public:
     QString iconPath() const;
 
     /** Set the icon's path */
-    void setIconPath(const QString& iconPath);
+    void setIconPath(const QString &iconPath);
 
 private:
     /** Reload icon file from disk */
@@ -162,8 +162,8 @@ protected:
     QIcon m_icon;
     QSize m_iconSize;
 
-    QAction* m_chooseIconAction;
-    QAction* m_resetIconAction;
+    QAction *m_chooseIconAction;
+    QAction *m_resetIconAction;
 
     /*********************************************************************
      * Function attachment
@@ -186,7 +186,7 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    void adjustFunctionIntensity(Function* f, qreal value);
+    void adjustFunctionIntensity(Function *f, qreal value);
 
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
@@ -226,12 +226,12 @@ protected:
      * Key sequence handler
      *********************************************************************/
 public:
-    void setKeySequence(const QKeySequence& keySequence);
+    void setKeySequence(const QKeySequence &keySequence);
     QKeySequence keySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
-    void slotKeyReleased(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
+    void slotKeyReleased(const QKeySequence &keySequence);
 
 protected:
     QKeySequence m_keySequence;
@@ -270,7 +270,7 @@ public:
     Action action() const;
 
     static QString actionToString(Action action);
-    static Action stringToAction(const QString& str);
+    static Action stringToAction(const QString &str);
 
     void setStopAllFadeOutTime(int ms);
     int stopAllFadeTime() const;
@@ -353,7 +353,7 @@ protected:
      *********************************************************************/
 public:
     /** Get a custom menu specific to this widget. Must be deleted. */
-    QMenu* customMenu(QMenu* parentMenu);
+    QMenu *customMenu(QMenu *parentMenu);
 
     /*********************************************************************
      * Intensity
@@ -373,7 +373,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -381,16 +381,16 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /*********************************************************************
      * Event Handlers
      *********************************************************************/
 protected:
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent *e);
 
-    void mousePressEvent(QMouseEvent* e);
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 };
 
 /** @} */

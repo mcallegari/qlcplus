@@ -56,7 +56,7 @@ void MasterTimer_Test::cleanup()
 
 void MasterTimer_Test::initial()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
 
     QVERIFY(mt->runningFunctions() == 0);
     QVERIFY(mt->m_functionList.size() == 0);
@@ -73,7 +73,7 @@ void MasterTimer_Test::initial()
 
 void MasterTimer_Test::startStop()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
 
     mt->start();
     QTest::qWait(100);
@@ -96,7 +96,7 @@ void MasterTimer_Test::startStop()
 
 void MasterTimer_Test::startStopFunction()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     mt->start();
 
     Function_Stub fs(m_doc);
@@ -122,7 +122,7 @@ void MasterTimer_Test::startStopFunction()
 
 void MasterTimer_Test::registerUnregisterDMXSource()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     QVERIFY(mt->m_dmxSourceList.size() == 0);
 
     DMXSource_Stub s1;
@@ -172,7 +172,7 @@ void MasterTimer_Test::registerUnregisterDMXSource()
 
 void MasterTimer_Test::interval()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     Function_Stub fs(m_doc);
     DMXSource_Stub dss;
 
@@ -206,7 +206,7 @@ void MasterTimer_Test::interval()
 
 void MasterTimer_Test::functionInitiatedStop()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     Function_Stub fs(m_doc);
 
     mt->start();
@@ -234,7 +234,7 @@ void MasterTimer_Test::functionInitiatedStop()
 
 void MasterTimer_Test::runMultipleFunctions()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     mt->start();
 
     Function_Stub fs1(m_doc);
@@ -268,7 +268,7 @@ void MasterTimer_Test::runMultipleFunctions()
 
 void MasterTimer_Test::stopAllFunctions()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     mt->start();
 
     Function_Stub fs1(m_doc);
@@ -301,7 +301,7 @@ void MasterTimer_Test::stopAllFunctions()
 
 void MasterTimer_Test::stop()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     mt->start();
 
     Function_Stub fs1(m_doc);
@@ -324,7 +324,7 @@ void MasterTimer_Test::stop()
 
 void MasterTimer_Test::restart()
 {
-    MasterTimer* mt = m_doc->masterTimer();
+    MasterTimer *mt = m_doc->masterTimer();
     mt->start();
 
     Function_Stub fs1(m_doc);

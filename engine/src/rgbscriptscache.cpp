@@ -29,7 +29,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-RGBScriptsCache::RGBScriptsCache(Doc* doc)
+RGBScriptsCache::RGBScriptsCache(Doc *doc)
     : m_doc(doc)
 {
     m_dummyScript = new RGBScript(doc);
@@ -39,19 +39,19 @@ QStringList RGBScriptsCache::names() const
 {
     QStringList names;
 
-    QListIterator<RGBScript*> it(m_scriptsMap.values());
+    QListIterator<RGBScript *> it(m_scriptsMap.values());
     while (it.hasNext() == true)
         names << it.next()->name();
 
     return names;
 }
 
-RGBScript const& RGBScriptsCache::script(QString name) const
+RGBScript const &RGBScriptsCache::script(QString name) const
 {
-    QListIterator<RGBScript*> it(m_scriptsMap.values());
+    QListIterator<RGBScript *> it(m_scriptsMap.values());
     while (it.hasNext() == true)
     {
-        RGBScript* script(it.next());
+        RGBScript *script(it.next());
         if (script->name() == name)
             return *script;
     }
@@ -60,7 +60,7 @@ RGBScript const& RGBScriptsCache::script(QString name) const
     return *m_dummyScript;
 }
 
-bool RGBScriptsCache::load(const QDir& dir)
+bool RGBScriptsCache::load(const QDir &dir)
 {
     qDebug() << "Loading RGB scripts in " << dir.path() << "...";
 
@@ -76,7 +76,7 @@ bool RGBScriptsCache::load(const QDir& dir)
         }
         if (!m_scriptsMap.contains(file))
         {
-            RGBScript* script = new RGBScript(m_doc);
+            RGBScript *script = new RGBScript(m_doc);
             if (script->load(dir, file))
             {
                 qDebug() << "    " << file << " loaded";

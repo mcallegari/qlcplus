@@ -36,7 +36,7 @@
 
 #define PROGRESS_INTERVAL 200
 
-VCCueList::VCCueList(Doc* doc, QObject* parent)
+VCCueList::VCCueList(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_nextPrevBehavior(DefaultRunFirst)
     , m_playbackLayout(PlayPauseStop)
@@ -90,12 +90,12 @@ void VCCueList::setupLookAndFeel(qreal pixelDensity, int page)
     setDefaultFontSize(pixelDensity * 3.5);
 }
 
-void VCCueList::render(QQuickView* view, QQuickItem* parent)
+void VCCueList::render(QQuickView *view, QQuickItem *parent)
 {
     if (view == nullptr || parent == nullptr)
         return;
 
-    QQmlComponent* component = new QQmlComponent(view->engine(), QUrl("qrc:/VCCueListItem.qml"));
+    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCCueListItem.qml"));
 
     if (component->isError())
     {
@@ -103,7 +103,7 @@ void VCCueList::render(QQuickView* view, QQuickItem* parent)
         return;
     }
 
-    m_item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem *>(component->create());
 
     m_item->setParentItem(parent);
     m_item->setProperty("cueListObj", QVariant::fromValue(this));
@@ -114,11 +114,11 @@ QString VCCueList::propertiesResource() const
     return QString("qrc:/VCCueListProperties.qml");
 }
 
-VCWidget* VCCueList::createCopy(VCWidget* parent)
+VCWidget *VCCueList::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != nullptr);
 
-    VCCueList* cuelist = new VCCueList(m_doc, parent);
+    VCCueList *cuelist = new VCCueList(m_doc, parent);
     if (cuelist->copyFrom(this) == false)
     {
         delete cuelist;
@@ -128,9 +128,9 @@ VCWidget* VCCueList::createCopy(VCWidget* parent)
     return cuelist;
 }
 
-bool VCCueList::copyFrom(const VCWidget* widget)
+bool VCCueList::copyFrom(const VCWidget *widget)
 {
-    const VCCueList* cuelist = qobject_cast<const VCCueList*>(widget);
+    const VCCueList *cuelist = qobject_cast<const VCCueList *>(widget);
     if (cuelist == nullptr)
         return false;
 
@@ -146,7 +146,7 @@ bool VCCueList::copyFrom(const VCWidget* widget)
 
 void VCCueList::adjustIntensity(qreal val)
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch != nullptr)
     {
         adjustFunctionIntensity(ch, val);
@@ -155,8 +155,7 @@ void VCCueList::adjustIntensity(qreal val)
         if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFaderLevel != 100)
         {
             ch->adjustStepIntensity(qreal(m_sideFaderLevel) / 100, m_primaryTop ? m_playbackIndex : m_nextStepIndex);
-            ch->adjustStepIntensity(qreal(100 - m_sideFaderLevel) / 100,
-                                    m_primaryTop ? m_nextStepIndex : m_playbackIndex);
+            ch->adjustStepIntensity(qreal(100 - m_sideFaderLevel) / 100, m_primaryTop ? m_nextStepIndex : m_playbackIndex);
         }
     }
 
@@ -254,7 +253,7 @@ void VCCueList::setSideFaderLevel(int level)
     {
         level = 255 - level;
 
-        Chaser* ch = chaser();
+        Chaser *ch = chaser();
         if (ch == nullptr || ch->stopped())
             return;
 
@@ -279,7 +278,7 @@ void VCCueList::setSideFaderLevel(int level)
     }
     else
     {
-        Chaser* ch = chaser();
+        Chaser *ch = chaser();
         if (!(ch == nullptr || ch->stopped()))
         {
             ch->adjustStepIntensity(qreal(level) / 100.0, m_primaryTop ? m_playbackIndex : m_nextStepIndex,
@@ -324,7 +323,7 @@ int VCCueList::getFadeMode() const
     return Chaser::Blended;
 }
 
-void VCCueList::stopStepIfNeeded(Chaser* ch)
+void VCCueList::stopStepIfNeeded(Chaser *ch)
 {
     if (ch->runningStepsNumber() != 2)
         return;
@@ -358,11 +357,11 @@ FunctionParent VCCueList::functionParent() const
     return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
-Chaser* VCCueList::chaser()
+Chaser *VCCueList::chaser()
 {
     if (m_chaserID == Function::invalidId())
         return nullptr;
-    Chaser* chaser = qobject_cast<Chaser*>(m_doc->function(m_chaserID));
+    Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(m_chaserID));
     return chaser;
 }
 
@@ -378,7 +377,7 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
 
     if (isEditing())
     {
-        Chaser* ch = chaser();
+        Chaser *ch = chaser();
         if (ch == nullptr)
             return;
 
@@ -391,7 +390,7 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
             ChaserStep step(fid);
             if (ch->durationMode() == Chaser::PerStep)
             {
-                Function* func = m_doc->function(fid);
+                Function *func = m_doc->function(fid);
                 if (func == nullptr)
                     continue;
 
@@ -409,7 +408,7 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
     }
     else
     {
-        Function* f = m_doc->function(idsList.first().toUInt());
+        Function *f = m_doc->function(idsList.first().toUInt());
         if (f == nullptr || f->type() != Function::ChaserType)
             return;
 
@@ -419,11 +418,11 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
 
 void VCCueList::setStepNote(int index, QString text)
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
-    ChaserStep* step = ch->stepAt(index);
+    ChaserStep *step = ch->stepAt(index);
     if (step == nullptr)
         return;
 
@@ -445,8 +444,8 @@ void VCCueList::setChaserID(quint32 fid)
     if (m_chaserID == fid)
         return;
 
-    Function* current = m_doc->function(m_chaserID);
-    Function* function = m_doc->function(fid);
+    Function *current = m_doc->function(m_chaserID);
+    Function *function = m_doc->function(fid);
 
     if (current != nullptr)
     {
@@ -493,8 +492,7 @@ void VCCueList::setChaserID(quint32 fid)
 
     emit stepsListChanged();
 
-    Tardis::instance()->enqueueAction(Tardis::VCCueListSetChaserID, id(),
-                                      current ? current->id() : Function::invalidId(),
+    Tardis::instance()->enqueueAction(Tardis::VCCueListSetChaserID, id(), current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
 }
 
@@ -512,7 +510,7 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
 
 void VCCueList::slotStepChanged(int index)
 {
-    ChaserStep* step = chaser()->stepAt(index);
+    ChaserStep *step = chaser()->stepAt(index);
     ChaserEditor::updateStepInListModel(m_doc, chaser(), m_stepsList, step, index);
 }
 
@@ -528,7 +526,7 @@ void VCCueList::slotFunctionNameChanged(quint32 fid)
 
 int VCCueList::getNextIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return -1;
 
@@ -540,7 +538,7 @@ int VCCueList::getNextIndex()
 
 int VCCueList::getPrevIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return -1;
 
@@ -552,7 +550,7 @@ int VCCueList::getPrevIndex()
 
 int VCCueList::getFirstIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return -1;
 
@@ -564,7 +562,7 @@ int VCCueList::getFirstIndex()
 
 int VCCueList::getLastIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return -1;
 
@@ -587,7 +585,7 @@ void VCCueList::setPlaybackIndex(int playbackIndex)
     m_playbackIndex = playbackIndex;
     emit playbackIndexChanged(playbackIndex);
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -597,7 +595,7 @@ void VCCueList::setPlaybackIndex(int playbackIndex)
 
 VCCueList::PlaybackStatus VCCueList::playbackStatus()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
 
     if (ch == nullptr)
         return Stopped;
@@ -609,7 +607,7 @@ VCCueList::PlaybackStatus VCCueList::playbackStatus()
 
 void VCCueList::startChaser(int startIndex)
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -630,7 +628,7 @@ void VCCueList::startChaser(int startIndex)
 
 void VCCueList::stopChaser()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -647,7 +645,7 @@ void VCCueList::updateFeedback()
 {
     sendFeedback(m_sideFaderLevel, INPUT_SIDE_FADER_ID, VCWidget::ExactValue);
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
@@ -694,7 +692,7 @@ void VCCueList::slotInputValueChanged(quint8 id, uchar value)
 
 void VCCueList::playClicked()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -726,7 +724,7 @@ void VCCueList::playClicked()
 
 void VCCueList::stopClicked()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -751,7 +749,7 @@ void VCCueList::stopClicked()
 
 void VCCueList::previousClicked()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -792,7 +790,7 @@ void VCCueList::previousClicked()
 
 void VCCueList::nextClicked()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -833,7 +831,7 @@ void VCCueList::nextClicked()
 
 void VCCueList::playCurrentStep()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr)
         return;
 
@@ -890,7 +888,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
 
 void VCCueList::slotProgressTimeout()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == nullptr || !ch->isRunning() || m_item == nullptr)
         return;
 
@@ -942,7 +940,7 @@ void VCCueList::slotProgressTimeout()
  * Load & Save
  *********************************************************************/
 
-bool VCCueList::loadXML(QXmlStreamReader& root)
+bool VCCueList::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCCueList)
     {
@@ -1028,7 +1026,7 @@ bool VCCueList::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCCueList::saveXML(QXmlStreamWriter* doc)
+bool VCCueList::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != nullptr);
 

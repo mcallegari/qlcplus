@@ -39,24 +39,24 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-QScriptEngine* RGBScript::s_engine = NULL;
+QScriptEngine *RGBScript::s_engine = NULL;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-QMutex* RGBScript::s_engineMutex = NULL;
+QMutex *RGBScript::s_engineMutex = NULL;
 #else
-QRecursiveMutex* RGBScript::s_engineMutex = NULL;
+QRecursiveMutex *RGBScript::s_engineMutex = NULL;
 #endif
 
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
-RGBScript::RGBScript(Doc* doc)
+RGBScript::RGBScript(Doc *doc)
     : RGBAlgorithm(doc)
     , m_apiVersion(0)
 {
 }
 
-RGBScript::RGBScript(const RGBScript& s)
+RGBScript::RGBScript(const RGBScript &s)
     : RGBAlgorithm(s.doc())
     , m_fileName(s.m_fileName)
     , m_contents(s.m_contents)
@@ -71,7 +71,7 @@ RGBScript::RGBScript(const RGBScript& s)
 
 RGBScript::~RGBScript() {}
 
-RGBScript& RGBScript::operator=(const RGBScript& s)
+RGBScript &RGBScript::operator=(const RGBScript &s)
 {
     if (this != &s)
     {
@@ -88,7 +88,7 @@ RGBScript& RGBScript::operator=(const RGBScript& s)
     return *this;
 }
 
-bool RGBScript::operator==(const RGBScript& s) const
+bool RGBScript::operator==(const RGBScript &s) const
 {
     if (this->fileName().isEmpty() == false && this->fileName() == s.fileName())
         return true;
@@ -96,17 +96,17 @@ bool RGBScript::operator==(const RGBScript& s) const
         return false;
 }
 
-RGBAlgorithm* RGBScript::clone() const
+RGBAlgorithm *RGBScript::clone() const
 {
-    RGBScript* script = new RGBScript(*this);
-    return static_cast<RGBAlgorithm*>(script);
+    RGBScript *script = new RGBScript(*this);
+    return static_cast<RGBAlgorithm *>(script);
 }
 
 /****************************************************************************
  * Load & Evaluation
  ****************************************************************************/
 
-bool RGBScript::load(const QDir& dir, const QString& fileName)
+bool RGBScript::load(const QDir &dir, const QString &fileName)
 {
     // Create the script engine when it's first needed
     initEngine();
@@ -210,7 +210,7 @@ void RGBScript::initEngine()
     Q_ASSERT(s_engine != NULL);
 }
 
-void RGBScript::displayError(QScriptValue e, const QString& fileName)
+void RGBScript::displayError(QScriptValue e, const QString &fileName)
 {
     if (e.isError())
     {
@@ -224,7 +224,7 @@ void RGBScript::displayError(QScriptValue e, const QString& fileName)
  * Script API
  ****************************************************************************/
 
-int RGBScript::rgbMapStepCount(const QSize& size)
+int RGBScript::rgbMapStepCount(const QSize &size)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -246,7 +246,7 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     }
 }
 
-void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap& map)
+void RGBScript::rgbMap(const QSize &size, uint rgb, int step, RGBMap &map)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -322,14 +322,14 @@ int RGBScript::acceptColors() const
     return 2;
 }
 
-bool RGBScript::loadXML(QXmlStreamReader& root)
+bool RGBScript::loadXML(QXmlStreamReader &root)
 {
     Q_UNUSED(root)
 
     return false;
 }
 
-bool RGBScript::saveXML(QXmlStreamWriter* doc) const
+bool RGBScript::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -512,9 +512,7 @@ bool RGBScript::loadProperties()
                     {
                         if (values.length() < 2)
                         {
-                            qWarning()
-                                << value
-                                << ": malformed property. A range should be defined as 'min,max'. Please fix it.";
+                            qWarning() << value << ": malformed property. A range should be defined as 'min,max'. Please fix it.";
                         }
                         else
                         {
@@ -525,7 +523,8 @@ bool RGBScript::loadProperties()
                     break;
                 default:
                     qWarning() << value
-                               << ": values cannot be applied before the 'type' property or on type:integer and "
+                               << ": values cannot be applied before the 'type' property or on "
+                                  "type:integer and "
                                   "type:string";
                     break;
                 }

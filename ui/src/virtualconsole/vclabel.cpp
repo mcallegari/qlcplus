@@ -37,7 +37,7 @@
 #include "vclabel.h"
 #include "doc.h"
 
-VCLabel::VCLabel(QWidget* parent, Doc* doc)
+VCLabel::VCLabel(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
 {
     /* Set the class name "VCLabel" as the object name as well */
@@ -54,11 +54,11 @@ VCLabel::~VCLabel() {}
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCLabel::createCopy(VCWidget* parent)
+VCWidget *VCLabel::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != NULL);
 
-    VCLabel* label = new VCLabel(parent, m_doc);
+    VCLabel *label = new VCLabel(parent, m_doc);
     if (label->copyFrom(this) == false)
     {
         delete label;
@@ -84,7 +84,7 @@ void VCLabel::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCLabel::loadXML(QXmlStreamReader& root)
+bool VCLabel::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCLabel)
     {
@@ -119,7 +119,7 @@ bool VCLabel::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCLabel::saveXML(QXmlStreamWriter* doc)
+bool VCLabel::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -144,7 +144,7 @@ bool VCLabel::saveXML(QXmlStreamWriter* doc)
  * Drawing
  ****************************************************************************/
 
-void VCLabel::paintEvent(QPaintEvent* e)
+void VCLabel::paintEvent(QPaintEvent *e)
 {
     bool enabled = false;
     if (mode() == Doc::Operate && isDisabled() == false)

@@ -48,19 +48,19 @@ void RGBMatrix_Test::initTestCase()
     fxiDir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(m_doc->fixtureDefCache()->loadMap(fxiDir) == true);
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Stairville", "LED PAR56");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Stairville", "LED PAR56");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
 
-    FixtureGroup* grp = new FixtureGroup(m_doc);
+    FixtureGroup *grp = new FixtureGroup(m_doc);
     grp->setName("Test Group");
     grp->setSize(QSize(5, 5));
     m_doc->addFixtureGroup(grp);
 
     for (int i = 0; i < 25; i++)
     {
-        Fixture* fxi = new Fixture(m_doc);
+        Fixture *fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(i * fxi->channels());
         m_doc->addFixture(fxi);
@@ -132,7 +132,7 @@ void RGBMatrix_Test::copy()
     mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx.algorithm() != NULL);
 
-    RGBMatrix* copyMtx = qobject_cast<RGBMatrix*>(mtx.createCopy(m_doc));
+    RGBMatrix *copyMtx = qobject_cast<RGBMatrix *>(mtx.createCopy(m_doc));
     QVERIFY(copyMtx != NULL);
     QCOMPARE(copyMtx->startColor(), QColor(Qt::magenta));
     QCOMPARE(copyMtx->endColor(), QColor(Qt::yellow));
@@ -202,7 +202,7 @@ void RGBMatrix_Test::property()
 
 void RGBMatrix_Test::loadSave()
 {
-    RGBMatrix* mtx = new RGBMatrix(m_doc);
+    RGBMatrix *mtx = new RGBMatrix(m_doc);
     mtx->setStartColor(Qt::magenta);
     mtx->setEndColor(Qt::blue);
     mtx->setControlMode(RGBMatrix::ControlModeRgb);

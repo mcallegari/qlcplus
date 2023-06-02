@@ -24,7 +24,7 @@
 
 #include "cue.h"
 
-Cue::Cue(const QString& name)
+Cue::Cue(const QString &name)
     : m_name(name)
     , m_fadeInSpeed(0)
     , m_fadeOutSpeed(0)
@@ -41,7 +41,7 @@ Cue::Cue(const QHash<uint, uchar> values)
 {
 }
 
-Cue::Cue(const Cue& cue)
+Cue::Cue(const Cue &cue)
     : m_name(cue.name())
     , m_values(cue.values())
     , m_fadeInSpeed(cue.fadeInSpeed())
@@ -52,7 +52,7 @@ Cue::Cue(const Cue& cue)
 
 Cue::~Cue() {}
 
-Cue& Cue::operator=(const Cue& cue)
+Cue &Cue::operator=(const Cue &cue)
 {
     if (this != &cue)
     {
@@ -70,7 +70,7 @@ Cue& Cue::operator=(const Cue& cue)
  * Name
  ****************************************************************************/
 
-void Cue::setName(const QString& str)
+void Cue::setName(const QString &str)
 {
     m_name = str;
 }
@@ -146,7 +146,7 @@ uint Cue::duration() const
  * Load & Save
  ****************************************************************************/
 
-bool Cue::loadXML(QXmlStreamReader& root)
+bool Cue::loadXML(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -181,7 +181,7 @@ bool Cue::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool Cue::saveXML(QXmlStreamWriter* doc) const
+bool Cue::saveXML(QXmlStreamWriter *doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
@@ -207,7 +207,7 @@ bool Cue::saveXML(QXmlStreamWriter* doc) const
     return true;
 }
 
-bool Cue::loadXMLSpeed(QXmlStreamReader& speedRoot)
+bool Cue::loadXMLSpeed(QXmlStreamReader &speedRoot)
 {
     if (speedRoot.name() != KXMLQLCCueSpeed)
         return false;
@@ -220,7 +220,7 @@ bool Cue::loadXMLSpeed(QXmlStreamReader& speedRoot)
     return true;
 }
 
-bool Cue::saveXMLSpeed(QXmlStreamWriter* doc) const
+bool Cue::saveXMLSpeed(QXmlStreamWriter *doc) const
 {
     doc->writeStartElement(KXMLQLCCueSpeed);
     doc->writeAttribute(KXMLQLCCueSpeedFadeIn, QString::number(fadeInSpeed()));

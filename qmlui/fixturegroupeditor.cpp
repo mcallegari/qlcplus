@@ -28,7 +28,7 @@
 #include "treemodel.h"
 #include "doc.h"
 
-FixtureGroupEditor::FixtureGroupEditor(QQuickView* view, Doc* doc, FixtureManager* fxMgr, QObject* parent)
+FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc, FixtureManager *fxMgr, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
@@ -52,7 +52,7 @@ QVariant FixtureGroupEditor::groupsListModel()
 {
     QVariantList groupsList;
 
-    foreach (FixtureGroup* grp, m_doc->fixtureGroups())
+    foreach (FixtureGroup *grp, m_doc->fixtureGroups())
     {
         QVariantMap grpMap;
         grpMap.insert("mIcon", "qrc:/group.svg");
@@ -84,10 +84,10 @@ void FixtureGroupEditor::slotDocLoaded()
 
 void FixtureGroupEditor::setEditGroup(QVariant reference)
 {
-    if (reference.canConvert<FixtureGroup*>() == false)
+    if (reference.canConvert<FixtureGroup *>() == false)
         return;
 
-    m_editGroup = reference.value<FixtureGroup*>();
+    m_editGroup = reference.value<FixtureGroup *>();
 
     emit groupNameChanged();
     emit groupSizeChanged();
@@ -173,7 +173,7 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
         return m_groupSelection;
     }
 
-    Fixture* fixture = m_doc->fixture(head.fxi);
+    Fixture *fixture = m_doc->fixture(head.fxi);
     if (fixture == nullptr)
         return m_groupSelection;
 
@@ -197,9 +197,9 @@ QVariantList FixtureGroupEditor::fixtureSelection(QVariant reference, int x, int
 
     int absIndex = (y * m_editGroup->size().width()) + x;
 
-    if (reference.canConvert<Fixture*>())
+    if (reference.canConvert<Fixture *>())
     {
-        Fixture* fixture = reference.value<Fixture*>();
+        Fixture *fixture = reference.value<Fixture *>();
 
         for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
             m_groupSelection.append(absIndex + headIdx);
@@ -229,9 +229,9 @@ bool FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
 
     qDebug() << Q_FUNC_INFO << reference << x << y;
 
-    if (reference.canConvert<Fixture*>())
+    if (reference.canConvert<Fixture *>())
     {
-        Fixture* fixture = reference.value<Fixture*>();
+        Fixture *fixture = reference.value<Fixture *>();
         if (m_editGroup->assignFixture(fixture->id(), QLCPoint(x, y)) == true)
         {
             updateGroupMap();
@@ -334,11 +334,10 @@ void FixtureGroupEditor::deleteSelection()
     {
         QLCPoint point = pointFromAbsolute(head.toInt());
         GroupHead gHead = m_editGroup->head(point);
-        Fixture* fixture = m_doc->fixture(gHead.fxi);
+        Fixture *fixture = m_doc->fixture(gHead.fxi);
         if (fixture != nullptr && fixture->heads() == 1)
         {
-            QString fxPath =
-                QString("%1%2%3").arg(m_editGroup->name()).arg(TreeModel::separator()).arg(fixture->name());
+            QString fxPath = QString("%1%2%3").arg(m_editGroup->name()).arg(TreeModel::separator()).arg(fixture->name());
             quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), gHead.head, 0);
             m_fixtureManager->deleteFixtureInGroup(m_editGroup->id(), itemID, fxPath);
         }
@@ -481,7 +480,7 @@ QString FixtureGroupEditor::getTooltip(int x, int y)
     if (head.isValid() == false)
         return "";
 
-    Fixture* fixture = m_doc->fixture(head.fxi);
+    Fixture *fixture = m_doc->fixture(head.fxi);
     if (fixture == nullptr)
         return "";
 
@@ -514,17 +513,14 @@ void FixtureGroupEditor::updateGroupMap()
             GroupHead head = m_editGroup->head(QLCPoint(x, y));
             if (head.isValid())
             {
-                Fixture* fx = m_doc->fixture(head.fxi);
+                Fixture *fx = m_doc->fixture(head.fxi);
                 m_groupMap.append(head.fxi);            // item ID
                 m_groupMap.append((gridWidth * y) + x); // absolute index
                 m_groupMap.append(0);                   // isOdd
                 m_groupMap.append(fx->type());          // item type
 
-                QString str = QString("%1\nH:%2 A:%3 U:%4")
-                                  .arg(fx->name())
-                                  .arg(head.head + 1)
-                                  .arg(fx->address() + 1)
-                                  .arg(fx->universe() + 1);
+                QString str =
+                    QString("%1\nH:%2 A:%3 U:%4").arg(fx->name()).arg(head.head + 1).arg(fx->address() + 1).arg(fx->universe() + 1);
                 m_groupLabels.append(head.fxi);            // item ID
                 m_groupLabels.append((gridWidth * y) + x); // absolute index
                 m_groupLabels.append(1);                   // width

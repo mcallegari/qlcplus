@@ -37,7 +37,7 @@ ShowHeaderItem::ShowHeaderItem(int width)
 {
 }
 
-void ShowHeaderItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+void ShowHeaderItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     emit itemClicked(event);
@@ -48,7 +48,7 @@ QRectF ShowHeaderItem::boundingRect() const
     return QRectF(0, 0, m_width, m_height);
 }
 
-void ShowHeaderItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -252,7 +252,7 @@ QRectF ShowCursorItem::boundingRect() const
     return QRectF(-5, 0, 10, m_height);
 }
 
-void ShowCursorItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void ShowCursorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);

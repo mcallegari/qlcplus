@@ -37,7 +37,7 @@
 #define PROP_FIXTURE Qt::UserRole
 #define PROP_HEAD Qt::UserRole + 1
 
-FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* parent)
+FixtureGroupEditor::FixtureGroupEditor(FixtureGroup *grp, Doc *doc, QWidget *parent)
     : QWidget(parent)
     , m_grp(grp)
     , m_doc(doc)
@@ -51,7 +51,7 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
     m_xSpin->setValue(m_grp->size().width());
     m_ySpin->setValue(m_grp->size().height());
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
     connect(m_xSpin, SIGNAL(valueChanged(int)), this, SLOT(slotXSpinValueChanged(int)));
     connect(m_ySpin, SIGNAL(valueChanged(int)), this, SLOT(slotYSpinValueChanged(int)));
 
@@ -91,18 +91,15 @@ void FixtureGroupEditor::updateTable()
         QLCPoint pt(it.key());
 
         GroupHead head(it.value());
-        Fixture* fxi = m_doc->fixture(head.fxi);
+        Fixture *fxi = m_doc->fixture(head.fxi);
         if (fxi == NULL)
             continue;
 
         QIcon icon = fxi->getIconFromType();
-        QString str = QString("%1 H:%2\nA:%3 U:%4")
-                          .arg(fxi->name())
-                          .arg(head.head + 1)
-                          .arg(fxi->address() + 1)
-                          .arg(fxi->universe() + 1);
+        QString str =
+            QString("%1 H:%2\nA:%3 U:%4").arg(fxi->name()).arg(head.head + 1).arg(fxi->address() + 1).arg(fxi->universe() + 1);
 
-        QTableWidgetItem* item = new QTableWidgetItem(icon, str);
+        QTableWidgetItem *item = new QTableWidgetItem(icon, str);
         item->setData(PROP_FIXTURE, head.fxi);
         item->setData(PROP_HEAD, head.head);
         item->setToolTip(str);
@@ -129,7 +126,7 @@ void FixtureGroupEditor::updateTable()
     slotResized();
 }
 
-void FixtureGroupEditor::slotNameEdited(const QString& text)
+void FixtureGroupEditor::slotNameEdited(const QString &text)
 {
     m_grp->setName(text);
 }
@@ -158,7 +155,7 @@ void FixtureGroupEditor::slotDownClicked()
 
 void FixtureGroupEditor::slotRemoveFixtureClicked()
 {
-    QTableWidgetItem* item = m_table->currentItem();
+    QTableWidgetItem *item = m_table->currentItem();
     if (item == NULL)
         return;
 
@@ -216,7 +213,7 @@ void FixtureGroupEditor::slotResized()
     {
         for (int x = 0; x < m_table->columnCount(); x++)
         {
-            QTableWidgetItem* item = m_table->item(y, x);
+            QTableWidgetItem *item = m_table->item(y, x);
             if (item != NULL)
             {
                 QFont scaledFont = font;

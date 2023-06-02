@@ -33,7 +33,7 @@ class InputSelectionWidget : public QWidget, public Ui_InputSelectionWidget
     Q_OBJECT
 
 public:
-    InputSelectionWidget(Doc* doc, QWidget* parent = 0);
+    InputSelectionWidget(Doc *doc, QWidget *parent = 0);
     ~InputSelectionWidget();
 
     void setKeyInputVisibility(bool visible);
@@ -44,10 +44,10 @@ public:
     void stopAutoDetection();
     void emitOddValues(bool enable);
 
-    void setKeySequence(const QKeySequence& keySequence);
+    void setKeySequence(const QKeySequence &keySequence);
     QKeySequence keySequence() const;
 
-    void setInputSource(QSharedPointer<QLCInputSource> const& source);
+    void setInputSource(QSharedPointer<QLCInputSource> const &source);
     QSharedPointer<QLCInputSource> inputSource() const;
 
 protected slots:
@@ -71,7 +71,7 @@ protected:
     void updateInputSource();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     QKeySequence m_keySequence;
     QSharedPointer<QLCInputSource> m_inputSource;
     int m_widgetPage;

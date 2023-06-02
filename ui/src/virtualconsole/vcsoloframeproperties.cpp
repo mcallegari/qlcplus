@@ -22,7 +22,7 @@
 #include "vcsoloframeproperties.h"
 #include "vcsoloframe.h"
 
-VCSoloFrameProperties::VCSoloFrameProperties(QWidget* parent, VCSoloFrame* frame, Doc* doc)
+VCSoloFrameProperties::VCSoloFrameProperties(QWidget *parent, VCSoloFrame *frame, Doc *doc)
     : VCFrameProperties(parent, frame, doc)
     , m_soloframe(frame)
 {
@@ -35,7 +35,7 @@ VCSoloFrameProperties::VCSoloFrameProperties(QWidget* parent, VCSoloFrame* frame
 
 void VCSoloFrameProperties::setupSoloframeUi()
 {
-    QGroupBox* groupBox = new QGroupBox(tab);
+    QGroupBox *groupBox = new QGroupBox(tab);
     new QVBoxLayout(groupBox);
     groupBox->setTitle(tr("Solo Frame properties"));
 

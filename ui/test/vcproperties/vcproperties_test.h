@@ -41,7 +41,7 @@ private slots:
     void saveXML();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

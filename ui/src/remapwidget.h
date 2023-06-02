@@ -34,7 +34,7 @@ class RemapWidget : public QWidget
     Q_OBJECT
 public:
     /** Constructor */
-    RemapWidget(QTreeWidget* src, QTreeWidget* target, QWidget* parent = 0);
+    RemapWidget(QTreeWidget *src, QTreeWidget *target, QWidget *parent = 0);
 
     /** Destructor */
     ~RemapWidget();
@@ -42,12 +42,12 @@ public:
     void setRemapList(QList<RemapInfo> list);
 
 protected:
-    void resizeEvent(QResizeEvent* e);
-    void paintEvent(QPaintEvent* e);
+    void resizeEvent(QResizeEvent *e);
+    void paintEvent(QPaintEvent *e);
 
 private:
-    QTreeWidget* m_sourceTree;
-    QTreeWidget* m_targetTree;
+    QTreeWidget *m_sourceTree;
+    QTreeWidget *m_targetTree;
     QList<RemapInfo> m_list;
 };
 

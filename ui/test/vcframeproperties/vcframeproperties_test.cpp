@@ -50,7 +50,7 @@ void VCFrameProperties_Test::cleanup()
 
 void VCFrameProperties_Test::initial()
 {
-    VCFrame* frame = new VCFrame(VirtualConsole::instance()->contents(), m_doc);
+    VCFrame *frame = new VCFrame(VirtualConsole::instance()->contents(), m_doc);
     frame->setAllowChildren(false);
     frame->setAllowResize(true);
 

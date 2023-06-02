@@ -29,7 +29,7 @@
 #include "grandmaster.h"
 #include "qlcmacros.h"
 
-GrandMaster::GrandMaster(QObject* parent)
+GrandMaster::GrandMaster(QObject *parent)
     : QObject(parent)
     , m_valueMode(Reduce)
     , m_channelMode(Intensity)
@@ -40,7 +40,7 @@ GrandMaster::GrandMaster(QObject* parent)
 
 GrandMaster::~GrandMaster() {}
 
-GrandMaster::ValueMode GrandMaster::stringToValueMode(const QString& str)
+GrandMaster::ValueMode GrandMaster::stringToValueMode(const QString &str)
 {
     if (str == KXMLQLCGMValueModeLimit)
         return GrandMaster::Limit;
@@ -60,7 +60,7 @@ QString GrandMaster::valueModeToString(GrandMaster::ValueMode mode)
     }
 }
 
-GrandMaster::ChannelMode GrandMaster::stringToChannelMode(const QString& str)
+GrandMaster::ChannelMode GrandMaster::stringToChannelMode(const QString &str)
 {
     if (str == KXMLQLCGMChannelModeAllChannels)
         return GrandMaster::AllChannels;
@@ -80,7 +80,7 @@ QString GrandMaster::channelModeToString(GrandMaster::ChannelMode mode)
     }
 }
 
-GrandMaster::SliderMode GrandMaster::stringToSliderMode(const QString& str)
+GrandMaster::SliderMode GrandMaster::stringToSliderMode(const QString &str)
 {
     if (str == KXMLQLCGMSliderModeInverted)
         return GrandMaster::Inverted;

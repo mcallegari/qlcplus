@@ -52,7 +52,7 @@
  * Initialization
  *****************************************************************************/
 
-Audio::Audio(Doc* doc)
+Audio::Audio(Doc *doc)
     : Function(doc, Function::AudioType)
     , m_doc(doc)
     , m_decoder(NULL)
@@ -89,11 +89,11 @@ QIcon Audio::getIcon() const
  * Copying
  *****************************************************************************/
 
-Function* Audio::createCopy(Doc* doc, bool addToDoc)
+Function *Audio::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Audio(doc);
+    Function *copy = new Audio(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -108,9 +108,9 @@ Function* Audio::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Audio::copyFrom(const Function* function)
+bool Audio::copyFrom(const Function *function)
 {
-    const Audio* aud = qobject_cast<const Audio*>(function);
+    const Audio *aud = qobject_cast<const Audio *>(function);
     if (aud == NULL)
         return false;
 
@@ -186,7 +186,7 @@ QString Audio::getSourceFileName()
     return m_sourceFileName;
 }
 
-AudioDecoder* Audio::getAudioDecoder()
+AudioDecoder *Audio::getAudioDecoder()
 {
     return m_decoder;
 }
@@ -243,7 +243,7 @@ void Audio::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Audio::saveXML(QXmlStreamWriter* doc)
+bool Audio::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -277,7 +277,7 @@ bool Audio::saveXML(QXmlStreamWriter* doc)
     return true;
 }
 
-bool Audio::loadXML(QXmlStreamReader& root)
+bool Audio::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -331,7 +331,7 @@ void Audio::postLoad() {}
 /*********************************************************************
  * Running
  *********************************************************************/
-void Audio::preRun(MasterTimer* timer)
+void Audio::preRun(MasterTimer *timer)
 {
     if (m_decoder != NULL)
     {
@@ -389,7 +389,7 @@ void Audio::setPause(bool enable)
     }
 }
 
-void Audio::write(MasterTimer* timer, QList<Universe*> universes)
+void Audio::write(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
@@ -408,7 +408,7 @@ void Audio::write(MasterTimer* timer, QList<Universe*> universes)
     }
 }
 
-void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
+void Audio::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     // Check whether a fade out is needed "outside" of the natural playback
     // This is the case of a Chaser step

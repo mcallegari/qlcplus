@@ -26,7 +26,7 @@
 
 #include <QDebug>
 
-InputSelectionWidget::InputSelectionWidget(Doc* doc, QWidget* parent)
+InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     : QWidget(parent)
     , m_doc(doc)
     , m_widgetPage(0)
@@ -91,7 +91,7 @@ void InputSelectionWidget::emitOddValues(bool enable)
     m_emitOdd = enable;
 }
 
-void InputSelectionWidget::setKeySequence(const QKeySequence& keySequence)
+void InputSelectionWidget::setKeySequence(const QKeySequence &keySequence)
 {
     m_keySequence = QKeySequence(keySequence);
     m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
@@ -102,7 +102,7 @@ QKeySequence InputSelectionWidget::keySequence() const
     return m_keySequence;
 }
 
-void InputSelectionWidget::setInputSource(const QSharedPointer<QLCInputSource>& source)
+void InputSelectionWidget::setInputSource(const QSharedPointer<QLCInputSource> &source)
 {
     m_inputSource = source;
     updateInputSource();
@@ -209,10 +209,10 @@ void InputSelectionWidget::updateInputSource()
 
         uchar min = 0, max = UCHAR_MAX;
 
-        InputPatch* ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
+        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
         if (ip != NULL && ip->profile() != NULL)
         {
-            QLCInputChannel* ich = ip->profile()->channel(m_inputSource->channel());
+            QLCInputChannel *ich = ip->profile()->channel(m_inputSource->channel());
             if (ich != NULL && ich->type() == QLCInputChannel::Button)
             {
                 min = ich->lowerValue();

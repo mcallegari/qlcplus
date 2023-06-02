@@ -41,7 +41,7 @@ QLCFixtureDef::QLCFixtureDef()
 {
 }
 
-QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
+QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef *fixtureDef)
     : m_isLoaded(false)
     , m_isUser(false)
     , m_fileAbsolutePath(QString())
@@ -60,12 +60,12 @@ QLCFixtureDef::~QLCFixtureDef()
         delete m_modes.takeFirst();
 }
 
-QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
+QLCFixtureDef &QLCFixtureDef::operator=(const QLCFixtureDef &fixture)
 {
     if (this != &fixture)
     {
-        QListIterator<QLCChannel*> chit(fixture.m_channels);
-        QListIterator<QLCFixtureMode*> modeit(fixture.m_modes);
+        QListIterator<QLCChannel *> chit(fixture.m_channels);
+        QListIterator<QLCFixtureMode *> modeit(fixture.m_modes);
 
         m_manufacturer = fixture.m_manufacturer;
         m_model = fixture.m_model;
@@ -97,7 +97,7 @@ QString QLCFixtureDef::definitionSourceFile() const
     return m_fileAbsolutePath;
 }
 
-void QLCFixtureDef::setDefinitionSourceFile(const QString& absPath)
+void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
     m_fileAbsolutePath = absPath;
     m_isLoaded = false;
@@ -112,7 +112,7 @@ QString QLCFixtureDef::name() const
     return m_manufacturer + QString(" ") + m_model;
 }
 
-void QLCFixtureDef::setManufacturer(const QString& mfg)
+void QLCFixtureDef::setManufacturer(const QString &mfg)
 {
     m_manufacturer = mfg;
 }
@@ -122,7 +122,7 @@ QString QLCFixtureDef::manufacturer() const
     return m_manufacturer;
 }
 
-void QLCFixtureDef::setModel(const QString& model)
+void QLCFixtureDef::setModel(const QString &model)
 {
     m_model = model;
 }
@@ -142,7 +142,7 @@ QLCFixtureDef::FixtureType QLCFixtureDef::type()
     return m_type;
 }
 
-QLCFixtureDef::FixtureType QLCFixtureDef::stringToType(const QString& type)
+QLCFixtureDef::FixtureType QLCFixtureDef::stringToType(const QString &type)
 {
     if (type == "Color Changer")
         return ColorChanger;
@@ -209,7 +209,7 @@ QString QLCFixtureDef::typeToString(QLCFixtureDef::FixtureType type)
     }
 }
 
-void QLCFixtureDef::setAuthor(const QString& author)
+void QLCFixtureDef::setAuthor(const QString &author)
 {
     m_author = author;
 }
@@ -260,7 +260,7 @@ void QLCFixtureDef::setIsUser(bool flag)
  * Channels
  ****************************************************************************/
 
-bool QLCFixtureDef::addChannel(QLCChannel* channel)
+bool QLCFixtureDef::addChannel(QLCChannel *channel)
 {
     if (channel != NULL && m_channels.contains(channel) == false)
     {
@@ -273,15 +273,15 @@ bool QLCFixtureDef::addChannel(QLCChannel* channel)
     }
 }
 
-bool QLCFixtureDef::removeChannel(QLCChannel* channel)
+bool QLCFixtureDef::removeChannel(QLCChannel *channel)
 {
     /* First remove the channel from all modes */
-    QListIterator<QLCFixtureMode*> modeit(m_modes);
+    QListIterator<QLCFixtureMode *> modeit(m_modes);
     while (modeit.hasNext() == true)
         modeit.next()->removeChannel(channel);
 
     /* Then remove the actual channel from this fixture definition */
-    QMutableListIterator<QLCChannel*> chit(m_channels);
+    QMutableListIterator<QLCChannel *> chit(m_channels);
     while (chit.hasNext() == true)
     {
         if (chit.next() == channel)
@@ -295,13 +295,13 @@ bool QLCFixtureDef::removeChannel(QLCChannel* channel)
     return false;
 }
 
-QLCChannel* QLCFixtureDef::channel(const QString& name)
+QLCChannel *QLCFixtureDef::channel(const QString &name)
 {
-    QListIterator<QLCChannel*> it(m_channels);
+    QListIterator<QLCChannel *> it(m_channels);
 
     while (it.hasNext() == true)
     {
-        QLCChannel* ch = it.next();
+        QLCChannel *ch = it.next();
         if (ch->name() == name)
             return ch;
     }
@@ -309,7 +309,7 @@ QLCChannel* QLCFixtureDef::channel(const QString& name)
     return NULL;
 }
 
-QList<QLCChannel*> QLCFixtureDef::channels() const
+QList<QLCChannel *> QLCFixtureDef::channels() const
 {
     return m_channels;
 }
@@ -318,7 +318,7 @@ QList<QLCChannel*> QLCFixtureDef::channels() const
  * Modes
  ****************************************************************************/
 
-bool QLCFixtureDef::addMode(QLCFixtureMode* mode)
+bool QLCFixtureDef::addMode(QLCFixtureMode *mode)
 {
     if (mode != NULL && m_modes.contains(mode) == false)
     {
@@ -331,9 +331,9 @@ bool QLCFixtureDef::addMode(QLCFixtureMode* mode)
     }
 }
 
-bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
+bool QLCFixtureDef::removeMode(QLCFixtureMode *mode)
 {
-    QMutableListIterator<QLCFixtureMode*> it(m_modes);
+    QMutableListIterator<QLCFixtureMode *> it(m_modes);
     while (it.hasNext() == true)
     {
         if (it.next() == mode)
@@ -347,13 +347,13 @@ bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
     return false;
 }
 
-QLCFixtureMode* QLCFixtureDef::mode(const QString& name)
+QLCFixtureMode *QLCFixtureDef::mode(const QString &name)
 {
-    QListIterator<QLCFixtureMode*> it(m_modes);
+    QListIterator<QLCFixtureMode *> it(m_modes);
 
     while (it.hasNext() == true)
     {
-        QLCFixtureMode* mode = it.next();
+        QLCFixtureMode *mode = it.next();
         if (mode->name() == name)
             return mode;
     }
@@ -361,7 +361,7 @@ QLCFixtureMode* QLCFixtureDef::mode(const QString& name)
     return NULL;
 }
 
-QList<QLCFixtureMode*> QLCFixtureDef::modes()
+QList<QLCFixtureMode *> QLCFixtureDef::modes()
 {
     return m_modes;
 }
@@ -370,7 +370,7 @@ QList<QLCFixtureMode*> QLCFixtureDef::modes()
  * Physical
  ****************************************************************************/
 
-void QLCFixtureDef::setPhysical(const QLCPhysical& physical)
+void QLCFixtureDef::setPhysical(const QLCPhysical &physical)
 {
     m_physical = physical;
 }
@@ -384,7 +384,7 @@ QLCPhysical QLCFixtureDef::physical() const
  * XML operations
  ****************************************************************************/
 
-QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
+QFile::FileError QLCFixtureDef::saveXML(const QString &fileName)
 {
     QFile::FileError error;
 
@@ -410,12 +410,12 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     doc.writeTextElement(KXMLQLCFixtureDefType, typeToString(m_type));
 
     /* Channels */
-    QListIterator<QLCChannel*> chit(m_channels);
+    QListIterator<QLCChannel *> chit(m_channels);
     while (chit.hasNext() == true)
         chit.next()->saveXML(&doc);
 
     /* Modes */
-    QListIterator<QLCFixtureMode*> modeit(m_modes);
+    QListIterator<QLCFixtureMode *> modeit(m_modes);
     while (modeit.hasNext() == true)
         modeit.next()->saveXML(&doc);
 
@@ -442,14 +442,14 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     return error;
 }
 
-QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
+QFile::FileError QLCFixtureDef::loadXML(const QString &fileName)
 {
     QFile::FileError error = QFile::NoError;
 
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
@@ -475,10 +475,7 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
         else
         {
             qWarning() << fileName
-                       << QString("%1\nLine %2, column %3")
-                              .arg(doc->errorString())
-                              .arg(doc->lineNumber())
-                              .arg(doc->columnNumber());
+                       << QString("%1\nLine %2, column %3").arg(doc->errorString()).arg(doc->lineNumber()).arg(doc->columnNumber());
             error = QFile::ReadError;
         }
     }
@@ -493,7 +490,7 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
     return error;
 }
 
-bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
+bool QLCFixtureDef::loadXML(QXmlStreamReader &doc)
 {
     bool retval = false;
 
@@ -522,7 +519,7 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
             }
             else if (doc.name() == KXMLQLCChannel)
             {
-                QLCChannel* ch = new QLCChannel();
+                QLCChannel *ch = new QLCChannel();
                 if (ch->loadXML(doc) == true)
                 {
                     /* Loading succeeded */
@@ -540,7 +537,7 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
             }
             else if (doc.name() == KXMLQLCFixtureMode)
             {
-                QLCFixtureMode* mode = new QLCFixtureMode(this);
+                QLCFixtureMode *mode = new QLCFixtureMode(this);
                 if (mode->loadXML(doc) == true)
                 {
                     /* Loading succeeded */
@@ -583,7 +580,7 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
     return retval;
 }
 
-bool QLCFixtureDef::loadCreator(QXmlStreamReader& doc)
+bool QLCFixtureDef::loadCreator(QXmlStreamReader &doc)
 {
     if (doc.name() != KXMLQLCCreator)
     {

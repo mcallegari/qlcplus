@@ -50,14 +50,13 @@ class VCButton : public VCWidget
     Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY
                    startupIntensityEnabledChanged)
     Q_PROPERTY(qreal startupIntensity READ startupIntensity WRITE setStartupIntensity NOTIFY startupIntensityChanged)
-    Q_PROPERTY(
-        int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
+    Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    VCButton(Doc* doc = nullptr, QObject* parent = nullptr);
+    VCButton(Doc *doc = nullptr, QObject *parent = nullptr);
     virtual ~VCButton();
 
     /** @reimp */
@@ -67,17 +66,17 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView* view, QQuickItem* parent);
+    void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * Function attachment
@@ -100,7 +99,7 @@ public:
     quint32 functionID() const;
 
     /** @reimp */
-    void adjustFunctionIntensity(Function* f, qreal value);
+    void adjustFunctionIntensity(Function *f, qreal value);
 
     /** @reimp */
     void adjustIntensity(qreal val);
@@ -112,7 +111,7 @@ public:
     Q_INVOKABLE void requestStateChange(bool pressed);
 
     /** @reimp */
-    void notifyFunctionStarting(VCWidget* widget, quint32 fid, qreal fIntensity);
+    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
 
 signals:
     void functionIDChanged(quint32 id);
@@ -181,7 +180,7 @@ public:
     void setActionType(ButtonAction actionType);
 
     static QString actionToString(ButtonAction action);
-    static ButtonAction stringToAction(const QString& str);
+    static ButtonAction stringToAction(const QString &str);
 
     void setStopAllFadeOutTime(int ms);
     int stopAllFadeOutTime() const;
@@ -235,10 +234,10 @@ public slots:
 
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

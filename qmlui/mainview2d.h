@@ -42,7 +42,7 @@ class MainView2D : public PreviewContext
     Q_PROPERTY(int pointOfView READ pointOfView WRITE setPointOfView NOTIFY pointOfViewChanged)
 
 public:
-    explicit MainView2D(QQuickView* view, Doc* doc, QObject* parent = 0);
+    explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainView2D();
 
     /** @reimp */
@@ -67,10 +67,10 @@ public:
     Q_INVOKABLE int itemIDAtPos(QPointF pos);
 
     /** Update the fixture preview items when some channels have changed */
-    void updateFixture(Fixture* fixture, QByteArray& previous);
+    void updateFixture(Fixture *fixture, QByteArray &previous);
 
     /** Update a single fixture item for a specific Fixture ID, head index and linked index */
-    void updateFixtureItem(Fixture* fixture, quint16 headIndex, quint16 linkedIndex, QByteArray& previous);
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous);
 
     /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32> fixtures);
@@ -85,7 +85,7 @@ public:
     void updateFixturePosition(quint32 itemID, QVector3D pos);
 
     /** Update the position of a Fixture with the provided $itemID */
-    void updateFixtureSize(quint32 itemID, Fixture* fixture);
+    void updateFixtureSize(quint32 itemID, Fixture *fixture);
 
     /** Remove a Fixture item with the provided $itemID from the preview */
     void removeFixtureItem(quint32 itemID);
@@ -118,7 +118,7 @@ protected:
     bool initialize2DProperties();
 
     /** Update the Quick item selection and reparent for dragging if needed */
-    void selectFixture(QQuickItem* fxItem, bool enable);
+    void selectFixture(QQuickItem *fxItem, bool enable);
 
 signals:
     void gridSizeChanged();
@@ -134,10 +134,10 @@ public slots:
 
 private:
     /** References to the 2D grid item for positioning */
-    QQuickItem* m_gridItem;
+    QQuickItem *m_gridItem;
 
     /** Reference to the Doc Monitor properties */
-    MonitorProperties* m_monProps;
+    MonitorProperties *m_monProps;
 
     /** Size of the grid. How many horizontal and vertical cells */
     QSize m_gridSize;
@@ -151,7 +151,7 @@ private:
     qreal m_cellPixels;
 
     /** Pre-cached QML component for quick item creation */
-    QQmlComponent* fixtureComponent;
+    QQmlComponent *fixtureComponent;
 };
 
 #endif // MAINVIEW2D_H

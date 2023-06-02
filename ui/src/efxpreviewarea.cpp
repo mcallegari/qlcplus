@@ -26,7 +26,7 @@
 #include "qlcmacros.h"
 #include "gradient.h"
 
-EFXPreviewArea::EFXPreviewArea(QWidget* parent)
+EFXPreviewArea::EFXPreviewArea(QWidget *parent)
     : QWidget(parent)
     , m_timer(this)
     , m_iter(0)
@@ -42,7 +42,7 @@ EFXPreviewArea::EFXPreviewArea(QWidget* parent)
 
 EFXPreviewArea::~EFXPreviewArea() {}
 
-void EFXPreviewArea::setPolygon(const QPolygonF& polygon)
+void EFXPreviewArea::setPolygon(const QPolygonF &polygon)
 {
     m_original = polygon;
     m_scaled = scale(m_original, size());
@@ -53,7 +53,7 @@ int EFXPreviewArea::polygonsCount() const
     return m_original.size();
 }
 
-void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF>& fixturePoints)
+void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF> &fixturePoints)
 {
     m_originalFixturePoints.resize(fixturePoints.size());
     m_fixturePoints.resize(fixturePoints.size());
@@ -81,7 +81,7 @@ void EFXPreviewArea::slotTimeout()
     repaint();
 }
 
-QPolygonF EFXPreviewArea::scale(const QPolygonF& poly, const QSize& target)
+QPolygonF EFXPreviewArea::scale(const QPolygonF &poly, const QSize &target)
 {
     QPolygonF scaled;
     for (int i = 0; i < poly.size(); i++)
@@ -95,7 +95,7 @@ QPolygonF EFXPreviewArea::scale(const QPolygonF& poly, const QSize& target)
     return scaled;
 }
 
-void EFXPreviewArea::resizeEvent(QResizeEvent* e)
+void EFXPreviewArea::resizeEvent(QResizeEvent *e)
 {
     m_scaled = scale(m_original, e->size());
 
@@ -105,7 +105,7 @@ void EFXPreviewArea::resizeEvent(QResizeEvent* e)
     QWidget::resizeEvent(e);
 }
 
-void EFXPreviewArea::paintEvent(QPaintEvent* e)
+void EFXPreviewArea::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
 

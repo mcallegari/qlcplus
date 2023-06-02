@@ -36,13 +36,13 @@ class PlaybackSlider : public QWidget
     Q_OBJECT
 
 public:
-    PlaybackSlider(QWidget* parent);
+    PlaybackSlider(QWidget *parent);
     ~PlaybackSlider();
 
     void setValue(uchar value);
     uchar value() const;
 
-    void setLabel(const QString& text);
+    void setLabel(const QString &text);
     QString label() const;
 
     void setSelected(bool sel);
@@ -60,11 +60,11 @@ private slots:
     void slotFlashReleased();
 
 private:
-    QToolButton* m_select;
-    QLabel* m_value;
-    ClickAndGoSlider* m_slider;
-    QLabel* m_label;
-    QToolButton* m_flash;
+    QToolButton *m_select;
+    QLabel *m_value;
+    ClickAndGoSlider *m_slider;
+    QLabel *m_label;
+    QToolButton *m_flash;
     int m_previousValue;
 };
 

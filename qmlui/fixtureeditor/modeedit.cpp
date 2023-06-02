@@ -21,7 +21,7 @@
 #include "listmodel.h"
 #include "modeedit.h"
 
-ModeEdit::ModeEdit(QLCFixtureMode* mode, QObject* parent)
+ModeEdit::ModeEdit(QLCFixtureMode *mode, QObject *parent)
     : QObject(parent)
     , m_mode(mode)
     , m_physical(nullptr)
@@ -68,13 +68,13 @@ QVariant ModeEdit::channels() const
     return QVariant::fromValue(m_channelList);
 }
 
-void ModeEdit::addChannel(QLCChannel* channel, int insertIndex)
+void ModeEdit::addChannel(QLCChannel *channel, int insertIndex)
 {
     m_mode->insertChannel(channel, insertIndex);
     updateChannelList();
 }
 
-void ModeEdit::moveChannel(QLCChannel* channel, int insertIndex)
+void ModeEdit::moveChannel(QLCChannel *channel, int insertIndex)
 {
     int index = m_mode->channelNumber(channel);
     if (index < insertIndex)
@@ -85,12 +85,12 @@ void ModeEdit::moveChannel(QLCChannel* channel, int insertIndex)
     updateChannelList();
 }
 
-QLCChannel* ModeEdit::channelFromIndex(int index) const
+QLCChannel *ModeEdit::channelFromIndex(int index) const
 {
     return m_mode->channel(index);
 }
 
-bool ModeEdit::deleteChannel(QLCChannel* channel)
+bool ModeEdit::deleteChannel(QLCChannel *channel)
 {
     // TODO: Tardis
     bool res = m_mode->removeChannel(channel);
@@ -103,7 +103,7 @@ void ModeEdit::updateChannelList()
 {
     m_channelList->clear();
 
-    for (QLCChannel* channel : m_mode->channels())
+    for (QLCChannel *channel : m_mode->channels())
     {
         QVariantMap chanMap;
         chanMap.insert("cRef", QVariant::fromValue(channel));
@@ -127,7 +127,7 @@ void ModeEdit::addHead(QVariantList chIndexList)
 {
     QLCFixtureHead head;
 
-    for (QVariant& idx : chIndexList)
+    for (QVariant &idx : chIndexList)
         head.addChannel(idx.toUInt());
 
     m_mode->insertHead(-1, head);
@@ -137,7 +137,7 @@ void ModeEdit::addHead(QVariantList chIndexList)
 void ModeEdit::deleteHeads(QVariantList headIndexList)
 {
     QVector<int> sortedList;
-    for (QVariant& idx : headIndexList)
+    for (QVariant &idx : headIndexList)
         sortedList.append(idx.toInt());
     std::sort(sortedList.begin(), sortedList.end(), std::greater<int>());
 
@@ -171,7 +171,7 @@ bool ModeEdit::useGlobalPhysical()
     return m_mode->useGlobalPhysical();
 }
 
-PhysicalEdit* ModeEdit::physical()
+PhysicalEdit *ModeEdit::physical()
 {
     if (m_physical == nullptr)
         m_physical = new PhysicalEdit(m_mode->physical());

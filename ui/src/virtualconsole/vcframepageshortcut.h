@@ -53,10 +53,10 @@ public:
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
 protected:
     /** The page name */

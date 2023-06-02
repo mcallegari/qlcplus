@@ -88,7 +88,7 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    VCSpeedDial(QWidget* parent, Doc* doc);
+    VCSpeedDial(QWidget *parent, Doc *doc);
     ~VCSpeedDial();
 
     /** @reimp */
@@ -99,18 +99,18 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*************************************************************************
      * Caption
      *************************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString &text);
 
     /*************************************************************************
      * QLC Mode
@@ -148,7 +148,7 @@ public:
     /**
      * Set the list of functions that are controlled by the dial.
      */
-    void setFunctions(const QList<VCSpeedDialFunction>& functions);
+    void setFunctions(const QList<VCSpeedDialFunction> &functions);
 
     /**
      * Get the list of functions that are controlled by the dial.
@@ -171,14 +171,14 @@ private slots:
 
 private:
     QList<VCSpeedDialFunction> m_functions;
-    SpeedDial* m_dial;
-    QToolButton* m_multButton;
-    QLabel* m_multDivLabel;
-    QToolButton* m_divButton;
-    QToolButton* m_multDivResetButton;
-    QLabel* m_multDivResultLabel;
-    QPushButton* m_applyButton;
-    FlowLayout* m_presetsLayout;
+    SpeedDial *m_dial;
+    QToolButton *m_multButton;
+    QLabel *m_multDivLabel;
+    QToolButton *m_divButton;
+    QToolButton *m_multDivResetButton;
+    QLabel *m_multDivResultLabel;
+    QPushButton *m_applyButton;
+    FlowLayout *m_presetsLayout;
 
 protected slots:
     void slotMult();
@@ -211,19 +211,19 @@ protected slots:
      * Tap & presets key sequence handler
      *********************************************************************/
 public:
-    void setTapKeySequence(const QKeySequence& keySequence);
+    void setTapKeySequence(const QKeySequence &keySequence);
     QKeySequence tapKeySequence() const;
-    void setMultKeySequence(const QKeySequence& keySequence);
+    void setMultKeySequence(const QKeySequence &keySequence);
     QKeySequence multKeySequence() const;
-    void setDivKeySequence(const QKeySequence& keySequence);
+    void setDivKeySequence(const QKeySequence &keySequence);
     QKeySequence divKeySequence() const;
-    void setMultDivResetKeySequence(const QKeySequence& keySequence);
+    void setMultDivResetKeySequence(const QKeySequence &keySequence);
     QKeySequence multDivResetKeySequence() const;
-    void setApplyKeySequence(const QKeySequence& keySequence);
+    void setApplyKeySequence(const QKeySequence &keySequence);
     QKeySequence applyKeySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
 
 protected:
     QKeySequence m_tapKeySequence;
@@ -262,34 +262,34 @@ private:
      * Presets
      *********************************************************************/
 public:
-    void addPreset(VCSpeedDialPreset const& preset);
+    void addPreset(VCSpeedDialPreset const &preset);
     void resetPresets();
-    QList<VCSpeedDialPreset*> presets() const;
+    QList<VCSpeedDialPreset *> presets() const;
 
 protected slots:
     void slotPresetClicked();
 
 protected:
-    QHash<QWidget*, VCSpeedDialPreset*> m_presets;
+    QHash<QWidget *, VCSpeedDialPreset *> m_presets;
 
 private slots:
     void slotUpdate();
 
 private:
     /** timer for updating the preset buttons */
-    QTimer* m_updateTimer;
+    QTimer *m_updateTimer;
 
     /*************************************************************************
      * Load & Save
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
-    bool loadXMLInfiniteLegacy(QXmlStreamReader& root, QSharedPointer<VCSpeedDialPreset> preset);
+    bool loadXMLInfiniteLegacy(QXmlStreamReader &root, QSharedPointer<VCSpeedDialPreset> preset);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimp */
     void postLoad();

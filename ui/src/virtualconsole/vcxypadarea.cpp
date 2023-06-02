@@ -39,7 +39,7 @@ const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0 / 256;
  * Initialization
  *****************************************************************************/
 
-VCXYPadArea::VCXYPadArea(QWidget* parent)
+VCXYPadArea::VCXYPadArea(QWidget *parent)
     : QFrame(parent)
     , m_changed(false)
     , m_activePixmap(":/xypad-point-blue.png")
@@ -81,7 +81,7 @@ QPointF VCXYPadArea::position(bool resetChanged) const
     return pos;
 }
 
-void VCXYPadArea::setPosition(const QPointF& point)
+void VCXYPadArea::setPosition(const QPointF &point)
 {
     {
         QMutexLocker locker(&m_mutex);
@@ -251,7 +251,7 @@ void VCXYPadArea::enableEFXPreview(bool enable)
     }
 }
 
-void VCXYPadArea::setEFXPolygons(const QPolygonF& pattern, const QVector<QPolygonF> fixtures)
+void VCXYPadArea::setEFXPolygons(const QPolygonF &pattern, const QVector<QPolygonF> fixtures)
 {
     if (m_previewArea == NULL)
         enableEFXPreview(true);
@@ -269,7 +269,7 @@ void VCXYPadArea::setEFXInterval(uint duration)
  * Event handlers
  *****************************************************************************/
 
-void VCXYPadArea::paintEvent(QPaintEvent* e)
+void VCXYPadArea::paintEvent(QPaintEvent *e)
 {
     if (m_rangeWindowRect.isValid() && (m_mode == Doc::Operate))
         checkDmxRange();
@@ -282,11 +282,8 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
 
     if (m_previewArea == NULL)
     {
-        QString title = QString("%1%2%3\n%4\n")
-                            .arg(windowTitle())
-                            .arg(windowTitle().isEmpty() ? "" : "\n")
-                            .arg(positionString())
-                            .arg(angleString());
+        QString title =
+            QString("%1%2%3\n%4\n").arg(windowTitle()).arg(windowTitle().isEmpty() ? "" : "\n").arg(positionString()).arg(angleString());
 
         /* Draw name (offset just a bit to avoid frame) */
         p.drawText(1, 1, width() - 2, height() - 2, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, title);
@@ -325,8 +322,7 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
             pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
             pt.setY(SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(height())));
 
-            p.drawPixmap(pt.x() - (m_fixturePixmap.width() / 2), pt.y() - (m_fixturePixmap.height() / 2),
-                         m_fixturePixmap);
+            p.drawPixmap(pt.x() - (m_fixturePixmap.width() / 2), pt.y() - (m_fixturePixmap.height() / 2), m_fixturePixmap);
         }
 
         /* Draw the current point pixmap */
@@ -335,13 +331,13 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     }
 }
 
-void VCXYPadArea::resizeEvent(QResizeEvent* e)
+void VCXYPadArea::resizeEvent(QResizeEvent *e)
 {
     QFrame::resizeEvent(e);
     updateRangeWindow();
 }
 
-void VCXYPadArea::mousePressEvent(QMouseEvent* e)
+void VCXYPadArea::mousePressEvent(QMouseEvent *e)
 {
     if (m_mode == Doc::Operate)
     {
@@ -358,7 +354,7 @@ void VCXYPadArea::mousePressEvent(QMouseEvent* e)
     QFrame::mousePressEvent(e);
 }
 
-void VCXYPadArea::mouseReleaseEvent(QMouseEvent* e)
+void VCXYPadArea::mouseReleaseEvent(QMouseEvent *e)
 {
     if (m_mode == Doc::Operate)
     {
@@ -374,7 +370,7 @@ void VCXYPadArea::mouseReleaseEvent(QMouseEvent* e)
     QFrame::mouseReleaseEvent(e);
 }
 
-void VCXYPadArea::mouseMoveEvent(QMouseEvent* e)
+void VCXYPadArea::mouseMoveEvent(QMouseEvent *e)
 {
     if (m_mode == Doc::Operate)
     {
@@ -389,7 +385,7 @@ void VCXYPadArea::mouseMoveEvent(QMouseEvent* e)
     QFrame::mouseMoveEvent(e);
 }
 
-void VCXYPadArea::keyPressEvent(QKeyEvent* e)
+void VCXYPadArea::keyPressEvent(QKeyEvent *e)
 {
     if (m_mode == Doc::Operate)
     {
@@ -430,7 +426,7 @@ void VCXYPadArea::keyPressEvent(QKeyEvent* e)
 }
 
 
-void VCXYPadArea::keyReleaseEvent(QKeyEvent* e)
+void VCXYPadArea::keyReleaseEvent(QKeyEvent *e)
 {
     QFrame::keyReleaseEvent(e);
 }

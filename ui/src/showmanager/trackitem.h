@@ -47,13 +47,13 @@ class TrackItem : public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    TrackItem(Track* track, int number);
+    TrackItem(Track *track, int number);
 
     QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     /** Return pointer to the Track class associated to this item */
-    Track* getTrack();
+    Track *getTrack();
 
     /** Return the track number */
     int getTrackNumber();
@@ -74,9 +74,9 @@ public:
     bool isMute();
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent*);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *);
 
 protected slots:
     void slotTrackChanged(quint32 id);
@@ -86,12 +86,12 @@ protected slots:
     void slotDeleteTrackClicked();
 
 signals:
-    void itemClicked(TrackItem*);
-    void itemDoubleClicked(TrackItem*);
-    void itemSoloFlagChanged(TrackItem*, bool);
-    void itemMuteFlagChanged(TrackItem*, bool);
-    void itemMoveUpDown(Track*, int);
-    void itemRequestDelete(Track*);
+    void itemClicked(TrackItem *);
+    void itemDoubleClicked(TrackItem *);
+    void itemSoloFlagChanged(TrackItem *, bool);
+    void itemMuteFlagChanged(TrackItem *, bool);
+    void itemMoveUpDown(Track *, int);
+    void itemRequestDelete(Track *);
 
 private:
     QString m_name;
@@ -99,16 +99,16 @@ private:
     QFont m_font;
     QFont m_btnFont;
     bool m_isActive;
-    Track* m_track;
-    QRectF* m_muteRegion;
+    Track *m_track;
+    QRectF *m_muteRegion;
     bool m_isMute;
-    QRectF* m_soloRegion;
+    QRectF *m_soloRegion;
     bool m_isSolo;
 
-    QAction* m_moveUp;
-    QAction* m_moveDown;
-    QAction* m_changeName;
-    QAction* m_delete;
+    QAction *m_moveUp;
+    QAction *m_moveDown;
+    QAction *m_changeName;
+    QAction *m_delete;
 };
 
 /** @} */

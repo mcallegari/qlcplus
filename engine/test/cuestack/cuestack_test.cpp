@@ -600,8 +600,8 @@ void CueStack_Test::flash()
     cue.setValue(128, 42);
     cs.appendCue(cue);
 
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    Universe* universe = ua.at(0);
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua.at(0);
     universe->setChannelCapability(0, QLCChannel::Intensity);
     universe->setChannelCapability(128, QLCChannel::Intensity);
     cs.setFlashing(true);
@@ -680,20 +680,20 @@ void CueStack_Test::nextPrevious()
 
 void CueStack_Test::switchCue()
 {
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setFixtureDefinition(def, mode);
     fxi->setName("Test Scanner");
     fxi->setAddress(10);
     fxi->setUniverse(0);
     m_doc->addFixture(fxi);
 
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
 
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
@@ -845,20 +845,20 @@ void CueStack_Test::switchCue()
 
 void CueStack_Test::postRun()
 {
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setFixtureDefinition(def, mode);
     fxi->setName("Test Scanner");
     fxi->setAddress(10);
     fxi->setUniverse(0);
     m_doc->addFixture(fxi);
 
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
 
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
@@ -916,7 +916,7 @@ void CueStack_Test::postRun()
 
 void CueStack_Test::write()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
     CueStack cs(m_doc);
 
     Cue cue("One");

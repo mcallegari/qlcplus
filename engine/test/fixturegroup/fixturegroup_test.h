@@ -50,7 +50,7 @@ private slots:
     void save();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     int m_currentAddr;
 };
 

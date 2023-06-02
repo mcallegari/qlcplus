@@ -56,7 +56,7 @@ class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
      * Initialization
      *************************************************************************/
 public:
-    VCPropertiesEditor(QWidget* parent, const VCProperties& properties, InputOutputMap* ioMap);
+    VCPropertiesEditor(QWidget *parent, const VCProperties &properties, InputOutputMap *ioMap);
     ~VCPropertiesEditor();
 
     VCProperties properties() const;
@@ -75,7 +75,7 @@ public:
 
 private:
     VCProperties m_properties;
-    InputOutputMap* m_ioMap;
+    InputOutputMap *m_ioMap;
 
     /*************************************************************************
      * Layout page

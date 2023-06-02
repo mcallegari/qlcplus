@@ -36,10 +36,10 @@ class ModeEdit : public QObject
     Q_PROPERTY(QVariant channels READ channels NOTIFY channelsChanged)
     Q_PROPERTY(QVariant heads READ heads NOTIFY headsChanged)
     Q_PROPERTY(bool useGlobalPhysical READ useGlobalPhysical CONSTANT)
-    Q_PROPERTY(PhysicalEdit* physical READ physical CONSTANT)
+    Q_PROPERTY(PhysicalEdit *physical READ physical CONSTANT)
 
 public:
-    ModeEdit(QLCFixtureMode* mode, QObject* parent = nullptr);
+    ModeEdit(QLCFixtureMode *mode, QObject *parent = nullptr);
     ~ModeEdit();
 
     /** Get/Set the name of the mode being edited */
@@ -51,7 +51,7 @@ signals:
 
 private:
     /** Reference to the mode being edited */
-    QLCFixtureMode* m_mode;
+    QLCFixtureMode *m_mode;
 
     /************************************************************************
      * Channels
@@ -61,17 +61,17 @@ public:
     QVariant channels() const;
 
     /** Add a new channel to the mode being edited */
-    Q_INVOKABLE void addChannel(QLCChannel* channel, int insertIndex = 0);
+    Q_INVOKABLE void addChannel(QLCChannel *channel, int insertIndex = 0);
 
     /** Move $channel to a new position in the mode being edited */
-    Q_INVOKABLE void moveChannel(QLCChannel* channel, int insertIndex = 0);
+    Q_INVOKABLE void moveChannel(QLCChannel *channel, int insertIndex = 0);
 
     /** Return the reference to a channel with the given $index
      *  in the mode being edited */
-    Q_INVOKABLE QLCChannel* channelFromIndex(int index) const;
+    Q_INVOKABLE QLCChannel *channelFromIndex(int index) const;
 
     /** Delete the given $channel from the mode being edited */
-    Q_INVOKABLE bool deleteChannel(QLCChannel* channel);
+    Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
 
 private:
     void updateChannelList();
@@ -81,7 +81,7 @@ signals:
 
 private:
     /** Reference to a channel list usable in QML */
-    ListModel* m_channelList;
+    ListModel *m_channelList;
 
     /************************************************************************
      * Heads
@@ -104,7 +104,7 @@ signals:
 
 private:
     /** Reference to a head list usable in QML */
-    ListModel* m_headList;
+    ListModel *m_headList;
 
     /************************************************************************
      * Physical
@@ -116,11 +116,11 @@ public:
 
     /** Get an editor reference for the
      *  override physical properties */
-    PhysicalEdit* physical();
+    PhysicalEdit *physical();
 
 private:
     /** Reference to the override physical properties */
-    PhysicalEdit* m_physical;
+    PhysicalEdit *m_physical;
 };
 
 #endif /* MODEEDIT_H */

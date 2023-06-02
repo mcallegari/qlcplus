@@ -201,7 +201,7 @@ void Chaser_Test::stepAt()
     QVERIFY(c.stepsCount() == 1);
 
     QVERIFY(c.stepAt(10) == NULL);
-    ChaserStep* cs = c.stepAt(0);
+    ChaserStep *cs = c.stepAt(0);
     QVERIFY(cs != NULL);
 
     QVERIFY(cs->fadeIn == 1000);
@@ -317,7 +317,7 @@ void Chaser_Test::createCopy()
 {
     Doc doc(this);
 
-    Chaser* c1 = new Chaser(m_doc);
+    Chaser *c1 = new Chaser(m_doc);
     c1->setName("First");
     c1->setFadeInSpeed(42);
     c1->setFadeOutSpeed(69);
@@ -331,12 +331,12 @@ void Chaser_Test::createCopy()
     doc.addFunction(c1);
     QVERIFY(c1->id() != Function::invalidId());
 
-    Function* f = c1->createCopy(&doc);
+    Function *f = c1->createCopy(&doc);
     QVERIFY(f != NULL);
     QVERIFY(f != c1);
     QVERIFY(f->id() != c1->id());
 
-    Chaser* copy = qobject_cast<Chaser*>(f);
+    Chaser *copy = qobject_cast<Chaser *>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->fadeInSpeed() == 42);
     QVERIFY(copy->fadeOutSpeed() == 69);
@@ -628,28 +628,28 @@ void Chaser_Test::loadWrongRoot()
 
 void Chaser_Test::postLoad()
 {
-    Scene* sc1 = new Scene(m_doc);
+    Scene *sc1 = new Scene(m_doc);
     m_doc->addFunction(sc1);
 
-    Scene* sc2 = new Scene(m_doc);
+    Scene *sc2 = new Scene(m_doc);
     m_doc->addFunction(sc2);
 
-    Chaser* ch1 = new Chaser(m_doc);
+    Chaser *ch1 = new Chaser(m_doc);
     m_doc->addFunction(ch1);
 
-    Chaser* ch2 = new Chaser(m_doc);
+    Chaser *ch2 = new Chaser(m_doc);
     m_doc->addFunction(ch2);
 
-    Collection* co1 = new Collection(m_doc);
+    Collection *co1 = new Collection(m_doc);
     m_doc->addFunction(co1);
 
-    Collection* co2 = new Collection(m_doc);
+    Collection *co2 = new Collection(m_doc);
     m_doc->addFunction(co2);
 
-    EFX* ef1 = new EFX(m_doc);
+    EFX *ef1 = new EFX(m_doc);
     m_doc->addFunction(ef1);
 
-    EFX* ef2 = new EFX(m_doc);
+    EFX *ef2 = new EFX(m_doc);
     m_doc->addFunction(ef2);
 
     QBuffer buffer;
@@ -830,19 +830,19 @@ void Chaser_Test::save()
 
 void Chaser_Test::tap()
 {
-    Scene* s1 = new Scene(m_doc);
+    Scene *s1 = new Scene(m_doc);
     m_doc->addFunction(s1);
 
-    Scene* s2 = new Scene(m_doc);
+    Scene *s2 = new Scene(m_doc);
     m_doc->addFunction(s2);
 
-    Scene* s3 = new Scene(m_doc);
+    Scene *s3 = new Scene(m_doc);
     m_doc->addFunction(s3);
 
-    Scene* s4 = new Scene(m_doc);
+    Scene *s4 = new Scene(m_doc);
     m_doc->addFunction(s4);
 
-    Chaser* c = new Chaser(m_doc);
+    Chaser *c = new Chaser(m_doc);
     c->addStep(s1->id());
     c->addStep(s2->id());
     c->addStep(s3->id());
@@ -852,7 +852,7 @@ void Chaser_Test::tap()
     c->preRun(m_doc->masterTimer());
     QVERIFY(c->m_runner != NULL);
     QCOMPARE(c->duration(), uint(0));
-    c->write(m_doc->masterTimer(), QList<Universe*>());
+    c->write(m_doc->masterTimer(), QList<Universe *>());
     QCOMPARE(c->m_runner->m_pendingAction.m_action, ChaserNoAction);
     c->tap();
     QTest::qWait(MasterTimer::tick());
@@ -862,10 +862,10 @@ void Chaser_Test::tap()
 
 void Chaser_Test::preRun()
 {
-    Chaser* c = new Chaser(m_doc);
+    Chaser *c = new Chaser(m_doc);
     m_doc->addFunction(c);
 
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
@@ -880,22 +880,22 @@ void Chaser_Test::preRun()
 
 void Chaser_Test::write()
 {
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(1);
     m_doc->addFixture(fxi);
 
-    Chaser* c = new Chaser(m_doc);
+    Chaser *c = new Chaser(m_doc);
     c->setDuration(MasterTimer::tick() * 10);
     m_doc->addFunction(c);
 
-    Scene* s1 = new Scene(m_doc);
+    Scene *s1 = new Scene(m_doc);
     s1->setValue(fxi->id(), 0, 255);
     m_doc->addFunction(s1);
     c->addStep(s1->id());
 
-    Scene* s2 = new Scene(m_doc);
+    Scene *s2 = new Scene(m_doc);
     s2->setValue(fxi->id(), 0, 127);
     m_doc->addFunction(s2);
     c->addStep(s2->id());
@@ -928,10 +928,10 @@ void Chaser_Test::write()
 
 void Chaser_Test::postRun()
 {
-    Chaser* c = new Chaser(m_doc);
+    Chaser *c = new Chaser(m_doc);
     m_doc->addFunction(c);
 
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
@@ -945,10 +945,10 @@ void Chaser_Test::postRun()
 
 void Chaser_Test::adjustIntensity()
 {
-    Chaser* c = new Chaser(m_doc);
+    Chaser *c = new Chaser(m_doc);
     m_doc->addFunction(c);
 
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
@@ -969,23 +969,23 @@ void Chaser_Test::adjustIntensity()
 
 void Chaser_Test::quickChaser()
 {
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(1);
     m_doc->addFixture(fxi);
 
-    Chaser* c = new Chaser(m_doc);
+    Chaser *c = new Chaser(m_doc);
     // A really quick chaser
     c->setDuration(0);
     m_doc->addFunction(c);
 
-    Scene* s1 = new Scene(m_doc);
+    Scene *s1 = new Scene(m_doc);
     s1->setValue(fxi->id(), 0, 255);
     m_doc->addFunction(s1);
     c->addStep(s1->id());
 
-    Scene* s2 = new Scene(m_doc);
+    Scene *s2 = new Scene(m_doc);
     s2->setValue(fxi->id(), 0, 127);
     m_doc->addFunction(s2);
     c->addStep(s2->id());

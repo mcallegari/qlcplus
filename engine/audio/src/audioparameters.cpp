@@ -32,7 +32,7 @@ AudioParameters::AudioParameters()
 {
 }
 
-AudioParameters::AudioParameters(const AudioParameters& other)
+AudioParameters::AudioParameters(const AudioParameters &other)
     : m_srate(other.sampleRate())
     , m_chan(other.channels())
     , m_format(other.format())
@@ -46,19 +46,19 @@ AudioParameters::AudioParameters(quint32 srate, int chan, AudioFormat format)
 {
 }
 
-void AudioParameters::operator=(const AudioParameters& p)
+void AudioParameters::operator=(const AudioParameters &p)
 {
     m_srate = p.sampleRate();
     m_chan = p.channels();
     m_format = p.format();
 }
 
-bool AudioParameters::operator==(const AudioParameters& p) const
+bool AudioParameters::operator==(const AudioParameters &p) const
 {
     return m_srate == p.sampleRate() && m_chan == p.channels() && m_format == p.format();
 }
 
-bool AudioParameters::operator!=(const AudioParameters& p) const
+bool AudioParameters::operator!=(const AudioParameters &p) const
 {
     return !operator==(p);
 }

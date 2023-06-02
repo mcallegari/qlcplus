@@ -36,7 +36,7 @@
 #define KXMLQLCPaletteFanAmount "Amount"
 #define KXMLQLCPaletteFanValue "FanValue"
 
-QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject* parent)
+QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
     : QObject(parent)
     , m_id(QLCPalette::invalidId())
     , m_type(type)
@@ -46,9 +46,9 @@ QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject* parent)
 {
 }
 
-QLCPalette* QLCPalette::createCopy()
+QLCPalette *QLCPalette::createCopy()
 {
-    QLCPalette* copy = new QLCPalette(type());
+    QLCPalette *copy = new QLCPalette(type());
     copy->setValues(this->values());
     copy->setName(this->name());
     copy->setFanningType(this->fanningType());
@@ -110,7 +110,7 @@ QString QLCPalette::typeToString(QLCPalette::PaletteType type)
     return "";
 }
 
-QLCPalette::PaletteType QLCPalette::stringToType(const QString& str)
+QLCPalette::PaletteType QLCPalette::stringToType(const QString &str)
 {
     if (str == "Dimmer")
         return Dimmer;
@@ -161,7 +161,7 @@ QString QLCPalette::name() const
     return m_name;
 }
 
-void QLCPalette::setName(const QString& name)
+void QLCPalette::setName(const QString &name)
 {
     if (name == m_name)
         return;
@@ -252,7 +252,7 @@ void QLCPalette::resetValues()
     m_values.clear();
 }
 
-QList<SceneValue> QLCPalette::valuesFromFixtures(Doc* doc, QList<quint32> fixtures)
+QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtures)
 {
     QList<SceneValue> list;
 
@@ -262,7 +262,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc* doc, QList<quint32> fixtur
     int intFanValue = fanningValue().toInt();
     FanningType fType = fanningType();
     FanningLayout fLayout = fanningLayout();
-    MonitorProperties* mProps = doc->monitorProperties();
+    MonitorProperties *mProps = doc->monitorProperties();
 
     // sort the fixtures list based on selected layout
     std::sort(fixtures.begin(), fixtures.end(),
@@ -292,7 +292,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc* doc, QList<quint32> fixtur
 
     foreach (quint32 id, fixtures)
     {
-        Fixture* fixture = doc->fixture(id);
+        Fixture *fixture = doc->fixture(id);
         if (fixture == NULL)
             continue;
 
@@ -411,13 +411,13 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc* doc, QList<quint32> fixtur
     return list;
 }
 
-QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc* doc, QList<quint32> groups)
+QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> groups)
 {
     QList<quint32> fixturesList;
 
     foreach (quint32 id, groups)
     {
-        FixtureGroup* group = doc->fixtureGroup(id);
+        FixtureGroup *group = doc->fixtureGroup(id);
         if (group == NULL)
             continue;
 
@@ -512,7 +512,7 @@ QString QLCPalette::fanningTypeToString(QLCPalette::FanningType type)
     return "";
 }
 
-QLCPalette::FanningType QLCPalette::stringToFanningType(const QString& str)
+QLCPalette::FanningType QLCPalette::stringToFanningType(const QString &str)
 {
     if (str == "Flat")
         return Flat;
@@ -570,7 +570,7 @@ QString QLCPalette::fanningLayoutToString(QLCPalette::FanningLayout layout)
     return "";
 }
 
-QLCPalette::FanningLayout QLCPalette::stringToFanningLayout(const QString& str)
+QLCPalette::FanningLayout QLCPalette::stringToFanningLayout(const QString &str)
 {
     if (str == "XAscending")
         return XAscending;
@@ -635,7 +635,7 @@ QString QLCPalette::colorToString(QColor rgb, QColor wauv)
     return final;
 }
 
-bool QLCPalette::stringToColor(QString str, QColor& rgb, QColor& wauv)
+bool QLCPalette::stringToColor(QString str, QColor &rgb, QColor &wauv)
 {
     // string must be like #rrggbb or #rrggbbwwaauv
     if (str.length() != 7 && str.length() != 13)
@@ -655,9 +655,9 @@ bool QLCPalette::stringToColor(QString str, QColor& rgb, QColor& wauv)
  * Load & Save
  ************************************************************************/
 
-bool QLCPalette::loader(QXmlStreamReader& xmlDoc, Doc* doc)
+bool QLCPalette::loader(QXmlStreamReader &xmlDoc, Doc *doc)
 {
-    QLCPalette* palette = new QLCPalette(Dimmer, doc);
+    QLCPalette *palette = new QLCPalette(Dimmer, doc);
     Q_ASSERT(palette != NULL);
 
     if (palette->loadXML(xmlDoc) == true)
@@ -674,7 +674,7 @@ bool QLCPalette::loader(QXmlStreamReader& xmlDoc, Doc* doc)
     return true;
 }
 
-bool QLCPalette::loadXML(QXmlStreamReader& doc)
+bool QLCPalette::loadXML(QXmlStreamReader &doc)
 {
     if (doc.name() != KXMLQLCPalette)
     {
@@ -771,7 +771,7 @@ bool QLCPalette::loadXML(QXmlStreamReader& doc)
     return true;
 }
 
-bool QLCPalette::saveXML(QXmlStreamWriter* doc)
+bool QLCPalette::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -797,8 +797,7 @@ bool QLCPalette::saveXML(QXmlStreamWriter* doc)
         doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
         break;
     case PanTilt:
-        doc->writeAttribute(KXMLQLCPaletteValue,
-                            QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
+        doc->writeAttribute(KXMLQLCPaletteValue, QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
         break;
     case Shutter:
         break;

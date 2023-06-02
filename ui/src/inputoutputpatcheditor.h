@@ -50,7 +50,7 @@ public:
      * @param universe The universe whose settings to edit
      * @param outputMap The output map object that handles DMX output
      */
-    InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap* ioMap, Doc* doc);
+    InputOutputPatchEditor(QWidget *parent, quint32 universe, InputOutputMap *ioMap, Doc *doc);
     ~InputOutputPatchEditor();
 
 signals:
@@ -61,8 +61,8 @@ signals:
     void audioInputDeviceChanged();
 
 private:
-    InputOutputMap* m_ioMap;
-    Doc* m_doc;
+    InputOutputMap *m_ioMap;
+    Doc *m_doc;
 
     quint32 m_universe; //! The input universe that is being edited
 
@@ -78,19 +78,19 @@ private:
      * Mapping page
      ************************************************************************/
 private:
-    InputPatch* patch() const;
-    QTreeWidgetItem* currentlyMappedItem() const;
+    InputPatch *patch() const;
+    QTreeWidgetItem *currentlyMappedItem() const;
     void setupMappingPage();
-    QTreeWidgetItem* itemLookup(QString pluginName, QString devName);
+    QTreeWidgetItem *itemLookup(QString pluginName, QString devName);
     void fillMappingTree();
-    QTreeWidgetItem* pluginItem(const QString& pluginName);
+    QTreeWidgetItem *pluginItem(const QString &pluginName);
     void showPluginMappingError();
 
 private slots:
-    void slotMapCurrentItemChanged(QTreeWidgetItem* item);
-    void slotMapItemChanged(QTreeWidgetItem* item, int col);
+    void slotMapCurrentItemChanged(QTreeWidgetItem *item);
+    void slotMapItemChanged(QTreeWidgetItem *item, int col);
     void slotConfigureInputClicked();
-    void slotPluginConfigurationChanged(const QString& pluginName, bool success);
+    void slotPluginConfigurationChanged(const QString &pluginName, bool success);
     void slotHotpluggingChanged(bool checked);
 
     /************************************************************************
@@ -99,11 +99,11 @@ private slots:
 private:
     void setupProfilePage();
     void fillProfileTree();
-    void updateProfileItem(const QString& name, QTreeWidgetItem* item);
-    QString fullProfilePath(const QString& manufacturer, const QString& model) const;
+    void updateProfileItem(const QString &name, QTreeWidgetItem *item);
+    QString fullProfilePath(const QString &manufacturer, const QString &model) const;
 
 private slots:
-    void slotProfileItemChanged(QTreeWidgetItem* item);
+    void slotProfileItemChanged(QTreeWidgetItem *item);
     void slotAddProfileClicked();
     void slotRemoveProfileClicked();
     void slotEditProfileClicked();
@@ -115,14 +115,14 @@ private:
     void initAudioTab();
 
 private slots:
-    void slotAudioDeviceItemChanged(QTreeWidgetItem* item, int col);
+    void slotAudioDeviceItemChanged(QTreeWidgetItem *item, int col);
     void slotSampleRateIndexChanged(int index);
     void slotAudioChannelsChanged(int index);
     void slotAudioInputPreview(bool enable);
-    void slotAudioUpdateLevel(double* spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 private:
-    AudioCapture* m_inputCapture;
+    AudioCapture *m_inputCapture;
 };
 
 /** @} */

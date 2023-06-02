@@ -33,7 +33,7 @@ class Doc;
 class RGBScriptsCache
 {
 public:
-    explicit RGBScriptsCache(Doc* doc);
+    explicit RGBScriptsCache(Doc *doc);
 
     /**
      * Return a list of strings containing the cached scripts names.
@@ -43,7 +43,7 @@ public:
     /**
      * Get a script instance by name
      */
-    RGBScript const& script(QString name) const;
+    RGBScript const &script(QString name) const;
 
     /**
      * Load RGB scripts from the given path. Ignores duplicates.
@@ -53,7 +53,7 @@ public:
      * @param dir The directory to load scripts from.
      * @return true, if the path could be accessed, otherwise false.
      */
-    bool load(const QDir& dir);
+    bool load(const QDir &dir);
 
     /**
      * Get the default system RGB scripts directory that contains
@@ -74,9 +74,9 @@ public:
     static QDir userScriptsDirectory();
 
 private:
-    Doc* m_doc;
-    QMap<QString, RGBScript*> m_scriptsMap; //! One instance of each script, filename-based map
-    RGBScript* m_dummyScript;               //! Dummy empty script
+    Doc *m_doc;
+    QMap<QString, RGBScript *> m_scriptsMap; //! One instance of each script, filename-based map
+    RGBScript *m_dummyScript;                //! Dummy empty script
 };
 
 /** @} */

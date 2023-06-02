@@ -22,13 +22,13 @@
 #include <QPainter>
 #include <QStyle>
 
-ClickAndGoSlider::ClickAndGoSlider(QWidget* parent)
+ClickAndGoSlider::ClickAndGoSlider(QWidget *parent)
     : QSlider(parent)
 {
     m_shadowLevel = -1;
 }
 
-void ClickAndGoSlider::setSliderStyleSheet(const QString& styleSheet)
+void ClickAndGoSlider::setSliderStyleSheet(const QString &styleSheet)
 {
     if (isVisible())
         QSlider::setStyleSheet(styleSheet);
@@ -42,7 +42,7 @@ void ClickAndGoSlider::setShadowLevel(int level)
     update();
 }
 
-void ClickAndGoSlider::mousePressEvent(QMouseEvent* e)
+void ClickAndGoSlider::mousePressEvent(QMouseEvent *e)
 {
     if (e->modifiers() == Qt::ControlModifier)
     {
@@ -75,14 +75,14 @@ void ClickAndGoSlider::mousePressEvent(QMouseEvent* e)
     QSlider::mousePressEvent(e);
 }
 
-void ClickAndGoSlider::wheelEvent(QWheelEvent* e)
+void ClickAndGoSlider::wheelEvent(QWheelEvent *e)
 {
     setSliderDown(true);
     QSlider::wheelEvent(e);
     setSliderDown(false);
 }
 
-void ClickAndGoSlider::keyPressEvent(QKeyEvent* e)
+void ClickAndGoSlider::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Up || e->key() == Qt::Key_Down)
         setSliderDown(true);
@@ -91,7 +91,7 @@ void ClickAndGoSlider::keyPressEvent(QKeyEvent* e)
         setSliderDown(false);
 }
 
-void ClickAndGoSlider::paintEvent(QPaintEvent* e)
+void ClickAndGoSlider::paintEvent(QPaintEvent *e)
 {
     if (m_shadowLevel >= 0)
     {
@@ -108,7 +108,7 @@ void ClickAndGoSlider::paintEvent(QPaintEvent* e)
     QSlider::paintEvent(e);
 }
 
-void ClickAndGoSlider::showEvent(QShowEvent*)
+void ClickAndGoSlider::showEvent(QShowEvent *)
 {
     if (m_styleSheet.isEmpty() == false)
     {

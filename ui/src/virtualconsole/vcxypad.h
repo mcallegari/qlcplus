@@ -93,41 +93,41 @@ public:
      * Initialization
      *************************************************************************/
 public:
-    VCXYPad(QWidget* parent, Doc* doc);
+    VCXYPad(QWidget *parent, Doc *doc);
     virtual ~VCXYPad();
 
     /** @reimp */
     void enableWidgetUI(bool enable);
 
 private:
-    QVBoxLayout* m_mainVbox;        // main vertical layout
-    QHBoxLayout* m_padBox;          // box containing sliders and XYPad
-    QVBoxLayout* m_lvbox;           // left vertical box (vertical ctkSlider)
-    QVBoxLayout* m_cvbox;           // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
-    QVBoxLayout* m_rvbox;           // right vertical box (vertical slider)
-    QSlider* m_vSlider;             // tilt slider
-    QSlider* m_hSlider;             // pan slider
-    ctkRangeSlider* m_vRangeSlider; // range window height control
-    ctkRangeSlider* m_hRangeSlider; // range window width control
-    VCXYPadArea* m_area;
-    FlowLayout* m_presetsLayout;
+    QVBoxLayout *m_mainVbox;        // main vertical layout
+    QHBoxLayout *m_padBox;          // box containing sliders and XYPad
+    QVBoxLayout *m_lvbox;           // left vertical box (vertical ctkSlider)
+    QVBoxLayout *m_cvbox;           // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
+    QVBoxLayout *m_rvbox;           // right vertical box (vertical slider)
+    QSlider *m_vSlider;             // tilt slider
+    QSlider *m_hSlider;             // pan slider
+    ctkRangeSlider *m_vRangeSlider; // range window height control
+    ctkRangeSlider *m_hRangeSlider; // range window width control
+    VCXYPadArea *m_area;
+    FlowLayout *m_presetsLayout;
 
     /*************************************************************************
      * Clipboard
      *************************************************************************/
 public:
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*************************************************************************
      * Caption
      *************************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString &text);
 
     /*********************************************************************
      * Y-Axis Inverted appearance
@@ -152,12 +152,12 @@ public:
      *
      * @param fxi The fixture to append
      */
-    void appendFixture(const VCXYPadFixture& fxi);
+    void appendFixture(const VCXYPadFixture &fxi);
 
     /**
      * Remove a fixture by its ID from the XY pad's control list
      */
-    void removeFixture(GroupHead const& head);
+    void removeFixture(GroupHead const &head);
 
     /**
      * Remove all currently controlled fixtures from the XY pad
@@ -181,16 +181,16 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe *> universes);
 
 protected:
-    void writeXYFixtures(MasterTimer* timer, QList<Universe*> universes);
+    void writeXYFixtures(MasterTimer *timer, QList<Universe *> universes);
 
 public slots:
-    void slotPositionChanged(const QPointF& pt);
+    void slotPositionChanged(const QPointF &pt);
     void slotSliderValueChanged();
     void slotRangeValueChanged();
-    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
+    void slotUniverseWritten(quint32 idx, const QByteArray &universeData);
 
 signals:
     void fixturePositions(const QVariantList positions);
@@ -207,13 +207,13 @@ private:
      * Presets
      *********************************************************************/
 public:
-    void addPreset(VCXYPadPreset const& preset);
+    void addPreset(VCXYPadPreset const &preset);
     void resetPresets();
-    QList<VCXYPadPreset*> presets() const;
+    QList<VCXYPadPreset *> presets() const;
 
 protected:
-    void updateSceneChannel(FadeChannel* fc, uchar value);
-    void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
+    void updateSceneChannel(FadeChannel *fc, uchar value);
+    void writeScenePositions(MasterTimer *timer, QList<Universe *> universes);
 
 protected slots:
     void slotPresetClicked(bool checked);
@@ -223,16 +223,16 @@ private:
     FunctionParent functionParent() const;
 
 protected:
-    QHash<QWidget*, VCXYPadPreset*> m_presets;
+    QHash<QWidget *, VCXYPadPreset *> m_presets;
     /** Reference to an EFX Function when an EFX Preset is pressed */
-    EFX* m_efx;
+    EFX *m_efx;
     /** Attribute override IDs for a running EFX preset */
     int m_efxStartXOverrideId;
     int m_efxStartYOverrideId;
     int m_efxWidthOverrideId;
     int m_efxHeightOverrideId;
 
-    Scene* m_scene;
+    Scene *m_scene;
     QList<SceneChannel> m_sceneChannels;
 
     /*********************************************************************
@@ -244,7 +244,7 @@ public:
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence &keySequence);
 
     /*************************************************************************
      * QLC+ mode
@@ -258,10 +258,10 @@ protected slots:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

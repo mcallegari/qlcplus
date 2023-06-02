@@ -103,11 +103,11 @@ void QLCInputChannel_Test::copy()
     ch.setType(QLCInputChannel::Slider);
     ch.setName("Foobar");
 
-    QLCInputChannel* copy = ch.createCopy();
+    QLCInputChannel *copy = ch.createCopy();
     QVERIFY(copy->type() == QLCInputChannel::Slider);
     QVERIFY(copy->name() == "Foobar");
 
-    QLCInputChannel* another = ch.createCopy();
+    QLCInputChannel *another = ch.createCopy();
     QVERIFY(another->type() == QLCInputChannel::Slider);
     QVERIFY(another->name() == "Foobar");
 }

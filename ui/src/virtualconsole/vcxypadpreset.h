@@ -48,7 +48,7 @@ class VCXYPadPreset
 {
 public:
     explicit VCXYPadPreset(quint8 id);
-    explicit VCXYPadPreset(VCXYPadPreset const& other);
+    explicit VCXYPadPreset(VCXYPadPreset const &other);
 
     /** Destructor */
     ~VCXYPadPreset();
@@ -73,9 +73,9 @@ public:
     QList<GroupHead> fixtureGroup() const;
 
 public:
-    VCXYPadPreset& operator=(const VCXYPadPreset& vcpp);
-    bool operator<(VCXYPadPreset const& right) const;
-    static bool compare(VCXYPadPreset const* left, VCXYPadPreset const* right);
+    VCXYPadPreset &operator=(const VCXYPadPreset &vcpp);
+    bool operator<(VCXYPadPreset const &right) const;
+    static bool compare(VCXYPadPreset const *left, VCXYPadPreset const *right);
 
 protected:
     static QString typeToString(PresetType type);
@@ -111,10 +111,10 @@ public:
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

@@ -35,7 +35,7 @@
 #define MIMEDATA_ROOT QString("MimeData")
 #define MIMEDATA_DRAGINDEX QString("DragIndex")
 
-CueStackModel::CueStackModel(QObject* parent)
+CueStackModel::CueStackModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_cueStack(NULL)
 {
@@ -43,7 +43,7 @@ CueStackModel::CueStackModel(QObject* parent)
 
 CueStackModel::~CueStackModel() {}
 
-void CueStackModel::setCueStack(CueStack* cs)
+void CueStackModel::setCueStack(CueStack *cs)
 {
     // qDebug() << Q_FUNC_INFO << "old:" << (void*)m_cueStack << "new:" << (void*) cs;
 
@@ -79,7 +79,7 @@ void CueStackModel::setCueStack(CueStack* cs)
     }
 }
 
-CueStack* CueStackModel::cueStack() const
+CueStack *CueStackModel::cueStack() const
 {
     return m_cueStack;
 }
@@ -117,7 +117,7 @@ void CueStackModel::slotCurrentCueChanged(int index)
  * QAbstractItemModel
  ****************************************************************************/
 
-int CueStackModel::columnCount(const QModelIndex& index) const
+int CueStackModel::columnCount(const QModelIndex &index) const
 {
     Q_UNUSED(index);
     return CueStackModel::ColumnCount;
@@ -145,7 +145,7 @@ QVariant CueStackModel::headerData(int section, Qt::Orientation orientation, int
     }
 }
 
-QModelIndex CueStackModel::index(int row, int column, const QModelIndex& parent) const
+QModelIndex CueStackModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (m_cueStack == NULL || parent.isValid() == true) // No parents
         return QModelIndex();
@@ -153,13 +153,13 @@ QModelIndex CueStackModel::index(int row, int column, const QModelIndex& parent)
         return createIndex(row, column, quintptr(0));
 }
 
-QModelIndex CueStackModel::parent(const QModelIndex& index) const
+QModelIndex CueStackModel::parent(const QModelIndex &index) const
 {
     Q_UNUSED(index);
     return QModelIndex();
 }
 
-int CueStackModel::rowCount(const QModelIndex& parent) const
+int CueStackModel::rowCount(const QModelIndex &parent) const
 {
     if (m_cueStack == NULL || parent.isValid() == true) // No parents
         return 0;
@@ -167,7 +167,7 @@ int CueStackModel::rowCount(const QModelIndex& parent) const
         return m_cueStack->cues().size();
 }
 
-QVariant CueStackModel::data(const QModelIndex& index, int role) const
+QVariant CueStackModel::data(const QModelIndex &index, int role) const
 {
     if (m_cueStack == NULL)
         return QVariant();
@@ -234,7 +234,7 @@ Qt::DropActions CueStackModel::supportedDropActions() const
     return Qt::MoveAction | Qt::CopyAction;
 }
 
-Qt::ItemFlags CueStackModel::flags(const QModelIndex& index) const
+Qt::ItemFlags CueStackModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
     if (index.isValid() == true)
@@ -243,8 +243,7 @@ Qt::ItemFlags CueStackModel::flags(const QModelIndex& index) const
         return Qt::ItemIsDropEnabled | defaultFlags;
 }
 
-bool CueStackModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column,
-                                 const QModelIndex& parent)
+bool CueStackModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -296,7 +295,7 @@ bool CueStackModel::dropMimeData(const QMimeData* data, Qt::DropAction action, i
     }
 }
 
-QMimeData* CueStackModel::mimeData(const QModelIndexList& indexes) const
+QMimeData *CueStackModel::mimeData(const QModelIndexList &indexes) const
 {
     qDebug() << Q_FUNC_INFO << indexes;
 
@@ -322,7 +321,7 @@ QMimeData* CueStackModel::mimeData(const QModelIndexList& indexes) const
         rows << index.row();
     }
 
-    QMimeData* data = new QMimeData;
+    QMimeData *data = new QMimeData;
     doc.writeEndElement();
     doc.setDevice(NULL);
     buffer.close();
@@ -331,7 +330,7 @@ QMimeData* CueStackModel::mimeData(const QModelIndexList& indexes) const
     return data;
 }
 
-bool CueStackModel::removeRows(int row, int count, const QModelIndex& parent)
+bool CueStackModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     if (m_cueStack == NULL || parent.isValid() == true)
         return false;

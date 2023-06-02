@@ -35,7 +35,7 @@
 
 static const quint64 defaultKey = 0x5131632B4E33744B; // this is "Q1c+N3tK"
 
-NetworkManager::NetworkManager(QObject* parent, Doc* doc)
+NetworkManager::NetworkManager(QObject *parent, Doc *doc)
     : QObject(parent)
     , m_doc(doc)
     , m_encryptPackets(true)
@@ -127,7 +127,7 @@ void NetworkManager::sendAction(int code, TardisAction action)
         auto i = m_hostsMap.constBegin();
         while (i != m_hostsMap.constEnd())
         {
-            NetworkHost* host = i.value();
+            NetworkHost *host = i.value();
             sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
             ++i;
         }
@@ -155,7 +155,7 @@ QString NetworkManager::defaultName()
     return QString();
 }
 
-bool NetworkManager::sendTCPPacket(QTcpSocket* socket, QByteArray& packet, bool encrypt)
+bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt)
 {
     if (socket == nullptr)
         return false;
@@ -267,7 +267,7 @@ bool NetworkManager::stopServer()
 bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMask)
 {
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost* host = m_hostsMap.value(clientAddress, nullptr);
+    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
 
     if (host == nullptr || clientAddress.isNull())
         return false;
@@ -299,7 +299,7 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
     int pktCounter = 0;
     QFile workspace(filename);
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost* host = m_hostsMap.value(clientAddress, nullptr);
+    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
 
     if (host == nullptr || clientAddress.isNull())
         return false;
@@ -366,7 +366,7 @@ QHostAddress NetworkManager::getHostFromName(QString name)
     auto i = m_hostsMap.constBegin();
     while (i != m_hostsMap.constEnd())
     {
-        NetworkHost* host = i.value();
+        NetworkHost *host = i.value();
         if (host->hostName == name)
             return i.key();
 
@@ -536,8 +536,7 @@ void NetworkManager::slotProcessUDPPackets()
 
         case Tardis::NetAnnounceReply:
             {
-                if (m_hostType == ClientHostType && paramsList.count() == 2 &&
-                    paramsList.at(0).toInt() == ServerHostType)
+                if (m_hostType == ClientHostType && paramsList.count() == 2 && paramsList.at(0).toInt() == ServerHostType)
                 {
                     m_serverList[senderAddress] = paramsList.at(1).toString();
                     emit serverListChanged();
@@ -554,7 +553,7 @@ void NetworkManager::slotProcessUDPPackets()
 
 void NetworkManager::slotProcessTCPPackets()
 {
-    QTcpSocket* socket = (QTcpSocket*)sender();
+    QTcpSocket *socket = (QTcpSocket *)sender();
     if (socket == nullptr)
         return;
 
@@ -608,7 +607,7 @@ void NetworkManager::slotProcessTCPPackets()
                     }
                 }
 
-                NetworkHost* host = m_hostsMap[senderAddress];
+                NetworkHost *host = m_hostsMap[senderAddress];
                 if (success == true)
                 {
                     host->isAuthenticated = true;
@@ -694,21 +693,21 @@ void NetworkManager::slotProcessTCPPackets()
 void NetworkManager::slotProcessNewTCPConnection()
 {
     qDebug() << Q_FUNC_INFO;
-    QTcpSocket* clientConnection = m_tcpServer->nextPendingConnection();
+    QTcpSocket *clientConnection = m_tcpServer->nextPendingConnection();
     if (clientConnection == nullptr)
         return;
 
     QHostAddress senderAddress = clientConnection->peerAddress();
     if (m_hostsMap.contains(senderAddress) == true)
     {
-        NetworkHost* host = m_hostsMap[senderAddress];
+        NetworkHost *host = m_hostsMap[senderAddress];
         host->isAuthenticated = false;
         host->tcpSocket = clientConnection;
     }
     else
     {
         qDebug() << "[slotProcessNewTCPConnection] Adding a new host to map:" << senderAddress.toString();
-        NetworkHost* newHost = new NetworkHost;
+        NetworkHost *newHost = new NetworkHost;
         newHost->isAuthenticated = false;
         newHost->tcpSocket = clientConnection;
         m_hostsMap[senderAddress] = newHost;
@@ -719,13 +718,13 @@ void NetworkManager::slotProcessNewTCPConnection()
 
 void NetworkManager::slotHostDisconnected()
 {
-    QTcpSocket* socket = (QTcpSocket*)sender();
+    QTcpSocket *socket = (QTcpSocket *)sender();
     QHostAddress senderAddress = socket->peerAddress();
     qDebug() << "Host with address" << senderAddress.toString() << "disconnected!";
 
     if (m_hostsMap.contains(senderAddress) == true)
     {
-        NetworkHost* host = m_hostsMap.take(senderAddress);
+        NetworkHost *host = m_hostsMap.take(senderAddress);
         delete host;
         emit connectionsCountChanged();
     }

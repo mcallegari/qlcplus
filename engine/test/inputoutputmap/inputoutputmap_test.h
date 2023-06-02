@@ -56,7 +56,7 @@ private slots:
     void grandMaster();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

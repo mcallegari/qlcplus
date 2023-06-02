@@ -44,7 +44,7 @@
  * QLCTextBrowser
  ****************************************************************************/
 
-QLCTextBrowser::QLCTextBrowser(QWidget* parent)
+QLCTextBrowser::QLCTextBrowser(QWidget *parent)
     : QTextBrowser(parent)
 {
     grabGesture(Qt::SwipeGesture);
@@ -53,12 +53,12 @@ QLCTextBrowser::QLCTextBrowser(QWidget* parent)
 
 QLCTextBrowser::~QLCTextBrowser() {}
 
-bool QLCTextBrowser::event(QEvent* ev)
+bool QLCTextBrowser::event(QEvent *ev)
 {
     if (ev->type() == QEvent::Gesture)
     {
-        QGestureEvent* gesture = static_cast<QGestureEvent*>(ev);
-        QSwipeGesture* swipe = qobject_cast<QSwipeGesture*>(gesture->gesture(Qt::SwipeGesture));
+        QGestureEvent *gesture = static_cast<QGestureEvent *>(ev);
+        QSwipeGesture *swipe = qobject_cast<QSwipeGesture *>(gesture->gesture(Qt::SwipeGesture));
         if (swipe == NULL)
         {
             /* NOP */
@@ -89,9 +89,9 @@ bool QLCTextBrowser::event(QEvent* ev)
 /****************************************************************************
  * DocBrowser
  ****************************************************************************/
-DocBrowser* DocBrowser::s_instance = NULL;
+DocBrowser *DocBrowser::s_instance = NULL;
 
-DocBrowser::DocBrowser(QWidget* parent)
+DocBrowser::DocBrowser(QWidget *parent)
     : QWidget(parent, Qt::Window)
     , m_backwardAction(NULL)
     , m_forwardAction(NULL)
@@ -112,7 +112,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     }
     else
     {
-        QScreen* screen = QGuiApplication::screens().first();
+        QScreen *screen = QGuiApplication::screens().first();
         QRect rect = screen->availableGeometry();
         int rWd = rect.width() / 4;
         int rHd = rect.height() / 4;
@@ -131,7 +131,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_backwardAction->setEnabled(false);
     m_forwardAction->setEnabled(false);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(close()));
     addAction(action);
@@ -142,7 +142,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_toolbar->addAction(m_backwardAction);
     m_toolbar->addAction(m_forwardAction);
     m_toolbar->addAction(m_homeAction);
-    QWidget* widget = new QWidget(this);
+    QWidget *widget = new QWidget(this);
     widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_toolbar->addWidget(widget);
     m_toolbar->addAction(m_aboutQtAction);
@@ -195,7 +195,7 @@ void DocBrowser::slotAnchorClicked(QUrl url)
     }
 }
 
-void DocBrowser::createAndShow(QWidget* parent)
+void DocBrowser::createAndShow(QWidget *parent)
 {
     if (s_instance == NULL)
     {

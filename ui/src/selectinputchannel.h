@@ -43,7 +43,7 @@ class SelectInputChannel : public QDialog, public Ui_SelectInputChannel
      * Initialization
      ********************************************************************/
 public:
-    SelectInputChannel(QWidget* parent, InputOutputMap* ioMap);
+    SelectInputChannel(QWidget *parent, InputOutputMap *ioMap);
     ~SelectInputChannel();
 
 protected:
@@ -55,7 +55,7 @@ protected slots:
     void slotUnpatchedClicked();
 
 private:
-    InputOutputMap* m_ioMap;
+    InputOutputMap *m_ioMap;
 
     /********************************************************************
      * Selection
@@ -79,18 +79,18 @@ protected:
     void fillTree();
 
     /** Update the contents of a universe item */
-    void updateUniverseItem(QTreeWidgetItem* item, quint32 uni, InputPatch* patch);
+    void updateUniverseItem(QTreeWidgetItem *item, quint32 uni, InputPatch *patch);
 
     /** Update the contents of a channel item */
-    void updateChannelItem(QTreeWidgetItem* item, quint32 universe, const QLCInputChannel* channel,
-                           const QLCInputProfile* profile);
+    void updateChannelItem(QTreeWidgetItem *item, quint32 universe, const QLCInputChannel *channel,
+                           const QLCInputProfile *profile);
 
 protected slots:
     /** Receives changed information for items with manual input enabled */
-    void slotItemChanged(QTreeWidgetItem* item, int column);
+    void slotItemChanged(QTreeWidgetItem *item, int column);
 
     /** Receives item double clicks */
-    void slotItemDoubleClicked(QTreeWidgetItem* item, int column);
+    void slotItemDoubleClicked(QTreeWidgetItem *item, int column);
 };
 
 /** @} */

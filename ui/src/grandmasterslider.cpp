@@ -31,16 +31,16 @@
 #include "inputpatch.h"
 #include "apputil.h"
 
-GrandMasterSlider::GrandMasterSlider(QWidget* parent, InputOutputMap* ioMap)
+GrandMasterSlider::GrandMasterSlider(QWidget *parent, InputOutputMap *ioMap)
     : QFrame(parent)
     , m_ioMap(ioMap)
 {
     Q_ASSERT(ioMap != NULL);
 
     // setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    setStyleSheet(
-        "QFrame { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-        "border: 1px solid gray; border-radius: 4px; }");
+    setStyleSheet("QFrame { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
+                  "#D6D2D0, stop: 1 #AFACAB); "
+                  "border: 1px solid gray; border-radius: 4px; }");
     setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
 
     setMinimumSize(QSize(40, 100));
@@ -204,13 +204,13 @@ void GrandMasterSlider::sendFeedback()
     if (universe == InputOutputMap::invalidUniverse() || channel == QLCChannel::invalid())
         return;
 
-    InputPatch* pat = m_ioMap->inputPatch(universe);
+    InputPatch *pat = m_ioMap->inputPatch(universe);
     if (pat != NULL)
     {
-        QLCInputProfile* profile = pat->profile();
+        QLCInputProfile *profile = pat->profile();
         if (profile != NULL)
         {
-            QLCInputChannel* ich = profile->channel(channel);
+            QLCInputChannel *ich = profile->channel(channel);
             if (ich != NULL)
                 chName = ich->name();
         }
@@ -227,8 +227,8 @@ void GrandMasterSlider::sendFeedback()
 
 void GrandMasterSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (universe == VirtualConsole::instance()->properties().grandMasterInputUniverse() &&
-        channel == VirtualConsole::instance()->properties().grandMasterInputChannel())
+    if (universe == VirtualConsole::instance()->properties().grandMasterInputUniverse()
+        && channel == VirtualConsole::instance()->properties().grandMasterInputChannel())
     {
         m_slider->setValue(value);
     }

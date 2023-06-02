@@ -35,7 +35,7 @@
  * MasterTimerPrivate
  ****************************************************************************/
 
-MasterTimerPrivate::MasterTimerPrivate(MasterTimer* masterTimer)
+MasterTimerPrivate::MasterTimerPrivate(MasterTimer *masterTimer)
     : QThread(masterTimer)
     , m_run(false)
 {
@@ -57,9 +57,9 @@ void MasterTimerPrivate::stop()
 }
 
 #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
-int MasterTimerPrivate::compareTime(mach_timespec_t* time1, mach_timespec_t* time2)
+int MasterTimerPrivate::compareTime(mach_timespec_t *time1, mach_timespec_t *time2)
 #else
-int MasterTimerPrivate::compareTime(struct timespec* time1, struct timespec* time2)
+int MasterTimerPrivate::compareTime(struct timespec *time1, struct timespec *time2)
 #endif
 {
     if (time1->tv_sec < time2->tv_sec)
@@ -86,7 +86,7 @@ void MasterTimerPrivate::run()
     if (m_run == true)
         return;
 
-    MasterTimer* mt = qobject_cast<MasterTimer*>(parent());
+    MasterTimer *mt = qobject_cast<MasterTimer *>(parent());
     Q_ASSERT(mt != NULL);
 
     /* How long to wait each loop, in nanoseconds */
@@ -98,14 +98,14 @@ void MasterTimerPrivate::run()
 
     /* Allocate all the memory at the start so we don't waste any time */
 #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
-    mach_timespec_t* finish = static_cast<mach_timespec_t*>(malloc(sizeof(mach_timespec_t)));
-    mach_timespec_t* current = static_cast<mach_timespec_t*>(malloc(sizeof(mach_timespec_t)));
+    mach_timespec_t *finish = static_cast<mach_timespec_t *>(malloc(sizeof(mach_timespec_t)));
+    mach_timespec_t *current = static_cast<mach_timespec_t *>(malloc(sizeof(mach_timespec_t)));
 #else
-    struct timespec* finish = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
-    struct timespec* current = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
+    struct timespec *finish = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
+    struct timespec *current = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
 #endif
-    struct timespec* sleepTime = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
-    struct timespec* remainingTime = static_cast<struct timespec*>(malloc(sizeof(struct timespec)));
+    struct timespec *sleepTime = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
+    struct timespec *remainingTime = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
 
     sleepTime->tv_sec = 0;
 

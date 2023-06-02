@@ -42,7 +42,7 @@ class PaletteManager : public QObject
     Q_PROPERTY(int positionCount READ positionCount NOTIFY positionCountChanged)
 
 public:
-    PaletteManager(QQuickView* view, Doc* doc, ContextManager* ctxManager, QObject* parent = nullptr);
+    PaletteManager(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = nullptr);
     ~PaletteManager();
 
     /** Get a list of Palettes filtered with typeFilter */
@@ -52,27 +52,27 @@ public:
     Q_INVOKABLE QStringList selectedItemNames(QVariantList list);
 
     /** Get the reference to a QLCPalette from the given ID */
-    Q_INVOKABLE QLCPalette* getPalette(quint32 id);
+    Q_INVOKABLE QLCPalette *getPalette(quint32 id);
 
     /** Request a palette for editing.
      * The returned palette is mapped by type on m_editingMap */
-    Q_INVOKABLE QLCPalette* getEditingPalette(int type);
+    Q_INVOKABLE QLCPalette *getEditingPalette(int type);
 
     /** Request the removal of a previously requested palette */
     Q_INVOKABLE bool releaseEditingPalette(int type);
 
     /** Create a new palette, get a new ID and add it
      *  to the current project */
-    Q_INVOKABLE quint32 createPalette(QLCPalette* palette, QString name);
+    Q_INVOKABLE quint32 createPalette(QLCPalette *palette, QString name);
 
     /** Preview the given palette via Context manager */
-    Q_INVOKABLE void previewPalette(QLCPalette* palette);
+    Q_INVOKABLE void previewPalette(QLCPalette *palette);
 
     /** Update the give palette with single value (e.g. dimmer, pan, tilt, etc) */
-    Q_INVOKABLE void updatePalette(QLCPalette* palette, QVariant value1);
+    Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1);
 
     /** Update the give palette with two values (e.g. pan & tilt) */
-    Q_INVOKABLE void updatePalette(QLCPalette* palette, QVariant value1, QVariant value2);
+    Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1, QVariant value2);
 
     /** Delete the selected palettes from the current project */
     Q_INVOKABLE void deletePalettes(QVariantList list);
@@ -117,20 +117,20 @@ public slots:
 
 private:
     /** Reference to the QML view root */
-    QQuickView* m_view;
+    QQuickView *m_view;
     /** Reference to the project workspace */
-    Doc* m_doc;
+    Doc *m_doc;
     /** Reference to the Context Manager. Used to apply DMX values */
-    ContextManager* m_contextManager;
+    ContextManager *m_contextManager;
 
     quint32 m_typeFilter;
     QString m_searchFilter;
 
     int m_dimmerCount, m_colorCount, m_positionCount;
 
-    ListModel* m_paletteList;
+    ListModel *m_paletteList;
     // map of type/palette used for editing
-    QMap<int, QLCPalette*> m_editingMap;
+    QMap<int, QLCPalette *> m_editingMap;
 };
 
 #endif // PALETTEMANAGER_H

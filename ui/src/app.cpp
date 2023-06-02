@@ -226,7 +226,7 @@ void App::init()
         {
             if (QLCFile::hasWindowManager() == false)
             {
-                QScreen* screen = QGuiApplication::screens().first();
+                QScreen *screen = QGuiApplication::screens().first();
                 QRect geometry = screen->geometry();
                 if (m_noGui == true)
                 {
@@ -269,7 +269,7 @@ void App::init()
 
     // Create primary views.
     m_tab->setIconSize(QSize(24, 24));
-    QWidget* w = new FixtureManager(m_tab, m_doc);
+    QWidget *w = new FixtureManager(m_tab, m_doc);
     m_tab->addTab(w, QIcon(":/fixture.png"), tr("Fixtures"));
     w = new FunctionManager(m_tab, m_doc);
     m_tab->addTab(w, QIcon(":/function.png"), tr("Functions"));
@@ -291,8 +291,8 @@ void App::init()
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Listen to DMX value changes and update each Fixture values array
-    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)), this,
-            SLOT(slotUniverseWritten(quint32, const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray &)), this,
+            SLOT(slotUniverseWritten(quint32, const QByteArray &)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -307,7 +307,7 @@ void App::init()
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR)malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*>(home))).arg(USERQLCPLUSDIR);
+    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t *>(home))).arg(USERQLCPLUSDIR);
     free(home);
     HotPlugMonitor::setWinId(winId());
 #else
@@ -326,14 +326,14 @@ void App::init()
     m_videoProvider = new VideoProvider(m_doc, this);
 }
 
-void App::setActiveWindow(const QString& name)
+void App::setActiveWindow(const QString &name)
 {
     if (name.isEmpty() == true)
         return;
 
     for (int i = 0; i < m_tab->count(); i++)
     {
-        QWidget* widget = m_tab->widget(i);
+        QWidget *widget = m_tab->widget(i);
         if (widget != NULL && widget->metaObject()->className() == name)
         {
             m_tab->setCurrentIndex(i);
@@ -343,7 +343,7 @@ void App::setActiveWindow(const QString& name)
 }
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-bool App::nativeEvent(const QByteArray& eventType, void* message, long* result)
+bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     Q_UNUSED(eventType)
     // qDebug() << Q_FUNC_INFO << eventType;
@@ -351,7 +351,7 @@ bool App::nativeEvent(const QByteArray& eventType, void* message, long* result)
 }
 #endif
 
-void App::closeEvent(QCloseEvent* e)
+void App::closeEvent(QCloseEvent *e)
 {
     if (m_doc->mode() == Doc::Operate && m_doc->isKiosk() == false)
     {
@@ -365,7 +365,8 @@ void App::closeEvent(QCloseEvent* e)
     if (m_doc->isKiosk() == false)
     {
         if (saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace "
-                                            "before closing the application?")) == true)
+                                            "before closing the application?"))
+            == true)
         {
             e->accept();
         }
@@ -413,7 +414,7 @@ void App::destroyProgressDialog()
     m_progressDialog = NULL;
 }
 
-void App::slotSetProgressText(const QString& text)
+void App::slotSetProgressText(const QString &text)
 {
     if (m_progressDialog == NULL)
         return;
@@ -444,7 +445,7 @@ void App::clearDocument()
     m_doc->masterTimer()->start();
 }
 
-Doc* App::doc()
+Doc *App::doc()
 {
     return m_doc;
 }
@@ -472,8 +473,8 @@ void App::initDoc()
     m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
-    connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)), this,
-            SLOT(slotSetProgressText(const QString&)));
+    connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString &)), this,
+            SLOT(slotSetProgressText(const QString &)));
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
 
     /* Load audio decoder plugins
@@ -513,9 +514,9 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption);
 }
 
-void App::slotUniverseWritten(quint32 idx, const QByteArray& ua)
+void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
-    foreach (Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture *fixture, m_doc->fixtures())
     {
         if (fixture->universe() != idx)
             continue;
@@ -549,9 +550,9 @@ void App::enableKioskMode()
     m_toolbar = NULL;
 }
 
-void App::createKioskCloseButton(const QRect& rect)
+void App::createKioskCloseButton(const QRect &rect)
 {
-    QPushButton* btn = new QPushButton(VirtualConsole::instance()->contents());
+    QPushButton *btn = new QPushButton(VirtualConsole::instance()->contents());
     btn->setIcon(QIcon(":/exit.png"));
     btn->setToolTip(tr("Exit"));
     btn->setGeometry(rect);
@@ -664,8 +665,7 @@ void App::initActions()
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
     m_liveEditAction->setEnabled(false);
 
-    m_liveEditVirtualConsoleAction =
-        new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
+    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
     connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this, SLOT(slotLiveEditVirtualConsole()));
     m_liveEditVirtualConsoleAction->setCheckable(true);
     m_liveEditVirtualConsoleAction->setEnabled(false);
@@ -679,22 +679,22 @@ void App::initActions()
     connect(m_controlPanicAction, SIGNAL(triggered(bool)), this, SLOT(slotControlPanic()));
 
     m_fadeAndStopMenu = new QMenu();
-    QAction* fade1 = new QAction(tr("Fade 1 second and stop"), this);
+    QAction *fade1 = new QAction(tr("Fade 1 second and stop"), this);
     fade1->setData(QVariant(1000));
     connect(fade1, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade1);
 
-    QAction* fade5 = new QAction(tr("Fade 5 seconds and stop"), this);
+    QAction *fade5 = new QAction(tr("Fade 5 seconds and stop"), this);
     fade5->setData(QVariant(5000));
     connect(fade5, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade5);
 
-    QAction* fade10 = new QAction(tr("Fade 10 second and stop"), this);
+    QAction *fade10 = new QAction(tr("Fade 10 second and stop"), this);
     fade10->setData(QVariant(10000));
     connect(fade10, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade10);
 
-    QAction* fade30 = new QAction(tr("Fade 30 second and stop"), this);
+    QAction *fade30 = new QAction(tr("Fade 30 second and stop"), this);
     fade30->setData(QVariant(30000));
     connect(fade30, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade30);
@@ -745,7 +745,7 @@ void App::initToolBar()
         m_toolbar->addAction(m_quitAction);
 
     /* Create an empty widget between help items to flush them to the right */
-    QWidget* widget = new QWidget(this);
+    QWidget *widget = new QWidget(this);
     widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_toolbar->addWidget(widget);
     m_toolbar->addAction(m_dumpDmxAction);
@@ -758,12 +758,12 @@ void App::initToolBar()
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_modeToggleAction);
 
-    QToolButton* btn = qobject_cast<QToolButton*>(m_toolbar->widgetForAction(m_fileOpenAction));
+    QToolButton *btn = qobject_cast<QToolButton *>(m_toolbar->widgetForAction(m_fileOpenAction));
     Q_ASSERT(btn != NULL);
     btn->setPopupMode(QToolButton::DelayedPopup);
     updateFileOpenMenu("");
 
-    btn = qobject_cast<QToolButton*>(m_toolbar->widgetForAction(m_controlPanicAction));
+    btn = qobject_cast<QToolButton *>(m_toolbar->widgetForAction(m_controlPanicAction));
     Q_ASSERT(btn != NULL);
     btn->setPopupMode(QToolButton::DelayedPopup);
 }
@@ -813,7 +813,7 @@ bool App::handleFileError(QFile::FileError error)
     return false;
 }
 
-bool App::saveModifiedDoc(const QString& title, const QString& message)
+bool App::saveModifiedDoc(const QString &title, const QString &message)
 {
     // if it's not modified, there's nothing to save
     if (m_doc->isModified() == false)
@@ -853,16 +853,17 @@ void App::updateFileOpenMenu(QString addRecent)
     if (m_fileOpenMenu == NULL)
     {
         m_fileOpenMenu = new QMenu(this);
-        QString style =
-            "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #B9D9E8, stop:1 #A4C0CE);"
-            "border: 1px solid black; font:bold; }"
-            "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; border: 1px solid black; }"
-            "QMenu::item:selected { background-color: #2D8CFF; }";
+        QString style = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 "
+                        "#B9D9E8, stop:1 #A4C0CE);"
+                        "border: 1px solid black; font:bold; }"
+                        "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; "
+                        "border: 1px solid black; }"
+                        "QMenu::item:selected { background-color: #2D8CFF; }";
         m_fileOpenMenu->setStyleSheet(style);
-        connect(m_fileOpenMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotRecentFileClicked(QAction*)));
+        connect(m_fileOpenMenu, SIGNAL(triggered(QAction *)), this, SLOT(slotRecentFileClicked(QAction *)));
     }
 
-    foreach (QAction* a, m_fileOpenMenu->actions())
+    foreach (QAction *a, m_fileOpenMenu->actions())
     {
         menuRecentList.append(a->text());
         m_fileOpenMenu->removeAction(a);
@@ -1085,7 +1086,7 @@ void App::slotControlPanic()
 
 void App::slotFadeAndStopAll()
 {
-    QAction* action = (QAction*)sender();
+    QAction *action = (QAction *)sender();
     int timeout = action->data().toInt();
 
     m_doc->masterTimer()->fadeAndStopAll(timeout);
@@ -1110,8 +1111,8 @@ void App::slotFunctionLiveEdit()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType |
-                 Function::RGBMatrixType);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType
+                 | Function::RGBMatrixType);
     fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType | Function::AudioType);
 
     if (fs.exec() == QDialog::Accepted)
@@ -1132,14 +1133,14 @@ void App::slotLiveEditVirtualConsole()
 void App::slotDetachContext(int index)
 {
     /* Get the widget that has been double-clicked */
-    QWidget* context = m_tab->widget(index);
+    QWidget *context = m_tab->widget(index);
     context->setProperty("tabIndex", index);
     context->setProperty("tabIcon", QVariant::fromValue(m_tab->tabIcon(index)));
     context->setProperty("tabLabel", m_tab->tabText(index));
 
     qDebug() << "Detaching context" << context;
 
-    DetachedContext* detachedWindow = new DetachedContext(this);
+    DetachedContext *detachedWindow = new DetachedContext(this);
     detachedWindow->setCentralWidget(context);
     detachedWindow->resize(800, 600);
     detachedWindow->show();
@@ -1150,9 +1151,9 @@ void App::slotDetachContext(int index)
 
 void App::slotReattachContext()
 {
-    DetachedContext* window = qobject_cast<DetachedContext*>(sender());
+    DetachedContext *window = qobject_cast<DetachedContext *>(sender());
 
-    QWidget* context = window->centralWidget();
+    QWidget *context = window->centralWidget();
     int tabIndex = context->property("tabIndex").toInt();
     QIcon tabIcon = context->property("tabIcon").value<QIcon>();
     QString tabLabel = context->property("tabLabel").toString();
@@ -1190,7 +1191,7 @@ void App::slotControlFullScreen(bool usingGeometry)
 {
     if (usingGeometry == true)
     {
-        QScreen* screen = QGuiApplication::screens().first();
+        QScreen *screen = QGuiApplication::screens().first();
         setGeometry(screen->geometry());
     }
     else
@@ -1214,7 +1215,7 @@ void App::slotHelpAbout()
     ab.exec();
 }
 
-void App::slotRecentFileClicked(QAction* recent)
+void App::slotRecentFileClicked(QAction *recent)
 {
     if (recent == NULL)
         return;
@@ -1273,7 +1274,7 @@ void App::slotRecentFileClicked(QAction* recent)
  * Load & Save
  *****************************************************************************/
 
-void App::setFileName(const QString& fileName)
+void App::setFileName(const QString &fileName)
 {
     m_fileName = fileName;
 }
@@ -1283,14 +1284,14 @@ QString App::fileName() const
     return m_fileName;
 }
 
-QFile::FileError App::loadXML(const QString& fileName)
+QFile::FileError App::loadXML(const QString &fileName)
 {
     QFile::FileError retval = QFile::NoError;
 
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
@@ -1336,7 +1337,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     return retval;
 }
 
-bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
+bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
 {
     if (doc.readNextStartElement() == false)
         return false;
@@ -1401,8 +1402,8 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
                         tr("Some errors occurred while loading the project:") + "<br><br>" + m_doc->errorLog(),
                         QMessageBox::Ok);
         msg.setTextFormat(Qt::RichText);
-        QSpacerItem* horizontalSpacer = new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-        QGridLayout* layout = (QGridLayout*)msg.layout();
+        QSpacerItem *horizontalSpacer = new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QGridLayout *layout = (QGridLayout *)msg.layout();
         layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }
@@ -1412,7 +1413,7 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
     return true;
 }
 
-QFile::FileError App::saveXML(const QString& fileName)
+QFile::FileError App::saveXML(const QString &fileName)
 {
     QString tempFileName(fileName);
     tempFileName += ".temp";
@@ -1433,7 +1434,7 @@ QFile::FileError App::saveXML(const QString& fileName)
     doc.writeStartElement(KXMLQLCWorkspace);
     doc.writeAttribute("xmlns", QString("%1%2").arg(KXMLQLCplusNamespace).arg(KXMLQLCWorkspace));
     /* Currently active window */
-    QWidget* widget = m_tab->currentWidget();
+    QWidget *widget = m_tab->currentWidget();
     if (widget != NULL)
         doc.writeAttribute(KXMLQLCWorkspaceWindow, QString(widget->metaObject()->className()));
 

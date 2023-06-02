@@ -42,7 +42,7 @@
  * Initialization
  ****************************************************************************/
 
-SelectInputChannel::SelectInputChannel(QWidget* parent, InputOutputMap* ioMap)
+SelectInputChannel::SelectInputChannel(QWidget *parent, InputOutputMap *ioMap)
     : QDialog(parent)
     , m_ioMap(ioMap)
 {
@@ -55,7 +55,7 @@ SelectInputChannel::SelectInputChannel(QWidget* parent, InputOutputMap* ioMap)
 
     loadSettings();
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -67,7 +67,7 @@ SelectInputChannel::SelectInputChannel(QWidget* parent, InputOutputMap* ioMap)
     /* Listen to item changed signals so that we can catch user's
        manual input for <...> nodes. Connect AFTER filling the tree
        so all the initial item->setText()'s won't get caught here. */
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotItemChanged(QTreeWidgetItem*, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
 }
 
 SelectInputChannel::~SelectInputChannel()
@@ -95,7 +95,7 @@ void SelectInputChannel::loadSettings()
 
 void SelectInputChannel::accept()
 {
-    QTreeWidgetItem* item;
+    QTreeWidgetItem *item;
 
     /* Extract data from the selected item */
     item = m_tree->currentItem();
@@ -110,9 +110,9 @@ void SelectInputChannel::accept()
 
 void SelectInputChannel::slotUnpatchedClicked()
 {
-    disconnect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotItemChanged(QTreeWidgetItem*, int)));
+    disconnect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
     fillTree();
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotItemChanged(QTreeWidgetItem*, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
 }
 
 /****************************************************************************
@@ -135,12 +135,12 @@ quint32 SelectInputChannel::channel() const
 
 void SelectInputChannel::fillTree()
 {
-    QLCInputChannel* channel;
-    QTreeWidgetItem* uniItem;
-    QTreeWidgetItem* chItem;
-    QLCInputProfile* profile;
+    QLCInputChannel *channel;
+    QTreeWidgetItem *uniItem;
+    QTreeWidgetItem *chItem;
+    QLCInputProfile *profile;
     quint32 uni;
-    InputPatch* patch;
+    InputPatch *patch;
 
     // Clear tree
     while (m_tree->takeTopLevelItem(0))
@@ -175,7 +175,7 @@ void SelectInputChannel::fillTree()
         profile = patch->profile();
         if (profile != NULL)
         {
-            QMapIterator<quint32, QLCInputChannel*> it(profile->channels());
+            QMapIterator<quint32, QLCInputChannel *> it(profile->channels());
             while (it.hasNext() == true)
             {
                 channel = it.next().value();
@@ -188,8 +188,8 @@ void SelectInputChannel::fillTree()
     }
 }
 
-void SelectInputChannel::updateChannelItem(QTreeWidgetItem* item, quint32 universe, const QLCInputChannel* channel,
-                                           const QLCInputProfile* profile)
+void SelectInputChannel::updateChannelItem(QTreeWidgetItem *item, quint32 universe, const QLCInputChannel *channel,
+                                           const QLCInputProfile *profile)
 {
     Q_ASSERT(item != NULL);
 
@@ -211,7 +211,7 @@ void SelectInputChannel::updateChannelItem(QTreeWidgetItem* item, quint32 univer
     }
 }
 
-void SelectInputChannel::updateUniverseItem(QTreeWidgetItem* item, quint32 universe, InputPatch* patch)
+void SelectInputChannel::updateUniverseItem(QTreeWidgetItem *item, quint32 universe, InputPatch *patch)
 {
     QString name;
 
@@ -241,7 +241,7 @@ void SelectInputChannel::updateUniverseItem(QTreeWidgetItem* item, quint32 unive
     item->setText(KColumnChannel, QString("%1").arg(QLCChannel::invalid()));
 }
 
-void SelectInputChannel::slotItemChanged(QTreeWidgetItem* item, int column)
+void SelectInputChannel::slotItemChanged(QTreeWidgetItem *item, int column)
 {
     quint32 channel;
 
@@ -256,7 +256,7 @@ void SelectInputChannel::slotItemChanged(QTreeWidgetItem* item, int column)
     item->setText(KColumnChannel, QString("%1").arg(channel - 1));
 }
 
-void SelectInputChannel::slotItemDoubleClicked(QTreeWidgetItem* item, int column)
+void SelectInputChannel::slotItemDoubleClicked(QTreeWidgetItem *item, int column)
 {
     Q_UNUSED(column);
 

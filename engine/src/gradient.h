@@ -39,7 +39,7 @@ private:
     static QImage m_rgb;
 
     static void initialize();
-    static void fillWithGradient(int r, int g, int b, QPainter* painter, int x);
+    static void fillWithGradient(int r, int g, int b, QPainter *painter, int x);
 };
 
 #endif // GRADIENT_H

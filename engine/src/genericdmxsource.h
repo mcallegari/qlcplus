@@ -43,7 +43,7 @@ class GenericFader;
 class GenericDMXSource : public DMXSource
 {
 public:
-    GenericDMXSource(Doc* doc);
+    GenericDMXSource(Doc *doc);
     ~GenericDMXSource();
 
     /** Set the value of a fixture channel */
@@ -68,10 +68,10 @@ public:
     QList<SceneValue> channels();
 
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer *timer, QList<Universe *> ua);
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     QMutex m_mutex;
     QMap<QPair<quint32, quint32>, uchar> m_values;
     bool m_outputEnabled;

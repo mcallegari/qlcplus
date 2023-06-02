@@ -38,7 +38,7 @@ private slots:
     void adjustIntensity();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

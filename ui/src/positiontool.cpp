@@ -28,7 +28,7 @@
  * Initialization
  *****************************************************************************/
 
-PositionTool::PositionTool(const QPointF& initial, QRectF degreesRange, QWidget* parent)
+PositionTool::PositionTool(const QPointF &initial, QRectF degreesRange, QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
@@ -40,7 +40,7 @@ PositionTool::PositionTool(const QPointF& initial, QRectF degreesRange, QWidget*
     m_area->setFocus();
     m_gridLayout->addWidget(m_area, 0, 0);
 
-    connect(m_area, SIGNAL(positionChanged(const QPointF&)), this, SLOT(slotPositionChanged(const QPointF&)));
+    connect(m_area, SIGNAL(positionChanged(const QPointF &)), this, SLOT(slotPositionChanged(const QPointF &)));
 }
 
 PositionTool::~PositionTool() {}
@@ -57,12 +57,12 @@ QPointF PositionTool::position() const
     return m_area->position();
 }
 
-void PositionTool::setPosition(const QPointF& position)
+void PositionTool::setPosition(const QPointF &position)
 {
     m_area->setPosition(position);
 }
 
-void PositionTool::slotPositionChanged(const QPointF& position)
+void PositionTool::slotPositionChanged(const QPointF &position)
 {
     emit currentPositionChanged(position);
 }

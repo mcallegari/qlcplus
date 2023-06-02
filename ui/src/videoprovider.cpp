@@ -29,7 +29,7 @@
 #include <QVideoWidget>
 #include <QScreen>
 
-VideoProvider::VideoProvider(Doc* doc, QObject* parent)
+VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
 {
@@ -45,13 +45,13 @@ VideoProvider::~VideoProvider()
 
 void VideoProvider::slotFunctionAdded(quint32 id)
 {
-    Function* func = m_doc->function(id);
+    Function *func = m_doc->function(id);
     if (func == NULL)
         return;
 
     if (func->type() == Function::VideoType)
     {
-        VideoWidget* vWidget = new VideoWidget(qobject_cast<Video*>(func));
+        VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
         m_videoMap[id] = vWidget;
     }
 }
@@ -60,7 +60,7 @@ void VideoProvider::slotFunctionRemoved(quint32 id)
 {
     if (m_videoMap.contains(id))
     {
-        VideoWidget* vw = m_videoMap.take(id);
+        VideoWidget *vw = m_videoMap.take(id);
         delete vw;
     }
 }
@@ -69,7 +69,7 @@ void VideoProvider::slotFunctionRemoved(quint32 id)
  * VideoWidget class implementation
  *********************************************************************/
 
-VideoWidget::VideoWidget(Video* video, QObject* parent)
+VideoWidget::VideoWidget(Video *video, QObject *parent)
     : QObject(parent)
     , m_video(video)
     , m_videoPlayer(NULL)
@@ -94,8 +94,7 @@ VideoWidget::VideoWidget(Video* video, QObject* parent)
     connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this,
             SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    connect(m_videoPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this,
-            SLOT(slotMetaDataChanged(QString, QVariant)));
+    connect(m_videoPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
 #else
     connect(m_videoPlayer, SIGNAL(metaDataChanged()), this, SLOT(slotMetaDataChanged()));
 #endif
@@ -231,8 +230,8 @@ void VideoWidget::slotMetaDataChanged()
 void VideoWidget::slotPlaybackVideo()
 {
     int screen = m_video->screen();
-    QList<QScreen*> screens = QGuiApplication::screens();
-    QScreen* scr = screens.count() > screen ? screens.at(screen) : screens.first();
+    QList<QScreen *> screens = QGuiApplication::screens();
+    QScreen *scr = screens.count() > screen ? screens.at(screen) : screens.first();
     QRect rect = scr->availableGeometry();
 
     if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)

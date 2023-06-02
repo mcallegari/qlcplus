@@ -34,12 +34,12 @@ class CreateFixtureGroup : public QDialog, public Ui_CreateFixtureGroup
     Q_DISABLE_COPY(CreateFixtureGroup)
 
 public:
-    CreateFixtureGroup(QWidget* parent);
+    CreateFixtureGroup(QWidget *parent);
     ~CreateFixtureGroup();
 
     QString name() const;
 
-    void setSize(const QSize& size);
+    void setSize(const QSize &size);
     QSize size() const;
 };
 

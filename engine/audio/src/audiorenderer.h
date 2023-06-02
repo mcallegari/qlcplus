@@ -49,11 +49,11 @@ public:
      * Object contsructor.
      * @param parent Parent object.
      */
-    AudioRenderer(QObject* parent = 0);
+    AudioRenderer(QObject *parent = 0);
 
     ~AudioRenderer() {}
 
-    void setDecoder(AudioDecoder* adec);
+    void setDecoder(AudioDecoder *adec);
     /*!
      * Prepares object for usage and setups required audio parameters.
      * Subclass should reimplement this function.
@@ -131,14 +131,14 @@ protected:
      * Returns the number of bytes written, or -1 if an error occurred.
      * Subclass should reimplement this function.
      */
-    virtual qint64 writeAudio(unsigned char* data, qint64 maxSize) = 0;
+    virtual qint64 writeAudio(unsigned char *data, qint64 maxSize) = 0;
 
 signals:
     void endOfStreamReached();
 
 private:
     /** Reference to the decoder to be used as data source */
-    AudioDecoder* m_adec;
+    AudioDecoder *m_adec;
     QMutex m_mutex;
 
     /** Data buffer for audio */

@@ -62,23 +62,23 @@ public:
         HeightScale
     };
 
-    Video(Doc* doc);
+    Video(Doc *doc);
     virtual ~Video();
 
     /** @reimp */
     QIcon getIcon() const;
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
 public slots:
     /** Catches Doc::functionRemoved() so that destroyed members can be
@@ -194,10 +194,10 @@ private:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Load function's contents from an XML document */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();
@@ -207,16 +207,16 @@ public:
      *********************************************************************/
 public:
     /** @reimpl */
-    void preRun(MasterTimer*);
+    void preRun(MasterTimer *);
 
     /** @reimpl */
     void setPause(bool enable);
 
     /** @reimpl */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe *> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 };
 
 /** @} */

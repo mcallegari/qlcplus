@@ -32,7 +32,7 @@
 #include "clickandgoslider.h"
 #include "apputil.h"
 
-PlaybackSlider::PlaybackSlider(QWidget* parent)
+PlaybackSlider::PlaybackSlider(QWidget *parent)
     : QWidget(parent)
     , m_select(NULL)
     , m_value(NULL)
@@ -102,7 +102,7 @@ uchar PlaybackSlider::value() const
     return m_slider->value();
 }
 
-void PlaybackSlider::setLabel(const QString& text)
+void PlaybackSlider::setLabel(const QString &text)
 {
     m_label->setText(text);
 }

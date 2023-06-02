@@ -55,7 +55,7 @@ private slots:
     void status();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

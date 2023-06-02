@@ -36,7 +36,7 @@
 void FadeChannel_Test::address()
 {
     Doc doc(this);
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(400);
     fxi->setChannels(5);
     doc.addFixture(fxi);
@@ -55,7 +55,7 @@ void FadeChannel_Test::address()
 void FadeChannel_Test::addressInUniverse()
 {
     Doc doc(this);
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(UNIVERSE_SIZE);
     fxi->setChannels(5);
     doc.addFixture(fxi);
@@ -103,7 +103,7 @@ void FadeChannel_Test::type()
     QCOMPARE(fc.flags() & FadeChannel::Intensity, (int)FadeChannel::Intensity);
     QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
 
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(10);
     fxi->setChannels(5);
     doc.addFixture(fxi);
@@ -119,10 +119,10 @@ void FadeChannel_Test::type()
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(doc.fixtureDefCache()->loadMap(dir) == true);
 
-    QLCFixtureDef* def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     fxi = new Fixture(&doc);

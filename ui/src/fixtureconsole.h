@@ -54,7 +54,7 @@ public:
         GroupOdd
     };
 
-    FixtureConsole(QWidget* parent, Doc* doc, GroupType type = GroupNone, bool showCheck = true);
+    FixtureConsole(QWidget *parent, Doc *doc, GroupType type = GroupNone, bool showCheck = true);
     ~FixtureConsole();
 
     void enableResetButton(bool enable);
@@ -63,12 +63,12 @@ signals:
     void resetRequest(quint32 fxID, quint32 channel);
 
 protected:
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent *ev);
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     GroupType m_groupType;
-    QHBoxLayout* m_layout;
+    QHBoxLayout *m_layout;
     bool m_showCheckBoxes;
 
     /*********************************************************************
@@ -95,7 +95,7 @@ public:
     void setChecked(bool state, quint32 channel = UINT_MAX);
 
     /** Set the value of one scene channel */
-    void setSceneValue(const SceneValue& scv);
+    void setSceneValue(const SceneValue &scv);
 
     /** Get all channel's values */
     QList<SceneValue> values() const;
@@ -104,7 +104,7 @@ public:
     bool hasSelections();
 
     /** Set all channel's values */
-    void setValues(const QList<SceneValue>& list, bool fromSelection);
+    void setValues(const QList<SceneValue> &list, bool fromSelection);
 
     /** Set the value of one channel (doesn't enable it) */
     void setValue(quint32 ch, uchar value, bool apply = true);
@@ -127,10 +127,10 @@ signals:
 
 private:
     /** Get a console channel instance for the given relative channel */
-    ConsoleChannel* channel(quint32 ch) const;
+    ConsoleChannel *channel(quint32 ch) const;
 
 private:
-    QList<ConsoleChannel*> m_channels;
+    QList<ConsoleChannel *> m_channels;
     QString m_styleSheet;
 };
 

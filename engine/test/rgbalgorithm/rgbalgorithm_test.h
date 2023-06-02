@@ -37,7 +37,7 @@ private slots:
     void loader();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

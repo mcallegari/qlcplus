@@ -147,7 +147,7 @@ void VCXYPad_Test::copy()
     xyf3.setHead(GroupHead(3, 9));
     pad.appendFixture(xyf3);
 
-    VCXYPad* copy = qobject_cast<VCXYPad*>(pad.createCopy(&parent));
+    VCXYPad *copy = qobject_cast<VCXYPad *>(pad.createCopy(&parent));
     QVERIFY(copy != NULL);
     QCOMPARE(copy->m_fixtures.size(), 3);
     QVERIFY(copy->m_fixtures[0] == xyf1);
@@ -335,8 +335,8 @@ void VCXYPad_Test::saveXML()
         if (xmlReader.name().toString() == "Fixture")
         {
             fixture++;
-            QVERIFY(xmlReader.attributes().value("ID") == QString("11") ||
-                    xmlReader.attributes().value("ID") == QString("22"));
+            QVERIFY(xmlReader.attributes().value("ID") == QString("11")
+                    || xmlReader.attributes().value("ID") == QString("22"));
             QVERIFY(xmlReader.attributes().value("Head") == QString("0"));
             xmlReader.skipCurrentElement();
         }
@@ -419,15 +419,15 @@ void VCXYPad_Test::modeChange()
     // UniverseArray ua(512);
     QWidget w;
 
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
 
-    VCXYPad* pad = new VCXYPad(&w, m_doc);
+    VCXYPad *pad = new VCXYPad(&w, m_doc);
     pad->show();
     w.show();
     pad->resize(QSize(200, 200));

@@ -29,7 +29,7 @@
 #define KColumnName 0
 #define KColumnImage 1
 
-MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget* parent, Doc* doc)
+MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -98,10 +98,10 @@ void MonitorBackgroundSelection::updateCustomTree()
         it.next();
 
         quint32 fid = it.key();
-        Function* f = m_doc->function(fid);
+        Function *f = m_doc->function(fid);
         if (f != NULL)
         {
-            QTreeWidgetItem* item = new QTreeWidgetItem(m_customTree);
+            QTreeWidgetItem *item = new QTreeWidgetItem(m_customTree);
             item->setIcon(KColumnName, f->getIcon());
             item->setText(KColumnName, f->name());
             item->setData(KColumnName, Qt::UserRole, fid);
@@ -167,9 +167,8 @@ void MonitorBackgroundSelection::slotAddCustomBackground()
     if (fs.exec() == QDialog::Accepted)
     {
         quint32 fid = fs.selection().first();
-        QString filename =
-            QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
-                                         QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+        QString filename = QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
+                                                        QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
         if (filename.isEmpty() == false)
         {
@@ -185,7 +184,7 @@ void MonitorBackgroundSelection::slotRemoveCustomBackground()
     if (m_customTree->selectedItems().isEmpty())
         return;
 
-    QTreeWidgetItem* selItem = m_customTree->selectedItems().first();
+    QTreeWidgetItem *selItem = m_customTree->selectedItems().first();
     quint32 fid = selItem->data(KColumnName, Qt::UserRole).toUInt();
     m_customBackgroundImages.remove(fid);
     updateCustomTree();

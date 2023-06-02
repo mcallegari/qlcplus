@@ -30,7 +30,7 @@
   #define endl Qt::endl
 #endif
 
-void debugMessageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg)
+void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     Q_UNUSED(context)
     Q_UNUSED(type)
@@ -60,7 +60,7 @@ void printVersion()
     cout << endl;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 

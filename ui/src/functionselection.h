@@ -56,15 +56,15 @@ public:
      * @param parent The parent widget for the dialog
      * @param doc The QLC engine instance
      */
-    FunctionSelection(QWidget* parent, Doc* doc);
+    FunctionSelection(QWidget *parent, Doc *doc);
     ~FunctionSelection();
 
 public slots:
     int exec();
 
 private:
-    Doc* m_doc;
-    FunctionsTreeWidget* m_funcTree;
+    Doc *m_doc;
+    FunctionsTreeWidget *m_funcTree;
     bool m_isInitializing;
 
     /*********************************************************************
@@ -75,7 +75,7 @@ public:
 
 private:
     bool m_none;
-    QTreeWidgetItem* m_noneItem;
+    QTreeWidgetItem *m_noneItem;
 
     /*********************************************************************
      * New track entry
@@ -85,7 +85,7 @@ public:
 
 private:
     bool m_newTrack;
-    QTreeWidgetItem* m_newTrackItem;
+    QTreeWidgetItem *m_newTrackItem;
 
     /*********************************************************************
      * Multi-selection
@@ -155,7 +155,7 @@ private:
      *********************************************************************/
 public:
     /** Disable the given list of function IDs in the tree */
-    void setDisabledFunctions(const QList<quint32>& ids);
+    void setDisabledFunctions(const QList<quint32> &ids);
 
     /** Get a list of disabled functionIDs */
     QList<quint32> disabledFunctions() const;
@@ -186,7 +186,7 @@ protected:
 
 protected slots:
     void slotItemSelectionChanged();
-    void slotItemDoubleClicked(QTreeWidgetItem* item);
+    void slotItemDoubleClicked(QTreeWidgetItem *item);
 };
 
 /** @} */

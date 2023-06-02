@@ -49,7 +49,7 @@ class ScriptRunner : public QThread
      * Initialization
      ************************************************************************/
 public:
-    ScriptRunner(Doc* doc, QString& content, QObject* parent = 0);
+    ScriptRunner(Doc *doc, QString &content, QObject *parent = 0);
     ~ScriptRunner();
 
     /** Start the thread execution and therefore the JavaScript code */
@@ -61,7 +61,7 @@ public:
 
     int currentWaitTime();
 
-    bool write(MasterTimer* timer, QList<Universe*> universes);
+    bool write(MasterTimer *timer, QList<Universe *> universes);
 
     /************************************************************************
      * JS exported methods
@@ -196,11 +196,11 @@ protected:
     void run();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     QString m_content;
     bool m_running;
 
-    QJSEngine* m_engine;
+    QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
     QQueue<QPair<quint32, bool>> m_functionQueue;
     // Queue holding Fixture values to send to Universes

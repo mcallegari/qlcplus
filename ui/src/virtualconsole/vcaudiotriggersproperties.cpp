@@ -40,8 +40,7 @@
 #define KColumnMaxThreshold 5
 #define KColumnDivisor 6
 
-AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers* triggers, Doc* doc, int bandsNumber,
-                                                       int maxFrequency)
+AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, int bandsNumber, int maxFrequency)
     : QDialog(triggers)
     , m_doc(doc)
     , m_maxFrequency(maxFrequency)
@@ -87,16 +86,16 @@ void AudioTriggersConfiguration::accept()
     QDialog::accept();
 }
 
-void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
+void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
 {
     if (item == NULL)
         return;
 
-    AudioBar* bar = m_triggers->getSpectrumBar(idx);
+    AudioBar *bar = m_triggers->getSpectrumBar(idx);
     bar->setName(item->text(KColumnName));
 
     bar->debugInfo();
-    QComboBox* currCombo = (QComboBox*)m_tree->itemWidget(item, KColumnType);
+    QComboBox *currCombo = (QComboBox *)m_tree->itemWidget(item, KColumnType);
     if (currCombo != NULL)
     {
         disconnect(currCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotTypeComboChanged(int)));
@@ -107,7 +106,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
     m_tree->removeItemWidget(item, KColumnMaxThreshold);
     m_tree->removeItemWidget(item, KColumnDivisor);
 
-    QComboBox* combo = new QComboBox();
+    QComboBox *combo = new QComboBox();
     combo->addItem(QIcon(":/uncheck.png"), tr("None"), idx);
     combo->addItem(QIcon(":/intensity.png"), tr("DMX"), idx);
     combo->addItem(QIcon(":/function.png"), tr("Function"), idx);
@@ -118,7 +117,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
 
     if (bar->m_type == AudioBar::DMXBar)
     {
-        QToolButton* btn = new QToolButton();
+        QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
         btn->setProperty("index", idx);
         m_tree->setItemWidget(item, KColumnAssign, btn);
@@ -127,7 +126,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
     }
     else if (bar->m_type == AudioBar::FunctionBar)
     {
-        QToolButton* btn = new QToolButton();
+        QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
         btn->setProperty("index", idx);
         m_tree->setItemWidget(item, KColumnAssign, btn);
@@ -145,7 +144,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
     }
     else if (bar->m_type == AudioBar::VCWidgetBar)
     {
-        QToolButton* btn = new QToolButton();
+        QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
         btn->setProperty("index", idx);
         m_tree->setItemWidget(item, KColumnAssign, btn);
@@ -167,11 +166,11 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
         item->setIcon(KColumnInfo, QIcon());
     }
 
-    if (bar->m_type == AudioBar::FunctionBar ||
-        (bar->m_type == AudioBar::VCWidgetBar &&
-         ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
+    if (bar->m_type == AudioBar::FunctionBar
+        || (bar->m_type == AudioBar::VCWidgetBar
+            && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
     {
-        QSpinBox* minspin = new QSpinBox();
+        QSpinBox *minspin = new QSpinBox();
         minspin->setMinimum(5);
         minspin->setMaximum(95);
         minspin->setSingleStep(1);
@@ -181,7 +180,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
         connect(minspin, SIGNAL(valueChanged(int)), this, SLOT(slotMinThresholdChanged(int)));
         m_tree->setItemWidget(item, KColumnMinThreshold, minspin);
 
-        QSpinBox* maxspin = new QSpinBox();
+        QSpinBox *maxspin = new QSpinBox();
         maxspin->setMinimum(5);
         maxspin->setMaximum(95);
         maxspin->setSingleStep(1);
@@ -192,10 +191,10 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem* item, int idx)
         m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
     }
 
-    if (bar->m_type == AudioBar::VCWidgetBar && bar->widget() != NULL &&
-        (bar->widget()->type() == VCWidget::SpeedDialWidget || bar->widget()->type() == VCWidget::CueListWidget))
+    if (bar->m_type == AudioBar::VCWidgetBar && bar->widget() != NULL
+        && (bar->widget()->type() == VCWidget::SpeedDialWidget || bar->widget()->type() == VCWidget::CueListWidget))
     {
-        QSpinBox* divisor = new QSpinBox();
+        QSpinBox *divisor = new QSpinBox();
         divisor->setMinimum(1);
         divisor->setMaximum(64);
         divisor->setSingleStep(1);
@@ -215,7 +214,7 @@ void AudioTriggersConfiguration::updateTree()
     m_triggers->setSpectrumBarsNumber(m_barsNumSpin->value());
 
     // add volume item
-    QTreeWidgetItem* volItem = new QTreeWidgetItem(m_tree);
+    QTreeWidgetItem *volItem = new QTreeWidgetItem(m_tree);
     volItem->setText(KColumnName, tr("Volume Bar"));
     updateTreeItem(volItem, 1000);
 
@@ -224,7 +223,7 @@ void AudioTriggersConfiguration::updateTree()
 
     for (int i = 0; i < m_barsNumSpin->value(); i++)
     {
-        QTreeWidgetItem* barItem = new QTreeWidgetItem(m_tree);
+        QTreeWidgetItem *barItem = new QTreeWidgetItem(m_tree);
         barItem->setText(KColumnName,
                          tr("#%1 (%2Hz - %3Hz)").arg(i + 1).arg((int)freqCount).arg((int)(freqCount + freqIncr)));
         updateTreeItem(barItem, i);
@@ -236,9 +235,9 @@ void AudioTriggersConfiguration::updateTree()
 
 void AudioTriggersConfiguration::slotTypeComboChanged(int comboIndex)
 {
-    QComboBox* combo = (QComboBox*)sender();
+    QComboBox *combo = (QComboBox *)sender();
     int index = combo->itemData(comboIndex).toInt();
-    QTreeWidgetItem* item = NULL;
+    QTreeWidgetItem *item = NULL;
     if (index == 1000)
         item = m_tree->topLevelItem(0);
     else
@@ -251,11 +250,11 @@ void AudioTriggersConfiguration::slotTypeComboChanged(int comboIndex)
 
 void AudioTriggersConfiguration::slotDmxSelectionClicked()
 {
-    QToolButton* btn = (QToolButton*)sender();
+    QToolButton *btn = (QToolButton *)sender();
     QVariant prop = btn->property("index");
     if (prop.isValid())
     {
-        AudioBar* bar = m_triggers->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         ChannelsSelection cfg(m_doc, this);
         if (bar != NULL)
             cfg.setChannelsList(bar->m_dmxChannels);
@@ -265,7 +264,7 @@ void AudioTriggersConfiguration::slotDmxSelectionClicked()
         QList<SceneValue> dmxList = cfg.channelsList();
         if (bar != NULL)
             bar->attachDmxChannels(m_doc, dmxList);
-        QTreeWidgetItem* item = NULL;
+        QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)
             item = m_tree->topLevelItem(0);
         else
@@ -276,7 +275,7 @@ void AudioTriggersConfiguration::slotDmxSelectionClicked()
 
 void AudioTriggersConfiguration::slotFunctionSelectionClicked()
 {
-    QToolButton* btn = (QToolButton*)sender();
+    QToolButton *btn = (QToolButton *)sender();
     QVariant prop = btn->property("index");
     if (prop.isValid())
     {
@@ -284,12 +283,12 @@ void AudioTriggersConfiguration::slotFunctionSelectionClicked()
         fs.setMultiSelection(false);
         if (fs.exec() == QDialog::Rejected || fs.selection().size() == 0)
             return; // User pressed cancel or made an invalid selection
-        AudioBar* bar = m_triggers->getSpectrumBar(prop.toInt());
-        Function* f = m_doc->function(fs.selection().first());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
+        Function *f = m_doc->function(fs.selection().first());
         if (bar != NULL && f != NULL)
             bar->attachFunction(f);
 
-        QTreeWidgetItem* item = NULL;
+        QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)
             item = m_tree->topLevelItem(0);
         else
@@ -300,7 +299,7 @@ void AudioTriggersConfiguration::slotFunctionSelectionClicked()
 
 void AudioTriggersConfiguration::slotWidgetSelectionClicked()
 {
-    QToolButton* btn = (QToolButton*)sender();
+    QToolButton *btn = (QToolButton *)sender();
     QVariant prop = btn->property("index");
     if (prop.isValid())
     {
@@ -312,13 +311,13 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         VCWidgetSelection ws(filters, this);
         if (ws.exec() == QDialog::Rejected || ws.getSelectedWidget() == 0)
             return; // User pressed cancel or did not select any widget
-        AudioBar* bar = m_triggers->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
         {
             bar->attachWidget(ws.getSelectedWidget()->id());
         }
 
-        QTreeWidgetItem* item = NULL;
+        QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)
             item = m_tree->topLevelItem(0);
         else
@@ -329,11 +328,11 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
 
 void AudioTriggersConfiguration::slotMinThresholdChanged(int val)
 {
-    QSpinBox* spin = (QSpinBox*)sender();
+    QSpinBox *spin = (QSpinBox *)sender();
     QVariant prop = spin->property("index");
     if (prop.isValid())
     {
-        AudioBar* bar = m_triggers->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
         if (bar != NULL)
             bar->setMinThreshold(scaledVal);
@@ -342,11 +341,11 @@ void AudioTriggersConfiguration::slotMinThresholdChanged(int val)
 
 void AudioTriggersConfiguration::slotMaxThresholdChanged(int val)
 {
-    QSpinBox* spin = (QSpinBox*)sender();
+    QSpinBox *spin = (QSpinBox *)sender();
     QVariant prop = spin->property("index");
     if (prop.isValid())
     {
-        AudioBar* bar = m_triggers->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
         if (bar != NULL)
             bar->setMaxThreshold(scaledVal);
@@ -355,11 +354,11 @@ void AudioTriggersConfiguration::slotMaxThresholdChanged(int val)
 
 void AudioTriggersConfiguration::slotDivisorChanged(int val)
 {
-    QSpinBox* spin = (QSpinBox*)sender();
+    QSpinBox *spin = (QSpinBox *)sender();
     QVariant prop = spin->property("index");
     if (prop.isValid())
     {
-        AudioBar* bar = m_triggers->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
             bar->setDivisor(val);
     }

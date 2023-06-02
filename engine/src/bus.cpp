@@ -54,7 +54,7 @@ public:
 
     ~BusEntry() {}
 
-    BusEntry(const BusEntry& entry)
+    BusEntry(const BusEntry &entry)
     {
         name = entry.name;
         value = entry.value;
@@ -68,9 +68,9 @@ public:
  * Initialization
  ****************************************************************************/
 
-Bus* Bus::s_instance = NULL;
+Bus *Bus::s_instance = NULL;
 
-void Bus::init(QObject* parent)
+void Bus::init(QObject *parent)
 {
     if (s_instance == NULL)
     {
@@ -79,12 +79,12 @@ void Bus::init(QObject* parent)
     }
 }
 
-Bus* Bus::instance()
+Bus *Bus::instance()
 {
     return s_instance;
 }
 
-Bus::Bus(QObject* parent)
+Bus::Bus(QObject *parent)
     : QObject(parent)
 {
     for (quint32 i = 0; i < Bus::count(); i++)
@@ -164,7 +164,7 @@ QStringList Bus::idNames() const
     return list;
 }
 
-void Bus::setName(quint32 bus, const QString& name)
+void Bus::setName(quint32 bus, const QString &name)
 {
     if (bus < KBusCount)
     {
@@ -208,7 +208,7 @@ void Bus::tap(quint32 bus)
  * Load & Save
  ****************************************************************************/
 
-bool Bus::loadXML(QXmlStreamReader& doc)
+bool Bus::loadXML(QXmlStreamReader &doc)
 {
     if (doc.name() != KXMLQLCBus)
     {

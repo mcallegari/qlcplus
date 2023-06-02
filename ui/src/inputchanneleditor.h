@@ -41,7 +41,7 @@ class InputChannelEditor : public QDialog, public Ui_InputChannelEditor
      * Initialization
      ********************************************************************/
 public:
-    InputChannelEditor(QWidget* parent, const QLCInputProfile* profile, const QLCInputChannel* channel,
+    InputChannelEditor(QWidget *parent, const QLCInputProfile *profile, const QLCInputChannel *channel,
                        QLCInputProfile::Type profileType);
     virtual ~InputChannelEditor();
 
@@ -55,8 +55,8 @@ public:
 
 protected slots:
     void slotNumberChanged(int number);
-    void slotNameEdited(const QString& text);
-    void slotTypeActivated(const QString& text);
+    void slotNameEdited(const QString &text);
+    void slotTypeActivated(const QString &text);
 
 protected:
     quint32 m_channel;
@@ -70,7 +70,7 @@ protected slots:
     void slotMidiChanged();
 
 private:
-    static void numberToMidi(int number, int& channel, int& message, int& param);
+    static void numberToMidi(int number, int &channel, int &message, int &param);
     static int midiToNumber(int channel, int message, int param);
 
     void enableMidiParam(int midiMessage, int midiParam);

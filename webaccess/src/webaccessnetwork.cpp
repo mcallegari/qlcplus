@@ -31,12 +31,12 @@
 #define DHCPCD_CONF_FILE "/etc/dhcpcd.conf"
 #define WPA_SUPP_CONF_FILE "/etc/wpa_supplicant/wpa_supplicant.conf"
 
-WebAccessNetwork::WebAccessNetwork(QObject* parent)
+WebAccessNetwork::WebAccessNetwork(QObject *parent)
     : QObject(parent)
 {
 }
 
-void WebAccessNetwork::resetInterface(InterfaceInfo* iface)
+void WebAccessNetwork::resetInterface(InterfaceInfo *iface)
 {
     iface->name = "";
     iface->isStatic = false;
@@ -89,7 +89,7 @@ void WebAccessNetwork::appendInterface(InterfaceInfo iface)
     m_interfaces.append(iface);
 }
 
-QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo* iface)
+QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
 {
     QString dhcpChk = iface->isStatic ? QString() : QString("checked");
     QString staticChk = iface->isStatic ? QString("checked") : QString();
@@ -103,29 +103,28 @@ QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo* iface)
     html += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
     if (iface->isWireless)
     {
-        html += tr("Access point name (SSID): ") + "<input type=\"text\" id=\"" + iface->name +
-                "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
-        html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" + iface->name +
-                "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"><br>\n";
+        html += tr("Access point name (SSID): ") + "<input type=\"text\" id=\"" + iface->name
+                + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
+        html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" + iface->name + "WPAPSK\" size=\"15\" value=\""
+                + iface->wpaPass + "\"><br>\n";
     }
     /** IP mode radio buttons */
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name +
-            "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name +
-            "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
+    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name
+            + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
+    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name
+            + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
 
     /** Static IP fields */
-    html +=
-        "<div id=\"" + iface->name + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
-    html += tr("IP Address: ") + "<input type=\"text\" id=\"" + iface->name + "IPaddr\" size=\"15\" value=\"" +
-            iface->address + "\"><br>\n";
-    html += tr("Netmask: ") + "<input type=\"text\" id=\"" + iface->name + "Netmask\" size=\"15\" value=\"" +
-            iface->netmask + "\"><br>\n";
-    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" + iface->name + "Gateway\" value=\"" +
-            iface->gateway + "\"><br>\n";
+    html += "<div id=\"" + iface->name + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
+    html += tr("IP Address: ") + "<input type=\"text\" id=\"" + iface->name + "IPaddr\" size=\"15\" value=\""
+            + iface->address + "\"><br>\n";
+    html += tr("Netmask: ") + "<input type=\"text\" id=\"" + iface->name + "Netmask\" size=\"15\" value=\""
+            + iface->netmask + "\"><br>\n";
+    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" + iface->name + "Gateway\" value=\""
+            + iface->gateway + "\"><br>\n";
     html += "</div>\n";
-    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->name +
-            "');\" >\n";
+    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->name
+            + "');\" >\n";
     html += "</form></div></div>";
 
     return html;
@@ -326,13 +325,13 @@ QString WebAccessNetwork::getHTML()
                  "</style>\n";
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>" +
-                       tr("Back") +
-                       "</span></a>\n"
-                       "<div class=\"swInfo\">" +
-                       QString(APPNAME) + " " + QString(APPVERSION) +
-                       "</div>\n"
-                       "</div>\n";
+                       "<a class=\"button button-blue\" href=\"/\"><span>"
+                       + tr("Back")
+                       + "</span></a>\n"
+                         "<div class=\"swInfo\">"
+                       + QString(APPNAME) + " " + QString(APPVERSION)
+                       + "</div>\n"
+                         "</div>\n";
 
     bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
                 "font-size:20px; text-align:center; color:#CCCCCC;\">";
@@ -351,12 +350,12 @@ QString WebAccessNetwork::getHTML()
     bodyHTML += "</form></div>\n";
 
     bodyHTML += "<div style=\"margin:5px 7%;\">\n";
-    bodyHTML +=
-        "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>" +
-        tr("Reboot") + "</span></a>\n";
-    bodyHTML +=
-        "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|HALT');\"><span>" +
-        tr("Shutdown") + "</span></a>\n";
+    bodyHTML += "<a class=\"button button-blue\" href=\"\" "
+                "onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>"
+                + tr("Reboot") + "</span></a>\n";
+    bodyHTML += "<a class=\"button button-blue\" href=\"\" "
+                "onclick=\"javascript:websocket.send('QLC+SYS|HALT');\"><span>"
+                + tr("Shutdown") + "</span></a>\n";
     bodyHTML += "</div>\n";
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
@@ -389,7 +388,7 @@ bool WebAccessNetwork::updateNetworkFile(QStringList cmdList)
     return false;
 }
 
-void WebAccessNetwork::parseWPAConfFile(InterfaceInfo* iface)
+void WebAccessNetwork::parseWPAConfFile(InterfaceInfo *iface)
 {
     bool inNetwork = false;
 
@@ -476,8 +475,7 @@ bool WebAccessNetwork::writeNetworkFile()
 
             dhcpcdFile.write((QString("interface %1\n").arg(iface.name)).toLatin1());
             dhcpcdFile.write(
-                (QString("static ip_address=%1/%2\n").arg(iface.address).arg(stringToNetmask(iface.netmask)))
-                    .toLatin1());
+                (QString("static ip_address=%1/%2\n").arg(iface.address).arg(stringToNetmask(iface.netmask))).toLatin1());
             dhcpcdFile.write((QString("static routers=%1\n").arg(iface.gateway)).toLatin1());
             if (iface.dns1.isEmpty() == false)
                 dhcpcdFile.write((QString("static domain_name_servers=%1\n\n").arg(iface.dns1)).toLatin1());

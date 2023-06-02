@@ -44,14 +44,14 @@ class VCLabel : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCLabel(QWidget* parent, Doc* doc);
+    VCLabel(QWidget *parent, Doc *doc);
     ~VCLabel();
 
     /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
     /*********************************************************************
      * Properties
@@ -69,14 +69,14 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /*********************************************************************
      * Painting
      *********************************************************************/
 protected:
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent *e);
 };
 
 /** @} */

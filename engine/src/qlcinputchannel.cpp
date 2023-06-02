@@ -40,9 +40,9 @@ QLCInputChannel::QLCInputChannel()
 {
 }
 
-QLCInputChannel* QLCInputChannel::createCopy()
+QLCInputChannel *QLCInputChannel::createCopy()
 {
-    QLCInputChannel* copy = new QLCInputChannel();
+    QLCInputChannel *copy = new QLCInputChannel();
     copy->setName(this->name());
     copy->setType(this->type());
     copy->setMovementType(this->movementType());
@@ -96,7 +96,7 @@ QString QLCInputChannel::typeToString(Type type)
     }
 }
 
-QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
+QLCInputChannel::Type QLCInputChannel::stringToType(const QString &type)
 {
     if (type == KXMLQLCInputChannelButton)
         return Button;
@@ -152,7 +152,7 @@ QIcon QLCInputChannel::typeToIcon(Type type)
     }
 }
 
-QIcon QLCInputChannel::stringToIcon(const QString& str)
+QIcon QLCInputChannel::stringToIcon(const QString &str)
 {
     return typeToIcon(stringToType(str));
 }
@@ -166,7 +166,7 @@ QIcon QLCInputChannel::icon() const
  * Name
  ****************************************************************************/
 
-void QLCInputChannel::setName(const QString& name)
+void QLCInputChannel::setName(const QString &name)
 {
     m_name = name;
 }
@@ -234,7 +234,7 @@ uchar QLCInputChannel::upperValue() const
  * Load & Save
  ****************************************************************************/
 
-bool QLCInputChannel::loadXML(QXmlStreamReader& root)
+bool QLCInputChannel::loadXML(QXmlStreamReader &root)
 {
     if (root.isStartElement() == false || root.name() != KXMLQLCInputChannel)
     {
@@ -287,7 +287,7 @@ bool QLCInputChannel::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool QLCInputChannel::saveXML(QXmlStreamWriter* doc, quint32 channelNumber) const
+bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) const
 {
     if (doc == NULL || doc->device() == NULL)
         return false;

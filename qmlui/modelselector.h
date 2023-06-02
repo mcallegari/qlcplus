@@ -32,16 +32,16 @@ class ModelSelector : public QObject
     Q_PROPERTY(int itemsCount READ itemsCount NOTIFY itemsCountChanged)
 
 public:
-    ModelSelector(QObject* parent = 0);
+    ModelSelector(QObject *parent = 0);
     ~ModelSelector();
 
     /** Add an entry to the selected items list.
      *  If $multiSelection is false, every previous item in the list will be
      *  deselected. */
-    Q_INVOKABLE void selectItem(int index, ListModel* model, int keyModifiers);
+    Q_INVOKABLE void selectItem(int index, ListModel *model, int keyModifiers);
 
     /** Reset the currently active selection */
-    Q_INVOKABLE void resetSelection(ListModel* model);
+    Q_INVOKABLE void resetSelection(ListModel *model);
 
     /** Return the list of the currently selected
      *  item indices, as list of QVariant */
@@ -51,7 +51,7 @@ public:
     int itemsCount() const;
 
 private:
-    void selectSingleItem(int index, ListModel* model);
+    void selectSingleItem(int index, ListModel *model);
 
 signals:
     void itemsCountChanged(int itemsCount);

@@ -36,15 +36,15 @@ class VideoEditor : public QWidget, public Ui_VideoEditor
     Q_DISABLE_COPY(VideoEditor)
 
 public:
-    VideoEditor(QWidget* parent, Video* video, Doc* doc);
+    VideoEditor(QWidget *parent, Video *video, Doc *doc);
     ~VideoEditor();
 
 private:
-    Doc* m_doc;
-    Video* m_video; // The Video function being edited
+    Doc *m_doc;
+    Video *m_video; // The Video function being edited
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotSourceFileClicked();
     void slotSourceUrlClicked();
     void slotScreenIndexChanged(int idx);

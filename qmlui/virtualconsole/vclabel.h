@@ -33,7 +33,7 @@ class VCLabel : public VCWidget
      *********************************************************************/
 
 public:
-    VCLabel(Doc* doc = nullptr, QObject* parent = nullptr);
+    VCLabel(Doc *doc = nullptr, QObject *parent = nullptr);
     virtual ~VCLabel();
 
     /** @reimp */
@@ -43,20 +43,20 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView* view, QQuickItem* parent);
+    void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

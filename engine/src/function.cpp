@@ -70,7 +70,7 @@ const QString KBeatsTypeString("Beats");
  * Initialization
  *****************************************************************************/
 
-Function::Function(QObject* parent)
+Function::Function(QObject *parent)
     : QObject(parent)
     , m_id(Function::invalidId())
     , m_type(Undefined)
@@ -99,7 +99,7 @@ Function::Function(QObject* parent)
 {
 }
 
-Function::Function(Doc* doc, Type t)
+Function::Function(Doc *doc, Type t)
     : QObject(doc)
     , m_id(Function::invalidId())
     , m_type(t)
@@ -132,19 +132,19 @@ Function::Function(Doc* doc, Type t)
 
 Function::~Function() {}
 
-Doc* Function::doc() const
+Doc *Function::doc() const
 {
-    return qobject_cast<Doc*>(parent());
+    return qobject_cast<Doc *>(parent());
 }
 
 /*****************************************************************************
  * Copying
  *****************************************************************************/
-Function* Function::createCopy(Doc* doc, bool addToDoc)
+Function *Function::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Function(doc, type());
+    Function *copy = new Function(doc, type());
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -159,7 +159,7 @@ Function* Function::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Function::copyFrom(const Function* function)
+bool Function::copyFrom(const Function *function)
 {
     if (function == NULL)
         return false;
@@ -206,7 +206,7 @@ quint32 Function::invalidId()
  * Name
  *****************************************************************************/
 
-void Function::setName(const QString& name)
+void Function::setName(const QString &name)
 {
     if (m_name == name)
         return;
@@ -265,7 +265,7 @@ QString Function::typeToString(Type type)
     }
 }
 
-Function::Type Function::stringToType(const QString& string)
+Function::Type Function::stringToType(const QString &string)
 {
     if (string == KSceneString)
         return SceneType;
@@ -333,7 +333,7 @@ bool Function::isVisible() const
  * Common
  *********************************************************************/
 
-bool Function::saveXMLCommon(QXmlStreamWriter* doc) const
+bool Function::saveXMLCommon(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -354,7 +354,7 @@ bool Function::saveXMLCommon(QXmlStreamWriter* doc) const
  * Running order
  *****************************************************************************/
 
-void Function::setRunOrder(const Function::RunOrder& order)
+void Function::setRunOrder(const Function::RunOrder &order)
 {
     if (order == Loop || order == SingleShot || order == PingPong || order == Random)
         m_runOrder = order;
@@ -369,7 +369,7 @@ Function::RunOrder Function::runOrder() const
     return m_runOrder;
 }
 
-QString Function::runOrderToString(const RunOrder& order)
+QString Function::runOrderToString(const RunOrder &order)
 {
     switch (order)
     {
@@ -385,7 +385,7 @@ QString Function::runOrderToString(const RunOrder& order)
     }
 }
 
-Function::RunOrder Function::stringToRunOrder(const QString& str)
+Function::RunOrder Function::stringToRunOrder(const QString &str)
 {
     if (str == KPingPongString)
         return PingPong;
@@ -397,7 +397,7 @@ Function::RunOrder Function::stringToRunOrder(const QString& str)
         return Loop;
 }
 
-bool Function::saveXMLRunOrder(QXmlStreamWriter* doc) const
+bool Function::saveXMLRunOrder(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -406,7 +406,7 @@ bool Function::saveXMLRunOrder(QXmlStreamWriter* doc) const
     return true;
 }
 
-bool Function::loadXMLRunOrder(QXmlStreamReader& root)
+bool Function::loadXMLRunOrder(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunctionRunOrder)
     {
@@ -426,7 +426,7 @@ bool Function::loadXMLRunOrder(QXmlStreamReader& root)
  * Direction
  *****************************************************************************/
 
-void Function::setDirection(const Function::Direction& dir)
+void Function::setDirection(const Function::Direction &dir)
 {
     if (dir == Forward || dir == Backward)
         m_direction = dir;
@@ -440,7 +440,7 @@ Function::Direction Function::direction() const
     return m_direction;
 }
 
-QString Function::directionToString(const Direction& dir)
+QString Function::directionToString(const Direction &dir)
 {
     switch (dir)
     {
@@ -452,7 +452,7 @@ QString Function::directionToString(const Direction& dir)
     }
 }
 
-Function::Direction Function::stringToDirection(const QString& str)
+Function::Direction Function::stringToDirection(const QString &str)
 {
     if (str == KBackwardString)
         return Backward;
@@ -460,7 +460,7 @@ Function::Direction Function::stringToDirection(const QString& str)
         return Forward;
 }
 
-bool Function::saveXMLDirection(QXmlStreamWriter* doc) const
+bool Function::saveXMLDirection(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -469,7 +469,7 @@ bool Function::saveXMLDirection(QXmlStreamWriter* doc) const
     return true;
 }
 
-bool Function::loadXMLDirection(QXmlStreamReader& root)
+bool Function::loadXMLDirection(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunctionDirection)
     {
@@ -490,7 +490,7 @@ bool Function::loadXMLDirection(QXmlStreamReader& root)
  * Speed type
  *********************************************************************/
 
-void Function::setTempoType(const Function::TempoType& type)
+void Function::setTempoType(const Function::TempoType &type)
 {
     if (type == m_tempoType)
         return;
@@ -532,7 +532,7 @@ Function::TempoType Function::tempoType() const
     return m_tempoType;
 }
 
-QString Function::tempoTypeToString(const Function::TempoType& type)
+QString Function::tempoTypeToString(const Function::TempoType &type)
 {
     switch (type)
     {
@@ -544,7 +544,7 @@ QString Function::tempoTypeToString(const Function::TempoType& type)
     }
 }
 
-Function::TempoType Function::stringToTempoType(const QString& str)
+Function::TempoType Function::stringToTempoType(const QString &str)
 {
     if (str == KTimeTypeString)
         return Time;
@@ -704,7 +704,7 @@ QString Function::speedToString(uint ms)
     return str;
 }
 
-static uint speedSplit(QString& speedString, QString splitNeedle)
+static uint speedSplit(QString &speedString, QString splitNeedle)
 {
     QStringList splitResult;
     // Filter out "ms" because "m" and "s" may wrongly use it
@@ -777,7 +777,7 @@ uint Function::speedSubtract(uint left, uint right)
 
 void Function::tap() {}
 
-bool Function::loadXMLSpeed(QXmlStreamReader& speedRoot)
+bool Function::loadXMLSpeed(QXmlStreamReader &speedRoot)
 {
     if (speedRoot.name() != KXMLQLCFunctionSpeed)
         return false;
@@ -793,7 +793,7 @@ bool Function::loadXMLSpeed(QXmlStreamReader& speedRoot)
     return true;
 }
 
-bool Function::saveXMLSpeed(QXmlStreamWriter* doc) const
+bool Function::saveXMLSpeed(QXmlStreamWriter *doc) const
 {
     doc->writeStartElement(KXMLQLCFunctionSpeed);
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInSpeed()));
@@ -845,19 +845,19 @@ void Function::slotFixtureRemoved(quint32 fid)
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool Function::saveXML(QXmlStreamWriter* doc)
+bool Function::saveXML(QXmlStreamWriter *doc)
 {
     Q_UNUSED(doc)
     return false;
 }
 
-bool Function::loadXML(QXmlStreamReader& root)
+bool Function::loadXML(QXmlStreamReader &root)
 {
     Q_UNUSED(root)
     return false;
 }
 
-bool Function::loader(QXmlStreamReader& root, Doc* doc)
+bool Function::loader(QXmlStreamReader &root, Doc *doc)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -890,7 +890,7 @@ bool Function::loader(QXmlStreamReader& root, Doc* doc)
     }
 
     /* Create a new function according to the type */
-    Function* function = NULL;
+    Function *function = NULL;
     if (type == Function::SceneType)
         function = new class Scene(doc);
     else if (type == Function::ChaserType)
@@ -960,7 +960,7 @@ QList<quint32> Function::components()
  * Flash
  *****************************************************************************/
 
-void Function::flash(MasterTimer* timer)
+void Function::flash(MasterTimer *timer)
 {
     Q_UNUSED(timer);
 
@@ -970,7 +970,7 @@ void Function::flash(MasterTimer* timer)
     m_flashing = true;
 }
 
-void Function::unFlash(MasterTimer* timer)
+void Function::unFlash(MasterTimer *timer)
 {
     Q_UNUSED(timer);
 
@@ -989,7 +989,7 @@ bool Function::flashing() const
  * Running
  *****************************************************************************/
 
-void Function::preRun(MasterTimer* timer)
+void Function::preRun(MasterTimer *timer)
 {
     Q_UNUSED(timer);
 
@@ -999,13 +999,13 @@ void Function::preRun(MasterTimer* timer)
     emit running(m_id);
 }
 
-void Function::write(MasterTimer* timer, QList<Universe*> universes)
+void Function::write(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
 }
 
-void Function::postRun(MasterTimer* timer, QList<Universe*> universes)
+void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -1098,7 +1098,7 @@ void Function::roundElapsed(quint32 roundTime)
  * Start & Stop
  *****************************************************************************/
 
-void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTime, uint overrideFadeIn,
+void Function::start(MasterTimer *timer, FunctionParent source, quint32 startTime, uint overrideFadeIn,
                      uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType)
 {
     qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id()
@@ -1148,8 +1148,8 @@ void Function::stop(FunctionParent source, bool preserveAttributes)
 
     QMutexLocker sourcesLocker(&m_sourcesMutex);
 
-    if ((source.id() == id() && source.type() == FunctionParent::Function) ||
-        (source.type() == FunctionParent::Master) || (source.type() == FunctionParent::ManualVCWidget))
+    if ((source.id() == id() && source.type() == FunctionParent::Function) || (source.type() == FunctionParent::Master)
+        || (source.type() == FunctionParent::ManualVCWidget))
     {
         m_sources.clear();
     }
@@ -1172,7 +1172,7 @@ bool Function::stopped() const
 
 bool Function::startedAsChild() const
 {
-    QMutexLocker sourcesLocker(const_cast<QMutex*>(&m_sourcesMutex));
+    QMutexLocker sourcesLocker(const_cast<QMutex *>(&m_sourcesMutex));
     foreach (FunctionParent source, m_sources)
     {
         if (source.type() == FunctionParent::Function && source.id() != id())
@@ -1338,8 +1338,7 @@ int Function::adjustAttribute(qreal value, int attributeId)
             return -1;
 
         // Adjust the original value of an attribute. Only Function editors should do this !
-        m_attributes[attributeId].m_value =
-            CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
+        m_attributes[attributeId].m_value = CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
         attrIndex = attributeId;
     }
     else

@@ -43,7 +43,7 @@ typedef QVector<QVector<uint>> RGBMap;
 class RGBAlgorithm
 {
 public:
-    RGBAlgorithm(Doc* doc);
+    RGBAlgorithm(Doc *doc);
     virtual ~RGBAlgorithm()
     { /* NOP */
     }
@@ -58,29 +58,29 @@ public:
     };
 
     /** Create a clone of the algorithm. Caller takes ownership of the pointer. */
-    virtual RGBAlgorithm* clone() const = 0;
+    virtual RGBAlgorithm *clone() const = 0;
 
-    Doc* doc() const
+    Doc *doc() const
     {
         return m_doc;
     }
-    Doc* doc()
+    Doc *doc()
     {
         return m_doc;
     }
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /************************************************************************
      * RGB API
      ************************************************************************/
 public:
     /** Maximum step count for rgbMap() function. */
-    virtual int rgbMapStepCount(const QSize& size) = 0;
+    virtual int rgbMapStepCount(const QSize &size) = 0;
 
     /** Load a RGBMap for the given step. */
-    virtual void rgbMap(const QSize& size, uint rgb, int step, RGBMap& map) = 0;
+    virtual void rgbMap(const QSize &size, uint rgb, int step, RGBMap &map) = 0;
 
     /** Release resources that may have been acquired in rgbMap() */
     virtual void postRun() {}
@@ -128,21 +128,21 @@ private:
      * Available algorithms
      ************************************************************************/
 public:
-    static QStringList algorithms(Doc* doc);
-    static RGBAlgorithm* algorithm(Doc* doc, const QString& name);
+    static QStringList algorithms(Doc *doc);
+    static RGBAlgorithm *algorithm(Doc *doc, const QString &name);
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** Load an RGBAlgorithm from a workspace file and return it as a new pointer. */
-    static RGBAlgorithm* loader(Doc* doc, QXmlStreamReader& root);
+    static RGBAlgorithm *loader(Doc *doc, QXmlStreamReader &root);
 
     /** Load the contents of information saved in XML into a RGBAlgorithm  object */
-    virtual bool loadXML(QXmlStreamReader& root) = 0;
+    virtual bool loadXML(QXmlStreamReader &root) = 0;
 
     /** Save the contents of an RGBAlgorithm (run-time info) to a workspace file. */
-    virtual bool saveXML(QXmlStreamWriter* doc) const = 0;
+    virtual bool saveXML(QXmlStreamWriter *doc) const = 0;
 };
 
 /** @} */

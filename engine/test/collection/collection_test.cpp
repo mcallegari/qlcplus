@@ -107,17 +107,17 @@ void Collection_Test::functions()
 
 void Collection_Test::contains()
 {
-    Doc* doc = new Doc(this);
+    Doc *doc = new Doc(this);
 
-    Scene* s1 = new Scene(doc);
-    Scene* s2 = new Scene(doc);
-    Scene* s3 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
+    Scene *s2 = new Scene(doc);
+    Scene *s3 = new Scene(doc);
 
     doc->addFunction(s1);
     doc->addFunction(s2);
     doc->addFunction(s3);
 
-    Chaser* c1 = new Chaser(doc);
+    Chaser *c1 = new Chaser(doc);
     ChaserStep step(s3->id());
     c1->addStep(step);
     doc->addFunction(c1);
@@ -397,7 +397,7 @@ void Collection_Test::createCopy()
 {
     Doc doc(this);
 
-    Collection* c1 = new Collection(m_doc);
+    Collection *c1 = new Collection(m_doc);
     c1->setName("First");
     c1->addFunction(20);
     c1->addFunction(30);
@@ -406,12 +406,12 @@ void Collection_Test::createCopy()
     doc.addFunction(c1);
     QVERIFY(c1->id() != Function::invalidId());
 
-    Function* f = c1->createCopy(&doc);
+    Function *f = c1->createCopy(&doc);
     QVERIFY(f != NULL);
     QVERIFY(f != c1);
     QVERIFY(f->id() != c1->id());
 
-    Collection* copy = qobject_cast<Collection*>(f);
+    Collection *copy = qobject_cast<Collection *>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->functions().size() == 3);
     QVERIFY(copy->functions().at(0) == 20);
@@ -421,37 +421,37 @@ void Collection_Test::createCopy()
 
 void Collection_Test::write()
 {
-    Doc* doc = new Doc(this);
+    Doc *doc = new Doc(this);
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(4);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("Scene1");
     s1->setValue(fxi->id(), 0, UCHAR_MAX);
     s1->setValue(fxi->id(), 1, UCHAR_MAX);
     doc->addFunction(s1);
 
-    Scene* s2 = new Scene(doc);
+    Scene *s2 = new Scene(doc);
     s2->setName("Scene2");
     s2->setDuration(500);
     s2->setValue(fxi->id(), 2, UCHAR_MAX);
     s2->setValue(fxi->id(), 3, UCHAR_MAX);
     doc->addFunction(s2);
 
-    Collection* c = new Collection(doc);
+    Collection *c = new Collection(doc);
     c->setName("Collection");
     c->addFunction(s1->id());
     c->addFunction(s2->id());
 
     QVERIFY(c->totalDuration() == 500);
 
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
-    MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
+    MasterTimerStub *mts = new MasterTimerStub(m_doc, ua);
 
     /* Collection starts all of its members immediately when it is started
        itself. */
@@ -527,35 +527,35 @@ void Collection_Test::write()
 
 void Collection_Test::stopNotOwnChildren()
 {
-    Doc* doc = new Doc(this);
+    Doc *doc = new Doc(this);
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(4);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("Scene1");
     s1->setValue(fxi->id(), 0, UCHAR_MAX);
     s1->setValue(fxi->id(), 1, UCHAR_MAX);
     doc->addFunction(s1);
 
-    Scene* s2 = new Scene(doc);
+    Scene *s2 = new Scene(doc);
     s2->setName("Scene2");
     s2->setValue(fxi->id(), 2, UCHAR_MAX);
     s2->setValue(fxi->id(), 3, UCHAR_MAX);
     doc->addFunction(s2);
 
-    Collection* c = new Collection(doc);
+    Collection *c = new Collection(doc);
     c->setName("Collection");
     c->addFunction(s1->id());
     c->addFunction(s2->id());
     doc->addFunction(c);
 
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
-    MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
+    MasterTimerStub *mts = new MasterTimerStub(m_doc, ua);
 
     QVERIFY(c->m_runningChildren.isEmpty() == true);
 

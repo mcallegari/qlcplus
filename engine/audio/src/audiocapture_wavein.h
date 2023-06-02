@@ -34,7 +34,7 @@ class AudioCaptureWaveIn : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureWaveIn(QObject* parent = 0);
+    AudioCaptureWaveIn(QObject *parent = 0);
     ~AudioCaptureWaveIn();
 
     /** @reimpl */
@@ -58,7 +58,7 @@ protected:
 
 private:
     int m_currentBufferIndex;
-    char* m_internalBuffers[HEADERS_NUMBER];
+    char *m_internalBuffers[HEADERS_NUMBER];
 };
 
 /** @} */

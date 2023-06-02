@@ -59,18 +59,18 @@ public:
     FadeChannel();
 
     /** Copy constructor */
-    FadeChannel(const FadeChannel& ch);
+    FadeChannel(const FadeChannel &ch);
 
     /** Create a new FadeChannel and set fixture ID and channel */
-    FadeChannel(const Doc* doc, quint32 fxi, quint32 channel);
+    FadeChannel(const Doc *doc, quint32 fxi, quint32 channel);
 
     /** Destructor */
     virtual ~FadeChannel();
 
-    FadeChannel& operator=(const FadeChannel& fc);
+    FadeChannel &operator=(const FadeChannel &fc);
 
     /** Comparison operator (true if fixture & channel match) */
-    bool operator==(const FadeChannel& fc) const;
+    bool operator==(const FadeChannel &fc) const;
 
     /** Get/Set the channel flags listed in ChannelFlag */
     int flags() const;
@@ -81,7 +81,7 @@ public:
     void removeFlag(int flag);
 
 protected:
-    void autoDetect(const Doc* doc);
+    void autoDetect(const Doc *doc);
 
 private:
     /** Bitmask including the channel type
@@ -93,7 +93,7 @@ private:
      ************************************************************************/
 public:
     /** Set the Fixture that is being controlled. */
-    void setFixture(const Doc* doc, quint32 id);
+    void setFixture(const Doc *doc, quint32 id);
 
     /** Get the Fixture that is being controlled. */
     quint32 fixture() const;
@@ -102,7 +102,7 @@ public:
     quint32 universe() const;
 
     /** Set channel within the Fixture. */
-    void setChannel(const Doc* doc, quint32 num);
+    void setChannel(const Doc *doc, quint32 num);
 
     /** Get channel within the Fixture. */
     quint32 channel() const;

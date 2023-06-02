@@ -63,10 +63,8 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(QVariant channelsList READ channelsList CONSTANT)
 
     Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
-    Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY
-                   valueDisplayStyleChanged)
-    Q_PROPERTY(
-        bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
+    Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
+    Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
 
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
@@ -77,10 +75,8 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
 
-    Q_PROPERTY(
-        quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
-    Q_PROPERTY(
-        int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
+    Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
+    Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
     Q_PROPERTY(QStringList availableAttributes READ availableAttributes NOTIFY availableAttributesChanged)
     Q_PROPERTY(qreal attributeMinValue READ attributeMinValue NOTIFY attributeMinValueChanged)
     Q_PROPERTY(qreal attributeMaxValue READ attributeMaxValue NOTIFY attributeMaxValueChanged)
@@ -103,7 +99,7 @@ class VCSlider : public VCWidget, public DMXSource
      * Initialization
      *********************************************************************/
 public:
-    VCSlider(Doc* doc = nullptr, QObject* parent = nullptr);
+    VCSlider(Doc *doc = nullptr, QObject *parent = nullptr);
     virtual ~VCSlider();
 
     /** @reimp */
@@ -113,22 +109,22 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView* view, QQuickItem* parent);
+    void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
 protected:
     /** Reference to a tree model representing Groups/Fitures/Channels
      * This is created only when the UI requests it to confgure the Level mode */
-    TreeModel* m_channelsTree;
+    TreeModel *m_channelsTree;
 
     /*********************************************************************
      * Widget style
@@ -202,7 +198,7 @@ public:
 public:
     /** Helper methods for SliderMode <--> QString conversion */
     static QString sliderModeToString(SliderMode mode);
-    static SliderMode stringToSliderMode(const QString& mode);
+    static SliderMode stringToSliderMode(const QString &mode);
 
     /** Get/Set the current slider mode */
     SliderMode sliderMode() const;
@@ -295,7 +291,7 @@ private:
     void removeActiveFaders();
 
 protected slots:
-    void slotTreeDataChanged(TreeModelItem* item, int role, const QVariant& value);
+    void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 
 signals:
     void monitorEnabledChanged();
@@ -317,7 +313,7 @@ protected:
     bool m_isOverriding;
 
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel* m_fixtureTree;
+    TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
 
@@ -381,7 +377,7 @@ public:
     int controlledAttribute() const;
     void setControlledAttribute(int attributeIndex);
 
-    void adjustFunctionAttribute(Function* f, qreal value);
+    void adjustFunctionAttribute(Function *f, qreal value);
 
     /** Get the list of the available attributes for the Function to control */
     QStringList availableAttributes() const;
@@ -440,14 +436,14 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe *> universes);
 
 protected:
     /** writeDMX for Level mode */
-    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXLevel(MasterTimer *timer, QList<Universe *> universes);
 
     /** writeDMX for Adjust mode */
-    void writeDMXAdjust(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXAdjust(MasterTimer *timer, QList<Universe *> universes);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
@@ -469,13 +465,13 @@ public slots:
      *********************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader& root);
-    bool loadXMLLevel(QXmlStreamReader& level_root);
-    bool loadXMLAdjust(QXmlStreamReader& adj_root);
-    bool loadXMLLegacyPlayback(QXmlStreamReader& pb_root);
+    bool loadXML(QXmlStreamReader &root);
+    bool loadXMLLevel(QXmlStreamReader &level_root);
+    bool loadXMLAdjust(QXmlStreamReader &adj_root);
+    bool loadXMLLegacyPlayback(QXmlStreamReader &pb_root);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

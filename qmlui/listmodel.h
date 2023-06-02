@@ -30,28 +30,28 @@ class ListModel : public QAbstractListModel
     Q_OBJECT
     Q_DISABLE_COPY(ListModel)
 public:
-    ListModel(QObject* parent = nullptr);
+    ListModel(QObject *parent = nullptr);
     ~ListModel();
 
     void clear();
 
     void setRoleNames(QStringList names);
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
-    QVariant data(const QModelIndex& index, QString role) const;
+    QVariant data(const QModelIndex &index, QString role) const;
 
     QVariant itemAt(int index) const;
 
-    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
-    bool setDataWithRole(const QModelIndex& index, QString roleName, const QVariant& value);
+    bool setDataWithRole(const QModelIndex &index, QString roleName, const QVariant &value);
 
     void addDataMap(QVariantMap data);
 
-    void setDataMap(const QModelIndex& index, QVariantMap data);
+    void setDataMap(const QModelIndex &index, QVariantMap data);
 
 protected:
     QStringList m_roles;

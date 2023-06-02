@@ -40,7 +40,7 @@ QImage Gradient::getRGBGradient(const int width, const int height)
     return m_rgb.scaled(width, height);
 }
 
-void Gradient::fillWithGradient(int r, int g, int b, QPainter* painter, int x)
+void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
 {
     QColor top = Qt::black;
     QColor col(r, g, b);

@@ -46,7 +46,7 @@ private slots:
     void loadSave();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

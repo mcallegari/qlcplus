@@ -47,7 +47,7 @@ public:
      * @param timer The calling MasterTimer instance
      * @param universes Universe buffer to write to
      */
-    virtual void writeDMX(MasterTimer* timer, QList<Universe*> universes) = 0;
+    virtual void writeDMX(MasterTimer *timer, QList<Universe *> universes) = 0;
 
     /** Get/Set if the DMX source has changed */
     bool hasChanged()

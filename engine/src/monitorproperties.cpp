@@ -482,7 +482,7 @@ QString MonitorProperties::customBackground(quint32 fid)
  * Load & Save
  *********************************************************************/
 
-bool MonitorProperties::loadXML(QXmlStreamReader& root, const Doc* mainDocument)
+bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
 {
     if (root.name() != KXMLQLCMonitorProperties)
     {
@@ -684,7 +684,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader& root, const Doc* mainDocument)
     return true;
 }
 
-bool MonitorProperties::saveXML(QXmlStreamWriter* doc, const Doc* mainDocument) const
+bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) const
 {
     Q_ASSERT(doc != NULL);
 

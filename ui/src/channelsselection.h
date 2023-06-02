@@ -62,24 +62,24 @@ public:
         ConfigurationMode
     };
 
-    ChannelsSelection(Doc* doc, QWidget* parent = 0, ChannelSelectionType mode = NormalMode);
+    ChannelsSelection(Doc *doc, QWidget *parent = 0, ChannelSelectionType mode = NormalMode);
     ~ChannelsSelection();
 
     void setChannelsList(QList<SceneValue> list);
     QList<SceneValue> channelsList();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     ChannelSelectionType m_mode;
     QList<SceneValue> m_channelsList;
 
 protected:
     void updateFixturesTree();
-    QList<QTreeWidgetItem*> getSameChannels(QTreeWidgetItem* item);
+    QList<QTreeWidgetItem *> getSameChannels(QTreeWidgetItem *item);
 
 protected slots:
 
-    void slotItemChecked(QTreeWidgetItem* item, int col);
+    void slotItemChecked(QTreeWidgetItem *item, int col);
     void slotItemExpanded();
 
     /** Slot called when user picks a new behaviour from a channel

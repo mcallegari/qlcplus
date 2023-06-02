@@ -25,7 +25,7 @@ GroupHead::GroupHead(quint32 aFxi, int aHead)
 {
 }
 
-GroupHead::GroupHead(const GroupHead& another)
+GroupHead::GroupHead(const GroupHead &another)
     : fxi(another.fxi)
     , head(another.head)
 {
@@ -33,7 +33,7 @@ GroupHead::GroupHead(const GroupHead& another)
 
 GroupHead::~GroupHead() {}
 
-GroupHead& GroupHead::operator=(const GroupHead& grp)
+GroupHead &GroupHead::operator=(const GroupHead &grp)
 {
     if (this != &grp)
     {
@@ -52,7 +52,7 @@ bool GroupHead::isValid() const
         return false;
 }
 
-bool GroupHead::operator==(const GroupHead& another) const
+bool GroupHead::operator==(const GroupHead &another) const
 {
     if (fxi == another.fxi && head == another.head)
         return true;

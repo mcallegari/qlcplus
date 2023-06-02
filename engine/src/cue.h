@@ -46,18 +46,18 @@ class QXmlStreamWriter;
 class Cue
 {
 public:
-    Cue(const QString& name = QString());
+    Cue(const QString &name = QString());
     Cue(const QHash<uint, uchar> values);
-    Cue(const Cue& cue);
+    Cue(const Cue &cue);
     ~Cue();
 
-    Cue& operator=(const Cue& cue);
+    Cue &operator=(const Cue &cue);
 
     /************************************************************************
      * Name
      ************************************************************************/
 public:
-    void setName(const QString& str);
+    void setName(const QString &str);
     QString name() const;
 
 private:
@@ -98,12 +98,12 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
-    bool loadXMLSpeed(QXmlStreamReader& speedRoot);
-    bool saveXMLSpeed(QXmlStreamWriter* doc) const;
+    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
+    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

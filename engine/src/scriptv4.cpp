@@ -58,7 +58,7 @@ const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
  * Initialization
  ****************************************************************************/
 
-Script::Script(Doc* doc)
+Script::Script(Doc *doc)
     : Function(doc, Function::ScriptType)
     , m_runner(NULL)
 {
@@ -76,7 +76,7 @@ quint32 Script::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    ScriptRunner* runner = new ScriptRunner(doc(), m_data);
+    ScriptRunner *runner = new ScriptRunner(doc(), m_data);
     runner->collectScriptData();
     totalDuration = runner->currentWaitTime();
     // runner->deleteLater();
@@ -86,11 +86,11 @@ quint32 Script::totalDuration()
     return totalDuration;
 }
 
-Function* Script::createCopy(Doc* doc, bool addToDoc)
+Function *Script::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Script(doc);
+    Function *copy = new Script(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -105,9 +105,9 @@ Function* Script::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Script::copyFrom(const Function* function)
+bool Script::copyFrom(const Function *function)
 {
-    const Script* script = qobject_cast<const Script*>(function);
+    const Script *script = qobject_cast<const Script *>(function);
     if (script == NULL)
         return false;
 
@@ -120,21 +120,21 @@ bool Script::copyFrom(const Function* function)
  * Script data
  ****************************************************************************/
 
-bool Script::setData(const QString& str)
+bool Script::setData(const QString &str)
 {
     if (str == m_data)
         return false;
 
     m_data = str;
 
-    Doc* doc = qobject_cast<Doc*>(parent());
+    Doc *doc = qobject_cast<Doc *>(parent());
     Q_ASSERT(doc != NULL);
     doc->setModified();
 
     return true;
 }
 
-bool Script::appendData(const QString& str)
+bool Script::appendData(const QString &str)
 {
     // m_data.append(str + QString("\n"));
     m_data.append(convertLine(str + QString("\n")));
@@ -218,7 +218,7 @@ QList<quint32> Script::fixtureList() const
 
 QStringList Script::syntaxErrorsLines()
 {
-    ScriptRunner* runner = new ScriptRunner(doc(), m_data);
+    ScriptRunner *runner = new ScriptRunner(doc(), m_data);
     QStringList errorList = runner->collectScriptData();
     // runner->deleteLater();
 
@@ -229,7 +229,7 @@ QStringList Script::syntaxErrorsLines()
  * Load & Save
  ****************************************************************************/
 
-bool Script::loadXML(QXmlStreamReader& root)
+bool Script::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -282,7 +282,7 @@ bool Script::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool Script::saveXML(QXmlStreamWriter* doc)
+bool Script::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -320,7 +320,7 @@ bool Script::saveXML(QXmlStreamWriter* doc)
  * Running
  ****************************************************************************/
 
-void Script::preRun(MasterTimer* timer)
+void Script::preRun(MasterTimer *timer)
 {
     m_runner = new ScriptRunner(doc(), m_data);
     connect(m_runner, SIGNAL(finished()), this, SLOT(slotRunnerFinished()));
@@ -329,7 +329,7 @@ void Script::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Script::write(MasterTimer* timer, QList<Universe*> universes)
+void Script::write(MasterTimer *timer, QList<Universe *> universes)
 {
     if (isPaused())
         return;
@@ -343,7 +343,7 @@ void Script::write(MasterTimer* timer, QList<Universe*> universes)
     }
 }
 
-void Script::postRun(MasterTimer* timer, QList<Universe*> universes)
+void Script::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     if (m_runner)
     {
@@ -361,7 +361,7 @@ void Script::slotRunnerFinished()
     m_runner = NULL;
 }
 
-quint32 Script::getValueFromString(QString str, bool* ok)
+quint32 Script::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -382,7 +382,7 @@ quint32 Script::getValueFromString(QString str, bool* ok)
     return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
 }
 
-QString Script::convertLine(const QString& str, bool* ok)
+QString Script::convertLine(const QString &str, bool *ok)
 {
     QStringList values;
     QString comment;

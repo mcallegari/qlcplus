@@ -54,7 +54,7 @@
 
 #define GRID_RESOLUTION 5
 
-VCWidget::VCWidget(QWidget* parent, Doc* doc)
+VCWidget::VCWidget(QWidget *parent, Doc *doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_id(invalidId())
@@ -90,10 +90,10 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
 
     /* Listen to the virtual console key signals */
-    connect(VirtualConsole::instance(), SIGNAL(keyPressed(const QKeySequence&)), this,
-            SLOT(slotKeyPressed(const QKeySequence&)));
-    connect(VirtualConsole::instance(), SIGNAL(keyReleased(const QKeySequence&)), this,
-            SLOT(slotKeyReleased(const QKeySequence&)));
+    connect(VirtualConsole::instance(), SIGNAL(keyPressed(const QKeySequence &)), this,
+            SLOT(slotKeyPressed(const QKeySequence &)));
+    connect(VirtualConsole::instance(), SIGNAL(keyReleased(const QKeySequence &)), this,
+            SLOT(slotKeyReleased(const QKeySequence &)));
 }
 
 VCWidget::~VCWidget() {}
@@ -242,7 +242,7 @@ int VCWidget::page()
  * Clipboard
  *****************************************************************************/
 
-bool VCWidget::copyFrom(const VCWidget* widget)
+bool VCWidget::copyFrom(const VCWidget *widget)
 {
     if (widget == NULL)
         return false;
@@ -288,7 +288,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
  * Background image
  *****************************************************************************/
 
-void VCWidget::setBackgroundImage(const QString& path)
+void VCWidget::setBackgroundImage(const QString &path)
 {
     QPalette pal = palette();
 
@@ -311,7 +311,7 @@ QString VCWidget::backgroundImage() const
  * Background color
  *****************************************************************************/
 
-void VCWidget::setBackgroundColor(const QColor& color)
+void VCWidget::setBackgroundColor(const QColor &color)
 {
     QPalette pal = palette();
 
@@ -364,7 +364,7 @@ void VCWidget::resetBackgroundColor()
  * Foreground color
  *****************************************************************************/
 
-void VCWidget::setForegroundColor(const QColor& color)
+void VCWidget::setForegroundColor(const QColor &color)
 {
     QPalette pal = palette();
 
@@ -412,7 +412,7 @@ void VCWidget::resetForegroundColor()
  * Font
  *****************************************************************************/
 
-void VCWidget::setFont(const QFont& font)
+void VCWidget::setFont(const QFont &font)
 {
     m_hasCustomFont = true;
     QWidget::setFont(font);
@@ -440,7 +440,7 @@ void VCWidget::resetFont()
  * Caption
  *****************************************************************************/
 
-void VCWidget::setCaption(const QString& text)
+void VCWidget::setCaption(const QString &text)
 {
     setWindowTitle(text);
     update();
@@ -483,7 +483,7 @@ QString VCWidget::frameStyleToString(int style)
         return "None";
 }
 
-int VCWidget::stringToFrameStyle(const QString& style)
+int VCWidget::stringToFrameStyle(const QString &style)
 {
     if (style == "Sunken")
         return KVCFrameStyleSunken;
@@ -534,7 +534,7 @@ void VCWidget::editProperties()
  * Intensity
  *********************************************************************/
 
-void VCWidget::adjustFunctionIntensity(Function* f, qreal value)
+void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
 {
     if (f == NULL)
         return;
@@ -574,9 +574,9 @@ bool VCWidget::acceptsInput()
     return true;
 }
 
-bool VCWidget::checkInputSource(quint32 universe, quint32 channel, uchar value, QObject* sender, quint32 id)
+bool VCWidget::checkInputSource(quint32 universe, quint32 channel, uchar value, QObject *sender, quint32 id)
 {
-    QSharedPointer<QLCInputSource> const& src = m_inputs.value(id);
+    QSharedPointer<QLCInputSource> const &src = m_inputs.value(id);
     if (src.isNull())
         return false;
 
@@ -597,7 +597,7 @@ bool VCWidget::checkInputSource(quint32 universe, quint32 channel, uchar value, 
     return false;
 }
 
-void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quint8 id)
+void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const &source, quint8 id)
 {
     // Connect when the first valid input source is set
     if (m_inputs.isEmpty() == true && !source.isNull() && source->isValid() == true)
@@ -622,13 +622,13 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
         m_inputs.insert(id, source);
         // now check if the source is defined in the associated universe
         // profile and if it has specific settings
-        InputPatch* ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
         if (ip != NULL)
         {
             if (ip->profile() != NULL)
             {
                 // Do not care about the page since input profiles don't do either
-                QLCInputChannel* ich = ip->profile()->channel(source->channel() & 0xFFFF);
+                QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0xFFFF);
                 if (ich != NULL)
                 {
                     if (ich->movementType() == QLCInputChannel::Relative)
@@ -656,8 +656,7 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
 
                         // user custom feedbacks have precedence over input profile custom feedbacks
                         source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
-                                         (source->upperValue() != UCHAR_MAX) ? source->upperValue()
-                                                                             : ich->upperValue());
+                                         (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
                     }
                 }
             }
@@ -712,13 +711,13 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
 
     QString chName = QString();
 
-    InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
+    InputPatch *pat = m_doc->inputOutputMap()->inputPatch(src->universe());
     if (pat != NULL)
     {
-        QLCInputProfile* profile = pat->profile();
+        QLCInputProfile *profile = pat->profile();
         if (profile != NULL)
         {
-            QLCInputChannel* ich = profile->channel(src->channel());
+            QLCInputChannel *ich = profile->channel(src->channel());
             if (ich != NULL)
                 chName = ich->name();
         }
@@ -733,13 +732,13 @@ void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     Q_UNUSED(value);
 }
 
-void VCWidget::slotInputProfileChanged(quint32 universe, const QString& profileName)
+void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileName)
 {
     qDebug() << "[VCWdget] input profile changed" << profileName;
 
-    QLCInputProfile* profile = m_doc->inputOutputMap()->profile(profileName);
+    QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs.values())
+    foreach (QSharedPointer<QLCInputSource> const &source, m_inputs.values())
     {
         if (!source.isNull() && source->universe() == universe)
         {
@@ -751,7 +750,7 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString& profileN
             }
             else
             {
-                QLCInputChannel* ich = profile->channel(source->channel());
+                QLCInputChannel *ich = profile->channel(source->channel());
                 if (ich != NULL)
                 {
                     if (ich->movementType() == QLCInputChannel::Absolute)
@@ -771,7 +770,7 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString& profileN
  * Key sequence handler
  *****************************************************************************/
 
-QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
+QKeySequence VCWidget::stripKeySequence(const QKeySequence &seq)
 {
     /* In QLC 3.2.x it is possible to set shortcuts like CTRL+X, but since
        CTRL is now the tap modifier, it must be stripped away. */
@@ -797,12 +796,12 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
     return QKeySequence(keys[0], keys[1], keys[2], keys[3]);
 }
 
-void VCWidget::slotKeyPressed(const QKeySequence& keySequence)
+void VCWidget::slotKeyPressed(const QKeySequence &keySequence)
 {
     emit keyPressed(keySequence);
 }
 
-void VCWidget::slotKeyReleased(const QKeySequence& keySequence)
+void VCWidget::slotKeyReleased(const QKeySequence &keySequence)
 {
     emit keyReleased(keySequence);
 }
@@ -816,7 +815,7 @@ void VCWidget::postLoad()
     /* NOP */
 }
 
-bool VCWidget::loadXMLCommon(QXmlStreamReader& root)
+bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
 {
     if (root.device() == NULL || root.hasError())
         return false;
@@ -838,7 +837,7 @@ bool VCWidget::loadXMLCommon(QXmlStreamReader& root)
     return true;
 }
 
-bool VCWidget::loadXMLAppearance(QXmlStreamReader& root)
+bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
 {
     if (root.device() == NULL || root.hasError())
         return false;
@@ -896,7 +895,7 @@ bool VCWidget::loadXMLAppearance(QXmlStreamReader& root)
     return true;
 }
 
-QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader& root)
+QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
 {
     QXmlStreamAttributes attrs = root.attributes();
 
@@ -915,7 +914,7 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader& root)
     return newSrc;
 }
 
-bool VCWidget::loadXMLInput(QXmlStreamReader& root, const quint8& id)
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
 {
     if (root.device() == NULL || root.hasError())
         return false;
@@ -932,7 +931,7 @@ bool VCWidget::loadXMLInput(QXmlStreamReader& root, const quint8& id)
     return true;
 }
 
-QString VCWidget::loadXMLSources(QXmlStreamReader& root, quint8 sourceID)
+QString VCWidget::loadXMLSources(QXmlStreamReader &root, quint8 sourceID)
 {
     QString keyText;
     while (root.readNextStartElement())
@@ -954,7 +953,7 @@ QString VCWidget::loadXMLSources(QXmlStreamReader& root, quint8 sourceID)
     return keyText;
 }
 
-bool VCWidget::loadXMLInput(QXmlStreamReader& root, quint32* uni, quint32* ch) const
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, quint32 *uni, quint32 *ch) const
 {
     if (root.name() != KXMLQLCVCWidgetInput)
     {
@@ -972,7 +971,7 @@ bool VCWidget::loadXMLInput(QXmlStreamReader& root, quint32* uni, quint32* ch) c
     return true;
 }
 
-bool VCWidget::saveXMLCommon(QXmlStreamWriter* doc)
+bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -990,7 +989,7 @@ bool VCWidget::saveXMLCommon(QXmlStreamWriter* doc)
     return true;
 }
 
-bool VCWidget::saveXMLAppearance(QXmlStreamWriter* doc)
+bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -1036,12 +1035,12 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter* doc)
     return true;
 }
 
-bool VCWidget::saveXMLInput(QXmlStreamWriter* doc)
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc)
 {
     return saveXMLInput(doc, inputSource());
 }
 
-bool VCWidget::saveXMLInput(QXmlStreamWriter* doc, const QLCInputSource* src)
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc, const QLCInputSource *src)
 {
     Q_ASSERT(doc != NULL);
 
@@ -1063,12 +1062,12 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter* doc, const QLCInputSource* src)
     return true;
 }
 
-bool VCWidget::saveXMLInput(QXmlStreamWriter* doc, QSharedPointer<QLCInputSource> const& src)
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc, QSharedPointer<QLCInputSource> const &src)
 {
     return saveXMLInput(doc, src.data());
 }
 
-bool VCWidget::saveXMLWindowState(QXmlStreamWriter* doc)
+bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -1091,7 +1090,7 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter* doc)
     return true;
 }
 
-bool VCWidget::loadXMLWindowState(QXmlStreamReader& tag, int* x, int* y, int* w, int* h, bool* visible)
+bool VCWidget::loadXMLWindowState(QXmlStreamReader &tag, int *x, int *y, int *w, int *h, bool *visible)
 {
     if (tag.device() == NULL || x == NULL || y == NULL || w == NULL || h == NULL || visible == NULL)
         return false;
@@ -1169,14 +1168,14 @@ Doc::Mode VCWidget::mode() const
  * Widget menu
  *****************************************************************************/
 
-void VCWidget::invokeMenu(const QPoint& point)
+void VCWidget::invokeMenu(const QPoint &point)
 {
     /* No point coming here if there is no VC instance */
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     if (vc == NULL)
         return;
 
-    QMenu* menu = vc->editMenu();
+    QMenu *menu = vc->editMenu();
     Q_ASSERT(menu != NULL);
     menu->exec(point);
 }
@@ -1185,7 +1184,7 @@ void VCWidget::invokeMenu(const QPoint& point)
  * Custom menu
  *****************************************************************************/
 
-QMenu* VCWidget::customMenu(QMenu* parentMenu)
+QMenu *VCWidget::customMenu(QMenu *parentMenu)
 {
     Q_UNUSED(parentMenu);
     return NULL;
@@ -1195,7 +1194,7 @@ QMenu* VCWidget::customMenu(QMenu* parentMenu)
  * Widget move & resize
  *****************************************************************************/
 
-void VCWidget::resize(const QSize& size)
+void VCWidget::resize(const QSize &size)
 {
     QSize sz(size);
 
@@ -1207,7 +1206,7 @@ void VCWidget::resize(const QSize& size)
     QWidget::resize(sz);
 }
 
-void VCWidget::move(const QPoint& point)
+void VCWidget::move(const QPoint &point)
 {
     QPoint pt(point);
 
@@ -1242,12 +1241,12 @@ QPoint VCWidget::lastClickPoint() const
  * Event handlers
  *****************************************************************************/
 
-void VCWidget::paintEvent(QPaintEvent* e)
+void VCWidget::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e);
 
     /* No point coming here if there is no VC instance */
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     if (vc == NULL)
         return;
 
@@ -1294,7 +1293,7 @@ void VCWidget::paintEvent(QPaintEvent* e)
     }
 }
 
-void VCWidget::mousePressEvent(QMouseEvent* e)
+void VCWidget::mousePressEvent(QMouseEvent *e)
 {
     Q_ASSERT(e != NULL);
 
@@ -1338,10 +1337,10 @@ void VCWidget::mousePressEvent(QMouseEvent* e)
     }
 }
 
-void VCWidget::handleWidgetSelection(QMouseEvent* e)
+void VCWidget::handleWidgetSelection(QMouseEvent *e)
 {
     /* No point coming here if there is no VC */
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     if (vc == NULL)
         return;
 
@@ -1375,7 +1374,7 @@ void VCWidget::handleWidgetSelection(QMouseEvent* e)
     }
 }
 
-void VCWidget::mouseReleaseEvent(QMouseEvent* e)
+void VCWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     if (mode() == Doc::Design)
     {
@@ -1389,7 +1388,7 @@ void VCWidget::mouseReleaseEvent(QMouseEvent* e)
     }
 }
 
-void VCWidget::mouseDoubleClickEvent(QMouseEvent* e)
+void VCWidget::mouseDoubleClickEvent(QMouseEvent *e)
 {
     if (mode() == Doc::Design)
         editProperties();
@@ -1397,7 +1396,7 @@ void VCWidget::mouseDoubleClickEvent(QMouseEvent* e)
         QWidget::mouseDoubleClickEvent(e);
 }
 
-void VCWidget::mouseMoveEvent(QMouseEvent* e)
+void VCWidget::mouseMoveEvent(QMouseEvent *e)
 {
     if (mode() == Doc::Design)
     {

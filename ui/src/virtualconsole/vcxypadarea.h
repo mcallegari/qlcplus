@@ -44,7 +44,7 @@ class VCXYPadArea : public QFrame
      * Initialization
      *************************************************************************/
 public:
-    VCXYPadArea(QWidget* parent);
+    VCXYPadArea(QWidget *parent);
     virtual ~VCXYPadArea();
 
     void setMode(Doc::Mode mode);
@@ -60,7 +60,7 @@ public:
     QPointF position(bool resetChanged = true) const;
 
     /** Set the pad's current position (i.e. move the point) */
-    void setPosition(const QPointF& point);
+    void setPosition(const QPointF &point);
 
     /** Move the current position by some relative amount */
     void nudgePosition(qreal dx, qreal dy);
@@ -69,7 +69,7 @@ public:
     bool hasPositionChanged();
 
 signals:
-    void positionChanged(const QPointF& point);
+    void positionChanged(const QPointF &point);
 
 public slots:
     void slotFixturePositions(const QVariantList positions);
@@ -142,36 +142,36 @@ private:
      *************************************************************************/
 public:
     void enableEFXPreview(bool enable);
-    void setEFXPolygons(const QPolygonF& pattern, const QVector<QPolygonF> fixtures);
+    void setEFXPolygons(const QPolygonF &pattern, const QVector<QPolygonF> fixtures);
     void setEFXInterval(uint duration);
 
 private:
-    EFXPreviewArea* m_previewArea;
+    EFXPreviewArea *m_previewArea;
 
     /*************************************************************************
      * Event handlers
      *************************************************************************/
 protected:
     /** @reimp */
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent *e);
 
     /** @reimp */
-    void resizeEvent(QResizeEvent* e);
+    void resizeEvent(QResizeEvent *e);
 
     /** @reimp */
-    void mousePressEvent(QMouseEvent* e);
+    void mousePressEvent(QMouseEvent *e);
 
     /** @reimp */
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent *e);
 
     /** @reimp */
-    void mouseMoveEvent(QMouseEvent* e);
+    void mouseMoveEvent(QMouseEvent *e);
 
     /** @reimp */
-    void keyPressEvent(QKeyEvent* e);
+    void keyPressEvent(QKeyEvent *e);
 
     /** @reimp */
-    void keyReleaseEvent(QKeyEvent* e);
+    void keyReleaseEvent(QKeyEvent *e);
 };
 
 /** @} */

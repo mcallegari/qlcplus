@@ -53,8 +53,8 @@ quint32 FixtureUtils::fixtureItemID(quint32 fid, quint16 headIndex, quint16 link
     Q_ASSERT(headIndex < MAX_HEADS_NUMBER);
     Q_ASSERT(linkedIndex < MAX_LINKED_NUMBER);
 
-    return (fid << (FIXTURE_HEAD_BITS + FIXTURE_LINKED_BITS)) | ((quint32)headIndex << FIXTURE_LINKED_BITS) |
-           (quint32)linkedIndex;
+    return (fid << (FIXTURE_HEAD_BITS + FIXTURE_LINKED_BITS)) | ((quint32)headIndex << FIXTURE_LINKED_BITS)
+           | (quint32)linkedIndex;
 }
 
 quint32 FixtureUtils::itemFixtureID(quint32 itemID)
@@ -72,7 +72,7 @@ quint16 FixtureUtils::itemLinkedIndex(quint32 itemID)
     return (itemID & ((1 << FIXTURE_LINKED_BITS) - 1));
 }
 
-QPointF FixtureUtils::item2DPosition(MonitorProperties* monProps, int pointOfView, QVector3D pos)
+QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfView, QVector3D pos)
 {
     QPointF point(0, 0);
     float gridUnits = monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
@@ -121,7 +121,7 @@ float FixtureUtils::item2DRotation(int pointOfView, QVector3D rot)
     return 0;
 }
 
-QSizeF FixtureUtils::item2DDimension(QLCFixtureMode* fxMode, int pointOfView)
+QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
 {
     QSizeF size(300, 300);
 
@@ -157,7 +157,7 @@ QSizeF FixtureUtils::item2DDimension(QLCFixtureMode* fxMode, int pointOfView)
     return size;
 }
 
-void FixtureUtils::alignItem(QVector3D refPos, QVector3D& origPos, int pointOfView, int alignment)
+void FixtureUtils::alignItem(QVector3D refPos, QVector3D &origPos, int pointOfView, int alignment)
 {
     switch (pointOfView)
     {
@@ -205,7 +205,7 @@ void FixtureUtils::alignItem(QVector3D refPos, QVector3D& origPos, int pointOfVi
     }
 }
 
-QVector3D FixtureUtils::item3DPosition(MonitorProperties* monProps, QPointF point, float thirdVal)
+QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF point, float thirdVal)
 {
     QVector3D pos(point.x(), point.y(), thirdVal);
 
@@ -227,9 +227,9 @@ QVector3D FixtureUtils::item3DPosition(MonitorProperties* monProps, QPointF poin
     return pos;
 }
 
-QPointF FixtureUtils::available2DPosition(Doc* doc, int pointOfView, QRectF fxRect)
+QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRect)
 {
-    MonitorProperties* monProps = doc->monitorProperties();
+    MonitorProperties *monProps = doc->monitorProperties();
     if (monProps == nullptr)
         return QPointF(0, 0);
 
@@ -258,12 +258,12 @@ QPointF FixtureUtils::available2DPosition(Doc* doc, int pointOfView, QRectF fxRe
     qreal origWidth = fxRect.width();
     qreal origHeight = fxRect.height();
 
-    for (Fixture* fixture : doc->fixtures())
+    for (Fixture *fixture : doc->fixtures())
     {
         if (monProps->containsFixture(fixture->id()) == false)
             continue;
 
-        QLCFixtureMode* fxMode = fixture->fixtureMode();
+        QLCFixtureMode *fxMode = fixture->fixtureMode();
 
         for (quint32 subID : monProps->fixtureIDList(fixture->id()))
         {
@@ -322,7 +322,7 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
     return QColor(mr * 255.0, mg * 255.0, mb * 255.0);
 }
 
-QColor FixtureUtils::headColor(Fixture* fixture, int headIndex)
+QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
 {
     QColor finalColor = Qt::white;
 
@@ -371,7 +371,7 @@ QColor FixtureUtils::applyColorFilter(QColor source, QColor filter)
                   source.blueF() * filter.blueF() * 255.0);
 }
 
-void FixtureUtils::positionTimings(const QLCChannel* ch, uchar value, int& panDuration, int& tiltDuration)
+void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration)
 {
     panDuration = -1;
     tiltDuration = -1;
@@ -401,7 +401,7 @@ void FixtureUtils::positionTimings(const QLCChannel* ch, uchar value, int& panDu
     }
 }
 
-bool FixtureUtils::goboTiming(const QLCCapability* cap, uchar value, int& speed)
+bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
 {
     speed = MIN_GOBO_SPEED;
     bool clockwise = true;
@@ -449,7 +449,7 @@ bool FixtureUtils::goboTiming(const QLCCapability* cap, uchar value, int& speed)
     return clockwise;
 }
 
-int FixtureUtils::shutterTimings(const QLCChannel* ch, uchar value, int& highTime, int& lowTime)
+int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime)
 {
     int capPreset = QLCCapability::ShutterOpen;
     float freq = 1.0;
@@ -469,7 +469,7 @@ int FixtureUtils::shutterTimings(const QLCChannel* ch, uchar value, int& highTim
         break;
     default:
         {
-            QLCCapability* cap = ch->searchCapability(value);
+            QLCCapability *cap = ch->searchCapability(value);
             if (cap == nullptr)
                 break;
 

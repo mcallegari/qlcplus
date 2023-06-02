@@ -26,7 +26,7 @@
 #include "qlcfixturedef.h"
 #include "doc.h"
 
-AddRGBPanel::AddRGBPanel(QWidget* parent, const Doc* doc)
+AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -57,7 +57,7 @@ bool AddRGBPanel::checkAddressAvailability()
     int uniAddr = m_doc->inputOutputMap()->getUniverseID(m_uniCombo->currentIndex());
     int startAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (uniAddr << 9);
     int channels = m_columnSpin->value() * m_rowSpin->value() * 3;
-    QPushButton* okBtn = buttonBox->button(QDialogButtonBox::Ok);
+    QPushButton *okBtn = buttonBox->button(QDialogButtonBox::Ok);
 
     qDebug() << "Check availability for address: " << startAddress;
 

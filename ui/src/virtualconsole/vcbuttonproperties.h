@@ -41,7 +41,7 @@ class VCButtonProperties : public QDialog, public Ui_VCButtonProperties
     Q_DISABLE_COPY(VCButtonProperties)
 
 public:
-    VCButtonProperties(VCButton* button, Doc* doc);
+    VCButtonProperties(VCButton *button, Doc *doc);
     ~VCButtonProperties();
 
 protected slots:
@@ -51,16 +51,16 @@ protected slots:
     void slotActionToggled();
 
     void slotIntensitySliderMoved(int value);
-    void slotIntensityEdited(const QString& text);
+    void slotIntensityEdited(const QString &text);
 
     void slotFadeOutTextEdited();
 
     void accept();
 
 protected:
-    VCButton* m_button;
-    Doc* m_doc;
-    InputSelectionWidget* m_inputSelWidget;
+    VCButton *m_button;
+    Doc *m_doc;
+    InputSelectionWidget *m_inputSelWidget;
     quint32 m_function;
 
     /************************************************************************
@@ -70,10 +70,10 @@ protected:
 private slots:
     void slotSpeedDialToggle(bool state);
     void slotFadeOutDialChanged(int ms);
-    void slotDialDestroyed(QObject* dial);
+    void slotDialDestroyed(QObject *dial);
 
 private:
-    SpeedDialWidget* m_speedDials;
+    SpeedDialWidget *m_speedDials;
     int m_fadeOutTime;
 };
 

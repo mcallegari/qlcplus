@@ -35,7 +35,7 @@
  * Initialization
  ****************************************************************************/
 
-FixtureGroup::FixtureGroup(Doc* parent)
+FixtureGroup::FixtureGroup(Doc *parent)
     : QObject(parent)
     , m_id(FixtureGroup::invalidId())
 {
@@ -47,7 +47,7 @@ FixtureGroup::FixtureGroup(Doc* parent)
 
 FixtureGroup::~FixtureGroup() {}
 
-void FixtureGroup::copyFrom(const FixtureGroup* grp)
+void FixtureGroup::copyFrom(const FixtureGroup *grp)
 {
     // Don't copy ID
     m_name = grp->name();
@@ -55,9 +55,9 @@ void FixtureGroup::copyFrom(const FixtureGroup* grp)
     m_heads = grp->headsMap();
 }
 
-Doc* FixtureGroup::doc() const
+Doc *FixtureGroup::doc() const
 {
-    return qobject_cast<Doc*>(parent());
+    return qobject_cast<Doc *>(parent());
 }
 
 /****************************************************************************
@@ -83,7 +83,7 @@ quint32 FixtureGroup::invalidId()
  * Name
  ****************************************************************************/
 
-void FixtureGroup::setName(const QString& name)
+void FixtureGroup::setName(const QString &name)
 {
     if (m_name == name)
         return;
@@ -102,9 +102,9 @@ QString FixtureGroup::name() const
  * Fixtures
  ****************************************************************************/
 
-bool FixtureGroup::assignFixture(quint32 id, const QLCPoint& pt)
+bool FixtureGroup::assignFixture(quint32 id, const QLCPoint &pt)
 {
-    Fixture* fxi = doc()->fixture(id);
+    Fixture *fxi = doc()->fixture(id);
     Q_ASSERT(fxi != NULL);
     QLCPoint tmp = pt;
     int headAddedcount = 0;
@@ -133,7 +133,7 @@ bool FixtureGroup::assignFixture(quint32 id, const QLCPoint& pt)
     return headAddedcount ? true : false;
 }
 
-bool FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
+bool FixtureGroup::assignHead(const QLCPoint &pt, const GroupHead &head)
 {
     if (m_heads.values().contains(head) == true)
         return false;
@@ -187,7 +187,7 @@ void FixtureGroup::resignFixture(quint32 id)
     emit changed(this->id());
 }
 
-bool FixtureGroup::resignHead(const QLCPoint& pt)
+bool FixtureGroup::resignHead(const QLCPoint &pt)
 {
     if (m_heads.contains(pt) == true)
     {
@@ -201,7 +201,7 @@ bool FixtureGroup::resignHead(const QLCPoint& pt)
     }
 }
 
-void FixtureGroup::swap(const QLCPoint& a, const QLCPoint& b)
+void FixtureGroup::swap(const QLCPoint &a, const QLCPoint &b)
 {
     GroupHead ah = m_heads.value(a);
     GroupHead bh = m_heads.value(b);
@@ -225,7 +225,7 @@ void FixtureGroup::reset()
     emit changed(this->id());
 }
 
-GroupHead FixtureGroup::head(const QLCPoint& pt) const
+GroupHead FixtureGroup::head(const QLCPoint &pt) const
 {
     return m_heads.value(pt);
 }
@@ -261,7 +261,7 @@ void FixtureGroup::slotFixtureRemoved(quint32 id)
  * Size
  ****************************************************************************/
 
-void FixtureGroup::setSize(const QSize& sz)
+void FixtureGroup::setSize(const QSize &sz)
 {
     m_size = sz;
     emit changed(this->id());
@@ -276,11 +276,11 @@ QSize FixtureGroup::size() const
  * Load & Save
  ****************************************************************************/
 
-bool FixtureGroup::loader(QXmlStreamReader& xmlDoc, Doc* doc)
+bool FixtureGroup::loader(QXmlStreamReader &xmlDoc, Doc *doc)
 {
     bool result = false;
 
-    FixtureGroup* grp = new FixtureGroup(doc);
+    FixtureGroup *grp = new FixtureGroup(doc);
     Q_ASSERT(grp != NULL);
 
     if (grp->loadXML(xmlDoc) == true)
@@ -298,7 +298,7 @@ bool FixtureGroup::loader(QXmlStreamReader& xmlDoc, Doc* doc)
     return result;
 }
 
-bool FixtureGroup::loadXML(QXmlStreamReader& xmlDoc)
+bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
 {
     if (xmlDoc.name() != KXMLQLCFixtureGroup)
     {
@@ -356,7 +356,7 @@ bool FixtureGroup::loadXML(QXmlStreamReader& xmlDoc)
     return true;
 }
 
-bool FixtureGroup::saveXML(QXmlStreamWriter* doc)
+bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 

@@ -29,7 +29,7 @@
 #include "audiodecoder.h"
 #include "audioplugincache.h"
 
-AudioItem::AudioItem(Audio* aud, ShowFunction* func)
+AudioItem::AudioItem(Audio *aud, ShowFunction *func)
     : ShowItem(func)
     , m_audio(aud)
     , m_previewLeftAction(NULL)
@@ -77,7 +77,7 @@ void AudioItem::calculateWidth()
     setWidth(newWidth);
 }
 
-void AudioItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -129,14 +129,14 @@ QString AudioItem::functionName()
     return QString();
 }
 
-Audio* AudioItem::getAudio()
+Audio *AudioItem::getAudio()
 {
     return m_audio;
 }
 
 void AudioItem::updateWaveformPreview()
 {
-    PreviewThread* waveformThread = new PreviewThread;
+    PreviewThread *waveformThread = new PreviewThread;
     waveformThread->setAudioItem(this);
     connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
     waveformThread->start();
@@ -172,7 +172,7 @@ void AudioItem::slotAudioPreviewStereo()
     updateWaveformPreview();
 }
 
-void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
+void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
     QFont menuFont = qApp->font();
@@ -181,7 +181,7 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 
     if (m_audio->getAudioDecoder() != NULL)
     {
-        AudioDecoder* ad = m_audio->getAudioDecoder();
+        AudioDecoder *ad = m_audio->getAudioDecoder();
         AudioParameters ap = ad->audioParameters();
 
         if (ap.channels() == 1)
@@ -196,18 +196,18 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
         menu.addSeparator();
     }
 
-    foreach (QAction* action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }
 
-void PreviewThread::setAudioItem(AudioItem* item)
+void PreviewThread::setAudioItem(AudioItem *item)
 {
     m_item = item;
 }
 
-qint32 PreviewThread::getSample(unsigned char* data, quint32 idx, int sampleSize)
+qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize)
 {
     qint32 value = 0;
     if (sampleSize == 1)
@@ -216,12 +216,12 @@ qint32 PreviewThread::getSample(unsigned char* data, quint32 idx, int sampleSize
     }
     else if (sampleSize == 2)
     {
-        qint16* array = (qint16*)data;
+        qint16 *array = (qint16 *)data;
         value = array[idx / 2];
     }
     else if (sampleSize == 3 || sampleSize == 4)
     {
-        qint32* array = (qint32*)data;
+        qint32 *array = (qint32 *)data;
         value = array[idx / 4] >> 16;
     }
     // qDebug() << "sampleValue:" << value;
@@ -235,7 +235,7 @@ void PreviewThread::run()
 
     if ((left || right) && m_item->m_audio->getAudioDecoder() != NULL)
     {
-        AudioDecoder* ad =
+        AudioDecoder *ad =
             m_item->m_audio->doc()->audioPluginCache()->getDecoderForFile(m_item->m_audio->getSourceFileName());
         AudioParameters ap = ad->audioParameters();
         ad->seek(0);
@@ -262,7 +262,7 @@ void PreviewThread::run()
         qint64 dataRead = 1;
         unsigned char audioData[onePixelReadLen * 4];
         quint32 audioDataOffset = 0;
-        QPixmap* preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
+        QPixmap *preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
         preview->fill(Qt::transparent);
         QPainter p(preview);
         int xpos = 0;
@@ -281,7 +281,7 @@ void PreviewThread::run()
             quint32 tmpExceedData = 0;
             if (audioDataOffset < onePixelReadLen)
             {
-                dataRead = ad->read((char*)audioData + audioDataOffset, onePixelReadLen * 2);
+                dataRead = ad->read((char *)audioData + audioDataOffset, onePixelReadLen * 2);
                 if (dataRead > 0)
                 {
                     if ((quint32)dataRead + audioDataOffset >= onePixelReadLen)

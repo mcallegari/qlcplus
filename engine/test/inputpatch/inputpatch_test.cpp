@@ -79,14 +79,14 @@ void InputPatch_Test::defaults()
 void InputPatch_Test::patch()
 {
     QCOMPARE(m_doc->ioPluginCache()->plugins().size(), 1);
-    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub *stub = static_cast<IOPluginStub *>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QLCInputProfile prof1;
     prof1.setManufacturer("Foo");
     prof1.setManufacturer("Bar");
 
-    InputPatch* ip = new InputPatch(0, this);
+    InputPatch *ip = new InputPatch(0, this);
     QVERIFY(ip->set(stub, 0, &prof1) == true);
     QVERIFY(ip->m_plugin == stub);
     QVERIFY(ip->m_pluginLine == 0);
@@ -135,14 +135,14 @@ void InputPatch_Test::patch()
     delete ip;
     QVERIFY(stub->m_openInputs.size() == 0);
 
-    InputPatch* ip2 = new InputPatch(0, this);
+    InputPatch *ip2 = new InputPatch(0, this);
     QVERIFY(ip2->set(&prof1) == false);
 }
 
 void InputPatch_Test::parameters()
 {
-    InputPatch* ip = new InputPatch(0, this);
-    IOPluginStub* stub = static_cast<IOPluginStub*>(m_doc->ioPluginCache()->plugins().at(0));
+    InputPatch *ip = new InputPatch(0, this);
+    IOPluginStub *stub = static_cast<IOPluginStub *>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QVERIFY(ip->set(stub, 0, NULL) == true);

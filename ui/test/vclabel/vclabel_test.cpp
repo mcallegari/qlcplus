@@ -75,7 +75,7 @@ void VCLabel_Test::copy()
     VCFrame parent(&w, m_doc);
     VCLabel label(&parent, m_doc);
     label.setCaption("Foobar");
-    VCLabel* label2 = qobject_cast<VCLabel*>(label.createCopy(&parent));
+    VCLabel *label2 = qobject_cast<VCLabel *>(label.createCopy(&parent));
     QVERIFY(label2 != NULL && label2 != &label);
     QCOMPARE(label2->objectName(), QString("VCLabel"));
     QCOMPARE(label2->parentWidget(), &parent);

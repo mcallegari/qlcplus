@@ -37,7 +37,7 @@
 #define KColumnChIdx 5
 #define KColumnID 6
 
-ChannelsSelection::ChannelsSelection(Doc* doc, QWidget* parent, ChannelSelectionType mode)
+ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelectionType mode)
     : QDialog(parent)
     , m_doc(doc)
     , m_mode(mode)
@@ -64,8 +64,8 @@ ChannelsSelection::ChannelsSelection(Doc* doc, QWidget* parent, ChannelSelection
 
     updateFixturesTree();
 
-    connect(m_channelsTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
-            SLOT(slotItemChecked(QTreeWidgetItem*, int)));
+    connect(m_channelsTree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemChecked(QTreeWidgetItem *, int)));
     connect(m_channelsTree, SIGNAL(expanded(QModelIndex)), this, SLOT(slotItemExpanded()));
     connect(m_channelsTree, SIGNAL(collapsed(QModelIndex)), this, SLOT(slotItemExpanded()));
     connect(m_collapseButton, SIGNAL(clicked(bool)), m_channelsTree, SLOT(collapseAll()));
@@ -94,13 +94,13 @@ void ChannelsSelection::updateFixturesTree()
     m_channelsTree->setIconSize(QSize(24, 24));
     m_channelsTree->setAllColumnsShowFocus(true);
 
-    foreach (Fixture* fxi, m_doc->fixtures())
+    foreach (Fixture *fxi, m_doc->fixtures())
     {
-        QTreeWidgetItem* topItem = NULL;
+        QTreeWidgetItem *topItem = NULL;
         quint32 uni = fxi->universe();
         for (int i = 0; i < m_channelsTree->topLevelItemCount(); i++)
         {
-            QTreeWidgetItem* tItem = m_channelsTree->topLevelItem(i);
+            QTreeWidgetItem *tItem = m_channelsTree->topLevelItem(i);
             quint32 tUni = tItem->text(KColumnID).toUInt();
             if (tUni == uni)
             {
@@ -117,7 +117,7 @@ void ChannelsSelection::updateFixturesTree()
             topItem->setExpanded(true);
         }
 
-        QTreeWidgetItem* fItem = new QTreeWidgetItem(topItem);
+        QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
         fItem->setIcon(KColumnName, fxi->getIconFromType());
         fItem->setText(KColumnID, QString::number(fxi->id()));
@@ -127,8 +127,8 @@ void ChannelsSelection::updateFixturesTree()
 
         for (quint32 c = 0; c < fxi->channels(); c++)
         {
-            const QLCChannel* channel = fxi->channel(c);
-            QTreeWidgetItem* item = new QTreeWidgetItem(fItem);
+            const QLCChannel *channel = fxi->channel(c);
+            QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
             item->setText(KColumnName, QString("%1:%2").arg(c + 1).arg(channel->name()));
             item->setIcon(KColumnName, channel->getIcon());
             if (channel->group() == QLCChannel::Intensity && channel->colour() != QLCChannel::NoColour)
@@ -144,10 +144,10 @@ void ChannelsSelection::updateFixturesTree()
                 else
                     item->setCheckState(KColumnSelection, Qt::Unchecked);
 
-                QComboBox* combo = new QComboBox();
+                QComboBox *combo = new QComboBox();
                 combo->addItem("HTP", false);
                 combo->addItem("LTP", false);
-                combo->setProperty("treeItem", QVariant::fromValue((void*)item));
+                combo->setProperty("treeItem", QVariant::fromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnBehaviour, combo);
 
                 int bIdx = 1;
@@ -163,13 +163,13 @@ void ChannelsSelection::updateFixturesTree()
                 // set the other behaviour as true
                 combo->setItemData(bIdx == 0 ? 1 : 0, true, Qt::UserRole);
 
-                QPushButton* button = new QPushButton();
-                ChannelModifier* mod = fxi->channelModifier(c);
+                QPushButton *button = new QPushButton();
+                ChannelModifier *mod = fxi->channelModifier(c);
                 if (mod == NULL)
                     button->setText("...");
                 else
                     button->setText(mod->name());
-                button->setProperty("treeItem", QVariant::fromValue((void*)item));
+                button->setProperty("treeItem", QVariant::fromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnModifier, button);
 
                 connect(combo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotComboChanged(int)));
@@ -190,14 +190,14 @@ void ChannelsSelection::updateFixturesTree()
     m_channelsTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
-QList<QTreeWidgetItem*> ChannelsSelection::getSameChannels(QTreeWidgetItem* item)
+QList<QTreeWidgetItem *> ChannelsSelection::getSameChannels(QTreeWidgetItem *item)
 {
-    QList<QTreeWidgetItem*> sameChannelsList;
-    Fixture* fixture = m_doc->fixture(item->text(KColumnID).toUInt());
+    QList<QTreeWidgetItem *> sameChannelsList;
+    Fixture *fixture = m_doc->fixture(item->text(KColumnID).toUInt());
     if (fixture == NULL)
         return sameChannelsList;
 
-    const QLCFixtureDef* def = fixture->fixtureDef();
+    const QLCFixtureDef *def = fixture->fixtureDef();
     if (def == NULL)
         return sameChannelsList;
 
@@ -209,22 +209,22 @@ QList<QTreeWidgetItem*> ChannelsSelection::getSameChannels(QTreeWidgetItem* item
 
     for (int t = 0; t < m_channelsTree->topLevelItemCount(); t++)
     {
-        QTreeWidgetItem* uniItem = m_channelsTree->topLevelItem(t);
+        QTreeWidgetItem *uniItem = m_channelsTree->topLevelItem(t);
         for (int f = 0; f < uniItem->childCount(); f++)
         {
-            QTreeWidgetItem* fixItem = uniItem->child(f);
+            QTreeWidgetItem *fixItem = uniItem->child(f);
             quint32 fxID = fixItem->text(KColumnID).toUInt();
-            Fixture* fxi = m_doc->fixture(fxID);
+            Fixture *fxi = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
-                const QLCFixtureDef* tmpDef = fxi->fixtureDef();
+                const QLCFixtureDef *tmpDef = fxi->fixtureDef();
                 if (tmpDef != NULL)
                 {
                     QString tmpManuf = tmpDef->manufacturer();
                     QString tmpModel = tmpDef->model();
                     if (tmpManuf == manufacturer && tmpModel == model)
                     {
-                        QTreeWidgetItem* chItem = fixItem->child(chIdx);
+                        QTreeWidgetItem *chItem = fixItem->child(chIdx);
                         if (chItem != NULL)
                             sameChannelsList.append(chItem);
                     }
@@ -236,7 +236,7 @@ QList<QTreeWidgetItem*> ChannelsSelection::getSameChannels(QTreeWidgetItem* item
     return sameChannelsList;
 }
 
-void ChannelsSelection::slotItemChecked(QTreeWidgetItem* item, int col)
+void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 {
     if (m_applyAllCheck->isChecked() == false || col != KColumnSelection || item->text(KColumnID).isEmpty())
         return;
@@ -245,7 +245,7 @@ void ChannelsSelection::slotItemChecked(QTreeWidgetItem* item, int col)
 
     Qt::CheckState enable = item->checkState(KColumnSelection);
 
-    foreach (QTreeWidgetItem* chItem, getSameChannels(item))
+    foreach (QTreeWidgetItem *chItem, getSameChannels(item))
         chItem->setCheckState(KColumnSelection, enable);
 
     m_channelsTree->blockSignals(false);
@@ -259,18 +259,18 @@ void ChannelsSelection::slotItemExpanded()
 void ChannelsSelection::slotComboChanged(int idx)
 {
     Q_UNUSED(idx)
-    QComboBox* combo = (QComboBox*)sender();
+    QComboBox *combo = (QComboBox *)sender();
     if (combo != NULL)
     {
         combo->setStyleSheet("QWidget {color:red}");
         if (m_applyAllCheck->isChecked() == true)
         {
             QVariant var = combo->property("treeItem");
-            QTreeWidgetItem* item = (QTreeWidgetItem*)var.value<void*>();
+            QTreeWidgetItem *item = (QTreeWidgetItem *)var.value<void *>();
 
-            foreach (QTreeWidgetItem* chItem, getSameChannels(item))
+            foreach (QTreeWidgetItem *chItem, getSameChannels(item))
             {
-                QComboBox* chCombo = qobject_cast<QComboBox*>(m_channelsTree->itemWidget(chItem, KColumnBehaviour));
+                QComboBox *chCombo = qobject_cast<QComboBox *>(m_channelsTree->itemWidget(chItem, KColumnBehaviour));
                 if (chCombo != NULL)
                 {
                     chCombo->blockSignals(true);
@@ -285,7 +285,7 @@ void ChannelsSelection::slotComboChanged(int idx)
 
 void ChannelsSelection::slotModifierButtonClicked()
 {
-    QPushButton* button = (QPushButton*)sender();
+    QPushButton *button = (QPushButton *)sender();
     if (button == NULL)
         return;
 
@@ -294,7 +294,7 @@ void ChannelsSelection::slotModifierButtonClicked()
         return; // User pressed cancel
 
     QString displayName = "...";
-    ChannelModifier* modif = cme.selectedModifier();
+    ChannelModifier *modif = cme.selectedModifier();
     if (modif != NULL)
         displayName = modif->name();
 
@@ -302,11 +302,11 @@ void ChannelsSelection::slotModifierButtonClicked()
     if (m_applyAllCheck->isChecked() == true)
     {
         QVariant var = button->property("treeItem");
-        QTreeWidgetItem* item = (QTreeWidgetItem*)var.value<void*>();
+        QTreeWidgetItem *item = (QTreeWidgetItem *)var.value<void *>();
 
-        foreach (QTreeWidgetItem* chItem, getSameChannels(item))
+        foreach (QTreeWidgetItem *chItem, getSameChannels(item))
         {
-            QPushButton* chButton = qobject_cast<QPushButton*>(m_channelsTree->itemWidget(chItem, KColumnModifier));
+            QPushButton *chButton = qobject_cast<QPushButton *>(m_channelsTree->itemWidget(chItem, KColumnModifier));
             if (chButton != NULL)
                 chButton->setText(displayName);
         }
@@ -322,12 +322,12 @@ void ChannelsSelection::accept()
 
     for (int t = 0; t < m_channelsTree->topLevelItemCount(); t++)
     {
-        QTreeWidgetItem* uniItem = m_channelsTree->topLevelItem(t);
+        QTreeWidgetItem *uniItem = m_channelsTree->topLevelItem(t);
         for (int f = 0; f < uniItem->childCount(); f++)
         {
-            QTreeWidgetItem* fixItem = uniItem->child(f);
+            QTreeWidgetItem *fixItem = uniItem->child(f);
             quint32 fxID = fixItem->text(KColumnID).toUInt();
-            Fixture* fxi = m_doc->fixture(fxID);
+            Fixture *fxi = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
                 excludeList.clear();
@@ -335,15 +335,15 @@ void ChannelsSelection::accept()
                 forcedLTPList.clear();
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
-                    QTreeWidgetItem* chanItem = fixItem->child(c);
-                    const QLCChannel* channel = fxi->channel(c);
+                    QTreeWidgetItem *chanItem = fixItem->child(c);
+                    const QLCChannel *channel = fxi->channel(c);
 
                     if (m_mode == ConfigurationMode)
                     {
                         if (chanItem->checkState(KColumnSelection) == Qt::Unchecked)
                             excludeList.append(c);
 
-                        QComboBox* combo = (QComboBox*)m_channelsTree->itemWidget(chanItem, KColumnBehaviour);
+                        QComboBox *combo = (QComboBox *)m_channelsTree->itemWidget(chanItem, KColumnBehaviour);
                         if (combo != NULL)
                         {
                             if (combo->currentIndex() == 0) // HTP
@@ -359,10 +359,10 @@ void ChannelsSelection::accept()
                                     forcedLTPList.append(c);
                             }
                         }
-                        QPushButton* button = (QPushButton*)m_channelsTree->itemWidget(chanItem, KColumnModifier);
+                        QPushButton *button = (QPushButton *)m_channelsTree->itemWidget(chanItem, KColumnModifier);
                         if (button != NULL)
                         {
-                            ChannelModifier* mod = m_doc->modifiersCache()->modifier(button->text());
+                            ChannelModifier *mod = m_doc->modifiersCache()->modifier(button->text());
                             fxi->setChannelModifier((quint32)c, mod);
                         }
                     }

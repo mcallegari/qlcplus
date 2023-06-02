@@ -34,7 +34,7 @@ VCWidgetProperties::VCWidgetProperties()
     m_height = 0;
 }
 
-VCWidgetProperties::VCWidgetProperties(const VCWidgetProperties& properties)
+VCWidgetProperties::VCWidgetProperties(const VCWidgetProperties &properties)
 {
     m_state = properties.m_state;
     m_visible = properties.m_visible;
@@ -76,7 +76,7 @@ int VCWidgetProperties::height() const
     return m_height;
 }
 
-void VCWidgetProperties::store(QWidget* widget)
+void VCWidgetProperties::store(QWidget *widget)
 {
     Q_ASSERT(widget != NULL);
     m_state = widget->windowState();
@@ -87,7 +87,7 @@ void VCWidgetProperties::store(QWidget* widget)
     m_height = widget->height();
 }
 
-bool VCWidgetProperties::loadXML(QXmlStreamReader& root)
+bool VCWidgetProperties::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCWidgetProperties)
     {
@@ -119,7 +119,7 @@ bool VCWidgetProperties::loadXML(QXmlStreamReader& root)
     return true;
 }
 
-bool VCWidgetProperties::saveXML(QXmlStreamWriter* doc)
+bool VCWidgetProperties::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 

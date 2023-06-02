@@ -31,28 +31,28 @@ class TimingsTool : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TimingsTool(ShowItem* item, QWidget* parent = 0);
+    explicit TimingsTool(ShowItem *item, QWidget *parent = 0);
     ~TimingsTool();
 
     void showDurationControls(bool show);
     void showDurationOptions(bool show);
 
 signals:
-    void startTimeChanged(ShowItem* item, int msec);
-    void durationChanged(ShowItem* item, int msec, bool stretch);
+    void startTimeChanged(ShowItem *item, int msec);
+    void durationChanged(ShowItem *item, int msec, bool stretch);
 
 protected slots:
     void slotStartTimeChanged(int msec);
     void slotDurationChanged(int msec);
 
 private:
-    SpeedDial* m_startDial;
-    SpeedDial* m_durationDial;
-    ShowItem* m_item;
+    SpeedDial *m_startDial;
+    SpeedDial *m_durationDial;
+    ShowItem *m_item;
 
-    QGroupBox* m_durationOptions;
-    QRadioButton* m_stretchOriginalRadio;
-    QRadioButton* m_expandLoopRadio;
+    QGroupBox *m_durationOptions;
+    QRadioButton *m_stretchOriginalRadio;
+    QRadioButton *m_expandLoopRadio;
 };
 
 #endif // TIMINGSTOOL_H

@@ -31,7 +31,7 @@
 #include "audio.h"
 #include "doc.h"
 
-AudioEditor::AudioEditor(QWidget* parent, Audio* audio, Doc* doc)
+AudioEditor::AudioEditor(QWidget *parent, Audio *audio, Doc *doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_audio(audio)
@@ -49,7 +49,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio* audio, Doc* doc)
     m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
     m_volumeSpin->setValue(m_audio->volume() * 100);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
     connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotSourceFileClicked()));
 
     connect(m_volumeSpin, SIGNAL(valueChanged(int)), this, SLOT(slotVolumeChanged(int)));
@@ -61,7 +61,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio* audio, Doc* doc)
 
     connect(m_previewButton, SIGNAL(toggled(bool)), this, SLOT(slotPreviewToggled(bool)));
 
-    AudioDecoder* adec = m_audio->getAudioDecoder();
+    AudioDecoder *adec = m_audio->getAudioDecoder();
 
     m_filenameLabel->setText(m_audio->getSourceFileName());
     if (adec != NULL)
@@ -122,7 +122,7 @@ AudioEditor::~AudioEditor()
         m_audio->stop(functionParent());
 }
 
-void AudioEditor::slotNameEdited(const QString& text)
+void AudioEditor::slotNameEdited(const QString &text)
 {
     m_audio->setName(text);
     m_doc->setModified();
@@ -170,7 +170,7 @@ void AudioEditor::slotSourceFileClicked()
     m_audio->setSourceFileName(fn);
     m_filenameLabel->setText(m_audio->getSourceFileName());
 
-    AudioDecoder* adec = m_audio->getAudioDecoder();
+    AudioDecoder *adec = m_audio->getAudioDecoder();
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
@@ -270,7 +270,7 @@ void AudioEditor::createSpeedDials()
     m_speedDials->setDurationVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInDialChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
-    connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
+    connect(m_speedDials, SIGNAL(destroyed(QObject *)), this, SLOT(slotDialDestroyed(QObject *)));
     m_speedDials->show();
 }
 
@@ -298,7 +298,7 @@ void AudioEditor::slotFadeOutDialChanged(int ms)
     m_audio->setFadeOutSpeed(ms);
 }
 
-void AudioEditor::slotDialDestroyed(QObject*)
+void AudioEditor::slotDialDestroyed(QObject *)
 {
     m_speedDialButton->setChecked(false);
 }

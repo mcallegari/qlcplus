@@ -58,12 +58,12 @@ void ChaserRunner_Test::cleanupTestCase()
 
 void ChaserRunner_Test::init()
 {
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode *mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     QVERIFY(fxi != NULL);
     fxi->setFixtureDefinition(def, mode);
     fxi->setName("Test Fixture");
@@ -617,7 +617,7 @@ void ChaserRunner_Test::writeNoSteps()
     Chaser chaser(m_doc);
     ChaserRunner cr(m_doc, &chaser);
 
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
@@ -632,32 +632,32 @@ void ChaserRunner_Test::writeForwardLoopZero()
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -671,32 +671,32 @@ void ChaserRunner_Test::writeBackwardLoopZero()
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -710,23 +710,23 @@ void ChaserRunner_Test::writeForwardSingleShotZero()
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == false);
-    cr.postRun(&timer, QList<Universe*>());
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == false);
+    cr.postRun(&timer, QList<Universe *>());
     timer.timerTick();
     QVERIFY(m_scene3->stopped() == true);
     QCOMPARE(timer.m_functionList.size(), 0);
@@ -740,23 +740,23 @@ void ChaserRunner_Test::writeBackwardSingleShotZero()
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == false);
-    cr.postRun(&timer, QList<Universe*>());
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == false);
+    cr.postRun(&timer, QList<Universe *>());
     timer.timerTick();
     QVERIFY(m_scene1->stopped() == true);
     QCOMPARE(timer.m_functionList.size(), 0);
@@ -770,39 +770,39 @@ void ChaserRunner_Test::writeForwardPingPongZero()
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QVERIFY(m_scene1->stopped() == true);
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QVERIFY(m_scene1->stopped() == true);
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -816,37 +816,37 @@ void ChaserRunner_Test::writeBackwardPingPongZero()
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -866,7 +866,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -875,7 +875,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -884,7 +884,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -893,7 +893,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -902,7 +902,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -911,7 +911,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -932,7 +932,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -941,7 +941,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -950,7 +950,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -959,7 +959,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -968,7 +968,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -977,7 +977,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -998,7 +998,7 @@ void ChaserRunner_Test::writeForwardSingleShotFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1007,7 +1007,7 @@ void ChaserRunner_Test::writeForwardSingleShotFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1016,16 +1016,16 @@ void ChaserRunner_Test::writeForwardSingleShotFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
     }
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == false);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == false);
     timer.timerTick();
 
-    cr.postRun(&timer, QList<Universe*>());
+    cr.postRun(&timer, QList<Universe *>());
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 0);
 }
@@ -1044,7 +1044,7 @@ void ChaserRunner_Test::writeBackwardSingleShotFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1053,7 +1053,7 @@ void ChaserRunner_Test::writeBackwardSingleShotFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1062,16 +1062,16 @@ void ChaserRunner_Test::writeBackwardSingleShotFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
     }
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == false);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == false);
     timer.timerTick();
 
-    cr.postRun(&timer, QList<Universe*>());
+    cr.postRun(&timer, QList<Universe *>());
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 0);
 }
@@ -1090,7 +1090,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1099,7 +1099,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1108,7 +1108,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1117,7 +1117,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1126,7 +1126,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1135,7 +1135,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1144,7 +1144,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1165,7 +1165,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1174,7 +1174,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1183,7 +1183,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1192,7 +1192,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1201,7 +1201,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1210,7 +1210,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     // Step 2
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1219,7 +1219,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1238,7 +1238,7 @@ void ChaserRunner_Test::writeNoAutoStep()
 
     for (int i = 0; i < 10; i++)
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1250,7 +1250,7 @@ void ChaserRunner_Test::writeNoAutoStep()
 
     for (int i = 0; i < 10; i++)
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1260,7 +1260,7 @@ void ChaserRunner_Test::writeNoAutoStep()
 
     for (int i = 0; i < 10; i++)
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1270,7 +1270,7 @@ void ChaserRunner_Test::writeNoAutoStep()
 
     for (int i = 0; i < 10; i++)
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1281,7 +1281,7 @@ void ChaserRunner_Test::writeNoAutoStep()
 
     for (int i = 0; i < 10; i++)
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1291,7 +1291,7 @@ void ChaserRunner_Test::writeNoAutoStep()
 
     for (int i = 0; i < 10; i++)
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1301,7 +1301,7 @@ void ChaserRunner_Test::writeNoAutoStep()
 
     for (int i = 0; i < 10; i++)
     {
-        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
         timer.timerTick();
         QCOMPARE(timer.m_functionList.size(), 1);
         QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1318,7 +1318,7 @@ void ChaserRunner_Test::adjustIntensity()
 
     cr.adjustStepIntensity(0.5);
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1326,7 +1326,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1334,7 +1334,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene2->getAttributeValue(Scene::ParentIntensity), qreal(0.5));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
@@ -1347,7 +1347,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Scene::ParentIntensity), qreal(0.7));
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
@@ -1355,7 +1355,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
@@ -1368,7 +1368,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
-    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);

@@ -76,13 +76,13 @@ public:
      * @param path Path to the file to read
      * @return QXmlStreamReader (unitialized if not successful)
      */
-    static QXmlStreamReader* getXMLReader(const QString& path);
+    static QXmlStreamReader *getXMLReader(const QString &path);
 
     /**
      * Release an existing instance of an XML reader, by closing
      * the device file, and freeing the resources
      */
-    static void releaseXMLReader(QXmlStreamReader* reader);
+    static void releaseXMLReader(QXmlStreamReader *reader);
 
     /**
      * Write a common XML header on the given document
@@ -92,7 +92,7 @@ public:
      * @param author The file's author (overridden by current user name if empty)
      * @return true on success, false on failure
      */
-    static bool writeXMLHeader(QXmlStreamWriter* xml, const QString& content, const QString& author = QString());
+    static bool writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author = QString());
 
     /**
      * Get a string that gives a textual description for the given file

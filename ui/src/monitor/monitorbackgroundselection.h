@@ -36,7 +36,7 @@ class MonitorBackgroundSelection : public QDialog, public Ui_MonitorBackgroundSe
     Q_OBJECT
 
 public:
-    explicit MonitorBackgroundSelection(QWidget* parent, Doc* doc);
+    explicit MonitorBackgroundSelection(QWidget *parent, Doc *doc);
     ~MonitorBackgroundSelection();
 
     /** @reimp */
@@ -55,8 +55,8 @@ protected slots:
     void slotRemoveCustomBackground();
 
 private:
-    Doc* m_doc;
-    MonitorProperties* m_props;
+    Doc *m_doc;
+    MonitorProperties *m_props;
     QString m_commonBackgroundImage;
     QMap<quint32, QString> m_customBackgroundImages;
     QString m_lastUsedPath;

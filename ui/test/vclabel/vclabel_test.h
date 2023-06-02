@@ -39,7 +39,7 @@ private slots:
     void paintEvent();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

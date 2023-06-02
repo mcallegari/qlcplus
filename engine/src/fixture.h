@@ -64,7 +64,7 @@ class Doc;
 typedef struct
 {
     bool m_hasAlias;          /** Flag to enable/disable aliases check */
-    QLCCapability* m_currCap; /** The current capability in use */
+    QLCCapability *m_currCap; /** The current capability in use */
 } ChannelAlias;
 
 class Fixture : public QObject
@@ -84,13 +84,13 @@ class Fixture : public QObject
      *********************************************************************/
 public:
     /** Create a new fixture instance with the given QObject parent. */
-    Fixture(QObject* parent = 0);
+    Fixture(QObject *parent = 0);
 
     /** Destructor */
     ~Fixture();
 
     /** Less-than operator for qSort() */
-    bool operator<(const Fixture& fxi);
+    bool operator<(const Fixture &fxi);
 
 signals:
     /** Emitted whenever a Fixture property is changed */
@@ -136,7 +136,7 @@ public:
      *
      * @param name The new name to assign for the instance
      */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /**
      * Get the fixture instance's friendly name.
@@ -234,7 +234,7 @@ public:
      * @param channel The channel number to get
      * @return A QLCChannel* instance that should not be modified
      */
-    const QLCChannel* channel(quint32 channel) const;
+    const QLCChannel *channel(quint32 channel) const;
 
     /**
      * Get a fixture's channel's DMX address.
@@ -304,11 +304,11 @@ public:
     QList<int> forcedLTPChannels();
 
     /** Set a ChannelModifier to the channel with the given $idx */
-    void setChannelModifier(quint32 idx, ChannelModifier* mod);
+    void setChannelModifier(quint32 idx, ChannelModifier *mod);
 
     /** Get the ChannelModifier for the channel with the given $idx.
      *  Returns NULL if no modifier has been assigned */
-    ChannelModifier* channelModifier(quint32 idx);
+    ChannelModifier *channelModifier(quint32 idx);
 
 protected:
     /** Find and store channel numbers (pan, tilt, intensity) */
@@ -333,7 +333,7 @@ protected:
     /** Hash holding the pair <channel index, modifier pointer>
      *  This is basically the place to store them to be saved/loaded
      *  on the project XML file */
-    QHash<quint32, ChannelModifier*> m_channelModifiers;
+    QHash<quint32, ChannelModifier *> m_channelModifiers;
 
     /*********************************************************************
      * Channel info
@@ -341,7 +341,7 @@ protected:
 public:
     /** Store DMX values for this fixture. If values have changed,
      * it returns true, otherwise false */
-    bool setChannelValues(const QByteArray& values);
+    bool setChannelValues(const QByteArray &values);
 
     /** Return the current DMX values of this fixture */
     QByteArray channelValues();
@@ -374,21 +374,21 @@ public:
      * @param fixtureDef The new fixture definition
      * @param fixtureMode The new fixture mode (member of $fixtureDef)
      */
-    void setFixtureDefinition(QLCFixtureDef* fixtureDef, QLCFixtureMode* fixtureMode);
+    void setFixtureDefinition(QLCFixtureDef *fixtureDef, QLCFixtureMode *fixtureMode);
 
     /**
      * Get the fixture definition that this fixture instance is based on.
      *
      * @return A QLCFixture definition
      */
-    QLCFixtureDef* fixtureDef() const;
+    QLCFixtureDef *fixtureDef() const;
 
     /**
      * Get the fixture mode that this fixture instance is based on.
      *
      * @return A QLCFixtureMode definition
      */
-    QLCFixtureMode* fixtureMode() const;
+    QLCFixtureMode *fixtureMode() const;
 
     /**
      * Return the number of heads used by the fixture. If the fixture is a
@@ -418,20 +418,20 @@ public:
 
 protected:
     /** The fixture definition that this instance is based on */
-    QLCFixtureDef* m_fixtureDef;
+    QLCFixtureDef *m_fixtureDef;
 
     /** The mode within the fixture definition that this instance uses */
-    QLCFixtureMode* m_fixtureMode;
+    QLCFixtureMode *m_fixtureMode;
 
     /*********************************************************************
      * Generic Dimmer
      *********************************************************************/
 public:
     /** Creates and returns a definition for a generic dimmer pack */
-    QLCFixtureDef* genericDimmerDef(int channels);
+    QLCFixtureDef *genericDimmerDef(int channels);
 
     /** Creates and returns a fixture mode for a generic dimmer pack */
-    QLCFixtureMode* genericDimmerMode(QLCFixtureDef* def, int channels);
+    QLCFixtureMode *genericDimmerMode(QLCFixtureDef *def, int channels);
 
     /*********************************************************************
      * Generic RGB panel
@@ -453,10 +453,10 @@ public:
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef* genericRGBPanelDef(int columns, Components components);
+    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode* genericRGBPanelMode(QLCFixtureDef* def, Components components, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save
@@ -469,7 +469,7 @@ public:
      * @param root The Fixture node to load from
      * @param doc The doc that owns all fixtures
      */
-    static bool loader(QXmlStreamReader& root, Doc* doc);
+    static bool loader(QXmlStreamReader &root, Doc *doc);
 
     /**
      * Load a fixture's contents from the given XML node.
@@ -477,7 +477,7 @@ public:
      * @param root An XML subtree containing a single fixture instance
      * @return true if the fixture was loaded successfully, otherwise false
      */
-    bool loadXML(QXmlStreamReader& xmlDoc, Doc* doc, QLCFixtureDefCache* fixtureDefCache);
+    bool loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fixtureDefCache);
 
     /**
      * Save the fixture instance into an XML document, under the given
@@ -486,7 +486,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QXmlStreamWriter* doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /*********************************************************************
      * Status

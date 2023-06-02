@@ -42,11 +42,11 @@ class VCSliderProperties : public QDialog, public Ui_VCSliderProperties
     Q_DISABLE_COPY(VCSliderProperties)
 
 public:
-    VCSliderProperties(VCSlider* slider, Doc* doc);
+    VCSliderProperties(VCSlider *slider, Doc *doc);
     ~VCSliderProperties();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /*********************************************************************
      * General page
@@ -63,7 +63,7 @@ protected:
 
 protected:
     int m_sliderMode;
-    InputSelectionWidget* m_inputSelWidget;
+    InputSelectionWidget *m_inputSelWidget;
 
     /*********************************************************************
      * Level page
@@ -76,22 +76,22 @@ protected:
     void levelUpdateFixtureNode(quint32 id);
 
     /** Get a fixture node from the listview on the level page */
-    QTreeWidgetItem* levelFixtureNode(quint32 id);
+    QTreeWidgetItem *levelFixtureNode(quint32 id);
 
     /** Update fixture channels to the listview on the level page */
-    void levelUpdateChannels(QTreeWidgetItem* parent, Fixture* fxi);
+    void levelUpdateChannels(QTreeWidgetItem *parent, Fixture *fxi);
 
     /** Update a fixture channel node to the listview on the level page */
-    void levelUpdateChannelNode(QTreeWidgetItem* parent, Fixture* fxi, quint32 ch);
+    void levelUpdateChannelNode(QTreeWidgetItem *parent, Fixture *fxi, quint32 ch);
 
     /** Update a channel's capabilities */
-    void levelUpdateCapabilities(QTreeWidgetItem* parent, const QLCChannel* channel);
+    void levelUpdateCapabilities(QTreeWidgetItem *parent, const QLCChannel *channel);
 
     /** Update a channel's capability node */
-    void levelUpdateCapabilityNode(QTreeWidgetItem* parent, QLCCapability* cap);
+    void levelUpdateCapabilityNode(QTreeWidgetItem *parent, QLCCapability *cap);
 
     /** Get a fixture channel node from the listview on the level page */
-    QTreeWidgetItem* levelChannelNode(QTreeWidgetItem* parent, quint32 ch);
+    QTreeWidgetItem *levelChannelNode(QTreeWidgetItem *parent, quint32 ch);
 
     /** Update channel selections from the slider's level channel list */
     void levelUpdateChannelSelections();
@@ -113,7 +113,7 @@ protected slots:
     void slotLevelCapabilityClicked();
 
     /** Callback for level list item clicks */
-    void slotLevelListClicked(QTreeWidgetItem* item);
+    void slotLevelListClicked(QTreeWidgetItem *item);
 
     /** Callback for All button clicks */
     void slotLevelAllClicked();
@@ -133,7 +133,7 @@ protected slots:
     void slotMonitorCheckClicked(bool checked);
 
 protected:
-    InputSelectionWidget* m_ovrResetSelWidget;
+    InputSelectionWidget *m_ovrResetSelWidget;
 
     /*************************************************************************
      * Playback page
@@ -163,7 +163,7 @@ protected:
 protected:
     /** Check if the given comp color is the predominant and set the
      *  proper value for ClickAndGo color functionality */
-    void checkMajorColor(int* comp, int* max, int type);
+    void checkMajorColor(int *comp, int *max, int type);
 
     /** Store selected channels to the slider */
     void storeLevelChannels();
@@ -174,7 +174,7 @@ protected slots:
 
 protected:
     /** The slider, whose properties are being edited */
-    VCSlider* m_slider;
+    VCSlider *m_slider;
 };
 
 /** @} */

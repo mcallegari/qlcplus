@@ -39,7 +39,7 @@ static CRITICAL_SECTION cs;
 static HWAVEOUT dev = NULL;
 static unsigned int ScheduledBlocks = 0;
 static int PlayedWaveHeadersCount = 0; // free index
-static WAVEHDR* PlayedWaveHeaders[MAX_WAVEBLOCKS];
+static WAVEHDR *PlayedWaveHeaders[MAX_WAVEBLOCKS];
 
 
 static void CALLBACK wave_callback(HWAVE hWave, UINT uMsg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2)
@@ -51,14 +51,14 @@ static void CALLBACK wave_callback(HWAVE hWave, UINT uMsg, DWORD dwInstance, DWO
     if (uMsg == WOM_DONE)
     {
         EnterCriticalSection(&cs);
-        PlayedWaveHeaders[PlayedWaveHeadersCount++] = (WAVEHDR*)dwParam1;
+        PlayedWaveHeaders[PlayedWaveHeadersCount++] = (WAVEHDR *)dwParam1;
         LeaveCriticalSection(&cs);
     }
 }
 
 static void free_memory(void)
 {
-    WAVEHDR* wh;
+    WAVEHDR *wh;
     HGLOBAL hg;
 
     EnterCriticalSection(&cs);
@@ -77,7 +77,7 @@ static void free_memory(void)
     GlobalFree(hg);
 }
 
-AudioRendererWaveOut::AudioRendererWaveOut(QString device, QObject* parent)
+AudioRendererWaveOut::AudioRendererWaveOut(QString device, QObject *parent)
     : AudioRenderer(parent)
 {
     deviceID = WAVE_MAPPER;
@@ -174,7 +174,7 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
             /* Display its Device ID and name */
             // printf("Device ID #%u: %s\r\n", i, wic.szPname);
             AudioDeviceInfo info;
-            info.deviceName = QString((const QChar*)wic.szPname);
+            info.deviceName = QString((const QChar *)wic.szPname);
             info.privateName = QString::number(i);
             info.capabilities = AUDIO_CAP_INPUT;
             devList.append(info);
@@ -193,7 +193,7 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
             /* Display its Device ID and name */
             // printf("Device ID #%u: %s\r\n", i, woc.szPname);
             AudioDeviceInfo info;
-            info.deviceName = QString((const QChar*)woc.szPname);
+            info.deviceName = QString((const QChar *)woc.szPname);
             info.privateName = QString::number(i);
             info.capabilities = AUDIO_CAP_OUTPUT;
             devList.append(info);
@@ -203,12 +203,12 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
     return devList;
 }
 
-qint64 AudioRendererWaveOut::writeAudio(unsigned char* data, qint64 len)
+qint64 AudioRendererWaveOut::writeAudio(unsigned char *data, qint64 len)
 {
     HGLOBAL hg;
     HGLOBAL hg2;
     LPWAVEHDR wh;
-    void* allocptr;
+    void *allocptr;
     len = qMin(len, (qint64)1024);
 
 
@@ -233,9 +233,9 @@ qint64 AudioRendererWaveOut::writeAudio(unsigned char* data, qint64 len)
     if ((hg = GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, sizeof(WAVEHDR))) == NULL) // now make a header and WRITE IT!
         return -1;
 
-    wh = (wavehdr_tag*)GlobalLock(hg);
+    wh = (wavehdr_tag *)GlobalLock(hg);
     wh->dwBufferLength = len;
-    wh->lpData = (CHAR*)allocptr;
+    wh->lpData = (CHAR *)allocptr;
 
     if (waveOutPrepareHeader(dev, wh, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {

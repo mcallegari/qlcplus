@@ -35,15 +35,15 @@ class ShowEditor : public QWidget, public Ui_ShowEditor
     Q_DISABLE_COPY(ShowEditor)
 
 public:
-    ShowEditor(QWidget* parent, Show* fc, Doc* doc);
+    ShowEditor(QWidget *parent, Show *fc, Doc *doc);
     ~ShowEditor();
 
 private:
-    Doc* m_doc;
-    Show* m_show; // The Show being edited
+    Doc *m_doc;
+    Show *m_show; // The Show being edited
 
 private slots:
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotAdd();
     void slotRemove();
 

@@ -39,7 +39,7 @@ void Function_Test::initial()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     QCOMPARE(stub->id(), Function::invalidId());
     QCOMPARE(stub->name(), QString());
     QCOMPARE(stub->runOrder(), Function::Loop);
@@ -63,7 +63,7 @@ void Function_Test::properties()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     doc.addFunction(stub);
 
     QSignalSpy spy(stub, SIGNAL(changed(quint32)));
@@ -114,7 +114,7 @@ void Function_Test::copyFrom()
 {
     Doc doc(this);
 
-    Function_Stub* stub1 = new Function_Stub(&doc);
+    Function_Stub *stub1 = new Function_Stub(&doc);
     QVERIFY(stub1->copyFrom(NULL) == false);
     stub1->setName("Stub1");
     stub1->setRunOrder(Function::PingPong);
@@ -123,7 +123,7 @@ void Function_Test::copyFrom()
     stub1->setFadeOutSpeed(69);
     stub1->setDuration(1337);
 
-    Function_Stub* stub2 = new Function_Stub(&doc);
+    Function_Stub *stub2 = new Function_Stub(&doc);
     QSignalSpy spy(stub2, SIGNAL(changed(quint32)));
     stub2->copyFrom(stub1);
     QCOMPARE(spy.size(), 1);
@@ -140,7 +140,7 @@ void Function_Test::flashUnflash()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     QSignalSpy spy(stub, SIGNAL(flashing(quint32, bool)));
 
     QVERIFY(stub->flashing() == false);
@@ -159,7 +159,7 @@ void Function_Test::elapsed()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     QCOMPARE(stub->elapsed(), MasterTimer::tick() * 0);
     stub->incrementElapsed();
     QCOMPARE(stub->elapsed(), MasterTimer::tick() * 1);
@@ -181,7 +181,7 @@ void Function_Test::preRunPostRun()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     QSignalSpy spyRunning(stub, SIGNAL(running(quint32)));
     stub->preRun(NULL);
     QVERIFY(stub->isRunning() == true);
@@ -191,7 +191,7 @@ void Function_Test::preRunPostRun()
     stub->incrementElapsed();
 
     QSignalSpy spyStopped(stub, SIGNAL(stopped(quint32)));
-    stub->postRun(NULL, QList<Universe*>());
+    stub->postRun(NULL, QList<Universe *>());
     QVERIFY(stub->stopped() == true);
     QVERIFY(stub->isRunning() == false);
     QCOMPARE(stub->elapsed(), quint32(0));
@@ -204,7 +204,7 @@ void Function_Test::stopAndWait()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     stub->preRun(NULL);
     stub->incrementElapsed();
 
@@ -217,7 +217,7 @@ void Function_Test::stopAndWaitFail()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     stub->preRun(NULL);
     stub->incrementElapsed();
 
@@ -229,7 +229,7 @@ void Function_Test::adjustIntensity()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(1.0));
 
     stub->adjustAttribute(0.5, Function::Intensity);
@@ -249,8 +249,8 @@ void Function_Test::slotFixtureRemoved()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
-    Fixture* fxi = new Fixture(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setID(42);
     QVERIFY(doc.addFixture(fxi, fxi->id()) == true);
     QVERIFY(doc.addFunction(stub) == true);
@@ -269,7 +269,7 @@ void Function_Test::typeString()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
     QCOMPARE(stub->typeString(), Function::typeToString(Function::Type(31337)));
     stub->m_type = Function::SceneType;
     QCOMPARE(stub->typeString(), Function::typeToString(Function::SceneType));
@@ -454,7 +454,7 @@ void Function_Test::speedOperations()
 void Function_Test::tempo()
 {
     Doc doc(this);
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
 
     QVERIFY(stub->tempoType() == Function::Time);
 
@@ -499,7 +499,7 @@ void Function_Test::attributes()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
 
     QCOMPARE(stub->attributes().count(), 1); // Intensity is always there
     QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
@@ -549,7 +549,7 @@ void Function_Test::blendMode()
 {
     Doc doc(this);
 
-    Function_Stub* stub = new Function_Stub(&doc);
+    Function_Stub *stub = new Function_Stub(&doc);
 
     QCOMPARE(stub->blendMode(), Universe::NormalBlend);
 

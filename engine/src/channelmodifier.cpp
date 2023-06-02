@@ -98,7 +98,7 @@ uchar ChannelModifier::getValue(uchar dmxValue)
     return m_values.at(dmxValue);
 }
 
-QFile::FileError ChannelModifier::saveXML(const QString& fileName)
+QFile::FileError ChannelModifier::saveXML(const QString &fileName)
 {
     QFile::FileError error;
 
@@ -137,14 +137,14 @@ QFile::FileError ChannelModifier::saveXML(const QString& fileName)
     return error;
 }
 
-QFile::FileError ChannelModifier::loadXML(const QString& fileName, Type type)
+QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
 {
     QFile::FileError error = QFile::NoError;
 
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QXmlStreamReader* doc = QLCFile::getXMLReader(fileName);
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;

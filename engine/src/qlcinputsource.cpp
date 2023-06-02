@@ -31,7 +31,7 @@ quint32 QLCInputSource::invalidUniverse = UINT_MAX;
 quint32 QLCInputSource::invalidChannel = UINT_MAX;
 quint32 QLCInputSource::invalidID = UINT_MAX;
 
-QLCInputSource::QLCInputSource(QThread* parent)
+QLCInputSource::QLCInputSource(QThread *parent)
     : QThread(parent)
     , m_universe(invalidUniverse)
     , m_channel(invalidChannel)
@@ -47,7 +47,7 @@ QLCInputSource::QLCInputSource(QThread* parent)
 {
 }
 
-QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread* parent)
+QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *parent)
     : QThread(parent)
     , m_universe(universe)
     , m_channel(channel)

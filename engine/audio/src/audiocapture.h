@@ -57,7 +57,7 @@ public:
      * Object contsructor.
      * @param parent Parent object.
      */
-    AudioCapture(QObject* parent = 0);
+    AudioCapture(QObject *parent = 0);
 
     ~AudioCapture();
 
@@ -137,7 +137,7 @@ private:
     bool m_userStop, m_pause;
 
 signals:
-    void dataProcessed(double* spectrumBands, int size, double maxMagnitude, quint32 power);
+    void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 protected:
     /*!
@@ -152,14 +152,14 @@ protected:
     unsigned int bufferSize, m_captureSize, m_sampleRate, m_channels;
 
     /** Data buffer for audio data coming from the sound card */
-    int16_t* m_audioBuffer;
-    int16_t* m_audioMixdown;
+    int16_t *m_audioBuffer;
+    int16_t *m_audioMixdown;
 
     quint32 m_signalPower;
 
     /** **************** FFT variables ********************** */
-    double* m_fftInputBuffer;
-    void* m_fftOutputBuffer;
+    double *m_fftInputBuffer;
+    void *m_fftOutputBuffer;
 
     /** Map of the registered clients (key is the number of bands) */
     QMap<int, BandsData> m_fftMagnitudeMap;

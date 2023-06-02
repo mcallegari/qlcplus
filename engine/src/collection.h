@@ -48,7 +48,7 @@ class Collection : public Function
      * Initialization
      *********************************************************************/
 public:
-    Collection(Doc* doc);
+    Collection(Doc *doc);
     virtual ~Collection();
 
     /** @reimp */
@@ -62,10 +62,10 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
     /*********************************************************************
      * Contents
@@ -120,10 +120,10 @@ protected:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Load function's contents from an XML document */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();
@@ -143,16 +143,16 @@ private:
 
 public:
     /** @reimpl */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimpl */
     void setPause(bool enable);
 
     /** @reimpl */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe *> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe *> universes);
 
 protected slots:
     /** Called whenever one of this function's child functions stops */

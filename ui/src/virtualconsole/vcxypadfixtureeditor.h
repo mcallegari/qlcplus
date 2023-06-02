@@ -38,7 +38,7 @@ class VCXYPadFixtureEditor : public QDialog, public Ui_VCXYPadFixtureEditor
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadFixtureEditor(QWidget* parent, QList<VCXYPadFixture> fixtures);
+    VCXYPadFixtureEditor(QWidget *parent, QList<VCXYPadFixture> fixtures);
     ~VCXYPadFixtureEditor();
 
 protected slots:

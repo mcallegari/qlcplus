@@ -43,11 +43,11 @@ class AudioPluginCache : public QObject
     Q_OBJECT
 
 public:
-    AudioPluginCache(QObject* parent);
+    AudioPluginCache(QObject *parent);
     ~AudioPluginCache();
 
     /** Load plugins from the given directory. */
-    void load(const QDir& dir);
+    void load(const QDir &dir);
 
     /** Get a list of the audio formats supported by the
      *  loaded plugins */
@@ -55,7 +55,7 @@ public:
 
     /** Get an audio decoder instance suitable for the given $filename.
      *  If $filename can't be decoded, this method returns NULL */
-    AudioDecoder* getDecoderForFile(const QString& filename);
+    AudioDecoder *getDecoderForFile(const QString &filename);
 
     /** Get the list of cached audio devices detected on creation */
     QList<AudioDeviceInfo> audioDevicesList() const;

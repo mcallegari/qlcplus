@@ -42,7 +42,7 @@
 #include "fixture.h"
 #include "doc.h"
 
-VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
+VCButtonProperties::VCButtonProperties(VCButton *button, Doc *doc)
     : QDialog(button)
     , m_button(button)
     , m_doc(doc)
@@ -61,7 +61,7 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     m_inputSelWidget->show();
     m_extControlLayout->addWidget(m_inputSelWidget);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -120,7 +120,7 @@ void VCButtonProperties::slotAttachFunction()
 void VCButtonProperties::slotSetFunction(quint32 fid)
 {
     m_function = fid;
-    Function* func = m_doc->function(m_function);
+    Function *func = m_doc->function(m_function);
 
     if (func == NULL)
     {
@@ -164,7 +164,7 @@ void VCButtonProperties::slotSpeedDialToggle(bool state)
         m_speedDials->setDurationEnabled(false);
         m_speedDials->setDurationVisible(false);
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
-        connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
+        connect(m_speedDials, SIGNAL(destroyed(QObject *)), this, SLOT(slotDialDestroyed(QObject *)));
         m_speedDials->show();
     }
     else
@@ -181,7 +181,7 @@ void VCButtonProperties::slotFadeOutDialChanged(int ms)
     m_fadeOutTime = ms;
 }
 
-void VCButtonProperties::slotDialDestroyed(QObject*)
+void VCButtonProperties::slotDialDestroyed(QObject *)
 {
     m_speedDialButton->setChecked(false);
 }
@@ -191,7 +191,7 @@ void VCButtonProperties::slotIntensitySliderMoved(int value)
     m_intensityEdit->setText(QString::number(value));
 }
 
-void VCButtonProperties::slotIntensityEdited(const QString& text)
+void VCButtonProperties::slotIntensityEdited(const QString &text)
 {
     m_intensitySlider->setValue(text.toInt());
 }

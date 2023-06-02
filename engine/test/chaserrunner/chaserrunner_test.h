@@ -69,11 +69,11 @@ private slots:
     void adjustIntensity();
 
 private:
-    Doc* m_doc;
-    Scene* m_scene1;
-    Scene* m_scene2;
-    Scene* m_scene3;
-    Chaser* m_chaser;
+    Doc *m_doc;
+    Scene *m_scene1;
+    Scene *m_scene2;
+    Scene *m_scene3;
+    Chaser *m_chaser;
 };
 
 #endif

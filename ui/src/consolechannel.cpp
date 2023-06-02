@@ -41,7 +41,7 @@
  * Initialization
  *****************************************************************************/
 
-ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable)
+ConsoleChannel::ConsoleChannel(QWidget *parent, Doc *doc, quint32 fixture, quint32 channel, bool isCheckable)
     : QGroupBox(parent)
     , m_doc(doc)
     , m_fixture(fixture)
@@ -70,7 +70,7 @@ ConsoleChannel::~ConsoleChannel() {}
 
 void ConsoleChannel::init()
 {
-    Fixture* fxi = m_doc->fixture(m_fixture);
+    Fixture *fxi = m_doc->fixture(m_fixture);
     // Q_ASSERT(fxi != NULL);
 
     new QVBoxLayout(this);
@@ -165,7 +165,7 @@ void ConsoleChannel::init()
     }
     else
     {
-        const QLCChannel* ch = fxi->channel(m_chIndex);
+        const QLCChannel *ch = fxi->channel(m_chIndex);
         Q_ASSERT(ch != NULL);
         setToolTip(QString("%1").arg(ch->name()));
         setValue(ch->defaultValue(), false);
@@ -177,7 +177,7 @@ void ConsoleChannel::init()
     connect(this, SIGNAL(toggled(bool)), this, SLOT(slotChecked(bool)));
 }
 
-void ConsoleChannel::showEvent(QShowEvent*)
+void ConsoleChannel::showEvent(QShowEvent *)
 {
     if (m_styleSheet.isEmpty() == false)
     {
@@ -201,7 +201,7 @@ quint32 ConsoleChannel::channelIndex() const
     return m_chIndex;
 }
 
-const QLCChannel* ConsoleChannel::channel()
+const QLCChannel *ConsoleChannel::channel()
 {
     return m_channel;
 }
@@ -217,7 +217,7 @@ void ConsoleChannel::setLabel(QString label)
 void ConsoleChannel::setChannelsGroup(quint32 grpid)
 {
     m_group = grpid;
-    ChannelsGroup* grp = m_doc->channelsGroup(grpid);
+    ChannelsGroup *grp = m_doc->channelsGroup(grpid);
     connect(grp, SIGNAL(valueChanged(quint32, uchar)), this, SLOT(slotInputValueChanged(quint32, uchar)));
 }
 
@@ -286,7 +286,7 @@ void ConsoleChannel::slotChecked(bool state)
  * Look & Feel
  *************************************************************************/
 
-void ConsoleChannel::setChannelStyleSheet(const QString& styleSheet)
+void ConsoleChannel::setChannelStyleSheet(const QString &styleSheet)
 {
     if (isVisible())
         QGroupBox::setStyleSheet(styleSheet);
@@ -340,10 +340,10 @@ void ConsoleChannel::slotResetButtonClicked()
 
 void ConsoleChannel::initMenu()
 {
-    Fixture* fxi = m_doc->fixture(fixture());
+    Fixture *fxi = m_doc->fixture(fixture());
     Q_ASSERT(fxi != NULL);
 
-    const QLCChannel* ch = fxi->channel(m_chIndex);
+    const QLCChannel *ch = fxi->channel(m_chIndex);
     Q_ASSERT(ch != NULL);
 
     // Get rid of a possible previous menu
@@ -387,7 +387,7 @@ void ConsoleChannel::initMenu()
 
     if (m_cngWidget != NULL)
     {
-        QWidgetAction* action = new QWidgetAction(this);
+        QWidgetAction *action = new QWidgetAction(this);
         action->setDefaultWidget(m_cngWidget);
         m_menu->addAction(action);
         connect(m_cngWidget, SIGNAL(levelChanged(uchar)), this, SLOT(slotClickAndGoLevelChanged(uchar)));
@@ -396,7 +396,7 @@ void ConsoleChannel::initMenu()
     }
     else
     {
-        QAction* action = m_menu->addAction(m_presetButton->icon(), ch->name());
+        QAction *action = m_menu->addAction(m_presetButton->icon(), ch->name());
         m_menu->setTitle(ch->name());
         action->setEnabled(false);
         m_menu->addSeparator();
@@ -406,7 +406,7 @@ void ConsoleChannel::initMenu()
     }
 }
 
-void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
+void ConsoleChannel::setIntensityButton(const QLCChannel *channel)
 {
     QFont fnt = m_presetButton->font();
     fnt.setBold(true);
@@ -489,15 +489,15 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     }
 }
 
-void ConsoleChannel::initCapabilityMenu(const QLCChannel* ch)
+void ConsoleChannel::initCapabilityMenu(const QLCChannel *ch)
 {
-    QLCCapability* cap;
-    QMenu* valueMenu;
-    QAction* action;
+    QLCCapability *cap;
+    QMenu *valueMenu;
+    QAction *action;
     QString s;
     QString t;
 
-    QListIterator<QLCCapability*> it(ch->capabilities());
+    QListIterator<QLCCapability *> it(ch->capabilities());
     while (it.hasNext() == true)
     {
         cap = it.next();
@@ -536,13 +536,13 @@ void ConsoleChannel::initCapabilityMenu(const QLCChannel* ch)
     }
 
     // Connect menu item activation signal to this
-    connect(m_menu, SIGNAL(triggered(QAction*)), this, SLOT(slotContextMenuTriggered(QAction*)));
+    connect(m_menu, SIGNAL(triggered(QAction *)), this, SLOT(slotContextMenuTriggered(QAction *)));
 
     // Set the menu also as the preset button's popup menu
     m_presetButton->setMenu(m_menu);
 }
 
-QIcon ConsoleChannel::colorIcon(const QString& name)
+QIcon ConsoleChannel::colorIcon(const QString &name)
 {
     /* Return immediately with a rainbow icon -- if appropriate */
     if (name.toLower().contains("rainbow") || name.toLower().contains("cw") == true)
@@ -615,7 +615,7 @@ QIcon ConsoleChannel::colorIcon(const QString& name)
     }
 }
 
-void ConsoleChannel::contextMenuEvent(QContextMenuEvent* e)
+void ConsoleChannel::contextMenuEvent(QContextMenuEvent *e)
 {
     // Show the preset menu only of it has been created.
     // Generic dimmer fixtures don't have capabilities and so
@@ -627,7 +627,7 @@ void ConsoleChannel::contextMenuEvent(QContextMenuEvent* e)
     }
 }
 
-void ConsoleChannel::slotContextMenuTriggered(QAction* action)
+void ConsoleChannel::slotContextMenuTriggered(QAction *action)
 {
     Q_ASSERT(action != NULL);
 
@@ -663,17 +663,18 @@ void ConsoleChannel::slotControlClicked()
         m_originalStyle = styleSheet();
         int topMargin = isCheckable() ? 16 : 1;
 
-        QString common =
-            "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
-            "QGroupBox::indicator { width: 18px; height: 18px; } "
-            "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-            "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
-        QString ssSelected =
-            QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: "
-                    "1 #AFAD27); "
-                    "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                    (isCheckable() ? common : ""))
-                .arg(topMargin);
+        QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; "
+                         "background-color: transparent; } "
+                         "QGroupBox::indicator { width: 18px; height: 18px; } "
+                         "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
+                         "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+        QString ssSelected = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, "
+                                     "x2: 0, y2: 1, stop: 0 #D9D730, stop: "
+                                     "1 #AFAD27); "
+                                     "border: 1px solid gray; border-radius: 4px; margin-top: "
+                                     "%1px; margin-right: 1px; } "
+                                     + (isCheckable() ? common : ""))
+                                 .arg(topMargin);
         setChannelStyleSheet(ssSelected);
         m_selected = true;
     }

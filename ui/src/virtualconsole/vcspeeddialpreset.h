@@ -41,24 +41,24 @@ class VCSpeedDialPreset
 {
 public:
     explicit VCSpeedDialPreset(quint8 id);
-    explicit VCSpeedDialPreset(VCSpeedDialPreset const& preset);
+    explicit VCSpeedDialPreset(VCSpeedDialPreset const &preset);
 
     /** Destructor */
     ~VCSpeedDialPreset();
 
 public:
-    VCSpeedDialPreset& operator=(const VCSpeedDialPreset& preset);
-    bool operator<(VCSpeedDialPreset const& right) const;
-    static bool compare(VCSpeedDialPreset const* left, VCSpeedDialPreset const* right);
+    VCSpeedDialPreset &operator=(const VCSpeedDialPreset &preset);
+    bool operator<(VCSpeedDialPreset const &right) const;
+    static bool compare(VCSpeedDialPreset const *left, VCSpeedDialPreset const *right);
     /************************************************************************
      * Load & Save
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
 public:
     /**

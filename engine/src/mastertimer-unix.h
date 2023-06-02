@@ -37,7 +37,7 @@ class MasterTimer;
 class MasterTimerPrivate : public QThread
 {
 public:
-    MasterTimerPrivate(MasterTimer* masterTimer);
+    MasterTimerPrivate(MasterTimer *masterTimer);
     ~MasterTimerPrivate();
 
     void stop();
@@ -45,9 +45,9 @@ public:
 private:
     void run();
 #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
-    int compareTime(mach_timespec_t* time1, mach_timespec_t* time2);
+    int compareTime(mach_timespec_t *time1, mach_timespec_t *time2);
 #else
-    int compareTime(struct timespec* time1, struct timespec* time2);
+    int compareTime(struct timespec *time1, struct timespec *time2);
 #endif
 
 private:

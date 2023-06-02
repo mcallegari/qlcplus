@@ -33,7 +33,7 @@ class AudioRendererPortAudio : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererPortAudio(QString device, QObject* parent = 0);
+    AudioRendererPortAudio(QString device, QObject *parent = 0);
     ~AudioRendererPortAudio();
 
     /** @reimpl */
@@ -46,7 +46,7 @@ public:
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char* data, qint64 maxSize);
+    qint64 writeAudio(unsigned char *data, qint64 maxSize);
 
     int getPendingDataSize();
 
@@ -63,11 +63,10 @@ protected:
     void resume();
 
 private:
-    static int dataCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer,
-                            const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags,
-                            void* userData);
+    static int dataCallback(const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
+                            const PaStreamCallbackTimeInfo *timeInfo, PaStreamCallbackFlags statusFlags, void *userData);
 
-    PaStream* m_paStream;
+    PaStream *m_paStream;
     QMutex m_paMutex;
     QByteArray m_buffer;
     QString m_device;

@@ -53,9 +53,9 @@
 
 #define SETTINGS_SPLITTER "inputmanager/splitter"
 
-InputOutputManager* InputOutputManager::s_instance = NULL;
+InputOutputManager *InputOutputManager::s_instance = NULL;
 
-InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
+InputOutputManager::InputOutputManager(QWidget *parent, Doc *doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_toolbar(NULL)
@@ -89,7 +89,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_deleteUniverseAction->setShortcut(QKeySequence("CTRL+D"));
     connect(m_deleteUniverseAction, SIGNAL(triggered(bool)), this, SLOT(slotDeleteUniverse()));
 
-    QWidget* ucontainer = new QWidget(this);
+    QWidget *ucontainer = new QWidget(this);
     m_splitter->addWidget(ucontainer);
     ucontainer->setLayout(new QVBoxLayout);
     ucontainer->layout()->setContentsMargins(0, 0, 0, 0);
@@ -103,7 +103,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_toolbar->addAction(m_deleteUniverseAction);
     m_toolbar->addSeparator();
 
-    QLabel* uniLabel = new QLabel(tr("Universe name:"));
+    QLabel *uniLabel = new QLabel(tr("Universe name:"));
     m_uniNameEdit = new QLineEdit(this);
     QFont font = QApplication::font();
     // font.setBold(true);
@@ -129,13 +129,12 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_list->setItemDelegate(new UniverseItemWidget(m_list));
     m_splitter->widget(0)->layout()->addWidget(m_list);
 
-    QWidget* gcontainer = new QWidget(this);
+    QWidget *gcontainer = new QWidget(this);
     m_splitter->addWidget(gcontainer);
     gcontainer->setLayout(new QVBoxLayout);
     gcontainer->layout()->setContentsMargins(0, 0, 0, 0);
 
-    connect(m_list, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this,
-            SLOT(slotCurrentItemChanged()));
+    connect(m_list, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this, SLOT(slotCurrentItemChanged()));
 
     /* Timer that clears the input data icon after a while */
     m_icon = QIcon(":/input.png");
@@ -148,7 +147,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
             SLOT(slotInputValueChanged(quint32, quint32, uchar)));
 
     /* Listen to plugin configuration changes */
-    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&, bool)), this, SLOT(updateList()));
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString &, bool)), this, SLOT(updateList()));
 
     connect(m_ioMap, SIGNAL(universeAdded(quint32)), this, SLOT(slotUniverseAdded(quint32)));
 
@@ -169,7 +168,7 @@ InputOutputManager::~InputOutputManager()
     s_instance = NULL;
 }
 
-InputOutputManager* InputOutputManager::instance()
+InputOutputManager *InputOutputManager::instance()
 {
     return s_instance;
 }
@@ -207,13 +206,13 @@ void InputOutputManager::updateList()
     }
 }
 
-void InputOutputManager::updateItem(QListWidgetItem* item, quint32 universe)
+void InputOutputManager::updateItem(QListWidgetItem *item, quint32 universe)
 {
     Q_ASSERT(item != NULL);
 
-    InputPatch* ip = m_ioMap->inputPatch(universe);
-    OutputPatch* op = m_ioMap->outputPatch(universe);
-    OutputPatch* fp = m_ioMap->feedbackPatch(universe);
+    InputPatch *ip = m_ioMap->inputPatch(universe);
+    OutputPatch *op = m_ioMap->outputPatch(universe);
+    OutputPatch *fp = m_ioMap->feedbackPatch(universe);
 
     QString uniName = m_ioMap->getUniverseNameByIndex(universe);
     if (uniName.isEmpty())
@@ -255,7 +254,7 @@ void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel
     if (isVisible() == false)
         return;
 
-    QListWidgetItem* item = m_list->item(universe);
+    QListWidgetItem *item = m_list->item(universe);
     if (item == NULL)
         return;
 
@@ -270,14 +269,14 @@ void InputOutputManager::slotTimerTimeout()
 {
     for (int i = 0; i < m_list->count(); i++)
     {
-        QListWidgetItem* item = m_list->item(i);
+        QListWidgetItem *item = m_list->item(i);
         item->setData(Qt::DecorationRole, QIcon());
     }
 }
 
 void InputOutputManager::slotCurrentItemChanged()
 {
-    QListWidgetItem* item = m_list->currentItem();
+    QListWidgetItem *item = m_list->currentItem();
     if (item == NULL)
     {
         if (m_ioMap->universesCount() == 0)
@@ -319,7 +318,7 @@ void InputOutputManager::slotCurrentItemChanged()
 
 void InputOutputManager::slotMappingChanged()
 {
-    QListWidgetItem* item = m_list->currentItem();
+    QListWidgetItem *item = m_list->currentItem();
     if (item != NULL)
     {
         uint universe = item->data(Qt::UserRole).toInt();
@@ -353,7 +352,8 @@ void InputOutputManager::slotDeleteUniverse()
         if (QMessageBox::question(
                 this, tr("Delete Universe"),
                 tr("The universe you are trying to delete is patched. Are you sure you want to delete it?"),
-                QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+                QMessageBox::Yes, QMessageBox::No)
+            == QMessageBox::No)
         {
             return;
         }
@@ -364,15 +364,17 @@ void InputOutputManager::slotDeleteUniverse()
     if (uniID == m_ioMap->invalidUniverse())
         return;
 
-    foreach (Fixture* fx, m_doc->fixtures())
+    foreach (Fixture *fx, m_doc->fixtures())
     {
         if (fx->universe() == uniID)
         {
             // Ask for user's confirmation
             if (QMessageBox::question(this, tr("Delete Universe"),
-                                      tr("There are some fixtures using the universe you are trying to delete. Are you "
+                                      tr("There are some fixtures using the universe you are "
+                                         "trying to delete. Are you "
                                          "sure you want to delete it?"),
-                                      QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+                                      QMessageBox::Yes, QMessageBox::No)
+                == QMessageBox::No)
             {
                 return;
             }
@@ -387,7 +389,7 @@ void InputOutputManager::slotDeleteUniverse()
 
 void InputOutputManager::slotUniverseNameChanged(QString name)
 {
-    QListWidgetItem* currItem = m_list->currentItem();
+    QListWidgetItem *currItem = m_list->currentItem();
     if (currItem == NULL)
         return;
 
@@ -400,13 +402,13 @@ void InputOutputManager::slotUniverseNameChanged(QString name)
 
 void InputOutputManager::slotUniverseAdded(quint32 universe)
 {
-    QListWidgetItem* item = new QListWidgetItem(m_list);
+    QListWidgetItem *item = new QListWidgetItem(m_list);
     updateItem(item, universe);
 }
 
 void InputOutputManager::slotPassthroughChanged(bool checked)
 {
-    QListWidgetItem* currItem = m_list->currentItem();
+    QListWidgetItem *currItem = m_list->currentItem();
     if (currItem == NULL)
         return;
 
@@ -415,7 +417,7 @@ void InputOutputManager::slotPassthroughChanged(bool checked)
     m_doc->inputOutputMap()->saveDefaults();
 }
 
-void InputOutputManager::showEvent(QShowEvent* ev)
+void InputOutputManager::showEvent(QShowEvent *ev)
 {
     Q_UNUSED(ev);
     // force the recreation of the selected universe editor

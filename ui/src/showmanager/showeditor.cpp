@@ -39,7 +39,7 @@
 
 #define PROP_ID Qt::UserRole
 
-ShowEditor::ShowEditor(QWidget* parent, Show* show, Doc* doc)
+ShowEditor::ShowEditor(QWidget *parent, Show *show, Doc *doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_show(show)
@@ -53,7 +53,7 @@ ShowEditor::ShowEditor(QWidget* parent, Show* show, Doc* doc)
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_tree->header()->setSectionResizeMode(QHeaderView::Interactive);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)), this, SLOT(slotNameEdited(const QString&)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAdd()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
 
@@ -72,7 +72,7 @@ ShowEditor::ShowEditor(QWidget* parent, Show* show, Doc* doc)
 
 ShowEditor::~ShowEditor() {}
 
-void ShowEditor::slotNameEdited(const QString& text)
+void ShowEditor::slotNameEdited(const QString &text)
 {
     m_show->setName(text);
 }
@@ -84,7 +84,7 @@ void ShowEditor::slotRemove() {}
 void ShowEditor::updateFunctionList()
 {
     quint32 totalDuration = 0;
-    QHash<quint32, QTreeWidgetItem*> scenesMap;
+    QHash<quint32, QTreeWidgetItem *> scenesMap;
 
     m_tree->clear();
 
@@ -94,15 +94,15 @@ void ShowEditor::updateFunctionList()
         return;
     }
 
-    QTreeWidgetItem* masterItem = new QTreeWidgetItem(m_tree);
+    QTreeWidgetItem *masterItem = new QTreeWidgetItem(m_tree);
     masterItem->setText(NAME_COL, m_show->name());
     masterItem->setData(NAME_COL, PROP_ID, m_show->id());
     masterItem->setIcon(NAME_COL, QIcon(":/show.png"));
 
-    foreach (Track* track, m_show->tracks())
+    foreach (Track *track, m_show->tracks())
     {
-        QTreeWidgetItem* sceneItem = NULL;
-        Scene* scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
+        QTreeWidgetItem *sceneItem = NULL;
+        Scene *scene = qobject_cast<Scene *>(m_doc->function(track->getSceneID()));
         if (scene != NULL)
         {
             sceneItem = scenesMap[scene->id()];
@@ -115,16 +115,16 @@ void ShowEditor::updateFunctionList()
             }
         }
 
-        foreach (ShowFunction* sf, track->showFunctions())
+        foreach (ShowFunction *sf, track->showFunctions())
         {
-            Function* func = m_doc->function(sf->functionID());
+            Function *func = m_doc->function(sf->functionID());
             if (func == NULL)
             {
                 qDebug() << "Cannot find Function with ID:" << sf->functionID();
                 continue;
             }
 
-            QTreeWidgetItem* fItem = NULL;
+            QTreeWidgetItem *fItem = NULL;
             if (sceneItem == NULL)
                 fItem = new QTreeWidgetItem(masterItem);
             else
@@ -139,7 +139,7 @@ void ShowEditor::updateFunctionList()
 
             if (func->type() == Function::ChaserType)
             {
-                Chaser* chaser = qobject_cast<Chaser*>(func);
+                Chaser *chaser = qobject_cast<Chaser *>(func);
                 fItem->setIcon(NAME_COL, QIcon(":/sequence.png"));
                 fItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
             }

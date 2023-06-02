@@ -24,7 +24,7 @@
 #include <QPixmap>
 #include <QMouseEvent>
 
-AddressTool::AddressTool(QWidget* parent, int presetValue)
+AddressTool::AddressTool(QWidget *parent, int presetValue)
     : QDialog(parent)
     , ui(new Ui::AddressTool)
     , m_dipSwitch(NULL)
@@ -82,7 +82,7 @@ void AddressTool::slotChangeColor()
  *
  ***************************************************************************/
 
-DIPSwitchWidget::DIPSwitchWidget(QWidget* parent, int presetValue)
+DIPSwitchWidget::DIPSwitchWidget(QWidget *parent, int presetValue)
     : QWidget(parent)
 {
     m_value = presetValue;
@@ -143,16 +143,16 @@ void DIPSwitchWidget::updateSliders()
     }
 }
 
-void DIPSwitchWidget::resizeEvent(QResizeEvent* e)
+void DIPSwitchWidget::resizeEvent(QResizeEvent *e)
 {
     QWidget::resizeEvent(e);
 
     updateSliders();
 }
 
-void DIPSwitchWidget::mousePressEvent(QMouseEvent* e)
+void DIPSwitchWidget::mousePressEvent(QMouseEvent *e)
 {
-    QMap<quint8, DIPSwitchSlider*>::iterator it;
+    QMap<quint8, DIPSwitchSlider *>::iterator it;
     for (it = m_sliders.begin(); it != m_sliders.end(); ++it)
     {
         if (it.value()->isClicked(e->pos()))
@@ -173,7 +173,7 @@ void DIPSwitchWidget::mousePressEvent(QMouseEvent* e)
     }
 }
 
-void DIPSwitchWidget::paintEvent(QPaintEvent* e)
+void DIPSwitchWidget::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
 
@@ -231,14 +231,14 @@ void DIPSwitchWidget::paintEvent(QPaintEvent* e)
  * DIPSwitchSlider class implementation
  *
  ***************************************************************************/
-DIPSwitchSlider::DIPSwitchSlider(QObject* parent)
+DIPSwitchSlider::DIPSwitchSlider(QObject *parent)
     : QObject(parent)
 {
 }
 
 DIPSwitchSlider::~DIPSwitchSlider() {}
 
-void DIPSwitchSlider::paint(QPainter* painter, bool value, bool vreverse)
+void DIPSwitchSlider::paint(QPainter *painter, bool value, bool vreverse)
 {
     // Draw outer Rectangle
     painter->setBrush(Qt::darkGray);

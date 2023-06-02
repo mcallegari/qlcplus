@@ -79,7 +79,7 @@ public:
      *
      * @param parent A parent object who owns the Bus singleton
      */
-    static void init(QObject* parent);
+    static void init(QObject *parent);
 
     /**
      * Get the bus singleton object. If Bus::init() has not been called,
@@ -87,7 +87,7 @@ public:
      *
      * @return The bus singleton or NULL
      */
-    static Bus* instance();
+    static Bus *instance();
 
     /**
      * Get the maximum number of buses
@@ -125,11 +125,11 @@ protected:
      *
      * @param parent A parent object who owns the Bus
      */
-    Bus(QObject* parent);
+    Bus(QObject *parent);
 
 protected:
-    QList<BusEntry*> m_buses;
-    static Bus* s_instance;
+    QList<BusEntry *> m_buses;
+    static Bus *s_instance;
 
     /********************************************************************
      * Value
@@ -190,10 +190,10 @@ public:
      * @param bus The index of the bus, whose name to set.
      * @param name The new name of the bus.
      */
-    void setName(quint32 bus, const QString& name);
+    void setName(quint32 bus, const QString &name);
 
 signals:
-    void nameChanged(quint32 bus, const QString& name);
+    void nameChanged(quint32 bus, const QString &name);
 
     /********************************************************************
      * Tap
@@ -217,7 +217,7 @@ signals:
      ********************************************************************/
 public:
     /** Load all buses from an XML document */
-    bool loadXML(QXmlStreamReader& doc);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

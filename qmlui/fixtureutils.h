@@ -45,35 +45,35 @@ public:
     /** Returns the linked index from the given itemID composite ID */
     static quint16 itemLinkedIndex(quint32 itemID);
 
-    static QPointF item2DPosition(MonitorProperties* monProps, int pointOfView, QVector3D pos);
+    static QPointF item2DPosition(MonitorProperties *monProps, int pointOfView, QVector3D pos);
     static float item2DRotation(int pointOfView, QVector3D rot);
-    static QSizeF item2DDimension(QLCFixtureMode* fxMode, int pointOfView);
-    static void alignItem(QVector3D refPos, QVector3D& origPos, int pointOfView, int alignment);
+    static QSizeF item2DDimension(QLCFixtureMode *fxMode, int pointOfView);
+    static void alignItem(QVector3D refPos, QVector3D &origPos, int pointOfView, int alignment);
 
-    static QVector3D item3DPosition(MonitorProperties* monProps, QPointF point, float thirdVal);
+    static QVector3D item3DPosition(MonitorProperties *monProps, QPointF point, float thirdVal);
 
     /** Returns the first available space (in mm) for a rectangle
      * of the given width and height.
      * This method works with the monitor properties and the fixtures list */
-    static QPointF available2DPosition(Doc* doc, int pointOfView, QRectF fxRect);
+    static QPointF available2DPosition(Doc *doc, int pointOfView, QRectF fxRect);
 
     /** Perform a linear blending of $b over $a with the given $mix amount */
     static QColor blendColors(QColor a, QColor b, float mix);
 
     /** Return the color of the head with $headIndex of $fixture.
      *  This considers: RGB / CMY / WAUVLI channels, dimmers and gel color */
-    static QColor headColor(Fixture* fixture, int headIndex = 0);
+    static QColor headColor(Fixture *fixture, int headIndex = 0);
 
     static QColor applyColorFilter(QColor source, QColor filter);
 
     /** Calculate the pan/tilt speed depending on the $ch preset */
-    static void positionTimings(const QLCChannel* ch, uchar value, int& panDuration, int& tiltDuration);
+    static void positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration);
 
     /** Calculate the gobo wheel speed depending on $cap preset */
-    static bool goboTiming(const QLCCapability* cap, uchar value, int& speed);
+    static bool goboTiming(const QLCCapability *cap, uchar value, int &speed);
 
     /** Calculate the rise/fall periods for a shutter channel $ch, considering presets */
-    static int shutterTimings(const QLCChannel* ch, uchar value, int& highTime, int& lowTime);
+    static int shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime);
 };
 
 #endif // FIXTUREUTILS_H

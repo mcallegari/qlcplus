@@ -37,7 +37,7 @@ class VCClockSchedule : public QObject
     Q_PROPERTY(int weekFlags READ weekFlags WRITE setWeekFlags NOTIFY weekFlagsChanged)
 
 public:
-    VCClockSchedule(QObject* parent = 0);
+    VCClockSchedule(QObject *parent = 0);
 
     virtual ~VCClockSchedule() {}
 
@@ -78,11 +78,11 @@ public:
     }
 
     /** Sorting operator */
-    bool operator<(const VCClockSchedule& sch) const;
+    bool operator<(const VCClockSchedule &sch) const;
 
     /** Load & Save */
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
 public:
     bool m_canPlay;
@@ -99,9 +99,9 @@ signals:
 
 protected:
     /** Get the parent Doc object */
-    Doc* doc() const
+    Doc *doc() const
     {
-        return qobject_cast<Doc*>(parent());
+        return qobject_cast<Doc *>(parent());
     }
 
 private:
@@ -125,7 +125,7 @@ class VCClock : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCClock(Doc* doc = nullptr, QObject* parent = nullptr);
+    VCClock(Doc *doc = nullptr, QObject *parent = nullptr);
     virtual ~VCClock();
 
     /** @reimp */
@@ -135,17 +135,17 @@ public:
     void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
-    void render(QQuickView* view, QQuickItem* parent);
+    void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
 private:
     FunctionParent functionParent() const;
@@ -199,7 +199,7 @@ private:
     /** the target time in ms of the clock. Used by Countdown and Stopwatch */
     int m_targetTime;
     /** The 1 second timer active when m_clocktype is Clock */
-    QTimer* m_timer;
+    QTimer *m_timer;
 
     /*********************************************************************
      * Functions scheduling
@@ -209,9 +209,9 @@ public:
     void setEnableSchedule(bool enableSchedule);
 
     QVariantList scheduleList();
-    QList<VCClockSchedule*> schedules() const;
+    QList<VCClockSchedule *> schedules() const;
 
-    void addSchedule(VCClockSchedule* schedule);
+    void addSchedule(VCClockSchedule *schedule);
     Q_INVOKABLE void addSchedules(QVariantList idsList);
     Q_INVOKABLE void removeSchedule(int index);
 
@@ -221,14 +221,14 @@ signals:
 
 private:
     bool m_enableSchedule;
-    QList<VCClockSchedule*> m_scheduleList;
+    QList<VCClockSchedule *> m_scheduleList;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader& root);
-    bool saveXML(QXmlStreamWriter* doc);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

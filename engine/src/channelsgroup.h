@@ -43,16 +43,16 @@ class ChannelsGroup : public QObject
      ************************************************************************/
 public:
     /** Create a new ChannelsGroup with empty/invalid values */
-    ChannelsGroup(Doc* doc);
+    ChannelsGroup(Doc *doc);
 
     /** Copy constructor */
-    ChannelsGroup(Doc* doc, const ChannelsGroup* chg);
+    ChannelsGroup(Doc *doc, const ChannelsGroup *chg);
 
     /** destroy this ChannelsGroup */
     ~ChannelsGroup();
 
 protected:
-    Doc* m_doc;
+    Doc *m_doc;
 
     void init();
 
@@ -67,11 +67,11 @@ public slots:
      * Load & Save
      *********************************************************************/
 public:
-    static bool loader(QXmlStreamReader& xmlDoc, Doc* doc);
+    static bool loader(QXmlStreamReader &xmlDoc, Doc *doc);
 
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
-    bool loadXML(QXmlStreamReader& xmlDoc);
+    bool loadXML(QXmlStreamReader &xmlDoc);
 
     /************************************************************************
      * ID
@@ -94,7 +94,7 @@ private:
      ************************************************************************/
 public:
     /** Set the name of a channels group */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /** Get the name of a channels group */
     QString name() const;
@@ -120,7 +120,7 @@ public:
      *
      * @return A sort-of HTML-RTF-gibberish for Fixture Manager
      */
-    QString status(Doc* doc) const;
+    QString status(Doc *doc) const;
 
     /*********************************************************************
      * External input
@@ -131,14 +131,14 @@ public:
      *
      * @param source The input source to set
      */
-    void setInputSource(QSharedPointer<QLCInputSource> const& source);
+    void setInputSource(QSharedPointer<QLCInputSource> const &source);
 
     /**
      * Get an assigned external input source
      *
      * @param id The id of the source to get
      */
-    QSharedPointer<QLCInputSource> const& inputSource() const;
+    QSharedPointer<QLCInputSource> const &inputSource() const;
 
 protected slots:
     /**

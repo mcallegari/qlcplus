@@ -45,11 +45,11 @@ void GenericFader_Test::initTestCase()
 
 void GenericFader_Test::init()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode *mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     fxi->setFixtureDefinition(def, mode);
@@ -64,7 +64,7 @@ void GenericFader_Test::cleanup()
 
 void GenericFader_Test::addRemove()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
 
     FadeChannel fc;
@@ -86,7 +86,7 @@ void GenericFader_Test::addRemove()
     QVERIFY(fader->m_channels.contains(chHash) == true);
     QCOMPARE(fader->m_channels.count(), 1);
 
-    FadeChannel* fc1 = fader->getChannelFader(m_doc, ua[0], 0, 0);
+    FadeChannel *fc1 = fader->getChannelFader(m_doc, ua[0], 0, 0);
     fader->remove(fc1);
     QVERIFY(fader->m_channels.contains(chHash) == false);
     QCOMPARE(fader->m_channels.count(), 0);
@@ -130,7 +130,7 @@ void GenericFader_Test::addRemove()
 
 void GenericFader_Test::writeZeroFade()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
@@ -148,7 +148,7 @@ void GenericFader_Test::writeZeroFade()
 
 void GenericFader_Test::writeLoop()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
@@ -175,7 +175,7 @@ void GenericFader_Test::writeLoop()
 
 void GenericFader_Test::adjustIntensity()
 {
-    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;

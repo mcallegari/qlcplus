@@ -37,7 +37,7 @@ private slots:
     void constFilter();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     QVariant m_savedFilter;
 };
 

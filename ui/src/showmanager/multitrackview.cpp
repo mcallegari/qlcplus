@@ -33,7 +33,7 @@
 #define VIEW_DEFAULT_WIDTH 2000
 #define VIEW_DEFAULT_HEIGHT 600
 
-MultiTrackView::MultiTrackView(QWidget* parent)
+MultiTrackView::MultiTrackView(QWidget *parent)
     : QGraphicsView(parent)
 {
     m_scene = new QGraphicsScene();
@@ -66,8 +66,8 @@ MultiTrackView::MultiTrackView(QWidget* parent)
 
     m_header = new ShowHeaderItem(m_scene->width());
     m_header->setPos(TRACK_WIDTH, 0);
-    connect(m_header, SIGNAL(itemClicked(QGraphicsSceneMouseEvent*)), this,
-            SLOT(slotHeaderClicked(QGraphicsSceneMouseEvent*)));
+    connect(m_header, SIGNAL(itemClicked(QGraphicsSceneMouseEvent *)), this,
+            SLOT(slotHeaderClicked(QGraphicsSceneMouseEvent *)));
     m_scene->addItem(m_header);
     m_snapToGrid = false;
 
@@ -100,7 +100,7 @@ void MultiTrackView::updateTracksDividers()
         hDivNum = m_tracks.count();
     for (int j = 0; j < hDivNum; j++)
     {
-        QGraphicsItem* item = m_scene->addRect(0, ypos + (j * TRACK_HEIGHT), m_scene->width(), 1,
+        QGraphicsItem *item = m_scene->addRect(0, ypos + (j * TRACK_HEIGHT), m_scene->width(), 1,
                                                QPen(QColor(150, 150, 150, 255)), QBrush(QColor(190, 190, 190, 255)));
         item->setZValue(-1);
         m_hdividers.append(item);
@@ -127,7 +127,7 @@ void MultiTrackView::updateViewSize()
     quint32 gHeight = VIEW_DEFAULT_HEIGHT;
 
     // find leftmost show item
-    foreach (ShowItem* item, m_items)
+    foreach (ShowItem *item, m_items)
     {
         if (item->x() + item->getWidth() > gWidth)
             gWidth = item->x() + item->getWidth();
@@ -159,32 +159,32 @@ void MultiTrackView::resetView()
     m_scene->update();
 }
 
-void MultiTrackView::addTrack(Track* track)
+void MultiTrackView::addTrack(Track *track)
 {
     // check if track already exists
-    foreach (TrackItem* item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item->getTrack()->id() == track->id())
             return;
     }
 
-    TrackItem* trackItem = new TrackItem(track, m_tracks.count());
+    TrackItem *trackItem = new TrackItem(track, m_tracks.count());
     trackItem->setName(track->name());
     trackItem->setPos(0, HEADER_HEIGHT + (TRACK_HEIGHT * m_tracks.count()));
     m_scene->addItem(trackItem);
     m_tracks.append(trackItem);
     activateTrack(track);
-    connect(trackItem, SIGNAL(itemClicked(TrackItem*)), this, SLOT(slotTrackClicked(TrackItem*)));
-    connect(trackItem, SIGNAL(itemDoubleClicked(TrackItem*)), this, SLOT(slotTrackDoubleClicked(TrackItem*)));
-    connect(trackItem, SIGNAL(itemSoloFlagChanged(TrackItem*, bool)), this,
-            SLOT(slotTrackSoloFlagChanged(TrackItem*, bool)));
-    connect(trackItem, SIGNAL(itemMuteFlagChanged(TrackItem*, bool)), this,
-            SLOT(slotTrackMuteFlagChanged(TrackItem*, bool)));
-    connect(trackItem, SIGNAL(itemMoveUpDown(Track*, int)), this, SIGNAL(trackMoved(Track*, int)));
-    connect(trackItem, SIGNAL(itemRequestDelete(Track*)), this, SIGNAL(trackDelete(Track*)));
+    connect(trackItem, SIGNAL(itemClicked(TrackItem *)), this, SLOT(slotTrackClicked(TrackItem *)));
+    connect(trackItem, SIGNAL(itemDoubleClicked(TrackItem *)), this, SLOT(slotTrackDoubleClicked(TrackItem *)));
+    connect(trackItem, SIGNAL(itemSoloFlagChanged(TrackItem *, bool)), this,
+            SLOT(slotTrackSoloFlagChanged(TrackItem *, bool)));
+    connect(trackItem, SIGNAL(itemMuteFlagChanged(TrackItem *, bool)), this,
+            SLOT(slotTrackMuteFlagChanged(TrackItem *, bool)));
+    connect(trackItem, SIGNAL(itemMoveUpDown(Track *, int)), this, SIGNAL(trackMoved(Track *, int)));
+    connect(trackItem, SIGNAL(itemRequestDelete(Track *)), this, SIGNAL(trackDelete(Track *)));
 }
 
-void MultiTrackView::setItemCommonProperties(ShowItem* item, ShowFunction* func, int trackNum)
+void MultiTrackView::setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum)
 {
     qDebug() << "Start time:" << func->startTime() << "Duration:" << func->duration();
 
@@ -202,9 +202,9 @@ void MultiTrackView::setItemCommonProperties(ShowItem* item, ShowFunction* func,
 
     item->setTimeScale(timeScale);
 
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent*, ShowItem*)), this,
-            SLOT(slotItemMoved(QGraphicsSceneMouseEvent*, ShowItem*)));
-    connect(item, SIGNAL(alignToCursor(ShowItem*)), this, SLOT(slotAlignToCursor(ShowItem*)));
+    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)), this,
+            SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
+    connect(item, SIGNAL(alignToCursor(ShowItem *)), this, SLOT(slotAlignToCursor(ShowItem *)));
     m_scene->addItem(item);
     m_items.append(item);
     int new_scene_width = item->x() + item->getWidth();
@@ -212,7 +212,7 @@ void MultiTrackView::setItemCommonProperties(ShowItem* item, ShowFunction* func,
         setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
 }
 
-void MultiTrackView::addSequence(Chaser* chaser, Track* track, ShowFunction* sf)
+void MultiTrackView::addSequence(Chaser *chaser, Track *track, ShowFunction *sf)
 {
     if (m_tracks.isEmpty())
         return;
@@ -222,15 +222,15 @@ void MultiTrackView::addSequence(Chaser* chaser, Track* track, ShowFunction* sf)
     if (track == NULL)
         track = m_tracks.at(trackNum)->getTrack();
 
-    ShowFunction* func = sf;
+    ShowFunction *func = sf;
     if (func == NULL)
         func = track->createShowFunction(chaser->id());
 
-    SequenceItem* item = new SequenceItem(chaser, func);
+    SequenceItem *item = new SequenceItem(chaser, func);
     setItemCommonProperties(item, func, trackNum);
 }
 
-void MultiTrackView::addAudio(Audio* audio, Track* track, ShowFunction* sf)
+void MultiTrackView::addAudio(Audio *audio, Track *track, ShowFunction *sf)
 {
     if (m_tracks.isEmpty())
         return;
@@ -240,15 +240,15 @@ void MultiTrackView::addAudio(Audio* audio, Track* track, ShowFunction* sf)
     if (track == NULL)
         track = m_tracks.at(trackNum)->getTrack();
 
-    ShowFunction* func = sf;
+    ShowFunction *func = sf;
     if (func == NULL)
         func = track->createShowFunction(audio->id());
 
-    AudioItem* item = new AudioItem(audio, func);
+    AudioItem *item = new AudioItem(audio, func);
     setItemCommonProperties(item, func, trackNum);
 }
 
-void MultiTrackView::addRGBMatrix(RGBMatrix* rgbm, Track* track, ShowFunction* sf)
+void MultiTrackView::addRGBMatrix(RGBMatrix *rgbm, Track *track, ShowFunction *sf)
 {
     if (m_tracks.isEmpty())
         return;
@@ -258,15 +258,15 @@ void MultiTrackView::addRGBMatrix(RGBMatrix* rgbm, Track* track, ShowFunction* s
     if (track == NULL)
         track = m_tracks.at(trackNum)->getTrack();
 
-    ShowFunction* func = sf;
+    ShowFunction *func = sf;
     if (func == NULL)
         func = track->createShowFunction(rgbm->id());
 
-    RGBMatrixItem* item = new RGBMatrixItem(rgbm, func);
+    RGBMatrixItem *item = new RGBMatrixItem(rgbm, func);
     setItemCommonProperties(item, func, trackNum);
 }
 
-void MultiTrackView::addEFX(EFX* efx, Track* track, ShowFunction* sf)
+void MultiTrackView::addEFX(EFX *efx, Track *track, ShowFunction *sf)
 {
     if (m_tracks.isEmpty())
         return;
@@ -276,15 +276,15 @@ void MultiTrackView::addEFX(EFX* efx, Track* track, ShowFunction* sf)
     if (track == NULL)
         track = m_tracks.at(trackNum)->getTrack();
 
-    ShowFunction* func = sf;
+    ShowFunction *func = sf;
     if (func == NULL)
         func = track->createShowFunction(efx->id());
 
-    EFXItem* item = new EFXItem(efx, func);
+    EFXItem *item = new EFXItem(efx, func);
     setItemCommonProperties(item, func, trackNum);
 }
 
-void MultiTrackView::addVideo(Video* video, Track* track, ShowFunction* sf)
+void MultiTrackView::addVideo(Video *video, Track *track, ShowFunction *sf)
 {
     if (m_tracks.isEmpty())
         return;
@@ -294,24 +294,23 @@ void MultiTrackView::addVideo(Video* video, Track* track, ShowFunction* sf)
     if (track == NULL)
         track = m_tracks.at(trackNum)->getTrack();
 
-    ShowFunction* func = sf;
+    ShowFunction *func = sf;
     if (func == NULL)
         func = track->createShowFunction(video->id());
 
-    VideoItem* item = new VideoItem(video, func);
+    VideoItem *item = new VideoItem(video, func);
     setItemCommonProperties(item, func, trackNum);
 }
 
 quint32 MultiTrackView::deleteSelectedItem()
 {
-    ShowItem* selectedItem = getSelectedItem();
+    ShowItem *selectedItem = getSelectedItem();
     if (selectedItem != NULL)
     {
         QString msg = tr("Do you want to DELETE item:") + QString("\n\n") + selectedItem->functionName();
 
         // Ask for user's confirmation
-        if (QMessageBox::question(this, tr("Delete Functions"), msg, QMessageBox::Yes, QMessageBox::No) ==
-            QMessageBox::Yes)
+        if (QMessageBox::question(this, tr("Delete Functions"), msg, QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
         {
             quint32 fID = selectedItem->functionID();
             m_scene->removeItem(selectedItem);
@@ -322,18 +321,18 @@ quint32 MultiTrackView::deleteSelectedItem()
     }
 
     int trackIndex = 0;
-    foreach (TrackItem* item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item->isActive() == true)
         {
-            Track* track = item->getTrack();
+            Track *track = item->getTrack();
             quint32 trackID = track->id();
-            QList<ShowFunction*> sfList = track->showFunctions();
+            QList<ShowFunction *> sfList = track->showFunctions();
             QString msg = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
             if (sfList.count() > 0)
             {
                 msg += QString("\n\n") + tr("This operation will also DELETE:") + QString("\n\n");
-                foreach (ShowItem* item, m_items)
+                foreach (ShowItem *item, m_items)
                 {
                     if (item->getTrackIndex() == trackIndex)
                         msg += item->functionName() + QString("\n");
@@ -341,8 +340,7 @@ quint32 MultiTrackView::deleteSelectedItem()
             }
 
             // Ask for user's confirmation
-            if (QMessageBox::question(this, tr("Delete Track"), msg, QMessageBox::Yes, QMessageBox::No) ==
-                QMessageBox::Yes)
+            if (QMessageBox::question(this, tr("Delete Track"), msg, QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
             {
                 m_scene->removeItem(item);
                 m_tracks.removeOne(item);
@@ -356,7 +354,7 @@ quint32 MultiTrackView::deleteSelectedItem()
     return Function::invalidId();
 }
 
-void MultiTrackView::deleteShowItem(Track* track, ShowFunction* sf)
+void MultiTrackView::deleteShowItem(Track *track, ShowFunction *sf)
 {
     for (int i = 0; i < m_items.count(); i++)
     {
@@ -383,9 +381,9 @@ void MultiTrackView::rewindCursor()
     m_cursor->setTime(0);
 }
 
-void MultiTrackView::activateTrack(Track* track)
+void MultiTrackView::activateTrack(Track *track)
 {
-    foreach (TrackItem* item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item->getTrack()->id() == track->id())
             item->setActive(true);
@@ -394,9 +392,9 @@ void MultiTrackView::activateTrack(Track* track)
     }
 }
 
-ShowItem* MultiTrackView::getSelectedItem()
+ShowItem *MultiTrackView::getSelectedItem()
 {
-    foreach (ShowItem* item, m_items)
+    foreach (ShowItem *item, m_items)
         if (item->isSelected())
             return item;
 
@@ -405,15 +403,15 @@ ShowItem* MultiTrackView::getSelectedItem()
 
 quint32 MultiTrackView::getTimeFromCursor()
 {
-    quint32 s_time = (double)(m_cursor->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) /
-                     (double)(m_header->getHalfSecondWidth() * 2);
+    quint32 s_time = (double)(m_cursor->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000)
+                     / (double)(m_header->getHalfSecondWidth() * 2);
     return s_time;
 }
 
 quint32 MultiTrackView::getTimeFromPosition(qreal pos)
 {
-    return ((double)(pos - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
-            (double)(m_header->getHalfSecondWidth() * 2));
+    return ((double)(pos - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000)
+            / (double)(m_header->getHalfSecondWidth() * 2));
 }
 
 quint32 MultiTrackView::getPositionFromTime(quint32 time)
@@ -424,7 +422,7 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
     return TRACK_WIDTH + xPos;
 }
 
-int MultiTrackView::getTrackIndex(Track* trk)
+int MultiTrackView::getTrackIndex(Track *trk)
 {
     for (int idx = 0; idx < m_tracks.count(); idx++)
     {
@@ -459,7 +457,7 @@ void MultiTrackView::setSnapToGrid(bool enable)
         m_header->setHeight(HEADER_HEIGHT);
 }
 
-void MultiTrackView::mouseReleaseEvent(QMouseEvent* e)
+void MultiTrackView::mouseReleaseEvent(QMouseEvent *e)
 {
     if (getSelectedItem() == NULL)
     {
@@ -480,7 +478,7 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent* e)
     // qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();
 }
 
-void MultiTrackView::slotHeaderClicked(QGraphicsSceneMouseEvent* event)
+void MultiTrackView::slotHeaderClicked(QGraphicsSceneMouseEvent *event)
 {
     m_cursor->setPos(TRACK_WIDTH + event->pos().toPoint().x(), 0);
     m_cursor->setTime(getTimeFromCursor());
@@ -493,7 +491,7 @@ void MultiTrackView::slotTimeScaleChanged(int val)
     // int oldScale = m_header->getTimeScale();
     m_header->setTimeScale(val);
 
-    foreach (ShowItem* item, m_items)
+    foreach (ShowItem *item, m_items)
     {
         quint32 newXpos = getPositionFromTime(item->getStartTime());
         item->setPos(newXpos + 2, item->y());
@@ -505,9 +503,9 @@ void MultiTrackView::slotTimeScaleChanged(int val)
     updateViewSize();
 }
 
-void MultiTrackView::slotTrackClicked(TrackItem* track)
+void MultiTrackView::slotTrackClicked(TrackItem *track)
 {
-    foreach (TrackItem* item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item == track)
             item->setActive(true);
@@ -517,26 +515,26 @@ void MultiTrackView::slotTrackClicked(TrackItem* track)
     emit trackClicked(track->getTrack());
 }
 
-void MultiTrackView::slotTrackDoubleClicked(TrackItem* track)
+void MultiTrackView::slotTrackDoubleClicked(TrackItem *track)
 {
     emit trackDoubleClicked(track->getTrack());
 }
 
-void MultiTrackView::slotTrackSoloFlagChanged(TrackItem* track, bool solo)
+void MultiTrackView::slotTrackSoloFlagChanged(TrackItem *track, bool solo)
 {
-    foreach (TrackItem* item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item != track)
             item->setFlags(false, solo);
-        Track* trk = item->getTrack();
+        Track *trk = item->getTrack();
         if (trk != NULL)
             trk->setMute(item->isMute());
     }
 }
 
-void MultiTrackView::slotTrackMuteFlagChanged(TrackItem* item, bool mute)
+void MultiTrackView::slotTrackMuteFlagChanged(TrackItem *item, bool mute)
 {
-    Track* trk = item->getTrack();
+    Track *trk = item->getTrack();
     if (trk != NULL)
         trk->setMute(mute);
 }
@@ -546,10 +544,9 @@ void MultiTrackView::slotViewScrolled(int)
     // qDebug() << Q_FUNC_INFO << "Percentage: " << value;
 }
 
-void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent* event, ShowItem* item)
+void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *item)
 {
-    qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y()
-             << ">";
+    qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     // align to the appropriate track
     bool moved = true;
     quint32 s_time = 0;
@@ -587,7 +584,7 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent* event, ShowItem* it
     emit showItemMoved(item, getTimeFromPosition(item->x() + event->pos().toPoint().x()), moved);
 }
 
-void MultiTrackView::slotAlignToCursor(ShowItem* item)
+void MultiTrackView::slotAlignToCursor(ShowItem *item)
 {
     item->setX(m_cursor->x());
     item->setStartTime(getTimeFromPosition(item->x()));

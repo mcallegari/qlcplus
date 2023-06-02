@@ -442,17 +442,17 @@ void EFX_Test::yPhase()
 
 void EFX_Test::fixtures()
 {
-    EFX* e = new EFX(m_doc);
+    EFX *e = new EFX(m_doc);
     QCOMPARE(e->fixtures().size(), 0);
 
     /* Add first fixture */
-    EFXFixture* ef1 = new EFXFixture(e);
+    EFXFixture *ef1 = new EFXFixture(e);
     ef1->setHead(GroupHead(12, 0));
     QVERIFY(e->addFixture(ef1));
     QCOMPARE(e->fixtures().size(), 1);
 
     /* Add second fixture */
-    EFXFixture* ef2 = new EFXFixture(e);
+    EFXFixture *ef2 = new EFXFixture(e);
     ef2->setHead(GroupHead(34, 0));
     QVERIFY(e->addFixture(ef2));
     QCOMPARE(e->fixtures().size(), 2);
@@ -463,7 +463,7 @@ void EFX_Test::fixtures()
     // QCOMPARE(e->fixtures().size(), 2);
 
     /* Try to remove a non-member fixture */
-    EFXFixture* ef3 = new EFXFixture(e);
+    EFXFixture *ef3 = new EFXFixture(e);
     ef3->setHead(GroupHead(56, 0));
     QVERIFY(!e->removeFixture(ef3));
     QCOMPARE(e->fixtures().size(), 2);
@@ -481,7 +481,7 @@ void EFX_Test::fixtures()
     QVERIFY(e->fixture(11, 22) == NULL);
 
     /* Add fourth fixture */
-    EFXFixture* ef4 = new EFXFixture(e);
+    EFXFixture *ef4 = new EFXFixture(e);
     ef4->setHead(GroupHead(78, 0));
     e->addFixture(ef4);
     QCOMPARE(e->fixtures().size(), 4);
@@ -543,7 +543,7 @@ void EFX_Test::fixtures()
     e->slotFixtureRemoved(56);
     QCOMPARE(e->fixtures().size(), 0);
 
-    EFXFixture* ef5 = new EFXFixture(e);
+    EFXFixture *ef5 = new EFXFixture(e);
     ef5->setHead(GroupHead(18, 0));
     QVERIFY(e->addFixture(ef5));
 
@@ -1831,7 +1831,7 @@ void EFX_Test::previewLissajous()
 // Due to rounding errors, reverse direction might come out
 // +/- one point. For now it's acceptable, but should be fixed
 // some day.
-static bool CloseEnough(QPointF const& a, QPointF const& b)
+static bool CloseEnough(QPointF const &a, QPointF const &b)
 {
     QPointF diff = a - b;
     // qDebug() << "Diff:" << diff.x() << diff.y();
@@ -2333,10 +2333,10 @@ void EFX_Test::copyFrom()
     e1.setFadeOutSpeed(69);
     e1.setDuration(1337);
 
-    EFXFixture* ef1 = new EFXFixture(&e1);
+    EFXFixture *ef1 = new EFXFixture(&e1);
     ef1->setHead(GroupHead(12, 3));
     e1.addFixture(ef1);
-    EFXFixture* ef2 = new EFXFixture(&e1);
+    EFXFixture *ef2 = new EFXFixture(&e1);
     ef2->setHead(GroupHead(34, 7));
     e1.addFixture(ef2);
 
@@ -2393,10 +2393,10 @@ void EFX_Test::copyFrom()
     e3.setFadeInSpeed(69);
     e3.setFadeOutSpeed(1337);
     e3.setDuration(42);
-    EFXFixture* ef3 = new EFXFixture(&e3);
+    EFXFixture *ef3 = new EFXFixture(&e3);
     ef3->setHead(GroupHead(56, 8));
     e3.addFixture(ef3);
-    EFXFixture* ef4 = new EFXFixture(&e3);
+    EFXFixture *ef4 = new EFXFixture(&e3);
     ef4->setHead(GroupHead(78, 9));
     e3.addFixture(ef4);
 
@@ -2434,7 +2434,7 @@ void EFX_Test::createCopy()
 {
     Doc doc(this);
 
-    EFX* e1 = new EFX(m_doc);
+    EFX *e1 = new EFX(m_doc);
     e1->setName("First");
     e1->setDirection(EFX::Forward);
     e1->setRunOrder(EFX::PingPong);
@@ -2452,22 +2452,22 @@ void EFX_Test::createCopy()
     e1->setFadeInSpeed(42);
     e1->setFadeOutSpeed(69);
     e1->setDuration(1337);
-    EFXFixture* ef1 = new EFXFixture(e1);
+    EFXFixture *ef1 = new EFXFixture(e1);
     ef1->setHead(GroupHead(12, 3));
     e1->addFixture(ef1);
-    EFXFixture* ef2 = new EFXFixture(e1);
+    EFXFixture *ef2 = new EFXFixture(e1);
     ef2->setHead(GroupHead(34, 7));
     e1->addFixture(ef2);
 
     doc.addFunction(e1);
     QVERIFY(e1->id() != Function::invalidId());
 
-    Function* f = e1->createCopy(&doc);
+    Function *f = e1->createCopy(&doc);
     QVERIFY(f != NULL);
     QVERIFY(f != e1);
     QVERIFY(f->id() != e1->id());
 
-    EFX* copy = qobject_cast<EFX*>(f);
+    EFX *copy = qobject_cast<EFX *>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->name() == e1->name());
     QVERIFY(copy->direction() == EFX::Forward);
@@ -2851,7 +2851,8 @@ void EFX_Test::loadWrongRoot()
 
 void EFX_Test::loadDuplicateFixture()
 {
-    QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, etc.)");
+    QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, "
+          "etc.)");
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -2910,15 +2911,15 @@ void EFX_Test::save()
     e1.setYPhase(94);
     e1.setPropagationMode(EFX::Serial);
 
-    EFXFixture* ef1 = new EFXFixture(&e1);
+    EFXFixture *ef1 = new EFXFixture(&e1);
     ef1->setHead(GroupHead(12, 3));
     e1.addFixture(ef1);
-    EFXFixture* ef2 = new EFXFixture(&e1);
+    EFXFixture *ef2 = new EFXFixture(&e1);
     ef2->setHead(GroupHead(34, 5));
     ef2->setDirection(EFX::Backward);
     ef2->setStartOffset(27);
     e1.addFixture(ef2);
-    EFXFixture* ef3 = new EFXFixture(&e1);
+    EFXFixture *ef3 = new EFXFixture(&e1);
     ef3->setHead(GroupHead(56, 7));
     e1.addFixture(ef3);
 
@@ -2944,8 +2945,7 @@ void EFX_Test::save()
     QVERIFY(xmlReader.attributes().value("Name").toString() == "First");
 
     bool dir = false, off = false, run = false, algo = false, w = false, h = false, rot = false, isRelative = false,
-         xoff = false, yoff = false, xfreq = false, yfreq = false, xpha = false, ypha = false, prop = false,
-         speed = false;
+         xoff = false, yoff = false, xfreq = false, yfreq = false, xpha = false, ypha = false, prop = false, speed = false;
     int fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList<QString> fixtures;
 
@@ -3165,11 +3165,11 @@ void EFX_Test::save()
 
 void EFX_Test::preRunPostRun()
 {
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
-    EFX* e = new EFX(m_doc);
+    EFX *e = new EFX(m_doc);
     e->setName("Test EFX");
     QVERIFY(e->m_fadersMap.count() == 0);
 
@@ -3188,34 +3188,34 @@ void EFX_Test::adjustIntensity()
     /* Basically any fixture with 16bit pan & tilt channels will do, but
        then the exact channel numbers and mode name has to be changed
        below. */
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->mode("Mode 4");
+    QLCFixtureMode *mode = def->mode("Mode 4");
     QVERIFY(mode != NULL);
 
-    Fixture* fxi1 = new Fixture(m_doc);
+    Fixture *fxi1 = new Fixture(m_doc);
     fxi1->setFixtureDefinition(def, mode);
     fxi1->setName("Test Scanner");
     fxi1->setAddress(0);
     fxi1->setUniverse(0);
     m_doc->addFixture(fxi1);
 
-    Fixture* fxi2 = new Fixture(m_doc);
+    Fixture *fxi2 = new Fixture(m_doc);
     fxi2->setFixtureDefinition(def, mode);
     fxi2->setName("Test Scanner");
     fxi2->setAddress(0);
     fxi2->setUniverse(1);
     m_doc->addFixture(fxi2);
 
-    EFX* e = new EFX(m_doc);
+    EFX *e = new EFX(m_doc);
     e->setName("Test EFX");
 
-    EFXFixture* ef1 = new EFXFixture(e);
+    EFXFixture *ef1 = new EFXFixture(e);
     ef1->setHead(GroupHead(fxi1->id(), 0));
     e->addFixture(ef1);
 
-    EFXFixture* ef2 = new EFXFixture(e);
+    EFXFixture *ef2 = new EFXFixture(e);
     ef2->setHead(GroupHead(fxi2->id(), 0));
     e->addFixture(ef2);
 
@@ -3227,7 +3227,7 @@ void EFX_Test::adjustIntensity()
     e->adjustAttribute(0.5);
     QCOMPARE(e->getAttributeValue(Function::Intensity), 0.5);
 
-    QList<Universe*> ua;
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     e->postRun(m_doc->masterTimer(), ua);
 }

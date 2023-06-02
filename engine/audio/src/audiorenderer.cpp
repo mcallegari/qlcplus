@@ -23,7 +23,7 @@
 #include "audiorenderer.h"
 #include "qlcmacros.h"
 
-AudioRenderer::AudioRenderer(QObject* parent)
+AudioRenderer::AudioRenderer(QObject *parent)
     : QThread(parent)
     , m_fadeStep(0.0)
     , m_userStop(true)
@@ -37,7 +37,7 @@ AudioRenderer::AudioRenderer(QObject* parent)
 {
 }
 
-void AudioRenderer::setDecoder(AudioDecoder* adec)
+void AudioRenderer::setDecoder(AudioDecoder *adec)
 {
     m_adec = adec;
 }
@@ -106,7 +106,7 @@ void AudioRenderer::run()
             // qDebug() << "Pending audio bytes: " << pendingAudioBytes;
             if (pendingAudioBytes == 0)
             {
-                audioDataRead = m_adec->read((char*)audioData, 8192);
+                audioDataRead = m_adec->read((char *)audioData, 8192);
                 if (audioDataRead == 0)
                 {
                     if (m_looped)
@@ -129,8 +129,8 @@ void AudioRenderer::run()
                         {
                             m_currentIntensity += m_fadeStep;
                             scaleFactor = m_currentIntensity;
-                            if ((m_fadeStep > 0 && m_currentIntensity >= m_intensity) ||
-                                (m_fadeStep < 0 && m_currentIntensity <= 0))
+                            if ((m_fadeStep > 0 && m_currentIntensity >= m_intensity)
+                                || (m_fadeStep < 0 && m_currentIntensity <= 0))
                                 m_fadeStep = 0;
                         }
                         if (sampleSize >= 2)
@@ -179,8 +179,8 @@ void AudioRenderer::run()
                 if (audioDataWritten == 0)
                     usleep(15000);
             }
-            // qDebug() << "[Cycle] read:" << audioDataRead << ", written:" << audioDataWritten << ", pending:" <<
-            // pendingAudioBytes;
+            // qDebug() << "[Cycle] read:" << audioDataRead << ", written:" << audioDataWritten <<
+            // ", pending:" << pendingAudioBytes;
         }
         else
         {

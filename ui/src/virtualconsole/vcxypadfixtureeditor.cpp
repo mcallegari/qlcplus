@@ -30,7 +30,7 @@
  * Initialization
  *****************************************************************************/
 
-VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent, QList<VCXYPadFixture> fixtures)
+VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget *parent, QList<VCXYPadFixture> fixtures)
     : QDialog(parent)
 {
     setupUi(this);

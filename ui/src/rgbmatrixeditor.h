@@ -46,7 +46,7 @@ class RGBMatrixEditor : public QWidget, public Ui_RGBMatrixEditor
      * Initialization
      ************************************************************************/
 public:
-    RGBMatrixEditor(QWidget* parent, RGBMatrix* mtx, Doc* doc);
+    RGBMatrixEditor(QWidget *parent, RGBMatrix *mtx, Doc *doc);
     ~RGBMatrixEditor();
 
     void stopTest();
@@ -64,16 +64,16 @@ private:
     void fillImageAnimationCombo();
     void updateExtraOptions();
     void updateColors();
-    void resetProperties(QLayoutItem* item);
-    void displayProperties(RGBScript* script);
+    void resetProperties(QLayoutItem *item);
+    void displayProperties(RGBScript *script);
 
     bool createPreviewItems();
 
 private slots:
     void slotPreviewTimeout();
-    void slotNameEdited(const QString& text);
+    void slotNameEdited(const QString &text);
     void slotSpeedDialToggle(bool state);
-    void slotPatternActivated(const QString& text);
+    void slotPatternActivated(const QString &text);
     void slotFixtureGroupActivated(int index);
     void slotBlendModeChanged(int index);
     void slotControlModeChanged(int index);
@@ -81,14 +81,14 @@ private slots:
     void slotEndColorButtonClicked();
     void slotResetEndColorButtonClicked();
 
-    void slotTextEdited(const QString& text);
+    void slotTextEdited(const QString &text);
     void slotFontButtonClicked();
-    void slotAnimationActivated(const QString& text);
+    void slotAnimationActivated(const QString &text);
     void slotOffsetSpinChanged();
 
     void slotImageEdited();
     void slotImageButtonClicked();
-    void slotImageAnimationActivated(const QString& text);
+    void slotImageAnimationActivated(const QString &text);
 
     void slotLoopClicked();
     void slotPingPongClicked();
@@ -103,7 +103,7 @@ private slots:
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
     void slotDurationTapped();
-    void slotDialDestroyed(QObject* dial);
+    void slotDialDestroyed(QObject *dial);
 
     void slotTestClicked();
     void slotRestartTest();
@@ -122,19 +122,19 @@ private:
     FunctionParent functionParent() const;
 
 private:
-    Doc* m_doc;
-    RGBMatrix* m_matrix; // The RGBMatrix being edited
-    RGBMatrixStep* m_previewHandler;
+    Doc *m_doc;
+    RGBMatrix *m_matrix; // The RGBMatrix being edited
+    RGBMatrixStep *m_previewHandler;
 
     QList<RGBScript> m_scripts;
 
-    SpeedDialWidget* m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
-    QGraphicsScene* m_scene;
-    QTimer* m_previewTimer;
+    QGraphicsScene *m_scene;
+    QTimer *m_previewTimer;
     uint m_previewIterator;
 
-    QHash<QLCPoint, RGBItem*> m_previewHash;
+    QHash<QLCPoint, RGBItem *> m_previewHash;
 };
 
 /** @} */

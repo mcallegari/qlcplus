@@ -36,7 +36,7 @@
 #define BUTTON_SIZE "addvcbuttonmatrix/buttonsize"
 #define FRAME_STYLE "addvcbuttonmatrix/framestyle"
 
-AddVCButtonMatrix::AddVCButtonMatrix(QWidget* parent, Doc* doc)
+AddVCButtonMatrix::AddVCButtonMatrix(QWidget *parent, Doc *doc)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -47,7 +47,7 @@ AddVCButtonMatrix::AddVCButtonMatrix(QWidget* parent, Doc* doc)
 
     setupUi(this);
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -131,10 +131,10 @@ void AddVCButtonMatrix::slotAddClicked()
 
 void AddVCButtonMatrix::slotRemoveClicked()
 {
-    QListIterator<QTreeWidgetItem*> it(m_tree->selectedItems());
+    QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
-        QTreeWidgetItem* item(it.next());
+        QTreeWidgetItem *item(it.next());
         m_functions.removeAll(item->data(KColumnFunction, Qt::UserRole).toUInt());
         delete item;
     }
@@ -174,11 +174,11 @@ void AddVCButtonMatrix::accept()
 
 void AddVCButtonMatrix::addFunction(quint32 fid)
 {
-    Function* function = m_doc->function(fid);
+    Function *function = m_doc->function(fid);
     if (function == NULL)
         return;
 
-    QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_tree);
     item->setText(KColumnFunction, function->name());
     item->setText(KColumnType, function->typeString());
     item->setData(KColumnFunction, Qt::UserRole, fid);

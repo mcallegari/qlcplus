@@ -52,7 +52,7 @@ void VCButton_Test::init()
     m_doc = new Doc(this);
     new VirtualConsole(NULL, m_doc);
 
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(4);
     m_doc->addFixture(fxi);
 }
@@ -93,14 +93,14 @@ void VCButton_Test::function()
     btn.setFunction(42);
     QCOMPARE(btn.function(), Function::invalidId());
 
-    Scene* s = new Scene(m_doc);
+    Scene *s = new Scene(m_doc);
     s->setName("Test1");
     m_doc->addFunction(s);
     btn.setFunction(s->id());
     QCOMPARE(btn.function(), s->id());
     QCOMPARE(btn.toolTip(), QString("Test1"));
 
-    Scene* s2 = new Scene(m_doc);
+    Scene *s2 = new Scene(m_doc);
     s2->setName("Test2");
     m_doc->addFunction(s2);
     btn.setFunction(s2->id());
@@ -276,7 +276,7 @@ void VCButton_Test::copy()
 {
     QWidget w;
 
-    Scene* sc = new Scene(m_doc);
+    Scene *sc = new Scene(m_doc);
     m_doc->addFunction(sc);
 
     VCButton btn(&w, m_doc);
@@ -289,7 +289,7 @@ void VCButton_Test::copy()
     btn.setStartupIntensity(qreal(0.2));
 
     VCFrame parent(&w, m_doc);
-    VCButton* copy = qobject_cast<VCButton*>(btn.createCopy(&parent));
+    VCButton *copy = qobject_cast<VCButton *>(btn.createCopy(&parent));
     QVERIFY(copy != NULL);
     QCOMPARE(copy->caption(), QString("Foobar"));
     QCOMPARE(copy->iconPath(), QString("../../../resources/icons/png/qlcplus.png"));
@@ -305,7 +305,7 @@ void VCButton_Test::load()
 {
     QWidget w;
 
-    Scene* sc = new Scene(m_doc);
+    Scene *sc = new Scene(m_doc);
     m_doc->addFunction(sc);
     m_doc->setWorkspacePath(QDir("../../../resources/icons/png").absolutePath());
 
@@ -403,7 +403,7 @@ void VCButton_Test::save()
 {
     QWidget w;
 
-    Scene* sc = new Scene(m_doc);
+    Scene *sc = new Scene(m_doc);
     m_doc->addFunction(sc);
     m_doc->setWorkspacePath(QDir("../../../resources/icons/png").absolutePath());
 
@@ -488,7 +488,7 @@ void VCButton_Test::customMenu()
     QWidget w;
 
     VCButton btn(&w, m_doc);
-    QMenu* menu = btn.customMenu(NULL);
+    QMenu *menu = btn.customMenu(NULL);
     QVERIFY(menu != NULL);
     QCOMPARE(menu->title(), tr("Icon"));
     QCOMPARE(menu->actions().size(), 2);
@@ -501,7 +501,7 @@ void VCButton_Test::toggle()
 {
     QWidget w;
 
-    Scene* sc = new Scene(m_doc);
+    Scene *sc = new Scene(m_doc);
     sc->setValue(0, 0, 255);
     sc->setFadeInSpeed(1000);
     sc->setFadeOutSpeed(1000);
@@ -561,7 +561,7 @@ void VCButton_Test::flash()
 {
     QWidget w;
 
-    Scene* sc = new Scene(m_doc);
+    Scene *sc = new Scene(m_doc);
     m_doc->addFunction(sc);
 
     VCButton btn(&w, m_doc);
@@ -599,7 +599,7 @@ void VCButton_Test::input()
 {
     QWidget w;
 
-    Scene* sc = new Scene(m_doc);
+    Scene *sc = new Scene(m_doc);
     sc->setValue(0, 0, 255);
     sc->setFadeInSpeed(1000);
     sc->setFadeOutSpeed(1000);
@@ -706,7 +706,7 @@ void VCButton_Test::toggleAndFlash()
 {
     QWidget w;
 
-    Scene* sc = new Scene(m_doc);
+    Scene *sc = new Scene(m_doc);
     m_doc->addFunction(sc);
 
     VCButton toggleBtn(&w, m_doc);

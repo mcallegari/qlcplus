@@ -57,13 +57,13 @@ void QLCInputProfile_Test::addChannel()
 {
     QLCInputProfile ip;
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ip.insertChannel(0, ich1);
     QVERIFY(ip.channel(0) == ich1);
     QVERIFY(ip.channels().size() == 1);
 
     /* Shouldn't overwrite the existing mapping */
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ip.insertChannel(0, ich2);
     QVERIFY(ip.channel(0) == ich1);
 
@@ -80,11 +80,11 @@ void QLCInputProfile_Test::removeChannel()
 {
     QLCInputProfile ip;
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ip.insertChannel(0, ich1);
     QVERIFY(ip.channel(0) == ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ip.insertChannel(5, ich2);
     QVERIFY(ip.channel(0) == ich1);
     QVERIFY(ip.channel(5) == ich2);
@@ -108,12 +108,12 @@ void QLCInputProfile_Test::remapChannel()
 {
     QLCInputProfile ip;
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ich1->setName("Foobar");
     ip.insertChannel(0, ich1);
     QVERIFY(ip.channel(0) == ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ip.insertChannel(5, ich2);
     QVERIFY(ip.channel(0) == ich1);
     QVERIFY(ip.channel(5) == ich2);
@@ -131,7 +131,7 @@ void QLCInputProfile_Test::remapChannel()
     QVERIFY(ip.channel(9000) == ich1);
     QVERIFY(ip.channel(9000)->name() == "Foobar");
 
-    QLCInputChannel* ich3 = new QLCInputChannel();
+    QLCInputChannel *ich3 = new QLCInputChannel();
     QVERIFY(ip.remapChannel(ich3, 5) == false);
     QVERIFY(ip.channels().size() == 2);
     QVERIFY(ip.channel(0) == NULL);
@@ -146,10 +146,10 @@ void QLCInputProfile_Test::channel()
 {
     QLCInputProfile ip;
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ip.insertChannel(0, ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ip.insertChannel(5, ich2);
 
     QVERIFY(ip.channel(0) == ich1);
@@ -165,10 +165,10 @@ void QLCInputProfile_Test::channels()
     QLCInputProfile ip;
     QVERIFY(ip.channels().size() == 0);
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ip.insertChannel(0, ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ip.insertChannel(5, ich2);
 
     QVERIFY(ip.channels().size() == 2);
@@ -187,13 +187,13 @@ void QLCInputProfile_Test::channelNumber()
     QLCInputProfile ip;
     QVERIFY(ip.channels().size() == 0);
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ip.insertChannel(0, ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ip.insertChannel(6510, ich2);
 
-    QLCInputChannel* ich3 = new QLCInputChannel();
+    QLCInputChannel *ich3 = new QLCInputChannel();
     ip.insertChannel(5, ich3);
 
     QCOMPARE(ip.channelNumber(NULL), QLCChannel::invalid());
@@ -208,19 +208,19 @@ void QLCInputProfile_Test::copy()
     ip.setManufacturer("Behringer");
     ip.setModel("BCF2000");
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ich1->setName("Channel 1");
     ip.insertChannel(0, ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ich2->setName("Channel 2");
     ip.insertChannel(5, ich2);
 
-    QLCInputChannel* ich3 = new QLCInputChannel();
+    QLCInputChannel *ich3 = new QLCInputChannel();
     ich3->setName("Channel 3");
     ip.insertChannel(2, ich3);
 
-    QLCInputChannel* ich4 = new QLCInputChannel();
+    QLCInputChannel *ich4 = new QLCInputChannel();
     ich4->setName("Channel 4");
     ip.insertChannel(9000, ich4);
 
@@ -254,24 +254,24 @@ void QLCInputProfile_Test::assign()
     ip.setManufacturer("Behringer");
     ip.setModel("BCF2000");
 
-    QLCInputChannel* ich1 = new QLCInputChannel;
+    QLCInputChannel *ich1 = new QLCInputChannel;
     ich1->setName("Channel 1");
     ip.insertChannel(0, ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel;
+    QLCInputChannel *ich2 = new QLCInputChannel;
     ich2->setName("Channel 2");
     ip.insertChannel(5, ich2);
 
-    QLCInputChannel* ich3 = new QLCInputChannel;
+    QLCInputChannel *ich3 = new QLCInputChannel;
     ich3->setName("Channel 3");
     ip.insertChannel(2, ich3);
 
-    QLCInputChannel* ich4 = new QLCInputChannel;
+    QLCInputChannel *ich4 = new QLCInputChannel;
     ich4->setName("Channel 4");
     ip.insertChannel(9000, ich4);
 
     QLCInputProfile ip2;
-    QLCInputChannel* ich5 = new QLCInputChannel;
+    QLCInputChannel *ich5 = new QLCInputChannel;
     ich5->setName("First channel");
     ip2.insertChannel(0, ich5);
     QCOMPARE(ip2.channels().size(), 1);
@@ -349,7 +349,7 @@ void QLCInputProfile_Test::loadNoProfile()
 
 void QLCInputProfile_Test::loader()
 {
-    QLCInputProfile* prof = QLCInputProfile::loader("foobar");
+    QLCInputProfile *prof = QLCInputProfile::loader("foobar");
     QVERIFY(prof == NULL);
 
     prof = QLCInputProfile::loader("broken.xml");
@@ -369,15 +369,15 @@ void QLCInputProfile_Test::save()
     ip.setManufacturer("TestManufacturer");
     ip.setModel("TestModel");
 
-    QLCInputChannel* ich1 = new QLCInputChannel();
+    QLCInputChannel *ich1 = new QLCInputChannel();
     ich1->setName("Channel 1");
     ip.insertChannel(0, ich1);
 
-    QLCInputChannel* ich2 = new QLCInputChannel();
+    QLCInputChannel *ich2 = new QLCInputChannel();
     ich2->setName("Channel 2");
     ip.insertChannel(5, ich2);
 
-    QLCInputChannel* ich3 = new QLCInputChannel();
+    QLCInputChannel *ich3 = new QLCInputChannel();
     ich3->setName("Channel 3");
     ip.insertChannel(2, ich3);
 
@@ -391,7 +391,7 @@ void QLCInputProfile_Test::save()
     QFile::setPermissions(path, perm);
 #endif
 
-    QLCInputProfile* prof = QLCInputProfile::loader(path);
+    QLCInputProfile *prof = QLCInputProfile::loader(path);
     QVERIFY(prof != NULL);
     QCOMPARE(prof->manufacturer(), ip.manufacturer());
     QCOMPARE(prof->model(), ip.model());

@@ -95,7 +95,7 @@ void RGBScript_Test::scripts()
     // Catch syntax / JS engine errors explicitly in the test.
     foreach (QString file, dir.entryList())
     {
-        RGBScript* script = new RGBScript(m_doc);
+        RGBScript *script = new RGBScript(m_doc);
         QVERIFY(script->load(dir, file));
 
         qDebug() << "Searching 'scripts.files += " + file + "' in rgbscripts.pro";
@@ -185,7 +185,8 @@ void RGBScript_Test::evaluateNoRgbMapFunction()
 void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
 {
     // No rgbMapStepCount() function present
-    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; return foo; } )()");
+    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; "
+                 "return foo; } )()");
     RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
@@ -195,7 +196,8 @@ void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
 void RGBScript_Test::evaluateInvalidApiVersion()
 {
     // No apiVersion property
-    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; foo.rgbMapStepCount = "
+    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; "
+                 "foo.rgbMapStepCount = "
                  "function(width, height) { return 0; }; return foo; } )()");
     RGBScript s(m_doc);
     s.m_contents = code;
@@ -338,10 +340,10 @@ void RGBScript_Test::runScripts()
                         QVERIFY((rgbMap[y][x] >> 16) <= 0x0000ff);
                         if (!randomScript && 0 == step && 1 < s.acceptColors() && 2 < steps)
                         {
-                            // if more than one color is accepted  and the script has more than two steps - one per
-                            // color, the color fade shall be relative and reproducible to the step as otherwise, the
-                            // color fade cannot be aligned on stage and depends on e.g. matrix sizes or script
-                            // settings.
+                            // if more than one color is accepted  and the script has more than two
+                            // steps - one per color, the color fade shall be relative and
+                            // reproducible to the step as otherwise, the color fade cannot be
+                            // aligned on stage and depends on e.g. matrix sizes or script settings.
                             QVERIFY(rgbMap[y][x] == rgbRefMap[y][x]);
                         }
                     }
@@ -370,8 +372,8 @@ void RGBScript_Test::runScripts()
                 QList<RGBScriptProperty> properties = s.properties();
                 qDebug() << property.m_name;
                 // Unknown, new and RGBScriptProperty::None are not valid
-                QVERIFY(property.m_type == RGBScriptProperty::List || property.m_type == RGBScriptProperty::Range ||
-                        property.m_type == RGBScriptProperty::Integer || property.m_type == RGBScriptProperty::String);
+                QVERIFY(property.m_type == RGBScriptProperty::List || property.m_type == RGBScriptProperty::Range
+                        || property.m_type == RGBScriptProperty::Integer || property.m_type == RGBScriptProperty::String);
                 // Check property specificities
                 switch (property.m_type)
                 {

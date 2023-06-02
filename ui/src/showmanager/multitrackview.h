@@ -47,7 +47,7 @@ class MultiTrackView : public QGraphicsView
     Q_OBJECT
 
 public:
-    MultiTrackView(QWidget* parent = 0);
+    MultiTrackView(QWidget *parent = 0);
 
     /** Update tracks horizontal dividers when the view changes */
     void updateTracksDividers();
@@ -66,44 +66,44 @@ public:
     void resetView();
 
     /** Add a new track to the view */
-    void addTrack(Track* track);
+    void addTrack(Track *track);
 
     /** Add a new sequence item to the given track */
-    void addSequence(Chaser* chaser, Track* track = NULL, ShowFunction* sf = NULL);
+    void addSequence(Chaser *chaser, Track *track = NULL, ShowFunction *sf = NULL);
 
     /** Add a new audio item to the given track */
-    void addAudio(Audio* audio, Track* track = NULL, ShowFunction* sf = NULL);
+    void addAudio(Audio *audio, Track *track = NULL, ShowFunction *sf = NULL);
 
     /** Add a new RGB Matrix item to the given track */
-    void addRGBMatrix(RGBMatrix* rgbm, Track* track = NULL, ShowFunction* sf = NULL);
+    void addRGBMatrix(RGBMatrix *rgbm, Track *track = NULL, ShowFunction *sf = NULL);
 
     /** Add a new EFX item to the given track */
-    void addEFX(EFX* efx, Track* track = NULL, ShowFunction* sf = NULL);
+    void addEFX(EFX *efx, Track *track = NULL, ShowFunction *sf = NULL);
 
     /** Add a new video item to the given track */
-    void addVideo(Video* video, Track* track = NULL, ShowFunction* sf = NULL);
+    void addVideo(Video *video, Track *track = NULL, ShowFunction *sf = NULL);
 
     /** Delete the currently selected item */
     quint32 deleteSelectedItem();
 
     /** Delete a specific ShowFuntion and related ShowItem from the
      *  given track */
-    void deleteShowItem(Track* track, ShowFunction* sf);
+    void deleteShowItem(Track *track, ShowFunction *sf);
 
     /** Set the given track to active state */
-    void activateTrack(Track* track);
+    void activateTrack(Track *track);
 
     /** get the selected Show item. If none, returns NULL */
-    ShowItem* getSelectedItem();
+    ShowItem *getSelectedItem();
 
 private:
     /** Retrieve the index of the given Track.
      *  If trk is NULL, this function returns the currently
      *  selected track.
      */
-    int getTrackIndex(Track* trk);
+    int getTrackIndex(Track *trk);
 
-    void setItemCommonProperties(ShowItem* item, ShowFunction* func, int trackNum);
+    void setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum);
 
     /*********************************************************************
      * Header
@@ -141,39 +141,39 @@ public:
     quint32 getTimeFromPosition(qreal pos);
 
 private:
-    QGraphicsScene* m_scene;
-    QSlider* m_timeSlider;
-    ShowHeaderItem* m_header;
-    ShowCursorItem* m_cursor;
-    QGraphicsItem* m_vdivider;
-    QList<QGraphicsItem*> m_hdividers;
-    QList<TrackItem*> m_tracks;
-    QList<ShowItem*> m_items;
+    QGraphicsScene *m_scene;
+    QSlider *m_timeSlider;
+    ShowHeaderItem *m_header;
+    ShowCursorItem *m_cursor;
+    QGraphicsItem *m_vdivider;
+    QList<QGraphicsItem *> m_hdividers;
+    QList<TrackItem *> m_tracks;
+    QList<ShowItem *> m_items;
     bool m_snapToGrid;
 
 public slots:
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent *e);
 
 protected slots:
-    void slotHeaderClicked(QGraphicsSceneMouseEvent* event);
+    void slotHeaderClicked(QGraphicsSceneMouseEvent *event);
     void slotTimeScaleChanged(int val);
-    void slotTrackClicked(TrackItem* track);
-    void slotTrackDoubleClicked(TrackItem* track);
-    void slotTrackSoloFlagChanged(TrackItem*, bool);
-    void slotTrackMuteFlagChanged(TrackItem*, bool);
+    void slotTrackClicked(TrackItem *track);
+    void slotTrackDoubleClicked(TrackItem *track);
+    void slotTrackSoloFlagChanged(TrackItem *, bool);
+    void slotTrackMuteFlagChanged(TrackItem *, bool);
     void slotViewScrolled(int);
 
-    void slotItemMoved(QGraphicsSceneMouseEvent* event, ShowItem* item);
-    void slotAlignToCursor(ShowItem* item);
+    void slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *item);
+    void slotAlignToCursor(ShowItem *item);
 
 signals:
-    void showItemMoved(ShowItem* item, quint32 time, bool moved);
-    void viewClicked(QMouseEvent* e);
+    void showItemMoved(ShowItem *item, quint32 time, bool moved);
+    void viewClicked(QMouseEvent *e);
     void timeChanged(quint32 msec);
-    void trackClicked(Track* track);
-    void trackDoubleClicked(Track* track);
-    void trackMoved(Track*, int);
-    void trackDelete(Track*);
+    void trackClicked(Track *track);
+    void trackDoubleClicked(Track *track);
+    void trackMoved(Track *, int);
+    void trackDelete(Track *);
 };
 
 /** @} */

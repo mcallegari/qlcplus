@@ -27,7 +27,7 @@
 #include "qlcconfig.h"
 #include "launcher.h"
 
-void loadTranslation(const QString& locale, QApplication& app)
+void loadTranslation(const QString &locale, QApplication &app)
 {
     QString file(QString("launcher_%1").arg(locale));
 #if defined(__APPLE__) || defined(Q_OS_MAC)
@@ -36,7 +36,7 @@ void loadTranslation(const QString& locale, QApplication& app)
     QString path(TRANSLATIONDIR);
 #endif
 
-    QTranslator* translator = new QTranslator(&app);
+    QTranslator *translator = new QTranslator(&app);
     if (translator->load(file, path) == true)
     {
         qDebug() << "Using translation for" << locale;
@@ -48,7 +48,7 @@ void loadTranslation(const QString& locale, QApplication& app)
     }
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 

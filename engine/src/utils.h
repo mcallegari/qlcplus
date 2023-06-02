@@ -28,7 +28,7 @@
 struct Utils
 {
 
-    static bool vectorRemove(QVector<int>& vec, int val)
+    static bool vectorRemove(QVector<int> &vec, int val)
     {
         bool ret = false;
         for (int i = 0; i < vec.size(); ++i)
@@ -42,7 +42,7 @@ struct Utils
         return ret;
     }
 
-    static void vectorSortedAddUnique(QVector<int>& vec, int val)
+    static void vectorSortedAddUnique(QVector<int> &vec, int val)
     {
         for (int i = 0; i < vec.size(); ++i)
         {

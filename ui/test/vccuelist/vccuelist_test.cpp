@@ -50,33 +50,33 @@ static const QKeySequence keySequenceB(Qt::Key_B);
 static const QKeySequence keySequenceC(Qt::Key_C);
 static const QKeySequence keySequenceD(Qt::Key_D);
 
-static Chaser* createChaser(Doc* doc)
+static Chaser *createChaser(Doc *doc)
 {
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setChannels(1);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("First");
     s1->setValue(fxi->id(), 0, 255);
     doc->addFunction(s1);
 
-    Scene* s2 = new Scene(doc);
+    Scene *s2 = new Scene(doc);
     s2->setName("Second");
     s2->setValue(fxi->id(), 0, 127);
     doc->addFunction(s2);
 
-    Scene* s3 = new Scene(doc);
+    Scene *s3 = new Scene(doc);
     s3->setName("Third");
     s3->setValue(fxi->id(), 0, 64);
     doc->addFunction(s3);
 
-    Scene* s4 = new Scene(doc);
+    Scene *s4 = new Scene(doc);
     s4->setName("Fourth");
     s4->setValue(fxi->id(), 0, 32);
     doc->addFunction(s4);
 
-    Chaser* c = new Chaser(doc);
+    Chaser *c = new Chaser(doc);
     c->addStep(ChaserStep(s1->id()));
     c->addStep(ChaserStep(s2->id()));
     c->addStep(ChaserStep(s3->id()));
@@ -139,7 +139,7 @@ void VCCueList_Test::chaser()
 {
     QWidget w;
     VCCueList cl(&w, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
 
     // Try to put a non-chaser as the chaser
     cl.setChaser(c->steps().first().fid);
@@ -164,7 +164,7 @@ void VCCueList_Test::functionRemoved()
 {
     QWidget w;
     VCCueList cl(&w, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
     cl.setChaser(c->id());
 
     // Chaser members are removed from list
@@ -216,7 +216,7 @@ void VCCueList_Test::copy()
     QWidget w;
     VCFrame parent(&w, m_doc);
     VCCueList cl(&parent, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
 
     cl.setChaser(c->id());
     cl.setCaption("Wheeee");
@@ -224,7 +224,7 @@ void VCCueList_Test::copy()
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
     cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
 
-    VCCueList* cl2 = qobject_cast<VCCueList*>(cl.createCopy(&parent));
+    VCCueList *cl2 = qobject_cast<VCCueList *>(cl.createCopy(&parent));
     QVERIFY(cl2 != NULL);
     QCOMPARE(cl2->caption(), QString("Wheeee"));
     QCOMPARE(cl2->nextKeySequence(), QKeySequence(keySequenceB));
@@ -254,7 +254,7 @@ void VCCueList_Test::modeChange()
     QWidget w;
     VCFrame parent(&w, m_doc);
     VCCueList cl(&parent, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
     cl.setChaser(c->id());
 
     m_doc->setMode(Doc::Operate);
@@ -275,19 +275,19 @@ void VCCueList_Test::loadXML()
 {
     QWidget w;
 
-    Scene* s1 = new Scene(m_doc);
+    Scene *s1 = new Scene(m_doc);
     s1->setName("The first");
     m_doc->addFunction(s1);
 
-    Scene* s2 = new Scene(m_doc);
+    Scene *s2 = new Scene(m_doc);
     s2->setName("Another one");
     m_doc->addFunction(s2);
 
-    Scene* s3 = new Scene(m_doc);
+    Scene *s3 = new Scene(m_doc);
     s3->setName("The third one");
     m_doc->addFunction(s3);
 
-    Chaser* c4 = new Chaser(m_doc);
+    Chaser *c4 = new Chaser(m_doc);
     c4->setName("The defiant one");
     m_doc->addFunction(c4);
 
@@ -384,19 +384,19 @@ void VCCueList_Test::loadXML()
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(1), s2->name());
     QCOMPARE(cl.m_tree->topLevelItem(2)->text(1), s3->name());
     QCOMPARE(cl.m_tree->topLevelItem(3)->text(1), c4->name());
-    QSharedPointer<QLCInputSource> const& ni = cl.inputSource(VCCueList::nextInputSourceId);
+    QSharedPointer<QLCInputSource> const &ni = cl.inputSource(VCCueList::nextInputSourceId);
     QCOMPARE(ni->universe(), quint32(0));
     QCOMPARE(ni->channel(), quint32(1));
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceD));
-    QSharedPointer<QLCInputSource> const& pi = cl.inputSource(VCCueList::previousInputSourceId);
+    QSharedPointer<QLCInputSource> const &pi = cl.inputSource(VCCueList::previousInputSourceId);
     QCOMPARE(pi->universe(), quint32(2));
     QCOMPARE(pi->channel(), quint32(3));
     QCOMPARE(cl.previousKeySequence(), QKeySequence(keySequenceC));
-    QSharedPointer<QLCInputSource> const& pli = cl.inputSource(VCCueList::playbackInputSourceId);
+    QSharedPointer<QLCInputSource> const &pli = cl.inputSource(VCCueList::playbackInputSourceId);
     QCOMPARE(pli->universe(), quint32(4));
     QCOMPARE(pli->channel(), quint32(5));
     QCOMPARE(cl.playbackKeySequence(), QKeySequence(keySequenceA));
-    QSharedPointer<QLCInputSource> const& si = cl.inputSource(VCCueList::stopInputSourceId);
+    QSharedPointer<QLCInputSource> const &si = cl.inputSource(VCCueList::stopInputSourceId);
     QCOMPARE(si->universe(), quint32(0));
     QCOMPARE(si->channel(), quint32(6));
     QCOMPARE(cl.stopKeySequence(), QKeySequence(keySequenceB));
@@ -431,7 +431,7 @@ void VCCueList_Test::saveXML()
 {
     QWidget w;
     VCCueList cl(&w, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
     cl.setChaser(c->id());
 
     cl.setCaption("Testing");
@@ -635,14 +635,14 @@ void VCCueList_Test::nextPrevious()
     QWidget w;
 
     VCCueList cl(&w, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
     QCOMPARE(c->steps().size(), 4);
-    Scene* s1 = qobject_cast<Scene*>(m_doc->function(c->steps()[0].fid));
-    Scene* s2 = qobject_cast<Scene*>(m_doc->function(c->steps()[1].fid));
-    Scene* s3 = qobject_cast<Scene*>(m_doc->function(c->steps()[2].fid));
-    Scene* s4 = qobject_cast<Scene*>(m_doc->function(c->steps()[3].fid));
+    Scene *s1 = qobject_cast<Scene *>(m_doc->function(c->steps()[0].fid));
+    Scene *s2 = qobject_cast<Scene *>(m_doc->function(c->steps()[1].fid));
+    Scene *s3 = qobject_cast<Scene *>(m_doc->function(c->steps()[2].fid));
+    Scene *s4 = qobject_cast<Scene *>(m_doc->function(c->steps()[3].fid));
     Q_ASSERT(s1 && s2 && s3 && s4);
 
     // Not in operate mode, check for crashes
@@ -653,7 +653,7 @@ void VCCueList_Test::nextPrevious()
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
-    MasterTimer* timer = m_doc->masterTimer();
+    MasterTimer *timer = m_doc->masterTimer();
 
     // Create runner with a next action -> first item should be activated
     cl.slotNextCue();
@@ -742,18 +742,18 @@ void VCCueList_Test::manualActivation()
 {
     QWidget w;
     VCCueList cl(&w, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
-    Scene* s1 = qobject_cast<Scene*>(m_doc->function(c->steps()[0].fid));
+    Scene *s1 = qobject_cast<Scene *>(m_doc->function(c->steps()[0].fid));
     // Scene* s2 = qobject_cast<Scene*> (m_doc->function(c->steps()[1].fid));
-    Scene* s3 = qobject_cast<Scene*>(m_doc->function(c->steps()[2].fid));
+    Scene *s3 = qobject_cast<Scene *>(m_doc->function(c->steps()[2].fid));
     // Scene* s4 = qobject_cast<Scene*> (m_doc->function(c->steps()[3].fid));
     Q_ASSERT(s1 /*&& s2*/ && s3 /* && s4*/);
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
-    MasterTimer* timer = m_doc->masterTimer();
+    MasterTimer *timer = m_doc->masterTimer();
 
     // QVERIFY(cl.m_runner == NULL);
     cl.slotItemActivated(cl.m_tree->topLevelItem(2));
@@ -810,7 +810,7 @@ void VCCueList_Test::keyboardNextPrevious()
 {
     QWidget w;
     VCCueList cl(&w, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
 
@@ -820,7 +820,7 @@ void VCCueList_Test::keyboardNextPrevious()
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
-    MasterTimer* timer = m_doc->masterTimer();
+    MasterTimer *timer = m_doc->masterTimer();
 
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
@@ -869,7 +869,7 @@ void VCCueList_Test::input()
 {
     QWidget w;
     VCCueList cl(&w, m_doc);
-    Chaser* c = createChaser(m_doc);
+    Chaser *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
 
@@ -879,7 +879,7 @@ void VCCueList_Test::input()
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
-    MasterTimer* timer = m_doc->masterTimer();
+    MasterTimer *timer = m_doc->masterTimer();
 
     // Runner creation thru "next" input
     cl.slotInputValueChanged(5, 3, 255);

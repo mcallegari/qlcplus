@@ -39,7 +39,7 @@ ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     duration = fadeIn + hold;
 }
 
-ChaserStep::ChaserStep(const ChaserStep& cs)
+ChaserStep::ChaserStep(const ChaserStep &cs)
     : fid(cs.fid)
     , fadeIn(cs.fadeIn)
     , hold(cs.hold)
@@ -50,7 +50,7 @@ ChaserStep::ChaserStep(const ChaserStep& cs)
 {
 }
 
-ChaserStep& ChaserStep::operator=(const ChaserStep& step)
+ChaserStep &ChaserStep::operator=(const ChaserStep &step)
 {
     if (this != &step)
     {
@@ -66,12 +66,12 @@ ChaserStep& ChaserStep::operator=(const ChaserStep& step)
     return *this;
 }
 
-bool ChaserStep::operator==(const ChaserStep& cs) const
+bool ChaserStep::operator==(const ChaserStep &cs) const
 {
     return (fid == cs.fid) ? true : false;
 }
 
-Function* ChaserStep::resolveFunction(const Doc* doc) const
+Function *ChaserStep::resolveFunction(const Doc *doc) const
 {
     if (doc == NULL)
         return NULL;
@@ -79,7 +79,7 @@ Function* ChaserStep::resolveFunction(const Doc* doc) const
         return doc->function(fid);
 }
 
-int ChaserStep::setValue(SceneValue value, int index, bool* created)
+int ChaserStep::setValue(SceneValue value, int index, bool *created)
 {
     if (index == -1)
     {
@@ -151,7 +151,7 @@ QVariant ChaserStep::toVariant() const
     return list;
 }
 
-ChaserStep ChaserStep::fromVariant(const QVariant& var)
+ChaserStep ChaserStep::fromVariant(const QVariant &var)
 {
     ChaserStep cs;
     QList<QVariant> list(var.toList());
@@ -167,7 +167,7 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     return cs;
 }
 
-bool ChaserStep::loadXML(QXmlStreamReader& root, int& stepNumber, Doc* doc)
+bool ChaserStep::loadXML(QXmlStreamReader &root, int &stepNumber, Doc *doc)
 {
     bool holdFound = false;
     if (root.name() != KXMLQLCFunctionStep)
@@ -263,7 +263,7 @@ bool ChaserStep::loadXML(QXmlStreamReader& root, int& stepNumber, Doc* doc)
     return true;
 }
 
-bool ChaserStep::saveXML(QXmlStreamWriter* doc, int stepNumber, bool isSequence) const
+bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const
 {
     /* Step tag */
     doc->writeStartElement(KXMLQLCFunctionStep);

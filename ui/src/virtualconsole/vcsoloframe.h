@@ -45,7 +45,7 @@ class VCSoloFrame : public VCFrame
      * Initialization
      *************************************************************************/
 public:
-    VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse = false);
+    VCSoloFrame(QWidget *parent, Doc *doc, bool canCollapse = false);
     virtual ~VCSoloFrame();
 
     /*************************************************************************
@@ -53,11 +53,11 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    virtual VCWidget* createCopy(VCWidget* parent);
+    virtual VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    virtual bool copyFrom(const VCWidget* widget);
+    virtual bool copyFrom(const VCWidget *widget);
 
     /*************************************************************************
      * Solo behaviour
@@ -71,7 +71,7 @@ public:
 protected:
     /** Method that returns true if $widget's nearest parent
      *  is this Solo Frame. Otherwise false is returned */
-    bool thisIsNearestSoloFrameParent(QWidget* widget);
+    bool thisIsNearestSoloFrameParent(QWidget *widget);
 
     /** @reimp */
     virtual void setLiveEdit(bool liveEdit);
@@ -107,7 +107,7 @@ protected:
      * Event handlers
      *************************************************************************/
 protected:
-    virtual void paintEvent(QPaintEvent* e);
+    virtual void paintEvent(QPaintEvent *e);
 };
 
 /** @} */

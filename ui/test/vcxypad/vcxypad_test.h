@@ -40,7 +40,7 @@ private slots:
     void modeChange();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 };
 
 #endif

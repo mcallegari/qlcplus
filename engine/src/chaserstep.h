@@ -46,17 +46,17 @@ public:
     ChaserStep(quint32 aFid = Function::invalidId(), uint aFadeIn = 0, uint aHold = 0, uint aFadeOut = 0);
 
     /** Copy constructor */
-    ChaserStep(const ChaserStep& cs);
+    ChaserStep(const ChaserStep &cs);
 
-    ChaserStep& operator=(const ChaserStep& step);
+    ChaserStep &operator=(const ChaserStep &step);
 
     /** Comparison operator (only function IDs are compared) */
-    bool operator==(const ChaserStep& cs) const;
+    bool operator==(const ChaserStep &cs) const;
 
     /** Return the actual function pointer for $fid from $doc */
-    Function* resolveFunction(const Doc* doc) const;
+    Function *resolveFunction(const Doc *doc) const;
 
-    int setValue(SceneValue value, int index = -1, bool* created = NULL);
+    int setValue(SceneValue value, int index = -1, bool *created = NULL);
 
     int unSetValue(SceneValue value, int index = -1);
 
@@ -66,7 +66,7 @@ public:
 public:
 #if 1
     /** Construct a new ChaserStep from the given QVariant */
-    static ChaserStep fromVariant(const QVariant& var);
+    static ChaserStep fromVariant(const QVariant &var);
 
     /** Construct a QVariant from a ChaserStep */
     QVariant toVariant() const;
@@ -77,10 +77,10 @@ public:
 public:
     /** Load ChaserStep contents from $root and return step index in $stepNumber.
      * $doc is used to check fixture existance. If NULL the check is skipped */
-    bool loadXML(QXmlStreamReader& root, int& stepNumber, Doc* doc);
+    bool loadXML(QXmlStreamReader &root, int &stepNumber, Doc *doc);
 
     /** Save ChaserStep contents to $doc, with $stepNumber */
-    bool saveXML(QXmlStreamWriter* doc, int stepNumber, bool isSequence) const;
+    bool saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const;
 
 public:
     quint32 fid;              //! The function ID

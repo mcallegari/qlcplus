@@ -30,7 +30,7 @@
 #include "qhttpserver.h"
 #include "qhttpconnection.h"
 
-QHttpResponse::QHttpResponse(QHttpConnection* connection)
+QHttpResponse::QHttpResponse(QHttpConnection *connection)
     // TODO: parent child relation
     : QObject(0)
     , m_connection(connection)
@@ -50,7 +50,7 @@ QHttpResponse::QHttpResponse(QHttpConnection* connection)
 
 QHttpResponse::~QHttpResponse() {}
 
-void QHttpResponse::setHeader(const QString& field, const QString& value)
+void QHttpResponse::setHeader(const QString &field, const QString &value)
 {
     if (!m_finished)
         m_headers[field] = value;
@@ -58,7 +58,7 @@ void QHttpResponse::setHeader(const QString& field, const QString& value)
         qWarning() << "QHttpResponse::setHeader() Cannot set headers after response has finished.";
 }
 
-void QHttpResponse::writeHeader(const char* field, const QString& value)
+void QHttpResponse::writeHeader(const char *field, const QString &value)
 {
     if (!m_finished)
     {
@@ -76,7 +76,7 @@ void QHttpResponse::writeHeaders()
     if (m_finished)
         return;
 
-    foreach (const QString& name, m_headers.keys())
+    foreach (const QString &name, m_headers.keys())
     {
         QString value = m_headers[name];
         if (name.compare("connection", Qt::CaseInsensitive) == 0)
@@ -127,8 +127,7 @@ void QHttpResponse::writeHeaders()
     // Sun, 06 Nov 1994 08:49:37 GMT - RFC 822. Use QLocale::c() so english is used for month and
     // day.
     if (!m_sentDate)
-        writeHeader("Date",
-                    QLocale::c().toString(QDateTime::currentDateTimeUtc(), "ddd, dd MMM yyyy hh:mm:ss") + " GMT");
+        writeHeader("Date", QLocale::c().toString(QDateTime::currentDateTimeUtc(), "ddd, dd MMM yyyy hh:mm:ss") + " GMT");
 }
 
 void QHttpResponse::writeHead(int status)
@@ -157,7 +156,7 @@ void QHttpResponse::writeHead(StatusCode statusCode)
     writeHead(static_cast<int>(statusCode));
 }
 
-void QHttpResponse::write(const QByteArray& data)
+void QHttpResponse::write(const QByteArray &data)
 {
     if (m_finished)
     {
@@ -193,12 +192,12 @@ QByteArray QHttpResponse::getWebSocketHandshake(QString clientKey)
     return crypto.result().toBase64();
 }
 
-QHttpConnection* QHttpResponse::enableWebSocket(bool enable)
+QHttpConnection *QHttpResponse::enableWebSocket(bool enable)
 {
     return m_connection->enableWebSocket(enable);
 }
 
-void QHttpResponse::end(const QByteArray& data)
+void QHttpResponse::end(const QByteArray &data)
 {
     if (m_finished)
     {

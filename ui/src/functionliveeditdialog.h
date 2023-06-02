@@ -33,16 +33,16 @@ class FunctionLiveEditDialog : public QDialog
 {
     Q_OBJECT
 public:
-    FunctionLiveEditDialog(Doc* doc, quint32 fid, QWidget* parent = 0);
+    FunctionLiveEditDialog(Doc *doc, quint32 fid, QWidget *parent = 0);
 
     ~FunctionLiveEditDialog();
 
 private:
-    Doc* m_doc;
-    QWidget* m_editor;
+    Doc *m_doc;
+    QWidget *m_editor;
 
 protected:
-    QScrollArea* m_scrollArea;
+    QScrollArea *m_scrollArea;
 
 signals:
 

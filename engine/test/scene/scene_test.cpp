@@ -162,50 +162,50 @@ void Scene_Test::values()
 
 void Scene_Test::colorValue()
 {
-    Doc* doc = new Doc(this);
-    QList<Universe*> ua;
+    Doc *doc = new Doc(this);
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Generic", "Generic RGB");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Generic", "Generic RGB");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->mode("Dimmer RGB");
+    QLCFixtureMode *mode = def->mode("Dimmer RGB");
     QVERIFY(mode != NULL);
 
-    Fixture* fxi1 = new Fixture(doc);
+    Fixture *fxi1 = new Fixture(doc);
     fxi1->setFixtureDefinition(def, mode);
     QCOMPARE(fxi1->channels(), quint32(4));
     fxi1->setAddress(0);
     fxi1->setUniverse(0);
     doc->addFixture(fxi1);
 
-    QLCFixtureDef* def2 = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "PCC-250CMY");
+    QLCFixtureDef *def2 = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "PCC-250CMY");
     QVERIFY(def2 != NULL);
 
-    QLCFixtureMode* mode2 = def2->mode("Mode 1");
+    QLCFixtureMode *mode2 = def2->mode("Mode 1");
     QVERIFY(mode2 != NULL);
 
-    Fixture* fxi2 = new Fixture(doc);
+    Fixture *fxi2 = new Fixture(doc);
     fxi2->setFixtureDefinition(def2, mode2);
     QCOMPARE(fxi2->channels(), quint32(12));
     fxi2->setAddress(50);
     fxi2->setUniverse(0);
     doc->addFixture(fxi2);
 
-    QLCFixtureDef* def3 = m_doc->fixtureDefCache()->fixtureDef("Showtec", "Phantom 95 LED Spot");
+    QLCFixtureDef *def3 = m_doc->fixtureDefCache()->fixtureDef("Showtec", "Phantom 95 LED Spot");
     QVERIFY(def3 != NULL);
 
-    QLCFixtureMode* mode3 = def3->mode("15 Channels");
+    QLCFixtureMode *mode3 = def3->mode("15 Channels");
     QVERIFY(mode3 != NULL);
 
-    Fixture* fxi3 = new Fixture(doc);
+    Fixture *fxi3 = new Fixture(doc);
     fxi3->setFixtureDefinition(def3, mode3);
     QCOMPARE(fxi3->channels(), quint32(15));
     fxi3->setAddress(80);
     fxi3->setUniverse(0);
     doc->addFixture(fxi3);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     QVERIFY(s1->values().size() == 0);
     doc->addFunction(s1);
 
@@ -238,7 +238,7 @@ void Scene_Test::channelGroup()
     QVERIFY(s.channelGroups().count() == 0);
     QVERIFY(s.channelGroupsLevels().count() == 0);
 
-    ChannelsGroup* cg = new ChannelsGroup(m_doc);
+    ChannelsGroup *cg = new ChannelsGroup(m_doc);
     cg->addChannel(0, 1);
     cg->addChannel(0, 2);
     cg->addChannel(0, 3);
@@ -538,7 +538,7 @@ void Scene_Test::createCopy()
 {
     Doc doc(this);
 
-    Scene* s1 = new Scene(m_doc);
+    Scene *s1 = new Scene(m_doc);
     s1->setName("First");
     s1->setFadeInSpeed(200);
     s1->setFadeOutSpeed(2000);
@@ -550,12 +550,12 @@ void Scene_Test::createCopy()
     doc.addFunction(s1);
     QVERIFY(s1->id() != Function::invalidId());
 
-    Function* f = s1->createCopy(&doc);
+    Function *f = s1->createCopy(&doc);
     QVERIFY(f != NULL);
     QVERIFY(f != s1);
     QVERIFY(f->id() != s1->id());
 
-    Scene* copy = qobject_cast<Scene*>(f);
+    Scene *copy = qobject_cast<Scene *>(f);
     QVERIFY(copy != NULL);
     QVERIFY(copy->fadeInSpeed() == 200);
     QVERIFY(copy->fadeOutSpeed() == 2000);
@@ -568,19 +568,19 @@ void Scene_Test::createCopy()
 
 void Scene_Test::preRunPostRun()
 {
-    Doc* doc = new Doc(this);
-    QList<Universe*> ua;
+    Doc *doc = new Doc(this);
+    QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setName("Test Fixture");
     fxi->setAddress(15);
     fxi->setUniverse(0);
     fxi->setChannels(10);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("First");
     s1->setValue(fxi->id(), 0, 123);
     s1->setValue(fxi->id(), 7, 45);
@@ -602,17 +602,17 @@ void Scene_Test::preRunPostRun()
 
 void Scene_Test::flashUnflash()
 {
-    Doc* doc = new Doc(this);
-    QList<Universe*> ua;
+    Doc *doc = new Doc(this);
+    QList<Universe *> ua;
     MasterTimer timer(doc);
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(10);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("First");
     s1->setValue(fxi->id(), 0, 123);
     s1->setValue(fxi->id(), 1, 45);
@@ -665,17 +665,17 @@ void Scene_Test::flashUnflash()
 
 void Scene_Test::writeHTPZeroTicks()
 {
-    Doc* doc = new Doc(this);
+    Doc *doc = new Doc(this);
     MasterTimer timer(doc);
-    QList<Universe*> ua;
+    QList<Universe *> ua;
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(10);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setFadeInSpeed(0);
     s1->setFadeOutSpeed(0);
     s1->setName("First");
@@ -709,24 +709,24 @@ void Scene_Test::writeHTPZeroTicks()
 
 void Scene_Test::writeHTPTwoTicks()
 {
-    Doc* doc = new Doc(this);
+    Doc *doc = new Doc(this);
     MasterTimer timer(doc);
-    QList<Universe*> ua;
+    QList<Universe *> ua;
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode *mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setFixtureDefinition(def, mode);
     QCOMPARE(fxi->channels(), quint32(6));
     fxi->setAddress(0);
     fxi->setUniverse(0);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("First");
     s1->setFadeInSpeed(MasterTimer::tick() * 2);
     s1->setFadeOutSpeed(MasterTimer::tick() * 2);
@@ -823,24 +823,24 @@ void Scene_Test::writeHTPTwoTicks()
 
 void Scene_Test::writeHTPTwoTicksIntensity()
 {
-    Doc* doc = new Doc(this);
+    Doc *doc = new Doc(this);
     MasterTimer timer(doc);
-    QList<Universe*> ua;
+    QList<Universe *> ua;
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode *mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setFixtureDefinition(def, mode);
     QCOMPARE(fxi->channels(), quint32(6));
     fxi->setAddress(0);
     fxi->setUniverse(0);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("First");
     s1->setFadeInSpeed(MasterTimer::tick() * 2);
     s1->setFadeOutSpeed(MasterTimer::tick() * 2);
@@ -925,24 +925,24 @@ void Scene_Test::writeHTPTwoTicksIntensity()
 
 void Scene_Test::writeLTPReady()
 {
-    Doc* doc = new Doc(this);
+    Doc *doc = new Doc(this);
     MasterTimer timer(doc);
-    QList<Universe*> ua;
+    QList<Universe *> ua;
 
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode *mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
-    Fixture* fxi = new Fixture(doc);
+    Fixture *fxi = new Fixture(doc);
     fxi->setFixtureDefinition(def, mode);
     QCOMPARE(fxi->channels(), quint32(6));
     fxi->setAddress(0);
     fxi->setUniverse(0);
     doc->addFixture(fxi);
 
-    Scene* s1 = new Scene(doc);
+    Scene *s1 = new Scene(doc);
     s1->setName("First");
     s1->setFadeInSpeed(MasterTimer::tick() * 2);
     s1->setFadeOutSpeed(MasterTimer::tick() * 2);

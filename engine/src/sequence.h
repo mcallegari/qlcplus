@@ -37,7 +37,7 @@ class Sequence : public Chaser
      * Initialization
      *********************************************************************/
 public:
-    Sequence(Doc* doc);
+    Sequence(Doc *doc);
     virtual ~Sequence();
 
     /** @reimp */
@@ -48,10 +48,10 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function *createCopy(Doc *doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function *function);
 
     /*********************************************************************
      * Bound Scene
@@ -88,10 +88,10 @@ protected:
      *********************************************************************/
 public:
     /** @reimpl */
-    bool saveXML(QXmlStreamWriter* doc);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimpl */
-    bool loadXML(QXmlStreamReader& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();

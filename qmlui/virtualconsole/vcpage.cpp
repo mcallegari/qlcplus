@@ -21,7 +21,7 @@
 
 #include "previewcontext.h"
 
-VCPage::VCPage(QQuickView* view, Doc* doc, VirtualConsole* vc, int pageIndex, QObject* parent)
+VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QObject *parent)
     : VCFrame(doc, vc, parent)
     , m_pageScale(1.0)
 {
@@ -39,7 +39,7 @@ VCPage::VCPage(QQuickView* view, Doc* doc, VirtualConsole* vc, int pageIndex, QO
 
 VCPage::~VCPage() {}
 
-PreviewContext* VCPage::previewContext() const
+PreviewContext *VCPage::previewContext() const
 {
     return m_pageContext;
 }
@@ -53,7 +53,7 @@ void VCPage::setPageScale(qreal factor)
 {
     m_pageScale = m_pageScale + factor;
 
-    foreach (VCWidget* child, children(true))
+    foreach (VCWidget *child, children(true))
         child->setScaleFactor(m_pageScale);
 }
 
@@ -61,7 +61,7 @@ void VCPage::setPageScale(qreal factor)
  * External input
  *********************************************************************/
 
-void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget* widget, bool checkChildren)
+void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget, bool checkChildren)
 {
     if (source->isValid() == false || widget == nullptr)
         return;
@@ -77,14 +77,14 @@ void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget* wid
      *  This is because input signals come without it, so the page match
      *  has to be performed later */
     quint32 key = (source->universe() << 16) | (source->channel() & 0x0000FFFF);
-    QPair<QSharedPointer<QLCInputSource>, VCWidget*> refs;
+    QPair<QSharedPointer<QLCInputSource>, VCWidget *> refs;
     refs.first = source;
     refs.second = widget;
 
     m_inputSourcesMap.insert(key, refs);
 }
 
-void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget* widget, bool checkChildren)
+void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget, bool checkChildren)
 {
     if (widget == nullptr)
         return;
@@ -98,7 +98,7 @@ void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCW
 
     // qDebug() << "Multihash keys before deletion:" << m_inputSourcesMap.count(key);
 
-    for (QPair<QSharedPointer<QLCInputSource>, VCWidget*> match : m_inputSourcesMap.values(key)) // C++11
+    for (QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
     {
         if (match.first->id() == id && match.first->page() == page)
         {
@@ -113,7 +113,7 @@ void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCW
 void VCPage::mapChildrenInputSources()
 {
     /** Scan all the children widgets and map the detected input sources */
-    for (VCWidget* widget : children(true)) // C++11
+    for (VCWidget *widget : children(true)) // C++11
     {
         for (QSharedPointer<QLCInputSource> source : widget->inputSources()) // C++11
             mapInputSource(source, widget);
@@ -135,7 +135,7 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
      *  check also if the page matches and finally inform the VC widget
      *  about the event, including the source ID
      */
-    for (QPair<QSharedPointer<QLCInputSource>, VCWidget*> match : m_inputSourcesMap.values(key)) // C++11
+    for (QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
     {
         // make sure input signals always pass to frame widgets
         bool passDisable =
@@ -157,7 +157,7 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
     }
 }
 
-void VCPage::mapKeySequence(QKeySequence sequence, quint32 id, VCWidget* widget, bool checkChildren)
+void VCPage::mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
 {
     if (sequence.isEmpty() || widget == nullptr)
         return;
@@ -166,14 +166,14 @@ void VCPage::mapKeySequence(QKeySequence sequence, quint32 id, VCWidget* widget,
     if (checkChildren && children(true).contains(widget) == false)
         return;
 
-    QPair<quint32, VCWidget*> refs;
+    QPair<quint32, VCWidget *> refs;
     refs.first = id;
     refs.second = widget;
 
     m_keySequencesMap.insert(sequence, refs);
 }
 
-void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget* widget, bool checkChildren)
+void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
 {
     if (sequence.isEmpty() || widget == nullptr)
         return;
@@ -182,7 +182,7 @@ void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget* widge
     if (checkChildren && children(true).contains(widget) == false)
         return;
 
-    for (QPair<quint32, VCWidget*> match : m_keySequencesMap.values(sequence)) // C++11
+    for (QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
     {
         if (match.first == id && match.second == widget)
         {
@@ -194,7 +194,7 @@ void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget* widge
     }
 }
 
-void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget* widget, bool checkChildren)
+void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
 {
     if (sequence.isEmpty() || widget == nullptr)
         return;
@@ -206,7 +206,7 @@ void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidge
     quint32 oldId = UINT_MAX;
 
     /** Perform a lookup of the existing map to find the old control ID */
-    for (QPair<quint32, VCWidget*> match : m_keySequencesMap.values(sequence)) // C++11
+    for (QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
     {
         if (match.second == widget)
         {
@@ -230,7 +230,7 @@ void VCPage::buildKeySequenceMap()
 {
     m_keySequencesMap.clear();
 
-    for (VCWidget* widget : children(true))
+    for (VCWidget *widget : children(true))
     {
         QMap<QKeySequence, quint32> kMap = widget->keySequenceMap();
         if (kMap.isEmpty())
@@ -242,11 +242,11 @@ void VCPage::buildKeySequenceMap()
     }
 }
 
-void VCPage::handleKeyEvent(QKeyEvent* e, bool pressed)
+void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
 {
     QKeySequence seq(e->key() | e->modifiers());
 
-    for (QPair<quint32, VCWidget*> match : m_keySequencesMap.values(seq)) // C++11
+    for (QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11
     {
         // make sure input signals always pass to frame widgets
         bool passDisable =
