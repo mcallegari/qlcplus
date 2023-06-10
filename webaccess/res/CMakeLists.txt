@@ -1,13 +1,20 @@
-cmake_minimum_required(VERSION 3.16)
-project(webfiles VERSION 1.0 LANGUAGES C CXX)
+project(webfiles)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# Set the files for the webfiles target
+set(WEBFILES
+    common.css
+    keypad.html
+    networkconfig.js
+    simpledesk.css
+    simpledesk.js
+    virtualconsole.css
+    virtualconsole.js
+    configuration.js
+    websocket.js
+)
 
-# Set up AUTOMOC and some sensible defaults for runtime execution
-# When using Qt 6.3, you can replace the code block below with
-# qt_standard_project_setup()
-set(CMAKE_AUTOMOC ON)
-include(GNUInstallDirs)
+# Set the path for the webfiles target
+set(WEBFILES_PATH "${INSTALLROOT}/${WEBFILESDIR}")
 
-find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
-
+# Install the webfiles target to the specified path
+install(FILES ${WEBFILES} DESTINATION ${WEBFILES_PATH})
