@@ -10,7 +10,7 @@ endif()
 
 set(module_name "madplugin")
 
-add_library(${module_name})
+add_library(${module_name} SHARED)
 target_sources(${module_name} PRIVATE
     ../../src/audiodecoder.cpp ../../src/audiodecoder.h
     ../../src/audioparameters.cpp ../../src/audioparameters.h

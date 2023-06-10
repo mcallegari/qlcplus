@@ -33,7 +33,7 @@ include(GNUInstallDirs)
 find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets)
 
-add_library(${module_name}
+add_library(${module_name} SHARED
     ${QM_FILES}
 )
 target_sources(${module_name} PRIVATE
