@@ -19,7 +19,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_library(${module_name}
+add_library(${module_name} SHARED
     ${QM_FILES}
 )
 
