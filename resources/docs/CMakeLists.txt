@@ -1,13 +1,7 @@
-cmake_minimum_required(VERSION 3.16)
-project(docs VERSION 1.0 LANGUAGES C CXX)
+project(docs)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+file(GLOB HTML_FILES "${CMAKE_CURRENT_SOURCE_DIR}/html_en_EN/*.html")
+install(FILES ${HTML_FILES} DESTINATION ${INSTALLROOT}/${DOCSDIR}/html)
 
-# Set up AUTOMOC and some sensible defaults for runtime execution
-# When using Qt 6.3, you can replace the code block below with
-# qt_standard_project_setup()
-set(CMAKE_AUTOMOC ON)
-include(GNUInstallDirs)
-
-find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
-
+file(GLOB IMAGE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/images/*.png")
+install(FILES ${IMAGE_FILES} DESTINATION ${INSTALLROOT}/${DOCSDIR}/images)

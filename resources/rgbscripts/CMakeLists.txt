@@ -1,13 +1,44 @@
-cmake_minimum_required(VERSION 3.16)
-project(scripts VERSION 1.0 LANGUAGES C CXX)
+project(scripts)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(SCRIPT_FILES
+    alternate.js
+    balls.js
+    ballscolors.js
+    blinder.js
+    circles.js
+    circular.js
+    evenodd.js
+    fill.js
+    fillfromcenter.js
+    fillunfill.js
+    fillunfillfromcenter.js
+    fillunfillsquaresfromcenter.js
+    fireworks.js
+    flyingobjects.js
+    gradient.js
+    lines.js
+    noise.js
+    onebyone.js
+    opposite.js
+    plasma.js
+    plasmacolors.js
+    randomcolumn.js
+    randomfillcolumn.js
+    randomfillrow.js
+    randomfillsingle.js
+    randompixelperrow.js
+    randompixelperrowmulticolor.js
+    randomrow.js
+    randomsingle.js
+    snowbubbles.js
+    squares.js
+    squaresfromcenter.js
+    starfield.js
+    stripes.js
+    stripesfromcenter.js
+    strobe.js
+    verticalfall.js
+    waves.js
+)
 
-# Set up AUTOMOC and some sensible defaults for runtime execution
-# When using Qt 6.3, you can replace the code block below with
-# qt_standard_project_setup()
-set(CMAKE_AUTOMOC ON)
-include(GNUInstallDirs)
-
-find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
-
+install(FILES ${SCRIPT_FILES} DESTINATION ${INSTALLROOT}/${RGBSCRIPTDIR})
