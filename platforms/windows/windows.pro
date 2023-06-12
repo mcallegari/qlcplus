@@ -185,8 +185,11 @@ exists($$SYS_LIBS_PATH/libogg-0.dll) {
 exists($$SYS_LIBS_PATH/libopus-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libopus-0.dll
 }
-exists($$SYS_LIBS_PATH/libssp-0.dll) {
-    audio.files += $$SYS_LIBS_PATH/libssp-0.dll
+exists($$SYS_LIBS_PATH/libmp3lame-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libmp3lame-0.dll
+}
+exists($$SYS_LIBS_PATH/libmpg123-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libmpg123-0.dll
 }
 exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libvorbis-0.dll
