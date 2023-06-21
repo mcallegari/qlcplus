@@ -147,7 +147,8 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             input_id += 2;
             widgetList << promkii;
         }
-        else if (productName.contains("DMX USB PRO") || productName.contains("ULTRADMX"))
+        else if (productName.contains("DMX USB PRO") || productName.contains("ULTRADMX") ||
+                 (iface->vendorID() == DMXInterface::NXPVID && iface->productID() == DMXInterface::DMXKINGMAXPID))
         {
             /** Check if the device responds to label 77 and 78, so it might be a DMXking adapter */
             int ESTAID = 0;
