@@ -114,14 +114,14 @@ void OutputPatch_Test::dump()
     QVERIFY(stub->m_universe[169] == (char) 0);
     QVERIFY(stub->m_universe[511] == (char) 0);
 
-    op->dump(0, uni);
+    op->dump(0, uni, true);
     QVERIFY(stub->m_universe[0] == (char) 100);
     QVERIFY(stub->m_universe[169] == (char) 50);
     QVERIFY(stub->m_universe[511] == (char) 25);
 
     /* Test the pause state */
     op->setPaused(true);
-    op->dump(0, uni);
+    op->dump(0, uni, true);
     QVERIFY(stub->m_universe[0] == (char) 100);
     QVERIFY(stub->m_universe[169] == (char) 50);
     QVERIFY(stub->m_universe[511] == (char) 25);
@@ -130,13 +130,13 @@ void OutputPatch_Test::dump()
     uni[169] = 2;
     uni[511] = 3;
 
-    op->dump(0, uni);
+    op->dump(0, uni, true);
     QVERIFY(stub->m_universe[0] == (char) 100);
     QVERIFY(stub->m_universe[169] == (char) 50);
     QVERIFY(stub->m_universe[511] == (char) 25);
 
     op->setPaused(false);
-    op->dump(0, uni);
+    op->dump(0, uni, true);
     QVERIFY(stub->m_universe[0] == (char) 1);
     QVERIFY(stub->m_universe[169] == (char) 2);
     QVERIFY(stub->m_universe[511] == (char) 3);

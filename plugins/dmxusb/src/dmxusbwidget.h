@@ -33,6 +33,7 @@
   #include "qtserial-interface.h"
 #endif
 
+#define DMX_CHANNELS                512
 #define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs
 
 typedef struct
@@ -251,7 +252,7 @@ public:
      * @param universe The DMX universe to send
      * @return true if the values were sent successfully, otherwise false
      */
-    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 };
 
 #endif

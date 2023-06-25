@@ -186,7 +186,7 @@ QString EuroliteUSBDMXPro::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
@@ -200,8 +200,12 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
 #endif
 
     if (m_outputLines[0].m_universeData.size() == 0)
+    {
         m_outputLines[0].m_universeData.append(data);
-    else
+        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+    }
+
+    if (dataChanged)
         m_outputLines[0].m_universeData.replace(0, data.size(), data);
 
     return true;

@@ -58,7 +58,7 @@ public:
     QString additionalInfo() const;
 
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 protected:
     /** Stop the writer thread */

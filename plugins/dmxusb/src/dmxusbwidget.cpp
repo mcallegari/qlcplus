@@ -507,11 +507,12 @@ bool DMXUSBWidget::sendRDMCommand(quint32 universe, quint32 line, uchar command,
  * Write universe
  ****************************************************************************/
 
-bool DMXUSBWidget::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool DMXUSBWidget::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
 
     return false;
 }
