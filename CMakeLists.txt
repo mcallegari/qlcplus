@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 project(qlc VERSION 1.0 LANGUAGES C CXX)
 
 
@@ -6,6 +6,10 @@ project(qlc VERSION 1.0 LANGUAGES C CXX)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif()
+
+# Prevent CMake make install strips off non-standard build paths
+# Refer to https://stackoverflow.com/questions/7970544/cmake-make-install-output-cant-find-shared-qt-libraries-under-redhat
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 if(UNIX)
     if (MACOS)
