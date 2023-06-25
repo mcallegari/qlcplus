@@ -486,7 +486,7 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
     if (m_outputLines[devLine].m_universeData.size() == 0)
     {
         m_outputLines[devLine].m_universeData.append(data);
-        m_outputLines[devLine].m_universeData.append(QByteArray(DMX_CHANNELS - data.size(), 0));
+        m_outputLines[devLine].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)

@@ -202,7 +202,7 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
     if (m_outputLines[0].m_universeData.size() == 0)
     {
         m_outputLines[0].m_universeData.append(data);
-        m_outputLines[0].m_universeData.append(QByteArray(DMX_CHANNELS - data.size(), 0));
+        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)
