@@ -127,7 +127,7 @@ QString UARTPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void UARTPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void UARTPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
 

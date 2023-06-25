@@ -193,13 +193,13 @@ QString DMXUSB::outputInfo(quint32 output)
     return str;
 }
 
-void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     if (output < quint32(m_outputs.size()))
     {
-        QByteArray wholeuniverse(512, 0);
-        wholeuniverse.replace(0, data.length(), data);
-        m_outputs.at(output)->writeUniverse(universe, output, wholeuniverse);
+        //QByteArray wholeuniverse(512, 0);
+        //wholeuniverse.replace(0, data.length(), data);
+        m_outputs.at(output)->writeUniverse(universe, output, data, dataChanged);
     }
 }
 

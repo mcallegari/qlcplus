@@ -209,13 +209,14 @@ QString HIDPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
-    Q_UNUSED(universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != QLCIOPlugin::invalidLine())
     {
-        HIDDevice* dev = deviceOutput(output);
+        HIDDevice *dev = deviceOutput(output);
         if (dev != NULL)
             dev->outputDMX(data);
     }

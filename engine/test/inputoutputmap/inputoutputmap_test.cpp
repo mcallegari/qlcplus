@@ -657,7 +657,7 @@ void InputOutputMap_Test::claimReleaseDumpReset()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     for (int i = 0; i < 512; i++)
@@ -712,7 +712,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     iom.setBlackout(true);
@@ -721,7 +721,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     int offset = 0;
@@ -751,7 +751,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     offset = 0;
@@ -781,7 +781,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     for (int i = 0; i < 512; i++)
@@ -799,7 +799,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     for (int i = 0; i < 512; i++)
@@ -817,7 +817,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     offset = 0;
