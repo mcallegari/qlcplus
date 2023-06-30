@@ -21,7 +21,7 @@ if(qmlui)
     add_definitions(-DQMLUI)
     set(APPVERSION "5.0.0 Beta 3")
 else()
-    set(APPVERSION "4.12.7 GIT")
+    set(APPVERSION "4.12.8 GIT")
 endif()
 
 if(UNIX)
@@ -471,7 +471,7 @@ execute_process(
 if (UNIX AND NOT APPLE)
     set(QTPREFIX "${QT_INSTALL_PREFIX}")
     string(FIND "${QTPREFIX}" "/usr" inUsr)
-    
+
     if (${inUsr} EQUAL 0)
         set(QTLIBSDIR "${QT_INSTALL_LIBS}")
         set(QTPLUGINSDIR "${QT_INSTALL_PLUGINS}")
@@ -479,7 +479,7 @@ if (UNIX AND NOT APPLE)
         string(REPLACE "/usr/" "" PLUGINDIR "${QTPLUGINSDIR}/qlcplus")
         set(AUDIOPLUGINDIR "${PLUGINDIR}/audio")
     endif()
-    
+
     # message("QT_INSTALL_PREFIX: ${QT_INSTALL_PREFIX}")
     # message("QT_INSTALL_LIBS: ${QT_INSTALL_LIBS}")
     # message("Linux LIBSDIR:  ${INSTALLROOT}/${LIBSDIR}")
@@ -489,7 +489,7 @@ endif()
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4701")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4101")
-    
+
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4456")   # Suppress warning C4456: declaration of '_container_' hides previous local declaration in foreach
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
