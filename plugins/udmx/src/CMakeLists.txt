@@ -56,7 +56,7 @@ if(${LIBUSB_1_FOUND})
         ${LIBUSB_1_INCLUDE_DIRS}
     )
 
-    link_libraries(
+    target_link_libraries(${module_name} PRIVATE
         ${LIBUSB_1_LIBRARIES}
     )
 endif()

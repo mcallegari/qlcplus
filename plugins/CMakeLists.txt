@@ -23,5 +23,7 @@ if((((NOT ANDROID AND NOT IOS) AND (UNIX) AND (${LIBOLA_FOUND}) AND (${LIBOLASER
 endif()
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
     add_subdirectory(dmx4linux)
-    add_subdirectory(spi)
 endif()
+
+#add_subdirectory(uart)
+#add_subdirectory(spi)
