@@ -29,7 +29,8 @@ qtlibs.files = $$QT_LIBS_PATH/$${QT_V}Core$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}Widgets$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}OpenGL$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}Multimedia$${QT_D}.dll \
-               $$QT_LIBS_PATH/$${QT_V}MultimediaWidgets$${QT_D}.dll
+               $$QT_LIBS_PATH/$${QT_V}MultimediaWidgets$${QT_D}.dll \
+			   $$QT_LIBS_PATH/$${QT_V}SerialPort$${QT_D}.dll
 greaterThan(QT_MAJOR_VERSION, 5) {
 qtlibs.files += $$QT_LIBS_PATH/$${QT_V}Qml$${QT_D}.dll
 }
@@ -185,8 +186,11 @@ exists($$SYS_LIBS_PATH/libogg-0.dll) {
 exists($$SYS_LIBS_PATH/libopus-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libopus-0.dll
 }
-exists($$SYS_LIBS_PATH/libssp-0.dll) {
-    audio.files += $$SYS_LIBS_PATH/libssp-0.dll
+exists($$SYS_LIBS_PATH/libmp3lame-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libmp3lame-0.dll
+}
+exists($$SYS_LIBS_PATH/libmpg123-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libmpg123-0.dll
 }
 exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libvorbis-0.dll

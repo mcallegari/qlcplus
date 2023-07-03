@@ -216,6 +216,9 @@ public:
      *  Returns -1 in case of mixed values */
     Q_INVOKABLE qreal getCurrentValue(int type, bool degrees);
 
+    /** Get the RGB color of the current fixture selection */
+    Q_INVOKABLE void getCurrentColors(QQuickItem *item);
+
     Q_INVOKABLE void createFixtureGroup();
 
     /** Set/Get the rotation of the currently selected fixtures */

@@ -28,7 +28,6 @@
 
 #define DMX_MAB 16
 #define DMX_BREAK 110
-#define DMX_CHANNELS 512
 #define DEFAULT_OPEN_DMX_FREQUENCY    30  // crap
 #define SETTINGS_CHANNELS "enttecdmxusbopen/channels"
 
@@ -142,13 +141,14 @@ QString EnttecDMXUSBOpen::additionalInfo() const
  * Thread
  ****************************************************************************/
 
-bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-    m_outputLines[0].m_universeData.replace(1, MIN(data.size(), m_outputLines[0].m_universeData.size() - 1),
-                                            data.constData(), MIN(data.size(), m_outputLines[0].m_universeData.size() - 1));
+    if (dataChanged)
+        m_outputLines[0].m_universeData.replace(1, MIN(data.size(), m_outputLines[0].m_universeData.size() - 1),
+                                                data.constData(), MIN(data.size(), m_outputLines[0].m_universeData.size() - 1));
     return true;
 }
 

@@ -172,10 +172,13 @@ void ConfigureArtNet::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnArtNetUni, spin);
 
                 QComboBox *combo = new QComboBox(this);
+                combo->addItem(tr("Standard"));
                 combo->addItem(tr("Full"));
                 combo->addItem(tr("Partial"));
-                if (info->outputTransmissionMode == ArtNetController::Partial)
+                if (info->outputTransmissionMode == ArtNetController::Full)
                     combo->setCurrentIndex(1);
+                if (info->outputTransmissionMode == ArtNetController::Partial)
+                    combo->setCurrentIndex(2);
                 m_uniMapTree->setItemWidget(item, KMapColumnTransmitMode, combo);
             }
         }
@@ -240,6 +243,8 @@ void ConfigureArtNet::accept()
             {
                 ArtNetController::TransmissionMode transmissionMode;
                 if (combo->currentIndex() == 0)
+                    transmissionMode = ArtNetController::Standard;
+                else if (combo->currentIndex() == 1)
                     transmissionMode = ArtNetController::Full;
                 else
                     transmissionMode = ArtNetController::Partial;

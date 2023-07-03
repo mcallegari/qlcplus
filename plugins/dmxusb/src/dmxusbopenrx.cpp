@@ -167,11 +167,12 @@ QString DMXUSBOpenRx::additionalInfo() const
  * Thread
  ****************************************************************************/
 
-bool DMXUSBOpenRx::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool DMXUSBOpenRx::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
     // not used at runtime but needed for compilation
     return true;
 }
