@@ -149,13 +149,13 @@ void EFXFixture_Test::copyFrom()
     EFX e(m_doc);
 
     EFXFixture ef(&e);
-    ef.m_head.fxi = 15;
-    ef.m_head.head = 16;
-    ef.m_direction = EFX::Backward;
-    ef.m_serialNumber = 25;
+    ef.m_head.fxi         = 15;
+    ef.m_head.head        = 16;
+    ef.m_direction        = EFX::Backward;
+    ef.m_serialNumber     = 25;
     ef.m_runTimeDirection = EFX::Backward;
-    ef.m_done = true;
-    ef.m_elapsed = 31337;
+    ef.m_done             = true;
+    ef.m_elapsed          = 31337;
 
     EFXFixture copy(&e);
     copy.copyFrom(&ef);
@@ -170,7 +170,7 @@ void EFXFixture_Test::copyFrom()
 
 void EFXFixture_Test::publicProperties()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
 
     ef.setHead(GroupHead(19, 5));
@@ -209,7 +209,7 @@ void EFXFixture_Test::loadSuccess()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(xmlReader) == true);
     QVERIFY(ef.head().fxi == 83);
@@ -236,7 +236,7 @@ void EFXFixture_Test::loadWrongRoot()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(xmlReader) == false);
     QVERIFY(!ef.head().isValid());
@@ -262,7 +262,7 @@ void EFXFixture_Test::loadWrongDirection()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(xmlReader) == true);
     QVERIFY(ef.head().fxi == 97);
@@ -289,7 +289,7 @@ void EFXFixture_Test::loadExtraTag()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(xmlReader) == true);
     QVERIFY(ef.head().fxi == 108);
@@ -298,7 +298,7 @@ void EFXFixture_Test::loadExtraTag()
 
 void EFXFixture_Test::save()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     ef.setHead(GroupHead(56, 7));
     ef.setDirection(EFX::Backward);
@@ -341,7 +341,7 @@ void EFXFixture_Test::save()
 
 void EFXFixture_Test::serialNumber()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
 
     ef.setSerialNumber(15);
@@ -350,7 +350,7 @@ void EFXFixture_Test::serialNumber()
 
 void EFXFixture_Test::isValid()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
 
     QVERIFY(ef.isValid() == false);
@@ -367,16 +367,16 @@ void EFXFixture_Test::reset()
     ef1->setHead(GroupHead(1, 0));
     ef1->setSerialNumber(0);
     ef1->m_runTimeDirection = EFX::Forward;
-    ef1->m_done = true;
-    ef1->m_elapsed = 1337;
+    ef1->m_done             = true;
+    ef1->m_elapsed          = 1337;
     e.addFixture(ef1);
 
     EFXFixture *ef2 = new EFXFixture(&e);
     ef2->setHead(GroupHead(2, 0));
     ef2->setSerialNumber(1);
     ef2->m_runTimeDirection = EFX::Forward;
-    ef2->m_done = true;
-    ef2->m_elapsed = 13;
+    ef2->m_done             = true;
+    ef2->m_elapsed          = 13;
     e.addFixture(ef2);
 
     EFXFixture *ef3 = new EFXFixture(&e);
@@ -384,8 +384,8 @@ void EFXFixture_Test::reset()
     ef3->setSerialNumber(2);
     ef3->setDirection(EFX::Forward);
     ef3->m_runTimeDirection = EFX::Backward;
-    ef3->m_done = true;
-    ef3->m_elapsed = 69;
+    ef3->m_done             = true;
+    ef3->m_elapsed          = 69;
     e.addFixture(ef3);
 
     EFXFixture *ef4 = new EFXFixture(&e);
@@ -393,8 +393,8 @@ void EFXFixture_Test::reset()
     ef4->setSerialNumber(3);
     ef4->setDirection(EFX::Forward);
     ef4->m_runTimeDirection = EFX::Backward;
-    ef4->m_done = true;
-    ef4->m_elapsed = 42;
+    ef4->m_done             = true;
+    ef4->m_elapsed          = 42;
     e.addFixture(ef4);
 
     ef1->reset();
@@ -432,7 +432,7 @@ void EFXFixture_Test::reset()
 
 void EFXFixture_Test::startOffset()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     ef.setHead(GroupHead(0, 0));
 
@@ -446,13 +446,13 @@ void EFXFixture_Test::startOffset()
 
 void EFXFixture_Test::setPoint8bit()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixture8bit, 0));
 
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
-    QSharedPointer<GenericFader> fader = universe->requestFader();
+    QList<Universe *>            ua       = m_doc->inputOutputMap()->universes();
+    Universe                    *universe = ua[0];
+    QSharedPointer<GenericFader> fader    = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 2);
@@ -466,13 +466,13 @@ void EFXFixture_Test::setPoint8bit()
 
 void EFXFixture_Test::setPoint16bit()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixture16bit, 0));
 
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
-    QSharedPointer<GenericFader> fader = universe->requestFader();
+    QList<Universe *>            ua       = m_doc->inputOutputMap()->universes();
+    Universe                    *universe = ua[0];
+    QSharedPointer<GenericFader> fader    = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 4);
@@ -485,13 +485,13 @@ void EFXFixture_Test::setPoint16bit()
 
 void EFXFixture_Test::setPointPanOnly()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixturePanOnly, 0));
 
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
-    QSharedPointer<GenericFader> fader = universe->requestFader();
+    QList<Universe *>            ua       = m_doc->inputOutputMap()->universes();
+    Universe                    *universe = ua[0];
+    QSharedPointer<GenericFader> fader    = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
@@ -504,13 +504,13 @@ void EFXFixture_Test::setPointPanOnly()
 
 void EFXFixture_Test::setPointLedBar()
 {
-    EFX e(m_doc);
+    EFX        e(m_doc);
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixtureLedBar, 0));
 
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
-    QSharedPointer<GenericFader> fader = universe->requestFader();
+    QList<Universe *>            ua       = m_doc->inputOutputMap()->universes();
+    Universe                    *universe = ua[0];
+    QSharedPointer<GenericFader> fader    = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
@@ -525,10 +525,10 @@ void EFXFixture_Test::setPointLedBar()
 
 void EFXFixture_Test::nextStepLoop()
 {
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
-    QSharedPointer<GenericFader> fader = universe->requestFader();
-    MasterTimerStub mts(m_doc, ua);
+    QList<Universe *>            ua       = m_doc->inputOutputMap()->universes();
+    Universe                    *universe = ua[0];
+    QSharedPointer<GenericFader> fader    = universe->requestFader();
+    MasterTimerStub              mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(1000); // 1s
@@ -547,7 +547,7 @@ void EFXFixture_Test::nextStepLoop()
 
     /* Run two cycles (2 * tickms * freq) to see that Loop never quits */
     uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
-    uint i = MasterTimer::tick();
+    uint i   = MasterTimer::tick();
     for (uint times = 0; times < 2; times++)
     {
         for (; i < max; i += MasterTimer::tick())
@@ -565,10 +565,10 @@ void EFXFixture_Test::nextStepLoop()
 
 void EFXFixture_Test::nextStepLoopZeroDuration()
 {
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
-    QSharedPointer<GenericFader> fader = universe->requestFader();
-    MasterTimerStub mts(m_doc, ua);
+    QList<Universe *>            ua       = m_doc->inputOutputMap()->universes();
+    Universe                    *universe = ua[0];
+    QSharedPointer<GenericFader> fader    = universe->requestFader();
+    MasterTimerStub              mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(0); // 0s
@@ -587,7 +587,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
 
     /* Run two cycles (2 * tickms * freq) to see that Loop never quits */
     uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
-    uint i = MasterTimer::tick();
+    uint i   = MasterTimer::tick();
     for (uint times = 0; times < 2; times++)
     {
         for (; i < max; i += MasterTimer::tick())
@@ -605,10 +605,10 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
 
 void EFXFixture_Test::nextStepSingleShot()
 {
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua[0];
-    QSharedPointer<GenericFader> fader = universe->requestFader();
-    MasterTimerStub mts(m_doc, ua);
+    QList<Universe *>            ua       = m_doc->inputOutputMap()->universes();
+    Universe                    *universe = ua[0];
+    QSharedPointer<GenericFader> fader    = universe->requestFader();
+    MasterTimerStub              mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(1000); // 1s

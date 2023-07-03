@@ -26,10 +26,10 @@
 #include "scene.h"
 #include "doc.h"
 
-#define KXMLQLCTrackID QString("ID")
-#define KXMLQLCTrackName QString("Name")
+#define KXMLQLCTrackID      QString("ID")
+#define KXMLQLCTrackName    QString("Name")
 #define KXMLQLCTrackSceneID QString("SceneID")
-#define KXMLQLCTrackIsMute QString("isMute")
+#define KXMLQLCTrackIsMute  QString("isMute")
 
 #define KXMLQLCTrackFunctions QString("Functions")
 
@@ -190,9 +190,9 @@ bool Track::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    bool ok = false;
+    bool                 ok    = false;
     QXmlStreamAttributes attrs = root.attributes();
-    quint32 id = attrs.value(KXMLQLCTrackID).toString().toUInt(&ok);
+    quint32              id    = attrs.value(KXMLQLCTrackID).toString().toUInt(&ok);
     if (ok == false)
     {
         qWarning() << "Invalid Track ID:" << attrs.value(KXMLQLCTrackID).toString();
@@ -216,7 +216,7 @@ bool Track::loadXML(QXmlStreamReader &root)
         m_sceneID = id;
     }
 
-    ok = false;
+    ok        = false;
     bool mute = attrs.value(KXMLQLCTrackIsMute).toString().toInt(&ok);
     if (ok == false)
     {
@@ -258,7 +258,7 @@ bool Track::loadXML(QXmlStreamReader &root)
 
 bool Track::postLoad(Doc *doc)
 {
-    bool modified = false;
+    bool                                 modified = false;
     QMutableListIterator<ShowFunction *> it(m_functions);
     while (it.hasNext())
     {

@@ -138,7 +138,7 @@ void PreviewContext::setDetached(bool detached)
     {
         /** Create a new Quick View, as a true separate window */
         ContextQuickView *cqView = new ContextQuickView();
-        m_view = cqView;
+        m_view                   = cqView;
         connect(cqView, &ContextQuickView::keyPressed, this, &PreviewContext::keyPressed);
         connect(cqView, &ContextQuickView::keyReleased, this, &PreviewContext::keyReleased);
         connect(cqView, &ContextQuickView::screenChanged, cqView, &ContextQuickView::slotScreenChanged);

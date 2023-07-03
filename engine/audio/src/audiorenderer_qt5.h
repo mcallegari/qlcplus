@@ -70,10 +70,10 @@ public:
     void run();
 
 private:
-    QAudioOutput *m_audioOutput;
-    QIODevice *m_output;
-    QAudioFormat m_format;
-    QString m_device;
+    QAudioOutput    *m_audioOutput;
+    QIODevice       *m_output;
+    QAudioFormat     m_format;
+    QString          m_device;
     QAudioDeviceInfo m_deviceInfo;
 };
 

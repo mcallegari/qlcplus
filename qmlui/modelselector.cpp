@@ -56,7 +56,7 @@ void ModelSelector::selectItem(int index, ListModel *model, int keyModifiers)
             return;
 
         int startIndex = index > m_previousIndex ? m_previousIndex + 1 : index;
-        int endIndex = index > m_previousIndex ? index : m_previousIndex - 1;
+        int endIndex   = index > m_previousIndex ? index : m_previousIndex - 1;
 
         for (int i = startIndex; i <= endIndex; i++)
             selectSingleItem(i, model);
@@ -79,7 +79,7 @@ void ModelSelector::resetSelection(ListModel *model)
     }
 
     m_selectedIndices.clear();
-    m_itemsCount = 0;
+    m_itemsCount    = 0;
     m_previousIndex = -1;
 }
 

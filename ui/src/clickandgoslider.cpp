@@ -96,7 +96,7 @@ void ClickAndGoSlider::paintEvent(QPaintEvent *e)
     if (m_shadowLevel >= 0)
     {
         QPainter p(this);
-        int levHeight = ((float)height() / 255.0) * m_shadowLevel;
+        int      levHeight = ((float)height() / 255.0) * m_shadowLevel;
         p.drawRect(width() - 6, 0, width(), height());
         p.fillRect(width() - 5, 0, width() - 1, height(), QColor(Qt::darkGray));
         if (invertedAppearance())

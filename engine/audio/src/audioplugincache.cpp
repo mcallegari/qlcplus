@@ -54,10 +54,10 @@ AudioPluginCache::AudioPluginCache(QObject *parent)
   #endif
 #else
   #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    m_audioDevicesList = AudioRendererQt5::getDevicesInfo();
+    m_audioDevicesList  = AudioRendererQt5::getDevicesInfo();
     m_outputDevicesList = QAudioDeviceInfo::availableDevices(QAudio::AudioOutput);
   #else
-    m_audioDevicesList = AudioRendererQt6::getDevicesInfo();
+    m_audioDevicesList  = AudioRendererQt6::getDevicesInfo();
     m_outputDevicesList = QMediaDevices::audioOutputs();
   #endif
 #endif

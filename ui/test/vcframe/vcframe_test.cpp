@@ -69,8 +69,8 @@ void VCFrame_Test::copy()
 {
     QWidget w;
 
-    VCFrame parent(&w, m_doc);
-    VCFrame frame(&parent, m_doc);
+    VCFrame   parent(&w, m_doc);
+    VCFrame   frame(&parent, m_doc);
     VCButton *btn = new VCButton(&frame, m_doc);
     btn->setCaption("Foobar");
     VCWidget *frame2 = frame.createCopy(&parent);
@@ -385,7 +385,7 @@ void VCFrame_Test::customMenu()
     VCFrame *frame = VirtualConsole::instance()->contents();
     QVERIFY(frame != NULL);
 
-    QMenu menu;
+    QMenu  menu;
     QMenu *customMenu = frame->customMenu(&menu);
     QVERIFY(customMenu != NULL);
     QCOMPARE(customMenu->title(), tr("Add"));

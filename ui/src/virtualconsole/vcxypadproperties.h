@@ -50,8 +50,8 @@ public:
     ~VCXYPadProperties();
 
 private:
-    VCXYPad *m_xypad;
-    Doc *m_doc;
+    VCXYPad              *m_xypad;
+    Doc                  *m_doc;
     InputSelectionWidget *m_panInputWidget;
     InputSelectionWidget *m_tiltInputWidget;
     InputSelectionWidget *m_widthInputWidget;
@@ -61,10 +61,10 @@ private:
      * Fixtures page
      ********************************************************************/
 private:
-    void fillFixturesTree();
-    void updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
+    void                  fillFixturesTree();
+    void                  updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
     QList<VCXYPadFixture> selectedFixtures() const;
-    QTreeWidgetItem *fixtureItem(const VCXYPadFixture &fxi);
+    QTreeWidgetItem      *fixtureItem(const VCXYPadFixture &fxi);
 
     void updateFixtureItem(QTreeWidgetItem *item, const VCXYPadFixture &fxi);
     void removeFixtureItem(GroupHead const &head);
@@ -96,11 +96,11 @@ public:
     void writeDMX(MasterTimer *timer, QList<Universe *> universes);
 
 private:
-    void updatePresetsTree();
-    void selectItemOnPresetsTree(quint8 presetId);
-    void updateTreeItem(VCXYPadPreset const &preset);
+    void           updatePresetsTree();
+    void           selectItemOnPresetsTree(quint8 presetId);
+    void           updateTreeItem(VCXYPadPreset const &preset);
     VCXYPadPreset *getSelectedPreset();
-    void removePreset(quint8 id);
+    void           removePreset(quint8 id);
 
     // move preset up and swap id with previous preset. Return new preset id.
     quint8 moveUpPreset(quint8 id);
@@ -123,10 +123,10 @@ protected slots:
     void slotKeySequenceChanged(QKeySequence key);
 
 private:
-    VCXYPadArea *m_xyArea;
+    VCXYPadArea          *m_xyArea;
     InputSelectionWidget *m_presetInputWidget;
 
-    quint8 m_lastAssignedID;
+    quint8                 m_lastAssignedID;
     QList<VCXYPadPreset *> m_presetList;
 
     /** Map used to lookup a GenericFader instance for a Universe ID */

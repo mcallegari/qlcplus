@@ -157,7 +157,7 @@ void FixtureSelection::slotSelectionChanged()
 void FixtureSelection::accept()
 {
     m_selectedFixtures = m_tree->selectedFixtures();
-    m_selectedHeads = m_tree->selectedHeads();
+    m_selectedHeads    = m_tree->selectedHeads();
 
     QDialog::accept();
 }

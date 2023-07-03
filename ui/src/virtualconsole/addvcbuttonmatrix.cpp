@@ -29,12 +29,12 @@
 #include "doc.h"
 
 #define KColumnFunction 0
-#define KColumnType 1
+#define KColumnType     1
 
 #define HORIZONTAL_COUNT "addvcbuttonmatrix/horizontalcount"
-#define VERTICAL_COUNT "addvcbuttonmatrix/verticalcount"
-#define BUTTON_SIZE "addvcbuttonmatrix/buttonsize"
-#define FRAME_STYLE "addvcbuttonmatrix/framestyle"
+#define VERTICAL_COUNT   "addvcbuttonmatrix/verticalcount"
+#define BUTTON_SIZE      "addvcbuttonmatrix/buttonsize"
+#define FRAME_STYLE      "addvcbuttonmatrix/framestyle"
 
 AddVCButtonMatrix::AddVCButtonMatrix(QWidget *parent, Doc *doc)
     : QDialog(parent)
@@ -43,7 +43,7 @@ AddVCButtonMatrix::AddVCButtonMatrix(QWidget *parent, Doc *doc)
     Q_ASSERT(doc != NULL);
 
     QSettings settings;
-    QVariant var;
+    QVariant  var;
 
     setupUi(this);
 

@@ -73,12 +73,12 @@ private:
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc        *m_doc;
     /** Reference to the project where to import from */
-    Doc *m_importDoc;
+    Doc        *m_importDoc;
 
     /** The list of selected Palette IDs */
-    QList<quint32> m_paletteIDList;
+    QList<quint32>         m_paletteIDList;
     /** A map of the Palette IDs that need to be remapped */
     QMap<quint32, quint32> m_paletteIDRemap;
 
@@ -90,7 +90,7 @@ public:
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString fixtureSearchFilter() const;
-    void setFixtureSearchFilter(QString searchFilter);
+    void    setFixtureSearchFilter(QString searchFilter);
 
     /** Method called recursively to update Fixture items checked state */
     void checkFixtureTree(TreeModel *tree);
@@ -100,20 +100,20 @@ protected slots:
 
 private:
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel *m_fixtureTree;
+    TreeModel             *m_fixtureTree;
     /** Flag to filter signals when updating checked states */
-    bool m_fixtureTreeUpdating;
+    bool                   m_fixtureTreeUpdating;
     /** A string to filter the displayed fixture tree items */
-    QString m_fixtureSearchFilter;
+    QString                m_fixtureSearchFilter;
     /** The list of selected Fixture IDs */
-    QList<quint32> m_fixtureIDList;
+    QList<quint32>         m_fixtureIDList;
     /** A list of item IDs holding basically linked fixtures */
-    QList<quint32> m_itemIDList;
+    QList<quint32>         m_itemIDList;
     /** A map of the Fixture IDs that need to be remapped */
     QMap<quint32, quint32> m_fixtureIDRemap;
 
     /** The list of selected Fixture group IDs */
-    QList<quint32> m_fixtureGroupIDList;
+    QList<quint32>         m_fixtureGroupIDList;
     /** A map of the Fixture group IDs that need to be remapped */
     QMap<quint32, quint32> m_fixtureGroupIDRemap;
 
@@ -125,7 +125,7 @@ public:
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString functionSearchFilter() const;
-    void setFunctionSearchFilter(QString searchFilter);
+    void    setFunctionSearchFilter(QString searchFilter);
 
 private:
     /** Update a tree suitable to be displayed by the UI */
@@ -154,13 +154,13 @@ signals:
 
 private:
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel *m_functionTree;
+    TreeModel             *m_functionTree;
     /** Flag to filter signals when updating checked states */
-    bool m_functionTreeUpdating;
+    bool                   m_functionTreeUpdating;
     /** A string to filter the displayed fixture tree items */
-    QString m_functionSearchFilter;
+    QString                m_functionSearchFilter;
     /** The list of selected Function IDs */
-    QList<quint32> m_functionIDList;
+    QList<quint32>         m_functionIDList;
     /** A map of the Function IDs that need to be remapped */
     QMap<quint32, quint32> m_functionIDRemap;
 };

@@ -85,9 +85,9 @@ void AddressTool::slotChangeColor()
 DIPSwitchWidget::DIPSwitchWidget(QWidget *parent, int presetValue)
     : QWidget(parent)
 {
-    m_value = presetValue;
-    m_backCol = QColor("#0165DF");
-    m_verticalReverse = false;
+    m_value             = presetValue;
+    m_backCol           = QColor("#0165DF");
+    m_verticalReverse   = false;
     m_horizontalReverse = false;
 
     m_font = QApplication::font();
@@ -127,10 +127,10 @@ void DIPSwitchWidget::setColor(QColor col)
 
 void DIPSwitchWidget::updateSliders()
 {
-    int margin = 20;
+    int   margin = 20;
     float minDiv = (width() - (margin * 2)) / 10;
-    float dipW = (minDiv / 3) * 2;
-    float xpos = margin + (minDiv / 3);
+    float dipW   = (minDiv / 3) * 2;
+    float xpos   = margin + (minDiv / 3);
 
     for (quint8 i = 0; i < 10; i++)
     {
@@ -177,12 +177,12 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
 
-    int i, j;
-    int margin = 20;
+    int   i, j;
+    int   margin = 20;
     float minDiv = (width() - (margin * 2)) / 10;
-    float xpos = margin + (minDiv / 3);
-    int onPos = 15;            // position of the "ON" string
-    int numPos = height() - 5; // position of number labels
+    float xpos   = margin + (minDiv / 3);
+    int   onPos  = 15;           // position of the "ON" string
+    int   numPos = height() - 5; // position of number labels
 
     QPainter painter(this);
 
@@ -201,7 +201,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     xpos = margin + (minDiv / 3);
     if (m_verticalReverse == true)
     {
-        onPos = height() - 5;
+        onPos  = height() - 5;
         numPos = 15;
     }
 
@@ -250,7 +250,7 @@ void DIPSwitchSlider::paint(QPainter *painter, bool value, bool vreverse)
     painter->setBrush(Qt::white);
 
     QPoint slider_pos(m_pos.x() + 1, m_pos.y() + 1);
-    QSize slider_size(m_size.width() - 3, m_size.width() - 3);
+    QSize  slider_size(m_size.width() - 3, m_size.width() - 3);
     if (slider_size.height() > m_size.height() / 2)
         slider_size.setHeight(m_size.height() / 2);
 
@@ -262,7 +262,7 @@ void DIPSwitchSlider::paint(QPainter *painter, bool value, bool vreverse)
 
 void DIPSwitchSlider::setPosition(QPoint pos, QSize size)
 {
-    m_pos = pos;
+    m_pos  = pos;
     m_size = size;
 }
 

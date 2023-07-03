@@ -141,15 +141,15 @@ public:
     quint32 getTimeFromPosition(qreal pos);
 
 private:
-    QGraphicsScene *m_scene;
-    QSlider *m_timeSlider;
-    ShowHeaderItem *m_header;
-    ShowCursorItem *m_cursor;
-    QGraphicsItem *m_vdivider;
+    QGraphicsScene        *m_scene;
+    QSlider               *m_timeSlider;
+    ShowHeaderItem        *m_header;
+    ShowCursorItem        *m_cursor;
+    QGraphicsItem         *m_vdivider;
     QList<QGraphicsItem *> m_hdividers;
-    QList<TrackItem *> m_tracks;
-    QList<ShowItem *> m_items;
-    bool m_snapToGrid;
+    QList<TrackItem *>     m_tracks;
+    QList<ShowItem *>      m_items;
+    bool                   m_snapToGrid;
 
 public slots:
     void mouseReleaseEvent(QMouseEvent *e);

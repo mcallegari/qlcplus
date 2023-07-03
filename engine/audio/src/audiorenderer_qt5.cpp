@@ -32,7 +32,7 @@ AudioRendererQt5::AudioRendererQt5(QString device, Doc *doc, QObject *parent)
     , m_device(device)
 {
     QSettings settings;
-    QString devName = "";
+    QString   devName = "";
 
     QVariant var;
     if (m_device.isEmpty())
@@ -105,7 +105,7 @@ qint64 AudioRendererQt5::latency()
 QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
 {
     QList<AudioDeviceInfo> devList;
-    QStringList outDevs, inDevs;
+    QStringList            outDevs, inDevs;
 
     // create a preliminary list of input devices only
     foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
@@ -116,8 +116,8 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     {
         outDevs.append(deviceInfo.deviceName());
         AudioDeviceInfo info;
-        info.deviceName = deviceInfo.deviceName();
-        info.privateName = deviceInfo.deviceName();
+        info.deviceName   = deviceInfo.deviceName();
+        info.privateName  = deviceInfo.deviceName();
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_OUTPUT;
         if (inDevs.contains(deviceInfo.deviceName()))
@@ -132,8 +132,8 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
-        info.deviceName = dev;
-        info.privateName = dev;
+        info.deviceName   = dev;
+        info.privateName  = dev;
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_INPUT;
         devList.append(info);

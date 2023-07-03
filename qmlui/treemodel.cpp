@@ -201,8 +201,8 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
             return nullptr;
     }
 
-    TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
-    QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
+    TreeModelItem *item    = m_itemsPathMap[pathList.at(0)];
+    QString        subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
     return item->children()->itemAtPath(subPath);
 }
 
@@ -235,8 +235,8 @@ bool TreeModel::removeItem(QString path)
     }
     else
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
-        QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
+        TreeModelItem *item    = m_itemsPathMap[pathList.at(0)];
+        QString        subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->removeItem(subPath);
     }
 
@@ -269,8 +269,8 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
     }
     else
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
-        QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
+        TreeModelItem *item    = m_itemsPathMap[pathList.at(0)];
+        QString        subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->setItemRoleData(subPath, value, role);
     }
 }
@@ -484,9 +484,9 @@ int TreeModel::getNodeInsertIndex(QString label)
 QHash<int, QByteArray> TreeModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[LabelRole] = "label";
-    roles[PathRole] = "path";
-    roles[IsExpandedRole] = "isExpanded";
+    roles[LabelRole]       = "label";
+    roles[PathRole]        = "path";
+    roles[IsExpandedRole]  = "isExpanded";
     // The isSelected role is tricky.
     // It always returns true/false through the data() method but
     // to set it via setData(), an integer has to be passed, to distinguish
@@ -494,13 +494,13 @@ QHash<int, QByteArray> TreeModel::roleNames() const
     // 0: item de-selection
     // 1: item single (exclusive) selection
     // 2: item multiple selection (when Ctrl-click an item)
-    roles[IsSelectedRole] = "isSelected";
+    roles[IsSelectedRole]  = "isSelected";
     roles[IsCheckableRole] = "isCheckable";
-    roles[IsCheckedRole] = "isChecked";
+    roles[IsCheckedRole]   = "isChecked";
     roles[IsDraggableRole] = "isDraggable";
-    roles[ItemsCountRole] = "itemsCount";
+    roles[ItemsCountRole]  = "itemsCount";
     roles[HasChildrenRole] = "hasChildren";
-    roles[ChildrenModel] = "childrenModel";
+    roles[ChildrenModel]   = "childrenModel";
 
     int roleStartIdx = FixedRolesEnd;
     for (int i = roleStartIdx, t = 0; i < roleStartIdx + m_roles.count(); i++, t++)

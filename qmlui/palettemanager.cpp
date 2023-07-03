@@ -69,7 +69,7 @@ QLCPalette *PaletteManager::getEditingPalette(int type)
     if (m_editingMap.contains(type) == false)
     {
         QLCPalette *palette = new QLCPalette(QLCPalette::PaletteType(type));
-        m_editingMap[type] = palette;
+        m_editingMap[type]  = palette;
         QQmlEngine::setObjectOwnership(palette, QQmlEngine::CppOwnership);
     }
 

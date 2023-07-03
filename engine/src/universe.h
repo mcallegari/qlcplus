@@ -47,19 +47,19 @@ class Doc;
 
 #define UNIVERSE_SIZE 512
 
-#define KXMLQLCUniverse QString("Universe")
-#define KXMLQLCUniverseName QString("Name")
-#define KXMLQLCUniverseID QString("ID")
+#define KXMLQLCUniverse            QString("Universe")
+#define KXMLQLCUniverseName        QString("Name")
+#define KXMLQLCUniverseID          QString("ID")
 #define KXMLQLCUniversePassthrough QString("Passthrough")
 
-#define KXMLQLCUniverseInputPatch QString("Input")
-#define KXMLQLCUniverseOutputPatch QString("Output")
+#define KXMLQLCUniverseInputPatch    QString("Input")
+#define KXMLQLCUniverseOutputPatch   QString("Output")
 #define KXMLQLCUniverseFeedbackPatch QString("Feedback")
 
-#define KXMLQLCUniversePlugin QString("Plugin")
-#define KXMLQLCUniverseLine QString("Line")
-#define KXMLQLCUniverseLineUID QString("UID")
-#define KXMLQLCUniverseProfileName QString("Profile")
+#define KXMLQLCUniversePlugin           QString("Plugin")
+#define KXMLQLCUniverseLine             QString("Line")
+#define KXMLQLCUniverseLineUID          QString("UID")
+#define KXMLQLCUniverseProfileName      QString("Profile")
 #define KXMLQLCUniversePluginParameters QString("PluginParameters")
 
 /** Universe class contains input/output data for one DMX universe
@@ -90,8 +90,8 @@ public:
     enum ChannelType
     {
         Undefined = 0,
-        LTP = 1 << 0,
-        HTP = 1 << 1,
+        LTP       = 1 << 0,
+        HTP       = 1 << 1,
         Intensity = 1 << 2
     };
 
@@ -176,7 +176,7 @@ protected:
 
     uchar applyRelative(int channel, uchar value);
     uchar applyModifiers(int channel, uchar value);
-    void updatePostGMValue(int channel);
+    void  updatePostGMValue(int channel);
 
 signals:
     void nameChanged();
@@ -184,15 +184,15 @@ signals:
 
 protected:
     /** The universe ID */
-    quint32 m_id;
+    quint32      m_id;
     /** The universe friendly name */
-    QString m_name;
+    QString      m_name;
     /** Reference to the Grand Master to perform values scaling */
     GrandMaster *m_grandMaster;
     /** Variable that determine if a universe is in passthrough mode */
-    bool m_passthrough;
+    bool         m_passthrough;
     /** Flag to monitor the universe changes */
-    bool m_monitor;
+    bool         m_monitor;
 
     /************************************************************************
      * Patches
@@ -450,7 +450,7 @@ protected:
      * channels used in this universe starting from when a workspace
      * is loaded
      */
-    ushort m_usedChannels;
+    ushort                     m_usedChannels;
     /**
      * Total number of channels used in this Universe.
      * This is set only when a Universe is instructed about Fixture
@@ -458,24 +458,24 @@ protected:
      * existing workspace, or several times when adding/removing
      * Fixtures
      */
-    ushort m_totalChannels;
+    ushort                     m_totalChannels;
     /**
      *  Flag that holds if the total number of channels have changed.
      *  This is used to inform the output patch (if present) how many
      *  channels to expect
      */
-    bool m_totalChannelsChanged;
+    bool                       m_totalChannelsChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */
-    QVector<int> m_intensityChannels;
+    QVector<int>               m_intensityChannels;
     /** A flag set to know when m_intensityChannelsRanges must be updated */
-    bool m_intensityChannelsChanged;
+    bool                       m_intensityChannelsChanged;
     /**
      * Intensity channels sorted as ranges, to further optimize ranged operations
      * (ie set all to zero)
      */
-    QVector<int> m_intensityChannelsRanges;
+    QVector<int>               m_intensityChannelsRanges;
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
-    QVector<int> m_nonIntensityChannels;
+    QVector<int>               m_nonIntensityChannels;
     /** Array of values BEFORE the Grand Master changes */
     QScopedPointer<QByteArray> m_preGMValues;
     /** Array of values AFTER the Grand Master changes (applyGM) */

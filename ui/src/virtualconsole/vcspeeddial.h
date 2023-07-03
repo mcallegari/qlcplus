@@ -39,27 +39,27 @@ class QLabel;
  * @{
  */
 
-#define KXMLQLCVCSpeedDial QString("SpeedDial")
-#define KXMLQLCVCSpeedDialSpeedTypes QString("SpeedTypes")
-#define KXMLQLCVCSpeedDialAbsoluteValue QString("AbsoluteValue")
-#define KXMLQLCVCSpeedDialAbsoluteValueMin QString("Minimum")
-#define KXMLQLCVCSpeedDialAbsoluteValueMax QString("Maximum")
-#define KXMLQLCVCSpeedDialTap QString("Tap")
-#define KXMLQLCVCSpeedDialMult QString("Mult")
-#define KXMLQLCVCSpeedDialDiv QString("Div")
-#define KXMLQLCVCSpeedDialMultDivReset QString("MultDivReset")
-#define KXMLQLCVCSpeedDialApply QString("Apply")
-#define KXMLQLCVCSpeedDialTapKey QString("Key")
-#define KXMLQLCVCSpeedDialMultKey QString("MultKey")
-#define KXMLQLCVCSpeedDialDivKey QString("DivKey")
-#define KXMLQLCVCSpeedDialMultDivResetKey QString("MultDivResetKey")
-#define KXMLQLCVCSpeedDialApplyKey QString("ApplyKey")
+#define KXMLQLCVCSpeedDial                        QString("SpeedDial")
+#define KXMLQLCVCSpeedDialSpeedTypes              QString("SpeedTypes")
+#define KXMLQLCVCSpeedDialAbsoluteValue           QString("AbsoluteValue")
+#define KXMLQLCVCSpeedDialAbsoluteValueMin        QString("Minimum")
+#define KXMLQLCVCSpeedDialAbsoluteValueMax        QString("Maximum")
+#define KXMLQLCVCSpeedDialTap                     QString("Tap")
+#define KXMLQLCVCSpeedDialMult                    QString("Mult")
+#define KXMLQLCVCSpeedDialDiv                     QString("Div")
+#define KXMLQLCVCSpeedDialMultDivReset            QString("MultDivReset")
+#define KXMLQLCVCSpeedDialApply                   QString("Apply")
+#define KXMLQLCVCSpeedDialTapKey                  QString("Key")
+#define KXMLQLCVCSpeedDialMultKey                 QString("MultKey")
+#define KXMLQLCVCSpeedDialDivKey                  QString("DivKey")
+#define KXMLQLCVCSpeedDialMultDivResetKey         QString("MultDivResetKey")
+#define KXMLQLCVCSpeedDialApplyKey                QString("ApplyKey")
 #define KXMLQLCVCSpeedDialResetFactorOnDialChange QString("ResetFactorOnDialChange")
-#define KXMLQLCVCSpeedDialVisibilityMask QString("Visibility")
-#define KXMLQLCVCSpeedDialTime QString("Time")
+#define KXMLQLCVCSpeedDialVisibilityMask          QString("Visibility")
+#define KXMLQLCVCSpeedDialTime                    QString("Time")
 
 // Legacy: infinite checkbox
-#define KXMLQLCVCSpeedDialInfinite QString("Infinite")
+#define KXMLQLCVCSpeedDialInfinite    QString("Infinite")
 #define KXMLQLCVCSpeedDialInfiniteKey QString("InfiniteKey")
 
 class VCSpeedDial : public VCWidget
@@ -73,7 +73,7 @@ public:
     enum Visibility
     {
         MultDiv = 0x10000 << 0,
-        Apply = 0x10000 << 1,
+        Apply   = 0x10000 << 1,
     };
 
     static const quint8 absoluteInputSourceId;
@@ -82,7 +82,7 @@ public:
     static const quint8 divInputSourceId;
     static const quint8 multDivResetInputSourceId;
     static const quint8 applyInputSourceId;
-    static const QSize defaultSize;
+    static const QSize  defaultSize;
 
     /************************************************************************
      * Initialization
@@ -132,8 +132,8 @@ public:
 public:
     enum SpeedType
     {
-        FadeIn = 1 << 0,
-        FadeOut = 1 << 1,
+        FadeIn   = 1 << 0,
+        FadeOut  = 1 << 1,
         Duration = 1 << 2
     };
     Q_DECLARE_FLAGS(SpeedTypes, SpeedType)
@@ -171,14 +171,14 @@ private slots:
 
 private:
     QList<VCSpeedDialFunction> m_functions;
-    SpeedDial *m_dial;
-    QToolButton *m_multButton;
-    QLabel *m_multDivLabel;
-    QToolButton *m_divButton;
-    QToolButton *m_multDivResetButton;
-    QLabel *m_multDivResultLabel;
-    QPushButton *m_applyButton;
-    FlowLayout *m_presetsLayout;
+    SpeedDial                 *m_dial;
+    QToolButton               *m_multButton;
+    QLabel                    *m_multDivLabel;
+    QToolButton               *m_divButton;
+    QToolButton               *m_multDivResetButton;
+    QLabel                    *m_multDivResultLabel;
+    QPushButton               *m_applyButton;
+    FlowLayout                *m_presetsLayout;
 
 protected slots:
     void slotMult();
@@ -190,7 +190,7 @@ protected slots:
 private:
     qint32 m_currentFactor;
     qint32 m_factoredValue;
-    bool m_resetFactorOnDialChange;
+    bool   m_resetFactorOnDialChange;
 
 public:
     void setResetFactorOnDialChange(bool value);
@@ -211,15 +211,15 @@ protected slots:
      * Tap & presets key sequence handler
      *********************************************************************/
 public:
-    void setTapKeySequence(const QKeySequence &keySequence);
+    void         setTapKeySequence(const QKeySequence &keySequence);
     QKeySequence tapKeySequence() const;
-    void setMultKeySequence(const QKeySequence &keySequence);
+    void         setMultKeySequence(const QKeySequence &keySequence);
     QKeySequence multKeySequence() const;
-    void setDivKeySequence(const QKeySequence &keySequence);
+    void         setDivKeySequence(const QKeySequence &keySequence);
     QKeySequence divKeySequence() const;
-    void setMultDivResetKeySequence(const QKeySequence &keySequence);
+    void         setMultDivResetKeySequence(const QKeySequence &keySequence);
     QKeySequence multDivResetKeySequence() const;
-    void setApplyKeySequence(const QKeySequence &keySequence);
+    void         setApplyKeySequence(const QKeySequence &keySequence);
     QKeySequence applyKeySequence() const;
 
 protected slots:
@@ -262,8 +262,8 @@ private:
      * Presets
      *********************************************************************/
 public:
-    void addPreset(VCSpeedDialPreset const &preset);
-    void resetPresets();
+    void                       addPreset(VCSpeedDialPreset const &preset);
+    void                       resetPresets();
     QList<VCSpeedDialPreset *> presets() const;
 
 protected slots:

@@ -127,7 +127,7 @@ void VCButton::setFunctionID(quint32 fid)
     if (m_functionID == fid)
         return;
 
-    Function *current = m_doc->function(m_functionID);
+    Function *current  = m_doc->function(m_functionID);
     Function *function = m_doc->function(fid);
 
     if (current != nullptr)
@@ -516,7 +516,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(QRect(x, y, w, h));
         }

@@ -28,7 +28,7 @@
 #include "track.h"
 
 #define TRACK_HEIGHT 80
-#define TRACK_WIDTH 150
+#define TRACK_WIDTH  150
 
 /** @addtogroup ui_functions
  * @{
@@ -50,7 +50,7 @@ public:
     TrackItem(Track *track, int number);
 
     QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void   paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     /** Return pointer to the Track class associated to this item */
     Track *getTrack();
@@ -95,15 +95,15 @@ signals:
 
 private:
     QString m_name;
-    int m_number;
-    QFont m_font;
-    QFont m_btnFont;
-    bool m_isActive;
-    Track *m_track;
+    int     m_number;
+    QFont   m_font;
+    QFont   m_btnFont;
+    bool    m_isActive;
+    Track  *m_track;
     QRectF *m_muteRegion;
-    bool m_isMute;
+    bool    m_isMute;
     QRectF *m_soloRegion;
-    bool m_isSolo;
+    bool    m_isSolo;
 
     QAction *m_moveUp;
     QAction *m_moveDown;

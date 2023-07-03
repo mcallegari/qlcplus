@@ -32,12 +32,12 @@ class QWidget;
  */
 
 #define KXMLQLCWidgetProperties QString("WidgetProperties")
-#define KXMLQLCWidgetX QString("X")
-#define KXMLQLCWidgetY QString("Y")
-#define KXMLQLCWidgetWidth QString("Width")
-#define KXMLQLCWidgetHeight QString("Height")
-#define KXMLQLCWidgetState QString("State")
-#define KXMLQLCWidgetVisible QString("Visible")
+#define KXMLQLCWidgetX          QString("X")
+#define KXMLQLCWidgetY          QString("Y")
+#define KXMLQLCWidgetWidth      QString("Width")
+#define KXMLQLCWidgetHeight     QString("Height")
+#define KXMLQLCWidgetState      QString("State")
+#define KXMLQLCWidgetVisible    QString("Visible")
 
 /** Simple class to store a widget's visibility, state and dimensions */
 class VCWidgetProperties
@@ -52,11 +52,11 @@ public:
      ************************************************************************/
 public:
     QFlags<Qt::WindowState> state() const;
-    bool visible() const;
-    int x() const;
-    int y() const;
-    int width() const;
-    int height() const;
+    bool                    visible() const;
+    int                     x() const;
+    int                     y() const;
+    int                     width() const;
+    int                     height() const;
 
     /** Get properties from the given widget and store them in memory. */
     virtual void store(QWidget *widget);
@@ -73,11 +73,11 @@ public:
 
 protected:
     QFlags<Qt::WindowState> m_state;
-    bool m_visible;
-    int m_x;
-    int m_y;
-    int m_width;
-    int m_height;
+    bool                    m_visible;
+    int                     m_x;
+    int                     m_y;
+    int                     m_width;
+    int                     m_height;
 };
 
 /** @} */

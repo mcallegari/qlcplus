@@ -57,19 +57,19 @@ QLCFixtureMode &QLCFixtureMode::operator=(const QLCFixtureMode &mode)
 {
     if (this != &mode)
     {
-        m_name = mode.m_name;
-        m_useGlobalPhysical = mode.m_useGlobalPhysical;
-        m_physical = mode.m_physical;
-        m_heads = mode.m_heads;
+        m_name                   = mode.m_name;
+        m_useGlobalPhysical      = mode.m_useGlobalPhysical;
+        m_physical               = mode.m_physical;
+        m_heads                  = mode.m_heads;
         m_masterIntensityChannel = QLCChannel::invalid();
-        m_actsOnChannelsList = mode.actsOnChannelsList();
+        m_actsOnChannelsList     = mode.actsOnChannelsList();
 
         /* Clear the existing list of channels */
         m_channels.clear();
 
         Q_ASSERT(m_fixtureDef != NULL);
 
-        quint32 i = 0;
+        quint32                       i = 0;
         QVectorIterator<QLCChannel *> it(mode.m_channels);
         while (it.hasNext() == true)
         {
@@ -79,7 +79,7 @@ QLCFixtureMode &QLCFixtureMode::operator=(const QLCFixtureMode &mode)
                not from mode.m_fixtureDef. If the channel in the
                other mode is deleted, the one in this copied mode
                will be invalid and we end up in a crash. */
-            QLCChannel *ch = it.next();
+            QLCChannel *ch     = it.next();
             QLCChannel *actual = m_fixtureDef->channel(ch->name());
             if (actual != NULL)
                 insertChannel(actual, i++);
@@ -315,7 +315,7 @@ void QLCFixtureMode::cacheHeads()
 void QLCFixtureMode::setPhysical(const QLCPhysical &physical)
 {
     m_useGlobalPhysical = false;
-    m_physical = physical;
+    m_physical          = physical;
 }
 
 void QLCFixtureMode::resetPhysical()

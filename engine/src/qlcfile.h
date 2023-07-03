@@ -39,12 +39,12 @@ class QString;
 #define KXMLQLCplusNamespace "http://www.qlcplus.org/"
 
 // File extensions
-#define KExtFixture ".qxf"           // 'Q'LC+ 'X'ml 'F'ixture
-#define KExtFixtureList ".qxfl"      // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
-#define KExtWorkspace ".qxw"         // 'Q'LC+ 'X'ml 'W'orkspace
-#define KExtInputProfile ".qxi"      // 'Q'LC+ 'X'ml 'I'nput profile
+#define KExtFixture          ".qxf"  // 'Q'LC+ 'X'ml 'F'ixture
+#define KExtFixtureList      ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
+#define KExtWorkspace        ".qxw"  // 'Q'LC+ 'X'ml 'W'orkspace
+#define KExtInputProfile     ".qxi"  // 'Q'LC+ 'X'ml 'I'nput profile
 #define KExtModifierTemplate ".qxmt" // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
-#define KExtColorFilters ".qxcf"     // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
+#define KExtColorFilters     ".qxcf" // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
 
 #if defined(WIN32) || defined(Q_OS_WIN)
   #define KExtPlugin ".dll" // Dynamic-Link Library
@@ -55,16 +55,16 @@ class QString;
 #endif
 
 // Generic XML tags common for all documents
-#define KXMLQLCCreator QString("Creator")
-#define KXMLQLCCreatorName QString("Name")
+#define KXMLQLCCreator        QString("Creator")
+#define KXMLQLCCreatorName    QString("Name")
 #define KXMLQLCCreatorVersion QString("Version")
-#define KXMLQLCCreatorAuthor QString("Author")
+#define KXMLQLCCreatorAuthor  QString("Author")
 
 // share fixture list tag
 #define KXMLQLCFixturesList QString("FixtureList")
 
 // True and false
-#define KXMLQLCTrue "True"
+#define KXMLQLCTrue  "True"
 #define KXMLQLCFalse "False"
 
 class QLCFile

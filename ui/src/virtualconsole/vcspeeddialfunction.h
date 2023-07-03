@@ -53,7 +53,7 @@ public:
     /**
      * Get the ordered list of existing speed multiplier names
      */
-    static const QStringList &speedMultiplierNames();
+    static const QStringList      &speedMultiplierNames();
     /**
      * Get the ordered list of existing speed multiplier values, times 1000
      * (value for multiplier 1/4 will be 250)
@@ -80,7 +80,7 @@ public:
     bool saveXML(QXmlStreamWriter *doc) const;
 
 public:
-    quint32 functionId;
+    quint32         functionId;
     SpeedMultiplier fadeInMultiplier;
     SpeedMultiplier fadeOutMultiplier;
     SpeedMultiplier durationMultiplier;

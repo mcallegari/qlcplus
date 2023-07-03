@@ -85,9 +85,9 @@ protected slots:
     void slotTimerTimeout();
 
 protected:
-    bool m_wizardActive;
+    bool             m_wizardActive;
     QTreeWidgetItem *m_latestItem;
-    QTimer *m_timer;
+    QTimer          *m_timer;
 
     /************************************************************************
      * Profile

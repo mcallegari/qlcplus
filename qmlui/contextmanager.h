@@ -80,7 +80,7 @@ public:
 
     /** Get/Set the environment width/height/depth size */
     QVector3D environmentSize() const;
-    void setEnvironmentSize(QVector3D environmentSize);
+    void      setEnvironmentSize(QVector3D environmentSize);
 
     /** Get/Set multiple item selection mode */
     bool multipleSelection() const;
@@ -110,23 +110,23 @@ public slots:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView        *m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc               *m_doc;
     /** Reference to the Doc Monitor properties */
     MonitorProperties *m_monProps;
 
     /** Reference to a simple PreviewContext representing
      *  the universe grid view, since it doesn't have a dedicated class */
-    PreviewContext *m_uniGridView;
+    PreviewContext  *m_uniGridView;
     /** Reference to the DMX Preview context */
-    MainViewDMX *m_DMXView;
+    MainViewDMX     *m_DMXView;
     /** Reference to the 2D Preview context */
-    MainView2D *m_2DView;
+    MainView2D      *m_2DView;
     /** Reference to the 3D Preview context */
-    MainView3D *m_3DView;
+    MainView3D      *m_3DView;
     /** Reference to the Fixture Manager */
-    FixtureManager *m_fixtureManager;
+    FixtureManager  *m_fixtureManager;
     /** Reference to the Function Manager */
     FunctionManager *m_functionManager;
 
@@ -143,7 +143,7 @@ private:
 public:
     /** Get/Set the universe displayed by contexts */
     quint32 universeFilter() const;
-    void setUniverseFilter(quint32 universeFilter);
+    void    setUniverseFilter(quint32 universeFilter);
 
 signals:
     void universeFilterChanged(quint32 universeFilter);
@@ -195,7 +195,7 @@ public:
 
     /** Set/Get the position of the currently selected fixtures */
     QVector3D fixturesPosition() const;
-    void setFixturesPosition(QVector3D position);
+    void      setFixturesPosition(QVector3D position);
 
     /** Set the gelatine color for the selected fixtures */
     Q_INVOKABLE void setFixturesGelColor(QColor color);
@@ -220,7 +220,7 @@ public:
 
     /** Set/Get the rotation of the currently selected fixtures */
     QVector3D fixturesRotation() const;
-    void setFixturesRotation(QVector3D degrees);
+    void      setFixturesRotation(QVector3D degrees);
 
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);

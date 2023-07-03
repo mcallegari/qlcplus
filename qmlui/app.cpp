@@ -61,8 +61,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define SETTINGS_WORKINGPATH "workspace/workingpath"
-#define SETTINGS_RECENTFILE "workspace/recent"
+#define SETTINGS_WORKINGPATH   "workspace/workingpath"
+#define SETTINGS_RECENTFILE    "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
 
 #define MAX_RECENT_FILES 10
@@ -137,17 +137,17 @@ void App::startup()
 
     m_uiManager = new UiManager(this, m_doc);
     rootContext()->setContextProperty("uiManager", m_uiManager);
-    m_ioManager = new InputOutputManager(this, m_doc);
-    m_fixtureBrowser = new FixtureBrowser(this, m_doc);
-    m_fixtureManager = new FixtureManager(this, m_doc);
+    m_ioManager          = new InputOutputManager(this, m_doc);
+    m_fixtureBrowser     = new FixtureBrowser(this, m_doc);
+    m_fixtureManager     = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
-    m_functionManager = new FunctionManager(this, m_doc);
-    m_simpleDesk = new SimpleDesk(this, m_doc, m_functionManager);
-    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
-    m_paletteManager = new PaletteManager(this, m_doc, m_contextManager);
+    m_functionManager    = new FunctionManager(this, m_doc);
+    m_simpleDesk         = new SimpleDesk(this, m_doc, m_functionManager);
+    m_contextManager     = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
+    m_paletteManager     = new PaletteManager(this, m_doc, m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
-    m_showManager = new ShowManager(this, m_doc);
+    m_showManager    = new ShowManager(this, m_doc);
     m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
@@ -229,7 +229,7 @@ QString App::goboSystemPath() const
 void App::show()
 {
     QScreen *currScreen = screen();
-    QRect rect(0, 0, 800, 600);
+    QRect    rect(0, 0, 800, 600);
     rect.moveTopLeft(currScreen->geometry().topLeft());
     setGeometry(rect);
     showMaximized();
@@ -329,7 +329,7 @@ void App::slotScreenChanged(QScreen *screen)
         (screen->orientation() == Qt::LandscapeOrientation || screen->orientation() == Qt::InvertedLandscapeOrientation)
             ? true
             : false;
-    qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
+    qreal sSize    = isLandscape ? screen->size().height() : screen->size().width();
     m_pixelDensity = qMax(screen->physicalDotsPerInch() * 0.039370, sSize / 220.0);
     qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
              << ", physical size:" << screen->physicalSize();
@@ -479,34 +479,34 @@ void App::printItem(QQuickItem *item)
     if (item == nullptr)
         return;
 
-    m_printItem = item;
+    m_printItem    = item;
     m_printerImage = item->grabToImage();
     connect(m_printerImage.data(), &QQuickItemGrabResult::ready, this, &App::slotItemReadyForPrinting);
 }
 
 void App::slotItemReadyForPrinting()
 {
-    QPrinter printer;
+    QPrinter      printer;
     QPrintDialog *dlg = new QPrintDialog(&printer);
     if (dlg->exec() == QDialog::Accepted)
     {
-        QRectF pageRect = printer.pageLayout().paintRect();
-        QSize imgSize = m_printerImage->image().size();
-        int totalHeight = imgSize.height();
-        int yOffset = 0;
+        QRectF pageRect    = printer.pageLayout().paintRect();
+        QSize  imgSize     = m_printerImage->image().size();
+        int    totalHeight = imgSize.height();
+        int    yOffset     = 0;
 
         qDebug() << "Page size:" << pageRect << ", image size:" << imgSize;
         QPainter painter(&printer);
         painter.setRenderHint(QPainter::Antialiasing, false);
         painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
-        QImage img = m_printerImage->image();
-        int actualWidth = imgSize.width();
+        QImage img         = m_printerImage->image();
+        int    actualWidth = imgSize.width();
 
         // if the grabbed image is larger than the page, fit it to the page width
         if (pageRect.width() < imgSize.width())
         {
-            img = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
+            img         = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
             actualWidth = pageRect.width();
         }
 
@@ -958,7 +958,7 @@ void App::editFixture(QString manufacturer, QString model)
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
-        switchToEditor = true;
+        switchToEditor  = true;
     }
 
     if (m_fixtureEditor->editDefinition(manufacturer, model) == false)

@@ -45,8 +45,8 @@ QLCPhysical::QLCPhysical()
     , m_powerConsumption(0)
 
 {
-    m_lensName = "Other";
-    m_focusType = "Fixed";
+    m_lensName     = "Other";
+    m_focusType    = "Fixed";
     m_dmxConnector = "5-pin";
 }
 
@@ -61,26 +61,26 @@ QLCPhysical &QLCPhysical::operator=(const QLCPhysical &physical)
 {
     if (this != &physical)
     {
-        m_bulbType = physical.bulbType();
-        m_bulbLumens = physical.bulbLumens();
+        m_bulbType              = physical.bulbType();
+        m_bulbLumens            = physical.bulbLumens();
         m_bulbColourTemperature = physical.bulbColourTemperature();
 
         m_weight = physical.weight();
-        m_width = physical.width();
+        m_width  = physical.width();
         m_height = physical.height();
-        m_depth = physical.depth();
+        m_depth  = physical.depth();
 
-        m_lensName = physical.lensName();
+        m_lensName       = physical.lensName();
         m_lensDegreesMin = physical.lensDegreesMin();
         m_lensDegreesMax = physical.lensDegreesMax();
 
-        m_focusType = physical.focusType();
-        m_focusPanMax = physical.focusPanMax();
+        m_focusType    = physical.focusType();
+        m_focusPanMax  = physical.focusPanMax();
         m_focusTiltMax = physical.focusTiltMax();
-        m_layout = physical.layoutSize();
+        m_layout       = physical.layoutSize();
 
         m_powerConsumption = physical.powerConsumption();
-        m_dmxConnector = physical.dmxConnector();
+        m_dmxConnector     = physical.dmxConnector();
     }
 
     return *this;
@@ -292,27 +292,27 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
         QXmlStreamAttributes attrs = doc.attributes();
         if (doc.name() == KXMLQLCPhysicalBulb)
         {
-            m_bulbType = attrs.value(KXMLQLCPhysicalBulbType).toString();
-            m_bulbLumens = attrs.value(KXMLQLCPhysicalBulbLumens).toString().toInt();
+            m_bulbType              = attrs.value(KXMLQLCPhysicalBulbType).toString();
+            m_bulbLumens            = attrs.value(KXMLQLCPhysicalBulbLumens).toString().toInt();
             m_bulbColourTemperature = attrs.value(KXMLQLCPhysicalBulbColourTemperature).toString().toInt();
         }
         else if (doc.name() == KXMLQLCPhysicalDimensions)
         {
             m_weight = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalDimensionsWeight).toString());
-            m_width = attrs.value(KXMLQLCPhysicalDimensionsWidth).toString().toInt();
+            m_width  = attrs.value(KXMLQLCPhysicalDimensionsWidth).toString().toInt();
             m_height = attrs.value(KXMLQLCPhysicalDimensionsHeight).toString().toInt();
-            m_depth = attrs.value(KXMLQLCPhysicalDimensionsDepth).toString().toInt();
+            m_depth  = attrs.value(KXMLQLCPhysicalDimensionsDepth).toString().toInt();
         }
         else if (doc.name() == KXMLQLCPhysicalLens)
         {
-            m_lensName = attrs.value(KXMLQLCPhysicalLensName).toString();
+            m_lensName       = attrs.value(KXMLQLCPhysicalLensName).toString();
             m_lensDegreesMin = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMin).toString());
             m_lensDegreesMax = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMax).toString());
         }
         else if (doc.name() == KXMLQLCPhysicalFocus)
         {
-            m_focusType = attrs.value(KXMLQLCPhysicalFocusType).toString();
-            m_focusPanMax = attrs.value(KXMLQLCPhysicalFocusPanMax).toString().toInt();
+            m_focusType    = attrs.value(KXMLQLCPhysicalFocusType).toString();
+            m_focusPanMax  = attrs.value(KXMLQLCPhysicalFocusPanMax).toString().toInt();
             m_focusTiltMax = attrs.value(KXMLQLCPhysicalFocusTiltMax).toString().toInt();
         }
         else if (doc.name() == KXMLQLCPhysicalLayout)
@@ -327,7 +327,7 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
         else if (doc.name() == KXMLQLCPhysicalTechnical)
         {
             m_powerConsumption = attrs.value(KXMLQLCPhysicalTechnicalPowerConsumption).toString().toInt();
-            m_dmxConnector = attrs.value(KXMLQLCPhysicalTechnicalDmxConnector).toString();
+            m_dmxConnector     = attrs.value(KXMLQLCPhysicalTechnicalDmxConnector).toString();
         }
         else
         {

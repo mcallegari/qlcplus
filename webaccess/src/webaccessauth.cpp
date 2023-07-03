@@ -33,7 +33,7 @@
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
-#define SALT_LENGTH 32
+#define SALT_LENGTH           32
 #define DEFAULT_PASSWORD_FILE "web_passwd"
 
 WebAccessAuth::WebAccessAuth(const QString &realm)
@@ -54,7 +54,7 @@ bool WebAccessAuth::loadPasswordsFile(const QString &filePath)
         return false;
 
     QTextStream stream(&file);
-    QString line;
+    QString     line;
 
     // Line format is as follows:
     // username:passwordHash:userLevel:hashType:salt
@@ -69,11 +69,11 @@ bool WebAccessAuth::loadPasswordsFile(const QString &filePath)
             continue;
         }
 
-        QString username = parts[0];
+        QString username     = parts[0];
         QString passwordHash = parts[1];
-        int userLevel = (parts.size() >= 3) ? (parts[2].toInt()) : (NOT_PROVIDED_LEVEL);
-        QString hashType = (parts.size() >= 4) ? (parts[3]) : (DEFAULT_PASSWORD_HASH_TYPE);
-        QString salt = (parts.size() >= 5) ? (parts[4]) : ("");
+        int     userLevel    = (parts.size() >= 3) ? (parts[2].toInt()) : (NOT_PROVIDED_LEVEL);
+        QString hashType     = (parts.size() >= 4) ? (parts[3]) : (DEFAULT_PASSWORD_HASH_TYPE);
+        QString salt         = (parts.size() >= 5) ? (parts[4]) : ("");
 
         WebAccessUser user(username, passwordHash, (WebAccessUserLevel)userLevel, hashType, salt);
 
@@ -125,7 +125,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest *req, QHttpR
         return WebAccessUser();
 
     QString authentication = QString(QByteArray::fromBase64(auth.right(auth.size() - 6).toUtf8()));
-    int colonIndex = authentication.indexOf(':');
+    int     colonIndex     = authentication.indexOf(':');
 
     // Disallow empty passwords
     if (colonIndex == -1)
@@ -143,7 +143,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest *req, QHttpR
 
 void WebAccessAuth::addUser(const QString &username, const QString &password, WebAccessUserLevel level)
 {
-    QString salt = this->generateSalt();
+    QString       salt = this->generateSalt();
     WebAccessUser user(username, this->hashPassword(DEFAULT_PASSWORD_HASH_TYPE, password, salt), level,
                        DEFAULT_PASSWORD_HASH_TYPE, salt);
     m_passwords.insert(username, user);
@@ -212,8 +212,8 @@ QString WebAccessAuth::generateSalt() const
 
 QString WebAccessAuth::hashPassword(const QString &hashType, const QString &password, const QString &passwordSalt) const
 {
-    QString passwordWithSalt = password + passwordSalt;
-    QCryptographicHash::Algorithm algorithm = QCryptographicHash::Sha1;
+    QString                       passwordWithSalt = password + passwordSalt;
+    QCryptographicHash::Algorithm algorithm        = QCryptographicHash::Sha1;
 
     if (hashType == "sha1")
     {

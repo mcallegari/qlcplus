@@ -10,11 +10,11 @@ AccessModifierOffset: -4
 # The coding style does not specify the following, but this is what gives
 # results closest to the existing code.
 AlignAfterOpenBracket: Align
-AlignArrayOfStructures: None
-AlignConsecutiveMacros: None
-AlignConsecutiveAssignments: None
-AlignConsecutiveBitFields: None
-AlignConsecutiveDeclarations: None
+AlignArrayOfStructures: Right
+AlignConsecutiveMacros: AcrossComments
+AlignConsecutiveAssignments: AcrossComments
+AlignConsecutiveBitFields: AcrossComments
+AlignConsecutiveDeclarations: AcrossComments
 
 # When escaping newlines in a macro attach the '\' as far left as possible, e.g.
 ##define a     \
@@ -22,7 +22,7 @@ AlignConsecutiveDeclarations: None
 #   other;     \
 #   thelastlineislong;
 AlignEscapedNewlines: Left
-AlignOperands:   Align
+AlignOperands: Align
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true

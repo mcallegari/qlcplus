@@ -51,8 +51,8 @@ public slots:
     void slotTabChanged();
 
 protected:
-    VCCueList *m_cueList;
-    Doc *m_doc;
+    VCCueList            *m_cueList;
+    Doc                  *m_doc;
     InputSelectionWidget *m_playInputWidget;
     InputSelectionWidget *m_stopInputWidget;
     InputSelectionWidget *m_nextInputWidget;
@@ -69,7 +69,7 @@ protected slots:
     void slotPlaybackLayoutChanged();
 
 private:
-    void updateChaserName();
+    void    updateChaserName();
     quint32 m_chaserId;
 };
 

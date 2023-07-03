@@ -72,12 +72,12 @@ void Gradient::initialize()
 
     for (int c = 0; c < 6; c++)
     {
-        float r = (baseColors[c] >> 16) & 0x00FF;
-        float g = (baseColors[c] >> 8) & 0x00FF;
-        float b = baseColors[c] & 0x00FF;
-        int nr = (baseColors[c + 1] >> 16) & 0x00FF;
-        int ng = (baseColors[c + 1] >> 8) & 0x00FF;
-        int nb = baseColors[c + 1] & 0x00FF;
+        float r  = (baseColors[c] >> 16) & 0x00FF;
+        float g  = (baseColors[c] >> 8) & 0x00FF;
+        float b  = baseColors[c] & 0x00FF;
+        int   nr = (baseColors[c + 1] >> 16) & 0x00FF;
+        int   ng = (baseColors[c + 1] >> 8) & 0x00FF;
+        int   nb = baseColors[c + 1] & 0x00FF;
         float rD = (nr - r) / 42;
         float gD = (ng - g) / 42;
         float bD = (nb - b) / 42;

@@ -28,15 +28,15 @@
 #include "qlcinputchannel.h"
 #include "inputchanneleditor.h"
 
-#define KMidiMessageCC 0
-#define KMidiMessageNoteOnOff 1
-#define KMidiMessageNoteAftertouch 2
-#define KMidiMessagePC 3
+#define KMidiMessageCC                0
+#define KMidiMessageNoteOnOff         1
+#define KMidiMessageNoteAftertouch    2
+#define KMidiMessagePC                3
 #define KMidiMessageChannelAftertouch 4
-#define KMidiMessagePitchWheel 5
-#define KMidiMessageMBCPlayback 6
-#define KMidiMessageMBCBeat 7
-#define KMidiMessageMBCStop 8
+#define KMidiMessagePitchWheel        5
+#define KMidiMessageMBCPlayback       6
+#define KMidiMessageMBCBeat           7
+#define KMidiMessageMBCStop           8
 
 #define KMidiChannelOffset 4096
 
@@ -51,7 +51,7 @@ InputChannelEditor::InputChannelEditor(QWidget *parent, const QLCInputProfile *p
     : QDialog(parent)
 {
     m_channel = 0;
-    m_type = QLCInputChannel::NoType;
+    m_type    = QLCInputChannel::NoType;
 
     setupUi(this);
 
@@ -91,7 +91,7 @@ InputChannelEditor::InputChannelEditor(QWidget *parent, const QLCInputProfile *p
 
         /* Channel type */
         m_type = channel->type();
-        type = QLCInputChannel::typeToString(channel->type());
+        type   = QLCInputChannel::typeToString(channel->type());
         m_typeCombo->setCurrentIndex(m_typeCombo->findText(type));
 
         if (profileType == QLCInputProfile::MIDI)
@@ -145,7 +145,7 @@ void InputChannelEditor::slotNumberChanged(int number)
 
     int midiChannel = 0;
     int midiMessage = 0;
-    int midiParam = 0;
+    int midiParam   = 0;
 
     numberToMidi(m_channel, midiChannel, midiMessage, midiParam);
 
@@ -174,27 +174,27 @@ void InputChannelEditor::slotTypeActivated(const QString &text)
 void InputChannelEditor::numberToMidi(int number, int &channel, int &message, int &param)
 {
     channel = number / KMidiChannelOffset + 1;
-    number = number % KMidiChannelOffset;
-    param = -1;
+    number  = number % KMidiChannelOffset;
+    param   = -1;
     if (number <= CHANNEL_OFFSET_CONTROL_CHANGE_MAX)
     {
         message = KMidiMessageCC;
-        param = number - CHANNEL_OFFSET_CONTROL_CHANGE;
+        param   = number - CHANNEL_OFFSET_CONTROL_CHANGE;
     }
     else if (number <= CHANNEL_OFFSET_NOTE_MAX)
     {
         message = KMidiMessageNoteOnOff;
-        param = number - CHANNEL_OFFSET_NOTE;
+        param   = number - CHANNEL_OFFSET_NOTE;
     }
     else if (number <= CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX)
     {
         message = KMidiMessageNoteAftertouch;
-        param = number - CHANNEL_OFFSET_NOTE_AFTERTOUCH;
+        param   = number - CHANNEL_OFFSET_NOTE_AFTERTOUCH;
     }
     else if (number <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
     {
         message = KMidiMessagePC;
-        param = number - CHANNEL_OFFSET_PROGRAM_CHANGE;
+        param   = number - CHANNEL_OFFSET_PROGRAM_CHANGE;
     }
     else if (number == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
     {
@@ -249,7 +249,7 @@ void InputChannelEditor::slotMidiChanged()
 {
     int midiChannel = m_midiChannelSpin->value();
     int midiMessage = m_midiMessageCombo->currentIndex();
-    int midiParam = m_midiParamSpin->value();
+    int midiParam   = m_midiParamSpin->value();
 
     enableMidiParam(midiMessage, midiParam);
 
@@ -299,7 +299,7 @@ void InputChannelEditor::enableMidiParam(int midiMessage, int midiParam)
 QString InputChannelEditor::noteToString(int note)
 {
     int octave = note / 12 - 1;
-    int pitch = note % 12;
+    int pitch  = note % 12;
 
     switch (pitch)
     {

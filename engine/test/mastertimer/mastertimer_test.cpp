@@ -172,8 +172,8 @@ void MasterTimer_Test::registerUnregisterDMXSource()
 
 void MasterTimer_Test::interval()
 {
-    MasterTimer *mt = m_doc->masterTimer();
-    Function_Stub fs(m_doc);
+    MasterTimer   *mt = m_doc->masterTimer();
+    Function_Stub  fs(m_doc);
     DMXSource_Stub dss;
 
     mt->start();
@@ -206,7 +206,7 @@ void MasterTimer_Test::interval()
 
 void MasterTimer_Test::functionInitiatedStop()
 {
-    MasterTimer *mt = m_doc->masterTimer();
+    MasterTimer  *mt = m_doc->masterTimer();
     Function_Stub fs(m_doc);
 
     mt->start();

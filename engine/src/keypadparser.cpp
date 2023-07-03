@@ -33,14 +33,14 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
 
     QStringList tokens = command.split(" ");
 
-    int lastCommand = CommandNone;
+    int     lastCommand = CommandNone;
     quint32 fromChannel = 0;
-    quint32 toChannel = 0;
-    quint32 byChannel = 1;
-    bool channelSet = false;
-    float fromValue = 0;
-    float toValue = 0;
-    int thruCount = 0;
+    quint32 toChannel   = 0;
+    quint32 byChannel   = 1;
+    bool    channelSet  = false;
+    float   fromValue   = 0;
+    float   toValue     = 0;
+    int     thruCount   = 0;
 
     foreach (QString token, tokens)
     {
@@ -100,8 +100,8 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
         else
         {
             // most likely a number
-            bool ok = false;
-            int number = token.toUInt(&ok);
+            bool ok     = false;
+            int  number = token.toUInt(&ok);
 
             if (ok == false)
                 continue;
@@ -114,12 +114,12 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
                         break;
 
                     fromChannel = number;
-                    toChannel = fromChannel;
-                    channelSet = true;
+                    toChannel   = fromChannel;
+                    channelSet  = true;
                     break;
                 case CommandAT:
                     fromValue = float(number);
-                    toValue = fromValue;
+                    toValue   = fromValue;
                     break;
                 case CommandTHRU:
                     if (thruCount == 0)
@@ -130,11 +130,11 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
                     break;
                 case CommandFULL:
                     fromValue = 255;
-                    toValue = 255;
+                    toValue   = 255;
                     break;
                 case CommandZERO:
                     fromValue = 0;
-                    toValue = 0;
+                    toValue   = 0;
                     break;
                 case CommandBY:
                     byChannel = number;
@@ -164,7 +164,7 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
             SceneValue scv;
 
             scv.channel = m_channels.at(i);
-            scv.value = toValue;
+            scv.value   = toValue;
             values.append(scv);
         }
 
@@ -184,7 +184,7 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
 
     for (quint32 i = fromChannel - 1; i <= toChannel - 1; i += byChannel)
     {
-        uchar uniValue = 0;
+        uchar      uniValue = 0;
         SceneValue scv;
 
         if (i >= UNIVERSE_SIZE)

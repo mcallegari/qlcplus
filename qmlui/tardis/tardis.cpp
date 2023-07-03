@@ -49,7 +49,7 @@
 
 /* The time in milliseconds to declare an action
  * a duplicate or belonging to a batch of actions */
-#define TARDIS_ACTION_INTERTIME 150
+#define TARDIS_ACTION_INTERTIME   150
 /* The maximum number of action a Tardis can hold */
 #define TARDIS_MAX_ACTIONS_NUMBER 100
 
@@ -105,10 +105,10 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
 
     TardisAction action;
     action.m_timestamp = m_uptime.elapsed();
-    action.m_action = code;
-    action.m_objID = objID;
-    action.m_oldValue = oldVal;
-    action.m_newValue = newVal;
+    action.m_action    = code;
+    action.m_objID     = objID;
+    action.m_oldValue  = oldVal;
+    action.m_newValue  = newVal;
     {
         // enqueue the action under protection
         QMutexLocker locker(&m_queueMutex);
@@ -199,7 +199,7 @@ void Tardis::resetHistory()
     m_history.clear();
     m_historyIndex = -1;
     m_historyCount = 0;
-    m_busy = false;
+    m_busy         = false;
 }
 
 void Tardis::forwardActionToNetwork(int code, TardisAction &action)
@@ -225,7 +225,7 @@ void Tardis::run()
         }
 
         TardisAction action;
-        bool match = false;
+        bool         match = false;
 
         {
             QMutexLocker locker(&m_queueMutex);
@@ -248,7 +248,7 @@ void Tardis::run()
          * pushing a new one */
         if (m_historyIndex >= 0 && m_historyIndex != m_history.count())
         {
-            int count = m_history.count();
+            int    count        = m_history.count();
             qint64 refTimestamp = m_history.last().m_timestamp;
 
             for (int i = m_historyIndex + 1; i < count; i++)
@@ -352,8 +352,8 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         case ChaserAddStep:
         case ChaserRemoveStep:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
-            ChaserStep *step = chaser->stepAt(data.toInt());
+            Chaser     *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
+            ChaserStep *step   = chaser->stepAt(data.toInt());
             step->saveXML(&xmlWriter, data.toInt(), chaser->type() == Function::SequenceType ? true : false);
         }
         break;
@@ -411,8 +411,8 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
                 m_doc->inputOutputMap()->startUniverses();
             }
 
-            QList<Universe *> uniList = m_doc->inputOutputMap()->universes();
-            Universe *universe = qobject_cast<Universe *>(uniList.at(int(objID)));
+            QList<Universe *> uniList  = m_doc->inputOutputMap()->universes();
+            Universe         *universe = qobject_cast<Universe *>(uniList.at(int(objID)));
             universe->loadXML(xmlReader, int(objID), m_doc->inputOutputMap());
         }
         break;
@@ -450,9 +450,9 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         break;
         case ChaserAddStep:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
+            Chaser    *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             ChaserStep step;
-            int stepNumber = -1;
+            int        stepNumber = -1;
 
             if (step.loadXML(xmlReader, stepNumber, m_doc) == true)
                 chaser->addStep(step, stepNumber);
@@ -466,8 +466,8 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         break;
         case EFXAddFixture:
         {
-            EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
-            EFXFixture *ef = new EFXFixture(efx);
+            EFX        *efx = qobject_cast<EFX *>(m_doc->function(objID));
+            EFXFixture *ef  = new EFXFixture(efx);
 
             ef->loadXML(xmlReader);
             efx->addFixture(ef);
@@ -475,8 +475,8 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         break;
         case EFXRemoveFixture:
         {
-            EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
-            EFXFixture *ef = new EFXFixture(efx);
+            EFX        *efx = qobject_cast<EFX *>(m_doc->function(objID));
+            EFXFixture *ef  = new EFXFixture(efx);
 
             ef->loadXML(xmlReader);
             efx->removeFixture(ef->head().fxi, ef->head().head);
@@ -514,8 +514,8 @@ void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
         return;
 
     TardisAction action;
-    action.m_action = code;
-    action.m_objID = id;
+    action.m_action   = code;
+    action.m_objID    = id;
     action.m_newValue = value;
 
     // process the action
@@ -641,8 +641,8 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case SceneSetChannelValue:
         case SceneUnsetChannelValue:
         {
-            SceneValue scv = value->value<SceneValue>();
-            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            SceneValue scv   = value->value<SceneValue>();
+            Scene     *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
 
             if (scene)
             {
@@ -672,37 +672,37 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         case ChaserSetStepFadeIn:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(int(pairValue.first));
-            step.fadeIn = pairValue.second;
+            Chaser    *chaser    = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            UIntPair   pairValue = value->value<UIntPair>(); // index on first, time on second
+            ChaserStep step      = chaser->steps().at(int(pairValue.first));
+            step.fadeIn          = pairValue.second;
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepHold:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(int(pairValue.first));
-            step.hold = pairValue.second;
+            Chaser    *chaser    = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            UIntPair   pairValue = value->value<UIntPair>(); // index on first, time on second
+            ChaserStep step      = chaser->steps().at(int(pairValue.first));
+            step.hold            = pairValue.second;
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepFadeOut:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(int(pairValue.first));
-            step.fadeOut = pairValue.second;
+            Chaser    *chaser    = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            UIntPair   pairValue = value->value<UIntPair>(); // index on first, time on second
+            ChaserStep step      = chaser->steps().at(int(pairValue.first));
+            step.fadeOut         = pairValue.second;
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepDuration:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(int(pairValue.first));
-            step.duration = pairValue.second;
+            Chaser    *chaser    = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            UIntPair   pairValue = value->value<UIntPair>(); // index on first, time on second
+            ChaserStep step      = chaser->steps().at(int(pairValue.first));
+            step.duration        = pairValue.second;
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
@@ -795,7 +795,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case CollectionAddFunction:
         {
             Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
+            UIntPair    pairValue  = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
                 collection->removeFunction(pairValue.first);
             else
@@ -805,7 +805,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case CollectionRemoveFunction:
         {
             Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
+            UIntPair    pairValue  = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
                 collection->addFunction(pairValue.first, int(pairValue.second));
             else
@@ -823,9 +823,9 @@ int Tardis::processAction(TardisAction &action, bool undo)
         break;
         case RGBMatrixSetAlgorithmIndex:
         {
-            QStringList algoList = RGBAlgorithm::algorithms(m_doc);
-            RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoList.at(value->toInt()));
-            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            QStringList   algoList = RGBAlgorithm::algorithms(m_doc);
+            RGBAlgorithm *algo     = RGBAlgorithm::algorithm(m_doc, algoList.at(value->toInt()));
+            RGBMatrix    *matrix   = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             matrix->setAlgorithm(algo);
         }
         break;
@@ -843,14 +843,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
         break;
         case RGBMatrixSetScriptIntValue:
         {
-            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBMatrix    *matrix    = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             StringIntPair pairValue = value->value<StringIntPair>(); // param name on first, value on second
             matrix->setProperty(pairValue.first, QString::number(pairValue.second));
         }
         break;
         case RGBMatrixSetScriptStringValue:
         {
-            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBMatrix       *matrix    = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             StringStringPair pairValue = value->value<StringStringPair>(); // param name on first, value on second
             matrix->setProperty(pairValue.first, pairValue.second);
         }
@@ -858,15 +858,15 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case RGBMatrixSetText:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
-            RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
+            RGBText   *algo   = static_cast<RGBText *>(matrix->algorithm());
             algo->setText(value->toString());
         }
         break;
         case RGBMatrixSetTextFont:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
-            RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
-            QFont font;
+            RGBText   *algo   = static_cast<RGBText *>(matrix->algorithm());
+            QFont      font;
             font.fromString(value->toString());
             algo->setFont(font);
         }
@@ -874,7 +874,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case RGBMatrixSetImage:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
-            RGBImage *algo = static_cast<RGBImage *>(matrix->algorithm());
+            RGBImage  *algo   = static_cast<RGBImage *>(matrix->algorithm());
             algo->setFilename(value->toString());
         }
         break;
@@ -956,7 +956,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case VideoSetRotation:
         {
             QVector3D rotation = value->value<QVector3D>();
-            auto member = std::mem_fn(&Video::setRotation);
+            auto      member   = std::mem_fn(&Video::setRotation);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), rotation);
         }
         break;

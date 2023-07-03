@@ -67,7 +67,7 @@ void SimpleCrypt::splitKey()
         quint64 part = m_key;
         for (int j = i; j > 0; j--)
             part = part >> 8;
-        part = part & 0xff;
+        part          = part & 0xff;
         m_keyParts[i] = static_cast<char>(part);
     }
 }
@@ -129,16 +129,16 @@ QByteArray SimpleCrypt::encryptToByteArray(QByteArray plaintext)
 
     // prepend a random char to the string
     char randomChar = char(m_rand.generate() & 0xFF);
-    ba = randomChar + integrityProtection + ba;
+    ba              = randomChar + integrityProtection + ba;
 
-    int pos(0);
+    int  pos(0);
     char lastChar(0);
 
     int cnt = ba.length();
 
     while (pos < cnt)
     {
-        ba[pos] = ba.at(pos) ^ m_keyParts.at(pos % 8) ^ lastChar;
+        ba[pos]  = ba.at(pos) ^ m_keyParts.at(pos % 8) ^ lastChar;
         lastChar = ba.at(pos);
         ++pos;
     }
@@ -155,31 +155,31 @@ QByteArray SimpleCrypt::encryptToByteArray(QByteArray plaintext)
 QString SimpleCrypt::encryptToString(const QString &plaintext)
 {
     QByteArray plaintextArray = plaintext.toUtf8();
-    QByteArray cypher = encryptToByteArray(plaintextArray);
-    QString cypherString = QString::fromLatin1(cypher.toBase64());
+    QByteArray cypher         = encryptToByteArray(plaintextArray);
+    QString    cypherString   = QString::fromLatin1(cypher.toBase64());
     return cypherString;
 }
 
 QString SimpleCrypt::encryptToString(QByteArray plaintext)
 {
-    QByteArray cypher = encryptToByteArray(plaintext);
-    QString cypherString = QString::fromLatin1(cypher.toBase64());
+    QByteArray cypher       = encryptToByteArray(plaintext);
+    QString    cypherString = QString::fromLatin1(cypher.toBase64());
     return cypherString;
 }
 
 QString SimpleCrypt::decryptToString(const QString &cyphertext)
 {
     QByteArray cyphertextArray = QByteArray::fromBase64(cyphertext.toLatin1());
-    QByteArray plaintextArray = decryptToByteArray(cyphertextArray);
-    QString plaintext = QString::fromUtf8(plaintextArray, plaintextArray.size());
+    QByteArray plaintextArray  = decryptToByteArray(cyphertextArray);
+    QString    plaintext       = QString::fromUtf8(plaintextArray, plaintextArray.size());
 
     return plaintext;
 }
 
 QString SimpleCrypt::decryptToString(QByteArray cypher)
 {
-    QByteArray ba = decryptToByteArray(cypher);
-    QString plaintext = QString::fromUtf8(ba, ba.size());
+    QByteArray ba        = decryptToByteArray(cypher);
+    QString    plaintext = QString::fromUtf8(ba, ba.size());
 
     return plaintext;
 }
@@ -187,7 +187,7 @@ QString SimpleCrypt::decryptToString(QByteArray cypher)
 QByteArray SimpleCrypt::decryptToByteArray(const QString &cyphertext)
 {
     QByteArray cyphertextArray = QByteArray::fromBase64(cyphertext.toLatin1());
-    QByteArray ba = decryptToByteArray(cyphertextArray);
+    QByteArray ba              = decryptToByteArray(cyphertextArray);
 
     return ba;
 }
@@ -218,15 +218,15 @@ QByteArray SimpleCrypt::decryptToByteArray(QByteArray cypher)
     CryptoFlags flags = CryptoFlags(ba.at(1));
 
     ba = ba.mid(2);
-    int pos(0);
-    int cnt(ba.length());
+    int  pos(0);
+    int  cnt(ba.length());
     char lastChar = 0;
 
     while (pos < cnt)
     {
         char currentChar = ba[pos];
-        ba[pos] = ba.at(pos) ^ lastChar ^ m_keyParts.at(pos % 8);
-        lastChar = currentChar;
+        ba[pos]          = ba.at(pos) ^ lastChar ^ m_keyParts.at(pos % 8);
+        lastChar         = currentChar;
         ++pos;
     }
 
@@ -250,7 +250,7 @@ QByteArray SimpleCrypt::decryptToByteArray(QByteArray cypher)
         quint16 checksum = qChecksum(ba.constData(), ba.length());
 #else
         QByteArrayView bav(ba.constData(), ba.length());
-        quint16 checksum = qChecksum(bav);
+        quint16        checksum = qChecksum(bav);
 #endif
         integrityOk = (checksum == storedChecksum);
     }
@@ -262,7 +262,7 @@ QByteArray SimpleCrypt::decryptToByteArray(QByteArray cypher)
             return QByteArray();
         }
         QByteArray storedHash = ba.left(20);
-        ba = ba.mid(20);
+        ba                    = ba.mid(20);
         QCryptographicHash hash(QCryptographicHash::Sha1);
         hash.addData(ba);
         integrityOk = (hash.result() == storedHash);

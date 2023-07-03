@@ -27,17 +27,17 @@
 #include "doc.h"
 
 #define KXMLQLCVCClockEnabled QString("Enable")
-#define KXMLQLCVCClockType QString("Type")
-#define KXMLQLCVCClockTime QString("Time")
+#define KXMLQLCVCClockType    QString("Type")
+#define KXMLQLCVCClockTime    QString("Time")
 
-#define KXMLQLCVCClockHours QString("Hours")     // LEGACY
+#define KXMLQLCVCClockHours   QString("Hours")   // LEGACY
 #define KXMLQLCVCClockMinutes QString("Minutes") // LEGACY
 #define KXMLQLCVCClockSeconds QString("Seconds") // LEGACY
 
-#define KXMLQLCVCClockSchedule QString("Schedule")
-#define KXMLQLCVCClockScheduleFunc QString("Function")
+#define KXMLQLCVCClockSchedule          QString("Schedule")
+#define KXMLQLCVCClockScheduleFunc      QString("Function")
 #define KXMLQLCVCClockScheduleStartTime QString("StartTime")
-#define KXMLQLCVCClockScheduleStopTime QString("StopTime")
+#define KXMLQLCVCClockScheduleStopTime  QString("StopTime")
 #define KXMLQLCVCClockScheduleWeekFlags QString("WeekFlags")
 
 #define KXMLQLCVCClockScheduleTime QString("Time") // LEGACY
@@ -202,8 +202,8 @@ VCClock::ClockType VCClock::stringToType(QString str)
 
 int VCClock::currentTime() const
 {
-    QTime currTime = QDateTime::currentDateTime().time();
-    int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
+    QTime currTime    = QDateTime::currentDateTime().time();
+    int   dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
     return dayTimeSecs;
 }
 
@@ -226,10 +226,10 @@ void VCClock::setTargetTime(int ms)
 
 void VCClock::slotTimerTimeout()
 {
-    QDateTime currDate = QDateTime::currentDateTime();
-    QTime currTime = currDate.time();
-    int currDay = 1 << (currDate.date().dayOfWeek() - 1);
-    int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
+    QDateTime currDate    = QDateTime::currentDateTime();
+    QTime     currTime    = currDate.time();
+    int       currDay     = 1 << (currDate.date().dayOfWeek() - 1);
+    int       dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
 
     // if we're editing or the widget is disabled, just emit the current time
     if (isEditing() || enableSchedule() == false)
@@ -385,7 +385,7 @@ void VCClock::removeSchedule(int index)
         return;
 
     VCClockSchedule *sch = m_scheduleList.takeAt(index);
-    Function *f = m_doc->function(sch->functionID());
+    Function        *f   = m_doc->function(sch->functionID());
     if (f != nullptr && f->isRunning())
         f->stop(functionParent());
     delete sch;
@@ -404,8 +404,8 @@ bool VCClock::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    QXmlStreamAttributes attrs = root.attributes();
-    bool enableSchedule = true;
+    QXmlStreamAttributes attrs          = root.attributes();
+    bool                 enableSchedule = true;
 
     if (attrs.hasAttribute(KXMLQLCVCClockEnabled))
     {
@@ -425,7 +425,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCClockTime))
             {
                 QTime tTime = QTime::fromString(attrs.value(KXMLQLCVCClockTime).toString(), "HH:mm:ss");
-                msTime = tTime.msecsSinceStartOfDay() / 1000;
+                msTime      = tTime.msecsSinceStartOfDay() / 1000;
             }
             else // LEGACY
             {
@@ -451,7 +451,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(QRect(x, y, w, h));
         }
@@ -490,8 +490,8 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     if (type == Countdown)
     {
         QTime tTime;
-        int tt = targetTime();
-        int hh = (tt / 3600);
+        int   tt = targetTime();
+        int   hh = (tt / 3600);
         tt -= (hh * 3600);
         int mm = (tt / 60);
         tt -= (mm * 60);
@@ -590,8 +590,8 @@ bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
 
     /* Schedule start time */
     QTime start;
-    int st = startTime();
-    int hh = (st / 3600);
+    int   st = startTime();
+    int   hh = (st / 3600);
     st -= (hh * 3600);
     int mm = (st / 60);
     st -= (mm * 60);

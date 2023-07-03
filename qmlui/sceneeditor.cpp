@@ -35,7 +35,7 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_source(nullptr)
 {
     m_view->rootContext()->setContextProperty("sceneEditor", this);
-    m_source = new GenericDMXSource(m_doc);
+    m_source      = new GenericDMXSource(m_doc);
     m_fixtureList = new ListModel(this);
     QStringList fRoles;
     fRoles << "cRef"
@@ -146,9 +146,9 @@ void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
         return;
     }
 
-    quint32 fixtureID = m_fixtureIDs[index];
+    quint32      fixtureID = m_fixtureIDs[index];
     QVariantList dmxValues;
-    QByteArray values = m_channelsCache[fixtureID];
+    QByteArray   values = m_channelsCache[fixtureID];
 
     for (int i = 0; i < values.length(); i++)
         dmxValues.append(QString::number((uchar)values.at(i)));
@@ -233,8 +233,8 @@ void SceneEditor::slotAliasChanged()
 
     qDebug() << "Fixture alias changed";
 
-    Fixture *fxi = qobject_cast<Fixture *>(sender());
-    int fxIndex = m_fixtureIDs.indexOf(fxi->id());
+    Fixture *fxi     = qobject_cast<Fixture *>(sender());
+    int      fxIndex = m_fixtureIDs.indexOf(fxi->id());
     if (m_fxConsoleMap.contains(fxIndex))
         QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "updateChannels");
 }
@@ -245,7 +245,7 @@ void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
         return;
 
     QVariant currentVal;
-    uchar currDmxValue = m_scene->value(fxID, channel);
+    uchar    currDmxValue = m_scene->value(fxID, channel);
     currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
     Tardis::instance()->enqueueAction(Tardis::SceneUnsetChannelValue, m_scene->id(), currentVal, QVariant());
 
@@ -303,16 +303,16 @@ void SceneEditor::deleteItems(QVariantList list)
 
     for (QVariant vIdx : list)
     {
-        int index = vIdx.toInt();
+        int         index   = vIdx.toInt();
         QVariantMap dataMap = m_componentList->itemAt(index).toMap();
-        int type = dataMap["type"].toInt();
+        int         type    = dataMap["type"].toInt();
 
         switch (type)
         {
             case App::FixtureDragItem:
             {
-                Fixture *fixture = dataMap["cRef"].value<Fixture *>();
-                quint32 fixtureID = fixture->id();
+                Fixture *fixture   = dataMap["cRef"].value<Fixture *>();
+                quint32  fixtureID = fixture->id();
                 qDebug() << "removing fixture with ID" << fixtureID;
                 // TODO: tardis
                 for (SceneValue &scv : m_scene->values())
@@ -461,18 +461,18 @@ void SceneEditor::setCacheChannelValue(SceneValue scv)
 {
     if (m_channelsCache.contains(scv.fxi))
     {
-        QByteArray values = m_channelsCache[scv.fxi];
-        values[scv.channel] = scv.value;
+        QByteArray values        = m_channelsCache[scv.fxi];
+        values[scv.channel]      = scv.value;
         m_channelsCache[scv.fxi] = values;
     }
     else
     {
-        Fixture *fixture = m_doc->fixture(scv.fxi);
-        int chNumber = fixture->channels();
+        Fixture   *fixture  = m_doc->fixture(scv.fxi);
+        int        chNumber = fixture->channels();
         QByteArray values;
 
         values.fill(0, chNumber);
-        values[scv.channel] = scv.value;
+        values[scv.channel]      = scv.value;
         m_channelsCache[scv.fxi] = values;
     }
 }

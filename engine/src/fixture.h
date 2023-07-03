@@ -44,27 +44,27 @@ class Doc;
  * @{
  */
 
-#define KXMLFixture QString("Fixture")
-#define KXMLFixtureName QString("Name")
-#define KXMLFixtureUniverse QString("Universe")
-#define KXMLFixtureAddress QString("Address")
-#define KXMLFixtureID QString("ID")
-#define KXMLFixtureGeneric QString("Generic")
-#define KXMLFixtureRGBPanel QString("RGBPanel")
-#define KXMLFixtureChannels QString("Channels")
-#define KXMLFixtureDimmer QString("Dimmer")
+#define KXMLFixture            QString("Fixture")
+#define KXMLFixtureName        QString("Name")
+#define KXMLFixtureUniverse    QString("Universe")
+#define KXMLFixtureAddress     QString("Address")
+#define KXMLFixtureID          QString("ID")
+#define KXMLFixtureGeneric     QString("Generic")
+#define KXMLFixtureRGBPanel    QString("RGBPanel")
+#define KXMLFixtureChannels    QString("Channels")
+#define KXMLFixtureDimmer      QString("Dimmer")
 #define KXMLFixtureExcludeFade QString("ExcludeFade")
-#define KXMLFixtureForcedHTP QString("ForcedHTP")
-#define KXMLFixtureForcedLTP QString("ForcedLTP")
+#define KXMLFixtureForcedHTP   QString("ForcedHTP")
+#define KXMLFixtureForcedLTP   QString("ForcedLTP")
 
 #define KXMLFixtureChannelModifier QString("Modifier")
-#define KXMLFixtureChannelIndex QString("Channel")
-#define KXMLFixtureModifierName QString("Name")
+#define KXMLFixtureChannelIndex    QString("Channel")
+#define KXMLFixtureModifierName    QString("Name")
 
 typedef struct
 {
-    bool m_hasAlias;          /** Flag to enable/disable aliases check */
-    QLCCapability *m_currCap; /** The current capability in use */
+    bool           m_hasAlias; /** Flag to enable/disable aliases check */
+    QLCCapability *m_currCap;  /** The current capability in use */
 } ChannelAlias;
 
 class Fixture : public QObject
@@ -358,10 +358,10 @@ signals:
 
 protected:
     /** Runtime array to store DMX values and check for changes */
-    QByteArray m_values;
+    QByteArray            m_values;
     /** Runtime array to check for alias changes */
     QVector<ChannelAlias> m_aliasInfo;
-    QMutex m_channelsInfoMutex;
+    QMutex                m_channelsInfoMutex;
 
     /*********************************************************************
      * Fixture definition

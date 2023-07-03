@@ -44,7 +44,7 @@ public:
 
     /** Get/Set the source file name for this Audio function */
     QString sourceFileName() const;
-    void setSourceFileName(QString sourceFileName);
+    void    setSourceFileName(QString sourceFileName);
 
     /** Get the supported file types that can be decoded */
     QStringList audioExtensions() const;
@@ -58,10 +58,10 @@ public:
 
     /** Get/Set the Audio function volume */
     qreal volume();
-    void setVolume(qreal volume);
+    void  setVolume(qreal volume);
 
     /** Get/Set the audio card line used to play this Audio function */
-    int cardLineIndex() const;
+    int  cardLineIndex() const;
     void setCardLineIndex(int cardLineIndex);
 
 signals:

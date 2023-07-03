@@ -110,37 +110,37 @@ public:
 
     /** Get/Set the video resolution as a QSize variable */
     QSize resolution();
-    void setResolution(QSize size);
+    void  setResolution(QSize size);
 
     /** Get/Set the video custom geometry as a QRect variable */
     QRect customGeometry();
-    void setCustomGeometry(QRect rect);
+    void  setCustomGeometry(QRect rect);
 
     /** Get/Set the video XYZ rotation as a QVector3D variable */
     QVector3D rotation() const;
-    void setRotation(QVector3D rotation);
+    void      setRotation(QVector3D rotation);
 
     /** Get/Set the video Z-Index used for layering */
-    int zIndex() const;
+    int  zIndex() const;
     void setZIndex(int idx);
 
     /** Get/Set the audio codec for this Video Function */
     QString audioCodec();
-    void setAudioCodec(QString codec);
+    void    setAudioCodec(QString codec);
 
     /** Get/Set the video codec for this Video Function */
     QString videoCodec();
-    void setVideoCodec(QString codec);
+    void    setVideoCodec(QString codec);
 
     /** Get/Set the source URL used by this Video object */
     QString sourceUrl();
-    bool setSourceUrl(QString filename);
+    bool    setSourceUrl(QString filename);
 
     /** Return if the loaded source is a picture */
     bool isPicture() const;
 
     /** Get/Set the screen index where to render the video */
-    int screen();
+    int  screen();
     void setScreen(int index);
 
     /** Get/Set the video to be rendered in windowed or fullscreen mode */
@@ -168,26 +168,26 @@ signals:
 
 private:
     /** URL of the video media source */
-    QString m_sourceUrl;
+    QString   m_sourceUrl;
     /** Flag that indicates if the loaded source is a picture (or a video) */
-    bool m_isPicture;
+    bool      m_isPicture;
     /** Duration of the video content */
-    qint64 m_videoDuration;
+    qint64    m_videoDuration;
     /** The audio and video codec as strings */
-    QString m_audioCodec, m_videoCodec;
+    QString   m_audioCodec, m_videoCodec;
     /** Resolution of the video content */
-    QSize m_resolution;
+    QSize     m_resolution;
     /** If set, specifies the custom geometry (position and size)
      *  to be used when rendering the video */
-    QRect m_customGeometry;
+    QRect     m_customGeometry;
     /** The video XYZ rotation as a 3D vector */
     QVector3D m_rotation;
     /** The video Z-Index */
-    int m_zIndex;
+    int       m_zIndex;
     /** Index of the screen where to render the video */
-    int m_screen;
+    int       m_screen;
     /** Flag that indicates if the video has to go fullscreen */
-    bool m_fullscreen;
+    bool      m_fullscreen;
 
     /*********************************************************************
      * Save & Load

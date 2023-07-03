@@ -46,8 +46,8 @@ protected:
     void paintEvent(QPaintEvent *e);
 
 private:
-    QTreeWidget *m_sourceTree;
-    QTreeWidget *m_targetTree;
+    QTreeWidget     *m_sourceTree;
+    QTreeWidget     *m_targetTree;
     QList<RemapInfo> m_list;
 };
 

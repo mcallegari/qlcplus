@@ -155,7 +155,7 @@ QString QLCFile::currentUserName()
   #if defined(Q_OS_ANDROID)
     return QString(getenv("USER"));
   #else
-    QString name;
+    QString        name;
     struct passwd *passwd = getpwuid(getuid());
     if (passwd == NULL)
         name.append(getenv("USER"));

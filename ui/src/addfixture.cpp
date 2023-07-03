@@ -50,15 +50,15 @@ AddFixture::AddFixture(QWidget *parent, const Doc *doc, const Fixture *fxi)
     : QDialog(parent)
     , m_doc(doc)
 {
-    m_addressValue = 0;
-    m_universeValue = 0;
-    m_amountValue = 1;
-    m_gapValue = 0;
-    m_channelsValue = 1;
-    m_fixtureDef = NULL;
-    m_mode = NULL;
-    m_fxiCount = 0;
-    m_fixtureID = Fixture::invalidId();
+    m_addressValue       = 0;
+    m_universeValue      = 0;
+    m_amountValue        = 1;
+    m_gapValue           = 0;
+    m_channelsValue      = 1;
+    m_fixtureDef         = NULL;
+    m_mode               = NULL;
+    m_fxiCount           = 0;
+    m_fixtureID          = Fixture::invalidId();
     m_invalidAddressFlag = false;
 
     setupUi(this);
@@ -133,7 +133,7 @@ AddFixture::AddFixture(QWidget *parent, const Doc *doc, const Fixture *fxi)
     }
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    QVariant  var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
@@ -144,7 +144,7 @@ AddFixture::~AddFixture()
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 
-    QList<QVariant> expanded;
+    QList<QVariant>  expanded;
     QTreeWidgetItem *root = m_tree->invisibleRootItem();
 
     for (int i = 0; i < root->childCount(); i++)
@@ -216,12 +216,12 @@ void AddFixture::fillTree(const QString &selectManufacturer, const QString &sele
 {
     QTreeWidgetItem *parent = NULL;
     QTreeWidgetItem *child;
-    QString manuf;
-    QString model;
-    QList<QVariant> expanded;
+    QString          manuf;
+    QString          model;
+    QList<QVariant>  expanded;
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_EXPANDED);
+    QVariant  var = settings.value(SETTINGS_EXPANDED);
     if (var.isValid() == true)
     {
         expanded = var.toList();
@@ -368,7 +368,7 @@ quint32 AddFixture::findAddress(quint32 numChannels, QList<Fixture *> const &fix
 quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels, QList<Fixture *> const &fixtures,
                                 quint32 currentFixture)
 {
-    quint32 freeSpace = 0;
+    quint32 freeSpace   = 0;
     quint32 maxChannels = 512;
 
     /* Construct a map of unallocated channels */
@@ -575,7 +575,7 @@ void AddFixture::slotSelectionChanged()
             if (fxi != NULL)
             {
                 m_fixtureDef = fxi->fixtureDef();
-                m_mode = fxi->fixtureMode();
+                m_mode       = fxi->fixtureMode();
 
                 if (m_fixtureDef->manufacturer() != manuf || m_fixtureDef->model() != model)
                 {
@@ -675,7 +675,7 @@ void AddFixture::checkOverlapping()
 {
     for (int i = 0; i < m_amountValue; ++i)
     {
-        int address = m_addressValue + i * (m_gapValue + m_channelsValue);
+        int address    = m_addressValue + i * (m_gapValue + m_channelsValue);
         int absAddress = (address & 0x01FF) | (m_universeValue << 9);
         if (checkAddressAvailability(absAddress, m_channelsValue) == false)
         {

@@ -34,7 +34,7 @@ WebAccessConfiguration::WebAccessConfiguration() {}
 
 QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
 {
-    QString html = "";
+    QString         html  = "";
     InputOutputMap *ioMap = doc->inputOutputMap();
 
     QStringList IOplugins = ioMap->inputPluginNames();
@@ -47,9 +47,9 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
 
     foreach (QString pluginName, IOplugins)
     {
-        QStringList inputs = ioMap->pluginInputs(pluginName);
-        QStringList outputs = ioMap->pluginOutputs(pluginName);
-        bool hasFeedback = ioMap->pluginSupportsFeedback(pluginName);
+        QStringList inputs      = ioMap->pluginInputs(pluginName);
+        QStringList outputs     = ioMap->pluginOutputs(pluginName);
+        bool        hasFeedback = ioMap->pluginSupportsFeedback(pluginName);
 
         for (int i = 0; i < inputs.count(); i++)
             inputLines.append(QString("%1,%2,%3").arg(pluginName).arg(inputs.at(i)).arg(i));
@@ -71,26 +71,26 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
 
     for (quint32 i = 0; i < ioMap->universesCount(); i++)
     {
-        InputPatch *ip = ioMap->inputPatch(i);
-        OutputPatch *op = ioMap->outputPatch(i);
-        OutputPatch *fp = ioMap->feedbackPatch(i);
-        QString uniName = ioMap->getUniverseNameByIndex(i);
-        bool uniPass = ioMap->getUniversePassthrough(i);
+        InputPatch  *ip      = ioMap->inputPatch(i);
+        OutputPatch *op      = ioMap->outputPatch(i);
+        OutputPatch *fp      = ioMap->feedbackPatch(i);
+        QString      uniName = ioMap->getUniverseNameByIndex(i);
+        bool         uniPass = ioMap->getUniversePassthrough(i);
 
-        QString currentInputPluginName = (ip == NULL) ? KInputNone : ip->pluginName();
-        quint32 currentInput = (ip == NULL) ? QLCChannel::invalid() : ip->input();
-        QString currentOutputPluginName = (op == NULL) ? KOutputNone : op->pluginName();
-        quint32 currentOutput = (op == NULL) ? QLCChannel::invalid() : op->output();
+        QString currentInputPluginName    = (ip == NULL) ? KInputNone : ip->pluginName();
+        quint32 currentInput              = (ip == NULL) ? QLCChannel::invalid() : ip->input();
+        QString currentOutputPluginName   = (op == NULL) ? KOutputNone : op->pluginName();
+        quint32 currentOutput             = (op == NULL) ? QLCChannel::invalid() : op->output();
         QString currentFeedbackPluginName = (fp == NULL) ? KOutputNone : fp->pluginName();
-        quint32 currentFeedback = (fp == NULL) ? QLCChannel::invalid() : fp->output();
-        QString currentProfileName = (ip == NULL) ? KInputNone : ip->profileName();
+        quint32 currentFeedback           = (fp == NULL) ? QLCChannel::invalid() : fp->output();
+        QString currentProfileName        = (ip == NULL) ? KInputNone : ip->profileName();
 
         html += "<tr align=center><td>" + uniName + "</td>\n";
         html += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < inputLines.count(); in++)
         {
-            QStringList strList = inputLines.at(in).split(",");
-            QString selected = "";
+            QStringList strList  = inputLines.at(in).split(",");
+            QString     selected = "";
             if (currentInputPluginName == strList.at(0) && currentInput == strList.at(2).toUInt())
                 selected = "selected";
             html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">"
@@ -100,8 +100,8 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
         html += "<td><select onchange=\"ioChanged('OUTPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < outputLines.count(); in++)
         {
-            QStringList strList = outputLines.at(in).split(",");
-            QString selected = "";
+            QStringList strList  = outputLines.at(in).split(",");
+            QString     selected = "";
             if (currentOutputPluginName == strList.at(0) && currentOutput == strList.at(2).toUInt())
                 selected = "selected";
             html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">"
@@ -111,8 +111,8 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
         html += "<td><select onchange=\"ioChanged('FB', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < feedbackLines.count(); in++)
         {
-            QStringList strList = feedbackLines.at(in).split(",");
-            QString selected = "";
+            QStringList strList  = feedbackLines.at(in).split(",");
+            QString     selected = "";
             if (currentFeedbackPluginName == strList.at(0) && currentFeedback == strList.at(2).toUInt())
                 selected = "selected";
             html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">"
@@ -143,21 +143,21 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
 
 QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
 {
-    QString html = "";
+    QString                html    = "";
     QList<AudioDeviceInfo> devList = doc->audioPluginCache()->audioDevicesList();
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     html += "<tr><th>Input</th><th>Output</th></tr>\n";
     html += "<tr align=center>";
 
-    QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
-                            "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+    QString audioInSelect  = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
+                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
     QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
                              "<option value=\"__qlcplusdefault__\">Default device</option>\n";
 
-    QString inputName, outputName;
+    QString   inputName, outputName;
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    QVariant  var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
         inputName = var.toString();
 
@@ -184,8 +184,8 @@ QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
 
 QString WebAccessConfiguration::getUserFixturesConfigHTML()
 {
-    QString html = "";
-    QDir userFx = QLCFixtureDefCache::userDefinitionDirectory();
+    QString html   = "";
+    QDir    userFx = QLCFixtureDefCache::userDefinitionDirectory();
 
     if (userFx.exists() == false || userFx.isReadable() == false)
         return "";
@@ -233,7 +233,7 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     foreach (WebAccessUser user, auth->getUsers())
     {
         QString username = user.username;
-        int level = user.level;
+        int     level    = user.level;
 
         html += "<tr id=\"auth-row-" + username + "\">";
         html += "<td>" + username + "</td>";

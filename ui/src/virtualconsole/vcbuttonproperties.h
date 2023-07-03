@@ -58,10 +58,10 @@ protected slots:
     void accept();
 
 protected:
-    VCButton *m_button;
-    Doc *m_doc;
+    VCButton             *m_button;
+    Doc                  *m_doc;
     InputSelectionWidget *m_inputSelWidget;
-    quint32 m_function;
+    quint32               m_function;
 
     /************************************************************************
      * Speed dial
@@ -74,7 +74,7 @@ private slots:
 
 private:
     SpeedDialWidget *m_speedDials;
-    int m_fadeOutTime;
+    int              m_fadeOutTime;
 };
 
 /** @} */

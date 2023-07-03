@@ -163,7 +163,7 @@ private:
 
 private:
     ScriptRunner *m_runner;
-    QList<int> m_syntaxErrorLines;
+    QList<int>    m_syntaxErrorLines;
 };
 
 /** @} */

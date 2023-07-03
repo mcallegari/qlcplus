@@ -55,7 +55,7 @@
 #include "qhttpresponse.h"
 #include "qhttpconnection.h"
 
-#define DEFAULT_PORT_NUMBER 9999
+#define DEFAULT_PORT_NUMBER    9999
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, int portNumber, bool enableAuth,
@@ -191,8 +191,8 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
             return;
         }
         QByteArray fixtureXML = req->body();
-        int fnamePos = fixtureXML.indexOf("filename=") + 10;
-        QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
+        int        fnamePos   = fixtureXML.indexOf("filename=") + 10;
+        QString    fxName     = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
 
         fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
         fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
@@ -251,7 +251,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     else if (reqUrl.endsWith(".png"))
     {
         QString clUri = QString(":%1").arg(reqUrl);
-        QFile resFile(clUri);
+        QFile   resFile(clUri);
         if (!resFile.exists())
             clUri = reqUrl;
         if (sendFile(resp, clUri, "image/png") == true)
@@ -411,7 +411,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         {
             QString username = cmdList.at(2);
             QString password = cmdList.at(3);
-            int level = cmdList.at(4).toInt();
+            int     level    = cmdList.at(4).toInt();
             if (username.isEmpty() || password.isEmpty())
             {
                 QString wsMessage = QString("ALERT|" + tr("Username and password are required fields."));
@@ -436,7 +436,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         else if (cmdList.at(1) == "SET_USER_LEVEL")
         {
             QString username = cmdList.at(2);
-            int level = cmdList.at(3).toInt();
+            int     level    = cmdList.at(3).toInt();
             if (username.isEmpty())
             {
                 QString wsMessage = QString("ALERT|" + tr("Username is required."));
@@ -515,7 +515,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         if (cmdList.count() < 2)
             return;
 
-        QString apiCmd = cmdList[1];
+        QString apiCmd       = cmdList[1];
         // compose the basic API reply messages
         QString wsAPIMessage = QString("QLC+API|%1|").arg(apiCmd);
 
@@ -545,8 +545,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() < 3)
                 return;
 
-            quint32 fID = cmdList[2].toUInt();
-            Function *f = m_doc->function(fID);
+            quint32   fID = cmdList[2].toUInt();
+            Function *f   = m_doc->function(fID);
             if (f != NULL)
                 wsAPIMessage.append(m_doc->function(fID)->typeString());
             else
@@ -557,8 +557,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() < 3)
                 return;
 
-            quint32 fID = cmdList[2].toUInt();
-            Function *f = m_doc->function(fID);
+            quint32   fID = cmdList[2].toUInt();
+            Function *f   = m_doc->function(fID);
             if (f != NULL)
             {
                 if (f->isRunning())
@@ -574,9 +574,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() < 4)
                 return;
 
-            quint32 fID = cmdList[2].toUInt();
-            quint32 newStatus = cmdList[3].toUInt();
-            Function *f = m_doc->function(fID);
+            quint32   fID       = cmdList[2].toUInt();
+            quint32   newStatus = cmdList[3].toUInt();
+            Function *f         = m_doc->function(fID);
 
             if (f != NULL)
             {
@@ -589,8 +589,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         }
         else if (apiCmd == "getWidgetsNumber")
         {
-            VCFrame *mainFrame = m_vc->contents();
-            QList<VCWidget *> chList = mainFrame->findChildren<VCWidget *>();
+            VCFrame          *mainFrame = m_vc->contents();
+            QList<VCWidget *> chList    = mainFrame->findChildren<VCWidget *>();
             wsAPIMessage.append(QString::number(chList.count()));
         }
         else if (apiCmd == "getWidgetsList")
@@ -606,7 +606,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() < 3)
                 return;
 
-            quint32 wID = cmdList[2].toUInt();
+            quint32   wID    = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
             if (widget != NULL)
                 wsAPIMessage.append(widget->typeToString(widget->type()));
@@ -618,7 +618,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() < 3)
                 return;
 
-            quint32 wID = cmdList[2].toUInt();
+            quint32   wID    = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
             if (widget != NULL)
             {
@@ -643,9 +643,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     break;
                     case VCWidget::CueListWidget:
                     {
-                        VCCueList *cue = qobject_cast<VCCueList *>(widget);
-                        quint32 chaserID = cue->chaserID();
-                        Function *f = m_doc->function(chaserID);
+                        VCCueList *cue      = qobject_cast<VCCueList *>(widget);
+                        quint32    chaserID = cue->chaserID();
+                        Function  *f        = m_doc->function(chaserID);
                         if (f != NULL && f->isRunning())
                             wsAPIMessage.append(QString("PLAY|%2|").arg(cue->getCurrentIndex()));
                         else
@@ -663,9 +663,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() < 4)
                 return;
 
-            quint32 universe = cmdList[2].toUInt() - 1;
-            int startAddr = cmdList[3].toInt() - 1;
-            int count = 1;
+            quint32 universe  = cmdList[2].toUInt() - 1;
+            int     startAddr = cmdList[3].toInt() - 1;
+            int     count     = 1;
             if (cmdList.count() == 5)
                 count = cmdList[4].toInt();
 
@@ -710,7 +710,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             return;
 
         uint absAddress = cmdList[1].toInt() - 1;
-        int value = cmdList[2].toInt();
+        int  value      = cmdList[2].toInt();
         m_sd->setAbsoluteChannelValue(absAddress, uchar(value));
 
         return;
@@ -728,9 +728,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
      *  Commands start with the widget ID,
      *  followed by specific parameters */
 
-    quint32 widgetID = cmdList[0].toUInt();
-    VCWidget *widget = m_vc->widget(widgetID);
-    uchar value = 0;
+    quint32   widgetID = cmdList[0].toUInt();
+    VCWidget *widget   = m_vc->widget(widgetID);
+    uchar     value    = 0;
     if (cmdList.count() > 1)
         value = (uchar)cmdList[1].toInt();
 
@@ -885,8 +885,8 @@ void WebAccess::slotFramePageChanged(int pageNum)
     if (frame == NULL)
         return;
 
-    QString wsMessage = QString("%1|FRAME|%2").arg(frame->id()).arg(pageNum);
-    QByteArray ba = wsMessage.toUtf8();
+    QString    wsMessage = QString("%1|FRAME|%2").arg(frame->id()).arg(pageNum);
+    QByteArray ba        = wsMessage.toUtf8();
 
     sendWebSocketMessage(ba);
 }
@@ -894,9 +894,9 @@ void WebAccess::slotFramePageChanged(int pageNum)
 QString WebAccess::getFrameHTML(VCFrame *frame)
 {
     QColor border(90, 90, 90);
-    QSize origSize = frame->originalSize();
-    int w = frame->isCollapsed() ? 200 : origSize.width();
-    int h = frame->isCollapsed() ? 36 : origSize.height();
+    QSize  origSize = frame->originalSize();
+    int    w        = frame->isCollapsed() ? 200 : origSize.width();
+    int    h        = frame->isCollapsed() ? 36 : origSize.height();
 
     QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id())
                   + "\" "
@@ -952,9 +952,9 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
 QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 {
     QColor border(255, 0, 0);
-    QSize origSize = frame->originalSize();
-    int w = frame->isCollapsed() ? 200 : origSize.width();
-    int h = frame->isCollapsed() ? 36 : origSize.height();
+    QSize  origSize = frame->originalSize();
+    int    w        = frame->isCollapsed() ? 200 : origSize.width();
+    int    h        = frame->isCollapsed() ? 36 : origSize.height();
 
     QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id())
                   + "\" "
@@ -1238,7 +1238,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "<th>" + tr("Duration") + "</th>";
     str += "<th>" + tr("Notes") + "</th></tr>\n";
     Chaser *chaser = cue->chaser();
-    Doc *doc = m_vc->getDoc();
+    Doc    *doc    = m_vc->getDoc();
     if (chaser != NULL)
     {
         for (int i = 0; i < chaser->stepsCount(); i++)
@@ -1432,9 +1432,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
     if (frame == NULL)
         return QString();
 
-    QString unifiedHTML;
+    QString     unifiedHTML;
     QStringList pagesHTML;
-    VCFrame *lframe = qobject_cast<VCFrame *>(frame);
+    VCFrame    *lframe = qobject_cast<VCFrame *>(frame);
     if (lframe == NULL)
         return "";
 
@@ -1443,7 +1443,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
         for (int i = 0; i < pagesNum; i++)
         {
             QString fpID = QString("fp%1_%2").arg(frame->id()).arg(i);
-            QString pg = "<div class=\"vcframePage\" id=\"" + fpID + "\"";
+            QString pg   = "<div class=\"vcframePage\" id=\"" + fpID + "\"";
             if (i == currentPageIdx)
                 pg += " style=\"visibility: inherit;\"";
             pg += ">\n";
@@ -1461,7 +1461,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
             continue;
 
         QString str;
-        bool restoreDisable = false;
+        bool    restoreDisable = false;
 
         if (pagesNum > 0 && widget->isEnabled() == false)
         {
@@ -1532,13 +1532,13 @@ QString WebAccess::getVCHTML()
                "<script type=\"text/javascript\" src=\"virtualconsole.js\"></script>\n"
                "<script type=\"text/javascript\">\n";
 
-    VCFrame *mainFrame = m_vc->contents();
-    QSize mfSize = mainFrame->size();
-    QString widgetsHTML = "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
-                          "<input id=\"loadTrigger\" type=\"file\" "
-                          "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
-                          "<input id=\"submitTrigger\" type=\"submit\"/>\n"
-                          "</form>\n"
+    VCFrame *mainFrame   = m_vc->contents();
+    QSize    mfSize      = mainFrame->size();
+    QString  widgetsHTML = "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
+                           "<input id=\"loadTrigger\" type=\"file\" "
+                           "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
+                           "<input id=\"submitTrigger\" type=\"submit\"/>\n"
+                           "</form>\n"
 
                           "<div class=\"controlBar\">\n"
                           "<a class=\"button button-blue\" "

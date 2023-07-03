@@ -63,7 +63,7 @@ void RGBText_Test::text()
 void RGBText_Test::font()
 {
     RGBText text(m_doc);
-    QFont font(text.font());
+    QFont   font(text.font());
     font.setPixelSize(font.pixelSize() + 5);
     text.setFont(font);
     QCOMPARE(text.font(), font);
@@ -322,7 +322,7 @@ void RGBText_Test::staticLetters()
     text.setAnimationStyle(RGBText::StaticLetters);
     QCOMPARE(text.rgbMapStepCount(QSize()), 3); // Q, L, C
 
-    QRgb color(0xFFFFFFFF);
+    QRgb   color(0xFFFFFFFF);
     RGBMap map;
 
     // Since fonts and their rendering differs from installation to installation,

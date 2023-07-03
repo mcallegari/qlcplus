@@ -104,7 +104,7 @@ VCButton::VCButton(QWidget *parent, Doc *doc)
 
     /* Initial size */
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_BUTTON_SIZE);
+    QVariant  var = settings.value(SETTINGS_BUTTON_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
@@ -187,7 +187,7 @@ void VCButton::editProperties()
 
 void VCButton::setBackgroundImage(const QString &path)
 {
-    m_bgPixmap = QPixmap(path);
+    m_bgPixmap        = QPixmap(path);
     m_backgroundImage = path;
     m_doc->setModified();
     update();
@@ -198,7 +198,7 @@ void VCButton::setBackgroundColor(const QColor &color)
     QPalette pal = palette();
 
     m_hasCustomBackgroundColor = true;
-    m_backgroundImage = QString();
+    m_backgroundImage          = QString();
     pal.setColor(QPalette::Button, color);
     setPalette(pal);
 
@@ -210,7 +210,7 @@ void VCButton::resetBackgroundColor()
     QColor fg;
 
     m_hasCustomBackgroundColor = false;
-    m_backgroundImage = QString();
+    m_backgroundImage          = QString();
 
     /* Store foreground color */
     if (m_hasCustomForegroundColor == true)
@@ -302,7 +302,7 @@ void VCButton::slotChooseIcon()
     if (vc == NULL)
         return;
 
-    QString formats;
+    QString                   formats;
     QListIterator<QByteArray> it(QImageReader::supportedImageFormats());
     while (it.hasNext() == true)
         formats += QString("*.%1 ").arg(QString(it.next()).toLower());
@@ -324,22 +324,22 @@ void VCButton::updateIcon()
 {
     if (m_action == Blackout)
     {
-        m_icon = QIcon(":/blackout.png");
+        m_icon     = QIcon(":/blackout.png");
         m_iconSize = QSize(26, 26);
     }
     else if (m_action == StopAll)
     {
-        m_icon = QIcon(":/panic.png");
+        m_icon     = QIcon(":/panic.png");
         m_iconSize = QSize(26, 26);
     }
     else if (iconPath().isEmpty() == false)
     {
-        m_icon = QIcon(iconPath());
+        m_icon     = QIcon(iconPath());
         m_iconSize = QSize(26, 26);
     }
     else
     {
-        m_icon = QIcon();
+        m_icon     = QIcon();
         m_iconSize = QSize(-1, -1);
     }
 }
@@ -690,11 +690,11 @@ void VCButton::pressFunction()
             if (f->type() == Function::ChaserType || f->type() == Function::SequenceType)
             {
                 ChaserAction action;
-                action.m_action = ChaserSetStepIndex;
-                action.m_stepIndex = 0;
+                action.m_action          = ChaserSetStepIndex;
+                action.m_stepIndex       = 0;
                 action.m_masterIntensity = intensity();
-                action.m_stepIntensity = 1.0;
-                action.m_fadeMode = Chaser::FromFunction;
+                action.m_stepIntensity   = 1.0;
+                action.m_fadeMode        = Chaser::FromFunction;
 
                 Chaser *chaser = qobject_cast<Chaser *>(f);
                 chaser->setAction(action);
@@ -801,7 +801,7 @@ void VCButton::slotBlink()
     // This function is called twice with same XOR mask,
     // thus creating a brief opposite-color -- normal-color blink
     QPalette pal = palette();
-    QColor color(pal.color(QPalette::Button));
+    QColor   color(pal.color(QPalette::Button));
     color.setRgb(color.red() ^ 0xff, color.green() ^ 0xff, color.blue() ^ 0xff);
     pal.setColor(QPalette::Button, color);
     setPalette(pal);
@@ -857,10 +857,10 @@ void VCButton::adjustIntensity(qreal val)
 bool VCButton::loadXML(QXmlStreamReader &root)
 {
     bool visible = false;
-    int x = 0;
-    int y = 0;
-    int w = 0;
-    int h = 0;
+    int  x       = 0;
+    int  y       = 0;
+    int  w       = 0;
+    int  h       = 0;
 
     if (root.name() != KXMLQLCVCButton)
     {
@@ -1006,7 +1006,7 @@ void VCButton::paintEvent(QPaintEvent *e)
         option.state |= QStyle::State_Enabled;
 
     /* Icon */
-    option.icon = m_icon;
+    option.icon     = m_icon;
     option.iconSize = m_iconSize;
 
     /* Paint the button */

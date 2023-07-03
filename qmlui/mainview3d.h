@@ -55,14 +55,14 @@ public:
 
     /** Get/set the gobo source to use as texture */
     QString source() const;
-    void setSource(QString filename);
+    void    setSource(QString filename);
 
 protected:
     void paint(QPainter *painter);
 
 private:
     QSvgRenderer *m_renderer;
-    QString m_source;
+    QString       m_source;
 };
 
 typedef struct
@@ -74,20 +74,20 @@ typedef struct
 typedef struct
 {
     /** Reference to the fixture root item, for hierarchy walk and function calls */
-    QEntity *m_rootItem;
+    QEntity              *m_rootItem;
     /** Reference to the root item tranform component, to perform translations/rotations */
     Qt3DCore::QTransform *m_rootTransform;
     /** Reference to the arm entity used by moving heads */
-    QEntity *m_armItem;
+    QEntity              *m_armItem;
     /** Reference to the head entity used by moving heads */
-    QEntity *m_headItem;
+    QEntity              *m_headItem;
     /** The bounding volume information */
-    BoundingVolume m_volume;
+    BoundingVolume        m_volume;
     /** The selection box entity */
-    QEntity *m_selectionBox;
+    QEntity              *m_selectionBox;
     /** Reference to the texture used to render the
      *  currently selected gobo picture */
-    GoboTextureImage *m_goboTexture;
+    GoboTextureImage     *m_goboTexture;
 } SceneItem;
 
 class MainView3D : public PreviewContext
@@ -145,7 +145,7 @@ private:
     QQmlComponent *m_selectionComponent;
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
-    int m_createItemCount;
+    int            m_createItemCount;
 
     /*********************************************************************
      * Frame counter
@@ -185,10 +185,10 @@ signals:
 private:
     QElapsedTimer m_fpsElapsed;
     QFrameAction *m_frameAction;
-    int m_frameCount;
-    int m_minFrameCount;
-    int m_maxFrameCount;
-    int m_avgFrameCount;
+    int           m_frameCount;
+    int           m_minFrameCount;
+    int           m_maxFrameCount;
+    int           m_avgFrameCount;
 
     /*********************************************************************
      * Fixtures
@@ -255,8 +255,8 @@ protected:
 
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
-    QMaterial *getMaterial(QEntity *entity);
-    void updateLightMatrix(SceneItem *mesh);
+    QMaterial            *getMaterial(QEntity *entity);
+    void                  updateLightMatrix(SceneItem *mesh);
 
 private:
     /** Reference to the Scene3D component */
@@ -305,17 +305,17 @@ public:
      *  to be displayed in QML */
     QVariant genericItemsList() const;
 
-    void updateGenericItemPosition(quint32 itemID, QVector3D pos);
+    void      updateGenericItemPosition(quint32 itemID, QVector3D pos);
     QVector3D genericItemsPosition();
-    void setGenericItemsPosition(QVector3D pos);
+    void      setGenericItemsPosition(QVector3D pos);
 
-    void updateGenericItemRotation(quint32 itemID, QVector3D rot);
+    void      updateGenericItemRotation(quint32 itemID, QVector3D rot);
     QVector3D genericItemsRotation();
-    void setGenericItemsRotation(QVector3D rot);
+    void      setGenericItemsRotation(QVector3D rot);
 
-    void updateGenericItemScale(quint32 itemID, QVector3D scale);
+    void      updateGenericItemScale(quint32 itemID, QVector3D scale);
     QVector3D genericItemsScale();
-    void setGenericItemsScale(QVector3D scale);
+    void      setGenericItemsScale(QVector3D scale);
 
 protected:
     void updateGenericItemsList();
@@ -366,22 +366,22 @@ public:
     /** Get/Set the 3D render quality. This affects shadows and
      *  scattering ray marching steps */
     RenderQuality renderQuality() const;
-    void setRenderQuality(RenderQuality renderQuality);
+    void          setRenderQuality(RenderQuality renderQuality);
 
     /** The list of currently supported stage types */
     QStringList stagesList() const;
 
     /** Get/Set the stage QML resource index to be loaded at runtime */
-    int stageIndex() const;
+    int  stageIndex() const;
     void setStageIndex(int stageIndex);
 
     /** Get/Set the ambient light intensity */
     float ambientIntensity() const;
-    void setAmbientIntensity(float ambientIntensity);
+    void  setAmbientIntensity(float ambientIntensity);
 
     /** Get/Set the amount of smoke in the environment */
     float smokeAmount() const;
-    void setSmokeAmount(float smokeAmount);
+    void  setSmokeAmount(float smokeAmount);
 
 protected:
     void createStage();

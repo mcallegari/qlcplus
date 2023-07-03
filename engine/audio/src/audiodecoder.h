@@ -57,37 +57,37 @@ public:
      * Returns the plugin priority
      * Subclass should reimplement this function.
      */
-    virtual int priority() const = 0;
+    virtual int         priority() const                 = 0;
     /*!
      * Returns a list of extensions for the supported file formats
      * Subclass should reimplement this function.
      */
-    virtual QStringList supportedFormats() = 0;
+    virtual QStringList supportedFormats()               = 0;
     /*!
      * Prepares decoder for usage.
      * Subclass should reimplement this function.
      */
-    virtual bool initialize(const QString &path) = 0;
+    virtual bool        initialize(const QString &path)  = 0;
     /*!
      * Returns the total time in milliseconds.
      * Subclass should reimplement this function.
      */
-    virtual qint64 totalTime() = 0;
+    virtual qint64      totalTime()                      = 0;
     /*!
      * Requests a seek to the time \b time indicated, specified in milliseconds.
      */
-    virtual void seek(qint64 time) = 0;
+    virtual void        seek(qint64 time)                = 0;
     /*!
      * Reads up to \b maxSize bytes of decoded audio to \b data
      * Returns the number of bytes read, or -1 if an error occurred.
      * In most cases subclass should reimplement this function.
      */
-    virtual qint64 read(char *data, qint64 maxSize) = 0;
+    virtual qint64      read(char *data, qint64 maxSize) = 0;
     /*!
      * Returns current bitrate (in kbps).
      * Subclass should reimplement this function.
      */
-    virtual int bitrate() = 0;
+    virtual int         bitrate()                        = 0;
 
     /*!
      * Returns detected audio parameters.

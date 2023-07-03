@@ -42,17 +42,17 @@ class FadeChannel
 public:
     enum ChannelFlag
     {
-        HTP = (1 << 0),        /** Highest takes precedence */
-        LTP = (1 << 1),        /** Latest takes precedence */
-        Fine = (1 << 2),       /** LSB channel for 16bit fade */
-        Intensity = (1 << 3),  /** Intensity channel (dimmer, RGB, CMY, etc) */
-        CanFade = (1 << 4),    /** Subject to fade transitions */
-        Flashing = (1 << 5),   /** Is flashing */
-        Relative = (1 << 6),   /** Relative position */
-        Override = (1 << 7),   /** Override the current universe value */
-        SetTarget = (1 << 8),  /** Set target to current universe value */
+        HTP        = (1 << 0), /** Highest takes precedence */
+        LTP        = (1 << 1), /** Latest takes precedence */
+        Fine       = (1 << 2), /** LSB channel for 16bit fade */
+        Intensity  = (1 << 3), /** Intensity channel (dimmer, RGB, CMY, etc) */
+        CanFade    = (1 << 4), /** Subject to fade transitions */
+        Flashing   = (1 << 5), /** Is flashing */
+        Relative   = (1 << 6), /** Relative position */
+        Override   = (1 << 7), /** Override the current universe value */
+        SetTarget  = (1 << 8), /** Set target to current universe value */
         AutoRemove = (1 << 9), /** Automatically remove the channel once target is reached */
-        CrossFade = (1 << 10)  /** Channel subject to crossfade */
+        CrossFade  = (1 << 10) /** Channel subject to crossfade */
     };
 
     /** Create a new FadeChannel with empty/invalid values */
@@ -73,7 +73,7 @@ public:
     bool operator==(const FadeChannel &fc) const;
 
     /** Get/Set the channel flags listed in ChannelFlag */
-    int flags() const;
+    int  flags() const;
     void setFlags(int flags);
 
     /** Add/Remove a single flag */
@@ -181,9 +181,9 @@ private:
     quint32 m_channel;
     quint32 m_address;
 
-    int m_start;
-    int m_target;
-    int m_current;
+    int  m_start;
+    int  m_target;
+    int  m_current;
     bool m_ready;
 
     uint m_fadeTime;

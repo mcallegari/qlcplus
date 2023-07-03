@@ -27,17 +27,17 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define FIXTURE_ID_BITS 16
-#define FIXTURE_HEAD_BITS 8
+#define FIXTURE_ID_BITS     16
+#define FIXTURE_HEAD_BITS   8
 #define FIXTURE_LINKED_BITS 8
-#define MAX_FIXTURE_NUMBER (1 << FIXTURE_ID_BITS)
-#define MAX_HEADS_NUMBER (1 << FIXTURE_HEAD_BITS)
-#define MAX_LINKED_NUMBER (1 << FIXTURE_LINKED_BITS)
+#define MAX_FIXTURE_NUMBER  (1 << FIXTURE_ID_BITS)
+#define MAX_HEADS_NUMBER    (1 << FIXTURE_HEAD_BITS)
+#define MAX_LINKED_NUMBER   (1 << FIXTURE_LINKED_BITS)
 
 #define MIN_STROBE_FREQ_HZ 0.5
 #define MAX_STROBE_FREQ_HZ 10.0
-#define MIN_PULSE_FREQ_HZ 0.25
-#define MAX_PULSE_FREQ_HZ 5
+#define MIN_PULSE_FREQ_HZ  0.25
+#define MAX_PULSE_FREQ_HZ  5
 
 #define MIN_POSITION_SPEED 4000  // ms
 #define MAX_POSITION_SPEED 20000 // ms
@@ -75,7 +75,7 @@ quint16 FixtureUtils::itemLinkedIndex(quint32 itemID)
 QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfView, QVector3D pos)
 {
     QPointF point(0, 0);
-    float gridUnits = monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+    float   gridUnits = monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
 
     switch (pointOfView)
     {
@@ -255,7 +255,7 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
 
     QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
 
-    qreal origWidth = fxRect.width();
+    qreal origWidth  = fxRect.width();
     qreal origHeight = fxRect.height();
 
     for (Fixture *fixture : doc->fixtures())
@@ -267,15 +267,15 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
 
         for (quint32 subID : monProps->fixtureIDList(fixture->id()))
         {
-            quint16 headIndex = monProps->fixtureHeadIndex(subID);
+            quint16 headIndex   = monProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
             QPointF fxPoint =
                 item2DPosition(monProps, pointOfView, monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
-            QSizeF fxSize = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode, pointOfView);
-            qreal itemXPos = fxPoint.x();
-            qreal itemYPos = fxPoint.y();
-            qreal itemWidth = fxSize.width();
-            qreal itemHeight = fxSize.height();
+            QSizeF fxSize   = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode, pointOfView);
+            qreal  itemXPos = fxPoint.x();
+            qreal  itemYPos = fxPoint.y();
+            qreal  itemWidth  = fxSize.width();
+            qreal  itemHeight = fxSize.height();
 
             // store the next Y row in case we need to lower down
             if (itemYPos + itemHeight > maxYOffset)
@@ -290,8 +290,8 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
                 xPos = itemXPos + itemWidth + 50; // add an extra 50mm spacing
                 if (xPos + fxRect.width() > gridArea.width())
                 {
-                    xPos = 0;
-                    yPos = maxYOffset + 50;
+                    xPos       = 0;
+                    yPos       = maxYOffset + 50;
                     maxYOffset = 0;
                 }
                 fxRect.setX(xPos);
@@ -340,10 +340,10 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
                            fixture->channelValueAt(cmyCh.at(2)), 0);
     }
 
-    quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIndex);
-    quint32 amber = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIndex);
-    quint32 UV = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIndex);
-    quint32 lime = fixture->channelNumber(QLCChannel::Lime, QLCChannel::MSB, headIndex);
+    quint32 white  = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIndex);
+    quint32 amber  = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIndex);
+    quint32 UV     = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIndex);
+    quint32 lime   = fixture->channelNumber(QLCChannel::Lime, QLCChannel::MSB, headIndex);
     quint32 indigo = fixture->channelNumber(QLCChannel::Indigo, QLCChannel::MSB, headIndex);
 
     if (white != QLCChannel::invalid() && fixture->channelValueAt(white))
@@ -373,7 +373,7 @@ QColor FixtureUtils::applyColorFilter(QColor source, QColor filter)
 
 void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration)
 {
-    panDuration = -1;
+    panDuration  = -1;
     tiltDuration = -1;
 
     switch (ch->preset())
@@ -403,7 +403,7 @@ void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDu
 
 bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
 {
-    speed = MIN_GOBO_SPEED;
+    speed          = MIN_GOBO_SPEED;
     bool clockwise = true;
 
     if (cap->preset() == QLCCapability::Custom)
@@ -429,15 +429,15 @@ bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
             speed = 0;
             break;
         case QLCCapability::RotationCounterClockwise:
-            speed = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
+            speed     = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
             clockwise = false;
             break;
         case QLCCapability::RotationCounterClockwiseFastToSlow:
-            speed = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            speed     = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
             clockwise = false;
             break;
         case QLCCapability::RotationCounterClockwiseSlowToFast:
-            speed = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            speed     = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
             clockwise = false;
             break;
         default:
@@ -451,8 +451,8 @@ bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
 
 int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime)
 {
-    int capPreset = QLCCapability::ShutterOpen;
-    float freq = 1.0;
+    int   capPreset = QLCCapability::ShutterOpen;
+    float freq      = 1.0;
 
     switch (ch->preset())
     {
@@ -464,7 +464,7 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
             if (value)
             {
                 capPreset = QLCCapability::StrobeFastToSlow;
-                value = 255 - value;
+                value     = 255 - value;
             }
             break;
         default:
@@ -516,9 +516,9 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
     {
         case QLCCapability::StrobeSlowToFast:
         case QLCCapability::StrobeFastToSlow:
-            freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
+            freq     = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
             highTime = qBound(50.0, 500.0 / freq, 200.0);
-            lowTime = qMax((1000.0 / freq) - highTime, 0.0);
+            lowTime  = qMax((1000.0 / freq) - highTime, 0.0);
             break;
         case QLCCapability::RampUpSlowToFast:
         case QLCCapability::RampUpFastToSlow:
@@ -526,13 +526,13 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
         case QLCCapability::RampDownFastToSlow:
         case QLCCapability::PulseSlowToFast:
         case QLCCapability::PulseFastToSlow:
-            freq = qMax(((float)value * MAX_PULSE_FREQ_HZ) / 255.0, MIN_PULSE_FREQ_HZ);
+            freq     = qMax(((float)value * MAX_PULSE_FREQ_HZ) / 255.0, MIN_PULSE_FREQ_HZ);
             highTime = qMax(50.0, 1000.0 / freq);
-            lowTime = 0;
+            lowTime  = 0;
             break;
         default:
             highTime = qBound(50.0, 500.0 / freq, 200.0);
-            lowTime = qMax((1000.0 / freq) - highTime, 0.0);
+            lowTime  = qMax((1000.0 / freq) - highTime, 0.0);
             break;
     }
 

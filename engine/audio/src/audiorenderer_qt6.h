@@ -72,12 +72,12 @@ public:
     void run();
 
 private:
-    QAudioSink *m_audioSink;
-    QIODevice *m_output;
+    QAudioSink  *m_audioSink;
+    QIODevice   *m_output;
     QAudioFormat m_format;
-    QString m_device;
+    QString      m_device;
     QAudioDevice m_deviceInfo;
-    QByteArray m_outputBuffer;
+    QByteArray   m_outputBuffer;
 };
 
 /** @} */

@@ -33,32 +33,32 @@ class QXmlStreamWriter;
 
 #define KXMLQLCPhysical QString("Physical")
 
-#define KXMLQLCPhysicalBulb QString("Bulb")
-#define KXMLQLCPhysicalBulbType QString("Type")
-#define KXMLQLCPhysicalBulbLumens QString("Lumens")
+#define KXMLQLCPhysicalBulb                  QString("Bulb")
+#define KXMLQLCPhysicalBulbType              QString("Type")
+#define KXMLQLCPhysicalBulbLumens            QString("Lumens")
 #define KXMLQLCPhysicalBulbColourTemperature QString("ColourTemperature")
 
-#define KXMLQLCPhysicalLens QString("Lens")
-#define KXMLQLCPhysicalLensName QString("Name")
+#define KXMLQLCPhysicalLens           QString("Lens")
+#define KXMLQLCPhysicalLensName       QString("Name")
 #define KXMLQLCPhysicalLensDegreesMin QString("DegreesMin")
 #define KXMLQLCPhysicalLensDegreesMax QString("DegreesMax")
 
-#define KXMLQLCPhysicalDimensions QString("Dimensions")
+#define KXMLQLCPhysicalDimensions       QString("Dimensions")
 #define KXMLQLCPhysicalDimensionsWeight QString("Weight")
-#define KXMLQLCPhysicalDimensionsWidth QString("Width")
+#define KXMLQLCPhysicalDimensionsWidth  QString("Width")
 #define KXMLQLCPhysicalDimensionsHeight QString("Height")
-#define KXMLQLCPhysicalDimensionsDepth QString("Depth")
+#define KXMLQLCPhysicalDimensionsDepth  QString("Depth")
 
 #define KXMLQLCPhysicalLayout QString("Layout")
 
-#define KXMLQLCPhysicalFocus QString("Focus")
-#define KXMLQLCPhysicalFocusType QString("Type")
-#define KXMLQLCPhysicalFocusPanMax QString("PanMax")
+#define KXMLQLCPhysicalFocus        QString("Focus")
+#define KXMLQLCPhysicalFocusType    QString("Type")
+#define KXMLQLCPhysicalFocusPanMax  QString("PanMax")
 #define KXMLQLCPhysicalFocusTiltMax QString("TiltMax")
 
-#define KXMLQLCPhysicalTechnical QString("Technical")
+#define KXMLQLCPhysicalTechnical                 QString("Technical")
 #define KXMLQLCPhysicalTechnicalPowerConsumption QString("PowerConsumption")
-#define KXMLQLCPhysicalTechnicalDmxConnector QString("DmxConnector")
+#define KXMLQLCPhysicalTechnicalDmxConnector     QString("DmxConnector")
 
 
 /**
@@ -85,74 +85,74 @@ public:
      * Properties
      ************************************************************************/
 public:
-    void setBulbType(const QString &type);
+    void    setBulbType(const QString &type);
     QString bulbType() const;
 
     void setBulbLumens(int lumens);
-    int bulbLumens() const;
+    int  bulbLumens() const;
 
     void setBulbColourTemperature(int temp);
-    int bulbColourTemperature() const;
+    int  bulbColourTemperature() const;
 
-    void setWeight(double weight);
+    void   setWeight(double weight);
     double weight() const;
 
     void setWidth(int width);
-    int width() const;
+    int  width() const;
 
     void setHeight(int height);
-    int height() const;
+    int  height() const;
 
     void setDepth(int depth);
-    int depth() const;
+    int  depth() const;
 
-    void setLensName(const QString &name);
+    void    setLensName(const QString &name);
     QString lensName() const;
 
-    void setLensDegreesMin(double degrees);
+    void   setLensDegreesMin(double degrees);
     double lensDegreesMin() const;
 
-    void setLensDegreesMax(double degrees);
+    void   setLensDegreesMax(double degrees);
     double lensDegreesMax() const;
 
-    void setFocusType(const QString &type);
+    void    setFocusType(const QString &type);
     QString focusType() const;
 
     void setFocusPanMax(int pan);
-    int focusPanMax() const;
+    int  focusPanMax() const;
 
     void setFocusTiltMax(int tilt);
-    int focusTiltMax() const;
+    int  focusTiltMax() const;
 
-    void setLayoutSize(QSize size);
+    void  setLayoutSize(QSize size);
     QSize layoutSize() const;
 
     void setPowerConsumption(int watt);
-    int powerConsumption() const;
+    int  powerConsumption() const;
 
-    void setDmxConnector(const QString &type);
+    void    setDmxConnector(const QString &type);
     QString dmxConnector() const;
 
 protected:
     QString m_bulbType;
-    int m_bulbLumens;
-    int m_bulbColourTemperature;
+    int     m_bulbLumens;
+    int     m_bulbColourTemperature;
 
     double m_weight;
-    int m_width;
-    int m_height;
-    int m_depth;
+    int    m_width;
+    int    m_height;
+    int    m_depth;
 
     QString m_lensName;
-    double m_lensDegreesMin;
-    double m_lensDegreesMax;
+    double  m_lensDegreesMin;
+    double  m_lensDegreesMax;
 
     QString m_focusType;
-    int m_focusPanMax;
-    int m_focusTiltMax;
-    QSize m_layout;
+    int     m_focusPanMax;
+    int     m_focusTiltMax;
+    QSize   m_layout;
 
-    int m_powerConsumption;
+    int     m_powerConsumption;
     QString m_dmxConnector;
 
     /************************************************************************

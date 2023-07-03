@@ -58,7 +58,7 @@ public:
 
     /** Get/Set the QML resource URL for this context */
     virtual QString contextResource() const;
-    virtual void setContextResource(QString res);
+    virtual void    setContextResource(QString res);
 
     virtual void enableContext(bool enable);
 
@@ -66,24 +66,24 @@ public:
 
     /** Get/Set the current universe filter */
     virtual quint32 universeFilter() const;
-    virtual void setUniverseFilter(quint32 universeFilter);
+    virtual void    setUniverseFilter(quint32 universeFilter);
 
     /** Get a handler for the associated QuickView */
     QQuickView *view();
 
     /** Get/Set the Quick item to access the context properties/objects */
     QQuickItem *contextItem();
-    void setContextItem(QQuickItem *item);
+    void        setContextItem(QQuickItem *item);
 
     /** Get the context display name */
     QString name() const;
 
     /** Get/Set the title that will be displayed on a detached window title bar */
     QString contextTitle() const;
-    void setContextTitle(QString title);
+    void    setContextTitle(QString title);
 
     /** Get/Set the context page. Used only by VC pages */
-    int contextPage() const;
+    int  contextPage() const;
     void setContextPage(int page);
 
     /** Get/Set the detach state of this context */

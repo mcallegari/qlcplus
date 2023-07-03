@@ -22,24 +22,24 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCFrame QString("Frame")
-#define KXMLQLCVCFrameAllowChildren QString("AllowChildren") // LEGACY
-#define KXMLQLCVCFrameAllowResize QString("AllowResize")
-#define KXMLQLCVCFrameShowHeader QString("ShowHeader")
-#define KXMLQLCVCFrameIsCollapsed QString("Collapsed")
-#define KXMLQLCVCFrameIsDisabled QString("Disabled")
-#define KXMLQLCVCFrameEnableSource QString("Enable")
+#define KXMLQLCVCFrame                 QString("Frame")
+#define KXMLQLCVCFrameAllowChildren    QString("AllowChildren") // LEGACY
+#define KXMLQLCVCFrameAllowResize      QString("AllowResize")
+#define KXMLQLCVCFrameShowHeader       QString("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed      QString("Collapsed")
+#define KXMLQLCVCFrameIsDisabled       QString("Disabled")
+#define KXMLQLCVCFrameEnableSource     QString("Enable")
 #define KXMLQLCVCFrameShowEnableButton QString("ShowEnableButton")
-#define KXMLQLCVCFramePIN QString("PIN")
+#define KXMLQLCVCFramePIN              QString("PIN")
 
-#define KXMLQLCVCFrameMultipage QString("Multipage")
-#define KXMLQLCVCFramePagesNumber QString("PagesNum")
-#define KXMLQLCVCFrameCurrentPage QString("CurrentPage")
-#define KXMLQLCVCFrameKey QString("Key")
-#define KXMLQLCVCFrameNext QString("Next")
-#define KXMLQLCVCFramePrevious QString("Previous")
-#define KXMLQLCVCFramePagesLoop QString("PagesLoop")
-#define KXMLQLCVCFrameShortcut QString("Shortcut")
+#define KXMLQLCVCFrameMultipage    QString("Multipage")
+#define KXMLQLCVCFramePagesNumber  QString("PagesNum")
+#define KXMLQLCVCFrameCurrentPage  QString("CurrentPage")
+#define KXMLQLCVCFrameKey          QString("Key")
+#define KXMLQLCVCFrameNext         QString("Next")
+#define KXMLQLCVCFramePrevious     QString("Previous")
+#define KXMLQLCVCFramePagesLoop    QString("PagesLoop")
+#define KXMLQLCVCFrameShortcut     QString("Shortcut")
 #define KXMLQLCVCFrameShortcutPage QString("Page")
 #define KXMLQLCVCFrameShortcutName QString("Name")
 
@@ -211,15 +211,15 @@ public:
     void setMultiPageMode(bool multiPageMode);
 
     void setTotalPagesNumber(int num);
-    int totalPagesNumber() const;
+    int  totalPagesNumber() const;
 
-    int currentPage() const;
+    int  currentPage() const;
     void setCurrentPage(int pageNum);
 
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
 
-    QStringList pageLabels();
+    QStringList      pageLabels();
     Q_INVOKABLE void setShortcutName(int pageIndex, QString name);
 
     Q_INVOKABLE void gotoPreviousPage();
@@ -236,13 +236,13 @@ signals:
 
 protected:
     /** Flag to enable/disable multiple pages on this frame */
-    bool m_multiPageMode;
+    bool               m_multiPageMode;
     /** The currently selected page of this frame */
-    ushort m_currentPage;
+    ushort             m_currentPage;
     /** The total number of pages of this frame */
-    ushort m_totalPagesNumber;
+    ushort             m_totalPagesNumber;
     /** Flag to cycle through pages when reaching the end */
-    bool m_pagesLoop;
+    bool               m_pagesLoop;
     /** Map of the page index/label */
     QMap<int, QString> m_pageLabels;
 
@@ -256,7 +256,7 @@ protected:
 public:
     /** Get/Set a protection PIN for this Frame. Note that only top level frames
      *  will expose this functionality */
-    int PIN() const;
+    int  PIN() const;
     void setPIN(int newPIN);
 
     /** Validate the Frame PIN for the entire session */
@@ -270,7 +270,7 @@ signals:
     void PINChanged(int PIN);
 
 protected:
-    int m_PIN;
+    int  m_PIN;
     bool m_validatedPIN;
 
     /*********************************************************************

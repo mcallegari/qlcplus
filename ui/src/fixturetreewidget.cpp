@@ -59,7 +59,7 @@ FixtureTreeWidget::FixtureTreeWidget(Doc *doc, quint32 flags, QWidget *parent)
 void FixtureTreeWidget::setFlags(quint32 flags)
 {
     // column 0 is always reserved for Fixture name
-    int columnIdx = 1;
+    int         columnIdx = 1;
     QStringList labels;
     labels << tr("Name");
 
@@ -140,7 +140,7 @@ QTreeWidgetItem *FixtureTreeWidget::fixtureItem(quint32 id) const
             for (int c = 0; c < tItem->childCount(); c++)
             {
                 QTreeWidgetItem *cItem = tItem->child(c);
-                QVariant var = cItem->data(KColumnName, PROP_ID);
+                QVariant         var   = cItem->data(KColumnName, PROP_ID);
                 if (var.isValid() == true && var.toUInt() == id)
                     return cItem;
             }
@@ -155,7 +155,7 @@ QTreeWidgetItem *FixtureTreeWidget::groupItem(quint32 id) const
     for (int i = 0; i < topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = topLevelItem(i);
-        QVariant var = item->data(KColumnName, PROP_GROUP);
+        QVariant         var  = item->data(KColumnName, PROP_GROUP);
         if (var.isValid() == true && var.toUInt() == id)
             return item;
     }
@@ -249,7 +249,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem *item, Fixture *fixtur
         for (quint32 c = 0; c < fixture->channels(); c++)
         {
             const QLCChannel *channel = fixture->channel(c);
-            QTreeWidgetItem *cItem = new QTreeWidgetItem(item);
+            QTreeWidgetItem  *cItem   = new QTreeWidgetItem(item);
             cItem->setText(KColumnName, QString("%1:%2").arg(c + 1).arg(channel->name()));
             cItem->setIcon(KColumnName, channel->getIcon());
             cItem->setData(KColumnName, PROP_CHANNEL, c);
@@ -338,9 +338,9 @@ void FixtureTreeWidget::updateSelections()
         // 3) a head
         // 4) a universe
 
-        QVariant fxIDVar = item->data(KColumnName, PROP_ID);
+        QVariant fxIDVar  = item->data(KColumnName, PROP_ID);
         QVariant grpIDVar = item->data(KColumnName, PROP_GROUP);
-        QVariant headVar = item->data(KColumnName, PROP_HEAD);
+        QVariant headVar  = item->data(KColumnName, PROP_HEAD);
         QVariant uniIDVar = item->data(KColumnName, PROP_UNIVERSE);
 
         qDebug() << "uni ID:" << uniIDVar;
@@ -377,8 +377,8 @@ void FixtureTreeWidget::updateSelections()
             // fixture ID
             for (int i = 0; i < item->childCount(); i++)
             {
-                QTreeWidgetItem *child = item->child(i);
-                QVariant chFxIDVar = child->data(KColumnName, PROP_ID);
+                QTreeWidgetItem *child     = item->child(i);
+                QVariant         chFxIDVar = child->data(KColumnName, PROP_ID);
                 if (chFxIDVar.isValid() && child->isDisabled() == false)
                     m_selectedFixtures << chFxIDVar.toUInt();
             }
@@ -387,7 +387,7 @@ void FixtureTreeWidget::updateSelections()
         else if (headVar.isValid())
         {
             Q_ASSERT(item->parent() != NULL);
-            quint32 fxi = item->parent()->data(KColumnName, PROP_ID).toUInt();
+            quint32   fxi = item->parent()->data(KColumnName, PROP_ID).toUInt();
             GroupHead gh(fxi, headVar.toInt());
             if (m_selectedHeads.contains(gh) == false)
                 m_selectedHeads << gh;
@@ -400,8 +400,8 @@ void FixtureTreeWidget::updateSelections()
             // fixture ID
             for (int i = 0; i < item->childCount(); i++)
             {
-                QTreeWidgetItem *child = item->child(i);
-                QVariant chFxIDVar = child->data(KColumnName, PROP_ID);
+                QTreeWidgetItem *child     = item->child(i);
+                QVariant         chFxIDVar = child->data(KColumnName, PROP_ID);
                 if (chFxIDVar.isValid() && child->isDisabled() == false)
                     m_selectedFixtures << chFxIDVar.toUInt();
             }
@@ -418,8 +418,8 @@ void FixtureTreeWidget::updateTree()
 {
     clear();
     m_universesCount = 0;
-    m_fixturesCount = 0;
-    m_channelsCount = 0;
+    m_fixturesCount  = 0;
+    m_channelsCount  = 0;
 
     if (m_showGroups == true)
     {
@@ -435,11 +435,11 @@ void FixtureTreeWidget::updateTree()
         Q_ASSERT(fixture != NULL);
 
         QTreeWidgetItem *topItem = NULL;
-        quint32 uni = fixture->universe();
+        quint32          uni     = fixture->universe();
         for (int i = 0; i < topLevelItemCount(); i++)
         {
             QTreeWidgetItem *tItem = topLevelItem(i);
-            QVariant tVar = tItem->data(KColumnName, PROP_UNIVERSE);
+            QVariant         tVar  = tItem->data(KColumnName, PROP_UNIVERSE);
             if (tVar.isValid())
             {
                 quint32 tUni = tVar.toUInt();

@@ -119,7 +119,7 @@ void VCButtonProperties::slotAttachFunction()
 
 void VCButtonProperties::slotSetFunction(quint32 fid)
 {
-    m_function = fid;
+    m_function     = fid;
     Function *func = m_doc->function(m_function);
 
     if (func == NULL)

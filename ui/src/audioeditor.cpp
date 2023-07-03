@@ -74,9 +74,9 @@ AudioEditor::AudioEditor(QWidget *parent, Audio *audio, Doc *doc)
     }
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    QSettings settings;
-    QString outputName;
-    int i = 1, selIdx = 0;
+    QSettings              settings;
+    QString                outputName;
+    int                    i = 1, selIdx = 0;
 
     m_audioDevCombo->addItem(tr("Default device"), "__qlcplusdefault__");
     if (m_audio->audioDevice().isEmpty())
@@ -188,7 +188,7 @@ void AudioEditor::slotVolumeChanged(int value)
 
 void AudioEditor::slotFadeInEdited()
 {
-    uint newValue;
+    uint    newValue;
     QString text = m_fadeInEdit->text();
 
     newValue = Function::stringToSpeed(text);
@@ -200,7 +200,7 @@ void AudioEditor::slotFadeInEdited()
 
 void AudioEditor::slotFadeOutEdited()
 {
-    uint newValue;
+    uint    newValue;
     QString text = m_fadeOutEdit->text();
 
     newValue = Function::stringToSpeed(text);

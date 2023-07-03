@@ -92,19 +92,19 @@ public:
     bool invalidAddress();
 
 protected:
-    const Doc *m_doc;
-    QLCFixtureDef *m_fixtureDef;
+    const Doc      *m_doc;
+    QLCFixtureDef  *m_fixtureDef;
     QLCFixtureMode *m_mode;
-    quint32 m_fixtureID;
+    quint32         m_fixtureID;
 
     QString m_nameValue;
 
     quint32 m_addressValue;
     quint32 m_universeValue;
-    int m_amountValue;
+    int     m_amountValue;
     quint32 m_gapValue;
     quint32 m_channelsValue;
-    bool m_invalidAddressFlag;
+    bool    m_invalidAddressFlag;
 
     /*********************************************************************
      * Fillers

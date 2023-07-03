@@ -36,21 +36,21 @@
 #include "rgbscriptscache.h"
 #include "doc.h"
 
-#define KXMLQLCRGBMatrixStartColor QString("MonoColor")
-#define KXMLQLCRGBMatrixEndColor QString("EndColor")
-#define KXMLQLCRGBMatrixFixtureGroup QString("FixtureGroup")
+#define KXMLQLCRGBMatrixStartColor    QString("MonoColor")
+#define KXMLQLCRGBMatrixEndColor      QString("EndColor")
+#define KXMLQLCRGBMatrixFixtureGroup  QString("FixtureGroup")
 #define KXMLQLCRGBMatrixDimmerControl QString("DimmerControl")
 
-#define KXMLQLCRGBMatrixProperty QString("Property")
-#define KXMLQLCRGBMatrixPropertyName QString("Name")
+#define KXMLQLCRGBMatrixProperty      QString("Property")
+#define KXMLQLCRGBMatrixPropertyName  QString("Name")
 #define KXMLQLCRGBMatrixPropertyValue QString("Value")
 
-#define KXMLQLCRGBMatrixControlMode QString("ControlMode")
-#define KXMLQLCRGBMatrixControlModeRgb QString("RGB")
-#define KXMLQLCRGBMatrixControlModeAmber QString("Amber")
-#define KXMLQLCRGBMatrixControlModeWhite QString("White")
-#define KXMLQLCRGBMatrixControlModeUV QString("UV")
-#define KXMLQLCRGBMatrixControlModeDimmer QString("Dimmer")
+#define KXMLQLCRGBMatrixControlMode        QString("ControlMode")
+#define KXMLQLCRGBMatrixControlModeRgb     QString("RGB")
+#define KXMLQLCRGBMatrixControlModeAmber   QString("Amber")
+#define KXMLQLCRGBMatrixControlModeWhite   QString("White")
+#define KXMLQLCRGBMatrixControlModeUV      QString("UV")
+#define KXMLQLCRGBMatrixControlModeDimmer  QString("Dimmer")
 #define KXMLQLCRGBMatrixControlModeShutter QString("Shutter")
 
 /****************************************************************************
@@ -216,7 +216,7 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
          *  then re-apply the properties currently set in this RGBMatrix */
         if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
         {
-            RGBScript *script = static_cast<RGBScript *>(m_algorithm);
+            RGBScript                      *script = static_cast<RGBScript *>(m_algorithm);
             QHashIterator<QString, QString> it(m_properties);
             while (it.hasNext())
             {
@@ -417,7 +417,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCRGBMatrixProperty)
         {
-            QString name = root.attributes().value(KXMLQLCRGBMatrixPropertyName).toString();
+            QString name  = root.attributes().value(KXMLQLCRGBMatrixPropertyName).toString();
             QString value = root.attributes().value(KXMLQLCRGBMatrixPropertyValue).toString();
             setProperty(name, value);
             root.skipCurrentElement();
@@ -531,7 +531,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
 
             if (m_algorithm->type() == RGBAlgorithm::Script)
             {
-                RGBScript *script = static_cast<RGBScript *>(m_algorithm);
+                RGBScript                      *script = static_cast<RGBScript *>(m_algorithm);
                 QHashIterator<QString, QString> it(m_properties);
                 while (it.hasNext())
                 {
@@ -717,9 +717,9 @@ void RGBMatrix::updateMapChannels(const RGBMap &map, const FixtureGroup *grp, QL
     while (it.hasNext())
     {
         it.next();
-        QLCPoint pt = it.key();
+        QLCPoint  pt      = it.key();
         GroupHead grpHead = it.value();
-        Fixture *fxi = doc()->fixture(grpHead.fxi);
+        Fixture  *fxi     = doc()->fixture(grpHead.fxi);
         if (fxi == NULL)
             continue;
 
@@ -805,8 +805,8 @@ void RGBMatrix::updateMapChannels(const RGBMap &map, const FixtureGroup *grp, QL
 
         if (m_controlMode == ControlModeDimmer || m_dimmerControl)
         {
-            quint32 masterDim = fxi->masterIntensityChannel();
-            quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+            quint32          masterDim = fxi->masterIntensityChannel();
+            quint32          headDim   = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
             QVector<quint32> dimmers;
 
             // Collect all dimmers that affect current head:
@@ -1055,7 +1055,7 @@ bool RGBMatrixStep::checkNextStep(Function::RunOrder order, QColor startColor, Q
     {
         if (m_direction == Function::Forward && (m_currentStepIndex + 1) == stepsNumber)
         {
-            m_direction = Function::Backward;
+            m_direction        = Function::Backward;
             m_currentStepIndex = stepsNumber - 2;
             if (endColor.isValid())
                 m_stepColor = endColor;
@@ -1064,9 +1064,9 @@ bool RGBMatrixStep::checkNextStep(Function::RunOrder order, QColor startColor, Q
         }
         else if (m_direction == Function::Backward && (m_currentStepIndex - 1) < 0)
         {
-            m_direction = Function::Forward;
+            m_direction        = Function::Forward;
             m_currentStepIndex = 1;
-            m_stepColor = startColor;
+            m_stepColor        = startColor;
             updateStepColor(m_currentStepIndex, startColor, stepsNumber);
         }
         else
@@ -1108,7 +1108,7 @@ bool RGBMatrixStep::checkNextStep(Function::RunOrder order, QColor startColor, Q
             if (m_currentStepIndex >= stepsNumber - 1)
             {
                 m_currentStepIndex = 0;
-                m_stepColor = startColor;
+                m_stepColor        = startColor;
             }
             else
             {

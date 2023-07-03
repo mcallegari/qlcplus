@@ -41,7 +41,7 @@ AudioCapturePortAudio::~AudioCapturePortAudio()
 
 bool AudioCapturePortAudio::initialize()
 {
-    PaError err;
+    PaError            err;
     PaStreamParameters inputParameters;
 
     err = Pa_Initialize();
@@ -49,7 +49,7 @@ bool AudioCapturePortAudio::initialize()
         return false;
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    QVariant  var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
         inputParameters.device = QString(var.toString()).toInt();
     else
@@ -62,9 +62,9 @@ bool AudioCapturePortAudio::initialize()
         return false;
     }
 
-    inputParameters.channelCount = m_channels;
-    inputParameters.sampleFormat = paInt16;
-    inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
+    inputParameters.channelCount              = m_channels;
+    inputParameters.sampleFormat              = paInt16;
+    inputParameters.suggestedLatency          = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
 
     // ensure initialize() has not been called multiple times

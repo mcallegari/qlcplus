@@ -55,12 +55,12 @@ public:
     void accept();
 
 private:
-    Doc *m_doc;
-    ChannelsGroup *m_chansGroup;
+    Doc                  *m_doc;
+    ChannelsGroup        *m_chansGroup;
     InputSelectionWidget *m_inputSelWidget;
 
 protected:
-    int m_checkedChannels;
+    int  m_checkedChannels;
     bool m_isUpdating;
 
 protected slots:

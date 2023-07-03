@@ -19,9 +19,9 @@
 */
 
 // Let's assume we have at least W2K (http://msdn.microsoft.com/en-us/library/Aa383745)
-#define _WIN32_WINNT 0x05000000
+#define _WIN32_WINNT   0x05000000
 #define _WIN32_WINDOWS 0x05000000
-#define WINVER 0x05000000
+#define WINVER         0x05000000
 
 #include <QDebug>
 
@@ -78,7 +78,7 @@ void MasterTimerPrivate::start()
 
     /* Adjust system timer to operate on its minimum tick period */
     m_systemTimerResolution = MIN(MAX(ptc.wPeriodMin, m_masterTimer->tick()), ptc.wPeriodMax);
-    result = timeBeginPeriod(m_systemTimerResolution);
+    result                  = timeBeginPeriod(m_systemTimerResolution);
     if (result != TIMERR_NOERROR)
     {
         qWarning() << Q_FUNC_INFO << "Unable to adjust system timer resolution.";
@@ -108,8 +108,8 @@ void MasterTimerPrivate::stop()
         timeEndPeriod(m_systemTimerResolution);
 
     m_systemTimerResolution = 0;
-    m_phTimer = NULL;
-    m_run = false;
+    m_phTimer               = NULL;
+    m_run                   = false;
 }
 
 bool MasterTimerPrivate::isRunning() const

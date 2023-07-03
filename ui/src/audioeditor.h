@@ -41,7 +41,7 @@ public:
     ~AudioEditor();
 
 private:
-    Doc *m_doc;
+    Doc   *m_doc;
     Audio *m_audio; // The Audio function being edited
 
 private slots:

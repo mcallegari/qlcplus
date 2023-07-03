@@ -230,15 +230,15 @@ private:
     /** The current type of beat source */
     BeatsSourceType m_beatSourceType;
     /** The current number of beats per minute emitted by a generator */
-    int m_currentBPM;
+    int             m_currentBPM;
     /** The duration of a beat in milliseconds according to m_currentBPM */
-    int m_beatTimeDuration;
+    int             m_beatTimeDuration;
     /** Flag to request a beat generation at the next MasterTimer tick */
-    bool m_beatRequested;
+    bool            m_beatRequested;
     /** The reference of a platform dependent timer to measure precise elapsed time */
-    QElapsedTimer *m_beatTimer;
+    QElapsedTimer  *m_beatTimer;
     /** Time offset in milliseconds when the last beat occured */
-    int m_lastBeatOffset;
+    int             m_lastBeatOffset;
 };
 
 /** @} */

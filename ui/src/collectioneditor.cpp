@@ -98,13 +98,13 @@ void CollectionEditor::slotAdd()
 
 void CollectionEditor::slotRemove()
 {
-    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QList<QTreeWidgetItem *>         items(m_tree->selectedItems());
     QListIterator<QTreeWidgetItem *> it(items);
 
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        quint32 id = item->data(0, PROP_ID).toUInt();
+        quint32          id = item->data(0, PROP_ID).toUInt();
         m_collection->removeFunction(id);
         delete item;
     }
@@ -112,7 +112,7 @@ void CollectionEditor::slotRemove()
 
 void CollectionEditor::slotMoveUp()
 {
-    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QList<QTreeWidgetItem *>         items(m_tree->selectedItems());
     QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
@@ -120,7 +120,7 @@ void CollectionEditor::slotMoveUp()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         if (index == 0)
             return;
     }
@@ -130,7 +130,7 @@ void CollectionEditor::slotMoveUp()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index - 1, item);
 
@@ -147,7 +147,7 @@ void CollectionEditor::slotMoveUp()
 
 void CollectionEditor::slotMoveDown()
 {
-    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QList<QTreeWidgetItem *>         items(m_tree->selectedItems());
     QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
@@ -155,7 +155,7 @@ void CollectionEditor::slotMoveDown()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         if (index == m_tree->topLevelItemCount() - 1)
             return;
     }
@@ -165,7 +165,7 @@ void CollectionEditor::slotMoveDown()
     while (it.hasPrevious() == true)
     {
         QTreeWidgetItem *item(it.previous());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index + 1, item);
 

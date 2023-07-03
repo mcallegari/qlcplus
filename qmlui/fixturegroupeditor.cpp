@@ -247,7 +247,7 @@ bool FixtureGroupEditor::addHead(quint32 itemID, int headIndex, int x, int y)
     if (m_editGroup == nullptr)
         return false;
 
-    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    quint32   fixtureID = FixtureUtils::itemFixtureID(itemID);
     GroupHead head(fixtureID, headIndex);
     if (m_editGroup->assignHead(QLCPoint(x, y), head) == true)
     {
@@ -332,9 +332,9 @@ void FixtureGroupEditor::deleteSelection()
 
     for (QVariant head : m_groupSelection)
     {
-        QLCPoint point = pointFromAbsolute(head.toInt());
-        GroupHead gHead = m_editGroup->head(point);
-        Fixture *fixture = m_doc->fixture(gHead.fxi);
+        QLCPoint  point   = pointFromAbsolute(head.toInt());
+        GroupHead gHead   = m_editGroup->head(point);
+        Fixture  *fixture = m_doc->fixture(gHead.fxi);
         if (fixture != nullptr && fixture->heads() == 1)
         {
             QString fxPath = QString("%1%2%3").arg(m_editGroup->name()).arg(TreeModel::separator()).arg(fixture->name());
@@ -354,11 +354,11 @@ void FixtureGroupEditor::transformSelection(int transformation)
     if (m_editGroup == nullptr)
         return;
 
-    int minX = m_editGroup->size().width();
-    int minY = m_editGroup->size().height();
-    int maxX = 0;
-    int maxY = 0;
-    QList<QPoint> pointsList;
+    int              minX = m_editGroup->size().width();
+    int              minY = m_editGroup->size().height();
+    int              maxX = 0;
+    int              maxY = 0;
+    QList<QPoint>    pointsList;
     QList<GroupHead> headsList;
 
     /** If the selection list is empty, it means the operation
@@ -370,8 +370,8 @@ void FixtureGroupEditor::transformSelection(int transformation)
         {
             for (int x = 0; x < m_editGroup->size().width(); x++)
             {
-                int absIndex = (y * m_editGroup->size().width()) + x;
-                GroupHead head = m_editGroup->head(QLCPoint(x, y));
+                int       absIndex = (y * m_editGroup->size().width()) + x;
+                GroupHead head     = m_editGroup->head(QLCPoint(x, y));
                 if (head.isValid())
                     m_groupSelection.append(absIndex);
             }
@@ -422,21 +422,21 @@ void FixtureGroupEditor::transformSelection(int transformation)
 
     /** Perform the requested transformation ! */
     QTransform transform;
-    QImage trImage;
+    QImage     trImage;
 
     switch (TransformType(transformation))
     {
         case Rotate90:
             transform = transform.rotate(90);
-            trImage = matrix.transformed(transform);
+            trImage   = matrix.transformed(transform);
             break;
         case Rotate180:
             transform = transform.rotate(180);
-            trImage = matrix.transformed(transform);
+            trImage   = matrix.transformed(transform);
             break;
         case Rotate270:
             transform = transform.rotate(270);
-            trImage = matrix.transformed(transform);
+            trImage   = matrix.transformed(transform);
             break;
         case HorizontalFlip:
             trImage = matrix.mirrored(true, false);

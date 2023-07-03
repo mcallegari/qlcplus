@@ -74,7 +74,7 @@ VCWidget *VCLabel::createCopy(VCWidget *parent)
 
 void VCLabel::editProperties()
 {
-    bool ok = false;
+    bool    ok   = false;
     QString text = QInputDialog::getText(NULL, tr("Rename Label"), tr("Caption:"), QLineEdit::Normal, caption(), &ok);
     if (ok == true)
         setCaption(text);
@@ -100,7 +100,7 @@ bool VCLabel::loadXML(QXmlStreamReader &root)
     {
         if (root.name() == KXMLQLCWindowState)
         {
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);

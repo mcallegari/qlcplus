@@ -139,7 +139,7 @@ void VCMatrixProperties::slotAttachFunction()
 
 void VCMatrixProperties::slotSetFunction(quint32 fid)
 {
-    m_function = fid;
+    m_function     = fid;
     Function *func = m_doc->function(m_function);
 
     if (func == NULL)
@@ -196,7 +196,7 @@ void VCMatrixProperties::updateSliderInputSource()
     if (m_doc->inputOutputMap()->inputSourceNames(m_sliderInputSource, uniName, chName) == false)
     {
         uniName = KInputNone;
-        chName = KInputNone;
+        chName  = KInputNone;
     }
 
     m_inputUniverseEdit->setText(uniName);
@@ -332,8 +332,8 @@ void VCMatrixProperties::slotAddStartColorClicked()
     if (col.isValid() == true)
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::StartColor;
-        newControl->m_color = col;
+        newControl->m_type          = VCMatrixControl::StartColor;
+        newControl->m_color         = col;
         addControl(newControl);
         updateTree();
     }
@@ -344,8 +344,8 @@ void VCMatrixProperties::slotAddStartColorKnobsClicked()
     foreach (QColor col, VCMatrixProperties::rgbColorList())
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::StartColorKnob;
-        newControl->m_color = col;
+        newControl->m_type          = VCMatrixControl::StartColorKnob;
+        newControl->m_color         = col;
         addControl(newControl);
     }
     updateTree();
@@ -357,8 +357,8 @@ void VCMatrixProperties::slotAddEndColorClicked()
     if (col.isValid() == true)
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::EndColor;
-        newControl->m_color = col;
+        newControl->m_type          = VCMatrixControl::EndColor;
+        newControl->m_color         = col;
         addControl(newControl);
         updateTree();
     }
@@ -369,8 +369,8 @@ void VCMatrixProperties::slotAddEndColorKnobsClicked()
     foreach (QColor col, VCMatrixProperties::rgbColorList())
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::EndColorKnob;
-        newControl->m_color = col;
+        newControl->m_type          = VCMatrixControl::EndColorKnob;
+        newControl->m_color         = col;
         addControl(newControl);
     }
     updateTree();
@@ -379,7 +379,7 @@ void VCMatrixProperties::slotAddEndColorKnobsClicked()
 void VCMatrixProperties::slotAddEndColorResetClicked()
 {
     VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-    newControl->m_type = VCMatrixControl::ResetEndColor;
+    newControl->m_type          = VCMatrixControl::ResetEndColor;
     addControl(newControl);
     updateTree();
 }
@@ -391,9 +391,9 @@ void VCMatrixProperties::slotAddAnimationClicked()
     if (ps.exec() == QDialog::Accepted)
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::Animation;
-        newControl->m_resource = ps.selectedPreset();
-        newControl->m_properties = ps.customizedProperties();
+        newControl->m_type          = VCMatrixControl::Animation;
+        newControl->m_resource      = ps.selectedPreset();
+        newControl->m_properties    = ps.customizedProperties();
         addControl(newControl);
         updateTree();
     }
@@ -401,14 +401,14 @@ void VCMatrixProperties::slotAddAnimationClicked()
 
 void VCMatrixProperties::slotAddTextClicked()
 {
-    bool ok;
+    bool    ok;
     QString text =
         QInputDialog::getText(this, tr("Enter a text"), tr("Text"), QLineEdit::Normal, "Q Light Controller+", &ok);
     if (ok && !text.isEmpty())
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::Text;
-        newControl->m_resource = text;
+        newControl->m_type          = VCMatrixControl::Text;
+        newControl->m_resource      = text;
         addControl(newControl);
         updateTree();
     }
@@ -419,7 +419,7 @@ void VCMatrixProperties::slotRemoveClicked()
     if (m_controlsTree->selectedItems().isEmpty())
         return;
     QTreeWidgetItem *selItem = m_controlsTree->selectedItems().first();
-    quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
+    quint8           ctlID   = selItem->data(0, Qt::UserRole).toUInt();
 
     {
         // For R/G/B Knobs:

@@ -88,7 +88,7 @@ void RGBScript_Test::scripts()
 
     // Prepare check that file is registered for delivery
     QString proFilePath = dir.filePath("rgbscripts.pro");
-    QFile proFile(proFilePath);
+    QFile   proFile(proFilePath);
     proFile.open(QIODevice::ReadWrite);
     QTextStream pro(&proFile);
 
@@ -106,7 +106,7 @@ void RGBScript_Test::scripts()
         {
             QString searchString = "scripts.files += " + file;
             QString line;
-            bool foundInProFile = false;
+            bool    foundInProFile = false;
             do
             {
                 line = pro.readLine();
@@ -164,7 +164,7 @@ void RGBScript_Test::script()
 void RGBScript_Test::evaluateException()
 {
     // Should be    function()
-    QString code("( function { return 5; } )()");
+    QString   code("( function { return 5; } )()");
     RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
@@ -173,9 +173,9 @@ void RGBScript_Test::evaluateException()
 void RGBScript_Test::evaluateNoRgbMapFunction()
 {
     // No rgbMap() function present
-    QString code("( function() { return 5; } )()");
+    QString   code("( function() { return 5; } )()");
     RGBScript s(m_doc);
-    RGBMap map;
+    RGBMap    map;
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
     s.rgbMap(QSize(5, 5), 1, 0, map);
@@ -185,8 +185,8 @@ void RGBScript_Test::evaluateNoRgbMapFunction()
 void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
 {
     // No rgbMapStepCount() function present
-    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; "
-                 "return foo; } )()");
+    QString   code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; "
+                     "return foo; } )()");
     RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
@@ -196,9 +196,9 @@ void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
 void RGBScript_Test::evaluateInvalidApiVersion()
 {
     // No apiVersion property
-    QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; "
-                 "foo.rgbMapStepCount = "
-                 "function(width, height) { return 0; }; return foo; } )()");
+    QString   code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; "
+                     "foo.rgbMapStepCount = "
+                     "function(width, height) { return 0; }; return foo; } )()");
     RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
@@ -212,7 +212,7 @@ void RGBScript_Test::rgbMapStepCount()
 
 void RGBScript_Test::rgbMap()
 {
-    RGBMap map;
+    RGBMap    map;
     RGBScript s = m_doc->rgbScriptsCache()->script("Stripes");
     s.rgbMap(QSize(3, 4), 0, 0, map);
     QVERIFY(map.isEmpty() == false);
@@ -240,19 +240,19 @@ void RGBScript_Test::rgbMap()
 
 void RGBScript_Test::runScripts()
 {
-    QSize mapSize = QSize(7, 11);      // Use different numbers for x and y for the test
+    QSize mapSize     = QSize(7, 11);  // Use different numbers for x and y for the test
     QSize mapSizePlus = QSize(12, 22); // Prepare a larger matrix to check behaviour on matrix change
     // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
     // This test also wants to test that there is no color space overrun.
-    int red = 0xff0000;
+    int   red         = 0xff0000;
 
     // Iterate the list of scripts
     QStringList names = m_doc->rgbScriptsCache()->names();
     foreach (QString name, names)
     {
         qDebug() << "Evaluating script" << name;
-        RGBScript s = m_doc->rgbScriptsCache()->script(name);
-        QString fileName = s.fileName();
+        RGBScript s        = m_doc->rgbScriptsCache()->script(name);
+        QString   fileName = s.fileName();
 
         // Check naming conventions
         QVERIFY(fileName.endsWith(".js"));
@@ -294,7 +294,7 @@ void RGBScript_Test::runScripts()
         QVERIFY(steps > 0);
 
         // Run a few steps with the standard set of parameters.
-        int realsteps = (steps > 5) ? 5 : steps;
+        int    realsteps = (steps > 5) ? 5 : steps;
         RGBMap rgbMap;
         for (int step = 0; step < realsteps; step++)
         {
@@ -317,7 +317,7 @@ void RGBScript_Test::runScripts()
             }
         }
         // Prepare a reference RGB map
-        bool randomScript = fileName.contains("random", Qt::CaseInsensitive);
+        bool   randomScript = fileName.contains("random", Qt::CaseInsensitive);
         RGBMap rgbRefMap;
         if (1 < s.acceptColors() && 2 < steps && !randomScript)
         {

@@ -43,7 +43,7 @@ public:
     ///   True for the minimum range handle, false for the maximum range handle
     enum Handle
     {
-        NoHandle = 0x0,
+        NoHandle      = 0x0,
         MinimumHandle = 0x1,
         MaximumHandle = 0x2
     };
@@ -105,25 +105,25 @@ private:
 ctkRangeSliderPrivate::ctkRangeSliderPrivate(ctkRangeSlider &object)
     : q_ptr(&object)
 {
-    this->m_MinimumValue = 0;
-    this->m_MaximumValue = 100;
-    this->m_MinimumPosition = 0;
-    this->m_MaximumPosition = 100;
+    this->m_MinimumValue          = 0;
+    this->m_MaximumValue          = 100;
+    this->m_MinimumPosition       = 0;
+    this->m_MaximumPosition       = 100;
     this->m_MinimumSliderSelected = QStyle::SC_None;
     this->m_MaximumSliderSelected = QStyle::SC_None;
-    this->m_SubclassClickOffset = 0;
-    this->m_SubclassPosition = 0;
-    this->m_SubclassWidth = 0;
-    this->m_SelectedHandles = NoHandle;
-    this->m_SymmetricMoves = false;
+    this->m_SubclassClickOffset   = 0;
+    this->m_SubclassPosition      = 0;
+    this->m_SubclassWidth         = 0;
+    this->m_SelectedHandles       = NoHandle;
+    this->m_SymmetricMoves        = false;
 }
 
 // --------------------------------------------------------------------------
 void ctkRangeSliderPrivate::init()
 {
     Q_Q(ctkRangeSlider);
-    this->m_MinimumValue = q->minimum();
-    this->m_MaximumValue = q->maximum();
+    this->m_MinimumValue    = q->minimum();
+    this->m_MaximumValue    = q->maximum();
     this->m_MinimumPosition = q->minimum();
     this->m_MaximumPosition = q->maximum();
     q->connect(q, SIGNAL(rangeChanged(int, int)), q, SLOT(onRangeChanged(int, int)));
@@ -143,14 +143,14 @@ ctkRangeSliderPrivate::Handle ctkRangeSliderPrivate::handleAtPos(const QPoint &p
 
     // Test the MinimumHandle
     option.sliderPosition = this->m_MinimumPosition;
-    option.sliderValue = this->m_MinimumValue;
+    option.sliderValue    = this->m_MinimumValue;
 
     QStyle::SubControl minimumControl = q->style()->hitTestComplexControl(QStyle::CC_Slider, &option, pos, q);
     QRect minimumHandleRect = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, q);
 
     // Test if the pos is under the Maximum handle
     option.sliderPosition = this->m_MaximumPosition;
-    option.sliderValue = this->m_MaximumValue;
+    option.sliderValue    = this->m_MaximumValue;
 
     QStyle::SubControl maximumControl = q->style()->hitTestComplexControl(QStyle::CC_Slider, &option, pos, q);
     QRect maximumHandleRect = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, q);
@@ -199,18 +199,18 @@ int ctkRangeSliderPrivate::pixelPosToRangeValue(int pos) const
 
     QRect gr = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderGroove, q);
     QRect sr = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, q);
-    int sliderMin, sliderMax, sliderLength;
+    int   sliderMin, sliderMax, sliderLength;
     if (option.orientation == Qt::Horizontal)
     {
         sliderLength = sr.width();
-        sliderMin = gr.x();
-        sliderMax = gr.right() - sliderLength + 1;
+        sliderMin    = gr.x();
+        sliderMax    = gr.right() - sliderLength + 1;
     }
     else
     {
         sliderLength = sr.height();
-        sliderMin = gr.y();
-        sliderMax = gr.bottom() - sliderLength + 1;
+        sliderMin    = gr.y();
+        sliderMax    = gr.bottom() - sliderLength + 1;
     }
 
     return QStyle::sliderValueFromPosition(q->minimum(), q->maximum(), pos - sliderMin, sliderMax - sliderMin,
@@ -226,18 +226,18 @@ int ctkRangeSliderPrivate::pixelPosFromRangeValue(int val) const
 
     QRect gr = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderGroove, q);
     QRect sr = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, q);
-    int sliderMin, sliderMax, sliderLength;
+    int   sliderMin, sliderMax, sliderLength;
     if (option.orientation == Qt::Horizontal)
     {
         sliderLength = sr.width();
-        sliderMin = gr.x();
-        sliderMax = gr.right() - sliderLength + 1;
+        sliderMin    = gr.x();
+        sliderMax    = gr.right() - sliderLength + 1;
     }
     else
     {
         sliderLength = sr.height();
-        sliderMin = gr.y();
-        sliderMax = gr.bottom() - sliderLength + 1;
+        sliderMin    = gr.y();
+        sliderMax    = gr.bottom() - sliderLength + 1;
     }
 
     return QStyle::sliderPositionFromValue(q->minimum(), q->maximum(), val, sliderMax - sliderMin, option.upsideDown)
@@ -252,8 +252,8 @@ void ctkRangeSliderPrivate::drawMinimumSlider(QStylePainter *painter) const
     QStyleOptionSlider option;
     q->initMinimumSliderStyleOption(&option);
 
-    option.subControls = QStyle::SC_SliderHandle;
-    option.sliderValue = m_MinimumValue;
+    option.subControls    = QStyle::SC_SliderHandle;
+    option.sliderValue    = m_MinimumValue;
     option.sliderPosition = m_MinimumPosition;
     if (q->isMinimumSliderDown())
     {
@@ -276,8 +276,8 @@ void ctkRangeSliderPrivate::drawMaximumSlider(QStylePainter *painter) const
     QStyleOptionSlider option;
     q->initMaximumSliderStyleOption(&option);
 
-    option.subControls = QStyle::SC_SliderHandle;
-    option.sliderValue = m_MaximumValue;
+    option.subControls    = QStyle::SC_SliderHandle;
+    option.sliderValue    = m_MaximumValue;
     option.sliderPosition = m_MaximumPosition;
     if (q->isMaximumSliderDown())
     {
@@ -363,18 +363,18 @@ void ctkRangeSlider::setMaximumValue(int max)
 void ctkRangeSlider::setValues(int l, int u)
 {
     Q_D(ctkRangeSlider);
-    const int minValue = qBound(this->minimum(), qMin(l, u), this->maximum());
-    const int maxValue = qBound(this->minimum(), qMax(l, u), this->maximum());
-    bool emitMinValChanged = (minValue != d->m_MinimumValue);
-    bool emitMaxValChanged = (maxValue != d->m_MaximumValue);
+    const int minValue          = qBound(this->minimum(), qMin(l, u), this->maximum());
+    const int maxValue          = qBound(this->minimum(), qMax(l, u), this->maximum());
+    bool      emitMinValChanged = (minValue != d->m_MinimumValue);
+    bool      emitMaxValChanged = (maxValue != d->m_MaximumValue);
 
     d->m_MinimumValue = minValue;
     d->m_MaximumValue = maxValue;
 
     bool emitMinPosChanged = (minValue != d->m_MinimumPosition);
     bool emitMaxPosChanged = (maxValue != d->m_MaximumPosition);
-    d->m_MinimumPosition = minValue;
-    d->m_MaximumPosition = maxValue;
+    d->m_MinimumPosition   = minValue;
+    d->m_MaximumPosition   = maxValue;
 
     if (isSliderDown())
     {
@@ -513,16 +513,16 @@ void ctkRangeSlider::paintEvent(QPaintEvent *)
     this->initStyleOption(&option);
 
     QStylePainter painter(this);
-    option.subControls = QStyle::SC_SliderGroove;
+    option.subControls    = QStyle::SC_SliderGroove;
     // Move to minimum to not highlight the SliderGroove.
     // On mac style, drawing just the slider groove also draws the handles,
     // therefore we give a negative (outside of view) position.
-    option.sliderValue = this->minimum() - this->maximum();
+    option.sliderValue    = this->minimum() - this->maximum();
     option.sliderPosition = this->minimum() - this->maximum();
     painter.drawComplexControl(QStyle::CC_Slider, option);
 
     option.sliderPosition = d->m_MinimumPosition;
-    const QRect lr = style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, this);
+    const QRect lr        = style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, this);
     option.sliderPosition = d->m_MaximumPosition;
 
     const QRect ur = style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, this);
@@ -548,7 +548,7 @@ void ctkRangeSlider::paintEvent(QPaintEvent *)
 
     // Create default colors based on the transfer function.
     //
-    QColor highlight = this->palette().color(QPalette::Normal, QPalette::Highlight);
+    QColor          highlight = this->palette().color(QPalette::Normal, QPalette::Highlight);
     QLinearGradient gradient;
     if (option.orientation == Qt::Horizontal)
     {
@@ -600,7 +600,7 @@ void ctkRangeSlider::mousePressEvent(QMouseEvent *mouseEvent)
     QStyleOptionSlider option;
     this->initStyleOption(&option);
 
-    QRect handleRect;
+    QRect                         handleRect;
     ctkRangeSliderPrivate::Handle handle_ = d->handleAtPos(mouseEvent->pos(), handleRect);
 
     if (handle_ != ctkRangeSliderPrivate::NoHandle)
@@ -627,15 +627,15 @@ void ctkRangeSlider::mousePressEvent(QMouseEvent *mouseEvent)
     // Check if we pressed on the groove between the 2 handles
 
     QStyle::SubControl control = this->style()->hitTestComplexControl(QStyle::CC_Slider, &option, mouseEvent->pos(), this);
-    QRect sr = style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderGroove, this);
-    int minCenter = (this->orientation() == Qt::Horizontal ? handleRect.left() : handleRect.top());
-    int maxCenter = (this->orientation() == Qt::Horizontal ? handleRect.right() : handleRect.bottom());
+    QRect              sr      = style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderGroove, this);
+    int                minCenter = (this->orientation() == Qt::Horizontal ? handleRect.left() : handleRect.top());
+    int                maxCenter = (this->orientation() == Qt::Horizontal ? handleRect.right() : handleRect.bottom());
     if (control == QStyle::SC_SliderGroove && mepos > minCenter && mepos < maxCenter)
     {
         // warning lost of precision it might be fatal
-        d->m_SubclassPosition = (d->m_MinimumPosition + d->m_MaximumPosition) / 2.;
+        d->m_SubclassPosition    = (d->m_MinimumPosition + d->m_MaximumPosition) / 2.;
         d->m_SubclassClickOffset = mepos - d->pixelPosFromRangeValue(d->m_SubclassPosition);
-        d->m_SubclassWidth = (d->m_MaximumPosition - d->m_MinimumPosition) / 2;
+        d->m_SubclassWidth       = (d->m_MaximumPosition - d->m_MinimumPosition) / 2;
         qMax(d->m_SubclassPosition - d->m_MinimumPosition, d->m_MaximumPosition - d->m_SubclassPosition);
         this->setSliderDown(true);
         if (!this->isMinimumSliderDown() || !this->isMaximumSliderDown())
@@ -759,11 +759,11 @@ bool ctkRangeSlider::event(QEvent *_event)
     {
         case QEvent::ToolTip:
         {
-            QHelpEvent *helpEvent = static_cast<QHelpEvent *>(_event);
+            QHelpEvent        *helpEvent = static_cast<QHelpEvent *>(_event);
             QStyleOptionSlider opt;
             // Test the MinimumHandle
             opt.sliderPosition = d->m_MinimumPosition;
-            opt.sliderValue = d->m_MinimumValue;
+            opt.sliderValue    = d->m_MinimumValue;
             this->initStyleOption(&opt);
             QStyle::SubControl hoveredControl =
                 this->style()->hitTestComplexControl(QStyle::CC_Slider, &opt, helpEvent->pos(), this);
@@ -775,7 +775,7 @@ bool ctkRangeSlider::event(QEvent *_event)
             }
             // Test the MaximumHandle
             opt.sliderPosition = d->m_MaximumPosition;
-            opt.sliderValue = d->m_MaximumValue;
+            opt.sliderValue    = d->m_MaximumValue;
             this->initStyleOption(&opt);
             hoveredControl = this->style()->hitTestComplexControl(QStyle::CC_Slider, &opt, helpEvent->pos(), this);
             if (!d->m_HandleToolTip.isEmpty() && hoveredControl == QStyle::SC_SliderHandle)

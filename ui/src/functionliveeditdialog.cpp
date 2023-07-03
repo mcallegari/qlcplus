@@ -47,7 +47,7 @@ FunctionLiveEditDialog::FunctionLiveEditDialog(Doc *doc, quint32 fid, QWidget *p
     setWindowIcon(QIcon(":/liveedit.png"));
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    QVariant  var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
 

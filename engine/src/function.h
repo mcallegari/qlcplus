@@ -45,47 +45,47 @@ class FunctionUiState;
  * @{
  */
 
-#define KXMLQLCFunction QString("Function")
-#define KXMLQLCFunctionName QString("Name")
-#define KXMLQLCFunctionID QString("ID")
-#define KXMLQLCFunctionType QString("Type")
-#define KXMLQLCFunctionData QString("Data")
-#define KXMLQLCFunctionPath QString("Path")
-#define KXMLQLCFunctionHidden QString("Hidden")
+#define KXMLQLCFunction          QString("Function")
+#define KXMLQLCFunctionName      QString("Name")
+#define KXMLQLCFunctionID        QString("ID")
+#define KXMLQLCFunctionType      QString("Type")
+#define KXMLQLCFunctionData      QString("Data")
+#define KXMLQLCFunctionPath      QString("Path")
+#define KXMLQLCFunctionHidden    QString("Hidden")
 #define KXMLQLCFunctionBlendMode QString("BlendMode")
 
-#define KXMLQLCFunctionValue QString("Value")
+#define KXMLQLCFunctionValue     QString("Value")
 #define KXMLQLCFunctionValueType QString("Type")
-#define KXMLQLCFunctionChannel QString("Channel")
+#define KXMLQLCFunctionChannel   QString("Channel")
 
-#define KXMLQLCFunctionStep QString("Step")
+#define KXMLQLCFunctionStep   QString("Step")
 #define KXMLQLCFunctionNumber QString("Number")
 
 #define KXMLQLCFunctionDirection QString("Direction")
-#define KXMLQLCFunctionRunOrder QString("RunOrder")
+#define KXMLQLCFunctionRunOrder  QString("RunOrder")
 
 #define KXMLQLCFunctionEnabled QString("Enabled")
 
-#define KXMLQLCFunctionSpeed QString("Speed")
-#define KXMLQLCFunctionSpeedFadeIn QString("FadeIn")
-#define KXMLQLCFunctionSpeedHold QString("Hold")
-#define KXMLQLCFunctionSpeedFadeOut QString("FadeOut")
+#define KXMLQLCFunctionSpeed         QString("Speed")
+#define KXMLQLCFunctionSpeedFadeIn   QString("FadeIn")
+#define KXMLQLCFunctionSpeedHold     QString("Hold")
+#define KXMLQLCFunctionSpeedFadeOut  QString("FadeOut")
 #define KXMLQLCFunctionSpeedDuration QString("Duration")
 
 typedef struct
 {
     QString m_name;
-    qreal m_value;
-    qreal m_min;
-    qreal m_max;
-    int m_flags;
-    bool m_isOverridden;
-    qreal m_overrideValue;
+    qreal   m_value;
+    qreal   m_min;
+    qreal   m_max;
+    int     m_flags;
+    bool    m_isOverridden;
+    qreal   m_overrideValue;
 } Attribute;
 
 typedef struct
 {
-    int m_attrIndex;
+    int   m_attrIndex;
     qreal m_value;
 } AttributeOverride;
 
@@ -107,16 +107,16 @@ public:
      */
     enum Type
     {
-        Undefined = 0,
-        SceneType = 1 << 0,
-        ChaserType = 1 << 1,
-        EFXType = 1 << 2,
+        Undefined      = 0,
+        SceneType      = 1 << 0,
+        ChaserType     = 1 << 1,
+        EFXType        = 1 << 2,
         CollectionType = 1 << 3,
-        ScriptType = 1 << 4,
-        RGBMatrixType = 1 << 5,
-        ShowType = 1 << 6,
-        SequenceType = 1 << 7,
-        AudioType = 1 << 8
+        ScriptType     = 1 << 4,
+        RGBMatrixType  = 1 << 5,
+        ShowType       = 1 << 6,
+        SequenceType   = 1 << 7,
+        AudioType      = 1 << 8
 #if QT_VERSION >= 0x050000
         ,
         VideoType = 1 << 9
@@ -426,8 +426,8 @@ public:
     enum TempoType
     {
         Original = -1,
-        Time = 0,
-        Beats = 1
+        Time     = 0,
+        Beats    = 1
     };
     enum FractionsType
     {
@@ -492,7 +492,7 @@ protected slots:
 private:
     TempoType m_tempoType;
     TempoType m_overrideTempoType;
-    bool m_beatResyncNeeded;
+    bool      m_beatResyncNeeded;
 
     /*********************************************************************
      * Speed
@@ -586,7 +586,7 @@ private:
 public:
     /** Get/Set a generic UI property specific to this Function */
     QVariant uiStateValue(QString property);
-    void setUiStateValue(QString property, QVariant value);
+    void     setUiStateValue(QString property, QVariant value);
 
     /** Get the whole UI state map */
     QMap<QString, QVariant> uiStateMap() const;
@@ -866,9 +866,9 @@ private:
     bool m_paused;
 
     QList<FunctionParent> m_sources;
-    QMutex m_sourcesMutex;
+    QMutex                m_sourcesMutex;
 
-    QMutex m_stopMutex;
+    QMutex         m_stopMutex;
     QWaitCondition m_functionStopped;
 
     /*************************************************************************
@@ -879,7 +879,7 @@ public:
     {
         Multiply = (1 << 0), /** The original attribute value should be multiplied by the overridden values */
         LastWins = (1 << 1), /** The original attribute value is overridden by the last requested override value */
-        Single = (1 << 2)    /** Only one attribute override ID will be allowed */
+        Single   = (1 << 2)  /** Only one attribute override ID will be allowed */
     };
 
     static int invalidAttributeId();

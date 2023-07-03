@@ -204,14 +204,14 @@ private:
     }
 
     QHttpConnection *m_connection;
-    HeaderHash m_headers;
-    HttpMethod m_method;
-    QUrl m_url;
-    QString m_version;
-    QString m_remoteAddress;
-    quint16 m_remotePort;
-    QByteArray m_body;
-    bool m_success;
+    HeaderHash       m_headers;
+    HttpMethod       m_method;
+    QUrl             m_url;
+    QString          m_version;
+    QString          m_remoteAddress;
+    quint16          m_remotePort;
+    QByteArray       m_body;
+    bool             m_success;
 };
 
 #endif

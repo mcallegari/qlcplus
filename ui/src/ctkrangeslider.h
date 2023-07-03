@@ -82,13 +82,13 @@ public:
     ///
     /// This property holds the current slider minimum position.
     /// If tracking is enabled (the default), this is identical to minimumValue.
-    int minimumPosition() const;
+    int  minimumPosition() const;
     void setMinimumPosition(int min);
 
     ///
     /// This property holds the current slider maximum position.
     /// If tracking is enabled (the default), this is identical to maximumValue.
-    int maximumPosition() const;
+    int  maximumPosition() const;
     void setMaximumPosition(int max);
 
     ///
@@ -108,7 +108,7 @@ public:
     /// "%1" is replaced by the current value of the slider.
     /// Empty string (by default) means no tooltip.
     QString handleToolTip() const;
-    void setHandleToolTip(const QString &toolTip);
+    void    setHandleToolTip(const QString &toolTip);
 
     /// Returns true if the minimum value handle is down, false if it is up.
     /// \sa isMaximumSliderDown()

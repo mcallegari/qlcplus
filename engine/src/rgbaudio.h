@@ -55,13 +55,13 @@ private:
     void calculateColors(int barsHeight = 0);
 
 protected:
-    AudioCapture *m_audioInput;
-    int m_bandsNumber;
-    QMutex m_mutex;
+    AudioCapture   *m_audioInput;
+    int             m_bandsNumber;
+    QMutex          m_mutex;
     QVector<double> m_spectrumValues;
-    double m_maxMagnitude;
-    quint32 m_volumePower;
-    QList<uint> m_barColors;
+    double          m_maxMagnitude;
+    quint32         m_volumePower;
+    QList<uint>     m_barColors;
 
     /************************************************************************
      * RGBAlgorithm

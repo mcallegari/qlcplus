@@ -99,7 +99,7 @@ public:
 private:
     /** Retrieve a sample value from an audio buffer, given the sample size */
     qint32 getSample(unsigned char *data, quint32 idx, int sampleSize);
-    void run();
+    void   run();
 
     AudioItem *m_item;
 };

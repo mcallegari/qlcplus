@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCPalette QString("Palette")
+#define KXMLQLCPalette   QString("Palette")
 #define KXMLQLCPaletteID QString("ID")
 
 /**
@@ -66,13 +66,13 @@ public:
     enum PaletteType
     {
         Undefined = 0,
-        Dimmer = 1 << 0,
-        Color = 1 << 1,
-        Pan = 1 << 2,
-        Tilt = 1 << 3,
-        PanTilt = 1 << 4,
-        Shutter = 1 << 5,
-        Gobo = 1 << 6
+        Dimmer    = 1 << 0,
+        Color     = 1 << 1,
+        Pan       = 1 << 2,
+        Tilt      = 1 << 3,
+        PanTilt   = 1 << 4,
+        Shutter   = 1 << 5,
+        Gobo      = 1 << 6
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(PaletteType)
@@ -93,7 +93,7 @@ public:
 public:
     /** Get/Set the palette ID */
     quint32 id() const;
-    void setID(quint32 id);
+    void    setID(quint32 id);
 
     /** Get an invalid palette id */
     static quint32 invalidId();
@@ -102,29 +102,29 @@ public:
     PaletteType type() const;
 
     /** Helper methods to convert palette type <-> string */
-    static QString typeToString(QLCPalette::PaletteType type);
+    static QString     typeToString(QLCPalette::PaletteType type);
     static PaletteType stringToType(const QString &str);
 
     Q_INVOKABLE QString iconResource(bool svg = false) const;
 
     /** Get/Set the name of this palette */
     QString name() const;
-    void setName(const QString &name);
+    void    setName(const QString &name);
 
     /** Get/Set the value(s) for this Palette.
      *  Some types like Position will store 2 values */
     QVariant value() const;
-    int intValue1() const;
-    int intValue2() const;
-    QString strValue1() const;
-    QColor rgbValue() const;
-    QColor wauvValue() const;
+    int      intValue1() const;
+    int      intValue2() const;
+    QString  strValue1() const;
+    QColor   rgbValue() const;
+    QColor   wauvValue() const;
 
-    void setValue(QVariant val);
-    void setValue(QVariant val1, QVariant val2);
+    void         setValue(QVariant val);
+    void         setValue(QVariant val1, QVariant val2);
     QVariantList values() const;
-    void setValues(QVariantList values);
-    void resetValues();
+    void         setValues(QVariantList values);
+    void         resetValues();
 
     QList<SceneValue> valuesFromFixtures(Doc *doc, QList<quint32> fixtures);
     QList<SceneValue> valuesFromFixtureGroups(Doc *doc, QList<quint32> groups);
@@ -141,9 +141,9 @@ signals:
     void nameChanged();
 
 private:
-    quint32 m_id;
-    PaletteType m_type;
-    QString m_name;
+    quint32      m_id;
+    PaletteType  m_type;
+    QString      m_name;
     QVariantList m_values;
 
     /************************************************************************
@@ -180,27 +180,27 @@ public:
 
     /** Get/Set the fanning type */
     FanningType fanningType() const;
-    void setFanningType(QLCPalette::FanningType type);
+    void        setFanningType(QLCPalette::FanningType type);
 
     /** Helper methods to convert fanning type <-> string */
-    static QString fanningTypeToString(QLCPalette::FanningType type);
+    static QString     fanningTypeToString(QLCPalette::FanningType type);
     static FanningType stringToFanningType(const QString &str);
 
     /** Get/Set the fanning layout */
     FanningLayout fanningLayout() const;
-    void setFanningLayout(QLCPalette::FanningLayout layout);
+    void          setFanningLayout(QLCPalette::FanningLayout layout);
 
     /** Helper methods to convert fanning layout <-> string */
-    static QString fanningLayoutToString(QLCPalette::FanningLayout layout);
+    static QString       fanningLayoutToString(QLCPalette::FanningLayout layout);
     static FanningLayout stringToFanningLayout(const QString &str);
 
     /** Get/Set the amount of fanning applied to this palette */
-    int fanningAmount() const;
+    int  fanningAmount() const;
     void setFanningAmount(int amount);
 
     /** Get/Set the fanning value */
     QVariant fanningValue() const;
-    void setFanningValue(QVariant value);
+    void     setFanningValue(QVariant value);
 
 signals:
     void fanningTypeChanged();
@@ -209,10 +209,10 @@ signals:
     void fanningValueChanged();
 
 private:
-    FanningType m_fanningType;
+    FanningType   m_fanningType;
     FanningLayout m_fanningLayout;
-    int m_fanningAmount;
-    QVariant m_fanningValue;
+    int           m_fanningAmount;
+    QVariant      m_fanningValue;
 
     /************************************************************************
      * Color helpers

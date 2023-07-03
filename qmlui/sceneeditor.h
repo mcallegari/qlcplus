@@ -96,24 +96,24 @@ signals:
 
 private:
     /** Reference of the Scene currently being edited */
-    Scene *m_scene;
+    Scene                    *m_scene;
     /** A list of the $m_scene Fixture IDs for fast lookup */
-    QList<quint32> m_fixtureIDs;
+    QList<quint32>            m_fixtureIDs;
     /** A QML-readable list of references to Fixtures used in $m_scene */
-    ListModel *m_fixtureList;
+    ListModel                *m_fixtureList;
     /** A QML-readable list of all the components used by the Scene
      *  (Fixture groups, Fixtures, Palettes) */
-    ListModel *m_componentList;
+    ListModel                *m_componentList;
     /** A reference to the SceneFixtureConsole when loaded */
-    QQuickItem *m_sceneConsole;
+    QQuickItem               *m_sceneConsole;
     /** Keep a track of the registered Fixture consoles in a Scene Console,
      *  to rapidly set a channel value */
-    QMap<int, QQuickItem *> m_fxConsoleMap;
+    QMap<int, QQuickItem *>   m_fxConsoleMap;
     /** Pre-cache initial channel values including palettes.
      *  arranged as <fixture ID, channel values array> */
     QMap<quint32, QByteArray> m_channelsCache;
     /** Reference to a DMX source used to edit a Scene */
-    GenericDMXSource *m_source;
+    GenericDMXSource         *m_source;
 };
 
 #endif // SCENEEDITOR_H

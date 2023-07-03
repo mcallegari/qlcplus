@@ -50,11 +50,11 @@ public:
 
     enum TreeItemsFlags
     {
-        Selected = (1 << 0),
+        Selected  = (1 << 0),
         EmptyNode = (1 << 1),
-        Expanded = (1 << 2),
+        Expanded  = (1 << 2),
         Checkable = (1 << 3),
-        Checked = (1 << 4),
+        Checked   = (1 << 4),
         Draggable = (1 << 5)
     };
 
@@ -139,14 +139,14 @@ protected slots:
 
 protected:
     QHash<int, QByteArray> roleNames() const;
-    int getItemInsertIndex(QString label);
-    int getNodeInsertIndex(QString label);
+    int                    getItemInsertIndex(QString label);
+    int                    getNodeInsertIndex(QString label);
 
 protected:
-    QStringList m_roles;
-    bool m_sorting;
-    bool m_checkable;
-    QList<TreeModelItem *> m_items;
+    QStringList                    m_roles;
+    bool                           m_sorting;
+    bool                           m_checkable;
+    QList<TreeModelItem *>         m_items;
     QMap<QString, TreeModelItem *> m_itemsPathMap;
 };
 

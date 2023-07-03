@@ -66,10 +66,10 @@ protected:
     void showEvent(QShowEvent *ev);
 
 private:
-    Doc *m_doc;
-    GroupType m_groupType;
+    Doc         *m_doc;
+    GroupType    m_groupType;
     QHBoxLayout *m_layout;
-    bool m_showCheckBoxes;
+    bool         m_showCheckBoxes;
 
     /*********************************************************************
      * Fixture
@@ -131,7 +131,7 @@ private:
 
 private:
     QList<ConsoleChannel *> m_channels;
-    QString m_styleSheet;
+    QString                 m_styleSheet;
 };
 
 /** @} */

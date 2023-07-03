@@ -65,11 +65,11 @@ public:
 
     /** Get/Set the name of the Function being edited */
     virtual QString functionName() const;
-    virtual void setFunctionName(QString functionName);
+    virtual void    setFunctionName(QString functionName);
 
     /** Get the ID of the view that was open before this editor.
      *  This is to handle Collection -> Function and back */
-    int previousID() const;
+    int  previousID() const;
     void setPreviousID(int previousID);
 
     /** Generic method to delete items of an editor.
@@ -83,38 +83,38 @@ signals:
 
 protected:
     /** Reference of the QML view */
-    QQuickView *m_view;
+    QQuickView    *m_view;
     /** Reference of the project workspace */
-    Doc *m_doc;
+    Doc           *m_doc;
     /** ID of the Function being edited */
-    quint32 m_functionID;
+    quint32        m_functionID;
     /** ID of the item of the previous view */
-    int m_previousID;
+    int            m_previousID;
     /** Reference of the Function being edited */
-    Function *m_function;
+    Function      *m_function;
     /** Type of the Function being edited */
     Function::Type m_functionType;
     /** Flag that holds if the editor should preview its function */
-    bool m_previewEnabled;
+    bool           m_previewEnabled;
 
     /************************************************************************
      * Speed
      ************************************************************************/
 public:
     /** Get/Set the tempo type of the Function being edited */
-    virtual int tempoType() const;
+    virtual int  tempoType() const;
     virtual void setTempoType(int tempoType);
 
     /** Get/Set the Function fade in speed */
-    virtual int fadeInSpeed() const;
+    virtual int  fadeInSpeed() const;
     virtual void setFadeInSpeed(int fadeInSpeed);
 
     /** Get/Set the Function hold speed */
-    virtual int holdSpeed() const;
+    virtual int  holdSpeed() const;
     virtual void setHoldSpeed(int holdSpeed);
 
     /** Get/Set the Function fade out speed */
-    virtual int fadeOutSpeed() const;
+    virtual int  fadeOutSpeed() const;
     virtual void setFadeOutSpeed(int fadeOutSpeed);
 
     /** Get the Function duration */
@@ -132,11 +132,11 @@ signals:
      ************************************************************************/
 public:
     /** Get/Set the Function run order */
-    virtual int runOrder() const;
+    virtual int  runOrder() const;
     virtual void setRunOrder(int runOrder);
 
     /** Get/Set the Function run direction */
-    virtual int direction() const;
+    virtual int  direction() const;
     virtual void setDirection(int direction);
 
 signals:

@@ -74,12 +74,12 @@ VCWidget::VCWidget(QWidget *parent, Doc *doc)
 
     setMinimumSize(QSize(20, 20));
 
-    m_type = UnknownWidget;
+    m_type                     = UnknownWidget;
     m_hasCustomBackgroundColor = false;
     m_hasCustomForegroundColor = false;
-    m_backgroundImage = QString();
-    m_hasCustomFont = false;
-    m_frameStyle = KVCFrameStyleNone;
+    m_backgroundImage          = QString();
+    m_hasCustomFont            = false;
+    m_frameStyle               = KVCFrameStyleNone;
 
     m_resizeMode = false;
 
@@ -267,13 +267,13 @@ bool VCWidget::copyFrom(const VCWidget *widget)
     setCaption(widget->caption());
 
     m_allowChildren = widget->m_allowChildren;
-    m_allowResize = widget->m_allowResize;
+    m_allowResize   = widget->m_allowResize;
 
     QHashIterator<quint8, QSharedPointer<QLCInputSource>> it(widget->m_inputs);
     while (it.hasNext() == true)
     {
         it.next();
-        quint8 id = it.key();
+        quint8                         id = it.key();
         QSharedPointer<QLCInputSource> src(new QLCInputSource(it.value()->universe(), it.value()->channel()));
         src->setRange(it.value()->lowerValue(), it.value()->upperValue());
         setInputSource(src, id);
@@ -293,7 +293,7 @@ void VCWidget::setBackgroundImage(const QString &path)
     QPalette pal = palette();
 
     m_hasCustomBackgroundColor = false;
-    m_backgroundImage = path;
+    m_backgroundImage          = path;
 
     pal.setBrush(QPalette::Window, QBrush(QPixmap(path)));
     setPalette(pal);
@@ -316,7 +316,7 @@ void VCWidget::setBackgroundColor(const QColor &color)
     QPalette pal = palette();
 
     m_hasCustomBackgroundColor = true;
-    m_backgroundImage = QString();
+    m_backgroundImage          = QString();
 
     pal.setColor(QPalette::Window, color);
     setPalette(pal);
@@ -339,7 +339,7 @@ void VCWidget::resetBackgroundColor()
     QColor fg;
 
     m_hasCustomBackgroundColor = false;
-    m_backgroundImage = QString();
+    m_backgroundImage          = QString();
 
     /* Store foreground color */
     if (m_hasCustomForegroundColor == true)
@@ -900,8 +900,8 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
     QXmlStreamAttributes attrs = root.attributes();
 
     quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
-    quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
-    uchar min = 0, max = UCHAR_MAX;
+    quint32 ch  = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+    uchar   min = 0, max = UCHAR_MAX;
 
     QSharedPointer<QLCInputSource> newSrc = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
@@ -963,8 +963,8 @@ bool VCWidget::loadXMLInput(QXmlStreamReader &root, quint32 *uni, quint32 *ch) c
     else
     {
         QXmlStreamAttributes attrs = root.attributes();
-        *uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
-        *ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+        *uni                       = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+        *ch                        = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
         root.skipCurrentElement();
     }
 
@@ -1098,10 +1098,10 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &tag, int *x, int *y, int *w,
     if (tag.name() == KXMLQLCWindowState)
     {
         QXmlStreamAttributes attrs = tag.attributes();
-        *x = attrs.value(KXMLQLCWindowStateX).toString().toInt();
-        *y = attrs.value(KXMLQLCWindowStateY).toString().toInt();
-        *w = attrs.value(KXMLQLCWindowStateWidth).toString().toInt();
-        *h = attrs.value(KXMLQLCWindowStateHeight).toString().toInt();
+        *x                         = attrs.value(KXMLQLCWindowStateX).toString().toInt();
+        *y                         = attrs.value(KXMLQLCWindowStateY).toString().toInt();
+        *w                         = attrs.value(KXMLQLCWindowStateWidth).toString().toInt();
+        *h                         = attrs.value(KXMLQLCWindowStateHeight).toString().toInt();
 
         if (attrs.value(KXMLQLCWindowStateVisible).toString() == KXMLQLCTrue)
             *visible = true;

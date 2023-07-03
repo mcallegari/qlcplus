@@ -33,9 +33,9 @@ class ShowFunction;
 
 typedef struct
 {
-    quint32 m_trackIndex;
+    quint32       m_trackIndex;
     ShowFunction *m_showFunc;
-    QQuickItem *m_item;
+    QQuickItem   *m_item;
 } SelectedShowItem;
 
 class ShowManager : public PreviewContext
@@ -87,7 +87,7 @@ public:
 
     /** Get/Set the current time scale of the Show Manager timeline */
     float timeScale() const;
-    void setTimeScale(float timeScale);
+    void  setTimeScale(float timeScale);
 
     /** Get the size in pixels of the Show header time division */
     float tickSize() const;
@@ -101,7 +101,7 @@ public:
     void setGridEnabled(bool gridEnabled);
 
     /** Get/Set the current time of the Show (aka cursor position) */
-    int currentTime() const;
+    int  currentTime() const;
     void setCurrentTime(int currentTime);
 
     /** Play or resume the Show playback */
@@ -152,7 +152,7 @@ public:
     QVariant tracks();
 
     /** Get/Set the selected track index */
-    int selectedTrackIndex() const;
+    int  selectedTrackIndex() const;
     void setSelectedTrackIndex(int index);
 
     Q_INVOKABLE void setTrackSolo(int index, bool solo);
@@ -224,7 +224,7 @@ public:
     Q_INVOKABLE void resetItemsSelection();
 
     Q_INVOKABLE QVariantList selectedItemRefs();
-    Q_INVOKABLE QStringList selectedItemNames();
+    Q_INVOKABLE QStringList  selectedItemNames();
 
     /** Returns true if at least one of the selected items is locked */
     Q_INVOKABLE bool selectedItemsLocked();

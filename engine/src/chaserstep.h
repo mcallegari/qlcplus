@@ -83,13 +83,13 @@ public:
     bool saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const;
 
 public:
-    quint32 fid;              //! The function ID
-    uint fadeIn;              //! Fade in speed
-    uint hold;                //! Hold time
-    uint fadeOut;             //! Fade out speed
-    uint duration;            //! Duration
-    QList<SceneValue> values; //! specific DMX values for this step (chaser in sequence mode)
-    QString note;
+    quint32           fid;      //! The function ID
+    uint              fadeIn;   //! Fade in speed
+    uint              hold;     //! Hold time
+    uint              fadeOut;  //! Fade out speed
+    uint              duration; //! Duration
+    QList<SceneValue> values;   //! specific DMX values for this step (chaser in sequence mode)
+    QString           note;
 };
 
 /** @} */

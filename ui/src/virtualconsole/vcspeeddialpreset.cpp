@@ -42,9 +42,9 @@ VCSpeedDialPreset &VCSpeedDialPreset::operator=(const VCSpeedDialPreset &preset)
 {
     if (this != &preset)
     {
-        m_id = preset.m_id;
-        m_name = preset.m_name;
-        m_value = preset.m_value;
+        m_id          = preset.m_id;
+        m_name        = preset.m_name;
+        m_value       = preset.m_value;
         m_keySequence = preset.m_keySequence;
 
         if (preset.m_inputSource != NULL)

@@ -37,8 +37,8 @@ typedef struct
     quint32 m_universe;
     quint32 m_fixtureID;
     quint32 m_channel;
-    uchar m_value;
-    uint m_fadeTime;
+    uchar   m_value;
+    uint    m_fadeTime;
 } FixtureValue;
 
 class ScriptRunner : public QThread
@@ -196,19 +196,19 @@ protected:
     void run();
 
 private:
-    Doc *m_doc;
+    Doc    *m_doc;
     QString m_content;
-    bool m_running;
+    bool    m_running;
 
-    QJSEngine *m_engine;
+    QJSEngine                                  *m_engine;
     // Queue holding the Function IDs to start/stop
-    QQueue<QPair<quint32, bool>> m_functionQueue;
+    QQueue<QPair<quint32, bool>>                m_functionQueue;
     // Queue holding Fixture values to send to Universes
-    QQueue<FixtureValue> m_fixtureValueQueue;
+    QQueue<FixtureValue>                        m_fixtureValueQueue;
     // IDs of the Functions started by this script
-    QList<quint32> m_startedFunctions;
+    QList<quint32>                              m_startedFunctions;
     // Timer ticks to wait before executing the next line
-    quint32 m_waitCount;
+    quint32                                     m_waitCount;
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader>> m_fadersMap;
 };

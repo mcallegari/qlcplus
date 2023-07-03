@@ -579,11 +579,11 @@ public:
         Audio     //! An audio input device is the beat generator
     };
 
-    void setBeatGeneratorType(BeatGeneratorType type);
+    void              setBeatGeneratorType(BeatGeneratorType type);
     BeatGeneratorType beatGeneratorType() const;
 
     void setBpmNumber(int bpm);
-    int bpmNumber() const;
+    int  bpmNumber() const;
 
 protected slots:
     void slotMasterTimerBeat();
@@ -597,8 +597,8 @@ signals:
 
 private:
     BeatGeneratorType m_beatGeneratorType;
-    int m_currentBPM;
-    QElapsedTimer *m_beatTime;
+    int               m_currentBPM;
+    QElapsedTimer    *m_beatTime;
 
     /*********************************************************************
      * Defaults

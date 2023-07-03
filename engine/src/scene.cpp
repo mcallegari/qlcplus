@@ -132,8 +132,8 @@ void Scene::setValue(const SceneValue &scv, bool blind, bool checkHTP)
         else if (it.value() != scv.value)
         {
             const_cast<uchar &>(it.key().value) = scv.value;
-            it.value() = scv.value;
-            valChanged = true;
+            it.value()                          = scv.value;
+            valChanged                          = true;
         }
 
         // if the scene is running, we must
@@ -215,9 +215,9 @@ QList<quint32> Scene::components()
 
 QColor Scene::colorValue(quint32 fxi)
 {
-    int rVal = 0, gVal = 0, bVal = 0;
-    int cVal = -1, mVal = -1, yVal = -1;
-    bool found = false;
+    int    rVal = 0, gVal = 0, bVal = 0;
+    int    cVal = -1, mVal = -1, yVal = -1;
+    bool   found = false;
     QColor CMYcol;
 
     foreach (SceneValue scv, m_values.keys())
@@ -239,15 +239,15 @@ QColor Scene::colorValue(quint32 fxi)
             switch (col)
             {
                 case QLCChannel::Red:
-                    rVal = scv.value;
+                    rVal  = scv.value;
                     found = true;
                     break;
                 case QLCChannel::Green:
-                    gVal = scv.value;
+                    gVal  = scv.value;
                     found = true;
                     break;
                 case QLCChannel::Blue:
-                    bVal = scv.value;
+                    bVal  = scv.value;
                     found = true;
                     break;
                 case QLCChannel::Cyan:
@@ -261,7 +261,7 @@ QColor Scene::colorValue(quint32 fxi)
                     break;
                 case QLCChannel::White:
                     rVal = gVal = bVal = scv.value;
-                    found = true;
+                    found              = true;
                     break;
                 default:
                     break;
@@ -273,19 +273,19 @@ QColor Scene::colorValue(quint32 fxi)
             if (cap && (cap->presetType() == QLCCapability::SingleColor || cap->presetType() == QLCCapability::DoubleColor))
             {
                 QColor col = cap->resource(0).value<QColor>();
-                rVal = col.red();
-                gVal = col.green();
-                bVal = col.blue();
-                found = true;
+                rVal       = col.red();
+                gVal       = col.green();
+                bVal       = col.blue();
+                found      = true;
             }
         }
 
         if (cVal >= 0 && mVal >= 0 && yVal >= 0)
         {
             CMYcol.setCmyk(cVal, mVal, yVal, 0);
-            rVal = CMYcol.red();
-            gVal = CMYcol.green();
-            bVal = CMYcol.blue();
+            rVal  = CMYcol.red();
+            gVal  = CMYcol.green();
+            bVal  = CMYcol.blue();
             found = true;
         }
     }
@@ -451,7 +451,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
         {
             if (chanGroupsIDs.isEmpty() == false)
                 chanGroupsIDs.append(QString(","));
-            int id = m_channelGroups.at(i);
+            int id  = m_channelGroups.at(i);
             int val = m_channelGroupsLevels.at(i);
             chanGroupsIDs.append(QString("%1,%2").arg(id).arg(val));
         }
@@ -466,7 +466,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     foreach (quint32 fxId, m_fixtures)
     {
         QStringList currFixValues;
-        bool found = false;
+        bool        found = false;
 
         // look for the values that match the current Fixture ID
         for (int j = 0; j < values.count(); j++)
@@ -595,9 +595,9 @@ bool Scene::loadXML(QXmlStreamReader &root)
                 for (int i = 0; i + 1 < varray.count(); i += 2)
                 {
                     SceneValue scv;
-                    scv.fxi = fxi;
+                    scv.fxi     = fxi;
                     scv.channel = QString(varray.at(i)).toUInt();
-                    scv.value = uchar(QString(varray.at(i + 1)).toInt());
+                    scv.value   = uchar(QString(varray.at(i + 1)).toInt());
                     setValue(scv);
                 }
             }
@@ -639,7 +639,7 @@ void Scene::postLoad()
     while (it.hasNext() == true)
     {
         SceneValue value(it.next().key());
-        Fixture *fxi = doc()->fixture(value.fxi);
+        Fixture   *fxi = doc()->fixture(value.fxi);
         if (fxi == NULL || fxi->channel(value.channel) == NULL)
             it.remove();
     }
@@ -681,7 +681,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             foreach (const SceneValue &sv, m_values.keys())
             {
                 FadeChannel fc(doc(), sv.fxi, sv.channel);
-                quint32 universe = fc.universe();
+                quint32     universe = fc.universe();
                 if (universe == Universe::invalid())
                     continue;
 
@@ -840,7 +840,7 @@ void Scene::write(MasterTimer *timer, QList<Universe *> ua)
                 processValue(timer, ua, fadeIn, scv);
         }
 
-        QMutexLocker locker(&m_valueListMutex);
+        QMutexLocker                    locker(&m_valueListMutex);
         QMapIterator<SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
         {

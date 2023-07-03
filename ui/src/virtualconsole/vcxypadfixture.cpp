@@ -79,19 +79,19 @@ VCXYPadFixture::VCXYPadFixture(Doc *doc, const QVariant &variant)
         QStringList list(variant.toStringList());
         if (list.size() == 10)
         {
-            m_head.fxi = list.takeFirst().toUInt();
+            m_head.fxi  = list.takeFirst().toUInt();
             m_head.head = list.takeFirst().toInt();
 
-            m_xMin = qreal(list.takeFirst().toDouble());
-            m_xMin = CLAMP(m_xMin, qreal(0), qreal(1));
-            m_xMax = qreal(list.takeFirst().toDouble());
-            m_xMax = CLAMP(m_xMax, qreal(0), qreal(1));
+            m_xMin     = qreal(list.takeFirst().toDouble());
+            m_xMin     = CLAMP(m_xMin, qreal(0), qreal(1));
+            m_xMax     = qreal(list.takeFirst().toDouble());
+            m_xMax     = CLAMP(m_xMax, qreal(0), qreal(1));
             m_xReverse = bool(list.takeFirst().toInt());
 
-            m_yMin = qreal(list.takeFirst().toDouble());
-            m_yMin = CLAMP(m_yMin, qreal(0), qreal(1));
-            m_yMax = qreal(list.takeFirst().toDouble());
-            m_yMax = CLAMP(m_yMax, qreal(0), qreal(1));
+            m_yMin     = qreal(list.takeFirst().toDouble());
+            m_yMin     = CLAMP(m_yMin, qreal(0), qreal(1));
+            m_yMax     = qreal(list.takeFirst().toDouble());
+            m_yMax     = CLAMP(m_yMax, qreal(0), qreal(1));
             m_yReverse = bool(list.takeFirst().toInt());
 
             m_xMSB = QLCChannel::invalid();
@@ -101,7 +101,7 @@ VCXYPadFixture::VCXYPadFixture(Doc *doc, const QVariant &variant)
 
             precompute();
 
-            m_enabled = bool(list.takeFirst().toInt());
+            m_enabled     = bool(list.takeFirst().toInt());
             m_displayMode = DisplayMode(list.takeFirst().toInt());
             Q_ASSERT(list.isEmpty() == true);
         }
@@ -130,16 +130,16 @@ VCXYPadFixture &VCXYPadFixture::operator=(const VCXYPadFixture &fxi)
     m_doc = fxi.m_doc;
     Q_ASSERT(m_doc != NULL);
 
-    m_head = fxi.m_head;
-    m_universe = fxi.m_universe;
+    m_head           = fxi.m_head;
+    m_universe       = fxi.m_universe;
     m_fixtureAddress = fxi.m_fixtureAddress;
 
-    m_xMin = fxi.m_xMin;
-    m_xMax = fxi.m_xMax;
+    m_xMin     = fxi.m_xMin;
+    m_xMax     = fxi.m_xMax;
     m_xReverse = fxi.m_xReverse;
 
-    m_yMin = fxi.m_yMin;
-    m_yMax = fxi.m_yMax;
+    m_yMin     = fxi.m_yMin;
+    m_yMax     = fxi.m_yMax;
     m_yReverse = fxi.m_yReverse;
 
     m_xMSB = fxi.m_xMSB;
@@ -150,7 +150,7 @@ VCXYPadFixture &VCXYPadFixture::operator=(const VCXYPadFixture &fxi)
 
     precompute();
 
-    m_enabled = fxi.m_enabled;
+    m_enabled     = fxi.m_enabled;
     m_displayMode = fxi.m_displayMode;
 
     return *this;
@@ -236,8 +236,8 @@ QString VCXYPadFixture::name() const
 
 void VCXYPadFixture::setX(qreal min, qreal max, bool reverse)
 {
-    m_xMin = CLAMP(min, 0.0, 1.0);
-    m_xMax = CLAMP(max, 0.0, 1.0);
+    m_xMin     = CLAMP(min, 0.0, 1.0);
+    m_xMax     = CLAMP(max, 0.0, 1.0);
     m_xReverse = reverse;
     precompute();
 }
@@ -259,7 +259,7 @@ bool VCXYPadFixture::xReverse() const
 
 QString VCXYPadFixture::xBrief() const
 {
-    qreal scale = 100.0;
+    qreal   scale = 100.0;
     QString units = "%";
 
     if (m_displayMode == DMX)
@@ -288,23 +288,23 @@ void VCXYPadFixture::precompute()
     if (m_xReverse)
     {
         m_xOffset = m_xMax * qreal(USHRT_MAX);
-        m_xRange = (m_xMin - m_xMax) * qreal(USHRT_MAX);
+        m_xRange  = (m_xMin - m_xMax) * qreal(USHRT_MAX);
     }
     else
     {
         m_xOffset = m_xMin * qreal(USHRT_MAX);
-        m_xRange = (m_xMax - m_xMin) * qreal(USHRT_MAX);
+        m_xRange  = (m_xMax - m_xMin) * qreal(USHRT_MAX);
     }
 
     if (m_yReverse)
     {
         m_yOffset = m_yMax * qreal(USHRT_MAX);
-        m_yRange = (m_yMin - m_yMax) * qreal(USHRT_MAX);
+        m_yRange  = (m_yMin - m_yMax) * qreal(USHRT_MAX);
     }
     else
     {
         m_yOffset = m_yMin * qreal(USHRT_MAX);
-        m_yRange = (m_yMax - m_yMin) * qreal(USHRT_MAX);
+        m_yRange  = (m_yMax - m_yMin) * qreal(USHRT_MAX);
     }
 }
 
@@ -314,8 +314,8 @@ void VCXYPadFixture::precompute()
 
 void VCXYPadFixture::setY(qreal min, qreal max, bool reverse)
 {
-    m_yMin = CLAMP(min, 0.0, 1.0);
-    m_yMax = CLAMP(max, 0.0, 1.0);
+    m_yMin     = CLAMP(min, 0.0, 1.0);
+    m_yMax     = CLAMP(max, 0.0, 1.0);
     m_yReverse = reverse;
     precompute();
 }
@@ -337,7 +337,7 @@ bool VCXYPadFixture::yReverse() const
 
 QString VCXYPadFixture::yBrief() const
 {
-    qreal scale = 100.0;
+    qreal   scale = 100.0;
     QString units = "%";
 
     if (m_displayMode == DMX)
@@ -389,7 +389,7 @@ bool VCXYPadFixture::loadXML(QXmlStreamReader &root)
 
     /* Fixture ID */
     GroupHead head;
-    head.fxi = root.attributes().value(KXMLQLCVCXYPadFixtureID).toString().toInt();
+    head.fxi  = root.attributes().value(KXMLQLCVCXYPadFixtureID).toString().toInt();
     head.head = root.attributes().value(KXMLQLCVCXYPadFixtureHead).toString().toInt();
     setHead(head);
 
@@ -399,10 +399,10 @@ bool VCXYPadFixture::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCVCXYPadFixtureAxis)
         {
             QXmlStreamAttributes attrs = root.attributes();
-            QString axis = attrs.value(KXMLQLCVCXYPadFixtureAxisID).toString();
-            QString min = attrs.value(KXMLQLCVCXYPadFixtureAxisLowLimit).toString();
-            QString max = attrs.value(KXMLQLCVCXYPadFixtureAxisHighLimit).toString();
-            QString rev = attrs.value(KXMLQLCVCXYPadFixtureAxisReverse).toString();
+            QString              axis  = attrs.value(KXMLQLCVCXYPadFixtureAxisID).toString();
+            QString              min   = attrs.value(KXMLQLCVCXYPadFixtureAxisLowLimit).toString();
+            QString              max   = attrs.value(KXMLQLCVCXYPadFixtureAxisHighLimit).toString();
+            QString              rev   = attrs.value(KXMLQLCVCXYPadFixtureAxisReverse).toString();
 
             if (axis == KXMLQLCVCXYPadFixtureAxisX)
             {
@@ -480,31 +480,31 @@ void VCXYPadFixture::arm()
     Fixture *fxi = m_doc->fixture(m_head.fxi);
     if (fxi == NULL)
     {
-        m_xMSB = QLCChannel::invalid();
-        m_xLSB = QLCChannel::invalid();
-        m_yMSB = QLCChannel::invalid();
-        m_yLSB = QLCChannel::invalid();
-        m_universe = Universe::invalid();
+        m_xMSB           = QLCChannel::invalid();
+        m_xLSB           = QLCChannel::invalid();
+        m_yMSB           = QLCChannel::invalid();
+        m_yLSB           = QLCChannel::invalid();
+        m_universe       = Universe::invalid();
         m_fixtureAddress = QLCChannel::invalid();
     }
     else
     {
-        m_universe = fxi->universe();
+        m_universe       = fxi->universe();
         m_fixtureAddress = fxi->address();
-        m_xMSB = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, m_head.head);
-        m_xLSB = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, m_head.head);
-        m_yMSB = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, m_head.head);
-        m_yLSB = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, m_head.head);
+        m_xMSB           = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, m_head.head);
+        m_xLSB           = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, m_head.head);
+        m_yMSB           = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, m_head.head);
+        m_yLSB           = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, m_head.head);
     }
 }
 
 void VCXYPadFixture::disarm()
 {
-    m_xLSB = QLCChannel::invalid();
-    m_xMSB = QLCChannel::invalid();
-    m_yLSB = QLCChannel::invalid();
-    m_yMSB = QLCChannel::invalid();
-    m_universe = Universe::invalid();
+    m_xLSB           = QLCChannel::invalid();
+    m_xMSB           = QLCChannel::invalid();
+    m_yLSB           = QLCChannel::invalid();
+    m_yMSB           = QLCChannel::invalid();
+    m_universe       = Universe::invalid();
     m_fixtureAddress = QLCChannel::invalid();
 }
 

@@ -39,17 +39,17 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPadFixture QString("Fixture")
-#define KXMLQLCVCXYPadFixtureID QString("ID")
+#define KXMLQLCVCXYPadFixture     QString("Fixture")
+#define KXMLQLCVCXYPadFixtureID   QString("ID")
 #define KXMLQLCVCXYPadFixtureHead QString("Head")
 
-#define KXMLQLCVCXYPadFixtureAxis QString("Axis")
-#define KXMLQLCVCXYPadFixtureAxisID QString("ID")
-#define KXMLQLCVCXYPadFixtureAxisX QString("X")
-#define KXMLQLCVCXYPadFixtureAxisY QString("Y")
-#define KXMLQLCVCXYPadFixtureAxisLowLimit QString("LowLimit")
+#define KXMLQLCVCXYPadFixtureAxis          QString("Axis")
+#define KXMLQLCVCXYPadFixtureAxisID        QString("ID")
+#define KXMLQLCVCXYPadFixtureAxisX         QString("X")
+#define KXMLQLCVCXYPadFixtureAxisY         QString("Y")
+#define KXMLQLCVCXYPadFixtureAxisLowLimit  QString("LowLimit")
 #define KXMLQLCVCXYPadFixtureAxisHighLimit QString("HighLimit")
-#define KXMLQLCVCXYPadFixtureAxisReverse QString("Reverse")
+#define KXMLQLCVCXYPadFixtureAxisReverse   QString("Reverse")
 
 /** This class manages one fixture head in a VCXYPad */
 class VCXYPadFixture
@@ -81,7 +81,7 @@ private:
      * Fixture Head
      ********************************************************************/
 public:
-    void setHead(GroupHead const &head);
+    void             setHead(GroupHead const &head);
     GroupHead const &head() const;
 
     QString name() const;
@@ -102,10 +102,10 @@ public:
      *   \param max <0.0; 1.0>
      *   \param reverse
      */
-    void setX(qreal min, qreal max, bool reverse);
+    void  setX(qreal min, qreal max, bool reverse);
     qreal xMin() const;
     qreal xMax() const;
-    bool xReverse() const;
+    bool  xReverse() const;
 
     /** min% - max% for displaying X limits in tree widget */
     QString xBrief() const;
@@ -118,14 +118,14 @@ private:
     void precompute();
 
 private:
-    qreal m_xMin;    //!< start of pan range; 0.0 <= m_xMin <= 1.0; default: 0.0
-    qreal m_xMax;    //!< end of pan range; 0.0 <= m_xMax <= 1.0; default: 1.0
-    bool m_xReverse; //!< pan reverse; default: false
+    qreal m_xMin;     //!< start of pan range; 0.0 <= m_xMin <= 1.0; default: 0.0
+    qreal m_xMax;     //!< end of pan range; 0.0 <= m_xMax <= 1.0; default: 1.0
+    bool  m_xReverse; //!< pan reverse; default: false
 
-    quint32 m_xLSB;  //!< fine pan channel (relative address)
-    quint32 m_xMSB;  //!< coarse pan channel (relative address)
-    qreal m_xOffset; //!< precomputed value for writeDMX/readDMX
-    qreal m_xRange;  //!< precomputed value for writeDMX/readDMX
+    quint32 m_xLSB;    //!< fine pan channel (relative address)
+    quint32 m_xMSB;    //!< coarse pan channel (relative address)
+    qreal   m_xOffset; //!< precomputed value for writeDMX/readDMX
+    qreal   m_xRange;  //!< precomputed value for writeDMX/readDMX
 
     /********************************************************************
      * Y-Axis
@@ -137,23 +137,23 @@ public:
      *   \param max <0.0; 1.0>
      *   \param reverse
      */
-    void setY(qreal min, qreal max, bool reverse);
+    void  setY(qreal min, qreal max, bool reverse);
     qreal yMin() const;
     qreal yMax() const;
-    bool yReverse() const;
+    bool  yReverse() const;
 
     /** min% - max% for displaying Y limits in tree widget */
     QString yBrief() const;
 
 private:
-    qreal m_yMin;    //!< start of tilt range; 0.0 <= m_yMin <= 1.0; default: 0.0
-    qreal m_yMax;    //!< end of tilt range; 0.0 <= m_yMax <= 1.0; default: 1.0
-    bool m_yReverse; //!< tilt reverse; default: false
+    qreal m_yMin;     //!< start of tilt range; 0.0 <= m_yMin <= 1.0; default: 0.0
+    qreal m_yMax;     //!< end of tilt range; 0.0 <= m_yMax <= 1.0; default: 1.0
+    bool  m_yReverse; //!< tilt reverse; default: false
 
-    quint32 m_yLSB;  //!< fine tilt channel (relative address)
-    quint32 m_yMSB;  //!< coarse tilt channel (relative address)
-    qreal m_yOffset; //!< precomputed value for writeDMX/readDMX
-    qreal m_yRange;  //!< precomputed value for writeDMX/readDMX
+    quint32 m_yLSB;    //!< fine tilt channel (relative address)
+    quint32 m_yMSB;    //!< coarse tilt channel (relative address)
+    qreal   m_yOffset; //!< precomputed value for writeDMX/readDMX
+    qreal   m_yRange;  //!< precomputed value for writeDMX/readDMX
 
     /********************************************************************
      * Display mode
@@ -166,7 +166,7 @@ public:
         DMX
     };
 
-    void setDisplayMode(DisplayMode mode);
+    void        setDisplayMode(DisplayMode mode);
     DisplayMode displayMode() const;
 
 private:
@@ -219,7 +219,7 @@ private:
 
 private:
     /** Flag to enable/disable this fixture at runtime */
-    bool m_enabled;
+    bool    m_enabled;
     quint32 m_universe;
     quint32 m_fixtureAddress;
 };

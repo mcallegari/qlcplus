@@ -30,8 +30,8 @@
 typedef struct
 {
     QString m_name; // the filter's name
-    QColor m_rgb;   // RGB / CMY color
-    QColor m_wauv;  // White / Amber / UV values
+    QColor  m_rgb;  // RGB / CMY color
+    QColor  m_wauv; // White / Amber / UV values
 } ColorInfo;
 
 class ColorFilters : public QObject
@@ -50,7 +50,7 @@ public:
 
     /** Get/Set the color filters name */
     QString name() const;
-    void setName(QString name);
+    void    setName(QString name);
 
     /** Get the path where the color filters are stored in. Don't use
         this as a unique ID since this varies between platforms. */
@@ -83,9 +83,9 @@ public:
     Q_INVOKABLE void renameFilterAt(int index, QString newName);
 
 protected:
-    QString m_name;
-    QString m_path;
-    bool m_isUser;
+    QString          m_name;
+    QString          m_path;
+    bool             m_isUser;
     QList<ColorInfo> m_filterList;
 
     /********************************************************************

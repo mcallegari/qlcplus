@@ -55,7 +55,7 @@ void RGBMatrixEditor::setFunctionID(quint32 id)
     if (id == Function::invalidId())
     {
         m_matrix = nullptr;
-        m_group = nullptr;
+        m_group  = nullptr;
         return;
     }
 
@@ -402,7 +402,7 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
     if (m_matrix == nullptr || m_matrix->algorithm() == nullptr || m_matrix->algorithm()->type() != RGBAlgorithm::Script)
         return;
 
-    RGBScript *script = static_cast<RGBScript *>(m_matrix->algorithm());
+    RGBScript               *script     = static_cast<RGBScript *>(m_matrix->algorithm());
     QList<RGBScriptProperty> properties = script->properties();
 
     foreach (RGBScriptProperty prop, properties)
@@ -415,9 +415,9 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
             case RGBScriptProperty::List:
             {
                 QVariantList valList;
-                int idx = 0;
-                int currIdx = 0;
-                QString pValue = m_matrix->property(prop.m_name);
+                int          idx     = 0;
+                int          currIdx = 0;
+                QString      pValue  = m_matrix->property(prop.m_name);
 
                 foreach (QString val, prop.m_listValues)
                 {
@@ -595,7 +595,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
 
             QLCPoint pt(it.key());
             // GroupHead head(it.value());
-            int ptIdx = pt.x() + (pt.y() * m_group->size().width());
+            int      ptIdx = pt.x() + (pt.y() * m_group->size().width());
             if (ptIdx < m_previewData.size())
                 m_previewData[ptIdx] = QVariant(QColor(m_previewStepHandler->m_map[pt.y()][pt.x()]));
         }

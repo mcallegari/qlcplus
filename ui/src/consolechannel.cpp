@@ -216,7 +216,7 @@ void ConsoleChannel::setLabel(QString label)
 
 void ConsoleChannel::setChannelsGroup(quint32 grpid)
 {
-    m_group = grpid;
+    m_group            = grpid;
     ChannelsGroup *grp = m_doc->channelsGroup(grpid);
     connect(grp, SIGNAL(valueChanged(quint32, uchar)), this, SLOT(slotInputValueChanged(quint32, uchar)));
 }
@@ -492,10 +492,10 @@ void ConsoleChannel::setIntensityButton(const QLCChannel *channel)
 void ConsoleChannel::initCapabilityMenu(const QLCChannel *ch)
 {
     QLCCapability *cap;
-    QMenu *valueMenu;
-    QAction *action;
-    QString s;
-    QString t;
+    QMenu         *valueMenu;
+    QAction       *action;
+    QString        s;
+    QString        t;
 
     QListIterator<QLCCapability *> it(ch->capabilities());
     while (it.hasNext() == true)
@@ -551,21 +551,21 @@ QIcon ConsoleChannel::colorIcon(const QString &name)
     }
     else if (name.toLower().contains("cto") == true)
     {
-        QColor color(255, 201, 0);
+        QColor  color(255, 201, 0);
         QPixmap pm(32, 32);
         pm.fill(color);
         return QIcon(pm);
     }
     else if (name.toLower().contains("ctb") == true)
     {
-        QColor color(0, 128, 190);
+        QColor  color(0, 128, 190);
         QPixmap pm(32, 32);
         pm.fill(color);
         return QIcon(pm);
     }
     else if (name.toLower().contains("uv") == true)
     {
-        QColor color(37, 0, 136);
+        QColor  color(37, 0, 136);
         QPixmap pm(32, 32);
         pm.fill(color);
         return QIcon(pm);
@@ -575,19 +575,19 @@ QIcon ConsoleChannel::colorIcon(const QString &name)
     QColor::setAllowX11ColorNames(true);
 #endif
     QStringList colorList(QColor::colorNames());
-    QString colname;
-    QColor color;
-    int index;
+    QString     colname;
+    QColor      color;
+    int         index;
 
     colname = name.toLower().remove(QRegularExpression("[0-9]")).remove(' ');
-    index = colorList.indexOf(colname);
+    index   = colorList.indexOf(colname);
     if (index != -1)
     {
         color.setNamedColor(colname);
     }
     else
     {
-        QString re("(");
+        QString                re("(");
         QListIterator<QString> it(name.toLower().split(" "));
         while (it.hasNext() == true)
         {
@@ -661,13 +661,13 @@ void ConsoleChannel::slotControlClicked()
     if (m_selected == false)
     {
         m_originalStyle = styleSheet();
-        int topMargin = isCheckable() ? 16 : 1;
+        int topMargin   = isCheckable() ? 16 : 1;
 
-        QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; "
-                         "background-color: transparent; } "
-                         "QGroupBox::indicator { width: 18px; height: 18px; } "
-                         "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-                         "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+        QString common     = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; "
+                             "background-color: transparent; } "
+                             "QGroupBox::indicator { width: 18px; height: 18px; } "
+                             "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
+                             "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
         QString ssSelected = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, "
                                      "x2: 0, y2: 1, stop: 0 #D9D730, stop: "
                                      "1 #AFAD27); "

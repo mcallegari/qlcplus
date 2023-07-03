@@ -40,7 +40,7 @@ public:
     ChannelModifier *selectedModifier();
 
 private:
-    Doc *m_doc;
+    Doc                         *m_doc;
     ChannelModifierGraphicsView *m_view;
 
 protected:

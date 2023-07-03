@@ -25,7 +25,7 @@
 #include <QAction>
 #include <QFont>
 
-#define HEADER_HEIGHT 35
+#define HEADER_HEIGHT     35
 #define HALF_SECOND_WIDTH 25
 
 /** @addtogroup ui_functions
@@ -56,22 +56,22 @@ public:
     };
 
     QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void   paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void setTimeScale(int val);
-    int getTimeScale();
+    int  getTimeScale();
 
-    void setTimeDivisionType(TimeDivision type);
+    void         setTimeDivisionType(TimeDivision type);
     TimeDivision getTimeDivisionType();
-    void setBPMValue(int value);
+    void         setBPMValue(int value);
 
-    int getHalfSecondWidth();
+    int   getHalfSecondWidth();
     float getTimeDivisionStep();
 
     void setWidth(int);
     void setHeight(int);
 
-    static QString tempoToString(TimeDivision type);
+    static QString      tempoToString(TimeDivision type);
     static TimeDivision stringToTempo(QString tempo);
 
 signals:
@@ -82,17 +82,17 @@ protected:
 
 private:
     /** Total width of the item */
-    int m_width;
+    int          m_width;
     /** Total height of the item */
-    int m_height;
+    int          m_height;
     /** Distance in pixels between the time division bars */
-    float m_timeStep;
+    float        m_timeStep;
     /** Divisor of the time division hit bar (the highest bar) */
-    char m_timeHit;
+    char         m_timeHit;
     /** Scale of the time division */
-    int m_timeScale;
+    int          m_timeScale;
     /** When BPM mode is active, this holds the number of BPM to display */
-    int m_BPMValue;
+    int          m_BPMValue;
     /** The type of time division */
     TimeDivision m_type;
 };
@@ -110,13 +110,13 @@ public:
     void setHeight(int height);
 
     QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void   paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void setTime(quint32 t);
+    void    setTime(quint32 t);
     quint32 getTime();
 
 private:
-    int m_height;
+    int     m_height;
     quint32 m_time;
 };
 

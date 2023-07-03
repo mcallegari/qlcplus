@@ -76,19 +76,19 @@ protected:
 protected:
     static ShowManager *s_instance;
 
-    Doc *m_doc;
+    Doc     *m_doc;
     /** Currently selected show */
-    Show *m_show;
+    Show    *m_show;
     /** Currently selected track */
-    Track *m_currentTrack;
+    Track   *m_currentTrack;
     /** Currently selected scene */
-    Scene *m_currentScene;
+    Scene   *m_currentScene;
     /** Scene editor instance reference */
     QWidget *m_sceneEditor;
     /** Right editor instance reference (can edit Chaser, Audio, Video) */
     QWidget *m_currentEditor;
     /** ID of the Function currently edited on the right */
-    quint32 m_editorFunctionID;
+    quint32  m_editorFunctionID;
 
     /** Index of the currently selected Show
      * (basically the m_showsCombo index) */
@@ -100,8 +100,8 @@ private:
     void showRightEditor(Function *function);
 
 private:
-    QSplitter *m_splitter;  // main view splitter (horizontal)
-    QSplitter *m_vsplitter; // multitrack view splitter (vertical)
+    QSplitter      *m_splitter;  // main view splitter (horizontal)
+    QSplitter      *m_vsplitter; // multitrack view splitter (vertical)
     MultiTrackView *m_showview;
 
     /*********************************************************************
@@ -116,25 +116,25 @@ protected:
 private:
     bool checkOverlapping(quint32 startTime, quint32 duration);
 
-    QToolBar *m_toolbar;
+    QToolBar  *m_toolbar;
     QComboBox *m_showsCombo;
-    QLabel *m_timeLabel;
-    QAction *m_addShowAction;
-    QAction *m_addTrackAction;
-    QAction *m_addSequenceAction;
-    QAction *m_addAudioAction;
-    QAction *m_addVideoAction;
-    QAction *m_copyAction;
-    QAction *m_pasteAction;
-    QAction *m_deleteAction;
-    QAction *m_colorAction;
-    QAction *m_lockAction;
-    QAction *m_timingsAction;
-    QAction *m_snapGridAction;
-    QAction *m_stopAction;
-    QAction *m_playAction;
+    QLabel    *m_timeLabel;
+    QAction   *m_addShowAction;
+    QAction   *m_addTrackAction;
+    QAction   *m_addSequenceAction;
+    QAction   *m_addAudioAction;
+    QAction   *m_addVideoAction;
+    QAction   *m_copyAction;
+    QAction   *m_pasteAction;
+    QAction   *m_deleteAction;
+    QAction   *m_colorAction;
+    QAction   *m_lockAction;
+    QAction   *m_timingsAction;
+    QAction   *m_snapGridAction;
+    QAction   *m_stopAction;
+    QAction   *m_playAction;
     QComboBox *m_timeDivisionCombo;
-    QSpinBox *m_bpmField;
+    QSpinBox  *m_bpmField;
 
 protected slots:
     /** Slot called when the user selects a show from

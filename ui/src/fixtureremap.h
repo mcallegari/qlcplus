@@ -50,18 +50,18 @@ public:
     ~FixtureRemap();
 
 private:
-    Doc *m_doc;
-    Doc *m_targetDoc;
-    RemapWidget *remapWidget;
+    Doc             *m_doc;
+    Doc             *m_targetDoc;
+    RemapWidget     *remapWidget;
     QList<RemapInfo> m_remapList;
 
 protected:
     QTreeWidgetItem *getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree);
 
-    void fillFixturesTree(Doc *doc, QTreeWidget *tree);
-    void updateTargetFixturesTree();
+    void    fillFixturesTree(Doc *doc, QTreeWidget *tree);
+    void    updateTargetFixturesTree();
     QString createImportDialog();
-    void connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem *targetItem);
+    void    connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem *targetItem);
 
     QList<SceneValue> remapSceneValues(QList<SceneValue> funcList, QList<SceneValue> &srcList, QList<SceneValue> &tgtList);
 

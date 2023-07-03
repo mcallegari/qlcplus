@@ -59,7 +59,7 @@ public:
 
 private:
     static InputOutputManager *s_instance;
-    InputOutputMap *m_ioMap;
+    InputOutputMap            *m_ioMap;
 
     /*************************************************************************
      * Tree widget
@@ -100,18 +100,18 @@ protected:
     void showEvent(QShowEvent *ev);
 
 private:
-    Doc *m_doc;
-    QSplitter *m_splitter;
-    QToolBar *m_toolbar;
-    QAction *m_addUniverseAction;
-    QAction *m_deleteUniverseAction;
-    QLineEdit *m_uniNameEdit;
-    QCheckBox *m_uniPassthroughCheck;
-    QListWidget *m_list;
-    QIcon m_icon;
-    QTimer *m_timer;
+    Doc                    *m_doc;
+    QSplitter              *m_splitter;
+    QToolBar               *m_toolbar;
+    QAction                *m_addUniverseAction;
+    QAction                *m_deleteUniverseAction;
+    QLineEdit              *m_uniNameEdit;
+    QCheckBox              *m_uniPassthroughCheck;
+    QListWidget            *m_list;
+    QIcon                   m_icon;
+    QTimer                 *m_timer;
     InputOutputPatchEditor *m_editor;
-    quint32 m_editorUniverse;
+    quint32                 m_editorUniverse;
 };
 
 /** @} */

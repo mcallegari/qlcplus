@@ -81,8 +81,8 @@ void MonitorFixtureItem_Test::computeAlpha()
     m_doc->addFixture(fxi);
 
     MonitorFixtureItem *mfi = new MonitorFixtureItem(m_doc, fxi->id());
-    const FixtureHead *h1 = mfi->m_heads.at(0);
-    const FixtureHead *h2 = mfi->m_heads.at(1);
+    const FixtureHead  *h1  = mfi->m_heads.at(0);
+    const FixtureHead  *h2  = mfi->m_heads.at(1);
 
     QVERIFY(h1 != NULL);
     QVERIFY(h2 != NULL);

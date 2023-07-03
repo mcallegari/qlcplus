@@ -35,19 +35,19 @@ public:
 
     /** Get/Set the item display label */
     QString label() const;
-    void setLabel(QString label);
+    void    setLabel(QString label);
 
     /** Get/Set the item path, to be used to rebuild
      * the folder structure */
     QString path() const;
-    void setPath(QString path);
+    void    setPath(QString path);
 
     /** Set all the item flags at once */
     void setFlags(int flags);
 
     /** Get/Set a single flag of the item */
     void setFlag(int flag, bool enable);
-    int flags() const;
+    int  flags() const;
 
     /** Get a user custom field with $index as variant */
     QVariant data(int index);
@@ -76,11 +76,11 @@ public:
     void printItem(int tab = 0);
 
 private:
-    QString m_label;
-    QString m_path;
-    int m_flags;
+    QString      m_label;
+    QString      m_path;
+    int          m_flags;
     QVariantList m_data;
-    TreeModel *m_children;
+    TreeModel   *m_children;
 };
 
 #endif // TREEMODELITEM_H

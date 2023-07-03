@@ -64,12 +64,12 @@ private:
      * Universes
      *********************************************************************/
 public:
-    QVariant universes();
+    QVariant    universes();
     QStringList universeNames() const;
-    QVariant universesListModel() const;
+    QVariant    universesListModel() const;
 
     /** Get/Set the currently selected universe index */
-    int selectedIndex() const;
+    int  selectedIndex() const;
     void setSelectedIndex(int index);
 
     Q_INVOKABLE void addUniverse();
@@ -90,7 +90,7 @@ private:
     /** List of references to the current Universes in Doc */
     QList<Universe *> m_universeList;
 
-    int m_selectedUniverseIndex;
+    int  m_selectedUniverseIndex;
     bool m_blackout;
 
     /*********************************************************************
@@ -121,7 +121,7 @@ public:
     Q_INVOKABLE QVariant universeOutputSources(int universe);
     Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
-    Q_INVOKABLE int outputPatchesCount(int universe) const;
+    Q_INVOKABLE int  outputPatchesCount(int universe) const;
     Q_INVOKABLE void setOutputPatch(int universe, QString plugin, QString line, int index);
     Q_INVOKABLE void removeOutputPatch(int universe, int index);
     Q_INVOKABLE void addInputPatch(int universe, QString plugin, QString line);
@@ -150,11 +150,11 @@ public:
 
     /** Get/Set the beat generator type */
     QString beatType() const;
-    void setBeatType(QString beatType);
+    void    setBeatType(QString beatType);
 
     /** Get/Set the number of beats per minute to emit
      *  if beat generator is internal */
-    int bpmNumber() const;
+    int  bpmNumber() const;
     void setBpmNumber(int bpmNumber);
 
 signals:

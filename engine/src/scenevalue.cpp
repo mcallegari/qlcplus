@@ -52,9 +52,9 @@ SceneValue &SceneValue::operator=(const SceneValue &scv)
 {
     if (this != &scv)
     {
-        fxi = scv.fxi;
+        fxi     = scv.fxi;
         channel = scv.channel;
-        value = scv.value;
+        value   = scv.value;
     }
 
     return *this;
@@ -96,9 +96,9 @@ bool SceneValue::loadXML(QXmlStreamReader &tag)
     }
 
     QXmlStreamAttributes attrs = tag.attributes();
-    fxi = attrs.value(KXMLQLCSceneValueFixture).toString().toUInt();
-    channel = attrs.value(KXMLQLCSceneValueChannel).toString().toUInt();
-    value = uchar(tag.readElementText().toUInt());
+    fxi                        = attrs.value(KXMLQLCSceneValueFixture).toString().toUInt();
+    channel                    = attrs.value(KXMLQLCSceneValueChannel).toString().toUInt();
+    value                      = uchar(tag.readElementText().toUInt());
 
     return isValid();
 }

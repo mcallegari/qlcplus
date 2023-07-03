@@ -34,8 +34,8 @@
 AudioDecoderSndFile::~AudioDecoderSndFile()
 {
     m_totalTime = 0;
-    m_bitrate = 0;
-    m_freq = 0;
+    m_bitrate   = 0;
+    m_freq      = 0;
     if (m_path.isEmpty() == false && m_sndfile != NULL)
         sf_close(m_sndfile);
     m_sndfile = NULL;
@@ -54,11 +54,11 @@ int AudioDecoderSndFile::priority() const
 
 bool AudioDecoderSndFile::initialize(const QString &path)
 {
-    m_path = path;
-    m_bitrate = 0;
+    m_path      = path;
+    m_bitrate   = 0;
     m_totalTime = 0;
-    m_sndfile = NULL;
-    m_freq = 0;
+    m_sndfile   = NULL;
+    m_freq      = 0;
     SF_INFO snd_info;
 
     if (path.isEmpty())
@@ -66,17 +66,17 @@ bool AudioDecoderSndFile::initialize(const QString &path)
 
     memset(&snd_info, 0, sizeof(snd_info));
     snd_info.format = 0;
-    m_sndfile = sf_open(m_path.toLocal8Bit(), SFM_READ, &snd_info);
+    m_sndfile       = sf_open(m_path.toLocal8Bit(), SFM_READ, &snd_info);
     if (!m_sndfile)
     {
         qWarning("DecoderSndFile: failed to open: %s", qPrintable(m_path));
         return false;
     }
 
-    m_freq = snd_info.samplerate;
-    int chan = snd_info.channels;
+    m_freq      = snd_info.samplerate;
+    int chan    = snd_info.channels;
     m_totalTime = snd_info.frames * 1000 / m_freq;
-    m_bitrate = QFileInfo(m_path).size() * 8.0 / m_totalTime + 0.5;
+    m_bitrate   = QFileInfo(m_path).size() * 8.0 / m_totalTime + 0.5;
 
     if ((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
     {
@@ -133,9 +133,9 @@ void AudioDecoderSndFile::seek(qint64 pos)
 
 QStringList AudioDecoderSndFile::supportedFormats()
 {
-    QStringList caps;
+    QStringList    caps;
     SF_FORMAT_INFO format_info;
-    int k, count;
+    int            k, count;
 
     sf_command(0, SFC_GET_SIMPLE_FORMAT_COUNT, &count, sizeof(int));
 

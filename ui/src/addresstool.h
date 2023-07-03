@@ -46,7 +46,7 @@ public:
 
 private:
     QPoint m_pos;
-    QSize m_size;
+    QSize  m_size;
 };
 
 class DIPSwitchWidget : public QWidget
@@ -70,11 +70,11 @@ public slots:
 private:
     void updateSliders();
 
-    qint16 m_value;
-    QFont m_font;
-    QColor m_backCol;
-    bool m_verticalReverse;
-    bool m_horizontalReverse;
+    qint16                          m_value;
+    QFont                           m_font;
+    QColor                          m_backCol;
+    bool                            m_verticalReverse;
+    bool                            m_horizontalReverse;
     QMap<quint8, DIPSwitchSlider *> m_sliders;
 
 protected:

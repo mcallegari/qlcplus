@@ -66,7 +66,7 @@ protected:
 private:
     static void inCallback(void *inUserData, AudioQueueRef queue, AudioQueueBufferRef buf_ref);
 
-    AudioQueueRef m_queue;
+    AudioQueueRef       m_queue;
     AudioQueueBufferRef m_buffer[AUDIO_BUFFERS_NUM];
 
     int m_buffersFilled;

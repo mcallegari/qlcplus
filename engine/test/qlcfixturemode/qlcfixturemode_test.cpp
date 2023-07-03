@@ -373,7 +373,7 @@ void QLCFixtureMode_Test::copy()
 
     /* Create another fixture def with some channels matching, some not */
     QLCFixtureDef *anotherDef = new QLCFixtureDef();
-    QLCChannel *ch1 = new QLCChannel();
+    QLCChannel    *ch1        = new QLCChannel();
     ch1->setName("Channel 1"); // Should match
     anotherDef->addChannel(ch1);
 
@@ -602,7 +602,7 @@ void QLCFixtureMode_Test::save()
     QVERIFY(m_fixtureDef != NULL);
     QCOMPARE(m_fixtureDef->channels().size(), 4);
 
-    QString name("Foobar");
+    QString        name("Foobar");
     QLCFixtureMode mode(m_fixtureDef);
     mode.setName(name);
     QVERIFY(mode.insertChannel(m_ch1, 0) == true);
@@ -619,8 +619,8 @@ void QLCFixtureMode_Test::save()
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
 
-    bool physical = false;
-    int heads = 0;
+    bool               physical = false;
+    int                heads    = 0;
     QMap<int, QString> channels;
 
     QVERIFY(mode.saveXML(&xmlWriter) == true);
@@ -640,7 +640,7 @@ void QLCFixtureMode_Test::save()
     {
         if (xmlReader.name() == KXMLQLCChannel)
         {
-            int num = xmlReader.attributes().value(KXMLQLCFixtureModeChannelNumber).toString().toInt();
+            int num       = xmlReader.attributes().value(KXMLQLCFixtureModeChannelNumber).toString().toInt();
             channels[num] = xmlReader.readElementText();
         }
         else if (xmlReader.name() == KXMLQLCFixtureHead)
@@ -664,7 +664,7 @@ void QLCFixtureMode_Test::savePhysicalOverride()
     QVERIFY(m_fixtureDef != NULL);
     QCOMPARE(m_fixtureDef->channels().size(), 4);
 
-    QString name("Foobar");
+    QString        name("Foobar");
     QLCFixtureMode mode(m_fixtureDef);
     mode.setName(name);
 

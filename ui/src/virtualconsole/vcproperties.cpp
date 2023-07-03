@@ -63,12 +63,12 @@ VCProperties &VCProperties::operator=(const VCProperties &props)
 {
     if (this != &props)
     {
-        m_size = props.m_size;
-        m_gmChannelMode = props.m_gmChannelMode;
-        m_gmValueMode = props.m_gmValueMode;
-        m_gmSliderMode = props.m_gmSliderMode;
+        m_size            = props.m_size;
+        m_gmChannelMode   = props.m_gmChannelMode;
+        m_gmValueMode     = props.m_gmValueMode;
+        m_gmSliderMode    = props.m_gmSliderMode;
         m_gmInputUniverse = props.m_gmInputUniverse;
-        m_gmInputChannel = props.m_gmInputChannel;
+        m_gmInputChannel  = props.m_gmInputChannel;
     }
 
     return *this;
@@ -125,7 +125,7 @@ GrandMaster::SliderMode VCProperties::grandMasterSlideMode() const
 void VCProperties::setGrandMasterInputSource(quint32 universe, quint32 channel)
 {
     m_gmInputUniverse = universe;
-    m_gmInputChannel = channel;
+    m_gmInputChannel  = channel;
 }
 
 quint32 VCProperties::grandMasterInputUniverse() const
@@ -198,7 +198,7 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
                 if (root.name() == KXMLQLCVCPropertiesInput)
                 {
                     quint32 universe = InputOutputMap::invalidUniverse();
-                    quint32 channel = QLCChannel::invalid();
+                    quint32 channel  = QLCChannel::invalid();
                     /* External input */
                     if (loadXMLInput(root, &universe, &channel) == true)
                         setGrandMasterInputSource(universe, channel);

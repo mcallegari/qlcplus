@@ -46,7 +46,7 @@ FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<ModeEdit>("org.qlcplus.classes", 1, 0, "ModeEdit", "Can't create ModeEdit!");
 
     QSettings settings;
-    QVariant dir = settings.value(SETTINGS_DEF_WORKINGPATH);
+    QVariant  dir = settings.value(SETTINGS_DEF_WORKINGPATH);
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
     else
@@ -92,9 +92,9 @@ void FixtureEditor::createDefinition()
 
 bool FixtureEditor::loadDefinition(QString fileName)
 {
-    QLCFixtureDef *def = new QLCFixtureDef();
-    QString localFilename = fileName;
-    bool result = false;
+    QLCFixtureDef *def           = new QLCFixtureDef();
+    QString        localFilename = fileName;
+    bool           result        = false;
 
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(fileName).toLocalFile();

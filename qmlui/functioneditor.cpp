@@ -46,7 +46,7 @@ void FunctionEditor::setFunctionID(quint32 ID)
     }
 
     m_functionID = ID;
-    m_function = m_doc->function(ID);
+    m_function   = m_doc->function(ID);
     if (m_function != nullptr)
         m_functionType = m_function->type();
 
@@ -152,8 +152,8 @@ void FunctionEditor::setTempoType(int tempoType)
     // Time -> Beats
     if (tempoType == Function::Beats)
     {
-        uint fadeIn = Function::timeToBeats(m_function->fadeInSpeed(), beatDuration);
-        uint fadeOut = Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration);
+        uint fadeIn   = Function::timeToBeats(m_function->fadeInSpeed(), beatDuration);
+        uint fadeOut  = Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration);
         uint duration = Function::timeToBeats(m_function->duration(), beatDuration);
 
         Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(), fadeIn);
@@ -167,8 +167,8 @@ void FunctionEditor::setTempoType(int tempoType)
     // Beats -> Time
     else
     {
-        uint fadeIn = Function::beatsToTime(m_function->fadeInSpeed(), beatDuration);
-        uint fadeOut = Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration);
+        uint fadeIn   = Function::beatsToTime(m_function->fadeInSpeed(), beatDuration);
+        uint fadeOut  = Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration);
         uint duration = Function::beatsToTime(m_function->duration(), beatDuration);
 
         Tardis::instance()->enqueueAction(Tardis::FunctionSetFadeIn, m_function->id(), m_function->fadeInSpeed(), fadeIn);

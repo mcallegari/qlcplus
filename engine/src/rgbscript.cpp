@@ -75,8 +75,8 @@ RGBScript &RGBScript::operator=(const RGBScript &s)
 {
     if (this != &s)
     {
-        m_fileName = s.m_fileName;
-        m_contents = s.m_contents;
+        m_fileName   = s.m_fileName;
+        m_contents   = s.m_contents;
         m_apiVersion = s.m_apiVersion;
         evaluate();
         foreach (RGBScriptProperty cap, s.m_properties)
@@ -114,10 +114,10 @@ bool RGBScript::load(const QDir &dir, const QString &fileName)
     QMutexLocker engineLocker(s_engineMutex);
 
     m_contents.clear();
-    m_script = QScriptValue();
-    m_rgbMap = QScriptValue();
+    m_script          = QScriptValue();
+    m_rgbMap          = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
-    m_apiVersion = 0;
+    m_apiVersion      = 0;
 
     m_fileName = fileName;
     QFile file(dir.absoluteFilePath(m_fileName));
@@ -151,9 +151,9 @@ bool RGBScript::evaluate()
 {
     QMutexLocker engineLocker(s_engineMutex);
 
-    m_rgbMap = QScriptValue();
+    m_rgbMap          = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
-    m_apiVersion = 0;
+    m_apiVersion      = 0;
 
     m_script = s_engine->evaluate(m_contents, m_fileName);
     if (s_engine->hasUncaughtException() == true)
@@ -267,12 +267,12 @@ void RGBScript::rgbMap(const QSize &size, uint rgb, int step, RGBMap &map)
         for (int y = 0; y < ylen && y < size.height(); y++)
         {
             QScriptValue xarray = yarray.property(QString::number(y));
-            int xlen = xarray.property("length").toInteger();
+            int          xlen   = xarray.property("length").toInteger();
             map[y].resize(xlen);
             for (int x = 0; x < xlen && x < size.width(); x++)
             {
                 QScriptValue yx = xarray.property(QString::number(x));
-                map[y][x] = yx.toInteger();
+                map[y][x]       = yx.toInteger();
             }
         }
     }
@@ -287,7 +287,7 @@ QString RGBScript::name() const
     QMutexLocker engineLocker(s_engineMutex);
 
     QScriptValue name = m_script.property("name");
-    QString ret = name.isValid() ? name.toString() : QString();
+    QString      ret  = name.isValid() ? name.toString() : QString();
     return ret;
 }
 
@@ -296,7 +296,7 @@ QString RGBScript::author() const
     QMutexLocker engineLocker(s_engineMutex);
 
     QScriptValue author = m_script.property("author");
-    QString ret = author.isValid() ? author.toString() : QString();
+    QString      ret    = author.isValid() ? author.toString() : QString();
     return ret;
 }
 
@@ -367,7 +367,7 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
         if (readMethod.isFunction())
         {
             QScriptValueList args;
-            QScriptValue value = readMethod.call(QScriptValue(), args);
+            QScriptValue     value = readMethod.call(QScriptValue(), args);
             if (value.isError())
             {
                 displayError(value, m_fileName);
@@ -427,7 +427,7 @@ QString RGBScript::property(QString propertyName) const
                 return QString();
             }
             QScriptValueList args;
-            QScriptValue value = readMethod.call(QScriptValue(), args);
+            QScriptValue     value = readMethod.call(QScriptValue(), args);
             if (value.isError())
             {
                 displayError(value, m_fileName);
@@ -479,7 +479,7 @@ bool RGBScript::loadProperties()
                 qWarning() << prop << ": malformed property. Please fix it.";
                 continue;
             }
-            QString key = keyValue.at(0).simplified();
+            QString key   = keyValue.at(0).simplified();
             QString value = keyValue.at(1);
             if (key == "name")
             {

@@ -131,16 +131,16 @@ void VCMatrixPresetSelection::slotUpdatePresetProperties()
 void VCMatrixPresetSelection::slotPropertyComboChanged(QString value)
 {
     qDebug() << "Property combo changed to" << value;
-    QComboBox *combo = (QComboBox *)sender();
-    QString pName = combo->property("pName").toString();
+    QComboBox *combo    = (QComboBox *)sender();
+    QString    pName    = combo->property("pName").toString();
     m_properties[pName] = value;
 }
 
 void VCMatrixPresetSelection::slotPropertySpinChanged(int value)
 {
     qDebug() << "Property spin changed to" << value;
-    QSpinBox *spin = (QSpinBox *)sender();
-    QString pName = spin->property("pName").toString();
+    QSpinBox *spin      = (QSpinBox *)sender();
+    QString   pName     = spin->property("pName").toString();
     m_properties[pName] = QString::number(value);
 }
 

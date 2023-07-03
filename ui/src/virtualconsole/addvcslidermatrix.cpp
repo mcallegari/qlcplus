@@ -40,20 +40,20 @@ AddVCSliderMatrix::AddVCSliderMatrix(QWidget *parent)
     addAction(action);
 
     QSettings settings;
-    QVariant userVar = settings.value(SETTINGS_SLIDER_SIZE);
+    QVariant  userVar = settings.value(SETTINGS_SLIDER_SIZE);
     if (userVar.isValid() == true)
     {
         QSize userSize = userVar.toSize();
-        m_height = userSize.height();
-        m_width = userSize.width();
+        m_height       = userSize.height();
+        m_width        = userSize.width();
     }
 
     QVariant var = settings.value(SETTINGS_SLIDER_MATRIX_SIZE);
     if (var.isValid() == true)
     {
         QSize size = var.toSize();
-        m_amount = size.width();
-        m_height = size.height();
+        m_amount   = size.width();
+        m_height   = size.height();
     }
 
     m_amountSpin->setValue(m_amount);
@@ -82,10 +82,10 @@ void AddVCSliderMatrix::accept()
 {
     m_amount = m_amountSpin->value();
     m_height = m_heightSpin->value();
-    m_width = m_widthSpin->value();
+    m_width  = m_widthSpin->value();
 
     QSettings settings;
-    QSize size(m_amount, m_height);
+    QSize     size(m_amount, m_height);
     settings.setValue(SETTINGS_SLIDER_MATRIX_SIZE, size);
 
     QDialog::accept();

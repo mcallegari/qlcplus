@@ -68,15 +68,15 @@ public:
 
     /** Get/Set the Universe index used to filter Fixture lists/tree */
     quint32 universeFilter() const;
-    void setUniverseFilter(quint32 universeFilter);
+    void    setUniverseFilter(quint32 universeFilter);
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString searchFilter() const;
-    void setSearchFilter(QString searchFilter);
+    void    setSearchFilter(QString searchFilter);
 
     /** Get/Set a generic ID for Universe/Group/Fixture editing/info */
     quint32 itemID() const;
-    void setItemID(quint32 itemID);
+    void    setItemID(quint32 itemID);
 
     /** Returns a data structure with all the information of
      *  the Fixtures of the Universe with the specified $id */
@@ -101,19 +101,19 @@ public slots:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView        *m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc               *m_doc;
     /** Reference to the Doc Monitor properties */
     MonitorProperties *m_monProps;
     /** A filter for m_fixturesMap to restrict data to a specific universe */
-    quint32 m_universeFilter;
+    quint32            m_universeFilter;
     /** A string to filter the displayed tree items */
-    QString m_searchFilter;
+    QString            m_searchFilter;
     /** A generic ID for Universe/Group/Fixture editing/info */
-    quint32 m_itemID;
+    quint32            m_itemID;
     /** Flag that indicates if property editing is active */
-    bool m_propertyEditEnabled;
+    bool               m_propertyEditEnabled;
 
     QVariantList m_universeInfo;
 
@@ -124,14 +124,14 @@ public:
     enum
     {
         ShowCheckBoxes = (1 << 0),
-        ShowGroups = (1 << 1),
-        ShowLinked = (1 << 2),
-        ShowChannels = (1 << 3),
-        ShowHeads = (1 << 4),
-        ShowFlags = (1 << 5),
-        ShowCanFade = (1 << 6),
+        ShowGroups     = (1 << 1),
+        ShowLinked     = (1 << 2),
+        ShowChannels   = (1 << 3),
+        ShowHeads      = (1 << 4),
+        ShowFlags      = (1 << 5),
+        ShowCanFade    = (1 << 6),
         ShowPrecedence = (1 << 7),
-        ShowModifier = (1 << 8)
+        ShowModifier   = (1 << 8)
     };
 
     enum PrecedenceType
@@ -145,9 +145,9 @@ public:
 
     enum
     {
-        GroupMatch = (1 << 0),
+        GroupMatch   = (1 << 0),
         FixtureMatch = (1 << 1),
-        HeadMatch = (1 << 2),
+        HeadMatch    = (1 << 2),
         ChannelMatch = (1 << 3)
     };
 
@@ -186,17 +186,17 @@ public:
 
     static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath, quint32 nodeSubID,
                                int &matchMask, QString searchFilter = QString(),
-                               int showFlags = ShowGroups | ShowLinked | ShowHeads,
+                               int               showFlags       = ShowGroups | ShowLinked | ShowHeads,
                                QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
-                                        QString searchFilter = QString(),
-                                        int showFlags = ShowGroups | ShowLinked | ShowHeads,
+                                        QString           searchFilter    = QString(),
+                                        int               showFlags       = ShowGroups | ShowLinked | ShowHeads,
                                         QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Update the tree of groups/fixtures/channels */
     static void updateGroupsTree(Doc *doc, TreeModel *treeModel, QString searchFilter = QString(),
-                                 int showFlags = ShowGroups | ShowLinked | ShowHeads,
+                                 int               showFlags       = ShowGroups | ShowLinked | ShowHeads,
                                  QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Return the type as string of the Fixture with ID $fixtureID */
@@ -207,7 +207,7 @@ public:
 
     /** Get/Set the currently selected fixture mode index
      *  for the item with the provided $itemID */
-    Q_INVOKABLE int fixtureModeIndex(quint32 itemID);
+    Q_INVOKABLE int  fixtureModeIndex(quint32 itemID);
     Q_INVOKABLE bool setFixtureModeIndex(quint32 itemID, int index);
 
     /** Return the Fixture ID of the provided $itemID */
@@ -261,9 +261,9 @@ private:
     /** List of the current Fixture references in Doc */
     QList<Fixture *> m_fixtureList;
     /** Data model used by the QML UI to represent groups/fixtures/channels */
-    TreeModel *m_fixtureTree;
+    TreeModel       *m_fixtureTree;
     /** Current flags being used for filling the tree data */
-    int m_treeShowFlags;
+    int              m_treeShowFlags;
 
     /*********************************************************************
      * Fixture groups
@@ -356,7 +356,7 @@ public:
     Q_INVOKABLE void addColorFiltersFile();
 
     /** Get/Set the currently selected color filter file index */
-    int colorFilterFileIndex() const;
+    int  colorFilterFileIndex() const;
     void setColorFilterFileIndex(int index);
 
     /** Return a refererence to the currently selected color filters */
@@ -383,7 +383,7 @@ signals:
 
 private:
     QList<ColorFilters *> m_colorFilters;
-    int m_colorFiltersFileIndex;
+    int                   m_colorFiltersFileIndex;
 
     /*********************************************************************
      * Channel capabilities
@@ -489,10 +489,10 @@ private:
 
     double m_minBeamDegrees;
     double m_maxBeamDegrees;
-    bool m_invertedZoom;
+    bool   m_invertedZoom;
 
     /** Bitmask holding the colors supported by the currently selected fixtures */
-    int m_colorsMask;
+    int            m_colorsMask;
     /** A map of the currently available colors and their counters */
     QMap<int, int> m_colorCounters;
 

@@ -32,8 +32,8 @@
 #define KXMLQLCChannelModifierDocument QString("ChannelModifier")
 
 // Channel modifier tags and attributes
-#define KXMLQLCChannelModName QString("Name")
-#define KXMLQLCChannelModHandler QString("Handler")
+#define KXMLQLCChannelModName        QString("Name")
+#define KXMLQLCChannelModHandler     QString("Handler")
 #define KXMLQLCChannelModOriginalDMX QString("Original")
 #define KXMLQLCChannelModModifiedDMX QString("Modified")
 
@@ -45,7 +45,7 @@ public:
     enum Type
     {
         SystemTemplate = 0,
-        UserTemplate = 1
+        UserTemplate   = 1
     };
 
     void setName(QString name);
@@ -73,10 +73,10 @@ public:
     QFile::FileError loadXML(const QString &fileName, Type type);
 
 private:
-    QString m_name;
-    Type m_type;
+    QString                    m_name;
+    Type                       m_type;
     QList<QPair<uchar, uchar>> m_map;
-    QByteArray m_values;
+    QByteArray                 m_values;
 };
 
 /** @} */

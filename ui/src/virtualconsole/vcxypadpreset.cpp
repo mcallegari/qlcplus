@@ -94,12 +94,12 @@ VCXYPadPreset &VCXYPadPreset::operator=(const VCXYPadPreset &vcpp)
 {
     if (this != &vcpp)
     {
-        m_id = vcpp.m_id;
-        m_type = vcpp.m_type;
-        m_name = vcpp.m_name;
-        m_dmxPos = vcpp.m_dmxPos;
-        m_funcID = vcpp.m_funcID;
-        m_fxGroup = vcpp.m_fxGroup;
+        m_id          = vcpp.m_id;
+        m_type        = vcpp.m_type;
+        m_name        = vcpp.m_name;
+        m_dmxPos      = vcpp.m_dmxPos;
+        m_funcID      = vcpp.m_funcID;
+        m_fxGroup     = vcpp.m_fxGroup;
         m_keySequence = vcpp.m_keySequence;
 
         if (vcpp.m_inputSource != NULL)
@@ -167,7 +167,7 @@ bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
     m_id = root.attributes().value(KXMLQLCVCXYPadPresetID).toString().toUInt();
 
     QPointF pos;
-    bool hasPosition = false;
+    bool    hasPosition = false;
 
     /* Children */
     while (root.readNextStartElement())
@@ -196,8 +196,8 @@ bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCXYPadPresetFixture)
         {
-            quint32 fxID = Fixture::invalidId();
-            int head = -1;
+            quint32              fxID  = Fixture::invalidId();
+            int                  head  = -1;
             QXmlStreamAttributes attrs = root.attributes();
 
             if (attrs.hasAttribute(KXMLQLCVCXYPadPresetFixtureID))

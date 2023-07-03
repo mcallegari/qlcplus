@@ -64,7 +64,7 @@
  *  controllers with no feedback support */
 #define VALUE_CATCHING_THRESHOLD 4
 
-const quint8 VCSlider::sliderInputSourceId = 0;
+const quint8 VCSlider::sliderInputSourceId        = 0;
 const quint8 VCSlider::overrideResetInputSourceId = 1;
 
 const QSize VCSlider::defaultSize(QSize(60, 200));
@@ -115,9 +115,9 @@ VCSlider::VCSlider(QWidget *parent, Doc *doc)
     /* Set the class name "VCSlider" as the object name as well */
     setObjectName(VCSlider::staticMetaObject.className());
 
-    m_hbox = NULL;
-    m_topLabel = NULL;
-    m_slider = NULL;
+    m_hbox        = NULL;
+    m_topLabel    = NULL;
+    m_slider      = NULL;
     m_bottomLabel = NULL;
 
     setType(VCWidget::SliderWidget);
@@ -163,9 +163,9 @@ VCSlider::VCSlider(QWidget *parent, Doc *doc)
     m_cngButton = new QToolButton(this);
     m_cngButton->setFixedSize(48, 48);
     m_cngButton->setIconSize(QSize(42, 42));
-    m_menu = new QMenu(this);
+    m_menu                = new QMenu(this);
     QWidgetAction *action = new QWidgetAction(this);
-    m_cngWidget = new ClickAndGoWidget();
+    m_cngWidget           = new ClickAndGoWidget();
     action->setDefaultWidget(m_cngWidget);
     m_menu->addAction(action);
     m_cngButton->setMenu(m_menu);
@@ -191,7 +191,7 @@ VCSlider::VCSlider(QWidget *parent, Doc *doc)
 
     setMinimumSize(20, 20);
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_SLIDER_SIZE);
+    QVariant  var = settings.value(SETTINGS_SLIDER_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
@@ -695,22 +695,22 @@ void VCSlider::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
     if (m_levelValueChanged)
         return;
 
-    bool mixedDMXlevels = false;
-    int monitorSliderValue = -1;
+    bool                        mixedDMXlevels     = false;
+    int                         monitorSliderValue = -1;
     QListIterator<LevelChannel> it(m_levelChannels);
 
     while (it.hasNext() == true)
     {
         LevelChannel lch(it.next());
-        Fixture *fxi = m_doc->fixture(lch.fixture);
+        Fixture     *fxi = m_doc->fixture(lch.fixture);
         if (fxi == NULL || fxi->universe() != idx)
             continue;
 
         if (lch.channel >= fxi->channels() || fxi->address() + lch.channel >= (quint32)universeData.length())
             continue;
 
-        quint32 dmx_ch = fxi->address() + lch.channel;
-        uchar chValue = universeData.at(dmx_ch);
+        quint32 dmx_ch  = fxi->address() + lch.channel;
+        uchar   chValue = universeData.at(dmx_ch);
         if (monitorSliderValue == -1)
         {
             monitorSliderValue = chValue;
@@ -766,7 +766,7 @@ void VCSlider::setupClickAndGoWidget()
         if (m_cngType == ClickAndGoWidget::Preset && m_levelChannels.size() > 0)
         {
             LevelChannel lChan = m_levelChannels.first();
-            Fixture *fxi = m_doc->fixture(lChan.fixture);
+            Fixture     *fxi   = m_doc->fixture(lChan.fixture);
             if (fxi != NULL)
             {
                 const QLCChannel *chan = fxi->channel(lChan.channel);
@@ -791,7 +791,7 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
     if (m_cngType == ClickAndGoWidget::RGB || m_cngType == ClickAndGoWidget::CMY)
     {
         QPixmap px(42, 42);
-        float f = 0;
+        float   f = 0;
         if (m_slider)
             f = SCALE(float(level), float(m_slider->minimum()), float(m_slider->maximum()), float(0), float(200));
 
@@ -815,7 +815,7 @@ void VCSlider::slotClickAndGoLevelChanged(uchar level)
     setSliderValue(level);
     updateFeedback();
 
-    QColor col = m_cngWidget->getColorAt(level);
+    QColor  col = m_cngWidget->getColorAt(level);
     QPixmap px(42, 42);
     px.fill(col);
     m_cngButton->setIcon(px);
@@ -938,7 +938,7 @@ void VCSlider::setPlaybackValue(uchar value)
         return;
 
     QMutexLocker locker(&m_playbackValueMutex);
-    m_playbackValue = value;
+    m_playbackValue         = value;
     m_playbackChangeCounter = 5;
 }
 
@@ -1055,7 +1055,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
     QMutexLocker locker(&m_levelValueMutex);
 
     uchar modLevel = m_levelValue;
-    int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
+    int   r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
 
     if (m_cngType == ClickAndGoWidget::RGB)
     {
@@ -1066,9 +1066,9 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
         if (uchar(f) != 0)
         {
             QColor modColor = m_cngRGBvalue.lighter(uchar(f));
-            r = modColor.red();
-            g = modColor.green();
-            b = modColor.blue();
+            r               = modColor.red();
+            g               = modColor.green();
+            b               = modColor.blue();
         }
     }
     else if (m_cngType == ClickAndGoWidget::CMY)
@@ -1079,9 +1079,9 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
         if (uchar(f) != 0)
         {
             QColor modColor = m_cngRGBvalue.lighter(uchar(f));
-            c = modColor.cyan();
-            m = modColor.magenta();
-            y = modColor.yellow();
+            c               = modColor.cyan();
+            m               = modColor.magenta();
+            y               = modColor.yellow();
         }
     }
 
@@ -1091,7 +1091,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
         while (it.hasNext() == true)
         {
             LevelChannel lch(it.next());
-            Fixture *fxi = m_doc->fixture(lch.fixture);
+            Fixture     *fxi = m_doc->fixture(lch.fixture);
             if (fxi == NULL)
                 continue;
 
@@ -1119,8 +1119,8 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
                 continue;
             }
 
-            int chType = fc->flags();
-            const QLCChannel *qlcch = fxi->channel(lch.channel);
+            int               chType = fc->flags();
+            const QLCChannel *qlcch  = fxi->channel(lch.channel);
             if (qlcch == NULL)
                 continue;
 
@@ -1178,7 +1178,7 @@ void VCSlider::writeDMXPlayback(MasterTimer *timer, QList<Universe *> ua)
     if (function == NULL || mode() == Doc::Design)
         return;
 
-    uchar value = m_playbackValue;
+    uchar value      = m_playbackValue;
     qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
 
     if (value == 0)
@@ -1512,13 +1512,13 @@ void VCSlider::adjustIntensity(qreal val)
 bool VCSlider::loadXML(QXmlStreamReader &root)
 {
     bool visible = false;
-    int x = 0;
-    int y = 0;
-    int w = 0;
-    int h = 0;
+    int  x       = 0;
+    int  y       = 0;
+    int  w       = 0;
+    int  h       = 0;
 
     SliderMode sliderMode = Playback;
-    QString str;
+    QString    str;
 
     if (root.name() != KXMLQLCVCSlider)
     {
@@ -1560,7 +1560,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCSliderMode)
         {
             QXmlStreamAttributes mAttrs = root.attributes();
-            sliderMode = stringToSliderMode(root.readElementText());
+            sliderMode                  = stringToSliderMode(root.readElementText());
 
             str = mAttrs.value(KXMLQLCVCSliderValueDisplayStyle).toString();
             setValueDisplayStyle(stringToValueDisplayStyle(str));

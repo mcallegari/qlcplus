@@ -117,7 +117,7 @@ void Collection_Test::contains()
     doc->addFunction(s2);
     doc->addFunction(s3);
 
-    Chaser *c1 = new Chaser(doc);
+    Chaser    *c1 = new Chaser(doc);
     ChaserStep step(s3->id());
     c1->addStep(step);
     doc->addFunction(c1);

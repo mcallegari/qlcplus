@@ -34,10 +34,10 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCInputProfile QString("InputProfile")
-#define KXMLQLCInputProfileManufacturer QString("Manufacturer")
-#define KXMLQLCInputProfileModel QString("Model")
-#define KXMLQLCInputProfileType QString("Type")
+#define KXMLQLCInputProfile                QString("InputProfile")
+#define KXMLQLCInputProfileManufacturer    QString("Manufacturer")
+#define KXMLQLCInputProfileModel           QString("Model")
+#define KXMLQLCInputProfileType            QString("Type")
 #define KXMLQLCInputProfileMidiSendNoteOff QString("MIDISendNoteOff")
 
 class QLCInputProfile
@@ -62,10 +62,10 @@ public:
      * Profile information
      ********************************************************************/
 public:
-    void setManufacturer(const QString &manufacturer);
+    void    setManufacturer(const QString &manufacturer);
     QString manufacturer() const;
 
-    void setModel(const QString &model);
+    void    setModel(const QString &model);
     QString model() const;
 
     /** Get the profile name (manufacturer - model) */
@@ -99,7 +99,7 @@ protected:
     QString m_manufacturer;
     QString m_model;
     QString m_path;
-    Type m_type;
+    Type    m_type;
 
     /********************************************************************
      * Plugin-specific global settings

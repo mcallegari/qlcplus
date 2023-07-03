@@ -27,30 +27,30 @@
 
 #define KXMLQLCVCSlider QString("Slider")
 
-#define KXMLQLCVCSliderMode QString("SliderMode")
+#define KXMLQLCVCSliderMode        QString("SliderMode")
 #define KXMLQLCVCSliderWidgetStyle QString("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle QString("ValueDisplayStyle")
-#define KXMLQLCVCSliderValueDisplayStyleExact QString("Exact")
+#define KXMLQLCVCSliderValueDisplayStyle           QString("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact      QString("Exact")
 #define KXMLQLCVCSliderValueDisplayStylePercentage QString("Percentage")
 
 #define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
 
 #define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
 
-#define KXMLQLCVCSliderLevel QString("Level")
-#define KXMLQLCVCSliderLevelLowLimit QString("LowLimit")
+#define KXMLQLCVCSliderLevel          QString("Level")
+#define KXMLQLCVCSliderLevelLowLimit  QString("LowLimit")
 #define KXMLQLCVCSliderLevelHighLimit QString("HighLimit")
-#define KXMLQLCVCSliderLevelValue QString("Value")
-#define KXMLQLCVCSliderLevelMonitor QString("Monitor")
-#define KXMLQLCVCSliderOverrideReset QString("Reset")
+#define KXMLQLCVCSliderLevelValue     QString("Value")
+#define KXMLQLCVCSliderLevelMonitor   QString("Monitor")
+#define KXMLQLCVCSliderOverrideReset  QString("Reset")
 
-#define KXMLQLCVCSliderChannel QString("Channel")
+#define KXMLQLCVCSliderChannel        QString("Channel")
 #define KXMLQLCVCSliderChannelFixture QString("Fixture")
 
-#define KXMLQLCVCSliderPlayback QString("Playback") // LEGACY
-#define KXMLQLCVCSliderAdjust QString("Adjust")
-#define KXMLQLCVCSliderAdjustAttribute QString("Attribute")
+#define KXMLQLCVCSliderPlayback           QString("Playback") // LEGACY
+#define KXMLQLCVCSliderAdjust             QString("Adjust")
+#define KXMLQLCVCSliderAdjustAttribute    QString("Attribute")
 #define KXMLQLCVCSliderControlledFunction QString("Function")
 
 class FunctionParent;
@@ -138,12 +138,12 @@ public:
     Q_ENUM(SliderWidgetStyle)
 
     /** Helper methods for SliderWidgetStyle <--> QString conversion */
-    QString widgetStyleToString(SliderWidgetStyle style);
+    QString           widgetStyleToString(SliderWidgetStyle style);
     SliderWidgetStyle stringToWidgetStyle(QString style);
 
     /** Get/Set the Slider value display style */
     SliderWidgetStyle widgetStyle() const;
-    void setWidgetStyle(SliderWidgetStyle mode);
+    void              setWidgetStyle(SliderWidgetStyle mode);
 
 signals:
     void widgetStyleChanged(SliderWidgetStyle widgetStyle);
@@ -163,12 +163,12 @@ public:
     Q_ENUM(ValueDisplayStyle)
 
     /** Helper methods for ValueDisplayStyle <--> QString conversion */
-    static QString valueDisplayStyleToString(ValueDisplayStyle style);
+    static QString           valueDisplayStyleToString(ValueDisplayStyle style);
     static ValueDisplayStyle stringToValueDisplayStyle(QString style);
 
     /** Get/Set the Slider value display style */
     ValueDisplayStyle valueDisplayStyle() const;
-    void setValueDisplayStyle(ValueDisplayStyle style);
+    void              setValueDisplayStyle(ValueDisplayStyle style);
 
     /** Get/Set the Slider inverted appearance mode */
     bool invertedAppearance() const;
@@ -180,7 +180,7 @@ signals:
 
 protected:
     ValueDisplayStyle m_valueDisplayStyle;
-    bool m_invertedAppearance;
+    bool              m_invertedAppearance;
 
     /*********************************************************************
      * Slider Mode
@@ -197,12 +197,12 @@ public:
 
 public:
     /** Helper methods for SliderMode <--> QString conversion */
-    static QString sliderModeToString(SliderMode mode);
+    static QString    sliderModeToString(SliderMode mode);
     static SliderMode stringToSliderMode(const QString &mode);
 
     /** Get/Set the current slider mode */
     SliderMode sliderMode() const;
-    void setSliderMode(SliderMode mode);
+    void       setSliderMode(SliderMode mode);
 
 signals:
     void sliderModeChanged(SliderMode mode);
@@ -214,15 +214,15 @@ protected:
      * Slider value
      *********************************************************************/
 public:
-    int value() const;
+    int  value() const;
     void setValue(int value, bool setDMX = true, bool updateFeedback = true);
 
     /** Set/Get the lower limit for the slider values */
-    void setRangeLowLimit(qreal value);
+    void  setRangeLowLimit(qreal value);
     qreal rangeLowLimit() const;
 
     /** Set/Get the higher limit for the slider values */
-    void setRangeHighLimit(qreal value);
+    void  setRangeHighLimit(qreal value);
     qreal rangeHighLimit() const;
 
 protected:
@@ -235,7 +235,7 @@ signals:
     void rangeHighLimitChanged();
 
 protected:
-    int m_value;
+    int   m_value;
     qreal m_rangeLowLimit;
     qreal m_rangeHighLimit;
 
@@ -285,7 +285,7 @@ public:
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString searchFilter() const;
-    void setSearchFilter(QString searchFilter);
+    void    setSearchFilter(QString searchFilter);
 
 private:
     void removeActiveFaders();
@@ -306,16 +306,16 @@ protected:
     QList<SceneValue> m_levelChannels;
 
     QMutex m_levelValueMutex;
-    bool m_levelValueChanged;
+    bool   m_levelValueChanged;
 
-    bool m_monitorEnabled;
+    bool  m_monitorEnabled;
     uchar m_monitorValue;
-    bool m_isOverriding;
+    bool  m_isOverriding;
 
     /** Data model used by the QML UI to represent groups/fixtures/channels */
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
-    QString m_searchFilter;
+    QString    m_searchFilter;
 
     /*********************************************************************
      * Click & Go
@@ -331,7 +331,7 @@ public:
 
     /** Get/Set the current Click & Go type */
     ClickAndGoType clickAndGoType() const;
-    void setClickAndGoType(ClickAndGoType clickAndGoType);
+    void           setClickAndGoType(ClickAndGoType clickAndGoType);
 
     /** Returns a human readable string of a Click And Go type */
     static QString clickAndGoTypeToString(ClickAndGoType type);
@@ -339,10 +339,10 @@ public:
     /** Returns a Click And Go type from the given string */
     static ClickAndGoType stringToClickAndGoType(QString str);
 
-    QColor cngPrimaryColor() const;
-    QColor cngSecondaryColor() const;
+    QColor       cngPrimaryColor() const;
+    QColor       cngSecondaryColor() const;
     QVariantList clickAndGoPresetsList();
-    QString cngPresetResource() const;
+    QString      cngPresetResource() const;
 
     Q_INVOKABLE void setClickAndGoColors(QColor rgb, QColor wauv);
     Q_INVOKABLE void setClickAndGoPresetValue(int value);
@@ -361,8 +361,8 @@ protected:
     ClickAndGoType m_clickAndGoType;
 
     /** RGB and WAUV colors when in CnGColors type */
-    QColor m_cngPrimaryColor;
-    QColor m_cngSecondaryColor;
+    QColor  m_cngPrimaryColor;
+    QColor  m_cngSecondaryColor;
     QString m_cngResource;
 
     /*********************************************************************
@@ -371,10 +371,10 @@ protected:
 public:
     /** Get/Set the ID of the Function that will be controlled by this Slider */
     quint32 controlledFunction() const;
-    void setControlledFunction(quint32 fid);
+    void    setControlledFunction(quint32 fid);
 
     /** Get/Set the attribute index that will be controlled by this Slider */
-    int controlledAttribute() const;
+    int  controlledAttribute() const;
     void setControlledAttribute(int attributeIndex);
 
     void adjustFunctionAttribute(Function *f, qreal value);
@@ -405,11 +405,11 @@ protected slots:
 
 protected:
     quint32 m_controlledFunctionId;
-    int m_adjustChangeCounter;
-    int m_controlledAttributeIndex;
-    int m_controlledAttributeId;
-    qreal m_attributeMinValue;
-    qreal m_attributeMaxValue;
+    int     m_adjustChangeCounter;
+    int     m_controlledAttributeIndex;
+    int     m_controlledAttributeId;
+    qreal   m_attributeMinValue;
+    qreal   m_attributeMaxValue;
 
     /*********************************************************************
      * Submaster
@@ -422,10 +422,10 @@ signals:
      *********************************************************************/
 public:
     GrandMaster::ValueMode grandMasterValueMode() const;
-    void setGrandMasterValueMode(GrandMaster::ValueMode mode);
+    void                   setGrandMasterValueMode(GrandMaster::ValueMode mode);
 
     GrandMaster::ChannelMode grandMasterChannelMode() const;
-    void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
+    void                     setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
 
 signals:
     void grandMasterValueModeChanged(GrandMaster::ValueMode mode);

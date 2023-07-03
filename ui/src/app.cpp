@@ -69,16 +69,16 @@ extern void qt_set_sequence_auto_mnemonic(bool b);
 QTime speedTime;
 #endif
 
-#define SETTINGS_GEOMETRY "workspace/geometry"
-#define SETTINGS_WORKINGPATH "workspace/workingpath"
-#define SETTINGS_RECENTFILE "workspace/recent"
+#define SETTINGS_GEOMETRY      "workspace/geometry"
+#define SETTINGS_WORKINGPATH   "workspace/workingpath"
+#define SETTINGS_RECENTFILE    "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
 
 #define MAX_RECENT_FILES 10
 
 #define KModeTextOperate QObject::tr("Operate")
-#define KModeTextDesign QObject::tr("Design")
-#define KUniverseCount 4
+#define KModeTextDesign  QObject::tr("Design")
+#define KUniverseCount   4
 
 /*****************************************************************************
  * Initialization
@@ -226,8 +226,8 @@ void App::init()
         {
             if (QLCFile::hasWindowManager() == false)
             {
-                QScreen *screen = QGuiApplication::screens().first();
-                QRect geometry = screen->geometry();
+                QScreen *screen   = QGuiApplication::screens().first();
+                QRect    geometry = screen->geometry();
                 if (m_noGui == true)
                 {
                     setGeometry(geometry.width(), geometry.height(), 1, 1);
@@ -679,7 +679,7 @@ void App::initActions()
     connect(m_controlPanicAction, SIGNAL(triggered(bool)), this, SLOT(slotControlPanic()));
 
     m_fadeAndStopMenu = new QMenu();
-    QAction *fade1 = new QAction(tr("Fade 1 second and stop"), this);
+    QAction *fade1    = new QAction(tr("Fade 1 second and stop"), this);
     fade1->setData(QVariant(1000));
     connect(fade1, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
     m_fadeAndStopMenu->addAction(fade1);
@@ -847,18 +847,18 @@ bool App::saveModifiedDoc(const QString &title, const QString &message)
 
 void App::updateFileOpenMenu(QString addRecent)
 {
-    QSettings settings;
+    QSettings   settings;
     QStringList menuRecentList;
 
     if (m_fileOpenMenu == NULL)
     {
         m_fileOpenMenu = new QMenu(this);
-        QString style = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 "
-                        "#B9D9E8, stop:1 #A4C0CE);"
-                        "border: 1px solid black; font:bold; }"
-                        "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; "
-                        "border: 1px solid black; }"
-                        "QMenu::item:selected { background-color: #2D8CFF; }";
+        QString style  = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 "
+                         "#B9D9E8, stop:1 #A4C0CE);"
+                         "border: 1px solid black; font:bold; }"
+                         "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; "
+                         "border: 1px solid black; }"
+                         "QMenu::item:selected { background-color: #2D8CFF; }";
         m_fileOpenMenu->setStyleSheet(style);
         connect(m_fileOpenMenu, SIGNAL(triggered(QAction *)), this, SLOT(slotRecentFileClicked(QAction *)));
     }
@@ -1086,8 +1086,8 @@ void App::slotControlPanic()
 
 void App::slotFadeAndStopAll()
 {
-    QAction *action = (QAction *)sender();
-    int timeout = action->data().toInt();
+    QAction *action  = (QAction *)sender();
+    int      timeout = action->data().toInt();
 
     m_doc->masterTimer()->fadeAndStopAll(timeout);
 }
@@ -1153,10 +1153,10 @@ void App::slotReattachContext()
 {
     DetachedContext *window = qobject_cast<DetachedContext *>(sender());
 
-    QWidget *context = window->centralWidget();
-    int tabIndex = context->property("tabIndex").toInt();
-    QIcon tabIcon = context->property("tabIcon").value<QIcon>();
-    QString tabLabel = context->property("tabLabel").toString();
+    QWidget *context  = window->centralWidget();
+    int      tabIndex = context->property("tabIndex").toInt();
+    QIcon    tabIcon  = context->property("tabIcon").value<QIcon>();
+    QString  tabLabel = context->property("tabLabel").toString();
 
     qDebug() << "Reattaching context" << tabIndex << tabLabel << context;
 
@@ -1221,7 +1221,7 @@ void App::slotRecentFileClicked(QAction *recent)
         return;
 
     QString recentAbsPath = recent->text();
-    QFile testFile(recentAbsPath);
+    QFile   testFile(recentAbsPath);
     if (testFile.exists() == false)
     {
         QMessageBox::critical(this, tr("Error"), tr("File not found!\nThe selected file has been moved or deleted."),
@@ -1403,7 +1403,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
                         QMessageBox::Ok);
         msg.setTextFormat(Qt::RichText);
         QSpacerItem *horizontalSpacer = new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-        QGridLayout *layout = (QGridLayout *)msg.layout();
+        QGridLayout *layout           = (QGridLayout *)msg.layout();
         layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }

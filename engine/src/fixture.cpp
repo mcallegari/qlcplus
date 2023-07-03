@@ -45,10 +45,10 @@ Fixture::Fixture(QObject *parent)
 {
     m_id = Fixture::invalidId();
 
-    m_address = 0;
+    m_address  = 0;
     m_channels = 0;
 
-    m_fixtureDef = NULL;
+    m_fixtureDef  = NULL;
     m_fixtureMode = NULL;
 }
 
@@ -170,7 +170,7 @@ void Fixture::setChannels(quint32 channels)
 {
     if (m_fixtureDef == NULL && m_fixtureMode == NULL)
     {
-        QLCFixtureDef *fixtureDef = genericDimmerDef(channels);
+        QLCFixtureDef  *fixtureDef  = genericDimmerDef(channels);
         QLCFixtureMode *fixtureMode = genericDimmerMode(fixtureDef, channels);
         setFixtureDefinition(fixtureDef, fixtureMode);
     }
@@ -178,7 +178,7 @@ void Fixture::setChannels(quint32 channels)
     {
         if ((quint32)m_fixtureMode->channels().size() != channels)
         {
-            QLCFixtureDef *fixtureDef = genericDimmerDef(channels);
+            QLCFixtureDef  *fixtureDef  = genericDimmerDef(channels);
             QLCFixtureMode *fixtureMode = genericDimmerMode(fixtureDef, channels);
             setFixtureDefinition(fixtureDef, fixtureMode);
         }
@@ -312,14 +312,14 @@ QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelati
 {
     QList<SceneValue> posList;
     // cache a list of channels processed, to avoid duplicates
-    QList<quint32> chDone;
+    QList<quint32>    chDone;
 
     if (m_fixtureMode == NULL)
         return posList;
 
-    QLCPhysical phy = fixtureMode()->physical();
-    qreal headDegrees = degrees, maxDegrees;
-    float msbValue = 0, lsbValue = 0;
+    QLCPhysical phy         = fixtureMode()->physical();
+    qreal       headDegrees = degrees, maxDegrees;
+    float       msbValue = 0, lsbValue = 0;
 
     if (type == QLCChannel::Pan)
     {
@@ -339,11 +339,11 @@ QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelati
                 // degrees is a relative value upon the current value.
                 // Recalculate absolute degrees here
                 float chDegrees = (qreal(phy.focusPanMax()) / 256.0) * channelValueAt(panMSB);
-                headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
+                headDegrees     = qBound(0.0, chDegrees + headDegrees, maxDegrees);
 
                 if (panLSB != QLCChannel::invalid())
                 {
-                    chDegrees = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(panLSB);
+                    chDegrees   = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(panLSB);
                     headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
                 }
             }
@@ -377,11 +377,11 @@ QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelati
                 // degrees is a relative value upon the current value.
                 // Recalculate absolute degrees here
                 float chDegrees = (qreal(phy.focusTiltMax()) / 256.0) * channelValueAt(tiltMSB);
-                headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
+                headDegrees     = qBound(0.0, chDegrees + headDegrees, maxDegrees);
 
                 if (tiltLSB != QLCChannel::invalid())
                 {
-                    chDegrees = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(tiltLSB);
+                    chDegrees   = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(tiltLSB);
                     headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
                 }
             }
@@ -412,9 +412,9 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
     if (!isRelative)
         degrees = qBound(float(phy.lensDegreesMin()), degrees, float(phy.lensDegreesMax()));
 
-    float deltaDegrees = phy.lensDegreesMax() - phy.lensDegreesMin();
+    float   deltaDegrees = phy.lensDegreesMax() - phy.lensDegreesMin();
     // delta : 0xFFFF = deg : x
-    quint16 degToDmx = ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
+    quint16 degToDmx     = ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
     // qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
 
     for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
@@ -432,7 +432,7 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
         {
             // degrees is a relative value upon the current value.
             // Recalculate absolute degrees here
-            qreal divider = ch->controlByte() == QLCChannel::MSB ? 256.0 : 65536.0;
+            qreal divider   = ch->controlByte() == QLCChannel::MSB ? 256.0 : 65536.0;
             float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * float(channelValueAt(i));
 
             // qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
@@ -556,8 +556,8 @@ bool Fixture::setChannelValues(const QByteArray &values)
     if (addr >= values.size())
         return false;
 
-    const int chNum = qMin(values.size() - addr, (int)channels());
-    bool changed = false;
+    const int chNum   = qMin(values.size() - addr, (int)channels());
+    bool      changed = false;
 
     // Most of the times there are no changes,
     // so the lock is inside the cycle
@@ -624,7 +624,7 @@ void Fixture::checkAlias(int chIndex, uchar value)
             continue;
 
         QLCChannel *currChannel = m_fixtureMode->channel(alias.sourceChannel);
-        QLCChannel *newChannel = m_fixtureDef->channel(alias.targetChannel);
+        QLCChannel *newChannel  = m_fixtureDef->channel(alias.targetChannel);
 
         m_fixtureMode->replaceChannel(currChannel, newChannel);
     }
@@ -650,9 +650,9 @@ void Fixture::setFixtureDefinition(QLCFixtureDef *fixtureDef, QLCFixtureMode *fi
             delete m_fixtureDef;
         }
 
-        m_fixtureDef = fixtureDef;
+        m_fixtureDef  = fixtureDef;
         m_fixtureMode = fixtureMode;
-        chNum = fixtureMode->channels().size();
+        chNum         = fixtureMode->channels().size();
 
         // If there are no head entries in the mode, create one that contains
         // all channels. This const_cast is a bit heretic, but it's easier this
@@ -670,7 +670,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef *fixtureDef, QLCFixtureMode *fi
 
         for (i = 0; i < chNum; i++)
         {
-            QLCChannel *channel = fixtureMode->channel(i);
+            QLCChannel                  *channel  = fixtureMode->channel(i);
             const QList<QLCCapability *> capsList = channel->capabilities();
 
             // initialize values with the channel default
@@ -678,7 +678,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef *fixtureDef, QLCFixtureMode *fi
 
             // look for aliases
             m_aliasInfo[i].m_hasAlias = false;
-            m_aliasInfo[i].m_currCap = capsList.count() ? capsList.at(0) : NULL;
+            m_aliasInfo[i].m_currCap  = capsList.count() ? capsList.at(0) : NULL;
 
             foreach (QLCCapability *cap, capsList)
             {
@@ -692,7 +692,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef *fixtureDef, QLCFixtureMode *fi
     }
     else
     {
-        m_fixtureDef = NULL;
+        m_fixtureDef  = NULL;
         m_fixtureMode = NULL;
     }
 
@@ -725,7 +725,7 @@ QLCFixtureHead Fixture::head(int index) const
 QString Fixture::iconResource(bool svg) const
 {
     QString prefix = svg ? "qrc" : "";
-    QString ext = svg ? "svg" : "png";
+    QString ext    = svg ? "svg" : "png";
 
     switch (type())
     {
@@ -774,8 +774,8 @@ QRectF Fixture::degreesRange(int head) const
     if (m_fixtureMode != NULL && head < m_fixtureMode->heads().size())
     {
         QLCPhysical physical(m_fixtureMode->physical());
-        qreal pan = physical.focusPanMax();
-        qreal tilt = physical.focusTiltMax();
+        qreal       pan  = physical.focusPanMax();
+        qreal       tilt = physical.focusTiltMax();
 
         if (pan != 0 && tilt != 0)
         {
@@ -921,8 +921,8 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
 QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height)
 {
     Q_ASSERT(def != NULL);
-    QLCFixtureMode *mode = new QLCFixtureMode(def);
-    int compNum = 3;
+    QLCFixtureMode *mode    = new QLCFixtureMode(def);
+    int             compNum = 3;
     if (components == BGR)
         mode->setName("BGR");
     else if (components == BRG)
@@ -1004,21 +1004,21 @@ bool Fixture::loader(QXmlStreamReader &root, Doc *doc)
 
 bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fixtureDefCache)
 {
-    QLCFixtureDef *fixtureDef = NULL;
-    QLCFixtureMode *fixtureMode = NULL;
-    QString manufacturer;
-    QString model;
-    QString modeName;
-    QString name;
-    quint32 id = Fixture::invalidId();
-    quint32 universe = 0;
-    quint32 address = 0;
-    quint32 channels = 0;
-    quint32 width = 0, height = 0;
-    QList<int> excludeList;
-    QList<int> forcedHTP;
-    QList<int> forcedLTP;
-    QList<quint32> modifierIndices;
+    QLCFixtureDef           *fixtureDef  = NULL;
+    QLCFixtureMode          *fixtureMode = NULL;
+    QString                  manufacturer;
+    QString                  model;
+    QString                  modeName;
+    QString                  name;
+    quint32                  id       = Fixture::invalidId();
+    quint32                  universe = 0;
+    quint32                  address  = 0;
+    quint32                  channels = 0;
+    quint32                  width = 0, height = 0;
+    QList<int>               excludeList;
+    QList<int>               forcedHTP;
+    QList<int>               forcedLTP;
+    QList<quint32>           modifierIndices;
     QList<ChannelModifier *> modifierPointers;
 
     if (xmlDoc.name() != KXMLFixture)
@@ -1071,7 +1071,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
         }
         else if (xmlDoc.name() == KXMLFixtureExcludeFade)
         {
-            QString list = xmlDoc.readElementText();
+            QString     list   = xmlDoc.readElementText();
             QStringList values = list.split(",");
 
             for (int i = 0; i < values.count(); i++)
@@ -1079,7 +1079,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
         }
         else if (xmlDoc.name() == KXMLFixtureForcedHTP)
         {
-            QString list = xmlDoc.readElementText();
+            QString     list   = xmlDoc.readElementText();
             QStringList values = list.split(",");
 
             for (int i = 0; i < values.count(); i++)
@@ -1087,7 +1087,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
         }
         else if (xmlDoc.name() == KXMLFixtureForcedLTP)
         {
-            QString list = xmlDoc.readElementText();
+            QString     list   = xmlDoc.readElementText();
             QStringList values = list.split(",");
 
             for (int i = 0; i < values.count(); i++)
@@ -1098,9 +1098,9 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
             QXmlStreamAttributes attrs = xmlDoc.attributes();
             if (attrs.hasAttribute(KXMLFixtureChannelIndex) && attrs.hasAttribute(KXMLFixtureModifierName))
             {
-                quint32 chIdx = attrs.value(KXMLFixtureChannelIndex).toString().toUInt();
-                QString modName = attrs.value(KXMLFixtureModifierName).toString();
-                ChannelModifier *chMod = doc->modifiersCache()->modifier(modName);
+                quint32          chIdx   = attrs.value(KXMLFixtureChannelIndex).toString().toUInt();
+                QString          modName = attrs.value(KXMLFixtureModifierName).toString();
+                ChannelModifier *chMod   = doc->modifiersCache()->modifier(modName);
                 if (chMod != NULL)
                 {
                     modifierIndices.append(chIdx);
@@ -1187,13 +1187,13 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
 
     if (model == KXMLFixtureGeneric)
     {
-        fixtureDef = genericDimmerDef(channels);
+        fixtureDef  = genericDimmerDef(channels);
         fixtureMode = genericDimmerMode(fixtureDef, channels);
     }
     else if (model == KXMLFixtureRGBPanel)
     {
         Components components = RGB;
-        int compNum = 3;
+        int        compNum    = 3;
         if (modeName == "BGR")
             components = BGR;
         else if (modeName == "BRG")
@@ -1207,10 +1207,10 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
         else if (modeName == "RGBW")
         {
             components = RGBW;
-            compNum = 4;
+            compNum    = 4;
         }
 
-        fixtureDef = genericRGBPanelDef(channels / compNum, components);
+        fixtureDef  = genericRGBPanelDef(channels / compNum, components);
         fixtureMode = genericRGBPanelMode(fixtureDef, components, width, height);
     }
 
@@ -1324,7 +1324,7 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
         while (it.hasNext())
         {
             it.next();
-            quint32 ch = it.key();
+            quint32          ch  = it.key();
             ChannelModifier *mod = it.value();
             if (mod != NULL)
             {
@@ -1432,8 +1432,8 @@ QString Fixture::status() const
         QLCPhysical physical = m_fixtureMode->physical();
         info += title.arg(tr("Physical"));
 
-        float mmInch = 0.0393700787;
-        float kgLbs = 2.20462262;
+        float   mmInch = 0.0393700787;
+        float   kgLbs  = 2.20462262;
         QString mm("%1mm (%2\")");
         QString kg("%1kg (%2 lbs)");
         QString W("%1W");

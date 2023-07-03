@@ -27,7 +27,7 @@
 #include "doc.h"
 
 #define KXMLQLCSequenceSceneValues "Values"
-#define KXMLQLCStepNote "Note"
+#define KXMLQLCStepNote            "Note"
 
 ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     : fid(aFid)
@@ -54,13 +54,13 @@ ChaserStep &ChaserStep::operator=(const ChaserStep &step)
 {
     if (this != &step)
     {
-        fid = step.fid;
-        fadeIn = step.fadeIn;
-        hold = step.hold;
-        fadeOut = step.fadeOut;
+        fid      = step.fid;
+        fadeIn   = step.fadeIn;
+        hold     = step.hold;
+        fadeOut  = step.fadeOut;
         duration = step.duration;
-        values = step.values;
-        note = step.note;
+        values   = step.values;
+        note     = step.note;
     }
 
     return *this;
@@ -153,16 +153,16 @@ QVariant ChaserStep::toVariant() const
 
 ChaserStep ChaserStep::fromVariant(const QVariant &var)
 {
-    ChaserStep cs;
+    ChaserStep      cs;
     QList<QVariant> list(var.toList());
     if (list.size() == 6)
     {
-        cs.fid = list.takeFirst().toUInt();
-        cs.fadeIn = list.takeFirst().toUInt();
-        cs.hold = list.takeFirst().toUInt();
-        cs.fadeOut = list.takeFirst().toUInt();
+        cs.fid      = list.takeFirst().toUInt();
+        cs.fadeIn   = list.takeFirst().toUInt();
+        cs.hold     = list.takeFirst().toUInt();
+        cs.fadeOut  = list.takeFirst().toUInt();
         cs.duration = list.takeFirst().toUInt();
-        cs.note = list.takeFirst().toString();
+        cs.note     = list.takeFirst().toString();
     }
     return cs;
 }
@@ -181,7 +181,7 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int &stepNumber, Doc *doc)
         fadeIn = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedHold) == true)
     {
-        hold = attrs.value(KXMLQLCFunctionSpeedHold).toString().toUInt();
+        hold      = attrs.value(KXMLQLCFunctionSpeedHold).toString().toUInt();
         holdFound = true;
     }
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
@@ -219,8 +219,8 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int &stepNumber, Doc *doc)
                 QStringList varray = fxArray.at(f + 1).split(",");
                 for (int i = 0; i < varray.count(); i += 2)
                 {
-                    quint32 chIndex = QString(varray.at(i)).toUInt();
-                    SceneValue scv = SceneValue(fxID, chIndex, uchar(QString(varray.at(i + 1)).toInt()));
+                    quint32    chIndex = QString(varray.at(i)).toUInt();
+                    SceneValue scv     = SceneValue(fxID, chIndex, uchar(QString(varray.at(i + 1)).toInt()));
 
                     while (sIdx < values.count())
                     {

@@ -88,8 +88,8 @@ QStyle *AppUtil::saneStyle()
 {
     if (s_saneStyle == NULL)
     {
-        QSettings settings;
-        QVariant var = settings.value(SETTINGS_SLIDERSTYLE, QString("Fusion"));
+        QSettings   settings;
+        QVariant    var = settings.value(SETTINGS_SLIDERSTYLE, QString("Fusion"));
         QStringList keys(QStyleFactory::keys());
 
         if (keys.contains(var.toString()) == true)
@@ -133,7 +133,7 @@ QWidget *ComboBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 
 void ComboBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    int value = index.model()->data(index, Qt::UserRole).toInt();
+    int        value    = index.model()->data(index, Qt::UserRole).toInt();
     QComboBox *comboBox = static_cast<QComboBox *>(editor);
     comboBox->setCurrentIndex(value);
 }
@@ -141,7 +141,7 @@ void ComboBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) 
 void ComboBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QComboBox *comboBox = static_cast<QComboBox *>(editor);
-    int value = comboBox->currentIndex();
+    int        value    = comboBox->currentIndex();
     model->setData(index, value, Qt::UserRole);
     model->setData(index, comboBox->currentText(), Qt::DisplayRole);
 }

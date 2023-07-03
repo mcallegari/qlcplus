@@ -49,16 +49,16 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
 {
     Q_ASSERT(chaser != NULL);
 
-    m_pendingAction.m_action = ChaserNoAction;
+    m_pendingAction.m_action          = ChaserNoAction;
     m_pendingAction.m_masterIntensity = 1.0;
-    m_pendingAction.m_stepIntensity = 1.0;
-    m_pendingAction.m_fadeMode = Chaser::FromFunction;
-    m_pendingAction.m_stepIndex = -1;
+    m_pendingAction.m_stepIntensity   = 1.0;
+    m_pendingAction.m_fadeMode        = Chaser::FromFunction;
+    m_pendingAction.m_stepIndex       = -1;
 
     if (m_chaser->type() == Function::SequenceType && startTime > 0)
     {
         qDebug() << "[ChaserRunner] startTime:" << startTime;
-        int idx = 0;
+        int     idx       = 0;
         quint32 stepsTime = 0;
         foreach (ChaserStep step, chaser->steps())
         {
@@ -66,9 +66,9 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
 
             if (startTime < stepsTime + duration)
             {
-                m_pendingAction.m_action = ChaserSetStepIndex;
+                m_pendingAction.m_action    = ChaserSetStepIndex;
                 m_pendingAction.m_stepIndex = idx;
-                m_startOffset = startTime - stepsTime;
+                m_startOffset               = startTime - stepsTime;
                 qDebug() << "[ChaserRunner] Starting from step:" << idx;
                 break;
             }
@@ -109,8 +109,8 @@ void ChaserRunner::slotChaserChanged()
         else
         {
             // Recalculate the speed of each running step
-            step->m_fadeIn = stepFadeIn(step->m_index);
-            step->m_fadeOut = stepFadeOut(step->m_index);
+            step->m_fadeIn   = stepFadeIn(step->m_index);
+            step->m_fadeOut  = stepFadeOut(step->m_index);
             step->m_duration = stepDuration(step->m_index);
         }
     }
@@ -238,7 +238,7 @@ void ChaserRunner::setAction(ChaserAction &action)
     {
         case ChaserNoAction:
             m_pendingAction.m_masterIntensity = action.m_masterIntensity;
-            m_pendingAction.m_stepIntensity = action.m_stepIntensity;
+            m_pendingAction.m_stepIntensity   = action.m_stepIntensity;
             break;
 
         case ChaserStopStep:
@@ -263,7 +263,7 @@ void ChaserRunner::setAction(ChaserAction &action)
             if (stopped && m_runnerSteps.size() == 1)
             {
                 ChaserRunnerStep *lastStep = m_runnerSteps.at(0);
-                m_lastRunStepIdx = lastStep->m_index;
+                m_lastRunStepIdx           = lastStep->m_index;
                 emit currentStepChanged(m_lastRunStepIdx);
             }
         }
@@ -271,11 +271,11 @@ void ChaserRunner::setAction(ChaserAction &action)
 
         // copy to pending action. Will be processed at the next write call
         default:
-            m_pendingAction.m_stepIndex = action.m_stepIndex;
+            m_pendingAction.m_stepIndex       = action.m_stepIndex;
             m_pendingAction.m_masterIntensity = action.m_masterIntensity;
-            m_pendingAction.m_stepIntensity = action.m_stepIntensity;
-            m_pendingAction.m_fadeMode = action.m_fadeMode;
-            m_pendingAction.m_action = action.m_action;
+            m_pendingAction.m_stepIntensity   = action.m_stepIntensity;
+            m_pendingAction.m_fadeMode        = action.m_fadeMode;
+            m_pendingAction.m_action          = action.m_action;
             break;
     }
 }
@@ -428,7 +428,7 @@ void ChaserRunner::adjustStepIntensity(qreal fraction, int requestedStepIndex, i
     int stepIndex = requestedStepIndex;
     if (stepIndex == -1)
     {
-        stepIndex = m_lastRunStepIdx;
+        stepIndex                         = m_lastRunStepIdx;
         // store the intensity to be applied at the next step startup
         m_pendingAction.m_masterIntensity = fraction;
     }
@@ -494,12 +494,12 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
         index = 0; // fallback to the first step
 
     ChaserStep step(m_chaser->steps().at(index));
-    Function *func = m_doc->function(step.fid);
+    Function  *func = m_doc->function(step.fid);
     if (func == NULL)
         return;
 
     ChaserRunnerStep *newStep = new ChaserRunnerStep();
-    newStep->m_index = index;
+    newStep->m_index          = index;
 
     // check if blending between Scenes is needed
     if (m_lastFunctionID != Function::invalidId() && func->type() == Function::SceneType)
@@ -524,19 +524,19 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
     switch (fadeControl)
     {
         case Chaser::FromFunction:
-            newStep->m_fadeIn = stepFadeIn(index);
+            newStep->m_fadeIn  = stepFadeIn(index);
             newStep->m_fadeOut = stepFadeOut(index);
             break;
         case Chaser::Blended:
-            newStep->m_fadeIn = stepFadeIn(index);
+            newStep->m_fadeIn  = stepFadeIn(index);
             newStep->m_fadeOut = stepFadeOut(index);
             break;
         case Chaser::Crossfade:
-            newStep->m_fadeIn = 0;
+            newStep->m_fadeIn  = 0;
             newStep->m_fadeOut = 0;
             break;
         case Chaser::BlendedCrossfade:
-            newStep->m_fadeIn = 0;
+            newStep->m_fadeIn  = 0;
             newStep->m_fadeOut = 0;
             break;
     }
@@ -569,8 +569,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
     // might momentarily jump too high.
     if (func->type() == Function::SceneType)
     {
-        Scene *scene = qobject_cast<Scene *>(func);
-        newStep->m_intensityOverrideId = func->requestAttributeOverride(Function::Intensity, sIntensity);
+        Scene *scene                    = qobject_cast<Scene *>(func);
+        newStep->m_intensityOverrideId  = func->requestAttributeOverride(Function::Intensity, sIntensity);
         newStep->m_pIntensityOverrideId = scene->requestAttributeOverride(Scene::ParentIntensity, mIntensity);
         qDebug() << "[ChaserRunner] Set step intensity:" << sIntensity << ", master:" << mIntensity;
     }
@@ -688,12 +688,12 @@ int ChaserRunner::getNextStepIndex()
         if (m_direction == Function::Forward)
         {
             currentStepIndex = m_chaser->stepsCount() - 2;
-            m_direction = Function::Backward;
+            m_direction      = Function::Backward;
         }
         else // Backwards
         {
             currentStepIndex = 1;
-            m_direction = Function::Forward;
+            m_direction      = Function::Forward;
         }
 
         // Make sure we don't go beyond limits.

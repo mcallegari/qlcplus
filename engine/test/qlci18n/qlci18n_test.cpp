@@ -47,9 +47,9 @@ void QLCi18n_Test::loadTranslation()
     // Since QLocale::system() is different for people using such locales that
     // don't have QLC translation yet, we just have to accept a failure on those
     // cases.
-    QDir dir(QLCi18n::translationFilePath());
+    QDir        dir(QLCi18n::translationFilePath());
     QStringList entries(dir.entryList(QStringList() << QString("*.qm"), QDir::Files));
-    QString qm(QString("%1_%2.qm").arg("qlci18n").arg(QLocale::system().name()));
+    QString     qm(QString("%1_%2.qm").arg("qlci18n").arg(QLocale::system().name()));
     if (entries.contains(qm) == false)
         QEXPECT_FAIL("", "No translation for this locale. Fail is OK.", Continue);
     QCOMPARE(QLCi18n::loadTranslation("qlci18n"), true);

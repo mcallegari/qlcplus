@@ -53,7 +53,7 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
 
     if (m_pagesMap.count() > 0)
     {
-        QString chName = QString("frameDropArea%1").arg(id());
+        QString     chName       = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem *>(item->findChild<QObject *>(chName));
 
         foreach (VCWidget *child, m_pagesMap.keys())

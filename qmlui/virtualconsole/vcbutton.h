@@ -24,18 +24,18 @@
 
 #define KXMLQLCVCButton QString("Button")
 
-#define KXMLQLCVCButtonFunction QString("Function")
+#define KXMLQLCVCButtonFunction   QString("Function")
 #define KXMLQLCVCButtonFunctionID QString("ID")
 
-#define KXMLQLCVCButtonAction QString("Action")
-#define KXMLQLCVCButtonActionFlash QString("Flash")
-#define KXMLQLCVCButtonActionToggle QString("Toggle")
+#define KXMLQLCVCButtonAction         QString("Action")
+#define KXMLQLCVCButtonActionFlash    QString("Flash")
+#define KXMLQLCVCButtonActionToggle   QString("Toggle")
 #define KXMLQLCVCButtonActionBlackout QString("Blackout")
-#define KXMLQLCVCButtonActionStopAll QString("StopAll")
+#define KXMLQLCVCButtonActionStopAll  QString("StopAll")
 
 #define KXMLQLCVCButtonStopAllFadeTime QString("FadeOut")
 
-#define KXMLQLCVCButtonIntensity QString("Intensity")
+#define KXMLQLCVCButtonIntensity       QString("Intensity")
 #define KXMLQLCVCButtonIntensityAdjust QString("Adjust")
 
 class FunctionParent;
@@ -147,7 +147,7 @@ public:
 
     /** Get/Set the button pressure state */
     ButtonState state() const;
-    void setState(ButtonState state);
+    void        setState(ButtonState state);
 
 signals:
     /** Signal emitted when the button has actually changed the graphic state */
@@ -179,11 +179,11 @@ public:
 
     void setActionType(ButtonAction actionType);
 
-    static QString actionToString(ButtonAction action);
+    static QString      actionToString(ButtonAction action);
     static ButtonAction stringToAction(const QString &str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeOutTime() const;
+    int  stopAllFadeOutTime() const;
 
 signals:
     void actionTypeChanged(ButtonAction actionType);
@@ -193,7 +193,7 @@ protected:
     ButtonAction m_actionType;
     /** if button action is StopAll, this indicates the time
      *  in milliseconds of fadeout before stopping */
-    int m_stopAllFadeOutTime;
+    int          m_stopAllFadeOutTime;
 
     /*****************************************************************************
      * Function startup intensity adjustment
@@ -207,14 +207,14 @@ public:
     /** Get/Set the amount of intensity adjustment applied
      *  when starting the attached Function */
     qreal startupIntensity() const;
-    void setStartupIntensity(qreal fraction);
+    void  setStartupIntensity(qreal fraction);
 
 signals:
     void startupIntensityEnabledChanged();
     void startupIntensityChanged();
 
 protected:
-    bool m_startupIntensityEnabled;
+    bool  m_startupIntensityEnabled;
     qreal m_startupIntensity;
 
     /*********************************************************************

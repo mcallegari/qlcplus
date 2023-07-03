@@ -119,10 +119,10 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
 QStringList PaletteGenerator::getCapabilities(const Fixture *fixture)
 {
     QStringList caps;
-    bool hasPan = false, hasTilt = false;
-    bool hasRed = false, hasGreen = false, hasBlue = false;
-    bool hasCyan = false, hasMagenta = false, hasYellow = false;
-    bool hasWhite = false;
+    bool        hasPan = false, hasTilt = false;
+    bool        hasRed = false, hasGreen = false, hasBlue = false;
+    bool        hasCyan = false, hasMagenta = false, hasYellow = false;
+    bool        hasWhite = false;
 
     Q_ASSERT(fixture != NULL);
     for (quint32 ch = 0; ch < fixture->channels(); ch++)
@@ -246,15 +246,15 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
     if (chMap.size() == 0)
         return;
 
-    Scene *scene = new Scene(m_doc);
+    Scene *scene     = new Scene(m_doc);
     Scene *evenScene = NULL;
-    Scene *oddScene = NULL;
-    bool even = false;
+    Scene *oddScene  = NULL;
+    bool   even      = false;
 
     if (subType == OddEven)
     {
         evenScene = new Scene(m_doc);
-        oddScene = new Scene(m_doc);
+        oddScene  = new Scene(m_doc);
     }
 
     foreach (SceneValue scv, chMap)
@@ -287,8 +287,8 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneVal
     if (rcMap.size() == 0 || gmMap.size() == 0 || byMap.size() == 0)
         return;
 
-    bool even = false;
-    QList<QColor> m_colList;
+    bool           even = false;
+    QList<QColor>  m_colList;
     QList<QString> m_colNames;
 
     m_colList << Qt::black << Qt::darkBlue << Qt::blue << Qt::darkGreen << Qt::darkCyan << Qt::green << Qt::cyan
@@ -302,9 +302,9 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneVal
     for (int i = 0; i < m_colList.count(); i++)
     {
         QColor col = m_colList.at(i);
-        uchar rc = col.red();
-        uchar gm = col.green();
-        uchar by = col.blue();
+        uchar  rc  = col.red();
+        uchar  gm  = col.green();
+        uchar  by  = col.blue();
         if (rgb == false)
         {
             rc = col.cyan();
@@ -312,20 +312,20 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneVal
             by = col.yellow();
         }
 
-        Scene *scene = new Scene(m_doc);
+        Scene *scene     = new Scene(m_doc);
         Scene *evenScene = NULL;
-        Scene *oddScene = NULL;
+        Scene *oddScene  = NULL;
 
         if (subType == OddEven)
         {
             evenScene = new Scene(m_doc);
-            oddScene = new Scene(m_doc);
+            oddScene  = new Scene(m_doc);
         }
 
         foreach (SceneValue scv, rcMap)
         {
-            Fixture *fxi = m_doc->fixture(scv.fxi);
-            int gmCh = -1, byCh = -1;
+            Fixture *fxi  = m_doc->fixture(scv.fxi);
+            int      gmCh = -1, byCh = -1;
 
             for (int i = 0; i < fxi->heads(); i++)
             {
@@ -395,19 +395,19 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap, Pale
     Q_ASSERT(fxi != NULL);
     QHashIterator<quint32, quint32> it(chMap);
 
-    quint32 ch = it.next().value();
+    quint32           ch      = it.next().value();
     const QLCChannel *channel = fxi->channel(ch);
-    QStringList tmpCapList;
+    QStringList       tmpCapList;
 
     for (int cIdx = 0; cIdx < channel->capabilities().count(); cIdx++)
     {
-        Scene *scene = new Scene(m_doc);
-        Scene *evenScene = NULL;
-        Scene *oddScene = NULL;
-        bool even = false;
-        QLCCapability *cap = channel->capabilities().at(cIdx);
-        uchar value = cap->middle();
-        QString name = cap->name();
+        Scene         *scene     = new Scene(m_doc);
+        Scene         *evenScene = NULL;
+        Scene         *oddScene  = NULL;
+        bool           even      = false;
+        QLCCapability *cap       = channel->capabilities().at(cIdx);
+        uchar          value     = cap->middle();
+        QString        name      = cap->name();
 
         // Do not add the same capability twice
         if (tmpCapList.contains(name))
@@ -418,7 +418,7 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap, Pale
         if (subType == OddEven)
         {
             evenScene = new Scene(m_doc);
-            oddScene = new Scene(m_doc);
+            oddScene  = new Scene(m_doc);
         }
 
         QHashIterator<quint32, quint32> it(chMap);
@@ -497,13 +497,13 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type, Palet
     // in m_fixtures depending on type and subtype
     QHash<quint32, quint32> m_panList;
     QHash<quint32, quint32> m_tiltList;
-    QList<SceneValue> m_redList;
-    QList<SceneValue> m_greenList;
-    QList<SceneValue> m_blueList;
-    QList<SceneValue> m_cyanList;
-    QList<SceneValue> m_magentaList;
-    QList<SceneValue> m_yellowList;
-    QList<SceneValue> m_whiteList;
+    QList<SceneValue>       m_redList;
+    QList<SceneValue>       m_greenList;
+    QList<SceneValue>       m_blueList;
+    QList<SceneValue>       m_cyanList;
+    QList<SceneValue>       m_magentaList;
+    QList<SceneValue>       m_yellowList;
+    QList<SceneValue>       m_whiteList;
     QHash<quint32, quint32> m_goboList;
     QHash<quint32, quint32> m_shutterList;
     QHash<quint32, quint32> m_colorMacroList;

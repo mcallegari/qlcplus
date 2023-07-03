@@ -122,8 +122,8 @@ private:
     FunctionParent functionParent() const;
 
 private:
-    Doc *m_doc;
-    RGBMatrix *m_matrix; // The RGBMatrix being edited
+    Doc           *m_doc;
+    RGBMatrix     *m_matrix; // The RGBMatrix being edited
     RGBMatrixStep *m_previewHandler;
 
     QList<RGBScript> m_scripts;
@@ -131,8 +131,8 @@ private:
     SpeedDialWidget *m_speedDials;
 
     QGraphicsScene *m_scene;
-    QTimer *m_previewTimer;
-    uint m_previewIterator;
+    QTimer         *m_previewTimer;
+    uint            m_previewIterator;
 
     QHash<QLCPoint, RGBItem *> m_previewHash;
 };

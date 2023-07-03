@@ -374,7 +374,7 @@ void EditorView::setFilenameFromModel()
 {
     QString man = m_fixtureDef->manufacturer().replace(" ", "-");
     QString mod = m_fixtureDef->model().replace(" ", "-");
-    m_fileName = QString("%1-%2%3").arg(man, mod, KExtFixture);
+    m_fileName  = QString("%1-%2%3").arg(man, mod, KExtFixture);
 }
 
 bool EditorView::isModified() const

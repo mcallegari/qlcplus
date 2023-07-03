@@ -28,7 +28,7 @@
 #include "qlcfile.h"
 #include "qlci18n.h"
 
-QString QLCi18n::s_defaultLocale = QString();
+QString QLCi18n::s_defaultLocale       = QString();
 QString QLCi18n::s_translationFilePath = QString();
 
 void QLCi18n::init()
@@ -66,7 +66,7 @@ bool QLCi18n::loadTranslation(const QString &component)
     else
         lc = defaultLocale();
 
-    QString file(QString("%1_%2").arg(component).arg(lc));
+    QString      file(QString("%1_%2").arg(component).arg(lc));
     QTranslator *translator = new QTranslator(QCoreApplication::instance());
     if (translator->load(file, translationFilePath()) == true)
     {

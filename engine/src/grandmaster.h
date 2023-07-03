@@ -72,13 +72,13 @@ public:
     };
 
     static ValueMode stringToValueMode(const QString &str);
-    static QString valueModeToString(ValueMode mode);
+    static QString   valueModeToString(ValueMode mode);
 
     static ChannelMode stringToChannelMode(const QString &str);
-    static QString channelModeToString(ChannelMode mode);
+    static QString     channelModeToString(ChannelMode mode);
 
     static SliderMode stringToSliderMode(const QString &str);
-    static QString sliderModeToString(SliderMode mode);
+    static QString    sliderModeToString(SliderMode mode);
 
     /**
      * Set the way how Grand Master should treat its value. @See enum
@@ -136,10 +136,10 @@ signals:
     void valueChanged(uchar value);
 
 protected:
-    ValueMode m_valueMode;
+    ValueMode   m_valueMode;
     ChannelMode m_channelMode;
-    uchar m_value;
-    double m_fraction;
+    uchar       m_value;
+    double      m_fraction;
 };
 
 /** @} */

@@ -62,13 +62,13 @@ signals:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView     *m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc            *m_doc;
     /** Reference to the Fixture Manager */
     FixtureManager *m_fixtureManager;
     /** Reference to the Fixture Group currently being edited */
-    FixtureGroup *m_editGroup;
+    FixtureGroup   *m_editGroup;
 
     /*********************************************************************
      * Fixture Group Grid Editing
@@ -91,11 +91,11 @@ public:
 
     /** Get/Set the name of the Fixture Group currently being edited */
     QString groupName() const;
-    void setGroupName(QString name);
+    void    setGroupName(QString name);
 
     /** Get/Set the size of the Fixture Group currently being edited */
     QSize groupSize() const;
-    void setGroupSize(QSize size);
+    void  setGroupSize(QSize size);
 
     /** Returns the heads data for representation in a QML GridEditor */
     QVariantList groupMap();
@@ -141,7 +141,7 @@ public:
     Q_INVOKABLE QString getTooltip(int x, int y);
 
 private:
-    void updateGroupMap();
+    void     updateGroupMap();
     QLCPoint pointFromAbsolute(int absoluteIndex);
 
 signals:

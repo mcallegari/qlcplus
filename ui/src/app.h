@@ -102,9 +102,9 @@ protected:
 
 private:
     QTabWidget *m_tab;
-    QDir m_workingDirectory;
-    bool m_overscan;
-    bool m_noGui;
+    QDir        m_workingDirectory;
+    bool        m_overscan;
+    bool        m_noGui;
 
     /*********************************************************************
      * Progress dialog
@@ -160,7 +160,7 @@ private:
     bool saveModifiedDoc(const QString &title, const QString &message);
 
 public slots:
-    bool slotFileNew();
+    bool             slotFileNew();
     QFile::FileError slotFileOpen();
     QFile::FileError slotFileSave();
     QFile::FileError slotFileSaveAs();
@@ -204,8 +204,8 @@ private:
     QAction *m_helpIndexAction;
     QAction *m_helpAboutAction;
     QAction *m_quitAction;
-    QMenu *m_fileOpenMenu;
-    QMenu *m_fadeAndStopMenu;
+    QMenu   *m_fileOpenMenu;
+    QMenu   *m_fadeAndStopMenu;
 
 private:
     QToolBar *m_toolbar;

@@ -137,9 +137,9 @@ void VCCueList_Test::initial()
 
 void VCCueList_Test::chaser()
 {
-    QWidget w;
+    QWidget   w;
     VCCueList cl(&w, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
 
     // Try to put a non-chaser as the chaser
     cl.setChaser(c->steps().first().fid);
@@ -162,9 +162,9 @@ void VCCueList_Test::chaser()
 
 void VCCueList_Test::functionRemoved()
 {
-    QWidget w;
+    QWidget   w;
     VCCueList cl(&w, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
     cl.setChaser(c->id());
 
     // Chaser members are removed from list
@@ -213,10 +213,10 @@ void VCCueList_Test::copy()
 {
     // Input sources are tested by VCWidget tests. No point testing here.
 
-    QWidget w;
-    VCFrame parent(&w, m_doc);
+    QWidget   w;
+    VCFrame   parent(&w, m_doc);
     VCCueList cl(&parent, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
 
     cl.setChaser(c->id());
     cl.setCaption("Wheeee");
@@ -251,10 +251,10 @@ void VCCueList_Test::copy()
 
 void VCCueList_Test::modeChange()
 {
-    QWidget w;
-    VCFrame parent(&w, m_doc);
+    QWidget   w;
+    VCFrame   parent(&w, m_doc);
     VCCueList cl(&parent, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
     cl.setChaser(c->id());
 
     m_doc->setMode(Doc::Operate);
@@ -429,9 +429,9 @@ void VCCueList_Test::loadXML()
 
 void VCCueList_Test::saveXML()
 {
-    QWidget w;
+    QWidget   w;
     VCCueList cl(&w, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
     cl.setChaser(c->id());
 
     cl.setCaption("Testing");
@@ -635,7 +635,7 @@ void VCCueList_Test::nextPrevious()
     QWidget w;
 
     VCCueList cl(&w, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
     QCOMPARE(c->steps().size(), 4);
@@ -740,9 +740,9 @@ void VCCueList_Test::nextPrevious()
 
 void VCCueList_Test::manualActivation()
 {
-    QWidget w;
+    QWidget   w;
     VCCueList cl(&w, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
     Scene *s1 = qobject_cast<Scene *>(m_doc->function(c->steps()[0].fid));
@@ -808,9 +808,9 @@ void VCCueList_Test::manualActivation()
 
 void VCCueList_Test::keyboardNextPrevious()
 {
-    QWidget w;
+    QWidget   w;
     VCCueList cl(&w, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
 
@@ -867,9 +867,9 @@ void VCCueList_Test::keyboardNextPrevious()
 
 void VCCueList_Test::input()
 {
-    QWidget w;
+    QWidget   w;
     VCCueList cl(&w, m_doc);
-    Chaser *c = createChaser(m_doc);
+    Chaser   *c = createChaser(m_doc);
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
 

@@ -46,18 +46,18 @@
 #include "doc.h"
 
 /* Plugin column structure */
-#define KMapColumnPluginName 0
-#define KMapColumnDeviceName 1
-#define KMapColumnHasInput 2
-#define KMapColumnHasOutput 3
+#define KMapColumnPluginName  0
+#define KMapColumnDeviceName  1
+#define KMapColumnHasInput    2
+#define KMapColumnHasOutput   3
 #define KMapColumnHasFeedback 4
-#define KMapColumnInputLine 5
-#define KMapColumnOutputLine 6
+#define KMapColumnInputLine   5
+#define KMapColumnOutputLine  6
 
 #define KAudioColumnDeviceName 0
-#define KAudioColumnHasInput 1
-#define KAudioColumnHasOutput 2
-#define KAudioColumnPrivate 3
+#define KAudioColumnHasInput   1
+#define KAudioColumnHasOutput  2
+#define KAudioColumnPrivate    3
 
 /* Profile column structure */
 #define KProfileColumnName 0
@@ -85,28 +85,28 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget *parent, quint32 universe
     m_infoBrowser->setOpenExternalLinks(true);
     m_infoBrowser->setFixedHeight(250);
 
-    InputPatch *inputPatch = m_ioMap->inputPatch(universe);
-    OutputPatch *outputPatch = m_ioMap->outputPatch(universe);
+    InputPatch  *inputPatch    = m_ioMap->inputPatch(universe);
+    OutputPatch *outputPatch   = m_ioMap->outputPatch(universe);
     OutputPatch *feedbackPatch = m_ioMap->feedbackPatch(universe);
 
     /* Copy these so they can be applied if the user cancels */
     if (inputPatch != NULL)
     {
         m_currentInputPluginName = inputPatch->pluginName();
-        m_currentInput = inputPatch->input();
-        m_currentProfileName = inputPatch->profileName();
+        m_currentInput           = inputPatch->input();
+        m_currentProfileName     = inputPatch->profileName();
     }
 
     if (outputPatch != NULL)
     {
         m_currentOutputPluginName = outputPatch->pluginName();
-        m_currentOutput = outputPatch->output();
+        m_currentOutput           = outputPatch->output();
     }
 
     if (feedbackPatch != NULL)
     {
         m_currentFeedbackPluginName = feedbackPatch->pluginName();
-        m_currentFeedback = feedbackPatch->output();
+        m_currentFeedback           = feedbackPatch->output();
     }
 
     m_mapTree->setSortingEnabled(true);
@@ -117,7 +117,7 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget *parent, quint32 universe
     setupProfilePage();
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_HOTPLUG);
+    QVariant  var = settings.value(SETTINGS_HOTPLUG);
     if (var.isValid() && var.toBool() == true)
         m_hotplugButton->setChecked(true);
 
@@ -209,11 +209,11 @@ void InputOutputPatchEditor::fillMappingTree()
     // cycle through available plugins
     foreach (QString pluginName, IOplugins)
     {
-        QStringList inputs = m_ioMap->pluginInputs(pluginName);
-        QStringList outputs = m_ioMap->pluginOutputs(pluginName);
-        bool hasFeedback = m_ioMap->pluginSupportsFeedback(pluginName);
-        QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
-        int lineNumber = 1;
+        QStringList  inputs      = m_ioMap->pluginInputs(pluginName);
+        QStringList  outputs     = m_ioMap->pluginOutputs(pluginName);
+        bool         hasFeedback = m_ioMap->pluginSupportsFeedback(pluginName);
+        QLCIOPlugin *plugin      = m_doc->ioPluginCache()->plugin(pluginName);
+        int          lineNumber  = 1;
 
         // 1st case: this plugin has no input or output
         if (inputs.length() == 0 && outputs.length() == 0)
@@ -229,7 +229,7 @@ void InputOutputPatchEditor::fillMappingTree()
             // 2nd case: plugin with an input and maybe an output
             for (quint32 inputId = 0; inputId < quint32(inputs.length()); inputId++)
             {
-                quint32 uni = m_ioMap->inputMapping(pluginName, inputId);
+                quint32 uni       = m_ioMap->inputMapping(pluginName, inputId);
                 QString inputName = inputs.at(inputId);
                 // qDebug() << "Plugin: " << pluginName << ", deviceName: " << inputName << ",
                 // input: " << inputId << ", universe:" << uni;
@@ -356,7 +356,7 @@ void InputOutputPatchEditor::fillMappingTree()
 void InputOutputPatchEditor::slotMapCurrentItemChanged(QTreeWidgetItem *item)
 {
     QString info;
-    bool configurable;
+    bool    configurable;
 
     if (item == NULL)
     {
@@ -372,7 +372,7 @@ void InputOutputPatchEditor::slotMapCurrentItemChanged(QTreeWidgetItem *item)
 
         /* Input node selected */
         plugin = item->text(KMapColumnPluginName);
-        input = item->text(KMapColumnInputLine).toUInt();
+        input  = item->text(KMapColumnInputLine).toUInt();
         output = item->text(KMapColumnOutputLine).toUInt();
 
         info = m_ioMap->pluginDescription(plugin);
@@ -418,7 +418,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
         {
             /* Store the selected plugin name & input */
             m_currentInputPluginName = item->text(KMapColumnPluginName);
-            m_currentInput = item->text(KMapColumnInputLine).toInt();
+            m_currentInput           = item->text(KMapColumnInputLine).toInt();
 
             /* Apply the patch immediately so that input data can be used in the
                input profile editor */
@@ -436,7 +436,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
             {
                 /* Store the selected plugin name & line */
                 m_currentOutputPluginName = item->text(KMapColumnPluginName);
-                m_currentOutput = item->text(KMapColumnOutputLine).toUInt();
+                m_currentOutput           = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
                 if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false) == false)
@@ -453,7 +453,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
             else
             {
                 m_currentFeedbackPluginName = item->text(KMapColumnPluginName);
-                m_currentFeedback = item->text(KMapColumnOutputLine).toUInt();
+                m_currentFeedback           = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
                 if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", m_currentFeedback, true) == false)
@@ -467,7 +467,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
         if (col == KMapColumnHasInput)
         {
             m_currentInputPluginName = KInputNone;
-            m_currentInput = QLCIOPlugin::invalidLine();
+            m_currentInput           = QLCIOPlugin::invalidLine();
 
             if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", m_currentInput) == false)
                 showPluginMappingError();
@@ -475,7 +475,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
         else if (col == KMapColumnHasOutput)
         {
             m_currentOutputPluginName = KInputNone;
-            m_currentOutput = QLCIOPlugin::invalidLine();
+            m_currentOutput           = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
             if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false) == false)
@@ -484,7 +484,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
         else if (col == KMapColumnHasFeedback)
         {
             m_currentFeedbackPluginName = KInputNone;
-            m_currentFeedback = QLCIOPlugin::invalidLine();
+            m_currentFeedback           = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
             if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", m_currentFeedback, true) == false)
@@ -503,7 +503,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
 void InputOutputPatchEditor::slotConfigureInputClicked()
 {
     QTreeWidgetItem *item;
-    QString plugin;
+    QString          plugin;
 
     /* Find out the currently selected plugin */
     item = m_mapTree->currentItem();
@@ -621,7 +621,7 @@ void InputOutputPatchEditor::updateProfileItem(const QString &name, QTreeWidgetI
 
 QString InputOutputPatchEditor::fullProfilePath(const QString &manufacturer, const QString &model) const
 {
-    QDir dir(InputOutputMap::userProfileDirectory());
+    QDir    dir(InputOutputMap::userProfileDirectory());
     QString path = QString("%1/%2-%3%4").arg(dir.absolutePath()).arg(manufacturer).arg(model).arg(KExtInputProfile);
 
     return path;
@@ -676,8 +676,8 @@ edit:
     {
         /* Remove spaces from these */
         QString manufacturer = ite.profile()->manufacturer().remove(QChar(' '));
-        QString model = ite.profile()->model().remove(QChar(' '));
-        QString path = fullProfilePath(manufacturer, model);
+        QString model        = ite.profile()->model().remove(QChar(' '));
+        QString path         = fullProfilePath(manufacturer, model);
 
         /* If another profile with the same name exists, ask permission to overwrite */
         if (QFile::exists(path) == true && path != ite.profile()->path())
@@ -727,8 +727,8 @@ void InputOutputPatchEditor::slotRemoveProfileClicked()
 {
     QLCInputProfile *profile;
     QTreeWidgetItem *item;
-    QString name;
-    int r;
+    QString          name;
+    int              r;
 
     /* Find out the currently selected item */
     item = m_profileTree->currentItem();
@@ -736,7 +736,7 @@ void InputOutputPatchEditor::slotRemoveProfileClicked()
         return;
 
     /* Get the currently selected profile object by its name */
-    name = item->text(KProfileColumnName);
+    name    = item->text(KProfileColumnName);
     profile = m_ioMap->profile(name);
     if (profile == NULL)
         return;
@@ -778,7 +778,7 @@ void InputOutputPatchEditor::slotEditProfileClicked()
 {
     QLCInputProfile *profile;
     QTreeWidgetItem *item;
-    QString name;
+    QString          name;
 
     /* Get the currently selected item and bail out if nothing or "None"
        is selected */
@@ -787,7 +787,7 @@ void InputOutputPatchEditor::slotEditProfileClicked()
         return;
 
     /* Get the currently selected profile by its name */
-    name = item->text(KProfileColumnName);
+    name    = item->text(KProfileColumnName);
     profile = m_ioMap->profile(name);
     if (profile == NULL)
         return;
@@ -804,8 +804,8 @@ edit:
 
     /* Remove spaces from these */
     QString manufacturer = ite.profile()->manufacturer().remove(QChar(' '));
-    QString model = ite.profile()->model().remove(QChar(' '));
-    QString path = fullProfilePath(manufacturer, model);
+    QString model        = ite.profile()->model().remove(QChar(' '));
+    QString path         = fullProfilePath(manufacturer, model);
 
     /* If another profile with the same name exists, ask permission to overwrite */
     if (QFile::exists(path) == true && path != ite.profile()->path())
@@ -850,8 +850,8 @@ void InputOutputPatchEditor::initAudioTab()
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     m_audioMapTree->clear();
     QSettings settings;
-    QString inputName, outputName;
-    bool inputFound = false, outputFound = false;
+    QString   inputName, outputName;
+    bool      inputFound = false, outputFound = false;
 
     QTreeWidgetItem *defItem = new QTreeWidgetItem(m_audioMapTree);
     defItem->setText(KAudioColumnDeviceName, tr("Default device"));
@@ -1001,7 +1001,7 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
 void InputOutputPatchEditor::slotSampleRateIndexChanged(int index)
 {
     QSettings settings;
-    int selectedRate = m_srateCombo->itemText(index).toInt();
+    int       selectedRate = m_srateCombo->itemText(index).toInt();
     if (selectedRate == AUDIO_DEFAULT_SAMPLE_RATE)
         settings.remove(SETTINGS_AUDIO_INPUT_SRATE);
     else
@@ -1014,7 +1014,7 @@ void InputOutputPatchEditor::slotSampleRateIndexChanged(int index)
 void InputOutputPatchEditor::slotAudioChannelsChanged(int index)
 {
     QSettings settings;
-    int channels = (index == 0) ? 1 : 2;
+    int       channels = (index == 0) ? 1 : 2;
     if (channels == AUDIO_DEFAULT_CHANNELS)
         settings.remove(SETTINGS_AUDIO_INPUT_CHANNELS);
     else

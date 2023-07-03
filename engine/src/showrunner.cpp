@@ -112,7 +112,7 @@ void ShowRunner::setPause(bool enable)
 
 void ShowRunner::stop()
 {
-    m_elapsedTime = 0;
+    m_elapsedTime          = 0;
     m_currentFunctionIndex = 0;
     for (int i = 0; i < m_runningQueue.count(); i++)
     {
@@ -143,16 +143,16 @@ void ShowRunner::write()
         if (m_currentFunctionIndex == m_functions.count())
             break;
 
-        ShowFunction *sf = m_functions.at(m_currentFunctionIndex);
-        quint32 funcStartTime = sf->startTime();
-        quint32 functionTimeOffset = 0;
-        Function *f = m_doc->function(sf->functionID());
+        ShowFunction *sf                 = m_functions.at(m_currentFunctionIndex);
+        quint32       funcStartTime      = sf->startTime();
+        quint32       functionTimeOffset = 0;
+        Function     *f                  = m_doc->function(sf->functionID());
 
         // this should happen only when a Show is not started from 0
         if (m_elapsedTime > funcStartTime)
         {
             functionTimeOffset = m_elapsedTime - funcStartTime;
-            funcStartTime = m_elapsedTime;
+            funcStartTime      = m_elapsedTime;
         }
         if (m_elapsedTime >= funcStartTime)
         {
@@ -181,8 +181,8 @@ void ShowRunner::write()
     // 2- to avoid messing up with indices when an entry is removed
     for (int i = m_runningQueue.count() - 1; i >= 0; i--)
     {
-        Function *func = m_runningQueue.at(i).first;
-        quint32 stopTime = m_runningQueue.at(i).second;
+        Function *func     = m_runningQueue.at(i).first;
+        quint32   stopTime = m_runningQueue.at(i).second;
 
         // if we passed the function stop time
         if (m_elapsedTime >= stopTime)

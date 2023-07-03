@@ -37,22 +37,22 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCCapability QString("Capability")
-#define KXMLQLCCapabilityMin QString("Min")
-#define KXMLQLCCapabilityMax QString("Max")
+#define KXMLQLCCapability       QString("Capability")
+#define KXMLQLCCapabilityMin    QString("Min")
+#define KXMLQLCCapabilityMax    QString("Max")
 #define KXMLQLCCapabilityPreset QString("Preset")
-#define KXMLQLCCapabilityRes1 QString("Res1")
-#define KXMLQLCCapabilityRes2 QString("Res2")
+#define KXMLQLCCapabilityRes1   QString("Res1")
+#define KXMLQLCCapabilityRes2   QString("Res2")
 
-#define KXMLQLCCapabilityAlias QString("Alias")
-#define KXMLQLCCapabilityAliasMode QString("Mode")
+#define KXMLQLCCapabilityAlias           QString("Alias")
+#define KXMLQLCCapabilityAliasMode       QString("Mode")
 #define KXMLQLCCapabilityAliasSourceName QString("Channel")
 #define KXMLQLCCapabilityAliasTargetName QString("With")
 
 /** ****************** LEGACY ***************** */
 #define KXMLQLCCapabilityResource QString("Res")
-#define KXMLQLCCapabilityColor1 QString("Color")
-#define KXMLQLCCapabilityColor2 QString("Color2")
+#define KXMLQLCCapabilityColor1   QString("Color")
+#define KXMLQLCCapabilityColor2   QString("Color2")
 
 typedef struct
 {
@@ -195,11 +195,11 @@ public:
 
     /** String <-> value preset conversion helpers */
     static QString presetToString(Preset preset);
-    static Preset stringToPreset(const QString &preset);
+    static Preset  stringToPreset(const QString &preset);
 
     /** Get/Set the preset value for this capability */
     Preset preset() const;
-    void setPreset(Preset preset);
+    void   setPreset(Preset preset);
 
     /** Return the type of the current preset.
      *  This is useful for the UI to understand the type
@@ -231,22 +231,22 @@ public:
 
     /** Get/Set the capability range minimum value */
     uchar min() const;
-    void setMin(uchar value);
+    void  setMin(uchar value);
 
     /** Get/Set the capability range maximum value */
     uchar max() const;
-    void setMax(uchar value);
+    void  setMax(uchar value);
 
     /** Get the capability range middle value */
     uchar middle() const;
 
     /** Get/Set the capability display name */
     QString name() const;
-    void setName(const QString &name);
+    void    setName(const QString &name);
 
     /** Get/Set a warning for this capability */
     WarningType warning() const;
-    void setWarning(WarningType type);
+    void        setWarning(WarningType type);
 
     /** Get the resource at the provided index.
      *  Returns an empty QVariant on failure */
@@ -268,10 +268,10 @@ signals:
     void warningChanged();
 
 protected:
-    uchar m_min;
-    uchar m_max;
-    QString m_name;
-    WarningType m_warning;
+    uchar        m_min;
+    uchar        m_max;
+    QString      m_name;
+    WarningType  m_warning;
     QVariantList m_resources;
 
     /********************************************************************

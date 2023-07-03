@@ -38,13 +38,13 @@
 
 #define UPDATE_TIMEOUT 50
 
-const quint8 VCSpeedDial::absoluteInputSourceId = 0;
-const quint8 VCSpeedDial::tapInputSourceId = 1;
-const quint8 VCSpeedDial::multInputSourceId = 2;
-const quint8 VCSpeedDial::divInputSourceId = 3;
+const quint8 VCSpeedDial::absoluteInputSourceId     = 0;
+const quint8 VCSpeedDial::tapInputSourceId          = 1;
+const quint8 VCSpeedDial::multInputSourceId         = 2;
+const quint8 VCSpeedDial::divInputSourceId          = 3;
 const quint8 VCSpeedDial::multDivResetInputSourceId = 4;
-const quint8 VCSpeedDial::applyInputSourceId = 5;
-const QSize VCSpeedDial::defaultSize(QSize(200, 175));
+const quint8 VCSpeedDial::applyInputSourceId        = 5;
+const QSize  VCSpeedDial::defaultSize(QSize(200, 175));
 
 static const QString presetBtnSS =
     "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: "
@@ -83,7 +83,7 @@ VCSpeedDial::VCSpeedDial(QWidget *parent, Doc *doc)
     setCaption(tr("Duration"));
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_SPEEDDIAL_SIZE);
+    QVariant  var = settings.value(SETTINGS_SPEEDDIAL_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
@@ -331,7 +331,7 @@ void VCSpeedDial::slotUpdate()
 
     for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
     {
-        QWidget *widget = it.key();
+        QWidget           *widget = it.key();
         VCSpeedDialPreset *preset = it.value();
 
         QPushButton *button = reinterpret_cast<QPushButton *>(widget);
@@ -350,7 +350,7 @@ void VCSpeedDial::addPreset(VCSpeedDialPreset const &preset)
 
     {
         QPushButton *presetButton = new QPushButton(this);
-        presetWidget = presetButton;
+        presetWidget              = presetButton;
         presetButton->setStyleSheet(presetBtnSS.arg("#BBBBBB"));
         presetButton->setMinimumWidth(36);
         presetButton->setMaximumWidth(80);
@@ -403,7 +403,7 @@ QList<VCSpeedDialPreset *> VCSpeedDial::presets() const
 
 void VCSpeedDial::slotPresetClicked()
 {
-    QPushButton *btn = qobject_cast<QPushButton *>(sender());
+    QPushButton       *btn    = qobject_cast<QPushButton *>(sender());
     VCSpeedDialPreset *preset = m_presets[btn];
 
     Q_ASSERT(preset != NULL);
@@ -770,7 +770,7 @@ static QSharedPointer<VCSpeedDialPreset> createInfinitePreset()
 {
     QSharedPointer<VCSpeedDialPreset> infinitePreset(new VCSpeedDialPreset(16));
     infinitePreset->m_value = Function::infiniteSpeed();
-    infinitePreset->m_name = Function::speedToString(Function::infiniteSpeed());
+    infinitePreset->m_name  = Function::speedToString(Function::infiniteSpeed());
     return infinitePreset;
 }
 
@@ -787,19 +787,19 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 
     // Compatibility with old workspace files:
     // Get old style speedtype selection
-    VCSpeedDialFunction::SpeedMultiplier defaultFadeInMultiplier = VCSpeedDialFunction::None;
-    VCSpeedDialFunction::SpeedMultiplier defaultFadeOutMultiplier = VCSpeedDialFunction::None;
+    VCSpeedDialFunction::SpeedMultiplier defaultFadeInMultiplier   = VCSpeedDialFunction::None;
+    VCSpeedDialFunction::SpeedMultiplier defaultFadeOutMultiplier  = VCSpeedDialFunction::None;
     VCSpeedDialFunction::SpeedMultiplier defaultDurationMultiplier = VCSpeedDialFunction::One;
     if (root.attributes().hasAttribute(KXMLQLCVCSpeedDialSpeedTypes))
     {
-        SpeedTypes speedTypes = SpeedTypes(root.attributes().value(KXMLQLCVCSpeedDialSpeedTypes).toString().toInt());
-        defaultFadeInMultiplier = (speedTypes & FadeIn) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        SpeedTypes speedTypes    = SpeedTypes(root.attributes().value(KXMLQLCVCSpeedDialSpeedTypes).toString().toInt());
+        defaultFadeInMultiplier  = (speedTypes & FadeIn) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
         defaultFadeOutMultiplier = (speedTypes & FadeOut) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
         defaultDurationMultiplier = (speedTypes & Duration) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
     }
 
     // Sorted list for new presets
-    QList<VCSpeedDialPreset> newPresets;
+    QList<VCSpeedDialPreset>          newPresets;
     // legacy: transform the infinite checkbox into an infinite preset
     QSharedPointer<VCSpeedDialPreset> infinitePreset(NULL);
 
@@ -818,7 +818,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCWindowState)
         {
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             bool visible = true;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
@@ -956,7 +956,7 @@ bool VCSpeedDial::loadXMLInfiniteLegacy(QXmlStreamReader &root, QSharedPointer<V
         if (root.name() == KXMLQLCVCWidgetInput)
         {
             quint32 uni = QLCInputSource::invalidUniverse;
-            quint32 ch = QLCInputSource::invalidChannel;
+            quint32 ch  = QLCInputSource::invalidChannel;
             if (loadXMLInput(root, &uni, &ch) == true)
             {
                 preset->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));

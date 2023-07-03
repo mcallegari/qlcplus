@@ -53,24 +53,24 @@
 #include "qmath.h"
 #include "doc.h"
 
-#define COL_NUM 0
-#define COL_NAME 1
-#define COL_FADEIN 2
-#define COL_FADEOUT 3
+#define COL_NUM      0
+#define COL_NAME     1
+#define COL_FADEIN   2
+#define COL_FADEOUT  3
 #define COL_DURATION 4
-#define COL_NOTES 5
+#define COL_NOTES    5
 
-#define PROP_ID Qt::UserRole
+#define PROP_ID    Qt::UserRole
 #define HYSTERESIS 3 // Hysteresis for next/previous external input
 
 #define PROGRESS_INTERVAL 200
-#define UPDATE_TIMEOUT 100
+#define UPDATE_TIMEOUT    100
 
-const quint8 VCCueList::nextInputSourceId = 0;
-const quint8 VCCueList::previousInputSourceId = 1;
-const quint8 VCCueList::playbackInputSourceId = 2;
+const quint8 VCCueList::nextInputSourceId      = 0;
+const quint8 VCCueList::previousInputSourceId  = 1;
+const quint8 VCCueList::playbackInputSourceId  = 2;
 const quint8 VCCueList::sideFaderInputSourceId = 3;
-const quint8 VCCueList::stopInputSourceId = 4;
+const quint8 VCCueList::stopInputSourceId      = 4;
 
 const QString progressDisabledStyle =
     "QProgressBar { border: 2px solid #C3C3C3; border-radius: 4px; background-color: #DCDCDC; }";
@@ -81,11 +81,11 @@ const QString progressHoldStyle = "QProgressBar { border: 2px solid grey; border
                                   "background-color: #C3C3C3; text-align: center; }"
                                   "QProgressBar::chunk { background-color: #0F9BEC; width: 1px; }";
 
-const QString cfLabelBlueStyle = "QLabel { background-color: #4E8DDE; color: white; border: 1px "
-                                 "solid; border-radius: 3px; font: bold; }";
+const QString cfLabelBlueStyle   = "QLabel { background-color: #4E8DDE; color: white; border: 1px "
+                                   "solid; border-radius: 3px; font: bold; }";
 const QString cfLabelOrangeStyle = "QLabel { background-color: orange; color: black; border: 1px "
                                    "solid; border-radius: 3px; font: bold; }";
-const QString cfLabelNoStyle = "QLabel { border: 1px solid; border-radius: 3px; font: bold; }";
+const QString cfLabelNoStyle     = "QLabel { border: 1px solid; border-radius: 3px; font: bold; }";
 
 VCCueList::VCCueList(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
@@ -246,7 +246,7 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc)
     setCaption(tr("Cue list"));
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_CUELIST_SIZE);
+    QVariant  var = settings.value(SETTINGS_CUELIST_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
@@ -259,10 +259,10 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc)
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
     connect(m_doc, SIGNAL(functionNameChanged(quint32)), this, SLOT(slotFunctionNameChanged(quint32)));
 
-    m_nextLatestValue = 0;
+    m_nextLatestValue     = 0;
     m_previousLatestValue = 0;
     m_playbackLatestValue = 0;
-    m_stopLatestValue = 0;
+    m_stopLatestValue     = 0;
 }
 
 VCCueList::~VCCueList() {}
@@ -704,10 +704,10 @@ void VCCueList::slotNextCue()
         else
         {
             ChaserAction action;
-            action.m_action = ChaserNextStep;
+            action.m_action          = ChaserNextStep;
             action.m_masterIntensity = intensity();
-            action.m_stepIntensity = getPrimaryIntensity();
-            action.m_fadeMode = getFadeMode();
+            action.m_stepIntensity   = getPrimaryIntensity();
+            action.m_fadeMode        = getFadeMode();
             ch->setAction(action);
         }
     }
@@ -750,10 +750,10 @@ void VCCueList::slotPreviousCue()
         else
         {
             ChaserAction action;
-            action.m_action = ChaserPreviousStep;
+            action.m_action          = ChaserPreviousStep;
             action.m_masterIntensity = intensity();
-            action.m_stepIntensity = getPrimaryIntensity();
-            action.m_fadeMode = getFadeMode();
+            action.m_stepIntensity   = getPrimaryIntensity();
+            action.m_fadeMode        = getFadeMode();
             ch->setAction(action);
         }
     }
@@ -797,7 +797,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         m_bottomStepLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
 
         float stepVal;
-        int stepsCount = m_tree->topLevelItemCount();
+        int   stepsCount = m_tree->topLevelItemCount();
         if (stepsCount < 256)
             stepVal = 255.0 / (float)stepsCount;
         else
@@ -844,9 +844,9 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
     if (ch == NULL)
         return;
 
-    QString itemText = item->text(column);
-    int idx = m_tree->indexOfTopLevelItem(item);
-    ChaserStep step = ch->steps().at(idx);
+    QString    itemText = item->text(column);
+    int        idx      = m_tree->indexOfTopLevelItem(item);
+    ChaserStep step     = ch->steps().at(idx);
 
     step.note = itemText;
     ch->replaceStep(step, idx);
@@ -952,11 +952,11 @@ void VCCueList::startChaser(int startIndex)
     adjustFunctionIntensity(ch, intensity());
 
     ChaserAction action;
-    action.m_action = ChaserSetStepIndex;
-    action.m_stepIndex = startIndex;
+    action.m_action          = ChaserSetStepIndex;
+    action.m_stepIndex       = startIndex;
     action.m_masterIntensity = intensity();
-    action.m_stepIntensity = getPrimaryIntensity();
-    action.m_fadeMode = getFadeMode();
+    action.m_stepIntensity   = getPrimaryIntensity();
+    action.m_fadeMode        = getFadeMode();
     ch->setAction(action);
 
     ch->start(m_doc->masterTimer(), functionParent());
@@ -1129,11 +1129,11 @@ void VCCueList::slotSideFaderValueChanged(int value)
             return;
 
         ChaserAction action;
-        action.m_action = ChaserSetStepIndex;
-        action.m_stepIndex = newStep;
+        action.m_action          = ChaserSetStepIndex;
+        action.m_stepIndex       = newStep;
         action.m_masterIntensity = intensity();
-        action.m_stepIntensity = getPrimaryIntensity();
-        action.m_fadeMode = getFadeMode();
+        action.m_stepIntensity   = getPrimaryIntensity();
+        action.m_fadeMode        = getFadeMode();
         ch->setAction(action);
     }
     else
@@ -1160,7 +1160,7 @@ void VCCueList::stopStepIfNeeded(Chaser *ch)
     if (ch->runningStepsNumber() != 2)
         return;
 
-    int primaryValue = m_primaryTop ? m_sideFader->value() : 100 - m_sideFader->value();
+    int primaryValue   = m_primaryTop ? m_sideFader->value() : 100 - m_sideFader->value();
     int secondaryValue = m_primaryTop ? 100 - m_sideFader->value() : m_sideFader->value();
 
     ChaserAction action;
@@ -1168,7 +1168,7 @@ void VCCueList::stopStepIfNeeded(Chaser *ch)
 
     if (primaryValue == 0)
     {
-        m_primaryTop = !m_primaryTop;
+        m_primaryTop       = !m_primaryTop;
         action.m_stepIndex = m_primaryIndex;
         ch->setAction(action);
     }
@@ -1450,11 +1450,11 @@ void VCCueList::playCueAtIndex(int idx)
     if (ch->isRunning())
     {
         ChaserAction action;
-        action.m_action = ChaserSetStepIndex;
-        action.m_stepIndex = m_primaryIndex;
+        action.m_action          = ChaserSetStepIndex;
+        action.m_stepIndex       = m_primaryIndex;
         action.m_masterIntensity = intensity();
-        action.m_stepIntensity = getPrimaryIntensity();
-        action.m_fadeMode = getFadeMode();
+        action.m_stepIntensity   = getPrimaryIntensity();
+        action.m_fadeMode        = getFadeMode();
         ch->setAction(action);
     }
     else
@@ -1494,7 +1494,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }

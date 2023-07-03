@@ -78,7 +78,7 @@ void RGBAudio::slotAudioBarsChanged(double *spectrumBands, int size, double maxM
     for (int i = 0; i < m_bandsNumber; i++)
         m_spectrumValues.append(spectrumBands[i]);
     m_maxMagnitude = maxMagnitude;
-    m_volumePower = power;
+    m_volumePower  = power;
 }
 
 void RGBAudio::calculateColors(int barsHeight)
@@ -93,9 +93,9 @@ void RGBAudio::calculateColors(int barsHeight)
         }
         else
         {
-            int crDelta = (endColor().red() - startColor().red()) / (barsHeight - 1);
-            int cgDelta = (endColor().green() - startColor().green()) / (barsHeight - 1);
-            int cbDelta = (endColor().blue() - startColor().blue()) / (barsHeight - 1);
+            int    crDelta    = (endColor().red() - startColor().red()) / (barsHeight - 1);
+            int    cgDelta    = (endColor().green() - startColor().green()) / (barsHeight - 1);
+            int    cbDelta    = (endColor().blue() - startColor().blue()) / (barsHeight - 1);
             QColor pixelColor = startColor();
 
             for (int i = 0; i < barsHeight; i++)
@@ -180,7 +180,7 @@ void RGBAudio::postRun()
         if (m_bandsNumber > 0)
             m_audioInput->unregisterBandsNumber(m_bandsNumber);
     }
-    m_audioInput = NULL;
+    m_audioInput  = NULL;
     m_bandsNumber = -1;
 }
 

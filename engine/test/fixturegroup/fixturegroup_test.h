@@ -51,7 +51,7 @@ private slots:
 
 private:
     Doc *m_doc;
-    int m_currentAddr;
+    int  m_currentAddr;
 };
 
 #endif

@@ -38,7 +38,7 @@ public:
     ~FunctionLiveEditDialog();
 
 private:
-    Doc *m_doc;
+    Doc     *m_doc;
     QWidget *m_editor;
 
 protected:

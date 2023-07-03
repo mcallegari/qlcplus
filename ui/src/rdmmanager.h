@@ -29,12 +29,12 @@ class Doc;
 
 typedef struct
 {
-    QString manufacturer;
-    QString name;
-    quint32 universe;
-    quint32 pluginLine;
-    quint16 dmxAddress;
-    quint16 channels;
+    QString     manufacturer;
+    QString     name;
+    quint32     universe;
+    quint32     pluginLine;
+    quint16     dmxAddress;
+    quint16     channels;
     QVariantMap params;
 } UIDInfo;
 
@@ -102,8 +102,8 @@ private:
     bool m_running;
 
     QLCIOPlugin *m_plugin;
-    quint32 m_universe;
-    quint32 m_line;
+    quint32      m_universe;
+    quint32      m_line;
 
     /** Map of all the discovered fixtures by UID */
     QMap<QString, UIDInfo> m_uidMap;

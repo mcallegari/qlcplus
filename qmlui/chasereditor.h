@@ -101,7 +101,7 @@ public:
     void removeFixtures(QVariantList list);
 
     /** Get/Set the Chaser playback start index */
-    int playbackIndex() const;
+    int  playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
     /** @reimp */
@@ -146,19 +146,19 @@ private:
      *********************************************************************/
 public:
     /** Get/Set the steps tempo type of the Chaser being edited */
-    int tempoType() const;
+    int  tempoType() const;
     void setTempoType(int tempoType);
 
     /** Get/Set the steps fade in mode of the Chaser being edited */
-    int stepsFadeIn() const;
+    int  stepsFadeIn() const;
     void setStepsFadeIn(int stepsFadeIn);
 
     /** Get/Set the steps fade out mode of the Chaser being edited */
-    int stepsFadeOut() const;
+    int  stepsFadeOut() const;
     void setStepsFadeOut(int stepsFadeOut);
 
     /** Get/Set the steps duration mode of the Chaser being edited */
-    int stepsDuration() const;
+    int  stepsDuration() const;
     void setStepsDuration(int stepsDuration);
 
     /** Set the speed value with $type of the step at $index */

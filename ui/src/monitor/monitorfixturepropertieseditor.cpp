@@ -88,7 +88,7 @@ void MonitorFixturePropertiesEditor::slotRotationChanged(int value)
 
 void MonitorFixturePropertiesEditor::slotGelColorClicked()
 {
-    QColor color = m_fxItem->getColor();
+    QColor color    = m_fxItem->getColor();
     QColor newColor = QColorDialog::getColor(color);
 
     if (newColor.isValid())

@@ -40,7 +40,7 @@ public:
     ~VideoEditor();
 
 private:
-    Doc *m_doc;
+    Doc   *m_doc;
     Video *m_video; // The Video function being edited
 
 private slots:

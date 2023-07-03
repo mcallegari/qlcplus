@@ -81,7 +81,7 @@ signals:
 
 private:
     QString m_styleSheet;
-    float m_shadowLevel;
+    float   m_shadowLevel;
 };
 
 /** @} */

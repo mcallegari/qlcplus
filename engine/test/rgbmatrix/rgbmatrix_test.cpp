@@ -144,7 +144,7 @@ void RGBMatrix_Test::copy()
 
 void RGBMatrix_Test::previewMaps()
 {
-    RGBMatrix mtx(m_doc);
+    RGBMatrix     mtx(m_doc);
     RGBMatrixStep handler;
     QVERIFY(mtx.algorithm() != NULL);
     QCOMPARE(mtx.algorithm()->name(), QString("Stripes"));

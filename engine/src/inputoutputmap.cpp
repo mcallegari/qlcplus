@@ -133,7 +133,7 @@ bool InputOutputMap::addUniverse(quint32 id)
 {
     {
         QMutexLocker locker(&m_universeMutex);
-        Universe *uni = NULL;
+        Universe    *uni = NULL;
 
         if (id == InputOutputMap::invalidUniverse())
         {
@@ -398,8 +398,8 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName, 
         return false;
     }
 
-    QMutexLocker locker(&m_universeMutex);
-    InputPatch *currInPatch = m_universeArray.at(universe)->inputPatch();
+    QMutexLocker     locker(&m_universeMutex);
+    InputPatch      *currInPatch = m_universeArray.at(universe)->inputPatch();
     QLCInputProfile *currProfile = NULL;
     if (currInPatch != NULL)
     {
@@ -412,13 +412,13 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName, 
                        SLOT(slotMIDIBeat(quint32, quint32, uchar)));
         }
     }
-    InputPatch *ip = NULL;
+    InputPatch  *ip     = NULL;
     QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
 
     if (!inputUID.isEmpty() && plugin != NULL)
     {
         QStringList inputs = plugin->inputs();
-        int lIdx = inputs.indexOf(inputUID);
+        int         lIdx   = inputs.indexOf(inputUID);
         if (lIdx != -1)
         {
             qDebug() << "[IOMAP] Found match on input by name on universe" << universe << "-" << input << "vs" << lIdx;
@@ -490,7 +490,7 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     if (!outputUID.isEmpty() && plugin != NULL)
     {
         QStringList inputs = plugin->outputs();
-        int lIdx = inputs.indexOf(outputUID);
+        int         lIdx   = inputs.indexOf(outputUID);
         if (lIdx != -1)
         {
             qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-" << output << "vs" << lIdx;
@@ -630,7 +630,7 @@ void InputOutputMap::removeDuplicates(QStringList &list)
 
 QStringList InputOutputMap::inputPluginNames()
 {
-    QStringList list;
+    QStringList                  list;
     QListIterator<QLCIOPlugin *> it(doc()->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
@@ -643,7 +643,7 @@ QStringList InputOutputMap::inputPluginNames()
 
 QStringList InputOutputMap::outputPluginNames()
 {
-    QStringList list;
+    QStringList                  list;
     QListIterator<QLCIOPlugin *> it(doc()->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
@@ -708,7 +708,7 @@ bool InputOutputMap::canConfigurePlugin(const QString &pluginName)
 QString InputOutputMap::inputPluginStatus(const QString &pluginName, quint32 input)
 {
     QLCIOPlugin *inputPlugin = NULL;
-    QString info;
+    QString      info;
 
     if (pluginName.isEmpty() == false)
         inputPlugin = doc()->ioPluginCache()->plugin(pluginName);
@@ -766,7 +766,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin *plugin)
 {
     QMutexLocker locker(&m_universeMutex);
-    bool success = true;
+    bool         success = true;
     for (quint32 i = 0; i < universesCount(); i++)
     {
         Universe *universe = m_universeArray.at(i);
@@ -813,7 +813,7 @@ void InputOutputMap::loadProfiles(const QDir &dir)
     while (it.hasNext() == true)
     {
         QLCInputProfile *prof;
-        QString path;
+        QString          path;
 
         path = dir.absoluteFilePath(it.next());
         prof = QLCInputProfile::loader(path);
@@ -834,7 +834,7 @@ void InputOutputMap::loadProfiles(const QDir &dir)
 
 QStringList InputOutputMap::profileNames()
 {
-    QStringList list;
+    QStringList                      list;
     QListIterator<QLCInputProfile *> it(m_profiles);
     while (it.hasNext() == true)
         list << it.next()->name();
@@ -901,7 +901,7 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src, QString &uniNam
         /* There is no patch for the given universe */
         uniName = QString("%1 -UNPATCHED-").arg(src->universe() + 1);
 
-        ushort page = src->page();
+        ushort page    = src->page();
         ushort channel = (src->channel() & 0x0000FFFF) + 1;
 
         if (page != 0)
@@ -920,7 +920,7 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src, QString &uniNam
         else
             uniName = QString("%1: ??").arg(src->universe() + 1);
 
-        ushort page = src->page();
+        ushort page    = src->page();
         ushort channel = (src->channel() & 0x0000FFFF) + 1;
 
         if (page != 0)
@@ -931,14 +931,14 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src, QString &uniNam
     else
     {
         QLCInputChannel *ich;
-        QString name;
+        QString          name;
 
         /* Display profile name for universe */
         uniName = QString("%1: %2").arg(src->universe() + 1).arg(profile->name());
 
         /* User can input the channel number by hand, so put something
            rational to the channel name in those cases as well. */
-        ushort page = src->page();
+        ushort page    = src->page();
         ushort channel = (src->channel() & 0x0000FFFF);
 
         ich = profile->channel(channel);
@@ -1065,7 +1065,7 @@ void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value
 
     if (channel == CHANNEL_OFFSET_MBC_BEAT)
     {
-        int bpm = qRound(60000.0 / (float)elapsed);
+        int   bpm         = qRound(60000.0 / (float)elapsed);
         float currBpmTime = 60000.0 / (float)m_currentBPM;
         // here we check if the difference between the current BPM duration
         // and the current time elapsed is within a range of +/-1ms.
@@ -1095,28 +1095,28 @@ void InputOutputMap::loadDefaults()
 {
     /* ************************ INPUT *********************************** */
     QSettings settings;
-    QString plugin;
-    QString input;
-    QString key;
+    QString   plugin;
+    QString   input;
+    QString   key;
 
     for (quint32 i = 0; i < universesCount(); i++)
     {
         QString profileName;
-        bool passthrough;
+        bool    passthrough;
 
         /* Plugin name */
-        key = QString("/inputmap/universe%1/plugin/").arg(i);
+        key    = QString("/inputmap/universe%1/plugin/").arg(i);
         plugin = settings.value(key).toString();
 
         /* Plugin input */
-        key = QString("/inputmap/universe%1/input/").arg(i);
+        key   = QString("/inputmap/universe%1/input/").arg(i);
         input = settings.value(key).toString();
 
         /* Input profile */
-        key = QString("/inputmap/universe%1/profile/").arg(i);
+        key         = QString("/inputmap/universe%1/profile/").arg(i);
         profileName = settings.value(key).toString();
 
-        key = QString("/inputmap/universe%1/passthrough/").arg(i);
+        key         = QString("/inputmap/universe%1/passthrough/").arg(i);
         passthrough = settings.value(key).toBool();
         if (passthrough == true)
             m_universeArray.at(i)->setPassthrough(passthrough);
@@ -1134,19 +1134,19 @@ void InputOutputMap::loadDefaults()
     for (quint32 i = 0; i < universesCount(); i++)
     {
         /* Plugin name */
-        key = QString("/outputmap/universe%1/plugin/").arg(i);
+        key    = QString("/outputmap/universe%1/plugin/").arg(i);
         plugin = settings.value(key).toString();
 
         /* Plugin output */
-        key = QString("/outputmap/universe%1/output/").arg(i);
+        key    = QString("/outputmap/universe%1/output/").arg(i);
         output = settings.value(key).toString();
 
         /* Feedback plugin name */
-        key = QString("/outputmap/universe%1/feedbackplugin/").arg(i);
+        key       = QString("/outputmap/universe%1/feedbackplugin/").arg(i);
         fb_plugin = settings.value(key).toString();
 
         /* Feedback line */
-        key = QString("/outputmap/universe%1/feedback/").arg(i);
+        key      = QString("/outputmap/universe%1/feedback/").arg(i);
         feedback = settings.value(key).toString();
 
         if (plugin != KOutputNone && output != KOutputNone)
@@ -1161,7 +1161,7 @@ void InputOutputMap::saveDefaults()
 {
     /* ************************ INPUT *********************************** */
     QSettings settings;
-    QString key;
+    QString   key;
 
     for (quint32 i = 0; i < universesCount(); i++)
     {
@@ -1189,7 +1189,7 @@ void InputOutputMap::saveDefaults()
             settings.setValue(key, KInputNone);
 
         /* Passthrough */
-        key = QString("/inputmap/universe%1/passthrough/").arg(i);
+        key              = QString("/inputmap/universe%1/passthrough/").arg(i);
         bool passthrough = m_universeArray.at(i)->passthrough();
         if (passthrough == true)
             settings.setValue(key, passthrough);
@@ -1202,7 +1202,7 @@ void InputOutputMap::saveDefaults()
     for (quint32 i = 0; i < universesCount(); i++)
     {
         OutputPatch *outPatch = outputPatch(i);
-        OutputPatch *fbPatch = feedbackPatch(i);
+        OutputPatch *fbPatch  = feedbackPatch(i);
 
         key = QString("/outputmap/universe%1/plugin/").arg(i);
 

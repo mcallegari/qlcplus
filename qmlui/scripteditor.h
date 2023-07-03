@@ -38,7 +38,7 @@ public:
 
     /** Get/Set the content of the Script currently being edited */
     QString scriptContent() const;
-    void setScriptContent(QString scriptContent);
+    void    setScriptContent(QString scriptContent);
 
     Q_INVOKABLE QString syntaxErrors();
 

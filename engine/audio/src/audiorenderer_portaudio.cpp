@@ -45,7 +45,7 @@ AudioRendererPortAudio::~AudioRendererPortAudio()
         qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 }
 
-int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer, unsigned long frameCount,
+int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer, unsigned long                frameCount,
                                          const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *userData)
 {
     AudioRendererPortAudio *PAobj = (AudioRendererPortAudio *)userData;
@@ -73,9 +73,9 @@ int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer, unsig
 
 bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat format)
 {
-    PaError err;
+    PaError            err;
     PaStreamParameters outputParameters;
-    PaStreamFlags flags = paNoFlag;
+    PaStreamFlags      flags = paNoFlag;
 
     err = Pa_Initialize();
     if (err != paNoError)
@@ -84,7 +84,7 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
     if (m_device.isEmpty())
     {
         QSettings settings;
-        QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+        QVariant  var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
         if (var.isValid() == true)
             outputParameters.device = QString(var.toString()).toInt();
         else
@@ -101,27 +101,27 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
 
     m_channels = chan;
 
-    outputParameters.channelCount = chan; /* stereo output */
-    outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
+    outputParameters.channelCount              = chan; /* stereo output */
+    outputParameters.suggestedLatency          = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 
     switch (format)
     {
         case PCM_S8:
             outputParameters.sampleFormat = paInt8; /* 8 bit signed output */
-            m_frameSize = 1;
+            m_frameSize                   = 1;
             break;
         case PCM_S16LE:
             outputParameters.sampleFormat = paInt16; /* 16 bit signed output */
-            m_frameSize = 2;
+            m_frameSize                   = 2;
             break;
         case PCM_S24LE:
             outputParameters.sampleFormat = paInt24; /* 24 bit signed output */
-            m_frameSize = 3;
+            m_frameSize                   = 3;
             break;
         case PCM_S32LE:
             outputParameters.sampleFormat = paFloat32; /* 32 bit floating point output */
-            m_frameSize = 4;
+            m_frameSize                   = 4;
             break;
         default:
             qWarning("AudioRendererPortAudio: unsupported format detected");
@@ -169,8 +169,8 @@ QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
         if (deviceInfo != NULL)
         {
             AudioDeviceInfo info;
-            info.deviceName = QString(deviceInfo->name);
-            info.privateName = QString::number(i);
+            info.deviceName   = QString(deviceInfo->name);
+            info.privateName  = QString::number(i);
             info.capabilities = 0;
             if (deviceInfo->maxInputChannels > 0)
                 info.capabilities |= AUDIO_CAP_INPUT;

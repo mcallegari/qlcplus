@@ -32,78 +32,78 @@
 #include "qlcfile.h"
 
 // Channel groups
-#define KD4GroupSpecial "S"
+#define KD4GroupSpecial   "S"
 #define KD4GroupIntensity "I"
-#define KD4GroupPanTilt "P"
-#define KD4GroupColour "C"
-#define KD4GroupGobo "G"
-#define KD4GroupBeam "B"
-#define KD4GroupEffect "E"
+#define KD4GroupPanTilt   "P"
+#define KD4GroupColour    "C"
+#define KD4GroupGobo      "G"
+#define KD4GroupBeam      "B"
+#define KD4GroupEffect    "E"
 
 // Channels
-#define KD4TagFixture QString("Fixture")
-#define KD4TagName QString("Name")
+#define KD4TagFixture   QString("Fixture")
+#define KD4TagName      QString("Name")
 #define KD4TagShortName QString("ShortName")
-#define KD4TagCompany QString("Company")
-#define KD4TagControl QString("Control")
-#define KD4TagID QString("ID")
-#define KD4TagGroup QString("Group")
-#define KD4TagSpeed QString("Speed")
-#define KD4TagMacro QString("Macro")
-#define KD4TagReserved QString("Reserved")
-#define KD4TagShutter QString("Shutter")
-#define KD4TagPan QString("Pan")
-#define KD4TagTilt QString("Tilt")
-#define KD4TagCyan QString("Cyan")
-#define KD4TagMagenta QString("Magenta")
-#define KD4TagYellow QString("Yellow")
-#define KD4TagRed QString("Red")
-#define KD4TagBlue QString("Blue")
-#define KD4TagGreen QString("Green")
-#define KD4TagPrism QString("Prism")
-#define KD4TagEffect QString("Effect")
+#define KD4TagCompany   QString("Company")
+#define KD4TagControl   QString("Control")
+#define KD4TagID        QString("ID")
+#define KD4TagGroup     QString("Group")
+#define KD4TagSpeed     QString("Speed")
+#define KD4TagMacro     QString("Macro")
+#define KD4TagReserved  QString("Reserved")
+#define KD4TagShutter   QString("Shutter")
+#define KD4TagPan       QString("Pan")
+#define KD4TagTilt      QString("Tilt")
+#define KD4TagCyan      QString("Cyan")
+#define KD4TagMagenta   QString("Magenta")
+#define KD4TagYellow    QString("Yellow")
+#define KD4TagRed       QString("Red")
+#define KD4TagBlue      QString("Blue")
+#define KD4TagGreen     QString("Green")
+#define KD4TagPrism     QString("Prism")
+#define KD4TagEffect    QString("Effect")
 #define KD4TagAttribute QString("Attribute")
-#define KD4TagUpdate QString("Update")
+#define KD4TagUpdate    QString("Update")
 
 // Capabilities
-#define KD4TagFunction QString("Function")
-#define KD4TagFunctionName QString("Name")
-#define KD4TagFunctionDmx QString("Dmx")
+#define KD4TagFunction                  QString("Function")
+#define KD4TagFunctionName              QString("Name")
+#define KD4TagFunctionDmx               QString("Dmx")
 #define KD4TagFunctionDmxValueSeparator '~'
 
 // Mode section
-#define KD4TagMode QString("Mode")
-#define KD4TagModeName QString("Name")
-#define KD4TagModeInclude QString("Include")
-#define KD4TagModeAttribute QString("Attribute")
-#define KD4TagModeChannelOffset QString("ChannelOffset")
-#define KD4TagModeID QString("ID")
+#define KD4TagMode                 QString("Mode")
+#define KD4TagModeName             QString("Name")
+#define KD4TagModeInclude          QString("Include")
+#define KD4TagModeAttribute        QString("Attribute")
+#define KD4TagModeChannelOffset    QString("ChannelOffset")
+#define KD4TagModeID               QString("ID")
 #define KD4TagModeChannelSeparator ','
 
 // Palettes section
 #define KD4TagPalettes QString("Palettes")
-#define KD4TagPalette QString("Palette")
+#define KD4TagPalette  QString("Palette")
 
 // Physical section
-#define KD4TagPhysical QString("Physical")
-#define KD4TagPhysicalBulb QString("Bulb")
-#define KD4TagPhysicalBulbType QString("Type")
-#define KD4TagPhysicalBulbLumens QString("Lumens")
-#define KD4TagPhysicalBulbColourTemp QString("ColourTemp")
-#define KD4TagPhysicalLens QString("Lens")
-#define KD4TagPhysicalLensName QString("Name")
-#define KD4TagPhysicalLensDegrees QString("Degrees")
+#define KD4TagPhysical                     QString("Physical")
+#define KD4TagPhysicalBulb                 QString("Bulb")
+#define KD4TagPhysicalBulbType             QString("Type")
+#define KD4TagPhysicalBulbLumens           QString("Lumens")
+#define KD4TagPhysicalBulbColourTemp       QString("ColourTemp")
+#define KD4TagPhysicalLens                 QString("Lens")
+#define KD4TagPhysicalLensName             QString("Name")
+#define KD4TagPhysicalLensDegrees          QString("Degrees")
 #define KD4TagPhysicalLensDegreesSeparator QString('~')
-#define KD4TagPhysicalWeight QString("Weight")
-#define KD4TagPhysicalWeightKg QString("Kg")
-#define KD4TagPhysicalSize QString("Size")
-#define KD4TagPhysicalSizeHeight QString("Height")
-#define KD4TagPhysicalSizeWidth QString("Width")
-#define KD4TagPhysicalSizeDepth QString("Depth")
-#define KD4TagPhysicalFocus QString("Focus")
-#define KD4TagPhysicalFocusType QString("Type")
-#define KD4TagPhysicalFocusPanMax QString("PanMax")
-#define KD4TagPhysicalFocusTiltMax QString("TiltMax")
+#define KD4TagPhysicalWeight               QString("Weight")
+#define KD4TagPhysicalWeightKg             QString("Kg")
+#define KD4TagPhysicalSize                 QString("Size")
+#define KD4TagPhysicalSizeHeight           QString("Height")
+#define KD4TagPhysicalSizeWidth            QString("Width")
+#define KD4TagPhysicalSizeDepth            QString("Depth")
+#define KD4TagPhysicalFocus                QString("Focus")
+#define KD4TagPhysicalFocusType            QString("Type")
+#define KD4TagPhysicalFocusPanMax          QString("PanMax")
+#define KD4TagPhysicalFocusTiltMax         QString("TiltMax")
 
 // Static attibute map shared between instances of the parser, initialized only
 // once per application.
@@ -368,7 +368,7 @@ QLCCapability *AvolitesD4Parser::getCapability(QString dmx, QString name, bool i
     // sometimes they're switched!
     if (minValue > maxValue)
     {
-        int tmp = maxValue;
+        int tmp  = maxValue;
         maxValue = minValue;
         minValue = tmp;
     }
@@ -413,14 +413,14 @@ bool AvolitesD4Parser::parseFunction(QXmlStreamReader *doc, QLCFixtureDef *fixtu
                                      QString group)
 {
     QXmlStreamAttributes attrs = doc->attributes();
-    QString name = attrs.value(KD4TagFunctionName).toString();
+    QString              name  = attrs.value(KD4TagFunctionName).toString();
     if (name.isEmpty())
     {
         doc->skipCurrentElement();
         return true;
     }
 
-    QString dmx = attrs.value(KD4TagFunctionDmx).toString();
+    QString        dmx = attrs.value(KD4TagFunctionDmx).toString();
     QLCCapability *cap = getCapability(dmx, name);
 
     if (cap != NULL)
@@ -456,9 +456,9 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef *fixt
         return false;
 
     QXmlStreamAttributes attrs = doc->attributes();
-    QString ID = doc->attributes().value(KD4TagID).toString();
-    QString name = attrs.value(KD4TagName).toString();
-    QString group = attrs.value(KD4TagGroup).toString();
+    QString              ID    = doc->attributes().value(KD4TagID).toString();
+    QString              name  = attrs.value(KD4TagName).toString();
+    QString              group = attrs.value(KD4TagGroup).toString();
 
     QLCChannel *chan = new QLCChannel();
     chan->setName(name);

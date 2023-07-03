@@ -54,7 +54,7 @@ void IOPluginCache::load(const QDir &dir)
         return;
 
     QSettings settings;
-    QVariant hotplug = settings.value(SETTINGS_HOTPLUG);
+    QVariant  hotplug = settings.value(SETTINGS_HOTPLUG);
 
     /* Loop through all files in the directory */
     QStringListIterator it(dir.entryList());
@@ -69,7 +69,7 @@ void IOPluginCache::load(const QDir &dir)
             continue;
 #endif
         QPluginLoader loader(path, this);
-        QLCIOPlugin *ptr = qobject_cast<QLCIOPlugin *>(loader.instance());
+        QLCIOPlugin  *ptr = qobject_cast<QLCIOPlugin *>(loader.instance());
         if (ptr != NULL)
         {
             /* Check for duplicates */

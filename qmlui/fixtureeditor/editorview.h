@@ -59,20 +59,20 @@ public:
     bool isUser() const;
 
     /** Get/Set the fixture type */
-    int productType() const;
+    int  productType() const;
     void setProductType(int type);
 
     /** Get/Set the fixture manufacturer */
     QString manufacturer() const;
-    void setManufacturer(QString manufacturer);
+    void    setManufacturer(QString manufacturer);
 
     /** Get/Set the fixture model */
     QString model() const;
-    void setModel(QString model);
+    void    setModel(QString model);
 
     /** Get/Set the definition author */
     QString author() const;
-    void setAuthor(QString author);
+    void    setAuthor(QString author);
 
     /** Get an editor reference for the
      *  global physical properties */
@@ -87,13 +87,13 @@ signals:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView    *m_view;
     /** Unique ID of this editor */
-    int m_id;
+    int            m_id;
     /** Reference to the definition being edited */
     QLCFixtureDef *m_fixtureDef;
     /** Reference to the global physical properties */
-    PhysicalEdit *m_globalPhy;
+    PhysicalEdit  *m_globalPhy;
 
     /************************************************************************
      * Channels
@@ -167,7 +167,7 @@ public:
     Q_INVOKABLE bool saveAs(QString path);
 
     QString fileName();
-    void setFilenameFromModel();
+    void    setFilenameFromModel();
 
     /** Get the definition modification flag */
     bool isModified() const;
@@ -179,7 +179,7 @@ private:
     /** The definition file name */
     QString m_fileName;
     /** Definition modification flag */
-    bool m_isModified;
+    bool    m_isModified;
 };
 
 #endif // EDITORVIEW_H

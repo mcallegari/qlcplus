@@ -54,9 +54,9 @@ public:
     void setDataMap(const QModelIndex &index, QVariantMap data);
 
 protected:
-    QStringList m_roles;
+    QStringList            m_roles;
     QHash<int, QByteArray> roleNames() const;
-    QVariantList m_data;
+    QVariantList           m_data;
 };
 
 #endif // LISTMODEL_H

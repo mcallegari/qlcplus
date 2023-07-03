@@ -42,7 +42,7 @@ class QMenu;
  * @{
  */
 
-#define KXMLQLCFixtureManager "FixtureManager"
+#define KXMLQLCFixtureManager             "FixtureManager"
 #define KXMLQLCFixtureManagerSplitterSize "SplitterSize"
 
 class FixtureManager : public QWidget
@@ -159,14 +159,14 @@ private:
     QString channelsGroupInfoStyleSheetHeader();
 
 private:
-    QSplitter *m_splitter;
+    QSplitter         *m_splitter;
     FixtureTreeWidget *m_fixtures_tree;
-    QTreeWidget *m_channel_groups_tree;
-    QWidget *m_rdmManager;
+    QTreeWidget       *m_channel_groups_tree;
+    QWidget           *m_rdmManager;
 
-    QTextBrowser *m_info;
+    QTextBrowser       *m_info;
     FixtureGroupEditor *m_groupEditor;
-    int m_currentTabIndex;
+    int                 m_currentTabIndex;
 
     /********************************************************************
      * Menu & Toolbar & Actions
@@ -225,7 +225,7 @@ private:
 
     QAction *m_importAction;
     QAction *m_exportAction;
-    QMenu *m_groupMenu;
+    QMenu   *m_groupMenu;
 };
 
 /** @} */

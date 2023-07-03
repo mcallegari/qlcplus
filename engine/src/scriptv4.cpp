@@ -34,25 +34,25 @@
 #define KXMLQLCScriptCommand QString("Command")
 #define KXMLQLCScriptVersion QString("Version")
 
-const QString Script::startFunctionLegacy = QString("startfunction");
-const QString Script::startFunctionCmd = QString("Engine.startFunction");
-const QString Script::stopFunctionLegacy = QString("stopfunction");
-const QString Script::stopFunctionCmd = QString("Engine.stopFunction");
-const QString Script::blackoutLegacy = QString("blackout");
-const QString Script::blackoutCmd = QString("Engine.setBlackout");
-const QString Script::waitLegacy = QString("wait");
-const QString Script::waitCmd = QString("Engine.waitTime");
-const QString Script::setFixtureLegacy = QString("setfixture");
-const QString Script::setFixtureCmd = QString("Engine.setFixture");
-const QString Script::systemLegacy = QString("systemcommand");
-const QString Script::systemCmd = QString("Engine.systemCommand");
+const QString     Script::startFunctionLegacy = QString("startfunction");
+const QString     Script::startFunctionCmd    = QString("Engine.startFunction");
+const QString     Script::stopFunctionLegacy  = QString("stopfunction");
+const QString     Script::stopFunctionCmd     = QString("Engine.stopFunction");
+const QString     Script::blackoutLegacy      = QString("blackout");
+const QString     Script::blackoutCmd         = QString("Engine.setBlackout");
+const QString     Script::waitLegacy          = QString("wait");
+const QString     Script::waitCmd             = QString("Engine.waitTime");
+const QString     Script::setFixtureLegacy    = QString("setfixture");
+const QString     Script::setFixtureCmd       = QString("Engine.setFixture");
+const QString     Script::systemLegacy        = QString("systemcommand");
+const QString     Script::systemCmd           = QString("Engine.systemCommand");
 const QStringList knownKeywords(QStringList() << "ch"
                                               << "val"
                                               << "arg");
 
-const QString Script::blackoutOn = QString("on");      // LEGACY - NOT USED
-const QString Script::blackoutOff = QString("off");    // LEGACY - NOT USED
-const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
+const QString Script::blackoutOn  = QString("on");      // LEGACY - NOT USED
+const QString Script::blackoutOff = QString("off");     // LEGACY - NOT USED
+const QString Script::waitKeyCmd  = QString("waitkey"); // LEGACY - NOT USED
 
 /****************************************************************************
  * Initialization
@@ -160,7 +160,7 @@ QStringList Script::dataLines() const
 QList<quint32> Script::functionList() const
 {
     QList<quint32> list;
-    int count = 0;
+    int            count = 0;
 
     foreach (QString line, dataLines())
     {
@@ -218,8 +218,8 @@ QList<quint32> Script::fixtureList() const
 
 QStringList Script::syntaxErrorsLines()
 {
-    ScriptRunner *runner = new ScriptRunner(doc(), m_data);
-    QStringList errorList = runner->collectScriptData();
+    ScriptRunner *runner    = new ScriptRunner(doc(), m_data);
+    QStringList   errorList = runner->collectScriptData();
     // runner->deleteLater();
 
     return errorList;
@@ -375,8 +375,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return -1;
 
     QStringList valList = strippedStr.split(",");
-    int min = Function::stringToSpeed(valList.at(0));
-    int max = Function::stringToSpeed(valList.at(1));
+    int         min     = Function::stringToSpeed(valList.at(0));
+    int         max     = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
     return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
@@ -385,10 +385,10 @@ quint32 Script::getValueFromString(QString str, bool *ok)
 QString Script::convertLine(const QString &str, bool *ok)
 {
     QStringList values;
-    QString comment;
-    QString keyword;
-    QString command;
-    QString value;
+    QString     comment;
+    QString     keyword;
+    QString     command;
+    QString     value;
 
     if (ok != NULL)
         *ok = true; // in case, this is set to false afterwards
@@ -400,7 +400,7 @@ QString Script::convertLine(const QString &str, bool *ok)
 
     // Save everything after the first comment sign
     QString line = str;
-    int left = 0;
+    int     left = 0;
 
     while (left != -1)
     {
@@ -434,7 +434,7 @@ QString Script::convertLine(const QString &str, bool *ok)
         {
             // Keyword found
             keyword = line.mid(left, right - left);
-            left = right + 1;
+            left    = right + 1;
             if (command.isEmpty())
                 command = keyword;
         }
@@ -476,7 +476,7 @@ QString Script::convertLine(const QString &str, bool *ok)
             {
                 // Value found
                 value = line.mid(left, right - left);
-                left = right + 1;
+                left  = right + 1;
             }
         }
 
@@ -492,8 +492,8 @@ QString Script::convertLine(const QString &str, bool *ok)
             if (value.startsWith("random"))
             {
                 QStringList rToks = value.split(",");
-                QString min = rToks[0].mid(rToks[0].indexOf("(") + 1);
-                QString max = rToks[1].mid(0, rToks[1].indexOf(")"));
+                QString     min   = rToks[0].mid(rToks[0].indexOf("(") + 1);
+                QString     max   = rToks[1].mid(0, rToks[1].indexOf(")"));
                 if (min.contains("s") || min.contains("m") || min.contains("h"))
                 {
                     min.prepend("\"");

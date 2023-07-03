@@ -614,7 +614,7 @@ void ChaserRunner_Test::roundCheckPingPongBackward()
 
 void ChaserRunner_Test::writeNoSteps()
 {
-    Chaser chaser(m_doc);
+    Chaser       chaser(m_doc);
     ChaserRunner cr(m_doc, &chaser);
 
     QList<Universe *> ua;
@@ -630,7 +630,7 @@ void ChaserRunner_Test::writeForwardLoopZero()
     m_chaser->setRunOrder(Function::Loop);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
@@ -669,7 +669,7 @@ void ChaserRunner_Test::writeBackwardLoopZero()
     m_chaser->setRunOrder(Function::Loop);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
@@ -708,7 +708,7 @@ void ChaserRunner_Test::writeForwardSingleShotZero()
     m_chaser->setRunOrder(Function::SingleShot);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
@@ -738,7 +738,7 @@ void ChaserRunner_Test::writeBackwardSingleShotZero()
     m_chaser->setRunOrder(Function::SingleShot);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
@@ -768,7 +768,7 @@ void ChaserRunner_Test::writeForwardPingPongZero()
     m_chaser->setRunOrder(Function::PingPong);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
@@ -814,7 +814,7 @@ void ChaserRunner_Test::writeBackwardPingPongZero()
     m_chaser->setRunOrder(Function::PingPong);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     QVERIFY(cr.write(&timer, QList<Universe *>()) == true);
     timer.timerTick();
@@ -861,7 +861,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
@@ -927,7 +927,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
@@ -993,7 +993,7 @@ void ChaserRunner_Test::writeForwardSingleShotFive()
     m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
@@ -1039,7 +1039,7 @@ void ChaserRunner_Test::writeBackwardSingleShotFive()
     m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
@@ -1085,7 +1085,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     // Step 1
     for (uint i = 0; i < dur; i += MasterTimer::tick())
@@ -1160,7 +1160,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     // Step 3
     for (uint i = 0; i < dur; i += MasterTimer::tick())
@@ -1234,7 +1234,7 @@ void ChaserRunner_Test::writeNoAutoStep()
     m_chaser->setDuration(Function::infiniteSpeed());
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     for (int i = 0; i < 10; i++)
     {
@@ -1314,7 +1314,7 @@ void ChaserRunner_Test::adjustIntensity()
     m_chaser->setRunOrder(Function::Loop);
 
     ChaserRunner cr(m_doc, m_chaser);
-    MasterTimer timer(m_doc);
+    MasterTimer  timer(m_doc);
 
     cr.adjustStepIntensity(0.5);
 

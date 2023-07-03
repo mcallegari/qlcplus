@@ -40,9 +40,9 @@ MonitorFixture::MonitorFixture(QWidget *parent, Doc *doc)
     Q_ASSERT(doc != NULL);
 
     m_fixtureLabel = NULL;
-    m_fixture = Fixture::invalidId();
+    m_fixture      = Fixture::invalidId();
     m_channelStyle = MonitorProperties::DMXChannels;
-    m_valueStyle = MonitorProperties::DMXValues;
+    m_valueStyle   = MonitorProperties::DMXValues;
 
     new QGridLayout(this);
     layout()->setContentsMargins(3, 3, 3, 3);
@@ -116,7 +116,7 @@ void MonitorFixture::setFixture(quint32 fxi_id)
         delete m_valueLabels.takeFirst();
 
     m_fixture = fxi_id;
-    fxi = m_doc->fixture(m_fixture);
+    fxi       = m_doc->fixture(m_fixture);
     if (fxi != NULL)
     {
         /* The grid layout uses columns and rows. The first row is for
@@ -140,7 +140,7 @@ void MonitorFixture::setFixture(quint32 fxi_id)
         {
             const QLCChannel *channel = fxi->channel(i);
             /* Create the icon over the channel number */
-            QLabel *icon = new QLabel(this);
+            QLabel           *icon    = new QLabel(this);
             icon->setFixedSize(22, 22);
 
             /* Create a label for channel number */
@@ -181,7 +181,7 @@ quint32 MonitorFixture::fixture() const
 void MonitorFixture::slotChannelStyleChanged(MonitorProperties::ChannelStyle style)
 {
     QString str;
-    int i = 0;
+    int     i = 0;
 
     m_channelStyle = style;
 
@@ -219,7 +219,7 @@ void MonitorFixture::slotValueStyleChanged(MonitorProperties::ValueStyle style)
     {
         QLabel *label;
         QString str;
-        int value;
+        int     value;
 
         label = it.next();
         Q_ASSERT(label != NULL);
@@ -251,7 +251,7 @@ void MonitorFixture::slotValuesChanged()
         return;
 
     QByteArray fxValues = fxi->channelValues();
-    int i = 0;
+    int        i        = 0;
 
     QListIterator<QLabel *> it(m_valueLabels);
     while (it.hasNext() == true)

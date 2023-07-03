@@ -34,8 +34,8 @@ RGBItem::RGBItem(QAbstractGraphicsShapeItem *graphicsItem)
 void RGBItem::setColor(QRgb rgb)
 {
     m_oldColor = m_graphicsItem->brush().color();
-    m_color = QColor(rgb);
-    m_elapsed = 0;
+    m_color    = QColor(rgb);
+    m_elapsed  = 0;
 }
 
 QRgb RGBItem::color() const

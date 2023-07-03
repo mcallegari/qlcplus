@@ -48,7 +48,7 @@ public:
     QVariantList capabilityPresetList() const;
 
     /** Get/Set the channel's group */
-    int group() const;
+    int  group() const;
     void setGroup(int group);
 
     /** Get the list of capabilities for the channel being edited */
@@ -62,7 +62,7 @@ public:
     Q_INVOKABLE void removeCapabilityAtIndex(int index);
 
     /** Get/Set a preset for a capability at the given index */
-    Q_INVOKABLE int getCapabilityPresetAtIndex(int index);
+    Q_INVOKABLE int  getCapabilityPresetAtIndex(int index);
     Q_INVOKABLE void setCapabilityPresetAtIndex(int index, int preset);
 
     /** Get the type of preset for a capability at the given index */
@@ -73,7 +73,7 @@ public:
 
     /** Get/Set the value/resource of a preset for a capability at the given index */
     Q_INVOKABLE QVariant getCapabilityValueAt(int index, int vIndex);
-    Q_INVOKABLE void setCapabilityValueAt(int index, int vIndex, QVariant value);
+    Q_INVOKABLE void     setCapabilityValueAt(int index, int vIndex, QVariant value);
 
     /** Perform a check on a recently modified capability for overlapping and integrity */
     Q_INVOKABLE void checkCapabilities();

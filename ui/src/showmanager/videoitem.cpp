@@ -54,7 +54,7 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
 
 void VideoItem::calculateWidth()
 {
-    int newWidth = 0;
+    int    newWidth       = 0;
     qint64 video_duration = m_function->duration();
 
     if (video_duration != 0)
@@ -69,15 +69,15 @@ void VideoItem::calculateWidth()
 
 void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    float timeScale = 50 / (float)m_timeScale;
+    float   timeScale     = 50 / (float)m_timeScale;
     quint32 videoDuration = m_video->totalDuration();
 
     ShowItem::paint(painter, option, widget);
 
     if (videoDuration > 0)
     {
-        float xpos = 0;
-        int loopCount = qFloor(m_function->duration() / videoDuration);
+        float xpos      = 0;
+        int   loopCount = qFloor(m_function->duration() / videoDuration);
 
         for (int i = 0; i < loopCount; i++)
         {
@@ -155,7 +155,7 @@ void VideoItem::slotVideoDurationChanged(qint64)
 void VideoItem::slotScreenChanged()
 {
     QAction *action = (QAction *)sender();
-    int scrIdx = action->data().toInt();
+    int      scrIdx = action->data().toInt();
 
     m_video->setScreen(scrIdx);
 }

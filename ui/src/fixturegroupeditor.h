@@ -57,10 +57,10 @@ private slots:
     void slotResized();
 
 private:
-    FixtureGroup *m_grp; //! The group being edited
-    Doc *m_doc;          //! The QLC engine object
-    int m_row;           //! Currently selected row
-    int m_column;        //! Currently selected column
+    FixtureGroup *m_grp;    //! The group being edited
+    Doc          *m_doc;    //! The QLC engine object
+    int           m_row;    //! Currently selected row
+    int           m_column; //! Currently selected column
 };
 
 /** @} */

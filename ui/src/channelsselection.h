@@ -65,16 +65,16 @@ public:
     ChannelsSelection(Doc *doc, QWidget *parent = 0, ChannelSelectionType mode = NormalMode);
     ~ChannelsSelection();
 
-    void setChannelsList(QList<SceneValue> list);
+    void              setChannelsList(QList<SceneValue> list);
     QList<SceneValue> channelsList();
 
 private:
-    Doc *m_doc;
+    Doc                 *m_doc;
     ChannelSelectionType m_mode;
-    QList<SceneValue> m_channelsList;
+    QList<SceneValue>    m_channelsList;
 
 protected:
-    void updateFixturesTree();
+    void                     updateFixturesTree();
     QList<QTreeWidgetItem *> getSameChannels(QTreeWidgetItem *item);
 
 protected slots:

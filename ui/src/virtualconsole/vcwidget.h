@@ -38,40 +38,40 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCVCCaption QString("Caption")
+#define KXMLQLCVCCaption    QString("Caption")
 #define KXMLQLCVCFrameStyle QString("FrameStyle")
 
-#define KXMLQLCVCWidgetID QString("ID")
-#define KXMLQLCVCWidgetPage QString("Page")
+#define KXMLQLCVCWidgetID         QString("ID")
+#define KXMLQLCVCWidgetPage       QString("Page")
 #define KXMLQLCVCWidgetAppearance QString("Appearance")
 
 #define KXMLQLCVCWidgetForegroundColor QString("ForegroundColor")
 #define KXMLQLCVCWidgetBackgroundColor QString("BackgroundColor")
-#define KXMLQLCVCWidgetColorDefault QString("Default")
+#define KXMLQLCVCWidgetColorDefault    QString("Default")
 
-#define KXMLQLCVCWidgetFont QString("Font")
+#define KXMLQLCVCWidgetFont        QString("Font")
 #define KXMLQLCVCWidgetFontDefault QString("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage QString("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImage     QString("BackgroundImage")
 #define KXMLQLCVCWidgetBackgroundImageNone QString("None")
 
 #define KVCFrameStyleSunken (QFrame::Panel | QFrame::Sunken)
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
-#define KVCFrameStyleNone (QFrame::NoFrame)
+#define KVCFrameStyleNone   (QFrame::NoFrame)
 
-#define KXMLQLCVCWidgetKey QString("Key")
-#define KXMLQLCVCWidgetInput QString("Input")
-#define KXMLQLCVCWidgetInputUniverse QString("Universe")
-#define KXMLQLCVCWidgetInputChannel QString("Channel")
+#define KXMLQLCVCWidgetKey             QString("Key")
+#define KXMLQLCVCWidgetInput           QString("Input")
+#define KXMLQLCVCWidgetInputUniverse   QString("Universe")
+#define KXMLQLCVCWidgetInputChannel    QString("Channel")
 #define KXMLQLCVCWidgetInputLowerValue QString("LowerValue")
 #define KXMLQLCVCWidgetInputUpperValue QString("UpperValue")
 
-#define KXMLQLCWindowState QString("WindowState")
+#define KXMLQLCWindowState        QString("WindowState")
 #define KXMLQLCWindowStateVisible QString("Visible")
-#define KXMLQLCWindowStateX QString("X")
-#define KXMLQLCWindowStateY QString("Y")
-#define KXMLQLCWindowStateWidth QString("Width")
-#define KXMLQLCWindowStateHeight QString("Height")
+#define KXMLQLCWindowStateX       QString("X")
+#define KXMLQLCWindowStateY       QString("Y")
+#define KXMLQLCWindowStateWidth   QString("Width")
+#define KXMLQLCWindowStateHeight  QString("Height")
 
 class VCWidget : public QWidget
 {
@@ -140,7 +140,7 @@ public:
     int type();
 
     static QString typeToString(int type);
-    static QIcon typeToIcon(int type);
+    static QIcon   typeToIcon(int type);
 
 protected:
     int m_type;
@@ -175,7 +175,7 @@ protected:
      *********************************************************************/
 public:
     void setPage(int pNum);
-    int page();
+    int  page();
 
 protected:
     int m_page;
@@ -500,7 +500,7 @@ signals:
      *********************************************************************/
 public:
     virtual bool loadXML(QXmlStreamReader &root) = 0;
-    virtual bool saveXML(QXmlStreamWriter *doc) = 0;
+    virtual bool saveXML(QXmlStreamWriter *doc)  = 0;
 
     /**
      * Called for every VCWidget-based object after everything has been loaded.
@@ -568,7 +568,7 @@ public:
      * If widget is not disabled, this calls enableWidgetUI.
      */
     virtual void setLiveEdit(bool liveEdit);
-    void cancelLiveEdit();
+    void         cancelLiveEdit();
 
 protected slots:
     /** Listens to Doc mode changes */
@@ -612,7 +612,7 @@ public:
 
 protected:
     QPoint m_mousePressPoint;
-    bool m_resizeMode;
+    bool   m_resizeMode;
 
     /*********************************************************************
      * Event handlers

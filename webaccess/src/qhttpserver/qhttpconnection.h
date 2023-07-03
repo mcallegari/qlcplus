@@ -65,8 +65,8 @@ private:
     static int MessageComplete(http_parser *parser);
 
 private:
-    QTcpSocket *m_socket;
-    http_parser *m_parser;
+    QTcpSocket           *m_socket;
+    http_parser          *m_parser;
     http_parser_settings *m_parserSettings;
 
     // Since there can only be one request at any time even with pipelining.
@@ -75,8 +75,8 @@ private:
     QByteArray m_currentUrl;
     // The ones we are reading in from the parser
     HeaderHash m_currentHeaders;
-    QString m_currentHeaderField;
-    QString m_currentHeaderValue;
+    QString    m_currentHeaderField;
+    QString    m_currentHeaderValue;
 
     // Keep track of transmit buffer status
     qint64 m_transmitLen;
@@ -92,15 +92,15 @@ public:
     enum WebSocketOpCode
     {
         ContinuationFrame = 0x00,
-        TextFrame = 0x01,
-        BinaryFrame = 0x02,
-        ConnectionClose = 0x08,
-        Ping = 0x09,
-        Pong = 0x0A
+        TextFrame         = 0x01,
+        BinaryFrame       = 0x02,
+        ConnectionClose   = 0x08,
+        Ping              = 0x09,
+        Pong              = 0x0A
     };
 
     QHttpConnection *enableWebSocket(bool enable);
-    void webSocketWrite(WebSocketOpCode opCode, QByteArray data);
+    void             webSocketWrite(WebSocketOpCode opCode, QByteArray data);
 
 Q_SIGNALS:
     void webSocketDataReady(QHttpConnection *conn, QString data);
@@ -113,7 +113,7 @@ private:
     void webSocketRead(QByteArray data);
 
 private:
-    bool m_isWebSocket;
+    bool    m_isWebSocket;
     QTimer *m_pollTimer;
 
 public:

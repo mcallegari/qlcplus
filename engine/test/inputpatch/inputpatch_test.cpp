@@ -141,7 +141,7 @@ void InputPatch_Test::patch()
 
 void InputPatch_Test::parameters()
 {
-    InputPatch *ip = new InputPatch(0, this);
+    InputPatch   *ip   = new InputPatch(0, this);
     IOPluginStub *stub = static_cast<IOPluginStub *>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 

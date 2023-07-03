@@ -93,7 +93,7 @@ void FixtureGroup_Test::groupHead()
 void FixtureGroup_Test::id()
 {
     FixtureGroup grp(m_doc);
-    QSignalSpy spy(&grp, SIGNAL(changed(quint32)));
+    QSignalSpy   spy(&grp, SIGNAL(changed(quint32)));
     QCOMPARE(grp.id(), FixtureGroup::invalidId());
     grp.setId(69);
     QCOMPARE(grp.id(), quint32(69));
@@ -106,7 +106,7 @@ void FixtureGroup_Test::id()
 void FixtureGroup_Test::name()
 {
     FixtureGroup grp(m_doc);
-    QSignalSpy spy(&grp, SIGNAL(changed(quint32)));
+    QSignalSpy   spy(&grp, SIGNAL(changed(quint32)));
     QCOMPARE(grp.name(), QString());
     grp.setName("Esko Mörkö");
     QCOMPARE(spy.size(), 1);
@@ -119,7 +119,7 @@ void FixtureGroup_Test::name()
 void FixtureGroup_Test::size()
 {
     FixtureGroup grp(m_doc);
-    QSignalSpy spy(&grp, SIGNAL(changed(quint32)));
+    QSignalSpy   spy(&grp, SIGNAL(changed(quint32)));
     QCOMPARE(grp.size(), QSize());
     grp.setSize(QSize(10, 10));
     QCOMPARE(spy.size(), 1);
@@ -213,7 +213,7 @@ void FixtureGroup_Test::assignFixtureNoSize()
 
 void FixtureGroup_Test::assignFixture4x2()
 {
-    QLCPoint pt;
+    QLCPoint     pt;
     FixtureGroup grp(m_doc);
     grp.setSize(QSize(4, 2));
     QCOMPARE(grp.headList().size(), 0);
@@ -887,10 +887,10 @@ void FixtureGroup_Test::save()
         }
         else if (xmlReader.name().toString() == "Head")
         {
-            quint32 id = xmlReader.attributes().value("Fixture").toString().toUInt();
+            quint32  id = xmlReader.attributes().value("Fixture").toString().toUInt();
             QLCPoint pt(xmlReader.attributes().value("X").toString().toInt(),
                         xmlReader.attributes().value("Y").toString().toInt());
-            int head = xmlReader.readElementText().toInt();
+            int      head = xmlReader.readElementText().toInt();
             QCOMPARE(grp.head(pt), GroupHead(id, head));
             fixture++;
         }

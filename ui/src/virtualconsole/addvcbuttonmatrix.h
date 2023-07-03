@@ -79,14 +79,14 @@ private:
 
 private:
     QList<quint32> m_functions;
-    quint32 m_horizontalCount;
-    quint32 m_verticalCount;
-    quint32 m_buttonSize;
-    FrameStyle m_frameStyle;
+    quint32        m_horizontalCount;
+    quint32        m_verticalCount;
+    quint32        m_buttonSize;
+    FrameStyle     m_frameStyle;
 
-    Doc *m_doc;
-    OutputMap *m_outputMap;
-    InputMap *m_inputMap;
+    Doc         *m_doc;
+    OutputMap   *m_outputMap;
+    InputMap    *m_inputMap;
     MasterTimer *m_masterTimer;
 };
 

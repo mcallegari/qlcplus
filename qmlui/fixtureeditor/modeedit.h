@@ -44,7 +44,7 @@ public:
 
     /** Get/Set the name of the mode being edited */
     QString name() const;
-    void setName(QString name);
+    void    setName(QString name);
 
 signals:
     void nameChanged();

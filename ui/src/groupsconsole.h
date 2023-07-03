@@ -47,10 +47,10 @@ public:
     QList<ConsoleChannel *> groups();
 
 private:
-    Doc *m_doc;
+    Doc                    *m_doc;
     /** List of active ChannelsGroup IDs */
-    QList<quint32> m_ids;
-    QList<uchar> m_levels;
+    QList<quint32>          m_ids;
+    QList<uchar>            m_levels;
     QList<ConsoleChannel *> m_groups;
 
     /** init the widget view with groups sliders */

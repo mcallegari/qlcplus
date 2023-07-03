@@ -314,7 +314,7 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
             case Picture:
             {
                 QString modFilename = resource(i).toString();
-                QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
+                QDir    dir         = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
 
                 if (modFilename.contains(dir.path()))
                 {
@@ -377,8 +377,8 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
 
 bool QLCCapability::loadXML(QXmlStreamReader &doc)
 {
-    uchar min = 0;
-    uchar max = 0;
+    uchar   min = 0;
+    uchar   max = 0;
     QString str;
 
     if (doc.name() != KXMLQLCCapability)
@@ -389,7 +389,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
 
     /* Get low limit attribute (mandatory) */
     QXmlStreamAttributes attrs = doc.attributes();
-    str = attrs.value(KXMLQLCCapabilityMin).toString();
+    str                        = attrs.value(KXMLQLCCapabilityMin).toString();
     if (str.isEmpty() == true)
     {
         qWarning() << Q_FUNC_INFO << "Capability has no minimum limit.";
@@ -426,7 +426,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             if (QFileInfo(path).isRelative())
             {
                 QDir dir = QLCFile::systemDirectory(GOBODIR);
-                path = dir.path() + QDir::separator() + path;
+                path     = dir.path() + QDir::separator() + path;
             }
             setResource(0, path);
         }
@@ -473,7 +473,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         if (QFileInfo(path).isRelative())
         {
             QDir dir = QLCFile::systemDirectory(GOBODIR);
-            path = dir.path() + QDir::separator() + path;
+            path     = dir.path() + QDir::separator() + path;
             setPreset(GoboMacro);
         }
         else
@@ -528,10 +528,10 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
     {
         if (doc.name() == KXMLQLCCapabilityAlias)
         {
-            AliasInfo alias;
+            AliasInfo            alias;
             QXmlStreamAttributes attrs = doc.attributes();
 
-            alias.targetMode = attrs.value(KXMLQLCCapabilityAliasMode).toString();
+            alias.targetMode    = attrs.value(KXMLQLCCapabilityAliasMode).toString();
             alias.sourceChannel = attrs.value(KXMLQLCCapabilityAliasSourceName).toString();
             alias.targetChannel = attrs.value(KXMLQLCCapabilityAliasTargetName).toString();
             addAlias(alias);

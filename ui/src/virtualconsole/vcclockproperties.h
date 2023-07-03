@@ -52,7 +52,7 @@ protected slots:
 
 private:
     VCClock *m_clock;
-    Doc *m_doc;
+    Doc     *m_doc;
 
 protected:
     InputSelectionWidget *m_playInputWidget;

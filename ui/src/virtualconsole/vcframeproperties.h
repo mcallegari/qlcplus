@@ -42,13 +42,13 @@ public:
     VCFrameProperties(QWidget *parent, VCFrame *frame, Doc *doc);
     ~VCFrameProperties();
 
-    bool allowChildren() const;
-    bool allowResize() const;
-    bool showHeader() const;
+    bool    allowChildren() const;
+    bool    allowResize() const;
+    bool    showHeader() const;
     QString frameName() const;
-    bool multipageEnabled() const;
-    bool cloneWidgets() const;
-    bool pagesLoop() const;
+    bool    multipageEnabled() const;
+    bool    cloneWidgets() const;
+    bool    pagesLoop() const;
 
 protected slots:
     void slotMultipageChecked(bool enable);
@@ -60,13 +60,13 @@ protected slots:
     void slotKeySequenceChanged(QKeySequence key);
 
 protected:
-    VCFrame *m_frame;
-    Doc *m_doc;
-    InputSelectionWidget *m_inputEnableWidget;
-    InputSelectionWidget *m_inputNextPageWidget;
-    InputSelectionWidget *m_inputPrevPageWidget;
+    VCFrame                     *m_frame;
+    Doc                         *m_doc;
+    InputSelectionWidget        *m_inputEnableWidget;
+    InputSelectionWidget        *m_inputNextPageWidget;
+    InputSelectionWidget        *m_inputPrevPageWidget;
     QList<VCFramePageShortcut *> m_shortcuts;
-    InputSelectionWidget *m_shortcutInputWidget;
+    InputSelectionWidget        *m_shortcutInputWidget;
 
 public slots:
     void accept();

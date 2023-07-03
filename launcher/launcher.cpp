@@ -104,7 +104,7 @@ bool Launcher::eventFilter(QObject *object, QEvent *event)
     if (event->type() == QEvent::FileOpen)
     {
         QFileOpenEvent *fileOpenEvent(static_cast<QFileOpenEvent *>(event));
-        QString path(fileOpenEvent->url().path());
+        QString         path(fileOpenEvent->url().path());
         if (path.isEmpty() == true)
         {
             path = fileOpenEvent->file();

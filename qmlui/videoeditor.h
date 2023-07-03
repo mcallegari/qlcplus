@@ -52,7 +52,7 @@ public:
 
     /** Get/Set the source file name for this Video function */
     QString sourceFileName() const;
-    void setSourceFileName(QString sourceFileName);
+    void    setSourceFileName(QString sourceFileName);
 
     /** Get the supported video file types that can be decoded */
     QStringList videoExtensions() const;
@@ -66,7 +66,7 @@ public:
     QStringList screenList() const;
 
     /** Get/Set the screen index of this Video function */
-    int screenIndex() const;
+    int  screenIndex() const;
     void setScreenIndex(int screenIndex);
 
     /** Get/Set the fullscreen flag of this Video function */
@@ -81,14 +81,14 @@ public:
 
     /** Get/Set the custom geometry for this Video function */
     QRect customGeometry() const;
-    void setCustomGeometry(QRect customGeometry);
+    void  setCustomGeometry(QRect customGeometry);
 
     /** Get/Set a rotation transformation */
     QVector3D rotation() const;
-    void setRotation(QVector3D rotation);
+    void      setRotation(QVector3D rotation);
 
     /** Get/Set the layer of this Video function */
-    int layer() const;
+    int  layer() const;
     void setLayer(int index);
 
 protected slots:

@@ -38,7 +38,7 @@
 #include "doc.h"
 #include "bus.h"
 
-#define KXMLQLCChaserSpeedModeCommon "Common"
+#define KXMLQLCChaserSpeedModeCommon  "Common"
 #define KXMLQLCChaserSpeedModePerStep "PerStep"
 #define KXMLQLCChaserSpeedModeDefault "Default"
 
@@ -64,11 +64,11 @@ Chaser::Chaser(Doc *doc)
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
 
-    m_startupAction.m_action = ChaserNoAction;
+    m_startupAction.m_action          = ChaserNoAction;
     m_startupAction.m_masterIntensity = 1.0;
-    m_startupAction.m_stepIntensity = 1.0;
-    m_startupAction.m_fadeMode = FromFunction;
-    m_startupAction.m_stepIndex = -1;
+    m_startupAction.m_stepIntensity   = 1.0;
+    m_startupAction.m_fadeMode        = FromFunction;
+    m_startupAction.m_stepIndex       = -1;
 }
 
 Chaser::~Chaser() {}
@@ -108,10 +108,10 @@ bool Chaser::copyFrom(const Function *function)
         return false;
 
     // Copy chaser stuff
-    m_steps = chaser->m_steps;
-    m_fadeInMode = chaser->m_fadeInMode;
+    m_steps       = chaser->m_steps;
+    m_fadeInMode  = chaser->m_fadeInMode;
     m_fadeOutMode = chaser->m_fadeOutMode;
-    m_holdMode = chaser->m_holdMode;
+    m_holdMode    = chaser->m_holdMode;
 
     // Copy common function stuff
     return Function::copyFrom(function);
@@ -188,7 +188,7 @@ bool Chaser::moveStep(int sourceIdx, int destIdx)
 
     {
         QMutexLocker stepListLocker(&m_stepListMutex);
-        ChaserStep cs = m_steps[sourceIdx];
+        ChaserStep   cs = m_steps[sourceIdx];
         m_steps.removeAt(sourceIdx);
         m_steps.insert(destIdx, cs);
     }
@@ -232,7 +232,7 @@ void Chaser::setTotalDuration(quint32 msec)
         double dtDuration = (double)totalDuration();
         for (int i = 0; i < m_steps.count(); i++)
         {
-            uint origDuration = m_steps[i].duration;
+            uint origDuration   = m_steps[i].duration;
             m_steps[i].duration = ((double)m_steps[i].duration * msec) / dtDuration;
             if (m_steps[i].hold)
                 m_steps[i].hold = ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
@@ -371,7 +371,7 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
 bool Chaser::loadXMLSpeedModes(QXmlStreamReader &root)
 {
     QXmlStreamAttributes attrs = root.attributes();
-    QString str;
+    QString              str;
 
     str = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString();
     setFadeInMode(stringToSpeedMode(str));
@@ -427,7 +427,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         {
             //! @todo stepNumber is useless if the steps are in the wrong order
             ChaserStep step;
-            int stepNumber = -1;
+            int        stepNumber = -1;
 
             if (step.loadXML(root, stepNumber, doc()) == true)
             {
@@ -470,7 +470,7 @@ void Chaser::postLoad()
     while (it.hasNext() == true)
     {
         ChaserStep step(it.next());
-        Function *function = doc->function(step.fid);
+        Function  *function = doc->function(step.fid);
 
         if (function == NULL)
             it.remove();
@@ -500,11 +500,11 @@ void Chaser::setAction(ChaserAction &action)
     }
     else
     {
-        m_startupAction.m_action = action.m_action;
-        m_startupAction.m_stepIndex = action.m_stepIndex;
+        m_startupAction.m_action          = action.m_action;
+        m_startupAction.m_stepIndex       = action.m_stepIndex;
         m_startupAction.m_masterIntensity = action.m_masterIntensity;
-        m_startupAction.m_stepIntensity = action.m_stepIntensity;
-        m_startupAction.m_fadeMode = action.m_fadeMode;
+        m_startupAction.m_stepIntensity   = action.m_stepIntensity;
+        m_startupAction.m_fadeMode        = action.m_fadeMode;
     }
 }
 
@@ -640,7 +640,7 @@ void Chaser::setPause(bool enable)
     if (m_runner != NULL)
     {
         // request a change of pause state at the next write call
-        m_startupAction.m_action = ChaserPauseRequest;
+        m_startupAction.m_action   = ChaserPauseRequest;
         // use fade mode to pass through enable/disable flag
         m_startupAction.m_fadeMode = enable ? 1 : 0;
     }
@@ -724,6 +724,6 @@ void Chaser::adjustStepIntensity(qreal fraction, int stepIndex, FadeControlMode 
     else
     {
         m_startupAction.m_masterIntensity = getAttributeValue(Function::Intensity);
-        m_startupAction.m_stepIntensity = fraction;
+        m_startupAction.m_stepIntensity   = fraction;
     }
 }

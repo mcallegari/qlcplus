@@ -44,14 +44,14 @@ void UiManager::initialize()
      *  store a reference to it. In this way it is possible
      *  to change the UI settings at runtime */
     QQmlComponent component(m_view->engine());
-    const char *source = "import QtQuick 2.0\n"
-                         "import \".\"\n"
-                         "QtObject {\n"
-                         "    property var style: UISettings\n"
-                         "}";
+    const char   *source = "import QtQuick 2.0\n"
+                           "import \".\"\n"
+                           "QtObject {\n"
+                           "    property var style: UISettings\n"
+                           "}";
     component.setData(source, QUrl("qrc:/"));
     QObject *item = component.create();
-    m_uiStyle = qvariant_cast<QObject *>(item->property("style"));
+    m_uiStyle     = qvariant_cast<QObject *>(item->property("style"));
 
     /** Store default values first */
     setDefaultParameter("sizes", "scalingFactor", 1.0);
@@ -92,7 +92,7 @@ void UiManager::initialize()
         if (jsonFile.open(QIODevice::ReadOnly) != true)
             return;
 
-        QByteArray ba = jsonFile.readAll();
+        QByteArray    ba      = jsonFile.readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(ba, &parseError);
 
         if (parseError.error != QJsonParseError::NoError)
@@ -120,7 +120,7 @@ void UiManager::setDefaultParameter(QString category, QString name, QVariant val
 {
     UiProperty prop;
     prop.m_category = category;
-    prop.m_default = value;
+    prop.m_default  = value;
     prop.m_modified = value;
     m_parameterMap.insert(name, prop);
 }
@@ -154,18 +154,18 @@ QString UiManager::userConfFilepath()
 
 bool UiManager::saveSettings()
 {
-    bool ret = true;
-    QFile jsonFile(userConfFilepath());
+    bool                         ret = true;
+    QFile                        jsonFile(userConfFilepath());
     QMap<QString, QJsonObject *> objMap;
-    QJsonObject objRoot;
+    QJsonObject                  objRoot;
 
     /** Add parameters to JSON objects representing categories */
     QMapIterator<QString, UiProperty> it(m_parameterMap);
     while (it.hasNext())
     {
         it.next();
-        QString paramName = it.key();
-        UiProperty prop = it.value();
+        QString    paramName = it.key();
+        UiProperty prop      = it.value();
 
         if (objMap.contains(prop.m_category) == false)
             objMap.insert(prop.m_category, new QJsonObject());

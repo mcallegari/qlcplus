@@ -134,7 +134,7 @@ void ChannelModifierEditor::slotItemSelectionChanged()
     if (m_templatesTree->selectedItems().count() > 0)
     {
         QTreeWidgetItem *item = m_templatesTree->selectedItems().first();
-        m_currentTemplate = m_doc->modifiersCache()->modifier(item->text(0));
+        m_currentTemplate     = m_doc->modifiersCache()->modifier(item->text(0));
         m_view->setModifierMap(m_currentTemplate->modifierMap());
         m_templateNameEdit->setText(m_currentTemplate->name());
     }
@@ -173,8 +173,8 @@ void ChannelModifierEditor::slotSaveClicked()
         return;
     }
 
-    QList<QPair<uchar, uchar>> map = m_view->modifiersMap();
-    QString filename = QString("%1/%2%3")
+    QList<QPair<uchar, uchar>> map      = m_view->modifiersMap();
+    QString                    filename = QString("%1/%2%3")
                            .arg(QLCModifiersCache::userTemplateDirectory().absolutePath())
                            .arg(m_templateNameEdit->text().simplified())
                            .arg(KExtModifierTemplate);

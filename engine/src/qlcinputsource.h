@@ -44,11 +44,11 @@ public:
     bool isValid() const;
 
     /** Get/set the input source universe */
-    void setUniverse(quint32 uni);
+    void    setUniverse(quint32 uni);
     quint32 universe() const;
 
     /** Get/set the input source channel */
-    void setChannel(quint32 ch);
+    void    setChannel(quint32 ch);
     quint32 channel() const;
 
     /** Set the input source page by masking it to the
@@ -59,7 +59,7 @@ public:
     ushort page() const;
 
     /** Get/set the input source target ID */
-    void setID(quint32 id);
+    void    setID(quint32 id);
     quint32 id() const;
 
 private:
@@ -76,7 +76,7 @@ private:
      * Custom feedback
      *********************************************************************/
 public:
-    void setRange(uchar lower, uchar upper);
+    void  setRange(uchar lower, uchar upper);
     uchar lowerValue() const;
     uchar upperValue() const;
 
@@ -92,15 +92,15 @@ public:
     {
         Absolute = 0,
         Relative = 1,
-        Encoder = 2
+        Encoder  = 2
     };
 
     WorkingMode workingMode() const;
-    void setWorkingMode(WorkingMode mode);
+    void        setWorkingMode(WorkingMode mode);
 
     bool needsUpdate();
 
-    int sensitivity() const;
+    int  sensitivity() const;
     void setSensitivity(int value);
 
     bool sendExtraPressRelease() const;

@@ -52,7 +52,7 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func->type() == Function::VideoType)
     {
         VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
-        m_videoMap[id] = vWidget;
+        m_videoMap[id]       = vWidget;
     }
 }
 
@@ -229,10 +229,10 @@ void VideoWidget::slotMetaDataChanged()
 
 void VideoWidget::slotPlaybackVideo()
 {
-    int screen = m_video->screen();
+    int              screen  = m_video->screen();
     QList<QScreen *> screens = QGuiApplication::screens();
-    QScreen *scr = screens.count() > screen ? screens.at(screen) : screens.first();
-    QRect rect = scr->availableGeometry();
+    QScreen         *scr     = screens.count() > screen ? screens.at(screen) : screens.first();
+    QRect            rect    = scr->availableGeometry();
 
     if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)
     {

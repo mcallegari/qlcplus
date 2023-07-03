@@ -32,10 +32,10 @@
 #include "show.h"
 #include "doc.h"
 
-#define NAME_COL 0
+#define NAME_COL  0
 #define STEPS_COL 1
-#define TIME_COL 2
-#define DUR_COL 3
+#define TIME_COL  2
+#define DUR_COL   3
 
 #define PROP_ID Qt::UserRole
 
@@ -83,7 +83,7 @@ void ShowEditor::slotRemove() {}
 
 void ShowEditor::updateFunctionList()
 {
-    quint32 totalDuration = 0;
+    quint32                           totalDuration = 0;
     QHash<quint32, QTreeWidgetItem *> scenesMap;
 
     m_tree->clear();
@@ -102,7 +102,7 @@ void ShowEditor::updateFunctionList()
     foreach (Track *track, m_show->tracks())
     {
         QTreeWidgetItem *sceneItem = NULL;
-        Scene *scene = qobject_cast<Scene *>(m_doc->function(track->getSceneID()));
+        Scene           *scene     = qobject_cast<Scene *>(m_doc->function(track->getSceneID()));
         if (scene != NULL)
         {
             sceneItem = scenesMap[scene->id()];

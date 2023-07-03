@@ -110,9 +110,9 @@ void MainView3D::enableContext(bool enable)
     if (enable == false)
     {
         resetItems();
-        m_scene3D = nullptr;
+        m_scene3D         = nullptr;
         m_sceneRootEntity = nullptr;
-        m_quadEntity = nullptr;
+        m_quadEntity      = nullptr;
 
         if (m_stageEntity)
         {
@@ -139,7 +139,7 @@ void MainView3D::slotRefreshView()
         {
             for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
             {
-                quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+                quint16 headIndex   = m_monProps->fixtureHeadIndex(subID);
                 quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
                 createFixtureItem(fixture->id(), headIndex, linkedIndex,
                                   m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex), true);
@@ -194,7 +194,7 @@ void MainView3D::resetItems()
     m_latestGenericID = 0;
     m_createItemCount = 0;
 
-    m_frameCount = 0;
+    m_frameCount    = 0;
     m_minFrameCount = 0;
     m_maxFrameCount = 0;
     m_avgFrameCount = 1.0;
@@ -275,7 +275,7 @@ void MainView3D::setFrameCountEnabled(bool enable)
             delete m_frameAction;
             m_frameAction = nullptr;
         }
-        m_frameCount = 0;
+        m_frameCount    = 0;
         m_minFrameCount = 0;
         m_maxFrameCount = 0;
         m_avgFrameCount = 0;
@@ -480,17 +480,17 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (fixture == nullptr)
         return;
 
-    QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
-    QString openGobo = goboDirectory() + QDir::separator() + "Others/open.svg";
-    quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
-    QEntity *newItem = nullptr;
+    QString  meshPath = meshDirectory() + "fixtures" + QDir::separator();
+    QString  openGobo = goboDirectory() + QDir::separator() + "Others/open.svg";
+    quint32  itemID   = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
+    QEntity *newItem  = nullptr;
 
-    SceneItem *mesh = new SceneItem;
-    mesh->m_rootItem = nullptr;
+    SceneItem *mesh       = new SceneItem;
+    mesh->m_rootItem      = nullptr;
     mesh->m_rootTransform = nullptr;
-    mesh->m_armItem = nullptr;
-    mesh->m_headItem = nullptr;
-    mesh->m_selectionBox = nullptr;
+    mesh->m_armItem       = nullptr;
+    mesh->m_headItem      = nullptr;
+    mesh->m_selectionBox  = nullptr;
     m_createItemCount++;
 
     if (fixture->type() == QLCFixtureDef::LEDBarBeams)
@@ -680,11 +680,11 @@ void MainView3D::getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, Q
     if (vPosAttribute)
     {
         const float *bufferPtr = reinterpret_cast<const float *>(vPosAttribute->buffer()->data().constData());
-        uint stride = vPosAttribute->byteStride() / sizeof(float);
-        uint offset = vPosAttribute->byteOffset() / sizeof(float);
+        uint         stride    = vPosAttribute->byteStride() / sizeof(float);
+        uint         offset    = vPosAttribute->byteOffset() / sizeof(float);
         bufferPtr += offset;
         uint vertexCount = vPosAttribute->count();
-        uint dataCount = vPosAttribute->buffer()->data().size() / sizeof(float);
+        uint dataCount   = vPosAttribute->buffer()->data().size() / sizeof(float);
 
         // Make sure we have valid data
         if (((vertexCount * stride) + offset) > dataCount)
@@ -703,14 +703,14 @@ void MainView3D::getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, Q
         for (uint i = 0; i < vertexCount; i++)
         {
             float xVal = *bufferPtr++;
-            minX = qMin(xVal, minX);
-            maxX = qMax(xVal, maxX);
+            minX       = qMin(xVal, minX);
+            maxX       = qMax(xVal, maxX);
             float yVal = *bufferPtr++;
-            minY = qMin(yVal, minY);
-            maxY = qMax(yVal, maxY);
+            minY       = qMin(yVal, minY);
+            maxY       = qMax(yVal, maxY);
             float zVal = *bufferPtr++;
-            minZ = qMin(zVal, minZ);
-            maxZ = qMax(zVal, maxZ);
+            minZ       = qMin(zVal, minZ);
+            maxZ       = qMax(zVal, maxZ);
             bufferPtr += stride;
         }
 
@@ -758,14 +758,14 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef, QLayer *
     if (entity == nullptr)
         return nullptr;
 
-    QEntity *baseItem = nullptr;
-    QGeometryRenderer *geom = nullptr;
+    QEntity           *baseItem = nullptr;
+    QGeometryRenderer *geom     = nullptr;
 
     for (QComponent *component : entity->components()) // C++11
     {
         // qDebug() << "Class name:" << component->metaObject()->className();
 
-        QMaterial *material = qobject_cast<QMaterial *>(component);
+        QMaterial            *material  = qobject_cast<QMaterial *>(component);
         Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
 
         if (geom == nullptr)
@@ -833,9 +833,9 @@ void MainView3D::walkNode(QNode *e, int depth)
     QNodeVector nodes = e->childNodes();
     for (int i = 0; i < nodes.count(); ++i)
     {
-        QNode *node = nodes[i];
+        QNode   *node   = nodes[i];
         QEntity *entity = qobject_cast<QEntity *>(node);
-        QString indent;
+        QString  indent;
         indent.fill(' ', depth * 2);
         if (entity)
             qDebug().noquote() << indent << "Entity:" << entity;
@@ -851,24 +851,24 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     if (m_entitiesMap.contains(itemID) == false)
         return;
 
-    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint32 fxID        = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex   = FixtureUtils::itemHeadIndex(itemID);
     quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == nullptr)
         return;
 
-    quint32 itemFlags = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
-    QLCFixtureMode *fxMode = fixture->fixtureMode();
-    QVector3D fxSize(0.3, 0.3, 0.3);
-    int panDeg = 0;
-    int tiltDeg = 0;
-    qreal focusMax = 30;
-    qreal focusMin = 10;
-    bool calculateVolume = false;
-    QEntity *root = nullptr;
-    QEntity *baseItem = nullptr;
+    quint32         itemFlags = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
+    QLCFixtureMode *fxMode    = fixture->fixtureMode();
+    QVector3D       fxSize(0.3, 0.3, 0.3);
+    int             panDeg          = 0;
+    int             tiltDeg         = 0;
+    qreal           focusMax        = 30;
+    qreal           focusMin        = 10;
+    bool            calculateVolume = false;
+    QEntity        *root            = nullptr;
+    QEntity        *baseItem        = nullptr;
 
     if (fxMode != nullptr)
     {
@@ -881,8 +881,8 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         if (phy.depth())
             fxSize.setZ(phy.depth() / 1000.0);
 
-        panDeg = phy.focusPanMax() ? phy.focusPanMax() : 360;
-        tiltDeg = phy.focusTiltMax() ? phy.focusTiltMax() : 270;
+        panDeg   = phy.focusPanMax() ? phy.focusPanMax() : 360;
+        tiltDeg  = phy.focusTiltMax() ? phy.focusTiltMax() : 270;
         focusMin = phy.lensDegreesMin() ? phy.lensDegreesMin() : 10;
         focusMax = phy.lensDegreesMax() ? phy.lensDegreesMax() : 30;
     }
@@ -908,14 +908,14 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         root = fxEntity;
     }
 
-    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
-    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+    QLayer  *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
+    QEffect *sceneEffect        = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
 
     qDebug() << sceneDeferredLayer << sceneEffect;
 
-    QVector3D translation;
-    SceneItem *meshRef = m_entitiesMap.value(itemID);
-    meshRef->m_rootItem = fxEntity;
+    QVector3D  translation;
+    SceneItem *meshRef       = m_entitiesMap.value(itemID);
+    meshRef->m_rootItem      = fxEntity;
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
 
     if (meshRef->m_goboTexture != nullptr)
@@ -998,11 +998,11 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     }
     else
     {
-        QSizeF size = FixtureUtils::item2DDimension(fxMode, MonitorProperties::TopView);
+        QSizeF  size    = FixtureUtils::item2DDimension(fxMode, MonitorProperties::TopView);
         QPointF itemPos = FixtureUtils::available2DPosition(m_doc, MonitorProperties::TopView,
                                                             QRectF(0, 0, size.width(), size.height()));
         // add the new fixture to the Doc monitor properties
-        fxPos = QVector3D(itemPos.x(), 1000.0, itemPos.y());
+        fxPos           = QVector3D(itemPos.x(), 1000.0, itemPos.y());
         m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, fxPos);
         m_monProps->setFixtureFlags(fxID, headIndex, linkedIndex, 0);
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(QVector3D(0, 0, 0)), QVariant(fxPos));
@@ -1014,8 +1014,8 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     updateFixturePosition(itemID, fxPos);
     updateFixtureRotation(itemID, m_monProps->fixtureRotation(fxID, headIndex, linkedIndex));
 
-    QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
-    QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
+    QLayer            *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
+    QGeometryRenderer *selectionMesh  = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
 
     meshRef->m_selectionBox = qobject_cast<QEntity *>(m_selectionComponent->create());
     meshRef->m_selectionBox->setParent(m_sceneRootEntity);
@@ -1068,7 +1068,7 @@ void MainView3D::updateFixture(Fixture *fixture, QByteArray &previous)
 
     for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
     {
-        quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+        quint16 headIndex   = m_monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
         updateFixtureItem(fixture, headIndex, linkedIndex, previous);
     }
@@ -1076,14 +1076,14 @@ void MainView3D::updateFixture(Fixture *fixture, QByteArray &previous)
 
 void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous)
 {
-    quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+    quint32    itemID   = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     SceneItem *meshItem = m_entitiesMap.value(itemID, nullptr);
-    QColor color;
-    bool setPosition = false;
-    bool colorSet = false;
-    bool goboSet = false;
-    int panValue = 0;
-    int tiltValue = 0;
+    QColor     color;
+    bool       setPosition = false;
+    bool       colorSet    = false;
+    bool       goboSet     = false;
+    int        panValue    = 0;
+    int        tiltValue   = 0;
 
     if (meshItem == nullptr)
         return;
@@ -1109,7 +1109,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 
     quint32 masterDimmerChannel = fixture->masterIntensityChannel();
-    qreal masterDimmerValue = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
+    qreal   masterDimmerValue   = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
@@ -1250,7 +1250,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     break;
                     default:
                     {
-                        int speed;
+                        int  speed;
                         bool clockwise = FixtureUtils::goboTiming(cap, value, speed);
                         if (speed == -1)
                             break;
@@ -1291,7 +1291,7 @@ void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
     while (it.hasNext())
     {
         it.next();
-        quint32 fxID = it.key();
+        quint32    fxID    = it.key();
         SceneItem *meshRef = m_entitiesMap.value(fxID, nullptr);
 
         if (meshRef == nullptr || meshRef->m_rootItem == nullptr)
@@ -1507,13 +1507,13 @@ void MainView3D::createGenericItem(QString filename, int itemID)
         m_latestGenericID = itemID;
     }
 
-    SceneItem *mesh = new SceneItem;
-    mesh->m_rootItem = nullptr;
+    SceneItem *mesh       = new SceneItem;
+    mesh->m_rootItem      = nullptr;
     mesh->m_rootTransform = nullptr;
-    mesh->m_armItem = nullptr;
-    mesh->m_headItem = nullptr;
-    mesh->m_selectionBox = nullptr;
-    mesh->m_goboTexture = nullptr;
+    mesh->m_armItem       = nullptr;
+    mesh->m_headItem      = nullptr;
+    mesh->m_selectionBox  = nullptr;
+    mesh->m_goboTexture   = nullptr;
 
     QEntity *newItem = qobject_cast<QEntity *>(m_genericComponent->create());
     newItem->setParent(m_sceneRootEntity);
@@ -1541,17 +1541,17 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     // Technically there could be multiple entities referencing the scene loader
     // but sharing is discouraged, and in our case there will be one anyhow.
-    QEntity *root = entities[0];
-    bool calculateVolume = false;
+    QEntity *root            = entities[0];
+    bool     calculateVolume = false;
 
     qDebug() << "There are" << root->children().count() << "components in the loaded fixture";
 
-    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
-    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+    QLayer  *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
+    QEffect *sceneEffect        = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
 
-    QVector3D translation;
-    SceneItem *meshRef = m_genericMap.value(itemID);
-    meshRef->m_rootItem = itemEntity;
+    QVector3D  translation;
+    SceneItem *meshRef       = m_genericMap.value(itemID);
+    meshRef->m_rootItem      = itemEntity;
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
 
     // If this model has been already loaded, re-use the cached bounding volume
@@ -1570,8 +1570,8 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     if (calculateVolume)
         m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
 
-    QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
-    QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
+    QLayer            *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
+    QGeometryRenderer *selectionMesh  = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
 
     meshRef->m_selectionBox = qobject_cast<QEntity *>(m_selectionComponent->create());
     meshRef->m_selectionBox->setParent(m_sceneRootEntity);
@@ -1663,7 +1663,7 @@ void MainView3D::normalizeSelectedGenericItems()
         if (meshRef)
         {
             // adjust the item scale to target size
-            float factor = 1.0;
+            float factor     = 1.0;
             float targetSize = 2.0;
 
             if (targetSize / meshRef->m_volume.m_extents.x() < factor)
@@ -1915,8 +1915,8 @@ void MainView3D::createStage()
     m_stageEntity = qobject_cast<QEntity *>(stageComponent->create());
     m_stageEntity->setParent(m_sceneRootEntity);
 
-    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
-    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+    QLayer  *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
+    QEffect *sceneEffect        = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
     m_stageEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
 }

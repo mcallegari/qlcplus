@@ -39,7 +39,7 @@ public:
     ~ShowEditor();
 
 private:
-    Doc *m_doc;
+    Doc  *m_doc;
     Show *m_show; // The Show being edited
 
 private slots:

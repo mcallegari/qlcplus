@@ -67,7 +67,7 @@ public:
     bool saveXML(QXmlStreamWriter *doc);
 
 private:
-    quint32 m_id;
+    quint32   m_id;
     QDateTime m_time;
 };
 
@@ -100,10 +100,10 @@ public:
         Countdown
     };
 
-    void setClockType(ClockType type);
+    void      setClockType(ClockType type);
     ClockType clockType() const;
 
-    QString typeToString(ClockType type);
+    QString   typeToString(ClockType type);
     ClockType stringToType(QString str);
 
 
@@ -111,15 +111,15 @@ public:
      * Functions scheduling
      *********************************************************************/
 public:
-    void addSchedule(VCClockSchedule schedule);
-    void removeSchedule(int index);
-    void removeAllSchedule();
+    void                   addSchedule(VCClockSchedule schedule);
+    void                   removeSchedule(int index);
+    void                   removeAllSchedule();
     QList<VCClockSchedule> schedules();
 
 private:
-    ClockType m_clocktype;
+    ClockType              m_clocktype;
     QList<VCClockSchedule> m_scheduleList;
-    int m_scheduleIndex;
+    int                    m_scheduleIndex;
 
 private:
     FunctionParent functionParent() const;
@@ -156,10 +156,10 @@ protected slots:
     void slotUpdateTime();
 
 private:
-    int m_hh, m_mm, m_ss;
+    int     m_hh, m_mm, m_ss;
     quint32 m_targetTime;
     quint32 m_currentTime;
-    bool m_isPaused;
+    bool    m_isPaused;
 
 public:
     static const quint8 playInputSourceId;
@@ -206,7 +206,7 @@ private:
      *********************************************************************/
 public:
     VCWidget *createCopy(VCWidget *parent);
-    bool copyFrom(const VCWidget *widget);
+    bool      copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * Properties

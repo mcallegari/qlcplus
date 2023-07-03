@@ -57,18 +57,18 @@ private:
      * Fixture
      ********************************************************************/
 public:
-    void setFixture(quint32 fxi_id);
+    void    setFixture(quint32 fxi_id);
     quint32 fixture() const;
 
 public slots:
     void slotChannelStyleChanged(MonitorProperties::ChannelStyle style);
 
 protected:
-    quint32 m_fixture;
+    quint32                         m_fixture;
     MonitorProperties::ChannelStyle m_channelStyle;
-    QLabel *m_fixtureLabel;
-    QList<QLabel *> m_iconsLabels;
-    QList<QLabel *> m_channelLabels;
+    QLabel                         *m_fixtureLabel;
+    QList<QLabel *>                 m_iconsLabels;
+    QList<QLabel *>                 m_channelLabels;
 
     /********************************************************************
      * Values
@@ -78,7 +78,7 @@ public slots:
     void slotValuesChanged();
 
 protected:
-    QList<QLabel *> m_valueLabels;
+    QList<QLabel *>               m_valueLabels;
     MonitorProperties::ValueStyle m_valueStyle;
 };
 

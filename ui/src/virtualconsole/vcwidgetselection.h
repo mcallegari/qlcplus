@@ -41,12 +41,12 @@ public:
     VCWidget *getSelectedWidget();
 
 private:
-    QList<int> m_filters;
+    QList<int>        m_filters;
     QList<VCWidget *> m_widgetsList;
 
 protected:
     QList<VCWidget *> getChildren(VCWidget *obj);
-    void updateWidgetsTree();
+    void              updateWidgetsTree();
 
 protected slots:
     void slotItemSelectionChanged();

@@ -288,7 +288,7 @@ void VCButton_Test::copy()
     btn.enableStartupIntensity(true);
     btn.setStartupIntensity(qreal(0.2));
 
-    VCFrame parent(&w, m_doc);
+    VCFrame   parent(&w, m_doc);
     VCButton *copy = qobject_cast<VCButton *>(btn.createCopy(&parent));
     QVERIFY(copy != NULL);
     QCOMPARE(copy->caption(), QString("Foobar"));
@@ -488,7 +488,7 @@ void VCButton_Test::customMenu()
     QWidget w;
 
     VCButton btn(&w, m_doc);
-    QMenu *menu = btn.customMenu(NULL);
+    QMenu   *menu = btn.customMenu(NULL);
     QVERIFY(menu != NULL);
     QCOMPARE(menu->title(), tr("Icon"));
     QCOMPARE(menu->actions().size(), 2);

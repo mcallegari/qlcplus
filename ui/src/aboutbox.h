@@ -45,8 +45,8 @@ private slots:
 
 private:
     QTimer *m_timer;
-    int m_row;
-    int m_increment;
+    int     m_row;
+    int     m_increment;
 };
 
 /** @} */

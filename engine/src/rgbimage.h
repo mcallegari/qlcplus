@@ -65,10 +65,10 @@ private:
 
 private:
     QString m_filename;
-    bool m_animatedSource;
-    QMovie m_animatedPlayer;
-    QImage m_image;
-    QMutex m_mutex;
+    bool    m_animatedSource;
+    QMovie  m_animatedPlayer;
+    QImage  m_image;
+    QMutex  m_mutex;
 
     /************************************************************************
      * Animation
@@ -82,23 +82,23 @@ public:
         Animation
     };
 
-    void setAnimationStyle(AnimationStyle ani);
+    void           setAnimationStyle(AnimationStyle ani);
     AnimationStyle animationStyle() const;
 
-    static QString animationStyleToString(AnimationStyle ani);
+    static QString        animationStyleToString(AnimationStyle ani);
     static AnimationStyle stringToAnimationStyle(const QString &str);
-    static QStringList animationStyles();
+    static QStringList    animationStyles();
 
     void setXOffset(int offset);
-    int xOffset() const;
+    int  xOffset() const;
 
     void setYOffset(int offset);
-    int yOffset() const;
+    int  yOffset() const;
 
 private:
     AnimationStyle m_animationStyle;
-    int m_xOffset;
-    int m_yOffset;
+    int            m_xOffset;
+    int            m_yOffset;
 
     /************************************************************************
      * RGBAlgorithm

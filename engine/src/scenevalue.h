@@ -32,7 +32,7 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCSceneValue QString("Value")
+#define KXMLQLCSceneValue        QString("Value")
 #define KXMLQLCSceneValueFixture QString("Fixture")
 #define KXMLQLCSceneValueChannel QString("Channel")
 
@@ -93,7 +93,7 @@ public:
     /** Fixture ID */
     quint32 fxi;
     quint32 channel;
-    uchar value;
+    uchar   value;
 };
 
 Q_DECLARE_METATYPE(SceneValue)

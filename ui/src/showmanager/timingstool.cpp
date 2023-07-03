@@ -49,8 +49,8 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
     m_startDial = new SpeedDial(this);
     m_startDial->setTitle(tr("Start Time"));
     ushort dialMask = m_startDial->visibilityMask();
-    dialMask = (dialMask & ~SpeedDial::Infinite);
-    dialMask = (dialMask & ~SpeedDial::Tap);
+    dialMask        = (dialMask & ~SpeedDial::Infinite);
+    dialMask        = (dialMask & ~SpeedDial::Tap);
     m_startDial->setVisibilityMask(dialMask);
     m_startDial->setValue(m_item->getStartTime());
     layout()->addWidget(m_startDial);
@@ -66,7 +66,7 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
     m_durationOptions = new QGroupBox(tr("Duration options"));
 
     m_stretchOriginalRadio = new QRadioButton(tr("Stretch the original function duration"));
-    m_expandLoopRadio = new QRadioButton(tr("Loop function until duration is reached"));
+    m_expandLoopRadio      = new QRadioButton(tr("Loop function until duration is reached"));
     m_expandLoopRadio->setChecked(true);
 
     m_durationOptions->setLayout(new QVBoxLayout());
@@ -79,7 +79,7 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
 
     /* Position */
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    QVariant  var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         this->restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);

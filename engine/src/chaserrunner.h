@@ -42,16 +42,16 @@ class Doc;
 
 typedef struct
 {
-    int m_index;                     //! Index of the step from the original Chaser
-    Function *m_function;            //! Currently active function
-    quint32 m_elapsed;               //! Elapsed milliseconds
-    quint32 m_elapsedBeats;          //! Elapsed beats
-    uint m_fadeIn;                   //! Step fade in in ms
-    uint m_fadeOut;                  //! Step fade out in ms
-    uint m_duration;                 //! Step hold in ms
-    Universe::BlendMode m_blendMode; //! The original Function blend mode
-    int m_intensityOverrideId;       //! An ID to control the step intensity
-    int m_pIntensityOverrideId;      //! An ID to control the step parent intensity
+    int                 m_index;                //! Index of the step from the original Chaser
+    Function           *m_function;             //! Currently active function
+    quint32             m_elapsed;              //! Elapsed milliseconds
+    quint32             m_elapsedBeats;         //! Elapsed beats
+    uint                m_fadeIn;               //! Step fade in in ms
+    uint                m_fadeOut;              //! Step fade out in ms
+    uint                m_duration;             //! Step hold in ms
+    Universe::BlendMode m_blendMode;            //! The original Function blend mode
+    int                 m_intensityOverrideId;  //! An ID to control the step intensity
+    int                 m_pIntensityOverrideId; //! An ID to control the step parent intensity
 } ChaserRunnerStep;
 
 class ChaserRunner : public QObject
@@ -66,7 +66,7 @@ private slots:
     void slotChaserChanged();
 
 private:
-    const Doc *m_doc;
+    const Doc    *m_doc;
     const Chaser *m_chaser;
 
     /************************************************************************
@@ -150,14 +150,14 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
-    Function::Direction m_direction;         //! Run-time direction (reversed by ping-pong)
-    QList<ChaserRunnerStep *> m_runnerSteps; //! Queue of the currently running steps
-    quint32 m_startOffset;                   //! Start step offset time in milliseconds
-    ChaserAction m_pendingAction;            //! Action to be performed on steps at the next write call
-    int m_lastRunStepIdx;                    //! Index of the last step ran
-    quint32 m_lastFunctionID;                //! ID of the last Function ran (Scene only)
-    QElapsedTimer *m_roundTime;              //! Counts the time between steps
-    QVector<int> m_order;                    //! Array of step indices in a randomized order
+    Function::Direction       m_direction;      //! Run-time direction (reversed by ping-pong)
+    QList<ChaserRunnerStep *> m_runnerSteps;    //! Queue of the currently running steps
+    quint32                   m_startOffset;    //! Start step offset time in milliseconds
+    ChaserAction              m_pendingAction;  //! Action to be performed on steps at the next write call
+    int                       m_lastRunStepIdx; //! Index of the last step ran
+    quint32                   m_lastFunctionID; //! ID of the last Function ran (Scene only)
+    QElapsedTimer            *m_roundTime;      //! Counts the time between steps
+    QVector<int>              m_order;          //! Array of step indices in a randomized order
 
     /************************************************************************
      * Intensity

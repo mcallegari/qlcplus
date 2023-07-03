@@ -39,9 +39,9 @@ class NetworkPacketizer;
 typedef struct
 {
     /** Flag to recognize a host authenticated to the QLC+ network */
-    bool isAuthenticated;
+    bool        isAuthenticated;
     /** The unique host name in the QLC+ network */
-    QString hostName;
+    QString     hostName;
     /** The TCP socket for unicast client/server communication */
     QTcpSocket *tcpSocket;
 } NetworkHost;
@@ -69,7 +69,7 @@ public:
 
     /** Get/Set the name of the host within the QLC+ network */
     QString hostName() const;
-    void setHostName(QString hostName);
+    void    setHostName(QString hostName);
 
     int connectionsCount();
 
@@ -174,7 +174,7 @@ public:
     QVariant serverList() const;
 
     /** Get/Set the connection status of a QLC+ client instance */
-    int clientStatus() const;
+    int  clientStatus() const;
     void setClientStatus(int clientStatus);
 
 signals:
@@ -195,7 +195,7 @@ private:
 
     /** Project transfer variables */
     QByteArray m_projectData;
-    int m_projectSize;
+    int        m_projectSize;
 };
 
 #endif /* NETWORKMANAGER_H */

@@ -51,7 +51,7 @@ public slots:
 
 private:
     VCSpeedDial *m_dial;
-    Doc *m_doc;
+    Doc         *m_doc;
 
     /************************************************************************
      * Functions page
@@ -91,11 +91,11 @@ private:
      * Presets
      *********************************************************************/
 private:
-    void updateTree();
-    void updateTreeItem(VCSpeedDialPreset const &preset);
+    void               updateTree();
+    void               updateTreeItem(VCSpeedDialPreset const &preset);
     VCSpeedDialPreset *getSelectedPreset();
-    void addPreset(VCSpeedDialPreset *control);
-    void removePreset(quint8 id);
+    void               addPreset(VCSpeedDialPreset *control);
+    void               removePreset(quint8 id);
 
 protected slots:
     void slotTreeSelectionChanged();
@@ -108,9 +108,9 @@ protected slots:
     void slotKeySequenceChanged(QKeySequence key);
 
 protected:
-    quint8 m_lastAssignedID;
+    quint8                     m_lastAssignedID;
     QList<VCSpeedDialPreset *> m_presets;
-    InputSelectionWidget *m_presetInputWidget;
+    InputSelectionWidget      *m_presetInputWidget;
 };
 
 /** @} */

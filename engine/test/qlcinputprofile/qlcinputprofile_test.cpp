@@ -270,7 +270,7 @@ void QLCInputProfile_Test::assign()
     ich4->setName("Channel 4");
     ip.insertChannel(9000, ich4);
 
-    QLCInputProfile ip2;
+    QLCInputProfile  ip2;
     QLCInputChannel *ich5 = new QLCInputChannel;
     ich5->setName("First channel");
     ip2.insertChannel(0, ich5);
@@ -335,7 +335,7 @@ void QLCInputProfile_Test::load()
 void QLCInputProfile_Test::loadNoProfile()
 {
     QXmlStreamReader doc;
-    QLCInputProfile ip;
+    QLCInputProfile  ip;
     QVERIFY(ip.loadXML(doc) == false);
 
     QBuffer buffer;

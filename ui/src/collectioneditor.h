@@ -44,7 +44,7 @@ public:
     ~CollectionEditor();
 
 private:
-    Doc *m_doc;
+    Doc        *m_doc;
     Collection *m_collection; // The Collection being edited
 
 private slots:

@@ -34,7 +34,7 @@
 #undef private
 
 #define TESTPLUGINDIR "../iopluginstub"
-#define ENGINEDIR "../../src"
+#define ENGINEDIR     "../../src"
 #include "../common/resource_paths.h"
 
 static QDir testPluginDir()

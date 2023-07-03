@@ -598,7 +598,7 @@ void VirtualConsole::updateCustomMenu()
     {
         /* Change the custom menu to the last selected widget's menu */
         VCWidget *latestWidget = m_selectedWidgets.last();
-        m_customMenu = latestWidget->customMenu(m_editMenu);
+        m_customMenu           = latestWidget->customMenu(m_editMenu);
         if (m_customMenu != NULL)
             m_editMenu->addMenu(m_customMenu);
     }
@@ -763,8 +763,8 @@ void VirtualConsole::slotAddButtonMatrix()
     if (abm.exec() == QDialog::Rejected)
         return;
 
-    int h = abm.horizontalCount();
-    int v = abm.verticalCount();
+    int h  = abm.horizontalCount();
+    int v  = abm.verticalCount();
     int sz = abm.buttonSize();
 
     VCFrame *frame = NULL;
@@ -796,7 +796,7 @@ void VirtualConsole::slotAddButtonMatrix()
             int index = (y * h) + x;
             if (index < abm.functions().size())
             {
-                quint32 fid = abm.functions().at(index);
+                quint32   fid      = abm.functions().at(index);
                 Function *function = m_doc->function(fid);
                 if (function != NULL)
                 {
@@ -837,9 +837,9 @@ void VirtualConsole::slotAddSliderMatrix()
     if (avsm.exec() == QDialog::Rejected)
         return;
 
-    int width = avsm.width();
+    int width  = avsm.width();
     int height = avsm.height();
-    int count = avsm.amount();
+    int count  = avsm.amount();
 
     VCFrame *frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
@@ -1037,7 +1037,7 @@ void VirtualConsole::slotEditCut()
     else
     {
         m_editAction = EditCut;
-        m_clipboard = m_selectedWidgets;
+        m_clipboard  = m_selectedWidgets;
         m_editPasteAction->setEnabled(true);
     }
 
@@ -1056,7 +1056,7 @@ void VirtualConsole::slotEditCopy()
     else
     {
         m_editAction = EditCopy;
-        m_clipboard = m_selectedWidgets;
+        m_clipboard  = m_selectedWidgets;
         m_editPasteAction->setEnabled(true);
     }
 }
@@ -1073,7 +1073,7 @@ void VirtualConsole::slotEditPaste()
 
     VCWidget *parent;
     VCWidget *widget;
-    QRect bounds;
+    QRect     bounds;
 
     Q_ASSERT(contents() != NULL);
 
@@ -1150,7 +1150,7 @@ void VirtualConsole::slotEditDelete()
 {
     QString msg(tr("Do you wish to delete the selected widgets?"));
     QString title(tr("Delete widgets"));
-    int result = QMessageBox::question(this, title, msg, QMessageBox::Yes, QMessageBox::No);
+    int     result = QMessageBox::question(this, title, msg, QMessageBox::Yes, QMessageBox::No);
     if (result == QMessageBox::Yes)
     {
         while (m_selectedWidgets.isEmpty() == false)
@@ -1198,7 +1198,7 @@ void VirtualConsole::slotEditRename()
     if (m_selectedWidgets.isEmpty() == true)
         return;
 
-    bool ok = false;
+    bool    ok = false;
     QString text(m_selectedWidgets.last()->caption());
     text = QInputDialog::getText(this, tr("Rename widgets"), tr("Caption:"), QLineEdit::Normal, text, &ok);
     if (ok == true)
@@ -1323,7 +1323,7 @@ void VirtualConsole::slotForegroundNone()
 
 void VirtualConsole::slotFont()
 {
-    bool ok = false;
+    bool  ok = false;
     QFont font;
 
     Q_ASSERT(contents() != NULL);
@@ -1587,7 +1587,7 @@ void VirtualConsole::keyPressEvent(QKeyEvent *event)
     }
 
     QKeySequence seq(event->key() | (event->modifiers() & ~Qt::ControlModifier));
-    emit keyPressed(seq);
+    emit         keyPressed(seq);
 
     event->accept();
 }
@@ -1601,7 +1601,7 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent *event)
     }
 
     QKeySequence seq(event->key() | event->modifiers());
-    emit keyReleased(seq);
+    emit         keyReleased(seq);
 
     event->accept();
 }
@@ -1764,7 +1764,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         {
             // Edit tools already shown,
             // inform the widgets that we are out of live edit mode
-            m_liveEdit = false;
+            m_liveEdit                                    = false;
             QHash<quint32, VCWidget *>::iterator widgetIt = m_widgetsMap.begin();
             while (widgetIt != m_widgetsMap.end())
             {

@@ -42,33 +42,33 @@ class VCSliderProperties;
  * @{
  */
 
-#define KXMLQLCVCSlider QString("Slider")
-#define KXMLQLCVCSliderMode QString("SliderMode")
+#define KXMLQLCVCSlider            QString("Slider")
+#define KXMLQLCVCSliderMode        QString("SliderMode")
 #define KXMLQLCVCSliderWidgetStyle QString("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle QString("ValueDisplayStyle")
-#define KXMLQLCVCSliderValueDisplayStyleExact QString("Exact")
+#define KXMLQLCVCSliderValueDisplayStyle           QString("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact      QString("Exact")
 #define KXMLQLCVCSliderValueDisplayStylePercentage QString("Percentage")
-#define KXMLQLCVCSliderCatchValues QString("CatchValues")
+#define KXMLQLCVCSliderCatchValues                 QString("CatchValues")
 
 #define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
 
 #define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
 
-#define KXMLQLCVCSliderBusLowLimit QString("LowLimit")
+#define KXMLQLCVCSliderBusLowLimit  QString("LowLimit")
 #define KXMLQLCVCSliderBusHighLimit QString("HighLimit")
 
-#define KXMLQLCVCSliderLevel QString("Level")
-#define KXMLQLCVCSliderLevelLowLimit QString("LowLimit")
+#define KXMLQLCVCSliderLevel          QString("Level")
+#define KXMLQLCVCSliderLevelLowLimit  QString("LowLimit")
 #define KXMLQLCVCSliderLevelHighLimit QString("HighLimit")
-#define KXMLQLCVCSliderLevelValue QString("Value")
-#define KXMLQLCVCSliderLevelMonitor QString("Monitor")
-#define KXMLQLCVCSliderOverrideReset QString("Reset")
+#define KXMLQLCVCSliderLevelValue     QString("Value")
+#define KXMLQLCVCSliderLevelMonitor   QString("Monitor")
+#define KXMLQLCVCSliderOverrideReset  QString("Reset")
 
-#define KXMLQLCVCSliderChannel QString("Channel")
+#define KXMLQLCVCSliderChannel        QString("Channel")
 #define KXMLQLCVCSliderChannelFixture QString("Fixture")
 
-#define KXMLQLCVCSliderPlayback QString("Playback")
+#define KXMLQLCVCSliderPlayback         QString("Playback")
 #define KXMLQLCVCSliderPlaybackFunction QString("Function")
 
 class VCSlider : public VCWidget, public DMXSource
@@ -190,10 +190,10 @@ public:
         PercentageValue
     };
 
-    static QString valueDisplayStyleToString(ValueDisplayStyle style);
+    static QString           valueDisplayStyleToString(ValueDisplayStyle style);
     static ValueDisplayStyle stringToValueDisplayStyle(QString style);
 
-    void setValueDisplayStyle(ValueDisplayStyle style);
+    void              setValueDisplayStyle(ValueDisplayStyle style);
     ValueDisplayStyle valueDisplayStyle() const;
 
 protected:
@@ -234,11 +234,11 @@ public:
         /** Copy operator */
         LevelChannel &operator=(const LevelChannel &lc);
         /** Comparison operator */
-        bool operator==(const LevelChannel &lc) const;
+        bool          operator==(const LevelChannel &lc) const;
         /** Sorting operator */
-        bool operator<(const LevelChannel &lc) const;
+        bool          operator<(const LevelChannel &lc) const;
         /** Save the contents of a LevelChannel instance to an XML document */
-        void saveXML(QXmlStreamWriter *doc) const;
+        void          saveXML(QXmlStreamWriter *doc) const;
 
     public:
         /** The associated fixture ID */
@@ -345,14 +345,14 @@ protected slots:
 
 protected:
     QList<VCSlider::LevelChannel> m_levelChannels;
-    uchar m_levelLowLimit;
-    uchar m_levelHighLimit;
+    uchar                         m_levelLowLimit;
+    uchar                         m_levelHighLimit;
 
     QMutex m_levelValueMutex;
-    bool m_levelValueChanged;
-    uchar m_levelValue;
+    bool   m_levelValueChanged;
+    uchar  m_levelValue;
 
-    bool m_monitorEnabled;
+    bool  m_monitorEnabled;
     uchar m_monitorValue;
 
     /*********************************************************************
@@ -400,9 +400,9 @@ protected slots:
 
 protected:
     quint32 m_playbackFunction;
-    uchar m_playbackValue;
-    int m_playbackChangeCounter;
-    QMutex m_playbackValueMutex;
+    uchar   m_playbackValue;
+    int     m_playbackChangeCounter;
+    QMutex  m_playbackValueMutex;
 
 private:
     FunctionParent functionParent() const;
@@ -489,9 +489,9 @@ private slots:
     void slotSliderMoved(int value);
 
 protected:
-    QHBoxLayout *m_hbox;
-    QAbstractSlider *m_slider; //!< either ClickAndGoSlider or KnobWidget
-    bool m_externalMovement;
+    QHBoxLayout      *m_hbox;
+    QAbstractSlider  *m_slider; //!< either ClickAndGoSlider or KnobWidget
+    bool              m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
     /*********************************************************************
@@ -547,11 +547,11 @@ private slots:
 
 protected:
     ClickAndGoWidget::ClickAndGo m_cngType;
-    QHBoxLayout *m_cngBox;
-    QToolButton *m_cngButton;
-    QMenu *m_menu;
-    ClickAndGoWidget *m_cngWidget;
-    QColor m_cngRGBvalue;
+    QHBoxLayout                 *m_cngBox;
+    QToolButton                 *m_cngButton;
+    QMenu                       *m_menu;
+    ClickAndGoWidget            *m_cngWidget;
+    QColor                       m_cngRGBvalue;
 
     /*********************************************************************
      * Override reset button
@@ -571,7 +571,7 @@ protected slots:
 
 protected:
     QToolButton *m_resetButton;
-    bool m_isOverriding;
+    bool         m_isOverriding;
 
 private:
     QKeySequence m_overrideResetKeySequence;

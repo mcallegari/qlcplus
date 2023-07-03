@@ -62,7 +62,7 @@ public:
      ********************************************************************/
 public:
     void addItem(QLayoutItem *item);
-    int count() const;
+    int  count() const;
 
     MonitorLayoutItem *itemAt(int index) const;
     MonitorLayoutItem *takeAt(int index);
@@ -77,11 +77,11 @@ protected:
      ********************************************************************/
 public:
     Qt::Orientations expandingDirections() const;
-    bool hasHeightForWidth() const;
-    int heightForWidth(int) const;
-    QSize minimumSize() const;
-    void setGeometry(const QRect &rect);
-    QSize sizeHint() const;
+    bool             hasHeightForWidth() const;
+    int              heightForWidth(int) const;
+    QSize            minimumSize() const;
+    void             setGeometry(const QRect &rect);
+    QSize            sizeHint() const;
 
 protected:
     int doLayout(const QRect &rect, bool testOnly) const;

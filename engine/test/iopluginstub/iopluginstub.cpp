@@ -29,8 +29,8 @@ IOPluginStub::~IOPluginStub() {}
 void IOPluginStub::init()
 {
     m_configureCalled = 0;
-    m_canConfigure = false;
-    m_universe = QByteArray(int(4 * 512), char(0));
+    m_canConfigure    = false;
+    m_universe        = QByteArray(int(4 * 512), char(0));
 }
 
 QString IOPluginStub::name()

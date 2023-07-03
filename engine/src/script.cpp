@@ -40,19 +40,19 @@
 #define KXMLQLCScriptCommand "Command"
 
 const QString Script::startFunctionCmd = QString("startfunction");
-const QString Script::stopFunctionCmd = QString("stopfunction");
-const QString Script::blackoutCmd = QString("blackout");
+const QString Script::stopFunctionCmd  = QString("stopfunction");
+const QString Script::blackoutCmd      = QString("blackout");
 
-const QString Script::waitCmd = QString("wait");
+const QString Script::waitCmd    = QString("wait");
 const QString Script::waitKeyCmd = QString("waitkey");
 
 const QString Script::setFixtureCmd = QString("setfixture");
-const QString Script::systemCmd = QString("systemcommand");
+const QString Script::systemCmd     = QString("systemcommand");
 
 const QString Script::labelCmd = QString("label");
-const QString Script::jumpCmd = QString("jump");
+const QString Script::jumpCmd  = QString("jump");
 
-const QString Script::blackoutOn = QString("on");
+const QString Script::blackoutOn  = QString("on");
 const QString Script::blackoutOff = QString("off");
 
 const QStringList knownKeywords(QStringList() << "ch"
@@ -90,7 +90,7 @@ quint32 Script::totalDuration()
 
         if (tokens[0][0] == Script::waitCmd)
         {
-            bool ok = false;
+            bool    ok       = false;
             quint32 waitTime = getValueFromString(tokens[0][1], &ok);
             if (ok == true)
                 totalDuration += waitTime;
@@ -143,7 +143,7 @@ bool Script::setData(const QString &str)
     m_lines.clear();
     if (m_data.isEmpty() == false)
     {
-        int i = 1;
+        int         i     = 1;
         QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
         foreach (QString line, lines)
         {
@@ -325,7 +325,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
 void Script::preRun(MasterTimer *timer)
 {
     // Reset
-    m_waitCount = 0;
+    m_waitCount      = 0;
     m_currentCommand = 0;
     m_startedFunctions.clear();
 
@@ -402,8 +402,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return -1;
 
     QStringList valList = strippedStr.split(",");
-    int min = Function::stringToSpeed(valList.at(0));
-    int max = Function::stringToSpeed(valList.at(1));
+    int         min     = Function::stringToSpeed(valList.at(0));
+    int         max     = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
@@ -425,7 +425,7 @@ bool Script::executeCommand(int index, MasterTimer *timer, QList<Universe *> uni
     if (tokens.isEmpty() == true)
         return true; // Empty line
 
-    bool continueLoop = true;
+    bool    continueLoop = true;
     QString error;
     if (tokens[0].size() < 2)
     {
@@ -441,7 +441,7 @@ bool Script::executeCommand(int index, MasterTimer *timer, QList<Universe *> uni
     }
     else if (tokens[0][0] == Script::blackoutCmd)
     {
-        error = handleBlackout(tokens);
+        error        = handleBlackout(tokens);
         continueLoop = false;
     }
     else if (tokens[0][0] == Script::waitCmd)
@@ -502,7 +502,7 @@ QString Script::handleStartFunction(const QList<QStringList> &tokens, MasterTime
     if (tokens.size() > 1)
         return QString("Too many arguments");
 
-    bool ok = false;
+    bool    ok = false;
     quint32 id = tokens[0][1].toUInt(&ok);
     if (ok == false)
         return QString("Invalid function ID: %1").arg(tokens[0][1]);
@@ -531,7 +531,7 @@ QString Script::handleStopFunction(const QList<QStringList> &tokens)
     if (tokens.size() > 1)
         return QString("Too many arguments");
 
-    bool ok = false;
+    bool    ok = false;
     quint32 id = tokens[0][1].toUInt(&ok);
     if (ok == false)
         return QString("Invalid function ID: %1").arg(tokens[0][1]);
@@ -590,7 +590,7 @@ QString Script::handleWait(const QList<QStringList> &tokens)
     if (tokens.size() > 2)
         return QString("Too many arguments");
 
-    bool ok = false;
+    bool ok   = false;
     uint time = getValueFromString(tokens[0][1], &ok);
 
     qDebug() << "Wait time:" << time;
@@ -620,11 +620,11 @@ QString Script::handleSetFixture(const QList<QStringList> &tokens, QList<Univers
     if (tokens.size() > 4)
         return QString("Too many arguments");
 
-    bool ok = false;
-    quint32 id = 0;
-    quint32 ch = 0;
-    uchar value = 0;
-    double time = 0;
+    bool    ok    = false;
+    quint32 id    = 0;
+    quint32 ch    = 0;
+    uchar   value = 0;
+    double  time  = 0;
 
     id = getValueFromString(tokens[0][1], &ok);
     if (ok == false)
@@ -633,7 +633,7 @@ QString Script::handleSetFixture(const QList<QStringList> &tokens, QList<Univers
     for (int i = 1; i < tokens.size(); i++)
     {
         QStringList list = tokens[i];
-        list[0] = list[0].toLower().trimmed();
+        list[0]          = list[0].toLower().trimmed();
         if (list.size() == 2)
         {
             ok = false;
@@ -662,8 +662,8 @@ QString Script::handleSetFixture(const QList<QStringList> &tokens, QList<Univers
             int address = fxi->address() + ch;
             if (address < 512)
             {
-                quint32 universe = fxi->universe();
-                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                quint32                      universe = fxi->universe();
+                QSharedPointer<GenericFader> fader    = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
                     fader = universes[universe]->requestFader();
@@ -700,7 +700,7 @@ QString Script::handleSystemCommand(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
-    QString programName = tokens[0][1];
+    QString     programName = tokens[0][1];
     QStringList programArgs;
     for (int i = 1; i < tokens.size(); i++)
         programArgs << tokens[i][1];
@@ -751,8 +751,8 @@ QString Script::handleJump(const QList<QStringList> &tokens)
 QList<QStringList> Script::tokenizeLine(const QString &str, bool *ok)
 {
     QList<QStringList> tokens;
-    QString keyword;
-    QString value;
+    QString            keyword;
+    QString            value;
 
     if (ok != NULL)
         *ok = true; // in case, this is set to false afterwards
@@ -765,7 +765,7 @@ QList<QStringList> Script::tokenizeLine(const QString &str, bool *ok)
     {
         // Truncate everything after the first comment sign
         QString line = str;
-        int left = 0;
+        int     left = 0;
 
         while (left != -1)
         {
@@ -796,7 +796,7 @@ QList<QStringList> Script::tokenizeLine(const QString &str, bool *ok)
             {
                 // Keyword found
                 keyword = line.mid(left, right - left);
-                left = right + 1;
+                left    = right + 1;
             }
 
             // Try to see if there is a value between quotes
@@ -810,7 +810,7 @@ QList<QStringList> Script::tokenizeLine(const QString &str, bool *ok)
                 {
                     // Don't include the "" in the string
                     value = line.mid(quoteleft, quoteright - quoteleft);
-                    left = quoteright + 2;
+                    left  = quoteright + 2;
                 }
                 else
                 {
@@ -835,7 +835,7 @@ QList<QStringList> Script::tokenizeLine(const QString &str, bool *ok)
                 {
                     // Value found
                     value = line.mid(left, right - left);
-                    left = right + 1;
+                    left  = right + 1;
                 }
             }
 

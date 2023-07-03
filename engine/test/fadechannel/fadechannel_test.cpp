@@ -35,7 +35,7 @@
 
 void FadeChannel_Test::address()
 {
-    Doc doc(this);
+    Doc      doc(this);
     Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(400);
     fxi->setChannels(5);
@@ -54,7 +54,7 @@ void FadeChannel_Test::address()
 
 void FadeChannel_Test::addressInUniverse()
 {
-    Doc doc(this);
+    Doc      doc(this);
     Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(UNIVERSE_SIZE);
     fxi->setChannels(5);

@@ -93,15 +93,15 @@ protected:
     QString m_CSScode;
 
 protected:
-    Doc *m_doc;
+    Doc            *m_doc;
     VirtualConsole *m_vc;
-    SimpleDesk *m_sd;
-    WebAccessAuth *m_auth;
+    SimpleDesk     *m_sd;
+    WebAccessAuth  *m_auth;
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     WebAccessNetwork *m_netConfig;
 #endif
 
-    QHttpServer *m_httpServer;
+    QHttpServer             *m_httpServer;
     QList<QHttpConnection *> m_webSocketsList;
 
     bool m_pendingProjectLoaded;

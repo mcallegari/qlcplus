@@ -42,9 +42,9 @@ class QLCChannel;
  * @{
  */
 
-#define KXMLQLCFixtureMode QString("Mode")
-#define KXMLQLCFixtureModeName QString("Name")
-#define KXMLQLCFixtureModeChannel QString("Channel")
+#define KXMLQLCFixtureMode              QString("Mode")
+#define KXMLQLCFixtureModeName          QString("Name")
+#define KXMLQLCFixtureModeChannel       QString("Channel")
 #define KXMLQLCFixtureModeChannelNumber QString("Number")
 #define KXMLQLCFixtureModeChannelActsOn QString("ActsOn")
 
@@ -218,7 +218,7 @@ public:
     struct ChannelActsOnData
     {
         QLCChannel *channel;
-        int actsOnIndex;
+        int         actsOnIndex;
 
         ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex);
     };
@@ -309,7 +309,7 @@ public:
     bool useGlobalPhysical();
 
 protected:
-    bool m_useGlobalPhysical;
+    bool        m_useGlobalPhysical;
     QLCPhysical m_physical;
 
     /*********************************************************************
@@ -320,7 +320,7 @@ public:
     bool loadXML(QXmlStreamReader &doc);
 
     /** Save a mode to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool                              saveXML(QXmlStreamWriter *doc);
     QHash<QLCChannel *, QLCChannel *> actsOnChannelsList() const;
 };
 

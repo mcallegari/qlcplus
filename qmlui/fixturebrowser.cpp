@@ -122,7 +122,7 @@ void FixtureBrowser::setSelectedModel(QString selectedModel)
 
     m_selectedModel = selectedModel;
     setFixtureName(m_selectedModel);
-    m_selectedMode = QString();
+    m_selectedMode      = QString();
     m_modeChannelsCount = 1;
     emit selectedModelChanged(selectedModel);
     emit modesListChanged();
@@ -160,7 +160,7 @@ QStringList FixtureBrowser::modesList()
             modesList.append(mode->name());
             if (m_selectedMode.isEmpty())
             {
-                m_selectedMode = mode->name();
+                m_selectedMode      = mode->name();
                 m_modeChannelsCount = mode->channels().count();
             }
         }
@@ -250,9 +250,9 @@ void FixtureBrowser::setManufacturerIndex(int index)
 int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity, int gap, int requested)
 {
     qDebug() << "[FixtureBrowser] uniIdx:" << uniIdx << ", channels:" << channels << ", requested:" << requested;
-    bool isAvailable = true;
-    quint32 uniFilter = uniIdx == Universe::invalid() ? 0 : uniIdx;
-    quint32 absAddress = (requested & 0x01FF) | (uniFilter << 9);
+    bool    isAvailable = true;
+    quint32 uniFilter   = uniIdx == Universe::invalid() ? 0 : uniIdx;
+    quint32 absAddress  = (requested & 0x01FF) | (uniFilter << 9);
     for (int n = 0; n < quantity; n++)
     {
         for (int i = 0; i < channels; i++)
@@ -273,15 +273,15 @@ int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity,
     else
     {
         qDebug() << "[FixtureBrowser] Requested channel" << requested << "not available in universe" << uniFilter;
-        int validAddr = 0;
+        int validAddr   = 0;
         int freeCounter = 0;
-        absAddress = uniFilter << 9;
+        absAddress      = uniFilter << 9;
         for (int i = 0; i < 512; i++)
         {
             if (m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
             {
                 freeCounter = 0;
-                validAddr = i + 1;
+                validAddr   = i + 1;
             }
             else
                 freeCounter++;
@@ -306,7 +306,7 @@ int FixtureBrowser::availableChannel(quint32 fixtureID, int requested)
     if (fixture == nullptr)
         return -1;
 
-    quint32 channels = fixture->channels();
+    quint32 channels   = fixture->channels();
     quint32 absAddress = (requested & 0x01FF) | (fixture->universe() << 9);
 
     for (quint32 i = 0; i < channels; i++)
@@ -378,7 +378,7 @@ void FixtureBrowser::updateSearchTree()
         {
             if (manufacturer.toLower().contains(m_searchFilter) || model.toLower().contains(m_searchFilter))
             {
-                QVariantList params;
+                QVariantList   params;
                 TreeModelItem *item = m_searchTree->addItem(model, params, manufacturer);
                 item->setFlag(TreeModel::Expanded, true);
             }

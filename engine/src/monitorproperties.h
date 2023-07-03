@@ -43,15 +43,15 @@ typedef struct
     QVector3D m_position; ///< 3D item position
     QVector3D m_rotation; ///< 3D item rotation
     QVector3D m_scale;    ///< 3D item scale
-    QString m_name;       ///< Fixture/Item Custom name
-    QString m_resource;   ///< Generic: source file
-    QColor m_color;       ///< Generic: item color, Fixture: gel color
-    quint32 m_flags;      ///< Item flags as specified in the ItemsFlags enum
+    QString   m_name;     ///< Fixture/Item Custom name
+    QString   m_resource; ///< Generic: source file
+    QColor    m_color;    ///< Generic: item color, Fixture: gel color
+    quint32   m_flags;    ///< Item flags as specified in the ItemsFlags enum
 } PreviewItem;
 
 typedef struct
 {
-    PreviewItem m_baseItem;                ///< Base fixture item properties
+    PreviewItem                m_baseItem; ///< Base fixture item properties
     QMap<quint32, PreviewItem> m_subItems; ///< Map of the heads/linked fixtures
 } FixturePreviewItem;
 
@@ -123,10 +123,10 @@ public:
     void reset();
 
 private:
-    QFont m_font;
-    DisplayMode m_displayMode;
+    QFont        m_font;
+    DisplayMode  m_displayMode;
     ChannelStyle m_channelStyle;
-    ValueStyle m_valueStyle;
+    ValueStyle   m_valueStyle;
 
     /********************************************************************
      * Environment
@@ -180,7 +180,7 @@ public:
     }
 
     /** Get/Set the point of view to render the 2D preview */
-    void setPointOfView(PointOfView pov);
+    void               setPointOfView(PointOfView pov);
     inline PointOfView pointOfView() const
     {
         return m_pointOfView;
@@ -197,10 +197,10 @@ public:
     }
 
 private:
-    QVector3D m_gridSize;
-    GridUnits m_gridUnits;
+    QVector3D   m_gridSize;
+    GridUnits   m_gridUnits;
     PointOfView m_pointOfView;
-    StageType m_stageType;
+    StageType   m_stageType;
 
     /********************************************************************
      * Items flags
@@ -208,10 +208,10 @@ private:
 public:
     enum ItemFlags
     {
-        HiddenFlag = (1 << 0),
-        InvertedPanFlag = (1 << 1),
+        HiddenFlag       = (1 << 0),
+        InvertedPanFlag  = (1 << 1),
         InvertedTiltFlag = (1 << 2),
-        MeshZUpFlag = (1 << 3)
+        MeshZUpFlag      = (1 << 3)
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(ItemFlags)
@@ -251,23 +251,23 @@ public:
     bool containsItem(quint32 fid, quint16 head, quint16 linked);
 
     /** Get/Set the position of a Fixture with with the given $fid, $head and $linked index */
-    void setFixturePosition(quint32 fid, quint16 head, quint16 linked, QVector3D pos);
+    void      setFixturePosition(quint32 fid, quint16 head, quint16 linked, QVector3D pos);
     QVector3D fixturePosition(quint32 fid, quint16 head, quint16 linked) const;
 
     /** Get/Set the rotation of a Fixture with with the given $fid, $head and $linked index */
-    void setFixtureRotation(quint32 fid, quint16 head, quint16 linked, QVector3D degrees);
+    void      setFixtureRotation(quint32 fid, quint16 head, quint16 linked, QVector3D degrees);
     QVector3D fixtureRotation(quint32 fid, quint16 head, quint16 linked) const;
 
     /** Get/Set the color of a gel used to render a Fixture with with the given $fid, $head and $linked index */
-    void setFixtureGelColor(quint32 fid, quint16 head, quint16 linked, QColor col);
+    void   setFixtureGelColor(quint32 fid, quint16 head, quint16 linked, QColor col);
     QColor fixtureGelColor(quint32 fid, quint16 head, quint16 linked) const;
 
     /** Get/Set the name of a Fixture with with the given $fid, $head and $linked index */
-    void setFixtureName(quint32 fid, quint16 head, quint16 linked, QString name);
+    void    setFixtureName(quint32 fid, quint16 head, quint16 linked, QString name);
     QString fixtureName(quint32 fid, quint16 head, quint16 linked) const;
 
     /** Get/Set the flags of a Fixture with with the given $fid, $head and $linked index */
-    void setFixtureFlags(quint32 fid, quint16 head, quint16 linked, quint32 flags);
+    void    setFixtureFlags(quint32 fid, quint16 head, quint16 linked, quint32 flags);
     quint32 fixtureFlags(quint32 fid, quint16 head, quint16 linked) const;
 
     /** Get/Set all the Fixture item properties of a Fixture with ID $fid */
@@ -282,7 +282,7 @@ public:
 
     /** Get/Set a single Fixture item property with the given $fid, $head and $linked index */
     PreviewItem fixtureItem(quint32 fid, quint16 head, quint16 linked) const;
-    void setFixtureItem(quint32 fid, quint16 head, quint16 linked, PreviewItem props);
+    void        setFixtureItem(quint32 fid, quint16 head, quint16 linked, PreviewItem props);
 
     /** Get a list of Fixture IDs currently set in the Monitor */
     QList<quint32> fixtureItemsID() const
@@ -294,7 +294,7 @@ public:
     QList<quint32> fixtureIDList(quint32 fid) const;
 
 private:
-    bool m_showLabels;
+    bool                              m_showLabels;
     QMap<quint32, FixturePreviewItem> m_fixtureItems;
 
     /********************************************************************
@@ -318,27 +318,27 @@ public:
 
     /** Get/Set the custom name for an item with ID $itemID */
     QString itemName(quint32 itemID);
-    void setItemName(quint32 itemID, QString name);
+    void    setItemName(quint32 itemID, QString name);
 
     /** Get/Set the resource string for an item with ID $itemID */
     QString itemResource(quint32 itemID);
-    void setItemResource(quint32 itemID, QString resource);
+    void    setItemResource(quint32 itemID, QString resource);
 
     /** Get/Set the 3D position of an item with ID $itemID */
     QVector3D itemPosition(quint32 itemID);
-    void setItemPosition(quint32 itemID, QVector3D pos);
+    void      setItemPosition(quint32 itemID, QVector3D pos);
 
     /** Get/Set the 3D rotation of an item with ID $itemID */
     QVector3D itemRotation(quint32 itemID);
-    void setItemRotation(quint32 itemID, QVector3D rot);
+    void      setItemRotation(quint32 itemID, QVector3D rot);
 
     /** Get/Set the 3D scale of an item with ID $itemID */
     QVector3D itemScale(quint32 itemID);
-    void setItemScale(quint32 itemID, QVector3D scale);
+    void      setItemScale(quint32 itemID, QVector3D scale);
 
     /** Get/Set the flags of an item with ID $itemID */
     quint32 itemFlags(quint32 itemID);
-    void setItemFlags(quint32 itemID, quint32 flags);
+    void    setItemFlags(quint32 itemID, quint32 flags);
 
 private:
     QMap<quint32, PreviewItem> m_genericItems;
@@ -385,7 +385,7 @@ public:
     QString customBackground(quint32 fid);
 
 private:
-    QString m_commonBackgroundImage;
+    QString                m_commonBackgroundImage;
     QMap<quint32, QString> m_customBackgroundImages;
 
     /*********************************************************************

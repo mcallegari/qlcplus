@@ -36,7 +36,7 @@ class GenericDMXSource;
 
 typedef struct
 {
-    quint32 m_fID;
+    quint32     m_fID;
     QQuickItem *m_item;
 } selectedFunction;
 
@@ -76,7 +76,7 @@ public:
     ~FunctionManager();
 
     quint32 startupFunctionID() const;
-    void setStartupFunctionID(quint32 fid);
+    void    setStartupFunctionID(quint32 fid);
 
 signals:
     void startupFunctionIDChanged();
@@ -99,11 +99,11 @@ public:
 
     /** Enable/disable the display of a Function type in the functions tree */
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
-    int functionsFilter() const;
+    int              functionsFilter() const;
 
     /** Get/Set a string to filter Function names */
     QString searchFilter() const;
-    void setSearchFilter(QString searchFilter);
+    void    setSearchFilter(QString searchFilter);
 
     /** Create a new Function with the specified $type
      * If the optional fixturesList is provided, fixture IDs
@@ -220,14 +220,14 @@ public:
     QStringList videoExtensions() const;
 
     void setViewPosition(int viewPosition);
-    int viewPosition() const;
+    int  viewPosition() const;
 
 protected:
     quint32 addFunctiontoDoc(Function *func, QString name, bool select);
-    void addFunctionTreeItem(Function *func);
-    void updateFunctionsTree();
-    void clearTree();
-    void moveFunction(quint32 fID, QString newPath);
+    void    addFunctionTreeItem(Function *func);
+    void    updateFunctionsTree();
+    void    clearTree();
+    void    moveFunction(quint32 fID, QString newPath);
 
 signals:
     void functionsListChanged();
@@ -255,11 +255,11 @@ private:
     /** Reference of the QML view */
     QQuickView *m_view;
     /** Reference of the project workspace */
-    Doc *m_doc;
+    Doc        *m_doc;
     /** Reference to the Functions tree model */
-    TreeModel *m_functionTree;
+    TreeModel  *m_functionTree;
     /** The QML ListView position in pixel for state restoring */
-    int m_viewPosition;
+    int         m_viewPosition;
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;

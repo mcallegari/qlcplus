@@ -42,13 +42,13 @@ class RGBMatrix;
 
 #define KXMLQLCVCMatrix QString("Matrix")
 
-#define KXMLQLCVCMatrixFunction QString("Function")
+#define KXMLQLCVCMatrixFunction   QString("Function")
 #define KXMLQLCVCMatrixFunctionID QString("ID")
 
 #define KXMLQLCVCMatrixInstantApply QString("InstantApply")
 
 #define KXMLQLCVCMatrixStartColor QString("StartColor")
-#define KXMLQLCVCMatrixEndColor QString("EndColor")
+#define KXMLQLCVCMatrixEndColor   QString("EndColor")
 
 #define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
 
@@ -60,12 +60,12 @@ class VCMatrix : public VCWidget
 public:
     enum Visibility
     {
-        None = 0,
-        ShowSlider = 1 << 0,
-        ShowLabel = 1 << 1,
+        None                 = 0,
+        ShowSlider           = 1 << 0,
+        ShowLabel            = 1 << 1,
         ShowStartColorButton = 1 << 2,
-        ShowEndColorButton = 1 << 3,
-        ShowPresetCombo = 1 << 4,
+        ShowEndColorButton   = 1 << 3,
+        ShowPresetCombo      = 1 << 4,
     };
 
 public:
@@ -84,14 +84,14 @@ public:
 
 private:
     ClickAndGoSlider *m_slider;
-    bool m_sliderExternalMovement;
-    QLabel *m_label;
-    QToolButton *m_startColorButton;
+    bool              m_sliderExternalMovement;
+    QLabel           *m_label;
+    QToolButton      *m_startColorButton;
     ClickAndGoWidget *m_scCnGWidget;
-    QToolButton *m_endColorButton;
+    QToolButton      *m_endColorButton;
     ClickAndGoWidget *m_ecCnGWidget;
-    QComboBox *m_presetCombo;
-    FlowLayout *m_controlsLayout;
+    QComboBox        *m_presetCombo;
+    FlowLayout       *m_controlsLayout;
 
     /*********************************************************************
      * Clipboard
@@ -196,8 +196,8 @@ private:
      * Base items visibility
      *********************************************************************/
 public:
-    void setVisibilityMask(quint32 mask);
-    quint32 visibilityMask() const;
+    void           setVisibilityMask(quint32 mask);
+    quint32        visibilityMask() const;
     static quint32 defaultVisibilityMask();
 
 private:
@@ -207,8 +207,8 @@ private:
      * Custom controls
      *********************************************************************/
 public:
-    void addCustomControl(VCMatrixControl const &control);
-    void resetCustomControls();
+    void                     addCustomControl(VCMatrixControl const &control);
+    void                     resetCustomControls();
     QList<VCMatrixControl *> customControls() const;
 
 protected slots:

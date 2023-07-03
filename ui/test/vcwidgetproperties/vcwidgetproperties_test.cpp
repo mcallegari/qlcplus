@@ -154,12 +154,12 @@ void VCWidgetProperties_Test::loadWrongRoot()
 void VCWidgetProperties_Test::save()
 {
     VCWidgetProperties p;
-    p.m_state = Qt::WindowMinimized;
+    p.m_state   = Qt::WindowMinimized;
     p.m_visible = true;
-    p.m_x = 10;
-    p.m_y = 20;
-    p.m_width = 30;
-    p.m_height = 40;
+    p.m_x       = 10;
+    p.m_y       = 20;
+    p.m_width   = 30;
+    p.m_height  = 40;
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -222,12 +222,12 @@ void VCWidgetProperties_Test::save()
 void VCWidgetProperties_Test::copy()
 {
     VCWidgetProperties p;
-    p.m_state = Qt::WindowMinimized;
+    p.m_state   = Qt::WindowMinimized;
     p.m_visible = true;
-    p.m_x = 10;
-    p.m_y = 20;
-    p.m_width = 30;
-    p.m_height = 40;
+    p.m_x       = 10;
+    p.m_y       = 20;
+    p.m_width   = 30;
+    p.m_height  = 40;
 
     VCWidgetProperties p2(p);
     QCOMPARE(p2.state(), p.state());

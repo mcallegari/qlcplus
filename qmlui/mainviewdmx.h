@@ -82,8 +82,8 @@ protected slots:
 private:
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *fixtureComponent;
-    bool m_showAddresses;
-    bool m_relativeAddresses;
+    bool           m_showAddresses;
+    bool           m_relativeAddresses;
 };
 
 #endif // MAINVIEWDMX_H

@@ -56,13 +56,13 @@ public:
 public:
     /** Set/Get the current step index */
     void setCurrentStepIndex(int index);
-    int currentStepIndex() const;
+    int  currentStepIndex() const;
 
     /** Calculate the RGB components delta between $startColor and $endColor */
     void calculateColorDelta(QColor startColor, QColor endColor);
 
     /** Set/Get the final color of the next step to be reproduced */
-    void setStepColor(QColor color);
+    void   setStepColor(QColor color);
     QColor stepColor();
 
     /** Update the color of the next step to be reproduced, considering the step index,
@@ -86,11 +86,11 @@ private:
     /** The current direction of the steps playback */
     Function::Direction m_direction;
     /** The index of the algorithm step currently being reproduced */
-    int m_currentStepIndex;
+    int                 m_currentStepIndex;
     /** The RGB color passed to the currently loaded algorithm */
-    QColor m_stepColor;
+    QColor              m_stepColor;
     /** Color delta values of the RGB components between each step */
-    int m_crDelta, m_cgDelta, m_cbDelta;
+    int                 m_crDelta, m_cgDelta, m_cbDelta;
 };
 
 class RGBMatrix : public Function
@@ -144,13 +144,13 @@ public:
 public:
     /** Get/Set the Fixture Group associated to this RGBMatrix */
     quint32 fixtureGroup() const;
-    void setFixtureGroup(quint32 id);
+    void    setFixtureGroup(quint32 id);
 
     /** @reimp */
     QList<quint32> components();
 
 private:
-    quint32 m_fixtureGroupID;
+    quint32       m_fixtureGroupID;
     FixtureGroup *m_group;
 
     /************************************************************************
@@ -181,24 +181,24 @@ private:
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
 #else
-    QRecursiveMutex m_algorithmMutex;
+    QRecursiveMutex  m_algorithmMutex;
 #endif
 
     /************************************************************************
      * Color
      ************************************************************************/
 public:
-    void setStartColor(const QColor &c);
+    void   setStartColor(const QColor &c);
     QColor startColor() const;
 
-    void setEndColor(const QColor &c);
+    void   setEndColor(const QColor &c);
     QColor endColor() const;
 
     void updateColorDelta();
 
 private:
-    QColor m_startColor;
-    QColor m_endColor;
+    QColor         m_startColor;
+    QColor         m_endColor;
     RGBMatrixStep *m_stepHandler;
 
     /************************************************************************
@@ -246,7 +246,7 @@ private:
     void roundCheck();
 
     FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
-    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
+    void         updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */
     void updateMapChannels(const RGBMap &map, const FixtureGroup *grp, QList<Universe *> universes);
@@ -296,7 +296,7 @@ public:
 
     /** Get/Set the control mode associated to this RGBMatrix */
     ControlMode controlMode() const;
-    void setControlMode(ControlMode mode);
+    void        setControlMode(ControlMode mode);
 
     /** Return a control mode from a string */
     static ControlMode stringToControlMode(QString mode);

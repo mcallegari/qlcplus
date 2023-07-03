@@ -63,9 +63,9 @@ public slots:
     int exec();
 
 private:
-    Doc *m_doc;
+    Doc                 *m_doc;
     FunctionsTreeWidget *m_funcTree;
-    bool m_isInitializing;
+    bool                 m_isInitializing;
 
     /*********************************************************************
      * None entry
@@ -74,7 +74,7 @@ public:
     void showNone(bool show = false);
 
 private:
-    bool m_none;
+    bool             m_none;
     QTreeWidgetItem *m_noneItem;
 
     /*********************************************************************
@@ -84,7 +84,7 @@ public:
     void showNewTrack(bool show = false);
 
 private:
-    bool m_newTrack;
+    bool             m_newTrack;
     QTreeWidgetItem *m_newTrackItem;
 
     /*********************************************************************
@@ -146,8 +146,8 @@ protected slots:
 #endif
 
 private:
-    int m_filter;
-    int m_disableFilters;
+    int  m_filter;
+    int  m_disableFilters;
     bool m_constFilter;
 
     /*********************************************************************

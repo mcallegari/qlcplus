@@ -33,7 +33,7 @@ public:
     explicit AudioTriggerWidget(QWidget *parent = 0);
 
     void setBarsNumber(int num);
-    int barsNumber();
+    int  barsNumber();
 
     void setMaxFrequency(int freq);
 
@@ -51,12 +51,12 @@ protected:
 
 private:
     double *m_spectrumBands;
-    int m_spectrumHeight;
+    int     m_spectrumHeight;
     quint32 m_volumeBarHeight;
 
-    int m_barsNumber;
+    int   m_barsNumber;
     float m_barWidth;
-    int m_maxFrequency;
+    int   m_maxFrequency;
 };
 
 /** @} */

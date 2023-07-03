@@ -37,7 +37,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCFixtureGroup QString("FixtureGroup")
+#define KXMLQLCFixtureGroup   QString("FixtureGroup")
 #define KXMLQLCFixtureGroupID QString("ID")
 
 class FixtureGroup : public QObject
@@ -195,8 +195,8 @@ private:
      ************************************************************************/
 public:
     static bool loader(QXmlStreamReader &xmlDoc, Doc *doc);
-    bool loadXML(QXmlStreamReader &xmlDoc);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool        loadXML(QXmlStreamReader &xmlDoc);
+    bool        saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

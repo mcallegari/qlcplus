@@ -55,52 +55,52 @@ public:
 
 public:
     QString bulbType() const;
-    void setBulbType(const QString type);
+    void    setBulbType(const QString type);
 
-    int bulbLumens() const;
+    int  bulbLumens() const;
     void setBulbLumens(int lumens);
 
-    int bulbColorTemperature() const;
+    int  bulbColorTemperature() const;
     void setBulbColorTemperature(int temp);
 
     double weight() const;
-    void setWeight(double weight);
+    void   setWeight(double weight);
 
-    int width() const;
+    int  width() const;
     void setWidth(int width);
 
-    int height() const;
+    int  height() const;
     void setHeight(int height);
 
-    int depth() const;
+    int  depth() const;
     void setDepth(int depth);
 
     QString lensType() const;
-    void setLensType(const QString type);
+    void    setLensType(const QString type);
 
     double lensDegreesMin() const;
-    void setLensDegreesMin(double degrees);
+    void   setLensDegreesMin(double degrees);
 
     double lensDegreesMax() const;
-    void setLensDegreesMax(double degrees);
+    void   setLensDegreesMax(double degrees);
 
     QString focusType() const;
-    void setFocusType(const QString type);
+    void    setFocusType(const QString type);
 
-    int focusPanMax() const;
+    int  focusPanMax() const;
     void setFocusPanMax(int pan);
 
-    int focusTiltMax() const;
+    int  focusTiltMax() const;
     void setFocusTiltMax(int tilt);
 
     QSize layoutSize() const;
-    void setLayoutSize(QSize size);
+    void  setLayoutSize(QSize size);
 
-    int powerConsumption() const;
+    int  powerConsumption() const;
     void setPowerConsumption(int watt);
 
     QString dmxConnector() const;
-    void setDmxConnector(const QString type);
+    void    setDmxConnector(const QString type);
 
 signals:
     void changed();

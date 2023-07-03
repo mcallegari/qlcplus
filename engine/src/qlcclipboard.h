@@ -61,12 +61,12 @@ public:
 
     QList<ChaserStep> getChaserSteps();
     QList<SceneValue> getSceneValues();
-    Function *getFunction();
+    Function         *getFunction();
 
 private:
     QList<ChaserStep> m_copySteps;
     QList<SceneValue> m_copySceneValues;
-    Function *m_copyFunction;
+    Function         *m_copyFunction;
 };
 
 /** @} */

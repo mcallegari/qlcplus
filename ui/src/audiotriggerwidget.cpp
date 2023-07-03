@@ -42,7 +42,7 @@ void AudioTriggerWidget::setBarsNumber(int num)
     for (int i = 0; i < m_barsNumber; i++)
         m_spectrumBands[i] = 0;
     m_volumeBarHeight = 0;
-    m_barWidth = (width() - 10) / (m_barsNumber + 1);
+    m_barWidth        = (width() - 10) / (m_barsNumber + 1);
     update();
 }
 

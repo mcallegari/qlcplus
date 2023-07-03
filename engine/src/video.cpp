@@ -26,12 +26,12 @@
 #include "video.h"
 #include "doc.h"
 
-#define KXMLQLCVideoSource QString("Source")
-#define KXMLQLCVideoScreen QString("Screen")
+#define KXMLQLCVideoSource     QString("Source")
+#define KXMLQLCVideoScreen     QString("Screen")
 #define KXMLQLCVideoFullscreen QString("Fullscreen")
-#define KXMLQLCVideoGeometry QString("Geometry")
-#define KXMLQLCVideoRotation QString("Rotation")
-#define KXMLQLCVideoZIndex QString("ZIndex")
+#define KXMLQLCVideoGeometry   QString("Geometry")
+#define KXMLQLCVideoRotation   QString("Rotation")
+#define KXMLQLCVideoZIndex     QString("ZIndex")
 
 const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi"
                                                             << "*.wmv"
@@ -350,7 +350,7 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
+            int  b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
             emit requestBrightnessAdjust(b);
             emit intensityChanged();
         }

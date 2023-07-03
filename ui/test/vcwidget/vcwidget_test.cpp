@@ -298,7 +298,7 @@ void VCWidget_Test::frame()
 void VCWidget_Test::inputSource()
 {
     QSharedPointer<QLCInputSource> src;
-    QWidget w;
+    QWidget                        w;
 
     StubWidget stub(&w, m_doc);
     stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)));
@@ -770,7 +770,7 @@ void VCWidget_Test::loadWindowState()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    int x = 0, y = 0, w = 0, h = 0;
+    int  x = 0, y = 0, w = 0, h = 0;
     bool v = false;
     QCOMPARE(stub.loadXMLWindowState(xmlReader, &x, &y, &w, &h, NULL), false);
     QCOMPARE(stub.loadXMLWindowState(xmlReader, &x, &y, &w, NULL, &v), false);
@@ -822,7 +822,7 @@ void VCWidget_Test::resize()
     stub.show();
     parent.resize(QSize(200, 200));
 
-    VCProperties prop = VirtualConsole::instance()->properties();
+    VCProperties prop                        = VirtualConsole::instance()->properties();
     VirtualConsole::instance()->m_properties = prop;
 
     stub.resize(QSize(25, 25));
@@ -864,7 +864,7 @@ void VCWidget_Test::move()
     parent.resize(QSize(200, 200));
     stub.resize(QSize(50, 50));
 
-    VCProperties prop = VirtualConsole::instance()->properties();
+    VCProperties prop                        = VirtualConsole::instance()->properties();
     VirtualConsole::instance()->m_properties = prop;
 
     stub.move(QPoint(25, 25));

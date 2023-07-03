@@ -93,14 +93,14 @@ void QLCCapability_Test::name()
 void QLCCapability_Test::alias()
 {
     QLCCapability cap;
-    AliasInfo info1, info2;
+    AliasInfo     info1, info2;
     info1.sourceChannel = "Channel 1";
     info1.targetChannel = "Channel 3";
-    info1.targetMode = "12 Channel";
+    info1.targetMode    = "12 Channel";
 
     info2.sourceChannel = "Foo";
     info2.targetChannel = "Bar";
-    info2.targetMode = "Mode";
+    info2.targetMode    = "Mode";
 
     cap.addAlias(info1);
     QVERIFY(cap.aliasList().count() == 1);
@@ -385,7 +385,7 @@ void QLCCapability_Test::saveAlias()
     AliasInfo alias;
     alias.sourceChannel = "Channel 1";
     alias.targetChannel = "Channel 3";
-    alias.targetMode = "12 Channel";
+    alias.targetMode    = "12 Channel";
     cap.addAlias(alias);
 
     QBuffer buffer;

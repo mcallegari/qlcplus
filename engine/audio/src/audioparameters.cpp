@@ -48,8 +48,8 @@ AudioParameters::AudioParameters(quint32 srate, int chan, AudioFormat format)
 
 void AudioParameters::operator=(const AudioParameters &p)
 {
-    m_srate = p.sampleRate();
-    m_chan = p.channels();
+    m_srate  = p.sampleRate();
+    m_chan   = p.channels();
     m_format = p.format();
 }
 

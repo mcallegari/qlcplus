@@ -31,11 +31,11 @@
 #include "qlcchannel.h"
 #include "inputpatch.h"
 
-#define KColumnName 0
+#define KColumnName     0
 #define KColumnUniverse 1
-#define KColumnChannel 2
+#define KColumnChannel  2
 
-#define SETTINGS_GEOMETRY "selectinputchannel/geometry"
+#define SETTINGS_GEOMETRY       "selectinputchannel/geometry"
 #define SETTINGS_ALLOWUNPATCHED "selectinputchannel/allowunpatched"
 
 /****************************************************************************
@@ -49,7 +49,7 @@ SelectInputChannel::SelectInputChannel(QWidget *parent, InputOutputMap *ioMap)
     Q_ASSERT(ioMap != NULL);
 
     m_universe = InputOutputMap::invalidUniverse();
-    m_channel = QLCChannel::invalid();
+    m_channel  = QLCChannel::invalid();
 
     setupUi(this);
 
@@ -85,7 +85,7 @@ void SelectInputChannel::saveSettings()
 void SelectInputChannel::loadSettings()
 {
     QSettings settings;
-    QVariant geometry = settings.value(SETTINGS_GEOMETRY);
+    QVariant  geometry = settings.value(SETTINGS_GEOMETRY);
     if (geometry.isValid())
         restoreGeometry(geometry.toByteArray());
     QVariant allowUnpatched = settings.value(SETTINGS_ALLOWUNPATCHED);
@@ -102,7 +102,7 @@ void SelectInputChannel::accept()
     if (item != NULL)
     {
         m_universe = item->text(KColumnUniverse).toUInt();
-        m_channel = item->text(KColumnChannel).toUInt();
+        m_channel  = item->text(KColumnChannel).toUInt();
     }
 
     QDialog::accept();
@@ -139,8 +139,8 @@ void SelectInputChannel::fillTree()
     QTreeWidgetItem *uniItem;
     QTreeWidgetItem *chItem;
     QLCInputProfile *profile;
-    quint32 uni;
-    InputPatch *patch;
+    quint32          uni;
+    InputPatch      *patch;
 
     // Clear tree
     while (m_tree->takeTopLevelItem(0))

@@ -45,15 +45,15 @@
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "chasereditor/geometry"
-#define PROP_STEP Qt::UserRole
+#define PROP_STEP         Qt::UserRole
 
-#define COL_NUM 0
-#define COL_NAME 1
-#define COL_FADEIN 2
-#define COL_HOLD 3
-#define COL_FADEOUT 4
+#define COL_NUM      0
+#define COL_NAME     1
+#define COL_FADEIN   2
+#define COL_HOLD     3
+#define COL_FADEOUT  4
 #define COL_DURATION 5
-#define COL_NOTES 6
+#define COL_NOTES    6
 
 ChaserEditor::ChaserEditor(QWidget *parent, Chaser *chaser, Doc *doc, bool liveMode)
     : QWidget(parent)
@@ -290,12 +290,12 @@ void ChaserEditor::slotUpdateCurrentStep(SceneValue sv, bool enabled)
         return;
 
     QTreeWidgetItem *item(selected.first());
-    int idx = m_tree->indexOfTopLevelItem(item);
+    int              idx = m_tree->indexOfTopLevelItem(item);
 
     if (enabled == true)
     {
         bool created = false;
-        int svIndex = m_chaser->stepAt(idx)->setValue(sv, -1, &created);
+        int  svIndex = m_chaser->stepAt(idx)->setValue(sv, -1, &created);
 
         if (created == true)
         {
@@ -342,19 +342,19 @@ void ChaserEditor::slotAddClicked()
 {
     bool stepAdded = false;
 
-    int insertionPoint = m_tree->topLevelItemCount();
-    QTreeWidgetItem *item = m_tree->currentItem();
+    int              insertionPoint = m_tree->topLevelItemCount();
+    QTreeWidgetItem *item           = m_tree->currentItem();
     if (item != NULL)
         insertionPoint = m_tree->indexOfTopLevelItem(item) + 1;
 
     if (m_chaser->type() == Function::SequenceType)
     {
-        Sequence *sequence = qobject_cast<Sequence *>(m_chaser);
+        Sequence  *sequence = qobject_cast<Sequence *>(m_chaser);
         ChaserStep step(sequence->boundSceneID());
         item = new QTreeWidgetItem;
         updateItem(item, step);
         // if this is the first step we add, then copy all DMX channels non-zero values
-        Scene *currScene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
+        Scene                    *currScene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
         QListIterator<SceneValue> it(currScene->values());
         qDebug() << "First step added !!";
         while (it.hasNext() == true)
@@ -418,7 +418,7 @@ void ChaserEditor::slotRemoveClicked()
 
 void ChaserEditor::slotRaiseClicked()
 {
-    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QList<QTreeWidgetItem *>         items(m_tree->selectedItems());
     QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
@@ -426,7 +426,7 @@ void ChaserEditor::slotRaiseClicked()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         if (index == 0)
             return;
     }
@@ -436,7 +436,7 @@ void ChaserEditor::slotRaiseClicked()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index - 1, item);
         m_chaser->moveStep(index, index - 1);
@@ -455,7 +455,7 @@ void ChaserEditor::slotRaiseClicked()
 
 void ChaserEditor::slotLowerClicked()
 {
-    QList<QTreeWidgetItem *> items(m_tree->selectedItems());
+    QList<QTreeWidgetItem *>         items(m_tree->selectedItems());
     QListIterator<QTreeWidgetItem *> it(items);
 
     // Check, whether even one of the items would "bleed" over the edge and
@@ -463,7 +463,7 @@ void ChaserEditor::slotLowerClicked()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         if (index == m_tree->topLevelItemCount() - 1)
             return;
     }
@@ -473,7 +473,7 @@ void ChaserEditor::slotLowerClicked()
     while (it.hasPrevious() == true)
     {
         QTreeWidgetItem *item(it.previous());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         m_tree->takeTopLevelItem(index);
         m_tree->insertTopLevelItem(index + 1, item);
         m_chaser->moveStep(index, index + 1);
@@ -507,14 +507,14 @@ void ChaserEditor::slotShuffleClicked()
     }
 
     QList<QTreeWidgetItem *> selectedItems(m_tree->selectedItems());
-    int indicesToShuffle[selectedCount];
+    int                      indicesToShuffle[selectedCount];
 
     // save the selected scenes and their indices into a sorted array
     QListIterator<QTreeWidgetItem *> it(selectedItems);
     for (i = 0; i < selectedCount; i++)
     {
         QTreeWidgetItem *item = it.next();
-        indicesToShuffle[i] = m_tree->indexOfTopLevelItem(item);
+        indicesToShuffle[i]   = m_tree->indexOfTopLevelItem(item);
     }
     std::sort(indicesToShuffle, indicesToShuffle + selectedCount);
 
@@ -526,13 +526,13 @@ void ChaserEditor::slotShuffleClicked()
         // pick a random unshuffled selected and swap it with the last unshuffled one -> now it is a shuffled step
         int toShuffle = rand() % unshuffledCount;
         unshuffledCount--;
-        int indexToShuffle = indicesToShuffle[toShuffle];
+        int indexToShuffle      = indicesToShuffle[toShuffle];
         int lastUnshuffledIndex = indicesToShuffle[unshuffledCount];
 
         if (indexToShuffle != lastUnshuffledIndex)
         {
             QTreeWidgetItem *lastUnshuffledItem = m_tree->takeTopLevelItem(lastUnshuffledIndex);
-            QTreeWidgetItem *itemToShuffle = m_tree->takeTopLevelItem(indexToShuffle);
+            QTreeWidgetItem *itemToShuffle      = m_tree->takeTopLevelItem(indexToShuffle);
             m_tree->insertTopLevelItem(indexToShuffle, lastUnshuffledItem);
             m_tree->insertTopLevelItem(lastUnshuffledIndex, itemToShuffle);
             m_chaser->moveStep(indexToShuffle, lastUnshuffledIndex);
@@ -569,8 +569,8 @@ void ChaserEditor::slotItemSelectionChanged()
     if (m_tree->selectedItems().count() > 0)
     {
         QTreeWidgetItem *item = m_tree->selectedItems().first();
-        int idx = item->text(COL_NUM).toUInt() - 1;
-        emit stepSelectionChanged(idx);
+        int              idx  = item->text(COL_NUM).toUInt() - 1;
+        emit             stepSelectionChanged(idx);
     }
     else
         emit stepSelectionChanged(-1);
@@ -584,14 +584,14 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 {
     QString itemText = item->text(column);
     quint32 newValue = Function::stringToSpeed(itemText);
-    int idx = m_tree->indexOfTopLevelItem(item);
+    int     idx      = m_tree->indexOfTopLevelItem(item);
 
     ChaserStep step = m_chaser->steps().at(idx);
 
-    uint fadeIn = m_chaser->fadeInMode() == Chaser::Common ? m_chaser->fadeInSpeed() : step.fadeIn;
-    uint fadeOut = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->fadeOutSpeed() : step.fadeOut;
-    uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
-    uint hold = Function::speedSubtract(duration, fadeIn);
+    uint fadeIn           = m_chaser->fadeInMode() == Chaser::Common ? m_chaser->fadeInSpeed() : step.fadeIn;
+    uint fadeOut          = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->fadeOutSpeed() : step.fadeOut;
+    uint duration         = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
+    uint hold             = Function::speedSubtract(duration, fadeIn);
     bool updateTreeNeeded = false;
 
     if (column == COL_FADEIN)
@@ -622,7 +622,7 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
         }
         else
         {
-            step.hold = hold;
+            step.hold     = hold;
             step.duration = Function::speedAdd(hold, fadeIn);
         }
     }
@@ -651,7 +651,7 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
         else
         {
             step.duration = duration;
-            step.hold = Function::speedSubtract(duration, fadeIn);
+            step.hold     = Function::speedSubtract(duration, fadeIn);
         }
     }
     else if (column == COL_NOTES)
@@ -673,12 +673,12 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 
 void ChaserEditor::slotCutClicked()
 {
-    QList<ChaserStep> copyList;
+    QList<ChaserStep>                copyList;
     QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        int index = m_tree->indexOfTopLevelItem(item);
+        int              index = m_tree->indexOfTopLevelItem(item);
         copyList << stepAtIndex(index);
         m_chaser->removeStep(index);
         delete item;
@@ -713,8 +713,8 @@ void ChaserEditor::slotPasteClicked()
     if (m_chaser->type() == Function::SequenceType)
     {
         Sequence *sequence = qobject_cast<Sequence *>(m_chaser);
-        quint32 sceneID = sequence->boundSceneID();
-        Scene *scene = qobject_cast<Scene *>(m_doc->function(sceneID));
+        quint32   sceneID  = sequence->boundSceneID();
+        Scene    *scene    = qobject_cast<Scene *>(m_doc->function(sceneID));
         foreach (ChaserStep step, pasteList)
         {
             if (step.fid != sceneID) // if IDs are the same then it's a valid step
@@ -732,8 +732,8 @@ void ChaserEditor::slotPasteClicked()
         }
     }
 
-    int insertionPoint = 0;
-    QTreeWidgetItem *currentItem = m_tree->currentItem();
+    int              insertionPoint = 0;
+    QTreeWidgetItem *currentItem    = m_tree->currentItem();
     if (currentItem != NULL)
     {
         insertionPoint = m_tree->indexOfTopLevelItem(currentItem) + 1;
@@ -750,7 +750,7 @@ void ChaserEditor::slotPasteClicked()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem;
-        ChaserStep step(it.next());
+        ChaserStep       step(it.next());
         if (step.resolveFunction(m_doc) == NULL) // Function has been removed
         {
             qWarning() << Q_FUNC_INFO << "Trying to paste an invalid function (removed function?)";
@@ -1093,11 +1093,11 @@ void ChaserEditor::slotTestPlay()
     if (idx >= 0)
     {
         ChaserAction action;
-        action.m_action = ChaserSetStepIndex;
-        action.m_stepIndex = idx;
+        action.m_action          = ChaserSetStepIndex;
+        action.m_stepIndex       = idx;
         action.m_masterIntensity = 1.0;
-        action.m_stepIntensity = 1.0;
-        action.m_fadeMode = Chaser::FromFunction;
+        action.m_stepIntensity   = 1.0;
+        action.m_fadeMode        = Chaser::FromFunction;
         m_chaser->setAction(action);
     }
     m_chaser->start(m_doc->masterTimer(), functionParent());
@@ -1119,20 +1119,20 @@ void ChaserEditor::slotTestStop()
 void ChaserEditor::slotTestPreviousClicked()
 {
     ChaserAction action;
-    action.m_action = ChaserPreviousStep;
+    action.m_action          = ChaserPreviousStep;
     action.m_masterIntensity = 1.0;
-    action.m_stepIntensity = 1.0;
-    action.m_fadeMode = Chaser::FromFunction;
+    action.m_stepIntensity   = 1.0;
+    action.m_fadeMode        = Chaser::FromFunction;
     m_chaser->setAction(action);
 }
 
 void ChaserEditor::slotTestNextClicked()
 {
     ChaserAction action;
-    action.m_action = ChaserNextStep;
+    action.m_action          = ChaserNextStep;
     action.m_masterIntensity = 1.0;
-    action.m_stepIntensity = 1.0;
-    action.m_fadeMode = Chaser::FromFunction;
+    action.m_stepIntensity   = 1.0;
+    action.m_fadeMode        = Chaser::FromFunction;
     m_chaser->setAction(action);
 }
 
@@ -1238,7 +1238,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem *item, ChaserStep &step)
         default:
         case Chaser::Common:
             step.duration = m_chaser->duration();
-            step.hold = Function::speedSubtract(step.duration, step.fadeIn);
+            step.hold     = Function::speedSubtract(step.duration, step.fadeIn);
             item->setText(COL_HOLD, Function::speedToString(step.hold));
             item->setText(COL_DURATION, Function::speedToString(step.duration));
             break;
@@ -1306,7 +1306,7 @@ void ChaserEditor::applyStepValues()
     if (selected.size() != 0)
     {
         QTreeWidgetItem *item(selected.first());
-        int idx = m_tree->indexOfTopLevelItem(item);
+        int              idx = m_tree->indexOfTopLevelItem(item);
         qDebug() << "Idx: " << idx << ", steps: " << m_chaser->steps().count();
         if (m_chaser != NULL && idx < m_chaser->steps().count())
         {
@@ -1320,7 +1320,7 @@ void ChaserEditor::applyStepValues()
 
 void ChaserEditor::printSteps()
 {
-    int i = 0;
+    int                       i = 0;
     QListIterator<ChaserStep> it(m_chaser->steps());
     while (it.hasNext() == true)
     {

@@ -30,7 +30,7 @@
 
 void Universe_Test::init()
 {
-    m_gm = new GrandMaster(this);
+    m_gm  = new GrandMaster(this);
     m_uni = new Universe(0, m_gm, this);
 }
 

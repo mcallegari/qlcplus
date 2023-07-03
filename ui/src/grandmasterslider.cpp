@@ -166,7 +166,7 @@ void GrandMasterSlider::updateTooltip()
 
 void GrandMasterSlider::updateDisplayValue()
 {
-    int value = m_slider->value();
+    int     value = m_slider->value();
     QString str;
     if (m_ioMap->grandMasterValueMode() == GrandMaster::Limit)
     {
@@ -175,7 +175,7 @@ void GrandMasterSlider::updateDisplayValue()
     else
     {
         int p = floor(((double(value) / double(UCHAR_MAX)) * double(100)) + 0.5);
-        str = QString("%1%").arg(p, 2, 10, QChar('0'));
+        str   = QString("%1%").arg(p, 2, 10, QChar('0'));
     }
     m_valueLabel->setText(str);
     sendFeedback();
@@ -198,7 +198,7 @@ void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::ValueMode m
 void GrandMasterSlider::sendFeedback()
 {
     quint32 universe = VirtualConsole::instance()->properties().grandMasterInputUniverse();
-    quint32 channel = VirtualConsole::instance()->properties().grandMasterInputChannel();
+    quint32 channel  = VirtualConsole::instance()->properties().grandMasterInputChannel();
     QString chName;
 
     if (universe == InputOutputMap::invalidUniverse() || channel == QLCChannel::invalid())

@@ -28,11 +28,11 @@
 #include "qlcmacros.h"
 #include "doc.h"
 
-#define KXMLQLCRGBImageFilename QString("Filename")
+#define KXMLQLCRGBImageFilename       QString("Filename")
 #define KXMLQLCRGBImageAnimationStyle QString("Animation")
-#define KXMLQLCRGBImageOffset QString("Offset")
-#define KXMLQLCRGBImageOffsetX QString("X")
-#define KXMLQLCRGBImageOffsetY QString("Y")
+#define KXMLQLCRGBImageOffset         QString("Offset")
+#define KXMLQLCRGBImageOffsetX        QString("X")
+#define KXMLQLCRGBImageOffsetY        QString("Y")
 
 RGBImage::RGBImage(Doc *doc)
     : RGBAlgorithm(doc)
@@ -334,21 +334,21 @@ bool RGBImage::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCRGBImageOffset)
         {
-            QString str;
-            int value;
-            bool ok;
+            QString              str;
+            int                  value;
+            bool                 ok;
             QXmlStreamAttributes attrs = root.attributes();
 
-            str = attrs.value(KXMLQLCRGBImageOffsetX).toString();
-            ok = false;
+            str   = attrs.value(KXMLQLCRGBImageOffsetX).toString();
+            ok    = false;
             value = str.toInt(&ok);
             if (ok == true)
                 setXOffset(value);
             else
                 qWarning() << Q_FUNC_INFO << "Invalid X offset:" << str;
 
-            str = attrs.value(KXMLQLCRGBImageOffsetY).toString();
-            ok = false;
+            str   = attrs.value(KXMLQLCRGBImageOffsetY).toString();
+            ok    = false;
             value = str.toInt(&ok);
             if (ok == true)
                 setYOffset(value);

@@ -108,8 +108,8 @@ public:
      ********************************************************************/
     static QStringList getCapabilities(const Fixture *fixture);
 
-    QList<Scene *> scenes();
-    QList<Chaser *> chasers();
+    QList<Scene *>     scenes();
+    QList<Chaser *>    chasers();
     QList<RGBMatrix *> matrices();
 
     void addToDoc();
@@ -139,15 +139,15 @@ private:
     QString getNamePrefix(QString type, QString name);
 
 private:
-    Doc *m_doc;
-    QString m_name;
-    PaletteType m_type;
-    PaletteSubType m_subType;
-    QList<Fixture *> m_fixtures;
-    FixtureGroup *m_fixtureGroup;
-    QString m_model;
-    QList<Scene *> m_scenes;
-    QList<Chaser *> m_chasers;
+    Doc               *m_doc;
+    QString            m_name;
+    PaletteType        m_type;
+    PaletteSubType     m_subType;
+    QList<Fixture *>   m_fixtures;
+    FixtureGroup      *m_fixtureGroup;
+    QString            m_model;
+    QList<Scene *>     m_scenes;
+    QList<Chaser *>    m_chasers;
     QList<RGBMatrix *> m_matrices;
 };
 

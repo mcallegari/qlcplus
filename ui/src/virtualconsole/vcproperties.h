@@ -37,20 +37,20 @@ class Doc;
 
 #define KXMLQLCVirtualConsole QString("VirtualConsole")
 
-#define KXMLQLCVCProperties QString("Properties")
-#define KXMLQLCVCPropertiesSize QString("Size")
-#define KXMLQLCVCPropertiesSizeWidth QString("Width")
+#define KXMLQLCVCProperties           QString("Properties")
+#define KXMLQLCVCPropertiesSize       QString("Size")
+#define KXMLQLCVCPropertiesSizeWidth  QString("Width")
 #define KXMLQLCVCPropertiesSizeHeight QString("Height")
 
-#define KXMLQLCVCPropertiesGrandMaster QString("GrandMaster")
-#define KXMLQLCVCPropertiesGrandMasterVisible QString("Visible")
+#define KXMLQLCVCPropertiesGrandMaster            QString("GrandMaster")
+#define KXMLQLCVCPropertiesGrandMasterVisible     QString("Visible")
 #define KXMLQLCVCPropertiesGrandMasterChannelMode QString("ChannelMode")
-#define KXMLQLCVCPropertiesGrandMasterValueMode QString("ValueMode")
-#define KXMLQLCVCPropertiesGrandMasterSliderMode QString("SliderMode")
+#define KXMLQLCVCPropertiesGrandMasterValueMode   QString("ValueMode")
+#define KXMLQLCVCPropertiesGrandMasterSliderMode  QString("SliderMode")
 
-#define KXMLQLCVCPropertiesInput QString("Input")
+#define KXMLQLCVCPropertiesInput         QString("Input")
 #define KXMLQLCVCPropertiesInputUniverse QString("Universe")
-#define KXMLQLCVCPropertiesInputChannel QString("Channel")
+#define KXMLQLCVCPropertiesInputChannel  QString("Channel")
 
 /*****************************************************************************
  * Properties
@@ -82,25 +82,25 @@ private:
      * Grand Master
      *************************************************************************/
 public:
-    void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
+    void                     setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
     GrandMaster::ChannelMode grandMasterChannelMode() const;
 
-    void setGrandMasterValueMode(GrandMaster::ValueMode mode);
+    void                   setGrandMasterValueMode(GrandMaster::ValueMode mode);
     GrandMaster::ValueMode grandMasterValueMode() const;
 
-    void setGrandMasterSliderMode(GrandMaster::SliderMode mode);
+    void                    setGrandMasterSliderMode(GrandMaster::SliderMode mode);
     GrandMaster::SliderMode grandMasterSlideMode() const;
 
-    void setGrandMasterInputSource(quint32 universe, quint32 channel);
+    void    setGrandMasterInputSource(quint32 universe, quint32 channel);
     quint32 grandMasterInputUniverse() const;
     quint32 grandMasterInputChannel() const;
 
 private:
     GrandMaster::ChannelMode m_gmChannelMode;
-    GrandMaster::ValueMode m_gmValueMode;
-    GrandMaster::SliderMode m_gmSliderMode;
-    quint32 m_gmInputUniverse;
-    quint32 m_gmInputChannel;
+    GrandMaster::ValueMode   m_gmValueMode;
+    GrandMaster::SliderMode  m_gmSliderMode;
+    quint32                  m_gmInputUniverse;
+    quint32                  m_gmInputChannel;
 
     /*************************************************************************
      * Load & Save

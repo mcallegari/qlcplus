@@ -47,7 +47,7 @@ class MonitorProperties;
  * @{
  */
 
-#define KXMLQLCEngine QString("Engine")
+#define KXMLQLCEngine          QString("Engine")
 #define KXMLQLCStartupFunction QString("Autostart")
 
 class Doc : public QObject
@@ -153,15 +153,15 @@ public:
     void destroyAudioCapture();
 
 private:
-    QLCFixtureDefCache *m_fixtureDefCache;
-    QLCModifiersCache *m_modifiersCache;
-    RGBScriptsCache *m_rgbScriptsCache;
-    IOPluginCache *m_ioPluginCache;
-    AudioPluginCache *m_audioPluginCache;
-    MasterTimer *m_masterTimer;
-    InputOutputMap *m_ioMap;
+    QLCFixtureDefCache          *m_fixtureDefCache;
+    QLCModifiersCache           *m_modifiersCache;
+    RGBScriptsCache             *m_rgbScriptsCache;
+    IOPluginCache               *m_ioPluginCache;
+    AudioPluginCache            *m_audioPluginCache;
+    MasterTimer                 *m_masterTimer;
+    InputOutputMap              *m_ioMap;
     QSharedPointer<AudioCapture> m_inputCapture;
-    MonitorProperties *m_monitorProps;
+    MonitorProperties           *m_monitorProps;
 
     /*********************************************************************
      * Main operating mode
@@ -169,8 +169,8 @@ private:
 public:
     enum Mode
     {
-        Design = 0, //! Editing allowed
-        Operate = 1 //! Running allowed, editing disabled
+        Design  = 0, //! Editing allowed
+        Operate = 1  //! Running allowed, editing disabled
     };
 
     /** Change the main operating mode. See enum Mode for more information. */
@@ -227,7 +227,7 @@ signals:
 protected:
     /** The current Doc load status */
     LoadStatus m_loadStatus;
-    bool m_modified;
+    bool       m_modified;
 
     /*********************************************************************
      * Clipboard
@@ -339,7 +339,7 @@ protected:
     QHash<quint32, Fixture *> m_fixtures;
 
     /** Fixtures list cache */
-    bool m_fixturesListCacheUpToDate;
+    bool             m_fixturesListCacheUpToDate;
     QList<Fixture *> m_fixturesListCache;
 
     /** Map of the addresses occupied by fixtures */

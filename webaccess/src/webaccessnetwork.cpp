@@ -28,7 +28,7 @@
 #include "qlcconfig.h"
 
 #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
-#define DHCPCD_CONF_FILE "/etc/dhcpcd.conf"
+#define DHCPCD_CONF_FILE   "/etc/dhcpcd.conf"
 #define WPA_SUPP_CONF_FILE "/etc/wpa_supplicant/wpa_supplicant.conf"
 
 WebAccessNetwork::WebAccessNetwork(QObject *parent)
@@ -38,18 +38,18 @@ WebAccessNetwork::WebAccessNetwork(QObject *parent)
 
 void WebAccessNetwork::resetInterface(InterfaceInfo *iface)
 {
-    iface->name = "";
-    iface->isStatic = false;
-    iface->isWireless = false;
-    iface->address = "";
-    iface->netmask = "";
-    iface->gateway = "";
-    iface->enabled = false;
+    iface->name        = "";
+    iface->isStatic    = false;
+    iface->isWireless  = false;
+    iface->address     = "";
+    iface->netmask     = "";
+    iface->gateway     = "";
+    iface->enabled     = false;
     iface->wpaConfFile = "";
-    iface->ssid = "";
-    iface->wpaPass = "";
-    iface->dns1 = "";
-    iface->dns2 = "";
+    iface->ssid        = "";
+    iface->wpaPass     = "";
+    iface->dns1        = "";
+    iface->dns2        = "";
 }
 
 void WebAccessNetwork::appendInterface(InterfaceInfo iface)
@@ -61,9 +61,9 @@ void WebAccessNetwork::appendInterface(InterfaceInfo iface)
     {
         if (m_interfaces.at(i).name == iface.name)
         {
-            m_interfaces[i].isStatic = iface.isStatic;
+            m_interfaces[i].isStatic   = iface.isStatic;
             m_interfaces[i].isWireless = iface.isWireless;
-            m_interfaces[i].enabled = iface.enabled;
+            m_interfaces[i].enabled    = iface.enabled;
 
             if (!iface.address.isEmpty())
                 m_interfaces[i].address = iface.address;
@@ -91,10 +91,10 @@ void WebAccessNetwork::appendInterface(InterfaceInfo iface)
 
 QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
 {
-    QString dhcpChk = iface->isStatic ? QString() : QString("checked");
-    QString staticChk = iface->isStatic ? QString("checked") : QString();
+    QString dhcpChk    = iface->isStatic ? QString() : QString("checked");
+    QString staticChk  = iface->isStatic ? QString("checked") : QString();
     QString visibility = iface->isStatic ? QString("visible") : QString("hidden");
-    QString html = "<div style=\"margin: 20px 7% 20px 7%; width: 86%;\" >\n";
+    QString html       = "<div style=\"margin: 20px 7% 20px 7%; width: 86%;\" >\n";
     html += "<div style=\"font-family: verdana,arial,sans-serif; padding: 5px 7px; font-size:20px; "
             "color:#CCCCCC; background:#222; border-radius: 7px;\">";
 
@@ -166,7 +166,7 @@ QString WebAccessNetwork::getNetworkHTML()
     while (!ifacesQTS.atEnd())
     {
         QString line = ifacesQTS.readLine();
-        line = line.simplified();
+        line         = line.simplified();
         // skip comments
         if (line.startsWith('#'))
             continue;
@@ -220,7 +220,7 @@ QString WebAccessNetwork::getNetworkHTML()
     interfacesFile.close();
 
     // 3- parse the dhcpcd.conf file
-    bool qlcplusSectionFound = false;
+    bool  qlcplusSectionFound = false;
     QFile dhcpcdFile(DHCPCD_CONF_FILE);
     if (dhcpcdFile.open(QIODevice::ReadOnly | QIODevice::Text) == false)
         return "";
@@ -231,7 +231,7 @@ QString WebAccessNetwork::getNetworkHTML()
     while (!dhcpQTS.atEnd())
     {
         QString line = dhcpQTS.readLine();
-        line = line.simplified();
+        line         = line.simplified();
         if (line.contains("QLC+"))
             qlcplusSectionFound = true;
 
@@ -379,7 +379,7 @@ bool WebAccessNetwork::updateNetworkFile(QStringList cmdList)
             m_interfaces[i].gateway = cmdList.at(6);
             if (m_interfaces[i].isWireless == true)
             {
-                m_interfaces[i].ssid = cmdList.at(7);
+                m_interfaces[i].ssid    = cmdList.at(7);
                 m_interfaces[i].wpaPass = cmdList.at(8);
             }
             return writeNetworkFile();
@@ -405,7 +405,7 @@ void WebAccessNetwork::parseWPAConfFile(InterfaceInfo *iface)
     while (!wpaConfQTS.atEnd())
     {
         QString line = wpaConfQTS.readLine();
-        line = line.simplified();
+        line         = line.simplified();
 
         if (line.startsWith("network"))
         {
@@ -448,7 +448,7 @@ bool WebAccessNetwork::writeNetworkFile()
      * 3- the wpa_supplicant.conf file(s) are written for each wireless adapter
      */
 
-    bool dhcpcdCacheWritten = false;
+    bool  dhcpcdCacheWritten = false;
     QFile dhcpcdFile(DHCPCD_CONF_FILE);
     if (dhcpcdFile.open(QIODevice::WriteOnly | QIODevice::Text) == false)
         return false;
@@ -573,7 +573,7 @@ QString WebAccessNetwork::netmaskToString(int mask)
 int WebAccessNetwork::stringToNetmask(QString mask)
 {
     quint32 lMask = 0;
-    int nMask = 0;
+    int     nMask = 0;
 
     QStringList nibbles = mask.split(".");
     if (nibbles.count() != 4)

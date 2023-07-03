@@ -179,7 +179,7 @@ signals:
 
 private:
     KeyPadParser *m_keyPadParser;
-    QStringList m_keypadCommandHistory;
+    QStringList   m_keypadCommandHistory;
 
     /************************************************************************
      * DMXSource

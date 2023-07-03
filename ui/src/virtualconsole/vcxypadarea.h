@@ -95,7 +95,7 @@ private:
     /** Optimization - compute window pos on demand */
     bool m_updateWindowPos;
 
-    mutable bool m_changed;
+    mutable bool   m_changed;
     mutable QMutex m_mutex;
 
     /** Used to display active point - blue */

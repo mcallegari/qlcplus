@@ -32,15 +32,15 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCAudioBarIndex QString("Index")
-#define KXMLQLCAudioBarName QString("Name")
-#define KXMLQLCAudioBarType QString("Type")
-#define KXMLQLCAudioBarDMXChannels QString("DMXChannels")
-#define KXMLQLCAudioBarFunction QString("FunctionID")
-#define KXMLQLCAudioBarWidget QString("WidgetID")
+#define KXMLQLCAudioBarIndex        QString("Index")
+#define KXMLQLCAudioBarName         QString("Name")
+#define KXMLQLCAudioBarType         QString("Type")
+#define KXMLQLCAudioBarDMXChannels  QString("DMXChannels")
+#define KXMLQLCAudioBarFunction     QString("FunctionID")
+#define KXMLQLCAudioBarWidget       QString("WidgetID")
 #define KXMLQLCAudioBarMinThreshold QString("MinThreshold")
 #define KXMLQLCAudioBarMaxThreshold QString("MaxThreshold")
-#define KXMLQLCAudioBarDivisor QString("Divisor")
+#define KXMLQLCAudioBarDivisor      QString("Divisor")
 
 class AudioBar
 {
@@ -60,11 +60,11 @@ public:
     };
 
     AudioBar *createCopy();
-    void setName(QString nme);
-    void setType(int type);
-    void setMinThreshold(uchar value);
-    void setMaxThreshold(uchar value);
-    void setDivisor(int value);
+    void      setName(QString nme);
+    void      setType(int type);
+    void      setMinThreshold(uchar value);
+    void      setMaxThreshold(uchar value);
+    void      setDivisor(int value);
 
     void attachDmxChannels(Doc *doc, QList<SceneValue> list);
     void attachFunction(Function *func);
@@ -86,10 +86,10 @@ public:
 
 public:
     QString m_name;
-    int m_type;
+    int     m_type;
     quint32 m_parentId;
-    uchar m_value;
-    bool m_tapped;
+    uchar   m_value;
+    bool    m_tapped;
 
     /** List of individual DMX channels when m_type == DMXBar */
     QList<SceneValue> m_dmxChannels;
@@ -105,7 +105,7 @@ public:
     quint32 m_widgetID;
 
     uchar m_minThreshold, m_maxThreshold;
-    int m_divisor;
+    int   m_divisor;
 
     int m_skippedBeats;
 

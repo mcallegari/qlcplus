@@ -45,11 +45,11 @@ QLCFixtureHead &QLCFixtureHead::operator=(const QLCFixtureHead &head)
 {
     if (this != &head)
     {
-        m_channels = head.channels();
-        m_channelsMap = head.channelsMap();
-        m_colorWheels = head.colorWheels();
+        m_channels        = head.channels();
+        m_channelsMap     = head.channelsMap();
+        m_colorWheels     = head.colorWheels();
         m_shutterChannels = head.shutterChannels();
-        m_channelsCached = true;
+        m_channelsCached  = true;
     }
 
     return *this;
@@ -100,9 +100,9 @@ quint32 QLCFixtureHead::channelNumber(int type, int controlByte) const
 QVector<quint32> QLCFixtureHead::rgbChannels() const
 {
     QVector<quint32> vector;
-    quint32 r = channelNumber(QLCChannel::Red, QLCChannel::MSB);
-    quint32 g = channelNumber(QLCChannel::Green, QLCChannel::MSB);
-    quint32 b = channelNumber(QLCChannel::Blue, QLCChannel::MSB);
+    quint32          r = channelNumber(QLCChannel::Red, QLCChannel::MSB);
+    quint32          g = channelNumber(QLCChannel::Green, QLCChannel::MSB);
+    quint32          b = channelNumber(QLCChannel::Blue, QLCChannel::MSB);
 
     if (r != QLCChannel::invalid() && g != QLCChannel::invalid() && b != QLCChannel::invalid())
         vector << r << g << b;
@@ -118,9 +118,9 @@ QMap<int, quint32> QLCFixtureHead::channelsMap() const
 QVector<quint32> QLCFixtureHead::cmyChannels() const
 {
     QVector<quint32> vector;
-    quint32 c = channelNumber(QLCChannel::Cyan, QLCChannel::MSB);
-    quint32 m = channelNumber(QLCChannel::Magenta, QLCChannel::MSB);
-    quint32 y = channelNumber(QLCChannel::Yellow, QLCChannel::MSB);
+    quint32          c = channelNumber(QLCChannel::Cyan, QLCChannel::MSB);
+    quint32          m = channelNumber(QLCChannel::Magenta, QLCChannel::MSB);
+    quint32          y = channelNumber(QLCChannel::Yellow, QLCChannel::MSB);
 
     if (c != QLCChannel::invalid() && m != QLCChannel::invalid() && y != QLCChannel::invalid())
         vector << c << m << y;

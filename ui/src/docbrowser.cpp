@@ -38,7 +38,7 @@
 #include "apputil.h"
 
 #define SETTINGS_GEOMETRY "documentbrowser/geometry"
-#define HYSTERESIS_MS 100
+#define HYSTERESIS_MS     100
 
 /****************************************************************************
  * QLCTextBrowser
@@ -58,7 +58,7 @@ bool QLCTextBrowser::event(QEvent *ev)
     if (ev->type() == QEvent::Gesture)
     {
         QGestureEvent *gesture = static_cast<QGestureEvent *>(ev);
-        QSwipeGesture *swipe = qobject_cast<QSwipeGesture *>(gesture->gesture(Qt::SwipeGesture));
+        QSwipeGesture *swipe   = qobject_cast<QSwipeGesture *>(gesture->gesture(Qt::SwipeGesture));
         if (swipe == NULL)
         {
             /* NOP */
@@ -105,7 +105,7 @@ DocBrowser::DocBrowser(QWidget *parent)
 
     /* Recall window size */
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    QVariant  var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
     {
         restoreGeometry(var.toByteArray());
@@ -113,9 +113,9 @@ DocBrowser::DocBrowser(QWidget *parent)
     else
     {
         QScreen *screen = QGuiApplication::screens().first();
-        QRect rect = screen->availableGeometry();
-        int rWd = rect.width() / 4;
-        int rHd = rect.height() / 4;
+        QRect    rect   = screen->availableGeometry();
+        int      rWd    = rect.width() / 4;
+        int      rHd    = rect.height() / 4;
         resize(rWd * 3, rHd * 3);
         move(rWd / 2, rHd / 2);
     }
@@ -123,10 +123,10 @@ DocBrowser::DocBrowser(QWidget *parent)
 
     /* Actions */
     m_backwardAction = new QAction(QIcon(":/back.png"), tr("Backward"), this);
-    m_forwardAction = new QAction(QIcon(":/forward.png"), tr("Forward"), this);
-    m_homeAction = new QAction(QIcon(":/qlcplus.png"), tr("Index"), this);
-    m_aboutQtAction = new QAction(QIcon(":/qt.png"), tr("About Qt"), this);
-    m_closeAction = new QAction(QIcon(":/delete.png"), tr("Close this window"), this);
+    m_forwardAction  = new QAction(QIcon(":/forward.png"), tr("Forward"), this);
+    m_homeAction     = new QAction(QIcon(":/qlcplus.png"), tr("Index"), this);
+    m_aboutQtAction  = new QAction(QIcon(":/qt.png"), tr("About Qt"), this);
+    m_closeAction    = new QAction(QIcon(":/delete.png"), tr("Close this window"), this);
 
     m_backwardAction->setEnabled(false);
     m_forwardAction->setEnabled(false);

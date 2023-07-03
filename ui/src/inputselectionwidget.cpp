@@ -196,7 +196,7 @@ void InputSelectionWidget::updateInputSource()
     if (!m_inputSource || m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
     {
         uniName = KInputNone;
-        chName = KInputNone;
+        chName  = KInputNone;
         m_lowerSpin->setEnabled(false);
         m_upperSpin->setEnabled(false);
         m_customFbButton->setChecked(false);

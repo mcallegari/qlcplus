@@ -98,7 +98,7 @@ void OutputPatch_Test::patch()
 void OutputPatch_Test::dump()
 {
     QByteArray uni(513, char(0));
-    uni[0] = 100;
+    uni[0]   = 100;
     uni[169] = 50;
     uni[511] = 25;
 
@@ -124,7 +124,7 @@ void OutputPatch_Test::dump()
     QVERIFY(stub->m_universe[169] == (char)50);
     QVERIFY(stub->m_universe[511] == (char)25);
 
-    uni[0] = 1;
+    uni[0]   = 1;
     uni[169] = 2;
     uni[511] = 3;
 

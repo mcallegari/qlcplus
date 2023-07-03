@@ -32,7 +32,7 @@ class HandlerGraphicsItem : public QObject, public QGraphicsEllipseItem
 public:
     HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen &pen = QPen(), const QBrush &brush = QBrush());
 
-    void setBoundingBox(QRectF rect);
+    void   setBoundingBox(QRectF rect);
     QRectF boundingBox();
 
 private:
@@ -52,9 +52,9 @@ signals:
 typedef struct
 {
     HandlerGraphicsItem *m_item;
-    QGraphicsLineItem *m_line;
-    QPoint m_pos;
-    QPair<uchar, uchar> m_dmxMap;
+    QGraphicsLineItem   *m_line;
+    QPoint               m_pos;
+    QPair<uchar, uchar>  m_dmxMap;
 } HandlerItem;
 
 class ChannelModifierGraphicsView : public QGraphicsView
@@ -79,8 +79,8 @@ public:
     QList<QPair<uchar, uchar>> modifiersMap();
 
 private:
-    QGraphicsScene *m_scene;
-    QGraphicsRectItem *m_bgRect;
+    QGraphicsScene      *m_scene;
+    QGraphicsRectItem   *m_bgRect;
     QList<HandlerItem *> m_handlers;
     HandlerGraphicsItem *m_currentHandler;
 

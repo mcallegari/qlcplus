@@ -48,7 +48,7 @@ void ChannelModifierGraphicsView::setHandlerDMXValue(uchar pos, uchar value)
     HandlerItem *handler = getSelectedHandler();
     if (handler != NULL)
     {
-        handler->m_dmxMap.first = pos;
+        handler->m_dmxMap.first  = pos;
         handler->m_dmxMap.second = value;
         updateView();
     }
@@ -63,7 +63,7 @@ void ChannelModifierGraphicsView::addNewHandler()
     if (prevHandler == m_handlers.last())
         prevHandler = m_handlers.at(m_handlers.count() - 2);
 
-    int prevHdlrIdx = 0;
+    int          prevHdlrIdx = 0;
     HandlerItem *nextHandler = NULL;
     for (prevHdlrIdx = 0; prevHdlrIdx < m_handlers.count(); prevHdlrIdx++)
     {
@@ -80,8 +80,8 @@ void ChannelModifierGraphicsView::addNewHandler()
     uchar halfDMXval = prevHandler->m_dmxMap.second + ((nextHandler->m_dmxMap.second - prevHandler->m_dmxMap.second) / 2);
     newHandler->m_dmxMap = QPair<uchar, uchar>(halfDMXpos, halfDMXval);
     // qDebug() << "Half way DMX value:" << halfDMXpos << halfDMXval;
-    newHandler->m_pos = getPositionFromDMX(newHandler->m_dmxMap);
-    newHandler->m_item = updateHandlerItem(NULL, newHandler->m_pos);
+    newHandler->m_pos    = getPositionFromDMX(newHandler->m_dmxMap);
+    newHandler->m_item   = updateHandlerItem(NULL, newHandler->m_pos);
     newHandler->m_item->setBoundingBox(QRectF(prevHandler->m_pos.x(), m_bgRect->y(),
                                               nextHandler->m_pos.x() - prevHandler->m_pos.x(), m_bgRect->rect().height()));
     newHandler->m_line = m_scene->addLine(newHandler->m_pos.x(), newHandler->m_pos.y(), prevHandler->m_pos.x(),
@@ -127,10 +127,10 @@ void ChannelModifierGraphicsView::setModifierMap(QList<QPair<uchar, uchar>> map)
     for (int i = 0; i < map.count(); i++)
     {
         QPair<uchar, uchar> dmxPair = map.at(i);
-        HandlerItem *handler = new HandlerItem;
-        handler->m_dmxMap = QPair<uchar, uchar>(dmxPair.first, dmxPair.second);
-        handler->m_pos = getPositionFromDMX(dmxPair);
-        handler->m_item = updateHandlerItem(NULL, handler->m_pos);
+        HandlerItem        *handler = new HandlerItem;
+        handler->m_dmxMap           = QPair<uchar, uchar>(dmxPair.first, dmxPair.second);
+        handler->m_pos              = getPositionFromDMX(dmxPair);
+        handler->m_item             = updateHandlerItem(NULL, handler->m_pos);
         if (i == 0)
             handler->m_line = NULL;
         else
@@ -219,7 +219,7 @@ QPair<uchar, uchar> ChannelModifierGraphicsView::getDMXFromPosition(QPointF pos)
     if (pos.y() < m_bgRect->y())
         pos.setY(m_bgRect->y());
     QPair<uchar, uchar> newPos;
-    newPos.first = ((pos.x() - m_bgRect->x()) * 255) / m_bgRect->rect().width();
+    newPos.first  = ((pos.x() - m_bgRect->x()) * 255) / m_bgRect->rect().width();
     newPos.second = 255 - (((pos.y() - m_bgRect->y()) * 255) / m_bgRect->rect().height());
     // qDebug() << "Elapsed DMX value:" << newPos.first << newPos.second;
     return newPos;
@@ -241,16 +241,16 @@ void ChannelModifierGraphicsView::updateView()
     {
         // create one bottom-left handler and one top-right handler
         HandlerItem *blHdlr = new HandlerItem;
-        blHdlr->m_dmxMap = QPair<uchar, uchar>(0, 0);
-        blHdlr->m_pos = QPoint(bgRect.x(), bgRect.bottom());
-        blHdlr->m_item = updateHandlerItem(NULL, blHdlr->m_pos);
-        blHdlr->m_line = NULL;
+        blHdlr->m_dmxMap    = QPair<uchar, uchar>(0, 0);
+        blHdlr->m_pos       = QPoint(bgRect.x(), bgRect.bottom());
+        blHdlr->m_item      = updateHandlerItem(NULL, blHdlr->m_pos);
+        blHdlr->m_line      = NULL;
         m_handlers.append(blHdlr);
 
         HandlerItem *trHdlr = new HandlerItem;
-        trHdlr->m_dmxMap = QPair<uchar, uchar>(255, 255);
-        trHdlr->m_pos = QPoint(bgRect.right(), bgRect.y());
-        trHdlr->m_item = updateHandlerItem(NULL, trHdlr->m_pos);
+        trHdlr->m_dmxMap    = QPair<uchar, uchar>(255, 255);
+        trHdlr->m_pos       = QPoint(bgRect.right(), bgRect.y());
+        trHdlr->m_item      = updateHandlerItem(NULL, trHdlr->m_pos);
         trHdlr->m_line = m_scene->addLine(blHdlr->m_pos.x(), blHdlr->m_pos.y(), trHdlr->m_pos.x(), trHdlr->m_pos.y(),
                                           QPen(Qt::yellow));
         m_handlers.append(trHdlr);
@@ -263,8 +263,8 @@ void ChannelModifierGraphicsView::updateView()
         for (int i = 0; i < m_handlers.count(); i++)
         {
             HandlerItem *handler = m_handlers.at(i);
-            handler->m_pos = getPositionFromDMX(handler->m_dmxMap);
-            handler->m_item = updateHandlerItem(handler->m_item, handler->m_pos);
+            handler->m_pos       = getPositionFromDMX(handler->m_dmxMap);
+            handler->m_item      = updateHandlerItem(handler->m_item, handler->m_pos);
 
             if (handler->m_line != NULL)
             {
@@ -299,7 +299,7 @@ void ChannelModifierGraphicsView::slotItemSelected(HandlerGraphicsItem *item)
 {
     if (m_currentHandler != NULL)
         m_currentHandler->setBrush(QBrush(Qt::yellow));
-    m_currentHandler = item;
+    m_currentHandler     = item;
     HandlerItem *handler = getSelectedHandler();
     if (handler != NULL)
         emit itemClicked(handler->m_dmxMap.first, handler->m_dmxMap.second);

@@ -32,16 +32,16 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCXYPadPreset QString("Preset")
-#define KXMLQLCVCXYPadPresetID QString("ID")
+#define KXMLQLCVCXYPadPreset     QString("Preset")
+#define KXMLQLCVCXYPadPresetID   QString("ID")
 #define KXMLQLCVCXYPadPresetType QString("Type")
 #define KXMLQLCVCXYPadPresetName QString("Name")
 
-#define KXMLQLCVCXYPadPresetFuncID QString("FuncID")
-#define KXMLQLCVCXYPadPresetXPos QString("X")
-#define KXMLQLCVCXYPadPresetYPos QString("Y")
-#define KXMLQLCVCXYPadPresetFixture QString("Fixture")
-#define KXMLQLCVCXYPadPresetFixtureID QString("ID")
+#define KXMLQLCVCXYPadPresetFuncID      QString("FuncID")
+#define KXMLQLCVCXYPadPresetXPos        QString("X")
+#define KXMLQLCVCXYPadPresetYPos        QString("Y")
+#define KXMLQLCVCXYPadPresetFixture     QString("Fixture")
+#define KXMLQLCVCXYPadPresetFixtureID   QString("ID")
 #define KXMLQLCVCXYPadPresetFixtureHead QString("Head")
 
 class VCXYPadPreset
@@ -63,22 +63,22 @@ public:
 
     QString getColor() const;
 
-    void setFunctionID(quint32 id);
+    void    setFunctionID(quint32 id);
     quint32 functionID() const;
 
-    void setPosition(QPointF pos);
+    void    setPosition(QPointF pos);
     QPointF position() const;
 
-    void setFixtureGroup(QList<GroupHead> heads);
+    void             setFixtureGroup(QList<GroupHead> heads);
     QList<GroupHead> fixtureGroup() const;
 
 public:
     VCXYPadPreset &operator=(const VCXYPadPreset &vcpp);
-    bool operator<(VCXYPadPreset const &right) const;
-    static bool compare(VCXYPadPreset const *left, VCXYPadPreset const *right);
+    bool           operator<(VCXYPadPreset const &right) const;
+    static bool    compare(VCXYPadPreset const *left, VCXYPadPreset const *right);
 
 protected:
-    static QString typeToString(PresetType type);
+    static QString    typeToString(PresetType type);
     static PresetType stringToType(QString str);
 
 public:
@@ -104,7 +104,7 @@ public:
     QList<GroupHead> m_fxGroup;
 
     QSharedPointer<QLCInputSource> m_inputSource;
-    QKeySequence m_keySequence;
+    QKeySequence                   m_keySequence;
 
     /************************************************************************
      * Load & Save

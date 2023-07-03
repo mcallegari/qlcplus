@@ -71,7 +71,7 @@ protected:
 
 protected:
     static VirtualConsole *s_instance;
-    Doc *m_doc;
+    Doc                   *m_doc;
 
 private:
     /** Latest assigned widget ID */
@@ -340,9 +340,9 @@ protected:
     QList<VCWidget *> getChildren(VCWidget *obj);
 
 protected:
-    QVBoxLayout *m_contentsLayout;
-    QScrollArea *m_scrollArea;
-    VCFrame *m_contents;
+    QVBoxLayout               *m_contentsLayout;
+    QScrollArea               *m_scrollArea;
+    VCFrame                   *m_contents;
     QHash<quint32, VCWidget *> m_widgetsMap;
 
     /*********************************************************************

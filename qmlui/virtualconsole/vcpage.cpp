@@ -78,7 +78,7 @@ void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *wid
      *  has to be performed later */
     quint32 key = (source->universe() << 16) | (source->channel() & 0x0000FFFF);
     QPair<QSharedPointer<QLCInputSource>, VCWidget *> refs;
-    refs.first = source;
+    refs.first  = source;
     refs.second = widget;
 
     m_inputSourcesMap.insert(key, refs);
@@ -93,8 +93,8 @@ void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCW
     if (checkChildren && children(true).contains(widget) == false)
         return;
 
-    quint32 key = (universe << 16) | (channel & 0x0000FFFF);
-    ushort page = channel >> 16;
+    quint32 key  = (universe << 16) | (channel & 0x0000FFFF);
+    ushort  page = channel >> 16;
 
     // qDebug() << "Multihash keys before deletion:" << m_inputSourcesMap.count(key);
 
@@ -167,7 +167,7 @@ void VCPage::mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget,
         return;
 
     QPair<quint32, VCWidget *> refs;
-    refs.first = id;
+    refs.first  = id;
     refs.second = widget;
 
     m_keySequencesMap.insert(sequence, refs);

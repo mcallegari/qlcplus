@@ -51,7 +51,7 @@ void GenericDMXSource::set(quint32 fxi, quint32 ch, uchar value)
 {
     QMutexLocker locker(&m_mutex);
     m_values[QPair<quint32, quint32>(fxi, ch)] = value;
-    m_changed = true;
+    m_changed                                  = true;
 }
 
 void GenericDMXSource::unset(quint32 fxi, quint32 ch)
@@ -66,7 +66,7 @@ void GenericDMXSource::unsetAll()
     QMutexLocker locker(&m_mutex);
     // will be processed at the next writeDMX
     m_clearRequest = true;
-    m_changed = true;
+    m_changed      = true;
 }
 
 void GenericDMXSource::setOutputEnabled(bool enable)
@@ -86,15 +86,15 @@ quint32 GenericDMXSource::channelsCount() const
 
 QList<SceneValue> GenericDMXSource::channels()
 {
-    QList<SceneValue> chList;
+    QList<SceneValue>                                   chList;
     QMutableMapIterator<QPair<quint32, quint32>, uchar> it(m_values);
     while (it.hasNext() == true)
     {
         it.next();
         SceneValue sv;
-        sv.fxi = it.key().first;
+        sv.fxi     = it.key().first;
         sv.channel = it.key().second;
-        sv.value = it.value();
+        sv.value   = it.value();
         chList.append(sv);
     }
     return chList;
@@ -117,11 +117,11 @@ void GenericDMXSource::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             if (fixture == NULL)
                 continue;
 
-            quint32 universe = fixture->universe();
-            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+            quint32                      universe = fixture->universe();
+            QSharedPointer<GenericFader> fader    = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
-                fader = ua[universe]->requestFader();
+                fader                 = ua[universe]->requestFader();
                 m_fadersMap[universe] = fader;
             }
 
@@ -139,8 +139,8 @@ void GenericDMXSource::writeDMX(MasterTimer *timer, QList<Universe *> ua)
         while (it.hasNext() == true)
         {
             it.next();
-            quint32 universe = it.key();
-            QSharedPointer<GenericFader> fader = it.value();
+            quint32                      universe = it.key();
+            QSharedPointer<GenericFader> fader    = it.value();
             ua[universe]->dismissFader(fader);
         }
         m_fadersMap.clear();

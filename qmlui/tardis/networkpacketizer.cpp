@@ -95,9 +95,9 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
         case QMetaType::QVector3D:
         {
             QVector3D vect = value.value<QVector3D>();
-            float x = vect.x();
-            float y = vect.y();
-            float z = vect.z();
+            float     x    = vect.x();
+            float     y    = vect.y();
+            float     z    = vect.z();
             packet.append(Vector3DType);
             packet.append(reinterpret_cast<const char *>(&x), sizeof(x));
             packet.append(reinterpret_cast<const char *>(&y), sizeof(y));
@@ -107,10 +107,10 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
         case QMetaType::QRectF:
         {
             QRectF rect = value.value<QRectF>();
-            float x = rect.x();
-            float y = rect.y();
-            float w = rect.width();
-            float h = rect.height();
+            float  x    = rect.x();
+            float  y    = rect.y();
+            float  w    = rect.width();
+            float  h    = rect.height();
             packet.append(RectFType);
             packet.append(reinterpret_cast<const char *>(&x), sizeof(x));
             packet.append(reinterpret_cast<const char *>(&y), sizeof(y));
@@ -130,7 +130,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
         break;
         case QMetaType::QFont:
         {
-            QFont font = value.value<QFont>();
+            QFont      font   = value.value<QFont>();
             QByteArray strVal = font.toString().toUtf8();
             packet.append(FontType);                         // section type
             packet.append((char)(strVal.length() >> 8));     // section length MSB
@@ -201,10 +201,10 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
 
     quint16 newLength = packet.length() - HEADER_LENGTH;
     // increment the number of sections
-    packet[4] = packet.at(4) + 1;
+    packet[4]         = packet.at(4) + 1;
     // update the total sections length
-    packet[5] = newLength >> 8;
-    packet[6] = newLength & 0xFF;
+    packet[5]         = newLength >> 8;
+    packet[6]         = newLength & 0xFF;
 }
 
 QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *crypter)
@@ -213,17 +213,17 @@ QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *cry
     encPacket.append(crypter->encryptToByteArray(packet.mid(HEADER_LENGTH))); // encrypt the rest
 
     quint16 newLength = encPacket.length() - HEADER_LENGTH;
-    encPacket[5] = newLength >> 8;
-    encPacket[6] = newLength & 0xFF;
+    encPacket[5]      = newLength >> 8;
+    encPacket[6]      = newLength & 0xFF;
 
     return encPacket;
 }
 
 int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter)
 {
-    int bytes_read = 0;
-    quint8 sections_number = 0;
-    quint16 sections_length = 0;
+    int        bytes_read      = 0;
+    quint8     sections_number = 0;
+    quint16    sections_length = 0;
     QByteArray ba;
 
     /* A packet header must be at least 4 bytes long */
@@ -385,8 +385,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             case StringIntPairType:
             {
                 StringIntPair pairVal;
-                QString strVal;
-                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                QString       strVal;
+                quint16       sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
                 bytes_read += 2;
 
                 strVal.append(ba.mid(bytes_read, sLength));
@@ -405,8 +405,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             case StringStringPairType:
             {
                 StringStringPair pairVal;
-                QString strVal;
-                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                QString          strVal;
+                quint16          sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
                 bytes_read += 2;
 
                 strVal.append(ba.mid(bytes_read, sLength));

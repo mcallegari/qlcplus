@@ -130,8 +130,8 @@ bool EFX::copyFrom(const Function *function)
 
     m_xFrequency = efx->m_xFrequency;
     m_yFrequency = efx->m_yFrequency;
-    m_xPhase = efx->m_xPhase;
-    m_yPhase = efx->m_yPhase;
+    m_xPhase     = efx->m_xPhase;
+    m_yPhase     = efx->m_yPhase;
 
     m_algorithm = efx->m_algorithm;
 
@@ -255,8 +255,8 @@ void EFX::previewFixtures(QVector<QPolygonF> &polygons) const
 void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
 {
     float stepCount = 128.0;
-    int step = 0;
-    float stepSize = 1.0 / (stepCount / (M_PI * 2.0));
+    int   step      = 0;
+    float stepSize  = 1.0 / (stepCount / (M_PI * 2.0));
 
     float i = 0;
     float x = 0;
@@ -287,10 +287,10 @@ void EFX::calculatePoint(Function::Direction direction, int startOffset, float i
 
 void EFX::rotateAndScale(float *x, float *y) const
 {
-    float xx = *x;
-    float yy = *y;
-    float w = getAttributeValue(Width);
-    float h = getAttributeValue(Height);
+    float xx        = *x;
+    float yy        = *y;
+    float w         = getAttributeValue(Width);
+    float h         = getAttributeValue(Height);
     float fadeScale = 1.0;
 
     if (isRunning())
@@ -399,24 +399,24 @@ void EFX::calculatePoint(float iterator, float *x, float *y) const
             else
             {
                 float iterator0 = ((iterator + m_xPhase) / M_PI);
-                int fff = iterator0;
+                int   fff       = iterator0;
                 iterator0 -= (fff - fff % 2);
-                float forward = 1 - floor(iterator0); // 1 when forward
-                float backward = 1 - forward;         // 1 when backward
-                iterator0 = iterator0 - floor(iterator0);
-                *x = (forward * iterator0 + backward * (1 - iterator0)) * 2 - 1;
+                float forward  = 1 - floor(iterator0); // 1 when forward
+                float backward = 1 - forward;          // 1 when backward
+                iterator0      = iterator0 - floor(iterator0);
+                *x             = (forward * iterator0 + backward * (1 - iterator0)) * 2 - 1;
             }
             if (m_yFrequency > 0)
                 *y = cos((m_yFrequency * iterator) - m_yPhase);
             else
             {
                 float iterator0 = ((iterator + m_yPhase) / M_PI);
-                int fff = iterator0;
+                int   fff       = iterator0;
                 iterator0 -= (fff - fff % 2);
-                float forward = 1 - floor(iterator0); // 1 when forward
-                float backward = 1 - forward;         // 1 when backward
-                iterator0 = iterator0 - floor(iterator0);
-                *y = (forward * iterator0 + backward * (1 - iterator0)) * 2 - 1;
+                float forward  = 1 - floor(iterator0); // 1 when forward
+                float backward = 1 - forward;          // 1 when backward
+                iterator0      = iterator0 - floor(iterator0);
+                *y             = (forward * iterator0 + backward * (1 - iterator0)) * 2 - 1;
             }
         }
         break;
@@ -474,8 +474,8 @@ int EFX::rotation() const
 void EFX::updateRotationCache()
 {
     double r = M_PI / 180 * getAttributeValue(Rotation);
-    m_cosR = cos(r);
-    m_sinR = sin(r);
+    m_cosR   = cos(r);
+    m_sinR   = sin(r);
 }
 
 /*****************************************************************************
@@ -640,7 +640,7 @@ bool EFX::addFixture(EFXFixture *ef)
 bool EFX::addFixture(quint32 fxi, int head)
 {
     EFXFixture *ef = new EFXFixture(this);
-    GroupHead gHead(fxi, head);
+    GroupHead   gHead(fxi, head);
     ef->setHead(gHead);
 
     return addFixture(ef);
@@ -975,9 +975,9 @@ bool EFX::loadXML(QXmlStreamReader &root)
 
 bool EFX::loadXMLAxis(QXmlStreamReader &root)
 {
-    int frequency = 0;
-    int offset = 0;
-    int phase = 0;
+    int     frequency = 0;
+    int     offset    = 0;
+    int     phase     = 0;
     QString axis;
 
     if (root.name() != KXMLQLCEFXAxis)

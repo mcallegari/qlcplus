@@ -64,7 +64,7 @@ public:
     QString lastError() const;
 
 private:
-    QLCChannel::Group getGroup(QString ID, QString name, QString group);
+    QLCChannel::Group         getGroup(QString ID, QString name, QString group);
     QLCChannel::PrimaryColour getColour(QString ID, QString name, QString group);
 
 private:
@@ -79,7 +79,7 @@ private:
         EFFECT
     };
 
-    typedef QMap<QString, Attributes> StringToEnumMap;
+    typedef QMap<QString, Attributes>   StringToEnumMap;
     typedef QMap<QString, QLCChannel *> ChannelsMap;
 
 private:
@@ -119,7 +119,7 @@ private:
     QLCFixtureDef::FixtureType guessType(QLCFixtureDef *def) const;
 
 private:
-    QString m_lastError;
+    QString     m_lastError;
     ChannelsMap m_channels;
 
     static StringToEnumMap s_attributesMap;

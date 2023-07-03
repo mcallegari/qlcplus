@@ -34,10 +34,10 @@ UniverseItemWidget::~UniverseItemWidget() {}
 
 void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QWidget *list = qobject_cast<QWidget *>(parent());
-    qreal pWidth = list->geometry().width();
-    QRect r = option.rect;
-    QFont font = qApp->font();
+    QWidget *list   = qobject_cast<QWidget *>(parent());
+    qreal    pWidth = list->geometry().width();
+    QRect    r      = option.rect;
+    QFont    font   = qApp->font();
     font.setBold(true);
     font.setPixelSize(18);
     painter->setRenderHint(QPainter::Antialiasing, true);
@@ -84,10 +84,10 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
     // draw input output labels
     int midPos = (pWidth - 10 - 150) / 2;
     midPos += 170;
-    QString inStr = tr("Input:");
+    QString inStr  = tr("Input:");
     QString proStr = tr("Profile:");
     QString outStr = tr("Output:");
-    QString fbStr = tr("Feedback:");
+    QString fbStr  = tr("Feedback:");
     painter->drawText(QRect(170, r.top() + 10, 150, 20), Qt::AlignLeft, inStr);
     painter->drawText(QRect(midPos, r.top() + 10, 150, 20), Qt::AlignLeft, proStr);
     painter->drawText(QRect(170, r.top() + 30, 150, 20), Qt::AlignLeft, outStr);
@@ -95,15 +95,15 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     QFontMetrics fm(font);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
-    int inPos = fm.width(inStr) + 170 + 5;
+    int inPos  = fm.width(inStr) + 170 + 5;
     int proPos = fm.width(proStr) + midPos + 5;
     int outPos = fm.width(outStr) + 170 + 5;
-    int fbPos = fm.width(fbStr) + midPos + 5;
+    int fbPos  = fm.width(fbStr) + midPos + 5;
 #else
-    int inPos = fm.horizontalAdvance(inStr) + 170 + 5;
+    int inPos  = fm.horizontalAdvance(inStr) + 170 + 5;
     int proPos = fm.horizontalAdvance(proStr) + midPos + 5;
     int outPos = fm.horizontalAdvance(outStr) + 170 + 5;
-    int fbPos = fm.horizontalAdvance(fbStr) + midPos + 5;
+    int fbPos  = fm.horizontalAdvance(fbStr) + midPos + 5;
 #endif
     font.setBold(false);
     painter->setFont(font);

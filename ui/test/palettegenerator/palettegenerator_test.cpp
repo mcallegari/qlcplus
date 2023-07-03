@@ -49,7 +49,7 @@ void PaletteGenerator_Test::initTestCase()
 
 void PaletteGenerator_Test::initial()
 {
-    Doc doc(this);
+    Doc              doc(this);
     QList<Fixture *> list;
     list << new Fixture(&doc);
     list << new Fixture(&doc);
@@ -108,7 +108,7 @@ void PaletteGenerator_Test::createColours()
     Q_ASSERT(fixtureMode != NULL);
 
     QList<Fixture *> list;
-    Fixture *fxi1 = new Fixture(&doc);
+    Fixture         *fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
     doc.addFixture(fxi1);
@@ -145,7 +145,7 @@ void PaletteGenerator_Test::createGobos()
     Q_ASSERT(fixtureMode != NULL);
 
     QList<Fixture *> list;
-    Fixture *fxi1 = new Fixture(&doc);
+    Fixture         *fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
     doc.addFixture(fxi1);
@@ -182,7 +182,7 @@ void PaletteGenerator_Test::createShutters()
     Q_ASSERT(fixtureMode != NULL);
 
     QList<Fixture *> list;
-    Fixture *fxi1 = new Fixture(&doc);
+    Fixture         *fxi1 = new Fixture(&doc);
     fxi1->setFixtureDefinition(fixtureDef, fixtureMode);
     list << fxi1;
     doc.addFixture(fxi1);

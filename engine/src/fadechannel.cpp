@@ -76,17 +76,17 @@ FadeChannel &FadeChannel::operator=(const FadeChannel &fc)
 {
     if (this != &fc)
     {
-        m_flags = fc.m_flags;
-        m_fixture = fc.m_fixture;
+        m_flags    = fc.m_flags;
+        m_fixture  = fc.m_fixture;
         m_universe = fc.m_universe;
-        m_channel = fc.m_channel;
-        m_address = fc.m_address;
-        m_start = fc.m_start;
-        m_target = fc.m_target;
-        m_current = fc.m_current;
-        m_ready = fc.m_ready;
+        m_channel  = fc.m_channel;
+        m_address  = fc.m_address;
+        m_start    = fc.m_start;
+        m_target   = fc.m_target;
+        m_current  = fc.m_current;
+        m_ready    = fc.m_ready;
         m_fadeTime = fc.m_fadeTime;
-        m_elapsed = fc.m_elapsed;
+        m_elapsed  = fc.m_elapsed;
     }
 
     return *this;
@@ -129,20 +129,20 @@ void FadeChannel::autoDetect(const Doc *doc)
     if (m_fixture == Fixture::invalidId())
     {
         fixtureWasInvalid = true;
-        m_fixture = doc->fixtureForAddress(channel());
+        m_fixture         = doc->fixtureForAddress(channel());
     }
 
     Fixture *fixture = doc->fixture(m_fixture);
     if (fixture == NULL)
     {
         m_universe = Universe::invalid();
-        m_address = QLCChannel::invalid();
+        m_address  = QLCChannel::invalid();
         addFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
     }
     else
     {
         m_universe = fixture->universe();
-        m_address = fixture->address();
+        m_address  = fixture->address();
 
         // if the fixture was invalid at the beginning of this method
         // it means channel was an absolute address, so, fix it
@@ -319,8 +319,8 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
     {
         // 16 bit fading works as long as MSB and LSB channels
         // are targeting the same value. E.g. Red and Red Fine both at 158
-        float val = (float(m_target - m_start) * (float(elapsedTime) / float(fadeTime))) + float(m_start);
-        long rval = lrintf(val * 256);
+        float val  = (float(m_target - m_start) * (float(elapsedTime) / float(fadeTime))) + float(m_start);
+        long  rval = lrintf(val * 256);
         if (m_flags & Fine)
             m_current = rval & 0xff;
         else

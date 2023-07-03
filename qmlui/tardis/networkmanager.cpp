@@ -47,7 +47,7 @@ NetworkManager::NetworkManager(QObject *parent, Doc *doc)
 {
     m_hostType = UnknownHostType;
     setHostName(defaultName());
-    m_crypt = new SimpleCrypt(defaultKey);
+    m_crypt      = new SimpleCrypt(defaultKey);
     m_packetizer = new NetworkPacketizer();
 }
 
@@ -160,7 +160,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     if (socket == nullptr)
         return false;
 
-    qint64 sent = 0;
+    qint64  sent           = 0;
     quint64 totalBytesSent = 0;
 
     if (encrypt)
@@ -267,7 +267,7 @@ bool NetworkManager::stopServer()
 bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMask)
 {
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
+    NetworkHost *host          = m_hostsMap.value(clientAddress, nullptr);
 
     if (host == nullptr || clientAddress.isNull())
         return false;
@@ -295,11 +295,11 @@ bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMas
 
 bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
 {
-    QByteArray packet;
-    int pktCounter = 0;
-    QFile workspace(filename);
+    QByteArray   packet;
+    int          pktCounter = 0;
+    QFile        workspace(filename);
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
+    NetworkHost *host          = m_hostsMap.value(clientAddress, nullptr);
 
     if (host == nullptr || clientAddress.isNull())
         return false;
@@ -508,16 +508,16 @@ void NetworkManager::slotProcessUDPPackets()
 {
     while (m_udpSocket->hasPendingDatagrams())
     {
-        QByteArray datagram;
+        QByteArray   datagram;
         QHostAddress senderAddress;
         datagram.resize(m_udpSocket->pendingDatagramSize());
         m_udpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
 
         qDebug() << "[UDP] received" << datagram.size() << "bytes from" << senderAddress.toString();
 
-        int opCode = 0;
+        int          opCode = 0;
         QVariantList paramsList;
-        int read = m_packetizer->decodePacket(datagram, opCode, paramsList, nullptr);
+        int          read = m_packetizer->decodePacket(datagram, opCode, paramsList, nullptr);
 
         qDebug() << "Bytes processed" << read << QString::number(opCode, 16) << paramsList;
 
@@ -557,10 +557,10 @@ void NetworkManager::slotProcessTCPPackets()
     if (socket == nullptr)
         return;
 
-    QHostAddress senderAddress = socket->peerAddress();
-    qint64 bytesProcessed = 0;
-    qint64 bytesAvailable = 0;
-    QByteArray wholeData;
+    QHostAddress senderAddress  = socket->peerAddress();
+    qint64       bytesProcessed = 0;
+    qint64       bytesAvailable = 0;
+    QByteArray   wholeData;
 
     wholeData.append(socket->readAll());
     bytesAvailable = wholeData.length();
@@ -569,10 +569,10 @@ void NetworkManager::slotProcessTCPPackets()
 
     while (bytesAvailable)
     {
-        int actionCode = 0;
+        int          actionCode = 0;
         QVariantList paramsList;
-        QByteArray datagram = wholeData.mid(bytesProcessed);
-        int read = m_packetizer->decodePacket(datagram, actionCode, paramsList, m_crypt);
+        QByteArray   datagram = wholeData.mid(bytesProcessed);
+        int          read     = m_packetizer->decodePacket(datagram, actionCode, paramsList, m_crypt);
 
         qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16) << "params"
                  << paramsList.count();
@@ -611,7 +611,7 @@ void NetworkManager::slotProcessTCPPackets()
                 if (success == true)
                 {
                     host->isAuthenticated = true;
-                    host->hostName = paramsList.at(1).toString();
+                    host->hostName        = paramsList.at(1).toString();
                     // emit a signal to acquire the host permissions
                     emit clientAccessRequest(host->hostName);
                 }
@@ -700,16 +700,16 @@ void NetworkManager::slotProcessNewTCPConnection()
     QHostAddress senderAddress = clientConnection->peerAddress();
     if (m_hostsMap.contains(senderAddress) == true)
     {
-        NetworkHost *host = m_hostsMap[senderAddress];
+        NetworkHost *host     = m_hostsMap[senderAddress];
         host->isAuthenticated = false;
-        host->tcpSocket = clientConnection;
+        host->tcpSocket       = clientConnection;
     }
     else
     {
         qDebug() << "[slotProcessNewTCPConnection] Adding a new host to map:" << senderAddress.toString();
-        NetworkHost *newHost = new NetworkHost;
-        newHost->isAuthenticated = false;
-        newHost->tcpSocket = clientConnection;
+        NetworkHost *newHost      = new NetworkHost;
+        newHost->isAuthenticated  = false;
+        newHost->tcpSocket        = clientConnection;
         m_hostsMap[senderAddress] = newHost;
         emit connectionsCountChanged();
     }
@@ -718,7 +718,7 @@ void NetworkManager::slotProcessNewTCPConnection()
 
 void NetworkManager::slotHostDisconnected()
 {
-    QTcpSocket *socket = (QTcpSocket *)sender();
+    QTcpSocket  *socket        = (QTcpSocket *)sender();
     QHostAddress senderAddress = socket->peerAddress();
     qDebug() << "Host with address" << senderAddress.toString() << "disconnected!";
 

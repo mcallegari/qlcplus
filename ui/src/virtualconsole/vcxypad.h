@@ -52,17 +52,17 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPad QString("XYPad")
-#define KXMLQLCVCXYPadPan QString("Pan")
-#define KXMLQLCVCXYPadTilt QString("Tilt")
-#define KXMLQLCVCXYPadWidth QString("Width")
-#define KXMLQLCVCXYPadHeight QString("Height")
-#define KXMLQLCVCXYPadPosition QString("Position")
-#define KXMLQLCVCXYPadRangeWindow QString("Window")
+#define KXMLQLCVCXYPad              QString("XYPad")
+#define KXMLQLCVCXYPadPan           QString("Pan")
+#define KXMLQLCVCXYPadTilt          QString("Tilt")
+#define KXMLQLCVCXYPadWidth         QString("Width")
+#define KXMLQLCVCXYPadHeight        QString("Height")
+#define KXMLQLCVCXYPadPosition      QString("Position")
+#define KXMLQLCVCXYPadRangeWindow   QString("Window")
 #define KXMLQLCVCXYPadRangeHorizMin QString("hMin")
 #define KXMLQLCVCXYPadRangeHorizMax QString("hMax")
-#define KXMLQLCVCXYPadRangeVertMin QString("vMin")
-#define KXMLQLCVCXYPadRangeVertMax QString("vMax")
+#define KXMLQLCVCXYPadRangeVertMin  QString("vMin")
+#define KXMLQLCVCXYPadRangeVertMax  QString("vMax")
 
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy
@@ -71,10 +71,10 @@ class Doc;
 
 typedef struct
 {
-    quint32 m_universe;
-    quint32 m_fixture;
-    quint32 m_channel; // universe channel address
-    QLCChannel::Group m_group;
+    quint32                 m_universe;
+    quint32                 m_fixture;
+    quint32                 m_channel; // universe channel address
+    QLCChannel::Group       m_group;
     QLCChannel::ControlByte m_subType;
 } SceneChannel;
 
@@ -100,17 +100,17 @@ public:
     void enableWidgetUI(bool enable);
 
 private:
-    QVBoxLayout *m_mainVbox;        // main vertical layout
-    QHBoxLayout *m_padBox;          // box containing sliders and XYPad
-    QVBoxLayout *m_lvbox;           // left vertical box (vertical ctkSlider)
-    QVBoxLayout *m_cvbox;           // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
-    QVBoxLayout *m_rvbox;           // right vertical box (vertical slider)
-    QSlider *m_vSlider;             // tilt slider
-    QSlider *m_hSlider;             // pan slider
+    QVBoxLayout    *m_mainVbox;     // main vertical layout
+    QHBoxLayout    *m_padBox;       // box containing sliders and XYPad
+    QVBoxLayout    *m_lvbox;        // left vertical box (vertical ctkSlider)
+    QVBoxLayout    *m_cvbox;        // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
+    QVBoxLayout    *m_rvbox;        // right vertical box (vertical slider)
+    QSlider        *m_vSlider;      // tilt slider
+    QSlider        *m_hSlider;      // pan slider
     ctkRangeSlider *m_vRangeSlider; // range window height control
     ctkRangeSlider *m_hRangeSlider; // range window width control
-    VCXYPadArea *m_area;
-    FlowLayout *m_presetsLayout;
+    VCXYPadArea    *m_area;
+    FlowLayout     *m_presetsLayout;
 
     /*************************************************************************
      * Clipboard
@@ -171,7 +171,7 @@ public:
 
 private:
     QRectF computeCommonDegreesRange() const;
-    void updateDegreesRange();
+    void   updateDegreesRange();
 
 private:
     QList<VCXYPadFixture> m_fixtures;
@@ -207,8 +207,8 @@ private:
      * Presets
      *********************************************************************/
 public:
-    void addPreset(VCXYPadPreset const &preset);
-    void resetPresets();
+    void                   addPreset(VCXYPadPreset const &preset);
+    void                   resetPresets();
     QList<VCXYPadPreset *> presets() const;
 
 protected:
@@ -225,14 +225,14 @@ private:
 protected:
     QHash<QWidget *, VCXYPadPreset *> m_presets;
     /** Reference to an EFX Function when an EFX Preset is pressed */
-    EFX *m_efx;
+    EFX                              *m_efx;
     /** Attribute override IDs for a running EFX preset */
-    int m_efxStartXOverrideId;
-    int m_efxStartYOverrideId;
-    int m_efxWidthOverrideId;
-    int m_efxHeightOverrideId;
+    int                               m_efxStartXOverrideId;
+    int                               m_efxStartYOverrideId;
+    int                               m_efxWidthOverrideId;
+    int                               m_efxHeightOverrideId;
 
-    Scene *m_scene;
+    Scene              *m_scene;
     QList<SceneChannel> m_sceneChannels;
 
     /*********************************************************************

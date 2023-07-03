@@ -35,10 +35,10 @@
 #include "apputil.h"
 #include "doc.h"
 
-#define KXMLQLCVCATKey QString("Key")
+#define KXMLQLCVCATKey        QString("Key")
 #define KXMLQLCVCATBarsNumber QString("BarsNumber")
 
-#define KXMLQLCVolumeBar QString("VolumeBar")
+#define KXMLQLCVolumeBar   QString("VolumeBar")
 #define KXMLQLCSpectrumBar QString("SpectrumBar")
 
 const QSize VCAudioTriggers::defaultSize(QSize(300, 200));
@@ -119,7 +119,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget *parent, Doc *doc)
     }
 
     QHBoxLayout *hbox2 = new QHBoxLayout();
-    m_volumeSlider = new ClickAndGoSlider(this);
+    m_volumeSlider     = new ClickAndGoSlider(this);
     m_volumeSlider->setOrientation(Qt::Vertical);
     m_volumeSlider->setRange(0, 100);
     m_volumeSlider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
@@ -140,7 +140,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget *parent, Doc *doc)
 
     /* Initial size */
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIOTRIGGERS_SIZE);
+    QVariant  var = settings.value(SETTINGS_AUDIOTRIGGERS_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
@@ -178,8 +178,8 @@ void VCAudioTriggers::enableCapture(bool enable)
 {
     // in case the audio input device has been changed in the meantime...
     QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
-    bool captureIsNew = m_inputCapture != capture.data();
-    m_inputCapture = capture.data();
+    bool                         captureIsNew = m_inputCapture != capture.data();
+    m_inputCapture                            = capture.data();
 
     if (enable == true)
     {
@@ -275,16 +275,16 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
     if (mode() == Doc::Design)
         return;
 
-    quint32 lastUniverse = Universe::invalid();
+    quint32                      lastUniverse = Universe::invalid();
     QSharedPointer<GenericFader> fader;
 
     if (m_volumeBar->m_type == AudioBar::DMXBar)
     {
         for (int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
         {
-            int absAddress = m_volumeBar->m_absDmxChannels.at(i);
+            int     absAddress = m_volumeBar->m_absDmxChannels.at(i);
             // quint32 address = absAddress & 0x01FF;
-            quint32 universe = absAddress >> 9;
+            quint32 universe   = absAddress >> 9;
             if (universe != lastUniverse)
             {
                 fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
@@ -311,9 +311,9 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
         {
             for (int i = 0; i < sb->m_absDmxChannels.count(); i++)
             {
-                int absAddress = sb->m_absDmxChannels.at(i);
+                int     absAddress = sb->m_absDmxChannels.at(i);
                 // quint32 address = absAddress & 0x01FF;
-                quint32 universe = absAddress >> 9;
+                quint32 universe   = absAddress >> 9;
                 if (universe != lastUniverse)
                 {
                     fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
@@ -538,7 +538,7 @@ void VCAudioTriggers::setSpectrumBarType(int index, int type)
 void VCAudioTriggers::editProperties()
 {
     // make a backup copy of the current bars
-    AudioBar *tmpVolume = m_volumeBar->createCopy();
+    AudioBar         *tmpVolume = m_volumeBar->createCopy();
     QList<AudioBar *> tmpSpectrumBars;
     foreach (AudioBar *bar, m_spectrumBars)
         tmpSpectrumBars.append(bar->createCopy());
@@ -559,8 +559,8 @@ void VCAudioTriggers::editProperties()
     if (barsNumber != m_spectrumBars.count())
     {
         QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
-        bool captureIsNew = m_inputCapture != capture.data();
-        m_inputCapture = capture.data();
+        bool                         captureIsNew = m_inputCapture != capture.data();
+        m_inputCapture                            = capture.data();
 
         if (m_button->isChecked())
         {
@@ -609,7 +609,7 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
 
         if (root.name() == KXMLQLCWindowState)
         {
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);

@@ -186,7 +186,7 @@ void QHttpResponse::waitForBytesWritten()
 QByteArray QHttpResponse::getWebSocketHandshake(QString clientKey)
 {
     QCryptographicHash crypto(QCryptographicHash::Sha1);
-    QString WS_GUID(clientKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11");
+    QString            WS_GUID(clientKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11");
 
     crypto.addData(WS_GUID.toLatin1());
     return crypto.result().toBase64();

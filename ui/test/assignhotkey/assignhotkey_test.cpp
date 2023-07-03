@@ -39,7 +39,7 @@ void AssignHotKey_Test::initial()
 void AssignHotKey_Test::keyPressEventAuto()
 {
     AssignHotKey ahk(NULL);
-    bool autoclose = ahk.m_autoCloseCheckBox->isChecked();
+    bool         autoclose = ahk.m_autoCloseCheckBox->isChecked();
 
     // Autoclose on
     ahk.m_autoCloseCheckBox->setChecked(true);
@@ -56,7 +56,7 @@ void AssignHotKey_Test::keyPressEventAuto()
 void AssignHotKey_Test::keyPressEventNoAuto()
 {
     AssignHotKey ahk(NULL);
-    bool autoclose = ahk.m_autoCloseCheckBox->isChecked();
+    bool         autoclose = ahk.m_autoCloseCheckBox->isChecked();
 
     // Autoclose off
     ahk.m_autoCloseCheckBox->setChecked(false);
@@ -73,7 +73,7 @@ void AssignHotKey_Test::keyPressEventNoAuto()
 void AssignHotKey_Test::keyPressEventOnlyModifiers()
 {
     AssignHotKey ahk(NULL);
-    bool autoclose = ahk.m_autoCloseCheckBox->isChecked();
+    bool         autoclose = ahk.m_autoCloseCheckBox->isChecked();
 
     ahk.m_autoCloseCheckBox->setChecked(false);
     QKeyEvent ev(QEvent::KeyPress, Qt::Key_Shift, Qt::ShiftModifier);

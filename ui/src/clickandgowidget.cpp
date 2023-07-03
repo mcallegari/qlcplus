@@ -30,8 +30,8 @@
 #include "vcslider.h"
 #include "gradient.h"
 
-#define CELL_W 150
-#define CELL_H 45
+#define CELL_W  150
+#define CELL_H  45
 #define TITLE_H 18
 
 ClickAndGoWidget::ClickAndGoWidget(QWidget *parent)
@@ -44,16 +44,16 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent)
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setMouseTracking(true);
 
-    m_type = None;
-    m_linearColor = false;
-    m_width = 10;
-    m_height = 10;
-    m_cols = 0;
-    m_rows = 0;
-    m_cellWidth = CELL_W;
+    m_type         = None;
+    m_linearColor  = false;
+    m_width        = 10;
+    m_height       = 10;
+    m_cols         = 0;
+    m_rows         = 0;
+    m_cellWidth    = CELL_W;
     m_hoverCellIdx = -1;
-    m_cellBarXpos = 1;
-    m_cellBarYpos = 1;
+    m_cellBarXpos  = 1;
+    m_cellBarYpos  = 1;
     m_cellBarWidth = 0;
 }
 
@@ -64,9 +64,9 @@ void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
     linearGrad.setColorAt(1, end);
 
     // create image and fill it with gradient
-    m_width = 276;
+    m_width  = 276;
     m_height = 40;
-    m_image = QImage(m_width, m_height, QImage::Format_RGB32);
+    m_image  = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.fillRect(m_image.rect(), linearGrad);
 
@@ -77,9 +77,9 @@ void ClickAndGoWidget::setupColorPicker()
 {
     int cw = 15;
 
-    m_width = 256 + 30;
+    m_width  = 256 + 30;
     m_height = 256;
-    m_image = QImage(m_width, m_height, QImage::Format_RGB32);
+    m_image  = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
 
     // Draw 16 default color squares
@@ -316,20 +316,20 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
-    QScreen *scr = QGuiApplication::screens().first();
-    QRect screen = scr->availableGeometry();
+    QScreen *scr    = QGuiApplication::screens().first();
+    QRect    screen = scr->availableGeometry();
 
-    m_cols = 2;
-    m_rows = qCeil((qreal)m_resources.size() / 2);
-    m_width = m_cellWidth * m_cols;
+    m_cols   = 2;
+    m_rows   = qCeil((qreal)m_resources.size() / 2);
+    m_width  = m_cellWidth * m_cols;
     m_height = CELL_H * m_rows + TITLE_H;
 
     // first check if the menu fits vertically
     if (m_height > screen.height())
     {
-        m_rows = qFloor((qreal)screen.height() / CELL_H);
-        m_cols = qCeil((qreal)m_resources.size() / m_rows);
-        m_width = m_cellWidth * m_cols;
+        m_rows   = qFloor((qreal)screen.height() / CELL_H);
+        m_cols   = qCeil((qreal)m_resources.size() / m_rows);
+        m_width  = m_cellWidth * m_cols;
         m_height = CELL_H * m_rows + TITLE_H;
     }
 
@@ -337,11 +337,11 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_width > screen.width())
     {
         m_cellWidth = screen.width() / m_cols;
-        m_width = m_cellWidth * m_cols;
+        m_width     = m_cellWidth * m_cols;
     }
 
-    int x = 0;
-    int y = 0;
+    int x   = 0;
+    int y   = 0;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -400,7 +400,7 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
             qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min << "max:" << res.m_max;
 
             float f = SCALE(float(m_cellBarWidth), float(0), float(m_cellWidth), float(0), float(res.m_max - res.m_min));
-            emit levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
+            emit  levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
         }
     }
     QWidget::mousePressEvent(event);
@@ -424,8 +424,8 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     else if (m_type == Preset)
     {
         // calculate the index of the resource where the cursor is
-        int floorX = qFloor(event->pos().x() / m_cellWidth);
-        int floorY = qFloor((event->pos().y() - TITLE_H) / CELL_H);
+        int floorX     = qFloor(event->pos().x() / m_cellWidth);
+        int floorY     = qFloor((event->pos().y() - TITLE_H) / CELL_H);
         int tmpCellIDx = (floorY * m_cols) + floorX;
         if (event->pos().y() < TITLE_H || tmpCellIDx < 0 || tmpCellIDx >= m_resources.length())
         {
@@ -433,8 +433,8 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
             update();
             return;
         }
-        m_cellBarXpos = floorX * m_cellWidth;
-        m_cellBarYpos = floorY * CELL_H + TITLE_H;
+        m_cellBarXpos  = floorX * m_cellWidth;
+        m_cellBarYpos  = floorY * CELL_H + TITLE_H;
         m_cellBarWidth = event->pos().x() - m_cellBarXpos;
         m_hoverCellIdx = tmpCellIDx;
         update();
@@ -460,8 +460,8 @@ void ClickAndGoWidget::paintEvent(QPaintEvent *event)
 ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uchar min, uchar max)
 {
     m_descr = text;
-    m_min = min;
-    m_max = max;
+    m_min   = min;
+    m_max   = max;
     QImage px(path);
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
     m_thumbnail.fill(Qt::white);
@@ -473,9 +473,9 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
 
 ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2, QString text, uchar min, uchar max)
 {
-    m_descr = text;
-    m_min = min;
-    m_max = max;
+    m_descr     = text;
+    m_min       = min;
+    m_max       = max;
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
     if (color2.isValid() == false)
         m_thumbnail.fill(color1.rgb());
@@ -490,9 +490,9 @@ ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2, Q
 
 ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar min, uchar max)
 {
-    m_descr = text;
-    m_min = min;
-    m_max = max;
+    m_descr     = text;
+    m_min       = min;
+    m_max       = max;
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
     m_thumbnail.fill(Qt::white);
     QFont tfont = QApplication::font();

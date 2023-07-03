@@ -33,7 +33,7 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCFramePageShortcut QString("Shortcut")
+#define KXMLQLCVCFramePageShortcut     QString("Shortcut")
 #define KXMLQLCVCFramePageShortcutPage QString("Page")
 #define KXMLQLCVCFramePageShortcutName QString("Name")
 
@@ -46,7 +46,7 @@ public:
     ~VCFramePageShortcut();
 
     QString name() const;
-    void setName(QString name = QString());
+    void    setName(QString name = QString());
 
     /************************************************************************
      * Load & Save
@@ -64,13 +64,13 @@ protected:
 
 public:
     /** The shortcut unique ID */
-    quint8 m_id;
+    quint8                         m_id;
     /** The associated VCFrame page index */
-    int m_page;
+    int                            m_page;
     /** Reference to the input source to jump to this page */
     QSharedPointer<QLCInputSource> m_inputSource;
     /** The key sequence to jump to this page */
-    QKeySequence m_keySequence;
+    QKeySequence                   m_keySequence;
 };
 
 /** @} */

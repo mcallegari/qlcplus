@@ -47,21 +47,21 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCCueList QString("CueList")
-#define KXMLQLCVCCueListFunction QString("Function") // Legacy
-#define KXMLQLCVCCueListChaser QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout QString("PlaybackLayout")
+#define KXMLQLCVCCueList                 QString("CueList")
+#define KXMLQLCVCCueListFunction         QString("Function") // Legacy
+#define KXMLQLCVCCueListChaser           QString("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout   QString("PlaybackLayout")
 #define KXMLQLCVCCueListNextPrevBehavior QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade QString("Crossfade")
-#define KXMLQLCVCCueListBlend QString("Blend")
-#define KXMLQLCVCCueListLinked QString("Linked")
-#define KXMLQLCVCCueListNext QString("Next")
-#define KXMLQLCVCCueListPrevious QString("Previous")
-#define KXMLQLCVCCueListPlayback QString("Playback")
-#define KXMLQLCVCCueListStop QString("Stop")
-#define KXMLQLCVCCueListCrossfadeLeft QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight QString("CrossRight")
-#define KXMLQLCVCCueListSlidersMode QString("SlidersMode")
+#define KXMLQLCVCCueListCrossfade        QString("Crossfade")
+#define KXMLQLCVCCueListBlend            QString("Blend")
+#define KXMLQLCVCCueListLinked           QString("Linked")
+#define KXMLQLCVCCueListNext             QString("Next")
+#define KXMLQLCVCCueListPrevious         QString("Previous")
+#define KXMLQLCVCCueListPlayback         QString("Playback")
+#define KXMLQLCVCCueListStop             QString("Stop")
+#define KXMLQLCVCCueListCrossfadeLeft    QString("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight   QString("CrossRight")
+#define KXMLQLCVCCueListSlidersMode      QString("SlidersMode")
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.
@@ -234,10 +234,10 @@ public:
         PlayStopPause
     };
 
-    void setNextPrevBehavior(NextPrevBehavior nextPrev);
+    void             setNextPrevBehavior(NextPrevBehavior nextPrev);
     NextPrevBehavior nextPrevBehavior() const;
 
-    void setPlaybackLayout(PlaybackLayout layout);
+    void           setPlaybackLayout(PlaybackLayout layout);
     PlaybackLayout playbackLayout() const;
 
 private:
@@ -245,15 +245,15 @@ private:
     quint32 m_chaserID;
 
     NextPrevBehavior m_nextPrevBehavior;
-    PlaybackLayout m_playbackLayout;
-    QTreeWidget *m_tree;
-    QToolButton *m_crossfadeButton;
-    QToolButton *m_playbackButton;
-    QToolButton *m_stopButton;
-    QToolButton *m_previousButton;
-    QToolButton *m_nextButton;
-    QProgressBar *m_progress;
-    bool m_listIsUpdating;
+    PlaybackLayout   m_playbackLayout;
+    QTreeWidget     *m_tree;
+    QToolButton     *m_crossfadeButton;
+    QToolButton     *m_playbackButton;
+    QToolButton     *m_stopButton;
+    QToolButton     *m_previousButton;
+    QToolButton     *m_nextButton;
+    QProgressBar    *m_progress;
+    bool             m_listIsUpdating;
 
     QTimer *m_timer;
 
@@ -269,10 +269,10 @@ public:
     };
 
     FaderMode sideFaderMode() const;
-    void setSideFaderMode(FaderMode mode);
+    void      setSideFaderMode(FaderMode mode);
 
     FaderMode stringToFaderMode(QString modeStr);
-    QString faderModeToString(FaderMode mode);
+    QString   faderModeToString(FaderMode mode);
 
 protected:
     void setFaderInfo(int index);
@@ -285,15 +285,15 @@ protected:
     void stopStepIfNeeded(Chaser *ch);
 
 private:
-    QLabel *m_topPercentageLabel;
-    QLabel *m_topStepLabel;
+    QLabel           *m_topPercentageLabel;
+    QLabel           *m_topStepLabel;
     ClickAndGoSlider *m_sideFader;
-    QLabel *m_bottomPercentageLabel;
-    QLabel *m_bottomStepLabel;
+    QLabel           *m_bottomPercentageLabel;
+    QLabel           *m_bottomStepLabel;
 
-    QBrush m_defCol;
-    int m_primaryIndex, m_secondaryIndex;
-    bool m_primaryTop;
+    QBrush    m_defCol;
+    int       m_primaryIndex, m_secondaryIndex;
+    bool      m_primaryTop;
     FaderMode m_slidersMode;
 
     /*************************************************************************

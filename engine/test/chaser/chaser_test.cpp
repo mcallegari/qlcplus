@@ -208,7 +208,7 @@ void Chaser_Test::stepAt()
     QVERIFY(cs->hold == 5000);
 
     cs->fadeIn = 500;
-    cs->hold = 8000;
+    cs->hold   = 8000;
 
     QVERIFY(cs->fadeIn == 500);
     QVERIFY(cs->hold == 8000);
@@ -266,7 +266,7 @@ void Chaser_Test::copyFrom()
     c1.addStep(ChaserStep(25));
 
     /* Verify that chaser contents are copied */
-    Chaser c2(m_doc);
+    Chaser     c2(m_doc);
     QSignalSpy spy(&c2, SIGNAL(changed(quint32)));
     QVERIFY(c2.copyFrom(&c1) == true);
     QCOMPARE(spy.size(), 1);

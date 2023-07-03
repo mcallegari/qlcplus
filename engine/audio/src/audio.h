@@ -111,7 +111,7 @@ public:
 
     /** Get/Set the audio function startup volume */
     qreal volume() const;
-    void setVolume(qreal volume);
+    void  setVolume(qreal volume);
 
     /**
      * Retrieve the audio device set for this function
@@ -128,17 +128,17 @@ protected slots:
 
 private:
     /** Instance of an AudioDecoder to perform actual audio decoding */
-    AudioDecoder *m_decoder;
+    AudioDecoder  *m_decoder;
     /** output interface to render audio data got from m_decoder */
     AudioRenderer *m_audio_out;
     /** Audio device to use for rendering */
-    QString m_audioDevice;
+    QString        m_audioDevice;
     /** Name of the source audio file */
-    QString m_sourceFileName;
+    QString        m_sourceFileName;
     /** Duration of the media object */
-    qint64 m_audioDuration;
+    qint64         m_audioDuration;
     /** Startup volume of the audio file */
-    qreal m_volume;
+    qreal          m_volume;
 
     /*********************************************************************
      * Save & Load

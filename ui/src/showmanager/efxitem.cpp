@@ -46,7 +46,7 @@ EFXItem::EFXItem(EFX *efx, ShowFunction *func)
 
 void EFXItem::calculateWidth()
 {
-    int newWidth = 0;
+    int    newWidth    = 0;
     qint64 efxDuration = getDuration();
 
     if (efxDuration != 0)
@@ -64,7 +64,7 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    float xpos = 0;
+    float xpos      = 0;
     float timeScale = 50 / float(m_timeScale);
 
     ShowItem::paint(painter, option, widget);

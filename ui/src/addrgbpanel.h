@@ -60,16 +60,16 @@ public:
         Vertical
     };
 
-    QString name();
-    int universeIndex();
-    int address();
-    int columns();
-    int rows();
-    quint32 physicalWidth();
-    quint32 physicalHeight();
-    Orientation orientation();
-    Type type();
-    Direction direction();
+    QString             name();
+    int                 universeIndex();
+    int                 address();
+    int                 columns();
+    int                 rows();
+    quint32             physicalWidth();
+    quint32             physicalHeight();
+    Orientation         orientation();
+    Type                type();
+    Direction           direction();
     Fixture::Components components();
 
 private:

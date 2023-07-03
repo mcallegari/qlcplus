@@ -34,12 +34,12 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCMatrixControl QString("Control")
-#define KXMLQLCVCMatrixControlID QString("ID")
-#define KXMLQLCVCMatrixControlType QString("Type")
-#define KXMLQLCVCMatrixControlColor QString("Color")
-#define KXMLQLCVCMatrixControlResource QString("Resource")
-#define KXMLQLCVCMatrixControlProperty QString("Property")
+#define KXMLQLCVCMatrixControl             QString("Control")
+#define KXMLQLCVCMatrixControlID           QString("ID")
+#define KXMLQLCVCMatrixControlType         QString("Type")
+#define KXMLQLCVCMatrixControlColor        QString("Color")
+#define KXMLQLCVCMatrixControlResource     QString("Resource")
+#define KXMLQLCVCMatrixControlProperty     QString("Property")
 #define KXMLQLCVCMatrixControlPropertyName QString("Name")
 
 class VCMatrixControl
@@ -85,11 +85,11 @@ public:
     QRgb valueToRgb(quint8 value) const;
 
 protected:
-    static QString typeToString(ControlType type);
+    static QString     typeToString(ControlType type);
     static ControlType stringToType(QString str);
 
 public:
-    bool operator<(VCMatrixControl const &right) const;
+    bool        operator<(VCMatrixControl const &right) const;
     static bool compare(VCMatrixControl const *left, VCMatrixControl const *right);
 
     /************************************************************************
@@ -125,7 +125,7 @@ public:
     QHash<QString, QString> m_properties;
 
     QSharedPointer<QLCInputSource> m_inputSource;
-    QKeySequence m_keySequence;
+    QKeySequence                   m_keySequence;
 };
 
 /** @} */

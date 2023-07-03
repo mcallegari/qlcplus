@@ -99,46 +99,46 @@ public:
 
     enum ChannelType
     {
-        DimmerType = (1 << QLCChannel::Intensity),
-        ColorMacroType = (1 << QLCChannel::Colour), // Color wheels, color macros
-        GoboType = (1 << QLCChannel::Gobo),
-        SpeedType = (1 << QLCChannel::Speed),
-        PanType = (1 << QLCChannel::Pan),
-        TiltType = (1 << QLCChannel::Tilt),
-        ShutterType = (1 << QLCChannel::Shutter),
-        PrismType = (1 << QLCChannel::Prism),
-        BeamType = (1 << QLCChannel::Beam),
-        EffectType = (1 << QLCChannel::Effect),
+        DimmerType      = (1 << QLCChannel::Intensity),
+        ColorMacroType  = (1 << QLCChannel::Colour), // Color wheels, color macros
+        GoboType        = (1 << QLCChannel::Gobo),
+        SpeedType       = (1 << QLCChannel::Speed),
+        PanType         = (1 << QLCChannel::Pan),
+        TiltType        = (1 << QLCChannel::Tilt),
+        ShutterType     = (1 << QLCChannel::Shutter),
+        PrismType       = (1 << QLCChannel::Prism),
+        BeamType        = (1 << QLCChannel::Beam),
+        EffectType      = (1 << QLCChannel::Effect),
         MaintenanceType = (1 << QLCChannel::Maintenance),
-        ColorType = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
+        ColorType       = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
     };
     Q_ENUM(ChannelType)
 
     enum ChannelColors
     {
-        Red = (1 << 0),
-        Green = (1 << 1),
-        Blue = (1 << 2),
-        Cyan = (1 << 3),
+        Red     = (1 << 0),
+        Green   = (1 << 1),
+        Blue    = (1 << 2),
+        Cyan    = (1 << 3),
         Magenta = (1 << 4),
-        Yellow = (1 << 5),
-        White = (1 << 6),
-        Amber = (1 << 7),
-        UV = (1 << 8),
-        Lime = (1 << 9),
-        Indigo = (1 << 10),
+        Yellow  = (1 << 5),
+        White   = (1 << 6),
+        Amber   = (1 << 7),
+        UV      = (1 << 8),
+        Lime    = (1 << 9),
+        Indigo  = (1 << 10),
     };
     Q_ENUM(ChannelColors)
 
     enum AccessControl
     {
-        AC_FixtureEditing = (1 << 0),
+        AC_FixtureEditing  = (1 << 0),
         AC_FunctionEditing = (1 << 1),
-        AC_VCControl = (1 << 2),
-        AC_VCEditing = (1 << 3),
-        AC_SimpleDesk = (1 << 4),
-        AC_ShowManager = (1 << 5),
-        AC_InputOutput = (1 << 6)
+        AC_VCControl       = (1 << 2),
+        AC_VCEditing       = (1 << 3),
+        AC_SimpleDesk      = (1 << 4),
+        AC_ShowManager     = (1 << 5),
+        AC_InputOutput     = (1 << 6)
     };
     Q_ENUM(AccessControl)
 
@@ -195,21 +195,21 @@ private:
 
     QTranslator *m_translator;
 
-    FixtureBrowser *m_fixtureBrowser;
-    FixtureManager *m_fixtureManager;
+    FixtureBrowser     *m_fixtureBrowser;
+    FixtureManager     *m_fixtureManager;
     FixtureGroupEditor *m_fixtureGroupEditor;
-    PaletteManager *m_paletteManager;
-    ContextManager *m_contextManager;
-    FunctionManager *m_functionManager;
+    PaletteManager     *m_paletteManager;
+    ContextManager     *m_contextManager;
+    FunctionManager    *m_functionManager;
     InputOutputManager *m_ioManager;
-    VirtualConsole *m_virtualConsole;
-    ShowManager *m_showManager;
-    SimpleDesk *m_simpleDesk;
-    ActionManager *m_actionManager;
-    VideoProvider *m_videoProvider;
-    NetworkManager *m_networkManager;
-    UiManager *m_uiManager;
-    Tardis *m_tardis;
+    VirtualConsole     *m_virtualConsole;
+    ShowManager        *m_showManager;
+    SimpleDesk         *m_simpleDesk;
+    ActionManager      *m_actionManager;
+    VideoProvider      *m_videoProvider;
+    NetworkManager     *m_networkManager;
+    UiManager          *m_uiManager;
+    Tardis             *m_tardis;
 
     /*********************************************************************
      * Doc
@@ -256,7 +256,7 @@ protected slots:
     void slotItemReadyForPrinting();
 
 private:
-    QQuickItem *m_printItem;
+    QQuickItem                          *m_printItem;
     QSharedPointer<QQuickItemGrabResult> m_printerImage;
 
     /*********************************************************************
@@ -265,14 +265,14 @@ private:
 public:
     /** Get/Set the name of the current workspace file */
     Q_INVOKABLE QString fileName() const;
-    void setFileName(const QString &fileName);
+    void                setFileName(const QString &fileName);
 
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;
 
     /** Get/Set the path currently used by QLC+ to access projects and resources */
     QString workingPath() const;
-    void setWorkingPath(QString workingPath);
+    void    setWorkingPath(QString workingPath);
 
     /** Reset everything and start a new workspace */
     Q_INVOKABLE bool newWorkspace();
@@ -323,9 +323,9 @@ public slots:
     void slotLoadDocFromMemory(QByteArray &xmlData);
 
 private:
-    QString m_fileName;
+    QString     m_fileName;
     QStringList m_recentFiles;
-    QString m_workingPath;
+    QString     m_workingPath;
 
     /*********************************************************************
      * Import project

@@ -44,12 +44,12 @@ AudioCapture::AudioCapture(QObject *parent)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
 {
-    bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
+    bufferSize   = AUDIO_DEFAULT_BUFFER_SIZE;
     m_sampleRate = AUDIO_DEFAULT_SAMPLE_RATE;
-    m_channels = AUDIO_DEFAULT_CHANNELS;
+    m_channels   = AUDIO_DEFAULT_CHANNELS;
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_SRATE);
+    QVariant  var = settings.value(SETTINGS_AUDIO_INPUT_SRATE);
 
     if (var.isValid() == true)
         m_sampleRate = var.toInt();
@@ -63,8 +63,8 @@ AudioCapture::AudioCapture(QObject *parent)
 
     m_captureSize = bufferSize * m_channels;
 
-    m_audioBuffer = new int16_t[m_captureSize];
-    m_audioMixdown = new int16_t[bufferSize];
+    m_audioBuffer    = new int16_t[m_captureSize];
+    m_audioMixdown   = new int16_t[bufferSize];
     m_fftInputBuffer = new double[bufferSize];
 #ifdef HAS_FFTW3
     m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * bufferSize);
@@ -102,9 +102,9 @@ void AudioCapture::registerBandsNumber(int number)
         if (m_fftMagnitudeMap.contains(number) == false)
         {
             BandsData newBands;
-            newBands.m_registerCounter = 1;
+            newBands.m_registerCounter    = 1;
             newBands.m_fftMagnitudeBuffer = QVector<double>(number);
-            m_fftMagnitudeMap[number] = newBands;
+            m_fftMagnitudeMap[number]     = newBands;
         }
         else
             m_fftMagnitudeMap[number].m_registerCounter++;
@@ -155,8 +155,8 @@ double AudioCapture::fillBandsData(int number)
     // for the number of desired bands.
     double maxMagnitude = 0.;
 #ifdef HAS_FFTW3
-    unsigned int i = 1; // skip DC bin
-    int subBandWidth = ((bufferSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
+    unsigned int i            = 1; // skip DC bin
+    int          subBandWidth = ((bufferSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
 
     for (int b = 0; b < number; b++)
     {
@@ -169,7 +169,7 @@ double AudioCapture::fillBandsData(int number)
                 qSqrt((((fftw_complex *)m_fftOutputBuffer)[i][0] * ((fftw_complex *)m_fftOutputBuffer)[i][0])
                       + (((fftw_complex *)m_fftOutputBuffer)[i][1] * ((fftw_complex *)m_fftOutputBuffer)[i][1]));
         }
-        double bandMagnitude = (magnitudeSum / (subBandWidth * M_2PI));
+        double bandMagnitude                              = (magnitudeSum / (subBandWidth * M_2PI));
         m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] = bandMagnitude;
         if (maxMagnitude < bandMagnitude)
             maxMagnitude = bandMagnitude;
@@ -184,8 +184,8 @@ void AudioCapture::processData()
 {
 #ifdef HAS_FFTW3
     unsigned int i, j;
-    double pwrSum = 0.;
-    double maxMagnitude = 0.;
+    double       pwrSum       = 0.;
+    double       maxMagnitude = 0.;
 
     // 1 ********* Initialize FFTW
     fftw_plan plan_forward;
@@ -240,7 +240,7 @@ void AudioCapture::processData()
     foreach (int barsNumber, m_fftMagnitudeMap.keys())
     {
         maxMagnitude = fillBandsData(barsNumber);
-        pwrSum = 0.;
+        pwrSum       = 0.;
         for (int n = 0; n < barsNumber; n++)
         {
             pwrSum += m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer[n];

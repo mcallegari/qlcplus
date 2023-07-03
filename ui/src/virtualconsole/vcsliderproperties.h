@@ -62,7 +62,7 @@ protected:
     void setSubmasterPageVisibility(bool visible);
 
 protected:
-    int m_sliderMode;
+    int                   m_sliderMode;
     InputSelectionWidget *m_inputSelWidget;
 
     /*********************************************************************

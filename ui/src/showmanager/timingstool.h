@@ -48,9 +48,9 @@ protected slots:
 private:
     SpeedDial *m_startDial;
     SpeedDial *m_durationDial;
-    ShowItem *m_item;
+    ShowItem  *m_item;
 
-    QGroupBox *m_durationOptions;
+    QGroupBox    *m_durationOptions;
     QRadioButton *m_stretchOriginalRadio;
     QRadioButton *m_expandLoopRadio;
 };

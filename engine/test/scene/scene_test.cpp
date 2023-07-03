@@ -162,7 +162,7 @@ void Scene_Test::values()
 
 void Scene_Test::colorValue()
 {
-    Doc *doc = new Doc(this);
+    Doc              *doc = new Doc(this);
     QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
 
@@ -497,7 +497,7 @@ void Scene_Test::copyFrom()
     s1.setValue(7, 8, 9);
 
     /* Verify that scene contents are copied */
-    Scene s2(m_doc);
+    Scene      s2(m_doc);
     QSignalSpy spy(&s2, SIGNAL(changed(quint32)));
     QVERIFY(s2.copyFrom(&s1) == true);
     QCOMPARE(spy.size(), 1);
@@ -568,7 +568,7 @@ void Scene_Test::createCopy()
 
 void Scene_Test::preRunPostRun()
 {
-    Doc *doc = new Doc(this);
+    Doc              *doc = new Doc(this);
     QList<Universe *> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
@@ -602,9 +602,9 @@ void Scene_Test::preRunPostRun()
 
 void Scene_Test::flashUnflash()
 {
-    Doc *doc = new Doc(this);
+    Doc              *doc = new Doc(this);
     QList<Universe *> ua;
-    MasterTimer timer(doc);
+    MasterTimer       timer(doc);
 
     Fixture *fxi = new Fixture(doc);
     fxi->setAddress(0);
@@ -665,8 +665,8 @@ void Scene_Test::flashUnflash()
 
 void Scene_Test::writeHTPZeroTicks()
 {
-    Doc *doc = new Doc(this);
-    MasterTimer timer(doc);
+    Doc              *doc = new Doc(this);
+    MasterTimer       timer(doc);
     QList<Universe *> ua;
 
     Fixture *fxi = new Fixture(doc);
@@ -709,8 +709,8 @@ void Scene_Test::writeHTPZeroTicks()
 
 void Scene_Test::writeHTPTwoTicks()
 {
-    Doc *doc = new Doc(this);
-    MasterTimer timer(doc);
+    Doc              *doc = new Doc(this);
+    MasterTimer       timer(doc);
     QList<Universe *> ua;
 
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
@@ -823,8 +823,8 @@ void Scene_Test::writeHTPTwoTicks()
 
 void Scene_Test::writeHTPTwoTicksIntensity()
 {
-    Doc *doc = new Doc(this);
-    MasterTimer timer(doc);
+    Doc              *doc = new Doc(this);
+    MasterTimer       timer(doc);
     QList<Universe *> ua;
 
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
@@ -925,8 +925,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
 
 void Scene_Test::writeLTPReady()
 {
-    Doc *doc = new Doc(this);
-    MasterTimer timer(doc);
+    Doc              *doc = new Doc(this);
+    MasterTimer       timer(doc);
     QList<Universe *> ua;
 
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");

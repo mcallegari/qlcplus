@@ -39,20 +39,20 @@
 #include "doc.h"
 #include "app.h"
 
-#define KXMLQLCVCProperties QString("Properties")
-#define KXMLQLCVCPropertiesSize QString("Size")
-#define KXMLQLCVCPropertiesSizeWidth QString("Width")
+#define KXMLQLCVCProperties           QString("Properties")
+#define KXMLQLCVCPropertiesSize       QString("Size")
+#define KXMLQLCVCPropertiesSizeWidth  QString("Width")
 #define KXMLQLCVCPropertiesSizeHeight QString("Height")
 
-#define KXMLQLCVCPropertiesGrandMaster QString("GrandMaster")
-#define KXMLQLCVCPropertiesGrandMasterVisible QString("Visible")
+#define KXMLQLCVCPropertiesGrandMaster            QString("GrandMaster")
+#define KXMLQLCVCPropertiesGrandMasterVisible     QString("Visible")
 #define KXMLQLCVCPropertiesGrandMasterChannelMode QString("ChannelMode")
-#define KXMLQLCVCPropertiesGrandMasterValueMode QString("ValueMode")
-#define KXMLQLCVCPropertiesGrandMasterSliderMode QString("SliderMode")
+#define KXMLQLCVCPropertiesGrandMasterValueMode   QString("ValueMode")
+#define KXMLQLCVCPropertiesGrandMasterSliderMode  QString("SliderMode")
 
-#define KXMLQLCVCPropertiesInput QString("Input")
+#define KXMLQLCVCPropertiesInput         QString("Input")
 #define KXMLQLCVCPropertiesInputUniverse QString("Universe")
-#define KXMLQLCVCPropertiesInputChannel QString("Channel")
+#define KXMLQLCVCPropertiesInputChannel  QString("Channel")
 
 #define DEFAULT_VC_PAGES_NUMBER 4
 
@@ -122,8 +122,8 @@ void VirtualConsole::resetContents()
 
     m_widgetsMap.clear();
     m_latestWidgetId = 0;
-    m_selectedPage = 0;
-    m_loadStatus = Cleared;
+    m_selectedPage   = 0;
+    m_loadStatus     = Cleared;
 }
 
 bool VirtualConsole::editMode() const
@@ -180,7 +180,7 @@ QVariantList VirtualConsole::usageList(quint32 fid)
     while (i != m_widgetsMap.constEnd())
     {
         VCWidget *widget = i.value();
-        bool found = false;
+        bool      found  = false;
 
         if (widget == nullptr)
         {
@@ -289,7 +289,7 @@ VCPage *VirtualConsole::page(int page) const
 
 QQuickItem *VirtualConsole::currentPageItem() const
 {
-    QString currPage = QString("vcPage%1").arg(m_selectedPage);
+    QString     currPage = QString("vcPage%1").arg(m_selectedPage);
     QQuickItem *pageItem = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>(currPage));
     return pageItem;
 }
@@ -339,7 +339,7 @@ void VirtualConsole::deletePage(int index)
 bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
 {
     bool ok = false;
-    int iPIN;
+    int  iPIN;
 
     Q_UNUSED(iPIN)
 
@@ -497,7 +497,7 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
         {
             it.next();
             QQuickItem *uiWidget = it.value();
-            vcWidget = m_widgetsMap[it.key()];
+            vcWidget             = m_widgetsMap[it.key()];
             uiWidget->setProperty("isSelected", false);
             vcWidget->setIsEditing(false);
         }
@@ -617,7 +617,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
         it.next();
 
         VCWidget *widget = m_widgetsMap[it.key()];
-        QRectF wGeom = widget->geometry();
+        QRectF    wGeom  = widget->geometry();
 
         switch (alignment)
         {
@@ -711,8 +711,8 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
 {
     foreach (QVariant id, IDList)
     {
-        quint32 wID = id.toUInt();
-        VCWidget *w = widget(wID);
+        quint32   wID = id.toUInt();
+        VCWidget *w   = widget(wID);
         if (w == nullptr)
             continue;
 
@@ -816,9 +816,9 @@ void VirtualConsole::copyToClipboard()
 
 void VirtualConsole::pasteFromClipboard()
 {
-    VCFrame *frame = nullptr;
+    VCFrame    *frame        = nullptr;
     QQuickItem *renderParent = nullptr;
-    QPoint currPos(0, 0);
+    QPoint      currPos(0, 0);
 
     QMapIterator<quint32, QQuickItem *> it(m_itemsMap);
     while (it.hasNext())
@@ -828,10 +828,10 @@ void VirtualConsole::pasteFromClipboard()
         VCWidget *widget = m_widgetsMap[it.key()];
         if (widget->type() == VCWidget::FrameWidget || widget->type() == VCWidget::SoloFrameWidget)
         {
-            frame = qobject_cast<VCFrame *>(widget);
+            frame        = qobject_cast<VCFrame *>(widget);
             renderParent = it.value();
             // y position below the frame header
-            currPos = QPoint(0, pixelDensity() * 7);
+            currPos      = QPoint(0, pixelDensity() * 7);
             break;
         }
     }
@@ -839,7 +839,7 @@ void VirtualConsole::pasteFromClipboard()
     // no selected frame found ? Paste on current page
     if (frame == nullptr)
     {
-        frame = qobject_cast<VCFrame *>(m_pages.at(selectedPage()));
+        frame        = qobject_cast<VCFrame *>(m_pages.at(selectedPage()));
         renderParent = currentPageItem();
     }
 
@@ -956,9 +956,9 @@ bool VirtualConsole::enableKeyAutoDetection(VCWidget *widget, quint32 id, QStrin
 
     qDebug() << "[enableKeyAutoDetection] id:" << id << ", key:" << keyText;
 
-    m_autoDetectionKey = QKeySequence(keyText);
-    m_autoDetectionWidget = widget;
-    m_autoDetectionKeyId = id;
+    m_autoDetectionKey      = QKeySequence(keyText);
+    m_autoDetectionWidget   = widget;
+    m_autoDetectionKeyId    = id;
     m_inputDetectionEnabled = true;
 
     return true;
@@ -983,9 +983,9 @@ void VirtualConsole::updateKeySequenceControlID(VCWidget *widget, quint32 id, QS
 void VirtualConsole::disableAutoDetection()
 {
     m_inputDetectionEnabled = false;
-    m_autoDetectionWidget = nullptr;
+    m_autoDetectionWidget   = nullptr;
     m_autoDetectionSource.clear();
-    m_autoDetectionKey = QKeySequence();
+    m_autoDetectionKey   = QKeySequence();
     m_autoDetectionKeyId = UINT_MAX;
 }
 
@@ -1092,7 +1092,7 @@ QVariant VirtualConsole::inputChannelsModel()
         while (it.hasNext() == true)
         {
             QLCInputChannel *channel = it.next().value();
-            int itemID = (universe->id() << 16) | it.key();
+            int              itemID  = (universe->id() << 16) | it.key();
 
             QVariantList chParams;
             chParams.append(QVariant::fromValue(channel)); // classRef
@@ -1240,8 +1240,8 @@ bool VirtualConsole::loadXMLLegacyInput(QXmlStreamReader &root, quint32 *uni, qu
     else
     {
         QXmlStreamAttributes attrs = root.attributes();
-        *uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
-        *ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+        *uni                       = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+        *ch                        = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
         root.skipCurrentElement();
     }
 
@@ -1256,9 +1256,9 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
         return false;
     }
 
-    GrandMaster::ChannelMode gmLegacyChannelMode = GrandMaster::Intensity;
-    GrandMaster::ValueMode gmLegacyValueMode = GrandMaster::Reduce;
-    GrandMaster::SliderMode gmLegacySliderMode = GrandMaster::Normal;
+    GrandMaster::ChannelMode       gmLegacyChannelMode = GrandMaster::Intensity;
+    GrandMaster::ValueMode         gmLegacyValueMode   = GrandMaster::Reduce;
+    GrandMaster::SliderMode        gmLegacySliderMode  = GrandMaster::Normal;
     QSharedPointer<QLCInputSource> gmLegacyInputSource;
 
     QString str;
@@ -1289,15 +1289,15 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
         {
             QXmlStreamAttributes attrs = root.attributes();
 
-            str = attrs.value(KXMLQLCVCPropertiesGrandMasterChannelMode).toString();
+            str                 = attrs.value(KXMLQLCVCPropertiesGrandMasterChannelMode).toString();
             gmLegacyChannelMode = GrandMaster::stringToChannelMode(str);
 
-            str = attrs.value(KXMLQLCVCPropertiesGrandMasterValueMode).toString();
+            str               = attrs.value(KXMLQLCVCPropertiesGrandMasterValueMode).toString();
             gmLegacyValueMode = GrandMaster::stringToValueMode(str);
 
             if (attrs.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
             {
-                str = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
+                str                = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
                 gmLegacySliderMode = GrandMaster::stringToSliderMode(str);
             }
 
@@ -1311,7 +1311,7 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
                 if (root.name() == KXMLQLCVCPropertiesInput)
                 {
                     quint32 universe = InputOutputMap::invalidUniverse();
-                    quint32 channel = QLCChannel::invalid();
+                    quint32 channel  = QLCChannel::invalid();
                     /* External input */
                     if (loadXMLLegacyInput(root, &universe, &channel) == true)
                         gmLegacyInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, channel));

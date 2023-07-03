@@ -32,9 +32,9 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCSpeedDialPreset QString("Preset")
-#define KXMLQLCVCSpeedDialPresetID QString("ID")
-#define KXMLQLCVCSpeedDialPresetName QString("Name")
+#define KXMLQLCVCSpeedDialPreset      QString("Preset")
+#define KXMLQLCVCSpeedDialPresetID    QString("ID")
+#define KXMLQLCVCSpeedDialPresetName  QString("Name")
 #define KXMLQLCVCSpeedDialPresetValue QString("Value")
 
 class VCSpeedDialPreset
@@ -48,8 +48,8 @@ public:
 
 public:
     VCSpeedDialPreset &operator=(const VCSpeedDialPreset &preset);
-    bool operator<(VCSpeedDialPreset const &right) const;
-    static bool compare(VCSpeedDialPreset const *left, VCSpeedDialPreset const *right);
+    bool               operator<(VCSpeedDialPreset const &right) const;
+    static bool        compare(VCSpeedDialPreset const *left, VCSpeedDialPreset const *right);
     /************************************************************************
      * Load & Save
      ***********************************************************************/
@@ -74,7 +74,7 @@ public:
     int m_value;
 
     QSharedPointer<QLCInputSource> m_inputSource;
-    QKeySequence m_keySequence;
+    QKeySequence                   m_keySequence;
 };
 
 /** @} */

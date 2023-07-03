@@ -28,11 +28,11 @@
 #include "tardis.h"
 #include "qmath.h"
 
-#define INPUT_NEXT_STEP_ID 0
+#define INPUT_NEXT_STEP_ID     0
 #define INPUT_PREVIOUS_STEP_ID 1
-#define INPUT_PLAY_PAUSE_ID 2
-#define INPUT_STOP_PAUSE_ID 3
-#define INPUT_SIDE_FADER_ID 4
+#define INPUT_PLAY_PAUSE_ID    2
+#define INPUT_STOP_PAUSE_ID    3
+#define INPUT_SIDE_FADER_ID    4
 
 #define PROGRESS_INTERVAL 200
 
@@ -269,7 +269,7 @@ void VCCueList::setSideFaderLevel(int level)
         // qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
         ChaserAction action;
-        action.m_action = ChaserSetStepIndex;
+        action.m_action    = ChaserSetStepIndex;
         action.m_stepIndex = newStep;
         ch->setAction(action);
 
@@ -328,7 +328,7 @@ void VCCueList::stopStepIfNeeded(Chaser *ch)
     if (ch->runningStepsNumber() != 2)
         return;
 
-    int primaryValue = m_primaryTop ? m_sideFaderLevel : 100 - m_sideFaderLevel;
+    int primaryValue   = m_primaryTop ? m_sideFaderLevel : 100 - m_sideFaderLevel;
     int secondaryValue = m_primaryTop ? 100 - m_sideFaderLevel : m_sideFaderLevel;
 
     ChaserAction action;
@@ -336,7 +336,7 @@ void VCCueList::stopStepIfNeeded(Chaser *ch)
 
     if (primaryValue == 0)
     {
-        m_primaryTop = !m_primaryTop;
+        m_primaryTop       = !m_primaryTop;
         action.m_stepIndex = m_playbackIndex;
         ch->setAction(action);
         emit primaryTopChanged();
@@ -386,7 +386,7 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
 
         for (QVariant vID : idsList) // C++11
         {
-            quint32 fid = vID.toUInt();
+            quint32    fid = vID.toUInt();
             ChaserStep step(fid);
             if (ch->durationMode() == Chaser::PerStep)
             {
@@ -444,7 +444,7 @@ void VCCueList::setChaserID(quint32 fid)
     if (m_chaserID == fid)
         return;
 
-    Function *current = m_doc->function(m_chaserID);
+    Function *current  = m_doc->function(m_chaserID);
     Function *function = m_doc->function(fid);
 
     if (current != nullptr)
@@ -614,11 +614,11 @@ void VCCueList::startChaser(int startIndex)
     adjustFunctionIntensity(ch, intensity());
 
     ChaserAction action;
-    action.m_action = ChaserSetStepIndex;
-    action.m_stepIndex = startIndex;
+    action.m_action          = ChaserSetStepIndex;
+    action.m_stepIndex       = startIndex;
     action.m_masterIntensity = intensity();
-    action.m_stepIntensity = getPrimaryIntensity();
-    action.m_fadeMode = getFadeMode();
+    action.m_stepIntensity   = getPrimaryIntensity();
+    action.m_fadeMode        = getFadeMode();
     ch->setAction(action);
 
     ch->start(m_doc->masterTimer(), functionParent());
@@ -701,11 +701,11 @@ void VCCueList::playClicked()
         if (playbackLayout() == PlayPauseStop)
         {
             ChaserAction action;
-            action.m_action = ChaserSetStepIndex;
-            action.m_stepIndex = m_playbackIndex;
+            action.m_action          = ChaserSetStepIndex;
+            action.m_stepIndex       = m_playbackIndex;
             action.m_masterIntensity = intensity();
-            action.m_stepIntensity = getPrimaryIntensity();
-            action.m_fadeMode = getFadeMode();
+            action.m_stepIntensity   = getPrimaryIntensity();
+            action.m_fadeMode        = getFadeMode();
             ch->setAction(action);
 
             ch->setPause(!ch->isPaused());
@@ -760,10 +760,10 @@ void VCCueList::previousClicked()
         else
         {
             ChaserAction action;
-            action.m_action = ChaserPreviousStep;
+            action.m_action          = ChaserPreviousStep;
             action.m_masterIntensity = intensity();
-            action.m_stepIntensity = getPrimaryIntensity();
-            action.m_fadeMode = getFadeMode();
+            action.m_stepIntensity   = getPrimaryIntensity();
+            action.m_fadeMode        = getFadeMode();
             ch->setAction(action);
         }
     }
@@ -801,10 +801,10 @@ void VCCueList::nextClicked()
         else
         {
             ChaserAction action;
-            action.m_action = ChaserNextStep;
+            action.m_action          = ChaserNextStep;
             action.m_masterIntensity = intensity();
-            action.m_stepIntensity = getPrimaryIntensity();
-            action.m_fadeMode = getFadeMode();
+            action.m_stepIntensity   = getPrimaryIntensity();
+            action.m_fadeMode        = getFadeMode();
             ch->setAction(action);
         }
     }
@@ -838,11 +838,11 @@ void VCCueList::playCurrentStep()
     if (ch->isRunning())
     {
         ChaserAction action;
-        action.m_action = ChaserSetStepIndex;
-        action.m_stepIndex = m_playbackIndex;
+        action.m_action          = ChaserSetStepIndex;
+        action.m_stepIndex       = m_playbackIndex;
         action.m_masterIntensity = intensity();
-        action.m_stepIntensity = getPrimaryIntensity();
-        action.m_fadeMode = getFadeMode();
+        action.m_stepIntensity   = getPrimaryIntensity();
+        action.m_fadeMode        = getFadeMode();
         ch->setAction(action);
     }
     else
@@ -895,8 +895,8 @@ void VCCueList::slotProgressTimeout()
     ChaserRunnerStep step(ch->currentRunningStep());
     if (step.m_function != NULL)
     {
-        ProgressStatus status = ProgressIdle;
-        double progress = 0;
+        ProgressStatus status   = ProgressIdle;
+        double         progress = 0;
 
         if (step.m_fadeIn == Function::infiniteSpeed())
             status = ProgressInfinite;
@@ -956,7 +956,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(QRect(x, y, w, h));
         }

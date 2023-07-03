@@ -39,7 +39,7 @@
 enum AudioFormat
 {
     PCM_UNKNOWN = -1, /*!< Unknown format */
-    PCM_S8 = 0,       /*!< Signed 8 bit */
+    PCM_S8      = 0,  /*!< Signed 8 bit */
     PCM_S16LE,        /*!< Signed 16 bit Little Endian */
     PCM_S24LE,        /*!< Signed 24 bit Little Endian using low three bytes in 32-bit word */
     PCM_S32LE         /*!< Signed 32 bit Little Endian */
@@ -69,23 +69,23 @@ public:
     /*!
      * Assigns audio parameters \b p to this parameters.
      */
-    void operator=(const AudioParameters &p);
+    void        operator=(const AudioParameters &p);
     /*!
      * Returns \b true if parameters \b p is equal to this parameters; otherwise returns \b false.
      */
-    bool operator==(const AudioParameters &p) const;
+    bool        operator==(const AudioParameters &p) const;
     /*!
      * Returns \b true if parameters \b p is not equal to this parameters; otherwise returns \b false.
      */
-    bool operator!=(const AudioParameters &p) const;
+    bool        operator!=(const AudioParameters &p) const;
     /*!
      * Returns sample rate in Hz.
      */
-    quint32 sampleRate() const;
+    quint32     sampleRate() const;
     /*!
      * Returns number of channels.
      */
-    int channels() const;
+    int         channels() const;
     /*!
      * Returns pcm format.
      */
@@ -93,15 +93,15 @@ public:
     /*!
      * Returns sample size in bytes.
      */
-    int sampleSize() const;
+    int         sampleSize() const;
     /*!
      * Returns sample size in bytes of the given pcm data \b format.
      */
-    static int sampleSize(AudioFormat format);
+    static int  sampleSize(AudioFormat format);
 
 private:
-    quint32 m_srate;
-    int m_chan;
+    quint32     m_srate;
+    int         m_chan;
     AudioFormat m_format;
 };
 

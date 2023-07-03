@@ -59,7 +59,7 @@ void ChannelModifier::setModifierMap(QList<QPair<uchar, uchar>> map)
     for (int i = 0; i < m_map.count(); i++)
     {
         QPair<uchar, uchar> dmxPair = m_map.at(i);
-        m_values[dmxPair.first] = dmxPair.second;
+        m_values[dmxPair.first]     = dmxPair.second;
         if (i != 0)
         {
             // calculate the increment to go from one pair to another
@@ -179,7 +179,7 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
                 }
                 else if (doc->name() == KXMLQLCChannelModHandler)
                 {
-                    QPair<uchar, uchar> dmxPair(0, 0);
+                    QPair<uchar, uchar>  dmxPair(0, 0);
                     QXmlStreamAttributes attrs = doc->attributes();
                     if (attrs.hasAttribute(KXMLQLCChannelModOriginalDMX))
                         dmxPair.first = attrs.value(KXMLQLCChannelModOriginalDMX).toString().toUInt();

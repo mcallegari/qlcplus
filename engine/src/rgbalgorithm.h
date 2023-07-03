@@ -37,7 +37,7 @@ class Doc;
 
 typedef QVector<QVector<uint>> RGBMap;
 
-#define KXMLQLCRGBAlgorithm QString("Algorithm")
+#define KXMLQLCRGBAlgorithm     QString("Algorithm")
 #define KXMLQLCRGBAlgorithmType QString("Type")
 
 class RGBAlgorithm
@@ -128,7 +128,7 @@ private:
      * Available algorithms
      ************************************************************************/
 public:
-    static QStringList algorithms(Doc *doc);
+    static QStringList   algorithms(Doc *doc);
     static RGBAlgorithm *algorithm(Doc *doc, const QString &name);
 
     /************************************************************************

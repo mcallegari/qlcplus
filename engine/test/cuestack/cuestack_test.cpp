@@ -83,7 +83,7 @@ void CueStack_Test::initial()
 
 void CueStack_Test::name()
 {
-    CueStack cs(m_doc);
+    CueStack   cs(m_doc);
     QSignalSpy spy(&cs, SIGNAL(changed(int)));
 
     cs.setName("Foo");
@@ -292,7 +292,7 @@ void CueStack_Test::currentIndex()
     QCOMPARE(cs.isStarted(), false);
 
     cs.m_running = false;
-    cs.m_next = false;
+    cs.m_next    = false;
 
     cs.previousCue();
     QCOMPARE(cs.m_previous, true);
@@ -600,8 +600,8 @@ void CueStack_Test::flash()
     cue.setValue(128, 42);
     cs.appendCue(cue);
 
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    Universe *universe = ua.at(0);
+    QList<Universe *> ua       = m_doc->inputOutputMap()->universes();
+    Universe         *universe = ua.at(0);
     universe->setChannelCapability(0, QLCChannel::Intensity);
     universe->setChannelCapability(128, QLCChannel::Intensity);
     cs.setFlashing(true);
@@ -917,7 +917,7 @@ void CueStack_Test::postRun()
 void CueStack_Test::write()
 {
     QList<Universe *> ua = m_doc->inputOutputMap()->universes();
-    CueStack cs(m_doc);
+    CueStack          cs(m_doc);
 
     Cue cue("One");
     cue.setValue(0, 255);
@@ -949,8 +949,8 @@ void CueStack_Test::write()
     QCOMPARE(cs.currentIndex(), 0);
     QCOMPARE(cs.m_fadersMap.count(), 1);
 
-    QSharedPointer<GenericFader> fader = cs.m_fadersMap[0];
-    quint32 chHash = (Fixture::invalidId() << 16) | 0;
+    QSharedPointer<GenericFader> fader  = cs.m_fadersMap[0];
+    quint32                      chHash = (Fixture::invalidId() << 16) | 0;
 
     QCOMPARE(fader->channels()[chHash].channel(), uint(0));
     QCOMPARE(fader->channels()[chHash].target(), uchar(255));

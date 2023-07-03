@@ -38,10 +38,10 @@
 
 #define KColumnName 0
 #define KColumnType 1
-#define KColumnID 2
+#define KColumnID   2
 
 #define KColumnTargetName 0
-#define KColumnTargetID 1
+#define KColumnTargetID   1
 
 DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidget *parent)
     : QDialog(parent)
@@ -95,8 +95,8 @@ void DmxDumpFactory::slotUpdateChasersTree()
     m_addtoTree->clear();
     foreach (Function *f, m_doc->functionsByType(Function::ChaserType))
     {
-        Chaser *chaser = qobject_cast<Chaser *>(f);
-        QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
+        Chaser          *chaser = qobject_cast<Chaser *>(f);
+        QTreeWidgetItem *item   = new QTreeWidgetItem(m_addtoTree);
         item->setText(KColumnTargetName, chaser->name());
         item->setText(KColumnTargetID, QString::number(chaser->id()));
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
@@ -126,7 +126,7 @@ void DmxDumpFactory::slotSelectSceneButtonClicked()
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
         m_selectedSceneID = fs.selection().first();
-        Scene *scene = qobject_cast<Scene *>(m_doc->function(m_selectedSceneID));
+        Scene *scene      = qobject_cast<Scene *>(m_doc->function(m_selectedSceneID));
         if (scene == NULL)
             return;
 
@@ -169,7 +169,7 @@ QList<VCWidget *> DmxDumpFactory::getChildren(VCWidget *obj, int type)
 void DmxDumpFactory::updateWidgetsTree(int type)
 {
     m_addtoTree->clear();
-    VCFrame *contents = VirtualConsole::instance()->contents();
+    VCFrame          *contents    = VirtualConsole::instance()->contents();
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)contents, type);
 
     foreach (QObject *object, widgetsList)
@@ -201,8 +201,8 @@ void DmxDumpFactory::slotDumpNonZeroChanged(bool active)
 
 void DmxDumpFactory::accept()
 {
-    QByteArray dumpMask = m_properties->channelsMask();
-    QList<Universe *> ua = m_doc->inputOutputMap()->claimUniverses();
+    QByteArray        dumpMask = m_properties->channelsMask();
+    QList<Universe *> ua       = m_doc->inputOutputMap()->claimUniverses();
 
     QByteArray preGMValues(ua.size() * UNIVERSE_SIZE, 0); //= ua->preGMValues();
 
@@ -214,7 +214,7 @@ void DmxDumpFactory::accept()
         {
             for (int j = 0; j < UNIVERSE_SIZE; ++j)
             {
-                const int ofs = offset + j;
+                const int ofs    = offset + j;
                 preGMValues[ofs] = static_cast<char>(ua.at(i)->applyPassthrough(j, static_cast<uchar>(preGMValues[ofs])));
             }
         }
@@ -235,20 +235,20 @@ void DmxDumpFactory::accept()
         for (int f = 0; f < uniItem->childCount(); f++)
         {
             QTreeWidgetItem *fixItem = uniItem->child(f);
-            quint32 fxID = fixItem->data(KColumnName, PROP_ID).toUInt();
-            Fixture *fxi = m_doc->fixture(fxID);
+            quint32          fxID    = fixItem->data(KColumnName, PROP_ID).toUInt();
+            Fixture         *fxi     = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
                 quint32 baseAddress = fxi->universeAddress();
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
-                    quint32 channel = chanItem->data(KColumnName, PROP_CHANNEL).toUInt();
+                    quint32          channel  = chanItem->data(KColumnName, PROP_CHANNEL).toUInt();
 
                     if (m_dumpAllRadio->isChecked())
                     {
                         dumpMask[baseAddress + channel] = 1;
-                        uchar value = preGMValues.at(baseAddress + channel);
+                        uchar value                     = preGMValues.at(baseAddress + channel);
                         if (m_nonZeroCheck->isChecked() == false || (m_nonZeroCheck->isChecked() == true && value > 0))
                         {
                             SceneValue sv = SceneValue(fxID, channel, value);
@@ -261,7 +261,7 @@ void DmxDumpFactory::accept()
                         if (chanItem->checkState(KColumnName) == Qt::Checked)
                         {
                             dumpMask[baseAddress + channel] = 1;
-                            uchar value = preGMValues.at(baseAddress + channel);
+                            uchar value                     = preGMValues.at(baseAddress + channel);
                             if (m_nonZeroCheck->isChecked() == false || (m_nonZeroCheck->isChecked() == true && value > 0))
                             {
                                 SceneValue sv = SceneValue(fxID, channel, value);
@@ -296,7 +296,7 @@ void DmxDumpFactory::accept()
             for (int tc = 0; tc < m_addtoTree->topLevelItemCount(); tc++)
             {
                 QTreeWidgetItem *targetItem = m_addtoTree->topLevelItem(tc);
-                quint32 targetID = targetItem->text(KColumnTargetID).toUInt();
+                quint32          targetID   = targetItem->text(KColumnTargetID).toUInt();
                 if (targetItem->checkState(KColumnTargetName) == Qt::Checked)
                 {
                     if (m_chaserRadio->isChecked())

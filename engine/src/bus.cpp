@@ -24,11 +24,11 @@
 
 #include "bus.h"
 
-#define KBusCount 32
-#define KBusIDDefaultFade 0
-#define KBusIDDefaultHold 1
+#define KBusCount            32
+#define KBusIDDefaultFade    0
+#define KBusIDDefaultHold    1
 #define KBusIDDefaultPalette KBusCount - 1
-#define KBusIDInvalid UINT_MAX
+#define KBusIDInvalid        UINT_MAX
 
 /****************************************************************************
  * BusEntry
@@ -56,7 +56,7 @@ public:
 
     BusEntry(const BusEntry &entry)
     {
-        name = entry.name;
+        name  = entry.name;
         value = entry.value;
     }
 
@@ -90,8 +90,8 @@ Bus::Bus(QObject *parent)
     for (quint32 i = 0; i < Bus::count(); i++)
         m_buses.append(new BusEntry);
 
-    m_buses[defaultFade()]->name = QString("Fade");
-    m_buses[defaultHold()]->name = QString("Hold");
+    m_buses[defaultFade()]->name    = QString("Fade");
+    m_buses[defaultHold()]->name    = QString("Hold");
     m_buses[defaultPalette()]->name = QString("Palette");
 }
 

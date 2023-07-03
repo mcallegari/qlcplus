@@ -60,9 +60,9 @@
 #define SETTINGS_SPLITTER "fixturemanager/splitterstate"
 
 // List view column numbers
-#define KColumnName 0
+#define KColumnName     0
 #define KColumnChannels 1
-#define KColumnAddress 2
+#define KColumnAddress  2
 
 #define KXMLQLCFixturesList QString("FixtureList")
 
@@ -132,7 +132,7 @@ FixtureManager::FixtureManager(QWidget *parent, Doc *doc)
     slotModeChanged(m_doc->mode());
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_SPLITTER);
+    QVariant  var = settings.value(SETTINGS_SPLITTER);
     if (var.isValid() == true)
         m_splitter->restoreState(var.toByteArray());
     else
@@ -409,7 +409,7 @@ void FixtureManager::updateView()
     for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_fixtures_tree->topLevelItem(i);
-        QVariant var = item->data(KColumnName, PROP_GROUP);
+        QVariant         var  = item->data(KColumnName, PROP_GROUP);
         if (openGroups.contains(var) == true)
         {
             item->setExpanded(true);
@@ -430,7 +430,7 @@ void FixtureManager::updateChannelsGroupView()
     if (m_channel_groups_tree->selectedItems().size() > 0)
     {
         QTreeWidgetItem *item = m_channel_groups_tree->selectedItems().first();
-        selGroupID = item->data(KColumnName, PROP_ID).toUInt();
+        selGroupID            = item->data(KColumnName, PROP_ID).toUInt();
     }
 
     if (m_channel_groups_tree->topLevelItemCount() > 0)
@@ -446,7 +446,7 @@ void FixtureManager::updateChannelsGroupView()
         if (grp->getChannels().count() > 0)
         {
             SceneValue scv = grp->getChannels().at(0);
-            Fixture *fxi = m_doc->fixture(scv.fxi);
+            Fixture   *fxi = m_doc->fixture(scv.fxi);
             if (fxi == NULL)
                 continue;
 
@@ -564,11 +564,11 @@ void FixtureManager::slotSelectionChanged()
         }
         else
         {
-            QString info = "<HTML><BODY>";
-            QString uniName;
-            double totalWeight = 0;
-            int totalPower = 0;
-            QVariant uniID = item->data(KColumnName, PROP_UNIVERSE);
+            QString  info = "<HTML><BODY>";
+            QString  uniName;
+            double   totalWeight = 0;
+            int      totalPower  = 0;
+            QVariant uniID       = item->data(KColumnName, PROP_UNIVERSE);
             if (uniID.isValid() == true)
                 uniName = m_doc->inputOutputMap()->getUniverseNameByID(uniID.toUInt());
 
@@ -609,7 +609,7 @@ void FixtureManager::slotSelectionChanged()
             if (m_doc->mode() == Doc::Design)
             {
                 double totalWeight = 0;
-                int totalPower = 0;
+                int    totalPower  = 0;
 
                 info += tr("<H1>Multiple fixtures selected</H1>"
                            "<P>Click <IMG SRC=\""
@@ -778,7 +778,7 @@ void FixtureManager::selectGroup(quint32 id)
     for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_fixtures_tree->topLevelItem(i);
-        QVariant var = item->data(KColumnName, PROP_GROUP);
+        QVariant         var  = item->data(KColumnName, PROP_GROUP);
         if (var.isValid() == false)
             continue;
 
@@ -796,8 +796,8 @@ QString FixtureManager::fixtureInfoStyleSheetHeader()
     QString info;
 
     QPalette pal;
-    QColor hlBack(pal.color(QPalette::Highlight));
-    QColor hlText(pal.color(QPalette::HighlightedText));
+    QColor   hlBack(pal.color(QPalette::Highlight));
+    QColor   hlText(pal.color(QPalette::HighlightedText));
 
     info += "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";
     info += "<HTML><HEAD></HEAD><STYLE>";
@@ -836,9 +836,9 @@ QString FixtureManager::channelsGroupInfoStyleSheetHeader()
     QString info;
 
     QPalette pal;
-    QColor hlBack(pal.color(QPalette::Highlight));
-    QColor hlBackSmall(pal.color(QPalette::Shadow));
-    QColor hlText(pal.color(QPalette::HighlightedText));
+    QColor   hlBack(pal.color(QPalette::Highlight));
+    QColor   hlBackSmall(pal.color(QPalette::Shadow));
+    QColor   hlText(pal.color(QPalette::HighlightedText));
 
     info += "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";
     info += "<HTML><HEAD></HEAD><STYLE>";
@@ -982,17 +982,17 @@ void FixtureManager::addFixture()
 
     quint32 latestFxi = Fixture::invalidId();
 
-    QString name = af.name();
-    quint32 address = af.address();
+    QString name     = af.name();
+    quint32 address  = af.address();
     quint32 universe = af.universe();
     quint32 channels = af.channels();
-    int gap = af.gap();
+    int     gap      = af.gap();
 
-    QLCFixtureDef *fixtureDef = af.fixtureDef();
-    QLCFixtureMode *mode = af.mode();
+    QLCFixtureDef  *fixtureDef = af.fixtureDef();
+    QLCFixtureMode *mode       = af.mode();
 
-    FixtureGroup *addToGroup = NULL;
-    QTreeWidgetItem *current = m_fixtures_tree->currentItem();
+    FixtureGroup    *addToGroup = NULL;
+    QTreeWidgetItem *current    = m_fixtures_tree->currentItem();
     if (current != NULL)
     {
         if (current->parent() != NULL)
@@ -1049,7 +1049,7 @@ void FixtureManager::addFixture()
         }
         else
         {
-            QLCFixtureDef *genericDef = fxi->genericDimmerDef(channels);
+            QLCFixtureDef  *genericDef  = fxi->genericDimmerDef(channels);
             QLCFixtureMode *genericMode = fxi->genericDimmerMode(genericDef, channels);
             fxi->setFixtureDefinition(genericDef, genericMode);
         }
@@ -1095,8 +1095,8 @@ void FixtureManager::slotAddRGBPanel()
     AddRGBPanel rgb(this, m_doc);
     if (rgb.exec() == QDialog::Accepted)
     {
-        int rows = rgb.rows();
-        int columns = rgb.columns();
+        int                 rows       = rgb.rows();
+        int                 columns    = rgb.columns();
         Fixture::Components components = rgb.components();
 
         FixtureGroup *grp = new FixtureGroup(m_doc);
@@ -1110,23 +1110,23 @@ void FixtureManager::slotAddRGBPanel()
         int transpose = 0;
         if (rgb.direction() == AddRGBPanel::Vertical)
         {
-            int tmp = columns;
-            columns = rows;
-            rows = tmp;
+            int tmp   = columns;
+            columns   = rows;
+            rows      = tmp;
             transpose = 1;
         }
 
-        QLCFixtureDef *rowDef = NULL;
-        QLCFixtureMode *rowMode = NULL;
-        quint32 address = (quint32)rgb.address();
-        int uniIndex = rgb.universeIndex();
-        int currRow = 0;
-        int rowInc = 1;
-        int xPosStart = 0;
-        int xPosEnd = columns - 1;
-        int xPosInc = 1;
+        QLCFixtureDef  *rowDef    = NULL;
+        QLCFixtureMode *rowMode   = NULL;
+        quint32         address   = (quint32)rgb.address();
+        int             uniIndex  = rgb.universeIndex();
+        int             currRow   = 0;
+        int             rowInc    = 1;
+        int             xPosStart = 0;
+        int             xPosEnd   = columns - 1;
+        int             xPosInc   = 1;
 
-        quint32 phyWidth = rgb.physicalWidth();
+        quint32 phyWidth  = rgb.physicalWidth();
         quint32 phyHeight = rgb.physicalHeight() / rows;
 
         if (transpose)
@@ -1134,13 +1134,13 @@ void FixtureManager::slotAddRGBPanel()
             if (rgb.orientation() == AddRGBPanel::TopRight || rgb.orientation() == AddRGBPanel::BottomRight)
             {
                 currRow = rows - 1;
-                rowInc = -1;
+                rowInc  = -1;
             }
             if (rgb.orientation() == AddRGBPanel::BottomRight || rgb.orientation() == AddRGBPanel::BottomLeft)
             {
                 xPosStart = columns - 1;
-                xPosEnd = 0;
-                xPosInc = -1;
+                xPosEnd   = 0;
+                xPosInc   = -1;
             }
         }
         else
@@ -1148,13 +1148,13 @@ void FixtureManager::slotAddRGBPanel()
             if (rgb.orientation() == AddRGBPanel::BottomLeft || rgb.orientation() == AddRGBPanel::BottomRight)
             {
                 currRow = rows - 1;
-                rowInc = -1;
+                rowInc  = -1;
             }
             if (rgb.orientation() == AddRGBPanel::TopRight || rgb.orientation() == AddRGBPanel::BottomRight)
             {
                 xPosStart = columns - 1;
-                xPosEnd = 0;
-                xPosInc = -1;
+                xPosEnd   = 0;
+                xPosInc   = -1;
             }
         }
 
@@ -1279,8 +1279,8 @@ void FixtureManager::removeFixture()
             so it's rather safe to reset the fixture's address space here. */
         Fixture *fxi = m_doc->fixture(id);
         Q_ASSERT(fxi != NULL);
-        QList<Universe *> ua = m_doc->inputOutputMap()->claimUniverses();
-        int universe = fxi->universe();
+        QList<Universe *> ua       = m_doc->inputOutputMap()->claimUniverses();
+        int               universe = fxi->universe();
         if (universe < ua.count())
             ua[universe]->reset(fxi->address(), fxi->channels());
         m_doc->inputOutputMap()->releaseUniverses();
@@ -1334,7 +1334,7 @@ void FixtureManager::editFixtureProperties()
     if (var.isValid() == false)
         return;
 
-    quint32 id = var.toUInt();
+    quint32  id  = var.toUInt();
     Fixture *fxi = m_doc->fixture(id);
     if (fxi == NULL)
         return;
@@ -1347,7 +1347,7 @@ void FixtureManager::editFixtureProperties()
     {
         manuf = fxi->fixtureDef()->manufacturer();
         model = fxi->fixtureDef()->model();
-        mode = fxi->fixtureMode()->name();
+        mode  = fxi->fixtureMode()->name();
     }
 
     AddFixture af(this, m_doc, fxi);
@@ -1382,7 +1382,7 @@ void FixtureManager::editFixtureProperties()
                 {
                     if (fxi->channels() != af.channels())
                     {
-                        QLCFixtureDef *fixtureDef = fxi->genericDimmerDef(af.channels());
+                        QLCFixtureDef  *fixtureDef  = fxi->genericDimmerDef(af.channels());
                         QLCFixtureMode *fixtureMode = fxi->genericDimmerMode(fixtureDef, af.channels());
                         fxi->setFixtureDefinition(fixtureDef, fixtureMode);
                     }
@@ -1421,7 +1421,7 @@ void FixtureManager::editChannelGroupProperties()
     if (selectedCount > 0)
     {
         QTreeWidgetItem *current = m_channel_groups_tree->selectedItems().first();
-        QVariant var = current->data(KColumnName, PROP_ID);
+        QVariant         var     = current->data(KColumnName, PROP_ID);
         if (var.isValid() == true)
         {
             ChannelsGroup *group = m_doc->channelsGroup(var.toUInt());
@@ -1439,7 +1439,7 @@ void FixtureManager::editChannelGroupProperties()
 
 int FixtureManager::headCount(const QList<QTreeWidgetItem *> &items) const
 {
-    int count = 0;
+    int                              count = 0;
     QListIterator<QTreeWidgetItem *> it(items);
     while (it.hasNext() == true)
     {
@@ -1519,7 +1519,7 @@ void FixtureManager::slotUnGroup()
     while (it.hasNext() == true)
     {
         QPair<quint32, quint32> pair(it.next());
-        FixtureGroup *grp = m_doc->fixtureGroup(pair.first);
+        FixtureGroup           *grp = m_doc->fixtureGroup(pair.first);
         Q_ASSERT(grp != NULL);
         grp->resignFixture(pair.second);
     }
@@ -1574,8 +1574,8 @@ void FixtureManager::slotMoveGroupUp()
 {
     if (m_channel_groups_tree->selectedItems().size() > 0)
     {
-        QTreeWidgetItem *item = m_channel_groups_tree->selectedItems().first();
-        quint32 grpID = item->data(KColumnName, PROP_ID).toUInt();
+        QTreeWidgetItem *item  = m_channel_groups_tree->selectedItems().first();
+        quint32          grpID = item->data(KColumnName, PROP_ID).toUInt();
         m_doc->moveChannelGroup(grpID, -1);
         updateChannelsGroupView();
     }
@@ -1585,8 +1585,8 @@ void FixtureManager::slotMoveGroupDown()
 {
     if (m_channel_groups_tree->selectedItems().size() > 0)
     {
-        QTreeWidgetItem *item = m_channel_groups_tree->selectedItems().first();
-        quint32 grpID = item->data(KColumnName, PROP_ID).toUInt();
+        QTreeWidgetItem *item  = m_channel_groups_tree->selectedItems().first();
+        quint32          grpID = item->data(KColumnName, PROP_ID).toUInt();
         m_doc->moveChannelGroup(grpID, 1);
         updateChannelsGroupView();
     }

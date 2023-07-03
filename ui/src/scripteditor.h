@@ -51,15 +51,15 @@ public:
 
 private:
     QTextDocument *m_document;
-    Script *m_script;
-    Doc *m_doc;
-    QString m_lastUsedPath;
+    Script        *m_script;
+    Doc           *m_doc;
+    QString        m_lastUsedPath;
 
     /************************************************************************
      * Add menu
      ************************************************************************/
 private:
-    void initAddMenu();
+    void    initAddMenu();
     QString getFilePath();
 
 private slots:
@@ -97,7 +97,7 @@ private:
     QAction *m_addCommentAction;
     QAction *m_addRandomAction;
     QAction *m_addFilePathAction;
-    QMenu *m_addMenu;
+    QMenu   *m_addMenu;
 
     /************************************************************************
      * Test execution

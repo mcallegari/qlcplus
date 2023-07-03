@@ -24,18 +24,18 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCCueList QString("CueList")
-#define KXMLQLCVCCueListChaser QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout QString("PlaybackLayout")
+#define KXMLQLCVCCueList                 QString("CueList")
+#define KXMLQLCVCCueListChaser           QString("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout   QString("PlaybackLayout")
 #define KXMLQLCVCCueListNextPrevBehavior QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade QString("Crossfade")
-#define KXMLQLCVCCueListNext QString("Next")
-#define KXMLQLCVCCueListPrevious QString("Previous")
-#define KXMLQLCVCCueListPlayback QString("Playback")
-#define KXMLQLCVCCueListStop QString("Stop")
-#define KXMLQLCVCCueListSlidersMode QString("SlidersMode")
-#define KXMLQLCVCCueListCrossfadeLeft QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight QString("CrossRight")
+#define KXMLQLCVCCueListCrossfade        QString("Crossfade")
+#define KXMLQLCVCCueListNext             QString("Next")
+#define KXMLQLCVCCueListPrevious         QString("Previous")
+#define KXMLQLCVCCueListPlayback         QString("Playback")
+#define KXMLQLCVCCueListStop             QString("Stop")
+#define KXMLQLCVCCueListSlidersMode      QString("SlidersMode")
+#define KXMLQLCVCCueListCrossfadeLeft    QString("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight   QString("CrossRight")
 
 class ListModel;
 
@@ -108,11 +108,11 @@ public:
 
     /** Get/Set the next/previous buttons behaviour */
     NextPrevBehavior nextPrevBehavior() const;
-    void setNextPrevBehavior(NextPrevBehavior nextPrev);
+    void             setNextPrevBehavior(NextPrevBehavior nextPrev);
 
     /** Get/Set the playback (play/pause/stop) layout */
     PlaybackLayout playbackLayout() const;
-    void setPlaybackLayout(PlaybackLayout layout);
+    void           setPlaybackLayout(PlaybackLayout layout);
 
 signals:
     void nextPrevBehaviorChanged();
@@ -120,7 +120,7 @@ signals:
 
 private:
     NextPrevBehavior m_nextPrevBehavior;
-    PlaybackLayout m_playbackLayout;
+    PlaybackLayout   m_playbackLayout;
 
     /*************************************************************************
      * Side fader
@@ -136,23 +136,23 @@ public:
 
     /** Get/Set the side fader mode */
     FaderMode sideFaderMode() const;
-    void setSideFaderMode(FaderMode mode);
+    void      setSideFaderMode(FaderMode mode);
 
     /** Convert side fader mode <-> string */
     FaderMode stringToFaderMode(QString modeStr);
-    QString faderModeToString(FaderMode mode);
+    QString   faderModeToString(FaderMode mode);
 
     /** Get/Set the side fader level */
-    int sideFaderLevel() const;
+    int  sideFaderLevel() const;
     void setSideFaderLevel(int level);
 
     bool primaryTop() const;
-    int nextStepIndex() const;
+    int  nextStepIndex() const;
 
 protected:
     qreal getPrimaryIntensity() const;
-    int getFadeMode() const;
-    void stopStepIfNeeded(Chaser *ch);
+    int   getFadeMode() const;
+    void  stopStepIfNeeded(Chaser *ch);
 
 signals:
     void sideFaderModeChanged();
@@ -162,16 +162,16 @@ signals:
 
 private:
     FaderMode m_slidersMode;
-    int m_sideFaderLevel;
-    int m_nextStepIndex;
-    bool m_primaryTop;
+    int       m_sideFaderLevel;
+    int       m_nextStepIndex;
+    bool      m_primaryTop;
 
     /*********************************************************************
      * Chaser attachment
      *********************************************************************/
 public:
     /* Get/Set the ID of the Chaser attached to this Cue List */
-    quint32 chaserID() const;
+    quint32          chaserID() const;
     Q_INVOKABLE void setChaserID(quint32 fid);
 
     /** Get the chaser function that is used as cue list steps */
@@ -227,7 +227,7 @@ public:
     };
     Q_ENUM(ProgressStatus)
 
-    int playbackIndex() const;
+    int  playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
     PlaybackStatus playbackStatus();

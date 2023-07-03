@@ -39,7 +39,7 @@ public:
 
     QString name() const;
 
-    void setSize(const QSize &size);
+    void  setSize(const QSize &size);
     QSize size() const;
 };
 

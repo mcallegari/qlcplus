@@ -59,9 +59,9 @@ protected slots:
     void slotGelResetClicked();
 
 private:
-    MonitorFixtureItem *m_fxItem;
+    MonitorFixtureItem  *m_fxItem;
     MonitorGraphicsView *m_gfxView;
-    MonitorProperties *m_props;
+    MonitorProperties   *m_props;
 };
 
 /** @} */

@@ -45,7 +45,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
 
-    App *app = qobject_cast<App *>(m_view);
+    App *app   = qobject_cast<App *>(m_view);
     m_tickSize = app->pixelDensity() * 18;
 
     siComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/ShowItem.qml"));
@@ -216,7 +216,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
     if (m_currentShow == nullptr)
     {
         QString defaultName = QString("%1 %2").arg(tr("New Show")).arg(m_doc->nextFunctionID());
-        m_currentShow = new Show(m_doc);
+        m_currentShow       = new Show(m_doc);
         m_currentShow->setName(defaultName);
         Function *f = qobject_cast<Function *>(m_currentShow);
         if (m_doc->addFunction(f) == false)
@@ -277,8 +277,8 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         newItem->setProperty("sfRef", QVariant::fromValue(showFunc));
         newItem->setProperty("funcRef", QVariant::fromValue(func));
 
-        quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
-        quint32 itemID = trackIdx << 16 | itemIndex;
+        quint32 itemIndex  = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
+        quint32 itemID     = trackIdx << 16 | itemIndex;
         m_itemsMap[itemID] = newItem;
         startTime += showFunc->duration();
     }
@@ -352,7 +352,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
         // calculate the X position from time and time scale
         float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
         // round to the nearest snap position
-        xPos = qRound(xPos / m_tickSize) * m_tickSize;
+        xPos       = qRound(xPos / m_tickSize) * m_tickSize;
         // recalculate the time from pixels
         float time = xPos * (1000 * m_timeScale) / m_tickSize; // xPos : time = tickSize : timescale * 1000
         sf->setStartTime(time);
@@ -378,7 +378,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
 void ShowManager::resetContents()
 {
     resetView();
-    m_currentTime = 0;
+    m_currentTime        = 0;
     m_selectedTrackIndex = -1;
     emit currentTimeChanged(m_currentTime);
     m_currentShow = nullptr;
@@ -423,7 +423,7 @@ void ShowManager::renderView(QQuickItem *parent)
             newItem->setProperty("sfRef", QVariant::fromValue(sf));
             newItem->setProperty("funcRef", QVariant::fromValue(func));
 
-            quint32 itemID = trkIdx << 16 | itemIndex;
+            quint32 itemID     = trkIdx << 16 | itemIndex;
             m_itemsMap[itemID] = newItem;
             itemIndex++;
         }
@@ -513,8 +513,8 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
     {
         SelectedShowItem selection;
         selection.m_trackIndex = trackIdx;
-        selection.m_showFunc = sf;
-        selection.m_item = item;
+        selection.m_showFunc   = sf;
+        selection.m_item       = item;
         m_selectedItems.append(selection);
     }
     else
@@ -627,13 +627,13 @@ QVariantList ShowManager::previewData(Function *f) const
         case Function::ChaserType:
         case Function::SequenceType:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(f);
+            Chaser *chaser           = qobject_cast<Chaser *>(f);
             quint32 stepsTimeCounter = 0;
 
             foreach (ChaserStep step, chaser->steps())
             {
-                uint stepFadeIn = step.fadeIn;
-                uint stepFadeOut = step.fadeOut;
+                uint stepFadeIn   = step.fadeIn;
+                uint stepFadeOut  = step.fadeOut;
                 uint stepDuration = step.duration;
                 if (chaser->fadeInMode() == Chaser::Common)
                     stepFadeIn = chaser->fadeInSpeed();
@@ -725,7 +725,7 @@ void ShowManager::pasteFromClipboard()
         if (copyFunc->type() == Function::SequenceType)
         {
             Sequence *sequence = qobject_cast<Sequence *>(copyFunc);
-            Scene *scene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
+            Scene    *scene    = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
             if (scene == nullptr)
                 continue;
 

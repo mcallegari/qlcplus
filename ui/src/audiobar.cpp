@@ -31,37 +31,37 @@
 AudioBar::AudioBar(int t, uchar v, quint32 parentId)
 {
     m_parentId = parentId;
-    m_type = t;
-    m_value = v;
-    m_tapped = false;
+    m_type     = t;
+    m_value    = v;
+    m_tapped   = false;
     m_dmxChannels.clear();
     m_absDmxChannels.clear();
-    m_function = NULL;
-    m_widget = NULL;
-    m_widgetID = VCWidget::invalidId();
+    m_function     = NULL;
+    m_widget       = NULL;
+    m_widgetID     = VCWidget::invalidId();
     m_minThreshold = 51;  // 20%
     m_maxThreshold = 204; // 80%
-    m_divisor = 1;
+    m_divisor      = 1;
     m_skippedBeats = 0;
 }
 
 AudioBar *AudioBar::createCopy()
 {
-    AudioBar *copy = new AudioBar();
-    copy->m_parentId = m_parentId;
-    copy->m_type = m_type;
-    copy->m_value = m_value;
-    copy->m_name = m_name;
-    copy->m_tapped = m_tapped;
-    copy->m_dmxChannels = m_dmxChannels;
+    AudioBar *copy         = new AudioBar();
+    copy->m_parentId       = m_parentId;
+    copy->m_type           = m_type;
+    copy->m_value          = m_value;
+    copy->m_name           = m_name;
+    copy->m_tapped         = m_tapped;
+    copy->m_dmxChannels    = m_dmxChannels;
     copy->m_absDmxChannels = m_absDmxChannels;
-    copy->m_function = m_function;
-    copy->m_widget = m_widget;
-    copy->m_widgetID = m_widgetID;
-    copy->m_minThreshold = m_minThreshold;
-    copy->m_maxThreshold = m_maxThreshold;
-    copy->m_divisor = m_divisor;
-    copy->m_skippedBeats = m_skippedBeats;
+    copy->m_function       = m_function;
+    copy->m_widget         = m_widget;
+    copy->m_widgetID       = m_widgetID;
+    copy->m_minThreshold   = m_minThreshold;
+    copy->m_maxThreshold   = m_maxThreshold;
+    copy->m_divisor        = m_divisor;
+    copy->m_skippedBeats   = m_skippedBeats;
 
     return copy;
 }
@@ -76,16 +76,16 @@ void AudioBar::setType(int type)
     m_type = type;
     if (m_type == None)
     {
-        m_value = 0;
+        m_value  = 0;
         m_tapped = false;
         m_dmxChannels.clear();
         m_absDmxChannels.clear();
-        m_function = NULL;
-        m_widget = NULL;
-        m_widgetID = VCWidget::invalidId();
+        m_function     = NULL;
+        m_widget       = NULL;
+        m_widgetID     = VCWidget::invalidId();
         m_minThreshold = 51;  // 20%
         m_maxThreshold = 204; // 80%
-        m_divisor = 1;
+        m_divisor      = 1;
         m_skippedBeats = 0;
     }
 }
@@ -139,8 +139,8 @@ void AudioBar::attachWidget(quint32 wID)
 
     qDebug() << Q_FUNC_INFO << "Attaching widget with ID" << wID;
     m_widgetID = wID;
-    m_widget = NULL;
-    m_tapped = false;
+    m_widget   = NULL;
+    m_tapped   = false;
 }
 
 VCWidget *AudioBar::widget()
@@ -201,7 +201,7 @@ void AudioBar::checkWidgetFunctionality()
             if (m_skippedBeats == 0)
                 speedDial->tap();
 
-            m_tapped = true;
+            m_tapped       = true;
             m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
         }
         else if (m_value < m_minThreshold)
@@ -217,7 +217,7 @@ void AudioBar::checkWidgetFunctionality()
             if (m_skippedBeats == 0)
                 cueList->slotNextCue();
 
-            m_tapped = true;
+            m_tapped       = true;
             m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
         }
         else if (m_value < m_minThreshold)
@@ -240,10 +240,10 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
 
     if (attrs.hasAttribute(KXMLQLCAudioBarType))
     {
-        m_type = attrs.value(KXMLQLCAudioBarType).toString().toInt();
+        m_type         = attrs.value(KXMLQLCAudioBarType).toString().toInt();
         m_minThreshold = attrs.value(KXMLQLCAudioBarMinThreshold).toString().toInt();
         m_maxThreshold = attrs.value(KXMLQLCAudioBarMaxThreshold).toString().toInt();
-        m_divisor = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
+        m_divisor      = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
 
         switch (m_type)
         {
@@ -251,7 +251,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
             {
                 if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                 {
-                    quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
+                    quint32   fid  = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
                     Function *func = doc->function(fid);
                     if (func != NULL)
                         m_function = func;
@@ -263,7 +263,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                 if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
                 {
                     quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
-                    m_widgetID = wid;
+                    m_widgetID  = wid;
                 }
             }
             break;
@@ -277,7 +277,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                     if (dmxValues.isEmpty() == false)
                     {
                         QList<SceneValue> channels;
-                        QStringList varray = dmxValues.split(",");
+                        QStringList       varray = dmxValues.split(",");
                         for (int i = 0; i < varray.count(); i += 2)
                         {
                             channels.append(

@@ -64,7 +64,7 @@ void FunctionSelection_Test::initial()
 void FunctionSelection_Test::rememberFilter()
 {
     QWidget w;
-    int filter = 0;
+    int     filter = 0;
 
     {
         FunctionSelection fs1(&w, m_doc);
@@ -85,7 +85,7 @@ void FunctionSelection_Test::rememberFilter()
 void FunctionSelection_Test::constFilter()
 {
     QWidget w;
-    int filter = 0;
+    int     filter = 0;
 
     {
         FunctionSelection fs1(&w, m_doc);

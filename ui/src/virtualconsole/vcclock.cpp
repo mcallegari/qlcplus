@@ -32,19 +32,19 @@
 
 #define HYSTERESIS 3 // Hysteresis for pause/reset external input
 
-#define KXMLQLCVCClockType QString("Type")
-#define KXMLQLCVCClockHours QString("Hours")
+#define KXMLQLCVCClockType    QString("Type")
+#define KXMLQLCVCClockHours   QString("Hours")
 #define KXMLQLCVCClockMinutes QString("Minutes")
 #define KXMLQLCVCClockSeconds QString("Seconds")
 
-#define KXMLQLCVCClockSchedule QString("Schedule")
+#define KXMLQLCVCClockSchedule     QString("Schedule")
 #define KXMLQLCVCClockScheduleFunc QString("Function")
 #define KXMLQLCVCClockScheduleTime QString("Time")
 
-#define KXMLQLCVCClockPlay QString("PlayPause")
+#define KXMLQLCVCClockPlay  QString("PlayPause")
 #define KXMLQLCVCClockReset QString("Reset")
 
-const quint8 VCClock::playInputSourceId = 0;
+const quint8 VCClock::playInputSourceId  = 0;
 const quint8 VCClock::resetInputSourceId = 1;
 
 VCClock::VCClock(QWidget *parent, Doc *doc)
@@ -169,10 +169,10 @@ FunctionParent VCClock::functionParent() const
 
 void VCClock::setCountdown(int h, int m, int s)
 {
-    m_hh = h;
-    m_mm = m;
-    m_ss = s;
-    m_targetTime = (m_hh * 3600) + (m_mm * 60) + m_ss;
+    m_hh          = h;
+    m_mm          = m;
+    m_ss          = s;
+    m_targetTime  = (m_hh * 3600) + (m_mm * 60) + m_ss;
     m_currentTime = m_targetTime;
 }
 
@@ -195,13 +195,13 @@ void VCClock::slotUpdateTime()
             {
                 if (m_scheduleIndex != -1 && m_scheduleIndex < m_scheduleList.count())
                 {
-                    QTime currTime = QDateTime::currentDateTime().time();
-                    VCClockSchedule sch = m_scheduleList.at(m_scheduleIndex);
+                    QTime           currTime = QDateTime::currentDateTime().time();
+                    VCClockSchedule sch      = m_scheduleList.at(m_scheduleIndex);
                     // qDebug() << "--- > currTime:" << currTime.toString() << ", schTime:" <<
                     // sch.time().time().toString();
                     if (sch.time().time().toString() == currTime.toString())
                     {
-                        quint32 fid = sch.function();
+                        quint32   fid  = sch.function();
                         Function *func = m_doc->function(fid);
                         if (func != NULL)
                         {
@@ -436,7 +436,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
     {
         if (root.name() == KXMLQLCWindowState)
         {
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
@@ -541,7 +541,7 @@ void VCClock::paintEvent(QPaintEvent *e)
     else
     {
         quint32 secTime = m_currentTime;
-        uint h, m;
+        uint    h, m;
 
         h = secTime / 3600;
         secTime -= (h * 3600);

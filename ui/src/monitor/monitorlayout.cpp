@@ -39,8 +39,8 @@ MonitorLayoutItem::~MonitorLayoutItem() {}
 bool MonitorLayoutItem::operator<(const MonitorLayoutItem &item)
 {
     MonitorLayoutItem &ncitem = const_cast<MonitorLayoutItem &>(item);
-    MonitorFixture *item_mof;
-    MonitorFixture *mof;
+    MonitorFixture    *item_mof;
+    MonitorFixture    *mof;
 
     mof = qobject_cast<MonitorFixture *>(widget());
     Q_ASSERT(mof != NULL);
@@ -144,7 +144,7 @@ QSize MonitorLayout::sizeHint() const
 
 QSize MonitorLayout::minimumSize() const
 {
-    QSize size;
+    QSize        size;
     QLayoutItem *item;
 
     foreach (item, m_items)
@@ -157,9 +157,9 @@ QSize MonitorLayout::minimumSize() const
 
 int MonitorLayout::doLayout(const QRect &rect, bool testOnly) const
 {
-    int x = rect.x();
-    int y = rect.y();
-    int lineHeight = 0;
+    int          x          = rect.x();
+    int          y          = rect.y();
+    int          lineHeight = 0;
     QLayoutItem *item;
 
     foreach (item, m_items)
@@ -167,9 +167,9 @@ int MonitorLayout::doLayout(const QRect &rect, bool testOnly) const
         int nextX = x + item->sizeHint().width() + spacing();
         if (nextX - spacing() > rect.right() && lineHeight > 0)
         {
-            x = rect.x();
-            y = y + lineHeight + spacing();
-            nextX = x + item->sizeHint().width() + spacing();
+            x          = rect.x();
+            y          = y + lineHeight + spacing();
+            nextX      = x + item->sizeHint().width() + spacing();
             lineHeight = 0;
         }
 
@@ -178,7 +178,7 @@ int MonitorLayout::doLayout(const QRect &rect, bool testOnly) const
             item->setGeometry(QRect(QPoint(x, y), item->sizeHint()));
         }
 
-        x = nextX;
+        x          = nextX;
         lineHeight = qMax(lineHeight, item->sizeHint().height());
     }
 

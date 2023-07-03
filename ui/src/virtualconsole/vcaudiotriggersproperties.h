@@ -55,9 +55,9 @@ private slots:
     void slotDivisorChanged(int val);
 
 private:
-    Doc *m_doc;
-    VCAudioTriggers *m_triggers;
-    int m_maxFrequency;
+    Doc                  *m_doc;
+    VCAudioTriggers      *m_triggers;
+    int                   m_maxFrequency;
     InputSelectionWidget *m_inputSelWidget;
 };
 

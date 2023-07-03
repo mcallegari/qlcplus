@@ -81,12 +81,12 @@ public:
     Q_INVOKABLE void addPaletteToNewScene(quint32 id, QString sceneName);
 
     /** Get/Set the type of Palettes to be displayed */
-    int typeFilter() const;
+    int  typeFilter() const;
     void setTypeFilter(quint32 filter);
 
     /** Get/Set a string to filter Function names */
     QString searchFilter() const;
-    void setSearchFilter(QString searchFilter);
+    void    setSearchFilter(QString searchFilter);
 
     int dimmerCount() const
     {
@@ -117,9 +117,9 @@ public slots:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView     *m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc            *m_doc;
     /** Reference to the Context Manager. Used to apply DMX values */
     ContextManager *m_contextManager;
 
@@ -128,7 +128,7 @@ private:
 
     int m_dimmerCount, m_colorCount, m_positionCount;
 
-    ListModel *m_paletteList;
+    ListModel              *m_paletteList;
     // map of type/palette used for editing
     QMap<int, QLCPalette *> m_editingMap;
 };

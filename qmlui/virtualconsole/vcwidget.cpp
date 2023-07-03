@@ -126,7 +126,7 @@ bool VCWidget::copyFrom(const VCWidget *widget)
         it.next();
 
         QKeySequence seq = it.key();
-        quint32 id = it.value();
+        quint32      id  = it.value();
         addKeySequence(seq, id);
     }
 
@@ -406,7 +406,7 @@ void VCWidget::setBackgroundColor(QColor backgroundColor)
     setBackgroundImage("");
     enqueueTardisAction(Tardis::VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
 
-    m_backgroundColor = backgroundColor;
+    m_backgroundColor          = backgroundColor;
     m_hasCustomBackgroundColor = true;
     emit backgroundColorChanged(backgroundColor);
 }
@@ -419,7 +419,7 @@ bool VCWidget::hasCustomBackgroundColor() const
 void VCWidget::resetBackgroundColor()
 {
     m_hasCustomBackgroundColor = false;
-    m_backgroundColor = Qt::gray;
+    m_backgroundColor          = Qt::gray;
     setDocModified();
     emit backgroundColorChanged(m_backgroundColor);
 }
@@ -437,7 +437,7 @@ void VCWidget::setBackgroundImage(QString path)
     enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
 
     m_hasCustomBackgroundColor = false;
-    m_backgroundImage = strippedPath;
+    m_backgroundImage          = strippedPath;
 
     emit backgroundImageChanged(strippedPath);
 }
@@ -463,7 +463,7 @@ void VCWidget::setForegroundColor(QColor foregroundColor)
 
     enqueueTardisAction(Tardis::VCWidgetForegroundColor, m_foregroundColor, foregroundColor);
 
-    m_foregroundColor = foregroundColor;
+    m_foregroundColor          = foregroundColor;
     m_hasCustomForegroundColor = true;
 
     emit foregroundColorChanged(foregroundColor);
@@ -477,7 +477,7 @@ bool VCWidget::hasCustomForegroundColor() const
 void VCWidget::resetForegroundColor()
 {
     m_hasCustomForegroundColor = false;
-    m_foregroundColor = Qt::white;
+    m_foregroundColor          = Qt::white;
     setDocModified();
     emit foregroundColorChanged(m_foregroundColor);
 }
@@ -626,7 +626,7 @@ QString VCWidget::propertiesResource() const
 void VCWidget::registerExternalControl(quint8 id, QString name, bool allowKeyboard)
 {
     ExternalControlInfo info;
-    info.name = name;
+    info.name          = name;
     info.allowKeyboard = allowKeyboard;
 
     m_externalControlList.insert(id, info);
@@ -654,7 +654,7 @@ QVariant VCWidget::externalControlsList() const
     {
         it.next();
         ExternalControlInfo info = it.value();
-        QVariantMap cMap;
+        QVariantMap         cMap;
         cMap.insert("mLabel", info.name);
         cMap.insert("mValue", it.key());
         controlsList.append(cMap);
@@ -795,13 +795,13 @@ QVariantList VCWidget::inputSourcesList()
 
         QString uniName;
         QString chName;
-        uchar min = 0, max = UCHAR_MAX;
-        bool supportCustomFeedback = false;
+        uchar   min = 0, max = UCHAR_MAX;
+        bool    supportCustomFeedback = false;
 
         if (!source->isValid() || m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
         {
             uniName = tr("None");
-            chName = tr("None");
+            chName  = tr("None");
         }
 
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
@@ -810,8 +810,8 @@ QVariantList VCWidget::inputSourcesList()
             QLCInputChannel *ich = ip->profile()->channel(source->channel());
             if (ich != nullptr && ich->type() == QLCInputChannel::Button)
             {
-                min = ich->lowerValue();
-                max = ich->upperValue();
+                min                   = ich->lowerValue();
+                max                   = ich->upperValue();
                 supportCustomFeedback = true;
             }
         }
@@ -837,7 +837,7 @@ QVariantList VCWidget::inputSourcesList()
         it.next();
 
         QKeySequence seq = it.key();
-        quint32 id = it.value();
+        quint32      id  = it.value();
 
         QVariantMap keyMap;
         keyMap.insert("type", Keyboard);
@@ -1080,10 +1080,10 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int *x, int *y, int *w
     if (root.name() == KXMLQLCWindowState)
     {
         QXmlStreamAttributes attrs = root.attributes();
-        *x = attrs.value(KXMLQLCWindowStateX).toInt();
-        *y = attrs.value(KXMLQLCWindowStateY).toInt();
-        *w = attrs.value(KXMLQLCWindowStateWidth).toInt();
-        *h = attrs.value(KXMLQLCWindowStateHeight).toInt();
+        *x                         = attrs.value(KXMLQLCWindowStateX).toInt();
+        *y                         = attrs.value(KXMLQLCWindowStateY).toInt();
+        *w                         = attrs.value(KXMLQLCWindowStateWidth).toInt();
+        *h                         = attrs.value(KXMLQLCWindowStateHeight).toInt();
 
         if (attrs.value(KXMLQLCWindowStateVisible).toString() == KXMLQLCTrue)
             *visible = true;
@@ -1111,8 +1111,8 @@ bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
     QXmlStreamAttributes attrs = root.attributes();
 
     quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
-    quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
-    uchar min = 0, max = UCHAR_MAX;
+    quint32 ch  = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+    uchar   min = 0, max = UCHAR_MAX;
 
     QSharedPointer<QLCInputSource> inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     inputSource->setID(id);

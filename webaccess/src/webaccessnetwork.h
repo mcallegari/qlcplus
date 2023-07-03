@@ -24,10 +24,10 @@
 
 typedef struct
 {
-    bool enabled;
+    bool    enabled;
     QString name;
-    bool isStatic;
-    bool isWireless;
+    bool    isStatic;
+    bool    isWireless;
     QString address;
     QString netmask;
     QString gateway;
@@ -43,8 +43,8 @@ class WebAccessNetwork : public QObject
 public:
     WebAccessNetwork(QObject *parent = 0);
 
-    void resetInterface(InterfaceInfo *iface);
-    void appendInterface(InterfaceInfo iface);
+    void    resetInterface(InterfaceInfo *iface);
+    void    appendInterface(InterfaceInfo iface);
     QString getInterfaceHTML(InterfaceInfo *iface);
     QString getNetworkHTML();
     QString getHTML();
@@ -52,14 +52,14 @@ public:
     bool updateNetworkFile(QStringList cmdList);
 
 protected:
-    void parseWPAConfFile(InterfaceInfo *iface);
-    bool writeNetworkFile();
+    void    parseWPAConfFile(InterfaceInfo *iface);
+    bool    writeNetworkFile();
     QString netmaskToString(int mask);
-    int stringToNetmask(QString mask);
+    int     stringToNetmask(QString mask);
 
 protected:
     QList<InterfaceInfo> m_interfaces;
-    QStringList m_dhcpcdConfCache;
+    QStringList          m_dhcpcdConfCache;
 };
 
 #endif // WEBACCESSNETWORK_H

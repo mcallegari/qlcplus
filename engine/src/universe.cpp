@@ -37,9 +37,9 @@
 
 #define RELATIVE_ZERO 127
 
-#define KXMLUniverseNormalBlend "Normal"
-#define KXMLUniverseMaskBlend "Mask"
-#define KXMLUniverseAdditiveBlend "Additive"
+#define KXMLUniverseNormalBlend      "Normal"
+#define KXMLUniverseMaskBlend        "Mask"
+#define KXMLUniverseAdditiveBlend    "Additive"
 #define KXMLUniverseSubtractiveBlend "Subtractive"
 
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
@@ -203,8 +203,8 @@ void Universe::slotGMValueChanged()
 
 QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority priority)
 {
-    int insertPos = 0;
-    QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
+    int                          insertPos = 0;
+    QSharedPointer<GenericFader> fader     = QSharedPointer<GenericFader>(new GenericFader());
     fader->setPriority(priority);
 
     if (m_faders.isEmpty())
@@ -247,7 +247,7 @@ void Universe::requestFaderPriority(QSharedPointer<GenericFader> fader, Universe
     if (m_faders.contains(fader) == false)
         return;
 
-    int pos = m_faders.indexOf(fader);
+    int pos    = m_faders.indexOf(fader);
     int newPos = 0;
 
     for (int i = m_faders.count() - 1; i >= 0; i--)
@@ -330,7 +330,7 @@ void Universe::processFaders()
 
 void Universe::run()
 {
-    m_running = true;
+    m_running   = true;
     int timeout = int(MasterTimer::tick()) * 2;
 
     qDebug() << "Universe thread started" << id();
@@ -412,7 +412,7 @@ void Universe::zeroIntensityChannels()
     for (int i = 0; i < m_intensityChannelsRanges.size(); ++i)
     {
         short channel = channels[i] >> 16;
-        short size = channels[i] & 0xffff;
+        short size    = channels[i] & 0xffff;
 
         reset(channel, size);
     }
@@ -423,7 +423,7 @@ QHash<int, uchar> Universe::intensityChannels()
     QHash<int, uchar> intensityList;
     for (int i = 0; i < m_intensityChannels.size(); ++i)
     {
-        int channel = m_intensityChannels.at(i);
+        int channel            = m_intensityChannels.at(i);
         intensityList[channel] = m_preGMValues->at(channel);
     }
     return intensityList;
@@ -622,9 +622,9 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index)
             return true;
         }
 
-        OutputPatch *patch = m_outputPatchList.at(index);
-        bool result = patch->set(plugin, output);
-        emit outputPatchChanged();
+        OutputPatch *patch  = m_outputPatchList.at(index);
+        bool         result = patch->set(plugin, output);
+        emit         outputPatchChanged();
         return result;
     }
     else
@@ -633,8 +633,8 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index)
             return false;
 
         // add a new patch
-        OutputPatch *patch = new OutputPatch(m_id, this);
-        bool result = patch->set(plugin, output);
+        OutputPatch *patch  = new OutputPatch(m_id, this);
+        bool         result = patch->set(plugin, output);
         m_outputPatchList.append(patch);
         emit outputPatchesCountChanged();
         return result;
@@ -829,7 +829,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     // qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
     if (channel >= m_totalChannels)
     {
-        m_totalChannels = channel + 1;
+        m_totalChannels        = channel + 1;
         m_totalChannelsChanged = true;
     }
 }
@@ -846,7 +846,7 @@ void Universe::setChannelDefaultValue(ushort channel, uchar value)
 {
     if (channel >= m_totalChannels)
     {
-        m_totalChannels = channel + 1;
+        m_totalChannels        = channel + 1;
         m_totalChannelsChanged = true;
     }
 
@@ -870,7 +870,7 @@ void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
 
         if (channel >= m_totalChannels)
         {
-            m_totalChannels = channel + 1;
+            m_totalChannels        = channel + 1;
             m_totalChannelsChanged = true;
         }
 
@@ -897,7 +897,7 @@ void Universe::updateIntensityChannelsRanges()
     m_intensityChannelsChanged = false;
 
     m_intensityChannelsRanges.clear();
-    short currentPos = -1;
+    short currentPos  = -1;
     short currentSize = 0;
 
     for (int i = 0; i < m_intensityChannels.size(); ++i)
@@ -909,7 +909,7 @@ void Universe::updateIntensityChannelsRanges()
         {
             if (currentPos != -1)
                 m_intensityChannelsRanges.append((currentPos << 16) | currentSize);
-            currentPos = channel;
+            currentPos  = channel;
             currentSize = 1;
         }
     }
@@ -992,9 +992,9 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         break;
         case AdditiveBlend:
         {
-            uchar currVal = uchar(m_preGMValues->at(channel));
+            uchar currVal             = uchar(m_preGMValues->at(channel));
             // qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
-            value = qMin(int(currVal) + value, 255);
+            value                     = qMin(int(currVal) + value, 255);
             (*m_preGMValues)[channel] = char(value);
         }
         break;
@@ -1056,7 +1056,7 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
 
         if (root.name() == KXMLQLCUniverseInputPatch)
         {
-            QString plugin = KInputNone;
+            QString plugin    = KInputNone;
             quint32 inputLine = QLCIOPlugin::invalidLine();
             QString inputUID;
             QString profile = KInputNone;
@@ -1252,7 +1252,7 @@ bool Universe::savePluginParametersXML(QXmlStreamWriter *doc, QMap<QString, QVar
     while (it.hasNext())
     {
         it.next();
-        QString pName = it.key();
+        QString  pName  = it.key();
         QVariant pValue = it.value();
         doc->writeAttribute(pName, pValue.toString());
     }

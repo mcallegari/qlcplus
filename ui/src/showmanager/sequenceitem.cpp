@@ -48,7 +48,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
 
 void SequenceItem::calculateWidth()
 {
-    int newWidth = 0;
+    int           newWidth     = 0;
     unsigned long seq_duration = m_chaser->totalDuration();
 
     if (seq_duration != 0)
@@ -61,9 +61,9 @@ void SequenceItem::calculateWidth()
 
 void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    float xpos = 0;
+    float xpos      = 0;
     float timeScale = 50 / (float)m_timeScale;
-    int stepIdx = 0;
+    int   stepIdx   = 0;
 
     ShowItem::paint(painter, option, widget);
 
@@ -72,8 +72,8 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     foreach (ChaserStep step, m_chaser->steps())
     {
-        uint stepFadeIn = step.fadeIn;
-        uint stepFadeOut = step.fadeOut;
+        uint stepFadeIn   = step.fadeIn;
+        uint stepFadeOut  = step.fadeOut;
         uint stepDuration = step.duration;
         if (m_chaser->fadeInMode() == Chaser::Common)
             stepFadeIn = m_chaser->fadeInSpeed();

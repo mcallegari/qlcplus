@@ -143,7 +143,7 @@ void VideoEditor::slotSourceFileClicked()
 
 void VideoEditor::slotSourceUrlClicked()
 {
-    bool ok;
+    bool    ok;
     QString videoURL =
         QInputDialog::getText(this, tr("Video source URL"), tr("Enter a URL:"), QLineEdit::Normal, "http://", &ok);
 

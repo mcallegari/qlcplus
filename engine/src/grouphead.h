@@ -40,7 +40,7 @@ public:
 
 public:
     quint32 fxi;
-    int head;
+    int     head;
 };
 
 /** @} */

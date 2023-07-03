@@ -129,7 +129,7 @@ signals:
     void viewClicked(QMouseEvent *e);
 
 private:
-    Doc *m_doc;
+    Doc            *m_doc;
     QGraphicsScene *m_scene;
 
     /** Size of the grid. How many horizontal and vertical cells */

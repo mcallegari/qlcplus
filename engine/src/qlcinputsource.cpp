@@ -28,8 +28,8 @@
 #include "qlcmacros.h"
 
 quint32 QLCInputSource::invalidUniverse = UINT_MAX;
-quint32 QLCInputSource::invalidChannel = UINT_MAX;
-quint32 QLCInputSource::invalidID = UINT_MAX;
+quint32 QLCInputSource::invalidChannel  = UINT_MAX;
+quint32 QLCInputSource::invalidID       = UINT_MAX;
 
 QLCInputSource::QLCInputSource(QThread *parent)
     : QThread(parent)
@@ -102,7 +102,7 @@ quint32 QLCInputSource::channel() const
 void QLCInputSource::setPage(ushort pgNum)
 {
     quint32 chCopy = m_channel & 0x0000FFFF;
-    m_channel = ((quint32)pgNum << 16) | chCopy;
+    m_channel      = ((quint32)pgNum << 16) | chCopy;
 }
 
 ushort QLCInputSource::page() const
@@ -152,7 +152,7 @@ void QLCInputSource::setWorkingMode(QLCInputSource::WorkingMode mode)
     if (m_workingMode == Relative && m_running == false)
     {
         m_inputValue = 127;
-        m_running = true;
+        m_running    = true;
         start();
     }
     else if ((m_workingMode == Absolute || m_workingMode == Encoder) && m_running == true)
@@ -226,10 +226,10 @@ void QLCInputSource::run()
 {
     qDebug() << Q_FUNC_INFO << "Thread started for universe" << m_universe << "channel" << m_channel;
 
-    uchar inputValueCopy = m_inputValue;
-    double dValue = m_outputValue;
-    uchar lastOutputValue = m_outputValue;
-    bool movementOn = false;
+    uchar  inputValueCopy  = m_inputValue;
+    double dValue          = m_outputValue;
+    uchar  lastOutputValue = m_outputValue;
+    bool   movementOn      = false;
 
     while (m_running == true)
     {
@@ -242,8 +242,8 @@ void QLCInputSource::run()
 
         if (inputValueCopy != m_inputValue || movementOn == true)
         {
-            movementOn = false;
-            inputValueCopy = m_inputValue;
+            movementOn        = false;
+            inputValueCopy    = m_inputValue;
             double moveAmount = 127 - inputValueCopy;
             if (moveAmount != 0)
             {

@@ -29,7 +29,7 @@
  * @{
  */
 
-#define AUDIO_CAP_INPUT 1
+#define AUDIO_CAP_INPUT  1
 #define AUDIO_CAP_OUTPUT 2
 
 #define SETTINGS_AUDIO_OUTPUT_DEVICE "audio/output"
@@ -38,7 +38,7 @@ typedef struct
 {
     QString deviceName;
     QString privateName;
-    int capabilities;
+    int     capabilities;
 } AudioDeviceInfo;
 
 class AudioRenderer : public QThread
@@ -53,7 +53,7 @@ public:
 
     ~AudioRenderer() {}
 
-    void setDecoder(AudioDecoder *adec);
+    void         setDecoder(AudioDecoder *adec);
     /*!
      * Prepares object for usage and setups required audio parameters.
      * Subclass should reimplement this function.
@@ -139,13 +139,13 @@ signals:
 private:
     /** Reference to the decoder to be used as data source */
     AudioDecoder *m_adec;
-    QMutex m_mutex;
+    QMutex        m_mutex;
 
     /** Data buffer for audio */
     unsigned char audioData[8 * 1024];
-    qint64 audioDataRead;
-    qint64 pendingAudioBytes;
-    bool m_looped;
+    qint64        audioDataRead;
+    qint64        pendingAudioBytes;
+    bool          m_looped;
 };
 
 /** @} */

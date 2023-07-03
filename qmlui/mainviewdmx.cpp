@@ -61,9 +61,9 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
     while (it.hasNext())
     {
         it.next();
-        quint32 fxID = it.key();
-        QQuickItem *fxItem = it.value();
-        Fixture *fixture = m_doc->fixture(fxID);
+        quint32     fxID    = it.key();
+        QQuickItem *fxItem  = it.value();
+        Fixture    *fixture = m_doc->fixture(fxID);
         if (fixture == nullptr)
             continue;
 
@@ -99,9 +99,9 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
     if (fixture == nullptr)
         return;
 
-    QQuickItem *newFixtureItem = qobject_cast<QQuickItem *>(fixtureComponent->create());
-    MonitorProperties *monProps = m_doc->monitorProperties();
-    quint32 itemFlags = monProps->fixtureFlags(fxID, 0, 0);
+    QQuickItem        *newFixtureItem = qobject_cast<QQuickItem *>(fixtureComponent->create());
+    MonitorProperties *monProps       = m_doc->monitorProperties();
+    quint32            itemFlags      = monProps->fixtureFlags(fxID, 0, 0);
 
     newFixtureItem->setParentItem(contextItem());
     newFixtureItem->setProperty("fixtureObj", QVariant::fromValue(fixture));
@@ -118,8 +118,8 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
 
 void MainViewDMX::setFixtureFlags(quint32 itemID, quint32 flags)
 {
-    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
-    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint32 fixtureID   = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex   = FixtureUtils::itemHeadIndex(itemID);
     quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
     if (headIndex || linkedIndex)
@@ -137,7 +137,7 @@ void MainViewDMX::updateFixture(Fixture *fixture)
     if (m_itemsMap.contains(fixture->id()) == false)
         return;
 
-    QByteArray fxValues = fixture->channelValues();
+    QByteArray   fxValues = fixture->channelValues();
     QVariantList dmxValues;
 
     for (int i = 0; i < (int)fixture->channels(); i++)
@@ -153,7 +153,7 @@ void MainViewDMX::updateFixtureSelection(QList<quint32> fixtures)
     while (it.hasNext())
     {
         it.next();
-        quint32 itemID = FixtureUtils::fixtureItemID(it.key(), 0, 0);
+        quint32     itemID = FixtureUtils::fixtureItemID(it.key(), 0, 0);
         QQuickItem *fxItem = it.value();
         if (fixtures.contains(itemID))
             fxItem->setProperty("isSelected", true);
@@ -224,7 +224,7 @@ void MainViewDMX::slotAliasChanged()
     if (isEnabled() == false)
         return;
 
-    Fixture *fixture = qobject_cast<Fixture *>(sender());
-    QQuickItem *fxItem = m_itemsMap[fixture->id()];
+    Fixture    *fixture = qobject_cast<Fixture *>(sender());
+    QQuickItem *fxItem  = m_itemsMap[fixture->id()];
     QMetaObject::invokeMethod(fxItem, "updateChannels");
 }

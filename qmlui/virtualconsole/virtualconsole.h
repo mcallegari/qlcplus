@@ -136,7 +136,7 @@ public:
     Q_INVOKABLE bool validatePagePIN(int index, QString PIN, bool remember);
 
     /** Set/Get the currently selected VC page index */
-    int selectedPage() const;
+    int  selectedPage() const;
     void setSelectedPage(int selectedPage);
 
     /** Enable/disable the current page scroll interaction */
@@ -284,7 +284,7 @@ public:
     /** @reimp */
     void handleKeyEvent(QKeyEvent *e, bool pressed);
 
-    Q_INVOKABLE QVariant inputChannelsModel();
+    Q_INVOKABLE QVariant     inputChannelsModel();
     Q_INVOKABLE QVariantList universeListModel();
 
 protected slots:
@@ -307,8 +307,8 @@ protected:
     VCWidget *m_autoDetectionWidget;
 
     QSharedPointer<QLCInputSource> m_autoDetectionSource;
-    QKeySequence m_autoDetectionKey;
-    quint32 m_autoDetectionKeyId;
+    QKeySequence                   m_autoDetectionKey;
+    quint32                        m_autoDetectionKeyId;
 
     /** Data model used by the QML UI to represent groups/input channels */
     TreeModel *m_inputChannelsTree;

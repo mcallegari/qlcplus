@@ -98,7 +98,7 @@ FunctionSelection::FunctionSelection(QWidget *parent, Doc *doc)
     connect(m_videoCheck, SIGNAL(toggled(bool)), this, SLOT(slotVideoChecked(bool)));
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_FILTER);
+    QVariant  var = settings.value(SETTINGS_FILTER);
     if (var.isValid() == true)
         setFilter(var.toInt(), false);
 
@@ -223,7 +223,7 @@ void FunctionSelection::slotRunningFunctionsChecked()
 
 void FunctionSelection::setFilter(int types, bool constFilter)
 {
-    m_filter = types;
+    m_filter      = types;
     m_constFilter = constFilter;
 }
 
@@ -328,7 +328,7 @@ void FunctionSelection::slotItemSelectionChanged()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item = it.next();
-        quint32 id = item->data(KColumnName, Qt::UserRole).toUInt();
+        quint32          id   = item->data(KColumnName, Qt::UserRole).toUInt();
         if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem) && m_selection.contains(id) == false)
             m_selection.append(id);
     }

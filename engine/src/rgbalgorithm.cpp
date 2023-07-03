@@ -47,7 +47,7 @@ RGBAlgorithm::RGBAlgorithm(Doc *doc)
 void RGBAlgorithm::setColors(QColor start, QColor end)
 {
     m_startColor = start;
-    m_endColor = end;
+    m_endColor   = end;
 }
 
 /****************************************************************************
@@ -57,10 +57,10 @@ void RGBAlgorithm::setColors(QColor start, QColor end)
 QStringList RGBAlgorithm::algorithms(Doc *doc)
 {
     QStringList list;
-    RGBPlain plain(doc);
-    RGBText text(doc);
-    RGBImage image(doc);
-    RGBAudio audio(doc);
+    RGBPlain    plain(doc);
+    RGBText     text(doc);
+    RGBImage    image(doc);
+    RGBAudio    audio(doc);
     list << plain.name();
     list << text.name();
     list << image.name();
@@ -71,7 +71,7 @@ QStringList RGBAlgorithm::algorithms(Doc *doc)
 
 RGBAlgorithm *RGBAlgorithm::algorithm(Doc *doc, const QString &name)
 {
-    RGBText text(doc);
+    RGBText  text(doc);
     RGBImage image(doc);
     RGBAudio audio(doc);
     RGBPlain plain(doc);

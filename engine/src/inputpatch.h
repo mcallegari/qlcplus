@@ -34,12 +34,12 @@ class QLCIOPlugin;
 
 #define KInputNone QObject::tr("None")
 
-#define KXMLQLCInputPatchProfile "Profile"
-#define KXMLQLCInputPatchUniverse "Universe"
+#define KXMLQLCInputPatchProfile    "Profile"
+#define KXMLQLCInputPatchUniverse   "Universe"
 #define KXMLQLCInputPatchPluginNone "None"
-#define KXMLQLCInputPatchPlugin "Plugin"
-#define KXMLQLCInputPatchInput "Input"
-#define KXMLQLCInputPatch "Patch"
+#define KXMLQLCInputPatchPlugin     "Plugin"
+#define KXMLQLCInputPatchInput      "Input"
+#define KXMLQLCInputPatch           "Patch"
 
 /**
  * An InputPatch represents one input universe. One input universe can have
@@ -135,11 +135,11 @@ private slots:
 
 private:
     /** The reference of the plugin associated by this Input patch */
-    QLCIOPlugin *m_plugin;
+    QLCIOPlugin            *m_plugin;
     /** The plugin line open by this Input patch */
-    quint32 m_pluginLine;
+    quint32                 m_pluginLine;
     /** The reference of an input profile if activated by the user (otherwise NULL) */
-    QLCInputProfile *m_profile;
+    QLCInputProfile        *m_profile;
     /** The patch parameters cache */
     QMap<QString, QVariant> m_parametersCache;
 
@@ -163,11 +163,11 @@ public:
             , key(k)
         {
         }
-        uchar value;
+        uchar   value;
         QString key;
     };
 
-    QMutex m_inputBufferMutex;
+    QMutex                     m_inputBufferMutex;
     QHash<quint32, InputValue> m_inputBuffer;
 };
 

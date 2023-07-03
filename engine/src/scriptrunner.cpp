@@ -94,8 +94,8 @@ void ScriptRunner::stop()
 QStringList ScriptRunner::collectScriptData()
 {
     QStringList syntaxErrorList;
-    QJSEngine *engine = new QJSEngine();
-    QJSValue objectValue = engine->newQObject(this);
+    QJSEngine  *engine      = new QJSEngine();
+    QJSValue    objectValue = engine->newQObject(this);
     engine->globalObject().setProperty("Engine", objectValue);
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
@@ -153,7 +153,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             QSharedPointer<GenericFader> fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
-                fader = universes[val.m_universe]->requestFader();
+                fader                       = universes[val.m_universe]->requestFader();
                 // fader->adjustIntensity(getAttributeValue(Intensity));
                 // fader->setBlendMode(blendMode());
                 m_fadersMap[val.m_universe] = fader;
@@ -172,9 +172,9 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
     {
         while (!m_functionQueue.isEmpty())
         {
-            QPair<quint32, bool> pair = m_functionQueue.dequeue();
-            quint32 fID = pair.first;
-            bool start = pair.second;
+            QPair<quint32, bool> pair  = m_functionQueue.dequeue();
+            quint32              fID   = pair.first;
+            bool                 start = pair.second;
 
             Function *function = m_doc->function(fID);
             if (function == NULL)
@@ -208,7 +208,7 @@ void ScriptRunner::run()
 {
     m_waitCount = 0;
 
-    m_engine = new QJSEngine();
+    m_engine             = new QJSEngine();
     QJSValue objectValue = m_engine->newQObject(this);
     m_engine->globalObject().setProperty("Engine", objectValue);
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
@@ -246,13 +246,13 @@ int ScriptRunner::getChannelValue(int universe, int channel)
     if (m_running == false)
         return false;
 
-    QList<Universe *> uniList = m_doc->inputOutputMap()->claimUniverses();
-    uchar dmxValue = 0;
+    QList<Universe *> uniList  = m_doc->inputOutputMap()->claimUniverses();
+    uchar             dmxValue = 0;
 
     if (universe >= 0 && universe < uniList.count())
     {
         Universe *uni = uniList.at(universe);
-        dmxValue = uni->preGMValue(channel);
+        dmxValue      = uni->preGMValue(channel);
     }
     m_doc->inputOutputMap()->releaseUniverses(false);
 
@@ -288,11 +288,11 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
 
     // enqueue this fixture value to be processed at the next write call
     FixtureValue val;
-    val.m_universe = fxi->universe();
+    val.m_universe  = fxi->universe();
     val.m_fixtureID = fxID;
-    val.m_channel = channel;
-    val.m_value = value;
-    val.m_fadeTime = time;
+    val.m_channel   = channel;
+    val.m_value     = value;
+    val.m_fadeTime  = time;
     m_fixtureValueQueue.enqueue(val);
 
     return true;
@@ -311,7 +311,7 @@ bool ScriptRunner::startFunction(quint32 fID)
     }
 
     QPair<quint32, bool> pair;
-    pair.first = fID;
+    pair.first  = fID;
     pair.second = true;
 
     m_functionQueue.enqueue(pair);
@@ -332,7 +332,7 @@ bool ScriptRunner::stopFunction(quint32 fID)
     }
 
     QPair<quint32, bool> pair;
-    pair.first = fID;
+    pair.first  = fID;
     pair.second = false;
 
     m_functionQueue.enqueue(pair);
@@ -418,8 +418,8 @@ bool ScriptRunner::systemCommand(QString command)
     if (tokens.count() == 0)
         return false;
 
-    QString programName = tokens.first();
-    QString multiPartArg;
+    QString     programName = tokens.first();
+    QString     multiPartArg;
     QStringList programArgs;
     for (int i = 1; i < tokens.size(); i++)
     {
@@ -451,7 +451,7 @@ bool ScriptRunner::systemCommand(QString command)
     }
 
 #if !defined(Q_OS_IOS)
-    qint64 pid;
+    qint64    pid;
     QProcess *newProcess = new QProcess();
     newProcess->setProgram(programName);
     newProcess->setArguments(programArgs);

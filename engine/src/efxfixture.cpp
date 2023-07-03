@@ -64,18 +64,18 @@ void EFXFixture::copyFrom(const EFXFixture *ef)
 {
     // Don't copy m_parent because it is already assigned in constructor and might
     // be different than $ef's
-    m_head = ef->m_head;
-    m_universe = ef->m_universe;
-    m_direction = ef->m_direction;
+    m_head        = ef->m_head;
+    m_universe    = ef->m_universe;
+    m_direction   = ef->m_direction;
     m_startOffset = ef->m_startOffset;
-    m_mode = ef->m_mode;
+    m_mode        = ef->m_mode;
 
-    m_serialNumber = ef->m_serialNumber;
+    m_serialNumber     = ef->m_serialNumber;
     m_runTimeDirection = ef->m_runTimeDirection;
-    m_done = ef->m_done;
-    m_started = ef->m_started;
-    m_elapsed = ef->m_elapsed;
-    m_currentAngle = ef->m_currentAngle;
+    m_done             = ef->m_done;
+    m_started          = ef->m_started;
+    m_elapsed          = ef->m_elapsed;
+    m_currentAngle     = ef->m_currentAngle;
 }
 
 EFXFixture::~EFXFixture() {}
@@ -121,7 +121,7 @@ GroupHead const &EFXFixture::head() const
 
 void EFXFixture::setDirection(Function::Direction dir)
 {
-    m_direction = dir;
+    m_direction        = dir;
     m_runTimeDirection = dir;
 }
 
@@ -348,11 +348,11 @@ int EFXFixture::serialNumber() const
 
 void EFXFixture::reset()
 {
-    m_done = false;
+    m_done             = false;
     m_runTimeDirection = m_direction;
-    m_started = false;
-    m_elapsed = 0;
-    m_currentAngle = 0;
+    m_started          = false;
+    m_elapsed          = 0;
+    m_currentAngle     = 0;
 }
 
 bool EFXFixture::isDone() const
@@ -429,7 +429,7 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
         start();
 
     // Scale from elapsed time in relation to overall duration to a point in a circle
-    uint pos = (m_elapsed + timeOffset()) % m_parent->loopDuration();
+    uint pos       = (m_elapsed + timeOffset()) % m_parent->loopDuration();
     m_currentAngle = SCALE(float(pos), float(0), float(m_parent->loopDuration()), float(0), float(M_PI * 2));
 
     float valX = 0;
@@ -472,8 +472,8 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
 
     // qDebug() << "Pan value: " << pan << ", tilt value:" << tilt;
 
-    quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head);
-    quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, head().head);
+    quint32 panMsbChannel  = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head);
+    quint32 panLsbChannel  = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, head().head);
     quint32 tiltMsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head);
     quint32 tiltLsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, head().head);
 
@@ -497,16 +497,16 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
     if (panLsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         /* Leave only the fraction */
-        float value = ((pan - floor(pan)) * float(UCHAR_MAX));
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panLsbChannel);
+        float        value = ((pan - floor(pan)) * float(UCHAR_MAX));
+        FadeChannel *fc    = fader->getChannelFader(doc(), uni, fxi->id(), panLsbChannel);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 
     if (tiltLsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         /* Leave only the fraction */
-        float value = ((tilt - floor(tilt)) * float(UCHAR_MAX));
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltLsbChannel);
+        float        value = ((tilt - floor(tilt)) * float(UCHAR_MAX));
+        FadeChannel *fc    = fader->getChannelFader(doc(), uni, fxi->id(), tiltLsbChannel);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 }

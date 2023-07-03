@@ -54,8 +54,8 @@ private:
 private:
     QPixmap *m_background;
     QPixmap *m_cursor;
-    QColor m_gradStartColor;
-    QColor m_gradEndColor;
+    QColor   m_gradStartColor;
+    QColor   m_gradEndColor;
 };
 
 /** @} */

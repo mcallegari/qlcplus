@@ -45,7 +45,7 @@ RGBMatrixItem::RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func)
 
 void RGBMatrixItem::calculateWidth()
 {
-    int newWidth = 0;
+    int    newWidth       = 0;
     qint64 matrixDuration = getDuration();
 
     if (matrixDuration != 0)
@@ -71,8 +71,8 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
     if (matrixDuration)
     {
-        float xpos = 0;
-        int loopCount = m_function->duration() ? qFloor(m_function->duration() / m_matrix->totalDuration()) : 0;
+        float xpos      = 0;
+        int   loopCount = m_function->duration() ? qFloor(m_function->duration() / m_matrix->totalDuration()) : 0;
 
         for (int i = 0; i < loopCount; i++)
         {

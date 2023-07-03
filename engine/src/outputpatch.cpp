@@ -68,7 +68,7 @@ bool OutputPatch::set(QLCIOPlugin *plugin, quint32 output)
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
         m_plugin->closeOutput(m_pluginLine, m_universe);
 
-    m_plugin = plugin;
+    m_plugin     = plugin;
     m_pluginLine = output;
 
     if (m_plugin != NULL)

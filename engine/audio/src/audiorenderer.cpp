@@ -49,16 +49,16 @@ void AudioRenderer::adjustIntensity(qreal fraction)
 
 void AudioRenderer::setFadeIn(uint fadeTime)
 {
-    m_fadeStep = 0;
+    m_fadeStep         = 0;
     m_currentIntensity = 1.0;
 
     if (fadeTime == 0 || m_adec == NULL)
         return;
 
     quint32 sampleRate = m_adec->audioParameters().sampleRate();
-    int channels = m_adec->audioParameters().channels();
-    qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
-    m_fadeStep = m_intensity / stepsCount;
+    int     channels   = m_adec->audioParameters().channels();
+    qreal   stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
+    m_fadeStep         = m_intensity / stepsCount;
     m_currentIntensity = 0;
 
     qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
@@ -70,9 +70,9 @@ void AudioRenderer::setFadeOut(uint fadeTime)
         return;
 
     quint32 sampleRate = m_adec->audioParameters().sampleRate();
-    int channels = m_adec->audioParameters().channels();
-    qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
-    m_fadeStep = -(m_intensity / stepsCount);
+    int     channels   = m_adec->audioParameters().channels();
+    qreal   stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
+    m_fadeStep         = -(m_intensity / stepsCount);
     m_currentIntensity = m_intensity;
 
     qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
@@ -83,14 +83,14 @@ void AudioRenderer::stop()
     m_userStop = true;
     while (this->isRunning())
         usleep(10000);
-    m_intensity = 1.0;
+    m_intensity        = 1.0;
     m_currentIntensity = 1.0;
 }
 
 void AudioRenderer::run()
 {
     qint64 audioDataWritten;
-    m_userStop = false;
+    m_userStop    = false;
     audioDataRead = 0;
 
     int sampleSize = m_adec->audioParameters().sampleSize();
@@ -138,7 +138,7 @@ void AudioRenderer::run()
                             short sample = ((short)audioData[i + 1] << 8) + (short)audioData[i];
                             sample *= scaleFactor;
                             audioData[i + 1] = (sample >> 8) & 0x00FF;
-                            audioData[i] = sample & 0x00FF;
+                            audioData[i]     = sample & 0x00FF;
                         }
                         /*
                         else if (sampleSize == 3)

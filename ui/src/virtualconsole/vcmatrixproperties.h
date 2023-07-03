@@ -45,7 +45,7 @@ public:
 
 protected:
     VCMatrix *m_matrix;
-    Doc *m_doc;
+    Doc      *m_doc;
 
     /*********************************************************************
      * RGB Matrix attachment
@@ -76,11 +76,11 @@ protected:
      *********************************************************************/
 private:
     static QList<QColor> rgbColorList();
-    void updateTree();
-    VCMatrixControl *getSelectedControl();
-    void addControl(VCMatrixControl *control);
-    void removeControl(quint8 id);
-    void updateControlInputSource(QSharedPointer<QLCInputSource> const &source);
+    void                 updateTree();
+    VCMatrixControl     *getSelectedControl();
+    void                 addControl(VCMatrixControl *control);
+    void                 removeControl(quint8 id);
+    void                 updateControlInputSource(QSharedPointer<QLCInputSource> const &source);
 
 protected slots:
     void slotTreeSelectionChanged();
@@ -97,9 +97,9 @@ protected slots:
     void slotKeySequenceChanged(QKeySequence key);
 
 protected:
-    quint8 m_lastAssignedID;
+    quint8                   m_lastAssignedID;
     QList<VCMatrixControl *> m_controls;
-    InputSelectionWidget *m_presetInputWidget;
+    InputSelectionWidget    *m_presetInputWidget;
 
 protected slots:
     /** @reimp */

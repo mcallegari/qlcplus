@@ -154,7 +154,7 @@ void VideoEditor::slotMetaDataChanged(QString key, QVariant data)
 QStringList VideoEditor::screenList() const
 {
     QStringList list;
-    int i = 1;
+    int         i = 1;
 
     for (QScreen *screen : QGuiApplication::screens())
         list.append(QString(QString("Screen %1 - (%2)").arg(i++).arg(screen->name())));

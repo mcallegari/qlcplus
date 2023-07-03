@@ -35,7 +35,7 @@
 #define SETTINGS_GEOMETRY "fixturegroupeditor/geometry"
 
 #define PROP_FIXTURE Qt::UserRole
-#define PROP_HEAD Qt::UserRole + 1
+#define PROP_HEAD    Qt::UserRole + 1
 
 FixtureGroupEditor::FixtureGroupEditor(FixtureGroup *grp, Doc *doc, QWidget *parent)
     : QWidget(parent)
@@ -91,11 +91,11 @@ void FixtureGroupEditor::updateTable()
         QLCPoint pt(it.key());
 
         GroupHead head(it.value());
-        Fixture *fxi = m_doc->fixture(head.fxi);
+        Fixture  *fxi = m_doc->fixture(head.fxi);
         if (fxi == NULL)
             continue;
 
-        QIcon icon = fxi->getIconFromType();
+        QIcon   icon = fxi->getIconFromType();
         QString str =
             QString("%1 H:%2\nA:%3 U:%4").arg(fxi->name()).arg(head.head + 1).arg(fxi->address() + 1).arg(fxi->universe() + 1);
 
@@ -113,12 +113,12 @@ void FixtureGroupEditor::updateTable()
 
     if (savedRow < m_table->rowCount() && savedCol < m_table->columnCount())
     {
-        m_row = savedRow;
+        m_row    = savedRow;
         m_column = savedCol;
     }
     else
     {
-        m_row = 0;
+        m_row    = 0;
         m_column = 0;
     }
 
@@ -165,7 +165,7 @@ void FixtureGroupEditor::slotRemoveFixtureClicked()
 
 void FixtureGroupEditor::slotCellActivated(int row, int column)
 {
-    m_row = row;
+    m_row    = row;
     m_column = column;
 
     if (m_table->currentItem() == NULL)
@@ -183,10 +183,10 @@ void FixtureGroupEditor::slotCellChanged(int row, int column)
     }
 
     QMap<QLCPoint, GroupHead> hash = m_grp->headsMap();
-    QLCPoint from(m_column, m_row);
-    QLCPoint to(column, row);
-    GroupHead fromHead;
-    GroupHead toHead;
+    QLCPoint                  from(m_column, m_row);
+    QLCPoint                  to(column, row);
+    GroupHead                 fromHead;
+    GroupHead                 toHead;
 
     if (hash.contains(from) == true)
         fromHead = hash[from];
@@ -204,10 +204,10 @@ void FixtureGroupEditor::slotResized()
 {
     disconnect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
 
-    float cellWidth = (float)(m_table->columnWidth(0) - m_table->iconSize().width());
-    QFont font = m_table->font();
+    float        cellWidth = (float)(m_table->columnWidth(0) - m_table->iconSize().width());
+    QFont        font      = m_table->font();
     QFontMetrics fm(font);
-    float pSizeF = font.pointSizeF();
+    float        pSizeF = font.pointSizeF();
 
     for (int y = 0; y < m_table->rowCount(); y++)
     {

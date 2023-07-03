@@ -57,12 +57,12 @@
 #include "efx.h"
 #include "doc.h"
 
-const quint8 VCXYPad::panInputSourceId = 0;
-const quint8 VCXYPad::tiltInputSourceId = 1;
-const quint8 VCXYPad::widthInputSourceId = 2;
+const quint8 VCXYPad::panInputSourceId    = 0;
+const quint8 VCXYPad::tiltInputSourceId   = 1;
+const quint8 VCXYPad::widthInputSourceId  = 2;
 const quint8 VCXYPad::heightInputSourceId = 3;
 
-const qreal MAX_VALUE = 256.0;
+const qreal MAX_VALUE     = 256.0;
 const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0 / 256;
 
 static const QString presetBtnSS =
@@ -124,10 +124,10 @@ VCXYPad::VCXYPad(QWidget *parent, Doc *doc)
     // bottom preset space
     m_presetsLayout = new FlowLayout();
     m_mainVbox->addLayout(m_presetsLayout);
-    m_efx = NULL;
+    m_efx                 = NULL;
     m_efxStartXOverrideId = Function::invalidAttributeId();
     m_efxStartYOverrideId = Function::invalidAttributeId();
-    m_efxWidthOverrideId = Function::invalidAttributeId();
+    m_efxWidthOverrideId  = Function::invalidAttributeId();
     m_efxHeightOverrideId = Function::invalidAttributeId();
 
     m_scene = NULL;
@@ -161,12 +161,12 @@ VCXYPad::VCXYPad(QWidget *parent, Doc *doc)
     setMinimumSize(20, 20);
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_XYPAD_SIZE);
+    QVariant  var = settings.value(SETTINGS_XYPAD_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
         resize(QSize(230, 230));
-    m_padInteraction = false;
+    m_padInteraction    = false;
     m_sliderInteraction = false;
     m_inputValueChanged = false;
 
@@ -420,11 +420,11 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
     if (m_scene == NULL || m_scene->isRunning() == false)
         return;
 
-    QPointF pt = m_area->position();
-    uchar panCoarse = uchar(qFloor(pt.x()));
-    uchar panFine = uchar((pt.x() - qFloor(pt.x())) * 256);
-    uchar tiltCoarse = uchar(qFloor(pt.y()));
-    uchar tiltFine = uchar((pt.y() - qFloor(pt.y())) * 256);
+    QPointF pt         = m_area->position();
+    uchar   panCoarse  = uchar(qFloor(pt.x()));
+    uchar   panFine    = uchar((pt.x() - qFloor(pt.x())) * 256);
+    uchar   tiltCoarse = uchar(qFloor(pt.y()));
+    uchar   tiltFine   = uchar((pt.y() - qFloor(pt.y())) * 256);
 
     foreach (SceneChannel sc, m_sceneChannels)
     {
@@ -486,7 +486,7 @@ void VCXYPad::slotPositionChanged(const QPointF &pt)
 
     if (m_inputValueChanged == false)
         updateFeedback();
-    m_padInteraction = false;
+    m_padInteraction    = false;
     m_inputValueChanged = false;
 }
 
@@ -634,7 +634,7 @@ void VCXYPad::addPreset(const VCXYPadPreset &preset)
     }
 
     QPushButton *presetButton = new QPushButton(this);
-    QWidget *presetWidget = presetButton;
+    QWidget     *presetWidget = presetButton;
     presetButton->setStyleSheet(presetBtnSS.arg(preset.getColor()));
     presetButton->setMinimumWidth(36);
     presetButton->setMaximumWidth(80);
@@ -686,7 +686,7 @@ void VCXYPad::slotPresetClicked(bool checked)
     if (mode() == Doc::Design)
         return;
 
-    QPushButton *btn = qobject_cast<QPushButton *>(sender());
+    QPushButton   *btn    = qobject_cast<QPushButton *>(sender());
     VCXYPadPreset *preset = m_presets[btn];
 
     Q_ASSERT(preset != NULL);
@@ -697,10 +697,10 @@ void VCXYPad::slotPresetClicked(bool checked)
         disconnect(m_efx, SIGNAL(durationChanged(uint)), this, SLOT(slotEFXDurationChanged(uint)));
 
         m_efx->stopAndWait();
-        m_efx = NULL;
+        m_efx                 = NULL;
         m_efxStartXOverrideId = Function::invalidAttributeId();
         m_efxStartYOverrideId = Function::invalidAttributeId();
-        m_efxWidthOverrideId = Function::invalidAttributeId();
+        m_efxWidthOverrideId  = Function::invalidAttributeId();
         m_efxHeightOverrideId = Function::invalidAttributeId();
     }
 
@@ -720,8 +720,8 @@ void VCXYPad::slotPresetClicked(bool checked)
     // deactivate all previously activated buttons first
     for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
     {
-        QPushButton *cBtn = reinterpret_cast<QPushButton *>(it.key());
-        VCXYPadPreset *cPr = it.value();
+        QPushButton   *cBtn = reinterpret_cast<QPushButton *>(it.key());
+        VCXYPadPreset *cPr  = it.value();
         if (preset->m_id == cPr->m_id)
             continue;
 
@@ -778,7 +778,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         {
             m_efxStartXOverrideId = m_efx->requestAttributeOverride(EFX::XOffset, rect.x() + rect.width() / 2);
             m_efxStartYOverrideId = m_efx->requestAttributeOverride(EFX::YOffset, rect.y() + rect.height() / 2);
-            m_efxWidthOverrideId = m_efx->requestAttributeOverride(EFX::Width, rect.width() / 2);
+            m_efxWidthOverrideId  = m_efx->requestAttributeOverride(EFX::Width, rect.width() / 2);
             m_efxHeightOverrideId = m_efx->requestAttributeOverride(EFX::Height, rect.height() / 2);
         }
 
@@ -823,10 +823,10 @@ void VCXYPad::slotPresetClicked(bool checked)
 
             SceneChannel sChan;
             sChan.m_universe = fixture->universe();
-            sChan.m_fixture = fixture->id();
-            sChan.m_channel = fixture->address() + scv.channel;
-            sChan.m_group = ch->group();
-            sChan.m_subType = ch->controlByte();
+            sChan.m_fixture  = fixture->id();
+            sChan.m_channel  = fixture->address() + scv.channel;
+            sChan.m_group    = ch->group();
+            sChan.m_subType  = ch->controlByte();
             m_sceneChannels.append(sChan);
         }
 
@@ -934,20 +934,20 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
     if (acceptsInput() == false)
         return;
 
-    QPointF pt = m_area->position(false);
+    QPointF pt      = m_area->position(false);
     quint32 pagedCh = (page() << 16) | channel;
 
     if (checkInputSource(universe, pagedCh, value, sender(), panInputSourceId))
     {
         if (m_efx == NULL)
         {
-            qreal areaWidth = MAX_VALUE;
-            qreal xOffset = 0;
+            qreal  areaWidth   = MAX_VALUE;
+            qreal  xOffset     = 0;
             QRectF rangeWindow = m_area->rangeWindow();
             if (rangeWindow.isValid())
             {
                 areaWidth = rangeWindow.width();
-                xOffset = rangeWindow.x();
+                xOffset   = rangeWindow.x();
             }
             pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255), qreal(0), areaWidth));
         }
@@ -964,13 +964,13 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
     {
         if (m_efx == NULL)
         {
-            qreal yOffset = 0;
-            qreal areaHeight = MAX_VALUE;
+            qreal  yOffset     = 0;
+            qreal  areaHeight  = MAX_VALUE;
             QRectF rangeWindow = m_area->rangeWindow();
             if (rangeWindow.isValid())
             {
                 areaHeight = rangeWindow.height();
-                yOffset = rangeWindow.y();
+                yOffset    = rangeWindow.y();
             }
             if (invertedAppearance() == false)
                 pt.setY(yOffset + SCALE(qreal(value), qreal(0), qreal(255), qreal(0), areaHeight));
@@ -1068,10 +1068,10 @@ void VCXYPad::slotModeChanged(Doc::Mode mode)
 bool VCXYPad::loadXML(QXmlStreamReader &root)
 {
     bool visible = false;
-    int x = 0;
-    int y = 0;
-    int w = 0;
-    int h = 0;
+    int  x       = 0;
+    int  y       = 0;
+    int  w       = 0;
+    int  h       = 0;
 
     int xpos = 0;
     int ypos = 0;
@@ -1144,8 +1144,8 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCXYPadPosition) // Legacy
         {
             QXmlStreamAttributes pAttrs = root.attributes();
-            xpos = pAttrs.value(KXMLQLCVCXYPadPositionX).toString().toInt();
-            ypos = pAttrs.value(KXMLQLCVCXYPadPositionY).toString().toInt();
+            xpos                        = pAttrs.value(KXMLQLCVCXYPadPositionX).toString().toInt();
+            ypos                        = pAttrs.value(KXMLQLCVCXYPadPositionY).toString().toInt();
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCXYPadFixture)

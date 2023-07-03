@@ -69,11 +69,11 @@ public:
     void setTimeDivision(QString type, int BPM);
 
     QString getTimeDivisionType();
-    int getTimeDivisionBPM();
+    int     getTimeDivisionBPM();
 
 private:
     QString m_timeDivType;
-    int m_timeDivBPM;
+    int     m_timeDivBPM;
 
     /*********************************************************************
      * Tracks
@@ -168,7 +168,7 @@ signals:
     void showFinished();
 
 protected:
-    ShowRunner *m_runner;
+    ShowRunner   *m_runner;
     /** Number of currently running children */
     QSet<quint32> m_runningChildren;
 

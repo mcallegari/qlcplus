@@ -32,7 +32,7 @@
   Qt::WindowFlags((Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint \
                    | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
 
-#define SETTINGS_GEOMETRY "speeddialwidget/geometry"
+#define SETTINGS_GEOMETRY  "speeddialwidget/geometry"
 #define SETTINGS_DIRECTION "speeddialwidget/direction"
 
 SpeedDialWidget::SpeedDialWidget(QWidget *parent)
@@ -43,8 +43,8 @@ SpeedDialWidget::SpeedDialWidget(QWidget *parent)
     , m_optionalTextGroup(NULL)
     , m_optionalTextEdit(NULL)
 {
-    QSettings settings;
-    QVariant var;
+    QSettings   settings;
+    QVariant    var;
     QBoxLayout *lay = NULL;
 
     setWindowFlags(WINDOW_FLAGS);

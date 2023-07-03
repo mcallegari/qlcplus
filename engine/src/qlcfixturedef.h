@@ -35,16 +35,16 @@
 #define KXMLQLCFixtureDefDocument QString("FixtureDefinition")
 
 // Fixture definition XML tags
-#define KXMLQLCFixtureDef QString("FixtureDefinition")
+#define KXMLQLCFixtureDef             QString("FixtureDefinition")
 #define KXMLQLCFixtureDefManufacturer QString("Manufacturer")
-#define KXMLQLCFixtureDefModel QString("Model")
-#define KXMLQLCFixtureDefType QString("Type")
+#define KXMLQLCFixtureDefModel        QString("Model")
+#define KXMLQLCFixtureDefType         QString("Type")
 
 // Fixture instance XML tags
-#define KXMLQLCFixtureName QString("Name")
-#define KXMLQLCFixtureID QString("ID")
+#define KXMLQLCFixtureName     QString("Name")
+#define KXMLQLCFixtureID       QString("ID")
 #define KXMLQLCFixtureUniverse QString("Universe")
-#define KXMLQLCFixtureAddress QString("Address")
+#define KXMLQLCFixtureAddress  QString("Address")
 
 class QXmlStreamReader;
 class QLCFixtureMode;
@@ -155,13 +155,13 @@ public:
     void setIsUser(bool flag);
 
 protected:
-    bool m_isLoaded;
-    bool m_isUser;
-    QString m_fileAbsolutePath;
-    QString m_manufacturer;
-    QString m_model;
+    bool        m_isLoaded;
+    bool        m_isUser;
+    QString     m_fileAbsolutePath;
+    QString     m_manufacturer;
+    QString     m_model;
     FixtureType m_type;
-    QString m_author;
+    QString     m_author;
 
     /*********************************************************************
      * Channels
@@ -217,7 +217,7 @@ protected:
 public:
     /** Get/Set the global physical information */
     QLCPhysical physical() const;
-    void setPhysical(const QLCPhysical &physical);
+    void        setPhysical(const QLCPhysical &physical);
 
 protected:
     QLCPhysical m_physical;

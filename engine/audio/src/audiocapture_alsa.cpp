@@ -37,11 +37,11 @@ AudioCaptureAlsa::~AudioCaptureAlsa()
 bool AudioCaptureAlsa::initialize()
 {
     snd_pcm_hw_params_t *hw_params = NULL;
-    QString dev_name = "default";
-    int err;
+    QString              dev_name  = "default";
+    int                  err;
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    QVariant  var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
         dev_name = var.toString();
 

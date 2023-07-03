@@ -57,7 +57,7 @@ public:
 
 protected:
     QList<VCXYPadFixture> m_fixtures;
-    int m_maxXVal, m_maxYVal;
+    int                   m_maxXVal, m_maxYVal;
 };
 
 /** @} */

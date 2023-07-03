@@ -68,13 +68,13 @@ protected slots:
     void slotFixtureRemoved(quint32 id);
 
 private:
-    Doc *m_doc;
-    Scene *m_scene; // The Scene that is being edited
+    Doc              *m_doc;
+    Scene            *m_scene; // The Scene that is being edited
     GenericDMXSource *m_source;
 
 private:
-    void init(bool applyValues);
-    void setSceneValue(const SceneValue &scv);
+    void          init(bool applyValues);
+    void          setSceneValue(const SceneValue &scv);
     SceneUiState *sceneUiState();
 
 private:
@@ -92,24 +92,24 @@ private slots:
     void slotEnableCurrent();
     void slotDisableCurrent();
 
-    void slotCopy();
-    void slotPaste();
-    void slotCopyToAll();
-    void slotColorTool();
-    void slotPositionTool();
+    void   slotCopy();
+    void   slotPaste();
+    void   slotCopyToAll();
+    void   slotColorTool();
+    void   slotPositionTool();
     QColor slotColorSelectorChanged(const QColor &color);
-    void slotPositionSelectorChanged(const QPointF &position);
-    void slotSpeedDialToggle(bool state);
-    void slotBlindToggled(bool state);
-    void slotRecord();
-    void slotChaserComboActivated(int index);
-    void slotModeChanged(Doc::Mode mode);
-    void slotViewModeChanged(bool tabbed, bool applyValues = true);
+    void   slotPositionSelectorChanged(const QPointF &position);
+    void   slotSpeedDialToggle(bool state);
+    void   slotBlindToggled(bool state);
+    void   slotRecord();
+    void   slotChaserComboActivated(int index);
+    void   slotModeChanged(Doc::Mode mode);
+    void   slotViewModeChanged(bool tabbed, bool applyValues = true);
 
 private:
-    bool isColorToolAvailable();
-    bool isPositionToolAvailable();
-    void createSpeedDials();
+    bool    isColorToolAvailable();
+    bool    isPositionToolAvailable();
+    void    createSpeedDials();
     Chaser *selectedChaser() const;
 
 private:
@@ -161,7 +161,7 @@ private:
      * Channels groups
      *********************************************************************/
 private:
-    void updateChannelsGroupsTab();
+    void           updateChannelsGroupsTab();
     GroupsConsole *groupConsoleTab(int tab);
 
 private:
@@ -187,10 +187,10 @@ private slots:
 private:
     FixtureConsole *fixtureConsole(Fixture *fixture);
 
-    void addFixtureTab(Fixture *fixture, quint32 channel = QLCChannel::invalid());
-    void removeFixtureTab(quint32 fixtureID);
+    void            addFixtureTab(Fixture *fixture, quint32 channel = QLCChannel::invalid());
+    void            removeFixtureTab(quint32 fixtureID);
     FixtureConsole *fixtureConsoleTab(int tab);
-    void setTabChannelState(bool status, Fixture *fixture, quint32 channel);
+    void            setTabChannelState(bool status, Fixture *fixture, quint32 channel);
 
 signals:
     void fixtureValueChanged(SceneValue val, bool enabled);

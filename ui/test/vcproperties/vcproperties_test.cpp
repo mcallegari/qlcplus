@@ -58,11 +58,11 @@ void VCProperties_Test::initial()
 void VCProperties_Test::copy()
 {
     VCProperties p;
-    p.m_size = QSize(1, 2);
-    p.m_gmChannelMode = GrandMaster::AllChannels;
-    p.m_gmValueMode = GrandMaster::Limit;
+    p.m_size            = QSize(1, 2);
+    p.m_gmChannelMode   = GrandMaster::AllChannels;
+    p.m_gmValueMode     = GrandMaster::Limit;
     p.m_gmInputUniverse = 5;
-    p.m_gmInputChannel = 6;
+    p.m_gmInputChannel  = 6;
 
     VCProperties p2(p);
     QCOMPARE(p2.m_size, p.m_size);
@@ -213,7 +213,7 @@ void VCProperties_Test::loadXMLInput()
     xmlReader.readNextStartElement();
 
     quint32 universe = 0;
-    quint32 channel = 0;
+    quint32 channel  = 0;
 
     QVERIFY(VCProperties::loadXMLInput(xmlReader, &universe, &channel) == true);
     QCOMPARE(universe, quint32(3));
@@ -257,11 +257,11 @@ void VCProperties_Test::loadXMLInput()
 void VCProperties_Test::saveXML()
 {
     VCProperties p;
-    p.m_size = QSize(33, 44);
-    p.m_gmChannelMode = GrandMaster::AllChannels;
-    p.m_gmValueMode = GrandMaster::Limit;
+    p.m_size            = QSize(33, 44);
+    p.m_gmChannelMode   = GrandMaster::AllChannels;
+    p.m_gmValueMode     = GrandMaster::Limit;
     p.m_gmInputUniverse = 3;
-    p.m_gmInputChannel = 42;
+    p.m_gmInputChannel  = 42;
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);

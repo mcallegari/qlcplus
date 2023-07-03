@@ -33,10 +33,10 @@
 #include "simplecrypt.h"
 #include "virtualconsole.h"
 
-#define INPUT_NEXT_PAGE_ID 0
+#define INPUT_NEXT_PAGE_ID     0
 #define INPUT_PREVIOUS_PAGE_ID 1
-#define INPUT_ENABLE_ID 2
-#define INPUT_COLLAPSE_ID 3
+#define INPUT_ENABLE_ID        2
+#define INPUT_COLLAPSE_ID      3
 #define INPUT_SHORTCUT_BASE_ID 20
 
 static const quint64 encKey = 0x5131632B5067334B; // this is "Q1c+Pg3K"
@@ -101,7 +101,7 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
 
     if (m_pagesMap.count() > 0)
     {
-        QString chName = QString("frameDropArea%1").arg(id());
+        QString     chName       = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem *>(m_item->findChild<QObject *>(chName));
 
         foreach (VCWidget *child, m_pagesMap.keys())
@@ -151,7 +151,7 @@ bool VCFrame::copyFrom(const VCWidget *widget)
     QListIterator<VCWidget *> it(widget->findChildren<VCWidget *>());
     while (it.hasNext() == true)
     {
-        VCWidget *child = it.next();
+        VCWidget *child     = it.next();
         VCWidget *childCopy = nullptr;
 
         /* findChildren() is recursive, so the list contains all
@@ -341,9 +341,9 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
                               bool soloFrame)
 {
     VCFrame *frame;
-    int totalWidth = (matrixSize.width() * widgetSize.width()) + (m_vc->pixelDensity() * 2);
-    int totalHeight = (matrixSize.height() * widgetSize.height()) + (m_vc->pixelDensity() * 2);
-    int yPos = m_vc->pixelDensity();
+    int      totalWidth  = (matrixSize.width() * widgetSize.width()) + (m_vc->pixelDensity() * 2);
+    int      totalHeight = (matrixSize.height() * widgetSize.height()) + (m_vc->pixelDensity() * 2);
+    int      yPos        = m_vc->pixelDensity();
 
     qDebug() << "Matrix size" << matrixSize << "widget size" << widgetSize;
     qDebug() << "Frame total width" << totalWidth << ", height" << totalHeight;
@@ -351,7 +351,7 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
     if (soloFrame)
     {
         VCSoloFrame *solo = new VCSoloFrame(m_doc, m_vc, this);
-        frame = qobject_cast<VCFrame *>(solo);
+        frame             = qobject_cast<VCFrame *>(solo);
     }
     else
     {
@@ -425,8 +425,8 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
 
     for (QVariant vID : idsList) // C++11
     {
-        quint32 funcID = vID.toUInt();
-        Function *func = m_doc->function(funcID);
+        quint32   funcID = vID.toUInt();
+        Function *func   = m_doc->function(funcID);
 
         if (func == nullptr)
             continue;
@@ -725,7 +725,7 @@ void VCFrame::setCurrentPage(int pageNum)
     while (it.hasNext() == true)
     {
         it.next();
-        int page = it.value();
+        int       page   = it.value();
         VCWidget *widget = it.key();
         if (page == m_currentPage)
         {
@@ -877,7 +877,7 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
 void VCFrame::slotSubmasterValueChanged(qreal value)
 {
     qDebug() << Q_FUNC_INFO << "val:" << value;
-    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
+    VCSlider                 *submaster = qobject_cast<VCSlider *>(sender());
     QListIterator<VCWidget *> it(this->findChildren<VCWidget *>());
     while (it.hasNext() == true)
     {
@@ -1094,7 +1094,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCWindowState)
         {
             /* Frame geometry (visibility is ignored) */
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(QRect(x, y, w, h));
@@ -1127,7 +1127,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCFramePIN)
         {
             SimpleCrypt crypter(encKey);
-            QString decPin = crypter.decryptToString(root.readElementText());
+            QString     decPin = crypter.decryptToString(root.readElementText());
             setPIN(decPin.toInt());
         }
         else if (root.name() == KXMLQLCVCFrameMultipage)
@@ -1175,7 +1175,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCFrameShortcut)
         {
-            int page = 0;
+            int     page = 0;
             QString name;
 
             QXmlStreamAttributes attrs = root.attributes();
@@ -1251,7 +1251,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     if (PIN() != 0)
     {
         SimpleCrypt crypter(encKey);
-        QString encPin = crypter.encryptToString(QString("%1").arg(PIN()));
+        QString     encPin = crypter.encryptToString(QString("%1").arg(PIN()));
         doc->writeTextElement(KXMLQLCVCFramePIN, encPin);
     }
 

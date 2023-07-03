@@ -49,8 +49,8 @@ public:
      * Properties
      ********************************************************************/
 public:
-    quint32 channel() const;
-    QString name() const;
+    quint32               channel() const;
+    QString               name() const;
     QLCInputChannel::Type type() const;
 
 protected slots:
@@ -59,8 +59,8 @@ protected slots:
     void slotTypeActivated(const QString &text);
 
 protected:
-    quint32 m_channel;
-    QString m_name;
+    quint32               m_channel;
+    QString               m_name;
     QLCInputChannel::Type m_type;
 
     /********************************************************************
@@ -71,9 +71,9 @@ protected slots:
 
 private:
     static void numberToMidi(int number, int &channel, int &message, int &param);
-    static int midiToNumber(int channel, int message, int param);
+    static int  midiToNumber(int channel, int message, int param);
 
-    void enableMidiParam(int midiMessage, int midiParam);
+    void           enableMidiParam(int midiMessage, int midiParam);
     static QString noteToString(int note);
 };
 

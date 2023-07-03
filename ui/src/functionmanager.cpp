@@ -125,7 +125,7 @@ FunctionManager::FunctionManager(QWidget *parent, Doc *doc)
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_SPLITTER);
+    QVariant  var = settings.value(SETTINGS_SPLITTER);
     if (var.isValid() == true)
         m_hsplitter->restoreState(var.toByteArray());
     else
@@ -322,7 +322,7 @@ void FunctionManager::slotAddSequence()
 
     if (m_doc->addFunction(scene) == true)
     {
-        Function *f = new Sequence(m_doc);
+        Function *f        = new Sequence(m_doc);
         Sequence *sequence = qobject_cast<Sequence *>(f);
         sequence->setBoundSceneID(scene->id());
 
@@ -422,8 +422,8 @@ void FunctionManager::slotAddAudio()
 
     foreach (QString fn, dialog.selectedFiles())
     {
-        Function *f = new Audio(m_doc);
-        Audio *audio = qobject_cast<Audio *>(f);
+        Function *f     = new Audio(m_doc);
+        Audio    *audio = qobject_cast<Audio *>(f);
         if (audio->setSourceFileName(fn) == false)
         {
             QMessageBox::warning(this, tr("Unsupported audio file"),
@@ -476,8 +476,8 @@ void FunctionManager::slotAddVideo()
 
     foreach (QString fn, dialog.selectedFiles())
     {
-        Function *f = new Video(m_doc);
-        Video *video = qobject_cast<Video *>(f);
+        Function *f     = new Video(m_doc);
+        Video    *video = qobject_cast<Video *>(f);
         if (video->setSourceUrl(fn) == false)
         {
             QMessageBox::warning(this, tr("Unsupported video file"),
@@ -533,7 +533,7 @@ void FunctionManager::slotClone()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item = it.next();
-        quint32 fid = item->data(COL_NAME, Qt::UserRole).toUInt();
+        quint32          fid  = item->data(COL_NAME, Qt::UserRole).toUInt();
         if (fid == Function::invalidId())
             continue;
         copyFunction(m_tree->itemFunctionId(item));
@@ -542,12 +542,12 @@ void FunctionManager::slotClone()
 
 void FunctionManager::slotDelete()
 {
-    bool isFolder = false;
+    bool                             isFolder = false;
     QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
     if (it.hasNext() == false)
         return;
 
-    QString msg;
+    QString          msg;
     QTreeWidgetItem *firstItem = m_tree->selectedItems().first();
 
     if (firstItem->childCount() > 0 || firstItem->text(COL_PATH).isEmpty() == false)
@@ -611,7 +611,7 @@ void FunctionManager::updateActionStatus()
     if (m_tree->selectedItems().isEmpty() == false)
     {
         QTreeWidgetItem *firstItem = m_tree->selectedItems().first();
-        quint32 fid = m_tree->itemFunctionId(firstItem);
+        quint32          fid       = m_tree->itemFunctionId(firstItem);
         if (fid != Function::invalidId())
         {
             m_cloneAction->setEnabled(true);
@@ -720,8 +720,8 @@ void FunctionManager::deleteSelectedFunctions()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item(it.next());
-        quint32 fid = m_tree->itemFunctionId(item);
-        Function *func = m_doc->function(fid);
+        quint32          fid  = m_tree->itemFunctionId(item);
+        Function        *func = m_doc->function(fid);
         if (func == NULL)
             continue;
 
@@ -741,8 +741,8 @@ void FunctionManager::deleteSelectedFunctions()
          * forever since bound Scenes are hidden and users cannot delete them */
         if (func->type() == Function::SequenceType)
         {
-            Sequence *seq = qobject_cast<Sequence *>(func);
-            quint32 boundSceneID = seq->boundSceneID();
+            Sequence *seq          = qobject_cast<Sequence *>(func);
+            quint32   boundSceneID = seq->boundSceneID();
             m_doc->deleteFunction(fid);
 
             if (m_doc->getUsage(boundSceneID).count() == 0)
@@ -825,8 +825,8 @@ void FunctionManager::copyFunction(quint32 fid)
         if (function->type() == Function::SequenceType)
         {
             Sequence *sequence = qobject_cast<Sequence *>(copy);
-            quint32 sceneID = sequence->boundSceneID();
-            Function *scene = m_doc->function(sceneID);
+            quint32   sceneID  = sequence->boundSceneID();
+            Function *scene    = m_doc->function(sceneID);
             if (scene != NULL)
             {
                 Function *sceneCopy = scene->createCopy(m_doc);
@@ -856,13 +856,13 @@ void FunctionManager::editFunction(Function *function)
     else if (function->type() == Function::ChaserType)
     {
         Chaser *chaser = qobject_cast<Chaser *>(function);
-        m_editor = new ChaserEditor(m_hsplitter->widget(1), chaser, m_doc);
+        m_editor       = new ChaserEditor(m_hsplitter->widget(1), chaser, m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)), m_editor, SLOT(slotFunctionManagerActive(bool)));
     }
     else if (function->type() == Function::SequenceType)
     {
         Sequence *sequence = qobject_cast<Sequence *>(function);
-        Function *sfunc = m_doc->function(sequence->boundSceneID());
+        Function *sfunc    = m_doc->function(sequence->boundSceneID());
 
         if (sfunc == NULL)
         {
@@ -920,7 +920,7 @@ void FunctionManager::editFunction(Function *function)
     }
     else
     {
-        m_editor = NULL;
+        m_editor       = NULL;
         m_scene_editor = NULL;
     }
 
@@ -954,7 +954,7 @@ void FunctionManager::deleteCurrentEditor(bool async)
         delete m_scene_editor;
     }
 
-    m_editor = NULL;
+    m_editor       = NULL;
     m_scene_editor = NULL;
 
     m_hsplitter->widget(1)->hide();

@@ -419,7 +419,7 @@ void VCXYPad_Test::modeChange()
     // UniverseArray ua(512);
     QWidget w;
 
-    Fixture *fxi = new Fixture(m_doc);
+    Fixture       *fxi = new Fixture(m_doc);
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
     QLCFixtureMode *mode = def->modes().first();

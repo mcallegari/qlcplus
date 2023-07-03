@@ -65,7 +65,7 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func == nullptr || func->type() != Function::VideoType)
         return;
 
-    Video *video = qobject_cast<Video *>(func);
+    Video *video   = qobject_cast<Video *>(func);
     m_videoMap[id] = new VideoContent(video, this);
 
     connect(video, SIGNAL(requestPlayback()), this, SLOT(slotRequestPlayback()));
@@ -290,36 +290,36 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
         break;
         case Video::XPosition:
         {
-            qreal xDelta = qreal(m_viewContext->width()) * (value / 100.0);
-            QVariant var = getAttribute(m_video->id(), "geometry");
-            QRect currGeom = var.isNull() ? m_geometry : var.toRect();
-            QRect geom(m_geometry.x() + int(xDelta), currGeom.y(), currGeom.width(), currGeom.height());
+            qreal    xDelta   = qreal(m_viewContext->width()) * (value / 100.0);
+            QVariant var      = getAttribute(m_video->id(), "geometry");
+            QRect    currGeom = var.isNull() ? m_geometry : var.toRect();
+            QRect    geom(m_geometry.x() + int(xDelta), currGeom.y(), currGeom.width(), currGeom.height());
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
         case Video::YPosition:
         {
-            qreal yDelta = qreal(m_viewContext->height()) * (value / 100.0);
-            QVariant var = getAttribute(m_video->id(), "geometry");
-            QRect currGeom = var.isNull() ? m_geometry : var.toRect();
-            QRect geom(currGeom.x(), m_geometry.y() + int(yDelta), currGeom.width(), currGeom.height());
+            qreal    yDelta   = qreal(m_viewContext->height()) * (value / 100.0);
+            QVariant var      = getAttribute(m_video->id(), "geometry");
+            QRect    currGeom = var.isNull() ? m_geometry : var.toRect();
+            QRect    geom(currGeom.x(), m_geometry.y() + int(yDelta), currGeom.width(), currGeom.height());
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
         case Video::WidthScale:
         {
-            QVariant var = getAttribute(m_video->id(), "geometry");
-            QRect geom = var.isNull() ? m_geometry : var.toRect();
-            qreal newWidth = qreal(m_geometry.width()) * (value / 100.0);
+            QVariant var      = getAttribute(m_video->id(), "geometry");
+            QRect    geom     = var.isNull() ? m_geometry : var.toRect();
+            qreal    newWidth = qreal(m_geometry.width()) * (value / 100.0);
             geom.setWidth(int(newWidth));
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
         case Video::HeightScale:
         {
-            QVariant var = getAttribute(m_video->id(), "geometry");
-            QRect geom = var.isNull() ? m_geometry : var.toRect();
-            qreal newHeight = qreal(m_geometry.height()) * (value / 100.0);
+            QVariant var       = getAttribute(m_video->id(), "geometry");
+            QRect    geom      = var.isNull() ? m_geometry : var.toRect();
+            qreal    newHeight = qreal(m_geometry.height()) * (value / 100.0);
             geom.setHeight(int(newHeight));
             updateAttribute(m_video->id(), "geometry", geom);
         }

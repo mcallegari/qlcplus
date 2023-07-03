@@ -47,7 +47,7 @@ void QLCFixtureDefCache_Test::cleanup()
 void QLCFixtureDefCache_Test::duplicates()
 {
     // Check that duplicates are discarded
-    int num = cache.m_defs.size();
+    int  num = cache.m_defs.size();
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
@@ -134,8 +134,8 @@ void QLCFixtureDefCache_Test::fixtureDef()
 {
     // check the content of a cached fixture relative path
     QString firstManufacturer = cache.m_defs.first()->manufacturer();
-    QString firstModel = cache.m_defs.first()->model();
-    QString relPath = QString("%1/%1-%2.qxf").arg(firstManufacturer).arg(firstModel);
+    QString firstModel        = cache.m_defs.first()->model();
+    QString relPath           = QString("%1/%1-%2.qxf").arg(firstManufacturer).arg(firstModel);
     relPath.replace(" ", "-");
     QVERIFY(cache.m_defs.first()->definitionSourceFile() == relPath);
 

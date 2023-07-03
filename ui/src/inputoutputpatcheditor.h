@@ -62,7 +62,7 @@ signals:
 
 private:
     InputOutputMap *m_ioMap;
-    Doc *m_doc;
+    Doc            *m_doc;
 
     quint32 m_universe; //! The input universe that is being edited
 
@@ -78,13 +78,13 @@ private:
      * Mapping page
      ************************************************************************/
 private:
-    InputPatch *patch() const;
+    InputPatch      *patch() const;
     QTreeWidgetItem *currentlyMappedItem() const;
-    void setupMappingPage();
+    void             setupMappingPage();
     QTreeWidgetItem *itemLookup(QString pluginName, QString devName);
-    void fillMappingTree();
+    void             fillMappingTree();
     QTreeWidgetItem *pluginItem(const QString &pluginName);
-    void showPluginMappingError();
+    void             showPluginMappingError();
 
 private slots:
     void slotMapCurrentItemChanged(QTreeWidgetItem *item);
@@ -97,9 +97,9 @@ private slots:
      * Profile page
      ************************************************************************/
 private:
-    void setupProfilePage();
-    void fillProfileTree();
-    void updateProfileItem(const QString &name, QTreeWidgetItem *item);
+    void    setupProfilePage();
+    void    fillProfileTree();
+    void    updateProfileItem(const QString &name, QTreeWidgetItem *item);
     QString fullProfilePath(const QString &manufacturer, const QString &model) const;
 
 private slots:

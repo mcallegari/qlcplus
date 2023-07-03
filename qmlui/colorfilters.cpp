@@ -24,10 +24,10 @@
 #include "colorfilters.h"
 #include "qlcfile.h"
 
-#define KXMLColorFiltersName QString("Name")
+#define KXMLColorFiltersName  QString("Name")
 #define KXMLColorFiltersColor QString("Color")
-#define KXMLColorFiltersRGB QString("RGB")
-#define KXMLColorFiltersWAUV QString("WAUV")
+#define KXMLColorFiltersRGB   QString("RGB")
+#define KXMLColorFiltersWAUV  QString("WAUV")
 
 ColorFilters::ColorFilters(QObject *parent)
     : QObject(parent)
@@ -90,7 +90,7 @@ void ColorFilters::addFilter(QString name, quint8 red, quint8 green, quint8 blue
         return;
 
     cInfo.m_name = name;
-    cInfo.m_rgb = QColor(red, green, blue);
+    cInfo.m_rgb  = QColor(red, green, blue);
     cInfo.m_wauv = QColor(white, amber, uv);
 
     m_filterList.append(cInfo);
@@ -102,7 +102,7 @@ void ColorFilters::changeFilterAt(int index, quint8 red, quint8 green, quint8 bl
     if (index < 0 || index >= m_filterList.count())
         return;
 
-    m_filterList[index].m_rgb = QColor(red, green, blue);
+    m_filterList[index].m_rgb  = QColor(red, green, blue);
     m_filterList[index].m_wauv = QColor(white, amber, uv);
     emit filtersListChanged();
 }
@@ -168,7 +168,7 @@ QFileDevice::FileError ColorFilters::saveXML(const QString &fileName)
 
     m_path = fileName;
     /* End the document and close all the open elements */
-    error = QFile::NoError;
+    error  = QFile::NoError;
     doc.writeEndDocument();
     file.close();
 
@@ -212,7 +212,7 @@ QFileDevice::FileError ColorFilters::loadXML(const QString &fileName)
             {
                 if (doc->name() == KXMLColorFiltersColor)
                 {
-                    ColorInfo cInfo;
+                    ColorInfo            cInfo;
                     QXmlStreamAttributes attrs = doc->attributes();
                     if (attrs.hasAttribute(KXMLColorFiltersName))
                         cInfo.m_name = attrs.value(KXMLColorFiltersName).toString();

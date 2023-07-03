@@ -62,7 +62,7 @@ public:
     /** Set the ID of the RGBMatrix to edit */
     void setFunctionID(quint32 id);
 
-    int fixtureGroup() const;
+    int  fixtureGroup() const;
     void setFixtureGroup(int fixtureGroup);
 
 signals:
@@ -70,7 +70,7 @@ signals:
 
 private:
     /** Reference of the RGBMatrix currently being edited */
-    RGBMatrix *m_matrix;
+    RGBMatrix    *m_matrix;
     /** Reference to the Fixture Group associated to the RGBMatrix */
     FixtureGroup *m_group;
 
@@ -81,7 +81,7 @@ public:
     QStringList algorithms() const;
 
     /** Get/set the RGBMatrix algorithm index in the algorithms list */
-    int algorithmIndex() const;
+    int  algorithmIndex() const;
     void setAlgorithmIndex(int algoIndex);
 
     /** Return the accepted colors of the current algorithm */
@@ -89,28 +89,28 @@ public:
 
     /** Get/set the start color of the current algorithm */
     QColor startColor() const;
-    void setStartColor(QColor startColor);
+    void   setStartColor(QColor startColor);
 
     /** Get/set the end color of the current algorithm */
     QColor endColor() const;
-    void setEndColor(QColor algoEndColor);
+    void   setEndColor(QColor algoEndColor);
 
     bool hasEndColor() const;
     void setHasEndColor(bool hasEndCol);
 
     QString algoText() const;
-    void setAlgoText(QString text);
+    void    setAlgoText(QString text);
 
     QFont algoTextFont() const;
-    void setAlgoTextFont(QFont algoTextFont);
+    void  setAlgoTextFont(QFont algoTextFont);
 
     QString algoImagePath() const;
-    void setAlgoImagePath(QString path);
+    void    setAlgoImagePath(QString path);
 
     QSize algoOffset() const;
-    void setAlgoOffset(QSize algoOffset);
+    void  setAlgoOffset(QSize algoOffset);
 
-    int animationStyle() const;
+    int  animationStyle() const;
     void setAnimationStyle(int style);
 
     /** This is an important method called by the QML world
@@ -145,7 +145,7 @@ signals:
      * Blend mode
      ************************************************************************/
 public:
-    int blendMode() const;
+    int  blendMode() const;
     void setBlendMode(int mode);
 
 signals:
@@ -155,7 +155,7 @@ signals:
      * Control mode
      ************************************************************************/
 public:
-    int controlMode() const;
+    int  controlMode() const;
     void setControlMode(int mode);
 
 signals:
@@ -165,7 +165,7 @@ signals:
      * Preview
      ************************************************************************/
 public:
-    QSize previewSize() const;
+    QSize        previewSize() const;
     QVariantList previewData() const;
 
 private slots:
@@ -181,11 +181,11 @@ signals:
 
 private:
     /** A timer to perform a timed preview of the RGBMatrix pattern */
-    QTimer *m_previewTimer;
-    uint m_previewElapsed;
+    QTimer        *m_previewTimer;
+    uint           m_previewElapsed;
     RGBMatrixStep *m_previewStepHandler;
-    bool m_gotBeat;
-    QMutex m_previewMutex;
+    bool           m_gotBeat;
+    QMutex         m_previewMutex;
 
     /** exchange variable with the QML world */
     QVariantList m_previewData;

@@ -104,7 +104,7 @@ void VCXYPadFixtureEditor_Test::initial()
 void VCXYPadFixtureEditor_Test::valueSlots()
 {
     QList<VCXYPadFixture> list;
-    VCXYPadFixtureEditor fe(NULL, list);
+    VCXYPadFixtureEditor  fe(NULL, list);
 
     fe.m_xMin->setValue(50);
     fe.m_xMax->setValue(20);

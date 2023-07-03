@@ -55,7 +55,7 @@ private:
 
 protected:
     /** reference to the actual Video Function */
-    Video *m_video;
+    Video        *m_video;
     /** output interface to render video data */
     QMediaPlayer *m_videoPlayer;
     /** Qt widget that actually displays the video */
@@ -77,7 +77,7 @@ protected slots:
     void slotFunctionRemoved(quint32 id);
 
 private:
-    Doc *m_doc;
+    Doc                          *m_doc;
     QHash<quint32, VideoWidget *> m_videoMap;
 };
 

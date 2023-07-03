@@ -121,10 +121,10 @@ private:
         PresetResource(int index, QString text, uchar min, uchar max);
 
     public:
-        QImage m_thumbnail;
+        QImage  m_thumbnail;
         QString m_descr;
-        uchar m_min;
-        uchar m_max;
+        uchar   m_min;
+        uchar   m_max;
     };
 
 protected:
@@ -142,7 +142,7 @@ protected:
     int m_cellBarYpos;
     int m_cellBarWidth;
 
-    QString m_title;
+    QString                                 m_title;
     QList<ClickAndGoWidget::PresetResource> m_resources;
 
     /** Used to group all the primary colors */

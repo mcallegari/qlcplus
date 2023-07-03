@@ -160,7 +160,7 @@ signals:
 
 protected:
     QList<ChaserStep> m_steps;
-    QMutex m_stepListMutex;
+    QMutex            m_stepListMutex;
 
     /*********************************************************************
      * Speed modes
@@ -176,16 +176,16 @@ public:
     Q_ENUM(SpeedMode)
 #endif
 
-    void setFadeInMode(SpeedMode mode);
+    void      setFadeInMode(SpeedMode mode);
     SpeedMode fadeInMode() const;
 
-    void setFadeOutMode(SpeedMode mode);
+    void      setFadeOutMode(SpeedMode mode);
     SpeedMode fadeOutMode() const;
 
-    void setDurationMode(SpeedMode mode);
+    void      setDurationMode(SpeedMode mode);
     SpeedMode durationMode() const;
 
-    static QString speedModeToString(SpeedMode mode);
+    static QString   speedModeToString(SpeedMode mode);
     static SpeedMode stringToSpeedMode(const QString &str);
 
 protected:

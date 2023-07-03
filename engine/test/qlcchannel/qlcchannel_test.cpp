@@ -612,7 +612,7 @@ void QLCChannel_Test::save()
     QVERIFY(xmlReader.name().toString() == "Channel");
     QVERIFY(xmlReader.attributes().value("Name").toString() == "Foobar");
 
-    bool group = false;
+    bool group  = false;
     bool capOne = false, capTwo = false, capThree = false, capFour = false;
 
     while (xmlReader.readNextStartElement())

@@ -51,19 +51,19 @@ public:
     void setFadeInEnabled(bool set);
     void setFadeInVisible(bool set);
     void setFadeInSpeed(int ms);
-    int fadeIn() const;
+    int  fadeIn() const;
 
     void setFadeOutTitle(const QString &title);
     void setFadeOutEnabled(bool set);
     void setFadeOutVisible(bool set);
     void setFadeOutSpeed(int ms);
-    int fadeOut() const;
+    int  fadeOut() const;
 
     void setDurationTitle(const QString &title);
     void setDurationEnabled(bool set);
     void setDurationVisible(bool set);
     void setDuration(int ms);
-    int duration() const;
+    int  duration() const;
 
 signals:
     void fadeInChanged(int ms);
@@ -84,10 +84,10 @@ private:
      * Optional text
      ************************************************************************/
 public:
-    void setOptionalTextTitle(const QString &title);
+    void    setOptionalTextTitle(const QString &title);
     QString optionalTextTitle() const;
 
-    void setOptionalText(const QString &text);
+    void    setOptionalText(const QString &text);
     QString optionalText() const;
 
 signals:

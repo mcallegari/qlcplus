@@ -76,7 +76,7 @@ QList<VCWidget *> VCWidgetSelection::getChildren(VCWidget *obj)
 void VCWidgetSelection::updateWidgetsTree()
 {
     VCFrame *contents = VirtualConsole::instance()->contents();
-    m_widgetsList = getChildren(contents);
+    m_widgetsList     = getChildren(contents);
 
     foreach (QObject *object, m_widgetsList)
     {

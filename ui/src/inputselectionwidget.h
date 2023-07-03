@@ -44,10 +44,10 @@ public:
     void stopAutoDetection();
     void emitOddValues(bool enable);
 
-    void setKeySequence(const QKeySequence &keySequence);
+    void         setKeySequence(const QKeySequence &keySequence);
     QKeySequence keySequence() const;
 
-    void setInputSource(QSharedPointer<QLCInputSource> const &source);
+    void                           setInputSource(QSharedPointer<QLCInputSource> const &source);
     QSharedPointer<QLCInputSource> inputSource() const;
 
 protected slots:
@@ -71,12 +71,12 @@ protected:
     void updateInputSource();
 
 private:
-    Doc *m_doc;
-    QKeySequence m_keySequence;
+    Doc                           *m_doc;
+    QKeySequence                   m_keySequence;
     QSharedPointer<QLCInputSource> m_inputSource;
-    int m_widgetPage;
-    bool m_emitOdd;
-    quint32 m_signalsReceived;
+    int                            m_widgetPage;
+    bool                           m_emitOdd;
+    quint32                        m_signalsReceived;
 };
 
 #endif // INPUTSELECTIONWIDGET_H

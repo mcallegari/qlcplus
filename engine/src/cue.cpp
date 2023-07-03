@@ -56,11 +56,11 @@ Cue &Cue::operator=(const Cue &cue)
 {
     if (this != &cue)
     {
-        m_name = cue.name();
-        m_values = cue.values();
-        m_fadeInSpeed = cue.fadeInSpeed();
+        m_name         = cue.name();
+        m_values       = cue.values();
+        m_fadeInSpeed  = cue.fadeInSpeed();
         m_fadeOutSpeed = cue.fadeOutSpeed();
-        m_duration = cue.duration();
+        m_duration     = cue.duration();
     }
 
     return *this;
@@ -162,7 +162,7 @@ bool Cue::loadXML(QXmlStreamReader &root)
     {
         if (root.name() == KXMLQLCCueValue)
         {
-            QString ch = root.attributes().value(KXMLQLCCueValueChannel).toString();
+            QString ch  = root.attributes().value(KXMLQLCCueValueChannel).toString();
             QString val = root.readElementText();
             if (ch.isEmpty() == false && val.isEmpty() == false)
                 setValue(ch.toUInt(), uchar(val.toUInt()));
@@ -212,9 +212,9 @@ bool Cue::loadXMLSpeed(QXmlStreamReader &speedRoot)
     if (speedRoot.name() != KXMLQLCCueSpeed)
         return false;
 
-    m_fadeInSpeed = speedRoot.attributes().value(KXMLQLCCueSpeedFadeIn).toString().toUInt();
+    m_fadeInSpeed  = speedRoot.attributes().value(KXMLQLCCueSpeedFadeIn).toString().toUInt();
     m_fadeOutSpeed = speedRoot.attributes().value(KXMLQLCCueSpeedFadeOut).toString().toUInt();
-    m_duration = speedRoot.attributes().value(KXMLQLCCueSpeedDuration).toString().toUInt();
+    m_duration     = speedRoot.attributes().value(KXMLQLCCueSpeedDuration).toString().toUInt();
     speedRoot.skipCurrentElement();
 
     return true;

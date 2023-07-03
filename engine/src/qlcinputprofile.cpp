@@ -28,11 +28,11 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
-#define KXMLQLCInputProfileTypeMidi "MIDI"
-#define KXMLQLCInputProfileTypeOs2l "OS2L"
-#define KXMLQLCInputProfileTypeOsc "OSC"
-#define KXMLQLCInputProfileTypeHid "HID"
-#define KXMLQLCInputProfileTypeDmx "DMX"
+#define KXMLQLCInputProfileTypeMidi   "MIDI"
+#define KXMLQLCInputProfileTypeOs2l   "OS2L"
+#define KXMLQLCInputProfileTypeOsc    "OSC"
+#define KXMLQLCInputProfileTypeHid    "HID"
+#define KXMLQLCInputProfileTypeDmx    "DMX"
 #define KXMLQLCInputProfileTypeEnttec "Enttec"
 
 
@@ -64,11 +64,11 @@ QLCInputProfile &QLCInputProfile::operator=(const QLCInputProfile &profile)
     if (this != &profile)
     {
         /* Copy basic properties */
-        m_manufacturer = profile.m_manufacturer;
-        m_model = profile.m_model;
-        m_path = profile.m_path;
-        m_type = profile.m_type;
-        m_midiSendNoteOff = profile.m_midiSendNoteOff;
+        m_manufacturer      = profile.m_manufacturer;
+        m_model             = profile.m_model;
+        m_path              = profile.m_path;
+        m_type              = profile.m_type;
+        m_midiSendNoteOff   = profile.m_midiSendNoteOff;
         m_globalSettingsMap = profile.m_globalSettingsMap;
 
         /* Destroy all existing channels */
@@ -180,7 +180,7 @@ QList<QLCInputProfile::Type> QLCInputProfile::types()
 
 void QLCInputProfile::setMidiSendNoteOff(bool enable)
 {
-    m_midiSendNoteOff = enable;
+    m_midiSendNoteOff                      = enable;
     m_globalSettingsMap["MIDISendNoteOff"] = QVariant(enable);
 }
 
@@ -354,7 +354,7 @@ bool QLCInputProfile::loadXML(QXmlStreamReader &doc)
                 QString str = doc.attributes().value(KXMLQLCInputChannelNumber).toString();
                 if (str.isEmpty() == false)
                 {
-                    quint32 ch = str.toInt();
+                    quint32          ch  = str.toInt();
                     QLCInputChannel *ich = new QLCInputChannel();
                     if (ich->loadXML(doc) == true)
                         insertChannel(ch, ich);

@@ -71,9 +71,9 @@ void MainView2D::setUniverseFilter(quint32 universeFilter)
     while (it.hasNext())
     {
         it.next();
-        quint32 itemID = it.key();
+        quint32     itemID = it.key();
         QQuickItem *fxItem = it.value();
-        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint32     fxID   = FixtureUtils::itemFixtureID(itemID);
 
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == nullptr)
@@ -144,10 +144,10 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (fixture == nullptr)
         return;
 
-    quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
-    QLCFixtureMode *fxMode = fixture->fixtureMode();
-    QQuickItem *newFixtureItem = qobject_cast<QQuickItem *>(fixtureComponent->create());
-    quint32 itemFlags = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
+    quint32         itemID         = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
+    QLCFixtureMode *fxMode         = fixture->fixtureMode();
+    QQuickItem     *newFixtureItem = qobject_cast<QQuickItem *>(fixtureComponent->create());
+    quint32         itemFlags      = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
 
     newFixtureItem->setParentItem(m_gridItem);
     newFixtureItem->setProperty("itemID", itemID);
@@ -183,7 +183,7 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     }
 
     QPointF itemPos;
-    QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode,
+    QSizeF  size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode,
                                                 m_monProps->pointOfView());
 
     if (mmCoords == false && (pos.x() != 0 || pos.y() != 0))
@@ -202,8 +202,8 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     }
     else
     {
-        itemPos = FixtureUtils::available2DPosition(m_doc, m_monProps->pointOfView(),
-                                                    QRectF(itemPos.x(), itemPos.y(), size.width(), size.height()));
+        itemPos          = FixtureUtils::available2DPosition(m_doc, m_monProps->pointOfView(),
+                                                             QRectF(itemPos.x(), itemPos.y(), size.width(), size.height()));
         // add the new fixture to the Doc monitor properties
         QVector3D newPos = FixtureUtils::item3DPosition(m_monProps, itemPos, 1000.0);
         m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
@@ -261,11 +261,11 @@ QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
     QMap<quint32, QQuickItem *>::const_iterator i = m_itemsMap.constBegin();
     while (i != m_itemsMap.constEnd())
     {
-        QQuickItem *fxItem = i.value();
-        qreal itemXPos = fxItem->property("x").toReal();
-        qreal itemYPos = fxItem->property("y").toReal();
-        qreal itemWidth = fxItem->property("width").toReal();
-        qreal itemHeight = fxItem->property("height").toReal();
+        QQuickItem *fxItem     = i.value();
+        qreal       itemXPos   = fxItem->property("x").toReal();
+        qreal       itemYPos   = fxItem->property("y").toReal();
+        qreal       itemWidth  = fxItem->property("width").toReal();
+        qreal       itemHeight = fxItem->property("height").toReal();
 
         QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
 
@@ -289,12 +289,12 @@ int MainView2D::itemIDAtPos(QPointF pos)
     QMap<quint32, QQuickItem *>::const_iterator i = m_itemsMap.constBegin();
     while (i != m_itemsMap.constEnd())
     {
-        QQuickItem *fxItem = i.value();
-        qreal itemXPos = fxItem->property("x").toReal();
-        qreal itemYPos = fxItem->property("y").toReal();
-        qreal itemWidth = fxItem->property("width").toReal();
-        qreal itemHeight = fxItem->property("height").toReal();
-        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+        QQuickItem *fxItem     = i.value();
+        qreal       itemXPos   = fxItem->property("x").toReal();
+        qreal       itemYPos   = fxItem->property("y").toReal();
+        qreal       itemWidth  = fxItem->property("width").toReal();
+        qreal       itemHeight = fxItem->property("height").toReal();
+        QRectF      itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
 
         qDebug() << "Point:" << pos << "itemRect:" << itemRect;
 
@@ -331,7 +331,7 @@ void MainView2D::slotRefreshView()
         {
             for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
             {
-                quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+                quint16 headIndex   = m_monProps->fixtureHeadIndex(subID);
                 quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
                 createFixtureItem(fixture->id(), headIndex, linkedIndex,
                                   m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex), true);
@@ -351,7 +351,7 @@ void MainView2D::updateFixture(Fixture *fixture, QByteArray &previous)
 
     for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
     {
-        quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+        quint16 headIndex   = m_monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
         updateFixtureItem(fixture, headIndex, linkedIndex, previous);
     }
@@ -359,14 +359,14 @@ void MainView2D::updateFixture(Fixture *fixture, QByteArray &previous)
 
 void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous)
 {
-    quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+    quint32     itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     QQuickItem *fxItem = m_itemsMap.value(itemID, nullptr);
-    QColor color;
-    bool colorSet = false;
-    bool goboSet = false;
-    bool setPosition = false;
-    int panDegrees = 0;
-    int tiltDegrees = 0;
+    QColor      color;
+    bool        colorSet    = false;
+    bool        goboSet     = false;
+    bool        setPosition = false;
+    int         panDegrees  = 0;
+    int         tiltDegrees = 0;
 
     if (fxItem == nullptr)
         return;
@@ -388,7 +388,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 
     quint32 masterDimmerChannel = fixture->masterIntensityChannel();
-    qreal masterDimmerValue = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
+    qreal   masterDimmerValue   = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
@@ -560,8 +560,8 @@ void MainView2D::updateFixtureSelection(QList<quint32> fixtures)
     while (it.hasNext())
     {
         it.next();
-        quint32 fxID = it.key();
-        bool enable = false;
+        quint32 fxID   = it.key();
+        bool    enable = false;
 
         if (fixtures.contains(fxID))
             enable = true;
@@ -607,15 +607,15 @@ void MainView2D::updateFixturePosition(quint32 itemID, QVector3D pos)
 
     if (m_itemsMap.contains(itemID) == false)
     {
-        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint32 fxID        = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex   = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
         createFixtureItem(fxID, headIndex, linkedIndex, pos, false);
     }
     else
     {
         QQuickItem *fxItem = m_itemsMap[itemID];
-        QPointF point = FixtureUtils::item2DPosition(m_monProps, m_monProps->pointOfView(), pos);
+        QPointF     point  = FixtureUtils::item2DPosition(m_monProps, m_monProps->pointOfView(), pos);
         fxItem->setProperty("mmXPos", point.x());
         fxItem->setProperty("mmYPos", point.y());
     }
@@ -628,7 +628,7 @@ void MainView2D::updateFixtureSize(quint32 itemID, Fixture *fixture)
 
     if (m_itemsMap.contains(itemID))
     {
-        QQuickItem *fxItem = m_itemsMap[itemID];
+        QQuickItem     *fxItem = m_itemsMap[itemID];
         QLCFixtureMode *fxMode = fixture->fixtureMode();
         QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode,
                                                     m_monProps->pointOfView());

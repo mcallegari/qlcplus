@@ -124,13 +124,13 @@ void MonitorGraphicsView::updateFixture(quint32 id)
     if (fxi == NULL || m_fixtures.contains(id) == false)
         return;
 
-    const QLCFixtureMode *mode = fxi->fixtureMode();
-    int width = 0;
-    int height = 0;
+    const QLCFixtureMode *mode   = fxi->fixtureMode();
+    int                   width  = 0;
+    int                   height = 0;
 
     if (mode != 0)
     {
-        width = mode->physical().width();
+        width  = mode->physical().width();
         height = mode->physical().height();
     }
 
@@ -158,7 +158,7 @@ void MonitorGraphicsView::setBackgroundImage(QString filename)
     if (filename.isEmpty() == false)
     {
         m_bgPixmap = QPixmap(m_backgroundImage);
-        m_bgItem = new QGraphicsPixmapItem(m_bgPixmap);
+        m_bgItem   = new QGraphicsPixmapItem(m_bgPixmap);
         m_bgItem->setZValue(0); // make sure it goes on the bacground
         m_scene->addItem(m_bgItem);
     }
@@ -236,17 +236,17 @@ void MonitorGraphicsView::updateGrid()
     {
         m_xOffset = 0;
         m_yOffset = 0;
-        int xInc = this->width() / m_gridSize.width();
-        int yInc = this->height() / m_gridSize.height();
+        int xInc  = this->width() / m_gridSize.width();
+        int yInc  = this->height() / m_gridSize.height();
         if (yInc < xInc)
         {
             m_cellPixels = yInc;
-            m_xOffset = (this->width() - (m_cellPixels * m_gridSize.width())) / 2;
+            m_xOffset    = (this->width() - (m_cellPixels * m_gridSize.width())) / 2;
         }
         else if (xInc < yInc)
         {
             m_cellPixels = xInc;
-            m_yOffset = (this->height() - (m_cellPixels * m_gridSize.height())) / 2;
+            m_yOffset    = (this->height() - (m_cellPixels * m_gridSize.height())) / 2;
         }
         int xPos = m_xOffset;
         int yPos = m_yOffset;

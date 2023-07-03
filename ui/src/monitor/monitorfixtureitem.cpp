@@ -34,7 +34,7 @@
 #include "doc.h"
 
 #define MOVEMENT_THICKNESS 3
-#define STROBE_PERIOD 500 // 0.5s
+#define STROBE_PERIOD      500 // 0.5s
 
 MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     : m_doc(doc)
@@ -61,7 +61,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     for (int i = 0; i < fxi->heads(); i++)
     {
         FixtureHead *fxiItem = new FixtureHead;
-        fxiItem->m_item = new QGraphicsEllipseItem(this);
+        fxiItem->m_item      = new QGraphicsEllipseItem(this);
         fxiItem->m_item->setPen(QPen(Qt::white, 1));
         fxiItem->m_item->setBrush(QBrush(Qt::black));
 
@@ -105,7 +105,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         {
             // retrieve the PAN max degrees from the fixture mode
             fxiItem->m_panMaxDegrees = 360; // fallback. Very unprecise
-            QLCFixtureMode *mode = fxi->fixtureMode();
+            QLCFixtureMode *mode     = fxi->fixtureMode();
             if (mode != NULL)
             {
                 if (mode->physical().focusPanMax() != 0)
@@ -120,7 +120,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         {
             // retrieve the TILT max degrees from the fixture mode
             fxiItem->m_tiltMaxDegrees = 270; // fallback. Very unprecise
-            QLCFixtureMode *mode = fxi->fixtureMode();
+            QLCFixtureMode *mode      = fxi->fixtureMode();
             if (mode != NULL)
             {
                 if (mode->physical().focusTiltMax() != 0)
@@ -136,7 +136,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             foreach (quint32 wheel, head.colorWheels())
             {
                 QList<QColor> values;
-                QLCChannel *ch = mode->channel(wheel);
+                QLCChannel   *ch = mode->channel(wheel);
                 if (ch == NULL)
                     continue;
 
@@ -165,7 +165,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             foreach (quint32 shutter, head.shutterChannels())
             {
                 QList<FixtureHead::ShutterState> values;
-                QLCChannel *ch = mode->channel(shutter);
+                QLCChannel                      *ch = mode->channel(shutter);
                 if (ch == NULL)
                     continue;
 
@@ -264,7 +264,7 @@ MonitorFixtureItem::~MonitorFixtureItem()
 void MonitorFixtureItem::setSize(QSize size)
 {
     prepareGeometryChange();
-    m_width = size.width();
+    m_width  = size.width();
     m_height = size.height();
 
     if (m_width < 5 || m_height < 5)
@@ -273,14 +273,14 @@ void MonitorFixtureItem::setSize(QSize size)
     // if this fixture has a pan or tilt channel,
     // the head area has to be reduced to
     // leave space to movements representation
-    int headsWidth = m_width;
+    int headsWidth  = m_width;
     int headsHeight = m_height;
 
     // calculate the diameter of every single head
     double headArea = (headsWidth * headsHeight) / m_heads.count();
     double headSide = sqrt(headArea);
-    int columns = (headsWidth / headSide) + 0.5;
-    int rows = (headsHeight / headSide) + 0.5;
+    int    columns  = (headsWidth / headSide) + 0.5;
+    int    rows     = (headsHeight / headSide) + 0.5;
 
     // dirty workaround to correctly display right columns on one row
     if (rows == 1)
@@ -298,9 +298,9 @@ void MonitorFixtureItem::setSize(QSize size)
     if (columns < 1)
         columns = 1;
 
-    double cellWidth = headsWidth / columns;
+    double cellWidth  = headsWidth / columns;
     double cellHeight = headsHeight / rows;
-    double headDiam = (cellWidth < cellHeight) ? cellWidth : cellHeight;
+    double headDiam   = (cellWidth < cellHeight) ? cellWidth : cellHeight;
 
     int ypos = (cellHeight - headDiam) / 2;
     for (int i = 0; i < rows; i++)
@@ -311,7 +311,7 @@ void MonitorFixtureItem::setSize(QSize size)
             int index = i * columns + j;
             if (index < m_heads.size())
             {
-                FixtureHead *h = m_heads.at(index);
+                FixtureHead          *h    = m_heads.at(index);
                 QGraphicsEllipseItem *head = h->m_item;
                 head->setRect(xpos, ypos, headDiam, headDiam);
 
@@ -352,7 +352,7 @@ QColor MonitorFixtureItem::computeColor(const FixtureHead *head, const QByteArra
     foreach (quint32 c, head->m_colorWheels)
     {
         const uchar val = static_cast<uchar>(values.at(c));
-        QColor col = head->m_colorValues[c].at(val);
+        QColor      col = head->m_colorValues[c].at(val);
         if (col.isValid() && col != Qt::black)
             return col;
     }
@@ -410,7 +410,7 @@ FixtureHead::ShutterState MonitorFixtureItem::computeShutter(const FixtureHead *
 
     foreach (quint32 c, head->m_shutterChannels)
     {
-        const uchar val = static_cast<uchar>(values.at(c));
+        const uchar               val   = static_cast<uchar>(values.at(c));
         FixtureHead::ShutterState state = head->m_shutterValues[c].at(val);
         if (state == FixtureHead::Closed)
         {
@@ -442,8 +442,8 @@ void MonitorFixtureItem::slotUpdateValues()
 
     foreach (FixtureHead *head, m_heads)
     {
-        head->m_color = computeColor(head, fxValues);
-        head->m_dimmerValue = computeAlpha(head, fxValues);
+        head->m_color        = computeColor(head, fxValues);
+        head->m_dimmerValue  = computeAlpha(head, fxValues);
         head->m_shutterState = computeShutter(head, fxValues);
 
         QColor col = head->m_color;

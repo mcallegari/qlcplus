@@ -114,7 +114,7 @@ public:
     bool canConfigure();
 
 public:
-    int m_configureCalled;
+    int  m_configureCalled;
     bool m_canConfigure;
 };
 

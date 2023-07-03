@@ -40,9 +40,9 @@ public:
     QAbstractGraphicsShapeItem *graphicsItem() const;
 
 private:
-    QColor m_color;
-    QColor m_oldColor;
-    uint m_elapsed;
+    QColor                                     m_color;
+    QColor                                     m_oldColor;
+    uint                                       m_elapsed;
     QScopedPointer<QAbstractGraphicsShapeItem> m_graphicsItem;
 };
 

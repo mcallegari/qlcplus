@@ -48,13 +48,13 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
     m_parser = (http_parser *)malloc(sizeof(http_parser));
     http_parser_init(m_parser, HTTP_REQUEST);
 
-    m_parserSettings = new http_parser_settings();
-    m_parserSettings->on_message_begin = MessageBegin;
-    m_parserSettings->on_url = Url;
-    m_parserSettings->on_header_field = HeaderField;
-    m_parserSettings->on_header_value = HeaderValue;
+    m_parserSettings                      = new http_parser_settings();
+    m_parserSettings->on_message_begin    = MessageBegin;
+    m_parserSettings->on_url              = Url;
+    m_parserSettings->on_header_field     = HeaderField;
+    m_parserSettings->on_header_value     = HeaderValue;
     m_parserSettings->on_headers_complete = HeadersComplete;
-    m_parserSettings->on_body = Body;
+    m_parserSettings->on_body             = Body;
     m_parserSettings->on_message_complete = MessageComplete;
 
     m_parser->data = this;
@@ -231,7 +231,7 @@ int QHttpConnection::HeadersComplete(http_parser *parser)
 
     /** set client information **/
     theConnection->m_request->m_remoteAddress = theConnection->m_socket->peerAddress().toString();
-    theConnection->m_request->m_remotePort = theConnection->m_socket->peerPort();
+    theConnection->m_request->m_remotePort    = theConnection->m_socket->peerPort();
 
     QHttpResponse *response = new QHttpResponse(theConnection);
     if (parser->http_major < 1 || parser->http_minor < 1)
@@ -266,7 +266,7 @@ int QHttpConnection::MessageComplete(http_parser *parser)
     if (theConnection->m_postPending == true)
     {
         theConnection->m_postPending = false;
-        QHttpResponse *response = new QHttpResponse(theConnection);
+        QHttpResponse *response      = new QHttpResponse(theConnection);
         Q_EMIT theConnection->newRequest(theConnection->m_request, response);
     }
     return 0;
@@ -295,8 +295,8 @@ int QHttpConnection::HeaderField(http_parser *parser, const char *at, size_t len
         // clear header value. this sets up a nice
         // feedback loop where the next time
         // HeaderValue is called, it can simply append
-        theConnection->m_currentHeaderField = QString();
-        theConnection->m_currentHeaderValue = QString();
+        theConnection->m_currentHeaderField                                            = QString();
+        theConnection->m_currentHeaderValue                                            = QString();
     }
 
     QString fieldSuffix = QString::fromLatin1(at, length);
@@ -330,7 +330,7 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
 QHttpConnection *QHttpConnection::enableWebSocket(bool enable)
 {
     m_isWebSocket = enable;
-    m_pollTimer = new QTimer(this);
+    m_pollTimer   = new QTimer(this);
     m_pollTimer->setInterval(5000);
 
     connect(m_pollTimer, SIGNAL(timeout()), this, SLOT(slotWebSocketPollTimeout()));
@@ -405,8 +405,8 @@ void QHttpConnection::webSocketRead(QByteArray data)
         int opCode = data.at(dataPos) & 0x0F;
         dataPos++;
 
-        bool masked = (data.at(dataPos) >> 7) ? true : false;
-        int dataLen = data.at(dataPos) & 0x7F;
+        bool masked  = (data.at(dataPos) >> 7) ? true : false;
+        int  dataLen = data.at(dataPos) & 0x7F;
         dataPos++;
 
         if (dataLen == 126)
@@ -439,7 +439,7 @@ void QHttpConnection::webSocketRead(QByteArray data)
             // if the payload is masked, then unmask
             if (masked == true)
             {
-                int i = 0;
+                int   i     = 0;
                 char *cData = data.data() + dataPos;
                 while (lengthCounter-- > 0)
                     *cData++ ^= mask[i++ % 4];

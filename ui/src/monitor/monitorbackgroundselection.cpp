@@ -26,7 +26,7 @@
 #include "function.h"
 #include "doc.h"
 
-#define KColumnName 0
+#define KColumnName  0
 #define KColumnImage 1
 
 MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc)
@@ -39,7 +39,7 @@ MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc
     m_props = doc->monitorProperties();
     Q_ASSERT(m_props != NULL);
 
-    m_commonBackgroundImage = m_props->commonBackgroundImage();
+    m_commonBackgroundImage  = m_props->commonBackgroundImage();
     m_customBackgroundImages = m_props->customBackgroundList();
 
     m_lastUsedPath = QString();
@@ -97,8 +97,8 @@ void MonitorBackgroundSelection::updateCustomTree()
     {
         it.next();
 
-        quint32 fid = it.key();
-        Function *f = m_doc->function(fid);
+        quint32   fid = it.key();
+        Function *f   = m_doc->function(fid);
         if (f != NULL)
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(m_customTree);
@@ -154,7 +154,7 @@ void MonitorBackgroundSelection::slotSelectCommonBackground()
     {
         m_commonLabel->setText(filename);
         m_commonBackgroundImage = filename;
-        m_lastUsedPath = QFileInfo(filename).canonicalPath();
+        m_lastUsedPath          = QFileInfo(filename).canonicalPath();
     }
 }
 
@@ -166,7 +166,7 @@ void MonitorBackgroundSelection::slotAddCustomBackground()
 
     if (fs.exec() == QDialog::Accepted)
     {
-        quint32 fid = fs.selection().first();
+        quint32 fid      = fs.selection().first();
         QString filename = QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
                                                         QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
@@ -185,7 +185,7 @@ void MonitorBackgroundSelection::slotRemoveCustomBackground()
         return;
 
     QTreeWidgetItem *selItem = m_customTree->selectedItems().first();
-    quint32 fid = selItem->data(KColumnName, Qt::UserRole).toUInt();
+    quint32          fid     = selItem->data(KColumnName, Qt::UserRole).toUInt();
     m_customBackgroundImages.remove(fid);
     updateCustomTree();
 }

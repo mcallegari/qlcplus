@@ -60,10 +60,10 @@ protected:
 
 private:
     QAudioSource *m_audioSource;
-    QIODevice *m_input;
-    QAudioFormat m_format;
-    qreal m_volume;
-    QByteArray m_currentReadBuffer;
+    QIODevice    *m_input;
+    QAudioFormat  m_format;
+    qreal         m_volume;
+    QByteArray    m_currentReadBuffer;
 };
 
 /** @} */

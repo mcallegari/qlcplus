@@ -75,7 +75,7 @@ protected slots:
 
 protected:
     static FunctionManager *s_instance;
-    Doc *m_doc;
+    Doc                    *m_doc;
 
     /*********************************************************************
      * Function tree
@@ -102,8 +102,8 @@ private slots:
     void slotTreeContextMenuRequested();
 
 private:
-    QSplitter *m_hsplitter;
-    QSplitter *m_vsplitter;
+    QSplitter           *m_hsplitter;
+    QSplitter           *m_vsplitter;
     FunctionsTreeWidget *m_tree;
 
     /*********************************************************************

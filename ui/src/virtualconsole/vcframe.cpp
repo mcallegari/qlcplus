@@ -57,9 +57,9 @@
 
 const QSize VCFrame::defaultSize(QSize(200, 200));
 
-const quint8 VCFrame::nextPageInputSourceId = 0;
-const quint8 VCFrame::previousPageInputSourceId = 1;
-const quint8 VCFrame::enableInputSourceId = 2;
+const quint8 VCFrame::nextPageInputSourceId      = 0;
+const quint8 VCFrame::previousPageInputSourceId  = 1;
+const quint8 VCFrame::enableInputSourceId        = 2;
 const quint8 VCFrame::shortcutsBaseInputSourceId = 20;
 
 VCFrame::VCFrame(QWidget *parent, Doc *doc, bool canCollapse)
@@ -89,12 +89,12 @@ VCFrame::VCFrame(QWidget *parent, Doc *doc, bool canCollapse)
         createHeader();
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_FRAME_SIZE);
+    QVariant  var = settings.value(SETTINGS_FRAME_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
         resize(defaultSize);
-    m_width = this->width();
+    m_width  = this->width();
     m_height = this->height();
 }
 
@@ -261,7 +261,7 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
 {
     if (toggle == true)
     {
-        m_width = this->width();
+        m_width  = this->width();
         m_height = this->height();
         if (m_multiPageMode == true)
         {
@@ -300,7 +300,7 @@ void VCFrame::createHeader()
 
     QVBoxLayout *vbox = new QVBoxLayout(this);
     /* Main HBox */
-    m_hbox = new QHBoxLayout();
+    m_hbox            = new QHBoxLayout();
     m_hbox->setGeometry(QRect(0, 0, 200, 40));
 
     layout()->setSpacing(2);
@@ -467,7 +467,7 @@ void VCFrame::setMultipageMode(bool enable)
         delete m_pageCombo;
         delete m_nextPageBtn;
         m_prevPageBtn = NULL;
-        m_pageCombo = NULL;
+        m_pageCombo   = NULL;
         m_nextPageBtn = NULL;
         setCaption(caption());
     }
@@ -623,7 +623,7 @@ void VCFrame::slotSetPage(int pageNum)
         while (it.hasNext() == true)
         {
             it.next();
-            int page = it.value();
+            int       page   = it.value();
             VCWidget *widget = it.key();
             if (page == m_currentPage)
             {
@@ -663,7 +663,7 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
 void VCFrame::slotSubmasterValueChanged(qreal value)
 {
     qDebug() << Q_FUNC_INFO << "val:" << value;
-    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
+    VCSlider                 *submaster = qobject_cast<VCSlider *>(sender());
     QListIterator<VCWidget *> it(this->findChildren<VCWidget *>());
     while (it.hasNext() == true)
     {
@@ -869,7 +869,7 @@ bool VCFrame::copyFrom(const VCWidget *widget)
     QListIterator<VCWidget *> it(widget->findChildren<VCWidget *>());
     while (it.hasNext() == true)
     {
-        VCWidget *child = it.next();
+        VCWidget *child     = it.next();
         VCWidget *childCopy = NULL;
 
         /* findChildren() is recursive, so the list contains all
@@ -934,7 +934,7 @@ void VCFrame::applyProperties(VCFrameProperties const &prop)
                     bool multiPageFrame = false;
                     if (newWidget->type() == VCWidget::FrameWidget || newWidget->type() == VCWidget::SoloFrameWidget)
                     {
-                        VCFrame *fr = qobject_cast<VCFrame *>(newWidget);
+                        VCFrame *fr    = qobject_cast<VCFrame *>(newWidget);
                         multiPageFrame = fr->multipageMode();
                     }
                     /** If the cloned widget is again a multipage frame, then there's not much
@@ -971,7 +971,7 @@ void VCFrame::applyProperties(VCFrameProperties const &prop)
         while (it.hasNext() == true)
         {
             it.next();
-            int page = it.value();
+            int       page   = it.value();
             VCWidget *widget = it.key();
             if (page > 0)
             {
@@ -1035,11 +1035,11 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCWindowState)
         {
             /* Frame geometry (visibility is ignored) */
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
-            m_width = w;
+            m_width  = w;
             m_height = h;
         }
         else if (root.name() == KXMLQLCVCWidgetAppearance)
@@ -1356,7 +1356,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCVCFrameIsDisabled, isDisabled() ? KXMLQLCTrue : KXMLQLCFalse);
 
         /* Enable control */
-        QString keySeq = m_enableKeySequence.toString();
+        QString                        keySeq    = m_enableKeySequence.toString();
         QSharedPointer<QLCInputSource> enableSrc = inputSource(enableInputSourceId);
 
         if (keySeq.isEmpty() == false || (!enableSrc.isNull() && enableSrc->isValid()))
@@ -1377,7 +1377,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
             doc->writeEndElement();
 
             /* Next page */
-            keySeq = m_nextPageKeySequence.toString();
+            keySeq                                 = m_nextPageKeySequence.toString();
             QSharedPointer<QLCInputSource> nextSrc = inputSource(nextPageInputSourceId);
 
             if (keySeq.isEmpty() == false || (!nextSrc.isNull() && nextSrc->isValid()))
@@ -1390,7 +1390,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
             }
 
             /* Previous page */
-            keySeq = m_previousPageKeySequence.toString();
+            keySeq                                 = m_previousPageKeySequence.toString();
             QSharedPointer<QLCInputSource> prevSrc = inputSource(previousPageInputSourceId);
 
             if (keySeq.isEmpty() == false || (!prevSrc.isNull() && prevSrc->isValid()))
@@ -1460,8 +1460,8 @@ QString VCFrame::xmlTagName() const
 
 QMenu *VCFrame::customMenu(QMenu *parentMenu)
 {
-    QMenu *menu = NULL;
-    VirtualConsole *vc = VirtualConsole::instance();
+    QMenu          *menu = NULL;
+    VirtualConsole *vc   = VirtualConsole::instance();
 
     if (allowChildren() == true && vc != NULL)
     {
@@ -1506,7 +1506,7 @@ void VCFrame::mouseMoveEvent(QMouseEvent *e)
 
     if (isCollapsed() == false)
     {
-        m_width = this->width();
+        m_width  = this->width();
         m_height = this->height();
     }
 }

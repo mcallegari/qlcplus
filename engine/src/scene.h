@@ -37,7 +37,7 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCFixtureValues QString("FixtureVal")
+#define KXMLQLCFixtureValues            QString("FixtureVal")
 #define KXMLQLCSceneChannelGroupsValues QString("ChannelGroupsVal")
 
 // Legacy: these do not contain ChannelGroups values
@@ -153,7 +153,7 @@ signals:
 
 protected:
     QMap<SceneValue, uchar> m_values;
-    QMutex m_valueListMutex;
+    QMutex                  m_valueListMutex;
 
     /*********************************************************************
      * Channel Groups
@@ -186,7 +186,7 @@ public:
 
 protected:
     QList<quint32> m_channelGroups;
-    QList<uchar> m_channelGroupsLevels;
+    QList<uchar>   m_channelGroupsLevels;
 
     /*********************************************************************
      * Fixtures
@@ -195,8 +195,8 @@ public slots:
     void slotFixtureRemoved(quint32 fxi_id);
 
 public:
-    void addFixture(quint32 fixtureId);
-    bool removeFixture(quint32 fixtureId);
+    void           addFixture(quint32 fixtureId);
+    bool           removeFixture(quint32 fixtureId);
     QList<quint32> fixtures() const;
 
 private:
@@ -206,8 +206,8 @@ private:
      * Fixture Groups
      *********************************************************************/
 public:
-    void addFixtureGroup(quint32 id);
-    bool removeFixtureGroup(quint32 id);
+    void           addFixtureGroup(quint32 id);
+    bool           removeFixtureGroup(quint32 id);
     QList<quint32> fixtureGroups() const;
 
 private:
@@ -217,8 +217,8 @@ private:
      * Palettes
      *********************************************************************/
 public:
-    void addPalette(quint32 id);
-    bool removePalette(quint32 id);
+    void           addPalette(quint32 id);
+    bool           removePalette(quint32 id);
     QList<quint32> palettes() const;
 
 private:
@@ -292,7 +292,7 @@ public:
      *  blend function ID will be taken into account
      *  to blend channels from a value to another */
     quint32 blendFunctionID() const;
-    void setBlendFunctionID(quint32 fid);
+    void    setBlendFunctionID(quint32 fid);
 
 protected:
     quint32 m_blendFunctionID;

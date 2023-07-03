@@ -39,9 +39,9 @@ class Doc;
 
 typedef struct
 {
-    int m_action;
-    quint64 m_timestamp;
-    quint32 m_objID;
+    int      m_action;
+    quint64  m_timestamp;
+    quint32  m_objID;
     QVariant m_oldValue;
     QVariant m_newValue;
 } TardisAction;
@@ -227,7 +227,7 @@ public:
 
 protected:
     QString actionToString(int action);
-    bool processBufferedAction(int action, quint32 objID, QVariant &value);
+    bool    processBufferedAction(int action, quint32 objID, QVariant &value);
 
 protected slots:
     void slotProcessNetworkAction(int code, quint32 id, QVariant value);
@@ -236,27 +236,27 @@ private:
     /** The singleton Tardis instance */
     static Tardis *s_instance;
     /** Thread running status flag */
-    bool m_running;
+    bool           m_running;
 
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView     *m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc            *m_doc;
     /** Reference to the Network Manager */
     NetworkManager *m_networkManager;
 
     /** Reference to the Fixture Manager */
-    FixtureManager *m_fixtureManager;
+    FixtureManager  *m_fixtureManager;
     /** Reference to the Function Manager */
     FunctionManager *m_functionManager;
     /** Reference to the Context Manager */
-    ContextManager *m_contextManager;
+    ContextManager  *m_contextManager;
     /** Reference to the Simple Desk */
-    SimpleDesk *m_simpleDesk;
+    SimpleDesk      *m_simpleDesk;
     /** Reference to the Show Manager */
-    ShowManager *m_showManager;
+    ShowManager     *m_showManager;
     /** Reference to the Virtual Console */
-    VirtualConsole *m_virtualConsole;
+    VirtualConsole  *m_virtualConsole;
 
     /** Time reference since application starts */
     QElapsedTimer m_uptime;
@@ -265,7 +265,7 @@ private:
     QQueue<TardisAction> m_actionsQueue;
 
     /** Synchronization variables between threads */
-    QMutex m_queueMutex;
+    QMutex     m_queueMutex;
     QSemaphore m_queueSem;
 
     /** The actual history of actions */

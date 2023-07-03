@@ -35,9 +35,9 @@
 
 #define PROP_ID Qt::UserRole
 
-#define COL_NAME 0
-#define COL_FADEIN 1
-#define COL_FADEOUT 2
+#define COL_NAME     0
+#define COL_FADEIN   1
+#define COL_FADEOUT  2
 #define COL_DURATION 3
 
 VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial *dial, Doc *doc)
@@ -478,8 +478,8 @@ void VCSpeedDialProperties::removePreset(quint8 id)
 void VCSpeedDialProperties::slotAddPresetClicked()
 {
     VCSpeedDialPreset *newPreset = new VCSpeedDialPreset(++m_lastAssignedID);
-    newPreset->m_value = 1000;
-    newPreset->m_name = Function::speedToString(1000);
+    newPreset->m_value           = 1000;
+    newPreset->m_name            = Function::speedToString(1000);
     addPreset(newPreset);
     updateTree();
 }
@@ -489,7 +489,7 @@ void VCSpeedDialProperties::slotRemovePresetClicked()
     if (m_presetsTree->selectedItems().isEmpty())
         return;
     QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
-    quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
+    quint8           ctlID   = selItem->data(0, Qt::UserRole).toUInt();
     removePreset(ctlID);
     updateTree();
 }

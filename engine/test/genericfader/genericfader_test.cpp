@@ -45,7 +45,7 @@ void GenericFader_Test::initTestCase()
 
 void GenericFader_Test::init()
 {
-    Fixture *fxi = new Fixture(m_doc);
+    Fixture       *fxi = new Fixture(m_doc);
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
@@ -64,7 +64,7 @@ void GenericFader_Test::cleanup()
 
 void GenericFader_Test::addRemove()
 {
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *>            ua    = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
 
     FadeChannel fc;
@@ -130,7 +130,7 @@ void GenericFader_Test::addRemove()
 
 void GenericFader_Test::writeZeroFade()
 {
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *>            ua    = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
@@ -148,7 +148,7 @@ void GenericFader_Test::writeZeroFade()
 
 void GenericFader_Test::writeLoop()
 {
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *>            ua    = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
@@ -175,7 +175,7 @@ void GenericFader_Test::writeLoop()
 
 void GenericFader_Test::adjustIntensity()
 {
-    QList<Universe *> ua = m_doc->inputOutputMap()->universes();
+    QList<Universe *>            ua    = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
@@ -205,7 +205,7 @@ void GenericFader_Test::adjustIntensity()
         expected += 5;
 
         // GenericFader should apply intensity only to HTP channels
-        int actual = uchar(ua[0]->preGMValues()[15]);
+        int actual                = uchar(ua[0]->preGMValues()[15]);
         int expectedWithIntensity = floor((qreal(expected) * intensity) + 0.5);
         QVERIFY(actual == expectedWithIntensity);
 

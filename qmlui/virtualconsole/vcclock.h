@@ -89,7 +89,7 @@ public:
     /** Cached duration in seconds of the attached Function,
      *  to avoid calculating it every timer tick (1s), which
      *  might be a waste of resources */
-    int m_cachedDuration;
+    int  m_cachedDuration;
 
 signals:
     void functionIDChanged();
@@ -106,9 +106,9 @@ protected:
 
 private:
     quint32 m_id;
-    int m_startTime;
-    int m_stopTime;
-    int m_weekFlags;
+    int     m_startTime;
+    int     m_stopTime;
+    int     m_weekFlags;
 };
 
 class VCClock : public VCWidget
@@ -162,10 +162,10 @@ public:
     };
     Q_ENUM(ClockType)
 
-    void setClockType(ClockType type);
+    void      setClockType(ClockType type);
     ClockType clockType() const;
 
-    QString typeToString(ClockType type);
+    QString   typeToString(ClockType type);
     ClockType stringToType(QString str);
 
 signals:
@@ -182,7 +182,7 @@ public:
     int currentTime() const;
 
     /** Get/Set the target time for Countdown and Stopwatch */
-    int targetTime() const;
+    int  targetTime() const;
     void setTargetTime(int ms);
 
 protected slots:
@@ -197,7 +197,7 @@ signals:
 
 private:
     /** the target time in ms of the clock. Used by Countdown and Stopwatch */
-    int m_targetTime;
+    int     m_targetTime;
     /** The 1 second timer active when m_clocktype is Clock */
     QTimer *m_timer;
 
@@ -208,10 +208,10 @@ public:
     bool enableSchedule() const;
     void setEnableSchedule(bool enableSchedule);
 
-    QVariantList scheduleList();
+    QVariantList             scheduleList();
     QList<VCClockSchedule *> schedules() const;
 
-    void addSchedule(VCClockSchedule *schedule);
+    void             addSchedule(VCClockSchedule *schedule);
     Q_INVOKABLE void addSchedules(QVariantList idsList);
     Q_INVOKABLE void removeSchedule(int index);
 
@@ -220,7 +220,7 @@ signals:
     void enableScheduleChanged(bool enableSchedule);
 
 private:
-    bool m_enableSchedule;
+    bool                     m_enableSchedule;
     QList<VCClockSchedule *> m_scheduleList;
 
     /*********************************************************************

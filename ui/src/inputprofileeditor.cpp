@@ -43,8 +43,8 @@
 #define SETTINGS_GEOMETRY "inputprofileeditor/geometry"
 
 #define KColumnNumber 0
-#define KColumnName 1
-#define KColumnType 2
+#define KColumnName   1
+#define KColumnType   2
 #define KColumnValues 3
 
 /****************************************************************************
@@ -129,7 +129,7 @@ InputProfileEditor::InputProfileEditor(QWidget *parent, QLCInputProfile *profile
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    QVariant  var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
@@ -172,14 +172,14 @@ void InputProfileEditor::updateChannelItem(QTreeWidgetItem *item, QLCInputChanne
 
 void InputProfileEditor::setOptionsVisibility(QLCInputChannel::Type type)
 {
-    bool showBox = true;
-    bool showMovement = false;
+    bool showBox         = true;
+    bool showMovement    = false;
     bool showSensitivity = false;
-    bool showButtonOpts = false;
+    bool showButtonOpts  = false;
 
     if (type == QLCInputChannel::Slider || type == QLCInputChannel::Knob)
     {
-        showMovement = true;
+        showMovement    = true;
         showSensitivity = true;
         m_sensitivitySpin->setRange(10, 100);
     }
@@ -263,7 +263,7 @@ QList<QLCInputChannel *> InputProfileEditor::selectedChannels()
         QTreeWidgetItem *item = it.next();
         Q_ASSERT(item != NULL);
 
-        quint32 chnum = item->text(KColumnNumber).toUInt() - 1;
+        quint32          chnum   = item->text(KColumnNumber).toUInt() - 1;
         QLCInputChannel *channel = m_profile->channel(chnum);
         Q_ASSERT(channel != NULL);
 
@@ -274,7 +274,7 @@ QList<QLCInputChannel *> InputProfileEditor::selectedChannels()
 
 void InputProfileEditor::slotAddClicked()
 {
-    QLCInputChannel *channel = new QLCInputChannel();
+    QLCInputChannel   *channel = new QLCInputChannel();
     InputChannelEditor ice(this, m_profile, channel, currentProfileType());
 add:
     if (ice.exec() == QDialog::Accepted)
@@ -302,7 +302,7 @@ add:
 void InputProfileEditor::slotRemoveClicked()
 {
     QList<QTreeWidgetItem *> selected;
-    QTreeWidgetItem *next = NULL;
+    QTreeWidgetItem         *next = NULL;
 
     /* Ask for confirmation if we're deleting more than one channel */
     selected = m_tree->selectedItems();
@@ -341,7 +341,7 @@ void InputProfileEditor::slotRemoveClicked()
 void InputProfileEditor::slotEditClicked()
 {
     QLCInputChannel *channel;
-    quint32 chnum;
+    quint32          chnum;
     QTreeWidgetItem *item;
 
     if (m_tree->selectedItems().count() == 1)
@@ -352,7 +352,7 @@ void InputProfileEditor::slotEditClicked()
             return;
 
         /* Find the channel object associated to the selected item */
-        chnum = item->text(KColumnNumber).toUInt() - 1;
+        chnum   = item->text(KColumnNumber).toUInt() - 1;
         channel = m_profile->channel(chnum);
         Q_ASSERT(channel != NULL);
 
@@ -401,7 +401,7 @@ edit:
                 item = it.next();
                 Q_ASSERT(item != NULL);
 
-                chnum = item->text(KColumnNumber).toUInt() - 1;
+                chnum   = item->text(KColumnNumber).toUInt() - 1;
                 channel = m_profile->channel(chnum);
                 Q_ASSERT(channel != NULL);
 
@@ -445,8 +445,8 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
 {
     Q_UNUSED(col)
 
-    quint32 chNum = item->text(KColumnNumber).toUInt() - 1;
-    QLCInputChannel *ich = m_profile->channel(chNum);
+    quint32          chNum = item->text(KColumnNumber).toUInt() - 1;
+    QLCInputChannel *ich   = m_profile->channel(chNum);
     if (ich != NULL)
     {
         setOptionsVisibility(ich->type());
@@ -577,8 +577,8 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel
     else if (m_wizardActive == true)
     {
         /* Existing channel & item found. Modify their contents. */
-        latestItem = list.first();
-        QVariant var = latestItem->data(KColumnValues, Qt::UserRole);
+        latestItem      = list.first();
+        QVariant    var = latestItem->data(KColumnValues, Qt::UserRole);
         QStringList values(var.toStringList());
 
         if (values.size() > 3)

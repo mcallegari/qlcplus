@@ -22,6 +22,6 @@
 
 #define INTERNAL_FIXTUREDIR "../../../resources/fixtures/"
 #define INTERNAL_PROFILEDIR "../../../resources/inputprofiles/"
-#define INTERNAL_SCRIPTDIR "../../../resources/rgbscripts/"
+#define INTERNAL_SCRIPTDIR  "../../../resources/rgbscripts/"
 
 #endif

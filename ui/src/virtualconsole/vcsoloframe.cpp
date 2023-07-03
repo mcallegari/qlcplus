@@ -61,12 +61,12 @@ VCSoloFrame::VCSoloFrame(QWidget *parent, Doc *doc, bool canCollapse)
     }
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_SOLOFRAME_SIZE);
+    QVariant  var = settings.value(SETTINGS_SOLOFRAME_SIZE);
     if (var.isValid() == true)
         resize(var.toSize());
     else
         resize(defaultSize);
-    m_width = this->width();
+    m_width  = this->width();
     m_height = this->height();
 }
 

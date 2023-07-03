@@ -151,7 +151,7 @@ quint32 FixtureConsole::fixture() const
 
 void FixtureConsole::slotAliasChanged()
 {
-    quint32 i = 0;
+    quint32  i   = 0;
     Fixture *fxi = m_doc->fixture(m_fixture);
 
     QListIterator<ConsoleChannel *> it(m_channels);
@@ -220,8 +220,8 @@ void FixtureConsole::setSceneValue(const SceneValue &scv)
 
 QList<SceneValue> FixtureConsole::values() const
 {
-    QList<SceneValue> list;         // list of all checked channels
-    QList<SceneValue> selectedList; // list of selected channels only
+    QList<SceneValue>               list;         // list of all checked channels
+    QList<SceneValue>               selectedList; // list of selected channels only
     QListIterator<ConsoleChannel *> it(m_channels);
     while (it.hasNext() == true)
     {

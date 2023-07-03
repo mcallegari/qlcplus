@@ -37,7 +37,7 @@ GroupHead &GroupHead::operator=(const GroupHead &grp)
 {
     if (this != &grp)
     {
-        fxi = grp.fxi;
+        fxi  = grp.fxi;
         head = grp.head;
     }
 

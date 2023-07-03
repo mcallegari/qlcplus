@@ -27,7 +27,7 @@ typedef struct
 {
     QVariant m_default;
     QVariant m_modified;
-    QString m_category;
+    QString  m_category;
 } UiProperty;
 
 class Doc;
@@ -46,10 +46,10 @@ public:
     Q_INVOKABLE QVariant getDefault(QString name);
 
     Q_INVOKABLE QVariant getModified(QString name);
-    Q_INVOKABLE void setModified(QString name, QVariant value);
+    Q_INVOKABLE void     setModified(QString name, QVariant value);
 
     Q_INVOKABLE QString userConfFilepath();
-    Q_INVOKABLE bool saveSettings();
+    Q_INVOKABLE bool    saveSettings();
 
 private:
     /** Reference to the QML view root */

@@ -50,8 +50,8 @@ FixtureGroup::~FixtureGroup() {}
 void FixtureGroup::copyFrom(const FixtureGroup *grp)
 {
     // Don't copy ID
-    m_name = grp->name();
-    m_size = grp->size();
+    m_name  = grp->name();
+    m_size  = grp->size();
     m_heads = grp->headsMap();
 }
 
@@ -106,8 +106,8 @@ bool FixtureGroup::assignFixture(quint32 id, const QLCPoint &pt)
 {
     Fixture *fxi = doc()->fixture(id);
     Q_ASSERT(fxi != NULL);
-    QLCPoint tmp = pt;
-    int headAddedcount = 0;
+    QLCPoint tmp            = pt;
+    int      headAddedcount = 0;
 
     for (int i = 0; i < fxi->heads(); i++)
     {
@@ -147,8 +147,8 @@ bool FixtureGroup::assignHead(const QLCPoint &pt, const GroupHead &head)
     }
     else
     {
-        int y = 0;
-        int x = 0;
+        int y    = 0;
+        int x    = 0;
         int xmax = size().width();
         int ymax = size().height();
 
@@ -306,7 +306,7 @@ bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
         return false;
     }
 
-    bool ok = false;
+    bool    ok = false;
     quint32 id = xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString().toUInt(&ok);
     if (ok == false)
     {
@@ -322,11 +322,11 @@ bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
         QXmlStreamAttributes attrs = xmlDoc.attributes();
         if (xmlDoc.name() == KXMLQLCFixtureGroupHead)
         {
-            bool xok = false, yok = false, idok = false, headok = false;
-            int x = attrs.value("X").toString().toInt(&xok);
-            int y = attrs.value("Y").toString().toInt(&yok);
-            quint32 id = attrs.value("Fixture").toString().toUInt(&idok);
-            int head = xmlDoc.readElementText().toInt(&headok);
+            bool    xok = false, yok = false, idok = false, headok = false;
+            int     x    = attrs.value("X").toString().toInt(&xok);
+            int     y    = attrs.value("Y").toString().toInt(&yok);
+            quint32 id   = attrs.value("Fixture").toString().toUInt(&idok);
+            int     head = xmlDoc.readElementText().toInt(&headok);
 
             // Don't use assignFixture() here because it assigns complete fixtures at once
             if (xok == true && yok == true && idok == true && headok == true)
@@ -335,8 +335,8 @@ bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
         else if (xmlDoc.name() == KXMLQLCFixtureGroupSize)
         {
             bool xok = false, yok = false;
-            int x = attrs.value("X").toString().toInt(&xok);
-            int y = attrs.value("Y").toString().toInt(&yok);
+            int  x = attrs.value("X").toString().toInt(&xok);
+            int  y = attrs.value("Y").toString().toInt(&yok);
 
             if (xok == true && yok == true)
                 m_size = QSize(x, y);

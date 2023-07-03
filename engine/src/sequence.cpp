@@ -67,10 +67,10 @@ bool Sequence::copyFrom(const Function *function)
         return false;
 
     // Copy sequence stuff
-    m_steps = sequence->m_steps;
-    m_fadeInMode = sequence->m_fadeInMode;
-    m_fadeOutMode = sequence->m_fadeOutMode;
-    m_holdMode = sequence->m_holdMode;
+    m_steps        = sequence->m_steps;
+    m_fadeInMode   = sequence->m_fadeInMode;
+    m_fadeOutMode  = sequence->m_fadeOutMode;
+    m_holdMode     = sequence->m_holdMode;
     m_boundSceneID = sequence->m_boundSceneID;
 
     // Copy common function stuff
@@ -161,7 +161,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
 
     setBoundSceneID(funcAttrs.value(KXMLQLCSequenceBoundScene).toString().toUInt());
 
-    Scene *scene = qobject_cast<Scene *>(doc()->function(boundSceneID()));
+    Scene            *scene = qobject_cast<Scene *>(doc()->function(boundSceneID()));
     QList<SceneValue> sceneValues;
     if (scene != NULL)
     {
@@ -193,7 +193,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
         {
             //! @todo stepNumber is useless if the steps are in the wrong order
             ChaserStep step;
-            int stepNumber = -1;
+            int        stepNumber = -1;
 
             if (sceneValues.isEmpty() == false)
                 step.values = sceneValues;
@@ -226,7 +226,7 @@ void Sequence::postLoad()
     Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
 
-    Scene *scene = qobject_cast<Scene *>(doc->function(boundSceneID()));
+    Scene            *scene = qobject_cast<Scene *>(doc->function(boundSceneID()));
     QList<SceneValue> sceneValues;
     if (scene != NULL)
     {
@@ -264,7 +264,7 @@ void Sequence::postLoad()
         }
 
         QList<SceneValue> tmpList = step.values;
-        step.values = sceneValues;
+        step.values               = sceneValues;
         for (int i = 0; i < tmpList.count(); i++)
         {
             int tmpIndex = step.values.indexOf(tmpList.at(i));

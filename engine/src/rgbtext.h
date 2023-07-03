@@ -60,7 +60,7 @@ public:
 
 private:
     QString m_text;
-    QFont m_font;
+    QFont   m_font;
 
     /************************************************************************
      * Animation
@@ -73,28 +73,28 @@ public:
         Vertical
     };
 
-    void setAnimationStyle(AnimationStyle ani);
+    void           setAnimationStyle(AnimationStyle ani);
     AnimationStyle animationStyle() const;
 
-    static QString animationStyleToString(AnimationStyle ani);
+    static QString        animationStyleToString(AnimationStyle ani);
     static AnimationStyle stringToAnimationStyle(const QString &str);
-    static QStringList animationStyles();
+    static QStringList    animationStyles();
 
     void setXOffset(int offset);
-    int xOffset() const;
+    int  xOffset() const;
 
     void setYOffset(int offset);
-    int yOffset() const;
+    int  yOffset() const;
 
 private:
-    int scrollingTextStepCount() const;
+    int  scrollingTextStepCount() const;
     void renderScrollingText(const QSize &size, uint rgb, int step, RGBMap &map) const;
     void renderStaticLetters(const QSize &size, uint rgb, int step, RGBMap &map) const;
 
 private:
     AnimationStyle m_animationStyle;
-    int m_xOffset;
-    int m_yOffset;
+    int            m_xOffset;
+    int            m_yOffset;
 
     /************************************************************************
      * RGBAlgorithm

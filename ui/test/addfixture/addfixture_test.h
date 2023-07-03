@@ -44,7 +44,7 @@ private slots:
     void rememberExpanded();
 
 private:
-    Doc *m_doc;
+    Doc     *m_doc;
     QVariant m_expanded;
 };
 

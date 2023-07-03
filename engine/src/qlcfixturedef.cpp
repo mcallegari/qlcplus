@@ -64,13 +64,13 @@ QLCFixtureDef &QLCFixtureDef::operator=(const QLCFixtureDef &fixture)
 {
     if (this != &fixture)
     {
-        QListIterator<QLCChannel *> chit(fixture.m_channels);
+        QListIterator<QLCChannel *>     chit(fixture.m_channels);
         QListIterator<QLCFixtureMode *> modeit(fixture.m_modes);
 
         m_manufacturer = fixture.m_manufacturer;
-        m_model = fixture.m_model;
-        m_type = fixture.m_type;
-        m_author = fixture.m_author;
+        m_model        = fixture.m_model;
+        m_type         = fixture.m_type;
+        m_author       = fixture.m_author;
 
         /* Clear all channels */
         while (m_channels.isEmpty() == false)
@@ -100,7 +100,7 @@ QString QLCFixtureDef::definitionSourceFile() const
 void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
     m_fileAbsolutePath = absPath;
-    m_isLoaded = false;
+    m_isLoaded         = false;
 }
 
 /****************************************************************************
@@ -241,7 +241,7 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
     bool error = loadXML(absPath);
     if (error == false)
     {
-        m_isLoaded = true;
+        m_isLoaded         = true;
         m_fileAbsolutePath = QString();
     }
 }

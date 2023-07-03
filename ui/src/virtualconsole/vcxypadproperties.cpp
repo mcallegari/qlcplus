@@ -47,8 +47,8 @@
 #define SETTINGS_GEOMETRY "vcxypad/geometry"
 
 #define KColumnFixture 0
-#define KColumnXAxis 1
-#define KColumnYAxis 2
+#define KColumnXAxis   1
+#define KColumnYAxis   2
 
 /****************************************************************************
  * Initialization
@@ -174,7 +174,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad *xypad, Doc *doc)
     updatePresetsTree();
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    QVariant  var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
@@ -217,8 +217,8 @@ void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
     for (int i = 0; i < m_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_tree->topLevelItem(i);
-        QVariant var(item->data(KColumnFixture, Qt::UserRole));
-        VCXYPadFixture fx = VCXYPadFixture(m_doc, var);
+        QVariant         var(item->data(KColumnFixture, Qt::UserRole));
+        VCXYPadFixture   fx = VCXYPadFixture(m_doc, var);
         fx.setDisplayMode(mode);
         updateFixtureItem(item, fx);
     }
@@ -237,7 +237,7 @@ void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem *item, const VCXYPadFi
 QList<VCXYPadFixture> VCXYPadProperties::selectedFixtures() const
 {
     QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
-    QList<VCXYPadFixture> list;
+    QList<VCXYPadFixture>            list;
 
     /* Put all selected fixtures to a list and return it */
     while (it.hasNext() == true)
@@ -251,7 +251,7 @@ QTreeWidgetItem *VCXYPadProperties::fixtureItem(const VCXYPadFixture &fxi)
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
     {
-        QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
+        QVariant       var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture another(m_doc, var);
         if (fxi.head() == another.head())
             return *it;
@@ -267,7 +267,7 @@ void VCXYPadProperties::removeFixtureItem(GroupHead const &head)
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
     {
-        QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
+        QVariant       var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fxi(m_doc, var);
         if (fxi.head() == head)
         {
@@ -283,11 +283,11 @@ void VCXYPadProperties::slotAddClicked()
 {
     /* Put all fixtures already present into a list of fixtures that
        will be disabled in the fixture selection dialog */
-    QList<GroupHead> disabled;
+    QList<GroupHead>        disabled;
     QTreeWidgetItemIterator twit(m_tree);
     while (*twit != NULL)
     {
-        QVariant var((*twit)->data(KColumnFixture, Qt::UserRole));
+        QVariant       var((*twit)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fxi(m_doc, var);
         disabled << fxi.head();
         ++twit;
@@ -373,7 +373,7 @@ void VCXYPadProperties::slotEditClicked()
         QListIterator<VCXYPadFixture> it(editor.fixtures());
         while (it.hasNext() == true)
         {
-            VCXYPadFixture fxi(it.next());
+            VCXYPadFixture   fxi(it.next());
             QTreeWidgetItem *item = fixtureItem(fxi);
 
             updateFixtureItem(item, fxi);
@@ -463,7 +463,7 @@ void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
     {
-        QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
+        QVariant       var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fixture(m_doc, var);
         fixture.arm();
         quint32 universe = fixture.universe();
@@ -473,7 +473,7 @@ void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes
         QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
         if (fader.isNull())
         {
-            fader = universes[universe]->requestFader();
+            fader                 = universes[universe]->requestFader();
             m_fadersMap[universe] = fader;
         }
         fixture.writeDMX(x, y, fader, universes[universe]);
@@ -493,8 +493,8 @@ void VCXYPadProperties::updatePresetsTree()
 
     for (int i = 0; i < m_presetList.count(); i++)
     {
-        VCXYPadPreset *preset = m_presetList.at(i);
-        QTreeWidgetItem *item = new QTreeWidgetItem(m_presetsTree);
+        VCXYPadPreset   *preset = m_presetList.at(i);
+        QTreeWidgetItem *item   = new QTreeWidgetItem(m_presetsTree);
         item->setData(0, Qt::UserRole, preset->m_id);
         item->setText(0, preset->m_name);
         if (preset->m_type == VCXYPadPreset::EFX)
@@ -592,7 +592,7 @@ quint8 VCXYPadProperties::moveUpPreset(quint8 id)
                 quint8 srcPosID = m_presetList.at(i)->m_id;
 
                 m_presetList.at(i - 1)->m_id = srcPosID;
-                m_presetList.at(i)->m_id = dstPosID;
+                m_presetList.at(i)->m_id     = dstPosID;
 
                 // change order on current preset list...
                 m_presetList.move(i, i - 1);
@@ -622,7 +622,7 @@ quint8 VCXYPadProperties::moveDownPreset(quint8 id)
                 quint8 srcPosID = m_presetList.at(i)->m_id;
 
                 m_presetList.at(i + 1)->m_id = srcPosID;
-                m_presetList.at(i)->m_id = dstPosID;
+                m_presetList.at(i)->m_id     = dstPosID;
 
                 // change order on current preset list...
                 m_presetList.move(i, i + 1);
@@ -639,8 +639,8 @@ quint8 VCXYPadProperties::moveDownPreset(quint8 id)
 void VCXYPadProperties::slotAddPositionClicked()
 {
     VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
-    newPreset->m_type = VCXYPadPreset::Position;
-    newPreset->m_dmxPos = m_xyArea->position();
+    newPreset->m_type        = VCXYPadPreset::Position;
+    newPreset->m_dmxPos      = m_xyArea->position();
     newPreset->m_name = QString("X:%1 - Y:%2").arg((int)newPreset->m_dmxPos.x()).arg((int)newPreset->m_dmxPos.y());
     m_presetList.append(newPreset);
     updatePresetsTree();
@@ -661,14 +661,14 @@ void VCXYPadProperties::slotAddEFXClicked()
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
-        quint32 fID = fs.selection().first();
-        Function *f = m_doc->function(fID);
+        quint32   fID = fs.selection().first();
+        Function *f   = m_doc->function(fID);
         if (f == NULL || f->type() != Function::EFXType)
             return;
         VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
-        newPreset->m_type = VCXYPadPreset::EFX;
-        newPreset->m_funcID = fID;
-        newPreset->m_name = f->name();
+        newPreset->m_type        = VCXYPadPreset::EFX;
+        newPreset->m_funcID      = fID;
+        newPreset->m_name        = f->name();
         m_presetList.append(newPreset);
         updatePresetsTree();
         selectItemOnPresetsTree(newPreset->m_id);
@@ -689,12 +689,12 @@ void VCXYPadProperties::slotAddSceneClicked()
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
-        quint32 fID = fs.selection().first();
-        Function *f = m_doc->function(fID);
+        quint32   fID = fs.selection().first();
+        Function *f   = m_doc->function(fID);
         if (f == NULL || f->type() != Function::SceneType)
             return;
-        Scene *scene = qobject_cast<Scene *>(f);
-        bool panTiltFound = false;
+        Scene *scene        = qobject_cast<Scene *>(f);
+        bool   panTiltFound = false;
         foreach (SceneValue scv, scene->values())
         {
             Fixture *fixture = m_doc->fixture(scv.fxi);
@@ -718,9 +718,9 @@ void VCXYPadProperties::slotAddSceneClicked()
             return;
         }
         VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
-        newPreset->m_type = VCXYPadPreset::Scene;
-        newPreset->m_funcID = fID;
-        newPreset->m_name = f->name();
+        newPreset->m_type        = VCXYPadPreset::Scene;
+        newPreset->m_funcID      = fID;
+        newPreset->m_name        = f->name();
         m_presetList.append(newPreset);
         updatePresetsTree();
         selectItemOnPresetsTree(newPreset->m_id);
@@ -735,7 +735,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
     {
-        QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
+        QVariant       var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fxi(m_doc, var);
         enabled << fxi.head();
         ++it;
@@ -767,8 +767,8 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         }
 
         VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
-        newPreset->m_type = VCXYPadPreset::FixtureGroup;
-        newPreset->m_name = tr("Fixture Group");
+        newPreset->m_type        = VCXYPadPreset::FixtureGroup;
+        newPreset->m_name        = tr("Fixture Group");
         newPreset->setFixtureGroup(selectedGH);
         m_presetList.append(newPreset);
         updatePresetsTree();
@@ -781,7 +781,7 @@ void VCXYPadProperties::slotRemovePresetClicked()
     if (m_presetsTree->selectedItems().isEmpty())
         return;
     QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
-    quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
+    quint8           ctlID   = selItem->data(0, Qt::UserRole).toUInt();
     removePreset(ctlID);
     updatePresetsTree();
 }
@@ -791,8 +791,8 @@ void VCXYPadProperties::slotMoveUpPresetClicked()
     if (m_presetsTree->selectedItems().isEmpty())
         return;
     QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
-    quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
-    quint8 newID = moveUpPreset(ctlID);
+    quint8           ctlID   = selItem->data(0, Qt::UserRole).toUInt();
+    quint8           newID   = moveUpPreset(ctlID);
     updatePresetsTree();
 
     // select item on new position. User can make multiple move up/down without need to select item everytime.
@@ -804,8 +804,8 @@ void VCXYPadProperties::slotMoveDownPresetClicked()
     if (m_presetsTree->selectedItems().isEmpty())
         return;
     QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
-    quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
-    quint8 newID = moveDownPreset(ctlID);
+    quint8           ctlID   = selItem->data(0, Qt::UserRole).toUInt();
+    quint8           newID   = moveDownPreset(ctlID);
     updatePresetsTree();
 
     // select item on new position. User can make multiple move up/down without need to select item everytime.
@@ -838,7 +838,7 @@ void VCXYPadProperties::slotPresetSelectionChanged()
             Function *f = m_doc->function(preset->functionID());
             if (f == NULL || f->type() != Function::EFXType)
                 return;
-            EFX *efx = qobject_cast<EFX *>(f);
+            EFX      *efx = qobject_cast<EFX *>(f);
             QPolygonF polygon;
             efx->preview(polygon);
 

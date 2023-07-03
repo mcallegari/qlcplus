@@ -36,7 +36,7 @@ class QXmlStreamReader;
 typedef struct
 {
     quint32 m_id;
-    int m_intensityId;
+    int     m_intensityId;
 } ChildFunction;
 
 class Collection : public Function
@@ -107,7 +107,7 @@ protected:
     QList<quint32> m_functions;
     /** A list of intesity attribute override IDs populated when this Collection is
      *  started and cleaned when it's stopped */
-    QList<int> m_intensityOverrideIds;
+    QList<int>     m_intensityOverrideIds;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     mutable QMutex m_functionListMutex;
@@ -164,7 +164,7 @@ protected slots:
 protected:
     /** Number of currently running children */
     QSet<quint32> m_runningChildren;
-    unsigned int m_tick;
+    unsigned int  m_tick;
 
     /*************************************************************************
      * Intensity

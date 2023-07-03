@@ -47,10 +47,10 @@
 #include "scene.h"
 
 #define SETTINGS_GEOMETRY "rgbmatrixeditor/geometry"
-#define RECT_SIZE 30
-#define RECT_PADDING 0
-#define ITEM_SIZE 28
-#define ITEM_PADDING 2
+#define RECT_SIZE         30
+#define RECT_PADDING      0
+#define ITEM_SIZE         28
+#define ITEM_PADDING      2
 
 /****************************************************************************
  * Initialization
@@ -396,7 +396,7 @@ void RGBMatrixEditor::updateColors()
             else if (m_controlModeCombo->currentIndex() != RGBMatrix::ControlModeRgb)
             {
                 // Convert startColor to grayscale for single color modes
-                uchar gray = qGray(m_matrix->startColor().rgb());
+                uchar   gray = qGray(m_matrix->startColor().rgb());
                 QPixmap pm(50, 26);
                 pm.fill(QColor(gray, gray, gray));
                 m_startColorButton->setIcon(QIcon(pm));
@@ -750,7 +750,7 @@ void RGBMatrixEditor::slotFontButtonClicked()
         RGBText *algo = static_cast<RGBText *>(m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
 
-        bool ok = false;
+        bool  ok   = false;
         QFont font = QFontDialog::getFont(&ok, algo->font(), this);
         if (ok == true)
         {
@@ -799,8 +799,8 @@ void RGBMatrixEditor::slotImageButtonClicked()
         Q_ASSERT(algo != NULL);
 
         QString path = algo->filename();
-        path = QFileDialog::getOpenFileName(this, tr("Select image"), path,
-                                            QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+        path         = QFileDialog::getOpenFileName(this, tr("Select image"), path,
+                                                    QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
         if (path.isEmpty() == false)
         {
             {
@@ -1054,7 +1054,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                     channel = fxi->channelNumber(QLCChannel::UV, QLCChannel::MSB, head.head);
                 else if (m_controlModeCombo->currentIndex() == RGBMatrix::ControlModeShutter)
                 {
-                    QLCFixtureHead fHead = fxi->head(head.head);
+                    QLCFixtureHead   fHead    = fxi->head(head.head);
                     QVector<quint32> shutters = fHead.shutterChannels();
                     if (shutters.count())
                         channel = shutters.first();
@@ -1066,15 +1066,15 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         }
         m_doc->addFunction(grpScene);
 
-        int totalSteps = m_matrix->stepsCount();
-        int increment = 1;
+        int totalSteps  = m_matrix->stepsCount();
+        int increment   = 1;
         int currentStep = 0;
         m_previewHandler->setStepColor(m_matrix->startColor());
 
         if (m_matrix->direction() == Function::Backward)
         {
             currentStep = totalSteps - 1;
-            increment = -1;
+            increment   = -1;
             if (m_matrix->endColor().isValid())
                 m_previewHandler->setStepColor(m_matrix->endColor());
         }
@@ -1104,17 +1104,17 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         {
             m_matrix->previewMap(currentStep, m_previewHandler);
             ChaserStep step;
-            step.fid = grpScene->id();
-            step.hold = m_matrix->duration() - m_matrix->fadeInSpeed();
+            step.fid      = grpScene->id();
+            step.hold     = m_matrix->duration() - m_matrix->fadeInSpeed();
             step.duration = m_matrix->duration();
-            step.fadeIn = m_matrix->fadeInSpeed();
-            step.fadeOut = m_matrix->fadeOutSpeed();
+            step.fadeIn   = m_matrix->fadeInSpeed();
+            step.fadeOut  = m_matrix->fadeOutSpeed();
 
             for (int y = 0; y < m_previewHandler->m_map.size(); y++)
             {
                 for (int x = 0; x < m_previewHandler->m_map[y].size(); x++)
                 {
-                    uint col = m_previewHandler->m_map[y][x];
+                    uint      col  = m_previewHandler->m_map[y][x];
                     GroupHead head = grp->head(QLCPoint(x, y));
 
                     Fixture *fxi = m_doc->fixture(head.fxi);
@@ -1163,7 +1163,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                             channel = fxi->channelNumber(QLCChannel::UV, QLCChannel::MSB, head.head);
                         else if (m_controlModeCombo->currentIndex() == RGBMatrix::ControlModeShutter)
                         {
-                            QLCFixtureHead fHead = fxi->head(head.head);
+                            QLCFixtureHead   fHead    = fxi->head(head.head);
                             QVector<quint32> shutters = fHead.shutterChannels();
                             if (shutters.count())
                                 channel = shutters.first();
@@ -1183,7 +1183,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)
             {
                 currentStep = totalSteps - 2;
-                increment = -1;
+                increment   = -1;
             }
             m_previewHandler->updateStepColor(currentStep, m_matrix->startColor(), m_matrix->stepsCount());
         }
@@ -1208,7 +1208,7 @@ void RGBMatrixEditor::slotPropertyComboChanged(QString value)
     if (m_matrix->algorithm() == NULL || m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
         QComboBox *combo = (QComboBox *)sender();
-        QString pName = combo->property("pName").toString();
+        QString    pName = combo->property("pName").toString();
         m_matrix->setProperty(pName, value);
     }
 }
@@ -1218,8 +1218,8 @@ void RGBMatrixEditor::slotPropertySpinChanged(int value)
     qDebug() << "Property spin changed to" << value;
     if (m_matrix->algorithm() == NULL || m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
-        QSpinBox *spin = (QSpinBox *)sender();
-        QString pName = spin->property("pName").toString();
+        QSpinBox *spin  = (QSpinBox *)sender();
+        QString   pName = spin->property("pName").toString();
         m_matrix->setProperty(pName, QString::number(value));
     }
 }

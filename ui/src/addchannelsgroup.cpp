@@ -29,11 +29,11 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KColumnName 0
-#define KColumnType 1
+#define KColumnName  0
+#define KColumnType  1
 #define KColumnGroup 2
 #define KColumnChIdx 3
-#define KColumnID 4
+#define KColumnID    4
 
 #define SETTINGS_APPLYALL "addchannelsgroup/applyall"
 
@@ -57,16 +57,16 @@ AddChannelsGroup::AddChannelsGroup(QWidget *parent, Doc *doc, ChannelsGroup *gro
     m_groupNameEdit->setText(group->name());
 
     QList<SceneValue> chans = group->getChannels();
-    int ch = 0;
+    int               ch    = 0;
 
     foreach (Fixture *fxi, m_doc->fixtures())
     {
         QTreeWidgetItem *topItem = NULL;
-        quint32 uni = fxi->universe();
+        quint32          uni     = fxi->universe();
         for (int i = 0; i < m_tree->topLevelItemCount(); i++)
         {
             QTreeWidgetItem *tItem = m_tree->topLevelItem(i);
-            quint32 tUni = tItem->text(KColumnID).toUInt();
+            quint32          tUni  = tItem->text(KColumnID).toUInt();
             if (tUni == uni)
             {
                 topItem = tItem;
@@ -91,7 +91,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget *parent, Doc *doc, ChannelsGroup *gro
         for (quint32 c = 0; c < fxi->channels(); c++)
         {
             const QLCChannel *channel = fxi->channel(c);
-            QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
+            QTreeWidgetItem  *item    = new QTreeWidgetItem(fItem);
             item->setText(KColumnName, QString("%1:%2").arg(c + 1).arg(channel->name()));
             item->setIcon(KColumnName, channel->getIcon());
             if (channel->group() == QLCChannel::Intensity && channel->colour() != QLCChannel::NoColour)
@@ -115,7 +115,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget *parent, Doc *doc, ChannelsGroup *gro
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_APPLYALL);
+    QVariant  var = settings.value(SETTINGS_APPLYALL);
     if (var.isValid() == true)
         m_applyAllCheck->setChecked(var.toBool());
 
@@ -149,8 +149,8 @@ void AddChannelsGroup::accept()
         for (int f = 0; f < uniItem->childCount(); f++)
         {
             QTreeWidgetItem *fixItem = uniItem->child(f);
-            quint32 fxID = fixItem->text(KColumnID).toUInt();
-            Fixture *fxi = m_doc->fixture(fxID);
+            quint32          fxID    = fixItem->text(KColumnID).toUInt();
+            Fixture         *fxi     = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
                 for (int c = 0; c < fixItem->childCount(); c++)
@@ -198,10 +198,10 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
             return;
 
         QString manufacturer = def->manufacturer();
-        QString model = def->model();
-        QString mode = fixture->fixtureMode() ? fixture->fixtureMode()->name() : "";
+        QString model        = def->model();
+        QString mode         = fixture->fixtureMode() ? fixture->fixtureMode()->name() : "";
 
-        int chIdx = item->text(KColumnChIdx).toInt();
+        int            chIdx  = item->text(KColumnChIdx).toInt();
         Qt::CheckState enable = item->checkState(KColumnGroup);
 
         qDebug() << "Manuf:" << manufacturer << ", model:" << model << ", ch:" << chIdx;
@@ -212,12 +212,12 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
             for (int f = 0; f < uniItem->childCount(); f++)
             {
                 QTreeWidgetItem *fixItem = uniItem->child(f);
-                quint32 fxID = fixItem->text(KColumnID).toUInt();
-                Fixture *fxi = m_doc->fixture(fxID);
+                quint32          fxID    = fixItem->text(KColumnID).toUInt();
+                Fixture         *fxi     = m_doc->fixture(fxID);
                 if (fxi != NULL)
                 {
-                    QString tmpMode = fxi->fixtureMode() ? fxi->fixtureMode()->name() : "";
-                    const QLCFixtureDef *tmpDef = fxi->fixtureDef();
+                    QString              tmpMode = fxi->fixtureMode() ? fxi->fixtureMode()->name() : "";
+                    const QLCFixtureDef *tmpDef  = fxi->fixtureDef();
                     if (tmpDef != NULL)
                     {
                         QString tmpManuf = tmpDef->manufacturer();

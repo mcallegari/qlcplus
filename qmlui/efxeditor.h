@@ -77,7 +77,7 @@ public:
     QStringList algorithms() const;
 
     /** Get/set the EFX selected algorithm index*/
-    int algorithmIndex() const;
+    int  algorithmIndex() const;
     void setAlgorithmIndex(int algoIndex);
 
     /** Get/set if the EFX has relative movement */
@@ -85,43 +85,43 @@ public:
     void setIsRelative(bool relative);
 
     /** Get/set the current algorithm width */
-    int algorithmWidth() const;
+    int  algorithmWidth() const;
     void setAlgorithmWidth(int algorithmWidth);
 
     /** Get/set the current algorithm height */
-    int algorithmHeight() const;
+    int  algorithmHeight() const;
     void setAlgorithmHeight(int algorithmHeight);
 
     /** Get/set the current algorithm X offset */
-    int algorithmXOffset() const;
+    int  algorithmXOffset() const;
     void setAlgorithmXOffset(int algorithmXOffset);
 
     /** Get/set the current algorithm Y offset */
-    int algorithmYOffset() const;
+    int  algorithmYOffset() const;
     void setAlgorithmYOffset(int algorithmYOffset);
 
     /** Get/set the current algorithm rotation */
-    int algorithmRotation() const;
+    int  algorithmRotation() const;
     void setAlgorithmRotation(int algorithmRotation);
 
     /** Get/set the current algorithm start offset */
-    int algorithmStartOffset() const;
+    int  algorithmStartOffset() const;
     void setAlgorithmStartOffset(int algorithmStartOffset);
 
     /** Get/set the current algorithm X frequency */
-    int algorithmXFrequency() const;
+    int  algorithmXFrequency() const;
     void setAlgorithmXFrequency(int algorithmXFrequency);
 
     /** Get/set the current algorithm Y frequency */
-    int algorithmYFrequency() const;
+    int  algorithmYFrequency() const;
     void setAlgorithmYFrequency(int algorithmYFrequency);
 
     /** Get/set the current algorithm X phase */
-    int algorithmXPhase() const;
+    int  algorithmXPhase() const;
     void setAlgorithmXPhase(int algorithmXPhase);
 
     /** Get/set the current algorithm Y phase */
-    int algorithmYPhase() const;
+    int  algorithmYPhase() const;
     void setAlgorithmYPhase(int algorithmYPhase);
 
 signals:

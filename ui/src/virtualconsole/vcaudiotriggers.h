@@ -86,14 +86,14 @@ protected slots:
 #endif
 
 protected:
-    QHBoxLayout *m_hbox;
-    QToolButton *m_button;
-    QLabel *m_label;
+    QHBoxLayout        *m_hbox;
+    QToolButton        *m_button;
+    QLabel             *m_label;
     AudioTriggerWidget *m_spectrum;
-    ClickAndGoSlider *m_volumeSlider;
-    AudioCapture *m_inputCapture;
+    ClickAndGoSlider   *m_volumeSlider;
+    AudioCapture       *m_inputCapture;
 
-    AudioBar *m_volumeBar;
+    AudioBar         *m_volumeBar;
     QList<AudioBar *> m_spectrumBars;
 
     /*********************************************************************
@@ -111,7 +111,7 @@ private:
      * Key sequence handler
      *********************************************************************/
 public:
-    void setKeySequence(const QKeySequence &keySequence);
+    void         setKeySequence(const QKeySequence &keySequence);
     QKeySequence keySequence() const;
 
 protected slots:

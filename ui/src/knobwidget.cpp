@@ -28,12 +28,12 @@ KnobWidget::KnobWidget(QWidget *parent)
     : QDial(parent)
 {
     m_background = new QPixmap();
-    m_cursor = new QPixmap();
+    m_cursor     = new QPixmap();
     setWrapping(false);
     setMinimum(0);
     setMaximum(UCHAR_MAX);
     m_gradStartColor = Qt::darkGray;
-    m_gradEndColor = Qt::gray;
+    m_gradEndColor   = Qt::gray;
 }
 
 KnobWidget::~KnobWidget()
@@ -51,7 +51,7 @@ void KnobWidget::setEnabled(bool status)
 void KnobWidget::setColor(QColor color)
 {
     m_gradStartColor = color;
-    m_gradEndColor = color.lighter(150);
+    m_gradEndColor   = color.lighter(150);
     prepareBody();
     update();
 }
@@ -61,8 +61,8 @@ void KnobWidget::prepareCursor()
     int shortSide = height();
     if (width() < shortSide)
         shortSide = width();
-    float arcWidth = shortSide / 15;
-    float dialSize = shortSide - (arcWidth * 2);
+    float arcWidth      = shortSide / 15;
+    float dialSize      = shortSide - (arcWidth * 2);
     float cursor_radius = dialSize / 15;
     if (cursor_radius < 3)
         cursor_radius = 3;
@@ -87,7 +87,7 @@ void KnobWidget::prepareBody()
         shortSide = width();
     float arcWidth = shortSide / 15;
     float dialSize = shortSide - (arcWidth * 2);
-    float radius = dialSize / 2;
+    float radius   = dialSize / 2;
 
     QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, dialSize));
     linearGrad.setColorAt(0, m_gradStartColor);
@@ -127,11 +127,11 @@ void KnobWidget::paintEvent(QPaintEvent *e)
     int shortSide = height();
     if (width() < shortSide)
         shortSide = width();
-    float arcWidth = shortSide / 15;
+    float   arcWidth = shortSide / 15;
     QPointF pixPoint = QPointF(((width() - m_background->width()) / 2), arcWidth);
 
     QPainter painter(this);
-    float degrees = 0.0;
+    float    degrees = 0.0;
     if (invertedAppearance())
         degrees = SCALE(value(), minimum(), maximum(), 330.0, 0.0);
     else
@@ -179,7 +179,7 @@ QPixmap KnobWidget::rotatePix(QPixmap *p_pix, float p_deg)
     // re-crop to original size
     int xOffset = (outPix.width() - p_pix->width()) / 2;
     int yOffset = (outPix.height() - p_pix->height()) / 2;
-    outPix = outPix.copy(xOffset, yOffset, p_pix->width(), p_pix->height());
+    outPix      = outPix.copy(xOffset, yOffset, p_pix->width(), p_pix->height());
 
     return outPix;
 }

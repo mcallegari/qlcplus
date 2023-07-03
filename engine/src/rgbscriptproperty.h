@@ -27,14 +27,14 @@ class RGBScriptProperty
 public:
     RGBScriptProperty()
     {
-        m_name = QString();
-        m_displayName = QString();
-        m_type = None;
-        m_listValues = QStringList();
+        m_name          = QString();
+        m_displayName   = QString();
+        m_type          = None;
+        m_listValues    = QStringList();
         m_rangeMinValue = 0;
         m_rangeMaxValue = 0;
-        m_readMethod = QString();
-        m_writeMethod = QString();
+        m_readMethod    = QString();
+        m_writeMethod   = QString();
     }
 
     ~RGBScriptProperty()
@@ -51,14 +51,14 @@ public:
     };
 
 public:
-    QString m_name;
-    QString m_displayName;
-    ValueType m_type;
+    QString     m_name;
+    QString     m_displayName;
+    ValueType   m_type;
     QStringList m_listValues;
-    int m_rangeMinValue;
-    int m_rangeMaxValue;
-    QString m_readMethod;
-    QString m_writeMethod;
+    int         m_rangeMinValue;
+    int         m_rangeMaxValue;
+    QString     m_readMethod;
+    QString     m_writeMethod;
 };
 
 #endif // RGBSCRIPTPROPERTY_H

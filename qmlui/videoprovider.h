@@ -38,7 +38,7 @@ public:
 
     /** Get/Set the shared fullscreen context */
     QQuickView *fullscreenContext();
-    void setFullscreenContext(QQuickView *context);
+    void        setFullscreenContext(QQuickView *context);
 
 protected slots:
     void slotFunctionAdded(quint32 id);
@@ -50,13 +50,13 @@ protected slots:
 
 private:
     /** Reference of the QML view */
-    QQuickView *m_view;
+    QQuickView                   *m_view;
     /** Reference of the project workspace */
-    Doc *m_doc;
+    Doc                          *m_doc;
     /** Map of the currently available Video functions */
     QMap<quint32, VideoContent *> m_videoMap;
     /** A single instance for fullscreen rendering shared between videos */
-    QQuickView *m_fullscreenContext;
+    QQuickView                   *m_fullscreenContext;
 };
 
 class VideoContent : public QObject
@@ -68,7 +68,7 @@ class VideoContent : public QObject
 public:
     VideoContent(Video *video, VideoProvider *parent = nullptr);
 
-    quint32 id() const;
+    quint32          id() const;
     Q_INVOKABLE void destroyContext();
 
     void playContent();
@@ -76,7 +76,7 @@ public:
 
 protected:
     QVariant getAttribute(quint32 id, const char *propName);
-    void updateAttribute(quint32 id, const char *propName, QVariant value);
+    void     updateAttribute(quint32 id, const char *propName, QVariant value);
 
 public slots:
     void slotDetectResolution();
@@ -90,13 +90,13 @@ protected:
     /** Reference to the parent video provider */
     VideoProvider *m_provider;
     /** reference to the actual Video Function */
-    Video *m_video;
+    Video         *m_video;
     /** temporary media player to retrieve the video resolution */
-    QMediaPlayer *m_mediaPlayer;
+    QMediaPlayer  *m_mediaPlayer;
     /** the video position considering its resolution and the target screen */
-    QRect m_geometry;
+    QRect          m_geometry;
     /** Quick context for windowed video playback */
-    QQuickView *m_viewContext;
+    QQuickView    *m_viewContext;
 };
 
 #endif // VIDEOPROVIDER_H

@@ -127,8 +127,8 @@ void GenericFader::requestDelete()
 
 FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
 {
-    FadeChannel fc(doc, fixtureID, channel);
-    quint32 hash = channelHash(fc.fixture(), fc.channel());
+    FadeChannel                           fc(doc, fixtureID, channel);
+    quint32                               hash            = channelHash(fc.fixture(), fc.channel());
     QHash<quint32, FadeChannel>::iterator channelIterator = m_channels.find(hash);
     if (channelIterator != m_channels.end())
         return &channelIterator.value();
@@ -161,9 +161,9 @@ void GenericFader::write(Universe *universe)
     while (it.hasNext() == true)
     {
         FadeChannel &fc(it.next().value());
-        int flags = fc.flags();
-        int address = int(fc.addressInUniverse());
-        uchar value;
+        int          flags   = fc.flags();
+        int          address = int(fc.addressInUniverse());
+        uchar        value;
 
         if (flags & FadeChannel::SetTarget)
         {

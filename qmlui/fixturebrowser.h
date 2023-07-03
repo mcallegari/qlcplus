@@ -54,30 +54,30 @@ public:
 
     QStringList manufacturers();
 
-    int manufacturerIndex() const;
+    int  manufacturerIndex() const;
     void setManufacturerIndex(int index);
 
     QString selectedManufacturer() const;
-    void setSelectedManufacturer(QString selectedManufacturer);
+    void    setSelectedManufacturer(QString selectedManufacturer);
 
     QStringList modelsList();
 
     Q_INVOKABLE bool isUserDefinition(QString manufacturer, QString model);
 
     QString selectedModel() const;
-    void setSelectedModel(QString selectedModel);
+    void    setSelectedModel(QString selectedModel);
 
     /** Get/Set the name that will be used upon fixtures creation */
     QString fixtureName() const;
-    void setFixtureName(QString fixtureName);
+    void    setFixtureName(QString fixtureName);
 
     QStringList modesList();
 
     QString selectedMode() const;
-    void setSelectedMode(QString selectedMode);
+    void    setSelectedMode(QString selectedMode);
 
-    int modeChannelsCount();
-    void setModeChannelsCount(int modeChannelsCount);
+    int      modeChannelsCount();
+    void     setModeChannelsCount(int modeChannelsCount);
     QVariant modeChannelList() const;
 
     /** Check if the group of fixtures with the specified $uniIdx, $channels, $quantity and $gap
@@ -94,7 +94,7 @@ public:
 
     /** Get/Set the fixture search filter */
     QString searchFilter() const;
-    void setSearchFilter(QString searchFilter);
+    void    setSearchFilter(QString searchFilter);
 
     QVariant searchTreeModel() const;
 
@@ -120,32 +120,32 @@ private:
     void updateSearchTree();
 
 private:
-    Doc *m_doc;
+    Doc        *m_doc;
     QQuickView *m_view;
 
     /** Cache of the organized definitions for browsing */
     QMap<QString, QMap<QString, bool>> m_defCache;
     /** The index of the currently selected manufacturer */
-    int m_manufacturerIndex;
+    int                                m_manufacturerIndex;
     /** The currently selected manufacturer as string */
-    QString m_selectedManufacturer;
+    QString                            m_selectedManufacturer;
     /** The currently selected fixture model as string */
-    QString m_selectedModel;
+    QString                            m_selectedModel;
     /** The name used for fixtures creation */
-    QString m_fixtureName;
+    QString                            m_fixtureName;
     /** The currently selected fixture mode as string */
-    QString m_selectedMode;
+    QString                            m_selectedMode;
     /** The currently selected mode channels number.
      *  If no mode is available this can be defined by the user */
-    int m_modeChannelsCount;
+    int                                m_modeChannelsCount;
     /** Reference of the currently selected fixture definition */
-    QLCFixtureDef *m_definition;
+    QLCFixtureDef                     *m_definition;
     /** Reference of the currently selected fixture mode */
-    QLCFixtureMode *m_mode;
+    QLCFixtureMode                    *m_mode;
     /** Reference to the tree model used for searches */
-    TreeModel *m_searchTree;
+    TreeModel                         *m_searchTree;
     /** A string holding the search keyword */
-    QString m_searchFilter;
+    QString                            m_searchFilter;
 };
 
 #endif // FIXTUREBROWSER_H

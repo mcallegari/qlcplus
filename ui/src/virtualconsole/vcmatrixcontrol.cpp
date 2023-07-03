@@ -27,7 +27,7 @@
 VCMatrixControl::VCMatrixControl(quint8 id)
     : m_id(id)
 {
-    m_color = QColor();
+    m_color    = QColor();
     m_resource = QString();
 }
 
@@ -40,11 +40,11 @@ VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
 {
     if (this != &vcmc)
     {
-        m_id = vcmc.m_id;
-        m_type = vcmc.m_type;
-        m_color = vcmc.m_color;
-        m_resource = vcmc.m_resource;
-        m_properties = vcmc.m_properties;
+        m_id          = vcmc.m_id;
+        m_type        = vcmc.m_type;
+        m_color       = vcmc.m_color;
+        m_resource    = vcmc.m_resource;
+        m_properties  = vcmc.m_properties;
         m_keySequence = vcmc.m_keySequence;
 
         if (vcmc.m_inputSource != NULL)
@@ -208,8 +208,8 @@ bool VCMatrixControl::loadXML(QXmlStreamReader &root)
         {
             if (root.attributes().hasAttribute(KXMLQLCVCMatrixControlPropertyName))
             {
-                QString pName = root.attributes().value(KXMLQLCVCMatrixControlPropertyName).toString();
-                QString pValue = root.readElementText();
+                QString pName       = root.attributes().value(KXMLQLCVCMatrixControlPropertyName).toString();
+                QString pValue      = root.readElementText();
                 m_properties[pName] = pValue;
             }
         }

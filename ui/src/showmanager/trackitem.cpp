@@ -42,7 +42,7 @@ TrackItem::TrackItem(Track *track, int number)
 
     if (track != NULL)
     {
-        m_name = m_track->name();
+        m_name   = m_track->name();
         m_isMute = m_track->isMute();
         connect(m_track, SIGNAL(changed(quint32)), this, SLOT(slotTrackChanged(quint32)));
     }

@@ -78,13 +78,13 @@ public:
     const QLCChannel *channel();
 
 private:
-    Doc *m_doc;
-    quint32 m_fixture;
-    quint32 m_chIndex;
+    Doc              *m_doc;
+    quint32           m_fixture;
+    quint32           m_chIndex;
     const QLCChannel *m_channel;
     /** this value is set only through setChannelsGroup,
      *  to emit the proper signal when value changes */
-    quint32 m_group;
+    quint32           m_group;
 
     /*************************************************************************
      * Group
@@ -136,12 +136,12 @@ signals:
     void resetRequest(quint32 fxi, quint32 channelIndex);
 
 private:
-    QToolButton *m_presetButton;
+    QToolButton      *m_presetButton;
     ClickAndGoWidget *m_cngWidget;
-    QSpinBox *m_spin;
+    QSpinBox         *m_spin;
     ClickAndGoSlider *m_slider;
-    QLabel *m_label;
-    QToolButton *m_resetButton;
+    QLabel           *m_label;
+    QToolButton      *m_resetButton;
 
     bool m_showResetButton;
 
@@ -154,10 +154,10 @@ private slots:
     void slotClickAndGoLevelAndPresetChanged(uchar level, QImage img);
 
 private:
-    void contextMenuEvent(QContextMenuEvent *);
-    void initMenu();
-    void initCapabilityMenu(const QLCChannel *ch);
-    void setIntensityButton(const QLCChannel *ch);
+    void         contextMenuEvent(QContextMenuEvent *);
+    void         initMenu();
+    void         initCapabilityMenu(const QLCChannel *ch);
+    void         setIntensityButton(const QLCChannel *ch);
     static QIcon colorIcon(const QString &name);
 
 private:
@@ -173,7 +173,7 @@ private slots:
     void slotControlClicked();
 
 private:
-    bool m_selected;
+    bool    m_selected;
     QString m_originalStyle;
 };
 

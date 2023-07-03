@@ -24,9 +24,9 @@
 Function_Stub::Function_Stub(Doc *doc)
     : Function(doc, Function::Type(0xDEADBEEF))
 {
-    m_writeCalls = 0;
-    m_preRunCalls = 0;
-    m_postRunCalls = 0;
+    m_writeCalls           = 0;
+    m_preRunCalls          = 0;
+    m_postRunCalls         = 0;
     m_slotFixtureRemovedId = Fixture::invalidId();
 }
 

@@ -46,17 +46,17 @@
 
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
 
-#define KColumnNumber 0
-#define KColumnName 1
-#define KColumnMode 2
-#define KColumnReverse 3
+#define KColumnNumber      0
+#define KColumnName        1
+#define KColumnMode        2
+#define KColumnReverse     3
 #define KColumnStartOffset 4
 
-#define PROPERTY_FIXTURE "fixture"
+#define PROPERTY_FIXTURE   "fixture"
 #define UI_STATE_TAB_INDEX "tabIndex"
 #define UI_STATE_SHOW_DIAL "showDial"
 
-#define KTabGeneral 0
+#define KTabGeneral  0
 #define KTabMovement 1
 
 /*****************************************************************************
@@ -371,8 +371,8 @@ QTreeWidgetItem *EFXEditor::fixtureItem(EFXFixture *ef)
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
     {
-        QTreeWidgetItem *item = *it;
-        EFXFixture *ef_item = reinterpret_cast<EFXFixture *>(item->data(0, Qt::UserRole).toULongLong());
+        QTreeWidgetItem *item    = *it;
+        EFXFixture      *ef_item = reinterpret_cast<EFXFixture *>(item->data(0, Qt::UserRole).toULongLong());
         if (ef_item == ef)
             return item;
         ++it;
@@ -384,7 +384,7 @@ QTreeWidgetItem *EFXEditor::fixtureItem(EFXFixture *ef)
 const QList<EFXFixture *> EFXEditor::selectedFixtures() const
 {
     QListIterator<QTreeWidgetItem *> it(m_tree->selectedItems());
-    QList<EFXFixture *> list;
+    QList<EFXFixture *>              list;
 
     /* Put all selected fixture IDs to a list and return it */
     while (it.hasNext() == true)
@@ -410,7 +410,7 @@ void EFXEditor::updateIndices(int from, int to)
 void EFXEditor::addFixtureItem(EFXFixture *ef)
 {
     QTreeWidgetItem *item;
-    Fixture *fxi;
+    Fixture         *fxi;
 
     Q_ASSERT(ef != NULL);
 
@@ -486,7 +486,7 @@ void EFXEditor::updateStartOffsetColumn(QTreeWidgetItem *item, EFXFixture *ef)
 void EFXEditor::removeFixtureItem(EFXFixture *ef)
 {
     QTreeWidgetItem *item;
-    int from;
+    int              from;
 
     Q_ASSERT(ef != NULL);
 
@@ -612,7 +612,7 @@ void EFXEditor::slotAddFixtureClicked()
 
     /* Put all fixtures already present into a list of fixtures that
        will be disabled in the fixture selection dialog */
-    QList<GroupHead> disabled;
+    QList<GroupHead>        disabled;
     QTreeWidgetItemIterator twit(m_tree);
     /*
     while (*twit != NULL)

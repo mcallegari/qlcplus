@@ -199,7 +199,7 @@ void CueStack::replaceCue(int index, const Cue &cue)
         if (index >= 0 && index < m_cues.size())
         {
             m_cues[index] = cue;
-            cueChanged = true;
+            cueChanged    = true;
         }
     }
 
@@ -450,14 +450,14 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             {
                 it.next();
                 FadeChannel fc(doc(), Fixture::invalidId(), it.key());
-                quint32 universe = fc.universe();
+                quint32     universe = fc.universe();
                 if (universe == Universe::invalid())
                     continue;
 
                 QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
-                    fader = ua[universe]->requestFader();
+                    fader                 = ua[universe]->requestFader();
                     m_fadersMap[universe] = fader;
                 }
 
@@ -473,8 +473,8 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe *> ua)
         while (it.hasNext() == true)
         {
             it.next();
-            quint32 universe = it.key();
-            QSharedPointer<GenericFader> fader = it.value();
+            quint32                      universe = it.key();
+            QSharedPointer<GenericFader> fader    = it.value();
             if (!fader.isNull())
                 ua[universe]->dismissFader(fader);
         }
@@ -510,8 +510,8 @@ void CueStack::write(QList<Universe *> ua)
     {
         // previousCue() was requested by user
         m_elapsed = 0;
-        int from = m_currentIndex;
-        int to = previous();
+        int from  = m_currentIndex;
+        int to    = previous();
         switchCue(from, to, ua);
         m_previous = false;
         emit currentCueChanged(m_currentIndex);
@@ -520,8 +520,8 @@ void CueStack::write(QList<Universe *> ua)
     {
         // nextCue() was requested by user
         m_elapsed = 0;
-        int from = m_currentIndex;
-        int to = next();
+        int from  = m_currentIndex;
+        int to    = next();
         switchCue(from, to, ua);
         m_next = false;
         emit currentCueChanged(m_currentIndex);
@@ -555,8 +555,8 @@ void CueStack::postRun(MasterTimer *timer, QList<Universe *> ua)
         while (it.hasNext() == true)
         {
             it.next();
-            quint32 universe = it.key();
-            QSharedPointer<GenericFader> fader = it.value();
+            quint32                      universe = it.key();
+            QSharedPointer<GenericFader> fader    = it.value();
             if (!fader.isNull())
                 ua[universe]->dismissFader(fader);
         }
@@ -653,9 +653,9 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     while (oldit.hasNext() == true)
     {
         oldit.next();
-        uint absChannel = oldit.key();
-        quint32 universe = (absChannel >> 9);
-        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
+        uint         absChannel = oldit.key();
+        quint32      universe   = (absChannel >> 9);
+        FadeChannel *fc         = getFader(ua, universe, Fixture::invalidId(), absChannel);
 
         if (fc->flags() & FadeChannel::Intensity)
             updateFaderValues(fc, 0, oldCue.fadeOutSpeed());
@@ -666,9 +666,9 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     while (newit.hasNext() == true)
     {
         newit.next();
-        uint absChannel = newit.key();
-        quint32 universe = (absChannel >> 9);
-        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
+        uint         absChannel = newit.key();
+        quint32      universe   = (absChannel >> 9);
+        FadeChannel *fc         = getFader(ua, universe, Fixture::invalidId(), absChannel);
         updateFaderValues(fc, newit.value(), newCue.fadeInSpeed());
     }
 }

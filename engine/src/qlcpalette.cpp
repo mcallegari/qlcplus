@@ -28,13 +28,13 @@
 #include "scenevalue.h"
 #include "doc.h"
 
-#define KXMLQLCPaletteType "Type"
-#define KXMLQLCPaletteName "Name"
-#define KXMLQLCPaletteValue "Value"
-#define KXMLQLCPaletteFanning "Fan"
+#define KXMLQLCPaletteType      "Type"
+#define KXMLQLCPaletteName      "Name"
+#define KXMLQLCPaletteValue     "Value"
+#define KXMLQLCPaletteFanning   "Fan"
 #define KXMLQLCPaletteFanLayout "Layout"
 #define KXMLQLCPaletteFanAmount "Amount"
-#define KXMLQLCPaletteFanValue "FanValue"
+#define KXMLQLCPaletteFanValue  "FanValue"
 
 QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
     : QObject(parent)
@@ -133,7 +133,7 @@ QLCPalette::PaletteType QLCPalette::stringToType(const QString &str)
 QString QLCPalette::iconResource(bool svg) const
 {
     QString prefix = svg ? "qrc" : "";
-    QString ext = svg ? "svg" : "png";
+    QString ext    = svg ? "svg" : "png";
 
     switch (type())
     {
@@ -256,13 +256,13 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
 {
     QList<SceneValue> list;
 
-    int fxCount = fixtures.count();
+    int                fxCount     = fixtures.count();
     // normalized progress in [ 0.0, 1.0 ] range
-    qreal progress = 0.0;
-    int intFanValue = fanningValue().toInt();
-    FanningType fType = fanningType();
-    FanningLayout fLayout = fanningLayout();
-    MonitorProperties *mProps = doc->monitorProperties();
+    qreal              progress    = 0.0;
+    int                intFanValue = fanningValue().toInt();
+    FanningType        fType       = fanningType();
+    FanningLayout      fLayout     = fanningLayout();
+    MonitorProperties *mProps      = doc->monitorProperties();
 
     // sort the fixtures list based on selected layout
     std::sort(fixtures.begin(), fixtures.end(),
@@ -302,8 +302,8 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
         {
             case Dimmer:
             {
-                int dValue = value().toInt();
-                quint32 intCh = fixture->type() == QLCFixtureDef::Dimmer ? 0 : fixture->masterIntensityChannel();
+                int     dValue = value().toInt();
+                quint32 intCh  = fixture->type() == QLCFixtureDef::Dimmer ? 0 : fixture->masterIntensityChannel();
 
                 if (intCh != QLCChannel::invalid())
                 {
@@ -317,14 +317,14 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             case Color:
             {
                 QColor startColor = value().value<QColor>();
-                QColor col = startColor;
+                QColor col        = startColor;
 
                 if (fType != Flat)
                 {
                     QColor endColor = fanningValue().value<QColor>();
-                    qreal rDelta = endColor.red() - startColor.red();
-                    qreal gDelta = endColor.green() - startColor.green();
-                    qreal bDelta = endColor.blue() - startColor.blue();
+                    qreal  rDelta   = endColor.red() - startColor.red();
+                    qreal  gDelta   = endColor.green() - startColor.green();
+                    qreal  bDelta   = endColor.blue() - startColor.blue();
                     col.setRed(startColor.red() + qRound(rDelta * factor));
                     col.setGreen(startColor.green() + qRound(gDelta * factor));
                     col.setBlue(startColor.blue() + qRound(bDelta * factor));
@@ -373,12 +373,12 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             {
                 if (m_values.count() == 2)
                 {
-                    int panDegrees = m_values.at(0).toInt();
+                    int panDegrees  = m_values.at(0).toInt();
                     int tiltDegrees = m_values.at(1).toInt();
 
                     if (fType != Flat)
                     {
-                        panDegrees = int((qreal(panDegrees) + qreal(intFanValue) * factor));
+                        panDegrees  = int((qreal(panDegrees) + qreal(intFanValue) * factor));
                         tiltDegrees = int((qreal(tiltDegrees) + qreal(intFanValue) * factor));
                     }
 
@@ -429,7 +429,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> g
 
 qreal QLCPalette::valueFactor(qreal progress)
 {
-    qreal factor = 1.0;
+    qreal factor           = 1.0;
     qreal normalizedAmount = qreal(m_fanningAmount) / 100.0;
 
     switch (m_fanningType)
@@ -459,7 +459,7 @@ qreal QLCPalette::valueFactor(qreal progress)
         case Sine:
         {
             qreal degrees = (progress * 360.0) + 270.0;
-            factor = (qSin(normalizedAmount * qDegreesToRadians(degrees)) + 1.0) / 2.0;
+            factor        = (qSin(normalizedAmount * qDegreesToRadians(degrees)) + 1.0) / 2.0;
         }
         break;
         case Square:
@@ -684,7 +684,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
 
     QXmlStreamAttributes attrs = doc.attributes();
 
-    bool ok = false;
+    bool    ok = false;
     quint32 id = attrs.value(KXMLQLCPaletteID).toString().toUInt(&ok);
     if (ok == false)
     {

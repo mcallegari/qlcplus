@@ -37,7 +37,7 @@
 #include "app.h"
 
 #define INPUT_SLIDER_CONTROL_ID 0
-#define INPUT_SLIDER_RESET_ID 1
+#define INPUT_SLIDER_RESET_ID   1
 
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
@@ -611,8 +611,8 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
         return;
 
     // QString type = itemData.at(1).toString();
-    quint32 itemID = itemData.at(2).toUInt();
-    quint32 chIndex = itemData.at(4).toUInt();
+    quint32 itemID    = itemData.at(2).toUInt();
+    quint32 chIndex   = itemData.at(4).toUInt();
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
 
     if (value.toInt() == 0)
@@ -701,7 +701,7 @@ QVariantList VCSlider::clickAndGoPresetsList()
         if (fixture == nullptr)
             continue;
 
-        const QLCFixtureDef *def = fixture->fixtureDef();
+        const QLCFixtureDef  *def  = fixture->fixtureDef();
         const QLCFixtureMode *mode = fixture->fixtureMode();
 
         if (def == nullptr || mode == nullptr)
@@ -731,7 +731,7 @@ QString VCSlider::cngPresetResource() const
 
 void VCSlider::setClickAndGoColors(QColor rgb, QColor wauv)
 {
-    m_cngPrimaryColor = rgb;
+    m_cngPrimaryColor   = rgb;
     m_cngSecondaryColor = wauv;
 
     setValue(128, true, true);
@@ -770,16 +770,16 @@ void VCSlider::updateClickAndGoResource()
             }
             else if (cap->presetType() == QLCCapability::SingleColor)
             {
-                m_cngResource = QString();
-                m_cngPrimaryColor = cap->resource(0).value<QColor>();
+                m_cngResource       = QString();
+                m_cngPrimaryColor   = cap->resource(0).value<QColor>();
                 m_cngSecondaryColor = QColor();
                 emit cngPrimaryColorChanged(m_cngPrimaryColor);
                 emit cngSecondaryColorChanged(QColor());
             }
             else if (cap->presetType() == QLCCapability::DoubleColor)
             {
-                m_cngResource = QString();
-                m_cngPrimaryColor = cap->resource(0).value<QColor>();
+                m_cngResource       = QString();
+                m_cngPrimaryColor   = cap->resource(0).value<QColor>();
                 m_cngSecondaryColor = cap->resource(1).value<QColor>();
                 emit cngPrimaryColorChanged(m_cngPrimaryColor);
                 emit cngSecondaryColorChanged(m_cngSecondaryColor);
@@ -834,7 +834,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         connect(function, SIGNAL(attributeChanged(int, qreal)), this,
                 SLOT(slotControlledFunctionAttributeChanged(int, qreal)));
 
-        m_controlledFunctionId = fid;
+        m_controlledFunctionId     = fid;
         m_controlledAttributeIndex = Function::Intensity;
 
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
@@ -923,7 +923,7 @@ void VCSlider::setControlledAttribute(int attributeIndex)
                                       attributeIndex);
 
     m_controlledAttributeIndex = attributeIndex;
-    qreal newValue = 0;
+    qreal newValue             = 0;
 
     // normalize intensity to 0-255 since Slider / Spin boxes step is an integer
     if (m_controlledAttributeIndex == Function::Intensity)
@@ -935,7 +935,7 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     {
         m_attributeMinValue = function->attributes().at(m_controlledAttributeIndex).m_min;
         m_attributeMaxValue = function->attributes().at(m_controlledAttributeIndex).m_max;
-        newValue = function->getAttributeValue(m_controlledAttributeIndex);
+        newValue            = function->getAttributeValue(m_controlledAttributeIndex);
     }
 
     setRangeLowLimit(m_attributeMinValue);
@@ -1049,24 +1049,24 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
         if ((uchar)f != 0)
         {
             QColor modColor = m_cngPrimaryColor.lighter((uchar)f);
-            r = modColor.red();
-            g = modColor.green();
-            b = modColor.blue();
-            c = modColor.cyan();
-            m = modColor.magenta();
-            y = modColor.yellow();
+            r               = modColor.red();
+            g               = modColor.green();
+            b               = modColor.blue();
+            c               = modColor.cyan();
+            m               = modColor.magenta();
+            y               = modColor.yellow();
 
             modColor = m_cngSecondaryColor.lighter((uchar)f);
-            w = modColor.red();
-            a = modColor.green();
-            uv = modColor.blue();
+            w        = modColor.red();
+            a        = modColor.green();
+            uv       = modColor.blue();
         }
     }
 
     if (m_monitorEnabled == true && m_levelValueChanged == false)
     {
-        bool mixedDMXlevels = false;
-        int monitorSliderValue = -1;
+        bool mixedDMXlevels     = false;
+        int  monitorSliderValue = -1;
 
         for (SceneValue scv : m_levelChannels)
         {
@@ -1078,7 +1078,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
                     continue;
 
                 quint32 dmx_ch = fxi->address() + scv.channel;
-                int uni = fxi->universe();
+                int     uni    = fxi->universe();
                 if (uni < universes.count())
                 {
                     uchar chValue = universes[uni]->preGMValue(dmx_ch);
@@ -1258,7 +1258,7 @@ void VCSlider::writeDMXAdjust(MasterTimer *timer, QList<Universe *> ua)
 void VCSlider::updateFeedback()
 {
     int fbv = invertedAppearance() ? rangeHighLimit() - m_value : m_value;
-    fbv = int(SCALE(float(fbv), float(rangeLowLimit()), float(rangeHighLimit()), float(0), float(UCHAR_MAX)));
+    fbv     = int(SCALE(float(fbv), float(rangeLowLimit()), float(rangeHighLimit()), float(0), float(UCHAR_MAX)));
 
     sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
 }
@@ -1290,7 +1290,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
     }
 
     QString str;
-    bool enableMonitoring = false;
+    bool    enableMonitoring = false;
 
     /* Widget commons */
     loadXMLCommon(root);
@@ -1311,7 +1311,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
-            int x = 0, y = 0, w = 0, h = 0;
+            int  x = 0, y = 0, w = 0, h = 0;
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(QRect(x, y, w, h));
         }

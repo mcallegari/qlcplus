@@ -47,13 +47,13 @@ VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget *parent, QList<VCXYPadFixture
         if (fxi.displayMode() == VCXYPadFixture::DMX)
         {
             m_maxXVal = m_maxYVal = 255;
-            units = "";
+            units                 = "";
         }
         else if (fxi.displayMode() == VCXYPadFixture::Degrees)
         {
             m_maxXVal = fxi.degreesRange().width();
             m_maxYVal = fxi.degreesRange().height();
-            units = "°";
+            units     = "°";
         }
 
         m_xMax->setMaximum(m_maxXVal);

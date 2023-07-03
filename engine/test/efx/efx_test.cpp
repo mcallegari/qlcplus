@@ -2058,7 +2058,7 @@ void EFX_Test::previewLissajousBackwards()
 void EFX_Test::widthHeightOffset()
 {
     EFX e(m_doc);
-    int i = 0;
+    int i   = 0;
     int max = 0;
 
     QPolygonF poly;
@@ -2341,7 +2341,7 @@ void EFX_Test::copyFrom()
     e1.addFixture(ef2);
 
     /* Verify that EFX contents are copied */
-    EFX e2(m_doc);
+    EFX        e2(m_doc);
     QSignalSpy spy(&e2, SIGNAL(changed(quint32)));
     QVERIFY(e2.copyFrom(&e1) == true);
     QCOMPARE(spy.size(), 1);
@@ -2946,7 +2946,7 @@ void EFX_Test::save()
 
     bool dir = false, off = false, run = false, algo = false, w = false, h = false, rot = false, isRelative = false,
          xoff = false, yoff = false, xfreq = false, yfreq = false, xpha = false, ypha = false, prop = false, speed = false;
-    int fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
+    int            fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList<QString> fixtures;
 
     while (xmlReader.readNextStartElement())
@@ -3068,10 +3068,10 @@ void EFX_Test::save()
         }
         else if (xmlReader.name().toString() == "Fixture")
         {
-            int expectHead = 0;
-            bool expectBackward = false;
-            int expectedMode = 0;
-            int expectStartOffset = 0;
+            int  expectHead        = 0;
+            bool expectBackward    = false;
+            int  expectedMode      = 0;
+            int  expectStartOffset = 0;
 
             while (xmlReader.readNextStartElement())
             {
@@ -3085,20 +3085,20 @@ void EFX_Test::save()
 
                     if (text == "34")
                     {
-                        expectHead = 5;
-                        expectBackward = true;
+                        expectHead        = 5;
+                        expectBackward    = true;
                         expectStartOffset = 27;
                     }
                     else if (text == "12")
                     {
-                        expectHead = 3;
-                        expectBackward = false;
+                        expectHead        = 3;
+                        expectBackward    = false;
                         expectStartOffset = 0;
                     }
                     else
                     {
-                        expectHead = 7;
-                        expectBackward = false;
+                        expectHead        = 7;
+                        expectBackward    = false;
                         expectStartOffset = 0;
                     }
 

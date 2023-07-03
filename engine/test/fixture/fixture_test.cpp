@@ -312,7 +312,7 @@ void Fixture_Test::rgbPanel()
 {
     Fixture fxi(this);
     fxi.setName("RGB Panel");
-    QLCFixtureDef *rowDef = fxi.genericRGBPanelDef(10, Fixture::RGBW);
+    QLCFixtureDef  *rowDef  = fxi.genericRGBPanelDef(10, Fixture::RGBW);
     QLCFixtureMode *rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGBW, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
@@ -338,7 +338,7 @@ void Fixture_Test::rgbPanel()
     QVERIFY(fxi.fixtureMode()->physical().depth() == 100);
     QVERIFY(fxi.fixtureMode()->heads().count() == 10);
 
-    rowDef = fxi.genericRGBPanelDef(10, Fixture::RGB);
+    rowDef  = fxi.genericRGBPanelDef(10, Fixture::RGB);
     rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGB, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
@@ -356,7 +356,7 @@ void Fixture_Test::rgbPanel()
     QVERIFY(fxi.channel(2)->colour() == QLCChannel::Blue);
     QVERIFY(fxi.channel(2)->name() == "Blue 1");
 
-    rowDef = fxi.genericRGBPanelDef(10, Fixture::RBG);
+    rowDef  = fxi.genericRGBPanelDef(10, Fixture::RBG);
     rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RBG, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
@@ -374,7 +374,7 @@ void Fixture_Test::rgbPanel()
     QVERIFY(fxi.channel(2)->colour() == QLCChannel::Green);
     QVERIFY(fxi.channel(2)->name() == "Green 1");
 
-    rowDef = fxi.genericRGBPanelDef(10, Fixture::BGR);
+    rowDef  = fxi.genericRGBPanelDef(10, Fixture::BGR);
     rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::BGR, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
@@ -392,7 +392,7 @@ void Fixture_Test::rgbPanel()
     QVERIFY(fxi.channel(2)->colour() == QLCChannel::Red);
     QVERIFY(fxi.channel(2)->name() == "Red 1");
 
-    rowDef = fxi.genericRGBPanelDef(10, Fixture::BRG);
+    rowDef  = fxi.genericRGBPanelDef(10, Fixture::BRG);
     rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::BRG, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
@@ -410,7 +410,7 @@ void Fixture_Test::rgbPanel()
     QVERIFY(fxi.channel(2)->colour() == QLCChannel::Green);
     QVERIFY(fxi.channel(2)->name() == "Green 1");
 
-    rowDef = fxi.genericRGBPanelDef(10, Fixture::GBR);
+    rowDef  = fxi.genericRGBPanelDef(10, Fixture::GBR);
     rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::GBR, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
@@ -428,7 +428,7 @@ void Fixture_Test::rgbPanel()
     QVERIFY(fxi.channel(2)->colour() == QLCChannel::Red);
     QVERIFY(fxi.channel(2)->name() == "Red 1");
 
-    rowDef = fxi.genericRGBPanelDef(10, Fixture::GRB);
+    rowDef  = fxi.genericRGBPanelDef(10, Fixture::GRB);
     rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::GRB, 1000, 100);
     fxi.setFixtureDefinition(rowDef, rowMode);
 
@@ -502,7 +502,7 @@ void Fixture_Test::fixtureDef()
 
 void Fixture_Test::channels()
 {
-    Fixture fxi(this);
+    Fixture        fxi(this);
     QLCFixtureDef *fixtureDef = m_doc->fixtureDefCache()->fixtureDef("i-Pix", "BB4");
     QVERIFY(fixtureDef != NULL);
     QLCFixtureMode *fixtureMode = fixtureDef->modes().last();

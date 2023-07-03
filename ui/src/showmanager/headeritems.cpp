@@ -84,7 +84,7 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
                 else
                 {
                     int tmpMin = tmpSec / 60;
-                    tmpSec = tmpSec - (tmpMin * 60);
+                    tmpSec     = tmpSec - (tmpMin * 60);
                     painter->drawText(xpos - 4, 15, QString("%1m%2s").arg(tmpMin).arg(tmpSec));
                 }
             }
@@ -129,7 +129,7 @@ void ShowHeaderItem::setTimeDivisionType(ShowHeaderItem::TimeDivision type)
     if (m_type == Time)
     {
         m_timeStep = HALF_SECOND_WIDTH;
-        m_timeHit = 2;
+        m_timeHit  = 2;
     }
     else
     {

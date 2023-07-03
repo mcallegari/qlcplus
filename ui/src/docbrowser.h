@@ -76,8 +76,8 @@ private slots:
 
 private:
     static DocBrowser *s_instance;
-    QLCTextBrowser *m_browser;
-    QToolBar *m_toolbar;
+    QLCTextBrowser    *m_browser;
+    QToolBar          *m_toolbar;
 
     QAction *m_backwardAction;
     QAction *m_forwardAction;

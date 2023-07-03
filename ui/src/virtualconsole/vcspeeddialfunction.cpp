@@ -26,7 +26,7 @@
 #include "doc.h"
 
 #define KXMLQLCSequenceSceneValues "Values"
-#define KXMLQLCStepNote "Note"
+#define KXMLQLCStepNote            "Note"
 
 VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut,
                                          SpeedMultiplier aDuration)
@@ -47,7 +47,7 @@ bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeI
     }
 
     QXmlStreamAttributes attrs = root.attributes();
-    QString text = root.readElementText();
+    QString              text  = root.readElementText();
     if (text.isEmpty())
     {
         qWarning() << Q_FUNC_INFO << "Function ID not found";

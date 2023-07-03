@@ -156,7 +156,7 @@ signals:
 private:
     QString m_name;
 
-    uchar m_masterValue;
+    uchar             m_masterValue;
     QList<SceneValue> m_channels;
 
     QSharedPointer<QLCInputSource> m_input;

@@ -92,25 +92,25 @@ public:
 
     /** Get/Set the grid width/height */
     QSize gridSize() const;
-    void setGridSize(QVector3D sz);
+    void  setGridSize(QVector3D sz);
 
     /** Get/Set the grid position in pixels */
     QPoint gridPosition() const;
-    void setGridPosition(QPoint pos);
+    void   setGridPosition(QPoint pos);
 
     /** Get/Set the grid measurement units */
-    int gridUnits() const;
+    int  gridUnits() const;
     void setGridUnits(int units);
 
     /** Get/Set a temporary value of scaling */
     qreal gridScale() const;
-    void setGridScale(qreal gridScale);
+    void  setGridScale(qreal gridScale);
 
     qreal cellPixels() const;
-    void setCellPixels(qreal cellPixels);
+    void  setCellPixels(qreal cellPixels);
 
     /** Get/Set the 2D grid point of view */
-    int pointOfView() const;
+    int  pointOfView() const;
     void setPointOfView(int pointOfView);
 
 protected:
@@ -140,7 +140,7 @@ private:
     MonitorProperties *m_monProps;
 
     /** Size of the grid. How many horizontal and vertical cells */
-    QSize m_gridSize;
+    QSize  m_gridSize;
     /** X/Y offset of the grid (in pixels) to keep it centered */
     QPoint m_gridPosition;
 

@@ -116,7 +116,7 @@ public:
     bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
-    int m_apiVersion;           //! The API version that the script uses
+    int      m_apiVersion;      //! The API version that the script uses
     QJSValue m_script;          //! The script itself
     QJSValue m_rgbMap;          //! rgbMap() function
     QJSValue m_rgbMapStepCount; //! rgbMapStepCount() function

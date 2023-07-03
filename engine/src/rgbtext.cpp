@@ -26,12 +26,12 @@
 
 #include "rgbtext.h"
 
-#define KXMLQLCRGBTextContent QString("Content")
-#define KXMLQLCRGBTextFont QString("Font")
+#define KXMLQLCRGBTextContent        QString("Content")
+#define KXMLQLCRGBTextFont           QString("Font")
 #define KXMLQLCRGBTextAnimationStyle QString("Animation")
-#define KXMLQLCRGBTextOffset QString("Offset")
-#define KXMLQLCRGBTextOffsetX QString("X")
-#define KXMLQLCRGBTextOffsetY QString("Y")
+#define KXMLQLCRGBTextOffset         QString("Offset")
+#define KXMLQLCRGBTextOffsetX        QString("X")
+#define KXMLQLCRGBTextOffsetY        QString("Y")
 
 RGBText::RGBText(Doc *doc)
     : RGBAlgorithm(doc)
@@ -187,7 +187,7 @@ void RGBText::renderScrollingText(const QSize &size, uint rgb, int step, RGBMap 
     if (animationStyle() == Vertical)
     {
         QFontMetrics fm(m_font);
-        QRect rect(0, 0, image.width(), image.height());
+        QRect        rect(0, 0, image.width(), image.height());
 
         for (int i = 0; i < m_text.length(); i++)
         {
@@ -320,7 +320,7 @@ bool RGBText::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCRGBTextFont)
         {
-            QFont font;
+            QFont   font;
             QString fontName = root.readElementText();
             if (font.fromString(fontName) == true)
                 setFont(font);
@@ -333,21 +333,21 @@ bool RGBText::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCRGBTextOffset)
         {
-            QString str;
-            int value;
-            bool ok;
+            QString              str;
+            int                  value;
+            bool                 ok;
             QXmlStreamAttributes attrs = root.attributes();
 
-            str = attrs.value(KXMLQLCRGBTextOffsetX).toString();
-            ok = false;
+            str   = attrs.value(KXMLQLCRGBTextOffsetX).toString();
+            ok    = false;
             value = str.toInt(&ok);
             if (ok == true)
                 setXOffset(value);
             else
                 qWarning() << Q_FUNC_INFO << "Invalid X offset:" << str;
 
-            str = attrs.value(KXMLQLCRGBTextOffsetY).toString();
-            ok = false;
+            str   = attrs.value(KXMLQLCRGBTextOffsetY).toString();
+            ok    = false;
             value = str.toInt(&ok);
             if (ok == true)
                 setYOffset(value);

@@ -43,9 +43,9 @@ public:
 
 private:
     MasterTimer *m_masterTimer;
-    UINT m_systemTimerResolution;
-    HANDLE m_phTimer;
-    bool m_run;
+    UINT         m_systemTimerResolution;
+    HANDLE       m_phTimer;
+    bool         m_run;
 };
 
 /** @} */

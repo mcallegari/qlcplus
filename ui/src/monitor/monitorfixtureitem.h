@@ -63,22 +63,22 @@ struct FixtureHead
     /*! map channel -> array of 256 bool values
      */
     QHash<quint32, QList<ShutterState>> m_shutterValues;
-    QColor m_color;
-    uchar m_dimmerValue;
-    ShutterState m_shutterState;
-    int m_strobePhase;
-    QTimer *m_strobeTimer;
+    QColor                              m_color;
+    uchar                               m_dimmerValue;
+    ShutterState                        m_shutterState;
+    int                                 m_strobePhase;
+    QTimer                             *m_strobeTimer;
 
     quint32 m_dimmer;
     quint32 m_masterDimmer;
     quint32 m_panChannel;
-    int m_panMaxDegrees;
-    qreal m_panDegrees;
-    QColor m_panColor;
+    int     m_panMaxDegrees;
+    qreal   m_panDegrees;
+    QColor  m_panColor;
     quint32 m_tiltChannel;
-    int m_tiltMaxDegrees;
-    qreal m_tiltDegrees;
-    QColor m_tiltColor;
+    int     m_tiltMaxDegrees;
+    qreal   m_tiltDegrees;
+    QColor  m_tiltColor;
 };
 
 class MonitorFixtureItem : public QObject, public QGraphicsItem
@@ -144,7 +144,7 @@ protected slots:
 
 protected:
     QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void   paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
@@ -154,8 +154,8 @@ private:
     void computeTiltPosition(FixtureHead *h, uchar value);
     void computePanPosition(FixtureHead *h, uchar value);
 
-    QColor computeColor(const FixtureHead *head, const QByteArray &values);
-    uchar computeAlpha(const FixtureHead *head, const QByteArray &values);
+    QColor                    computeColor(const FixtureHead *head, const QByteArray &values);
+    uchar                     computeAlpha(const FixtureHead *head, const QByteArray &values);
     FixtureHead::ShutterState computeShutter(const FixtureHead *head, const QByteArray &values);
 
 signals:

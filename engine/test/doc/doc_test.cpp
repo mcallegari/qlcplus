@@ -154,7 +154,7 @@ void Doc_Test::createFixtureId()
 {
     for (quint32 i = 0; i < 16384; i++)
     {
-        quint32 id = m_doc->createFixtureId();
+        quint32 id           = m_doc->createFixtureId();
         m_doc->m_fixtures[i] = new Fixture(m_doc);
         m_doc->m_fixtures[i]->setID(id);
         QCOMPARE(id, i);
@@ -273,7 +273,7 @@ void Doc_Test::deleteFixture()
     QVERIFY(m_doc->isModified() == false);
 
     // Existing ID
-    quint32 id = f2->id();
+    quint32           id = f2->id();
     QPointer<Fixture> f2ptr(f2);
     QVERIFY(f2ptr != NULL);
     QVERIFY(m_doc->deleteFixture(id) == true);
@@ -597,7 +597,7 @@ void Doc_Test::channelGroups()
 
     QVERIFY(m_doc->channelsGroups().count() == 0);
 
-    ChannelsGroup *group = new ChannelsGroup(m_doc);
+    ChannelsGroup *group  = new ChannelsGroup(m_doc);
     ChannelsGroup *group2 = new ChannelsGroup(m_doc);
     ChannelsGroup *group3 = new ChannelsGroup(m_doc);
 
@@ -868,7 +868,7 @@ void Doc_Test::usage()
     m_doc->addFunction(s5);
     QVERIFY(m_doc->functions().count() == 5);
 
-    Chaser *c1 = new Chaser(m_doc);
+    Chaser    *c1 = new Chaser(m_doc);
     ChaserStep cs1(s1->id());
     ChaserStep cs2(s5->id());
     c1->addStep(cs1);

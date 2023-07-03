@@ -54,9 +54,9 @@ protected slots:
     void slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode);
 
 protected:
-    QLabel *m_valueLabel;
-    QSlider *m_slider;
-    QLabel *m_nameLabel;
+    QLabel         *m_valueLabel;
+    QSlider        *m_slider;
+    QLabel         *m_nameLabel;
     InputOutputMap *m_ioMap;
 
     /*************************************************************************

@@ -41,7 +41,7 @@ public:
 
     /** Get/Set the widgets scale factor currently applied to this VC page */
     qreal pageScale() const;
-    void setPageScale(qreal factor);
+    void  setPageScale(qreal factor);
 
 private:
     /** Reference to a PreviewContext, registered to the Context Manager */

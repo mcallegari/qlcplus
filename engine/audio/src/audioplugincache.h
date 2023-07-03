@@ -64,7 +64,7 @@ public:
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QAudioDeviceInfo getOutputDeviceInfo(QString devName) const;
 #else
-    QAudioDevice getOutputDeviceInfo(QString devName) const;
+    QAudioDevice        getOutputDeviceInfo(QString devName) const;
 #endif
 
 private:

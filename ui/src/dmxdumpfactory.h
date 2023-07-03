@@ -50,13 +50,13 @@ protected slots:
 
 protected:
     QList<VCWidget *> getChildren(VCWidget *obj, int type);
-    void updateWidgetsTree(int type);
+    void              updateWidgetsTree(int type);
 
 private:
-    Doc *m_doc;
-    FixtureTreeWidget *m_fixturesTree;
+    Doc                      *m_doc;
+    FixtureTreeWidget        *m_fixturesTree;
     DmxDumpFactoryProperties *m_properties;
-    quint32 m_selectedSceneID;
+    quint32                   m_selectedSceneID;
 
 protected slots:
     void slotDumpModeChanged(bool mode);

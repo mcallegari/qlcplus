@@ -98,13 +98,13 @@ void MasterTimerPrivate::run()
 
     /* Allocate all the memory at the start so we don't waste any time */
 #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
-    mach_timespec_t *finish = static_cast<mach_timespec_t *>(malloc(sizeof(mach_timespec_t)));
+    mach_timespec_t *finish  = static_cast<mach_timespec_t *>(malloc(sizeof(mach_timespec_t)));
     mach_timespec_t *current = static_cast<mach_timespec_t *>(malloc(sizeof(mach_timespec_t)));
 #else
-    struct timespec *finish = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
+    struct timespec *finish  = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
     struct timespec *current = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
 #endif
-    struct timespec *sleepTime = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
+    struct timespec *sleepTime     = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
     struct timespec *remainingTime = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
 
     sleepTime->tv_sec = 0;
@@ -113,7 +113,7 @@ void MasterTimerPrivate::run()
 #if defined(Q_OS_OSX) || defined(Q_OS_IOS)
     ret = clock_get_time(cclock, finish);
 #else
-    ret = clock_gettime(CLOCK_MONOTONIC, finish);
+    ret                      = clock_gettime(CLOCK_MONOTONIC, finish);
 #endif
     if (ret == -1)
     {
@@ -178,7 +178,7 @@ void MasterTimerPrivate::run()
         while (ret == -1 && sleepTime->tv_nsec > 100)
         {
             sleepTime->tv_nsec = remainingTime->tv_nsec;
-            ret = nanosleep(sleepTime, remainingTime);
+            ret                = nanosleep(sleepTime, remainingTime);
         }
 
 #if 0

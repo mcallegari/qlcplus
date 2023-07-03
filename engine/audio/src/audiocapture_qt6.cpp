@@ -40,8 +40,8 @@ AudioCaptureQt6::~AudioCaptureQt6()
 
 bool AudioCaptureQt6::initialize()
 {
-    QSettings settings;
-    QString devName = "";
+    QSettings    settings;
+    QString      devName     = "";
     QAudioDevice audioDevice = QMediaDevices::defaultAudioInput();
 
     QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
@@ -66,8 +66,8 @@ bool AudioCaptureQt6::initialize()
     if (!audioDevice.isFormatSupported(m_format))
     {
         qWarning() << "Requested format not supported - trying to use nearest";
-        m_format = audioDevice.preferredFormat(); // nearestFormat(m_format);
-        m_channels = m_format.channelCount();
+        m_format     = audioDevice.preferredFormat(); // nearestFormat(m_format);
+        m_channels   = m_format.channelCount();
         m_sampleRate = m_format.sampleRate();
     }
 
@@ -88,7 +88,7 @@ bool AudioCaptureQt6::initialize()
         qWarning() << "Could not start input capture on device" << audioDevice.description();
         delete m_audioSource;
         m_audioSource = NULL;
-        m_input = NULL;
+        m_input       = NULL;
         return false;
     }
 

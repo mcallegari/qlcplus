@@ -76,7 +76,7 @@ private slots:
     void slotNameEdited(const QString &text);
 
 private:
-    Doc *m_doc;
+    Doc    *m_doc;
     Chaser *m_chaser; // The Chaser being edited
 
     /************************************************************************

@@ -75,10 +75,10 @@ public:
 
 private:
     SNDFILE *m_sndfile;
-    int m_bitrate;
-    quint32 m_freq;
-    qint64 m_totalTime;
-    QString m_path;
+    int      m_bitrate;
+    quint32  m_freq;
+    qint64   m_totalTime;
+    QString  m_path;
 };
 
 /** @} */

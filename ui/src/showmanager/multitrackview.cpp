@@ -30,7 +30,7 @@
 #include "multitrackview.h"
 #include "track.h"
 
-#define VIEW_DEFAULT_WIDTH 2000
+#define VIEW_DEFAULT_WIDTH  2000
 #define VIEW_DEFAULT_HEIGHT 600
 
 MultiTrackView::MultiTrackView(QWidget *parent)
@@ -94,7 +94,7 @@ void MultiTrackView::updateTracksDividers()
     if (m_vdivider != NULL)
         m_scene->removeItem(m_vdivider);
 
-    int ypos = 35 + TRACK_HEIGHT;
+    int ypos    = 35 + TRACK_HEIGHT;
     int hDivNum = 6;
     if (m_tracks.count() > 5)
         hDivNum = m_tracks.count();
@@ -123,7 +123,7 @@ void MultiTrackView::setViewSize(int width, int height)
 
 void MultiTrackView::updateViewSize()
 {
-    quint32 gWidth = VIEW_DEFAULT_WIDTH;
+    quint32 gWidth  = VIEW_DEFAULT_WIDTH;
     quint32 gHeight = VIEW_DEFAULT_HEIGHT;
 
     // find leftmost show item
@@ -325,10 +325,10 @@ quint32 MultiTrackView::deleteSelectedItem()
     {
         if (item->isActive() == true)
         {
-            Track *track = item->getTrack();
-            quint32 trackID = track->id();
-            QList<ShowFunction *> sfList = track->showFunctions();
-            QString msg = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
+            Track                *track   = item->getTrack();
+            quint32               trackID = track->id();
+            QList<ShowFunction *> sfList  = track->showFunctions();
+            QString               msg     = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
             if (sfList.count() > 0)
             {
                 msg += QString("\n\n") + tr("This operation will also DELETE:") + QString("\n\n");
@@ -548,11 +548,11 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
 {
     qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     // align to the appropriate track
-    bool moved = true;
-    quint32 s_time = 0;
-    int trackNum = item->getTrackIndex();
-    int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
-    int shift = qAbs(item->getDraggingPos().x() - item->x());
+    bool    moved    = true;
+    quint32 s_time   = 0;
+    int     trackNum = item->getTrackIndex();
+    int     ypos     = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
+    int     shift    = qAbs(item->getDraggingPos().x() - item->x());
 
     if (item->x() < TRACK_WIDTH + 2)
     {
@@ -563,11 +563,11 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
         // qDebug() << "Drag too short (" << shift << "px) not allowed!";
         item->setPos(item->getDraggingPos());
         s_time = item->getStartTime();
-        moved = false;
+        moved  = false;
     }
     else if (m_snapToGrid == true)
     {
-        float step = m_header->getTimeDivisionStep();
+        float step    = m_header->getTimeDivisionStep();
         float gridPos = ((int)(item->x() / step) * step);
         item->setPos(gridPos + 2, ypos);
         s_time = getTimeFromPosition(gridPos);

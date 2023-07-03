@@ -32,7 +32,7 @@
 #include "vcxypadarea.h"
 #include "vcframe.h"
 
-const qreal MAX_VALUE = 256.0;
+const qreal MAX_VALUE     = 256.0;
 const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0 / 256;
 
 /*****************************************************************************
@@ -75,7 +75,7 @@ void VCXYPadArea::setMode(Doc::Mode mode)
 QPointF VCXYPadArea::position(bool resetChanged) const
 {
     QMutexLocker locker(&m_mutex);
-    QPointF pos(m_dmxPos);
+    QPointF      pos(m_dmxPos);
     if (resetChanged)
         m_changed = false;
     return pos;
@@ -167,8 +167,8 @@ QString VCXYPadArea::positionString() const
 
 QString VCXYPadArea::angleString() const
 {
-    QPointF pos = position(false);
-    QRectF range = degreesRange();
+    QPointF pos   = position(false);
+    QRectF  range = degreesRange();
 
     if (range.isValid())
     {
@@ -203,10 +203,10 @@ void VCXYPadArea::setRangeWindow(QRectF rect)
 
 void VCXYPadArea::updateRangeWindow()
 {
-    int x = m_rangeDmxRect.x() * width() / 256;
-    int y = m_rangeDmxRect.y() * height() / 256;
-    int w = m_rangeDmxRect.width() * width() / 256;
-    int h = m_rangeDmxRect.height() * height() / 256;
+    int x             = m_rangeDmxRect.x() * width() / 256;
+    int y             = m_rangeDmxRect.y() * height() / 256;
+    int w             = m_rangeDmxRect.width() * width() / 256;
+    int h             = m_rangeDmxRect.height() * height() / 256;
     m_rangeWindowRect = QRect(x, y, w, h);
 }
 
@@ -278,7 +278,7 @@ void VCXYPadArea::paintEvent(QPaintEvent *e)
     QFrame::paintEvent(e);
 
     QPainter p(this);
-    QPen pen;
+    QPen     pen;
 
     if (m_previewArea == NULL)
     {

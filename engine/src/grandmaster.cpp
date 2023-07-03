@@ -17,12 +17,12 @@
   limitations under the License.
 */
 
-#define KXMLQLCGMValueModeLimit "Limit"
-#define KXMLQLCGMValueModeReduce "Reduce"
+#define KXMLQLCGMValueModeLimit         "Limit"
+#define KXMLQLCGMValueModeReduce        "Reduce"
 #define KXMLQLCGMChannelModeAllChannels "All"
-#define KXMLQLCGMChannelModeIntensity "Intensity"
-#define KXMLQLCGMSliderModeNormal "Normal"
-#define KXMLQLCGMSliderModeInverted "Inverted"
+#define KXMLQLCGMChannelModeIntensity   "Intensity"
+#define KXMLQLCGMSliderModeNormal       "Normal"
+#define KXMLQLCGMSliderModeInverted     "Inverted"
 
 #include <climits>
 
@@ -142,7 +142,7 @@ GrandMaster::ChannelMode GrandMaster::channelMode() const
 
 void GrandMaster::setValue(uchar value)
 {
-    m_value = value;
+    m_value    = value;
     m_fraction = CLAMP(double(value) / double(UCHAR_MAX), 0.0, 1.0);
 
     emit valueChanged(value);

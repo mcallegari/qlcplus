@@ -184,8 +184,8 @@ bool ImportManager::loadXML(QXmlStreamReader &doc)
 
 void ImportManager::getAvailableFixtureAddress(int channels, int &universe, int &address)
 {
-    int freeCounter = 0;
-    quint32 absAddress = (universe << 9) + address;
+    int     freeCounter = 0;
+    quint32 absAddress  = (universe << 9) + address;
 
     while (1)
     {
@@ -197,7 +197,7 @@ void ImportManager::getAvailableFixtureAddress(int channels, int &universe, int 
         if (freeCounter == channels)
         {
             universe = (absAddress >> 9);
-            address = absAddress - (universe * 512) - (channels - 1);
+            address  = absAddress - (universe * 512) - (channels - 1);
             return;
         }
 
@@ -208,12 +208,12 @@ void ImportManager::getAvailableFixtureAddress(int channels, int &universe, int 
 void ImportManager::importFixtures()
 {
     MonitorProperties *importMonProps = m_importDoc->monitorProperties();
-    MonitorProperties *monProps = m_doc->monitorProperties();
+    MonitorProperties *monProps       = m_doc->monitorProperties();
 
     /* ************************ Import fixtures ************************ */
     for (quint32 importID : m_fixtureIDList)
     {
-        bool matchFound = false;
+        bool     matchFound    = false;
         Fixture *importFixture = m_importDoc->fixture(importID);
 
         qDebug() << "Import fixture" << importFixture->name();
@@ -232,7 +232,7 @@ void ImportManager::importFixtures()
                 }
 
                 m_fixtureIDRemap[importID] = docFixture->id();
-                matchFound = true;
+                matchFound                 = true;
                 break;
             }
         }
@@ -243,10 +243,10 @@ void ImportManager::importFixtures()
         {
             // Attempt to preserve original universe/address.
             // Will be checked later if available
-            int uniIdx = importFixture->universe();
+            int uniIdx  = importFixture->universe();
             int address = importFixture->address();
 
-            QLCFixtureDef *importDef = importFixture->fixtureDef();
+            QLCFixtureDef  *importDef  = importFixture->fixtureDef();
             QLCFixtureMode *importMode = importFixture->fixtureMode();
             QLCFixtureDef *fxiDef = m_doc->fixtureDefCache()->fixtureDef(importDef->manufacturer(), importDef->model());
             QLCFixtureMode *fxiMode = nullptr;
@@ -265,7 +265,7 @@ void ImportManager::importFixtures()
             {
                 if (importDef->model() == "Generic")
                 {
-                    fxiDef = fxi->genericDimmerDef(importFixture->channels());
+                    fxiDef  = fxi->genericDimmerDef(importFixture->channels());
                     fxiMode = fxi->genericDimmerMode(fxiDef, importFixture->channels());
                 }
                 else
@@ -293,8 +293,8 @@ void ImportManager::importFixtures()
     /* ******************** Import linked fixtures ********************* */
     for (quint32 itemID : m_itemIDList)
     {
-        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
-        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint32 fixtureID   = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex   = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
         // if no original fixture was selected, skip linked
@@ -310,7 +310,7 @@ void ImportManager::importFixtures()
     /* ********************* Import fixture groups ********************* */
     for (quint32 groupID : m_fixtureGroupIDList)
     {
-        bool matchFound = false;
+        bool          matchFound  = false;
         FixtureGroup *importGroup = m_importDoc->fixtureGroup(groupID);
 
         qDebug() << "Import fixture group" << importGroup->name();
@@ -320,7 +320,7 @@ void ImportManager::importFixtures()
             if (docGroup->name() == importGroup->name())
             {
                 m_fixtureGroupIDRemap[groupID] = docGroup->id();
-                matchFound = true;
+                matchFound                     = true;
                 break;
             }
         }
@@ -333,11 +333,11 @@ void ImportManager::importFixtures()
             newGroup->setName(importGroup->name());
             newGroup->setSize(importGroup->size());
 
-            QMap<QLCPoint, GroupHead> headsMap = importGroup->headsMap();
-            QMap<QLCPoint, GroupHead>::const_iterator i = headsMap.constBegin();
+            QMap<QLCPoint, GroupHead>                 headsMap = importGroup->headsMap();
+            QMap<QLCPoint, GroupHead>::const_iterator i        = headsMap.constBegin();
             while (i != headsMap.constEnd())
             {
-                QLCPoint p = i.key();
+                QLCPoint  p    = i.key();
                 GroupHead head = i.value();
 
                 if (m_fixtureIDList.contains(head.fxi))
@@ -367,7 +367,7 @@ void ImportManager::importPalettes()
     for (quint32 paletteID : m_paletteIDList)
     {
         QLCPalette *importPalette = m_importDoc->palette(paletteID);
-        bool matchFound = false;
+        bool        matchFound    = false;
 
         qDebug() << "Import palette" << importPalette->name();
 
@@ -384,7 +384,7 @@ void ImportManager::importPalettes()
                 }
 
                 m_fixtureIDRemap[paletteID] = docPalette->id();
-                matchFound = true;
+                matchFound                  = true;
                 break;
             }
         }
@@ -415,7 +415,7 @@ void ImportManager::importPalettes()
 
 void ImportManager::importFunctionID(quint32 funcID)
 {
-    Function *importFunction = m_importDoc->function(funcID);
+    Function      *importFunction = m_importDoc->function(funcID);
     QList<quint32> funcList;
 
     // 1. Get a list of Function ID upon importFunction depends on
@@ -432,7 +432,7 @@ void ImportManager::importFunctionID(quint32 funcID)
         case Function::ScriptType:
         {
             Script *script = qobject_cast<Script *>(importFunction);
-            funcList = script->functionList();
+            funcList       = script->functionList();
         }
         break;
         default:
@@ -447,7 +447,7 @@ void ImportManager::importFunctionID(quint32 funcID)
     }
 
     // 3. Finally create a copy of the original Function. This will always create a new ID
-    Function *docFunction = importFunction->createCopy(m_doc, true);
+    Function *docFunction     = importFunction->createCopy(m_doc, true);
     m_functionIDRemap[funcID] = docFunction->id();
 
     qDebug() << "Importing function" << docFunction->name() << "with ID" << docFunction->id();
@@ -457,11 +457,11 @@ void ImportManager::importFunctionID(quint32 funcID)
     {
         case Function::SceneType:
         {
-            Scene *scene = qobject_cast<Scene *>(docFunction);
+            Scene            *scene            = qobject_cast<Scene *>(docFunction);
             // create a copy of the existing components
-            QList<SceneValue> sceneValues = scene->values();
-            QList<quint32> fixtureGroupList = scene->fixtureGroups();
-            QList<quint32> paletteList = scene->palettes();
+            QList<SceneValue> sceneValues      = scene->values();
+            QList<quint32>    fixtureGroupList = scene->fixtureGroups();
+            QList<quint32>    paletteList      = scene->palettes();
 
             // point of no return. Delete everything
             scene->clear();
@@ -495,9 +495,9 @@ void ImportManager::importFunctionID(quint32 funcID)
         break;
         case Function::CollectionType:
         {
-            Collection *collection = qobject_cast<Collection *>(docFunction);
+            Collection    *collection = qobject_cast<Collection *>(docFunction);
             // create a copy of the existing function IDs
-            QList<quint32> funcList = collection->functions();
+            QList<quint32> funcList   = collection->functions();
 
             // point of no return. Empty the Collection
             for (quint32 id : funcList)
@@ -514,7 +514,7 @@ void ImportManager::importFunctionID(quint32 funcID)
         break;
         case Function::ChaserType:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(docFunction);
+            Chaser        *chaser = qobject_cast<Chaser *>(docFunction);
             QList<quint32> removeList;
 
             for (int i = 0; i < chaser->stepsCount(); i++)
@@ -546,8 +546,8 @@ void ImportManager::importFunctionID(quint32 funcID)
         break;
         case Function::SequenceType:
         {
-            Sequence *sequence = qobject_cast<Sequence *>(docFunction);
-            quint32 boundSceneID = sequence->boundSceneID();
+            Sequence *sequence     = qobject_cast<Sequence *>(docFunction);
+            quint32   boundSceneID = sequence->boundSceneID();
 
             if (boundSceneID != Function::invalidId() && m_functionIDRemap.contains(boundSceneID))
                 sequence->setBoundSceneID(m_functionIDRemap[boundSceneID]);
@@ -653,12 +653,12 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
     if (itemData.count() != 6)
         return;
 
-    int itemType = itemData.at(1).toInt();
-    quint32 itemID = itemData.at(2).toUInt();
+    int     itemType = itemData.at(1).toInt();
+    quint32 itemID   = itemData.at(2).toUInt();
 
     if (itemType == App::FixtureDragItem)
     {
-        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        quint32 fixtureID   = FixtureUtils::itemFixtureID(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
         if (checked)
@@ -737,8 +737,8 @@ void ImportManager::checkFixtureTree(TreeModel *tree)
         // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
         if (itemData.count() == 6 && itemData.at(1).toInt() == App::FixtureDragItem)
         {
-            quint32 itemID = itemData.at(2).toUInt();
-            quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+            quint32 itemID      = itemData.at(2).toUInt();
+            quint32 fixtureID   = FixtureUtils::itemFixtureID(itemID);
             quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
             if (m_fixtureIDList.contains(fixtureID) && linkedIndex == 0)
@@ -913,9 +913,9 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         case Function::SceneType:
         {
             Scene *scene = qobject_cast<Scene *>(func);
-            fxList = scene->components();
-            fxGroupList = scene->fixtureGroups();
-            paletteList = scene->palettes();
+            fxList       = scene->components();
+            fxGroupList  = scene->fixtureGroups();
+            paletteList  = scene->palettes();
         }
         break;
 
@@ -928,7 +928,7 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         case Function::RGBMatrixType:
         {
             RGBMatrix *rgbm = qobject_cast<RGBMatrix *>(func);
-            fxList = rgbm->components();
+            fxList          = rgbm->components();
             quint32 groupID = rgbm->fixtureGroup();
             fxGroupList.append(groupID);
         }
@@ -945,8 +945,8 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         case Function::ScriptType:
         {
             Script *script = qobject_cast<Script *>(func);
-            funcList = script->functionList();
-            fxList = script->fixtureList();
+            funcList       = script->functionList();
+            fxList         = script->fixtureList();
         }
         break;
 

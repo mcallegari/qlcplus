@@ -33,7 +33,7 @@
 
 void MonitorFixture_Test::initTestCase()
 {
-    m_doc = new Doc(this);
+    m_doc         = new Doc(this);
     m_currentAddr = 0;
 }
 

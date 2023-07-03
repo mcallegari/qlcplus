@@ -49,21 +49,21 @@ public:
     virtual ~ShowFunction() {}
 
     /** Get/Set the Function ID this class represents */
-    void setFunctionID(quint32 id);
+    void    setFunctionID(quint32 id);
     quint32 functionID() const;
 
     /** Get/Set the Function start time over a Show timeline */
-    void setStartTime(quint32 time);
+    void    setStartTime(quint32 time);
     quint32 startTime() const;
 
     /** Get/Set this item duration, not necessarily corresponding
      *  to the original Function duration */
-    void setDuration(quint32 duration);
+    void    setDuration(quint32 duration);
     quint32 duration() const;
     quint32 duration(const Doc *doc) const;
 
     /** Get/Set the color of the item when rendered in the Show Manager */
-    void setColor(QColor color);
+    void   setColor(QColor color);
     QColor color() const;
 
     static QColor defaultColor(Function::Type type);
@@ -74,7 +74,7 @@ public:
 
     /** Get/Set the intensity attribute override ID to
      *  control a Function intensity */
-    int intensityOverrideId() const;
+    int  intensityOverrideId() const;
     void setIntensityOverrideId(int id);
 
 signals:

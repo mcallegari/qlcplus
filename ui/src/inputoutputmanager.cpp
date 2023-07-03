@@ -43,12 +43,12 @@
 #include "apputil.h"
 #include "doc.h"
 
-#define KColumnUniverse 0
-#define KColumnInput 1
-#define KColumnOutput 2
-#define KColumnFeedback 3
-#define KColumnProfile 4
-#define KColumnInputNum 5
+#define KColumnUniverse  0
+#define KColumnInput     1
+#define KColumnOutput    2
+#define KColumnFeedback  3
+#define KColumnProfile   4
+#define KColumnInputNum  5
 #define KColumnOutputNum 6
 
 #define SETTINGS_SPLITTER "inputmanager/splitter"
@@ -104,8 +104,8 @@ InputOutputManager::InputOutputManager(QWidget *parent, Doc *doc)
     m_toolbar->addSeparator();
 
     QLabel *uniLabel = new QLabel(tr("Universe name:"));
-    m_uniNameEdit = new QLineEdit(this);
-    QFont font = QApplication::font();
+    m_uniNameEdit    = new QLineEdit(this);
+    QFont font       = QApplication::font();
     // font.setBold(true);
     font.setPixelSize(18);
     uniLabel->setFont(font);
@@ -137,7 +137,7 @@ InputOutputManager::InputOutputManager(QWidget *parent, Doc *doc)
     connect(m_list, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this, SLOT(slotCurrentItemChanged()));
 
     /* Timer that clears the input data icon after a while */
-    m_icon = QIcon(":/input.png");
+    m_icon  = QIcon(":/input.png");
     m_timer = new QTimer(this);
     m_timer->setSingleShot(true);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
@@ -155,7 +155,7 @@ InputOutputManager::InputOutputManager(QWidget *parent, Doc *doc)
     m_list->setCurrentItem(m_list->item(0));
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_SPLITTER);
+    QVariant  var = settings.value(SETTINGS_SPLITTER);
     if (var.isValid() == true)
         m_splitter->restoreState(var.toByteArray());
 }
@@ -210,7 +210,7 @@ void InputOutputManager::updateItem(QListWidgetItem *item, quint32 universe)
 {
     Q_ASSERT(item != NULL);
 
-    InputPatch *ip = m_ioMap->inputPatch(universe);
+    InputPatch  *ip = m_ioMap->inputPatch(universe);
     OutputPatch *op = m_ioMap->outputPatch(universe);
     OutputPatch *fp = m_ioMap->feedbackPatch(universe);
 
@@ -305,7 +305,7 @@ void InputOutputManager::slotCurrentItemChanged()
     }
 
 
-    m_editor = new InputOutputPatchEditor(this, universe, m_ioMap, m_doc);
+    m_editor         = new InputOutputPatchEditor(this, universe, m_ioMap, m_doc);
     m_editorUniverse = universe;
     m_splitter->widget(1)->layout()->addWidget(m_editor);
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));

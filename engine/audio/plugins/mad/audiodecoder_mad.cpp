@@ -32,7 +32,7 @@
 #include <stdio.h>
 #include "audiodecoder_mad.h"
 
-#define XING_MAGIC (('X' << 24) | ('i' << 16) | ('n' << 8) | 'g')
+#define XING_MAGIC        (('X' << 24) | ('i' << 16) | ('n' << 8) | 'g')
 #define INPUT_BUFFER_SIZE (32 * 1024)
 #define USE_DITHERING
 
@@ -60,25 +60,25 @@ int AudioDecoderMAD::priority() const
 
 bool AudioDecoderMAD::initialize(const QString &path)
 {
-    m_inited = false;
-    m_totalTime = 0;
-    m_channels = 0;
-    m_bitrate = 0;
-    m_freq = 0;
-    m_len = 0;
-    m_input_buf = NULL;
-    m_input_bytes = 0;
+    m_inited       = false;
+    m_totalTime    = 0;
+    m_channels     = 0;
+    m_bitrate      = 0;
+    m_freq         = 0;
+    m_len          = 0;
+    m_input_buf    = NULL;
+    m_input_bytes  = 0;
     m_output_bytes = 0;
-    m_output_at = 0;
-    m_skip_frames = 0;
-    m_eof = false;
+    m_output_at    = 0;
+    m_skip_frames  = 0;
+    m_eof          = false;
 
-    m_left_dither.random = 0;
+    m_left_dither.random   = 0;
     m_left_dither.error[0] = 0;
     m_left_dither.error[1] = 0;
     m_left_dither.error[2] = 0;
 
-    m_right_dither.random = 0;
+    m_right_dither.random   = 0;
     m_right_dither.error[0] = 0;
     m_right_dither.error[1] = 0;
     m_right_dither.error[2] = 0;
@@ -119,7 +119,7 @@ bool AudioDecoderMAD::initialize(const QString &path)
     m_stream.error = MAD_ERROR_BUFLEN;
     mad_frame_mute(&m_frame);
     m_stream.next_frame = 0;
-    m_stream.sync = 0;
+    m_stream.sync       = 0;
     configure(m_freq, m_channels, PCM_S16LE);
     m_inited = true;
     return true;
@@ -135,17 +135,17 @@ void AudioDecoderMAD::deinit()
     mad_frame_finish(&m_frame);
     mad_stream_finish(&m_stream);
 
-    m_inited = false;
-    m_totalTime = 0;
-    m_channels = 0;
-    m_bitrate = 0;
-    m_freq = 0;
-    m_len = 0;
-    m_input_bytes = 0;
+    m_inited       = false;
+    m_totalTime    = 0;
+    m_channels     = 0;
+    m_bitrate      = 0;
+    m_freq         = 0;
+    m_len          = 0;
+    m_input_bytes  = 0;
     m_output_bytes = 0;
-    m_output_at = 0;
-    m_skip_frames = 0;
-    m_eof = false;
+    m_output_at    = 0;
+    m_skip_frames  = 0;
+    m_eof          = false;
 
     if (m_input.isOpen())
         m_input.close();
@@ -202,20 +202,20 @@ bool AudioDecoderMAD::findXingHeader(struct mad_bitptr ptr, unsigned int bitlen)
     return true;
 
 fail:
-    xing.flags = 0;
+    xing.flags  = 0;
     xing.frames = 0;
-    xing.bytes = 0;
-    xing.scale = 0;
+    xing.bytes  = 0;
+    xing.scale  = 0;
     return false;
 }
 
 bool AudioDecoderMAD::findHeader()
 {
-    bool result = false;
-    int count = 0;
-    bool has_xing = false;
-    bool is_vbr = false;
-    mad_timer_t duration = mad_timer_zero;
+    bool              result   = false;
+    int               count    = 0;
+    bool              has_xing = false;
+    bool              is_vbr   = false;
+    mad_timer_t       duration = mad_timer_zero;
     struct mad_header header;
     mad_header_init(&header);
 
@@ -288,7 +288,7 @@ bool AudioDecoderMAD::findHeader()
                 if (xing.flags & XING_FRAMES)
                 {
                     has_xing = true;
-                    count = xing.frames;
+                    count    = xing.frames;
                     break;
                 }
             }
@@ -321,7 +321,7 @@ bool AudioDecoderMAD::findHeader()
 
     if (!is_vbr && !m_input.isSequential())
     {
-        double time = (m_input.size() * 8.0) / (header.bitrate);
+        double time     = (m_input.size() * 8.0) / (header.bitrate);
         double timefrac = (double)time - ((long)(time));
         mad_timer_set(&duration, (long)time, (long)(timefrac * 100), 100);
     }
@@ -333,9 +333,9 @@ bool AudioDecoderMAD::findHeader()
 
     m_totalTime = mad_timer_count(duration, MAD_UNITS_MILLISECONDS);
     qDebug("DecoderMAD: Total time: %ld", long(m_totalTime));
-    m_freq = header.samplerate;
+    m_freq     = header.samplerate;
     m_channels = MAD_NCHANNELS(&header);
-    m_bitrate = header.bitrate / 1000;
+    m_bitrate  = header.bitrate / 1000;
     mad_header_finish(&header);
     m_input.seek(0);
     m_input_bytes = 0;
@@ -405,12 +405,12 @@ void AudioDecoderMAD::seek(qint64 pos)
         m_input.seek(seek_pos);
         mad_frame_mute(&m_frame);
         mad_synth_mute(&m_synth);
-        m_stream.error = MAD_ERROR_BUFLEN;
-        m_stream.sync = 0;
-        m_input_bytes = 0;
+        m_stream.error      = MAD_ERROR_BUFLEN;
+        m_stream.sync       = 0;
+        m_input_bytes       = 0;
         m_stream.next_frame = 0;
-        m_skip_frames = 2;
-        m_eof = 0;
+        m_skip_frames       = 2;
+        m_eof               = 0;
     }
 }
 
@@ -483,7 +483,7 @@ void AudioDecoderMAD::clip(mad_fixed_t *sample)
 long AudioDecoderMAD::audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither *dither)
 {
     unsigned int scalebits;
-    mad_fixed_t output, mask, random;
+    mad_fixed_t  output, mask, random;
 
     /* noise shape */
     sample += dither->error[0] - dither->error[1] + dither->error[2];
@@ -495,7 +495,7 @@ long AudioDecoderMAD::audio_linear_dither(unsigned int bits, mad_fixed_t sample,
     output = sample + (1L << (MAD_F_FRACBITS + 1 - bits - 1));
 
     scalebits = MAD_F_FRACBITS + 1 - bits;
-    mask = (1L << scalebits) - 1;
+    mask      = (1L << scalebits) - 1;
 
     /* dither */
     random = prng(dither->random);
@@ -531,15 +531,15 @@ long AudioDecoderMAD::audio_linear_round(unsigned int bits, mad_fixed_t sample)
 
 qint64 AudioDecoderMAD::madOutput(char *data, qint64 size)
 {
-    unsigned int samples, channels;
+    unsigned int       samples, channels;
     mad_fixed_t const *left, *right;
 
-    samples = m_synth.pcm.length;
-    channels = m_synth.pcm.channels;
-    left = m_synth.pcm.samples[0];
-    right = m_synth.pcm.samples[1];
-    m_bitrate = m_frame.header.bitrate / 1000;
-    m_output_at = 0;
+    samples        = m_synth.pcm.length;
+    channels       = m_synth.pcm.channels;
+    left           = m_synth.pcm.samples[0];
+    right          = m_synth.pcm.samples[1];
+    m_bitrate      = m_frame.header.bitrate / 1000;
+    m_output_at    = 0;
     m_output_bytes = 0;
 
     if (samples * channels * 2 > size)

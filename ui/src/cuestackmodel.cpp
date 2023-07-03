@@ -32,7 +32,7 @@
 #include "cuestack.h"
 #include "function.h"
 
-#define MIMEDATA_ROOT QString("MimeData")
+#define MIMEDATA_ROOT      QString("MimeData")
 #define MIMEDATA_DRAGINDEX QString("DragIndex")
 
 CueStackModel::CueStackModel(QObject *parent)
@@ -270,7 +270,7 @@ bool CueStackModel::dropMimeData(const QMimeData *data, Qt::DropAction action, i
 
             // Dig the drag index from the XML
             int dragIndex = doc.attributes().value(MIMEDATA_DRAGINDEX).toString().toInt();
-            int index = parent.row();
+            int index     = parent.row();
             if (dragIndex < index)
                 index += 1; // Moving items from above drop index
 

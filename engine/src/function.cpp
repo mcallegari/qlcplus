@@ -164,17 +164,17 @@ bool Function::copyFrom(const Function *function)
     if (function == NULL)
         return false;
 
-    m_name = function->name();
-    m_runOrder = function->runOrder();
-    m_direction = function->direction();
-    m_tempoType = function->tempoType();
-    m_fadeInSpeed = function->fadeInSpeed();
+    m_name         = function->name();
+    m_runOrder     = function->runOrder();
+    m_direction    = function->direction();
+    m_tempoType    = function->tempoType();
+    m_fadeInSpeed  = function->fadeInSpeed();
     m_fadeOutSpeed = function->fadeOutSpeed();
-    m_duration = function->duration();
-    m_path = function->path(true);
-    m_visible = function->isVisible();
-    m_blendMode = function->blendMode();
-    m_uiState = function->uiStateMap();
+    m_duration     = function->duration();
+    m_path         = function->path(true);
+    m_visible      = function->isVisible();
+    m_blendMode    = function->blendMode();
+    m_uiState      = function->uiStateMap();
 
     emit changed(m_id);
 
@@ -498,7 +498,7 @@ void Function::setTempoType(const Function::TempoType &type)
     m_tempoType = type;
 
     /* Retrieve the current BPM value known by the Master Timer */
-    float bpmNum = doc()->masterTimer()->bpmNumber();
+    float bpmNum   = doc()->masterTimer()->bpmNumber();
     /* Calculate the duration in ms of a single beat */
     float beatTime = 60000.0 / bpmNum;
 
@@ -560,7 +560,7 @@ uint Function::timeToBeats(uint time, int beatDuration)
     uint value = 0;
 
     float beats = (float)time / (float)beatDuration;
-    value = floor(beats) * 1000;
+    value       = floor(beats) * 1000;
 
     beats -= floor(beats);
     beats = floor((beats * 1000) / 125) * 125;
@@ -784,9 +784,9 @@ bool Function::loadXMLSpeed(QXmlStreamReader &speedRoot)
 
     QXmlStreamAttributes attrs = speedRoot.attributes();
 
-    m_fadeInSpeed = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
+    m_fadeInSpeed  = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
     m_fadeOutSpeed = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt();
-    m_duration = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
+    m_duration     = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
 
     speedRoot.skipCurrentElement();
 
@@ -868,11 +868,11 @@ bool Function::loader(QXmlStreamReader &root, Doc *doc)
     QXmlStreamAttributes attrs = root.attributes();
 
     /* Get common information from the tag's attributes */
-    quint32 id = attrs.value(KXMLQLCFunctionID).toString().toUInt();
-    QString name = attrs.value(KXMLQLCFunctionName).toString();
-    Type type = Function::stringToType(attrs.value(KXMLQLCFunctionType).toString());
-    QString path;
-    bool visible = true;
+    quint32             id   = attrs.value(KXMLQLCFunctionID).toString().toUInt();
+    QString             name = attrs.value(KXMLQLCFunctionName).toString();
+    Type                type = Function::stringToType(attrs.value(KXMLQLCFunctionType).toString());
+    QString             path;
+    bool                visible   = true;
     Universe::BlendMode blendMode = Universe::NormalBlend;
 
     if (attrs.hasAttribute(KXMLQLCFunctionPath))
@@ -1022,7 +1022,7 @@ void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
         m_functionStopped.wakeAll();
     }
 
-    m_paused = false;
+    m_paused  = false;
     m_running = false;
     emit stopped(m_id);
 }
@@ -1068,7 +1068,7 @@ quint32 Function::elapsedBeats() const
 void Function::resetElapsed()
 {
     qDebug() << Q_FUNC_INFO;
-    m_elapsed = 0;
+    m_elapsed      = 0;
     m_elapsedBeats = 0;
 }
 
@@ -1123,12 +1123,12 @@ void Function::start(MasterTimer *timer, FunctionParent source, quint32 startTim
         return;
     }
 
-    m_elapsed = startTime;
-    m_elapsedBeats = 0;
-    m_overrideFadeInSpeed = overrideFadeIn;
+    m_elapsed              = startTime;
+    m_elapsedBeats         = 0;
+    m_overrideFadeInSpeed  = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
-    m_overrideDuration = overrideDuration;
-    m_overrideTempoType = overrideTempoType == Original ? tempoType() : overrideTempoType;
+    m_overrideDuration     = overrideDuration;
+    m_overrideTempoType    = overrideTempoType == Original ? tempoType() : overrideTempoType;
 
     m_stop = false;
     timer->startFunction(this);
@@ -1160,7 +1160,7 @@ void Function::stop(FunctionParent source, bool preserveAttributes)
 
     if (m_sources.size() == 0)
     {
-        m_stop = true;
+        m_stop               = true;
         m_preserveAttributes = preserveAttributes;
     }
 }
@@ -1218,22 +1218,22 @@ int Function::registerAttribute(QString name, int flags, qreal min, qreal max, q
     {
         if (m_attributes[i].m_name == name)
         {
-            m_attributes[i].m_min = min;
-            m_attributes[i].m_max = max;
-            m_attributes[i].m_value = value;
-            m_attributes[i].m_flags = flags;
-            m_attributes[i].m_isOverridden = false;
+            m_attributes[i].m_min           = min;
+            m_attributes[i].m_max           = max;
+            m_attributes[i].m_value         = value;
+            m_attributes[i].m_flags         = flags;
+            m_attributes[i].m_isOverridden  = false;
             m_attributes[i].m_overrideValue = 0.0;
             return i;
         }
     }
     Attribute newAttr;
-    newAttr.m_name = name;
-    newAttr.m_min = min;
-    newAttr.m_max = max;
-    newAttr.m_value = value;
-    newAttr.m_flags = flags;
-    newAttr.m_isOverridden = false;
+    newAttr.m_name          = name;
+    newAttr.m_min           = min;
+    newAttr.m_max           = max;
+    newAttr.m_value         = value;
+    newAttr.m_flags         = flags;
+    newAttr.m_isOverridden  = false;
     newAttr.m_overrideValue = 0.0;
     m_attributes.append(newAttr);
 
@@ -1263,9 +1263,9 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
     {
         AttributeOverride override;
         override.m_attrIndex = attributeIndex;
-        override.m_value = 0.0;
+        override.m_value     = 0.0;
 
-        attributeID = m_lastOverrideAttributeId;
+        attributeID                = m_lastOverrideAttributeId;
         m_overrideMap[attributeID] = override;
 
         qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID"
@@ -1339,7 +1339,7 @@ int Function::adjustAttribute(qreal value, int attributeId)
 
         // Adjust the original value of an attribute. Only Function editors should do this !
         m_attributes[attributeId].m_value = CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
-        attrIndex = attributeId;
+        attrIndex                         = attributeId;
     }
     else
     {
@@ -1348,7 +1348,7 @@ int Function::adjustAttribute(qreal value, int attributeId)
 
         // Adjust an attribute override value and recalculate the final overridden value
         m_overrideMap[attributeId].m_value = value;
-        attrIndex = m_overrideMap[attributeId].m_attrIndex;
+        attrIndex                          = m_overrideMap[attributeId].m_attrIndex;
         calculateOverrideValue(attrIndex);
     }
 
@@ -1362,7 +1362,7 @@ void Function::resetAttributes()
 {
     for (int i = 0; i < m_attributes.count(); i++)
     {
-        m_attributes[i].m_isOverridden = false;
+        m_attributes[i].m_isOverridden  = false;
         m_attributes[i].m_overrideValue = 0.0;
     }
     m_overrideMap.clear();
@@ -1399,9 +1399,9 @@ void Function::calculateOverrideValue(int attributeIndex)
     if (attributeIndex >= m_attributes.count())
         return;
 
-    qreal finalValue = 0.0;
-    bool found = false;
-    Attribute origAttr = m_attributes.at(attributeIndex);
+    qreal     finalValue = 0.0;
+    bool      found      = false;
+    Attribute origAttr   = m_attributes.at(attributeIndex);
 
     if (origAttr.m_flags & Multiply)
         finalValue = origAttr.m_value;
@@ -1420,7 +1420,7 @@ void Function::calculateOverrideValue(int attributeIndex)
     }
 
     m_attributes[attributeIndex].m_overrideValue = finalValue;
-    m_attributes[attributeIndex].m_isOverridden = found;
+    m_attributes[attributeIndex].m_isOverridden  = found;
 }
 
 /*************************************************************************

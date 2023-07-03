@@ -54,10 +54,10 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
 AddRGBPanel::~AddRGBPanel() {}
 bool AddRGBPanel::checkAddressAvailability()
 {
-    int uniAddr = m_doc->inputOutputMap()->getUniverseID(m_uniCombo->currentIndex());
-    int startAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (uniAddr << 9);
-    int channels = m_columnSpin->value() * m_rowSpin->value() * 3;
-    QPushButton *okBtn = buttonBox->button(QDialogButtonBox::Ok);
+    int          uniAddr      = m_doc->inputOutputMap()->getUniverseID(m_uniCombo->currentIndex());
+    int          startAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (uniAddr << 9);
+    int          channels     = m_columnSpin->value() * m_rowSpin->value() * 3;
+    QPushButton *okBtn        = buttonBox->button(QDialogButtonBox::Ok);
 
     qDebug() << "Check availability for address: " << startAddress;
 

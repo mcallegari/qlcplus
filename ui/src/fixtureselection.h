@@ -49,9 +49,9 @@ public slots:
     int exec();
 
 private:
-    Doc *m_doc;
+    Doc               *m_doc;
     FixtureTreeWidget *m_tree;
-    quint32 m_treeFlags;
+    quint32            m_treeFlags;
 
     /************************************************************************
      * Selected fixtures
@@ -64,7 +64,7 @@ public:
     QList<GroupHead> selectedHeads() const;
 
 private:
-    QList<quint32> m_selectedFixtures;
+    QList<quint32>   m_selectedFixtures;
     QList<GroupHead> m_selectedHeads;
 
     /************************************************************************

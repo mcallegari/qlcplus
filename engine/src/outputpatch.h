@@ -31,10 +31,10 @@ class QLCIOPlugin;
 
 #define KOutputNone QObject::tr("None")
 
-#define KXMLQLCOutputPatch "Patch"
+#define KXMLQLCOutputPatch         "Patch"
 #define KXMLQLCOutputPatchUniverse "Universe"
-#define KXMLQLCOutputPatchPlugin "Plugin"
-#define KXMLQLCOutputPatchOutput "Output"
+#define KXMLQLCOutputPatchPlugin   "Plugin"
+#define KXMLQLCOutputPatchOutput   "Output"
 
 class OutputPatch : public QObject
 {
@@ -96,11 +96,11 @@ signals:
 
 private:
     /** The reference of the plugin associated by this Output patch */
-    QLCIOPlugin *m_plugin;
+    QLCIOPlugin            *m_plugin;
     /** The plugin line open by this Output patch */
-    quint32 m_pluginLine;
+    quint32                 m_pluginLine;
     /** The universe that this Output patch is attached to */
-    quint32 m_universe;
+    quint32                 m_universe;
     /** The patch parameters cache */
     QMap<QString, QVariant> m_parametersCache;
 
@@ -127,8 +127,8 @@ signals:
 private:
     /** A buffer used when this output patch is paused */
     QByteArray m_pauseBuffer;
-    bool m_paused;
-    bool m_blackout;
+    bool       m_paused;
+    bool       m_blackout;
 };
 
 /** @} */

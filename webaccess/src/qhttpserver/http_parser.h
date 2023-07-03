@@ -34,13 +34,13 @@ extern "C"
 #if defined(_WIN32) && !defined(__MINGW32__) && (!defined(_MSC_VER) || _MSC_VER < 1600) && !defined(__WINE__)
   #include <BaseTsd.h>
   #include <stddef.h>
-    typedef __int8 int8_t;
-    typedef unsigned __int8 uint8_t;
-    typedef __int16 int16_t;
+    typedef __int8           int8_t;
+    typedef unsigned __int8  uint8_t;
+    typedef __int16          int16_t;
     typedef unsigned __int16 uint16_t;
-    typedef __int32 int32_t;
+    typedef __int32          int32_t;
     typedef unsigned __int32 uint32_t;
-    typedef __int64 int64_t;
+    typedef __int64          int64_t;
     typedef unsigned __int64 uint64_t;
 #else
   #include <stdint.h>
@@ -64,7 +64,7 @@ extern "C"
   #define HTTP_MAX_HEADER_SIZE (80 * 1024)
 #endif
 
-    typedef struct http_parser http_parser;
+    typedef struct http_parser          http_parser;
     typedef struct http_parser_settings http_parser_settings;
 
 
@@ -147,14 +147,14 @@ extern "C"
     /* Flag values for http_parser.flags field */
     enum flags
     {
-        F_CHUNKED = 1 << 0,
+        F_CHUNKED               = 1 << 0,
         F_CONNECTION_KEEP_ALIVE = 1 << 1,
-        F_CONNECTION_CLOSE = 1 << 2,
-        F_CONNECTION_UPGRADE = 1 << 3,
-        F_TRAILING = 1 << 4,
-        F_UPGRADE = 1 << 5,
-        F_SKIPBODY = 1 << 6,
-        F_CONTENTLENGTH = 1 << 7
+        F_CONNECTION_CLOSE      = 1 << 2,
+        F_CONNECTION_UPGRADE    = 1 << 3,
+        F_TRAILING              = 1 << 4,
+        F_UPGRADE               = 1 << 5,
+        F_SKIPBODY              = 1 << 6,
+        F_CONTENTLENGTH         = 1 << 7
     };
 
 
@@ -219,11 +219,11 @@ extern "C"
     struct http_parser
     {
         /** PRIVATE **/
-        unsigned int type : 2;         /* enum http_parser_type */
-        unsigned int flags : 8;        /* F_* values from 'flags' enum; semi-public */
-        unsigned int state : 7;        /* enum state from http_parser.c */
-        unsigned int header_state : 7; /* enum header_state from http_parser.c */
-        unsigned int index : 7;        /* index into current matcher */
+        unsigned int type                 : 2; /* enum http_parser_type */
+        unsigned int flags                : 8; /* F_* values from 'flags' enum; semi-public */
+        unsigned int state                : 7; /* enum state from http_parser.c */
+        unsigned int header_state         : 7; /* enum header_state from http_parser.c */
+        unsigned int index                : 7; /* index into current matcher */
         unsigned int lenient_http_headers : 1;
 
         uint32_t nread;          /* # bytes read in various scenarios */
@@ -232,9 +232,9 @@ extern "C"
         /** READ-ONLY **/
         unsigned short http_major;
         unsigned short http_minor;
-        unsigned int status_code : 16; /* responses only */
-        unsigned int method : 8;       /* requests only */
-        unsigned int http_errno : 7;
+        unsigned int   status_code : 16; /* responses only */
+        unsigned int   method      : 8;  /* requests only */
+        unsigned int   http_errno  : 7;
 
         /* 1 = Upgrade header was present and the parser has exited because of that.
          * 0 = No upgrade header present.
@@ -250,32 +250,32 @@ extern "C"
 
     struct http_parser_settings
     {
-        http_cb on_message_begin;
+        http_cb      on_message_begin;
         http_data_cb on_url;
         http_data_cb on_status;
         http_data_cb on_header_field;
         http_data_cb on_header_value;
-        http_cb on_headers_complete;
+        http_cb      on_headers_complete;
         http_data_cb on_body;
-        http_cb on_message_complete;
+        http_cb      on_message_complete;
         /* When on_chunk_header is called, the current chunk length is stored
          * in parser->content_length.
          */
-        http_cb on_chunk_header;
-        http_cb on_chunk_complete;
+        http_cb      on_chunk_header;
+        http_cb      on_chunk_complete;
     };
 
 
     enum http_parser_url_fields
     {
-        UF_SCHEMA = 0,
-        UF_HOST = 1,
-        UF_PORT = 2,
-        UF_PATH = 3,
-        UF_QUERY = 4,
+        UF_SCHEMA   = 0,
+        UF_HOST     = 1,
+        UF_PORT     = 2,
+        UF_PATH     = 3,
+        UF_QUERY    = 4,
         UF_FRAGMENT = 5,
         UF_USERINFO = 6,
-        UF_MAX = 7
+        UF_MAX      = 7
     };
 
 

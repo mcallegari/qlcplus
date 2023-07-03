@@ -36,15 +36,15 @@
 #include "function.h"
 
 #define THRESHOLD 10
-#define HRS_MAX (596 - 1) // INT_MAX can hold 596h 31m 23s 647ms
-#define MIN_MAX 59
-#define SEC_MAX 59
-#define MS_MAX 999
+#define HRS_MAX   (596 - 1) // INT_MAX can hold 596h 31m 23s 647ms
+#define MIN_MAX   59
+#define SEC_MAX   59
+#define MS_MAX    999
 
-#define TIMER_HOLD 250
-#define TIMER_REPEAT 10
+#define TIMER_HOLD       250
+#define TIMER_REPEAT     10
 #define TAP_STOP_TIMEOUT 30000
-#define MIN_FLASH_TIME 125
+#define MIN_FLASH_TIME   125
 
 #define DEFAULT_VISIBILITY_MASK 0x00FF
 

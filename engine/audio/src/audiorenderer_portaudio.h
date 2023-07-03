@@ -66,10 +66,10 @@ private:
     static int dataCallback(const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
                             const PaStreamCallbackTimeInfo *timeInfo, PaStreamCallbackFlags statusFlags, void *userData);
 
-    PaStream *m_paStream;
-    QMutex m_paMutex;
+    PaStream  *m_paStream;
+    QMutex     m_paMutex;
     QByteArray m_buffer;
-    QString m_device;
+    QString    m_device;
 
     int m_channels;
     int m_frameSize;

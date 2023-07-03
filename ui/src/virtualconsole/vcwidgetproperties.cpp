@@ -26,22 +26,22 @@
 
 VCWidgetProperties::VCWidgetProperties()
 {
-    m_state = Qt::WindowNoState;
+    m_state   = Qt::WindowNoState;
     m_visible = false;
-    m_x = 100;
-    m_y = 100;
-    m_width = 0;
-    m_height = 0;
+    m_x       = 100;
+    m_y       = 100;
+    m_width   = 0;
+    m_height  = 0;
 }
 
 VCWidgetProperties::VCWidgetProperties(const VCWidgetProperties &properties)
 {
-    m_state = properties.m_state;
+    m_state   = properties.m_state;
     m_visible = properties.m_visible;
-    m_x = properties.m_x;
-    m_y = properties.m_y;
-    m_width = properties.m_width;
-    m_height = properties.m_height;
+    m_x       = properties.m_x;
+    m_y       = properties.m_y;
+    m_width   = properties.m_width;
+    m_height  = properties.m_height;
 }
 
 VCWidgetProperties::~VCWidgetProperties() {}
@@ -79,12 +79,12 @@ int VCWidgetProperties::height() const
 void VCWidgetProperties::store(QWidget *widget)
 {
     Q_ASSERT(widget != NULL);
-    m_state = widget->windowState();
+    m_state   = widget->windowState();
     m_visible = widget->isVisible();
-    m_x = widget->x();
-    m_y = widget->y();
-    m_width = widget->width();
-    m_height = widget->height();
+    m_x       = widget->x();
+    m_y       = widget->y();
+    m_width   = widget->width();
+    m_height  = widget->height();
 }
 
 bool VCWidgetProperties::loadXML(QXmlStreamReader &root)

@@ -94,7 +94,7 @@ QVariantList ChannelEdit::capabilityPresetList() const
     for (int i = QLCCapability::Custom + 1; i < QLCCapability::LastPreset; i++)
     {
         QLCCapability cap;
-        QVariantMap capMap;
+        QVariantMap   capMap;
         cap.setPreset(QLCCapability::Preset(i));
         capMap.insert("mLabel", cap.presetToString(QLCCapability::Preset(i)));
         capMap.insert("mValue", i);
@@ -209,7 +209,7 @@ QLCCapability *ChannelEdit::addNewCapability()
     if (m_channel->capabilities().count())
     {
         QLCCapability *last = m_channel->capabilities().last();
-        min = last->max() + 1;
+        min                 = last->max() + 1;
     }
     QLCCapability *cap = new QLCCapability(min, UCHAR_MAX);
     QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);

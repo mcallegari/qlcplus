@@ -342,7 +342,7 @@ void Collection::write(MasterTimer *timer, QList<Universe *> universes)
         m_tick = 2;
     else if (m_tick == 2)
     {
-        m_tick = 0;
+        m_tick   = 0;
         Doc *doc = this->doc();
         Q_ASSERT(doc != NULL);
 
@@ -375,7 +375,7 @@ void Collection::postRun(MasterTimer *timer, QList<Universe *> universes)
     Q_ASSERT(doc != NULL);
 
     {
-        QMutexLocker locker(&m_functionListMutex);
+        QMutexLocker          locker(&m_functionListMutex);
         /** Stop the member functions only if they have been started by this
             collection. */
         QSetIterator<quint32> it(m_runningChildren);

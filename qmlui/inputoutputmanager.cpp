@@ -174,7 +174,7 @@ void InputOutputManager::removeLastUniverse()
 
         for (quint32 subID : mProps->fixtureIDList(fixture->id()))
         {
-            quint16 headIndex = mProps->fixtureHeadIndex(subID);
+            quint16 headIndex   = mProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = mProps->fixtureLinkedIndex(subID);
 
             // delete the fixture monitor properties
@@ -222,8 +222,8 @@ void InputOutputManager::setBlackout(bool blackout)
 QVariant InputOutputManager::audioInputDevice()
 {
     QSettings settings;
-    QString devName;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    QString   devName;
+    QVariant  var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
         devName = var.toString();
 
@@ -253,8 +253,8 @@ QVariant InputOutputManager::audioInputDevice()
 QVariant InputOutputManager::audioOutputDevice()
 {
     QSettings settings;
-    QString devName;
-    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    QString   devName;
+    QVariant  var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
     if (var.isValid() == true)
         devName = var.toString();
 
@@ -283,10 +283,10 @@ QVariant InputOutputManager::audioOutputDevice()
 
 QVariant InputOutputManager::audioInputSources() const
 {
-    QSettings settings;
-    QVariantList inputSources;
-    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    QString currDevice = settings.value(SETTINGS_AUDIO_INPUT_DEVICE).toString();
+    QSettings              settings;
+    QVariantList           inputSources;
+    QList<AudioDeviceInfo> devList    = m_doc->audioPluginCache()->audioDevicesList();
+    QString                currDevice = settings.value(SETTINGS_AUDIO_INPUT_DEVICE).toString();
 
     QVariantMap defAudioMap;
     defAudioMap.insert("mLabel", tr("Default device"));
@@ -316,10 +316,10 @@ QVariant InputOutputManager::audioInputSources() const
 
 QVariant InputOutputManager::audioOutputSources() const
 {
-    QSettings settings;
-    QVariantList outputSources;
-    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    QString currDevice = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE).toString();
+    QSettings              settings;
+    QVariantList           outputSources;
+    QList<AudioDeviceInfo> devList    = m_doc->audioPluginCache()->audioDevicesList();
+    QString                currDevice = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE).toString();
 
     QVariantMap defAudioMap;
     defAudioMap.insert("mLabel", tr("Default device"));
@@ -377,19 +377,19 @@ void InputOutputManager::setAudioOutput(QString privateName)
 QVariant InputOutputManager::universeInputSources(int universe)
 {
     QVariantList inputSources;
-    QString currPlugin;
-    int currLine = -1;
-    InputPatch *ip = m_ioMap->inputPatch(universe);
+    QString      currPlugin;
+    int          currLine = -1;
+    InputPatch  *ip       = m_ioMap->inputPatch(universe);
     if (ip != nullptr)
     {
         currPlugin = ip->pluginName();
-        currLine = ip->input();
+        currLine   = ip->input();
     }
 
     foreach (QString pluginName, m_ioMap->inputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
-        int i = 0;
+        int          i      = 0;
         foreach (QString pLine, m_ioMap->pluginInputs(pluginName))
         {
             if (pluginName == currPlugin && i == currLine)
@@ -418,19 +418,19 @@ QVariant InputOutputManager::universeInputSources(int universe)
 QVariant InputOutputManager::universeOutputSources(int universe)
 {
     QVariantList outputSources;
-    QString currPlugin;
-    int currLine = -1;
-    OutputPatch *op = m_ioMap->outputPatch(universe);
+    QString      currPlugin;
+    int          currLine = -1;
+    OutputPatch *op       = m_ioMap->outputPatch(universe);
     if (op != nullptr)
     {
         currPlugin = op->pluginName();
-        currLine = op->output();
+        currLine   = op->output();
     }
 
     foreach (QString pluginName, m_ioMap->outputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
-        int i = 0;
+        int          i      = 0;
         foreach (QString pLine, m_ioMap->pluginOutputs(pluginName))
         {
             if (pluginName == currPlugin && i == currLine)
@@ -459,8 +459,8 @@ QVariant InputOutputManager::universeOutputSources(int universe)
 QVariant InputOutputManager::universeInputProfiles(int universe)
 {
     QVariantList profilesList;
-    QString currentProfile = KInputNone;
-    QStringList profileNames = m_ioMap->profileNames();
+    QString      currentProfile = KInputNone;
+    QStringList  profileNames   = m_ioMap->profileNames();
     profileNames.sort();
 
     if (m_ioMap->inputPatch(universe) != nullptr)
@@ -632,8 +632,8 @@ QVariant InputOutputManager::beatGeneratorsList()
 
     // add the currently selected audio input device
     QSettings settings;
-    QString devName;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    QString   devName;
+    QVariant  var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
         devName = var.toString();
 

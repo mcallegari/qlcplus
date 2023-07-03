@@ -29,7 +29,7 @@
 
 void AboutBox_Test::initial()
 {
-    QWidget w;
+    QWidget  w;
     AboutBox ab(&w);
     QCOMPARE(ab.parentWidget(), &w);
 

@@ -44,7 +44,7 @@ private:
 public:
     /** Get the pad's current position (i.e. where the point is) */
     QPointF position() const;
-    void setPosition(const QPointF &position);
+    void    setPosition(const QPointF &position);
 
 signals:
     void currentPositionChanged(const QPointF &position);

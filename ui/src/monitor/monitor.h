@@ -97,8 +97,8 @@ protected:
 
 protected:
     /** The singleton Monitor instance */
-    static Monitor *s_instance;
-    Doc *m_doc;
+    static Monitor    *s_instance;
+    Doc               *m_doc;
     MonitorProperties *m_props;
 
     /*********************************************************************
@@ -158,12 +158,12 @@ signals:
     void valueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
-    QToolBar *m_DMXToolBar;
-    QScrollArea *m_scrollArea;
-    QWidget *m_monitorWidget;
-    MonitorLayout *m_monitorLayout;
+    QToolBar               *m_DMXToolBar;
+    QScrollArea            *m_scrollArea;
+    QWidget                *m_monitorWidget;
+    MonitorLayout          *m_monitorLayout;
     QList<MonitorFixture *> m_monitorFixtures;
-    quint32 m_currentUniverse;
+    quint32                 m_currentUniverse;
 
     /********************************************************************
      * Graphics View
@@ -208,14 +208,14 @@ protected slots:
     void slotViewClicked();
 
 protected:
-    QToolBar *m_graphicsToolBar;
-    QSplitter *m_splitter;
+    QToolBar            *m_graphicsToolBar;
+    QSplitter           *m_splitter;
     MonitorGraphicsView *m_graphicsView;
-    QWidget *m_fixtureItemEditor;
-    QSpinBox *m_gridWSpin;
-    QSpinBox *m_gridHSpin;
-    QComboBox *m_unitsCombo;
-    QAction *m_labelsAction;
+    QWidget             *m_fixtureItemEditor;
+    QSpinBox            *m_gridWSpin;
+    QSpinBox            *m_gridHSpin;
+    QComboBox           *m_unitsCombo;
+    QAction             *m_labelsAction;
 };
 
 /** @} */

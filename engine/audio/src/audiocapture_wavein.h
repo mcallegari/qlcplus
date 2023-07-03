@@ -57,7 +57,7 @@ protected:
     bool readAudio(int maxSize);
 
 private:
-    int m_currentBufferIndex;
+    int   m_currentBufferIndex;
     char *m_internalBuffers[HEADERS_NUMBER];
 };
 

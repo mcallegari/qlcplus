@@ -124,7 +124,7 @@ void Function_Test::copyFrom()
     stub1->setDuration(1337);
 
     Function_Stub *stub2 = new Function_Stub(&doc);
-    QSignalSpy spy(stub2, SIGNAL(changed(quint32)));
+    QSignalSpy     spy(stub2, SIGNAL(changed(quint32)));
     stub2->copyFrom(stub1);
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0][0].toUInt(), quint32(stub2->id()));
@@ -141,7 +141,7 @@ void Function_Test::flashUnflash()
     Doc doc(this);
 
     Function_Stub *stub = new Function_Stub(&doc);
-    QSignalSpy spy(stub, SIGNAL(flashing(quint32, bool)));
+    QSignalSpy     spy(stub, SIGNAL(flashing(quint32, bool)));
 
     QVERIFY(stub->flashing() == false);
     stub->flash(NULL);
@@ -182,7 +182,7 @@ void Function_Test::preRunPostRun()
     Doc doc(this);
 
     Function_Stub *stub = new Function_Stub(&doc);
-    QSignalSpy spyRunning(stub, SIGNAL(running(quint32)));
+    QSignalSpy     spyRunning(stub, SIGNAL(running(quint32)));
     stub->preRun(NULL);
     QVERIFY(stub->isRunning() == true);
     QCOMPARE(spyRunning.size(), 1);
@@ -250,7 +250,7 @@ void Function_Test::slotFixtureRemoved()
     Doc doc(this);
 
     Function_Stub *stub = new Function_Stub(&doc);
-    Fixture *fxi = new Fixture(&doc);
+    Fixture       *fxi  = new Fixture(&doc);
     fxi->setID(42);
     QVERIFY(doc.addFixture(fxi, fxi->id()) == true);
     QVERIFY(doc.addFunction(stub) == true);
@@ -453,7 +453,7 @@ void Function_Test::speedOperations()
 
 void Function_Test::tempo()
 {
-    Doc doc(this);
+    Doc            doc(this);
     Function_Stub *stub = new Function_Stub(&doc);
 
     QVERIFY(stub->tempoType() == Function::Time);
@@ -869,7 +869,7 @@ void Function_Test::loaderUnknownType()
 
 void Function_Test::runOrderXML()
 {
-    Doc d(this);
+    Doc           d(this);
     Function_Stub stub(&d);
     stub.setRunOrder(Function::SingleShot);
 
@@ -954,7 +954,7 @@ void Function_Test::runOrderXML()
 
 void Function_Test::directionXML()
 {
-    Doc d(this);
+    Doc           d(this);
     Function_Stub stub(&d);
     stub.setDirection(Function::Backward);
 
@@ -1010,7 +1010,7 @@ void Function_Test::directionXML()
 
 void Function_Test::speedXML()
 {
-    Doc d(this);
+    Doc           d(this);
     Function_Stub stub(&d);
     stub.setFadeInSpeed(500);
     stub.setFadeOutSpeed(1000);

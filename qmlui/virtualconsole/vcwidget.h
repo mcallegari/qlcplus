@@ -30,41 +30,41 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define KXMLQLCVCCaption QString("Caption")
+#define KXMLQLCVCCaption    QString("Caption")
 #define KXMLQLCVCFrameStyle QString("FrameStyle") // LEGACY
 
-#define KXMLQLCVCWidgetID QString("ID")
-#define KXMLQLCVCWidgetPage QString("Page")
+#define KXMLQLCVCWidgetID         QString("ID")
+#define KXMLQLCVCWidgetPage       QString("Page")
 #define KXMLQLCVCWidgetAppearance QString("Appearance")
 
 #define KXMLQLCVCWidgetForegroundColor QString("ForegroundColor")
 #define KXMLQLCVCWidgetBackgroundColor QString("BackgroundColor")
-#define KXMLQLCVCWidgetColorDefault QString("Default")
+#define KXMLQLCVCWidgetColorDefault    QString("Default")
 
-#define KXMLQLCVCWidgetFont QString("Font")
+#define KXMLQLCVCWidgetFont        QString("Font")
 #define KXMLQLCVCWidgetFontDefault QString("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage QString("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImage     QString("BackgroundImage")
 #define KXMLQLCVCWidgetBackgroundImageNone QString("None")
 
-#define KXMLQLCWindowState QString("WindowState")
+#define KXMLQLCWindowState        QString("WindowState")
 #define KXMLQLCWindowStateVisible QString("Visible")
-#define KXMLQLCWindowStateX QString("X")
-#define KXMLQLCWindowStateY QString("Y")
-#define KXMLQLCWindowStateWidth QString("Width")
-#define KXMLQLCWindowStateHeight QString("Height")
+#define KXMLQLCWindowStateX       QString("X")
+#define KXMLQLCWindowStateY       QString("Y")
+#define KXMLQLCWindowStateWidth   QString("Width")
+#define KXMLQLCWindowStateHeight  QString("Height")
 
-#define KXMLQLCVCWidgetKey QString("Key")
-#define KXMLQLCVCWidgetInput QString("Input")
-#define KXMLQLCVCWidgetInputUniverse QString("Universe")
-#define KXMLQLCVCWidgetInputChannel QString("Channel")
+#define KXMLQLCVCWidgetKey             QString("Key")
+#define KXMLQLCVCWidgetInput           QString("Input")
+#define KXMLQLCVCWidgetInputUniverse   QString("Universe")
+#define KXMLQLCVCWidgetInputChannel    QString("Channel")
 #define KXMLQLCVCWidgetInputLowerValue QString("LowerValue")
 #define KXMLQLCVCWidgetInputUpperValue QString("UpperValue")
 
 typedef struct
 {
     QString name;
-    bool allowKeyboard;
+    bool    allowKeyboard;
 } ExternalControlInfo;
 
 class VCWidget : public QObject
@@ -194,18 +194,18 @@ public:
     /** Get/Set this widget's geometry. x/y position is relative to
      *  the widget's parent */
     QRectF geometry() const;
-    void setGeometry(QRectF rect);
+    void   setGeometry(QRectF rect);
 
     /** Get/Set the widget's scale factor */
     qreal scaleFactor() const;
-    void setScaleFactor(qreal factor);
+    void  setScaleFactor(qreal factor);
 
 signals:
     void geometryChanged();
 
 protected:
     QRectF m_geometry;
-    qreal m_scaleFactor;
+    qreal  m_scaleFactor;
 
     /*********************************************************************
      * Allow resize
@@ -297,7 +297,7 @@ signals:
 
 protected:
     QColor m_backgroundColor;
-    bool m_hasCustomBackgroundColor;
+    bool   m_hasCustomBackgroundColor;
 
     /*********************************************************************
      * Background image
@@ -336,7 +336,7 @@ signals:
 
 protected:
     QColor m_foregroundColor;
-    bool m_hasCustomForegroundColor;
+    bool   m_hasCustomForegroundColor;
 
     /*********************************************************************
      * Font
@@ -363,14 +363,14 @@ signals:
 
 protected:
     QFont m_font;
-    bool m_hasCustomFont;
+    bool  m_hasCustomFont;
 
     /*********************************************************************
      * Page
      *********************************************************************/
 public:
     void setPage(int pNum);
-    int page();
+    int  page();
 
 signals:
     void pageChanged(int page);

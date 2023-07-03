@@ -70,8 +70,8 @@ void ChaserStep_Test::resolveFunction()
 
 void ChaserStep_Test::variant()
 {
-    ChaserStep step(1, 2, 3, 4);
-    QVariant var = step.toVariant();
+    ChaserStep      step(1, 2, 3, 4);
+    QVariant        var = step.toVariant();
     QList<QVariant> list(var.toList());
     QCOMPARE(list.size(), 6);
     QCOMPARE(list[0].toUInt(), uint(1));
@@ -154,7 +154,7 @@ void ChaserStep_Test::values()
 
 void ChaserStep_Test::load()
 {
-    int number = -1;
+    int        number = -1;
     ChaserStep step;
 
     QBuffer buffer;
@@ -196,10 +196,10 @@ void ChaserStep_Test::load()
 
 void ChaserStep_Test::load_sequence()
 {
-    int number = -1;
+    int        number = -1;
     ChaserStep step;
 
-    QBuffer buffer;
+    QBuffer          buffer;
     QXmlStreamReader xmlReader(&buffer);
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
@@ -241,10 +241,10 @@ void ChaserStep_Test::load_sequence()
 
 void ChaserStep_Test::load_legacy_sequence()
 {
-    int number = -1;
+    int        number = -1;
     ChaserStep step;
 
-    QBuffer buffer;
+    QBuffer          buffer;
     QXmlStreamReader xmlReader(&buffer);
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
@@ -312,7 +312,7 @@ void ChaserStep_Test::save_sequence()
     QXmlStreamWriter xmlWriter(&buffer);
     xmlWriter.writeStartElement("Foo");
 
-    ChaserStep step(1, 2, 3, 4);
+    ChaserStep        step(1, 2, 3, 4);
     QList<SceneValue> values;
     values.append(SceneValue(1, 0, 255));
     values.append(SceneValue(1, 1, 0));

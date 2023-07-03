@@ -49,7 +49,7 @@
 
 #include "qlcfile.h"
 
-#define SETTINGS_GEOMETRY "monitor/geometry"
+#define SETTINGS_GEOMETRY  "monitor/geometry"
 #define SETTINGS_VSPLITTER "monitor/vsplitter"
 
 Monitor *Monitor::s_instance = NULL;
@@ -210,7 +210,7 @@ void Monitor::initGraphicsView()
     m_splitter->widget(1)->hide();
 
     QSettings settings;
-    QVariant var2 = settings.value(SETTINGS_VSPLITTER);
+    QVariant  var2 = settings.value(SETTINGS_VSPLITTER);
     if (var2.isValid() == true)
         m_splitter->restoreState(var2.toByteArray());
 
@@ -321,7 +321,7 @@ void Monitor::createAndShow(QWidget *parent, Doc *doc)
     {
         /* Create a separate window for OSX */
         s_instance = new Monitor(parent, doc, Qt::Window);
-        window = s_instance;
+        window     = s_instance;
 
         /* Set some common properties for the window and show it */
         window->setAttribute(Qt::WA_DeleteOnClose);
@@ -330,15 +330,15 @@ void Monitor::createAndShow(QWidget *parent, Doc *doc)
         window->setContextMenuPolicy(Qt::CustomContextMenu);
 
         QSettings settings;
-        QVariant var = settings.value(SETTINGS_GEOMETRY);
+        QVariant  var = settings.value(SETTINGS_GEOMETRY);
         if (var.isValid() == true)
             window->restoreGeometry(var.toByteArray());
         else
         {
             QScreen *screen = QGuiApplication::screens().first();
-            QRect rect = screen->availableGeometry();
-            int rWd = rect.width() / 4;
-            int rHd = rect.height() / 4;
+            QRect    rect   = screen->availableGeometry();
+            int      rWd    = rect.width() / 4;
+            int      rHd    = rect.height() / 4;
             window->resize(rWd * 3, rHd * 3);
             window->move(rWd / 2, rHd / 2);
         }
@@ -360,7 +360,7 @@ void Monitor::createAndShow(QWidget *parent, Doc *doc)
 void Monitor::initDMXToolbar()
 {
     QActionGroup *group;
-    QAction *action;
+    QAction      *action;
     m_DMXToolBar = new QToolBar(this);
 
     /* Menu bar */
@@ -534,8 +534,8 @@ void Monitor::initGraphicsToolbar()
 
 void Monitor::slotChooseFont()
 {
-    bool ok = false;
-    QFont f = QFontDialog::getFont(&ok, m_monitorWidget->font(), this);
+    bool  ok = false;
+    QFont f  = QFontDialog::getFont(&ok, m_monitorWidget->font(), this);
     if (ok == true)
     {
         m_monitorWidget->setFont(f);
@@ -642,7 +642,7 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
 
 void Monitor::slotUniverseSelected(int index)
 {
-    QComboBox *combo = qobject_cast<QComboBox *>(sender());
+    QComboBox *combo  = qobject_cast<QComboBox *>(sender());
     m_currentUniverse = combo->itemData(index).toUInt();
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
@@ -699,7 +699,7 @@ void Monitor::slotAddFixture()
 {
     Q_ASSERT(m_graphicsView != NULL);
 
-    QList<quint32> disabled = m_graphicsView->fixturesID();
+    QList<quint32>   disabled = m_graphicsView->fixturesID();
     /* Get a list of new fixtures to add to the scene */
     FixtureSelection fs(this, m_doc);
     fs.setMultiSelection(true);

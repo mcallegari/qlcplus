@@ -55,11 +55,11 @@ protected slots:
     void slotRemoveCustomBackground();
 
 private:
-    Doc *m_doc;
-    MonitorProperties *m_props;
-    QString m_commonBackgroundImage;
+    Doc                   *m_doc;
+    MonitorProperties     *m_props;
+    QString                m_commonBackgroundImage;
     QMap<quint32, QString> m_customBackgroundImages;
-    QString m_lastUsedPath;
+    QString                m_lastUsedPath;
 };
 
 /** @} */

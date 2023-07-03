@@ -40,7 +40,7 @@ public:
     QString userFolder() const;
 
     QString workingPath() const;
-    void setWorkingPath(QString workingPath);
+    void    setWorkingPath(QString workingPath);
 
     /** Create a new editor and an empty fixture definition */
     Q_INVOKABLE void createDefinition();
@@ -63,13 +63,13 @@ signals:
 
 private:
     /** Reference to the QML view root */
-    QQuickView *m_view;
+    QQuickView             *m_view;
     /** Reference to the project workspace */
-    Doc *m_doc;
+    Doc                    *m_doc;
     /** Persistent working path across sessions */
-    QString m_workingPath;
+    QString                 m_workingPath;
     /** The last assigned editor ID */
-    int m_lastId;
+    int                     m_lastId;
     /** Map of id / references to the open editors */
     QMap<int, EditorView *> m_editors;
 };

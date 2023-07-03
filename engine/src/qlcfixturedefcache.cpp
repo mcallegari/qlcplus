@@ -80,7 +80,7 @@ QStringList QLCFixtureDefCache::manufacturers() const
 
 QStringList QLCFixtureDefCache::models(const QString &manufacturer) const
 {
-    QSet<QString> models;
+    QSet<QString>                  models;
     QListIterator<QLCFixtureDef *> it(m_defs);
     while (it.hasNext() == true)
     {
@@ -104,7 +104,7 @@ QMap<QString, QMap<QString, bool>> QLCFixtureDefCache::fixtureCache() const
     QListIterator<QLCFixtureDef *> it(m_defs);
     while (it.hasNext() == true)
     {
-        QLCFixtureDef *def = it.next();
+        QLCFixtureDef *def                     = it.next();
         map[def->manufacturer()][def->model()] = def->isUser();
     }
 
@@ -171,7 +171,7 @@ bool QLCFixtureDefCache::load(const QDir &dir)
 
 int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer)
 {
-    int count = 0;
+    int     count              = 0;
     QString spacedManufacturer = manufacturer;
     spacedManufacturer.replace("_", " ");
 
@@ -180,7 +180,7 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manuf
         if (doc->name() == QString("F"))
         {
             QString defFile = "";
-            QString model = "";
+            QString model   = "";
 
             if (doc->attributes().hasAttribute("n"))
             {
@@ -278,7 +278,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
         return false;
     }
 
-    int fxCount = 0;
+    int     fxCount      = 0;
     QString manufacturer = "";
 
     while (doc->readNextStartElement())
@@ -375,7 +375,7 @@ bool QLCFixtureDefCache::loadQXF(const QString &path, bool isUser)
 
 bool QLCFixtureDefCache::loadD4(const QString &path)
 {
-    QLCFixtureDef *fxi = new QLCFixtureDef();
+    QLCFixtureDef   *fxi = new QLCFixtureDef();
     AvolitesD4Parser parser;
     if (parser.loadXML(path, fxi) == false)
     {

@@ -130,7 +130,7 @@ void VCClockProperties::accept()
     for (int i = 0; i < m_scheduleTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_scheduleTree->topLevelItem(i);
-        VCClockSchedule sch;
+        VCClockSchedule  sch;
         sch.setFunction(item->data(KColumnName, Qt::UserRole).toUInt());
         QTimeEdit *timeEdit = (QTimeEdit *)m_scheduleTree->itemWidget(item, KColumnTime);
         if (timeEdit != NULL)

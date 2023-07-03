@@ -83,7 +83,7 @@ AboutBox::AboutBox(QWidget *parent)
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimeout()));
-    m_row = -1;
+    m_row       = -1;
     m_increment = 1;
     m_timer->start(500);
 }

@@ -28,11 +28,11 @@ class FixtureGroup;
 class Fixture;
 class Doc;
 
-#define PROP_ID Qt::UserRole
+#define PROP_ID       Qt::UserRole
 #define PROP_UNIVERSE Qt::UserRole + 1
-#define PROP_GROUP Qt::UserRole + 2
-#define PROP_HEAD Qt::UserRole + 3
-#define PROP_CHANNEL Qt::UserRole + 4
+#define PROP_GROUP    Qt::UserRole + 2
+#define PROP_HEAD     Qt::UserRole + 3
+#define PROP_CHANNEL  Qt::UserRole + 4
 
 class FixtureTreeWidget : public QTreeWidget
 {
@@ -83,14 +83,14 @@ private:
 public:
     enum TreeFlags
     {
-        UniverseNumber = 1 << 0,
-        AddressRange = 1 << 1,
-        ChannelType = 1 << 2,
-        HeadsNumber = 1 << 3,
-        Manufacturer = 1 << 4,
-        Model = 1 << 5,
-        ShowGroups = 1 << 6,
-        ShowHeads = 1 << 7,
+        UniverseNumber   = 1 << 0,
+        AddressRange     = 1 << 1,
+        ChannelType      = 1 << 2,
+        HeadsNumber      = 1 << 3,
+        Manufacturer     = 1 << 4,
+        Model            = 1 << 5,
+        ShowGroups       = 1 << 6,
+        ShowHeads        = 1 << 7,
         ChannelSelection = 1 << 8
     };
 
@@ -99,12 +99,12 @@ public:
     quint32 flags();
 
 private:
-    int m_uniColumn;
-    int m_addressColumn;
-    int m_typeColumn;
-    int m_headsColumn;
-    int m_manufColumn;
-    int m_modelColumn;
+    int  m_uniColumn;
+    int  m_addressColumn;
+    int  m_typeColumn;
+    int  m_headsColumn;
+    int  m_manufColumn;
+    int  m_modelColumn;
     bool m_showGroups;
     bool m_showHeads;
     bool m_channelSelection;
@@ -120,7 +120,7 @@ public:
     void setDisabledHeads(const QList<GroupHead> &disabled);
 
 private:
-    QList<quint32> m_disabledFixtures;
+    QList<quint32>   m_disabledFixtures;
     QList<GroupHead> m_disabledHeads;
 
     /************************************************************************
@@ -137,7 +137,7 @@ protected:
     void updateSelections();
 
 private:
-    QList<quint32> m_selectedFixtures;
+    QList<quint32>   m_selectedFixtures;
     QList<GroupHead> m_selectedHeads;
 
     /****************************************************************************

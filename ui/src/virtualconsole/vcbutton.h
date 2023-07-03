@@ -41,23 +41,23 @@ class QEvent;
  * @{
  */
 
-#define KXMLQLCVCButton QString("Button")
+#define KXMLQLCVCButton     QString("Button")
 #define KXMLQLCVCButtonIcon QString("Icon")
 
-#define KXMLQLCVCButtonFunction QString("Function")
+#define KXMLQLCVCButtonFunction   QString("Function")
 #define KXMLQLCVCButtonFunctionID QString("ID")
 
-#define KXMLQLCVCButtonAction QString("Action")
-#define KXMLQLCVCButtonActionFlash QString("Flash")
-#define KXMLQLCVCButtonActionToggle QString("Toggle")
+#define KXMLQLCVCButtonAction         QString("Action")
+#define KXMLQLCVCButtonActionFlash    QString("Flash")
+#define KXMLQLCVCButtonActionToggle   QString("Toggle")
 #define KXMLQLCVCButtonActionBlackout QString("Blackout")
-#define KXMLQLCVCButtonActionStopAll QString("StopAll")
+#define KXMLQLCVCButtonActionStopAll  QString("StopAll")
 
 #define KXMLQLCVCButtonStopAllFadeTime QString("FadeOut")
 
 #define KXMLQLCVCButtonKey QString("Key")
 
-#define KXMLQLCVCButtonIntensity QString("Intensity")
+#define KXMLQLCVCButtonIntensity       QString("Intensity")
 #define KXMLQLCVCButtonIntensityAdjust QString("Adjust")
 
 class VCButton : public VCWidget
@@ -159,8 +159,8 @@ public slots:
 
 protected:
     QString m_iconPath;
-    QIcon m_icon;
-    QSize m_iconSize;
+    QIcon   m_icon;
+    QSize   m_iconSize;
 
     QAction *m_chooseIconAction;
     QAction *m_resetIconAction;
@@ -210,9 +210,9 @@ public:
         Active
     };
 
-    void setState(ButtonState state);
+    void        setState(ButtonState state);
     ButtonState state() const;
-    void updateState();
+    void        updateState();
 
 signals:
     /** Signal emitted when the button has actually changed the graphic state */
@@ -220,13 +220,13 @@ signals:
 
 protected:
     ButtonState m_state;
-    bool m_ledStyle;
+    bool        m_ledStyle;
 
     /*********************************************************************
      * Key sequence handler
      *********************************************************************/
 public:
-    void setKeySequence(const QKeySequence &keySequence);
+    void         setKeySequence(const QKeySequence &keySequence);
     QKeySequence keySequence() const;
 
 protected slots:
@@ -270,14 +270,14 @@ public:
     Action action() const;
 
     static QString actionToString(Action action);
-    static Action stringToAction(const QString &str);
+    static Action  stringToAction(const QString &str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeTime() const;
+    int  stopAllFadeTime() const;
 
 protected:
     Action m_action;
-    int m_blackoutFadeOutTime;
+    int    m_blackoutFadeOutTime;
 
     /*********************************************************************
      * Startup intensity adjustment
@@ -306,7 +306,7 @@ public:
     qreal startupIntensity() const;
 
 protected:
-    bool m_startupIntensityEnabled;
+    bool  m_startupIntensityEnabled;
     qreal m_startupIntensity;
 
 protected slots:

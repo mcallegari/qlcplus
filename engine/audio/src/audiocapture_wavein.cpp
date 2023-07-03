@@ -39,16 +39,16 @@ AudioCaptureWaveIn::~AudioCaptureWaveIn()
 
 bool AudioCaptureWaveIn::initialize()
 {
-    MMRESULT result = 0;
+    MMRESULT     result = 0;
     WAVEFORMATEX format;
 
-    format.wFormatTag = WAVE_FORMAT_PCM; // simple, uncompressed format
-    format.wBitsPerSample = 16;
-    format.nChannels = m_channels;
-    format.nSamplesPerSec = m_sampleRate;
+    format.wFormatTag      = WAVE_FORMAT_PCM; // simple, uncompressed format
+    format.wBitsPerSample  = 16;
+    format.nChannels       = m_channels;
+    format.nSamplesPerSec  = m_sampleRate;
     format.nAvgBytesPerSec = format.nSamplesPerSec * format.nChannels * (format.wBitsPerSample / 8);
-    format.nBlockAlign = format.nChannels * format.wBitsPerSample / 8;
-    format.cbSize = 0;
+    format.nBlockAlign     = format.nChannels * format.wBitsPerSample / 8;
+    format.cbSize          = 0;
 
     result = waveInOpen(&deviceHandle, WAVE_MAPPER, &format, 0L, 0L, CALLBACK_NULL | WAVE_FORMAT_DIRECT);
     switch (result)
@@ -77,14 +77,14 @@ bool AudioCaptureWaveIn::initialize()
 
     for (int i = 0; i < HEADERS_NUMBER; i++)
     {
-        m_internalBuffers[i] = new char[m_captureSize * 2];
+        m_internalBuffers[i]           = new char[m_captureSize * 2];
         // Set up and prepare header for input
-        waveHeaders[i].lpData = (LPSTR)m_internalBuffers[i];
-        waveHeaders[i].dwBufferLength = m_captureSize * 2; // multiply by 2 cause they're 16bit samples
+        waveHeaders[i].lpData          = (LPSTR)m_internalBuffers[i];
+        waveHeaders[i].dwBufferLength  = m_captureSize * 2; // multiply by 2 cause they're 16bit samples
         waveHeaders[i].dwBytesRecorded = 0;
-        waveHeaders[i].dwUser = 0L;
-        waveHeaders[i].dwFlags = 0L;
-        waveHeaders[i].dwLoops = 0L;
+        waveHeaders[i].dwUser          = 0L;
+        waveHeaders[i].dwFlags         = 0L;
+        waveHeaders[i].dwLoops         = 0L;
 
         if (waveInPrepareHeader(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
         {

@@ -27,7 +27,7 @@ AudioRendererCoreAudio::AudioRendererCoreAudio(QObject *parent)
     : AudioRenderer(parent)
 {
     m_buffersFilled = 0;
-    m_bufferIndex = 0;
+    m_bufferIndex   = 0;
 }
 
 AudioRendererCoreAudio::~AudioRendererCoreAudio() {}
@@ -41,13 +41,13 @@ void AudioRendererCoreAudio::inCallback(void *inUserData, AudioQueueRef, AudioQu
 
 bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat format)
 {
-    OSStatus status;
+    OSStatus                    status;
     AudioStreamBasicDescription fmt;
 
-    fmt.mFormatID = kAudioFormatLinearPCM;
-    fmt.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-    fmt.mSampleRate = freq;
-    fmt.mFramesPerPacket = 1;
+    fmt.mFormatID         = kAudioFormatLinearPCM;
+    fmt.mFormatFlags      = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+    fmt.mSampleRate       = freq;
+    fmt.mFramesPerPacket  = 1;
     fmt.mChannelsPerFrame = chan;
     switch (format)
     {
@@ -67,7 +67,7 @@ bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat form
             qWarning("AudioRendererCoreAudio: unsupported format detected");
             return false;
     }
-    fmt.mBytesPerFrame = fmt.mChannelsPerFrame * fmt.mBitsPerChannel / 8;
+    fmt.mBytesPerFrame  = fmt.mChannelsPerFrame * fmt.mBitsPerChannel / 8;
     fmt.mBytesPerPacket = fmt.mBytesPerFrame * fmt.mFramesPerPacket;
 
     status = AudioQueueNewOutput(&fmt, AudioRendererCoreAudio::inCallback, this, CFRunLoopGetMain(),
@@ -130,7 +130,7 @@ void AudioRendererCoreAudio::reset()
     OSStatus status;
 
     AudioQueueStop(m_queue, true);
-    m_bufferIndex = 0;
+    m_bufferIndex   = 0;
     m_buffersFilled = 0;
     for (int i = 0; i < AUDIO_BUFFERS_NUM; i++)
     {

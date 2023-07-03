@@ -42,16 +42,16 @@ public:
 
     /** Get/Set an arbitrary name for this fader */
     QString name() const;
-    void setName(QString name);
+    void    setName(QString name);
 
     /** Get/Set the ID of the Function controlling this fader.
      *  VC widgets won't set this. */
     quint32 parentFunctionID() const;
-    void setParentFunctionID(quint32 fid);
+    void    setParentFunctionID(quint32 fid);
 
     /** Get/Set a priority for this fader.
      *  The Universe class is in charge of sorting faders by priority */
-    int priority() const;
+    int  priority() const;
     void setPriority(int priority);
 
     /** Build a hash for a fader channel which is unique in a Universe.
@@ -106,11 +106,11 @@ public:
 
     /** Get/Set the intensities of all channels in a 0.0 - 1.0 range */
     qreal intensity() const;
-    void adjustIntensity(qreal fraction);
+    void  adjustIntensity(qreal fraction);
 
     /** Get/Set an optional intensity for the fader parent Function */
     qreal parentIntensity() const;
-    void setParentIntensity(qreal fraction);
+    void  setParentIntensity(qreal fraction);
 
     /** Get/Set the pause state of this fader */
     bool isPaused() const;
@@ -145,18 +145,18 @@ signals:
     void preWriteData(quint32 index, const QByteArray &universeData);
 
 private:
-    QString m_name;
-    quint32 m_fid;
-    int m_priority;
+    QString                     m_name;
+    quint32                     m_fid;
+    int                         m_priority;
     QHash<quint32, FadeChannel> m_channels;
-    qreal m_intensity;
-    qreal m_parentIntensity;
-    bool m_paused;
-    bool m_enabled;
-    bool m_fadeOut;
-    bool m_deleteRequest;
-    Universe::BlendMode m_blendMode;
-    bool m_monitoring;
+    qreal                       m_intensity;
+    qreal                       m_parentIntensity;
+    bool                        m_paused;
+    bool                        m_enabled;
+    bool                        m_fadeOut;
+    bool                        m_deleteRequest;
+    Universe::BlendMode         m_blendMode;
+    bool                        m_monitoring;
 };
 
 /** @} */

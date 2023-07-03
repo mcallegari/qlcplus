@@ -45,7 +45,7 @@ EFXPreviewArea::~EFXPreviewArea() {}
 void EFXPreviewArea::setPolygon(const QPolygonF &polygon)
 {
     m_original = polygon;
-    m_scaled = scale(m_original, size());
+    m_scaled   = scale(m_original, size());
 }
 
 int EFXPreviewArea::polygonsCount() const
@@ -61,7 +61,7 @@ void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF> &fixturePoints)
     for (int i = 0; i < m_fixturePoints.size(); ++i)
     {
         m_originalFixturePoints[i] = QPolygonF(fixturePoints[i]);
-        m_fixturePoints[i] = scale(m_originalFixturePoints[i], size());
+        m_fixturePoints[i]         = scale(m_originalFixturePoints[i], size());
     }
 }
 
@@ -110,9 +110,9 @@ void EFXPreviewArea::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 
     QPainter painter(this);
-    QPen pen;
-    QPointF point;
-    QColor color = palette().color(QPalette::Base);
+    QPen     pen;
+    QPointF  point;
+    QColor   color = palette().color(QPalette::Base);
     if (m_gradientBg)
         painter.drawImage(painter.window(), Gradient::getRGBGradient(256, 256));
     else

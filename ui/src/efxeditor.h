@@ -86,24 +86,24 @@ private slots:
 
 private:
     EFXPreviewArea *m_previewArea;
-    QPolygon *m_points;
-    QTimer m_testTimer;
+    QPolygon       *m_points;
+    QTimer          m_testTimer;
 
     /*********************************************************************
      * General page
      *********************************************************************/
 private:
-    void updateFixtureTree();
-    QTreeWidgetItem *fixtureItem(EFXFixture *ef);
+    void                      updateFixtureTree();
+    QTreeWidgetItem          *fixtureItem(EFXFixture *ef);
     const QList<EFXFixture *> selectedFixtures() const;
-    void updateIndices(int from, int to);
-    void addFixtureItem(EFXFixture *ef);
-    void updateModeColumn(QTreeWidgetItem *item, EFXFixture *ef);
-    void updateIntensityColumn(QTreeWidgetItem *item, EFXFixture *ef);
-    void updateStartOffsetColumn(QTreeWidgetItem *item, EFXFixture *ef);
-    void removeFixtureItem(EFXFixture *ef);
-    void createSpeedDials();
-    void updateSpeedDials();
+    void                      updateIndices(int from, int to);
+    void                      addFixtureItem(EFXFixture *ef);
+    void                      updateModeColumn(QTreeWidgetItem *item, EFXFixture *ef);
+    void                      updateIntensityColumn(QTreeWidgetItem *item, EFXFixture *ef);
+    void                      updateStartOffsetColumn(QTreeWidgetItem *item, EFXFixture *ef);
+    void                      removeFixtureItem(EFXFixture *ef);
+    void                      createSpeedDials();
+    void                      updateSpeedDials();
 
 private slots:
     void slotNameEdited(const QString &text);

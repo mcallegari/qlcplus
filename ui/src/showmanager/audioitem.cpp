@@ -64,7 +64,7 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
 
 void AudioItem::calculateWidth()
 {
-    int newWidth = 0;
+    int    newWidth       = 0;
     qint64 audio_duration = m_audio->totalDuration();
 
     if (audio_duration != 0)
@@ -181,7 +181,7 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 
     if (m_audio->getAudioDecoder() != NULL)
     {
-        AudioDecoder *ad = m_audio->getAudioDecoder();
+        AudioDecoder   *ad = m_audio->getAudioDecoder();
         AudioParameters ap = ad->audioParameters();
 
         if (ap.channels() == 1)
@@ -217,12 +217,12 @@ qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize
     else if (sampleSize == 2)
     {
         qint16 *array = (qint16 *)data;
-        value = array[idx / 2];
+        value         = array[idx / 2];
     }
     else if (sampleSize == 3 || sampleSize == 4)
     {
         qint32 *array = (qint32 *)data;
-        value = array[idx / 4] >> 16;
+        value         = array[idx / 4] >> 16;
     }
     // qDebug() << "sampleValue:" << value;
     return value;
@@ -230,7 +230,7 @@ qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize
 
 void PreviewThread::run()
 {
-    bool left = m_item->m_previewLeftAction->isChecked() || m_item->m_previewStereoAction->isChecked();
+    bool left  = m_item->m_previewLeftAction->isChecked() || m_item->m_previewStereoAction->isChecked();
     bool right = m_item->m_previewRightAction->isChecked() || m_item->m_previewStereoAction->isChecked();
 
     if ((left || right) && m_item->m_audio->getAudioDecoder() != NULL)
@@ -240,10 +240,10 @@ void PreviewThread::run()
         AudioParameters ap = ad->audioParameters();
         ad->seek(0);
         // 1- find out how many samples have to be represented on a single pixel on a 1:1 time scale
-        int sampleSize = ap.sampleSize();
-        int channels = ap.channels();
+        int sampleSize       = ap.sampleSize();
+        int channels         = ap.channels();
         int oneSecondSamples = ap.sampleRate() * channels;
-        int onePixelSamples = oneSecondSamples / 50;
+        int onePixelSamples  = oneSecondSamples / 50;
 
         qint32 maxValue = 0;
         // 24 and 32 bit samples would produce a RMS too high, so let's
@@ -259,13 +259,13 @@ void PreviewThread::run()
         quint32 onePixelReadLen = onePixelSamples * sampleSize;
 
         // 2- decode the whole file and fill a QPixmap with a sample block RMS value for each pixel
-        qint64 dataRead = 1;
+        qint64        dataRead = 1;
         unsigned char audioData[onePixelReadLen * 4];
-        quint32 audioDataOffset = 0;
-        QPixmap *preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
+        quint32       audioDataOffset = 0;
+        QPixmap      *preview         = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
         preview->fill(Qt::transparent);
         QPainter p(preview);
-        int xpos = 0;
+        int      xpos = 0;
 
         qDebug() << "Audio duration:" << m_item->m_audio->totalDuration() << ", channels:" << channels
                  << ", pixmap width:" << preview->width() << ", maxValue:" << maxValue << ", samples:" << sampleSize;
@@ -287,7 +287,7 @@ void PreviewThread::run()
                     if ((quint32)dataRead + audioDataOffset >= onePixelReadLen)
                     {
                         tmpExceedData = (dataRead + audioDataOffset) - onePixelReadLen;
-                        dataRead = onePixelReadLen;
+                        dataRead      = onePixelReadLen;
                     }
                     else
                     {
@@ -299,17 +299,17 @@ void PreviewThread::run()
             }
             else
             {
-                dataRead = onePixelReadLen;
+                dataRead      = onePixelReadLen;
                 tmpExceedData = audioDataOffset - onePixelReadLen;
             }
 
             if (dataRead == onePixelReadLen)
             {
-                quint32 i = 0;
+                quint32 i        = 0;
                 // calculate the RMS value (peak) for this data block
-                qint64 rmsLeft = 0;
-                qint64 rmsRight = 0;
-                bool done = false;
+                qint64  rmsLeft  = 0;
+                qint64  rmsRight = 0;
+                bool    done     = false;
                 while (!done)
                 {
                     if (left)

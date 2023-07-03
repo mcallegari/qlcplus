@@ -61,7 +61,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget *parent, const VCProperties &prop
     /* Widgets page */
     QSettings settings;
     // ********************* BUTTON ****************************
-    QVariant var = settings.value(SETTINGS_BUTTON_SIZE);
+    QVariant  var = settings.value(SETTINGS_BUTTON_SIZE);
     if (var.isValid() == true)
     {
         QSize size = var.toSize();

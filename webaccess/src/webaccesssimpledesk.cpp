@@ -33,7 +33,7 @@ WebAccessSimpleDesk::WebAccessSimpleDesk(QObject *parent)
 
 QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
 {
-    int uni = sd->getCurrentUniverseIndex() + 1;
+    int uni  = sd->getCurrentUniverseIndex() + 1;
     int page = sd->getCurrentPage();
 
     QString JScode = "<script type=\"text/javascript\" src=\"simpledesk.js\"></script>\n";
@@ -104,9 +104,9 @@ QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd, quint3
 
     for (int i = startAddr; i < startAddr + chNumber; i++)
     {
-        QString type = "";
-        uchar value = sd->getAbsoluteChannelValue(universeAddr + i);
-        Fixture *fxi = doc->fixture(doc->fixtureForAddress(universeAddr + i));
+        QString  type  = "";
+        uchar    value = sd->getAbsoluteChannelValue(universeAddr + i);
+        Fixture *fxi   = doc->fixture(doc->fixtureForAddress(universeAddr + i));
         if (fxi != NULL)
         {
             const QLCChannel *ch = fxi->channel(universeAddr + i - fxi->universeAddress());

@@ -63,7 +63,7 @@ private slots:
 
 private:
     GrandMaster *m_gm;
-    Universe *m_uni;
+    Universe    *m_uni;
 };
 
 #endif

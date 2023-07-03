@@ -249,7 +249,7 @@ void ScriptEditor::slotAddStopFunction()
 
 void ScriptEditor::slotAddBlackout()
 {
-    QDialog dialog(this);
+    QDialog     dialog(this);
     // Use a layout allowing to have a label next to each field
     QVBoxLayout dLayout(&dialog);
 
@@ -274,15 +274,15 @@ void ScriptEditor::slotAddBlackout()
 
 void ScriptEditor::slotAddWait()
 {
-    QDialog dialog(this);
+    QDialog     dialog(this);
     // Use a layout allowing to have a label next to each field
     QVBoxLayout dLayout(&dialog);
 
     dLayout.addWidget(new QLabel(tr("Enter the desired time")));
-    SpeedDial *sd = new SpeedDial(this);
-    ushort dialMask = sd->visibilityMask();
-    dialMask = (dialMask & ~SpeedDial::Infinite);
-    dialMask = (dialMask & ~SpeedDial::Tap);
+    SpeedDial *sd       = new SpeedDial(this);
+    ushort     dialMask = sd->visibilityMask();
+    dialMask            = (dialMask & ~SpeedDial::Infinite);
+    dialMask            = (dialMask & ~SpeedDial::Tap);
     sd->setVisibilityMask(dialMask);
     sd->setValue(1000);
     dLayout.addWidget(sd);
@@ -371,7 +371,7 @@ void ScriptEditor::slotAddSystemCommand()
                                          QLineEdit::Normal, QString());
 
     QStringList argsList = args.split(" ");
-    QString formattedArgs;
+    QString     formattedArgs;
     foreach (QString arg, argsList)
     {
         formattedArgs.append(QString("arg:%1 ").arg(arg));
@@ -384,7 +384,7 @@ void ScriptEditor::slotAddSystemCommand()
 
 void ScriptEditor::slotAddComment()
 {
-    bool ok = false;
+    bool    ok  = false;
     QString str = QInputDialog::getText(this, tr("Add Comment"), "", QLineEdit::Normal, QString(), &ok);
     if (ok == true)
     {
@@ -396,7 +396,7 @@ void ScriptEditor::slotAddComment()
 
 void ScriptEditor::slotAddRandom()
 {
-    QDialog dialog(this);
+    QDialog     dialog(this);
     // Use a layout allowing to have a label next to each field
     QFormLayout dLayout(&dialog);
 

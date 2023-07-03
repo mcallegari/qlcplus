@@ -83,9 +83,9 @@ bool InputPatch::set(QLCIOPlugin *plugin, quint32 input, QLCInputProfile *profil
         m_plugin->closeInput(m_pluginLine, m_universe);
     }
 
-    m_plugin = plugin;
+    m_plugin     = plugin;
     m_pluginLine = input;
-    m_profile = profile;
+    m_profile    = profile;
 
     if (m_plugin != NULL)
     {
@@ -217,7 +217,7 @@ void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 chann
         if (universe == UINT_MAX || universe == m_universe)
         {
             QMutexLocker inputBufferLocker(&m_inputBufferMutex);
-            InputValue val(value, key);
+            InputValue   val(value, key);
             if (m_inputBuffer.contains(channel))
             {
                 InputValue const &curVal = m_inputBuffer.value(channel);

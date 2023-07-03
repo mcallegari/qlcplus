@@ -27,12 +27,12 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KXMLQLCChannelsGroupID "ID"
-#define KXMLQLCChannelsGroupName "Name"
+#define KXMLQLCChannelsGroupID    "ID"
+#define KXMLQLCChannelsGroupName  "Name"
 #define KXMLQLCChannelsGroupValue "Value"
 
 #define KXMLQLCChannelsGroupInputUniverse "InputUniverse"
-#define KXMLQLCChannelsGroupInputChannel "InputChannel"
+#define KXMLQLCChannelsGroupInputChannel  "InputChannel"
 
 
 ChannelsGroup::ChannelsGroup(Doc *doc)
@@ -171,7 +171,7 @@ QString ChannelsGroup::status(Doc *doc) const
         if (fixture == NULL)
             return QString();
         const QLCFixtureMode *mode = fixture->fixtureMode();
-        QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
+        QString               chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
         if (mode != NULL)
         {
             info += chInfo.arg(fixture->name()).arg(value.channel + 1).arg(mode->channels().at(value.channel)->name());
@@ -292,7 +292,7 @@ bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
 
     QXmlStreamAttributes attrs = xmlDoc.attributes();
 
-    bool ok = false;
+    bool    ok = false;
     quint32 id = attrs.value(KXMLQLCChannelsGroupID).toString().toUInt(&ok);
     if (ok == false)
     {
@@ -315,7 +315,7 @@ bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
         for (int i = 0; i < varray.count(); i += 2)
         {
             SceneValue scv(QString(varray.at(i)).toUInt(), QString(varray.at(i + 1)).toUInt(), 0);
-            Fixture *fxi = m_doc->fixture(scv.fxi);
+            Fixture   *fxi = m_doc->fixture(scv.fxi);
             if (fxi == NULL)
             {
                 qWarning() << Q_FUNC_INFO << "Fixture not present:" << scv.fxi;
@@ -335,7 +335,7 @@ bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
         && attrs.hasAttribute(KXMLQLCChannelsGroupInputChannel) == true)
     {
         quint32 uni = attrs.value(KXMLQLCChannelsGroupInputUniverse).toString().toInt();
-        quint32 ch = attrs.value(KXMLQLCChannelsGroupInputChannel).toString().toInt();
+        quint32 ch  = attrs.value(KXMLQLCChannelsGroupInputChannel).toString().toInt();
         setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
     }
 

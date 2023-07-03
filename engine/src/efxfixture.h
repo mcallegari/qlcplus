@@ -37,17 +37,17 @@ class QImage;
  * @{
  */
 
-#define KXMLQLCEFXFixture QString("Fixture")
-#define KXMLQLCEFXFixtureID QString("ID")
-#define KXMLQLCEFXFixtureHead QString("Head")
-#define KXMLQLCEFXFixtureMode QString("Mode")
-#define KXMLQLCEFXFixtureDirection QString("Direction")
+#define KXMLQLCEFXFixture            QString("Fixture")
+#define KXMLQLCEFXFixtureID          QString("ID")
+#define KXMLQLCEFXFixtureHead        QString("Head")
+#define KXMLQLCEFXFixtureMode        QString("Mode")
+#define KXMLQLCEFXFixtureDirection   QString("Direction")
 #define KXMLQLCEFXFixtureStartOffset QString("StartOffset")
-#define KXMLQLCEFXFixtureIntensity QString("Intensity")
+#define KXMLQLCEFXFixtureIntensity   QString("Intensity")
 
 #define KXMLQLCEFXFixtureModePanTilt QString("Position")
-#define KXMLQLCEFXFixtureModeDimmer QString("Dimmer")
-#define KXMLQLCEFXFixtureModeRGB QString("RGB")
+#define KXMLQLCEFXFixtureModeDimmer  QString("Dimmer")
+#define KXMLQLCEFXFixtureModeRGB     QString("RGB")
 
 class EFXFixture
 {
@@ -128,11 +128,11 @@ public:
     static Mode stringToMode(const QString &str);
 
 private:
-    GroupHead m_head;
-    quint32 m_universe;
+    GroupHead           m_head;
+    quint32             m_universe;
     Function::Direction m_direction;
-    int m_startOffset;
-    Mode m_mode;
+    int                 m_startOffset;
+    Mode                m_mode;
 
     /*************************************************************************
      * Load & Save

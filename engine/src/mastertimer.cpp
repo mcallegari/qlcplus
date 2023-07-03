@@ -40,12 +40,12 @@
 #include "universe.h"
 #include "doc.h"
 
-#define MASTERTIMER_FREQUENCY "mastertimer/frequency"
+#define MASTERTIMER_FREQUENCY  "mastertimer/frequency"
 #define LATE_TO_BEAT_THRESHOLD 25
 
 /** The timer tick frequency in Hertz */
 uint MasterTimer::s_frequency = 50;
-uint MasterTimer::s_tick = 20;
+uint MasterTimer::s_tick      = 20;
 
 //#define DEBUG_MASTERTIMER
 
@@ -75,7 +75,7 @@ MasterTimer::MasterTimer(Doc *doc)
     Q_ASSERT(d_ptr != NULL);
 
     QSettings settings;
-    QVariant var = settings.value(MASTERTIMER_FREQUENCY);
+    QVariant  var = settings.value(MASTERTIMER_FREQUENCY);
     if (var.isValid() == true)
         s_frequency = var.toUInt();
 
@@ -235,8 +235,8 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
     QList<int> removeList;
 
     bool functionListHasChanged = false;
-    bool stoppedAFunction = true;
-    bool firstIteration = true;
+    bool stoppedAFunction       = true;
+    bool firstIteration         = true;
 
     while (stoppedAFunction)
     {
@@ -265,7 +265,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
                     // qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
                     removeList << i; // Don't remove the item from the list just yet.
                     functionListHasChanged = true;
-                    stoppedAFunction = true;
+                    stoppedAFunction       = true;
                 }
             }
         }
@@ -383,7 +383,7 @@ void MasterTimer::requestBpmNumber(int bpm)
     if (bpm == m_currentBPM)
         return;
 
-    m_currentBPM = bpm;
+    m_currentBPM       = bpm;
     m_beatTimeDuration = 60000 / m_currentBPM;
     m_beatTimer->restart();
 
@@ -408,7 +408,7 @@ int MasterTimer::timeToNextBeat() const
 int MasterTimer::nextBeatTimeOffset() const
 {
     // get the time offset to the next beat
-    int toNext = timeToNextBeat();
+    int toNext         = timeToNextBeat();
     // get the percentage of beat time passed
     int beatPercentage = (100 * toNext) / m_beatTimeDuration;
 

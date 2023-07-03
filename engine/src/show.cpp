@@ -34,8 +34,8 @@
 #include "doc.h"
 
 #define KXMLQLCShowTimeDivision QString("TimeDivision")
-#define KXMLQLCShowTimeType QString("Type")
-#define KXMLQLCShowTimeBPM QString("BPM")
+#define KXMLQLCShowTimeType     QString("Type")
+#define KXMLQLCShowTimeBPM      QString("BPM")
 
 /*****************************************************************************
  * Initialization
@@ -110,15 +110,15 @@ bool Show::copyFrom(const Function *function)
     if (show == NULL)
         return false;
 
-    m_timeDivType = show->m_timeDivType;
-    m_timeDivBPM = show->m_timeDivBPM;
+    m_timeDivType   = show->m_timeDivType;
+    m_timeDivBPM    = show->m_timeDivBPM;
     m_latestTrackId = show->m_latestTrackId;
 
     // create a copy of each track
     foreach (Track *track, show->tracks())
     {
-        quint32 sceneID = track->getSceneID();
-        Track *newTrack = new Track(sceneID);
+        quint32 sceneID  = track->getSceneID();
+        Track  *newTrack = new Track(sceneID);
         newTrack->setName(track->name());
         addTrack(newTrack);
 
@@ -154,7 +154,7 @@ void Show::setTimeDivision(QString type, int BPM)
 {
     qDebug() << "[setTimeDivision] type:" << type << ", BPM:" << BPM;
     m_timeDivType = type;
-    m_timeDivBPM = BPM;
+    m_timeDivBPM  = BPM;
 }
 
 QString Show::getTimeDivisionType()
@@ -240,9 +240,9 @@ void Show::moveTrack(Track *track, int direction)
     qint32 trkID = track->id();
     if (trkID == 0 && direction == -1)
         return;
-    qint32 maxID = -1;
+    qint32 maxID     = -1;
     Track *swapTrack = NULL;
-    qint32 swapID = -1;
+    qint32 swapID    = -1;
     if (direction > 0)
         swapID = INT_MAX;
 
@@ -261,9 +261,9 @@ void Show::moveTrack(Track *track, int direction)
     if (swapID == trkID || (direction > 0 && trkID == maxID))
         return;
 
-    swapTrack = m_tracks[swapID];
+    swapTrack        = m_tracks[swapID];
     m_tracks[swapID] = track;
-    m_tracks[trkID] = swapTrack;
+    m_tracks[trkID]  = swapTrack;
     track->setId(swapID);
     swapTrack->setId(trkID);
 }
@@ -330,7 +330,7 @@ bool Show::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCShowTimeDivision)
         {
             QString type = root.attributes().value(KXMLQLCShowTimeType).toString();
-            int bpm = root.attributes().value(KXMLQLCShowTimeBPM).toString().toInt();
+            int     bpm  = root.attributes().value(KXMLQLCShowTimeBPM).toString().toInt();
             setTimeDivision(type, bpm);
             root.skipCurrentElement();
         }
@@ -401,7 +401,7 @@ void Show::preRun(MasterTimer *timer)
     }
 
     m_runner = new ShowRunner(doc(), this->id(), elapsed());
-    int i = 0;
+    int i    = 0;
     foreach (Track *track, m_tracks.values())
         m_runner->adjustIntensity(getAttributeValue(i++), track);
 
