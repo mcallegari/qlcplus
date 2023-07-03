@@ -846,7 +846,7 @@ void FixtureRemap::accept()
     {
         switch (func->type())
         {
-        case Function::SceneType:
+            case Function::SceneType:
             {
                 Scene *s = qobject_cast<Scene *>(func);
                 qDebug() << "Analyzing Scene #" << s->id();
@@ -861,7 +861,7 @@ void FixtureRemap::accept()
                 }
             }
             break;
-        case Function::SequenceType:
+            case Function::SequenceType:
             {
                 Sequence *s = qobject_cast<Sequence *>(func);
                 for (int idx = 0; idx < s->stepsCount(); idx++)
@@ -876,7 +876,7 @@ void FixtureRemap::accept()
                 }
             }
             break;
-        case Function::EFXType:
+            case Function::EFXType:
             {
                 EFX *e = qobject_cast<EFX *>(func);
                 // make a copy of this EFX fixtures list
@@ -921,8 +921,8 @@ void FixtureRemap::accept()
                 fixListCopy.clear();
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
         if (progress.wasCanceled())
             break;
@@ -941,7 +941,7 @@ void FixtureRemap::accept()
     {
         switch (widget->type())
         {
-        case VCWidget::SliderWidget:
+            case VCWidget::SliderWidget:
             {
                 VCSlider *slider = qobject_cast<VCSlider *>(widget);
                 if (slider->sliderMode() == VCSlider::Level)
@@ -969,7 +969,7 @@ void FixtureRemap::accept()
                 }
             }
             break;
-        case VCWidget::AudioTriggersWidget:
+            case VCWidget::AudioTriggersWidget:
             {
                 VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers *>(widget);
                 foreach (AudioBar *bar, triggers->getAudioBars())
@@ -983,7 +983,7 @@ void FixtureRemap::accept()
                 }
             }
             break;
-        case VCWidget::XYPadWidget:
+            case VCWidget::XYPadWidget:
             {
                 VCXYPad *xypad = qobject_cast<VCXYPad *>(widget);
                 QList<VCXYPadFixture> copyFixtures;
@@ -1015,8 +1015,8 @@ void FixtureRemap::accept()
                     xypad->appendFixture(fix);
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 

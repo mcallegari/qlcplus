@@ -64,28 +64,28 @@ bool AudioRendererQt5::initialize(quint32 freq, int chan, AudioFormat format)
 
     switch (format)
     {
-    case PCM_S8:
-        m_format.setSampleSize(8);
-        m_format.setSampleType(QAudioFormat::SignedInt);
-        break;
-    case PCM_S16LE:
-        m_format.setSampleSize(16);
-        m_format.setSampleType(QAudioFormat::SignedInt);
-        m_format.setByteOrder(QAudioFormat::LittleEndian);
-        break;
-    case PCM_S24LE:
-        m_format.setSampleSize(16);
-        m_format.setSampleType(QAudioFormat::SignedInt);
-        m_format.setByteOrder(QAudioFormat::LittleEndian);
-        break;
-    case PCM_S32LE:
-        m_format.setSampleSize(16);
-        m_format.setSampleType(QAudioFormat::SignedInt);
-        m_format.setByteOrder(QAudioFormat::LittleEndian);
-        break;
-    default:
-        qWarning("AudioRendererQt5: unsupported format detected");
-        return false;
+        case PCM_S8:
+            m_format.setSampleSize(8);
+            m_format.setSampleType(QAudioFormat::SignedInt);
+            break;
+        case PCM_S16LE:
+            m_format.setSampleSize(16);
+            m_format.setSampleType(QAudioFormat::SignedInt);
+            m_format.setByteOrder(QAudioFormat::LittleEndian);
+            break;
+        case PCM_S24LE:
+            m_format.setSampleSize(16);
+            m_format.setSampleType(QAudioFormat::SignedInt);
+            m_format.setByteOrder(QAudioFormat::LittleEndian);
+            break;
+        case PCM_S32LE:
+            m_format.setSampleSize(16);
+            m_format.setSampleType(QAudioFormat::SignedInt);
+            m_format.setByteOrder(QAudioFormat::LittleEndian);
+            break;
+        default:
+            qWarning("AudioRendererQt5: unsupported format detected");
+            return false;
     }
 
     if (!m_deviceInfo.isFormatSupported(m_format))

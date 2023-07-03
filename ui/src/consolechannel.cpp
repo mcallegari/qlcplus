@@ -369,20 +369,20 @@ void ConsoleChannel::initMenu()
 
     switch (ch->group())
     {
-    case QLCChannel::Colour:
-        m_cngWidget = new ClickAndGoWidget();
-        m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
-        break;
-    case QLCChannel::Effect:
-        m_cngWidget = new ClickAndGoWidget();
-        m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
-        break;
-    case QLCChannel::Gobo:
-        m_cngWidget = new ClickAndGoWidget();
-        m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
-        break;
-    default:
-        break;
+        case QLCChannel::Colour:
+            m_cngWidget = new ClickAndGoWidget();
+            m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
+            break;
+        case QLCChannel::Effect:
+            m_cngWidget = new ClickAndGoWidget();
+            m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
+            break;
+        case QLCChannel::Gobo:
+            m_cngWidget = new ClickAndGoWidget();
+            m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
+            break;
+        default:
+            break;
     }
 
     if (m_cngWidget != NULL)

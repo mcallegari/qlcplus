@@ -778,34 +778,34 @@ bool App::handleFileError(QFile::FileError error)
 
     switch (error)
     {
-    case QFile::NoError:
-        return true;
-        break;
-    case QFile::ReadError:
-        msg = tr("Unable to read from file");
-        break;
-    case QFile::WriteError:
-        msg = tr("Unable to write to file");
-        break;
-    case QFile::FatalError:
-        msg = tr("A fatal error occurred");
-        break;
-    case QFile::ResourceError:
-        msg = tr("Unable to access resource");
-        break;
-    case QFile::OpenError:
-        msg = tr("Unable to open file for reading or writing");
-        break;
-    case QFile::AbortError:
-        msg = tr("Operation was aborted");
-        break;
-    case QFile::TimeOutError:
-        msg = tr("Operation timed out");
-        break;
-    default:
-    case QFile::UnspecifiedError:
-        msg = tr("An unspecified error has occurred. Nice.");
-        break;
+        case QFile::NoError:
+            return true;
+            break;
+        case QFile::ReadError:
+            msg = tr("Unable to read from file");
+            break;
+        case QFile::WriteError:
+            msg = tr("Unable to write to file");
+            break;
+        case QFile::FatalError:
+            msg = tr("A fatal error occurred");
+            break;
+        case QFile::ResourceError:
+            msg = tr("Unable to access resource");
+            break;
+        case QFile::OpenError:
+            msg = tr("Unable to open file for reading or writing");
+            break;
+        case QFile::AbortError:
+            msg = tr("Operation was aborted");
+            break;
+        case QFile::TimeOutError:
+            msg = tr("Operation timed out");
+            break;
+        default:
+        case QFile::UnspecifiedError:
+            msg = tr("An unspecified error has occurred. Nice.");
+            break;
     }
 
     QMessageBox::warning(this, tr("File error"), msg);

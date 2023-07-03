@@ -505,10 +505,10 @@ bool RGBScript::loadProperties()
                 QStringList values = value.split(",");
                 switch (newCap.m_type)
                 {
-                case RGBScriptProperty::List:
-                    newCap.m_listValues = values;
-                    break;
-                case RGBScriptProperty::Range:
+                    case RGBScriptProperty::List:
+                        newCap.m_listValues = values;
+                        break;
+                    case RGBScriptProperty::Range:
                     {
                         if (values.length() < 2)
                         {
@@ -521,12 +521,12 @@ bool RGBScript::loadProperties()
                         }
                     }
                     break;
-                default:
-                    qWarning() << value
-                               << ": values cannot be applied before the 'type' property or on "
-                                  "type:integer and "
-                                  "type:string";
-                    break;
+                    default:
+                        qWarning() << value
+                                   << ": values cannot be applied before the 'type' property or on "
+                                      "type:integer and "
+                                      "type:string";
+                        break;
                 }
             }
             else if (key == "write")

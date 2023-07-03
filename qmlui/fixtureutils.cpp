@@ -79,23 +79,23 @@ QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfVie
 
     switch (pointOfView)
     {
-    case MonitorProperties::TopView:
-        point.setX(pos.x());
-        point.setY(pos.z());
-        break;
-    case MonitorProperties::Undefined:
-    case MonitorProperties::FrontView:
-        point.setX(pos.x());
-        point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
-        break;
-    case MonitorProperties::RightSideView:
-        point.setX((monProps->gridSize().x() * gridUnits) - pos.z());
-        point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
-        break;
-    case MonitorProperties::LeftSideView:
-        point.setX(pos.z());
-        point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
-        break;
+        case MonitorProperties::TopView:
+            point.setX(pos.x());
+            point.setY(pos.z());
+            break;
+        case MonitorProperties::Undefined:
+        case MonitorProperties::FrontView:
+            point.setX(pos.x());
+            point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
+            break;
+        case MonitorProperties::RightSideView:
+            point.setX((monProps->gridSize().x() * gridUnits) - pos.z());
+            point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
+            break;
+        case MonitorProperties::LeftSideView:
+            point.setX(pos.z());
+            point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
+            break;
     }
 
     return point;
@@ -106,16 +106,16 @@ float FixtureUtils::item2DRotation(int pointOfView, QVector3D rot)
 {
     switch (pointOfView)
     {
-    case MonitorProperties::TopView:
-        return rot.y();
-        break;
-    case MonitorProperties::RightSideView:
-    case MonitorProperties::LeftSideView:
-        return rot.x();
-        break;
-    default:
-        return rot.z();
-        break;
+        case MonitorProperties::TopView:
+            return rot.y();
+            break;
+        case MonitorProperties::RightSideView:
+        case MonitorProperties::LeftSideView:
+            return rot.x();
+            break;
+        default:
+            return rot.z();
+            break;
     }
 
     return 0;
@@ -138,20 +138,20 @@ QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
 
     switch (pointOfView)
     {
-    case MonitorProperties::TopView:
-        size.setWidth(phy.width());
-        size.setHeight(phy.depth());
-        break;
-    case MonitorProperties::Undefined:
-    case MonitorProperties::FrontView:
-        size.setWidth(phy.width());
-        size.setHeight(phy.height());
-        break;
-    case MonitorProperties::RightSideView:
-    case MonitorProperties::LeftSideView:
-        size.setWidth(phy.depth());
-        size.setHeight(phy.height());
-        break;
+        case MonitorProperties::TopView:
+            size.setWidth(phy.width());
+            size.setHeight(phy.depth());
+            break;
+        case MonitorProperties::Undefined:
+        case MonitorProperties::FrontView:
+            size.setWidth(phy.width());
+            size.setHeight(phy.height());
+            break;
+        case MonitorProperties::RightSideView:
+        case MonitorProperties::LeftSideView:
+            size.setWidth(phy.depth());
+            size.setHeight(phy.height());
+            break;
     }
 
     return size;
@@ -161,44 +161,44 @@ void FixtureUtils::alignItem(QVector3D refPos, QVector3D &origPos, int pointOfVi
 {
     switch (pointOfView)
     {
-    case MonitorProperties::TopView:
+        case MonitorProperties::TopView:
         {
             switch (alignment)
             {
-            case Qt::AlignTop:
-                origPos.setZ(refPos.z());
-                break;
-            case Qt::AlignLeft:
-                origPos.setX(refPos.x());
-                break;
+                case Qt::AlignTop:
+                    origPos.setZ(refPos.z());
+                    break;
+                case Qt::AlignLeft:
+                    origPos.setX(refPos.x());
+                    break;
             }
         }
         break;
-    case MonitorProperties::Undefined:
-    case MonitorProperties::FrontView:
+        case MonitorProperties::Undefined:
+        case MonitorProperties::FrontView:
         {
             switch (alignment)
             {
-            case Qt::AlignTop:
-                origPos.setY(refPos.y());
-                break;
-            case Qt::AlignLeft:
-                origPos.setX(refPos.x());
-                break;
+                case Qt::AlignTop:
+                    origPos.setY(refPos.y());
+                    break;
+                case Qt::AlignLeft:
+                    origPos.setX(refPos.x());
+                    break;
             }
         }
         break;
-    case MonitorProperties::RightSideView:
-    case MonitorProperties::LeftSideView:
+        case MonitorProperties::RightSideView:
+        case MonitorProperties::LeftSideView:
         {
             switch (alignment)
             {
-            case Qt::AlignTop:
-                origPos.setY(refPos.y());
-                break;
-            case Qt::AlignLeft:
-                origPos.setZ(refPos.z());
-                break;
+                case Qt::AlignTop:
+                    origPos.setY(refPos.y());
+                    break;
+                case Qt::AlignLeft:
+                    origPos.setZ(refPos.z());
+                    break;
             }
         }
         break;
@@ -211,17 +211,17 @@ QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF poin
 
     switch (monProps->pointOfView())
     {
-    case MonitorProperties::TopView:
-        pos = QVector3D(point.x(), thirdVal, point.y());
-        break;
-    case MonitorProperties::RightSideView:
-        pos = QVector3D(thirdVal, point.y(), monProps->gridSize().z() - point.x());
-        break;
-    case MonitorProperties::LeftSideView:
-        pos = QVector3D(thirdVal, point.y(), point.x());
-        break;
-    default:
-        break;
+        case MonitorProperties::TopView:
+            pos = QVector3D(point.x(), thirdVal, point.y());
+            break;
+        case MonitorProperties::RightSideView:
+            pos = QVector3D(thirdVal, point.y(), monProps->gridSize().z() - point.x());
+            break;
+        case MonitorProperties::LeftSideView:
+            pos = QVector3D(thirdVal, point.y(), point.x());
+            break;
+        default:
+            break;
     }
 
     return pos;
@@ -241,16 +241,16 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
 
     switch (pointOfView)
     {
-    case MonitorProperties::TopView:
-        gridSize = QSize(monProps->gridSize().x(), monProps->gridSize().z());
-        break;
-    case MonitorProperties::RightSideView:
-    case MonitorProperties::LeftSideView:
-        gridSize = QSize(monProps->gridSize().z(), monProps->gridSize().y());
-        break;
-    default:
-        gridSize = QSize(monProps->gridSize().x(), monProps->gridSize().y());
-        break;
+        case MonitorProperties::TopView:
+            gridSize = QSize(monProps->gridSize().x(), monProps->gridSize().z());
+            break;
+        case MonitorProperties::RightSideView:
+        case MonitorProperties::LeftSideView:
+            gridSize = QSize(monProps->gridSize().z(), monProps->gridSize().y());
+            break;
+        default:
+            gridSize = QSize(monProps->gridSize().x(), monProps->gridSize().y());
+            break;
     }
 
     QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
@@ -378,26 +378,26 @@ void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDu
 
     switch (ch->preset())
     {
-    case QLCChannel::SpeedPanTiltFastSlow:
-        panDuration = tiltDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
-        break;
-    case QLCChannel::SpeedPanTiltSlowFast:
-        panDuration = tiltDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
-        break;
-    case QLCChannel::SpeedPanFastSlow:
-        panDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
-        break;
-    case QLCChannel::SpeedPanSlowFast:
-        panDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
-        break;
-    case QLCChannel::SpeedTiltFastSlow:
-        tiltDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
-        break;
-    case QLCChannel::SpeedTiltSlowFast:
-        tiltDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
-        break;
-    default:
-        break;
+        case QLCChannel::SpeedPanTiltFastSlow:
+            panDuration = tiltDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+            break;
+        case QLCChannel::SpeedPanTiltSlowFast:
+            panDuration = tiltDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+            break;
+        case QLCChannel::SpeedPanFastSlow:
+            panDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+            break;
+        case QLCChannel::SpeedPanSlowFast:
+            panDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+            break;
+        case QLCChannel::SpeedTiltFastSlow:
+            tiltDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+            break;
+        case QLCChannel::SpeedTiltSlowFast:
+            tiltDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+            break;
+        default:
+            break;
     }
 }
 
@@ -416,34 +416,34 @@ bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
 
     switch (cap->preset())
     {
-    case QLCCapability::RotationClockwise:
-        speed = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
-        break;
-    case QLCCapability::RotationClockwiseFastToSlow:
-        speed = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
-        break;
-    case QLCCapability::RotationClockwiseSlowToFast:
-        speed = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
-        break;
-    case QLCCapability::RotationStop:
-        speed = 0;
-        break;
-    case QLCCapability::RotationCounterClockwise:
-        speed = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
-        clockwise = false;
-        break;
-    case QLCCapability::RotationCounterClockwiseFastToSlow:
-        speed = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
-        clockwise = false;
-        break;
-    case QLCCapability::RotationCounterClockwiseSlowToFast:
-        speed = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
-        clockwise = false;
-        break;
-    default:
-        // not a handled/valid capability. Invalidate speed
-        speed = -1;
-        break;
+        case QLCCapability::RotationClockwise:
+            speed = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
+            break;
+        case QLCCapability::RotationClockwiseFastToSlow:
+            speed = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            break;
+        case QLCCapability::RotationClockwiseSlowToFast:
+            speed = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            break;
+        case QLCCapability::RotationStop:
+            speed = 0;
+            break;
+        case QLCCapability::RotationCounterClockwise:
+            speed = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
+            clockwise = false;
+            break;
+        case QLCCapability::RotationCounterClockwiseFastToSlow:
+            speed = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            clockwise = false;
+            break;
+        case QLCCapability::RotationCounterClockwiseSlowToFast:
+            speed = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            clockwise = false;
+            break;
+        default:
+            // not a handled/valid capability. Invalidate speed
+            speed = -1;
+            break;
     }
 
     return clockwise;
@@ -456,18 +456,18 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
 
     switch (ch->preset())
     {
-    case QLCChannel::ShutterStrobeSlowFast:
-        if (value)
-            capPreset = QLCCapability::StrobeSlowToFast;
-        break;
-    case QLCChannel::ShutterStrobeFastSlow:
-        if (value)
-        {
-            capPreset = QLCCapability::StrobeFastToSlow;
-            value = 255 - value;
-        }
-        break;
-    default:
+        case QLCChannel::ShutterStrobeSlowFast:
+            if (value)
+                capPreset = QLCCapability::StrobeSlowToFast;
+            break;
+        case QLCChannel::ShutterStrobeFastSlow:
+            if (value)
+            {
+                capPreset = QLCCapability::StrobeFastToSlow;
+                value = 255 - value;
+            }
+            break;
+        default:
         {
             QLCCapability *cap = ch->searchCapability(value);
             if (cap == nullptr)
@@ -476,37 +476,37 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
             capPreset = cap->preset();
             switch (capPreset)
             {
-            case QLCCapability::ShutterOpen:
-            case QLCCapability::ShutterClose:
-                break;
-            case QLCCapability::StrobeSlowToFast:
-            case QLCCapability::PulseSlowToFast:
-            case QLCCapability::RampUpSlowToFast:
-            case QLCCapability::RampDownSlowToFast:
-                value = SCALE(value, cap->min(), cap->max(), 1, 255);
-                break;
-            case QLCCapability::StrobeFastToSlow:
-            case QLCCapability::PulseFastToSlow:
-            case QLCCapability::RampUpFastToSlow:
-            case QLCCapability::RampDownFastToSlow:
-                value = 255 - SCALE(value, cap->min(), cap->max(), 1, 255);
-                break;
-            case QLCCapability::StrobeFrequency:
-            case QLCCapability::PulseFrequency:
-            case QLCCapability::RampUpFrequency:
-            case QLCCapability::RampDownFrequency:
-                freq = cap->resource(0).toFloat();
-                break;
-            case QLCCapability::StrobeFreqRange:
-            case QLCCapability::PulseFreqRange:
-            case QLCCapability::RampUpFreqRange:
-            case QLCCapability::RampDownFreqRange:
-                freq = SCALE(value, cap->min(), cap->max(), cap->resource(0).toFloat(), cap->resource(1).toFloat());
-                break;
-            default:
-                // invalidate any other preset, to avoid messing up the preview
-                capPreset = QLCCapability::Custom;
-                break;
+                case QLCCapability::ShutterOpen:
+                case QLCCapability::ShutterClose:
+                    break;
+                case QLCCapability::StrobeSlowToFast:
+                case QLCCapability::PulseSlowToFast:
+                case QLCCapability::RampUpSlowToFast:
+                case QLCCapability::RampDownSlowToFast:
+                    value = SCALE(value, cap->min(), cap->max(), 1, 255);
+                    break;
+                case QLCCapability::StrobeFastToSlow:
+                case QLCCapability::PulseFastToSlow:
+                case QLCCapability::RampUpFastToSlow:
+                case QLCCapability::RampDownFastToSlow:
+                    value = 255 - SCALE(value, cap->min(), cap->max(), 1, 255);
+                    break;
+                case QLCCapability::StrobeFrequency:
+                case QLCCapability::PulseFrequency:
+                case QLCCapability::RampUpFrequency:
+                case QLCCapability::RampDownFrequency:
+                    freq = cap->resource(0).toFloat();
+                    break;
+                case QLCCapability::StrobeFreqRange:
+                case QLCCapability::PulseFreqRange:
+                case QLCCapability::RampUpFreqRange:
+                case QLCCapability::RampDownFreqRange:
+                    freq = SCALE(value, cap->min(), cap->max(), cap->resource(0).toFloat(), cap->resource(1).toFloat());
+                    break;
+                default:
+                    // invalidate any other preset, to avoid messing up the preview
+                    capPreset = QLCCapability::Custom;
+                    break;
             }
         }
         break;
@@ -514,26 +514,26 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
 
     switch (capPreset)
     {
-    case QLCCapability::StrobeSlowToFast:
-    case QLCCapability::StrobeFastToSlow:
-        freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
-        highTime = qBound(50.0, 500.0 / freq, 200.0);
-        lowTime = qMax((1000.0 / freq) - highTime, 0.0);
-        break;
-    case QLCCapability::RampUpSlowToFast:
-    case QLCCapability::RampUpFastToSlow:
-    case QLCCapability::RampDownSlowToFast:
-    case QLCCapability::RampDownFastToSlow:
-    case QLCCapability::PulseSlowToFast:
-    case QLCCapability::PulseFastToSlow:
-        freq = qMax(((float)value * MAX_PULSE_FREQ_HZ) / 255.0, MIN_PULSE_FREQ_HZ);
-        highTime = qMax(50.0, 1000.0 / freq);
-        lowTime = 0;
-        break;
-    default:
-        highTime = qBound(50.0, 500.0 / freq, 200.0);
-        lowTime = qMax((1000.0 / freq) - highTime, 0.0);
-        break;
+        case QLCCapability::StrobeSlowToFast:
+        case QLCCapability::StrobeFastToSlow:
+            freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
+            highTime = qBound(50.0, 500.0 / freq, 200.0);
+            lowTime = qMax((1000.0 / freq) - highTime, 0.0);
+            break;
+        case QLCCapability::RampUpSlowToFast:
+        case QLCCapability::RampUpFastToSlow:
+        case QLCCapability::RampDownSlowToFast:
+        case QLCCapability::RampDownFastToSlow:
+        case QLCCapability::PulseSlowToFast:
+        case QLCCapability::PulseFastToSlow:
+            freq = qMax(((float)value * MAX_PULSE_FREQ_HZ) / 255.0, MIN_PULSE_FREQ_HZ);
+            highTime = qMax(50.0, 1000.0 / freq);
+            lowTime = 0;
+            break;
+        default:
+            highTime = qBound(50.0, 500.0 / freq, 200.0);
+            lowTime = qMax((1000.0 / freq) - highTime, 0.0);
+            break;
     }
 
     // qDebug() << "Frequency:" << freq << "Hz, high:" << highTime << ", low:" << lowTime;

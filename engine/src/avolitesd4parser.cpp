@@ -210,69 +210,69 @@ QLCChannel::Group AvolitesD4Parser::getGroup(QString ID, QString name, QString g
 
     switch (stringToAttributeEnum(group))
     {
-    case AvolitesD4Parser::SPECIAL:
-        if (ID.contains(KD4TagSpeed, Qt::CaseInsensitive) || name.contains(KD4TagSpeed, Qt::CaseInsensitive))
-            return QLCChannel::Speed;
-        else if (ID.contains(KD4TagMacro, Qt::CaseInsensitive) || name.contains(KD4TagMacro, Qt::CaseInsensitive))
-            return QLCChannel::Effect;
-        else if (ID.contains(KD4TagReserved, Qt::CaseInsensitive) || name.contains(KD4TagReserved, Qt::CaseInsensitive))
-            return QLCChannel::NoGroup;
-        else
-            return QLCChannel::Maintenance;
-        break;
+        case AvolitesD4Parser::SPECIAL:
+            if (ID.contains(KD4TagSpeed, Qt::CaseInsensitive) || name.contains(KD4TagSpeed, Qt::CaseInsensitive))
+                return QLCChannel::Speed;
+            else if (ID.contains(KD4TagMacro, Qt::CaseInsensitive) || name.contains(KD4TagMacro, Qt::CaseInsensitive))
+                return QLCChannel::Effect;
+            else if (ID.contains(KD4TagReserved, Qt::CaseInsensitive) || name.contains(KD4TagReserved, Qt::CaseInsensitive))
+                return QLCChannel::NoGroup;
+            else
+                return QLCChannel::Maintenance;
+            break;
 
-    default:
-    case AvolitesD4Parser::INTENSITY:
-        if (ID.contains(KD4TagShutter, Qt::CaseInsensitive) || name.contains(KD4TagShutter, Qt::CaseInsensitive))
-            return QLCChannel::Shutter;
-        else
-            return QLCChannel::Intensity;
-        break;
+        default:
+        case AvolitesD4Parser::INTENSITY:
+            if (ID.contains(KD4TagShutter, Qt::CaseInsensitive) || name.contains(KD4TagShutter, Qt::CaseInsensitive))
+                return QLCChannel::Shutter;
+            else
+                return QLCChannel::Intensity;
+            break;
 
-    case AvolitesD4Parser::PANTILT:
-        if (ID.contains(KD4TagPan, Qt::CaseInsensitive) || name.contains(KD4TagPan, Qt::CaseInsensitive))
-            return QLCChannel::Pan;
-        else if (ID.contains(KD4TagTilt, Qt::CaseInsensitive) || name.contains(KD4TagTilt, Qt::CaseInsensitive))
-            return QLCChannel::Tilt;
-        else
-            return QLCChannel::NoGroup;
-        break;
+        case AvolitesD4Parser::PANTILT:
+            if (ID.contains(KD4TagPan, Qt::CaseInsensitive) || name.contains(KD4TagPan, Qt::CaseInsensitive))
+                return QLCChannel::Pan;
+            else if (ID.contains(KD4TagTilt, Qt::CaseInsensitive) || name.contains(KD4TagTilt, Qt::CaseInsensitive))
+                return QLCChannel::Tilt;
+            else
+                return QLCChannel::NoGroup;
+            break;
 
-    case AvolitesD4Parser::COLOUR:
-        if (ID.contains(KD4TagCyan, Qt::CaseInsensitive) || name.contains(KD4TagCyan, Qt::CaseInsensitive))
-            return QLCChannel::Intensity;
-        else if (ID.contains(KD4TagMagenta, Qt::CaseInsensitive) || name.contains(KD4TagMagenta, Qt::CaseInsensitive))
-            return QLCChannel::Intensity;
-        else if (ID.contains(KD4TagYellow, Qt::CaseInsensitive) || name.contains(KD4TagYellow, Qt::CaseInsensitive))
-            return QLCChannel::Intensity;
-        else if (ID.contains(KD4TagRed, Qt::CaseInsensitive) || name.contains(KD4TagRed, Qt::CaseInsensitive))
-            return QLCChannel::Intensity;
-        else if (ID.contains(KD4TagGreen, Qt::CaseInsensitive) || name.contains(KD4TagGreen, Qt::CaseInsensitive))
-            return QLCChannel::Intensity;
-        else if (ID.contains(KD4TagBlue, Qt::CaseInsensitive) || name.contains(KD4TagBlue, Qt::CaseInsensitive))
-            return QLCChannel::Intensity;
-        else
-            return QLCChannel::Colour;
-        break;
+        case AvolitesD4Parser::COLOUR:
+            if (ID.contains(KD4TagCyan, Qt::CaseInsensitive) || name.contains(KD4TagCyan, Qt::CaseInsensitive))
+                return QLCChannel::Intensity;
+            else if (ID.contains(KD4TagMagenta, Qt::CaseInsensitive) || name.contains(KD4TagMagenta, Qt::CaseInsensitive))
+                return QLCChannel::Intensity;
+            else if (ID.contains(KD4TagYellow, Qt::CaseInsensitive) || name.contains(KD4TagYellow, Qt::CaseInsensitive))
+                return QLCChannel::Intensity;
+            else if (ID.contains(KD4TagRed, Qt::CaseInsensitive) || name.contains(KD4TagRed, Qt::CaseInsensitive))
+                return QLCChannel::Intensity;
+            else if (ID.contains(KD4TagGreen, Qt::CaseInsensitive) || name.contains(KD4TagGreen, Qt::CaseInsensitive))
+                return QLCChannel::Intensity;
+            else if (ID.contains(KD4TagBlue, Qt::CaseInsensitive) || name.contains(KD4TagBlue, Qt::CaseInsensitive))
+                return QLCChannel::Intensity;
+            else
+                return QLCChannel::Colour;
+            break;
 
-    case AvolitesD4Parser::GOBO:
-        return QLCChannel::Gobo;
-        break;
+        case AvolitesD4Parser::GOBO:
+            return QLCChannel::Gobo;
+            break;
 
-    case AvolitesD4Parser::BEAM:
-        return QLCChannel::Beam;
-        break;
+        case AvolitesD4Parser::BEAM:
+            return QLCChannel::Beam;
+            break;
 
-    case AvolitesD4Parser::EFFECT:
-        if (ID.contains(KD4TagPrism, Qt::CaseInsensitive) || name.contains(KD4TagPrism, Qt::CaseInsensitive))
-            return QLCChannel::Prism;
-        else if (ID.contains(KD4TagEffect, Qt::CaseInsensitive) || name.contains(KD4TagEffect, Qt::CaseInsensitive))
-            return QLCChannel::Effect;
-        else if (ID.contains(KD4TagMacro, Qt::CaseInsensitive) || name.contains(KD4TagMacro, Qt::CaseInsensitive))
-            return QLCChannel::Effect;
-        else
-            return QLCChannel::NoGroup;
-        break;
+        case AvolitesD4Parser::EFFECT:
+            if (ID.contains(KD4TagPrism, Qt::CaseInsensitive) || name.contains(KD4TagPrism, Qt::CaseInsensitive))
+                return QLCChannel::Prism;
+            else if (ID.contains(KD4TagEffect, Qt::CaseInsensitive) || name.contains(KD4TagEffect, Qt::CaseInsensitive))
+                return QLCChannel::Effect;
+            else if (ID.contains(KD4TagMacro, Qt::CaseInsensitive) || name.contains(KD4TagMacro, Qt::CaseInsensitive))
+                return QLCChannel::Effect;
+            else
+                return QLCChannel::NoGroup;
+            break;
     }
 
     return QLCChannel::NoGroup;

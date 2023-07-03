@@ -188,16 +188,16 @@ QString VCSlider::sliderModeToString(SliderMode mode)
 {
     switch (mode)
     {
-    case Level:
-        return QString("Level");
-    case Submaster:
-        return QString("Submaster");
-    case GrandMaster:
-        return QString("GrandMaster");
-    case Adjust:
-        return QString("Adjust");
-    default:
-        return QString("Unknown");
+        case Level:
+            return QString("Level");
+        case Submaster:
+            return QString("Submaster");
+        case GrandMaster:
+            return QString("GrandMaster");
+        case Adjust:
+            return QString("Adjust");
+        default:
+            return QString("Unknown");
     }
 }
 
@@ -236,18 +236,18 @@ void VCSlider::setSliderMode(SliderMode mode)
 
     switch (mode)
     {
-    case Level:
-    case Adjust:
-        setValue(0);
-        m_doc->masterTimer()->registerDMXSource(this);
-        break;
-    case Submaster:
-        setValue(UCHAR_MAX);
-        break;
-    case GrandMaster:
-        setValueDisplayStyle(PercentageValue);
-        setValue(UCHAR_MAX);
-        break;
+        case Level:
+        case Adjust:
+            setValue(0);
+            m_doc->masterTimer()->registerDMXSource(this);
+            break;
+        case Submaster:
+            setValue(UCHAR_MAX);
+            break;
+        case GrandMaster:
+            setValueDisplayStyle(PercentageValue);
+            setValue(UCHAR_MAX);
+            break;
     }
 
     if (mode == Submaster || mode == GrandMaster)
@@ -305,12 +305,12 @@ QString VCSlider::valueDisplayStyleToString(VCSlider::ValueDisplayStyle style)
 {
     switch (style)
     {
-    case DMXValue:
-        return KXMLQLCVCSliderValueDisplayStyleExact;
-    case PercentageValue:
-        return KXMLQLCVCSliderValueDisplayStylePercentage;
-    default:
-        return QString("Unknown");
+        case DMXValue:
+            return KXMLQLCVCSliderValueDisplayStyleExact;
+        case PercentageValue:
+            return KXMLQLCVCSliderValueDisplayStylePercentage;
+        default:
+            return QString("Unknown");
     };
 }
 
@@ -399,25 +399,26 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
 
     switch (sliderMode())
     {
-    case Level:
-        if (m_monitorEnabled == true && m_isOverriding == false && setDMX)
-        {
-            m_isOverriding = true;
-            emit isOverridingChanged();
-        }
+        case Level:
+            if (m_monitorEnabled == true && m_isOverriding == false && setDMX)
+            {
+                m_isOverriding = true;
+                emit isOverridingChanged();
+            }
 
-        if (clickAndGoType() == CnGPreset)
-            updateClickAndGoResource();
-        break;
-    case Submaster:
-        emit submasterValueChanged(SCALE(qreal(m_value), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(1.0)) * intensity());
-        break;
-    case GrandMaster:
-        m_doc->inputOutputMap()->setGrandMasterValue(value);
-        break;
-    case Adjust:
-        m_adjustChangeCounter++;
-        break;
+            if (clickAndGoType() == CnGPreset)
+                updateClickAndGoResource();
+            break;
+        case Submaster:
+            emit submasterValueChanged(SCALE(qreal(m_value), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(1.0))
+                                       * intensity());
+            break;
+        case GrandMaster:
+            m_doc->inputOutputMap()->setGrandMasterValue(value);
+            break;
+        case Adjust:
+            m_adjustChangeCounter++;
+            break;
     }
 
     emit valueChanged(value);
@@ -653,16 +654,16 @@ QString VCSlider::clickAndGoTypeToString(VCSlider::ClickAndGoType type)
 {
     switch (type)
     {
-    default:
-    case CnGNone:
-        return "None";
-        break;
-    case CnGColors:
-        return "Colors";
-        break;
-    case CnGPreset:
-        return "Preset";
-        break;
+        default:
+        case CnGNone:
+            return "None";
+            break;
+        case CnGColors:
+            return "Colors";
+            break;
+        case CnGPreset:
+            return "Preset";
+            break;
     }
 }
 
@@ -1157,35 +1158,35 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
                 {
                     switch (qlcch->colour())
                     {
-                    case QLCChannel::Red:
-                        modLevel = (uchar)r;
-                        break;
-                    case QLCChannel::Green:
-                        modLevel = (uchar)g;
-                        break;
-                    case QLCChannel::Blue:
-                        modLevel = (uchar)b;
-                        break;
-                    case QLCChannel::Cyan:
-                        modLevel = (uchar)c;
-                        break;
-                    case QLCChannel::Magenta:
-                        modLevel = (uchar)m;
-                        break;
-                    case QLCChannel::Yellow:
-                        modLevel = (uchar)y;
-                        break;
-                    case QLCChannel::White:
-                        modLevel = (uchar)w;
-                        break;
-                    case QLCChannel::Amber:
-                        modLevel = (uchar)a;
-                        break;
-                    case QLCChannel::UV:
-                        modLevel = (uchar)uv;
-                        break;
-                    default:
-                        break;
+                        case QLCChannel::Red:
+                            modLevel = (uchar)r;
+                            break;
+                        case QLCChannel::Green:
+                            modLevel = (uchar)g;
+                            break;
+                        case QLCChannel::Blue:
+                            modLevel = (uchar)b;
+                            break;
+                        case QLCChannel::Cyan:
+                            modLevel = (uchar)c;
+                            break;
+                        case QLCChannel::Magenta:
+                            modLevel = (uchar)m;
+                            break;
+                        case QLCChannel::Yellow:
+                            modLevel = (uchar)y;
+                            break;
+                        case QLCChannel::White:
+                            modLevel = (uchar)w;
+                            break;
+                        case QLCChannel::Amber:
+                            modLevel = (uchar)a;
+                            break;
+                        case QLCChannel::UV:
+                            modLevel = (uchar)uv;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -1266,13 +1267,13 @@ void VCSlider::slotInputValueChanged(quint8 id, uchar value)
 {
     switch (id)
     {
-    case INPUT_SLIDER_CONTROL_ID:
-        setValue(value, true, false);
-        break;
-    case INPUT_SLIDER_RESET_ID:
-        if (value)
-            setIsOverriding(false);
-        break;
+        case INPUT_SLIDER_CONTROL_ID:
+            setValue(value, true, false);
+            break;
+        case INPUT_SLIDER_RESET_ID:
+            if (value)
+                setIsOverriding(false);
+            break;
     }
 }
 

@@ -117,7 +117,7 @@ void MasterTimer::timerTick()
 
     switch (m_beatSourceType)
     {
-    case Internal:
+        case Internal:
         {
             int elapsedTime = qRound((double)m_beatTimer->nsecsElapsed() / 1000000) + m_lastBeatOffset;
             // qDebug() << "Elapsed beat:" << elapsedTime;
@@ -137,13 +137,13 @@ void MasterTimer::timerTick()
             }
         }
         break;
-    case External:
-        break;
+        case External:
+            break;
 
-    case None:
-    default:
-        m_beatRequested = false;
-        break;
+        case None:
+        default:
+            m_beatRequested = false;
+            break;
     }
 
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();

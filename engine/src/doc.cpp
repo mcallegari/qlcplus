@@ -1116,7 +1116,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
 
         switch (f->type())
         {
-        case Function::CollectionType:
+            case Function::CollectionType:
             {
                 Collection *c = qobject_cast<Collection *>(f);
                 int pos = c->functions().indexOf(fid);
@@ -1127,7 +1127,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 }
             }
             break;
-        case Function::ChaserType:
+            case Function::ChaserType:
 
             {
                 Chaser *c = qobject_cast<Chaser *>(f);
@@ -1142,7 +1142,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 }
             }
             break;
-        case Function::SequenceType:
+            case Function::SequenceType:
             {
                 Sequence *s = qobject_cast<Sequence *>(f);
                 if (s->boundSceneID() == fid)
@@ -1152,7 +1152,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 }
             }
             break;
-        case Function::ScriptType:
+            case Function::ScriptType:
             {
                 Script *s = qobject_cast<Script *>(f);
                 QList<quint32> l = s->functionList();
@@ -1171,7 +1171,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 }
             }
             break;
-        case Function::ShowType:
+            case Function::ShowType:
             {
                 Show *s = qobject_cast<Show *>(f);
                 foreach (Track *t, s->tracks())
@@ -1187,8 +1187,8 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 }
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 

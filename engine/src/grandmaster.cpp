@@ -52,11 +52,11 @@ QString GrandMaster::valueModeToString(GrandMaster::ValueMode mode)
 {
     switch (mode)
     {
-    case GrandMaster::Limit:
-        return KXMLQLCGMValueModeLimit;
-    default:
-    case GrandMaster::Reduce:
-        return KXMLQLCGMValueModeReduce;
+        case GrandMaster::Limit:
+            return KXMLQLCGMValueModeLimit;
+        default:
+        case GrandMaster::Reduce:
+            return KXMLQLCGMValueModeReduce;
     }
 }
 
@@ -72,11 +72,11 @@ QString GrandMaster::channelModeToString(GrandMaster::ChannelMode mode)
 {
     switch (mode)
     {
-    case GrandMaster::AllChannels:
-        return KXMLQLCGMChannelModeAllChannels;
-    default:
-    case GrandMaster::Intensity:
-        return KXMLQLCGMChannelModeIntensity;
+        case GrandMaster::AllChannels:
+            return KXMLQLCGMChannelModeAllChannels;
+        default:
+        case GrandMaster::Intensity:
+            return KXMLQLCGMChannelModeIntensity;
     }
 }
 
@@ -92,11 +92,11 @@ QString GrandMaster::sliderModeToString(GrandMaster::SliderMode mode)
 {
     switch (mode)
     {
-    case GrandMaster::Inverted:
-        return KXMLQLCGMSliderModeInverted;
-    default:
-    case GrandMaster::Normal:
-        return KXMLQLCGMSliderModeNormal;
+        case GrandMaster::Inverted:
+            return KXMLQLCGMSliderModeInverted;
+        default:
+        case GrandMaster::Normal:
+            return KXMLQLCGMSliderModeNormal;
     }
 }
 

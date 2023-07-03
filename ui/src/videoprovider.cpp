@@ -149,19 +149,19 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
     qDebug() << Q_FUNC_INFO << status;
     switch (status)
     {
-    case QMediaPlayer::NoMedia:
-    case QMediaPlayer::LoadedMedia:
-    case QMediaPlayer::BufferingMedia:
-    case QMediaPlayer::BufferedMedia:
-        // setStatusInfo(QString());
-        break;
-    case QMediaPlayer::LoadingMedia:
-        // setStatusInfo(tr("Loading..."));
-        break;
-    case QMediaPlayer::StalledMedia:
-        // setStatusInfo(tr("Media Stalled"));
-        break;
-    case QMediaPlayer::EndOfMedia:
+        case QMediaPlayer::NoMedia:
+        case QMediaPlayer::LoadedMedia:
+        case QMediaPlayer::BufferingMedia:
+        case QMediaPlayer::BufferedMedia:
+            // setStatusInfo(QString());
+            break;
+        case QMediaPlayer::LoadingMedia:
+            // setStatusInfo(tr("Loading..."));
+            break;
+        case QMediaPlayer::StalledMedia:
+            // setStatusInfo(tr("Media Stalled"));
+            break;
+        case QMediaPlayer::EndOfMedia:
         {
             if (m_videoPlayer != NULL)
                 m_videoPlayer->stop();
@@ -178,10 +178,10 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
             m_video->stop(functionParent());
             break;
         }
-    default:
-    case QMediaPlayer::InvalidMedia:
-        // displayErrorMessage();
-        break;
+        default:
+        case QMediaPlayer::InvalidMedia:
+            // displayErrorMessage();
+            break;
     }
 }
 
@@ -211,17 +211,17 @@ void VideoWidget::slotMetaDataChanged()
         qDebug() << "[Metadata]" << md.metaDataKeyToString(k) << ":" << md.stringValue(k);
         switch (k)
         {
-        case QMediaMetaData::Resolution:
-            m_video->setResolution(md.value(k).toSize());
-            break;
-        case QMediaMetaData::VideoCodec:
-            m_video->setVideoCodec(md.stringValue(k));
-            break;
-        case QMediaMetaData::AudioCodec:
-            m_video->setAudioCodec(md.stringValue(k));
-            break;
-        default:
-            break;
+            case QMediaMetaData::Resolution:
+                m_video->setResolution(md.value(k).toSize());
+                break;
+            case QMediaMetaData::VideoCodec:
+                m_video->setVideoCodec(md.stringValue(k));
+                break;
+            case QMediaMetaData::AudioCodec:
+                m_video->setAudioCodec(md.stringValue(k));
+                break;
+            default:
+                break;
         }
     }
 }

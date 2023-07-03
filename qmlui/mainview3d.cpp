@@ -540,34 +540,34 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
 
     switch (fixture->type())
     {
-    case QLCFixtureDef::ColorChanger:
-    case QLCFixtureDef::Dimmer:
-        meshPath.append("par.dae");
-        newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
-        break;
-    case QLCFixtureDef::MovingHead:
-        meshPath.append("moving_head.dae");
-        newItem->setProperty("meshType", FixtureMeshType::MovingHeadMeshType);
-        break;
-    case QLCFixtureDef::Scanner:
-        meshPath.append("scanner.dae");
-        newItem->setProperty("meshType", FixtureMeshType::ScannerMeshType);
-        break;
-    case QLCFixtureDef::Hazer:
-        meshPath.append("hazer.dae");
-        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
-        break;
-    case QLCFixtureDef::Smoke:
-        meshPath.append("smoke.dae");
-        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
-        break;
-    case QLCFixtureDef::LEDBarBeams:
-    case QLCFixtureDef::LEDBarPixels:
-        meshPath.clear();
-        break;
-    default:
-        qDebug() << "I don't know what to do with you :'(";
-        break;
+        case QLCFixtureDef::ColorChanger:
+        case QLCFixtureDef::Dimmer:
+            meshPath.append("par.dae");
+            newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
+            break;
+        case QLCFixtureDef::MovingHead:
+            meshPath.append("moving_head.dae");
+            newItem->setProperty("meshType", FixtureMeshType::MovingHeadMeshType);
+            break;
+        case QLCFixtureDef::Scanner:
+            meshPath.append("scanner.dae");
+            newItem->setProperty("meshType", FixtureMeshType::ScannerMeshType);
+            break;
+        case QLCFixtureDef::Hazer:
+            meshPath.append("hazer.dae");
+            newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+            break;
+        case QLCFixtureDef::Smoke:
+            meshPath.append("smoke.dae");
+            newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+            break;
+        case QLCFixtureDef::LEDBarBeams:
+        case QLCFixtureDef::LEDBarPixels:
+            meshPath.clear();
+            break;
+        default:
+            qDebug() << "I don't know what to do with you :'(";
+            break;
     }
 
     // at last, add the new fixture to the items map
@@ -1146,7 +1146,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
         switch (ch->group())
         {
-        case QLCChannel::Pan:
+            case QLCChannel::Pan:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
                     panValue += (value << 8);
@@ -1157,7 +1157,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     setPosition = true;
             }
             break;
-        case QLCChannel::Tilt:
+            case QLCChannel::Tilt:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
                     tiltValue += (value << 8);
@@ -1168,7 +1168,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     setPosition = true;
             }
             break;
-        case QLCChannel::Speed:
+            case QLCChannel::Speed:
             {
                 if (previous.length() && value == uchar(previous.at(i)))
                     break;
@@ -1179,7 +1179,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                                           Q_ARG(QVariant, tiltSpeed));
             }
             break;
-        case QLCChannel::Colour:
+            case QLCChannel::Colour:
             {
                 if (colorSet && value == 0)
                     break;
@@ -1200,25 +1200,25 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 }
             }
             break;
-        case QLCChannel::Beam:
+            case QLCChannel::Beam:
             {
                 if (previous.length() && value == uchar(previous.at(i)))
                     break;
 
                 switch (ch->preset())
                 {
-                case QLCChannel::BeamZoomSmallBig:
-                    QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, value));
-                    break;
-                case QLCChannel::BeamZoomBigSmall:
-                    QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, 255 - value));
-                    break;
-                default:
-                    break;
+                    case QLCChannel::BeamZoomSmallBig:
+                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, value));
+                        break;
+                    case QLCChannel::BeamZoomBigSmall:
+                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, 255 - value));
+                        break;
+                    default:
+                        break;
                 }
             }
             break;
-        case QLCChannel::Gobo:
+            case QLCChannel::Gobo:
             {
                 if (previous.length() && value == uchar(previous.at(i)))
                     break;
@@ -1230,8 +1230,8 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
                 switch (cap->preset())
                 {
-                case QLCCapability::GoboMacro:
-                case QLCCapability::GoboShakeMacro:
+                    case QLCCapability::GoboMacro:
+                    case QLCCapability::GoboShakeMacro:
                     {
                         QString resName = cap->resource(0).toString();
 
@@ -1248,7 +1248,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                         goboSet = true;
                     }
                     break;
-                default:
+                    default:
                     {
                         int speed;
                         bool clockwise = FixtureUtils::goboTiming(cap, value, speed);
@@ -1262,7 +1262,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 }
             }
             break;
-        case QLCChannel::Shutter:
+            case QLCChannel::Shutter:
             {
                 if (previous.length() && value == uchar(previous.at(i)))
                     break;
@@ -1274,8 +1274,8 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                                           Q_ARG(QVariant, high));
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 

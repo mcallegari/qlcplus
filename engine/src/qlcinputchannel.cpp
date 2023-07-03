@@ -77,22 +77,22 @@ QString QLCInputChannel::typeToString(Type type)
 {
     switch (type)
     {
-    case Button:
-        return KXMLQLCInputChannelButton;
-    case Knob:
-        return KXMLQLCInputChannelKnob;
-    case Encoder:
-        return KXMLQLCInputChannelEncoder;
-    case Slider:
-        return KXMLQLCInputChannelSlider;
-    case NextPage:
-        return KXMLQLCInputChannelPageUp;
-    case PrevPage:
-        return KXMLQLCInputChannelPageDown;
-    case PageSet:
-        return KXMLQLCInputChannelPageSet;
-    default:
-        return KXMLQLCInputChannelNone;
+        case Button:
+            return KXMLQLCInputChannelButton;
+        case Knob:
+            return KXMLQLCInputChannelKnob;
+        case Encoder:
+            return KXMLQLCInputChannelEncoder;
+        case Slider:
+            return KXMLQLCInputChannelSlider;
+        case NextPage:
+            return KXMLQLCInputChannelPageUp;
+        case PrevPage:
+            return KXMLQLCInputChannelPageDown;
+        case PageSet:
+            return KXMLQLCInputChannelPageSet;
+        default:
+            return KXMLQLCInputChannelNone;
     }
 }
 
@@ -133,22 +133,22 @@ QIcon QLCInputChannel::typeToIcon(Type type)
 {
     switch (type)
     {
-    case Button:
-        return QIcon(":/button.png");
-    case Knob:
-        return QIcon(":/knob.png");
-    case Encoder:
-        return QIcon(":/knob.png");
-    case Slider:
-        return QIcon(":/slider.png");
-    case PrevPage:
-        return QIcon(":/forward.png");
-    case NextPage:
-        return QIcon(":/back.png");
-    case PageSet:
-        return QIcon(":/star.png");
-    default:
-        return QIcon();
+        case Button:
+            return QIcon(":/button.png");
+        case Knob:
+            return QIcon(":/knob.png");
+        case Encoder:
+            return QIcon(":/knob.png");
+        case Slider:
+            return QIcon(":/slider.png");
+        case PrevPage:
+            return QIcon(":/forward.png");
+        case NextPage:
+            return QIcon(":/back.png");
+        case PageSet:
+            return QIcon(":/star.png");
+        default:
+            return QIcon();
     }
 }
 

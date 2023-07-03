@@ -757,7 +757,7 @@ bool ctkRangeSlider::event(QEvent *_event)
     Q_D(ctkRangeSlider);
     switch (_event->type())
     {
-    case QEvent::ToolTip:
+        case QEvent::ToolTip:
         {
             QHelpEvent *helpEvent = static_cast<QHelpEvent *>(_event);
             QStyleOptionSlider opt;
@@ -785,8 +785,8 @@ bool ctkRangeSlider::event(QEvent *_event)
                 return true;
             }
         }
-    default:
-        break;
+        default:
+            break;
     }
     return this->Superclass::event(_event);
 }

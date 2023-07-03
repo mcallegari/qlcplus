@@ -624,7 +624,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             {
                 switch (widget->type())
                 {
-                case VCWidget::ButtonWidget:
+                    case VCWidget::ButtonWidget:
                     {
                         VCButton *button = qobject_cast<VCButton *>(widget);
                         if (button->state() == VCButton::Active)
@@ -635,13 +635,13 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                             wsAPIMessage.append("0");
                     }
                     break;
-                case VCWidget::SliderWidget:
+                    case VCWidget::SliderWidget:
                     {
                         VCSlider *slider = qobject_cast<VCSlider *>(widget);
                         wsAPIMessage.append(QString::number(slider->sliderValue()));
                     }
                     break;
-                case VCWidget::CueListWidget:
+                    case VCWidget::CueListWidget:
                     {
                         VCCueList *cue = qobject_cast<VCCueList *>(widget);
                         quint32 chaserID = cue->chaserID();
@@ -738,7 +738,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         switch (widget->type())
         {
-        case VCWidget::ButtonWidget:
+            case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton *>(widget);
                 if (value)
@@ -747,20 +747,20 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     button->releaseFunction();
             }
             break;
-        case VCWidget::SliderWidget:
+            case VCWidget::SliderWidget:
             {
                 VCSlider *slider = qobject_cast<VCSlider *>(widget);
                 slider->setSliderValue(value, false, true);
                 slider->updateFeedback();
             }
             break;
-        case VCWidget::AudioTriggersWidget:
+            case VCWidget::AudioTriggersWidget:
             {
                 VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers *>(widget);
                 triggers->toggleEnableButton(value ? true : false);
             }
             break;
-        case VCWidget::CueListWidget:
+            case VCWidget::CueListWidget:
             {
                 if (cmdList.count() < 2)
                     return;
@@ -778,8 +778,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     cue->playCueAtIndex(cmdList[2].toInt());
             }
             break;
-        case VCWidget::FrameWidget:
-        case VCWidget::SoloFrameWidget:
+            case VCWidget::FrameWidget:
+            case VCWidget::SoloFrameWidget:
             {
                 VCFrame *frame = qobject_cast<VCFrame *>(widget);
                 if (cmdList[1] == "NEXT_PG")
@@ -788,7 +788,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     frame->slotPreviousPage();
             }
             break;
-        case VCWidget::ClockWidget:
+            case VCWidget::ClockWidget:
             {
                 VCClock *clock = qobject_cast<VCClock *>(widget);
                 if (cmdList[1] == "S")
@@ -797,8 +797,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     clock->resetTimer();
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 }
@@ -1261,7 +1261,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
                 switch (chaser->fadeInMode())
                 {
-                case Chaser::Common:
+                    case Chaser::Common:
                     {
                         if (chaser->fadeInSpeed() == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
@@ -1269,7 +1269,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                             str += "<td>" + Function::speedToString(chaser->fadeInSpeed()) + "</td>";
                     }
                     break;
-                case Chaser::PerStep:
+                    case Chaser::PerStep:
                     {
                         if (step->fadeIn == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
@@ -1277,9 +1277,9 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                             str += "<td>" + Function::speedToString(step->fadeIn) + "</td>";
                     }
                     break;
-                default:
-                case Chaser::Default:
-                    str += "<td></td>";
+                    default:
+                    case Chaser::Default:
+                        str += "<td></td>";
                 }
 
                 // if (step.hold != 0)
@@ -1288,7 +1288,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
                 switch (chaser->fadeOutMode())
                 {
-                case Chaser::Common:
+                    case Chaser::Common:
                     {
                         if (chaser->fadeOutSpeed() == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
@@ -1296,7 +1296,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                             str += "<td>" + Function::speedToString(chaser->fadeOutSpeed()) + "</td>";
                     }
                     break;
-                case Chaser::PerStep:
+                    case Chaser::PerStep:
                     {
                         if (step->fadeOut == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
@@ -1304,14 +1304,14 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                             str += "<td>" + Function::speedToString(step->fadeOut) + "</td>";
                     }
                     break;
-                default:
-                case Chaser::Default:
-                    str += "<td></td>";
+                    default:
+                    case Chaser::Default:
+                        str += "<td></td>";
                 }
 
                 switch (chaser->durationMode())
                 {
-                case Chaser::Common:
+                    case Chaser::Common:
                     {
                         if (chaser->duration() == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
@@ -1319,7 +1319,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                             str += "<td>" + Function::speedToString(chaser->duration()) + "</td>";
                     }
                     break;
-                case Chaser::PerStep:
+                    case Chaser::PerStep:
                     {
                         if (step->fadeOut == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
@@ -1327,9 +1327,9 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                             str += "<td>" + Function::speedToString(step->duration) + "</td>";
                     }
                     break;
-                default:
-                case Chaser::Default:
-                    str += "<td></td>";
+                    default:
+                    case Chaser::Default:
+                        str += "<td></td>";
                 }
 
                 str += "<td>" + step->note + "</td>\n";
@@ -1471,33 +1471,33 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
         switch (widget->type())
         {
-        case VCWidget::FrameWidget:
-            str = getFrameHTML(qobject_cast<VCFrame *>(widget));
-            break;
-        case VCWidget::SoloFrameWidget:
-            str = getSoloFrameHTML(qobject_cast<VCSoloFrame *>(widget));
-            break;
-        case VCWidget::ButtonWidget:
-            str = getButtonHTML(qobject_cast<VCButton *>(widget));
-            break;
-        case VCWidget::SliderWidget:
-            str = getSliderHTML(qobject_cast<VCSlider *>(widget));
-            break;
-        case VCWidget::LabelWidget:
-            str = getLabelHTML(qobject_cast<VCLabel *>(widget));
-            break;
-        case VCWidget::AudioTriggersWidget:
-            str = getAudioTriggersHTML(qobject_cast<VCAudioTriggers *>(widget));
-            break;
-        case VCWidget::CueListWidget:
-            str = getCueListHTML(qobject_cast<VCCueList *>(widget));
-            break;
-        case VCWidget::ClockWidget:
-            str = getClockHTML(qobject_cast<VCClock *>(widget));
-            break;
-        default:
-            str = getWidgetHTML(widget);
-            break;
+            case VCWidget::FrameWidget:
+                str = getFrameHTML(qobject_cast<VCFrame *>(widget));
+                break;
+            case VCWidget::SoloFrameWidget:
+                str = getSoloFrameHTML(qobject_cast<VCSoloFrame *>(widget));
+                break;
+            case VCWidget::ButtonWidget:
+                str = getButtonHTML(qobject_cast<VCButton *>(widget));
+                break;
+            case VCWidget::SliderWidget:
+                str = getSliderHTML(qobject_cast<VCSlider *>(widget));
+                break;
+            case VCWidget::LabelWidget:
+                str = getLabelHTML(qobject_cast<VCLabel *>(widget));
+                break;
+            case VCWidget::AudioTriggersWidget:
+                str = getAudioTriggersHTML(qobject_cast<VCAudioTriggers *>(widget));
+                break;
+            case VCWidget::CueListWidget:
+                str = getCueListHTML(qobject_cast<VCCueList *>(widget));
+                break;
+            case VCWidget::ClockWidget:
+                str = getClockHTML(qobject_cast<VCClock *>(widget));
+                break;
+            default:
+                str = getWidgetHTML(widget);
+                break;
         }
         if (lframe->multipageMode() == true && pagesNum > 0)
         {

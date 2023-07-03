@@ -987,27 +987,27 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
 
     switch (m_beatGeneratorType)
     {
-    case Internal:
-        doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
-        setBpmNumber(doc()->masterTimer()->bpmNumber());
-        break;
-    case MIDI:
-        doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
-        // reset the current BPM number and detect it from the MIDI beats
-        setBpmNumber(0);
-        m_beatTime->restart();
-        break;
-    case Audio:
-        doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
-        // reset the current BPM number and detect it from the audio input
-        setBpmNumber(0);
-        m_beatTime->restart();
-        break;
-    case Disabled:
-    default:
-        doc()->masterTimer()->setBeatSourceType(MasterTimer::None);
-        setBpmNumber(0);
-        break;
+        case Internal:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
+            setBpmNumber(doc()->masterTimer()->bpmNumber());
+            break;
+        case MIDI:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+            // reset the current BPM number and detect it from the MIDI beats
+            setBpmNumber(0);
+            m_beatTime->restart();
+            break;
+        case Audio:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+            // reset the current BPM number and detect it from the audio input
+            setBpmNumber(0);
+            m_beatTime->restart();
+            break;
+        case Disabled:
+        default:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::None);
+            setBpmNumber(0);
+            break;
     }
 
     emit beatGeneratorTypeChanged();

@@ -97,16 +97,16 @@ VCSliderProperties::VCSliderProperties(VCSlider *slider, Doc *doc)
     m_sliderMode = m_slider->sliderMode();
     switch (m_sliderMode)
     {
-    default:
-    case VCSlider::Level:
-        slotModeLevelClicked();
-        break;
-    case VCSlider::Playback:
-        slotModePlaybackClicked();
-        break;
-    case VCSlider::Submaster:
-        slotModeSubmasterClicked();
-        break;
+        default:
+        case VCSlider::Level:
+            slotModeLevelClicked();
+            break;
+        case VCSlider::Playback:
+            slotModePlaybackClicked();
+            break;
+        case VCSlider::Submaster:
+            slotModeSubmasterClicked();
+            break;
     }
 
     /* Slider movement (Qt understands inverted appearance vice versa) */
@@ -118,13 +118,13 @@ VCSliderProperties::VCSliderProperties(VCSlider *slider, Doc *doc)
     /* Value display style */
     switch (m_slider->valueDisplayStyle())
     {
-    default:
-    case VCSlider::ExactValue:
-        m_valueExactRadio->setChecked(true);
-        break;
-    case VCSlider::PercentageValue:
-        m_valuePercentageRadio->setChecked(true);
-        break;
+        default:
+        case VCSlider::ExactValue:
+            m_valueExactRadio->setChecked(true);
+            break;
+        case VCSlider::PercentageValue:
+            m_valuePercentageRadio->setChecked(true);
+            break;
     }
 
     /* Values catching */
@@ -204,32 +204,32 @@ void VCSliderProperties::slotModeLevelClicked()
     int cngType = m_slider->clickAndGoType();
     switch (cngType)
     {
-    case ClickAndGoWidget::Red:
-    case ClickAndGoWidget::Green:
-    case ClickAndGoWidget::Blue:
-    case ClickAndGoWidget::Cyan:
-    case ClickAndGoWidget::Magenta:
-    case ClickAndGoWidget::Yellow:
-    case ClickAndGoWidget::Amber:
-    case ClickAndGoWidget::White:
-    case ClickAndGoWidget::UV:
-    case ClickAndGoWidget::Lime:
-    case ClickAndGoWidget::Indigo:
-        m_cngColorCheck->setChecked(true);
-        break;
-    case ClickAndGoWidget::RGB:
-        m_cngRGBCheck->setChecked(true);
-        break;
-    case ClickAndGoWidget::CMY:
-        m_cngCMYCheck->setChecked(true);
-        break;
-    case ClickAndGoWidget::Preset:
-        m_cngPresetCheck->setChecked(true);
-        break;
-    default:
-    case ClickAndGoWidget::None:
-        m_cngNoneCheck->setChecked(true);
-        break;
+        case ClickAndGoWidget::Red:
+        case ClickAndGoWidget::Green:
+        case ClickAndGoWidget::Blue:
+        case ClickAndGoWidget::Cyan:
+        case ClickAndGoWidget::Magenta:
+        case ClickAndGoWidget::Yellow:
+        case ClickAndGoWidget::Amber:
+        case ClickAndGoWidget::White:
+        case ClickAndGoWidget::UV:
+        case ClickAndGoWidget::Lime:
+        case ClickAndGoWidget::Indigo:
+            m_cngColorCheck->setChecked(true);
+            break;
+        case ClickAndGoWidget::RGB:
+            m_cngRGBCheck->setChecked(true);
+            break;
+        case ClickAndGoWidget::CMY:
+            m_cngCMYCheck->setChecked(true);
+            break;
+        case ClickAndGoWidget::Preset:
+            m_cngPresetCheck->setChecked(true);
+            break;
+        default:
+        case ClickAndGoWidget::None:
+            m_cngNoneCheck->setChecked(true);
+            break;
     }
 }
 

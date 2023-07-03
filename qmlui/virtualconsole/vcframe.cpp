@@ -222,7 +222,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 
     switch (type)
     {
-    case FrameWidget:
+        case FrameWidget:
         {
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
@@ -234,7 +234,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             frame->render(m_vc->view(), parent);
         }
         break;
-    case SoloFrameWidget:
+        case SoloFrameWidget:
         {
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
@@ -247,7 +247,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             soloframe->render(m_vc->view(), parent);
         }
         break;
-    case ButtonWidget:
+        case ButtonWidget:
         {
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
@@ -259,7 +259,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             button->render(m_vc->view(), parent);
         }
         break;
-    case LabelWidget:
+        case LabelWidget:
         {
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
@@ -271,7 +271,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             label->render(m_vc->view(), parent);
         }
         break;
-    case SliderWidget:
+        case SliderWidget:
         {
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
@@ -290,7 +290,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             slider->render(m_vc->view(), parent);
         }
         break;
-    case ClockWidget:
+        case ClockWidget:
         {
             VCClock *clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
@@ -302,7 +302,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             clock->render(m_vc->view(), parent);
         }
         break;
-    case CueListWidget:
+        case CueListWidget:
         {
             VCCueList *cuelist = new VCCueList(m_doc, this);
             QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
@@ -314,8 +314,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             cuelist->render(m_vc->view(), parent);
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 }
 
@@ -930,23 +930,23 @@ void VCFrame::slotInputValueChanged(quint8 id, uchar value)
 
     switch (id)
     {
-    case INPUT_NEXT_PAGE_ID:
-        gotoNextPage();
-        break;
-    case INPUT_PREVIOUS_PAGE_ID:
-        gotoPreviousPage();
-        break;
-    case INPUT_ENABLE_ID:
-        setDisabled(isDisabled() ? false : true);
-        break;
-    case INPUT_COLLAPSE_ID:
-        setCollapsed(!isCollapsed());
-        break;
-    default:
-        if (id < INPUT_SHORTCUT_BASE_ID || id > INPUT_SHORTCUT_BASE_ID + m_totalPagesNumber)
+        case INPUT_NEXT_PAGE_ID:
+            gotoNextPage();
             break;
-        setCurrentPage(id - INPUT_SHORTCUT_BASE_ID);
-        break;
+        case INPUT_PREVIOUS_PAGE_ID:
+            gotoPreviousPage();
+            break;
+        case INPUT_ENABLE_ID:
+            setDisabled(isDisabled() ? false : true);
+            break;
+        case INPUT_COLLAPSE_ID:
+            setCollapsed(!isCollapsed());
+            break;
+        default:
+            if (id < INPUT_SHORTCUT_BASE_ID || id > INPUT_SHORTCUT_BASE_ID + m_totalPagesNumber)
+                break;
+            setCurrentPage(id - INPUT_SHORTCUT_BASE_ID);
+            break;
     }
 }
 

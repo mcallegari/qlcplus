@@ -79,7 +79,7 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
     {
         switch (prop.m_type)
         {
-        case RGBScriptProperty::List:
+            case RGBScriptProperty::List:
             {
                 QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
@@ -98,7 +98,7 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 gridRowIdx++;
             }
             break;
-        case RGBScriptProperty::Range:
+            case RGBScriptProperty::Range:
             {
                 QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
@@ -114,9 +114,9 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 gridRowIdx++;
             }
             break;
-        default:
-            qWarning() << "Type" << prop.m_type << "not handled yet";
-            break;
+            default:
+                qWarning() << "Type" << prop.m_type << "not handled yet";
+                break;
         }
     }
 }

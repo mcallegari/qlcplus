@@ -105,13 +105,13 @@ QString RGBText::animationStyleToString(RGBText::AnimationStyle ani)
 {
     switch (ani)
     {
-    default:
-    case StaticLetters:
-        return QString("Letters");
-    case Horizontal:
-        return QString("Horizontal");
-    case Vertical:
-        return QString("Vertical");
+        default:
+        case StaticLetters:
+            return QString("Letters");
+        case Horizontal:
+            return QString("Horizontal");
+        case Vertical:
+            return QString("Vertical");
     }
 }
 

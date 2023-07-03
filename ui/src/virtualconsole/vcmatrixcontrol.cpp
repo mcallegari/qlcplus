@@ -92,16 +92,16 @@ VCMatrixControl::WidgetType VCMatrixControl::widgetType() const
 {
     switch (m_type)
     {
-    case StartColor:
-    case EndColor:
-    case Animation:
-    case Image:
-    case Text:
-    case ResetEndColor:
-        return Button;
-    case StartColorKnob:
-    case EndColorKnob:
-        return Knob;
+        case StartColor:
+        case EndColor:
+        case Animation:
+        case Image:
+        case Text:
+        case ResetEndColor:
+            return Button;
+        case StartColorKnob:
+        case EndColorKnob:
+            return Knob;
     }
 
     // We're never supposed to be here
@@ -113,30 +113,30 @@ QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
 {
     switch (type)
     {
-    case StartColor:
-        return "StartColor";
-        break;
-    case EndColor:
-        return "EndColor";
-        break;
-    case ResetEndColor:
-        return "ResetEndColor";
-        break;
-    case Animation:
-        return "Animation";
-        break;
-    case Image:
-        return "Image";
-        break;
-    case Text:
-        return "Text";
-        break;
-    case StartColorKnob:
-        return "StartColorKnob";
-        break;
-    case EndColorKnob:
-        return "EndColorKnob";
-        break;
+        case StartColor:
+            return "StartColor";
+            break;
+        case EndColor:
+            return "EndColor";
+            break;
+        case ResetEndColor:
+            return "ResetEndColor";
+            break;
+        case Animation:
+            return "Animation";
+            break;
+        case Image:
+            return "Image";
+            break;
+        case Text:
+            return "Text";
+            break;
+        case StartColorKnob:
+            return "StartColorKnob";
+            break;
+        case EndColorKnob:
+            return "EndColorKnob";
+            break;
     }
     return QString();
 }

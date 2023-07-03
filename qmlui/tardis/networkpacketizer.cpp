@@ -52,12 +52,12 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
     switch (QMetaType::Type(value.metaType().id()))
 #endif
     {
-    case QMetaType::Bool:
-        packet.append(BoolType); // section type
-        packet.append(value.toBool() ? (char)0x01 : (char)0x00);
-        break;
-    case QMetaType::Int:
-    case QMetaType::UInt:
+        case QMetaType::Bool:
+            packet.append(BoolType); // section type
+            packet.append(value.toBool() ? (char)0x01 : (char)0x00);
+            break;
+        case QMetaType::Int:
+        case QMetaType::UInt:
         {
             int intVal = value.toInt();
             packet.append(IntType);                 // section type
@@ -67,14 +67,14 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append((char)(intVal & 0x00FF)); // section data LSB
         }
         break;
-    case QMetaType::Double:
+        case QMetaType::Double:
         {
             float val = value.toFloat();
             packet.append(FloatType);
             packet.append(reinterpret_cast<const char *>(&val), sizeof(val));
         }
         break;
-    case QMetaType::QByteArray:
+        case QMetaType::QByteArray:
         {
             QByteArray ba = value.toByteArray();
             packet.append(ByteArrayType);                // section type
@@ -83,7 +83,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append(ba);
         }
         break;
-    case QMetaType::QString:
+        case QMetaType::QString:
         {
             QByteArray strVal = value.toString().toUtf8();
             packet.append(StringType);                       // section type
@@ -92,7 +92,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append(strVal);
         }
         break;
-    case QMetaType::QVector3D:
+        case QMetaType::QVector3D:
         {
             QVector3D vect = value.value<QVector3D>();
             float x = vect.x();
@@ -104,7 +104,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append(reinterpret_cast<const char *>(&z), sizeof(z));
         }
         break;
-    case QMetaType::QRectF:
+        case QMetaType::QRectF:
         {
             QRectF rect = value.value<QRectF>();
             float x = rect.x();
@@ -118,7 +118,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append(reinterpret_cast<const char *>(&h), sizeof(h));
         }
         break;
-    case QMetaType::QColor:
+        case QMetaType::QColor:
         {
             QRgb rgb = value.value<QColor>().rgb();
             packet.append(ColorType);            // section type
@@ -128,7 +128,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append((char)(rgb & 0x00FF)); // section data LSB
         }
         break;
-    case QMetaType::QFont:
+        case QMetaType::QFont:
         {
             QFont font = value.value<QFont>();
             QByteArray strVal = font.toString().toUtf8();
@@ -138,7 +138,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append(strVal);
         }
         break;
-    default:
+        default:
         {
             if (value.canConvert<SceneValue>())
             {
@@ -270,12 +270,12 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
 
         switch (sType)
         {
-        case BoolType:
+            case BoolType:
             {
                 sections.append(QVariant((bool)ba.at(bytes_read++)));
             }
             break;
-        case IntType:
+            case IntType:
             {
                 int intVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
                              + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
@@ -283,15 +283,15 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(QVariant(intVal));
             }
             break;
-        case FloatType:
+            case FloatType:
             {
                 float val = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(val);
                 sections.append(QVariant(val));
             }
             break;
-        case StringType:
-        case FontType:
+            case StringType:
+            case FontType:
             {
                 QString strVal;
                 quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
@@ -312,7 +312,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 bytes_read += sLength;
             }
             break;
-        case ByteArrayType:
+            case ByteArrayType:
             {
                 quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
                 bytes_read += 2;
@@ -321,7 +321,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 bytes_read += sLength;
             }
             break;
-        case Vector3DType:
+            case Vector3DType:
             {
                 float x = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(x);
@@ -332,7 +332,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(QVariant(QVector3D(x, y, z)));
             }
             break;
-        case RectFType:
+            case RectFType:
             {
                 float x = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(x);
@@ -345,7 +345,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(QVariant(QRectF(x, y, w, h)));
             }
             break;
-        case ColorType:
+            case ColorType:
             {
                 QRgb rgbVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
                               + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
@@ -353,7 +353,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(QVariant(QColor(rgbVal)));
             }
             break;
-        case SceneValueType:
+            case SceneValueType:
             {
                 SceneValue scv;
                 scv.fxi = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
@@ -368,7 +368,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(var);
             }
             break;
-        case UIntPairType:
+            case UIntPairType:
             {
                 UIntPair pairVal;
                 pairVal.first = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
@@ -382,7 +382,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(var);
             }
             break;
-        case StringIntPairType:
+            case StringIntPairType:
             {
                 StringIntPair pairVal;
                 QString strVal;
@@ -402,7 +402,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(var);
             }
             break;
-        case StringStringPairType:
+            case StringStringPairType:
             {
                 StringStringPair pairVal;
                 QString strVal;
@@ -426,9 +426,9 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(var);
             }
             break;
-        default:
-            qDebug() << "Unknown section type" << sType;
-            break;
+            default:
+                qDebug() << "Unknown section type" << sType;
+                break;
         }
     }
 

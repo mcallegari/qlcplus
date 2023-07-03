@@ -117,21 +117,21 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     snd_pcm_format_t alsa_format = SND_PCM_FORMAT_UNKNOWN;
     switch (format)
     {
-    case PCM_S8:
-        alsa_format = SND_PCM_FORMAT_S8;
-        break;
-    case PCM_S16LE:
-        alsa_format = SND_PCM_FORMAT_S16_LE;
-        break;
-    case PCM_S24LE:
-        alsa_format = SND_PCM_FORMAT_S24_LE;
-        break;
-    case PCM_S32LE:
-        alsa_format = SND_PCM_FORMAT_S32_LE;
-        break;
-    default:
-        qWarning("OutputALSA: unsupported format detected");
-        return false;
+        case PCM_S8:
+            alsa_format = SND_PCM_FORMAT_S8;
+            break;
+        case PCM_S16LE:
+            alsa_format = SND_PCM_FORMAT_S16_LE;
+            break;
+        case PCM_S24LE:
+            alsa_format = SND_PCM_FORMAT_S24_LE;
+            break;
+        case PCM_S32LE:
+            alsa_format = SND_PCM_FORMAT_S32_LE;
+            break;
+        default:
+            qWarning("OutputALSA: unsupported format detected");
+            return false;
     }
     if ((err = snd_pcm_hw_params_set_format(pcm_handle, hwparams, alsa_format)) < 0)
     {

@@ -141,8 +141,8 @@ IncludeCategories:
 IncludeIsMainRegex: '(Test)?$'
 IncludeIsMainSourceRegex: ''
 IndentAccessModifiers: false
-IndentCaseLabels: false
-IndentCaseBlocks: true
+IndentCaseLabels: true
+IndentCaseBlocks: false
 IndentGotoLabels: false
 IndentPPDirectives: BeforeHash
 IndentExternBlock: AfterExternBlock

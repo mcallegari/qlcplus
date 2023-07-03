@@ -156,15 +156,15 @@ QString RGBImage::animationStyleToString(RGBImage::AnimationStyle ani)
 {
     switch (ani)
     {
-    default:
-    case Static:
-        return QString("Static");
-    case Horizontal:
-        return QString("Horizontal");
-    case Vertical:
-        return QString("Vertical");
-    case Animation:
-        return QString("Animation");
+        default:
+        case Static:
+            return QString("Static");
+        case Horizontal:
+            return QString("Horizontal");
+        case Vertical:
+            return QString("Vertical");
+        case Animation:
+            return QString("Animation");
     }
 }
 
@@ -220,16 +220,16 @@ int RGBImage::rgbMapStepCount(const QSize &size)
 
     switch (animationStyle())
     {
-    default:
-    case Static:
-        return 1;
-    case Horizontal:
-        return m_image.width();
-    case Vertical:
-        return m_image.height();
-    case Animation:
-        qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
-        return MAX(1, m_image.width() / size.width());
+        default:
+        case Static:
+            return 1;
+        case Horizontal:
+            return m_image.width();
+        case Vertical:
+            return m_image.height();
+        case Animation:
+            qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
+            return MAX(1, m_image.width() / size.width());
     }
 }
 
@@ -247,18 +247,18 @@ void RGBImage::rgbMap(const QSize &size, uint rgb, int step, RGBMap &map)
 
     switch (animationStyle())
     {
-    default:
-    case Static:
-        break;
-    case Horizontal:
-        xOffs += step;
-        break;
-    case Vertical:
-        yOffs += step;
-        break;
-    case Animation:
-        xOffs += step * size.width();
-        break;
+        default:
+        case Static:
+            break;
+        case Horizontal:
+            xOffs += step;
+            break;
+        case Vertical:
+            yOffs += step;
+            break;
+        case Animation:
+            xOffs += step * size.width();
+            break;
     }
 
     if (m_animatedSource)

@@ -51,21 +51,21 @@ bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat form
     fmt.mChannelsPerFrame = chan;
     switch (format)
     {
-    case PCM_S8:
-        fmt.mBitsPerChannel = 8;
-        break;
-    case PCM_S16LE:
-        fmt.mBitsPerChannel = 16;
-        break;
-    case PCM_S24LE:
-        fmt.mBitsPerChannel = 24;
-        break;
-    case PCM_S32LE:
-        fmt.mBitsPerChannel = 32;
-        break;
-    default:
-        qWarning("AudioRendererCoreAudio: unsupported format detected");
-        return false;
+        case PCM_S8:
+            fmt.mBitsPerChannel = 8;
+            break;
+        case PCM_S16LE:
+            fmt.mBitsPerChannel = 16;
+            break;
+        case PCM_S24LE:
+            fmt.mBitsPerChannel = 24;
+            break;
+        case PCM_S32LE:
+            fmt.mBitsPerChannel = 32;
+            break;
+        default:
+            qWarning("AudioRendererCoreAudio: unsupported format detected");
+            return false;
     }
     fmt.mBytesPerFrame = fmt.mChannelsPerFrame * fmt.mBitsPerChannel / 8;
     fmt.mBytesPerPacket = fmt.mBytesPerFrame * fmt.mFramesPerPacket;

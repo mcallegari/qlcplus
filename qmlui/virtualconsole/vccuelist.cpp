@@ -656,32 +656,32 @@ void VCCueList::slotInputValueChanged(quint8 id, uchar value)
 {
     switch (id)
     {
-    case INPUT_NEXT_STEP_ID:
-    case INPUT_PREVIOUS_STEP_ID:
-    case INPUT_PLAY_PAUSE_ID:
-    case INPUT_STOP_PAUSE_ID:
-        if (value != UCHAR_MAX)
-            return;
-        break;
-    default:
-        break;
+        case INPUT_NEXT_STEP_ID:
+        case INPUT_PREVIOUS_STEP_ID:
+        case INPUT_PLAY_PAUSE_ID:
+        case INPUT_STOP_PAUSE_ID:
+            if (value != UCHAR_MAX)
+                return;
+            break;
+        default:
+            break;
     }
 
     switch (id)
     {
-    case INPUT_NEXT_STEP_ID:
-        nextClicked();
-        break;
-    case INPUT_PREVIOUS_STEP_ID:
-        previousClicked();
-        break;
-    case INPUT_PLAY_PAUSE_ID:
-        playClicked();
-        break;
-    case INPUT_STOP_PAUSE_ID:
-        stopClicked();
-        break;
-    case INPUT_SIDE_FADER_ID:
+        case INPUT_NEXT_STEP_ID:
+            nextClicked();
+            break;
+        case INPUT_PREVIOUS_STEP_ID:
+            previousClicked();
+            break;
+        case INPUT_PLAY_PAUSE_ID:
+            playClicked();
+            break;
+        case INPUT_STOP_PAUSE_ID:
+            stopClicked();
+            break;
+        case INPUT_SIDE_FADER_ID:
         {
             float val = SCALE(float(value), 0, float(UCHAR_MAX), 0, float(sideFaderMode() == Crossfade ? 100 : 255));
             setSideFaderLevel(int(val));
@@ -771,19 +771,19 @@ void VCCueList::previousClicked()
     {
         switch (m_nextPrevBehavior)
         {
-        case DefaultRunFirst:
-            startChaser(getLastIndex());
-            break;
-        case RunNext:
-            startChaser(getPrevIndex());
-            break;
-        case Select:
-            setPlaybackIndex(getPrevIndex());
-            break;
-        case Nothing:
-            break;
-        default:
-            Q_ASSERT(false);
+            case DefaultRunFirst:
+                startChaser(getLastIndex());
+                break;
+            case RunNext:
+                startChaser(getPrevIndex());
+                break;
+            case Select:
+                setPlaybackIndex(getPrevIndex());
+                break;
+            case Nothing:
+                break;
+            default:
+                Q_ASSERT(false);
         }
     }
 }
@@ -812,19 +812,19 @@ void VCCueList::nextClicked()
     {
         switch (m_nextPrevBehavior)
         {
-        case DefaultRunFirst:
-            startChaser(getFirstIndex());
-            break;
-        case RunNext:
-            startChaser(getNextIndex());
-            break;
-        case Select:
-            setPlaybackIndex(getNextIndex());
-            break;
-        case Nothing:
-            break;
-        default:
-            Q_ASSERT(false);
+            case DefaultRunFirst:
+                startChaser(getFirstIndex());
+                break;
+            case RunNext:
+                startChaser(getNextIndex());
+                break;
+            case Select:
+                setPlaybackIndex(getNextIndex());
+                break;
+            case Nothing:
+                break;
+            default:
+                Q_ASSERT(false);
         }
     }
 }

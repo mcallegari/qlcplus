@@ -700,19 +700,19 @@ void InputOutputManager::slotBeatTypeChanged()
 {
     switch (m_ioMap->beatGeneratorType())
     {
-    case InputOutputMap::Internal:
-        m_beatType = "INTERNAL";
-        break;
-    case InputOutputMap::MIDI:
-        m_beatType = "MIDI";
-        break;
-    case InputOutputMap::Audio:
-        m_beatType = "AUDIO";
-        break;
-    case InputOutputMap::Disabled:
-    default:
-        m_beatType = "OFF";
-        break;
+        case InputOutputMap::Internal:
+            m_beatType = "INTERNAL";
+            break;
+        case InputOutputMap::MIDI:
+            m_beatType = "MIDI";
+            break;
+        case InputOutputMap::Audio:
+            m_beatType = "AUDIO";
+            break;
+        case InputOutputMap::Disabled:
+        default:
+            m_beatType = "OFF";
+            break;
     }
     emit beatTypeChanged(m_beatType);
     emit bpmNumberChanged(m_ioMap->bpmNumber());

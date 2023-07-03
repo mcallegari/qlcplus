@@ -100,25 +100,25 @@ void NetworkManager::sendAction(int code, TardisAction action)
 
     switch (action.m_action)
     {
-    case Tardis::FixtureCreate:
-    case Tardis::FixtureGroupCreate:
-    case Tardis::FunctionCreate:
-    case Tardis::ChaserAddStep:
-    case Tardis::EFXAddFixture:
-    case Tardis::VCWidgetCreate:
-        m_packetizer->addSection(packet, action.m_newValue);
-        break;
+        case Tardis::FixtureCreate:
+        case Tardis::FixtureGroupCreate:
+        case Tardis::FunctionCreate:
+        case Tardis::ChaserAddStep:
+        case Tardis::EFXAddFixture:
+        case Tardis::VCWidgetCreate:
+            m_packetizer->addSection(packet, action.m_newValue);
+            break;
 
-    case Tardis::FixtureDelete:
-    case Tardis::FixtureGroupDelete:
-    case Tardis::FunctionDelete:
-    case Tardis::VCWidgetDelete:
-        m_packetizer->addSection(packet, action.m_oldValue);
-        break;
+        case Tardis::FixtureDelete:
+        case Tardis::FixtureGroupDelete:
+        case Tardis::FunctionDelete:
+        case Tardis::VCWidgetDelete:
+            m_packetizer->addSection(packet, action.m_oldValue);
+            break;
 
-    default:
-        m_packetizer->addSection(packet, action.m_newValue);
-        break;
+        default:
+            m_packetizer->addSection(packet, action.m_newValue);
+            break;
     }
 
     if (m_hostType == ServerHostType)
@@ -523,7 +523,7 @@ void NetworkManager::slotProcessUDPPackets()
 
         switch (opCode)
         {
-        case Tardis::NetAnnounce:
+            case Tardis::NetAnnounce:
             {
                 QByteArray packet;
                 m_packetizer->initializePacket(packet, Tardis::NetAnnounceReply);
@@ -534,7 +534,7 @@ void NetworkManager::slotProcessUDPPackets()
             }
             break;
 
-        case Tardis::NetAnnounceReply:
+            case Tardis::NetAnnounceReply:
             {
                 if (m_hostType == ClientHostType && paramsList.count() == 2 && paramsList.at(0).toInt() == ServerHostType)
                 {
@@ -544,9 +544,9 @@ void NetworkManager::slotProcessUDPPackets()
             }
             break;
 
-        default:
-            qDebug() << "Unsupported opCode" << opCode;
-            break;
+            default:
+                qDebug() << "Unsupported opCode" << opCode;
+                break;
         }
     }
 }
@@ -593,7 +593,7 @@ void NetworkManager::slotProcessTCPPackets()
 
         switch (actionCode)
         {
-        case Tardis::NetAuthentication:
+            case Tardis::NetAuthentication:
             {
                 bool success = false;
 
@@ -625,7 +625,7 @@ void NetworkManager::slotProcessTCPPackets()
                 }
             }
             break;
-        case Tardis::NetAuthenticationReply:
+            case Tardis::NetAuthenticationReply:
             {
                 if (!paramsList.isEmpty() && paramsList.at(0).toString() == "Success")
                 {
@@ -639,7 +639,7 @@ void NetworkManager::slotProcessTCPPackets()
                 }
             }
             break;
-        case Tardis::NetProjectTransfer:
+            case Tardis::NetProjectTransfer:
             {
                 if (m_hostType != ClientHostType || paramsList.count() < 2)
                     break;
@@ -673,7 +673,7 @@ void NetworkManager::slotProcessTCPPackets()
             }
             break;
 
-        default:
+            default:
             {
                 if (paramsList.count() == 2)
                     emit actionReady(actionCode, paramsList.at(0).toUInt(), paramsList.at(1));

@@ -197,27 +197,27 @@ void RDMManager::slotWritePID()
 
                 switch (m_dataTypeCombo->currentIndex())
                 {
-                case ByteArg:
-                    params.append(uchar(1));
-                    if (arg.toLower().startsWith("0x"))
-                        params.append(uchar(arg.mid(2).toUShort(&ok, 16)));
-                    else
-                        params.append(uchar(arg.toUShort()));
-                    break;
-                case ShortArg:
-                    params.append(uchar(2));
-                    if (arg.toLower().startsWith("0x"))
-                        params.append(arg.mid(2).toShort(&ok, 16));
-                    else
-                        params.append(arg.toShort());
-                    break;
-                case LongArg:
-                    params.append(uchar(4));
-                    if (arg.toLower().startsWith("0x"))
-                        params.append(quint32(arg.mid(2).toULong(&ok, 16)));
-                    else
-                        params.append(quint32(arg.toULong()));
-                    break;
+                    case ByteArg:
+                        params.append(uchar(1));
+                        if (arg.toLower().startsWith("0x"))
+                            params.append(uchar(arg.mid(2).toUShort(&ok, 16)));
+                        else
+                            params.append(uchar(arg.toUShort()));
+                        break;
+                    case ShortArg:
+                        params.append(uchar(2));
+                        if (arg.toLower().startsWith("0x"))
+                            params.append(arg.mid(2).toShort(&ok, 16));
+                        else
+                            params.append(arg.toShort());
+                        break;
+                    case LongArg:
+                        params.append(uchar(4));
+                        if (arg.toLower().startsWith("0x"))
+                            params.append(quint32(arg.mid(2).toULong(&ok, 16)));
+                        else
+                            params.append(quint32(arg.toULong()));
+                        break;
                 }
             }
         }
@@ -459,20 +459,20 @@ void RDMWorker::run()
     {
         switch (m_requestState)
         {
-        case StateNone:
+            case StateNone:
             {
                 // Nothing to do. Terminate the thread
                 m_running = false;
             }
             break;
-        case StateDiscoveryStart:
+            case StateDiscoveryStart:
             {
                 m_requestState = StateDiscoveryContinue;
                 // m_plugin->sendRDMCommand(m_universe, m_line, DISCOVERY_COMMAND,
                 //                          QVariantList() << RDMProtocol::broadcastAddress() << PID_DISC_UN_MUTE);
             }
             break;
-        case StateDiscoveryContinue:
+            case StateDiscoveryContinue:
             {
                 waitCount = 0;
 
@@ -492,14 +492,14 @@ void RDMWorker::run()
                 m_requestState = StateWait;
             }
             break;
-        case StateDiscoveryEnd:
+            case StateDiscoveryEnd:
             {
                 if (m_uidMap.isEmpty())
                     emit requestPopup("Warning", "No RDM devices found");
                 m_requestState = StateNone;
             }
             break;
-        case StatePersonalities:
+            case StatePersonalities:
             {
                 waitCount = 0;
                 QString UID = m_uidMap.firstKey();
@@ -514,7 +514,7 @@ void RDMWorker::run()
                 }
             }
             break;
-        case StateReadSinglePid:
+            case StateReadSinglePid:
             {
                 waitCount = 0;
                 UIDInfo info = m_uidMap.first();
@@ -536,7 +536,7 @@ void RDMWorker::run()
                 }
             }
             break;
-        case StateWriteSinglePid:
+            case StateWriteSinglePid:
             {
                 waitCount = 0;
                 UIDInfo info = m_uidMap.first();
@@ -557,7 +557,7 @@ void RDMWorker::run()
                 }
             }
             break;
-        default:
+            default:
             {
                 // qDebug() << "[RDM] ....WAIT....";
                 msleep(50);

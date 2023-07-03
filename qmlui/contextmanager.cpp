@@ -438,26 +438,26 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
     {
         switch (e->key())
         {
-        case Qt::Key_A:
-            toggleFixturesSelection();
-            break;
-        case Qt::Key_P:
-            setPositionPicking(true);
-            break;
-        case Qt::Key_R:
-            resetDumpValues();
-            break;
-        case Qt::Key_S:
-            QMetaObject::invokeMethod(m_view->rootObject(), "saveProject");
-            break;
-        case Qt::Key_Z:
-            if (e->modifiers() & Qt::ShiftModifier)
-                Tardis::instance()->redoAction();
-            else
-                Tardis::instance()->undoAction();
-            break;
-        default:
-            break;
+            case Qt::Key_A:
+                toggleFixturesSelection();
+                break;
+            case Qt::Key_P:
+                setPositionPicking(true);
+                break;
+            case Qt::Key_R:
+                resetDumpValues();
+                break;
+            case Qt::Key_S:
+                QMetaObject::invokeMethod(m_view->rootObject(), "saveProject");
+                break;
+            case Qt::Key_Z:
+                if (e->modifiers() & Qt::ShiftModifier)
+                    Tardis::instance()->redoAction();
+                else
+                    Tardis::instance()->undoAction();
+                break;
+            default:
+                break;
         }
     }
 
@@ -780,18 +780,18 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
 
         switch (m_monProps->pointOfView())
         {
-        case MonitorProperties::TopView:
-            newPos = QVector3D(currPos.x() + x, currPos.y(), currPos.z() + y);
-            break;
-        case MonitorProperties::RightSideView:
-            newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() - x);
-            break;
-        case MonitorProperties::LeftSideView:
-            newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() + x);
-            break;
-        default:
-            newPos = QVector3D(currPos.x() + x, currPos.y() - y, currPos.z());
-            break;
+            case MonitorProperties::TopView:
+                newPos = QVector3D(currPos.x() + x, currPos.y(), currPos.z() + y);
+                break;
+            case MonitorProperties::RightSideView:
+                newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() - x);
+                break;
+            case MonitorProperties::LeftSideView:
+                newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() + x);
+                break;
+            default:
+                newPos = QVector3D(currPos.x() + x, currPos.y() - y, currPos.z());
+                break;
         }
 
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));
@@ -982,30 +982,30 @@ void ContextManager::setFixturesDistribution(int direction)
         {
             switch (m_monProps->pointOfView())
             {
-            case MonitorProperties::TopView:
-                if (direction == Qt::Horizontal)
-                    fxPos.setX(newPos);
-                else
-                    fxPos.setZ(newPos);
-                break;
-            case MonitorProperties::RightSideView:
-                if (direction == Qt::Horizontal)
-                    fxPos.setZ(m_monProps->gridSize().z() - newPos);
-                else
-                    fxPos.setY(newPos);
-                break;
-            case MonitorProperties::LeftSideView:
-                if (direction == Qt::Horizontal)
-                    fxPos.setZ(newPos);
-                else
-                    fxPos.setY(newPos);
-                break;
-            default:
-                if (direction == Qt::Horizontal)
-                    fxPos.setX(newPos);
-                else
-                    fxPos.setY(newPos);
-                break;
+                case MonitorProperties::TopView:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setX(newPos);
+                    else
+                        fxPos.setZ(newPos);
+                    break;
+                case MonitorProperties::RightSideView:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setZ(m_monProps->gridSize().z() - newPos);
+                    else
+                        fxPos.setY(newPos);
+                    break;
+                case MonitorProperties::LeftSideView:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setZ(newPos);
+                    else
+                        fxPos.setY(newPos);
+                    break;
+                default:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setX(newPos);
+                    else
+                        fxPos.setY(newPos);
+                    break;
             }
 
             m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, fxPos);
@@ -1118,17 +1118,17 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
             QLCPhysical phy = fxMode->physical();
             switch (type)
             {
-            case QLCChannel::Pan:
-                chValue = (qreal(phy.focusPanMax()) / divider) * chValue;
-                break;
-            case QLCChannel::Tilt:
-                chValue = (qreal(phy.focusTiltMax()) / divider) * chValue;
-                break;
-            case QLCChannel::Beam:
-                chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
-                if (ch->controlByte() == QLCChannel::MSB)
-                    chValue += phy.lensDegreesMin();
-                break;
+                case QLCChannel::Pan:
+                    chValue = (qreal(phy.focusPanMax()) / divider) * chValue;
+                    break;
+                case QLCChannel::Tilt:
+                    chValue = (qreal(phy.focusTiltMax()) / divider) * chValue;
+                    break;
+                case QLCChannel::Beam:
+                    chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
+                    if (ch->controlByte() == QLCChannel::MSB)
+                        chValue += phy.lensDegreesMin();
+                    break;
             }
         }
 

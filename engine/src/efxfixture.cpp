@@ -218,13 +218,13 @@ QString EFXFixture::modeToString(Mode mode)
 {
     switch (mode)
     {
-    default:
-    case PanTilt:
-        return QString(KXMLQLCEFXFixtureModePanTilt);
-    case Dimmer:
-        return QString(KXMLQLCEFXFixtureModeDimmer);
-    case RGB:
-        return QString(KXMLQLCEFXFixtureModeRGB);
+        default:
+        case PanTilt:
+            return QString(KXMLQLCEFXFixtureModePanTilt);
+        case Dimmer:
+            return QString(KXMLQLCEFXFixtureModeDimmer);
+        case RGB:
+            return QString(KXMLQLCEFXFixtureModeRGB);
     }
 }
 
@@ -440,18 +440,18 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
     /* Set target values on faders/universes */
     switch (m_mode)
     {
-    case PanTilt:
-        setPointPanTilt(universes, fader, valX, valY);
-        break;
+        case PanTilt:
+            setPointPanTilt(universes, fader, valX, valY);
+            break;
 
-    case RGB:
-        setPointRGB(universes, fader, valX, valY);
-        break;
+        case RGB:
+            setPointRGB(universes, fader, valX, valY);
+            break;
 
-    case Dimmer:
-        // Use Y for coherence with RGB gradient.
-        setPointDimmer(universes, fader, valY);
-        break;
+        case Dimmer:
+            // Use Y for coherence with RGB gradient.
+            setPointDimmer(universes, fader, valY);
+            break;
     }
 }
 

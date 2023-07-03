@@ -108,45 +108,45 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArr
 
             switch (lastCommand)
             {
-            case CommandNone:
-                // no command: this is a channel number
-                if (number <= 0)
-                    break;
+                case CommandNone:
+                    // no command: this is a channel number
+                    if (number <= 0)
+                        break;
 
-                fromChannel = number;
-                toChannel = fromChannel;
-                channelSet = true;
-                break;
-            case CommandAT:
-                fromValue = float(number);
-                toValue = fromValue;
-                break;
-            case CommandTHRU:
-                if (thruCount == 0)
-                    toChannel = number;
-                else
-                    toValue = float(number);
-                thruCount++;
-                break;
-            case CommandFULL:
-                fromValue = 255;
-                toValue = 255;
-                break;
-            case CommandZERO:
-                fromValue = 0;
-                toValue = 0;
-                break;
-            case CommandBY:
-                byChannel = number;
-                break;
-            case CommandPlus:
-            case CommandMinus:
-                toValue = number;
-                break;
-            case CommandPlusPercent:
-            case CommandMinusPercent:
-                toValue = float(number) / 100.0;
-                break;
+                    fromChannel = number;
+                    toChannel = fromChannel;
+                    channelSet = true;
+                    break;
+                case CommandAT:
+                    fromValue = float(number);
+                    toValue = fromValue;
+                    break;
+                case CommandTHRU:
+                    if (thruCount == 0)
+                        toChannel = number;
+                    else
+                        toValue = float(number);
+                    thruCount++;
+                    break;
+                case CommandFULL:
+                    fromValue = 255;
+                    toValue = 255;
+                    break;
+                case CommandZERO:
+                    fromValue = 0;
+                    toValue = 0;
+                    break;
+                case CommandBY:
+                    byChannel = number;
+                    break;
+                case CommandPlus:
+                case CommandMinus:
+                    toValue = number;
+                    break;
+                case CommandPlusPercent:
+                case CommandMinusPercent:
+                    toValue = float(number) / 100.0;
+                    break;
             }
         }
     }

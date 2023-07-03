@@ -138,31 +138,31 @@ QString VCWidget::typeToString(int type)
     switch (type)
     {
 
-    case ButtonWidget:
-        return QString(tr("Button"));
-    case SliderWidget:
-        return QString(tr("Slider"));
-    case XYPadWidget:
-        return QString(tr("XYPad"));
-    case FrameWidget:
-        return QString(tr("Frame"));
-    case SoloFrameWidget:
-        return QString(tr("Solo frame"));
-    case SpeedDialWidget:
-        return QString(tr("Speed dial"));
-    case CueListWidget:
-        return QString(tr("Cue list"));
-    case LabelWidget:
-        return QString(tr("Label"));
-    case AudioTriggersWidget:
-        return QString(tr("Audio Triggers"));
-    case AnimationWidget:
-        return QString(tr("Animation"));
-    case ClockWidget:
-        return QString(tr("Clock"));
-    case UnknownWidget:
-    default:
-        return QString(tr("Unknown"));
+        case ButtonWidget:
+            return QString(tr("Button"));
+        case SliderWidget:
+            return QString(tr("Slider"));
+        case XYPadWidget:
+            return QString(tr("XYPad"));
+        case FrameWidget:
+            return QString(tr("Frame"));
+        case SoloFrameWidget:
+            return QString(tr("Solo frame"));
+        case SpeedDialWidget:
+            return QString(tr("Speed dial"));
+        case CueListWidget:
+            return QString(tr("Cue list"));
+        case LabelWidget:
+            return QString(tr("Label"));
+        case AudioTriggersWidget:
+            return QString(tr("Audio Triggers"));
+        case AnimationWidget:
+            return QString(tr("Animation"));
+        case ClockWidget:
+            return QString(tr("Clock"));
+        case UnknownWidget:
+        default:
+            return QString(tr("Unknown"));
     }
     return QString(tr("Unknown"));
 }
@@ -171,31 +171,31 @@ QIcon VCWidget::typeToIcon(int type)
 {
     switch (type)
     {
-    case ButtonWidget:
-        return QIcon(":/button.png");
-    case SliderWidget:
-        return QIcon(":/slider.png");
-    case XYPadWidget:
-        return QIcon(":/xypad.png");
-    case FrameWidget:
-        return QIcon(":/frame.png");
-    case SoloFrameWidget:
-        return QIcon(":/soloframe.png");
-    case SpeedDialWidget:
-        return QIcon(":/speed.png");
-    case CueListWidget:
-        return QIcon(":/cuelist.png");
-    case LabelWidget:
-        return QIcon(":/label.png");
-    case AudioTriggersWidget:
-        return QIcon(":/audioinput.png");
-    case AnimationWidget:
-        return QIcon(":/rgbmatrix.png");
-    case ClockWidget:
-        return QIcon(":/clock.png");
-    case UnknownWidget:
-    default:
-        return QIcon(":/virtualconsole.png");
+        case ButtonWidget:
+            return QIcon(":/button.png");
+        case SliderWidget:
+            return QIcon(":/slider.png");
+        case XYPadWidget:
+            return QIcon(":/xypad.png");
+        case FrameWidget:
+            return QIcon(":/frame.png");
+        case SoloFrameWidget:
+            return QIcon(":/soloframe.png");
+        case SpeedDialWidget:
+            return QIcon(":/speed.png");
+        case CueListWidget:
+            return QIcon(":/cuelist.png");
+        case LabelWidget:
+            return QIcon(":/label.png");
+        case AudioTriggersWidget:
+            return QIcon(":/audioinput.png");
+        case AnimationWidget:
+            return QIcon(":/rgbmatrix.png");
+        case ClockWidget:
+            return QIcon(":/clock.png");
+        case UnknownWidget:
+        default:
+            return QIcon(":/virtualconsole.png");
     }
     return QIcon(":/virtualconsole.png");
 }

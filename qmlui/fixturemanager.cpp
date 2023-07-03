@@ -503,19 +503,19 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
         int newMode = value.toInt();
         switch (newMode)
         {
-        case AutoHTP:
-        case AutoLTP:
-            forcedHTP.removeOne(index);
-            forcedLTP.removeOne(index);
-            break;
-        case ForcedHTP:
-            if (channel->group() != QLCChannel::Intensity)
-                forcedHTP.append(index);
-            break;
-        case ForcedLTP:
-            if (channel->group() == QLCChannel::Intensity)
-                forcedLTP.append(index);
-            break;
+            case AutoHTP:
+            case AutoLTP:
+                forcedHTP.removeOne(index);
+                forcedLTP.removeOne(index);
+                break;
+            case ForcedHTP:
+                if (channel->group() != QLCChannel::Intensity)
+                    forcedHTP.append(index);
+                break;
+            case ForcedLTP:
+                if (channel->group() == QLCChannel::Intensity)
+                    forcedLTP.append(index);
+                break;
         }
 
         fixture->setForcedHTPChannels(forcedHTP);
@@ -1327,33 +1327,33 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
         switch (m_monProps->pointOfView())
         {
-        case MonitorProperties::TopView:
-            pos = QVector3D(xPos, 1000, yPos);
-            if (displacement == Snake && i % 2)
-                rot.setY(180);
-            break;
-        case MonitorProperties::LeftSideView:
-            pos = QVector3D(0, yPos, xPos);
-            if (displacement == Snake && i % 2)
-                rot.setY(-90);
-            else
-                rot.setY(90);
-            rot.setZ(-90);
-            break;
-        case MonitorProperties::RightSideView:
-            pos = QVector3D(0, yPos, (m_monProps->gridSize().z() * gridUnits) - xPos);
-            if (displacement == Snake && i % 2)
-                rot.setY(90);
-            else
-                rot.setY(-90);
-            rot.setZ(90);
-            break;
-        default:
-            pos = QVector3D(xPos, (m_monProps->gridSize().y() * gridUnits) - yPos, 0);
-            if (displacement == Snake && i % 2)
-                rot.setZ(180);
-            rot.setX(-90);
-            break;
+            case MonitorProperties::TopView:
+                pos = QVector3D(xPos, 1000, yPos);
+                if (displacement == Snake && i % 2)
+                    rot.setY(180);
+                break;
+            case MonitorProperties::LeftSideView:
+                pos = QVector3D(0, yPos, xPos);
+                if (displacement == Snake && i % 2)
+                    rot.setY(-90);
+                else
+                    rot.setY(90);
+                rot.setZ(-90);
+                break;
+            case MonitorProperties::RightSideView:
+                pos = QVector3D(0, yPos, (m_monProps->gridSize().z() * gridUnits) - xPos);
+                if (displacement == Snake && i % 2)
+                    rot.setY(90);
+                else
+                    rot.setY(-90);
+                rot.setZ(90);
+                break;
+            default:
+                pos = QVector3D(xPos, (m_monProps->gridSize().y() * gridUnits) - yPos, 0);
+                if (displacement == Snake && i % 2)
+                    rot.setZ(180);
+                rot.setX(-90);
+                break;
         }
         m_monProps->setFixturePosition(fxi->id(), 0, 0, pos);
         m_monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
@@ -1760,38 +1760,38 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
 
         switch (channel->group())
         {
-        case QLCChannel::Intensity:
+            case QLCChannel::Intensity:
             {
                 QLCChannel::PrimaryColour col = channel->colour();
                 chType = col;
                 switch (col)
                 {
-                case QLCChannel::NoColour:
-                    hasDimmer = true;
-                    channelsMap.insert(chType, SceneValue(fixtureID, ch));
-                    break;
-                case QLCChannel::Red:
-                case QLCChannel::Green:
-                case QLCChannel::Blue:
-                case QLCChannel::Cyan:
-                case QLCChannel::Magenta:
-                case QLCChannel::Yellow:
-                case QLCChannel::White:
-                case QLCChannel::Amber:
-                case QLCChannel::UV:
-                case QLCChannel::Lime:
-                case QLCChannel::Indigo:
-                    hasColor = true;
-                    updateColorsMap(col, capDelta);
-                    channelsMap.insert(chType, SceneValue(fixtureID, ch));
-                    break;
-                default:
-                    break;
+                    case QLCChannel::NoColour:
+                        hasDimmer = true;
+                        channelsMap.insert(chType, SceneValue(fixtureID, ch));
+                        break;
+                    case QLCChannel::Red:
+                    case QLCChannel::Green:
+                    case QLCChannel::Blue:
+                    case QLCChannel::Cyan:
+                    case QLCChannel::Magenta:
+                    case QLCChannel::Yellow:
+                    case QLCChannel::White:
+                    case QLCChannel::Amber:
+                    case QLCChannel::UV:
+                    case QLCChannel::Lime:
+                    case QLCChannel::Indigo:
+                        hasColor = true;
+                        updateColorsMap(col, capDelta);
+                        channelsMap.insert(chType, SceneValue(fixtureID, ch));
+                        break;
+                    default:
+                        break;
                 }
             }
             break;
-        case QLCChannel::Pan:
-        case QLCChannel::Tilt:
+            case QLCChannel::Pan:
+            case QLCChannel::Tilt:
             {
                 hasPosition = true;
                 if (fixture->fixtureMode() != nullptr)
@@ -1814,7 +1814,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
-        case QLCChannel::Shutter:
+            case QLCChannel::Shutter:
             {
                 hasShutter = true;
                 if (enable)
@@ -1833,7 +1833,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
-        case QLCChannel::Colour:
+            case QLCChannel::Colour:
             {
                 hasColorWheel = true;
                 if (enable)
@@ -1852,7 +1852,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
-        case QLCChannel::Gobo:
+            case QLCChannel::Gobo:
             {
                 hasGobos = true;
                 if (enable)
@@ -1871,7 +1871,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
-        case QLCChannel::Beam:
+            case QLCChannel::Beam:
             {
                 if (channel->preset() != QLCChannel::BeamZoomBigSmall && channel->preset() != QLCChannel::BeamZoomSmallBig
                     && channel->preset() != QLCChannel::BeamZoomFine)
@@ -1897,8 +1897,8 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
                 channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 
@@ -1979,41 +1979,41 @@ void FixtureManager::updateColorsMap(int type, int delta)
 
     switch (type)
     {
-    case QLCChannel::Red:
-        maskVal = App::Red;
-        break;
-    case QLCChannel::Green:
-        maskVal = App::Green;
-        break;
-    case QLCChannel::Blue:
-        maskVal = App::Blue;
-        break;
-    case QLCChannel::Cyan:
-        maskVal = App::Cyan;
-        break;
-    case QLCChannel::Magenta:
-        maskVal = App::Magenta;
-        break;
-    case QLCChannel::Yellow:
-        maskVal = App::Yellow;
-        break;
-    case QLCChannel::White:
-        maskVal = App::White;
-        break;
-    case QLCChannel::Amber:
-        maskVal = App::Amber;
-        break;
-    case QLCChannel::UV:
-        maskVal = App::UV;
-        break;
-    case QLCChannel::Lime:
-        maskVal = App::Lime;
-        break;
-    case QLCChannel::Indigo:
-        maskVal = App::Indigo;
-        break;
-    default:
-        return;
+        case QLCChannel::Red:
+            maskVal = App::Red;
+            break;
+        case QLCChannel::Green:
+            maskVal = App::Green;
+            break;
+        case QLCChannel::Blue:
+            maskVal = App::Blue;
+            break;
+        case QLCChannel::Cyan:
+            maskVal = App::Cyan;
+            break;
+        case QLCChannel::Magenta:
+            maskVal = App::Magenta;
+            break;
+        case QLCChannel::Yellow:
+            maskVal = App::Yellow;
+            break;
+        case QLCChannel::White:
+            maskVal = App::White;
+            break;
+        case QLCChannel::Amber:
+            maskVal = App::Amber;
+            break;
+        case QLCChannel::UV:
+            maskVal = App::UV;
+            break;
+        case QLCChannel::Lime:
+            maskVal = App::Lime;
+            break;
+        case QLCChannel::Indigo:
+            maskVal = App::Indigo;
+            break;
+        default:
+            return;
     }
 
     m_colorCounters[type] += delta;

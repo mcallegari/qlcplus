@@ -300,7 +300,7 @@ void VCButton::requestStateChange(bool pressed)
 
     switch (actionType())
     {
-    case Toggle:
+        case Toggle:
         {
             Function *f = m_doc->function(m_functionID);
             if (f == nullptr)
@@ -324,7 +324,7 @@ void VCButton::requestStateChange(bool pressed)
             }
         }
         break;
-    case Flash:
+        case Flash:
         {
             Function *f = m_doc->function(m_functionID);
             if (f != nullptr)
@@ -342,13 +342,13 @@ void VCButton::requestStateChange(bool pressed)
             }
         }
         break;
-    case Blackout:
+        case Blackout:
         {
             m_doc->inputOutputMap()->toggleBlackout();
             setState(pressed ? Active : Inactive);
         }
         break;
-    case StopAll:
+        case StopAll:
         {
             if (stopAllFadeOutTime() == 0)
                 m_doc->masterTimer()->stopAllFunctions();
@@ -356,8 +356,8 @@ void VCButton::requestStateChange(bool pressed)
                 m_doc->masterTimer()->fadeAndStopAll(stopAllFadeOutTime());
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 
     Tardis::instance()->enqueueAction(Tardis::VCButtonSetPressed, id(), false, pressed);

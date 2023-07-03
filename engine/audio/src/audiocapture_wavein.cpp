@@ -53,26 +53,26 @@ bool AudioCaptureWaveIn::initialize()
     result = waveInOpen(&deviceHandle, WAVE_MAPPER, &format, 0L, 0L, CALLBACK_NULL | WAVE_FORMAT_DIRECT);
     switch (result)
     {
-    case MMSYSERR_ALLOCATED:
-        qWarning("AudioRendererWaveOut: Device is already open.");
-        return false;
-    case MMSYSERR_BADDEVICEID:
-        qWarning("AudioRendererWaveOut: The specified device is out of range.");
-        return false;
-    case MMSYSERR_NODRIVER:
-        qWarning("AudioRendererWaveOut: There is no audio driver in this system.");
-        return false;
-    case MMSYSERR_NOMEM:
-        qWarning("AudioRendererWaveOut: Unable to allocate sound memory.");
-        return false;
-    case WAVERR_BADFORMAT:
-        qWarning("AudioRendererWaveOut: This audio format is not supported.");
-        return false;
-    default:
-        qWarning("AudioRendererWaveOut: Unknown media error.");
-        return false;
-    case MMSYSERR_NOERROR:
-        break;
+        case MMSYSERR_ALLOCATED:
+            qWarning("AudioRendererWaveOut: Device is already open.");
+            return false;
+        case MMSYSERR_BADDEVICEID:
+            qWarning("AudioRendererWaveOut: The specified device is out of range.");
+            return false;
+        case MMSYSERR_NODRIVER:
+            qWarning("AudioRendererWaveOut: There is no audio driver in this system.");
+            return false;
+        case MMSYSERR_NOMEM:
+            qWarning("AudioRendererWaveOut: Unable to allocate sound memory.");
+            return false;
+        case WAVERR_BADFORMAT:
+            qWarning("AudioRendererWaveOut: This audio format is not supported.");
+            return false;
+        default:
+            qWarning("AudioRendererWaveOut: Unknown media error.");
+            return false;
+        case MMSYSERR_NOERROR:
+            break;
     }
 
     for (int i = 0; i < HEADERS_NUMBER; i++)

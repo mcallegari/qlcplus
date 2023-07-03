@@ -406,41 +406,41 @@ void VCCueList::updateStepList()
 
         switch (ch->fadeInMode())
         {
-        case Chaser::Common:
-            item->setText(COL_FADEIN, Function::speedToString(ch->fadeInSpeed()));
-            break;
-        case Chaser::PerStep:
-            item->setText(COL_FADEIN, Function::speedToString(step.fadeIn));
-            break;
-        default:
-        case Chaser::Default:
-            item->setText(COL_FADEIN, QString());
+            case Chaser::Common:
+                item->setText(COL_FADEIN, Function::speedToString(ch->fadeInSpeed()));
+                break;
+            case Chaser::PerStep:
+                item->setText(COL_FADEIN, Function::speedToString(step.fadeIn));
+                break;
+            default:
+            case Chaser::Default:
+                item->setText(COL_FADEIN, QString());
         }
 
         switch (ch->fadeOutMode())
         {
-        case Chaser::Common:
-            item->setText(COL_FADEOUT, Function::speedToString(ch->fadeOutSpeed()));
-            break;
-        case Chaser::PerStep:
-            item->setText(COL_FADEOUT, Function::speedToString(step.fadeOut));
-            break;
-        default:
-        case Chaser::Default:
-            item->setText(COL_FADEOUT, QString());
+            case Chaser::Common:
+                item->setText(COL_FADEOUT, Function::speedToString(ch->fadeOutSpeed()));
+                break;
+            case Chaser::PerStep:
+                item->setText(COL_FADEOUT, Function::speedToString(step.fadeOut));
+                break;
+            default:
+            case Chaser::Default:
+                item->setText(COL_FADEOUT, QString());
         }
 
         switch (ch->durationMode())
         {
-        case Chaser::Common:
-            item->setText(COL_DURATION, Function::speedToString(ch->duration()));
-            break;
-        case Chaser::PerStep:
-            item->setText(COL_DURATION, Function::speedToString(step.duration));
-            break;
-        default:
-        case Chaser::Default:
-            item->setText(COL_DURATION, QString());
+            case Chaser::Common:
+                item->setText(COL_DURATION, Function::speedToString(ch->duration()));
+                break;
+            case Chaser::PerStep:
+                item->setText(COL_DURATION, Function::speedToString(step.duration));
+                break;
+            default:
+            case Chaser::Default:
+                item->setText(COL_DURATION, QString());
         }
     }
 
@@ -715,19 +715,19 @@ void VCCueList::slotNextCue()
     {
         switch (m_nextPrevBehavior)
         {
-        case DefaultRunFirst:
-            startChaser(getFirstIndex());
-            break;
-        case RunNext:
-            startChaser(getNextIndex());
-            break;
-        case Select:
-            m_tree->setCurrentItem(m_tree->topLevelItem(getNextIndex()));
-            break;
-        case Nothing:
-            break;
-        default:
-            Q_ASSERT(false);
+            case DefaultRunFirst:
+                startChaser(getFirstIndex());
+                break;
+            case RunNext:
+                startChaser(getNextIndex());
+                break;
+            case Select:
+                m_tree->setCurrentItem(m_tree->topLevelItem(getNextIndex()));
+                break;
+            case Nothing:
+                break;
+            default:
+                Q_ASSERT(false);
         }
     }
 }
@@ -761,19 +761,19 @@ void VCCueList::slotPreviousCue()
     {
         switch (m_nextPrevBehavior)
         {
-        case DefaultRunFirst:
-            startChaser(getLastIndex());
-            break;
-        case RunNext:
-            startChaser(getPrevIndex());
-            break;
-        case Select:
-            m_tree->setCurrentItem(m_tree->topLevelItem(getPrevIndex()));
-            break;
-        case Nothing:
-            break;
-        default:
-            Q_ASSERT(false);
+            case DefaultRunFirst:
+                startChaser(getLastIndex());
+                break;
+            case RunNext:
+                startChaser(getPrevIndex());
+                break;
+            case Select:
+                m_tree->setCurrentItem(m_tree->topLevelItem(getPrevIndex()));
+                break;
+            case Nothing:
+                break;
+            default:
+                Q_ASSERT(false);
         }
     }
 }

@@ -426,24 +426,24 @@ void FixtureGroupEditor::transformSelection(int transformation)
 
     switch (TransformType(transformation))
     {
-    case Rotate90:
-        transform = transform.rotate(90);
-        trImage = matrix.transformed(transform);
-        break;
-    case Rotate180:
-        transform = transform.rotate(180);
-        trImage = matrix.transformed(transform);
-        break;
-    case Rotate270:
-        transform = transform.rotate(270);
-        trImage = matrix.transformed(transform);
-        break;
-    case HorizontalFlip:
-        trImage = matrix.mirrored(true, false);
-        break;
-    case VerticalFlip:
-        trImage = matrix.mirrored(false, true);
-        break;
+        case Rotate90:
+            transform = transform.rotate(90);
+            trImage = matrix.transformed(transform);
+            break;
+        case Rotate180:
+            transform = transform.rotate(180);
+            trImage = matrix.transformed(transform);
+            break;
+        case Rotate270:
+            transform = transform.rotate(270);
+            trImage = matrix.transformed(transform);
+            break;
+        case HorizontalFlip:
+            trImage = matrix.mirrored(true, false);
+            break;
+        case VerticalFlip:
+            trImage = matrix.mirrored(false, true);
+            break;
     }
 
     /** Now assign to the group the original heads but on the new

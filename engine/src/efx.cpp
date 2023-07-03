@@ -196,25 +196,25 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
 {
     switch (algo)
     {
-    default:
-    case EFX::Circle:
-        return QString(KXMLQLCEFXCircleAlgorithmName);
-    case EFX::Eight:
-        return QString(KXMLQLCEFXEightAlgorithmName);
-    case EFX::Line:
-        return QString(KXMLQLCEFXLineAlgorithmName);
-    case EFX::Line2:
-        return QString(KXMLQLCEFXLine2AlgorithmName);
-    case EFX::Diamond:
-        return QString(KXMLQLCEFXDiamondAlgorithmName);
-    case EFX::Square:
-        return QString(KXMLQLCEFXSquareAlgorithmName);
-    case EFX::SquareChoppy:
-        return QString(KXMLQLCEFXSquareChoppyAlgorithmName);
-    case EFX::Leaf:
-        return QString(KXMLQLCEFXLeafAlgorithmName);
-    case EFX::Lissajous:
-        return QString(KXMLQLCEFXLissajousAlgorithmName);
+        default:
+        case EFX::Circle:
+            return QString(KXMLQLCEFXCircleAlgorithmName);
+        case EFX::Eight:
+            return QString(KXMLQLCEFXEightAlgorithmName);
+        case EFX::Line:
+            return QString(KXMLQLCEFXLineAlgorithmName);
+        case EFX::Line2:
+            return QString(KXMLQLCEFXLine2AlgorithmName);
+        case EFX::Diamond:
+            return QString(KXMLQLCEFXDiamondAlgorithmName);
+        case EFX::Square:
+            return QString(KXMLQLCEFXSquareAlgorithmName);
+        case EFX::SquareChoppy:
+            return QString(KXMLQLCEFXSquareChoppyAlgorithmName);
+        case EFX::Leaf:
+            return QString(KXMLQLCEFXLeafAlgorithmName);
+        case EFX::Lissajous:
+            return QString(KXMLQLCEFXLissajousAlgorithmName);
     }
 }
 
@@ -313,18 +313,18 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
 
     switch (algorithm())
     {
-    default:
-    case Circle:
-    case Eight:
-    case Line2:
-    case Diamond:
-    case Square:
-    case SquareChoppy:
-    case Leaf:
-    case Lissajous:
-        return (M_PI * 2.0) - iterator;
-    case Line:
-        return (iterator > M_PI) ? (iterator - M_PI) : (iterator + M_PI);
+        default:
+        case Circle:
+        case Eight:
+        case Line2:
+        case Diamond:
+        case Square:
+        case SquareChoppy:
+        case Leaf:
+        case Lissajous:
+            return (M_PI * 2.0) - iterator;
+        case Line:
+            return (iterator > M_PI) ? (iterator - M_PI) : (iterator + M_PI);
     }
 }
 
@@ -333,66 +333,66 @@ void EFX::calculatePoint(float iterator, float *x, float *y) const
 {
     switch (algorithm())
     {
-    default:
-    case Circle:
-        *x = cos(iterator + M_PI_2);
-        *y = cos(iterator);
-        break;
+        default:
+        case Circle:
+            *x = cos(iterator + M_PI_2);
+            *y = cos(iterator);
+            break;
 
-    case Eight:
-        *x = cos((iterator * 2) + M_PI_2);
-        *y = cos(iterator);
-        break;
+        case Eight:
+            *x = cos((iterator * 2) + M_PI_2);
+            *y = cos(iterator);
+            break;
 
-    case Line:
-        *x = cos(iterator);
-        *y = cos(iterator);
-        break;
+        case Line:
+            *x = cos(iterator);
+            *y = cos(iterator);
+            break;
 
-    case Line2:
-        *x = iterator / M_PI - 1;
-        *y = iterator / M_PI - 1;
-        break;
+        case Line2:
+            *x = iterator / M_PI - 1;
+            *y = iterator / M_PI - 1;
+            break;
 
-    case Diamond:
-        *x = pow(cos(iterator - M_PI_2), 3);
-        *y = pow(cos(iterator), 3);
-        break;
+        case Diamond:
+            *x = pow(cos(iterator - M_PI_2), 3);
+            *y = pow(cos(iterator), 3);
+            break;
 
-    case Square:
-        if (iterator < M_PI / 2)
-        {
-            *x = (iterator * 2 / M_PI) * 2 - 1;
-            *y = 1;
-        }
-        else if (M_PI / 2 <= iterator && iterator < M_PI)
-        {
-            *x = 1;
-            *y = (1 - (iterator - M_PI / 2) * 2 / M_PI) * 2 - 1;
-        }
-        else if (M_PI <= iterator && iterator < M_PI * 3 / 2)
-        {
-            *x = (1 - (iterator - M_PI) * 2 / M_PI) * 2 - 1;
-            *y = -1;
-        }
-        else // M_PI * 3 / 2 <= iterator
-        {
-            *x = -1;
-            *y = ((iterator - M_PI * 3 / 2) * 2 / M_PI) * 2 - 1;
-        }
-        break;
+        case Square:
+            if (iterator < M_PI / 2)
+            {
+                *x = (iterator * 2 / M_PI) * 2 - 1;
+                *y = 1;
+            }
+            else if (M_PI / 2 <= iterator && iterator < M_PI)
+            {
+                *x = 1;
+                *y = (1 - (iterator - M_PI / 2) * 2 / M_PI) * 2 - 1;
+            }
+            else if (M_PI <= iterator && iterator < M_PI * 3 / 2)
+            {
+                *x = (1 - (iterator - M_PI) * 2 / M_PI) * 2 - 1;
+                *y = -1;
+            }
+            else // M_PI * 3 / 2 <= iterator
+            {
+                *x = -1;
+                *y = ((iterator - M_PI * 3 / 2) * 2 / M_PI) * 2 - 1;
+            }
+            break;
 
-    case SquareChoppy:
-        *x = round(cos(iterator));
-        *y = round(sin(iterator));
-        break;
+        case SquareChoppy:
+            *x = round(cos(iterator));
+            *y = round(sin(iterator));
+            break;
 
-    case Leaf:
-        *x = pow(cos(iterator + M_PI_2), 5);
-        *y = cos(iterator);
-        break;
+        case Leaf:
+            *x = pow(cos(iterator + M_PI_2), 5);
+            *y = cos(iterator);
+            break;
 
-    case Lissajous:
+        case Lissajous:
         {
             if (m_xFrequency > 0)
                 *x = cos((m_xFrequency * iterator) - m_xPhase);
@@ -1138,7 +1138,7 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
 
     switch (attrIndex)
     {
-    case Intensity:
+        case Intensity:
         {
             foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
             {
@@ -1148,13 +1148,13 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
         }
         break;
 
-    case Height:
-    case Width:
-    case XOffset:
-    case YOffset:
-    case Rotation:
-        updateRotationCache();
-        break;
+        case Height:
+        case Width:
+        case XOffset:
+        case YOffset:
+        case Rotation:
+            updateRotationCache();
+            break;
     }
 
     return attrIndex;

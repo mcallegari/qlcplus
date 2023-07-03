@@ -99,27 +99,27 @@ QLCCapability::PresetType QLCCapability::presetType() const
 {
     switch (m_preset)
     {
-    case StrobeFrequency:
-    case PulseFrequency:
-    case RampUpFrequency:
-    case RampDownFrequency:
-    case PrismEffectOn:
-        return SingleValue;
-    case StrobeFreqRange:
-    case PulseFreqRange:
-    case RampUpFreqRange:
-    case RampDownFreqRange:
-        return DoubleValue;
-    case ColorMacro:
-        return SingleColor;
-    case ColorDoubleMacro:
-        return DoubleColor;
-    case GoboMacro:
-    case GoboShakeMacro:
-    case GenericPicture:
-        return Picture;
-    default:
-        return None;
+        case StrobeFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
+        case PrismEffectOn:
+            return SingleValue;
+        case StrobeFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
+            return DoubleValue;
+        case ColorMacro:
+            return SingleColor;
+        case ColorDoubleMacro:
+            return DoubleColor;
+        case GoboMacro:
+        case GoboShakeMacro:
+        case GenericPicture:
+            return Picture;
+        default:
+            return None;
     }
 }
 
@@ -130,21 +130,21 @@ QString QLCCapability::presetUnits() const
 {
     switch (m_preset)
     {
-    case StrobeFrequency:
-    case PulseFrequency:
-    case RampUpFrequency:
-    case RampDownFrequency:
-    case StrobeFreqRange:
-    case PulseFreqRange:
-    case RampUpFreqRange:
-    case RampDownFreqRange:
-        return "Hz";
-        break;
-    case PrismEffectOn:
-        return "Faces";
-        break;
-    default:
-        break;
+        case StrobeFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
+        case StrobeFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
+            return "Hz";
+            break;
+        case PrismEffectOn:
+            return "Faces";
+            break;
+        default:
+            break;
     }
     return QString();
 }
@@ -311,7 +311,7 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     {
         switch (presetType())
         {
-        case Picture:
+            case Picture:
             {
                 QString modFilename = resource(i).toString();
                 QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
@@ -330,8 +330,8 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
                 doc->writeAttribute(KXMLQLCCapabilityRes1, modFilename);
             }
             break;
-        case SingleColor:
-        case DoubleColor:
+            case SingleColor:
+            case DoubleColor:
             {
                 QColor col = resource(i).value<QColor>();
                 if (i == 0 && col.isValid())
@@ -340,8 +340,8 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
                     doc->writeAttribute(KXMLQLCCapabilityRes2, col.name());
             }
             break;
-        case SingleValue:
-        case DoubleValue:
+            case SingleValue:
+            case DoubleValue:
             {
                 if (i == 0)
                     doc->writeAttribute(KXMLQLCCapabilityRes1, QString::number(resource(i).toFloat()));
@@ -349,8 +349,8 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
                     doc->writeAttribute(KXMLQLCCapabilityRes2, QString::number(resource(i).toFloat()));
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 
@@ -420,7 +420,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
 
     switch (presetType())
     {
-    case Picture:
+        case Picture:
         {
             QString path = attrs.value(KXMLQLCCapabilityRes1).toString();
             if (QFileInfo(path).isRelative())
@@ -431,8 +431,8 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             setResource(0, path);
         }
         break;
-    case SingleColor:
-    case DoubleColor:
+        case SingleColor:
+        case DoubleColor:
         {
             QColor col1 = QColor(attrs.value(KXMLQLCCapabilityRes1).toString());
             QColor col2 = QColor();
@@ -447,8 +447,8 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             }
         }
         break;
-    case SingleValue:
-    case DoubleValue:
+        case SingleValue:
+        case DoubleValue:
         {
             float value = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
             setResource(0, value);
@@ -460,8 +460,8 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
             }
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 
     /* ************************* LEGACY ATTRIBUTES ************************* */

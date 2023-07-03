@@ -378,12 +378,12 @@ QString VCSlider::valueDisplayStyleToString(VCSlider::ValueDisplayStyle style)
 {
     switch (style)
     {
-    case ExactValue:
-        return KXMLQLCVCSliderValueDisplayStyleExact;
-    case PercentageValue:
-        return KXMLQLCVCSliderValueDisplayStylePercentage;
-    default:
-        return QString("Unknown");
+        case ExactValue:
+            return KXMLQLCVCSliderValueDisplayStyleExact;
+        case PercentageValue:
+            return KXMLQLCVCSliderValueDisplayStylePercentage;
+        default:
+            return QString("Unknown");
     };
 }
 
@@ -455,18 +455,18 @@ QString VCSlider::sliderModeToString(SliderMode mode)
 {
     switch (mode)
     {
-    case Level:
-        return QString("Level");
-        break;
-    case Playback:
-        return QString("Playback");
-        break;
-    case Submaster:
-        return QString("Submaster");
-        break;
-    default:
-        return QString("Unknown");
-        break;
+        case Level:
+            return QString("Level");
+            break;
+        case Playback:
+            return QString("Playback");
+            break;
+        case Submaster:
+            return QString("Submaster");
+            break;
+        default:
+            return QString("Unknown");
+            break;
     }
 }
 
@@ -1260,7 +1260,7 @@ void VCSlider::setSliderValue(uchar value, bool scale, bool external)
 
     switch (sliderMode())
     {
-    case Level:
+        case Level:
         {
             if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
             {
@@ -1272,13 +1272,13 @@ void VCSlider::setSliderValue(uchar value, bool scale, bool external)
         }
         break;
 
-    case Playback:
+        case Playback:
         {
             setPlaybackValue(value);
         }
         break;
 
-    case Submaster:
+        case Submaster:
         {
             setLevelValue(val);
             emitSubmasterValue();

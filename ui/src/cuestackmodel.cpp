@@ -130,18 +130,18 @@ QVariant CueStackModel::headerData(int section, Qt::Orientation orientation, int
 
     switch (section)
     {
-    case IndexColumn:
-        return tr("Number");
-    case FadeInColumn:
-        return tr("Fade In");
-    case FadeOutColumn:
-        return tr("Fade Out");
-    case DurationColumn:
-        return tr("Duration");
-    case NameColumn:
-        return tr("Cue");
-    default:
-        return QVariant();
+        case IndexColumn:
+            return tr("Number");
+        case FadeInColumn:
+            return tr("Fade In");
+        case FadeOutColumn:
+            return tr("Fade Out");
+        case DurationColumn:
+            return tr("Duration");
+        case NameColumn:
+            return tr("Cue");
+        default:
+            return QVariant();
     }
 }
 
@@ -177,13 +177,13 @@ QVariant CueStackModel::data(const QModelIndex &index, int role) const
     {
         switch (index.column())
         {
-        case IndexColumn:
-            var = QVariant(index.row() + 1);
-            break;
-        case NameColumn:
-            var = QVariant(m_cueStack->cues()[index.row()].name());
-            break;
-        case FadeInColumn:
+            case IndexColumn:
+                var = QVariant(index.row() + 1);
+                break;
+            case NameColumn:
+                var = QVariant(m_cueStack->cues()[index.row()].name());
+                break;
+            case FadeInColumn:
             {
                 uint ms = m_cueStack->cues()[index.row()].fadeInSpeed();
                 if (ms > 0)
@@ -192,7 +192,7 @@ QVariant CueStackModel::data(const QModelIndex &index, int role) const
                     var = QVariant();
                 break;
             }
-        case FadeOutColumn:
+            case FadeOutColumn:
             {
                 uint ms = m_cueStack->cues()[index.row()].fadeOutSpeed();
                 if (ms > 0)
@@ -201,7 +201,7 @@ QVariant CueStackModel::data(const QModelIndex &index, int role) const
                     var = QVariant();
                 break;
             }
-        case DurationColumn:
+            case DurationColumn:
             {
                 uint ms = m_cueStack->cues()[index.row()].duration();
                 if (ms > 0)
@@ -210,9 +210,9 @@ QVariant CueStackModel::data(const QModelIndex &index, int role) const
                     var = QVariant();
                 break;
             }
-        default:
-            var = QVariant();
-            break;
+            default:
+                var = QVariant();
+                break;
         }
     }
     else if (role == Qt::DecorationRole)

@@ -173,8 +173,8 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
 
                 switch (ch->preset())
                 {
-                case QLCChannel::ShutterStrobeFastSlow:
-                case QLCChannel::ShutterStrobeSlowFast:
+                    case QLCChannel::ShutterStrobeFastSlow:
+                    case QLCChannel::ShutterStrobeSlowFast:
                     {
                         // handle case when the channel has only one capability 0-255 strobe:
                         // make 0 Open to avoid blinking
@@ -184,7 +184,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                         containsShutter = true;
                     }
                     break;
-                case QLCChannel::Custom:
+                    case QLCChannel::Custom:
                     {
                         foreach (QLCCapability *cap, ch->capabilities())
                         {
@@ -192,28 +192,28 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                             {
                                 switch (cap->preset())
                                 {
-                                case QLCCapability::Custom:
-                                    values << FixtureHead::Open;
-                                    break;
-                                case QLCCapability::ShutterOpen:
-                                    values << FixtureHead::Open;
-                                    containsShutter = true;
-                                    break;
-                                case QLCCapability::ShutterClose:
-                                    values << FixtureHead::Closed;
-                                    containsShutter = true;
-                                    break;
-                                default:
-                                    values << FixtureHead::Strobe;
-                                    containsShutter = true;
-                                    break;
+                                    case QLCCapability::Custom:
+                                        values << FixtureHead::Open;
+                                        break;
+                                    case QLCCapability::ShutterOpen:
+                                        values << FixtureHead::Open;
+                                        containsShutter = true;
+                                        break;
+                                    case QLCCapability::ShutterClose:
+                                        values << FixtureHead::Closed;
+                                        containsShutter = true;
+                                        break;
+                                    default:
+                                        values << FixtureHead::Strobe;
+                                        containsShutter = true;
+                                        break;
                                 }
                             }
                         }
                     }
                     break;
-                default:
-                    break;
+                    default:
+                        break;
                 }
 
                 if (containsShutter)

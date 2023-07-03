@@ -117,18 +117,18 @@ QColor ShowFunction::defaultColor(Function::Type type)
 {
     switch (type)
     {
-    case Function::ChaserType:
-        return QColor(85, 107, 128);
-    case Function::AudioType:
-        return QColor(96, 128, 83);
-    case Function::RGBMatrixType:
-        return QColor(101, 155, 155);
-    case Function::EFXType:
-        return QColor(128, 60, 60);
-    case Function::VideoType:
-        return QColor(147, 140, 20);
-    default:
-        return QColor(100, 100, 100);
+        case Function::ChaserType:
+            return QColor(85, 107, 128);
+        case Function::AudioType:
+            return QColor(96, 128, 83);
+        case Function::RGBMatrixType:
+            return QColor(101, 155, 155);
+        case Function::EFXType:
+            return QColor(128, 60, 60);
+        case Function::VideoType:
+            return QColor(147, 140, 20);
+        default:
+            return QColor(100, 100, 100);
     }
 }
 

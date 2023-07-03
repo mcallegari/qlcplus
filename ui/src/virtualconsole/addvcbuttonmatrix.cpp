@@ -196,14 +196,14 @@ void AddVCButtonMatrix::setFrameStyle(AddVCButtonMatrix::FrameStyle style)
 {
     switch (style)
     {
-    default:
-    case NormalFrame:
-        m_frameNormalRadio->setChecked(true);
-        m_frameStyle = NormalFrame;
-        break;
-    case SoloFrame:
-        m_frameSoloRadio->setChecked(true);
-        m_frameStyle = SoloFrame;
-        break;
+        default:
+        case NormalFrame:
+            m_frameNormalRadio->setChecked(true);
+            m_frameStyle = NormalFrame;
+            break;
+        case SoloFrame:
+            m_frameSoloRadio->setChecked(true);
+            m_frameStyle = SoloFrame;
+            break;
     }
 }

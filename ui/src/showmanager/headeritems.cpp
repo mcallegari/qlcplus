@@ -185,22 +185,22 @@ QString ShowHeaderItem::tempoToString(ShowHeaderItem::TimeDivision type)
 {
     switch (type)
     {
-    case Time:
-        return QString("Time");
-        break;
-    case BPM_4_4:
-        return QString("BPM_4_4");
-        break;
-    case BPM_3_4:
-        return QString("BPM_3_4");
-        break;
-    case BPM_2_4:
-        return QString("BPM_2_4");
-        break;
-    case Invalid:
-    default:
-        return QString("Invalid");
-        break;
+        case Time:
+            return QString("Time");
+            break;
+        case BPM_4_4:
+            return QString("BPM_4_4");
+            break;
+        case BPM_3_4:
+            return QString("BPM_3_4");
+            break;
+        case BPM_2_4:
+            return QString("BPM_2_4");
+            break;
+        case Invalid:
+        default:
+            return QString("Invalid");
+            break;
     }
     return QString();
 }

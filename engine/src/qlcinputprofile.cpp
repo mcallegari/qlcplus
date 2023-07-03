@@ -134,20 +134,20 @@ QString QLCInputProfile::typeToString(Type type)
 {
     switch (type)
     {
-    case MIDI:
-        return KXMLQLCInputProfileTypeMidi;
-    case OS2L:
-        return KXMLQLCInputProfileTypeOs2l;
-    case OSC:
-        return KXMLQLCInputProfileTypeOsc;
-    case HID:
-        return KXMLQLCInputProfileTypeHid;
-    case DMX:
-        return KXMLQLCInputProfileTypeDmx;
-    case Enttec:
-        return KXMLQLCInputProfileTypeEnttec;
-    default:
-        return QString();
+        case MIDI:
+            return KXMLQLCInputProfileTypeMidi;
+        case OS2L:
+            return KXMLQLCInputProfileTypeOs2l;
+        case OSC:
+            return KXMLQLCInputProfileTypeOsc;
+        case HID:
+            return KXMLQLCInputProfileTypeHid;
+        case DMX:
+            return KXMLQLCInputProfileTypeDmx;
+        case Enttec:
+            return KXMLQLCInputProfileTypeEnttec;
+        default:
+            return QString();
     }
 }
 

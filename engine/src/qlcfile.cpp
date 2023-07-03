@@ -107,38 +107,38 @@ QString QLCFile::errorString(QFile::FileError error)
 {
     switch (error)
     {
-    case QFile::NoError:
-        return QObject::tr("No error occurred.");
-    case QFile::ReadError:
-        return QObject::tr("An error occurred when reading from the file.");
-    case QFile::WriteError:
-        return QObject::tr("An error occurred when writing to the file.");
-    case QFile::FatalError:
-        return QObject::tr("A fatal error occurred.");
-    case QFile::ResourceError:
-        return QObject::tr("Resource error occurred.");
-    case QFile::OpenError:
-        return QObject::tr("The file could not be opened.");
-    case QFile::AbortError:
-        return QObject::tr("The operation was aborted.");
-    case QFile::TimeOutError:
-        return QObject::tr("A timeout occurred.");
-    case QFile::UnspecifiedError:
-        return QObject::tr("An unspecified error occurred.");
-    case QFile::RemoveError:
-        return QObject::tr("The file could not be removed.");
-    case QFile::RenameError:
-        return QObject::tr("The file could not be renamed.");
-    case QFile::PositionError:
-        return QObject::tr("The position in the file could not be changed.");
-    case QFile::ResizeError:
-        return QObject::tr("The file could not be resized.");
-    case QFile::PermissionsError:
-        return QObject::tr("The file could not be accessed.");
-    case QFile::CopyError:
-        return QObject::tr("The file could not be copied.");
-    default:
-        return QObject::tr("An unknown error occurred.");
+        case QFile::NoError:
+            return QObject::tr("No error occurred.");
+        case QFile::ReadError:
+            return QObject::tr("An error occurred when reading from the file.");
+        case QFile::WriteError:
+            return QObject::tr("An error occurred when writing to the file.");
+        case QFile::FatalError:
+            return QObject::tr("A fatal error occurred.");
+        case QFile::ResourceError:
+            return QObject::tr("Resource error occurred.");
+        case QFile::OpenError:
+            return QObject::tr("The file could not be opened.");
+        case QFile::AbortError:
+            return QObject::tr("The operation was aborted.");
+        case QFile::TimeOutError:
+            return QObject::tr("A timeout occurred.");
+        case QFile::UnspecifiedError:
+            return QObject::tr("An unspecified error occurred.");
+        case QFile::RemoveError:
+            return QObject::tr("The file could not be removed.");
+        case QFile::RenameError:
+            return QObject::tr("The file could not be renamed.");
+        case QFile::PositionError:
+            return QObject::tr("The position in the file could not be changed.");
+        case QFile::ResizeError:
+            return QObject::tr("The file could not be resized.");
+        case QFile::PermissionsError:
+            return QObject::tr("The file could not be accessed.");
+        case QFile::CopyError:
+            return QObject::tr("The file could not be copied.");
+        default:
+            return QObject::tr("An unknown error occurred.");
     }
 }
 

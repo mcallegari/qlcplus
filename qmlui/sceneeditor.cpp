@@ -270,27 +270,27 @@ void SceneEditor::addComponent(int type, quint32 id)
 
     switch (type)
     {
-    case App::UniverseDragItem:
+        case App::UniverseDragItem:
         {
             // TODO
         }
         break;
-    case App::FixtureGroupDragItem:
-        m_scene->addFixtureGroup(id);
-        m_doc->setModified();
-        break;
-    case App::FixtureDragItem:
-        m_scene->addFixture(id);
-        m_doc->setModified();
-        break;
-    case App::PaletteDragItem:
+        case App::FixtureGroupDragItem:
+            m_scene->addFixtureGroup(id);
+            m_doc->setModified();
+            break;
+        case App::FixtureDragItem:
+            m_scene->addFixture(id);
+            m_doc->setModified();
+            break;
+        case App::PaletteDragItem:
         {
             m_scene->addPalette(id);
             m_doc->setModified();
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 
     updateLists();
@@ -309,7 +309,7 @@ void SceneEditor::deleteItems(QVariantList list)
 
         switch (type)
         {
-        case App::FixtureDragItem:
+            case App::FixtureDragItem:
             {
                 Fixture *fixture = dataMap["cRef"].value<Fixture *>();
                 quint32 fixtureID = fixture->id();
@@ -323,7 +323,7 @@ void SceneEditor::deleteItems(QVariantList list)
                 m_scene->removeFixture(fixtureID);
             }
             break;
-        case App::FixtureGroupDragItem:
+            case App::FixtureGroupDragItem:
             {
                 FixtureGroup *group = dataMap["cRef"].value<FixtureGroup *>();
                 qDebug() << "removing fixture group with ID" << group->id();
@@ -331,7 +331,7 @@ void SceneEditor::deleteItems(QVariantList list)
                 m_scene->removeFixtureGroup(group->id());
             }
             break;
-        case App::PaletteDragItem:
+            case App::PaletteDragItem:
             {
                 QLCPalette *palette = dataMap["cRef"].value<QLCPalette *>();
                 qDebug() << "removing palette with ID" << palette->id();

@@ -131,28 +131,28 @@ void RGBMatrixEditor::init()
     /* Running order */
     switch (m_matrix->runOrder())
     {
-    default:
-    case Function::Loop:
-        m_loop->setChecked(true);
-        break;
-    case Function::PingPong:
-        m_pingPong->setChecked(true);
-        break;
-    case Function::SingleShot:
-        m_singleShot->setChecked(true);
-        break;
+        default:
+        case Function::Loop:
+            m_loop->setChecked(true);
+            break;
+        case Function::PingPong:
+            m_pingPong->setChecked(true);
+            break;
+        case Function::SingleShot:
+            m_singleShot->setChecked(true);
+            break;
     }
 
     /* Running direction */
     switch (m_matrix->direction())
     {
-    default:
-    case Function::Forward:
-        m_forward->setChecked(true);
-        break;
-    case Function::Backward:
-        m_backward->setChecked(true);
-        break;
+        default:
+        case Function::Forward:
+            m_forward->setChecked(true);
+            break;
+        case Function::Backward:
+            m_backward->setChecked(true);
+            break;
     }
 
 
@@ -468,7 +468,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
     {
         switch (prop.m_type)
         {
-        case RGBScriptProperty::List:
+            case RGBScriptProperty::List:
             {
                 QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
@@ -496,7 +496,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                 gridRowIdx++;
             }
             break;
-        case RGBScriptProperty::Range:
+            case RGBScriptProperty::Range:
             {
                 QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
@@ -520,9 +520,9 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                 gridRowIdx++;
             }
             break;
-        default:
-            qWarning() << "Type" << prop.m_type << "not handled yet";
-            break;
+            default:
+                qWarning() << "Type" << prop.m_type << "not handled yet";
+                break;
         }
     }
 }

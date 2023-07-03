@@ -117,14 +117,14 @@ void FunctionWizard::checkTabsAndButtons()
 {
     switch (m_tabWidget->currentIndex())
     {
-    case 0:
+        case 0:
         {
             m_nextButton->setEnabled(true);
             m_tabWidget->setTabEnabled(2, false);
             m_tabWidget->setTabEnabled(3, false);
         }
         break;
-    case 1:
+        case 1:
         {
             if (m_allFuncsTree->topLevelItemCount() == 0)
             {
@@ -138,7 +138,7 @@ void FunctionWizard::checkTabsAndButtons()
             }
         }
         break;
-    case 2:
+        case 2:
         {
             if (m_paletteList.isEmpty() == false)
             {
@@ -152,9 +152,9 @@ void FunctionWizard::checkTabsAndButtons()
             }
         }
         break;
-    case 3:
-        m_nextButton->setEnabled(false);
-        break;
+        case 3:
+            m_nextButton->setEnabled(false);
+            break;
     }
 }
 
@@ -531,7 +531,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
 
     switch (type)
     {
-    case VCWidget::FrameWidget:
+        case VCWidget::FrameWidget:
         {
             VCFrame *frame = new VCFrame(parent, m_doc, true);
             vc->setupWidget(frame, parent);
@@ -539,7 +539,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             widget = frame;
         }
         break;
-    case VCWidget::SoloFrameWidget:
+        case VCWidget::SoloFrameWidget:
         {
             VCSoloFrame *frame = new VCSoloFrame(parent, m_doc, true);
             vc->setupWidget(frame, parent);
@@ -547,7 +547,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             widget = frame;
         }
         break;
-    case VCWidget::ButtonWidget:
+        case VCWidget::ButtonWidget:
         {
             VCButton *button = new VCButton(parent, m_doc);
             vc->setupWidget(button, parent);
@@ -558,7 +558,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             widget = button;
         }
         break;
-    case VCWidget::CueListWidget:
+        case VCWidget::CueListWidget:
         {
             VCCueList *cuelist = new VCCueList(parent, m_doc);
             vc->setupWidget(cuelist, parent);
@@ -568,7 +568,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             widget = cuelist;
         }
         break;
-    case VCWidget::SliderWidget:
+        case VCWidget::SliderWidget:
         {
             VCSlider *slider = new VCSlider(parent, m_doc);
             vc->setupWidget(slider, parent);
@@ -588,8 +588,8 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             widget = slider;
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 
     if (widget != NULL && func != NULL)

@@ -107,25 +107,25 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
 
     switch (format)
     {
-    case PCM_S8:
-        outputParameters.sampleFormat = paInt8; /* 8 bit signed output */
-        m_frameSize = 1;
-        break;
-    case PCM_S16LE:
-        outputParameters.sampleFormat = paInt16; /* 16 bit signed output */
-        m_frameSize = 2;
-        break;
-    case PCM_S24LE:
-        outputParameters.sampleFormat = paInt24; /* 24 bit signed output */
-        m_frameSize = 3;
-        break;
-    case PCM_S32LE:
-        outputParameters.sampleFormat = paFloat32; /* 32 bit floating point output */
-        m_frameSize = 4;
-        break;
-    default:
-        qWarning("AudioRendererPortAudio: unsupported format detected");
-        return false;
+        case PCM_S8:
+            outputParameters.sampleFormat = paInt8; /* 8 bit signed output */
+            m_frameSize = 1;
+            break;
+        case PCM_S16LE:
+            outputParameters.sampleFormat = paInt16; /* 16 bit signed output */
+            m_frameSize = 2;
+            break;
+        case PCM_S24LE:
+            outputParameters.sampleFormat = paInt24; /* 24 bit signed output */
+            m_frameSize = 3;
+            break;
+        case PCM_S32LE:
+            outputParameters.sampleFormat = paFloat32; /* 32 bit floating point output */
+            m_frameSize = 4;
+            break;
+        default:
+            qWarning("AudioRendererPortAudio: unsupported format detected");
+            return false;
     }
 
     err = Pa_OpenStream(&m_paStream, NULL, &outputParameters, freq, paFramesPerBufferUnspecified, flags, dataCallback, this);

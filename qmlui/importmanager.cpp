@@ -421,22 +421,22 @@ void ImportManager::importFunctionID(quint32 funcID)
     // 1. Get a list of Function ID upon importFunction depends on
     switch (importFunction->type())
     {
-    // these will return only Function IDs
-    case Function::ChaserType:
-    case Function::SequenceType:
-    case Function::CollectionType:
-        funcList = importFunction->components();
-        break;
+        // these will return only Function IDs
+        case Function::ChaserType:
+        case Function::SequenceType:
+        case Function::CollectionType:
+            funcList = importFunction->components();
+            break;
 
-    // Scripts are a mix: they can control Fixtures AND Functions
-    case Function::ScriptType:
+        // Scripts are a mix: they can control Fixtures AND Functions
+        case Function::ScriptType:
         {
             Script *script = qobject_cast<Script *>(importFunction);
             funcList = script->functionList();
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 
     // 2. import the dependecies first, if any
@@ -455,7 +455,7 @@ void ImportManager::importFunctionID(quint32 funcID)
     // 4. Check Fixture/Function remapping depending on the Function type
     switch (docFunction->type())
     {
-    case Function::SceneType:
+        case Function::SceneType:
         {
             Scene *scene = qobject_cast<Scene *>(docFunction);
             // create a copy of the existing components
@@ -493,7 +493,7 @@ void ImportManager::importFunctionID(quint32 funcID)
             }
         }
         break;
-    case Function::CollectionType:
+        case Function::CollectionType:
         {
             Collection *collection = qobject_cast<Collection *>(docFunction);
             // create a copy of the existing function IDs
@@ -512,7 +512,7 @@ void ImportManager::importFunctionID(quint32 funcID)
             }
         }
         break;
-    case Function::ChaserType:
+        case Function::ChaserType:
         {
             Chaser *chaser = qobject_cast<Chaser *>(docFunction);
             QList<quint32> removeList;
@@ -544,7 +544,7 @@ void ImportManager::importFunctionID(quint32 funcID)
             }
         }
         break;
-    case Function::SequenceType:
+        case Function::SequenceType:
         {
             Sequence *sequence = qobject_cast<Sequence *>(docFunction);
             quint32 boundSceneID = sequence->boundSceneID();
@@ -553,7 +553,7 @@ void ImportManager::importFunctionID(quint32 funcID)
                 sequence->setBoundSceneID(m_functionIDRemap[boundSceneID]);
         }
         break;
-    case Function::EFXType:
+        case Function::EFXType:
         {
             EFX *efx = qobject_cast<EFX *>(docFunction);
             for (EFXFixture *efxFixture : efx->fixtures())
@@ -568,7 +568,7 @@ void ImportManager::importFunctionID(quint32 funcID)
             }
         }
         break;
-    case Function::RGBMatrixType:
+        case Function::RGBMatrixType:
         {
             RGBMatrix *rgbm = qobject_cast<RGBMatrix *>(docFunction);
             if (rgbm->fixtureGroup() == FixtureGroup::invalidId())
@@ -578,9 +578,9 @@ void ImportManager::importFunctionID(quint32 funcID)
                 rgbm->setFixtureGroup(m_fixtureGroupIDRemap[rgbm->fixtureGroup()]);
         }
         break;
-    default:
-        qDebug() << "FIXME: Unhandled Function type" << docFunction->type();
-        break;
+        default:
+            qDebug() << "FIXME: Unhandled Function type" << docFunction->type();
+            break;
     }
 
     m_functionIDList.removeOne(funcID);
@@ -909,8 +909,8 @@ void ImportManager::checkFunctionDependency(quint32 fid)
 
     switch (func->type())
     {
-    // a Scene can reference fixtures, fixture groups and palettes
-    case Function::SceneType:
+        // a Scene can reference fixtures, fixture groups and palettes
+        case Function::SceneType:
         {
             Scene *scene = qobject_cast<Scene *>(func);
             fxList = scene->components();
@@ -919,13 +919,13 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         }
         break;
 
-    // EFX needs only fixtures
-    case Function::EFXType:
-        fxList = func->components();
-        break;
+        // EFX needs only fixtures
+        case Function::EFXType:
+            fxList = func->components();
+            break;
 
-    // RGB Matrix requires a fixture group
-    case Function::RGBMatrixType:
+        // RGB Matrix requires a fixture group
+        case Function::RGBMatrixType:
         {
             RGBMatrix *rgbm = qobject_cast<RGBMatrix *>(func);
             fxList = rgbm->components();
@@ -934,15 +934,15 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         }
         break;
 
-    // these will return only Function IDs
-    case Function::ChaserType:
-    case Function::SequenceType:
-    case Function::CollectionType:
-        funcList = func->components();
-        break;
+        // these will return only Function IDs
+        case Function::ChaserType:
+        case Function::SequenceType:
+        case Function::CollectionType:
+            funcList = func->components();
+            break;
 
-    // Script are a mix: they can control Fixtures AND Functions
-    case Function::ScriptType:
+        // Script are a mix: they can control Fixtures AND Functions
+        case Function::ScriptType:
         {
             Script *script = qobject_cast<Script *>(func);
             funcList = script->functionList();
@@ -950,9 +950,9 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         }
         break;
 
-    // Audio/Video go here. No dependency
-    default:
-        break;
+        // Audio/Video go here. No dependency
+        default:
+            break;
     }
 
     for (quint32 groupID : fxGroupList)

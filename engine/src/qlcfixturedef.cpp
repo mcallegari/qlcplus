@@ -178,34 +178,34 @@ QString QLCFixtureDef::typeToString(QLCFixtureDef::FixtureType type)
 {
     switch (type)
     {
-    case ColorChanger:
-        return "Color Changer";
-    case Dimmer:
-        return "Dimmer";
-    case Effect:
-        return "Effect";
-    case Fan:
-        return "Fan";
-    case Flower:
-        return "Flower";
-    case Hazer:
-        return "Hazer";
-    case Laser:
-        return "Laser";
-    case MovingHead:
-        return "Moving Head";
-    case Scanner:
-        return "Scanner";
-    case Smoke:
-        return "Smoke";
-    case Strobe:
-        return "Strobe";
-    case LEDBarBeams:
-        return "LED Bar (Beams)";
-    case LEDBarPixels:
-        return "LED Bar (Pixels)";
-    default:
-        return "Other";
+        case ColorChanger:
+            return "Color Changer";
+        case Dimmer:
+            return "Dimmer";
+        case Effect:
+            return "Effect";
+        case Fan:
+            return "Fan";
+        case Flower:
+            return "Flower";
+        case Hazer:
+            return "Hazer";
+        case Laser:
+            return "Laser";
+        case MovingHead:
+            return "Moving Head";
+        case Scanner:
+            return "Scanner";
+        case Smoke:
+            return "Smoke";
+        case Strobe:
+            return "Strobe";
+        case LEDBarBeams:
+            return "LED Bar (Beams)";
+        case LEDBarPixels:
+            return "LED Bar (Pixels)";
+        default:
+            return "Other";
     }
 }
 

@@ -348,15 +348,15 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
 
     switch (attrIndex)
     {
-    case Intensity:
+        case Intensity:
         {
             int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
             emit requestBrightnessAdjust(b);
             emit intensityChanged();
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 
     return attrIndex;

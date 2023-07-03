@@ -239,19 +239,19 @@ void PaletteManager::updatePaletteList()
 
             switch (palette->type())
             {
-            case QLCPalette::Dimmer:
-                m_dimmerCount++;
-                break;
-            case QLCPalette::Color:
-                m_colorCount++;
-                break;
-            case QLCPalette::Pan:
-            case QLCPalette::Tilt:
-            case QLCPalette::PanTilt:
-                m_positionCount++;
-                break;
-            default:
-                break;
+                case QLCPalette::Dimmer:
+                    m_dimmerCount++;
+                    break;
+                case QLCPalette::Color:
+                    m_colorCount++;
+                    break;
+                case QLCPalette::Pan:
+                case QLCPalette::Tilt:
+                case QLCPalette::PanTilt:
+                    m_positionCount++;
+                    break;
+                default:
+                    break;
             }
         }
     }

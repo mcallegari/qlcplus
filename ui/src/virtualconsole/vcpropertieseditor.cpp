@@ -194,35 +194,35 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget *parent, const VCProperties &prop
     /* Grand Master page */
     switch (properties.grandMasterChannelMode())
     {
-    default:
-    case GrandMaster::Intensity:
-        m_gmIntensityRadio->setChecked(true);
-        break;
-    case GrandMaster::AllChannels:
-        m_gmAllChannelsRadio->setChecked(true);
-        break;
+        default:
+        case GrandMaster::Intensity:
+            m_gmIntensityRadio->setChecked(true);
+            break;
+        case GrandMaster::AllChannels:
+            m_gmAllChannelsRadio->setChecked(true);
+            break;
     }
 
     switch (properties.grandMasterValueMode())
     {
-    default:
-    case GrandMaster::Reduce:
-        m_gmReduceRadio->setChecked(true);
-        break;
-    case GrandMaster::Limit:
-        m_gmLimitRadio->setChecked(true);
-        break;
+        default:
+        case GrandMaster::Reduce:
+            m_gmReduceRadio->setChecked(true);
+            break;
+        case GrandMaster::Limit:
+            m_gmLimitRadio->setChecked(true);
+            break;
     }
 
     switch (properties.grandMasterSlideMode())
     {
-    default:
-    case GrandMaster::Normal:
-        m_gmSliderModeNormalRadio->setChecked(true);
-        break;
-    case GrandMaster::Inverted:
-        m_gmSliderModeInvertedRadio->setChecked(true);
-        break;
+        default:
+        case GrandMaster::Normal:
+            m_gmSliderModeNormalRadio->setChecked(true);
+            break;
+        case GrandMaster::Inverted:
+            m_gmSliderModeInvertedRadio->setChecked(true);
+            break;
     }
 
     updateGrandMasterInputSource();

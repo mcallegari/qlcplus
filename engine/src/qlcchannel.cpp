@@ -169,289 +169,289 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
 
     switch (preset)
     {
-    case IntensityMasterDimmer:
-        prname = "Master dimmer";
-        break;
-    case IntensityMasterDimmerFine:
-        prname = "Master dimmer fine";
-        cb = LSB;
-        break;
-    case IntensityDimmer:
-        prname = "Dimmer";
-        break;
-    case IntensityDimmerFine:
-        prname = "Dimmer fine";
-        cb = LSB;
-        break;
-    case IntensityRed:
-        prname = KXMLQLCChannelColourRed;
-        col = Red;
-        break;
-    case IntensityRedFine:
-        prname = KXMLQLCChannelColourRed + " fine";
-        col = Red;
-        cb = LSB;
-        break;
-    case IntensityGreen:
-        prname = KXMLQLCChannelColourGreen;
-        col = Green;
-        break;
-    case IntensityGreenFine:
-        prname = KXMLQLCChannelColourGreen + " fine";
-        col = Green;
-        cb = LSB;
-        break;
-    case IntensityBlue:
-        prname = KXMLQLCChannelColourBlue;
-        col = Blue;
-        break;
-    case IntensityBlueFine:
-        prname = KXMLQLCChannelColourBlue + " fine";
-        col = Blue;
-        cb = LSB;
-        break;
-    case IntensityCyan:
-        prname = KXMLQLCChannelColourCyan;
-        col = Cyan;
-        break;
-    case IntensityCyanFine:
-        prname = KXMLQLCChannelColourCyan + " fine";
-        col = Cyan;
-        cb = LSB;
-        break;
-    case IntensityMagenta:
-        prname = KXMLQLCChannelColourMagenta;
-        col = Magenta;
-        break;
-    case IntensityMagentaFine:
-        prname = KXMLQLCChannelColourMagenta + " fine";
-        col = Magenta;
-        cb = LSB;
-        break;
-    case IntensityYellow:
-        prname = KXMLQLCChannelColourYellow;
-        col = Yellow;
-        break;
-    case IntensityYellowFine:
-        prname = KXMLQLCChannelColourYellow + " fine";
-        col = Yellow;
-        cb = LSB;
-        break;
-    case IntensityAmber:
-        prname = KXMLQLCChannelColourAmber;
-        col = Amber;
-        break;
-    case IntensityAmberFine:
-        prname = KXMLQLCChannelColourAmber + " fine";
-        col = Amber;
-        cb = LSB;
-        break;
-    case IntensityWhite:
-        prname = KXMLQLCChannelColourWhite;
-        col = White;
-        break;
-    case IntensityWhiteFine:
-        prname = KXMLQLCChannelColourWhite + " fine";
-        col = White;
-        cb = LSB;
-        break;
-    case IntensityUV:
-        prname = KXMLQLCChannelColourUV;
-        col = UV;
-        break;
-    case IntensityUVFine:
-        prname = KXMLQLCChannelColourUV + " fine";
-        col = UV;
-        cb = LSB;
-        break;
-    case IntensityIndigo:
-        prname = KXMLQLCChannelColourIndigo;
-        col = Indigo;
-        break;
-    case IntensityIndigoFine:
-        prname = KXMLQLCChannelColourIndigo + " fine";
-        col = Indigo;
-        cb = LSB;
-        break;
-    case IntensityLime:
-        prname = KXMLQLCChannelColourLime;
-        col = Lime;
-        break;
-    case IntensityLimeFine:
-        prname = KXMLQLCChannelColourLime + " fine";
-        col = Lime;
-        cb = LSB;
-        break;
-    case IntensityHue:
-        prname = "Hue";
-        // col = Hue;
-        break;
-    case IntensityHueFine:
-        prname = "Hue fine";
-        // col = Hue;
-        cb = LSB;
-        break;
-    case IntensitySaturation:
-        prname = "Saturation";
-        // col = Saturation;
-        break;
-    case IntensitySaturationFine:
-        prname = "Saturation fine";
-        // col = Saturation;
-        cb = LSB;
-        break;
-    case IntensityLightness:
-        prname = "Lightness";
-        // col = Lightness;
-        break;
-    case IntensityLightnessFine:
-        prname = "Lightness fine";
-        // col = Lightness;
-        cb = LSB;
-        break;
-    case IntensityValue:
-        prname = "Value";
-        // col = Value;
-        break;
-    case IntensityValueFine:
-        prname = "Value fine";
-        // col = Value;
-        cb = LSB;
-        break;
-    case PositionPan:
-        grp = Pan;
-        prname = KXMLQLCChannelGroupPan;
-        break;
-    case PositionPanFine:
-        grp = Pan;
-        prname = KXMLQLCChannelGroupPan + " fine";
-        cb = LSB;
-        break;
-    case PositionTilt:
-        grp = Tilt;
-        prname = KXMLQLCChannelGroupTilt;
-        break;
-    case PositionTiltFine:
-        grp = Tilt;
-        prname = KXMLQLCChannelGroupTilt + " fine";
-        cb = LSB;
-        break;
-    case PositionXAxis:
-        grp = Pan;
-        prname = "X Axis";
-        break;
-    case PositionYAxis:
-        grp = Tilt;
-        prname = "Y Axis";
-        break;
-    case SpeedPanSlowFast:
-    case SpeedPanFastSlow:
-        grp = Speed;
-        prname = "Pan speed";
-        break;
-    case SpeedTiltSlowFast:
-    case SpeedTiltFastSlow:
-        grp = Speed;
-        prname = "Tilt speed";
-        break;
-    case SpeedPanTiltSlowFast:
-    case SpeedPanTiltFastSlow:
-        grp = Speed;
-        prname = "Pan/Tilt speed";
-        break;
-    case ColorMacro:
-        grp = Colour;
-        prname = "Color macro";
-        break;
-    case ColorWheel:
-        grp = Colour;
-        prname = "Color wheel";
-        break;
-    case ColorWheelFine:
-        grp = Colour;
-        prname = "Color wheel fine";
-        cb = LSB;
-        break;
-    case ColorRGBMixer:
-        grp = Colour;
-        prname = "RGB mixer";
-        break;
-    case ColorCTOMixer:
-        grp = Colour;
-        prname = "CTO mixer";
-        break;
-    case ColorCTCMixer:
-        grp = Colour;
-        prname = "CTC mixer";
-        break;
-    case ColorCTBMixer:
-        grp = Colour;
-        prname = "CTB mixer";
-        break;
-    case GoboWheel:
-        grp = Gobo;
-        prname = "Gobo wheel";
-        break;
-    case GoboWheelFine:
-        grp = Gobo;
-        prname = "Gobo wheel fine";
-        cb = LSB;
-        break;
-    case GoboIndex:
-        grp = Gobo;
-        prname = "Gobo index";
-        break;
-    case GoboIndexFine:
-        grp = Gobo;
-        prname = "Gobo index fine";
-        cb = LSB;
-        break;
-    case ShutterStrobeSlowFast:
-    case ShutterStrobeFastSlow:
-        grp = Shutter;
-        prname = "Strobe";
-        break;
-    case ShutterIrisMinToMax:
-    case ShutterIrisMaxToMin:
-        grp = Shutter;
-        prname = "Iris";
-        break;
-    case ShutterIrisFine:
-        grp = Shutter;
-        prname = "Iris fine";
-        cb = LSB;
-        break;
-    case BeamFocusNearFar:
-    case BeamFocusFarNear:
-        grp = Beam;
-        prname = "Focus";
-        break;
-    case BeamFocusFine:
-        grp = Beam;
-        prname = "Focus fine";
-        cb = LSB;
-        break;
-    case BeamZoomSmallBig:
-    case BeamZoomBigSmall:
-        grp = Beam;
-        prname = "Zoom";
-        break;
-    case BeamZoomFine:
-        grp = Beam;
-        prname = "Zoom fine";
-        cb = LSB;
-        break;
-    case PrismRotationFastSlow:
-    case PrismRotationSlowFast:
-        grp = Prism;
-        prname = "Prism rotation";
-        break;
-    case NoFunction:
-        grp = Nothing;
-        prname = "No function";
-        break;
-    default:
-        break;
+        case IntensityMasterDimmer:
+            prname = "Master dimmer";
+            break;
+        case IntensityMasterDimmerFine:
+            prname = "Master dimmer fine";
+            cb = LSB;
+            break;
+        case IntensityDimmer:
+            prname = "Dimmer";
+            break;
+        case IntensityDimmerFine:
+            prname = "Dimmer fine";
+            cb = LSB;
+            break;
+        case IntensityRed:
+            prname = KXMLQLCChannelColourRed;
+            col = Red;
+            break;
+        case IntensityRedFine:
+            prname = KXMLQLCChannelColourRed + " fine";
+            col = Red;
+            cb = LSB;
+            break;
+        case IntensityGreen:
+            prname = KXMLQLCChannelColourGreen;
+            col = Green;
+            break;
+        case IntensityGreenFine:
+            prname = KXMLQLCChannelColourGreen + " fine";
+            col = Green;
+            cb = LSB;
+            break;
+        case IntensityBlue:
+            prname = KXMLQLCChannelColourBlue;
+            col = Blue;
+            break;
+        case IntensityBlueFine:
+            prname = KXMLQLCChannelColourBlue + " fine";
+            col = Blue;
+            cb = LSB;
+            break;
+        case IntensityCyan:
+            prname = KXMLQLCChannelColourCyan;
+            col = Cyan;
+            break;
+        case IntensityCyanFine:
+            prname = KXMLQLCChannelColourCyan + " fine";
+            col = Cyan;
+            cb = LSB;
+            break;
+        case IntensityMagenta:
+            prname = KXMLQLCChannelColourMagenta;
+            col = Magenta;
+            break;
+        case IntensityMagentaFine:
+            prname = KXMLQLCChannelColourMagenta + " fine";
+            col = Magenta;
+            cb = LSB;
+            break;
+        case IntensityYellow:
+            prname = KXMLQLCChannelColourYellow;
+            col = Yellow;
+            break;
+        case IntensityYellowFine:
+            prname = KXMLQLCChannelColourYellow + " fine";
+            col = Yellow;
+            cb = LSB;
+            break;
+        case IntensityAmber:
+            prname = KXMLQLCChannelColourAmber;
+            col = Amber;
+            break;
+        case IntensityAmberFine:
+            prname = KXMLQLCChannelColourAmber + " fine";
+            col = Amber;
+            cb = LSB;
+            break;
+        case IntensityWhite:
+            prname = KXMLQLCChannelColourWhite;
+            col = White;
+            break;
+        case IntensityWhiteFine:
+            prname = KXMLQLCChannelColourWhite + " fine";
+            col = White;
+            cb = LSB;
+            break;
+        case IntensityUV:
+            prname = KXMLQLCChannelColourUV;
+            col = UV;
+            break;
+        case IntensityUVFine:
+            prname = KXMLQLCChannelColourUV + " fine";
+            col = UV;
+            cb = LSB;
+            break;
+        case IntensityIndigo:
+            prname = KXMLQLCChannelColourIndigo;
+            col = Indigo;
+            break;
+        case IntensityIndigoFine:
+            prname = KXMLQLCChannelColourIndigo + " fine";
+            col = Indigo;
+            cb = LSB;
+            break;
+        case IntensityLime:
+            prname = KXMLQLCChannelColourLime;
+            col = Lime;
+            break;
+        case IntensityLimeFine:
+            prname = KXMLQLCChannelColourLime + " fine";
+            col = Lime;
+            cb = LSB;
+            break;
+        case IntensityHue:
+            prname = "Hue";
+            // col = Hue;
+            break;
+        case IntensityHueFine:
+            prname = "Hue fine";
+            // col = Hue;
+            cb = LSB;
+            break;
+        case IntensitySaturation:
+            prname = "Saturation";
+            // col = Saturation;
+            break;
+        case IntensitySaturationFine:
+            prname = "Saturation fine";
+            // col = Saturation;
+            cb = LSB;
+            break;
+        case IntensityLightness:
+            prname = "Lightness";
+            // col = Lightness;
+            break;
+        case IntensityLightnessFine:
+            prname = "Lightness fine";
+            // col = Lightness;
+            cb = LSB;
+            break;
+        case IntensityValue:
+            prname = "Value";
+            // col = Value;
+            break;
+        case IntensityValueFine:
+            prname = "Value fine";
+            // col = Value;
+            cb = LSB;
+            break;
+        case PositionPan:
+            grp = Pan;
+            prname = KXMLQLCChannelGroupPan;
+            break;
+        case PositionPanFine:
+            grp = Pan;
+            prname = KXMLQLCChannelGroupPan + " fine";
+            cb = LSB;
+            break;
+        case PositionTilt:
+            grp = Tilt;
+            prname = KXMLQLCChannelGroupTilt;
+            break;
+        case PositionTiltFine:
+            grp = Tilt;
+            prname = KXMLQLCChannelGroupTilt + " fine";
+            cb = LSB;
+            break;
+        case PositionXAxis:
+            grp = Pan;
+            prname = "X Axis";
+            break;
+        case PositionYAxis:
+            grp = Tilt;
+            prname = "Y Axis";
+            break;
+        case SpeedPanSlowFast:
+        case SpeedPanFastSlow:
+            grp = Speed;
+            prname = "Pan speed";
+            break;
+        case SpeedTiltSlowFast:
+        case SpeedTiltFastSlow:
+            grp = Speed;
+            prname = "Tilt speed";
+            break;
+        case SpeedPanTiltSlowFast:
+        case SpeedPanTiltFastSlow:
+            grp = Speed;
+            prname = "Pan/Tilt speed";
+            break;
+        case ColorMacro:
+            grp = Colour;
+            prname = "Color macro";
+            break;
+        case ColorWheel:
+            grp = Colour;
+            prname = "Color wheel";
+            break;
+        case ColorWheelFine:
+            grp = Colour;
+            prname = "Color wheel fine";
+            cb = LSB;
+            break;
+        case ColorRGBMixer:
+            grp = Colour;
+            prname = "RGB mixer";
+            break;
+        case ColorCTOMixer:
+            grp = Colour;
+            prname = "CTO mixer";
+            break;
+        case ColorCTCMixer:
+            grp = Colour;
+            prname = "CTC mixer";
+            break;
+        case ColorCTBMixer:
+            grp = Colour;
+            prname = "CTB mixer";
+            break;
+        case GoboWheel:
+            grp = Gobo;
+            prname = "Gobo wheel";
+            break;
+        case GoboWheelFine:
+            grp = Gobo;
+            prname = "Gobo wheel fine";
+            cb = LSB;
+            break;
+        case GoboIndex:
+            grp = Gobo;
+            prname = "Gobo index";
+            break;
+        case GoboIndexFine:
+            grp = Gobo;
+            prname = "Gobo index fine";
+            cb = LSB;
+            break;
+        case ShutterStrobeSlowFast:
+        case ShutterStrobeFastSlow:
+            grp = Shutter;
+            prname = "Strobe";
+            break;
+        case ShutterIrisMinToMax:
+        case ShutterIrisMaxToMin:
+            grp = Shutter;
+            prname = "Iris";
+            break;
+        case ShutterIrisFine:
+            grp = Shutter;
+            prname = "Iris fine";
+            cb = LSB;
+            break;
+        case BeamFocusNearFar:
+        case BeamFocusFarNear:
+            grp = Beam;
+            prname = "Focus";
+            break;
+        case BeamFocusFine:
+            grp = Beam;
+            prname = "Focus fine";
+            cb = LSB;
+            break;
+        case BeamZoomSmallBig:
+        case BeamZoomBigSmall:
+            grp = Beam;
+            prname = "Zoom";
+            break;
+        case BeamZoomFine:
+            grp = Beam;
+            prname = "Zoom fine";
+            cb = LSB;
+            break;
+        case PrismRotationFastSlow:
+        case PrismRotationSlowFast:
+            grp = Prism;
+            prname = "Prism rotation";
+            break;
+        case NoFunction:
+            grp = Nothing;
+            prname = "No function";
+            break;
+        default:
+            break;
     }
 
     if (name().isEmpty())
@@ -469,119 +469,119 @@ QLCCapability *QLCChannel::addPresetCapability()
     QLCCapability *cap = new QLCCapability();
     switch (m_preset)
     {
-    case IntensityMasterDimmer:
-    case IntensityDimmer:
-        cap->setName(name() + " (0 - 100%)");
-        break;
-    case IntensityRed:
-    case IntensityGreen:
-    case IntensityBlue:
-    case IntensityCyan:
-    case IntensityMagenta:
-    case IntensityYellow:
-    case IntensityAmber:
-    case IntensityWhite:
-    case IntensityUV:
-    case IntensityIndigo:
-    case IntensityLime:
-    case IntensityHue:
-    case IntensitySaturation:
-    case IntensityLightness:
-    case IntensityValue:
-        cap->setName(name() + " intensity (0 - 100%)");
-        break;
-    case IntensityMasterDimmerFine:
-    case IntensityDimmerFine:
-    case IntensityRedFine:
-    case IntensityGreenFine:
-    case IntensityBlueFine:
-    case IntensityCyanFine:
-    case IntensityMagentaFine:
-    case IntensityYellowFine:
-    case IntensityAmberFine:
-    case IntensityWhiteFine:
-    case IntensityUVFine:
-    case IntensityIndigoFine:
-    case IntensityLimeFine:
-    case IntensityHueFine:
-    case IntensitySaturationFine:
-    case IntensityLightnessFine:
-    case IntensityValueFine:
-    case PositionPan:
-    case PositionPanFine:
-    case PositionTilt:
-    case PositionTiltFine:
-    case PositionXAxis:
-    case PositionYAxis:
-    case ColorWheelFine:
-    case ColorRGBMixer:
-    case ColorCTOMixer:
-    case ColorCTCMixer:
-    case ColorCTBMixer:
-    case GoboWheelFine:
-    case GoboIndexFine:
-    case ShutterIrisFine:
-    case BeamFocusFine:
-    case BeamZoomFine:
-    case NoFunction:
-        cap->setName(name());
-        break;
-    case SpeedPanSlowFast:
-        cap->setName("Pan (Slow to fast)");
-        break;
-    case SpeedPanFastSlow:
-        cap->setName("Pan (Fast to slow)");
-        break;
-    case SpeedTiltSlowFast:
-        cap->setName("Tilt (Slow to fast)");
-        break;
-    case SpeedTiltFastSlow:
-        cap->setName("Tilt (Fast to slow)");
-        break;
-    case SpeedPanTiltSlowFast:
-        cap->setName("Pan and tilt (Slow to fast)");
-        break;
-    case SpeedPanTiltFastSlow:
-        cap->setName("Pan and tilt (Fast to slow)");
-        break;
-    case ColorMacro:
-    case ColorWheel:
-    case GoboWheel:
-    case GoboIndex:
-        cap->setName(name() + " presets");
-        break;
-    case ShutterStrobeSlowFast:
-        cap->setName("Strobe (Slow to fast)");
-        break;
-    case ShutterStrobeFastSlow:
-        cap->setName("Strobe (Fast to slow)");
-        break;
-    case ShutterIrisMinToMax:
-        cap->setName("Iris (Minimum to maximum)");
-        break;
-    case ShutterIrisMaxToMin:
-        cap->setName("Iris (Maximum to minimum)");
-        break;
-    case BeamFocusNearFar:
-        cap->setName("Beam (Near to far)");
-        break;
-    case BeamFocusFarNear:
-        cap->setName("Beam (Far to near)");
-        break;
-    case BeamZoomSmallBig:
-        cap->setName("Zoom (Small to big)");
-        break;
-    case BeamZoomBigSmall:
-        cap->setName("Zoom (Big to small)");
-        break;
-    case PrismRotationSlowFast:
-        cap->setName("Prism rotation (Slow to fast)");
-        break;
-    case PrismRotationFastSlow:
-        cap->setName("Prism rotation (Fast to slow)");
-        break;
-    default:
-        break;
+        case IntensityMasterDimmer:
+        case IntensityDimmer:
+            cap->setName(name() + " (0 - 100%)");
+            break;
+        case IntensityRed:
+        case IntensityGreen:
+        case IntensityBlue:
+        case IntensityCyan:
+        case IntensityMagenta:
+        case IntensityYellow:
+        case IntensityAmber:
+        case IntensityWhite:
+        case IntensityUV:
+        case IntensityIndigo:
+        case IntensityLime:
+        case IntensityHue:
+        case IntensitySaturation:
+        case IntensityLightness:
+        case IntensityValue:
+            cap->setName(name() + " intensity (0 - 100%)");
+            break;
+        case IntensityMasterDimmerFine:
+        case IntensityDimmerFine:
+        case IntensityRedFine:
+        case IntensityGreenFine:
+        case IntensityBlueFine:
+        case IntensityCyanFine:
+        case IntensityMagentaFine:
+        case IntensityYellowFine:
+        case IntensityAmberFine:
+        case IntensityWhiteFine:
+        case IntensityUVFine:
+        case IntensityIndigoFine:
+        case IntensityLimeFine:
+        case IntensityHueFine:
+        case IntensitySaturationFine:
+        case IntensityLightnessFine:
+        case IntensityValueFine:
+        case PositionPan:
+        case PositionPanFine:
+        case PositionTilt:
+        case PositionTiltFine:
+        case PositionXAxis:
+        case PositionYAxis:
+        case ColorWheelFine:
+        case ColorRGBMixer:
+        case ColorCTOMixer:
+        case ColorCTCMixer:
+        case ColorCTBMixer:
+        case GoboWheelFine:
+        case GoboIndexFine:
+        case ShutterIrisFine:
+        case BeamFocusFine:
+        case BeamZoomFine:
+        case NoFunction:
+            cap->setName(name());
+            break;
+        case SpeedPanSlowFast:
+            cap->setName("Pan (Slow to fast)");
+            break;
+        case SpeedPanFastSlow:
+            cap->setName("Pan (Fast to slow)");
+            break;
+        case SpeedTiltSlowFast:
+            cap->setName("Tilt (Slow to fast)");
+            break;
+        case SpeedTiltFastSlow:
+            cap->setName("Tilt (Fast to slow)");
+            break;
+        case SpeedPanTiltSlowFast:
+            cap->setName("Pan and tilt (Slow to fast)");
+            break;
+        case SpeedPanTiltFastSlow:
+            cap->setName("Pan and tilt (Fast to slow)");
+            break;
+        case ColorMacro:
+        case ColorWheel:
+        case GoboWheel:
+        case GoboIndex:
+            cap->setName(name() + " presets");
+            break;
+        case ShutterStrobeSlowFast:
+            cap->setName("Strobe (Slow to fast)");
+            break;
+        case ShutterStrobeFastSlow:
+            cap->setName("Strobe (Fast to slow)");
+            break;
+        case ShutterIrisMinToMax:
+            cap->setName("Iris (Minimum to maximum)");
+            break;
+        case ShutterIrisMaxToMin:
+            cap->setName("Iris (Maximum to minimum)");
+            break;
+        case BeamFocusNearFar:
+            cap->setName("Beam (Near to far)");
+            break;
+        case BeamFocusFarNear:
+            cap->setName("Beam (Far to near)");
+            break;
+        case BeamZoomSmallBig:
+            cap->setName("Zoom (Small to big)");
+            break;
+        case BeamZoomBigSmall:
+            cap->setName("Zoom (Big to small)");
+            break;
+        case PrismRotationSlowFast:
+            cap->setName("Prism rotation (Slow to fast)");
+            break;
+        case PrismRotationFastSlow:
+            cap->setName("Prism rotation (Fast to slow)");
+            break;
+        default:
+            break;
     }
 
     addCapability(cap);
@@ -618,30 +618,30 @@ QString QLCChannel::groupToString(Group grp)
 {
     switch (grp)
     {
-    case Intensity:
-        return KXMLQLCChannelGroupIntensity;
-    case Colour:
-        return KXMLQLCChannelGroupColour;
-    case Gobo:
-        return KXMLQLCChannelGroupGobo;
-    case Prism:
-        return KXMLQLCChannelGroupPrism;
-    case Shutter:
-        return KXMLQLCChannelGroupShutter;
-    case Beam:
-        return KXMLQLCChannelGroupBeam;
-    case Speed:
-        return KXMLQLCChannelGroupSpeed;
-    case Effect:
-        return KXMLQLCChannelGroupEffect;
-    case Pan:
-        return KXMLQLCChannelGroupPan;
-    case Tilt:
-        return KXMLQLCChannelGroupTilt;
-    case Maintenance:
-        return KXMLQLCChannelGroupMaintenance;
-    default:
-        return KXMLQLCChannelGroupNothing;
+        case Intensity:
+            return KXMLQLCChannelGroupIntensity;
+        case Colour:
+            return KXMLQLCChannelGroupColour;
+        case Gobo:
+            return KXMLQLCChannelGroupGobo;
+        case Prism:
+            return KXMLQLCChannelGroupPrism;
+        case Shutter:
+            return KXMLQLCChannelGroupShutter;
+        case Beam:
+            return KXMLQLCChannelGroupBeam;
+        case Speed:
+            return KXMLQLCChannelGroupSpeed;
+        case Effect:
+            return KXMLQLCChannelGroupEffect;
+        case Pan:
+            return KXMLQLCChannelGroupPan;
+        case Tilt:
+            return KXMLQLCChannelGroupTilt;
+        case Maintenance:
+            return KXMLQLCChannelGroupMaintenance;
+        default:
+            return KXMLQLCChannelGroupNothing;
     }
 }
 
@@ -801,44 +801,44 @@ QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp, bool svg) const
 
     switch (grp)
     {
-    case Pan:
-        return QString("%1:/pan.%2").arg(prefix).arg(ext);
-        break;
-    case Tilt:
-        return QString("%1:/tilt.%2").arg(prefix).arg(ext);
-        break;
-    case Colour:
-        return QString("%1:/colorwheel.%2").arg(prefix).arg(ext);
-        break;
-    case Effect:
-        return QString("%1:/star.%2").arg(prefix).arg(ext);
-        break;
-    case Gobo:
-        return QString("%1:/gobo.%2").arg(prefix).arg(ext);
-        break;
-    case Shutter:
-        return QString("%1:/shutter.%2").arg(prefix).arg(ext);
-        break;
-    case Speed:
-        return QString("%1:/speed.%2").arg(prefix).arg(ext);
-        break;
-    case Prism:
-        return QString("%1:/prism.%2").arg(prefix).arg(ext);
-        break;
-    case Maintenance:
-        return QString("%1:/configure.%2").arg(prefix).arg(ext);
-        break;
-    case Intensity:
-        return getIntensityColorCode(svg);
-        break;
-    case Beam:
-        return QString("%1:/beam.%2").arg(prefix).arg(ext);
-        break;
-    case Nothing:
-        return QString("%1:/uncheck.%2").arg(prefix).arg(ext);
-        break;
-    default:
-        break;
+        case Pan:
+            return QString("%1:/pan.%2").arg(prefix).arg(ext);
+            break;
+        case Tilt:
+            return QString("%1:/tilt.%2").arg(prefix).arg(ext);
+            break;
+        case Colour:
+            return QString("%1:/colorwheel.%2").arg(prefix).arg(ext);
+            break;
+        case Effect:
+            return QString("%1:/star.%2").arg(prefix).arg(ext);
+            break;
+        case Gobo:
+            return QString("%1:/gobo.%2").arg(prefix).arg(ext);
+            break;
+        case Shutter:
+            return QString("%1:/shutter.%2").arg(prefix).arg(ext);
+            break;
+        case Speed:
+            return QString("%1:/speed.%2").arg(prefix).arg(ext);
+            break;
+        case Prism:
+            return QString("%1:/prism.%2").arg(prefix).arg(ext);
+            break;
+        case Maintenance:
+            return QString("%1:/configure.%2").arg(prefix).arg(ext);
+            break;
+        case Intensity:
+            return getIntensityColorCode(svg);
+            break;
+        case Beam:
+            return QString("%1:/beam.%2").arg(prefix).arg(ext);
+            break;
+        case Nothing:
+            return QString("%1:/uncheck.%2").arg(prefix).arg(ext);
+            break;
+        default:
+            break;
     }
 
     return QString("%1:/intensity.%2").arg(prefix).arg(ext);
@@ -916,31 +916,31 @@ QString QLCChannel::colourToString(PrimaryColour colour)
 {
     switch (colour)
     {
-    case Red:
-        return KXMLQLCChannelColourRed;
-    case Green:
-        return KXMLQLCChannelColourGreen;
-    case Blue:
-        return KXMLQLCChannelColourBlue;
-    case Cyan:
-        return KXMLQLCChannelColourCyan;
-    case Magenta:
-        return KXMLQLCChannelColourMagenta;
-    case Yellow:
-        return KXMLQLCChannelColourYellow;
-    case Amber:
-        return KXMLQLCChannelColourAmber;
-    case White:
-        return KXMLQLCChannelColourWhite;
-    case UV:
-        return KXMLQLCChannelColourUV;
-    case Lime:
-        return KXMLQLCChannelColourLime;
-    case Indigo:
-        return KXMLQLCChannelColourIndigo;
-    case NoColour:
-    default:
-        return KXMLQLCChannelColourGeneric;
+        case Red:
+            return KXMLQLCChannelColourRed;
+        case Green:
+            return KXMLQLCChannelColourGreen;
+        case Blue:
+            return KXMLQLCChannelColourBlue;
+        case Cyan:
+            return KXMLQLCChannelColourCyan;
+        case Magenta:
+            return KXMLQLCChannelColourMagenta;
+        case Yellow:
+            return KXMLQLCChannelColourYellow;
+        case Amber:
+            return KXMLQLCChannelColourAmber;
+        case White:
+            return KXMLQLCChannelColourWhite;
+        case UV:
+            return KXMLQLCChannelColourUV;
+        case Lime:
+            return KXMLQLCChannelColourLime;
+        case Indigo:
+            return KXMLQLCChannelColourIndigo;
+        case NoColour:
+        default:
+            return KXMLQLCChannelColourGeneric;
     }
 }
 

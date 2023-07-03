@@ -141,24 +141,24 @@ void GrandMasterSlider::updateTooltip()
 
     switch (m_ioMap->grandMasterValueMode())
     {
-    case GrandMaster::Limit:
-        tooltip += tr("Grand Master <B>limits</B> the maximum value of");
-        break;
-    case GrandMaster::Reduce:
-        tooltip += tr("Grand Master <B>reduces</B> the current value of");
-        break;
+        case GrandMaster::Limit:
+            tooltip += tr("Grand Master <B>limits</B> the maximum value of");
+            break;
+        case GrandMaster::Reduce:
+            tooltip += tr("Grand Master <B>reduces</B> the current value of");
+            break;
     }
 
     tooltip += QString(" ");
 
     switch (m_ioMap->grandMasterChannelMode())
     {
-    case GrandMaster::Intensity:
-        tooltip += tr("intensity channels");
-        break;
-    case GrandMaster::AllChannels:
-        tooltip += tr("all channels");
-        break;
+        case GrandMaster::Intensity:
+            tooltip += tr("intensity channels");
+            break;
+        case GrandMaster::AllChannels:
+            tooltip += tr("all channels");
+            break;
     }
 
     setToolTip(tooltip);

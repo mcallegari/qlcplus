@@ -338,28 +338,28 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 
     switch (role)
     {
-    case LabelRole:
-        return item->label();
-    case PathRole:
-        return item->path();
-    case IsExpandedRole:
-        return (item->flags() & Expanded) ? true : false;
-    case IsSelectedRole:
-        return (item->flags() & Selected) ? true : false;
-    case IsCheckableRole:
-        return (item->flags() & Checkable) ? true : false;
-    case IsCheckedRole:
-        return (item->flags() & Checked) ? true : false;
-    case IsDraggableRole:
-        return (item->flags() & Draggable) ? true : false;
-    case ItemsCountRole:
-        return m_items.count();
-    case HasChildrenRole:
-        return item->hasChildren() || (item->flags() & EmptyNode);
-    case ChildrenModel:
-        return QVariant::fromValue(item->children());
-    default:
-        return m_items.at(index.row())->data(role - FixedRolesEnd);
+        case LabelRole:
+            return item->label();
+        case PathRole:
+            return item->path();
+        case IsExpandedRole:
+            return (item->flags() & Expanded) ? true : false;
+        case IsSelectedRole:
+            return (item->flags() & Selected) ? true : false;
+        case IsCheckableRole:
+            return (item->flags() & Checkable) ? true : false;
+        case IsCheckedRole:
+            return (item->flags() & Checked) ? true : false;
+        case IsDraggableRole:
+            return (item->flags() & Draggable) ? true : false;
+        case ItemsCountRole:
+            return m_items.count();
+        case HasChildrenRole:
+            return item->hasChildren() || (item->flags() & EmptyNode);
+        case ChildrenModel:
+            return QVariant::fromValue(item->children());
+        default:
+            return m_items.at(index.row())->data(role - FixedRolesEnd);
     }
 }
 
@@ -375,16 +375,16 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
     switch (role)
     {
-    case LabelRole:
-        item->setLabel(value.toString());
-        break;
-    case PathRole:
-        item->setPath(value.toString());
-        break;
-    case IsExpandedRole:
-        item->setFlag(Expanded, value.toBool());
-        break;
-    case IsSelectedRole:
+        case LabelRole:
+            item->setLabel(value.toString());
+            break;
+        case PathRole:
+            item->setPath(value.toString());
+            break;
+        case IsExpandedRole:
+            item->setFlag(Expanded, value.toBool());
+            break;
+        case IsSelectedRole:
         {
             if (value.toInt() > 0)
             {
@@ -396,18 +396,18 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
                 item->setFlag(Selected, false);
         }
         break;
-    case IsCheckableRole:
-        item->setFlag(Checkable, value.toBool());
-        break;
-    case IsCheckedRole:
-        item->setFlag(Checked, value.toBool());
-        break;
-    case IsDraggableRole:
-        item->setFlag(Draggable, value.toBool());
-        break;
-    default:
-        item->setRoleData(role - FixedRolesEnd, value);
-        break;
+        case IsCheckableRole:
+            item->setFlag(Checkable, value.toBool());
+            break;
+        case IsCheckedRole:
+            item->setFlag(Checked, value.toBool());
+            break;
+        case IsDraggableRole:
+            item->setFlag(Draggable, value.toBool());
+            break;
+        default:
+            item->setRoleData(role - FixedRolesEnd, value);
+            break;
     }
 
     emit roleChanged(item, role, value);
@@ -423,7 +423,7 @@ void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &v
 
     switch (role)
     {
-    case IsSelectedRole:
+        case IsSelectedRole:
         {
             if (value.toInt() == 1)
                 setSingleSelection(item);

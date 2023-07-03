@@ -239,29 +239,29 @@ QString Function::typeToString(Type type)
 {
     switch (type)
     {
-    case SceneType:
-        return KSceneString;
-    case ChaserType:
-        return KChaserString;
-    case EFXType:
-        return KEFXString;
-    case CollectionType:
-        return KCollectionString;
-    case ScriptType:
-        return KScriptString;
-    case RGBMatrixType:
-        return KRGBMatrixString;
-    case ShowType:
-        return KShowString;
-    case SequenceType:
-        return KSequenceString;
-    case AudioType:
-        return KAudioString;
-    case VideoType:
-        return KVideoString;
-    case Undefined:
-    default:
-        return KUndefinedString;
+        case SceneType:
+            return KSceneString;
+        case ChaserType:
+            return KChaserString;
+        case EFXType:
+            return KEFXString;
+        case CollectionType:
+            return KCollectionString;
+        case ScriptType:
+            return KScriptString;
+        case RGBMatrixType:
+            return KRGBMatrixString;
+        case ShowType:
+            return KShowString;
+        case SequenceType:
+            return KSequenceString;
+        case AudioType:
+            return KAudioString;
+        case VideoType:
+            return KVideoString;
+        case Undefined:
+        default:
+            return KUndefinedString;
     }
 }
 
@@ -373,15 +373,15 @@ QString Function::runOrderToString(const RunOrder &order)
 {
     switch (order)
     {
-    default:
-    case Loop:
-        return KLoopString;
-    case PingPong:
-        return KPingPongString;
-    case SingleShot:
-        return KSingleShotString;
-    case Random:
-        return KRandomString;
+        default:
+        case Loop:
+            return KLoopString;
+        case PingPong:
+            return KPingPongString;
+        case SingleShot:
+            return KSingleShotString;
+        case Random:
+            return KRandomString;
     }
 }
 
@@ -444,11 +444,11 @@ QString Function::directionToString(const Direction &dir)
 {
     switch (dir)
     {
-    default:
-    case Forward:
-        return KForwardString;
-    case Backward:
-        return KBackwardString;
+        default:
+        case Forward:
+            return KForwardString;
+        case Backward:
+            return KBackwardString;
     }
 }
 
@@ -504,24 +504,24 @@ void Function::setTempoType(const Function::TempoType &type)
 
     switch (type)
     {
-    /* Beats -> Time */
-    case Time:
-        setFadeInSpeed(beatsToTime(fadeInSpeed(), beatTime));
-        setDuration(beatsToTime(duration(), beatTime));
-        setFadeOutSpeed(beatsToTime(fadeOutSpeed(), beatTime));
-        disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBPMChanged(int)));
-        break;
+        /* Beats -> Time */
+        case Time:
+            setFadeInSpeed(beatsToTime(fadeInSpeed(), beatTime));
+            setDuration(beatsToTime(duration(), beatTime));
+            setFadeOutSpeed(beatsToTime(fadeOutSpeed(), beatTime));
+            disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBPMChanged(int)));
+            break;
 
-    /* Time -> Beats */
-    case Beats:
-        setFadeInSpeed(timeToBeats(fadeInSpeed(), beatTime));
-        setDuration(timeToBeats(duration(), beatTime));
-        setFadeOutSpeed(timeToBeats(fadeOutSpeed(), beatTime));
-        connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBPMChanged(int)));
-        break;
-    default:
-        qDebug() << "Error. Unhandled tempo type" << type;
-        break;
+        /* Time -> Beats */
+        case Beats:
+            setFadeInSpeed(timeToBeats(fadeInSpeed(), beatTime));
+            setDuration(timeToBeats(duration(), beatTime));
+            setFadeOutSpeed(timeToBeats(fadeOutSpeed(), beatTime));
+            connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBPMChanged(int)));
+            break;
+        default:
+            qDebug() << "Error. Unhandled tempo type" << type;
+            break;
     }
 
     emit changed(m_id);
@@ -536,11 +536,11 @@ QString Function::tempoTypeToString(const Function::TempoType &type)
 {
     switch (type)
     {
-    default:
-    case Time:
-        return KTimeTypeString;
-    case Beats:
-        return KBeatsTypeString;
+        default:
+        case Time:
+            return KTimeTypeString;
+        case Beats:
+            return KBeatsTypeString;
     }
 }
 

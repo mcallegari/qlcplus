@@ -465,19 +465,19 @@ QString Universe::blendModeToString(Universe::BlendMode mode)
 {
     switch (mode)
     {
-    default:
-    case NormalBlend:
-        return QString(KXMLUniverseNormalBlend);
-        break;
-    case MaskBlend:
-        return QString(KXMLUniverseMaskBlend);
-        break;
-    case AdditiveBlend:
-        return QString(KXMLUniverseAdditiveBlend);
-        break;
-    case SubtractiveBlend:
-        return QString(KXMLUniverseSubtractiveBlend);
-        break;
+        default:
+        case NormalBlend:
+            return QString(KXMLUniverseNormalBlend);
+            break;
+        case MaskBlend:
+            return QString(KXMLUniverseMaskBlend);
+            break;
+        case AdditiveBlend:
+            return QString(KXMLUniverseAdditiveBlend);
+            break;
+        case SubtractiveBlend:
+            return QString(KXMLUniverseSubtractiveBlend);
+            break;
     }
 }
 
@@ -974,10 +974,10 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
 
     switch (blend)
     {
-    case NormalBlend:
-        return write(channel, value);
+        case NormalBlend:
+            return write(channel, value);
 
-    case MaskBlend:
+        case MaskBlend:
         {
             if (value)
             {
@@ -990,7 +990,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
             (*m_preGMValues)[channel] = char(value);
         }
         break;
-    case AdditiveBlend:
+        case AdditiveBlend:
         {
             uchar currVal = uchar(m_preGMValues->at(channel));
             // qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
@@ -998,7 +998,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
             (*m_preGMValues)[channel] = char(value);
         }
         break;
-    case SubtractiveBlend:
+        case SubtractiveBlend:
         {
             uchar currVal = uchar(m_preGMValues->at(channel));
             if (value >= currVal)
@@ -1008,9 +1008,9 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
             (*m_preGMValues)[channel] = char(value);
         }
         break;
-    default:
-        qDebug() << "[Universe] Blend mode not handled. Implement me!" << blend;
-        break;
+        default:
+            qDebug() << "[Universe] Blend mode not handled. Implement me!" << blend;
+            break;
     }
 
     updatePostGMValue(channel);

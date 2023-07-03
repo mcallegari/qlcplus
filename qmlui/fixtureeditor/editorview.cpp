@@ -208,26 +208,26 @@ void EditorView::addPresetChannel(QString name, int group)
 
         switch (QLCChannel::PrimaryColour(group))
         {
-        case QLCChannel::Red:
-            channel->setPreset(QLCChannel::IntensityRed);
-            break;
-        case QLCChannel::Green:
-            channel->setPreset(QLCChannel::IntensityGreen);
-            break;
-        case QLCChannel::Blue:
-            channel->setPreset(QLCChannel::IntensityBlue);
-            break;
-        case QLCChannel::White:
-            channel->setPreset(QLCChannel::IntensityWhite);
-            break;
-        case QLCChannel::Amber:
-            channel->setPreset(QLCChannel::IntensityAmber);
-            break;
-        case QLCChannel::UV:
-            channel->setPreset(QLCChannel::IntensityUV);
-            break;
-        default:
-            break;
+            case QLCChannel::Red:
+                channel->setPreset(QLCChannel::IntensityRed);
+                break;
+            case QLCChannel::Green:
+                channel->setPreset(QLCChannel::IntensityGreen);
+                break;
+            case QLCChannel::Blue:
+                channel->setPreset(QLCChannel::IntensityBlue);
+                break;
+            case QLCChannel::White:
+                channel->setPreset(QLCChannel::IntensityWhite);
+                break;
+            case QLCChannel::Amber:
+                channel->setPreset(QLCChannel::IntensityAmber);
+                break;
+            case QLCChannel::UV:
+                channel->setPreset(QLCChannel::IntensityUV);
+                break;
+            default:
+                break;
         }
     }
     else
@@ -236,29 +236,29 @@ void EditorView::addPresetChannel(QString name, int group)
 
         switch (QLCChannel::Group(group))
         {
-        case QLCChannel::Intensity:
-            channel->setPreset(QLCChannel::IntensityDimmer);
-            break;
-        case QLCChannel::Pan:
-            channel->setPreset(QLCChannel::PositionPan);
-            break;
-        case QLCChannel::Tilt:
-            channel->setPreset(QLCChannel::PositionTilt);
-            break;
-        case QLCChannel::Colour:
-            channel->setPreset(QLCChannel::ColorMacro);
-            break;
-        case QLCChannel::Shutter:
-            channel->setPreset(QLCChannel::ShutterStrobeSlowFast);
-            break;
-        case QLCChannel::Beam:
-            channel->setPreset(QLCChannel::NoFunction);
-            break;
-        case QLCChannel::Effect:
-            channel->setPreset(QLCChannel::NoFunction);
-            break;
-        default:
-            break;
+            case QLCChannel::Intensity:
+                channel->setPreset(QLCChannel::IntensityDimmer);
+                break;
+            case QLCChannel::Pan:
+                channel->setPreset(QLCChannel::PositionPan);
+                break;
+            case QLCChannel::Tilt:
+                channel->setPreset(QLCChannel::PositionTilt);
+                break;
+            case QLCChannel::Colour:
+                channel->setPreset(QLCChannel::ColorMacro);
+                break;
+            case QLCChannel::Shutter:
+                channel->setPreset(QLCChannel::ShutterStrobeSlowFast);
+                break;
+            case QLCChannel::Beam:
+                channel->setPreset(QLCChannel::NoFunction);
+                break;
+            case QLCChannel::Effect:
+                channel->setPreset(QLCChannel::NoFunction);
+                break;
+            default:
+                break;
         }
     }
     channel->addPresetCapability();

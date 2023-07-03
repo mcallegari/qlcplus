@@ -262,33 +262,33 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
 {
     switch (attrIndex)
     {
-    case Video::Volume:
+        case Video::Volume:
         {
             updateAttribute(m_video->id(), "volume", float(value / 100.0));
         }
         break;
-    case Video::XRotation:
+        case Video::XRotation:
         {
             QVector3D rot = m_video->rotation();
             rot.setX(float(value));
             updateAttribute(m_video->id(), "rotation", rot);
         }
         break;
-    case Video::YRotation:
+        case Video::YRotation:
         {
             QVector3D rot = m_video->rotation();
             rot.setY(float(value));
             updateAttribute(m_video->id(), "rotation", rot);
         }
         break;
-    case Video::ZRotation:
+        case Video::ZRotation:
         {
             QVector3D rot = m_video->rotation();
             rot.setZ(float(value));
             updateAttribute(m_video->id(), "rotation", rot);
         }
         break;
-    case Video::XPosition:
+        case Video::XPosition:
         {
             qreal xDelta = qreal(m_viewContext->width()) * (value / 100.0);
             QVariant var = getAttribute(m_video->id(), "geometry");
@@ -297,7 +297,7 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
-    case Video::YPosition:
+        case Video::YPosition:
         {
             qreal yDelta = qreal(m_viewContext->height()) * (value / 100.0);
             QVariant var = getAttribute(m_video->id(), "geometry");
@@ -306,7 +306,7 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
-    case Video::WidthScale:
+        case Video::WidthScale:
         {
             QVariant var = getAttribute(m_video->id(), "geometry");
             QRect geom = var.isNull() ? m_geometry : var.toRect();
@@ -315,7 +315,7 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
-    case Video::HeightScale:
+        case Video::HeightScale:
         {
             QVariant var = getAttribute(m_video->id(), "geometry");
             QRect geom = var.isNull() ? m_geometry : var.toRect();
@@ -324,8 +324,8 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 }
 

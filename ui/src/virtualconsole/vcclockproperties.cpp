@@ -57,10 +57,10 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
 
     switch (m_clock->clockType())
     {
-    case VCClock::Stopwatch:
-        m_stopWatchRadio->setChecked(true);
-        break;
-    case VCClock::Countdown:
+        case VCClock::Stopwatch:
+            m_stopWatchRadio->setChecked(true);
+            break;
+        case VCClock::Countdown:
         {
             m_countdownRadio->setChecked(true);
             m_hoursSpin->setValue(m_clock->getHours());
@@ -68,7 +68,7 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
             m_secondsSpin->setValue(m_clock->getSeconds());
         }
         break;
-    case VCClock::Clock:
+        case VCClock::Clock:
         {
             m_clockRadio->setChecked(true);
             m_playInputWidget->hide();
@@ -76,9 +76,9 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
             m_noControlLabel->show();
         }
         break;
-    default:
-        m_clockRadio->setChecked(true);
-        break;
+        default:
+            m_clockRadio->setChecked(true);
+            break;
     }
 
     foreach (VCClockSchedule sch, m_clock->schedules())

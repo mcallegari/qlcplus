@@ -189,28 +189,28 @@ QVariantList VirtualConsole::usageList(quint32 fid)
         }
         switch (widget->type())
         {
-        case VCWidget::ButtonWidget:
+            case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton *>(widget);
                 if (button->functionID() == fid)
                     found = true;
             }
             break;
-        case VCWidget::SliderWidget:
+            case VCWidget::SliderWidget:
             {
                 VCSlider *slider = qobject_cast<VCSlider *>(widget);
                 if (slider->controlledFunction() == fid)
                     found = true;
             }
             break;
-        case VCWidget::CueListWidget:
+            case VCWidget::CueListWidget:
             {
                 VCCueList *cuelist = qobject_cast<VCCueList *>(widget);
                 if (cuelist->chaserID() == fid)
                     found = true;
             }
             break;
-        case VCWidget::ClockWidget:
+            case VCWidget::ClockWidget:
             {
                 VCClock *clock = qobject_cast<VCClock *>(widget);
                 for (VCClockSchedule *schedule : clock->schedules())
@@ -224,8 +224,8 @@ QVariantList VirtualConsole::usageList(quint32 fid)
                 }
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
 
         if (found)
@@ -621,13 +621,13 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
 
         switch (alignment)
         {
-        case Qt::AlignTop:
-            widget->setGeometry(QRect(wGeom.x(), refGeom.y(), wGeom.width(), wGeom.height()));
-            break;
-        case Qt::AlignLeft:
-            widget->setGeometry(QRect(refGeom.x(), wGeom.y(), wGeom.width(), wGeom.height()));
-            break;
-        case Qt::AlignRight:
+            case Qt::AlignTop:
+                widget->setGeometry(QRect(wGeom.x(), refGeom.y(), wGeom.width(), wGeom.height()));
+                break;
+            case Qt::AlignLeft:
+                widget->setGeometry(QRect(refGeom.x(), wGeom.y(), wGeom.width(), wGeom.height()));
+                break;
+            case Qt::AlignRight:
             {
                 // TODO: for now, let's do an ingnorant alignment, without considering
                 // that widgets can be nested into VC frames...
@@ -635,7 +635,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
                 widget->setGeometry(QRect(right - wGeom.width(), wGeom.y(), wGeom.width(), wGeom.height()));
             }
             break;
-        case Qt::AlignBottom:
+            case Qt::AlignBottom:
             {
                 // TODO: for now, let's do an ingnorant alignment, without considering
                 // that widgets can be nested into VC frames...
@@ -770,31 +770,31 @@ QString VirtualConsole::widgetIcon(int type)
 {
     switch (type)
     {
-    case VCWidget::ButtonWidget:
-        return "qrc:/button.svg";
-    case VCWidget::SliderWidget:
-        return "qrc:/slider.svg";
-    case VCWidget::XYPadWidget:
-        return "qrc:/xypad.svg";
-    case VCWidget::FrameWidget:
-        return "qrc:/frame.svg";
-    case VCWidget::SoloFrameWidget:
-        return "qrc:/soloframe.svg";
-    case VCWidget::SpeedDialWidget:
-        return "qrc:/speed.svg";
-    case VCWidget::CueListWidget:
-        return "qrc:/cuelist.svg";
-    case VCWidget::LabelWidget:
-        return "qrc:/label.svg";
-    case VCWidget::AudioTriggersWidget:
-        return "qrc:/audiotriggers.svg";
-    case VCWidget::AnimationWidget:
-        return "qrc:/animation.svg";
-    case VCWidget::ClockWidget:
-        return "qrc:/clock.svg";
-    default:
-        qDebug() << "Unhandled widget type" << type << ". FIXME";
-        break;
+        case VCWidget::ButtonWidget:
+            return "qrc:/button.svg";
+        case VCWidget::SliderWidget:
+            return "qrc:/slider.svg";
+        case VCWidget::XYPadWidget:
+            return "qrc:/xypad.svg";
+        case VCWidget::FrameWidget:
+            return "qrc:/frame.svg";
+        case VCWidget::SoloFrameWidget:
+            return "qrc:/soloframe.svg";
+        case VCWidget::SpeedDialWidget:
+            return "qrc:/speed.svg";
+        case VCWidget::CueListWidget:
+            return "qrc:/cuelist.svg";
+        case VCWidget::LabelWidget:
+            return "qrc:/label.svg";
+        case VCWidget::AudioTriggersWidget:
+            return "qrc:/audiotriggers.svg";
+        case VCWidget::AnimationWidget:
+            return "qrc:/animation.svg";
+        case VCWidget::ClockWidget:
+            return "qrc:/clock.svg";
+        default:
+            qDebug() << "Unhandled widget type" << type << ". FIXME";
+            break;
     }
 
     return "";

@@ -222,28 +222,28 @@ void EFXEditor::initMovementPage()
     /* Running order */
     switch (m_efx->runOrder())
     {
-    default:
-    case Function::Loop:
-        m_loop->setChecked(true);
-        break;
-    case Function::SingleShot:
-        m_singleShot->setChecked(true);
-        break;
-    case Function::PingPong:
-        m_pingPong->setChecked(true);
-        break;
+        default:
+        case Function::Loop:
+            m_loop->setChecked(true);
+            break;
+        case Function::SingleShot:
+            m_singleShot->setChecked(true);
+            break;
+        case Function::PingPong:
+            m_pingPong->setChecked(true);
+            break;
     }
 
     /* Direction */
     switch (m_efx->direction())
     {
-    default:
-    case Function::Forward:
-        m_forward->setChecked(true);
-        break;
-    case Function::Backward:
-        m_backward->setChecked(true);
-        break;
+        default:
+        case Function::Forward:
+            m_forward->setChecked(true);
+            break;
+        case Function::Backward:
+            m_backward->setChecked(true);
+            break;
     }
 
     connect(m_loop, SIGNAL(clicked()), this, SLOT(slotLoopClicked()));

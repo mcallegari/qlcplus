@@ -212,17 +212,17 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         {
             switch (m_monProps->pointOfView())
             {
-            case MonitorProperties::FrontView:
-                m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(90, 0, 0));
-                break;
-            case MonitorProperties::LeftSideView:
-                m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(0, -90, 0));
-                break;
-            case MonitorProperties::RightSideView:
-                m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(0, 90, 0));
-                break;
-            default:
-                break;
+                case MonitorProperties::FrontView:
+                    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(90, 0, 0));
+                    break;
+                case MonitorProperties::LeftSideView:
+                    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(0, -90, 0));
+                    break;
+                case MonitorProperties::RightSideView:
+                    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(0, 90, 0));
+                    break;
+                default:
+                    break;
             }
         }
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(QVector3D(0, 0, 0)),
@@ -423,7 +423,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
         switch (ch->group())
         {
-        case QLCChannel::Pan:
+            case QLCChannel::Pan:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
                     panDegrees += (value << 8);
@@ -432,7 +432,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 setPosition = true;
             }
             break;
-        case QLCChannel::Tilt:
+            case QLCChannel::Tilt:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
                     tiltDegrees += (value << 8);
@@ -441,7 +441,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 setPosition = true;
             }
             break;
-        case QLCChannel::Colour:
+            case QLCChannel::Colour:
             {
                 if (colorSet && value == 0)
                     break;
@@ -474,7 +474,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 }
             }
             break;
-        case QLCChannel::Gobo:
+            case QLCChannel::Gobo:
             {
                 if (goboSet || (previous.length() && value == uchar(previous.at(i))))
                     break;
@@ -486,8 +486,8 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
                 switch (cap->preset())
                 {
-                case QLCCapability::GoboMacro:
-                case QLCCapability::GoboShakeMacro:
+                    case QLCCapability::GoboMacro:
+                    case QLCCapability::GoboShakeMacro:
                     {
                         QString resName = cap->resource(0).toString();
 
@@ -503,12 +503,12 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                         }
                     }
                     break;
-                default:
-                    break;
+                    default:
+                        break;
                 }
             }
             break;
-        case QLCChannel::Shutter:
+            case QLCChannel::Shutter:
             {
                 if (previous.length() && value == uchar(previous.at(i)))
                     break;
@@ -523,8 +523,8 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 }
             }
             break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 
@@ -587,16 +587,16 @@ void MainView2D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
 
     switch (m_monProps->pointOfView())
     {
-    case MonitorProperties::FrontView:
-        fxItem->setProperty("rotation", degrees.z());
-        break;
-    case MonitorProperties::LeftSideView:
-    case MonitorProperties::RightSideView:
-        fxItem->setProperty("rotation", degrees.x());
-        break;
-    default:
-        fxItem->setProperty("rotation", degrees.y());
-        break;
+        case MonitorProperties::FrontView:
+            fxItem->setProperty("rotation", degrees.z());
+            break;
+        case MonitorProperties::LeftSideView:
+        case MonitorProperties::RightSideView:
+            fxItem->setProperty("rotation", degrees.x());
+            break;
+        default:
+            fxItem->setProperty("rotation", degrees.y());
+            break;
     }
 }
 
@@ -655,18 +655,18 @@ void MainView2D::setGridSize(QVector3D sz)
 {
     switch (m_monProps->pointOfView())
     {
-    case MonitorProperties::TopView:
-        m_gridSize = QSize(sz.x(), sz.z());
-        break;
-    case MonitorProperties::LeftSideView:
-    case MonitorProperties::RightSideView:
-        m_gridSize = QSize(sz.z(), sz.y());
-        break;
-    // case MonitorProperties::Undefined:
-    // case MonitorProperties::FrontView:
-    default:
-        m_gridSize = QSize(sz.x(), sz.y());
-        break;
+        case MonitorProperties::TopView:
+            m_gridSize = QSize(sz.x(), sz.z());
+            break;
+        case MonitorProperties::LeftSideView:
+        case MonitorProperties::RightSideView:
+            m_gridSize = QSize(sz.z(), sz.y());
+            break;
+        // case MonitorProperties::Undefined:
+        // case MonitorProperties::FrontView:
+        default:
+            m_gridSize = QSize(sz.x(), sz.y());
+            break;
     }
     emit gridSizeChanged();
 }

@@ -624,8 +624,8 @@ QVariantList ShowManager::previewData(Function *f) const
 
     switch (f->type())
     {
-    case Function::ChaserType:
-    case Function::SequenceType:
+        case Function::ChaserType:
+        case Function::SequenceType:
         {
             Chaser *chaser = qobject_cast<Chaser *>(f);
             quint32 stepsTimeCounter = 0;
@@ -661,9 +661,9 @@ QVariantList ShowManager::previewData(Function *f) const
         }
         break;
 
-    /* All the other Function types */
-    case Function::AudioType:
-    case Function::VideoType:
+        /* All the other Function types */
+        case Function::AudioType:
+        case Function::VideoType:
         {
             data.append(RepeatingDuration);
             data.append(f->totalDuration());
@@ -673,7 +673,7 @@ QVariantList ShowManager::previewData(Function *f) const
             data.append(f->fadeOutSpeed());
         }
         break;
-    default:
+        default:
         {
             data.append(RepeatingDuration);
             data.append(f->totalDuration());

@@ -222,26 +222,26 @@ int InputChannelEditor::midiToNumber(int channel, int message, int param)
 {
     switch (message)
     {
-    case KMidiMessageCC:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CONTROL_CHANGE + (param);
-    case KMidiMessageNoteOnOff:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE + (param);
-    case KMidiMessageNoteAftertouch:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE_AFTERTOUCH + (param);
-    case KMidiMessagePC:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PROGRAM_CHANGE + (param);
-    case KMidiMessageChannelAftertouch:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CHANNEL_AFTERTOUCH;
-    case KMidiMessagePitchWheel:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PITCH_WHEEL;
-    case KMidiMessageMBCPlayback:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_PLAYBACK;
-    case KMidiMessageMBCBeat:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_BEAT;
-    case KMidiMessageMBCStop:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_STOP;
-    default:
-        return 0;
+        case KMidiMessageCC:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CONTROL_CHANGE + (param);
+        case KMidiMessageNoteOnOff:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE + (param);
+        case KMidiMessageNoteAftertouch:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE_AFTERTOUCH + (param);
+        case KMidiMessagePC:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PROGRAM_CHANGE + (param);
+        case KMidiMessageChannelAftertouch:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CHANNEL_AFTERTOUCH;
+        case KMidiMessagePitchWheel:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PITCH_WHEEL;
+        case KMidiMessageMBCPlayback:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_PLAYBACK;
+        case KMidiMessageMBCBeat:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_BEAT;
+        case KMidiMessageMBCStop:
+            return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_STOP;
+        default:
+            return 0;
     }
 }
 
@@ -261,38 +261,38 @@ void InputChannelEditor::enableMidiParam(int midiMessage, int midiParam)
 {
     switch (midiMessage)
     {
-    case KMidiMessageNoteOnOff:
-    case KMidiMessageNoteAftertouch:
-        m_midiParamLabel->setEnabled(true);
-        m_midiParamSpin->setEnabled(true);
+        case KMidiMessageNoteOnOff:
+        case KMidiMessageNoteAftertouch:
+            m_midiParamLabel->setEnabled(true);
+            m_midiParamSpin->setEnabled(true);
 
-        m_midiNoteLabel->setEnabled(true);
-        m_midiNote->setEnabled(true);
-        m_midiNote->setText(noteToString(midiParam));
-        break;
+            m_midiNoteLabel->setEnabled(true);
+            m_midiNote->setEnabled(true);
+            m_midiNote->setText(noteToString(midiParam));
+            break;
 
-    case KMidiMessageCC:
-    case KMidiMessagePC:
-        m_midiParamLabel->setEnabled(true);
-        m_midiParamSpin->setEnabled(true);
+        case KMidiMessageCC:
+        case KMidiMessagePC:
+            m_midiParamLabel->setEnabled(true);
+            m_midiParamSpin->setEnabled(true);
 
-        m_midiNoteLabel->setEnabled(false);
-        m_midiNote->setEnabled(false);
-        m_midiNote->setText("--");
-        break;
+            m_midiNoteLabel->setEnabled(false);
+            m_midiNote->setEnabled(false);
+            m_midiNote->setText("--");
+            break;
 
-    case KMidiMessageChannelAftertouch:
-    case KMidiMessagePitchWheel:
-    case KMidiMessageMBCPlayback:
-    case KMidiMessageMBCBeat:
-    case KMidiMessageMBCStop:
-        m_midiParamLabel->setEnabled(false);
-        m_midiParamSpin->setEnabled(false);
+        case KMidiMessageChannelAftertouch:
+        case KMidiMessagePitchWheel:
+        case KMidiMessageMBCPlayback:
+        case KMidiMessageMBCBeat:
+        case KMidiMessageMBCStop:
+            m_midiParamLabel->setEnabled(false);
+            m_midiParamSpin->setEnabled(false);
 
-        m_midiNoteLabel->setEnabled(false);
-        m_midiNote->setEnabled(false);
-        m_midiNote->setText("--");
-        break;
+            m_midiNoteLabel->setEnabled(false);
+            m_midiNote->setEnabled(false);
+            m_midiNote->setText("--");
+            break;
     }
 }
 
@@ -303,31 +303,31 @@ QString InputChannelEditor::noteToString(int note)
 
     switch (pitch)
     {
-    case 0:
-        return QString("C%1").arg(octave);
-    case 1:
-        return QString("C#%1").arg(octave);
-    case 2:
-        return QString("D%1").arg(octave);
-    case 3:
-        return QString("D#%1").arg(octave);
-    case 4:
-        return QString("E%1").arg(octave);
-    case 5:
-        return QString("F%1").arg(octave);
-    case 6:
-        return QString("F#%1").arg(octave);
-    case 7:
-        return QString("G%1").arg(octave);
-    case 8:
-        return QString("G#%1").arg(octave);
-    case 9:
-        return QString("A%1").arg(octave);
-    case 10:
-        return QString("A#%1").arg(octave);
-    case 11:
-        return QString("B%1").arg(octave);
-    default:
-        return "--";
+        case 0:
+            return QString("C%1").arg(octave);
+        case 1:
+            return QString("C#%1").arg(octave);
+        case 2:
+            return QString("D%1").arg(octave);
+        case 3:
+            return QString("D#%1").arg(octave);
+        case 4:
+            return QString("E%1").arg(octave);
+        case 5:
+            return QString("F%1").arg(octave);
+        case 6:
+            return QString("F#%1").arg(octave);
+        case 7:
+            return QString("G%1").arg(octave);
+        case 8:
+            return QString("G#%1").arg(octave);
+        case 9:
+            return QString("A%1").arg(octave);
+        case 10:
+            return QString("A#%1").arg(octave);
+        case 11:
+            return QString("B%1").arg(octave);
+        default:
+            return "--";
     }
 }

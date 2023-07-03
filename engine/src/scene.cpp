@@ -238,33 +238,33 @@ QColor Scene::colorValue(quint32 fxi)
             QLCChannel::PrimaryColour col = channel->colour();
             switch (col)
             {
-            case QLCChannel::Red:
-                rVal = scv.value;
-                found = true;
-                break;
-            case QLCChannel::Green:
-                gVal = scv.value;
-                found = true;
-                break;
-            case QLCChannel::Blue:
-                bVal = scv.value;
-                found = true;
-                break;
-            case QLCChannel::Cyan:
-                cVal = scv.value;
-                break;
-            case QLCChannel::Magenta:
-                mVal = scv.value;
-                break;
-            case QLCChannel::Yellow:
-                yVal = scv.value;
-                break;
-            case QLCChannel::White:
-                rVal = gVal = bVal = scv.value;
-                found = true;
-                break;
-            default:
-                break;
+                case QLCChannel::Red:
+                    rVal = scv.value;
+                    found = true;
+                    break;
+                case QLCChannel::Green:
+                    gVal = scv.value;
+                    found = true;
+                    break;
+                case QLCChannel::Blue:
+                    bVal = scv.value;
+                    found = true;
+                    break;
+                case QLCChannel::Cyan:
+                    cVal = scv.value;
+                    break;
+                case QLCChannel::Magenta:
+                    mVal = scv.value;
+                    break;
+                case QLCChannel::Yellow:
+                    yVal = scv.value;
+                    break;
+                case QLCChannel::White:
+                    rVal = gVal = bVal = scv.value;
+                    found = true;
+                    break;
+                default:
+                    break;
             }
         }
         else if (channel->group() == QLCChannel::Colour)

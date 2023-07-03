@@ -247,7 +247,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
 
         switch (m_type)
         {
-        case AudioBar::FunctionBar:
+            case AudioBar::FunctionBar:
             {
                 if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                 {
@@ -258,7 +258,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                 }
             }
             break;
-        case AudioBar::VCWidgetBar:
+            case AudioBar::VCWidgetBar:
             {
                 if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
                 {
@@ -267,7 +267,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                 }
             }
             break;
-        case AudioBar::DMXBar:
+            case AudioBar::DMXBar:
             {
                 root.readNextStartElement();
 

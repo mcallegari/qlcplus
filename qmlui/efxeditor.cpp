@@ -83,26 +83,26 @@ void EFXEditor::slotAttributeChanged(int attrIndex, qreal fraction)
 
     switch (attrIndex)
     {
-    case EFX::Width:
-        emit algorithmWidthChanged();
-        break;
-    case EFX::Height:
-        emit algorithmHeightChanged();
-        break;
-    case EFX::Rotation:
-        emit algorithmRotationChanged();
-        break;
-    case EFX::XOffset:
-        emit algorithmXOffsetChanged();
-        break;
-    case EFX::YOffset:
-        emit algorithmYOffsetChanged();
-        break;
-    case EFX::StartOffset:
-        emit algorithmStartOffsetChanged();
-        break;
-    default:
-        break;
+        case EFX::Width:
+            emit algorithmWidthChanged();
+            break;
+        case EFX::Height:
+            emit algorithmHeightChanged();
+            break;
+        case EFX::Rotation:
+            emit algorithmRotationChanged();
+            break;
+        case EFX::XOffset:
+            emit algorithmXOffsetChanged();
+            break;
+        case EFX::YOffset:
+            emit algorithmYOffsetChanged();
+            break;
+        case EFX::StartOffset:
+            emit algorithmStartOffsetChanged();
+            break;
+        default:
+            break;
     }
 
     updateAlgorithmData();

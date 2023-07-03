@@ -933,25 +933,25 @@ QString RGBMatrix::controlModeToString(RGBMatrix::ControlMode mode)
 {
     switch (mode)
     {
-    default:
-    case ControlModeRgb:
-        return QString(KXMLQLCRGBMatrixControlModeRgb);
-        break;
-    case ControlModeAmber:
-        return QString(KXMLQLCRGBMatrixControlModeAmber);
-        break;
-    case ControlModeWhite:
-        return QString(KXMLQLCRGBMatrixControlModeWhite);
-        break;
-    case ControlModeUV:
-        return QString(KXMLQLCRGBMatrixControlModeUV);
-        break;
-    case ControlModeDimmer:
-        return QString(KXMLQLCRGBMatrixControlModeDimmer);
-        break;
-    case ControlModeShutter:
-        return QString(KXMLQLCRGBMatrixControlModeShutter);
-        break;
+        default:
+        case ControlModeRgb:
+            return QString(KXMLQLCRGBMatrixControlModeRgb);
+            break;
+        case ControlModeAmber:
+            return QString(KXMLQLCRGBMatrixControlModeAmber);
+            break;
+        case ControlModeWhite:
+            return QString(KXMLQLCRGBMatrixControlModeWhite);
+            break;
+        case ControlModeUV:
+            return QString(KXMLQLCRGBMatrixControlModeUV);
+            break;
+        case ControlModeDimmer:
+            return QString(KXMLQLCRGBMatrixControlModeDimmer);
+            break;
+        case ControlModeShutter:
+            return QString(KXMLQLCRGBMatrixControlModeShutter);
+            break;
     }
 }
 

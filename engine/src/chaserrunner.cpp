@@ -136,22 +136,22 @@ uint ChaserRunner::stepFadeIn(int stepIdx) const
     {
         switch (m_chaser->fadeInMode())
         {
-        case Chaser::Common:
-            // All steps' fade in speed is dictated by the chaser
-            speed = m_chaser->fadeInSpeed();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own fade in speed
-            if (stepIdx >= 0 && stepIdx < m_chaser->stepsCount())
-                speed = m_chaser->steps().at(stepIdx).fadeIn;
-            else
+            case Chaser::Common:
+                // All steps' fade in speed is dictated by the chaser
+                speed = m_chaser->fadeInSpeed();
+                break;
+            case Chaser::PerStep:
+                // Each step specifies its own fade in speed
+                if (stepIdx >= 0 && stepIdx < m_chaser->stepsCount())
+                    speed = m_chaser->steps().at(stepIdx).fadeIn;
+                else
+                    speed = Function::defaultSpeed();
+                break;
+            default:
+            case Chaser::Default:
+                // Don't touch members' fade in speed at all
                 speed = Function::defaultSpeed();
-            break;
-        default:
-        case Chaser::Default:
-            // Don't touch members' fade in speed at all
-            speed = Function::defaultSpeed();
-            break;
+                break;
         }
     }
 
@@ -172,22 +172,22 @@ uint ChaserRunner::stepFadeOut(int stepIdx) const
     {
         switch (m_chaser->fadeOutMode())
         {
-        case Chaser::Common:
-            // All steps' fade out speed is dictated by the chaser
-            speed = m_chaser->fadeOutSpeed();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own fade out speed
-            if (stepIdx >= 0 && stepIdx < m_chaser->stepsCount())
-                speed = m_chaser->steps().at(stepIdx).fadeOut;
-            else
+            case Chaser::Common:
+                // All steps' fade out speed is dictated by the chaser
+                speed = m_chaser->fadeOutSpeed();
+                break;
+            case Chaser::PerStep:
+                // Each step specifies its own fade out speed
+                if (stepIdx >= 0 && stepIdx < m_chaser->stepsCount())
+                    speed = m_chaser->steps().at(stepIdx).fadeOut;
+                else
+                    speed = Function::defaultSpeed();
+                break;
+            default:
+            case Chaser::Default:
+                // Don't touch members' fade out speed at all
                 speed = Function::defaultSpeed();
-            break;
-        default:
-        case Chaser::Default:
-            // Don't touch members' fade out speed at all
-            speed = Function::defaultSpeed();
-            break;
+                break;
         }
     }
 
@@ -208,19 +208,19 @@ uint ChaserRunner::stepDuration(int stepIdx) const
     {
         switch (m_chaser->durationMode())
         {
-        default:
-        case Chaser::Default:
-        case Chaser::Common:
-            // All steps' duration is dictated by the chaser
-            speed = m_chaser->duration();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own duration
-            if (stepIdx >= 0 && stepIdx < m_chaser->stepsCount())
-                speed = m_chaser->steps().at(stepIdx).duration;
-            else
+            default:
+            case Chaser::Default:
+            case Chaser::Common:
+                // All steps' duration is dictated by the chaser
                 speed = m_chaser->duration();
-            break;
+                break;
+            case Chaser::PerStep:
+                // Each step specifies its own duration
+                if (stepIdx >= 0 && stepIdx < m_chaser->stepsCount())
+                    speed = m_chaser->steps().at(stepIdx).duration;
+                else
+                    speed = m_chaser->duration();
+                break;
         }
     }
 
@@ -236,12 +236,12 @@ void ChaserRunner::setAction(ChaserAction &action)
     // apply the actions that can be applied immediately
     switch (action.m_action)
     {
-    case ChaserNoAction:
-        m_pendingAction.m_masterIntensity = action.m_masterIntensity;
-        m_pendingAction.m_stepIntensity = action.m_stepIntensity;
-        break;
+        case ChaserNoAction:
+            m_pendingAction.m_masterIntensity = action.m_masterIntensity;
+            m_pendingAction.m_stepIntensity = action.m_stepIntensity;
+            break;
 
-    case ChaserStopStep:
+        case ChaserStopStep:
         {
             bool stopped = false;
 
@@ -269,14 +269,14 @@ void ChaserRunner::setAction(ChaserAction &action)
         }
         break;
 
-    // copy to pending action. Will be processed at the next write call
-    default:
-        m_pendingAction.m_stepIndex = action.m_stepIndex;
-        m_pendingAction.m_masterIntensity = action.m_masterIntensity;
-        m_pendingAction.m_stepIntensity = action.m_stepIntensity;
-        m_pendingAction.m_fadeMode = action.m_fadeMode;
-        m_pendingAction.m_action = action.m_action;
-        break;
+        // copy to pending action. Will be processed at the next write call
+        default:
+            m_pendingAction.m_stepIndex = action.m_stepIndex;
+            m_pendingAction.m_masterIntensity = action.m_masterIntensity;
+            m_pendingAction.m_stepIntensity = action.m_stepIntensity;
+            m_pendingAction.m_fadeMode = action.m_fadeMode;
+            m_pendingAction.m_action = action.m_action;
+            break;
     }
 }
 
@@ -523,22 +523,22 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
 
     switch (fadeControl)
     {
-    case Chaser::FromFunction:
-        newStep->m_fadeIn = stepFadeIn(index);
-        newStep->m_fadeOut = stepFadeOut(index);
-        break;
-    case Chaser::Blended:
-        newStep->m_fadeIn = stepFadeIn(index);
-        newStep->m_fadeOut = stepFadeOut(index);
-        break;
-    case Chaser::Crossfade:
-        newStep->m_fadeIn = 0;
-        newStep->m_fadeOut = 0;
-        break;
-    case Chaser::BlendedCrossfade:
-        newStep->m_fadeIn = 0;
-        newStep->m_fadeOut = 0;
-        break;
+        case Chaser::FromFunction:
+            newStep->m_fadeIn = stepFadeIn(index);
+            newStep->m_fadeOut = stepFadeOut(index);
+            break;
+        case Chaser::Blended:
+            newStep->m_fadeIn = stepFadeIn(index);
+            newStep->m_fadeOut = stepFadeOut(index);
+            break;
+        case Chaser::Crossfade:
+            newStep->m_fadeIn = 0;
+            newStep->m_fadeOut = 0;
+            break;
+        case Chaser::BlendedCrossfade:
+            newStep->m_fadeIn = 0;
+            newStep->m_fadeOut = 0;
+            break;
     }
 
     newStep->m_duration = stepDuration(index);
@@ -737,27 +737,27 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
     switch (m_pendingAction.m_action)
     {
-    case ChaserNextStep:
-    case ChaserPreviousStep:
-        clearRunningList();
-        // the actual action will be performed below, on startNewStep
-        break;
-    case ChaserSetStepIndex:
-        if (m_pendingAction.m_stepIndex != -1)
-        {
+        case ChaserNextStep:
+        case ChaserPreviousStep:
             clearRunningList();
-            m_lastRunStepIdx = m_pendingAction.m_stepIndex;
-            qDebug() << "[ChaserRunner] Starting from step" << m_lastRunStepIdx << "@ offset" << m_startOffset;
-            startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity, m_pendingAction.m_stepIntensity,
-                         m_pendingAction.m_fadeMode);
-            emit currentStepChanged(m_lastRunStepIdx);
-        }
-        break;
-    case ChaserPauseRequest:
-        setPause(m_pendingAction.m_fadeMode ? true : false, universes);
-        break;
-    default:
-        break;
+            // the actual action will be performed below, on startNewStep
+            break;
+        case ChaserSetStepIndex:
+            if (m_pendingAction.m_stepIndex != -1)
+            {
+                clearRunningList();
+                m_lastRunStepIdx = m_pendingAction.m_stepIndex;
+                qDebug() << "[ChaserRunner] Starting from step" << m_lastRunStepIdx << "@ offset" << m_startOffset;
+                startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity,
+                             m_pendingAction.m_stepIntensity, m_pendingAction.m_fadeMode);
+                emit currentStepChanged(m_lastRunStepIdx);
+            }
+            break;
+        case ChaserPauseRequest:
+            setPause(m_pendingAction.m_fadeMode ? true : false, universes);
+            break;
+        default:
+            break;
     }
 
     quint32 prevStepRoundElapsed = 0;

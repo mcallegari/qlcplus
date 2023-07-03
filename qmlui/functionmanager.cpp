@@ -244,7 +244,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
 
     switch (type)
     {
-    case Function::SceneType:
+        case Function::SceneType:
         {
             f = new Scene(m_doc);
             name = tr("New Scene");
@@ -258,7 +258,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit sceneCountChanged();
         }
         break;
-    case Function::ChaserType:
+        case Function::ChaserType:
         {
             f = new Chaser(m_doc);
             name = tr("New Chaser");
@@ -280,7 +280,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit chaserCountChanged();
         }
         break;
-    case Function::SequenceType:
+        case Function::SequenceType:
         {
             /* a Sequence depends on a Scene, so let's create
              * a new hidden Scene first */
@@ -300,7 +300,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
                 delete scene;
         }
         break;
-    case Function::EFXType:
+        case Function::EFXType:
         {
             f = new EFX(m_doc);
             name = tr("New EFX");
@@ -321,7 +321,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit efxCountChanged();
         }
         break;
-    case Function::CollectionType:
+        case Function::CollectionType:
         {
             f = new Collection(m_doc);
             name = tr("New Collection");
@@ -336,7 +336,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit collectionCountChanged();
         }
         break;
-    case Function::RGBMatrixType:
+        case Function::RGBMatrixType:
         {
             f = new RGBMatrix(m_doc);
             name = tr("New RGB Matrix");
@@ -344,7 +344,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit rgbMatrixCountChanged();
         }
         break;
-    case Function::ScriptType:
+        case Function::ScriptType:
         {
             f = new Script(m_doc);
             name = tr("New Script");
@@ -352,7 +352,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit scriptCountChanged();
         }
         break;
-    case Function::ShowType:
+        case Function::ShowType:
         {
             f = new Show(m_doc);
             name = tr("New Show");
@@ -360,8 +360,8 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             emit showCountChanged();
         }
         break;
-    default:
-        break;
+        default:
+            break;
     }
 
     return addFunctiontoDoc(f, name, true);
@@ -374,7 +374,7 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
 
     switch (type)
     {
-    case Function::AudioType:
+        case Function::AudioType:
         {
             name = tr("New Audio");
 
@@ -406,7 +406,7 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
             }
         }
         break;
-    case Function::VideoType:
+        case Function::VideoType:
         {
             name = tr("New Video");
 
@@ -452,26 +452,26 @@ QString FunctionManager::functionIcon(int type)
 {
     switch (type)
     {
-    case Function::SceneType:
-        return "qrc:/scene.svg";
-    case Function::ChaserType:
-        return "qrc:/chaser.svg";
-    case Function::SequenceType:
-        return "qrc:/sequence.svg";
-    case Function::EFXType:
-        return "qrc:/efx.svg";
-    case Function::CollectionType:
-        return "qrc:/collection.svg";
-    case Function::ScriptType:
-        return "qrc:/script.svg";
-    case Function::RGBMatrixType:
-        return "qrc:/rgbmatrix.svg";
-    case Function::ShowType:
-        return "qrc:/showmanager.svg";
-    case Function::AudioType:
-        return "qrc:/audio.svg";
-    case Function::VideoType:
-        return "qrc:/video.svg";
+        case Function::SceneType:
+            return "qrc:/scene.svg";
+        case Function::ChaserType:
+            return "qrc:/chaser.svg";
+        case Function::SequenceType:
+            return "qrc:/sequence.svg";
+        case Function::EFXType:
+            return "qrc:/efx.svg";
+        case Function::CollectionType:
+            return "qrc:/collection.svg";
+        case Function::ScriptType:
+            return "qrc:/script.svg";
+        case Function::RGBMatrixType:
+            return "qrc:/rgbmatrix.svg";
+        case Function::ShowType:
+            return "qrc:/showmanager.svg";
+        case Function::AudioType:
+            return "qrc:/audio.svg";
+        case Function::VideoType:
+            return "qrc:/video.svg";
     }
 
     return "";
@@ -567,29 +567,29 @@ QString FunctionManager::getEditorResource(int funcID)
 
     switch (f->type())
     {
-    case Function::SceneType:
-        return "qrc:/SceneEditor.qml";
-    case Function::ChaserType:
-        return "qrc:/ChaserEditor.qml";
-    case Function::SequenceType:
-        return "qrc:/SequenceEditor.qml";
-    case Function::EFXType:
-        return "qrc:/EFXEditor.qml";
-    case Function::CollectionType:
-        return "qrc:/CollectionEditor.qml";
-    case Function::RGBMatrixType:
-        return "qrc:/RGBMatrixEditor.qml";
-    case Function::ShowType:
-        return "qrc:/ShowManager.qml";
-    case Function::ScriptType:
-        return "qrc:/ScriptEditor.qml";
-    case Function::AudioType:
-        return "qrc:/AudioEditor.qml";
-    case Function::VideoType:
-        return "qrc:/VideoEditor.qml";
-    default:
-        return "";
-        break;
+        case Function::SceneType:
+            return "qrc:/SceneEditor.qml";
+        case Function::ChaserType:
+            return "qrc:/ChaserEditor.qml";
+        case Function::SequenceType:
+            return "qrc:/SequenceEditor.qml";
+        case Function::EFXType:
+            return "qrc:/EFXEditor.qml";
+        case Function::CollectionType:
+            return "qrc:/CollectionEditor.qml";
+        case Function::RGBMatrixType:
+            return "qrc:/RGBMatrixEditor.qml";
+        case Function::ShowType:
+            return "qrc:/ShowManager.qml";
+        case Function::ScriptType:
+            return "qrc:/ScriptEditor.qml";
+        case Function::AudioType:
+            return "qrc:/AudioEditor.qml";
+        case Function::VideoType:
+            return "qrc:/VideoEditor.qml";
+        default:
+            return "";
+            break;
     }
 }
 
@@ -630,17 +630,17 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
 
     switch (f->type())
     {
-    case Function::SceneType:
+        case Function::SceneType:
         {
             m_currentEditor = new SceneEditor(m_view, m_doc, this);
         }
         break;
-    case Function::ChaserType:
+        case Function::ChaserType:
         {
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
         break;
-    case Function::SequenceType:
+        case Function::SequenceType:
         {
             Sequence *sequence = qobject_cast<Sequence *>(f);
             m_sceneEditor = new SceneEditor(m_view, m_doc, this);
@@ -648,40 +648,40 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
         break;
-    case Function::EFXType:
+        case Function::EFXType:
         {
             m_currentEditor = new EFXEditor(m_view, m_doc, this);
         }
         break;
-    case Function::CollectionType:
+        case Function::CollectionType:
         {
             m_currentEditor = new CollectionEditor(m_view, m_doc, this);
         }
         break;
-    case Function::RGBMatrixType:
+        case Function::RGBMatrixType:
         {
             m_currentEditor = new RGBMatrixEditor(m_view, m_doc, this);
         }
         break;
-    case Function::ScriptType:
+        case Function::ScriptType:
         {
             m_currentEditor = new ScriptEditor(m_view, m_doc, this);
         }
         break;
-    case Function::AudioType:
+        case Function::AudioType:
         {
             m_currentEditor = new AudioEditor(m_view, m_doc, this);
         }
         break;
-    case Function::VideoType:
+        case Function::VideoType:
         {
             m_currentEditor = new VideoEditor(m_view, m_doc, this);
         }
         break;
-    case Function::ShowType:
-        // a Show is edited by the Show Manager
-        break;
-    default:
+        case Function::ShowType:
+            // a Show is edited by the Show Manager
+            break;
+        default:
         {
             qDebug() << "Requested function type" << f->type() << "doesn't have a dedicated Function editor";
         }
@@ -1280,38 +1280,38 @@ void FunctionManager::addFunctionTreeItem(Function *func)
 
     switch (func->type())
     {
-    case Function::SceneType:
-        m_sceneCount++;
-        break;
-    case Function::ChaserType:
-        m_chaserCount++;
-        break;
-    case Function::SequenceType:
-        m_sequenceCount++;
-        break;
-    case Function::EFXType:
-        m_efxCount++;
-        break;
-    case Function::CollectionType:
-        m_collectionCount++;
-        break;
-    case Function::RGBMatrixType:
-        m_rgbMatrixCount++;
-        break;
-    case Function::ScriptType:
-        m_scriptCount++;
-        break;
-    case Function::ShowType:
-        m_showCount++;
-        break;
-    case Function::AudioType:
-        m_audioCount++;
-        break;
-    case Function::VideoType:
-        m_videoCount++;
-        break;
-    default:
-        break;
+        case Function::SceneType:
+            m_sceneCount++;
+            break;
+        case Function::ChaserType:
+            m_chaserCount++;
+            break;
+        case Function::SequenceType:
+            m_sequenceCount++;
+            break;
+        case Function::EFXType:
+            m_efxCount++;
+            break;
+        case Function::CollectionType:
+            m_collectionCount++;
+            break;
+        case Function::RGBMatrixType:
+            m_rgbMatrixCount++;
+            break;
+        case Function::ScriptType:
+            m_scriptCount++;
+            break;
+        case Function::ShowType:
+            m_showCount++;
+            break;
+        case Function::AudioType:
+            m_audioCount++;
+            break;
+        case Function::VideoType:
+            m_videoCount++;
+            break;
+        default:
+            break;
     }
 }
 

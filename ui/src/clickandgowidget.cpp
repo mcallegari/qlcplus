@@ -155,52 +155,52 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
 {
     switch (type)
     {
-    default:
-    case None:
-        return "None";
-        break;
-    case Red:
-        return "Red";
-        break;
-    case Green:
-        return "Green";
-        break;
-    case Blue:
-        return "Blue";
-        break;
-    case Cyan:
-        return "Cyan";
-        break;
-    case Magenta:
-        return "Magenta";
-        break;
-    case Yellow:
-        return "Yellow";
-        break;
-    case Amber:
-        return "Amber";
-        break;
-    case White:
-        return "White";
-        break;
-    case UV:
-        return "UV";
-        break;
-    case Lime:
-        return "Lime";
-        break;
-    case Indigo:
-        return "Indigo";
-        break;
-    case RGB:
-        return "RGB";
-        break;
-    case CMY:
-        return "CMY";
-        break;
-    case Preset:
-        return "Preset";
-        break;
+        default:
+        case None:
+            return "None";
+            break;
+        case Red:
+            return "Red";
+            break;
+        case Green:
+            return "Green";
+            break;
+        case Blue:
+            return "Blue";
+            break;
+        case Cyan:
+            return "Cyan";
+            break;
+        case Magenta:
+            return "Magenta";
+            break;
+        case Yellow:
+            return "Yellow";
+            break;
+        case Amber:
+            return "Amber";
+            break;
+        case White:
+            return "White";
+            break;
+        case UV:
+            return "UV";
+            break;
+        case Lime:
+            return "Lime";
+            break;
+        case Indigo:
+            return "Indigo";
+            break;
+        case RGB:
+            return "RGB";
+            break;
+        case CMY:
+            return "CMY";
+            break;
+        case Preset:
+            return "Preset";
+            break;
     }
 }
 

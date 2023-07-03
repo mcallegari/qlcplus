@@ -117,29 +117,29 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
 
     switch (waveOutOpen(&dev, deviceID, &fmt, (DWORD)wave_callback, 0, CALLBACK_FUNCTION))
     {
-    case MMSYSERR_ALLOCATED:
-        qWarning("AudioRendererWaveOut: Device is already open.");
-        return false;
-    case MMSYSERR_BADDEVICEID:
-        qWarning("AudioRendererWaveOut: The specified device is out of range.");
-        return false;
-    case MMSYSERR_NODRIVER:
-        qWarning("AudioRendererWaveOut: There is no audio driver in this system.");
-        return false;
-    case MMSYSERR_NOMEM:
-        qWarning("AudioRendererWaveOut: Unable to allocate sound memory.");
-        return false;
-    case WAVERR_BADFORMAT:
-        qWarning("AudioRendererWaveOut: This audio format is not supported.");
-        return false;
-    case WAVERR_SYNC:
-        qWarning("AudioRendererWaveOut: The device is synchronous.");
-        return false;
-    default:
-        qWarning("AudioRendererWaveOut: Unknown media error.");
-        return false;
-    case MMSYSERR_NOERROR:
-        break;
+        case MMSYSERR_ALLOCATED:
+            qWarning("AudioRendererWaveOut: Device is already open.");
+            return false;
+        case MMSYSERR_BADDEVICEID:
+            qWarning("AudioRendererWaveOut: The specified device is out of range.");
+            return false;
+        case MMSYSERR_NODRIVER:
+            qWarning("AudioRendererWaveOut: There is no audio driver in this system.");
+            return false;
+        case MMSYSERR_NOMEM:
+            qWarning("AudioRendererWaveOut: Unable to allocate sound memory.");
+            return false;
+        case WAVERR_BADFORMAT:
+            qWarning("AudioRendererWaveOut: This audio format is not supported.");
+            return false;
+        case WAVERR_SYNC:
+            qWarning("AudioRendererWaveOut: The device is synchronous.");
+            return false;
+        default:
+            qWarning("AudioRendererWaveOut: Unknown media error.");
+            return false;
+        case MMSYSERR_NOERROR:
+            break;
     }
 
     waveOutReset(dev);

@@ -65,19 +65,19 @@ bool AudioRendererQt6::initialize(quint32 freq, int chan, AudioFormat format)
 
     switch (format)
     {
-    case PCM_S8:
-        m_format.setSampleFormat(QAudioFormat::UInt8);
-        break;
-    case PCM_S16LE:
-    case PCM_S24LE:
-        m_format.setSampleFormat(QAudioFormat::Int16);
-        break;
-    case PCM_S32LE:
-        m_format.setSampleFormat(QAudioFormat::Int32);
-        break;
-    default:
-        qWarning("AudioRendererQt6: unsupported format detected");
-        return false;
+        case PCM_S8:
+            m_format.setSampleFormat(QAudioFormat::UInt8);
+            break;
+        case PCM_S16LE:
+        case PCM_S24LE:
+            m_format.setSampleFormat(QAudioFormat::Int16);
+            break;
+        case PCM_S32LE:
+            m_format.setSampleFormat(QAudioFormat::Int32);
+            break;
+        default:
+            qWarning("AudioRendererQt6: unsupported format detected");
+            return false;
     }
 
     if (!m_deviceInfo.isFormatSupported(m_format))

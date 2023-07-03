@@ -377,19 +377,48 @@ void RGBScript_Test::runScripts()
                 // Check property specificities
                 switch (property.m_type)
                 {
-                case RGBScriptProperty::List:
-                    // Verify the list is valid
-                    QVERIFY(property.m_listValues.size() > 1);
-                    QVERIFY(property.m_listValues.removeDuplicates() == 0);
-                    // Verify the default value is valid
-                    QVERIFY(property.m_listValues.contains(s.property(property.m_name)));
-                    foreach (QString value, property.m_listValues)
-                    {
-                        // Test with all values from the list
-                        qDebug() << property.m_name << value;
-                        s.setProperty(property.m_name, value);
+                    case RGBScriptProperty::List:
+                        // Verify the list is valid
+                        QVERIFY(property.m_listValues.size() > 1);
+                        QVERIFY(property.m_listValues.removeDuplicates() == 0);
+                        // Verify the default value is valid
+                        QVERIFY(property.m_listValues.contains(s.property(property.m_name)));
+                        foreach (QString value, property.m_listValues)
+                        {
+                            // Test with all values from the list
+                            qDebug() << property.m_name << value;
+                            s.setProperty(property.m_name, value);
+                            qDebug() << "  Readback" << s.property(property.m_name);
+                            QVERIFY(s.property(property.m_name) == value);
+                            for (int step = 0; step < realsteps; step++)
+                            {
+                                RGBMap map;
+                                s.rgbMap(mapSize, red, step, map);
+                                QVERIFY(map.isEmpty() == false);
+                                // Check that the color values are limited to a valid range
+                                for (int y = 0; y < mapSize.height(); y++)
+                                {
+                                    for (int x = 0; x < mapSize.width(); x++)
+                                    {
+                                        QVERIFY(map[y][x] <= 0xffffff);
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case RGBScriptProperty::Range:
+                        QVERIFY(property.m_rangeMinValue < property.m_rangeMaxValue);
+                        // Verify the default value is in the valid range
+                        qDebug() << "  Default: " << s.property(property.m_name).toInt()
+                                 << " Min: " << property.m_rangeMinValue << " Max: " << property.m_rangeMaxValue;
+                        QVERIFY(s.property(property.m_name).toInt() >= property.m_rangeMinValue);
+                        QVERIFY(s.property(property.m_name).toInt() <= property.m_rangeMaxValue);
+                        // test with min and max value from the list
+                        qDebug() << property.m_name << QString::number(property.m_rangeMinValue);
+
+                        s.setProperty(property.m_name, QString::number(property.m_rangeMinValue));
                         qDebug() << "  Readback" << s.property(property.m_name);
-                        QVERIFY(s.property(property.m_name) == value);
+                        QVERIFY(s.property(property.m_name) == QString::number(property.m_rangeMinValue));
                         for (int step = 0; step < realsteps; step++)
                         {
                             RGBMap map;
@@ -404,98 +433,69 @@ void RGBScript_Test::runScripts()
                                 }
                             }
                         }
-                    }
-                    break;
-                case RGBScriptProperty::Range:
-                    QVERIFY(property.m_rangeMinValue < property.m_rangeMaxValue);
-                    // Verify the default value is in the valid range
-                    qDebug() << "  Default: " << s.property(property.m_name).toInt()
-                             << " Min: " << property.m_rangeMinValue << " Max: " << property.m_rangeMaxValue;
-                    QVERIFY(s.property(property.m_name).toInt() >= property.m_rangeMinValue);
-                    QVERIFY(s.property(property.m_name).toInt() <= property.m_rangeMaxValue);
-                    // test with min and max value from the list
-                    qDebug() << property.m_name << QString::number(property.m_rangeMinValue);
-
-                    s.setProperty(property.m_name, QString::number(property.m_rangeMinValue));
-                    qDebug() << "  Readback" << s.property(property.m_name);
-                    QVERIFY(s.property(property.m_name) == QString::number(property.m_rangeMinValue));
-                    for (int step = 0; step < realsteps; step++)
-                    {
-                        RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
-                        QVERIFY(map.isEmpty() == false);
-                        // Check that the color values are limited to a valid range
-                        for (int y = 0; y < mapSize.height(); y++)
+                        qDebug() << property.m_name << QString::number(property.m_rangeMaxValue);
+                        s.setProperty(property.m_name, QString::number(property.m_rangeMaxValue));
+                        qDebug() << "  Readback: " << s.property(property.m_name);
+                        QVERIFY(s.property(property.m_name) == QString::number(property.m_rangeMaxValue));
+                        for (int step = 0; step < realsteps; step++)
                         {
-                            for (int x = 0; x < mapSize.width(); x++)
+                            RGBMap map;
+                            s.rgbMap(mapSize, red, step, map);
+                            QVERIFY(map.isEmpty() == false);
+                            // Check that the color values are limited to a valid range
+                            for (int y = 0; y < mapSize.height(); y++)
                             {
-                                QVERIFY(map[y][x] <= 0xffffff);
+                                for (int x = 0; x < mapSize.width(); x++)
+                                {
+                                    QVERIFY(map[y][x] <= 0xffffff);
+                                }
                             }
                         }
-                    }
-                    qDebug() << property.m_name << QString::number(property.m_rangeMaxValue);
-                    s.setProperty(property.m_name, QString::number(property.m_rangeMaxValue));
-                    qDebug() << "  Readback: " << s.property(property.m_name);
-                    QVERIFY(s.property(property.m_name) == QString::number(property.m_rangeMaxValue));
-                    for (int step = 0; step < realsteps; step++)
-                    {
-                        RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
-                        QVERIFY(map.isEmpty() == false);
-                        // Check that the color values are limited to a valid range
-                        for (int y = 0; y < mapSize.height(); y++)
+                        break;
+                    case RGBScriptProperty::Integer:
+                        // Test with an integer value
+                        s.setProperty(property.m_name, QString::number(-1024));
+                        qDebug() << "  Readback: " << s.property(property.m_name);
+                        QVERIFY(s.property(property.m_name) == QString::number(-1024));
+                        for (int step = 0; step < realsteps; step++)
                         {
-                            for (int x = 0; x < mapSize.width(); x++)
+                            RGBMap map;
+                            s.rgbMap(mapSize, red, step, map);
+                            QVERIFY(map.isEmpty() == false);
+                            // Check that the color values are limited to a valid range
+                            for (int y = 0; y < mapSize.height(); y++)
                             {
-                                QVERIFY(map[y][x] <= 0xffffff);
+                                for (int x = 0; x < mapSize.width(); x++)
+                                {
+                                    QVERIFY(map[y][x] <= 0xffffff);
+                                }
                             }
                         }
-                    }
-                    break;
-                case RGBScriptProperty::Integer:
-                    // Test with an integer value
-                    s.setProperty(property.m_name, QString::number(-1024));
-                    qDebug() << "  Readback: " << s.property(property.m_name);
-                    QVERIFY(s.property(property.m_name) == QString::number(-1024));
-                    for (int step = 0; step < realsteps; step++)
-                    {
-                        RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
-                        QVERIFY(map.isEmpty() == false);
-                        // Check that the color values are limited to a valid range
-                        for (int y = 0; y < mapSize.height(); y++)
+                        break;
+                    case RGBScriptProperty::String:
+                        // Test with an integer value
+                        s.setProperty(property.m_name, QString("QLC+"));
+                        qDebug() << "  Readback: " << s.property(property.m_name);
+                        QVERIFY(s.property(property.m_name) == QString("QLC+"));
+                        for (int step = 0; step < realsteps; step++)
                         {
-                            for (int x = 0; x < mapSize.width(); x++)
+                            RGBMap map;
+                            s.rgbMap(mapSize, red, step, map);
+                            QVERIFY(map.isEmpty() == false);
+                            // Check that the color values are limited to a valid range
+                            for (int y = 0; y < mapSize.height(); y++)
                             {
-                                QVERIFY(map[y][x] <= 0xffffff);
+                                for (int x = 0; x < mapSize.width(); x++)
+                                {
+                                    QVERIFY(map[y][x] <= 0xffffff);
+                                }
                             }
                         }
-                    }
-                    break;
-                case RGBScriptProperty::String:
-                    // Test with an integer value
-                    s.setProperty(property.m_name, QString("QLC+"));
-                    qDebug() << "  Readback: " << s.property(property.m_name);
-                    QVERIFY(s.property(property.m_name) == QString("QLC+"));
-                    for (int step = 0; step < realsteps; step++)
-                    {
-                        RGBMap map;
-                        s.rgbMap(mapSize, red, step, map);
-                        QVERIFY(map.isEmpty() == false);
-                        // Check that the color values are limited to a valid range
-                        for (int y = 0; y < mapSize.height(); y++)
-                        {
-                            for (int x = 0; x < mapSize.width(); x++)
-                            {
-                                QVERIFY(map[y][x] <= 0xffffff);
-                            }
-                        }
-                    }
-                    break;
-                default:
-                    qDebug() << "Untested property: " << property.m_name;
-                    QVERIFY(false);
-                    break;
+                        break;
+                    default:
+                        qDebug() << "Untested property: " << property.m_name;
+                        QVERIFY(false);
+                        break;
                 }
             }
         }

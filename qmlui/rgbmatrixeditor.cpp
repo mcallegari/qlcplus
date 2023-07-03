@@ -412,7 +412,7 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
 
         switch (prop.m_type)
         {
-        case RGBScriptProperty::List:
+            case RGBScriptProperty::List:
             {
                 QVariantList valList;
                 int idx = 0;
@@ -435,7 +435,7 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
                                           Q_ARG(QVariant, QVariant::fromValue(valList)), Q_ARG(QVariant, currIdx));
             }
             break;
-        case RGBScriptProperty::Range:
+            case RGBScriptProperty::Range:
             {
                 QString pValue = m_matrix->property(prop.m_name);
 
@@ -444,9 +444,9 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
                                           Q_ARG(QVariant, pValue.toInt()));
             }
             break;
-        default:
-            qWarning() << "Type" << prop.m_type << "not handled yet";
-            break;
+            default:
+                qWarning() << "Type" << prop.m_type << "not handled yet";
+                break;
         }
     }
 }

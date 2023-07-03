@@ -117,15 +117,15 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
             // convert the grid size first
             switch (pov)
             {
-            case TopView:
-                setGridSize(QVector3D(gSize.x(), GRID_DEFAULT_HEIGHT, gSize.y()));
-                break;
-            case RightSideView:
-            case LeftSideView:
-                setGridSize(QVector3D(GRID_DEFAULT_WIDTH, gSize.x(), gSize.x()));
-                break;
-            default:
-                break;
+                case TopView:
+                    setGridSize(QVector3D(gSize.x(), GRID_DEFAULT_HEIGHT, gSize.y()));
+                    break;
+                case RightSideView:
+                case LeftSideView:
+                    setGridSize(QVector3D(GRID_DEFAULT_WIDTH, gSize.x(), gSize.x()));
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -138,24 +138,24 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
 
                 switch (pov)
                 {
-                case TopView:
+                    case TopView:
                     {
                         newPos = QVector3D(pos.x(), 1000, pos.y());
                     }
                     break;
-                case RightSideView:
+                    case RightSideView:
                     {
                         newPos = QVector3D(0, pos.y(), (gridSize().z() * units) - pos.x());
                     }
                     break;
-                case LeftSideView:
+                    case LeftSideView:
                     {
                         newPos = QVector3D(0, pos.y(), pos.x());
                     }
                     break;
-                default:
-                    newPos = QVector3D(pos.x(), (gridSize().y() * units) - pos.y(), 1000);
-                    break;
+                    default:
+                        newPos = QVector3D(pos.x(), (gridSize().y() * units) - pos.y(), 1000);
+                        break;
                 }
                 setFixturePosition(fid, fixtureHeadIndex(subID), fixtureLinkedIndex(subID), newPos);
             }

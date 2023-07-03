@@ -218,35 +218,35 @@ void VCMatrixProperties::updateTree()
 
         switch (control->m_type)
         {
-        case VCMatrixControl::StartColor:
-            item->setIcon(0, QIcon(":/color.png"));
-            item->setText(0, tr("Start Color"));
-            item->setText(1, control->m_color.name());
-            item->setBackground(1, QBrush(control->m_color));
-            break;
-        case VCMatrixControl::StartColorKnob:
-            item->setIcon(0, QIcon(":/knob.png"));
-            item->setText(0, tr("Start Color Knob"));
-            item->setText(1, control->m_color.name());
-            item->setBackground(1, QBrush(control->m_color));
-            break;
-        case VCMatrixControl::EndColor:
-            item->setIcon(0, QIcon(":/color.png"));
-            item->setText(0, tr("End Color"));
-            item->setText(1, control->m_color.name());
-            item->setBackground(1, QBrush(control->m_color));
-            break;
-        case VCMatrixControl::EndColorKnob:
-            item->setIcon(0, QIcon(":/knob.png"));
-            item->setText(0, tr("End Color Knob"));
-            item->setText(1, control->m_color.name());
-            item->setBackground(1, QBrush(control->m_color));
-            break;
-        case VCMatrixControl::ResetEndColor:
-            item->setIcon(0, QIcon(":/fileclose.png"));
-            item->setText(0, tr("End Color Reset"));
-            break;
-        case VCMatrixControl::Animation:
+            case VCMatrixControl::StartColor:
+                item->setIcon(0, QIcon(":/color.png"));
+                item->setText(0, tr("Start Color"));
+                item->setText(1, control->m_color.name());
+                item->setBackground(1, QBrush(control->m_color));
+                break;
+            case VCMatrixControl::StartColorKnob:
+                item->setIcon(0, QIcon(":/knob.png"));
+                item->setText(0, tr("Start Color Knob"));
+                item->setText(1, control->m_color.name());
+                item->setBackground(1, QBrush(control->m_color));
+                break;
+            case VCMatrixControl::EndColor:
+                item->setIcon(0, QIcon(":/color.png"));
+                item->setText(0, tr("End Color"));
+                item->setText(1, control->m_color.name());
+                item->setBackground(1, QBrush(control->m_color));
+                break;
+            case VCMatrixControl::EndColorKnob:
+                item->setIcon(0, QIcon(":/knob.png"));
+                item->setText(0, tr("End Color Knob"));
+                item->setText(1, control->m_color.name());
+                item->setBackground(1, QBrush(control->m_color));
+                break;
+            case VCMatrixControl::ResetEndColor:
+                item->setIcon(0, QIcon(":/fileclose.png"));
+                item->setText(0, tr("End Color Reset"));
+                break;
+            case VCMatrixControl::Animation:
             {
                 item->setIcon(0, QIcon(":/script.png"));
                 item->setText(0, tr("Animation"));
@@ -267,13 +267,13 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, presetName);
             }
             break;
-        case VCMatrixControl::Image:
-            break;
-        case VCMatrixControl::Text:
-            item->setIcon(0, QIcon(":/fonts.png"));
-            item->setText(0, tr("Text"));
-            item->setText(1, control->m_resource);
-            break;
+            case VCMatrixControl::Image:
+                break;
+            case VCMatrixControl::Text:
+                item->setIcon(0, QIcon(":/fonts.png"));
+                item->setText(0, tr("Text"));
+                item->setText(1, control->m_resource);
+                break;
         }
     }
     m_controlsTree->resizeColumnToContents(0);

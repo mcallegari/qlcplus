@@ -314,8 +314,8 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 
     switch (code)
     {
-    case IOAddUniverse:
-    case IORemoveUniverse:
+        case IOAddUniverse:
+        case IORemoveUniverse:
         {
             if (objID >= quint32(m_doc->inputOutputMap()->universes().count()))
                 break;
@@ -325,57 +325,57 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         }
         break;
 
-    case FixtureCreate:
-    case FixtureDelete:
+        case FixtureCreate:
+        case FixtureDelete:
         {
             Fixture *fixture = qobject_cast<Fixture *>(m_doc->fixture(objID));
             if (fixture)
                 fixture->saveXML(&xmlWriter);
         }
         break;
-    case FixtureGroupCreate:
-    case FixtureGroupDelete:
+        case FixtureGroupCreate:
+        case FixtureGroupDelete:
         {
             FixtureGroup *group = qobject_cast<FixtureGroup *>(m_doc->fixtureGroup(objID));
             if (group)
                 group->saveXML(&xmlWriter);
         }
         break;
-    case FunctionCreate:
-    case FunctionDelete:
+        case FunctionCreate:
+        case FunctionDelete:
         {
             Function *function = qobject_cast<Function *>(m_doc->function(objID));
             if (function)
                 function->saveXML(&xmlWriter);
         }
         break;
-    case ChaserAddStep:
-    case ChaserRemoveStep:
+        case ChaserAddStep:
+        case ChaserRemoveStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             ChaserStep *step = chaser->stepAt(data.toInt());
             step->saveXML(&xmlWriter, data.toInt(), chaser->type() == Function::SequenceType ? true : false);
         }
         break;
-    case EFXAddFixture:
-    case EFXRemoveFixture:
+        case EFXAddFixture:
+        case EFXRemoveFixture:
         {
             // EFXFixture reference is stored on data, so let's C-cast the QVariant value
             EFXFixture *fixture = (EFXFixture *)data.value<void *>();
             fixture->saveXML(&xmlWriter);
         }
         break;
-    case VCWidgetCreate:
-    case VCWidgetDelete:
+        case VCWidgetCreate:
+        case VCWidgetDelete:
         {
             VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(objID));
             if (widget)
                 widget->saveXML(&xmlWriter);
         }
         break;
-    default:
-        qWarning() << "Buffered action" << code << "not implemented!";
-        break;
+        default:
+            qWarning() << "Buffered action" << code << "not implemented!";
+            break;
     }
 
     return buffer.buffer();
@@ -403,7 +403,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 
     switch (action)
     {
-    case IOAddUniverse:
+        case IOAddUniverse:
         {
             if (objID >= m_doc->inputOutputMap()->universesCount())
             {
@@ -417,38 +417,38 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         }
         break;
 
-    case IORemoveUniverse:
+        case IORemoveUniverse:
         {
             m_doc->inputOutputMap()->removeUniverse(int(objID));
         }
         break;
 
-    case FixtureCreate:
+        case FixtureCreate:
         {
             Fixture::loader(xmlReader, m_doc);
         }
         break;
-    case FixtureDelete:
+        case FixtureDelete:
         {
             m_fixtureManager->deleteFixtures(QVariantList() << objID);
         }
         break;
-    case FixtureGroupCreate:
+        case FixtureGroupCreate:
         {
             FixtureGroup::loader(xmlReader, m_doc);
         }
         break;
-    case FunctionCreate:
+        case FunctionCreate:
         {
             Function::loader(xmlReader, m_doc);
         }
         break;
-    case FunctionDelete:
+        case FunctionDelete:
         {
             m_functionManager->deleteFunction(objID);
         }
         break;
-    case ChaserAddStep:
+        case ChaserAddStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             ChaserStep step;
@@ -458,13 +458,13 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
                 chaser->addStep(step, stepNumber);
         }
         break;
-    case ChaserRemoveStep:
+        case ChaserRemoveStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             chaser->removeStep(value.toInt());
         }
         break;
-    case EFXAddFixture:
+        case EFXAddFixture:
         {
             EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
             EFXFixture *ef = new EFXFixture(efx);
@@ -473,7 +473,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             efx->addFixture(ef);
         }
         break;
-    case EFXRemoveFixture:
+        case EFXRemoveFixture:
         {
             EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
             EFXFixture *ef = new EFXFixture(efx);
@@ -483,14 +483,14 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             delete ef;
         }
         break;
-    case VCWidgetCreate:
+        case VCWidgetCreate:
         {
             VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(objID));
             if (frame)
                 frame->loadWidgetXML(xmlReader, true);
         }
         break;
-    case VCWidgetDelete:
+        case VCWidgetDelete:
         {
             QXmlStreamAttributes attrs = xmlReader.attributes();
 
@@ -499,9 +499,9 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         }
         break;
 
-    default:
-        // This action was either not buffered or not implemented
-        return false;
+        default:
+            // This action was either not buffered or not implemented
+            return false;
     }
 
     return true;
@@ -530,116 +530,116 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     switch (action.m_action)
     {
-    /* *********************** Global settings actions ************************ */
-    case EnvironmentSetSize:
+        /* *********************** Global settings actions ************************ */
+        case EnvironmentSetSize:
         {
             m_contextManager->setEnvironmentSize(value->value<QVector3D>());
         }
         break;
 
-    /* *********************** Input/Output manager actions ************************ */
-    case IOAddUniverse:
-        processBufferedAction(undo ? IORemoveUniverse : IOAddUniverse, action.m_objID, action.m_newValue);
-        return undo ? IORemoveUniverse : IOAddUniverse;
+        /* *********************** Input/Output manager actions ************************ */
+        case IOAddUniverse:
+            processBufferedAction(undo ? IORemoveUniverse : IOAddUniverse, action.m_objID, action.m_newValue);
+            return undo ? IORemoveUniverse : IOAddUniverse;
 
-    case IORemoveUniverse:
-        processBufferedAction(undo ? IOAddUniverse : IORemoveUniverse, action.m_objID, action.m_oldValue);
-        return undo ? IOAddUniverse : IORemoveUniverse;
+        case IORemoveUniverse:
+            processBufferedAction(undo ? IOAddUniverse : IORemoveUniverse, action.m_objID, action.m_oldValue);
+            return undo ? IOAddUniverse : IORemoveUniverse;
 
-    /* *********************** Fixture editing actions ************************ */
-    case FixtureCreate:
-        processBufferedAction(undo ? FixtureDelete : FixtureCreate, action.m_objID, action.m_newValue);
-        return undo ? FixtureDelete : FixtureCreate;
+        /* *********************** Fixture editing actions ************************ */
+        case FixtureCreate:
+            processBufferedAction(undo ? FixtureDelete : FixtureCreate, action.m_objID, action.m_newValue);
+            return undo ? FixtureDelete : FixtureCreate;
 
-    case FixtureDelete:
-        processBufferedAction(undo ? FixtureCreate : FixtureDelete, action.m_objID, action.m_oldValue);
-        return undo ? FixtureCreate : FixtureDelete;
+        case FixtureDelete:
+            processBufferedAction(undo ? FixtureCreate : FixtureDelete, action.m_objID, action.m_oldValue);
+            return undo ? FixtureCreate : FixtureDelete;
 
-    case FixtureMove:
+        case FixtureMove:
         {
             m_fixtureManager->moveFixture(action.m_objID, value->toUInt());
         }
         break;
-    case FixtureSetName:
+        case FixtureSetName:
         {
             m_fixtureManager->renameFixture(action.m_objID, value->toString());
         }
         break;
-    case FixtureSetPosition:
+        case FixtureSetPosition:
         {
             QVector3D pos = value->value<QVector3D>();
             m_contextManager->setFixturePosition(action.m_objID, pos.x(), pos.y(), pos.z());
         }
         break;
-    case FixtureSetDumpValue:
+        case FixtureSetDumpValue:
         {
             SceneValue scv = value->value<SceneValue>();
             m_contextManager->setDumpValue(scv.fxi, scv.channel, scv.value);
         }
         break;
 
-    /* *********************** Function editing actions *********************** */
-    case FunctionCreate:
-        processBufferedAction(undo ? FunctionDelete : FunctionCreate, action.m_objID, action.m_newValue);
-        return undo ? FunctionDelete : FunctionCreate;
+        /* *********************** Function editing actions *********************** */
+        case FunctionCreate:
+            processBufferedAction(undo ? FunctionDelete : FunctionCreate, action.m_objID, action.m_newValue);
+            return undo ? FunctionDelete : FunctionCreate;
 
-    case FunctionDelete:
-        processBufferedAction(undo ? FunctionCreate : FunctionDelete, action.m_objID, action.m_oldValue);
-        return undo ? FunctionCreate : FunctionDelete;
+        case FunctionDelete:
+            processBufferedAction(undo ? FunctionCreate : FunctionDelete, action.m_objID, action.m_oldValue);
+            return undo ? FunctionCreate : FunctionDelete;
 
-    case FunctionSetName:
+        case FunctionSetName:
         {
             auto member = std::mem_fn(&Function::setName);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
-    case FunctionSetPath:
+        case FunctionSetPath:
         {
             auto member = std::mem_fn(&Function::setPath);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
-    case FunctionSetTempoType:
+        case FunctionSetTempoType:
         {
             auto member = std::mem_fn(&Function::setTempoType);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::TempoType(value->toInt()));
         }
         break;
-    case FunctionSetRunOrder:
+        case FunctionSetRunOrder:
         {
             auto member = std::mem_fn(&Function::setRunOrder);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::RunOrder(value->toInt()));
         }
         break;
-    case FunctionSetDirection:
+        case FunctionSetDirection:
         {
             auto member = std::mem_fn(&Function::setDirection);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::Direction(value->toInt()));
         }
         break;
-    case FunctionSetFadeIn:
+        case FunctionSetFadeIn:
         {
             auto member = std::mem_fn(&Function::setFadeInSpeed);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
-    case FunctionSetFadeOut:
+        case FunctionSetFadeOut:
         {
             auto member = std::mem_fn(&Function::setFadeOutSpeed);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
-    case FunctionSetDuration:
+        case FunctionSetDuration:
         {
             auto member = std::mem_fn(&Function::setDuration);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
 
-        /* *********************** Scene editing actions *********************** */
+            /* *********************** Scene editing actions *********************** */
 
-    case SceneSetChannelValue:
-    case SceneUnsetChannelValue:
+        case SceneSetChannelValue:
+        case SceneUnsetChannelValue:
         {
             SceneValue scv = value->value<SceneValue>();
             Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
@@ -660,17 +660,17 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
-        /* *********************** Chaser editing actions *********************** */
+            /* *********************** Chaser editing actions *********************** */
 
-    case ChaserAddStep:
-        processBufferedAction(undo ? ChaserRemoveStep : ChaserAddStep, action.m_objID, action.m_newValue);
-        return undo ? ChaserRemoveStep : ChaserAddStep;
+        case ChaserAddStep:
+            processBufferedAction(undo ? ChaserRemoveStep : ChaserAddStep, action.m_objID, action.m_newValue);
+            return undo ? ChaserRemoveStep : ChaserAddStep;
 
-    case ChaserRemoveStep:
-        processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
-        return undo ? ChaserAddStep : ChaserRemoveStep;
+        case ChaserRemoveStep:
+            processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
+            return undo ? ChaserAddStep : ChaserRemoveStep;
 
-    case ChaserSetStepFadeIn:
+        case ChaserSetStepFadeIn:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
@@ -679,7 +679,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
-    case ChaserSetStepHold:
+        case ChaserSetStepHold:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
@@ -688,7 +688,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
-    case ChaserSetStepFadeOut:
+        case ChaserSetStepFadeOut:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
@@ -697,7 +697,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
-    case ChaserSetStepDuration:
+        case ChaserSetStepDuration:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
@@ -707,92 +707,92 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
-        /* *********************** EFX editing actions *********************** */
+            /* *********************** EFX editing actions *********************** */
 
-    case EFXAddFixture:
-        processBufferedAction(undo ? EFXRemoveFixture : EFXAddFixture, action.m_objID, action.m_newValue);
-        return undo ? EFXRemoveFixture : EFXAddFixture;
+        case EFXAddFixture:
+            processBufferedAction(undo ? EFXRemoveFixture : EFXAddFixture, action.m_objID, action.m_newValue);
+            return undo ? EFXRemoveFixture : EFXAddFixture;
 
-    case EFXRemoveFixture:
-        processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
-        return undo ? EFXAddFixture : EFXRemoveFixture;
+        case EFXRemoveFixture:
+            processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
+            return undo ? EFXAddFixture : EFXRemoveFixture;
 
-    case EFXSetAlgorithmIndex:
+        case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), EFX::Algorithm(value->toInt()));
         }
         break;
-    case EFXSetRelative:
+        case EFXSetRelative:
         {
             auto member = std::mem_fn(&EFX::setIsRelative);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toBool());
         }
         break;
-    case EFXSetWidth:
+        case EFXSetWidth:
         {
             auto member = std::mem_fn(&EFX::setWidth);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetHeight:
+        case EFXSetHeight:
         {
             auto member = std::mem_fn(&EFX::setHeight);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetXOffset:
+        case EFXSetXOffset:
         {
             auto member = std::mem_fn(&EFX::setXOffset);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetYOffset:
+        case EFXSetYOffset:
         {
             auto member = std::mem_fn(&EFX::setYOffset);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetRotation:
+        case EFXSetRotation:
         {
             auto member = std::mem_fn(&EFX::setRotation);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetStartOffset:
+        case EFXSetStartOffset:
         {
             auto member = std::mem_fn(&EFX::setStartOffset);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetXFrequency:
+        case EFXSetXFrequency:
         {
             auto member = std::mem_fn(&EFX::setXFrequency);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetYFrequency:
+        case EFXSetYFrequency:
         {
             auto member = std::mem_fn(&EFX::setYFrequency);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetXPhase:
+        case EFXSetXPhase:
         {
             auto member = std::mem_fn(&EFX::setXPhase);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case EFXSetYPhase:
+        case EFXSetYPhase:
         {
             auto member = std::mem_fn(&EFX::setYPhase);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
 
-        /* *********************** Collection editing actions *********************** */
+            /* *********************** Collection editing actions *********************** */
 
-    case CollectionAddFunction:
+        case CollectionAddFunction:
         {
             Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
@@ -802,7 +802,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 collection->addFunction(pairValue.first, int(pairValue.second));
         }
         break;
-    case CollectionRemoveFunction:
+        case CollectionRemoveFunction:
         {
             Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
@@ -813,15 +813,15 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
-        /* *********************** RGBMatrix editing actions *********************** */
+            /* *********************** RGBMatrix editing actions *********************** */
 
-    case RGBMatrixSetFixtureGroup:
+        case RGBMatrixSetFixtureGroup:
         {
             auto member = std::mem_fn(&RGBMatrix::setFixtureGroup);
             member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
-    case RGBMatrixSetAlgorithmIndex:
+        case RGBMatrixSetAlgorithmIndex:
         {
             QStringList algoList = RGBAlgorithm::algorithms(m_doc);
             RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoList.at(value->toInt()));
@@ -829,40 +829,40 @@ int Tardis::processAction(TardisAction &action, bool undo)
             matrix->setAlgorithm(algo);
         }
         break;
-    case RGBMatrixSetStartColor:
+        case RGBMatrixSetStartColor:
         {
             auto member = std::mem_fn(&RGBMatrix::setStartColor);
             member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
         }
         break;
-    case RGBMatrixSetEndColor:
+        case RGBMatrixSetEndColor:
         {
             auto member = std::mem_fn(&RGBMatrix::setEndColor);
             member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
         }
         break;
-    case RGBMatrixSetScriptIntValue:
+        case RGBMatrixSetScriptIntValue:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             StringIntPair pairValue = value->value<StringIntPair>(); // param name on first, value on second
             matrix->setProperty(pairValue.first, QString::number(pairValue.second));
         }
         break;
-    case RGBMatrixSetScriptStringValue:
+        case RGBMatrixSetScriptStringValue:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             StringStringPair pairValue = value->value<StringStringPair>(); // param name on first, value on second
             matrix->setProperty(pairValue.first, pairValue.second);
         }
         break;
-    case RGBMatrixSetText:
+        case RGBMatrixSetText:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
             algo->setText(value->toString());
         }
         break;
-    case RGBMatrixSetTextFont:
+        case RGBMatrixSetTextFont:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             RGBText *algo = static_cast<RGBText *>(matrix->algorithm());
@@ -871,14 +871,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
             algo->setFont(font);
         }
         break;
-    case RGBMatrixSetImage:
+        case RGBMatrixSetImage:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             RGBImage *algo = static_cast<RGBImage *>(matrix->algorithm());
             algo->setFilename(value->toString());
         }
         break;
-    case RGBMatrixSetOffset:
+        case RGBMatrixSetOffset:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             if (matrix->algorithm()->type() == RGBAlgorithm::Image)
@@ -895,7 +895,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
             }
         }
         break;
-    case RGBMatrixSetAnimationStyle:
+        case RGBMatrixSetAnimationStyle:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             if (matrix->algorithm()->type() == RGBAlgorithm::Image)
@@ -911,65 +911,65 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
-        /* *********************** Audio editing actions *********************** */
+            /* *********************** Audio editing actions *********************** */
 
-    case AudioSetSource:
+        case AudioSetSource:
         {
             auto member = std::mem_fn(&Audio::setSourceFileName);
             member(qobject_cast<Audio *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
 
-    case AudioSetVolume:
+        case AudioSetVolume:
         {
             auto member = std::mem_fn(&Audio::setVolume);
             member(qobject_cast<Audio *>(m_doc->function(action.m_objID)), value->toDouble());
         }
         break;
 
-        /* *********************** Video editing actions *********************** */
+            /* *********************** Video editing actions *********************** */
 
-    case VideoSetSource:
+        case VideoSetSource:
         {
             auto member = std::mem_fn(&Video::setSourceUrl);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
-    case VideoSetScreenIndex:
+        case VideoSetScreenIndex:
         {
             auto member = std::mem_fn(&Video::setScreen);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
-    case VideoSetFullscreen:
+        case VideoSetFullscreen:
         {
             auto member = std::mem_fn(&Video::setFullscreen);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toBool());
         }
         break;
-    case VideoSetGeometry:
+        case VideoSetGeometry:
         {
             auto member = std::mem_fn(&Video::setCustomGeometry);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toRect());
         }
         break;
-    case VideoSetRotation:
+        case VideoSetRotation:
         {
             QVector3D rotation = value->value<QVector3D>();
             auto member = std::mem_fn(&Video::setRotation);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), rotation);
         }
         break;
-    case VideoSetLayer:
+        case VideoSetLayer:
         {
             auto member = std::mem_fn(&Video::setZIndex);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
 
-        /* ************************* Simple Desk actions ************************** */
+            /* ************************* Simple Desk actions ************************** */
 
-    case SimpleDeskSetChannel:
+        case SimpleDeskSetChannel:
         {
             SceneValue scv = value->value<SceneValue>();
             if (scv.channel == QLCChannel::invalid())
@@ -981,7 +981,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
         }
         break;
-    case SimpleDeskResetChannel:
+        case SimpleDeskResetChannel:
         {
             SceneValue scv = value->value<SceneValue>();
             if (undo)
@@ -991,139 +991,139 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
-        /* ******************* Virtual console editing actions ******************** */
+            /* ******************* Virtual console editing actions ******************** */
 
-    case VCWidgetCreate:
-        processBufferedAction(undo ? VCWidgetDelete : VCWidgetCreate, action.m_objID, action.m_newValue);
-        return undo ? VCWidgetDelete : VCWidgetCreate;
+        case VCWidgetCreate:
+            processBufferedAction(undo ? VCWidgetDelete : VCWidgetCreate, action.m_objID, action.m_newValue);
+            return undo ? VCWidgetDelete : VCWidgetCreate;
 
-    case VCWidgetDelete:
-        processBufferedAction(undo ? VCWidgetCreate : VCWidgetDelete, action.m_objID, action.m_oldValue);
-        return undo ? VCWidgetCreate : VCWidgetDelete;
+        case VCWidgetDelete:
+            processBufferedAction(undo ? VCWidgetCreate : VCWidgetDelete, action.m_objID, action.m_oldValue);
+            return undo ? VCWidgetCreate : VCWidgetDelete;
 
-    case VCWidgetGeometry:
+        case VCWidgetGeometry:
         {
             auto member = std::mem_fn(&VCWidget::setGeometry);
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toRectF());
         }
         break;
-    case VCWidgetCaption:
+        case VCWidgetCaption:
         {
             auto member = std::mem_fn(&VCWidget::setCaption);
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toString());
         }
         break;
-    case VCWidgetBackgroundColor:
+        case VCWidgetBackgroundColor:
         {
             auto member = std::mem_fn(&VCWidget::setBackgroundColor);
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
         }
         break;
-    case VCWidgetBackgroundImage:
+        case VCWidgetBackgroundImage:
         {
             auto member = std::mem_fn(&VCWidget::setBackgroundImage);
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toString());
         }
         break;
-    case VCWidgetForegroundColor:
+        case VCWidgetForegroundColor:
         {
             auto member = std::mem_fn(&VCWidget::setForegroundColor);
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
         }
         break;
-    case VCWidgetFont:
+        case VCWidgetFont:
         {
             auto member = std::mem_fn(&VCWidget::setFont);
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QFont>());
         }
         break;
 
-    case VCButtonSetActionType:
+        case VCButtonSetActionType:
         {
             auto member = std::mem_fn(&VCButton::setActionType);
             member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)),
                    VCButton::ButtonAction(value->toInt()));
         }
         break;
-    case VCButtonSetFunctionID:
+        case VCButtonSetFunctionID:
         {
             auto member = std::mem_fn(&VCButton::setFunctionID);
             member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
-    case VCButtonEnableStartupIntensity:
+        case VCButtonEnableStartupIntensity:
         {
             auto member = std::mem_fn(&VCButton::setStartupIntensityEnabled);
             member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
         }
         break;
-    case VCButtonSetStartupIntensity:
+        case VCButtonSetStartupIntensity:
         {
             auto member = std::mem_fn(&VCButton::setStartupIntensity);
             member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
         }
         break;
 
-    case VCSliderSetMode:
+        case VCSliderSetMode:
         {
             auto member = std::mem_fn(&VCSlider::setSliderMode);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)),
                    VCSlider::SliderMode(value->toInt()));
         }
         break;
-    case VCSliderSetDisplayStyle:
+        case VCSliderSetDisplayStyle:
         {
             auto member = std::mem_fn(&VCSlider::setValueDisplayStyle);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)),
                    VCSlider::ValueDisplayStyle(value->toInt()));
         }
         break;
-    case VCSliderSetInverted:
+        case VCSliderSetInverted:
         {
             auto member = std::mem_fn(&VCSlider::setInvertedAppearance);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
         }
         break;
-    case VCSliderSetFunctionID:
+        case VCSliderSetFunctionID:
         {
             auto member = std::mem_fn(&VCSlider::setControlledFunction);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
-    case VCSliderSetControlledAttribute:
+        case VCSliderSetControlledAttribute:
         {
             auto member = std::mem_fn(&VCSlider::setControlledAttribute);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toInt());
         }
         break;
-    case VCSliderSetLowLimit:
+        case VCSliderSetLowLimit:
         {
             auto member = std::mem_fn(&VCSlider::setRangeLowLimit);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
         }
         break;
-    case VCSliderSetHighLimit:
+        case VCSliderSetHighLimit:
         {
             auto member = std::mem_fn(&VCSlider::setRangeHighLimit);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
         }
         break;
 
-    case VCCueListSetChaserID:
+        case VCCueListSetChaserID:
         {
             auto member = std::mem_fn(&VCCueList::setChaserID);
             member(qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
 
-    /* ******************* Virtual Console live actions ******************* */
-    case VCButtonSetPressed:
+        /* ******************* Virtual Console live actions ******************* */
+        case VCButtonSetPressed:
         {
             auto member = std::mem_fn(&VCButton::requestStateChange);
             member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toBool());
         }
         break;
-    case VCSliderSetValue:
+        case VCSliderSetValue:
         {
             VCSlider *slider = qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID));
             if (slider)
@@ -1131,9 +1131,9 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
-    default:
-        qWarning() << "Action" << action.m_action << "not implemented!";
-        break;
+        default:
+            qWarning() << "Action" << action.m_action << "not implemented!";
+            break;
     }
 
     return action.m_action;

@@ -87,21 +87,21 @@ bool AudioDecoderSndFile::initialize(const QString &path)
     AudioFormat pcmFormat = PCM_S16LE;
     switch (snd_info.format & SF_FORMAT_SUBMASK)
     {
-    case SF_FORMAT_PCM_S8:
-        pcmFormat = PCM_S8;
-        break;
-    case SF_FORMAT_PCM_16:
-        pcmFormat = PCM_S16LE;
-        break;
-    case SF_FORMAT_PCM_24:
-        pcmFormat = PCM_S24LE;
-        break;
-    case SF_FORMAT_PCM_32:
-        pcmFormat = PCM_S32LE;
-        break;
-    default:
-        pcmFormat = PCM_S16LE;
-        break;
+        case SF_FORMAT_PCM_S8:
+            pcmFormat = PCM_S8;
+            break;
+        case SF_FORMAT_PCM_16:
+            pcmFormat = PCM_S16LE;
+            break;
+        case SF_FORMAT_PCM_24:
+            pcmFormat = PCM_S24LE;
+            break;
+        case SF_FORMAT_PCM_32:
+            pcmFormat = PCM_S32LE;
+            break;
+        default:
+            pcmFormat = PCM_S16LE;
+            break;
     }
 
     configure(m_freq, chan, pcmFormat);

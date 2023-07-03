@@ -44,19 +44,19 @@ QString VCXYPadPreset::getColor() const
 {
     switch (m_type)
     {
-    case EFX:
-        return ("#BBBB8D");
-        break;
-    case Scene:
-        return ("#BB8E8E");
-        break;
-    case FixtureGroup:
-        return ("#95BB95");
-        break;
-    case Position:
-    default:
-        return ("#BBBBBB");
-        break;
+        case EFX:
+            return ("#BBBB8D");
+            break;
+        case Scene:
+            return ("#BB8E8E");
+            break;
+        case FixtureGroup:
+            return ("#95BB95");
+            break;
+        case Position:
+        default:
+            return ("#BBBBBB");
+            break;
     }
 }
 

@@ -366,7 +366,7 @@ qint64 AudioDecoderMAD::read(char *data, qint64 size)
         {
             switch ((int)m_stream.error)
             {
-            case MAD_ERROR_LOSTSYNC:
+                case MAD_ERROR_LOSTSYNC:
                 {
                     // skip ID3v2 tag
                     uint tagSize = findID3v2((uchar *)m_stream.this_frame, (ulong)(m_stream.bufend - m_stream.this_frame));
@@ -377,15 +377,15 @@ qint64 AudioDecoderMAD::read(char *data, qint64 size)
                     }
                     continue;
                 }
-            case MAD_ERROR_BUFLEN:
-                if (m_eof)
-                    return 0;
-                continue;
-            default:
-                if (!MAD_RECOVERABLE(m_stream.error))
-                    return 0;
-                else
+                case MAD_ERROR_BUFLEN:
+                    if (m_eof)
+                        return 0;
                     continue;
+                default:
+                    if (!MAD_RECOVERABLE(m_stream.error))
+                        return 0;
+                    else
+                        continue;
             }
         }
         if (m_skip_frames)
