@@ -239,7 +239,7 @@ public:
      * This is the actual function that writes data to an output patch
      * A flag indicates if data has changed since previous iteration
      */
-    void dumpOutput(const QByteArray& data, bool dataChanged);
+    void dumpOutput(const QByteArray &data, bool dataChanged);
 
     void flushInput();
 

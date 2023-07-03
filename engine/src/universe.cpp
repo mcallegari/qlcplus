@@ -321,8 +321,8 @@ void Universe::processFaders()
         fader->write(this);
     }
 
-    bool dataChanged = hasChanged();
-    const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
+    bool             dataChanged = hasChanged();
+    const QByteArray postGM      = m_postGMValues->mid(0, m_usedChannels);
     dumpOutput(postGM, dataChanged);
 
     if (dataChanged)

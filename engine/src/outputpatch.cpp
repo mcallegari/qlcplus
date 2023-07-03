@@ -190,7 +190,7 @@ void OutputPatch::setBlackout(bool blackout)
     emit blackoutChanged(m_blackout);
 }
 
-void OutputPatch::dump(quint32 universe, const QByteArray& data, bool dataChanged)
+void OutputPatch::dump(quint32 universe, const QByteArray &data, bool dataChanged)
 {
     /* Don't do anything if there is no plugin and/or output line. */
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())

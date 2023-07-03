@@ -1194,8 +1194,8 @@ void VCSlider::writeDMXPlayback(MasterTimer *timer, QList<Universe *> ua)
     {
         if (function->stopped() == true)
         {
-#if 0 // temporarily revert #699 until a better solution is found
-      // Since this function is started by a fader, its fade in time
+#if 0 // temporarily revert #699 until a better solution is found    \
+      // Since this function is started by a fader, its fade in time \
       // is decided by the fader movement.
             function->start(timer, functionParent(),
                             0, 0, Function::defaultSpeed(), Function::defaultSpeed());

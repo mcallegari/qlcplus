@@ -1156,14 +1156,14 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
 
 void ContextManager::getCurrentColors(QQuickItem *item)
 {
-    int rgbDiffCount = 0;
-    int wauvDiffCount = 0;
+    int    rgbDiffCount  = 0;
+    int    wauvDiffCount = 0;
     QColor rgbColor;
     QColor wauvColor;
 
     for (quint32 &itemID : m_selectedFixtures)
     {
-        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint32 fxID      = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
 
         Fixture *fixture = m_doc->fixture(fxID);
@@ -1173,20 +1173,18 @@ void ContextManager::getCurrentColors(QQuickItem *item)
         QColor itemRgbColor;
         QColor itemWauvColor;
 
-        QVector <quint32> rgbCh = fixture->rgbChannels(headIndex);
+        QVector<quint32> rgbCh = fixture->rgbChannels(headIndex);
         if (rgbCh.size() == 3)
         {
-            itemRgbColor.setRgb(fixture->channelValueAt(rgbCh.at(0)),
-                             fixture->channelValueAt(rgbCh.at(1)),
-                             fixture->channelValueAt(rgbCh.at(2)));
+            itemRgbColor.setRgb(fixture->channelValueAt(rgbCh.at(0)), fixture->channelValueAt(rgbCh.at(1)),
+                                fixture->channelValueAt(rgbCh.at(2)));
         }
 
-        QVector <quint32> cmyCh = fixture->cmyChannels(headIndex);
+        QVector<quint32> cmyCh = fixture->cmyChannels(headIndex);
         if (cmyCh.size() == 3)
         {
-            itemRgbColor.setCmyk(fixture->channelValueAt(cmyCh.at(0)),
-                              fixture->channelValueAt(cmyCh.at(1)),
-                              fixture->channelValueAt(cmyCh.at(2)), 0);
+            itemRgbColor.setCmyk(fixture->channelValueAt(cmyCh.at(0)), fixture->channelValueAt(cmyCh.at(1)),
+                                 fixture->channelValueAt(cmyCh.at(2)), 0);
         }
 
         if (rgbDiffCount == 0 || itemRgbColor == rgbColor)
@@ -1196,7 +1194,7 @@ void ContextManager::getCurrentColors(QQuickItem *item)
 
         quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIndex);
         quint32 amber = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIndex);
-        quint32 UV = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIndex);
+        quint32 UV    = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIndex);
 
         if (white != QLCChannel::invalid())
             itemWauvColor.setRed(fixture->channelValueAt(white));
@@ -1211,11 +1209,8 @@ void ContextManager::getCurrentColors(QQuickItem *item)
             wauvDiffCount++;
     }
 
-    QMetaObject::invokeMethod(item, "updateColors",
-                              Q_ARG(QVariant, rgbDiffCount ? false : true),
-                              Q_ARG(QVariant, rgbColor),
-                              Q_ARG(QVariant, wauvDiffCount ? false : true),
-                              Q_ARG(QVariant, wauvColor));
+    QMetaObject::invokeMethod(item, "updateColors", Q_ARG(QVariant, rgbDiffCount ? false : true), Q_ARG(QVariant, rgbColor),
+                              Q_ARG(QVariant, wauvDiffCount ? false : true), Q_ARG(QVariant, wauvColor));
 }
 
 void ContextManager::createFixtureGroup()
@@ -1680,4 +1675,3 @@ GenericDMXSource *ContextManager::dmxSource() const
 {
     return m_source;
 }
-
