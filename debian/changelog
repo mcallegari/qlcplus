@@ -1,5 +1,8 @@
 qlcplus (4.12.8) stable; urgency=low
 
+  * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
+  * Plugins/DMX USB: add support for DMXKing MAX products
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 
 qlcplus (4.12.7) stable; urgency=low
