@@ -216,13 +216,17 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode *mode)
     // if this head doesn't include any Pan/Tilt channel
     // try to retrieve them from the fixture Mode
     if (channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid())
-        setMapIndex(QLCChannel::Pan, QLCChannel::MSB, mode->channelNumber(QLCChannel::Pan, QLCChannel::MSB));
+        setMapIndex(QLCChannel::Pan, QLCChannel::MSB,
+                    mode->channelNumber(QLCChannel::Pan, QLCChannel::MSB));
     if (channelNumber(QLCChannel::Pan, QLCChannel::LSB) == QLCChannel::invalid())
-        setMapIndex(QLCChannel::Pan, QLCChannel::LSB, mode->channelNumber(QLCChannel::Pan, QLCChannel::LSB));
+        setMapIndex(QLCChannel::Pan, QLCChannel::LSB,
+                    mode->channelNumber(QLCChannel::Pan, QLCChannel::LSB));
     if (channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid())
-        setMapIndex(QLCChannel::Tilt, QLCChannel::MSB, mode->channelNumber(QLCChannel::Tilt, QLCChannel::MSB));
+        setMapIndex(QLCChannel::Tilt, QLCChannel::MSB,
+                    mode->channelNumber(QLCChannel::Tilt, QLCChannel::MSB));
     if (channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
-        setMapIndex(QLCChannel::Tilt, QLCChannel::LSB, mode->channelNumber(QLCChannel::Tilt, QLCChannel::LSB));
+        setMapIndex(QLCChannel::Tilt, QLCChannel::LSB,
+                    mode->channelNumber(QLCChannel::Tilt, QLCChannel::LSB));
 
     std::sort(m_colorWheels.begin(), m_colorWheels.end());
     std::sort(m_shutterChannels.begin(), m_shutterChannels.end());

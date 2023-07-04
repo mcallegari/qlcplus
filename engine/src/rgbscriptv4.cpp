@@ -490,7 +490,9 @@ bool RGBScript::loadProperties()
                     {
                         if (values.length() < 2)
                         {
-                            qWarning() << value << ": malformed property. A range should be defined as 'min,max'. Please fix it.";
+                            qWarning() << value
+                                       << ": malformed property. A range should be defined as "
+                                          "'min,max'. Please fix it.";
                         }
                         else
                         {
@@ -502,8 +504,7 @@ bool RGBScript::loadProperties()
                     default:
                         qWarning() << value
                                    << ": values cannot be applied before the 'type' property or on "
-                                      "type:integer and "
-                                      "type:string";
+                                      "type:integer and type:string";
                         break;
                 }
             }

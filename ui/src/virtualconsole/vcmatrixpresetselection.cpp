@@ -91,7 +91,8 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 if (!pValue.isEmpty())
                     propCombo->setCurrentText(pValue);
 
-                connect(propCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotPropertyComboChanged(QString)));
+                connect(propCombo, SIGNAL(currentIndexChanged(QString)), this,
+                        SLOT(slotPropertyComboChanged(QString)));
 
                 m_propertiesLayout->addWidget(propCombo, gridRowIdx, 1);
                 m_properties[prop.m_name] = pValue;

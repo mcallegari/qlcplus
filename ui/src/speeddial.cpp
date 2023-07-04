@@ -48,13 +48,15 @@
 
 #define DEFAULT_VISIBILITY_MASK 0x00FF
 
-const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
-                             "QPushButton:pressed { background-color: #AAAAAA; }"
-                             "QPushButton:disabled { border: 2px solid #BBBBBB; }";
+const QString tapDefaultSS =
+    "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
+    "QPushButton:pressed { background-color: #AAAAAA; }"
+    "QPushButton:disabled { border: 2px solid #BBBBBB; }";
 
-const QString tapTickSS = "QPushButton { background-color: #DDDDDD; border: 3px solid #2B2595; border-radius: 5px; }"
-                          "QPushButton:pressed { background-color: #AAAAAA; }"
-                          "QPushButton:disabled { border: 2px solid #BBBBBB; }";
+const QString tapTickSS =
+    "QPushButton { background-color: #DDDDDD; border: 3px solid #2B2595; border-radius: 5px; }"
+    "QPushButton:pressed { background-color: #AAAAAA; }"
+    "QPushButton:disabled { border: 2px solid #BBBBBB; }";
 
 
 /****************************************************************************
@@ -547,7 +549,8 @@ void SpeedDial::slotTapClicked()
     m_value = m_tapTime->elapsed();
     m_tapTime->restart();
 
-    // If it's been a while since the last tap, reset the history and just use the time since the last tap
+    // If it's been a while since the last tap, reset the history and just use the time since the
+    // last tap
     if (m_value > 1500)
     {
         // TODO: shift the tempo slightly upward or downward and re-phase the tempo

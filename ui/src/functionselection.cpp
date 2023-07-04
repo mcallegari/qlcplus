@@ -49,8 +49,8 @@ FunctionSelection::FunctionSelection(QWidget *parent, Doc *doc)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
     , m_filter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::CollectionType
-               | Function::EFXType | Function::ScriptType | Function::RGBMatrixType | Function::ShowType
-               | Function::AudioType | Function::VideoType)
+               | Function::EFXType | Function::ScriptType | Function::RGBMatrixType
+               | Function::ShowType | Function::AudioType | Function::VideoType)
     , m_disableFilters(0)
     , m_constFilter(false)
 {
@@ -329,7 +329,8 @@ void FunctionSelection::slotItemSelectionChanged()
     {
         QTreeWidgetItem *item = it.next();
         quint32          id   = item->data(KColumnName, Qt::UserRole).toUInt();
-        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem) && m_selection.contains(id) == false)
+        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem)
+            && m_selection.contains(id) == false)
             m_selection.append(id);
     }
 

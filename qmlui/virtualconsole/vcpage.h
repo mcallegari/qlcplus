@@ -32,8 +32,8 @@ class VCPage : public VCFrame
      * Initialization
      *********************************************************************/
 public:
-    VCPage(QQuickView *view = nullptr, Doc *doc = nullptr, VirtualConsole *vc = nullptr, int pageIndex = 0,
-           QObject *parent = nullptr);
+    VCPage(QQuickView *view = nullptr, Doc *doc = nullptr, VirtualConsole *vc = nullptr,
+           int pageIndex = 0, QObject *parent = nullptr);
     ~VCPage();
 
     /** Return the Preview Context associated to this VC page */
@@ -54,10 +54,12 @@ private:
      *********************************************************************/
 public:
     /** Map a single input source for a specific VC widget. */
-    void mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget, bool checkChildren = false);
+    void mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget,
+                        bool checkChildren = false);
 
     /** Unmap a single input source for a specific VC widget. */
-    void unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget, bool checkChildren = false);
+    void unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget,
+                          bool checkChildren = false);
 
     /** Map all the children widgets input sources into $m_inputSourcesMap.
      *  This method is called only by VirtualConsole postLoad event */
@@ -74,10 +76,12 @@ public:
     void mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
 
     /** Unmap a single key sequence for a specific VC widget. */
-    void unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+    void unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget,
+                          bool checkChildren = false);
 
     /** Update the key sequences map for a matching $sequence and $widget with the specified $id */
-    void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+    void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget,
+                                  bool checkChildren = false);
 
     /** Rebuild the entire key sequence map for all the child widgets
      *  of thiss page. This is called on project XML loading */

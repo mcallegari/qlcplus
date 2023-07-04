@@ -92,7 +92,8 @@ bool VCSoloFrame::copyFrom(const VCWidget *widget)
 
 void VCSoloFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity)
 {
-    qDebug() << "[VCSoloFrame] requested to start a Function with ID:" << fid << intensity << widget->caption();
+    qDebug() << "[VCSoloFrame] requested to start a Function with ID:" << fid << intensity
+             << widget->caption();
     foreach (VCWidget *child, children(true))
     {
         if (child != widget)

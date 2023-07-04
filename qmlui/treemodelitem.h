@@ -65,7 +65,8 @@ public:
     bool setChildrenColumns(QStringList columns);
 
     /** Add a child to this item. Typically this means the item is a folder */
-    bool addChild(QString label, QVariantList data, bool sorting = false, QString path = QString(), int flags = 0);
+    bool addChild(QString label, QVariantList data, bool sorting = false, QString path = QString(),
+                  int flags = 0);
 
     /** Return if the item has children. Typically for folders */
     bool hasChildren();

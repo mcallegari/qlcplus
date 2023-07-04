@@ -258,7 +258,8 @@ public:
      * @param color Primary color to search for
      * @return A QSet containing the matching channel numbers
      */
-    QSet<quint32> channels(QLCChannel::Group group, QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
+    QSet<quint32> channels(QLCChannel::Group         group,
+                           QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /** @see QLCFixtureHead */
     quint32 channelNumber(int type, int controlByte, int head = 0) const;
@@ -456,7 +457,8 @@ public:
     QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width,
+                                        quint32 height);
 
     /*********************************************************************
      * Load & Save

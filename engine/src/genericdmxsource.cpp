@@ -118,14 +118,16 @@ void GenericDMXSource::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 continue;
 
             quint32                      universe = fixture->universe();
-            QSharedPointer<GenericFader> fader    = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+            QSharedPointer<GenericFader> fader =
+                m_fadersMap.value(universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
                 fader                 = ua[universe]->requestFader();
                 m_fadersMap[universe] = fader;
             }
 
-            FadeChannel *fc = fader->getChannelFader(m_doc, ua[universe], fixture->id(), it.key().second);
+            FadeChannel *fc =
+                fader->getChannelFader(m_doc, ua[universe], fixture->id(), it.key().second);
             fc->setCurrent(it.value());
             fc->setTarget(it.value());
         }

@@ -70,7 +70,8 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial *dial, Doc *doc)
     m_tree->setItemDelegateForColumn(COL_DURATION, new ComboBoxDelegate(multiplierNames, this));
 
     /* Absolute input */
-    connect(m_absolutePrecisionCb, SIGNAL(toggled(bool)), this, SLOT(slotAbsolutePrecisionCbChecked(bool)));
+    connect(m_absolutePrecisionCb, SIGNAL(toggled(bool)), this,
+            SLOT(slotAbsolutePrecisionCbChecked(bool)));
     if (m_dial->absoluteValueMin() % (1000) || m_dial->absoluteValueMax() % (1000))
     {
         m_absolutePrecisionCb->setChecked(true);
@@ -130,7 +131,8 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial *dial, Doc *doc)
     /* MultDiv Reset input */
     m_multDivResetInputWidget = new InputSelectionWidget(m_doc, this);
     m_multDivResetInputWidget->setTitle(tr("Factor Reset Input"));
-    m_multDivResetInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::multDivResetInputSourceId));
+    m_multDivResetInputWidget->setInputSource(
+        m_dial->inputSource(VCSpeedDial::multDivResetInputSourceId));
     m_multDivResetInputWidget->setWidgetPage(m_dial->page());
     m_multDivResetInputWidget->setKeySequence(dial->multDivResetKeySequence());
     m_multDivResetInputWidget->show();
@@ -178,13 +180,16 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial *dial, Doc *doc)
     connect(m_presetInputWidget, SIGNAL(keySequenceChanged(QKeySequence)), this,
             SLOT(slotKeySequenceChanged(QKeySequence)));
 
-    connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotTreeSelectionChanged()));
+    connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotTreeSelectionChanged()));
 
     connect(m_addPresetButton, SIGNAL(clicked()), this, SLOT(slotAddPresetClicked()));
     connect(m_removePresetButton, SIGNAL(clicked()), this, SLOT(slotRemovePresetClicked()));
-    connect(m_presetNameEdit, SIGNAL(textEdited(QString const &)), this, SLOT(slotPresetNameEdited(QString const &)));
+    connect(m_presetNameEdit, SIGNAL(textEdited(QString const &)), this,
+            SLOT(slotPresetNameEdited(QString const &)));
 
-    connect(m_speedDialWidget, SIGNAL(valueChanged(int)), this, SLOT(slotSpeedDialWidgetValueChanged(int)));
+    connect(m_speedDialWidget, SIGNAL(valueChanged(int)), this,
+            SLOT(slotSpeedDialWidgetValueChanged(int)));
 
     connect(m_addButton, SIGNAL(clicked()), this, SLOT(slotAddClicked()));
     connect(m_removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveClicked()));
@@ -213,7 +218,8 @@ void VCSpeedDialProperties::accept()
     if (m_absolutePrecisionCb->isChecked())
         m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value(), m_absoluteMaxSpin->value());
     else
-        m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * 1000, m_absoluteMaxSpin->value() * 1000);
+        m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * 1000,
+                                      m_absoluteMaxSpin->value() * 1000);
     m_dial->setInputSource(m_absoluteInputWidget->inputSource(), VCSpeedDial::absoluteInputSourceId);
 
     m_dial->setInputSource(m_tapInputWidget->inputSource(), VCSpeedDial::tapInputSourceId);
@@ -228,7 +234,8 @@ void VCSpeedDialProperties::accept()
     m_dial->setMultKeySequence(m_multInputWidget->keySequence());
     m_dial->setInputSource(m_divInputWidget->inputSource(), VCSpeedDial::divInputSourceId);
     m_dial->setDivKeySequence(m_divInputWidget->keySequence());
-    m_dial->setInputSource(m_multDivResetInputWidget->inputSource(), VCSpeedDial::multDivResetInputSourceId);
+    m_dial->setInputSource(m_multDivResetInputWidget->inputSource(),
+                           VCSpeedDial::multDivResetInputSourceId);
     m_dial->setMultDivResetKeySequence(m_multDivResetInputWidget->keySequence());
 
     /* Visibility */
@@ -306,11 +313,14 @@ void VCSpeedDialProperties::slotPasteFactorsClicked()
     const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
 
     VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier =
-        static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_FADEIN, PROP_ID).toUInt());
+        static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+            m_copyItem->data(COL_FADEIN, PROP_ID).toUInt());
     VCSpeedDialFunction::SpeedMultiplier fadeOutMultiplier =
-        static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_FADEOUT, PROP_ID).toUInt());
+        static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+            m_copyItem->data(COL_FADEOUT, PROP_ID).toUInt());
     VCSpeedDialFunction::SpeedMultiplier durationMultiplier =
-        static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_DURATION, PROP_ID).toUInt());
+        static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+            m_copyItem->data(COL_DURATION, PROP_ID).toUInt());
 
     foreach (QTreeWidgetItem *item, m_tree->selectedItems())
     {
@@ -341,12 +351,12 @@ QList<VCSpeedDialFunction> VCSpeedDialProperties::functions() const
         if (id.isValid() == true)
         {
             VCSpeedDialFunction speeddialfunction(id.toUInt());
-            speeddialfunction.fadeInMultiplier =
-                static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEIN, PROP_ID).toUInt());
-            speeddialfunction.fadeOutMultiplier =
-                static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEOUT, PROP_ID).toUInt());
-            speeddialfunction.durationMultiplier =
-                static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_DURATION, PROP_ID).toUInt());
+            speeddialfunction.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+                item->data(COL_FADEIN, PROP_ID).toUInt());
+            speeddialfunction.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+                item->data(COL_FADEOUT, PROP_ID).toUInt());
+            speeddialfunction.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+                item->data(COL_DURATION, PROP_ID).toUInt());
             list.append(speeddialfunction);
         }
     }

@@ -96,7 +96,8 @@ public:
 
 protected:
     /*!
-     * Use this function inside initialize() reimplementation to tell other plugins about audio parameters.
+     * Use this function inside initialize() reimplementation to tell other plugins about audio
+     * parameters.
      * @param srate Sample rate.
      * @param chan Number of channels.
      * @param f Audio format.

@@ -243,7 +243,8 @@ Qt::ItemFlags CueStackModel::flags(const QModelIndex &index) const
         return Qt::ItemIsDropEnabled | defaultFlags;
 }
 
-bool CueStackModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+bool CueStackModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
+                                 const QModelIndex &parent)
 {
     qDebug() << Q_FUNC_INFO;
 

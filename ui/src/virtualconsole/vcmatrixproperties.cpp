@@ -61,7 +61,8 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix *matrix, Doc *doc)
     m_sliderInputSource = m_matrix->inputSource();
     updateSliderInputSource();
 
-    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)), this, SLOT(slotAutoDetectSliderInputToggled(bool)));
+    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)), this,
+            SLOT(slotAutoDetectSliderInputToggled(bool)));
     connect(m_chooseInputButton, SIGNAL(clicked()), this, SLOT(slotChooseSliderInputClicked()));
 
     /* Visibility */
@@ -89,7 +90,8 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix *matrix, Doc *doc)
 
     updateTree();
 
-    connect(m_controlsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotTreeSelectionChanged()));
+    connect(m_controlsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotTreeSelectionChanged()));
 
     connect(m_addStartColorButton, SIGNAL(clicked()), this, SLOT(slotAddStartColorClicked()));
     connect(m_addStartColorKnobsButton, SIGNAL(clicked()), this, SLOT(slotAddStartColorKnobsClicked()));
@@ -130,8 +132,9 @@ void VCMatrixProperties::slotAttachFunction()
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
     fs.setFilter(Function::RGBMatrixType);
-    fs.disableFilters(Function::SceneType | Function::ChaserType | Function::EFXType | Function::ShowType
-                      | Function::ScriptType | Function::CollectionType | Function::AudioType | Function::VideoType);
+    fs.disableFilters(Function::SceneType | Function::ChaserType | Function::EFXType
+                      | Function::ShowType | Function::ScriptType | Function::CollectionType
+                      | Function::AudioType | Function::VideoType);
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
         slotSetFunction(fs.selection().first());
@@ -167,14 +170,15 @@ void VCMatrixProperties::slotAutoDetectSliderInputToggled(bool checked)
     }
     else
     {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                   SLOT(slotSliderInputValueChanged(quint32, quint32)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                   this, SLOT(slotSliderInputValueChanged(quint32, quint32)));
     }
 }
 
 void VCMatrixProperties::slotSliderInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_sliderInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
+    m_sliderInputSource = QSharedPointer<QLCInputSource>(
+        new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
     updateSliderInputSource();
 }
 
@@ -183,7 +187,8 @@ void VCMatrixProperties::slotChooseSliderInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_sliderInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
+        m_sliderInputSource =
+            QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateSliderInputSource();
     }
 }
@@ -402,8 +407,8 @@ void VCMatrixProperties::slotAddAnimationClicked()
 void VCMatrixProperties::slotAddTextClicked()
 {
     bool    ok;
-    QString text =
-        QInputDialog::getText(this, tr("Enter a text"), tr("Text"), QLineEdit::Normal, "Q Light Controller+", &ok);
+    QString text = QInputDialog::getText(this, tr("Enter a text"), tr("Text"), QLineEdit::Normal,
+                                         "Q Light Controller+", &ok);
     if (ok && !text.isEmpty())
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
@@ -427,7 +432,8 @@ void VCMatrixProperties::slotRemoveClicked()
         VCMatrixControl *control = getSelectedControl();
         if (control != NULL)
         {
-            if (control->m_type == VCMatrixControl::StartColorKnob || control->m_type == VCMatrixControl::EndColorKnob)
+            if (control->m_type == VCMatrixControl::StartColorKnob
+                || control->m_type == VCMatrixControl::EndColorKnob)
             {
                 if (control->m_color == Qt::red)
                 {

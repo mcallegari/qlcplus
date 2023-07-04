@@ -143,14 +143,15 @@ void AudioRenderer::run()
                         /*
                         else if (sampleSize == 3)
                         {
-                            long sample = ((long)audioData[i+2] << 16) + ((long)audioData[i+1] << 8) +
-                        (short)audioData[i]; sample *= scaleFactor; audioData[i+2] = (sample >> 16) & 0x000000FF;
-                            audioData[i+1] = (sample >> 8) & 0x000000FF;
-                            audioData[i] = sample & 0x000000FF;
+                            long sample = ((long)audioData[i+2] << 16) + ((long)audioData[i+1] << 8)
+                        + (short)audioData[i]; sample *= scaleFactor; audioData[i+2] = (sample >>
+                        16) & 0x000000FF; audioData[i+1] = (sample >> 8) & 0x000000FF; audioData[i]
+                        = sample & 0x000000FF;
                         }
                         else if (sampleSize == 4)
                         {
-                            long sample = ((long)audioData[i+3] << 24) + ((long)audioData[i+2] << 16) +
+                            long sample = ((long)audioData[i+3] << 24) + ((long)audioData[i+2] <<
+                        16) +
                                           ((long)audioData[i+1] << 8) + (short)audioData[i];
                             sample *= scaleFactor;
                             audioData[i+3] = (sample >> 24) & 0x000000FF;
@@ -174,7 +175,8 @@ void AudioRenderer::run()
             }
             else
             {
-                audioDataWritten = writeAudio(audioData + (audioDataRead - pendingAudioBytes), pendingAudioBytes);
+                audioDataWritten =
+                    writeAudio(audioData + (audioDataRead - pendingAudioBytes), pendingAudioBytes);
                 pendingAudioBytes -= audioDataWritten;
                 if (audioDataWritten == 0)
                     usleep(15000);

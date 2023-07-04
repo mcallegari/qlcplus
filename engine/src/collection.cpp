@@ -208,7 +208,8 @@ bool Collection::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::CollectionType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not a collection";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
+                   << "is not a collection";
         return false;
     }
 
@@ -292,8 +293,8 @@ void Collection::preRun(MasterTimer *timer)
             Function *function = doc->function(fid);
             Q_ASSERT(function != NULL);
 
-            m_intensityOverrideIds << function->requestAttributeOverride(Function::Intensity,
-                                                                         getAttributeValue(Function::Intensity));
+            m_intensityOverrideIds << function->requestAttributeOverride(
+                Function::Intensity, getAttributeValue(Function::Intensity));
 
             // Append the IDs of all functions started by this collection
             // to a set so that we can track which of them are still controlled
@@ -309,7 +310,8 @@ void Collection::preRun(MasterTimer *timer)
             connect(function, SIGNAL(running(quint32)), this, SLOT(slotChildStarted(quint32)));
 
             // function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
-            function->start(timer, functionParent(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
+            function->start(timer, functionParent(), 0, overrideFadeInSpeed(),
+                            overrideFadeOutSpeed(), overrideDuration());
         }
         m_tick = 1;
     }
@@ -433,7 +435,8 @@ int Collection::adjustAttribute(qreal fraction, int attributeId)
         {
             Function *function = document->function(m_functions.at(i));
             Q_ASSERT(function != NULL);
-            function->adjustAttribute(getAttributeValue(Function::Intensity), m_intensityOverrideIds.at(i));
+            function->adjustAttribute(getAttributeValue(Function::Intensity),
+                                      m_intensityOverrideIds.at(i));
         }
     }
 

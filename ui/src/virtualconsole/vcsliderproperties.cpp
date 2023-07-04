@@ -65,7 +65,8 @@ VCSliderProperties::VCSliderProperties(VCSlider *slider, Doc *doc)
     connect(m_levelLowLimitSpin, SIGNAL(valueChanged(int)), this, SLOT(slotLevelLowSpinChanged(int)));
     connect(m_levelHighLimitSpin, SIGNAL(valueChanged(int)), this, SLOT(slotLevelHighSpinChanged(int)));
     connect(m_levelCapabilityButton, SIGNAL(clicked()), this, SLOT(slotLevelCapabilityClicked()));
-    connect(m_levelList, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotLevelListClicked(QTreeWidgetItem *)));
+    connect(m_levelList, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotLevelListClicked(QTreeWidgetItem *)));
     connect(m_levelAllButton, SIGNAL(clicked()), this, SLOT(slotLevelAllClicked()));
     connect(m_levelNoneButton, SIGNAL(clicked()), this, SLOT(slotLevelNoneClicked()));
     connect(m_levelInvertButton, SIGNAL(clicked()), this, SLOT(slotLevelInvertClicked()));
@@ -74,8 +75,10 @@ VCSliderProperties::VCSliderProperties(VCSlider *slider, Doc *doc)
 
     /* Playback page connections */
     connect(m_switchToPlaybackModeButton, SIGNAL(clicked()), this, SLOT(slotModePlaybackClicked()));
-    connect(m_attachPlaybackFunctionButton, SIGNAL(clicked()), this, SLOT(slotAttachPlaybackFunctionClicked()));
-    connect(m_detachPlaybackFunctionButton, SIGNAL(clicked()), this, SLOT(slotDetachPlaybackFunctionClicked()));
+    connect(m_attachPlaybackFunctionButton, SIGNAL(clicked()), this,
+            SLOT(slotAttachPlaybackFunctionClicked()));
+    connect(m_detachPlaybackFunctionButton, SIGNAL(clicked()), this,
+            SLOT(slotDetachPlaybackFunctionClicked()));
 
     /* Submaster page connections */
     connect(m_switchToSubmasterModeButton, SIGNAL(clicked()), this, SLOT(slotModeSubmasterClicked()));
@@ -605,8 +608,8 @@ void VCSliderProperties::slotLevelByGroupClicked()
         }
     }
 
-    group =
-        QInputDialog::getItem(this, tr("Select channels by group"), tr("Select a channel group"), groups, 0, false, &ok);
+    group = QInputDialog::getItem(this, tr("Select channels by group"),
+                                  tr("Select a channel group"), groups, 0, false, &ok);
 
     if (ok == true)
         levelSelectChannelsByGroup(group);
@@ -633,8 +636,9 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType
-                     | Function::AudioType | Function::RGBMatrixType | Function::CollectionType | Function::VideoType,
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType
+                     | Function::EFXType | Function::AudioType | Function::RGBMatrixType
+                     | Function::CollectionType | Function::VideoType,
                  false);
     fs.disableFilters(Function::ScriptType | Function::ShowType);
 
@@ -832,7 +836,8 @@ void VCSliderProperties::accept()
     {
         m_slider->setChannelsMonitorEnabled(m_monitorValuesCheck->isChecked());
         m_slider->setOverrideResetKeySequence(m_ovrResetSelWidget->keySequence());
-        m_slider->setInputSource(m_ovrResetSelWidget->inputSource(), VCSlider::overrideResetInputSourceId);
+        m_slider->setInputSource(m_ovrResetSelWidget->inputSource(),
+                                 VCSlider::overrideResetInputSourceId);
     }
 
     m_slider->setCaption(m_nameEdit->text());

@@ -45,13 +45,15 @@ FixtureSelection::FixtureSelection(QWidget *parent, Doc *doc)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
-    m_treeFlags = FixtureTreeWidget::UniverseNumber | FixtureTreeWidget::HeadsNumber | FixtureTreeWidget::Manufacturer
-                  | FixtureTreeWidget::Model | FixtureTreeWidget::ShowGroups;
+    m_treeFlags = FixtureTreeWidget::UniverseNumber | FixtureTreeWidget::HeadsNumber
+                  | FixtureTreeWidget::Manufacturer | FixtureTreeWidget::Model
+                  | FixtureTreeWidget::ShowGroups;
 
     m_tree = new FixtureTreeWidget(m_doc, m_treeFlags, this);
     m_mainLayout->addWidget(m_tree);
 
-    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotItemDoubleClicked()));
+    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemDoubleClicked()));
 
     connect(m_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
 }

@@ -185,7 +185,8 @@ QDir QLCFile::systemDirectory(QString path, QString extension)
 #elif defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath()).arg(path));
 #elif defined(WIN32) || defined(Q_OS_WIN)
-    dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath()).arg(QDir::separator()).arg(path));
+    dir.setPath(
+        QString("%1%2%3").arg(QCoreApplication::applicationDirPath()).arg(QDir::separator()).arg(path));
 #elif defined(Q_OS_ANDROID)
     dir.setPath(QString("assets:/%1").arg(path.remove(0, path.lastIndexOf("/") + 1)));
 #else

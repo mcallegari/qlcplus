@@ -93,7 +93,8 @@ void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
         {
             if (i + 3 > pixelData.length())
                 break;
-            QRgb pixel = qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
+            QRgb pixel =
+                qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
             newImg.setPixel(x, y, pixel);
             i += 3;
         }
@@ -228,7 +229,8 @@ int RGBImage::rgbMapStepCount(const QSize &size)
         case Vertical:
             return m_image.height();
         case Animation:
-            qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
+            qDebug() << m_image.width() << " " << size.width() << " "
+                     << (m_image.width() / size.width());
             return MAX(1, m_image.width() / size.width());
     }
 }

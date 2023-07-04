@@ -77,7 +77,8 @@ void KnobWidget::prepareCursor()
         fgP.setBrush(Qt::gray);
     else
         fgP.setBrush(Qt::green);
-    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2.2)), cursor_radius, cursor_radius);
+    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2.2)),
+                    cursor_radius, cursor_radius);
 }
 
 void KnobWidget::prepareBody()
@@ -143,8 +144,9 @@ void KnobWidget::paintEvent(QPaintEvent *e)
     QPixmap rotNeedle = rotatePix(m_cursor, degrees);
     painter.drawPixmap(pixPoint, rotNeedle);
 
-    QRectF valRect = QRectF(pixPoint.x() - (arcWidth / 2) + 1, arcWidth / 2 + 1, m_background->width() + arcWidth - 2,
-                            m_background->height() + arcWidth - 2);
+    QRectF valRect =
+        QRectF(pixPoint.x() - (arcWidth / 2) + 1, arcWidth / 2 + 1,
+               m_background->width() + arcWidth - 2, m_background->height() + arcWidth - 2);
 
     int penWidth = arcWidth;
     if (arcWidth <= 5)

@@ -169,8 +169,10 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc)
     m_tree->setItemDelegateForColumn(COL_FADEOUT, new NoEditDelegate(this));
     m_tree->setItemDelegateForColumn(COL_DURATION, new NoEditDelegate(this));
 
-    connect(m_tree, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(slotItemActivated(QTreeWidgetItem *)));
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
+    connect(m_tree, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemActivated(QTreeWidgetItem *)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemChanged(QTreeWidgetItem *, int)));
     vbox->addWidget(m_tree);
 
     m_progress = new QProgressBar(this);
@@ -540,7 +542,8 @@ qreal VCCueList::getPrimaryIntensity() const
     if (sideFaderMode() == Steps)
         return 1.0;
 
-    return m_primaryTop ? qreal(m_sideFader->value() / 100.0) : qreal((100 - m_sideFader->value()) / 100.0);
+    return m_primaryTop ? qreal(m_sideFader->value() / 100.0)
+                        : qreal((100 - m_sideFader->value()) / 100.0);
 }
 
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -613,7 +616,8 @@ void VCCueList::slotPlayback()
             if (ch->isPaused())
             {
                 m_playbackButton->setStyleSheet(
-                    QString("QToolButton{ background: %1; }").arg(m_stopButton->palette().window().color().name()));
+                    QString("QToolButton{ background: %1; }")
+                        .arg(m_stopButton->palette().window().color().name()));
                 m_playbackButton->setIcon(QIcon(":/player_pause.png"));
             }
             else
@@ -632,8 +636,8 @@ void VCCueList::slotPlayback()
         else if (playbackLayout() == PlayStopPause)
         {
             stopChaser();
-            m_stopButton->setStyleSheet(
-                QString("QToolButton{ background: %1; }").arg(m_playbackButton->palette().window().color().name()));
+            m_stopButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                            .arg(m_playbackButton->palette().window().color().name()));
         }
     }
     else
@@ -659,8 +663,8 @@ void VCCueList::slotStop()
         if (playbackLayout() == PlayPauseStop)
         {
             stopChaser();
-            m_playbackButton->setStyleSheet(
-                QString("QToolButton{ background: %1; }").arg(m_stopButton->palette().window().color().name()));
+            m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                                .arg(m_stopButton->palette().window().color().name()));
             m_progress->setFormat("");
             m_progress->setValue(0);
         }
@@ -669,7 +673,8 @@ void VCCueList::slotStop()
             if (ch->isPaused())
             {
                 m_stopButton->setStyleSheet(
-                    QString("QToolButton{ background: %1; }").arg(m_playbackButton->palette().window().color().name()));
+                    QString("QToolButton{ background: %1; }")
+                        .arg(m_playbackButton->palette().window().color().name()));
                 m_stopButton->setIcon(QIcon(":/player_pause.png"));
             }
             else
@@ -919,8 +924,10 @@ void VCCueList::slotProgressTimeout()
         {
             if (newstatus == 0 && step.m_fadeIn != Function::defaultSpeed())
             {
-                double progress = ((double)step.m_elapsed / (double)step.m_fadeIn) * (double)m_progress->width();
-                m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
+                double progress =
+                    ((double)step.m_elapsed / (double)step.m_fadeIn) * (double)m_progress->width();
+                m_progress->setFormat(
+                    QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
                 m_progress->setValue(progress);
             }
             else
@@ -932,8 +939,10 @@ void VCCueList::slotProgressTimeout()
         }
         else
         {
-            double progress = ((double)step.m_elapsed / (double)step.m_duration) * (double)m_progress->width();
-            m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
+            double progress =
+                ((double)step.m_elapsed / (double)step.m_duration) * (double)m_progress->width();
+            m_progress->setFormat(
+                QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
             m_progress->setValue(progress);
         }
     }
@@ -986,7 +995,8 @@ int VCCueList::getFadeMode()
 
 void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
 {
-    Q_ASSERT(nextPrev == DefaultRunFirst || nextPrev == RunNext || nextPrev == Select || nextPrev == Nothing);
+    Q_ASSERT(nextPrev == DefaultRunFirst || nextPrev == RunNext || nextPrev == Select
+             || nextPrev == Nothing);
     m_nextPrevBehavior = nextPrev;
 }
 
@@ -1144,9 +1154,11 @@ void VCCueList::slotSideFaderValueChanged(int value)
         Chaser *ch = chaser();
         if (!(ch == NULL || ch->stopped()))
         {
-            ch->adjustStepIntensity(qreal(value) / 100.0, m_primaryTop ? m_primaryIndex : m_secondaryIndex,
+            ch->adjustStepIntensity(qreal(value) / 100.0,
+                                    m_primaryTop ? m_primaryIndex : m_secondaryIndex,
                                     Chaser::FadeControlMode(getFadeMode()));
-            ch->adjustStepIntensity(qreal(100 - value) / 100.0, m_primaryTop ? m_secondaryIndex : m_primaryIndex,
+            ch->adjustStepIntensity(qreal(100 - value) / 100.0,
+                                    m_primaryTop ? m_secondaryIndex : m_primaryIndex,
                                     Chaser::FadeControlMode(getFadeMode()));
             stopStepIfNeeded(ch);
         }
@@ -1240,8 +1252,8 @@ void VCCueList::slotKeyPressed(const QKeySequence &keySequence)
 
 void VCCueList::updateFeedback()
 {
-    int fbv = int(SCALE(float(m_sideFader->value()), float(m_sideFader->minimum()), float(m_sideFader->maximum()),
-                        float(0), float(UCHAR_MAX)));
+    int fbv = int(SCALE(float(m_sideFader->value()), float(m_sideFader->minimum()),
+                        float(m_sideFader->maximum()), float(0), float(UCHAR_MAX)));
     sendFeedback(fbv, sideFaderInputSourceId);
 
     Chaser *ch = chaser();
@@ -1344,8 +1356,8 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         if (sideFaderMode() == None)
             return;
 
-        float val =
-            SCALE((float)value, (float)0, (float)UCHAR_MAX, (float)m_sideFader->minimum(), (float)m_sideFader->maximum());
+        float val = SCALE((float)value, (float)0, (float)UCHAR_MAX, (float)m_sideFader->minimum(),
+                          (float)m_sideFader->maximum());
         m_sideFader->setValue(val);
     }
 }
@@ -1361,14 +1373,14 @@ void VCCueList::adjustIntensity(qreal val)
     {
         adjustFunctionIntensity(ch, val);
         /*
-                // Refresh intensity of current steps
-                if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFader->value() != 100)
-                {
-                        ch->adjustStepIntensity((qreal)m_sideFader->value() / 100, m_primaryTop ?
-           m_primaryIndex : m_secondaryIndex); ch->adjustStepIntensity((qreal)(100 -
-           m_sideFader->value()) / 100, m_primaryTop ? m_secondaryIndex : m_primaryIndex);
-                }
-        */
+        // Refresh intensity of current steps
+        if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFader->value() != 100)
+        {
+                ch->adjustStepIntensity((qreal)m_sideFader->value() / 100, m_primaryTop ?
+        m_primaryIndex : m_secondaryIndex); ch->adjustStepIntensity((qreal)(100 -
+        m_sideFader->value()) / 100, m_primaryTop ? m_secondaryIndex : m_primaryIndex);
+        }
+*/
     }
 
     VCWidget::adjustIntensity(val);
@@ -1559,7 +1571,8 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCCueListNextPrevBehavior)
         {
             NextPrevBehavior nextPrev = NextPrevBehavior(root.readElementText().toInt());
-            if (nextPrev != DefaultRunFirst && nextPrev != RunNext && nextPrev != Select && nextPrev != Nothing)
+            if (nextPrev != DefaultRunFirst && nextPrev != RunNext && nextPrev != Select
+                && nextPrev != Nothing)
             {
                 qWarning() << Q_FUNC_INFO << "Next/Prev behavior" << nextPrev << "does not exist.";
                 nextPrev = DefaultRunFirst;

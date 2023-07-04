@@ -47,10 +47,11 @@ class VCButton : public VCWidget
     Q_PROPERTY(ButtonAction actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
     Q_PROPERTY(ButtonState state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
-    Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY
-                   startupIntensityEnabledChanged)
+    Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE
+                   setStartupIntensityEnabled NOTIFY startupIntensityEnabledChanged)
     Q_PROPERTY(qreal startupIntensity READ startupIntensity WRITE setStartupIntensity NOTIFY startupIntensityChanged)
-    Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
+    Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY
+                   stopAllFadeOutTimeChanged)
 
     /*********************************************************************
      * Initialization

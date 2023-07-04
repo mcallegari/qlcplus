@@ -432,7 +432,8 @@ bool Video::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::VideoType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not Video";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
+                   << "is not Video";
         return false;
     }
 

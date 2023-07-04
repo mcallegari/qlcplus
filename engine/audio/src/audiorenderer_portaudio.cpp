@@ -45,8 +45,9 @@ AudioRendererPortAudio::~AudioRendererPortAudio()
         qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 }
 
-int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer, unsigned long                frameCount,
-                                         const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *userData)
+int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer, unsigned long frameCount,
+                                         const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags,
+                                         void *userData)
 {
     AudioRendererPortAudio *PAobj = (AudioRendererPortAudio *)userData;
 
@@ -66,7 +67,8 @@ int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer, unsig
 
     memcpy(outputBuffer, PAobj->m_buffer.data(), requestedData);
     PAobj->m_buffer.remove(0, requestedData);
-    qDebug() << "PortAudio dataCallback. RequestedData: " << requestedData << "buffer size:" << PAobj->m_buffer.size();
+    qDebug() << "PortAudio dataCallback. RequestedData: " << requestedData
+             << "buffer size:" << PAobj->m_buffer.size();
 
     return paContinue;
 }
@@ -101,8 +103,9 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
 
     m_channels = chan;
 
-    outputParameters.channelCount              = chan; /* stereo output */
-    outputParameters.suggestedLatency          = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
+    outputParameters.channelCount = chan; /* stereo output */
+    outputParameters.suggestedLatency =
+        Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 
     switch (format)
@@ -128,7 +131,8 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
             return false;
     }
 
-    err = Pa_OpenStream(&m_paStream, NULL, &outputParameters, freq, paFramesPerBufferUnspecified, flags, dataCallback, this);
+    err = Pa_OpenStream(&m_paStream, NULL, &outputParameters, freq, paFramesPerBufferUnspecified,
+                        flags, dataCallback, this);
 
     if (err != paNoError)
         return false;

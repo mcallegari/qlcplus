@@ -353,7 +353,8 @@ void Doc::setMode(Doc::Mode mode)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. (" << m_startupFunctionId << ")";
+            qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. ("
+                       << m_startupFunctionId << ")";
             m_startupFunctionId = Function::invalidId();
         }
     }
@@ -424,8 +425,8 @@ bool Doc::addFixture(Fixture *fixture, quint32 id)
     {
         if (m_addresses.contains(i))
         {
-            qWarning() << Q_FUNC_INFO << "fixture" << id << "overlapping with fixture" << m_addresses[i] << "@ channel"
-                       << i;
+            qWarning() << Q_FUNC_INFO << "fixture" << id << "overlapping with fixture"
+                       << m_addresses[i] << "@ channel" << i;
             return false;
         }
     }
@@ -565,8 +566,8 @@ bool Doc::replaceFixtures(QList<Fixture *> newFixturesList)
         }
         else
         {
-            QLCFixtureDef *def =
-                fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(), fixture->fixtureDef()->model());
+            QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
+                                                               fixture->fixtureDef()->model());
             QLCFixtureMode *mode = NULL;
             if (def != NULL)
                 mode = def->mode(fixture->fixtureMode()->name());
@@ -584,7 +585,8 @@ bool Doc::replaceFixtures(QList<Fixture *> newFixturesList)
         connect(newFixture, SIGNAL(changed(quint32)), this, SLOT(slotFixtureChanged(quint32)));
 
         /* Keep track of fixture addresses */
-        for (uint i = newFixture->universeAddress(); i < newFixture->universeAddress() + newFixture->channels(); i++)
+        for (uint i = newFixture->universeAddress();
+             i < newFixture->universeAddress() + newFixture->channels(); i++)
         {
             m_addresses[i] = id;
         }
@@ -796,7 +798,8 @@ quint32 Doc::createFixtureGroupId()
     /* This results in an endless loop if there are UINT_MAX-1 fixture groups. That,
        however, seems a bit unlikely. Are there even 4294967295-1 fixtures in
        total in the whole world? */
-    while (m_fixtureGroups.contains(m_latestFixtureGroupId) == true || m_latestFixtureGroupId == FixtureGroup::invalidId())
+    while (m_fixtureGroups.contains(m_latestFixtureGroupId) == true
+           || m_latestFixtureGroupId == FixtureGroup::invalidId())
     {
         m_latestFixtureGroupId++;
     }
@@ -969,7 +972,8 @@ QList<QLCPalette *> Doc::palettes() const
 
 quint32 Doc::createPaletteId()
 {
-    while (m_palettes.contains(m_latestPaletteId) == true || m_latestPaletteId == FixtureGroup::invalidId())
+    while (m_palettes.contains(m_latestPaletteId) == true
+           || m_latestPaletteId == FixtureGroup::invalidId())
     {
         m_latestPaletteId++;
     }
@@ -986,7 +990,8 @@ quint32 Doc::createFunctionId()
     /* This results in an endless loop if there are UINT_MAX-1 functions. That,
        however, seems a bit unlikely. Are there even 4294967295-1 functions in
        total in the whole world? */
-    while (m_functions.contains(m_latestFunctionId) == true || m_latestFunctionId == Fixture::invalidId())
+    while (m_functions.contains(m_latestFunctionId) == true
+           || m_latestFunctionId == Fixture::invalidId())
     {
         m_latestFunctionId++;
     }

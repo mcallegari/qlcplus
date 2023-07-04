@@ -67,7 +67,8 @@ SelectInputChannel::SelectInputChannel(QWidget *parent, InputOutputMap *ioMap)
     /* Listen to item changed signals so that we can catch user's
        manual input for <...> nodes. Connect AFTER filling the tree
        so all the initial item->setText()'s won't get caught here. */
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemChanged(QTreeWidgetItem *, int)));
 }
 
 SelectInputChannel::~SelectInputChannel()
@@ -110,9 +111,11 @@ void SelectInputChannel::accept()
 
 void SelectInputChannel::slotUnpatchedClicked()
 {
-    disconnect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
+    disconnect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+               SLOT(slotItemChanged(QTreeWidgetItem *, int)));
     fillTree();
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemChanged(QTreeWidgetItem *, int)));
 }
 
 /****************************************************************************
@@ -188,7 +191,8 @@ void SelectInputChannel::fillTree()
     }
 }
 
-void SelectInputChannel::updateChannelItem(QTreeWidgetItem *item, quint32 universe, const QLCInputChannel *channel,
+void SelectInputChannel::updateChannelItem(QTreeWidgetItem *item, quint32 universe,
+                                           const QLCInputChannel *channel,
                                            const QLCInputProfile *profile)
 {
     Q_ASSERT(item != NULL);
@@ -203,7 +207,8 @@ void SelectInputChannel::updateChannelItem(QTreeWidgetItem *item, quint32 univer
     }
     else
     {
-        item->setText(KColumnName, QString("%1: %2").arg(profile->channelNumber(channel) + 1).arg(channel->name()));
+        item->setText(KColumnName,
+                      QString("%1: %2").arg(profile->channelNumber(channel) + 1).arg(channel->name()));
         item->setText(KColumnChannel, QString("%1").arg(profile->channelNumber(channel)));
 
         /* Display nice icons to indicate channel type */
@@ -232,7 +237,8 @@ void SelectInputChannel::updateUniverseItem(QTreeWidgetItem *item, quint32 unive
         }
         else
         {
-            name = QString("%1: %2 / %3").arg(universe + 1).arg(patch->pluginName()).arg(patch->inputName());
+            name =
+                QString("%1: %2 / %3").arg(universe + 1).arg(patch->pluginName()).arg(patch->inputName());
         }
     }
 

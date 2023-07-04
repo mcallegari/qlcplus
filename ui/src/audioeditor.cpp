@@ -49,7 +49,8 @@ AudioEditor::AudioEditor(QWidget *parent, Audio *audio, Doc *doc)
     m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
     m_volumeSpin->setValue(m_audio->volume() * 100);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotSourceFileClicked()));
 
     connect(m_volumeSpin, SIGNAL(valueChanged(int)), this, SLOT(slotVolumeChanged(int)));

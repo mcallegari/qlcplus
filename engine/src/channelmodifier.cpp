@@ -66,7 +66,8 @@ void ChannelModifier::setModifierMap(QList<QPair<uchar, uchar>> map)
             // in a linear progression
             float dmxInc = 0;
             if (dmxPair.first - lastDMXPair.first > 0)
-                dmxInc = (float)(dmxPair.second - lastDMXPair.second) / (float)(dmxPair.first - lastDMXPair.first);
+                dmxInc = (float)(dmxPair.second - lastDMXPair.second)
+                         / (float)(dmxPair.first - lastDMXPair.first);
 
             // use a float variable here to be as more accurate as possible
             float floatVal = lastDMXPair.second;
@@ -82,10 +83,10 @@ void ChannelModifier::setModifierMap(QList<QPair<uchar, uchar>> map)
     }
     // Enable the following to display the template full range of value
     /*
-        qDebug() << "Template:" << m_name;
-        for (int d = 0; d < m_values.count(); d++)
-            qDebug() << "Pos:" << d << "val:" << QString::number((uchar)m_values.at(d));
-    */
+    qDebug() << "Template:" << m_name;
+    for (int d = 0; d < m_values.count(); d++)
+        qDebug() << "Pos:" << d << "val:" << QString::number((uchar)m_values.at(d));
+*/
 }
 
 QList<QPair<uchar, uchar>> ChannelModifier::modifierMap() const

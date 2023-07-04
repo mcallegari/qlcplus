@@ -147,12 +147,13 @@ bool InputOutputMap::addUniverse(quint32 id)
         }
         else if (id > universesCount())
         {
-            qDebug() << Q_FUNC_INFO << "Gap between universe" << (universesCount() - 1) << "and universe" << id
-                     << ", filling the gap...";
+            qDebug() << Q_FUNC_INFO << "Gap between universe" << (universesCount() - 1)
+                     << "and universe" << id << ", filling the gap...";
             while (id > universesCount())
             {
                 uni = new Universe(universesCount(), m_grandMaster);
-                connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+                connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()),
+                        Qt::QueuedConnection);
                 connect(uni, SIGNAL(universeWritten(quint32, QByteArray)), this,
                         SIGNAL(universeWritten(quint32, QByteArray)));
                 m_universeArray.append(uni);
@@ -161,7 +162,8 @@ bool InputOutputMap::addUniverse(quint32 id)
 
         uni = new Universe(id, m_grandMaster);
         connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
-        connect(uni, SIGNAL(universeWritten(quint32, QByteArray)), this, SIGNAL(universeWritten(quint32, QByteArray)));
+        connect(uni, SIGNAL(universeWritten(quint32, QByteArray)), this,
+                SIGNAL(universeWritten(quint32, QByteArray)));
         m_universeArray.append(uni);
     }
 
@@ -388,8 +390,8 @@ void InputOutputMap::flushInputs()
         universe->flushInput();
 }
 
-bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName, const QString &inputUID, quint32 input,
-                                   const QString &profileName)
+bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
+                                   const QString &inputUID, quint32 input, const QString &profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -404,12 +406,12 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName, 
     if (currInPatch != NULL)
     {
         currProfile = currInPatch->profile();
-        disconnect(currInPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)), this,
-                   SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)));
+        disconnect(currInPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)),
+                   this, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)));
         if (currInPatch->pluginName() == "MIDI")
         {
-            disconnect(currInPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)), this,
-                       SLOT(slotMIDIBeat(quint32, quint32, uchar)));
+            disconnect(currInPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)),
+                       this, SLOT(slotMIDIBeat(quint32, quint32, uchar)));
         }
     }
     InputPatch  *ip     = NULL;
@@ -421,12 +423,14 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName, 
         int         lIdx   = inputs.indexOf(inputUID);
         if (lIdx != -1)
         {
-            qDebug() << "[IOMAP] Found match on input by name on universe" << universe << "-" << input << "vs" << lIdx;
+            qDebug() << "[IOMAP] Found match on input by name on universe" << universe << "-"
+                     << input << "vs" << lIdx;
             input = lIdx;
         }
         else
         {
-            qDebug() << "[IOMAP] !!No match found!! for input on universe" << universe << "-" << input << inputUID;
+            qDebug() << "[IOMAP] !!No match found!! for input on universe" << universe << "-"
+                     << input << inputUID;
             qDebug() << plugin->inputs();
         }
     }
@@ -440,8 +444,8 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName, 
                     SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)));
             if (ip->pluginName() == "MIDI")
             {
-                connect(ip, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)), this,
-                        SLOT(slotMIDIBeat(quint32, quint32, uchar)));
+                connect(ip, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)),
+                        this, SLOT(slotMIDIBeat(quint32, quint32, uchar)));
             }
         }
     }
@@ -474,8 +478,8 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
     return true;
 }
 
-bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName, const QString &outputUID,
-                                    quint32 output, bool isFeedback, int index)
+bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
+                                    const QString &outputUID, quint32 output, bool isFeedback, int index)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -493,12 +497,14 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
         int         lIdx   = inputs.indexOf(outputUID);
         if (lIdx != -1)
         {
-            qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-" << output << "vs" << lIdx;
+            qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-"
+                     << output << "vs" << lIdx;
             output = lIdx;
         }
         else
         {
-            qDebug() << "[IOMAP] !!No match found!! for output on universe" << universe << "-" << output << outputUID;
+            qDebug() << "[IOMAP] !!No match found!! for output on universe" << universe << "-"
+                     << output << outputUID;
             qDebug() << plugin->outputs();
         }
     }
@@ -957,7 +963,8 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src, QString &uniNam
     return true;
 }
 
-bool InputOutputMap::inputSourceNames(QSharedPointer<QLCInputSource> const &src, QString &uniName, QString &chName) const
+bool InputOutputMap::inputSourceNames(QSharedPointer<QLCInputSource> const &src, QString &uniName,
+                                      QString &chName) const
 {
     return inputSourceNames(src.data(), uniName, chName);
 }

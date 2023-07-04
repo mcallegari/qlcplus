@@ -71,10 +71,12 @@ signals:
      ********************************************************************/
 public:
     /** Add a new color filter with the given $name */
-    Q_INVOKABLE void addFilter(QString name, quint8 red, quint8 green, quint8 blue, quint8 white, quint8 amber, quint8 uv);
+    Q_INVOKABLE void addFilter(QString name, quint8 red, quint8 green, quint8 blue, quint8 white,
+                               quint8 amber, quint8 uv);
 
     /** Modify an existing filter at $index position */
-    Q_INVOKABLE void changeFilterAt(int index, quint8 red, quint8 green, quint8 blue, quint8 white, quint8 amber, quint8 uv);
+    Q_INVOKABLE void changeFilterAt(int index, quint8 red, quint8 green, quint8 blue, quint8 white,
+                                    quint8 amber, quint8 uv);
 
     /** Remove an existing filter at $index position */
     Q_INVOKABLE void removeFilterAt(int index);

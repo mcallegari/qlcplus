@@ -153,7 +153,8 @@ void MonitorFixture::setFixture(quint32 fxi_id)
                 QString resStr = channel->getIconNameFromGroup(channel->group());
 
                 if (resStr.startsWith(":"))
-                    icon->setStyleSheet("QLabel { border-image: url(" + resStr + ") 0 0 0 0 stretch stretch; }");
+                    icon->setStyleSheet("QLabel { border-image: url(" + resStr
+                                        + ") 0 0 0 0 stretch stretch; }");
                 else
                     icon->setStyleSheet("QLabel { background: " + resStr + "; }");
             }
@@ -267,8 +268,9 @@ void MonitorFixture::slotValuesChanged()
         }
         else
         {
-            label->setText(str.asprintf(
-                "%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))))));
+            label->setText(
+                str.asprintf("%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))), qreal(0),
+                                                    qreal(UCHAR_MAX), qreal(0), qreal(100))))));
         }
         i++;
     }

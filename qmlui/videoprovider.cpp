@@ -32,7 +32,8 @@ VideoProvider::VideoProvider(QQuickView *view, Doc *doc, QObject *parent)
 {
     Q_ASSERT(doc != nullptr);
 
-    qmlRegisterUncreatableType<Video>("org.qlcplus.classes", 1, 0, "VideoFunction", "Can't create a Video!");
+    qmlRegisterUncreatableType<Video>("org.qlcplus.classes", 1, 0, "VideoFunction",
+                                      "Can't create a Video!");
 
     for (Function *f : m_doc->functionsByType(Function::VideoType))
         slotFunctionAdded(f->id());
@@ -123,7 +124,8 @@ VideoContent::VideoContent(Video *video, VideoProvider *parent)
         slotDetectResolution();
 
     connect(m_video, SIGNAL(sourceChanged(QString)), this, SLOT(slotDetectResolution()));
-    connect(m_video, SIGNAL(attributeChanged(int, qreal)), this, SLOT(slotAttributeChanged(int, qreal)));
+    connect(m_video, SIGNAL(attributeChanged(int, qreal)), this,
+            SLOT(slotAttributeChanged(int, qreal)));
 }
 
 quint32 VideoContent::id() const
@@ -193,11 +195,13 @@ void VideoContent::playContent()
 
     if (m_video->isPicture())
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addPicture", Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addPicture",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
     }
     else
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo", Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
     }
 
     m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
@@ -216,7 +220,8 @@ void VideoContent::stopContent()
     if (m_viewContext == nullptr)
         return;
 
-    QMetaObject::invokeMethod(m_viewContext->rootObject(), "removeContent", Q_ARG(QVariant, m_video->id()));
+    QMetaObject::invokeMethod(m_viewContext->rootObject(), "removeContent",
+                              Q_ARG(QVariant, m_video->id()));
 }
 
 void VideoContent::slotDetectResolution()
@@ -226,7 +231,8 @@ void VideoContent::slotDetectResolution()
 
     m_mediaPlayer = new QMediaPlayer();
 
-    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
+    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this,
+            SLOT(slotMetaDataChanged(QString, QVariant)));
 
     QString sourceURL = m_video->sourceUrl();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -244,7 +250,8 @@ void VideoContent::slotDetectResolution()
 
 QVariant VideoContent::getAttribute(quint32 id, const char *propName)
 {
-    QQuickItem *item = qobject_cast<QQuickItem *>(m_viewContext->findChild<QQuickItem *>(QString("media-%1").arg(id)));
+    QQuickItem *item = qobject_cast<QQuickItem *>(
+        m_viewContext->findChild<QQuickItem *>(QString("media-%1").arg(id)));
     if (item)
         return item->property(propName);
 
@@ -253,7 +260,8 @@ QVariant VideoContent::getAttribute(quint32 id, const char *propName)
 
 void VideoContent::updateAttribute(quint32 id, const char *propName, QVariant value)
 {
-    QQuickItem *item = qobject_cast<QQuickItem *>(m_viewContext->findChild<QQuickItem *>(QString("media-%1").arg(id)));
+    QQuickItem *item = qobject_cast<QQuickItem *>(
+        m_viewContext->findChild<QQuickItem *>(QString("media-%1").arg(id)));
     if (item)
         item->setProperty(propName, value);
 }
@@ -293,7 +301,7 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
             qreal    xDelta   = qreal(m_viewContext->width()) * (value / 100.0);
             QVariant var      = getAttribute(m_video->id(), "geometry");
             QRect    currGeom = var.isNull() ? m_geometry : var.toRect();
-            QRect    geom(m_geometry.x() + int(xDelta), currGeom.y(), currGeom.width(), currGeom.height());
+            QRect geom(m_geometry.x() + int(xDelta), currGeom.y(), currGeom.width(), currGeom.height());
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;
@@ -302,7 +310,7 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
             qreal    yDelta   = qreal(m_viewContext->height()) * (value / 100.0);
             QVariant var      = getAttribute(m_video->id(), "geometry");
             QRect    currGeom = var.isNull() ? m_geometry : var.toRect();
-            QRect    geom(currGeom.x(), m_geometry.y() + int(yDelta), currGeom.width(), currGeom.height());
+            QRect geom(currGeom.x(), m_geometry.y() + int(yDelta), currGeom.width(), currGeom.height());
             updateAttribute(m_video->id(), "geometry", geom);
         }
         break;

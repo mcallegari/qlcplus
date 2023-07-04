@@ -310,7 +310,8 @@ bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
     quint32 id = xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString().toUInt(&ok);
     if (ok == false)
     {
-        qWarning() << "Invalid FixtureGroup ID:" << xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString();
+        qWarning() << "Invalid FixtureGroup ID:"
+                   << xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString();
         return false;
     }
 

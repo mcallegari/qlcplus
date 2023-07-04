@@ -86,7 +86,8 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxMa
     }
 
     view->rootContext()->setContextProperty("virtualConsole", this);
-    qmlRegisterUncreatableType<GrandMaster>("org.qlcplus.classes", 1, 0, "GrandMaster", "Can't create a GrandMaster!");
+    qmlRegisterUncreatableType<GrandMaster>("org.qlcplus.classes", 1, 0, "GrandMaster",
+                                            "Can't create a GrandMaster!");
     qmlRegisterUncreatableType<QLCInputChannel>("org.qlcplus.classes", 1, 0, "QLCInputChannel",
                                                 "Can't create a QLCInputChannel!");
 
@@ -100,8 +101,8 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxMa
     qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
     qmlRegisterType<VCCueList>("org.qlcplus.classes", 1, 0, "VCCueList");
 
-    connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, QString)), this,
-            SLOT(slotInputValueChanged(quint32, quint32, uchar)));
+    connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, QString)),
+            this, SLOT(slotInputValueChanged(quint32, quint32, uchar)));
 }
 
 qreal VirtualConsole::pixelDensity() const
@@ -290,7 +291,8 @@ VCPage *VirtualConsole::page(int page) const
 QQuickItem *VirtualConsole::currentPageItem() const
 {
     QString     currPage = QString("vcPage%1").arg(m_selectedPage);
-    QQuickItem *pageItem = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>(currPage));
+    QQuickItem *pageItem =
+        qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>(currPage));
     return pageItem;
 }
 
@@ -632,7 +634,8 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
                 // TODO: for now, let's do an ingnorant alignment, without considering
                 // that widgets can be nested into VC frames...
                 int right = refGeom.x() + refGeom.width();
-                widget->setGeometry(QRect(right - wGeom.width(), wGeom.y(), wGeom.width(), wGeom.height()));
+                widget->setGeometry(
+                    QRect(right - wGeom.width(), wGeom.y(), wGeom.width(), wGeom.height()));
             }
             break;
             case Qt::AlignBottom:
@@ -640,7 +643,8 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
                 // TODO: for now, let's do an ingnorant alignment, without considering
                 // that widgets can be nested into VC frames...
                 int bottom = refGeom.y() + refGeom.height();
-                widget->setGeometry(QRect(wGeom.x(), bottom - wGeom.height(), wGeom.width(), wGeom.height()));
+                widget->setGeometry(
+                    QRect(wGeom.x(), bottom - wGeom.height(), wGeom.width(), wGeom.height()));
             }
             break;
         }
@@ -729,16 +733,17 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
             {
                 Tardis::instance()->enqueueAction(
                     Tardis::VCWidgetDelete, w->id(),
-                    Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, child->id()), QVariant());
+                    Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, child->id()),
+                    QVariant());
                 m_widgetsMap.remove(child->id());
             }
         }
 
         /* 3- remove the widget from the global VC widgets map */
         VCFrame *parent = qobject_cast<VCFrame *>(w->parent());
-        Tardis::instance()->enqueueAction(Tardis::VCWidgetDelete, parent->id(),
-                                          Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, w->id()),
-                                          QVariant());
+        Tardis::instance()->enqueueAction(
+            Tardis::VCWidgetDelete, parent->id(),
+            Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, w->id()), QVariant());
         m_widgetsMap.remove(wID);
 
         /* 4- perform the actual widget deletion */
@@ -755,15 +760,17 @@ VCWidget *VirtualConsole::selectedWidget() const
     return m_widgetsMap[m_itemsMap.firstKey()];
 }
 
-void VirtualConsole::requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos)
+void VirtualConsole::requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType,
+                                           QPoint pos)
 {
-    QQuickItem *vcItem = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
+    QQuickItem *vcItem =
+        qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
     if (vcItem == nullptr)
         return;
 
     QMetaObject::invokeMethod(vcItem, "requestMatrixPopup", Q_ARG(QVariant, QVariant::fromValue(frame)),
-                              Q_ARG(QVariant, QVariant::fromValue(parent)), Q_ARG(QVariant, widgetType),
-                              Q_ARG(QVariant, pos));
+                              Q_ARG(QVariant, QVariant::fromValue(parent)),
+                              Q_ARG(QVariant, widgetType), Q_ARG(QVariant, pos));
 }
 
 QString VirtualConsole::widgetIcon(int type)
@@ -889,7 +896,8 @@ bool VirtualConsole::createAndDetectInputSource(VCWidget *widget)
     QSharedPointer<QLCInputSource> source = QSharedPointer<QLCInputSource>(new QLCInputSource());
     widget->addInputSource(source);
 
-    enableInputSourceAutoDetection(widget, source->id(), QLCInputSource::invalidUniverse, QLCInputSource::invalidChannel);
+    enableInputSourceAutoDetection(widget, source->id(), QLCInputSource::invalidUniverse,
+                                   QLCInputSource::invalidChannel);
 
     return true;
 }
@@ -915,7 +923,8 @@ bool VirtualConsole::createAndDetectInputKey(VCWidget *widget)
     return true;
 }
 
-bool VirtualConsole::enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
+bool VirtualConsole::enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe,
+                                                    quint32 channel)
 {
     /** Do not allow multiple detections at once ! */
     if (m_inputDetectionEnabled == true || widget == nullptr)
@@ -1098,7 +1107,8 @@ QVariant VirtualConsole::inputChannelsModel()
             chParams.append(QVariant::fromValue(channel)); // classRef
             chParams.append(App::ChannelDragItem);         // type
             chParams.append(itemID);                       // id
-            m_inputChannelsTree->addItem(QString("%1: %2").arg(it.key() + 1).arg(channel->name()), chParams, nodePath);
+            m_inputChannelsTree->addItem(QString("%1: %2").arg(it.key() + 1).arg(channel->name()),
+                                         chParams, nodePath);
         }
 
         // add also the Universe node data
@@ -1142,7 +1152,8 @@ QVariantList VirtualConsole::universeListModel()
 
 void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
+    qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel
+             << ", value:" << value;
     if (m_inputDetectionEnabled == false)
     {
         int pageIdx = 0;
@@ -1297,7 +1308,7 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
 
             if (attrs.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
             {
-                str                = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
+                str = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
                 gmLegacySliderMode = GrandMaster::stringToSliderMode(str);
             }
 
@@ -1314,14 +1325,16 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
                     quint32 channel  = QLCChannel::invalid();
                     /* External input */
                     if (loadXMLLegacyInput(root, &universe, &channel) == true)
-                        gmLegacyInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, channel));
+                        gmLegacyInputSource =
+                            QSharedPointer<QLCInputSource>(new QLCInputSource(universe, channel));
                 }
                 root.skipCurrentElement();
             }
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown Virtual Console property tag:" << root.name().toString();
+            qWarning() << Q_FUNC_INFO
+                       << "Unknown Virtual Console property tag:" << root.name().toString();
             root.skipCurrentElement();
         }
     }

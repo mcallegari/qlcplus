@@ -186,20 +186,24 @@ void RGBMatrixEditor::init()
     updateExtraOptions();
     updateSpeedDials();
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_speedDialButton, SIGNAL(toggled(bool)), this, SLOT(slotSpeedDialToggle(bool)));
     connect(m_saveToSequenceButton, SIGNAL(clicked()), this, SLOT(slotSaveToSequenceClicked()));
     connect(m_shapeButton, SIGNAL(toggled(bool)), this, SLOT(slotShapeToggle(bool)));
-    connect(m_patternCombo, SIGNAL(activated(const QString &)), this, SLOT(slotPatternActivated(const QString &)));
+    connect(m_patternCombo, SIGNAL(activated(const QString &)), this,
+            SLOT(slotPatternActivated(const QString &)));
     connect(m_fixtureGroupCombo, SIGNAL(activated(int)), this, SLOT(slotFixtureGroupActivated(int)));
     connect(m_blendModeCombo, SIGNAL(activated(int)), this, SLOT(slotBlendModeChanged(int)));
     connect(m_controlModeCombo, SIGNAL(activated(int)), this, SLOT(slotControlModeChanged(int)));
     connect(m_startColorButton, SIGNAL(clicked()), this, SLOT(slotStartColorButtonClicked()));
     connect(m_endColorButton, SIGNAL(clicked()), this, SLOT(slotEndColorButtonClicked()));
     connect(m_resetEndColorButton, SIGNAL(clicked()), this, SLOT(slotResetEndColorButtonClicked()));
-    connect(m_textEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotTextEdited(const QString &)));
+    connect(m_textEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotTextEdited(const QString &)));
     connect(m_fontButton, SIGNAL(clicked()), this, SLOT(slotFontButtonClicked()));
-    connect(m_animationCombo, SIGNAL(activated(const QString &)), this, SLOT(slotAnimationActivated(const QString &)));
+    connect(m_animationCombo, SIGNAL(activated(const QString &)), this,
+            SLOT(slotAnimationActivated(const QString &)));
     connect(m_imageEdit, SIGNAL(editingFinished()), this, SLOT(slotImageEdited()));
     connect(m_imageButton, SIGNAL(clicked()), this, SLOT(slotImageButtonClicked()));
     connect(m_imageAnimationCombo, SIGNAL(activated(const QString &)), this,
@@ -319,7 +323,8 @@ void RGBMatrixEditor::updateExtraOptions()
         Q_ASSERT(image != NULL);
         m_imageEdit->setText(image->filename());
 
-        int index = m_imageAnimationCombo->findText(RGBImage::animationStyleToString(image->animationStyle()));
+        int index =
+            m_imageAnimationCombo->findText(RGBImage::animationStyleToString(image->animationStyle()));
         if (index != -1)
             m_imageAnimationCombo->setCurrentIndex(index);
 
@@ -336,7 +341,8 @@ void RGBMatrixEditor::updateExtraOptions()
         Q_ASSERT(text != NULL);
         m_textEdit->setText(text->text());
 
-        int index = m_animationCombo->findText(RGBText::animationStyleToString(text->animationStyle()));
+        int index =
+            m_animationCombo->findText(RGBText::animationStyleToString(text->animationStyle()));
         if (index != -1)
             m_animationCombo->setCurrentIndex(index);
 
@@ -475,7 +481,8 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                 QComboBox *propCombo = new QComboBox(this);
                 propCombo->addItems(prop.m_listValues);
                 propCombo->setProperty("pName", prop.m_name);
-                connect(propCombo, SIGNAL(currentIndexChanged(QString)), this, SLOT(slotPropertyComboChanged(QString)));
+                connect(propCombo, SIGNAL(currentIndexChanged(QString)), this,
+                        SLOT(slotPropertyComboChanged(QString)));
                 m_propertiesLayout->addWidget(propCombo, gridRowIdx, 1);
                 if (m_matrix != NULL)
                 {
@@ -541,8 +548,8 @@ bool RGBMatrixEditor::createPreviewItems()
         return false;
     }
 
-    m_previewHandler->initializeDirection(m_matrix->direction(), m_matrix->startColor(), m_matrix->endColor(),
-                                          m_matrix->stepsCount());
+    m_previewHandler->initializeDirection(m_matrix->direction(), m_matrix->startColor(),
+                                          m_matrix->endColor(), m_matrix->stepsCount());
 
     m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
 
@@ -562,16 +569,16 @@ bool RGBMatrixEditor::createPreviewItems()
                 {
                     QGraphicsEllipseItem *circleItem = new QGraphicsEllipseItem();
                     circleItem->setRect(x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                        y * RECT_SIZE + RECT_PADDING + ITEM_PADDING, ITEM_SIZE - (2 * ITEM_PADDING),
-                                        ITEM_SIZE - (2 * ITEM_PADDING));
+                                        y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                                        ITEM_SIZE - (2 * ITEM_PADDING), ITEM_SIZE - (2 * ITEM_PADDING));
                     item = new RGBItem(circleItem);
                 }
                 else
                 {
                     QGraphicsRectItem *rectItem = new QGraphicsRectItem();
                     rectItem->setRect(x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                      y * RECT_SIZE + RECT_PADDING + ITEM_PADDING, ITEM_SIZE - (2 * ITEM_PADDING),
-                                      ITEM_SIZE - (2 * ITEM_PADDING));
+                                      y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                                      ITEM_SIZE - (2 * ITEM_PADDING), ITEM_SIZE - (2 * ITEM_PADDING));
                     item = new RGBItem(rectItem);
                 }
 
@@ -594,8 +601,8 @@ void RGBMatrixEditor::slotPreviewTimeout()
     uint elapsed = 0;
     while (m_previewIterator >= MAX(m_matrix->duration(), MasterTimer::tick()))
     {
-        m_previewHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(), m_matrix->endColor(),
-                                        m_matrix->stepsCount());
+        m_previewHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(),
+                                        m_matrix->endColor(), m_matrix->stepsCount());
 
         m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
 
@@ -799,8 +806,9 @@ void RGBMatrixEditor::slotImageButtonClicked()
         Q_ASSERT(algo != NULL);
 
         QString path = algo->filename();
-        path         = QFileDialog::getOpenFileName(this, tr("Select image"), path,
-                                                    QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+        path         = QFileDialog::getOpenFileName(
+                    this, tr("Select image"), path,
+                    QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
         if (path.isEmpty() == false)
         {
             {
@@ -1147,7 +1155,8 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                         quint32 channel = fxi->masterIntensityChannel();
 
                         if (channel == QLCChannel::invalid())
-                            channel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head);
+                            channel =
+                                fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head);
 
                         if (channel != QLCChannel::invalid())
                             step.values.append(SceneValue(head.fxi, channel, RGBMatrix::rgbToGrey(col)));
@@ -1185,7 +1194,8 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                 currentStep = totalSteps - 2;
                 increment   = -1;
             }
-            m_previewHandler->updateStepColor(currentStep, m_matrix->startColor(), m_matrix->stepsCount());
+            m_previewHandler->updateStepColor(currentStep, m_matrix->startColor(),
+                                              m_matrix->stepsCount());
         }
 
         m_doc->addFunction(sequence);

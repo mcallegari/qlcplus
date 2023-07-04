@@ -215,7 +215,8 @@ void DmxDumpFactory::accept()
             for (int j = 0; j < UNIVERSE_SIZE; ++j)
             {
                 const int ofs    = offset + j;
-                preGMValues[ofs] = static_cast<char>(ua.at(i)->applyPassthrough(j, static_cast<uchar>(preGMValues[ofs])));
+                preGMValues[ofs] = static_cast<char>(
+                    ua.at(i)->applyPassthrough(j, static_cast<uchar>(preGMValues[ofs])));
             }
         }
     }
@@ -229,7 +230,8 @@ void DmxDumpFactory::accept()
     for (int t = 0; t < m_fixturesTree->topLevelItemCount(); t++)
     {
         QTreeWidgetItem *uniItem = m_fixturesTree->topLevelItem(t);
-        if (newScene == NULL && (m_dumpAllRadio->isChecked() || uniItem->checkState(KColumnName) != Qt::Unchecked))
+        if (newScene == NULL
+            && (m_dumpAllRadio->isChecked() || uniItem->checkState(KColumnName) != Qt::Unchecked))
             newScene = new Scene(m_doc);
         // int uni = uniItem->text(KColumnID).toInt();
         for (int f = 0; f < uniItem->childCount(); f++)
@@ -249,7 +251,8 @@ void DmxDumpFactory::accept()
                     {
                         dumpMask[baseAddress + channel] = 1;
                         uchar value                     = preGMValues.at(baseAddress + channel);
-                        if (m_nonZeroCheck->isChecked() == false || (m_nonZeroCheck->isChecked() == true && value > 0))
+                        if (m_nonZeroCheck->isChecked() == false
+                            || (m_nonZeroCheck->isChecked() == true && value > 0))
                         {
                             SceneValue sv = SceneValue(fxID, channel, value);
                             newScene->setValue(sv);
@@ -257,12 +260,14 @@ void DmxDumpFactory::accept()
                     }
                     else
                     {
-                        // qDebug() << "Fix: " << fxID << "chan:" << channel << "addr:" << (baseAddress + channel);
+                        // qDebug() << "Fix: " << fxID << "chan:" << channel << "addr:" <<
+                        // (baseAddress + channel);
                         if (chanItem->checkState(KColumnName) == Qt::Checked)
                         {
                             dumpMask[baseAddress + channel] = 1;
                             uchar value                     = preGMValues.at(baseAddress + channel);
-                            if (m_nonZeroCheck->isChecked() == false || (m_nonZeroCheck->isChecked() == true && value > 0))
+                            if (m_nonZeroCheck->isChecked() == false
+                                || (m_nonZeroCheck->isChecked() == true && value > 0))
                             {
                                 SceneValue sv = SceneValue(fxID, channel, value);
                                 newScene->setValue(sv);
@@ -311,7 +316,8 @@ void DmxDumpFactory::accept()
                     }
                     else if (m_buttonRadio->isChecked())
                     {
-                        VCButton *button = qobject_cast<VCButton *>(VirtualConsole::instance()->widget(targetID));
+                        VCButton *button =
+                            qobject_cast<VCButton *>(VirtualConsole::instance()->widget(targetID));
                         if (button != NULL)
                         {
                             button->setFunction(newScene->id());
@@ -320,7 +326,8 @@ void DmxDumpFactory::accept()
                     }
                     else if (m_sliderRadio->isChecked())
                     {
-                        VCSlider *slider = qobject_cast<VCSlider *>(VirtualConsole::instance()->widget(targetID));
+                        VCSlider *slider =
+                            qobject_cast<VCSlider *>(VirtualConsole::instance()->widget(targetID));
                         if (slider != NULL)
                         {
                             slider->setPlaybackFunction(newScene->id());

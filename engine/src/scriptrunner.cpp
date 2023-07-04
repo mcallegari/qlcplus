@@ -102,8 +102,9 @@ QStringList ScriptRunner::collectScriptData()
     QJSValue script = engine->evaluate("(function run() { " + m_content + " })");
     if (script.isError())
     {
-        QString msg =
-            QString("Uncaught exception at line %2. %3").arg(script.property("lineNumber").toInt()).arg(script.toString());
+        QString msg = QString("Uncaught exception at line %2. %3")
+                          .arg(script.property("lineNumber").toInt())
+                          .arg(script.toString());
         qWarning() << msg;
         // qDebug() << "Stack: " << script.property("stack").toString();
         syntaxErrorList << msg;
@@ -122,8 +123,9 @@ QStringList ScriptRunner::collectScriptData()
         QJSValue ret = script.call(QJSValueList());
         if (ret.isError())
         {
-            QString msg =
-                QString("Uncaught exception at line %2. %3").arg(ret.property("lineNumber").toInt()).arg(ret.toString());
+            QString msg = QString("Uncaught exception at line %2. %3")
+                              .arg(ret.property("lineNumber").toInt())
+                              .arg(ret.toString());
             qWarning() << msg;
             syntaxErrorList << msg;
         }
@@ -150,7 +152,8 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         {
             FixtureValue val = m_fixtureValueQueue.dequeue();
 
-            QSharedPointer<GenericFader> fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
+            QSharedPointer<GenericFader> fader =
+                m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
                 fader                       = universes[val.m_universe]->requestFader();
@@ -159,7 +162,8 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 m_fadersMap[val.m_universe] = fader;
             }
 
-            FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe],
+                                                     val.m_fixtureID, val.m_channel);
 
             fc->setStart(fc->current());
             fc->setTarget(val.m_value);

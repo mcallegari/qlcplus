@@ -581,7 +581,8 @@ void FunctionManager::slotDelete()
     }
 
     // Ask for user's confirmation
-    if (QMessageBox::question(this, tr("Delete Functions"), msg, QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
+    if (QMessageBox::question(this, tr("Delete Functions"), msg, QMessageBox::Yes, QMessageBox::No)
+        == QMessageBox::Yes)
     {
         if (isFolder)
         {
@@ -701,7 +702,8 @@ void FunctionManager::initTree()
     connect(m_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotTreeSelectionChanged()));
 
     // Catch right-mouse clicks
-    connect(m_tree, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(slotTreeContextMenuRequested()));
+    connect(m_tree, SIGNAL(customContextMenuRequested(const QPoint &)), this,
+            SLOT(slotTreeContextMenuRequested()));
 }
 
 void FunctionManager::selectFunction(quint32 id)
@@ -850,14 +852,17 @@ void FunctionManager::editFunction(Function *function)
     // Choose the editor by the selected function's type
     if (function->type() == Function::SceneType)
     {
-        m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene *>(function), m_doc, true);
-        connect(this, SIGNAL(functionManagerActive(bool)), m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
+        m_scene_editor =
+            new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene *>(function), m_doc, true);
+        connect(this, SIGNAL(functionManagerActive(bool)), m_scene_editor,
+                SLOT(slotFunctionManagerActive(bool)));
     }
     else if (function->type() == Function::ChaserType)
     {
         Chaser *chaser = qobject_cast<Chaser *>(function);
         m_editor       = new ChaserEditor(m_hsplitter->widget(1), chaser, m_doc);
-        connect(this, SIGNAL(functionManagerActive(bool)), m_editor, SLOT(slotFunctionManagerActive(bool)));
+        connect(this, SIGNAL(functionManagerActive(bool)), m_editor,
+                SLOT(slotFunctionManagerActive(bool)));
     }
     else if (function->type() == Function::SequenceType)
     {
@@ -872,13 +877,17 @@ void FunctionManager::editFunction(Function *function)
         else
         {
             m_editor = new ChaserEditor(m_hsplitter->widget(1), sequence, m_doc);
-            connect(this, SIGNAL(functionManagerActive(bool)), m_editor, SLOT(slotFunctionManagerActive(bool)));
+            connect(this, SIGNAL(functionManagerActive(bool)), m_editor,
+                    SLOT(slotFunctionManagerActive(bool)));
 
             if (sfunc->type() == Function::SceneType)
             {
-                m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene *>(sfunc), m_doc, false);
-                connect(this, SIGNAL(functionManagerActive(bool)), m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
-                /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
+                m_scene_editor = new SceneEditor(m_vsplitter->widget(1),
+                                                 qobject_cast<Scene *>(sfunc), m_doc, false);
+                connect(this, SIGNAL(functionManagerActive(bool)), m_scene_editor,
+                        SLOT(slotFunctionManagerActive(bool)));
+                /** Signal from chaser editor to scene editor. When a step is clicked apply values
+                 * immediately */
                 connect(m_editor, SIGNAL(applyValues(QList<SceneValue> &)), m_scene_editor,
                         SLOT(slotSetSceneValues(QList<SceneValue> &)));
                 /** Signal from scene editor to chaser editor. When a fixture value is changed,
@@ -890,17 +899,21 @@ void FunctionManager::editFunction(Function *function)
     }
     else if (function->type() == Function::CollectionType)
     {
-        m_editor = new CollectionEditor(m_hsplitter->widget(1), qobject_cast<Collection *>(function), m_doc);
+        m_editor =
+            new CollectionEditor(m_hsplitter->widget(1), qobject_cast<Collection *>(function), m_doc);
     }
     else if (function->type() == Function::EFXType)
     {
         m_editor = new EFXEditor(m_hsplitter->widget(1), qobject_cast<EFX *>(function), m_doc);
-        connect(this, SIGNAL(functionManagerActive(bool)), m_editor, SLOT(slotFunctionManagerActive(bool)));
+        connect(this, SIGNAL(functionManagerActive(bool)), m_editor,
+                SLOT(slotFunctionManagerActive(bool)));
     }
     else if (function->type() == Function::RGBMatrixType)
     {
-        m_editor = new RGBMatrixEditor(m_hsplitter->widget(1), qobject_cast<RGBMatrix *>(function), m_doc);
-        connect(this, SIGNAL(functionManagerActive(bool)), m_editor, SLOT(slotFunctionManagerActive(bool)));
+        m_editor =
+            new RGBMatrixEditor(m_hsplitter->widget(1), qobject_cast<RGBMatrix *>(function), m_doc);
+        connect(this, SIGNAL(functionManagerActive(bool)), m_editor,
+                SLOT(slotFunctionManagerActive(bool)));
     }
     else if (function->type() == Function::ScriptType)
     {

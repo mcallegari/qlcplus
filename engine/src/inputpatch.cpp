@@ -73,8 +73,8 @@ bool InputPatch::set(QLCIOPlugin *plugin, quint32 input, QLCInputProfile *profil
 {
     bool result = false;
 
-    qDebug() << "InputPatch::set - plugin:" << ((plugin == NULL) ? "None" : plugin->name()) << ", line:" << input
-             << ", profile:" << ((profile == NULL) ? "None" : profile->name());
+    qDebug() << "InputPatch::set - plugin:" << ((plugin == NULL) ? "None" : plugin->name())
+             << ", line:" << input << ", profile:" << ((profile == NULL) ? "None" : profile->name());
 
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
@@ -140,7 +140,8 @@ bool InputPatch::reconnect()
             foreach (QString par, m_parametersCache.keys())
             {
                 qDebug() << "[InputPatch] restoring parameter:" << par << m_parametersCache[par];
-                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, par, m_parametersCache[par]);
+                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, par,
+                                       m_parametersCache[par]);
             }
         }
         return ret;
@@ -168,7 +169,8 @@ quint32 InputPatch::input() const
 
 QString InputPatch::inputName() const
 {
-    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() && m_pluginLine < quint32(m_plugin->inputs().count()))
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine()
+        && m_pluginLine < quint32(m_plugin->inputs().count()))
         return m_plugin->inputs()[m_pluginLine];
     else
         return KInputNone;
@@ -208,7 +210,8 @@ QMap<QString, QVariant> InputPatch::getPluginParameters()
     return QMap<QString, QVariant>();
 }
 
-void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &key)
+void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value,
+                                  const QString &key)
 {
     // In case we have several lines connected to the same plugin, emit only
     // such values that belong to this particular patch.
@@ -252,7 +255,8 @@ void InputPatch::setProfilePageControls()
                 while (it.hasNext() == true)
                 {
                     it.next();
-                    m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, it.key(), it.value());
+                    m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, it.key(),
+                                           it.value());
                 }
             }
         }
@@ -279,7 +283,8 @@ void InputPatch::flush(quint32 universe)
     if (universe == UINT_MAX || universe == m_universe)
     {
         QMutexLocker inputBufferLocker(&m_inputBufferMutex);
-        for (QHash<quint32, InputValue>::const_iterator it = m_inputBuffer.begin(); it != m_inputBuffer.end(); ++it)
+        for (QHash<quint32, InputValue>::const_iterator it = m_inputBuffer.begin();
+             it != m_inputBuffer.end(); ++it)
         {
             emit inputValueChanged(m_universe, it.key(), it.value().value, it.value().key);
         }

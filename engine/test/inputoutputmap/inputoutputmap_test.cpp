@@ -140,7 +140,8 @@ void InputOutputMap_Test::inputPluginStatus()
     IOPluginStub *stub = static_cast<IOPluginStub *>(m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QVERIFY(im.inputPluginStatus(stub->name(), QLCIOPlugin::invalidLine()) == stub->inputInfo(QLCIOPlugin::invalidLine()));
+    QVERIFY(im.inputPluginStatus(stub->name(), QLCIOPlugin::invalidLine())
+            == stub->inputInfo(QLCIOPlugin::invalidLine()));
     QVERIFY(im.inputPluginStatus(stub->name(), 0) == stub->inputInfo(0));
     QVERIFY(im.inputPluginStatus(stub->name(), 1) == stub->inputInfo(1));
     QVERIFY(im.inputPluginStatus(stub->name(), 2) == stub->inputInfo(2));
@@ -597,7 +598,8 @@ void InputOutputMap_Test::inputSourceNames()
     QCOMPARE(ch, tr("%1: ?").arg(1));
 
     QVERIFY(im.inputSourceNames(new QLCInputSource(0, QLCInputSource::invalidChannel), uni, ch) == false);
-    QVERIFY(im.inputSourceNames(new QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch)
+            == false);
     QVERIFY(im.inputSourceNames(new QLCInputSource(), uni, ch) == false);
 }
 

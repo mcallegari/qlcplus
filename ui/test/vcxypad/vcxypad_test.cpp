@@ -296,10 +296,14 @@ void VCXYPad_Test::saveXML()
     pad.resize(QSize(150, 200));
     pad.move(QPoint(10, 20));
     pad.m_area->setPosition(QPointF(23, 45));
-    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCXYPad::panInputSourceId);
-    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCXYPad::tiltInputSourceId);
-    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 10)), VCXYPad::widthInputSourceId);
-    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 8)), VCXYPad::heightInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)),
+                       VCXYPad::panInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)),
+                       VCXYPad::tiltInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 10)),
+                       VCXYPad::widthInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 8)),
+                       VCXYPad::heightInputSourceId);
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
 
@@ -445,17 +449,17 @@ void VCXYPad_Test::modeChange()
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], pad);
     /*
-        // FIXME !!
-        pad->m_area->setPosition(QPoint(pad->m_area->width(), pad->m_area->height()));
-        pad->writeDMX(m_doc->masterTimer(), &ua);
-        QCOMPARE(ua.preGMValues()[0], char(255));
-        QCOMPARE(ua.preGMValues()[1], char(255));
+    // FIXME !!
+    pad->m_area->setPosition(QPoint(pad->m_area->width(), pad->m_area->height()));
+    pad->writeDMX(m_doc->masterTimer(), &ua);
+    QCOMPARE(ua.preGMValues()[0], char(255));
+    QCOMPARE(ua.preGMValues()[1], char(255));
 
-        pad->m_area->setPosition(QPoint(pad->m_area->width() / 2, pad->m_area->height() / 4));
-        pad->writeDMX(m_doc->masterTimer(), &ua);
-        QCOMPARE(ua.preGMValues()[0], char(128));
-        QCOMPARE(ua.preGMValues()[1], char(64));
-    */
+    pad->m_area->setPosition(QPoint(pad->m_area->width() / 2, pad->m_area->height() / 4));
+    pad->writeDMX(m_doc->masterTimer(), &ua);
+    QCOMPARE(ua.preGMValues()[0], char(128));
+    QCOMPARE(ua.preGMValues()[1], char(64));
+*/
     m_doc->setMode(Doc::Design);
     QCOMPARE(pad->fixtures()[0].m_xMSB, QLCChannel::invalid());
     QCOMPARE(pad->fixtures()[0].m_yMSB, QLCChannel::invalid());

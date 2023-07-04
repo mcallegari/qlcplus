@@ -40,7 +40,8 @@
 #define KColumnMaxThreshold 5
 #define KColumnDivisor      6
 
-AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, int bandsNumber, int maxFrequency)
+AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc,
+                                                       int bandsNumber, int maxFrequency)
     : QDialog(triggers)
     , m_doc(doc)
     , m_maxFrequency(maxFrequency)
@@ -192,7 +193,8 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     }
 
     if (bar->m_type == AudioBar::VCWidgetBar && bar->widget() != NULL
-        && (bar->widget()->type() == VCWidget::SpeedDialWidget || bar->widget()->type() == VCWidget::CueListWidget))
+        && (bar->widget()->type() == VCWidget::SpeedDialWidget
+            || bar->widget()->type() == VCWidget::CueListWidget))
     {
         QSpinBox *divisor = new QSpinBox();
         divisor->setMinimum(1);
@@ -207,7 +209,8 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
 
 void AudioTriggersConfiguration::updateTree()
 {
-    if (m_barsNumSpin->value() < m_barsNumSpin->minimum() || m_barsNumSpin->value() > m_barsNumSpin->maximum())
+    if (m_barsNumSpin->value() < m_barsNumSpin->minimum()
+        || m_barsNumSpin->value() > m_barsNumSpin->maximum())
         return;
 
     m_tree->clear();
@@ -224,8 +227,9 @@ void AudioTriggersConfiguration::updateTree()
     for (int i = 0; i < m_barsNumSpin->value(); i++)
     {
         QTreeWidgetItem *barItem = new QTreeWidgetItem(m_tree);
-        barItem->setText(KColumnName,
-                         tr("#%1 (%2Hz - %3Hz)").arg(i + 1).arg((int)freqCount).arg((int)(freqCount + freqIncr)));
+        barItem->setText(
+            KColumnName,
+            tr("#%1 (%2Hz - %3Hz)").arg(i + 1).arg((int)freqCount).arg((int)(freqCount + freqIncr)));
         updateTreeItem(barItem, i);
         freqCount += freqIncr;
     }

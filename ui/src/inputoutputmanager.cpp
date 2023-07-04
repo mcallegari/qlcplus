@@ -134,7 +134,8 @@ InputOutputManager::InputOutputManager(QWidget *parent, Doc *doc)
     gcontainer->setLayout(new QVBoxLayout);
     gcontainer->layout()->setContentsMargins(0, 0, 0, 0);
 
-    connect(m_list, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this, SLOT(slotCurrentItemChanged()));
+    connect(m_list, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this,
+            SLOT(slotCurrentItemChanged()));
 
     /* Timer that clears the input data icon after a while */
     m_icon  = QIcon(":/input.png");
@@ -147,7 +148,8 @@ InputOutputManager::InputOutputManager(QWidget *parent, Doc *doc)
             SLOT(slotInputValueChanged(quint32, quint32, uchar)));
 
     /* Listen to plugin configuration changes */
-    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString &, bool)), this, SLOT(updateList()));
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString &, bool)), this,
+            SLOT(updateList()));
 
     connect(m_ioMap, SIGNAL(universeAdded(quint32)), this, SLOT(slotUniverseAdded(quint32)));
 
@@ -349,10 +351,10 @@ void InputOutputManager::slotDeleteUniverse()
     if (m_ioMap->isUniversePatched(uniIdx) == true)
     {
         // Ask for user's confirmation
-        if (QMessageBox::question(
-                this, tr("Delete Universe"),
-                tr("The universe you are trying to delete is patched. Are you sure you want to delete it?"),
-                QMessageBox::Yes, QMessageBox::No)
+        if (QMessageBox::question(this, tr("Delete Universe"),
+                                  tr("The universe you are trying to delete is patched. Are you "
+                                     "sure you want to delete it?"),
+                                  QMessageBox::Yes, QMessageBox::No)
             == QMessageBox::No)
         {
             return;
@@ -371,8 +373,7 @@ void InputOutputManager::slotDeleteUniverse()
             // Ask for user's confirmation
             if (QMessageBox::question(this, tr("Delete Universe"),
                                       tr("There are some fixtures using the universe you are "
-                                         "trying to delete. Are you "
-                                         "sure you want to delete it?"),
+                                         "trying to delete. Are you sure you want to delete it?"),
                                       QMessageBox::Yes, QMessageBox::No)
                 == QMessageBox::No)
             {

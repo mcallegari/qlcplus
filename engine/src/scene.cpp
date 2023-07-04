@@ -270,7 +270,9 @@ QColor Scene::colorValue(quint32 fxi)
         else if (channel->group() == QLCChannel::Colour)
         {
             QLCCapability *cap = channel->searchCapability(scv.value);
-            if (cap && (cap->presetType() == QLCCapability::SingleColor || cap->presetType() == QLCCapability::DoubleColor))
+            if (cap
+                && (cap->presetType() == QLCCapability::SingleColor
+                    || cap->presetType() == QLCCapability::DoubleColor))
             {
                 QColor col = cap->resource(0).value<QColor>();
                 rVal       = col.red();
@@ -685,7 +687,8 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 if (universe == Universe::invalid())
                     continue;
 
-                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                QSharedPointer<GenericFader> fader =
+                    m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
                     fader = ua[universe]->requestFader();
@@ -755,7 +758,8 @@ void Scene::processValue(MasterTimer *timer, QList<Universe *> ua, uint fadeIn, 
     }
     else
     {
-        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
+        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current()
+                 << "to" << scv.value;
     }
 
     fc->setStart(fc->current());

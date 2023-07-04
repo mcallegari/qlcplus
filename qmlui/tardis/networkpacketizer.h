@@ -54,7 +54,7 @@ public:
     void addSection(QByteArray &packet, QVariant value);
 
     QByteArray encryptPacket(QByteArray &packet, SimpleCrypt *crypter);
-    int        decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter);
+    int decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter);
 
 private:
 };

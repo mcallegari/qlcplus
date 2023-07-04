@@ -139,7 +139,8 @@ public:
 
 private:
     QString generateSalt() const;
-    QString hashPassword(const QString &hashType, const QString &password, const QString &passwordSalt) const;
+    QString hashPassword(const QString &hashType, const QString &password,
+                         const QString &passwordSalt) const;
     bool    verifyPassword(const QString &password, const WebAccessUser &user) const;
     bool    hasAtLeastOneAdmin() const;
 

@@ -105,8 +105,8 @@ QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
     {
         html += tr("Access point name (SSID): ") + "<input type=\"text\" id=\"" + iface->name
                 + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
-        html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" + iface->name + "WPAPSK\" size=\"15\" value=\""
-                + iface->wpaPass + "\"><br>\n";
+        html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" + iface->name
+                + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"><br>\n";
     }
     /** IP mode radio buttons */
     html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name
@@ -115,16 +115,17 @@ QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
             + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
 
     /** Static IP fields */
-    html += "<div id=\"" + iface->name + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
-    html += tr("IP Address: ") + "<input type=\"text\" id=\"" + iface->name + "IPaddr\" size=\"15\" value=\""
-            + iface->address + "\"><br>\n";
-    html += tr("Netmask: ") + "<input type=\"text\" id=\"" + iface->name + "Netmask\" size=\"15\" value=\""
-            + iface->netmask + "\"><br>\n";
-    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" + iface->name + "Gateway\" value=\""
-            + iface->gateway + "\"><br>\n";
+    html += "<div id=\"" + iface->name
+            + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
+    html += tr("IP Address: ") + "<input type=\"text\" id=\"" + iface->name
+            + "IPaddr\" size=\"15\" value=\"" + iface->address + "\"><br>\n";
+    html += tr("Netmask: ") + "<input type=\"text\" id=\"" + iface->name
+            + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\"><br>\n";
+    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" + iface->name
+            + "Gateway\" value=\"" + iface->gateway + "\"><br>\n";
     html += "</div>\n";
-    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->name
-            + "');\" >\n";
+    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('"
+            + iface->name + "');\" >\n";
     html += "</form></div></div>";
 
     return html;
@@ -302,8 +303,9 @@ QString WebAccessNetwork::getNetworkHTML()
     {
         if (info.enabled)
             html += getInterfaceHTML(&info);
-        qDebug() << "Interface:" << info.name << "isstatic:" << info.isStatic << "address:" << info.address
-                 << "netmask:" << info.netmask << "gateway:" << info.gateway;
+        qDebug() << "Interface:" << info.name << "isstatic:" << info.isStatic
+                 << "address:" << info.address << "netmask:" << info.netmask
+                 << "gateway:" << info.gateway;
     }
 
     return html;
@@ -314,7 +316,8 @@ QString WebAccessNetwork::getHTML()
     QString m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n";
     m_JScode += "<script type=\"text/javascript\" src=\"networkconfig.js\"></script>\n";
 
-    QString m_CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"common.css\">\n";
+    QString m_CSScode =
+        "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"common.css\">\n";
     m_CSScode += "<style type=\"text/css\" media=\"screen\">\n"
                  "html { height: 100%; background-color: #111; }\n"
                  "body {\n"
@@ -333,20 +336,25 @@ QString WebAccessNetwork::getHTML()
                        + "</div>\n"
                          "</div>\n";
 
-    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML +=
+        "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+        "font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Network configuration") + "</div>\n";
     bodyHTML += getNetworkHTML();
 
-    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML +=
+        "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+        "font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Project autostart") + "</div>\n";
-    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:18px; padding: 5px 0px; color:#CCCCCC; background:#222; border-radius: 7px;\">";
+    bodyHTML +=
+        "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+        "font-size:18px; padding: 5px 0px; color:#CCCCCC; background:#222; border-radius: 7px;\">";
     bodyHTML += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
     bodyHTML += "<input type=\"radio\" name=autostart value=\"none\">" + tr("No project") + "\n";
-    bodyHTML += "<input type=\"radio\" name=autostart value=\"current\" checked>" + tr("Use current project") + "\n";
-    bodyHTML += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"setAutostart();\" >\n";
+    bodyHTML += "<input type=\"radio\" name=autostart value=\"current\" checked>"
+                + tr("Use current project") + "\n";
+    bodyHTML += "<input type=\"button\" value=\"" + tr("Apply changes")
+                + "\" onclick=\"setAutostart();\" >\n";
     bodyHTML += "</form></div>\n";
 
     bodyHTML += "<div style=\"margin:5px 7%;\">\n";
@@ -358,7 +366,8 @@ QString WebAccessNetwork::getHTML()
                 + tr("Shutdown") + "</span></a>\n";
     bodyHTML += "</div>\n";
 
-    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+    QString str =
+        HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
     return str;
 }
@@ -475,10 +484,12 @@ bool WebAccessNetwork::writeNetworkFile()
 
             dhcpcdFile.write((QString("interface %1\n").arg(iface.name)).toLatin1());
             dhcpcdFile.write(
-                (QString("static ip_address=%1/%2\n").arg(iface.address).arg(stringToNetmask(iface.netmask))).toLatin1());
+                (QString("static ip_address=%1/%2\n").arg(iface.address).arg(stringToNetmask(iface.netmask)))
+                    .toLatin1());
             dhcpcdFile.write((QString("static routers=%1\n").arg(iface.gateway)).toLatin1());
             if (iface.dns1.isEmpty() == false)
-                dhcpcdFile.write((QString("static domain_name_servers=%1\n\n").arg(iface.dns1)).toLatin1());
+                dhcpcdFile.write(
+                    (QString("static domain_name_servers=%1\n\n").arg(iface.dns1)).toLatin1());
             else
                 dhcpcdFile.write(QString("static domain_name_servers=127.0.0.1\n\n").toLatin1());
         }
@@ -494,7 +505,8 @@ bool WebAccessNetwork::writeNetworkFile()
                 return false;
             }
 
-            wpaConfFile.write(QString("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n").toLatin1());
+            wpaConfFile.write(
+                QString("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n").toLatin1());
             wpaConfFile.write(QString("update_config=1\n\n").toLatin1());
             wpaConfFile.write(QString("network={\n").toLatin1());
             wpaConfFile.write(QString("scan_ssid=1\n").toLatin1());

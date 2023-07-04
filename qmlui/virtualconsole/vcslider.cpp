@@ -371,7 +371,8 @@ qreal VCSlider::sliderValueToAttributeValue(int value)
     if (m_controlledAttributeIndex == Function::Intensity)
         fraction = SCALE(qreal(value), m_rangeLowLimit, m_rangeHighLimit, 0, 1.0);
     else
-        fraction = SCALE(qreal(value), m_rangeLowLimit, m_rangeHighLimit, m_attributeMinValue, m_attributeMaxValue);
+        fraction = SCALE(qreal(value), m_rangeLowLimit, m_rangeHighLimit, m_attributeMinValue,
+                         m_attributeMaxValue);
 
     return fraction;
 }
@@ -383,7 +384,8 @@ qreal VCSlider::attributeValueToSliderValue(qreal value)
     if (m_controlledAttributeIndex == Function::Intensity)
         fraction = SCALE(value, 0.0, 1.0, m_rangeLowLimit, m_rangeHighLimit);
     else
-        fraction = SCALE(value, m_attributeMinValue, m_attributeMaxValue, m_rangeLowLimit, m_rangeHighLimit);
+        fraction =
+            SCALE(value, m_attributeMinValue, m_attributeMaxValue, m_rangeLowLimit, m_rangeHighLimit);
 
     return fraction;
 }
@@ -410,8 +412,8 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
                 updateClickAndGoResource();
             break;
         case Submaster:
-            emit submasterValueChanged(SCALE(qreal(m_value), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(1.0))
-                                       * intensity());
+            emit submasterValueChanged(
+                SCALE(qreal(m_value), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(1.0)) * intensity());
             break;
         case GrandMaster:
             m_doc->inputOutputMap()->setGrandMasterValue(value);
@@ -550,9 +552,10 @@ QVariant VCSlider::groupsTreeModel()
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
 
-        FixtureManager::updateGroupsTree(
-            m_doc, m_fixtureTree, m_searchFilter,
-            FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups | FixtureManager::ShowChannels, m_levelChannels);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter,
+                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups
+                                             | FixtureManager::ShowChannels,
+                                         m_levelChannels);
 
         connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem *, int, const QVariant &)), this,
                 SLOT(slotTreeDataChanged(TreeModelItem *, int, const QVariant &)));
@@ -578,9 +581,10 @@ void VCSlider::setSearchFilter(QString searchFilter)
     if (searchFilter.length() >= SEARCH_MIN_CHARS
         || (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
     {
-        FixtureManager::updateGroupsTree(
-            m_doc, m_fixtureTree, m_searchFilter,
-            FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups | FixtureManager::ShowChannels, m_levelChannels);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter,
+                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups
+                                             | FixtureManager::ShowChannels,
+                                         m_levelChannels);
         emit groupsTreeModelChanged();
     }
 
@@ -815,7 +819,8 @@ void VCSlider::setControlledFunction(quint32 fid)
     if (current != nullptr)
     {
         /* Get rid of old function connections */
-        disconnect(current, SIGNAL(stopped(quint32)), this, SLOT(slotControlledFunctionStopped(quint32)));
+        disconnect(current, SIGNAL(stopped(quint32)), this,
+                   SLOT(slotControlledFunctionStopped(quint32)));
         disconnect(current, SIGNAL(attributeChanged(int, qreal)), this,
                    SLOT(slotControlledFunctionAttributeChanged(int, qreal)));
 
@@ -853,7 +858,8 @@ void VCSlider::setControlledFunction(quint32 fid)
         emit controlledFunctionChanged(-1);
     }
 
-    Tardis::instance()->enqueueAction(Tardis::VCSliderSetFunctionID, id(), current ? current->id() : Function::invalidId(),
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetFunctionID, id(),
+                                      current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
 }
 
@@ -884,7 +890,8 @@ void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fract
 
     qreal newValue = qRound(attributeValueToSliderValue(fraction / intensity()));
 
-    qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed" << fraction << "->" << newValue;
+    qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed" << fraction << "->"
+             << newValue;
 
     setValue(newValue, false, true);
 }
@@ -919,8 +926,8 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     function->releaseAttributeOverride(m_controlledAttributeId);
     m_controlledAttributeId = Function::invalidAttributeId();
 
-    Tardis::instance()->enqueueAction(Tardis::VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex,
-                                      attributeIndex);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetControlledAttribute, id(),
+                                      m_controlledAttributeIndex, attributeIndex);
 
     m_controlledAttributeIndex = attributeIndex;
     qreal newValue             = 0;
@@ -1107,7 +1114,8 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
         // to the detected position
         if (mixedDMXlevels == false && monitorSliderValue != -1 && monitorSliderValue != m_monitorValue)
         {
-            // qDebug() << caption() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_value;
+            // qDebug() << caption() << "Monitor DMX value:" << monitorSliderValue << "level value:"
+            // << m_value;
 
             m_monitorValue = monitorSliderValue;
             emit monitorValueChanged();
@@ -1130,10 +1138,12 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
 
             quint32 universe = fxi->universe();
 
-            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>(nullptr));
+            QSharedPointer<GenericFader> fader =
+                m_fadersMap.value(universe, QSharedPointer<GenericFader>(nullptr));
             if (fader.isNull())
             {
-                fader = universes[universe]->requestFader(m_monitorEnabled ? Universe::Override : Universe::Auto);
+                fader = universes[universe]->requestFader(m_monitorEnabled ? Universe::Override
+                                                                           : Universe::Auto);
                 m_fadersMap[universe] = fader;
             }
 
@@ -1258,7 +1268,8 @@ void VCSlider::writeDMXAdjust(MasterTimer *timer, QList<Universe *> ua)
 void VCSlider::updateFeedback()
 {
     int fbv = invertedAppearance() ? rangeHighLimit() - m_value : m_value;
-    fbv     = int(SCALE(float(fbv), float(rangeLowLimit()), float(rangeHighLimit()), float(0), float(UCHAR_MAX)));
+    fbv     = int(SCALE(float(fbv), float(rangeLowLimit()), float(rangeHighLimit()), float(0),
+                        float(UCHAR_MAX)));
 
     sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
 }
@@ -1423,11 +1434,13 @@ bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
             {
                 /* Fixture & channel */
                 value = level_root.attributes().value(KXMLQLCVCSliderChannelFixture).toInt();
-                addLevelChannel(static_cast<quint32>(value), static_cast<quint32>(level_root.readElementText().toInt()));
+                addLevelChannel(static_cast<quint32>(value),
+                                static_cast<quint32>(level_root.readElementText().toInt()));
             }
             else
             {
-                qWarning() << Q_FUNC_INFO << "Unknown slider level tag:" << level_root.name().toString();
+                qWarning() << Q_FUNC_INFO
+                           << "Unknown slider level tag:" << level_root.name().toString();
                 level_root.skipCurrentElement();
             }
         } while (level_root.readNextStartElement());
@@ -1522,7 +1535,8 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     doc->writeStartElement(KXMLQLCVCSliderMode);
 
     /* Value display style */
-    doc->writeAttribute(KXMLQLCVCSliderValueDisplayStyle, valueDisplayStyleToString(valueDisplayStyle()));
+    doc->writeAttribute(KXMLQLCVCSliderValueDisplayStyle,
+                        valueDisplayStyleToString(valueDisplayStyle()));
 
     /* Click And Go type */
     if (m_clickAndGoType != CnGNone)

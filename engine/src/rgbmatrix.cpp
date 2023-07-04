@@ -618,7 +618,8 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                     resetElapsed();
                 }
             }
-            else if (elapsed() >= m_stepBeatDuration && (uint)timer->timeToNextBeat() > m_stepBeatDuration / 16)
+            else if (elapsed() >= m_stepBeatDuration
+                     && (uint)timer->timeToNextBeat() > m_stepBeatDuration / 16)
             {
                 qDebug() << "Elapsed exceeded";
                 roundCheck();
@@ -678,7 +679,8 @@ void RGBMatrix::roundCheck()
         roundElapsed(duration());
 }
 
-FadeChannel *RGBMatrix::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+FadeChannel *RGBMatrix::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID,
+                                 quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
@@ -1027,7 +1029,8 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     // qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
 
-void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount)
+void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor,
+                                        QColor endColor, int stepsCount)
 {
     m_direction = direction;
 
@@ -1049,7 +1052,8 @@ void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor st
     calculateColorDelta(startColor, endColor);
 }
 
-bool RGBMatrixStep::checkNextStep(Function::RunOrder order, QColor startColor, QColor endColor, int stepsNumber)
+bool RGBMatrixStep::checkNextStep(Function::RunOrder order, QColor startColor, QColor endColor,
+                                  int stepsNumber)
 {
     if (order == Function::PingPong)
     {

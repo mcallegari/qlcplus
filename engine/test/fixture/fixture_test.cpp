@@ -893,8 +893,8 @@ void Fixture_Test::save()
     xmlReader.readNextStartElement();
     QVERIFY(xmlReader.name().toString() == "Fixture");
 
-    bool manufacturer = false, model = false, mode = false, name = false, channels = false, universe = false,
-         address = false, id = false;
+    bool manufacturer = false, model = false, mode = false, name = false, channels = false,
+         universe = false, address = false, id = false;
 
     while (xmlReader.readNextStartElement())
     {

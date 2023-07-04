@@ -41,8 +41,8 @@ class InputChannelEditor : public QDialog, public Ui_InputChannelEditor
      * Initialization
      ********************************************************************/
 public:
-    InputChannelEditor(QWidget *parent, const QLCInputProfile *profile, const QLCInputChannel *channel,
-                       QLCInputProfile::Type profileType);
+    InputChannelEditor(QWidget *parent, const QLCInputProfile *profile,
+                       const QLCInputChannel *channel, QLCInputProfile::Type profileType);
     virtual ~InputChannelEditor();
 
     /********************************************************************

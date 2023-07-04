@@ -208,7 +208,7 @@ bool VCMatrixControl::loadXML(QXmlStreamReader &root)
         {
             if (root.attributes().hasAttribute(KXMLQLCVCMatrixControlPropertyName))
             {
-                QString pName       = root.attributes().value(KXMLQLCVCMatrixControlPropertyName).toString();
+                QString pName = root.attributes().value(KXMLQLCVCMatrixControlPropertyName).toString();
                 QString pValue      = root.readElementText();
                 m_properties[pName] = pValue;
             }

@@ -81,7 +81,7 @@ BreakAfterJavaFieldAnnotations: false
 BreakStringLiterals: true
 # Column width is limited to 120 characters as used in the QLCplus code
 # https://wiki.qt.io/Qt_Coding_Style defines a limit of 100.
-ColumnLimit:     120
+ColumnLimit:     100
 
 # Disable reflow of some specific comments
 # qdoc comments: indentation rules are different.
@@ -180,7 +180,7 @@ PenaltyIndentedWhitespace: 0
 PointerAlignment: Right
 PPIndentWidth:   2
 ReferenceAlignment: Pointer
-ReflowComments:  false
+ReflowComments: true
 RemoveBracesLLVM: false
 SeparateDefinitionBlocks: Leave
 ShortNamespaceLines: 1

@@ -45,7 +45,8 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
 
-    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)), this, SLOT(slotAutoDetectInputToggled(bool)));
+    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)), this,
+            SLOT(slotAutoDetectInputToggled(bool)));
     connect(m_chooseInputButton, SIGNAL(clicked()), this, SLOT(slotChooseInputClicked()));
 
     connect(m_customFbButton, SIGNAL(toggled(bool)), this, SLOT(slotCustomFeedbackToggled(bool)));
@@ -138,8 +139,8 @@ void InputSelectionWidget::slotAutoDetectInputToggled(bool checked)
     }
     else
     {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                   SLOT(slotInputValueChanged(quint32, quint32)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                   this, SLOT(slotInputValueChanged(quint32, quint32)));
     }
     emit autoDetectToggled(checked);
 }
@@ -153,7 +154,8 @@ void InputSelectionWidget::slotInputValueChanged(quint32 universe, quint32 chann
         return;
     }
 
-    m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_widgetPage << 16) | channel));
+    m_inputSource =
+        QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_widgetPage << 16) | channel));
     updateInputSource();
     m_signalsReceived++;
 
@@ -166,8 +168,8 @@ void InputSelectionWidget::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource =
-            QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
+        m_inputSource = QSharedPointer<QLCInputSource>(
+            new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
         updateInputSource();
         emit inputValueChanged(sic.universe(), (m_widgetPage << 16) | sic.channel());
     }
@@ -193,7 +195,8 @@ void InputSelectionWidget::updateInputSource()
     QString uniName;
     QString chName;
 
-    if (!m_inputSource || m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
+    if (!m_inputSource
+        || m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
     {
         uniName = KInputNone;
         chName  = KInputNone;
@@ -220,7 +223,8 @@ void InputSelectionWidget::updateInputSource()
             }
         }
         m_lowerSpin->setValue((m_inputSource->lowerValue() != 0) ? m_inputSource->lowerValue() : min);
-        m_upperSpin->setValue((m_inputSource->upperValue() != UCHAR_MAX) ? m_inputSource->upperValue() : max);
+        m_upperSpin->setValue((m_inputSource->upperValue() != UCHAR_MAX) ? m_inputSource->upperValue()
+                                                                         : max);
         if (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX)
         {
             m_customFbButton->setChecked(true);

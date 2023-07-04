@@ -43,7 +43,8 @@ class ChaserStep
      ***********************************************************************/
 public:
     /** Construct a new ChaserStep with the given attributes */
-    ChaserStep(quint32 aFid = Function::invalidId(), uint aFadeIn = 0, uint aHold = 0, uint aFadeOut = 0);
+    ChaserStep(quint32 aFid = Function::invalidId(), uint aFadeIn = 0, uint aHold = 0,
+               uint aFadeOut = 0);
 
     /** Copy constructor */
     ChaserStep(const ChaserStep &cs);

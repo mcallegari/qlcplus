@@ -454,7 +454,8 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 if (universe == Universe::invalid())
                     continue;
 
-                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                QSharedPointer<GenericFader> fader =
+                    m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
                     fader                 = ua[universe]->requestFader();
@@ -527,14 +528,14 @@ void CueStack::write(QList<Universe *> ua)
         emit currentCueChanged(m_currentIndex);
     }
     /*
-        else if (m_elapsed >= duration())
-        {
-            // Duration expired
-            m_elapsed = 0;
-            switchCue(next(), ua);
-            emit currentCueChanged(m_currentIndex);
-        }
-    */
+    else if (m_elapsed >= duration())
+    {
+        // Duration expired
+        m_elapsed = 0;
+        switchCue(next(), ua);
+        emit currentCueChanged(m_currentIndex);
+    }
+*/
     // m_fader->write(ua);
 
     m_elapsed += MasterTimer::tick();
@@ -594,7 +595,8 @@ int CueStack::previous()
     return m_currentIndex;
 }
 
-FadeChannel *CueStack::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+FadeChannel *CueStack::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID,
+                                quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());

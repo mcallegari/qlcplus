@@ -39,7 +39,8 @@
  * Initialization
  *****************************************************************************/
 
-VCPropertiesEditor::VCPropertiesEditor(QWidget *parent, const VCProperties &properties, InputOutputMap *ioMap)
+VCPropertiesEditor::VCPropertiesEditor(QWidget *parent, const VCProperties &properties,
+                                       InputOutputMap *ioMap)
     : QDialog(parent)
     , m_ioMap(ioMap)
 {
@@ -382,9 +383,10 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
     QString uniName;
     QString chName;
 
-    if (m_ioMap->inputSourceNames(QSharedPointer<QLCInputSource>(new QLCInputSource(
-                                      m_properties.grandMasterInputUniverse(), m_properties.grandMasterInputChannel())),
-                                  uniName, chName)
+    if (m_ioMap->inputSourceNames(
+            QSharedPointer<QLCInputSource>(new QLCInputSource(
+                m_properties.grandMasterInputUniverse(), m_properties.grandMasterInputChannel())),
+            uniName, chName)
         == true)
     {
         /* Display the gathered information */

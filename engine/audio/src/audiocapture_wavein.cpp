@@ -50,7 +50,8 @@ bool AudioCaptureWaveIn::initialize()
     format.nBlockAlign     = format.nChannels * format.wBitsPerSample / 8;
     format.cbSize          = 0;
 
-    result = waveInOpen(&deviceHandle, WAVE_MAPPER, &format, 0L, 0L, CALLBACK_NULL | WAVE_FORMAT_DIRECT);
+    result =
+        waveInOpen(&deviceHandle, WAVE_MAPPER, &format, 0L, 0L, CALLBACK_NULL | WAVE_FORMAT_DIRECT);
     switch (result)
     {
         case MMSYSERR_ALLOCATED:
@@ -77,10 +78,10 @@ bool AudioCaptureWaveIn::initialize()
 
     for (int i = 0; i < HEADERS_NUMBER; i++)
     {
-        m_internalBuffers[i]           = new char[m_captureSize * 2];
+        m_internalBuffers[i]          = new char[m_captureSize * 2];
         // Set up and prepare header for input
-        waveHeaders[i].lpData          = (LPSTR)m_internalBuffers[i];
-        waveHeaders[i].dwBufferLength  = m_captureSize * 2; // multiply by 2 cause they're 16bit samples
+        waveHeaders[i].lpData         = (LPSTR)m_internalBuffers[i];
+        waveHeaders[i].dwBufferLength = m_captureSize * 2; // multiply by 2 cause they're 16bit samples
         waveHeaders[i].dwBytesRecorded = 0;
         waveHeaders[i].dwUser          = 0L;
         waveHeaders[i].dwFlags         = 0L;

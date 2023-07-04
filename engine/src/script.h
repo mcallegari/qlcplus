@@ -247,10 +247,10 @@ private:
     static QList<QStringList> tokenizeLine(const QString &line, bool *ok = NULL);
 
 private:
-    int                       m_currentCommand;   //! Current command line being handled
-    quint32                   m_waitCount;        //! Timer ticks to wait before executing the next line
-    QList<QList<QStringList>> m_lines;            //! Raw data parsed into lines of tokens
-    QMap<QString, int>        m_labels;           //! Labels and their line numbers
+    int                       m_currentCommand; //! Current command line being handled
+    quint32                   m_waitCount; //! Timer ticks to wait before executing the next line
+    QList<QList<QStringList>> m_lines;     //! Raw data parsed into lines of tokens
+    QMap<QString, int>        m_labels;    //! Labels and their line numbers
     QList<Function *>         m_startedFunctions; //! Functions started by this script
     QList<int>                m_syntaxErrorLines;
 

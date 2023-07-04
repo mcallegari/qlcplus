@@ -55,21 +55,27 @@ void RGBItem::draw(uint elapsedMs, uint targetMs)
     {
         int red, green, blue;
         if (m_oldColor.red() < m_color.red())
-            red = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.red()), qreal(m_color.red()));
+            red = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.red()),
+                        qreal(m_color.red()));
         else
-            red = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.red()), qreal(m_oldColor.red()));
+            red = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.red()),
+                        qreal(m_oldColor.red()));
         red = CLAMP(red, 0, 255);
 
         if (m_oldColor.green() < m_color.green())
-            green = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.green()), qreal(m_color.green()));
+            green = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.green()),
+                          qreal(m_color.green()));
         else
-            green = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.green()), qreal(m_oldColor.green()));
+            green = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.green()),
+                          qreal(m_oldColor.green()));
         green = CLAMP(green, 0, 255);
 
         if (m_oldColor.blue() < m_color.blue())
-            blue = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.blue()), qreal(m_color.blue()));
+            blue = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.blue()),
+                         qreal(m_color.blue()));
         else
-            blue = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.blue()), qreal(m_oldColor.blue()));
+            blue = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.blue()),
+                         qreal(m_oldColor.blue()));
         blue = CLAMP(blue, 0, 255);
 
         m_graphicsItem->setBrush(QColor(red, green, blue));

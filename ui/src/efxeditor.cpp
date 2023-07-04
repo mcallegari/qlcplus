@@ -157,7 +157,8 @@ void EFXEditor::initGeneralPage()
     if (m_doc->mode() == Doc::Operate)
         m_testButton->setEnabled(false);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
 
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
             SLOT(slotFixtureItemChanged(QTreeWidgetItem *, int)));
@@ -253,14 +254,16 @@ void EFXEditor::initMovementPage()
     connect(m_forward, SIGNAL(clicked()), this, SLOT(slotForwardClicked()));
     connect(m_backward, SIGNAL(clicked()), this, SLOT(slotBackwardClicked()));
 
-    connect(m_algorithmCombo, SIGNAL(activated(const QString &)), this, SLOT(slotAlgorithmSelected(const QString &)));
+    connect(m_algorithmCombo, SIGNAL(activated(const QString &)), this,
+            SLOT(slotAlgorithmSelected(const QString &)));
     connect(m_widthSpin, SIGNAL(valueChanged(int)), this, SLOT(slotWidthSpinChanged(int)));
     connect(m_heightSpin, SIGNAL(valueChanged(int)), this, SLOT(slotHeightSpinChanged(int)));
     connect(m_xOffsetSpin, SIGNAL(valueChanged(int)), this, SLOT(slotXOffsetSpinChanged(int)));
     connect(m_yOffsetSpin, SIGNAL(valueChanged(int)), this, SLOT(slotYOffsetSpinChanged(int)));
     connect(m_rotationSpin, SIGNAL(valueChanged(int)), this, SLOT(slotRotationSpinChanged(int)));
     connect(m_startOffsetSpin, SIGNAL(valueChanged(int)), this, SLOT(slotStartOffsetSpinChanged(int)));
-    connect(m_isRelativeCheckbox, SIGNAL(stateChanged(int)), this, SLOT(slotIsRelativeCheckboxChanged(int)));
+    connect(m_isRelativeCheckbox, SIGNAL(stateChanged(int)), this,
+            SLOT(slotIsRelativeCheckboxChanged(int)));
 
     connect(m_xFrequencySpin, SIGNAL(valueChanged(int)), this, SLOT(slotXFrequencySpinChanged(int)));
     connect(m_yFrequencySpin, SIGNAL(valueChanged(int)), this, SLOT(slotYFrequencySpinChanged(int)));
@@ -371,8 +374,9 @@ QTreeWidgetItem *EFXEditor::fixtureItem(EFXFixture *ef)
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
     {
-        QTreeWidgetItem *item    = *it;
-        EFXFixture      *ef_item = reinterpret_cast<EFXFixture *>(item->data(0, Qt::UserRole).toULongLong());
+        QTreeWidgetItem *item = *it;
+        EFXFixture      *ef_item =
+            reinterpret_cast<EFXFixture *>(item->data(0, Qt::UserRole).toULongLong());
         if (ef_item == ef)
             return item;
         ++it;
@@ -389,7 +393,8 @@ const QList<EFXFixture *> EFXEditor::selectedFixtures() const
     /* Put all selected fixture IDs to a list and return it */
     while (it.hasNext() == true)
     {
-        EFXFixture *ef = reinterpret_cast<EFXFixture *>(it.next()->data(0, Qt::UserRole).toULongLong());
+        EFXFixture *ef =
+            reinterpret_cast<EFXFixture *>(it.next()->data(0, Qt::UserRole).toULongLong());
         list << ef;
     }
 
@@ -691,7 +696,8 @@ void EFXEditor::slotAddFixtureClicked()
 
 void EFXEditor::slotRemoveFixtureClicked()
 {
-    int r = QMessageBox::question(this, tr("Remove fixtures"), tr("Do you want to remove the selected fixture(s)?"),
+    int r = QMessageBox::question(this, tr("Remove fixtures"),
+                                  tr("Do you want to remove the selected fixture(s)?"),
                                   QMessageBox::Yes, QMessageBox::No);
 
     if (r == QMessageBox::Yes)

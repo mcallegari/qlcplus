@@ -133,7 +133,8 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
         {
             foreach (quint32 subID, fixtureIDList(fid))
             {
-                QVector3D pos = fixturePosition(fid, fixtureHeadIndex(subID), fixtureLinkedIndex(subID));
+                QVector3D pos =
+                    fixturePosition(fid, fixtureHeadIndex(subID), fixtureLinkedIndex(subID));
                 QVector3D newPos;
 
                 switch (pov)
@@ -527,7 +528,8 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             if (tAttrs.hasAttribute(KXMLQLCMonitorItemID))
             {
                 quint32 fid = tAttrs.value(KXMLQLCMonitorItemID).toString().toUInt();
-                setCustomBackgroundItem(fid, mainDocument->denormalizeComponentPath(root.readElementText()));
+                setCustomBackgroundItem(
+                    fid, mainDocument->denormalizeComponentPath(root.readElementText()));
             }
         }
         else if (root.name() == KXMLQLCMonitorGrid)
@@ -783,7 +785,8 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
                 doc->writeAttribute(KXMLQLCMonitorItemZRotation, QString::number(item.m_rotation.z()));
 #else
             if (item.m_rotation != QVector3D(0, 0, 0))
-                doc->writeAttribute(KXMLQLCMonitorFixtureRotation, QString::number(item.m_rotation.y()));
+                doc->writeAttribute(KXMLQLCMonitorFixtureRotation,
+                                    QString::number(item.m_rotation.y()));
 #endif
             if (item.m_color.isValid())
                 doc->writeAttribute(KXMLQLCMonitorFixtureGelColor, item.m_color.name());
@@ -853,7 +856,8 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 #endif
             else
             {
-                doc->writeAttribute(KXMLQLCMonitorItemRes, mainDocument->normalizeComponentPath(item.m_resource));
+                doc->writeAttribute(KXMLQLCMonitorItemRes,
+                                    mainDocument->normalizeComponentPath(item.m_resource));
             }
         }
 

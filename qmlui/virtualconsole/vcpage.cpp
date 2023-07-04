@@ -70,8 +70,8 @@ void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *wid
     if (checkChildren && children(true).contains(widget) == false)
         return;
 
-    qDebug() << "Mapping input source. Universe:" << source->universe() << ", channel:" << source->channel()
-             << ", widget:" << widget->id();
+    qDebug() << "Mapping input source. Universe:" << source->universe()
+             << ", channel:" << source->channel() << ", widget:" << widget->id();
 
     /** Note that the channel is mapped without the page information.
      *  This is because input signals come without it, so the page match
@@ -84,7 +84,8 @@ void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *wid
     m_inputSourcesMap.insert(key, refs);
 }
 
-void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget, bool checkChildren)
+void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget,
+                              bool checkChildren)
 {
     if (widget == nullptr)
         return;
@@ -138,12 +139,13 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
     for (QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
     {
         // make sure input signals always pass to frame widgets
-        bool passDisable =
-            (match.second->type() == VCWidget::FrameWidget) || (match.second->type() == VCWidget::SoloFrameWidget)
-                ? true
-                : !match.second->isDisabled();
+        bool passDisable = (match.second->type() == VCWidget::FrameWidget)
+                                   || (match.second->type() == VCWidget::SoloFrameWidget)
+                               ? true
+                               : !match.second->isDisabled();
 
-        if (passDisable == true && match.second->isEditing() == false && match.first->page() == match.second->page())
+        if (passDisable == true && match.second->isEditing() == false
+            && match.first->page() == match.second->page())
         {
             // if the event has been fired by an external controller
             // and this channel is set to relative mode, inform the input source
@@ -194,7 +196,8 @@ void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widge
     }
 }
 
-void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
+void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget,
+                                      bool checkChildren)
 {
     if (sequence.isEmpty() || widget == nullptr)
         return;
@@ -217,7 +220,8 @@ void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidge
 
     if (oldId == UINT_MAX)
     {
-        qDebug() << "No match found for sequence" << sequence.toString() << "and widget" << widget->caption();
+        qDebug() << "No match found for sequence" << sequence.toString() << "and widget"
+                 << widget->caption();
         return;
     }
 
@@ -249,10 +253,10 @@ void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
     for (QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11
     {
         // make sure input signals always pass to frame widgets
-        bool passDisable =
-            (match.second->type() == VCWidget::FrameWidget) || (match.second->type() == VCWidget::SoloFrameWidget)
-                ? true
-                : !match.second->isDisabled();
+        bool passDisable = (match.second->type() == VCWidget::FrameWidget)
+                                   || (match.second->type() == VCWidget::SoloFrameWidget)
+                               ? true
+                               : !match.second->isDisabled();
 
         if (passDisable == true && match.second->isEditing() == false)
         {

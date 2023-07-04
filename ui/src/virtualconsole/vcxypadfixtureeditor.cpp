@@ -110,10 +110,10 @@ void VCXYPadFixtureEditor::accept()
     {
         VCXYPadFixture fxi(it.next());
 
-        fxi.setX(qreal(m_xMin->value()) / qreal(m_maxXVal), qreal(m_xMax->value()) / qreal(m_maxXVal),
-                 m_xReverse->isChecked());
-        fxi.setY(qreal(m_yMin->value()) / qreal(m_maxYVal), qreal(m_yMax->value()) / qreal(m_maxYVal),
-                 m_yReverse->isChecked());
+        fxi.setX(qreal(m_xMin->value()) / qreal(m_maxXVal),
+                 qreal(m_xMax->value()) / qreal(m_maxXVal), m_xReverse->isChecked());
+        fxi.setY(qreal(m_yMin->value()) / qreal(m_maxYVal),
+                 qreal(m_yMax->value()) / qreal(m_maxYVal), m_yReverse->isChecked());
 
         it.setValue(fxi);
     }

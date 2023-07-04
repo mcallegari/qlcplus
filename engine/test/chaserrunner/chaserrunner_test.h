@@ -43,13 +43,13 @@ private slots:
     void currentFadeOut();
     void currentDuration();
     /*
-        void roundCheckSingleShotForward();
-        void roundCheckSingleShotBackward();
-        void roundCheckLoopForward();
-        void roundCheckLoopBackward();
-        void roundCheckPingPongForward();
-        void roundCheckPingPongBackward();
-    */
+    void roundCheckSingleShotForward();
+    void roundCheckSingleShotBackward();
+    void roundCheckLoopForward();
+    void roundCheckLoopBackward();
+    void roundCheckPingPongForward();
+    void roundCheckPingPongBackward();
+*/
     void writeNoSteps();
     void writeForwardLoopZero();
     void writeBackwardLoopZero();

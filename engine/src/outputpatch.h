@@ -117,7 +117,7 @@ public:
     void setBlackout(bool blackout);
 
     /** Write the contents of a 512 channel value buffer to the plugin.
-      * Called periodically by OutputMap. No need to call manually. */
+     * Called periodically by OutputMap. No need to call manually. */
     void dump(quint32 universe, const QByteArray &data, bool dataChanged);
 
 signals:

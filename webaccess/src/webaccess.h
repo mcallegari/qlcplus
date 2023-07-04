@@ -50,8 +50,8 @@ class WebAccess : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, int portNumber, bool enableAuth,
-                       QString passwdFile = QString(), QObject *parent = 0);
+    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, int portNumber,
+                       bool enableAuth, QString passwdFile = QString(), QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
 

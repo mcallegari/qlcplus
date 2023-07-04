@@ -89,7 +89,8 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad *xypad, Doc *doc)
     m_panInputWidget->emitOddValues(true);
     m_panInputWidget->show();
     m_extInputLayout->addWidget(m_panInputWidget);
-    connect(m_panInputWidget, SIGNAL(autoDetectToggled(bool)), this, SLOT(slotPanAutoDetectToggled(bool)));
+    connect(m_panInputWidget, SIGNAL(autoDetectToggled(bool)), this,
+            SLOT(slotPanAutoDetectToggled(bool)));
     connect(m_panInputWidget, SIGNAL(inputValueChanged(quint32, quint32)), this,
             SLOT(slotPanInputValueChanged(quint32, quint32)));
 
@@ -101,7 +102,8 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad *xypad, Doc *doc)
     m_tiltInputWidget->emitOddValues(true);
     m_tiltInputWidget->show();
     m_extInputLayout->addWidget(m_tiltInputWidget);
-    connect(m_tiltInputWidget, SIGNAL(autoDetectToggled(bool)), this, SLOT(slotTiltAutoDetectToggled(bool)));
+    connect(m_tiltInputWidget, SIGNAL(autoDetectToggled(bool)), this,
+            SLOT(slotTiltAutoDetectToggled(bool)));
     connect(m_tiltInputWidget, SIGNAL(inputValueChanged(quint32, quint32)), this,
             SLOT(slotTiltInputValueChanged(quint32, quint32)));
 
@@ -154,8 +156,10 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad *xypad, Doc *doc)
     connect(m_removePresetButton, SIGNAL(clicked()), this, SLOT(slotRemovePresetClicked()));
     connect(m_moveUpPresetButton, SIGNAL(clicked()), this, SLOT(slotMoveUpPresetClicked()));
     connect(m_moveDownPresetButton, SIGNAL(clicked()), this, SLOT(slotMoveDownPresetClicked()));
-    connect(m_presetNameEdit, SIGNAL(textEdited(QString const &)), this, SLOT(slotPresetNameEdited(QString const &)));
-    connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotPresetSelectionChanged()));
+    connect(m_presetNameEdit, SIGNAL(textEdited(QString const &)), this,
+            SLOT(slotPresetNameEdited(QString const &)));
+    connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotPresetSelectionChanged()));
 
     m_xyArea = new VCXYPadArea(this);
     // m_xyArea->setFixedSize(140, 140);
@@ -315,7 +319,8 @@ void VCXYPadProperties::slotAddClicked()
                 if (heads[i].channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid()
                     && heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid()
                     && heads[i].channelNumber(QLCChannel::Pan, QLCChannel::LSB) == QLCChannel::invalid()
-                    && heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
+                    && heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::LSB)
+                           == QLCChannel::invalid())
                 {
                     // Disable heads without pan or tilt channels
                     disabled << GroupHead(fixture->id(), i);
@@ -350,7 +355,8 @@ void VCXYPadProperties::slotAddClicked()
 
 void VCXYPadProperties::slotRemoveClicked()
 {
-    int r = QMessageBox::question(this, tr("Remove fixtures"), tr("Do you want to remove the selected fixtures?"),
+    int r = QMessageBox::question(this, tr("Remove fixtures"),
+                                  tr("Do you want to remove the selected fixtures?"),
                                   QMessageBox::Yes, QMessageBox::No);
 
     if (r == QMessageBox::Yes)
@@ -470,7 +476,8 @@ void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes
         if (universe == Universe::invalid())
             continue;
 
-        QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+        QSharedPointer<GenericFader> fader =
+            m_fadersMap.value(universe, QSharedPointer<GenericFader>());
         if (fader.isNull())
         {
             fader                 = universes[universe]->requestFader();
@@ -587,7 +594,8 @@ quint8 VCXYPadProperties::moveUpPreset(quint8 id)
             {
                 // change order on hash preset structure.
                 // presets are saved in hash and sort on id is used to create the preset list.
-                // So swapping id change order every time that preset list is created (restore, dialog open, ...).
+                // So swapping id change order every time that preset list is created (restore,
+                // dialog open, ...).
                 quint8 dstPosID = m_presetList.at(i - 1)->m_id;
                 quint8 srcPosID = m_presetList.at(i)->m_id;
 
@@ -617,7 +625,8 @@ quint8 VCXYPadProperties::moveDownPreset(quint8 id)
             {
                 // change order on hash preset structure.
                 // presets are saved in hash and sort on id is used to create the preset list.
-                // So swapping id change order every time that preset list is created (restore, dialog open, ...).
+                // So swapping id change order every time that preset list is created (restore,
+                // dialog open, ...).
                 quint8 dstPosID = m_presetList.at(i + 1)->m_id;
                 quint8 srcPosID = m_presetList.at(i)->m_id;
 
@@ -641,7 +650,8 @@ void VCXYPadProperties::slotAddPositionClicked()
     VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
     newPreset->m_type        = VCXYPadPreset::Position;
     newPreset->m_dmxPos      = m_xyArea->position();
-    newPreset->m_name = QString("X:%1 - Y:%2").arg((int)newPreset->m_dmxPos.x()).arg((int)newPreset->m_dmxPos.y());
+    newPreset->m_name =
+        QString("X:%1 - Y:%2").arg((int)newPreset->m_dmxPos.x()).arg((int)newPreset->m_dmxPos.y());
     m_presetList.append(newPreset);
     updatePresetsTree();
     selectItemOnPresetsTree(newPreset->m_id);
@@ -711,10 +721,11 @@ void VCXYPadProperties::slotAddSceneClicked()
         }
         if (panTiltFound == false)
         {
-            QMessageBox::critical(this, tr("Error"),
-                                  tr("The selected Scene does not include any Pan or Tilt channel.\n"
-                                     "Please select one with such channels."),
-                                  QMessageBox::Close);
+            QMessageBox::critical(
+                this, tr("Error"),
+                tr("The selected Scene does not include any Pan or Tilt channel.\n"
+                   "Please select one with such channels."),
+                QMessageBox::Close);
             return;
         }
         VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
@@ -760,9 +771,10 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         QList<GroupHead> selectedGH = fs.selectedHeads();
         if (selectedGH.isEmpty())
         {
-            QMessageBox::critical(this, tr("Error"),
-                                  tr("Please select at least one fixture or head to create this type of preset!"),
-                                  QMessageBox::Close);
+            QMessageBox::critical(
+                this, tr("Error"),
+                tr("Please select at least one fixture or head to create this type of preset!"),
+                QMessageBox::Close);
             return;
         }
 
@@ -795,7 +807,8 @@ void VCXYPadProperties::slotMoveUpPresetClicked()
     quint8           newID   = moveUpPreset(ctlID);
     updatePresetsTree();
 
-    // select item on new position. User can make multiple move up/down without need to select item everytime.
+    // select item on new position. User can make multiple move up/down without need to select item
+    // everytime.
     selectItemOnPresetsTree(newID);
 }
 
@@ -808,7 +821,8 @@ void VCXYPadProperties::slotMoveDownPresetClicked()
     quint8           newID   = moveDownPreset(ctlID);
     updatePresetsTree();
 
-    // select item on new position. User can make multiple move up/down without need to select item everytime.
+    // select item on new position. User can make multiple move up/down without need to select item
+    // everytime.
     selectItemOnPresetsTree(newID);
 }
 

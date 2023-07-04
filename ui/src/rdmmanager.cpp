@@ -72,8 +72,10 @@ void RDMManager::slotRefresh()
             if (op->plugin()->capabilities() & QLCIOPlugin::RDM)
             {
                 RDMWorker *wt = new RDMWorker(m_doc);
-                connect(wt, SIGNAL(uidFound(QString, UIDInfo)), this, SLOT(updateRDMTreeItem(QString, UIDInfo)));
-                connect(wt, SIGNAL(requestPopup(QString, QString)), this, SLOT(slotDisplayPopup(QString, QString)));
+                connect(wt, SIGNAL(uidFound(QString, UIDInfo)), this,
+                        SLOT(updateRDMTreeItem(QString, UIDInfo)));
+                connect(wt, SIGNAL(requestPopup(QString, QString)), this,
+                        SLOT(slotDisplayPopup(QString, QString)));
                 connect(wt, SIGNAL(finished()), this, SLOT(slotTaskFinished()));
                 wt->runDiscovery(uni->id(), op->output());
             }
@@ -392,7 +394,8 @@ void RDMWorker::getUidInfo(quint32 uni, quint32 line, QString UID, UIDInfo &info
     start();
 }
 
-void RDMWorker::handlePID(quint32 uni, quint32 line, QString UID, QString pid, QVariantList args, bool write)
+void RDMWorker::handlePID(quint32 uni, quint32 line, QString UID, QString pid, QVariantList args,
+                          bool write)
 {
     m_universe = uni;
     m_line     = line;
@@ -469,7 +472,8 @@ void RDMWorker::run()
             {
                 m_requestState = StateDiscoveryContinue;
                 // m_plugin->sendRDMCommand(m_universe, m_line, DISCOVERY_COMMAND,
-                //                          QVariantList() << RDMProtocol::broadcastAddress() << PID_DISC_UN_MUTE);
+                //                          QVariantList() << RDMProtocol::broadcastAddress() <<
+                //                          PID_DISC_UN_MUTE);
             }
             break;
             case StateDiscoveryContinue:
@@ -483,11 +487,12 @@ void RDMWorker::run()
                 }
 
                 DiscoveryInfo info = m_discoveryList.first();
-                qDebug() << "Discovery - CONTINUE between" << QString::number(info.startUID, 16) << "and"
-                         << QString::number(info.endUID, 16);
+                qDebug() << "Discovery - CONTINUE between" << QString::number(info.startUID, 16)
+                         << "and" << QString::number(info.endUID, 16);
                 m_plugin->sendRDMCommand(m_universe, m_line, DISCOVERY_COMMAND,
-                                         QVariantList() << RDMProtocol::broadcastAddress() << PID_DISC_UNIQUE_BRANCH
-                                                        << info.startUID << info.endUID);
+                                         QVariantList() << RDMProtocol::broadcastAddress()
+                                                        << PID_DISC_UNIQUE_BRANCH << info.startUID
+                                                        << info.endUID);
 
                 m_requestState = StateWait;
             }
@@ -621,9 +626,11 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
                 m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
                                          QVariantList() << UID << PID_DEVICE_MODEL_DESCRIPTION);
 
-                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND, QVariantList() << UID << PID_MANUFACTURER_LABEL);
+                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
+                                         QVariantList() << UID << PID_MANUFACTURER_LABEL);
 
-                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND, QVariantList() << UID << PID_DEVICE_INFO);
+                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
+                                         QVariantList() << UID << PID_DEVICE_INFO);
             }
         }
     }
@@ -638,7 +645,9 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
         DiscoveryInfo lowerRange, upperRange;
 
         qulonglong midPosition =
-            ((currentRange.startUID & (0x0000800000000000 - 1)) + (currentRange.endUID & (0x0000800000000000 - 1))) / 2
+            ((currentRange.startUID & (0x0000800000000000 - 1))
+             + (currentRange.endUID & (0x0000800000000000 - 1)))
+                / 2
             + ((currentRange.endUID & 0x0000800000000000) ? 0x0000400000000000 : 0)
             + ((currentRange.startUID & 0x0000800000000000) ? 0x0000400000000000 : 0);
         lowerRange.startUID = currentRange.startUID;
@@ -648,8 +657,9 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
 
         qDebug() << "Discovery errors detected" << data.value("DISCOVERY_ERRORS").toInt();
         // qDebug() << "Add lower range" << QString::number(lowerRange.startUID, 16) << "-" <<
-        // QString::number(lowerRange.endUID, 16); qDebug() << "Add upper range" << QString::number(upperRange.startUID,
-        // 16) << "-" << QString::number(upperRange.endUID, 16);
+        // QString::number(lowerRange.endUID, 16); qDebug() << "Add upper range" <<
+        // QString::number(upperRange.startUID, 16) << "-" << QString::number(upperRange.endUID,
+        // 16);
         m_discoveryList.removeFirst();
         m_discoveryList.prepend(lowerRange);
         m_discoveryList.prepend(upperRange);
@@ -720,7 +730,8 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
                                      .arg(pIndex)
                                      .arg(cIndex == pIndex ? tr("(Selected)") : "")
                                      .arg(label);
-                m_fixtureInfo += QString("<TD CLASS='emphasis'>%1</TD><TD>%2</TD></TR>").arg(tr("Channels")).arg(channels);
+                m_fixtureInfo +=
+                    QString("<TD CLASS='emphasis'>%1</TD><TD>%2</TD></TR>").arg(tr("Channels")).arg(channels);
             }
             else if (key == "SLOT_LIST")
             {
@@ -734,9 +745,11 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
                 m_requestList.append(var.value<QVector<quint16>>());
 
                 // check if channels don't fit in a single reply
-                if (info.params.value("Response") == RDMProtocol::responseToString(RESPONSE_TYPE_ACK_OVERFLOW))
+                if (info.params.value("Response")
+                    == RDMProtocol::responseToString(RESPONSE_TYPE_ACK_OVERFLOW))
                 {
-                    m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND, QVariantList() << UID << PID_SLOT_INFO);
+                    m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
+                                             QVariantList() << UID << PID_SLOT_INFO);
                 }
                 else
                 {
@@ -750,10 +763,11 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
 
                 qDebug() << "SLOT label" << label;
 
-                m_fixtureInfo += QString("<TR><TD CLASS='emphasis'>%1 %2</TD><TD COLSPAN='3'>%3</TD></TR>")
-                                     .arg(tr("Channel"))
-                                     .arg(slotId + 1)
-                                     .arg(label);
+                m_fixtureInfo +=
+                    QString("<TR><TD CLASS='emphasis'>%1 %2</TD><TD COLSPAN='3'>%3</TD></TR>")
+                        .arg(tr("Channel"))
+                        .arg(slotId + 1)
+                        .arg(label);
             }
             else if (key == "PID_LIST")
             {
@@ -779,9 +793,10 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
                     if (pid < 0x8000 && pid != PID_PARAMETER_DESCRIPTION)
                     {
                         QString sPid = QString("%1").arg(pid, 4, 16, QChar('0'));
-                        m_fixtureInfo += QString("<TR><TD CLASS='emphasis' COLSPAN='4'>PID: 0x%1 (%2)</TD></TR>")
-                                             .arg(sPid.toUpper())
-                                             .arg(RDMProtocol::pidToString(pid));
+                        m_fixtureInfo +=
+                            QString("<TR><TD CLASS='emphasis' COLSPAN='4'>PID: 0x%1 (%2)</TD></TR>")
+                                .arg(sPid.toUpper())
+                                .arg(RDMProtocol::pidToString(pid));
                     }
                 }
                 else if (m_requestState == StateReadSinglePid)
@@ -795,9 +810,10 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
                 {
                     quint16 pid  = data.value("PID_INFO").toUInt();
                     QString sPid = QString("%1").arg(pid, 4, 16, QChar('0'));
-                    m_fixtureInfo += QString("<TR><TD CLASS='emphasis' COLSPAN='4'>PID: 0x%1 (%2)</TD></TR>")
-                                         .arg(sPid.toUpper())
-                                         .arg(it.value().toString());
+                    m_fixtureInfo +=
+                        QString("<TR><TD CLASS='emphasis' COLSPAN='4'>PID: 0x%1 (%2)</TD></TR>")
+                            .arg(sPid.toUpper())
+                            .arg(it.value().toString());
                 }
                 else if (m_requestState == StateReadSinglePid)
                 {
@@ -820,11 +836,13 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
             {
                 quint16 idx = m_requestList.takeFirst();
                 m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
-                                         QVariantList() << UID << PID_DMX_PERSONALITY_DESCRIPTION << idx);
+                                         QVariantList()
+                                             << UID << PID_DMX_PERSONALITY_DESCRIPTION << idx);
             }
             else
             {
-                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND, QVariantList() << UID << PID_SLOT_INFO);
+                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
+                                         QVariantList() << UID << PID_SLOT_INFO);
             }
         }
         else if (m_requestState == StateSlots)
@@ -837,7 +855,8 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
             }
             else
             {
-                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND, QVariantList() << UID << PID_SUPPORTED_PARAMETERS);
+                m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
+                                         QVariantList() << UID << PID_SUPPORTED_PARAMETERS);
             }
         }
         else if (m_requestState == StateSupportedPids)
@@ -850,7 +869,8 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
                     m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
                                              QVariantList() << UID << PID_PARAMETER_DESCRIPTION << pid);
                 else
-                    m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND, QVariantList() << UID << pid);
+                    m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
+                                             QVariantList() << UID << pid);
             }
             else
             {

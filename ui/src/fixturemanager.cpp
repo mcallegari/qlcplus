@@ -119,7 +119,8 @@ FixtureManager::FixtureManager(QWidget *parent, Doc *doc)
     /* Connect fixture list change signals from the new document object */
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved(quint32)));
 
-    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)), this, SLOT(slotChannelsGroupRemoved(quint32)));
+    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)), this,
+            SLOT(slotChannelsGroupRemoved(quint32)));
 
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
 
@@ -325,7 +326,8 @@ void FixtureManager::initDataView()
     m_splitter->addWidget(tabs);
 
     /* Create a tree widget to the left part of the splitter */
-    quint32 treeFlags = FixtureTreeWidget::UniverseNumber | FixtureTreeWidget::AddressRange | FixtureTreeWidget::ShowGroups;
+    quint32 treeFlags = FixtureTreeWidget::UniverseNumber | FixtureTreeWidget::AddressRange
+                        | FixtureTreeWidget::ShowGroups;
 
     m_fixtures_tree = new FixtureTreeWidget(m_doc, treeFlags, this);
     m_fixtures_tree->setIconSize(QSize(32, 32));
@@ -356,17 +358,18 @@ void FixtureManager::initDataView()
     m_channel_groups_tree->setIconSize(QSize(32, 32));
     m_channel_groups_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-    connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotChannelsGroupSelectionChanged()));
+    connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()), this,
+            SLOT(slotChannelsGroupSelectionChanged()));
     connect(m_channel_groups_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this,
             SLOT(slotChannelsGroupDoubleClicked(QTreeWidgetItem *)));
 
     tabs->addTab(m_channel_groups_tree, tr("Channel Groups"));
     /*
-        m_rdmManager = new RDMManager(this, m_doc);
-        tabs->addTab(m_rdmManager, "RDM");
-        connect(m_rdmManager, SIGNAL(fixtureInfoReady(QString&)),
-                this, SLOT(slotDisplayFixtureInfo(QString&)));
-    */
+    m_rdmManager = new RDMManager(this, m_doc);
+    tabs->addTab(m_rdmManager, "RDM");
+    connect(m_rdmManager, SIGNAL(fixtureInfoReady(QString&)),
+            this, SLOT(slotDisplayFixtureInfo(QString&)));
+*/
     connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
 
     /* Create the text view */
@@ -490,7 +493,8 @@ void FixtureManager::fixtureSelected(quint32 id)
     if (m_info == NULL)
         createInfo();
 
-    m_info->setText(QString("%1<BODY>%2</BODY></HTML>").arg(fixtureInfoStyleSheetHeader()).arg(fxi->status()));
+    m_info->setText(
+        QString("%1<BODY>%2</BODY></HTML>").arg(fixtureInfoStyleSheetHeader()).arg(fxi->status()));
 
     // Enable/disable actions
     slotModeChanged(m_doc->mode());
@@ -574,7 +578,8 @@ void FixtureManager::slotSelectionChanged()
 
             foreach (Fixture *fixture, m_doc->fixtures())
             {
-                if (fixture == NULL || fixture->universe() != uniID.toUInt() || fixture->fixtureMode() == NULL)
+                if (fixture == NULL || fixture->universe() != uniID.toUInt()
+                    || fixture->fixtureMode() == NULL)
                     continue;
 
                 QLCFixtureMode *mode = fixture->fixtureMode();
@@ -585,8 +590,10 @@ void FixtureManager::slotSelectionChanged()
             if (m_info == NULL)
                 createInfo();
 
-            info +=
-                QString("<H1>%1</H1><P>%2 <B>%3</B></P>").arg(uniName).arg(tr("This group contains all fixtures of")).arg(uniName);
+            info += QString("<H1>%1</H1><P>%2 <B>%3</B></P>")
+                        .arg(uniName)
+                        .arg(tr("This group contains all fixtures of"))
+                        .arg(uniName);
 
             info += QString("<BR><P><B>%1</B>: %2Kg<BR><B>%3</B>: %4W</P>")
                         .arg(tr("Total estimated weight"))
@@ -692,8 +699,9 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
         {
             ChannelsGroup *chGroup = m_doc->channelsGroup(grpvar.toUInt());
             if (chGroup != NULL)
-                m_info->setText(
-                    QString("%1<BODY>%2</BODY></HTML>").arg(channelsGroupInfoStyleSheetHeader()).arg(chGroup->status(m_doc)));
+                m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
+                                    .arg(channelsGroupInfoStyleSheetHeader())
+                                    .arg(chGroup->status(m_doc)));
         }
         m_removeAction->setEnabled(true);
         m_propertiesAction->setEnabled(true);
@@ -975,7 +983,8 @@ void FixtureManager::addFixture()
 
     if (af.invalidAddress())
     {
-        QMessageBox msg(QMessageBox::Critical, tr("Error"), tr("Please enter a valid address"), QMessageBox::Ok);
+        QMessageBox msg(QMessageBox::Critical, tr("Error"), tr("Please enter a valid address"),
+                        QMessageBox::Ok);
         msg.exec();
         return;
     }
@@ -1028,7 +1037,8 @@ void FixtureManager::addFixture()
         /* If we're adding more than one fixture,
            append a number to the end of the name */
         if (af.amount() > 1)
-            modname = QString("%1 #%2").arg(name).arg(i + 1, AppUtil::digits(af.amount()), 10, QChar('0'));
+            modname =
+                QString("%1 #%2").arg(name).arg(i + 1, AppUtil::digits(af.amount()), 10, QChar('0'));
         else
             modname = name;
 
@@ -1131,12 +1141,14 @@ void FixtureManager::slotAddRGBPanel()
 
         if (transpose)
         {
-            if (rgb.orientation() == AddRGBPanel::TopRight || rgb.orientation() == AddRGBPanel::BottomRight)
+            if (rgb.orientation() == AddRGBPanel::TopRight
+                || rgb.orientation() == AddRGBPanel::BottomRight)
             {
                 currRow = rows - 1;
                 rowInc  = -1;
             }
-            if (rgb.orientation() == AddRGBPanel::BottomRight || rgb.orientation() == AddRGBPanel::BottomLeft)
+            if (rgb.orientation() == AddRGBPanel::BottomRight
+                || rgb.orientation() == AddRGBPanel::BottomLeft)
             {
                 xPosStart = columns - 1;
                 xPosEnd   = 0;
@@ -1145,12 +1157,14 @@ void FixtureManager::slotAddRGBPanel()
         }
         else
         {
-            if (rgb.orientation() == AddRGBPanel::BottomLeft || rgb.orientation() == AddRGBPanel::BottomRight)
+            if (rgb.orientation() == AddRGBPanel::BottomLeft
+                || rgb.orientation() == AddRGBPanel::BottomRight)
             {
                 currRow = rows - 1;
                 rowInc  = -1;
             }
-            if (rgb.orientation() == AddRGBPanel::TopRight || rgb.orientation() == AddRGBPanel::BottomRight)
+            if (rgb.orientation() == AddRGBPanel::TopRight
+                || rgb.orientation() == AddRGBPanel::BottomRight)
             {
                 xPosStart = columns - 1;
                 xPosEnd   = 0;
@@ -1173,7 +1187,8 @@ void FixtureManager::slotAddRGBPanel()
             if (address + fxi->channels() > 512)
             {
                 uniIndex++;
-                if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+                if (m_doc->inputOutputMap()->getUniverseID(uniIndex)
+                    == m_doc->inputOutputMap()->invalidUniverse())
                 {
                     m_doc->inputOutputMap()->addUniverse();
                     m_doc->inputOutputMap()->startUniverses();
@@ -1236,8 +1251,9 @@ void FixtureManager::slotAddRGBPanel()
 void FixtureManager::removeFixture()
 {
     // Ask before deletion
-    if (QMessageBox::question(this, tr("Delete Fixtures"), tr("Do you want to delete the selected items?"),
-                              QMessageBox::Yes, QMessageBox::No)
+    if (QMessageBox::question(this, tr("Delete Fixtures"),
+                              tr("Do you want to delete the selected items?"), QMessageBox::Yes,
+                              QMessageBox::No)
         == QMessageBox::No)
     {
         return;
@@ -1292,14 +1308,16 @@ void FixtureManager::removeFixture()
 void FixtureManager::removeChannelsGroup()
 {
     // Ask before deletion
-    if (QMessageBox::question(this, tr("Delete Channels Group"), tr("Do you want to delete the selected groups?"),
-                              QMessageBox::Yes, QMessageBox::No)
+    if (QMessageBox::question(this, tr("Delete Channels Group"),
+                              tr("Do you want to delete the selected groups?"), QMessageBox::Yes,
+                              QMessageBox::No)
         == QMessageBox::No)
     {
         return;
     }
 
-    disconnect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotChannelsGroupSelectionChanged()));
+    disconnect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()), this,
+               SLOT(slotChannelsGroupSelectionChanged()));
 
     QListIterator<QTreeWidgetItem *> it(m_channel_groups_tree->selectedItems());
     while (it.hasNext() == true)
@@ -1313,7 +1331,8 @@ void FixtureManager::removeChannelsGroup()
     }
     updateChannelsGroupView();
 
-    connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotChannelsGroupSelectionChanged()));
+    connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()), this,
+            SLOT(slotChannelsGroupSelectionChanged()));
 }
 
 void FixtureManager::slotRemove()
@@ -1378,12 +1397,14 @@ void FixtureManager::editFixtureProperties()
 
             if (af.fixtureDef() != NULL && af.mode() != NULL)
             {
-                if (af.fixtureDef()->manufacturer() == KXMLFixtureGeneric && af.fixtureDef()->model() == KXMLFixtureGeneric)
+                if (af.fixtureDef()->manufacturer() == KXMLFixtureGeneric
+                    && af.fixtureDef()->model() == KXMLFixtureGeneric)
                 {
                     if (fxi->channels() != af.channels())
                     {
-                        QLCFixtureDef  *fixtureDef  = fxi->genericDimmerDef(af.channels());
-                        QLCFixtureMode *fixtureMode = fxi->genericDimmerMode(fixtureDef, af.channels());
+                        QLCFixtureDef  *fixtureDef = fxi->genericDimmerDef(af.channels());
+                        QLCFixtureMode *fixtureMode =
+                            fxi->genericDimmerMode(fixtureDef, af.channels());
                         fxi->setFixtureDefinition(fixtureDef, fixtureMode);
                     }
                 }
@@ -1408,7 +1429,8 @@ void FixtureManager::editFixtureProperties()
         }
         else
         {
-            QMessageBox msg(QMessageBox::Critical, tr("Error"), tr("Please enter a valid address"), QMessageBox::Ok);
+            QMessageBox msg(QMessageBox::Critical, tr("Error"), tr("Please enter a valid address"),
+                            QMessageBox::Ok);
             msg.exec();
         }
     }
@@ -1484,8 +1506,9 @@ void FixtureManager::slotRemap()
 
 void FixtureManager::slotUnGroup()
 {
-    if (QMessageBox::question(this, tr("Ungroup fixtures?"), tr("Do you want to ungroup the selected fixtures?"),
-                              QMessageBox::Yes, QMessageBox::No)
+    if (QMessageBox::question(this, tr("Ungroup fixtures?"),
+                              tr("Do you want to ungroup the selected fixtures?"), QMessageBox::Yes,
+                              QMessageBox::No)
         == QMessageBox::No)
     {
         return;

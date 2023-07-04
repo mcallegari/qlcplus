@@ -145,8 +145,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             if (item->setChildrenColumns(m_roles) == true)
             {
-                connect(item->children(), SIGNAL(roleChanged(TreeModelItem *, int, const QVariant)), this,
-                        SLOT(slotRoleChanged(TreeModelItem *, int, const QVariant &)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem *, int, const QVariant)),
+                        this, SLOT(slotRoleChanged(TreeModelItem *, int, const QVariant &)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
 
@@ -161,8 +161,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         {
             if (item->addChild(label, data, m_sorting, "", flags) == true)
             {
-                connect(item->children(), SIGNAL(roleChanged(TreeModelItem *, int, const QVariant &)), this,
-                        SLOT(slotRoleChanged(TreeModelItem *, int, const QVariant &)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem *, int, const QVariant &)),
+                        this, SLOT(slotRoleChanged(TreeModelItem *, int, const QVariant &)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
         }
@@ -171,8 +171,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             QString newPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
             if (item->addChild(label, data, m_sorting, newPath, flags) == true)
             {
-                connect(item->children(), SIGNAL(roleChanged(TreeModelItem *, int, const QVariant &)), this,
-                        SLOT(slotRoleChanged(TreeModelItem *, int, const QVariant &)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem *, int, const QVariant &)),
+                        this, SLOT(slotRoleChanged(TreeModelItem *, int, const QVariant &)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
         }

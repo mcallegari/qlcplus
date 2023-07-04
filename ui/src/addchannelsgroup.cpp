@@ -128,7 +128,8 @@ AddChannelsGroup::AddChannelsGroup(QWidget *parent, Doc *doc, ChannelsGroup *gro
     if (m_checkedChannels == 0)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChecked(QTreeWidgetItem *, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemChecked(QTreeWidgetItem *, int)));
     connect(m_collapseButton, SIGNAL(clicked(bool)), m_tree, SLOT(collapseAll()));
     connect(m_expandButton, SIGNAL(clicked(bool)), m_tree, SLOT(expandAll()));
 }
@@ -216,8 +217,8 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
                 Fixture         *fxi     = m_doc->fixture(fxID);
                 if (fxi != NULL)
                 {
-                    QString              tmpMode = fxi->fixtureMode() ? fxi->fixtureMode()->name() : "";
-                    const QLCFixtureDef *tmpDef  = fxi->fixtureDef();
+                    QString tmpMode = fxi->fixtureMode() ? fxi->fixtureMode()->name() : "";
+                    const QLCFixtureDef *tmpDef = fxi->fixtureDef();
                     if (tmpDef != NULL)
                     {
                         QString tmpManuf = tmpDef->manufacturer();

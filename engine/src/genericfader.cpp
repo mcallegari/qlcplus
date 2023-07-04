@@ -125,7 +125,8 @@ void GenericFader::requestDelete()
     m_deleteRequest = true;
 }
 
-FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
+FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID,
+                                           quint32 channel)
 {
     FadeChannel                           fc(doc, fixtureID, channel);
     quint32                               hash            = channelHash(fc.fixture(), fc.channel());
@@ -184,7 +185,8 @@ void GenericFader::write(Universe *universe)
             if ((flags & FadeChannel::CrossFade) && fc.fadeTime() == 0)
             {
                 // morph start <-> target depending on intensities
-                value = uchar(((qreal(fc.target() - fc.start()) * intensity()) + fc.start()) * parentIntensity());
+                value = uchar(((qreal(fc.target() - fc.start()) * intensity()) + fc.start())
+                              * parentIntensity());
             }
             else if (flags & FadeChannel::Intensity)
             {
@@ -208,7 +210,8 @@ void GenericFader::write(Universe *universe)
             universe->writeBlended(address, value, m_blendMode);
         }
 
-        if (((flags & FadeChannel::Intensity) && (flags & FadeChannel::HTP) && m_blendMode == Universe::NormalBlend)
+        if (((flags & FadeChannel::Intensity) && (flags & FadeChannel::HTP)
+             && m_blendMode == Universe::NormalBlend)
             || m_fadeOut)
         {
             // Remove all channels that reach their target _zero_ value.

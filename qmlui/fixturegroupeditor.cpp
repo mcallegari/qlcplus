@@ -337,7 +337,8 @@ void FixtureGroupEditor::deleteSelection()
         Fixture  *fixture = m_doc->fixture(gHead.fxi);
         if (fixture != nullptr && fixture->heads() == 1)
         {
-            QString fxPath = QString("%1%2%3").arg(m_editGroup->name()).arg(TreeModel::separator()).arg(fixture->name());
+            QString fxPath =
+                QString("%1%2%3").arg(m_editGroup->name()).arg(TreeModel::separator()).arg(fixture->name());
             quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), gHead.head, 0);
             m_fixtureManager->deleteFixtureInGroup(m_editGroup->id(), itemID, fxPath);
         }
@@ -417,7 +418,8 @@ void FixtureGroupEditor::transformSelection(int transformation)
     {
         QPoint point = pointsList.at(i);
         matrix.setPixel(point.x() - minX, point.y() - minY, QRgb(i + 1));
-        // qDebug() << "set pixel" << (point.x() - minX) << (point.y() - minY) << m_groupSelection.at(i).toUInt();
+        // qDebug() << "set pixel" << (point.x() - minX) << (point.y() - minY) <<
+        // m_groupSelection.at(i).toUInt();
     }
 
     /** Perform the requested transformation ! */
@@ -519,8 +521,11 @@ void FixtureGroupEditor::updateGroupMap()
                 m_groupMap.append(0);                   // isOdd
                 m_groupMap.append(fx->type());          // item type
 
-                QString str =
-                    QString("%1\nH:%2 A:%3 U:%4").arg(fx->name()).arg(head.head + 1).arg(fx->address() + 1).arg(fx->universe() + 1);
+                QString str = QString("%1\nH:%2 A:%3 U:%4")
+                                  .arg(fx->name())
+                                  .arg(head.head + 1)
+                                  .arg(fx->address() + 1)
+                                  .arg(fx->universe() + 1);
                 m_groupLabels.append(head.fxi);            // item ID
                 m_groupLabels.append((gridWidth * y) + x); // absolute index
                 m_groupLabels.append(1);                   // width

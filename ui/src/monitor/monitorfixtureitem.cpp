@@ -89,7 +89,8 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             qDebug() << "Set master dimmer to:" << fxiItem->m_masterDimmer;
         }
 
-        if ((fxiItem->m_dimmer != QLCChannel::invalid()) || (fxiItem->m_masterDimmer != QLCChannel::invalid()))
+        if ((fxiItem->m_dimmer != QLCChannel::invalid())
+            || (fxiItem->m_masterDimmer != QLCChannel::invalid()))
         {
             fxiItem->m_back = new QGraphicsEllipseItem(this);
             fxiItem->m_back->setPen(QPen(Qt::white, 1));
@@ -112,7 +113,8 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                     fxiItem->m_panMaxDegrees = mode->physical().focusPanMax();
             }
             fxiItem->m_panDegrees = 0;
-            qDebug() << "Pan channel on" << fxiItem->m_panChannel << "max degrees:" << fxiItem->m_panMaxDegrees;
+            qDebug() << "Pan channel on" << fxiItem->m_panChannel
+                     << "max degrees:" << fxiItem->m_panMaxDegrees;
         }
 
         fxiItem->m_tiltChannel = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
@@ -127,7 +129,8 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                     fxiItem->m_tiltMaxDegrees = mode->physical().focusTiltMax();
             }
             fxiItem->m_tiltDegrees = 0;
-            qDebug() << "Tilt channel on" << fxiItem->m_tiltChannel << "max degrees:" << fxiItem->m_tiltMaxDegrees;
+            qDebug() << "Tilt channel on" << fxiItem->m_tiltChannel
+                     << "max degrees:" << fxiItem->m_tiltMaxDegrees;
         }
 
         QLCFixtureMode *mode = fxi->fixtureMode();
@@ -317,13 +320,15 @@ void MonitorFixtureItem::setSize(QSize size)
 
                 if (h->m_panChannel != QLCChannel::invalid())
                 {
-                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1,
-                                                        -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
+                    head->setRect(
+                        head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1,
+                                              -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
                 }
                 if (h->m_tiltChannel != QLCChannel::invalid())
                 {
-                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1,
-                                                        -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
+                    head->setRect(
+                        head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1,
+                                              -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
                 }
 
                 head->setZValue(2);
@@ -340,8 +345,8 @@ void MonitorFixtureItem::setSize(QSize size)
     }
 
     QFontMetrics fm(m_font);
-    m_labelRect =
-        fm.boundingRect(QRect(-10, m_height + 2, m_width + 20, 30), Qt::AlignHCenter | Qt::TextWrapAnywhere, m_name);
+    m_labelRect = fm.boundingRect(QRect(-10, m_height + 2, m_width + 20, 30),
+                                  Qt::AlignHCenter | Qt::TextWrapAnywhere, m_name);
 
     setTransformOriginPoint(m_width / 2, m_height / 2);
     update();
@@ -404,7 +409,8 @@ uchar MonitorFixtureItem::computeAlpha(const FixtureHead *head, const QByteArray
     return mul / div;
 }
 
-FixtureHead::ShutterState MonitorFixtureItem::computeShutter(const FixtureHead *head, const QByteArray &values)
+FixtureHead::ShutterState MonitorFixtureItem::computeShutter(const FixtureHead *head,
+                                                             const QByteArray  &values)
 {
     FixtureHead::ShutterState result = FixtureHead::Open;
 
@@ -554,7 +560,8 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
         if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS);
+            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS,
+                        MOVEMENT_THICKNESS);
 
             painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
             painter->drawArc(rect, 270 * 16 - head->m_tiltMaxDegrees * 16 / 2 - 8, 16);
@@ -565,7 +572,8 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
         if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS);
+            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS,
+                        MOVEMENT_THICKNESS);
 
             painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
             painter->drawArc(rect, 270 * 16 - head->m_panMaxDegrees * 16 / 2 - 8, 16);
@@ -606,13 +614,15 @@ void MonitorFixtureItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *) {}
 void MonitorFixtureItem::computeTiltPosition(FixtureHead *h, uchar value)
 {
     // find the TILT degrees based on value
-    h->m_tiltDegrees = ((double)value * h->m_tiltMaxDegrees) / (256.0 - 1 / 256) - (h->m_tiltMaxDegrees / 2);
+    h->m_tiltDegrees =
+        ((double)value * h->m_tiltMaxDegrees) / (256.0 - 1 / 256) - (h->m_tiltMaxDegrees / 2);
     // qDebug() << "TILT degrees:" << h->m_tiltDegrees;
 }
 
 void MonitorFixtureItem::computePanPosition(FixtureHead *h, uchar value)
 {
     // find the PAN degrees based on value
-    h->m_panDegrees = ((double)value * h->m_panMaxDegrees) / (256.0 - 1 / 256) - (h->m_panMaxDegrees / 2);
+    h->m_panDegrees =
+        ((double)value * h->m_panMaxDegrees) / (256.0 - 1 / 256) - (h->m_panMaxDegrees / 2);
     // qDebug() << "PAN degrees:" << h->m_panDegrees;
 }

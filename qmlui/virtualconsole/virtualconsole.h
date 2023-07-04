@@ -203,7 +203,8 @@ public:
     /** Return a reference to the currently selected VC widget */
     VCWidget *selectedWidget() const;
 
-    Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos);
+    Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType,
+                                           QPoint pos);
 
     /** Return the associated qrc icon resource for the specified VCWidget $type */
     Q_INVOKABLE QString widgetIcon(int type);
@@ -262,7 +263,8 @@ public:
 
     /** Enable the autodetection process for a specific input source
      *  bound to an external controller. */
-    Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+    Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe,
+                                                    quint32 channel);
 
     /** Enable the autodetection process for a specific key sequence */
     Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);

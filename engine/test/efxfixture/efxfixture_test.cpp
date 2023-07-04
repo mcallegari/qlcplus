@@ -103,7 +103,8 @@ void EFXFixture_Test::init()
     }
 
     {
-        QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Sweeper Beam Quad LED");
+        QLCFixtureDef *def =
+            m_doc->fixtureDefCache()->fixtureDef("American DJ", "Sweeper Beam Quad LED");
         QVERIFY(def != NULL);
         QLCFixtureMode *mode = def->modes().last(); // 39 Channel mode
         QVERIFY(mode != NULL);

@@ -110,7 +110,8 @@ void QLCFixtureHead_Test::save()
         if (xmlReader.name().toString() == "Channel")
         {
             QString chNum = xmlReader.readElementText();
-            QVERIFY(chNum.toInt() == 0 || chNum.toInt() == 1 || chNum.toInt() == 2 || chNum.toInt() == 3);
+            QVERIFY(chNum.toInt() == 0 || chNum.toInt() == 1 || chNum.toInt() == 2
+                    || chNum.toInt() == 3);
             ch++;
         }
         else

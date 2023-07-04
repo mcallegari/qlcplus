@@ -131,7 +131,8 @@ signals:
     void profileNameChanged();
 
 private slots:
-    void slotValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &key = 0);
+    void slotValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value,
+                          const QString &key = 0);
 
 private:
     /** The reference of the plugin associated by this Input patch */

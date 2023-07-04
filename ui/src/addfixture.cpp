@@ -72,11 +72,13 @@ AddFixture::AddFixture(QWidget *parent, const Doc *doc, const Fixture *fxi)
     connect(m_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
     connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this,
             SLOT(slotTreeDoubleClicked(QTreeWidgetItem *)));
-    connect(m_modeCombo, SIGNAL(activated(const QString &)), this, SLOT(slotModeActivated(const QString &)));
+    connect(m_modeCombo, SIGNAL(activated(const QString &)), this,
+            SLOT(slotModeActivated(const QString &)));
     connect(m_universeCombo, SIGNAL(activated(int)), this, SLOT(slotUniverseActivated(int)));
     connect(m_addressSpin, SIGNAL(valueChanged(int)), this, SLOT(slotAddressChanged(int)));
     connect(m_channelsSpin, SIGNAL(valueChanged(int)), this, SLOT(slotChannelsChanged(int)));
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_gapSpin, SIGNAL(valueChanged(int)), this, SLOT(slotGapSpinChanged(int)));
     connect(m_amountSpin, SIGNAL(valueChanged(int)), this, SLOT(slotAmountSpinChanged(int)));
     connect(m_searchEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSearchFilterChanged(QString)));
@@ -352,7 +354,8 @@ void AddFixture::findAddress()
     }
 }
 
-quint32 AddFixture::findAddress(quint32 numChannels, QList<Fixture *> const &fixtures, quint32 maxUniverses)
+quint32 AddFixture::findAddress(quint32 numChannels, QList<Fixture *> const &fixtures,
+                                quint32 maxUniverses)
 {
     /* Try to find contiguous space from one universe at a time */
     for (quint32 universe = 0; universe < maxUniverses; universe++)
@@ -365,8 +368,8 @@ quint32 AddFixture::findAddress(quint32 numChannels, QList<Fixture *> const &fix
     return QLCChannel::invalid();
 }
 
-quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels, QList<Fixture *> const &fixtures,
-                                quint32 currentFixture)
+quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
+                                QList<Fixture *> const &fixtures, quint32 currentFixture)
 {
     quint32 freeSpace   = 0;
     quint32 maxChannels = 512;
@@ -408,7 +411,8 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels, QList<Fix
 
 void AddFixture::updateMaximumAmount()
 {
-    m_amountSpin->setRange(1, (513 - m_addressSpin->value()) / (m_channelsSpin->value() + m_gapSpin->value()));
+    m_amountSpin->setRange(1, (513 - m_addressSpin->value())
+                                  / (m_channelsSpin->value() + m_gapSpin->value()));
 }
 
 bool AddFixture::checkAddressAvailability(int value, int channels)
@@ -646,7 +650,8 @@ void AddFixture::slotSelectionChanged()
     m_gapSpin->setEnabled(true);
 
     /* Recalculate the first available address for the newly selected fixture */
-    quint32 addr = findAddress(m_universeValue, m_channelsSpin->value(), m_doc->fixtures(), m_fixtureID);
+    quint32 addr =
+        findAddress(m_universeValue, m_channelsSpin->value(), m_doc->fixtures(), m_fixtureID);
     if (addr != QLCChannel::invalid())
         m_addressSpin->setValue((addr & 0x01FF) + 1);
     else

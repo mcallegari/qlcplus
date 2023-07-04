@@ -53,8 +53,8 @@ quint32 FixtureUtils::fixtureItemID(quint32 fid, quint16 headIndex, quint16 link
     Q_ASSERT(headIndex < MAX_HEADS_NUMBER);
     Q_ASSERT(linkedIndex < MAX_LINKED_NUMBER);
 
-    return (fid << (FIXTURE_HEAD_BITS + FIXTURE_LINKED_BITS)) | ((quint32)headIndex << FIXTURE_LINKED_BITS)
-           | (quint32)linkedIndex;
+    return (fid << (FIXTURE_HEAD_BITS + FIXTURE_LINKED_BITS))
+           | ((quint32)headIndex << FIXTURE_LINKED_BITS) | (quint32)linkedIndex;
 }
 
 quint32 FixtureUtils::itemFixtureID(quint32 itemID)
@@ -270,12 +270,14 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
             quint16 headIndex   = monProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
             QPointF fxPoint =
-                item2DPosition(monProps, pointOfView, monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
-            QSizeF fxSize   = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode, pointOfView);
-            qreal  itemXPos = fxPoint.x();
-            qreal  itemYPos = fxPoint.y();
-            qreal  itemWidth  = fxSize.width();
-            qreal  itemHeight = fxSize.height();
+                item2DPosition(monProps, pointOfView,
+                               monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
+            QSizeF fxSize = item2DDimension(
+                fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode, pointOfView);
+            qreal itemXPos   = fxPoint.x();
+            qreal itemYPos   = fxPoint.y();
+            qreal itemWidth  = fxSize.width();
+            qreal itemHeight = fxSize.height();
 
             // store the next Y row in case we need to lower down
             if (itemYPos + itemHeight > maxYOffset)
@@ -314,11 +316,11 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
     qreal mb = b.blueF() * mix + a.blueF() * (1 - mix);
 
     /*
-        // non linear blending
-        qreal mr = qSqrt((1 - mix) * qPow(a.redF(), 2) + mix * qPow(b.redF(), 2));
-        qreal mg = qSqrt((1 - mix) * qPow(a.greenF(), 2) + mix * qPow(b.greenF(), 2));
-        qreal mb = qSqrt((1 - mix) * qPow(a.blueF(), 2) + mix * qPow(b.blueF(), 2));
-    */
+    // non linear blending
+    qreal mr = qSqrt((1 - mix) * qPow(a.redF(), 2) + mix * qPow(b.redF(), 2));
+    qreal mg = qSqrt((1 - mix) * qPow(a.greenF(), 2) + mix * qPow(b.greenF(), 2));
+    qreal mb = qSqrt((1 - mix) * qPow(a.blueF(), 2) + mix * qPow(b.blueF(), 2));
+*/
     return QColor(mr * 255.0, mg * 255.0, mb * 255.0);
 }
 
@@ -350,16 +352,20 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
         finalColor = blendColors(finalColor, Qt::white, (float)fixture->channelValueAt(white) / 255.0);
 
     if (amber != QLCChannel::invalid() && fixture->channelValueAt(amber))
-        finalColor = blendColors(finalColor, QColor(0xFFFF7E00), (float)fixture->channelValueAt(amber) / 255.0);
+        finalColor = blendColors(finalColor, QColor(0xFFFF7E00),
+                                 (float)fixture->channelValueAt(amber) / 255.0);
 
     if (UV != QLCChannel::invalid() && fixture->channelValueAt(UV))
-        finalColor = blendColors(finalColor, QColor(0xFF9400D3), (float)fixture->channelValueAt(UV) / 255.0);
+        finalColor =
+            blendColors(finalColor, QColor(0xFF9400D3), (float)fixture->channelValueAt(UV) / 255.0);
 
     if (lime != QLCChannel::invalid() && fixture->channelValueAt(lime))
-        finalColor = blendColors(finalColor, QColor(0xFFADFF2F), (float)fixture->channelValueAt(lime) / 255.0);
+        finalColor =
+            blendColors(finalColor, QColor(0xFFADFF2F), (float)fixture->channelValueAt(lime) / 255.0);
 
     if (indigo != QLCChannel::invalid() && fixture->channelValueAt(indigo))
-        finalColor = blendColors(finalColor, QColor(0xFF4B0082), (float)fixture->channelValueAt(indigo) / 255.0);
+        finalColor = blendColors(finalColor, QColor(0xFF4B0082),
+                                 (float)fixture->channelValueAt(indigo) / 255.0);
 
     return finalColor;
 }
@@ -382,7 +388,8 @@ void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDu
             panDuration = tiltDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
             break;
         case QLCChannel::SpeedPanTiltSlowFast:
-            panDuration = tiltDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+            panDuration = tiltDuration =
+                SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
             break;
         case QLCChannel::SpeedPanFastSlow:
             panDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
@@ -501,7 +508,8 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
                 case QLCCapability::PulseFreqRange:
                 case QLCCapability::RampUpFreqRange:
                 case QLCCapability::RampDownFreqRange:
-                    freq = SCALE(value, cap->min(), cap->max(), cap->resource(0).toFloat(), cap->resource(1).toFloat());
+                    freq = SCALE(value, cap->min(), cap->max(), cap->resource(0).toFloat(),
+                                 cap->resource(1).toFloat());
                     break;
                 default:
                     // invalidate any other preset, to avoid messing up the preview

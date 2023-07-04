@@ -63,7 +63,8 @@ protected:
     QString createImportDialog();
     void    connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem *targetItem);
 
-    QList<SceneValue> remapSceneValues(QList<SceneValue> funcList, QList<SceneValue> &srcList, QList<SceneValue> &tgtList);
+    QList<SceneValue> remapSceneValues(QList<SceneValue> funcList, QList<SceneValue> &srcList,
+                                       QList<SceneValue> &tgtList);
 
 protected slots:
     void slotImportFixtures();

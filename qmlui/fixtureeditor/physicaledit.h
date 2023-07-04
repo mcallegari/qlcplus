@@ -30,7 +30,8 @@ class PhysicalEdit : public QObject
 
     Q_PROPERTY(QString bulbType READ bulbType WRITE setBulbType NOTIFY bulbTypeChanged)
     Q_PROPERTY(int bulbLumens READ bulbLumens WRITE setBulbLumens NOTIFY bulbLumensChanged)
-    Q_PROPERTY(int bulbColorTemperature READ bulbColorTemperature WRITE setBulbColorTemperature NOTIFY bulbColorTemperatureChanged)
+    Q_PROPERTY(int bulbColorTemperature READ bulbColorTemperature WRITE setBulbColorTemperature
+                   NOTIFY bulbColorTemperatureChanged)
 
     Q_PROPERTY(double weight READ weight WRITE setWeight NOTIFY weightChanged)
     Q_PROPERTY(int width READ width WRITE setWidth NOTIFY widthChanged)

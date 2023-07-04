@@ -183,10 +183,12 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
         QWidget *wid    = item->widget();
         int      spaceX = horizontalSpacing();
         if (spaceX == -1)
-            spaceX = wid->style()->layoutSpacing(QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Horizontal);
+            spaceX = wid->style()->layoutSpacing(QSizePolicy::PushButton, QSizePolicy::PushButton,
+                                                 Qt::Horizontal);
         int spaceY = verticalSpacing();
         if (spaceY == -1)
-            spaceY = wid->style()->layoutSpacing(QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Vertical);
+            spaceY = wid->style()->layoutSpacing(QSizePolicy::PushButton, QSizePolicy::PushButton,
+                                                 Qt::Vertical);
         //! [10]
         //! [11]
         int nextX = x + item->sizeHint().width() + spaceX;

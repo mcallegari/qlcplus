@@ -33,8 +33,10 @@ class ImportManager : public QObject
 
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QVariant functionsTreeModel READ functionsTreeModel NOTIFY functionsTreeModelChanged)
-    Q_PROPERTY(QString fixtureSearchFilter READ fixtureSearchFilter WRITE setFixtureSearchFilter NOTIFY fixtureSearchFilterChanged)
-    Q_PROPERTY(QString functionSearchFilter READ functionSearchFilter WRITE setFunctionSearchFilter NOTIFY functionSearchFilterChanged)
+    Q_PROPERTY(QString fixtureSearchFilter READ fixtureSearchFilter WRITE setFixtureSearchFilter
+                   NOTIFY fixtureSearchFilterChanged)
+    Q_PROPERTY(QString functionSearchFilter READ functionSearchFilter WRITE setFunctionSearchFilter
+                   NOTIFY functionSearchFilterChanged)
 
 public:
     ImportManager(QQuickView *view, Doc *doc, QObject *parent = 0);

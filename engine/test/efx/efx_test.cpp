@@ -2944,8 +2944,9 @@ void EFX_Test::save()
     QVERIFY(xmlReader.attributes().value("Type").toString() == "EFX");
     QVERIFY(xmlReader.attributes().value("Name").toString() == "First");
 
-    bool dir = false, off = false, run = false, algo = false, w = false, h = false, rot = false, isRelative = false,
-         xoff = false, yoff = false, xfreq = false, yfreq = false, xpha = false, ypha = false, prop = false, speed = false;
+    bool dir = false, off = false, run = false, algo = false, w = false, h = false, rot = false,
+         isRelative = false, xoff = false, yoff = false, xfreq = false, yfreq = false, xpha = false,
+         ypha = false, prop = false, speed = false;
     int            fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList<QString> fixtures;
 

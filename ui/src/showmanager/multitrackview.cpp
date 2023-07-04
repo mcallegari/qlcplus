@@ -47,20 +47,21 @@ MultiTrackView::MultiTrackView(QWidget *parent)
     m_timeSlider->setSingleStep(1);
     m_timeSlider->setFixedSize(TRACK_WIDTH - 4, HEADER_HEIGHT);
 
-    m_timeSlider->setStyleSheet("QSlider { background-color: #969696; }"
-                                "QSlider::groove:horizontal {"
-                                "border: 1px solid #999999;"
-                                "height: 10px;"
-                                "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #b1b1b1, stop:1 #d4d4d4);"
-                                "}"
-                                "QSlider::handle:horizontal {"
-                                "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #c4c4c4, stop:1 #8f8f8f);"
-                                "border: 1px solid #5c5c5c;"
-                                "width: 20px;"
-                                "margin: -2px 0; /* handle is placed by default on the contents rect of the groove. "
-                                "Expand outside the groove */"
-                                "border-radius: 4px;"
-                                "}");
+    m_timeSlider->setStyleSheet(
+        "QSlider { background-color: #969696; }"
+        "QSlider::groove:horizontal {"
+        "border: 1px solid #999999;"
+        "height: 10px;"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #b1b1b1, stop:1 #d4d4d4);"
+        "}"
+        "QSlider::handle:horizontal {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #c4c4c4, stop:1 #8f8f8f);"
+        "border: 1px solid #5c5c5c;"
+        "width: 20px;"
+        "margin: -2px 0; /* handle is placed by default on the contents rect of the groove. "
+        "Expand outside the groove */"
+        "border-radius: 4px;"
+        "}");
     connect(m_timeSlider, SIGNAL(valueChanged(int)), this, SLOT(slotTimeScaleChanged(int)));
     m_scene->addWidget(m_timeSlider);
 
@@ -100,13 +101,15 @@ void MultiTrackView::updateTracksDividers()
         hDivNum = m_tracks.count();
     for (int j = 0; j < hDivNum; j++)
     {
-        QGraphicsItem *item = m_scene->addRect(0, ypos + (j * TRACK_HEIGHT), m_scene->width(), 1,
-                                               QPen(QColor(150, 150, 150, 255)), QBrush(QColor(190, 190, 190, 255)));
+        QGraphicsItem *item =
+            m_scene->addRect(0, ypos + (j * TRACK_HEIGHT), m_scene->width(), 1,
+                             QPen(QColor(150, 150, 150, 255)), QBrush(QColor(190, 190, 190, 255)));
         item->setZValue(-1);
         m_hdividers.append(item);
     }
-    m_vdivider = m_scene->addRect(TRACK_WIDTH - 3, 0, 3, m_scene->height(), QPen(QColor(150, 150, 150, 255)),
-                                  QBrush(QColor(190, 190, 190, 255)));
+    m_vdivider =
+        m_scene->addRect(TRACK_WIDTH - 3, 0, 3, m_scene->height(), QPen(QColor(150, 150, 150, 255)),
+                         QBrush(QColor(190, 190, 190, 255)));
 }
 
 void MultiTrackView::setViewSize(int width, int height)
@@ -175,7 +178,8 @@ void MultiTrackView::addTrack(Track *track)
     m_tracks.append(trackItem);
     activateTrack(track);
     connect(trackItem, SIGNAL(itemClicked(TrackItem *)), this, SLOT(slotTrackClicked(TrackItem *)));
-    connect(trackItem, SIGNAL(itemDoubleClicked(TrackItem *)), this, SLOT(slotTrackDoubleClicked(TrackItem *)));
+    connect(trackItem, SIGNAL(itemDoubleClicked(TrackItem *)), this,
+            SLOT(slotTrackDoubleClicked(TrackItem *)));
     connect(trackItem, SIGNAL(itemSoloFlagChanged(TrackItem *, bool)), this,
             SLOT(slotTrackSoloFlagChanged(TrackItem *, bool)));
     connect(trackItem, SIGNAL(itemMuteFlagChanged(TrackItem *, bool)), this,
@@ -307,10 +311,12 @@ quint32 MultiTrackView::deleteSelectedItem()
     ShowItem *selectedItem = getSelectedItem();
     if (selectedItem != NULL)
     {
-        QString msg = tr("Do you want to DELETE item:") + QString("\n\n") + selectedItem->functionName();
+        QString msg =
+            tr("Do you want to DELETE item:") + QString("\n\n") + selectedItem->functionName();
 
         // Ask for user's confirmation
-        if (QMessageBox::question(this, tr("Delete Functions"), msg, QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
+        if (QMessageBox::question(this, tr("Delete Functions"), msg, QMessageBox::Yes, QMessageBox::No)
+            == QMessageBox::Yes)
         {
             quint32 fID = selectedItem->functionID();
             m_scene->removeItem(selectedItem);
@@ -328,7 +334,7 @@ quint32 MultiTrackView::deleteSelectedItem()
             Track                *track   = item->getTrack();
             quint32               trackID = track->id();
             QList<ShowFunction *> sfList  = track->showFunctions();
-            QString               msg     = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
+            QString msg = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
             if (sfList.count() > 0)
             {
                 msg += QString("\n\n") + tr("This operation will also DELETE:") + QString("\n\n");
@@ -340,7 +346,8 @@ quint32 MultiTrackView::deleteSelectedItem()
             }
 
             // Ask for user's confirmation
-            if (QMessageBox::question(this, tr("Delete Track"), msg, QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
+            if (QMessageBox::question(this, tr("Delete Track"), msg, QMessageBox::Yes, QMessageBox::No)
+                == QMessageBox::Yes)
             {
                 m_scene->removeItem(item);
                 m_tracks.removeOne(item);
@@ -418,7 +425,8 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
 {
     if (time == 0)
         return TRACK_WIDTH;
-    quint32 xPos = ((double)time / 500) * ((double)m_header->getHalfSecondWidth() / (double)m_header->getTimeScale());
+    quint32 xPos = ((double)time / 500)
+                   * ((double)m_header->getHalfSecondWidth() / (double)m_header->getTimeScale());
     return TRACK_WIDTH + xPos;
 }
 
@@ -426,7 +434,8 @@ int MultiTrackView::getTrackIndex(Track *trk)
 {
     for (int idx = 0; idx < m_tracks.count(); idx++)
     {
-        if ((trk == NULL && m_tracks.at(idx)->isActive()) || (trk != NULL && trk == m_tracks.at(idx)->getTrack()))
+        if ((trk == NULL && m_tracks.at(idx)->isActive())
+            || (trk != NULL && trk == m_tracks.at(idx)->getTrack()))
             return idx;
     }
 
@@ -546,7 +555,8 @@ void MultiTrackView::slotViewScrolled(int)
 
 void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *item)
 {
-    qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
+    qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <"
+             << event->pos().toPoint().y() << ">";
     // align to the appropriate track
     bool    moved    = true;
     quint32 s_time   = 0;

@@ -241,7 +241,8 @@ bool Script::loadXML(QXmlStreamReader &root)
 
     if (attrs.value(KXMLQLCFunctionType).toString() != typeToString(Function::ScriptType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not a script";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
+                   << "is not a script";
         return false;
     }
 
@@ -268,9 +269,11 @@ bool Script::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCScriptCommand)
         {
             if (version == 1)
-                m_data.append(convertLine(QUrl::fromPercentEncoding(root.readElementText().toUtf8()) + QString("\n")));
+                m_data.append(convertLine(QUrl::fromPercentEncoding(root.readElementText().toUtf8())
+                                          + QString("\n")));
             else
-                m_data.append(QUrl::fromPercentEncoding(root.readElementText().toUtf8()) + QString("\n"));
+                m_data.append(QUrl::fromPercentEncoding(root.readElementText().toUtf8())
+                              + QString("\n"));
         }
         else
         {

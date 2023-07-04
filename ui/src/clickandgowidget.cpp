@@ -290,7 +290,8 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
     {
         if (cap->presetType() == QLCCapability::Picture)
         {
-            m_resources.append(PresetResource(cap->resource(0).toString(), cap->name(), cap->min(), cap->max()));
+            m_resources.append(
+                PresetResource(cap->resource(0).toString(), cap->name(), cap->min(), cap->max()));
         }
         else if (cap->presetType() == QLCCapability::SingleColor)
         {
@@ -361,7 +362,8 @@ void ClickAndGoWidget::setupPresetPicker()
         painter.setPen(Qt::black);
         painter.drawRect(x, y, m_cellWidth, CELL_H);
         painter.drawImage(x + 1, y + 4, res.m_thumbnail);
-        painter.drawText(x + 43, y + 4, m_cellWidth - 42, CELL_H - 5, Qt::TextWordWrap | Qt::AlignVCenter, res.m_descr);
+        painter.drawText(x + 43, y + 4, m_cellWidth - 42, CELL_H - 5,
+                         Qt::TextWordWrap | Qt::AlignVCenter, res.m_descr);
         if (i % m_cols == m_cols - 1)
         {
             y += CELL_H;
@@ -397,9 +399,11 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
         if (m_hoverCellIdx >= 0 && m_hoverCellIdx < m_resources.length())
         {
             PresetResource res = m_resources.at(m_hoverCellIdx);
-            qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min << "max:" << res.m_max;
+            qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min
+                     << "max:" << res.m_max;
 
-            float f = SCALE(float(m_cellBarWidth), float(0), float(m_cellWidth), float(0), float(res.m_max - res.m_min));
+            float f = SCALE(float(m_cellBarWidth), float(0), float(m_cellWidth), float(0),
+                            float(res.m_max - res.m_min));
             emit  levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
         }
     }
@@ -471,7 +475,8 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     // qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
 
-ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2, QString text, uchar min, uchar max)
+ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2, QString text,
+                                                 uchar min, uchar max)
 {
     m_descr     = text;
     m_min       = min;

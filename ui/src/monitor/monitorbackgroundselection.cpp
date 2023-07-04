@@ -147,8 +147,9 @@ void MonitorBackgroundSelection::slotSelectCommonBackground()
 {
     QString filename = m_props->commonBackgroundImage();
 
-    filename = QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
-                                            QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+    filename =
+        QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
+                                     QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
     if (filename.isEmpty() == false)
     {
@@ -167,8 +168,9 @@ void MonitorBackgroundSelection::slotAddCustomBackground()
     if (fs.exec() == QDialog::Accepted)
     {
         quint32 fid      = fs.selection().first();
-        QString filename = QFileDialog::getOpenFileName(this, tr("Select background image"), m_lastUsedPath,
-                                                        QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+        QString filename = QFileDialog::getOpenFileName(
+            this, tr("Select background image"), m_lastUsedPath,
+            QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
         if (filename.isEmpty() == false)
         {

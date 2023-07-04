@@ -414,7 +414,8 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
 
     float   deltaDegrees = phy.lensDegreesMax() - phy.lensDegreesMin();
     // delta : 0xFFFF = deg : x
-    quint16 degToDmx     = ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
+    quint16 degToDmx =
+        ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
     // qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
 
     for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
@@ -433,7 +434,8 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
             // degrees is a relative value upon the current value.
             // Recalculate absolute degrees here
             qreal divider   = ch->controlByte() == QLCChannel::MSB ? 256.0 : 65536.0;
-            float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * float(channelValueAt(i));
+            float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider)
+                              * float(channelValueAt(i));
 
             // qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
 
@@ -644,7 +646,8 @@ void Fixture::setFixtureDefinition(QLCFixtureDef *fixtureDef, QLCFixtureMode *fi
     {
         int i, chNum;
 
-        if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef && m_fixtureDef->manufacturer() == KXMLFixtureGeneric
+        if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef
+            && m_fixtureDef->manufacturer() == KXMLFixtureGeneric
             && m_fixtureDef->model() == KXMLFixtureGeneric)
         {
             delete m_fixtureDef;
@@ -918,7 +921,8 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
     return def;
 }
 
-QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height)
+QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components components,
+                                             quint32 width, quint32 height)
 {
     Q_ASSERT(def != NULL);
     QLCFixtureMode *mode    = new QLCFixtureMode(def);
@@ -1096,7 +1100,8 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
         else if (xmlDoc.name() == KXMLFixtureChannelModifier)
         {
             QXmlStreamAttributes attrs = xmlDoc.attributes();
-            if (attrs.hasAttribute(KXMLFixtureChannelIndex) && attrs.hasAttribute(KXMLFixtureModifierName))
+            if (attrs.hasAttribute(KXMLFixtureChannelIndex)
+                && attrs.hasAttribute(KXMLFixtureModifierName))
             {
                 quint32          chIdx   = attrs.value(KXMLFixtureChannelIndex).toString().toUInt();
                 QString          modName = attrs.value(KXMLFixtureModifierName).toString();
@@ -1140,8 +1145,9 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
             fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
             if (fixtureDef == NULL)
             {
-                doc->appendToErrorLog(
-                    QString("No fixture definition found for <b>%1</b> <b>%2</b>").arg(manufacturer).arg(model));
+                doc->appendToErrorLog(QString("No fixture definition found for <b>%1</b> <b>%2</b>")
+                                          .arg(manufacturer)
+                                          .arg(model));
             }
         }
 
@@ -1152,7 +1158,10 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
             if (fixtureMode == NULL)
             {
                 doc->appendToErrorLog(
-                    QString("Fixture mode <b>%1</b> not found for <b>%2</b> <b>%3</b>").arg(modeName).arg(manufacturer).arg(model));
+                    QString("Fixture mode <b>%1</b> not found for <b>%2</b> <b>%3</b>")
+                        .arg(modeName)
+                        .arg(manufacturer)
+                        .arg(model));
 
                 /* Set this also NULL so that a generic dimmer will be
                    created instead as a backup. */
@@ -1164,8 +1173,9 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc, QLCFixtureDefCache *fi
     /* Number of channels */
     if (channels <= 0)
     {
-        doc->appendToErrorLog(
-            QString("%1 channels of fixture <b>%2</b> are our of bounds").arg(QString::number(channels)).arg(name));
+        doc->appendToErrorLog(QString("%1 channels of fixture <b>%2</b> are our of bounds")
+                                  .arg(QString::number(channels))
+                                  .arg(name));
         channels = 1;
     }
 
@@ -1266,9 +1276,11 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
     /* RGB Panel physical dimensions */
     if (m_fixtureDef != NULL && m_fixtureDef->model() == KXMLFixtureRGBPanel && m_fixtureMode != NULL)
     {
-        doc->writeTextElement(KXMLQLCPhysicalDimensionsWeight, QString::number(m_fixtureMode->physical().width()));
+        doc->writeTextElement(KXMLQLCPhysicalDimensionsWeight,
+                              QString::number(m_fixtureMode->physical().width()));
 
-        doc->writeTextElement(KXMLQLCPhysicalDimensionsHeight, QString::number(m_fixtureMode->physical().height()));
+        doc->writeTextElement(KXMLQLCPhysicalDimensionsHeight,
+                              QString::number(m_fixtureMode->physical().height()));
     }
 
     /* ID */
@@ -1437,10 +1449,15 @@ QString Fixture::status() const
         QString mm("%1mm (%2\")");
         QString kg("%1kg (%2 lbs)");
         QString W("%1W");
-        info += genInfo.arg(tr("Width")).arg(mm.arg(physical.width())).arg(physical.width() * mmInch, 0, 'g', 4);
-        info += genInfo.arg(tr("Height")).arg(mm.arg(physical.height())).arg(physical.height() * mmInch, 0, 'g', 4);
-        info += genInfo.arg(tr("Depth")).arg(mm.arg(physical.depth())).arg(physical.depth() * mmInch, 0, 'g', 4);
-        info += genInfo.arg(tr("Weight")).arg(kg.arg(physical.weight())).arg(physical.weight() * kgLbs, 0, 'g', 4);
+        info +=
+            genInfo.arg(tr("Width")).arg(mm.arg(physical.width())).arg(physical.width() * mmInch, 0, 'g', 4);
+        info += genInfo.arg(tr("Height"))
+                    .arg(mm.arg(physical.height()))
+                    .arg(physical.height() * mmInch, 0, 'g', 4);
+        info +=
+            genInfo.arg(tr("Depth")).arg(mm.arg(physical.depth())).arg(physical.depth() * mmInch, 0, 'g', 4);
+        info +=
+            genInfo.arg(tr("Weight")).arg(kg.arg(physical.weight())).arg(physical.weight() * kgLbs, 0, 'g', 4);
         info += genInfo.arg(tr("Power consumption")).arg(W.arg(physical.powerConsumption()));
         info += genInfo.arg(tr("DMX Connector")).arg(physical.dmxConnector());
 
@@ -1465,8 +1482,8 @@ QString Fixture::status() const
         }
         else
         {
-            info +=
-                genInfo.arg(tr("Beam Angle")).arg(angle2.arg(physical.lensDegreesMin()).arg(physical.lensDegreesMax()));
+            info += genInfo.arg(tr("Beam Angle"))
+                        .arg(angle2.arg(physical.lensDegreesMin()).arg(physical.lensDegreesMax()));
         }
 
         // Focus
@@ -1478,7 +1495,9 @@ QString Fixture::status() const
         if (physical.layoutSize() != QSize(1, 1))
         {
             info += genInfo.arg(tr("Layout"))
-                        .arg(QString("%1 x %2").arg(physical.layoutSize().width()).arg(physical.layoutSize().height()));
+                        .arg(QString("%1 x %2")
+                                 .arg(physical.layoutSize().width())
+                                 .arg(physical.layoutSize().height()));
         }
     }
 

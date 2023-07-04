@@ -288,14 +288,16 @@ void App::init()
 #endif
 
     // Listen to blackout changes and toggle m_controlBlackoutAction
-    connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
+    connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this,
+            SLOT(slotBlackoutChanged(bool)));
 
     // Listen to DMX value changes and update each Fixture values array
     connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray &)), this,
             SLOT(slotUniverseWritten(quint32, const QByteArray &)));
 
     // Enable/Disable panic button
-    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
+    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this,
+            SLOT(slotRunningFunctionsChanged()));
     slotRunningFunctionsChanged();
 
     // Start up in non-modified state
@@ -307,7 +309,8 @@ void App::init()
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR)malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t *>(home))).arg(USERQLCPLUSDIR);
+    ssDir =
+        QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t *>(home))).arg(USERQLCPLUSDIR);
     free(home);
     HotPlugMonitor::setWinId(winId());
 #else
@@ -379,9 +382,9 @@ void App::closeEvent(QCloseEvent *e)
     {
         if (m_doc->isKiosk() == true)
         {
-            int result =
-                QMessageBox::warning(this, tr("Close the application?"), tr("Do you wish to close the application?"),
-                                     QMessageBox::Yes, QMessageBox::No);
+            int result = QMessageBox::warning(this, tr("Close the application?"),
+                                              tr("Do you wish to close the application?"),
+                                              QMessageBox::Yes, QMessageBox::No);
             if (result == QMessageBox::No)
             {
                 e->ignore();
@@ -421,7 +424,8 @@ void App::slotSetProgressText(const QString &text)
 
     static int progress = 0;
     m_progressDialog->setValue(progress++);
-    m_progressDialog->setLabelText(QString("<B>%1</B><BR/>%2").arg(tr("Starting Q Light Controller Plus")).arg(text));
+    m_progressDialog->setLabelText(
+        QString("<B>%1</B><BR/>%2").arg(tr("Starting Q Light Controller Plus")).arg(text));
     QApplication::processEvents();
 }
 
@@ -646,7 +650,8 @@ void App::initActions()
     /* Control actions */
     m_modeToggleAction = new QAction(QIcon(":/operate.png"), tr("&Operate"), this);
     m_modeToggleAction->setToolTip(tr("Switch to operate mode"));
-    m_modeToggleAction->setShortcut(QKeySequence(tr("CTRL+F12", "Control|Toggle operate/design mode")));
+    m_modeToggleAction->setShortcut(
+        QKeySequence(tr("CTRL+F12", "Control|Toggle operate/design mode")));
     connect(m_modeToggleAction, SIGNAL(triggered(bool)), this, SLOT(slotModeToggle()));
 
     m_controlMonitorAction = new QAction(QIcon(":/monitor.png"), tr("&Monitor"), this);
@@ -665,8 +670,10 @@ void App::initActions()
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
     m_liveEditAction->setEnabled(false);
 
-    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
-    connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this, SLOT(slotLiveEditVirtualConsole()));
+    m_liveEditVirtualConsoleAction =
+        new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
+    connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this,
+            SLOT(slotLiveEditVirtualConsole()));
     m_liveEditVirtualConsoleAction->setCheckable(true);
     m_liveEditVirtualConsoleAction->setEnabled(false);
 
@@ -703,7 +710,8 @@ void App::initActions()
 
     m_controlFullScreenAction = new QAction(QIcon(":/fullscreen.png"), tr("Toggle Full Screen"), this);
     m_controlFullScreenAction->setCheckable(true);
-    m_controlFullScreenAction->setShortcut(QKeySequence(tr("CTRL+F11", "Control|Toggle Full Screen")));
+    m_controlFullScreenAction->setShortcut(
+        QKeySequence(tr("CTRL+F11", "Control|Toggle Full Screen")));
     connect(m_controlFullScreenAction, SIGNAL(triggered(bool)), this, SLOT(slotControlFullScreen()));
 
     /* Help actions */
@@ -819,7 +827,8 @@ bool App::saveModifiedDoc(const QString &title, const QString &message)
     if (m_doc->isModified() == false)
         return true;
 
-    int result = QMessageBox::warning(this, title, message, QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    int result = QMessageBox::warning(this, title, message,
+                                      QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
     if (result == QMessageBox::Yes)
     {
         slotFileSave();
@@ -860,7 +869,8 @@ void App::updateFileOpenMenu(QString addRecent)
                          "border: 1px solid black; }"
                          "QMenu::item:selected { background-color: #2D8CFF; }";
         m_fileOpenMenu->setStyleSheet(style);
-        connect(m_fileOpenMenu, SIGNAL(triggered(QAction *)), this, SLOT(slotRecentFileClicked(QAction *)));
+        connect(m_fileOpenMenu, SIGNAL(triggered(QAction *)), this,
+                SLOT(slotRecentFileClicked(QAction *)));
     }
 
     foreach (QAction *a, m_fileOpenMenu->actions())
@@ -1111,9 +1121,10 @@ void App::slotFunctionLiveEdit()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType
-                 | Function::RGBMatrixType);
-    fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType | Function::AudioType);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType
+                 | Function::EFXType | Function::RGBMatrixType);
+    fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType
+                      | Function::AudioType);
 
     if (fs.exec() == QDialog::Accepted)
     {
@@ -1224,7 +1235,8 @@ void App::slotRecentFileClicked(QAction *recent)
     QFile   testFile(recentAbsPath);
     if (testFile.exists() == false)
     {
-        QMessageBox::critical(this, tr("Error"), tr("File not found!\nThe selected file has been moved or deleted."),
+        QMessageBox::critical(this, tr("Error"),
+                              tr("File not found!\nThe selected file has been moved or deleted."),
                               QMessageBox::Close);
         return;
     }
@@ -1399,11 +1411,13 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
     if (m_doc->errorLog().isEmpty() == false && fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
-                        tr("Some errors occurred while loading the project:") + "<br><br>" + m_doc->errorLog(),
+                        tr("Some errors occurred while loading the project:") + "<br><br>"
+                            + m_doc->errorLog(),
                         QMessageBox::Ok);
         msg.setTextFormat(Qt::RichText);
-        QSpacerItem *horizontalSpacer = new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-        QGridLayout *layout           = (QGridLayout *)msg.layout();
+        QSpacerItem *horizontalSpacer =
+            new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QGridLayout *layout = (QGridLayout *)msg.layout();
         layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }

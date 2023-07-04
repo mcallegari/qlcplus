@@ -896,7 +896,10 @@ void FixtureGroup_Test::save()
         }
         else
         {
-            QFAIL(QString("Unexpected tag in FixtureGroup: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag in FixtureGroup: %1")
+                      .arg(xmlReader.name().toString())
+                      .toUtf8()
+                      .constData());
         }
     }
 

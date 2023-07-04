@@ -332,8 +332,8 @@ public:
      * @param profileName The name of an input profile
      * @return true if successful, otherwise false
      */
-    bool setInputPatch(quint32 universe, const QString &pluginName, const QString &inputUID, quint32 input,
-                       const QString &profileName = QString());
+    bool setInputPatch(quint32 universe, const QString &pluginName, const QString &inputUID,
+                       quint32 input, const QString &profileName = QString());
 
     /**
      * Set an input profile to the given universe. If the universe doesn't
@@ -357,8 +357,8 @@ public:
      *
      * @return true if successful, otherwise false
      */
-    bool setOutputPatch(quint32 universe, const QString &pluginName, const QString &outputUID, quint32 output = 0,
-                        bool isFeedback = false, int index = 0);
+    bool setOutputPatch(quint32 universe, const QString &pluginName, const QString &outputUID,
+                        quint32 output = 0, bool isFeedback = false, int index = 0);
 
     int outputPatchesCount(quint32 universe) const;
 
@@ -545,7 +545,8 @@ public:
      * @return true if uniName & chName contain something, otherwise false
      */
     bool inputSourceNames(const QLCInputSource *src, QString &uniName, QString &chName) const;
-    bool inputSourceNames(QSharedPointer<QLCInputSource> const &src, QString &uniName, QString &chName) const;
+    bool inputSourceNames(QSharedPointer<QLCInputSource> const &src, QString &uniName,
+                          QString &chName) const;
 
     /**
      * Get the default system input profile directory that contains installed

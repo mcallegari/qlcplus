@@ -104,7 +104,7 @@ void MasterTimerPrivate::run()
     struct timespec *finish  = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
     struct timespec *current = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
 #endif
-    struct timespec *sleepTime     = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
+    struct timespec *sleepTime = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
     struct timespec *remainingTime = static_cast<struct timespec *>(malloc(sizeof(struct timespec)));
 
     sleepTime->tv_sec = 0;

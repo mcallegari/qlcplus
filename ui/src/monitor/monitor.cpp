@@ -89,7 +89,8 @@ Monitor::Monitor(QWidget *parent, Doc *doc, Qt::WindowFlags f)
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
     connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(slotFixtureChanged(quint32)));
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved(quint32)));
-    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotFunctionStarted(quint32)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this,
+            SLOT(slotFunctionStarted(quint32)));
 }
 
 void Monitor::slotFunctionStarted(quint32 id)
@@ -199,7 +200,8 @@ void Monitor::initGraphicsView()
     m_graphicsView->setBackgroundBrush(QBrush(QColor(11, 11, 11, 255), Qt::SolidPattern));
     m_splitter->widget(0)->layout()->addWidget(m_graphicsView);
 
-    connect(m_graphicsView, SIGNAL(fixtureMoved(quint32, QPointF)), this, SLOT(slotFixtureMoved(quint32, QPointF)));
+    connect(m_graphicsView, SIGNAL(fixtureMoved(quint32, QPointF)), this,
+            SLOT(slotFixtureMoved(quint32, QPointF)));
     connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent *)), this, SLOT(slotViewClicked()));
 
     // add container for chaser editor
@@ -506,12 +508,15 @@ void Monitor::initGraphicsToolbar()
 
     m_graphicsToolBar->addSeparator();
 
-    m_graphicsToolBar->addAction(QIcon(":/edit_add.png"), tr("Add fixture"), this, SLOT(slotAddFixture()));
-    m_graphicsToolBar->addAction(QIcon(":/edit_remove.png"), tr("Remove fixture"), this, SLOT(slotRemoveFixture()));
+    m_graphicsToolBar->addAction(QIcon(":/edit_add.png"), tr("Add fixture"), this,
+                                 SLOT(slotAddFixture()));
+    m_graphicsToolBar->addAction(QIcon(":/edit_remove.png"), tr("Remove fixture"), this,
+                                 SLOT(slotRemoveFixture()));
 
     m_graphicsToolBar->addSeparator();
 
-    m_graphicsToolBar->addAction(QIcon(":/image.png"), tr("Set a background picture"), this, SLOT(slotSetBackground()));
+    m_graphicsToolBar->addAction(QIcon(":/image.png"), tr("Set a background picture"), this,
+                                 SLOT(slotSetBackground()));
 
     m_labelsAction = m_graphicsToolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
     m_labelsAction->setCheckable(true);
@@ -789,7 +794,8 @@ void Monitor::showFixtureItemEditor()
 
     if (item != NULL)
     {
-        m_fixtureItemEditor = new MonitorFixturePropertiesEditor(item, m_graphicsView, m_props, m_splitter->widget(1));
+        m_fixtureItemEditor =
+            new MonitorFixturePropertiesEditor(item, m_graphicsView, m_props, m_splitter->widget(1));
         m_splitter->widget(1)->layout()->addWidget(m_fixtureItemEditor);
         m_splitter->widget(1)->show();
         m_fixtureItemEditor->show();

@@ -192,7 +192,8 @@ void MonitorGraphicsView::addFixture(quint32 id, QPointF pos)
     m_fixtures[id] = item;
     m_scene->addItem(item);
     updateFixture(id);
-    connect(item, SIGNAL(itemDropped(MonitorFixtureItem *)), this, SLOT(slotFixtureMoved(MonitorFixtureItem *)));
+    connect(item, SIGNAL(itemDropped(MonitorFixtureItem *)), this,
+            SLOT(slotFixtureMoved(MonitorFixtureItem *)));
 }
 
 bool MonitorGraphicsView::removeFixture(quint32 id)
@@ -252,8 +253,8 @@ void MonitorGraphicsView::updateGrid()
         int yPos = m_yOffset;
         for (int i = 0; i < m_gridSize.width() + 1; i++)
         {
-            QGraphicsLineItem *item =
-                m_scene->addLine(xPos, m_yOffset, xPos, this->height() - m_yOffset, QPen(QColor(40, 40, 40, 255)));
+            QGraphicsLineItem *item = m_scene->addLine(
+                xPos, m_yOffset, xPos, this->height() - m_yOffset, QPen(QColor(40, 40, 40, 255)));
             item->setZValue(1);
             xPos += m_cellPixels;
             m_gridItems.append(item);
@@ -261,8 +262,8 @@ void MonitorGraphicsView::updateGrid()
 
         for (int i = 0; i < m_gridSize.height() + 1; i++)
         {
-            QGraphicsLineItem *item =
-                m_scene->addLine(m_xOffset, yPos, this->width() - m_xOffset, yPos, QPen(QColor(40, 40, 40, 255)));
+            QGraphicsLineItem *item = m_scene->addLine(m_xOffset, yPos, this->width() - m_xOffset,
+                                                       yPos, QPen(QColor(40, 40, 40, 255)));
             item->setZValue(1);
             yPos += m_cellPixels;
             m_gridItems.append(item);
@@ -271,7 +272,8 @@ void MonitorGraphicsView::updateGrid()
         {
             m_bgItem->setX(m_xOffset);
             m_bgItem->setY(m_yOffset);
-            m_bgItem->setPixmap(m_bgPixmap.scaled(xPos - m_cellPixels - m_xOffset, yPos - m_cellPixels - m_yOffset));
+            m_bgItem->setPixmap(m_bgPixmap.scaled(xPos - m_cellPixels - m_xOffset,
+                                                  yPos - m_cellPixels - m_yOffset));
         }
     }
 }

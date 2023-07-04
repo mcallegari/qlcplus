@@ -149,7 +149,8 @@ bool Sequence::loadXML(QXmlStreamReader &root)
 
     if (funcAttrs.value(KXMLQLCFunctionType).toString() != typeToString(Function::SequenceType))
     {
-        qWarning() << Q_FUNC_INFO << funcAttrs.value(KXMLQLCFunctionType).toString() << "is not a Sequence";
+        qWarning() << Q_FUNC_INFO << funcAttrs.value(KXMLQLCFunctionType).toString()
+                   << "is not a Sequence";
         return false;
     }
 

@@ -41,7 +41,8 @@
  * Initialization
  *****************************************************************************/
 
-ConsoleChannel::ConsoleChannel(QWidget *parent, Doc *doc, quint32 fixture, quint32 channel, bool isCheckable)
+ConsoleChannel::ConsoleChannel(QWidget *parent, Doc *doc, quint32 fixture, quint32 channel,
+                               bool isCheckable)
     : QGroupBox(parent)
     , m_doc(doc)
     , m_fixture(fixture)
@@ -121,30 +122,31 @@ void ConsoleChannel::init()
     m_slider->setMinimumWidth(25);
     m_slider->setMaximumWidth(40);
     m_slider->setVisible(false);
-    m_slider->setSliderStyleSheet("QSlider::groove:vertical { background: transparent; width: 32px; } "
+    m_slider->setSliderStyleSheet(
+        "QSlider::groove:vertical { background: transparent; width: 32px; } "
 
-                                  "QSlider::handle:vertical { "
-                                  "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, "
-                                  "stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
-                                  "border: 1px solid #5c5c5c;"
-                                  "border-radius: 4px; margin: 0 -1px; height: 20px; }"
+        "QSlider::handle:vertical { "
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, "
+        "stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #5c5c5c;"
+        "border-radius: 4px; margin: 0 -1px; height: 20px; }"
 
-                                  "QSlider::handle:vertical:hover {"
-                                  "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, "
-                                  "stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
-                                  "border: 1px solid #000; }"
+        "QSlider::handle:vertical:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, "
+        "stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+        "border: 1px solid #000; }"
 
-                                  "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: "
-                                  "0, stop: 0 #78d, stop: 1 #97CDEC );"
-                                  "border: 1px solid #5288A7; margin: 0 13px; }"
+        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: "
+        "0, stop: 0 #78d, stop: 1 #97CDEC );"
+        "border: 1px solid #5288A7; margin: 0 13px; }"
 
-                                  "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: "
-                                  "0, stop: 0 #888, stop: 1 #ddd );"
-                                  "border: 1px solid #8E8A86; margin: 0 13px; }"
+        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: "
+        "0, stop: 0 #888, stop: 1 #ddd );"
+        "border: 1px solid #8E8A86; margin: 0 13px; }"
 
-                                  "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, "
-                                  "y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
-                                  "border: 1px solid #666; }");
+        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, "
+        "y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #666; }");
     layout()->addWidget(m_slider);
     // layout()->setAlignment(m_slider, Qt::AlignHCenter);
 
@@ -218,7 +220,8 @@ void ConsoleChannel::setChannelsGroup(quint32 grpid)
 {
     m_group            = grpid;
     ChannelsGroup *grp = m_doc->channelsGroup(grpid);
-    connect(grp, SIGNAL(valueChanged(quint32, uchar)), this, SLOT(slotInputValueChanged(quint32, uchar)));
+    connect(grp, SIGNAL(valueChanged(quint32, uchar)), this,
+            SLOT(slotInputValueChanged(quint32, uchar)));
 }
 
 void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
@@ -360,7 +363,8 @@ void ConsoleChannel::initMenu()
 
     QString btnIconStr = ch->getIconNameFromGroup(ch->group());
     if (btnIconStr.startsWith(":"))
-        m_presetButton->setStyleSheet("QToolButton { border-image: url(" + btnIconStr + ") 0 0 0 0 stretch stretch; }");
+        m_presetButton->setStyleSheet("QToolButton { border-image: url(" + btnIconStr
+                                      + ") 0 0 0 0 stretch stretch; }");
     else
     {
         m_presetButton->setStyleSheet("QToolButton { background: " + btnIconStr + "; }");
@@ -390,7 +394,8 @@ void ConsoleChannel::initMenu()
         QWidgetAction *action = new QWidgetAction(this);
         action->setDefaultWidget(m_cngWidget);
         m_menu->addAction(action);
-        connect(m_cngWidget, SIGNAL(levelChanged(uchar)), this, SLOT(slotClickAndGoLevelChanged(uchar)));
+        connect(m_cngWidget, SIGNAL(levelChanged(uchar)), this,
+                SLOT(slotClickAndGoLevelChanged(uchar)));
         connect(m_cngWidget, SIGNAL(levelAndPresetChanged(uchar, QImage)), this,
                 SLOT(slotClickAndGoLevelAndPresetChanged(uchar, QImage)));
     }
@@ -485,7 +490,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel *channel)
     {
         // None of the primary colours matched and since this is an
         // intensity channel, it must be controlling a plain dimmer OSLT.
-        m_presetButton->setStyleSheet("QToolButton { border-image: url(:/intensity.png) 0 0 0 0 stretch stretch; }");
+        m_presetButton->setStyleSheet(
+            "QToolButton { border-image: url(:/intensity.png) 0 0 0 0 stretch stretch; }");
     }
 }
 

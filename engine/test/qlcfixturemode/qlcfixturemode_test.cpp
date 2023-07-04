@@ -640,7 +640,7 @@ void QLCFixtureMode_Test::save()
     {
         if (xmlReader.name() == KXMLQLCChannel)
         {
-            int num       = xmlReader.attributes().value(KXMLQLCFixtureModeChannelNumber).toString().toInt();
+            int num = xmlReader.attributes().value(KXMLQLCFixtureModeChannelNumber).toString().toInt();
             channels[num] = xmlReader.readElementText();
         }
         else if (xmlReader.name() == KXMLQLCFixtureHead)

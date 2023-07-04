@@ -509,7 +509,8 @@ void Function::setTempoType(const Function::TempoType &type)
             setFadeInSpeed(beatsToTime(fadeInSpeed(), beatTime));
             setDuration(beatsToTime(duration(), beatTime));
             setFadeOutSpeed(beatsToTime(fadeOutSpeed(), beatTime));
-            disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBPMChanged(int)));
+            disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this,
+                       SLOT(slotBPMChanged(int)));
             break;
 
         /* Time -> Beats */
@@ -517,7 +518,8 @@ void Function::setTempoType(const Function::TempoType &type)
             setFadeInSpeed(timeToBeats(fadeInSpeed(), beatTime));
             setDuration(timeToBeats(duration(), beatTime));
             setFadeOutSpeed(timeToBeats(fadeOutSpeed(), beatTime));
-            connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBPMChanged(int)));
+            connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)), this,
+                    SLOT(slotBPMChanged(int)));
             break;
         default:
             qDebug() << "Error. Unhandled tempo type" << type;
@@ -1101,8 +1103,8 @@ void Function::roundElapsed(quint32 roundTime)
 void Function::start(MasterTimer *timer, FunctionParent source, quint32 startTime, uint overrideFadeIn,
                      uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType)
 {
-    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id()
-             << ", startTime:" << startTime;
+    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type()
+             << source.id() << ", startTime:" << startTime;
 
     Q_ASSERT(timer != NULL);
 
@@ -1144,11 +1146,13 @@ void Function::setPause(bool enable)
 
 void Function::stop(FunctionParent source, bool preserveAttributes)
 {
-    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id();
+    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type()
+             << source.id();
 
     QMutexLocker sourcesLocker(&m_sourcesMutex);
 
-    if ((source.id() == id() && source.type() == FunctionParent::Function) || (source.type() == FunctionParent::Master)
+    if ((source.id() == id() && source.type() == FunctionParent::Function)
+        || (source.type() == FunctionParent::Master)
         || (source.type() == FunctionParent::ManualVCWidget))
     {
         m_sources.clear();
@@ -1268,8 +1272,8 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
         attributeID                = m_lastOverrideAttributeId;
         m_overrideMap[attributeID] = override;
 
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID"
-                 << attributeID;
+        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value"
+                 << value << "new ID" << attributeID;
 
         calculateOverrideValue(attributeIndex);
 
@@ -1277,8 +1281,8 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
     }
     else
     {
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "single ID"
-                 << attributeID;
+        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value"
+                 << value << "single ID" << attributeID;
     }
 
     // actually apply the new override value
@@ -1338,8 +1342,9 @@ int Function::adjustAttribute(qreal value, int attributeId)
             return -1;
 
         // Adjust the original value of an attribute. Only Function editors should do this !
-        m_attributes[attributeId].m_value = CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
-        attrIndex                         = attributeId;
+        m_attributes[attributeId].m_value =
+            CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
+        attrIndex = attributeId;
     }
     else
     {
@@ -1352,8 +1357,9 @@ int Function::adjustAttribute(qreal value, int attributeId)
         calculateOverrideValue(attrIndex);
     }
 
-    emit attributeChanged(attrIndex, m_attributes[attrIndex].m_isOverridden ? m_attributes[attrIndex].m_overrideValue
-                                                                            : m_attributes[attrIndex].m_value);
+    emit attributeChanged(attrIndex, m_attributes[attrIndex].m_isOverridden
+                                         ? m_attributes[attrIndex].m_overrideValue
+                                         : m_attributes[attrIndex].m_value);
 
     return attrIndex;
 }

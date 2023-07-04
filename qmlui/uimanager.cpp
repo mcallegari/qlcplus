@@ -97,7 +97,8 @@ void UiManager::initialize()
 
         if (parseError.error != QJsonParseError::NoError)
         {
-            qWarning() << "UI Style parse error at" << parseError.offset << ":" << parseError.errorString();
+            qWarning() << "UI Style parse error at" << parseError.offset << ":"
+                       << parseError.errorString();
         }
         else
         {
@@ -148,7 +149,8 @@ void UiManager::setModified(QString name, QVariant value)
 
 QString UiManager::userConfFilepath()
 {
-    QDir userConfDir = QLCFile::userDirectory(QString(USERQLCPLUSDIR), QString(USERQLCPLUSDIR), QStringList());
+    QDir userConfDir =
+        QLCFile::userDirectory(QString(USERQLCPLUSDIR), QString(USERQLCPLUSDIR), QStringList());
     return userConfDir.absolutePath() + QDir::separator() + UISTYLEFILE;
 }
 

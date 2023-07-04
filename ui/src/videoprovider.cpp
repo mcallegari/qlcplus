@@ -94,7 +94,8 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
     connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this,
             SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    connect(m_videoPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
+    connect(m_videoPlayer, SIGNAL(metaDataChanged(QString, QVariant)), this,
+            SLOT(slotMetaDataChanged(QString, QVariant)));
 #else
     connect(m_videoPlayer, SIGNAL(metaDataChanged()), this, SLOT(slotMetaDataChanged()));
 #endif

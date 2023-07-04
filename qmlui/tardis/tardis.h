@@ -193,9 +193,9 @@ public:
 
     Q_ENUM(ActionCodes)
 
-    explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr, FixtureManager *fxMgr, FunctionManager *funcMgr,
-                    ContextManager *ctxMgr, SimpleDesk *sDesk, ShowManager *showMgr, VirtualConsole *vc,
-                    QObject *parent = 0);
+    explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr, FixtureManager *fxMgr,
+                    FunctionManager *funcMgr, ContextManager *ctxMgr, SimpleDesk *sDesk,
+                    ShowManager *showMgr, VirtualConsole *vc, QObject *parent = 0);
 
     ~Tardis();
 

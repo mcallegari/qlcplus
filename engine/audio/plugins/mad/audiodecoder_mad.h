@@ -129,8 +129,8 @@ private:
     // converter functions
     unsigned long prng(unsigned long state);
     void          clip(mad_fixed_t *sample);
-    long          audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither *dither);
-    long          audio_linear_round(unsigned int bits, mad_fixed_t sample);
+    long audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither *dither);
+    long audio_linear_round(unsigned int bits, mad_fixed_t sample);
 };
 
 /** @} */

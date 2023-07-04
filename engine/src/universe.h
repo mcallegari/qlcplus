@@ -290,7 +290,8 @@ public:
      * @param group The group this channel belongs to
      * @param isHTP Flag to force HTP/LTP behaviour
      */
-    void setChannelCapability(ushort channel, QLCChannel::Group group, ChannelType forcedType = Undefined);
+    void setChannelCapability(ushort channel, QLCChannel::Group group,
+                              ChannelType forcedType = Undefined);
 
     /** Retrieve the capability mask of the given channel index
      *
@@ -600,8 +601,9 @@ public:
      * @param profileName
      * @param parameters
      */
-    void savePatchXML(QXmlStreamWriter *doc, QString const &tag, QString const &pluginName, const QString &lineName,
-                      quint32 line, QString profileName, QMap<QString, QVariant> parameters) const;
+    void savePatchXML(QXmlStreamWriter *doc, QString const &tag, QString const &pluginName,
+                      const QString &lineName, quint32 line, QString profileName,
+                      QMap<QString, QVariant> parameters) const;
 
     /**
      * Save a plugin custom parameters (if available) into a tag nested

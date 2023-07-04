@@ -230,7 +230,8 @@ void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
     enableCapture(toggle);
 }
 
-void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude,
+                                          quint32 power)
 {
     qDebug() << "Display spectrum ----- bars:" << size;
     if (size != m_spectrum->barsNumber())
@@ -298,7 +299,8 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                 fader->setEnabled(m_button->isChecked() ? true : false);
             }
 
-            FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);
+            FadeChannel *fc =
+                fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);
             fc->setStart(fc->current());
             fc->setTarget(m_volumeBar->m_value);
             fc->setReady(false);
@@ -327,7 +329,8 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                     lastUniverse = universe;
                 }
 
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe],
+                                                         Fixture::invalidId(), absAddress);
                 fc->setStart(fc->current());
                 fc->setTarget(sb->m_value);
                 fc->setReady(false);
@@ -430,7 +433,8 @@ void VCAudioTriggers::setForegroundColor(const QColor &color)
         m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, "
                                "y2: 1, stop: 0 #345D27, stop: 1 #0E1A0A); "
                                "color: "
-                               + color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+                               + color.name()
+                               + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
         m_hasCustomForegroundColor = true;
         m_doc->setModified();
     }

@@ -66,9 +66,11 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_sceneEditor   = nullptr;
 
     m_view->rootContext()->setContextProperty("functionManager", this);
-    qmlRegisterUncreatableType<Collection>("org.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
+    qmlRegisterUncreatableType<Collection>("org.qlcplus.classes", 1, 0, "Collection",
+                                           "Can't create a Collection");
     qmlRegisterUncreatableType<Chaser>("org.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
-    qmlRegisterUncreatableType<RGBMatrix>("org.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
+    qmlRegisterUncreatableType<RGBMatrix>("org.qlcplus.classes", 1, 0, "RGBMatrix",
+                                          "Can't create a RGBMatrix");
     qmlRegisterUncreatableType<EFX>("org.qlcplus.classes", 1, 0, "EFX", "Can't create an EFX");
 
     // register SceneValue to perform QVariant comparisons
@@ -226,8 +228,9 @@ quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool sel
             emit selectedFunctionCountChanged(m_selectedIDList.count());
         }
 
-        Tardis::instance()->enqueueAction(Tardis::FunctionCreate, func->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, func->id()));
+        Tardis::instance()->enqueueAction(
+            Tardis::FunctionCreate, func->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, func->id()));
 
         return func->id();
     }
@@ -683,7 +686,8 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
             break;
         default:
         {
-            qDebug() << "Requested function type" << f->type() << "doesn't have a dedicated Function editor";
+            qDebug() << "Requested function type" << f->type()
+                     << "doesn't have a dedicated Function editor";
         }
         break;
     }
@@ -697,11 +701,12 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
 
     if (requestUI == true)
     {
-        QQuickItem *rightPanel =
-            qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
+        QQuickItem *rightPanel = qobject_cast<QQuickItem *>(
+            m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
         if (rightPanel != nullptr)
         {
-            QMetaObject::invokeMethod(rightPanel, "requestEditor", Q_ARG(QVariant, f->id()), Q_ARG(QVariant, f->type()));
+            QMetaObject::invokeMethod(rightPanel, "requestEditor", Q_ARG(QVariant, f->id()),
+                                      Q_ARG(QVariant, f->type()));
         }
     }
 
@@ -730,8 +735,9 @@ void FunctionManager::deleteFunction(quint32 fid)
     if (f->isRunning())
         f->stopAndWait();
 
-    Tardis::instance()->enqueueAction(Tardis::FunctionDelete, f->id(),
-                                      Tardis::instance()->actionToByteArray(Tardis::FunctionDelete, f->id()), QVariant());
+    Tardis::instance()->enqueueAction(
+        Tardis::FunctionDelete, f->id(),
+        Tardis::instance()->actionToByteArray(Tardis::FunctionDelete, f->id()), QVariant());
 
     QString fullPath = f->name();
     QString funcPath = f->path(true);
@@ -780,9 +786,11 @@ void FunctionManager::moveFunction(quint32 fID, QString newPath)
     }
     else
     {
-        QString ftPath = fPath;
-        QString itemPath =
-            QString("%1%2%3").arg(ftPath.replace("/", TreeModel::separator())).arg(TreeModel::separator()).arg(f->name());
+        QString ftPath   = fPath;
+        QString itemPath = QString("%1%2%3")
+                               .arg(ftPath.replace("/", TreeModel::separator()))
+                               .arg(TreeModel::separator())
+                               .arg(f->name());
         m_functionTree->removeItem(itemPath);
     }
 
@@ -905,14 +913,16 @@ void FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
 
         if (numbering)
         {
-            QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
+            QString fName =
+                QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
             Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
             f->setName(fName);
             currNumber++;
         }
         else
         {
-            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), newName.simplified());
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(),
+                                              newName.simplified());
             f->setName(newName.simplified());
         }
     }
@@ -1023,7 +1033,8 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool is
             {
                 if (isRelative)
                 {
-                    Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), funcPath, newAbsPathSlashed);
+                    Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), funcPath,
+                                                      newAbsPathSlashed);
                     f->setPath(newAbsPathSlashed);
                 }
                 else
@@ -1147,8 +1158,8 @@ quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
     return chTypeBit;
 }
 
-void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, quint32 channelMask,
-                                     QString name)
+void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                                     quint32 channelMask, QString name)
 {
     if (dumpValues.isEmpty() || channelMask == 0)
         return;
@@ -1174,15 +1185,16 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
     if (m_doc->addFunction(newScene) == true)
     {
         setPreviewEnabled(false);
-        Tardis::instance()->enqueueAction(Tardis::FunctionCreate, newScene->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
+        Tardis::instance()->enqueueAction(
+            Tardis::FunctionCreate, newScene->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
     }
     else
         delete newScene;
 }
 
-void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, quint32 channelMask,
-                                  quint32 sceneID)
+void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                                  quint32 channelMask, quint32 sceneID)
 {
     if (dumpValues.isEmpty() || channelMask == 0)
         return;
@@ -1207,7 +1219,8 @@ void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> s
             newVal.setValue(sv);
             if (currentVal != newVal || sv.value != currDmxValue)
             {
-                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(),
+                                                  currentVal, newVal);
                 scene->setValue(sv);
             }
         }
@@ -1240,7 +1253,8 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 
         if (scene->checkValue(scv) == false)
         {
-            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(), newVal);
+            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(),
+                                              newVal);
             scene->setValue(fxID, channel, value);
         }
         else
@@ -1250,7 +1264,8 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 
             if (currentVal != newVal || value != currDmxValue)
             {
-                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(),
+                                                  currentVal, newVal);
                 scene->setValue(fxID, channel, value);
             }
         }
@@ -1267,13 +1282,15 @@ void FunctionManager::addFunctionTreeItem(Function *func)
     QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
 
     if ((m_filter == 0 || m_filter & func->type())
-        && (m_searchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_searchFilter)))
+        && (m_searchFilter.length() < SEARCH_MIN_CHARS
+            || func->name().toLower().contains(m_searchFilter)))
     {
         QVariantList params;
         params.append(QVariant::fromValue(func)); // classRef
         params.append(App::FunctionDragItem);     // type
         QString        fPath = func->path(true).replace("/", TreeModel::separator());
-        TreeModelItem *item = m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
+        TreeModelItem *item =
+            m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
         if (m_selectedIDList.contains(QVariant(func->id())))
             item->setFlag(TreeModel::Selected, true);
     }
@@ -1353,7 +1370,8 @@ void FunctionManager::updateFunctionsTree()
             tokens.takeLast();
             basePath = tokens.join(TreeModel::separator());
         }
-        m_functionTree->addItem(fName, folderParams, basePath, TreeModel::EmptyNode | TreeModel::Expanded);
+        m_functionTree->addItem(fName, folderParams, basePath,
+                                TreeModel::EmptyNode | TreeModel::Expanded);
     }
 
     // m_functionTree->printTree(); // enable for debug purposes

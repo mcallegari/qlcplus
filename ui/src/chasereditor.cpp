@@ -164,7 +164,8 @@ ChaserEditor::ChaserEditor(QWidget *parent, Chaser *chaser, Doc *doc, bool liveM
             break;
     }
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAddClicked()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemoveClicked()));
     connect(m_raise, SIGNAL(clicked()), this, SLOT(slotRaiseClicked()));
@@ -194,7 +195,8 @@ ChaserEditor::ChaserEditor(QWidget *parent, Chaser *chaser, Doc *doc, bool liveM
     connect(m_backward, SIGNAL(clicked()), this, SLOT(slotRestartTest()));
 
     connect(m_tree, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelectionChanged()));
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *, int)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemChanged(QTreeWidgetItem *, int)));
 
     // connect(m_testButton, SIGNAL(toggled(bool)), this, SLOT(slotTestToggled(bool)));
     connect(m_testPlayButton, SIGNAL(clicked()), this, SLOT(slotTestPlay()));
@@ -354,7 +356,7 @@ void ChaserEditor::slotAddClicked()
         item = new QTreeWidgetItem;
         updateItem(item, step);
         // if this is the first step we add, then copy all DMX channels non-zero values
-        Scene                    *currScene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
+        Scene *currScene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
         QListIterator<SceneValue> it(currScene->values());
         qDebug() << "First step added !!";
         while (it.hasNext() == true)
@@ -523,7 +525,8 @@ void ChaserEditor::slotShuffleClicked()
     int unshuffledCount = selectedCount;
     while (unshuffledCount > 0)
     {
-        // pick a random unshuffled selected and swap it with the last unshuffled one -> now it is a shuffled step
+        // pick a random unshuffled selected and swap it with the last unshuffled one -> now it is a
+        // shuffled step
         int toShuffle = rand() % unshuffledCount;
         unshuffledCount--;
         int indexToShuffle      = indicesToShuffle[toShuffle];
@@ -588,10 +591,10 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 
     ChaserStep step = m_chaser->steps().at(idx);
 
-    uint fadeIn           = m_chaser->fadeInMode() == Chaser::Common ? m_chaser->fadeInSpeed() : step.fadeIn;
-    uint fadeOut          = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->fadeOutSpeed() : step.fadeOut;
-    uint duration         = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
-    uint hold             = Function::speedSubtract(duration, fadeIn);
+    uint fadeIn = m_chaser->fadeInMode() == Chaser::Common ? m_chaser->fadeInSpeed() : step.fadeIn;
+    uint fadeOut = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->fadeOutSpeed() : step.fadeOut;
+    uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
+    uint hold     = Function::speedSubtract(duration, fadeIn);
     bool updateTreeNeeded = false;
 
     if (column == COL_FADEIN)
@@ -723,8 +726,9 @@ void ChaserEditor::slotPasteClicked()
                 {
                     if (scene->checkValue(scv) == false)
                     {
-                        QMessageBox::warning(this, tr("Paste error"),
-                                             tr("Trying to paste on an incompatible Scene. Operation canceled."));
+                        QMessageBox::warning(
+                            this, tr("Paste error"),
+                            tr("Trying to paste on an incompatible Scene. Operation canceled."));
                         return;
                     }
                 }
@@ -1325,8 +1329,8 @@ void ChaserEditor::printSteps()
     while (it.hasNext() == true)
     {
         ChaserStep st(it.next());
-        qDebug() << "Step #" << i << ": id: " << st.fid << ": fadeIn: " << st.fadeIn << ", fadeOut: " << st.fadeOut
-                 << ", duration: " << st.duration;
+        qDebug() << "Step #" << i << ": id: " << st.fid << ": fadeIn: " << st.fadeIn
+                 << ", fadeOut: " << st.fadeOut << ", duration: " << st.duration;
         if (st.values.count() > 0)
             qDebug() << "-----> values found: " << st.values.count();
     }

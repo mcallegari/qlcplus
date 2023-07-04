@@ -82,7 +82,8 @@ SpeedDialWidget::SpeedDialWidget(QWidget *parent)
     m_optionalTextEdit = new QLineEdit(m_optionalTextGroup);
     m_optionalTextGroup->layout()->addWidget(m_optionalTextEdit);
     m_optionalTextGroup->setVisible(false);
-    connect(m_optionalTextEdit, SIGNAL(textEdited(const QString &)), this, SIGNAL(optionalTextEdited(const QString &)));
+    connect(m_optionalTextEdit, SIGNAL(textEdited(const QString &)), this,
+            SIGNAL(optionalTextEdited(const QString &)));
 
     lay->addStretch();
 

@@ -191,10 +191,12 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setFont(m_font);
     // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(QRect(5, 47, TRACK_WIDTH - 7, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
+    painter->drawText(QRect(5, 47, TRACK_WIDTH - 7, 28),
+                      Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
     // draw track name
     painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
-    painter->drawText(QRect(4, 47, TRACK_WIDTH - 7, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
+    painter->drawText(QRect(4, 47, TRACK_WIDTH - 7, 28),
+                      Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
 }
 
 void TrackItem::slotTrackChanged(quint32 id)

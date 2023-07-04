@@ -52,7 +52,8 @@ public:
     static void updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList);
 
     /** Static method to update the data of a specific step */
-    static void updateStepInListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step, int index);
+    static void updateStepInListModel(Doc *doc, Chaser *chaser, ListModel *stepsList,
+                                      ChaserStep *step, int index);
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;

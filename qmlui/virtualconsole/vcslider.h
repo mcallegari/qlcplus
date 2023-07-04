@@ -63,8 +63,10 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(QVariant channelsList READ channelsList CONSTANT)
 
     Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
-    Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
-    Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
+    Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle
+                   NOTIFY valueDisplayStyleChanged)
+    Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY
+                   invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
 
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
@@ -75,14 +77,16 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
 
-    Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
-    Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
+    Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY
+                   controlledFunctionChanged)
+    Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY
+                   controlledAttributeChanged)
     Q_PROPERTY(QStringList availableAttributes READ availableAttributes NOTIFY availableAttributesChanged)
     Q_PROPERTY(qreal attributeMinValue READ attributeMinValue NOTIFY attributeMinValueChanged)
     Q_PROPERTY(qreal attributeMaxValue READ attributeMaxValue NOTIFY attributeMaxValueChanged)
 
-    Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode
-                   NOTIFY grandMasterValueModeChanged)
+    Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE
+                   setGrandMasterValueMode NOTIFY grandMasterValueModeChanged)
     Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE
                    setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
 

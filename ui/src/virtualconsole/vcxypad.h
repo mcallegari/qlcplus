@@ -100,13 +100,13 @@ public:
     void enableWidgetUI(bool enable);
 
 private:
-    QVBoxLayout    *m_mainVbox;     // main vertical layout
-    QHBoxLayout    *m_padBox;       // box containing sliders and XYPad
-    QVBoxLayout    *m_lvbox;        // left vertical box (vertical ctkSlider)
-    QVBoxLayout    *m_cvbox;        // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
-    QVBoxLayout    *m_rvbox;        // right vertical box (vertical slider)
-    QSlider        *m_vSlider;      // tilt slider
-    QSlider        *m_hSlider;      // pan slider
+    QVBoxLayout *m_mainVbox; // main vertical layout
+    QHBoxLayout *m_padBox;   // box containing sliders and XYPad
+    QVBoxLayout *m_lvbox;    // left vertical box (vertical ctkSlider)
+    QVBoxLayout *m_cvbox; // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
+    QVBoxLayout *m_rvbox; // right vertical box (vertical slider)
+    QSlider     *m_vSlider;         // tilt slider
+    QSlider     *m_hSlider;         // pan slider
     ctkRangeSlider *m_vRangeSlider; // range window height control
     ctkRangeSlider *m_hRangeSlider; // range window width control
     VCXYPadArea    *m_area;

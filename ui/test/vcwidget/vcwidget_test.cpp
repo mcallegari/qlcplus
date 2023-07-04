@@ -202,7 +202,8 @@ void VCWidget_Test::resetFg()
     QCOMPARE(stub.foregroundColor(), w.palette().color(QPalette::WindowText));
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.palette().brush(QPalette::WindowText).texture().isNull(), true);
-    QCOMPARE(stub.palette().brush(QPalette::WindowText).color(), w.palette().color(QPalette::WindowText));
+    QCOMPARE(stub.palette().brush(QPalette::WindowText).color(),
+             w.palette().color(QPalette::WindowText));
     QCOMPARE(spy.size(), 3);
 
     stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
@@ -215,7 +216,8 @@ void VCWidget_Test::resetFg()
     QCOMPARE(stub.foregroundColor(), w.palette().color(QPalette::WindowText));
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.palette().brush(QPalette::WindowText).texture().isNull(), true);
-    QCOMPARE(stub.palette().brush(QPalette::WindowText).color(), w.palette().color(QPalette::WindowText));
+    QCOMPARE(stub.palette().brush(QPalette::WindowText).color(),
+             w.palette().color(QPalette::WindowText));
     QCOMPARE(spy.size(), 5);
 
     stub.resetBackgroundColor();
@@ -227,7 +229,8 @@ void VCWidget_Test::resetFg()
     QCOMPARE(stub.foregroundColor(), w.palette().color(QPalette::WindowText));
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.palette().brush(QPalette::WindowText).texture().isNull(), true);
-    QCOMPARE(stub.palette().brush(QPalette::WindowText).color(), w.palette().color(QPalette::WindowText));
+    QCOMPARE(stub.palette().brush(QPalette::WindowText).color(),
+             w.palette().color(QPalette::WindowText));
     QCOMPARE(spy.size(), 7);
 }
 
@@ -385,7 +388,8 @@ void VCWidget_Test::stripKeySequence()
     QCOMPARE(VCWidget::stripKeySequence(QKeySequence("ALT+P")), QKeySequence("ALT+P"));
     QCOMPARE(VCWidget::stripKeySequence(QKeySequence("CTRL+ALT+P")), QKeySequence("ALT+P"));
     QCOMPARE(VCWidget::stripKeySequence(QKeySequence("CTRL+ALT")), QKeySequence("ALT"));
-    QCOMPARE(VCWidget::stripKeySequence(QKeySequence("SHIFT+CTRL+ALT+P")), QKeySequence("SHIFT+ALT+P"));
+    QCOMPARE(VCWidget::stripKeySequence(QKeySequence("SHIFT+CTRL+ALT+P")),
+             QKeySequence("SHIFT+ALT+P"));
 }
 
 void VCWidget_Test::keyPress()
@@ -500,7 +504,8 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
+    QCOMPARE(stub.backgroundImage(),
+             QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font().toString(), font.toString());
 
     buffer.close();
@@ -516,7 +521,8 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.frameStyle(), (int)KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
+    QCOMPARE(stub.backgroundImage(),
+             QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font().toString(), font.toString());
 }
 
@@ -661,7 +667,8 @@ void VCWidget_Test::saveAppearanceDefaultsImage()
         else if (xmlReader.name().toString() == "BackgroundImage")
         {
             bgimage++;
-            QCOMPARE(xmlReader.readElementText(), QString("../../../resources/icons/png/qlcplus.png"));
+            QCOMPARE(xmlReader.readElementText(),
+                     QString("../../../resources/icons/png/qlcplus.png"));
         }
         else if (xmlReader.name().toString() == "ForegroundColor")
         {
@@ -937,8 +944,8 @@ void VCWidget_Test::mousePress()
     stub->resize(QSize(20, 20));
     QCOMPARE(stub->pos(), QPoint(0, 0));
 
-    QMouseEvent e(QEvent::MouseButtonPress, QPoint(10, 10), QPoint(0, 0), QPoint(0, 0), Qt::LeftButton, Qt::NoButton,
-                  Qt::NoModifier);
+    QMouseEvent e(QEvent::MouseButtonPress, QPoint(10, 10), QPoint(0, 0), QPoint(0, 0),
+                  Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
 
     stub->mousePressEvent(&e);
     QCOMPARE(vc->selectedWidgets().size(), 1);
@@ -946,8 +953,8 @@ void VCWidget_Test::mousePress()
     QCOMPARE(stub->lastClickPoint(), QPoint(10, 10));
     QTest::qWait(10);
 
-    QMouseEvent e2(QEvent::MouseMove, QPoint(20, 20), QPoint(0, 0), QPoint(0, 0), Qt::NoButton, Qt::LeftButton,
-                   Qt::NoModifier);
+    QMouseEvent e2(QEvent::MouseMove, QPoint(20, 20), QPoint(0, 0), QPoint(0, 0), Qt::NoButton,
+                   Qt::LeftButton, Qt::NoModifier);
     stub->mouseMoveEvent(&e2);
     QTest::qWait(10);
     QCOMPARE(stub->pos(), QPoint(10, 10));

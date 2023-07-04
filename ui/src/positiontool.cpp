@@ -40,7 +40,8 @@ PositionTool::PositionTool(const QPointF &initial, QRectF degreesRange, QWidget 
     m_area->setFocus();
     m_gridLayout->addWidget(m_area, 0, 0);
 
-    connect(m_area, SIGNAL(positionChanged(const QPointF &)), this, SLOT(slotPositionChanged(const QPointF &)));
+    connect(m_area, SIGNAL(positionChanged(const QPointF &)), this,
+            SLOT(slotPositionChanged(const QPointF &)));
 }
 
 PositionTool::~PositionTool() {}

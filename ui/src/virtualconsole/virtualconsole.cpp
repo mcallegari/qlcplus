@@ -297,46 +297,55 @@ void VirtualConsole::initActions()
 {
     /* Add menu actions */
     m_addButtonAction = new QAction(QIcon(":/button.png"), tr("New Button"), this);
-    connect(m_addButtonAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButton()), Qt::QueuedConnection);
+    connect(m_addButtonAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButton()),
+            Qt::QueuedConnection);
 
     m_addButtonMatrixAction = new QAction(QIcon(":/buttonmatrix.png"), tr("New Button Matrix"), this);
-    connect(m_addButtonMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButtonMatrix()), Qt::QueuedConnection);
+    connect(m_addButtonMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButtonMatrix()),
+            Qt::QueuedConnection);
 
     m_addSliderAction = new QAction(QIcon(":/slider.png"), tr("New Slider"), this);
-    connect(m_addSliderAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSlider()), Qt::QueuedConnection);
+    connect(m_addSliderAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSlider()),
+            Qt::QueuedConnection);
 
     m_addSliderMatrixAction = new QAction(QIcon(":/slidermatrix.png"), tr("New Slider Matrix"), this);
-    connect(m_addSliderMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSliderMatrix()), Qt::QueuedConnection);
+    connect(m_addSliderMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSliderMatrix()),
+            Qt::QueuedConnection);
 
     m_addKnobAction = new QAction(QIcon(":/knob.png"), tr("New Knob"), this);
     connect(m_addKnobAction, SIGNAL(triggered(bool)), this, SLOT(slotAddKnob()), Qt::QueuedConnection);
 
     m_addSpeedDialAction = new QAction(QIcon(":/speed.png"), tr("New Speed Dial"), this);
-    connect(m_addSpeedDialAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSpeedDial()), Qt::QueuedConnection);
+    connect(m_addSpeedDialAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSpeedDial()),
+            Qt::QueuedConnection);
 
     m_addXYPadAction = new QAction(QIcon(":/xypad.png"), tr("New XY pad"), this);
     connect(m_addXYPadAction, SIGNAL(triggered(bool)), this, SLOT(slotAddXYPad()), Qt::QueuedConnection);
 
     m_addCueListAction = new QAction(QIcon(":/cuelist.png"), tr("New Cue list"), this);
-    connect(m_addCueListAction, SIGNAL(triggered(bool)), this, SLOT(slotAddCueList()), Qt::QueuedConnection);
+    connect(m_addCueListAction, SIGNAL(triggered(bool)), this, SLOT(slotAddCueList()),
+            Qt::QueuedConnection);
 
     m_addFrameAction = new QAction(QIcon(":/frame.png"), tr("New Frame"), this);
     connect(m_addFrameAction, SIGNAL(triggered(bool)), this, SLOT(slotAddFrame()), Qt::QueuedConnection);
 
     m_addSoloFrameAction = new QAction(QIcon(":/soloframe.png"), tr("New Solo frame"), this);
-    connect(m_addSoloFrameAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSoloFrame()), Qt::QueuedConnection);
+    connect(m_addSoloFrameAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSoloFrame()),
+            Qt::QueuedConnection);
 
     m_addLabelAction = new QAction(QIcon(":/label.png"), tr("New Label"), this);
     connect(m_addLabelAction, SIGNAL(triggered(bool)), this, SLOT(slotAddLabel()), Qt::QueuedConnection);
 
     m_addAudioTriggersAction = new QAction(QIcon(":/audioinput.png"), tr("New Audio Triggers"), this);
-    connect(m_addAudioTriggersAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAudioTriggers()), Qt::QueuedConnection);
+    connect(m_addAudioTriggersAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAudioTriggers()),
+            Qt::QueuedConnection);
 
     m_addClockAction = new QAction(QIcon(":/clock.png"), tr("New Clock"), this);
     connect(m_addClockAction, SIGNAL(triggered(bool)), this, SLOT(slotAddClock()), Qt::QueuedConnection);
 
     m_addAnimationAction = new QAction(QIcon(":/animation.png"), tr("New Animation"), this);
-    connect(m_addAnimationAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAnimation()), Qt::QueuedConnection);
+    connect(m_addAnimationAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAnimation()),
+            Qt::QueuedConnection);
 
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
@@ -718,7 +727,8 @@ void VirtualConsole::connectWidgetToParent(VCWidget *widget, VCWidget *parent)
         VCSlider *slider = qobject_cast<VCSlider *>(widget);
         if (slider != NULL)
         {
-            connect(slider, SIGNAL(submasterValueChanged(qreal)), parent, SLOT(slotSubmasterValueChanged(qreal)));
+            connect(slider, SIGNAL(submasterValueChanged(qreal)), parent,
+                    SLOT(slotSubmasterValueChanged(qreal)));
         }
     }
 }
@@ -737,7 +747,8 @@ void VirtualConsole::disconnectWidgetFromParent(VCWidget *widget, VCWidget *pare
         VCSlider *slider = qobject_cast<VCSlider *>(widget);
         if (slider != NULL)
         {
-            disconnect(slider, SIGNAL(submasterValueChanged(qreal)), parent, SLOT(slotSubmasterValueChanged(qreal)));
+            disconnect(slider, SIGNAL(submasterValueChanged(qreal)), parent,
+                       SLOT(slotSubmasterValueChanged(qreal)));
         }
     }
 }
@@ -1200,7 +1211,8 @@ void VirtualConsole::slotEditRename()
 
     bool    ok = false;
     QString text(m_selectedWidgets.last()->caption());
-    text = QInputDialog::getText(this, tr("Rename widgets"), tr("Caption:"), QLineEdit::Normal, text, &ok);
+    text = QInputDialog::getText(this, tr("Rename widgets"), tr("Caption:"), QLineEdit::Normal,
+                                 text, &ok);
     if (ok == true)
     {
         VCWidget *widget;
@@ -1251,8 +1263,9 @@ void VirtualConsole::slotBackgroundImage()
     else
         path = m_selectedWidgets.last()->backgroundImage();
 
-    path = QFileDialog::getOpenFileName(this, tr("Select background image"), path,
-                                        QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
+    path =
+        QFileDialog::getOpenFileName(this, tr("Select background image"), path,
+                                     QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
     if (path.isEmpty() == false)
     {
         if (m_selectedWidgets.isEmpty() == true)
@@ -1487,12 +1500,16 @@ void VirtualConsole::resetContents()
     m_scrollArea->setWidget(contents());
 
     /* Disconnect old key handlers to prevent duplicates */
-    disconnect(this, SIGNAL(keyPressed(const QKeySequence &)), contents(), SLOT(slotKeyPressed(const QKeySequence &)));
-    disconnect(this, SIGNAL(keyReleased(const QKeySequence &)), contents(), SLOT(slotKeyReleased(const QKeySequence &)));
+    disconnect(this, SIGNAL(keyPressed(const QKeySequence &)), contents(),
+               SLOT(slotKeyPressed(const QKeySequence &)));
+    disconnect(this, SIGNAL(keyReleased(const QKeySequence &)), contents(),
+               SLOT(slotKeyReleased(const QKeySequence &)));
 
     /* Connect new key handlers */
-    connect(this, SIGNAL(keyPressed(const QKeySequence &)), contents(), SLOT(slotKeyPressed(const QKeySequence &)));
-    connect(this, SIGNAL(keyReleased(const QKeySequence &)), contents(), SLOT(slotKeyReleased(const QKeySequence &)));
+    connect(this, SIGNAL(keyPressed(const QKeySequence &)), contents(),
+            SLOT(slotKeyPressed(const QKeySequence &)));
+    connect(this, SIGNAL(keyReleased(const QKeySequence &)), contents(),
+            SLOT(slotKeyReleased(const QKeySequence &)));
 
     /* Make the contents area take up all available space */
     contents()->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

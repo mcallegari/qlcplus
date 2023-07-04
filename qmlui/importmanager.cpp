@@ -167,11 +167,11 @@ bool ImportManager::loadXML(QXmlStreamReader &doc)
             m_importDoc->loadXML(doc, false);
         }
         /*
-                else if (doc.name() == KXMLQLCVirtualConsole)
-                {
-                    m_virtualConsole->loadXML(doc);
-                }
-        */
+        else if (doc.name() == KXMLQLCVirtualConsole)
+        {
+            m_virtualConsole->loadXML(doc);
+        }
+*/
         else
         {
             qDebug() << "Skipping tag:" << doc.name().toString();
@@ -227,8 +227,8 @@ void ImportManager::importFixtures()
                 qDebug() << "Match found. Import ID:" << importID << docFixture->id();
                 if (docFixture->id() != importID)
                 {
-                    qDebug() << "Fixture" << importFixture->name() << "with ID" << importID << "will be remapped to ID"
-                             << docFixture->id();
+                    qDebug() << "Fixture" << importFixture->name() << "with ID" << importID
+                             << "will be remapped to ID" << docFixture->id();
                 }
 
                 m_fixtureIDRemap[importID] = docFixture->id();
@@ -248,7 +248,8 @@ void ImportManager::importFixtures()
 
             QLCFixtureDef  *importDef  = importFixture->fixtureDef();
             QLCFixtureMode *importMode = importFixture->fixtureMode();
-            QLCFixtureDef *fxiDef = m_doc->fixtureDefCache()->fixtureDef(importDef->manufacturer(), importDef->model());
+            QLCFixtureDef  *fxiDef =
+                m_doc->fixtureDefCache()->fixtureDef(importDef->manufacturer(), importDef->model());
             QLCFixtureMode *fxiMode = nullptr;
 
             if (fxiDef != nullptr && importMode != nullptr)
@@ -284,8 +285,8 @@ void ImportManager::importFixtures()
             }
             else
             {
-                qWarning() << "ERROR: Failed to add fixture" << importFixture->name() << "to universe" << uniIdx
-                           << "@address" << address;
+                qWarning() << "ERROR: Failed to add fixture" << importFixture->name()
+                           << "to universe" << uniIdx << "@address" << address;
                 delete fxi;
             }
         }
@@ -302,7 +303,8 @@ void ImportManager::importFixtures()
             continue;
 
         QString name = importMonProps->fixtureName(fixtureID, headIndex, linkedIndex);
-        // quint32 remappedID = FixtureUtils::fixtureItemID(m_fixtureIDRemap[fixtureID], headIndex, linkedIndex);
+        // quint32 remappedID = FixtureUtils::fixtureItemID(m_fixtureIDRemap[fixtureID], headIndex,
+        // linkedIndex);
         monProps->setFixtureName(m_fixtureIDRemap[fixtureID], headIndex, linkedIndex, name);
     }
 
@@ -379,8 +381,8 @@ void ImportManager::importPalettes()
             {
                 if (docPalette->id() != paletteID)
                 {
-                    qDebug() << "Match found. Palette" << importPalette->name() << "with ID" << paletteID
-                             << "will be remapped to ID" << docPalette->id();
+                    qDebug() << "Match found. Palette" << importPalette->name() << "with ID"
+                             << paletteID << "will be remapped to ID" << docPalette->id();
                 }
 
                 m_fixtureIDRemap[paletteID] = docPalette->id();
@@ -643,7 +645,8 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
 
     m_fixtureTreeUpdating = true;
 
-    qDebug() << "Fixture tree data changed" << value.toInt() << "data" << item->data() << "value" << value;
+    qDebug() << "Fixture tree data changed" << value.toInt() << "data" << item->data() << "value"
+             << value;
 
     if (item->hasChildren())
         setChildrenChecked(item->children(), checked);
@@ -767,7 +770,8 @@ void ImportManager::updateFunctionsTree()
 
         QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
 
-        if (m_functionSearchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_functionSearchFilter))
+        if (m_functionSearchFilter.length() < SEARCH_MIN_CHARS
+            || func->name().toLower().contains(m_functionSearchFilter))
         {
             QVariantList params;
             params.append(QVariant::fromValue(func));
@@ -856,7 +860,8 @@ void ImportManager::slotFunctionTreeDataChanged(TreeModelItem *item, int role, c
             {
                 m_functionIDList.append(func->id());
                 checkFunctionDependency(func->id());
-                qDebug() << "Fixtures count:" << m_fixtureIDList.count() << "functions count:" << m_functionIDList.count();
+                qDebug() << "Fixtures count:" << m_fixtureIDList.count()
+                         << "functions count:" << m_functionIDList.count();
                 checkFunctionTree(m_functionTree);
                 checkFixtureTree(m_fixtureTree);
             }

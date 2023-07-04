@@ -217,7 +217,8 @@ bool NetworkManager::startServer()
 
     m_udpSocket = new QUdpSocket(this);
 
-    if (m_udpSocket->bind(DEFAULT_UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+    if (m_udpSocket->bind(DEFAULT_UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint)
+        == false)
     {
         qDebug() << Q_FUNC_INFO << "Error in binding UDP socket on" << DEFAULT_UDP_PORT;
         return false;
@@ -248,7 +249,8 @@ bool NetworkManager::stopServer()
         return false;
 
     disconnect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::slotProcessUDPPackets);
-    disconnect(m_tcpServer, &QTcpServer::newConnection, this, &NetworkManager::slotProcessNewTCPConnection);
+    disconnect(m_tcpServer, &QTcpServer::newConnection, this,
+               &NetworkManager::slotProcessNewTCPConnection);
 
     m_udpSocket->close();
     m_tcpServer->close();
@@ -392,7 +394,8 @@ bool NetworkManager::initializeClient()
 
     m_udpSocket = new QUdpSocket(this);
 
-    if (m_udpSocket->bind(DEFAULT_UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+    if (m_udpSocket->bind(DEFAULT_UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint)
+        == false)
     {
         qDebug() << Q_FUNC_INFO << "Error in binding UDP socket on" << DEFAULT_UDP_PORT;
         return false;
@@ -413,7 +416,8 @@ bool NetworkManager::initializeClient()
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
-            if (entry.ip().protocol() != QAbstractSocket::IPv6Protocol && entry.ip() != QHostAddress::LocalHost)
+            if (entry.ip().protocol() != QAbstractSocket::IPv6Protocol
+                && entry.ip() != QHostAddress::LocalHost)
             {
                 qDebug() << "Sending announcement on" << iface.name();
                 m_udpSocket->writeDatagram(packet, entry.broadcast(), DEFAULT_UDP_PORT);
@@ -536,7 +540,8 @@ void NetworkManager::slotProcessUDPPackets()
 
             case Tardis::NetAnnounceReply:
             {
-                if (m_hostType == ClientHostType && paramsList.count() == 2 && paramsList.at(0).toInt() == ServerHostType)
+                if (m_hostType == ClientHostType && paramsList.count() == 2
+                    && paramsList.at(0).toInt() == ServerHostType)
                 {
                     m_serverList[senderAddress] = paramsList.at(1).toString();
                     emit serverListChanged();
@@ -572,10 +577,10 @@ void NetworkManager::slotProcessTCPPackets()
         int          actionCode = 0;
         QVariantList paramsList;
         QByteArray   datagram = wholeData.mid(bytesProcessed);
-        int          read     = m_packetizer->decodePacket(datagram, actionCode, paramsList, m_crypt);
+        int          read = m_packetizer->decodePacket(datagram, actionCode, paramsList, m_crypt);
 
-        qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16) << "params"
-                 << paramsList.count();
+        qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16)
+                 << "params" << paramsList.count();
 
         if (read < 0)
         {
@@ -706,7 +711,8 @@ void NetworkManager::slotProcessNewTCPConnection()
     }
     else
     {
-        qDebug() << "[slotProcessNewTCPConnection] Adding a new host to map:" << senderAddress.toString();
+        qDebug() << "[slotProcessNewTCPConnection] Adding a new host to map:"
+                 << senderAddress.toString();
         NetworkHost *newHost      = new NetworkHost;
         newHost->isAuthenticated  = false;
         newHost->tcpSocket        = clientConnection;

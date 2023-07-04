@@ -58,7 +58,8 @@ class SceneValue
 {
 public:
     /** Normal constructor */
-    SceneValue(quint32 fxi_id = Fixture::invalidId(), quint32 channel = QLCChannel::invalid(), uchar value = 0);
+    SceneValue(quint32 fxi_id = Fixture::invalidId(), quint32 channel = QLCChannel::invalid(),
+               uchar value = 0);
 
     /** Copy constructor */
     SceneValue(const SceneValue &scv);

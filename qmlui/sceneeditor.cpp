@@ -53,7 +53,8 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
 SceneEditor::~SceneEditor()
 {
     m_view->rootContext()->setContextProperty("sceneEditor", nullptr);
-    QQuickItem *bottomPanel = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
+    QQuickItem *bottomPanel =
+        qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
     if (bottomPanel != nullptr)
         bottomPanel->setProperty("visible", false);
 
@@ -63,7 +64,8 @@ SceneEditor::~SceneEditor()
 
 void SceneEditor::setFunctionID(quint32 id)
 {
-    QQuickItem *bottomPanel = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
+    QQuickItem *bottomPanel =
+        qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
 
     if (id == Function::invalidId())
     {
@@ -131,7 +133,8 @@ void SceneEditor::sceneConsoleLoaded(bool status)
     }
     else
     {
-        m_sceneConsole = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("sceneFixtureConsole"));
+        m_sceneConsole = qobject_cast<QQuickItem *>(
+            m_view->rootObject()->findChild<QObject *>("sceneFixtureConsole"));
     }
 }
 
@@ -215,8 +218,8 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
     {
         if (m_fxConsoleMap.contains(fxIndex))
         {
-            QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue", Q_ARG(QVariant, scv.channel),
-                                      Q_ARG(QVariant, scv.value));
+            QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",
+                                      Q_ARG(QVariant, scv.channel), Q_ARG(QVariant, scv.value));
 
             fixture->checkAlias(scv.channel, scv.value);
         }
@@ -247,7 +250,8 @@ void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
     QVariant currentVal;
     uchar    currDmxValue = m_scene->value(fxID, channel);
     currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
-    Tardis::instance()->enqueueAction(Tardis::SceneUnsetChannelValue, m_scene->id(), currentVal, QVariant());
+    Tardis::instance()->enqueueAction(Tardis::SceneUnsetChannelValue, m_scene->id(), currentVal,
+                                      QVariant());
 
     m_scene->unsetValue(fxID, channel);
     if (m_source->isOutputEnabled() == true)

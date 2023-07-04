@@ -287,7 +287,8 @@ bool Audio::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::AudioType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not Audio";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
+                   << "is not Audio";
         return false;
     }
 

@@ -53,7 +53,8 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
-    Q_PROPERTY(int selectedTrackIndex READ selectedTrackIndex WRITE setSelectedTrackIndex NOTIFY selectedTrackIndexChanged)
+    Q_PROPERTY(int selectedTrackIndex READ selectedTrackIndex WRITE setSelectedTrackIndex NOTIFY
+                   selectedTrackIndexChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
 public:
@@ -212,7 +213,8 @@ public:
      *  If there is enough space, then the item is (in case) removed from the
      *  $originalTrackIdx and moved into $newTrackIdx and true is returned.
      */
-    Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime);
+    Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx,
+                                      int newStartTime);
 
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;

@@ -238,7 +238,8 @@ public:
     void postLoad();
 
 private:
-    static bool saveXMLFixtureValues(QXmlStreamWriter *doc, quint32 fixtureID, QStringList const &values);
+    static bool saveXMLFixtureValues(QXmlStreamWriter *doc, quint32 fixtureID,
+                                     QStringList const &values);
 
     /*********************************************************************
      * Flash

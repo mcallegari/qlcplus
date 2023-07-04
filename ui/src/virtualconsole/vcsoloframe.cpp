@@ -253,6 +253,7 @@ void VCSoloFrame::paintEvent(QPaintEvent *e)
     {
         /* Draw a resize handle */
         QIcon icon(":/resize.png");
-        painter.drawPixmap(rect().width() - 16, rect().height() - 16, icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
+        painter.drawPixmap(rect().width() - 16, rect().height() - 16,
+                           icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
     }
 }

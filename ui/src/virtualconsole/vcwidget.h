@@ -403,7 +403,8 @@ public:
      * @return true in case source and target matches and the event
      *         can pass through, otherwise false
      */
-    bool checkInputSource(quint32 universe, quint32 channel, uchar value, QObject *sender, quint32 id = 0);
+    bool checkInputSource(quint32 universe, quint32 channel, uchar value, QObject *sender,
+                          quint32 id = 0);
 
     /**
      * Set external input $source to listen to. If a widget supports more

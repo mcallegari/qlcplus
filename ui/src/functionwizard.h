@@ -103,7 +103,8 @@ protected:
     /** Populate the widgets tree based on selected preset functions */
     void updateWidgetsTree();
 
-    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos, Function *func = NULL, int pType = 0);
+    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos, Function *func = NULL,
+                           int pType = 0);
 
     QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type);
 

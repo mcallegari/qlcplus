@@ -35,7 +35,8 @@
 #include "scene.h"
 #include "doc.h"
 
-PaletteGenerator::PaletteGenerator(Doc *doc, const QList<Fixture *> &fxList, PaletteType type, PaletteSubType subType)
+PaletteGenerator::PaletteGenerator(Doc *doc, const QList<Fixture *> &fxList, PaletteType type,
+                                   PaletteSubType subType)
     : m_doc(doc)
     , m_name(QString())
     , m_type(type)
@@ -281,8 +282,9 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
     }
 }
 
-void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneValue> gmMap, QList<SceneValue> byMap,
-                                         QString name, bool rgb, PaletteGenerator::PaletteSubType subType)
+void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneValue> gmMap,
+                                         QList<SceneValue> byMap, QString name, bool rgb,
+                                         PaletteGenerator::PaletteSubType subType)
 {
     if (rcMap.size() == 0 || gmMap.size() == 0 || byMap.size() == 0)
         return;
@@ -291,13 +293,14 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneVal
     QList<QColor>  m_colList;
     QList<QString> m_colNames;
 
-    m_colList << Qt::black << Qt::darkBlue << Qt::blue << Qt::darkGreen << Qt::darkCyan << Qt::green << Qt::cyan
-              << Qt::darkRed << Qt::darkMagenta << Qt::darkYellow << Qt::darkGray << Qt::lightGray << Qt::red
-              << Qt::magenta << Qt::yellow << Qt::white;
+    m_colList << Qt::black << Qt::darkBlue << Qt::blue << Qt::darkGreen << Qt::darkCyan << Qt::green
+              << Qt::cyan << Qt::darkRed << Qt::darkMagenta << Qt::darkYellow << Qt::darkGray
+              << Qt::lightGray << Qt::red << Qt::magenta << Qt::yellow << Qt::white;
 
-    m_colNames << tr("Black") << tr("Dark Blue") << tr("Blue") << tr("Dark Green") << tr("Dark Cyan") << tr("Green")
-               << tr("Cyan") << tr("Dark Red") << tr("Dark Magenta") << tr("Dark Yellow") << tr("Dark Gray")
-               << tr("Light Gray") << tr("Red") << tr("Magenta") << tr("Yellow") << tr("White");
+    m_colNames << tr("Black") << tr("Dark Blue") << tr("Blue") << tr("Dark Green")
+               << tr("Dark Cyan") << tr("Green") << tr("Cyan") << tr("Dark Red")
+               << tr("Dark Magenta") << tr("Dark Yellow") << tr("Dark Gray") << tr("Light Gray")
+               << tr("Red") << tr("Magenta") << tr("Yellow") << tr("White");
 
     for (int i = 0; i < m_colList.count(); i++)
     {
@@ -386,7 +389,8 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneVal
     }
 }
 
-void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap, PaletteGenerator::PaletteSubType subType)
+void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32>          chMap,
+                                             PaletteGenerator::PaletteSubType subType)
 {
     if (chMap.size() == 0)
         return;
@@ -488,7 +492,8 @@ void PaletteGenerator::createChaser(QString name)
     m_chasers.append(chaser);
 }
 
-void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type, PaletteGenerator::PaletteSubType subType)
+void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType    type,
+                                       PaletteGenerator::PaletteSubType subType)
 {
     if (m_fixtures.count() == 0)
         return;
@@ -589,7 +594,8 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type, Palet
         break;
         case SixteenColors:
         {
-            if (m_redList.size() > 0 && m_greenList.size() == m_redList.size() && m_blueList.size() == m_redList.size())
+            if (m_redList.size() > 0 && m_greenList.size() == m_redList.size()
+                && m_blueList.size() == m_redList.size())
                 createRGBCMYScene(m_redList, m_greenList, m_blueList, tr("Scene"), true, subType);
             else if (m_cyanList.size() > 0 && m_magentaList.size() == m_cyanList.size()
                      && m_yellowList.size() == m_cyanList.size())
@@ -599,7 +605,8 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type, Palet
         break;
         case Animation:
         {
-            if (m_redList.size() > 1 && m_greenList.size() == m_redList.size() && m_blueList.size() == m_redList.size())
+            if (m_redList.size() > 1 && m_greenList.size() == m_redList.size()
+                && m_blueList.size() == m_redList.size())
                 createRGBMatrices(m_redList);
         }
         break;

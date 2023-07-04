@@ -238,7 +238,8 @@ QList<QTreeWidgetItem *> ChannelsSelection::getSameChannels(QTreeWidgetItem *ite
 
 void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 {
-    if (m_applyAllCheck->isChecked() == false || col != KColumnSelection || item->text(KColumnID).isEmpty())
+    if (m_applyAllCheck->isChecked() == false || col != KColumnSelection
+        || item->text(KColumnID).isEmpty())
         return;
 
     m_channelsTree->blockSignals(true);
@@ -270,7 +271,8 @@ void ChannelsSelection::slotComboChanged(int idx)
 
             foreach (QTreeWidgetItem *chItem, getSameChannels(item))
             {
-                QComboBox *chCombo = qobject_cast<QComboBox *>(m_channelsTree->itemWidget(chItem, KColumnBehaviour));
+                QComboBox *chCombo =
+                    qobject_cast<QComboBox *>(m_channelsTree->itemWidget(chItem, KColumnBehaviour));
                 if (chCombo != NULL)
                 {
                     chCombo->blockSignals(true);
@@ -306,7 +308,8 @@ void ChannelsSelection::slotModifierButtonClicked()
 
         foreach (QTreeWidgetItem *chItem, getSameChannels(item))
         {
-            QPushButton *chButton = qobject_cast<QPushButton *>(m_channelsTree->itemWidget(chItem, KColumnModifier));
+            QPushButton *chButton =
+                qobject_cast<QPushButton *>(m_channelsTree->itemWidget(chItem, KColumnModifier));
             if (chButton != NULL)
                 chButton->setText(displayName);
         }
@@ -343,7 +346,8 @@ void ChannelsSelection::accept()
                         if (chanItem->checkState(KColumnSelection) == Qt::Unchecked)
                             excludeList.append(c);
 
-                        QComboBox *combo = (QComboBox *)m_channelsTree->itemWidget(chanItem, KColumnBehaviour);
+                        QComboBox *combo =
+                            (QComboBox *)m_channelsTree->itemWidget(chanItem, KColumnBehaviour);
                         if (combo != NULL)
                         {
                             if (combo->currentIndex() == 0) // HTP
@@ -359,7 +363,8 @@ void ChannelsSelection::accept()
                                     forcedLTPList.append(c);
                             }
                         }
-                        QPushButton *button = (QPushButton *)m_channelsTree->itemWidget(chanItem, KColumnModifier);
+                        QPushButton *button =
+                            (QPushButton *)m_channelsTree->itemWidget(chanItem, KColumnModifier);
                         if (button != NULL)
                         {
                             ChannelModifier *mod = m_doc->modifiersCache()->modifier(button->text());

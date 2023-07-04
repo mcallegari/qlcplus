@@ -51,7 +51,8 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup *grp, Doc *doc, QWidget *par
     m_xSpin->setValue(m_grp->size().width());
     m_ySpin->setValue(m_grp->size().height());
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_xSpin, SIGNAL(valueChanged(int)), this, SLOT(slotXSpinValueChanged(int)));
     connect(m_ySpin, SIGNAL(valueChanged(int)), this, SLOT(slotYSpinValueChanged(int)));
 
@@ -76,7 +77,8 @@ void FixtureGroupEditor::updateTable()
 
     disconnect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
     disconnect(m_table, SIGNAL(cellPressed(int, int)), this, SLOT(slotCellActivated(int, int)));
-    disconnect(m_table->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this, SLOT(slotResized()));
+    disconnect(m_table->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this,
+               SLOT(slotResized()));
 
     m_table->clear();
 
@@ -96,8 +98,11 @@ void FixtureGroupEditor::updateTable()
             continue;
 
         QIcon   icon = fxi->getIconFromType();
-        QString str =
-            QString("%1 H:%2\nA:%3 U:%4").arg(fxi->name()).arg(head.head + 1).arg(fxi->address() + 1).arg(fxi->universe() + 1);
+        QString str  = QString("%1 H:%2\nA:%3 U:%4")
+                          .arg(fxi->name())
+                          .arg(head.head + 1)
+                          .arg(fxi->address() + 1)
+                          .arg(fxi->universe() + 1);
 
         QTableWidgetItem *item = new QTableWidgetItem(icon, str);
         item->setData(PROP_FIXTURE, head.fxi);
@@ -109,7 +114,8 @@ void FixtureGroupEditor::updateTable()
 
     connect(m_table, SIGNAL(cellPressed(int, int)), this, SLOT(slotCellActivated(int, int)));
     connect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
-    connect(m_table->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this, SLOT(slotResized()));
+    connect(m_table->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this,
+            SLOT(slotResized()));
 
     if (savedRow < m_table->rowCount() && savedCol < m_table->columnCount())
     {

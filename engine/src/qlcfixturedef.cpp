@@ -225,7 +225,8 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
     if (m_isLoaded == true)
         return;
 
-    if (manufacturer() == KXMLFixtureGeneric && (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
+    if (manufacturer() == KXMLFixtureGeneric
+        && (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
     {
         m_isLoaded = true;
         return;
@@ -475,7 +476,10 @@ QFile::FileError QLCFixtureDef::loadXML(const QString &fileName)
         else
         {
             qWarning() << fileName
-                       << QString("%1\nLine %2, column %3").arg(doc->errorString()).arg(doc->lineNumber()).arg(doc->columnNumber());
+                       << QString("%1\nLine %2, column %3")
+                              .arg(doc->errorString())
+                              .arg(doc->lineNumber())
+                              .arg(doc->columnNumber());
             error = QFile::ReadError;
         }
     }

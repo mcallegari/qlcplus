@@ -76,19 +76,24 @@ void ChannelModifierGraphicsView::addNewHandler()
     }
 
     HandlerItem *newHandler = new HandlerItem;
-    uchar halfDMXpos = prevHandler->m_dmxMap.first + ((nextHandler->m_dmxMap.first - prevHandler->m_dmxMap.first) / 2);
-    uchar halfDMXval = prevHandler->m_dmxMap.second + ((nextHandler->m_dmxMap.second - prevHandler->m_dmxMap.second) / 2);
+    uchar        halfDMXpos = prevHandler->m_dmxMap.first
+                       + ((nextHandler->m_dmxMap.first - prevHandler->m_dmxMap.first) / 2);
+    uchar halfDMXval = prevHandler->m_dmxMap.second
+                       + ((nextHandler->m_dmxMap.second - prevHandler->m_dmxMap.second) / 2);
     newHandler->m_dmxMap = QPair<uchar, uchar>(halfDMXpos, halfDMXval);
     // qDebug() << "Half way DMX value:" << halfDMXpos << halfDMXval;
     newHandler->m_pos    = getPositionFromDMX(newHandler->m_dmxMap);
     newHandler->m_item   = updateHandlerItem(NULL, newHandler->m_pos);
     newHandler->m_item->setBoundingBox(QRectF(prevHandler->m_pos.x(), m_bgRect->y(),
-                                              nextHandler->m_pos.x() - prevHandler->m_pos.x(), m_bgRect->rect().height()));
-    newHandler->m_line = m_scene->addLine(newHandler->m_pos.x(), newHandler->m_pos.y(), prevHandler->m_pos.x(),
-                                          prevHandler->m_pos.y(), QPen(Qt::yellow));
+                                              nextHandler->m_pos.x() - prevHandler->m_pos.x(),
+                                              m_bgRect->rect().height()));
+    newHandler->m_line =
+        m_scene->addLine(newHandler->m_pos.x(), newHandler->m_pos.y(), prevHandler->m_pos.x(),
+                         prevHandler->m_pos.y(), QPen(Qt::yellow));
     m_scene->removeItem(nextHandler->m_line);
-    nextHandler->m_line = m_scene->addLine(nextHandler->m_pos.x(), nextHandler->m_pos.y(), newHandler->m_pos.x(),
-                                           newHandler->m_pos.y(), QPen(Qt::yellow));
+    nextHandler->m_line =
+        m_scene->addLine(nextHandler->m_pos.x(), nextHandler->m_pos.y(), newHandler->m_pos.x(),
+                         newHandler->m_pos.y(), QPen(Qt::yellow));
     m_handlers.insert(prevHdlrIdx + 1, newHandler);
     updateView();
 }
@@ -163,12 +168,14 @@ HandlerGraphicsItem *ChannelModifierGraphicsView::updateHandlerItem(HandlerGraph
     HandlerGraphicsItem *tmpItem = item;
     if (tmpItem == NULL)
     {
-        tmpItem = new HandlerGraphicsItem(pos.x() - 5, pos.y() - 5, 10, 10, QPen(Qt::yellow), QBrush(Qt::yellow));
+        tmpItem = new HandlerGraphicsItem(pos.x() - 5, pos.y() - 5, 10, 10, QPen(Qt::yellow),
+                                          QBrush(Qt::yellow));
         tmpItem->setZValue(1);
         tmpItem->setParent(m_scene);
-        connect(tmpItem, SIGNAL(itemMoved(HandlerGraphicsItem *, QGraphicsSceneMouseEvent *, QRectF)), this,
-                SLOT(slotItemMoved(HandlerGraphicsItem *, QGraphicsSceneMouseEvent *, QRectF)));
-        connect(tmpItem, SIGNAL(itemSelected(HandlerGraphicsItem *)), this, SLOT(slotItemSelected(HandlerGraphicsItem *)));
+        connect(tmpItem, SIGNAL(itemMoved(HandlerGraphicsItem *, QGraphicsSceneMouseEvent *, QRectF)),
+                this, SLOT(slotItemMoved(HandlerGraphicsItem *, QGraphicsSceneMouseEvent *, QRectF)));
+        connect(tmpItem, SIGNAL(itemSelected(HandlerGraphicsItem *)), this,
+                SLOT(slotItemSelected(HandlerGraphicsItem *)));
         m_scene->addItem(tmpItem);
     }
     else
@@ -186,12 +193,14 @@ void ChannelModifierGraphicsView::updateHandlerBoundingBox(int itemIndex)
     HandlerItem *handler = m_handlers.at(itemIndex);
     if (itemIndex == 0)
     {
-        handler->m_item->setBoundingBox(QRect(m_bgRect->x() - 1, m_bgRect->y(), 1, m_bgRect->rect().height()));
+        handler->m_item->setBoundingBox(
+            QRect(m_bgRect->x() - 1, m_bgRect->y(), 1, m_bgRect->rect().height()));
         return;
     }
     else if (itemIndex == m_handlers.count() - 1)
     {
-        handler->m_item->setBoundingBox(QRect(m_bgRect->rect().right(), m_bgRect->y(), 1, m_bgRect->rect().height()));
+        handler->m_item->setBoundingBox(
+            QRect(m_bgRect->rect().right(), m_bgRect->y(), 1, m_bgRect->rect().height()));
         return;
     }
     else
@@ -199,16 +208,18 @@ void ChannelModifierGraphicsView::updateHandlerBoundingBox(int itemIndex)
         HandlerItem *prevHandler = m_handlers.at(itemIndex - 1);
         HandlerItem *nextHandler = m_handlers.at(itemIndex + 1);
         handler->m_item->setBoundingBox(QRectF(prevHandler->m_pos.x(), m_bgRect->y(),
-                                               nextHandler->m_pos.x() - prevHandler->m_pos.x(), m_bgRect->rect().height()));
+                                               nextHandler->m_pos.x() - prevHandler->m_pos.x(),
+                                               m_bgRect->rect().height()));
     }
 }
 
 QPoint ChannelModifierGraphicsView::getPositionFromDMX(QPair<uchar, uchar> dmxMap)
 {
     qreal xPos = m_bgRect->rect().x() + ((m_bgRect->rect().width() / 255) * (qreal)dmxMap.first);
-    qreal yPos =
-        m_bgRect->rect().y() + m_bgRect->rect().height() - ((m_bgRect->rect().height() / 255) * (qreal)dmxMap.second);
-    // qDebug() << "New position from values <" << dmxMap.first << "," << dmxMap.second << "=" << xPos << yPos;
+    qreal yPos = m_bgRect->rect().y() + m_bgRect->rect().height()
+                 - ((m_bgRect->rect().height() / 255) * (qreal)dmxMap.second);
+    // qDebug() << "New position from values <" << dmxMap.first << "," << dmxMap.second << "=" <<
+    // xPos << yPos;
     return QPoint(xPos, yPos);
 }
 
@@ -251,8 +262,8 @@ void ChannelModifierGraphicsView::updateView()
         trHdlr->m_dmxMap    = QPair<uchar, uchar>(255, 255);
         trHdlr->m_pos       = QPoint(bgRect.right(), bgRect.y());
         trHdlr->m_item      = updateHandlerItem(NULL, trHdlr->m_pos);
-        trHdlr->m_line = m_scene->addLine(blHdlr->m_pos.x(), blHdlr->m_pos.y(), trHdlr->m_pos.x(), trHdlr->m_pos.y(),
-                                          QPen(Qt::yellow));
+        trHdlr->m_line = m_scene->addLine(blHdlr->m_pos.x(), blHdlr->m_pos.y(), trHdlr->m_pos.x(),
+                                          trHdlr->m_pos.y(), QPen(Qt::yellow));
         m_handlers.append(trHdlr);
         updateHandlerBoundingBox(0);
         updateHandlerBoundingBox(1);
@@ -268,7 +279,8 @@ void ChannelModifierGraphicsView::updateView()
 
             if (handler->m_line != NULL)
             {
-                handler->m_line->setLine(lastPos.x(), lastPos.y(), handler->m_pos.x(), handler->m_pos.y());
+                handler->m_line->setLine(lastPos.x(), lastPos.y(), handler->m_pos.x(),
+                                         handler->m_pos.y());
             }
             updateHandlerBoundingBox(i);
             lastPos = handler->m_pos;
@@ -305,7 +317,8 @@ void ChannelModifierGraphicsView::slotItemSelected(HandlerGraphicsItem *item)
         emit itemClicked(handler->m_dmxMap.first, handler->m_dmxMap.second);
 }
 
-void ChannelModifierGraphicsView::slotItemMoved(HandlerGraphicsItem *item, QGraphicsSceneMouseEvent *event, QRectF limits)
+void ChannelModifierGraphicsView::slotItemMoved(HandlerGraphicsItem      *item,
+                                                QGraphicsSceneMouseEvent *event, QRectF limits)
 {
     QPointF newPos(item->x(), item->y());
 
@@ -346,7 +359,8 @@ void ChannelModifierGraphicsView::slotItemMoved(HandlerGraphicsItem *item, QGrap
  * HandlerGraphicsItem class implementation
  ********************************************************************/
 
-HandlerGraphicsItem::HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen &pen, const QBrush &brush)
+HandlerGraphicsItem::HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen &pen,
+                                         const QBrush &brush)
     : QGraphicsEllipseItem(x, y, w, h)
 {
     setCursor(Qt::OpenHandCursor);

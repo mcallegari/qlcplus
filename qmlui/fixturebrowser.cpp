@@ -175,7 +175,8 @@ QString FixtureBrowser::selectedMode() const
 
 void FixtureBrowser::setSelectedMode(QString selectedMode)
 {
-    qDebug() << "[FixtureBrowser] Select mode for" << m_selectedManufacturer << m_selectedModel << selectedMode;
+    qDebug() << "[FixtureBrowser] Select mode for" << m_selectedManufacturer << m_selectedModel
+             << selectedMode;
 
     if (m_selectedMode == selectedMode)
         return;
@@ -249,7 +250,8 @@ void FixtureBrowser::setManufacturerIndex(int index)
 
 int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity, int gap, int requested)
 {
-    qDebug() << "[FixtureBrowser] uniIdx:" << uniIdx << ", channels:" << channels << ", requested:" << requested;
+    qDebug() << "[FixtureBrowser] uniIdx:" << uniIdx << ", channels:" << channels
+             << ", requested:" << requested;
     bool    isAvailable = true;
     quint32 uniFilter   = uniIdx == Universe::invalid() ? 0 : uniIdx;
     quint32 absAddress  = (requested & 0x01FF) | (uniFilter << 9);
@@ -272,7 +274,8 @@ int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity,
     }
     else
     {
-        qDebug() << "[FixtureBrowser] Requested channel" << requested << "not available in universe" << uniFilter;
+        qDebug() << "[FixtureBrowser] Requested channel" << requested << "not available in universe"
+                 << uniFilter;
         int validAddr   = 0;
         int freeCounter = 0;
         absAddress      = uniFilter << 9;
@@ -376,7 +379,8 @@ void FixtureBrowser::updateSearchTree()
 
         for (QString model : modelsList)
         {
-            if (manufacturer.toLower().contains(m_searchFilter) || model.toLower().contains(m_searchFilter))
+            if (manufacturer.toLower().contains(m_searchFilter)
+                || model.toLower().contains(m_searchFilter))
             {
                 QVariantList   params;
                 TreeModelItem *item = m_searchTree->addItem(model, params, manufacturer);

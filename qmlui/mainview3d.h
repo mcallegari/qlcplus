@@ -109,9 +109,12 @@ class MainView3D : public PreviewContext
 
     Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
-    Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
-    Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
-    Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+    Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE
+                   setGenericItemsPosition NOTIFY genericItemsPositionChanged)
+    Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE
+                   setGenericItemsRotation NOTIFY genericItemsRotationChanged)
+    Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY
+                   genericItemsScaleChanged)
 
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -200,7 +203,8 @@ public:
 
     void createFixtureItems(quint32 fxID, QVector3D pos, bool mmCoords = true);
 
-    void createFixtureItem(quint32 fxID, quint16 headIndex, quint16 linkedIndex, QVector3D pos, bool mmCoords = true);
+    void createFixtureItem(quint32 fxID, quint16 headIndex, quint16 linkedIndex, QVector3D pos,
+                           bool mmCoords = true);
 
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
@@ -213,7 +217,8 @@ public:
     void updateFixture(Fixture *fixture, QByteArray &previous);
 
     /** Update a single fixture item for a specific Fixture ID, head index and linked index */
-    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous);
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex,
+                           QByteArray &previous);
 
     /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32> fixtures);
@@ -248,8 +253,8 @@ protected:
     void addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D maxCorner);
 
     /** Recursive method to get/set all the information of a scene */
-    QEntity *inspectEntity(QEntity *entity, SceneItem *meshRef, QLayer *layer, QEffect *effect, bool calculateVolume,
-                           QVector3D translation);
+    QEntity *inspectEntity(QEntity *entity, SceneItem *meshRef, QLayer *layer, QEffect *effect,
+                           bool calculateVolume, QVector3D translation);
 
     void walkNode(QNode *e, int depth);
 

@@ -41,7 +41,8 @@ AboutBox::AboutBox(QWidget *parent)
     m_versionLabel->setText(APPVERSION);
     m_copyrightLabel->setText(
         QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1").arg(tr("and contributors:")));
-    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
+    m_websiteLabel->setText(
+        tr("Website: %1").arg("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
     connect(m_websiteLabel, SIGNAL(linkActivated(QString)), this, SLOT(slotWebsiteClicked()));
 
     connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(slotItemClicked()));

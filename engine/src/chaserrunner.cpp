@@ -62,7 +62,8 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
         quint32 stepsTime = 0;
         foreach (ChaserStep step, chaser->steps())
         {
-            uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
+            uint duration =
+                m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
 
             if (startTime < stepsTime + duration)
             {
@@ -251,8 +252,9 @@ void ChaserRunner::setAction(ChaserAction &action)
                 {
                     qDebug() << "[ChaserRunner] Stopping step idx:" << action.m_stepIndex
                              << "(running:" << m_runnerSteps.count() << ")";
-                    m_lastFunctionID = step->m_function->type() == Function::SceneType ? step->m_function->id()
-                                                                                       : Function::invalidId();
+                    m_lastFunctionID = step->m_function->type() == Function::SceneType
+                                           ? step->m_function->id()
+                                           : Function::invalidId();
                     step->m_function->stop(functionParent());
                     m_runnerSteps.removeOne(step);
                     delete step;
@@ -423,7 +425,8 @@ void ChaserRunner::adjustStepIntensity(qreal fraction, int requestedStepIndex, i
 {
     fraction = CLAMP(fraction, qreal(0.0), qreal(1.0));
 
-    // qDebug() << "Adjust intensity" << fraction << "step:" << requestedStepIndex << "fade:" << fadeControl;
+    // qDebug() << "Adjust intensity" << fraction << "step:" << requestedStepIndex << "fade:" <<
+    // fadeControl;
 
     int stepIndex = requestedStepIndex;
     if (stepIndex == -1)
@@ -459,7 +462,8 @@ void ChaserRunner::adjustStepIntensity(qreal fraction, int requestedStepIndex, i
         return;
 
     // not found ? It means we need to start a new step and crossfade kicks in !
-    startNewStep(stepIndex, m_doc->masterTimer(), m_pendingAction.m_masterIntensity, fraction, fadeControl);
+    startNewStep(stepIndex, m_doc->masterTimer(), m_pendingAction.m_masterIntensity, fraction,
+                 fadeControl);
 }
 
 /****************************************************************************
@@ -476,16 +480,17 @@ void ChaserRunner::clearRunningList()
             // restore the original Function fade out time
             step->m_function->setOverrideFadeOutSpeed(stepFadeOut(step->m_index));
             step->m_function->stop(functionParent(), m_chaser->type() == Function::SequenceType);
-            m_lastFunctionID =
-                step->m_function->type() == Function::SceneType ? step->m_function->id() : Function::invalidId();
+            m_lastFunctionID = step->m_function->type() == Function::SceneType
+                                   ? step->m_function->id()
+                                   : Function::invalidId();
         }
         delete step;
     }
     m_runnerSteps.clear();
 }
 
-void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity, int fadeControl,
-                                quint32 elapsed)
+void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity,
+                                int fadeControl, quint32 elapsed)
 {
     if (m_chaser == NULL || m_chaser->stepsCount() == 0)
         return;
@@ -512,7 +517,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
     if (m_runnerSteps.count())
     {
         ChaserRunnerStep *lastStep = m_runnerSteps.last();
-        if (lastStep->m_function && lastStep->m_function->type() == Function::SceneType && func->type() == Function::SceneType)
+        if (lastStep->m_function && lastStep->m_function->type() == Function::SceneType
+            && func->type() == Function::SceneType)
         {
             Scene *lastScene = qobject_cast<Scene *>(lastStep->m_function);
             lastScene->setBlendFunctionID(Function::invalidId());
@@ -569,19 +575,22 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
     // might momentarily jump too high.
     if (func->type() == Function::SceneType)
     {
-        Scene *scene                    = qobject_cast<Scene *>(func);
-        newStep->m_intensityOverrideId  = func->requestAttributeOverride(Function::Intensity, sIntensity);
-        newStep->m_pIntensityOverrideId = scene->requestAttributeOverride(Scene::ParentIntensity, mIntensity);
+        Scene *scene = qobject_cast<Scene *>(func);
+        newStep->m_intensityOverrideId =
+            func->requestAttributeOverride(Function::Intensity, sIntensity);
+        newStep->m_pIntensityOverrideId =
+            scene->requestAttributeOverride(Scene::ParentIntensity, mIntensity);
         qDebug() << "[ChaserRunner] Set step intensity:" << sIntensity << ", master:" << mIntensity;
     }
     else
     {
-        newStep->m_intensityOverrideId = func->requestAttributeOverride(Function::Intensity, mIntensity * sIntensity);
+        newStep->m_intensityOverrideId =
+            func->requestAttributeOverride(Function::Intensity, mIntensity * sIntensity);
     }
 
     // Start the fire up !
-    func->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut, func->defaultSpeed(),
-                m_chaser->tempoType());
+    func->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut,
+                func->defaultSpeed(), m_chaser->tempoType());
     m_runnerSteps.append(newStep);
     m_roundTime->restart();
 }
@@ -678,7 +687,8 @@ int ChaserRunner::getNextStepIndex()
                 currentStepIndex = 0;
         }
         // Don't run the same function 2 times in a row
-        while (currentStepIndex < m_chaser->stepsCount() && randomStepIndex(currentStepIndex) == m_lastRunStepIdx)
+        while (currentStepIndex < m_chaser->stepsCount()
+               && randomStepIndex(currentStepIndex) == m_lastRunStepIdx)
             ++currentStepIndex;
         currentStepIndex = randomStepIndex(currentStepIndex);
     }
@@ -747,7 +757,8 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
             {
                 clearRunningList();
                 m_lastRunStepIdx = m_pendingAction.m_stepIndex;
-                qDebug() << "[ChaserRunner] Starting from step" << m_lastRunStepIdx << "@ offset" << m_startOffset;
+                qDebug() << "[ChaserRunner] Starting from step" << m_lastRunStepIdx << "@ offset"
+                         << m_startOffset;
                 startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity,
                              m_pendingAction.m_stepIntensity, m_pendingAction.m_fadeMode);
                 emit currentStepChanged(m_lastRunStepIdx);
@@ -767,8 +778,8 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
         if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
         {
             step->m_elapsedBeats += 1000;
-            qDebug() << "[ChaserRunner] Function" << step->m_function->name() << "duration:" << step->m_duration
-                     << "beats:" << step->m_elapsedBeats;
+            qDebug() << "[ChaserRunner] Function" << step->m_function->name()
+                     << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
         }
 
         if (step->m_duration != Function::infiniteSpeed()
@@ -778,8 +789,9 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
-            m_lastFunctionID =
-                step->m_function->type() == Function::SceneType ? step->m_function->id() : Function::invalidId();
+            m_lastFunctionID = step->m_function->type() == Function::SceneType
+                                   ? step->m_function->id()
+                                   : Function::invalidId();
             step->m_function->stop(functionParent(), m_chaser->type() == Function::SequenceType);
             m_runnerSteps.removeOne(step);
             delete step;
@@ -809,10 +821,11 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
         m_lastRunStepIdx = getNextStepIndex();
         if (m_lastRunStepIdx != -1)
         {
-            int blend = m_pendingAction.m_action == ChaserNoAction ? Chaser::FromFunction : m_pendingAction.m_fadeMode;
+            int blend = m_pendingAction.m_action == ChaserNoAction ? Chaser::FromFunction
+                                                                   : m_pendingAction.m_fadeMode;
 
-            startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity, m_pendingAction.m_stepIntensity,
-                         blend, prevStepRoundElapsed);
+            startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity,
+                         m_pendingAction.m_stepIntensity, blend, prevStepRoundElapsed);
             emit currentStepChanged(m_lastRunStepIdx);
         }
         else

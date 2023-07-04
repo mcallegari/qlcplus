@@ -99,7 +99,8 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     }
     if (m_use_mmap)
     {
-        if ((err = snd_pcm_hw_params_set_access(pcm_handle, hwparams, SND_PCM_ACCESS_MMAP_INTERLEAVED)) < 0)
+        if ((err = snd_pcm_hw_params_set_access(pcm_handle, hwparams, SND_PCM_ACCESS_MMAP_INTERLEAVED))
+            < 0)
         {
             qWarning("OutputALSA: Error setting mmap access: %s", snd_strerror(err));
             m_use_mmap = false;
@@ -188,7 +189,8 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     // swparams
     snd_pcm_sw_params_alloca(&swparams);
     snd_pcm_sw_params_current(pcm_handle, swparams);
-    if ((err = snd_pcm_sw_params_set_start_threshold(pcm_handle, swparams, buffer_size - period_size)) < 0)
+    if ((err = snd_pcm_sw_params_set_start_threshold(pcm_handle, swparams, buffer_size - period_size))
+        < 0)
         qWarning("OutputALSA: Error setting threshold: %s", snd_strerror(err));
     if ((err = snd_pcm_sw_params(pcm_handle, swparams)) < 0)
     {
@@ -273,8 +275,8 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
             if (tmpCaps != 0)
             {
                 AudioDeviceInfo info;
-                info.deviceName =
-                    QString(snd_ctl_card_info_get_name(cardInfo)) + " - " + QString(snd_pcm_info_get_name(pcmInfo));
+                info.deviceName = QString(snd_ctl_card_info_get_name(cardInfo)) + " - "
+                                  + QString(snd_pcm_info_get_name(pcmInfo));
                 info.privateName  = QString(str);
                 info.capabilities = tmpCaps;
                 devList.append(info);

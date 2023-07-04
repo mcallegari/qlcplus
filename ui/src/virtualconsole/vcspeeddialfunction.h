@@ -73,8 +73,8 @@ public:
      ***********************************************************************/
 public:
     /** Load SpeedDialFunction with default values for multipliers */
-    bool loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None,
-                 SpeedMultiplier aDuration = One);
+    bool loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn = None,
+                 SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
 
     /** Save SpeedDialFunction contents to $doc, under $root */
     bool saveXML(QXmlStreamWriter *doc) const;

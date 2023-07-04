@@ -258,7 +258,8 @@ public:
     void      setFixtureRotation(quint32 fid, quint16 head, quint16 linked, QVector3D degrees);
     QVector3D fixtureRotation(quint32 fid, quint16 head, quint16 linked) const;
 
-    /** Get/Set the color of a gel used to render a Fixture with with the given $fid, $head and $linked index */
+    /** Get/Set the color of a gel used to render a Fixture with with the given $fid, $head and
+     * $linked index */
     void   setFixtureGelColor(quint32 fid, quint16 head, quint16 linked, QColor col);
     QColor fixtureGelColor(quint32 fid, quint16 head, quint16 linked) const;
 

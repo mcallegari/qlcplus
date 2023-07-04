@@ -52,7 +52,8 @@ class ConsoleChannel : public QGroupBox
      * Initialization
      *************************************************************************/
 public:
-    ConsoleChannel(QWidget *parent, Doc *doc, quint32 fixture, quint32 channelIndex, bool isCheckable = true);
+    ConsoleChannel(QWidget *parent, Doc *doc, quint32 fixture, quint32 channelIndex,
+                   bool isCheckable = true);
 
     ~ConsoleChannel();
 

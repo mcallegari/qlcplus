@@ -135,7 +135,8 @@ void VCButton::setFunctionID(quint32 fid)
         /* Get rid of old function connections */
         disconnect(current, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
         disconnect(current, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
-        disconnect(current, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
+        disconnect(current, SIGNAL(flashing(quint32, bool)), this,
+                   SLOT(slotFunctionFlashing(quint32, bool)));
 
         if (current->isRunning())
         {
@@ -150,7 +151,8 @@ void VCButton::setFunctionID(quint32 fid)
         /* Connect to the new function */
         connect(function, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
         connect(function, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
-        connect(function, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
+        connect(function, SIGNAL(flashing(quint32, bool)), this,
+                SLOT(slotFunctionFlashing(quint32, bool)));
 
         m_functionID = fid;
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
@@ -170,7 +172,8 @@ void VCButton::setFunctionID(quint32 fid)
         emit functionIDChanged(-1);
     }
 
-    Tardis::instance()->enqueueAction(Tardis::VCButtonSetFunctionID, id(), current ? current->id() : Function::invalidId(),
+    Tardis::instance()->enqueueAction(Tardis::VCButtonSetFunctionID, id(),
+                                      current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
 }
 
@@ -258,7 +261,8 @@ void VCButton::slotFunctionFlashing(quint32 fid, bool state)
     if (fid != m_functionID)
         return;
 
-    // if the function was flashed by another button, and the function is still running, keep the button pushed
+    // if the function was flashed by another button, and the function is still running, keep the
+    // button pushed
     Function *f = m_doc->function(m_functionID);
     if (state == false && actionType() == Toggle && f != nullptr && f->isRunning())
     {
@@ -437,7 +441,8 @@ void VCButton::setStartupIntensityEnabled(bool enable)
     if (enable == m_startupIntensityEnabled)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::VCButtonEnableStartupIntensity, id(), m_startupIntensityEnabled, enable);
+    Tardis::instance()->enqueueAction(Tardis::VCButtonEnableStartupIntensity, id(),
+                                      m_startupIntensityEnabled, enable);
 
     m_startupIntensityEnabled = enable;
     emit startupIntensityEnabledChanged();
@@ -454,7 +459,8 @@ void VCButton::setStartupIntensity(qreal fraction)
         return;
 
     qreal newVal = CLAMP(fraction, qreal(0), qreal(1));
-    Tardis::instance()->enqueueAction(Tardis::VCButtonSetStartupIntensity, id(), m_startupIntensity, newVal);
+    Tardis::instance()->enqueueAction(Tardis::VCButtonSetStartupIntensity, id(), m_startupIntensity,
+                                      newVal);
 
     m_startupIntensity = newVal;
     emit startupIntensityChanged();

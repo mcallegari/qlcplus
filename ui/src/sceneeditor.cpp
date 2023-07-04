@@ -181,18 +181,26 @@ void SceneEditor::init(bool applyValues)
     this->layout()->setContentsMargins(8, 3, 8, 3);
 
     /* Actions */
-    m_enableCurrentAction  = new QAction(QIcon(":/check.png"), tr("Enable all channels in current fixture"), this);
-    m_disableCurrentAction = new QAction(QIcon(":/uncheck.png"), tr("Disable all channels in current fixture"), this);
-    m_copyAction           = new QAction(QIcon(":/editcopy.png"), tr("Copy current values to clipboard"), this);
-    m_pasteAction        = new QAction(QIcon(":/editpaste.png"), tr("Paste clipboard values to current fixture"), this);
-    m_copyToAllAction    = new QAction(QIcon(":/editcopyall.png"), tr("Copy current values to all fixtures"), this);
-    m_colorToolAction    = new QAction(QIcon(":/color.png"), tr("Color tool for CMY/RGB-capable fixtures"), this);
-    m_positionToolAction = new QAction(QIcon(":/xypad.png"), tr("Position tool for moving heads/scanners"), this);
-    m_tabViewAction   = new QAction(QIcon(":/tabview.png"), tr("Switch between tab view and all channels view"), this);
+    m_enableCurrentAction =
+        new QAction(QIcon(":/check.png"), tr("Enable all channels in current fixture"), this);
+    m_disableCurrentAction =
+        new QAction(QIcon(":/uncheck.png"), tr("Disable all channels in current fixture"), this);
+    m_copyAction = new QAction(QIcon(":/editcopy.png"), tr("Copy current values to clipboard"), this);
+    m_pasteAction =
+        new QAction(QIcon(":/editpaste.png"), tr("Paste clipboard values to current fixture"), this);
+    m_copyToAllAction =
+        new QAction(QIcon(":/editcopyall.png"), tr("Copy current values to all fixtures"), this);
+    m_colorToolAction =
+        new QAction(QIcon(":/color.png"), tr("Color tool for CMY/RGB-capable fixtures"), this);
+    m_positionToolAction =
+        new QAction(QIcon(":/xypad.png"), tr("Position tool for moving heads/scanners"), this);
+    m_tabViewAction   = new QAction(QIcon(":/tabview.png"),
+                                    tr("Switch between tab view and all channels view"), this);
     m_blindAction     = new QAction(QIcon(":/blind.png"), tr("Toggle blind mode"), this);
     m_speedDialAction = new QAction(QIcon(":/speed.png"), tr("Show/Hide speed dial window"), this);
     m_recordAction =
-        new QAction(QIcon(":/record.png"), tr("Clone this scene and append as a new step to the selected chaser"), this);
+        new QAction(QIcon(":/record.png"),
+                    tr("Clone this scene and append as a new step to the selected chaser"), this);
 
     m_nextTabAction = new QAction(QIcon(":/forward.png"), tr("Go to next fixture tab"), this);
     m_nextTabAction->setShortcut(QKeySequence("Alt+Right"));
@@ -285,7 +293,8 @@ void SceneEditor::init(bool applyValues)
 
     m_nameEdit->setText(m_scene->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
 
     // Channels groups tab
     QList<quint32>                 chGrpIds = m_scene->channelGroups();
@@ -552,7 +561,8 @@ void SceneEditor::slotColorTool()
     QColor color = slotColorSelectorChanged(QColor());
 
     QColorDialog dialog(color, this);
-    connect(&dialog, SIGNAL(currentColorChanged(const QColor &)), this, SLOT(slotColorSelectorChanged(const QColor &)));
+    connect(&dialog, SIGNAL(currentColorChanged(const QColor &)), this,
+            SLOT(slotColorSelectorChanged(const QColor &)));
 
     int result = dialog.exec();
     if (result == QDialog::Rejected)
@@ -651,7 +661,8 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor &color)
 
         if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
         {
-            returnColor.setCmyk(fc->value(*cyan.begin()), fc->value(*magenta.begin()), fc->value(*yellow.begin()), 0);
+            returnColor.setCmyk(fc->value(*cyan.begin()), fc->value(*magenta.begin()),
+                                fc->value(*yellow.begin()), 0);
             if (color.isValid() == true)
             {
                 foreach (quint32 ch, cyan)
@@ -675,7 +686,8 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor &color)
         }
         else if (!red.isEmpty() && !green.isEmpty() && !blue.isEmpty())
         {
-            returnColor.setRgb(fc->value(*red.begin()), fc->value(*green.begin()), fc->value(*blue.begin()), 0);
+            returnColor.setRgb(fc->value(*red.begin()), fc->value(*green.begin()),
+                               fc->value(*blue.begin()), 0);
 
             if (color.isValid() == true)
             {
@@ -910,7 +922,8 @@ void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
 
                 connect(console, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
                         SLOT(slotValueChanged(quint32, quint32, uchar)));
-                connect(console, SIGNAL(checked(quint32, quint32, bool)), this, SLOT(slotChecked(quint32, quint32, bool)));
+                connect(console, SIGNAL(checked(quint32, quint32, bool)), this,
+                        SLOT(slotChecked(quint32, quint32, bool)));
 
                 QListIterator<SceneValue> it(m_scene->values());
                 while (it.hasNext() == true)
@@ -952,7 +965,8 @@ void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
         }
     }
 
-    m_scene->setUiStateValue(UI_STATE_TAB_MODE, tabbed ? UI_STATE_TABBED_FIXTURES : UI_STATE_ALL_FIXTURES);
+    m_scene->setUiStateValue(UI_STATE_TAB_MODE,
+                             tabbed ? UI_STATE_TABBED_FIXTURES : UI_STATE_ALL_FIXTURES);
 
     if (m_tab->count() == 0)
     {
@@ -1000,8 +1014,9 @@ void SceneEditor::slotChaserComboActivated(int index)
 bool SceneEditor::isColorToolAvailable()
 {
     Fixture *fxi  = NULL;
-    quint32  cyan = QLCChannel::invalid(), magenta = QLCChannel::invalid(), yellow = QLCChannel::invalid();
-    quint32  red = QLCChannel::invalid(), green = QLCChannel::invalid(), blue = QLCChannel::invalid();
+    quint32  cyan = QLCChannel::invalid(), magenta = QLCChannel::invalid(),
+            yellow = QLCChannel::invalid();
+    quint32 red = QLCChannel::invalid(), green = QLCChannel::invalid(), blue = QLCChannel::invalid();
 
     /* QObject cast fails unless the widget is a FixtureConsole */
     FixtureConsole *fc = fixtureConsoleTab(m_currentTab);
@@ -1045,11 +1060,13 @@ bool SceneEditor::isColorToolAvailable()
         }
     }
 
-    if (cyan != QLCChannel::invalid() && magenta != QLCChannel::invalid() && yellow != QLCChannel::invalid())
+    if (cyan != QLCChannel::invalid() && magenta != QLCChannel::invalid()
+        && yellow != QLCChannel::invalid())
     {
         return true;
     }
-    else if (red != QLCChannel::invalid() && green != QLCChannel::invalid() && blue != QLCChannel::invalid())
+    else if (red != QLCChannel::invalid() && green != QLCChannel::invalid()
+             && blue != QLCChannel::invalid())
     {
         return true;
     }
@@ -1257,7 +1274,8 @@ void SceneEditor::slotAddFixtureClicked()
 
 void SceneEditor::slotRemoveFixtureClicked()
 {
-    int r = QMessageBox::question(this, tr("Remove fixtures"), tr("Do you want to remove the selected fixture(s)?"),
+    int r = QMessageBox::question(this, tr("Remove fixtures"),
+                                  tr("Do you want to remove the selected fixture(s)?"),
                                   QMessageBox::Yes, QMessageBox::No);
 
     if (r == QMessageBox::Yes)
@@ -1417,7 +1435,8 @@ void SceneEditor::updateChannelsGroupsTab()
 
     m_channelGroupsTab     = 1;
     m_fixtureFirstTabIndex = 2;
-    connect(console, SIGNAL(groupValueChanged(quint32, uchar)), this, SLOT(slotGroupValueChanged(quint32, uchar)));
+    connect(console, SIGNAL(groupValueChanged(quint32, uchar)), this,
+            SLOT(slotGroupValueChanged(quint32, uchar)));
 }
 
 GroupsConsole *SceneEditor::groupConsoleTab(int tab)
@@ -1486,8 +1505,10 @@ void SceneEditor::addFixtureTab(Fixture *fixture, quint32 channel)
     /* Start off with all channels disabled */
     console->setChecked(false);
 
-    connect(console, SIGNAL(valueChanged(quint32, quint32, uchar)), this, SLOT(slotValueChanged(quint32, quint32, uchar)));
-    connect(console, SIGNAL(checked(quint32, quint32, bool)), this, SLOT(slotChecked(quint32, quint32, bool)));
+    connect(console, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+            SLOT(slotValueChanged(quint32, quint32, uchar)));
+    connect(console, SIGNAL(checked(quint32, quint32, bool)), this,
+            SLOT(slotChecked(quint32, quint32, bool)));
 
     if (channel != QLCChannel::invalid())
         console->setChecked(true, channel);

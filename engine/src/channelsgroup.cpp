@@ -174,11 +174,15 @@ QString ChannelsGroup::status(Doc *doc) const
         QString               chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
         if (mode != NULL)
         {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1).arg(mode->channels().at(value.channel)->name());
+            info += chInfo.arg(fixture->name())
+                        .arg(value.channel + 1)
+                        .arg(mode->channels().at(value.channel)->name());
         }
         else
         {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1).arg(QString(tr("Channel %1")).arg(value.channel));
+            info += chInfo.arg(fixture->name())
+                        .arg(value.channel + 1)
+                        .arg(QString(tr("Channel %1")).arg(value.channel));
         }
     }
 
@@ -194,8 +198,8 @@ QString ChannelsGroup::status(Doc *doc) const
 void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const &source)
 {
     if (!m_input.isNull() && m_input->isValid())
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                   SLOT(slotInputValueChanged(quint32, quint32, uchar)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                   this, SLOT(slotInputValueChanged(quint32, quint32, uchar)));
 
     m_input = source;
 
@@ -218,9 +222,11 @@ void ChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel, uch
     if (m_doc->mode() == Doc::Operate)
         return;
 
-    // qDebug() << Q_FUNC_INFO << "universe: " << universe << ", channel: " << channel << ", value: " << value;
+    // qDebug() << Q_FUNC_INFO << "universe: " << universe << ", channel: " << channel << ", value:
+    // " << value;
 
-    if (inputSource() != NULL && inputSource()->universe() == universe && inputSource()->channel() == channel)
+    if (inputSource() != NULL && inputSource()->universe() == universe
+        && inputSource()->channel() == channel)
     {
         emit valueChanged(channel, value);
     }
@@ -324,7 +330,8 @@ bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
             const QLCChannel *ch = fxi->channel(scv.channel);
             if (ch == NULL)
             {
-                qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi << "does not have channel" << scv.channel;
+                qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi << "does not have channel"
+                           << scv.channel;
                 continue;
             }
             m_channels.append(scv);

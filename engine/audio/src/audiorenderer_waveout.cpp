@@ -42,7 +42,8 @@ static int              PlayedWaveHeadersCount = 0; // free index
 static WAVEHDR         *PlayedWaveHeaders[MAX_WAVEBLOCKS];
 
 
-static void CALLBACK wave_callback(HWAVE hWave, UINT uMsg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2)
+static void CALLBACK wave_callback(HWAVE hWave, UINT uMsg, DWORD dwInstance, DWORD dwParam1,
+                                   DWORD dwParam2)
 {
     Q_UNUSED(hWave)
     Q_UNUSED(dwInstance)
@@ -215,7 +216,8 @@ qint64 AudioRendererWaveOut::writeAudio(unsigned char *data, qint64 len)
     while (PlayedWaveHeadersCount > 0) // free used blocks ...
         free_memory();
 
-    if (ScheduledBlocks >= sizeof(PlayedWaveHeaders) / sizeof(*PlayedWaveHeaders)) // wait for a free block ...
+    if (ScheduledBlocks
+        >= sizeof(PlayedWaveHeaders) / sizeof(*PlayedWaveHeaders)) // wait for a free block ...
     {
         usleep(500);
         return 0;
@@ -228,9 +230,11 @@ qint64 AudioRendererWaveOut::writeAudio(unsigned char *data, qint64 len)
     }
 
     allocptr = GlobalLock(hg2);
-    CopyMemory(allocptr, data, len); // Here we can call any modification output functions we want....
+    CopyMemory(allocptr, data,
+               len); // Here we can call any modification output functions we want....
 
-    if ((hg = GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, sizeof(WAVEHDR))) == NULL) // now make a header and WRITE IT!
+    if ((hg = GlobalAlloc(GMEM_MOVEABLE | GMEM_ZEROINIT, sizeof(WAVEHDR)))
+        == NULL) // now make a header and WRITE IT!
         return -1;
 
     wh                 = (wavehdr_tag *)GlobalLock(hg);

@@ -250,7 +250,8 @@ public:
 private:
     int          next();
     int          previous();
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID,
+                          quint32 channel);
     void         updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
     void         switchCue(int from, int to, const QList<Universe *> ua);
 

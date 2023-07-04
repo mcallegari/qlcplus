@@ -116,8 +116,10 @@ QString App::appVersion() const
 void App::startup()
 {
     qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App!");
-    qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture!");
-    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
+    qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture",
+                                        "Can't create a Fixture!");
+    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction",
+                                         "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
 
     setTitle(APPNAME);
@@ -155,8 +157,8 @@ void App::startup()
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
 
-    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager, m_contextManager,
-                          m_simpleDesk, m_showManager, m_virtualConsole);
+    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
+                          m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("tardis", m_tardis);
 
     m_contextManager->registerContext(m_virtualConsole);
@@ -167,10 +169,12 @@ void App::startup()
     // register an uncreatable type just to use the enums in QML
     qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager",
                                                "Can't create a ContextManager!");
-    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager!");
+    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager",
+                                            "Can't create a ShowManager!");
     qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager",
                                                "Can't create a NetworkManager!");
-    qmlRegisterUncreatableType<SimpleDesk>("org.qlcplus.classes", 1, 0, "SimpleDesk", "Can't create a SimpleDesk!");
+    qmlRegisterUncreatableType<SimpleDesk>("org.qlcplus.classes", 1, 0, "SimpleDesk",
+                                           "Can't create a SimpleDesk!");
 
     // Start up in non-modified state
     m_doc->resetModified();
@@ -251,7 +255,8 @@ bool App::is3DSupported() const
     if (openglContext() == nullptr)
         return false;
 
-    int glVersion = (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
+    int glVersion =
+        (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
     return glVersion < 33 ? false : true;
 #else
     // TODO: Qt6
@@ -277,8 +282,8 @@ void App::setAccessMask(int mask)
 
 int App::defaultMask() const
 {
-    return AC_FixtureEditing | AC_FunctionEditing | AC_InputOutput | AC_ShowManager | AC_SimpleDesk | AC_VCControl
-           | AC_VCEditing;
+    return AC_FixtureEditing | AC_FunctionEditing | AC_InputOutput | AC_ShowManager | AC_SimpleDesk
+           | AC_VCControl | AC_VCEditing;
 }
 
 void App::keyPressEvent(QKeyEvent *e)
@@ -317,7 +322,8 @@ void App::slotSceneGraphInitialized()
     if (openglContext() == nullptr)
         return;
 
-    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
+    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion()
+             << openglContext()->format().minorVersion();
 #else
     // TODO: Qt6
 #endif
@@ -325,12 +331,12 @@ void App::slotSceneGraphInitialized()
 
 void App::slotScreenChanged(QScreen *screen)
 {
-    bool isLandscape =
-        (screen->orientation() == Qt::LandscapeOrientation || screen->orientation() == Qt::InvertedLandscapeOrientation)
-            ? true
-            : false;
-    qreal sSize    = isLandscape ? screen->size().height() : screen->size().width();
-    m_pixelDensity = qMax(screen->physicalDotsPerInch() * 0.039370, sSize / 220.0);
+    bool  isLandscape = (screen->orientation() == Qt::LandscapeOrientation
+                        || screen->orientation() == Qt::InvertedLandscapeOrientation)
+                            ? true
+                            : false;
+    qreal sSize       = isLandscape ? screen->size().height() : screen->size().width();
+    m_pixelDensity    = qMax(screen->physicalDotsPerInch() * 0.039370, sSize / 220.0);
     qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
              << ", physical size:" << screen->physicalSize();
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
@@ -379,7 +385,8 @@ void App::initDoc()
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
-    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SIGNAL(runningFunctionsCountChanged()));
+    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this,
+            SIGNAL(runningFunctionsCountChanged()));
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
@@ -506,7 +513,7 @@ void App::slotItemReadyForPrinting()
         // if the grabbed image is larger than the page, fit it to the page width
         if (pageRect.width() < imgSize.width())
         {
-            img         = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
+            img = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
             actualWidth = pageRect.width();
         }
 
@@ -628,13 +635,14 @@ bool App::loadWorkspace(const QString &fileName)
             Function *func = m_doc->function(m_doc->startupFunction());
             if (func != nullptr)
             {
-                qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_doc->startupFunction() << ")";
+                qDebug() << Q_FUNC_INFO << "Starting startup function. ("
+                         << m_doc->startupFunction() << ")";
                 func->start(m_doc->masterTimer(), FunctionParent::master());
             }
             else
             {
-                qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. (" << m_doc->startupFunction()
-                           << ")";
+                qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. ("
+                           << m_doc->startupFunction() << ")";
                 m_doc->setStartupFunction(Function::invalidId());
             }
         }

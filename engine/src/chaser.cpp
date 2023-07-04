@@ -235,10 +235,12 @@ void Chaser::setTotalDuration(quint32 msec)
             uint origDuration   = m_steps[i].duration;
             m_steps[i].duration = ((double)m_steps[i].duration * msec) / dtDuration;
             if (m_steps[i].hold)
-                m_steps[i].hold = ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
+                m_steps[i].hold =
+                    ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
             m_steps[i].fadeIn = m_steps[i].duration - m_steps[i].hold;
             if (m_steps[i].fadeOut)
-                m_steps[i].fadeOut = ((double)m_steps[i].fadeOut * (double)m_steps[i].duration) / (double)origDuration;
+                m_steps[i].fadeOut =
+                    ((double)m_steps[i].fadeOut * (double)m_steps[i].duration) / (double)origDuration;
         }
     }
     emit changed(this->id());
@@ -396,7 +398,8 @@ bool Chaser::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ChaserType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not a Chaser";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
+                   << "is not a Chaser";
         return false;
     }
 
@@ -439,10 +442,11 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCChaserLegacySequence)
         {
-            doc()->appendToErrorLog(QString("<b>Unsupported sequences found</b>. Please convert your project "
-                                            "at <a "
-                                            "href=http://www.qlcplus.org/sequence_migration.php>http://www.qlcplus.org/"
-                                            "sequence_migration.php</a>"));
+            doc()->appendToErrorLog(
+                QString("<b>Unsupported sequences found</b>. Please convert your project "
+                        "at <a "
+                        "href=http://www.qlcplus.org/sequence_migration.php>http://www.qlcplus.org/"
+                        "sequence_migration.php</a>"));
             root.skipCurrentElement();
         }
         else

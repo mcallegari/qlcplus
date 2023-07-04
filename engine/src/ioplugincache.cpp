@@ -90,13 +90,15 @@ void IOPluginCache::load(const QDir &dir)
             else
             {
                 /* Duplicate plugin. Unload it. */
-                qWarning() << Q_FUNC_INFO << "Discarded duplicate I/O plugin" << ptr->name() << "in" << path;
+                qWarning() << Q_FUNC_INFO << "Discarded duplicate I/O plugin" << ptr->name() << "in"
+                           << path;
                 loader.unload();
             }
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << fileName << "doesn't contain an I/O plugin:" << loader.errorString();
+            qWarning() << Q_FUNC_INFO << fileName
+                       << "doesn't contain an I/O plugin:" << loader.errorString();
             loader.unload();
         }
     }

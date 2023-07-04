@@ -253,7 +253,8 @@ bool Script::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ScriptType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not a script";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
+                   << "is not a script";
         return false;
     }
 
@@ -663,7 +664,8 @@ QString Script::handleSetFixture(const QList<QStringList> &tokens, QList<Univers
             if (address < 512)
             {
                 quint32                      universe = fxi->universe();
-                QSharedPointer<GenericFader> fader    = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                QSharedPointer<GenericFader> fader =
+                    m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
                     fader = universes[universe]->requestFader();

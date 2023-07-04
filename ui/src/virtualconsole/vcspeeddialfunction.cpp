@@ -28,8 +28,8 @@
 #define KXMLQLCSequenceSceneValues "Values"
 #define KXMLQLCStepNote            "Note"
 
-VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut,
-                                         SpeedMultiplier aDuration)
+VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn,
+                                         SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
     : functionId(aFid)
     , fadeInMultiplier(aFadeIn)
     , fadeOutMultiplier(aFadeOut)
@@ -37,8 +37,8 @@ VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, 
 {
 }
 
-bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut,
-                                  SpeedMultiplier aDuration)
+bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn,
+                                  SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -57,15 +57,18 @@ bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeI
 
     // For each multiplier: If not present in XML, use default value.
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
-        fadeInMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt());
+        fadeInMultiplier =
+            static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt());
     else
         fadeInMultiplier = aFadeIn;
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
-        fadeOutMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt());
+        fadeOutMultiplier =
+            static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt());
     else
         fadeOutMultiplier = aFadeOut;
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
-        durationMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt());
+        durationMultiplier = static_cast<SpeedMultiplier>(
+            attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt());
     else
         durationMultiplier = aDuration;
 

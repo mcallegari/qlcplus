@@ -150,14 +150,14 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
-    Function::Direction       m_direction;      //! Run-time direction (reversed by ping-pong)
-    QList<ChaserRunnerStep *> m_runnerSteps;    //! Queue of the currently running steps
-    quint32                   m_startOffset;    //! Start step offset time in milliseconds
-    ChaserAction              m_pendingAction;  //! Action to be performed on steps at the next write call
-    int                       m_lastRunStepIdx; //! Index of the last step ran
-    quint32                   m_lastFunctionID; //! ID of the last Function ran (Scene only)
-    QElapsedTimer            *m_roundTime;      //! Counts the time between steps
-    QVector<int>              m_order;          //! Array of step indices in a randomized order
+    Function::Direction       m_direction;   //! Run-time direction (reversed by ping-pong)
+    QList<ChaserRunnerStep *> m_runnerSteps; //! Queue of the currently running steps
+    quint32                   m_startOffset; //! Start step offset time in milliseconds
+    ChaserAction   m_pendingAction;  //! Action to be performed on steps at the next write call
+    int            m_lastRunStepIdx; //! Index of the last step ran
+    quint32        m_lastFunctionID; //! ID of the last Function ran (Scene only)
+    QElapsedTimer *m_roundTime;      //! Counts the time between steps
+    QVector<int>   m_order;          //! Array of step indices in a randomized order
 
     /************************************************************************
      * Intensity
@@ -186,8 +186,8 @@ private:
      * - Chaser::LinkedCrossfade is like Crossfade, and the Function will also be requested
      *                           to use the Universe::AdditiveBlend mode
      */
-    void startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity, int fadeControl,
-                      quint32 elapsed = 0);
+    void startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity,
+                      int fadeControl, quint32 elapsed = 0);
 
     /**
      * Get the index of the next step that should be started,

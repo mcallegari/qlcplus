@@ -275,14 +275,14 @@ VCWidget::WidgetType VCWidget::stringToType(QString str)
 
 QRectF VCWidget::geometry() const
 {
-    return QRectF(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor, m_geometry.width() * m_scaleFactor,
-                  m_geometry.height() * m_scaleFactor);
+    return QRectF(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor,
+                  m_geometry.width() * m_scaleFactor, m_geometry.height() * m_scaleFactor);
 }
 
 void VCWidget::setGeometry(QRectF rect)
 {
-    QRectF scaled = QRectF(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor, rect.width() / m_scaleFactor,
-                           rect.height() / m_scaleFactor);
+    QRectF scaled = QRectF(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor,
+                           rect.width() / m_scaleFactor, rect.height() / m_scaleFactor);
 
     if (m_geometry == scaled)
         return;
@@ -713,8 +713,9 @@ void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const &source)
                 }
 
                 // user custom feedbacks have precedence over input profile custom feedbacks
-                source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
-                                 (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
+                source->setRange(
+                    (source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
+                    (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
             }
         }
     }
@@ -722,7 +723,8 @@ void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const &source)
     emit inputSourcesListChanged();
 }
 
-bool VCWidget::updateInputSource(QSharedPointer<QLCInputSource> const &source, quint32 universe, quint32 channel)
+bool VCWidget::updateInputSource(QSharedPointer<QLCInputSource> const &source, quint32 universe,
+                                 quint32 channel)
 {
     if (source.isNull())
         return false;
@@ -798,7 +800,8 @@ QVariantList VCWidget::inputSourcesList()
         uchar   min = 0, max = UCHAR_MAX;
         bool    supportCustomFeedback = false;
 
-        if (!source->isValid() || m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
+        if (!source->isValid()
+            || m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
         {
             uniName = tr("None");
             chName  = tr("None");
@@ -1074,7 +1077,8 @@ bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
 
 bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int *x, int *y, int *w, int *h, bool *visible)
 {
-    if (root.device() == nullptr || x == nullptr || y == nullptr || w == nullptr || h == nullptr || visible == nullptr)
+    if (root.device() == nullptr || x == nullptr || y == nullptr || w == nullptr || h == nullptr
+        || visible == nullptr)
         return false;
 
     if (root.name() == KXMLQLCWindowState)
@@ -1114,7 +1118,8 @@ bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
     quint32 ch  = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
     uchar   min = 0, max = UCHAR_MAX;
 
-    QSharedPointer<QLCInputSource> inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+    QSharedPointer<QLCInputSource> inputSource =
+        QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     inputSource->setID(id);
 
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
@@ -1225,7 +1230,8 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     /* Background image */
     if (backgroundImage().isEmpty() == false)
     {
-        doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage, m_doc->normalizeComponentPath(m_backgroundImage));
+        doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage,
+                              m_doc->normalizeComponentPath(m_backgroundImage));
     }
 
     /* Font */

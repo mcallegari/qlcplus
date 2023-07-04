@@ -319,8 +319,9 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
     {
         // 16 bit fading works as long as MSB and LSB channels
         // are targeting the same value. E.g. Red and Red Fine both at 158
-        float val  = (float(m_target - m_start) * (float(elapsedTime) / float(fadeTime))) + float(m_start);
-        long  rval = lrintf(val * 256);
+        float val =
+            (float(m_target - m_start) * (float(elapsedTime) / float(fadeTime))) + float(m_start);
+        long rval = lrintf(val * 256);
         if (m_flags & Fine)
             m_current = rval & 0xff;
         else

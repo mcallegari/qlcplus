@@ -72,7 +72,8 @@ public:
      * @param doc The Doc object that takes all generated functions
      * @param fxiList List of fixtures to create functions for
      */
-    PaletteGenerator(Doc *doc, const QList<Fixture *> &fxList, PaletteType type = Undefined, PaletteSubType subType = None);
+    PaletteGenerator(Doc *doc, const QList<Fixture *> &fxList, PaletteType type = Undefined,
+                     PaletteSubType subType = None);
 
     /** Destructor */
     ~PaletteGenerator();
@@ -117,8 +118,8 @@ public:
 private:
     void createColorScene(QList<SceneValue> chMap, QString name, PaletteSubType subType);
 
-    void createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneValue> gmMap, QList<SceneValue> byMap, QString name,
-                           bool rgb, PaletteSubType subType);
+    void createRGBCMYScene(QList<SceneValue> rcMap, QList<SceneValue> gmMap,
+                           QList<SceneValue> byMap, QString name, bool rgb, PaletteSubType subType);
 
     void createCapabilityScene(QHash<quint32, quint32> chMap, PaletteSubType subType);
 

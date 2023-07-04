@@ -101,7 +101,8 @@ void RGBAudio::calculateColors(int barsHeight)
             for (int i = 0; i < barsHeight; i++)
             {
                 m_barColors.append(pixelColor.rgb());
-                pixelColor = QColor(pixelColor.red() + crDelta, pixelColor.green() + cgDelta, pixelColor.blue() + cbDelta);
+                pixelColor = QColor(pixelColor.red() + crDelta, pixelColor.green() + cgDelta,
+                                    pixelColor.blue() + cbDelta);
             }
         }
     }

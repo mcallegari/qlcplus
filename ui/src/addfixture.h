@@ -130,7 +130,8 @@ protected:
      * @param numChannels Number of channels in the address space
      * @return The address or QLCChannel::invalid() if not found
      */
-    static quint32 findAddress(quint32 numChannels, QList<Fixture *> const &fixtures, quint32 maxUniverses);
+    static quint32 findAddress(quint32 numChannels, QList<Fixture *> const &fixtures,
+                               quint32 maxUniverses);
 
     /**
      * Try to find the next free address from the given universe for

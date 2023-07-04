@@ -209,7 +209,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
 
 QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *crypter)
 {
-    QByteArray encPacket = packet.mid(0, HEADER_LENGTH);                      // copy the fixed size header
+    QByteArray encPacket = packet.mid(0, HEADER_LENGTH); // copy the fixed size header
     encPacket.append(crypter->encryptToByteArray(packet.mid(HEADER_LENGTH))); // encrypt the rest
 
     quint16 newLength = encPacket.length() - HEADER_LENGTH;
@@ -219,7 +219,8 @@ QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *cry
     return encPacket;
 }
 
-int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter)
+int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantList &sections,
+                                    SimpleCrypt *decrypter)
 {
     int        bytes_read      = 0;
     quint8     sections_number = 0;
@@ -371,11 +372,13 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             case UIntPairType:
             {
                 UIntPair pairVal;
-                pairVal.first = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
-                                + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                pairVal.first =
+                    ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                    + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
-                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
-                                 + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                pairVal.second =
+                    ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                    + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
                 QVariant var;
                 var.setValue(pairVal);
@@ -386,15 +389,16 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             {
                 StringIntPair pairVal;
                 QString       strVal;
-                quint16       sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
                 bytes_read += 2;
 
                 strVal.append(ba.mid(bytes_read, sLength));
                 pairVal.first = strVal;
                 bytes_read += sLength;
 
-                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
-                                 + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                pairVal.second =
+                    ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16)
+                    + ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
 
                 QVariant var;
@@ -406,7 +410,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             {
                 StringStringPair pairVal;
                 QString          strVal;
-                quint16          sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
                 bytes_read += 2;
 
                 strVal.append(ba.mid(bytes_read, sLength));

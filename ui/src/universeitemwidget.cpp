@@ -32,7 +32,8 @@ UniverseItemWidget::UniverseItemWidget(QWidget *parent)
 
 UniverseItemWidget::~UniverseItemWidget() {}
 
-void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &option,
+                               const QModelIndex &index) const
 {
     QWidget *list   = qobject_cast<QWidget *>(parent());
     qreal    pWidth = list->geometry().width();
@@ -67,7 +68,8 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     // draw universe name
     painter->setFont(font);
-    painter->drawText(QRect(10, r.top() + 5, 150, r.height() - 10), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignVCenter,
+    painter->drawText(QRect(10, r.top() + 5, 150, r.height() - 10),
+                      Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignVCenter,
                       index.data(Qt::DisplayRole).toString());
 
     font.setPixelSize(12);

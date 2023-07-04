@@ -98,7 +98,8 @@ void ShowManager::setShowName(QString showName)
     if (m_currentShow == nullptr || m_currentShow->name() == showName)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::FunctionSetName, m_currentShow->id(), m_currentShow->name(), showName);
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetName, m_currentShow->id(),
+                                      m_currentShow->name(), showName);
 
     m_currentShow->setName(showName);
     emit showNameChanged(showName);
@@ -320,12 +321,14 @@ void ShowManager::deleteShowItems(QVariantList data)
     emit selectedItemsCountChanged(0);
 }
 
-bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
+bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx,
+                                   int newStartTime)
 {
     if (m_currentShow == nullptr || sf == nullptr)
         return false;
 
-    // qDebug() << Q_FUNC_INFO << "origIdx:" << originalTrackIdx << "newIdx:" << newTrackIdx << "time:" << newStartTime;
+    // qDebug() << Q_FUNC_INFO << "origIdx:" << originalTrackIdx << "newIdx:" << newTrackIdx <<
+    // "time:" << newStartTime;
 
     Track *dstTrack = nullptr;
 
@@ -350,11 +353,13 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     if (m_gridEnabled)
     {
         // calculate the X position from time and time scale
-        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
+        float xPos = ((float)newStartTime * m_tickSize)
+                     / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
         // round to the nearest snap position
-        xPos       = qRound(xPos / m_tickSize) * m_tickSize;
+        xPos = qRound(xPos / m_tickSize) * m_tickSize;
         // recalculate the time from pixels
-        float time = xPos * (1000 * m_timeScale) / m_tickSize; // xPos : time = tickSize : timescale * 1000
+        float time =
+            xPos * (1000 * m_timeScale) / m_tickSize; // xPos : time = tickSize : timescale * 1000
         sf->setStartTime(time);
     }
     else
@@ -434,7 +439,8 @@ void ShowManager::renderView(QQuickItem *parent)
 
 void ShowManager::enableFlicking(bool enable)
 {
-    QQuickItem *flickable = qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
+    QQuickItem *flickable =
+        qobject_cast<QQuickItem *>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
     flickable->setProperty("interactive", enable);
 }
 
@@ -592,7 +598,8 @@ void ShowManager::slotTimeChanged(quint32 msec_time)
     emit currentTimeChanged(m_currentTime);
 }
 
-bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc, quint32 startTime, quint32 duration)
+bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc, quint32 startTime,
+                                   quint32 duration)
 {
     if (track == nullptr)
         return false;
@@ -606,7 +613,8 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc, quint
         if (func != nullptr)
         {
             quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) || (fst >= startTime && fst <= startTime + duration))
+            if ((startTime >= fst && startTime <= fst + sf->duration())
+                || (fst >= startTime && fst <= startTime + duration))
             {
                 return true;
             }
@@ -741,7 +749,8 @@ void ShowManager::pasteFromClipboard()
 
         m_doc->addFunction(copyFunc);
 
-        addItems(contextItem(), item.m_trackIndex, m_currentTime + item.m_showFunc->startTime() - lowerTime,
+        addItems(contextItem(), item.m_trackIndex,
+                 m_currentTime + item.m_showFunc->startTime() - lowerTime,
                  QVariantList() << copyFunc->id());
     }
 }

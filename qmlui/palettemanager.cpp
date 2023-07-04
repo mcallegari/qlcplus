@@ -35,7 +35,8 @@ PaletteManager::PaletteManager(QQuickView *view, Doc *doc, ContextManager *ctxMa
     , m_searchFilter(QString())
 {
     m_view->rootContext()->setContextProperty("paletteManager", this);
-    qmlRegisterUncreatableType<QLCPalette>("org.qlcplus.classes", 1, 0, "QLCPalette", "Can't create a QLCPalette!");
+    qmlRegisterUncreatableType<QLCPalette>("org.qlcplus.classes", 1, 0, "QLCPalette",
+                                           "Can't create a QLCPalette!");
 
     m_paletteList = new ListModel(this);
     QStringList listRoles;
@@ -123,7 +124,8 @@ void PaletteManager::previewPalette(QLCPalette *palette)
     if (palette == nullptr)
         return;
 
-    m_contextManager->setChannelValues(palette->valuesFromFixtures(m_doc, m_contextManager->selectedFixtureIDList()));
+    m_contextManager->setChannelValues(
+        palette->valuesFromFixtures(m_doc, m_contextManager->selectedFixtureIDList()));
 }
 
 void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1)
@@ -230,7 +232,8 @@ void PaletteManager::updatePaletteList()
     for (QLCPalette *palette : m_doc->palettes())
     {
         if ((m_typeFilter == QLCPalette::Undefined || m_typeFilter & palette->type())
-            && (m_searchFilter.length() < SEARCH_MIN_CHARS || palette->name().toLower().contains(m_searchFilter)))
+            && (m_searchFilter.length() < SEARCH_MIN_CHARS
+                || palette->name().toLower().contains(m_searchFilter)))
         {
             QVariantMap funcMap;
             funcMap.insert("paletteID", palette->id());

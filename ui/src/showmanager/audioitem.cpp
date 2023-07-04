@@ -230,13 +230,14 @@ qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize
 
 void PreviewThread::run()
 {
-    bool left  = m_item->m_previewLeftAction->isChecked() || m_item->m_previewStereoAction->isChecked();
-    bool right = m_item->m_previewRightAction->isChecked() || m_item->m_previewStereoAction->isChecked();
+    bool left = m_item->m_previewLeftAction->isChecked() || m_item->m_previewStereoAction->isChecked();
+    bool right =
+        m_item->m_previewRightAction->isChecked() || m_item->m_previewStereoAction->isChecked();
 
     if ((left || right) && m_item->m_audio->getAudioDecoder() != NULL)
     {
-        AudioDecoder *ad =
-            m_item->m_audio->doc()->audioPluginCache()->getDecoderForFile(m_item->m_audio->getSourceFileName());
+        AudioDecoder *ad = m_item->m_audio->doc()->audioPluginCache()->getDecoderForFile(
+            m_item->m_audio->getSourceFileName());
         AudioParameters ap = ad->audioParameters();
         ad->seek(0);
         // 1- find out how many samples have to be represented on a single pixel on a 1:1 time scale
@@ -262,15 +263,16 @@ void PreviewThread::run()
         qint64        dataRead = 1;
         unsigned char audioData[onePixelReadLen * 4];
         quint32       audioDataOffset = 0;
-        QPixmap      *preview         = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
+        QPixmap      *preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
         preview->fill(Qt::transparent);
         QPainter p(preview);
         int      xpos = 0;
 
-        qDebug() << "Audio duration:" << m_item->m_audio->totalDuration() << ", channels:" << channels
-                 << ", pixmap width:" << preview->width() << ", maxValue:" << maxValue << ", samples:" << sampleSize;
-        qDebug() << "Samples per second:" << oneSecondSamples << ", for one pixel:" << onePixelSamples
-                 << ", onePixelReadLen:" << onePixelReadLen;
+        qDebug() << "Audio duration:" << m_item->m_audio->totalDuration()
+                 << ", channels:" << channels << ", pixmap width:" << preview->width()
+                 << ", maxValue:" << maxValue << ", samples:" << sampleSize;
+        qDebug() << "Samples per second:" << oneSecondSamples
+                 << ", for one pixel:" << onePixelSamples << ", onePixelReadLen:" << onePixelReadLen;
 
         delete m_item->m_preview;
         m_item->m_preview = NULL;
@@ -291,7 +293,8 @@ void PreviewThread::run()
                     }
                     else
                     {
-                        qDebug() << "Not enough data. Requested:" << onePixelReadLen << "got:" << dataRead;
+                        qDebug() << "Not enough data. Requested:" << onePixelReadLen
+                                 << "got:" << dataRead;
                         audioDataOffset = dataRead;
                         continue;
                     }
@@ -370,8 +373,8 @@ void PreviewThread::run()
                         p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
                     else
                         p.drawLine(xpos, 38, xpos + 1, 38);
-                    // qDebug() << "Data read: " << dataRead << ", rms: " << rmsRight << ", line height: " << lineHeight
-                    // << ", xpos = " << xpos;
+                    // qDebug() << "Data read: " << dataRead << ", rms: " << rmsRight << ", line
+                    // height: " << lineHeight << ", xpos = " << xpos;
                 }
                 xpos++;
 

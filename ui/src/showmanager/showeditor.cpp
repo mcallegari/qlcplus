@@ -53,7 +53,8 @@ ShowEditor::ShowEditor(QWidget *parent, Show *show, Doc *doc)
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_tree->header()->setSectionResizeMode(QHeaderView::Interactive);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAdd()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
 

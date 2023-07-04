@@ -95,7 +95,8 @@ private:
     bool parseChannel(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef);
 
     /** Parse a Function tag defining a channel capability */
-    bool parseFunction(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCChannel *channel, QString ID, QString group);
+    bool parseFunction(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCChannel *channel,
+                       QString ID, QString group);
 
     /** Parse the capabilities from one channel contained in $elem into $chan (must exist) */
     bool parseAttribute(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef);

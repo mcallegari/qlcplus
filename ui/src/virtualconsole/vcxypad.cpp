@@ -148,8 +148,10 @@ VCXYPad::VCXYPad(QWidget *parent, Doc *doc)
     m_hRangeSlider->setMaximumPosition(256);
     m_vRangeSlider->setMaximumPosition(256);
 
-    connect(m_area, SIGNAL(positionChanged(const QPointF &)), this, SLOT(slotPositionChanged(const QPointF &)));
-    connect(this, SIGNAL(fixturePositions(const QVariantList)), m_area, SLOT(slotFixturePositions(const QVariantList)));
+    connect(m_area, SIGNAL(positionChanged(const QPointF &)), this,
+            SLOT(slotPositionChanged(const QPointF &)));
+    connect(this, SIGNAL(fixturePositions(const QVariantList)), m_area,
+            SLOT(slotFixturePositions(const QVariantList)));
     connect(m_vSlider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderValueChanged()));
     connect(m_hSlider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderValueChanged()));
     connect(m_hRangeSlider, SIGNAL(positionsChanged(int, int)), this, SLOT(slotRangeValueChanged()));
@@ -391,7 +393,8 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
             if (universe == Universe::invalid())
                 continue;
 
-            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+            QSharedPointer<GenericFader> fader =
+                m_fadersMap.value(universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
                 fader = universes[universe]->requestFader();
@@ -431,7 +434,8 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
         if (sc.m_universe >= (quint32)universes.count())
             continue;
 
-        QSharedPointer<GenericFader> fader = m_fadersMap.value(sc.m_universe, QSharedPointer<GenericFader>());
+        QSharedPointer<GenericFader> fader =
+            m_fadersMap.value(sc.m_universe, QSharedPointer<GenericFader>());
         if (fader.isNull())
         {
             fader = universes[sc.m_universe]->requestFader();
@@ -443,12 +447,14 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
         {
             if (sc.m_subType == QLCChannel::MSB)
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe],
+                                                         sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, panCoarse);
             }
             else
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe],
+                                                         sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, panFine);
             }
         }
@@ -456,12 +462,14 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
         {
             if (sc.m_subType == QLCChannel::MSB)
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe],
+                                                         sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, tiltCoarse);
             }
             else
             {
-                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe],
+                                                         sc.m_fixture, sc.m_channel);
                 updateSceneChannel(fc, tiltFine);
             }
         }
@@ -502,8 +510,8 @@ void VCXYPad::slotSliderValueChanged()
     {
         pt.setX(m_hSlider->value());
 
-        int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()), float(m_hSlider->maximum()),
-                             float(0), float(UCHAR_MAX));
+        int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
+                             float(m_hSlider->maximum()), float(0), float(UCHAR_MAX));
         sendFeedback(Xfb, panInputSourceId);
     }
     else
@@ -513,8 +521,8 @@ void VCXYPad::slotSliderValueChanged()
         else
             pt.setY(MAX_DMX_VALUE - m_vSlider->value());
 
-        int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()), float(m_vSlider->maximum()),
-                             float(0), float(UCHAR_MAX));
+        int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
+                             float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
         sendFeedback(Yfb, tiltInputSourceId);
     }
 
@@ -776,8 +784,10 @@ void VCXYPad::slotPresetClicked(bool checked)
         m_area->setRangeWindow(rect);
         if (rect.isValid())
         {
-            m_efxStartXOverrideId = m_efx->requestAttributeOverride(EFX::XOffset, rect.x() + rect.width() / 2);
-            m_efxStartYOverrideId = m_efx->requestAttributeOverride(EFX::YOffset, rect.y() + rect.height() / 2);
+            m_efxStartXOverrideId =
+                m_efx->requestAttributeOverride(EFX::XOffset, rect.x() + rect.width() / 2);
+            m_efxStartYOverrideId =
+                m_efx->requestAttributeOverride(EFX::YOffset, rect.y() + rect.height() / 2);
             m_efxWidthOverrideId  = m_efx->requestAttributeOverride(EFX::Width, rect.width() / 2);
             m_efxHeightOverrideId = m_efx->requestAttributeOverride(EFX::Height, rect.height() / 2);
         }
@@ -873,7 +883,8 @@ void VCXYPad::slotPresetClicked(bool checked)
                 }
                 else
                 {
-                    qDebug() << "Disabling head" << m_fixtures[i].head().fxi << m_fixtures[i].head().head;
+                    qDebug() << "Disabling head" << m_fixtures[i].head().fxi
+                             << m_fixtures[i].head().head;
                     m_fixtures[i].setEnabled(false);
                 }
             }
@@ -900,32 +911,32 @@ FunctionParent VCXYPad::functionParent() const
 
 void VCXYPad::updateFeedback()
 {
-    int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()), float(m_hSlider->maximum()), float(0),
-                         float(UCHAR_MAX));
+    int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
+                         float(m_hSlider->maximum()), float(0), float(UCHAR_MAX));
     sendFeedback(Xfb, panInputSourceId);
 
-    int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()), float(m_vSlider->maximum()), float(0),
-                         float(UCHAR_MAX));
+    int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
+                         float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
     sendFeedback(Yfb, tiltInputSourceId);
 
     /*
-        for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
-                it != m_presets.end(); ++it)
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCXYPadPreset* preset = it.value();
+        if (preset->m_inputSource != NULL)
         {
-            VCXYPadPreset* preset = it.value();
-            if (preset->m_inputSource != NULL)
             {
-                {
-                    QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                    if (preset->m_inputSource.isNull() == false)
-                        sendFeedback(button->isDown() ?
-                                     preset->m_inputSource->upperValue() :
-                                     preset->m_inputSource->lowerValue(),
-                                     preset->m_inputSource);
-                }
+                QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+                if (preset->m_inputSource.isNull() == false)
+                    sendFeedback(button->isDown() ?
+                                 preset->m_inputSource->upperValue() :
+                                 preset->m_inputSource->lowerValue(),
+                                 preset->m_inputSource);
             }
         }
-    */
+    }
+*/
 }
 
 void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -1006,7 +1017,8 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
     }
     else
     {
-        for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
+        for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin();
+             it != m_presets.end(); ++it)
         {
             VCXYPadPreset *preset = it.value();
             if (preset->m_inputSource != NULL && preset->m_inputSource->universe() == universe
@@ -1131,13 +1143,17 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         {
             QXmlStreamAttributes wAttrs = root.attributes();
             if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeHorizMin))
-                m_hRangeSlider->setMinimumPosition(wAttrs.value(KXMLQLCVCXYPadRangeHorizMin).toString().toInt());
+                m_hRangeSlider->setMinimumPosition(
+                    wAttrs.value(KXMLQLCVCXYPadRangeHorizMin).toString().toInt());
             if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeHorizMax))
-                m_hRangeSlider->setMaximumPosition(wAttrs.value(KXMLQLCVCXYPadRangeHorizMax).toString().toInt());
+                m_hRangeSlider->setMaximumPosition(
+                    wAttrs.value(KXMLQLCVCXYPadRangeHorizMax).toString().toInt());
             if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeVertMin))
-                m_vRangeSlider->setMinimumPosition(wAttrs.value(KXMLQLCVCXYPadRangeVertMin).toString().toInt());
+                m_vRangeSlider->setMinimumPosition(
+                    wAttrs.value(KXMLQLCVCXYPadRangeVertMin).toString().toInt());
             if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeVertMax))
-                m_vRangeSlider->setMaximumPosition(wAttrs.value(KXMLQLCVCXYPadRangeVertMax).toString().toInt());
+                m_vRangeSlider->setMaximumPosition(
+                    wAttrs.value(KXMLQLCVCXYPadRangeVertMax).toString().toInt());
             slotRangeValueChanged();
             root.skipCurrentElement();
         }
@@ -1158,7 +1174,8 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         {
             VCXYPadPreset preset(0xff);
             if (preset.loadXML(root))
-                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset), preset);
+                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset),
+                                  preset);
         }
         else
         {
@@ -1206,10 +1223,14 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
         || m_vRangeSlider->minimumPosition() != 0 || m_vRangeSlider->maximumPosition() != 256)
     {
         doc->writeStartElement(KXMLQLCVCXYPadRangeWindow);
-        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
-        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMax, QString::number(m_hRangeSlider->maximumPosition()));
-        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMin, QString::number(m_vRangeSlider->minimumPosition()));
-        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMax, QString::number(m_vRangeSlider->maximumPosition()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMin,
+                            QString::number(m_hRangeSlider->minimumPosition()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMax,
+                            QString::number(m_hRangeSlider->maximumPosition()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMin,
+                            QString::number(m_vRangeSlider->minimumPosition()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMax,
+                            QString::number(m_vRangeSlider->maximumPosition()));
         doc->writeEndElement();
     }
 

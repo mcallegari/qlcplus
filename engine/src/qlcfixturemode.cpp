@@ -84,8 +84,8 @@ QLCFixtureMode &QLCFixtureMode::operator=(const QLCFixtureMode &mode)
             if (actual != NULL)
                 insertChannel(actual, i++);
             else
-                qWarning() << Q_FUNC_INFO << "Unable to find channel" << ch->name() << "for mode" << m_name
-                           << "from its fixture definition";
+                qWarning() << Q_FUNC_INFO << "Unable to find channel" << ch->name() << "for mode"
+                           << m_name << "from its fixture definition";
         }
     }
 
@@ -141,14 +141,15 @@ bool QLCFixtureMode::insertChannel(QLCChannel *channel, quint32 index)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Channel" << channel->name() << "is already a member of mode" << m_name;
+            qWarning() << Q_FUNC_INFO << "Channel" << channel->name()
+                       << "is already a member of mode" << m_name;
             return false;
         }
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "Will not add channel" << channel->name() << "to mode" << m_name
-                   << "because the channel does not belong to mode's"
+        qWarning() << Q_FUNC_INFO << "Will not add channel" << channel->name() << "to mode"
+                   << m_name << "because the channel does not belong to mode's"
                    << "parent fixture definition.";
         return false;
     }
@@ -299,7 +300,8 @@ void QLCFixtureMode::cacheHeads()
 
     for (int i = 0; i < m_channels.size(); i++)
     {
-        if (m_channels.at(i)->group() == QLCChannel::Intensity && m_channels.at(i)->controlByte() == QLCChannel::MSB
+        if (m_channels.at(i)->group() == QLCChannel::Intensity
+            && m_channels.at(i)->controlByte() == QLCChannel::MSB
             && m_channels.at(i)->colour() == QLCChannel::NoColour && headForChannel(i) == -1)
         {
             m_masterIntensityChannel = i;
@@ -415,7 +417,8 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
         if (m_channels.contains(channelSctsOnData.channel) && channelSctsOnData.actsOnIndex >= 0
             && m_channels.size() > channelSctsOnData.actsOnIndex)
         {
-            m_actsOnChannelsList.insert(channelSctsOnData.channel, m_channels.at(channelSctsOnData.actsOnIndex));
+            m_actsOnChannelsList.insert(channelSctsOnData.channel,
+                                        m_channels.at(channelSctsOnData.actsOnIndex));
         }
     }
 
@@ -452,7 +455,8 @@ bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc)
             QLCChannel *ChannelActsOn = m_actsOnChannelsList.value(channel);
             if (ChannelActsOn != NULL)
             {
-                doc->writeAttribute(KXMLQLCFixtureModeChannelActsOn, QString::number(m_channels.indexOf(ChannelActsOn)));
+                doc->writeAttribute(KXMLQLCFixtureModeChannelActsOn,
+                                    QString::number(m_channels.indexOf(ChannelActsOn)));
             }
         }
 

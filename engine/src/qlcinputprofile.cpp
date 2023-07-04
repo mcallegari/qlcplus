@@ -301,7 +301,10 @@ QLCInputProfile *QLCInputProfile::loader(const QString &path)
     if (profile->loadXML(*doc) == false)
     {
         qWarning() << path
-                   << QString("%1\nLine %2, column %3").arg(doc->errorString()).arg(doc->lineNumber()).arg(doc->columnNumber());
+                   << QString("%1\nLine %2, column %3")
+                          .arg(doc->errorString())
+                          .arg(doc->lineNumber())
+                          .arg(doc->columnNumber());
 
         delete profile;
         profile = NULL;

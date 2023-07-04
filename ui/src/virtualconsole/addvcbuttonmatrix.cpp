@@ -189,7 +189,8 @@ void AddVCButtonMatrix::addFunction(quint32 fid)
 void AddVCButtonMatrix::setAllocationText()
 {
     QString text("%1 / %2");
-    m_allocationEdit->setText(text.arg(m_tree->topLevelItemCount()).arg(horizontalCount() * verticalCount()));
+    m_allocationEdit->setText(
+        text.arg(m_tree->topLevelItemCount()).arg(horizontalCount() * verticalCount()));
 }
 
 void AddVCButtonMatrix::setFrameStyle(AddVCButtonMatrix::FrameStyle style)

@@ -208,7 +208,8 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown virtual console property tag:" << root.name().toString();
+            qWarning() << Q_FUNC_INFO
+                       << "Unknown virtual console property tag:" << root.name().toString();
             root.skipCurrentElement();
         }
     }
@@ -235,16 +236,20 @@ bool VCProperties::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLQLCVCPropertiesGrandMaster);
 
     /* Channel mode */
-    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterChannelMode, GrandMaster::channelModeToString(m_gmChannelMode));
+    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterChannelMode,
+                        GrandMaster::channelModeToString(m_gmChannelMode));
 
     /* Value mode */
-    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterValueMode, GrandMaster::valueModeToString(m_gmValueMode));
+    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterValueMode,
+                        GrandMaster::valueModeToString(m_gmValueMode));
 
     /* Slider mode */
-    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode, GrandMaster::sliderModeToString(m_gmSliderMode));
+    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode,
+                        GrandMaster::sliderModeToString(m_gmSliderMode));
 
     /* Grand Master external input */
-    if (m_gmInputUniverse != InputOutputMap::invalidUniverse() && m_gmInputChannel != QLCChannel::invalid())
+    if (m_gmInputUniverse != InputOutputMap::invalidUniverse()
+        && m_gmInputChannel != QLCChannel::invalid())
     {
         doc->writeStartElement(KXMLQLCVCPropertiesInput);
         doc->writeAttribute(KXMLQLCVCPropertiesInputUniverse, QString("%1").arg(m_gmInputUniverse));

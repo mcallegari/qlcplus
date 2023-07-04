@@ -251,7 +251,8 @@ bool AudioDecoderMAD::findHeader()
         {
             if (m_stream.error == MAD_ERROR_LOSTSYNC)
             {
-                uint tagSize = findID3v2((uchar *)m_stream.this_frame, (ulong)(m_stream.bufend - m_stream.this_frame));
+                uint tagSize = findID3v2((uchar *)m_stream.this_frame,
+                                         (ulong)(m_stream.bufend - m_stream.this_frame));
                 if (tagSize > 0)
                 {
                     mad_stream_skip(&m_stream, tagSize);
@@ -273,13 +274,15 @@ bool AudioDecoderMAD::findHeader()
         result = true;
         count++;
 
-        // qDebug() << "Detecting header" << count << m_stream.error << m_stream.sync << header.bitrate << header.layer;
+        // qDebug() << "Detecting header" << count << m_stream.error << m_stream.sync <<
+        // header.bitrate << header.layer;
 
         // try to detect xing header
         if (count == 1)
         {
             m_frame.header = header;
-            if (mad_frame_decode(&m_frame, &m_stream) != -1 && findXingHeader(m_stream.anc_ptr, m_stream.anc_bitlen))
+            if (mad_frame_decode(&m_frame, &m_stream) != -1
+                && findXingHeader(m_stream.anc_ptr, m_stream.anc_bitlen))
             {
                 is_vbr = true;
 
@@ -369,7 +372,8 @@ qint64 AudioDecoderMAD::read(char *data, qint64 size)
                 case MAD_ERROR_LOSTSYNC:
                 {
                     // skip ID3v2 tag
-                    uint tagSize = findID3v2((uchar *)m_stream.this_frame, (ulong)(m_stream.bufend - m_stream.this_frame));
+                    uint tagSize = findID3v2((uchar *)m_stream.this_frame,
+                                             (ulong)(m_stream.bufend - m_stream.this_frame));
                     if (tagSize > 0)
                     {
                         mad_stream_skip(&m_stream, tagSize);
@@ -452,7 +456,8 @@ uint AudioDecoderMAD::findID3v2(uchar *data, ulong size) // retuns ID3v2 tag siz
     if (((data[0] == 'I' && data[1] == 'D' && data[2] == '3') || // ID3v2 tag
          (data[0] == '3' && data[1] == 'D' && data[2] == 'I'))
         && // ID3v2 footer
-        data[3] < 0xff && data[4] < 0xff && data[6] < 0x80 && data[7] < 0x80 && data[8] < 0x80 && data[9] < 0x80)
+        data[3] < 0xff && data[4] < 0xff && data[6] < 0x80 && data[7] < 0x80 && data[8] < 0x80
+        && data[9] < 0x80)
     {
         quint32 id3v2_size = (data[6] << 21) + (data[7] << 14) + (data[8] << 7) + data[9];
         return id3v2_size;
@@ -480,7 +485,8 @@ void AudioDecoderMAD::clip(mad_fixed_t *sample)
         *sample = MIN;
 }
 
-long AudioDecoderMAD::audio_linear_dither(unsigned int bits, mad_fixed_t sample, struct audio_dither *dither)
+long AudioDecoderMAD::audio_linear_dither(unsigned int bits, mad_fixed_t sample,
+                                          struct audio_dither *dither)
 {
     unsigned int scalebits;
     mad_fixed_t  output, mask, random;

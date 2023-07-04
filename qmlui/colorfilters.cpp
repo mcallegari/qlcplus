@@ -82,7 +82,8 @@ QVariantList ColorFilters::filtersList()
     return list;
 }
 
-void ColorFilters::addFilter(QString name, quint8 red, quint8 green, quint8 blue, quint8 white, quint8 amber, quint8 uv)
+void ColorFilters::addFilter(QString name, quint8 red, quint8 green, quint8 blue, quint8 white,
+                             quint8 amber, quint8 uv)
 {
     ColorInfo cInfo;
 
@@ -97,7 +98,8 @@ void ColorFilters::addFilter(QString name, quint8 red, quint8 green, quint8 blue
     emit filtersListChanged();
 }
 
-void ColorFilters::changeFilterAt(int index, quint8 red, quint8 green, quint8 blue, quint8 white, quint8 amber, quint8 uv)
+void ColorFilters::changeFilterAt(int index, quint8 red, quint8 green, quint8 blue, quint8 white,
+                                  quint8 amber, quint8 uv)
 {
     if (index < 0 || index >= m_filterList.count())
         return;
@@ -221,7 +223,8 @@ QFileDevice::FileError ColorFilters::loadXML(const QString &fileName)
                     if (attrs.hasAttribute(KXMLColorFiltersWAUV))
                         cInfo.m_wauv = QColor(attrs.value(KXMLColorFiltersWAUV).toString());
 
-                    if (cInfo.m_name.isEmpty() == false && (cInfo.m_rgb.isValid() || cInfo.m_wauv.isValid()))
+                    if (cInfo.m_name.isEmpty() == false
+                        && (cInfo.m_rgb.isValid() || cInfo.m_wauv.isValid()))
                         m_filterList.append(cInfo);
 
                     doc->skipCurrentElement();

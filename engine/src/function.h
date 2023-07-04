@@ -799,9 +799,9 @@ public:
      * @param overrideDuration Override the function's default duration
      * @param overrideTempoType Override the tempo type of the function
      */
-    void start(MasterTimer *timer, FunctionParent parent, quint32 startTime = 0, uint overrideFadeIn = defaultSpeed(),
-               uint overrideFadeOut = defaultSpeed(), uint overrideDuration = defaultSpeed(),
-               TempoType overrideTempoType = Original);
+    void start(MasterTimer *timer, FunctionParent parent, quint32 startTime = 0,
+               uint overrideFadeIn = defaultSpeed(), uint overrideFadeOut = defaultSpeed(),
+               uint overrideDuration = defaultSpeed(), TempoType overrideTempoType = Original);
 
     /**
      * Pause a running Function. Subclasses should check the paused state
@@ -877,8 +877,10 @@ private:
 public:
     enum OverrideFlags
     {
-        Multiply = (1 << 0), /** The original attribute value should be multiplied by the overridden values */
-        LastWins = (1 << 1), /** The original attribute value is overridden by the last requested override value */
+        Multiply = (1 << 0), /** The original attribute value should be multiplied by the overridden
+                                values */
+        LastWins = (1 << 1), /** The original attribute value is overridden by the last requested
+                                override value */
         Single   = (1 << 2)  /** Only one attribute override ID will be allowed */
     };
 
@@ -893,7 +895,8 @@ public:
      * @param max The attribute maximum value
      * @param value The attribute initial value
      */
-    int registerAttribute(QString name, int flags = Multiply, qreal min = 0.0, qreal max = 1.0, qreal value = 1.0);
+    int registerAttribute(QString name, int flags = Multiply, qreal min = 0.0, qreal max = 1.0,
+                          qreal value = 1.0);
 
     /**
      * Request a new attribute override ID. A Function will always return a new ID,

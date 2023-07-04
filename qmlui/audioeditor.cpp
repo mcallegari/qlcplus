@@ -54,7 +54,8 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     if (m_audio == nullptr || m_audio->getSourceFileName() == sourceFileName)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(), sourceFileName);
+    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(),
+                                      m_audio->getSourceFileName(), sourceFileName);
     m_audio->setSourceFileName(sourceFileName);
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
@@ -102,7 +103,8 @@ void AudioEditor::setLooped(bool looped)
 {
     if (m_audio != nullptr)
     {
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_audio->id(), m_audio->runOrder(),
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_audio->id(),
+                                          m_audio->runOrder(),
                                           looped ? Audio::Loop : Audio::SingleShot);
 
         if (looped)
@@ -127,7 +129,8 @@ void AudioEditor::setVolume(qreal volume)
     if (m_audio == nullptr)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::AudioSetVolume, m_audio->id(), m_audio->volume(), volume / 100.0);
+    Tardis::instance()->enqueueAction(Tardis::AudioSetVolume, m_audio->id(), m_audio->volume(),
+                                      volume / 100.0);
 
     m_audio->setVolume(volume / 100);
 

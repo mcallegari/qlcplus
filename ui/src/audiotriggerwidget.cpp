@@ -118,7 +118,8 @@ void AudioTriggerWidget::paintEvent(QPaintEvent *e)
     for (int i = 0; i < m_barsNumber; i++)
     {
         painter.setPen(QPen(Qt::NoPen));
-        painter.drawRect(xpos, m_spectrumHeight - m_spectrumBands[i], m_barWidth - 1, m_spectrumBands[i]);
+        painter.drawRect(xpos, m_spectrumHeight - m_spectrumBands[i], m_barWidth - 1,
+                         m_spectrumBands[i]);
         painter.setPen(QPen(Qt::lightGray, 1));
         painter.drawLine(xpos + m_barWidth, 0, xpos + m_barWidth, m_spectrumHeight - 2);
 
@@ -143,5 +144,6 @@ void AudioTriggerWidget::paintEvent(QPaintEvent *e)
 
     painter.setPen(QPen(Qt::NoPen));
     painter.setBrush(QBrush(Qt::green));
-    painter.drawRect(width() - m_barWidth + 1, m_spectrumHeight - m_volumeBarHeight, m_barWidth - 2, m_volumeBarHeight);
+    painter.drawRect(width() - m_barWidth + 1, m_spectrumHeight - m_volumeBarHeight, m_barWidth - 2,
+                     m_volumeBarHeight);
 }

@@ -303,7 +303,8 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             case Dimmer:
             {
                 int     dValue = value().toInt();
-                quint32 intCh  = fixture->type() == QLCFixtureDef::Dimmer ? 0 : fixture->masterIntensityChannel();
+                quint32 intCh =
+                    fixture->type() == QLCFixtureDef::Dimmer ? 0 : fixture->masterIntensityChannel();
 
                 if (intCh != QLCChannel::invalid())
                 {
@@ -797,8 +798,9 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
             doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
             break;
         case PanTilt:
-            doc->writeAttribute(KXMLQLCPaletteValue,
-                                QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
+            doc->writeAttribute(
+                KXMLQLCPaletteValue,
+                QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
             break;
         case Shutter:
             break;

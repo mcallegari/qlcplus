@@ -167,7 +167,8 @@ QTreeWidgetItem *FunctionWizard::getFixtureGroupItem(QString manufacturer, QStri
     for (int i = 0; i < m_fixtureTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_fixtureTree->topLevelItem(i);
-        if (item->text(KFixtureColumnManufacturer) == manufacturer && item->text(KFixtureColumnModel) == model)
+        if (item->text(KFixtureColumnManufacturer) == manufacturer
+            && item->text(KFixtureColumnModel) == model)
             return item;
     }
     // if we're here then the group doesn't exist. Create it
@@ -189,12 +190,14 @@ void FunctionWizard::addFixture(quint32 fxi_id)
 
     if (caps.join(", ").isEmpty())
     {
-        QMessageBox::warning(this, tr("Error"), tr("%1 has no capability supported by this wizard.").arg(fxi->name()));
+        QMessageBox::warning(this, tr("Error"),
+                             tr("%1 has no capability supported by this wizard.").arg(fxi->name()));
         return;
     }
     else
     {
-        QTreeWidgetItem *groupItem = getFixtureGroupItem(fxi->fixtureDef()->manufacturer(), fxi->fixtureDef()->model());
+        QTreeWidgetItem *groupItem =
+            getFixtureGroupItem(fxi->fixtureDef()->manufacturer(), fxi->fixtureDef()->model());
         Q_ASSERT(groupItem != NULL);
 
         QTreeWidgetItem *item = new QTreeWidgetItem(groupItem);
@@ -256,8 +259,8 @@ QList<quint32> FunctionWizard::fixtureIds() const
  * Functions
  ********************************************************************/
 
-void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetItem *grpItem, QString name,
-                                       PaletteGenerator::PaletteType type)
+void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetItem *grpItem,
+                                       QString name, PaletteGenerator::PaletteType type)
 {
     if (grpItem == NULL)
         return;
@@ -307,21 +310,27 @@ void FunctionWizard::updateAvailableFunctionsTree()
         {
             if (cap == KQLCChannelRGB || cap == KQLCChannelCMY)
             {
-                addFunctionsGroup(fxGrpItem, grpItem, PaletteGenerator::typetoString(PaletteGenerator::PrimaryColors),
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::PrimaryColors),
                                   PaletteGenerator::PrimaryColors);
-                addFunctionsGroup(fxGrpItem, grpItem, PaletteGenerator::typetoString(PaletteGenerator::SixteenColors),
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::SixteenColors),
                                   PaletteGenerator::SixteenColors);
-                addFunctionsGroup(fxGrpItem, grpItem, PaletteGenerator::typetoString(PaletteGenerator::Animation),
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::Animation),
                                   PaletteGenerator::Animation);
             }
             else if (cap == QLCChannel::groupToString(QLCChannel::Gobo))
-                addFunctionsGroup(fxGrpItem, grpItem, PaletteGenerator::typetoString(PaletteGenerator::Gobos),
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::Gobos),
                                   PaletteGenerator::Gobos);
             else if (cap == QLCChannel::groupToString(QLCChannel::Shutter))
-                addFunctionsGroup(fxGrpItem, grpItem, PaletteGenerator::typetoString(PaletteGenerator::Shutter),
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::Shutter),
                                   PaletteGenerator::Shutter);
             else if (cap == QLCChannel::groupToString(QLCChannel::Colour))
-                addFunctionsGroup(fxGrpItem, grpItem, PaletteGenerator::typetoString(PaletteGenerator::ColourMacro),
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::ColourMacro),
                                   PaletteGenerator::ColourMacro);
         }
     }
@@ -386,8 +395,9 @@ void FunctionWizard::updateResultFunctionsTree()
                 int subType = PaletteGenerator::All;
                 if (funcItem->checkState(KFunctionOddEven) == Qt::Checked)
                     subType = PaletteGenerator::OddEven;
-                PaletteGenerator *palette = new PaletteGenerator(m_doc, fxList, (PaletteGenerator::PaletteType)type,
-                                                                 (PaletteGenerator::PaletteSubType)subType);
+                PaletteGenerator *palette =
+                    new PaletteGenerator(m_doc, fxList, (PaletteGenerator::PaletteType)type,
+                                         (PaletteGenerator::PaletteSubType)subType);
                 m_paletteList.append(palette);
 
                 foreach (Scene *scene, palette->scenes())
@@ -458,7 +468,8 @@ void FunctionWizard::updateWidgetsTree()
             soloFrameItem = new QTreeWidgetItem(frame);
             soloFrameItem->setText(KWidgetName, tr("Presets solo frame"));
             soloFrameItem->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
-            soloFrameItem->setFlags(soloFrameItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+            soloFrameItem->setFlags(soloFrameItem->flags() | Qt::ItemIsUserCheckable
+                                    | Qt::ItemIsAutoTristate);
             soloFrameItem->setCheckState(KWidgetName, Qt::Unchecked);
             soloFrameItem->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
         }
@@ -521,7 +532,8 @@ void FunctionWizard::updateWidgetsTree()
     }
 }
 
-VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos, Function *func, int pType)
+VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
+                                       Function *func, int pType)
 {
     VirtualConsole *vc     = VirtualConsole::instance();
     VCWidget       *widget = NULL;
@@ -640,10 +652,12 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
     {
         QTreeWidgetItem *childItem = item->child(c);
 
-        if (childItem->checkState(KWidgetName) == Qt::Checked || childItem->checkState(KWidgetName) == Qt::PartiallyChecked)
+        if (childItem->checkState(KWidgetName) == Qt::Checked
+            || childItem->checkState(KWidgetName) == Qt::PartiallyChecked)
         {
             int       cType = childItem->data(KWidgetName, Qt::UserRole).toInt();
-            Function *func  = (Function *)childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+            Function *func =
+                (Function *)childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
 
             VCWidget *childWidget = createWidget(cType, parent, subX, subY, func, type);
             if (childWidget != NULL)
@@ -693,7 +707,8 @@ void FunctionWizard::addWidgetsToVirtualConsole()
     {
         QTreeWidgetItem *wItem = m_widgetsTree->topLevelItem(i);
 
-        if (wItem->checkState(KWidgetName) == Qt::Checked || wItem->checkState(KWidgetName) == Qt::PartiallyChecked)
+        if (wItem->checkState(KWidgetName) == Qt::Checked
+            || wItem->checkState(KWidgetName) == Qt::PartiallyChecked)
         {
             int       wType  = wItem->data(KWidgetName, Qt::UserRole).toInt();
             VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos);
@@ -701,8 +716,9 @@ void FunctionWizard::addWidgetsToVirtualConsole()
                 continue;
 
             widget->resize(QSize(1000, 1000));
-            PaletteGenerator *pal   = (PaletteGenerator *)wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
-            int               pType = pal->type();
+            PaletteGenerator *pal =
+                (PaletteGenerator *)wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+            int pType = pal->type();
 
             widget->setCaption(wItem->text(KWidgetName));
 

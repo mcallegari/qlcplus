@@ -212,7 +212,10 @@ void VCWidgetProperties_Test::save()
         }
         else
         {
-            QFAIL(QString("Unexpected widget property tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            QFAIL(QString("Unexpected widget property tag: %1")
+                      .arg(xmlReader.name().toString())
+                      .toUtf8()
+                      .constData());
         }
     }
 

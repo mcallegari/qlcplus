@@ -54,8 +54,8 @@ class ContextManager : public QObject
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
 
 public:
-    explicit ContextManager(QQuickView *view, Doc *doc, FixtureManager *fxMgr, FunctionManager *funcMgr,
-                            QObject *parent = 0);
+    explicit ContextManager(QQuickView *view, Doc *doc, FixtureManager *fxMgr,
+                            FunctionManager *funcMgr, QObject *parent = 0);
     ~ContextManager();
 
     /** Register/Unregister a context to the map of known contexts */
@@ -173,7 +173,8 @@ public:
     Q_INVOKABLE void toggleFixturesSelection();
 
     /** Select the fixtures that intersects the provided rectangle coordinates in a 2D environment */
-    Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height, int keyModifiers);
+    Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height,
+                                           int keyModifiers);
 
     /** Returns a list of the selected fixture addresses */
     Q_INVOKABLE QVariantList selectedFixtureAddress();
@@ -228,7 +229,8 @@ public:
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);
 
-    Q_INVOKABLE void setChannelValueByType(int type, int value, bool isRelative = false, quint32 channel = UINT_MAX);
+    Q_INVOKABLE void setChannelValueByType(int type, int value, bool isRelative = false,
+                                           quint32 channel = UINT_MAX);
 
     Q_INVOKABLE void setColorValue(QColor col, QColor wauv);
 

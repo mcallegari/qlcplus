@@ -194,8 +194,8 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem *item, Fixture *fixtur
         QString s;
         if (fixture->channels() > 1)
         {
-            item->setText(m_addressColumn,
-                          s.asprintf("%.3d - %.3d", fixture->address() + 1, fixture->address() + fixture->channels()));
+            item->setText(m_addressColumn, s.asprintf("%.3d - %.3d", fixture->address() + 1,
+                                                      fixture->address() + fixture->channels()));
         }
         else
         {
@@ -229,7 +229,8 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem *item, Fixture *fixtur
         for (int i = 0; i < fixture->heads(); i++)
         {
             QTreeWidgetItem *headItem = new QTreeWidgetItem(item);
-            headItem->setText(KColumnName, QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')));
+            headItem->setText(KColumnName,
+                              QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')));
             headItem->setData(KColumnName, PROP_HEAD, i);
             if (m_disabledHeads.contains(GroupHead(fixture->id(), i)) == true)
             {
@@ -262,7 +263,8 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem *item, Fixture *fixtur
             }
 
             cItem->setFlags(cItem->flags() | Qt::ItemIsUserCheckable);
-            if (m_channelsMask.length() > (int)(baseAddress + c) && m_channelsMask.at(baseAddress + c) == 1)
+            if (m_channelsMask.length() > (int)(baseAddress + c)
+                && m_channelsMask.at(baseAddress + c) == 1)
                 cItem->setCheckState(KColumnName, Qt::Checked);
             else
                 cItem->setCheckState(KColumnName, Qt::Unchecked);

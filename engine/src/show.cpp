@@ -257,7 +257,8 @@ void Show::moveTrack(Track *track, int direction)
             swapID = signedID;
     }
 
-    qDebug() << Q_FUNC_INFO << "Direction:" << direction << ", trackID:" << trkID << ", swapID:" << swapID;
+    qDebug() << Q_FUNC_INFO << "Direction:" << direction << ", trackID:" << trkID
+             << ", swapID:" << swapID;
     if (swapID == trkID || (direction > 0 && trkID == maxID))
         return;
 
@@ -321,7 +322,8 @@ bool Show::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ShowType))
     {
-        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString() << "is not a show";
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
+                   << "is not a show";
         return false;
     }
 

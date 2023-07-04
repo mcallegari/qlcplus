@@ -84,8 +84,8 @@ QKeySequence AssignHotKey::keySequence() const
 void AssignHotKey::keyPressEvent(QKeyEvent *event)
 {
     int key = event->key();
-    if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Alt || event->key() == Qt::Key_Shift
-        || event->key() == Qt::Key_Meta)
+    if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Alt
+        || event->key() == Qt::Key_Shift || event->key() == Qt::Key_Meta)
     {
         key = 0;
     }

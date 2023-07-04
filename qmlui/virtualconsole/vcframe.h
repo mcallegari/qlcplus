@@ -117,8 +117,8 @@ public:
      *  @param widgetSize the individual widget size in pixel
      *  @param soloFrame the type of Frame to create as container for the widget matrix
      */
-    Q_INVOKABLE void addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos, QSize matrixSize,
-                                     QSize widgetSize, bool soloFrame = false);
+    Q_INVOKABLE void addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos,
+                                     QSize matrixSize, QSize widgetSize, bool soloFrame = false);
 
     /** Add a list of widgets previously copied to the VC clipboard
      *
@@ -134,7 +134,8 @@ public:
      *      Ctrl: VC Cue List (only when dropping Chasers)
      *      None: VC Button
      *  $parent is used only to render the new widget */
-    Q_INVOKABLE void addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers);
+    Q_INVOKABLE void addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
+                                  int keyModifiers);
 
     /** Delete all the frame children */
     void deleteChildren();

@@ -68,7 +68,8 @@ void QHttpResponse::writeHeader(const char *field, const QString &value)
         m_connection->write("\r\n");
     }
     else
-        qWarning() << "QHttpResponse::writeHeader() Cannot write headers after response has finished.";
+        qWarning()
+            << "QHttpResponse::writeHeader() Cannot write headers after response has finished.";
 }
 
 void QHttpResponse::writeHeaders()
@@ -127,14 +128,17 @@ void QHttpResponse::writeHeaders()
     // Sun, 06 Nov 1994 08:49:37 GMT - RFC 822. Use QLocale::c() so english is used for month and
     // day.
     if (!m_sentDate)
-        writeHeader("Date", QLocale::c().toString(QDateTime::currentDateTimeUtc(), "ddd, dd MMM yyyy hh:mm:ss") + " GMT");
+        writeHeader("Date", QLocale::c().toString(QDateTime::currentDateTimeUtc(),
+                                                  "ddd, dd MMM yyyy hh:mm:ss")
+                                + " GMT");
 }
 
 void QHttpResponse::writeHead(int status)
 {
     if (m_finished)
     {
-        qWarning() << "QHttpResponse::writeHead() Cannot write headers after response has finished.";
+        qWarning()
+            << "QHttpResponse::writeHead() Cannot write headers after response has finished.";
         return;
     }
 

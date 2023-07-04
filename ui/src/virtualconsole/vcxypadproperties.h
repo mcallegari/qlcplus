@@ -61,8 +61,8 @@ private:
      * Fixtures page
      ********************************************************************/
 private:
-    void                  fillFixturesTree();
-    void                  updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
+    void fillFixturesTree();
+    void updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
     QList<VCXYPadFixture> selectedFixtures() const;
     QTreeWidgetItem      *fixtureItem(const VCXYPadFixture &fxi);
 

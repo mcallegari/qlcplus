@@ -46,7 +46,8 @@ bool AudioCaptureQt6::initialize()
     if (var.isValid() == true)
     {
         devName = var.toString();
-        foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+        foreach (const QAudioDeviceInfo &deviceInfo,
+                 QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
         {
             if (deviceInfo.deviceName() == devName)
             {

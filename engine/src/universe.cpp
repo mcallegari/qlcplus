@@ -129,7 +129,8 @@ ushort Universe::totalChannels()
 
 bool Universe::hasChanged()
 {
-    bool changed = memcmp(m_lastPostGMValues->constData(), m_postGMValues->constData(), m_usedChannels) != 0;
+    bool changed =
+        memcmp(m_lastPostGMValues->constData(), m_postGMValues->constData(), m_usedChannels) != 0;
     if (changed)
         memcpy(m_lastPostGMValues->data(), m_postGMValues->constData(), m_usedChannels);
     return changed;
@@ -226,8 +227,8 @@ QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority prio
         m_faders.insert(insertPos, fader);
     }
 
-    qDebug() << "Generic fader with priority" << fader->priority() << "registered at pos" << insertPos << ", count"
-             << m_faders.count();
+    qDebug() << "Generic fader with priority" << fader->priority() << "registered at pos"
+             << insertPos << ", count" << m_faders.count();
 
     return fader;
 }
@@ -264,7 +265,8 @@ void Universe::requestFaderPriority(QSharedPointer<GenericFader> fader, Universe
     if (newPos != pos)
     {
         m_faders.move(pos, newPos);
-        qDebug() << "Generic fader moved from" << pos << "to" << m_faders.indexOf(fader) << ". Count:" << m_faders.count();
+        qDebug() << "Generic fader moved from" << pos << "to" << m_faders.indexOf(fader)
+                 << ". Count:" << m_faders.count();
     }
 }
 
@@ -399,7 +401,8 @@ void Universe::applyPassthroughValues(int address, int range)
 
     for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
     {
-        if (static_cast<uchar>(m_postGMValues->at(i)) < static_cast<uchar>(m_passthroughValues->at(i))) // HTP merge
+        if (static_cast<uchar>(m_postGMValues->at(i))
+            < static_cast<uchar>(m_passthroughValues->at(i))) // HTP merge
         {
             (*m_postGMValues)[i] = (*m_passthroughValues)[i];
         }
@@ -571,8 +574,9 @@ bool Universe::isPatched()
 
 bool Universe::setInputPatch(QLCIOPlugin *plugin, quint32 input, QLCInputProfile *profile)
 {
-    qDebug() << "[Universe] setInputPatch - ID:" << m_id << ", plugin:" << ((plugin == NULL) ? "None" : plugin->name())
-             << ", input:" << input << ", profile:" << ((profile == NULL) ? "None" : profile->name());
+    qDebug() << "[Universe] setInputPatch - ID:" << m_id
+             << ", plugin:" << ((plugin == NULL) ? "None" : plugin->name()) << ", input:" << input
+             << ", profile:" << ((profile == NULL) ? "None" : profile->name());
     if (m_inputPatch == NULL)
     {
         if (plugin == NULL || input == QLCIOPlugin::invalidLine())
@@ -608,8 +612,8 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index)
     if (index < 0)
         return false;
 
-    qDebug() << "[Universe] setOutputPatch - ID:" << m_id << ", plugin:" << ((plugin == NULL) ? "None" : plugin->name())
-             << ", output:" << output;
+    qDebug() << "[Universe] setOutputPatch - ID:" << m_id
+             << ", plugin:" << ((plugin == NULL) ? "None" : plugin->name()) << ", output:" << output;
 
     // replace or delete an existing patch
     if (index < m_outputPatchList.count())
@@ -757,11 +761,11 @@ void Universe::connectInputPatch()
         return;
 
     if (!m_passthrough)
-        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)), this,
-                SIGNAL(inputValueChanged(quint32, quint32, uchar, QString)));
+        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)),
+                this, SIGNAL(inputValueChanged(quint32, quint32, uchar, QString)));
     else
-        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)), this,
-                SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString &)));
+        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)),
+                this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString &)));
 }
 
 void Universe::disconnectInputPatch()
@@ -770,11 +774,11 @@ void Universe::disconnectInputPatch()
         return;
 
     if (!m_passthrough)
-        disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)), this,
-                   SIGNAL(inputValueChanged(quint32, quint32, uchar, QString)));
+        disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)),
+                   this, SIGNAL(inputValueChanged(quint32, quint32, uchar, QString)));
     else
-        disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)), this,
-                   SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString &)));
+        disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString &)),
+                   this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString &)));
 }
 
 /************************************************************************
@@ -827,7 +831,8 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         }
     }
 
-    // qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
+    // qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" <<
+    // QString::number(m_channelsMask->at(channel), 16);
     if (channel >= m_totalChannels)
     {
         m_totalChannels        = channel + 1;
@@ -936,7 +941,8 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     if ((m_channelsMask->at(channel) & HTP) == false)
         (*m_blackoutValues)[channel] = char(value);
 
-    if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
+    if (forceLTP == false && (m_channelsMask->at(channel) & HTP)
+        && value < (uchar)m_preGMValues->at(channel))
     {
         qDebug() << "[Universe] HTP check not passed" << channel << value;
         return false;
@@ -994,7 +1000,8 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         case AdditiveBlend:
         {
             uchar currVal             = uchar(m_preGMValues->at(channel));
-            // qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
+            // qDebug() << "Universe write additive channel" << channel << ", value:" << currVal <<
+            // "+" << value;
             value                     = qMin(int(currVal) + value, 255);
             (*m_preGMValues)[channel] = char(value);
         }
@@ -1203,18 +1210,20 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
 
     if (inputPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(), inputPatch()->inputName(),
-                     inputPatch()->input(), inputPatch()->profileName(), inputPatch()->getPluginParameters());
+        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(),
+                     inputPatch()->inputName(), inputPatch()->input(), inputPatch()->profileName(),
+                     inputPatch()->getPluginParameters());
     }
     foreach (OutputPatch *op, m_outputPatchList)
     {
-        savePatchXML(doc, KXMLQLCUniverseOutputPatch, op->pluginName(), op->outputName(), op->output(), "",
-                     op->getPluginParameters());
+        savePatchXML(doc, KXMLQLCUniverseOutputPatch, op->pluginName(), op->outputName(),
+                     op->output(), "", op->getPluginParameters());
     }
     if (feedbackPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(), feedbackPatch()->outputName(),
-                     feedbackPatch()->output(), "", feedbackPatch()->getPluginParameters());
+        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(),
+                     feedbackPatch()->outputName(), feedbackPatch()->output(), "",
+                     feedbackPatch()->getPluginParameters());
     }
 
     /* End the <Universe> tag */
@@ -1223,8 +1232,9 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
     return true;
 }
 
-void Universe::savePatchXML(QXmlStreamWriter *doc, const QString &tag, const QString &pluginName, const QString &lineName,
-                            quint32 line, QString profileName, QMap<QString, QVariant> parameters) const
+void Universe::savePatchXML(QXmlStreamWriter *doc, const QString &tag, const QString &pluginName,
+                            const QString &lineName, quint32 line, QString profileName,
+                            QMap<QString, QVariant> parameters) const
 {
     // sanity check: don't save invalid data
     if (pluginName.isEmpty() || pluginName == KInputNone || line == QLCIOPlugin::invalidLine())

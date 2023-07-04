@@ -299,7 +299,8 @@ public:
     int adjustAttribute(qreal fraction, int attributeId);
 
     /** Adjust the intensities of chaser steps. */
-    void adjustStepIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
+    void adjustStepIntensity(qreal fraction, int stepIndex = -1,
+                             FadeControlMode fadeControl = FromFunction);
 };
 
 /** @} */

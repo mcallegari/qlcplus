@@ -226,10 +226,10 @@ void VCClock::setTargetTime(int ms)
 
 void VCClock::slotTimerTimeout()
 {
-    QDateTime currDate    = QDateTime::currentDateTime();
-    QTime     currTime    = currDate.time();
-    int       currDay     = 1 << (currDate.date().dayOfWeek() - 1);
-    int       dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
+    QDateTime currDate = QDateTime::currentDateTime();
+    QTime     currTime = currDate.time();
+    int       currDay  = 1 << (currDate.date().dayOfWeek() - 1);
+    int dayTimeSecs    = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
 
     // if we're editing or the widget is disabled, just emit the current time
     if (isEditing() || enableSchedule() == false)
@@ -280,7 +280,8 @@ void VCClock::slotTimerTimeout()
             // case #2: check for 'one shot' Functions with duration
             if (sch->stopTime() == -1 && sch->m_cachedDuration > 0)
             {
-                if (dayTimeSecs >= sch->startTime() + sch->m_cachedDuration && (sch->weekFlags() & 0x80) == 0)
+                if (dayTimeSecs >= sch->startTime() + sch->m_cachedDuration
+                    && (sch->weekFlags() & 0x80) == 0)
                     continue;
             }
 
@@ -424,8 +425,9 @@ bool VCClock::loadXML(QXmlStreamReader &root)
 
             if (attrs.hasAttribute(KXMLQLCVCClockTime))
             {
-                QTime tTime = QTime::fromString(attrs.value(KXMLQLCVCClockTime).toString(), "HH:mm:ss");
-                msTime      = tTime.msecsSinceStartOfDay() / 1000;
+                QTime tTime =
+                    QTime::fromString(attrs.value(KXMLQLCVCClockTime).toString(), "HH:mm:ss");
+                msTime = tTime.msecsSinceStartOfDay() / 1000;
             }
             else // LEGACY
             {
@@ -556,17 +558,20 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
 
         if (attrs.hasAttribute(KXMLQLCVCClockScheduleStartTime))
         {
-            QTime start = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleStartTime).toString(), "HH:mm:ss");
+            QTime start = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleStartTime).toString(),
+                                            "HH:mm:ss");
             setStartTime(start.msecsSinceStartOfDay() / 1000);
         }
         if (attrs.hasAttribute(KXMLQLCVCClockScheduleStopTime))
         {
-            QTime stop = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleStopTime).toString(), "HH:mm:ss");
+            QTime stop = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleStopTime).toString(),
+                                           "HH:mm:ss");
             setStopTime(stop.msecsSinceStartOfDay() / 1000);
         }
         if (attrs.hasAttribute(KXMLQLCVCClockScheduleTime)) // LEGACY
         {
-            QTime start = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss");
+            QTime start =
+                QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss");
             setStartTime(start.msecsSinceStartOfDay() / 1000);
         }
 

@@ -98,7 +98,8 @@ bool OutputPatch::reconnect()
         if (ret == true)
         {
             foreach (QString par, m_parametersCache.keys())
-                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, par, m_parametersCache[par]);
+                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, par,
+                                       m_parametersCache[par]);
         }
         return ret;
     }
@@ -120,7 +121,8 @@ QLCIOPlugin *OutputPatch::plugin() const
 
 QString OutputPatch::outputName() const
 {
-    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() && m_pluginLine < quint32(m_plugin->outputs().size()))
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine()
+        && m_pluginLine < quint32(m_plugin->outputs().size()))
     {
         return m_plugin->outputs()[m_pluginLine];
     }

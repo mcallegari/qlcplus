@@ -282,17 +282,21 @@ void VCXYPadArea::paintEvent(QPaintEvent *e)
 
     if (m_previewArea == NULL)
     {
-        QString title =
-            QString("%1%2%3\n%4\n").arg(windowTitle()).arg(windowTitle().isEmpty() ? "" : "\n").arg(positionString()).arg(angleString());
+        QString title = QString("%1%2%3\n%4\n")
+                            .arg(windowTitle())
+                            .arg(windowTitle().isEmpty() ? "" : "\n")
+                            .arg(positionString())
+                            .arg(angleString());
 
         /* Draw name (offset just a bit to avoid frame) */
-        p.drawText(1, 1, width() - 2, height() - 2, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, title);
+        p.drawText(1, 1, width() - 2, height() - 2, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+                   title);
 
         QFont font = p.font();
         font.setPointSize(font.pointSize() - 2);
         p.setFont(font);
-        p.drawText(1, 1, width() - 2, height() - 2, Qt::AlignRight | Qt::AlignBottom | Qt::TextWordWrap,
-                   tr("Shift: fine, Ctrl:10x"));
+        p.drawText(1, 1, width() - 2, height() - 2,
+                   Qt::AlignRight | Qt::AlignBottom | Qt::TextWordWrap, tr("Shift: fine, Ctrl:10x"));
     }
     /* Draw crosshairs to indicate the center position */
     pen.setStyle(Qt::DotLine);
@@ -322,12 +326,13 @@ void VCXYPadArea::paintEvent(QPaintEvent *e)
             pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
             pt.setY(SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(height())));
 
-            p.drawPixmap(pt.x() - (m_fixturePixmap.width() / 2), pt.y() - (m_fixturePixmap.height() / 2), m_fixturePixmap);
+            p.drawPixmap(pt.x() - (m_fixturePixmap.width() / 2),
+                         pt.y() - (m_fixturePixmap.height() / 2), m_fixturePixmap);
         }
 
         /* Draw the current point pixmap */
-        p.drawPixmap(m_windowPos.x() - (m_activePixmap.width() / 2), m_windowPos.y() - (m_activePixmap.height() / 2),
-                     m_activePixmap);
+        p.drawPixmap(m_windowPos.x() - (m_activePixmap.width() / 2),
+                     m_windowPos.y() - (m_activePixmap.height() / 2), m_activePixmap);
     }
 }
 

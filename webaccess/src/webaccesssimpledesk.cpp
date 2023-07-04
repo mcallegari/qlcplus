@@ -43,18 +43,21 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     JScode += "var channelsPerPage = " + QString::number(sd->getSlidersNumber()) + ";\n";
     JScode += "</script>\n";
 
-    QString CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"common.css\">\n";
-    CSScode += "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"simpledesk.css\">\n";
+    QString CSScode =
+        "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"common.css\">\n";
+    CSScode +=
+        "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"simpledesk.css\">\n";
 
-    QString bodyHTML = "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>"
-                       + tr("Back")
-                       + "</span></a>\n"
-                         "<a class=\"button button-blue\" href=\"/keypad.html\"><span>DMX Keypad</span></a>\n"
-                         "<div class=\"swInfo\">"
-                       + QString(APPNAME) + " " + QString(APPVERSION)
-                       + "</div>"
-                         "</div>\n";
+    QString bodyHTML =
+        "<div class=\"controlBar\">\n"
+        "<a class=\"button button-blue\" href=\"/\"><span>"
+        + tr("Back")
+        + "</span></a>\n"
+          "<a class=\"button button-blue\" href=\"/keypad.html\"><span>DMX Keypad</span></a>\n"
+          "<div class=\"swInfo\">"
+        + QString(APPNAME) + " " + QString(APPVERSION)
+        + "</div>"
+          "</div>\n";
 
     bodyHTML += "<div style=\"margin: 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; "
                 "color: #fff;\">\n";
@@ -64,9 +67,10 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
                 + tr("Previous page") + "\" width=\"27\" ></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block;\">";
-    bodyHTML += "<div id=\"pageDiv\" style=\"vertical-align: middle; text-align: center; color: #000;"
-                "width: 50px; background-color: #888; border-radius: 6px;\">"
-                + QString::number(page) + "</div></div>\n";
+    bodyHTML +=
+        "<div id=\"pageDiv\" style=\"vertical-align: middle; text-align: center; color: #000;"
+        "width: 50px; background-color: #888; border-radius: 6px;\">"
+        + QString::number(page) + "</div></div>\n";
 
     bodyHTML += "<a class=\"sdButton\" href=\"javascript:nextPage();\">\n"
                 "<img src=\"forward.png\" title=\""
@@ -96,7 +100,8 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     return str;
 }
 
-QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd, quint32 universe, int startAddr, int chNumber)
+QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd, quint32 universe,
+                                                int startAddr, int chNumber)
 {
     QString message;
     quint32 universeAddr = (universe << 9);
@@ -115,7 +120,8 @@ QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd, quint3
                 if (ch->group() == QLCChannel::Intensity)
                 {
                     QString hexCol;
-                    type = QString("%1.#%2").arg(ch->group()).arg(hexCol.asprintf("%06X", ch->colour()));
+                    type =
+                        QString("%1.#%2").arg(ch->group()).arg(hexCol.asprintf("%06X", ch->colour()));
                 }
                 else
                     type = QString::number(ch->group());

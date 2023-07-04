@@ -46,7 +46,8 @@ CollectionEditor::CollectionEditor(QWidget *parent, Collection *fc, Doc *doc)
 
     setupUi(this);
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAdd()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
     connect(m_moveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()));

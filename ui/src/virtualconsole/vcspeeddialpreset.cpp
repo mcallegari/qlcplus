@@ -49,9 +49,10 @@ VCSpeedDialPreset &VCSpeedDialPreset::operator=(const VCSpeedDialPreset &preset)
 
         if (preset.m_inputSource != NULL)
         {
-            m_inputSource = QSharedPointer<QLCInputSource>(
-                new QLCInputSource(preset.m_inputSource->universe(), preset.m_inputSource->channel()));
-            m_inputSource->setRange(preset.m_inputSource->lowerValue(), preset.m_inputSource->upperValue());
+            m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(
+                preset.m_inputSource->universe(), preset.m_inputSource->channel()));
+            m_inputSource->setRange(preset.m_inputSource->lowerValue(),
+                                    preset.m_inputSource->upperValue());
         }
     }
     return *this;

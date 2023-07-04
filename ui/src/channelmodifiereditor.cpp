@@ -48,7 +48,8 @@ ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget
     m_deleteHandlerButton->setEnabled(false);
 
     connect(m_view, SIGNAL(itemClicked(uchar, uchar)), this, SLOT(slotHandlerClicked(uchar, uchar)));
-    connect(m_view, SIGNAL(itemDMXMapChanged(uchar, uchar)), this, SLOT(slotItemDMXChanged(uchar, uchar)));
+    connect(m_view, SIGNAL(itemDMXMapChanged(uchar, uchar)), this,
+            SLOT(slotItemDMXChanged(uchar, uchar)));
     connect(m_view, SIGNAL(viewClicked(QMouseEvent *)), this, SLOT(slotViewClicked()));
 
     connect(m_templatesTree, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelectionChanged()));
@@ -166,10 +167,11 @@ void ChannelModifierEditor::slotSaveClicked()
     if (modifier != NULL && modifier->type() == ChannelModifier::SystemTemplate)
     {
         // cannot overwrite a system template !
-        QMessageBox::critical(this, tr("Error"),
-                              tr("You are trying to overwrite a system template! Please choose another name "
-                                 "and the template will be saved in your channel modifier's user folder."),
-                              QMessageBox::Close);
+        QMessageBox::critical(
+            this, tr("Error"),
+            tr("You are trying to overwrite a system template! Please choose another name "
+               "and the template will be saved in your channel modifier's user folder."),
+            QMessageBox::Close);
         return;
     }
 

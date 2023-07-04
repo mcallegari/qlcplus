@@ -247,9 +247,10 @@ void MonitorFixtureItem_Test::computeAlpha_data()
                                          << "Sunstrip Active"
                                          << "5 Channels Mode" << QLCChannel::invalid() << 0u << 1u;
 
-    QTest::newRow("4 heads with dimmer and RGB") << "American DJ"
-                                                 << "Quad Scan LED"
-                                                 << "28 Channels mode" << QLCChannel::invalid() << 5u << 12u;
+    QTest::newRow("4 heads with dimmer and RGB")
+        << "American DJ"
+        << "Quad Scan LED"
+        << "28 Channels mode" << QLCChannel::invalid() << 5u << 12u;
 
     QTest::newRow("Master dimmer and 4 heads with dimmer") << "American DJ"
                                                            << "Event Bar LED"
@@ -260,9 +261,10 @@ void MonitorFixtureItem_Test::computeAlpha_data()
         << "Mega Bar LED"
         << "11 Channels" << 10u << QLCChannel::invalid() << QLCChannel::invalid();
 
-    QTest::newRow("Master dimmer and 4 heads with dimmer and RGB") << "ADB"
-                                                                   << "ALC4"
-                                                                   << "Extended 21 Channels (CT Linear)" << 0u << 1u << 6u;
+    QTest::newRow("Master dimmer and 4 heads with dimmer and RGB")
+        << "ADB"
+        << "ALC4"
+        << "Extended 21 Channels (CT Linear)" << 0u << 1u << 6u;
 
     QTest::newRow("4 RGB heads") << "American DJ"
                                  << "Dotz Bar 1.4"

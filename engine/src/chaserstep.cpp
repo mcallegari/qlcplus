@@ -220,7 +220,8 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int &stepNumber, Doc *doc)
                 for (int i = 0; i < varray.count(); i += 2)
                 {
                     quint32    chIndex = QString(varray.at(i)).toUInt();
-                    SceneValue scv     = SceneValue(fxID, chIndex, uchar(QString(varray.at(i + 1)).toInt()));
+                    SceneValue scv =
+                        SceneValue(fxID, chIndex, uchar(QString(varray.at(i + 1)).toInt()));
 
                     while (sIdx < values.count())
                     {

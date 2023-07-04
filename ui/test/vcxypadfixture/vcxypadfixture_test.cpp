@@ -93,7 +93,8 @@ void VCXYPadFixture_Test::params()
     QCOMPARE(fxi.xBrief(), QString("%1: %2% - %3%").arg(tr("Reversed")).arg(100 * 0.35).arg(100 * 0.2));
 
     fxi.setDisplayMode(VCXYPadFixture::DMX);
-    QCOMPARE(fxi.xBrief(), QString("%1: %2 - %3").arg(tr("Reversed")).arg(qRound(255 * 0.35)).arg(qRound(255 * 0.2)));
+    QCOMPARE(fxi.xBrief(),
+             QString("%1: %2 - %3").arg(tr("Reversed")).arg(qRound(255 * 0.35)).arg(qRound(255 * 0.2)));
 
     fxi.setY(0.1, 0.8, false);
     fxi.setDisplayMode(VCXYPadFixture::Percentage);
@@ -111,7 +112,8 @@ void VCXYPadFixture_Test::params()
     QCOMPARE(fxi.yBrief(), QString("%1: %2% - %3%").arg(tr("Reversed")).arg(100 * 0.8).arg(100 * 0.1));
 
     fxi.setDisplayMode(VCXYPadFixture::DMX);
-    QCOMPARE(fxi.yBrief(), QString("%1: %2 - %3").arg(tr("Reversed")).arg(qRound(255 * 0.8)).arg(qRound(255 * 0.1)));
+    QCOMPARE(fxi.yBrief(),
+             QString("%1: %2 - %3").arg(tr("Reversed")).arg(qRound(255 * 0.8)).arg(qRound(255 * 0.1)));
 }
 
 void VCXYPadFixture_Test::paramsDegrees()

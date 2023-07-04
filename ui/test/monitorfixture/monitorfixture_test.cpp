@@ -195,8 +195,8 @@ void MonitorFixture_Test::channelValueStyles()
 
         QVERIFY(mof.m_valueLabels[i] != NULL);
         QCOMPARE(mof.m_valueLabels[i]->text(),
-                 str.asprintf("%.3d",
-                              (int)ceil(SCALE(qreal((i + 1) * 10), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100)))));
+                 str.asprintf("%.3d", (int)ceil(SCALE(qreal((i + 1) * 10), qreal(0),
+                                                      qreal(UCHAR_MAX), qreal(0), qreal(100)))));
     }
 }
 
@@ -231,7 +231,8 @@ void MonitorFixture_Test::updateValues()
     {
         QString str;
         QCOMPARE(mof.m_valueLabels[i]->text(),
-                 str.asprintf("%.3d", int(ceil(SCALE(qreal(127 + i), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))))));
+                 str.asprintf("%.3d", int(ceil(SCALE(qreal(127 + i), qreal(0), qreal(UCHAR_MAX),
+                                                     qreal(0), qreal(100))))));
     }
 }
 

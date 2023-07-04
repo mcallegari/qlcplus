@@ -182,7 +182,8 @@ void VCFrameProperties::slotPageComboChanged(int index)
     if (index >= 0 && index < m_shortcuts.count() && m_shortcuts[index] != NULL)
     {
         m_shortcutInputWidget->setInputSource(m_shortcuts[index]->m_inputSource);
-        m_shortcutInputWidget->setKeySequence(m_shortcuts[index]->m_keySequence.toString(QKeySequence::NativeText));
+        m_shortcutInputWidget->setKeySequence(
+            m_shortcuts[index]->m_keySequence.toString(QKeySequence::NativeText));
         m_pageName->setText(m_shortcuts[index]->name());
     }
 }
@@ -211,7 +212,8 @@ void VCFrameProperties::slotTotalPagesNumberChanged(int number)
     else
     {
         int newIndex = m_shortcuts.count();
-        m_shortcuts.append(new VCFramePageShortcut(newIndex, VCFrame::shortcutsBaseInputSourceId + newIndex));
+        m_shortcuts.append(
+            new VCFramePageShortcut(newIndex, VCFrame::shortcutsBaseInputSourceId + newIndex));
         m_pageCombo->addItem(m_shortcuts.last()->name());
     }
 }

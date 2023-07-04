@@ -87,7 +87,8 @@ ShowRunner::ShowRunner(const Doc *doc, quint32 showID, quint32 startTime)
 #if 1
     qDebug() << "Ordered list of ShowFunctions:";
     foreach (ShowFunction *sfunc, m_functions)
-        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
+        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime()
+                 << "dur:" << sfunc->duration(m_doc);
 #endif
     m_runningQueue.clear();
 
@@ -160,7 +161,8 @@ void ShowRunner::write()
             {
                 if (track->showFunctions().contains(sf))
                 {
-                    int intOverrideId = f->requestAttributeOverride(Function::Intensity, m_intensityMap[track->id()]);
+                    int intOverrideId =
+                        f->requestAttributeOverride(Function::Intensity, m_intensityMap[track->id()]);
                     // f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
                     sf->setIntensityOverrideId(intOverrideId);
                     break;

@@ -46,8 +46,8 @@
  * Initialization
  ****************************************************************************/
 
-InputChannelEditor::InputChannelEditor(QWidget *parent, const QLCInputProfile *profile, const QLCInputChannel *channel,
-                                       QLCInputProfile::Type profileType)
+InputChannelEditor::InputChannelEditor(QWidget *parent, const QLCInputProfile *profile,
+                                       const QLCInputChannel *channel, QLCInputProfile::Type profileType)
     : QDialog(parent)
 {
     m_channel = 0;
@@ -63,8 +63,10 @@ InputChannelEditor::InputChannelEditor(QWidget *parent, const QLCInputProfile *p
     /* Connect to these already now so that the handlers get called
        during initialization. */
     connect(m_numberSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumberChanged(int)));
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
-    connect(m_typeCombo, SIGNAL(activated(const QString &)), this, SLOT(slotTypeActivated(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
+    connect(m_typeCombo, SIGNAL(activated(const QString &)), this,
+            SLOT(slotTypeActivated(const QString &)));
 
     /* Fill type combo with type icons and names */
     QStringListIterator it(QLCInputChannel::types());

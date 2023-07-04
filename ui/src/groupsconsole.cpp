@@ -74,7 +74,8 @@ void GroupsConsole::init()
             layout()->addWidget(cc);
             m_groups.append(cc);
 
-            connect(cc, SIGNAL(groupValueChanged(quint32, uchar)), this, SIGNAL(groupValueChanged(quint32, uchar)));
+            connect(cc, SIGNAL(groupValueChanged(quint32, uchar)), this,
+                    SIGNAL(groupValueChanged(quint32, uchar)));
             idx++;
         }
     }

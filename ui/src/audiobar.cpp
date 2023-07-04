@@ -280,8 +280,8 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                         QStringList       varray = dmxValues.split(",");
                         for (int i = 0; i < varray.count(); i += 2)
                         {
-                            channels.append(
-                                SceneValue(QString(varray.at(i)).toUInt(), QString(varray.at(i + 1)).toUInt(), 0));
+                            channels.append(SceneValue(QString(varray.at(i)).toUInt(),
+                                                       QString(varray.at(i + 1)).toUInt(), 0));
                         }
                         attachDmxChannels(doc, channels);
                     }

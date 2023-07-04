@@ -92,7 +92,8 @@ public:
      * @param author The file's author (overridden by current user name if empty)
      * @return true on success, false on failure
      */
-    static bool writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author = QString());
+    static bool writeXMLHeader(QXmlStreamWriter *xml, const QString &content,
+                               const QString &author = QString());
 
     /**
      * Get a string that gives a textual description for the given file

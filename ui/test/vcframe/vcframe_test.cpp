@@ -337,7 +337,10 @@ void VCFrame_Test::saveXML()
                         }
                         else
                         {
-                            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+                            QFAIL(QString("Unexpected tag: %1")
+                                      .arg(xmlReader.name().toString())
+                                      .toUtf8()
+                                      .constData());
                         }
                     }
                 }
@@ -397,8 +400,8 @@ void VCFrame_Test::handleWidgetSelection()
     VCFrame *frame = VirtualConsole::instance()->contents();
     QVERIFY(frame->isBottomFrame() == true);
 
-    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0), Qt::LeftButton, Qt::LeftButton,
-                   Qt::NoModifier);
+    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
+                   Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     frame->handleWidgetSelection(&ev);
 
     // Select bottom frame (->no selection)
@@ -419,8 +422,8 @@ void VCFrame_Test::handleWidgetSelection()
 void VCFrame_Test::mouseMoveEvent()
 {
     // Well, there isn't much that can be checked here... Actual moving happens in VCWidget.
-    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0), Qt::LeftButton, Qt::LeftButton,
-                   Qt::NoModifier);
+    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
+                   Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
 
     QWidget w;
     VCFrame frame(&w, m_doc);

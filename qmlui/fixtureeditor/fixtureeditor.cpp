@@ -40,10 +40,14 @@ FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_lastId(0)
 {
     m_view->rootContext()->setContextProperty("fixtureEditor", this);
-    qmlRegisterUncreatableType<EditorView>("org.qlcplus.classes", 1, 0, "EditorRef", "Can't create EditorView!");
-    qmlRegisterUncreatableType<PhysicalEdit>("org.qlcplus.classes", 1, 0, "PhysicalEdit", "Can't create PhysicalEdit!");
-    qmlRegisterUncreatableType<ChannelEdit>("org.qlcplus.classes", 1, 0, "ChannelEdit", "Can't create ChannelEdit!");
-    qmlRegisterUncreatableType<ModeEdit>("org.qlcplus.classes", 1, 0, "ModeEdit", "Can't create ModeEdit!");
+    qmlRegisterUncreatableType<EditorView>("org.qlcplus.classes", 1, 0, "EditorRef",
+                                           "Can't create EditorView!");
+    qmlRegisterUncreatableType<PhysicalEdit>("org.qlcplus.classes", 1, 0, "PhysicalEdit",
+                                             "Can't create PhysicalEdit!");
+    qmlRegisterUncreatableType<ChannelEdit>("org.qlcplus.classes", 1, 0, "ChannelEdit",
+                                            "Can't create ChannelEdit!");
+    qmlRegisterUncreatableType<ModeEdit>("org.qlcplus.classes", 1, 0, "ModeEdit",
+                                         "Can't create ModeEdit!");
 
     QSettings settings;
     QVariant  dir = settings.value(SETTINGS_DEF_WORKINGPATH);

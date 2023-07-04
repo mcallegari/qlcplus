@@ -49,8 +49,10 @@ AddressTool::AddressTool(QWidget *parent, int presetValue)
 
     connect(ui->m_addressSpin, SIGNAL(valueChanged(int)), m_dipSwitch, SLOT(slotSetValue(int)));
     connect(m_dipSwitch, SIGNAL(valueChanged(int)), ui->m_addressSpin, SLOT(setValue(int)));
-    connect(ui->m_reverseVertCheck, SIGNAL(toggled(bool)), m_dipSwitch, SLOT(slotReverseVertically(bool)));
-    connect(ui->m_reverseHorizCheck, SIGNAL(toggled(bool)), m_dipSwitch, SLOT(slotReverseHorizontally(bool)));
+    connect(ui->m_reverseVertCheck, SIGNAL(toggled(bool)), m_dipSwitch,
+            SLOT(slotReverseVertically(bool)));
+    connect(ui->m_reverseHorizCheck, SIGNAL(toggled(bool)), m_dipSwitch,
+            SLOT(slotReverseHorizontally(bool)));
 }
 
 AddressTool::~AddressTool()

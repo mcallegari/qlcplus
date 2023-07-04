@@ -30,7 +30,8 @@ QHttpRequest::QHttpRequest(QHttpConnection *connection, QObject *parent)
     , m_url("http://localhost/")
     , m_success(false)
 {
-    connect(this, SIGNAL(data(const QByteArray &)), this, SLOT(appendBody(const QByteArray &)), Qt::UniqueConnection);
+    connect(this, SIGNAL(data(const QByteArray &)), this, SLOT(appendBody(const QByteArray &)),
+            Qt::UniqueConnection);
 }
 
 QHttpRequest::~QHttpRequest() {}
@@ -82,7 +83,8 @@ quint16 QHttpRequest::remotePort() const
 
 void QHttpRequest::storeBody()
 {
-    connect(this, SIGNAL(data(const QByteArray &)), this, SLOT(appendBody(const QByteArray &)), Qt::UniqueConnection);
+    connect(this, SIGNAL(data(const QByteArray &)), this, SLOT(appendBody(const QByteArray &)),
+            Qt::UniqueConnection);
 }
 
 QString QHttpRequest::MethodToString(HttpMethod method)

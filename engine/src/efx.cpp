@@ -274,7 +274,8 @@ void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOf
     }
 }
 
-void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const
+void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x,
+                         float *y) const
 {
     iterator = calculateDirection(direction, iterator);
     iterator += convertOffset(startOffset + getAttributeValue(StartOffset));

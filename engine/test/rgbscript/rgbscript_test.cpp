@@ -240,8 +240,9 @@ void RGBScript_Test::rgbMap()
 
 void RGBScript_Test::runScripts()
 {
-    QSize mapSize     = QSize(7, 11);  // Use different numbers for x and y for the test
-    QSize mapSizePlus = QSize(12, 22); // Prepare a larger matrix to check behaviour on matrix change
+    QSize mapSize     = QSize(7, 11); // Use different numbers for x and y for the test
+    QSize mapSizePlus = QSize(12,
+                              22); // Prepare a larger matrix to check behaviour on matrix change
     // QColor(Qt::red).rgb() is 0xffff0000 due to the alpha channel
     // This test also wants to test that there is no color space overrun.
     int   red         = 0xff0000;
@@ -309,8 +310,8 @@ void RGBScript_Test::runScripts()
                     //     uint pxr = (map[y][x] >> 16 & 0x000000ff);
                     //     uint pxg = (map[y][x] >> 8 & 0x000000ff);
                     //     uint pxb = (map[y][x] & 0x000000ff);
-                    //     qDebug() << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " ("
-                    //     << Qt::hex << map[y][x]<< ")";
+                    //     qDebug() << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" <<
+                    //     Qt::hex << pxb << " (" << Qt::hex << map[y][x]<< ")";
                     // }
                     QVERIFY(rgbMap[y][x] <= 0xffffff);
                 }
@@ -321,7 +322,8 @@ void RGBScript_Test::runScripts()
         RGBMap rgbRefMap;
         if (1 < s.acceptColors() && 2 < steps && !randomScript)
         {
-            // When more than 2 colors are accepted, the steps shall be reproducible to allow back and forth color fade.
+            // When more than 2 colors are accepted, the steps shall be reproducible to allow back
+            // and forth color fade.
             s.rgbMap(mapSizePlus, red, 0, rgbRefMap);
         }
         // Switch to the larger map and step a few times.
@@ -372,8 +374,10 @@ void RGBScript_Test::runScripts()
                 QList<RGBScriptProperty> properties = s.properties();
                 qDebug() << property.m_name;
                 // Unknown, new and RGBScriptProperty::None are not valid
-                QVERIFY(property.m_type == RGBScriptProperty::List || property.m_type == RGBScriptProperty::Range
-                        || property.m_type == RGBScriptProperty::Integer || property.m_type == RGBScriptProperty::String);
+                QVERIFY(property.m_type == RGBScriptProperty::List
+                        || property.m_type == RGBScriptProperty::Range
+                        || property.m_type == RGBScriptProperty::Integer
+                        || property.m_type == RGBScriptProperty::String);
                 // Check property specificities
                 switch (property.m_type)
                 {
@@ -410,7 +414,8 @@ void RGBScript_Test::runScripts()
                         QVERIFY(property.m_rangeMinValue < property.m_rangeMaxValue);
                         // Verify the default value is in the valid range
                         qDebug() << "  Default: " << s.property(property.m_name).toInt()
-                                 << " Min: " << property.m_rangeMinValue << " Max: " << property.m_rangeMaxValue;
+                                 << " Min: " << property.m_rangeMinValue
+                                 << " Max: " << property.m_rangeMaxValue;
                         QVERIFY(s.property(property.m_name).toInt() >= property.m_rangeMinValue);
                         QVERIFY(s.property(property.m_name).toInt() <= property.m_rangeMaxValue);
                         // test with min and max value from the list
@@ -418,7 +423,8 @@ void RGBScript_Test::runScripts()
 
                         s.setProperty(property.m_name, QString::number(property.m_rangeMinValue));
                         qDebug() << "  Readback" << s.property(property.m_name);
-                        QVERIFY(s.property(property.m_name) == QString::number(property.m_rangeMinValue));
+                        QVERIFY(s.property(property.m_name)
+                                == QString::number(property.m_rangeMinValue));
                         for (int step = 0; step < realsteps; step++)
                         {
                             RGBMap map;
@@ -436,7 +442,8 @@ void RGBScript_Test::runScripts()
                         qDebug() << property.m_name << QString::number(property.m_rangeMaxValue);
                         s.setProperty(property.m_name, QString::number(property.m_rangeMaxValue));
                         qDebug() << "  Readback: " << s.property(property.m_name);
-                        QVERIFY(s.property(property.m_name) == QString::number(property.m_rangeMaxValue));
+                        QVERIFY(s.property(property.m_name)
+                                == QString::number(property.m_rangeMaxValue));
                         for (int step = 0; step < realsteps; step++)
                         {
                             RGBMap map;

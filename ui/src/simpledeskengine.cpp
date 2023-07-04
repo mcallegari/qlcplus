@@ -278,7 +278,8 @@ bool SimpleDeskEngine::saveXML(QXmlStreamWriter *doc) const
  * DMXSource
  ****************************************************************************/
 
-FadeChannel *SimpleDeskEngine::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+FadeChannel *SimpleDeskEngine::getFader(QList<Universe *> universes, quint32 universeID,
+                                        quint32 fixtureID, quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
@@ -308,7 +309,8 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 
                 ua[universe]->reset(0, 512);
 
-                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                QSharedPointer<GenericFader> fader =
+                    m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (!fader.isNull())
                 {
                     // loop through all active fadechannels and restore defualt values
@@ -324,9 +326,10 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                             const QLCChannel *ch = fixture->channel(chIndex);
                             if (ch != NULL)
                             {
-                                qDebug() << "Restoring default value of fixture" << fixture->id() << "channel"
-                                         << chIndex << "value" << ch->defaultValue();
-                                ua[universe]->setChannelDefaultValue(fixture->address() + chIndex, ch->defaultValue());
+                                qDebug() << "Restoring default value of fixture" << fixture->id()
+                                         << "channel" << chIndex << "value" << ch->defaultValue();
+                                ua[universe]->setChannelDefaultValue(fixture->address() + chIndex,
+                                                                     ch->defaultValue());
                             }
                         }
                     }
@@ -338,7 +341,8 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             {
                 quint32                      channel  = command.second;
                 quint32                      universe = channel >> 9;
-                QSharedPointer<GenericFader> fader    = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                QSharedPointer<GenericFader> fader =
+                    m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (!fader.isNull())
                 {
                     FadeChannel fc(m_doc, Fixture::invalidId(), channel);
@@ -351,8 +355,8 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                         const QLCChannel *ch = fixture->channel(chIndex);
                         if (ch != NULL)
                         {
-                            qDebug() << "Restoring default value of fixture" << fixture->id() << "channel" << chIndex
-                                     << "value" << ch->defaultValue();
+                            qDebug() << "Restoring default value of fixture" << fixture->id()
+                                     << "channel" << chIndex << "value" << ch->defaultValue();
                             ua[universe]->setChannelDefaultValue(channel, ch->defaultValue());
                         }
                     }

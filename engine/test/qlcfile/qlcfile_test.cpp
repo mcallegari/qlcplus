@@ -116,8 +116,10 @@ void QLCFile_Test::getXMLHeader()
 void QLCFile_Test::errorString()
 {
     QCOMPARE(QLCFile::errorString(QFile::NoError), tr("No error occurred."));
-    QCOMPARE(QLCFile::errorString(QFile::ReadError), tr("An error occurred when reading from the file."));
-    QCOMPARE(QLCFile::errorString(QFile::WriteError), tr("An error occurred when writing to the file."));
+    QCOMPARE(QLCFile::errorString(QFile::ReadError),
+             tr("An error occurred when reading from the file."));
+    QCOMPARE(QLCFile::errorString(QFile::WriteError),
+             tr("An error occurred when writing to the file."));
     QCOMPARE(QLCFile::errorString(QFile::FatalError), tr("A fatal error occurred."));
     QCOMPARE(QLCFile::errorString(QFile::ResourceError), tr("Resource error occurred."));
     QCOMPARE(QLCFile::errorString(QFile::OpenError), tr("The file could not be opened."));
@@ -126,7 +128,8 @@ void QLCFile_Test::errorString()
     QCOMPARE(QLCFile::errorString(QFile::UnspecifiedError), tr("An unspecified error occurred."));
     QCOMPARE(QLCFile::errorString(QFile::RemoveError), tr("The file could not be removed."));
     QCOMPARE(QLCFile::errorString(QFile::RenameError), tr("The file could not be renamed."));
-    QCOMPARE(QLCFile::errorString(QFile::PositionError), tr("The position in the file could not be changed."));
+    QCOMPARE(QLCFile::errorString(QFile::PositionError),
+             tr("The position in the file could not be changed."));
     QCOMPARE(QLCFile::errorString(QFile::ResizeError), tr("The file could not be resized."));
     QCOMPARE(QLCFile::errorString(QFile::PermissionsError), tr("The file could not be accessed."));
     QCOMPARE(QLCFile::errorString(QFile::CopyError), tr("The file could not be copied."));

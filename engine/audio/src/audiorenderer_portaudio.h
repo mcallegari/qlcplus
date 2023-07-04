@@ -63,8 +63,9 @@ protected:
     void resume();
 
 private:
-    static int dataCallback(const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
-                            const PaStreamCallbackTimeInfo *timeInfo, PaStreamCallbackFlags statusFlags, void *userData);
+    static int dataCallback(const void *inputBuffer, void *outputBuffer,
+                            unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo *timeInfo,
+                            PaStreamCallbackFlags statusFlags, void *userData);
 
     PaStream  *m_paStream;
     QMutex     m_paMutex;

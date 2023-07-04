@@ -137,8 +137,9 @@ void InputOutputManager::addUniverse()
     m_ioMap->startUniverses();
 
     quint32 uniID = m_ioMap->universes().last()->id();
-    Tardis::instance()->enqueueAction(Tardis::IOAddUniverse, uniID, QVariant(),
-                                      Tardis::instance()->actionToByteArray(Tardis::IOAddUniverse, uniID));
+    Tardis::instance()->enqueueAction(
+        Tardis::IOAddUniverse, uniID, QVariant(),
+        Tardis::instance()->actionToByteArray(Tardis::IOAddUniverse, uniID));
 
     emit universesChanged();
     emit universeNamesChanged();
@@ -178,20 +179,21 @@ void InputOutputManager::removeLastUniverse()
             quint16 linkedIndex = mProps->fixtureLinkedIndex(subID);
 
             // delete the fixture monitor properties
-            Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fixture->id(),
-                                              QVariant(mProps->fixturePosition(fixture->id(), headIndex, linkedIndex)),
-                                              QVariant());
+            Tardis::instance()->enqueueAction(
+                Tardis::FixtureSetPosition, fixture->id(),
+                QVariant(mProps->fixturePosition(fixture->id(), headIndex, linkedIndex)), QVariant());
         }
         // delete the fixture
-        Tardis::instance()->enqueueAction(Tardis::FixtureDelete, fixture->id(),
-                                          Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fixture->id()),
-                                          QVariant());
+        Tardis::instance()->enqueueAction(
+            Tardis::FixtureDelete, fixture->id(),
+            Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fixture->id()), QVariant());
         m_doc->deleteFixture(fixture->id());
         mProps->removeFixture(fixture->id());
     }
 
-    Tardis::instance()->enqueueAction(Tardis::IORemoveUniverse, index,
-                                      Tardis::instance()->actionToByteArray(Tardis::IORemoveUniverse, index), QVariant());
+    Tardis::instance()->enqueueAction(
+        Tardis::IORemoveUniverse, index,
+        Tardis::instance()->actionToByteArray(Tardis::IORemoveUniverse, index), QVariant());
 
     m_ioMap->removeUniverse(index);
 

@@ -75,7 +75,8 @@ VCWidget *VCLabel::createCopy(VCWidget *parent)
 void VCLabel::editProperties()
 {
     bool    ok   = false;
-    QString text = QInputDialog::getText(NULL, tr("Rename Label"), tr("Caption:"), QLineEdit::Normal, caption(), &ok);
+    QString text = QInputDialog::getText(NULL, tr("Rename Label"), tr("Caption:"),
+                                         QLineEdit::Normal, caption(), &ok);
     if (ok == true)
         setCaption(text);
 }
@@ -151,8 +152,8 @@ void VCLabel::paintEvent(QPaintEvent *e)
         enabled = true;
 
     QPainter painter(this);
-    style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), enabled, caption(),
-                          foregroundRole());
+    style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), enabled,
+                          caption(), foregroundRole());
     painter.end();
 
     VCWidget::paintEvent(e);

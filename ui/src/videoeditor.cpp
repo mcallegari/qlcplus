@@ -41,9 +41,11 @@ VideoEditor::VideoEditor(QWidget *parent, Video *video, Doc *doc)
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
     connect(m_video, SIGNAL(totalTimeChanged(qint64)), this, SLOT(slotDurationChanged(qint64)));
-    connect(m_video, SIGNAL(metaDataChanged(QString, QVariant)), this, SLOT(slotMetaDataChanged(QString, QVariant)));
+    connect(m_video, SIGNAL(metaDataChanged(QString, QVariant)), this,
+            SLOT(slotMetaDataChanged(QString, QVariant)));
 
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
     connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotSourceFileClicked()));
     connect(m_urlButton, SIGNAL(clicked()), this, SLOT(slotSourceUrlClicked()));
 
@@ -144,8 +146,8 @@ void VideoEditor::slotSourceFileClicked()
 void VideoEditor::slotSourceUrlClicked()
 {
     bool    ok;
-    QString videoURL =
-        QInputDialog::getText(this, tr("Video source URL"), tr("Enter a URL:"), QLineEdit::Normal, "http://", &ok);
+    QString videoURL = QInputDialog::getText(this, tr("Video source URL"), tr("Enter a URL:"),
+                                             QLineEdit::Normal, "http://", &ok);
 
     if (ok == true)
     {

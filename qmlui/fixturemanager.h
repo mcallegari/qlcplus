@@ -48,7 +48,8 @@ class FixtureManager : public QObject
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
     Q_PROPERTY(quint32 itemID READ itemID WRITE setItemID NOTIFY itemIDChanged)
-    Q_PROPERTY(bool propertyEditEnabled READ propertyEditEnabled WRITE setPropertyEditEnabled NOTIFY propertyEditEnabledChanged)
+    Q_PROPERTY(bool propertyEditEnabled READ propertyEditEnabled WRITE setPropertyEditEnabled NOTIFY
+                   propertyEditEnabledChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
@@ -56,7 +57,8 @@ class FixtureManager : public QObject
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
 
     Q_PROPERTY(QStringList colorFiltersFileList READ colorFiltersFileList NOTIFY colorFiltersFileListChanged)
-    Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY colorFilterFileIndexChanged)
+    Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex
+                   NOTIFY colorFilterFileIndexChanged)
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
     Q_PROPERTY(QStringList channelModifiersList READ channelModifiersList NOTIFY channelModifiersListChanged)
@@ -157,8 +159,9 @@ public:
     /** Returns the Fixture ID at the provided $universeAddress */
     Q_INVOKABLE quint32 fixtureForAddress(quint32 universeAddress);
 
-    Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name, int uniIdx, int address,
-                                int channels, int quantity, quint32 gap, qreal xPos, qreal yPos);
+    Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
+                                int uniIdx, int address, int channels, int quantity, quint32 gap,
+                                qreal xPos, qreal yPos);
 
     /** Move the Fixture with the provided $fixtureID to the requested universe address.
      *  Returns true on success, false on error */
@@ -184,19 +187,19 @@ public:
 
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
 
-    static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath, quint32 nodeSubID,
-                               int &matchMask, QString searchFilter = QString(),
-                               int               showFlags       = ShowGroups | ShowLinked | ShowHeads,
+    static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath,
+                               quint32 nodeSubID, int &matchMask, QString searchFilter = QString(),
+                               int               showFlags = ShowGroups | ShowLinked | ShowHeads,
                                QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
-                                        QString           searchFilter    = QString(),
-                                        int               showFlags       = ShowGroups | ShowLinked | ShowHeads,
+                                        QString searchFilter = QString(),
+                                        int     showFlags    = ShowGroups | ShowLinked | ShowHeads,
                                         QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Update the tree of groups/fixtures/channels */
     static void updateGroupsTree(Doc *doc, TreeModel *treeModel, QString searchFilter = QString(),
-                                 int               showFlags       = ShowGroups | ShowLinked | ShowHeads,
+                                 int               showFlags = ShowGroups | ShowLinked | ShowHeads,
                                  QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Return the type as string of the Fixture with ID $fixtureID */

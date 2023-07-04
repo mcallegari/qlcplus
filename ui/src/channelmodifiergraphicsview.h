@@ -30,7 +30,8 @@ class HandlerGraphicsItem : public QObject, public QGraphicsEllipseItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen &pen = QPen(), const QBrush &brush = QBrush());
+    HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen &pen = QPen(),
+                        const QBrush &brush = QBrush());
 
     void   setBoundingBox(QRectF rect);
     QRectF boundingBox();

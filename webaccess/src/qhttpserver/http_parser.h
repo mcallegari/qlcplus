@@ -31,7 +31,8 @@ extern "C"
 #define HTTP_PARSER_VERSION_PATCH 1
 
 #include <sys/types.h>
-#if defined(_WIN32) && !defined(__MINGW32__) && (!defined(_MSC_VER) || _MSC_VER < 1600) && !defined(__WINE__)
+#if defined(_WIN32) && !defined(__MINGW32__) && (!defined(_MSC_VER) || _MSC_VER < 1600) \
+    && !defined(__WINE__)
   #include <BaseTsd.h>
   #include <stddef.h>
     typedef __int8           int8_t;
@@ -321,7 +322,8 @@ extern "C"
 
     /* Executes the parser. Returns number of parsed bytes. Sets
      * `parser->http_errno` on error. */
-    size_t http_parser_execute(http_parser *parser, const http_parser_settings *settings, const char *data, size_t len);
+    size_t http_parser_execute(http_parser *parser, const http_parser_settings *settings,
+                               const char *data, size_t len);
 
 
     /* If http_should_keep_alive() in the on_headers_complete or

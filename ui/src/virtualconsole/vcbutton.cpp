@@ -308,7 +308,8 @@ void VCButton::slotChooseIcon()
         formats += QString("*.%1 ").arg(QString(it.next()).toLower());
 
     QString path;
-    path = QFileDialog::getOpenFileName(this, tr("Select button icon"), iconPath(), tr("Images (%1)").arg(formats));
+    path = QFileDialog::getOpenFileName(this, tr("Select button icon"), iconPath(),
+                                        tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
         foreach (VCWidget *widget, vc->selectedWidgets())
@@ -362,7 +363,8 @@ void VCButton::setFunction(quint32 fid)
         /* Get rid of old function connections */
         disconnect(old, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
         disconnect(old, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
-        disconnect(old, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
+        disconnect(old, SIGNAL(flashing(quint32, bool)), this,
+                   SLOT(slotFunctionFlashing(quint32, bool)));
     }
 
     Function *function = m_doc->function(fid);
@@ -371,7 +373,8 @@ void VCButton::setFunction(quint32 fid)
         /* Connect to the new function */
         connect(function, SIGNAL(running(quint32)), this, SLOT(slotFunctionRunning(quint32)));
         connect(function, SIGNAL(stopped(quint32)), this, SLOT(slotFunctionStopped(quint32)));
-        connect(function, SIGNAL(flashing(quint32, bool)), this, SLOT(slotFunctionFlashing(quint32, bool)));
+        connect(function, SIGNAL(flashing(quint32, bool)), this,
+                SLOT(slotFunctionFlashing(quint32, bool)));
 
         m_function = fid;
         setToolTip(function->name());
@@ -563,9 +566,11 @@ void VCButton::setAction(Action action)
 {
     // Blackout signal connection
     if (m_action == Blackout && action != Blackout)
-        disconnect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this,
+                   SLOT(slotBlackoutChanged(bool)));
     else if (m_action != Blackout && action == Blackout)
-        connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
+        connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this,
+                SLOT(slotBlackoutChanged(bool)));
 
     // Action update
     m_action = action;
@@ -780,7 +785,8 @@ void VCButton::slotFunctionFlashing(quint32 fid, bool state)
     if (fid != m_function)
         return;
 
-    // if the function was flashed by another button, and the function is still running, keep the button pushed
+    // if the function was flashed by another button, and the function is still running, keep the
+    // button pushed
     Function *f = m_doc->function(m_function);
     if (state == false && m_action == Toggle && f != NULL && f->isRunning())
     {
@@ -872,7 +878,8 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     loadXMLCommon(root);
 
     /* Icon */
-    setIconPath(m_doc->denormalizeComponentPath(root.attributes().value(KXMLQLCVCButtonIcon).toString()));
+    setIconPath(
+        m_doc->denormalizeComponentPath(root.attributes().value(KXMLQLCVCButtonIcon).toString()));
 
     /* Children */
     while (root.readNextStartElement())
@@ -970,7 +977,8 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
 
     /* Intensity adjustment */
     doc->writeStartElement(KXMLQLCVCButtonIntensity);
-    doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust, isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
+    doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust,
+                        isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
     doc->writeCharacters(QString::number(int(startupIntensity() * 100)));
     doc->writeEndElement();
 
@@ -1030,15 +1038,16 @@ void VCButton::paintEvent(QPaintEvent *e)
         }
         else
         {
-            painter.drawPixmap((width() - pxRect.width()) / 2, (height() - pxRect.height()) / 2, m_bgPixmap);
+            painter.drawPixmap((width() - pxRect.width()) / 2, (height() - pxRect.height()) / 2,
+                               m_bgPixmap);
         }
     }
 
     /* Paint caption with text wrapping */
     if (caption().isEmpty() == false)
     {
-        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), (mode() == Doc::Operate),
-                              caption());
+        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(),
+                              (mode() == Doc::Operate), caption());
     }
 
     /* Flash emblem */
@@ -1076,7 +1085,8 @@ void VCButton::paintEvent(QPaintEvent *e)
             int borderWidth = (rect().width() > 80) ? 3 : 2;
             painter.setPen(QPen(QColor(20, 20, 20, 255), borderWidth * 2));
             painter.drawRoundedRect(borderWidth, borderWidth, rect().width() - borderWidth * 2,
-                                    rect().height() - (borderWidth * 2), borderWidth + 1, borderWidth + 1);
+                                    rect().height() - (borderWidth * 2), borderWidth + 1,
+                                    borderWidth + 1);
             if (state() == Monitoring)
                 painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
             else

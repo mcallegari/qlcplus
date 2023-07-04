@@ -40,10 +40,12 @@ void AboutBox_Test::initial()
     QCOMPARE(ab.m_versionLabel->text(), QString(APPVERSION));
 
     QVERIFY(ab.m_copyrightLabel != NULL);
-    QVERIFY(ab.m_copyrightLabel->text().contains("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B>"));
+    QVERIFY(ab.m_copyrightLabel->text().contains(
+        "Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B>"));
 
     QVERIFY(ab.m_websiteLabel != NULL);
-    QVERIFY(ab.m_websiteLabel->text().contains("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
+    QVERIFY(ab.m_websiteLabel->text().contains(
+        "<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
 
     QVERIFY(ab.m_contributors != NULL);
     QCOMPARE(ab.m_contributors->count(), CONTRIBCOUNT);

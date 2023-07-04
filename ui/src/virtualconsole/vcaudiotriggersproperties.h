@@ -37,7 +37,8 @@ class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfig
     Q_OBJECT
 
 public:
-    explicit AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, int bandsNumber, int maxFrequency);
+    explicit AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, int bandsNumber,
+                                        int maxFrequency);
     ~AudioTriggersConfiguration();
 
     /** @reimp */

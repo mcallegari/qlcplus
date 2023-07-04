@@ -69,9 +69,11 @@ InputProfileEditor::InputProfileEditor(QWidget *parent, QLCInputProfile *profile
     connect(m_removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveClicked()));
     connect(m_editButton, SIGNAL(clicked()), this, SLOT(slotEditClicked()));
     connect(m_wizardButton, SIGNAL(clicked(bool)), this, SLOT(slotWizardClicked(bool)));
-    connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotItemClicked(QTreeWidgetItem *, int)));
+    connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemClicked(QTreeWidgetItem *, int)));
     connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotEditClicked()));
-    connect(m_movementCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMovementComboChanged(int)));
+    connect(m_movementCombo, SIGNAL(currentIndexChanged(int)), this,
+            SLOT(slotMovementComboChanged(int)));
     connect(m_sensitivitySpin, SIGNAL(valueChanged(int)), this, SLOT(slotSensitivitySpinChanged(int)));
     connect(m_extraPressCheck, SIGNAL(toggled(bool)), this, SLOT(slotExtraPressChecked(bool)));
     connect(m_lowerSpin, SIGNAL(valueChanged(int)), this, SLOT(slotLowerValueSpinChanged(int)));
@@ -241,7 +243,8 @@ void InputProfileEditor::accept()
     /* Check that we have at least the bare necessities to save the profile */
     if (m_profile->manufacturer().isEmpty() == true || m_profile->model().isEmpty() == true)
     {
-        QMessageBox::warning(this, tr("Missing information"), tr("Manufacturer and/or model name is missing."));
+        QMessageBox::warning(this, tr("Missing information"),
+                             tr("Manufacturer and/or model name is missing."));
     }
     else
     {
@@ -289,7 +292,8 @@ add:
         }
         else
         {
-            QMessageBox::warning(this, tr("Channel already exists"), tr("Channel %1 already exists").arg(ice.channel() + 1));
+            QMessageBox::warning(this, tr("Channel already exists"),
+                                 tr("Channel %1 already exists").arg(ice.channel() + 1));
             goto add;
         }
     }
@@ -309,7 +313,8 @@ void InputProfileEditor::slotRemoveClicked()
     if (selected.count() > 1)
     {
         int r;
-        r = QMessageBox::question(this, tr("Delete channels"), tr("Delete all %1 selected channels?").arg(selected.count()),
+        r = QMessageBox::question(this, tr("Delete channels"),
+                                  tr("Delete all %1 selected channels?").arg(selected.count()),
                                   QMessageBox::Yes | QMessageBox::No);
         if (r == QMessageBox::No)
             return;
@@ -543,7 +548,8 @@ void InputProfileEditor::slotUpperValueSpinChanged(int value)
     }
 }
 
-void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
+void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel, uchar value,
+                                               const QString &key)
 {
     QTreeWidgetItem *latestItem = NULL;
 
@@ -555,7 +561,8 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel
     if (channel == UINT_MAX && key.isEmpty() == false)
         list = m_tree->findItems(key, Qt::MatchExactly, KColumnName);
     else
-        list = m_tree->findItems(QString("%1").arg(channel + 1, 4, 10, QChar('0')), Qt::MatchExactly, KColumnNumber);
+        list = m_tree->findItems(QString("%1").arg(channel + 1, 4, 10, QChar('0')),
+                                 Qt::MatchExactly, KColumnNumber);
     if (list.size() != 0)
         latestItem = list.first();
 
@@ -642,5 +649,6 @@ const QLCInputProfile *InputProfileEditor::profile() const
 
 QLCInputProfile::Type InputProfileEditor::currentProfileType() const
 {
-    return static_cast<QLCInputProfile::Type>(m_typeCombo->itemData(m_typeCombo->currentIndex()).toInt());
+    return static_cast<QLCInputProfile::Type>(
+        m_typeCombo->itemData(m_typeCombo->currentIndex()).toInt());
 }

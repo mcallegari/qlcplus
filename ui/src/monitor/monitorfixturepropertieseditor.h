@@ -37,8 +37,8 @@ class MonitorFixturePropertiesEditor : public QWidget, public Ui_MonitorFixtureP
     Q_OBJECT
 
 public:
-    MonitorFixturePropertiesEditor(MonitorFixtureItem *fxItem, MonitorGraphicsView *gfxView, MonitorProperties *props,
-                                   QWidget *parent = 0);
+    MonitorFixturePropertiesEditor(MonitorFixtureItem *fxItem, MonitorGraphicsView *gfxView,
+                                   MonitorProperties *props, QWidget *parent = 0);
     ~MonitorFixturePropertiesEditor();
 
 protected slots:

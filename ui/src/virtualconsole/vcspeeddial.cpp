@@ -329,7 +329,8 @@ void VCSpeedDial::slotUpdate()
 {
     int currentValue = m_dial->value();
 
-    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
+    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin();
+         it != m_presets.end(); ++it)
     {
         QWidget           *widget = it.key();
         VCSpeedDialPreset *preset = it.value();
@@ -362,7 +363,8 @@ void VCSpeedDial::addPreset(VCSpeedDialPreset const &preset)
 
     Q_ASSERT(presetWidget != NULL);
 
-    connect(reinterpret_cast<QPushButton *>(presetWidget), SIGNAL(clicked()), this, SLOT(slotPresetClicked()));
+    connect(reinterpret_cast<QPushButton *>(presetWidget), SIGNAL(clicked()), this,
+            SLOT(slotPresetClicked()));
 
     if (mode() == Doc::Design)
         presetWidget->setEnabled(false);
@@ -380,7 +382,8 @@ void VCSpeedDial::addPreset(VCSpeedDialPreset const &preset)
 
 void VCSpeedDial::resetPresets()
 {
-    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
+    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin();
+         it != m_presets.end(); ++it)
     {
         QWidget *widget = it.key();
         m_presetsLayout->removeWidget(widget);
@@ -506,21 +509,24 @@ void VCSpeedDial::slotFactoredValueChanged()
             if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeInSpeed(ms * ((float)multipliers[speeddialfunction.fadeInMultiplier] / 1000.0));
+                    function->setFadeInSpeed(
+                        ms * ((float)multipliers[speeddialfunction.fadeInMultiplier] / 1000.0));
                 else
                     function->setFadeInSpeed(ms);
             }
             if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeOutSpeed(ms * ((float)multipliers[speeddialfunction.fadeOutMultiplier] / 1000.0));
+                    function->setFadeOutSpeed(
+                        ms * ((float)multipliers[speeddialfunction.fadeOutMultiplier] / 1000.0));
                 else
                     function->setFadeOutSpeed(ms);
             }
             if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setDuration(ms * ((float)multipliers[speeddialfunction.durationMultiplier] / 1000.0));
+                    function->setDuration(
+                        ms * ((float)multipliers[speeddialfunction.durationMultiplier] / 1000.0));
                 else
                     function->setDuration(ms);
             }
@@ -546,8 +552,8 @@ bool VCSpeedDial::resetFactorOnDialChange() const
 void VCSpeedDial::updateFeedback()
 {
     // Feedback to absolute input source
-    int fbv = (int)SCALE(float(m_dial->value()), float(m_absoluteValueMin), float(m_absoluteValueMax), float(0),
-                         float(UCHAR_MAX));
+    int fbv = (int)SCALE(float(m_dial->value()), float(m_absoluteValueMin),
+                         float(m_absoluteValueMax), float(0), float(UCHAR_MAX));
 
     sendFeedback(fbv, absoluteInputSourceId);
 
@@ -555,14 +561,16 @@ void VCSpeedDial::updateFeedback()
     sendFeedback(m_dial->isTapTick() ? 255 : 0, tapInputSourceId);
 
     // Feedback to preset buttons
-    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
+    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin();
+         it != m_presets.end(); ++it)
     {
         VCSpeedDialPreset *preset = it.value();
         if (preset->m_inputSource != NULL)
         {
             QPushButton *button = reinterpret_cast<QPushButton *>(it.key());
             if (preset->m_inputSource.isNull() == false)
-                sendFeedback(button->isDown() ? preset->m_inputSource->upperValue() : preset->m_inputSource->lowerValue(),
+                sendFeedback(button->isDown() ? preset->m_inputSource->upperValue()
+                                              : preset->m_inputSource->lowerValue(),
                              preset->m_inputSource);
         }
     }
@@ -583,8 +591,8 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), absoluteInputSourceId))
     {
-        int ms = static_cast<int>(
-            SCALE(qreal(value), qreal(0), qreal(255), qreal(absoluteValueMin()), qreal(absoluteValueMax())));
+        int ms = static_cast<int>(SCALE(qreal(value), qreal(0), qreal(255),
+                                        qreal(absoluteValueMin()), qreal(absoluteValueMax())));
         m_dial->setValue(ms, true);
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), multInputSourceId))
@@ -609,7 +617,8 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
     }
     else
     {
-        for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
+        for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin();
+             it != m_presets.end(); ++it)
         {
             VCSpeedDialPreset *preset = it.value();
             if (preset->m_inputSource != NULL && preset->m_inputSource->universe() == universe
@@ -695,7 +704,8 @@ void VCSpeedDial::slotKeyPressed(const QKeySequence &keySequence)
     if (m_applyKeySequence == keySequence)
         slotFactoredValueChanged();
 
-    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin(); it != m_presets.end(); ++it)
+    for (QHash<QWidget *, VCSpeedDialPreset *>::iterator it = m_presets.begin();
+         it != m_presets.end(); ++it)
     {
         VCSpeedDialPreset *preset = it.value();
         if (preset->m_keySequence == keySequence)
@@ -792,10 +802,14 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
     VCSpeedDialFunction::SpeedMultiplier defaultDurationMultiplier = VCSpeedDialFunction::One;
     if (root.attributes().hasAttribute(KXMLQLCVCSpeedDialSpeedTypes))
     {
-        SpeedTypes speedTypes    = SpeedTypes(root.attributes().value(KXMLQLCVCSpeedDialSpeedTypes).toString().toInt());
-        defaultFadeInMultiplier  = (speedTypes & FadeIn) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
-        defaultFadeOutMultiplier = (speedTypes & FadeOut) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
-        defaultDurationMultiplier = (speedTypes & Duration) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        SpeedTypes speedTypes =
+            SpeedTypes(root.attributes().value(KXMLQLCVCSpeedDialSpeedTypes).toString().toInt());
+        defaultFadeInMultiplier =
+            (speedTypes & FadeIn) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultFadeOutMultiplier =
+            (speedTypes & FadeOut) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultDurationMultiplier =
+            (speedTypes & Duration) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
     }
 
     // Sorted list for new presets
@@ -811,7 +825,8 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         {
             // Function
             VCSpeedDialFunction speeddialfunction;
-            if (speeddialfunction.loadXML(root, defaultFadeInMultiplier, defaultFadeOutMultiplier, defaultDurationMultiplier))
+            if (speeddialfunction.loadXML(root, defaultFadeInMultiplier, defaultFadeOutMultiplier,
+                                          defaultDurationMultiplier))
             {
                 m_functions.append(speeddialfunction);
             }
@@ -905,7 +920,8 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         {
             VCSpeedDialPreset preset(0xff);
             if (preset.loadXML(root))
-                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset), preset);
+                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset),
+                                  preset);
         }
         else if (root.name() == KXMLQLCVCSpeedDialVisibilityMask)
         {

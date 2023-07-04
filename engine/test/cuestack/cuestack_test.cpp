@@ -398,7 +398,8 @@ void CueStack_Test::removeCues()
 
     cs.removeCues(QList<int>() << 2 << 0);
     QCOMPARE(cs.cues().size(), 2);
-    QCOMPARE(cs.currentIndex(), 1); // currentIndex-- times two because two cue before it were removed
+    QCOMPARE(cs.currentIndex(),
+             1); // currentIndex-- times two because two cue before it were removed
     QCOMPARE(cs.cues().at(0).name(), QString("Two"));
     QCOMPARE(cs.cues().at(1).name(), QString("Five"));
 

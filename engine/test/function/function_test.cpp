@@ -367,7 +367,8 @@ void Function_Test::speedToString()
              QString("99h59m59s990ms"));
     QCOMPARE(Function::speedToString(999 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60),
              QString("99h59m59s999ms"));
-    QCOMPARE(Function::speedToString(1 + 1 * 1000 + 1 * 1000 * 60 + 1 * 1000 * 60 * 60), QString("1h01m01s001ms"));
+    QCOMPARE(Function::speedToString(1 + 1 * 1000 + 1 * 1000 * 60 + 1 * 1000 * 60 * 60),
+             QString("1h01m01s001ms"));
     QCOMPARE(Function::speedToString(100), QString("100ms"));
 
     QCOMPARE(Function::speedToString(10), QString("10ms"));
@@ -433,7 +434,8 @@ void Function_Test::speedOperations()
     QCOMPARE(Function::speedAdd(15, 15), uint(30));
     QCOMPARE(Function::speedAdd(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
     QCOMPARE(Function::speedAdd(10, Function::infiniteSpeed()), Function::infiniteSpeed());
-    QCOMPARE(Function::speedAdd(Function::infiniteSpeed(), Function::infiniteSpeed()), Function::infiniteSpeed());
+    QCOMPARE(Function::speedAdd(Function::infiniteSpeed(), Function::infiniteSpeed()),
+             Function::infiniteSpeed());
     QCOMPARE(Function::speedAdd(10, 0), uint(10));
     QCOMPARE(Function::speedAdd(20, 0), uint(20));
     QCOMPARE(Function::speedAdd(30, 0), uint(30));

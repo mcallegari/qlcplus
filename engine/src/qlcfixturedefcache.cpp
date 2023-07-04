@@ -195,7 +195,8 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manuf
             if (doc->attributes().hasAttribute("m"))
                 model = doc->attributes().value("m").toString();
 
-            if (defFile.isEmpty() == false && spacedManufacturer.isEmpty() == false && model.isEmpty() == false)
+            if (defFile.isEmpty() == false && spacedManufacturer.isEmpty() == false
+                && model.isEmpty() == false)
             {
                 QLCFixtureDef *fxi = new QLCFixtureDef();
                 Q_ASSERT(fxi != NULL);
@@ -365,7 +366,8 @@ bool QLCFixtureDefCache::loadQXF(const QString &path, bool isUser)
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "Fixture definition loading from" << path << "failed:" << QLCFile::errorString(error);
+        qWarning() << Q_FUNC_INFO << "Fixture definition loading from" << path
+                   << "failed:" << QLCFile::errorString(error);
         delete fxi;
         fxi = NULL;
         return false;
@@ -379,7 +381,8 @@ bool QLCFixtureDefCache::loadD4(const QString &path)
     AvolitesD4Parser parser;
     if (parser.loadXML(path, fxi) == false)
     {
-        qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path << ":" << parser.lastError();
+        qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path << ":"
+                   << parser.lastError();
         delete fxi;
         return false;
     }

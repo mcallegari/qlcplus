@@ -63,7 +63,8 @@
 #define KProfileColumnName 0
 #define KProfileColumnType 1
 
-InputOutputPatchEditor::InputOutputPatchEditor(QWidget *parent, quint32 universe, InputOutputMap *ioMap, Doc *doc)
+InputOutputPatchEditor::InputOutputPatchEditor(QWidget *parent, quint32 universe,
+                                               InputOutputMap *ioMap, Doc *doc)
     : QWidget(parent)
     , m_ioMap(ioMap)
     , m_doc(doc)
@@ -128,7 +129,8 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget *parent, quint32 universe
     /* Listen to itemChanged() signals to catch check state changes */
     connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
             SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem *, int)));
-    connect(m_srateCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSampleRateIndexChanged(int)));
+    connect(m_srateCombo, SIGNAL(currentIndexChanged(int)), this,
+            SLOT(slotSampleRateIndexChanged(int)));
     connect(m_chansCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotAudioChannelsChanged(int)));
     connect(m_audioPreviewButton, SIGNAL(toggled(bool)), this, SLOT(slotAudioInputPreview(bool)));
 
@@ -187,7 +189,8 @@ void InputOutputPatchEditor::setupMappingPage()
     connect(m_configureButton, SIGNAL(clicked()), this, SLOT(slotConfigureInputClicked()));
 
     /* Double click acts as edit button click */
-    connect(m_mapTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotConfigureInputClicked()));
+    connect(m_mapTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotConfigureInputClicked()));
 }
 
 void InputOutputPatchEditor::fillMappingTree()
@@ -239,7 +242,8 @@ void InputOutputPatchEditor::fillMappingTree()
                 {
                     QTreeWidgetItem *pitem = new QTreeWidgetItem(m_mapTree);
                     pitem->setText(KMapColumnPluginName, pluginName);
-                    pitem->setText(KMapColumnDeviceName, QString("%1: %2").arg(lineNumber++).arg(inputName));
+                    pitem->setText(KMapColumnDeviceName,
+                                   QString("%1: %2").arg(lineNumber++).arg(inputName));
                     pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
                     if (m_currentInputPluginName == pluginName && m_currentInput == inputId)
                         pitem->setCheckState(KMapColumnHasInput, Qt::Checked);
@@ -259,7 +263,8 @@ void InputOutputPatchEditor::fillMappingTree()
                         if (outUni == InputOutputMap::invalidUniverse()
                             || (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                         {
-                            if (m_currentOutputPluginName == pluginName && m_currentOutput == quint32(outLine))
+                            if (m_currentOutputPluginName == pluginName
+                                && m_currentOutput == quint32(outLine))
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
                             else
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
@@ -267,7 +272,8 @@ void InputOutputPatchEditor::fillMappingTree()
                             // add feedback
                             if (hasFeedback)
                             {
-                                if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == quint32(outLine))
+                                if (m_currentFeedbackPluginName == pluginName
+                                    && m_currentFeedback == quint32(outLine))
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
                                 else
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
@@ -287,25 +293,30 @@ void InputOutputPatchEditor::fillMappingTree()
                         if (outUni == InputOutputMap::invalidUniverse()
                             || (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                         {
-                            qDebug() << "Plugin: " << pluginName << ", output: " << outLine << ", universe:" << outUni;
+                            qDebug() << "Plugin: " << pluginName << ", output: " << outLine
+                                     << ", universe:" << outUni;
                             QTreeWidgetItem *pitem = new QTreeWidgetItem(m_mapTree);
                             pitem->setText(KMapColumnPluginName, pluginName);
-                            pitem->setText(KMapColumnDeviceName, QString("%1: %2").arg(lineNumber++).arg(inputName));
+                            pitem->setText(KMapColumnDeviceName,
+                                           QString("%1: %2").arg(lineNumber++).arg(inputName));
                             pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
-                            if (m_currentOutputPluginName == pluginName && m_currentOutput == quint32(outLine))
+                            if (m_currentOutputPluginName == pluginName
+                                && m_currentOutput == quint32(outLine))
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
                             else
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                             // add feedback
                             if (hasFeedback)
                             {
-                                if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == quint32(outLine))
+                                if (m_currentFeedbackPluginName == pluginName
+                                    && m_currentFeedback == quint32(outLine))
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
                                 else
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
                             }
                             pitem->setText(KMapColumnOutputLine, QString("%1").arg(outLine));
-                            pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                            pitem->setText(KMapColumnInputLine,
+                                           QString("%1").arg(QLCIOPlugin::invalidLine()));
                         }
                     }
                 }
@@ -324,7 +335,8 @@ void InputOutputPatchEditor::fillMappingTree()
                         // ", output: " << outputId << ", universe:" << outUni;
                         QTreeWidgetItem *pitem = new QTreeWidgetItem(m_mapTree);
                         pitem->setText(KMapColumnPluginName, pluginName);
-                        pitem->setText(KMapColumnDeviceName, QString("%1: %2").arg(lineNumber++).arg(outputName));
+                        pitem->setText(KMapColumnDeviceName,
+                                       QString("%1: %2").arg(lineNumber++).arg(outputName));
                         pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
                         if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
                             pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
@@ -339,7 +351,8 @@ void InputOutputPatchEditor::fillMappingTree()
                                 pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
                         }
                         pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
-                        pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                        pitem->setText(KMapColumnInputLine,
+                                       QString("%1").arg(QLCIOPlugin::invalidLine()));
                     }
                 }
             }
@@ -350,7 +363,8 @@ void InputOutputPatchEditor::fillMappingTree()
     m_mapTree->resizeColumnToContents(KMapColumnDeviceName);
 
     /* Enable check state change tracking after the tree has been filled */
-    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotMapItemChanged(QTreeWidgetItem *, int)));
+    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotMapItemChanged(QTreeWidgetItem *, int)));
 }
 
 void InputOutputPatchEditor::slotMapCurrentItemChanged(QTreeWidgetItem *item)
@@ -422,7 +436,9 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
 
             /* Apply the patch immediately so that input data can be used in the
                input profile editor */
-            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", m_currentInput, m_currentProfileName) == false)
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, "", m_currentInput,
+                                       m_currentProfileName)
+                == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasOutput)
@@ -439,7 +455,9 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
                 m_currentOutput           = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false) == false)
+                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "",
+                                            m_currentOutput, false)
+                    == false)
                     showPluginMappingError();
             }
         }
@@ -456,7 +474,9 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
                 m_currentFeedback           = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", m_currentFeedback, true) == false)
+                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "",
+                                            m_currentFeedback, true)
+                    == false)
                     showPluginMappingError();
             }
         }
@@ -478,7 +498,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
             m_currentOutput           = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false) == false)
+            if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, "", m_currentOutput, false)
+                == false)
                 showPluginMappingError();
         }
         else if (col == KMapColumnHasFeedback)
@@ -487,7 +508,9 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
             m_currentFeedback           = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "", m_currentFeedback, true) == false)
+            if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, "",
+                                        m_currentFeedback, true)
+                == false)
                 showPluginMappingError();
         }
     }
@@ -495,7 +518,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem *item, int col)
     slotMapCurrentItemChanged(item);
 
     /* Start listening to this signal once again */
-    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotMapItemChanged(QTreeWidgetItem *, int)));
+    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotMapItemChanged(QTreeWidgetItem *, int)));
 
     emit mappingChanged();
 }
@@ -578,7 +602,8 @@ void InputOutputPatchEditor::setupProfilePage()
             SLOT(slotProfileItemChanged(QTreeWidgetItem *)));
 
     /* Double click acts as edit button click */
-    connect(m_profileTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotEditProfileClicked()));
+    connect(m_profileTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this,
+            SLOT(slotEditProfileClicked()));
 }
 
 void InputOutputPatchEditor::fillProfileTree()
@@ -622,7 +647,8 @@ void InputOutputPatchEditor::updateProfileItem(const QString &name, QTreeWidgetI
 QString InputOutputPatchEditor::fullProfilePath(const QString &manufacturer, const QString &model) const
 {
     QDir    dir(InputOutputMap::userProfileDirectory());
-    QString path = QString("%1/%2-%3%4").arg(dir.absolutePath()).arg(manufacturer).arg(model).arg(KExtInputProfile);
+    QString path =
+        QString("%1/%2-%3%4").arg(dir.absolutePath()).arg(manufacturer).arg(model).arg(KExtInputProfile);
 
     return path;
 }
@@ -660,7 +686,8 @@ void InputOutputPatchEditor::slotProfileItemChanged(QTreeWidgetItem *item)
     m_currentProfileName = item->text(KProfileColumnName);
 
     /* Apply the patch immediately */
-    // if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput, m_currentProfileName) == false)
+    // if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput,
+    // m_currentProfileName) == false)
     if (m_ioMap->setInputProfile(m_universe, m_currentProfileName) == false)
         showPluginMappingError();
 
@@ -682,17 +709,18 @@ edit:
         /* If another profile with the same name exists, ask permission to overwrite */
         if (QFile::exists(path) == true && path != ite.profile()->path())
         {
-            int r =
-                QMessageBox::warning(this, tr("Existing Input Profile"),
-                                     tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
-                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
+            int r = QMessageBox::warning(
+                this, tr("Existing Input Profile"),
+                tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
+                QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
             if (r == QMessageBox::Cancel)
             {
                 goto edit;
             }
             else if (r == QMessageBox::No)
             {
-                path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"), path, tr("Input Profiles (*.qxi)"));
+                path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"), path,
+                                                    tr("Input Profiles (*.qxi)"));
                 if (path.isEmpty() == true)
                     goto edit;
             }
@@ -705,8 +733,9 @@ edit:
         /* Save it to a file, go back to edit if save failed */
         if (profile->saveXML(path) == false)
         {
-            QMessageBox::warning(this, tr("Saving failed"),
-                                 tr("Unable to save the profile to %1").arg(QDir::toNativeSeparators(path)));
+            QMessageBox::warning(
+                this, tr("Saving failed"),
+                tr("Unable to save the profile to %1").arg(QDir::toNativeSeparators(path)));
             delete profile;
             goto edit;
         }
@@ -742,9 +771,10 @@ void InputOutputPatchEditor::slotRemoveProfileClicked()
         return;
 
     /* Ask for user confirmation */
-    r = QMessageBox::question(this, tr("Delete profile"),
-                              tr("Do you wish to permanently delete profile \"%1\"?").arg(profile->name()),
-                              QMessageBox::Yes, QMessageBox::No);
+    r = QMessageBox::question(
+        this, tr("Delete profile"),
+        tr("Do you wish to permanently delete profile \"%1\"?").arg(profile->name()),
+        QMessageBox::Yes, QMessageBox::No);
     if (r == QMessageBox::Yes)
     {
         /* Attempt to delete the file first */
@@ -769,7 +799,8 @@ void InputOutputPatchEditor::slotRemoveProfileClicked()
         else
         {
             /* Annoy the user even more after deletion failure */
-            QMessageBox::warning(this, tr("File deletion failed"), tr("Unable to delete file %1").arg(file.errorString()));
+            QMessageBox::warning(this, tr("File deletion failed"),
+                                 tr("Unable to delete file %1").arg(file.errorString()));
         }
     }
 }
@@ -810,16 +841,18 @@ edit:
     /* If another profile with the same name exists, ask permission to overwrite */
     if (QFile::exists(path) == true && path != ite.profile()->path())
     {
-        int r = QMessageBox::warning(this, tr("Existing Input Profile"),
-                                     tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
-                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
+        int r = QMessageBox::warning(
+            this, tr("Existing Input Profile"),
+            tr("An input profile at %1 already exists. Do you wish to overwrite it?").arg(path),
+            QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
         if (r == QMessageBox::Cancel)
         {
             goto edit;
         }
         else if (r == QMessageBox::No)
         {
-            path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"), path, tr("Input Profiles (*.qxi)"));
+            path = QFileDialog::getSaveFileName(this, tr("Save Input Profile"), path,
+                                                tr("Input Profiles (*.qxi)"));
             if (path.isEmpty() == true)
                 goto edit;
         }
@@ -835,8 +868,9 @@ edit:
     }
     else
     {
-        QMessageBox::warning(this, tr("Saving failed"),
-                             tr("Unable to save %1 to %2").arg(profile->name()).arg(QDir::toNativeSeparators(path)));
+        QMessageBox::warning(
+            this, tr("Saving failed"),
+            tr("Unable to save %1 to %2").arg(profile->name()).arg(QDir::toNativeSeparators(path)));
         goto edit;
     }
 }
@@ -965,7 +999,8 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
             if (item == m_audioMapTree->topLevelItem(0))
                 settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
             else
-                settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+                settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE,
+                                  QVariant(item->text(KAudioColumnPrivate)));
             emit audioInputDeviceChanged();
         }
         else if (col == KAudioColumnHasOutput)
@@ -973,7 +1008,8 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
             if (item == m_audioMapTree->topLevelItem(0))
                 settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
             else
-                settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+                settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE,
+                                  QVariant(item->text(KAudioColumnPrivate)));
         }
     }
     else
@@ -1043,7 +1079,8 @@ void InputOutputPatchEditor::slotAudioInputPreview(bool enable)
     }
 }
 
-void InputOutputPatchEditor::slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+void InputOutputPatchEditor::slotAudioUpdateLevel(double *spectrumBands, int size,
+                                                  double maxMagnitude, quint32 power)
 {
     Q_UNUSED(spectrumBands)
     Q_UNUSED(size)

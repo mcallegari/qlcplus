@@ -55,26 +55,32 @@ FixtureConsole::FixtureConsole(QWidget *parent, Doc *doc, GroupType type, bool s
                      "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
 
     if (m_groupType == GroupEven)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
-                               "#C3D1C9, stop: 1 #AFBBB4); "
-                               "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; "
-                               "} "
-                               + (m_showCheckBoxes ? common : ""))
-                           .arg(topMargin);
+        m_styleSheet =
+            QString(
+                "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
+                "#C3D1C9, stop: 1 #AFBBB4); "
+                "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; "
+                "} "
+                + (m_showCheckBoxes ? common : ""))
+                .arg(topMargin);
     else if (m_groupType == GroupOdd)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
-                               "#D6D5E0, stop: 1 #A7A6AF); "
-                               "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; "
-                               "} "
-                               + (m_showCheckBoxes ? common : ""))
-                           .arg(topMargin);
+        m_styleSheet =
+            QString(
+                "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
+                "#D6D5E0, stop: 1 #A7A6AF); "
+                "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; "
+                "} "
+                + (m_showCheckBoxes ? common : ""))
+                .arg(topMargin);
     else
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
-                               "#D6D2D0, stop: 1 #AFACAB); "
-                               "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; "
-                               "} "
-                               + (m_showCheckBoxes ? common : ""))
-                           .arg(topMargin);
+        m_styleSheet =
+            QString(
+                "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 "
+                "#D6D2D0, stop: 1 #AFACAB); "
+                "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; "
+                "} "
+                + (m_showCheckBoxes ? common : ""))
+                .arg(topMargin);
 }
 
 FixtureConsole::~FixtureConsole() {}
@@ -87,7 +93,8 @@ void FixtureConsole::enableResetButton(bool enable)
         ConsoleChannel *cc = it.next();
         Q_ASSERT(cc != NULL);
         cc->showResetButton(enable);
-        connect(cc, SIGNAL(resetRequest(quint32, quint32)), this, SIGNAL(resetRequest(quint32, quint32)));
+        connect(cc, SIGNAL(resetRequest(quint32, quint32)), this,
+                SIGNAL(resetRequest(quint32, quint32)));
     }
 }
 
@@ -132,8 +139,10 @@ void FixtureConsole::setFixture(quint32 id)
 
         m_layout->addWidget(cc);
         m_channels.append(cc);
-        connect(cc, SIGNAL(valueChanged(quint32, quint32, uchar)), this, SIGNAL(valueChanged(quint32, quint32, uchar)));
-        connect(cc, SIGNAL(checked(quint32, quint32, bool)), this, SIGNAL(checked(quint32, quint32, bool)));
+        connect(cc, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
+                SIGNAL(valueChanged(quint32, quint32, uchar)));
+        connect(cc, SIGNAL(checked(quint32, quint32, bool)), this,
+                SIGNAL(checked(quint32, quint32, bool)));
     }
 
     /* Make a spacer item eat excess space to justify channels left */
@@ -162,7 +171,8 @@ void FixtureConsole::slotAliasChanged()
         {
             disconnect(cc, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
                        SIGNAL(valueChanged(quint32, quint32, uchar)));
-            disconnect(cc, SIGNAL(checked(quint32, quint32, bool)), this, SIGNAL(checked(quint32, quint32, bool)));
+            disconnect(cc, SIGNAL(checked(quint32, quint32, bool)), this,
+                       SIGNAL(checked(quint32, quint32, bool)));
 
             ConsoleChannel *newCC = new ConsoleChannel(this, m_doc, fxi->id(), i, m_showCheckBoxes);
             newCC->setVisible(false);
@@ -174,7 +184,8 @@ void FixtureConsole::slotAliasChanged()
 
             connect(newCC, SIGNAL(valueChanged(quint32, quint32, uchar)), this,
                     SIGNAL(valueChanged(quint32, quint32, uchar)));
-            connect(newCC, SIGNAL(checked(quint32, quint32, bool)), this, SIGNAL(checked(quint32, quint32, bool)));
+            connect(newCC, SIGNAL(checked(quint32, quint32, bool)), this,
+                    SIGNAL(checked(quint32, quint32, bool)));
 
             QLayoutItem *item = m_layout->replaceWidget(cc, newCC);
             delete item;

@@ -274,7 +274,8 @@ bool VCWidget::copyFrom(const VCWidget *widget)
     {
         it.next();
         quint8                         id = it.key();
-        QSharedPointer<QLCInputSource> src(new QLCInputSource(it.value()->universe(), it.value()->channel()));
+        QSharedPointer<QLCInputSource> src(
+            new QLCInputSource(it.value()->universe(), it.value()->channel()));
         src->setRange(it.value()->lowerValue(), it.value()->upperValue());
         setInputSource(src, id);
     }
@@ -574,7 +575,8 @@ bool VCWidget::acceptsInput()
     return true;
 }
 
-bool VCWidget::checkInputSource(quint32 universe, quint32 channel, uchar value, QObject *sender, quint32 id)
+bool VCWidget::checkInputSource(quint32 universe, quint32 channel, uchar value, QObject *sender,
+                                quint32 id)
 {
     QSharedPointer<QLCInputSource> const &src = m_inputs.value(id);
     if (src.isNull())
@@ -611,8 +613,8 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const &source, quin
     // Clear previous source
     if (m_inputs.contains(id))
     {
-        disconnect(m_inputs.value(id).data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                   SLOT(slotInputValueChanged(quint32, quint32, uchar)));
+        disconnect(m_inputs.value(id).data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                   this, SLOT(slotInputValueChanged(quint32, quint32, uchar)));
         m_inputs.remove(id);
     }
 
@@ -635,28 +637,30 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const &source, quin
                     {
                         source->setWorkingMode(QLCInputSource::Relative);
                         source->setSensitivity(ich->movementSensitivity());
-                        connect(source.data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                                SLOT(slotInputValueChanged(quint32, quint32, uchar)));
+                        connect(source.data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                                this, SLOT(slotInputValueChanged(quint32, quint32, uchar)));
                     }
                     else if (ich->type() == QLCInputChannel::Encoder)
                     {
                         source->setWorkingMode(QLCInputSource::Encoder);
                         source->setSensitivity(ich->movementSensitivity());
-                        connect(source.data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                                SLOT(slotInputValueChanged(quint32, quint32, uchar)));
+                        connect(source.data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                                this, SLOT(slotInputValueChanged(quint32, quint32, uchar)));
                     }
                     else if (ich->type() == QLCInputChannel::Button)
                     {
                         if (ich->sendExtraPress() == true)
                         {
                             source->setSendExtraPressRelease(true);
-                            connect(source.data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                                    SLOT(slotInputValueChanged(quint32, quint32, uchar)));
+                            connect(source.data(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                                    this, SLOT(slotInputValueChanged(quint32, quint32, uchar)));
                         }
 
                         // user custom feedbacks have precedence over input profile custom feedbacks
-                        source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
-                                         (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
+                        source->setRange((source->lowerValue() != 0) ? source->lowerValue()
+                                                                     : ich->lowerValue(),
+                                         (source->upperValue() != UCHAR_MAX) ? source->upperValue()
+                                                                             : ich->upperValue());
                     }
                 }
             }
@@ -666,8 +670,8 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const &source, quin
     // Disconnect when there are no more input sources present
     if (m_inputs.isEmpty() == true)
     {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)), this,
-                   SLOT(slotInputValueChanged(quint32, quint32, uchar)));
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar)),
+                   this, SLOT(slotInputValueChanged(quint32, quint32, uchar)));
         disconnect(m_doc->inputOutputMap(), SIGNAL(profileChanged(quint32, QString)), this,
                    SLOT(slotInputProfileChanged(quint32, QString)));
     }
@@ -903,7 +907,8 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
     quint32 ch  = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
     uchar   min = 0, max = UCHAR_MAX;
 
-    QSharedPointer<QLCInputSource> newSrc = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+    QSharedPointer<QLCInputSource> newSrc =
+        QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
         min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))

@@ -88,9 +88,9 @@ QLCPhysical &QLCPhysical::operator=(const QLCPhysical &physical)
 
 bool QLCPhysical::isEmpty() const
 {
-    if (m_bulbLumens == 0 && m_bulbColourTemperature == 0 && m_weight == 0 && m_width == 0 && m_height == 0
-        && m_depth == 0 && m_lensDegreesMin == 0 && m_lensDegreesMax == 0 && m_focusPanMax == 0 && m_focusTiltMax == 0
-        && m_powerConsumption == 0)
+    if (m_bulbLumens == 0 && m_bulbColourTemperature == 0 && m_weight == 0 && m_width == 0
+        && m_height == 0 && m_depth == 0 && m_lensDegreesMin == 0 && m_lensDegreesMax == 0
+        && m_focusPanMax == 0 && m_focusTiltMax == 0 && m_powerConsumption == 0)
         return true;
 
     return false;
@@ -292,9 +292,10 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
         QXmlStreamAttributes attrs = doc.attributes();
         if (doc.name() == KXMLQLCPhysicalBulb)
         {
-            m_bulbType              = attrs.value(KXMLQLCPhysicalBulbType).toString();
-            m_bulbLumens            = attrs.value(KXMLQLCPhysicalBulbLumens).toString().toInt();
-            m_bulbColourTemperature = attrs.value(KXMLQLCPhysicalBulbColourTemperature).toString().toInt();
+            m_bulbType   = attrs.value(KXMLQLCPhysicalBulbType).toString();
+            m_bulbLumens = attrs.value(KXMLQLCPhysicalBulbLumens).toString().toInt();
+            m_bulbColourTemperature =
+                attrs.value(KXMLQLCPhysicalBulbColourTemperature).toString().toInt();
         }
         else if (doc.name() == KXMLQLCPhysicalDimensions)
         {
@@ -305,9 +306,11 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
         }
         else if (doc.name() == KXMLQLCPhysicalLens)
         {
-            m_lensName       = attrs.value(KXMLQLCPhysicalLensName).toString();
-            m_lensDegreesMin = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMin).toString());
-            m_lensDegreesMax = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMax).toString());
+            m_lensName = attrs.value(KXMLQLCPhysicalLensName).toString();
+            m_lensDegreesMin =
+                QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMin).toString());
+            m_lensDegreesMax =
+                QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMax).toString());
         }
         else if (doc.name() == KXMLQLCPhysicalFocus)
         {
@@ -326,8 +329,9 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
         }
         else if (doc.name() == KXMLQLCPhysicalTechnical)
         {
-            m_powerConsumption = attrs.value(KXMLQLCPhysicalTechnicalPowerConsumption).toString().toInt();
-            m_dmxConnector     = attrs.value(KXMLQLCPhysicalTechnicalDmxConnector).toString();
+            m_powerConsumption =
+                attrs.value(KXMLQLCPhysicalTechnicalPowerConsumption).toString().toInt();
+            m_dmxConnector = attrs.value(KXMLQLCPhysicalTechnicalDmxConnector).toString();
         }
         else
         {

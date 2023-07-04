@@ -191,7 +191,8 @@ void VCFrame::setForegroundColor(const QColor &color)
         m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, "
                                "y2: 1, stop: 0 #666666, stop: 1 #000000); "
                                "color: "
-                               + color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+                               + color.name()
+                               + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
         m_hasCustomForegroundColor = true;
         m_doc->setModified();
     }
@@ -329,10 +330,11 @@ void VCFrame::createHeader()
     QString txtColor = "white";
     if (m_hasCustomForegroundColor)
         txtColor = this->foregroundColor().name();
-    m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, "
-                           "stop: 1 #000000); "
-                           "color: "
-                           + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; margin-right: 2px; }");
+    m_label->setStyleSheet(
+        "QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, "
+        "stop: 1 #000000); "
+        "color: "
+        + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; margin-right: 2px; }");
 
     if (m_hasCustomFont)
         m_label->setFont(font());
@@ -882,7 +884,8 @@ bool VCFrame::copyFrom(const VCWidget *widget)
             childCopy = child->createCopy(this);
             VirtualConsole::instance()->addWidgetInMap(childCopy);
 
-            qDebug() << "Child copy in parent:" << childCopy->caption() << ", page:" << childCopy->page();
+            qDebug() << "Child copy in parent:" << childCopy->caption()
+                     << ", page:" << childCopy->page();
         }
 
         if (childCopy != NULL)
@@ -895,7 +898,8 @@ bool VCFrame::copyFrom(const VCWidget *widget)
                 // always connect a slider as it it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster
-                connect(slider, SIGNAL(submasterValueChanged(qreal)), this, SLOT(slotSubmasterValueChanged(qreal)));
+                connect(slider, SIGNAL(submasterValueChanged(qreal)), this,
+                        SLOT(slotSubmasterValueChanged(qreal)));
             }
         }
     }
@@ -932,7 +936,8 @@ void VCFrame::applyProperties(VCFrameProperties const &prop)
                     newWidget->show();
 
                     bool multiPageFrame = false;
-                    if (newWidget->type() == VCWidget::FrameWidget || newWidget->type() == VCWidget::SoloFrameWidget)
+                    if (newWidget->type() == VCWidget::FrameWidget
+                        || newWidget->type() == VCWidget::SoloFrameWidget)
                     {
                         VCFrame *fr    = qobject_cast<VCFrame *>(newWidget);
                         multiPageFrame = fr->multipageMode();
@@ -949,8 +954,8 @@ void VCFrame::applyProperties(VCFrameProperties const &prop)
                          */
                         foreach (VCWidget *widget, newWidget->findChildren<VCWidget *>())
                         {
-                            // qDebug() << "Child" << widget->caption() << ", page:" << widget->page() << ", new page:"
-                            // << pg;
+                            // qDebug() << "Child" << widget->caption() << ", page:" <<
+                            // widget->page() << ", new page:" << pg;
                             widget->setPage(pg);
                             widget->remapInputSources(pg);
                         }
@@ -1204,7 +1209,8 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 // always connect a slider as if it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster
-                connect(slider, SIGNAL(submasterValueChanged(qreal)), this, SLOT(slotSubmasterValueChanged(qreal)));
+                connect(slider, SIGNAL(submasterValueChanged(qreal)), this,
+                        SLOT(slotSubmasterValueChanged(qreal)));
             }
         }
         else if (root.name() == KXMLQLCVCSoloFrame)
@@ -1338,7 +1344,8 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCVCFrameShowHeader, isHeaderVisible() ? KXMLQLCTrue : KXMLQLCFalse);
 
         /* ShowEnableButton */
-        doc->writeTextElement(KXMLQLCVCFrameShowEnableButton, isEnableButtonVisible() ? KXMLQLCTrue : KXMLQLCFalse);
+        doc->writeTextElement(KXMLQLCVCFrameShowEnableButton,
+                              isEnableButtonVisible() ? KXMLQLCTrue : KXMLQLCFalse);
 
         /* Solo frame mixing */
         if (this->type() == SoloFrameWidget)

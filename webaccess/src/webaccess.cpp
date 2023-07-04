@@ -58,8 +58,8 @@
 #define DEFAULT_PORT_NUMBER    9999
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
-WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, int portNumber, bool enableAuth,
-                     QString passwdFile, QObject *parent)
+WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, int portNumber,
+                     bool enableAuth, QString passwdFile, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
     , m_vc(vcInstance)
@@ -192,7 +192,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
         }
         QByteArray fixtureXML = req->body();
         int        fnamePos   = fixtureXML.indexOf("filename=") + 10;
-        QString    fxName     = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
+        QString    fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
 
         fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
         fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
@@ -266,7 +266,10 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp,
-                     QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path()).arg(QDir::separator()).arg(clUri),
+                     QString("%1%2%3")
+                         .arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                         .arg(QDir::separator())
+                         .arg(clUri),
                      "text/css")
             == true)
             return;
@@ -275,7 +278,10 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp,
-                     QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path()).arg(QDir::separator()).arg(clUri),
+                     QString("%1%2%3")
+                         .arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                         .arg(QDir::separator())
+                         .arg(clUri),
                      "text/javascript")
             == true)
             return;
@@ -284,7 +290,10 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp,
-                     QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path()).arg(QDir::separator()).arg(clUri),
+                     QString("%1%2%3")
+                         .arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                         .arg(QDir::separator())
+                         .arg(clUri),
                      "text/html")
             == true)
             return;
@@ -352,7 +361,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         }
         else if (cmdList[1] == "OUTPUT")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), false);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(),
+                                                    false);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "FB")
@@ -365,7 +375,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
             if (inPatch != NULL)
             {
-                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", inPatch->input(), cmdList[3]);
+                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "",
+                                                       inPatch->input(), cmdList[3]);
                 m_doc->inputOutputMap()->saveDefaults();
             }
         }
@@ -414,7 +425,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             int     level    = cmdList.at(4).toInt();
             if (username.isEmpty() || password.isEmpty())
             {
-                QString wsMessage = QString("ALERT|" + tr("Username and password are required fields."));
+                QString wsMessage =
+                    QString("ALERT|" + tr("Username and password are required fields."));
                 conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
                 return;
             }
@@ -472,7 +484,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         {
             if (m_netConfig->updateNetworkFile(cmdList) == true)
             {
-                QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
+                QString wsMessage = QString(
+                    "ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
                 conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
                 return;
             }
@@ -486,7 +499,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() < 3)
                 return;
 
-            QString asName = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
+            QString asName =
+                QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
             if (cmdList.at(2) == "none")
                 QFile::remove(asName);
             else
@@ -669,7 +683,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (cmdList.count() == 5)
                 count = cmdList[4].toInt();
 
-            wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(m_doc, m_sd, universe, startAddr, count));
+            wsAPIMessage.append(
+                WebAccessSimpleDesk::getChannelsMessage(m_doc, m_sd, universe, startAddr, count));
         }
         else if (apiCmd == "sdResetChannel")
         {
@@ -683,8 +698,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             m_sd->resetChannel(chNum);
             wsAPIMessage = "QLC+API|getChannelsValues|";
             wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(
-                m_doc, m_sd, m_sd->getCurrentUniverseIndex(), (m_sd->getCurrentPage() - 1) * m_sd->getSlidersNumber(),
-                m_sd->getSlidersNumber()));
+                m_doc, m_sd, m_sd->getCurrentUniverseIndex(),
+                (m_sd->getCurrentPage() - 1) * m_sd->getSlidersNumber(), m_sd->getSlidersNumber()));
         }
         else if (apiCmd == "sdResetUniverse")
         {
@@ -693,8 +708,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
             m_sd->resetUniverse();
             wsAPIMessage = "QLC+API|getChannelsValues|";
-            wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(m_doc, m_sd, m_sd->getCurrentUniverseIndex(), 0,
-                                                                        m_sd->getSlidersNumber()));
+            wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(
+                m_doc, m_sd, m_sd->getCurrentUniverseIndex(), 0, m_sd->getSlidersNumber()));
         }
         // qDebug() << "Simple desk channels:" << wsAPIMessage;
 
@@ -905,8 +920,8 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
                   + "px; width: " + QString::number(w) + "px; height: " + QString::number(h)
                   + "px; "
                     "background-color: "
-                  + frame->backgroundColor().name() + "; " + getWidgetBackgroundImage(frame) + "border: 1px solid "
-                  + border.name() + ";\">\n";
+                  + frame->backgroundColor().name() + "; " + getWidgetBackgroundImage(frame)
+                  + "border: 1px solid " + border.name() + ";\">\n";
 
     str += getChildrenHTML(frame, frame->totalPagesNumber(), frame->currentPage());
 
@@ -918,8 +933,10 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
         str += "<div class=\"vcframeHeader\" style=\"color:" + frame->foregroundColor().name()
                + ";\"><div class=\"vcFrameText\">" + frame->caption() + "</div></div>\n";
 
-        m_JScode += "framesWidth[" + QString::number(frame->id()) + "] = " + QString::number(origSize.width()) + ";\n";
-        m_JScode += "framesHeight[" + QString::number(frame->id()) + "] = " + QString::number(origSize.height()) + ";\n";
+        m_JScode += "framesWidth[" + QString::number(frame->id())
+                    + "] = " + QString::number(origSize.width()) + ";\n";
+        m_JScode += "framesHeight[" + QString::number(frame->id())
+                    + "] = " + QString::number(origSize.height()) + ";\n";
 
         if (frame->multipageMode())
         {
@@ -928,8 +945,8 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
             str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
             str += QString::number(frame->id()) + ");\">";
             str += "<img src=\"back.png\" width=\"27\"></a>";
-            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id())
-                   + "Page\">";
+            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr"
+                   + QString::number(frame->id()) + "Page\">";
             str += QString("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div></div>";
             str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
             str += QString::number(frame->id()) + ");\">";
@@ -963,8 +980,8 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
                   + "px; width: " + QString::number(w) + "px; height: " + QString::number(h)
                   + "px; "
                     "background-color: "
-                  + frame->backgroundColor().name() + "; " + getWidgetBackgroundImage(frame) + "border: 1px solid "
-                  + border.name() + ";\">\n";
+                  + frame->backgroundColor().name() + "; " + getWidgetBackgroundImage(frame)
+                  + "border: 1px solid " + border.name() + ";\">\n";
 
     str += getChildrenHTML(frame, frame->totalPagesNumber(), frame->currentPage());
 
@@ -976,8 +993,10 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
         str += "<div class=\"vcsoloframeHeader\" style=\"color:" + frame->foregroundColor().name()
                + ";\"><div class=\"vcFrameText\">" + frame->caption() + "</div></div>\n";
 
-        m_JScode += "framesWidth[" + QString::number(frame->id()) + "] = " + QString::number(origSize.width()) + ";\n";
-        m_JScode += "framesHeight[" + QString::number(frame->id()) + "] = " + QString::number(origSize.height()) + ";\n";
+        m_JScode += "framesWidth[" + QString::number(frame->id())
+                    + "] = " + QString::number(origSize.width()) + ";\n";
+        m_JScode += "framesHeight[" + QString::number(frame->id())
+                    + "] = " + QString::number(origSize.height()) + ";\n";
 
         if (frame->multipageMode())
         {
@@ -986,8 +1005,8 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
             str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
             str += QString::number(frame->id()) + ");\">";
             str += "<img src=\"back.png\" width=\"27\"></a>";
-            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id())
-                   + "Page\">";
+            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr"
+                   + QString::number(frame->id()) + "Page\">";
             str += QString("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div></div>";
             str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
             str += QString::number(frame->id()) + ");\">";
@@ -1057,8 +1076,9 @@ QString WebAccess::getButtonHTML(VCButton *btn)
            + QString::number(btn->height())
            + "px; "
              "color: "
-           + btn->foregroundColor().name() + "; " + getWidgetBackgroundImage(btn) + "background-color: "
-           + btn->backgroundColor().name() + "; " + onCSS + "\">" + btn->caption() + "</a>\n</div>\n";
+           + btn->foregroundColor().name() + "; " + getWidgetBackgroundImage(btn)
+           + "background-color: " + btn->backgroundColor().name() + "; " + onCSS + "\">"
+           + btn->caption() + "</a>\n</div>\n";
 
     connect(btn, SIGNAL(stateChanged(int)), this, SLOT(slotButtonStateChanged(int)));
 
@@ -1072,7 +1092,8 @@ void WebAccess::slotSliderValueChanged(QString val)
         return;
 
     // <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
-    QString wsMessage = QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(slider->sliderValue()).arg(val);
+    QString wsMessage =
+        QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(slider->sliderValue()).arg(val);
 
     sendWebSocketMessage(wsMessage.toUtf8());
 }
@@ -1157,8 +1178,8 @@ QString WebAccess::getLabelHTML(VCLabel *label)
            + label->foregroundColor().name()
            + "; "
              "background-color: "
-           + label->backgroundColor().name() + "; " + getWidgetBackgroundImage(label) + "\">" + label->caption()
-           + "</div>\n</div>\n";
+           + label->backgroundColor().name() + "; " + getWidgetBackgroundImage(label) + "\">"
+           + label->caption() + "</div>\n</div>\n";
 
     return str;
 }
@@ -1179,14 +1200,15 @@ void WebAccess::slotAudioTriggersToggled(bool toggle)
 QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
 {
     QString str = "<div class=\"vcaudiotriggers\" style=\"left: " + QString::number(triggers->x())
-                  + "px; top: " + QString::number(triggers->y()) + "px; width: " + QString::number(triggers->width())
+                  + "px; top: " + QString::number(triggers->y())
+                  + "px; width: " + QString::number(triggers->width())
                   + "px; height: " + QString::number(triggers->height())
                   + "px; "
                     "background-color: "
                   + triggers->backgroundColor().name() + ";\">\n";
 
-    str += "<div class=\"vcaudioHeader\" style=\"color:" + triggers->foregroundColor().name() + "\">"
-           + triggers->caption() + "</div>\n";
+    str += "<div class=\"vcaudioHeader\" style=\"color:" + triggers->foregroundColor().name()
+           + "\">" + triggers->caption() + "</div>\n";
 
     str += "<div class=\"vcatbutton-wrapper\">\n";
     str += "<a  class=\"vcatbutton\" id=\"" + QString::number(triggers->id())
@@ -1224,13 +1246,14 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     QString str = "<div id=\"" + QString::number(cue->id())
                   + "\" "
                     "class=\"vccuelist\" style=\"left: "
-                  + QString::number(cue->x()) + "px; top: " + QString::number(cue->y())
-                  + "px; width: " + QString::number(cue->width()) + "px; height: " + QString::number(cue->height())
+                  + QString::number(cue->x()) + "px; top: " + QString::number(cue->y()) + "px; width: "
+                  + QString::number(cue->width()) + "px; height: " + QString::number(cue->height())
                   + "px; "
                     "background-color: "
                   + cue->backgroundColor().name() + ";\">\n";
 
-    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 34) + "px; overflow: scroll;\" >\n";
+    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 34)
+           + "px; overflow: scroll;\" >\n";
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>" + tr("Name") + "</th>";
     str += "<th>" + tr("Fade In") + "</th>";
@@ -1525,52 +1548,55 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
 QString WebAccess::getVCHTML()
 {
-    m_CSScode = "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
+    m_CSScode =
+        "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
     m_CSScode += "<link href=\"virtualconsole.css\" rel=\"stylesheet\" type=\"text/css\" "
                  "media=\"screen\">\n";
     m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n"
                "<script type=\"text/javascript\" src=\"virtualconsole.js\"></script>\n"
                "<script type=\"text/javascript\">\n";
 
-    VCFrame *mainFrame   = m_vc->contents();
-    QSize    mfSize      = mainFrame->size();
-    QString  widgetsHTML = "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
-                           "<input id=\"loadTrigger\" type=\"file\" "
-                           "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
-                           "<input id=\"submitTrigger\" type=\"submit\"/>\n"
-                           "</form>\n"
+    VCFrame *mainFrame = m_vc->contents();
+    QSize    mfSize    = mainFrame->size();
+    QString  widgetsHTML =
+        "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
+        "<input id=\"loadTrigger\" type=\"file\" "
+        "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
+        "<input id=\"submitTrigger\" type=\"submit\"/>\n"
+        "</form>\n"
 
-                          "<div class=\"controlBar\">\n"
-                          "<a class=\"button button-blue\" "
-                          "href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
-                          "<span>"
-                          + tr("Load project")
-                          + "</span></a>\n"
+        "<div class=\"controlBar\">\n"
+        "<a class=\"button button-blue\" "
+        "href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
+        "<span>"
+        + tr("Load project")
+        + "</span></a>\n"
 
-                            "<a class=\"button button-blue\" href=\"/simpleDesk\"><span>"
-                          + tr("Simple Desk")
-                          + "</span></a>\n"
+          "<a class=\"button button-blue\" href=\"/simpleDesk\"><span>"
+        + tr("Simple Desk")
+        + "</span></a>\n"
 
-                            "<a class=\"button button-blue\" href=\"/config\"><span>"
-                          + tr("Configuration")
-                          + "</span></a>\n"
+          "<a class=\"button button-blue\" href=\"/config\"><span>"
+        + tr("Configuration")
+        + "</span></a>\n"
 
-                            "<div class=\"swInfo\">"
-                          + QString(APPNAME) + " " + QString(APPVERSION)
-                          + "</div>"
-                            "</div>\n"
-                            "<div style=\"position: relative; "
-                            "width: "
-                          + QString::number(mfSize.width()) + "px; height: " + QString::number(mfSize.height())
-                          + "px; "
-                            "background-color: "
-                          + mainFrame->backgroundColor().name() + ";\">\n";
+          "<div class=\"swInfo\">"
+        + QString(APPNAME) + " " + QString(APPVERSION)
+        + "</div>"
+          "</div>\n"
+          "<div style=\"position: relative; "
+          "width: "
+        + QString::number(mfSize.width()) + "px; height: " + QString::number(mfSize.height())
+        + "px; "
+          "background-color: "
+        + mainFrame->backgroundColor().name() + ";\">\n";
 
     widgetsHTML += getChildrenHTML(mainFrame, 0, 0);
 
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_CSScode + m_JScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n</html>";
+    QString str = HTML_HEADER + m_CSScode + m_JScode + "</head>\n<body>\n" + widgetsHTML
+                  + "</div>\n</body>\n</html>";
     return str;
 }
 

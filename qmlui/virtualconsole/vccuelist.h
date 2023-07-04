@@ -46,7 +46,8 @@ class VCCueList : public VCWidget
     Q_PROPERTY(quint32 chaserID READ chaserID WRITE setChaserID NOTIFY chaserIDChanged)
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
 
-    Q_PROPERTY(NextPrevBehavior nextPrevBehavior READ nextPrevBehavior WRITE setNextPrevBehavior NOTIFY nextPrevBehaviorChanged)
+    Q_PROPERTY(NextPrevBehavior nextPrevBehavior READ nextPrevBehavior WRITE setNextPrevBehavior
+                   NOTIFY nextPrevBehaviorChanged)
     Q_PROPERTY(PlaybackLayout playbackLayout READ playbackLayout WRITE setPlaybackLayout NOTIFY playbackLayoutChanged)
 
     Q_PROPERTY(FaderMode sideFaderMode READ sideFaderMode WRITE setSideFaderMode NOTIFY sideFaderModeChanged)

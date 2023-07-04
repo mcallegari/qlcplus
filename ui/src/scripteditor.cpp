@@ -50,7 +50,8 @@ ScriptEditor::ScriptEditor(QWidget *parent, Script *script, Doc *doc)
     /* Name */
     m_nameEdit->setText(m_script->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
-    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this, SLOT(slotNameEdited(const QString &)));
+    connect(m_nameEdit, SIGNAL(textEdited(const QString &)), this,
+            SLOT(slotNameEdited(const QString &)));
 
     /* Document */
     m_document = new QTextDocument(m_script->data(), this);
@@ -220,7 +221,8 @@ void ScriptEditor::slotAddStartFunction()
         {
             Function *function = m_doc->function(id);
             Q_ASSERT(function != NULL);
-            QString cmd = QString("%1:%2 // %3\n").arg(Script::startFunctionCmd).arg(id).arg(function->name());
+            QString cmd =
+                QString("%1:%2 // %3\n").arg(Script::startFunctionCmd).arg(id).arg(function->name());
             cursor.insertText(cmd);
             m_editor->moveCursor(QTextCursor::Down);
         }
@@ -240,7 +242,8 @@ void ScriptEditor::slotAddStopFunction()
         {
             Function *function = m_doc->function(id);
             Q_ASSERT(function != NULL);
-            QString cmd = QString("%1:%2 // %3\n").arg(Script::stopFunctionCmd).arg(id).arg(function->name());
+            QString cmd =
+                QString("%1:%2 // %3\n").arg(Script::stopFunctionCmd).arg(id).arg(function->name());
             cursor.insertText(cmd);
             m_editor->moveCursor(QTextCursor::Down);
         }
@@ -268,7 +271,9 @@ void ScriptEditor::slotAddBlackout()
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
         m_editor->textCursor().insertText(
-            QString("%1:%2\n").arg(Script::blackoutCmd).arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
+            QString("%1:%2\n")
+                .arg(Script::blackoutCmd)
+                .arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
     }
 }
 
@@ -297,7 +302,8 @@ void ScriptEditor::slotAddWait()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("%1:%2\n").arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
+        m_editor->textCursor().insertText(
+            QString("%1:%2\n").arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
     }
 }
 
@@ -367,8 +373,9 @@ void ScriptEditor::slotAddSystemCommand()
 #endif
     m_lastUsedPath = fInfo.absolutePath();
 
-    QString args = QInputDialog::getText(this, tr("Enter the program arguments (leave empty if not required)"), "",
-                                         QLineEdit::Normal, QString());
+    QString args =
+        QInputDialog::getText(this, tr("Enter the program arguments (leave empty if not required)"),
+                              "", QLineEdit::Normal, QString());
 
     QStringList argsList = args.split(" ");
     QString     formattedArgs;
@@ -378,13 +385,14 @@ void ScriptEditor::slotAddSystemCommand()
     }
 
     m_editor->moveCursor(QTextCursor::StartOfLine);
-    m_editor->textCursor().insertText(QString("%1:%2 %3\n").arg(Script::systemCmd).arg(fn).arg(formattedArgs));
+    m_editor->textCursor().insertText(
+        QString("%1:%2 %3\n").arg(Script::systemCmd).arg(fn).arg(formattedArgs));
     m_editor->moveCursor(QTextCursor::Down);
 }
 
 void ScriptEditor::slotAddComment()
 {
-    bool    ok  = false;
+    bool ok     = false;
     QString str = QInputDialog::getText(this, tr("Add Comment"), "", QLineEdit::Normal, QString(), &ok);
     if (ok == true)
     {
@@ -420,7 +428,8 @@ void ScriptEditor::slotAddRandom()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("random(%1,%2)").arg(minSB->value()).arg(maxSB->value()));
+        m_editor->textCursor().insertText(
+            QString("random(%1,%2)").arg(minSB->value()).arg(maxSB->value()));
         m_editor->moveCursor(QTextCursor::EndOfLine);
     }
 }

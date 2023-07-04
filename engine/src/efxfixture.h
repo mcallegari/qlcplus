@@ -181,7 +181,8 @@ private:
     /** Elapsed milliseconds since last reset() */
     uint m_elapsed;
 
-    /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and parent->duration() */
+    /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and
+     * parent->duration() */
     float m_currentAngle;
 
     /*************************************************************************
@@ -197,7 +198,8 @@ private:
     void updateFaderValues(FadeChannel *fc, uchar value);
 
     /** Write this EFXFixture's channel data to universe faders */
-    void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
+    void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan,
+                         float tilt);
     void setPointDimmer(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer);
     void setPointRGB(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y);
 

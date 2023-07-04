@@ -260,7 +260,8 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCInputChannelMovement)
         {
             if (root.attributes().hasAttribute(KXMLQLCInputChannelSensitivity))
-                setMovementSensitivity(root.attributes().value(KXMLQLCInputChannelSensitivity).toString().toInt());
+                setMovementSensitivity(
+                    root.attributes().value(KXMLQLCInputChannelSensitivity).toString().toInt());
 
             if (root.readElementText() == KXMLQLCInputChannelRelative)
                 setMovementType(Relative);

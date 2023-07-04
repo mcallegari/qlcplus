@@ -138,7 +138,8 @@ VCClock::ClockType VCClock::stringToType(QString str)
 
 void VCClock::addSchedule(VCClockSchedule schedule)
 {
-    qDebug() << Q_FUNC_INFO << "--- ID:" << schedule.function() << ", time:" << schedule.time().time().toString();
+    qDebug() << Q_FUNC_INFO << "--- ID:" << schedule.function()
+             << ", time:" << schedule.time().time().toString();
     if (schedule.function() != Function::invalidId())
         m_scheduleList.append(schedule);
     std::sort(m_scheduleList.begin(), m_scheduleList.end());
@@ -548,10 +549,12 @@ void VCClock::paintEvent(QPaintEvent *e)
 
         m = secTime / 60;
         secTime -= (m * 60);
-        style()->drawItemText(
-            &painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), true,
-            QString("%1:%2:%3").arg(h, 2, 10, QChar('0')).arg(m, 2, 10, QChar('0')).arg(secTime, 2, 10, QChar('0')),
-            foregroundRole());
+        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(), true,
+                              QString("%1:%2:%3")
+                                  .arg(h, 2, 10, QChar('0'))
+                                  .arg(m, 2, 10, QChar('0'))
+                                  .arg(secTime, 2, 10, QChar('0')),
+                              foregroundRole());
     }
     painter.end();
 
@@ -604,7 +607,8 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
         if (attrs.hasAttribute(KXMLQLCVCClockScheduleTime))
         {
             QDateTime dt;
-            dt.setTime(QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss"));
+            dt.setTime(
+                QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss"));
             setTime(dt);
         }
     }

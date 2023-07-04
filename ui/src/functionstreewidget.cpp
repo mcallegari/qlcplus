@@ -38,7 +38,8 @@ FunctionsTreeWidget::FunctionsTreeWidget(Doc *doc, QWidget *parent)
     QTreeWidgetItem *root = invisibleRootItem();
     root->setFlags(root->flags() & ~Qt::ItemIsDropEnabled);
 
-    connect(this, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(slotItemChanged(QTreeWidgetItem *)));
+    connect(this, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
+            SLOT(slotItemChanged(QTreeWidgetItem *)));
 }
 
 void FunctionsTreeWidget::updateTree()

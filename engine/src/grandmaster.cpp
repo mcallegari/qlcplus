@@ -122,17 +122,17 @@ void GrandMaster::setChannelMode(GrandMaster::ChannelMode mode)
         setValue(value());
     }
     /*
-        if (gMChannelMode() == GMIntensity)
+    if (gMChannelMode() == GMIntensity)
+    {
+        QSetIterator <int> it(m_gMNonIntensityChannels);
+        while (it.hasNext() == true)
         {
-            QSetIterator <int> it(m_gMNonIntensityChannels);
-            while (it.hasNext() == true)
-            {
-                int channel(it.next());
-                char chValue(m_preGMValues->data()[channel]);
-                write(channel, chValue, QLCChannel::NoGroup);
-            }
+            int channel(it.next());
+            char chValue(m_preGMValues->data()[channel]);
+            write(channel, chValue, QLCChannel::NoGroup);
         }
-    */
+    }
+*/
 }
 
 GrandMaster::ChannelMode GrandMaster::channelMode() const

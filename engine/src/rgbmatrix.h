@@ -71,7 +71,8 @@ public:
 
     /** Initialize the playback direction and set the initial step index and
      * color based on $startColor and $endColor */
-    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount);
+    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor,
+                             int stepsCount);
 
     /** Check the steps progression based on $order and the internal m_direction.
      *  This method returns true if the RGBMatrix can continue to run, otherwise
@@ -245,7 +246,8 @@ private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID,
+                          quint32 channel);
     void         updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */
