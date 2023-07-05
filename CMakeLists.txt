@@ -41,6 +41,10 @@ find_package(PkgConfig REQUIRED)
 include(./variables.cmake)
 include(./coverage.cmake)
 
+if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
+    pkg_check_modules(PORTAUDIO_2 IMPORTED_TARGET portaudio-2.0)
+endif()
+
 add_subdirectory(hotplugmonitor)
 add_subdirectory(engine)
 add_subdirectory(resources)

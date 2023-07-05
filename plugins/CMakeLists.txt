@@ -1,5 +1,8 @@
 project(plugins)
 
+# libusb-1.0
+pkg_check_modules(LIBUSB_1 IMPORTED_TARGET libusb-1.0)
+
 add_subdirectory(artnet)
 add_subdirectory(E1.31)
 add_subdirectory(loopback)
@@ -23,7 +26,7 @@ if((((NOT ANDROID AND NOT IOS) AND (UNIX) AND (${LIBOLA_FOUND}) AND (${LIBOLASER
 endif()
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
     add_subdirectory(dmx4linux)
+    add_subdirectory(spi)
+    # add_subdirectory(uart)
 endif()
 
-#add_subdirectory(uart)
-#add_subdirectory(spi)

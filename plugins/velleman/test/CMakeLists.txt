@@ -1,15 +1,16 @@
+set(module_name "velleman_test")
 
-add_executable(velleman_test WIN32 MACOSX_BUNDLE
-    # ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
+add_executable(${module_name} WIN32
+    ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../src/velleman_mock.cpp
-    velleman_test.cpp velleman_test.h
+    ${module_name}.cpp ${module_name}.h
 )
-target_include_directories(velleman_test PRIVATE
+target_include_directories(${module_name} PRIVATE
     ../../interfaces
     ../src
 )
 
-target_link_libraries(velleman_test PRIVATE
+target_link_libraries(${module_name} PRIVATE
     # Remove: L../src
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Test
@@ -17,7 +18,7 @@ target_link_libraries(velleman_test PRIVATE
 )
 
 if(WIN32)
-    target_compile_definitions(velleman_test PRIVATE
+    target_compile_definitions(${module_name} PRIVATE
         QLC_EXPORT
     )
 endif()

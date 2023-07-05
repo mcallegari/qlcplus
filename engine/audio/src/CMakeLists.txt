@@ -61,7 +61,6 @@ if(NOT ((QT_VERSION_MAJOR LESS 6)))
 endif()
 
 if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
-    pkg_check_modules(PORTAUDIO_2 IMPORTED_TARGET portaudio-2.0)
     if (${PORTAUDIO_2_FOUND})
         target_sources(${module_name} PRIVATE
             audiocapture_portaudio.cpp audiocapture_portaudio.h
@@ -81,8 +80,6 @@ if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
         )
     endif()
 endif()
-
-pkg_check_modules(FFTW3 IMPORTED_TARGET fftw3)
 
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(${module_name} PUBLIC

@@ -45,7 +45,6 @@ if(MACOS)
     set_target_properties(${module_name} PROPERTIES
         MACOSX_BUNDLE FALSE
     )
-    pkg_check_modules(LIBOLASERVER IMPORTED_TARGET REQUIRED libolaserver)
     if(${LIBOLASERVER_FOUND})
         target_include_directories(${module_name} PRIVATE
             ${LIBOLASERVER_INCLUDE_DIRS}
