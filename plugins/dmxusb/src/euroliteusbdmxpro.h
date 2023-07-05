@@ -35,7 +35,7 @@ class EuroliteUSBDMXPro : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine);
+    EuroliteUSBDMXPro(DMXInterface *_interface, quint32 outputLine);
     virtual ~EuroliteUSBDMXPro();
 
     /** @reimp */

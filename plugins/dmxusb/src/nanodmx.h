@@ -30,7 +30,7 @@ class NanoDMX : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    NanoDMX(DMXInterface *interface, quint32 outputLine);
+    NanoDMX(DMXInterface *_interface, quint32 outputLine);
     virtual ~NanoDMX();
 
     /** @reimp */

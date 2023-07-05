@@ -124,15 +124,15 @@ bool Show::copyFrom(const Function* function)
         // create a copy of each sequence/audio in a track
         foreach(ShowFunction *sfunc, track->showFunctions())
         {
-            Function* function = doc()->function(sfunc->functionID());
-            if (function == NULL)
+            Function* _function = doc()->function(sfunc->functionID());
+            if (_function == NULL)
                 continue;
 
             /* Attempt to create a copy of the function to Doc */
-            Function* copy = function->createCopy(doc());
+            Function* copy = _function->createCopy(doc());
             if (copy != NULL)
             {
-                copy->setName(tr("Copy of %1").arg(function->name()));
+                copy->setName(tr("Copy of %1").arg(_function->name()));
                 ShowFunction *showFunc = newTrack->createShowFunction(copy->id());
                 showFunc->setStartTime(sfunc->startTime());
                 showFunc->setDuration(sfunc->duration());

@@ -28,7 +28,7 @@ class Stageprofi : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    Stageprofi(DMXInterface *interface, quint32 outputLine);
+    Stageprofi(DMXInterface *_interface, quint32 outputLine);
     virtual ~Stageprofi();
 
     /** @reimp */

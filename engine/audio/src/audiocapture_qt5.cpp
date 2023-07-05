@@ -131,20 +131,20 @@ bool AudioCaptureQt6::readAudio(int maxSize)
     if (m_audioInput == NULL || m_input == NULL)
         return false;
 
-    int bufferSize = maxSize * sizeof(*m_audioBuffer);
+    int _bufferSize = maxSize * sizeof(*m_audioBuffer);
 
     QByteArray readBuffer = m_input->readAll();
     m_currentReadBuffer += readBuffer;
 
     // qDebug() << "[QT readAudio] " << readBuffer.size() << "bytes read -> (" << m_currentReadBuffer.size() << "/" << bufferSize << ")";
 
-    if (m_currentReadBuffer.size() < bufferSize)
+    if (m_currentReadBuffer.size() < _bufferSize)
     {
         // nothing has been read
         return false;
     }
 
-    memcpy(m_audioBuffer, m_currentReadBuffer.data(), bufferSize);
-    m_currentReadBuffer.remove(0, bufferSize);
+    memcpy(m_audioBuffer, m_currentReadBuffer.data(), _bufferSize);
+    m_currentReadBuffer.remove(0, _bufferSize);
     return true;
 }

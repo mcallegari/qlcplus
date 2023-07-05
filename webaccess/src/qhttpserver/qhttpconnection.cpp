@@ -282,7 +282,7 @@ int QHttpConnection::Url(http_parser *parser, const char *at, size_t length)
     QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
-    theConnection->m_currentUrl.append(at, length);
+    theConnection->m_currentUrl.append(at, int(length));
     return 0;
 }
 
@@ -305,7 +305,7 @@ int QHttpConnection::HeaderField(http_parser *parser, const char *at, size_t len
         theConnection->m_currentHeaderValue = QString();
     }
 
-    QString fieldSuffix = QString::fromLatin1(at, length);
+    QString fieldSuffix = QString::fromLatin1(at, int(length));
     theConnection->m_currentHeaderField += fieldSuffix;
     return 0;
 }
@@ -315,7 +315,7 @@ int QHttpConnection::HeaderValue(http_parser *parser, const char *at, size_t len
     QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
-    QString valueSuffix = QString::fromLatin1(at, length);
+    QString valueSuffix = QString::fromLatin1(at, int(length));
     theConnection->m_currentHeaderValue += valueSuffix;
     return 0;
 }
@@ -325,7 +325,7 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
     QHttpConnection *theConnection = static_cast<QHttpConnection *>(parser->data);
     Q_ASSERT(theConnection->m_request);
 
-    Q_EMIT theConnection->m_request->data(QByteArray(at, length));
+    Q_EMIT theConnection->m_request->data(QByteArray(at, int(length)));
     return 0;
 }
 

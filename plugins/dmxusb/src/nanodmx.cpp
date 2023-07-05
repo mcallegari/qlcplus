@@ -22,8 +22,8 @@
 #include <QDebug>
 #include <QDir>
 
-NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
-    : DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
+NanoDMX::NanoDMX(DMXInterface *_interface, quint32 outputLine)
+    : DMXUSBWidget(_interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
     , m_running(false)
 {
 }
@@ -52,7 +52,7 @@ bool NanoDMX::checkReply()
     bool ok = false;
     uchar res;
 
-    res = interface()->readByte(&ok);
+    res = _interface()->readByte(&ok);
     if (ok == false || res != 0x47)
         return false;
 
@@ -79,7 +79,7 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.asprintf("C%03dL%03d", channel, value).toUtf8());
-    return interface()->write(chanMsg);
+    return _interface()->write(chanMsg);
 }
 
 #ifndef QTSERIAL
@@ -91,7 +91,7 @@ QString NanoDMX::getDeviceName()
     // 1- scan all the devices in the device bus
     foreach (QString dir, devDirs)
     {
-        if (dir.startsWith(QString::number(interface()->busLocation())) &&
+        if (dir.startsWith(QString::number(_interface()->busLocation())) &&
             dir.contains(".") &&
             dir.contains(":") == false)
         {
@@ -169,7 +169,7 @@ bool NanoDMX::open(quint32 line, bool input)
     /* Check connection */
     initSequence.append("C?");
 #ifdef QTSERIAL
-    if (interface()->write(initSequence) == true)
+    if (_interface()->write(initSequence) == true)
 #else
     if (m_file.write(initSequence) == true)
 #endif
@@ -184,7 +184,7 @@ bool NanoDMX::open(quint32 line, bool input)
     initSequence.clear();
     initSequence.append("N511");
 #ifdef QTSERIAL
-    if (interface()->write(initSequence) == true)
+    if (_interface()->write(initSequence) == true)
 #else
     if (m_file.write(initSequence) == true)
 #endif
@@ -322,14 +322,14 @@ void NanoDMX::run()
             }
             fastTrans.append(val);
 #ifdef QTSERIAL
-            if (interface()->write(fastTrans) == false)
+            if (_interface()->write(fastTrans) == false)
 #else
             if (m_file.write(fastTrans) <= 0)
 #endif
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
 #ifdef QTSERIAL
-                interface()->purgeBuffers();
+                _interface()->purgeBuffers();
 #endif
                 continue;
             }
@@ -338,7 +338,7 @@ void NanoDMX::run()
                 m_outputLines[0].m_compareData[i] = val;
 #ifdef QTSERIAL
                 if (checkReply() == false)
-                    interface()->purgeBuffers();
+                    _interface()->purgeBuffers();
 #endif
             }
         }
