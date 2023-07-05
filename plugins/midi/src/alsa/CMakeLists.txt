@@ -48,14 +48,19 @@ target_include_directories(${module_name} PRIVATE
     ../common
 )
 
-find_package(ALSA REQUIRED)
+pkg_check_modules(ALSA IMPORTED_TARGET alsa)
 
 target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Widgets
-    ${ALSA_LIBRARIES}
 )
+
+if (ALSA_FOUND)
+    target_link_libraries(${module_name} PRIVATE
+        ${ALSA_LIBRARIES}
+    )
+endif()
 
 install(TARGETS ${module_name}
     DESTINATION ${INSTALLROOT}/${PLUGINDIR}

@@ -49,10 +49,8 @@ else()
     )
 endif()
 
-pkg_check_modules(LIBUSB_1 IMPORTED_TARGET libusb-1.0)
-
 if(${LIBUSB_1_FOUND})
-    include_directories(
+    target_include_directories(${module_name} PRIVATE
         ${LIBUSB_1_INCLUDE_DIRS}
     )
 

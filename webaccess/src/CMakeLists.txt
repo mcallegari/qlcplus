@@ -20,7 +20,6 @@ else()
 endif()
 
 if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
-    pkg_check_modules(PORTAUDIO_2 IMPORTED_TARGET portaudio-2.0)
     if (${PORTAUDIO_2_FOUND})
         target_compile_definitions(${module_name} PUBLIC
             HAS_PORTAUDIO
@@ -105,7 +104,7 @@ endif()
 
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${INSTALLROOT}/${LIBSDIR}
+    DESTINATION ${INSTALLROOT}/${LIBSDIR}
 )
 
 install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

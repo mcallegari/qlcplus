@@ -178,9 +178,6 @@ if(UNIX)
     )
 endif()
 
-pkg_check_modules(FFTW3 IMPORTED_TARGET fftw3)
-
-
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(${module_name} PUBLIC
         HAS_FFTW3
@@ -199,7 +196,11 @@ endif()
 set(CONFIGFILE ${CMAKE_SOURCE_DIR}/engine/src/qlcconfig.h)
 set(LITERAL_HASH "#")
 
-configure_file(qlcconfig.h.in ${CONFIGFILE})
+if(WIN32 OR APPLE)
+    configure_file(qlcconfig.h.win32.in ${CONFIGFILE})
+elseif(UNIX OR ANDROID OR IOS)
+    configure_file(qlcconfig.h.unix.in ${CONFIGFILE})
+endif()
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${CONFIGFILE})
 
 install(TARGETS ${module_name}

@@ -32,14 +32,14 @@ We can use Ninja or MinGW to compile our project
 #### Using Ninja
 
 ```bash
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+cmake -G Ninja ..
 ninja
 ```
 
 #### Using MinGW
 
 ```bash
-cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+cmake -G "MinGW Makefiles" ..
 mingw32-make
 ```
 
@@ -105,13 +105,13 @@ Qt will be installed in the `Qt` directory in the user `home` directory i.e. `~/
 If you want to use the Debian Qt packages instead of the official Qt packages, you will need to install it by running the following command in Ubuntu.
 
 ```bash
-sudo apt-get install qt5*
+sudo apt install -y qtcreator qtbase5-dev qt5-qmake
 ```
 
 for installing Qt5 packages or
 
 ```bash
-sudo apt-get install qt6* libqt6svg6-dev
+sudo apt install -y qt6-base-dev qt6-tools-dev
 ```
 
 for installing Qt6 packages.

@@ -59,6 +59,7 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     tardis/tardis.cpp tardis/tardis.h
     treemodel.cpp treemodel.h
     treemodelitem.cpp treemodelitem.h
+    uimanager.cpp uimanager.h
     videoeditor.cpp videoeditor.h
     videoprovider.cpp videoprovider.h
     virtualconsole/vcbutton.cpp virtualconsole/vcbutton.h
@@ -1012,6 +1013,7 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::3DQuick
     Qt${QT_MAJOR_VERSION}::3DQuickExtras
     Qt${QT_MAJOR_VERSION}::3DRender
+    Qt${QT_MAJOR_VERSION}::3DExtras
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Multimedia
