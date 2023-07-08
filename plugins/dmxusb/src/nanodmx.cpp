@@ -79,7 +79,7 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.asprintf("C%03dL%03d", channel, value).toUtf8());
-    return interface()->write(chanMsg);
+    return iface()->write(chanMsg);
 }
 
 #ifndef QTSERIAL
@@ -91,7 +91,7 @@ QString NanoDMX::getDeviceName()
     // 1- scan all the devices in the device bus
     foreach (QString dir, devDirs)
     {
-        if (dir.startsWith(QString::number(interface()->busLocation())) &&
+        if (dir.startsWith(QString::number(iface()->busLocation())) &&
             dir.contains(".") &&
             dir.contains(":") == false)
         {

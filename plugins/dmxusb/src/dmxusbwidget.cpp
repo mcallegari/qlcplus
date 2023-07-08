@@ -32,12 +32,12 @@
 #include "stageprofi.h"
 #include "vinceusbdmx512.h"
 
-DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine, int frequency)
-    : m_interface(interface)
+DMXUSBWidget::DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequency)
+    : m_interface(iface)
     , m_outputBaseLine(outputLine)
     , m_inputBaseLine(0)
 {
-    Q_ASSERT(interface != NULL);
+    Q_ASSERT(iface != NULL);
 
     QMap <QString, QVariant> freqMap(DMXInterface::frequencyMap());
     if (freqMap.contains(m_interface->serial()))
@@ -54,7 +54,7 @@ DMXUSBWidget::~DMXUSBWidget()
     delete m_interface;
 }
 
-DMXInterface *DMXUSBWidget::interface() const
+DMXInterface *DMXUSBWidget::iface() const
 {
     return m_interface;
 }
