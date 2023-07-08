@@ -27,11 +27,11 @@
 
   algo.properties = [];
   algo.barWidth = 2;
-  algo.properties.push("name:barWidth|type:range|display:Bar Width|values:1,8|write:setBarWidth|read:getBarWidth");
+  algo.properties.push("name:barWidth|type:range|display:Bar Width|values:1,99|write:setBarWidth|read:getBarWidth");
   algo.direction = 1;
   algo.properties.push("name:direction|type:list|display:Direction|values:Clockwise,Counterclockwise|write:setDirection|read:getDirection");
   algo.centerGap = 0;
-  algo.properties.push("name:centerGap|type:range|display:Center Gap|values:0,8|write:setCenterGap|read:getCenterGap");
+  algo.properties.push("name:centerGap|type:range|display:Center Gap|values:0,99|write:setCenterGap|read:getCenterGap");
 
   algo.setBarWidth = function (barWidth) {
       algo.barWidth = barWidth;
