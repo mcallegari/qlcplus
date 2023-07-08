@@ -25,6 +25,7 @@ scripts.files += onebyone.js
 scripts.files += opposite.js
 scripts.files += plasma.js
 scripts.files += plasmacolors.js
+scripts.files += propellor.js"
 scripts.files += randomcolumn.js
 scripts.files += randomfillcolumn.js
 scripts.files += randomfillrow.js
