@@ -6,10 +6,10 @@
 
 Please refer to https://github.com/mcallegari/qlcplus/wiki/Windows-Build-Qt5#prepare-the-build-system-msys2
 
-In addition, we need to install `cmake` and `mingw32-make` by running the following command in MSYS2 shell.
+In addition, we need to install `cmake` by running the following command in MSYS2 shell.
 
 ```bash
-pacman -S mingw32/mingw-w64-i686-cmake mingw32/mingw-w64-i686-make
+pacman -S mingw32/mingw-w64-i686-cmake
 ```
 
 ### Acquire the QLC+ sources
@@ -36,11 +36,11 @@ cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
 ninja
 ```
 
-#### Using MinGW
+#### Using GCC
 
 ```bash
-cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-mingw32-make
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+make
 ```
 
 We can generally use `cmake --build .` instead of `ninja` or `mingw32-make`.
