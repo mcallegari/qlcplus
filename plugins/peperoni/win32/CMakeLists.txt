@@ -42,5 +42,6 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
