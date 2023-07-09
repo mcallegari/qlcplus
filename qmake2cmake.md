@@ -39,7 +39,7 @@ ninja
 #### Using GCC
 
 ```bash
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+cmake -G "Unix Makefiles" ..
 make
 ```
 
@@ -50,8 +50,8 @@ We can generally use `cmake --build .` instead of `ninja` or `mingw32-make`.
 If you want to build `QLC++ 5` using `qmlui`, you can simply add `-Dqmlui=ON` parameter in the CMake command like the following.
 
 ```bash
-cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -Dqmlui=ON ..
-mingw32-make
+cmake -G "Unix Makefiles" -Dqmlui=ON ..
+make
 ```
 
 ## Build on Windows using CMake, MinGW and QT
