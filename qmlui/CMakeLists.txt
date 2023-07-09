@@ -75,6 +75,12 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     ${QM_FILES}
 )
 
+if(WIN32)
+    target_sources(${module_name} PRIVATE
+        qmlui.rc
+    )
+endif()
+
 if(QT_VERSION_MAJOR GREATER 5)
     qt_add_qml_module(${module_name}
         URI qlcplus_qml

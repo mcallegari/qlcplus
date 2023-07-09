@@ -602,6 +602,12 @@ set(qlcui_resource_files
     "../ui/src/../../resources/icons/png/xypad.png"
 )
 
+if(WIN32)
+    target_sources(${module_name} PRIVATE
+        fixtureeditor.rc
+    )
+endif()
+
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Qml
@@ -618,6 +624,10 @@ if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
 else()
     target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Script
+    )
+    qt5_add_resources(qlcplusui_resource_files ../ui/src/qlcui.qrc)
+    target_sources(${module_name} PRIVATE
+        ${qlcplusui_resource_files}
     )
 endif()
 

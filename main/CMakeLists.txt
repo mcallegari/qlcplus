@@ -34,6 +34,12 @@ if(WIN32 OR MACOS)
     )
 endif()
 
+if(WIN32)
+    target_sources(${module_name} PRIVATE
+        main.rc
+    )
+endif()
+
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Qml
