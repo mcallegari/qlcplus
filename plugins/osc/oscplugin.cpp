@@ -190,8 +190,10 @@ void OSCPlugin::closeOutput(quint32 output, quint32 universe)
     }
 }
 
-void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
+    Q_UNUSED(dataChanged)
+
     if (output >= (quint32)m_IOmapping.count())
         return;
 

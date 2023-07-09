@@ -49,11 +49,12 @@ QString QLCIOPlugin::outputInfo(quint32 output)
     return QString();
 }
 
-void QLCIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void QLCIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
 }
 
 /*************************************************************************

@@ -31,6 +31,7 @@ Rectangle
 
     property int colorsMask: 0
     property color currentRGB
+    property color currentWAUV
     property int cellSize: width / 9
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
@@ -84,7 +85,7 @@ Rectangle
                             anchors.fill: parent
                             onClicked:
                             {
-                                rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
+                                rootBox.colorChanged(color.r, color.g, color.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
                                 rootBox.released()
                             }
                         }
@@ -119,7 +120,7 @@ Rectangle
                             anchors.fill: parent
                             onClicked:
                             {
-                                rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
+                                rootBox.colorChanged(color.r, color.g, color.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
                                 rootBox.released()
                             }
                         }
@@ -163,7 +164,7 @@ Rectangle
                                         anchors.fill: parent
                                         onClicked:
                                         {
-                                            rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
+                                            rootBox.colorChanged(color.r, color.g, color.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
                                             rootBox.released()
                                         }
                                     }
@@ -186,11 +187,12 @@ Rectangle
             height: UISettings.listItemHeight
             label: qsTr("Selected color")
         }
-        Rectangle
+        MultiColorBox
         {
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
-            color: currentRGB
+            primary: currentRGB
+            secondary: currentWAUV
         }
     }
 

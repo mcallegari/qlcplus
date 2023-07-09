@@ -118,15 +118,12 @@ bool E131Plugin::requestLine(quint32 line, int retries)
 QStringList E131Plugin::outputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (E131IO line, m_IOmapping)
-    {
         list << line.address.ip().toString();
-        j++;
-    }
+
     return list;
 }
 
@@ -198,8 +195,10 @@ void E131Plugin::closeOutput(quint32 output, quint32 universe)
     }
 }
 
-void E131Plugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void E131Plugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
+    Q_UNUSED(dataChanged)
+
     if (output >= (quint32)m_IOmapping.count())
         return;
 
@@ -214,15 +213,12 @@ void E131Plugin::writeUniverse(quint32 universe, quint32 output, const QByteArra
 QStringList E131Plugin::inputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (E131IO line, m_IOmapping)
-    {
         list << line.address.ip().toString();
-        j++;
-    }
+
     return list;
 }
 

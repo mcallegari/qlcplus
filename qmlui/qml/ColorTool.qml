@@ -42,6 +42,24 @@ Rectangle
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
     signal close()
 
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            // invoke a method that will invoke
+            // the updateColors function below
+            contextManager.getCurrentColors(colorToolBox)
+        }
+    }
+
+    function updateColors(validRgb, rgb, validWauv, wauv)
+    {
+        if (validRgb)
+            currentRGB = rgb
+        if (validWauv)
+            currentWAUV = wauv
+    }
+
     function loadPalette(id)
     {
         var palette = paletteManager.getPalette(id)
@@ -194,6 +212,8 @@ Rectangle
                     }
                     else
                     {
+                        //console.log("MAIN r:"+r+" g:"+g+" b:"+b)
+                        //console.log("MAIN w:"+w+" a:"+a+" uv:"+uv)
                         currentRGB = Qt.rgba(r, g, b, 1.0)
                         currentWAUV = Qt.rgba(w, a, uv, 1.0)
                         colorToolBox.colorChanged(r, g, b, w, a, uv)

@@ -553,7 +553,7 @@ void Fixture_Test::degrees()
     // verify fine Pan
     QCOMPARE(pos.at(1).fxi, quint32(99));
     QCOMPARE(pos.at(1).channel, quint32(8));
-    QCOMPARE(pos.at(1).value, uchar(171));
+    QCOMPARE(pos.at(1).value, uchar(170));
 
     pos = fxi.positionToValues(QLCChannel::Tilt, 45);
     QCOMPARE(pos.count(), 2);

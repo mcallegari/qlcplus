@@ -125,9 +125,10 @@ QString Peperoni::outputInfo(quint32 output)
     return str;
 }
 
-void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (m_devices.contains(output) == false)
         return;

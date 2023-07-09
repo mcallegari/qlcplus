@@ -118,15 +118,12 @@ bool ArtNetPlugin::requestLine(quint32 line, int retries)
 QStringList ArtNetPlugin::outputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (ArtNetIO line, m_IOmapping)
-    {
         list << line.address.ip().toString();
-        j++;
-    }
+
     return list;
 }
 
@@ -213,14 +210,14 @@ void ArtNetPlugin::closeOutput(quint32 output, quint32 universe)
     }
 }
 
-void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     if (output >= (quint32)m_IOmapping.count())
         return;
 
     ArtNetController *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
-        controller->sendDmx(universe, data);
+        controller->sendDmx(universe, data, dataChanged);
 }
 
 /*************************************************************************
@@ -229,15 +226,12 @@ void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteAr
 QStringList ArtNetPlugin::inputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (ArtNetIO line, m_IOmapping)
-    {
         list << line.address.ip().toString();
-        j++;
-    }
+
     return list;
 }
 

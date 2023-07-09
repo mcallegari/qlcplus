@@ -469,7 +469,7 @@ void EnttecDMXUSBPro::stopOutputThread()
     }
 }
 
-bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
 
@@ -484,8 +484,12 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
         return false;
 
     if (m_outputLines[devLine].m_universeData.size() == 0)
+    {
         m_outputLines[devLine].m_universeData.append(data);
-    else
+        m_outputLines[devLine].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+    }
+
+    if (dataChanged)
         m_outputLines[devLine].m_universeData.replace(0, data.size(), data);
 
     return true;

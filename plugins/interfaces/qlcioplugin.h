@@ -202,7 +202,7 @@ public:
      * @param output The output universe to write to
      * @param universe The universe data to write
      */
-    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
