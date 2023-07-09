@@ -45,5 +45,3 @@ target_link_libraries(${module_name} PRIVATE
 install(TARGETS ${module_name}
     DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
-
-install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

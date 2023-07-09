@@ -17,6 +17,7 @@ set(SCRIPT_FILES
     flyingobjects.js
     gradient.js
     lines.js
+    marquee.js
     noise.js
     onebyone.js
     opposite.js

@@ -120,23 +120,20 @@ add_custom_target(lcov
 )
 
 # Translations
-add_custom_target(translations ALL)
-set(translations_qm_files)
-
 if (qmlui)
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/translations
+  add_custom_target(translations ALL
     COMMAND ./translate.sh "qmlui"
     COMMENT "Translating qmlui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 else ()
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/translations
+  add_custom_target(translations ALL
     COMMAND ./translate.sh "ui"
     COMMENT "Translating ui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
 ## Add the generated qm files to the list
-file(GLOB translations_qm_files "${CMAKE_CURRENT_BINARY_DIR}/*.qm")
+file(GLOB translations_qm_files "${CMAKE_CURRENT_SOURCE_DIR}/*.qm")
 
 ## Install the qm files
 if (appimage)
