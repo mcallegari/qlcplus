@@ -217,6 +217,4 @@ else()
 endif()
 install(FILES ${nsis_files} DESTINATION ${nsis_path})
 
-# set(samples_files ../Sample.qxw)
-# set(samples_path "${INSTALLROOT}/${DATADIR}")
-# install(FILES ${samples_files} DESTINATION ${samples_path})
+# install(FILES ../Sample.qxw DESTINATION ${INSTALLROOT}/${DATADIR})
