@@ -57,5 +57,3 @@ if (UNIX AND NOT APPLE)
    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.enttecwing.metainfo.xml"
            DESTINATION "${METAINFODIR}")
 endif()
-
-install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

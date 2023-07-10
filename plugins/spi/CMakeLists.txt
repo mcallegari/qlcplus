@@ -49,5 +49,3 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.spi.metainfo.xml"
 install(TARGETS ${module_name}
     DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
-
-install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

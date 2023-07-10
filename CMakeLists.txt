@@ -41,11 +41,15 @@ find_package(PkgConfig REQUIRED)
 include(./variables.cmake)
 include(./coverage.cmake)
 
+if(WIN32)
+    # Prefix all shared libraries with ''.
+    set(CMAKE_SHARED_LIBRARY_PREFIX "")
+endif()
+
 add_subdirectory(hotplugmonitor)
 add_subdirectory(engine)
 add_subdirectory(resources)
 add_subdirectory(plugins)
-add_subdirectory(platforms)
 if(qmlui)
     message("Building QLC+ 5 QML UI")
     add_subdirectory(qmlui)
@@ -116,23 +120,20 @@ add_custom_target(lcov
 )
 
 # Translations
-add_custom_target(translations ALL)
-set(translations_qm_files)
-
 if (qmlui)
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/translations
+  add_custom_target(translations ALL
     COMMAND ./translate.sh "qmlui"
     COMMENT "Translating qmlui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 else ()
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/translations
+  add_custom_target(translations ALL
     COMMAND ./translate.sh "ui"
     COMMENT "Translating ui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
 ## Add the generated qm files to the list
-file(GLOB translations_qm_files "${CMAKE_CURRENT_BINARY_DIR}/*.qm")
+file(GLOB translations_qm_files "${CMAKE_CURRENT_SOURCE_DIR}/*.qm")
 
 ## Install the qm files
 if (appimage)
@@ -187,3 +188,6 @@ if(NOT TARGET uninstall)
   add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 endif()
+
+# Leave this on the last row of this file
+add_subdirectory(platforms)

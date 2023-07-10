@@ -41,5 +41,3 @@ install(TARGETS ${module_name}
 )
 
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.dmx4linux.metainfo.xml" DESTINATION ${METAINFODIR})
-
-install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})
