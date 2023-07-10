@@ -40,6 +40,8 @@ var testAlgo;
     algo.properties.push("name:divisor|type:range|display:Algorithm Factor|values:1,10|write:setDivisor|read:getDivisor");
     algo.centerRadius = 0;
     algo.properties.push("name:centerRadius|type:range|display:Center Rotation|values:-10,10|write:setCenterRotation|read:getCenterRotation");
+    algo.centerGap = 0;
+    algo.properties.push("name:centerGap|type:range|display:Center Gap|values:0,8|write:setCenterGap|read:getCenterGap");
     algo.fadeMode = 0;
     algo.properties.push("name:fadeMode|type:list|display:Radar Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
 
@@ -99,6 +101,16 @@ var testAlgo;
     algo.getSegments = function()
     {
       return algo.segmentsCount;
+    };
+
+    algo.setCenterGap = function(centerGap)
+    {
+      algo.centerGap = centerGap;
+    };
+
+    algo.getCenterGap = function()
+    {
+      return parseInt(algo.centerGap, 10);
     };
 
     algo.setFade = function(_fade)
@@ -392,9 +404,14 @@ var testAlgo;
         factor *= util.blindoutPercent(1 - distPercent, 5.0);
       }
 
+      if (algo.getCenterGap() !== 0) {
+        var distance = Math.sqrt(offx * offx + offy * offy);
+        var distPercent = (algo.getCenterGap() / 2) / distance;
+        factor *= util.blindoutPercent(1 - distPercent, 5.0);
+      }
+
       // Normalize the factor      
       factor = Math.min(1, Math.max(0, factor));
-
       return util.getColor(r * factor, g * factor, b * factor, util.map[ry][rx]);
     }
 
