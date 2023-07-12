@@ -32,14 +32,14 @@ We can use Ninja or MinGW to compile our project
 #### Using Ninja
 
 ```bash
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+cmake -G Ninja ..
 ninja
 ```
 
 #### Using GCC
 
 ```bash
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+cmake -G "Unix Makefiles" ..
 make
 ```
 
@@ -50,8 +50,8 @@ We can generally use `cmake --build .` instead of `ninja` or `mingw32-make`.
 If you want to build `QLC++ 5` using `qmlui`, you can simply add `-Dqmlui=ON` parameter in the CMake command like the following.
 
 ```bash
-cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -Dqmlui=ON ..
-mingw32-make
+cmake -G "Unix Makefiles" -Dqmlui=ON ..
+make
 ```
 
 ## Build on Windows using CMake, MinGW and QT
@@ -105,13 +105,13 @@ Qt will be installed in the `Qt` directory in the user `home` directory i.e. `~/
 If you want to use the Debian Qt packages instead of the official Qt packages, you will need to install it by running the following command in Ubuntu.
 
 ```bash
-sudo apt-get install qt5*
+sudo apt install -y qtcreator qtbase5-dev qt5-qmake
 ```
 
 for installing Qt5 packages or
 
 ```bash
-sudo apt-get install qt6* libqt6svg6-dev
+sudo apt install -y qt6-base-dev qt6-tools-dev
 ```
 
 for installing Qt6 packages.

@@ -8,6 +8,7 @@ target_sources(${module_name} PRIVATE
 )
 target_include_directories(${module_name} PRIVATE
     ../../src
+    ${SNDFILE_INCLUDE_DIRS}
 )
 
 target_link_libraries(${module_name} PRIVATE
@@ -17,5 +18,6 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${AUDIOPLUGINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${AUDIOPLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${AUDIOPLUGINDIR}
 )

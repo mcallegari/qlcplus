@@ -41,21 +41,28 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-# libusb-1.0
-pkg_check_modules(LIBUSB_1 IMPORTED_TARGET libusb-1.0)
-
 if(${LIBUSB_1_FOUND})
-    include_directories(
+    target_include_directories(${module_name} PRIVATE
         ${LIBUSB_1_INCLUDE_DIRS}
     )
 
-    link_libraries(
+    target_link_libraries(${module_name} PRIVATE
         ${LIBUSB_1_LIBRARIES}
     )
 endif()
 
 install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
+
+if (NOT APPLE)
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/z65-peperoni.rules"
+        DESTINATION ${UDEVRULESDIR})
+endif()
+
+if (UNIX AND NOT APPLE)
+   # Rules to make USB DMX devices readable & writable by normal users
+   install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.peperoni.metainfo.xml"
+           DESTINATION ${METAINFODIR})
+endif()

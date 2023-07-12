@@ -26,30 +26,68 @@ add_library(${module_name}
     ${QM_FILES}
 )
 
+# Uncomment the following to use QtSerialPort before
+# any other platform specific library
+# set(qtserial ON)
+
+# Use FTD2XX by default only in Windows.
 if(WIN32)
-    set(FTD2XXDIR "C:/Qt/D2XXSDK")
-    target_link_libraries(${module_name} PRIVATE
-        ${FTD2XXDIR}/libftd2xx.a
-    )
-    target_include_directories(${module_name} PRIVATE
-        ${FTD2XXDIR}
-    )
-    set(WITH_D2XX TRUE)
+    set(ftd2xx ON)
+    message("Building with FTD2xx support.")
 endif()
 
 if(UNIX)
-    pkg_check_modules(LIBFTDI1 IMPORTED_TARGET libftdi1 libusb-1.0)
+    set(libftdi ON)
+endif()
+
+if(APPLE)
+    set(qtserial ON)
+endif()
+
+if(qtserial)
+    message("Building with QtSerialport support.")
+    target_compile_definitions(${module_name} PRIVATE
+        QTSERIAL
+    )
+
+    target_link_libraries(${module_name} PRIVATE
+        Qt${QT_MAJOR_VERSION}::SerialPort
+    )
+endif()
+
+
+if(ftd2xx)
+    if(WIN32)
+        set(FTD2XXDIR "C:/Qt/D2XXSDK")
+        target_link_libraries(${module_name} PRIVATE
+            ${FTD2XXDIR}/i386/libftd2xx.a
+        )
+        target_include_directories(${module_name} PRIVATE
+            ${FTD2XXDIR}
+        )
+    endif()
+    target_compile_definitions(${module_name} PRIVATE FTD2XX)
+endif()
+
+if(libftdi)
+    pkg_check_modules(LIBFTDI1 IMPORTED_TARGET libftdi1)
     pkg_check_modules(LIBFTDI IMPORTED_TARGET libftdi libusb)
 
     if (LIBFTDI1_FOUND)
         # Add the include directories to the project
-        target_include_directories(${module_name} PRIVATE ${LIBFTDI1_INCLUDE_DIRS})
-
-        target_compile_definitions(${module_name} PRIVATE LIBFTDI1)
-        # execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
+        target_include_directories(${module_name} PRIVATE
+            ${LIBFTDI1_INCLUDE_DIRS}
+            ${LIBUSB1_INCLUDE_DIRS}
+        )
 
         # Link your executable against the libftdi1 library
-        target_link_libraries(${module_name} PRIVATE ${LIBFTDI1_LIBRARIES})
+        target_link_libraries(${module_name} PRIVATE
+            ${LIBFTDI1_LIBRARIES}
+            ${LIBUSB1_LIBRARIES}
+        )
+
+        target_compile_definitions(${module_name} PRIVATE LIBFTDI1)
+        execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
 
         if (APPLE)
             include(../../../platforms/macos/nametool.pri)
@@ -61,7 +99,6 @@ if(UNIX)
         endif()
 
         message("Building with libFTDI1 support. Version: ${LIBFTDI1_VERSION}")
-        set(WITH_LIBFTDI TRUE)
 
         if (NOT ${LIBFTDI1_VERSION} VERSION_LESS "1.5")
             message("Using v1.5+ buffer flush API")
@@ -73,10 +110,9 @@ if(UNIX)
         target_include_directories(${module_name} PRIVATE ${LIBFTDI_INCLUDE_DIRS})
 
         # Link your executable against the libftdi library
-        link_libraries(LIBFTDI_LIBRARIES)
+        target_link_libraries(${module_name} PRIVATE ${LIBFTDI_LIBRARIES})
 
         target_compile_definitions(${module_name} PRIVATE LIBFTDI)
-        target_link_libraries(${module_name} PRIVATE ${LIBFTDI_LIBRARIES})
 
         if (APPLE)
             include(../../../platforms/macos/nametool.pri)
@@ -87,7 +123,6 @@ if(UNIX)
         endif()
 
         message("Building with libFTDI support.")
-        set(WITH_LIBFTDI TRUE)
 
     else()
         message(FATAL_ERROR "Neither libftdi-0.X nor libftdi-1.X found!")
@@ -121,11 +156,6 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-if(WIN32)
-    target_compile_definitions(${module_name} PRIVATE FTD2XX)
-    message("Building with FTD2xx support.")
-endif()
-
 if(UNIX)
     target_sources(${module_name} PUBLIC
         euroliteusbdmxpro.cpp euroliteusbdmxpro.h
@@ -139,44 +169,19 @@ if(APPLE)
     )
 endif()
 
-# always include QtSerialPort
-target_sources(${module_name} PUBLIC
-    qtserial-interface.cpp qtserial-interface.h
-)
+if(qtserial)
+    target_sources(${module_name} PUBLIC
+        qtserial-interface.cpp qtserial-interface.h
+    )
+endif()
 
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
-
-target_compile_definitions(${module_name} PRIVATE
-    QTSERIAL
-)
-
-target_link_libraries(${module_name} PRIVATE
-    Qt${QT_MAJOR_VERSION}::SerialPort
-)
-
-if(WITH_D2XX)
+if(ftd2xx)
     target_sources(${module_name} PUBLIC
         ftd2xx-interface.cpp ftd2xx-interface.h
     )
-
-    target_compile_definitions(${module_name} PRIVATE
-        FTD2XX
-    )
 endif()
 
-if((WITH_D2XX) AND (WIN32))
-    target_include_directories(${module_name} PRIVATE
-        C:/Qt/D2XXSDK
-    )
-
-    target_link_libraries(${module_name} PRIVATE
-        # Remove: LC:/Qt/D2XXSDK/i386
-        C:/Qt/D2XXSDK/i386/libftd2xx.a
-        ftd2xx
-    )
-endif()
-
-if(WITH_LIBFTDI)
+if(libftdi)
     target_sources(${module_name} PUBLIC
         libftdi-interface.cpp libftdi-interface.h
     )
@@ -191,7 +196,6 @@ if (UNIX AND NOT APPLE)
 endif()
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
-
-install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

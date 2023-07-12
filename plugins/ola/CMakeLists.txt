@@ -45,7 +45,6 @@ if(MACOS)
     set_target_properties(${module_name} PROPERTIES
         MACOSX_BUNDLE FALSE
     )
-    pkg_check_modules(LIBOLASERVER IMPORTED_TARGET REQUIRED libolaserver)
     if(${LIBOLASERVER_FOUND})
         target_include_directories(${module_name} PRIVATE
             ${LIBOLASERVER_INCLUDE_DIRS}
@@ -87,5 +86,6 @@ if (UNIX AND NOT APPLE)
 endif()
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
