@@ -31,8 +31,10 @@ var testAlgo;
     algo.properties = new Array();
 
     algo.circularMode = 0;
-    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating|write:setMode|read:getMode");
-    algo.width = 2;
+    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating,Propellor|write:setMode|read:getMode");
+//    algo.speed = 1;
+//    algo.properties.push("name:speed|type:range|display:Speed|values:1,10|write:setSpeed|read:getSpeed");
+    algo.width = 1;
     algo.properties.push("name:width|type:range|display:Line Weight|values:1,100|write:setWidth|read:getWidth");
     algo.fillMatrix = 0;
     algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
@@ -139,6 +141,16 @@ var testAlgo;
       else { return "Don't Fade"; }
     };
 
+//    algo.setSpeed = function(_value)
+//    {
+//      algo.speed = _value;
+//    };
+//
+//    algo.getSpeed = function()
+//    {
+//      return algo.speed;
+//    };
+
     algo.setDivisor = function(_value)
     {
       algo.divisor = _value;
@@ -174,6 +186,7 @@ var testAlgo;
       else if (_mode === "S-Curve Left") { algo.circularMode = 4; }
       else if (_mode === "Rings Spreading") { algo.circularMode = 5; }
       else if (_mode === "Rings Rotating") { algo.circularMode = 6; }
+      else if (_mode === "Propellor") { algo.circularMode = 7; }
       else { algo.circularMode = 0; }
     };
 
@@ -185,6 +198,7 @@ var testAlgo;
       else if (algo.circularMode === 4) { return "S-Curve Left"; }
       else if (algo.circularMode === 5) { return "Rings Spreading"; }
       else if (algo.circularMode === 6) { return "Rings Rotating"; }
+      else if (algo.circularMode === 7) { return "Propellor"; }
       else { return "Radar"; }
     };
 
@@ -340,7 +354,8 @@ var testAlgo;
 
       var pointRadius = Math.sqrt(offx * offx + offy * offy);
       var angle = geometryCalc.getAngle(offx, offy);
-      angle = angle + util.twoPi * (1 - util.stepPercent);
+      var stepAngle = util.twoPi * (1 - util.stepPercent);
+      angle = angle + stepAngle;
       angle = angle * algo.segmentsCount;
       angle = (angle + util.twoPi) % util.twoPi;
 
@@ -394,6 +409,16 @@ var testAlgo;
         var vRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.min(1.0, algo.getWidth() / 10 - 0.1) +
             Math.cos(vRadius);
+      } else if (algo.circularMode === 7) {
+        // Propellor
+        var pointAngle = (stepAngle * algo.segmentsCount + util.twoPi) % util.twoPi;
+        var pointDistance = Math.abs(offy * Math.cos(pointAngle) + offx * Math.sin(pointAngle));
+        var virtualx = Math.sin(angle) * pointRadius;
+        var virtualy = Math.cos(angle) * pointRadius;
+        if (pointDistance <= algo.getWidth() / 2) //  && virtualx >= 0
+          factor = 1;
+        else
+          factor = 0;
       } else {
         // Radar
         var virtualx = Math.sin(angle) * pointRadius;
