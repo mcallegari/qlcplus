@@ -6,8 +6,8 @@
   <Version>4.12.6</Version>
   <Author>Chris Shucksmith</Author>
  </Creator>
- <Manufacturer>ibiza Light (Lotronic S.A.)</Manufacturer>
- <Model>Star Wash</Model>
+ <Manufacturer>Ibiza</Manufacturer>
+ <Model>Mini-Moving - STAR-WASH</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
@@ -144,7 +144,7 @@
   <Channel Number="18" ActsOn="18">Light Belt</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="LED" Lumens="7950" ColourTemperature="8500"/>
+  <Bulb Type="6x8W RGBW LED + 1x30W White LED" Lumens="7950" ColourTemperature="8500"/>
   <Dimensions Weight="3" Width="200" Height="200" Depth="250"/>
   <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
