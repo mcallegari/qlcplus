@@ -351,12 +351,16 @@ var testAlgo;
       // location of the object
       var offx = rx - util.vCenterX;
       var offy = ry - util.vCenterY;
-
       var pointRadius = Math.sqrt(offx * offx + offy * offy);
-      var angle = geometryCalc.getAngle(offx, offy);
+      var pointAngle = geometryCalc.getAngle(offx, offy);
+
       var stepAngle = util.twoPi * (1 - util.stepPercent);
-      angle = angle + stepAngle;
+
+      // Progress the pointAngle by the step specific angle
+      var angle = pointAngle + stepAngle;
+      // Repeat the trigonometry based on segments to be used
       angle = angle * algo.segmentsCount;
+      // Normalize the angle
       angle = (angle + util.twoPi) % util.twoPi;
 
       if (algo.circularMode === 1) {
@@ -411,10 +415,10 @@ var testAlgo;
             Math.cos(vRadius);
       } else if (algo.circularMode === 7) {
         // Propellor
-        var pointAngle = (stepAngle * algo.segmentsCount + util.twoPi) % util.twoPi;
-        var pointDistance = Math.abs(offy * Math.cos(pointAngle) + offx * Math.sin(pointAngle));
-        var virtualx = Math.sin(angle) * pointRadius;
-        var virtualy = Math.cos(angle) * pointRadius;
+
+        // Calculate the distance to the main angle
+        var pointDistance = Math.abs(offy * Math.cos(stepAngle) + offx * Math.sin(stepAngle));
+        // Show the pixel if the distance to the main angle is in range.
         if (pointDistance <= algo.getWidth() / 2) //  && virtualx >= 0
           factor = 1;
         else
