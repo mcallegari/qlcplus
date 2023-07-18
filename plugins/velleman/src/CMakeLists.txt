@@ -42,21 +42,26 @@ if(WIN32)
         QLC_EXPORT
     )
 
-    target_link_libraries(${module_name} PRIVATE
-        # Remove: LC:/Qt/K8062D
-        C:/Qt/K8062D/K8062D.a
-        # K8062D
+    set(K8062DDIR "C:/Qt/K8062D")
+    target_link_directories(${module_name} PRIVATE
+        ${K8062DDIR}
     )
-endif()
-
-if(UNIX)
+    target_link_libraries(${module_name} PRIVATE
+        K8062D
+    )
+    target_link_libraries(${module_name} PRIVATE
+        ${K8062DDIR}/K8062D.a
+    )
+    target_include_directories(${module_name} PRIVATE
+        ${K8062DDIR}
+    )
+else()
     target_sources(${module_name} PRIVATE
         velleman_mock.cpp
     )
 endif()
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
-
-install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})

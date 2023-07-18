@@ -1,5 +1,8 @@
 project(plugins)
 
+# libusb-1.0
+pkg_check_modules(LIBUSB_1 IMPORTED_TARGET libusb-1.0)
+
 add_subdirectory(artnet)
 add_subdirectory(E1.31)
 add_subdirectory(loopback)

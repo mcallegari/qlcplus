@@ -37,7 +37,8 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
 
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.dmx4linux.metainfo.xml" DESTINATION ${METAINFODIR})

@@ -178,9 +178,6 @@ if(UNIX)
     )
 endif()
 
-pkg_check_modules(FFTW3 IMPORTED_TARGET fftw3)
-
-
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(${module_name} PUBLIC
         HAS_FFTW3
@@ -203,5 +200,6 @@ configure_file(qlcconfig.h.in ${CONFIGFILE})
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${CONFIGFILE})
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${LIBSDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${LIBSDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${LIBSDIR}
 )
