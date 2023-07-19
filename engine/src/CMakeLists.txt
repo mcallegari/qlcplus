@@ -196,7 +196,12 @@ endif()
 set(CONFIGFILE ${CMAKE_SOURCE_DIR}/engine/src/qlcconfig.h)
 set(LITERAL_HASH "#")
 
-configure_file(qlcconfig.h.in ${CONFIGFILE})
+if(WIN32 OR APPLE OR APPIMAGE)
+    configure_file(qlcconfig.h.noroot.in ${CONFIGFILE})
+elseif(UNIX OR ANDROID OR IOS)
+    configure_file(qlcconfig.h.in ${CONFIGFILE})
+endif()
+
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${CONFIGFILE})
 
 install(TARGETS ${module_name}
