@@ -52,7 +52,7 @@ bool NanoDMX::checkReply()
     bool ok = false;
     uchar res;
 
-    res = interface()->readByte(&ok);
+    res = iface()->readByte(&ok);
     if (ok == false || res != 0x47)
         return false;
 
@@ -169,7 +169,7 @@ bool NanoDMX::open(quint32 line, bool input)
     /* Check connection */
     initSequence.append("C?");
 #ifdef QTSERIAL
-    if (interface()->write(initSequence) == true)
+    if (iface()->write(initSequence) == true)
 #else
     if (m_file.write(initSequence) == true)
 #endif
@@ -184,7 +184,7 @@ bool NanoDMX::open(quint32 line, bool input)
     initSequence.clear();
     initSequence.append("N511");
 #ifdef QTSERIAL
-    if (interface()->write(initSequence) == true)
+    if (iface()->write(initSequence) == true)
 #else
     if (m_file.write(initSequence) == true)
 #endif
@@ -322,14 +322,14 @@ void NanoDMX::run()
             }
             fastTrans.append(val);
 #ifdef QTSERIAL
-            if (interface()->write(fastTrans) == false)
+            if (iface()->write(fastTrans) == false)
 #else
             if (m_file.write(fastTrans) <= 0)
 #endif
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
 #ifdef QTSERIAL
-                interface()->purgeBuffers();
+                iface()->purgeBuffers();
 #endif
                 continue;
             }
@@ -338,7 +338,7 @@ void NanoDMX::run()
                 m_outputLines[0].m_compareData[i] = val;
 #ifdef QTSERIAL
                 if (checkReply() == false)
-                    interface()->purgeBuffers();
+                    iface()->purgeBuffers();
 #endif
             }
         }
