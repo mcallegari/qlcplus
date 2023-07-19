@@ -16,7 +16,7 @@ pacman -S mingw32/mingw-w64-i686-cmake
 
 Please refer to https://github.com/mcallegari/qlcplus/wiki/Windows-Build-Qt5#acquire-the-qlc-sources
 
-### Build QLC++
+### Build QLC+
 
 Close the MSYS2 shell, and from now on we will use `ming32.exe` in the installed `MSYS64` directory.
 First, we need to create `build` directory and change directory into it to split source codes and binary object files.
@@ -45,9 +45,9 @@ make
 
 We can generally use `cmake --build .` instead of `ninja` or `mingw32-make`.
 
-### Build QLC++ 5
+### Build QLC+ 5
 
-If you want to build `QLC++ 5` using `qmlui`, you can simply add `-Dqmlui=ON` parameter in the CMake command like the following.
+If you want to build `QLC+ 5` using `qmlui`, you can simply add `-Dqmlui=ON` parameter in the CMake command like the following.
 
 ```bash
 cmake -G "Unix Makefiles" -Dqmlui=ON ..
@@ -69,7 +69,7 @@ We recommend to download QT from the official website https://www.qt.io/download
 ### Building
 
 After we download the source code of QLCPlus we can build it using embedded MinGW in Qt.
-We can compile QLC++ in 64bit mode using the 64bit MinGW compiler.
+We can compile QLC+ in 64bit mode using the 64bit MinGW compiler.
 
 ```cmd
 cd build
@@ -77,14 +77,14 @@ cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/cmake" -G"MinG
 "C:/Qt/Qt5.12.12/Tools/mingw730_64/bin/mingw32-make.exe"
 ```
 
-And we can also compile QLC++ in 32bit mode using the 32bit MinGW compiler.
+And we can also compile QLC+ in 32bit mode using the 32bit MinGW compiler.
 
 ```cmd
 cmake -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.12.12/5.12.12/mingw73_32/lib/cmake" -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/c++.exe" -DCMAKE_C_COMPILER="C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/gcc.exe" -DCMAKE_MAKE_PROGRAM="C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/mingw32-make.exe" ..
 "C:/Qt/Qt5.12.12/Tools/mingw730_32/bin/mingw32-make.exe"
 ```
 
-Compiling QLC++5 is similar to the section above, we just need to add `-Dqmlui=ON` parameter in the CMake command.
+Compiling QLC+5 is similar to the section above, we just need to add `-Dqmlui=ON` parameter in the CMake command.
 
 ## Build on Linux
 
@@ -116,11 +116,11 @@ sudo apt install -y qt6-base-dev qt6-tools-dev
 
 for installing Qt6 packages.
 
-### Build QLC++ 4 on Linux
+### Build QLC+ 4 on Linux
 
-After you download (or clone) the source code of QLC++, we also need to create `build` directory and you can simply compile it by specifying the `CMAKE_PREFIX_PATH` to the appropriate path.
+After you download (or clone) the source code of QLC+, we also need to create `build` directory and you can simply compile it by specifying the `CMAKE_PREFIX_PATH` to the appropriate path.
 
-#### <b>Build QLC++ 4 using the official Qt packages</b>
+#### <b>Build QLC+ 4 using the official Qt packages</b>
 
 The `CMAKE_PREFIX_PATH` can be found in the installed Qt directory.
 
@@ -136,7 +136,7 @@ If you want to compile it using Qt6, you can just simply specify the CMake path 
 cmake -DCMAKE_PREFIX_PATH="/home/<user>/Qt/6.5.0/gcc_64/lib/cmake/" ..
 ```
 
-#### <b>Build QLC++ 4 using the Debian Qt packages</b>
+#### <b>Build QLC+ 4 using the Debian Qt packages</b>
 
 ```bash
 cd <qlcplus>/build
@@ -150,9 +150,9 @@ If you want to compile it using Qt6, you can just simply replace Qt5 with Qt6 in
 cmake -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt6" ..
 ```
 
-### Build QLC++ 5 on Linux
+### Build QLC+ 5 on Linux
 
-Building QLC++ 5 is similar to building QLC++ 4, we can just add `-Dqmlui=ON` option to build QLC++5 with `qmlui`.
+Building QLC+ 5 is similar to building QLC+ 4, we can just add `-Dqmlui=ON` option to build QLC+5 with `qmlui`.
 
 ```bash
 cmake -Dqmlui=ON -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt5" ..
