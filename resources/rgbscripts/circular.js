@@ -353,10 +353,8 @@ var testAlgo;
       var offy = ry - util.vCenterY;
       var pointRadius = Math.sqrt(offx * offx + offy * offy);
       var pointAngle = geometryCalc.getAngle(offx, offy);
-
-      var stepAngle = util.twoPi * (1 - util.stepPercent);
-
       // Progress the pointAngle by the step specific angle
+      var stepAngle = util.twoPi * (1 - util.stepPercent);
       var angle = pointAngle + stepAngle;
       // Repeat the trigonometry based on segments to be used
       angle = angle * algo.segmentsCount;
@@ -407,19 +405,20 @@ var testAlgo;
             Math.cos(pRadius / algo.divisor - (util.twoPi * util.progstep / util.circleFactor));
       } else if (algo.circularMode === 6) {
         // Rings Rotating
-        var pRadius = Math.sqrt(offx * offx + offy * offy);
-        var virtualx = Math.sin(angle) * pRadius + algo.divisor * Math.sin(util.stepAngle);
-        var virtualy = Math.cos(angle) * pRadius + algo.divisor * Math.cos(util.stepAngle);
+        var virtualx = Math.sin(angle) * pointRadius + algo.divisor * Math.sin(util.stepAngle);
+        var virtualy = Math.cos(angle) * pointRadius + algo.divisor * Math.cos(util.stepAngle);
         var vRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
         factor = Math.min(1.0, algo.getWidth() / 10 - 0.1) +
             Math.cos(vRadius);
       } else if (algo.circularMode === 7) {
         // Propellor
-
+        // Calculate the relative angle to the next propellor blade
+        var segmentAngle = util.twoPi / algo.segmentsCount; //algo.segmentsCount;
+        var barAngle = (pointAngle + stepAngle + segmentAngle / 2) % segmentAngle - segmentAngle / 2;
         // Calculate the distance to the main angle
-        var pointDistance = Math.abs(offy * Math.cos(stepAngle) + offx * Math.sin(stepAngle));
+        var barDistance = pointRadius * Math.abs(Math.sin(barAngle));
         // Show the pixel if the distance to the main angle is in range.
-        if (pointDistance <= algo.getWidth() / 2) //  && virtualx >= 0
+        if (Math.cos(barAngle) >= 0 && barDistance <= algo.getWidth() / 2)
           factor = 1;
         else
           factor = 0;
