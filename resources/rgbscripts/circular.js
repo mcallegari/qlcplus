@@ -32,8 +32,6 @@ var testAlgo;
 
     algo.circularMode = 0;
     algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating,Propellor|write:setMode|read:getMode");
-//    algo.speed = 1;
-//    algo.properties.push("name:speed|type:range|display:Speed|values:1,10|write:setSpeed|read:getSpeed");
     algo.width = 1;
     algo.properties.push("name:width|type:range|display:Line Weight|values:1,100|write:setWidth|read:getWidth");
     algo.fillMatrix = 0;
@@ -140,16 +138,6 @@ var testAlgo;
       else if (algo.fadeMode === 2) { return "Fade Right"; }
       else { return "Don't Fade"; }
     };
-
-//    algo.setSpeed = function(_value)
-//    {
-//      algo.speed = _value;
-//    };
-//
-//    algo.getSpeed = function()
-//    {
-//      return algo.speed;
-//    };
 
     algo.setDivisor = function(_value)
     {
@@ -448,13 +436,23 @@ var testAlgo;
         // circle
         var distance = Math.sqrt(offx * offx + offy * offy);
         var distPercent = distance / util.blindoutRadius;
-        factor *= util.blindoutPercent(1 - distPercent, 5.0);
+        if (algo.circularMode === 7) {
+          if (util.blindoutPercent(1 - distPercent, 5.0) < 0.3)
+            factor = 0;
+        } else {
+          factor *= util.blindoutPercent(1 - distPercent, 5.0);
+        }
       }
 
       if (algo.getCenterGap() !== 0) {
         var distance = Math.sqrt(offx * offx + offy * offy);
         var distPercent = (algo.getCenterGap() / 2) / distance;
-        factor *= util.blindoutPercent(1 - distPercent, 5.0);
+        if (algo.circularMode === 7) {
+          if (util.blindoutPercent(1 - distPercent, 5.0) < 0.3)
+            factor = 0;
+        } else {
+          factor *= util.blindoutPercent(1 - distPercent, 5.0);
+        }
       }
 
       // Normalize the factor      
