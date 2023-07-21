@@ -31,7 +31,7 @@ var testAlgo;
     algo.properties = new Array();
 
     algo.circularMode = 0;
-    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating,Propellor|write:setMode|read:getMode");
+    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Propellor,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating|write:setMode|read:getMode");
     algo.width = 1;
     algo.properties.push("name:width|type:range|display:Line Weight|values:1,100|write:setWidth|read:getWidth");
     algo.fillMatrix = 0;
