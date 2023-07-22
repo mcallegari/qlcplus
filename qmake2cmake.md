@@ -150,6 +150,13 @@ If you want to compile it using Qt6, you can just simply replace Qt5 with Qt6 in
 cmake -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt6" ..
 ```
 
+### Create a QLC+ Debian package
+
+Just run the following command from the build folder:
+```bash
+cpack -G DEB
+```
+
 ### Build QLC+ 5 on Linux
 
 Building QLC+ 5 is similar to building QLC+ 4, we can just add `-Dqmlui=ON` option to build QLC+5 with `qmlui`.

@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(qlc VERSION 1.0 LANGUAGES C CXX)
-
+project(qlcplus VERSION 4.12.8 LANGUAGES C CXX)
 
 # Set Release build type by default
 if(NOT CMAKE_BUILD_TYPE)
@@ -192,6 +191,11 @@ if(NOT TARGET uninstall)
   add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 endif()
+
+SET(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_NAME "qlcplus")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Massimo Callegari") #required
+INCLUDE(CPack)
 
 # Leave this on the last row of this file
 add_subdirectory(platforms)
