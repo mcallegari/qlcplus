@@ -196,7 +196,7 @@ endif()
 set(CONFIGFILE ${CMAKE_SOURCE_DIR}/engine/src/qlcconfig.h)
 set(LITERAL_HASH "#")
 
-if(WIN32 OR APPLE OR APPIMAGE)
+if(WIN32 OR APPLE OR appimage)
     configure_file(qlcconfig.h.noroot.in ${CONFIGFILE})
 elseif(UNIX OR ANDROID OR IOS)
     configure_file(qlcconfig.h.in ${CONFIGFILE})

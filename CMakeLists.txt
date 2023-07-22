@@ -10,6 +10,8 @@ endif()
 # Refer to https://stackoverflow.com/questions/7970544/cmake-make-install-output-cant-find-shared-qt-libraries-under-redhat
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
+SET(INSTALL_ROOT "/" CACHE STRING "Installation root directory")
+
 if(UNIX)
     if (MACOS)
         set(iokit ON)
