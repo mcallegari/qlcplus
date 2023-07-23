@@ -358,19 +358,13 @@ jobs:
           #ls -l /msys*/usr/bin/ || true
           #ls -l /usr/bin/ || true
 
-      - name: Disable test units build
+      - name: Disable Velleman
         #if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          # disable the test units, since we won't run them
-          sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
-          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
-          sed -i -e 's/ SUBDIRS              += velleman/#SUBDIRS += velleman/g' plugins/plugins.pro
-          sed -i -e 's/ SUBDIRS              += udmx/#SUBDIRS += udmx/g' plugins/plugins.pro
-          sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' plugins/artnet/artnet.pro
-          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
-          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
+          # disable Velleman plugin
+          sed -i -e 's/    add_subdirectory(velleman)/#    add_subdirectory(velleman)/g' plugins/CMakeLists.txt
 
       - name: Configure build for Windows
         shell: msys2 {0}
