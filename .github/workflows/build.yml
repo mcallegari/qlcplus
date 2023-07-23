@@ -352,6 +352,7 @@ jobs:
           which cmake || true
           cmake --version || true
           pkg-config --modversion libusb-1.0
+          ls -l /mingw32/bin/
           #ls -l /mingw*/bin/ || true
           #ls -l /mingw*/usr/bin/ || true
           #ls -l /msys*/bin/ || true
