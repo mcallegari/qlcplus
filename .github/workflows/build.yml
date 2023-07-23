@@ -352,7 +352,6 @@ jobs:
           which cmake || true
           cmake --version || true
           pkg-config --modversion libusb-1.0
-          ls -l /mingw32/bin/
           #ls -l /mingw*/bin/ || true
           #ls -l /mingw*/usr/bin/ || true
           #ls -l /msys*/bin/ || true
@@ -373,6 +372,8 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
+          # fix MSYS2 system path
+          sed -i -e 's/$ENV{SystemDrive}\/msys64/D:\/a\/_temp\/msys64/g' platforms/windows/CMakeLists.txt
           mkdir build
           cd build
           cmake -G "Unix Makefiles" ..
