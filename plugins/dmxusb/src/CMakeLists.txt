@@ -29,7 +29,7 @@ add_library(${module_name}
 if(WIN32)
     set(FTD2XXDIR "C:/Qt/D2XXSDK")
     target_link_libraries(${module_name} PRIVATE
-        ${FTD2XXDIR}/libftd2xx.a
+        ${FTD2XXDIR}/i386/libftd2xx.a
     )
     target_include_directories(${module_name} PRIVATE
         ${FTD2XXDIR}
@@ -166,13 +166,11 @@ endif()
 
 if((WITH_D2XX) AND (WIN32))
     target_include_directories(${module_name} PRIVATE
-        C:/Qt/D2XXSDK
+        ${FTD2XXDIR}
     )
 
     target_link_libraries(${module_name} PRIVATE
-        # Remove: LC:/Qt/D2XXSDK/i386
-        C:/Qt/D2XXSDK/i386/libftd2xx.a
-        ftd2xx
+        ${FTD2XXDIR}/i386/libftd2xx.a
     )
 endif()
 
@@ -193,5 +191,3 @@ endif()
 install(TARGETS ${module_name}
     DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
-
-install(FILES ${QM_FILES} DESTINATION ${INSTALLROOT}/${TRANSLATIONDIR})
