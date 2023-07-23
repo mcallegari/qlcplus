@@ -358,11 +358,13 @@ jobs:
           #ls -l /msys*/usr/bin/ || true
           #ls -l /usr/bin/ || true
 
-      - name: Disable Velleman
+      - name: Disable unsupported components
         #if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
+          # disable i18n test
+          sed -i -e 's/add_subdirectory(qlci18n)/#add_subdirectory(qlci18n)/g' engine/test/CMakeLists.txt
           # disable Velleman plugin
           sed -i -e 's/    add_subdirectory(velleman)/#    add_subdirectory(velleman)/g' plugins/CMakeLists.txt
 
