@@ -20,7 +20,7 @@ endif()
 get_filename_component(QT_LIBS_PATH ${QT_DIR}/../../../bin ABSOLUTE)
 get_filename_component(QT_PLUGINS_PATH ${QT_LIBS_PATH}/../share/${QT_P}/plugins ABSOLUTE)
 get_filename_component(QT_QML_PATH ${QT_LIBS_PATH}/../share/${QT_P}/qml ABSOLUTE)
-set(SYS_LIBS_PATH $ENV{SystemDrive}/msys64/mingw32/bin)
+set(SYS_LIBS_PATH /mingw32/bin)
 # set(SYS_LIBS_PATH D:/msys64/mingw32/bin)
 
 # Qt library dependencies
