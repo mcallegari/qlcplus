@@ -317,6 +317,7 @@ jobs:
             unzip
             mingw-w64-i686-gcc
             mingw-w64-i686-gcc-libs
+            mingw-w64-i686-cmake
             mingw-w64-i686-libmad
             mingw-w64-i686-libsndfile
             mingw-w64-i686-flac
@@ -347,9 +348,9 @@ jobs:
           echo "CXX:"
           which ${CXX} || true
           ${CXX} -v || true
-          echo "qmake:"
-          which qmake || true
-          qmake -v || true
+          echo "cmake:"
+          which cmake || true
+          cmake --version || true
           pkg-config --modversion libusb-1.0
           #ls -l /mingw*/bin/ || true
           #ls -l /mingw*/usr/bin/ || true
@@ -375,7 +376,9 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          qmake FORCECONFIG=release
+          mkdir build
+          cd build
+          cmake -G "Unix Makefiles" ..
 
       - name: Build for Windows
         shell: msys2 {0}
@@ -383,22 +386,13 @@ jobs:
           set MSYSTEM=MINGW32
           make -j${NPROC}
 
-      - name: Test
-        if: false
-        shell: msys2 {0}
-        run: |
-          set MSYSTEM=MINGW32
-          make check
-
       - name: Install on Windows
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
           #echo 'Silently installing QLC+...'
-          echo "Available disk space:"
-          df
           make INSTALL_ROOT=${INSTALL_ROOT} install
-          cp *.qm ${INSTALL_ROOT}
+          #cp *.qm ${INSTALL_ROOT}
 
       - name: Build installation package
         shell: msys2 {0}
