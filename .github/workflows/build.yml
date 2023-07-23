@@ -384,6 +384,7 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
+          cd build
           make -j${NPROC}
 
       - name: Install on Windows
@@ -391,6 +392,7 @@ jobs:
         run: |
           set MSYSTEM=MINGW32
           #echo 'Silently installing QLC+...'
+          cd build
           make INSTALL_ROOT=${INSTALL_ROOT} install
           #cp *.qm ${INSTALL_ROOT}
 
