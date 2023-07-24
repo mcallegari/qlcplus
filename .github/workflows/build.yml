@@ -399,7 +399,7 @@ jobs:
         run: |
           set MSYSTEM=MINGW32
           cd /c/qlcplus
-          sed -i -e 's/c\:\/Qt/\/d\/a\/qlcplus/g' qlcplus4Qt5.nsi
+          sed -i -e 's/c\:\\Qt/\/d\/a\/qlcplus/g' qlcplus4Qt5.nsi
           cat qlcplus4Qt5.nsi | grep QLCPLUS_HOME
           echo 'Creating package...'
           makensis -V4 -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
