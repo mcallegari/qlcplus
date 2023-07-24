@@ -404,6 +404,10 @@ jobs:
           set MSYSTEM=MINGW32
           cd /c/qlcplus
           echo 'Creating package...'
-          makensis -V4 -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
-          #set CURRDATE=`date +%Y%m%d`
-          #mv QLC+_*.exe ${INSTALL_ROOT}/QLC+_$APPVEYOR_BUILD_VERSION.exe
+          makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
+
+      - name: Store executable artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: /c/qlcplus/QLC+-*.exe
+          path: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
