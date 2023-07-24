@@ -17,11 +17,11 @@
  <Channel Name="Spot Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
-  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#e01b24">Red</Capability>
-  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#33d17a">Green</Capability>
-  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#3584e4">Blue</Capability>
-  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#f5c211">Yellow</Capability>
-  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ab1852">Magenta</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ff7800">Amber</Capability>
   <Capability Min="112" Max="255" Preset="SlowToFast">Rotating/return slow to fast</Capability>
  </Channel>
@@ -107,41 +107,41 @@
   <Capability Min="0" Max="255">Effect Speed</Capability>
  </Channel>
  <Mode Name="14ch">
-  <Channel Number="0" ActsOn="0">Pan</Channel>
-  <Channel Number="1" ActsOn="1">Tilt</Channel>
-  <Channel Number="2" ActsOn="2">Pan/Tilt speed</Channel>
-  <Channel Number="3" ActsOn="3">Global Dimmer</Channel>
-  <Channel Number="4" ActsOn="4">Spot Dimmer</Channel>
-  <Channel Number="5" ActsOn="5">Spot Color wheel</Channel>
-  <Channel Number="6" ActsOn="6">Spot Gobo wheel</Channel>
-  <Channel Number="7" ActsOn="7">Wash - Red</Channel>
-  <Channel Number="8" ActsOn="8">Wash - Green</Channel>
-  <Channel Number="9" ActsOn="9">Wash - Blue</Channel>
-  <Channel Number="10" ActsOn="10">Wash - White</Channel>
-  <Channel Number="11" ActsOn="11">Strobe</Channel>
-  <Channel Number="12" ActsOn="12">PT Control</Channel>
-  <Channel Number="13" ActsOn="13">Light Belt</Channel>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Global Dimmer</Channel>
+  <Channel Number="4">Spot Dimmer</Channel>
+  <Channel Number="5">Spot Color wheel</Channel>
+  <Channel Number="6">Spot Gobo wheel</Channel>
+  <Channel Number="7">Wash - Red</Channel>
+  <Channel Number="8">Wash - Green</Channel>
+  <Channel Number="9">Wash - Blue</Channel>
+  <Channel Number="10">Wash - White</Channel>
+  <Channel Number="11">Strobe</Channel>
+  <Channel Number="12">PT Control</Channel>
+  <Channel Number="13">Light Belt</Channel>
  </Mode>
  <Mode Name="19ch">
-  <Channel Number="0" ActsOn="0">Pan</Channel>
-  <Channel Number="1" ActsOn="1">Pan fine</Channel>
-  <Channel Number="2" ActsOn="2">Tilt</Channel>
-  <Channel Number="3" ActsOn="3">Tilt fine</Channel>
-  <Channel Number="4" ActsOn="4">Pan/Tilt speed</Channel>
-  <Channel Number="5" ActsOn="5">Global Dimmer</Channel>
-  <Channel Number="6" ActsOn="6">Spot Dimmer</Channel>
-  <Channel Number="7" ActsOn="7">Spot Color wheel</Channel>
-  <Channel Number="8" ActsOn="8">Spot Gobo wheel</Channel>
-  <Channel Number="9" ActsOn="9">Wash - Red</Channel>
-  <Channel Number="10" ActsOn="10">Wash - Green</Channel>
-  <Channel Number="11" ActsOn="11">Wash - Blue</Channel>
-  <Channel Number="12" ActsOn="12">Wash - White</Channel>
-  <Channel Number="13" ActsOn="13">Strobe</Channel>
-  <Channel Number="14" ActsOn="14">Wash Effect</Channel>
-  <Channel Number="15" ActsOn="15">Auto/Sound control</Channel>
-  <Channel Number="16" ActsOn="16">Effect Speed</Channel>
-  <Channel Number="17" ActsOn="17">PT Control</Channel>
-  <Channel Number="18" ActsOn="18">Light Belt</Channel>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Global Dimmer</Channel>
+  <Channel Number="6">Spot Dimmer</Channel>
+  <Channel Number="7">Spot Color wheel</Channel>
+  <Channel Number="8">Spot Gobo wheel</Channel>
+  <Channel Number="9">Wash - Red</Channel>
+  <Channel Number="10">Wash - Green</Channel>
+  <Channel Number="11">Wash - Blue</Channel>
+  <Channel Number="12">Wash - White</Channel>
+  <Channel Number="13">Strobe</Channel>
+  <Channel Number="14">Wash Effect</Channel>
+  <Channel Number="15">Auto/Sound control</Channel>
+  <Channel Number="16">Effect Speed</Channel>
+  <Channel Number="17">PT Control</Channel>
+  <Channel Number="18">Light Belt</Channel>
  </Mode>
  <Physical>
   <Bulb Type="6x8W RGBW LED + 1x30W White LED" Lumens="7950" ColourTemperature="8500"/>
