@@ -391,15 +391,15 @@ jobs:
           set MSYSTEM=MINGW32
           #echo 'Silently installing QLC+...'
           cd build
-          make INSTALL_ROOT=${INSTALL_ROOT} install
+          make install
           #cp *.qm ${INSTALL_ROOT}
 
       - name: Build installation package
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          cd ${INSTALL_ROOT}
-          sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
+          cd /c/qlcplus
+          sed -i -e 's/c:\/Qt/\/d\/a\/qlcplus/g' qlcplus4Qt5.nsi
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
           #set CURRDATE=`date +%Y%m%d`
