@@ -401,9 +401,10 @@ jobs:
           cd /c/qlcplus
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
+          mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus
 
       - name: Store executable artifact
         uses: actions/upload-artifact@v3
         with:
           name: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
-          path: /c/qlcplus/${{env.OUTFILE}}
+          path: ${{env.OUTFILE}}
