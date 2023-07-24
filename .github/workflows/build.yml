@@ -370,7 +370,7 @@ jobs:
           # fix MSYS2 system path
           sed -i -e 's/$ENV{SystemDrive}\/msys64/D:\/a\/_temp\/msys64/g' platforms/windows/CMakeLists.txt
           # fix project path in NSIS script
-          sed -i -e 's/c\:\\Qt/\/d\/a\/qlcplus/g' platforms/windows/qlcplus4Qt5.nsi
+          sed -i -e 's/c\:\\Qt/\/d:\\a\\qlcplus/g' platforms/windows/qlcplus4Qt5.nsi
           cat platforms/windows/qlcplus4Qt5.nsi | grep QLCPLUS_HOME
 
       - name: Configure build for Windows
