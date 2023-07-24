@@ -395,7 +395,8 @@ jobs:
           #echo 'Silently installing QLC+...'
           cd build
           make install
-          #cp *.qm ${INSTALL_ROOT}
+          cd ..
+          cp *.qm /c/qlcplus
 
       - name: Build installation package
         shell: msys2 {0}
