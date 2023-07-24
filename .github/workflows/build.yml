@@ -400,7 +400,8 @@ jobs:
           set MSYSTEM=MINGW32
           cd /c/qlcplus
           sed -i -e 's/c:\/Qt/\/d\/a\/qlcplus/g' qlcplus4Qt5.nsi
+          cat qlcplus4Qt5.nsi | grep QLCPLUS_HOME
           echo 'Creating package...'
-          makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
+          makensis -X'SetCompressor /V4 /FINAL lzma' qlcplus4Qt5.nsi
           #set CURRDATE=`date +%Y%m%d`
           #mv QLC+_*.exe ${INSTALL_ROOT}/QLC+_$APPVEYOR_BUILD_VERSION.exe
