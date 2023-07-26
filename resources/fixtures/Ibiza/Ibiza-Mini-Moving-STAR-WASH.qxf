@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.6</Version>
+  <Version>4.12.8 GIT</Version>
   <Author>Chris Shucksmith</Author>
  </Creator>
  <Manufacturer>Ibiza</Manufacturer>
@@ -106,7 +106,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Effect Speed</Capability>
  </Channel>
- <Mode Name="14ch">
+ <Mode Name="14 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt speed</Channel>
@@ -122,7 +122,7 @@
   <Channel Number="12">PT Control</Channel>
   <Channel Number="13">Light Belt</Channel>
  </Mode>
- <Mode Name="19ch">
+ <Mode Name="19 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -147,7 +147,7 @@
   <Bulb Type="6x8W RGBW LED + 1x30W White LED" Lumens="7950" ColourTemperature="8500"/>
   <Dimensions Weight="3" Width="200" Height="200" Depth="250"/>
   <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
-  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
