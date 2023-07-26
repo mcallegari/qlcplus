@@ -5755,7 +5755,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="156"/>
         <source>Do nothing</source>
-        <translation>Do niets</translation>
+        <translation>Doe niets</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="177"/>
