@@ -354,20 +354,17 @@ jobs:
           cmake --version || true
           pkg-config --modversion libusb-1.0
 
-      - name: Disable unsupported components
+      - name: Fix build
         #if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          # disable i18n test
-          sed -i -e 's/add_subdirectory(qlci18n)/#add_subdirectory(qlci18n)/g' engine/test/CMakeLists.txt
           # disable Velleman plugin
           sed -i -e 's/    add_subdirectory(velleman)/#    add_subdirectory(velleman)/g' plugins/CMakeLists.txt
           # fix MSYS2 system path
           sed -i -e 's/$ENV{SystemDrive}\/msys64/D:\/a\/_temp\/msys64/g' platforms/windows/CMakeLists.txt
           # fix project path in NSIS script
           sed -i -e 's/c\:\\Qt/d:\\a\\qlcplus/g' platforms/windows/qlcplus4Qt5.nsi
-          cat platforms/windows/qlcplus4Qt5.nsi | grep QLCPLUS_HOME
 
       - name: Configure build for Windows
         shell: msys2 {0}
