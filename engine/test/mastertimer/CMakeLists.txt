@@ -26,19 +26,19 @@ if ("$ENV{TRAVIS}" STREQUAL "true")
     )
 endif()
 
-if(WIN32)
-    set(CURRUSR $ENV{USERNAME})
-else()
-    set(CURRUSR $ENV{USER})
-endif()
+#if(WIN32)
+#    set(CURRUSR $ENV{USERNAME})
+#else()
+#    set(CURRUSR $ENV{USER})
+#endif()
 
-string(STRIP ${CURRUSR} CURRUSR)
-string(FIND ${CURRUSR} "build" IS_BUILDBOT)
-if(IS_BUILDBOT GREATER -1)
-    target_compile_definitions(${module_name} PRIVATE
-        SKIP_TEST
-    )
-endif()
+#string(STRIP ${CURRUSR} CURRUSR)
+#string(FIND ${CURRUSR} "build" IS_BUILDBOT)
+#if(IS_BUILDBOT GREATER -1)
+#    target_compile_definitions(${module_name} PRIVATE
+#        SKIP_TEST
+#    )
+#endif()
 
 # Consider using qt_generate_deploy_app_script() for app deployment if
 # the project can use Qt 6.3. In that case rerun qmake2cmake with
