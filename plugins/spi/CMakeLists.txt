@@ -19,7 +19,8 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_library(${module_name} SHARED
+add_library(${module_name}
+    SHARED
     ${QM_FILES}
 )
 
@@ -43,10 +44,12 @@ target_link_libraries(${module_name} PRIVATE
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/z65-spi.rules"
         DESTINATION ${UDEVRULESDIR})
 
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.spi.metainfo.xml"
-        DESTINATION ${METAINFODIR})
-
 install(TARGETS ${module_name}
     LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
     RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
+
+if (UNIX AND NOT APPLE)
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.spi.metainfo.xml"
+        DESTINATION ${METAINFODIR})
+endif()
