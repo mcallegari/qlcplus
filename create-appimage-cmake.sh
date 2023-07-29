@@ -1,9 +1,10 @@
 #!/bin/bash
 #
-# Script to create a self contained AppImage
+# Script to create a self contained AppImage using CMake
 # Requires wget and chrpath
-# Export QTDIR before running this, like:
-#   export QTDIR=/home/user/Qt5.9.4/5.9.4/gcc_64
+# If you want to use the official Qt packages, please export QTDIR before running this, like:
+#   export QTDIR=/home/user/Qt/5.15.2/gcc_64
+# Or you can use the system Qt libraries instead by not specifying QTDIR.
 
 # Exit on error
 set -e
@@ -26,7 +27,7 @@ else
     cmake -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt5" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
 fi
 
-NUM_CPUS=`nproc` || true
+NUM_CPUS=$(nproc) || true
 if [ -z "$NUM_CPUS" ]; then
     NUM_CPUS=8
 fi
@@ -41,7 +42,7 @@ make install
 
 strip $TARGET_DIR/usr/bin/qlcplus-qml
 # see variables.pri, where to find the LIBSDIR
-find $TARGET_DIR/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
+find $TARGET_DIR/usr/lib/ -name 'libqlcplusengine.so*' -exec strip -v {} \;
 
 # FIXME: no rpath or runpath tag found.
 chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml || true

@@ -36,10 +36,10 @@ set(qtdeps_files
     "${SYS_LIBS_PATH}/libintl-8.dll"
     "${SYS_LIBS_PATH}/libpcre2-8-0.dll"
     "${SYS_LIBS_PATH}/libpcre2-16-0.dll"
-    # "${SYS_LIBS_PATH}/libpcre-1.dll"
+    "${SYS_LIBS_PATH}/libpcre-1.dll"
     "${SYS_LIBS_PATH}/libpng16-16.dll"
     "${SYS_LIBS_PATH}/libjpeg-8.dll"
-    # "${SYS_LIBS_PATH}/libspeex-1.dll"
+    "${SYS_LIBS_PATH}/libspeex-1.dll"
     "${SYS_LIBS_PATH}/libzstd.dll"
     "${SYS_LIBS_PATH}/libbrotlidec.dll"
     "${SYS_LIBS_PATH}/libbrotlicommon.dll"
@@ -49,7 +49,7 @@ set(qtdeps_files
 if(Qt5_MAJOR_VERSION GREATER 5)
     list(APPEND qtdeps_files "${SYS_LIBS_PATH}/libb2-1.dll")
 endif()
-install(FILES ${qtdeps_files} DESTINATION ${qtdeps_path})
+install(FILES ${qtdeps_files} OPTIONAL DESTINATION ${qtdeps_path})
 
 set(qtlibs_path "${INSTALLROOT}/${LIBSDIR}")
 set(qtlibs_files

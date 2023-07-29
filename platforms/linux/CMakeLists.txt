@@ -34,11 +34,20 @@ endif()
 # install(FILES ../Sample.qxw DESTINATION ${INSTALLROOT}/${DATADIR})
 
 if(appimage)
-    get_filename_component(QT_LIBS_PATH ${QT_DIR}/../../../lib ABSOLUTE)
-    get_filename_component(QT_PLUGINS_PATH ${QT_LIBS_PATH}/../plugins ABSOLUTE)
-    get_filename_component(QT_QML_PATH ${QT_LIBS_PATH}/../qml ABSOLUTE)
+    if (QT_DIR STREQUAL "/usr/lib/x86_64-linux-gnu/cmake/Qt5")
+        set(QT_LIBS_PATH "/usr/lib/x86_64-linux-gnu")
+        set(QT_PLUGINS_PATH "/usr/lib/x86_64-linux-gnu/qt5/plugins")
+        set(QT_QML_PATH "/usr/lib/x86_64-linux-gnu/qt5/qml")
+    else()
+        get_filename_component(QT_LIBS_PATH ${QT_DIR}/../../../lib ABSOLUTE)
+        get_filename_component(QT_PLUGINS_PATH ${QT_LIBS_PATH}/../plugins ABSOLUTE)
+        get_filename_component(QT_QML_PATH ${QT_LIBS_PATH}/../qml ABSOLUTE)
+    endif()
+    message("QT_LIBS_PATH ${QT_LIBS_PATH}")
+    message("QT_PLUGINS_PATH ${QT_PLUGINS_PATH}")
+    message("QT_QML_PATH ${QT_QML_PATH}")
     # Qt dependencies
-    file(GLOB qtdeps_FILES "${QT_LIBS_PATH}//libicu*")
+    file(GLOB qtdeps_FILES "${QT_LIBS_PATH}/libicu*")
     install(
         FILES ${qtdeps_FILES}
         DESTINATION ${INSTALLROOT}/${LIBSDIR}
@@ -82,7 +91,14 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt5Gamepad.so.5
             ${QT_LIBS_PATH}/libQt5PrintSupport.so.5)
     endif()
-    install(FILES ${qtlibs_FILES} DESTINATION ${INSTALLROOT}/${LIBSDIR})
+    
+    set(_resolved_qtlibs_FILES "")
+    foreach (_file ${qtlibs_FILES})
+        file(GLOB _files "${_file}*")
+        list(FILTER _files EXCLUDE REGEX ".debug")
+        list (APPEND _resolved_qtlibs_FILES "${_files}")
+    endforeach()
+    install(FILES ${_resolved_qtlibs_FILES} DESTINATION ${INSTALLROOT}/${LIBSDIR})
 
     # Qt plugins
     install(
