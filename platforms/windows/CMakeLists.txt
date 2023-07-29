@@ -46,6 +46,12 @@ set(qtdeps_files
     "${SYS_LIBS_PATH}/zlib1.dll"
 )
 
+if(qmlui)
+	list(APPEND qtdeps_files 
+		"${SYS_LIBS_PATH}/libassimp-5.dll"
+		"${SYS_LIBS_PATH}/libminizip-1.dll")
+endif()
+
 if(Qt5_MAJOR_VERSION GREATER 5)
     list(APPEND qtdeps_files "${SYS_LIBS_PATH}/libb2-1.dll")
 endif()
