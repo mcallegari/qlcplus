@@ -20,7 +20,7 @@ target_link_libraries(${module_name} PUBLIC
     Qt${QT_MAJOR_VERSION}::Multimedia
 )
 
-if(MACOS)
+if(APPLE)
     set_target_properties(${module_name} PROPERTIES
         MACOSX_BUNDLE FALSE
     )
@@ -32,7 +32,7 @@ if(WIN32)
     )
 endif()
 
-if(((QT_VERSION_MAJOR LESS 5)) AND (UNIX AND NOT MACOS))
+if(((QT_VERSION_MAJOR LESS 5)) AND (UNIX AND NOT APPLE))
     target_sources(${module_name} PRIVATE
         audiocapture_alsa.cpp audiocapture_alsa.h
         audiorenderer_alsa.cpp audiorenderer_alsa.h
@@ -60,7 +60,7 @@ if(NOT ((QT_VERSION_MAJOR LESS 6)))
     )
 endif()
 
-if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
+if((((QT_VERSION_MAJOR LESS 5)) AND (APPLE)))
     if (${PORTAUDIO_2_FOUND})
         target_sources(${module_name} PRIVATE
             audiocapture_portaudio.cpp audiocapture_portaudio.h
@@ -90,7 +90,7 @@ if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     )
 endif()
 
-if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
+if(UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)
     target_link_libraries(${module_name} PUBLIC
         asound
     )

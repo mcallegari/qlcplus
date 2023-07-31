@@ -99,7 +99,7 @@ if(NOT ANDROID AND NOT IOS)
     )
 endif()
 
-if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
+if(UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)
     target_link_libraries(${module_name} PUBLIC
         asound
     )
@@ -127,7 +127,7 @@ if((NOT ANDROID AND NOT IOS) AND (iokit))
     )
 endif()
 
-if(MACOS)
+if(APPLE)
     set_target_properties(${module_name} PROPERTIES
         MACOSX_BUNDLE FALSE
     )

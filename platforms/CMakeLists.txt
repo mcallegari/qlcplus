@@ -1,6 +1,6 @@
 project(platforms)
 
-if(UNIX AND NOT MACOS)
+if(UNIX AND NOT APPLE)
     add_subdirectory(linux)
 endif()
 if(WIN32)

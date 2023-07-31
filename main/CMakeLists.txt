@@ -28,7 +28,7 @@ if(QT_VERSION_MAJOR EQUAL 5)
     )
 endif()
 
-if(WIN32 OR MACOS)
+if(WIN32 OR APPLE)
     target_sources(${module_name} PRIVATE
         ../ui/src/debugbox.cpp ../ui/src/debugbox.h ../ui/src/debugbox.ui
     )

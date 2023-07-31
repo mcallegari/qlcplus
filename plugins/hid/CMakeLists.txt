@@ -41,7 +41,7 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-if(UNIX AND NOT MACOS)
+if(UNIX AND NOT APPLE)
     target_sources(${module_name} PRIVATE
         linux/hidapi.cpp
         linux/hidlinuxjoystick.cpp linux/hidlinuxjoystick.h
@@ -52,7 +52,7 @@ if(UNIX AND NOT MACOS)
     )
 endif()
 
-if(MACOS)
+if(APPLE)
     target_sources(${module_name} PRIVATE
         macx/hidapi.cpp
         macx/hidosxjoystick.cpp macx/hidosxjoystick.h

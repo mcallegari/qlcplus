@@ -16,7 +16,7 @@ target_link_libraries(efx_test PRIVATE
     qlcplusengine
 )
 
-if(MACOS)
+if(APPLE)
     set_target_properties(efx_test PROPERTIES
         MACOSX_BUNDLE FALSE
     )

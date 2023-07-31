@@ -30,7 +30,7 @@ if(WIN32)
     )
 endif()
 
-if(MACOS)
+if(APPLE)
     set_target_properties(common PROPERTIES
         MACOSX_BUNDLE FALSE
     )

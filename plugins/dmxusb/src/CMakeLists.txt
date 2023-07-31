@@ -52,7 +52,7 @@ if(UNIX)
         target_link_libraries(${module_name} PRIVATE ${LIBFTDI1_LIBRARIES})
 
         if (APPLE)
-            include(../../../platforms/macos/nametool.pri)
+            #include(../../../platforms/macos/nametool.pri)
             add_custom_command(TARGET ${module_name}
                 COMMAND ${PKG_CONFIG_NAMETOOL} libusb-1.0 libusb-1.0.0.dylib
                 COMMAND ${PKG_CONFIG_NAMETOOL} libftdi1 libftdi1.2.dylib

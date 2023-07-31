@@ -1,9 +1,9 @@
 project(src)
 
-if(MACOS)
+if(APPLE)
     add_subdirectory(macx)
 endif()
-if(UNIX AND NOT MACOS)
+if(UNIX AND NOT APPLE)
     add_subdirectory(alsa)
 endif()
 if(WIN32)

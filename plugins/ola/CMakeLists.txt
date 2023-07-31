@@ -41,7 +41,7 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-if(MACOS)
+if(APPLE)
     set_target_properties(${module_name} PROPERTIES
         MACOSX_BUNDLE FALSE
     )
@@ -71,7 +71,7 @@ if(MACOS)
     endif()
 endif()
 
-if(NOT MACOS)
+if(NOT APPLE)
     target_link_libraries(${module_name} PRIVATE
         # Remove: L/usr/local/lib
         ola

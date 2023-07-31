@@ -19,7 +19,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-if((((QT_VERSION_MAJOR LESS 5)) AND (MACOS)))
+if((((QT_VERSION_MAJOR LESS 5)) AND (APPLE)))
     if (${PORTAUDIO_2_FOUND})
         target_compile_definitions(${module_name} PUBLIC
             HAS_PORTAUDIO
@@ -96,7 +96,7 @@ if(WIN32)
     )
 endif()
 
-if(UNIX AND NOT MACOS)
+if(UNIX AND NOT APPLE)
     target_sources(${module_name} PRIVATE
         webaccessnetwork.cpp webaccessnetwork.h
     )
