@@ -109,12 +109,12 @@ if(WIN32)
 else()
     if(qmlui)
        add_custom_target(coverage
-            COMMAND ./coverage.sh "qmlui"
+            COMMAND ./coverage_cmake.sh "qmlui"
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
     else()
        add_custom_target(coverage
-            COMMAND ./coverage.sh "ui"
+            COMMAND ./coverage_cmake.sh "ui"
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
     endif()

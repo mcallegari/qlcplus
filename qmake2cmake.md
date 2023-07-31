@@ -126,14 +126,14 @@ The `CMAKE_PREFIX_PATH` can be found in the installed Qt directory.
 
 ```bash
 cd <qlcplus>/build
-cmake -DCMAKE_PREFIX_PATH="/home/<user>/Qt/5.15.2/gcc_64/lib/cmake/" ..
+cmake -DCMAKE_PREFIX_PATH="/home/<user>/Qt/5.15.2/gcc_64/lib/cmake" ..
 make
 ```
 
 If you want to compile it using Qt6, you can just simply specify the CMake path of Qt6.
 
 ```bash
-cmake -DCMAKE_PREFIX_PATH="/home/<user>/Qt/6.5.0/gcc_64/lib/cmake/" ..
+cmake -DCMAKE_PREFIX_PATH="/home/<user>/Qt/6.5.0/gcc_64/lib/cmake" ..
 ```
 
 #### <b>Build QLC+ 4 using the Debian Qt packages</b>

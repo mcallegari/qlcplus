@@ -99,17 +99,6 @@ if(NOT ANDROID AND NOT IOS)
     )
 endif()
 
-if((NOT ANDROID AND NOT IOS) AND (coverage))
-    target_link_libraries(${module_name} PUBLIC
-        gcov
-    )
-
-    target_compile_options(${module_name}
-        -fprofile-arcs
-        -ftest-coverage
-    )
-endif()
-
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT MACOS)
     target_link_libraries(${module_name} PUBLIC
         asound

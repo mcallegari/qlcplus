@@ -37,5 +37,6 @@ done
 
 cp $SOURCE_DIR/unittest.sh $DEST_DIR/
 
-cd $DEST_DIR
+pushd $DEST_DIR
 ./unittest.sh $1
+popd
