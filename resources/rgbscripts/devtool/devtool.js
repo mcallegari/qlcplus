@@ -363,7 +363,7 @@ devtool.startTest = function(inc)
     } else {
       devtool.testTimer = window.setInterval("devtool.previousStep()", speed);
     }
-    localStorage.setItem("devtool.timerRunning", 1);
+    localStorage.setItem("devtool.timerRunning", inc);
 }
 
 devtool.stopTest = function()
@@ -375,8 +375,8 @@ devtool.stopTest = function()
 devtool.initTestStatus = function()
 {
     let timerStatus = localStorage.getItem("devtool.timerRunning");
-    if (timerStatus === null || parseInt(timerStatus) === 1) {
-        devtool.startTest();
+    if (timerStatus === null || parseInt(timerStatus) !== 0) {
+        devtool.startTest(parseInt(timerStatus));
     }
 }
 
@@ -478,7 +478,7 @@ devtool.previousStep = function()
     } else {
         let timerStatus = localStorage.getItem("devtool.timerRunning");
         let alternate = document.getElementById("alternate").checked;
-        if (timerStatus == "1" && alternate) {
+        if (timerStatus == "-1" && alternate) {
             devtool.startTest(1);
         } else {
             devtool.setStep(devtool.stepCount() - 1); // last step

@@ -31,7 +31,9 @@ var testAlgo;
     algo.properties = new Array();
 
     algo.circularMode = 0;
-    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating|write:setMode|read:getMode");
+    algo.properties.push("name:circularMode|type:list|display:Mode|values:Radar,Propellor,Spiral Right,Spiral Left,S-Curve Right,S-Curve Left,Rings Spreading,Rings Rotating|write:setMode|read:getMode");
+    algo.width = 1;
+    algo.properties.push("name:width|type:range|display:Line Weight|values:1,100|write:setWidth|read:getWidth");
     algo.fillMatrix = 0;
     algo.properties.push("name:fillMatrix|type:list|display:Fill Matrix|values:No,Yes|write:setFill|read:getFill");
     algo.segmentsCount = 1;
@@ -40,6 +42,8 @@ var testAlgo;
     algo.properties.push("name:divisor|type:range|display:Algorithm Factor|values:1,10|write:setDivisor|read:getDivisor");
     algo.centerRadius = 0;
     algo.properties.push("name:centerRadius|type:range|display:Center Rotation|values:-10,10|write:setCenterRotation|read:getCenterRotation");
+    algo.centerGap = 0;
+    algo.properties.push("name:centerGap|type:range|display:Center Gap|values:0,100|write:setCenterGap|read:getCenterGap");
     algo.fadeMode = 0;
     algo.properties.push("name:fadeMode|type:list|display:Radar Fade Mode|values:Don't Fade,Fade Left,Fade Right|write:setFade|read:getFade");
 
@@ -79,6 +83,16 @@ var testAlgo;
       return angle;
     }
 
+    algo.setWidth = function(barWidth)
+    {
+      algo.width = barWidth;
+    };
+
+    algo.getWidth = function()
+    {
+      return parseInt(algo.width, 10);
+    };
+
     algo.setCenterRotation = function(_amount)
     {
       algo.centerRadius = _amount;
@@ -99,6 +113,16 @@ var testAlgo;
     algo.getSegments = function()
     {
       return algo.segmentsCount;
+    };
+
+    algo.setCenterGap = function(centerGap)
+    {
+      algo.centerGap = centerGap;
+    };
+
+    algo.getCenterGap = function()
+    {
+      return parseInt(algo.centerGap, 10);
     };
 
     algo.setFade = function(_fade)
@@ -150,6 +174,7 @@ var testAlgo;
       else if (_mode === "S-Curve Left") { algo.circularMode = 4; }
       else if (_mode === "Rings Spreading") { algo.circularMode = 5; }
       else if (_mode === "Rings Rotating") { algo.circularMode = 6; }
+      else if (_mode === "Propellor") { algo.circularMode = 7; }
       else { algo.circularMode = 0; }
     };
 
@@ -161,6 +186,7 @@ var testAlgo;
       else if (algo.circularMode === 4) { return "S-Curve Left"; }
       else if (algo.circularMode === 5) { return "Rings Spreading"; }
       else if (algo.circularMode === 6) { return "Rings Rotating"; }
+      else if (algo.circularMode === 7) { return "Propellor"; }
       else { return "Radar"; }
     };
 
@@ -313,24 +339,32 @@ var testAlgo;
       // location of the object
       var offx = rx - util.vCenterX;
       var offy = ry - util.vCenterY;
-
       var pointRadius = Math.sqrt(offx * offx + offy * offy);
-      var angle = geometryCalc.getAngle(offx, offy);
-      angle = angle + util.twoPi * (1 - util.stepPercent);
+      var pointAngle = geometryCalc.getAngle(offx, offy);
+      // Progress the pointAngle by the step specific angle
+      var stepAngle = util.twoPi * (1 - util.stepPercent);
+      var angle = pointAngle + stepAngle;
+      // Repeat the trigonometry based on segments to be used
       angle = angle * algo.segmentsCount;
+      // Normalize the angle
       angle = (angle + util.twoPi) % util.twoPi;
 
       if (algo.circularMode === 1) {
         // Right Spiral
-        factor = Math.atan(1.5 * (1 - (angle / util.twoPi)));
-        factor = Math.sin(pointRadius / algo.divisor + util.twoPi * factor - Math.PI);
+        factor = Math.atan(util.halfPi * (1 - (angle / util.twoPi)));
+        factor = 1 - 0.1 / (algo.divisor / 10)
+            + Math.sin(pointRadius / (0.5 + algo.getWidth()) * util.halfPi
+            + util.twoPi * factor - Math.PI);
       } else if (algo.circularMode === 2) {
         // Left Spiral
-        factor = Math.atan(1.5 * (angle / util.twoPi));
-        factor = Math.sin(pointRadius / algo.divisor + util.twoPi * factor - Math.PI);
+        factor = Math.atan(util.halfPi * (angle / util.twoPi));
+        factor = 1 - 0.1 / (algo.divisor / 10)
+            + Math.sin(pointRadius / (0.5 + algo.getWidth()) * util.halfPi
+            + util.twoPi * factor - Math.PI);
       } else if (algo.circularMode === 3) {
         // Right S-Curve
-        var pRadius = Math.sqrt(offx * offx + offy * offy);
+//        angle = util.twoPi / (1 - 0.1 / (algo.getWidth() / 10));
+        var pRadius = Math.sqrt(offx * offx / algo.getWidth() + offy * offy / algo.getWidth());
         var virtualx = Math.sin(angle) * pRadius;
         var virtualy = offy;
         if (angle < Math.PI) {
@@ -339,10 +373,10 @@ var testAlgo;
           virtualy = Math.cos(angle) * pRadius - util.sOffsetFactor;
         }
         var sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
-        factor = Math.cos(sRadius);
+        factor = Math.min(1.0, algo.getWidth() / 10 - 0.1) + Math.cos(sRadius);
       } else if (algo.circularMode === 4) {
         // Left S-Curve
-        var pRadius = Math.sqrt(offx * offx + offy * offy);
+        var pRadius = Math.sqrt(offx * offx / algo.getWidth() + offy * offy / algo.getWidth());
         var virtualx = Math.sin(angle) * pRadius;
         var virtualy = offy;
         if (angle < Math.PI) {
@@ -351,25 +385,38 @@ var testAlgo;
           virtualy = Math.cos(angle) * pRadius + util.sOffsetFactor;
         }
         var sRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
-        factor = Math.cos(sRadius);
+        factor = Math.min(1.0, algo.getWidth() / 10 - 0.1) + Math.cos(sRadius);
       } else if (algo.circularMode === 5) {
         // Rings Spreading
         var pRadius = Math.sqrt(offx * offx + offy * offy);
-        factor = Math.cos(pRadius / algo.divisor - (util.twoPi * util.progstep / util.circleFactor));
+        factor = Math.min(1.0, algo.getWidth() / 10 - 0.1) +
+            Math.cos(pRadius / algo.divisor - (util.twoPi * util.progstep / util.circleFactor));
       } else if (algo.circularMode === 6) {
         // Rings Rotating
-        var pRadius = Math.sqrt(offx * offx + offy * offy);
-        var virtualx = Math.sin(angle) * pRadius + algo.divisor * Math.sin(util.stepAngle);
-        var virtualy = Math.cos(angle) * pRadius + algo.divisor * Math.cos(util.stepAngle);
+        var virtualx = Math.sin(angle) * pointRadius + algo.divisor * Math.sin(util.stepAngle);
+        var virtualy = Math.cos(angle) * pointRadius + algo.divisor * Math.cos(util.stepAngle);
         var vRadius = Math.sqrt(virtualx * virtualx + virtualy * virtualy);
-        factor = Math.cos(vRadius);
+        factor = Math.min(1.0, algo.getWidth() / 10 - 0.1) +
+            Math.cos(vRadius);
+      } else if (algo.circularMode === 7) {
+        // Propellor
+        // Calculate the relative angle to the next propellor blade
+        var segmentAngle = util.twoPi / algo.segmentsCount; //algo.segmentsCount;
+        var barAngle = (pointAngle + stepAngle + segmentAngle / 2) % segmentAngle - segmentAngle / 2;
+        // Calculate the distance to the main angle
+        var barDistance = pointRadius * Math.abs(Math.sin(barAngle));
+        // Show the pixel if the distance to the main angle is in range.
+        if (Math.cos(barAngle) >= 0 && barDistance <= algo.getWidth() / 2)
+          factor = 1;
+        else
+          factor = 0;
       } else {
         // Radar
         var virtualx = Math.sin(angle) * pointRadius;
         var virtualy = Math.cos(angle) * pointRadius;
 
-        var sidefade1 = Math.atan((1 - virtualx - virtualx) / algo.segmentsCount + 1);
-        var sidefade2 = Math.atan((1 + virtualx + virtualx) / algo.segmentsCount + 1);
+        var sidefade1 = Math.atan((algo.getWidth() - virtualx - virtualx) / algo.segmentsCount + 1);
+        var sidefade2 = Math.atan((algo.getWidth() + virtualx + virtualx) / algo.segmentsCount + 1);
         var endfade = Math.atan(virtualy + 1.5);
   
         factor = endfade + sidefade1 + sidefade2 - 2;
@@ -389,12 +436,27 @@ var testAlgo;
         // circle
         var distance = Math.sqrt(offx * offx + offy * offy);
         var distPercent = distance / util.blindoutRadius;
-        factor *= util.blindoutPercent(1 - distPercent, 5.0);
+        if (algo.circularMode === 7) {
+          if (util.blindoutPercent(1 - distPercent, 5.0) < 0.3)
+            factor = 0;
+        } else {
+          factor *= util.blindoutPercent(1 - distPercent, 5.0);
+        }
+      }
+
+      if (algo.getCenterGap() !== 0) {
+        var distance = Math.sqrt(offx * offx + offy * offy);
+        var distPercent = (algo.getCenterGap() / 2) / distance;
+        if (algo.circularMode === 7) {
+          if (util.blindoutPercent(1 - distPercent, 5.0) < 0.3)
+            factor = 0;
+        } else {
+          factor *= util.blindoutPercent(1 - distPercent, 5.0);
+        }
       }
 
       // Normalize the factor      
       factor = Math.min(1, Math.max(0, factor));
-
       return util.getColor(r * factor, g * factor, b * factor, util.map[ry][rx]);
     }
 
