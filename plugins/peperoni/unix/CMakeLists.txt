@@ -47,7 +47,7 @@ if(${LIBUSB_1_FOUND})
     )
 
     target_link_libraries(${module_name} PRIVATE
-        ${LIBUSB_1_LIBRARIES}
+        ${LIBUSB_1_LINK_LIBRARIES}
     )
 endif()
 

@@ -14,7 +14,7 @@ target_include_directories(${module_name} PRIVATE
 target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
-    ${SNDFILE_LIBRARIES}
+    ${SNDFILE_LINK_LIBRARIES}
 )
 
 install(TARGETS ${module_name}

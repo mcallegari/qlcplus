@@ -49,15 +49,15 @@ if(UNIX)
         # execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
 
         # Link your executable against the libftdi1 library
-        target_link_libraries(${module_name} PRIVATE ${LIBFTDI1_LIBRARIES})
+        target_link_libraries(${module_name} PRIVATE ${LIBFTDI1_LINK_LIBRARIES})
 
         if (APPLE)
             #include(../../../platforms/macos/nametool.pri)
-            add_custom_command(TARGET ${module_name}
-                COMMAND ${PKG_CONFIG_NAMETOOL} libusb-1.0 libusb-1.0.0.dylib
-                COMMAND ${PKG_CONFIG_NAMETOOL} libftdi1 libftdi1.2.dylib
-                COMMENT "Creating symlinks for libusb-1.0.0.dylib and libftdi1.2.dylib"
-            )
+            #add_custom_command(TARGET ${module_name}
+            #    COMMAND ${PKG_CONFIG_NAMETOOL} libusb-1.0 libusb-1.0.0.dylib
+            #    COMMAND ${PKG_CONFIG_NAMETOOL} libftdi1 libftdi1.2.dylib
+            #    COMMENT "Creating symlinks for libusb-1.0.0.dylib and libftdi1.2.dylib"
+            #)
         endif()
 
         message("Building with libFTDI1 support. Version: ${LIBFTDI1_VERSION}")
@@ -73,7 +73,7 @@ if(UNIX)
         target_include_directories(${module_name} PRIVATE ${LIBFTDI_INCLUDE_DIRS})
 
         # Link your executable against the libftdi library
-        link_libraries(LIBFTDI_LIBRARIES)
+        link_libraries(LIBFTDI_LINK_LIBRARIES)
 
         target_compile_definitions(${module_name} PRIVATE LIBFTDI)
         target_link_libraries(${module_name} PRIVATE ${LIBFTDI_LIBRARIES})
