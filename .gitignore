@@ -48,3 +48,6 @@ coverage/
 
 # Development IDEs
 .vscode/
+
+# CMake build
+build/

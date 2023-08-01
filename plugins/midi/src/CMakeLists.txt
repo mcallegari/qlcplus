@@ -1,0 +1,11 @@
+project(src)
+
+if(APPLE)
+    add_subdirectory(macx)
+endif()
+if(UNIX AND NOT APPLE)
+    add_subdirectory(alsa)
+endif()
+if(WIN32)
+    add_subdirectory(win32)
+endif()

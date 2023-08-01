@@ -69,7 +69,7 @@ class EnttecDMXUSBProInput : public QThread
     Q_OBJECT
 
 public:
-    EnttecDMXUSBProInput(DMXInterface *interface);
+    EnttecDMXUSBProInput(DMXInterface *iface);
     ~EnttecDMXUSBProInput();
 
 private:
@@ -98,7 +98,7 @@ class EnttecDMXUSBPro : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBPro(DMXInterface *interface,
+    EnttecDMXUSBPro(DMXInterface *iface,
                     quint32 outputLine, quint32 inputLine = 0);
 
     virtual ~EnttecDMXUSBPro();
