@@ -27,20 +27,20 @@ mkdir build
 cd build
 ```
 
-We can use Ninja or MinGW to compile our project
-
-#### Using Ninja
-
-```bash
-cmake -G Ninja ..
-ninja
-```
+We can use GCC or Ninja to compile our project
 
 #### Using GCC
 
 ```bash
 cmake -G "Unix Makefiles" ..
 make
+```
+
+#### Using Ninja
+
+```bash
+cmake -G Ninja ..
+ninja
 ```
 
 We can generally use `cmake --build .` instead of `ninja` or `mingw32-make`.
@@ -94,7 +94,7 @@ We can use either of the official Qt packages or Debian Qt packages.
 
 #### <b>Install the official Qt packages</b>
 
-If you want to use official Qt for building QLC, you can install it from the [offical link](https://www.qt.io/download-qt-installer-oss).
+If you want to use official Qt for building QLC, you can install it from the [official link](https://www.qt.io/download-qt-installer-oss).
 
 You can select several versions of QT to install.
 
@@ -105,7 +105,7 @@ Qt will be installed in the `Qt` directory in the user `home` directory i.e. `~/
 If you want to use the Debian Qt packages instead of the official Qt packages, you will need to install it by running the following command in Ubuntu.
 
 ```bash
-sudo apt install -y qtcreator qtbase5-dev qt5-qmake qt3d5-dev qtdeclarative5-dev qttools5-dev qt3d-defaultgeometryloader-plugin qml-module-qt3d qml-module-qtmultimedia
+sudo apt install -y qtcreator qtbase5-dev qt5-qmake libqt5svg5-dev qt3d5-dev qtdeclarative5-dev qttools5-dev qt3d-defaultgeometryloader-plugin qt3d-assimpsceneimport-plugin qml-module-qt3d qml-module-qtmultimedia
 ```
 
 for installing Qt5 packages or

@@ -46,7 +46,7 @@ if(UNIX)
         target_include_directories(${module_name} PRIVATE ${LIBFTDI1_INCLUDE_DIRS})
 
         target_compile_definitions(${module_name} PRIVATE LIBFTDI1)
-        # execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
+        execute_process(COMMAND pkg-config --modversion libftdi1 OUTPUT_VARIABLE LIBFTDI1_VERSION)  # Get libFTDI1 version
 
         # Link your executable against the libftdi1 library
         target_link_libraries(${module_name} PRIVATE ${LIBFTDI1_LINK_LIBRARIES})
@@ -79,11 +79,11 @@ if(UNIX)
         target_link_libraries(${module_name} PRIVATE ${LIBFTDI_LIBRARIES})
 
         if (APPLE)
-            include(../../../platforms/macos/nametool.pri)
-            add_custom_command(TARGET ${module_name}
-                COMMAND ${PKG_CONFIG_NAMETOOL} libftdi libftdi.1.dylib
-                COMMENT "Creating symlink for libftdi.1.dylib"
-            )
+            #include(../../../platforms/macos/nametool.pri)
+            #add_custom_command(TARGET ${module_name}
+            #    COMMAND ${PKG_CONFIG_NAMETOOL} libftdi libftdi.1.dylib
+            #    COMMENT "Creating symlink for libftdi.1.dylib"
+            #)
         endif()
 
         message("Building with libFTDI support.")
