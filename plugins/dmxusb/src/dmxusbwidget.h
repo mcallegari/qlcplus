@@ -93,6 +93,10 @@ public:
     /** Get the DMXInterface driver in use as a string */
     QString interfaceTypeString() const;
 
+    static bool detectDMXKingDevice(DMXInterface *iface,
+                                    QString &manufName, QString &deviceName,
+                                    int &ESTA_ID, int &DEV_ID);
+
     static QList<DMXUSBWidget *> widgets();
 
     bool forceInterfaceDriver(DMXInterface::Type type);

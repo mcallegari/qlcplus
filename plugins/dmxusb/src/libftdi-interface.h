@@ -38,7 +38,7 @@ public:
     static QList<DMXInterface *> interfaces(QList<DMXInterface *> discoveredList);
 
     /** @reimpl */
-    QString readLabel(uchar label, int *ESTA_code);
+    bool readLabel(uchar label, int &intParam, QString &strParam);
 
     void setBusLocation(quint8 location);
 

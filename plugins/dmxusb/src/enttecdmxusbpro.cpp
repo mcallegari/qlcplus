@@ -570,20 +570,11 @@ void EnttecDMXUSBPro::run()
                 QByteArray request;
                 request.append(ENTTEC_PRO_START_OF_MSG); // Start byte
 
-                if (i == 1)
-                {
-                    if (m_dmxKingMode)
-                        request.append(DMXKING_SEND_DMX_PORT2); // Command - second port
-                    else
-                        request.append(ENTTEC_PRO_SEND_DMX_RQ2); // Command - second port
-                }
+                // Command - port selection
+                if (m_dmxKingMode)
+                    request.append(DMXKING_SEND_DMX_PORT1 + i);
                 else
-                {
-                    if (m_dmxKingMode)
-                        request.append(DMXKING_SEND_DMX_PORT1); // Command - first port
-                    else
-                        request.append(ENTTEC_PRO_SEND_DMX_RQ); // Command - first port
-                }
+                    request.append(i == 0 ? ENTTEC_PRO_SEND_DMX_RQ : ENTTEC_PRO_SEND_DMX_RQ2);
 
                 request.append((dataLen + 1) & 0xff); // Data length LSB
                 request.append(((dataLen + 1) >> 8) & 0xff); // Data length MSB

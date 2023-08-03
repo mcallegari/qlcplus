@@ -57,6 +57,7 @@
 
 #define DMXKING_USB_DEVICE_MANUFACTURER 0x4D
 #define DMXKING_USB_DEVICE_NAME         0x4E
+#define DMXKING_DMX_PORT_COUNT          0x62
 #define DMXKING_SEND_DMX_PORT1          char(0x64)
 #define DMXKING_SEND_DMX_PORT2          char(0x65)
 
