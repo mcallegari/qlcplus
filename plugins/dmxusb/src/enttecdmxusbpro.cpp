@@ -530,7 +530,7 @@ void EnttecDMXUSBPro::run()
                 {
                     uchar val = uchar(m_outputLines[i].m_universeData[j]);
 
-                    if (val == m_outputLines[i].m_compareData[j])
+                    if (val == uchar(m_outputLines[i].m_compareData[j]))
                         continue;
 
                     m_outputLines[i].m_compareData[j] = val;
