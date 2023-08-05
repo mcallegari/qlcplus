@@ -309,7 +309,7 @@ void NanoDMX::run()
         {
             uchar val = uchar(m_outputLines[0].m_universeData[i]);
 
-            if (val == m_outputLines[0].m_compareData[i])
+            if (val == uchar(m_outputLines[0].m_compareData[i]))
                 continue;
 
             //qDebug() << "Writing value at index" << i;
