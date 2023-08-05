@@ -205,9 +205,9 @@ void Stageprofi::run()
 
         for (int i = 0; i < m_outputLines[0].m_universeData.length(); i++)
         {
-            uchar val = uchar(m_outputLines[0].m_universeData[i]);
+            char val = m_outputLines[0].m_universeData[i];
 
-            if (val == uchar(m_outputLines[0].m_compareData[i]))
+            if (val == m_outputLines[0].m_compareData[i])
                 continue;
 
             QByteArray fastTrans;
