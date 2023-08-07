@@ -528,7 +528,7 @@ void EnttecDMXUSBPro::run()
                 // send only values that changed
                 for (int j = 0; j < m_outputLines[i].m_universeData.length(); j++)
                 {
-                    uchar val = uchar(m_outputLines[i].m_universeData[j]);
+                    char val = m_outputLines[i].m_universeData[j];
 
                     if (val == m_outputLines[i].m_compareData[j])
                         continue;
