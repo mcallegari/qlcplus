@@ -11,7 +11,6 @@ jobs:
       #fail-fast: false
       matrix:
         task: [compile-qt5, compile-qt5qml, coverage-qt5]
-        #task: [compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -259,8 +258,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-qt5]
-        #task: [compile-qt5, compile-qt5qml]
+        task: [compile-qt5, compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -289,10 +287,24 @@ jobs:
           echo "QT_VERSION=5.15.8" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "INSTALL_ROOT=/c/" >> $GITHUB_ENV
-          echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus4Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
-          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+
+      - name: Set v4 ENV variables
+        shell: bash
+        if: ${{ matrix.task == 'compile-qt5' }}
+        run: |
+          echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus4Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
+          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
+          echo "NSIS_SCRIPT=qlcplus4Qt5.nsi" >> $GITHUB_ENV
+
+      - name: Set v5 ENV variables
+        shell: bash
+        if: ${{ matrix.task == 'compile-qt5qml' }}
+        run: |
+          echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus5Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
+          echo "APPVERSION=`grep 'qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
+          echo "NSIS_SCRIPT=qlcplus5Qt5.nsi" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -364,15 +376,25 @@ jobs:
           # fix MSYS2 system path
           sed -i -e 's/$ENV{SystemDrive}\/msys64/D:\/a\/_temp\/msys64/g' platforms/windows/CMakeLists.txt
           # fix project path in NSIS script
-          sed -i -e 's/c\:\\Qt/d:\\a\\qlcplus/g' platforms/windows/qlcplus4Qt5.nsi
+          sed -i -e 's/c\:\\Qt/d:\\a\\qlcplus/g' platforms/windows/${{env.NSIS_SCRIPT}}
 
-      - name: Configure build for Windows
+      - name: Configure v4 build for Windows
         shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5' }}
         run: |
           set MSYSTEM=MINGW32
           mkdir build
           cd build
           cmake -G "Unix Makefiles" ..
+
+      - name: Configure v5 build for Windows
+        shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5qmlui' }}
+        run: |
+          set MSYSTEM=MINGW32
+          mkdir build
+          cd build
+          cmake -G "Unix Makefiles" -Dqmlui=ON ..
 
       - name: Build for Windows
         shell: msys2 {0}
@@ -397,7 +419,7 @@ jobs:
           set MSYSTEM=MINGW32
           cd /c/qlcplus
           echo 'Creating package...'
-          makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
+          makensis -X'SetCompressor /FINAL lzma' ${{env.NSIS_SCRIPT}}
           mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus
 
       - name: Store executable artifact
