@@ -389,7 +389,7 @@ jobs:
 
       - name: Configure v5 build for Windows
         shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-qt5qmlui' }}
+        if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
           set MSYSTEM=MINGW32
           mkdir build
