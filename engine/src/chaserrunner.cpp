@@ -750,14 +750,11 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
             if (m_pendingAction.m_stepIndex != -1)
             {
                 clearRunningList();
-                if(m_chaser->runOrder() == Function::Random)
-                {
+                if (m_chaser->runOrder() == Function::Random)
                     m_lastRunStepIdx = randomStepIndex(m_pendingAction.m_stepIndex);
-                }
                 else
-                {
                     m_lastRunStepIdx = m_pendingAction.m_stepIndex;
-                }
+
                 qDebug() << "[ChaserRunner] Starting from step" << m_lastRunStepIdx << "@ offset" << m_startOffset;
                 startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_masterIntensity,
                              m_pendingAction.m_stepIntensity, m_pendingAction.m_fadeMode);

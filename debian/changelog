@@ -1,5 +1,6 @@
 qlcplus (4.12.8) stable; urgency=low
 
+  * engine: fix Chaser random startup (thanks to Dennis Suermann)
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/DMX USB: add support for DMXKing MAX products
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
