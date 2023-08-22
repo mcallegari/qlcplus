@@ -11,7 +11,6 @@ jobs:
       #fail-fast: false
       matrix:
         task: [compile-qt5, compile-qt5qml, coverage-qt5]
-        #task: [compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -61,8 +60,6 @@ jobs:
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
-          echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
-          echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "INSTALL_ROOT=`pwd`/install_root" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
@@ -70,6 +67,8 @@ jobs:
       - name: Set QT ENV variables (qt5)
         if: ${{ endsWith( matrix.task, 'qt5') }}
         run: |
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
+          echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "QT_VERSION=5.14.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
@@ -79,6 +78,8 @@ jobs:
       - name: Set QT ENV variables (qt5qml)
         if: ${{ endsWith( matrix.task, 'qt5qml') }}
         run: |
+          echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
+          echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "QT_VERSION=5.14.2" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
@@ -251,14 +252,13 @@ jobs:
           path: qlcplus-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.AppImage
 
   build-windows:
-    if: false
+    #if: false
     runs-on: windows-latest
     name: QLCplus Windows ${{matrix.task}}
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-qt5]
-        #task: [compile-qt5, compile-qt5qml]
+        task: [compile-qt5, compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -286,12 +286,25 @@ jobs:
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_VERSION=5.15.8" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
-          #echo "QT_INSTALL_DIR=/mingw32/qt5-static" >> $GITHUB_ENV
-          #source $GITHUB_ENV && echo "QTDIR=/mingw32/qt5-static" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake.exe" >> $GITHUB_ENV
-          echo "QMAKE_CC=${CC}" >> $GITHUB_ENV
-          echo "QMAKE_CXX=${CXX}" >> $GITHUB_ENV
           echo "INSTALL_ROOT=/c/" >> $GITHUB_ENV
+          echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
+          echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+
+      - name: Set v4 ENV variables
+        shell: bash
+        if: ${{ matrix.task == 'compile-qt5' }}
+        run: |
+          echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus4Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
+          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
+          echo "NSIS_SCRIPT=qlcplus4Qt5.nsi" >> $GITHUB_ENV
+
+      - name: Set v5 ENV variables
+        shell: bash
+        if: ${{ matrix.task == 'compile-qt5qml' }}
+        run: |
+          echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus5Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
+          echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
+          echo "NSIS_SCRIPT=qlcplus5Qt5.nsi" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -317,6 +330,7 @@ jobs:
             unzip
             mingw-w64-i686-gcc
             mingw-w64-i686-gcc-libs
+            mingw-w64-i686-cmake
             mingw-w64-i686-libmad
             mingw-w64-i686-libsndfile
             mingw-w64-i686-flac
@@ -347,66 +361,69 @@ jobs:
           echo "CXX:"
           which ${CXX} || true
           ${CXX} -v || true
-          echo "qmake:"
-          which qmake || true
-          qmake -v || true
+          echo "cmake:"
+          which cmake || true
+          cmake --version || true
           pkg-config --modversion libusb-1.0
-          #ls -l /mingw*/bin/ || true
-          #ls -l /mingw*/usr/bin/ || true
-          #ls -l /msys*/bin/ || true
-          #ls -l /msys*/usr/bin/ || true
-          #ls -l /usr/bin/ || true
 
-      - name: Disable test units build
+      - name: Fix build
         #if: false
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          # disable the test units, since we won't run them
-          sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
-          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
-          sed -i -e 's/ SUBDIRS              += velleman/#SUBDIRS += velleman/g' plugins/plugins.pro
-          sed -i -e 's/ SUBDIRS              += udmx/#SUBDIRS += udmx/g' plugins/plugins.pro
-          sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' plugins/artnet/artnet.pro
-          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
-          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
+          # disable Velleman plugin
+          sed -i -e 's/    add_subdirectory(velleman)/#    add_subdirectory(velleman)/g' plugins/CMakeLists.txt
+          # fix MSYS2 system path
+          sed -i -e 's/$ENV{SystemDrive}\/msys64/D:\/a\/_temp\/msys64/g' platforms/windows/CMakeLists.txt
+          # fix project path in NSIS script
+          sed -i -e 's/c\:\\Qt/d:\\a\\qlcplus/g' platforms/windows/${{env.NSIS_SCRIPT}}
 
-      - name: Configure build for Windows
+      - name: Configure v4 build for Windows
         shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5' }}
         run: |
           set MSYSTEM=MINGW32
-          qmake FORCECONFIG=release
+          mkdir build
+          cd build
+          cmake -G "Unix Makefiles" ..
+
+      - name: Configure v5 build for Windows
+        shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5qml' }}
+        run: |
+          set MSYSTEM=MINGW32
+          mkdir build
+          cd build
+          cmake -G "Unix Makefiles" -Dqmlui=ON ..
 
       - name: Build for Windows
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
+          cd build
           make -j${NPROC}
-
-      - name: Test
-        if: false
-        shell: msys2 {0}
-        run: |
-          set MSYSTEM=MINGW32
-          make check
 
       - name: Install on Windows
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
           #echo 'Silently installing QLC+...'
-          echo "Available disk space:"
-          df
-          make INSTALL_ROOT=${INSTALL_ROOT} install
-          cp *.qm ${INSTALL_ROOT}
+          cd build
+          make install
+          cd ..
+          cp *.qm /c/qlcplus
 
       - name: Build installation package
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW32
-          cd ${INSTALL_ROOT}
-          sed -i -e 's/Qt/projects/g' qlcplus4Qt5.nsi
+          cd /c/qlcplus
           echo 'Creating package...'
-          makensis -X'SetCompressor /FINAL lzma' qlcplus4Qt5.nsi
-          #set CURRDATE=`date +%Y%m%d`
-          #mv QLC+_*.exe ${INSTALL_ROOT}/QLC+_$APPVEYOR_BUILD_VERSION.exe
+          makensis -X'SetCompressor /FINAL lzma' ${{env.NSIS_SCRIPT}}
+          mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus
+
+      - name: Store executable artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
+          path: ${{env.OUTFILE}}

@@ -60,7 +60,7 @@ public:
      * @param interface The widget's DMXInterface instance
      * @param outputLine the specific output line this widget is going to control
      */
-    DMXUSBWidget(DMXInterface *interface, quint32 outputLine, int frequency);
+    DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequency);
 
     virtual ~DMXUSBWidget();
 
@@ -88,10 +88,14 @@ public:
     virtual Type type() const = 0;
 
     /** Get the DMXInterface instance */
-    DMXInterface *interface() const;
+    DMXInterface *iface() const;
 
     /** Get the DMXInterface driver in use as a string */
     QString interfaceTypeString() const;
+
+    static bool detectDMXKingDevice(DMXInterface *iface,
+                                    QString &manufName, QString &deviceName,
+                                    int &ESTA_ID, int &DEV_ID);
 
     static QList<DMXUSBWidget *> widgets();
 

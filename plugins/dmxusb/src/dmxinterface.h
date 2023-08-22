@@ -48,7 +48,7 @@ public:
     /** Destructor */
     virtual ~DMXInterface();
 
-    virtual QString readLabel(uchar label, int *ESTA_code) = 0;
+    virtual bool readLabel(uchar label, int &ESTA_code, QString &strParam) = 0;
 
     /** Get the widget's USB serial number */
     QString serial() const;
