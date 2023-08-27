@@ -32,6 +32,7 @@ Dialog
     parent: mainView
 
     modal: true
+    closePolicy: Popup.CloseOnEscape
     title: ""
     standardButtons: Dialog.Ok | Dialog.Cancel
     onVisibleChanged: mainView.setDimScreen(visible)
