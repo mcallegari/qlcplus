@@ -53,7 +53,7 @@ Popup
         qlcplus.setLanguage(lang)
         menuRoot.close()
     }
-
+/*
     FileDialog
     {
         id: openDialog
@@ -61,6 +61,22 @@ Popup
         title: qsTr("Open a file")
         folder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
+
+        onAccepted:
+        {
+            if (fileUrl.toString().endsWith("qxf") || fileUrl.toString().endsWith("d4"))
+                qlcplus.loadFixture(fileUrl)
+            else
+                qlcplus.loadWorkspace(fileUrl)
+            qlcplus.workingPath = folder.toString()
+        }
+    }
+*/
+    PopupFolderBrowser
+    {
+        id: openDialog
+        title: qsTr("Open a file")
+        standardButtons: Dialog.Cancel | Dialog.Open
 
         onAccepted:
         {

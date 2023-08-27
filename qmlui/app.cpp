@@ -41,6 +41,7 @@
 #include "showmanager.h"
 #include "fixtureeditor.h"
 #include "modelselector.h"
+#include "folderbrowser.h"
 #include "videoprovider.h"
 #include "importmanager.h"
 #include "contextmanager.h"
@@ -121,6 +122,7 @@ void App::startup()
     qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture!");
     qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
+    qmlRegisterType<FolderBrowser>("org.qlcplus.classes", 1, 0, "FolderBrowser");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));

@@ -36,6 +36,7 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     fixturegroupeditor.cpp fixturegroupeditor.h
     fixturemanager.cpp fixturemanager.h
     fixtureutils.cpp fixtureutils.h
+    folderbrowser.cpp folderbrowser.h
     functioneditor.cpp functioneditor.h
     functionmanager.cpp functionmanager.h
     importmanager.cpp importmanager.h
@@ -146,6 +147,7 @@ if(QT_VERSION_MAJOR GREATER 5)
             qml/popup/PopupChannelWizard.qml
             qml/popup/PopupCreatePalette.qml
             qml/popup/PopupDisclaimer.qml
+            qml/popup/PopupFolderBrowser.qml
             qml/popup/PopupImportProject.qml
             qml/popup/PopupPINRequest.qml
             qml/popup/PopupPINSetup.qml
