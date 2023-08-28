@@ -22,7 +22,7 @@
 #include "folderbrowser.h"
 #include "qlcfile.h"
 
-FolderBrowser::FolderBrowser(QObject *parent)
+FolderBrowser::FolderBrowser(QObject *)
 {
 }
 
@@ -36,9 +36,9 @@ void FolderBrowser::initialize()
     setCurrentPath(homeDir.absolutePath());
 }
 
-QString FolderBrowser::separator()
+QString FolderBrowser::separator() const
 {
-    return QDir::separator();
+    return "/"; //QDir::separator();
 }
 
 QString FolderBrowser::currentPath() const
@@ -68,7 +68,7 @@ QVariant FolderBrowser::pathModel() const
     if (m_currentPath.isEmpty())
         return list;
 
-    QStringList tList = m_currentPath.split(QDir::separator());
+    QStringList tList = m_currentPath.split(separator());
 
     QString absPath;
 
@@ -76,6 +76,10 @@ QVariant FolderBrowser::pathModel() const
     {
         QVariantMap params;
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+        if (!absPath.isEmpty())
+            absPath.append(separator());
+#else
         if (absPath.isEmpty() && tk.isEmpty())
         {
             // on *nix systems paths start with a slash
@@ -87,8 +91,9 @@ QVariant FolderBrowser::pathModel() const
         }
         else
         {
-            absPath.append(QDir::separator());
+            absPath.append(separator());
         }
+#endif
         absPath.append(tk);
 
         QDir dir(absPath);

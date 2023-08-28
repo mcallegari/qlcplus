@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-    width: mainView.width / 3
+    width: mainView.width / 2
 
     property alias folder: folderBrowser.currentPath
     property string fileUrl: folderBrowser.currentPath + folderBrowser.separator() + fileNameInput.text
@@ -182,8 +182,8 @@ CustomPopupDialog
                                 {
                                     if (modelData.isFolder === true)
                                     {
-                                        folderBrowser.currentPath = folderBrowser.currentPath + folderBrowser.separator() + modelData.name
                                         folderList.selectedIndex = -1
+                                        folderBrowser.currentPath = folderBrowser.currentPath + folderBrowser.separator() + modelData.name
                                     }
                                     else
                                         popupRoot.accept()

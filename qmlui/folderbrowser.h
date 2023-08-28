@@ -37,7 +37,7 @@ public:
     ~FolderBrowser();
 
     Q_INVOKABLE void initialize();
-    Q_INVOKABLE QString separator();
+    Q_INVOKABLE QString separator() const;
 
     QString currentPath() const;
     void setCurrentPath(QString path);
