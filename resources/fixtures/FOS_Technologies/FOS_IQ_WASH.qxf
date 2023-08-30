@@ -74,20 +74,22 @@
  </Channel>
  <Channel Name="Dynamic Rotate">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="17">Raw DMX</Capability>
-  <Capability Min="18" Max="35">Macro 1</Capability>
-  <Capability Min="36" Max="53">Macro 2</Capability>
-  <Capability Min="54" Max="71">Macro 4</Capability>
-  <Capability Min="72" Max="89">Macro 5</Capability>
-  <Capability Min="90" Max="107">Macro 6</Capability>
-  <Capability Min="108" Max="125">Macro 7</Capability>
-  <Capability Min="126" Max="143">Macro 8</Capability>
-  <Capability Min="144" Max="161">Macro 9</Capability>
-  <Capability Min="162" Max="179">Macro 10</Capability>
-  <Capability Min="180" Max="197">Macro 12</Capability>
-  <Capability Min="198" Max="215">Macro 13</Capability>
-  <Capability Min="216" Max="233">Macro 14</Capability>
-  <Capability Min="234" Max="251">Macro 15</Capability>
+  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="16" Max="31">Dynamic Rotate 1</Capability>
+  <Capability Min="32" Max="47">Dynamic Rotate 2</Capability>
+  <Capability Min="48" Max="63">Dynamic Rotate 3</Capability>
+  <Capability Min="64" Max="79">Dynamic Rotate 4</Capability>
+  <Capability Min="80" Max="95">Dynamic Rotate 5</Capability>
+  <Capability Min="96" Max="111">Dynamic Rotate 6</Capability>
+  <Capability Min="112" Max="127">Dynamic Rotate 7</Capability>
+  <Capability Min="128" Max="143">Dynamic Rotate 8</Capability>
+  <Capability Min="144" Max="159">Dynamic Rotate 9</Capability>
+  <Capability Min="160" Max="175">Dynamic Rotate 10</Capability>
+  <Capability Min="176" Max="191">Dynamic Rotate 11</Capability>
+  <Capability Min="192" Max="207">Dynamic Rotate 12</Capability>
+  <Capability Min="208" Max="223">Dynamic Rotate 13</Capability>
+  <Capability Min="224" Max="239">Dynamic Rotate 14</Capability>
+  <Capability Min="240" Max="255">Dynamic Rotate 15</Capability>
  </Channel>
  <Channel Name="DynRot. Speed">
   <Group Byte="0">Speed</Group>
@@ -145,7 +147,7 @@
   <Capability Min="208" Max="212">2700K</Capability>
   <Capability Min="213" Max="217">3200K</Capability>
   <Capability Min="218" Max="222">3500K</Capability>
-  <Capability Min="228" Max="232">5500K</Capability>
+  <Capability Min="223" Max="232">5500K</Capability>
   <Capability Min="233" Max="237">6000K</Capability>
   <Capability Min="238" Max="242">6500K</Capability>
   <Capability Min="243" Max="247">7000K</Capability>
