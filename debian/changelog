@@ -4,6 +4,7 @@ qlcplus (4.12.8) stable; urgency=low
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/DMX USB: add support for DMXKing MAX products
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
+  * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 

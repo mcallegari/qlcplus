@@ -823,6 +823,11 @@
     <F n="Flash-Butrym-LED-PAR-64-4x30W-COB-RGBW" m="LED PAR 64 4x30W COB RGBW"/>
     <F n="Flash-Butrym-LED-PAR-64-COB-250W-2xWhite-Mk2" m="LED PAR 64 COB 250W 2xWhite Mk2"/>
   </M>
+  <M n="FOS_Technologies">
+    <F n="FOS-Technologies-IQ-28x12-Wash" m="IQ 28x12 Wash"/>
+    <F n="FOS-Technologies-IQ-Par" m="IQ Par"/>
+    <F n="FOS-Technologies-Iridium-75W-Spot" m="Iridium 75W Spot"/>
+  </M>
   <M n="Fun-Generation">
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
     <F n="Fun-Generation-LED-Pot-12x1W-RGBW" m="LED Pot 12x1W RGBW"/>
