@@ -27,6 +27,8 @@
 
 #include "qlcioplugin.h"
 
+#define SETTINGS_OUTPUT_FREQUENCY "SPIPlugin/frequency"
+
 typedef struct
 {
     /** number of channels used in a universe */

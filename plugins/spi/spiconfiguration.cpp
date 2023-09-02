@@ -37,7 +37,7 @@ SPIConfiguration::SPIConfiguration(SPIPlugin* plugin, QWidget* parent)
     setupUi(this);
 
     QSettings settings;
-    QVariant value = settings.value("SPIPlugin/frequency");
+    QVariant value = settings.value(SETTINGS_OUTPUT_FREQUENCY);
     if (value.isValid() == true)
     {
         int speed = value.toUInt();
