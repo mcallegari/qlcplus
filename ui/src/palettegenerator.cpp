@@ -357,7 +357,7 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
         }
         qDebug() << "color name:" << m_colNames.at(i) << "i:" << i << "count:" << m_colNames.count();
 
-        scene->setName(tr("%1").arg(getNamePrefix(m_colNames.at(i),name)));
+        scene->setName(QString("%1").arg(getNamePrefix(m_colNames.at(i),name)));
         m_scenes.append(scene);
         if (subType == OddEven)
         {
