@@ -69,7 +69,7 @@
     <message>
         <location filename="app.cpp" line="147"/>
         <source>Unable to load fixture definition: </source>
-        <translation>Imposible cargar definición de fixture:</translation>
+        <translation>Imposible cargar definición de fixture: </translation>
     </message>
     <message>
         <location filename="app.cpp" line="241"/>
@@ -493,7 +493,7 @@
     <message>
         <location filename="editmode.ui" line="171"/>
         <source>Acts On</source>
-        <translation type="unfinished"></translation>
+        <translation>Actua Sobre</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="193"/>
@@ -645,7 +645,8 @@
         <location filename="editphysical.ui" line="113"/>
         <source>Layout
 (Columns x Rows)</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposición
+(Columnas x Filas)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="158"/>

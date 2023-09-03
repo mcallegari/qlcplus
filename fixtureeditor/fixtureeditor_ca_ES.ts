@@ -68,7 +68,7 @@
     <message>
         <location filename="app.cpp" line="147"/>
         <source>Unable to load fixture definition: </source>
-        <translation>No es pot carregar la definició del fixture:</translation>
+        <translation>No es pot carregar la definició del fixture: </translation>
     </message>
     <message>
         <location filename="app.cpp" line="241"/>
@@ -273,7 +273,7 @@
     <message>
         <location filename="editchannel.ui" line="114"/>
         <source>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Capability overlapping detected. Please fix.&lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;S&apos;ha detectat una superposició de capacitats. Siu us plau corregiu-ho.&lt;/b&gt;&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="198"/>
@@ -283,18 +283,18 @@
     <message>
         <location filename="editchannel.ui" line="240"/>
         <source>Default value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor per defecte</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="253"/>
         <source>Type</source>
-        <translation type="unfinished">Tipus</translation>
+        <translation>Tipus</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="260"/>
         <location filename="editchannel.ui" line="303"/>
         <source>Preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Preset</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="267"/>
@@ -304,32 +304,32 @@
     <message>
         <location filename="editchannel.ui" line="274"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Rol</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="336"/>
         <source>Color 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Color 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="360"/>
         <source>Color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Color 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="387"/>
         <source>Value 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="401"/>
         <source>Value 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista Prèvia</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="227"/>
@@ -387,7 +387,7 @@
     <message>
         <location filename="editchannel.cpp" line="93"/>
         <source>Edit Channel: </source>
-        <translation>Editar Canal:</translation>
+        <translation>Editar Canal: </translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="481"/>
@@ -414,7 +414,9 @@
         <source>Some gobos are missing:
 
 </source>
-        <translation>Alguns gobos falten:</translation>
+        <translation>Alguns gobos falten:
+
+</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="482"/>
@@ -490,7 +492,7 @@
     <message>
         <location filename="editmode.ui" line="171"/>
         <source>Acts On</source>
-        <translation type="unfinished"></translation>
+        <translation>Actua Sobre</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="193"/>
@@ -535,12 +537,12 @@
     <message>
         <location filename="editmode.ui" line="338"/>
         <source>Use global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa ajustos globals</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="348"/>
         <source>Override global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobreescriu la configuració global</translation>
     </message>
 </context>
 <context>
@@ -606,7 +608,7 @@
     <message>
         <location filename="editphysical.ui" line="39"/>
         <source>Head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Capçal(s)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="630"/>
@@ -642,7 +644,8 @@
         <location filename="editphysical.ui" line="113"/>
         <source>Layout
 (Columns x Rows)</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposició 
+(Columnes x Files)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="158"/>
@@ -812,58 +815,58 @@
     <message>
         <location filename="fixtureeditor.ui" line="632"/>
         <source>Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="650"/>
         <source>In mode</source>
-        <translation type="unfinished"></translation>
+        <translation>En mode</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="667"/>
         <source>Add a new alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegeix un àlies nou</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="687"/>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>Amb</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="694"/>
         <source>replace</source>
-        <translation type="unfinished"></translation>
+        <translation>reemplaça</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="711"/>
         <location filename="fixtureeditor.ui" line="764"/>
         <source>Alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Àlies</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="716"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="721"/>
         <source>Base channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal Base</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="726"/>
         <source>Override channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobreescriu el canal</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="744"/>
         <source>Remove the currently selected alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina els àlies seleccionats</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="275"/>
         <source>Physical</source>
-        <translation type="unfinished">Físic</translation>
+        <translation>Físic</translation>
     </message>
 </context>
 <context>
