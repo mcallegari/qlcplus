@@ -42,22 +42,22 @@
     <message>
         <location filename="configureosc.ui" line="90"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Segons a esperar que estigui preparada una interfície</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="122"/>
         <source>Channel number calculator</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculadora de número de canal</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="130"/>
         <source>OSC path</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruta OSC</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="140"/>
         <source>Channel number</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de canal</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="88"/>
@@ -79,7 +79,7 @@
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 no es una IP vàlida.
-Si us plau arreglar-ho abans de confirmar. </translation>
+Si us plau arreglar-ho abans de confirmar.</translation>
     </message>
 </context>
 <context>
@@ -104,12 +104,12 @@ Si us plau arreglar-ho abans de confirmar. </translation>
     <message>
         <location filename="oscplugin.cpp" line="152"/>
         <source>Packets sent: </source>
-        <translation>Paquets enviats:</translation>
+        <translation>Paquets enviats: </translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="285"/>
         <source>Packets received: </source>
-        <translation>Paquets rebuts:</translation>
+        <translation>Paquets rebuts: </translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="143"/>

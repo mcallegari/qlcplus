@@ -138,7 +138,7 @@
     <message>
         <location filename="addfixture.ui" line="93"/>
         <source>Add fixture to this universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegeix un fixture a aquest univers</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="100"/>
@@ -987,7 +987,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="audioeditor.ui" line="316"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volum</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="157"/>
@@ -2314,12 +2314,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="360"/>
         <source>Fixture Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Grups de Fixtures</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="376"/>
         <source>Channel Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Grups de Canals</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="604"/>
@@ -2390,7 +2390,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="fixtureremap.ui" line="47"/>
         <source>Import a fixture list...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa una llista de fixtures...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="67"/>
@@ -2452,27 +2452,27 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="214"/>
         <source>Import Fixtures List</source>
-        <translation type="unfinished">Importar llista de Fixtures</translation>
+        <translation>Importa la llista de Fixtures</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="219"/>
         <source>Fixtures List (*%1)</source>
-        <translation type="unfinished">Llista de Fixtures (*%1)</translation>
+        <translation>Llista de Fixtures (*%1)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="221"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Tots els arxius (*.*)</translation>
+        <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="223"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Tots els arxius (*)</translation>
+        <translation>Tots els arxius (*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="249"/>
         <source>Do you want to automatically connect fixtures with the same name?</source>
-        <translation type="unfinished"></translation>
+        <translation>Voleu connectar automàticament els fixtures amb el mateix nom?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="383"/>
@@ -4041,14 +4041,14 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="palettegenerator.cpp" line="364"/>
         <source>%1 (Even)</source>
         <oldsource>%1 - %2 (Even)</oldsource>
-        <translation type="unfinished">%1 . %2 (Parell)</translation>
+        <translation>%1 (Parell)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="256"/>
         <location filename="palettegenerator.cpp" line="365"/>
         <source>%1 (Odd)</source>
         <oldsource>%1 - %2 (Odd)</oldsource>
-        <translation type="unfinished">%1 - %2 (Senar)</translation>
+        <translation>%1 (Senar)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
@@ -4248,93 +4248,94 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rdmmanager.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulari</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="22"/>
         <source>Scan for RDM devices...</source>
-        <translation type="unfinished"></translation>
+        <translation>Explora dispositius RDM...</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="75"/>
         <source>Retrieve the selected fixture information</source>
-        <translation type="unfinished"></translation>
+        <translation>Recupera la informació del fixture seleccionat</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="101"/>
         <source>Model</source>
-        <translation type="unfinished">Model</translation>
+        <translation>Model</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="106"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="111"/>
         <source>Address</source>
-        <translation type="unfinished">Adreça</translation>
+        <translation>Adreça</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="116"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="121"/>
         <source>UID</source>
-        <translation type="unfinished"></translation>
+        <translation>UID</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="129"/>
         <source>Manual controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Controls manuals</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="140"/>
         <source>Arguments</source>
-        <translation type="unfinished"></translation>
+        <translation>Arguments</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="154"/>
         <source>A list of comma separated arguments</source>
         <extracomment>Enter the (optional) arguments to read the PID, separated by commas</extracomment>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Introduïu els arguments (opcionals) per a llegir el PID, separats per comes</translatorcomment>
+        <translation>Una llista d&apos;arguments separats per comes</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="168"/>
         <source>Write</source>
-        <translation type="unfinished"></translation>
+        <translation>Escriu</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="183"/>
         <source>Byte</source>
-        <translation type="unfinished"></translation>
+        <translation>Byte</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="188"/>
         <source>Short</source>
-        <translation type="unfinished"></translation>
+        <translation>Curt</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="193"/>
         <source>Long</source>
-        <translation type="unfinished"></translation>
+        <translation>Llarg</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="198"/>
         <source>Array (Hex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriu (Hex)</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="206"/>
         <source>Read</source>
-        <translation type="unfinished"></translation>
+        <translation>Llegit</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="215"/>
         <source>Response</source>
-        <translation type="unfinished"></translation>
+        <translation>Resposta</translation>
     </message>
 </context>
 <context>
@@ -4342,63 +4343,63 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rdmmanager.cpp" line="373"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricant</translation>
+        <translation>Fabricant</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="374"/>
         <source>Model</source>
-        <translation type="unfinished">Model</translation>
+        <translation>Model</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="376"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipus</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="379"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="383"/>
         <source>Address Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Interval d&apos;adreces</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="386"/>
         <location filename="rdmmanager.cpp" line="723"/>
         <source>Channels</source>
-        <translation type="unfinished">Canals</translation>
+        <translation>Canals</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="389"/>
         <source>Personalities</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalitats</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="720"/>
         <source>Personality</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalitat</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="721"/>
         <source>(Selected)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Seleccionat)</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="731"/>
         <source>Channel list</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de Canals</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="755"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="770"/>
         <source>Supported PIDs</source>
-        <translation type="unfinished"></translation>
+        <translation>PIDs admesos</translation>
     </message>
 </context>
 <context>
@@ -4526,37 +4527,37 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>Control mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de control</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="160"/>
         <source>Default (RGB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Defecte (RGB)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="165"/>
         <source>White</source>
-        <translation type="unfinished">Blanc</translation>
+        <translation>Blanc</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="170"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambre</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="175"/>
         <source>UV</source>
-        <translation type="unfinished"></translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="180"/>
         <source>Dimmer</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="185"/>
         <source>Shutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Obturador</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="402"/>

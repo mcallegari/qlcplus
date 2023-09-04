@@ -24,12 +24,12 @@
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del dispositivo</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="144"/>
         <source>DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal DMX</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="146"/>
@@ -59,7 +59,7 @@
     <message>
         <location filename="udmxdevice.cpp" line="159"/>
         <source>Device not in use</source>
-        <translation type="unfinished"></translation>
+        <translation>El dispositivo no está en uso</translation>
     </message>
 </context>
 </TS>
