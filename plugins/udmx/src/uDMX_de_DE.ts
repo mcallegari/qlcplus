@@ -24,7 +24,7 @@
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätename</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="144"/>
@@ -59,7 +59,7 @@
     <message>
         <location filename="udmxdevice.cpp" line="159"/>
         <source>Device not in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerät nicht in Verwendung</translation>
     </message>
 </context>
 </TS>

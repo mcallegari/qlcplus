@@ -126,7 +126,7 @@
     <message>
         <location filename="addfixture.ui" line="93"/>
         <source>Add fixture to this universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerät diesesm Universum hinzufügen</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="100"/>
@@ -952,7 +952,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="316"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärke</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="157"/>
@@ -2295,12 +2295,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="360"/>
         <source>Fixture Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätegruppen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="376"/>
         <source>Channel Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalgruppen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="604"/>
@@ -2399,7 +2399,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixtureremap.ui" line="47"/>
         <source>Import a fixture list...</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätedefinitionsliste importieren...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="67"/>
@@ -2461,27 +2461,27 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixtureremap.cpp" line="214"/>
         <source>Import Fixtures List</source>
-        <translation type="unfinished">Gerätedefinitionsliste importieren</translation>
+        <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="219"/>
         <source>Fixtures List (*%1)</source>
-        <translation type="unfinished">Gerätedefinitionsliste (*%1)</translation>
+        <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="221"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Alle Dateien (*.*)</translation>
+        <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="223"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Dateien (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="249"/>
         <source>Do you want to automatically connect fixtures with the same name?</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte mit gleichem Namen automatisch verbinden?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="383"/>
@@ -4055,14 +4055,14 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <location filename="palettegenerator.cpp" line="364"/>
         <source>%1 (Even)</source>
         <oldsource>%1 - %2 (Even)</oldsource>
-        <translation type="unfinished">%1 - %2 (Gerade)</translation>
+        <translation>%1 (Gerade)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="256"/>
         <location filename="palettegenerator.cpp" line="365"/>
         <source>%1 (Odd)</source>
         <oldsource>%1 - %2 (Odd)</oldsource>
-        <translation type="unfinished">%1 - %2 (Ungerade)</translation>
+        <translation>%1 (Ungerade)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
@@ -4261,93 +4261,93 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rdmmanager.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formular</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="22"/>
         <source>Scan for RDM devices...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach RDM-Geräten suchen...</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="75"/>
         <source>Retrieve the selected fixture information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informationen von ausgewähltem Gerät abrufen</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="101"/>
         <source>Model</source>
-        <translation type="unfinished">Modell</translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="106"/>
         <source>Universe</source>
-        <translation type="unfinished">Universum</translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="111"/>
         <source>Address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="116"/>
         <source>Channel</source>
-        <translation type="unfinished">Kanal</translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="121"/>
         <source>UID</source>
-        <translation type="unfinished"></translation>
+        <translation>UID</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="129"/>
         <source>Manual controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Manuelle Abfrage</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="140"/>
         <source>Arguments</source>
-        <translation type="unfinished"></translation>
+        <translation>Argumente</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="154"/>
         <source>A list of comma separated arguments</source>
         <extracomment>Enter the (optional) arguments to read the PID, separated by commas</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Komma-separierte Liste von Argumenten</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="168"/>
         <source>Write</source>
-        <translation type="unfinished"></translation>
+        <translation>Schreiben</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="183"/>
         <source>Byte</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="188"/>
         <source>Short</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="193"/>
         <source>Long</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="198"/>
         <source>Array (Hex)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="206"/>
         <source>Read</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesen</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="215"/>
         <source>Response</source>
-        <translation type="unfinished"></translation>
+        <translation>Antwort</translation>
     </message>
 </context>
 <context>
@@ -4355,63 +4355,63 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rdmmanager.cpp" line="373"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Hersteller</translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="374"/>
         <source>Model</source>
-        <translation type="unfinished">Modell</translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="376"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="379"/>
         <source>Universe</source>
-        <translation type="unfinished">Universum</translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="383"/>
         <source>Address Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Adressbereich</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="386"/>
         <location filename="rdmmanager.cpp" line="723"/>
         <source>Channels</source>
-        <translation type="unfinished">Kanäle</translation>
+        <translation>Kanäle</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="389"/>
         <source>Personalities</source>
-        <translation type="unfinished"></translation>
+        <translation>Persönlichkeit</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="720"/>
         <source>Personality</source>
-        <translation type="unfinished"></translation>
+        <translation>Persönlichkeiten</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="721"/>
         <source>(Selected)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Ausgewählt)</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="731"/>
         <source>Channel list</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalliste</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="755"/>
         <source>Channel</source>
-        <translation type="unfinished">Kanal</translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="770"/>
         <source>Supported PIDs</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterstützte PIDs</translation>
     </message>
 </context>
 <context>
@@ -4569,37 +4569,37 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>Control mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Steuermodus</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="160"/>
         <source>Default (RGB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard (RGB)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="165"/>
         <source>White</source>
-        <translation type="unfinished">Weiß</translation>
+        <translation>Weiß</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="170"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="175"/>
         <source>UV</source>
-        <translation type="unfinished"></translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="180"/>
         <source>Dimmer</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="185"/>
         <source>Shutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Shutter</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="402"/>

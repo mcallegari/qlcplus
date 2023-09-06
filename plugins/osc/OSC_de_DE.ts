@@ -42,7 +42,7 @@
     <message>
         <location filename="configureosc.ui" line="90"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekunden um auf die Bereitschaft eines Interfaces zu warten</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="122"/>

@@ -497,7 +497,7 @@
     <message>
         <location filename="editmode.ui" line="171"/>
         <source>Acts On</source>
-        <translation type="unfinished"></translation>
+        <translation>Beeinflusst</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="193"/>

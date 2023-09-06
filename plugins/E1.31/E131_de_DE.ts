@@ -51,7 +51,7 @@
     <message>
         <location filename="configuree131.ui" line="101"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekunden um auf die Bereitschaft des Interfaces zu warten</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="61"/>
