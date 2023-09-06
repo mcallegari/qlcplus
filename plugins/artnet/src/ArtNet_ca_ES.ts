@@ -43,12 +43,12 @@
     <message>
         <location filename="artnetplugin.cpp" line="162"/>
         <source>Nodes discovered: </source>
-        <translation>Nodes descoberts:</translation>
+        <translation>Nodes descoberts: </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="165"/>
         <source>Packets sent: </source>
-        <translation>Paquets enviats:</translation>
+        <translation>Paquets enviats: </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="294"/>
@@ -73,7 +73,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="309"/>
         <source>Packets received: </source>
-        <translation>Paquets Rebuts:</translation>
+        <translation>Paquets Rebuts: </translation>
     </message>
 </context>
 <context>
@@ -121,7 +121,7 @@
     <message>
         <location filename="configureartnet.ui" line="87"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Segons a esperar que estigui preparada una interfície</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="120"/>
@@ -161,7 +161,7 @@
     <message>
         <location filename="configureartnet.cpp" line="181"/>
         <source>Standard</source>
-        <translation type="unfinished"></translation>
+        <translation>Estàndard</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="182"/>

@@ -42,22 +42,22 @@
     <message>
         <location filename="configureosc.ui" line="90"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Segundos a esperar que esté preparada una interfaz</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="122"/>
         <source>Channel number calculator</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculadora de número de canal</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="130"/>
         <source>OSC path</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruta OSC</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="140"/>
         <source>Channel number</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de canal</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="88"/>
@@ -78,7 +78,7 @@
         <location filename="configureosc.cpp" line="176"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation>%1 no es un IP válidoo.
+        <translation>%1 no es un IP válido.
 Por favor arréglelo antes de confirmar.</translation>
     </message>
 </context>

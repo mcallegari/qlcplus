@@ -126,7 +126,7 @@
     <message>
         <location filename="addfixture.ui" line="93"/>
         <source>Add fixture to this universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Añade un fixture a este universo</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="100"/>
@@ -952,7 +952,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.ui" line="316"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volumen</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="157"/>
@@ -2296,12 +2296,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="360"/>
         <source>Fixture Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupos de Fixtures</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="376"/>
         <source>Channel Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupos de Canales</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="604"/>
@@ -2400,7 +2400,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixtureremap.ui" line="47"/>
         <source>Import a fixture list...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa una lista de fixtures...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="67"/>
@@ -2462,27 +2462,27 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="214"/>
         <source>Import Fixtures List</source>
-        <translation type="unfinished">Importar lista de Fixtures</translation>
+        <translation>Importa la lista de Fixtures</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="219"/>
         <source>Fixtures List (*%1)</source>
-        <translation type="unfinished">Lista de Fixtures (*%1)</translation>
+        <translation>Lista de Fixtures (*%1)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="221"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Todos los archivos (*.*)</translation>
+        <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="223"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Todos los archivos (*)</translation>
+        <translation>Todos los archivos (*)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="249"/>
         <source>Do you want to automatically connect fixtures with the same name?</source>
-        <translation type="unfinished"></translation>
+        <translation>Queréis conectar automáticamente los fixtures con el mismo nombre?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="383"/>
@@ -4057,14 +4057,14 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
         <location filename="palettegenerator.cpp" line="364"/>
         <source>%1 (Even)</source>
         <oldsource>%1 - %2 (Even)</oldsource>
-        <translation type="unfinished">%1 - %2 (Par)</translation>
+        <translation>%1 (Par)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="256"/>
         <location filename="palettegenerator.cpp" line="365"/>
         <source>%1 (Odd)</source>
         <oldsource>%1 - %2 (Odd)</oldsource>
-        <translation type="unfinished">%1 - %2 (Impar)</translation>
+        <translation>%1 (Impar)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
@@ -4263,93 +4263,93 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="rdmmanager.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="22"/>
         <source>Scan for RDM devices...</source>
-        <translation type="unfinished"></translation>
+        <translation>Explora dispositius RDM...</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="75"/>
         <source>Retrieve the selected fixture information</source>
-        <translation type="unfinished"></translation>
+        <translation>Recupera la información del fixture seleccionado</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="101"/>
         <source>Model</source>
-        <translation type="unfinished">Modelo</translation>
+        <translation>Modelo</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="106"/>
         <source>Universe</source>
-        <translation type="unfinished">Universo</translation>
+        <translation>Universo</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="111"/>
         <source>Address</source>
-        <translation type="unfinished">Dirección</translation>
+        <translation>Dirección</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="116"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="121"/>
         <source>UID</source>
-        <translation type="unfinished"></translation>
+        <translation>UID</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="129"/>
         <source>Manual controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Controles manuales</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="140"/>
         <source>Arguments</source>
-        <translation type="unfinished"></translation>
+        <translation>Argumentos</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="154"/>
         <source>A list of comma separated arguments</source>
         <extracomment>Enter the (optional) arguments to read the PID, separated by commas</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Una lista de argumentos separados por comas</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="168"/>
         <source>Write</source>
-        <translation type="unfinished"></translation>
+        <translation>Escribe</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="183"/>
         <source>Byte</source>
-        <translation type="unfinished"></translation>
+        <translation>Byte</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="188"/>
         <source>Short</source>
-        <translation type="unfinished"></translation>
+        <translation>Corto</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="193"/>
         <source>Long</source>
-        <translation type="unfinished"></translation>
+        <translation>Largo</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="198"/>
         <source>Array (Hex)</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz (Hex)</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="206"/>
         <source>Read</source>
-        <translation type="unfinished"></translation>
+        <translation>Leido</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="215"/>
         <source>Response</source>
-        <translation type="unfinished"></translation>
+        <translation>Respuesta</translation>
     </message>
 </context>
 <context>
@@ -4357,63 +4357,63 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="rdmmanager.cpp" line="373"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricante</translation>
+        <translation>Fabricante</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="374"/>
         <source>Model</source>
-        <translation type="unfinished">Modelo</translation>
+        <translation>Modelo</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="376"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="379"/>
         <source>Universe</source>
-        <translation type="unfinished">Universo</translation>
+        <translation>Universo</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="383"/>
         <source>Address Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo de direcciones</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="386"/>
         <location filename="rdmmanager.cpp" line="723"/>
         <source>Channels</source>
-        <translation type="unfinished">Canales</translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="389"/>
         <source>Personalities</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalidades</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="720"/>
         <source>Personality</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalidad</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="721"/>
         <source>(Selected)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Seleccionado)</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="731"/>
         <source>Channel list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de Canales</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="755"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="rdmmanager.cpp" line="770"/>
         <source>Supported PIDs</source>
-        <translation type="unfinished"></translation>
+        <translation>PIDs admitidos</translation>
     </message>
 </context>
 <context>
@@ -4571,37 +4571,37 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>Control mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de control</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="160"/>
         <source>Default (RGB)</source>
-        <translation type="unfinished"></translation>
+        <translation>Defecto (RGB)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="165"/>
         <source>White</source>
-        <translation type="unfinished">Blanco</translation>
+        <translation>Blanco</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="170"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambar</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="175"/>
         <source>UV</source>
-        <translation type="unfinished"></translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="180"/>
         <source>Dimmer</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="185"/>
         <source>Shutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Obturador</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="402"/>

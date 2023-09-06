@@ -51,7 +51,7 @@
     <message>
         <location filename="configuree131.ui" line="101"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Segons a esperar que estigui preparada una interfície</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="61"/>
@@ -123,7 +123,7 @@ Si us plau arreglar-ho abans de continuar.</translation>
     <message>
         <location filename="e131plugin.cpp" line="153"/>
         <source>Packets sent: </source>
-        <translation>Paquets enviats:</translation>
+        <translation>Paquets enviats: </translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="283"/>
@@ -133,7 +133,7 @@ Si us plau arreglar-ho abans de continuar.</translation>
     <message>
         <location filename="e131plugin.cpp" line="292"/>
         <source>Packets received: </source>
-        <translation>Paquets rebuts:</translation>
+        <translation>Paquets rebuts: </translation>
     </message>
 </context>
 </TS>
