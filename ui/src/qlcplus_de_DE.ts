@@ -4322,22 +4322,22 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rdmmanager.ui" line="183"/>
         <source>Byte</source>
-        <translation></translation>
+        <translation>Byte</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="188"/>
         <source>Short</source>
-        <translation></translation>
+        <translation>Short</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="193"/>
         <source>Long</source>
-        <translation></translation>
+        <translation>Long</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="198"/>
         <source>Array (Hex)</source>
-        <translation></translation>
+        <translation>Array (Hex)</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="206"/>
@@ -4584,7 +4584,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="170"/>
         <source>Amber</source>
-        <translation></translation>
+        <translation>Amber</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="175"/>
