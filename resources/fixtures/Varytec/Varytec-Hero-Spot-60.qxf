@@ -109,7 +109,7 @@
   <Channel Number="6">Automatic Shows</Channel>
   <Channel Number="7">Moving Programs (Open Shutter)</Channel>
  </Mode>
- <Mode Name="16 Channel">
+ <Mode Name="14 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
