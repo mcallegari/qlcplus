@@ -122,7 +122,7 @@
     <message>
         <location filename="configureartnet.ui" line="87"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekunden um auf die Bereitschaft des Interfaces zu warten</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="120"/>
@@ -162,7 +162,7 @@
     <message>
         <location filename="configureartnet.cpp" line="181"/>
         <source>Standard</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="182"/>
