@@ -216,6 +216,7 @@
   <M n="beamZ">
     <F n="beamZ-BAC302" m="BAC302"/>
     <F n="beamZ-BAC406" m="BAC406 ProPar 6x18W 6-1 Hex"/>
+    <F n="beamZ-BAC503" m="BAC503"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
@@ -316,6 +317,9 @@
     <F n="Cameo-F2-T-PO" m="F2 T PO"/>
     <F n="Cameo-Flash-Bar-150" m="Flash Bar 150"/>
     <F n="Cameo-Flat-PAR-CAN-TRI-3W" m="Flat PAR CAN TRI 3W"/>
+    <F n="Cameo-FLAT-PRO-12" m="FLAT PRO 7"/>
+    <F n="Cameo-FLAT-PRO-18" m="FLAT PRO 7"/>
+    <F n="Cameo-FLAT-PRO-7" m="FLAT PRO 7"/>
     <F n="Cameo-Gobo-Scanner-60" m="Gobo Scanner 60"/>
     <F n="Cameo-Hydrabeam-1000-RGBW" m="Hydrabeam 1000 RGBW"/>
     <F n="Cameo-Hydrabeam-400-Series" m="Hydrabeam 400 Series"/>
@@ -765,6 +769,7 @@
     <F n="Eurolite-LED-TMH-FE-1800" m="LED TMH FE-1800"/>
     <F n="Eurolite-LED-TMH-FE-600" m="LED TMH FE-600"/>
     <F n="Eurolite-LED-TMH-X10" m="LED TMH-X10"/>
+    <F n="Eurolite-LED-TMH-X4" m="LED TMH-X4"/>
     <F n="Eurolite-LED-TMH-X5" m="LED TMH-X5"/>
     <F n="Eurolite-LED-Z-200-TCL" m="LED Z-200 TCL"/>
     <F n="Eurolite-NH-30-MK2" m="NH-30 MK2"/>

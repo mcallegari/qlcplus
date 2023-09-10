@@ -6,6 +6,10 @@ qlcplus (4.12.8) stable; urgency=low
   * Plugins/DMX USB: add support for DMXKing MAX products
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
   * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
+  * New fixture: Varytec Hero Spot 60 (thanks to Hans-Jürgen Tappe)
+  * New fixture: beamZ BAC503 (thanks to archlinette)
+  * New fixtures: Cameo Flat Pro 7, 12 and 18 (thanks to Janosch Frank)
+  * New fixture: Eurolite LED TMH-X4 (thanks to Tolmino Muccitelli)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 
