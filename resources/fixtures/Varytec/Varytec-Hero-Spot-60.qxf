@@ -16,7 +16,7 @@
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="10" Max="250" Preset="PulseSlowToFast">Strobe (slow to fast)</Capability>
+  <Capability Min="10" Max="250" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
   <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Automatic Shows">
