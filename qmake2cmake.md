@@ -111,7 +111,7 @@ sudo apt install -y qtcreator qtbase5-dev qt5-qmake libqt5svg5-dev qt3d5-dev qtd
 for installing Qt5 packages or
 
 ```bash
-sudo apt install -y qt6-base-dev qt6-tools-dev
+sudo apt install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools qt6-multimedia-dev qt6-declarative-dev qt6-3d-dev libqt6svg6-dev libqt6serialport6-dev
 ```
 
 for installing Qt6 packages.
