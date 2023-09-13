@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7</Version>
+  <Author>Turning Point</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>ZQ-B117 Par Can 4in1 RGBW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Funtion Choice">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">DMX 8CH Control</Capability>
+  <Capability Min="51" Max="100">Different Color Output</Capability>
+  <Capability Min="101" Max="150">Colors Jump Change</Capability>
+  <Capability Min="151" Max="200">Colors Gradate</Capability>
+  <Capability Min="201" Max="250">Colors Pulse Change</Capability>
+  <Capability Min="251" Max="255">Sound-Active</Capability>
+ </Channel>
+ <Channel Name="Speed function">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Speed function, from slow to fast</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Funtion Choice</Channel>
+  <Channel Number="7">Speed function</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="230" Height="230" Depth="120"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -71,6 +71,11 @@ do
         continue
     fi
 
+    # Ignore CMakeFiles
+    if [ $(echo ${test} | grep "CMakeFiles") ]; then
+        continue
+    fi
+
     # Isolate just the test name
     test=$(echo ${test} | sed 's/engine\/test\///')
 
@@ -100,6 +105,11 @@ for test in ${TESTS}
 do
     # Ignore .git
     if [ $(echo ${test} | grep ".git") ]; then
+        continue
+    fi
+
+    # Ignore CMakeFiles
+    if [ $(echo ${test} | grep "CMakeFiles") ]; then
         continue
     fi
 

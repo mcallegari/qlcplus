@@ -1142,7 +1142,10 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
         for (VCPage *page : m_pages) // C++11
         {
             if (pageIdx == selectedPage())
+            {
                 page->inputValueChanged(universe, channel, value);
+                break;
+            }
 
             pageIdx++;
         }
@@ -1155,7 +1158,7 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
 
         m_autoDetectionWidget->updateInputSource(m_autoDetectionSource, universe, channel);
 
-        for(VCPage *page : m_pages) // C++11
+        for (VCPage *page : m_pages) // C++11
             page->mapInputSource(m_autoDetectionSource, m_autoDetectionWidget, true);
 
         /** At last, disable the autodetection process */

@@ -36,25 +36,75 @@ Rectangle
     property int panMaxDegrees: 360
     property int tiltMaxDegrees: 270
 
-    property int panDegrees: 0
-    property int tiltDegrees: 0
+    property alias panDegrees: panSpinBox.value
+    property int previousPanDegrees: 0
+    property bool relativePanValue: false
+
+    property alias tiltDegrees: tiltSpinBox.value
+    property int previousTiltDegrees: 0
+    property bool relativeTiltValue: false
 
     property alias showPalette: paletteBox.visible
     property bool isLoading: false
 
     signal close()
 
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            previousPanDegrees = 0
+            previousTiltDegrees = 0
+
+            var pan = contextManager.getCurrentValue(QLCChannel.Pan, true)
+            if (pan === -1)
+            {
+                relativePanValue = true
+                panDegrees = 0
+            }
+            else
+            {
+                relativePanValue = false
+                panDegrees = Math.round(pan)
+            }
+
+            var tilt = contextManager.getCurrentValue(QLCChannel.Tilt, true)
+            if (tilt === -1)
+            {
+                relativeTiltValue = true
+                tiltDegrees = 0
+            }
+            else
+            {
+                relativeTiltValue = false
+                tiltDegrees = Math.round(tilt)
+            }
+        }
+        else
+        {
+            paletteBox.checked = false
+        }
+    }
+
     onPanDegreesChanged:
     {
         if (isLoading)
             return
 
-        paletteBox.updateValues(panDegrees, tiltDegrees)
-
-        if (paletteBox.isEditing || paletteBox.checked)
-            paletteBox.updatePreview()
+        if (relativePanValue)
+        {
+            contextManager.setPositionValue(QLCChannel.Pan, panDegrees - previousPanDegrees, true)
+            previousPanDegrees = panDegrees
+        }
         else
-            contextManager.setPositionValue(QLCChannel.Pan, panDegrees)
+        {
+            paletteBox.updateValues(panDegrees, tiltDegrees)
+
+            if (paletteBox.isEditing || paletteBox.checked)
+                paletteBox.updatePreview()
+            else
+                contextManager.setPositionValue(QLCChannel.Pan, panDegrees, false)
+        }
     }
 
     onTiltDegreesChanged:
@@ -62,12 +112,20 @@ Rectangle
         if (isLoading)
             return
 
-        paletteBox.updateValues(panDegrees, tiltDegrees)
-
-        if (paletteBox.isEditing || paletteBox.checked)
-            paletteBox.updatePreview()
+        if (relativeTiltValue)
+        {
+            contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees - previousTiltDegrees, true)
+            previousTiltDegrees = tiltDegrees
+        }
         else
-            contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees)
+        {
+            paletteBox.updateValues(panDegrees, tiltDegrees)
+
+            if (paletteBox.isEditing || paletteBox.checked)
+                paletteBox.updatePreview()
+            else
+                contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees, false)
+        }
     }
 
     onPanMaxDegreesChanged: gCanvas.requestPaint()
@@ -100,16 +158,16 @@ Rectangle
 
             if (palette.type === QLCPalette.Pan)
             {
-                panSpinBox.value = palette.intValue1
+                panDegrees = palette.intValue1
             }
             else if (palette.type === QLCPalette.Tilt)
             {
-                tiltSpinBox.value = palette.intValue1
+                tiltDegrees = palette.intValue1
             }
             else if (palette.type === QLCPalette.PanTilt)
             {
-                panSpinBox.value = palette.intValue1
-                tiltSpinBox.value = palette.intValue2
+                panDegrees = palette.intValue1
+                tiltDegrees = palette.intValue2
             }
         }
         isLoading = false
@@ -246,16 +304,16 @@ Rectangle
                 if (Math.abs(mouse.x - initialXPos) > Math.abs(mouse.y - initialYPos))
                 {
                     if (mouse.x < initialXPos)
-                        panSpinBox.value++
+                        panDegrees++
                     else
-                        panSpinBox.value--
+                        panDegrees--
                 }
                 else
                 {
                     if (mouse.y < initialYPos)
-                        tiltSpinBox.value++
+                        tiltDegrees++
                     else
-                        tiltSpinBox.value--
+                        tiltDegrees--
                 }
             }
         }
@@ -280,16 +338,12 @@ Rectangle
         {
             id: panSpinBox
             Layout.fillWidth: true
-            from: 0
+            from: relativePanValue ? -panMaxDegrees : 0
             to: panMaxDegrees
             value: 0
             suffix: "°"
 
-            onValueChanged:
-            {
-                panDegrees = value
-                gCanvas.requestPaint()
-            }
+            onValueChanged: gCanvas.requestPaint()
         }
 
         IconButton
@@ -330,16 +384,12 @@ Rectangle
         {
             id: tiltSpinBox
             Layout.fillWidth: true
-            from: 0
+            from: relativeTiltValue ? -tiltMaxDegrees : 0
             to: tiltMaxDegrees
             value: 0
             suffix: "°"
 
-            onValueChanged:
-            {
-                tiltDegrees = value
-                gCanvas.requestPaint()
-            }
+            onValueChanged: gCanvas.requestPaint()
         }
 
         IconButton

@@ -1668,17 +1668,6 @@ void FixtureManager::setChannelValue(quint32 fixtureID, quint32 channelIndex, qu
     emit channelValueChanged(fixtureID, channelIndex, value);
 }
 
-void FixtureManager::setIntensityValue(quint8 value)
-{
-    emit channelTypeValueChanged(QLCChannel::Intensity, value);
-}
-
-void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue,
-                                   quint8 white, quint8 amber, quint8 uv)
-{
-    emit colorChanged(QColor(red, green, blue), QColor(white, amber, uv));
-}
-
 void FixtureManager::setPresetValue(quint32 fixtureID, int chIndex, quint8 value)
 {
     qDebug() << "[FixtureManager] setPresetValue - fixture:" << fixtureID << ", channel:" << chIndex << "value:" << value;
@@ -1803,7 +1792,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             case QLCChannel::Tilt:
             {
                 hasPosition = true;
-                if(fixture->fixtureMode() != nullptr)
+                if (fixture->fixtureMode() != nullptr)
                 {
                     int panDeg = phy.focusPanMax();
                     int tiltDeg = phy.focusTiltMax();
@@ -1881,7 +1870,8 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             case QLCChannel::Beam:
             {
                 if (channel->preset() != QLCChannel::BeamZoomBigSmall &&
-                    channel->preset() != QLCChannel::BeamZoomSmallBig)
+                    channel->preset() != QLCChannel::BeamZoomSmallBig &&
+                    channel->preset() != QLCChannel::BeamZoomFine)
                     break;
 
                 hasBeam = true;
@@ -1947,7 +1937,7 @@ QList<SceneValue> FixtureManager::getFixtureZoom(quint32 fxID, float degrees)
     if (fixture == nullptr || fixture->fixtureMode() == nullptr)
         return QList<SceneValue>();
 
-    return fixture->zoomToValues(degrees);
+    return fixture->zoomToValues(degrees, false);
 }
 
 QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)

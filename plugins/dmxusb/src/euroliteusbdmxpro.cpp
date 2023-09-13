@@ -22,8 +22,8 @@
 #include <QDebug>
 #include <QDir>
 
-EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine)
-    : DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
+EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *iface, quint32 outputLine)
+    : DMXUSBWidget(iface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
     , m_running(false)
 {
 }
@@ -56,7 +56,7 @@ QString EuroliteUSBDMXPro::getDeviceName()
     foreach (QString dir, devDirs)
     {
 
-        if (dir.startsWith(QString::number(interface()->busLocation())) &&
+        if (dir.startsWith(QString::number(iface()->busLocation())) &&
             dir.contains(":") == false)
         {
             // 2- Match the product name
@@ -186,7 +186,7 @@ QString EuroliteUSBDMXPro::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
@@ -200,8 +200,12 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
 #endif
 
     if (m_outputLines[0].m_universeData.size() == 0)
+    {
         m_outputLines[0].m_universeData.append(data);
-    else
+        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+    }
+
+    if (dataChanged)
         m_outputLines[0].m_universeData.replace(0, data.size(), data);
 
     return true;
@@ -241,14 +245,14 @@ void EuroliteUSBDMXPro::run()
         request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 
 #ifdef QTSERIAL
-        if (interface()->write(request) == false)
+        if (iface()->write(request) == false)
 #else
         if (m_file.write(request) == false)
 #endif
         {
             qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
 #ifdef QTSERIAL
-            interface()->purgeBuffers();
+            iface()->purgeBuffers();
 #endif
         }
 framesleep:

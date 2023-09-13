@@ -5,7 +5,9 @@
 # 1. qmake
 # 2. make distclean
 # 3. qmake CONFIG+=coverage
-# 4. ./coverage.sh
+# 4. make -j8
+# 5. ./coverage.sh ui|qmlui # OR
+# 5. make lcov
 #
 # Human-readable HTML results are written under coverage/html.
 #

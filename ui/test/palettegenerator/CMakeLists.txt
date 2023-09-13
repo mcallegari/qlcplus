@@ -1,0 +1,39 @@
+include(../../src/include_ui.cmake)
+
+set(module_name "palettegenerator_test")
+
+add_executable(${module_name} WIN32
+    ../../../engine/test/common/resource_paths.h
+    ${module_name}.cpp ${module_name}.h
+)
+
+target_include_directories(${module_name} PRIVATE
+    ../../../engine/src
+    ../../src
+)
+
+include_ui_header(${module_name})
+
+target_link_libraries(${module_name} PRIVATE
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
+    qlcplusengine
+    qlcplusui
+)
+
+if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
+    target_link_libraries(${module_name} PRIVATE
+        Qt${QT_MAJOR_VERSION}::Qml
+    )
+endif()
+
+if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
+    target_link_libraries(${module_name} PRIVATE
+        Qt${QT_MAJOR_VERSION}::Script
+    )
+endif()
+
+# Consider using qt_generate_deploy_app_script() for app deployment if
+# the project can use Qt 6.3. In that case rerun qmake2cmake with
+# --min-qt-version=6.3.

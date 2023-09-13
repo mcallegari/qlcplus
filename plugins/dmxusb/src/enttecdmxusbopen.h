@@ -43,7 +43,7 @@ public:
      * @param id The device's unique ID (FTD2XX only)
      * @param parent The owner of this object
      */
-    EnttecDMXUSBOpen(DMXInterface *interface,
+    EnttecDMXUSBOpen(DMXInterface *iface,
                      quint32 outputLine, QObject* parent = 0);
 
     /** Destructor */
@@ -74,7 +74,7 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 protected:
     enum TimerGranularity { Unknown, Good, Bad };

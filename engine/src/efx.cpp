@@ -1084,30 +1084,30 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
 
-    int ready = 0;
-
     if (isPaused())
         return;
+
+    int done = 0;
 
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
         EFXFixture *ef = it.next();
-        if (ef->isReady() == false)
+        if (ef->isDone() == false)
         {
             QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
             ef->nextStep(universes, fader);
         }
         else
         {
-            ready++;
+            done++;
         }
     }
 
     incrementElapsed();
 
     /* Check for stop condition */
-    if (ready == m_fixtures.count())
+    if (done == m_fixtures.count())
         stop(FunctionParent::master());
 }
 

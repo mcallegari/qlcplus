@@ -43,7 +43,7 @@ bool Stageprofi::checkReply()
     bool ok = false;
     uchar res;
 
-    res = interface()->readByte(&ok);
+    res = iface()->readByte(&ok);
     if (ok == false || res != 0x47)
         return false;
 
@@ -72,7 +72,7 @@ bool Stageprofi::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.asprintf("C%03dL%03d", channel, value).toUtf8());
-    return interface()->write(chanMsg);
+    return iface()->write(chanMsg);
 }
 
 /****************************************************************************
@@ -91,7 +91,7 @@ bool Stageprofi::open(quint32 line, bool input)
 
     /* Check connection */
     initSequence.append("C?");
-    if (interface()->write(initSequence) == true)
+    if (iface()->write(initSequence) == true)
     {
         if (checkReply() == false)
             qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
@@ -102,7 +102,7 @@ bool Stageprofi::open(quint32 line, bool input)
     /* set the DMX OUT channels number */
     initSequence.clear();
     initSequence.append("N511");
-    if (interface()->write(initSequence) == true)
+    if (iface()->write(initSequence) == true)
     {
         if (checkReply() == false)
             qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
@@ -156,7 +156,7 @@ QString Stageprofi::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
@@ -165,8 +165,12 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
         return false;
 
     if (m_outputLines[0].m_universeData.size() == 0)
+    {
         m_outputLines[0].m_universeData.append(data);
-    else
+        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+    }
+
+    if (dataChanged)
         m_outputLines[0].m_universeData.replace(0, data.size(), data);
 
     return true;
@@ -201,7 +205,7 @@ void Stageprofi::run()
 
         for (int i = 0; i < m_outputLines[0].m_universeData.length(); i++)
         {
-            uchar val = uchar(m_outputLines[0].m_universeData[i]);
+            char val = m_outputLines[0].m_universeData[i];
 
             if (val == m_outputLines[0].m_compareData[i])
                 continue;
@@ -219,17 +223,17 @@ void Stageprofi::run()
             }
             fastTrans.append(val);
 
-            if (interface()->write(fastTrans) == false)
+            if (iface()->write(fastTrans) == false)
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-                interface()->purgeBuffers();
+                iface()->purgeBuffers();
                 continue;
             }
             else
             {
                 m_outputLines[0].m_compareData[i] = val;
                 if (checkReply() == false)
-                    interface()->purgeBuffers();
+                    iface()->purgeBuffers();
             }
         }
 

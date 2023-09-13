@@ -42,13 +42,14 @@ QtSerialInterface::~QtSerialInterface()
         close();
 }
 
-QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
+bool QtSerialInterface::readLabel(uchar label, int &intParam, QString &strParam)
 {
     QSerialPort serial;
     serial.setPort(m_info);
 
     if (serial.open(QIODevice::ReadWrite) == false)
-        return QString();
+        return false;
+
     serial.setReadBufferSize(1024);
 
     serial.setDataBits(QSerialPort::Data8);
@@ -67,11 +68,11 @@ QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
     if (serial.write(request) < 0)
     {
         qDebug() << Q_FUNC_INFO << "Cannot write data to device";
-        return QString();
+        return false;
     }
     serial.waitForBytesWritten(20);
 
-    char *buffer = (char*) malloc(sizeof(char) * 40);
+    char buffer[40];
     Q_ASSERT(buffer != NULL);
 
     QByteArray array;
@@ -81,17 +82,36 @@ QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
     //qDebug() << Q_FUNC_INFO << "Data read: " << read;
     array = QByteArray::fromRawData((char*) buffer, read);
 
+    if (array.size() == 0)
+        return false;
+
     if (array[0] != ENTTEC_PRO_START_OF_MSG)
+    {
         qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-    *ESTA_code = (array[5] << 8) | array[4];
-    array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
+        return false;
+    }
+
+    // start | label | data length
+    if (array.size() < 4)
+        return false;
+
+    int dataLen = (array[3] << 8) | array[2];
+    if (dataLen == 1)
+    {
+        intParam = array[4];
+        return true;
+    }
+
+    intParam = (array[5] << 8) | array[4];
+    array.remove(0, 6); // 4 bytes of Enttec protocol + 2 byte of ESTA ID
     array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
+    strParam = QString(array);
 
     //for (int i = 0; i < array.size(); i++)
     //    qDebug() << "-Data: " << array[i];
     serial.close();
 
-    return QString(array);
+    return true;
 }
 
 DMXInterface::Type QtSerialInterface::type()
@@ -119,6 +139,9 @@ QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discov
 
         // Skip non wanted devices
         if (validInterface(info.vendorIdentifier(), info.productIdentifier()) == false)
+            continue;
+
+        if (info.vendorIdentifier() == DMXInterface::FTDIVID)
             continue;
 
 #if defined(Q_OS_OSX)

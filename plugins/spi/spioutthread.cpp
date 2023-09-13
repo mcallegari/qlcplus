@@ -129,7 +129,7 @@ void SPIOutThread::writeData(const QByteArray &data)
     m_pluginData = data;
     if (m_dataSize != data.size())
     {
-        // Data size has changed ! I need to estimate the
+        // Data size has changed! I need to estimate the
         // time that the SPI writes will take on the wire.
         // The estimation is very unprecise and it is based
         // on Simon Newton's measurements on a Raspberry Pi

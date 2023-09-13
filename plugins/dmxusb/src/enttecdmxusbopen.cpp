@@ -28,7 +28,6 @@
 
 #define DMX_MAB 16
 #define DMX_BREAK 110
-#define DMX_CHANNELS 512
 #define DEFAULT_OPEN_DMX_FREQUENCY    30  // crap
 #define SETTINGS_CHANNELS "enttecdmxusbopen/channels"
 
@@ -36,10 +35,10 @@
  * Initialization
  ****************************************************************************/
 
-EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
+EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *iface,
                                    quint32 outputLine, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(interface, outputLine, DEFAULT_OPEN_DMX_FREQUENCY)
+    , DMXUSBWidget(iface, outputLine, DEFAULT_OPEN_DMX_FREQUENCY)
     , m_running(false)
     , m_granularity(Unknown)
 {
@@ -62,7 +61,7 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
 // on macOS, QtSerialPort cannot handle an OpenDMX device
 // so, unfortunately, we need to switch back to libftdi
 #if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
-    if (interface->type() == DMXInterface::QtSerial)
+    if (iface->type() == DMXInterface::QtSerial)
         forceInterfaceDriver(DMXInterface::libFTDI);
 #endif
 }
@@ -85,12 +84,12 @@ bool EnttecDMXUSBOpen::open(quint32 line, bool input)
 {
     Q_UNUSED(input)
 
-    if (interface()->type() != DMXInterface::QtSerial)
+    if (iface()->type() != DMXInterface::QtSerial)
     {
         if (DMXUSBWidget::open(line) == false)
             return close(line);
 
-        if (interface()->clearRts() == false)
+        if (iface()->clearRts() == false)
             return close(line);
     }
     start(QThread::TimeCriticalPriority);
@@ -142,13 +141,14 @@ QString EnttecDMXUSBOpen::additionalInfo() const
  * Thread
  ****************************************************************************/
 
-bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-    m_outputLines[0].m_universeData.replace(1, MIN(data.size(), m_outputLines[0].m_universeData.size() - 1),
-                                            data.constData(), MIN(data.size(), m_outputLines[0].m_universeData.size() - 1));
+    if (dataChanged)
+        m_outputLines[0].m_universeData.replace(1, MIN(data.size(), m_outputLines[0].m_universeData.size() - 1),
+                                                data.constData(), MIN(data.size(), m_outputLines[0].m_universeData.size() - 1));
     return true;
 }
 
@@ -173,7 +173,7 @@ void EnttecDMXUSBOpen::run()
     else
         m_granularity = Good;
 
-    if (interface()->type() == DMXInterface::QtSerial)
+    if (iface()->type() == DMXInterface::QtSerial)
     {
         if (DMXUSBWidget::open(0) == false)
         {
@@ -181,7 +181,7 @@ void EnttecDMXUSBOpen::run()
             return;
         }
 
-        if (interface()->clearRts() == false)
+        if (iface()->clearRts() == false)
         {
             close(0);
             return;
@@ -194,19 +194,19 @@ void EnttecDMXUSBOpen::run()
         // Measure how much time passes during these calls
         time.restart();
 
-        if (interface()->setBreak(true) == false)
+        if (iface()->setBreak(true) == false)
             goto framesleep;
 
         if (m_granularity == Good)
             usleep(DMX_BREAK);
 
-        if (interface()->setBreak(false) == false)
+        if (iface()->setBreak(false) == false)
             goto framesleep;
 
         if (m_granularity == Good)
             usleep(DMX_MAB);
 
-        if (interface()->write(m_outputLines[0].m_universeData) == false)
+        if (iface()->write(m_outputLines[0].m_universeData) == false)
             goto framesleep;
 
 framesleep:

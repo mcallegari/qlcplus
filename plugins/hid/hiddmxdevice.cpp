@@ -183,10 +183,12 @@ void HIDDMXDevice::outputDMX(const QByteArray &universe, bool forceWrite)
         int startOff = i * 32;
         if (startOff >= universe.size())
             return;
+
         QByteArray chunk = universe.mid(startOff, 32);
         if (chunk.size() < 32)
             chunk.append(QByteArray(32 - chunk.size(), (char)0x0));
-        if(forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
+
+        if (forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
         {
             /** Save different data to m_dmx_cmp */
             m_dmx_cmp.replace(startOff, 32, chunk);

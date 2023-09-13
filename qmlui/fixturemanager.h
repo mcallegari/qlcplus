@@ -393,9 +393,6 @@ public:
 
     /** Wrapper methods to emit a signal to listeners interested in changes of
      *  channel values per capability */
-    Q_INVOKABLE void setIntensityValue(quint8 value);
-    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
-                                   quint8 white, quint8 amber, quint8 uv);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
 
     /**
@@ -444,10 +441,6 @@ public:
 signals:
     /** Notify the listeners that $value of $channelIndex of $fixtureID has changed */
     void channelValueChanged(quint32 fixtureID, quint32 channelIndex, quint8 value);
-
-    /** Notify the listeners that channels of the specified $type should
-     *  be set to the provided $value */
-    void channelTypeValueChanged(int type, quint8 value);
 
     /** Notify the listeners that a color has been picked in the ColorTool.
      *  It emits all the possible components: RGB, White, Amber and UV */

@@ -20,6 +20,7 @@
 #include <QTreeWidgetItem>
 #include <QMessageBox>
 #include <QSpacerItem>
+#include <QSettings>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpinBox>
@@ -61,6 +62,11 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
 
     fillNodesTree();
     fillMappingTree();
+
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_waitReadySpin->setValue(value.toInt());
 }
 
 
@@ -172,10 +178,13 @@ void ConfigureArtNet::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnArtNetUni, spin);
 
                 QComboBox *combo = new QComboBox(this);
+                combo->addItem(tr("Standard"));
                 combo->addItem(tr("Full"));
                 combo->addItem(tr("Partial"));
-                if (info->outputTransmissionMode == ArtNetController::Partial)
+                if (info->outputTransmissionMode == ArtNetController::Full)
                     combo->setCurrentIndex(1);
+                if (info->outputTransmissionMode == ArtNetController::Partial)
+                    combo->setCurrentIndex(2);
                 m_uniMapTree->setItemWidget(item, KMapColumnTransmitMode, combo);
             }
         }
@@ -199,10 +208,10 @@ ConfigureArtNet::~ConfigureArtNet()
 
 void ConfigureArtNet::accept()
 {
-    for(int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *topItem = m_uniMapTree->topLevelItem(i);
-        for(int c = 0; c < topItem->childCount(); c++)
+        for (int c = 0; c < topItem->childCount(); c++)
         {
             QTreeWidgetItem *item = topItem->child(c);
             if (item->data(KMapColumnInterface, PROP_UNIVERSE).isValid() == false)
@@ -240,6 +249,8 @@ void ConfigureArtNet::accept()
             {
                 ArtNetController::TransmissionMode transmissionMode;
                 if (combo->currentIndex() == 0)
+                    transmissionMode = ArtNetController::Standard;
+                else if (combo->currentIndex() == 1)
                     transmissionMode = ArtNetController::Full;
                 else
                     transmissionMode = ArtNetController::Partial;
@@ -249,6 +260,13 @@ void ConfigureArtNet::accept()
             }
         }
     }
+
+    QSettings settings;
+    int waitTime = m_waitReadySpin->value();
+    if (waitTime == 0)
+        settings.remove(SETTINGS_IFACE_WAIT_TIME);
+    else
+        settings.setValue(SETTINGS_IFACE_WAIT_TIME, waitTime);
 
     QDialog::accept();
 }

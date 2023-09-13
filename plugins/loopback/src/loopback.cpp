@@ -180,9 +180,10 @@ QString Loopback::inputInfo(quint32 input)
     return str;
 }
 
-void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
-    Q_UNUSED(universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (!m_outputMap.contains(output))
         return;

@@ -121,9 +121,10 @@ QString DMX4Linux::outputInfo(quint32 output)
     return str;
 }
 
-void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != 0 || m_file.isOpen() == false)
         return;

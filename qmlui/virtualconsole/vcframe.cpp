@@ -907,7 +907,7 @@ void VCFrame::updateFeedback()
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        if (child->parent() == this)
+        if (child->parent() == this && child->page() == currentPage())
             child->updateFeedback();
     }
 

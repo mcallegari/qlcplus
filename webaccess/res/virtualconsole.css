@@ -11,13 +11,16 @@ form {
 }
 
 .vcbutton {
- display: table-cell;
+ display: flex;
+ overflow: hidden;
+ align-items: center;
+ justify-content: center;
+ box-sizing: border-box;
  border: 3px solid #A0A0A0;
  border-radius: 4px;
  font-family: arial, verdana, sans-serif;
  text-decoration: none;
  text-align: center;
- vertical-align: middle;
 }
 
 .vccuelist {

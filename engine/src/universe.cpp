@@ -322,10 +322,11 @@ void Universe::processFaders()
         fader->write(this);
     }
 
+    bool dataChanged = hasChanged();
     const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
-    dumpOutput(postGM);
+    dumpOutput(postGM, dataChanged);
 
-    if (hasChanged())
+    if (dataChanged)
         emit universeWritten(id(), postGM);
 }
 
@@ -702,7 +703,7 @@ OutputPatch *Universe::feedbackPatch() const
     return m_fbPatch;
 }
 
-void Universe::dumpOutput(const QByteArray &data)
+void Universe::dumpOutput(const QByteArray &data, bool dataChanged)
 {
     if (m_outputPatchList.count() == 0)
         return;
@@ -713,9 +714,9 @@ void Universe::dumpOutput(const QByteArray &data)
             op->setPluginParameter(PLUGIN_UNIVERSECHANNELS, m_totalChannels);
 
         if (op->blackout())
-            op->dump(m_id, *m_blackoutValues);
+            op->dump(m_id, *m_blackoutValues, dataChanged);
         else
-            op->dump(m_id, data);
+            op->dump(m_id, data, dataChanged);
     }
     m_totalChannelsChanged = false;
 }

@@ -216,6 +216,7 @@
   <M n="beamZ">
     <F n="beamZ-BAC302" m="BAC302"/>
     <F n="beamZ-BAC406" m="BAC406 ProPar 6x18W 6-1 Hex"/>
+    <F n="beamZ-BAC503" m="BAC503"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
@@ -316,6 +317,9 @@
     <F n="Cameo-F2-T-PO" m="F2 T PO"/>
     <F n="Cameo-Flash-Bar-150" m="Flash Bar 150"/>
     <F n="Cameo-Flat-PAR-CAN-TRI-3W" m="Flat PAR CAN TRI 3W"/>
+    <F n="Cameo-FLAT-PRO-12" m="FLAT PRO 7"/>
+    <F n="Cameo-FLAT-PRO-18" m="FLAT PRO 7"/>
+    <F n="Cameo-FLAT-PRO-7" m="FLAT PRO 7"/>
     <F n="Cameo-Gobo-Scanner-60" m="Gobo Scanner 60"/>
     <F n="Cameo-Hydrabeam-1000-RGBW" m="Hydrabeam 1000 RGBW"/>
     <F n="Cameo-Hydrabeam-400-Series" m="Hydrabeam 400 Series"/>
@@ -379,6 +383,7 @@
     <F n="Chauvet-ColorBand-Pix-IP" m="ColorBand Pix IP"/>
     <F n="Chauvet-ColorBand-Pix-M-USB" m="ColorBand Pix-M USB"/>
     <F n="Chauvet-ColorBand-Pix-M" m="ColorBand Pix-M"/>
+    <F n="Chauvet-COLORband-T3-BT" m="COLORband T3 BT"/>
     <F n="Chauvet-COLORband-T3-USB" m="COLORband T3 USB"/>
     <F n="Chauvet-COLORbar-SMD" m="COLORbar SMD"/>
     <F n="Chauvet-COLORdash-Accent-Quad" m="COLORdash Accent Quad"/>
@@ -404,6 +409,7 @@
     <F n="Chauvet-Double-Derby-X" m="Double Derby X"/>
     <F n="Chauvet-Eclipse-RGB" m="Eclipse RGB"/>
     <F n="Chauvet-EZPAR-64-RGBA" m="EZPar 64 RGBA"/>
+    <F n="Chauvet-Followspot-120ST" m="Followspot 120ST"/>
     <F n="Chauvet-Freedom-H1" m="Freedom H1"/>
     <F n="Chauvet-Freedom-Stick" m="Freedom Stick"/>
     <F n="Chauvet-FXpar9" m="FXpar 9"/>
@@ -763,6 +769,7 @@
     <F n="Eurolite-LED-TMH-FE-1800" m="LED TMH FE-1800"/>
     <F n="Eurolite-LED-TMH-FE-600" m="LED TMH FE-600"/>
     <F n="Eurolite-LED-TMH-X10" m="LED TMH-X10"/>
+    <F n="Eurolite-LED-TMH-X4" m="LED TMH-X4"/>
     <F n="Eurolite-LED-TMH-X5" m="LED TMH-X5"/>
     <F n="Eurolite-LED-Z-200-TCL" m="LED Z-200 TCL"/>
     <F n="Eurolite-NH-30-MK2" m="NH-30 MK2"/>
@@ -820,6 +827,11 @@
     <F n="Flash-Butrym-LED-Moving-Head-Mini-Beam-18x3W-RGB-CREE" m="LED Moving Head Mini Beam 18x3W RGB CREE"/>
     <F n="Flash-Butrym-LED-PAR-64-4x30W-COB-RGBW" m="LED PAR 64 4x30W COB RGBW"/>
     <F n="Flash-Butrym-LED-PAR-64-COB-250W-2xWhite-Mk2" m="LED PAR 64 COB 250W 2xWhite Mk2"/>
+  </M>
+  <M n="FOS_Technologies">
+    <F n="FOS-Technologies-IQ-28x12-Wash" m="IQ 28x12 Wash"/>
+    <F n="FOS-Technologies-IQ-Par" m="IQ Par"/>
+    <F n="FOS-Technologies-Iridium-75W-Spot" m="Iridium 75W Spot"/>
   </M>
   <M n="Fun-Generation">
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
@@ -938,6 +950,7 @@
   </M>
   <M n="Ibiza">
     <F n="Ibiza-400-RGB" m="400 RGB"/>
+    <F n="Ibiza-Mini-Moving-STAR-WASH" m="Mini-Moving - STAR-WASH"/>
     <F n="Ibiza-PAR-LED-710" m="PAR LED 710"/>
     <F n="Ibiza-PAR-LED-712IR" m="PAR LED 712IR"/>
     <F n="Ibiza-PAR-LED50-COB" m="PAR LED50-COB"/>
@@ -1641,6 +1654,7 @@
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
     <F n="UKing-Wall-Washer-24x3W" m="Wall Washer 24x3W"/>
+    <F n="UKing-ZQ-B117-Par-Can-4in1-RGBW" m="ZQ-B117 Par Can 4in1 RGBW"/>
     <F n="UKing-ZQ-B243" m="ZQ-B243"/>
     <F n="UKing-ZQ-B370-Laser" m="ZQ-B370"/>
     <F n="UKing-ZQ-B93-Pinspot-RGBW" m="ZQ-B93 Pinspot RGBW"/>
@@ -1664,6 +1678,7 @@
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
     <F n="Varytec-Hero-Beam-100" m="Hero Beam 100"/>
     <F n="Varytec-Hero-Spot-230" m="Hero Spot 230"/>
+    <F n="Varytec-Hero-Spot-60" m="Hero Spot 60"/>
     <F n="Varytec-Hero-Spot-90" m="Hero Spot 90"/>
     <F n="Varytec-Hero-Spot-Wash-140-2in1-RGBW+W" m="Hero Spot Wash 140 2in1 RGBW+W"/>
     <F n="Varytec-Hero-Spot-Wash-80-2in1-RGBW+W" m="Hero Spot Wash 80 2in1 RGBW+W"/>
