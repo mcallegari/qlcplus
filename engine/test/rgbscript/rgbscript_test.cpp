@@ -218,7 +218,7 @@ void RGBScript_Test::rgbMapColorArray()
             QColor(Qt::green).rgb() & 0x00ffffff
     };
     QSize mapSize = QSize(5, 5);
-    qDebug() << "C1: " << hex << rawRgbColors[0] << " C2: " << hex << rawRgbColors[1];
+    qDebug() << "C1: " << Qt::hex << rawRgbColors[0] << " C2: " << Qt::hex << rawRgbColors[1];
     s.rgbMap(mapSize, 0, 0, map, rawRgbColors);
     QVERIFY(map.isEmpty() == false);
 
@@ -227,7 +227,7 @@ void RGBScript_Test::rgbMapColorArray()
     {
         for (int x = 0; x < mapSize.width(); x++)
         {
-            // qDebug() << "y: " << y << " x: " << x << " C: " << hex << map[y][x];
+            // qDebug() << "y: " << y << " x: " << x << " C: " << Qt::hex << map[y][x];
             if (x % 2 == 0)
                 QCOMPARE(map[y][x], rawRgbColors[1]);
             else
