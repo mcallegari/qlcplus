@@ -10,6 +10,8 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: beamZ BAC503 (thanks to archlinette)
   * New fixtures: Cameo Flat Pro 7, 12 and 18 (thanks to Janosch Frank)
   * New fixture: Eurolite LED TMH-X4 (thanks to Tolmino Muccitelli)
+  * New fixtures: Cameo Q-Spot 40 RGBW, Varytec LED PAR 14x8W, Varytec LED Typhoon PAR Outdoor (12x10) (thanks to Jochen Becker)
+  * New fixtures: Audibax Iowa 70, Pro-Lights CromoWash100 (thanks to Cristian)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 

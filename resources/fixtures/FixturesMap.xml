@@ -191,6 +191,9 @@
   <M n="Astera">
     <F n="Astera-AX3-Lightdrop" m="AX3 Lightdrop"/>
   </M>
+  <M n="Audibax">
+    <F n="Audibax-Iowa-70" m="Iowa 70"/>
+  </M>
   <M n="AVE">
     <F n="AVE-Cobra-Wash-200" m="Cobra Wash 200"/>
     <F n="AVE-Quad-Pro-Flat" m="Quad Pro Flat"/>
@@ -342,7 +345,8 @@
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
     <F n="Cameo-Pixbar-600-PRO" m="Pixbar 600 PRO"/>
-    <F n="Cameo-Q-SPOT-15-RGBW" m="Q SPOT 15 RGBW"/>
+    <F n="Cameo-Q-Spot-15-RGBW" m="Q-Spot 15 RGBW"/>
+    <F n="Cameo-Q-Spot-40-RGBW" m="Q-Spot 40 RGBW"/>
     <F n="Cameo-ROOT-Par-6" m="Root PAR 6"/>
     <F n="Cameo-Storm" m="Storm"/>
     <F n="Cameo-Strobe-3x3.5W" m="Strobe 3x3.5W"/>
@@ -1273,6 +1277,7 @@
     <F n="Pro-Lights-BB5Pix" m="BB5 Pix"/>
     <F n="Pro-Lights-CromoSpot150" m="CromoSpot150"/>
     <F n="Pro-Lights-CromoSpot300" m="CromoSpot300"/>
+    <F n="Pro-Lights-CromoWash100" m="CromoWash100"/>
     <F n="Pro-Lights-CromoWash300" m="CromoWash300"/>
     <F n="Pro-Lights-EVO90F" m="EVO90F"/>
     <F n="Pro-Lights-Explo-3000D" m="Explo 3000D"/>
@@ -1693,8 +1698,10 @@
     <F n="Varytec-LED-Laser-4" m="LED Laser 4"/>
     <F n="Varytec-LED-Magic-Mushroom" m="LED Magic Mushroom"/>
     <F n="Varytec-LED-Pad-7-BA-D" m="LED Pad 7 BA-D"/>
+    <F n="Varytec-LED-PAR-14x8W" m="LED PAR 14x8W"/>
     <F n="Varytec-LED-PAR-64-Floor-5in1" m="LED Par 64 Floor 5in1 7x10W RGBWA"/>
     <F n="Varytec-LED-PAR56" m="LED PAR56"/>
+    <F n="Varytec-LED-Typhoon-PAR-Outdoor-12x10" m="LED Typhoon PAR Outdoor (12x10)"/>
     <F n="Varytec-RGB-LED-Spot-38" m="RGB LED Spot 38"/>
     <F n="Varytec-Street-Bar" m="Street Bar"/>
     <F n="Varytec-Thunderscan-FX" m="Thunderscan FX"/>
