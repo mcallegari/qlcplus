@@ -225,6 +225,7 @@
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
     <F n="beamZ-Illusion-II" m="Illusion II"/>
     <F n="beamZ-LCB-252" m="LCB-252"/>
+    <F n="beamZ-LCB244" m="LCB244"/>
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
     <F n="beamZ-LS-3DRG" m="LS-3DRG"/>
     <F n="beamZ-Lucid-1.2" m="Lucid 1.2"/>
@@ -424,6 +425,7 @@
     <F n="Chauvet-GigBar-IRC" m="GigBar IRC"/>
     <F n="Chauvet-GigBAR-Move" m="GigBAR Move"/>
     <F n="Chauvet-Gobo-Zoom-LED-2.0" m="Gobo Zoom LED 2.0"/>
+    <F n="Chauvet-Gobozap" m="Gobozap"/>
     <F n="Chauvet-Gyser-RGB" m="Gyser RGB"/>
     <F n="Chauvet-Hemisphere-5.1" m="Hemisphere 5.1"/>
     <F n="Chauvet-Hive" m="Hive"/>
@@ -719,6 +721,7 @@
     <F n="Eurolite-KLS200" m="KLS200"/>
     <F n="Eurolite-LED-ACS-BAR-12" m="LED ACS BAR-12"/>
     <F n="Eurolite-LED-B-40-Beam" m="LED B-40 Beam"/>
+    <F n="Eurolite-LED-Bar-2-RGBA-252_10_40__Indoor" m="LED Bar 2 RGBA 252/10 40° Indoor"/>
     <F n="Eurolite-LED-Bar-RGB-252_10_40__Indoor" m="LED Bar RGB 252/10 40° Indoor"/>
     <F n="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar" m="LED CBB-3 COB RBG 3x15W Bar"/>
     <F n="Eurolite-LED-CLS-9-QCL-RGBW-9x8W-12" m="LED CLS-9 QCL RGBW 9x8W 12"/>
@@ -830,6 +833,7 @@
   <M n="Flash-Butrym">
     <F n="Flash-Butrym-LED-Moving-Head-Mini-Beam-18x3W-RGB-CREE" m="LED Moving Head Mini Beam 18x3W RGB CREE"/>
     <F n="Flash-Butrym-LED-PAR-64-4x30W-COB-RGBW" m="LED PAR 64 4x30W COB RGBW"/>
+    <F n="Flash-Butrym-LED-PAR-64-7x10W-RGBW" m="LED PAR 64 7x10W RGBW"/>
     <F n="Flash-Butrym-LED-PAR-64-COB-250W-2xWhite-Mk2" m="LED PAR 64 COB 250W 2xWhite Mk2"/>
   </M>
   <M n="FOS_Technologies">
@@ -981,6 +985,7 @@
     <F n="Involight-LED-MH77S" m="LED MH77S"/>
     <F n="Involight-LED-PAR-180" m="LED PAR 180"/>
     <F n="Involight-LEDSTROB400" m="LEDSTROB400"/>
+    <F n="Involight-NL410" m="NL410"/>
     <F n="Involight-SBL2000" m="SBL2000"/>
     <F n="Involight-SBL3000" m="SBL3000"/>
     <F n="Involight-SlimPar56-PRO" m="SlimPar56 PRO"/>
@@ -1043,6 +1048,7 @@
     <F n="Lanta-Orion-Link-V2" m="Orion Link V2"/>
   </M>
   <M n="Laserworld">
+    <F n="Laserworld-CS-1000RGB-Mk3" m="CS-1000RGB Mk3"/>
     <F n="Laserworld-CS-1000RGB-MkII" m="CS-1000RGB Mk II"/>
     <F n="Laserworld-CS-1000RGB" m="CS-1000RGB"/>
     <F n="Laserworld-EL-200RGY" m="EL-200RGY"/>
@@ -1385,6 +1391,7 @@
     <F n="Robert-Juliat-DArtagnan-934SNX" m="D'Artagnan 934SNX"/>
   </M>
   <M n="Rockville">
+    <F n="Rockville-Battery-Strip-24" m="Battery Strip 24"/>
     <F n="Rockville-Best-Strip-60-RGBWAUV" m="Best Strip 60"/>
     <F n="Rockville-Motionstrip-RGBW" m="Motionstrip RGBW"/>
     <F n="Rockville-Rockwedge-LED" m="Rockwedge LED"/>
@@ -1489,6 +1496,7 @@
     <F n="Showtec-Slidebar-4" m="Slidebar 4"/>
     <F n="Showtec-Spectral-850-RGBA-Tour" m="Spectral 850 RGBA Tour LED Spot"/>
     <F n="Showtec-Spectral-CYC650" m="Spectral CYC650"/>
+    <F n="Showtec-Spectral-M1000-Tour-Q4-MKII" m="Spectral M1000 Tour Q4 MKII"/>
     <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
     <F n="Showtec-Star-Dream-144-LED-White" m="Star Dream 144 LED White"/>
