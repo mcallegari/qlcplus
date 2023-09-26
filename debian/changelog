@@ -19,6 +19,10 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: beamZ LCB244 (thanks to Bjorn Roesbeke)
   * New fixture: Involight NL410 (thanks to Vorona)
   * New fixture: Flash-Butrym LED PAR 64 7x10W RGBW (thanks to Paolo Betti)
+  * New fixture: Eurolite LED KLS-180 (thanks to Claudio Filieri)
+  * New fixture: Shehds LED Flat Par 7x18W RGBWA+UV (thanks to Tiago)
+  * New fixtures: Martin Atomic 3000 LED, Ayrton NandoBeam S3 (thanks to Yestalgia)
+  * New fixture: lightmaXX Vega Arc Pro II MkII (thanks to João Gonçalves)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 
