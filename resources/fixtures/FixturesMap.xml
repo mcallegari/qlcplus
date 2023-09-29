@@ -796,6 +796,7 @@
     <F n="Eurolite-THA-100F-COB" m="THA-100F COB"/>
     <F n="Eurolite-TMH-10" m="TMH-10"/>
     <F n="Eurolite-TMH-14" m="TMH-14"/>
+    <F n="Eurolite-TMH-15" m="TMH-15"/>
     <F n="Eurolite-TMH-155" m="TMH-155"/>
     <F n="Eurolite-TMH-250" m="TMH-250"/>
     <F n="Eurolite-TMH-30-60-mk2" m="TMH-30/60 MK2"/>
@@ -1437,6 +1438,9 @@
     <F n="SGM-Victory-II-Pro150" m="Victory II Pro150"/>
   </M>
   <M n="Shehds">
+    <F n="Shehds-230W-LED-Beam-Moving-Head" m="LED 230W Beam Moving Head"/>
+    <F n="Shehds-JMS-WEBB-LED-Wash-BigBeeEye-19X40W" m="JMS WEBB LED Wash Big Bee Eye 19X40W"/>
+    <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>
   </M>
   <M n="Showlite">
