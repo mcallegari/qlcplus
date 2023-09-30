@@ -26,16 +26,16 @@
   <Capability Min="0" Max="50">No function</Capability>
   <Capability Min="51" Max="100">Static color</Capability>
   <Capability Min="101" Max="150" Preset="Alias">Color jump (Random colors)
-   <Alias Mode="9-channel" Channel="Color Presets" With="Function Speed"/>
-   <Alias Mode="10-channel" Channel="Color Presets" With="Function Speed"/>
+   <Alias Mode="9 Channel" Channel="Color Presets" With="Function Speed"/>
+   <Alias Mode="10 Channel" Channel="Color Presets" With="Function Speed"/>
   </Capability>
   <Capability Min="151" Max="200" Preset="Alias">Color fade (Random colors)
-   <Alias Mode="9-channel" Channel="Color Presets" With="Function Speed"/>
-   <Alias Mode="10-channel" Channel="Color Presets" With="Function Speed"/>
+   <Alias Mode="9 Channel" Channel="Color Presets" With="Function Speed"/>
+   <Alias Mode="10 Channel" Channel="Color Presets" With="Function Speed"/>
   </Capability>
   <Capability Min="201" Max="250" Preset="Alias">Color fade (Random colors, fade to black)
-   <Alias Mode="9-channel" Channel="Color Presets" With="Function Speed"/>
-   <Alias Mode="10-channel" Channel="Color Presets" With="Function Speed"/>
+   <Alias Mode="9 Channel" Channel="Color Presets" With="Function Speed"/>
+   <Alias Mode="10 Channel" Channel="Color Presets" With="Function Speed"/>
   </Capability>
   <Capability Min="251" Max="255">Sound Mode (Static color flashing on beat)</Capability>
  </Channel>
