@@ -4,39 +4,39 @@
 <context>
     <name>DMXUSB</name>
     <message>
-        <location filename="dmxusb.cpp" line="139"/>
+        <location filename="dmxusb.cpp" line="152"/>
         <source>This plugin provides DMX output support for</source>
         <translation>Questa plugin permette la trasmissione di segnale DMX in uscita per</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="143"/>
+        <location filename="dmxusb.cpp" line="156"/>
         <source>and compatible devices.</source>
         <translation>e dispositivi compatibili.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="157"/>
+        <location filename="dmxusb.cpp" line="170"/>
         <source>No output support available.</source>
         <translation>Nessuna uscita disponibile.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="159"/>
+        <location filename="dmxusb.cpp" line="172"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
         <translation>Controlla che la tua interfaccia sia connessa correttamente. ATTENZIONE: le interfacce FTDI VCP non sono supportate da questa plugin.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="168"/>
-        <location filename="dmxusb.cpp" line="272"/>
+        <location filename="dmxusb.cpp" line="181"/>
+        <location filename="dmxusb.cpp" line="280"/>
         <source>Device is operating correctly.</source>
         <translation>Interfaccia connessa ed attiva.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="170"/>
-        <location filename="dmxusb.cpp" line="274"/>
+        <location filename="dmxusb.cpp" line="183"/>
+        <location filename="dmxusb.cpp" line="282"/>
         <source>Driver in use: %1</source>
         <translation>Driver in uso: %1</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="259"/>
+        <location filename="dmxusb.cpp" line="267"/>
         <source>No input support available.</source>
         <translation>Nessun ingresso disponibile.</translation>
     </message>
@@ -140,37 +140,37 @@
 <context>
     <name>EnttecDMXUSBOpen</name>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="118"/>
+        <location filename="enttecdmxusbopen.cpp" line="117"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="123"/>
+        <location filename="enttecdmxusbopen.cpp" line="122"/>
         <source>DMX Channels</source>
         <translation>Canali DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="126"/>
+        <location filename="enttecdmxusbopen.cpp" line="125"/>
         <source>DMX Frame Frequency</source>
         <translation>Frequenza del frame DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="130"/>
+        <location filename="enttecdmxusbopen.cpp" line="129"/>
         <source>Bad</source>
         <translation>Sbagliato</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="132"/>
+        <location filename="enttecdmxusbopen.cpp" line="131"/>
         <source>Good</source>
         <translation>Buono</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="134"/>
+        <location filename="enttecdmxusbopen.cpp" line="133"/>
         <source>Patch this widget to a universe to find out.</source>
         <translation>Associa questo dispositivo ad un universo per il rilevamento.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="135"/>
+        <location filename="enttecdmxusbopen.cpp" line="134"/>
         <source>System Timer Accuracy</source>
         <translation>Precisione del timer di sistema</translation>
     </message>
@@ -178,18 +178,18 @@
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="94"/>
-        <location filename="enttecdmxusbpro.cpp" line="96"/>
+        <location filename="enttecdmxusbpro.cpp" line="115"/>
+        <location filename="enttecdmxusbpro.cpp" line="117"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="99"/>
+        <location filename="enttecdmxusbpro.cpp" line="120"/>
         <source>Manufacturer</source>
         <translation>Produttore</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="101"/>
+        <location filename="enttecdmxusbpro.cpp" line="122"/>
         <source>Serial number</source>
         <translation>Numero di serie</translation>
     </message>
@@ -222,7 +222,7 @@
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="126"/>
-        <location filename="enttecdmxusbopen.cpp" line="120"/>
+        <location filename="enttecdmxusbopen.cpp" line="119"/>
         <location filename="euroliteusbdmxpro.cpp" line="175"/>
         <location filename="nanodmx.cpp" line="240"/>
         <location filename="stageprofi.cpp" line="145"/>
@@ -230,22 +230,22 @@
         <translation>Produttore</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="237"/>
+        <location filename="enttecdmxusbpro.cpp" line="326"/>
         <source>MIDI Input</source>
         <translation>Ingresso MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="239"/>
+        <location filename="enttecdmxusbpro.cpp" line="328"/>
         <source>DMX Input</source>
         <translation>Ingresso DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="244"/>
+        <location filename="enttecdmxusbpro.cpp" line="333"/>
         <source>MIDI Output</source>
         <translation>Uscita MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="246"/>
+        <location filename="enttecdmxusbpro.cpp" line="335"/>
         <source>DMX Output</source>
         <translation>Uscita DMX</translation>
     </message>

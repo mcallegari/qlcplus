@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Jochen Becker</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED PAR 14x8W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Colour selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Blackout</Capability>
+  <Capability Min="1" Max="14" Preset="ColorMacro" Res1="#ffffff">Pure white</Capability>
+  <Capability Min="15" Max="29" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="30" Max="44" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="45" Max="59" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="60" Max="75" Preset="ColorMacro" Res1="#e2f9ff">White / blue</Capability>
+  <Capability Min="76" Max="89" Preset="ColorMacro" Res1="#fff7ff">White / pink</Capability>
+  <Capability Min="90" Max="104" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="105" Max="119" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="120" Max="134" Preset="ColorMacro" Res1="#ffc6dc">Pink / red</Capability>
+  <Capability Min="135" Max="149" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="150" Max="164" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="165" Max="179" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="180" Max="194" Preset="ColorMacro" Res1="#32cd32">Lime green</Capability>
+  <Capability Min="195" Max="209" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="210" Max="224" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="225" Max="239" Preset="ColorMacro" Res1="#26ffdb">Blue green</Capability>
+  <Capability Min="240" Max="254" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="255" Max="255">Blackout</Capability>
+ </Channel>
+ <Channel Name="Stroboscope" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Auto colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Constant colour, settings with channel 1 … 7</Capability>
+  <Capability Min="1" Max="5">No function</Capability>
+  <Capability Min="6" Max="240">Colour fade, increasing speed</Capability>
+  <Capability Min="241" Max="254">Colour change, increasing speed</Capability>
+  <Capability Min="255" Max="255">Blackout</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Colour selection</Channel>
+  <Channel Number="6">Stroboscope</Channel>
+  <Channel Number="7">Auto colour</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="248" Height="203" Depth="290"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

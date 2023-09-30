@@ -57,108 +57,108 @@
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="123"/>
+        <location filename="app.cpp" line="122"/>
         <source>Unrecognized file extension: %1</source>
         <translation>Extensión de archivo no reconocida: %1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="147"/>
+        <location filename="app.cpp" line="146"/>
         <source>Fixture loading failed</source>
         <translation>Fallo al cargar Fixture</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="148"/>
+        <location filename="app.cpp" line="147"/>
         <source>Unable to load fixture definition: </source>
-        <translation>Imposible cargar definición de fixture:</translation>
+        <translation>Imposible cargar definición de fixture: </translation>
     </message>
     <message>
-        <location filename="app.cpp" line="242"/>
+        <location filename="app.cpp" line="241"/>
         <source>&amp;New</source>
         <translation>&amp;Nuevo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="243"/>
+        <location filename="app.cpp" line="242"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="248"/>
+        <location filename="app.cpp" line="247"/>
         <source>&amp;Open</source>
         <translation>&amp;Abrir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="249"/>
+        <location filename="app.cpp" line="248"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="254"/>
+        <location filename="app.cpp" line="253"/>
         <source>&amp;Save</source>
         <translation>&amp;Guardar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="255"/>
+        <location filename="app.cpp" line="254"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="260"/>
+        <location filename="app.cpp" line="259"/>
         <source>Save &amp;As...</source>
         <translation>Guardar &amp;como...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="261"/>
+        <location filename="app.cpp" line="260"/>
         <source>CTRL+SHIFT+S</source>
         <comment>File|Save As...</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="266"/>
+        <location filename="app.cpp" line="265"/>
         <source>&amp;Quit</source>
         <translation>&amp;Salir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="267"/>
+        <location filename="app.cpp" line="266"/>
         <source>CTRL+Q</source>
         <comment>File|Quit</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="273"/>
+        <location filename="app.cpp" line="272"/>
         <source>Index</source>
         <translation>Índice</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="274"/>
+        <location filename="app.cpp" line="273"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="279"/>
+        <location filename="app.cpp" line="278"/>
         <source>About Fixture Definition Editor...</source>
         <translation>Sobre el Editor de Definiciones de Fixture...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="284"/>
+        <location filename="app.cpp" line="283"/>
         <source>About Qt...</source>
         <translation>Sobre QT...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="311"/>
+        <location filename="app.cpp" line="310"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="321"/>
+        <location filename="app.cpp" line="320"/>
         <source>&amp;Help</source>
         <translation>A&amp;yuda</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="359"/>
+        <location filename="app.cpp" line="358"/>
         <source>Open a fixture definition</source>
         <translation>Abrir una definición de fixture</translation>
     </message>
@@ -234,32 +234,32 @@
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="105"/>
+        <location filename="../ui/src/docbrowser.cpp" line="106"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Buscador de Documentos</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="127"/>
+        <location filename="../ui/src/docbrowser.cpp" line="128"/>
         <source>Backward</source>
         <translation>Atrás</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="128"/>
+        <location filename="../ui/src/docbrowser.cpp" line="129"/>
         <source>Forward</source>
         <translation>Adelante</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="129"/>
+        <location filename="../ui/src/docbrowser.cpp" line="130"/>
         <source>Index</source>
         <translation>Índice</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="130"/>
+        <location filename="../ui/src/docbrowser.cpp" line="131"/>
         <source>About Qt</source>
         <translation>Acerca de Qt</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="131"/>
+        <location filename="../ui/src/docbrowser.cpp" line="132"/>
         <source>Close this window</source>
         <translation>Cerrar esta ventana</translation>
     </message>
@@ -461,82 +461,87 @@
         <translation>Canales</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="78"/>
+        <location filename="editmode.ui" line="161"/>
         <source>Number</source>
         <translation>Número</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="83"/>
+        <location filename="editmode.ui" line="166"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="91"/>
+        <location filename="editmode.ui" line="79"/>
         <source>Add channel(s) to this mode</source>
         <translation>Añadir canal(es) a este modo</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="111"/>
+        <location filename="editmode.ui" line="59"/>
         <source>Remove the selected channel</source>
         <translation>Quitar el canal seleccionado</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="131"/>
+        <location filename="editmode.ui" line="99"/>
         <source>Raise the selected channel</source>
         <translation>Subir el canal seleccionado</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="151"/>
+        <location filename="editmode.ui" line="119"/>
         <source>Lower the selected channel</source>
         <translation>Bajar el canal seleccionado</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="185"/>
+        <location filename="editmode.ui" line="171"/>
+        <source>Acts On</source>
+        <translation>Actua Sobre</translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="193"/>
         <source>Heads</source>
         <translation>Cabezas</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="198"/>
+        <location filename="editmode.ui" line="206"/>
         <source>Head</source>
         <translation>Cabeza</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="206"/>
+        <location filename="editmode.ui" line="214"/>
         <source>Compose a new head</source>
         <translation>Componer una nueva cabeza</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="226"/>
+        <location filename="editmode.ui" line="234"/>
         <source>Remove the selected head</source>
         <translation>Quitar la cabeza seleccionada</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="246"/>
+        <location filename="editmode.ui" line="254"/>
         <source>Edit the channels that belong to the selected head</source>
         <translation>Editar los canales que pertenecen a la cabeza seleccionada</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="266"/>
+        <location filename="editmode.ui" line="274"/>
         <source>Raise the selected head</source>
         <translation>Subir la cabeza seleccionada</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="286"/>
+        <location filename="editmode.ui" line="294"/>
         <source>Lower the selected head</source>
         <translation>Bajar la cabeza seleccionado</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="320"/>
+        <location filename="editmode.ui" line="328"/>
         <source>Physical</source>
         <translation>Físico</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="330"/>
+        <location filename="editmode.ui" line="338"/>
         <source>Use global settings</source>
         <translation>Usar ajustes globales</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="340"/>
+        <location filename="editmode.ui" line="348"/>
         <source>Override global settings</source>
         <translation>Anular ajustes globales</translation>
     </message>
@@ -627,10 +632,6 @@
         <translation>Grados Máximos</translation>
     </message>
     <message>
-        <source>Prism faces</source>
-        <translation type="vanished">Facetas del prisma</translation>
-    </message>
-    <message>
         <location filename="editphysical.ui" line="79"/>
         <source>Pan Max Degrees</source>
         <translation>Grados Max de Pan</translation>
@@ -644,7 +645,8 @@
         <location filename="editphysical.ui" line="113"/>
         <source>Layout
 (Columns x Rows)</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposición
+(Columnas x Filas)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="158"/>
@@ -718,16 +720,6 @@
         <location filename="fixtureeditor.ui" line="108"/>
         <source>The general type of this fixture</source>
         <translation>El tipo general de este fixture</translation>
-    </message>
-    <message>
-        <location filename="fixtureeditor.ui" line="226"/>
-        <source>LED Bar (Beams)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="fixtureeditor.ui" line="235"/>
-        <source>LED Bar (Pixels)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="247"/>
@@ -942,25 +934,25 @@ No se puede guardar el fixture.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="448"/>
-        <location filename="fixtureeditor.cpp" line="534"/>
+        <location filename="fixtureeditor.cpp" line="548"/>
         <source>Channel already exists</source>
         <translation>El canal ya existe</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="449"/>
-        <location filename="fixtureeditor.cpp" line="535"/>
+        <location filename="fixtureeditor.cpp" line="549"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
         <translation>¡Un canal con el nombre &quot;%1&quot; ya existe!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="456"/>
-        <location filename="fixtureeditor.cpp" line="541"/>
+        <location filename="fixtureeditor.cpp" line="555"/>
         <source>Channel has no name</source>
         <translation>El canal no tiene nombre</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="457"/>
-        <location filename="fixtureeditor.cpp" line="542"/>
+        <location filename="fixtureeditor.cpp" line="556"/>
         <source>You must give the channel a descriptive name!</source>
         <translation>¡Tiene que dar al canal un nombre descriptivo!</translation>
     </message>
@@ -970,94 +962,94 @@ No se puede guardar el fixture.</translation>
         <translation>¿Está seguro que quiere quitar el canal: %1?</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="813"/>
+        <location filename="fixtureeditor.cpp" line="827"/>
         <source>Are you sure you wish to remove mode: %1?</source>
         <translation>¿Está seguro que quiere quitar el modo: %1?</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="654"/>
-        <location filename="fixtureeditor.cpp" line="689"/>
-        <location filename="fixtureeditor.cpp" line="914"/>
+        <location filename="fixtureeditor.cpp" line="668"/>
+        <location filename="fixtureeditor.cpp" line="703"/>
+        <location filename="fixtureeditor.cpp" line="928"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="655"/>
-        <location filename="fixtureeditor.cpp" line="691"/>
+        <location filename="fixtureeditor.cpp" line="669"/>
+        <location filename="fixtureeditor.cpp" line="705"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="656"/>
-        <location filename="fixtureeditor.cpp" line="693"/>
+        <location filename="fixtureeditor.cpp" line="670"/>
+        <location filename="fixtureeditor.cpp" line="707"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="657"/>
-        <location filename="fixtureeditor.cpp" line="695"/>
-        <location filename="fixtureeditor.cpp" line="920"/>
+        <location filename="fixtureeditor.cpp" line="671"/>
+        <location filename="fixtureeditor.cpp" line="709"/>
+        <location filename="fixtureeditor.cpp" line="934"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="668"/>
+        <location filename="fixtureeditor.cpp" line="682"/>
         <source>Channels</source>
         <translation>Canales</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="766"/>
-        <location filename="fixtureeditor.cpp" line="775"/>
+        <location filename="fixtureeditor.cpp" line="780"/>
+        <location filename="fixtureeditor.cpp" line="789"/>
         <source>Unable to add mode</source>
         <translation>Imposible añadir modo</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="767"/>
+        <location filename="fixtureeditor.cpp" line="781"/>
         <source>Another mode by that name already exists</source>
         <translation>Otro modo con ese nombre ya existe</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="776"/>
+        <location filename="fixtureeditor.cpp" line="790"/>
         <source>You must give a name to the mode</source>
         <translation>Necesita dar un nombre al modo</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="812"/>
+        <location filename="fixtureeditor.cpp" line="826"/>
         <source>Remove Mode</source>
         <translation>Eliminar modo</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="860"/>
+        <location filename="fixtureeditor.cpp" line="874"/>
         <source>Rename new mode</source>
         <translation>Renombrar el nuevo modo</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="861"/>
+        <location filename="fixtureeditor.cpp" line="875"/>
         <source>Give a unique name for the mode</source>
         <translation>Elija un nombre único para el modo</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="863"/>
+        <location filename="fixtureeditor.cpp" line="877"/>
         <source>Copy of %1</source>
         <translation>Copia de %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="873"/>
+        <location filename="fixtureeditor.cpp" line="887"/>
         <source>Invalid name</source>
         <translation>Nombre incorrecto</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="874"/>
+        <location filename="fixtureeditor.cpp" line="888"/>
         <source>Another mode by that name already exists.</source>
         <translation>Otro modo con ese nombre ya existe.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="917"/>
+        <location filename="fixtureeditor.cpp" line="931"/>
         <source>Clone</source>
         <translation>Clonar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="925"/>
+        <location filename="fixtureeditor.cpp" line="939"/>
         <source>Modes</source>
         <translation>Modos</translation>
     </message>

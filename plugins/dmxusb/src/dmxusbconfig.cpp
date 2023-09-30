@@ -72,6 +72,8 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
+    else
+        setGeometry(QRect(100, 100, 700, 350));
 
     slotRefresh();
 }
