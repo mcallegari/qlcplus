@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Yestalgia</Author>
+ </Creator>
+ <Manufacturer>PMJ</Manufacturer>
+ <Model>Cabaret</Model>
+ <Type>MIDI</Type>
+ <Channel Number="31">
+  <Name>Slider 32</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Slider 33</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Slider 34</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Slider 35</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Slider 36</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Slider 37</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Slider 38</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="38">
+  <Name>Slider 39</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Slider 40</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Slider 41</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Encoder 16</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="42">
+  <Name>Encoder 12</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="43">
+  <Name>Encoder 8</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="44">
+  <Name>Encoder 4</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="45">
+  <Name>Encoder 15</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="46">
+  <Name>Encoder 11</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="47">
+  <Name>Encoder 7</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="48">
+  <Name>Encoder 3</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="49">
+  <Name>Encoder 14</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="50">
+  <Name>Encoder 10</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="51">
+  <Name>Encoder 6</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="52">
+  <Name>Encoder 2</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="53">
+  <Name>Encoder 13</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="54">
+  <Name>Encoder 9</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="55">
+  <Name>Encoder 5</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="56">
+  <Name>Encoder 1</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="129">
+  <Name>Button 130</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>Button 131</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>Button 132</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>Button 133</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>Button 134</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>Button 135</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>Button 136</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>Button 137</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>Button 138</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>Button 139</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Button 140</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Button 141</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Button 142</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Button 143</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Button 144</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Button 145</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Button 146</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Button 147</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>Button 148</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>Button 149</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Button 150</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Button 151</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Button 152</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Button 153</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Button 154</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Button 155</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Button 156</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Button 157</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>Button 158</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>Button 159</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
