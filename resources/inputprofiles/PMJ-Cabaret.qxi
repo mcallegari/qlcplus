@@ -10,43 +10,43 @@
  <Model>Cabaret</Model>
  <Type>MIDI</Type>
  <Channel Number="31">
-  <Name>Slider 32</Name>
+  <Name>Slider 1</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="32">
-  <Name>Slider 33</Name>
+  <Name>Slider 2</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="33">
-  <Name>Slider 34</Name>
+  <Name>Slider 3</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="34">
-  <Name>Slider 35</Name>
+  <Name>Slider 4</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="35">
-  <Name>Slider 36</Name>
+  <Name>Slider 5</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="36">
-  <Name>Slider 37</Name>
+  <Name>Slider 6</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="37">
-  <Name>Slider 38</Name>
+  <Name>Slider 7</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="38">
-  <Name>Slider 39</Name>
+  <Name>Slider 8</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="39">
-  <Name>Slider 40</Name>
+  <Name>Slider 9</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="40">
-  <Name>Slider 41</Name>
+  <Name>Slider 10</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="41">
