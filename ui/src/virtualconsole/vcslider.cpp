@@ -531,6 +531,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Submaster)
     {
         m_monitorEnabled = false;
+        setPlaybackFunction(Function::invalidId());
 
         if (m_slider)
         {

@@ -1,6 +1,7 @@
 qlcplus (4.12.8) stable; urgency=low
 
   * engine: fix Chaser random startup (thanks to Dennis Suermann)
+  * Virtual Console/Slider: fix switching from playback to submaster mode
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
