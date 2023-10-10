@@ -50,4 +50,4 @@ coverage/
 .vscode/
 
 # CMake build
-build/
+build*

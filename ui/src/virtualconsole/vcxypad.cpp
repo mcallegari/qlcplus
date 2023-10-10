@@ -39,16 +39,12 @@
 #include <QList>
 
 #include "qlcmacros.h"
-#include "qlcfile.h"
 
 #include "vcpropertieseditor.h"
 #include "vcxypadproperties.h"
-#include "qlcinputchannel.h"
-#include "virtualconsole.h"
 #include "ctkrangeslider.h"
 #include "mastertimer.h"
 #include "vcxypadarea.h"
-#include "inputpatch.h"
 #include "flowlayout.h"
 #include "vcxypad.h"
 #include "fixture.h"
@@ -833,7 +829,7 @@ void VCXYPad::slotPresetClicked(bool checked)
             SceneChannel sChan;
             sChan.m_universe = fixture->universe();
             sChan.m_fixture = fixture->id();
-            sChan.m_channel = fixture->address() + scv.channel;
+            sChan.m_channel = scv.channel;
             sChan.m_group = ch->group();
             sChan.m_subType = ch->controlByte();
             m_sceneChannels.append(sChan);

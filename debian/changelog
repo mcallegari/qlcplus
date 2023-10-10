@@ -1,9 +1,12 @@
 qlcplus (4.12.8) stable; urgency=low
 
   * engine: fix Chaser random startup (thanks to Dennis Suermann)
+  * Virtual Console/Slider: fix switching from playback to submaster mode
+  * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
+  * Fixture Editor: fix aliases not updated when renaming a mode
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
   * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
   * New fixture: Varytec Hero Spot 60 (thanks to Hans-Jürgen Tappe)
@@ -12,7 +15,7 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: Eurolite LED TMH-X4 (thanks to Tolmino Muccitelli)
   * New fixtures: Cameo Q-Spot 40 RGBW, Varytec LED PAR 14x8W, Varytec LED Typhoon PAR Outdoor (12x10) (thanks to Jochen Becker)
   * New fixtures: Audibax Iowa 70, Pro-Lights CromoWash100 (thanks to Cristian)
-  * New fixture: Showtec Spectral M1000 Q4 (thanks to Michel Sliepenbeek)
+  * New fixtures: Showtec Spectral M1000 Q4, Showtec Kanjo Wash RGB (thanks to Michel Sliepenbeek)
   * New fixtures: Laserworld CS-1000RGB Mk3, Chauvet Gobozap (thanks to Federico)
   * New fixture: Eurolite LED Bar 2 RGBA 252/10 40° Indoor (thanks to Edgar Aichinger)
   * New fixture: Rockville Battery Strip 24 (thanks to Ryan Lindsey)
