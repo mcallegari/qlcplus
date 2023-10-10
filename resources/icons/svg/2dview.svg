@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="table-cells" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
 	 y="0px" viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#d6d6d6;}
+	.st0{opacity:0.56;fill:#FFFFFF;}
 </style>
 <path class="st0" d="M48,34.7c-14.7,0-26.7,12-26.7,26.7v133.3c0,14.7,12,26.7,26.7,26.7h160c14.7,0,26.7-12,26.7-26.7V61.3
-	c0-14.7-12-26.7-26.7-26.7H48z M84.7,61.3V88H48V61.3H84.7z M108,61.3h36.7V88H108V61.3z M208,61.3V88h-36.7V61.3H208z M48,114.7
-	h36.7v26.7H48V114.7z M144.7,114.7v26.7H108v-26.7H144.7z M171.3,114.7H208v26.7h-36.7V114.7z M84.7,168v26.7H48V168H84.7z M108,168
-	h36.7v26.7H108V168z M208,168v26.7h-36.7V168H208z"/>
+	c0-14.7-12-26.7-26.7-26.7H48V34.7z M84.7,61.3V88H48V61.3H84.7z M108,61.3h36.7V88H108V61.3z M208,61.3V88h-36.7V61.3H208z
+	 M48,114.7h36.7v26.7H48V114.7z M144.7,114.7v26.7H108v-26.7H144.7z M171.3,114.7H208v26.7h-36.7V114.7z M84.7,168v26.7H48V168H84.7
+	z M108,168h36.7v26.7H108V168z M208,168v26.7h-36.7V168H208z"/>
 </svg>
