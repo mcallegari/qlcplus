@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1"
-	 id="svg3404" xmlns:cc="http://creativecommons.org/ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" sodipodi:docname="fixture.svg"
+	 id="svg3404" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:cc="http://creativecommons.org/ns#"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
 	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#224458;}
-	.st1{fill:#FFD42A;}
+	.st0{opacity:0.56;}
+	.st1{fill:#FFFFFF;}
+	.st2{opacity:0.56;fill:#FFFFFF;}
+	.st3{fill:#FFD42A;}
 </style>
 <sodipodi:namedview  bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" id="namedview3406" inkscape:current-layer="svg3404" inkscape:cx="16.474576" inkscape:cy="15.322034" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="690" inkscape:window-maximized="1" inkscape:window-width="1366" inkscape:window-x="-2" inkscape:window-y="-3" inkscape:zoom="14.921512" objecttolerance="10" pagecolor="#ffffff" showgrid="false">
 	</sodipodi:namedview>
 <g>
-	<g>
-		<path class="st0" d="M54.5,25.8L50,26.5c-4.5,0.7-7.5,4.9-6.8,9.4l18,114.9c0.7,4.5,4.9,7.5,9.4,6.8l4.5-0.7
+	<g class="st0">
+		<path class="st1" d="M54.5,25.8L50,26.5c-4.5,0.7-7.5,4.9-6.8,9.4l18,114.9c0.7,4.5,4.9,7.5,9.4,6.8l4.5-0.7
 			c4.5-0.7,7.5-4.9,6.8-9.4l-18-114.9C63.1,28.1,58.9,25.1,54.5,25.8z"/>
-		<path class="st0" d="M125.5,14.7l-4.5,0.7c-4.5,0.7-7.5,4.9-6.8,9.4l18,114.9c0.7,4.5,4.9,7.5,9.4,6.8l4.5-0.7
+		<path class="st1" d="M125.5,14.7l-4.5,0.7c-4.5,0.7-7.5,4.9-6.8,9.4l18,114.9c0.7,4.5,4.9,7.5,9.4,6.8l4.5-0.7
 			c4.5-0.7,7.5-4.9,6.8-9.4l-18-114.9C134.2,17,130,14,125.5,14.7z"/>
-		<path class="st0" d="M128.1,30.8L52.5,42.7c-4.5,0.7-8.7-2.4-9.4-6.8l0,0c-0.7-4.5,2.4-8.7,6.8-9.4l75.5-11.8
+		<path class="st1" d="M128.1,30.8L52.5,42.7c-4.5,0.7-8.7-2.4-9.4-6.8l0,0c-0.7-4.5,2.4-8.7,6.8-9.4l75.5-11.8
 			c4.5-0.7,8.7,2.4,9.4,6.8l0,0C135.6,25.9,132.5,30.1,128.1,30.8z"/>
 	</g>
-	<path class="st0" d="M199.6,114.3l-102-35.2c-28.9-10-60.3,5.3-70.3,34.2s5.3,60.3,34.2,70.3l102,35.2c7.4,2.6,15.5-1.4,18-8.8
+	<path class="st2" d="M199.6,114.3l-102-35.2c-28.9-10-60.3,5.3-70.3,34.2s5.3,60.3,34.2,70.3l102,35.2c7.4,2.6,15.5-1.4,18-8.8
 		l26.8-77.7C210.9,124.9,206.9,116.9,199.6,114.3z"/>
 	
-		<ellipse transform="matrix(0.3266 -0.9451 0.9451 0.3266 -33.1022 290.8402)" class="st0" cx="187.6" cy="168.7" rx="64.3" ry="36.7"/>
+		<ellipse transform="matrix(0.3266 -0.9452 0.9452 0.3266 -33.0577 290.8741)" class="st2" cx="187.6" cy="168.6" rx="64.3" ry="36.7"/>
 	
-		<ellipse transform="matrix(0.3266 -0.9451 0.9451 0.3266 -33.6283 285.8274)" class="st1" cx="183.8" cy="166.5" rx="51" ry="29.1"/>
+		<ellipse transform="matrix(0.3266 -0.9452 0.9452 0.3266 -33.6252 285.7976)" class="st3" cx="183.8" cy="166.5" rx="51" ry="29.1"/>
 </g>
 </svg>
