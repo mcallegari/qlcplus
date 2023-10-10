@@ -38,13 +38,13 @@ Rectangle
         ListElement { name: qsTr("Slider"); type: "Slider"; icon: "slider" }
         ListElement { name: qsTr("Slider Matrix"); type: "slidermatrix"; icon: "sliders" }
         ListElement { name: qsTr("Knob"); type: "Knob"; icon: "knob" }
-        ListElement { name: qsTr("Cue List"); type: "Cue list"; icon: "cuelist" }
         ListElement { name: qsTr("Speed Dial"); type: "Speed dial"; icon: "speed" }
+        ListElement { name: qsTr("Clock"); type: "Clock"; icon: "clock" }
         ListElement { name: qsTr("XY Pad"); type: "XYPad"; icon: "xypad" }
         ListElement { name: qsTr("Animation"); type: "Animation"; icon: "animation" }
-        ListElement { name: qsTr("Label"); type: "Label"; icon: "label" }
         ListElement { name: qsTr("Audio Triggers"); type: "Audio Triggers"; icon: "audiotriggers" }
-        ListElement { name: qsTr("Clock"); type: "Clock"; icon: "clock" }
+        ListElement { name: qsTr("Cue List"); type: "Cue list"; icon: "cuelist" }
+        ListElement { name: qsTr("Label"); type: "Label"; icon: "label" }
     }
 
     ListView
