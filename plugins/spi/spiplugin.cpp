@@ -87,7 +87,7 @@ bool SPIPlugin::openOutput(quint32 output, quint32 universe)
 
     QSettings settings;
     int speed = 1000000;
-    QVariant value = settings.value("SPIPlugin/frequency");
+    QVariant value = settings.value(SETTINGS_OUTPUT_FREQUENCY);
     if (value.isValid() == true)
         speed = value.toUInt();
 
@@ -225,7 +225,7 @@ void SPIPlugin::configure()
     if (conf.exec() == QDialog::Accepted)
     {
         QSettings settings;
-        settings.setValue("SPIPlugin/frequency", QVariant(conf.frequency()));
+        settings.setValue(SETTINGS_OUTPUT_FREQUENCY, QVariant(conf.frequency()));
         if (m_outThread != NULL)
             m_outThread->setSpeed(conf.frequency());
     }

@@ -55,6 +55,11 @@ ConfigureOSC::ConfigureOSC(OSCPlugin* plugin, QWidget* parent)
             this, SLOT(slotOSCPathChanged(QString)));
 
     fillMappingTree();
+
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_waitReadySpin->setValue(value.toInt());
 }
 
 ConfigureOSC::~ConfigureOSC()
@@ -223,6 +228,13 @@ void ConfigureOSC::accept()
             }
         }
     }
+
+    QSettings settings;
+    int waitTime = m_waitReadySpin->value();
+    if (waitTime == 0)
+        settings.remove(SETTINGS_IFACE_WAIT_TIME);
+    else
+        settings.setValue(SETTINGS_IFACE_WAIT_TIME, waitTime);
 
     QDialog::accept();
 }

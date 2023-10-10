@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Bjorn Roesbeke</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>LCB244</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Chase and Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">Colour effect 1</Capability>
+  <Capability Min="23" Max="37">Colour effect 2</Capability>
+  <Capability Min="38" Max="52">Colour effect 3</Capability>
+  <Capability Min="53" Max="67">Colour effect 4</Capability>
+  <Capability Min="68" Max="82">Colour effect 5</Capability>
+  <Capability Min="83" Max="97">Colour effect 6</Capability>
+  <Capability Min="98" Max="112">Colour effect 7</Capability>
+  <Capability Min="113" Max="127">Colour effect 8</Capability>
+  <Capability Min="128" Max="142">Colour effect 9</Capability>
+  <Capability Min="143" Max="157">Colour effect 10</Capability>
+  <Capability Min="158" Max="172">Colour effect 11</Capability>
+  <Capability Min="173" Max="187">Colour effect 12</Capability>
+  <Capability Min="188" Max="202">Colour effect 13</Capability>
+  <Capability Min="203" Max="217">Colour effect 14</Capability>
+  <Capability Min="218" Max="232">Colour effect 15</Capability>
+  <Capability Min="233" Max="247">Colour effect 16</Capability>
+  <Capability Min="248" Max="255">Sound effect 1-16</Capability>
+ </Channel>
+ <Channel Name="Chase speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Auto program">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">Disabled</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="All dimming" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 1" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 2" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 3" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 4" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 5" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 6" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 7" Preset="IntensityDimmer"/>
+ <Channel Name="All dimming 8" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 1" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 2" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 3" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 4" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 5" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 6" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 7" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 8" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="Auto program 1">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Auto program 2">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Auto program 3">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Auto program 4">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Auto program 5">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Auto program 6">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Auto program 7">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Auto program 8">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Speed</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Chase and Sound</Channel>
+  <Channel Number="5">Chase speed</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Dimming</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Auto program</Channel>
+  <Channel Number="7">Chase and Sound</Channel>
+  <Channel Number="8">Chase speed</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">All dimming 1</Channel>
+  <Channel Number="1">Strobe 1</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Auto program 1</Channel>
+  <Channel Number="7">All dimming 2</Channel>
+  <Channel Number="8">Strobe 2</Channel>
+  <Channel Number="9">Red 2</Channel>
+  <Channel Number="10">Green 2</Channel>
+  <Channel Number="11">Blue 2</Channel>
+  <Channel Number="12">White 2</Channel>
+  <Channel Number="13">Auto program 2</Channel>
+  <Channel Number="14">Chase and Sound</Channel>
+  <Channel Number="15">Chase speed</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="30 Channel">
+  <Channel Number="0">All dimming 1</Channel>
+  <Channel Number="1">Strobe 1</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Auto program 1</Channel>
+  <Channel Number="7">All dimming 2</Channel>
+  <Channel Number="8">Strobe 2</Channel>
+  <Channel Number="9">Red 2</Channel>
+  <Channel Number="10">Green 2</Channel>
+  <Channel Number="11">Blue 2</Channel>
+  <Channel Number="12">White 2</Channel>
+  <Channel Number="13">Auto program 2</Channel>
+  <Channel Number="14">All dimming 3</Channel>
+  <Channel Number="15">Strobe 3</Channel>
+  <Channel Number="16">Red 3</Channel>
+  <Channel Number="17">Green 3</Channel>
+  <Channel Number="18">Blue 3</Channel>
+  <Channel Number="19">White 3</Channel>
+  <Channel Number="20">Auto program 3</Channel>
+  <Channel Number="21">All dimming 4</Channel>
+  <Channel Number="22">Strobe 4</Channel>
+  <Channel Number="23">Red 4</Channel>
+  <Channel Number="24">Green 4</Channel>
+  <Channel Number="25">Blue 4</Channel>
+  <Channel Number="26">White 4</Channel>
+  <Channel Number="27">Auto program 4</Channel>
+  <Channel Number="28">Chase and Sound</Channel>
+  <Channel Number="29">Chase speed</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="58 Channel">
+  <Channel Number="0">All dimming 1</Channel>
+  <Channel Number="1">Strobe 1</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Auto program 1</Channel>
+  <Channel Number="7">All dimming 2</Channel>
+  <Channel Number="8">Strobe 2</Channel>
+  <Channel Number="9">Red 2</Channel>
+  <Channel Number="10">Green 2</Channel>
+  <Channel Number="11">Blue 2</Channel>
+  <Channel Number="12">White 2</Channel>
+  <Channel Number="13">Auto program 2</Channel>
+  <Channel Number="14">All dimming 3</Channel>
+  <Channel Number="15">Strobe 3</Channel>
+  <Channel Number="16">Red 3</Channel>
+  <Channel Number="17">Green 3</Channel>
+  <Channel Number="18">Blue 3</Channel>
+  <Channel Number="19">White 3</Channel>
+  <Channel Number="20">Auto program 3</Channel>
+  <Channel Number="21">All dimming 4</Channel>
+  <Channel Number="22">Strobe 4</Channel>
+  <Channel Number="23">Red 4</Channel>
+  <Channel Number="24">Green 4</Channel>
+  <Channel Number="25">Blue 4</Channel>
+  <Channel Number="26">White 4</Channel>
+  <Channel Number="27">Auto program 4</Channel>
+  <Channel Number="28">All dimming 5</Channel>
+  <Channel Number="29">Strobe 5</Channel>
+  <Channel Number="30">Red 5</Channel>
+  <Channel Number="31">Green 5</Channel>
+  <Channel Number="32">Blue 5</Channel>
+  <Channel Number="33">White 5</Channel>
+  <Channel Number="34">Auto program 5</Channel>
+  <Channel Number="35">All dimming 6</Channel>
+  <Channel Number="36">Strobe 6</Channel>
+  <Channel Number="37">Red 6</Channel>
+  <Channel Number="38">Green 6</Channel>
+  <Channel Number="39">Blue 6</Channel>
+  <Channel Number="40">White 6</Channel>
+  <Channel Number="41">Auto program 6</Channel>
+  <Channel Number="42">All dimming 7</Channel>
+  <Channel Number="43">Strobe 7</Channel>
+  <Channel Number="44">Red 7</Channel>
+  <Channel Number="45">Green 7</Channel>
+  <Channel Number="46">Blue 7</Channel>
+  <Channel Number="47">White 7</Channel>
+  <Channel Number="48">Auto program 7</Channel>
+  <Channel Number="49">All dimming 8</Channel>
+  <Channel Number="50">Strobe 8</Channel>
+  <Channel Number="51">Red 8</Channel>
+  <Channel Number="52">Green 8</Channel>
+  <Channel Number="53">Blue 8</Channel>
+  <Channel Number="54">White 8</Channel>
+  <Channel Number="55">Auto program 8</Channel>
+  <Channel Number="56">Chase and Sound</Channel>
+  <Channel Number="57">Chase speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>1</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>40</Channel>
+   <Channel>39</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+  </Head>
+  <Head>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="430" ColourTemperature="0"/>
+  <Dimensions Weight="2.6" Width="67" Height="67" Depth="1020"/>
+  <Lens Name="PC" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="24" Height="1"/>
+  <Technical PowerConsumption="160" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

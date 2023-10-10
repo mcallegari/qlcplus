@@ -4,12 +4,12 @@
 <context>
     <name>UDMX</name>
     <message>
-        <location filename="udmx.cpp" line="101"/>
+        <location filename="udmx.cpp" line="100"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
         <translation>Aquest plugin proveeix suport de sortida DMX per dispositius Anyma uDMX.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="195"/>
+        <location filename="udmx.cpp" line="199"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vol reescanejar el seu maquinari?</translation>
     </message>
@@ -17,49 +17,49 @@
 <context>
     <name>UDMXDevice</name>
     <message>
-        <location filename="udmxdevice.cpp" line="130"/>
+        <location filename="udmxdevice.cpp" line="122"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="151"/>
-        <source>DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <location filename="udmxdevice.cpp" line="142"/>
+        <source>Device name</source>
+        <translation>Nom del dispositiu</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="153"/>
+        <location filename="udmxdevice.cpp" line="144"/>
+        <source>DMX Channels</source>
+        <translation>Canals DMX</translation>
+    </message>
+    <message>
+        <location filename="udmxdevice.cpp" line="146"/>
         <source>DMX Frame Frequency</source>
         <translation>Freqüència DMX</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="156"/>
+        <location filename="udmxdevice.cpp" line="149"/>
         <source>Bad</source>
         <translation>Dolent</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="158"/>
+        <location filename="udmxdevice.cpp" line="151"/>
         <source>Good</source>
         <translation>Bo</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="160"/>
+        <location filename="udmxdevice.cpp" line="153"/>
         <source>Patch this device to a universe to find out.</source>
         <translation>Assigni aquest dispositiu a un univers per trobarlo.</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="161"/>
+        <location filename="udmxdevice.cpp" line="154"/>
         <source>System Timer Accuracy</source>
         <translation>Precisió del rellotge del sistema</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="166"/>
-        <source>Unknown device</source>
-        <translation>Dispositiu desconegut</translation>
-    </message>
-    <message>
-        <location filename="udmxdevice.cpp" line="168"/>
-        <source>Cannot connect to USB device.</source>
-        <translation>No es pot connectar al dispositiu USB.</translation>
+        <location filename="udmxdevice.cpp" line="159"/>
+        <source>Device not in use</source>
+        <translation>El dispositiu no està en ús</translation>
     </message>
 </context>
 </TS>

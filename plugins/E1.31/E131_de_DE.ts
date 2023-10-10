@@ -49,42 +49,47 @@
         <translation>Priorität</translation>
     </message>
     <message>
+        <location filename="configuree131.ui" line="101"/>
+        <source>Seconds to wait for an interface to be ready</source>
+        <translation>Sekunden um auf die Bereitschaft des Interfaces zu warten</translation>
+    </message>
+    <message>
         <location filename="configuree131.ui" line="61"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="86"/>
+        <location filename="configuree131.cpp" line="92"/>
         <source>Inputs</source>
         <translation>Eingänge</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="92"/>
+        <location filename="configuree131.cpp" line="98"/>
         <source>Outputs</source>
         <translation>Ausgänge</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="176"/>
+        <location filename="configuree131.cpp" line="182"/>
         <source>Full</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="177"/>
+        <location filename="configuree131.cpp" line="183"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="185"/>
+        <location filename="configuree131.cpp" line="191"/>
         <source>%1 - min, %2 - default, %3 - max</source>
         <translation>%1 - min, %2 - standard, %3 - max</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="216"/>
+        <location filename="configuree131.cpp" line="238"/>
         <source>Invalid IP</source>
         <translation>Ungültige IP</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="216"/>
+        <location filename="configuree131.cpp" line="238"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 ist keine gültige IP.
@@ -94,39 +99,39 @@ Bitte vor Bestätigung korrigieren.</translation>
 <context>
     <name>E131Plugin</name>
     <message>
-        <location filename="e131plugin.cpp" line="93"/>
+        <location filename="e131plugin.cpp" line="97"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Dieses Plugin bietet DMX Ausgabe für Geräte mit dem E1.31 Kommunikationsprotokoll.</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="140"/>
+        <location filename="e131plugin.cpp" line="144"/>
         <source>Output</source>
         <translation>Ausgabe</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="144"/>
-        <location filename="e131plugin.cpp" line="284"/>
+        <location filename="e131plugin.cpp" line="148"/>
+        <location filename="e131plugin.cpp" line="287"/>
         <source>Status: Not open</source>
         <translation>Status: Nicht geöffnet</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="147"/>
-        <location filename="e131plugin.cpp" line="287"/>
+        <location filename="e131plugin.cpp" line="151"/>
+        <location filename="e131plugin.cpp" line="290"/>
         <source>Status: Open</source>
         <translation>Status: Geöffnet</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="149"/>
+        <location filename="e131plugin.cpp" line="153"/>
         <source>Packets sent: </source>
         <translation>Gesendete Pakete: </translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="280"/>
+        <location filename="e131plugin.cpp" line="283"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="289"/>
+        <location filename="e131plugin.cpp" line="292"/>
         <source>Packets received: </source>
         <translation>Empfangene Pakete: </translation>
     </message>

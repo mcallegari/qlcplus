@@ -1,9 +1,34 @@
 qlcplus (4.12.8) stable; urgency=low
 
   * engine: fix Chaser random startup (thanks to Dennis Suermann)
+  * Virtual Console/Slider: fix switching from playback to submaster mode
+  * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
+  * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
+  * Fixture Editor: fix aliases not updated when renaming a mode
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
+  * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
+  * New fixture: Varytec Hero Spot 60 (thanks to Hans-Jürgen Tappe)
+  * New fixture: beamZ BAC503 (thanks to archlinette)
+  * New fixtures: Cameo Flat Pro 7, 12 and 18 (thanks to Janosch Frank)
+  * New fixture: Eurolite LED TMH-X4 (thanks to Tolmino Muccitelli)
+  * New fixtures: Cameo Q-Spot 40 RGBW, Varytec LED PAR 14x8W, Varytec LED Typhoon PAR Outdoor (12x10) (thanks to Jochen Becker)
+  * New fixtures: Audibax Iowa 70, Pro-Lights CromoWash100 (thanks to Cristian)
+  * New fixtures: Showtec Spectral M1000 Q4, Showtec Kanjo Wash RGB (thanks to Michel Sliepenbeek)
+  * New fixtures: Laserworld CS-1000RGB Mk3, Chauvet Gobozap (thanks to Federico)
+  * New fixture: Eurolite LED Bar 2 RGBA 252/10 40° Indoor (thanks to Edgar Aichinger)
+  * New fixture: Rockville Battery Strip 24 (thanks to Ryan Lindsey)
+  * New fixture: beamZ LCB244 (thanks to Bjorn Roesbeke)
+  * New fixture: Involight NL410 (thanks to Vorona)
+  * New fixture: Flash-Butrym LED PAR 64 7x10W RGBW (thanks to Paolo Betti)
+  * New fixture: Eurolite LED KLS-180 (thanks to Claudio Filieri)
+  * New fixture: Shehds LED Flat Par 7x18W RGBWA+UV (thanks to Tiago)
+  * New fixtures: Martin Atomic 3000 LED, Ayrton NandoBeam S3 (thanks to Yestalgia)
+  * New fixture: lightmaXX Vega Arc Pro II MkII (thanks to João Gonçalves)
+  * New fixture: Shehds LED Flat Par 18x18W RGBWA+UV (thanks to Santiago Benejam)
+  * New fixture: Eurolite TMH-15 (thanks to Nicolas Rasor)
+  * New fixtures: Shehds JMS WEBB LED Wash Big Bee Eye 19X40W, LED 230W Beam Moving Head (thanks to István Király,  Feiyu Shehds)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 
