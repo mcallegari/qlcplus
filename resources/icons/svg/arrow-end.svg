@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1"
-	 id="svg2" xmlns:svg="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" inkscape:version="0.91 r"
+	 id="svg2" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
 	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFD42A;}
-	.st1{fill:none;stroke:#224458;stroke-width:29.7317;stroke-linecap:round;stroke-miterlimit:10;}
+	.st0{opacity:0.56;fill:#FFFFFF;}
+	.st1{opacity:0.56;}
+	.st2{fill:#FFFFFF;}
 </style>
 <sodipodi:namedview  bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" id="namedview6" inkscape:current-layer="svg2" inkscape:cx="20" inkscape:cy="24" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="702" inkscape:window-maximized="1" inkscape:window-width="1366" inkscape:window-x="-4" inkscape:window-y="-4" inkscape:zoom="11" objecttolerance="10" pagecolor="#ffffff" showgrid="false">
 	</sodipodi:namedview>
 <path class="st0" d="M117.3,140.1h43l-15.5,15.5c-4.6,4.6-4.6,12.3,0,16.9c4.6,4.6,12.3,4.6,16.9,0l36-36c4.6-4.6,4.6-12.3,0-16.9
-	l-36-36c-4.6-4.6-12.3-4.6-16.9,0c-4.6,4.6-4.6,12.3,0,16.9l15.5,15.4h-43h-36h-48c-6.6,0-12,5.3-12,12s5.3,12,12,12h48L117.3,140.1
-	L117.3,140.1z"/>
-<line class="st1" x1="219.5" y1="215.7" x2="219.5" y2="40.3"/>
+	l-36-36c-4.6-4.6-12.3-4.6-16.9,0c-4.6,4.6-4.6,12.3,0,16.9l15.5,15.4h-43h-36h-48c-6.6,0-12,5.3-12,12c0,6.7,5.3,12,12,12h48
+	L117.3,140.1L117.3,140.1z"/>
+<g class="st1">
+	<path class="st2" d="M219.5,230.6c-8.2,0-14.9-6.7-14.9-14.9V40.3c0-8.2,6.7-14.9,14.9-14.9s14.9,6.7,14.9,14.9v175.4
+		C234.4,223.9,227.7,230.6,219.5,230.6z"/>
+</g>
 </svg>
