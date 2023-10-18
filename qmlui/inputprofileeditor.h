@@ -20,6 +20,7 @@
 #ifndef INPUTPROFILEEDITOR_H
 #define INPUTPROFILEEDITOR_H
 
+#include <QVariant>
 #include <QObject>
 #include <QMap>
 

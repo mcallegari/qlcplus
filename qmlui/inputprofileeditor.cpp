@@ -140,6 +140,8 @@ QVariant InputProfileEditor::channels()
 
 void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
 {
+    Q_UNUSED(universe)
+
     //qDebug() << "Got input value" << universe << channel << value << key;
     QLCInputChannel *ich = m_profile->channel(channel);
     if (ich == nullptr)
