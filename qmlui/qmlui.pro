@@ -42,6 +42,7 @@ HEADERS += \
     functionmanager.h \
     importmanager.h \
     inputoutputmanager.h \
+    inputprofileeditor.h \
     listmodel.h \
     mainview2d.h \
     mainview3d.h \
@@ -76,6 +77,7 @@ SOURCES += main.cpp \
     functionmanager.cpp \
     importmanager.cpp \
     inputoutputmanager.cpp \
+    inputprofileeditor.cpp \
     listmodel.cpp \
     mainview2d.cpp \
     mainview3d.cpp \

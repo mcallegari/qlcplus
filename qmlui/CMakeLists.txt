@@ -40,6 +40,7 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     functionmanager.cpp functionmanager.h
     importmanager.cpp importmanager.h
     inputoutputmanager.cpp inputoutputmanager.h
+    inputprofileeditor.cpp inputprofileeditor.h
     listmodel.cpp listmodel.h
     main.cpp
     mainview2d.cpp mainview2d.h
