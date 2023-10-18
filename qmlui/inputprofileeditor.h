@@ -29,7 +29,6 @@ class QLCInputProfile;
 class InputProfileEditor : public QObject
 {
     Q_OBJECT
-    Q_DISABLE_COPY(InputProfileEditor)
 
     Q_PROPERTY(bool modified READ modified WRITE setModified NOTIFY modifiedChanged FINAL)
     Q_PROPERTY(QString manufacturer READ manufacturer WRITE setManufacturer NOTIFY manufacturerChanged FINAL)
