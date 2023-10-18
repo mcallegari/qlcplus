@@ -42,6 +42,10 @@ class Doc;
 #define KXMLQLCVCPropertiesSizeWidth    QString("Width")
 #define KXMLQLCVCPropertiesSizeHeight   QString("Height")
 
+#define KXMLQLCVCPropertiesFlashProperties           QString("FlashProperties")
+#define KXMLQLCVCPropertiesFlashOverrides            QString("FlashOverride")
+#define KXMLQLCVCPropertiesFlashForceLTP             QString("FlashForceLTP")
+
 #define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
 #define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
 #define KXMLQLCVCPropertiesGrandMasterChannelMode   QString("ChannelMode")
@@ -77,6 +81,26 @@ public:
 
 private:
     QSize m_size;
+
+    /*********************************************************************
+     * Flashing
+     *********************************************************************/
+public:
+    /** Set flash override property */
+    void setFlashOverride(bool flashOverride);
+
+    /** Get flash should override values like sliders and running chasers */
+    bool flashOverrides() const;
+
+    /** Set flash force LTP property */
+    void setFlashForceLTP(bool forceLTP);
+
+    /** Get flash should force scene channels as LTP channels and ignore higher values */
+    bool flashForceLTP() const;
+
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
 
     /*************************************************************************
      * Grand Master

@@ -59,6 +59,9 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     m_sizeXSpin->setValue(properties.size().width());
     m_sizeYSpin->setValue(properties.size().height());
 
+    m_flashOverrideBox->setChecked(properties.flashOverrides());
+    m_forceLTPBox->setChecked(properties.flashForceLTP());
+
     /* Widgets page */
     QSettings settings;
     // ********************* BUTTON ****************************
@@ -322,6 +325,17 @@ void VCPropertiesEditor::slotSpeedDialConfirmed()
         m_speedValueEdit->setText(Function::speedToString(m_speedValueEdit->text().toUInt()));
     }
 }
+
+void VCPropertiesEditor::slotFlashOverrideToggled(bool value)
+{
+    m_properties.setFlashOverride(value);
+}
+
+void VCPropertiesEditor::slotForceLTPToggled(bool value)
+{
+    m_properties.setFlashForceLTP(value);
+}
+
 
 /*****************************************************************************
  * Grand Master page

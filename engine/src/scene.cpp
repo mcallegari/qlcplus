@@ -674,6 +674,10 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 if (fader.isNull())
                 {
                     fader = ua[universe]->requestFader();
+
+                    if (doc()->flashOverrides())
+                        fader->setPriority(Universe::Flashing);
+
                     fader->adjustIntensity(getAttributeValue(Intensity));
                     fader->setBlendMode(blendMode());
                     fader->setName(name());
@@ -681,6 +685,8 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                     m_fadersMap[universe] = fader;
                 }
 
+                if (doc()->flashForceLTP())
+                    fc.addFlag(FadeChannel::ForceLTP);
                 fc.setTarget(sv.value);
                 fc.addFlag(FadeChannel::Flashing);
                 fader->add(fc);

@@ -84,6 +84,8 @@ private:
 private slots:
     void slotSizeXChanged(int value);
     void slotSizeYChanged(int value);
+    void slotFlashOverrideToggled(bool value);
+    void slotForceLTPToggled(bool value);
 
     /*************************************************************************
      * Widgets page
