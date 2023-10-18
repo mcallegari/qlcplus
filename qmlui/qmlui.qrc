@@ -210,6 +210,7 @@
     <file alias="AudioDeviceItem.qml">qml/inputoutput/AudioDeviceItem.qml</file>
     <file alias="PluginsList.qml">qml/inputoutput/PluginsList.qml</file>
     <file alias="ProfilesList.qml">qml/inputoutput/ProfilesList.qml</file>
+    <file alias="InputProfileEditor.qml">qml/inputoutput/InputProfileEditor.qml</file>
     <file alias="PluginDragItem.qml">qml/inputoutput/PluginDragItem.qml</file>
     <file alias="OutputPatchItem.qml">qml/inputoutput/OutputPatchItem.qml</file>
     <file alias="InputPatchItem.qml">qml/inputoutput/InputPatchItem.qml</file>
