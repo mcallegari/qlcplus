@@ -113,6 +113,8 @@ public:
     /** Get icon for a type */
     static QIcon stringToIcon(const QString& str);
 
+    Q_INVOKABLE static QString iconResource(QLCInputChannel::Type type, bool svg = false);
+
     QIcon icon() const;
 
 protected:

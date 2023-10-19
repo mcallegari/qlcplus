@@ -22,15 +22,9 @@
 #include <QDebug>
 
 #include "inputoutputmanager.h"
+#include "inputprofileeditor.h"
 #include "monitorproperties.h"
 #include "audioplugincache.h"
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
- #include "audiorenderer_qt5.h"
- #include "audiocapture_qt5.h"
-#else
-#include "audiorenderer_qt6.h"
-#include "audiocapture_qt6.h"
-#endif
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
@@ -42,6 +36,8 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     : PreviewContext(view, doc, "IOMGR", parent)
     , m_selectedUniverseIndex(-1)
     , m_blackout(false)
+    , m_profileEditor(nullptr)
+    , m_editProfile(nullptr)
     , m_beatType("INTERNAL")
 {
     Q_ASSERT(m_doc != nullptr);
@@ -298,7 +294,7 @@ QVariant InputOutputManager::audioInputSources() const
     inputSources.append(defAudioMap);
 
     int i = 0;
-    for (AudioDeviceInfo info : devList)
+    for (AudioDeviceInfo &info : devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
         {
@@ -331,7 +327,7 @@ QVariant InputOutputManager::audioOutputSources() const
     outputSources.append(defAudioMap);
 
     int i = 0;
-    for (AudioDeviceInfo info : devList)
+    for (AudioDeviceInfo &info : devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
@@ -459,37 +455,6 @@ QVariant InputOutputManager::universeOutputSources(int universe)
     return QVariant::fromValue(outputSources);
 }
 
-QVariant InputOutputManager::universeInputProfiles(int universe)
-{
-    QVariantList profilesList;
-    QString currentProfile = KInputNone;
-    QStringList profileNames = m_ioMap->profileNames();
-    profileNames.sort();
-
-    if (m_ioMap->inputPatch(universe) != nullptr)
-        currentProfile = m_ioMap->inputPatch(universe)->profileName();
-
-    foreach(QString name, profileNames)
-    {
-        QLCInputProfile *ip = m_ioMap->profile(name);
-        if (ip != nullptr)
-        {
-            QString type = ip->typeToString(ip->type());
-            if (name != currentProfile)
-            {
-                QVariantMap profileMap;
-                profileMap.insert("universe", universe);
-                profileMap.insert("name", name);
-                profileMap.insert("line", name);
-                profileMap.insert("plugin", type);
-                profilesList.append(profileMap);
-            }
-        }
-    }
-
-    return QVariant::fromValue(profilesList);
-}
-
 void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
 {
     m_ioMap->setOutputPatch(universe, plugin, "", line.toUInt(), false, index);
@@ -589,6 +554,91 @@ bool InputOutputManager::outputCanConfigure() const
 int InputOutputManager::outputPatchesCount(int universe) const
 {
     return m_ioMap->outputPatchesCount(universe);
+}
+
+/*********************************************************************
+ * Input Profiles
+ *********************************************************************/
+
+QVariant InputOutputManager::universeInputProfiles(int universe)
+{
+    QVariantList profilesList;
+    QStringList profileNames = m_ioMap->profileNames();
+    profileNames.sort();
+    QDir pSysPath = m_ioMap->systemProfileDirectory();
+
+    foreach (QString name, profileNames)
+    {
+        QLCInputProfile *ip = m_ioMap->profile(name);
+        if (ip != nullptr)
+        {
+            QString type = ip->typeToString(ip->type());
+            QVariantMap profileMap;
+            profileMap.insert("universe", universe);
+            profileMap.insert("name", name);
+            profileMap.insert("line", name);
+            profileMap.insert("plugin", type);
+            if (ip->path().startsWith(pSysPath.absolutePath()))
+                profileMap.insert("isUser", false);
+            else
+                profileMap.insert("isUser", true);
+            profilesList.append(profileMap);
+        }
+    }
+
+    return QVariant::fromValue(profilesList);
+}
+
+void InputOutputManager::createInputProfile()
+{
+    if (m_editProfile != nullptr)
+        delete m_editProfile;
+
+    m_editProfile = new QLCInputProfile();
+
+    if (m_profileEditor == nullptr)
+    {
+        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
+    }
+}
+
+bool InputOutputManager::editInputProfile(QString name)
+{
+    QLCInputProfile *ip = m_ioMap->profile(name);
+    if (ip == nullptr)
+        return false;
+
+    // create a copy first
+    if (m_editProfile != nullptr)
+        delete m_editProfile;
+
+    m_editProfile = ip->createCopy();
+
+    if (m_profileEditor == nullptr)
+    {
+        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
+    }
+
+    qDebug() << "Edit profile" << ip->path();
+
+    return true;
+}
+
+void InputOutputManager::finishInputProfile()
+{
+    if (m_editProfile != nullptr)
+    {
+        delete m_editProfile;
+        m_editProfile = nullptr;
+    }
+
+    if (m_profileEditor != nullptr)
+    {
+        delete m_profileEditor;
+        m_profileEditor = nullptr;
+    }
 }
 
 /*********************************************************************

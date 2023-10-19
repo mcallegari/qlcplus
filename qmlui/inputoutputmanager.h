@@ -29,6 +29,8 @@
 class Doc;
 class Universe;
 class InputOutputMap;
+class QLCInputProfile;
+class InputProfileEditor;
 
 class InputOutputManager : public PreviewContext
 {
@@ -58,7 +60,7 @@ protected slots:
     void slotDocLoaded();
 
 private:
-    InputOutputMap* m_ioMap;
+    InputOutputMap *m_ioMap;
 
     /*********************************************************************
      * Universes
@@ -119,7 +121,6 @@ signals:
 public:
     Q_INVOKABLE QVariant universeInputSources(int universe);
     Q_INVOKABLE QVariant universeOutputSources(int universe);
-    Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
     Q_INVOKABLE int outputPatchesCount(int universe) const;
     Q_INVOKABLE void setOutputPatch(int universe, QString plugin, QString line, int index);
@@ -141,6 +142,19 @@ signals:
 private:
     void clearInputList();
     void clearOutputList();
+
+    /*********************************************************************
+     * Input Profiles
+     *********************************************************************/
+public:
+    Q_INVOKABLE QVariant universeInputProfiles(int universe);
+    Q_INVOKABLE void createInputProfile();
+    Q_INVOKABLE bool editInputProfile(QString name);
+    Q_INVOKABLE void finishInputProfile();
+
+private:
+    InputProfileEditor *m_profileEditor;
+    QLCInputProfile *m_editProfile;
 
     /*********************************************************************
      * Beats
