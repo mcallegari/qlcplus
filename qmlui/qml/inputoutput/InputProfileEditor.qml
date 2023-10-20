@@ -29,6 +29,49 @@ ColumnLayout
 {
     id: peContainer
 
+    property bool isEditing: false
+
+    function showWarning()
+    {
+        messagePopup.message = qsTr("You are trying to edit a bundled input profile.<br>" +
+                                    "If you modify and save it, a new file will be stored in<br><i>" +
+                                    ioManager.profileUserFolder + "</i><br>and will override the bundled file.")
+        messagePopup.standardButtons = Dialog.Ok
+        messagePopup.open()
+    }
+
+    function showSaveFirst()
+    {
+        messagePopup.message = qsTr("Do you wish to save the current profile first?\nChanges will be lost if you don't save them.")
+        messagePopup.standardButtons = Dialog.Yes | Dialog.No | Dialog.Cancel
+        messagePopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: messagePopup
+        standardButtons: Dialog.Ok
+        title: qsTr("!! Warning !!")
+
+        onClicked:
+        {
+            if (role === Dialog.Yes)
+            {
+                // todo save
+            }
+            else if (role === Dialog.No)
+            {
+                ioManager.finishInputProfile()
+                isEditing = false
+                close()
+            }
+            else if (role === Dialog.Ok || role === Dialog.Cancel)
+            {
+                close()
+            }
+        }
+    }
+
     Rectangle
     {
         implicitWidth: peContainer.width

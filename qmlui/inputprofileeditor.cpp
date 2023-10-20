@@ -60,7 +60,7 @@ QString InputProfileEditor::manufacturer() const
 
 void InputProfileEditor::setManufacturer(const QString &newManufacturer)
 {
-    if (m_profile == nullptr)
+    if (m_profile == nullptr || m_profile->manufacturer() == newManufacturer)
         return;
 
     m_profile->setManufacturer(newManufacturer);
@@ -75,7 +75,7 @@ QString InputProfileEditor::model() const
 
 void InputProfileEditor::setModel(const QString &newModel)
 {
-    if (m_profile == nullptr)
+    if (m_profile == nullptr || m_profile->model() == newModel)
         return;
 
     m_profile->setModel(newModel);
@@ -90,7 +90,7 @@ int InputProfileEditor::type()
 
 void InputProfileEditor::setType(const int &newType)
 {
-    if (m_profile == nullptr)
+    if (m_profile == nullptr || m_profile->type() == newType)
         return;
 
     m_profile->setType(QLCInputProfile::Type(newType));
