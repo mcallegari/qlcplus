@@ -91,7 +91,11 @@ Rectangle
                     onToggled:
                     {
                         if (profEditor.isEditing)
+                        {
+                            if (!checked)
+                                profEditor.showWizard()
                             profileEditor.toggleDetection()
+                        }
                     }
                 }
 

@@ -33,6 +33,7 @@ ColumnLayout
 
     function showWarning()
     {
+        messagePopup.title = qsTr("!! Warning !!")
         messagePopup.message = qsTr("You are trying to edit a bundled input profile.<br>" +
                                     "If you modify and save it, a new file will be stored in<br><i>" +
                                     ioManager.profileUserFolder + "</i><br>and will override the bundled file.")
@@ -40,8 +41,23 @@ ColumnLayout
         messagePopup.open()
     }
 
+    function showWizard()
+    {
+        messagePopup.title = qsTr("Channel wizard activated")
+        messagePopup.message = qsTr("You have enabled the input channel wizard. After " +
+                                    "clicking OK, wiggle your mapped input profile's " +
+                                    "controls. They should appear into the list. " +
+                                    "Click the wizard button again to stop channel " +
+                                    "auto-detection.<br><br>Note that the wizard cannot " +
+                                    "tell the difference between a knob and a slider " +
+                                    "so you will have to do the change manually.")
+        messagePopup.standardButtons = Dialog.Ok
+        messagePopup.open()
+    }
+
     function showSaveFirst()
     {
+        messagePopup.title = qsTr("Unsaved changes")
         messagePopup.message = qsTr("Do you wish to save the current profile first?\nChanges will be lost if you don't save them.")
         messagePopup.standardButtons = Dialog.Yes | Dialog.No | Dialog.Cancel
         messagePopup.open()
@@ -57,7 +73,7 @@ ColumnLayout
         {
             if (role === Dialog.Yes)
             {
-                // todo save
+                ioManager.saveInputProfile()
             }
             else if (role === Dialog.No)
             {
@@ -87,6 +103,7 @@ ColumnLayout
 
             RobotoText
             {
+                implicitHeight: UISettings.listItemHeight
                 label: qsTr("Manufacturer")
             }
             CustomTextEdit
@@ -97,6 +114,7 @@ ColumnLayout
             }
             RobotoText
             {
+                implicitHeight: UISettings.listItemHeight
                 label: qsTr("Model")
             }
             CustomTextEdit
@@ -107,6 +125,7 @@ ColumnLayout
             }
             RobotoText
             {
+                implicitHeight: UISettings.listItemHeight
                 label: qsTr("Type")
             }
             CustomComboBox
@@ -127,6 +146,35 @@ ColumnLayout
                 currentIndex: peContainer.visible ? profileEditor.type : 0
                 onValueChanged: profileEditor.type = currentValue
             }
+
+            GroupBox
+            {
+                title: qsTr("MIDI Global Settings")
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+                visible: profileEditor.type === 0
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                palette.windowText: UISettings.fgMain
+
+                RowLayout
+                {
+                    width: parent.width
+
+                    CustomCheckBox
+                    {
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        onToggled: { }
+                    }
+                    RobotoText
+                    {
+                        Layout.fillWidth: true
+                        wrapText: true
+                        label: qsTr("When MIDI notes are used, send a Note Off when value is 0")
+                    }
+                }
+            } // GroupBox
         } // GridLayout
     } // Rectangle
 
@@ -136,6 +184,7 @@ ColumnLayout
         implicitWidth: peContainer.width
         Layout.fillHeight: true
         boundsBehavior: Flickable.StopAtBounds
+        clip: true
         z: 1
 
         model: peContainer.visible ? profileEditor.channels : null
@@ -143,6 +192,8 @@ ColumnLayout
         ScrollBar.vertical: CustomScrollBar { }
 
         property int selectedIndex: -1
+        property int selectedChannel: -1
+        property string selectedType: ""
 
         header:
             RowLayout
@@ -225,8 +276,121 @@ ColumnLayout
                     onClicked:
                     {
                         channelList.selectedIndex = index
+                        channelList.selectedChannel = modelData.chNumber
+                        channelList.selectedType = modelData.chType
                     }
                 }
             }
-    }
+    } // ListView
+
+    GroupBox
+    {
+        title: qsTr("Behaviour")
+        Layout.fillWidth: true
+        visible: channelList.selectedIndex >= 0 && channelList.selectedType == "Button"
+        font.family: UISettings.robotoFontName
+        font.pixelSize: UISettings.textSizeDefault
+        palette.windowText: UISettings.fgMain
+
+        RowLayout
+        {
+            width: parent.width
+
+            CustomCheckBox
+            {
+                implicitHeight: UISettings.listItemHeight
+                implicitWidth: implicitHeight
+                onToggled: { }
+            }
+            RobotoText
+            {
+                Layout.fillWidth: true
+                wrapText: true
+                label: qsTr("Generate an extra Press/Release when toggled")
+            }
+        }
+    } // GroupBox
+
+    GroupBox
+    {
+        title: qsTr("Behaviour")
+        Layout.fillWidth: true
+        visible: channelList.selectedIndex >= 0 && channelList.selectedType == "Slider"
+        font.family: UISettings.robotoFontName
+        font.pixelSize: UISettings.textSizeDefault
+        palette.windowText: UISettings.fgMain
+
+        RowLayout
+        {
+            width: parent.width
+
+            RobotoText
+            {
+                implicitHeight: UISettings.listItemHeight
+                label: qsTr("Movement")
+            }
+            CustomComboBox
+            {
+                ListModel
+                {
+                    id: moveTypeModel
+                    ListElement { mLabel: "Absolute"; mValue: 0 }
+                    ListElement { mLabel: "Relative"; mValue: 1 }
+                }
+
+                implicitHeight: UISettings.listItemHeight
+                model: moveTypeModel
+            }
+            RobotoText
+            {
+                implicitHeight: UISettings.listItemHeight
+                label: qsTr("Sensitivity")
+            }
+            CustomSpinBox
+            {
+                implicitHeight: UISettings.listItemHeight
+                from: 10
+                to: 100
+            }
+        }
+    } // GroupBox
+
+    GroupBox
+    {
+        title: qsTr("Custom Feedback")
+        Layout.fillWidth: true
+        visible: channelList.selectedIndex >= 0 && channelList.selectedType == "Button"
+        font.family: UISettings.robotoFontName
+        font.pixelSize: UISettings.textSizeDefault
+        palette.windowText: UISettings.fgMain
+
+        RowLayout
+        {
+            width: parent.width
+
+            RobotoText
+            {
+                implicitHeight: UISettings.listItemHeight
+                label: qsTr("Lower value")
+            }
+            CustomSpinBox
+            {
+                implicitHeight: UISettings.listItemHeight
+                from: 0
+                to: 255
+            }
+            RobotoText
+            {
+                implicitHeight: UISettings.listItemHeight
+                label: qsTr("Upper value")
+            }
+            CustomSpinBox
+            {
+                implicitHeight: UISettings.listItemHeight
+                from: 0
+                to: 255
+            }
+        }
+    } // GroupBox
+
 } // ColumnLayout
