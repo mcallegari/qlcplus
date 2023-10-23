@@ -20,7 +20,7 @@
 import QtQuick 2.14
 import QtQuick.Layouts 1.14
 import QtQuick.Controls 2.14
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 import "."

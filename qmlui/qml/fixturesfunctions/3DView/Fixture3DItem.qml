@@ -18,11 +18,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.7 as QQ2
+import QtQuick
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Extras
 
 import org.qlcplus.classes 1.0
 import "Math3DView.js" as Math3D
@@ -228,14 +228,14 @@ Entity
 
     ShutterAnimator { id: sAnimator }
 
-    QQ2.NumberAnimation on panRotation
+    NumberAnimation on panRotation
     {
         id: panAnim
         running: false
         easing.type: Easing.Linear
     }
 
-    QQ2.NumberAnimation on tiltRotation
+    NumberAnimation on tiltRotation
     {
         id: tiltAnim
         running: false
@@ -287,7 +287,7 @@ Entity
         }
     }
 
-    QQ2.NumberAnimation on goboRotation
+    NumberAnimation on goboRotation
     {
         id: goboAnim
         running: false
@@ -295,7 +295,7 @@ Entity
         easing.type: Easing.Linear
         from: 0
         to: 360
-        loops: QQ2.Animation.Infinite
+        loops: Animation.Infinite
     }
 
     /* Cone meshes used for scattering. These get re-parented to
@@ -323,8 +323,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged:
-        {
+        onStatusChanged: function (status) {
             if (status === SceneLoader.Ready)
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
         }
@@ -366,5 +365,3 @@ Entity
 
     components: [ eSceneLoader, transform, eObjectPicker ]
 }
-
-

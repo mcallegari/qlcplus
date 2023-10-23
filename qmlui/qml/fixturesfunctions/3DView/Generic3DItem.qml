@@ -41,8 +41,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged:
-        {
+        onStatusChanged: function (status) {
             if (status === SceneLoader.Ready)
                 View3D.initializeItem(itemID, genericEntity, eSceneLoader)
         }

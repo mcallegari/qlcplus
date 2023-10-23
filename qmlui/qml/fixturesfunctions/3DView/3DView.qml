@@ -17,13 +17,13 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
+import QtQuick
 
-import QtQuick.Scene3D 2.0
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Input 2.0
-import Qt3D.Extras 2.0
+import QtQuick.Scene3D
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Input
+import Qt3D.Extras
 
 Rectangle
 {
@@ -340,7 +340,7 @@ Rectangle
 
                 projectionType: CameraLens.PerspectiveProjection
                 fieldOfView: 45
-                aspectRatio: viewSize.width / viewSize.height
+                aspectRatio: lens.aspectRatio
                 nearPlane: 1.0
                 farPlane: 1000.0
                 position: Qt.vector3d(0.0, 3.0, 7.5)
@@ -370,16 +370,14 @@ Rectangle
                 property int selGenericCount: View3D.genericSelectedCount
 
                 sourceDevice: mDevice
-                onPressed:
-                {
+                onPressed: function (mouse) {
                     directionCounter = 0
                     dx = 0
                     dy = 0
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onPositionChanged:
-                {
+                onPositionChanged: function (mouse) {
                     if (directionCounter < 3)
                     {
                         dx += (Math.abs(mouse.x - startPoint.x))
@@ -466,8 +464,7 @@ Rectangle
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onWheel:
-                {
+                onWheel: function (wheel) {
                     if (wheel.angleDelta.y > 0)
                         viewCamera.setZoom(-1)
                     else

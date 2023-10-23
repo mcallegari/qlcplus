@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Extras
 
 GeometryRenderer
 {
@@ -70,14 +70,12 @@ GeometryRenderer
     Buffer
     {
         id: vertexBuffer
-        type: Buffer.VertexBuffer
         data: vertexBufferData()
     }
 
     Buffer
     {
         id: indexBuffer
-        type: Buffer.IndexBuffer
         data: indexBufferData()
     }
 
