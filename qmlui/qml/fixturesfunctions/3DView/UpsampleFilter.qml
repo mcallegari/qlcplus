@@ -17,10 +17,9 @@
   limitations under the License.
 */
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-
-import QtQuick 2.0
+import Qt3D.Core
+import Qt3D.Render
+import QtQuick
 
 TechniqueFilter
 {
@@ -34,7 +33,7 @@ TechniqueFilter
         Parameter { name: "tex"; value: inTex },
         Parameter { name: "pixelSize"; value: pixelSize },  
         Parameter { name: "intensity"; value: {return index.x * View3D.smokeAmount * 0.8 } }  
-    ] 
+    ]
 
     RenderStateSet
     {

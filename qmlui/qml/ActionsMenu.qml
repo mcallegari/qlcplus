@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import QtQuick.Layouts 1.0
 
 import "."
@@ -77,7 +77,7 @@ Popup
         id: importDialog
         visible: false
         title: qsTr("Import from project")
-        folder: "file://" + qlcplus.workingPath
+        currentFolder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -95,7 +95,7 @@ Popup
         id: saveDialog
         visible: false
         title: qsTr("Save project as...")
-        selectExisting: false
+        fileMode: FileDialog.SaveFile
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -117,8 +117,7 @@ Popup
 
         property string action: ""
 
-        onClicked:
-        {
+        onClicked: function (role) {
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())
