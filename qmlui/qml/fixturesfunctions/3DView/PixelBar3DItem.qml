@@ -81,8 +81,8 @@ Entity
             effect: sceneEffect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "gray" },
-                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "diffuse"; value: Qt.rgba(0.502, 0.502, 0.502, 1.0) },
+                Parameter { name: "specular"; value: Qt.rgba(0.0, 0.0, 0.0, 1.0) },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
@@ -144,7 +144,7 @@ Entity
                                 name: "diffuse"
                                 value: Qt.rgba(lightColor.r * lightIntensity, lightColor.g * lightIntensity, lightColor.b * lightIntensity, 1)
                             },
-                            Parameter { name: "specular"; value: "black" },
+                            Parameter { name: "specular"; value: Qt.rgba(0.0, 0.0, 0.0, 1.0) },
                             Parameter { name: "shininess"; value: 1.0 },
                             Parameter { name: "bloom"; value: 1 }
                         ]
