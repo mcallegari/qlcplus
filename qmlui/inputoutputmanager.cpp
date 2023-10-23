@@ -29,6 +29,7 @@
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "universe.h"
+#include "qlcfile.h"
 #include "tardis.h"
 #include "doc.h"
 
@@ -560,33 +561,9 @@ int InputOutputManager::outputPatchesCount(int universe) const
  * Input Profiles
  *********************************************************************/
 
-QVariant InputOutputManager::universeInputProfiles(int universe)
+QString InputOutputManager::profileUserFolder()
 {
-    QVariantList profilesList;
-    QStringList profileNames = m_ioMap->profileNames();
-    profileNames.sort();
-    QDir pSysPath = m_ioMap->systemProfileDirectory();
-
-    foreach (QString name, profileNames)
-    {
-        QLCInputProfile *ip = m_ioMap->profile(name);
-        if (ip != nullptr)
-        {
-            QString type = ip->typeToString(ip->type());
-            QVariantMap profileMap;
-            profileMap.insert("universe", universe);
-            profileMap.insert("name", name);
-            profileMap.insert("line", name);
-            profileMap.insert("plugin", type);
-            if (ip->path().startsWith(pSysPath.absolutePath()))
-                profileMap.insert("isUser", false);
-            else
-                profileMap.insert("isUser", true);
-            profilesList.append(profileMap);
-        }
-    }
-
-    return QVariant::fromValue(profilesList);
+    return m_ioMap->userProfileDirectory().absolutePath();
 }
 
 void InputOutputManager::createInputProfile()
@@ -626,6 +603,23 @@ bool InputOutputManager::editInputProfile(QString name)
     return true;
 }
 
+bool InputOutputManager::saveInputProfile()
+{
+    if (m_editProfile == nullptr)
+        return false;
+
+    QDir dir(InputOutputMap::userProfileDirectory());
+    QString absPath = QString("%1/%2-%3%4").arg(dir.absolutePath())
+                       .arg(m_editProfile->manufacturer())
+                       .arg(m_editProfile->model())
+                       .arg(KExtInputProfile);
+
+    m_editProfile->saveXML(absPath);
+    m_profileEditor->setModified(false);
+
+    return true;
+}
+
 void InputOutputManager::finishInputProfile()
 {
     if (m_editProfile != nullptr)
@@ -639,6 +633,35 @@ void InputOutputManager::finishInputProfile()
         delete m_profileEditor;
         m_profileEditor = nullptr;
     }
+}
+
+QVariant InputOutputManager::universeInputProfiles(int universe)
+{
+    QVariantList profilesList;
+    QStringList profileNames = m_ioMap->profileNames();
+    profileNames.sort();
+    QDir pSysPath = m_ioMap->systemProfileDirectory();
+
+    foreach (QString name, profileNames)
+    {
+        QLCInputProfile *ip = m_ioMap->profile(name);
+        if (ip != nullptr)
+        {
+            QString type = ip->typeToString(ip->type());
+            QVariantMap profileMap;
+            profileMap.insert("universe", universe);
+            profileMap.insert("name", name);
+            profileMap.insert("line", name);
+            profileMap.insert("plugin", type);
+            if (ip->path().startsWith(pSysPath.absolutePath()))
+                profileMap.insert("isUser", false);
+            else
+                profileMap.insert("isUser", true);
+            profilesList.append(profileMap);
+        }
+    }
+
+    return QVariant::fromValue(profilesList);
 }
 
 /*********************************************************************

@@ -4,6 +4,7 @@ singleton FontAwesome 1.0 ../FontAwesomeVariables.qml
 ContextMenuEntry 0.1 ../ContextMenuEntry.qml
 CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
+CustomPopupDialog 0.1 ../popup/CustomPopupDialog.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomScrollBar 0.1 ../CustomScrollBar.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
