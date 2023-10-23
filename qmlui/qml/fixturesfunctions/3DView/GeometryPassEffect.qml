@@ -22,15 +22,36 @@ import Qt3D.Render 2.0
 
 Effect
 {
-    function makeShader(s)
-    {
-        return View3D.makeShader(s)
-    }
-
     techniques: [
+//        Technique
+//        {
+//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+//            renderPasses: [
+//                RenderPass
+//                {
+//                    filterKeys: FilterKey { name: "pass"; value: "geometry" }
+//                    shaderProgram:
+//                        ShaderProgram
+//                        {
+//                            vertexShaderCode: loadSource("qrc:/geo.vert")
+//                            fragmentShaderCode: loadSource("qrc:/geo.frag")
+//                        }
+//                }, // render pass
+//                RenderPass
+//                {
+//                    filterKeys: FilterKey { name: "pass"; value: "shadows" }
+//                    shaderProgram:
+//                        ShaderProgram
+//                        {
+//                            vertexShaderCode: loadSource("qrc:/output_depth.vert")
+//                            fragmentShaderCode: loadSource("qrc:/output_depth.frag")
+//                        }
+//                } // render pass
+//            ]
+//        }
         Technique
         {
-            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
             renderPasses: [
                 RenderPass
                 {
@@ -38,8 +59,8 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode:  View3D.makeShader(loadSource("qrc:/geo.vert"))
-                            fragmentShaderCode:  View3D.makeShader(loadSource("qrc:/geo.frag"))
+                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/geo.vert"))
+                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/geo.frag"))
                         }
                 }, // render pass
                 RenderPass

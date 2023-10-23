@@ -24,21 +24,34 @@ Effect
 {
     techniques:
     [
-        Technique
-        {
-            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
-            renderPasses:
-            [
+//        Technique
+//        {
+//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+//            renderPasses:
+//            [
+//                // Gamma correction pass
+//                RenderPass
+//                {
+//                    filterKeys: FilterKey { name: "pass"; value: "gamma_correct" }
+//                    shaderProgram:
+//                        ShaderProgram
+//                        {
+//                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
+//                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/gamma_correct.frag"))
+//                        }
+//                }
+//            ]
+//        }
+        Technique {
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
+            renderPasses: [
                 // Gamma correction pass
-                RenderPass
-                {
+                RenderPass {
                     filterKeys: FilterKey { name: "pass"; value: "gamma_correct" }
-                    shaderProgram:
-                        ShaderProgram
-                        {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/gamma_correct.frag"))
-                        }
+                    shaderProgram: ShaderProgram {
+                        vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
+                        fragmentShaderCode: View3D.makeShader(loadSource("qrc:/gamma_correct.frag"))
+                    }
                 }
             ]
         }

@@ -24,21 +24,34 @@ Effect
 {
     techniques:
     [
-        Technique
-        {
-            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
-            renderPasses:
-            [
+//        Technique
+//        {
+//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+//            renderPasses:
+//            [
+//                // Downsample pass
+//                RenderPass
+//                {
+//                    filterKeys: FilterKey { name: "pass"; value: "downsample" }
+//                    shaderProgram:
+//                        ShaderProgram
+//                        {
+//                            vertexShaderCode: loadSource("qrc:/fullscreen.vert")
+//                            fragmentShaderCode: loadSource("qrc:/downsample.frag")
+//                        }
+//                }
+//            ]
+//        }
+        Technique {
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
+            renderPasses: [
                 // Downsample pass
-                RenderPass
-                {
+                RenderPass {
                     filterKeys: FilterKey { name: "pass"; value: "downsample" }
-                    shaderProgram:
-                        ShaderProgram
-                        {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/downsample.frag"))
-                        }
+                    shaderProgram: ShaderProgram {
+                        vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
+                        fragmentShaderCode: View3D.makeShader(loadSource("qrc:/downsample.frag"))
+                    }
                 }
             ]
         }

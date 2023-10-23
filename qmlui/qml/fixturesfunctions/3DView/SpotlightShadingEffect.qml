@@ -24,9 +24,26 @@ Effect
 {
     techniques:
     [
+//        Technique
+//        {
+//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+//            renderPasses:
+//            [
+//                RenderPass
+//                {
+//                    filterKeys: FilterKey { name: "pass"; value: "spotlight_shading" }
+//                    shaderProgram:
+//                        ShaderProgram
+//                        {
+//                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/spotlight.vert"))
+//                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/spotlight_shading.frag"))
+//                        }
+//                }
+//            ]
+//        }
         Technique
         {
-            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
             renderPasses:
             [
                 RenderPass

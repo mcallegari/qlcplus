@@ -24,21 +24,34 @@ Effect
 {
     techniques:
     [
-        Technique
-        {
-            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
-            renderPasses:
-            [
+//        Technique
+//        {
+//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+//            renderPasses:
+//            [
+//                // Lights pass
+//                RenderPass
+//                {
+//                    filterKeys: FilterKey { name: "pass"; value: "lights" }
+//                    shaderProgram:
+//                        ShaderProgram
+//                        {
+//                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
+//                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/directional.frag"))
+//                        }
+//                }
+//            ]
+//        }
+        Technique {
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
+            renderPasses: [
                 // Lights pass
-                RenderPass
-                {
+                RenderPass {
                     filterKeys: FilterKey { name: "pass"; value: "lights" }
-                    shaderProgram:
-                        ShaderProgram
-                        {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/directional.frag"))
-                        }
+                    shaderProgram: ShaderProgram {
+                        vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
+                        fragmentShaderCode: View3D.makeShader(loadSource("qrc:/directional.frag"))
+                    }
                 }
             ]
         }
