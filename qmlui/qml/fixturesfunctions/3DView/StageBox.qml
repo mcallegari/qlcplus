@@ -37,8 +37,8 @@ Entity
             effect: stage.effect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "lightgray" },
-                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "diffuse"; value: Qt.color("lightgray") },
+                Parameter { name: "specular"; value: Qt.color("black") },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
