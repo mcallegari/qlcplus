@@ -17,15 +17,14 @@
   limitations under the License.
 */
 
-VS_IN_ATTRIB vec3 vertexPosition;
+layout(location = 0) in vec3 vertexPosition;
+layout(location = 0) out vec3 fsPos;
 
-VS_OUT_ATTRIB vec3 fsPos;
-
-uniform mat4 viewProjectionMatrix;
-uniform mat4 customModelMatrix;
-
-uniform float coneTopRadius;
-uniform float coneBottomRadius;
+layout(std140, binding = auto) uniform myUniforms {
+    mat4 customModelMatrix;
+    float coneTopRadius;
+    float coneBottomRadius;
+};
 
 void main()
 {

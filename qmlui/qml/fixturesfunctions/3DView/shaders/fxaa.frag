@@ -20,8 +20,9 @@
 // MIT-licensed FXAA implementation taken from
 // https://github.com/mattdesl/glsl-fxaa
 // BEGINNING OF FXAA IMPLEMENTATION
+
 #ifndef FXAA_REDUCE_MIN
-    #define FXAA_REDUCE_MIN   (1.0/ 128.0)
+    #define FXAA_REDUCE_MIN   (1.0 / 128.0)
 #endif
 #ifndef FXAA_REDUCE_MUL
     #define FXAA_REDUCE_MUL   (1.0 / 8.0)
@@ -38,11 +39,11 @@ vec4 fxaa(sampler2D tex, vec2 fragCoord, vec2 resolution,
             vec2 v_rgbM) {
     vec4 color;
     mediump vec2 inverseVP = vec2(1.0 / resolution.x, 1.0 / resolution.y);
-    vec3 rgbNW = SAMPLE_TEX2D(tex, v_rgbNW).xyz;
-    vec3 rgbNE = SAMPLE_TEX2D(tex, v_rgbNE).xyz;
-    vec3 rgbSW = SAMPLE_TEX2D(tex, v_rgbSW).xyz;
-    vec3 rgbSE = SAMPLE_TEX2D(tex, v_rgbSE).xyz;
-    vec4 texColor = SAMPLE_TEX2D(tex, v_rgbM);
+    vec3 rgbNW = texture(tex, v_rgbNW).xyz;
+    vec3 rgbNE = texture(tex, v_rgbNE).xyz;
+    vec3 rgbSW = texture(tex, v_rgbSW).xyz;
+    vec3 rgbSE = texture(tex, v_rgbSE).xyz;
+    vec4 texColor = texture(tex, v_rgbM);
     vec3 rgbM  = texColor.xyz;
     vec3 luma = vec3(0.299, 0.587, 0.114);
     float lumaNW = dot(rgbNW, luma);
@@ -66,11 +67,11 @@ vec4 fxaa(sampler2D tex, vec2 fragCoord, vec2 resolution,
               dir * rcpDirMin)) * inverseVP;
     
     vec3 rgbA = 0.5 * (
-        SAMPLE_TEX2D(tex, fragCoord * inverseVP + dir * (1.0 / 3.0 - 0.5)).xyz +
-        SAMPLE_TEX2D(tex, fragCoord * inverseVP + dir * (2.0 / 3.0 - 0.5)).xyz);
+        texture(tex, fragCoord * inverseVP + dir * (1.0 / 3.0 - 0.5)).xyz +
+        texture(tex, fragCoord * inverseVP + dir * (2.0 / 3.0 - 0.5)).xyz);
     vec3 rgbB = rgbA * 0.5 + 0.25 * (
-        SAMPLE_TEX2D(tex, fragCoord * inverseVP + dir * -0.5).xyz +
-        SAMPLE_TEX2D(tex, fragCoord * inverseVP + dir * 0.5).xyz);
+        texture(tex, fragCoord * inverseVP + dir * -0.5).xyz +
+        texture(tex, fragCoord * inverseVP + dir * 0.5).xyz);
 
     float lumaB = dot(rgbB, luma);
     if ((lumaB < lumaMin) || (lumaB > lumaMax))
@@ -109,15 +110,13 @@ vec4 apply(sampler2D tex, vec2 fragCoord, vec2 resolution) {
 // END OF FXAA IMPLEMENTATION
 //
 
-FS_IN_ATTRIB vec2 fsUv;
-
-uniform sampler2D colorTex;
-
-DECLARE_FRAG_COLOR
+layout(location = 0) in vec2 fsUv;
+layout(location = 0) out vec4 fragColor;
+layout(binding = auto) uniform sampler2D colorTex;
 
 void main()
 {
     vec2 resolution = vec2(1024.0, 1024.0);
-	vec2 fragCoord = fsUv * resolution;
-    MGL_FRAG_COLOR = apply(colorTex, fragCoord, resolution);
+    vec2 fragCoord = fsUv * resolution;
+    fragColor = apply(colorTex, fragCoord, resolution);
 }

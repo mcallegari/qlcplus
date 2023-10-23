@@ -17,10 +17,8 @@
   limitations under the License.
 */
 
-VS_IN_ATTRIB vec4 vertexPosition;
-VS_OUT_ATTRIB vec2 fsUv;
-
-uniform mat4 modelMatrix;
+layout(location = 0) in vec4 vertexPosition;
+layout(location = 0) out vec2 fsUv;
 
 void main()
 {

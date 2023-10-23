@@ -17,13 +17,15 @@
   limitations under the License.
 */
 
-FS_IN_ATTRIB vec2 fsUv;
+layout(location = 0) in vec2 fsUv;
+layout(location = 0) out vec4 fragColor;
 
-uniform sampler2D tex;
-uniform vec4 pixelSize;
-uniform vec4 intensity;
+layout(std140, binding = auto) uniform myUniforms {
+    vec4 pixelSize;
+    vec4 intensity;
+};
 
-DECLARE_FRAG_COLOR
+layout(binding = auto) uniform sampler2D tex;
 
 void main()
 {
@@ -32,17 +34,17 @@ void main()
 
 	vec4 sum = vec4(0.0, 0.0, 0.0, 0.0);
 
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x,  0.0) );
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( 0.0,          halfpixel.y) );
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x,  0.0) );
-	sum += (2.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( 0.0,         -halfpixel.y) );
+        sum += (2.0 / 16.0) * texture(tex, uv + vec2(-halfpixel.x,  0.0) );
+        sum += (2.0 / 16.0) * texture(tex, uv + vec2( 0.0,          halfpixel.y) );
+        sum += (2.0 / 16.0) * texture(tex, uv + vec2( halfpixel.x,  0.0) );
+        sum += (2.0 / 16.0) * texture(tex, uv + vec2( 0.0,         -halfpixel.y) );
 
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x, -halfpixel.y) );
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2(-halfpixel.x,  halfpixel.y) );
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x, -halfpixel.y) );
-	sum += (1.0 / 16.0) * SAMPLE_TEX2D(tex, uv + vec2( halfpixel.x,  halfpixel.y) );
+        sum += (1.0 / 16.0) * texture(tex, uv + vec2(-halfpixel.x, -halfpixel.y) );
+        sum += (1.0 / 16.0) * texture(tex, uv + vec2(-halfpixel.x,  halfpixel.y) );
+        sum += (1.0 / 16.0) * texture(tex, uv + vec2( halfpixel.x, -halfpixel.y) );
+        sum += (1.0 / 16.0) * texture(tex, uv + vec2( halfpixel.x,  halfpixel.y) );
 
-	sum += (4.0 / 16.0) * SAMPLE_TEX2D(tex, uv);
+        sum += (4.0 / 16.0) * texture(tex, uv);
 
-	MGL_FRAG_COLOR = intensity.x * sum;
+        fragColor = intensity.x * sum;
 }

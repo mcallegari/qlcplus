@@ -17,15 +17,12 @@
   limitations under the License.
 */
 
-
-FS_IN_ATTRIB vec2 fsUv;
-
-uniform sampler2D colorTex;
-
-DECLARE_FRAG_COLOR
+layout(location = 0) in vec2 fsUv;
+layout(location = 0) out vec4 fragColor;
+layout(binding = auto) uniform sampler2D colorTex;
 
 void main()
 {
-    vec3 finalColor = 1.0 * SAMPLE_TEX2D(colorTex, fsUv).rgb;
-    MGL_FRAG_COLOR = vec4(finalColor, 1.0);
+    vec3 finalColor = 1.0 * texture(colorTex, fsUv).rgb;
+    fragColor = vec4(finalColor, 1.0);
 }

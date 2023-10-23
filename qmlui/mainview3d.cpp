@@ -382,34 +382,38 @@ void MainView3D::initialize3DProperties()
 
 QString MainView3D::makeShader(QString str) {
 
-   QString prefix = R"(#version 150
-#define GL3
+   QString prefix = R"(#version 450 core
 
-#ifdef GL3
-#define DECLARE_GBUFFER_OUTPUT out vec4 [3] gOutput;
-#define DECLARE_FRAG_COLOR out vec4 fragColor;
-#define VS_IN_ATTRIB in
-#define VS_OUT_ATTRIB out
-#define FS_IN_ATTRIB in
-#define MGL_FRAG_COLOR fragColor
-#define MGL_FRAG_DATA0 gOutput[0]
-#define MGL_FRAG_DATA1 gOutput[1]
-#define MGL_FRAG_DATA2 gOutput[2]
-#define SAMPLE_TEX3D texture
-#define SAMPLE_TEX2D texture
-#else
-#define DECLARE_GBUFFER_OUTPUT
-#define DECLARE_FRAG_COLOR
-#define VS_IN_ATTRIB attribute
-#define VS_OUT_ATTRIB varying
-#define FS_IN_ATTRIB varying
-#define MGL_FRAG_COLOR gl_FragColor
-#define MGL_FRAG_DATA0 gl_FragData[0]
-#define MGL_FRAG_DATA1 gl_FragData[1]
-#define MGL_FRAG_DATA2 gl_FragData[2]
-#define SAMPLE_TEX3D texture3D
-#define SAMPLE_TEX2D texture2D
-#endif
+layout(std140, binding = 0) uniform qt3d_render_view_uniforms {
+  mat4 viewMatrix;
+  mat4 projectionMatrix;
+  mat4 uncorrectedProjectionMatrix;
+  mat4 clipCorrectionMatrix;
+  mat4 viewProjectionMatrix;
+  mat4 inverseViewMatrix;
+  mat4 inverseProjectionMatrix;
+  mat4 inverseViewProjectionMatrix;
+  mat4 viewportMatrix;
+  mat4 inverseViewportMatrix;
+  vec4 textureTransformMatrix;
+  vec3 eyePosition;
+  float aspectRatio;
+  float gamma;
+  float exposure;
+  float time;
+  float yUpInNDC;
+  float yUpInFBO;
+};
+
+layout(std140, binding = 1) uniform qt3d_command_uniforms {
+  mat4 modelMatrix;
+  mat4 inverseModelMatrix;
+  mat4 modelViewMatrix;
+  mat3 modelNormalMatrix;
+  mat4 inverseModelViewMatrix;
+  mat4 modelViewProjection;
+  mat4 inverseModelViewProjectionMatrix;
+};
 
 )";
 

@@ -17,20 +17,19 @@
   limitations under the License.
 */
 
-
-FS_IN_ATTRIB vec3 fsNormal;
-FS_IN_ATTRIB vec3 fsPos;
-
-uniform vec4 diffuse;
-uniform vec4 specular;
-uniform float shininess;
-uniform int bloom;
-
-DECLARE_GBUFFER_OUTPUT
+layout(location = 0) in vec3 fsNormal;
+layout(location = 1) in vec3 fsPos;
+layout(location = 0) out vec4 [3] gOutput;
+layout(std140, binding = auto) uniform myUniforms {
+    vec4 diffuse;
+    vec4 specular;
+    float shininess;
+    int bloom;
+};
 
 void main()
 {
-    MGL_FRAG_DATA0 = vec4(diffuse.xyzw);
-    MGL_FRAG_DATA1 = vec4(fsNormal.xyz,  float(bloom) * 3.0);
-    MGL_FRAG_DATA2 = vec4(specular.xyz, shininess);  
+    gOutput[0] = vec4(diffuse.xyzw);
+    gOutput[1] = vec4(fsNormal.xyz,  float(bloom) * 3.0);
+    gOutput[2] = vec4(specular.xyz, shininess);
 }

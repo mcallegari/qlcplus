@@ -17,11 +17,10 @@
   limitations under the License.
 */
 
-FS_IN_ATTRIB vec3 fsPos;
-
-DECLARE_FRAG_COLOR
+layout(location = 0) in vec3 fsPos;
+layout(location = 0) out vec4 fragColor;
 
 void main()
 {
-    MGL_FRAG_COLOR = vec4(fsPos.xyz, 0.0);
+    fragColor = vec4(fsPos.xyz, 0.0);
 }

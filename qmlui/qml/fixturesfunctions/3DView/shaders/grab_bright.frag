@@ -17,23 +17,22 @@
   limitations under the License.
 */
 
-FS_IN_ATTRIB vec2 fsUv;
+layout(location = 0) in vec2 fsUv;
+layout(location = 0) out vec4 fragColor;
 
-
-uniform sampler2D albedoTex;
-uniform sampler2D normalTex;
-DECLARE_FRAG_COLOR
+layout(binding = 2) uniform sampler2D albedoTex;
+layout(binding = 3) uniform sampler2D normalTex;
 
 void main()
 {
-    vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
-    float v = SAMPLE_TEX2D(normalTex, fsUv).w;
+    vec4 albedo = texture(albedoTex, fsUv).xyzw;
+    float v = texture(normalTex, fsUv).w;
     if (v > 2.0)
     {
-        MGL_FRAG_COLOR = vec4(albedo.rgb, 1.0);
+        fragColor = vec4(albedo.rgb, 1.0);
     }
     else
     {
-        MGL_FRAG_COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+        fragColor = vec4(0.0, 0.0, 0.0, 0.0);
     }
 }

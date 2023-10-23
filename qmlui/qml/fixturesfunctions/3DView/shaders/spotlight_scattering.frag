@@ -17,44 +17,31 @@
   limitations under the License.
 */
 
+layout(location = 0) in vec3 fsPos;
+layout(location = 0) out vec4 fragColor;
 
-FS_IN_ATTRIB vec3 fsPos;
+layout(std140, binding = auto) uniform myUniforms {
+    vec3 lightDir;
+    vec3 lightPos;
+    float lightIntensity;
+    int raymarchSteps;
+    float uLightTanCutoffAngle;
+    vec3 lightColor;
+    int useShadows;
+    vec4 goboRotation;
+    float coneTopRadius;
+    float coneBottomRadius;
+    float coneDistCutoff;
+    float smokeAmount;
+    mat4 lightViewProjectionScaleAndOffsetMatrix;
+    mat4 lightViewMatrix;
+    float headLength;
+};
 
-DECLARE_FRAG_COLOR
-
-uniform vec3 eyePosition;
-
-uniform vec3 lightDir;
-uniform vec3 lightPos;
-uniform float lightIntensity;
-
-uniform int raymarchSteps;
-
-uniform float uLightTanCutoffAngle;
-uniform vec3 lightColor;
-uniform int useShadows;
-
-uniform vec4 goboRotation;
-
-uniform float coneTopRadius;
-uniform float coneBottomRadius;
-uniform float coneDistCutoff;
-
-uniform float smokeAmount;
-
-uniform sampler2D depthTex;
-uniform mat4 viewProjectionMatrix;
-uniform mat4 inverseViewProjectionMatrix;
-
-uniform sampler2D goboTex;
-uniform sampler2D shadowTex;
-uniform mat4 lightViewProjectionScaleAndOffsetMatrix;
-
-uniform mat4 lightViewMatrix;
-
-uniform float headLength;
-
-uniform sampler2D frontDepthTex;
+layout(binding = auto) uniform sampler2D depthTex;
+layout(binding = auto) uniform sampler2D goboTex;
+layout(binding = auto) uniform sampler2D shadowTex;
+layout(binding = auto) uniform sampler2D frontDepthTex;
 
 float hash(float n)
 {
@@ -73,7 +60,7 @@ void main()
     vec4 u =  viewProjectionMatrix * vec4(fsPos, 1.0);
     vec2 uv = (u.xy / u.w) * 0.5 + vec2(0.5);
 
-    float z = SAMPLE_TEX2D(depthTex, uv).r;
+    float z = texture(depthTex, uv).r;
 
     vec4 temp = inverseViewProjectionMatrix * vec4(u.x / u.w, u.y / u.w, -1.0 + 2.0 * z, 1.0);
 
@@ -81,7 +68,7 @@ void main()
     vec3 position = temp.xyz;
     vec3 intersectBackgroundP = position;
 
-    begP = SAMPLE_TEX2D(frontDepthTex, uv).xyz;
+    begP = texture(frontDepthTex, uv).xyz;
     if (length(begP)  < 0.0001)
     {
         begP = eyePosition;  // camera is inside spotlight.
@@ -90,7 +77,7 @@ void main()
     {
         if(distance(intersectBackgroundP, eyePosition) < distance(begP, eyePosition))
         {
-            MGL_FRAG_COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+            fragColor = vec4(0.0, 0.0, 0.0, 0.0);
             return;
         }
     }
@@ -122,7 +109,7 @@ void main()
         {
             vec4 q = (lightViewProjectionScaleAndOffsetMatrix * vec4(p, 1.0));
             float curZ = q.z / q.w;
-            float refZ = SAMPLE_TEX2D(shadowTex, (q.xy / q.w)).r;
+            float refZ = texture(shadowTex, (q.xy / q.w)).r;
             shadowMask = (curZ < refZ ? 1.0 : 0.0);
         }
         
@@ -135,7 +122,7 @@ void main()
         float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(myq.z) - 0.5 * headLength) / coneDistCutoff);
         vec2 tc = mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w) * (((-myq.xy) * (1.0 / r))) * 0.5 + 0.5;
 
-        vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
+        vec4 gSample = texture(goboTex, tc.xy);
         
         float goboMask = gSample.a * gSample.r;
 
@@ -148,6 +135,6 @@ void main()
 
         p += rd * stepLength;
     }
-    MGL_FRAG_COLOR = vec4(accum * lightIntensity * smokeAmount * lightColor, 0.0);
-    //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 0.0);
+    fragColor = vec4(accum * lightIntensity * smokeAmount * lightColor, 0.0);
+    //fragColor = vec4(1.0, 0.0, 0.0, 0.0);
 }

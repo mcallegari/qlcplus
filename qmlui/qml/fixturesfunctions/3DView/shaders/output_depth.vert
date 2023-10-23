@@ -17,11 +17,11 @@
   limitations under the License.
 */
 
-VS_IN_ATTRIB vec3 vertexPosition;
-
-uniform mat4 lightProjectionMatrix;
-uniform mat4 lightViewMatrix;
-uniform mat4 modelMatrix;
+layout(location = 0) in vec3 vertexPosition;
+layout(std140, binding = auto) uniform myUniforms {
+    mat4 lightProjectionMatrix;
+    mat4 lightViewMatrix;
+};
 
 void main()
 {

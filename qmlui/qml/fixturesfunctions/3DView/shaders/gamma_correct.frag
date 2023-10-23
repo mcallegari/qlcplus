@@ -17,18 +17,17 @@
   limitations under the License.
 */
 
-FS_IN_ATTRIB vec2 fsUv;
+layout(location = 0) in vec2 fsUv;
+layout(location = 0) out vec4 fragColor;
 
-DECLARE_FRAG_COLOR
-
-uniform sampler2D hdrTex;
-uniform sampler2D bloomTex;
+layout(binding = auto) uniform sampler2D hdrTex;
+layout(binding = auto) uniform sampler2D bloomTex;
 
 void main()
 {
-    vec3 hdrColor = SAMPLE_TEX2D(hdrTex, fsUv).rgb;
-    hdrColor += 0.5 * SAMPLE_TEX2D(bloomTex, fsUv).rgb;
+    vec3 hdrColor = texture(hdrTex, fsUv).rgb;
+    hdrColor += 0.5 * texture(bloomTex, fsUv).rgb;
     vec3 finalColor = vec3(1.0) - exp(-hdrColor * 1.0);
 
-    MGL_FRAG_COLOR = vec4(pow(finalColor, vec3(1.0 / 2.2)), 1.0);
+    fragColor = vec4(pow(finalColor, vec3(1.0 / 2.2)), 1.0);
 }

@@ -17,27 +17,24 @@
   limitations under the License.
 */
 
-FS_IN_ATTRIB vec2 fsUv;
+layout(location = 0) in vec2 fsUv;
+layout(location = 0) out vec4 fragColor;
 
-uniform sampler2D albedoTex;
-uniform sampler2D normalTex;
-uniform sampler2D specularTex;
-uniform sampler2D depthTex;
+layout(std140, binding = auto) uniform myUniforms {
+    float ambient;
+};
 
-uniform mat4 inverseViewProjectionMatrix;
-
-uniform float ambient;
-
-uniform vec3 eyePosition;
-
-DECLARE_FRAG_COLOR
+layout(binding = auto) uniform sampler2D albedoTex;
+layout(binding = auto) uniform sampler2D normalTex;
+layout(binding = auto) uniform sampler2D specularTex;
+layout(binding = auto) uniform sampler2D depthTex;
 
 void main()
 {
     
     vec3 position;
     {
-        float z = SAMPLE_TEX2D(depthTex, fsUv).r;
+        float z = texture(depthTex, fsUv).r;
 
         vec2 u =  2.0 * fsUv - vec2(1.0);
         vec4 temp = inverseViewProjectionMatrix * vec4(u.x, u.y, -1.0 + 2.0 * z, 1.0);
@@ -45,15 +42,15 @@ void main()
         position = temp.xyz;
     }
     
-    vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
-    vec4 s = SAMPLE_TEX2D(specularTex, fsUv).xyzw;
+    vec4 albedo = texture(albedoTex, fsUv).xyzw;
+    vec4 s = texture(specularTex, fsUv).xyzw;
     vec4 specular = s.xyzw;
     float shininess = s.w;
 
     vec3 finalColor = vec3(0.0);
     vec3 l = normalize(vec3(1.05, 1.3, 0.9));
-    vec3 n =  normalize(SAMPLE_TEX2D(normalTex, fsUv).xyz);
-    float flag =  normalize(SAMPLE_TEX2D(normalTex, fsUv).w);
+    vec3 n =  normalize(texture(normalTex, fsUv).xyz);
+    float flag =  normalize(texture(normalTex, fsUv).w);
     
     float isGuiElement = abs(albedo.w - 2.0) < 0.0001 ? 1.0 : 0.0;
     finalColor += isGuiElement * albedo.rgb;
@@ -64,5 +61,5 @@ void main()
     if(flag < 2.1)
         finalColor += (1.0 - isGuiElement) * ambient * ( albedo.rgb * max(0.0, dot(l, n)) + specular.rgb * pow(max(0.0, dot(r, v) ), shininess));
   
-    MGL_FRAG_COLOR = vec4(finalColor, 1.0);
+    fragColor = vec4(finalColor, 1.0);
 }

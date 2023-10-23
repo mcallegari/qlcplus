@@ -17,15 +17,11 @@
   limitations under the License.
 */
 
-VS_IN_ATTRIB vec3 vertexPosition;
-VS_IN_ATTRIB vec3 vertexNormal;
+layout(location = 0) in vec3 vertexPosition;
+layout(location = 1) in vec3 vertexNormal;
 
-VS_OUT_ATTRIB vec3 fsNormal;
-VS_OUT_ATTRIB vec3 fsPos;
-
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 modelMatrix;
+layout(location = 0) out vec3 fsNormal;
+layout(location = 1) out vec3 fsPos;
 
 void main()
 {
