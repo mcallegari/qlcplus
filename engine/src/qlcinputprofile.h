@@ -22,6 +22,7 @@
 
 #include <QStringList>
 #include <QVariant>
+#include <QObject>
 #include <QString>
 #include <QHash>
 #include <QMap>
@@ -40,8 +41,10 @@ class QXmlStreamReader;
 #define KXMLQLCInputProfileType             QString("Type")
 #define KXMLQLCInputProfileMidiSendNoteOff  QString("MIDISendNoteOff")
 
-class QLCInputProfile
+class QLCInputProfile : public QObject
 {
+    Q_OBJECT
+
     /********************************************************************
      * Initialization
      ********************************************************************/
@@ -80,13 +83,16 @@ public:
 
     enum Type
     {
-        MIDI,
+        MIDI = 0,
         OS2L,
         OSC,
         HID,
         DMX,
         Enttec,
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Type)
+#endif
 
     void setType(Type type);
 
