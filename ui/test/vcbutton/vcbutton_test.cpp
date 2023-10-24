@@ -415,12 +415,14 @@ void VCButton_Test::save()
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
     btn.setStartupIntensity(qreal(0.2));
+    btn.setFlashForceLTP(true);
+    btn.setFlashOverride(true);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
 
-    int function = 0, action = 0, key = 0, intensity = 0, wstate = 0, appearance = 0;
+    int function = 0, action = 0, key = 0, intensity = 0, wstate = 0, appearance = 0, flashProperties = 0;
     QCOMPARE(btn.saveXML(&xmlWriter), true);
 
     xmlWriter.setDevice(NULL);
@@ -468,6 +470,13 @@ void VCButton_Test::save()
             appearance++;
             xmlReader.skipCurrentElement();
         }
+        else if (xmlReader.name().toString() == "FlashProperties")
+        {
+            flashProperties++;
+            QCOMPARE(xmlReader.attributes().value("FlashOverrides").toString(), QString("1"));
+            QCOMPARE(xmlReader.attributes().value("FlashForceLTP").toString(), QString("1"));
+            xmlReader.skipCurrentElement();
+        }
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
@@ -481,6 +490,7 @@ void VCButton_Test::save()
     QCOMPARE(intensity, 1);
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
+    QCOMPARE(flashProperties, 1);
 }
 
 void VCButton_Test::customMenu()
