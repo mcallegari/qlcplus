@@ -77,6 +77,8 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_blackoutFadeOutTime(0)
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
 {
     /* Set the class name "VCButton" as the object name as well */
     setObjectName(VCButton::staticMetaObject.className());
@@ -669,6 +671,34 @@ void VCButton::slotAttributeChanged(int value)
 #endif
 }
 
+
+
+/*****************************************************************************
+ * Flash Properties
+ *****************************************************************************/
+
+bool VCButton::flashOverrides()
+{
+    return m_flashOverrides;
+}
+
+void VCButton::setFlashOverride(bool override)
+{
+    m_flashOverrides = override;
+}
+
+bool VCButton::flashForceLTP()
+{
+    return m_flashForceLTP;
+}
+
+void VCButton::setFlashForceLTP(bool forceLTP)
+{
+    m_flashForceLTP = forceLTP;
+}
+
+
+
 /*****************************************************************************
  * Button press / release handlers
  *****************************************************************************/
@@ -725,7 +755,7 @@ void VCButton::pressFunction()
         if (f != NULL)
         {
             adjustFunctionIntensity(f, intensity());
-            f->flash(m_doc->masterTimer());
+            f->flash(m_doc->masterTimer(), flashOverrides(), flashForceLTP());
             setState(Active);
         }
     }
@@ -918,6 +948,20 @@ bool VCButton::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toString().toInt());
         }
+        else if (root.name() == KXMLQLCVCButtonFlashProperties)
+        {
+            QString str = root.attributes().value(KXMLQLCVCButtonFlashOverrides).toString();
+            if (str.isEmpty() == false)
+            {
+                setFlashOverride((bool)str.toInt());
+            }
+
+            str = root.attributes().value(KXMLQLCVCButtonFlashForceLTP).toString();
+            if (str.isEmpty() == false)
+            {
+                setFlashForceLTP((bool)str.toInt());
+            }
+        }
         else if (root.name() == KXMLQLCVCButtonKey)
         {
             setKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
@@ -977,6 +1021,14 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     }
     doc->writeCharacters(actionToString(action()));
     doc->writeEndElement();
+
+    if(action() == Flash)
+    {
+        doc->writeStartElement(KXMLQLCVCButtonFlashProperties);
+        doc->writeAttribute(KXMLQLCVCButtonFlashOverrides, QString::number(flashOverrides()));
+        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
+        doc->writeEndElement();
+    }
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)

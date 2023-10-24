@@ -634,13 +634,13 @@ void Scene::postLoad()
  * Flashing
  ****************************************************************************/
 
-void Scene::flash(MasterTimer *timer)
+void Scene::flash(MasterTimer *timer, bool override, bool forceLTP)
 {
     if (flashing() == true)
         return;
 
     Q_ASSERT(timer != NULL);
-    Function::flash(timer);
+    Function::flash(timer, override, forceLTP);
     timer->registerDMXSource(this);
 }
 
@@ -675,7 +675,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 {
                     fader = ua[universe]->requestFader();
 
-                    if (doc()->flashOverrides())
+                    if (m_flashOverrides)
                         fader->setPriority(Universe::Flashing);
 
                     fader->adjustIntensity(getAttributeValue(Intensity));
@@ -685,7 +685,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                     m_fadersMap[universe] = fader;
                 }
 
-                if (doc()->flashForceLTP())
+                if (m_flashForceLTP)
                     fc.addFlag(FadeChannel::ForceLTP);
                 fc.setTarget(sv.value);
                 fc.addFlag(FadeChannel::Flashing);

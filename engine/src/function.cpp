@@ -88,6 +88,8 @@ Function::Function(QObject *parent)
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
     , m_flashing(false)
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
     , m_elapsed(0)
     , m_elapsedBeats(0)
     , m_stop(true)
@@ -118,6 +120,8 @@ Function::Function(Doc* doc, Type t)
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
     , m_flashing(false)
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
     , m_elapsed(0)
     , m_elapsedBeats(0)
     , m_stop(true)
@@ -958,12 +962,16 @@ QList<quint32> Function::components()
  * Flash
  *****************************************************************************/
 
-void Function::flash(MasterTimer *timer)
+void Function::flash(MasterTimer *timer, bool override, bool forceLTP)
 {
     Q_UNUSED(timer);
 
     if (m_flashing == false)
+    {
         emit flashing(m_id, true);
+        m_flashOverrides = override;
+        m_flashForceLTP = forceLTP;
+    }
 
     m_flashing = true;
 }

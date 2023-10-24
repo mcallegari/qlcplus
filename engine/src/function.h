@@ -628,7 +628,7 @@ public:
      *********************************************************************/
 public:
     /** Flash the function */
-    virtual void flash(MasterTimer* timer);
+    virtual void flash(MasterTimer* timer, bool override, bool forceLTP);
 
     /** UnFlash the function */
     virtual void unFlash(MasterTimer* timer);
@@ -649,6 +649,10 @@ signals:
 
 private:
     bool m_flashing;
+
+protected:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
 
     /*********************************************************************
      * Running
