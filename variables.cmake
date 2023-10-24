@@ -501,16 +501,11 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4456")   # Suppress warning C4456: declaration of '_container_' hides previous local declaration in foreach
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+
 elseif(NOT APPLE AND NOT IOS)
-    # Check the version of g++
-    execute_process(COMMAND g++ --version OUTPUT_VARIABLE GPP_VERSION)
-    if(GPP_VERSION MATCHES "4.6.[0-9]")
-        #message("g++ version 4.6 found")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=strict-overflow")
-    else()
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-local-typedefs")
-    endif()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif()
 
