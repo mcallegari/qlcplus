@@ -52,9 +52,6 @@ public:
     /** Standard constructor */
     QLCInputProfile();
 
-    /** Copy constructor */
-    QLCInputProfile(const QLCInputProfile& profile);
-
     /** Destructor */
     virtual ~QLCInputProfile();
 
