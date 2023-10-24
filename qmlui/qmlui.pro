@@ -20,6 +20,7 @@ INCLUDEPATH     += virtualconsole
 INCLUDEPATH     += fixtureeditor
 INCLUDEPATH     += tardis
 INCLUDEPATH     += ../plugins/interfaces
+INCLUDEPATH     += ../plugins/midi/src/common
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
