@@ -132,7 +132,7 @@ Rectangle
                     {
                         if (profEditor.isEditing)
                         {
-
+                            profEditor.editSelectedChannel()
                         }
                         else
                         {
