@@ -99,6 +99,13 @@ ColumnLayout
         feedbackGroup.visible = feedback
     }
 
+    function addNewChannel()
+    {
+        channelList.selectedChannelNumber = -1
+        inputChannelEditor.open()
+        inputChannelEditor.initialize(-1, profileEditor.type)
+    }
+
     function editSelectedChannel()
     {
         inputChannelEditor.open()
@@ -133,6 +140,17 @@ ColumnLayout
     PopupInputChannelEditor
     {
         id: inputChannelEditor
+
+        onAccepted:
+        {
+            if (profileEditor.saveChannel(channelList.selectedChannelNumber - 1, currentChannelNumber) < 0)
+            {
+                messagePopup.title = qsTr("!! Warning !!")
+                messagePopup.message = qsTr("Channel " + (currentChannelNumber + 1) + " already exists!")
+                messagePopup.standardButtons = Dialog.Ok
+                messagePopup.open()
+            }
+        }
     }
 
     Rectangle

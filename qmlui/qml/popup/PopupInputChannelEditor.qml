@@ -32,12 +32,23 @@ CustomPopupDialog
     standardButtons: Dialog.Cancel | Dialog.Ok
 
     property QLCInputChannel editChannel: null
+    property int currentChannelNumber
     property bool isMIDI: false
 
     function initialize(chNum, profType)
     {
-        channelSpin.value = chNum + 1
-        editChannel = profileEditor.getEditChannel(chNum)
+        if (chNum === -1)
+        {
+            currentChannelNumber = 0
+            channelSpin.value = 1
+            editChannel = profileEditor.getEditChannel(-1)
+        }
+        else
+        {
+            currentChannelNumber = chNum
+            channelSpin.value = chNum + 1
+            editChannel = profileEditor.getEditChannel(chNum)
+        }
         chTypeCombo.currValue = editChannel.type
         isMIDI = (profType === QLCInputProfile.MIDI) ? true : false
         updateMIDIInfo()
@@ -120,14 +131,15 @@ CustomPopupDialog
                         to: 65535
                         onValueChanged:
                         {
+                            currentChannelNumber = value - 1
                             updateMIDIInfo()
                         }
                     }
                     CustomTextEdit
                     {
                         id: channelName
-                        text: editChannel ? editChannel.name : ""
                         Layout.fillWidth: true
+                        text: editChannel ? editChannel.name : ""
                         onTextEdited: editChannel.name = text
                     }
                     CustomComboBox
@@ -135,6 +147,7 @@ CustomPopupDialog
                         id: chTypeCombo
                         model: popupRoot.visible ? profileEditor.channelTypeModel : null
                         currValue: -1
+                        onValueChanged: editChannel.type = currentValue
                     }
                 }
             }

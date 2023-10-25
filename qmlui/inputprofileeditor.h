@@ -132,7 +132,10 @@ public:
     QVariantList channelTypeModel();
 
     /* Get a copy of the channel with the provided number */
-    Q_INVOKABLE QLCInputChannel *getEditChannel(int chNumber);
+    Q_INVOKABLE QLCInputChannel *getEditChannel(int channelNumber);
+
+    /* Check if a channel number already exists */
+    Q_INVOKABLE int saveChannel(int originalChannelNumber, int channelNumber);
 
 signals:
     void channelsChanged();

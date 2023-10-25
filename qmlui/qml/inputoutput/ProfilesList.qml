@@ -76,7 +76,11 @@ Rectangle
                     imgSource: "qrc:/filesave.svg"
                     tooltip: qsTr("Save this profile")
 
-                    onClicked: ioManager.saveInputProfile()
+                    onClicked:
+                    {
+                        ioManager.saveInputProfile()
+                        profListView.model = ioManager.universeInputProfiles(universeIndex)
+                    }
                 }
 
                 IconButton
@@ -92,7 +96,7 @@ Rectangle
                     {
                         if (profEditor.isEditing)
                         {
-                            if (!checked)
+                            if (checked)
                                 profEditor.showWizard()
                             profileEditor.toggleDetection()
                         }
@@ -110,7 +114,7 @@ Rectangle
                     {
                         if (profEditor.isEditing)
                         {
-
+                            profEditor.addNewChannel()
                         }
                         else
                         {

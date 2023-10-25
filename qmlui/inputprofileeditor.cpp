@@ -37,6 +37,8 @@ InputProfileEditor::InputProfileEditor(QLCInputProfile *profile, Doc *doc,
 
 InputProfileEditor::~InputProfileEditor()
 {
+    if (m_editChannel != nullptr)
+        delete m_editChannel;
 }
 
 bool InputProfileEditor::modified() const
@@ -167,15 +169,41 @@ QVariantList InputProfileEditor::channelTypeModel()
     return types;
 }
 
-QLCInputChannel *InputProfileEditor::getEditChannel(int chNumber)
+QLCInputChannel *InputProfileEditor::getEditChannel(int channelNumber)
 {
-    QLCInputChannel *ich = m_profile->channel(chNumber);
+    //if (m_editChannel != nullptr)
+    //    delete m_editChannel;
+
+    QLCInputChannel *ich = m_profile->channel(channelNumber);
     if (ich == nullptr)
         m_editChannel = new QLCInputChannel();
     else
         m_editChannel = ich->createCopy();
 
     return m_editChannel;
+}
+
+int InputProfileEditor::saveChannel(int originalChannelNumber, int channelNumber)
+{
+    qDebug() << "orig" << originalChannelNumber << "new ch" << channelNumber;
+
+    if (originalChannelNumber >= 0 && originalChannelNumber != channelNumber)
+    {
+        QLCInputChannel *ich = m_profile->channel(originalChannelNumber);
+        if (ich != nullptr)
+            return -1;
+    }
+
+    if (m_editChannel->name().isEmpty())
+        return -2;
+
+    m_profile->removeChannel(originalChannelNumber);
+    m_profile->insertChannel(channelNumber, m_editChannel);
+    setModified();
+
+    emit channelsChanged();
+
+    return 0;
 }
 
 void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)

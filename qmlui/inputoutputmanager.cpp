@@ -618,8 +618,13 @@ bool InputOutputManager::saveInputProfile()
                        .arg(m_editProfile->model())
                        .arg(KExtInputProfile);
 
+    bool profileExists = QFileInfo::exists(absPath);
+
     m_editProfile->saveXML(absPath);
     m_profileEditor->setModified(false);
+
+    if (profileExists == false)
+        m_doc->inputOutputMap()->addProfile(m_editProfile);
 
     return true;
 }
@@ -644,7 +649,7 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
 {
     QVariantList profilesList;
     QStringList profileNames = m_ioMap->profileNames();
-    profileNames.sort();
+    profileNames.sort(Qt::CaseInsensitive);
     QDir pSysPath = m_ioMap->systemProfileDirectory();
 
     foreach (QString name, profileNames)
