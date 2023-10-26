@@ -30,6 +30,10 @@
 #include <QFile>
 #include <QDir>
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+#include <windows.h>
+#endif
+
 #include "apputil.h"
 #include "qlcconfig.h"
 
