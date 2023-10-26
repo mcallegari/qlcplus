@@ -99,6 +99,11 @@ ColumnLayout
         feedbackGroup.visible = feedback
     }
 
+    function selectedChannel()
+    {
+        return channelList.selectedChannelNumber;
+    }
+
     function addNewChannel()
     {
         channelList.selectedChannelNumber = -1
@@ -110,6 +115,12 @@ ColumnLayout
     {
         inputChannelEditor.open()
         inputChannelEditor.initialize(channelList.selectedChannelNumber - 1, profileEditor.type)
+    }
+
+    function removeSelectedChannel()
+    {
+        profileEditor.removeChannel(channelList.selectedChannelNumber - 1)
+        channelList.selectedChannelNumber = -1
     }
 
     CustomPopupDialog

@@ -645,6 +645,24 @@ void InputOutputManager::finishInputProfile()
     }
 }
 
+bool InputOutputManager::removeInputProfile(QString name)
+{
+    QLCInputProfile *profile = m_ioMap->profile(name);
+    if (profile == nullptr)
+        return false;
+
+    QFile file(profile->path());
+    if (file.remove() == true)
+    {
+        m_ioMap->removeProfile(name);
+        return true;
+    }
+
+    qDebug() << "Failed to remove input profile" << profile->path();
+
+    return false;
+}
+
 QVariant InputOutputManager::universeInputProfiles(int universe)
 {
     QVariantList profilesList;

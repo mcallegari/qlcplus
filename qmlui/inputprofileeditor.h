@@ -137,6 +137,9 @@ public:
     /* Check if a channel number already exists */
     Q_INVOKABLE int saveChannel(int originalChannelNumber, int channelNumber);
 
+    /* Remove the input channel with the provided channel number */
+    Q_INVOKABLE bool removeChannel(int channelNumber);
+
 signals:
     void channelsChanged();
 
