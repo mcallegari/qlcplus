@@ -20,14 +20,18 @@
 #include <QComboBox>
 #include <QStyleFactory>
 #include <QApplication>
+#include <QTextStream>
 #include <QSettings>
 #include <QLocale>
 #include <QWidget>
 #include <QScreen>
 #include <QStyle>
 #include <QRect>
+#include <QFile>
+#include <QDir>
 
 #include "apputil.h"
+#include "qlcconfig.h"
 
 /****************************************************************************
  * Widget visibility helper
@@ -99,6 +103,61 @@ QStyle* AppUtil::saneStyle()
     }
 
     return s_saneStyle;
+}
+
+/*********************************************************************
+ * Stylesheets
+ *********************************************************************/
+
+#define USER_STYLESHEET_FILE "qlcplusStyle.qss"
+
+QString AppUtil::getStyleSheet(QString component)
+{
+    QString ssDir;
+    QString result;
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+    /* User's input profile directory on Windows */
+    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
+    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
+                .arg(USERQLCPLUSDIR);
+    free(home);
+    HotPlugMonitor::setWinId(winId());
+#else
+    /* User's input profile directory on *NIX systems */
+    ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
+#endif
+
+    QFile ssFile(ssDir + QDir::separator() + USER_STYLESHEET_FILE);
+    if (ssFile.exists() == false)
+        return result;
+
+    if (ssFile.open(QIODevice::ReadOnly) == false)
+        return result;
+
+    bool found = false;
+    QTextStream in(&ssFile);
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        if (line.startsWith("====="))
+        {
+            if (found == true)
+                break;
+
+            QString comp = line.replace("=", "");
+            if (comp.simplified() == component)
+                found = true;
+        }
+        else if (found == true)
+        {
+            result.append(line);
+        }
+    }
+    ssFile.close();
+
+    return result;
 }
 
 /*****************************************************************************
