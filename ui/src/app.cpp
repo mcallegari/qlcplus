@@ -301,6 +301,10 @@ void App::init()
     // Start up in non-modified state
     m_doc->resetModified();
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+    HotPlugMonitor::setWinId(winId());
+#endif
+
     this->setStyleSheet(AppUtil::getStyleSheet("MAIN"));
 
     m_videoProvider = new VideoProvider(m_doc, this);

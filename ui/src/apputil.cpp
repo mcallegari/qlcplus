@@ -118,20 +118,18 @@ QStyle* AppUtil::saneStyle()
 
 QString AppUtil::getStyleSheet(QString component)
 {
-    QString ssDir;
     QString result;
 
 #if defined(WIN32) || defined(Q_OS_WIN)
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
+    QString ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
                 .arg(USERQLCPLUSDIR);
     free(home);
-    HotPlugMonitor::setWinId(winId());
 #else
     /* User's input profile directory on *NIX systems */
-    ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
+    QString ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
 #endif
 
     QFile ssFile(ssDir + QDir::separator() + USER_STYLESHEET_FILE);
