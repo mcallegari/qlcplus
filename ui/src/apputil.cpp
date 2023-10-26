@@ -32,6 +32,7 @@
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #include <windows.h>
+#include <lmcons.h>
 #endif
 
 #include "apputil.h"
