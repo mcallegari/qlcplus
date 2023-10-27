@@ -52,6 +52,8 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     qmlRegisterType<Universe>("org.qlcplus.classes", 1, 0, "Universe");
     qmlRegisterType<InputPatch>("org.qlcplus.classes", 1, 0, "InputPatch");
     qmlRegisterType<OutputPatch>("org.qlcplus.classes", 1, 0, "OutputPatch");
+    qmlRegisterUncreatableType<QLCInputProfile>("org.qlcplus.classes", 1, 0, "QLCInputProfile", "Can't create a QLCInputProfile!");
+    qmlRegisterUncreatableType<InputProfileEditor>("org.qlcplus.classes", 1, 0, "InputProfEditor", "Can't create a InputProfileEditor!");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_ioMap, SIGNAL(universeAdded(quint32)), this, SIGNAL(universesListModelChanged()));
@@ -592,6 +594,8 @@ bool InputOutputManager::editInputProfile(QString name)
 
     m_editProfile = ip->createCopy();
 
+    qDebug() << "Profile TYPE:" << m_editProfile->type();
+
     if (m_profileEditor == nullptr)
     {
         m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
@@ -614,8 +618,13 @@ bool InputOutputManager::saveInputProfile()
                        .arg(m_editProfile->model())
                        .arg(KExtInputProfile);
 
+    bool profileExists = QFileInfo::exists(absPath);
+
     m_editProfile->saveXML(absPath);
     m_profileEditor->setModified(false);
+
+    if (profileExists == false)
+        m_doc->inputOutputMap()->addProfile(m_editProfile);
 
     return true;
 }
@@ -630,16 +639,35 @@ void InputOutputManager::finishInputProfile()
 
     if (m_profileEditor != nullptr)
     {
+        view()->rootContext()->setContextProperty("profileEditor", nullptr);
         delete m_profileEditor;
         m_profileEditor = nullptr;
     }
+}
+
+bool InputOutputManager::removeInputProfile(QString name)
+{
+    QLCInputProfile *profile = m_ioMap->profile(name);
+    if (profile == nullptr)
+        return false;
+
+    QFile file(profile->path());
+    if (file.remove() == true)
+    {
+        m_ioMap->removeProfile(name);
+        return true;
+    }
+
+    qDebug() << "Failed to remove input profile" << profile->path();
+
+    return false;
 }
 
 QVariant InputOutputManager::universeInputProfiles(int universe)
 {
     QVariantList profilesList;
     QStringList profileNames = m_ioMap->profileNames();
-    profileNames.sort();
+    profileNames.sort(Qt::CaseInsensitive);
     QDir pSysPath = m_ioMap->systemProfileDirectory();
 
     foreach (QString name, profileNames)

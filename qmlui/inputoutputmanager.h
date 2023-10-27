@@ -155,6 +155,7 @@ public:
     Q_INVOKABLE bool editInputProfile(QString name);
     Q_INVOKABLE bool saveInputProfile();
     Q_INVOKABLE void finishInputProfile();
+    Q_INVOKABLE bool removeInputProfile(QString name);
     Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
 private:

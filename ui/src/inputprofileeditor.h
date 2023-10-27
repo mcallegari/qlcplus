@@ -93,7 +93,7 @@ protected:
      * Profile
      ************************************************************************/
 public:
-    const QLCInputProfile* profile() const;
+    QLCInputProfile *profile();
 
 private:
     QLCInputProfile::Type currentProfileType() const;

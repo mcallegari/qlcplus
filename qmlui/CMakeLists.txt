@@ -86,6 +86,7 @@ target_include_directories(${module_name} PRIVATE
     ../engine/audio/src
     ../engine/src
     ../plugins/interfaces
+    ../plugins/midi/src/common
     fixtureeditor
     tardis
     virtualconsole

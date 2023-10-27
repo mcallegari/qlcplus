@@ -49,11 +49,6 @@ QLCInputProfile::QLCInputProfile()
 {
 }
 
-QLCInputProfile::QLCInputProfile(const QLCInputProfile& profile)
-{
-    *this = profile;
-}
-
 QLCInputProfile::~QLCInputProfile()
 {
     destroyChannels();

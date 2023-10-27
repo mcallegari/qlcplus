@@ -49,10 +49,10 @@
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
-#include "qlcfixturedef.h"
 #include "videoprovider.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "apputil.h"
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include "hotplugmonitor.h"
@@ -301,28 +301,11 @@ void App::init()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    QString ssDir;
-
 #if defined(WIN32) || defined(Q_OS_WIN)
-    /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
-    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
-                            .arg(USERQLCPLUSDIR);
-    free(home);
     HotPlugMonitor::setWinId(winId());
-#else
-    /* User's input profile directory on *NIX systems */
-    ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
 #endif
 
-    QFile ssFile(ssDir + QDir::separator() + "qlcplusStyle.qss");
-    if (ssFile.exists() == true)
-    {
-        ssFile.open(QFile::ReadOnly);
-        QString styleSheet = QLatin1String(ssFile.readAll());
-        this->setStyleSheet(styleSheet);
-    }
+    this->setStyleSheet(AppUtil::getStyleSheet("MAIN"));
 
     m_videoProvider = new VideoProvider(m_doc, this);
 }

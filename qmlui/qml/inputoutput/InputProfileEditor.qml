@@ -63,6 +63,66 @@ ColumnLayout
         messagePopup.open()
     }
 
+    function updateOptions(type)
+    {
+        var extraPress = false
+        var movement = false
+        var absRel = false
+        var feedback = false
+
+        switch (type)
+        {
+            case QLCInputChannel.Button:
+                extraPress = true
+                feedback = true
+            break
+            case QLCInputChannel.Slider:
+            case QLCInputChannel.Knob:
+                movement = true
+                absRel = true
+                sensitivitySpin.from = 10
+                sensitivitySpin.to = 100
+            break
+            case QLCInputChannel.Encoder:
+                movement = true
+                sensitivitySpin.from = 1
+                sensitivitySpin.to = 20
+            break
+            default:
+            break
+        }
+
+        extraPressGroup.visible = extraPress
+        movementGroup.visible = movement
+        movementCombo.visible = absRel
+        movementLabel.visible = absRel
+        feedbackGroup.visible = feedback
+    }
+
+    function selectedChannel()
+    {
+        return channelList.selectedChannelNumber;
+    }
+
+    function addNewChannel()
+    {
+        channelList.selectedChannelNumber = -1
+        inputChannelEditor.open()
+        inputChannelEditor.initialize(-1, profileEditor.type)
+    }
+
+    function editSelectedChannel()
+    {
+        inputChannelEditor.open()
+        inputChannelEditor.initialize(channelList.selectedChannelNumber - 1, profileEditor.type)
+    }
+
+    function removeSelectedChannel()
+    {
+        profileEditor.removeChannel(channelList.selectedChannelNumber - 1)
+        channelList.selectedChannelNumber = -1
+    }
+
     CustomPopupDialog
     {
         id: messagePopup
@@ -84,6 +144,22 @@ ColumnLayout
             else if (role === Dialog.Ok || role === Dialog.Cancel)
             {
                 close()
+            }
+        }
+    }
+
+    PopupInputChannelEditor
+    {
+        id: inputChannelEditor
+
+        onAccepted:
+        {
+            if (profileEditor.saveChannel(channelList.selectedChannelNumber - 1, currentChannelNumber) < 0)
+            {
+                messagePopup.title = qsTr("!! Warning !!")
+                messagePopup.message = qsTr("Channel " + (currentChannelNumber + 1) + " already exists!")
+                messagePopup.standardButtons = Dialog.Ok
+                messagePopup.open()
             }
         }
     }
@@ -143,7 +219,7 @@ ColumnLayout
 
                 Layout.fillWidth: true
                 model: profTypeModel
-                currentIndex: peContainer.visible ? profileEditor.type : 0
+                currValue: peContainer.visible ? profileEditor.type : 0
                 onValueChanged: profileEditor.type = currentValue
             }
 
@@ -152,7 +228,7 @@ ColumnLayout
                 title: qsTr("MIDI Global Settings")
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                visible: profileEditor.type === 0
+                visible: peContainer.visible ? profileEditor.type === QLCInputProfile.MIDI : false
                 font.family: UISettings.robotoFontName
                 font.pixelSize: UISettings.textSizeDefault
                 palette.windowText: UISettings.fgMain
@@ -165,7 +241,8 @@ ColumnLayout
                     {
                         implicitHeight: UISettings.listItemHeight
                         implicitWidth: implicitHeight
-                        onToggled: { }
+                        checked: peContainer.visible ? profileEditor.midiNoteOff : false
+                        onToggled: profileEditor.midiNoteOff = checked
                     }
                     RobotoText
                     {
@@ -191,9 +268,8 @@ ColumnLayout
 
         ScrollBar.vertical: CustomScrollBar { }
 
-        property int selectedIndex: -1
-        property int selectedChannel: -1
-        property string selectedType: ""
+        property int selectedChannelNumber: -1
+        property QLCInputChannel selectedChannel: null
 
         header:
             RowLayout
@@ -234,11 +310,13 @@ ColumnLayout
                 width: channelList.width
                 height: UISettings.listItemHeight
 
+                property QLCInputChannel channel: modelData.cRef
+
                 Rectangle
                 {
                     anchors.fill: parent
                     color: UISettings.highlight
-                    visible: channelList.selectedIndex === index
+                    visible: channelList.selectedChannelNumber === modelData.chNumber
                 }
 
                 RowLayout
@@ -257,7 +335,7 @@ ColumnLayout
                     {
                         Layout.fillWidth: true
                         height: UISettings.listItemHeight
-                        label: modelData.chName
+                        label: channel.name
                     }
                     Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
@@ -265,8 +343,8 @@ ColumnLayout
                     {
                         width: UISettings.bigItemHeight * 1.5
                         height: UISettings.listItemHeight
-                        tLabel: modelData.chType
-                        iSrc: modelData.chIconPath
+                        tLabel: channel.typeString
+                        iSrc: channel.iconResource(channel.type, true)
                     }
                 }
 
@@ -275,9 +353,9 @@ ColumnLayout
                     anchors.fill: parent
                     onClicked:
                     {
-                        channelList.selectedIndex = index
-                        channelList.selectedChannel = modelData.chNumber
-                        channelList.selectedType = modelData.chType
+                        channelList.selectedChannelNumber = modelData.chNumber
+                        channelList.selectedChannel = channel
+                        updateOptions(channel.type)
                     }
                 }
             }
@@ -285,9 +363,10 @@ ColumnLayout
 
     GroupBox
     {
+        id: extraPressGroup
         title: qsTr("Behaviour")
         Layout.fillWidth: true
-        visible: channelList.selectedIndex >= 0 && channelList.selectedType == "Button"
+        visible: false
         font.family: UISettings.robotoFontName
         font.pixelSize: UISettings.textSizeDefault
         palette.windowText: UISettings.fgMain
@@ -300,7 +379,8 @@ ColumnLayout
             {
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
-                onToggled: { }
+                checked: channelList.selectedChannel ? channelList.selectedChannel.sendExtraPress : false
+                onToggled: channelList.selectedChannel.sendExtraPress = checked
             }
             RobotoText
             {
@@ -313,9 +393,10 @@ ColumnLayout
 
     GroupBox
     {
+        id: movementGroup
         title: qsTr("Behaviour")
         Layout.fillWidth: true
-        visible: channelList.selectedIndex >= 0 && channelList.selectedType == "Slider"
+        visible: false
         font.family: UISettings.robotoFontName
         font.pixelSize: UISettings.textSizeDefault
         palette.windowText: UISettings.fgMain
@@ -326,20 +407,24 @@ ColumnLayout
 
             RobotoText
             {
+                id: movementLabel
                 implicitHeight: UISettings.listItemHeight
                 label: qsTr("Movement")
             }
             CustomComboBox
             {
+                id: movementCombo
                 ListModel
                 {
                     id: moveTypeModel
-                    ListElement { mLabel: "Absolute"; mValue: 0 }
-                    ListElement { mLabel: "Relative"; mValue: 1 }
+                    ListElement { mLabel: "Absolute"; mValue: QLCInputChannel.Absolute }
+                    ListElement { mLabel: "Relative"; mValue: QLCInputChannel.Relative }
                 }
 
                 implicitHeight: UISettings.listItemHeight
                 model: moveTypeModel
+                currentIndex: channelList.selectedChannel ? channelList.selectedChannel.movementType : QLCInputChannel.Absolute
+                onValueChanged: channelList.selectedChannel.movementType = currentValue
             }
             RobotoText
             {
@@ -348,18 +433,22 @@ ColumnLayout
             }
             CustomSpinBox
             {
+                id: sensitivitySpin
                 implicitHeight: UISettings.listItemHeight
                 from: 10
                 to: 100
+                value: channelList.selectedChannel ? channelList.selectedChannel.movementSensitivity : 20
+                onValueModified: channelList.selectedChannel.movementSensitivity = value
             }
         }
     } // GroupBox
 
     GroupBox
     {
+        id: feedbackGroup
         title: qsTr("Custom Feedback")
         Layout.fillWidth: true
-        visible: channelList.selectedIndex >= 0 && channelList.selectedType == "Button"
+        visible: false
         font.family: UISettings.robotoFontName
         font.pixelSize: UISettings.textSizeDefault
         palette.windowText: UISettings.fgMain
@@ -378,6 +467,8 @@ ColumnLayout
                 implicitHeight: UISettings.listItemHeight
                 from: 0
                 to: 255
+                value: channelList.selectedChannel ? channelList.selectedChannel.lowerValue : 0
+                onValueModified: channelList.selectedChannel.lowerValue = value
             }
             RobotoText
             {
@@ -389,6 +480,8 @@ ColumnLayout
                 implicitHeight: UISettings.listItemHeight
                 from: 0
                 to: 255
+                value: channelList.selectedChannel ? channelList.selectedChannel.upperValue : 255
+                onValueModified: channelList.selectedChannel.upperValue = value
             }
         }
     } // GroupBox

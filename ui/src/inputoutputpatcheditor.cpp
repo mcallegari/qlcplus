@@ -724,7 +724,7 @@ edit:
 
         /* Create a new non-const copy of the profile and
            reparent it to the input map */
-        QLCInputProfile* profile = new QLCInputProfile(*ite.profile());
+        QLCInputProfile* profile = ite.profile()->createCopy();
 
         /* Save it to a file, go back to edit if save failed */
         if (profile->saveXML(path) == false)

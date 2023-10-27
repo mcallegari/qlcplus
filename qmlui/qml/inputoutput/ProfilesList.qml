@@ -42,6 +42,20 @@ Rectangle
         profListView.model = ioManager.universeInputProfiles(universeIndex)
     }
 
+    CustomPopupDialog
+    {
+        id: deletePopup
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        title: qsTr("!! Warning !!")
+        message: qsTr("Do you wish to permanently delete profile '" + profListView.selectedName + "'?")
+        onAccepted:
+        {
+            ioManager.removeInputProfile(profListView.selectedName)
+            profListView.model = ioManager.universeInputProfiles(universeIndex)
+            profListView.selectedIndex = -1
+        }
+    }
+
     ColumnLayout
     {
         implicitWidth: profilesContainer.width
@@ -76,7 +90,11 @@ Rectangle
                     imgSource: "qrc:/filesave.svg"
                     tooltip: qsTr("Save this profile")
 
-                    onClicked: ioManager.saveInputProfile()
+                    onClicked:
+                    {
+                        ioManager.saveInputProfile()
+                        profListView.model = ioManager.universeInputProfiles(universeIndex)
+                    }
                 }
 
                 IconButton
@@ -92,7 +110,7 @@ Rectangle
                     {
                         if (profEditor.isEditing)
                         {
-                            if (!checked)
+                            if (checked)
                                 profEditor.showWizard()
                             profileEditor.toggleDetection()
                         }
@@ -110,7 +128,7 @@ Rectangle
                     {
                         if (profEditor.isEditing)
                         {
-
+                            profEditor.addNewChannel()
                         }
                         else
                         {
@@ -126,13 +144,13 @@ Rectangle
                     height: topBar.height - 2
                     imgSource: "qrc:/edit.svg"
                     tooltip: profEditor.isEditing ? qsTr("Edit the selected channel") : qsTr("Edit the selected input profile")
-                    enabled: profListView.selectedIndex >= 0
+                    enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0
 
                     onClicked:
                     {
                         if (profEditor.isEditing)
                         {
-
+                            profEditor.editSelectedChannel()
                         }
                         else
                         {
@@ -150,9 +168,20 @@ Rectangle
                     height: topBar.height - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: profEditor.isEditing ? qsTr("Delete the selected channel") : qsTr("Delete the selected input profile(s)")
-                    enabled: profListView.selectedIndex >= 0 && profListView.selectedIsUser
+                    enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0 && profListView.selectedIsUser
 
-                    onClicked: { }
+                    onClicked:
+                    {
+                        if (profEditor.isEditing)
+                        {
+                            profEditor.removeSelectedChannel()
+                        }
+                        else
+                        {
+                            if (profListView.selectedIsUser)
+                                deletePopup.open()
+                        }
+                    }
                 }
 
                 Rectangle { Layout.fillWidth: true }
