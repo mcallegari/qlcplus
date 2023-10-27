@@ -51,11 +51,6 @@ Rectangle
         pageLoader.source = "qrc:/VCPageArea.qml"
     }
 
-    function showProperties(show)
-    {
-        vcProperties.visible = show
-    }
-
     function enableContext(ctx, setChecked)
     {
         console.log("VC enable context " + ctx)

@@ -1362,11 +1362,6 @@ bool VirtualConsole::saveXML(QXmlStreamWriter *doc)
     /* Properties */
     //m_properties.saveXML(doc);
 
-    /* Properties */
-    doc->writeStartElement(KXMLQLCVCProperties);
-
-    doc->writeEndElement();
-
     /* End the <VirtualConsole> tag */
     doc->writeEndElement();
 
