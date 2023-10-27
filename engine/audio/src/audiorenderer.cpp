@@ -25,6 +25,7 @@
 
 AudioRenderer::AudioRenderer (QObject* parent)
     : QThread (parent)
+    , m_looped(false)
     , m_fadeStep(0.0)
     , m_userStop(true)
     , m_pause(false)
@@ -33,7 +34,6 @@ AudioRenderer::AudioRenderer (QObject* parent)
     , m_adec(NULL)
     , audioDataRead(0)
     , pendingAudioBytes(0)
-    , m_looped(false)
 {
 }
 
@@ -46,6 +46,20 @@ void AudioRenderer::adjustIntensity(qreal fraction)
 {
     m_intensity = CLAMP(fraction, 0.0, 1.0);
 }
+
+bool AudioRenderer::isLooped()
+{
+    return m_looped;
+}
+
+void AudioRenderer::setLooped(bool looped)
+{
+    m_looped = looped;
+}
+
+/*********************************************************************
+ * Fade sequences
+ *********************************************************************/
 
 void AudioRenderer::setFadeIn(uint fadeTime)
 {
@@ -86,6 +100,10 @@ void AudioRenderer::stop()
     m_intensity = 1.0;
     m_currentIntensity = 1.0;
 }
+
+/*********************************************************************
+ * Thread functions
+ *********************************************************************/
 
 void AudioRenderer::run()
 {
@@ -191,7 +209,3 @@ void AudioRenderer::run()
     reset();
 }
 
-void AudioRenderer::setLooped(bool looped)
-{
-    m_looped = looped;
-}
