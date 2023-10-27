@@ -118,7 +118,10 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
     }
     // inform the thread an action is available
     m_queueSem.release();
-    m_doc->setModified();
+
+    // set modify flag for non-live actions
+    if (action.m_action < VCButtonSetPressed)
+        m_doc->setModified();
 }
 
 QString Tardis::actionToString(int action)
