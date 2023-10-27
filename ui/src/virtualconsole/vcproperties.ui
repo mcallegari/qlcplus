@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -43,19 +43,6 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="2" column="0">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>111</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="0" column="0">
         <widget class="QGroupBox" name="m_sizeGroup">
          <property name="title">
@@ -118,47 +105,17 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QGroupBox" name="m_flashGroup">
-         <property name="title">
-          <string>Flash properties</string>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <layout class="QGridLayout" name="gridLayout_5">
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_24">
-            <property name="toolTip">
-             <string>Should flash scenes handle all channels as LTP channels. This overrides higher values for intensity channels when flashing.</string>
-            </property>
-            <property name="text">
-             <string>Force LTP</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label">
-            <property name="toolTip">
-             <string>Sets priority of flash values to be higher than sliders and running chasers.</string>
-            </property>
-            <property name="text">
-             <string>Override priority</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QCheckBox" name="m_forceLTPBox">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QCheckBox" name="m_flashOverrideBox">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>111</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -1037,38 +994,6 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>m_flashOverrideBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>VCPropertiesEditor</receiver>
-   <slot>slotFlashOverrideToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>269</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>189</x>
-     <y>245</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_forceLTPBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>VCPropertiesEditor</receiver>
-   <slot>slotForceLTPToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>269</x>
-     <y>173</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>189</x>
-     <y>245</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>slotGridXChanged(int)</slot>
@@ -1082,7 +1007,5 @@
   <slot>slotSizeXChanged(int)</slot>
   <slot>slotSizeYChanged(int)</slot>
   <slot>slotGrandMasterSliderNormalToggled(bool)</slot>
-  <slot>slotFlashOverrideToggled(bool)</slot>
-  <slot>slotForceLTPToggled(bool)</slot>
  </slots>
 </ui>

@@ -44,10 +44,6 @@
 #define KXMLQLCVCPropertiesSizeWidth    QString("Width")
 #define KXMLQLCVCPropertiesSizeHeight   QString("Height")
 
-#define KXMLQLCVCPropertiesFlashProperties           QString("FlashProperties")
-#define KXMLQLCVCPropertiesFlashOverrides            QString("FlashOverride")
-#define KXMLQLCVCPropertiesFlashForceLTP             QString("FlashForceLTP")
-
 #define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
 #define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
 #define KXMLQLCVCPropertiesGrandMasterChannelMode   QString("ChannelMode")
@@ -75,8 +71,6 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     , m_autoDetectionKey(QKeySequence())
     , m_autoDetectionKeyId(UINT_MAX)
     , m_inputChannelsTree(nullptr)
-    , m_flashOverrides(false)
-    , m_flashForceLTP(false)
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1172,37 +1166,6 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
     }
 }
 
-/*********************************************************************
-* Flashing
-*********************************************************************/
-void VirtualConsole::setFlashOverride(bool flashOverride)
-{
-    if(m_flashOverrides == flashOverride)
-        return;
-    m_flashOverrides = flashOverride;
-    emit flashOverrideChanged(flashOverride);
-    m_doc->setFlashOverrides(flashOverride);
-}
-
-bool VirtualConsole::flashOverrides() const
-{
-    return m_flashOverrides;
-}
-
-void VirtualConsole::setFlashForceLTP(bool forceLTP)
-{
-    if(m_flashForceLTP == forceLTP)
-        return;
-    m_flashForceLTP = forceLTP;
-    emit flashForceLTPChanged(forceLTP);
-    m_doc->setFlashForceLTP(forceLTP);
-}
-
-bool VirtualConsole::flashForceLTP() const
-{
-    return m_flashForceLTP;
-}
-
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -1316,21 +1279,6 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
                 m_pages.at(0)->setGeometry(QRect(0, 0, sz.width(), sz.height()));
             root.skipCurrentElement();
         }
-        else if (root.name() == KXMLQLCVCPropertiesFlashProperties)
-        {
-            str = root.attributes().value(KXMLQLCVCPropertiesFlashOverrides).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashOverride((bool)str.toInt());
-            }
-
-            str = root.attributes().value(KXMLQLCVCPropertiesFlashForceLTP).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashForceLTP((bool)str.toInt());
-            }
-            root.skipCurrentElement();
-        }
         else if (root.name() == KXMLQLCVCPropertiesGrandMaster)
         {
             QXmlStreamAttributes attrs = root.attributes();
@@ -1417,12 +1365,6 @@ bool VirtualConsole::saveXML(QXmlStreamWriter *doc)
     /* Properties */
     doc->writeStartElement(KXMLQLCVCProperties);
 
-    /* Flash Properties */
-    doc->writeStartElement(KXMLQLCVCPropertiesFlashProperties);
-    doc->writeAttribute(KXMLQLCVCPropertiesFlashOverrides, QString::number(flashOverrides()));
-    doc->writeAttribute(KXMLQLCVCPropertiesFlashForceLTP, QString::number(flashForceLTP()));
-    doc->writeEndElement();
-
     doc->writeEndElement();
 
     /* End the <VirtualConsole> tag */
@@ -1437,10 +1379,6 @@ void VirtualConsole::postLoad()
     m_doc->inputOutputMap()->setGrandMasterValue(255);
     //m_doc->inputOutputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
     //m_doc->inputOutputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
-
-    qDebug() << "Setting m_doc attributes: " << flashOverrides() << ", " << flashForceLTP();
-    m_doc->setFlashOverrides(flashOverrides());
-    m_doc->setFlashForceLTP(flashForceLTP());
 
     /** Go through widgets, check IDs and register widgets to the map
       * This code is the same as the one in addWidgetToMap()

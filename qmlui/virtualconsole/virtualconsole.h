@@ -52,9 +52,6 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
     Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
 
-    Q_PROPERTY(bool flashOverrides READ flashOverrides WRITE setFlashOverride NOTIFY flashOverrideChanged)
-    Q_PROPERTY(bool flashForceLTP READ flashForceLTP WRITE setFlashForceLTP NOTIFY flashForceLTPChanged)
-
 public:
     VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = 0);
 
@@ -315,25 +312,6 @@ protected:
 
     /** Data model used by the QML UI to represent groups/input channels */
     TreeModel *m_inputChannelsTree;
-
-    /*********************************************************************
-    * Flashing
-    *********************************************************************/
-public:
-    void setFlashOverride(bool flashOverride);
-
-    bool flashOverrides() const;
-
-    void setFlashForceLTP(bool forceLTP);
-
-    bool flashForceLTP() const;
-private:
-    bool m_flashOverrides;
-    bool m_flashForceLTP;
-
-signals:
-    void flashOverrideChanged(bool override);
-    void flashForceLTPChanged(bool forceLTP);
 
     /*********************************************************************
      * Load & Save

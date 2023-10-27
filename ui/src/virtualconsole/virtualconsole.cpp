@@ -1006,9 +1006,6 @@ void VirtualConsole::slotToolsSettings()
         if (m_dockArea != NULL)
             m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSlideMode());
 
-        m_doc->setFlashOverrides(m_properties.flashOverrides());
-        m_doc->setFlashForceLTP(m_properties.flashForceLTP());
-
         QSettings settings;
         settings.setValue(SETTINGS_BUTTON_SIZE, vcpe.buttonSize());
         settings.setValue(SETTINGS_BUTTON_STATUSLED, vcpe.buttonStatusLED());
@@ -1887,10 +1884,6 @@ void VirtualConsole::postLoad()
     m_doc->inputOutputMap()->setGrandMasterValue(255);
     m_doc->inputOutputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
     m_doc->inputOutputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
-    
-    /** Setting flash property values in the doc class. As described above consider placing it somewhere else. */
-    m_doc->setFlashOverrides(m_properties.flashOverrides());
-    m_doc->setFlashForceLTP(m_properties.flashForceLTP());
 
     /* Go through widgets, check IDs and register */
     /* widgets to the map */

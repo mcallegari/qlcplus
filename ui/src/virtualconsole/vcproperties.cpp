@@ -37,9 +37,6 @@
 
 VCProperties::VCProperties()
     : m_size(QSize(1920, 1080))
-
-    , m_flashOverrides(false)
-    , m_flashForceLTP(false)
     , m_gmChannelMode(GrandMaster::Intensity)
     , m_gmValueMode(GrandMaster::Reduce)
     , m_gmSliderMode(GrandMaster::Normal)
@@ -50,9 +47,6 @@ VCProperties::VCProperties()
 
 VCProperties::VCProperties(const VCProperties& properties)
     : m_size(properties.m_size)
-
-    , m_flashOverrides(properties.m_flashOverrides)
-    , m_flashForceLTP(properties.m_flashForceLTP)
     , m_gmChannelMode(properties.m_gmChannelMode)
     , m_gmValueMode(properties.m_gmValueMode)
     , m_gmSliderMode(properties.m_gmSliderMode)
@@ -70,8 +64,6 @@ VCProperties &VCProperties::operator=(const VCProperties &props)
     if (this != &props)
     {
         m_size = props.m_size;
-        m_flashOverrides = props.m_flashOverrides;
-        m_flashForceLTP = props.m_flashForceLTP;
         m_gmChannelMode = props.m_gmChannelMode;
         m_gmValueMode = props.m_gmValueMode;
         m_gmSliderMode = props.m_gmSliderMode;
@@ -94,29 +86,6 @@ void VCProperties::setSize(const QSize& size)
 QSize VCProperties::size() const
 {
     return m_size;
-}
-
-/*********************************************************************
-* Flashing
-*********************************************************************/
-void VCProperties::setFlashOverride(bool flashOverride)
-{
-    m_flashOverrides = flashOverride;
-}
-
-bool VCProperties::flashOverrides() const
-{
-    return m_flashOverrides;
-}
-
-void VCProperties::setFlashForceLTP(bool forceLTP)
-{
-    m_flashForceLTP = forceLTP;
-}
-
-bool VCProperties::flashForceLTP() const
-{
-    return m_flashForceLTP;
 }
 
 /*****************************************************************************
@@ -203,21 +172,6 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
                 setSize(sz);
             root.skipCurrentElement();
         }
-        else if (root.name() == KXMLQLCVCPropertiesFlashProperties)
-        {
-            str = root.attributes().value(KXMLQLCVCPropertiesFlashOverrides).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashOverride((bool)str.toInt());
-            }
-
-            str = root.attributes().value(KXMLQLCVCPropertiesFlashForceLTP).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashForceLTP((bool)str.toInt());
-            }
-            root.skipCurrentElement();
-        }
         else if (root.name() == KXMLQLCVCPropertiesGrandMaster)
         {
             QXmlStreamAttributes attrs = root.attributes();
@@ -276,11 +230,6 @@ bool VCProperties::saveXML(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLQLCVCPropertiesSizeHeight, QString::number(size().height()));
     doc->writeEndElement();
 
-    /* Flash Properties */
-    doc->writeStartElement(KXMLQLCVCPropertiesFlashProperties);
-    doc->writeAttribute(KXMLQLCVCPropertiesFlashOverrides, QString::number(flashOverrides()));
-    doc->writeAttribute(KXMLQLCVCPropertiesFlashForceLTP, QString::number(flashForceLTP()));
-    doc->writeEndElement();
     /***********************
      * Grand Master slider *
      ***********************/

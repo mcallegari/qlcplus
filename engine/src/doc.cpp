@@ -87,8 +87,6 @@ Doc::Doc(QObject* parent, int universes)
     , m_latestPaletteId(0)
     , m_latestFunctionId(0)
     , m_startupFunctionId(Function::invalidId())
-    , m_flashOverrides(false)
-    , m_flashForceLTP(false)
 {
     Bus::init(this);
     resetModified();
@@ -1234,30 +1232,6 @@ MonitorProperties *Doc::monitorProperties()
 
     return m_monitorProps;
 }
-
-/*********************************************************************
- * Flash Properties
- *********************************************************************/
-bool Doc::flashOverrides() const
-{
-    return m_flashOverrides;
-}
-
-void Doc::setFlashOverrides(bool overrides)
-{
-    m_flashOverrides = overrides;
-}
-
-bool Doc::flashForceLTP() const
-{
-    return m_flashForceLTP;
-}
-
-void Doc::setFlashForceLTP(bool forceLTP) 
-{
-    m_flashForceLTP = forceLTP;
-}
-
 
 /*****************************************************************************
  * Load & Save

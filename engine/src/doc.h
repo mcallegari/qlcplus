@@ -605,26 +605,6 @@ public:
     MonitorProperties *monitorProperties();
 
     /*********************************************************************
-    * Flash Properties
-    *********************************************************************/
-public:
-
-    /** Gets flash override property */
-    bool flashOverrides() const;
-
-    /** Sets flash override property */
-    void setFlashOverrides(bool overrides);
-
-    /** Gets flash force LTP property */
-    bool flashForceLTP() const;
-
-    /** Sets flash force LTP property */
-    void setFlashForceLTP(bool forceLTP);
-private:
-    bool m_flashOverrides;
-    bool m_flashForceLTP;
-
-    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:

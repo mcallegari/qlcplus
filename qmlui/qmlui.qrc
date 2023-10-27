@@ -236,7 +236,6 @@
     <file alias="VCClockProperties.qml">qml/virtualconsole/VCClockProperties.qml</file>
     <file alias="VCCueListItem.qml">qml/virtualconsole/VCCueListItem.qml</file>
     <file alias="VCCueListProperties.qml">qml/virtualconsole/VCCueListProperties.qml</file>
-    <file alias="VCProperties.qml">qml/virtualconsole/VCProperties.qml</file>
 
     <!-- Show Manager -->
     <file alias="ShowManager.qml">qml/showmanager/ShowManager.qml</file>

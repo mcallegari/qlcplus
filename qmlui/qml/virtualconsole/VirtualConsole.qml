@@ -202,17 +202,6 @@ Rectangle
                     onZoomOutClicked: { virtualConsole.setPageScale(-0.1) }
                     onZoomInClicked: { virtualConsole.setPageScale(0.1) }
                 }
-
-                IconButton
-                {
-                    id: settingsButton
-                    implicitHeight: vcToolbar.height - 2
-                    checkable: true
-                    tooltip: qsTr("Show/hide the VC settings")
-                    faColor: "white"
-                    faSource: FontAwesome.fa_bars
-                    onToggled: showProperties(checked)
-                }
             }
 
         }
@@ -231,16 +220,6 @@ Rectangle
                 pageLoader.item.page = selectedPage
             }
         }
-
-        VCProperties
-        {
-            id: vcProperties
-            visible: false
-            x: parent.width - width
-            anchors.top: vcToolbar.bottom
-            z: 1000
-        }
-
     }
 
 
