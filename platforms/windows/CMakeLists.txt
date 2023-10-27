@@ -68,6 +68,7 @@ set(qtlibs_files
     "${QT_LIBS_PATH}/${QT_V}OpenGL${QT_D}.dll"
     "${QT_LIBS_PATH}/${QT_V}Multimedia${QT_D}.dll"
     "${QT_LIBS_PATH}/${QT_V}MultimediaWidgets${QT_D}.dll"
+    "${QT_LIBS_PATH}/${QT_V}SerialPort${QT_D}.dll"
 )
 if(qmlui)
     list(APPEND qtlibs_files
