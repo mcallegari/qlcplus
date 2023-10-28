@@ -1,6 +1,8 @@
 qlcplus (4.12.8) stable; urgency=low
 
   * engine: fix Chaser random startup (thanks to Dennis Suermann)
+  * engine: do not fade out looped audio
+  * engine: fix stopping audio with fade in and fade out while fading in
   * Virtual Console/Slider: fix switching from playback to submaster mode
   * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications

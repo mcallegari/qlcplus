@@ -80,14 +80,13 @@ void AudioRenderer::setFadeIn(uint fadeTime)
 
 void AudioRenderer::setFadeOut(uint fadeTime)
 {
-    if (fadeTime == 0 || m_fadeStep != 0  || m_adec == NULL)
+    if (fadeTime == 0 || m_adec == NULL)
         return;
 
     quint32 sampleRate = m_adec->audioParameters().sampleRate();
     int channels = m_adec->audioParameters().channels();
     qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
     m_fadeStep = -(m_intensity / stepsCount);
-    m_currentIntensity = m_intensity;
 
     qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
 }
@@ -118,7 +117,7 @@ void AudioRenderer::run()
     while (!m_userStop)
     {
         QMutexLocker locker(&m_mutex);
-        audioDataWritten = 0;
+
         if (m_pause == false)
         {
             //qDebug() << "Pending audio bytes: " << pendingAudioBytes;
@@ -140,6 +139,8 @@ void AudioRenderer::run()
                 }
                 if (m_intensity != 1.0 || m_fadeStep != 0)
                 {
+                    //qDebug() << "Intensity" << m_intensity << ", current" << m_currentIntensity << ", fadeStep" << m_fadeStep;
+
                     for (int i = 0; i < audioDataRead; i+=sampleSize)
                     {
                         qreal scaleFactor = m_intensity;
