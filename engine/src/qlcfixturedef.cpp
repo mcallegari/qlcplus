@@ -27,9 +27,7 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlccapability.h"
 #include "qlcchannel.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
 

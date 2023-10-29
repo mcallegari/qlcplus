@@ -43,7 +43,6 @@
 #include "editmode.h"
 #include "edithead.h"
 #include "util.h"
-#include "app.h"
 
 #define KSettingsGeometry "editmode/geometry"
 

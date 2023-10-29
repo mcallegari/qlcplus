@@ -26,12 +26,9 @@
 #include <QDebug>
 
 #include "chaserrunner.h"
-#include "genericfader.h"
 #include "mastertimer.h"
-#include "fadechannel.h"
 #include "chaserstep.h"
 #include "qlcmacros.h"
-#include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"

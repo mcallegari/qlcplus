@@ -25,16 +25,11 @@
 #include <QColor>
 #include <QFile>
 
-#include "qlcfixturedef.h"
-#include "qlcfile.h"
-
 #include "chaserrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "function.h"
-#include "fixture.h"
 #include "chaser.h"
-#include "scene.h"
 #include "doc.h"
 #include "bus.h"
 

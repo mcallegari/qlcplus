@@ -23,10 +23,7 @@
 #include <QStyle>
 #include <QtGui>
 
-#include "qlcfile.h"
-
 #include "vcclockproperties.h"
-#include "virtualconsole.h"
 #include "vcclock.h"
 #include "doc.h"
 

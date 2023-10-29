@@ -23,12 +23,8 @@
 #include <QLabel>
 #include <QAction>
 
-#include "qlcfixturedef.h"
-
 #include "fixturetreewidget.h"
 #include "fixtureselection.h"
-#include "fixturegroup.h"
-#include "fixture.h"
 #include "doc.h"
 
 FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)

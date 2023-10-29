@@ -32,16 +32,11 @@
 #include <QDebug>
 #include <QPen>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
-#include "qlcchannel.h"
-
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
 #include "efxpreviewarea.h"
 #include "efxeditor.h"
 #include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "efxeditor/geometry"

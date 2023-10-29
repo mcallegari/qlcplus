@@ -26,15 +26,15 @@
 #include <QDebug>
 
 #include "vcspeeddialproperties.h"
-#include "vcpropertieseditor.h"
-#include "vcspeeddial.h"
 #include "vcspeeddialfunction.h"
+#include "vcpropertieseditor.h"
 #include "vcspeeddialpreset.h"
+#include "vcspeeddial.h"
+#include "flowlayout.h"
 #include "speeddial.h"
 #include "qlcmacros.h"
-#include "qlcfile.h"
 #include "function.h"
-#include "flowlayout.h"
+#include "qlcfile.h"
 
 #define UPDATE_TIMEOUT 50
 

@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QDebug>
+
 #include "inputselectionwidget.h"
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"
@@ -24,7 +26,6 @@
 #include "inputpatch.h"
 #include "doc.h"
 
-#include <QDebug>
 
 InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     : QWidget(parent)

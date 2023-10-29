@@ -22,8 +22,6 @@
 #include <QIcon>
 #include <QList>
 
-#include "qlcfile.h"
-
 #include "fixtureconsole.h"
 #include "consolechannel.h"
 #include "fixture.h"

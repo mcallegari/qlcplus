@@ -26,8 +26,6 @@
 
 #include "efxitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
-#include "audiodecoder.h"
 
 EFXItem::EFXItem(EFX *efx, ShowFunction *func)
     : ShowItem(func)

@@ -23,7 +23,6 @@
 #include <QFont>
 
 #include "monitorproperties.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "doc.h"
 

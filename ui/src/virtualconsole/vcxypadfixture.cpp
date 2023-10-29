@@ -26,7 +26,6 @@
 #include <QDebug>
 #include <math.h>
 
-#include "qlcfixturemode.h"
 #include "qlcchannel.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"

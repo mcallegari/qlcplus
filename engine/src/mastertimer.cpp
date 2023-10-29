@@ -32,10 +32,8 @@
 
 #include "inputoutputmap.h"
 #include "genericfader.h"
-#include "fadechannel.h"
 #include "mastertimer.h"
 #include "dmxsource.h"
-#include "qlcmacros.h"
 #include "function.h"
 #include "universe.h"
 #include "doc.h"

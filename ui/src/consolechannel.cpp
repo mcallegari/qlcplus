@@ -34,7 +34,6 @@
 #include "doc.h"
 #include "fixture.h"
 #include "apputil.h"
-#include "mastertimer.h"
 #include "consolechannel.h"
 
 /*****************************************************************************

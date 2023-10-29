@@ -21,13 +21,8 @@
 #include <QDebug>
 
 #include "showrunner.h"
-#include "chaserstep.h"
 #include "function.h"
-#include "chaser.h"
 #include "track.h"
-#include "scene.h"
-#include "audio.h"
-#include "video.h"
 #include "show.h"
 
 #define TIMER_INTERVAL 50

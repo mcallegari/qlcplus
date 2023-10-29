@@ -1266,7 +1266,7 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
         attributeID = m_lastOverrideAttributeId;
         m_overrideMap[attributeID] = override;
 
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
+        qDebug() << name() << "Override requested for new attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
 
         calculateOverrideValue(attributeIndex);
 
@@ -1274,7 +1274,7 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
     }
     else
     {
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
+        qDebug() << name() << "Override requested for existing attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
     }
 
     // actually apply the new override value

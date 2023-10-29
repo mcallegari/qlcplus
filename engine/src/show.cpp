@@ -24,12 +24,8 @@
 #include <QFile>
 #include <QList>
 
-#include "qlcfile.h"
-#include "qlcmacros.h"
-
 #include "showrunner.h"
 #include "function.h"
-#include "chaser.h"
 #include "show.h"
 #include "doc.h"
 

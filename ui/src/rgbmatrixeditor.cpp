@@ -43,7 +43,6 @@
 #include "sequence.h"
 #include "rgbitem.h"
 #include "rgbtext.h"
-#include "apputil.h"
 #include "scene.h"
 
 #define SETTINGS_GEOMETRY "rgbmatrixeditor/geometry"

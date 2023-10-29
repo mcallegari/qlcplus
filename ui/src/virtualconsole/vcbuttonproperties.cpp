@@ -29,17 +29,11 @@
 #include <QAction>
 #include <qmath.h>
 
-#include "qlcinputchannel.h"
-#include "qlcinputprofile.h"
-#include "qlcfixturedef.h"
-
 #include "inputselectionwidget.h"
 #include "vcbuttonproperties.h"
 #include "functionselection.h"
 #include "speeddialwidget.h"
-#include "virtualconsole.h"
 #include "function.h"
-#include "fixture.h"
 #include "doc.h"
 
 VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
