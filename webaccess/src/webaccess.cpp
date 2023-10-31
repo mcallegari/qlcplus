@@ -777,6 +777,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     frame->slotNextPage();
                 else if (cmdList[1] == "PREV_PG")
                     frame->slotPreviousPage();
+                else if (cmdList[1] == "ENABLE")
+                    frame->setDisableState(cmdList[2] == "1" ? true : false);
             }
             break;
             case VCWidget::ClockWidget:
@@ -874,12 +876,41 @@ void WebAccess::slotFramePageChanged(int pageNum)
     sendWebSocketMessage(ba);
 }
 
+void WebAccess::slotFrameEnableButtonClicked(bool checked)
+{
+    VCWidget *frame = qobject_cast<VCWidget *>(sender());
+    if (frame == NULL)
+        return;
+
+    QString wsMessage = QString("%1|ENABLE|%2").arg(frame->id()).arg(checked);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getFrameHTML(VCFrame *frame)
 {
     QColor border(90, 90, 90);
     QSize origSize = frame->originalSize();
     int w = frame->isCollapsed() ? 200 : origSize.width();
     int h = frame->isCollapsed() ? 36 : origSize.height();
+    // page select component width + margin
+    int pw = frame->multipageMode() ? frame->isCollapsed() ? 64 : 168 : 0;
+    // enable button width + margin
+    int ew = frame->isEnableButtonVisible() ? 36 : 0;
+    // collapse button width + margin
+    int cw = 36;
+    // header width
+    int hw = w - pw - ew - cw;
+    // header caption
+    QString caption = "";
+    if (frame->multipageMode()) {
+        caption = QString(frame->caption()) != ""
+                ? QString("%1 - Page: %2").arg(frame->caption()).arg(frame->currentPage() + 1)
+                : QString("Page: %1").arg(frame->currentPage() + 1);
+    } else {
+        caption = QString(frame->caption());
+    }
 
     QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id()) + "\" "
           "style=\"left: " + QString::number(frame->x()) +
@@ -893,33 +924,54 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
 
     if (frame->isHeaderVisible())
     {
-        str += "<a class=\"vcframeButton\" style=\"position: absolute; left: 0; \" href=\"javascript:frameToggleCollapse(";
-        str += QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
-        str += "<div class=\"vcframeHeader\" style=\"color:" +
-                frame->foregroundColor().name() + ";\"><div class=\"vcFrameText\">" + frame->caption() + "</div></div>\n";
+        str += "<div style=\"position: absolute; display: flex; align-items: center; justify-content: center; flex-direction: row; width: 100%;\">";
+        str += "<a class=\"vcframeButton\" href=\"javascript:frameToggleCollapse(" +
+                QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
+
+        str += "<div class=\"vcframeHeader\" id=\"vcframeHeader" + QString::number(frame->id()) + "\" style=\"color:" +
+               frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px \">";
+        str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" +(caption) + "</div>\n";
+        str += "</div>\n";
+
+        m_JScode += "caption[" + QString::number(frame->id()) + "] = \"" + QString(frame->caption()) + "\";\n";
+
+        if (frame->isEnableButtonVisible()) {
+            str += "<a class=\"vcframeButton\" id=\"frEnBtn"+ QString::number(frame->id()) +"\" " +
+                    "style=\" background-color: " + QString((frame->enableState() ? "#D7DE75" : "#E0DFDF" )) + "; \" " +
+                    "href=\"javascript:frameChangeEnableStatus(" + QString::number(frame->id()) + ");\">" +
+                    "<img src=\"check.png\" width=\"27\"></a>\n";
+
+            m_JScode += "enableStatus[" + QString::number(frame->id()) + "] = " + QString::number(frame->enableState() ? 1 : 0) + ";\n";
+            connect(frame, SIGNAL(enableChanged(bool)), this, SLOT(slotFrameEnableButtonClicked(bool)));
+        }
 
         m_JScode += "framesWidth[" + QString::number(frame->id()) + "] = " + QString::number(origSize.width()) + ";\n";
         m_JScode += "framesHeight[" + QString::number(frame->id()) + "] = " + QString::number(origSize.height()) + ";\n";
 
         if (frame->multipageMode())
         {
-            str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\"";
-            str += "style=\"position: absolute; top: 0; right: 2px;\">\n";
-            str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
-            str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"back.png\" width=\"27\"></a>";
-            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">";
-            str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div></div>";
-            str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
-            str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"forward.png\" width=\"27\"></a>\n";
+            str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\" style=\"display:flex; align-items:center; justify-content:center; flex-direction:row; margin-right: 2px;\">\n";
+
+            str += "<a class=\"vcframeButton\" id=\"frMpHdrPrev" + QString::number(frame->id()) + "\" href=\"javascript:framePreviousPage(" +
+                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
+                   "<img src=\"back.png\" width=\"27\"></a>";
+
+            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: "+QString::number(frame->isCollapsed() ? 60 : 100)+"px; \" >"+
+                    "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
+                    QString("Page: %1").arg(frame->currentPage() + 1) + "</div></div>\n";
+
+            str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
+                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
+                    "<img src=\"forward.png\" width=\"27\"></a>\n";
+
+
             str += "</div>\n";
 
             m_JScode += "framesCurrentPage[" + QString::number(frame->id()) + "] = " + QString::number(frame->currentPage()) + ";\n";
             m_JScode += "framesTotalPages[" + QString::number(frame->id()) + "] = " + QString::number(frame->totalPagesNumber()) + ";\n\n";
-            connect(frame, SIGNAL(pageChanged(int)),
-                    this, SLOT(slotFramePageChanged(int)));
+            connect(frame, SIGNAL(pageChanged(int)), this, SLOT(slotFramePageChanged(int)));
         }
+        str += "</div>\n";
     }
 
     str += "</div>\n";
@@ -933,6 +985,23 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
     QSize origSize = frame->originalSize();
     int w = frame->isCollapsed() ? 200 : origSize.width();
     int h = frame->isCollapsed() ? 36 : origSize.height();
+    // page select component width + margin
+    int pw = frame->multipageMode() ? frame->isCollapsed() ? 64 : 168 : 0;
+    // enable button width + margin
+    int ew = frame->isEnableButtonVisible() ? 36 : 0;
+    // collapse button width + margin
+    int cw = 36;
+    // header width
+    int hw = w - pw - ew - cw;
+    // header caption
+    QString caption = "";
+    if (frame->multipageMode()) {
+        caption = QString(frame->caption()) != ""
+                      ? QString("%1 - Page: %2").arg(frame->caption()).arg(frame->currentPage() + 1)
+                      : QString("Page: %1").arg(frame->currentPage() + 1);
+    } else {
+        caption = QString(frame->caption());
+    }
 
     QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id()) + "\" "
           "style=\"left: " + QString::number(frame->x()) +
@@ -946,33 +1015,54 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
     if (frame->isHeaderVisible())
     {
-        str += "<a class=\"vcframeButton\" style=\"position: absolute; left: 0; \" href=\"javascript:frameToggleCollapse(";
-        str += QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
-        str += "<div class=\"vcsoloframeHeader\" style=\"color:" +
-                frame->foregroundColor().name() + ";\"><div class=\"vcFrameText\">" + frame->caption() + "</div></div>\n";
+        str += "<div style=\"position: absolute; display: flex; align-items: center; justify-content: center; flex-direction: row; width: 100%;\">";
+        str += "<a class=\"vcframeButton\" href=\"javascript:frameToggleCollapse(" +
+               QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
+
+        str += "<div class=\"vcsoloframeHeader\" id=\"vcframeHeader" + QString::number(frame->id()) + "\" style=\"color:" +
+               frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px \">";
+        str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" +(caption) + "</div>\n";
+        str += "</div>\n";
+
+        m_JScode += "caption[" + QString::number(frame->id()) + "] = \"" + QString(frame->caption()) + "\";\n";
+
+        if (frame->isEnableButtonVisible()) {
+            str += "<a class=\"vcframeButton\" id=\"frEnBtn"+ QString::number(frame->id()) +"\" " +
+                   "style=\" background-color: " + QString((frame->enableState() ? "#D7DE75" : "#E0DFDF" )) + "; \" " +
+                   "href=\"javascript:frameChangeEnableStatus(" + QString::number(frame->id()) + ");\">" +
+                   "<img src=\"check.png\" width=\"27\"></a>\n";
+
+            m_JScode += "enableStatus[" + QString::number(frame->id()) + "] = " + QString::number(frame->enableState() ? 1 : 0) + ";\n";
+            connect(frame, SIGNAL(enableChanged(bool)), this, SLOT(slotFrameEnableButtonClicked(bool)));
+        }
 
         m_JScode += "framesWidth[" + QString::number(frame->id()) + "] = " + QString::number(origSize.width()) + ";\n";
         m_JScode += "framesHeight[" + QString::number(frame->id()) + "] = " + QString::number(origSize.height()) + ";\n";
 
         if (frame->multipageMode())
         {
-            str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\"";
-            str += "style=\"position: absolute; top: 0; right: 2px;\">\n";
-            str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
-            str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"back.png\" width=\"27\"></a>";
-            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">";
-            str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div></div>";
-            str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
-            str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"forward.png\" width=\"27\"></a>\n";
+            str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\" style=\"display:flex; align-items:center; justify-content:center; flex-direction:row; margin-right: 2px;\">\n";
+
+            str += "<a class=\"vcframeButton\" id=\"frMpHdrPrev" + QString::number(frame->id()) + "\" href=\"javascript:framePreviousPage(" +
+                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
+                   "<img src=\"back.png\" width=\"27\"></a>";
+
+            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: "+QString::number(frame->isCollapsed() ? 60 : 100)+"px; \" >"+
+                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
+                   QString("Page: %1").arg(frame->currentPage() + 1) + "</div></div>\n";
+
+            str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
+                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
+                   "<img src=\"forward.png\" width=\"27\"></a>\n";
+
+
             str += "</div>\n";
 
             m_JScode += "framesCurrentPage[" + QString::number(frame->id()) + "] = " + QString::number(frame->currentPage()) + ";\n";
             m_JScode += "framesTotalPages[" + QString::number(frame->id()) + "] = " + QString::number(frame->totalPagesNumber()) + ";\n\n";
-            connect(frame, SIGNAL(pageChanged(int)),
-                    this, SLOT(slotFramePageChanged(int)));
+            connect(frame, SIGNAL(pageChanged(int)), this, SLOT(slotFramePageChanged(int)));
         }
+        str += "</div>\n";
     }
 
     str += "</div>\n";

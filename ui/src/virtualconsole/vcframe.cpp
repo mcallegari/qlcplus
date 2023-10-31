@@ -114,6 +114,7 @@ void VCFrame::setDisableState(bool disable)
         m_enableButton->blockSignals(true);
         m_enableButton->setChecked(!disable);
         m_enableButton->blockSignals(false);
+        emit enableChanged(!disable);
     }
 
     foreach (VCWidget* widget, this->findChildren<VCWidget*>())
@@ -125,6 +126,11 @@ void VCFrame::setDisableState(bool disable)
 
     m_disableState = disable;
     updateFeedback();
+}
+
+bool VCFrame::enableState()
+{
+    return m_enableButton->isChecked();
 }
 
 void VCFrame::setLiveEdit(bool liveEdit)

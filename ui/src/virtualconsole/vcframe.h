@@ -118,6 +118,8 @@ public:
 
     bool isCollapsed() const;
 
+    bool enableState();
+
     QSize originalSize() const;
 
 protected slots:
@@ -175,6 +177,7 @@ public slots:
     void slotSetPage(int pageNum);
 
 signals:
+    void enableChanged(bool checked);
     void pageChanged(int pageNum);
 
 protected:

@@ -117,63 +117,98 @@ function wsSetCueIndex(id, idx) {
 }
 
 /* VCFrame */
-var framesWidth = new Array();
-var framesHeight = new Array();
-var framesTotalPages = new Array();
-var framesCurrentPage = new Array();
+var framesWidth = [];
+var framesHeight = [];
+var framesTotalPages = [];
+var framesCurrentPage = [];
+
+var enableStatus = [];
+var caption = [];
 
 function updateFrameLabel(id) {
- var framePageObj = document.getElementById("fr" + id + "Page");
- var newLabel = "Page " + (framesCurrentPage[id] + 1);
- framePageObj.innerHTML = newLabel;
+    var framePageObj = document.getElementById("fr" + id + "Page");
+    var newLabel = "Page " + (framesCurrentPage[id] + 1);
+    framePageObj.innerHTML = newLabel;
+
+    var frameCaptionObj = document.getElementById("fr" + id + "Caption");
+    var frMpHdr = document.getElementById("frMpHdr" + id);
+    var newCaption = caption[id];
+    if (frMpHdr) { // if multi page mode
+        newCaption = caption[id] ? caption[id] + " - " + newLabel : newLabel;
+    }
+    frameCaptionObj.innerHTML = newCaption;
 }
 
 function frameToggleCollapse(id) {
-  var frameObj = document.getElementById("fr" + id);
-  var mpHeader = document.getElementById("frMpHdr" + id);
-  var origWidth = framesWidth[id];
-  var origHeight = framesHeight[id];
+    var frameObj = document.getElementById("fr" + id);
+    var vcframeHeader = document.getElementById("vcframeHeader" + id);
+    var frEnBtn = document.getElementById("frEnBtn" + id);
+    var frMpHdrPrev = document.getElementById("frMpHdrPrev" + id);
+    var frMpHdrNext = document.getElementById("frMpHdrNext" + id);
+    var frPglbl = document.getElementById("frPglbl" + id);
 
-  if (frameObj.clientWidth === origWidth)
-  {
-    frameObj.style.width = "200px";
-    if (mpHeader) {
-      mpHeader.style.visibility = "hidden";
-    }
-  }
-  else
-  {
-    frameObj.style.width = origWidth + "px";
-    if (mpHeader) {
-      mpHeader.style.visibility = "visible";
-    }
-  }
+    var origWidth = framesWidth[id];
+    var origHeight = framesHeight[id];
 
-  if (frameObj.clientHeight === origHeight) {
-    frameObj.style.height = "36px";
-  }
-  else {
-    frameObj.style.height = origHeight + "px";
-  }
+    var ew = frEnBtn ? 36 : 0;
+    var pw = 0;
+
+    if (frameObj.clientWidth === origWidth) {
+        pw = frMpHdrPrev && frMpHdrNext ? 64 : 0;
+        frameObj.style.width = "200px";
+        if (frPglbl) frPglbl.style.width = "60px";
+        if (frMpHdrPrev) frMpHdrPrev.style.display = "none";
+        if (frMpHdrNext) frMpHdrNext.style.display = "none";
+        vcframeHeader.style.width = (200 - pw - ew - 36) + "px";
+    } else {
+        pw = frMpHdrPrev && frMpHdrNext ? 168 : 0;
+        frameObj.style.width = origWidth + "px";
+        if (frPglbl) frPglbl.style.width = "100px";
+        if (frMpHdrPrev) frMpHdrPrev.style.display = "block";
+        if (frMpHdrNext) frMpHdrNext.style.display = "block";
+        vcframeHeader.style.width = (origWidth - pw - ew - 36) + "px";
+    }
+    if (frameObj.clientHeight === origHeight) {
+        frameObj.style.height = "36px";
+    } else {
+        frameObj.style.height = origHeight + "px";
+    }
+}
+
+function frameChangeEnableStatus(id) {
+    websocket.send(id + "|ENABLE|" + enableStatus[id]);
+}
+
+function setFramEnableStatus(id, status) {
+    var frameObj = document.getElementById("frEnBtn" + id);
+    if (parseInt(status) === 1) {
+        enableStatus[id] = 1;
+        frameObj.style.background = "#D7DE75";
+    } else {
+        enableStatus[id] = 0;
+        frameObj.style.background = "#E0DFDF";
+    }
 }
 
 function frameNextPage(id) {
- websocket.send(id + "|NEXT_PG");
+    websocket.send(id + "|NEXT_PG");
 }
 
 function framePreviousPage(id) {
- websocket.send(id + "|PREV_PG");
+    websocket.send(id + "|PREV_PG");
 }
 
 function setFramePage(id, page) {
- var iPage = parseInt(page);
- if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
- var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
- framePageObj.style.visibility = "hidden";
- framesCurrentPage[id] = iPage;
- var frameNewPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
- frameNewPageObj.style.visibility = "visible";
- updateFrameLabel(id);
+    var iPage = parseInt(page);
+    if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
+    var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
+    framePageObj.style.visibility = "hidden";
+    framesCurrentPage[id] = iPage;
+
+    var frameNewPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
+    frameNewPageObj.style.visibility = "visible";
+
+    updateFrameLabel(id);
 }
 
 /* VCSlider */

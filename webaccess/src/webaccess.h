@@ -88,6 +88,7 @@ protected slots:
     void slotCueIndexChanged(int idx);
     void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
+    void slotFrameEnableButtonClicked(bool checked);
 
 protected:
     QString m_JScode;

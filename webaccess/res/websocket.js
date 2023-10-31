@@ -44,7 +44,7 @@ function connect() {
   };
 
   websocket.onmessage = function (ev) {
-    //console.log(ev.data);
+    // console.log(ev.data);
     var msgParams = ev.data.split("|");
     if (msgParams[1] === "BUTTON") {
       wsSetButtonState(msgParams[0], msgParams[2]);
@@ -61,6 +61,8 @@ function connect() {
       setFramePage(msgParams[0], msgParams[2]);
     } else if (msgParams[0] === "ALERT") {
       alert(msgParams[1]);
+    } else if (msgParams[1] === "ENABLE") {
+      setFramEnableStatus(msgParams[0], msgParams[2]);
     }
   };
   initVirtualConsole();
