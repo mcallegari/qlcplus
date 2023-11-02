@@ -128,7 +128,7 @@ void VCFrame::setDisableState(bool disable)
     updateFeedback();
 }
 
-bool VCFrame::enableState()
+bool VCFrame::enableButtonChecked()
 {
     return m_enableButton->isChecked();
 }

@@ -118,7 +118,7 @@ public:
 
     bool isCollapsed() const;
 
-    bool enableState();
+    bool enableButtonChecked();
 
     QSize originalSize() const;
 

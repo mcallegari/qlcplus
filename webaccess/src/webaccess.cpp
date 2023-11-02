@@ -937,11 +937,11 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn"+ QString::number(frame->id()) +"\" " +
-                    "style=\" background-color: " + QString((frame->enableState() ? "#D7DE75" : "#E0DFDF" )) + "; \" " +
+                    "style=\" background-color: " + QString((frame->enableButtonChecked() ? "#D7DE75" : "#E0DFDF" )) + "; \" " +
                     "href=\"javascript:frameChangeEnableStatus(" + QString::number(frame->id()) + ");\">" +
                     "<img src=\"check.png\" width=\"27\"></a>\n";
 
-            m_JScode += "enableStatus[" + QString::number(frame->id()) + "] = " + QString::number(frame->enableState() ? 1 : 0) + ";\n";
+            m_JScode += "enableStatus[" + QString::number(frame->id()) + "] = " + QString::number(frame->enableButtonChecked() ? 1 : 0) + ";\n";
             connect(frame, SIGNAL(enableChanged(bool)), this, SLOT(slotFrameEnableButtonClicked(bool)));
         }
 
@@ -1028,11 +1028,11 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn"+ QString::number(frame->id()) +"\" " +
-                   "style=\" background-color: " + QString((frame->enableState() ? "#D7DE75" : "#E0DFDF" )) + "; \" " +
+                   "style=\" background-color: " + QString((frame->enableButtonChecked() ? "#D7DE75" : "#E0DFDF" )) + "; \" " +
                    "href=\"javascript:frameChangeEnableStatus(" + QString::number(frame->id()) + ");\">" +
                    "<img src=\"check.png\" width=\"27\"></a>\n";
 
-            m_JScode += "enableStatus[" + QString::number(frame->id()) + "] = " + QString::number(frame->enableState() ? 1 : 0) + ";\n";
+            m_JScode += "enableStatus[" + QString::number(frame->id()) + "] = " + QString::number(frame->enableButtonChecked() ? 1 : 0) + ";\n";
             connect(frame, SIGNAL(enableChanged(bool)), this, SLOT(slotFrameEnableButtonClicked(bool)));
         }
 

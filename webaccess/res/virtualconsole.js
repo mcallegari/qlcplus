@@ -76,14 +76,14 @@ function setCueIndex(id, idx) {
 
 function sendCueCmd(id, cmd) {
  if (cmd === "PLAY") {
-   var obj = document.getElementById("play" + id);
-   if (cueListsIndices[id] === "-1") {
-     obj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
-     setCueIndex(id, "0");
-   }
-   else {
-     obj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
-   }
+  var obj = document.getElementById("play" + id);
+  if (cueListsIndices[id] === "-1") {
+   obj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
+   setCueIndex(id, "0");
+  }
+  else {
+   obj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
+  }
  }
  websocket.send(id + "|" + cmd);
 }
@@ -91,10 +91,10 @@ function sendCueCmd(id, cmd) {
 function checkMouseOut(id, idx) {
  var obj = document.getElementById(id + "_" + idx);
  if(idx == cueListsIndices[id]) {
-   obj.style.backgroundColor="#5E7FDF";
+  obj.style.backgroundColor="#5E7FDF";
  }
  else {
-   obj.style.backgroundColor="#FFFFFF";
+  obj.style.backgroundColor="#FFFFFF";
  }
 }
 
@@ -109,10 +109,10 @@ function wsSetCueIndex(id, idx) {
  setCueIndex(id, idx);
  var playObj = document.getElementById("play" + id);
  if (idx === "-1") {
-    playObj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
+  playObj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
  }
  else {
-    playObj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
+  playObj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
  }
 }
 
@@ -126,89 +126,83 @@ var enableStatus = [];
 var caption = [];
 
 function updateFrameLabel(id) {
-    var framePageObj = document.getElementById("fr" + id + "Page");
-    var newLabel = "Page " + (framesCurrentPage[id] + 1);
-    framePageObj.innerHTML = newLabel;
-
-    var frameCaptionObj = document.getElementById("fr" + id + "Caption");
-    var frMpHdr = document.getElementById("frMpHdr" + id);
-    var newCaption = caption[id];
-    if (frMpHdr) { // if multi page mode
-        newCaption = caption[id] ? caption[id] + " - " + newLabel : newLabel;
-    }
-    frameCaptionObj.innerHTML = newCaption;
+ var framePageObj = document.getElementById("fr" + id + "Page");
+ var newLabel = "Page " + (framesCurrentPage[id] + 1);
+ framePageObj.innerHTML = newLabel;
+ var frameCaptionObj = document.getElementById("fr" + id + "Caption");
+ var frMpHdr = document.getElementById("frMpHdr" + id);
+ var newCaption = caption[id];
+ if (frMpHdr) { // if multi page mode
+  newCaption = caption[id] ? caption[id] + " - " + newLabel : newLabel;
+ }
+ frameCaptionObj.innerHTML = newCaption;
 }
 
 function frameToggleCollapse(id) {
-    var frameObj = document.getElementById("fr" + id);
-    var vcframeHeader = document.getElementById("vcframeHeader" + id);
-    var frEnBtn = document.getElementById("frEnBtn" + id);
-    var frMpHdrPrev = document.getElementById("frMpHdrPrev" + id);
-    var frMpHdrNext = document.getElementById("frMpHdrNext" + id);
-    var frPglbl = document.getElementById("frPglbl" + id);
-
-    var origWidth = framesWidth[id];
-    var origHeight = framesHeight[id];
-
-    var ew = frEnBtn ? 36 : 0;
-    var pw = 0;
-
-    if (frameObj.clientWidth === origWidth) {
-        pw = frMpHdrPrev && frMpHdrNext ? 64 : 0;
-        frameObj.style.width = "200px";
-        if (frPglbl) frPglbl.style.width = "60px";
-        if (frMpHdrPrev) frMpHdrPrev.style.display = "none";
-        if (frMpHdrNext) frMpHdrNext.style.display = "none";
-        vcframeHeader.style.width = (200 - pw - ew - 36) + "px";
-    } else {
-        pw = frMpHdrPrev && frMpHdrNext ? 168 : 0;
-        frameObj.style.width = origWidth + "px";
-        if (frPglbl) frPglbl.style.width = "100px";
-        if (frMpHdrPrev) frMpHdrPrev.style.display = "block";
-        if (frMpHdrNext) frMpHdrNext.style.display = "block";
-        vcframeHeader.style.width = (origWidth - pw - ew - 36) + "px";
-    }
-    if (frameObj.clientHeight === origHeight) {
-        frameObj.style.height = "36px";
-    } else {
-        frameObj.style.height = origHeight + "px";
-    }
+ var frameObj = document.getElementById("fr" + id);
+ var vcframeHeader = document.getElementById("vcframeHeader" + id);
+ var frEnBtn = document.getElementById("frEnBtn" + id);
+ var frMpHdrPrev = document.getElementById("frMpHdrPrev" + id);
+ var frMpHdrNext = document.getElementById("frMpHdrNext" + id);
+ var frPglbl = document.getElementById("frPglbl" + id);
+ var origWidth = framesWidth[id];
+ var origHeight = framesHeight[id];
+ var ew = frEnBtn ? 36 : 0;
+ var pw = 0;
+ if (frameObj.clientWidth === origWidth) {
+  pw = frMpHdrPrev && frMpHdrNext ? 64 : 0;
+  frameObj.style.width = "200px";
+  if (frPglbl) frPglbl.style.width = "60px";
+  if (frMpHdrPrev) frMpHdrPrev.style.display = "none";
+  if (frMpHdrNext) frMpHdrNext.style.display = "none";
+  vcframeHeader.style.width = (200 - pw - ew - 36) + "px";
+ } else {
+  pw = frMpHdrPrev && frMpHdrNext ? 168 : 0;
+  frameObj.style.width = origWidth + "px";
+  if (frPglbl) frPglbl.style.width = "100px";
+  if (frMpHdrPrev) frMpHdrPrev.style.display = "block";
+  if (frMpHdrNext) frMpHdrNext.style.display = "block";
+  vcframeHeader.style.width = (origWidth - pw - ew - 36) + "px";
+ }
+ if (frameObj.clientHeight === origHeight) {
+  frameObj.style.height = "36px";
+ } else {
+  frameObj.style.height = origHeight + "px";
+ }
 }
 
 function frameChangeEnableStatus(id) {
-    websocket.send(id + "|ENABLE|" + enableStatus[id]);
+ websocket.send(id + "|ENABLE|" + enableStatus[id]);
 }
 
 function setFramEnableStatus(id, status) {
-    var frameObj = document.getElementById("frEnBtn" + id);
-    if (parseInt(status) === 1) {
-        enableStatus[id] = 1;
-        frameObj.style.background = "#D7DE75";
-    } else {
-        enableStatus[id] = 0;
-        frameObj.style.background = "#E0DFDF";
-    }
+ var frameObj = document.getElementById("frEnBtn" + id);
+ if (parseInt(status) === 1) {
+  enableStatus[id] = 1;
+  frameObj.style.background = "#D7DE75";
+ } else {
+  enableStatus[id] = 0;
+  frameObj.style.background = "#E0DFDF";
+ }
 }
 
 function frameNextPage(id) {
-    websocket.send(id + "|NEXT_PG");
+ websocket.send(id + "|NEXT_PG");
 }
 
 function framePreviousPage(id) {
-    websocket.send(id + "|PREV_PG");
+ websocket.send(id + "|PREV_PG");
 }
 
 function setFramePage(id, page) {
-    var iPage = parseInt(page);
-    if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
-    var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
-    framePageObj.style.visibility = "hidden";
-    framesCurrentPage[id] = iPage;
-
-    var frameNewPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
-    frameNewPageObj.style.visibility = "visible";
-
-    updateFrameLabel(id);
+ var iPage = parseInt(page);
+ if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
+ var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
+ var frameNewPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
+ framePageObj.style.visibility = "hidden";
+ framesCurrentPage[id] = iPage;
+ frameNewPageObj.style.visibility = "visible";
+ updateFrameLabel(id);
 }
 
 /* VCSlider */
@@ -230,8 +224,7 @@ function atButtonClick(id) {
  var obj = document.getElementById(id);
  if (obj.value === "0" || obj.value == undefined) {
   obj.value = "255";
- }
- else {
+ } else {
   obj.value = "0";
  }
  var btnMsg = id + "|" + obj.value;
@@ -244,8 +237,7 @@ function wsSetAudioTriggersEnabled(id, enabled) {
   obj.value = "255";
   obj.style.border = "3px solid #00E600";
   obj.style.backgroundColor = "#D7DE75";
- }
- else {
+ } else {
   obj.value = "0";
   obj.style.border = "3px solid #A0A0A0";
   obj.style.backgroundColor = "#D6D2D0";

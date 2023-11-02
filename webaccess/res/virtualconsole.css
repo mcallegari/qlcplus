@@ -124,12 +124,12 @@ table.hovertable td {
 .vcframeButton:active { background: #868585; }
 
 .vcframeEnableButton {
-display: inline-block;
-vertical-align: top;
-background-color: #E0DFDF;
-border: 1px solid gray;
-border-radius: 3px;
-padding: 3px;
+ display: inline-block;
+ vertical-align: top;
+ background-color: #E0DFDF;
+ border: 1px solid gray;
+ border-radius: 3px;
+ padding: 3px;
 }
 
 .vcframePageLabel {
