@@ -19,7 +19,7 @@
 
 var websocket;
 function sendCMD(cmd) {
- websocket.send("QLC+CMD|" + cmd);
+  websocket.send("QLC+CMD|" + cmd);
 }
 
 function connect() {
@@ -44,25 +44,46 @@ function connect() {
   };
 
   websocket.onmessage = function (ev) {
-    // console.log(ev.data);
+    console.log(ev.data);
     var msgParams = ev.data.split("|");
-    if (msgParams[1] === "BUTTON") {
-      wsSetButtonState(msgParams[0], msgParams[2]);
-    } else if (msgParams[1] === "SLIDER") {
-      // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
-      wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
-    } else if (msgParams[1] === "AUDIOTRIGGERS") {
-      wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
-    } else if (msgParams[1] === "CUE") {
-      wsSetCueIndex(msgParams[0], msgParams[2]);
-    } else if (msgParams[1] === "CLOCK") {
-      wsUpdateClockTime(msgParams[0], msgParams[2]);
-    } else if (msgParams[1] === "FRAME") {
-      setFramePage(msgParams[0], msgParams[2]);
-    } else if (msgParams[0] === "ALERT") {
+
+    if (msgParams[0] === "ALERT") {
       alert(msgParams[1]);
-    } else if (msgParams[1] === "ENABLE") {
-      setFramEnableStatus(msgParams[0], msgParams[2]);
+    } else if (msgParams[0] === "DISABLESTATE") {
+      switch (msgParams[1]) {
+        case "BUTTON":
+          setButtonDisableState(msgParams[2], msgParams[3]);
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (msgParams[1]) {
+        case "BUTTON":
+          wsSetButtonState(msgParams[0], msgParams[2]);
+          break;
+        case "SLIDER":
+          // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
+          wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
+          break;
+        case "AUDIOTRIGGERS":
+          wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
+          break;
+        case "CUE":
+          wsSetCueIndex(msgParams[0], msgParams[2]);
+          break;
+        case "CLOCK":
+          wsUpdateClockTime(msgParams[0], msgParams[2]);
+          break;
+        case "FRAME":
+          setFramePage(msgParams[0], msgParams[2]);
+          break;
+        case "ENABLE":
+          setFramEnableStatus(msgParams[0], msgParams[2]);
+          break;
+        default:
+          break;
+      }
     }
   };
   initVirtualConsole();

@@ -22,6 +22,9 @@ form {
  text-decoration: none;
  text-align: center;
 }
+.vcbutton-disable {
+ color: #A0A0A0!important;
+}
 
 .vccuelist {
  position: absolute;

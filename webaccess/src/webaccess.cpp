@@ -315,7 +315,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     if (cmdList.isEmpty())
         return;
 
-    if(cmdList[0] == "QLC+CMD")
+    if (cmdList[0] == "QLC+CMD")
     {
         if (cmdList.count() < 2)
             return;
@@ -392,7 +392,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         return;
     }
-    else if(cmdList[0] == "QLC+AUTH" && m_auth)
+    else if (cmdList[0] == "QLC+AUTH" && m_auth)
     {
         if(user && user->level < SUPER_ADMIN_LEVEL)
             return;
@@ -692,7 +692,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         conn->webSocketWrite(QHttpConnection::TextFrame, wsAPIMessage.toUtf8());
         return;
     }
-    else if(cmdList[0] == "CH")
+    else if (cmdList[0] == "CH")
     {
         if(m_auth && user && user->level < SIMPLE_DESK_AND_VC_LEVEL)
             return;
@@ -706,7 +706,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         return;
     }
-    else if(cmdList[0] == "POLL")
+    else if (cmdList[0] == "POLL")
         return;
 
     if (data.contains("|") == false)
@@ -997,8 +997,8 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
     QString caption = "";
     if (frame->multipageMode()) {
         caption = QString(frame->caption()) != ""
-                      ? QString("%1 - Page: %2").arg(frame->caption()).arg(frame->currentPage() + 1)
-                      : QString("Page: %1").arg(frame->currentPage() + 1);
+                ? QString("%1 - Page: %2").arg(frame->caption()).arg(frame->currentPage() + 1)
+                : QString("Page: %1").arg(frame->currentPage() + 1);
     } else {
         caption = QString(frame->caption());
     }
@@ -1089,6 +1089,18 @@ void WebAccess::slotButtonStateChanged(int state)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotButtonDisableStateChanged(bool disable)
+{
+    VCButton *btn = qobject_cast<VCButton *>(sender());
+    if (btn == NULL)
+        return;
+
+    QString wsMessage = QString("DISABLESTATE|BUTTON|%1|%2").arg(btn->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getButtonHTML(VCButton *btn)
 {
     QString onCSS = "";
@@ -1097,14 +1109,22 @@ QString WebAccess::getButtonHTML(VCButton *btn)
     else if (btn->state() == VCButton::Monitoring)
         onCSS = "border: 3px solid #FFAA00;";
 
+    if (btn->isDisabled()) {
+        onCSS += "color: #A0A0A0;";
+    }
+
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
     str +=  "<a class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
-            "href=\"javascript:void(0);\" "
-            "onmousedown=\"buttonPress(" + QString::number(btn->id()) + ");\" "
-            "onmouseup=\"buttonRelease(" + QString::number(btn->id()) + ");\" "
-            "style=\""
+            "href=\"javascript:void(0);\" ";
+
+    if (!btn->isDisabled()) {
+        str += "onmousedown=\"buttonPress(" + QString::number(btn->id()) + ");\" "
+               "onmouseup=\"buttonRelease(" + QString::number(btn->id()) + ");\" ";
+    }
+
+    str +=  "style=\""
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
             "color: " + btn->foregroundColor().name() + "; " +
@@ -1114,6 +1134,8 @@ QString WebAccess::getButtonHTML(VCButton *btn)
 
     connect(btn, SIGNAL(stateChanged(int)),
             this, SLOT(slotButtonStateChanged(int)));
+    connect(btn, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotButtonDisableStateChanged(bool)));
 
     return str;
 }

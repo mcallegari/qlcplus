@@ -170,6 +170,9 @@ public:
 protected:
     bool m_disableState;
 
+signals:
+    void disableStateChanged(bool disable);
+
     /*********************************************************************
      * Page
      *********************************************************************/

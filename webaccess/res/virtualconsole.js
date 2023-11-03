@@ -31,16 +31,16 @@ function buttonRelease(id) {
 }
 
 function wsSetButtonState(id, state) {
-  var obj = document.getElementById(id);
+  var btnObj = document.getElementById(id);
   if (state === "255") {
-    obj.value = "255";
-    obj.style.border = "3px solid #00E600";
+    btnObj.value = "255";
+    btnObj.style.border = "3px solid #00E600";
   } else if (state === "127") {
-    obj.value = "127";
-    obj.style.border = "3px solid #FFAA00";
+    btnObj.value = "127";
+    btnObj.style.border = "3px solid #FFAA00";
   } else {
-    obj.value = "0";
-    obj.style.border = "3px solid #A0A0A0";
+    btnObj.value = "0";
+    btnObj.style.border = "3px solid #A0A0A0";
   }
 }
 
@@ -57,6 +57,19 @@ window.addEventListener("load",() => {
     }, false);
   }
 });
+
+function setButtonDisableState(id, disable) {
+  var btnObj = document.getElementById(id);
+  if (disable === "1") {
+    btnObj.removeAttribute("onmousedown");
+    btnObj.removeAttribute("onmouseup");
+    btnObj.classList.add('vcbutton-disable');
+  } else {
+    btnObj.setAttribute("onmousedown", "buttonPress("+id+");");
+    btnObj.setAttribute("onmouseup", "buttonRelease("+id+");");
+    btnObj.classList.remove('vcbutton-disable');
+  }
+}
 
 /* VCCueList */
 var cueListsIndices = [];
