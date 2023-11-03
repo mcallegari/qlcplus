@@ -92,7 +92,10 @@ protected slots:
 
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
+
     void slotClockTimeChanged(quint32 time);
+    void slotClockDisableStateChanged(bool disable);
+
     void slotFramePageChanged(int pageNum);
     void slotFrameEnableButtonClicked(bool checked);
 

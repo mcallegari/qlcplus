@@ -1439,15 +1439,26 @@ void WebAccess::slotClockTimeChanged(quint32 time)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotClockDisableStateChanged(bool disable)
+{
+    VCClock *clock = qobject_cast<VCClock *>(sender());
+    if (clock == NULL)
+        return;
+
+    QString wsMessage = QString("DISABLESTATE|CLOCK|%1|%2").arg(clock->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getClockHTML(VCClock *clock)
 {
     QString str = "<div class=\"vclabel-wrapper\" style=\""
             "left: " + QString::number(clock->x()) + "px; "
             "top: " + QString::number(clock->y()) + "px;\">\n";
-    str +=  "<a id=\"" + QString::number(clock->id()) + "\" class=\"vclabel ";
+    str +=  "<a id=\"" + QString::number(clock->id()) + "\" class=\"vclabel" + QString(clock->isDisabled() ? " vclabel-disabled" : "") + " ";
 
-    if (clock->clockType() == VCClock::Stopwatch ||
-        clock->clockType() == VCClock::Countdown)
+    if (!clock->isDisabled() && (clock->clockType() == VCClock::Stopwatch || clock->clockType() == VCClock::Countdown))
     {
         str += "vcclockcount\" href=\"javascript:controlWatch(";
         str += QString::number(clock->id()) + ", 'S')\" ";
@@ -1460,6 +1471,9 @@ QString WebAccess::getClockHTML(VCClock *clock)
     {
         str += "vcclock\" href=\"javascript:void(0)\"";
     }
+
+    connect(clock, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotClockDisableStateChanged(bool)));
 
     str +=  "style=\"width: " + QString::number(clock->width()) + "px; "
             "height: " + QString::number(clock->height()) + "px; "

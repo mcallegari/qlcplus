@@ -60,6 +60,9 @@ function connect() {
         case "LABEL":
           setLabelDisableState(msgParams[2], msgParams[3]);
           break;
+        case "CLOCK":
+          setClockDisableState(msgParams[2], msgParams[3]);
+          break;
         default:
           break;
       }
