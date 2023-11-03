@@ -1207,18 +1207,34 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
     return str;
 }
 
+
+void WebAccess::slotLabelDisableStateChanged(bool disable)
+{
+    VCLabel *label = qobject_cast<VCLabel *>(sender());
+    if (label == NULL)
+        return;
+
+    QString wsMessage = QString("DISABLESTATE|LABEL|%1|%2").arg(label->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getLabelHTML(VCLabel *label)
 {
     QString str = "<div class=\"vclabel-wrapper\" style=\""
             "left: " + QString::number(label->x()) + "px; "
             "top: " + QString::number(label->y()) + "px;\">\n";
-    str +=  "<div class=\"vclabel\" style=\""
+    str +=  "<div id=\"lbl" + QString::number(label->id()) + "\" class=\"vclabel" + QString(label->isDisabled() ? " vclabel-disabled" : "") + "\" style=\""
             "width: " + QString::number(label->width()) + "px; "
             "height: " + QString::number(label->height()) + "px; "
             "color: " + label->foregroundColor().name() + "; "
             "background-color: " + label->backgroundColor().name() + "; " +
             getWidgetBackgroundImage(label) + "\">" +
             label->caption() + "</div>\n</div>\n";
+
+    connect(label, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotLabelDisableStateChanged(bool)));
 
     return str;
 }

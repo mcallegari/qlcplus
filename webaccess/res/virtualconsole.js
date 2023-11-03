@@ -248,6 +248,17 @@ function setSliderDisableState(id, disable) {
   }
 }
 
+/* VCLabel */
+function setLabelDisableState(id, disable) {
+  var lblObj = document.getElementById("lbl" + id);
+
+  if (disable === "1") {
+    lblObj.classList.add('vclabel-disabled');
+  } else {
+    lblObj.classList.remove('vclabel-disabled');
+  }
+}
+
 /* VCAudioTriggers */
 function atButtonClick(id) {
   var obj = document.getElementById(id);

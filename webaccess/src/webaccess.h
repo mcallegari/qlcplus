@@ -88,6 +88,8 @@ protected slots:
     void slotSliderValueChanged(QString val);
     void slotSliderDisableStateChanged(bool disable);
 
+    void slotLabelDisableStateChanged(bool disable);
+
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
     void slotClockTimeChanged(quint32 time);

@@ -172,11 +172,14 @@ table.hovertable td {
 
 .vclabel {
  display: table-cell;
- border: 1px solid #A0A0A0;
+/* border: 1px solid #A0A0A0;*/
  border-radius: 3px;
  font-family: arial, verdana, sans-serif;
  text-align:center;
  vertical-align: middle;
+}
+.vclabel-disabled {
+ color: #A0A0A0!important;
 }
 
 .vcclock, .vcclockcount {

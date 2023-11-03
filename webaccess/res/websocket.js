@@ -57,6 +57,9 @@ function connect() {
         case "SLIDER":
           setSliderDisableState(msgParams[2], msgParams[3]);
           break;
+        case "LABEL":
+          setLabelDisableState(msgParams[2], msgParams[3]);
+          break;
         default:
           break;
       }
