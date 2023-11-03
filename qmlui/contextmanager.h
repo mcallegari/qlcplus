@@ -225,6 +225,7 @@ public:
     /** Set/Get the rotation of the currently selected fixtures */
     QVector3D fixturesRotation() const;
     void setFixturesRotation(QVector3D degrees);
+    void setFixtureRotation(quint32 itemID, QVector3D degrees);
 
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);

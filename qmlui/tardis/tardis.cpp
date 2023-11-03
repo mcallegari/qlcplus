@@ -28,7 +28,6 @@
 #include "fixturemanager.h"
 #include "functionmanager.h"
 #include "contextmanager.h"
-#include "functioneditor.h"
 #include "simpledesk.h"
 #include "collection.h"
 #include "rgbmatrix.h"
@@ -538,10 +537,22 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     switch(action.m_action)
     {
-        /* *********************** Global settings actions ************************ */
+        /* *********************** Preview settings actions ************************ */
         case EnvironmentSetSize:
         {
             m_contextManager->setEnvironmentSize(value->value<QVector3D>());
+        }
+        break;
+        case FixtureSetPosition:
+        {
+            QVector3D pos = value->value<QVector3D>();
+            m_contextManager->setFixturePosition(action.m_objID, pos.x(), pos.y(), pos.z());
+        }
+        break;
+        case FixtureSetRotation:
+        {
+            QVector3D rotation = value->value<QVector3D>();
+            m_contextManager->setFixtureRotation(action.m_objID, rotation);
         }
         break;
 
@@ -571,12 +582,6 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case FixtureSetName:
         {
             m_fixtureManager->renameFixture(action.m_objID, value->toString());
-        }
-        break;
-        case FixtureSetPosition:
-        {
-            QVector3D pos = value->value<QVector3D>();
-            m_contextManager->setFixturePosition(action.m_objID, pos.x(), pos.y(), pos.z());
         }
         break;
         case FixtureSetDumpValue:
