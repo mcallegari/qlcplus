@@ -63,11 +63,11 @@ function setButtonDisableState(id, disable) {
   if (disable === "1") {
     btnObj.removeAttribute("onmousedown");
     btnObj.removeAttribute("onmouseup");
-    btnObj.classList.add('vcbutton-disable');
+    btnObj.classList.add('vcbutton-disabled');
   } else {
     btnObj.setAttribute("onmousedown", "buttonPress("+id+");");
     btnObj.setAttribute("onmouseup", "buttonRelease("+id+");");
-    btnObj.classList.remove('vcbutton-disable');
+    btnObj.classList.remove('vcbutton-disabled');
   }
 }
 
@@ -228,6 +228,24 @@ function wsSetSliderValue(id, sliderValue, displayValue) {
   obj.value = sliderValue;
   var labelObj = document.getElementById("slv" + id);
   labelObj.innerHTML = displayValue;
+}
+
+function setSliderDisableState(id, disable) {
+  var sliderObj = document.getElementById(id);
+  var slvObj = document.getElementById("slv" + id);
+  var slnObj = document.getElementById("sln" + id);
+
+  if (disable === "1") {
+    sliderObj.setAttribute("disabled", "diabled");
+    sliderObj.classList.add('vVertical-disabled');
+    slvObj.classList.add('vcslLabel-disabled');
+    slnObj.classList.add('vcslLabel-disabled');
+  } else {
+    sliderObj.removeAttribute("disabled");
+    sliderObj.classList.remove('vVertical-disabled');
+    slvObj.classList.remove('vcslLabel-disabled');
+    slnObj.classList.remove('vcslLabel-disabled');
+  }
 }
 
 /* VCAudioTriggers */

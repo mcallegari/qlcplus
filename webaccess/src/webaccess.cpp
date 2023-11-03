@@ -1109,14 +1109,10 @@ QString WebAccess::getButtonHTML(VCButton *btn)
     else if (btn->state() == VCButton::Monitoring)
         onCSS = "border: 3px solid #FFAA00;";
 
-    if (btn->isDisabled()) {
-        onCSS += "color: #A0A0A0;";
-    }
-
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
-    str +=  "<a class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
+    str +=  "<a class=\"vcbutton" + QString(btn->isDisabled() ? " vcbutton-disabled" : "") + "\" id=\"" + QString::number(btn->id()) + "\" "
             "href=\"javascript:void(0);\" ";
 
     if (!btn->isDisabled()) {
@@ -1152,6 +1148,18 @@ void WebAccess::slotSliderValueChanged(QString val)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotSliderDisableStateChanged(bool disable)
+{
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == NULL)
+        return;
+
+    QString wsMessage = QString("DISABLESTATE|SLIDER|%1|%2").arg(slider->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getSliderHTML(VCSlider *slider)
 {
     QString slID = QString::number(slider->id());
@@ -1164,11 +1172,10 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "background-color: " + slider->backgroundColor().name() + ";" +
             getWidgetBackgroundImage(slider) + "\">\n";
 
-    str += "<div id=\"slv" + slID + "\" "
-            "class=\"vcslLabel\" style=\"top:0px;\">" +
+    str += "<div id=\"slv" + slID + "\" class=\"vcslLabel" + QString(slider->isDisabled() ? " vcslLabel-disabled" : "") + "\" style=\"top:0px;\">" +
             slider->topLabelText() + "</div>\n";
 
-    str +=  "<input type=\"range\" class=\"vVertical\" "
+    str +=  "<input type=\"range\" class=\"vVertical" + QString(slider->isDisabled() ? " vVertical-disabled" : "") + "\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
             "style=\""
@@ -1182,15 +1189,21 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
     else
         str += "min=\"0\" max=\"255\" ";
 
-    str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
+    str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\"";
+    if (slider->isDisabled())
+        str += " disabled ";
+    str += ">\n";
 
     str += "<div id=\"sln" + slID + "\" "
-            "class=\"vcslLabel\" style=\"bottom:0px;\">" +
+            "class=\"vcslLabel" + QString(slider->isDisabled() ? " vcslLabel-disabled" : "") + "\" style=\"bottom:0px;\">" +
             slider->caption() + "</div>\n"
             "</div>\n";
 
     connect(slider, SIGNAL(valueChanged(QString)),
             this, SLOT(slotSliderValueChanged(QString)));
+    connect(slider, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotSliderDisableStateChanged(bool)));
+
     return str;
 }
 

@@ -44,7 +44,7 @@ function connect() {
   };
 
   websocket.onmessage = function (ev) {
-    console.log(ev.data);
+//    console.log(ev.data);
     var msgParams = ev.data.split("|");
 
     if (msgParams[0] === "ALERT") {
@@ -53,6 +53,9 @@ function connect() {
       switch (msgParams[1]) {
         case "BUTTON":
           setButtonDisableState(msgParams[2], msgParams[3]);
+          break;
+        case "SLIDER":
+          setSliderDisableState(msgParams[2], msgParams[3]);
           break;
         default:
           break;

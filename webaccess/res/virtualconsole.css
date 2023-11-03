@@ -22,7 +22,7 @@ form {
  text-decoration: none;
  text-align: center;
 }
-.vcbutton-disable {
+.vcbutton-disabled {
  color: #A0A0A0!important;
 }
 
@@ -196,9 +196,16 @@ table.hovertable td {
  text-align:center;
  font:normal 16px sans-serif;
 }
+.vcslLabel-disabled {
+ color: #A0A0A0!important;
+}
 
+input[type=range]{
+    -webkit-appearance: none;
+}
+
+/*Chrome, Firefox*/
 input[type="range"].vVertical {
- -webkit-appearance: none;
  height: 4px;
  border: 1px solid #8E8A86;
  background-color: #888888;
@@ -212,6 +219,10 @@ input[type="range"].vVertical {
  transform-origin:0% 50%;
 }
 
+input[type="range"].vVertical-disabled {
+ background-color: #cccccc!important;
+}
+/*Chrome*/
 input[type="range"]::-webkit-slider-thumb {
  -webkit-appearance: none;
  background-color: #999999;
@@ -219,6 +230,20 @@ input[type="range"]::-webkit-slider-thumb {
  border: 1px solid #5c5c5c;
  width: 20px;
  height: 36px;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #cccccc;
+}
+/*Firefox*/
+input[type=range]::-moz-range-thumb {
+ background-color: #cccccc;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #cccccc;
 }
 
 .vcaudiotriggers {
