@@ -5,6 +5,7 @@ qlcplus (4.12.8) stable; urgency=low
   * engine: fix stopping audio with fade in and fade out while fading in
   * Virtual Console/Slider: fix switching from playback to submaster mode
   * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
+  * Virtual Console/Clock: fix running a schedule the day after
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
