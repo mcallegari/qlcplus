@@ -192,7 +192,7 @@ ComboBox
         Row
         {
             spacing: 2
-            leftPadding: 3
+            leftPadding: 6
             clip: true
 
             Image
