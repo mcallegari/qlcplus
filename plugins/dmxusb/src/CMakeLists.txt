@@ -28,12 +28,9 @@ add_library(${module_name}
 
 if(WIN32)
     set(FTD2XXDIR "C:/Qt/D2XXSDK")
-    target_link_libraries(${module_name} PRIVATE
-        ${FTD2XXDIR}/i386/libftd2xx.a
-    )
-    target_include_directories(${module_name} PRIVATE
-        ${FTD2XXDIR}
-    )
+    target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/i386/libftd2xx.a)
+    target_include_directories(${module_name} PRIVATE ${FTD2XXDIR})
+	message("Building with FTD2xx support.")
     set(WITH_D2XX TRUE)
 endif()
 
@@ -121,11 +118,6 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-if(WIN32)
-    target_compile_definitions(${module_name} PRIVATE FTD2XX)
-    message("Building with FTD2xx support.")
-endif()
-
 if(UNIX)
     target_sources(${module_name} PUBLIC
         euroliteusbdmxpro.cpp euroliteusbdmxpro.h
@@ -155,29 +147,17 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 if(WITH_D2XX)
-    target_sources(${module_name} PUBLIC
-        ftd2xx-interface.cpp ftd2xx-interface.h
-    )
-
-    target_compile_definitions(${module_name} PRIVATE
-        FTD2XX
-    )
+    target_sources(${module_name} PUBLIC ftd2xx-interface.cpp ftd2xx-interface.h)
+    target_compile_definitions(${module_name} PRIVATE FTD2XX)
 endif()
 
 if((WITH_D2XX) AND (WIN32))
-    target_include_directories(${module_name} PRIVATE
-        ${FTD2XXDIR}
-    )
-
-    target_link_libraries(${module_name} PRIVATE
-        ${FTD2XXDIR}/i386/libftd2xx.a
-    )
+    target_include_directories(${module_name} PRIVATE ${FTD2XXDIR})
+    target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/i386/libftd2xx.a)
 endif()
 
 if(WITH_LIBFTDI)
-    target_sources(${module_name} PUBLIC
-        libftdi-interface.cpp libftdi-interface.h
-    )
+    target_sources(${module_name} PUBLIC libftdi-interface.cpp libftdi-interface.h)
 endif()
 
 if (UNIX AND NOT APPLE)
@@ -189,5 +169,6 @@ if (UNIX AND NOT APPLE)
 endif()
 
 install(TARGETS ${module_name}
-    DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
 )
