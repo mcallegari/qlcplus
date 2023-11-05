@@ -29,6 +29,7 @@
 #include "functionmanager.h"
 #include "contextmanager.h"
 #include "mainview2d.h"
+#include "mainview3d.h"
 #include "simpledesk.h"
 #include "collection.h"
 #include "rgbmatrix.h"
@@ -559,6 +560,21 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             QVector3D rotation = value->value<QVector3D>();
             m_contextManager->setFixtureRotation(action.m_objID, rotation);
+        }
+        break;
+        case GenericItemSetPosition:
+        {
+            m_contextManager->get3DView()->updateGenericItemPosition(action.m_objID, value->value<QVector3D>());
+        }
+        break;
+        case GenericItemSetRotation:
+        {
+            m_contextManager->get3DView()->updateGenericItemRotation(action.m_objID, value->value<QVector3D>());
+        }
+        break;
+        case GenericItemSetScale:
+        {
+            m_contextManager->get3DView()->updateGenericItemScale(action.m_objID, value->value<QVector3D>());
         }
         break;
 
