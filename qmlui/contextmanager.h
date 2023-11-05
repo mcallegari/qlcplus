@@ -79,6 +79,9 @@ public:
     /** Return the currently active context */
     QString currentContext() const;
 
+    MainView2D *get2DView();
+    MainView3D *get3DView();
+
     /** Get/Set the environment width/height/depth size */
     QVector3D environmentSize() const;
     void setEnvironmentSize(QVector3D environmentSize);

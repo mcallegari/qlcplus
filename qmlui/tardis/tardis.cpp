@@ -28,6 +28,7 @@
 #include "fixturemanager.h"
 #include "functionmanager.h"
 #include "contextmanager.h"
+#include "mainview2d.h"
 #include "simpledesk.h"
 #include "collection.h"
 #include "rgbmatrix.h"
@@ -541,6 +542,11 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case EnvironmentSetSize:
         {
             m_contextManager->setEnvironmentSize(value->value<QVector3D>());
+        }
+        break;
+        case EnvironmentBackgroundImage:
+        {
+            m_contextManager->get2DView()->setBackgroundImage(value->toString());
         }
         break;
         case FixtureSetPosition:

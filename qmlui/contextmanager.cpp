@@ -222,6 +222,16 @@ QString ContextManager::currentContext() const
     return m_view->rootObject()->property("currentContext").toString();
 }
 
+MainView2D *ContextManager::get2DView()
+{
+    return m_2DView;
+}
+
+MainView3D *ContextManager::get3DView()
+{
+    return m_3DView;
+}
+
 QVector3D ContextManager::environmentSize() const
 {
     return m_monProps->gridSize();

@@ -66,6 +66,7 @@ public:
     {
         /* Preview settings */
         EnvironmentSetSize = 0x0000,
+        EnvironmentBackgroundImage,
         FixtureSetPosition,
         FixtureSetRotation,
         GenericItemSetPosition,

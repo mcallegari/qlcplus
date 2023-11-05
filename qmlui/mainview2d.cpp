@@ -760,6 +760,24 @@ void MainView2D::setPointOfView(int pointOfView)
     slotRefreshView();
 }
 
+QString MainView2D::backgroundImage()
+{
+    return m_monProps->commonBackgroundImage();
+}
+
+void MainView2D::setBackgroundImage(QString image)
+{
+    QString strippedPath = image.replace("file://", "");
+    QString currentImage = m_monProps->commonBackgroundImage();
+
+    if (strippedPath == currentImage)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::EnvironmentBackgroundImage, 0, QVariant(currentImage), QVariant(strippedPath));
+    m_monProps->setCommonBackgroundImage(strippedPath);
+    emit backgroundImageChanged();
+}
+
 
 
 
