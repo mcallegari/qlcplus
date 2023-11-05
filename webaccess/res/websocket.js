@@ -81,6 +81,10 @@ function connect() {
         case "CUE":
           wsSetCueIndex(msgParams[0], msgParams[2]);
           break;
+        case "CUE_PROGRESS":
+          // CUE message is <ID>|CUE_PERCENT|<PERCENT>|<TEXT>
+          setCueProgress(msgParams[0], msgParams[2], msgParams[3]);
+          break;
         case "CLOCK":
           wsUpdateClockTime(msgParams[0], msgParams[2]);
           break;

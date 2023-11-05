@@ -91,7 +91,9 @@ protected slots:
     void slotLabelDisableStateChanged(bool disable);
 
     void slotAudioTriggersToggled(bool toggle);
+
     void slotCueIndexChanged(int idx);
+    void slotCueProgressStateChanged();
 
     void slotClockTimeChanged(quint32 time);
     void slotClockDisableStateChanged(bool disable);

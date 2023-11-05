@@ -116,7 +116,6 @@ public:
 
 signals:
     void nextPrevBehaviorChanged();
-    void playbackLayoutChanged();
 
 private:
     NextPrevBehavior m_nextPrevBehavior;
