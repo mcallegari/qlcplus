@@ -26,6 +26,8 @@ add_library(${module_name}
 
 target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
+    udmxdevice.cpp udmxdevice.h
+    udmx.cpp udmx.h
 )
 
 target_include_directories(${module_name} PRIVATE
