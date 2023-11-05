@@ -409,7 +409,7 @@ jobs:
           set MSYSTEM=MINGW32
           #echo 'Silently installing QLC+...'
           cd build
-          make install
+          make install/fast
           cd ..
           cp *.qm /c/qlcplus
 
