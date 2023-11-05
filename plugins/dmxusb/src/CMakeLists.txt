@@ -27,7 +27,7 @@ add_library(${module_name}
 )
 
 if(WIN32)
-    set(FTD2XXDIR "C:/projects/D2XXSDK")
+    set(FTD2XXDIR "C:/Qt/D2XXSDK")
     target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/i386/libftd2xx.a)
     target_include_directories(${module_name} PRIVATE ${FTD2XXDIR})
 	message("Building with FTD2xx support.")
