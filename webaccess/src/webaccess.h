@@ -83,11 +83,23 @@ protected slots:
 
     void slotVCLoaded();
     void slotButtonStateChanged(int state);
+    void slotButtonDisableStateChanged(bool disable);
+
     void slotSliderValueChanged(QString val);
+    void slotSliderDisableStateChanged(bool disable);
+
+    void slotLabelDisableStateChanged(bool disable);
+
     void slotAudioTriggersToggled(bool toggle);
+
     void slotCueIndexChanged(int idx);
+    void slotCueProgressStateChanged();
+
     void slotClockTimeChanged(quint32 time);
+    void slotClockDisableStateChanged(bool disable);
+
     void slotFramePageChanged(int pageNum);
+    void slotFrameEnableButtonClicked(bool checked);
 
 protected:
     QString m_JScode;

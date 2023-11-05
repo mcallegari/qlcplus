@@ -22,6 +22,9 @@ form {
  text-decoration: none;
  text-align: center;
 }
+.vcbutton-disabled {
+ color: #A0A0A0!important;
+}
 
 .vccuelist {
  position: absolute;
@@ -43,11 +46,33 @@ form {
  margin: 2px 2px 0 0;
  padding: 1px;
  height: 27px;
- width: 22%;
+ width: 25%;
  text-align: center;
 }
 
 .vccuelistButton:active { background: #868585; }
+
+.vccuelistProgress {
+ margin-top: 2px;
+ width: 100%;
+ background-color: #CCCCCC;
+ border: 1px solid #808080;
+ height: 20px;
+}
+
+.vccuelistProgressBar {
+ width: 0%;
+ height: 20px;
+ background-color: #21A13B;
+}
+
+.vccuelistProgressVal {
+  width: 100%;
+  text-align: center;
+  height: 27px;
+  line-height: 20px;
+  margin-top: -20px;
+}
 
 table.hovertable {
  font-family: verdana,arial,sans-serif;
@@ -93,16 +118,20 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
  background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 0px 0px 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
 
 .vcFrameText {
- display: table-cell;
- height: 32px;
- vertical-align: middle;
- font:normal 18px/1.0em sans-serif;
+ height: 30px;
+ font:normal 14px/1.0em sans-serif;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: clip;
+ display: flex;
+ align-items: center;
+ flex-direction: row;
 }
 
 .vcframeButton {
@@ -111,7 +140,7 @@ table.hovertable td {
  background: #E0DFDF;
  border-radius: 3px;
  border: 1px solid #000;
- margin: 2px 0 0 2px;
+ margin: 2px 0px 0px 2px;
  padding: 1px;
  height: 28px;
  width: 28px;
@@ -119,13 +148,21 @@ table.hovertable td {
 
 .vcframeButton:active { background: #868585; }
 
+.vcframeEnableButton {
+ display: inline-block;
+ vertical-align: top;
+ background-color: #E0DFDF;
+ border: 1px solid gray;
+ border-radius: 3px;
+ padding: 3px;
+}
+
 .vcframePageLabel {
  display: inline-block;
  background: #000000;
  border-radius: 3px;
- margin: 2px 0 0 0;
+ margin: 2px 0 0 2px;
  height: 32px;
- width: 100px;
  text-align: center;
  color: #ff0000;
  font-family: arial, verdana, sans-serif;
@@ -148,7 +185,7 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));
  background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 2px 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
@@ -162,6 +199,9 @@ table.hovertable td {
  font-family: arial, verdana, sans-serif;
  text-align:center;
  vertical-align: middle;
+}
+.vclabel-disabled {
+ color: #A0A0A0!important;
 }
 
 .vcclock, .vcclockcount {
@@ -181,9 +221,16 @@ table.hovertable td {
  text-align:center;
  font:normal 16px sans-serif;
 }
+.vcslLabel-disabled {
+ color: #A0A0A0!important;
+}
 
+input[type=range]{
+    -webkit-appearance: none;
+}
+
+/*Chrome, Firefox*/
 input[type="range"].vVertical {
- -webkit-appearance: none;
  height: 4px;
  border: 1px solid #8E8A86;
  background-color: #888888;
@@ -197,6 +244,10 @@ input[type="range"].vVertical {
  transform-origin:0% 50%;
 }
 
+input[type="range"].vVertical-disabled {
+ background-color: #cccccc!important;
+}
+/*Chrome*/
 input[type="range"]::-webkit-slider-thumb {
  -webkit-appearance: none;
  background-color: #999999;
@@ -204,6 +255,20 @@ input[type="range"]::-webkit-slider-thumb {
  border: 1px solid #5c5c5c;
  width: 20px;
  height: 36px;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #cccccc;
+}
+/*Firefox*/
+input[type=range]::-moz-range-thumb {
+ background-color: #cccccc;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #cccccc;
 }
 
 .vcaudiotriggers {

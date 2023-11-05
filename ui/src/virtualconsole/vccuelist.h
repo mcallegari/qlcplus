@@ -123,6 +123,9 @@ public:
 public:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
+    /** Get the progress text of the selected item */
+    QString progressText();
+    double progressPercent();
 
 private:
     /** Get the index of the next item, based on the chaser direction */
@@ -176,6 +179,10 @@ public slots:
 
     /** Skip to the previous cue */
     void slotPreviousCue();
+
+signals:
+    /** progress percent value and text */
+    void slotCueProgressState();
 
 private slots:
     /** Removes destroyed functions from the list */
