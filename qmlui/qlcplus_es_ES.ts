@@ -23,7 +23,7 @@
     <message>
         <location filename="qml/ActionsMenu.qml" line="61"/>
         <source>Open a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir un archivo</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="63"/>
@@ -111,7 +111,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="425"/>
         <source>UI Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de la interfaz de usuario</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="438"/>
@@ -302,7 +302,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="250"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volumen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="268"/>
@@ -343,7 +343,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/BeamTool.qml" line="235"/>
         <source>Projected diameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Diametro proyectado</translation>
     </message>
 </context>
 <context>
@@ -368,17 +368,17 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="83"/>
         <source>Open a picture file</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir un archivo de imagen</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="85"/>
         <source>Gobo pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagenes de gobo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="85"/>
         <source>All files</source>
-        <translation type="unfinished">Todos los archivos</translation>
+        <translation>Todos los archivos</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="96"/>
@@ -424,17 +424,17 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="194"/>
         <source>Capability wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Asistente de capacidades</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="277"/>
         <source>Empty description provided</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha proporcionado una descripción vacía</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="278"/>
         <source>Overlapping with another capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Superposición con otra capacidad</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="293"/>
@@ -507,17 +507,17 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="104"/>
         <source>Preview the previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Previsualiza el paso anterior</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="114"/>
         <source>Preview the next step</source>
-        <translation type="unfinished"></translation>
+        <translation>Previsualiza el paso siguiente</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="152"/>
         <source>Duplicate the selected step(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplicar los pasos seleccionados</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="174"/>
@@ -889,7 +889,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="265"/>
         <source>Mode</source>
-        <translation type="unfinished">Modo</translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="280"/>
@@ -905,17 +905,17 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="379"/>
         <source>Position</source>
-        <translation type="unfinished">Posición</translation>
+        <translation>Posición</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="380"/>
         <source>Dimmer</source>
-        <translation type="unfinished">Dimmer</translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="381"/>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="449"/>
@@ -1108,7 +1108,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="263"/>
         <source>Channel wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Asistente de canales</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="410"/>
@@ -1277,7 +1277,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="94"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Atención</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/FixtureEditor.qml" line="174"/>
@@ -1358,7 +1358,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="97"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="143"/>
@@ -1408,7 +1408,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="353"/>
         <source>Mode</source>
-        <translation type="unfinished">Modo</translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="355"/>
@@ -1461,17 +1461,17 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="229"/>
         <source>Show/Hide this fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar/Ocultar este fixture</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="250"/>
         <source>Invert Pan</source>
-        <translation type="unfinished"></translation>
+        <translation>Invertir panorámica</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="272"/>
         <source>Invert Tilt</source>
-        <translation type="unfinished"></translation>
+        <translation>Invertir inclinación</translation>
     </message>
 </context>
 <context>
@@ -1912,110 +1912,111 @@ Los cambios que no guarde se perderán.</translation>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="130"/>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="159"/>
         <source>!! Warning !!</source>
-        <translation type="unfinished">!! Advertencia !!</translation>
+        <translation>!! Advertencia !!</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="46"/>
         <source>Channel wizard activated</source>
-        <translation type="unfinished"></translation>
+        <translation>Asistente de canales activado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="47"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.&lt;br&gt;&lt;br&gt;Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha habilitado el asistente de canales de entrada. Después de hacer clic en Aceptar, mueva los controles de su perfil de entrada asignado. Deberían aparecer en la lista. Haga clic en el botón del asistente nuevamente para detener la detección automática de canales.&lt;br&gt;&lt;br&gt;Tenga en cuenta que el asistente no puede distinguir entre una perilla y un control deslizante, por lo que tendrá que realizar el cambio manualmente.</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="60"/>
         <source>Unsaved changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambios no guardados</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="61"/>
         <source>Do you wish to save the current profile first?
 Changes will be lost if you don&apos;t save them.</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Desea guardar primero el perfil actual?
+Los cambios se perderán si no los guarda.</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="183"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricante</translation>
+        <translation>Fabricante</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="194"/>
         <source>Model</source>
-        <translation type="unfinished">Modelo</translation>
+        <translation>Modelo</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="205"/>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="302"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="228"/>
         <source>MIDI Global Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración Global MIDI</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="251"/>
         <source>When MIDI notes are used, send a Note Off when value is 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuando se usen notas MIDI, envie una Note Off cuando el valor sea 0</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="284"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="293"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="367"/>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="397"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Comportamiento</translation>
+        <translation>Comportamiento</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="389"/>
         <source>Generate an extra Press/Release when toggled</source>
-        <translation type="unfinished"></translation>
+        <translation>Genera una orden adicional de Pulsar/Liberar cuando se activa</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="412"/>
         <source>Movement</source>
-        <translation type="unfinished"></translation>
+        <translation>Movimiento</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="432"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensibilidad</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="449"/>
         <source>Custom Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Feedback personalizado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="463"/>
         <source>Lower value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor inferior</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="476"/>
         <source>Upper value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor superior</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="232"/>
         <source>Button %1</source>
-        <translation type="unfinished">Botón %1</translation>
+        <translation>Botón %1</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="254"/>
         <source>Slider %1</source>
-        <translation type="unfinished">Slider %1</translation>
+        <translation>Slider %1</translation>
     </message>
 </context>
 <context>
@@ -2165,7 +2166,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/MainView.qml" line="332"/>
         <source>Stop all the running functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Parar todas la funciones</translation>
     </message>
 </context>
 <context>
@@ -2228,17 +2229,17 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="118"/>
         <source>Create a new emitter</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear un nuevo emisor</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="141"/>
         <source>Remove the selected channel(s)</source>
-        <translation type="unfinished">Eliminar el(los) canal(es) seleccionado(s)</translation>
+        <translation>Eliminar el(los) canal(es) seleccionado(s)</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="175"/>
         <source>Drop channels here</source>
-        <translation type="unfinished"></translation>
+        <translation>Soltar canales aquí</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="215"/>
@@ -2248,12 +2249,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="379"/>
         <source>Emitters</source>
-        <translation type="unfinished"></translation>
+        <translation>Emisores</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="406"/>
         <source>Remove the selected emitter(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar los emisores seleccionados</translation>
     </message>
     <message>
         <source>Heads</source>
@@ -2358,32 +2359,32 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="240"/>
         <source>X Ascending</source>
-        <translation type="unfinished"></translation>
+        <translation>X Ascendente</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="241"/>
         <source>X Descending</source>
-        <translation type="unfinished"></translation>
+        <translation>X Descendente</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="243"/>
         <source>Y Ascending</source>
-        <translation type="unfinished"></translation>
+        <translation>Y Ascendente</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="244"/>
         <source>Y Descending</source>
-        <translation type="unfinished"></translation>
+        <translation>Y Descendente</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="246"/>
         <source>Z Ascending</source>
-        <translation type="unfinished"></translation>
+        <translation>Z Ascendente</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="247"/>
         <source>Z Descending</source>
-        <translation type="unfinished"></translation>
+        <translation>Z Descendente</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="274"/>
@@ -2574,42 +2575,42 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="31"/>
         <source>Channel Modifiers Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de Modificadores de Canal</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="60"/>
         <source>Insert a modified value after the selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserir un valor modificado después de la selección</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="69"/>
         <source>Delete the selected modifier value</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimir el valor del modificador seleccionado</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="83"/>
         <source>Rename the selected modifier template</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia el nombre de la plantilla de modificador seleccionada</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="91"/>
         <source>Save the selected modifier template</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarda la plantilla de modificador seleccionada</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="189"/>
         <source>Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Plantillas</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="240"/>
         <source>Original DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor DMX Original</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="253"/>
         <source>Modified DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2617,132 +2618,132 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="31"/>
         <source>Fixture Editor Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Asistente del Editor de Fixtures</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="120"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Proppiedades</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="132"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="148"/>
         <source>Width</source>
-        <translation type="unfinished">Ancho</translation>
+        <translation>Ancho</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="163"/>
         <source>Amount</source>
-        <translation type="unfinished">Cantidad</translation>
+        <translation>Cantidad</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="178"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="189"/>
         <source>Red</source>
-        <translation type="unfinished">Rojo</translation>
+        <translation>Rojo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="190"/>
         <source>Green</source>
-        <translation type="unfinished">Verde</translation>
+        <translation>Verde</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="191"/>
         <source>Blue</source>
-        <translation type="unfinished">Azul</translation>
+        <translation>Azul</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="192"/>
         <source>White</source>
-        <translation type="unfinished">Blanco</translation>
+        <translation>Blanco</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="193"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambar</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="194"/>
         <source>UV</source>
-        <translation type="unfinished">UV</translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="195"/>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="196"/>
         <source>RGBW</source>
-        <translation type="unfinished"></translation>
+        <translation>RGBW</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="197"/>
         <source>RGBAW</source>
-        <translation type="unfinished"></translation>
+        <translation>RGBAW</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="198"/>
         <source>Dimmer</source>
-        <translation type="unfinished">Dimmer</translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="199"/>
         <source>Pan</source>
-        <translation type="unfinished">Pan</translation>
+        <translation>Pan</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="200"/>
         <source>Tilt</source>
-        <translation type="unfinished">Tilt</translation>
+        <translation>Tilt</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="201"/>
         <source>Color Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de Macro</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="202"/>
         <source>Shutter</source>
-        <translation type="unfinished">Obturador</translation>
+        <translation>Obturador</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="203"/>
         <source>Beam</source>
-        <translation type="unfinished">Haz</translation>
+        <translation>Haz</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="204"/>
         <source>Effect</source>
-        <translation type="unfinished">Efecto</translation>
+        <translation>Efecto</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="220"/>
         <source>Label</source>
-        <translation type="unfinished">Etiqueta</translation>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="230"/>
         <source>Capability #</source>
-        <translation type="unfinished"></translation>
+        <translation>Capacidad</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="230"/>
         <source>Channel #</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal #</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="238"/>
         <source>Preview</source>
-        <translation type="unfinished">Previsualización</translation>
+        <translation>Previsualización</translation>
     </message>
 </context>
 <context>
@@ -2927,47 +2928,47 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="31"/>
         <source>Input Channel Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de Canales de Entrada</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="154"/>
         <source>Input Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de Entrada</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="164"/>
         <source>Number</source>
-        <translation type="unfinished">Número</translation>
+        <translation>Número</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="165"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="166"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="210"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="211"/>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mensaje</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="212"/>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetro</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="213"/>
         <source>Note</source>
-        <translation type="unfinished">Nota</translation>
+        <translation>Nota</translation>
     </message>
 </context>
 <context>
@@ -3316,47 +3317,47 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="49"/>
         <source>!! Warning !!</source>
-        <translation type="unfinished">!! Advertencia !!</translation>
+        <translation>!! Advertencia !!</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="91"/>
         <source>Save this profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarda este perfil</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="107"/>
         <source>Toggle the automatic detection procedure</source>
-        <translation type="unfinished"></translation>
+        <translation>Conmuta el procedimiento de detección automática</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="125"/>
         <source>Add a new channel</source>
-        <translation type="unfinished">Añadir un canal nuevo</translation>
+        <translation>Añadir un canal nuevo</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="125"/>
         <source>Create a new input profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea un perfil de entrada nuevo</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="146"/>
         <source>Edit the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Edita el canal seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="146"/>
         <source>Edit the selected input profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Edita el perfil de entrada seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="170"/>
         <source>Delete the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Borra el canal seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="170"/>
         <source>Delete the selected input profile(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprime lo/s perfil/es de entrada seleccionado/s</translation>
     </message>
 </context>
 <context>
@@ -3976,17 +3977,17 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="212"/>
         <source>Custom Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo personalizado</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="229"/>
         <source>Select an image</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione una imagen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="252"/>
         <source>Reset background</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer el fondo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="263"/>
@@ -4134,7 +4135,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="680"/>
         <source>Normalize the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaliza los elementos seleccionados</translation>
     </message>
     <message>
         <source>Actions</source>
@@ -4368,147 +4369,147 @@ Nivel de acceso:</translation>
         <location filename="qml/UISettingsEditor.qml" line="115"/>
         <location filename="qml/UISettingsEditor.qml" line="165"/>
         <source>Reset to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer a los valores por defecto</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="138"/>
         <source>Scaling factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor de escala</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="184"/>
         <source>Background darker</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo mas oscuro</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="202"/>
         <source>Background dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo oscuro</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="221"/>
         <source>Background medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo medio</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="239"/>
         <source>Background light</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo claro</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="258"/>
         <source>Background lighter</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo mas claro</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="276"/>
         <source>Controls background</source>
-        <translation type="unfinished"></translation>
+        <translation>Controles del fondo</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="295"/>
         <source>Foreground main</source>
-        <translation type="unfinished"></translation>
+        <translation>Principal del primer plano</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="313"/>
         <source>Foreground medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Primer plano medio</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="332"/>
         <source>Foreground light</source>
-        <translation type="unfinished"></translation>
+        <translation>Primer plano claro</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="350"/>
         <source>Toolbar gradient start</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas del Inicio del degradado</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="369"/>
         <source>Sub-toolbar gradient start</source>
-        <translation type="unfinished"></translation>
+        <translation>Subbarra de herramientas del inicio del degradado</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="387"/>
         <source>Toolbar gradient end</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas del fin del degradado</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="406"/>
         <source>Toolbar hover gradient start</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas inicio del degradado pasar por encima</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="425"/>
         <source>Toolbar hover gradient end</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas fin del degradado al pasar por encima</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="444"/>
         <source>Toolbar selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra de herramientas de selección</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="463"/>
         <source>Sub-toolbar selection</source>
-        <translation type="unfinished"></translation>
+        <translation>SubBarra de herramientas de selección</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="482"/>
         <source>Section header</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabecera de la sección</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="500"/>
         <source>Section header divider</source>
-        <translation type="unfinished"></translation>
+        <translation>Divisor de cabecera de sección</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="519"/>
         <source>Item highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Resaltado de elementos</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="537"/>
         <source>Item highlight pressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Elemento resaltado pulsado</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="556"/>
         <source>Item hover</source>
-        <translation type="unfinished"></translation>
+        <translation>Elemento en pasar por encima</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="574"/>
         <source>Item selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selección de elementos</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="593"/>
         <source>VC Frame drop area</source>
-        <translation type="unfinished"></translation>
+        <translation>Area de caida del marco VC</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="611"/>
         <source>Item dark border</source>
-        <translation type="unfinished"></translation>
+        <translation>Borde oscuro del elemento</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="631"/>
         <source>Save to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarda a un archivo</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="637"/>
         <source>Operation completed</source>
-        <translation type="unfinished"></translation>
+        <translation>Operación completada</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="642"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
 </context>
 <context>
@@ -4516,23 +4517,23 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/UniverseGridView.qml" line="46"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseGridView.qml" line="47"/>
         <source>Unable to perform the operation.
 There is either not enough space or the target universe in invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>No se ha podido realizar el operació.no hay bastante espacio o el universo objetivo en un valor no válido</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseGridView.qml" line="80"/>
         <source>Cut the selected items into clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Corta los elementos seleccionados al portapapeles</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseGridView.qml" line="89"/>
         <source>Paste items in the clipboard at the first available position</source>
-        <translation type="unfinished"></translation>
+        <translation>Pega los elementos del portapapeles a la primera posición disponible</translation>
     </message>
 </context>
 <context>
@@ -4544,7 +4545,7 @@ There is either not enough space or the target universe in invalid</source>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="253"/>
         <source>Enable/Disable passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa/Desactiva el paso a través</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="270"/>
@@ -4882,7 +4883,7 @@ There is either not enough space or the target universe in invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="268"/>
         <source>Play/Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproduce/Para</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="278"/>
@@ -5020,7 +5021,7 @@ There is either not enough space or the target universe in invalid</source>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="690"/>
         <source>Page %1</source>
-        <translation type="unfinished">Página %1</translation>
+        <translation>Página %1</translation>
     </message>
 </context>
 <context>
@@ -5096,12 +5097,12 @@ There is either not enough space or the target universe in invalid</source>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="168"/>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="184"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Atajos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="200"/>
         <source>Shortcut name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del atajo</translation>
     </message>
 </context>
 <context>
