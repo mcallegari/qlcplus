@@ -676,6 +676,8 @@ void VCCueList::slotStop()
                                             .arg(m_stopButton->palette().window().color().name()));
             m_progress->setFormat("");
             m_progress->setValue(0);
+
+            emit slotCueProgressState();
         }
         else if (playbackLayout() == PlayStopPause)
         {
@@ -895,7 +897,9 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     emit stepChanged(-1);
 
     m_progress->setFormat("");
-    m_progress->setValue(0);
+    m_progress->setValue(0);    
+
+    emit slotCueProgressState();
 
     qDebug() << Q_FUNC_INFO << "Cue stopped";
     updateFeedback();
@@ -934,11 +938,15 @@ void VCCueList::slotProgressTimeout()
                 double progress = ((double)step.m_elapsed / (double)step.m_fadeIn) * (double)m_progress->width();
                 m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
                 m_progress->setValue(progress);
+
+                emit slotCueProgressState();
             }
             else
             {
                 m_progress->setValue(m_progress->maximum());
                 m_progress->setFormat("");
+
+                emit slotCueProgressState();
             }
             return;
         }
@@ -947,12 +955,24 @@ void VCCueList::slotProgressTimeout()
             double progress = ((double)step.m_elapsed / (double)step.m_duration) * (double)m_progress->width();
             m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
             m_progress->setValue(progress);
+
+            emit slotCueProgressState();
         }
     }
     else
     {
         m_progress->setValue(0);
     }
+}
+
+QString VCCueList::progressText()
+{
+    return m_progress->text();
+}
+
+double VCCueList::progressPercent()
+{
+    return ((double)m_progress->value() * 100) / (double)m_progress->width();
 }
 
 void VCCueList::startChaser(int startIndex)

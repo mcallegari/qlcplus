@@ -61,6 +61,9 @@ function connect() {
       setFramePage(msgParams[0], msgParams[2]);
     } else if (msgParams[0] === "ALERT") {
       alert(msgParams[1]);
+    } else if (msgParams[1] === "CUE_PROGRESS") {
+      // CUE message is <ID>|CUE_PERCENT|<PERCENT>|<TEXT>
+      setCueProgress(msgParams[0], msgParams[2], msgParams[3]);
     }
   };
   initVirtualConsole();

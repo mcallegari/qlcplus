@@ -1149,6 +1149,17 @@ void WebAccess::slotCueIndexChanged(int idx)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotCueProgressStateChanged()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_PROGRESS|%2|%3").arg(cue->id()).arg(cue->progressPercent()).arg(cue->progressText());
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
     QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
@@ -1158,7 +1169,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "px; height: " + QString::number(cue->height()) + "px; "
             "background-color: " + cue->backgroundColor().name() + ";\">\n";
 
-    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 34) + "px; overflow: scroll;\" >\n";
+    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 54) + "px; overflow: scroll;\" >\n";
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>" + tr("Name") + "</th>";
     str += "<th>" + tr("Fade In") + "</th>";
@@ -1264,26 +1275,43 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "</table>\n";
     str += "</div>\n";
 
+    // progress bar
+    str += "<div class=\"vccuelistProgress\">";
+    str += "<div class=\"vccuelistProgressBar\" id=\"vccuelistPB"+QString::number(cue->id())+"\" style=\"width: " +QString::number(cue->progressPercent())+ "%; \"></div>";
+    str += "<div class=\"vccuelistProgressVal\" id=\"vccuelistPV"+QString::number(cue->id())+"\">" + QString(cue->progressText()) + "</div>";
+    str += "</div>";
+    // play, stop, next, and preview buttons
+    str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+
     str += "<a class=\"vccuelistButton\" id=\"play" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
     str += "<img src=\"player_play.png\" width=\"27\"></a>\n";
 
-    str += "<a class=\"vccuelistButton\" id=\"stop" + QString::number(cue->id()) + "\" ";
-    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
-    str += "<img src=\"player_stop.png\" width=\"27\"></a>\n";
+    if (cue->playbackLayout() == VCCueList::PlayPauseStop) {
+        str += "<a class=\"vccuelistButton\" id=\"stop" + QString::number(cue->id()) + "\" ";
+        str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
+        str += "<img src=\"player_stop.png\" width=\"27\"></a>\n";
+    } else {
+        str += "<a class=\"vccuelistButton\" id=\"stop" + QString::number(cue->id()) + "\" ";
+        str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
+        str += "<img src=\"player_pause.png\" width=\"27\"></a>\n";
+    }
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'PREV');\">\n";
     str += "<img src=\"back.png\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
-    str += QString::number(cue->id()) + ", 'NEXT');\">\n";
+    str += QString::number(cue->id()) + ", 'NEXT');\" style=\"margin-right: 0px!important;\">\n";
     str += "<img src=\"forward.png\" width=\"27\"></a>\n";
 
+    str +="</div>";
     str += "</div>\n";
 
     connect(cue, SIGNAL(stepChanged(int)),
             this, SLOT(slotCueIndexChanged(int)));
+    connect(cue, SIGNAL(slotCueProgressState()),
+            this, SLOT(slotCueProgressStateChanged()));
 
     return str;
 }

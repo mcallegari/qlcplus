@@ -116,6 +116,13 @@ function wsSetCueIndex(id, idx) {
  }
 }
 
+function setCueProgress(id, percent, text) {
+ var progressBarObj = document.getElementById("vccuelistPB" + id);
+ var progressValObj = document.getElementById("vccuelistPV" + id);
+ progressBarObj.style.width = percent + "%";
+ progressValObj.innerHTML = text;
+}
+
 /* VCFrame */
 var framesWidth = new Array();
 var framesHeight = new Array();

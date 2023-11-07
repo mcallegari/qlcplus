@@ -43,11 +43,33 @@ form {
  margin: 2px 2px 0 0;
  padding: 1px;
  height: 27px;
- width: 22%;
+ width: 25%;
  text-align: center;
 }
 
 .vccuelistButton:active { background: #868585; }
+
+.vccuelistProgress {
+ margin-top: 2px;
+ width: 100%;
+ background-color: #CCCCCC;
+ border: 1px solid #808080;
+ height: 20px;
+}
+
+.vccuelistProgressBar {
+ width: 0%;
+ height: 20px;
+ background-color: #21A13B;
+}
+
+.vccuelistProgressVal {
+  width: 100%;
+  text-align: center;
+  height: 27px;
+  line-height: 20px;
+  margin-top: -20px;
+}
 
 table.hovertable {
  font-family: verdana,arial,sans-serif;
