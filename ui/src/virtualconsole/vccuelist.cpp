@@ -839,6 +839,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         setFaderInfo(m_primaryIndex);
     }
     emit stepChanged(m_primaryIndex);
+    emit sideFaderValueChanged();
 }
 
 void VCCueList::slotItemActivated(QTreeWidgetItem *item)
@@ -900,6 +901,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     m_progress->setValue(0);    
 
     emit slotCueProgressState();
+    emit sideFaderValueChanged();
 
     qDebug() << Q_FUNC_INFO << "Cue stopped";
     updateFeedback();
@@ -1127,6 +1129,8 @@ void VCCueList::setFaderInfo(int index)
     if (item != NULL)
         item->setBackground(COL_NUM, QColor("#FF8000"));
     m_secondaryIndex = tmpIndex;
+
+    emit sideFaderValueChanged();
 }
 
 void VCCueList::slotShowCrossfadePanel(bool enable)
@@ -1136,6 +1140,53 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     m_sideFader->setVisible(enable);
     m_bottomStepLabel->setVisible(enable);
     m_bottomPercentageLabel->setVisible(enable);
+
+    emit sideFaderButtonToggled();
+}
+
+QString VCCueList::topPercentageValue()
+{
+    return m_topPercentageLabel->text();
+}
+
+QString VCCueList::bottomPercentageValue()
+{
+    return m_bottomPercentageLabel->text();
+}
+
+QString VCCueList::topStepValue()
+{
+    return m_topStepLabel->text();
+}
+
+QString VCCueList::bottomStepValue()
+{
+    return m_bottomStepLabel->text();
+}
+
+int VCCueList::sideFaderValue()
+{
+    return m_sideFader->value();
+}
+
+void VCCueList::slotSideFaderButtonChecked(bool enable)
+{
+    m_crossfadeButton->setChecked(enable);
+}
+
+bool VCCueList::showSideFaderPanel()
+{
+    return m_sideFader->isVisible();
+}
+
+bool VCCueList::sideFaderButtonChecked()
+{
+    return m_crossfadeButton->isChecked();
+}
+
+void VCCueList::slotSetSideFaderValue(int value)
+{
+    m_sideFader->setValue(value);
 }
 
 void VCCueList::slotSideFaderValueChanged(int value)
@@ -1144,6 +1195,8 @@ void VCCueList::slotSideFaderValueChanged(int value)
     {
         value = 255 - value;
         m_topPercentageLabel->setText(QString("%1").arg(value));
+
+        emit sideFaderValueChanged();
 
         Chaser *ch = chaser();
         if (ch == NULL || ch->stopped())
@@ -1175,6 +1228,8 @@ void VCCueList::slotSideFaderValueChanged(int value)
     {
         m_topPercentageLabel->setText(QString("%1%").arg(value));
         m_bottomPercentageLabel->setText(QString("%1%").arg(100 - value));
+
+        emit sideFaderValueChanged();
 
         Chaser *ch = chaser();
         if (!(ch == NULL || ch->stopped()))
@@ -1464,6 +1519,8 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     m_tree->setCurrentItem(NULL);
 
     VCWidget::slotModeChanged(mode);
+
+    emit sideFaderValueChanged();
 }
 
 void VCCueList::editProperties()

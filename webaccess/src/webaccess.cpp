@@ -767,6 +767,10 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     cue->slotNextCue();
                 else if (cmdList[1] == "STEP")
                     cue->playCueAtIndex(cmdList[2].toInt());
+                else if (cmdList[1] == "CUE_SHOWPANEL")
+                    cue->slotSideFaderButtonChecked(cmdList[2] == "1" ? false : true);
+                else if (cmdList[1] == "CUE_SIDECHANGE")
+                    cue->slotSetSideFaderValue((cmdList[2]).toInt());
             }
             break;
             case VCWidget::FrameWidget:
@@ -1160,6 +1164,34 @@ void WebAccess::slotCueProgressStateChanged()
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotCueShowSideFaderPanel()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_SHOWPANEL|%2").arg(cue->id()).arg(cue->sideFaderButtonChecked());
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::soltCueSideFaderValueChanged()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_SIDECHANGE|%2|%3|%4|%5|%6")
+                            .arg(cue->id())
+                            .arg(cue->topPercentageValue())
+                            .arg(cue->bottomPercentageValue())
+                            .arg(cue->topStepValue())
+                            .arg(cue->bottomStepValue())
+                            .arg(cue->sideFaderValue());
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
     QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
@@ -1169,7 +1201,49 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "px; height: " + QString::number(cue->height()) + "px; "
             "background-color: " + cue->backgroundColor().name() + ";\">\n";
 
-    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 54) + "px; overflow: scroll;\" >\n";
+    // fader mode
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
+        str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+        str += "<div id=\"fadePanel"+QString::number(cue->id())+"\" "
+               "style=\"display: " + (cue->showSideFaderPanel() ? "block" : "none") + "; width: 45px; height: " + QString::number(cue->height() - 2) + "px;\">";
+        if (cue->sideFaderMode() == VCCueList::FaderMode::Crossfade) {
+            str += "<div style=\"position: relative;\">";
+            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
+                   cue->topPercentageValue() + "</div>\n";
+            str += "<div id=\"cueCTS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:25px; border: solid 1px #aaa; \">" +
+                   cue->topStepValue() + "</div>\n";
+
+            str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
+                   "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
+                   "style=\"width: " + QString::number(cue->height() - 100) + "px; margin-top: " + QString::number(cue->height() - 100) + "px; margin-left: 22px;\" ";
+            str += "min=\"0\" max=\"100\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
+
+            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa; \">" +
+                   cue->bottomStepValue() + "</div>\n";
+            str += "<div id=\"cueCBP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:0px;\">" +
+                   cue->bottomPercentageValue() + "</div>\n";
+            str += "</div>";
+        }
+        if (cue->sideFaderMode() == VCCueList::FaderMode::Steps) {
+            str += "<div style=\"position: relative;\">";
+            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
+                   cue->topPercentageValue() + "</div>\n";
+
+            str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
+                                                                                                        "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
+                                                                                                                   "style=\"width: " + QString::number(cue->height() - 50) + "px; margin-top: " + QString::number(cue->height() - 50) + "px; margin-left: 22px;\" ";
+            str += "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
+
+            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa; \">" +
+                   cue->bottomStepValue() + "</div>\n";
+            str += "</div>";
+        }
+        str += "</div>";
+        m_JScode += "showPanel[" + QString::number(cue->id()) + "] = " + QString::number(cue->sideFaderButtonChecked()) + ";\n";
+    }
+
+    str += "<div style=\"width: 100%;\"><div style=\"width: 100%; height: " + QString::number(cue->height() - 54) + "px; overflow: scroll;\" >\n";
+
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>" + tr("Name") + "</th>";
     str += "<th>" + tr("Fade In") + "</th>";
@@ -1281,7 +1355,13 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "<div class=\"vccuelistProgressVal\" id=\"vccuelistPV"+QString::number(cue->id())+"\">" + QString(cue->progressText()) + "</div>";
     str += "</div>";
     // play, stop, next, and preview buttons
-    str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
+        str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+        str += "<a class=\"vccuelistFadeButton\" id=\"fade" + QString::number(cue->id()) + "\" ";
+        str += "href=\"javascript:wsShowCrossfadePanel(" + QString::number(cue->id()) + ");\">\n";
+        str += "<img src=\"slider.png\" width=\"27\"></a>\n";
+    }
+    str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
 
     str += "<a class=\"vccuelistButton\" id=\"play" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
@@ -1305,13 +1385,26 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += QString::number(cue->id()) + ", 'NEXT');\" style=\"margin-right: 0px!important;\">\n";
     str += "<img src=\"forward.png\" width=\"27\"></a>\n";
 
-    str +="</div>";
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
+        str += "</div>\n";
+    }
+    str +="</div></div>";
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
+        str += "</div>\n";
+    }
+
     str += "</div>\n";
 
     connect(cue, SIGNAL(stepChanged(int)),
             this, SLOT(slotCueIndexChanged(int)));
     connect(cue, SIGNAL(slotCueProgressState()),
             this, SLOT(slotCueProgressStateChanged()));
+    connect(cue, SIGNAL(sideFaderButtonChecked()),
+            this, SLOT(slotSideFaderButtonChecked(bool)));
+    connect(cue, SIGNAL(sideFaderButtonToggled()),
+            this, SLOT(slotCueShowSideFaderPanel()));
+    connect(cue, SIGNAL(sideFaderValueChanged()),
+            this, SLOT(soltCueSideFaderValueChanged()));
 
     return str;
 }

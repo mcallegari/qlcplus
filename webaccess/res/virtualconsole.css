@@ -49,6 +49,15 @@ form {
 
 .vccuelistButton:active { background: #868585; }
 
+.vccuelistFadeButton {
+ border-radius: 3px;
+ border: 1px solid #808080;
+ margin: 2px 2px 0 0;
+ padding: 1px;
+ height: 27px;
+ width: 27px;
+}
+
 .vccuelistProgress {
  margin-top: 2px;
  width: 100%;

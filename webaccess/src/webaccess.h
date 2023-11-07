@@ -87,6 +87,8 @@ protected slots:
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
     void slotCueProgressStateChanged();
+    void slotCueShowSideFaderPanel();
+    void soltCueSideFaderValueChanged();
     void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
 

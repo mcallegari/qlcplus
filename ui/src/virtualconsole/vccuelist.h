@@ -280,6 +280,21 @@ public:
 
     FaderMode stringToFaderMode(QString modeStr);
     QString faderModeToString(FaderMode mode);
+    bool showSideFaderPanel();
+    bool sideFaderButtonChecked();
+    QString topPercentageValue();
+    QString bottomPercentageValue();
+    QString topStepValue();
+    QString bottomStepValue();
+    int sideFaderValue();
+
+signals:
+    void sideFaderButtonToggled();
+    void sideFaderValueChanged();
+
+public slots:
+    void slotSideFaderButtonChecked(bool enable);
+    void slotSetSideFaderValue(int value);
 
 protected:
     void setFaderInfo(int index);

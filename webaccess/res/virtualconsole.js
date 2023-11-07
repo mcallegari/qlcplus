@@ -60,6 +60,7 @@ window.addEventListener("load",() => {
 
 /* VCCueList */
 var cueListsIndices = new Array();
+var showPanel = new Array();
 
 function setCueIndex(id, idx) {
  var oldIdx = cueListsIndices[id];
@@ -121,6 +122,40 @@ function setCueProgress(id, percent, text) {
  var progressValObj = document.getElementById("vccuelistPV" + id);
  progressBarObj.style.width = percent + "%";
  progressValObj.innerHTML = text;
+}
+
+function showSideFaderPanel(id, checked) {
+  var progressBarObj = document.getElementById("fadePanel" + id);
+  showPanel[id] = parseInt(checked);
+  if (checked === "1") {
+    progressBarObj.style.display="block";
+  } else {
+    progressBarObj.style.display="none";
+  }
+}
+
+function wsShowCrossfadePanel(id) {
+  websocket.send(id + "|CUE_SHOWPANEL|" + showPanel[id]);
+}
+
+function setCueSideFaderValues(id, topPercent, bottomPercent, topStep, bottomStep, value) {
+  var topPercentObj = document.getElementById("cueCTP" + id);
+  var bottomPercentObj = document.getElementById("cueCBP" + id);
+  var topStepObj = document.getElementById("cueCTS" + id);
+  var bottomStepObj = document.getElementById("cueCBS" + id);
+  var crossfadeValObj = document.getElementById("cueC" + id);
+
+  if (topPercentObj) topPercentObj.innerHTML = topPercent;
+  if (bottomPercentObj) bottomPercentObj.innerHTML = bottomPercent;
+  if (topStepObj) topStepObj.innerHTML = topStep;
+  if (bottomStepObj) bottomStepObj.innerHTML = bottomStep;
+  if (crossfadeValObj) crossfadeValObj.value = value;
+}
+
+function cueCVchange(id) {
+  var cueCVObj = document.getElementById("cueC" + id);
+  var msg = id + "|CUE_SIDECHANGE|" + cueCVObj.value;
+  websocket.send(msg);
 }
 
 /* VCFrame */

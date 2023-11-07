@@ -64,6 +64,11 @@ function connect() {
     } else if (msgParams[1] === "CUE_PROGRESS") {
       // CUE message is <ID>|CUE_PERCENT|<PERCENT>|<TEXT>
       setCueProgress(msgParams[0], msgParams[2], msgParams[3]);
+    } else if (msgParams[1] === "CUE_SIDECHANGE") {
+      // CUE message is <ID>|CUE_SIDECHANGE|<TOP_PERCENT>|<BOTTOMPERCENT>|<TOP_STEP>|<BOTTOM_STEP>|<STEP_VALUE>
+      setCueSideFaderValues(msgParams[0], msgParams[2], msgParams[3], msgParams[4], msgParams[5], msgParams[6]);
+    } else if (msgParams[1] === "CUE_SHOWPANEL") {
+      showSideFaderPanel(msgParams[0], msgParams[2]);
     }
   };
   initVirtualConsole();
